@@ -37,13 +37,13 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.Random;
 
-public class BlockCandle extends Block {
+public class CandleBlock extends Block {
     //region Fields
     private static final VoxelShape SHAPE = Block.makeCuboidShape(4, 0, 4, 12, 12, 12);
     //endregion Fields
 
     //region Initialization
-    public BlockCandle(Properties properties) {
+    public CandleBlock(Properties properties) {
         super(properties);
     }
     //endregion Initialization

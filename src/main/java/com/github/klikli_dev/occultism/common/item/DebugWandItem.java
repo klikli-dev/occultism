@@ -32,10 +32,10 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 
-public class ItemDebugWand extends Item {
+public class DebugWandItem extends Item {
 
     //region Initialization
-    public ItemDebugWand(Properties properties) {
+    public DebugWandItem(Properties properties) {
         super(properties);
     }
     //endregion Initialization
