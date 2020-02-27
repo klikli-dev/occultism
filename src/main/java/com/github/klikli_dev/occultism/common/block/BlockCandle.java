@@ -22,27 +22,19 @@
 
 package com.github.klikli_dev.occultism.common.block;
 
-import com.github.klikli_dev.occultism.registry.BlockRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.state.BlockFaceShape;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.particles.ParticleTypes;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.IBlockReader;
+import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-import javax.annotation.Nullable;
 import java.util.Random;
 
 public class BlockCandle extends Block {
@@ -58,37 +50,38 @@ public class BlockCandle extends Block {
 
     //region Overrides
 
-
     @Override
-    public VoxelShape getShape(BlockState state, IBlockReader blockReader, BlockPos pos,
-                               ISelectionContext context) {
-        return SHAPE;
+    public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+        return super.getShape(state, worldIn, pos, context);
     }
 
     @OnlyIn(Dist.CLIENT)
     public void animateTick(BlockState state, World world, BlockPos blockPos, Random rand) {
-        double d0 = (double)blockPos.getX() + 0.5D;
-        double d1 = (double)blockPos.getY() + 0.7D;
-        double d2 = (double)blockPos.getZ() + 0.5D;
+        double d0 = (double) blockPos.getX() + 0.5D;
+        double d1 = (double) blockPos.getY() + 0.7D;
+        double d2 = (double) blockPos.getZ() + 0.5D;
         world.addParticle(ParticleTypes.SMOKE, d0, d1, d2, 0.0D, 0.0D, 0.0D);
         world.addParticle(ParticleTypes.FLAME, d0, d1, d2, 0.0D, 0.0D, 0.0D);
     }
 
-
-
-    @Override
-    public void neighborChanged(BlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos, boolean ) {
-        if (!this.canPlaceBlockAt(worldIn, pos)) {
-            this.dropBlockAsItem(worldIn, pos, state, 0);
-            worldIn.setBlockToAir(pos);
+    @Deprecated
+    public void neighborChanged(BlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos,
+                                boolean isMoving) {
+        if (!this.isValidPosition(state, worldIn, pos)) {
+            spawnDrops(state, worldIn, pos);
+            worldIn.removeBlock(pos, false);
         }
     }
 
     @Override
-    public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
-        IBlockState downState = worldIn.getBlockState(pos.down());
-        return downState.isTopSolid() ||
-                downState.getBlockFaceShape(worldIn, pos.down(), EnumFacing.UP) == BlockFaceShape.SOLID;
+    public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
+        BlockPos down = pos.down();
+        BlockState downState = worldIn.getBlockState(down);
+        return downState.isSolidSide(worldIn, down, Direction.UP);
     }
     //endregion Overrides
+
+
+    //region Methods
+    //endregion Methods
 }

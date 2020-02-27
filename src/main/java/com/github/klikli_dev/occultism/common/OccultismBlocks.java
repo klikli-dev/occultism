@@ -19,4 +19,8 @@ public class OccultismBlocks {
             Block.Properties.create(Material.MISCELLANEOUS).sound(SoundType.CLOTH).doesNotBlockMovement()
                     .hardnessAndResistance(0.1f, 0)));
     //endregion Fields
+
+    public static boolean hasCustomItemBlock(Block block){
+        return false;
+    }
 }
