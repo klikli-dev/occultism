@@ -23,11 +23,9 @@
 package com.github.klikli_dev.occultism.common;
 
 import com.github.klikli_dev.occultism.Occultism;
-import com.github.klikli_dev.occultism.registry.ItemRegistry;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraft.item.Items;
 
 public class OccultismTab extends ItemGroup {
     //region Initialization
@@ -37,10 +35,17 @@ public class OccultismTab extends ItemGroup {
     //endregion Initialization
 
     //region Overrides
-    @SideOnly(Side.CLIENT)
     @Override
     public ItemStack createIcon() {
-        return new ItemStack(ItemRegistry.PENTACLE);
+        //TODO: return pentacle as icon
+        return new ItemStack(Items.DIAMOND);
     }
+    //    @SideOnly(Side.CLIENT)
+    //    @Override
+    //    public ItemStack createIcon() {
+    //        return new ItemStack(ItemRegistry.PENTACLE);
+    //    }
+    //
+    //
     //endregion Overrides
 }
