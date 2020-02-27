@@ -1,6 +1,6 @@
 {
   "parent": "item/handheld",
   "textures": {
-    "layer0": "occultism:items/butcher_knife"
+    "layer0": "occultism:item/butcher_knife"
   }
 }

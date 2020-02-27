@@ -2,8 +2,8 @@
   "parent": "block/block",
   "ambientocclusion": false,
   "textures": {
-    "0": "occultism:blocks/stable_wormhole_frame",
-    "particle": "occultism:blocks/stable_wormhole_frame"
+    "0": "occultism:block/stable_wormhole_frame",
+    "particle": "occultism:block/stable_wormhole_frame"
   },
   "elements": [
     {

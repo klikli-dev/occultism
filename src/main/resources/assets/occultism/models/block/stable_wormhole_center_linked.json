@@ -2,7 +2,7 @@
   "parent": "block/block",
   "ambientocclusion": false,
   "textures": {
-    "0": "occultism:blocks/stable_wormhole_center"
+    "0": "occultism:block/stable_wormhole_center"
   },
   "elements": [
     {

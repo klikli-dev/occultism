@@ -1,6 +1,6 @@
 {
   "parent": "block/leaves",
   "textures": {
-    "all": "occultism:blocks/otherworld_leaves"
+    "all": "occultism:block/otherworld_leaves"
   }
 }

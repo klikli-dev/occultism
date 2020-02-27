@@ -1,6 +1,6 @@
 {
   "parent": "occultism:item/divination_rod_0",
   "textures": {
-    "layer0": "occultism:items/divination_rod/divination_rod_animation"
+    "layer0": "occultism:item/divination_rod/divination_rod_animation"
   }
 }

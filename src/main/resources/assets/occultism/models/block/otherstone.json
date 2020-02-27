@@ -1,6 +1,6 @@
 {
   "parent": "block/cube_all",
   "textures": {
-    "all": "occultism:blocks/otherstone_16x16_seamless"
+    "all": "occultism:block/otherstone_16x16_seamless"
   }
 }

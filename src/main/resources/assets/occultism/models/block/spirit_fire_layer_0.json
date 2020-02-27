@@ -1,7 +1,7 @@
 {
   "parent": "occultism:block/spirit_fire",
   "textures": {
-    "particle": "occultism:blocks/spirit_fire_layer_0",
-    "fire": "occultism:blocks/spirit_fire_layer_0"
+    "particle": "occultism:block/spirit_fire_layer_0",
+    "fire": "occultism:block/spirit_fire_layer_0"
   }
 }

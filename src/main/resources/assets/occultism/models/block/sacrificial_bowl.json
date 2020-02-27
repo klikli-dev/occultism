@@ -5,9 +5,9 @@
     64
   ],
   "textures": {
-    "0": "occultism:blocks/otherstone",
-    "1": "occultism:blocks/otherstone_gold",
-    "particle": "occultism:blocks/otherstone"
+    "0": "occultism:block/otherstone",
+    "1": "occultism:block/otherstone_gold",
+    "particle": "occultism:block/otherstone"
   },
   "elements": [
     {

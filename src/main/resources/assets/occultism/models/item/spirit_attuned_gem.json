@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "occultism:items/spirit_attuned_gem"
+    "layer0": "occultism:item/spirit_attuned_gem"
   }
 }

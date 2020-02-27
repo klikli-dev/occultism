@@ -6,7 +6,7 @@
     64
   ],
   "textures": {
-    "0": "occultism:blocks/dimensional_matrix"
+    "0": "occultism:block/dimensional_matrix"
   },
   "elements": [
     {

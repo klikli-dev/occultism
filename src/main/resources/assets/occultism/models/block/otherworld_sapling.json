@@ -1,6 +1,6 @@
 {
   "parent": "block/cross",
   "textures": {
-    "cross": "occultism:blocks/otherworld_sapling"
+    "cross": "occultism:block/otherworld_sapling"
   }
 }

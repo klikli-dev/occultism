@@ -1,9 +1,9 @@
 {
   "parent": "occultism:item/stable_wormhole_item_linked",
   "textures": {
-    "0": "occultism:blocks/stable_wormhole_frame",
-    "1": "occultism:blocks/stable_wormhole_center",
-    "particle": "occultism:blocks/stable_wormhole_frame"
+    "0": "occultism:block/stable_wormhole_frame",
+    "1": "occultism:block/stable_wormhole_center",
+    "particle": "occultism:block/stable_wormhole_frame"
   },
   "overrides": [
     {

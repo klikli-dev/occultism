@@ -6,8 +6,8 @@
     64
   ],
   "textures": {
-    "0": "occultism:blocks/candle",
-    "particle": "occultism:blocks/candle"
+    "0": "occultism:block/candle",
+    "particle": "occultism:block/candle"
   },
   "elements": [
     {
