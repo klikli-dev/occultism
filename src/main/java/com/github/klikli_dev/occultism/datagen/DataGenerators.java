@@ -22,27 +22,19 @@
 
 package com.github.klikli_dev.occultism.datagen;
 
-import com.github.klikli_dev.occultism.common.OccultismBlocks;
 import net.minecraft.data.DataGenerator;
-import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
 
-public class StandardLootTableProvider extends BaseLootTableProvider {
+@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
+public class DataGenerators {
 
-    //region Initialization
-    public StandardLootTableProvider(DataGenerator dataGeneratorIn) {
-        super(dataGeneratorIn);
+    //region Static Methods
+    @SubscribeEvent
+    public static void gatherData(GatherDataEvent event) {
+        DataGenerator generator = event.getGenerator();
+        generator.addProvider(new StandardLootTableProvider(generator));
     }
-    //endregion Initialization
-
-    //region Overrides
-    @Override
-    protected void addTables() {
-        OccultismBlocks.BLOCKS.getEntries().stream()
-                .map(RegistryObject::get)
-                .forEach(block -> {
-                    lootTables.put(block, createStandardTable(block.getRegistryName().getPath(), block));
-                });
-        //lootTables.put(OccultismBlocks.CANDLE_WHITE.get(), createStandardTable("candle_white", OccultismBlocks.CANDLE_WHITE.get()));
-    }
-    //endregion Overrides
+    //endregion Static Methods
 }
