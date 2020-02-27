@@ -20,7 +20,7 @@ displayName="Occultism" #mandatory
 # A URL for the "homepage" for this mod, displayed in the mod UI
 displayURL="https://www.curseforge.com/minecraft/mc-mods/occultism" #optional
 # A file name (in the root of the mod JAR) containing a logo for display
-logoFile="pentacle-drawn.png" #optional
+logoFile="occultism.png" #optional
 # A text field displayed in the mod UI
 credits="""To all contributors of the mod.
            All resources not listed are released under a license not requiring attribution or created by the mod team.
