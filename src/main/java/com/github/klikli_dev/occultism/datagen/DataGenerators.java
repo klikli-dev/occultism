@@ -34,7 +34,12 @@ public class DataGenerators {
     @SubscribeEvent
     public static void gatherData(GatherDataEvent event) {
         DataGenerator generator = event.getGenerator();
-        generator.addProvider(new StandardLootTableProvider(generator));
+        if (event.includeServer()) {
+            generator.addProvider(new StandardLootTableProvider(generator));
+        }
+        if (event.includeClient()) {
+            generator.addProvider(new StandardBlockStateProvider(generator, event.getExistingFileHelper()));
+        }
     }
     //endregion Static Methods
 }

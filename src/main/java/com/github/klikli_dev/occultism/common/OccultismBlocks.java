@@ -24,6 +24,7 @@ package com.github.klikli_dev.occultism.common;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.block.CandleBlock;
+import com.github.klikli_dev.occultism.common.block.ChalkGlyphBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -38,6 +39,9 @@ public class OccultismBlocks {
     public static final RegistryObject<Block> CANDLE_WHITE = BLOCKS.register("candle_white", () -> new CandleBlock(
             Block.Properties.create(Material.MISCELLANEOUS).sound(SoundType.CLOTH).doesNotBlockMovement()
                     .hardnessAndResistance(0.1f, 0).lightValue(12)));
+    public static final RegistryObject<Block> CHALK_GLYPH = BLOCKS.register("chalk_glyph", () -> new ChalkGlyphBlock(
+            Block.Properties.create(Material.MISCELLANEOUS).sound(SoundType.CLOTH).doesNotBlockMovement()
+                    .hardnessAndResistance(0.1f, 0)));
     //endregion Fields
 
     public static boolean hasCustomItemBlock(Block block){
