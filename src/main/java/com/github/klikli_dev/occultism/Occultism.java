@@ -22,9 +22,12 @@
 
 package com.github.klikli_dev.occultism;
 
-import com.github.klikli_dev.occultism.common.OccultismTab;
+import com.github.klikli_dev.occultism.common.OccultismBlocks;
+import com.github.klikli_dev.occultism.common.OccultismItemGroup;
+import com.github.klikli_dev.occultism.common.OccultismItems;
 import net.minecraft.item.ItemGroup;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -33,14 +36,16 @@ public class Occultism {
     //region Fields
     public static final String MODID = "occultism";
     public static final String NAME = "Occultism";
-    public static final ItemGroup CREATIVE_TAB = new OccultismTab();
+    public static final ItemGroup ITEM_GROUP = new OccultismItemGroup();
     public static final Logger logger = LogManager.getLogger(MODID);
     //endregion Fields
 
-//region Initialization
+    //region Initialization
     public Occultism() {
+        OccultismItems.ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
+        OccultismBlocks.BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
         //register event buses
     }
-//endregion Initialization
+    //endregion Initialization
 
 }
