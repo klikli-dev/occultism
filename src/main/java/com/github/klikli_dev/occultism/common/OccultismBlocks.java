@@ -15,9 +15,9 @@ public class OccultismBlocks {
 
     public static DeferredRegister<Block> BLOCKS = new DeferredRegister(ForgeRegistries.BLOCKS, Occultism.MODID);
     //region Fields
-    public static final RegistryObject<Block> PENTACLE = BLOCKS.register("candle_white", () -> new BlockCandle(
+    public static final RegistryObject<Block> CANDLE_WHITE = BLOCKS.register("candle_white", () -> new BlockCandle(
             Block.Properties.create(Material.MISCELLANEOUS).sound(SoundType.CLOTH).doesNotBlockMovement()
-                    .hardnessAndResistance(0.1f, 0)));
+                    .hardnessAndResistance(0.1f, 0).lightValue(12)));
     //endregion Fields
 
     public static boolean hasCustomItemBlock(Block block){

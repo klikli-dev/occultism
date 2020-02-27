@@ -52,7 +52,7 @@ public class BlockCandle extends Block {
 
     @Override
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-        return super.getShape(state, worldIn, pos, context);
+        return SHAPE;
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -80,8 +80,4 @@ public class BlockCandle extends Block {
         return downState.isSolidSide(worldIn, down, Direction.UP);
     }
     //endregion Overrides
-
-
-    //region Methods
-    //endregion Methods
 }
