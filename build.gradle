@@ -31,7 +31,7 @@ minecraft {
     runs {
         client {
             workingDirectory project.file('run')
-
+            args += "--username=Occultism"
             // Recommended logging data for a userdev environment
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
 
