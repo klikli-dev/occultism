@@ -1,0 +1,25 @@
+{
+  "type": "occultism:spirit_trade",
+  "ingredients": [
+    {
+      "item": "minecraft:quartz_block",
+      "data": 32767
+    },
+    {
+      "item": "minecraft:quartz_block",
+      "data": 32767
+    },
+    {
+      "item": "minecraft:quartz_block",
+      "data": 32767
+    },
+    {
+      "item": "minecraft:quartz_block",
+      "data": 32767
+    }
+  ],
+  "result": {
+    "_comment": "Unused",
+    "item": "occultism:pentacle"
+  }
+}

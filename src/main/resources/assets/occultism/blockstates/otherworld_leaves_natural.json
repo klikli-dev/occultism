@@ -1,0 +1,35 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "textures": {
+      "particle": "occultism:blocks/otherworld_leaves"
+    },
+    "model": "occultism:otherworld_leaves",
+    "uvlock": true
+  },
+  "variants": {
+    "uncovered": {
+      "false": {
+        "textures": {
+          "all": "blocks/leaves_oak",
+          "particle": "blocks/leaves_oak"
+        }
+      },
+      "true": {}
+    },
+    "check_decay": {
+      "true": {},
+      "false": {}
+    },
+    "decayable": {
+      "true": {},
+      "false": {}
+    },
+    "normal": [
+      {}
+    ],
+    "inventory": [
+      {}
+    ]
+  }
+}

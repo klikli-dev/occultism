@@ -1,0 +1,27 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "occultism:otherworld_sapling",
+    "uvlock": true
+  },
+  "variants": {
+    "stage": {
+      "0": {},
+      "1": {}
+    },
+    "uncovered": {
+      "false": {
+        "textures": {
+          "cross": "blocks/sapling_oak"
+        }
+      },
+      "true": {}
+    },
+    "normal": [
+      {}
+    ],
+    "inventory": [
+      {}
+    ]
+  }
+}

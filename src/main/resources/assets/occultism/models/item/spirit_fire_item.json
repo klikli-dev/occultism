@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "occultism:blocks/spirit_fire_layer_0"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "type": "occultism:spirit_trade",
+  "ingredients": [
+    {
+      "type": "forge:ore_dict",
+      "ore": "blockCoal"
+    },
+    {
+      "type": "forge:ore_dict",
+      "ore": "ingotGold"
+    },
+    {
+      "type": "forge:ore_dict",
+      "ore": "ingotIron"
+    },
+    {
+      "item": "minecraft:furnace"
+    }
+  ],
+  "result": {
+    "_comment": "Unused",
+    "item": "occultism:pentacle"
+  }
+}

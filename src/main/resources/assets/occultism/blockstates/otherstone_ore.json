@@ -1,0 +1,22 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "occultism:otherstone"
+  },
+  "variants": {
+    "uncovered": {
+      "false": {
+        "textures": {
+          "all": "blocks/stone_andesite"
+        }
+      },
+      "true": {}
+    },
+    "normal": [
+      {}
+    ],
+    "inventory": [
+      {}
+    ]
+  }
+}

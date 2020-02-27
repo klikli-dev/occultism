@@ -1,0 +1,12 @@
+{
+  "type": "occultism:shapeless",
+  "ingredients": [
+    {
+      "type": "forge:ore_dict",
+      "ore": "bookOfCallingActiveFoliot"
+    }
+  ],
+  "result": {
+    "item": "occultism:book_of_binding_active_foliot"
+  }
+}

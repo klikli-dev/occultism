@@ -1,0 +1,6 @@
+{
+  "parent": "occultism:block/stable_wormhole_center_linked",
+  "textures": {
+    "0": "occultism:blocks/stable_wormhole_center_unlinked"
+  }
+}

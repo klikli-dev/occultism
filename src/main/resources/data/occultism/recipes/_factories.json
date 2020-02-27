@@ -1,0 +1,7 @@
+{
+  "recipes": {
+    "shapeless": "com.github.klikli_dev.occultism.crafting.recipe.ShapelessFactory",
+    "spirit_trade": "com.github.klikli_dev.occultism.crafting.recipe.SpiritTradeFactory",
+    "spiritfire_conversion": "com.github.klikli_dev.occultism.crafting.recipe.RecipeSpiritfireConversionFactory"
+  }
+}

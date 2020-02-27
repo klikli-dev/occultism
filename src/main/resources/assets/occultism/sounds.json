@@ -1,0 +1,22 @@
+{
+  "chalk": {
+    "sounds": [
+      "occultism:chalk"
+    ]
+  },
+  "brush": {
+    "sounds": [
+      "occultism:brush"
+    ]
+  },
+  "start_ritual": {
+    "sounds": [
+      "occultism:start_ritual"
+    ]
+  },
+  "tuning_fork": {
+    "sounds": [
+      "occultism:tuning_fork"
+    ]
+  }
+}

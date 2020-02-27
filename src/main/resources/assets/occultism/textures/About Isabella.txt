@@ -1,0 +1,35 @@
+--ABOUT--
+
+Isabella II is a reworked version of [i]Isabella[/i] (now called [i]Isabella Classic[/i].) It offers the same melancholic feel but with brighter visuals, improving the experience on a wider range of monitors.
+
+Minecraft Forum Thread: http://www.minecraftforum.net/topic/242175-Isabella/"
+
+--CREDITS--
+
+Textures by Bonemouse
+Main Menu Background by frejid
+Some textures are based off the work of Mojang
+Note: Some textures from Quandary and Coterie Craft appear in Isabella. These textures were originally created by Bonemouse for those packs.
+
+
+--INSPIRATION--
+
+The following served as inspiration for various elements of this pack
+Quandary: http://www.retributiongames.com/quandary/
+Jolicraft: http://www.minecraftforum.net/viewtopic.php?f=1021&t=176793
+Coterie Craft: http://www.minecraftforum.net/viewtopic.php?f=1021&t=122389
+Eldpack: http://www.eldpack.com/
+Dokucraft: http://www.minecraftforum.net/viewtopic.php?f=1021&t=224969
+
+
+--LICENSE--
+
+Isabella Texture Pack by Bonemouse (http://www.minecraftforum.net/topic/242175-Isabella/) is licensed under a Creative Commons Attribution 3.0 Unported License (http://creativecommons.org/licenses/by/3.0/).
+
+In other words:
+- You are free to modify and/or redistribute this pack.
+- You are free to do so for commercial purposes.
+- You MUST clearly attribute me, Bonemouse.
+- You MUST clearly provide a link to this thread (http://www.minecraftforum.net/topic/242175-Isabella/)
+- You MUST include the About Isabella.txt file with your work. You may not edit this file.
+- This license does not cover Isabella Classic. Please refer to that license.

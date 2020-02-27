@@ -1,0 +1,11 @@
+{
+  "type": "occultism:spiritfire_conversion",
+  "ingredients": [
+    {
+      "item": "occultism:chalk_white_impure"
+    }
+  ],
+  "result": {
+    "item": "occultism:chalk_white"
+  }
+}

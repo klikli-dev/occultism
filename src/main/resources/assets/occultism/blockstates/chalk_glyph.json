@@ -1,0 +1,95 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "occultism:chalk_glyph"
+  },
+  "variants": {
+    "facing": {
+      "north": {
+        "y": 0
+      },
+      "south": {
+        "y": 180
+      },
+      "east": {
+        "y": 90
+      },
+      "west": {
+        "y": 270
+      }
+    },
+    "type": {
+      "white": {},
+      "red": {},
+      "gold": {},
+      "purple": {}
+    },
+    "sign": {
+      "0": {
+        "textures": {
+          "texture": "occultism:blocks/chalk_glyph/anubis"
+        }
+      },
+      "1": {
+        "textures": {
+          "texture": "occultism:blocks/chalk_glyph/bastet"
+        }
+      },
+      "2": {
+        "textures": {
+          "texture": "occultism:blocks/chalk_glyph/crook-flail"
+        }
+      },
+      "3": {
+        "textures": {
+          "texture": "occultism:blocks/chalk_glyph/deshret-red-crown"
+        }
+      },
+      "4": {
+        "textures": {
+          "texture": "occultism:blocks/chalk_glyph/egyptian-bird"
+        }
+      },
+      "5": {
+        "textures": {
+          "texture": "occultism:blocks/chalk_glyph/egyptian-sphinx"
+        }
+      },
+      "6": {
+        "textures": {
+          "texture": "occultism:blocks/chalk_glyph/egyptian-temple"
+        }
+      },
+      "7": {
+        "textures": {
+          "texture": "occultism:blocks/chalk_glyph/egyptian-urns"
+        }
+      },
+      "8": {
+        "textures": {
+          "texture": "occultism:blocks/chalk_glyph/eye-of-horus"
+        }
+      },
+      "9": {
+        "textures": {
+          "texture": "occultism:blocks/chalk_glyph/hieroglyph-y"
+        }
+      },
+      "10": {
+        "textures": {
+          "texture": "occultism:blocks/chalk_glyph/horus"
+        }
+      },
+      "11": {
+        "textures": {
+          "texture": "occultism:blocks/chalk_glyph/pschent-double-crown"
+        }
+      },
+      "12": {
+        "textures": {
+          "texture": "occultism:blocks/chalk_glyph/zat-gun"
+        }
+      }
+    }
+  }
+}

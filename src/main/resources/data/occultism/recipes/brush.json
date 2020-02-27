@@ -1,0 +1,35 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ppp",
+    "wws"
+  ],
+  "key": {
+    "p": {
+      "type": "forge:ore_dict",
+      "ore": "plankWood"
+    },
+    "w": [
+      {
+        "type": "forge:ore_dict",
+        "ore": "wool"
+      },
+      {
+        "type": "forge:ore_dict",
+        "ore": "blockWool"
+      },
+      {
+        "_comment": "Fallback if wool is not registered in oredict, use any vanilla wool",
+        "item": "minecraft:wool",
+        "data": 32767
+      }
+    ],
+    "s": {
+      "type": "forge:ore_dict",
+      "ore": "string"
+    }
+  },
+  "result": {
+    "item": "occultism:brush"
+  }
+}

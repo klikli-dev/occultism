@@ -1,0 +1,29 @@
+{
+  "type": "occultism:spirit_trade",
+  "ingredients": [
+    {
+      "_comment": "Stone",
+      "item": "minecraft:stone",
+      "data": 0
+    },
+    {
+      "_comment": "Granite",
+      "item": "minecraft:stone",
+      "data": 1
+    },
+    {
+      "_comment": "Diorite",
+      "item": "minecraft:stone",
+      "data": 3
+    },
+    {
+      "_comment": "Andesite",
+      "item": "minecraft:stone",
+      "data": 5
+    }
+  ],
+  "result": {
+    "_comment": "Unused",
+    "item": "occultism:pentacle"
+  }
+}

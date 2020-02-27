@@ -1,0 +1,27 @@
+[
+  {
+    "modid": "occultism",
+    "name": "Occultism",
+    "description": "A magic mod inspired by the world of Jonathan Stroud's Bartimaeus. With the help of occult rituals players can summon entities from the \"Other Side\" to perform magic.",
+
+    "version": "${version}",
+    "mcversion": "${mcversion}",
+    "url": "https://www.curseforge.com/minecraft/mc-mods/occultism",
+    "updateUrl": "",
+    "authorList": [
+      "klikli-dev"
+    ],
+    "credits": "To all contributors of the mod.\nAll resources not listed are released under a license not requiring attribution or created by the mod team. \n- Images:\n\t- Various icons from https://shikashiassets.itch.io/shikashis-fantasy-icons-pack (CC BY 3.0)\n\t- Book by Lorc https://game-icons.net/1x1/lorc/book-cover.html (CC BY 3.0)\n\t- Anvil by Lorc https://game-icons.net/1x1/lorc/anvil-impact.html (CC BY 3.0)\n\t- Pentacle by Skoll https://game-icons.net/1x1/skoll/pentacle.html  (CC BY 3.0)\n\t- Pentagram Rose by Lorc https://game-icons.net/1x1/lorc/pentagram-rose.html (CC BY 3.0)\n \t- Chalk Glyphs by Delapouite, Lorc cand Skoll https://game-icons.net/tags/egypt.html (CC BY 3.0)\n\t- Debug Wand by Delapouite https://game-icons.net/1x1/delapouite/lunar-wand.html (CC BY 3.0)\n\t- Demon Skull by Lorc https://game-icons.net/1x1/lorc/daemon-skull.html (CC BY 3.0)\n\t- Hatchet by Delapouite https://game-icons.net/1x1/delapouite/hatchet.html (CC BY 3.0)\n\t- Behold Eye by Lorc https://game-icons.net/1x1/lorc/behold.html (CC BY 3.0)\n\t- Water diviner stick by Delapouite https://game-icons.net/1x1/delapouite/water-diviner-stick.html (CC BY 3.0)\n\t- Crystal Cluster by Lorc https://game-icons.net/1x1/lorc/crystal-cluster.html (CC BY 3.0)\n\t- Kenku Head (used as djinn) by Delapouite https://game-icons.net/1x1/delapouite/kenku-head.html (CC BY 3.0)\n- Textures:\n\t- Various textures are from the public domain Soartex pack 1.2.5 by Soar49. \n\t- Some textures are based on textures created by Bonemouse for Isabella ( http://www.minecraftforum.net/topic/242175-Isabella/ ), see About Isabella.txt in resources/assets/occultism/textures.\n- Sounds:\n\t- Various sounds from freesound.org (CC0 1.0)\n\t- Ritual Start Sound: https://freesound.org/people/xtrgamr/sounds/257787/ (CC BY 3.0)",
+    "logoFile": "",
+    "screenshots": [],
+    "requiredMods": [
+      "forge",
+      "patchouli"
+    ],
+    "dependencies": [
+      "forge",
+      "patchouli"
+    ],
+    "useDependencyInformation": true
+  }
+]
