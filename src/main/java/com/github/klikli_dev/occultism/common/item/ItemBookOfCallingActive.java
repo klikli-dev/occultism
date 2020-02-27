@@ -40,21 +40,21 @@ import com.github.klikli_dev.occultism.util.TileEntityUtil;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.InventoryCrafting;
-import net.minecraft.item.EnumRarity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.CraftingInventory;
+import net.minecraft.item.Rarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.Side;
@@ -87,17 +87,17 @@ public class ItemBookOfCallingActive extends Item implements IIngredientPreventC
 
     //region Overrides
     @Override
-    public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing,
+    public ActionResultType onItemUse(PlayerEntity player, World world, BlockPos pos, Hand hand, Direction facing,
                                       float hitX, float hitY, float hitZ) {
 
         ItemStack itemStack = player.getHeldItem(hand);
-        NBTTagCompound entityData = ItemNBTUtil.getSpiritEntityData(itemStack);
+        CompoundNBT entityData = ItemNBTUtil.getSpiritEntityData(itemStack);
         if (entityData != null) {
             //whenever we have an entity stored we can do nothing but release it
             if (!world.isRemote) {
                 EntitySpirit entity = (EntitySpirit) EntityUtil.entityFromNBT(world, entityData);
 
-                facing = facing == null ? EnumFacing.UP : facing;
+                facing = facing == null ? Direction.UP : facing;
 
                 entity.setLocationAndAngles(pos.getX() + facing.getXOffset(), pos.getY() + facing.getYOffset(),
                         pos.getZ() + facing.getZOffset(), world.rand.nextInt(360), 0);
@@ -126,12 +126,12 @@ public class ItemBookOfCallingActive extends Item implements IIngredientPreventC
             }
         }
 
-        return EnumActionResult.SUCCESS;
+        return ActionResultType.SUCCESS;
     }
 
     @Override
-    public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer player, EntityLivingBase target,
-                                            EnumHand hand) {
+    public boolean itemInteractionForEntity(ItemStack stack, PlayerEntity player, LivingEntity target,
+                                            Hand hand) {
         if (target.world.isRemote)
             return false;
 
@@ -144,12 +144,12 @@ public class ItemBookOfCallingActive extends Item implements IIngredientPreventC
         //books can only control the spirit that is bound to them.
         if (!entitySpirit.getUniqueID().equals(ItemNBTUtil.getSpiritEntityUUID(stack))) {
             player.sendStatusMessage(
-                    new TextComponentTranslation(TRANSLATION_KEY_BASE + ".message_target_uuid_no_match"), true);
+                    new TranslationTextComponent(TRANSLATION_KEY_BASE + ".message_target_uuid_no_match"), true);
             return false;
         }
 
         //serialize entity
-        NBTTagCompound entityNbt = EntityUtil.entityToNBT(entitySpirit, null);
+        CompoundNBT entityNbt = EntityUtil.entityToNBT(entitySpirit, null);
         ItemNBTUtil.setSpiritEntityData(stack, entityNbt);
 
         //show player swing anim
@@ -191,19 +191,19 @@ public class ItemBookOfCallingActive extends Item implements IIngredientPreventC
     }
 
     @Override
-    public EnumRarity getRarity(ItemStack stack) {
-        return ItemNBTUtil.getSpiritEntityUUID(stack) != null ? EnumRarity.RARE : EnumRarity.COMMON;
+    public Rarity getRarity(ItemStack stack) {
+        return ItemNBTUtil.getSpiritEntityUUID(stack) != null ? Rarity.RARE : Rarity.COMMON;
     }
 
     @Override
-    public boolean shouldCopyNBT(ItemStack itemStack, IRecipe recipe, InventoryCrafting inventory) {
+    public boolean shouldCopyNBT(ItemStack itemStack, IRecipe recipe, CraftingInventory inventory) {
         return recipe.getRecipeOutput().getItem() instanceof ItemBookOfBindingActive;
     }
 
     @Override
-    public NBTTagCompound overrideNBT(ItemStack itemStack, NBTTagCompound nbt, IRecipe recipe,
-                                      InventoryCrafting inventory) {
-        NBTTagCompound result = new NBTTagCompound();
+    public CompoundNBT overrideNBT(ItemStack itemStack, CompoundNBT nbt, IRecipe recipe,
+                                   CraftingInventory inventory) {
+        CompoundNBT result = new CompoundNBT();
         //copy over only the spirit name
         if (nbt.hasKey(ItemNBTUtil.SPIRIT_NAME_TAG))
             result.setString(ItemNBTUtil.SPIRIT_NAME_TAG, nbt.getString(ItemNBTUtil.SPIRIT_NAME_TAG));
@@ -211,9 +211,9 @@ public class ItemBookOfCallingActive extends Item implements IIngredientPreventC
     }
 
     @Override
-    public boolean shouldPreventCrafting(ItemStack itemStack, IRecipe recipe, InventoryCrafting inventory,
+    public boolean shouldPreventCrafting(ItemStack itemStack, IRecipe recipe, CraftingInventory inventory,
                                          World world) {
-        NBTTagCompound entityNBT = ItemNBTUtil.getSpiritEntityData(itemStack);
+        CompoundNBT entityNBT = ItemNBTUtil.getSpiritEntityData(itemStack);
         if (entityNBT != null)
             return true; //entity stored in the book.
 
@@ -240,8 +240,8 @@ public class ItemBookOfCallingActive extends Item implements IIngredientPreventC
 
     //region Methods
 
-    public boolean setSpiritManagedMachine(EntityPlayer player, World world, BlockPos pos, EnumHand hand,
-                                           EnumFacing face) {
+    public boolean setSpiritManagedMachine(PlayerEntity player, World world, BlockPos pos, Hand hand,
+                                           Direction face) {
         ItemStack stack = player.getHeldItem(hand);
         UUID boundSpiritId = ItemNBTUtil.getSpiritEntityUUID(stack);
         if (boundSpiritId != null) {
@@ -265,21 +265,21 @@ public class ItemBookOfCallingActive extends Item implements IIngredientPreventC
                     ItemNBTUtil.updateItemNBTFromEntity(stack, boundSpirit);
 
                     player.sendStatusMessage(
-                            new TextComponentTranslation(TRANSLATION_KEY_BASE + ".message_set_managed_machine",
+                            new TranslationTextComponent(TRANSLATION_KEY_BASE + ".message_set_managed_machine",
                                     TextUtil.formatDemonName(boundSpirit.getName())), true);
                     return true;
                 }
             }
             else {
                 player.sendStatusMessage(
-                        new TextComponentTranslation(TRANSLATION_KEY_BASE + ".message_spirit_not_found"), true);
+                        new TranslationTextComponent(TRANSLATION_KEY_BASE + ".message_spirit_not_found"), true);
             }
         }
         return false;
     }
 
-    public boolean setSpiritStorageController(EntityPlayer player, World world, BlockPos pos, EnumHand hand,
-                                              EnumFacing face) {
+    public boolean setSpiritStorageController(PlayerEntity player, World world, BlockPos pos, Hand hand,
+                                              Direction face) {
         ItemStack stack = player.getHeldItem(hand);
         UUID boundSpiritId = ItemNBTUtil.getSpiritEntityUUID(stack);
         if (boundSpiritId != null) {
@@ -294,21 +294,21 @@ public class ItemBookOfCallingActive extends Item implements IIngredientPreventC
 
                     String blockName = world.getBlockState(pos).getBlock().getLocalizedName();
                     player.sendStatusMessage(
-                            new TextComponentTranslation(TRANSLATION_KEY_BASE + ".message_set_storage_controller",
+                            new TranslationTextComponent(TRANSLATION_KEY_BASE + ".message_set_storage_controller",
                                     TextUtil.formatDemonName(boundSpirit.getName()), blockName), true);
                     return true;
                 }
             }
             else {
                 player.sendStatusMessage(
-                        new TextComponentTranslation(TRANSLATION_KEY_BASE + ".message_spirit_not_found"), true);
+                        new TranslationTextComponent(TRANSLATION_KEY_BASE + ".message_spirit_not_found"), true);
             }
         }
         return false;
     }
 
-    public boolean setSpiritDepositLocation(EntityPlayer player, World world, BlockPos pos, EnumHand hand,
-                                            EnumFacing face) {
+    public boolean setSpiritDepositLocation(PlayerEntity player, World world, BlockPos pos, Hand hand,
+                                            Direction face) {
         ItemStack stack = player.getHeldItem(hand);
         UUID boundSpiritId = ItemNBTUtil.getSpiritEntityUUID(stack);
         if (boundSpiritId != null) {
@@ -322,20 +322,20 @@ public class ItemBookOfCallingActive extends Item implements IIngredientPreventC
                 ItemNBTUtil.updateItemNBTFromEntity(stack, boundSpirit);
 
                 String blockName = world.getBlockState(pos).getBlock().getLocalizedName();
-                player.sendStatusMessage(new TextComponentTranslation(TRANSLATION_KEY_BASE + ".message_set_deposit",
+                player.sendStatusMessage(new TranslationTextComponent(TRANSLATION_KEY_BASE + ".message_set_deposit",
                         TextUtil.formatDemonName(boundSpirit.getName()), blockName, face.getName()), true);
                 return true;
             }
             else {
                 player.sendStatusMessage(
-                        new TextComponentTranslation(TRANSLATION_KEY_BASE + ".message_spirit_not_found"), true);
+                        new TranslationTextComponent(TRANSLATION_KEY_BASE + ".message_spirit_not_found"), true);
             }
         }
         return false;
     }
 
-    public boolean setSpiritBaseLocation(EntityPlayer player, World world, BlockPos pos, EnumHand hand,
-                                         EnumFacing face) {
+    public boolean setSpiritBaseLocation(PlayerEntity player, World world, BlockPos pos, Hand hand,
+                                         Direction face) {
         ItemStack stack = player.getHeldItem(hand);
         UUID boundSpiritId = ItemNBTUtil.getSpiritEntityUUID(stack);
         if (boundSpiritId != null) {
@@ -348,20 +348,20 @@ public class ItemBookOfCallingActive extends Item implements IIngredientPreventC
                 ItemNBTUtil.updateItemNBTFromEntity(stack, boundSpirit);
 
                 String blockName = world.getBlockState(pos).getBlock().getLocalizedName();
-                player.sendStatusMessage(new TextComponentTranslation(TRANSLATION_KEY_BASE + ".message_set_base",
+                player.sendStatusMessage(new TranslationTextComponent(TRANSLATION_KEY_BASE + ".message_set_base",
                         TextUtil.formatDemonName(boundSpirit.getName()), blockName), true);
                 return true;
             }
             else {
                 player.sendStatusMessage(
-                        new TextComponentTranslation(TRANSLATION_KEY_BASE + ".message_spirit_not_found"), true);
+                        new TranslationTextComponent(TRANSLATION_KEY_BASE + ".message_spirit_not_found"), true);
             }
         }
         return false;
     }
 
-    public EnumActionResult handleItemMode(EntityPlayer player, World world, BlockPos pos, EnumHand hand,
-                                           EnumFacing facing, float hitX, float hitY, float hitZ) {
+    public ActionResultType handleItemMode(PlayerEntity player, World world, BlockPos pos, Hand hand,
+                                           Direction facing, float hitX, float hitY, float hitZ) {
 
         ItemStack stack = player.getHeldItem(hand);
         ItemMode itemMode = ItemMode.get(this.getItemMode(stack));
@@ -374,22 +374,22 @@ public class ItemBookOfCallingActive extends Item implements IIngredientPreventC
                     if (tileEntity != null &&
                         tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, facing) != null) {
                         return this.setSpiritDepositLocation(player, world, pos, hand,
-                                facing) ? EnumActionResult.SUCCESS : EnumActionResult.PASS;
+                                facing) ? ActionResultType.SUCCESS : ActionResultType.PASS;
                     }
                     break;
                 case SET_BASE:
                     return this.setSpiritBaseLocation(player, world, pos, hand,
-                            facing) ? EnumActionResult.SUCCESS : EnumActionResult.PASS;
+                            facing) ? ActionResultType.SUCCESS : ActionResultType.PASS;
                 case SET_STORAGE_CONTROLLER:
                     if (tileEntity instanceof IStorageController) {
                         return this.setSpiritStorageController(player, world, pos, hand,
-                                facing) ? EnumActionResult.SUCCESS : EnumActionResult.PASS;
+                                facing) ? ActionResultType.SUCCESS : ActionResultType.PASS;
                     }
                 case SET_MANAGED_MACHINE:
                     if (tileEntity != null && TileEntityUtil.hasCapabilityOnAnySide(tileEntity,
                             CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)) {
                         this.setSpiritManagedMachine(player, world, pos, hand, facing);
-                        return EnumActionResult.SUCCESS;
+                        return ActionResultType.SUCCESS;
                     }
                     break;
             }
@@ -411,7 +411,7 @@ public class ItemBookOfCallingActive extends Item implements IIngredientPreventC
         }
 
 
-        return EnumActionResult.PASS;
+        return ActionResultType.PASS;
     }
     //endregion Methods
 

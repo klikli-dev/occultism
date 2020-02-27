@@ -27,9 +27,9 @@ import com.github.klikli_dev.occultism.common.item.*;
 import com.github.klikli_dev.occultism.common.item.crops.ItemDatura;
 import com.github.klikli_dev.occultism.common.item.crops.ItemOccultismSeed;
 import com.github.klikli_dev.occultism.common.item.tool.ItemButcherKnife;
-import net.minecraft.init.Blocks;
+import net.minecraft.block.Blocks;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemFood;
 import net.minecraft.util.ResourceLocation;
 
@@ -43,19 +43,19 @@ public class ItemRegistry {
     //Debug and placeholder items
     public static final Item DEBUG_WAND = new ItemDebugWand();
     public static final Item PENTACLE = new ItemGenericComponent("pentacle");
-    public static final ItemBlock SPIRIT_FIRE = new ItemGenericBlock(BlockRegistry.SPIRIT_FIRE, "spirit_fire_item");
+    public static final BlockItem SPIRIT_FIRE = new ItemGenericBlock(BlockRegistry.SPIRIT_FIRE, "spirit_fire_item");
 
     //Resources
-    public static final ItemBlock OTHERWORLD_LOG_NATURAL = new ItemBlockOtherworldLog(
+    public static final BlockItem OTHERWORLD_LOG_NATURAL = new ItemBlockOtherworldLog(
             BlockRegistry.OTHERWORLD_LOG_NATURAL);
-    public static final ItemBlock OTHERWORLD_LOG = new ItemBlockOtherworldLog(BlockRegistry.OTHERWORLD_LOG);
-    public static final ItemBlock OTHERWORLD_SAPLING_NATURAL = (ItemBlock) new ItemBlockOtherworldSapling(
+    public static final BlockItem OTHERWORLD_LOG = new ItemBlockOtherworldLog(BlockRegistry.OTHERWORLD_LOG);
+    public static final BlockItem OTHERWORLD_SAPLING_NATURAL = (BlockItem) new ItemBlockOtherworldSapling(
             BlockRegistry.OTHERWORLD_SAPLING_NATURAL).setTranslationKey(
             Occultism.MODID + ".otherworld_sapling_natural");
-    public static final ItemBlock OTHERWORLD_SAPLING = new ItemBlockOtherworldSapling(BlockRegistry.OTHERWORLD_SAPLING);
+    public static final BlockItem OTHERWORLD_SAPLING = new ItemBlockOtherworldSapling(BlockRegistry.OTHERWORLD_SAPLING);
 
     //Components
-    public static final ItemBlock BLOCK_STABLE_WORMHOLE = new ItemBlockStableWormhole(BlockRegistry.STABLE_WORMHOLE);
+    public static final BlockItem BLOCK_STABLE_WORMHOLE = new ItemBlockStableWormhole(BlockRegistry.STABLE_WORMHOLE);
     public static final Item DIMENSIONAL_MATRIX = new ItemGenericComponent("dimensional_matrix");
     public static final Item SPIRIT_ATTUNED_GEM = new ItemGenericComponent("spirit_attuned_gem", "gemSpiritAttuned");
     public static final Item OTHERWORLD_ASHES = new ItemGenericComponent("otherworld_ashes", "dustAsh");

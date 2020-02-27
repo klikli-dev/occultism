@@ -26,7 +26,7 @@ import com.github.klikli_dev.occultism.api.common.data.ChalkGlyphType;
 import com.github.klikli_dev.occultism.common.block.BlockChalkGlyph;
 import com.github.klikli_dev.occultism.registry.BlockRegistry;
 import com.github.klikli_dev.occultism.registry.RitualRegistry;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import vazkii.patchouli.api.IMultiblock;
@@ -34,13 +34,13 @@ import vazkii.patchouli.api.PatchouliAPI;
 
 public abstract class Pentacle extends IForgeRegistryEntry.Impl<Pentacle> {
     //region Fields
-    public static final IBlockState GLYPH_GOLD = BlockRegistry.CHALK_GLYPH.getDefaultState()
+    public static final BlockState GLYPH_GOLD = BlockRegistry.CHALK_GLYPH.getDefaultState()
                                                          .withProperty(BlockChalkGlyph.TYPE, ChalkGlyphType.GOLD);
-    public static final IBlockState GLYPH_RED = BlockRegistry.CHALK_GLYPH.getDefaultState()
+    public static final BlockState GLYPH_RED = BlockRegistry.CHALK_GLYPH.getDefaultState()
                                                         .withProperty(BlockChalkGlyph.TYPE, ChalkGlyphType.RED);
-    public static final IBlockState GLYPH_WHITE = BlockRegistry.CHALK_GLYPH.getDefaultState()
+    public static final BlockState GLYPH_WHITE = BlockRegistry.CHALK_GLYPH.getDefaultState()
                                                           .withProperty(BlockChalkGlyph.TYPE, ChalkGlyphType.WHITE);
-    public static final IBlockState GLYPH_PURPLE = BlockRegistry.CHALK_GLYPH.getDefaultState()
+    public static final BlockState GLYPH_PURPLE = BlockRegistry.CHALK_GLYPH.getDefaultState()
                                                            .withProperty(BlockChalkGlyph.TYPE, ChalkGlyphType.PURPLE);
 
     protected PatchouliAPI.IPatchouliAPI api = PatchouliAPI.instance;

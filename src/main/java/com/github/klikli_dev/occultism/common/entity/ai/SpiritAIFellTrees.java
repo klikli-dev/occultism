@@ -24,11 +24,11 @@ package com.github.klikli_dev.occultism.common.entity.ai;
 
 import com.github.klikli_dev.occultism.common.entity.spirits.EntitySpirit;
 import com.github.klikli_dev.occultism.util.Math3DUtil;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.ai.EntityAIBase;
-import net.minecraft.entity.ai.EntityMoveHelper;
-import net.minecraft.init.SoundEvents;
-import net.minecraft.util.EnumHand;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.ai.goal.Goal;
+import net.minecraft.entity.ai.controller.MovementController;
+import net.minecraft.util.Hand;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
@@ -38,7 +38,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-public class SpiritAIFellTrees extends EntityAIBase {
+public class SpiritAIFellTrees extends Goal {
     //region Fields
     protected final EntitySpirit entity;
     protected final BlockSorter targetSorter;
@@ -58,7 +58,7 @@ public class SpiritAIFellTrees extends EntityAIBase {
     //region Overrides
     @Override
     public boolean shouldExecute() {
-        if (!this.entity.getHeldItem(EnumHand.MAIN_HAND).isEmpty()) {
+        if (!this.entity.getHeldItem(Hand.MAIN_HAND).isEmpty()) {
             return false; //if already holding an item we need to first store it.
         }
         this.findTree();
@@ -68,7 +68,7 @@ public class SpiritAIFellTrees extends EntityAIBase {
     @Override
     public boolean shouldContinueExecuting() {
         //only continue execution if a tree is available and entity is not carrying anything.
-        return this.targetBlock != null && this.entity.getHeldItem(EnumHand.MAIN_HAND).isEmpty();
+        return this.targetBlock != null && this.entity.getHeldItem(Hand.MAIN_HAND).isEmpty();
     }
 
     public void resetTask() {
@@ -82,7 +82,7 @@ public class SpiritAIFellTrees extends EntityAIBase {
             if (!this.entity.getNavigator().tryMoveToXYZ(this.targetBlock.getX() + 0.5D, this.targetBlock.getY(),
                     this.targetBlock.getZ() + 0.5D, 1D)) {
 
-                IBlockState targetBlockState = this.entity.world.getBlockState(this.targetBlock);
+                BlockState targetBlockState = this.entity.world.getBlockState(this.targetBlock);
                 RayTraceResult rayTrace = targetBlockState.collisionRayTrace(this.entity.world, this.targetBlock,
                         this.entity.getPositionVector(), Math3DUtil.getBlockCenter(this.targetBlock));
 
@@ -103,7 +103,7 @@ public class SpiritAIFellTrees extends EntityAIBase {
                         this.entity.motionZ *= 0.0D;
                         this.entity.motionX *= 0.0D;
                         this.entity.getNavigator().clearPath();
-                        this.entity.getMoveHelper().action = EntityMoveHelper.Action.WAIT;
+                        this.entity.getMoveHelper().action = MovementController.Action.WAIT;
                     }
 
                     this.updateBreakBlock();
@@ -123,7 +123,7 @@ public class SpiritAIFellTrees extends EntityAIBase {
     }
 
     public static final boolean isLeaf(World world, BlockPos pos) {
-        IBlockState state = world.getBlockState(pos);
+        BlockState state = world.getBlockState(pos);
         return state.getBlock().isLeaves(state, world, pos);
     }
     //endregion Static Methods
@@ -131,7 +131,7 @@ public class SpiritAIFellTrees extends EntityAIBase {
     //region Methods
     public void updateBreakBlock() {
         this.breakingTime++;
-        this.entity.swingArm(EnumHand.MAIN_HAND);
+        this.entity.swingArm(Hand.MAIN_HAND);
         int i = (int) ((float) this.breakingTime / 160.0F * 10.0F);
         if (this.breakingTime % 10 == 0) {
             this.entity.playSound(SoundEvents.BLOCK_WOOD_HIT, 1, 1);

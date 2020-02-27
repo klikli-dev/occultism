@@ -28,8 +28,8 @@ import com.github.klikli_dev.occultism.api.common.tile.IStorageController;
 import com.github.klikli_dev.occultism.util.InputUtil;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
@@ -55,14 +55,14 @@ public class MessageInsertMouseHeldItem extends MessageBase<MessageInsertMouseHe
 
     //region Overrides
     @Override
-    public void onClientReceived(Minecraft minecraft, MessageInsertMouseHeldItem message, EntityPlayer player,
+    public void onClientReceived(Minecraft minecraft, MessageInsertMouseHeldItem message, PlayerEntity player,
                                  MessageContext context) {
 
     }
 
     @Override
     public void onServerReceived(MinecraftServer minecraftServer, MessageInsertMouseHeldItem message,
-                                 EntityPlayerMP player, MessageContext context) {
+                                 ServerPlayerEntity player, MessageContext context) {
 
         if (player.openContainer instanceof IStorageControllerContainer) {
             IStorageController storageController = ((IStorageControllerContainer) player.openContainer)

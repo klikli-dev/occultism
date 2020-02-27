@@ -27,7 +27,7 @@ import com.github.klikli_dev.occultism.common.OccultismTab;
 import com.github.klikli_dev.occultism.common.world.OreGen;
 import com.github.klikli_dev.occultism.common.world.WorldGen;
 import com.github.klikli_dev.occultism.proxy.CommonProxy;
-import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.ItemGroup;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -38,13 +38,12 @@ import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import org.apache.logging.log4j.Logger;
 
-@Mod(modid = Occultism.MODID, name = Occultism.NAME, version = Occultism.VERSION)
+@Mod(Occultism.MODID)
 public class Occultism {
     //region Fields
     public static final String MODID = "occultism";
     public static final String NAME = "Occultism";
-    public static final String VERSION = "@VERSION@";
-    public static final CreativeTabs CREATIVE_TAB = new OccultismTab();
+    public static final ItemGroup CREATIVE_TAB = new OccultismTab();
     @SidedProxy(clientSide = "com.github.klikli_dev.occultism.proxy.ClientProxy", serverSide = "com.github.klikli_dev.occultism.proxy.ServerProxy")
     public static CommonProxy proxy;
     public static SimpleNetworkWrapper network = new SimpleNetworkWrapper(MODID);

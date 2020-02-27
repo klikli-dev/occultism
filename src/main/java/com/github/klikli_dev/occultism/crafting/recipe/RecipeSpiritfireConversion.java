@@ -22,7 +22,7 @@
 
 package com.github.klikli_dev.occultism.crafting.recipe;
 
-import net.minecraft.inventory.InventoryCrafting;
+import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.Ingredient;
@@ -46,13 +46,13 @@ public class RecipeSpiritfireConversion extends IForgeRegistryEntry.Impl<IRecipe
 
     //region Overrides
     @Override
-    public boolean matches(InventoryCrafting inventoryCrafting, World world) {
+    public boolean matches(CraftingInventory inventoryCrafting, World world) {
         //we do not use inventories, and all crafting inventories should ignore this.
         return false;
     }
 
     @Override
-    public ItemStack getCraftingResult(InventoryCrafting inventoryCrafting) {
+    public ItemStack getCraftingResult(CraftingInventory inventoryCrafting) {
         //as we don't have an inventory this is ignored.
         return null;
     }

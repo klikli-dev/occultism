@@ -25,13 +25,13 @@ package com.github.klikli_dev.occultism.common.item.crops;
 import com.github.klikli_dev.occultism.registry.ItemRegistry;
 import com.github.klikli_dev.occultism.registry.PotionRegistry;
 import net.minecraft.item.ItemFood;
-import net.minecraft.potion.PotionEffect;
+import net.minecraft.potion.EffectInstance;
 
 public class ItemDatura extends ItemFood {
     //region Initialization
     public ItemDatura() {
         super(0, 0, false);
-        this.setPotionEffect(new PotionEffect(PotionRegistry.THIRD_EYE, 15 * 20, 0, false, false), 1.1f);
+        this.setPotionEffect(new EffectInstance(PotionRegistry.THIRD_EYE, 15 * 20, 0, false, false), 1.1f);
         this.setAlwaysEdible();
         ItemRegistry.registerItem(this, "datura", "cropDatura");
     }

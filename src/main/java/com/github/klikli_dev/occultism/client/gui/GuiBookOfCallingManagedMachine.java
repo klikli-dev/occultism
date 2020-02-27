@@ -27,12 +27,12 @@ import com.github.klikli_dev.occultism.api.common.data.MachineReference;
 import com.github.klikli_dev.occultism.network.MessageSetManagedMachine;
 import com.github.klikli_dev.occultism.util.EnumUtil;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.gui.GuiLabel;
-import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.gui.GuiTextField;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraftforge.fml.client.config.GuiButtonExt;
 import org.codehaus.plexus.util.StringUtils;
 import org.lwjgl.input.Keyboard;
@@ -40,19 +40,19 @@ import org.lwjgl.input.Keyboard;
 import java.awt.*;
 import java.io.IOException;
 
-public class GuiBookOfCallingManagedMachine extends GuiScreen {
+public class GuiBookOfCallingManagedMachine extends Screen {
 
     //region Fields
     protected final String originalCustomName;
     protected String customName;
-    protected EnumFacing insertFacing = EnumFacing.UP;
-    protected EnumFacing extractFacing = EnumFacing.DOWN;
+    protected Direction insertFacing = Direction.UP;
+    protected Direction extractFacing = Direction.DOWN;
 
-    protected GuiTextField text;
+    protected TextFieldWidget text;
     //endregion Fields
 
     //region Initialization
-    public GuiBookOfCallingManagedMachine(EnumFacing insertFacing, EnumFacing extractFacing, String customName) {
+    public GuiBookOfCallingManagedMachine(Direction insertFacing, Direction extractFacing, String customName) {
         super();
         this.insertFacing = insertFacing;
         this.extractFacing = extractFacing;
@@ -90,7 +90,7 @@ public class GuiBookOfCallingManagedMachine extends GuiScreen {
     }
 
     @Override
-    protected void actionPerformed(GuiButton button) {
+    protected void actionPerformed(Button button) {
         MachineReference reference = new MachineReference(null, null, false);
         reference.insertFacing = this.insertFacing;
         reference.extractFacing = this.extractFacing;
@@ -136,7 +136,7 @@ public class GuiBookOfCallingManagedMachine extends GuiScreen {
                 I18n.format("enum." + Occultism.MODID + ".facing." + this.extractFacing.getName())));
 
         int textWidth = buttonWidth - 4;
-        this.text = new GuiTextField(0, this.mc.fontRenderer, guiLeft - textWidth / 2,
+        this.text = new TextFieldWidget(0, this.mc.fontRenderer, guiLeft - textWidth / 2,
                 guiTop + buttonTop + buttonHeight * 2 + buttonMargin * 2, textWidth, buttonHeight);
         this.text.setMaxStringLength(30);
         //this.text.setEnableBackgroundDrawing(false);

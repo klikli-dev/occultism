@@ -27,7 +27,7 @@ import com.google.gson.JsonObject;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.JsonUtils;
+import net.minecraft.util.JSONUtils;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.common.crafting.IRecipeFactory;
 import net.minecraftforge.common.crafting.JsonContext;
@@ -37,10 +37,10 @@ public class RecipeSpiritfireConversionFactory implements IRecipeFactory {
     @Override
     public IRecipe parse(final JsonContext context, final JsonObject json) {
         //we also allow arrays, but only one ingredient will be used.
-        JsonElement ingredientElement = JsonUtils.isJsonArray(json, "ingredients") ? JsonUtils.getJsonArray(json,
-                "ingredients") : JsonUtils.getJsonObject(json, "ingredients");
+        JsonElement ingredientElement = JSONUtils.isJsonArray(json, "ingredients") ? JSONUtils.getJsonArray(json,
+                "ingredients") : JSONUtils.getJsonObject(json, "ingredients");
         Ingredient ingredient = CraftingHelper.getIngredient(ingredientElement, context);
-        ItemStack result = CraftingHelper.getItemStack(JsonUtils.getJsonObject(json, "result"), context);
+        ItemStack result = CraftingHelper.getItemStack(JSONUtils.getJsonObject(json, "result"), context);
         return new RecipeSpiritfireConversion(ingredient, result);
     }
     //endregion Overrides

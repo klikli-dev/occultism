@@ -22,10 +22,10 @@
 
 package com.github.klikli_dev.occultism.common.block.crops;
 
-import net.minecraft.block.BlockCrops;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.block.CropsBlock;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
@@ -35,17 +35,17 @@ import net.minecraftforge.event.ForgeEventFactory;
 public interface IReplantable {
 
     //region Methods
-    default void onHarvest(World world, BlockPos pos, IBlockState state, EntityPlayer player) {
-        if (state.getValue(BlockCrops.AGE) >= 7) {
+    default void onHarvest(World world, BlockPos pos, BlockState state, PlayerEntity player) {
+        if (state.getValue(CropsBlock.AGE) >= 7) {
             NonNullList<ItemStack> drops = NonNullList.create();
             state.getBlock().getDrops(drops, world, pos, state, 0);
             ForgeEventFactory.fireBlockHarvesting(drops, world, pos, state, 0, 1.0F, false, player);
 
             if (!world.isRemote) {
                 //reset crop
-                world.setBlockState(pos, state.withProperty(BlockCrops.AGE, 0));
+                world.setBlockState(pos, state.withProperty(CropsBlock.AGE, 0));
                 for (ItemStack stack : drops) {
-                    EntityItem entityItem = new EntityItem(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5,
+                    ItemEntity entityItem = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5,
                             stack);
                     entityItem.setPickupDelay(10);
                     world.spawnEntity(entityItem);

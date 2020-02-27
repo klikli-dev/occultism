@@ -27,16 +27,16 @@ import com.github.klikli_dev.occultism.common.tile.TileEntitySacrificialBowl;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.block.model.IBakedModel;
-import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
-import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.item.ItemBlock;
+import net.minecraft.client.renderer.model.IBakedModel;
+import net.minecraft.client.renderer.model.ItemCameraTransforms;
+import net.minecraft.client.renderer.texture.AtlasTexture;
+import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.ForgeHooksClient;
 import org.lwjgl.opengl.GL11;
 
-public class TESRSacrificialBowl extends TileEntitySpecialRenderer<TileEntitySacrificialBowl> {
+public class TESRSacrificialBowl extends TileEntityRenderer<TileEntitySacrificialBowl> {
 
     //region Fields
     protected Minecraft mc;
@@ -76,7 +76,7 @@ public class TESRSacrificialBowl extends TileEntitySpecialRenderer<TileEntitySac
                                         .getItemModelWithOverrides(stack, tileEntity.getWorld(), null);
             model = ForgeHooksClient.handleCameraTransforms(model, ItemCameraTransforms.TransformType.GROUND, false);
 
-            Minecraft.getMinecraft().getTextureManager().bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+            Minecraft.getMinecraft().getTextureManager().bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
             Minecraft.getMinecraft().getRenderItem().renderItem(stack, model);
 
             GlStateManager.popMatrix();
@@ -86,8 +86,8 @@ public class TESRSacrificialBowl extends TileEntitySpecialRenderer<TileEntitySac
     }
 
     public static float getScale(ItemStack stack){
-        if(stack.getItem() instanceof ItemBlock){
-            ItemBlock itemBlock = (ItemBlock) stack.getItem();
+        if(stack.getItem() instanceof BlockItem){
+            BlockItem itemBlock = (BlockItem) stack.getItem();
             if(itemBlock.getBlock() instanceof BlockSpiritAttunedCrystal)
                 return 3.0f;
         }

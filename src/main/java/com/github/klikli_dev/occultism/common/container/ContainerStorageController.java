@@ -29,11 +29,11 @@ import com.github.klikli_dev.occultism.common.misc.InventoryCraftingCached;
 import com.github.klikli_dev.occultism.common.tile.TileEntityStorageController;
 import com.github.klikli_dev.occultism.network.MessageUpdateLinkedMachines;
 import com.github.klikli_dev.occultism.util.TileEntityUtil;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.Slot;
+import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -48,7 +48,7 @@ public class ContainerStorageController extends ContainerStorageControllerBase {
     //endregion Fields
 
     //region Initialization
-    public ContainerStorageController(InventoryPlayer playerInventory, TileEntityStorageController storageController) {
+    public ContainerStorageController(PlayerInventory playerInventory, TileEntityStorageController storageController) {
         super();
         this.playerInventory = playerInventory;
         this.storageController = storageController;
@@ -117,16 +117,16 @@ public class ContainerStorageController extends ContainerStorageControllerBase {
     }
 
     @Override
-    public boolean canInteractWith(EntityPlayer player) {
+    public boolean canInteractWith(PlayerEntity player) {
         if (this.storageController == null)
             return false;
         World world = this.storageController.getWorld();
         //send stack updates on a slow tick while interacting
         if (!world.isRemote && world.getTotalWorldTime() % 40 == 0) {
             List<ItemStack> stacks = this.storageController.getStacks();
-            Occultism.network.sendTo(this.storageController.getMessageUpdateStacks(), (EntityPlayerMP) player);
+            Occultism.network.sendTo(this.storageController.getMessageUpdateStacks(), (ServerPlayerEntity) player);
             Occultism.network.sendTo(new MessageUpdateLinkedMachines(this.storageController.getLinkedMachines()),
-                    (EntityPlayerMP) player);
+                    (ServerPlayerEntity) player);
         }
         BlockPos controllerPosition = this.storageController.getPos();
         return player.getDistanceSq(controllerPosition.getX() + 0.5D, controllerPosition.getY() + 0.5D,

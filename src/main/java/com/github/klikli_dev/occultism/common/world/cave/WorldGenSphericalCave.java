@@ -22,18 +22,18 @@
 
 package com.github.klikli_dev.occultism.common.world.cave;
 
-import net.minecraft.init.Blocks;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.block.Blocks;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
-import net.minecraft.world.gen.feature.WorldGenerator;
+import net.minecraft.world.gen.feature.Feature;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class WorldGenSphericalCave extends WorldGenerator {
+public class WorldGenSphericalCave extends Feature {
 
     //region Fields
     protected ICaveDecorator caveDecorator;
@@ -79,7 +79,7 @@ public class WorldGenSphericalCave extends WorldGenerator {
         int radius = (int) (radiusBase * 0.2F) + rand.nextInt(8);
         spheres.add(this.generateSphere(world, rand, position, radius));
         for (int i = 0; i < this.additionalSpheres + rand.nextInt(this.maxRandomAdditionalSpheres); i++) {
-            EnumFacing direction = EnumFacing.HORIZONTALS[rand.nextInt(EnumFacing.HORIZONTALS.length - 1)];
+            Direction direction = Direction.HORIZONTALS[rand.nextInt(Direction.HORIZONTALS.length - 1)];
             spheres.add(this.generateSphere(world, rand, position.offset(direction, radius - 2),
                     2 * (int) (radius / 3F) + rand.nextInt(8)));
         }

@@ -24,8 +24,8 @@ package com.github.klikli_dev.occultism.network;
 
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
@@ -68,13 +68,13 @@ public class MessageParticle extends MessageBase<MessageParticle> {
     }
 
     @Override
-    public void onClientReceived(Minecraft minecraft, MessageParticle message, EntityPlayer player,
+    public void onClientReceived(Minecraft minecraft, MessageParticle message, PlayerEntity player,
                                  MessageContext context) {
         minecraft.world.spawnParticle(message.particleType, message.x, message.y, message.z, 0, 0, 0);
     }
 
     @Override
-    public void onServerReceived(MinecraftServer minecraftServer, MessageParticle message, EntityPlayerMP player,
+    public void onServerReceived(MinecraftServer minecraftServer, MessageParticle message, ServerPlayerEntity player,
                                  MessageContext context) {
 
     }

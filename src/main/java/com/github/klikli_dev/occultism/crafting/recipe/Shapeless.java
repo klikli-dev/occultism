@@ -26,10 +26,10 @@ import com.github.klikli_dev.occultism.api.common.item.IIngredientCopyNBT;
 import com.github.klikli_dev.occultism.api.common.item.IIngredientModifyCraftingResult;
 import com.github.klikli_dev.occultism.api.common.item.IIngredientPreserve;
 import com.github.klikli_dev.occultism.api.common.item.IIngredientPreventCrafting;
-import net.minecraft.inventory.InventoryCrafting;
+import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
@@ -46,7 +46,7 @@ public class Shapeless extends ShapelessOreRecipe {
 
     //region Overrides
     @Override
-    public NonNullList<ItemStack> getRemainingItems(InventoryCrafting inventory) {
+    public NonNullList<ItemStack> getRemainingItems(CraftingInventory inventory) {
         final NonNullList<ItemStack> remainingItems = super.getRemainingItems(inventory);
 
         for (int i = 0; i < remainingItems.size(); i++) {
@@ -58,7 +58,7 @@ public class Shapeless extends ShapelessOreRecipe {
                 remainingItems.set(i, itemStack.copy());
 
             //preserver the dictionary of spirits
-            NBTTagCompound compound = itemStack.getTagCompound();
+            CompoundNBT compound = itemStack.getTagCompound();
             if (compound != null && compound.hasKey("patchouli:book") &&
                 compound.getString("patchouli:book").equals("occultism:dictionary_of_spirits"))
                 remainingItems.set(i, itemStack.copy());
@@ -69,7 +69,7 @@ public class Shapeless extends ShapelessOreRecipe {
 
     @Nonnull
     @Override
-    public ItemStack getCraftingResult(@Nonnull InventoryCrafting inventory) {
+    public ItemStack getCraftingResult(@Nonnull CraftingInventory inventory) {
         ItemStack outputWithNBT = this.output.copy();
 
         for (int i = 0; i < inventory.getSizeInventory(); i++) {
@@ -78,7 +78,7 @@ public class Shapeless extends ShapelessOreRecipe {
                 if (stack.getItem() instanceof IIngredientCopyNBT) {
                     IIngredientCopyNBT item = (IIngredientCopyNBT) stack.getItem();
                     if (stack.getTagCompound() != null && item.shouldCopyNBT(stack, this, inventory)) {
-                        NBTTagCompound resultNbt = stack.getTagCompound().copy();
+                        CompoundNBT resultNbt = stack.getTagCompound().copy();
                         resultNbt = item.overrideNBT(stack, resultNbt, this, inventory);
                         outputWithNBT.setTagCompound(resultNbt);
                     }
@@ -94,7 +94,7 @@ public class Shapeless extends ShapelessOreRecipe {
     }
 
     @Override
-    public boolean matches(@Nonnull InventoryCrafting inventory, @Nonnull World world) {
+    public boolean matches(@Nonnull CraftingInventory inventory, @Nonnull World world) {
 
         for (int i = 0; i < inventory.getSizeInventory(); i++) {
             ItemStack stack = inventory.getStackInSlot(i);

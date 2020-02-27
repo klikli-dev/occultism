@@ -29,19 +29,19 @@ import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.block.model.IBakedModel;
-import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
-import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.client.renderer.model.IBakedModel;
+import net.minecraft.client.renderer.model.ItemCameraTransforms;
+import net.minecraft.client.renderer.texture.AtlasTexture;
+import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraftforge.client.ForgeHooksClient;
 import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
 
-public class TESRStorageController extends TileEntitySpecialRenderer<TileEntityStorageController> {
+public class TESRStorageController extends TileEntityRenderer<TileEntityStorageController> {
 
     //region Fields
     protected Minecraft mc;
@@ -84,7 +84,7 @@ public class TESRStorageController extends TileEntitySpecialRenderer<TileEntityS
                                     .getItemModelWithOverrides(this.stack, te.getWorld(), null);
         model = ForgeHooksClient.handleCameraTransforms(model, ItemCameraTransforms.TransformType.GROUND, false);
 
-        this.mc.getTextureManager().bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+        this.mc.getTextureManager().bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
 
         //get colors from hue over time
         long colorScale = 100L - Math.abs(time / 2 % 160L - 80L);
@@ -97,11 +97,11 @@ public class TESRStorageController extends TileEntitySpecialRenderer<TileEntityS
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder bufferbuilder = tessellator.getBuffer();
         bufferbuilder.begin(7, DefaultVertexFormats.ITEM);
-        EnumFacing[] var6 = EnumFacing.values();
+        Direction[] var6 = Direction.values();
         int var7 = var6.length;
 
         for (int var8 = 0; var8 < var7; ++var8) {
-            EnumFacing enumfacing = var6[var8];
+            Direction enumfacing = var6[var8];
             this.mc.getRenderItem().renderQuads(bufferbuilder, model.getQuads(null, enumfacing, 0L), color, this.stack);
         }
 

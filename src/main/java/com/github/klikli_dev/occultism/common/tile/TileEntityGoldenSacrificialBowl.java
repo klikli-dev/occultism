@@ -28,16 +28,16 @@ import com.github.klikli_dev.occultism.common.ritual.Ritual;
 import com.github.klikli_dev.occultism.network.MessageModParticle;
 import com.github.klikli_dev.occultism.network.MessageParticle;
 import com.github.klikli_dev.occultism.util.EntityUtil;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
@@ -50,7 +50,7 @@ public class TileEntityGoldenSacrificialBowl extends TileEntitySacrificialBowl i
     //region Fields
     public Ritual currentRitual;
     public UUID castingPlayerId;
-    public EntityPlayer castingPlayer;
+    public PlayerEntity castingPlayer;
     public List<Ingredient> remainingAdditionalIngredients = new ArrayList<>();
     public boolean sacrificeProvided;
     public int currentTime;
@@ -59,7 +59,7 @@ public class TileEntityGoldenSacrificialBowl extends TileEntitySacrificialBowl i
 
     //region Overrides
     @Override
-    public void readFromNBT(NBTTagCompound compound) {
+    public void readFromNBT(CompoundNBT compound) {
         super.readFromNBT(compound);
         if (this.currentRitual != null && compound.hasKey("remainingAdditionalIngredientsSize")) {
             this.remainingAdditionalIngredients = this.currentRitual.additionalIngredients.subList(0,
@@ -71,14 +71,14 @@ public class TileEntityGoldenSacrificialBowl extends TileEntitySacrificialBowl i
     }
 
     @Override
-    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+    public CompoundNBT writeToNBT(CompoundNBT compound) {
         compound.setByte("remainingAdditionalIngredientsSize", (byte) this.remainingAdditionalIngredients.size());
         compound.setBoolean("sacrificeProvided", this.sacrificeProvided);
         return super.writeToNBT(compound);
     }
 
     @Override
-    public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState) {
+    public boolean shouldRefresh(World world, BlockPos pos, BlockState oldState, BlockState newState) {
         boolean shouldRefresh = super.shouldRefresh(world, pos, oldState, newState);
         if (!world.isRemote && shouldRefresh)
             this.stopRitual(false); //if block changed/was destroyed, interrupt the ritual.
@@ -86,7 +86,7 @@ public class TileEntityGoldenSacrificialBowl extends TileEntitySacrificialBowl i
     }
 
     @Override
-    public void readFromNetworkNBT(NBTTagCompound compound) {
+    public void readFromNetworkNBT(CompoundNBT compound) {
         super.readFromNetworkNBT(compound);
 
         if (compound.hasKey("currentRitual")) {
@@ -102,7 +102,7 @@ public class TileEntityGoldenSacrificialBowl extends TileEntitySacrificialBowl i
     }
 
     @Override
-    public NBTTagCompound writeToNetworkNBT(NBTTagCompound compound) {
+    public CompoundNBT writeToNetworkNBT(CompoundNBT compound) {
         if (this.currentRitual != null) {
             compound.setString("currentRitual", this.currentRitual.getRegistryName().toString());
         }
@@ -177,7 +177,7 @@ public class TileEntityGoldenSacrificialBowl extends TileEntitySacrificialBowl i
         }
     }
 
-    public boolean activate(World world, BlockPos pos, EntityPlayer player, EnumHand hand, EnumFacing face) {
+    public boolean activate(World world, BlockPos pos, PlayerEntity player, Hand hand, Direction face) {
         if (!world.isRemote) {
             ItemStack activationItem = player.getHeldItem(hand);
             if (activationItem == ItemStack.EMPTY)
@@ -194,13 +194,13 @@ public class TileEntityGoldenSacrificialBowl extends TileEntitySacrificialBowl i
                     }
                     else {
                         //if ritual is not valid, inform player.
-                        player.sendStatusMessage(new TextComponentTranslation(ritual.getConditionsMessage()), true);
+                        player.sendStatusMessage(new TranslationTextComponent(ritual.getConditionsMessage()), true);
                         return false;
                     }
                 }
                 else {
                     player.sendStatusMessage(
-                            new TextComponentTranslation(String.format("ritual.%s.does_not_exist", Occultism.MODID)),
+                            new TranslationTextComponent(String.format("ritual.%s.does_not_exist", Occultism.MODID)),
                             true);
                     return false;
                 }
@@ -212,7 +212,7 @@ public class TileEntityGoldenSacrificialBowl extends TileEntitySacrificialBowl i
         return true;
     }
 
-    public void startRitual(EntityPlayer player, ItemStack activationItem, Ritual ritual) {
+    public void startRitual(PlayerEntity player, ItemStack activationItem, Ritual ritual) {
         if (!this.world.isRemote) {
             this.currentRitual = ritual;
             this.castingPlayerId = player.getUniqueID();
@@ -253,7 +253,7 @@ public class TileEntityGoldenSacrificialBowl extends TileEntitySacrificialBowl i
     }
 
 
-    public void notifySacrifice(EntityLivingBase entityLivingBase) {
+    public void notifySacrifice(LivingEntity entityLivingBase) {
         this.sacrificeProvided = true;
     }
     //endregion Methods

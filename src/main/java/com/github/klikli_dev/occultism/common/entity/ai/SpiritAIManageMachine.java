@@ -29,12 +29,12 @@ import com.github.klikli_dev.occultism.common.entity.spirits.EntitySpirit;
 import com.github.klikli_dev.occultism.common.jobs.DepositOrder;
 import com.github.klikli_dev.occultism.common.jobs.SpiritJobManageMachine;
 import com.github.klikli_dev.occultism.util.Math3DUtil;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.ai.EntityAIBase;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
@@ -45,7 +45,7 @@ import net.minecraftforge.items.ItemHandlerHelper;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SpiritAIManageMachine extends EntityAIBase {
+public class SpiritAIManageMachine extends Goal {
     //region Fields
     protected final EntitySpirit entity;
     protected final BlockSorter targetSorter;
@@ -71,7 +71,7 @@ public class SpiritAIManageMachine extends EntityAIBase {
      */
     private BlockPos getMoveTarget() {
         double angle = Math3DUtil.yaw(this.entity.getPositionVector(), Math3DUtil.getBlockCenter(this.targetBlock));
-        return this.targetBlock.offset(EnumFacing.fromAngle(angle).getOpposite());
+        return this.targetBlock.offset(Direction.fromAngle(angle).getOpposite());
     }
     //endregion Getter / Setter
 
@@ -83,7 +83,7 @@ public class SpiritAIManageMachine extends EntityAIBase {
             return false;
         }
         //if we have something in hand, we can
-        if (!this.entity.getHeldItem(EnumHand.MAIN_HAND).isEmpty()) {
+        if (!this.entity.getHeldItem(Hand.MAIN_HAND).isEmpty()) {
             return false;
         }
         this.resetTarget();
@@ -92,7 +92,7 @@ public class SpiritAIManageMachine extends EntityAIBase {
 
     @Override
     public boolean shouldContinueExecuting() {
-        return this.targetBlock != null && this.entity.getHeldItem(EnumHand.MAIN_HAND).isEmpty();
+        return this.targetBlock != null && this.entity.getHeldItem(Hand.MAIN_HAND).isEmpty();
     }
 
     public void resetTask() {
@@ -132,7 +132,7 @@ public class SpiritAIManageMachine extends EntityAIBase {
                                                           .getItemStack(currentOrder.comparator, currentOrder.amount,
                                                                   true);
                         IItemHandler handler = this.entity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY,
-                                EnumFacing.UP);
+                                Direction.UP);
                         if (!itemToExtract.isEmpty() &&
                             ItemHandlerHelper.insertItem(handler, itemToExtract, true).isEmpty()) {
                             //we can insert all, so we can perform for real now
@@ -154,7 +154,7 @@ public class SpiritAIManageMachine extends EntityAIBase {
                         IItemHandler machineHandler = tileEntity.getCapability(
                                 CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, machineReference.extractFacing);
                         IItemHandler entityHandler = this.entity.getCapability(
-                                CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.UP);
+                                CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, Direction.UP);
 
                         boolean movedAnyItems = false;
                         for (int i = 0; i < machineHandler.getSlots(); i++) {
@@ -181,7 +181,7 @@ public class SpiritAIManageMachine extends EntityAIBase {
                             TileEntity storageControllerProxy = this.findClosestStorageProxy();
 
                             this.entity.setDepositPosition(storageControllerProxy.getPos());
-                            this.entity.setDepositFacing(EnumFacing.UP);
+                            this.entity.setDepositFacing(Direction.UP);
                             this.targetBlock = null;
 
                         }
@@ -199,7 +199,7 @@ public class SpiritAIManageMachine extends EntityAIBase {
 
     //region Methods
     public boolean canSeeTarget() {
-        IBlockState targetBlockState = this.entity.world.getBlockState(this.targetBlock);
+        BlockState targetBlockState = this.entity.world.getBlockState(this.targetBlock);
         RayTraceResult rayTrace = targetBlockState.collisionRayTrace(this.entity.world, this.targetBlock,
                 this.entity.getPositionVector(), Math3DUtil.getBlockCenter(this.targetBlock));
 

@@ -26,7 +26,7 @@ import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.client.model.entity.ModelFoliot;
 import com.github.klikli_dev.occultism.common.entity.spirits.EntitySpirit;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.util.ResourceLocation;
 
 import javax.annotation.Nullable;
@@ -39,7 +39,7 @@ public class RenderFoliot extends RenderSpirit {
 
 
     //region Initialization
-    public RenderFoliot(RenderManager renderManager) {
+    public RenderFoliot(EntityRendererManager renderManager) {
         super(renderManager, new ModelFoliot(), 0.25f);
     }
     //endregion Initialization

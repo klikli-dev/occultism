@@ -22,7 +22,7 @@
 
 package com.github.klikli_dev.occultism.api.common.item;
 
-import net.minecraft.inventory.InventoryCrafting;
+import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 
@@ -36,6 +36,6 @@ public interface IIngredientModifyCraftingResult {
      * @param inventory the crafting inventory.
      * @param result    the result.
      */
-    void modifyResult(IRecipe recipe, InventoryCrafting inventory, ItemStack result);
+    void modifyResult(IRecipe recipe, CraftingInventory inventory, ItemStack result);
     //endregion Methods
 }

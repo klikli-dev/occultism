@@ -32,8 +32,8 @@ import com.github.klikli_dev.occultism.registry.RitualRegistry;
 import com.github.klikli_dev.occultism.registry.SpiritJobFactoryRegistry;
 import com.github.klikli_dev.occultism.util.ItemNBTUtil;
 import net.minecraft.advancements.CriteriaTriggers;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.EnumParticleTypes;
@@ -53,7 +53,7 @@ public class RitualDebug extends Ritual {
     //region Overrides
     @Override
     public void finish(World world, BlockPos goldenBowlPosition, TileEntityGoldenSacrificialBowl tileEntity,
-                       EntityPlayer castingPlayer, ItemStack activationItem) {
+                       PlayerEntity castingPlayer, ItemStack activationItem) {
 
         //prepare active book of calling
         ItemStack result = new ItemStack(ItemRegistry.BOOK_OF_CALLING_LUMBERJACK_ACTIVE_FOLIOT);
@@ -77,7 +77,7 @@ public class RitualDebug extends Ritual {
         foliot.setJob(exchange);
 
         //notify players nearby and spawn
-        for (EntityPlayerMP player : world.getEntitiesWithinAABB(EntityPlayerMP.class,
+        for (ServerPlayerEntity player : world.getEntitiesWithinAABB(ServerPlayerEntity.class,
                 foliot.getEntityBoundingBox().grow(50)))
             CriteriaTriggers.SUMMONED_ENTITY.trigger(player, foliot);
         world.spawnEntity(foliot);

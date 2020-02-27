@@ -22,9 +22,9 @@
 
 package com.github.klikli_dev.occultism.common.entity.ai;
 
-import net.minecraft.entity.ai.EntityAIBase;
+import net.minecraft.entity.ai.goal.Goal;
 
-public abstract class EntityAIPausable extends EntityAIBase {
+public abstract class EntityAIPausable extends Goal {
 
     //region Fields
     protected long lastPaused;

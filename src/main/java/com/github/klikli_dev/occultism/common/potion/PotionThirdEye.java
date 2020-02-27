@@ -25,13 +25,13 @@ package com.github.klikli_dev.occultism.common.potion;
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.registry.PotionRegistry;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Gui;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
+import net.minecraft.client.gui.AbstractGui;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.potion.Effect;
+import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.ResourceLocation;
 
-public class PotionThirdEye extends Potion {
+public class PotionThirdEye extends Effect {
 
     //region Fields
     public static final ResourceLocation ICON = new ResourceLocation(Occultism.MODID,
@@ -47,7 +47,7 @@ public class PotionThirdEye extends Potion {
 
     //region Overrides
     @Override
-    public void performEffect(EntityLivingBase entityLivingBaseIn, int amplifier) {
+    public void performEffect(LivingEntity entityLivingBaseIn, int amplifier) {
     }
 
     @Override
@@ -61,15 +61,15 @@ public class PotionThirdEye extends Potion {
     }
 
     @Override
-    public void renderInventoryEffect(int x, int y, PotionEffect effect, Minecraft mc) {
+    public void renderInventoryEffect(int x, int y, EffectInstance effect, Minecraft mc) {
         mc.getTextureManager().bindTexture(ICON);
-        Gui.drawScaledCustomSizeModalRect(x + 6, y + 7, 0, 0, 256, 256, 18, 18, 256, 256);
+        AbstractGui.drawScaledCustomSizeModalRect(x + 6, y + 7, 0, 0, 256, 256, 18, 18, 256, 256);
     }
 
     @Override
-    public void renderHUDEffect(int x, int y, PotionEffect effect, Minecraft mc, float alpha) {
+    public void renderHUDEffect(int x, int y, EffectInstance effect, Minecraft mc, float alpha) {
         mc.getTextureManager().bindTexture(ICON);
-        Gui.drawScaledCustomSizeModalRect(x + 3, y + 3, 0, 0, 256, 256, 18, 18, 256, 256);
+        AbstractGui.drawScaledCustomSizeModalRect(x + 3, y + 3, 0, 0, 256, 256, 18, 18, 256, 256);
     }
     //endregion Overrides
 }

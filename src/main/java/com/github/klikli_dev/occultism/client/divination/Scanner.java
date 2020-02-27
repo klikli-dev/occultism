@@ -24,8 +24,8 @@
 package com.github.klikli_dev.occultism.client.divination;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
@@ -37,7 +37,7 @@ public class Scanner {
     //region Fields
     protected Block target;
 
-    protected EntityPlayer player;
+    protected PlayerEntity player;
     protected Vec3d center;
     protected float radius;
     //radius squared for faster comparison of distance
@@ -62,7 +62,7 @@ public class Scanner {
     //endregion Initialization
 
     //region Methods
-    public void initialize(EntityPlayer player, Vec3d center, float radius, int totalTicks) {
+    public void initialize(PlayerEntity player, Vec3d center, float radius, int totalTicks) {
         this.player = player;
         this.center = center;
         this.radius = radius;
@@ -101,7 +101,7 @@ public class Scanner {
             }
 
             BlockPos pos = new BlockPos(this.x, this.y, this.z);
-            IBlockState state = world.getBlockState(pos);
+            BlockState state = world.getBlockState(pos);
             state = state.getActualState(world, pos);
 
             //if this is the block we search for, consume it.
@@ -128,7 +128,7 @@ public class Scanner {
         return true;
     }
 
-    public boolean isValidBlock(IBlockState state) {
+    public boolean isValidBlock(BlockState state) {
         return state.getBlock() == this.target;
     }
 

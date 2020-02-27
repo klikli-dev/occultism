@@ -30,13 +30,13 @@ import mezz.jei.api.gui.IGuiIngredient;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.recipe.transfer.IRecipeTransferError;
 import mezz.jei.api.recipe.transfer.IRecipeTransferHandler;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Container;
-import net.minecraft.inventory.InventoryCrafting;
-import net.minecraft.inventory.Slot;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.container.Container;
+import net.minecraft.inventory.CraftingInventory;
+import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.ListNBT;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -62,7 +62,7 @@ public class StorageControllerRecipeTransferHandler<T extends Container & IStora
 
     @Nullable
     @Override
-    public IRecipeTransferError transferRecipe(T container, IRecipeLayout recipeLayout, EntityPlayer player,
+    public IRecipeTransferError transferRecipe(T container, IRecipeLayout recipeLayout, PlayerEntity player,
                                                boolean maxTransfer, boolean doTransfer) {
         if (doTransfer) {
             Occultism.network.sendToServer(new MessageSetRecipe(this.recipeToTag(container, recipeLayout)));
@@ -73,12 +73,12 @@ public class StorageControllerRecipeTransferHandler<T extends Container & IStora
 
 
     //region Methods
-    public NBTTagCompound recipeToTag(Container container, IRecipeLayout recipeLayout) {
-        NBTTagCompound nbt = new NBTTagCompound();
+    public CompoundNBT recipeToTag(Container container, IRecipeLayout recipeLayout) {
+        CompoundNBT nbt = new CompoundNBT();
         Map<Integer, ? extends IGuiIngredient<ItemStack>> inputs = recipeLayout.getItemStacks().getGuiIngredients();
 
         for (Slot slot : container.inventorySlots) {
-            if (slot.inventory instanceof InventoryCrafting) {
+            if (slot.inventory instanceof CraftingInventory) {
 
                 //get ingredient from recipe layout
                 IGuiIngredient<ItemStack> ingredient = inputs.get(slot.getSlotIndex() + 1);
@@ -92,7 +92,7 @@ public class StorageControllerRecipeTransferHandler<T extends Container & IStora
                     continue;
                 }
 
-                NBTTagList invList = new NBTTagList();
+                ListNBT invList = new ListNBT();
                 for (int i = 0; i < possibleItems.size(); i++) {
                     if (i >= 5) {
                         break; //cap possible items at 5 to avoid mega-messages that hit network cap
@@ -101,7 +101,7 @@ public class StorageControllerRecipeTransferHandler<T extends Container & IStora
                     //if stack is not empty, write to result
                     ItemStack itemStack = possibleItems.get(i);
                     if (!itemStack.isEmpty()) {
-                        NBTTagCompound stackTag = new NBTTagCompound();
+                        CompoundNBT stackTag = new CompoundNBT();
                         itemStack.writeToNBT(stackTag);
                         invList.appendTag(stackTag);
                     }

@@ -29,12 +29,12 @@ import com.github.klikli_dev.occultism.common.misc.ItemStackComparator;
 import com.github.klikli_dev.occultism.util.StorageUtil;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.inventory.InventoryCrafting;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.ListNBT;
 import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
@@ -50,7 +50,7 @@ import java.util.Map;
 public class MessageSetRecipe extends MessageBase<MessageSetRecipe> {
 
     //region Fields
-    private NBTTagCompound nbt;
+    private CompoundNBT nbt;
     private int index = 0;
     //endregion Fields
 
@@ -58,20 +58,20 @@ public class MessageSetRecipe extends MessageBase<MessageSetRecipe> {
     public MessageSetRecipe() {
     }
 
-    public MessageSetRecipe(NBTTagCompound nbt) {
+    public MessageSetRecipe(CompoundNBT nbt) {
         this.nbt = nbt;
     }
     //endregion Initialization
 
     //region Overrides
     @Override
-    public void onClientReceived(Minecraft minecraft, MessageSetRecipe message, EntityPlayer player,
+    public void onClientReceived(Minecraft minecraft, MessageSetRecipe message, PlayerEntity player,
                                  MessageContext context) {
 
     }
 
     @Override
-    public void onServerReceived(MinecraftServer minecraftServer, MessageSetRecipe message, EntityPlayerMP player,
+    public void onServerReceived(MinecraftServer minecraftServer, MessageSetRecipe message, ServerPlayerEntity player,
                                  MessageContext context) {
 
         if (!(player.openContainer instanceof IStorageControllerContainer)) {
@@ -85,7 +85,7 @@ public class MessageSetRecipe extends MessageBase<MessageSetRecipe> {
         //clear the current crafting matrix
         StorageUtil.clearOpenCraftingMatrix(player, false);
 
-        InventoryCrafting craftMatrix = container.getCraftMatrix();
+        CraftingInventory craftMatrix = container.getCraftMatrix();
         String[] oreDictKeys;
         for (int slot = 0; slot < 9; slot++) {
             Map<Integer, ItemStack> map = new HashMap<Integer, ItemStack>();
@@ -114,9 +114,9 @@ public class MessageSetRecipe extends MessageBase<MessageSetRecipe> {
             else {
                 //if the tag is not a string, it's a simple list of itemstacks
                 isOreDict = false;
-                NBTTagList invList = message.nbt.getTagList("s" + slot, Constants.NBT.TAG_COMPOUND);
+                ListNBT invList = message.nbt.getTagList("s" + slot, Constants.NBT.TAG_COMPOUND);
                 for (int i = 0; i < invList.tagCount(); i++) {
-                    NBTTagCompound stackTag = invList.getCompoundTagAt(i);
+                    CompoundNBT stackTag = invList.getCompoundTagAt(i);
                     ItemStack s = new ItemStack(stackTag);
                     map.put(i, s);
                 }

@@ -22,7 +22,7 @@
 
 package com.github.klikli_dev.occultism.api.common.item;
 
-import net.minecraft.inventory.InventoryCrafting;
+import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.world.World;
@@ -42,6 +42,6 @@ public interface IIngredientPreventCrafting {
      * @param world     the world.
      * @return true to prevent crafting.
      */
-    boolean shouldPreventCrafting(ItemStack itemStack, IRecipe recipe, InventoryCrafting inventory, World world);
+    boolean shouldPreventCrafting(ItemStack itemStack, IRecipe recipe, CraftingInventory inventory, World world);
     //endregion Methods
 }

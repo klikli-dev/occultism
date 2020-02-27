@@ -26,10 +26,10 @@ import com.github.klikli_dev.occultism.api.common.data.GlobalBlockPos;
 import com.github.klikli_dev.occultism.api.common.tile.IStorageController;
 import com.github.klikli_dev.occultism.api.common.tile.IStorageControllerProxy;
 import com.github.klikli_dev.occultism.util.TileEntityUtil;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.block.BlockState;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
@@ -63,7 +63,7 @@ public class TileEntityStableWormhole extends TileEntityBase implements IStorage
     }
 
     @Override
-    public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState) {
+    public boolean shouldRefresh(World world, BlockPos pos, BlockState oldState, BlockState newState) {
         return (oldState.getBlock() != newState.getBlock());
     }
 
@@ -73,7 +73,7 @@ public class TileEntityStableWormhole extends TileEntityBase implements IStorage
     }
 
     @Override
-    public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
+    public boolean hasCapability(Capability<?> capability, Direction facing) {
         if (this.getLinkedStorageController() != null) {
             return ((TileEntity) this.getLinkedStorageController()).hasCapability(capability, facing);
         }
@@ -81,7 +81,7 @@ public class TileEntityStableWormhole extends TileEntityBase implements IStorage
     }
 
     @Override
-    public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
+    public <T> T getCapability(Capability<T> capability, Direction facing) {
         if (this.getLinkedStorageController() != null) {
             return ((TileEntity) this.getLinkedStorageController()).getCapability(capability, facing);
         }
@@ -89,7 +89,7 @@ public class TileEntityStableWormhole extends TileEntityBase implements IStorage
     }
 
     @Override
-    public void readFromNetworkNBT(NBTTagCompound compound) {
+    public void readFromNetworkNBT(CompoundNBT compound) {
         if (compound.hasKey("linkedStorageControllerPosition"))
             this.linkedStorageControllerPosition = GlobalBlockPos.fromNbt(
                     compound.getCompoundTag("linkedStorageControllerPosition"));
@@ -97,10 +97,10 @@ public class TileEntityStableWormhole extends TileEntityBase implements IStorage
     }
 
     @Override
-    public NBTTagCompound writeToNetworkNBT(NBTTagCompound compound) {
+    public CompoundNBT writeToNetworkNBT(CompoundNBT compound) {
         if (this.linkedStorageControllerPosition != null)
             compound.setTag("linkedStorageControllerPosition",
-                    this.linkedStorageControllerPosition.writeToNBT(new NBTTagCompound()));
+                    this.linkedStorageControllerPosition.writeToNBT(new CompoundNBT()));
         return super.writeToNetworkNBT(compound);
     }
     //endregion Overrides

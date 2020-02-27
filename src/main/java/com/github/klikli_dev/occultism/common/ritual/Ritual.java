@@ -30,9 +30,9 @@ import com.github.klikli_dev.occultism.common.tile.TileEntitySacrificialBowl;
 import com.github.klikli_dev.occultism.network.MessageParticle;
 import com.github.klikli_dev.occultism.registry.RitualRegistry;
 import com.github.klikli_dev.occultism.registry.SoundRegistry;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.SoundEvents;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.Ingredient;
@@ -41,7 +41,7 @@ import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.registries.IForgeRegistryEntry;
@@ -90,7 +90,7 @@ public abstract class Ritual extends IForgeRegistryEntry.Impl<Ritual> {
     /**
      * The predicate to check sacrifices against.
      */
-    public Predicate<EntityLivingBase> sacrificePredicate;
+    public Predicate<LivingEntity> sacrificePredicate;
 
     /**
      * The range to look for sacrificial bowls for additional ingredients.
@@ -147,7 +147,7 @@ public abstract class Ritual extends IForgeRegistryEntry.Impl<Ritual> {
      * @param totalTime          the total time it takes to finish the ritual.
      */
     public Ritual(String name, Pentacle pentacle, Ingredient startingItem,
-                  Predicate<EntityLivingBase> sacrificePredicate, int totalTime) {
+                  Predicate<LivingEntity> sacrificePredicate, int totalTime) {
         this(name, pentacle, startingItem, null, sacrificePredicate, totalTime);
     }
 
@@ -162,7 +162,7 @@ public abstract class Ritual extends IForgeRegistryEntry.Impl<Ritual> {
      * @param totalTime                       the total time it takes to finish the ritual.
      */
     public Ritual(String name, Pentacle pentacle, Ingredient startingItem, String additionalIngredientsRecipeName,
-                  Predicate<EntityLivingBase> sacrificePredicate, int totalTime) {
+                  Predicate<LivingEntity> sacrificePredicate, int totalTime) {
         this(name, pentacle, startingItem, additionalIngredientsRecipeName, SACRIFICIAL_BOWL_RANGE, sacrificePredicate,
                 totalTime);
     }
@@ -179,7 +179,7 @@ public abstract class Ritual extends IForgeRegistryEntry.Impl<Ritual> {
      * @param totalTime                       the total time it takes to finish the ritual.
      */
     public Ritual(String name, Pentacle pentacle, Ingredient startingItem, String additionalIngredientsRecipeName,
-                  int sacrificialBowlRange, Predicate<EntityLivingBase> sacrificePredicate, int totalTime) {
+                  int sacrificialBowlRange, Predicate<LivingEntity> sacrificePredicate, int totalTime) {
         RitualRegistry.registerRitual(this, name);
         this.pentacle = pentacle;
         this.startingItem = startingItem;
@@ -256,7 +256,7 @@ public abstract class Ritual extends IForgeRegistryEntry.Impl<Ritual> {
      * @return
      */
     public boolean isValid(World world, BlockPos goldenBowlPosition, TileEntityGoldenSacrificialBowl tileEntity,
-                           EntityPlayer castingPlayer, ItemStack activationItem,
+                           PlayerEntity castingPlayer, ItemStack activationItem,
                            List<Ingredient> remainingAdditionalIngredients) {
         return this.startingItem.apply(activationItem) &&
                this.areAdditionalIngredientsFulfilled(world, goldenBowlPosition, remainingAdditionalIngredients) &&
@@ -273,9 +273,9 @@ public abstract class Ritual extends IForgeRegistryEntry.Impl<Ritual> {
      * @param activationItem     the item used to start the ritual.
      */
     public void start(World world, BlockPos goldenBowlPosition, TileEntityGoldenSacrificialBowl tileEntity,
-                      EntityPlayer castingPlayer, ItemStack activationItem) {
+                      PlayerEntity castingPlayer, ItemStack activationItem) {
         world.playSound(null, goldenBowlPosition, SoundRegistry.START_RITUAL, SoundCategory.BLOCKS, 1, 1);
-        castingPlayer.sendStatusMessage(new TextComponentTranslation(this.getStartedMessage()), true);
+        castingPlayer.sendStatusMessage(new TranslationTextComponent(this.getStartedMessage()), true);
     }
 
     /**
@@ -288,10 +288,10 @@ public abstract class Ritual extends IForgeRegistryEntry.Impl<Ritual> {
      * @param activationItem     the item used to start the ritual.
      */
     public void finish(World world, BlockPos goldenBowlPosition, TileEntityGoldenSacrificialBowl tileEntity,
-                       EntityPlayer castingPlayer, ItemStack activationItem) {
+                       PlayerEntity castingPlayer, ItemStack activationItem) {
         world.playSound(null, goldenBowlPosition, SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.BLOCKS, 0.7f,
                 0.7f);
-        castingPlayer.sendStatusMessage(new TextComponentTranslation(this.getFinishedMessage()), true);
+        castingPlayer.sendStatusMessage(new TranslationTextComponent(this.getFinishedMessage()), true);
     }
 
     /**
@@ -304,9 +304,9 @@ public abstract class Ritual extends IForgeRegistryEntry.Impl<Ritual> {
      * @param activationItem     the item used to start the ritual.
      */
     public void interrupt(World world, BlockPos goldenBowlPosition, TileEntityGoldenSacrificialBowl tileEntity,
-                          EntityPlayer castingPlayer, ItemStack activationItem) {
+                          PlayerEntity castingPlayer, ItemStack activationItem) {
         world.playSound(null, goldenBowlPosition, SoundEvents.ENTITY_CHICKEN_EGG, SoundCategory.BLOCKS, 0.7f, 0.7f);
-        castingPlayer.sendStatusMessage(new TextComponentTranslation(this.getInterruptedMessage()), true);
+        castingPlayer.sendStatusMessage(new TranslationTextComponent(this.getInterruptedMessage()), true);
     }
 
     /**
@@ -321,7 +321,7 @@ public abstract class Ritual extends IForgeRegistryEntry.Impl<Ritual> {
      * @param time                           the current ritual time.
      */
     public void update(World world, BlockPos goldenBowlPosition, TileEntityGoldenSacrificialBowl tileEntity,
-                       EntityPlayer castingPlayer, ItemStack activationItem,
+                       PlayerEntity castingPlayer, ItemStack activationItem,
                        List<Ingredient> remainingAdditionalIngredients, int time) {
     }
 
@@ -336,7 +336,7 @@ public abstract class Ritual extends IForgeRegistryEntry.Impl<Ritual> {
      * @param time               the current ritual time.
      */
     public void update(World world, BlockPos goldenBowlPosition, TileEntityGoldenSacrificialBowl tileEntity,
-                       EntityPlayer castingPlayer, ItemStack activationItem, int time) {
+                       PlayerEntity castingPlayer, ItemStack activationItem, int time) {
         this.update(world, goldenBowlPosition, tileEntity, castingPlayer, activationItem, new ArrayList<Ingredient>(),
                 time);
     }
@@ -539,7 +539,7 @@ public abstract class Ritual extends IForgeRegistryEntry.Impl<Ritual> {
      * @param spiritName         the spirit name.
      */
     public void prepareSpiritForSpawn(EntitySpirit spirit, World world, BlockPos goldenBowlPosition,
-                                      EntityPlayer castingPlayer, String spiritName) {
+                                      PlayerEntity castingPlayer, String spiritName) {
         spirit.onInitialSpawn(world.getDifficultyForLocation(goldenBowlPosition), null);
         spirit.setTamedBy(castingPlayer);
         spirit.setPositionAndRotation(goldenBowlPosition.getX(), goldenBowlPosition.getY(), goldenBowlPosition.getZ(),
@@ -553,7 +553,7 @@ public abstract class Ritual extends IForgeRegistryEntry.Impl<Ritual> {
      * @param entity the entity to check against.
      * @return true if the entity is a valid sacrifice.
      */
-    public boolean isValidSacrifice(EntityLivingBase entity) {
+    public boolean isValidSacrifice(LivingEntity entity) {
         if (this.sacrificePredicate == null)
             return false;
 

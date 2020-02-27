@@ -27,7 +27,7 @@ import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.client.ClientData;
 import com.github.klikli_dev.occultism.util.RenderUtil;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
@@ -58,7 +58,7 @@ public class RenderHandler {
             return;
         }
 
-        EntityPlayerSP p = Minecraft.getMinecraft().player;
+        ClientPlayerEntity p = Minecraft.getMinecraft().player;
         double doubleX = p.lastTickPosX + (p.posX - p.lastTickPosX) * event.getPartialTicks();
         double doubleY = p.lastTickPosY + (p.posY - p.lastTickPosY) * event.getPartialTicks();
         double doubleZ = p.lastTickPosZ + (p.posZ - p.lastTickPosZ) * event.getPartialTicks();

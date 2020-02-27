@@ -29,11 +29,11 @@ import com.github.klikli_dev.occultism.common.jobs.SpiritJobManageMachine;
 import com.github.klikli_dev.occultism.util.ItemNBTUtil;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.Hand;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
 public class MessageSetManagedMachine extends MessageBase<MessageSetManagedMachine> {
@@ -53,15 +53,15 @@ public class MessageSetManagedMachine extends MessageBase<MessageSetManagedMachi
 
     //region Overrides
     @Override
-    public void onClientReceived(Minecraft minecraft, MessageSetManagedMachine message, EntityPlayer player,
+    public void onClientReceived(Minecraft minecraft, MessageSetManagedMachine message, PlayerEntity player,
                                  MessageContext context) {
 
     }
 
     @Override
     public void onServerReceived(MinecraftServer minecraftServer, MessageSetManagedMachine message,
-                                 EntityPlayerMP player, MessageContext context) {
-        ItemStack stack = player.getHeldItem(EnumHand.MAIN_HAND);
+                                 ServerPlayerEntity player, MessageContext context) {
+        ItemStack stack = player.getHeldItem(Hand.MAIN_HAND);
         if (stack.getItem() instanceof ItemBookOfCallingActive) {
             EntitySpirit spirit = ItemNBTUtil.getSpiritEntity(stack);
             if (spirit != null) {

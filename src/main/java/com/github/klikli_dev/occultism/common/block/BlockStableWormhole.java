@@ -25,26 +25,24 @@ package com.github.klikli_dev.occultism.common.block;
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.tile.TileEntityStableWormhole;
 import com.github.klikli_dev.occultism.registry.BlockRegistry;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockDirectional;
-import net.minecraft.block.SoundType;
+import net.minecraft.block.*;
+import net.minecraft.block.DirectionalBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockStateContainer;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
-import net.minecraft.util.EnumBlockRenderType;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.block.BlockRenderType;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.world.ChunkCache;
+import net.minecraft.world.Region;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
@@ -76,20 +74,20 @@ public class BlockStableWormhole extends Block {
 
     //region Overrides
     @Override
-    public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(BlockDirectional.FACING, EnumFacing.byIndex(meta));
+    public BlockState getStateFromMeta(int meta) {
+        return this.getDefaultState().withProperty(DirectionalBlock.FACING, Direction.byIndex(meta));
     }
 
     @Override
-    public int getMetaFromState(IBlockState state) {
-        return state.getValue(BlockDirectional.FACING).getIndex();
+    public int getMetaFromState(BlockState state) {
+        return state.getValue(DirectionalBlock.FACING).getIndex();
     }
 
     @Override
-    public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
+    public BlockState getActualState(BlockState state, IBlockAccess worldIn, BlockPos pos) {
         //getActualState can be called from different threads, in which case a ChunkCache will be provided.
         //for chunk caches we need use a read-only variant of getTileEntity
-        TileEntity tileEntity = worldIn instanceof ChunkCache ? ((ChunkCache) worldIn).getTileEntity(pos,
+        TileEntity tileEntity = worldIn instanceof Region ? ((Region) worldIn).getTileEntity(pos,
                 Chunk.EnumCreateEntityType.CHECK) : worldIn.getTileEntity(pos);
         boolean linked = false;
         if (tileEntity instanceof TileEntityStableWormhole)
@@ -98,18 +96,18 @@ public class BlockStableWormhole extends Block {
     }
 
     @Override
-    public boolean isFullCube(IBlockState state) {
+    public boolean isFullCube(BlockState state) {
         return false;
     }
 
     @Override
-    public EnumBlockRenderType getRenderType(IBlockState state) {
-        return EnumBlockRenderType.MODEL;
+    public BlockRenderType getRenderType(BlockState state) {
+        return BlockRenderType.MODEL;
     }
 
     @Override
-    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
-        switch (state.getValue(BlockDirectional.FACING)) {
+    public AxisAlignedBB getBoundingBox(BlockState state, IBlockAccess world, BlockPos pos) {
+        switch (state.getValue(DirectionalBlock.FACING)) {
             case EAST:
                 return EAST_AABB;
             case WEST:
@@ -127,16 +125,16 @@ public class BlockStableWormhole extends Block {
     }
 
     @Override
-    public boolean isOpaqueCube(IBlockState state) {
+    public boolean isOpaqueCube(BlockState state) {
         return false;
     }
 
     @Override
-    public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
+    public void breakBlock(World worldIn, BlockPos pos, BlockState state) {
         TileEntity tileentity = worldIn.getTileEntity(pos);
         if (tileentity instanceof TileEntityStableWormhole) {
             ItemStack itemstack = new ItemStack(Item.getItemFromBlock(this));
-            itemstack.setTagInfo("BlockEntityTag", tileentity.writeToNBT(new NBTTagCompound()));
+            itemstack.setTagInfo("BlockEntityTag", tileentity.writeToNBT(new CompoundNBT()));
             spawnAsEntity(worldIn, pos, itemstack);
             worldIn.updateComparatorOutputLevel(pos, state.getBlock());
         }
@@ -145,7 +143,7 @@ public class BlockStableWormhole extends Block {
     }
 
     @Override
-    public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune) {
+    public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, BlockState state, float chance, int fortune) {
     }
 
     @SideOnly(Side.CLIENT)
@@ -154,27 +152,27 @@ public class BlockStableWormhole extends Block {
     }
 
     @Override
-    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY,
-                                            float hitZ, int meta, EntityLivingBase placer) {
+    public BlockState getStateForPlacement(World worldIn, BlockPos pos, Direction facing, float hitX, float hitY,
+                                           float hitZ, int meta, LivingEntity placer) {
         //place on the face the placer looks at, this is more comfortable than using entity facing.
         RayTraceResult result = placer.rayTrace(10, 1.0f);
-        return this.getDefaultState().withProperty(BlockDirectional.FACING, result.sideHit);
+        return this.getDefaultState().withProperty(DirectionalBlock.FACING, result.sideHit);
     }
 
     @Override
-    public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer,
+    public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, LivingEntity placer,
                                 ItemStack stack) {
         Occultism.proxy.scheduleDelayedTask(worldIn, () -> worldIn.markBlockRangeForRenderUpdate(pos, pos), 1000);
         super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
     }
 
     @Override
-    public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {
+    public ItemStack getItem(World worldIn, BlockPos pos, BlockState state) {
         ItemStack itemstack = super.getItem(worldIn, pos, state);
 
         TileEntity tileentity = worldIn.getTileEntity(pos);
         if (tileentity instanceof TileEntityStableWormhole) {
-            NBTTagCompound nbttagcompound = tileentity.writeToNBT(new NBTTagCompound());
+            CompoundNBT nbttagcompound = tileentity.writeToNBT(new CompoundNBT());
             if (!nbttagcompound.isEmpty()) {
                 itemstack.setTagInfo("BlockEntityTag", nbttagcompound);
             }
@@ -185,22 +183,22 @@ public class BlockStableWormhole extends Block {
 
     @Override
     protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, BlockDirectional.FACING, LINKED);
+        return new BlockStateContainer(this, DirectionalBlock.FACING, LINKED);
     }
 
     @Override
-    public boolean hasTileEntity(IBlockState state) {
+    public boolean hasTileEntity(BlockState state) {
         return true;
     }
 
     @Nullable
     @Override
-    public TileEntity createTileEntity(World world, IBlockState state) {
+    public TileEntity createTileEntity(World world, BlockState state) {
         return new TileEntityStableWormhole();
     }
 
     @Override
-    public boolean canRenderInLayer(IBlockState state, BlockRenderLayer layer) {
+    public boolean canRenderInLayer(BlockState state, BlockRenderLayer layer) {
         return super.canRenderInLayer(state, layer) || layer == BlockRenderLayer.SOLID;
     }
     //endregion Overrides

@@ -22,24 +22,24 @@
 
 package com.github.klikli_dev.occultism.common.world.cave;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockStone;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Blocks;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.block.Blocks;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public abstract class CaveDecorator implements ICaveDecorator {
 
     //region Fields
-    public IBlockState floorState;
-    public IBlockState ceilingState;
-    public IBlockState wallState;
+    public BlockState floorState;
+    public BlockState ceilingState;
+    public BlockState wallState;
     //endregion Fields
 
     //region Initialization
 
-    public CaveDecorator(IBlockState floorState, IBlockState ceilingState, IBlockState wallState) {
+    public CaveDecorator(BlockState floorState, BlockState ceilingState, BlockState wallState) {
         this.floorState = floorState;
         this.ceilingState = ceilingState;
         this.wallState = wallState;
@@ -57,7 +57,7 @@ public abstract class CaveDecorator implements ICaveDecorator {
 
     @Override
     public void fill(World world, BlockPos pos, CaveDecoratordata data) {
-        IBlockState state = world.getBlockState(pos);
+        BlockState state = world.getBlockState(pos);
         if (state.getBlockHardness(world, pos) == -1 || world.canBlockSeeSky(pos))
             return;
 
@@ -81,23 +81,23 @@ public abstract class CaveDecorator implements ICaveDecorator {
     //endregion Overrides
 
     //region Methods
-    public void fillFloor(World world, BlockPos pos, IBlockState state) {
+    public void fillFloor(World world, BlockPos pos, BlockState state) {
         if (this.floorState != null) {
             world.setBlockState(pos, this.floorState, 2);
         }
     }
 
-    public void fillCeiling(World world, BlockPos pos, IBlockState state) {
+    public void fillCeiling(World world, BlockPos pos, BlockState state) {
         if (this.ceilingState != null)
             world.setBlockState(pos, this.ceilingState, 2);
     }
 
-    public void fillWall(World world, BlockPos pos, IBlockState state) {
+    public void fillWall(World world, BlockPos pos, BlockState state) {
         if (this.wallState != null)
             world.setBlockState(pos, this.wallState, 2);
     }
 
-    public void fillInside(World world, BlockPos pos, IBlockState state) {
+    public void fillInside(World world, BlockPos pos, BlockState state) {
         //world.setBlockState(pos, Blocks.AIR.getDefaultState(), 2);
     }
 
@@ -113,7 +113,7 @@ public abstract class CaveDecorator implements ICaveDecorator {
     public void finalInsidePass(World world, BlockPos pos) {
     }
 
-    public boolean isFloor(World world, BlockPos pos, IBlockState state) {
+    public boolean isFloor(World world, BlockPos pos, BlockState state) {
         if (!state.isFullBlock() || !state.isOpaqueCube())
             return false;
 
@@ -121,7 +121,7 @@ public abstract class CaveDecorator implements ICaveDecorator {
         return world.isAirBlock(upPos) || world.getBlockState(upPos).getBlock().isReplaceable(world, upPos);
     }
 
-    public boolean isCeiling(World world, BlockPos pos, IBlockState state) {
+    public boolean isCeiling(World world, BlockPos pos, BlockState state) {
         if (!state.isFullBlock() || !state.isOpaqueCube())
             return false;
 
@@ -129,18 +129,18 @@ public abstract class CaveDecorator implements ICaveDecorator {
         return world.isAirBlock(downPos); // || world.getBlockState(downPos).getBlock().isReplaceable(world, downPos);
     }
 
-    public boolean isWall(World world, BlockPos pos, IBlockState state) {
+    public boolean isWall(World world, BlockPos pos, BlockState state) {
         if (!state.isFullBlock() || !state.isOpaqueCube() || !this.isStone(state))
             return false;
 
         return this.isBorder(world, pos);
     }
 
-    public EnumFacing getBorderFacing(World world, BlockPos pos) {
-        IBlockState state = world.getBlockState(pos);
-        for (EnumFacing facing : EnumFacing.HORIZONTALS) {
+    public Direction getBorderFacing(World world, BlockPos pos) {
+        BlockState state = world.getBlockState(pos);
+        for (Direction facing : Direction.HORIZONTALS) {
             BlockPos offsetPos = pos.offset(facing);
-            IBlockState stateAt = world.getBlockState(offsetPos);
+            BlockState stateAt = world.getBlockState(offsetPos);
 
             if (state != stateAt && world.isAirBlock(offsetPos) || stateAt.getBlock().isReplaceable(world, offsetPos))
                 return facing;
@@ -153,11 +153,11 @@ public abstract class CaveDecorator implements ICaveDecorator {
         return this.getBorderFacing(world, pos) != null;
     }
 
-    public boolean isInside(IBlockState state) {
+    public boolean isInside(BlockState state) {
         return this.isStone(state);
     }
 
-    public boolean isStone(IBlockState state) {
+    public boolean isStone(BlockState state) {
         if (state != null) {
             if (state.getBlock() == Blocks.STONE) {
                 return state.getValue(BlockStone.VARIANT).isNatural();

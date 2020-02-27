@@ -24,13 +24,13 @@ package com.github.klikli_dev.occultism.common.entity.ai;
 
 import com.github.klikli_dev.occultism.common.entity.spirits.EntitySpirit;
 import com.github.klikli_dev.occultism.util.Math3DUtil;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.ChestTileEntity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityChest;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -59,7 +59,7 @@ public class SpiritAIDepositItems extends EntityAIPausable {
      */
     private BlockPos getMoveTarget() {
         double angle = Math3DUtil.yaw(this.entity.getPositionVector(), Math3DUtil.getBlockCenter(this.targetBlock));
-        return this.targetBlock.offset(EnumFacing.fromAngle(angle).getOpposite());
+        return this.targetBlock.offset(Direction.fromAngle(angle).getOpposite());
     }
     //endregion Getter / Setter
 
@@ -71,7 +71,7 @@ public class SpiritAIDepositItems extends EntityAIPausable {
             return false;
         }
         //nothing to deposit in hand
-        if (this.entity.getHeldItem(EnumHand.MAIN_HAND).isEmpty()) {
+        if (this.entity.getHeldItem(Hand.MAIN_HAND).isEmpty()) {
             return false;
         }
         this.resetTarget();
@@ -80,7 +80,7 @@ public class SpiritAIDepositItems extends EntityAIPausable {
 
     @Override
     public boolean shouldContinueExecuting() {
-        return !this.isPaused() && this.targetBlock != null && !this.entity.getHeldItem(EnumHand.MAIN_HAND).isEmpty();
+        return !this.isPaused() && this.targetBlock != null && !this.entity.getHeldItem(Hand.MAIN_HAND).isEmpty();
     }
 
     public void resetTask() {
@@ -127,7 +127,7 @@ public class SpiritAIDepositItems extends EntityAIPausable {
                         this.resetTarget();
                         return;
                     }
-                    ItemStack duplicate = this.entity.getHeldItem(EnumHand.MAIN_HAND).copy();
+                    ItemStack duplicate = this.entity.getHeldItem(Hand.MAIN_HAND).copy();
 
                     //simulate insertion
                     ItemStack toInsert = ItemHandlerHelper.insertItem(handler, duplicate, true);
@@ -136,7 +136,7 @@ public class SpiritAIDepositItems extends EntityAIPausable {
                         ItemHandlerHelper.insertItem(handler, duplicate, false);
                         //if we insterted everything
                         if (toInsert.isEmpty()) {
-                            this.entity.setHeldItem(EnumHand.MAIN_HAND, ItemStack.EMPTY);
+                            this.entity.setHeldItem(Hand.MAIN_HAND, ItemStack.EMPTY);
                             this.targetBlock = null;
                             this.resetTask();
                         }
@@ -161,7 +161,7 @@ public class SpiritAIDepositItems extends EntityAIPausable {
 
     //region Methods
     public boolean canSeeTarget() {
-        IBlockState targetBlockState = this.entity.world.getBlockState(this.targetBlock);
+        BlockState targetBlockState = this.entity.world.getBlockState(this.targetBlock);
         RayTraceResult rayTrace = targetBlockState.collisionRayTrace(this.entity.world, this.targetBlock,
                 this.entity.getPositionVector(), Math3DUtil.getBlockCenter(this.targetBlock));
 
@@ -182,8 +182,8 @@ public class SpiritAIDepositItems extends EntityAIPausable {
      * @param open       true to open the chest, false to close it.
      */
     public void toggleChest(IInventory tileEntity, boolean open) {
-        if (tileEntity instanceof TileEntityChest) {
-            TileEntityChest chest = (TileEntityChest) tileEntity;
+        if (tileEntity instanceof ChestTileEntity) {
+            ChestTileEntity chest = (ChestTileEntity) tileEntity;
             if (open) {
                 chest.numPlayersUsing++;
                 this.entity.world.addBlockEvent(this.targetBlock, chest.getBlockType(), 1, chest.numPlayersUsing);

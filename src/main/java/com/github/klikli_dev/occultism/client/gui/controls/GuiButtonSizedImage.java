@@ -23,11 +23,11 @@
 package com.github.klikli_dev.occultism.client.gui.controls;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiButtonImage;
+import net.minecraft.client.gui.widget.button.ImageButton;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
 
-public class GuiButtonSizedImage extends GuiButtonImage {
+public class GuiButtonSizedImage extends ImageButton {
     //region Fields
     protected final ResourceLocation resourceLocation;
     protected final int xTexStart;

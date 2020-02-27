@@ -30,7 +30,7 @@ import com.github.klikli_dev.occultism.common.jobs.SpiritJobManageMachine;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.*;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 
@@ -73,18 +73,18 @@ public class ItemNBTUtil {
     }
 
     public static void setBoundSpiritName(ItemStack stack, String name) {
-        stack.setTagInfo(SPIRIT_NAME_TAG, new NBTTagString(name));
+        stack.setTagInfo(SPIRIT_NAME_TAG, new StringNBT(name));
     }
 
     public static String getBoundSpiritName(ItemStack stack) {
-        NBTTagCompound compound = stack.getTagCompound();
+        CompoundNBT compound = stack.getTagCompound();
         if (compound == null || !compound.hasKey(SPIRIT_NAME_TAG))
             generateBoundSpiritName(stack);
         return stack.getTagCompound().getString(SPIRIT_NAME_TAG);
     }
 
     public static int getItemMode(ItemStack stack) {
-        NBTTagCompound compound = stack.getTagCompound();
+        CompoundNBT compound = stack.getTagCompound();
         if (compound == null || !compound.hasKey(ITEM_MODE_TAG))
             setItemMode(stack, 0);
 
@@ -92,11 +92,11 @@ public class ItemNBTUtil {
     }
 
     public static void setItemMode(ItemStack stack, int mode) {
-        stack.setTagInfo(ITEM_MODE_TAG, new NBTTagInt(mode));
+        stack.setTagInfo(ITEM_MODE_TAG, new IntNBT(mode));
     }
 
     public static GlobalBlockPos getStorageControllerPosition(ItemStack stack) {
-        NBTTagCompound compound = stack.getTagCompound();
+        CompoundNBT compound = stack.getTagCompound();
         if (compound == null || !compound.hasKey(STORAGE_CONTROLLER_POSITION_TAG))
             return null;
 
@@ -105,11 +105,11 @@ public class ItemNBTUtil {
 
     public static void setStorageControllerPosition(ItemStack stack, GlobalBlockPos position) {
         if (position != null)
-            stack.setTagInfo(STORAGE_CONTROLLER_POSITION_TAG, position.writeToNBT(new NBTTagCompound()));
+            stack.setTagInfo(STORAGE_CONTROLLER_POSITION_TAG, position.writeToNBT(new CompoundNBT()));
     }
 
     public static MachineReference getManagedMachine(ItemStack stack) {
-        NBTTagCompound compound = stack.getTagCompound();
+        CompoundNBT compound = stack.getTagCompound();
         if (compound == null || !compound.hasKey(MANAGED_MACHINE))
             return null;
 
@@ -118,11 +118,11 @@ public class ItemNBTUtil {
 
     public static void setManagedMachine(ItemStack stack, MachineReference position) {
         if (position != null)
-            stack.setTagInfo(MANAGED_MACHINE, position.writeToNBT(new NBTTagCompound()));
+            stack.setTagInfo(MANAGED_MACHINE, position.writeToNBT(new CompoundNBT()));
     }
 
     public static GlobalBlockPos getDepositPosition(ItemStack stack) {
-        NBTTagCompound compound = stack.getTagCompound();
+        CompoundNBT compound = stack.getTagCompound();
         if (compound == null || !compound.hasKey(DEPOSIT_POSITION_TAG))
             return null;
 
@@ -131,22 +131,22 @@ public class ItemNBTUtil {
 
     public static void setDepositPosition(ItemStack stack, BlockPos position) {
         if (position != null)
-            stack.setTagInfo(DEPOSIT_POSITION_TAG, new NBTTagLong(position.toLong()));
+            stack.setTagInfo(DEPOSIT_POSITION_TAG, new LongNBT(position.toLong()));
     }
 
-    public static EnumFacing getDepositFacing(ItemStack stack) {
-        NBTTagCompound compound = stack.getTagCompound();
+    public static Direction getDepositFacing(ItemStack stack) {
+        CompoundNBT compound = stack.getTagCompound();
         if (compound == null || !compound.hasKey(DEPOSIT_FACING_TAG))
             return null;
-        return EnumFacing.values()[compound.getInteger(DEPOSIT_FACING_TAG)];
+        return Direction.values()[compound.getInteger(DEPOSIT_FACING_TAG)];
     }
 
-    public static void setDepostFacing(ItemStack stack, EnumFacing facing) {
-        stack.setTagInfo(DEPOSIT_POSITION_TAG, new NBTTagInt(facing.ordinal()));
+    public static void setDepostFacing(ItemStack stack, Direction facing) {
+        stack.setTagInfo(DEPOSIT_POSITION_TAG, new IntNBT(facing.ordinal()));
     }
 
     public static BlockPos getWorkAreaPosition(ItemStack stack) {
-        NBTTagCompound compound = stack.getTagCompound();
+        CompoundNBT compound = stack.getTagCompound();
         if (compound == null || !compound.hasKey(WORK_AREA_POSITION_TAG))
             return null;
 
@@ -155,11 +155,11 @@ public class ItemNBTUtil {
 
     public static void setWorkAreaPosition(ItemStack stack, BlockPos position) {
         if (position != null)
-            stack.setTagInfo(WORK_AREA_POSITION_TAG, new NBTTagLong(position.toLong()));
+            stack.setTagInfo(WORK_AREA_POSITION_TAG, new LongNBT(position.toLong()));
     }
 
     public static WorkAreaSize getWorkAreaSize(ItemStack stack) {
-        NBTTagCompound compound = stack.getTagCompound();
+        CompoundNBT compound = stack.getTagCompound();
         if (compound == null || !compound.hasKey(WORK_AREA_SIZE_TAG))
             setWorkAreaSize(stack, WorkAreaSize.SMALL);
 
@@ -167,30 +167,30 @@ public class ItemNBTUtil {
     }
 
     public static void setWorkAreaSize(ItemStack stack, WorkAreaSize workAreaSize) {
-        stack.setTagInfo(WORK_AREA_SIZE_TAG, new NBTTagInt(workAreaSize.getValue()));
+        stack.setTagInfo(WORK_AREA_SIZE_TAG, new IntNBT(workAreaSize.getValue()));
     }
 
     public static UUID getSpiritEntityUUID(ItemStack stack) {
-        NBTTagCompound compound = stack.getTagCompound();
+        CompoundNBT compound = stack.getTagCompound();
         if (compound == null || !compound.hasKey(SPIRIT_UUID_TAG))
             return null;
         return stack.getTagCompound().getCompoundTag(SPIRIT_UUID_TAG).getUniqueId("");
     }
 
     public static void setSpiritEntityUUID(ItemStack stack, UUID id) {
-        NBTTagCompound uuidCompound = new NBTTagCompound();
+        CompoundNBT uuidCompound = new CompoundNBT();
         uuidCompound.setUniqueId("", id);
         stack.setTagInfo(SPIRIT_UUID_TAG, uuidCompound);
     }
 
-    public static NBTTagCompound getSpiritEntityData(ItemStack stack) {
-        NBTTagCompound compound = stack.getTagCompound();
+    public static CompoundNBT getSpiritEntityData(ItemStack stack) {
+        CompoundNBT compound = stack.getTagCompound();
         if (compound == null || !compound.hasKey(SPIRIT_DATA_TAG))
             return null;
         return stack.getTagCompound().getCompoundTag(SPIRIT_DATA_TAG);
     }
 
-    public static void setSpiritEntityData(ItemStack stack, NBTTagCompound entityData) {
+    public static void setSpiritEntityData(ItemStack stack, CompoundNBT entityData) {
         stack.setTagInfo(SPIRIT_DATA_TAG, entityData);
     }
 
@@ -205,51 +205,51 @@ public class ItemNBTUtil {
     }
 
     public static boolean getBoolean(ItemStack stack, String key) {
-        NBTTagCompound compound = stack.getTagCompound();
+        CompoundNBT compound = stack.getTagCompound();
         if (compound == null || !compound.hasKey(key))
             setBoolean(stack, key, false);
         return stack.getTagCompound().getBoolean(key);
     }
 
     public static void setBoolean(ItemStack stack, String key, boolean value) {
-        stack.setTagInfo(key, new NBTTagByte((byte) (value ? 1 : 0)));
+        stack.setTagInfo(key, new ByteNBT((byte) (value ? 1 : 0)));
     }
 
     public static int getInteger(ItemStack stack, String key) {
-        NBTTagCompound compound = stack.getTagCompound();
+        CompoundNBT compound = stack.getTagCompound();
         if (compound == null || !compound.hasKey(key))
             setInteger(stack, key, 0);
         return stack.getTagCompound().getInteger(key);
     }
 
     public static void setInteger(ItemStack stack, String key, int value) {
-        stack.setTagInfo(key, new NBTTagInt(value));
+        stack.setTagInfo(key, new IntNBT(value));
     }
 
     public static float getFloat(ItemStack stack, String key) {
-        NBTTagCompound compound = stack.getTagCompound();
+        CompoundNBT compound = stack.getTagCompound();
         if (compound == null || !compound.hasKey(key))
             setInteger(stack, key, 0);
         return stack.getTagCompound().getFloat(key);
     }
 
     public static void setFloat(ItemStack stack, String key, float value) {
-        stack.setTagInfo(key, new NBTTagFloat(value));
+        stack.setTagInfo(key, new FloatNBT(value));
     }
 
     public static String getString(ItemStack stack, String key) {
-        NBTTagCompound compound = stack.getTagCompound();
+        CompoundNBT compound = stack.getTagCompound();
         if (compound == null || !compound.hasKey(key))
             setInteger(stack, key, 0);
         return stack.getTagCompound().getString(key);
     }
 
     public static void setString(ItemStack stack, String key, String value) {
-        stack.setTagInfo(key, new NBTTagString(value));
+        stack.setTagInfo(key, new StringNBT(value));
     }
 
-    public static NBTTagCompound getTagCompound(ItemStack stack) {
-        return stack.getTagCompound() == null ? new NBTTagCompound() : stack.getTagCompound();
+    public static CompoundNBT getTagCompound(ItemStack stack) {
+        return stack.getTagCompound() == null ? new CompoundNBT() : stack.getTagCompound();
     }
 
     //endregion Static Methods

@@ -25,7 +25,7 @@ package com.github.klikli_dev.occultism.common.misc;
 
 import com.github.klikli_dev.occultism.api.common.container.IItemStackComparator;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.oredict.OreDictionary;
 
 import javax.annotation.Nonnull;
@@ -104,7 +104,7 @@ public class ItemStackComparator implements IItemStackComparator {
     //endregion Overrides
 
     //region Static Methods
-    public static ItemStackComparator loadFromNBT(NBTTagCompound nbt) {
+    public static ItemStackComparator loadFromNBT(CompoundNBT nbt) {
         ItemStackComparator comparator = new ItemStackComparator();
         comparator.readFromNBT(nbt);
         return !comparator.getFilterStack().isEmpty() ? comparator : null;
@@ -112,8 +112,8 @@ public class ItemStackComparator implements IItemStackComparator {
     //endregion Static Methods
 
     //region Methods
-    public void readFromNBT(NBTTagCompound compound) {
-        NBTTagCompound nbt = compound.getCompoundTag("stack");
+    public void readFromNBT(CompoundNBT compound) {
+        CompoundNBT nbt = compound.getCompoundTag("stack");
 
         this.filterStack = new ItemStack(nbt);
         this.matchMeta = compound.getBoolean("matchMeta");
@@ -121,8 +121,8 @@ public class ItemStackComparator implements IItemStackComparator {
         this.matchNbt = compound.getBoolean("matchNbt");
     }
 
-    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-        NBTTagCompound c = new NBTTagCompound();
+    public CompoundNBT writeToNBT(CompoundNBT compound) {
+        CompoundNBT c = new CompoundNBT();
         this.filterStack.writeToNBT(c);
         compound.setTag("stack", c);
         compound.setBoolean("matchMeta", this.matchMeta);

@@ -24,10 +24,10 @@ package com.github.klikli_dev.occultism.common.item;
 
 import com.github.klikli_dev.occultism.registry.ItemRegistry;
 import net.minecraft.block.Block;
-import net.minecraft.item.ItemBlock;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 
-public class ItemBlockOtherworldLog extends ItemBlock {
+public class ItemBlockOtherworldLog extends BlockItem {
     //region Initialization
     public ItemBlockOtherworldLog(Block block) {
         super(block);

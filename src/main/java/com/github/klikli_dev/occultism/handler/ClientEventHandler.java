@@ -24,7 +24,7 @@ package com.github.klikli_dev.occultism.handler;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.registry.PotionRegistry;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
@@ -110,7 +110,7 @@ public class ClientEventHandler {
         }
     }
 
-    public boolean shouldRenderThirdEye(IBlockState state, BlockPos pos) {
+    public boolean shouldRenderThirdEye(BlockState state, BlockPos pos) {
         return this.thirdEyeActiveLastTick &&
                Minecraft.getMinecraft().player.getDistanceSq(pos) < MAX_THIRD_EYE_DISTANCE_SQUARED;
     }

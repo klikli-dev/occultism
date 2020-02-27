@@ -23,17 +23,17 @@
 package com.github.klikli_dev.occultism.common.block;
 
 import com.github.klikli_dev.occultism.registry.BlockRegistry;
-import net.minecraft.block.BlockLeaves;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.LeavesBlock;
 import net.minecraft.block.BlockPlanks;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemShears;
+import net.minecraft.item.ShearsItem;
 import net.minecraft.item.ItemStack;
-import net.minecraft.stats.StatList;
+import net.minecraft.stats.Stats;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
@@ -43,7 +43,7 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 import java.util.Random;
 
-public class BlockOtherworldLeaves extends BlockLeaves {
+public class BlockOtherworldLeaves extends LeavesBlock {
 
     //region Initialization
     public BlockOtherworldLeaves() {
@@ -57,13 +57,13 @@ public class BlockOtherworldLeaves extends BlockLeaves {
     //region Overrides
 
     @Override
-    public IBlockState getStateFromMeta(int meta) {
+    public BlockState getStateFromMeta(int meta) {
         return this.getDefaultState().withProperty(DECAYABLE, (meta & 4) == 0)
                        .withProperty(CHECK_DECAY, (meta & 8) > 0);
     }
 
     @Override
-    public int getMetaFromState(IBlockState state) {
+    public int getMetaFromState(BlockState state) {
         int i = 0;
 
         if (!state.getValue(DECAYABLE)) {
@@ -78,10 +78,10 @@ public class BlockOtherworldLeaves extends BlockLeaves {
     }
 
     @Override
-    public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state,
+    public void harvestBlock(World worldIn, PlayerEntity player, BlockPos pos, BlockState state,
                              @Nullable TileEntity te, ItemStack stack) {
-        if (!worldIn.isRemote && stack.getItem() instanceof ItemShears) {
-            player.addStat(StatList.getBlockStats(this));
+        if (!worldIn.isRemote && stack.getItem() instanceof ShearsItem) {
+            player.addStat(Stats.getBlockStats(this));
             //Drop handled via onSheared
         }
         else {
@@ -90,7 +90,7 @@ public class BlockOtherworldLeaves extends BlockLeaves {
     }
 
     @Override
-    public ItemStack getSilkTouchDrop(IBlockState state) {
+    public ItemStack getSilkTouchDrop(BlockState state) {
         return new ItemStack(this, 1);
     }
 
@@ -100,12 +100,12 @@ public class BlockOtherworldLeaves extends BlockLeaves {
     }
 
     @Override
-    public Item getItemDropped(IBlockState state, Random rand, int fortune) {
+    public Item getItemDropped(BlockState state, Random rand, int fortune) {
         return Item.getItemFromBlock(BlockRegistry.OTHERWORLD_SAPLING);
     }
 
     @Override
-    protected int getSaplingDropChance(IBlockState state) {
+    protected int getSaplingDropChance(BlockState state) {
         return 5;
     }
 

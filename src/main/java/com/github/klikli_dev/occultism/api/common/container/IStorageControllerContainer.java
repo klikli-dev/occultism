@@ -23,16 +23,16 @@
 package com.github.klikli_dev.occultism.api.common.container;
 
 import com.github.klikli_dev.occultism.api.common.tile.IStorageController;
-import net.minecraft.inventory.InventoryBasic;
-import net.minecraft.inventory.InventoryCrafting;
+import net.minecraft.inventory.Inventory;
+import net.minecraft.inventory.CraftingInventory;
 
 public interface IStorageControllerContainer {
     //region Getter / Setter
     IStorageController getStorageController();
 
-    InventoryCrafting getCraftMatrix();
+    CraftingInventory getCraftMatrix();
 
-    InventoryBasic getOrderSlot();
+    Inventory getOrderSlot();
 
     /**
      * @return true if this is an item based access to the controller, false if it is a block.

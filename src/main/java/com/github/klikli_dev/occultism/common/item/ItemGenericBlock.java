@@ -24,9 +24,9 @@ package com.github.klikli_dev.occultism.common.item;
 
 import com.github.klikli_dev.occultism.registry.ItemRegistry;
 import net.minecraft.block.Block;
-import net.minecraft.item.ItemBlock;
+import net.minecraft.item.BlockItem;
 
-public class ItemGenericBlock extends ItemBlock {
+public class ItemGenericBlock extends BlockItem {
     //region Initialization
     public ItemGenericBlock(Block block, String name, String... oreDictionaryNames) {
         super(block);

@@ -24,14 +24,13 @@ package com.github.klikli_dev.occultism.common.block;
 
 import com.github.klikli_dev.occultism.api.common.block.IOtherOre;
 import com.github.klikli_dev.occultism.registry.BlockRegistry;
-import net.minecraft.block.Block;
+import net.minecraft.block.*;
 import net.minecraft.block.BlockStone;
-import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.block.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -68,43 +67,43 @@ public class BlockOtherstoneOre extends Block implements IOtherOre {
     }
 
     @Override
-    public IBlockState getStateFromMeta(int meta) {
+    public BlockState getStateFromMeta(int meta) {
         return this.getDefaultState();
     }
 
     @Override
-    public int getMetaFromState(IBlockState state) {
+    public int getMetaFromState(BlockState state) {
         return 0;
     }
 
     @Override
-    public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
+    public BlockState getActualState(BlockState state, IBlockAccess worldIn, BlockPos pos) {
         return IOtherOre.super.getActualState(state, worldIn, pos);
     }
 
     @Override
-    public Item getItemDropped(IBlockState state, Random rand, int fortune) {
+    public Item getItemDropped(BlockState state, Random rand, int fortune) {
         return IOtherOre.super.getItemDropped(state, rand, fortune);
     }
 
     @Override
-    public int damageDropped(IBlockState state) {
+    public int damageDropped(BlockState state) {
         return state.getValue(UNCOVERED) ? 0 : BlockStone.EnumType.ANDESITE.getMetadata();
     }
 
     @Override
-    public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state,
+    public void harvestBlock(World worldIn, PlayerEntity player, BlockPos pos, BlockState state,
                              @Nullable TileEntity te, ItemStack stack) {
         super.harvestBlock(worldIn, player, pos, IOtherOre.super.getHarvestState(player, state), te, stack);
     }
 
     @Override
-    public ItemStack getSilkTouchDrop(IBlockState state) {
+    public ItemStack getSilkTouchDrop(BlockState state) {
         return IOtherOre.super.getSilkTouchDrop(state);
     }
 
     @Override
-    public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {
+    public ItemStack getItem(World worldIn, BlockPos pos, BlockState state) {
         return IOtherOre.super.getItem(worldIn, pos, state);
     }
 

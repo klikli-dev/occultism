@@ -25,8 +25,8 @@ package com.github.klikli_dev.occultism.network;
 import com.github.klikli_dev.occultism.util.StorageUtil;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
@@ -40,14 +40,14 @@ public class MessageClearCraftingMatrix extends MessageBase<MessageClearCrafting
 
     //region Overrides
     @Override
-    public void onClientReceived(Minecraft minecraft, MessageClearCraftingMatrix message, EntityPlayer player,
+    public void onClientReceived(Minecraft minecraft, MessageClearCraftingMatrix message, PlayerEntity player,
                                  MessageContext context) {
 
     }
 
     @Override
     public void onServerReceived(MinecraftServer minecraftServer, MessageClearCraftingMatrix message,
-                                 EntityPlayerMP player, MessageContext context) {
+                                 ServerPlayerEntity player, MessageContext context) {
         StorageUtil.clearOpenCraftingMatrix(player, true);
     }
 

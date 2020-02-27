@@ -24,13 +24,13 @@ package com.github.klikli_dev.occultism.util;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.api.common.data.GlobalBlockPos;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.ServerWorld;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.capabilities.Capability;
 
 public class TileEntityUtil {
@@ -63,11 +63,11 @@ public class TileEntityUtil {
         if (world == null || world.isRemote || world.getTileEntity(pos) == null || !world.getChunk(pos).isLoaded()) {
             return;
         }
-        WorldServer server = (WorldServer) world;
-        for (EntityPlayer p : server.playerEntities) {
+        ServerWorld server = (ServerWorld) world;
+        for (PlayerEntity p : server.playerEntities) {
             if (p.getPosition().getDistance(pos.getX(), pos.getY(), pos.getZ()) < 32) {
                 try {
-                    ((EntityPlayerMP) p).connection.sendPacket(world.getTileEntity(pos).getUpdatePacket());
+                    ((ServerPlayerEntity) p).connection.sendPacket(world.getTileEntity(pos).getUpdatePacket());
                     world.markChunkDirty(pos, world.getTileEntity(pos));
                 } catch (Error e) {
                     Occultism.logger.error("Could not update tile ", e);
@@ -84,7 +84,7 @@ public class TileEntityUtil {
      * @return true if the capability is found on any face.
      */
     public static boolean hasCapabilityOnAnySide(TileEntity tileEntity, Capability<?> capability) {
-        for (EnumFacing face : EnumFacing.VALUES) {
+        for (Direction face : Direction.VALUES) {
             if (tileEntity.hasCapability(capability, face))
                 return true;
         }

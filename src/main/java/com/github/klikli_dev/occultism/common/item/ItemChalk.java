@@ -27,14 +27,14 @@ import com.github.klikli_dev.occultism.common.block.BlockChalkGlyph;
 import com.github.klikli_dev.occultism.registry.BlockRegistry;
 import com.github.klikli_dev.occultism.registry.ItemRegistry;
 import com.github.klikli_dev.occultism.registry.SoundRegistry;
-import net.minecraft.block.BlockHorizontal;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.block.HorizontalBlock;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.SoundCategory;
+import net.minecraft.util.*;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -50,7 +50,7 @@ public class ItemChalk extends Item {
 
     //region Overrides
     @Override
-    public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing face,
+    public ActionResultType onItemUse(PlayerEntity player, World world, BlockPos pos, Hand hand, Direction face,
                                       float hitX, float hitY, float hitZ) {
         //Check if the chalk is replacing an existing glyph
         boolean isReplacing = world.getBlockState(pos).getBlock().isReplaceable(world, pos);
@@ -59,14 +59,14 @@ public class ItemChalk extends Item {
         if (!world.isRemote) {
             //only place if player clicked at a top face
             //only if the block can be placed or is replacing an existing block
-            if ((face == EnumFacing.UP && BlockRegistry.CHALK_GLYPH.canPlaceBlockAt(world, pos.up())) || isReplacing) {
+            if ((face == Direction.UP && BlockRegistry.CHALK_GLYPH.canPlaceBlockAt(world, pos.up())) || isReplacing) {
                 ItemStack heldChalk = player.getHeldItem(hand);
                 BlockPos placeAt = isReplacing ? pos : pos.up();
 
                 world.setBlockState(placeAt, BlockRegistry.CHALK_GLYPH.getDefaultState()
                                                      .withProperty(BlockChalkGlyph.TYPE,
                                                              this.getChalkGlyphType(heldChalk))
-                                                     .withProperty(BlockHorizontal.FACING,
+                                                     .withProperty(HorizontalBlock.FACING,
                                                              player.getHorizontalFacing()));
                 world.playSound(null, pos, SoundRegistry.CHALK, SoundCategory.BLOCKS, 0.5f,
                         1 + 0.5f * player.getRNG().nextFloat());
@@ -74,7 +74,7 @@ public class ItemChalk extends Item {
                     heldChalk.damageItem(1, player);
             }
         }
-        return EnumActionResult.SUCCESS;
+        return ActionResultType.SUCCESS;
     }
 
     @Override

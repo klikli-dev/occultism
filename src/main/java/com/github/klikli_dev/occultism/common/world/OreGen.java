@@ -28,10 +28,10 @@ import com.github.klikli_dev.occultism.registry.ItemRegistry;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.chunk.IChunkProvider;
-import net.minecraft.world.gen.IChunkGenerator;
-import net.minecraft.world.gen.feature.WorldGenMinable;
-import net.minecraft.world.gen.feature.WorldGenerator;
+import net.minecraft.world.chunk.AbstractChunkProvider;
+import net.minecraft.world.gen.ChunkGenerator;
+import net.minecraft.world.gen.feature.Feature;
+import net.minecraft.world.gen.feature.OreFeature;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.IWorldGenerator;
 
@@ -41,7 +41,7 @@ import java.util.Random;
 
 public class OreGen implements IWorldGenerator {
     //region Fields
-    private final WorldGenerator otherstoneOre = new WorldGenMinable(BlockRegistry.OTHERSTONE_ORE.getDefaultState(),
+    private final Feature otherstoneOre = new OreFeature(BlockRegistry.OTHERSTONE_ORE.getDefaultState(),
             OccultismConfig.worldGen.oreGen.otherstoneOreSize);
     private final List<Integer> oreGenDimensionWhiteList = Arrays.asList(
             OccultismConfig.worldGen.oreGen.dimensionWhitelist);
@@ -55,8 +55,8 @@ public class OreGen implements IWorldGenerator {
 
     //region Overrides
     @Override
-    public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator iChunkGenerator,
-                         IChunkProvider iChunkProvider) {
+    public void generate(Random random, int chunkX, int chunkZ, World world, ChunkGenerator iChunkGenerator,
+                         AbstractChunkProvider iChunkProvider) {
         if (this.oreGenDimensionWhiteList.contains(world.provider.getDimension())) {
             this.generateOre(world, random, this.otherstoneOre, chunkX, chunkZ,
                     OccultismConfig.worldGen.oreGen.otherstoneOreChance,
@@ -67,7 +67,7 @@ public class OreGen implements IWorldGenerator {
     //endregion Overrides
 
     //region Methods
-    private void generateOre(World world, Random rand, WorldGenerator gen, int chunkX, int chunkZ, int chance,
+    private void generateOre(World world, Random rand, Feature gen, int chunkX, int chunkZ, int chance,
                              int minHeight, int maxHeight) {
         for (int i = 0; i < chance; i++)
             gen.generate(world, rand,

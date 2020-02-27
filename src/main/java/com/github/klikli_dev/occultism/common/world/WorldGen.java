@@ -30,8 +30,8 @@ import com.github.klikli_dev.occultism.util.BiomeUtil;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.chunk.IChunkProvider;
-import net.minecraft.world.gen.IChunkGenerator;
+import net.minecraft.world.chunk.AbstractChunkProvider;
+import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.IWorldGenerator;
@@ -65,8 +65,8 @@ public class WorldGen implements IWorldGenerator {
 
     //region Overrides
     @Override
-    public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator iChunkGenerator,
-                         IChunkProvider iChunkProvider) {
+    public void generate(Random random, int chunkX, int chunkZ, World world, ChunkGenerator iChunkGenerator,
+                         AbstractChunkProvider iChunkProvider) {
         if (!this.undergroundGroveDimensionWhitelist.contains(world.provider.getDimension())) {
             return;
         }

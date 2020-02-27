@@ -22,13 +22,13 @@
 
 package com.github.klikli_dev.occultism.client.particle;
 
-import net.minecraft.client.particle.ParticlePortal;
+import net.minecraft.client.particle.PortalParticle;
 import net.minecraft.world.World;
 
 /**
  * Based on ParticlePortal but with different color
  */
-public class ParticleRitualWaiting extends ParticlePortal {
+public class ParticleRitualWaiting extends PortalParticle {
 
 
     //region Initialization

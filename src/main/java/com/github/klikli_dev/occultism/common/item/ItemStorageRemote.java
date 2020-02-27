@@ -31,17 +31,17 @@ import com.github.klikli_dev.occultism.util.ItemNBTUtil;
 import com.github.klikli_dev.occultism.util.TileEntityUtil;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.EnumRarity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Rarity;
 import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 
@@ -63,7 +63,7 @@ public class ItemStorageRemote extends Item {
 
     //region Overrides
     @Override
-    public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing,
+    public ActionResultType onItemUse(PlayerEntity player, World world, BlockPos pos, Hand hand, Direction facing,
                                       float hitX, float hitY, float hitZ) {
 
         if (!world.isRemote) {
@@ -71,7 +71,7 @@ public class ItemStorageRemote extends Item {
             TileEntity tileEntity = world.getTileEntity(pos);
             if (tileEntity instanceof IStorageController) {
                 stack.setTagInfo("linkedStorageController",
-                        GlobalBlockPos.fromTileEntity(tileEntity).writeToNBT(new NBTTagCompound()));
+                        GlobalBlockPos.fromTileEntity(tileEntity).writeToNBT(new CompoundNBT()));
             }
         }
 
@@ -79,7 +79,7 @@ public class ItemStorageRemote extends Item {
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
+    public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, Hand hand) {
         ItemStack stack = player.getHeldItem(hand);
 
         if (world.isRemote || !ItemNBTUtil.getTagCompound(stack).hasKey("linkedStorageController"))
@@ -91,7 +91,7 @@ public class ItemStorageRemote extends Item {
 
         //ensure TE is available
         if (!storageControllerWorld.getChunk(storageControllerPos.getPos()).isLoaded()) {
-            player.sendMessage(new TextComponentTranslation(TRANSLATION_KEY_BASE + ".message.not_loaded"));
+            player.sendMessage(new TranslationTextComponent(TRANSLATION_KEY_BASE + ".message.not_loaded"));
             return super.onItemRightClick(world, player, hand);
         }
 
@@ -99,7 +99,7 @@ public class ItemStorageRemote extends Item {
         if (storageControllerWorld.getTileEntity(storageControllerPos.getPos()) instanceof IStorageController) {
             player.openGui(Occultism.instance, GuiHandler.GuiID.STORAGE_REMOTE.ordinal(), world, hand.ordinal(), 0, 0);
 
-            return new ActionResult<>(EnumActionResult.SUCCESS, stack);
+            return new ActionResult<>(ActionResultType.SUCCESS, stack);
         }
         return super.onItemRightClick(world, player, hand);
     }
@@ -115,9 +115,9 @@ public class ItemStorageRemote extends Item {
     }
 
     @Override
-    public EnumRarity getRarity(ItemStack stack) {
+    public Rarity getRarity(ItemStack stack) {
         return ItemNBTUtil.getTagCompound(stack)
-                       .hasKey("linkedStorageController") ? EnumRarity.RARE : EnumRarity.COMMON;
+                       .hasKey("linkedStorageController") ? Rarity.RARE : Rarity.COMMON;
     }
     //endregion Overrides
 
@@ -129,7 +129,7 @@ public class ItemStorageRemote extends Item {
             return null;
         }
 
-        NBTTagCompound compound = ItemNBTUtil.getTagCompound(stack);
+        CompoundNBT compound = ItemNBTUtil.getTagCompound(stack);
         //no storage controller linked
         if (!compound.hasKey("linkedStorageController"))
             return null;
@@ -144,7 +144,7 @@ public class ItemStorageRemote extends Item {
     private static class LinkedPropertyGetter implements IItemPropertyGetter {
         //region Overrides
         @Override
-        public float apply(ItemStack stack, @Nullable World world, @Nullable EntityLivingBase entity) {
+        public float apply(ItemStack stack, @Nullable World world, @Nullable LivingEntity entity) {
             return ItemNBTUtil.getTagCompound(stack).hasKey("linkedStorageController") ? 1.0f : 0.0f;
         }
         //endregion Overrides

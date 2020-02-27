@@ -25,10 +25,10 @@ package com.github.klikli_dev.occultism.common.item;
 import com.github.klikli_dev.occultism.registry.ItemRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 
-public class ItemBlockOtherworldSapling extends ItemBlock {
+public class ItemBlockOtherworldSapling extends BlockItem {
     //region Fields
     protected String translationKey;
     //endregion Fields

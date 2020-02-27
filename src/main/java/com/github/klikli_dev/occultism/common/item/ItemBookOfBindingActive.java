@@ -30,7 +30,7 @@ import com.github.klikli_dev.occultism.util.ItemNBTUtil;
 import com.github.klikli_dev.occultism.util.TextUtil;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.inventory.InventoryCrafting;
+import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
@@ -63,13 +63,13 @@ public class ItemBookOfBindingActive extends Item implements IIngredientCopyNBT,
     }
 
     @Override
-    public boolean shouldCopyNBT(ItemStack itemStack, IRecipe recipe, InventoryCrafting inventory) {
+    public boolean shouldCopyNBT(ItemStack itemStack, IRecipe recipe, CraftingInventory inventory) {
         //only copy over name to book of calling
         return recipe.getRecipeOutput().getItem() instanceof ItemBookOfCallingActive;
     }
 
     @Override
-    public void modifyResult(IRecipe recipe, InventoryCrafting inventory, ItemStack result) {
+    public void modifyResult(IRecipe recipe, CraftingInventory inventory, ItemStack result) {
         ItemNBTUtil.generateBoundSpiritName(result);
     }
     //endregion Overrides

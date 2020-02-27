@@ -26,9 +26,9 @@ import com.github.klikli_dev.occultism.common.entity.spirits.EntitySpirit;
 import com.github.klikli_dev.occultism.common.ritual.pentacle.Pentacle;
 import com.github.klikli_dev.occultism.util.ItemNBTUtil;
 import net.minecraft.advancements.CriteriaTriggers;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
@@ -58,13 +58,13 @@ public class RitualSummonSpirit extends Ritual {
     }
 
     public RitualSummonSpirit(Item bookOfCalling, String name, Pentacle pentacle, Ingredient startingItem,
-                              Predicate<EntityLivingBase> sacrificePredicate, int totalTime) {
+                              Predicate<LivingEntity> sacrificePredicate, int totalTime) {
         super(name, pentacle, startingItem, sacrificePredicate, totalTime);
         this.bookOfCalling = bookOfCalling;
     }
 
     public RitualSummonSpirit(Item bookOfCalling, String name, Pentacle pentacle, Ingredient startingItem,
-                              String additionalIngredientsRecipeName, Predicate<EntityLivingBase> sacrificePredicate,
+                              String additionalIngredientsRecipeName, Predicate<LivingEntity> sacrificePredicate,
                               int totalTime) {
         super(name, pentacle, startingItem, additionalIngredientsRecipeName, sacrificePredicate, totalTime);
         this.bookOfCalling = bookOfCalling;
@@ -72,7 +72,7 @@ public class RitualSummonSpirit extends Ritual {
 
     public RitualSummonSpirit(Item bookOfCalling, String name, Pentacle pentacle, Ingredient startingItem,
                               String additionalIngredientsRecipeName, int sacrificialBowlRange,
-                              Predicate<EntityLivingBase> sacrificePredicate, int totalTime) {
+                              Predicate<LivingEntity> sacrificePredicate, int totalTime) {
         super(name, pentacle, startingItem, additionalIngredientsRecipeName, sacrificialBowlRange, sacrificePredicate,
                 totalTime);
         this.bookOfCalling = bookOfCalling;
@@ -105,7 +105,7 @@ public class RitualSummonSpirit extends Ritual {
      * @param spirit        the spirit to link to the book.
      * @param player        the player to give the book to.
      */
-    public void finishBookOfCallingSetup(ItemStack bookOfCalling, EntitySpirit spirit, EntityPlayer player) {
+    public void finishBookOfCallingSetup(ItemStack bookOfCalling, EntitySpirit spirit, PlayerEntity player) {
         ItemNBTUtil.setSpiritEntityUUID(bookOfCalling, spirit.getUniqueID());
         ItemHandlerHelper.giveItemToPlayer(player, bookOfCalling);
     }
@@ -117,7 +117,7 @@ public class RitualSummonSpirit extends Ritual {
      * @param world  the world to spawn in.
      */
     public void spawnSpirit(EntitySpirit spirit, World world) {
-        for (EntityPlayerMP player : world.getEntitiesWithinAABB(EntityPlayerMP.class,
+        for (ServerPlayerEntity player : world.getEntitiesWithinAABB(ServerPlayerEntity.class,
                 spirit.getEntityBoundingBox().grow(50)))
             CriteriaTriggers.SUMMONED_ENTITY.trigger(player, spirit);
         world.spawnEntity(spirit);

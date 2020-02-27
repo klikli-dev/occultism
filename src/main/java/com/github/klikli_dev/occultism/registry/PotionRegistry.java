@@ -24,15 +24,15 @@ package com.github.klikli_dev.occultism.registry;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.potion.PotionThirdEye;
-import net.minecraft.potion.Potion;
+import net.minecraft.potion.Effect;
 
 public class PotionRegistry {
     //region Fields
-    public static final Potion THIRD_EYE = new PotionThirdEye();
+    public static final Effect THIRD_EYE = new PotionThirdEye();
     //endregion Fields
 
     //region Static Methods
-    public static <T extends Potion> T registerItem(T potion, String name) {
+    public static <T extends Effect> T registerItem(T potion, String name) {
         potion.setRegistryName(Occultism.MODID, name);
         potion.setPotionName("effect." + potion.getRegistryName().toString().replace(":", "."));
         return potion;

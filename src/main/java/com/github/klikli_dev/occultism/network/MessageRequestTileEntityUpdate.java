@@ -24,9 +24,9 @@ package com.github.klikli_dev.occultism.network;
 
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.network.play.server.SPacketUpdateTileEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
@@ -57,18 +57,18 @@ public class MessageRequestTileEntityUpdate extends MessageBase<MessageRequestTi
 
     //region Overrides
     @Override
-    public void onClientReceived(Minecraft minecraft, MessageRequestTileEntityUpdate message, EntityPlayer player,
+    public void onClientReceived(Minecraft minecraft, MessageRequestTileEntityUpdate message, PlayerEntity player,
                                  MessageContext context) {
 
     }
 
     @Override
     public void onServerReceived(MinecraftServer minecraftServer, MessageRequestTileEntityUpdate message,
-                                 EntityPlayerMP player, MessageContext context) {
+                                 ServerPlayerEntity player, MessageContext context) {
         World world = minecraftServer.getWorld(message.dimension);
         TileEntity entity = world.getTileEntity(message.pos);
         if (entity != null) {
-            SPacketUpdateTileEntity updatePacket = entity.getUpdatePacket();
+            SUpdateTileEntityPacket updatePacket = entity.getUpdatePacket();
             if (updatePacket != null)
                 player.connection.sendPacket(updatePacket);
             world.markChunkDirty(message.pos, entity);

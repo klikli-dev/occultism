@@ -26,11 +26,11 @@ import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.block.*;
 import com.github.klikli_dev.occultism.common.block.crops.BlockOccultismCrop;
 import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.init.Blocks;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 
@@ -109,7 +109,7 @@ public class BlockRegistry {
             block.setDefaultSlipperiness(0.98f);
 
         if (!isBlockWithoutItem(block)) {
-            Item item = new ItemBlock(block).setRegistryName(location).setTranslationKey(block.getTranslationKey());
+            Item item = new BlockItem(block).setRegistryName(location).setTranslationKey(block.getTranslationKey());
             blockItems.add(item);
         }
 

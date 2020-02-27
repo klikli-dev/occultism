@@ -32,24 +32,23 @@ import com.github.klikli_dev.occultism.registry.RitualRegistry;
 import com.github.klikli_dev.occultism.util.ItemNBTUtil;
 import com.github.klikli_dev.occultism.util.NameUtil;
 import com.github.klikli_dev.occultism.util.TileEntityUtil;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagInt;
-import net.minecraft.nbt.NBTTagLong;
-import net.minecraft.potion.PotionEffect;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.IntNBT;
+import net.minecraft.nbt.LongNBT;
+import net.minecraft.potion.EffectInstance;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.*;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextComponentString;
-import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
@@ -71,16 +70,16 @@ public class ItemDebugWand extends Item {
 
     //region Overrides
     @Override
-    public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing face,
+    public ActionResultType onItemUse(PlayerEntity player, World world, BlockPos pos, Hand hand, Direction face,
                                       float hitX, float hitY, float hitZ) {
         //only do with authority
         if (!world.isRemote) {
             ItemStack stack = player.getHeldItem(hand);
 
             //test potion
-            player.addPotionEffect(new PotionEffect(PotionRegistry.THIRD_EYE, 100));
+            player.addPotionEffect(new EffectInstance(PotionRegistry.THIRD_EYE, 100));
 
-            IBlockState state = world.getBlockState(pos);
+            BlockState state = world.getBlockState(pos);
             TileEntity tileEntity = world.getTileEntity(pos);
             if (tileEntity instanceof TileEntityStorageController) {
                 TileEntityStorageController storageController = (TileEntityStorageController) tileEntity;
@@ -89,10 +88,10 @@ public class ItemDebugWand extends Item {
                 //                player.sendStatusMessage(
                 //                        new TextComponentString(String.format("Found %d valid stabilizers.", stabilizers.size())),
                 //                        true);
-                stack.setTagInfo("linkedStorageControllerPos", new NBTTagLong(storageController.getPos().toLong()));
+                stack.setTagInfo("linkedStorageControllerPos", new LongNBT(storageController.getPos().toLong()));
                 stack.setTagInfo("linkedStorageControllerDim",
-                        new NBTTagInt(storageController.getWorld().provider.getDimension()));
-                player.sendStatusMessage(new TextComponentString("Linked Storage Controller"), true);
+                        new IntNBT(storageController.getWorld().provider.getDimension()));
+                player.sendStatusMessage(new StringTextComponent("Linked Storage Controller"), true);
             }
             else if (tileEntity != null &&
                      TileEntityUtil.hasCapabilityOnAnySide(tileEntity, CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)) {
@@ -109,7 +108,7 @@ public class ItemDebugWand extends Item {
                         //generate a random name for the tile to test search
                         reference.customName = NameUtil.generateName();
                         storageController.linkedMachines.put(reference.globalPos, reference);
-                        player.sendStatusMessage(new TextComponentString(
+                        player.sendStatusMessage(new StringTextComponent(
                                 String.format("Linked tile entity %s to storage controller.",
                                         tileEntity.getDisplayName().getFormattedText())), true);
                     }
@@ -124,15 +123,15 @@ public class ItemDebugWand extends Item {
             //
             //            }
         }
-        return EnumActionResult.SUCCESS;
+        return ActionResultType.SUCCESS;
     }
 
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
+    public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
 
         IItemHandler itemHandler = playerIn.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY,
-                EnumFacing.DOWN);
+                Direction.DOWN);
         for (int i = 0; i <= itemHandler.getSlots(); i++) {
             ItemStack itemStack = itemHandler.getStackInSlot(i);
             if (itemStack.getItem() instanceof ItemBookOfCallingActive) {
@@ -146,21 +145,21 @@ public class ItemDebugWand extends Item {
     }
 
     @Override
-    public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer player, EntityLivingBase target,
-                                            EnumHand hand) {
+    public boolean itemInteractionForEntity(ItemStack stack, PlayerEntity player, LivingEntity target,
+                                            Hand hand) {
         if (!(target instanceof EntitySpirit))
             return false;
 
         EntitySpirit entitySpirit = (EntitySpirit) target;
         if (!entitySpirit.isTamed() || !entitySpirit.isOwner(player)) {
             entitySpirit.setTamedBy(player);
-            player.sendStatusMessage(new TextComponentTranslation(
+            player.sendStatusMessage(new TranslationTextComponent(
                     String.format("debug.%s.%s.spirit_tamed", Occultism.MODID, this.getRegistryName().getPath()),
                     target.getUniqueID().toString()), true);
         }
         else {
             stack.getTagCompound().setUniqueId(SPIRIT_UUID_TAG, target.getUniqueID());
-            player.sendStatusMessage(new TextComponentTranslation(
+            player.sendStatusMessage(new TranslationTextComponent(
                     String.format("debug.%s.%s.spirit_selected", Occultism.MODID, this.getRegistryName().getPath()),
                     target.getUniqueID().toString()), true);
         }
@@ -172,27 +171,27 @@ public class ItemDebugWand extends Item {
     @Override
     public void onUpdate(ItemStack stack, World world, Entity entityIn, int itemSlot, boolean isSelected) {
         if (stack.getTagCompound() == null) {
-            stack.setTagCompound(new NBTTagCompound());
+            stack.setTagCompound(new CompoundNBT());
         }
     }
 
     @Override
-    public void onCreated(ItemStack stack, World world, EntityPlayer playerIn) {
-        stack.setTagCompound(new NBTTagCompound());
+    public void onCreated(ItemStack stack, World world, PlayerEntity playerIn) {
+        stack.setTagCompound(new CompoundNBT());
     }
     //endregion Overrides
     //endregion Overrides
 
     //region Methods
 
-    private void verifyMultiblock(EntityPlayer player, World world, BlockPos pos) {
+    private void verifyMultiblock(PlayerEntity player, World world, BlockPos pos) {
         boolean matches = RitualRegistry.PENTACLE_DEBUG.getBlockMatcher().validate(world, pos);
         if (matches)
-            player.sendStatusMessage(new TextComponentTranslation(
+            player.sendStatusMessage(new TranslationTextComponent(
                             String.format("debug.%s.%s.glyphs_verified", Occultism.MODID, this.getRegistryName().getPath())),
                     true);
         else
-            player.sendStatusMessage(new TextComponentTranslation(
+            player.sendStatusMessage(new TranslationTextComponent(
                     String.format("debug.%s.%s.glyphs_not_verified", Occultism.MODID,
                             this.getRegistryName().getPath())), true);
     }

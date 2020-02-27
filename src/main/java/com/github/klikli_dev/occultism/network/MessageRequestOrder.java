@@ -29,12 +29,12 @@ import com.github.klikli_dev.occultism.common.misc.ItemStackComparator;
 import com.github.klikli_dev.occultism.util.StorageUtil;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
@@ -66,13 +66,13 @@ public class MessageRequestOrder extends MessageBase<MessageRequestOrder> {
 
     //region Overrides
     @Override
-    public void onClientReceived(Minecraft minecraft, MessageRequestOrder message, EntityPlayer player,
+    public void onClientReceived(Minecraft minecraft, MessageRequestOrder message, PlayerEntity player,
                                  MessageContext context) {
 
     }
 
     @Override
-    public void onServerReceived(MinecraftServer minecraftServer, MessageRequestOrder message, EntityPlayerMP player,
+    public void onServerReceived(MinecraftServer minecraftServer, MessageRequestOrder message, ServerPlayerEntity player,
                                  MessageContext context) {
 
         TileEntity tileEntity = minecraftServer.getWorld(message.storageControllerPosition.getDimension())
@@ -89,7 +89,7 @@ public class MessageRequestOrder extends MessageBase<MessageRequestOrder> {
         ItemStackComparator comparator = new ItemStackComparator(message.stack, true, false, true);
         storageController.addDepositOrder(message.targetMachinePosition, comparator, message.stack.getCount());
         player.sendStatusMessage(
-                new TextComponentTranslation("network.messages." + Occultism.MODID + ".request_order.order_received"),
+                new TranslationTextComponent("network.messages." + Occultism.MODID + ".request_order.order_received"),
                 true);
     }
 

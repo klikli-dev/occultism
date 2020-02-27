@@ -24,8 +24,8 @@ package com.github.klikli_dev.occultism.network;
 
 import com.github.klikli_dev.occultism.Occultism;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
@@ -47,10 +47,10 @@ public abstract class MessageBase<T extends MessageBase<T>> implements IMessage,
     //endregion Overrides
 
     //region Methods
-    public abstract void onClientReceived(Minecraft minecraft, T message, EntityPlayer player, MessageContext context);
+    public abstract void onClientReceived(Minecraft minecraft, T message, PlayerEntity player, MessageContext context);
 
 
-    public abstract void onServerReceived(MinecraftServer minecraftServer, T message, EntityPlayerMP player,
+    public abstract void onServerReceived(MinecraftServer minecraftServer, T message, ServerPlayerEntity player,
                                           MessageContext context);
     //endregion Methods
 }

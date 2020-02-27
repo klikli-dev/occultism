@@ -41,13 +41,13 @@ import com.google.common.collect.Lists;
 import com.mojang.realmsclient.gui.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiTextField;
-import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.gui.widget.button.Button;
+import net.minecraft.client.gui.widget.TextFieldWidget;
+import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.inventory.Container;
+import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.IInventoryChangedListener;
 import net.minecraft.item.ItemStack;
@@ -55,7 +55,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.world.DimensionType;
+import net.minecraft.world.dimension.DimensionType;
 import net.minecraftforge.oredict.OreDictionary;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
@@ -66,7 +66,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public abstract class GuiStorageControllerBase extends GuiContainer implements IStorageControllerGui, IStorageControllerGuiContainer, IInventoryChangedListener {
+public abstract class GuiStorageControllerBase extends ContainerScreen implements IStorageControllerGui, IStorageControllerGuiContainer, IInventoryChangedListener {
     //region Fields
     public static final int ORDER_AREA_OFFSET = 48;
     protected static final ResourceLocation BACKGROUND = new ResourceLocation(Occultism.MODID,
@@ -79,16 +79,16 @@ public abstract class GuiStorageControllerBase extends GuiContainer implements I
     public int usedSlots;
     public StorageControllerGuiMode guiMode = StorageControllerGuiMode.INVENTORY;
     protected ItemStack stackUnderMouse = ItemStack.EMPTY;
-    protected GuiTextField searchBar;
+    protected TextFieldWidget searchBar;
     protected List<GuiItemSlot> itemSlots = new ArrayList<>();
     protected List<GuiMachineSlot> machineSlots = new ArrayList<>();
-    protected GuiButton clearTextButton;
-    protected GuiButton clearRecipeButton;
-    protected GuiButton sortTypeButton;
-    protected GuiButton sortDirectionButton;
-    protected GuiButton jeiSyncButton;
-    protected GuiButton autocraftingModeButton;
-    protected GuiButton inventoryModeButton;
+    protected Button clearTextButton;
+    protected Button clearRecipeButton;
+    protected Button sortTypeButton;
+    protected Button sortDirectionButton;
+    protected Button jeiSyncButton;
+    protected Button autocraftingModeButton;
+    protected Button inventoryModeButton;
     protected GuiLabelNoShadow storageSpaceInfoLabel;
     protected int rows;
     protected int columns;
@@ -198,7 +198,7 @@ public abstract class GuiStorageControllerBase extends GuiContainer implements I
         if (this.searchBar != null)
             searchBarText = this.searchBar.getText();
 
-        this.searchBar = new GuiTextField(0, this.fontRenderer, this.guiLeft + searchBarLeft,
+        this.searchBar = new TextFieldWidget(0, this.fontRenderer, this.guiLeft + searchBarLeft,
                 this.guiTop + searchBarTop, 90, this.fontRenderer.FONT_HEIGHT);
         this.searchBar.setMaxStringLength(30);
 
@@ -452,7 +452,7 @@ public abstract class GuiStorageControllerBase extends GuiContainer implements I
     }
 
     @Override
-    public void actionPerformed(GuiButton button) throws IOException {
+    public void actionPerformed(Button button) throws IOException {
         super.actionPerformed(button);
         if (button == null) {
             return;

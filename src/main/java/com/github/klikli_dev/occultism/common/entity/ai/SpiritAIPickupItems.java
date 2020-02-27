@@ -24,24 +24,24 @@ package com.github.klikli_dev.occultism.common.entity.ai;
 
 import com.github.klikli_dev.occultism.common.entity.spirits.EntitySpirit;
 import com.google.common.base.Predicate;
-import net.minecraft.entity.ai.EntityAITarget;
-import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.ai.goal.TargetGoal;
+import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.items.ItemHandlerHelper;
 
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class SpiritAIPickupItems extends EntityAITarget {
+public class SpiritAIPickupItems extends TargetGoal {
 
     //region Fields
 
     protected final EntitySpirit entity;
-    protected final Predicate<? super EntityItem> targetItemSelector;
+    protected final Predicate<? super ItemEntity> targetItemSelector;
     protected final EntitySorter entitySorter;
-    protected EntityItem targetItem;
+    protected ItemEntity targetItem;
     protected int executionChance;
     //endregion Fields
 
@@ -55,10 +55,10 @@ public class SpiritAIPickupItems extends EntityAITarget {
         super(entity, false, false);
         this.entity = entity;
         this.executionChance = executionChance;
-        this.targetItemSelector = new Predicate<EntityItem>() {
+        this.targetItemSelector = new Predicate<ItemEntity>() {
             //region Overrides
             @Override
-            public boolean apply(@Nullable EntityItem item) {
+            public boolean apply(@Nullable ItemEntity item) {
                 ItemStack stack = item.getItem();
                 return !stack.isEmpty() && entity.canPickupItem(stack);
             }
@@ -87,8 +87,8 @@ public class SpiritAIPickupItems extends EntityAITarget {
         AxisAlignedBB targetBox = new AxisAlignedBB(-workAreaSize, -workAreaSize / 2.0, -workAreaSize, workAreaSize,
                 workAreaSize / 2.0, workAreaSize).offset(this.entity.getWorkAreaCenter());
 
-        List<EntityItem> list = this.taskOwner.world
-                                        .getEntitiesWithinAABB(EntityItem.class, targetBox, this.targetItemSelector);
+        List<ItemEntity> list = this.taskOwner.world
+                                        .getEntitiesWithinAABB(ItemEntity.class, targetBox, this.targetItemSelector);
         if (list.isEmpty()) {
             return false;
         }
@@ -108,7 +108,7 @@ public class SpiritAIPickupItems extends EntityAITarget {
             this.taskOwner.getNavigator().clearPath();
         }
         else if (this.taskOwner.getDistanceSq(this.targetItem) < 1) {
-            ItemStack heldItem = this.entity.getHeldItem(EnumHand.MAIN_HAND);
+            ItemStack heldItem = this.entity.getHeldItem(Hand.MAIN_HAND);
             if (heldItem.isEmpty() || (ItemHandlerHelper.canItemStacksStack(this.targetItem.getItem(), heldItem) &&
                                        heldItem.getCount() < heldItem.getMaxStackSize())) {
                 ItemStack duplicate = this.targetItem.getItem().copy();
@@ -117,7 +117,7 @@ public class SpiritAIPickupItems extends EntityAITarget {
                         this.targetItem.getItem().getCount());
                 duplicate.setCount(extractSize);
                 this.targetItem.getItem().shrink(extractSize);
-                this.entity.setHeldItem(EnumHand.MAIN_HAND, duplicate);
+                this.entity.setHeldItem(Hand.MAIN_HAND, duplicate);
                 this.resetTask();
             }
         }

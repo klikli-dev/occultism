@@ -32,9 +32,9 @@ import com.github.klikli_dev.occultism.common.entity.spirits.EntitySpirit;
 import com.github.klikli_dev.occultism.common.tile.TileEntityStorageController;
 import com.github.klikli_dev.occultism.util.TileEntityUtil;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
@@ -42,7 +42,7 @@ import net.minecraftforge.fml.common.network.IGuiHandler;
 public class GuiHandler implements IGuiHandler {
     //region Overrides
     @Override
-    public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
+    public Object getServerGuiElement(int ID, PlayerEntity player, World world, int x, int y, int z) {
         GuiID guiID = GuiID.values()[ID];
 
         BlockPos pos = new BlockPos(x, y, z);
@@ -56,7 +56,7 @@ public class GuiHandler implements IGuiHandler {
                 break;
             case STORAGE_REMOTE:
                 //hand is encoded in X
-                EnumHand hand = EnumHand.values()[x];
+                Hand hand = Hand.values()[x];
                 return new ContainerStorageRemote(player.inventory, hand);
             case SPIRIT:
                 //entity id is encoded in x
@@ -67,7 +67,7 @@ public class GuiHandler implements IGuiHandler {
     }
 
     @Override
-    public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
+    public Object getClientGuiElement(int ID, PlayerEntity player, World world, int x, int y, int z) {
         GuiID guiID = GuiID.values()[ID];
 
         BlockPos pos = new BlockPos(x, y, z);
@@ -81,7 +81,7 @@ public class GuiHandler implements IGuiHandler {
                 break;
             case STORAGE_REMOTE:
                 //hand is encoded in X
-                EnumHand hand = EnumHand.values()[x];
+                Hand hand = Hand.values()[x];
                 return new GuiStorageRemote(
                         (ContainerStorageRemote) this.getServerGuiElement(ID, player, world, x, y, z));
             case SPIRIT:

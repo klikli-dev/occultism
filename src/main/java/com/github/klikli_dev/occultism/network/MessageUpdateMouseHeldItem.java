@@ -24,8 +24,8 @@ package com.github.klikli_dev.occultism.network;
 
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
@@ -51,14 +51,14 @@ public class MessageUpdateMouseHeldItem extends MessageBase<MessageUpdateMouseHe
 
     //region Overrides
     @Override
-    public void onClientReceived(Minecraft minecraft, MessageUpdateMouseHeldItem message, EntityPlayer player,
+    public void onClientReceived(Minecraft minecraft, MessageUpdateMouseHeldItem message, PlayerEntity player,
                                  MessageContext context) {
         player.inventory.setItemStack(message.stack);
     }
 
     @Override
     public void onServerReceived(MinecraftServer minecraftServer, MessageUpdateMouseHeldItem message,
-                                 EntityPlayerMP player, MessageContext context) {
+                                 ServerPlayerEntity player, MessageContext context) {
 
     }
 

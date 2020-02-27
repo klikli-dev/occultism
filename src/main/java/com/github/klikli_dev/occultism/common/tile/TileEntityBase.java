@@ -22,9 +22,9 @@
 
 package com.github.klikli_dev.occultism.common.tile;
 
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.server.SPacketUpdateTileEntity;
+import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.tileentity.TileEntity;
 
 /**
@@ -34,34 +34,34 @@ public class TileEntityBase extends TileEntity {
 
     //region Overrides
     @Override
-    public void readFromNBT(NBTTagCompound compound) {
+    public void readFromNBT(CompoundNBT compound) {
         this.readFromNetworkNBT(compound);
         super.readFromNBT(compound);
     }
 
     @Override
-    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+    public CompoundNBT writeToNBT(CompoundNBT compound) {
         this.writeToNetworkNBT(compound);
         return super.writeToNBT(compound);
     }
 
     @Override
-    public SPacketUpdateTileEntity getUpdatePacket() {
-        return new SPacketUpdateTileEntity(this.pos, 1, this.writeToNetworkNBT(new NBTTagCompound()));
+    public SUpdateTileEntityPacket getUpdatePacket() {
+        return new SUpdateTileEntityPacket(this.pos, 1, this.writeToNetworkNBT(new CompoundNBT()));
     }
 
     @Override
-    public NBTTagCompound getUpdateTag() {
+    public CompoundNBT getUpdateTag() {
         return this.writeToNetworkNBT(super.getUpdateTag());
     }
 
     @Override
-    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
+    public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket pkt) {
         this.readFromNetworkNBT(pkt.getNbtCompound());
     }
 
     @Override
-    public void handleUpdateTag(NBTTagCompound tag) {
+    public void handleUpdateTag(CompoundNBT tag) {
         super.handleUpdateTag(tag);
         this.readFromNetworkNBT(tag);
     }
@@ -75,7 +75,7 @@ public class TileEntityBase extends TileEntity {
      *
      * @param compound the compound to read from.
      */
-    public void readFromNetworkNBT(NBTTagCompound compound) {
+    public void readFromNetworkNBT(CompoundNBT compound) {
     }
 
     /**
@@ -84,7 +84,7 @@ public class TileEntityBase extends TileEntity {
      * @param compound the compound to write to.
      * @return the compound written to,
      */
-    public NBTTagCompound writeToNetworkNBT(NBTTagCompound compound) {
+    public CompoundNBT writeToNetworkNBT(CompoundNBT compound) {
         return compound;
     }
 

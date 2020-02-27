@@ -26,8 +26,8 @@ import com.github.klikli_dev.occultism.api.common.tile.IStorageControllerProxy;
 import com.github.klikli_dev.occultism.common.entity.spirits.EntitySpirit;
 import com.github.klikli_dev.occultism.common.jobs.SpiritJobManageMachine;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -66,11 +66,11 @@ public class SpiritAIFallbackDepositToController extends EntityAIPausable {
         if (this.job.getStorageController() == null)
             return false;
 
-        boolean hasItem = !this.entity.getHeldItem(EnumHand.MAIN_HAND).isEmpty();
+        boolean hasItem = !this.entity.getHeldItem(Hand.MAIN_HAND).isEmpty();
         BlockPos depositPos = this.entity.getDepositPosition();
 
         //if we are holding something but have no deposit location we can execute this
-        return !this.isPaused() && !this.entity.getHeldItem(EnumHand.MAIN_HAND).isEmpty() &&
+        return !this.isPaused() && !this.entity.getHeldItem(Hand.MAIN_HAND).isEmpty() &&
                this.entity.getDepositPosition() == null;
     }
 
@@ -84,7 +84,7 @@ public class SpiritAIFallbackDepositToController extends EntityAIPausable {
         TileEntity storageProxy = this.findClosestStorageProxy();
         if (storageProxy != null) {
             this.entity.setDepositPosition(storageProxy.getPos());
-            this.entity.setDepositFacing(EnumFacing.UP);
+            this.entity.setDepositFacing(Direction.UP);
         }
         else {
             //keep track of retries to wait increasing amounts of time up to 5 min

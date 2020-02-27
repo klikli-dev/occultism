@@ -25,7 +25,7 @@ package com.github.klikli_dev.occultism.client.divination;
 
 import com.github.klikli_dev.occultism.util.Math3DUtil;
 import net.minecraft.block.Block;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 
@@ -44,14 +44,14 @@ public class ScanManager {
     //endregion Fields
 
     //region Methods
-    public void beginScan(EntityPlayer player, Block target) {
+    public void beginScan(PlayerEntity player, Block target) {
         this.cancelScan();
 
         this.scanner = new Scanner(target);
         this.scanner.initialize(player, player.getPositionVector(), SCAN_RADIUS_BLOCKS, SCAN_DURATION_TICKS);
     }
 
-    public void updateScan(EntityPlayer player, boolean forceFinish) {
+    public void updateScan(PlayerEntity player, boolean forceFinish) {
         final int remainingTicks = SCAN_DURATION_TICKS - this.scanningTicks;
 
         if (remainingTicks <= 0 || this.scanner == null) {
@@ -72,7 +72,7 @@ public class ScanManager {
         }
     }
 
-    public BlockPos finishScan(EntityPlayer player) {
+    public BlockPos finishScan(PlayerEntity player) {
         this.updateScan(player, true);
 
         Vec3d scanCenter = player.getPositionVector();

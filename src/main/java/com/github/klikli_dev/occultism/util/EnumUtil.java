@@ -22,7 +22,7 @@
 
 package com.github.klikli_dev.occultism.util;
 
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 
 public class EnumUtil {
 
@@ -34,8 +34,8 @@ public class EnumUtil {
      * @param currentValue the current value.
      * @return the next value.
      */
-    public static EnumFacing nextFacing(EnumFacing currentValue) {
-        return EnumFacing.values()[(currentValue.ordinal() + 1) % EnumFacing.values().length];
+    public static Direction nextFacing(Direction currentValue) {
+        return Direction.values()[(currentValue.ordinal() + 1) % Direction.values().length];
     }
     //endregion Static Methods
 }

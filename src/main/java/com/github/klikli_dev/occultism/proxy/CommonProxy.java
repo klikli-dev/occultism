@@ -45,11 +45,11 @@ import net.minecraft.block.Block;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Potion;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.potion.Effect;
+import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldServer;
+import net.minecraft.world.ServerWorld;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.FMLCommonHandler;
@@ -206,12 +206,12 @@ public class CommonProxy {
     }
 
     @SubscribeEvent
-    public static void registerPotions(RegistryEvent.Register<Potion> event) {
+    public static void registerPotions(RegistryEvent.Register<Effect> event) {
         try {
             for (Field f : PotionRegistry.class.getFields()) {
                 Object obj = f.get(null);
-                if (obj instanceof Potion) {
-                    Potion potion = (Potion) obj;
+                if (obj instanceof Effect) {
+                    Effect potion = (Effect) obj;
                     event.getRegistry().register(potion);
                 }
             }
@@ -347,7 +347,7 @@ public class CommonProxy {
      * @param <T>            the message type
      */
     public <T extends MessageBase<T>> void handleMessage(final T message, final MessageContext messageContext) {
-        WorldServer world = (WorldServer) messageContext.getServerHandler().player.world;
+        ServerWorld world = (ServerWorld) messageContext.getServerHandler().player.world;
         world.addScheduledTask(
                 () -> message.onServerReceived(FMLCommonHandler.instance().getMinecraftServerInstance(), message,
                         messageContext.getServerHandler().player, messageContext));
@@ -361,7 +361,7 @@ public class CommonProxy {
      * @param delayMilliseconds the delay in milliseconds.
      */
     public void scheduleDelayedTask(World world, Runnable task, int delayMilliseconds) {
-        WorldServer worldServer = (WorldServer) world;
+        ServerWorld worldServer = (ServerWorld) world;
         this.scheduler.schedule(() -> worldServer.addScheduledTask(task), delayMilliseconds, TimeUnit.MILLISECONDS);
     }
 
@@ -369,7 +369,7 @@ public class CommonProxy {
 
     }
 
-    public void openBookOfCallingManageMachineUI(EnumFacing insertFacing, EnumFacing extractFacing, String customName) {
+    public void openBookOfCallingManageMachineUI(Direction insertFacing, Direction extractFacing, String customName) {
 
     }
 

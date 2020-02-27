@@ -23,10 +23,10 @@
 package com.github.klikli_dev.occultism.common.container;
 
 import com.github.klikli_dev.occultism.common.entity.spirits.EntitySpirit;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Container;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.Slot;
+import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 
 public class ContainerSpirit extends Container {
@@ -37,7 +37,7 @@ public class ContainerSpirit extends Container {
     //endregion Fields
 
     //region Initialization
-    public ContainerSpirit(EntitySpirit spirit, EntityPlayer player) {
+    public ContainerSpirit(EntitySpirit spirit, PlayerEntity player) {
         this.inventory = spirit.inventory;
         this.spirit = spirit;
 
@@ -50,7 +50,7 @@ public class ContainerSpirit extends Container {
     //region Overrides
 
     @Override
-    public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
+    public ItemStack transferStackInSlot(PlayerEntity playerIn, int index) {
         ItemStack itemstack = ItemStack.EMPTY;
         Slot slot = this.inventorySlots.get(index);
         if (slot != null && slot.getHasStack()) {
@@ -78,20 +78,20 @@ public class ContainerSpirit extends Container {
     }
 
     @Override
-    public void onContainerClosed(EntityPlayer playerIn) {
+    public void onContainerClosed(PlayerEntity playerIn) {
         super.onContainerClosed(playerIn);
         this.inventory.closeInventory(playerIn);
     }
 
     @Override
-    public boolean canInteractWith(EntityPlayer entityPlayer) {
+    public boolean canInteractWith(PlayerEntity entityPlayer) {
         return this.inventory.isUsableByPlayer(entityPlayer) && this.spirit.isEntityAlive() &&
                this.spirit.getDistance(entityPlayer) < 8.0F;
     }
     //endregion Overrides
 
     //region Methods
-    protected void setupPlayerInventorySlots(EntityPlayer player) {
+    protected void setupPlayerInventorySlots(PlayerEntity player) {
         int playerInventoryTop = 84;
         int playerInventoryLeft = 8;
 
@@ -101,7 +101,7 @@ public class ContainerSpirit extends Container {
                         playerInventoryTop + i * 18));
     }
 
-    protected void setupPlayerHotbar(EntityPlayer player) {
+    protected void setupPlayerHotbar(PlayerEntity player) {
         int hotbarTop = 142;
         int hotbarLeft = 8;
         for (int i = 0; i < 9; i++)

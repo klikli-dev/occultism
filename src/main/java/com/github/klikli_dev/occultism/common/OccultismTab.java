@@ -24,12 +24,12 @@ package com.github.klikli_dev.occultism.common;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.registry.ItemRegistry;
-import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class OccultismTab extends CreativeTabs {
+public class OccultismTab extends ItemGroup {
     //region Initialization
     public OccultismTab() {
         super(Occultism.MODID);

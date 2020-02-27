@@ -24,20 +24,20 @@ package com.github.klikli_dev.occultism.common.block.crops;
 
 import com.github.klikli_dev.occultism.registry.BlockRegistry;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockCrops;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.CropsBlock;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
 
-public class BlockOccultismCrop extends BlockCrops implements IReplantable {
+public class BlockOccultismCrop extends CropsBlock implements IReplantable {
     //region Fields
     private Item seed;
     private Item crop;
@@ -72,7 +72,7 @@ public class BlockOccultismCrop extends BlockCrops implements IReplantable {
     }
 
     @Override
-    public void neighborChanged(IBlockState state, World world, BlockPos to, Block block, BlockPos from) {
+    public void neighborChanged(BlockState state, World world, BlockPos to, Block block, BlockPos from) {
         if (!this.canBlockStay(world, to, state)) {
             this.dropBlockAsItem(world, to, state, 0);
             world.removeTileEntity(to);
@@ -81,8 +81,8 @@ public class BlockOccultismCrop extends BlockCrops implements IReplantable {
     }
 
     @Override
-    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand,
-                                    EnumFacing facing, float hitX, float hitY, float hitZ) {
+    public boolean onBlockActivated(World world, BlockPos pos, BlockState state, PlayerEntity player, Hand hand,
+                                    Direction facing, float hitX, float hitY, float hitZ) {
         IReplantable.super.onHarvest(world, pos, state, player);
         return super.onBlockActivated(world, pos, state, player, hand, facing, hitX, hitY, hitZ);
     }

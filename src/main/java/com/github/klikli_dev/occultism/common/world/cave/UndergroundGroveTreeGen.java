@@ -22,18 +22,18 @@
 
 package com.github.klikli_dev.occultism.common.world.cave;
 
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Blocks;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.gen.feature.WorldGenTrees;
+import net.minecraft.world.gen.feature.TreeFeature;
 
 /**
  * A tree generator that supports vines without growing cocoa
  */
-public class UndergroundGroveTreeGen extends WorldGenTrees {
+public class UndergroundGroveTreeGen extends TreeFeature {
     //region Initialization
-    public UndergroundGroveTreeGen(boolean notify, int minTreeHeightIn, IBlockState woodBlock, IBlockState leafBlock,
+    public UndergroundGroveTreeGen(boolean notify, int minTreeHeightIn, BlockState woodBlock, BlockState leafBlock,
                                    boolean growVines) {
         super(notify, minTreeHeightIn, woodBlock, leafBlock, growVines);
     }
@@ -41,7 +41,7 @@ public class UndergroundGroveTreeGen extends WorldGenTrees {
 
     //region Overrides
     @Override
-    protected void setBlockAndNotifyAdequately(World worldIn, BlockPos pos, IBlockState state) {
+    protected void setBlockAndNotifyAdequately(World worldIn, BlockPos pos, BlockState state) {
         if (state.getBlock() != Blocks.COCOA) //we do not generate cocoa
             super.setBlockAndNotifyAdequately(worldIn, pos, state);
     }

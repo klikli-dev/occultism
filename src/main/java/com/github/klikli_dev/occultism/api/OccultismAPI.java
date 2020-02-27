@@ -23,8 +23,10 @@
 package com.github.klikli_dev.occultism.api;
 
 import com.github.klikli_dev.occultism.registry.ItemRegistry;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.passive.*;
+import net.minecraft.entity.passive.horse.HorseEntity;
+import net.minecraft.entity.passive.horse.LlamaEntity;
 import net.minecraft.item.ItemStack;
 
 import java.util.Collections;
@@ -35,7 +37,7 @@ import java.util.function.Predicate;
 
 public class OccultismAPI {
     //region Fields
-    public static final Map<Predicate<EntityLivingBase>, List<ItemStack>> BUTCHER_KNIFE_LOOT = new HashMap<>();
+    public static final Map<Predicate<LivingEntity>, List<ItemStack>> BUTCHER_KNIFE_LOOT = new HashMap<>();
     //endregion Fields
 
     //region Static Methods
@@ -45,15 +47,15 @@ public class OccultismAPI {
 
     public static void registerButcherKnifeLoot() {
         BUTCHER_KNIFE_LOOT
-                .put(e -> e instanceof EntityPig, Collections.singletonList(new ItemStack(ItemRegistry.TALLOW, 2)));
+                .put(e -> e instanceof PigEntity, Collections.singletonList(new ItemStack(ItemRegistry.TALLOW, 2)));
         BUTCHER_KNIFE_LOOT
-                .put(e -> e instanceof EntityCow, Collections.singletonList(new ItemStack(ItemRegistry.TALLOW, 4)));
+                .put(e -> e instanceof CowEntity, Collections.singletonList(new ItemStack(ItemRegistry.TALLOW, 4)));
         BUTCHER_KNIFE_LOOT
-                .put(e -> e instanceof EntitySheep, Collections.singletonList(new ItemStack(ItemRegistry.TALLOW, 2)));
+                .put(e -> e instanceof SheepEntity, Collections.singletonList(new ItemStack(ItemRegistry.TALLOW, 2)));
         BUTCHER_KNIFE_LOOT
-                .put(e -> e instanceof EntityLlama, Collections.singletonList(new ItemStack(ItemRegistry.TALLOW, 3)));
+                .put(e -> e instanceof LlamaEntity, Collections.singletonList(new ItemStack(ItemRegistry.TALLOW, 3)));
         BUTCHER_KNIFE_LOOT
-                .put(e -> e instanceof EntityHorse, Collections.singletonList(new ItemStack(ItemRegistry.TALLOW, 3)));
+                .put(e -> e instanceof HorseEntity, Collections.singletonList(new ItemStack(ItemRegistry.TALLOW, 3)));
     }
     //endregion Static Methods
 }

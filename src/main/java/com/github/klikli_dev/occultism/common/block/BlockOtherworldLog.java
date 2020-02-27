@@ -23,16 +23,16 @@
 package com.github.klikli_dev.occultism.common.block;
 
 import com.github.klikli_dev.occultism.registry.BlockRegistry;
-import net.minecraft.block.BlockLog;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.LogBlock;
 import net.minecraft.block.SoundType;
-import net.minecraft.block.material.MapColor;
+import net.minecraft.block.material.MaterialColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 
-public class BlockOtherworldLog extends BlockLog {
+public class BlockOtherworldLog extends LogBlock {
 
     //region Initialization
 
@@ -47,8 +47,8 @@ public class BlockOtherworldLog extends BlockLog {
     //region Overrides
 
     @Override
-    public IBlockState getStateFromMeta(int meta) {
-        IBlockState iblockstate = this.getDefaultState();
+    public BlockState getStateFromMeta(int meta) {
+        BlockState iblockstate = this.getDefaultState();
         switch (meta & 12) {
             case 0:
                 iblockstate = iblockstate.withProperty(LOG_AXIS, EnumAxis.Y);
@@ -67,7 +67,7 @@ public class BlockOtherworldLog extends BlockLog {
     }
 
     @Override
-    public int getMetaFromState(IBlockState state) {
+    public int getMetaFromState(BlockState state) {
         int i = 0;
         switch (state.getValue(LOG_AXIS)) {
             case X:
@@ -85,12 +85,12 @@ public class BlockOtherworldLog extends BlockLog {
 
     @Override
     protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, BlockLog.LOG_AXIS);
+        return new BlockStateContainer(this, LogBlock.LOG_AXIS);
     }
 
     @Override
-    public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-        return MapColor.BROWN;
+    public MaterialColor getMapColor(BlockState state, IBlockAccess worldIn, BlockPos pos) {
+        return MaterialColor.BROWN;
     }
     //endregion Overrides
 }

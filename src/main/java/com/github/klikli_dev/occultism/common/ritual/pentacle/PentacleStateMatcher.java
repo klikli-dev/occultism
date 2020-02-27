@@ -24,8 +24,8 @@ package com.github.klikli_dev.occultism.common.ritual.pentacle;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.block.BlockChalkGlyph;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.state.IBlockState;
 import vazkii.patchouli.api.IStateMatcher;
 
 import java.util.function.Predicate;
@@ -36,12 +36,12 @@ import java.util.function.Predicate;
 public class PentacleStateMatcher implements IStateMatcher {
 
     //region Fields
-    private final IBlockState displayState;
-    private final Predicate<IBlockState> statePredicate;
+    private final BlockState displayState;
+    private final Predicate<BlockState> statePredicate;
     //endregion Fields
 
     //region Initialization
-    private PentacleStateMatcher(IBlockState displayState, Predicate<IBlockState> statePredicate) {
+    private PentacleStateMatcher(BlockState displayState, Predicate<BlockState> statePredicate) {
         this.displayState = displayState;
         this.statePredicate = statePredicate;
     }
@@ -49,12 +49,12 @@ public class PentacleStateMatcher implements IStateMatcher {
 
     //region Overrides
     @Override
-    public IBlockState getDisplayedState() {
+    public BlockState getDisplayedState() {
         return this.displayState;
     }
 
     @Override
-    public Predicate<IBlockState> getStatePredicate() {
+    public Predicate<BlockState> getStatePredicate() {
         return this.statePredicate;
 
     }
@@ -69,7 +69,7 @@ public class PentacleStateMatcher implements IStateMatcher {
      * @param propertiesToMatch the properties to match.
      * @return the created state matcher.
      */
-    public static PentacleStateMatcher fromState(IBlockState displayState, IProperty... propertiesToMatch) {
+    public static PentacleStateMatcher fromState(BlockState displayState, IProperty... propertiesToMatch) {
         return new PentacleStateMatcher(displayState,
                 (actualState) -> actualState.getBlock() == displayState.getBlock() &&
                                  matchesProperties(actualState, displayState));
@@ -81,7 +81,7 @@ public class PentacleStateMatcher implements IStateMatcher {
      * @param displayState the state to compare to.
      * @return the created state matcher.
      */
-    public static PentacleStateMatcher glyphType(IBlockState displayState) {
+    public static PentacleStateMatcher glyphType(BlockState displayState) {
         return fromState(displayState, BlockChalkGlyph.TYPE);
     }
 
@@ -93,7 +93,7 @@ public class PentacleStateMatcher implements IStateMatcher {
      * @param propertiesToMatch the properties to match.
      * @return true if all properties on the display state exist identically on the reference state.
      */
-    public static boolean matchesProperties(IBlockState actualState, IBlockState displayState,
+    public static boolean matchesProperties(BlockState actualState, BlockState displayState,
                                             IProperty<?>... propertiesToMatch) {
         for (IProperty<?> propertyKey : propertiesToMatch) {
             //If the actual state is missing the key, or the values differ, return false

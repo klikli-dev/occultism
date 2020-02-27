@@ -27,12 +27,12 @@ import com.github.klikli_dev.occultism.common.entity.ai.SpiritAIPickupItems;
 import com.github.klikli_dev.occultism.common.entity.spirits.EntitySpirit;
 import com.github.klikli_dev.occultism.crafting.recipe.SpiritTrade;
 import com.github.klikli_dev.occultism.network.MessageParticle;
-import net.minecraft.init.Blocks;
+import net.minecraft.block.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumHand;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.Hand;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.Vec3d;
@@ -111,7 +111,7 @@ public class SpiritJobTrader extends SpiritJob {
 
     @Override
     public void update() {
-        ItemStack handHeld = this.entity.getHeldItem(EnumHand.MAIN_HAND);
+        ItemStack handHeld = this.entity.getHeldItem(Hand.MAIN_HAND);
         if (this.trade != null && this.trade.isValid(handHeld)) {
             if (this.entity.world.getTotalWorldTime() % 10 == 0) {
                 //show particle effect while converting
@@ -135,10 +135,10 @@ public class SpiritJobTrader extends SpiritJob {
                 }
 
                 if (input.isEmpty()) {
-                    this.entity.setHeldItem(EnumHand.MAIN_HAND, ItemStack.EMPTY);
+                    this.entity.setHeldItem(Hand.MAIN_HAND, ItemStack.EMPTY);
                 }
                 else {
-                    this.entity.setHeldItem(EnumHand.MAIN_HAND, input.get(0));
+                    this.entity.setHeldItem(Hand.MAIN_HAND, input.get(0));
                 }
 
 
@@ -158,7 +158,7 @@ public class SpiritJobTrader extends SpiritJob {
     }
 
     @Override
-    public NBTTagCompound writeJobToNBT(NBTTagCompound compound) {
+    public CompoundNBT writeJobToNBT(CompoundNBT compound) {
         compound.setInteger("timeToConvert", this.timeToConvert);
         compound.setInteger("conversionTimer", this.conversionTimer);
         compound.setInteger("maxTradesPerRound", this.maxTradesPerRound);
@@ -168,7 +168,7 @@ public class SpiritJobTrader extends SpiritJob {
     }
 
     @Override
-    public void readJobFromNBT(NBTTagCompound compound) {
+    public void readJobFromNBT(CompoundNBT compound) {
         super.readJobFromNBT(compound);
         this.timeToConvert = compound.getInteger("timeToConvert");
         this.conversionTimer = compound.getInteger("conversionTimer");

@@ -29,8 +29,8 @@ import com.github.klikli_dev.occultism.api.common.tile.IStorageAccessor;
 import com.github.klikli_dev.occultism.util.ItemNBTUtil;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
@@ -58,13 +58,13 @@ public class MessageSortItems extends MessageBase<MessageSortItems> {
 
     //region Overrides
     @Override
-    public void onClientReceived(Minecraft minecraft, MessageSortItems message, EntityPlayer player,
+    public void onClientReceived(Minecraft minecraft, MessageSortItems message, PlayerEntity player,
                                  MessageContext context) {
 
     }
 
     @Override
-    public void onServerReceived(MinecraftServer minecraftServer, MessageSortItems message, EntityPlayerMP player,
+    public void onServerReceived(MinecraftServer minecraftServer, MessageSortItems message, ServerPlayerEntity player,
                                  MessageContext context) {
         if (player.openContainer instanceof IStorageControllerContainer) {
             if (!((IStorageControllerContainer) player.openContainer).isContainerItem()) {

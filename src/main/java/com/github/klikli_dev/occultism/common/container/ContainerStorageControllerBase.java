@@ -30,10 +30,12 @@ import com.github.klikli_dev.occultism.client.gui.GuiStorageControllerBase;
 import com.github.klikli_dev.occultism.common.misc.InventoryCraftingCached;
 import com.github.klikli_dev.occultism.common.misc.ItemStackComparator;
 import com.github.klikli_dev.occultism.common.misc.SlotCraftingNetwork;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.*;
+import net.minecraft.inventory.container.Container;
+import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
@@ -47,10 +49,10 @@ import java.util.List;
 public abstract class ContainerStorageControllerBase extends Container implements IStorageControllerContainer {
 
     //region Fields
-    public InventoryPlayer playerInventory;
-    protected InventoryCraftResult result;
+    public PlayerInventory playerInventory;
+    protected CraftResultInventory result;
     protected InventoryCraftingCached matrix;
-    protected InventoryBasic orderInventory;
+    protected Inventory orderInventory;
 
     /**
      * used to lock recipe while crafting
@@ -60,24 +62,24 @@ public abstract class ContainerStorageControllerBase extends Container implement
 
     //region Initialization
     public ContainerStorageControllerBase() {
-        this.result = new InventoryCraftResult();
-        this.orderInventory = new InventoryBasic("", false, 1);
+        this.result = new CraftResultInventory();
+        this.orderInventory = new Inventory("", false, 1);
     }
     //endregion Initialization
 
     //region Overrides
     @Override
-    public InventoryCrafting getCraftMatrix() {
+    public CraftingInventory getCraftMatrix() {
         return this.matrix;
     }
 
     @Override
-    public InventoryBasic getOrderSlot() {
+    public Inventory getOrderSlot() {
         return this.orderInventory;
     }
 
     @Override
-    public ItemStack transferStackInSlot(EntityPlayer player, int index) {
+    public ItemStack transferStackInSlot(PlayerEntity player, int index) {
         if (player.world.isRemote)
             return ItemStack.EMPTY;
 
@@ -109,7 +111,7 @@ public abstract class ContainerStorageControllerBase extends Container implement
                 this.detectAndSendChanges();
 
                 //get updated stacks from storage controller and send to client
-                Occultism.network.sendTo(storageController.getMessageUpdateStacks(), (EntityPlayerMP) player);
+                Occultism.network.sendTo(storageController.getMessageUpdateStacks(), (ServerPlayerEntity) player);
 
                 if (!remainingItemStack.isEmpty()) {
                     slot.onTake(player, slotStack);
@@ -121,7 +123,7 @@ public abstract class ContainerStorageControllerBase extends Container implement
     }
 
     @Override
-    public void onContainerClosed(EntityPlayer playerIn) {
+    public void onContainerClosed(PlayerEntity playerIn) {
         this.updateCraftingSlots(false);
         this.updateOrderSlot(true); //only send network update on second call
         super.onContainerClosed(playerIn);
@@ -186,7 +188,7 @@ public abstract class ContainerStorageControllerBase extends Container implement
         }
     }
 
-    protected void craftShift(EntityPlayer player, IStorageController storageController) {
+    protected void craftShift(PlayerEntity player, IStorageController storageController) {
         if (this.matrix == null) {
             return;
         }

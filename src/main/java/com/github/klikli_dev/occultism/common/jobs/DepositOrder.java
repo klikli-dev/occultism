@@ -23,7 +23,7 @@
 package com.github.klikli_dev.occultism.common.jobs;
 
 import com.github.klikli_dev.occultism.common.misc.ItemStackComparator;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 
 public class DepositOrder {
 
@@ -43,7 +43,7 @@ public class DepositOrder {
     //endregion Initialization
 
     //region Static Methods
-    public static DepositOrder fromNbt(NBTTagCompound compound) {
+    public static DepositOrder fromNbt(CompoundNBT compound) {
         DepositOrder depositOrder = new DepositOrder();
         depositOrder.readFromNBT(compound);
         return depositOrder;
@@ -51,13 +51,13 @@ public class DepositOrder {
     //endregion Static Methods
 
     //region Methods
-    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-        compound.setTag("comparator", this.comparator.writeToNBT(new NBTTagCompound()));
+    public CompoundNBT writeToNBT(CompoundNBT compound) {
+        compound.setTag("comparator", this.comparator.writeToNBT(new CompoundNBT()));
         compound.setInteger("amount", this.amount);
         return compound;
     }
 
-    public void readFromNBT(NBTTagCompound compound) {
+    public void readFromNBT(CompoundNBT compound) {
         this.comparator = ItemStackComparator.loadFromNBT(compound.getCompoundTag("comparator"));
         this.amount = compound.getInteger("amount");
     }

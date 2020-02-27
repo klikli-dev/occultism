@@ -45,9 +45,9 @@ import com.github.klikli_dev.occultism.network.MessageBase;
 import com.github.klikli_dev.occultism.registry.BlockRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.Particle;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.renderer.model.ModelResourceLocation;
 import net.minecraft.item.Item;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.obj.OBJLoader;
@@ -151,7 +151,7 @@ public class ClientProxy extends CommonProxy {
     }
 
     @Override
-    public void openBookOfCallingManageMachineUI(EnumFacing insertFacing, EnumFacing extractFacing, String customName) {
+    public void openBookOfCallingManageMachineUI(Direction insertFacing, Direction extractFacing, String customName) {
         Minecraft.getMinecraft()
                 .displayGuiScreen(new GuiBookOfCallingManagedMachine(insertFacing, extractFacing, customName));
     }

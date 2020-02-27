@@ -24,13 +24,13 @@ package com.github.klikli_dev.occultism.client.render.entity;
 
 import com.github.klikli_dev.occultism.common.entity.spirits.EntitySpirit;
 import net.minecraft.client.model.ModelBiped;
-import net.minecraft.client.renderer.entity.RenderBiped;
-import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.entity.BipedRenderer;
+import net.minecraft.client.renderer.entity.EntityRendererManager;
 
-public abstract class RenderSpirit extends RenderBiped<EntitySpirit> {
+public abstract class RenderSpirit extends BipedRenderer<EntitySpirit> {
 
     //region Initialization
-    public RenderSpirit(RenderManager renderManager, ModelBiped modelBiped, float shadowsizein) {
+    public RenderSpirit(EntityRendererManager renderManager, ModelBiped modelBiped, float shadowsizein) {
         super(renderManager, modelBiped, shadowsizein);
     }
     //endregion Initialization

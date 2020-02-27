@@ -25,11 +25,11 @@ package com.github.klikli_dev.occultism.network;
 import com.github.klikli_dev.occultism.api.common.item.IHandleItemMode;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.Hand;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
 public class MessageSetItemMode extends MessageBase<MessageSetItemMode> {
@@ -49,15 +49,15 @@ public class MessageSetItemMode extends MessageBase<MessageSetItemMode> {
 
     //region Overrides
     @Override
-    public void onClientReceived(Minecraft minecraft, MessageSetItemMode message, EntityPlayer player,
+    public void onClientReceived(Minecraft minecraft, MessageSetItemMode message, PlayerEntity player,
                                  MessageContext context) {
 
     }
 
     @Override
-    public void onServerReceived(MinecraftServer minecraftServer, MessageSetItemMode message, EntityPlayerMP player,
+    public void onServerReceived(MinecraftServer minecraftServer, MessageSetItemMode message, ServerPlayerEntity player,
                                  MessageContext context) {
-        ItemStack stack = player.getHeldItem(EnumHand.MAIN_HAND);
+        ItemStack stack = player.getHeldItem(Hand.MAIN_HAND);
         if (stack.getItem() instanceof IHandleItemMode) {
             IHandleItemMode itemModeHandler = (IHandleItemMode) stack.getItem();
             itemModeHandler.setItemMode(stack, message.mode);

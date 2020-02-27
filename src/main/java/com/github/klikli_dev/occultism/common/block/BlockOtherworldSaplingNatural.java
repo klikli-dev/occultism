@@ -28,9 +28,9 @@ import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.block.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -38,14 +38,14 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraft.world.gen.feature.WorldGenTrees;
-import net.minecraft.world.gen.feature.WorldGenerator;
+import net.minecraft.world.gen.feature.Feature;
+import net.minecraft.world.gen.feature.TreeFeature;
 import net.minecraftforge.event.terraingen.TerrainGen;
 
 import javax.annotation.Nullable;
 import java.util.Random;
 
-public class BlockOtherworldSaplingNatural extends BlockBush implements IGrowable, IOtherOre {
+public class BlockOtherworldSaplingNatural extends BushBlock implements IGrowable, IOtherOre {
     //region Fields
     public static final PropertyInteger STAGE = PropertyInteger.create("stage", 0, 1);
     protected static final AxisAlignedBB SAPLING_AABB = new AxisAlignedBB(0.09999999403953552D, 0.0D,
@@ -72,43 +72,43 @@ public class BlockOtherworldSaplingNatural extends BlockBush implements IGrowabl
     }
 
     @Override
-    public IBlockState getStateFromMeta(int meta) {
+    public BlockState getStateFromMeta(int meta) {
         return this.getDefaultState().withProperty(STAGE, meta);
     }
 
     @Override
-    public int getMetaFromState(IBlockState state) {
+    public int getMetaFromState(BlockState state) {
         return state.getValue(STAGE);
     }
 
     @Override
-    public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
+    public BlockState getActualState(BlockState state, IBlockAccess worldIn, BlockPos pos) {
         return IOtherOre.super.getActualState(state, worldIn, pos);
     }
 
     @Override
-    public Item getItemDropped(IBlockState state, Random rand, int fortune) {
+    public Item getItemDropped(BlockState state, Random rand, int fortune) {
         return IOtherOre.super.getItemDropped(state, rand, fortune);
     }
 
     @Override
-    public int damageDropped(IBlockState state) {
+    public int damageDropped(BlockState state) {
         return state.getValue(UNCOVERED) ? 0 : BlockPlanks.EnumType.OAK.getMetadata();
     }
 
     @Override
-    public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state,
+    public void harvestBlock(World worldIn, PlayerEntity player, BlockPos pos, BlockState state,
                              @Nullable TileEntity te, ItemStack stack) {
         super.harvestBlock(worldIn, player, pos, IOtherOre.super.getHarvestState(player, state), te, stack);
     }
 
     @Override
-    public ItemStack getSilkTouchDrop(IBlockState state) {
+    public ItemStack getSilkTouchDrop(BlockState state) {
         return IOtherOre.super.getSilkTouchDrop(state);
     }
 
     @Override
-    public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {
+    public ItemStack getItem(World worldIn, BlockPos pos, BlockState state) {
         return IOtherOre.super.getItem(worldIn, pos, state);
     }
 
@@ -118,7 +118,7 @@ public class BlockOtherworldSaplingNatural extends BlockBush implements IGrowabl
     }
 
     @Override
-    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
+    public void updateTick(World worldIn, BlockPos pos, BlockState state, Random rand) {
         if (!worldIn.isRemote) {
             super.updateTick(worldIn, pos, state, rand);
 
@@ -129,22 +129,22 @@ public class BlockOtherworldSaplingNatural extends BlockBush implements IGrowabl
     }
 
     @Override
-    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+    public AxisAlignedBB getBoundingBox(BlockState state, IBlockAccess source, BlockPos pos) {
         return SAPLING_AABB;
     }
 
     @Override
-    public boolean canGrow(World worldIn, BlockPos pos, IBlockState state, boolean isClient) {
+    public boolean canGrow(World worldIn, BlockPos pos, BlockState state, boolean isClient) {
         return true;
     }
 
     @Override
-    public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, IBlockState state) {
+    public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, BlockState state) {
         return worldIn.rand.nextFloat() < 0.45D;
     }
 
     @Override
-    public void grow(World world, Random rand, BlockPos pos, IBlockState state) {
+    public void grow(World world, Random rand, BlockPos pos, BlockState state) {
         if (state.getValue(STAGE) == 0) {
             world.setBlockState(pos, state.cycleProperty(STAGE), 4);
         }
@@ -155,11 +155,11 @@ public class BlockOtherworldSaplingNatural extends BlockBush implements IGrowabl
     //endregion Overrides
 
     //region Methods
-    public void generateTree(World worldIn, BlockPos pos, IBlockState state, Random rand) {
+    public void generateTree(World worldIn, BlockPos pos, BlockState state, Random rand) {
         if (!TerrainGen.saplingGrowTree(worldIn, rand, pos))
             return;
 
-        WorldGenerator worldgenerator = new WorldGenTrees(false, 4,
+        Feature worldgenerator = new TreeFeature(false, 4,
                 BlockRegistry.OTHERWORLD_LOG_NATURAL.getDefaultState(),
                 BlockRegistry.OTHERWORLD_LEAVES_NATURAL.getDefaultState(), false);
 

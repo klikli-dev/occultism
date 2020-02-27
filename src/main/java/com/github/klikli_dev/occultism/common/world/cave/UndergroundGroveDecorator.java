@@ -25,21 +25,21 @@ package com.github.klikli_dev.occultism.common.world.cave;
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.OccultismConfig;
 import com.github.klikli_dev.occultism.registry.BlockRegistry;
-import net.minecraft.block.BlockVine;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemDye;
+import net.minecraft.block.VineBlock;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.item.DyeItem;
+import net.minecraft.item.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.gen.feature.WorldGenTrees;
+import net.minecraft.world.gen.feature.TreeFeature;
 
 public class UndergroundGroveDecorator extends CaveDecorator {
 
     //region Fields
-    private final WorldGenTrees treeGen = new UndergroundGroveTreeGen(false, 4,
+    private final TreeFeature treeGen = new UndergroundGroveTreeGen(false, 4,
             BlockRegistry.OTHERWORLD_LOG_NATURAL.getDefaultState(),
             BlockRegistry.OTHERWORLD_LEAVES_NATURAL.getDefaultState(), true);
     //endregion Fields
@@ -54,7 +54,7 @@ public class UndergroundGroveDecorator extends CaveDecorator {
     //region Overrides
 
     @Override
-    public void fillFloor(World world, BlockPos pos, IBlockState state) {
+    public void fillFloor(World world, BlockPos pos, BlockState state) {
         super.fillFloor(world, pos, state);
         //TODO: Remove this logger once we are happy with the world gen
         Occultism.logger.info("Generating underground grove floor at {} {} {}", pos.getX(), pos.getY(), pos.getZ());
@@ -63,7 +63,7 @@ public class UndergroundGroveDecorator extends CaveDecorator {
     @Override
     public void finalFloorPass(World world, BlockPos pos) {
         if (world.rand.nextDouble() < OccultismConfig.worldGen.undergroundGroveGen.grassChance)
-            ItemDye.applyBonemeal(new ItemStack(Items.DYE, 1, 14), world, pos);
+            DyeItem.applyBonemeal(new ItemStack(Items.DYE, 1, 14), world, pos);
 
         if (world.rand.nextDouble() < OccultismConfig.worldGen.undergroundGroveGen.treeChance) {
             //this.shrubGen.generate(world, world.rand, pos.up());
@@ -80,16 +80,16 @@ public class UndergroundGroveDecorator extends CaveDecorator {
 
     @Override
     public void finalWallPass(World world, BlockPos pos) {
-        for (EnumFacing facing : EnumFacing.HORIZONTALS) {
+        for (Direction facing : Direction.HORIZONTALS) {
             BlockPos offset = pos.offset(facing);
             BlockPos up = offset.up();
             if (this.isCeiling(world, up, world.getBlockState(up)) &&
                 world.rand.nextDouble() < OccultismConfig.worldGen.undergroundGroveGen.vineChance) {
-                IBlockState stateAt = world.getBlockState(offset);
+                BlockState stateAt = world.getBlockState(offset);
                 boolean spawnedVine = false;
                 while (stateAt.getBlock().isAir(stateAt, world, offset) && offset.getY() > 0) {
                     world.setBlockState(offset, Blocks.VINE.getDefaultState()
-                                                        .withProperty(BlockVine.getPropertyFor(facing.getOpposite()),
+                                                        .withProperty(VineBlock.getPropertyFor(facing.getOpposite()),
                                                                 true), 2);
                     offset = offset.down();
                     stateAt = world.getBlockState(offset);

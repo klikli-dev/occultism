@@ -26,10 +26,10 @@ import com.github.klikli_dev.occultism.api.OccultismAPI;
 import com.github.klikli_dev.occultism.registry.ItemRegistry;
 import com.github.klikli_dev.occultism.util.Math3DUtil;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemSword;
+import net.minecraft.item.SwordItem;
 import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
@@ -40,7 +40,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.function.Predicate;
 
-public class ItemButcherKnife extends ItemSword {
+public class ItemButcherKnife extends SwordItem {
     //region Initialization
     public ItemButcherKnife() {
         super(ToolMaterial.IRON);
@@ -50,9 +50,9 @@ public class ItemButcherKnife extends ItemSword {
     //endregion Initialization
 
     //region Static Methods
-    private static List<ItemStack> getLoot(EntityLivingBase entity) {
+    private static List<ItemStack> getLoot(LivingEntity entity) {
         List<ItemStack> loot = new ArrayList<>();
-        for (Predicate<EntityLivingBase> predicate : OccultismAPI.BUTCHER_KNIFE_LOOT.keySet())
+        for (Predicate<LivingEntity> predicate : OccultismAPI.BUTCHER_KNIFE_LOOT.keySet())
             if (predicate.test(entity))
                 loot.addAll(OccultismAPI.BUTCHER_KNIFE_LOOT.get(predicate));
         return loot;
@@ -63,8 +63,8 @@ public class ItemButcherKnife extends ItemSword {
     @SubscribeEvent
     public void livingDrop(LivingDropsEvent event) {
         Entity trueSource = event.getSource().getTrueSource();
-        if (event.isRecentlyHit() && trueSource instanceof EntityLivingBase &&
-            ((EntityLivingBase) trueSource).getHeldItemMainhand().getItem() == ItemRegistry.BUTCHER_KNIFE) {
+        if (event.isRecentlyHit() && trueSource instanceof LivingEntity &&
+            ((LivingEntity) trueSource).getHeldItemMainhand().getItem() == ItemRegistry.BUTCHER_KNIFE) {
             List<ItemStack> loot = getLoot(event.getEntityLiving());
             Random rand = event.getEntityLiving().getRNG();
 
@@ -74,7 +74,7 @@ public class ItemButcherKnife extends ItemSword {
                     copy.setCount(rand.nextInt(stack.getCount() + 1) + rand.nextInt(event.getLootingLevel() + 1));
                     Vec3d center = Math3DUtil.getBlockCenter(event.getEntityLiving().getPosition());
                     event.getDrops()
-                            .add(new EntityItem(event.getEntityLiving().world, center.x, center.y, center.z, copy));
+                            .add(new ItemEntity(event.getEntityLiving().world, center.x, center.y, center.z, copy));
                 }
             }
         }

@@ -28,17 +28,17 @@ import com.github.klikli_dev.occultism.common.item.ItemBookOfCallingActive;
 import com.github.klikli_dev.occultism.network.MessageSetItemMode;
 import com.github.klikli_dev.occultism.network.MessageSetWorkAreaSize;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.gui.GuiLabel;
-import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.Hand;
 import net.minecraftforge.fml.client.config.GuiButtonExt;
 
 import java.awt.*;
 
-public class GuiBookOfCalling extends GuiScreen {
+public class GuiBookOfCalling extends Screen {
 
     //region Fields
     public ItemBookOfCallingActive.ItemMode mode;
@@ -62,7 +62,7 @@ public class GuiBookOfCalling extends GuiScreen {
     }
 
     @Override
-    protected void actionPerformed(GuiButton button) {
+    protected void actionPerformed(Button button) {
 
         if (button.enabled) {
             switch (button.id) {
@@ -92,7 +92,7 @@ public class GuiBookOfCalling extends GuiScreen {
         int j = (this.height - 166) / 2;
         int buttonWidth = 150;
         int buttonId = 0;
-        ItemStack item = Minecraft.getMinecraft().player.getHeldItem(EnumHand.MAIN_HAND);
+        ItemStack item = Minecraft.getMinecraft().player.getHeldItem(Hand.MAIN_HAND);
         this.buttonList.add(new GuiButtonExt(buttonId++, i - buttonWidth / 2, j + 60, buttonWidth, 20,
                 I18n.format(this.mode.getTranslationKey())));
         this.buttonList.add(new GuiButtonExt(buttonId++, i - buttonWidth / 2, j + 85, buttonWidth, 20,

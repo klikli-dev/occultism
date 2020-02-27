@@ -26,11 +26,11 @@ import com.github.klikli_dev.occultism.common.item.ItemDivinationRod;
 import com.github.klikli_dev.occultism.util.ItemNBTUtil;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.Hand;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
 public class MessageSetDivinationResult extends MessageBase<MessageSetDivinationResult> {
@@ -50,15 +50,15 @@ public class MessageSetDivinationResult extends MessageBase<MessageSetDivination
 
     //region Overrides
     @Override
-    public void onClientReceived(Minecraft minecraft, MessageSetDivinationResult message, EntityPlayer player,
+    public void onClientReceived(Minecraft minecraft, MessageSetDivinationResult message, PlayerEntity player,
                                  MessageContext context) {
 
     }
 
     @Override
     public void onServerReceived(MinecraftServer minecraftServer, MessageSetDivinationResult message,
-                                 EntityPlayerMP player, MessageContext context) {
-        ItemStack stack = player.getHeldItem(EnumHand.MAIN_HAND);
+                                 ServerPlayerEntity player, MessageContext context) {
+        ItemStack stack = player.getHeldItem(Hand.MAIN_HAND);
         if (stack.getItem() instanceof ItemDivinationRod) {
             ItemNBTUtil.setFloat(stack, "distance", message.result);
             player.inventoryContainer.detectAndSendChanges();

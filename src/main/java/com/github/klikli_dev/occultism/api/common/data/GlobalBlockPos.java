@@ -23,10 +23,10 @@
 package com.github.klikli_dev.occultism.api.common.data;
 
 import io.netty.buffer.ByteBuf;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.DimensionType;
+import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.World;
 
 import java.util.StringJoiner;
@@ -92,7 +92,7 @@ public class GlobalBlockPos {
     //endregion Overrides
 
     //region Static Methods
-    public static GlobalBlockPos fromNbt(NBTTagCompound compound) {
+    public static GlobalBlockPos fromNbt(CompoundNBT compound) {
         GlobalBlockPos globalBlockPos = new GlobalBlockPos();
         globalBlockPos.readFromNBT(compound);
         return globalBlockPos;
@@ -112,13 +112,13 @@ public class GlobalBlockPos {
     //endregion Static Methods
 
     //region Methods
-    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+    public CompoundNBT writeToNBT(CompoundNBT compound) {
         compound.setLong("pos", this.getPos().toLong());
         compound.setInteger("dimension", this.getDimension());
         return compound;
     }
 
-    public void readFromNBT(NBTTagCompound compound) {
+    public void readFromNBT(CompoundNBT compound) {
         this.pos = BlockPos.fromLong(compound.getLong("pos"));
         this.dimension = compound.getInteger("dimension");
     }

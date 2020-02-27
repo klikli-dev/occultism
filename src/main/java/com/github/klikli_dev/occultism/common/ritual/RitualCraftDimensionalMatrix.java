@@ -27,7 +27,7 @@ import com.github.klikli_dev.occultism.common.tile.TileEntityGoldenSacrificialBo
 import com.github.klikli_dev.occultism.network.MessageParticle;
 import com.github.klikli_dev.occultism.registry.ItemRegistry;
 import com.github.klikli_dev.occultism.registry.RitualRegistry;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.EnumParticleTypes;
@@ -48,7 +48,7 @@ public class RitualCraftDimensionalMatrix extends Ritual {
 
     @Override
     public void finish(World world, BlockPos goldenBowlPosition, TileEntityGoldenSacrificialBowl tileEntity,
-                       EntityPlayer castingPlayer, ItemStack activationItem) {
+                       PlayerEntity castingPlayer, ItemStack activationItem) {
         super.finish(world, goldenBowlPosition, tileEntity, castingPlayer, activationItem);
 
         activationItem.shrink(1); //remove activation item.

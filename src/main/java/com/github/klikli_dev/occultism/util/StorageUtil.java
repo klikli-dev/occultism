@@ -27,10 +27,10 @@ import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.api.common.container.IStorageControllerContainer;
 import com.github.klikli_dev.occultism.api.common.tile.IStorageController;
 import com.github.klikli_dev.occultism.common.misc.ItemStackComparator;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.inventory.Container;
-import net.minecraft.inventory.InventoryBasic;
-import net.minecraft.inventory.InventoryCrafting;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.inventory.container.Container;
+import net.minecraft.inventory.Inventory;
+import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
@@ -44,10 +44,10 @@ public class StorageUtil {
      * @param player          the player to clear the crafting matrix for.
      * @param sendStackUpdate true to resend the current stacks to the client.
      */
-    public static void clearOpenCraftingMatrix(EntityPlayerMP player, boolean sendStackUpdate) {
+    public static void clearOpenCraftingMatrix(ServerPlayerEntity player, boolean sendStackUpdate) {
         if (player.openContainer instanceof IStorageControllerContainer) {
             IStorageControllerContainer container = (IStorageControllerContainer) player.openContainer;
-            InventoryCrafting craftMatrix = container.getCraftMatrix();
+            CraftingInventory craftMatrix = container.getCraftMatrix();
             IStorageController storageController = container.getStorageController();
 
             if (storageController == null) {
@@ -88,10 +88,10 @@ public class StorageUtil {
      * @param player          the player to clear the crafting matrix for.
      * @param sendStackUpdate true to resend the current stacks to the client.
      */
-    public static void clearOpenOrderSlot(EntityPlayerMP player, boolean sendStackUpdate) {
+    public static void clearOpenOrderSlot(ServerPlayerEntity player, boolean sendStackUpdate) {
         if (player.openContainer instanceof IStorageControllerContainer) {
             IStorageControllerContainer container = (IStorageControllerContainer) player.openContainer;
-            InventoryBasic orderSlot = container.getOrderSlot();
+            Inventory orderSlot = container.getOrderSlot();
             IStorageController storageController = container.getStorageController();
 
             if (storageController == null) {

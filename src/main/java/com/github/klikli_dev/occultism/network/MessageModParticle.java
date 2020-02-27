@@ -26,8 +26,8 @@ import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.client.particle.ModParticleType;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
@@ -69,14 +69,14 @@ public class MessageModParticle extends MessageBase<MessageModParticle> {
     }
 
     @Override
-    public void onClientReceived(Minecraft minecraft, MessageModParticle message, EntityPlayer player,
+    public void onClientReceived(Minecraft minecraft, MessageModParticle message, PlayerEntity player,
                                  MessageContext context) {
         Occultism.proxy.spawnParticle(minecraft.world,
                 message.particleType.get(minecraft.world, message.x, message.y, message.z, 0, 0, 0));
     }
 
     @Override
-    public void onServerReceived(MinecraftServer minecraftServer, MessageModParticle message, EntityPlayerMP player,
+    public void onServerReceived(MinecraftServer minecraftServer, MessageModParticle message, ServerPlayerEntity player,
                                  MessageContext context) {
 
     }

@@ -22,7 +22,7 @@
 
 package com.github.klikli_dev.occultism.api.common.item;
 
-import net.minecraft.inventory.InventoryCrafting;
+import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 
@@ -40,6 +40,6 @@ public interface IIngredientPreserve {
      * @param inventory the crafting inventory.
      * @return true to preserve.
      */
-    boolean shouldPreserve(ItemStack itemStack, IRecipe recipe, InventoryCrafting inventory);
+    boolean shouldPreserve(ItemStack itemStack, IRecipe recipe, CraftingInventory inventory);
     //endregion Methods
 }

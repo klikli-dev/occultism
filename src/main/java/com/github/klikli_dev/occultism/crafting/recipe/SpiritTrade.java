@@ -22,7 +22,7 @@
 
 package com.github.klikli_dev.occultism.crafting.recipe;
 
-import net.minecraft.inventory.InventoryCrafting;
+import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.NonNullList;
@@ -44,13 +44,13 @@ public class SpiritTrade extends ShapelessOreRecipe {
 
     //region Overrides
     @Override
-    public ItemStack getCraftingResult(InventoryCrafting inventoryCrafting) {
+    public ItemStack getCraftingResult(CraftingInventory inventoryCrafting) {
         //as we don't have an inventory this is ignored.
         return null;
     }
 
     @Override
-    public boolean matches(@Nonnull InventoryCrafting inventory, @Nonnull World world) {
+    public boolean matches(@Nonnull CraftingInventory inventory, @Nonnull World world) {
         return false;
     }
     //endregion Overrides

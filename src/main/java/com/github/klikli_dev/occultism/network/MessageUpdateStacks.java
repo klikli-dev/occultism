@@ -26,8 +26,8 @@ import com.github.klikli_dev.occultism.api.client.gui.IStorageControllerGui;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
@@ -66,7 +66,7 @@ public class MessageUpdateStacks extends MessageBase<MessageUpdateStacks> {
 
     //region Overrides
     @Override
-    public void onClientReceived(Minecraft minecraft, MessageUpdateStacks message, EntityPlayer player,
+    public void onClientReceived(Minecraft minecraft, MessageUpdateStacks message, PlayerEntity player,
                                  MessageContext context) {
         message.uncompress();
         IStorageControllerGui gui = (IStorageControllerGui) Minecraft.getMinecraft().currentScreen;
@@ -77,7 +77,7 @@ public class MessageUpdateStacks extends MessageBase<MessageUpdateStacks> {
     }
 
     @Override
-    public void onServerReceived(MinecraftServer minecraftServer, MessageUpdateStacks message, EntityPlayerMP player,
+    public void onServerReceived(MinecraftServer minecraftServer, MessageUpdateStacks message, ServerPlayerEntity player,
                                  MessageContext context) {
 
     }

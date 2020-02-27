@@ -22,8 +22,8 @@
 
 package com.github.klikli_dev.occultism.common.misc;
 
-import net.minecraft.inventory.Container;
-import net.minecraft.inventory.InventoryCrafting;
+import net.minecraft.inventory.CraftingInventory;
+import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
@@ -35,14 +35,14 @@ import java.util.Map;
 /**
  * A cached version of InventoryCrafting. Allows to control when events are sent with the disableEvents field.
  */
-public class InventoryCraftingCached extends InventoryCrafting {
+public class InventoryCraftingCached extends CraftingInventory {
 
     //region Fields
     protected static Field stackListField;
 
     static {
         //TODOUPDATE: update obfuscated name
-        stackListField = ReflectionHelper.findField(InventoryCrafting.class, "stackList", "afw");
+        stackListField = ReflectionHelper.findField(CraftingInventory.class, "stackList", "afw");
         stackListField.setAccessible(true);
     }
 

@@ -30,11 +30,11 @@ import com.github.klikli_dev.occultism.common.entity.ai.SpiritAIFallbackDepositT
 import com.github.klikli_dev.occultism.common.entity.ai.SpiritAIManageMachine;
 import com.github.klikli_dev.occultism.common.entity.spirits.EntitySpirit;
 import com.github.klikli_dev.occultism.util.TileEntityUtil;
-import net.minecraft.entity.ai.EntityAIOpenDoor;
+import net.minecraft.entity.ai.goal.OpenDoorGoal;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.pathfinding.PathNavigateGround;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.ListNBT;
+import net.minecraft.pathfinding.GroundPathNavigator;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.Constants;
 
@@ -46,7 +46,7 @@ public class SpiritJobManageMachine extends SpiritJob {
     protected SpiritAIDepositItems aiDepositItems;
     protected SpiritAIManageMachine aiHandleDepositOrders;
     protected SpiritAIFallbackDepositToController aiFallbackDepositToController;
-    protected EntityAIOpenDoor aiOpenDoor;
+    protected OpenDoorGoal aiOpenDoor;
     protected GlobalBlockPos storageControllerPosition;
     protected MachineReference managedMachine;
     protected DepositOrder currentDepositOrder;
@@ -128,20 +128,20 @@ public class SpiritJobManageMachine extends SpiritJob {
     //region Overrides
     @Override
     public void init() {
-        ((PathNavigateGround) this.entity.getNavigator()).setEnterDoors(true);
-        ((PathNavigateGround) this.entity.getNavigator()).setBreakDoors(true);
+        ((GroundPathNavigator) this.entity.getNavigator()).setEnterDoors(true);
+        ((GroundPathNavigator) this.entity.getNavigator()).setBreakDoors(true);
         this.entity.tasks.addTask(3, this.aiHandleDepositOrders = new SpiritAIManageMachine(this.entity, this));
         this.entity.tasks.addTask(4,
                 this.aiFallbackDepositToController = new SpiritAIFallbackDepositToController(this.entity, this));
         this.entity.tasks.addTask(4, this.aiDepositItems = new SpiritAIDepositItems(this.entity));
-        this.entity.tasks.addTask(5, this.aiOpenDoor = new EntityAIOpenDoor(this.entity, true));
+        this.entity.tasks.addTask(5, this.aiOpenDoor = new OpenDoorGoal(this.entity, true));
         this.registerWithStorageController();
     }
 
     @Override
     public void cleanup() {
-        ((PathNavigateGround) this.entity.getNavigator()).setEnterDoors(false);
-        ((PathNavigateGround) this.entity.getNavigator()).setBreakDoors(false);
+        ((GroundPathNavigator) this.entity.getNavigator()).setEnterDoors(false);
+        ((GroundPathNavigator) this.entity.getNavigator()).setBreakDoors(false);
         this.entity.tasks.removeTask(this.aiDepositItems);
         this.entity.tasks.removeTask(this.aiHandleDepositOrders);
         this.entity.tasks.removeTask(this.aiOpenDoor);
@@ -165,27 +165,27 @@ public class SpiritJobManageMachine extends SpiritJob {
     }
 
     @Override
-    public NBTTagCompound writeJobToNBT(NBTTagCompound compound) {
+    public CompoundNBT writeJobToNBT(CompoundNBT compound) {
         if (this.storageControllerPosition != null)
             compound.setTag("storageControllerPosition",
-                    this.storageControllerPosition.writeToNBT(new NBTTagCompound()));
+                    this.storageControllerPosition.writeToNBT(new CompoundNBT()));
 
         if (this.managedMachine != null)
-            compound.setTag("managedMachine", this.managedMachine.writeToNBT(new NBTTagCompound()));
+            compound.setTag("managedMachine", this.managedMachine.writeToNBT(new CompoundNBT()));
 
         if (this.getCurrentDepositOrder() != null)
-            compound.setTag("currentDepositOrder", this.getCurrentDepositOrder().writeToNBT(new NBTTagCompound()));
+            compound.setTag("currentDepositOrder", this.getCurrentDepositOrder().writeToNBT(new CompoundNBT()));
 
-        NBTTagList nbtOrderList = new NBTTagList();
+        ListNBT nbtOrderList = new ListNBT();
         for (DepositOrder depositOrder : this.depositOrderQueue) {
-            nbtOrderList.appendTag(depositOrder.writeToNBT(new NBTTagCompound()));
+            nbtOrderList.appendTag(depositOrder.writeToNBT(new CompoundNBT()));
         }
         compound.setTag("depositOrders", nbtOrderList);
         return super.writeJobToNBT(compound);
     }
 
     @Override
-    public void readJobFromNBT(NBTTagCompound compound) {
+    public void readJobFromNBT(CompoundNBT compound) {
         if (compound.hasKey("storageControllerPosition"))
             this.storageControllerPosition = GlobalBlockPos
                                                      .fromNbt(compound.getCompoundTag("storageControllerPosition"));
@@ -198,7 +198,7 @@ public class SpiritJobManageMachine extends SpiritJob {
 
         this.depositOrderQueue = new ArrayDeque<>();
         if (compound.hasKey("depositOrders")) {
-            NBTTagList nbtOrderList = compound.getTagList("depositOrders", Constants.NBT.TAG_COMPOUND);
+            ListNBT nbtOrderList = compound.getTagList("depositOrders", Constants.NBT.TAG_COMPOUND);
             for (int i = 0; i < nbtOrderList.tagCount(); i++) {
                 DepositOrder depositOrder = DepositOrder.fromNbt(nbtOrderList.getCompoundTagAt(i));
                 this.depositOrderQueue.add(depositOrder);

@@ -24,16 +24,15 @@ package com.github.klikli_dev.occultism.common.block;
 
 import com.github.klikli_dev.occultism.common.tile.TileEntityStorageController;
 import com.github.klikli_dev.occultism.registry.BlockRegistry;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockDirectional;
-import net.minecraft.block.SoundType;
+import net.minecraft.block.*;
+import net.minecraft.block.DirectionalBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
@@ -65,23 +64,23 @@ public class BlockStorageStabilizer extends Block {
 
     //region Overrides
     @Override
-    public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(BlockDirectional.FACING, EnumFacing.byIndex(meta));
+    public BlockState getStateFromMeta(int meta) {
+        return this.getDefaultState().withProperty(DirectionalBlock.FACING, Direction.byIndex(meta));
     }
 
     @Override
-    public int getMetaFromState(IBlockState state) {
-        return state.getValue(BlockDirectional.FACING).getIndex();
+    public int getMetaFromState(BlockState state) {
+        return state.getValue(DirectionalBlock.FACING).getIndex();
     }
 
     @Override
-    public boolean isFullCube(IBlockState state) {
+    public boolean isFullCube(BlockState state) {
         return false;
     }
 
     @Override
-    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
-        switch (state.getValue(BlockDirectional.FACING)) {
+    public AxisAlignedBB getBoundingBox(BlockState state, IBlockAccess world, BlockPos pos) {
+        switch (state.getValue(DirectionalBlock.FACING)) {
             case EAST:
                 return EAST_AABB;
             case WEST:
@@ -99,16 +98,16 @@ public class BlockStorageStabilizer extends Block {
     }
 
     @Override
-    public boolean isOpaqueCube(IBlockState state) {
+    public boolean isOpaqueCube(BlockState state) {
         return false;
     }
 
     @Override
-    public void breakBlock(World world, BlockPos pos, IBlockState state) {
-        EnumFacing facing = state.getValue(BlockDirectional.FACING);
+    public void breakBlock(World world, BlockPos pos, BlockState state) {
+        Direction facing = state.getValue(DirectionalBlock.FACING);
 
         //storage controller actually wants stabilizers to point at one block above it, so unless we are on y axis we trace one below
-        BlockPos min = facing != EnumFacing.DOWN && facing != EnumFacing.UP ? pos.down() : pos;
+        BlockPos min = facing != Direction.DOWN && facing != Direction.UP ? pos.down() : pos;
         //trace a straight line for the possible controller positions
         Iterable<BlockPos> blocks = BlockPos.getAllInBox(min,
                 min.offset(facing, TileEntityStorageController.MAX_STABILIZER_DISTANCE));
@@ -126,21 +125,21 @@ public class BlockStorageStabilizer extends Block {
     }
 
     @Override
-    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY,
-                                            float hitZ, int meta, EntityLivingBase placer) {
+    public BlockState getStateForPlacement(World worldIn, BlockPos pos, Direction facing, float hitX, float hitY,
+                                           float hitZ, int meta, LivingEntity placer) {
         //place on the face the placer looks at, this is more comfortable than using entity facing.
         RayTraceResult result = placer.rayTrace(10, 1.0f);
-        return this.getDefaultState().withProperty(BlockDirectional.FACING, result.sideHit);
+        return this.getDefaultState().withProperty(DirectionalBlock.FACING, result.sideHit);
     }
 
     @Override
-    public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer,
+    public void onBlockPlacedBy(World world, BlockPos pos, BlockState state, LivingEntity placer,
                                 ItemStack stack) {
 
-        EnumFacing facing = state.getValue(BlockDirectional.FACING);
+        Direction facing = state.getValue(DirectionalBlock.FACING);
 
         //storage controller actually wants stabilizers to point at one block above it, so unless we are on y axis we trace one below
-        BlockPos min = facing != EnumFacing.DOWN && facing != EnumFacing.UP ? pos.down() : pos;
+        BlockPos min = facing != Direction.DOWN && facing != Direction.UP ? pos.down() : pos;
         //trace a straight line for the possible controller positions
         Iterable<BlockPos> blocks = BlockPos.getAllInBox(min,
                 min.offset(facing, TileEntityStorageController.MAX_STABILIZER_DISTANCE));
@@ -160,7 +159,7 @@ public class BlockStorageStabilizer extends Block {
 
     @Override
     protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, BlockDirectional.FACING);
+        return new BlockStateContainer(this, DirectionalBlock.FACING);
     }
     //endregion Overrides
 

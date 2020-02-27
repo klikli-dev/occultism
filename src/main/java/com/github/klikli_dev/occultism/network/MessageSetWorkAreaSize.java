@@ -30,12 +30,12 @@ import com.github.klikli_dev.occultism.util.ItemNBTUtil;
 import com.github.klikli_dev.occultism.util.TextUtil;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.Hand;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
 public class MessageSetWorkAreaSize extends MessageBase<MessageSetWorkAreaSize> {
@@ -55,15 +55,15 @@ public class MessageSetWorkAreaSize extends MessageBase<MessageSetWorkAreaSize> 
 
     //region Overrides
     @Override
-    public void onClientReceived(Minecraft minecraft, MessageSetWorkAreaSize message, EntityPlayer player,
+    public void onClientReceived(Minecraft minecraft, MessageSetWorkAreaSize message, PlayerEntity player,
                                  MessageContext context) {
 
     }
 
     @Override
-    public void onServerReceived(MinecraftServer minecraftServer, MessageSetWorkAreaSize message, EntityPlayerMP player,
+    public void onServerReceived(MinecraftServer minecraftServer, MessageSetWorkAreaSize message, ServerPlayerEntity player,
                                  MessageContext context) {
-        ItemStack stack = player.getHeldItem(EnumHand.MAIN_HAND);
+        ItemStack stack = player.getHeldItem(Hand.MAIN_HAND);
         if (stack.getItem() instanceof ItemBookOfCallingActive) {
             EntitySpirit spirit = ItemNBTUtil.getSpiritEntity(stack);
             if (spirit != null) {
@@ -74,10 +74,10 @@ public class MessageSetWorkAreaSize extends MessageBase<MessageSetWorkAreaSize> 
                 ItemNBTUtil.updateItemNBTFromEntity(stack, spirit);
                 player.inventoryContainer.detectAndSendChanges();
 
-                player.sendStatusMessage(new TextComponentTranslation(
+                player.sendStatusMessage(new TranslationTextComponent(
                         "item." + Occultism.MODID + ".book_of_calling_active.message_set_work_area_size",
                         TextUtil.formatDemonName(spirit.getName()),
-                        new TextComponentTranslation(workAreaSize.getTranslationKey())), true);
+                        new TranslationTextComponent(workAreaSize.getTranslationKey())), true);
             }
         }
     }

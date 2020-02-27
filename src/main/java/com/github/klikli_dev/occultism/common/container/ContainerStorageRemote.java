@@ -30,15 +30,15 @@ import com.github.klikli_dev.occultism.common.misc.InventoryCraftingCached;
 import com.github.klikli_dev.occultism.network.MessageUpdateLinkedMachines;
 import com.github.klikli_dev.occultism.registry.ItemRegistry;
 import com.github.klikli_dev.occultism.util.ItemNBTUtil;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.Slot;
+import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.util.EnumHand;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.ListNBT;
+import net.minecraft.util.Hand;
 import net.minecraftforge.common.util.Constants;
 
 import java.util.ArrayList;
@@ -51,7 +51,7 @@ public class ContainerStorageRemote extends ContainerStorageControllerBase {
     //endregion Fields
 
     //region Initialization
-    public ContainerStorageRemote(InventoryPlayer playerInventory, EnumHand hand) {
+    public ContainerStorageRemote(PlayerInventory playerInventory, Hand hand) {
         super();
         this.playerInventory = playerInventory;
         this.storageRemote = playerInventory.player.getHeldItem(hand);
@@ -90,15 +90,15 @@ public class ContainerStorageRemote extends ContainerStorageControllerBase {
     }
 
     @Override
-    public boolean canInteractWith(EntityPlayer entityPlayer) {
+    public boolean canInteractWith(PlayerEntity entityPlayer) {
         IStorageController storageController = this.getStorageController();
         //canInteractWith is constantly called, so we use it to send
         //stack updates every 40 ticks.
         if (storageController != null && !entityPlayer.world.isRemote &&
             entityPlayer.world.getTotalWorldTime() % 40 == 0) {
-            Occultism.network.sendTo(storageController.getMessageUpdateStacks(), (EntityPlayerMP) entityPlayer);
+            Occultism.network.sendTo(storageController.getMessageUpdateStacks(), (ServerPlayerEntity) entityPlayer);
             Occultism.network.sendTo(new MessageUpdateLinkedMachines(storageController.getLinkedMachines()),
-                    (EntityPlayerMP) entityPlayer);
+                    (ServerPlayerEntity) entityPlayer);
         }
 
         return entityPlayer.inventory.getCurrentItem().getItem() == ItemRegistry.STORAGE_REMOTE;
@@ -116,11 +116,11 @@ public class ContainerStorageRemote extends ContainerStorageControllerBase {
 
     @Override
     public void updateCraftingSlots(boolean force) {
-        NBTTagCompound compound = ItemNBTUtil.getTagCompound(this.storageRemote);
+        CompoundNBT compound = ItemNBTUtil.getTagCompound(this.storageRemote);
 
-        NBTTagList nbtTagList = new NBTTagList();
+        ListNBT nbtTagList = new ListNBT();
         for (int i = 0; i < this.matrix.getSizeInventory(); i++) {
-            nbtTagList.appendTag(this.matrix.getStackInSlot(i).writeToNBT(new NBTTagCompound()));
+            nbtTagList.appendTag(this.matrix.getStackInSlot(i).writeToNBT(new CompoundNBT()));
         }
 
         this.storageRemote.setTagCompound(compound);
@@ -128,8 +128,8 @@ public class ContainerStorageRemote extends ContainerStorageControllerBase {
 
     @Override
     public void updateOrderSlot(boolean force) {
-        NBTTagCompound compound = ItemNBTUtil.getTagCompound(this.storageRemote);
-        compound.setTag("orderStack", this.orderInventory.getStackInSlot(0).writeToNBT(new NBTTagCompound()));
+        CompoundNBT compound = ItemNBTUtil.getTagCompound(this.storageRemote);
+        compound.setTag("orderStack", this.orderInventory.getStackInSlot(0).writeToNBT(new CompoundNBT()));
         this.storageRemote.setTagCompound(compound);
     }
 
@@ -153,7 +153,7 @@ public class ContainerStorageRemote extends ContainerStorageControllerBase {
                     }
 
                     @Override
-                    public boolean canTakeStack(EntityPlayer playerIn) {
+                    public boolean canTakeStack(PlayerEntity playerIn) {
                         return false;
                     }
                     //endregion Overrides
@@ -172,7 +172,7 @@ public class ContainerStorageRemote extends ContainerStorageControllerBase {
         if (!stack.hasTagCompound() || stack.getTagCompound().hasKey("craftingMatrix"))
             return craftingMatrix;
 
-        NBTTagList nbtTagList = stack.getTagCompound().getTagList("craftingMatrix", Constants.NBT.TAG_COMPOUND);
+        ListNBT nbtTagList = stack.getTagCompound().getTagList("craftingMatrix", Constants.NBT.TAG_COMPOUND);
 
         for (int i = 0; i < nbtTagList.tagCount(); i++) {
             craftingMatrix.set(i, new ItemStack(nbtTagList.getCompoundTagAt(i)));

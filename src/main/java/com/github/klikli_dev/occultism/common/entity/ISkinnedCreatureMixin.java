@@ -22,7 +22,7 @@
 
 package com.github.klikli_dev.occultism.common.entity;
 
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.EntityDataManager;
 
@@ -58,13 +58,13 @@ public interface ISkinnedCreatureMixin {
     //endregion Getter / Setter
 
     //region Methods
-    default void writeSkinToNBT(NBTTagCompound tag) {
+    default void writeSkinToNBT(CompoundNBT tag) {
         EntityDataManager dataManager = this.getDataManager();
         tag.setInteger("skin", dataManager.get(this.getDataParameterSkin()));
         dataManager.setDirty(this.getDataParameterSkin());
     }
 
-    default void readSkinFromNBT(NBTTagCompound tag) {
+    default void readSkinFromNBT(CompoundNBT tag) {
         EntityDataManager dataManager = this.getDataManager();
         dataManager.set(this.getDataParameterSkin(), tag.getInteger("skin"));
     }

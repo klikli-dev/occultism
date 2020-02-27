@@ -25,12 +25,12 @@ package com.github.klikli_dev.occultism.api.common.data;
 import com.github.klikli_dev.occultism.util.TileEntityUtil;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -43,8 +43,8 @@ public class MachineReference {
     public GlobalBlockPos globalPos;
     public ResourceLocation registryName;
     public boolean chunkLoaded;
-    public EnumFacing insertFacing = EnumFacing.UP;
-    public EnumFacing extractFacing = EnumFacing.DOWN;
+    public Direction insertFacing = Direction.UP;
+    public Direction extractFacing = Direction.DOWN;
     public String customName = null;
 
     protected ItemStack cachedItemStack = ItemStack.EMPTY;
@@ -91,13 +91,13 @@ public class MachineReference {
     //region Static Methods
     public static MachineReference fromTileEntity(TileEntity tileEntity) {
         GlobalBlockPos pos = GlobalBlockPos.fromTileEntity(tileEntity);
-        IBlockState state = tileEntity.getWorld().getBlockState(pos.getPos());
+        BlockState state = tileEntity.getWorld().getBlockState(pos.getPos());
         ItemStack item = state.getBlock().getItem(tileEntity.getWorld(), pos.getPos(), state);
         boolean isLoaded = tileEntity.getWorld().isBlockLoaded(pos.getPos());
         return new MachineReference(pos, item.getItem().getRegistryName(), isLoaded);
     }
 
-    public static MachineReference fromNbt(NBTTagCompound compound) {
+    public static MachineReference fromNbt(CompoundNBT compound) {
         MachineReference reference = new MachineReference();
         reference.readFromNBT(compound);
         return reference;
@@ -109,9 +109,9 @@ public class MachineReference {
     //endregion Static Methods
 
     //region Methods
-    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+    public CompoundNBT writeToNBT(CompoundNBT compound) {
         if (this.globalPos != null)
-            compound.setTag("globalPos", this.globalPos.writeToNBT(new NBTTagCompound()));
+            compound.setTag("globalPos", this.globalPos.writeToNBT(new CompoundNBT()));
         if (this.registryName != null)
             compound.setString("registryName", this.registryName.toString());
         if (!StringUtils.isBlank(this.customName))
@@ -124,7 +124,7 @@ public class MachineReference {
         return compound;
     }
 
-    public void readFromNBT(NBTTagCompound compound) {
+    public void readFromNBT(CompoundNBT compound) {
         if (compound.hasKey("globalPos"))
             this.globalPos = GlobalBlockPos.fromNbt(compound.getCompoundTag("globalPos"));
         if (compound.hasKey("registryName"))
@@ -133,12 +133,12 @@ public class MachineReference {
             this.customName = compound.getString("customName");
 
         this.chunkLoaded = compound.getBoolean("isChunkLoaded");
-        this.insertFacing = EnumFacing.byIndex(compound.getInteger("insertFacing"));
-        this.extractFacing = EnumFacing.byIndex(compound.getInteger("extractFacing"));
+        this.insertFacing = Direction.byIndex(compound.getInteger("insertFacing"));
+        this.extractFacing = Direction.byIndex(compound.getInteger("extractFacing"));
     }
 
     public void toBytes(ByteBuf byteBuf) {
-        ByteBufUtils.writeTag(byteBuf, this.writeToNBT(new NBTTagCompound()));
+        ByteBufUtils.writeTag(byteBuf, this.writeToNBT(new CompoundNBT()));
     }
 
     public TileEntity getTileEntity(World world) {

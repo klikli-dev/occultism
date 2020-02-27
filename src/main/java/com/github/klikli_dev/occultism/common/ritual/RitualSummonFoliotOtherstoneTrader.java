@@ -32,7 +32,7 @@ import com.github.klikli_dev.occultism.registry.ItemRegistry;
 import com.github.klikli_dev.occultism.registry.RitualRegistry;
 import com.github.klikli_dev.occultism.registry.SpiritJobFactoryRegistry;
 import com.github.klikli_dev.occultism.util.ItemNBTUtil;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.EnumParticleTypes;
@@ -53,7 +53,7 @@ public class RitualSummonFoliotOtherstoneTrader extends RitualSummonSpirit {
 
     @Override
     public void finish(World world, BlockPos goldenBowlPosition, TileEntityGoldenSacrificialBowl tileEntity,
-                       EntityPlayer castingPlayer, ItemStack activationItem) {
+                       PlayerEntity castingPlayer, ItemStack activationItem) {
         super.finish(world, goldenBowlPosition, tileEntity, castingPlayer, activationItem);
 
         //prepare active book of calling

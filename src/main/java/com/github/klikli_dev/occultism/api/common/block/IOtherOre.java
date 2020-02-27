@@ -26,10 +26,10 @@ import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.handler.ClientEventHandler;
 import com.github.klikli_dev.occultism.registry.PotionRegistry;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
@@ -52,9 +52,9 @@ public interface IOtherOre {
     //endregion Getter / Setter
 
     //region Methods
-    int damageDropped(IBlockState state);
+    int damageDropped(BlockState state);
 
-    default IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
+    default BlockState getActualState(BlockState state, IBlockAccess worldIn, BlockPos pos) {
         if (FMLCommonHandler.instance().getEffectiveSide().isClient()) {
             ClientEventHandler clientEventHandler = Occultism.proxy.getClientEventHandler();
             if (clientEventHandler.shouldRenderThirdEye(state, pos)) {
@@ -65,22 +65,22 @@ public interface IOtherOre {
         return state.withProperty(UNCOVERED, false);
     }
 
-    default IBlockState getHarvestState(EntityPlayer player, IBlockState state) {
+    default BlockState getHarvestState(PlayerEntity player, BlockState state) {
         return player.isPotionActive(PotionRegistry.THIRD_EYE) ? state.withProperty(UNCOVERED, true) : state;
     }
 
-    default ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {
+    default ItemStack getItem(World worldIn, BlockPos pos, BlockState state) {
         Item item = state.getValue(UNCOVERED) ? Item.getItemFromBlock(this.getUncoveredBlock()) : Item.getItemFromBlock(
                 this.getCoveredBlock());
         return new ItemStack(item, 1, this.damageDropped(state));
     }
 
-    default Item getItemDropped(IBlockState state, Random rand, int fortune) {
+    default Item getItemDropped(BlockState state, Random rand, int fortune) {
         return state.getValue(UNCOVERED) ? Item.getItemFromBlock(this.getUncoveredBlock()) : Item.getItemFromBlock(
                 this.getCoveredBlock());
     }
 
-    default ItemStack getSilkTouchDrop(IBlockState state) {
+    default ItemStack getSilkTouchDrop(BlockState state) {
         return state.getValue(UNCOVERED) ? new ItemStack(this.getUncoveredBlock(), 1) : new ItemStack(
                 this.getCoveredBlock(), 1);
     }

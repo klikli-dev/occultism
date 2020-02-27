@@ -22,7 +22,7 @@
 
 package com.github.klikli_dev.occultism.common.world.cave;
 
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 
 import java.util.HashMap;
@@ -36,6 +36,6 @@ public class CaveDecoratordata {
     public final List<BlockPos> ceilingBlocks = new LinkedList<>();
     public final List<BlockPos> insideBlocks = new LinkedList<>();
 
-    public final Map<BlockPos, EnumFacing> wallBlocks = new HashMap<>();
+    public final Map<BlockPos, Direction> wallBlocks = new HashMap<>();
     //endregion Fields
 }

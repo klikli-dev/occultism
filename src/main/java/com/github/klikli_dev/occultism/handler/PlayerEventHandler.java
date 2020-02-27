@@ -26,10 +26,10 @@ import com.github.klikli_dev.occultism.registry.BlockRegistry;
 import com.github.klikli_dev.occultism.registry.ItemRegistry;
 import com.github.klikli_dev.occultism.util.Math3DUtil;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.init.Items;
-import net.minecraft.init.SoundEvents;
-import net.minecraft.util.EnumHand;
+import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.item.Items;
+import net.minecraft.util.Hand;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -46,7 +46,7 @@ public class PlayerEventHandler {
         if (event.getItemStack().getItem() == Items.FLINT_AND_STEEL) {
             AxisAlignedBB box = new AxisAlignedBB(-1, -1, -1, 1, 1, 1)
                                         .offset(Math3DUtil.getBlockCenter(event.getPos()));
-            List<EntityItem> list = event.getWorld().getEntitiesWithinAABB(EntityItem.class, box,
+            List<ItemEntity> list = event.getWorld().getEntitiesWithinAABB(ItemEntity.class, box,
                     item -> item.getItem().getItem() == ItemRegistry.DATURA);
             if (!list.isEmpty()) {
                 BlockPos pos = event.getPos().offset(event.getFace());
@@ -63,7 +63,7 @@ public class PlayerEventHandler {
                 }
                 event.getItemStack().damageItem(1, event.getEntityPlayer());
                 event.setCanceled(true);
-                event.getEntityPlayer().swingArm(EnumHand.MAIN_HAND);
+                event.getEntityPlayer().swingArm(Hand.MAIN_HAND);
             }
         }
     }

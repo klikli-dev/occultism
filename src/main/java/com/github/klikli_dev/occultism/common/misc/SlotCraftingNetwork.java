@@ -25,10 +25,10 @@ package com.github.klikli_dev.occultism.common.misc;
 
 import com.github.klikli_dev.occultism.api.common.container.IStorageControllerContainer;
 import com.github.klikli_dev.occultism.api.common.tile.IStorageController;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.InventoryCrafting;
-import net.minecraft.inventory.SlotCrafting;
+import net.minecraft.inventory.CraftingInventory;
+import net.minecraft.inventory.container.CraftingResultSlot;
 import net.minecraft.item.ItemStack;
 
 import java.util.ArrayList;
@@ -37,14 +37,14 @@ import java.util.List;
 /**
  * Extension of slot crafting that sends network updates.
  */
-public class SlotCraftingNetwork extends SlotCrafting {
+public class SlotCraftingNetwork extends CraftingResultSlot {
     //region Fields
     IStorageControllerContainer storageControllerContainer;
-    InventoryCrafting matrix;
+    CraftingInventory matrix;
     //endregion Fields
 
     //region Initialization
-    public SlotCraftingNetwork(EntityPlayer player, InventoryCrafting matrix, IInventory inventory,
+    public SlotCraftingNetwork(PlayerEntity player, CraftingInventory matrix, IInventory inventory,
                                IStorageControllerContainer storageControllerContainer, int slotIndex, int xPosition,
                                int yPosition) {
         super(player, matrix, inventory, slotIndex, xPosition, yPosition);
@@ -56,7 +56,7 @@ public class SlotCraftingNetwork extends SlotCrafting {
     //region Overrides
 
     @Override
-    public ItemStack onTake(EntityPlayer player, ItemStack stack) {
+    public ItemStack onTake(PlayerEntity player, ItemStack stack) {
         if (player.world.isRemote) {
             return stack;
         }

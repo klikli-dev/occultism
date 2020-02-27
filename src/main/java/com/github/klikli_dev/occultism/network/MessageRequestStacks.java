@@ -27,8 +27,8 @@ import com.github.klikli_dev.occultism.api.common.container.IStorageControllerCo
 import com.github.klikli_dev.occultism.api.common.tile.IStorageController;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
@@ -47,13 +47,13 @@ public class MessageRequestStacks extends MessageBase<MessageRequestStacks> {
 
     //region Overrides
     @Override
-    public void onClientReceived(Minecraft minecraft, MessageRequestStacks message, EntityPlayer player,
+    public void onClientReceived(Minecraft minecraft, MessageRequestStacks message, PlayerEntity player,
                                  MessageContext context) {
 
     }
 
     @Override
-    public void onServerReceived(MinecraftServer minecraftServer, MessageRequestStacks message, EntityPlayerMP player,
+    public void onServerReceived(MinecraftServer minecraftServer, MessageRequestStacks message, ServerPlayerEntity player,
                                  MessageContext context) {
         if (player.openContainer instanceof IStorageControllerContainer) {
             IStorageController storageController = ((IStorageControllerContainer) player.openContainer)

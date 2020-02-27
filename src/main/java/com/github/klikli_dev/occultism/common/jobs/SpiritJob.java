@@ -24,7 +24,7 @@ package com.github.klikli_dev.occultism.common.jobs;
 
 import com.github.klikli_dev.occultism.common.entity.spirits.EntitySpirit;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
 
 public abstract class SpiritJob {
@@ -76,7 +76,7 @@ public abstract class SpiritJob {
      * @param compound the compound to write to.
      * @return the written to compound.
      */
-    public NBTTagCompound writeJobToNBT(NBTTagCompound compound) {
+    public CompoundNBT writeJobToNBT(CompoundNBT compound) {
         return compound;
     }
 
@@ -85,7 +85,7 @@ public abstract class SpiritJob {
      *
      * @param compound the NBT to read from.
      */
-    public void readJobFromNBT(NBTTagCompound compound) {
+    public void readJobFromNBT(CompoundNBT compound) {
     }
 
     /**

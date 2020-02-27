@@ -24,11 +24,11 @@ package com.github.klikli_dev.occultism.util;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldServer;
+import net.minecraft.world.ServerWorld;
 import net.minecraftforge.common.DimensionManager;
 
 import javax.annotation.Nullable;
@@ -44,9 +44,9 @@ public class EntityUtil {
      * @param uuid the uuid of the player
      * @return the player or null if not found.
      */
-    public static EntityPlayer getPlayerByUUID(UUID uuid) {
-        for (WorldServer ws : DimensionManager.getWorlds()) {
-            EntityPlayer player = ws.getPlayerEntityByUUID(uuid);
+    public static PlayerEntity getPlayerByUUID(UUID uuid) {
+        for (ServerWorld ws : DimensionManager.getWorlds()) {
+            PlayerEntity player = ws.getPlayerEntityByUUID(uuid);
             if (player != null)
                 return player;
         }
@@ -60,8 +60,8 @@ public class EntityUtil {
      * @param nbtTagCompound the compound to store the entity in. Null to create a new.
      * @return
      */
-    public static NBTTagCompound entityToNBT(EntityLivingBase entity, @Nullable NBTTagCompound nbtTagCompound) {
-        NBTTagCompound data = (nbtTagCompound != null) ? nbtTagCompound : new NBTTagCompound();
+    public static CompoundNBT entityToNBT(LivingEntity entity, @Nullable CompoundNBT nbtTagCompound) {
+        CompoundNBT data = (nbtTagCompound != null) ? nbtTagCompound : new CompoundNBT();
         data.setString("entityId", entity.getUniqueID().toString());
         if (entity.hasCustomName())
             data.setString("customName", entity.getCustomNameTag());
@@ -76,7 +76,7 @@ public class EntityUtil {
      * @param nbtTagCompound the tag compound to create the entity from.
      * @return the entity if successful or null otherwise.
      */
-    public static Entity entityFromNBT(World world, NBTTagCompound nbtTagCompound) {
+    public static Entity entityFromNBT(World world, CompoundNBT nbtTagCompound) {
         Entity entity = EntityList.createEntityFromNBT(nbtTagCompound.getCompoundTag("entity"), world);
         entity.setUniqueId(UUID.fromString(nbtTagCompound.getString("entityId")));
         if (nbtTagCompound.hasKey("customName"))

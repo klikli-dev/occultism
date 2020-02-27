@@ -32,21 +32,21 @@ import com.github.klikli_dev.occultism.registry.SoundRegistry;
 import com.github.klikli_dev.occultism.util.ItemNBTUtil;
 import com.github.klikli_dev.occultism.util.Math3DUtil;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockStone;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.block.Blocks;
 import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
@@ -72,14 +72,14 @@ public class ItemDivinationRod extends Item {
 
     //region Overrides
     @Override
-    public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing,
+    public ActionResultType onItemUse(PlayerEntity player, World world, BlockPos pos, Hand hand, Direction facing,
                                       float hitX, float hitY, float hitZ) {
         //if (!world.isRemote)
         {
             ItemStack stack = player.getHeldItem(hand);
 
             if (player.isSneaking()) {
-                IBlockState state = world.getBlockState(pos);
+                BlockState state = world.getBlockState(pos);
                 if (!state.getBlock().isAir(state, world, pos)) {
                     Block block = this.getOtherBlock(state);
                     if (block != null) {
@@ -88,8 +88,8 @@ public class ItemDivinationRod extends Item {
                         ItemNBTUtil.setString(stack, "linkedBlockId", block.getRegistryName().toString());
                         if (!world.isRemote) {
                             player.sendMessage(
-                                    new TextComponentTranslation(this.getTranslationKey() + ".message.linked_block",
-                                            new TextComponentTranslation(translationKey + ".name")));
+                                    new TranslationTextComponent(this.getTranslationKey() + ".message.linked_block",
+                                            new TranslationTextComponent(translationKey + ".name")));
                         }
 
                         world.playSound(player, player.getPosition(), SoundRegistry.TUNING_FORK, SoundCategory.PLAYERS,
@@ -98,18 +98,18 @@ public class ItemDivinationRod extends Item {
                     else {
                         if (!world.isRemote) {
                             player.sendMessage(
-                                    new TextComponentTranslation(this.getTranslationKey() + ".message.no_link_found"));
+                                    new TranslationTextComponent(this.getTranslationKey() + ".message.no_link_found"));
                         }
                     }
-                    return EnumActionResult.SUCCESS;
+                    return ActionResultType.SUCCESS;
                 }
             }
         }
-        return EnumActionResult.PASS;
+        return ActionResultType.PASS;
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
+    public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, Hand hand) {
         ItemStack stack = player.getHeldItem(hand);
 
         if (!player.isSneaking()) {
@@ -124,19 +124,19 @@ public class ItemDivinationRod extends Item {
                 }
             }
             else if (!world.isRemote) {
-                player.sendMessage(new TextComponentTranslation(this.getTranslationKey() + ".message.no_linked_block"));
+                player.sendMessage(new TranslationTextComponent(this.getTranslationKey() + ".message.no_linked_block"));
             }
         }
 
-        return new ActionResult<>(EnumActionResult.SUCCESS, stack);
+        return new ActionResult<>(ActionResultType.SUCCESS, stack);
     }
 
     @Override
-    public ItemStack onItemUseFinish(ItemStack stack, World world, EntityLivingBase entityLiving) {
-        if (!(entityLiving instanceof EntityPlayer))
+    public ItemStack onItemUseFinish(ItemStack stack, World world, LivingEntity entityLiving) {
+        if (!(entityLiving instanceof PlayerEntity))
             return stack;
 
-        EntityPlayer player = (EntityPlayer) entityLiving;
+        PlayerEntity player = (PlayerEntity) entityLiving;
         player.getCooldownTracker().setCooldown(this, 40);
         ItemNBTUtil.setFloat(stack, "distance", NOT_FOUND);
         if (world.isRemote) {
@@ -158,7 +158,7 @@ public class ItemDivinationRod extends Item {
     }
 
     @Override
-    public void onPlayerStoppedUsing(ItemStack stack, World world, EntityLivingBase entityLiving, int timeLeft) {
+    public void onPlayerStoppedUsing(ItemStack stack, World world, LivingEntity entityLiving, int timeLeft) {
         //player interrupted, so we can safely set not found on server
         ItemNBTUtil.setFloat(stack, "distance", NOT_FOUND);
 
@@ -187,15 +187,15 @@ public class ItemDivinationRod extends Item {
     }
 
     @Override
-    public void onUsingTick(ItemStack stack, EntityLivingBase entityLiving, int count) {
-        if (entityLiving.world.isRemote && entityLiving instanceof EntityPlayer) {
-            ScanManager.instance.updateScan((EntityPlayer) entityLiving, false);
+    public void onUsingTick(ItemStack stack, LivingEntity entityLiving, int count) {
+        if (entityLiving.world.isRemote && entityLiving instanceof PlayerEntity) {
+            ScanManager.instance.updateScan((PlayerEntity) entityLiving, false);
         }
     }
     //endregion Overrides
 
     //region Methods
-    public Block getOtherBlock(IBlockState state) {
+    public Block getOtherBlock(BlockState state) {
         //otherstone ore is linked to andesite.
         if (state.getBlock() == Blocks.STONE && state.getValue(BlockStone.VARIANT) == BlockStone.EnumType.ANDESITE ||
             state.getBlock() == BlockRegistry.OTHERSTONE_ORE) {
@@ -242,8 +242,8 @@ public class ItemDivinationRod extends Item {
 
         //region Overrides
         @Override
-        public float apply(ItemStack stack, @Nullable World world, @Nullable EntityLivingBase entity) {
-            NBTTagCompound compound = ItemNBTUtil.getTagCompound(stack);
+        public float apply(ItemStack stack, @Nullable World world, @Nullable LivingEntity entity) {
+            CompoundNBT compound = ItemNBTUtil.getTagCompound(stack);
             if (!compound.hasKey("distance") || compound.getFloat("distance") < 0)
                 return NOT_FOUND;
             return compound.getFloat("distance");

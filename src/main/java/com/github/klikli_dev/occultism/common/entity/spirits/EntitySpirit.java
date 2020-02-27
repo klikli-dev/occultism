@@ -31,19 +31,21 @@ import com.github.klikli_dev.occultism.handler.GuiHandler;
 import com.github.klikli_dev.occultism.network.MessageParticle;
 import com.github.klikli_dev.occultism.registry.SoundRegistry;
 import com.google.common.base.Optional;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityAgeable;
-import net.minecraft.entity.IEntityLivingData;
-import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.*;
-import net.minecraft.entity.passive.EntityTameable;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.projectile.EntityArrow;
+import net.minecraft.entity.*;
+import net.minecraft.entity.AgeableEntity;
+import net.minecraft.entity.ILivingEntityData;
+import net.minecraft.entity.ai.goal.HurtByTargetGoal;
+import net.minecraft.entity.ai.goal.LookRandomlyGoal;
+import net.minecraft.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.entity.ai.goal.SwimGoal;
+import net.minecraft.entity.passive.TameableEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.AbstractArrowEntity;
 import net.minecraft.inventory.ContainerHorseChest;
-import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.ListNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
@@ -55,7 +57,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import javax.annotation.Nullable;
 
-public abstract class EntitySpirit extends EntityTameable implements ISkinnedCreatureMixin {
+public abstract class EntitySpirit extends TameableEntity implements ISkinnedCreatureMixin {
     //region Fields
     public static final DataParameter<Integer> SKIN = EntityDataManager
                                                               .createKey(EntitySpirit.class, DataSerializers.VARINT);
@@ -66,7 +68,7 @@ public abstract class EntitySpirit extends EntityTameable implements ISkinnedCre
     private static final DataParameter<Optional<BlockPos>> DEPOSIT_POSITION = EntityDataManager
                                                                                       .createKey(EntitySpirit.class,
                                                                                               DataSerializers.OPTIONAL_BLOCK_POS);
-    private static final DataParameter<EnumFacing> DEPOSIT_FACING = EntityDataManager.createKey(EntitySpirit.class,
+    private static final DataParameter<Direction> DEPOSIT_FACING = EntityDataManager.createKey(EntitySpirit.class,
             DataSerializers.FACING);
     private static final DataParameter<Optional<BlockPos>> WORK_AREA_POSITION = EntityDataManager
                                                                                         .createKey(EntitySpirit.class,
@@ -139,11 +141,11 @@ public abstract class EntitySpirit extends EntityTameable implements ISkinnedCre
         }
     }
 
-    public EnumFacing getDepositFacing() {
+    public Direction getDepositFacing() {
         return this.dataManager.get(DEPOSIT_FACING);
     }
 
-    public void setDepositFacing(EnumFacing depositFacing) {
+    public void setDepositFacing(Direction depositFacing) {
         this.dataManager.set(DEPOSIT_FACING, depositFacing);
     }
 
@@ -221,11 +223,11 @@ public abstract class EntitySpirit extends EntityTameable implements ISkinnedCre
 
     @Override
     protected void initEntityAI() {
-        this.tasks.addTask(1, new EntityAISwimming(this));
-        this.tasks.addTask(5, new EntityAIAttackMelee(this, 1.0D, true));
-        this.tasks.addTask(9, new EntityAIWatchClosest2(this, EntityPlayer.class, 8.0F, 1));
-        this.tasks.addTask(10, new EntityAILookIdle(this));
-        this.targetTasks.addTask(3, new EntityAIHurtByTarget(this, true));
+        this.tasks.addTask(1, new SwimGoal(this));
+        this.tasks.addTask(5, new MeleeAttackGoal(this, 1.0D, true));
+        this.tasks.addTask(9, new EntityAIWatchClosest2(this, PlayerEntity.class, 8.0F, 1));
+        this.tasks.addTask(10, new LookRandomlyGoal(this));
+        this.targetTasks.addTask(3, new HurtByTargetGoal(this, true));
     }
 
     @Override
@@ -240,16 +242,16 @@ public abstract class EntitySpirit extends EntityTameable implements ISkinnedCre
     }
 
     @Override
-    public ItemStack getItemStackFromSlot(EntityEquipmentSlot slotIn) {
-        if (slotIn == EntityEquipmentSlot.MAINHAND) {
+    public ItemStack getItemStackFromSlot(EquipmentSlotType slotIn) {
+        if (slotIn == EquipmentSlotType.MAINHAND) {
             return this.inventory.getStackInSlot(0);
         }
         return super.getItemStackFromSlot(slotIn);
     }
 
     @Override
-    public void setItemStackToSlot(EntityEquipmentSlot slotIn, ItemStack stack) {
-        if (slotIn == EntityEquipmentSlot.MAINHAND) {
+    public void setItemStackToSlot(EquipmentSlotType slotIn, ItemStack stack) {
+        if (slotIn == EquipmentSlotType.MAINHAND) {
             this.inventory.setInventorySlotContents(0, stack);
         }
         else {
@@ -259,7 +261,7 @@ public abstract class EntitySpirit extends EntityTameable implements ISkinnedCre
 
     @Nullable
     @Override
-    public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingData) {
+    public ILivingEntityData onInitialSpawn(DifficultyInstance difficulty, @Nullable ILivingEntityData livingData) {
         this.selectRandomSkin();
         return super.onInitialSpawn(difficulty, livingData);
     }
@@ -270,7 +272,7 @@ public abstract class EntitySpirit extends EntityTameable implements ISkinnedCre
         this.registerSkinDataParameter();
 
         this.dataManager.register(DEPOSIT_POSITION, Optional.absent());
-        this.dataManager.register(DEPOSIT_FACING, EnumFacing.UP);
+        this.dataManager.register(DEPOSIT_FACING, Direction.UP);
         this.dataManager.register(WORK_AREA_POSITION, Optional.absent());
         this.dataManager.register(WORK_AREA_SIZE, WorkAreaSize.SMALL.getValue());
         this.dataManager.register(SPIRIT_AGE, 0);
@@ -279,7 +281,7 @@ public abstract class EntitySpirit extends EntityTameable implements ISkinnedCre
     }
 
     @Override
-    public void writeEntityToNBT(NBTTagCompound compound) {
+    public void writeEntityToNBT(CompoundNBT compound) {
         super.writeEntityToNBT(compound);
 
         //Store age
@@ -303,11 +305,11 @@ public abstract class EntitySpirit extends EntityTameable implements ISkinnedCre
 
         //store current inventory
         if (this.inventory != null) {
-            NBTTagList nbttaglist = new NBTTagList();
+            ListNBT nbttaglist = new ListNBT();
             for (int i = 0; i < this.inventory.getSizeInventory(); ++i) {
                 ItemStack itemstack = this.inventory.getStackInSlot(i);
                 if (!itemstack.isEmpty()) {
-                    NBTTagCompound itemCompound = new NBTTagCompound();
+                    CompoundNBT itemCompound = new CompoundNBT();
                     itemCompound.setByte("slot", (byte) i);
                     itemstack.writeToNBT(itemCompound);
                     nbttaglist.appendTag(itemCompound);
@@ -318,7 +320,7 @@ public abstract class EntitySpirit extends EntityTameable implements ISkinnedCre
 
         //store job
         if (this.hasJob()) {
-            NBTTagCompound jobCompound = new NBTTagCompound();
+            CompoundNBT jobCompound = new CompoundNBT();
             jobCompound.setString("factoryId", this.job.getFactoryID().toString());
             this.job.writeJobToNBT(jobCompound);
             compound.setTag("spiritJob", jobCompound);
@@ -326,7 +328,7 @@ public abstract class EntitySpirit extends EntityTameable implements ISkinnedCre
     }
 
     @Override
-    public void readEntityFromNBT(NBTTagCompound compound) {
+    public void readEntityFromNBT(CompoundNBT compound) {
         super.readEntityFromNBT(compound);
 
         //read age
@@ -346,7 +348,7 @@ public abstract class EntitySpirit extends EntityTameable implements ISkinnedCre
         if (compound.hasKey("depositPosition")) {
             this.setDepositPosition(BlockPos.fromLong(compound.getLong("depositPosition")));
             if (compound.hasKey("depositFacing")) {
-                this.setDepositFacing(EnumFacing.values()[compound.getInteger("depositFacing")]);
+                this.setDepositFacing(Direction.values()[compound.getInteger("depositFacing")]);
             }
         }
 
@@ -355,16 +357,16 @@ public abstract class EntitySpirit extends EntityTameable implements ISkinnedCre
 
         //set up inventory and read items
         this.setupInventory();
-        NBTTagList nbttaglist = compound.getTagList("items", 10);
+        ListNBT nbttaglist = compound.getTagList("items", 10);
         for (int i = 0; i < nbttaglist.tagCount(); ++i) {
-            NBTTagCompound itemCompound = nbttaglist.getCompoundTagAt(i);
+            CompoundNBT itemCompound = nbttaglist.getCompoundTagAt(i);
             int j = itemCompound.getByte("slot") & 255;
             this.inventory.setInventorySlotContents(j, new ItemStack(itemCompound));
         }
 
         //read job
         if (compound.hasKey("spiritJob")) {
-            NBTTagCompound jobCompound = compound.getCompoundTag("spiritJob");
+            CompoundNBT jobCompound = compound.getCompoundTag("spiritJob");
             SpiritJobFactory factory = GameRegistry.findRegistry(SpiritJobFactory.class)
                                                .getValue(new ResourceLocation(jobCompound.getString("factoryId")));
             SpiritJob job = factory.create(this);
@@ -433,7 +435,7 @@ public abstract class EntitySpirit extends EntityTameable implements ISkinnedCre
 
     @Nullable
     @Override
-    public EntityAgeable createChild(EntityAgeable ageable) {
+    public AgeableEntity createChild(AgeableEntity ageable) {
         return null;
     }
 
@@ -468,7 +470,7 @@ public abstract class EntitySpirit extends EntityTameable implements ISkinnedCre
         else {
             //copied from wolf
             Entity entity = source.getTrueSource();
-            if (entity != null && !(entity instanceof EntityPlayer) && !(entity instanceof EntityArrow)) {
+            if (entity != null && !(entity instanceof PlayerEntity) && !(entity instanceof AbstractArrowEntity)) {
                 amount = (amount + 1.0F) / 2.0F;
             }
 
@@ -477,7 +479,7 @@ public abstract class EntitySpirit extends EntityTameable implements ISkinnedCre
     }
 
     @Override
-    public boolean processInteract(EntityPlayer player, EnumHand hand) {
+    public boolean processInteract(PlayerEntity player, Hand hand) {
         ItemStack itemStack = player.getHeldItem(hand);
         boolean flag = !itemStack.isEmpty();
         if (itemStack.isEmpty()) {
@@ -515,7 +517,7 @@ public abstract class EntitySpirit extends EntityTameable implements ISkinnedCre
         return false;
     }
 
-    public void openGUI(EntityPlayer playerEntity) {
+    public void openGUI(PlayerEntity playerEntity) {
         if (!this.world.isRemote) {
             playerEntity
                     .openGui(Occultism.instance, GuiHandler.GuiID.SPIRIT.ordinal(), this.world, this.getEntityId(), 0,

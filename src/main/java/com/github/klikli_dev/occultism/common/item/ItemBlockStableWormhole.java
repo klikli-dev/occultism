@@ -30,20 +30,19 @@ import com.github.klikli_dev.occultism.util.ItemNBTUtil;
 import net.minecraft.block.Block;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.EnumRarity;
-import net.minecraft.item.IItemPropertyGetter;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.*;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.Rarity;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -52,7 +51,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class ItemBlockStableWormhole extends ItemBlock {
+public class ItemBlockStableWormhole extends BlockItem {
 
     //region Fields
     public static final String TRANSLATION_KEY_BASE = "item." + Occultism.MODID + ".stable_wormhole";
@@ -68,13 +67,13 @@ public class ItemBlockStableWormhole extends ItemBlock {
 
     //region Overrides
     @Override
-    public EnumRarity getRarity(ItemStack stack) {
+    public Rarity getRarity(ItemStack stack) {
         return ItemNBTUtil.getTagCompound(stack).getCompoundTag("BlockEntityTag")
-                       .hasKey("linkedStorageControllerPosition") ? EnumRarity.RARE : EnumRarity.COMMON;
+                       .hasKey("linkedStorageControllerPosition") ? Rarity.RARE : Rarity.COMMON;
     }
 
     @Override
-    public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing,
+    public ActionResultType onItemUse(PlayerEntity player, World world, BlockPos pos, Hand hand, Direction facing,
                                       float hitX, float hitY, float hitZ) {
 
         ItemStack stack = player.getHeldItem(hand);
@@ -83,17 +82,17 @@ public class ItemBlockStableWormhole extends ItemBlock {
                 TileEntity tileEntity = world.getTileEntity(pos);
                 if (tileEntity instanceof IStorageController) {
                     //if this is a storage controller, write the position into the block entity tag that will be used to spawn the tile entity.
-                    NBTTagCompound itemTag =
-                            stack.getTagCompound() != null ? stack.getTagCompound() : new NBTTagCompound();
-                    NBTTagCompound entityTag = itemTag.getCompoundTag("BlockEntityTag");
+                    CompoundNBT itemTag =
+                            stack.getTagCompound() != null ? stack.getTagCompound() : new CompoundNBT();
+                    CompoundNBT entityTag = itemTag.getCompoundTag("BlockEntityTag");
                     entityTag.setTag("linkedStorageControllerPosition",
-                            GlobalBlockPos.fromTileEntity(tileEntity).writeToNBT(new NBTTagCompound()));
+                            GlobalBlockPos.fromTileEntity(tileEntity).writeToNBT(new CompoundNBT()));
                     itemTag.setTag("BlockEntityTag", entityTag);
                     stack.setTagCompound(itemTag);
                     player.sendStatusMessage(
-                            new TextComponentTranslation(TRANSLATION_KEY_BASE + ".message.set_storage_controller"),
+                            new TranslationTextComponent(TRANSLATION_KEY_BASE + ".message.set_storage_controller"),
                             true);
-                    return EnumActionResult.SUCCESS;
+                    return ActionResultType.SUCCESS;
                 }
             }
         }
@@ -123,7 +122,7 @@ public class ItemBlockStableWormhole extends ItemBlock {
     private static class LinkedPropertyGetter implements IItemPropertyGetter {
         //region Overrides
         @Override
-        public float apply(ItemStack stack, @Nullable World world, @Nullable EntityLivingBase entity) {
+        public float apply(ItemStack stack, @Nullable World world, @Nullable LivingEntity entity) {
             return ItemNBTUtil.getTagCompound(stack).getCompoundTag("BlockEntityTag")
                            .hasKey("linkedStorageControllerPosition") ? 1.0f : 0.0f;
         }

@@ -23,9 +23,9 @@
 package com.github.klikli_dev.occultism.common.tile;
 
 import com.github.klikli_dev.occultism.util.TileEntityUtil;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.block.BlockState;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
@@ -62,31 +62,31 @@ public class TileEntitySacrificialBowl extends TileEntityBase {
     //region Overrides
 
     @Override
-    public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState) {
+    public boolean shouldRefresh(World world, BlockPos pos, BlockState oldState, BlockState newState) {
         return (oldState.getBlock() != newState.getBlock());
     }
 
     @Override
-    public boolean hasCapability(Capability<?> capability, @Nullable EnumFacing facing) {
+    public boolean hasCapability(Capability<?> capability, @Nullable Direction facing) {
         return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY || super.hasCapability(capability, facing);
     }
 
     @Nullable
     @Override
-    public <T> T getCapability(Capability<T> capability, @Nullable EnumFacing facing) {
+    public <T> T getCapability(Capability<T> capability, @Nullable Direction facing) {
         if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
             return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(this.itemStackHandler);
         }
         return super.getCapability(capability, facing);
     }
 
-    public void readFromNetworkNBT(NBTTagCompound compound) {
+    public void readFromNetworkNBT(CompoundNBT compound) {
         this.itemStackHandler.deserializeNBT(compound.getCompoundTag("inventory"));
         this.lastChangeTime = compound.getLong("lastChangeTime");
         super.readFromNetworkNBT(compound);
     }
 
-    public NBTTagCompound writeToNetworkNBT(NBTTagCompound compound) {
+    public CompoundNBT writeToNetworkNBT(CompoundNBT compound) {
         compound.setTag("inventory", this.itemStackHandler.serializeNBT());
         compound.setLong("lastChangeTime", this.lastChangeTime);
         return super.writeToNetworkNBT(compound);

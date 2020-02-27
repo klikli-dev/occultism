@@ -43,14 +43,14 @@ import com.github.klikli_dev.occultism.registry.BlockRegistry;
 import com.github.klikli_dev.occultism.util.Math3DUtil;
 import com.github.klikli_dev.occultism.util.TileEntityUtil;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockDirectional;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.DirectionalBlock;
 import net.minecraft.entity.Entity;
-import net.minecraft.item.ItemBlock;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.ListNBT;
+import net.minecraft.util.Direction;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
@@ -248,8 +248,8 @@ public class TileEntityStorageController extends TileEntityBase implements ITick
 
     @Override
     public boolean isBlacklisted(ItemStack stack) {
-        if (stack.getItem() instanceof ItemBlock) {
-            ItemBlock itemBlock = (ItemBlock) stack.getItem();
+        if (stack.getItem() instanceof BlockItem) {
+            BlockItem itemBlock = (BlockItem) stack.getItem();
             return BLOCK_BLACKLIST.contains(itemBlock.getBlock());
         }
         return false;
@@ -342,19 +342,19 @@ public class TileEntityStorageController extends TileEntityBase implements ITick
     }
 
     @Override
-    public void readFromNBT(NBTTagCompound compound) {
+    public void readFromNBT(CompoundNBT compound) {
         compound.removeTag("linkedMachines"); //linked machines are not saved, they self-register.
         super.readFromNBT(compound);
 
         //read stored items
         if (compound.hasKey("items")) {
-            this.itemStackHandler.deserializeNBT((NBTTagCompound) compound.getTag("items"));
+            this.itemStackHandler.deserializeNBT((CompoundNBT) compound.getTag("items"));
             this.cachedMessageUpdateStacks = null;
         }
     }
 
     @Override
-    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+    public CompoundNBT writeToNBT(CompoundNBT compound) {
         compound = super.writeToNBT(compound);
         compound.removeTag("linkedMachines"); //linked machines are not saved, they self-register.
         compound.setTag("items", this.itemStackHandler.serializeNBT());
@@ -362,7 +362,7 @@ public class TileEntityStorageController extends TileEntityBase implements ITick
     }
 
     @Override
-    public void readFromNetworkNBT(NBTTagCompound compound) {
+    public void readFromNetworkNBT(CompoundNBT compound) {
         super.readFromNetworkNBT(compound);
         this.setSortDirection(SortDirection.get(compound.getInteger("sortDirection")));
         this.setSortType(SortType.get(compound.getInteger("sortType")));
@@ -374,9 +374,9 @@ public class TileEntityStorageController extends TileEntityBase implements ITick
         //read stored crafting matrix
         this.matrix = new HashMap<Integer, ItemStack>();
         if (compound.hasKey("matrix")) {
-            NBTTagList matrixNbt = compound.getTagList("matrix", Constants.NBT.TAG_COMPOUND);
+            ListNBT matrixNbt = compound.getTagList("matrix", Constants.NBT.TAG_COMPOUND);
             for (int i = 0; i < matrixNbt.tagCount(); i++) {
-                NBTTagCompound stackTag = matrixNbt.getCompoundTagAt(i);
+                CompoundNBT stackTag = matrixNbt.getCompoundTagAt(i);
                 int slot = stackTag.getByte("slot");
                 ItemStack s = new ItemStack(stackTag);
                 this.matrix.put(slot, s);
@@ -389,7 +389,7 @@ public class TileEntityStorageController extends TileEntityBase implements ITick
         //read the linked machines
         this.linkedMachines = new HashMap<>();
         if (compound.hasKey("linkedMachines")) {
-            NBTTagList machinesNbt = compound.getTagList("linkedMachines", Constants.NBT.TAG_COMPOUND);
+            ListNBT machinesNbt = compound.getTagList("linkedMachines", Constants.NBT.TAG_COMPOUND);
             for (int i = 0; i < machinesNbt.tagCount(); i++) {
                 MachineReference reference = MachineReference.fromNbt(machinesNbt.getCompoundTagAt(i));
                 this.linkedMachines.put(reference.globalPos, reference);
@@ -398,16 +398,16 @@ public class TileEntityStorageController extends TileEntityBase implements ITick
     }
 
     @Override
-    public NBTTagCompound writeToNetworkNBT(NBTTagCompound compound) {
+    public CompoundNBT writeToNetworkNBT(CompoundNBT compound) {
         compound.setInteger("sortDirection", this.getSortDirection().getValue());
         compound.setInteger("sortType", this.getSortType().getValue());
         compound.setInteger("maxSlots", this.maxSlots);
 
         //write stored crafting matrix
-        NBTTagList matrixNbt = new NBTTagList();
+        ListNBT matrixNbt = new ListNBT();
         for (int i = 0; i < 9; i++) {
             if (this.matrix.get(i) != null && !this.matrix.get(i).isEmpty()) {
-                NBTTagCompound stackTag = new NBTTagCompound();
+                CompoundNBT stackTag = new CompoundNBT();
                 stackTag.setByte("slot", (byte) i);
                 this.matrix.get(i).writeToNBT(stackTag);
                 matrixNbt.appendTag(stackTag);
@@ -416,12 +416,12 @@ public class TileEntityStorageController extends TileEntityBase implements ITick
         compound.setTag("matrix", matrixNbt);
 
         if (!this.orderStack.isEmpty())
-            compound.setTag("orderStack", this.orderStack.writeToNBT(new NBTTagCompound()));
+            compound.setTag("orderStack", this.orderStack.writeToNBT(new CompoundNBT()));
 
         //write linked machines
-        NBTTagList machinesNbt = new NBTTagList();
+        ListNBT machinesNbt = new ListNBT();
         for (Map.Entry<GlobalBlockPos, MachineReference> entry : this.linkedMachines.entrySet()) {
-            machinesNbt.appendTag(entry.getValue().writeToNBT(new NBTTagCompound()));
+            machinesNbt.appendTag(entry.getValue().writeToNBT(new CompoundNBT()));
         }
         compound.setTag("linkedMachines", machinesNbt);
 
@@ -429,7 +429,7 @@ public class TileEntityStorageController extends TileEntityBase implements ITick
     }
 
     @Override
-    public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newSate) {
+    public boolean shouldRefresh(World world, BlockPos pos, BlockState oldState, BlockState newSate) {
         return oldState.getBlock() != newSate.getBlock();
     }
 
@@ -441,7 +441,7 @@ public class TileEntityStorageController extends TileEntityBase implements ITick
     }
 
     @Override
-    public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
+    public boolean hasCapability(Capability<?> capability, Direction facing) {
         if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
             return true;
         }
@@ -449,7 +449,7 @@ public class TileEntityStorageController extends TileEntityBase implements ITick
     }
 
     @Override
-    public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
+    public <T> T getCapability(Capability<T> capability, Direction facing) {
         if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
             return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(this.itemStackHandler);
         }
@@ -474,13 +474,13 @@ public class TileEntityStorageController extends TileEntityBase implements ITick
         BlockPos up = this.pos.up();
         Vec3d traceStartPosition = Math3DUtil.getBlockCenter(up);
 
-        for (EnumFacing face : EnumFacing.values()) {
+        for (Direction face : Direction.values()) {
             RayTraceResult result = this.world.rayTraceBlocks(traceStartPosition,
                     Math3DUtil.getBlockCenter(up.offset(face, MAX_STABILIZER_DISTANCE)));
             if (result != null && result.typeOfHit == RayTraceResult.Type.BLOCK) {
-                IBlockState hitBlockState = this.world.getBlockState(result.getBlockPos());
+                BlockState hitBlockState = this.world.getBlockState(result.getBlockPos());
                 if (hitBlockState.getBlock() instanceof BlockStorageStabilizer &&
-                    hitBlockState.getValue(BlockDirectional.FACING) == face.getOpposite()) {
+                    hitBlockState.getValue(DirectionalBlock.FACING) == face.getOpposite()) {
                     validStabilizers.add(result.getBlockPos());
                 }
             }
@@ -489,7 +489,7 @@ public class TileEntityStorageController extends TileEntityBase implements ITick
         return validStabilizers;
     }
 
-    protected int getSlotsForStabilizer(IBlockState state) {
+    protected int getSlotsForStabilizer(BlockState state) {
         Block block = state.getBlock();
         if (block == BlockRegistry.STORAGE_STABILIZER_TIER1)
             return OccultismConfig.storage.stabilizerTier1Slots;
