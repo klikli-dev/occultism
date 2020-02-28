@@ -25,12 +25,16 @@ package com.github.klikli_dev.occultism.datagen;
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.OccultismBlocks;
 import com.github.klikli_dev.occultism.common.block.ChalkGlyphBlock;
+import net.minecraft.block.Block;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.Item;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.ExistingFileHelper;
 import net.minecraftforge.client.model.generators.ModelFile;
+import net.minecraftforge.fml.RegistryObject;
 
 public class StandardBlockStateProvider extends BlockStateProvider {
 
@@ -44,30 +48,35 @@ public class StandardBlockStateProvider extends BlockStateProvider {
     //region Overrides
     @Override
     protected void registerStatesAndModels() {
-        generateChalkGlyphBlockState();
+        //Generate blockstates for the glyphs
+        OccultismBlocks.BLOCKS.getEntries().stream()
+                .map(RegistryObject::get)
+                .filter(block -> block instanceof ChalkGlyphBlock)
+                .forEach(this::generateGlyphBlockState);
+
     }
     //endregion Overrides
 
     //region Methods
-    protected void generateChalkGlyphBlockState() {
-        //get existing chalk glyph model.
-        ModelFile.ExistingModelFile parent = models().getExistingFile(modLoc("block/chalk_glyph"));
-        getVariantBuilder(OccultismBlocks.CHALK_GLYPH_WHITE.get())
-                .forAllStates(state -> {
-                            //this is called for every state combination
-                            //create a child model for each glyph texture option
-                            int sign = state.get(ChalkGlyphBlock.SIGN);
-                            ModelFile subModel = models().getBuilder("block/chalk_glyph/" + sign).parent(parent)
-                                                         .texture("#texture", modLoc("block/chalk_glyph/" + sign));
 
-                            return ConfiguredModel.builder()
-                                           //load the child model
-                                           .modelFile(subModel)
-                                           //
-                                           .rotationY((int) state.get(BlockStateProperties.HORIZONTAL_FACING)
-                                                                    .getHorizontalAngle())
-                                           .build();
-                        });
+    protected void generateGlyphBlockState(Block block){
+        ModelFile.ExistingModelFile parent = models().getExistingFile(modLoc("block/chalk_glyph"));
+        getVariantBuilder(block)
+                .forAllStates(state -> {
+                    //this is called for every state combination
+                    //create a child model for each glyph texture option
+                    int sign = state.get(ChalkGlyphBlock.SIGN);
+                    ModelFile subModel = models().getBuilder("block/chalk_glyph/" + sign).parent(parent)
+                                                 .texture("#texture", modLoc("block/chalk_glyph/" + sign));
+
+                    return ConfiguredModel.builder()
+                                   //load the child model
+                                   .modelFile(subModel)
+                                   //
+                                   .rotationY((int) state.get(BlockStateProperties.HORIZONTAL_FACING)
+                                                            .getHorizontalAngle())
+                                   .build();
+                });
     }
     //endregion Methods
 
