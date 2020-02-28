@@ -44,6 +44,15 @@ public class OccultismItems {
     public static final RegistryObject<Item> CHALK_WHITE = ITEMS.register("chalk_white",
             () -> new ChalkItem(defaultProperties().setNoRepair().maxDamage(128),
                     OccultismBlocks.CHALK_GLYPH_WHITE));
+    public static final RegistryObject<Item> CHALK_GOLD = ITEMS.register("chalk_gold",
+            () -> new ChalkItem(defaultProperties().setNoRepair().maxDamage(128),
+                    OccultismBlocks.CHALK_GLYPH_GOLD));
+    public static final RegistryObject<Item> CHALK_PURPLE = ITEMS.register("chalk_purple",
+            () -> new ChalkItem(defaultProperties().setNoRepair().maxDamage(128),
+                    OccultismBlocks.CHALK_GLYPH_PURPLE));
+    public static final RegistryObject<Item> CHALK_RED = ITEMS.register("chalk_red",
+            () -> new ChalkItem(defaultProperties().setNoRepair().maxDamage(128),
+                    OccultismBlocks.CHALK_GLYPH_RED));
 
     public static Item.Properties defaultProperties(){
         return new Item.Properties().group(Occultism.ITEM_GROUP);
