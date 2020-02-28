@@ -23,13 +23,17 @@
 package com.github.klikli_dev.occultism.datagen;
 
 import com.github.klikli_dev.occultism.Occultism;
-import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.common.block.ChalkGlyphBlock;
+import com.github.klikli_dev.occultism.common.block.storage.StableWormholeBlock;
+import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraftforge.client.model.MultiLayerModel;
-import net.minecraftforge.client.model.generators.*;
+import net.minecraft.util.Direction;
+import net.minecraftforge.client.model.generators.BlockStateProvider;
+import net.minecraftforge.client.model.generators.ConfiguredModel;
+import net.minecraftforge.client.model.generators.ExistingFileHelper;
+import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.fml.RegistryObject;
 
 public class StandardBlockStateProvider extends BlockStateProvider {
@@ -50,26 +54,39 @@ public class StandardBlockStateProvider extends BlockStateProvider {
                 .filter(block -> block instanceof ChalkGlyphBlock)
                 .forEach(this::generateGlyphBlockState);
 
-        generateStableWormholeState(OccultismBlocks.STABLE_WORMHOLE.get());
+        this.generateStableWormholeState(OccultismBlocks.STABLE_WORMHOLE.get());
     }
     //endregion Overrides
 
     //region Methods
 
-    protected void generateStableWormholeState(Block block){
-        ModelFile.ExistingModelFile model = models().getExistingFile(modLoc("block/stable_wormhole"));
-        directionalBlock(block, model);
+    protected void generateStableWormholeState(Block block) {
+        ModelFile.ExistingModelFile linkedModel = this.models().getExistingFile(this.modLoc("block/stable_wormhole"));
+        ModelFile.ExistingModelFile unlinkedModel = this.models().getExistingFile(
+                this.modLoc("block/stable_wormhole_unlinked"));
+
+        this.getVariantBuilder(block)
+                .forAllStates(state -> {
+                    Direction dir = state.get(BlockStateProperties.FACING);
+                    return ConfiguredModel.builder()
+                                   .modelFile(state.get(StableWormholeBlock.LINKED) ? linkedModel : unlinkedModel)
+                                   .rotationX(dir == Direction.DOWN ? 180 : dir.getAxis().isHorizontal() ? 90 : 0)
+                                   .rotationY(dir.getAxis().isVertical() ? 0 : ((int) dir.getHorizontalAngle()))
+                                   .build();
+                });
+
     }
 
-    protected void generateGlyphBlockState(Block block){
-        ModelFile.ExistingModelFile parent = models().getExistingFile(modLoc("block/chalk_glyph/chalk_glyph"));
-        getVariantBuilder(block)
+    protected void generateGlyphBlockState(Block block) {
+        ModelFile.ExistingModelFile parent = this.models()
+                                                     .getExistingFile(this.modLoc("block/chalk_glyph/chalk_glyph"));
+        this.getVariantBuilder(block)
                 .forAllStates(state -> {
                     //this is called for every state combination
                     //create a child model for each glyph texture option
                     int sign = state.get(ChalkGlyphBlock.SIGN);
-                    ModelFile subModel = models().getBuilder("block/chalk_glyph/" + sign).parent(parent)
-                                                 .texture("texture", modLoc("block/chalk_glyph/" + sign));
+                    ModelFile subModel = this.models().getBuilder("block/chalk_glyph/" + sign).parent(parent)
+                                                 .texture("texture", this.modLoc("block/chalk_glyph/" + sign));
 
                     return ConfiguredModel.builder()
                                    //load the child model
