@@ -35,7 +35,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 public class OccultismBlocks {
 
     //region Fields
-    public static final DeferredRegister<Block> BLOCKS = new DeferredRegister(ForgeRegistries.BLOCKS, Occultism.MODID);
+    public static final DeferredRegister<Block> BLOCKS = new DeferredRegister<>(ForgeRegistries.BLOCKS, Occultism.MODID);
 
     //Blocks without item
     public static final Block.Properties GLYPH_PROPERTIES = Block.Properties.create(Material.MISCELLANEOUS)
