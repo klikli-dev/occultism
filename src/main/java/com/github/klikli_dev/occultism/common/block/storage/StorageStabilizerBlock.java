@@ -76,9 +76,27 @@ public class StorageStabilizerBlock extends Block {
     }
 
     @Override
-    public void onReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
-        Occultism.LOGGER.info("replaced");
-        super.onReplaced(state, worldIn, pos, newState, isMoving);
+    public void onReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean isMoving) {
+        if(state != newState){
+            Direction facing = state.get(DirectionalBlock.FACING);
+            //TODO: enable once storage controller is ready
+//            //storage controller actually wants stabilizers to point at one block above it, so unless we are on y axis we trace one below
+//            BlockPos min = facing != Direction.DOWN && facing != Direction.UP ? pos.down() : pos;
+//            //trace a straight line for the possible controller positions
+//            Iterable<BlockPos> blocks = BlockPos.getAllInBox(min,
+//                    min.offset(facing, TileEntityStorageController.MAX_STABILIZER_DISTANCE));
+//
+//            //we do not use an actual trace, because players might have put a block inbetween controller and stabilizer
+//            for (BlockPos block : blocks) {
+//                TileEntity tileEntity = world.getTileEntity(block);
+//                if (tileEntity instanceof TileEntityStorageController) {
+//                    TileEntityStorageController controller = (TileEntityStorageController) tileEntity;
+//                    controller.updateStabilizers(); //force controller to re-check available stabilizers.
+//                }
+//            }
+        }
+
+        super.onReplaced(state, world, pos, newState, isMoving);
     }
 
     @Nullable
@@ -124,32 +142,8 @@ public class StorageStabilizerBlock extends Block {
         super.fillStateContainer(builder);
     }
 
-    //    @Override
-    //    public void breakBlock(World world, BlockPos pos, BlockState state) {
-    //        Direction facing = state.getValue(DirectionalBlock.FACING);
-    //
-    //        //storage controller actually wants stabilizers to point at one block above it, so unless we are on y axis we trace one below
-    //        BlockPos min = facing != Direction.DOWN && facing != Direction.UP ? pos.down() : pos;
-    //        //trace a straight line for the possible controller positions
-    //        Iterable<BlockPos> blocks = BlockPos.getAllInBox(min,
-    //                min.offset(facing, TileEntityStorageController.MAX_STABILIZER_DISTANCE));
-    //
-    //        //we do not use an actual trace, because players might have put a block inbetween controller and stabilizer
-    //        for (BlockPos block : blocks) {
-    //            TileEntity tileEntity = world.getTileEntity(block);
-    //            if (tileEntity instanceof TileEntityStorageController) {
-    //                TileEntityStorageController controller = (TileEntityStorageController) tileEntity;
-    //                controller.updateStabilizers(); //force controller to re-check available stabilizers.
-    //            }
-    //        }
-    //
-    //        super.breakBlock(world, pos, state);
-    //    }
+
     //endregion Overrides
-
-    //region Methods
-    //endregion Methods
-
 }
 
 
