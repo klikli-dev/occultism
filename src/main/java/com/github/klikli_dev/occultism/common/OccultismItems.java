@@ -38,12 +38,15 @@ public class OccultismItems {
     public static final RegistryObject<Item> PENTACLE = ITEMS.register("pentacle",
             () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> DEBUG_WAND = ITEMS.register("debug_wand",
-            () -> new DebugWandItem(new Item.Properties().maxStackSize(1).group(Occultism.ITEM_GROUP)));
+            () -> new DebugWandItem(defaultProperties().maxStackSize(1)));
 
     //Tools
     public static final RegistryObject<Item> CHALK_WHITE = ITEMS.register("chalk_white",
-            () -> new ChalkItem(new Item.Properties().setNoRepair().maxDamage(128),
+            () -> new ChalkItem(defaultProperties().setNoRepair().maxDamage(128),
                     OccultismBlocks.CHALK_GLYPH_WHITE));
 
+    public static Item.Properties defaultProperties(){
+        return new Item.Properties().group(Occultism.ITEM_GROUP);
+    }
     //endregion Fields
 }
