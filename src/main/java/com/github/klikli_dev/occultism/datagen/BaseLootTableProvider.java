@@ -33,9 +33,11 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DirectoryCache;
 import net.minecraft.data.IDataProvider;
 import net.minecraft.data.LootTableProvider;
+import net.minecraft.data.loot.BlockLootTables;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.storage.loot.*;
 import net.minecraft.world.storage.loot.conditions.SurvivesExplosion;
+import net.minecraft.world.storage.loot.functions.CopyNbt;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -51,12 +53,14 @@ public abstract class BaseLootTableProvider extends LootTableProvider {
     protected final Map<Block, LootTable.Builder> lootTables = new HashMap<>();
 
     private final DataGenerator generator;
+    protected final BlockLootTables blockLootTables;
     //endregion Fields
 
     //region Initialization
     public BaseLootTableProvider(DataGenerator dataGeneratorIn) {
         super(dataGeneratorIn);
         this.generator = dataGeneratorIn;
+        this.blockLootTables = new BlockLootTables();
     }
     //endregion Initialization
 
@@ -65,7 +69,6 @@ public abstract class BaseLootTableProvider extends LootTableProvider {
     // Entry point
     public void act(DirectoryCache cache) {
         addTables();
-
         Map<ResourceLocation, LootTable> tables = new HashMap<>();
         for (Map.Entry<Block, LootTable.Builder> entry : lootTables.entrySet()) {
             tables.put(entry.getKey().getLootTable(),
@@ -88,21 +91,25 @@ public abstract class BaseLootTableProvider extends LootTableProvider {
     /**
      * Creates a basic loot table that drops only the block itself, if it survives the explosion.
      * Mirrors old vanilla behaviour.
-     * @param name the loot table name.
+     *
+     * @param name  the loot table name.
      * @param block the block to generate for.
      * @return the loot table.
      */
     protected LootTable.Builder basic(String name, Block block) {
+        this.blockLootTables.registerDropSelfLootTable(block);
         LootPool.Builder builder = LootPool.builder()
                                            .name(name)
                                            .rolls(ConstantRange.of(1))
-                                           .addEntry(ItemLootEntry.builder(block)).acceptCondition(SurvivesExplosion.builder());
+                                           .addEntry(ItemLootEntry.builder(block))
+                                           .acceptCondition(SurvivesExplosion.builder());
         return LootTable.builder().addLootPool(builder);
     }
 
     /**
      * Creates an empty loot table with no drop.
-     * @param name the loot table name.
+     *
+     * @param name  the loot table name.
      * @param block the block to generate for.
      * @return the loot table.
      */
@@ -112,13 +119,23 @@ public abstract class BaseLootTableProvider extends LootTableProvider {
         return LootTable.builder().addLootPool(builder);
     }
 
-//    protected LootTable.Builder createStandardTable(String name, Block block) {
-//        LootPool.Builder builder = LootPool.builder()
-//                                           .name(name)
-//                                           .rolls(ConstantRange.of(1))
-//                                           .addEntry(ItemLootEntry.builder(block)).acceptCondition(SurvivesExplosion.builder());
-//        return LootTable.builder().addLootPool(builder);
-//    }
+    /**
+     * Creates a loot table to drop the block with tile entity nbt.
+     *
+     * @param name  the loot table name.
+     * @param block the block to generate for.
+     * @return the loot table.
+     */
+    protected LootTable.Builder withTileNBT(String name, Block block) {
+        LootPool.Builder builder = LootPool.builder()
+                                           .name(name)
+                                           .rolls(ConstantRange.of(1))
+                                           .addEntry(ItemLootEntry.builder(block)
+                                                             .acceptFunction(
+                                                                     CopyNbt.builder(CopyNbt.Source.BLOCK_ENTITY)))
+                                           .acceptCondition(SurvivesExplosion.builder());
+        return LootTable.builder().addLootPool(builder);
+    }
 
     // Actually write out the tables in the output folder
     private void writeTables(DirectoryCache cache, Map<ResourceLocation, LootTable> tables) {

@@ -28,10 +28,8 @@ import com.github.klikli_dev.occultism.common.block.ChalkGlyphBlock;
 import net.minecraft.block.Block;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraftforge.client.model.generators.BlockStateProvider;
-import net.minecraftforge.client.model.generators.ConfiguredModel;
-import net.minecraftforge.client.model.generators.ExistingFileHelper;
-import net.minecraftforge.client.model.generators.ModelFile;
+import net.minecraftforge.client.model.MultiLayerModel;
+import net.minecraftforge.client.model.generators.*;
 import net.minecraftforge.fml.RegistryObject;
 
 public class StandardBlockStateProvider extends BlockStateProvider {
@@ -52,10 +50,16 @@ public class StandardBlockStateProvider extends BlockStateProvider {
                 .filter(block -> block instanceof ChalkGlyphBlock)
                 .forEach(this::generateGlyphBlockState);
 
+        generateStableWormholeState(OccultismBlocks.STABLE_WORMHOLE.get());
     }
     //endregion Overrides
 
     //region Methods
+
+    protected void generateStableWormholeState(Block block){
+        ModelFile.ExistingModelFile model = models().getExistingFile(modLoc("block/stable_wormhole"));
+        directionalBlock(block, model);
+    }
 
     protected void generateGlyphBlockState(Block block){
         ModelFile.ExistingModelFile parent = models().getExistingFile(modLoc("block/chalk_glyph/chalk_glyph"));

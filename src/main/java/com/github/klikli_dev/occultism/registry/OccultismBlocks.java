@@ -25,6 +25,7 @@ package com.github.klikli_dev.occultism.registry;
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.block.CandleBlock;
 import com.github.klikli_dev.occultism.common.block.ChalkGlyphBlock;
+import com.github.klikli_dev.occultism.common.block.storage.StableWormholeBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -51,23 +52,28 @@ public class OccultismBlocks {
             () -> new ChalkGlyphBlock(GLYPH_PROPERTIES, 0xcc0101));
 
     //Decorative and Ritual Blocks
-    public static final RegistryObject<Block> CANDLE_WHITE = BLOCKS.register("candle_white", () -> new CandleBlock(
+    public static final RegistryObject<CandleBlock> CANDLE_WHITE = BLOCKS.register("candle_white", () -> new CandleBlock(
             Block.Properties.create(Material.MISCELLANEOUS).sound(SoundType.CLOTH).doesNotBlockMovement()
                     .hardnessAndResistance(0.1f, 0).lightValue(12)));
+
+    //Machines
+    public static final RegistryObject<StableWormholeBlock> STABLE_WORMHOLE = BLOCKS.register("stable_wormhole", () -> new StableWormholeBlock(
+            Block.Properties.create(Material.ROCK).sound(SoundType.METAL).doesNotBlockMovement()
+                    .hardnessAndResistance(2f, 2).notSolid()));
 
     //endregion Fields
 
     //region Static Methods
     public static boolean requiresDefaultBlock(Block block) {
-        if (block instanceof ChalkGlyphBlock)
-            return false;
-        return true;
+        return !(block instanceof ChalkGlyphBlock);
     }
 
     public static boolean requiresEmptyLootTable(Block block) {
-        if (block instanceof ChalkGlyphBlock)
-            return true;
-        return false;
+        return block instanceof ChalkGlyphBlock;
+    }
+
+    public static boolean requiresCustomLootTable(Block block) {
+        return block instanceof StableWormholeBlock;
     }
     //endregion Static Methods
 }

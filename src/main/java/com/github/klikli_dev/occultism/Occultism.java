@@ -85,6 +85,8 @@ public class Occultism {
         RenderTypeLookup.setRenderLayer(OccultismBlocks.CHALK_GLYPH_GOLD.get(), RenderType.getCutoutMipped());
         RenderTypeLookup.setRenderLayer(OccultismBlocks.CHALK_GLYPH_PURPLE.get(), RenderType.getCutoutMipped());
         RenderTypeLookup.setRenderLayer(OccultismBlocks.CHALK_GLYPH_RED.get(), RenderType.getCutoutMipped());
+
+        RenderTypeLookup.setRenderLayer(OccultismBlocks.STABLE_WORMHOLE.get(), RenderType.getTranslucent());
         LOGGER.info("Client setup complete.");
     }
 
@@ -92,6 +94,7 @@ public class Occultism {
         if (event.getConfig().getSpec() == CONFIG.spec) {
             //Clear the config cache on reload.
             CONFIG.clear();
+            LOGGER.info("Config loaded.");
         }
     }
     //endregion Methods

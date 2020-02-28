@@ -23,6 +23,7 @@
 package com.github.klikli_dev.occultism.datagen;
 
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
+import net.minecraft.block.Block;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.fml.RegistryObject;
 
@@ -40,12 +41,18 @@ public class StandardLootTableProvider extends BaseLootTableProvider {
         OccultismBlocks.BLOCKS.getEntries().stream()
                 .map(RegistryObject::get)
                 .forEach(block -> {
-                    if(OccultismBlocks.requiresEmptyLootTable(block))
+                    //if the block should not drop anything (like glyph) generate empty table.
+                    if (OccultismBlocks.requiresEmptyLootTable(block))
                         lootTables.put(block, empty(block.getRegistryName().getPath(), block));
-                    else
+                    //if the block does not have a special table, just drop itself.
+                    else if (!OccultismBlocks.requiresCustomLootTable(block))
                         lootTables.put(block, basic(block.getRegistryName().getPath(), block));
                 });
-        //lootTables.put(OccultismBlocks.CANDLE_WHITE.get(), createStandardTable("candle_white", OccultismBlocks.CANDLE_WHITE.get()));
+
+        //All custom/"special" loot tables can be generated here
+        lootTables.put(OccultismBlocks.STABLE_WORMHOLE.get(),
+                withTileNBT(OccultismBlocks.STABLE_WORMHOLE.get().getRegistryName().getPath(),
+                        OccultismBlocks.STABLE_WORMHOLE.get()));
     }
     //endregion Overrides
 }
