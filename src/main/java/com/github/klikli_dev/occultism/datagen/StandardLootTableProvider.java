@@ -41,9 +41,9 @@ public class StandardLootTableProvider extends BaseLootTableProvider {
                 .map(RegistryObject::get)
                 .forEach(block -> {
                     if(OccultismBlocks.requiresEmptyLootTable(block))
-                        lootTables.put(block, createEmptyLootTable(block.getRegistryName().getPath(), block));
+                        lootTables.put(block, empty(block.getRegistryName().getPath(), block));
                     else
-                        lootTables.put(block, createStandardTable(block.getRegistryName().getPath(), block));
+                        lootTables.put(block, basic(block.getRegistryName().getPath(), block));
                 });
         //lootTables.put(OccultismBlocks.CANDLE_WHITE.get(), createStandardTable("candle_white", OccultismBlocks.CANDLE_WHITE.get()));
     }

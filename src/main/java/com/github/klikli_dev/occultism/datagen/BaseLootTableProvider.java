@@ -84,8 +84,15 @@ public abstract class BaseLootTableProvider extends LootTableProvider {
     // Subclasses can override this to fill the 'lootTables' map.
     protected abstract void addTables();
 
-    // Subclasses can call this if they want a standard loot table. Modify this for your own needs
-    protected LootTable.Builder createStandardTable(String name, Block block) {
+
+    /**
+     * Creates a basic loot table that drops only the block itself, if it survives the explosion.
+     * Mirrors old vanilla behaviour.
+     * @param name the loot table name.
+     * @param block the block to generate for.
+     * @return the loot table.
+     */
+    protected LootTable.Builder basic(String name, Block block) {
         LootPool.Builder builder = LootPool.builder()
                                            .name(name)
                                            .rolls(ConstantRange.of(1))
@@ -93,11 +100,25 @@ public abstract class BaseLootTableProvider extends LootTableProvider {
         return LootTable.builder().addLootPool(builder);
     }
 
-    protected LootTable.Builder createEmptyLootTable(String name, Block block) {
+    /**
+     * Creates an empty loot table with no drop.
+     * @param name the loot table name.
+     * @param block the block to generate for.
+     * @return the loot table.
+     */
+    protected LootTable.Builder empty(String name, Block block) {
         LootPool.Builder builder = LootPool.builder()
                                            .name(name);
         return LootTable.builder().addLootPool(builder);
     }
+
+//    protected LootTable.Builder createStandardTable(String name, Block block) {
+//        LootPool.Builder builder = LootPool.builder()
+//                                           .name(name)
+//                                           .rolls(ConstantRange.of(1))
+//                                           .addEntry(ItemLootEntry.builder(block)).acceptCondition(SurvivesExplosion.builder());
+//        return LootTable.builder().addLootPool(builder);
+//    }
 
     // Actually write out the tables in the output folder
     private void writeTables(DirectoryCache cache, Map<ResourceLocation, LootTable> tables) {
