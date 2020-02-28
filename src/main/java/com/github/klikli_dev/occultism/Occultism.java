@@ -26,7 +26,6 @@ import com.github.klikli_dev.occultism.common.OccultismBlocks;
 import com.github.klikli_dev.occultism.common.OccultismItemGroup;
 import com.github.klikli_dev.occultism.common.OccultismItems;
 import com.github.klikli_dev.occultism.common.OccultismSounds;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.item.ItemGroup;
@@ -55,7 +54,6 @@ public class Occultism {
         OccultismSounds.SOUNDS.register(FMLJavaModLoadingContext.get().getModEventBus());
 
         //register event buses
-
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::commonSetup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::serverSetup);
@@ -64,7 +62,8 @@ public class Occultism {
     }
 
     //endregion Initialization
-//region Methods
+    //region Methods
+
     private void commonSetup(final FMLCommonSetupEvent event) {
         logger.info("Common setup complete.");
     }
@@ -74,29 +73,12 @@ public class Occultism {
     }
 
     private void clientSetup(final FMLClientSetupEvent event) {
-        Minecraft minecraft = event.getMinecraftSupplier().get();
-
         //Setup block render layers
         RenderTypeLookup.setRenderLayer(OccultismBlocks.CHALK_GLYPH_WHITE.get(), RenderType.getCutoutMipped());
         RenderTypeLookup.setRenderLayer(OccultismBlocks.CHALK_GLYPH_GOLD.get(), RenderType.getCutoutMipped());
         RenderTypeLookup.setRenderLayer(OccultismBlocks.CHALK_GLYPH_PURPLE.get(), RenderType.getCutoutMipped());
         RenderTypeLookup.setRenderLayer(OccultismBlocks.CHALK_GLYPH_RED.get(), RenderType.getCutoutMipped());
-
-        //Register block tint
-        minecraft.getBlockColors()
-                .register((state, light, pos, color) -> OccultismBlocks.CHALK_GLYPH_WHITE.get().getColor(),
-                        OccultismBlocks.CHALK_GLYPH_WHITE.get());
-        minecraft.getBlockColors()
-                .register((state, light, pos, color) -> OccultismBlocks.CHALK_GLYPH_GOLD.get().getColor(),
-                        OccultismBlocks.CHALK_GLYPH_GOLD.get());
-        minecraft.getBlockColors()
-                .register((state, light, pos, color) -> OccultismBlocks.CHALK_GLYPH_PURPLE.get().getColor(),
-                        OccultismBlocks.CHALK_GLYPH_PURPLE.get());
-        minecraft.getBlockColors()
-                .register((state, light, pos, color) -> OccultismBlocks.CHALK_GLYPH_RED.get().getColor(),
-                        OccultismBlocks.CHALK_GLYPH_RED.get());
-
         logger.info("Client setup complete.");
     }
-//endregion Methods
+    //endregion Methods
 }
