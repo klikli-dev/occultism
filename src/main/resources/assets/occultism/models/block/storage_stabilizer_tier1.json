@@ -6,7 +6,7 @@
   ],
   "textures": {
     "0": "occultism:block/otherstone",
-    "1": "occultism:block/otherstone_gold",
+    "1": "occultism:block/otherstone_copper",
     "particle": "occultism:block/otherstone"
   },
   "elements": [
