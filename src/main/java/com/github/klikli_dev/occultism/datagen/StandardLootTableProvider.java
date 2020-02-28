@@ -22,8 +22,7 @@
 
 package com.github.klikli_dev.occultism.datagen;
 
-import com.github.klikli_dev.occultism.Occultism;
-import com.github.klikli_dev.occultism.common.OccultismBlocks;
+import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.fml.RegistryObject;
 

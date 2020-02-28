@@ -23,7 +23,7 @@
 package com.github.klikli_dev.occultism.client;
 
 import com.github.klikli_dev.occultism.Occultism;
-import com.github.klikli_dev.occultism.common.OccultismBlocks;
+import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;

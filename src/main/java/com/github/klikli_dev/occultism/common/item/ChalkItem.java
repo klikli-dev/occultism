@@ -22,7 +22,7 @@
 
 package com.github.klikli_dev.occultism.common.item;
 
-import com.github.klikli_dev.occultism.common.OccultismSounds;
+import com.github.klikli_dev.occultism.registry.OccultismSounds;
 import com.github.klikli_dev.occultism.common.block.ChalkGlyphBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;

@@ -22,10 +22,10 @@
 
 package com.github.klikli_dev.occultism;
 
-import com.github.klikli_dev.occultism.common.OccultismBlocks;
+import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.common.OccultismItemGroup;
-import com.github.klikli_dev.occultism.common.OccultismItems;
-import com.github.klikli_dev.occultism.common.OccultismSounds;
+import com.github.klikli_dev.occultism.registry.OccultismItems;
+import com.github.klikli_dev.occultism.registry.OccultismSounds;
 import com.github.klikli_dev.occultism.config.OccultismConfig;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;

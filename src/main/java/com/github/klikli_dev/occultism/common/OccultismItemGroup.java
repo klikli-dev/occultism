@@ -23,6 +23,7 @@
 package com.github.klikli_dev.occultism.common;
 
 import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.registry.OccultismItems;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 
