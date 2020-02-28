@@ -60,14 +60,14 @@ public class StandardBlockStateProvider extends BlockStateProvider {
     //region Methods
 
     protected void generateGlyphBlockState(Block block){
-        ModelFile.ExistingModelFile parent = models().getExistingFile(modLoc("block/chalk_glyph"));
+        ModelFile.ExistingModelFile parent = models().getExistingFile(modLoc("block/chalk_glyph/chalk_glyph"));
         getVariantBuilder(block)
                 .forAllStates(state -> {
                     //this is called for every state combination
                     //create a child model for each glyph texture option
                     int sign = state.get(ChalkGlyphBlock.SIGN);
                     ModelFile subModel = models().getBuilder("block/chalk_glyph/" + sign).parent(parent)
-                                                 .texture("#texture", modLoc("block/chalk_glyph/" + sign));
+                                                 .texture("texture", modLoc("block/chalk_glyph/" + sign));
 
                     return ConfiguredModel.builder()
                                    //load the child model
