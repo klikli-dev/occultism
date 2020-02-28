@@ -26,6 +26,7 @@ import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.block.CandleBlock;
 import com.github.klikli_dev.occultism.common.block.ChalkGlyphBlock;
 import com.github.klikli_dev.occultism.common.block.storage.StableWormholeBlock;
+import com.github.klikli_dev.occultism.common.block.storage.StorageStabilizerBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -58,9 +59,16 @@ public class OccultismBlocks {
 
     //Machines
     public static final RegistryObject<StableWormholeBlock> STABLE_WORMHOLE = BLOCKS.register("stable_wormhole", () -> new StableWormholeBlock(
-            Block.Properties.create(Material.ROCK).sound(SoundType.METAL).doesNotBlockMovement()
+            Block.Properties.create(Material.ROCK).sound(SoundType.STONE).doesNotBlockMovement()
                     .hardnessAndResistance(2f, 2).notSolid()));
-
+    public static final RegistryObject<StorageStabilizerBlock> STORAGE_STABILIZER_TIER1 = BLOCKS.register("storage_stabilizer_tier1", () -> new StorageStabilizerBlock(
+            Block.Properties.create(Material.ROCK).sound(SoundType.STONE).hardnessAndResistance(1.5f, 30).notSolid()));
+    public static final RegistryObject<StorageStabilizerBlock> STORAGE_STABILIZER_TIER2 = BLOCKS.register("storage_stabilizer_tier2", () -> new StorageStabilizerBlock(
+            Block.Properties.create(Material.ROCK).sound(SoundType.STONE).hardnessAndResistance(1.5f, 30).notSolid()));
+    public static final RegistryObject<StorageStabilizerBlock> STORAGE_STABILIZER_TIER3 = BLOCKS.register("storage_stabilizer_tier3", () -> new StorageStabilizerBlock(
+            Block.Properties.create(Material.ROCK).sound(SoundType.STONE).hardnessAndResistance(1.5f, 30).notSolid()));
+    public static final RegistryObject<StorageStabilizerBlock> STORAGE_STABILIZER_TIER4 = BLOCKS.register("storage_stabilizer_tier4", () -> new StorageStabilizerBlock(
+            Block.Properties.create(Material.ROCK).sound(SoundType.STONE).hardnessAndResistance(1.5f, 30).notSolid()));
     //endregion Fields
 
     //region Static Methods

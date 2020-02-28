@@ -55,6 +55,10 @@ public class StandardBlockStateProvider extends BlockStateProvider {
                 .forEach(this::generateGlyphBlockState);
 
         this.generateStableWormholeState(OccultismBlocks.STABLE_WORMHOLE.get());
+        this.directionalBlock(OccultismBlocks.STORAGE_STABILIZER_TIER1.get(), this.models().getExistingFile(this.modLoc("block/storage_stabilizer_tier1")));
+        this.directionalBlock(OccultismBlocks.STORAGE_STABILIZER_TIER2.get(), this.models().getExistingFile(this.modLoc("block/storage_stabilizer_tier2")));
+        this.directionalBlock(OccultismBlocks.STORAGE_STABILIZER_TIER3.get(), this.models().getExistingFile(this.modLoc("block/storage_stabilizer_tier3")));
+        this.directionalBlock(OccultismBlocks.STORAGE_STABILIZER_TIER4.get(), this.models().getExistingFile(this.modLoc("block/storage_stabilizer_tier4")));
     }
     //endregion Overrides
 
