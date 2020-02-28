@@ -22,6 +22,7 @@
 
 package com.github.klikli_dev.occultism.datagen;
 
+import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.OccultismBlocks;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.fml.RegistryObject;
@@ -40,7 +41,10 @@ public class StandardLootTableProvider extends BaseLootTableProvider {
         OccultismBlocks.BLOCKS.getEntries().stream()
                 .map(RegistryObject::get)
                 .forEach(block -> {
-                    lootTables.put(block, createStandardTable(block.getRegistryName().getPath(), block));
+                    if(OccultismBlocks.requiresEmptyLootTable(block))
+                        lootTables.put(block, createEmptyLootTable(block.getRegistryName().getPath(), block));
+                    else
+                        lootTables.put(block, createStandardTable(block.getRegistryName().getPath(), block));
                 });
         //lootTables.put(OccultismBlocks.CANDLE_WHITE.get(), createStandardTable("candle_white", OccultismBlocks.CANDLE_WHITE.get()));
     }

@@ -64,5 +64,11 @@ public class OccultismBlocks {
             return false;
         return true;
     }
+
+    public static boolean requiresEmptyLootTable(Block block){
+        if(block instanceof ChalkGlyphBlock)
+            return true;
+        return false;
+    }
 //endregion Static Methods
 }

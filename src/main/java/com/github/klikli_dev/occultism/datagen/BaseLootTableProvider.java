@@ -93,6 +93,12 @@ public abstract class BaseLootTableProvider extends LootTableProvider {
         return LootTable.builder().addLootPool(builder);
     }
 
+    protected LootTable.Builder createEmptyLootTable(String name, Block block) {
+        LootPool.Builder builder = LootPool.builder()
+                                           .name(name);
+        return LootTable.builder().addLootPool(builder);
+    }
+
     // Actually write out the tables in the output folder
     private void writeTables(DirectoryCache cache, Map<ResourceLocation, LootTable> tables) {
         Path outputFolder = this.generator.getOutputFolder();
