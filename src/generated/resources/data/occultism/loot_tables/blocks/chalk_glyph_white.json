@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "name": "chalk_glyph_white",
+      "rolls": 1.0,
+      "entries": []
+    }
+  ]
+}

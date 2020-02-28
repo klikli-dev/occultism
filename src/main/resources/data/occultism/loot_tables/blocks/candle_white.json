@@ -2,6 +2,7 @@
   "type": "minecraft:block",
   "pools": [
     {
+      "name": "candle_white",
       "rolls": 1,
       "entries": [
         {
