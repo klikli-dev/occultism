@@ -20,28 +20,43 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.github.klikli_dev.occultism.config;
+package com.github.klikli_dev.occultism.config.value;
 
-
-import com.github.klikli_dev.occultism.config.value.ICachedValue;
+import com.github.klikli_dev.occultism.config.IConfigCache;
 import net.minecraftforge.common.ForgeConfigSpec;
 
-public class ConfigCategoryBase implements IConfigCache {
-    public IConfigCache parent;
-    public ForgeConfigSpec.Builder builder;
+public class CachedInt extends CachedPrimitive<Integer> {
+    //region Fields
+    protected int cachedValue;
+    //endregion Fields
 
-    public ConfigCategoryBase(IConfigCache parent, ForgeConfigSpec.Builder builder){
-        this.parent = parent;
-        this.builder = builder;
+    //region Initialization
+    protected CachedInt(IConfigCache cache,
+                        ForgeConfigSpec.ConfigValue<Integer> configValue) {
+        super(cache, configValue);
+    }
+    //endregion Initialization
+
+    //region Static Methods
+    public static CachedInt wrap(IConfigCache cache, ForgeConfigSpec.ConfigValue<Integer> internal) {
+        return new CachedInt(cache, internal);
+    }
+    //endregion Static Methods
+
+    //region Methods
+    public int get() {
+        if (!this.cacheAvailable) {
+            //If we don't have a cached value or need to resolve it again, get it from the actual ConfigValue
+            this.cachedValue = this.configValue.get();
+            this.cacheAvailable = true;
+        }
+        return this.cachedValue;
     }
 
-    @Override
-    public void cache(ICachedValue value) {
-        this.parent.cache(value);
+    public void set(int value) {
+        this.configValue.set(value);
+        this.cachedValue = value;
+        this.cacheAvailable = true;
     }
-
-    @Override
-    public void clear() {
-        this.parent.clear();
-    }
+    //endregion Methods
 }

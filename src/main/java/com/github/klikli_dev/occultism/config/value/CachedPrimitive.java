@@ -20,28 +20,21 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.github.klikli_dev.occultism.config;
+package com.github.klikli_dev.occultism.config.value;
 
-
-import com.github.klikli_dev.occultism.config.value.ICachedValue;
+import com.github.klikli_dev.occultism.config.IConfigCache;
 import net.minecraftforge.common.ForgeConfigSpec;
 
-public class ConfigCategoryBase implements IConfigCache {
-    public IConfigCache parent;
-    public ForgeConfigSpec.Builder builder;
+public class CachedPrimitive<T> implements ICachedValue{
+    protected ForgeConfigSpec.ConfigValue<T> configValue;
+    protected boolean cacheAvailable;
 
-    public ConfigCategoryBase(IConfigCache parent, ForgeConfigSpec.Builder builder){
-        this.parent = parent;
-        this.builder = builder;
+    protected CachedPrimitive(IConfigCache cache, ForgeConfigSpec.ConfigValue<T> configValue){
+        this.configValue = configValue;
+        cache.cache(this);
     }
 
-    @Override
-    public void cache(ICachedValue value) {
-        this.parent.cache(value);
-    }
-
-    @Override
     public void clear() {
-        this.parent.clear();
+        this.cacheAvailable = false;
     }
 }

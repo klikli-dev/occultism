@@ -22,6 +22,9 @@
 
 package com.github.klikli_dev.occultism.config;
 
+import com.github.klikli_dev.occultism.config.value.CachedFloat;
+import com.github.klikli_dev.occultism.config.value.CachedInt;
+import com.github.klikli_dev.occultism.config.value.CachedObject;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.ForgeConfigSpec;
 
@@ -46,30 +49,30 @@ public class OccultismConfig extends ConfigBase {
 
     public class StorageSettings extends ConfigCategoryBase {
         //region Fields
-        public final CachedValue<Integer> stabilizerTier1Slots;
-        public final CachedValue<Integer> stabilizerTier2Slots;
-        public final CachedValue<Integer> stabilizerTier3Slots;
-        public final CachedValue<Integer> stabilizerTier4Slots;
-        public final CachedValue<Integer> controllerBaseSlots;
+        public final CachedInt stabilizerTier1Slots;
+        public final CachedInt stabilizerTier2Slots;
+        public final CachedInt stabilizerTier3Slots;
+        public final CachedInt stabilizerTier4Slots;
+        public final CachedInt controllerBaseSlots;
         //endregion Fields
 
         //region Initialization
         public StorageSettings(IConfigCache parent, ForgeConfigSpec.Builder builder) {
             super(parent, builder);
             builder.comment("Storage Settings").push("storage");
-            stabilizerTier1Slots = CachedValue.wrap(this,
+            this.stabilizerTier1Slots = CachedInt.wrap(this,
                     builder.comment("The amount of slots the storage stabilizer tier 1 provides.")
                             .define("stabilizerTier1Slots", 128));
-            stabilizerTier2Slots = CachedValue.wrap(this,
+            this.stabilizerTier2Slots = CachedInt.wrap(this,
                     builder.comment("The amount of slots the storage stabilizer tier 2 provides.")
                             .define("stabilizerTier2Slots", 256));
-            stabilizerTier3Slots = CachedValue.wrap(this,
+            this.stabilizerTier3Slots = CachedInt.wrap(this,
                     builder.comment("The amount of slots the storage stabilizer tier 3 provides.")
                             .define("stabilizerTier3Slots", 512));
-            stabilizerTier4Slots = CachedValue.wrap(this,
+            this.stabilizerTier4Slots = CachedInt.wrap(this,
                     builder.comment("The amount of slots the storage stabilizer tier 4 provides.")
                             .define("stabilizerTier4Slots", 1024));
-            controllerBaseSlots = CachedValue.wrap(this,
+            this.controllerBaseSlots = CachedInt.wrap(this,
                     builder.comment("The amount of slots the storage actuator provides.")
                             .define("controllerBaseSlots", 128));
             builder.pop();
@@ -96,11 +99,11 @@ public class OccultismConfig extends ConfigBase {
         public class OreGenSettings extends ConfigCategoryBase {
             //region Fields
 
-            public final CachedValue<Integer[]> dimensionWhitelist;
-            public final CachedValue<Integer> otherstoneOreSize;
-            public final CachedValue<Integer> otherstoneOreChance;
-            public final CachedValue<Integer> otherstoneOreMin;
-            public final CachedValue<Integer> otherstoneOreMax;
+            public final CachedObject<Integer[]> dimensionWhitelist;
+            public final CachedInt otherstoneOreSize;
+            public final CachedInt otherstoneOreChance;
+            public final CachedInt otherstoneOreMin;
+            public final CachedInt otherstoneOreMax;
 
             //endregion Fields
 
@@ -109,19 +112,19 @@ public class OccultismConfig extends ConfigBase {
                 super(parent, builder);
                 builder.comment("Ore Gen Settings").push("oregen");
 
-                dimensionWhitelist = CachedValue.wrap(this,
+                this.dimensionWhitelist = CachedObject.wrap(this,
                         builder.comment("The dimensions whitelisted for Occultism Oregen.")
                                 .define("dimensionWhitelist", new Integer[]{0}));
-                otherstoneOreSize = CachedValue.wrap(this,
+                this.otherstoneOreSize = CachedInt.wrap(this,
                         builder.comment("The size of otherstone ore veins.")
                                 .defineInRange("otherstoneOreSize", 7, 0, Byte.MAX_VALUE));
-                otherstoneOreChance = CachedValue.wrap(this,
+                this.otherstoneOreChance = CachedInt.wrap(this,
                         builder.comment("The chance (amount of rolls) for otherstone ore to spawn.")
                                 .defineInRange("otherstoneOreChance", 5, 0, Byte.MAX_VALUE));
-                otherstoneOreMin = CachedValue.wrap(this,
+                this.otherstoneOreMin = CachedInt.wrap(this,
                         builder.comment("The minimum height for otherstone ore veins to spawn.")
                                 .define("otherstoneOreMin", 10));
-                otherstoneOreMax = CachedValue.wrap(this,
+                this.otherstoneOreMax = CachedInt.wrap(this,
                         builder.comment("The maximum height for otherstone ore veins to spawn.")
                                 .define("otherstoneOreMax", 80));
                 builder.pop();
@@ -131,14 +134,14 @@ public class OccultismConfig extends ConfigBase {
 
         public class UndergroundGroveGenSettings extends ConfigCategoryBase {
             //region Fields
-            public CachedValue<Integer[]> dimensionWhitelist;
-            public CachedValue<String[]> validBiomes;
-            public CachedValue<Integer> groveSpawnRarity;
-            public CachedValue<Float> minGroveDistance;
-            public CachedValue<Float> grassChance;
-            public CachedValue<Float> treeChance;
-            public CachedValue<Float> vineChance;
-            public CachedValue<Float> ceilingLightChance;
+            public CachedObject<Integer[]> dimensionWhitelist;
+            public CachedObject<String[]> validBiomes;
+            public CachedInt groveSpawnRarity;
+            public CachedFloat minGroveDistance;
+            public CachedFloat grassChance;
+            public CachedFloat treeChance;
+            public CachedFloat vineChance;
+            public CachedFloat ceilingLightChance;
             //endregion Fields
 
             //region Initialization
@@ -146,32 +149,32 @@ public class OccultismConfig extends ConfigBase {
                 super(parent, builder);
                 builder.comment("Underground Grove Settings").push("underground_grove");
 
-                dimensionWhitelist = CachedValue.wrap(this,
+                this.dimensionWhitelist = CachedObject.wrap(this,
                         builder.comment("The dimensions whitelisted for underground grove generation.")
                                 .define("dimensionWhitelist", new Integer[]{0}));
                 String[] defaultValidBiomes = Arrays.stream(
                         new BiomeDictionary.Type[]{BiomeDictionary.Type.JUNGLE, BiomeDictionary.Type.LUSH, BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.CONIFEROUS, BiomeDictionary.Type.MAGICAL})
                                                       .map(BiomeDictionary.Type::getName).toArray(String[]::new);
-                validBiomes = CachedValue.wrap(this,
+                this.validBiomes = CachedObject.wrap(this,
                         builder.comment("The biome types to spawn underground groves in.")
                                 .define("validBiomes", defaultValidBiomes));
-                groveSpawnRarity = CachedValue.wrap(this,
+                this.groveSpawnRarity = CachedInt.wrap(this,
                         builder.comment("The rarity of groves.")
                                 .define("groveSpawnRarity", 180));
 
-                minGroveDistance = CachedValue.wrap(this,
+                this.minGroveDistance = CachedFloat.wrap(this,
                         builder.comment("The minimum distance between groves.")
                                 .define("minGroveDistance", 300.0f));
-                grassChance = CachedValue.wrap(this,
+                this.grassChance = CachedFloat.wrap(this,
                         builder.comment("The chance grass will spawn in the underground grove.")
                                 .define("grassChance", 0.1f));
-                treeChance = CachedValue.wrap(this,
+                this.treeChance = CachedFloat.wrap(this,
                         builder.comment("The chance small trees will spawn in the underground grove.")
                                 .define("treeChance", 0.7f));
-                vineChance = CachedValue.wrap(this,
+                this.vineChance = CachedFloat.wrap(this,
                         builder.comment("The chance vines will spawn in the underground grove.")
                                 .define("vineChance", 0.125f));
-                ceilingLightChance = CachedValue.wrap(this,
+                this.ceilingLightChance = CachedFloat.wrap(this,
                         builder.comment("The chance glowstone will spawn in the ceiling of the underground grove.")
                                 .define("ceilingLightChance", 0.7f));
 

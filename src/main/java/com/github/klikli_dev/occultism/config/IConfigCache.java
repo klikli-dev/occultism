@@ -22,7 +22,9 @@
 
 package com.github.klikli_dev.occultism.config;
 
+import com.github.klikli_dev.occultism.config.value.ICachedValue;
+
 public interface IConfigCache {
-    void cache(CachedValue<?> value);
+    void cache(ICachedValue value);
     void clear();
 }

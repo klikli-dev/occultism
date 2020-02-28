@@ -20,36 +20,8 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.github.klikli_dev.occultism.config;
+package com.github.klikli_dev.occultism.config.value;
 
-import net.minecraftforge.common.ForgeConfigSpec;
-
-public class CachedValue<T> {
-    protected ForgeConfigSpec.ConfigValue<T> configValue;
-    protected T cachedValue;
-
-    protected CachedValue(IConfigCache cache, ForgeConfigSpec.ConfigValue<T> configValue){
-        this.configValue = configValue;
-        cache.cache(this);
-    }
-
-    public static <T> CachedValue<T> wrap(IConfigCache config, ForgeConfigSpec.ConfigValue<T> configValue) {
-        return new CachedValue<>(config, configValue);
-    }
-
-    public T get() {
-        if (this.cachedValue == null) {
-            cachedValue = configValue.get();
-        }
-        return cachedValue;
-    }
-
-    public void set(T value) {
-        configValue.set(value);
-        cachedValue = value;
-    }
-
-    public void clear() {
-        this.cachedValue = null;
-    }
+public interface ICachedValue {
+     void clear();
 }

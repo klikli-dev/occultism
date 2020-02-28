@@ -20,28 +20,37 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.github.klikli_dev.occultism.config;
+package com.github.klikli_dev.occultism.config.value;
 
-
-import com.github.klikli_dev.occultism.config.value.ICachedValue;
+import com.github.klikli_dev.occultism.config.IConfigCache;
 import net.minecraftforge.common.ForgeConfigSpec;
 
-public class ConfigCategoryBase implements IConfigCache {
-    public IConfigCache parent;
-    public ForgeConfigSpec.Builder builder;
+public class CachedObject<T> implements ICachedValue {
+    protected ForgeConfigSpec.ConfigValue<T> configValue;
+    protected T cachedValue;
 
-    public ConfigCategoryBase(IConfigCache parent, ForgeConfigSpec.Builder builder){
-        this.parent = parent;
-        this.builder = builder;
+    protected CachedObject(IConfigCache cache, ForgeConfigSpec.ConfigValue<T> configValue){
+        this.configValue = configValue;
+        cache.cache(this);
     }
 
-    @Override
-    public void cache(ICachedValue value) {
-        this.parent.cache(value);
+    public static <T> CachedObject<T> wrap(IConfigCache config, ForgeConfigSpec.ConfigValue<T> configValue) {
+        return new CachedObject<>(config, configValue);
     }
 
-    @Override
+    public T get() {
+        if (this.cachedValue == null) {
+            cachedValue = configValue.get();
+        }
+        return cachedValue;
+    }
+
+    public void set(T value) {
+        configValue.set(value);
+        cachedValue = value;
+    }
+
     public void clear() {
-        this.parent.clear();
+        this.cachedValue = null;
     }
 }

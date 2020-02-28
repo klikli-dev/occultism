@@ -22,23 +22,25 @@
 
 package com.github.klikli_dev.occultism.config;
 
+import com.github.klikli_dev.occultism.config.value.ICachedValue;
+
 import java.util.ArrayList;
 
 public class ConfigBase implements IConfigCache {
 
 //region Fields
-    protected final ArrayList<CachedValue<?>> configCache = new ArrayList<>();
+    protected final ArrayList<ICachedValue> configCache = new ArrayList<>();
 //endregion Fields
 
 //region Overrides
     @Override
-    public void cache(CachedValue<?> value) {
+    public void cache(ICachedValue value) {
         configCache.add(value);
     }
 
     @Override
     public void clear() {
-        configCache.forEach(CachedValue::clear);
+        configCache.forEach(ICachedValue::clear);
     }
 //endregion Overrides
 }
