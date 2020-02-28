@@ -52,14 +52,14 @@
     "item.occultism.divination_rod.message.linked_block": "The divination rod is now attuned to %s.",
     "item.occultism.divination_rod.message.no_link_found": "There is no resonance with this block.",
 
-
-    "_comment": "# Item Tooltips",
+     "_comment": "# Item Tooltips",
     "item.occultism.book_of_binding.tooltip": "This book has not been bound to a spirit yet.",
     "item.occultism.book_of_binding_active.tooltip": "Can be used to summon %s",
     "item.occultism.book_of_calling_active.tooltip": "%s",
     "item.occultism.book_of_calling_active.tooltip_dead": "%s has left this plane of existence.",
-    "item.occultism.stable_wormhole.tooltip.unlinked": "Not linked to a storage actuator.",
-    "item.occultism.stable_wormhole.tooltip.linked": "Linked to storage actuator at %s.",
+    //block, because it's a block item.
+    "block.occultism.stable_wormhole.tooltip.unlinked": "Not linked to a storage actuator.",
+    "block.occultism.stable_wormhole.tooltip.linked": "Linked to storage actuator at %s.",
     "item.occultism.storage_remote.tooltip": "Access a storage network remotely.",
     "item.occultism.storage_remote.tooltip.linked": "Bound to %s.",
     "item.occultism.divination_rod.tooltip.no_linked_block": "Not attuned to any material.",
