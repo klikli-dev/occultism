@@ -33,7 +33,8 @@ import net.minecraftforge.registries.ForgeRegistries;
 public class OccultismItems {
 
     //region Fields
-    public static DeferredRegister<Item> ITEMS = new DeferredRegister(ForgeRegistries.ITEMS, Occultism.MODID);
+    public static final DeferredRegister<Item> ITEMS = new DeferredRegister(ForgeRegistries.ITEMS, Occultism.MODID);
+
     //Debug and placeholder items
     public static final RegistryObject<Item> PENTACLE = ITEMS.register("pentacle",
             () -> new Item(new Item.Properties()));
@@ -53,9 +54,11 @@ public class OccultismItems {
     public static final RegistryObject<Item> CHALK_RED = ITEMS.register("chalk_red",
             () -> new ChalkItem(defaultProperties().setNoRepair().maxDamage(128),
                     OccultismBlocks.CHALK_GLYPH_RED));
+    //endregion Fields
 
-    public static Item.Properties defaultProperties(){
+    //region Static Methods
+    public static Item.Properties defaultProperties() {
         return new Item.Properties().group(Occultism.ITEM_GROUP);
     }
-    //endregion Fields
+    //endregion Static Methods
 }

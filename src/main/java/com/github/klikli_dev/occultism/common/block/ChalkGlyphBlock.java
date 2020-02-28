@@ -23,9 +23,7 @@
 package com.github.klikli_dev.occultism.common.block;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
-import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluid;
@@ -87,18 +85,6 @@ public class ChalkGlyphBlock extends Block {
     //endregion Getter / Setter
 
     //region Overrides
-    @Override
-    public ItemStack getPickBlock(BlockState state, RayTraceResult target, IBlockReader world, BlockPos pos,
-                                  PlayerEntity player) {
-        return new ItemStack(this.getChalk().get());
-    }
-
-    @Nullable
-    @Override
-    public PathNodeType getAiPathNodeType(BlockState state, IBlockReader world, BlockPos pos,
-                                          @Nullable MobEntity entity) {
-        return PathNodeType.OPEN;
-    }
 
     @Override
     public boolean isReplaceable(BlockState state, BlockItemUseContext useContext) {
@@ -149,6 +135,19 @@ public class ChalkGlyphBlock extends Block {
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
         builder.add(SIGN, BlockStateProperties.HORIZONTAL_FACING);
         super.fillStateContainer(builder);
+    }
+
+    @Override
+    public ItemStack getPickBlock(BlockState state, RayTraceResult target, IBlockReader world, BlockPos pos,
+                                  PlayerEntity player) {
+        return new ItemStack(this.getChalk().get());
+    }
+
+    @Nullable
+    @Override
+    public PathNodeType getAiPathNodeType(BlockState state, IBlockReader world, BlockPos pos,
+                                          @Nullable MobEntity entity) {
+        return PathNodeType.OPEN;
     }
     //endregion Overrides
 }

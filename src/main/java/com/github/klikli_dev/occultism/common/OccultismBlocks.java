@@ -28,7 +28,6 @@ import com.github.klikli_dev.occultism.common.block.ChalkGlyphBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.material.MaterialColor;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -36,7 +35,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 public class OccultismBlocks {
 
     //region Fields
-    public static DeferredRegister<Block> BLOCKS = new DeferredRegister(ForgeRegistries.BLOCKS, Occultism.MODID);
+    public static final DeferredRegister<Block> BLOCKS = new DeferredRegister(ForgeRegistries.BLOCKS, Occultism.MODID);
 
     //Blocks without item
     public static final Block.Properties GLYPH_PROPERTIES = Block.Properties.create(Material.MISCELLANEOUS)
@@ -58,17 +57,17 @@ public class OccultismBlocks {
 
     //endregion Fields
 
-//region Static Methods
+    //region Static Methods
     public static boolean requiresDefaultBlock(Block block) {
-        if(block instanceof ChalkGlyphBlock)
+        if (block instanceof ChalkGlyphBlock)
             return false;
         return true;
     }
 
-    public static boolean requiresEmptyLootTable(Block block){
-        if(block instanceof ChalkGlyphBlock)
+    public static boolean requiresEmptyLootTable(Block block) {
+        if (block instanceof ChalkGlyphBlock)
             return true;
         return false;
     }
-//endregion Static Methods
+    //endregion Static Methods
 }
