@@ -25,6 +25,7 @@ package com.github.klikli_dev.occultism.registry;
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.item.ChalkItem;
 import com.github.klikli_dev.occultism.common.item.DebugWandItem;
+import com.github.klikli_dev.occultism.common.item.storage.StableWormholeBlockItem;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
@@ -54,6 +55,12 @@ public class OccultismItems {
     public static final RegistryObject<Item> CHALK_RED = ITEMS.register("chalk_red",
             () -> new ChalkItem(defaultProperties().setNoRepair().maxDamage(128),
                     OccultismBlocks.CHALK_GLYPH_RED));
+
+    //Machines
+    public static final RegistryObject<StableWormholeBlockItem> STABLE_WORMHOLE = ITEMS.register("stable_wormhole",
+            () -> new StableWormholeBlockItem(OccultismBlocks.STABLE_WORMHOLE.get(), defaultProperties()));
+
+
     //endregion Fields
 
     //region Static Methods

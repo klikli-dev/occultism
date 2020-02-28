@@ -63,6 +63,7 @@ public class StableWormholeBlock extends Block {
     //region Initialization
     public StableWormholeBlock(Properties properties) {
         super(properties);
+        this.setDefaultState(this.getDefaultState().with(LINKED, false));
     }
     //endregion Initialization
 

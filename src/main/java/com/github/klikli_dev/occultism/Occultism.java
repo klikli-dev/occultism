@@ -94,7 +94,6 @@ public class Occultism {
         if (event.getConfig().getSpec() == CONFIG.spec) {
             //Clear the config cache on reload.
             CONFIG.clear();
-            LOGGER.info("Config loaded.");
         }
     }
     //endregion Methods

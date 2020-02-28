@@ -65,7 +65,11 @@ public class OccultismBlocks {
 
     //region Static Methods
     public static boolean requiresDefaultBlock(Block block) {
-        return !(block instanceof ChalkGlyphBlock);
+        if(block instanceof ChalkGlyphBlock)
+            return false;
+        if(block instanceof StableWormholeBlock)
+            return false;
+        return true;
     }
 
     public static boolean requiresEmptyLootTable(Block block) {
