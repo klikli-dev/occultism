@@ -20,7 +20,7 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.github.klikli_dev.occultism.common;
+package com.github.klikli_dev.occultism.registry;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
@@ -33,7 +33,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.IForgeRegistry;
 
 @Mod.EventBusSubscriber(modid = Occultism.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
-public class ModEventHandler {
+public class RegistryEventHandler {
 
 //region Static Methods
     @SubscribeEvent
@@ -49,7 +49,8 @@ public class ModEventHandler {
                     blockItem.setRegistryName(block.getRegistryName());
                     registry.register(blockItem);
                 });
-        Occultism.LOGGER.debug("Registered BlockItems");
+
+        Occultism.LOGGER.info("Registered BlockItems");
     }
 
 //endregion Static Methods
