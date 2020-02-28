@@ -28,19 +28,19 @@ import java.util.ArrayList;
 
 public class ConfigBase implements IConfigCache {
 
-//region Fields
+    //region Fields
     protected final ArrayList<ICachedValue> configCache = new ArrayList<>();
-//endregion Fields
+    //endregion Fields
 
-//region Overrides
+    //region Overrides
     @Override
     public void cache(ICachedValue value) {
-        configCache.add(value);
+        this.configCache.add(value);
     }
 
     @Override
     public void clear() {
-        configCache.forEach(ICachedValue::clear);
+        this.configCache.forEach(ICachedValue::clear);
     }
-//endregion Overrides
+    //endregion Overrides
 }

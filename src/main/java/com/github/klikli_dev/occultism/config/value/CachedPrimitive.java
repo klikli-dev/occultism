@@ -25,16 +25,22 @@ package com.github.klikli_dev.occultism.config.value;
 import com.github.klikli_dev.occultism.config.IConfigCache;
 import net.minecraftforge.common.ForgeConfigSpec;
 
-public class CachedPrimitive<T> implements ICachedValue{
+public class CachedPrimitive<T> implements ICachedValue {
+    //region Fields
     protected ForgeConfigSpec.ConfigValue<T> configValue;
     protected boolean cacheAvailable;
+    //endregion Fields
 
-    protected CachedPrimitive(IConfigCache cache, ForgeConfigSpec.ConfigValue<T> configValue){
+    //region Initialization
+    protected CachedPrimitive(IConfigCache cache, ForgeConfigSpec.ConfigValue<T> configValue) {
         this.configValue = configValue;
         cache.cache(this);
     }
+    //endregion Initialization
 
+    //region Overrides
     public void clear() {
         this.cacheAvailable = false;
     }
+    //endregion Overrides
 }

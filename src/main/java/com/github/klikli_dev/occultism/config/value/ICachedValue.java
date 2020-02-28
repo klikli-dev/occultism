@@ -23,5 +23,7 @@
 package com.github.klikli_dev.occultism.config.value;
 
 public interface ICachedValue {
-     void clear();
+    //region Methods
+    void clear();
+    //endregion Methods
 }

@@ -26,31 +26,41 @@ import com.github.klikli_dev.occultism.config.IConfigCache;
 import net.minecraftforge.common.ForgeConfigSpec;
 
 public class CachedObject<T> implements ICachedValue {
+    //region Fields
     protected ForgeConfigSpec.ConfigValue<T> configValue;
     protected T cachedValue;
+    //endregion Fields
 
-    protected CachedObject(IConfigCache cache, ForgeConfigSpec.ConfigValue<T> configValue){
+    //region Initialization
+    protected CachedObject(IConfigCache cache, ForgeConfigSpec.ConfigValue<T> configValue) {
         this.configValue = configValue;
         cache.cache(this);
     }
+    //endregion Initialization
 
-    public static <T> CachedObject<T> wrap(IConfigCache config, ForgeConfigSpec.ConfigValue<T> configValue) {
-        return new CachedObject<>(config, configValue);
-    }
-
-    public T get() {
-        if (this.cachedValue == null) {
-            cachedValue = configValue.get();
-        }
-        return cachedValue;
-    }
-
-    public void set(T value) {
-        configValue.set(value);
-        cachedValue = value;
-    }
-
+    //region Overrides
     public void clear() {
         this.cachedValue = null;
     }
+    //endregion Overrides
+
+    //region Static Methods
+    public static <T> CachedObject<T> cache(IConfigCache config, ForgeConfigSpec.ConfigValue<T> configValue) {
+        return new CachedObject<>(config, configValue);
+    }
+    //endregion Static Methods
+
+    //region Methods
+    public T get() {
+        if (this.cachedValue == null) {
+            this.cachedValue = this.configValue.get();
+        }
+        return this.cachedValue;
+    }
+
+    public void set(T value) {
+        this.configValue.set(value);
+        this.cachedValue = value;
+    }
+    //endregion Methods
 }

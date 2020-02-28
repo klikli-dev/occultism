@@ -25,20 +25,20 @@ package com.github.klikli_dev.occultism.config.value;
 import com.github.klikli_dev.occultism.config.IConfigCache;
 import net.minecraftforge.common.ForgeConfigSpec;
 
-public class CachedFloat extends CachedPrimitive<Float> {
+public class CachedFloat extends CachedPrimitive<Double> {
     //region Fields
     protected float cachedValue;
     //endregion Fields
 
     //region Initialization
     protected CachedFloat(IConfigCache cache,
-                          ForgeConfigSpec.ConfigValue<Float> configValue) {
+                          ForgeConfigSpec.ConfigValue<Double> configValue) {
         super(cache, configValue);
     }
     //endregion Initialization
 
     //region Static Methods
-    public static CachedFloat wrap(IConfigCache cache, ForgeConfigSpec.ConfigValue<Float> internal) {
+    public static CachedFloat cache(IConfigCache cache, ForgeConfigSpec.ConfigValue<Double> internal) {
         return new CachedFloat(cache, internal);
     }
     //endregion Static Methods
@@ -47,14 +47,14 @@ public class CachedFloat extends CachedPrimitive<Float> {
     public float get() {
         if (!this.cacheAvailable) {
             //If we don't have a cached value or need to resolve it again, get it from the actual ConfigValue
-            this.cachedValue = this.configValue.get();
+            this.cachedValue = this.configValue.get().floatValue();
             this.cacheAvailable = true;
         }
         return this.cachedValue;
     }
 
     public void set(float value) {
-        this.configValue.set(value);
+        this.configValue.set((double) value);
         this.cachedValue = value;
         this.cacheAvailable = true;
     }

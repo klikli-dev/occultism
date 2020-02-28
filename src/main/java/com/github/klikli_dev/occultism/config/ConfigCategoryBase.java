@@ -27,14 +27,19 @@ import com.github.klikli_dev.occultism.config.value.ICachedValue;
 import net.minecraftforge.common.ForgeConfigSpec;
 
 public class ConfigCategoryBase implements IConfigCache {
+    //region Fields
     public IConfigCache parent;
     public ForgeConfigSpec.Builder builder;
+    //endregion Fields
 
-    public ConfigCategoryBase(IConfigCache parent, ForgeConfigSpec.Builder builder){
+    //region Initialization
+    public ConfigCategoryBase(IConfigCache parent, ForgeConfigSpec.Builder builder) {
         this.parent = parent;
         this.builder = builder;
     }
+    //endregion Initialization
 
+    //region Overrides
     @Override
     public void cache(ICachedValue value) {
         this.parent.cache(value);
@@ -44,4 +49,5 @@ public class ConfigCategoryBase implements IConfigCache {
     public void clear() {
         this.parent.clear();
     }
+    //endregion Overrides
 }

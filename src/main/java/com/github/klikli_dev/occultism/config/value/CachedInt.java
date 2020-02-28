@@ -38,7 +38,7 @@ public class CachedInt extends CachedPrimitive<Integer> {
     //endregion Initialization
 
     //region Static Methods
-    public static CachedInt wrap(IConfigCache cache, ForgeConfigSpec.ConfigValue<Integer> internal) {
+    public static CachedInt cache(IConfigCache cache, ForgeConfigSpec.ConfigValue<Integer> internal) {
         return new CachedInt(cache, internal);
     }
     //endregion Static Methods
