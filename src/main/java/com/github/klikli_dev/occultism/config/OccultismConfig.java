@@ -29,6 +29,8 @@ import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.ForgeConfigSpec;
 
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class OccultismConfig extends ConfigBase {
 
@@ -99,7 +101,7 @@ public class OccultismConfig extends ConfigBase {
         public class OreGenSettings extends ConfigCategoryBase {
             //region Fields
 
-            public final CachedObject<Integer[]> dimensionWhitelist;
+            public final CachedObject<List<Integer>> dimensionWhitelist;
             public final CachedInt otherstoneOreSize;
             public final CachedInt otherstoneOreChance;
             public final CachedInt otherstoneOreMin;
@@ -114,7 +116,7 @@ public class OccultismConfig extends ConfigBase {
 
                 this.dimensionWhitelist = CachedObject.wrap(this,
                         builder.comment("The dimensions whitelisted for Occultism Oregen.")
-                                .define("dimensionWhitelist", new Integer[]{0}));
+                                .define("dimensionWhitelist", Arrays.asList(0)));
                 this.otherstoneOreSize = CachedInt.wrap(this,
                         builder.comment("The size of otherstone ore veins.")
                                 .defineInRange("otherstoneOreSize", 7, 0, Byte.MAX_VALUE));
@@ -134,8 +136,8 @@ public class OccultismConfig extends ConfigBase {
 
         public class UndergroundGroveGenSettings extends ConfigCategoryBase {
             //region Fields
-            public CachedObject<Integer[]> dimensionWhitelist;
-            public CachedObject<String[]> validBiomes;
+            public CachedObject<List<Integer>> dimensionWhitelist;
+            public CachedObject<List<String>> validBiomes;
             public CachedInt groveSpawnRarity;
             public CachedFloat minGroveDistance;
             public CachedFloat grassChance;
@@ -151,10 +153,10 @@ public class OccultismConfig extends ConfigBase {
 
                 this.dimensionWhitelist = CachedObject.wrap(this,
                         builder.comment("The dimensions whitelisted for underground grove generation.")
-                                .define("dimensionWhitelist", new Integer[]{0}));
-                String[] defaultValidBiomes = Arrays.stream(
+                                .define("dimensionWhitelist", Arrays.asList(0)));
+                List<String> defaultValidBiomes = Arrays.stream(
                         new BiomeDictionary.Type[]{BiomeDictionary.Type.JUNGLE, BiomeDictionary.Type.LUSH, BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.CONIFEROUS, BiomeDictionary.Type.MAGICAL})
-                                                      .map(BiomeDictionary.Type::getName).toArray(String[]::new);
+                                                      .map(BiomeDictionary.Type::getName).collect(Collectors.toList());
                 this.validBiomes = CachedObject.wrap(this,
                         builder.comment("The biome types to spawn underground groves in.")
                                 .define("validBiomes", defaultValidBiomes));
