@@ -82,7 +82,6 @@ public class StableWormholeBlock extends Block {
     @Nullable
     @Override
     public BlockState getStateForPlacement(BlockItemUseContext context) {
-        //TODO: verify this works the way we want, otherwise find out how to raytrace from player eyes.
         return this.getDefaultState().with(BlockStateProperties.FACING, context.getFace());
     }
 
