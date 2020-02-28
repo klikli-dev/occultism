@@ -46,12 +46,12 @@ public class ColorHandler {
         event.getBlockColors()
                 .register((state, light, pos, color) -> OccultismBlocks.CHALK_GLYPH_RED.get().getColor(),
                         OccultismBlocks.CHALK_GLYPH_RED.get());
-        Occultism.logger.info("Block color registration complete.");
+        Occultism.LOGGER.info("Block color registration complete.");
     }
 
     @SubscribeEvent
     public static void onRegisterItemColors(ColorHandlerEvent.Item event) {
-        Occultism.logger.info("Item color registration complete.");
+        Occultism.LOGGER.info("Item color registration complete.");
     }
     //endregion Static Methods
 }

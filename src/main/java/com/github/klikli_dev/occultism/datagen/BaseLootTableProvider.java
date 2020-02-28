@@ -107,7 +107,7 @@ public abstract class BaseLootTableProvider extends LootTableProvider {
             try {
                 IDataProvider.save(GSON, cache, LootTableManager.toJson(lootTable), path);
             } catch (IOException e) {
-                Occultism.logger.error("Couldn't write loot table {}", path, e);
+                Occultism.LOGGER.error("Couldn't write loot table {}", path, e);
             }
         });
     }

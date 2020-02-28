@@ -48,7 +48,7 @@ public class ModEventHandler {
                     blockItem.setRegistryName(block.getRegistryName());
                     registry.register(blockItem);
                 });
-        Occultism.logger.debug("Registered BlockItems");
+        Occultism.LOGGER.debug("Registered BlockItems");
     }
 
 //endregion Static Methods

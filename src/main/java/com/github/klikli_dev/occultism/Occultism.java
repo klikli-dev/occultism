@@ -44,7 +44,7 @@ public class Occultism {
     public static final String MODID = "occultism";
     public static final String NAME = "Occultism";
     public static final ItemGroup ITEM_GROUP = new OccultismItemGroup();
-    public static final Logger logger = LogManager.getLogger(MODID);
+    public static final Logger LOGGER = LogManager.getLogger(MODID);
     //endregion Fields
 
     //region Initialization
@@ -65,11 +65,11 @@ public class Occultism {
     //region Methods
 
     private void commonSetup(final FMLCommonSetupEvent event) {
-        logger.info("Common setup complete.");
+        LOGGER.info("Common setup complete.");
     }
 
     private void serverSetup(final FMLDedicatedServerSetupEvent event) {
-        logger.info("Dedicated server setup complete.");
+        LOGGER.info("Dedicated server setup complete.");
     }
 
     private void clientSetup(final FMLClientSetupEvent event) {
@@ -78,7 +78,7 @@ public class Occultism {
         RenderTypeLookup.setRenderLayer(OccultismBlocks.CHALK_GLYPH_GOLD.get(), RenderType.getCutoutMipped());
         RenderTypeLookup.setRenderLayer(OccultismBlocks.CHALK_GLYPH_PURPLE.get(), RenderType.getCutoutMipped());
         RenderTypeLookup.setRenderLayer(OccultismBlocks.CHALK_GLYPH_RED.get(), RenderType.getCutoutMipped());
-        logger.info("Client setup complete.");
+        LOGGER.info("Client setup complete.");
     }
     //endregion Methods
 }
