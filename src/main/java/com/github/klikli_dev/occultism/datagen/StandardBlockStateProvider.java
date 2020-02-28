@@ -64,17 +64,16 @@ public class StandardBlockStateProvider extends BlockStateProvider {
         ModelFile.ExistingModelFile linkedModel = this.models().getExistingFile(this.modLoc("block/stable_wormhole"));
         ModelFile.ExistingModelFile unlinkedModel = this.models().getExistingFile(
                 this.modLoc("block/stable_wormhole_unlinked"));
-
         this.getVariantBuilder(block)
                 .forAllStates(state -> {
                     Direction dir = state.get(BlockStateProperties.FACING);
                     return ConfiguredModel.builder()
                                    .modelFile(state.get(StableWormholeBlock.LINKED) ? linkedModel : unlinkedModel)
                                    .rotationX(dir == Direction.DOWN ? 180 : dir.getAxis().isHorizontal() ? 90 : 0)
-                                   .rotationY(dir.getAxis().isVertical() ? 0 : ((int) dir.getHorizontalAngle()))
+                                   .rotationY(dir.getAxis().isVertical() ? 0 :
+                                                      (((int) dir.getHorizontalAngle()) + 180) % 360)
                                    .build();
                 });
-
     }
 
     protected void generateGlyphBlockState(Block block) {

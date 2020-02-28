@@ -9,22 +9,22 @@
     },
     "facing=north,linked=false": {
       "model": "occultism:block/stable_wormhole_unlinked",
-      "x": 90,
-      "y": 180
+      "x": 90
     },
     "facing=south,linked=false": {
       "model": "occultism:block/stable_wormhole_unlinked",
-      "x": 90
+      "x": 90,
+      "y": 180
     },
     "facing=west,linked=false": {
       "model": "occultism:block/stable_wormhole_unlinked",
       "x": 90,
-      "y": 90
+      "y": 270
     },
     "facing=east,linked=false": {
       "model": "occultism:block/stable_wormhole_unlinked",
       "x": 90,
-      "y": 270
+      "y": 90
     },
     "facing=down,linked=true": {
       "model": "occultism:block/stable_wormhole",
@@ -35,22 +35,22 @@
     },
     "facing=north,linked=true": {
       "model": "occultism:block/stable_wormhole",
-      "x": 90,
-      "y": 180
+      "x": 90
     },
     "facing=south,linked=true": {
       "model": "occultism:block/stable_wormhole",
-      "x": 90
+      "x": 90,
+      "y": 180
     },
     "facing=west,linked=true": {
       "model": "occultism:block/stable_wormhole",
       "x": 90,
-      "y": 90
+      "y": 270
     },
     "facing=east,linked=true": {
       "model": "occultism:block/stable_wormhole",
       "x": 90,
-      "y": 270
+      "y": 90
     }
   }
 }
