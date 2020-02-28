@@ -26,11 +26,14 @@ import com.github.klikli_dev.occultism.common.OccultismBlocks;
 import com.github.klikli_dev.occultism.common.OccultismItemGroup;
 import com.github.klikli_dev.occultism.common.OccultismItems;
 import com.github.klikli_dev.occultism.common.OccultismSounds;
+import com.github.klikli_dev.occultism.config.OccultismConfig;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.item.ItemGroup;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLDedicatedServerSetupEvent;
@@ -45,10 +48,13 @@ public class Occultism {
     public static final String NAME = "Occultism";
     public static final ItemGroup ITEM_GROUP = new OccultismItemGroup();
     public static final Logger LOGGER = LogManager.getLogger(MODID);
+    public static final OccultismConfig CONFIG = new OccultismConfig();
     //endregion Fields
 
     //region Initialization
     public Occultism() {
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, CONFIG.spec);
+
         OccultismItems.ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
         OccultismBlocks.BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
         OccultismSounds.SOUNDS.register(FMLJavaModLoadingContext.get().getModEventBus());
@@ -57,6 +63,7 @@ public class Occultism {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::commonSetup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::serverSetup);
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::onModConfigEvent);
 
         MinecraftForge.EVENT_BUS.register(this);
     }
@@ -79,6 +86,13 @@ public class Occultism {
         RenderTypeLookup.setRenderLayer(OccultismBlocks.CHALK_GLYPH_PURPLE.get(), RenderType.getCutoutMipped());
         RenderTypeLookup.setRenderLayer(OccultismBlocks.CHALK_GLYPH_RED.get(), RenderType.getCutoutMipped());
         LOGGER.info("Client setup complete.");
+    }
+
+    public void onModConfigEvent(final ModConfig.ModConfigEvent event) {
+        if (event.getConfig().getSpec() == CONFIG.spec) {
+            //Clear the config cache on reload.
+            CONFIG.clear();
+        }
     }
     //endregion Methods
 }
