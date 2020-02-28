@@ -28,12 +28,12 @@ import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-@Mod.EventBusSubscriber(modid = Occultism.MODID)
+@Mod.EventBusSubscriber(modid = Occultism.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ColorHandler {
 
     //region Static Methods
     @SubscribeEvent
-    public static void onRegisterBlockColors(final ColorHandlerEvent.Block event) {
+    public static void onRegisterBlockColors(ColorHandlerEvent.Block event) {
         event.getBlockColors()
                 .register((state, light, pos, color) -> OccultismBlocks.CHALK_GLYPH_WHITE.get().getColor(),
                         OccultismBlocks.CHALK_GLYPH_WHITE.get());

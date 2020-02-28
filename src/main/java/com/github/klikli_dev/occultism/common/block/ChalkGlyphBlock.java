@@ -63,6 +63,7 @@ public class ChalkGlyphBlock extends Block {
     //region Initialization
     public ChalkGlyphBlock(Properties properties, int color) {
         super(properties);
+        this.color = color;
     }
     //endregion Initialization
 
