@@ -52,8 +52,8 @@ public class StandardBlockStateProvider extends BlockStateProvider {
     protected void generateChalkGlyphBlockState() {
         //get existing chalk glyph model.
         ModelFile.ExistingModelFile parent = models().getExistingFile(modLoc("block/chalk_glyph"));
-        getVariantBuilder(OccultismBlocks.CHALK_GLYPH.get())
-                .forAllStatesExcept(state -> {
+        getVariantBuilder(OccultismBlocks.CHALK_GLYPH_WHITE.get())
+                .forAllStates(state -> {
                             //this is called for every state combination
                             //create a child model for each glyph texture option
                             int sign = state.get(ChalkGlyphBlock.SIGN);
@@ -67,8 +67,7 @@ public class StandardBlockStateProvider extends BlockStateProvider {
                                            .rotationY((int) state.get(BlockStateProperties.HORIZONTAL_FACING)
                                                                     .getHorizontalAngle())
                                            .build();
-                        }, ChalkGlyphBlock.TYPE
-                );
+                        });
     }
     //endregion Methods
 

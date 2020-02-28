@@ -22,37 +22,131 @@
 
 package com.github.klikli_dev.occultism.common.block;
 
-import com.github.klikli_dev.occultism.common.data.ChalkGlyphType;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
-import net.minecraft.state.EnumProperty;
+import net.minecraft.client.renderer.RenderTypeLookup;
+import net.minecraft.entity.MobEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.fluid.Fluid;
+import net.minecraft.item.BlockItemUseContext;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.pathfinding.PathNodeType;
 import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
+import net.minecraft.util.Direction;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.shapes.ISelectionContext;
+import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.world.IBlockReader;
+import net.minecraft.world.IWorldReader;
+import net.minecraft.world.World;
+import net.minecraftforge.fml.RegistryObject;
+
+import javax.annotation.Nullable;
 
 public class ChalkGlyphBlock extends Block {
     //region Fields
     /**
-     * The type of glyph (color)
-     */
-
-    public static final EnumProperty<ChalkGlyphType> TYPE = EnumProperty.create("type", ChalkGlyphType.class);
-    /**
      * The glyph sign (the typeface)
      */
     public static final IntegerProperty SIGN = IntegerProperty.create("sign", 0, 12);
+
+    private static final VoxelShape SHAPE = Block.makeCuboidShape(0, 0, 0, 16, 0.04, 16);
+
+    protected RegistryObject<Item> chalk;
+    protected int color;
     //endregion Fields
 
     //region Initialization
-    public ChalkGlyphBlock(Properties properties) {
+    public ChalkGlyphBlock(Properties properties, int color) {
         super(properties);
     }
     //endregion Initialization
 
+    //region Getter / Setter
+    public int getColor() {
+        return color;
+    }
+
+    public void setColor(int color) {
+        this.color = color;
+    }
+
+    public RegistryObject<Item> getChalk() {
+        return chalk;
+    }
+
+    public void setChalk(RegistryObject<Item> chalk) {
+        this.chalk = chalk;
+    }
+    //endregion Getter / Setter
+
     //region Overrides
     @Override
+    public ItemStack getPickBlock(BlockState state, RayTraceResult target, IBlockReader world, BlockPos pos,
+                                  PlayerEntity player) {
+        return new ItemStack(this.getChalk().get());
+    }
+
+    @Nullable
+    @Override
+    public PathNodeType getAiPathNodeType(BlockState state, IBlockReader world, BlockPos pos,
+                                          @Nullable MobEntity entity) {
+        return PathNodeType.OPEN;
+    }
+
+    @Override
+    public boolean isReplaceable(BlockState state, BlockItemUseContext useContext) {
+        return true;
+    }
+
+    @Override
+    public boolean isReplaceable(BlockState state, Fluid fluid) {
+        return true;
+    }
+
+    @Override
+    public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+        return SHAPE;
+    }
+
+    @Override
+    public VoxelShape getCollisionShape(BlockState state, IBlockReader worldIn, BlockPos pos,
+                                        ISelectionContext context) {
+        return null;
+    }
+
+    @Override
+    public void neighborChanged(BlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos,
+                                boolean isMoving) {
+        if (!this.isValidPosition(state, worldIn, pos)) {
+            worldIn.removeBlock(pos, false);
+        }
+    }
+
+    @Override
+    public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
+        BlockPos down = pos.down();
+        BlockState downState = worldIn.getBlockState(down);
+        return downState.isSolidSide(worldIn, down, Direction.UP);
+    }
+
+    @Override
+    public BlockState getStateForPlacement(BlockItemUseContext context) {
+        BlockPos pos = context.getPos();
+        int sign = Math.abs(pos.getX() + pos.getZ() * 2) % 13;
+        return this.getDefaultState().with(SIGN, sign)
+                       .with(BlockStateProperties.HORIZONTAL_FACING,
+                               context.getPlacementHorizontalFacing().getOpposite());
+    }
+
+    @Override
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-        builder.add(TYPE, SIGN, BlockStateProperties.HORIZONTAL_FACING);
+        builder.add(SIGN, BlockStateProperties.HORIZONTAL_FACING);
         super.fillStateContainer(builder);
     }
     //endregion Overrides

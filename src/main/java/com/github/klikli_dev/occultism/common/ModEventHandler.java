@@ -41,7 +41,7 @@ public class ModEventHandler {
         // Register BlockItems for blocks without custom items
         OccultismBlocks.BLOCKS.getEntries().stream()
                 .map(RegistryObject::get)
-                .filter(block -> !OccultismBlocks.hasCustomItemBlock(block))
+                .filter(OccultismBlocks::requiresDefaultBlock)
                 .forEach(block -> {
                     final Item.Properties properties = new Item.Properties().group(Occultism.ITEM_GROUP);
                     final BlockItem blockItem = new BlockItem(block, properties);

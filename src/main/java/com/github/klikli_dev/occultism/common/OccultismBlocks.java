@@ -28,23 +28,41 @@ import com.github.klikli_dev.occultism.common.block.ChalkGlyphBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.material.MaterialColor;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class OccultismBlocks {
 
-    public static DeferredRegister<Block> BLOCKS = new DeferredRegister(ForgeRegistries.BLOCKS, Occultism.MODID);
     //region Fields
+    public static DeferredRegister<Block> BLOCKS = new DeferredRegister(ForgeRegistries.BLOCKS, Occultism.MODID);
+
+    //Blocks without item
+    public static final Block.Properties GLYPH_PROPERTIES = Block.Properties.create(Material.MISCELLANEOUS)
+                                                                    .sound(SoundType.CLOTH).doesNotBlockMovement()
+                                                                    .hardnessAndResistance(0.1f, 0);
+    public static final RegistryObject<ChalkGlyphBlock> CHALK_GLYPH_WHITE = BLOCKS.register("chalk_glyph_white",
+            () -> new ChalkGlyphBlock(GLYPH_PROPERTIES, 0xffffff));
+    public static final RegistryObject<ChalkGlyphBlock> CHALK_GLYPH_GOLD = BLOCKS.register("chalk_glyph_gold",
+            () -> new ChalkGlyphBlock(GLYPH_PROPERTIES, 0xf0d700));
+    public static final RegistryObject<ChalkGlyphBlock> CHALK_GLYPH_PURPLE = BLOCKS.register("chalk_glyph_purple",
+            () -> new ChalkGlyphBlock(GLYPH_PROPERTIES, 0x9c0393));
+    public static final RegistryObject<ChalkGlyphBlock> CHALK_GLYPH_RED = BLOCKS.register("chalk_glyph_red",
+            () -> new ChalkGlyphBlock(GLYPH_PROPERTIES, 0xcc0101));
+
+    //Decorative and Ritual Blocks
     public static final RegistryObject<Block> CANDLE_WHITE = BLOCKS.register("candle_white", () -> new CandleBlock(
             Block.Properties.create(Material.MISCELLANEOUS).sound(SoundType.CLOTH).doesNotBlockMovement()
                     .hardnessAndResistance(0.1f, 0).lightValue(12)));
-    public static final RegistryObject<Block> CHALK_GLYPH = BLOCKS.register("chalk_glyph", () -> new ChalkGlyphBlock(
-            Block.Properties.create(Material.MISCELLANEOUS).sound(SoundType.CLOTH).doesNotBlockMovement()
-                    .hardnessAndResistance(0.1f, 0)));
+
     //endregion Fields
 
-    public static boolean hasCustomItemBlock(Block block){
-        return false;
+//region Static Methods
+    public static boolean requiresDefaultBlock(Block block) {
+        if(block instanceof ChalkGlyphBlock)
+            return false;
+        return true;
     }
+//endregion Static Methods
 }

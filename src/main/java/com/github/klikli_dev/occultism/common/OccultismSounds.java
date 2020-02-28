@@ -26,24 +26,33 @@ import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.item.ChalkItem;
 import com.github.klikli_dev.occultism.common.item.DebugWandItem;
 import net.minecraft.item.Item;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundEvent;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
-public class OccultismItems {
+public class OccultismSounds {
 
     //region Fields
-    public static DeferredRegister<Item> ITEMS = new DeferredRegister(ForgeRegistries.ITEMS, Occultism.MODID);
-    //Debug and placeholder items
-    public static final RegistryObject<Item> PENTACLE = ITEMS.register("pentacle",
-            () -> new Item(new Item.Properties()));
-    public static final RegistryObject<Item> DEBUG_WAND = ITEMS.register("debug_wand",
-            () -> new DebugWandItem(new Item.Properties().maxStackSize(1).group(Occultism.ITEM_GROUP)));
+    public static DeferredRegister<SoundEvent> SOUNDS = new DeferredRegister(ForgeRegistries.SOUND_EVENTS, Occultism.MODID);
 
-    //Tools
-    public static final RegistryObject<Item> CHALK_WHITE = ITEMS.register("chalk_white",
-            () -> new ChalkItem(new Item.Properties().setNoRepair().maxDamage(128),
-                    OccultismBlocks.CHALK_GLYPH_WHITE));
+    public static final RegistryObject<SoundEvent> CHALK = SOUNDS.register("chalk", () -> loadSoundEvent("chalk"));
+    public static final RegistryObject<SoundEvent> BRUSH = SOUNDS.register("brush", () -> loadSoundEvent("brush"));
+    public static final RegistryObject<SoundEvent> START_RITUAL = SOUNDS.register("start_ritual", () -> loadSoundEvent("start_ritual"));
+    public static final RegistryObject<SoundEvent> TUNING_FORK = SOUNDS.register("tuning_fork", () -> loadSoundEvent("tuning_fork"));
 
     //endregion Fields
+
+    /**
+     * Creates the sound event object for the given sound event name, as specified in sounds.json
+     * Automatically appends MODID.
+     *
+     * @param name the sound event name without domain.
+     * @return the sound event.
+     */
+    private static SoundEvent loadSoundEvent(String name) {
+        ResourceLocation location = new ResourceLocation(Occultism.MODID, name);
+        return new SoundEvent(location);
+    }
 }

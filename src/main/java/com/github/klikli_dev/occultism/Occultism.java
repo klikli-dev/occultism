@@ -25,8 +25,16 @@ package com.github.klikli_dev.occultism;
 import com.github.klikli_dev.occultism.common.OccultismBlocks;
 import com.github.klikli_dev.occultism.common.OccultismItemGroup;
 import com.github.klikli_dev.occultism.common.OccultismItems;
+import com.github.klikli_dev.occultism.common.OccultismSounds;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.item.ItemGroup;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLDedicatedServerSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -44,8 +52,51 @@ public class Occultism {
     public Occultism() {
         OccultismItems.ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
         OccultismBlocks.BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
-        //register event buses
-    }
-    //endregion Initialization
+        OccultismSounds.SOUNDS.register(FMLJavaModLoadingContext.get().getModEventBus());
 
+        //register event buses
+
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::commonSetup);
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetup);
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::serverSetup);
+
+        MinecraftForge.EVENT_BUS.register(this);
+    }
+
+    //endregion Initialization
+//region Methods
+    private void commonSetup(final FMLCommonSetupEvent event) {
+        logger.info("Common setup complete.");
+    }
+
+    private void serverSetup(final FMLDedicatedServerSetupEvent event) {
+        logger.info("Dedicated server setup complete.");
+    }
+
+    private void clientSetup(final FMLClientSetupEvent event) {
+        Minecraft minecraft = event.getMinecraftSupplier().get();
+
+        //Setup block render layers
+        RenderTypeLookup.setRenderLayer(OccultismBlocks.CHALK_GLYPH_WHITE.get(), RenderType.getCutoutMipped());
+        RenderTypeLookup.setRenderLayer(OccultismBlocks.CHALK_GLYPH_GOLD.get(), RenderType.getCutoutMipped());
+        RenderTypeLookup.setRenderLayer(OccultismBlocks.CHALK_GLYPH_PURPLE.get(), RenderType.getCutoutMipped());
+        RenderTypeLookup.setRenderLayer(OccultismBlocks.CHALK_GLYPH_RED.get(), RenderType.getCutoutMipped());
+
+        //Register block tint
+        minecraft.getBlockColors()
+                .register((state, light, pos, color) -> OccultismBlocks.CHALK_GLYPH_WHITE.get().getColor(),
+                        OccultismBlocks.CHALK_GLYPH_WHITE.get());
+        minecraft.getBlockColors()
+                .register((state, light, pos, color) -> OccultismBlocks.CHALK_GLYPH_GOLD.get().getColor(),
+                        OccultismBlocks.CHALK_GLYPH_GOLD.get());
+        minecraft.getBlockColors()
+                .register((state, light, pos, color) -> OccultismBlocks.CHALK_GLYPH_PURPLE.get().getColor(),
+                        OccultismBlocks.CHALK_GLYPH_PURPLE.get());
+        minecraft.getBlockColors()
+                .register((state, light, pos, color) -> OccultismBlocks.CHALK_GLYPH_RED.get().getColor(),
+                        OccultismBlocks.CHALK_GLYPH_RED.get());
+
+        logger.info("Client setup complete.");
+    }
+//endregion Methods
 }
