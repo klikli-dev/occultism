@@ -64,7 +64,7 @@ public class CandleBlock extends Block {
         world.addParticle(ParticleTypes.FLAME, d0, d1, d2, 0.0D, 0.0D, 0.0D);
     }
 
-    @Deprecated
+    @Override
     public void neighborChanged(BlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos,
                                 boolean isMoving) {
         if (!this.isValidPosition(state, worldIn, pos)) {
