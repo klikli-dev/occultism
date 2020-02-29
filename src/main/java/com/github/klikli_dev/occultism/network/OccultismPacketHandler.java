@@ -65,10 +65,26 @@ public class OccultismPacketHandler {
                 MessageUpdateStacks::encode,
                 MessageUpdateStacks::new,
                 MessageUpdateStacks::handle);
+
+        INSTANCE.registerMessage(nextID(),
+                MessageSetRecipe.class,
+                MessageSetRecipe::encode,
+                MessageSetRecipe::new,
+                MessageSetRecipe::handle);
+
+        INSTANCE.registerMessage(nextID(),
+                MessageClearCraftingMatrix.class,
+                MessageClearCraftingMatrix::encode,
+                MessageClearCraftingMatrix::new,
+                MessageClearCraftingMatrix::handle);
     }
 
     public static <MSG> void sendTo(ServerPlayerEntity player, MSG message) {
-        OccultismPacketHandler.INSTANCE.send(PacketDistributor.PLAYER.with(() -> player), message);
+        INSTANCE.send(PacketDistributor.PLAYER.with(() -> player), message);
+    }
+
+    public static <MSG> void sendToServer(MSG message) {
+        INSTANCE.sendToServer(message);
     }
     //endregion Static Methods
 }
