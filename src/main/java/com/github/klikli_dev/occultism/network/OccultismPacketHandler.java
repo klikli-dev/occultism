@@ -23,7 +23,6 @@
 package com.github.klikli_dev.occultism.network;
 
 import com.github.klikli_dev.occultism.Occultism;
-import io.netty.channel.Channel;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.network.NetworkRegistry;
@@ -31,6 +30,7 @@ import net.minecraftforge.fml.network.PacketDistributor;
 import net.minecraftforge.fml.network.simple.SimpleChannel;
 
 public class OccultismPacketHandler {
+    //region Fields
     private static final String PROTOCOL_VERSION = "1";
     public static final SimpleChannel INSTANCE = NetworkRegistry.newSimpleChannel(
             new ResourceLocation(Occultism.MODID, "main"),
@@ -39,20 +39,36 @@ public class OccultismPacketHandler {
             PROTOCOL_VERSION::equals
     );
     private static int ID = 0;
+    //endregion Fields
 
+    //region Static Methods
     public static int nextID() {
         return ID++;
     }
 
     public static void registerMessages() {
-//        CHANNEL.registerMessage(nextID(),
-//                Test.class,
-//                Test::toBytes,
-//                Test::new,
-//                Test::handle);
+
+        INSTANCE.registerMessage(nextID(),
+                MessageRequestStacks.class,
+                MessageRequestStacks::encode,
+                MessageRequestStacks::new,
+                MessageRequestStacks::handle);
+
+        INSTANCE.registerMessage(nextID(),
+                MessageUpdateLinkedMachines.class,
+                MessageUpdateLinkedMachines::encode,
+                MessageUpdateLinkedMachines::new,
+                MessageUpdateLinkedMachines::handle);
+
+        INSTANCE.registerMessage(nextID(),
+                MessageUpdateStacks.class,
+                MessageUpdateStacks::encode,
+                MessageUpdateStacks::new,
+                MessageUpdateStacks::handle);
     }
 
-    public static <MSG> void sendTo(ServerPlayerEntity player, MSG message){
+    public static <MSG> void sendTo(ServerPlayerEntity player, MSG message) {
         OccultismPacketHandler.INSTANCE.send(PacketDistributor.PLAYER.with(() -> player), message);
     }
+    //endregion Static Methods
 }

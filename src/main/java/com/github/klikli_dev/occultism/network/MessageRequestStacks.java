@@ -23,8 +23,8 @@
 package com.github.klikli_dev.occultism.network;
 
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.PlayerEntity;
+import com.github.klikli_dev.occultism.api.common.container.IStorageControllerContainer;
+import com.github.klikli_dev.occultism.api.common.tile.IStorageController;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.server.MinecraftServer;
@@ -36,27 +36,28 @@ public class MessageRequestStacks extends MessageBase {
     public MessageRequestStacks() {
 
     }
+
+    public MessageRequestStacks(PacketBuffer buf) {
+        super(buf);
+    }
     //endregion Initialization
 
-    //region Overrides
-    @Override
-    public void onClientReceived(Minecraft minecraft, PlayerEntity player, NetworkEvent.Context context) {
 
-    }
+    //region Overrides
 
     @Override
     public void onServerReceived(MinecraftServer minecraftServer, ServerPlayerEntity player,
                                  NetworkEvent.Context context) {
-        //TODO: enabble once storage controller is ready
-        //        if (player.openContainer instanceof IStorageControllerContainer) {
-        //            IStorageController storageController = ((IStorageControllerContainer) player.openContainer)
-        //                                                           .getStorageController();
-        //            if (storageController != null) {
-        //                OccultismPacketHandler.sendTo(player, storageController.getMessageUpdateStacks());
-        //                OccultismPacketHandler.sendTo(player, new MessageUpdateLinkedMachines(storageController.getLinkedMachines()));
-        //                player.openContainer.detectAndSendChanges();
-        //            }
-        //        }
+        if (player.openContainer instanceof IStorageControllerContainer) {
+            IStorageController storageController = ((IStorageControllerContainer) player.openContainer)
+                                                           .getStorageController();
+            if (storageController != null) {
+                OccultismPacketHandler.sendTo(player, storageController.getMessageUpdateStacks());
+                OccultismPacketHandler
+                        .sendTo(player, new MessageUpdateLinkedMachines(storageController.getLinkedMachines()));
+                player.openContainer.detectAndSendChanges();
+            }
+        }
     }
 
     @Override
