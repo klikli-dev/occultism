@@ -50,11 +50,6 @@ public class ItemTagComparator implements IItemStackComparator {
     //region Overrides
 
     @Override
-    public ItemStack getFilterStack() {
-        return null;
-    }
-
-    @Override
     public boolean matches(@Nonnull ItemStack stack) {
         if (stack.isEmpty())
             return false;
@@ -67,7 +62,7 @@ public class ItemTagComparator implements IItemStackComparator {
     public static ItemTagComparator loadFromNBT(CompoundNBT nbt) {
         ItemTagComparator comparator = new ItemTagComparator();
         comparator.readFromNBT(nbt);
-        return !comparator.getFilterStack().isEmpty() ? comparator : null;
+        return comparator;
     }
     //endregion Static Methods
 

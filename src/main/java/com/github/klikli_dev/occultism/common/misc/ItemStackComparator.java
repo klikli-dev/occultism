@@ -83,7 +83,7 @@ public class ItemStackComparator implements IItemStackComparator {
     public static ItemStackComparator loadFromNBT(CompoundNBT nbt) {
         ItemStackComparator comparator = new ItemStackComparator();
         comparator.readFromNBT(nbt);
-        return !comparator.getFilterStack().isEmpty() ? comparator : null;
+        return !comparator.filterStack.isEmpty() ? comparator : null;
     }
     //endregion Static Methods
 

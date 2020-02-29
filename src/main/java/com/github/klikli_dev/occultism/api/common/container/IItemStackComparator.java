@@ -28,14 +28,6 @@ import javax.annotation.Nonnull;
 
 public interface IItemStackComparator {
 
-    //region Getter / Setter
-
-    /**
-     * @return the stack to compare against.
-     */
-    ItemStack getFilterStack();
-    //endregion Getter / Setter
-
     //region Methods
 
     /**
