@@ -69,7 +69,7 @@ public class StandardLootTableProvider extends BaseLootTableProvider {
                     });
 
             this.registerLootTable(OccultismBlocks.STORAGE_CONTROLLER.get(),
-                    this.storageController(OccultismBlocks.STORAGE_CONTROLLER.get()));
+                    this.storageController2(OccultismBlocks.STORAGE_CONTROLLER.get()));
             this.registerDropWithNBTLootTable(OccultismBlocks.STABLE_WORMHOLE.get());
         }
 
@@ -99,6 +99,21 @@ public class StandardLootTableProvider extends BaseLootTableProvider {
 
                        )
                        .acceptCondition(SurvivesExplosion.builder());
+            return LootTable.builder().addLootPool(builder);
+        }
+        protected LootTable.Builder storageController2(Block block) {
+            LootPool.Builder builder = LootPool.builder()
+                                               .rolls(ConstantRange.of(1))
+                                               .addEntry(ItemLootEntry.builder(block)
+                                                                 .acceptFunction(
+                                                                         CopyNbt.builder(CopyNbt.Source.BLOCK_ENTITY)
+                                                                                 .replaceOperation("{}","BlockEntityTag")
+
+                                                                 )
+
+
+                                               )
+                                               .acceptCondition(SurvivesExplosion.builder());
             return LootTable.builder().addLootPool(builder);
         }
 //endregion Methods
