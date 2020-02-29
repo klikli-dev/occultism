@@ -13,7 +13,7 @@
               "ops": []
             }
           ],
-          "name": "occultism:stable_wormhole"
+          "name": "occultism:storage_controller"
         }
       ],
       "conditions": [

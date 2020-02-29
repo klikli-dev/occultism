@@ -2,7 +2,6 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "name": "stable_wormhole",
       "rolls": 1,
       "entries": [
         {

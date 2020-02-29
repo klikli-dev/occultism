@@ -2,7 +2,6 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "name": "storage_stabilizer_tier3",
       "rolls": 1,
       "entries": [
         {
