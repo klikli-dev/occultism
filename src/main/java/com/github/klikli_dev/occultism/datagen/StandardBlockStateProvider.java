@@ -28,6 +28,7 @@ import com.github.klikli_dev.occultism.common.block.storage.StableWormholeBlock;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.data.loot.BlockLootTables;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.Direction;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
@@ -107,5 +108,4 @@ public class StandardBlockStateProvider extends BlockStateProvider {
                 });
     }
     //endregion Methods
-
 }

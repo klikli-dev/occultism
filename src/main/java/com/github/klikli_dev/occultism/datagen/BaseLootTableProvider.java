@@ -88,50 +88,6 @@ public abstract class BaseLootTableProvider extends LootTableProvider {
     // Subclasses can override this to fill the 'lootTables' map.
     protected abstract void addTables();
 
-
-    /**
-     * Creates a basic loot table that drops only the block itself, if it survives the explosion.
-     * Mirrors old vanilla behaviour.
-     *
-     * @param block the block to generate for.
-     * @return the loot table.
-     */
-    protected LootTable.Builder basic(Block block) {
-        this.blockLootTables.registerDropSelfLootTable(block);
-        LootPool.Builder builder = LootPool.builder()
-                                           .rolls(ConstantRange.of(1))
-                                           .addEntry(ItemLootEntry.builder(block))
-                                           .acceptCondition(SurvivesExplosion.builder());
-        return LootTable.builder().addLootPool(builder);
-    }
-
-    /**
-     * Creates an empty loot table with no drop.
-     *
-     * @param block the block to generate for.
-     * @return the loot table.
-     */
-    protected LootTable.Builder empty(Block block) {
-        LootPool.Builder builder = LootPool.builder();
-        return LootTable.builder().addLootPool(builder);
-    }
-
-    /**
-     * Creates a loot table to drop the block with tile entity nbt.
-     *
-     * @param block the block to generate for.
-     * @return the loot table.
-     */
-    protected LootTable.Builder withTileNBT(Block block) {
-        LootPool.Builder builder = LootPool.builder()
-                                           .rolls(ConstantRange.of(1))
-                                           .addEntry(ItemLootEntry.builder(block)
-                                                             .acceptFunction(
-                                                                     CopyNbt.builder(CopyNbt.Source.BLOCK_ENTITY)))
-                                           .acceptCondition(SurvivesExplosion.builder());
-        return LootTable.builder().addLootPool(builder);
-    }
-
     // Actually write out the tables in the output folder
     private void writeTables(DirectoryCache cache, Map<ResourceLocation, LootTable> tables) {
         Path outputFolder = this.generator.getOutputFolder();

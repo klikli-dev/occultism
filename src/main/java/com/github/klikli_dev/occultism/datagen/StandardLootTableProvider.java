@@ -22,12 +22,17 @@
 
 package com.github.klikli_dev.occultism.datagen;
 
-import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
+import net.minecraft.block.Block;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.world.storage.loot.LootTable;
 import net.minecraftforge.fml.RegistryObject;
 
 public class StandardLootTableProvider extends BaseLootTableProvider {
+
+//region Fields
+    InternalBlockLootTable lootTable = new InternalBlockLootTable();
+//endregion Fields
 
     //region Initialization
     public StandardLootTableProvider(DataGenerator dataGeneratorIn) {
@@ -38,21 +43,34 @@ public class StandardLootTableProvider extends BaseLootTableProvider {
     //region Overrides
     @Override
     protected void addTables() {
-        OccultismBlocks.BLOCKS.getEntries().stream()
-                .map(RegistryObject::get)
-                .forEach(block -> {
-                    OccultismBlocks.BlockDataGenSettings settings = OccultismBlocks.BLOCK_DATA_GEN_SETTINGS.get(block.getRegistryName());
-                    if(settings.lootTableType == OccultismBlocks.LootTableType.EMPTY)
-                        this.lootTables.put(block, this.empty(block));
-                    else if(settings.lootTableType == OccultismBlocks.LootTableType.DROP_SELF)
-                        this.lootTables.put(block, this.basic(block));
-                });
-
-        //All blocks with loot table type custom need to be registered here manually
-        this.lootTables.put(OccultismBlocks.STABLE_WORMHOLE.get(),
-                this.withTileNBT(OccultismBlocks.STABLE_WORMHOLE.get()));
-        this.lootTables.put(OccultismBlocks.STORAGE_CONTROLLER.get(),
-                this.withTileNBT(OccultismBlocks.STORAGE_CONTROLLER.get()));
+        this.lootTable.addTables();
     }
     //endregion Overrides
+
+    private class InternalBlockLootTable extends StandardBlockLootTables {
+//region Overrides
+        @Override
+        protected void addTables() {
+            //Handle the non custom tables
+            OccultismBlocks.BLOCKS.getEntries().stream()
+                    .map(RegistryObject::get)
+                    .forEach(block -> {
+                        OccultismBlocks.BlockDataGenSettings settings = OccultismBlocks.BLOCK_DATA_GEN_SETTINGS
+                                                                                .get(block.getRegistryName());
+                        if (settings.lootTableType == OccultismBlocks.LootTableType.EMPTY)
+                            this.registerDropNothingLootTable(block);
+                        else if (settings.lootTableType == OccultismBlocks.LootTableType.DROP_SELF)
+                            this.registerDropSelfLootTable(block);
+                    });
+
+            this.registerDropWithNBTLootTable(OccultismBlocks.STABLE_WORMHOLE.get());
+            this.registerDropWithNBTLootTable(OccultismBlocks.STORAGE_CONTROLLER.get());
+        }
+
+        @Override
+        protected void registerLootTable(Block blockIn, LootTable.Builder table) {
+            StandardLootTableProvider.this.lootTables.put(blockIn, table);
+        }
+//endregion Overrides
+    }
 }
