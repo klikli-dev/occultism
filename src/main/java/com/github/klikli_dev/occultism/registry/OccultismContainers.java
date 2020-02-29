@@ -23,7 +23,11 @@
 package com.github.klikli_dev.occultism.registry;
 
 import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.common.container.StorageControllerContainer;
+import com.github.klikli_dev.occultism.common.tile.StorageControllerTileEntity;
 import net.minecraft.inventory.container.ContainerType;
+import net.minecraftforge.common.extensions.IForgeContainerType;
+import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -31,5 +35,12 @@ public class OccultismContainers {
     //region Fields
     public static final DeferredRegister<ContainerType<?>> CONTAINERS = new DeferredRegister<>(
             ForgeRegistries.CONTAINERS, Occultism.MODID);
+
+    public static final RegistryObject<ContainerType<StorageControllerContainer>> STORAGE_CONTROLLER =
+            CONTAINERS.register("storage_controller",
+                    () -> IForgeContainerType
+                                  .create((windowId, inv, data) -> new StorageControllerContainer(windowId, inv,
+                                          (StorageControllerTileEntity) inv.player.world
+                                                                                .getTileEntity(data.readBlockPos()))));
     //endregion Fields
 }

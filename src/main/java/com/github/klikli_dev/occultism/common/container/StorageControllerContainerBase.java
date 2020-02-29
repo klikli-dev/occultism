@@ -23,13 +23,13 @@
 
 package com.github.klikli_dev.occultism.common.container;
 
-import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.api.common.container.IStorageControllerContainer;
 import com.github.klikli_dev.occultism.api.common.tile.IStorageController;
-import com.github.klikli_dev.occultism.client.gui.GuiStorageControllerBase;
+import com.github.klikli_dev.occultism.client.gui.StorageControllerGuiBase;
 import com.github.klikli_dev.occultism.common.misc.InventoryCraftingCached;
 import com.github.klikli_dev.occultism.common.misc.ItemStackComparator;
 import com.github.klikli_dev.occultism.common.misc.SlotCraftingNetwork;
+import com.github.klikli_dev.occultism.network.OccultismPacketHandler;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -37,24 +37,29 @@ import net.minecraft.inventory.CraftResultInventory;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.container.Container;
+import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.CraftingManager;
-import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.ICraftingRecipe;
+import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.wrapper.PlayerMainInvWrapper;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
-public abstract class ContainerStorageControllerBase extends Container implements IStorageControllerContainer {
+public abstract class StorageControllerContainerBase extends Container implements IStorageControllerContainer {
 
     //region Fields
     public PlayerInventory playerInventory;
+    public PlayerEntity player;
     protected CraftResultInventory result;
     protected InventoryCraftingCached matrix;
     protected Inventory orderInventory;
+    protected ICraftingRecipe currentRecipe;
 
     /**
      * used to lock recipe while crafting
@@ -63,10 +68,17 @@ public abstract class ContainerStorageControllerBase extends Container implement
     //endregion Fields
 
     //region Initialization
-    public ContainerStorageControllerBase() {
+
+
+    protected StorageControllerContainerBase(@Nullable ContainerType<?> type, int id, PlayerInventory playerInventory) {
+        super(type, id);
+        this.playerInventory = playerInventory;
+        this.player = playerInventory.player;
+
         this.result = new CraftResultInventory();
-        this.orderInventory = new Inventory("", false, 1);
+        this.orderInventory = new Inventory(1);
     }
+
     //endregion Initialization
 
     //region Overrides
@@ -113,7 +125,7 @@ public abstract class ContainerStorageControllerBase extends Container implement
                 this.detectAndSendChanges();
 
                 //get updated stacks from storage controller and send to client
-                Occultism.network.sendTo(storageController.getMessageUpdateStacks(), (ServerPlayerEntity) player);
+                OccultismPacketHandler.sendTo((ServerPlayerEntity) player, storageController.getMessageUpdateStacks());
 
                 if (!remainingItemStack.isEmpty()) {
                     slot.onTake(player, slotStack);
@@ -136,23 +148,23 @@ public abstract class ContainerStorageControllerBase extends Container implement
     //region Methods
     protected void setupPlayerInventorySlots() {
         int playerInventoryTop = 174;
-        int playerInventoryLeft = 8 + GuiStorageControllerBase.ORDER_AREA_OFFSET;
+        int playerInventoryLeft = 8 + StorageControllerGuiBase.ORDER_AREA_OFFSET;
 
         for (int i = 0; i < 3; i++)
             for (int j = 0; j < 9; j++)
-                this.addSlotToContainer(new Slot(this.playerInventory, j + i * 9 + 9, playerInventoryLeft + j * 18,
+                this.addSlot(new Slot(this.playerInventory, j + i * 9 + 9, playerInventoryLeft + j * 18,
                         playerInventoryTop + i * 18));
     }
 
     protected void setupCraftingGrid() {
 
         int craftingGridTop = 113;
-        int craftingGridLeft = 37 + GuiStorageControllerBase.ORDER_AREA_OFFSET;
+        int craftingGridLeft = 37 + StorageControllerGuiBase.ORDER_AREA_OFFSET;
         int index = 0;
         //3x3 crafting grid
         for (int i = 0; i < 3; ++i) {
             for (int j = 0; j < 3; ++j) {
-                this.addSlotToContainer(
+                this.addSlot(
                         new Slot(this.matrix, index++, craftingGridLeft + j * 18, craftingGridTop + i * 18));
             }
         }
@@ -160,29 +172,29 @@ public abstract class ContainerStorageControllerBase extends Container implement
 
     protected void setupCraftingOutput() {
         int craftingOutputTop = 131;
-        int craftingOutputLeft = 130 + GuiStorageControllerBase.ORDER_AREA_OFFSET;
+        int craftingOutputLeft = 130 + StorageControllerGuiBase.ORDER_AREA_OFFSET;
         SlotCraftingNetwork slotCraftOutput = new SlotCraftingNetwork(this.playerInventory.player, this.matrix,
                 this.result, this, 0, craftingOutputLeft, craftingOutputTop);
-        this.addSlotToContainer(slotCraftOutput);
+        this.addSlot(slotCraftOutput);
     }
 
     protected void setupOrderInventorySlot() {
         int orderSlotTop = 36;
         int orderSlotLeft = 13;
-        this.addSlotToContainer(new Slot(this.orderInventory, 0, orderSlotLeft, orderSlotTop));
+        this.addSlot(new Slot(this.orderInventory, 0, orderSlotLeft, orderSlotTop));
     }
 
     protected abstract void setupPlayerHotbar();
 
     protected void findRecipeForMatrix() {
-        IRecipe recipe = null;
-        try {
-            recipe = CraftingManager.findMatchingRecipe(this.matrix, this.playerInventory.player.world);
-        } catch (Exception e) {
-            Occultism.logger.error("Could not find recipe.", e);
-        }
-        if (recipe != null) {
-            ItemStack itemstack = recipe.getCraftingResult(this.matrix);
+        //TODO: if there are issues, set up a copy of this based on WorkBenchContainer func_217066_a
+        //      and call it onCraftingMatrixChanged(). Send slot packet!
+        this.currentRecipe = null;
+        Optional<ICraftingRecipe> optional = this.player.world.getRecipeManager()
+                                                     .getRecipe(IRecipeType.CRAFTING, this.matrix, this.player.world);
+        if (optional.isPresent()) {
+            this.currentRecipe = optional.get();
+            ItemStack itemstack = this.currentRecipe.getCraftingResult(this.matrix);
             this.result.setInventorySlotContents(0, itemstack);
         }
         else {
@@ -195,8 +207,8 @@ public abstract class ContainerStorageControllerBase extends Container implement
             return;
         }
 
-        IRecipe recipe = CraftingManager.findMatchingRecipe(this.matrix, player.world);
-        if (recipe == null) {
+        this.findRecipeForMatrix();
+        if (this.currentRecipe == null) {
             return;
         }
 
@@ -210,7 +222,7 @@ public abstract class ContainerStorageControllerBase extends Container implement
         }
 
         //Get the crafting result and abort if none
-        ItemStack result = recipe.getCraftingResult(this.matrix);
+        ItemStack result = this.currentRecipe.getCraftingResult(this.matrix);
         if (result.isEmpty()) {
             return;
         }
@@ -220,7 +232,7 @@ public abstract class ContainerStorageControllerBase extends Container implement
 
         int crafted = 0;
         while (crafted + resultStackSize <= result.getMaxStackSize()) {
-            result = recipe.getCraftingResult(this.matrix);
+            result = this.currentRecipe.getCraftingResult(this.matrix);
 
             //exit if we can no longer insert
             if (!ItemHandlerHelper.insertItemStacked(new PlayerMainInvWrapper(this.playerInventory), result, true)
@@ -229,10 +241,9 @@ public abstract class ContainerStorageControllerBase extends Container implement
             }
 
             //if recipe is no longer fulfilled, stop
-            if (!recipe.matches(this.matrix, player.world)) {
+            if (!this.currentRecipe.matches(this.matrix, player.world)) {
                 break;
             }
-
 
             //region onTake replacement for crafting
 
@@ -240,8 +251,7 @@ public abstract class ContainerStorageControllerBase extends Container implement
             ItemHandlerHelper.giveItemToPlayer(player, result);
 
             //get remaining items in the crafting matrix
-            NonNullList<ItemStack> remainingCraftingItems = CraftingManager
-                                                                    .getRemainingItems(this.matrix, player.world);
+            NonNullList<ItemStack> remainingCraftingItems = this.currentRecipe.getRemainingItems(this.matrix);
             for (int i = 0; i < remainingCraftingItems.size(); ++i) {
 
                 ItemStack currentCraftingItem = remainingCraftingItems.get(i);
@@ -251,12 +261,6 @@ public abstract class ContainerStorageControllerBase extends Container implement
                 if (currentCraftingItem.isEmpty()) {
                     this.matrix.getStackInSlot(i).shrink(1);
                     continue;
-                }
-
-                //if damage too high, destroy
-                if (currentCraftingItem.isItemDamaged() &&
-                    currentCraftingItem.getItemDamage() > currentCraftingItem.getMaxDamage()) {
-                    currentCraftingItem = ItemStack.EMPTY;
                 }
 
                 //handle container item refunding
@@ -304,8 +308,8 @@ public abstract class ContainerStorageControllerBase extends Container implement
                 if (stackInSlot.isEmpty()) {
                     ItemStack recipeStack = recipeCopy.get(i);
 
-                    ItemStackComparator comparator = !recipeStack.isEmpty() ? new ItemStackComparator(recipeStack, true,
-                            false, false) : null;
+                    ItemStackComparator comparator = !recipeStack.isEmpty() ? new ItemStackComparator(
+                            recipeStack) : null;
 
                     ItemStack requestedItem = this.getStorageController().getItemStack(comparator, 1, false);
                     this.matrix.setInventorySlotContents(i, requestedItem);

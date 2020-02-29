@@ -23,13 +23,12 @@
 
 package com.github.klikli_dev.occultism.common.container;
 
-import com.github.klikli_dev.occultism.Occultism;
-import com.github.klikli_dev.occultism.client.gui.GuiStorageControllerBase;
+import com.github.klikli_dev.occultism.client.gui.StorageControllerGuiBase;
 import com.github.klikli_dev.occultism.common.misc.InventoryCraftingCached;
 import com.github.klikli_dev.occultism.common.tile.StorageControllerTileEntity;
-import com.github.klikli_dev.occultism.common.tile.TileEntityStorageController;
 import com.github.klikli_dev.occultism.network.MessageUpdateLinkedMachines;
 import com.github.klikli_dev.occultism.network.OccultismPacketHandler;
+import com.github.klikli_dev.occultism.registry.OccultismContainers;
 import com.github.klikli_dev.occultism.util.TileEntityUtil;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -40,19 +39,16 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import java.util.List;
 
-
-public class ContainerStorageController extends ContainerStorageControllerBase {
+public class StorageControllerContainer extends StorageControllerContainerBase {
     //region Fields
     protected StorageControllerTileEntity storageController;
-
     //endregion Fields
 
     //region Initialization
-    public ContainerStorageController(PlayerInventory playerInventory, StorageControllerTileEntity storageController) {
-        super();
-        this.playerInventory = playerInventory;
+    public StorageControllerContainer(int id, PlayerInventory playerInventory,
+                                      StorageControllerTileEntity storageController) {
+        super(OccultismContainers.STORAGE_CONTROLLER.get(), id, playerInventory);
         this.storageController = storageController;
 
         this.matrix = new InventoryCraftingCached(this, storageController.getMatrix());
@@ -65,7 +61,6 @@ public class ContainerStorageController extends ContainerStorageControllerBase {
         this.setupPlayerHotbar();
 
         this.onCraftMatrixChanged(this.matrix);
-
     }
     //endregion Initialization
 
@@ -73,9 +68,9 @@ public class ContainerStorageController extends ContainerStorageControllerBase {
     @Override
     protected void setupPlayerHotbar() {
         int hotbarTop = 232;
-        int hotbarLeft = 8 + GuiStorageControllerBase.ORDER_AREA_OFFSET;
+        int hotbarLeft = 8 + StorageControllerGuiBase.ORDER_AREA_OFFSET;
         for (int i = 0; i < 9; i++)
-            this.addSlotToContainer(new Slot(this.playerInventory, i, hotbarLeft + i * 18, hotbarTop));
+            this.addSlot(new Slot(this.playerInventory, i, hotbarLeft + i * 18, hotbarTop));
     }
 
     @Override
@@ -125,9 +120,9 @@ public class ContainerStorageController extends ContainerStorageControllerBase {
         World world = this.storageController.getWorld();
         //send stack updates on a slow tick while interacting
         if (!world.isRemote && world.getGameTime() % 40 == 0) {
-            List<ItemStack> stacks = this.storageController.getStacks();
             OccultismPacketHandler.sendTo((ServerPlayerEntity) player, this.storageController.getMessageUpdateStacks());
-            OccultismPacketHandler.sendTo((ServerPlayerEntity) player, new MessageUpdateLinkedMachines(this.storageController.getLinkedMachines()));
+            OccultismPacketHandler.sendTo((ServerPlayerEntity) player,
+                    new MessageUpdateLinkedMachines(this.storageController.getLinkedMachines()));
         }
         BlockPos controllerPosition = this.storageController.getPos();
         return player.getDistanceSq(controllerPosition.getX() + 0.5D, controllerPosition.getY() + 0.5D,

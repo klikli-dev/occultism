@@ -31,6 +31,7 @@ import com.github.klikli_dev.occultism.api.common.data.*;
 import com.github.klikli_dev.occultism.client.gui.controls.GuiButtonSizedImage;
 import com.github.klikli_dev.occultism.client.gui.controls.GuiItemSlot;
 import com.github.klikli_dev.occultism.client.gui.controls.GuiMachineSlot;
+import com.github.klikli_dev.occultism.common.container.StorageControllerContainerBase;
 import com.github.klikli_dev.occultism.integration.jei.JeiPlugin;
 import com.github.klikli_dev.occultism.network.*;
 import com.github.klikli_dev.occultism.util.InputUtil;
@@ -48,7 +49,6 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.IInventoryChangedListener;
-import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
@@ -63,7 +63,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public abstract class GuiStorageControllerBase extends ContainerScreen implements IStorageControllerGui, IStorageControllerGuiContainer, IInventoryChangedListener {
+public abstract class StorageControllerGuiBase extends ContainerScreen<StorageControllerContainerBase> implements IStorageControllerGui, IStorageControllerGuiContainer, IInventoryChangedListener {
     //region Fields
     public static final int ORDER_AREA_OFFSET = 48;
     protected static final ResourceLocation BACKGROUND = new ResourceLocation(Occultism.MODID,
@@ -98,7 +98,7 @@ public abstract class GuiStorageControllerBase extends ContainerScreen implement
     //endregion Fields
 
     //region Initialization
-    public GuiStorageControllerBase(Container container, PlayerInventory playerInventory, ITextComponent name) {
+    public StorageControllerGuiBase(StorageControllerContainerBase container, PlayerInventory playerInventory, ITextComponent name) {
         super(container, playerInventory, name);
         this.storageControllerContainer = (IStorageControllerContainer) container;
         this.storageControllerContainer.getOrderSlot().addListener(this);
@@ -648,13 +648,13 @@ public abstract class GuiStorageControllerBase extends ContainerScreen implement
         stacksToDisplay.sort(new Comparator<ItemStack>() {
 
             //region Fields
-            int direction = GuiStorageControllerBase.this.getSortDirection().isDown() ? -1 : 1;
+            int direction = StorageControllerGuiBase.this.getSortDirection().isDown() ? -1 : 1;
             //endregion Fields
 
             //region Overrides
             @Override
             public int compare(ItemStack a, ItemStack b) {
-                switch (GuiStorageControllerBase.this.getSortType()) {
+                switch (StorageControllerGuiBase.this.getSortType()) {
                     case AMOUNT:
                         return Integer.compare(b.getCount(), a.getCount()) * this.direction;
                     case NAME:
@@ -748,13 +748,13 @@ public abstract class GuiStorageControllerBase extends ContainerScreen implement
         machinesToDisplay.sort(new Comparator<MachineReference>() {
 
             //region Fields
-            int direction = GuiStorageControllerBase.this.getSortDirection().isDown() ? -1 : 1;
+            int direction = StorageControllerGuiBase.this.getSortDirection().isDown() ? -1 : 1;
             //endregion Fields
 
             //region Overrides
             @Override
             public int compare(MachineReference a, MachineReference b) {
-                switch (GuiStorageControllerBase.this.getSortType()) {
+                switch (StorageControllerGuiBase.this.getSortType()) {
                     case AMOUNT: //use distance in this case
                         double distanceA =
                                 a.globalPos.getDimensionType() == dimensionType ? a.globalPos.getPos().distanceSq(
