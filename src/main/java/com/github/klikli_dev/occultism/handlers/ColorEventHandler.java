@@ -20,7 +20,7 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.github.klikli_dev.occultism.client;
+package com.github.klikli_dev.occultism.handlers;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
@@ -29,7 +29,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = Occultism.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
-public class ColorHandler {
+public class ColorEventHandler {
 
     //region Static Methods
     @SubscribeEvent
