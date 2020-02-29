@@ -30,7 +30,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 
-public class StorageControllerGui extends StorageControllerGuiBase {
+public class StorageControllerGui extends StorageControllerGuiBase<StorageControllerContainer> {
 
     //region Fields
     protected StorageControllerTileEntity storageController;

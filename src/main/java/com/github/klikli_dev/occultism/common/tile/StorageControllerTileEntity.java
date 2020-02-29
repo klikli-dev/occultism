@@ -33,26 +33,32 @@ import com.github.klikli_dev.occultism.api.common.tile.IStorageAccessor;
 import com.github.klikli_dev.occultism.api.common.tile.IStorageController;
 import com.github.klikli_dev.occultism.api.common.tile.IStorageControllerProxy;
 import com.github.klikli_dev.occultism.common.block.storage.StorageStabilizerBlock;
+import com.github.klikli_dev.occultism.common.container.StorageControllerContainer;
 import com.github.klikli_dev.occultism.common.misc.StorageControllerItemStackHandler;
-import com.github.klikli_dev.occultism.exceptions.CapabilityMissingException;
 import com.github.klikli_dev.occultism.exceptions.ItemHandlerMissingException;
 import com.github.klikli_dev.occultism.network.MessageUpdateStacks;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
+import com.github.klikli_dev.occultism.registry.OccultismContainers;
 import com.github.klikli_dev.occultism.registry.OccultismTiles;
 import com.github.klikli_dev.occultism.util.Math3DUtil;
 import com.github.klikli_dev.occultism.util.TileEntityUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.DirectionalBlock;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.container.Container;
+import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.util.LazyOptional;
@@ -62,11 +68,12 @@ import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class StorageControllerTileEntity extends NetworkedTileEntity implements ITickableTileEntity, IStorageController, IStorageAccessor, IStorageControllerProxy {
+public class StorageControllerTileEntity extends NetworkedTileEntity implements ITickableTileEntity, INamedContainerProvider, IStorageController, IStorageAccessor, IStorageControllerProxy {
 
     //region Fields
 
@@ -94,11 +101,18 @@ public class StorageControllerTileEntity extends NetworkedTileEntity implements 
     protected MessageUpdateStacks cachedMessageUpdateStacks;
     //endregion Fields
 
+    //region Initialization
     public StorageControllerTileEntity() {
         super(OccultismTiles.STORAGE_CONTROLLER.get());
     }
+    //endregion Initialization
 
     //region Overrides
+    @Override
+    public ITextComponent getDisplayName() {
+        return new StringTextComponent(getType().getRegistryName().getPath());
+    }
+
     @Override
     public IStorageController getLinkedStorageController() {
         return this;
@@ -461,6 +475,12 @@ public class StorageControllerTileEntity extends NetworkedTileEntity implements 
         compound.put("linkedMachines", machinesNbt);
 
         return super.writeNetwork(compound);
+    }
+
+    @Nullable
+    @Override
+    public Container createMenu(int id, PlayerInventory playerInventory, PlayerEntity playerEntity) {
+        return new StorageControllerContainer(id, playerInventory, this);
     }
     //endregion Overrides
 

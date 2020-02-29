@@ -27,6 +27,8 @@ import com.github.klikli_dev.occultism.registry.OccultismTiles;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
@@ -36,6 +38,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.network.NetworkHooks;
 
 public class StorageControllerBlock extends Block {
     //region Initialization
@@ -58,17 +61,15 @@ public class StorageControllerBlock extends Block {
         }
     }
 
+
     @Override
     public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player,
-                                             Hand handIn, BlockRayTraceResult p_225533_6_) {
+                                             Hand handIn, BlockRayTraceResult rayTraceResult) {
         if (!world.isRemote) {
-            //TODO: enable once gui is available
             TileEntity tileEntity = world.getTileEntity(pos);
-            //            if (!(tileEntity instanceof TileEntityStorageController)) {
-            //                return ActionResultType.FAIL;
-            //            }
-            //            player.openGui(Occultism.instance, GuiHandler.GuiID.STORAGE_CONTROLLER.ordinal(), world, pos.getX(),
-            //                    pos.getY(), pos.getZ());
+            if (tileEntity instanceof INamedContainerProvider) {
+                NetworkHooks.openGui((ServerPlayerEntity) player, (INamedContainerProvider) tileEntity, pos);
+            }
         }
         return ActionResultType.SUCCESS;
     }

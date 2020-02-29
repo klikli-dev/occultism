@@ -63,7 +63,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public abstract class StorageControllerGuiBase extends ContainerScreen<StorageControllerContainerBase> implements IStorageControllerGui, IStorageControllerGuiContainer, IInventoryChangedListener {
+public abstract class StorageControllerGuiBase<T extends StorageControllerContainerBase> extends ContainerScreen<T> implements IStorageControllerGui, IStorageControllerGuiContainer, IInventoryChangedListener {
     //region Fields
     public static final int ORDER_AREA_OFFSET = 48;
     protected static final ResourceLocation BACKGROUND = new ResourceLocation(Occultism.MODID,
@@ -98,7 +98,7 @@ public abstract class StorageControllerGuiBase extends ContainerScreen<StorageCo
     //endregion Fields
 
     //region Initialization
-    public StorageControllerGuiBase(StorageControllerContainerBase container, PlayerInventory playerInventory, ITextComponent name) {
+    public StorageControllerGuiBase(T container, PlayerInventory playerInventory, ITextComponent name) {
         super(container, playerInventory, name);
         this.storageControllerContainer = (IStorageControllerContainer) container;
         this.storageControllerContainer.getOrderSlot().addListener(this);
