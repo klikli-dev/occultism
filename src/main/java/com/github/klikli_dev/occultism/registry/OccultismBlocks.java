@@ -26,6 +26,7 @@ import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.block.CandleBlock;
 import com.github.klikli_dev.occultism.common.block.ChalkGlyphBlock;
 import com.github.klikli_dev.occultism.common.block.storage.StableWormholeBlock;
+import com.github.klikli_dev.occultism.common.block.storage.StorageControllerBlock;
 import com.github.klikli_dev.occultism.common.block.storage.StorageStabilizerBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
@@ -58,6 +59,9 @@ public class OccultismBlocks {
                     .hardnessAndResistance(0.1f, 0).lightValue(12)));
 
     //Machines
+    public static final RegistryObject<StorageControllerBlock> STORAGE_CONTROLLER = BLOCKS.register("storage_controller", () -> new StorageControllerBlock(
+            Block.Properties.create(Material.ROCK).sound(SoundType.STONE)
+                    .hardnessAndResistance(5f, 100).notSolid()));
     public static final RegistryObject<StableWormholeBlock> STABLE_WORMHOLE = BLOCKS.register("stable_wormhole", () -> new StableWormholeBlock(
             Block.Properties.create(Material.ROCK).sound(SoundType.STONE).doesNotBlockMovement()
                     .hardnessAndResistance(2f, 2).notSolid()));
@@ -69,6 +73,7 @@ public class OccultismBlocks {
             Block.Properties.create(Material.ROCK).sound(SoundType.STONE).hardnessAndResistance(1.5f, 30).notSolid()));
     public static final RegistryObject<StorageStabilizerBlock> STORAGE_STABILIZER_TIER4 = BLOCKS.register("storage_stabilizer_tier4", () -> new StorageStabilizerBlock(
             Block.Properties.create(Material.ROCK).sound(SoundType.STONE).hardnessAndResistance(1.5f, 30).notSolid()));
+
     //endregion Fields
 
     //region Static Methods
@@ -76,6 +81,10 @@ public class OccultismBlocks {
         if(block instanceof ChalkGlyphBlock)
             return false;
         if(block instanceof StableWormholeBlock)
+            return false;
+        if(block instanceof StorageStabilizerBlock)
+            return false;
+        if(block instanceof StorageControllerBlock)
             return false;
         return true;
     }
@@ -85,7 +94,11 @@ public class OccultismBlocks {
     }
 
     public static boolean requiresCustomLootTable(Block block) {
-        return block instanceof StableWormholeBlock;
+        if(block instanceof StableWormholeBlock)
+            return true;
+        if(block instanceof StorageControllerBlock)
+            return true;
+        return false;
     }
     //endregion Static Methods
 }
