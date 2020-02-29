@@ -23,7 +23,6 @@
 package com.github.klikli_dev.occultism.registry;
 
 import com.github.klikli_dev.occultism.Occultism;
-import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraftforge.event.RegistryEvent;
@@ -42,7 +41,7 @@ public class RegistryEventHandler {
         // Register BlockItems for blocks without custom items
         OccultismBlocks.BLOCKS.getEntries().stream()
                 .map(RegistryObject::get)
-                .filter(OccultismBlocks::requiresDefaultBlock)
+                .filter(block -> OccultismBlocks.BLOCK_DATA_GEN_SETTINGS.get(block.getRegistryName()).generateDefaultBlockItem)
                 .forEach(block -> {
                     final Item.Properties properties = new Item.Properties().group(Occultism.ITEM_GROUP);
                     final BlockItem blockItem = new BlockItem(block, properties);

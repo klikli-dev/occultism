@@ -22,6 +22,7 @@
 
 package com.github.klikli_dev.occultism.datagen;
 
+import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.fml.RegistryObject;
@@ -40,15 +41,14 @@ public class StandardLootTableProvider extends BaseLootTableProvider {
         OccultismBlocks.BLOCKS.getEntries().stream()
                 .map(RegistryObject::get)
                 .forEach(block -> {
-                    //if the block should not drop anything (like glyph) generate empty table.
-                    if (OccultismBlocks.requiresEmptyLootTable(block))
+                    OccultismBlocks.BlockDataGenSettings settings = OccultismBlocks.BLOCK_DATA_GEN_SETTINGS.get(block.getRegistryName());
+                    if(settings.lootTableType == OccultismBlocks.LootTableType.EMPTY)
                         this.lootTables.put(block, this.empty(block));
-                        //if the block does not have a special table, just drop itself.
-                    else if (!OccultismBlocks.requiresCustomLootTable(block))
+                    else if(settings.lootTableType == OccultismBlocks.LootTableType.DROP_SELF)
                         this.lootTables.put(block, this.basic(block));
                 });
 
-        //All custom/"special" loot tables can be generated here
+        //All blocks with loot table type custom need to be registered here manually
         this.lootTables.put(OccultismBlocks.STABLE_WORMHOLE.get(),
                 this.withTileNBT(OccultismBlocks.STABLE_WORMHOLE.get()));
         this.lootTables.put(OccultismBlocks.STORAGE_CONTROLLER.get(),
