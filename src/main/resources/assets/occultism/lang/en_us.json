@@ -173,7 +173,7 @@
     "gui.occultism.storage_controller.shift": "Hold shift for more information.",
     "gui.occultism.storage_controller.search.tooltip@": "Prefix @: Search mod id.",
     "gui.occultism.storage_controller.search.tooltip#": "Prefix #: Search in item tooltip.",
-    "gui.occultism.storage_controller.search.tooltip$": "Prefix $: Search for OreDict.",
+    "gui.occultism.storage_controller.search.tooltip$": "Prefix $: Search for Tag.",
     "gui.occultism.storage_controller.search.tooltip_rightclick": "Clear the text with a right-click.",
     "gui.occultism.storage_controller.search.tooltip_clear": "Clear search.",
     "gui.occultism.storage_controller.search.tooltip_jei_on": "Sync search with JEI.",

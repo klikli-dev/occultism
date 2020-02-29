@@ -20,24 +20,12 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.github.klikli_dev.occultism.api.client.gui;
+package com.github.klikli_dev.occultism.util;
 
-import com.github.klikli_dev.occultism.api.common.data.MachineReference;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.item.ItemStack;
-
-public interface IStorageControllerGuiContainer {
-    //region Getter / Setter
-    FontRenderer getFontRenderer();
-    //endregion Getter / Setter
-
-    //region Methods
-    void drawGradientRect(int left, int top, int right, int bottom, int startColor, int endColor);
-
-    boolean isPointInRegion(int rectX, int rectY, int rectWidth, int rectHeight, double pointX, double pointY);
-
-    void renderToolTip(ItemStack stack, int x, int y);
-
-    void renderToolTip(MachineReference machine, int x, int y);
-    //endregion Methods
+public class InputUtil {
+    //region Fields
+    public static final int MOUSE_BUTTON_LEFT = 0;
+    public static final int MOUSE_BUTTON_RIGHT = 1;
+    public static final int MOUSE_BUTTON_MIDDLE = 2;
+    //endregion Fields
 }

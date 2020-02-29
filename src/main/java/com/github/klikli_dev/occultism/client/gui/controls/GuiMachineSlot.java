@@ -72,7 +72,7 @@ public class GuiMachineSlot {
     //endregion Getter / Setter
 
     //region Methods
-    public boolean isMouseOverSlot(int mouseX, int mouseY) {
+    public boolean isMouseOverSlot(double mouseX, double mouseY) {
         return this.parent.isPointInRegion(this.x - this.guiLeft, this.y - this.guiTop, 16, 16, mouseX, mouseY);
     }
 

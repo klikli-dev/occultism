@@ -30,23 +30,19 @@ import com.github.klikli_dev.occultism.api.common.container.IStorageControllerCo
 import com.github.klikli_dev.occultism.api.common.data.*;
 import com.github.klikli_dev.occultism.client.gui.controls.GuiButtonSizedImage;
 import com.github.klikli_dev.occultism.client.gui.controls.GuiItemSlot;
-import com.github.klikli_dev.occultism.client.gui.controls.GuiLabelNoShadow;
 import com.github.klikli_dev.occultism.client.gui.controls.GuiMachineSlot;
 import com.github.klikli_dev.occultism.integration.jei.JeiPlugin;
-import com.github.klikli_dev.occultism.network.MessageClearCraftingMatrix;
-import com.github.klikli_dev.occultism.network.MessageRequestStacks;
-import com.github.klikli_dev.occultism.network.OccultismPacketHandler;
+import com.github.klikli_dev.occultism.network.*;
 import com.github.klikli_dev.occultism.util.InputUtil;
-import com.github.klikli_dev.occultism.util.ModNameUtil;
+import com.github.klikli_dev.occultism.util.TextUtil;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
-import com.mojang.realmsclient.gui.ChatFormatting;
-import net.minecraft.client.Minecraft;
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.gui.widget.button.Button;
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerInventory;
@@ -59,15 +55,13 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraftforge.oredict.OreDictionary;
-import org.lwjgl.input.Keyboard;
-import org.lwjgl.input.Mouse;
+import net.minecraft.world.dimension.DimensionType;
 
 import java.awt.*;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public abstract class GuiStorageControllerBase extends ContainerScreen implements IStorageControllerGui, IStorageControllerGuiContainer, IInventoryChangedListener {
     //region Fields
@@ -153,11 +147,6 @@ public abstract class GuiStorageControllerBase extends ContainerScreen implement
     }
 
     @Override
-    public boolean isPointInRegion(int rectX, int rectY, int rectWidth, int rectHeight, int pointX, int pointY) {
-        return super.isPointInRegion(rectX, rectY, rectWidth, rectHeight, pointX, pointY);
-    }
-
-    @Override
     public void renderToolTip(ItemStack stack, int x, int y) {
         super.renderTooltip(stack, x, y);
     }
@@ -227,48 +216,197 @@ public abstract class GuiStorageControllerBase extends ContainerScreen implement
         int storageSpaceInfoLabelLeft = 110 + ORDER_AREA_OFFSET;
         int storageSpaceInfoLabelTop = 115;
         this.storageSpaceInfoText = I18n.format(TRANSLATION_KEY_BASE + ".space_info_label", this.usedSlots, maxSlots);
+
+        this.initButtons();
     }
 
-    public void initButtons(){
+    @Override
+    public void render(int mouseX, int mouseY, float partialTicks) {
+        super.render(mouseX, mouseY, partialTicks);
+        this.renderHoveredToolTip(mouseX, mouseY);
+        if (!this.isGuiValid()) {
+            this.minecraft.player.closeScreen();
+            return;
+        }
+        try {
+            this.drawTooltips(mouseX, mouseY);
+        } catch (Throwable e) {
+            Occultism.LOGGER.error("Error drawing tooltip.", e);
+        }
+    }
+
+    @Override
+    public void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
+        super.drawGuiContainerForegroundLayer(mouseX, mouseY);
+        if (!this.isGuiValid()) {
+            return;
+        }
+        if (this.forceFocus) {
+            this.searchBar.setFocused2(true);
+            if (this.searchBar.isFocused()) {
+                this.forceFocus = false;
+            }
+        }
+    }
+
+    @Override
+    protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
+        if (!this.isGuiValid()) {
+            return;
+        }
+
+        this.renderBackground();
+        this.drawBackgroundTexture();
+
+        switch (this.guiMode) {
+            case INVENTORY:
+                this.drawItems(partialTicks, mouseX, mouseY);
+                break;
+            case AUTOCRAFTING:
+                this.drawMachines(partialTicks, mouseX, mouseY);
+                break;
+        }
+        this.searchBar.render(mouseX, mouseY, partialTicks);
+    }
+
+    @Override
+    public boolean mouseClicked(double mouseX, double mouseY, int mouseButton) {
+        super.mouseClicked(mouseX, mouseY, mouseButton);
+        this.searchBar.setFocused2(false);
+        int clearButtonX = 90;
+        int clearButtonY = 110;
+
+        //right mouse button clears search bar
+        if (this.isPointInSearchbar(mouseX, mouseY)) {
+            this.searchBar.setFocused2(true);
+
+            if (mouseButton == InputUtil.MOUSE_BUTTON_RIGHT) {
+                this.clearSearch();
+            }
+        }
+        else if (this.guiMode == StorageControllerGuiMode.INVENTORY) {
+            ItemStack stackCarriedByMouse = this.minecraft.player.inventory.getItemStack();
+            if (!this.stackUnderMouse.isEmpty() &&
+                (mouseButton == InputUtil.MOUSE_BUTTON_LEFT || mouseButton == InputUtil.MOUSE_BUTTON_RIGHT) &&
+                stackCarriedByMouse.isEmpty() && this.canClick()) {
+                //take item out of storage
+                OccultismPacketHandler.sendToServer(
+                        new MessageTakeItem(this.stackUnderMouse, mouseButton, Screen.hasShiftDown(),
+                                Screen.hasControlDown()));
+                this.lastClick = System.currentTimeMillis();
+            }
+            else if (!stackCarriedByMouse.isEmpty() && this.isPointInItemArea(mouseX, mouseY) && this.canClick()) {
+                //put item into storage
+                OccultismPacketHandler.sendToServer(new MessageInsertMouseHeldItem(mouseButton));
+                this.lastClick = System.currentTimeMillis();
+            }
+        }
+        else if (this.guiMode == StorageControllerGuiMode.AUTOCRAFTING) {
+            for (GuiMachineSlot slot : this.machineSlots) {
+                if (slot.isMouseOverSlot(mouseX, mouseY)) {
+                    if (mouseButton == InputUtil.MOUSE_BUTTON_LEFT) {
+                        ItemStack orderStack = this.storageControllerContainer.getOrderSlot().getStackInSlot(0);
+                        if (Screen.hasShiftDown()) {
+                            long time = System.currentTimeMillis() + 5000;
+                            //TODO: enable block selection and rendering
+                            //Occultism.proxy.getClientData().selectBlock(slot.getMachine().globalPos.getPos(), time);
+                        }
+                        else if (!orderStack.isEmpty()) {
+                            //this message both clears the order slot and creates the order
+                            OccultismPacketHandler.sendToServer(new MessageRequestOrder(GlobalBlockPos.fromTileEntity(
+                                    (TileEntity) this.storageControllerContainer.getStorageController()),
+                                    slot.getMachine().globalPos, orderStack));
+                            //now switch back gui mode.
+                            this.guiMode = StorageControllerGuiMode.INVENTORY;
+                        }
+                    }
+                    break;
+                }
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public boolean isPointInRegion(int rectX, int rectY, int rectWidth, int rectHeight, double pointX, double pointY) {
+        return super.isPointInRegion(rectX, rectY, rectWidth, rectHeight, pointX, pointY);
+    }
+
+    @Override
+    public void onInventoryChanged(IInventory inventory) {
+        if (inventory == this.storageControllerContainer.getOrderSlot() && !inventory.getStackInSlot(0).isEmpty()) {
+            this.guiMode = StorageControllerGuiMode.AUTOCRAFTING;
+            this.init();
+        }
+    }
+
+    @Override
+    public boolean mouseScrolled(double x, double y, double mouseButton) {
+        super.mouseScrolled(x, y, mouseButton);
+
+        //check if mouse is over item area, then handle scrolling
+        if (this.isPointInItemArea(x, y)) {
+            if (mouseButton > 0 && this.currentPage > 1) {
+                this.currentPage--;
+            }
+            if (mouseButton < 0 && this.currentPage < this.totalPages) {
+                this.currentPage++;
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public boolean charTyped(char typedChar, int keyCode) {
+        if (this.searchBar.isFocused() && this.searchBar.charTyped(typedChar, keyCode)) {
+            OccultismPacketHandler.sendToServer(new MessageRequestStacks());
+            if (JeiPlugin.isJeiLoaded() && JeiPlugin.isJeiSearchSynced()) {
+                JeiPlugin.setFilterText(this.searchBar.getText());
+            }
+        }
+
+        return false;
+    }
+    //endregion Overrides
+
+    //region Methods
+    public void initButtons() {
         int controlButtonSize = 12;
 
         int clearRecipeButtonLeft = 93 + ORDER_AREA_OFFSET;
         int clearRecipeButtonTop = 112;
         this.clearRecipeButton = new GuiButtonSizedImage(this.guiLeft + clearRecipeButtonLeft,
                 this.guiTop + clearRecipeButtonTop, controlButtonSize, controlButtonSize, 0, 196, 28, 28, 28, 256, 256,
-                BUTTONS, (button) -> {
-            OccultismPacketHandler.sendToServer(new MessageClearCraftingMatrix());
-            OccultismPacketHandler.sendToServer(new MessageRequestStacks());
-        } );
+                BUTTONS, this::handleButton);
         this.addButton(this.clearRecipeButton);
 
         int controlButtonTop = 5;
 
         int clearTextButtonLeft = 99 + ORDER_AREA_OFFSET;
-        this.clearTextButton = new GuiButtonSizedImage(0, this.guiLeft + clearTextButtonLeft,
+        this.clearTextButton = new GuiButtonSizedImage(this.guiLeft + clearTextButtonLeft,
                 this.guiTop + controlButtonTop, controlButtonSize, controlButtonSize, 0, 196, 28, 28, 28, 256, 256,
-                BUTTONS);
+                BUTTONS, this::handleButton);
         this.addButton(this.clearTextButton);
 
 
         int sortTypeOffset = this.getSortType().getValue() * 28;
-        this.sortTypeButton = new GuiButtonSizedImage(2, this.guiLeft + clearTextButtonLeft + controlButtonSize + 3,
+        this.sortTypeButton = new GuiButtonSizedImage(this.guiLeft + clearTextButtonLeft + controlButtonSize + 3,
                 this.guiTop + controlButtonTop, controlButtonSize, controlButtonSize, 0, sortTypeOffset, 28, 28, 28,
-                256, 256, BUTTONS);
+                256, 256, BUTTONS, this::handleButton);
         this.addButton(this.sortTypeButton);
 
         int sortDirectionOffset = 84 + (1 - this.getSortDirection().getValue()) * 28;
-        this.sortDirectionButton = new GuiButtonSizedImage(3,
+        this.sortDirectionButton = new GuiButtonSizedImage(
                 this.guiLeft + clearTextButtonLeft + controlButtonSize + 3 + controlButtonSize + 3,
                 this.guiTop + controlButtonTop, controlButtonSize, controlButtonSize, 0, sortDirectionOffset, 28, 28,
-                28, 256, 256, BUTTONS);
+                28, 256, 256, BUTTONS, this::handleButton);
         this.addButton(this.sortDirectionButton);
 
         int jeiSyncOffset = 140 + (JeiPlugin.isJeiSearchSynced() ? 0 : 1) * 28;
-        this.jeiSyncButton = new GuiButtonSizedImage(4,
+        this.jeiSyncButton = new GuiButtonSizedImage(
                 this.guiLeft + clearTextButtonLeft + controlButtonSize + 3 + controlButtonSize + 3 + controlButtonSize +
                 3, this.guiTop + controlButtonTop, controlButtonSize, controlButtonSize, 0, jeiSyncOffset, 28, 28, 28,
-                256, 256, BUTTONS);
+                256, 256, BUTTONS, this::handleButton);
 
         if (JeiPlugin.isJeiLoaded())
             this.addButton(this.jeiSyncButton);
@@ -282,179 +420,29 @@ public abstract class GuiStorageControllerBase extends ContainerScreen implement
         switch (this.guiMode) {
             case INVENTORY:
                 //active tab button for inventory
-                this.inventoryModeButton = new GuiButtonSizedImage(5, this.guiLeft + guiModeButtonLeft,
+                this.inventoryModeButton = new GuiButtonSizedImage(this.guiLeft + guiModeButtonLeft,
                         this.guiTop + 112, guiModeButtonWidth, guiModeButtonHeight, 160, 0, 0, guiModeButtonWidth * 2,
-                        guiModeButtonHeight * 2, 256, 256, BUTTONS);
+                        guiModeButtonHeight * 2, 256, 256, BUTTONS, this::handleButton);
                 //inactive tab button for crafting
-                this.autocraftingModeButton = new GuiButtonSizedImage(6, this.guiLeft + guiModeButtonLeft,
+                this.autocraftingModeButton = new GuiButtonSizedImage(this.guiLeft + guiModeButtonLeft,
                         this.guiTop + guiModeButtonTop + guiModeButtonHeight, guiModeButtonWidth, guiModeButtonHeight,
-                        160, 174, 0, guiModeButtonWidth * 2, guiModeButtonHeight * 2, 256, 256, BUTTONS);
+                        160, 174, 0, guiModeButtonWidth * 2, guiModeButtonHeight * 2, 256, 256, BUTTONS,
+                        this::handleButton);
                 break;
             case AUTOCRAFTING:
                 //inactive tab button for inventory
-                this.inventoryModeButton = new GuiButtonSizedImage(5, this.guiLeft + guiModeButtonLeft,
+                this.inventoryModeButton = new GuiButtonSizedImage(this.guiLeft + guiModeButtonLeft,
                         this.guiTop + 112, guiModeButtonWidth, guiModeButtonHeight, 160, 58, 0, guiModeButtonWidth * 2,
-                        guiModeButtonHeight * 2, 256, 256, BUTTONS);
+                        guiModeButtonHeight * 2, 256, 256, BUTTONS, this::handleButton);
                 //active tab button for crafting
-                this.autocraftingModeButton = new GuiButtonSizedImage(6, this.guiLeft + guiModeButtonLeft,
+                this.autocraftingModeButton = new GuiButtonSizedImage(this.guiLeft + guiModeButtonLeft,
                         this.guiTop + guiModeButtonTop + guiModeButtonHeight, guiModeButtonWidth, guiModeButtonHeight,
-                        160, 116, 0, guiModeButtonWidth * 2, guiModeButtonHeight * 2, 256, 256, BUTTONS);
+                        160, 116, 0, guiModeButtonWidth * 2, guiModeButtonHeight * 2, 256, 256, BUTTONS,
+                        this::handleButton);
                 break;
         }
         this.addButton(this.inventoryModeButton);
         this.addButton(this.autocraftingModeButton);
-    }
-
-    @Override
-    public void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-        super.drawGuiContainerForegroundLayer(mouseX, mouseY);
-        if (!this.isGuiValid()) {
-            return;
-        }
-        if (this.forceFocus) {
-            this.searchBar.setFocused(true);
-            if (this.searchBar.isFocused()) {
-                this.forceFocus = false;
-            }
-        }
-    }
-
-    @Override
-    protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
-        if (!this.isGuiValid()) {
-            return;
-        }
-        this.drawDefaultBackground(); //Draw vanilla backdrop
-        this.drawBackgroundTexture();
-
-        switch (this.guiMode) {
-            case INVENTORY:
-                this.drawItems(partialTicks, mouseX, mouseY);
-                break;
-            case AUTOCRAFTING:
-                this.drawMachines(partialTicks, mouseX, mouseY);
-                break;
-        }
-        this.searchBar.drawTextBox();
-    }
-
-    @Override
-    public void onInventoryChanged(IInventory inventory) {
-        if (inventory == this.storageControllerContainer.getOrderSlot() && !inventory.getStackInSlot(0).isEmpty()) {
-            this.guiMode = StorageControllerGuiMode.AUTOCRAFTING;
-            this.initGui();
-        }
-    }
-    //endregion Overrides
-
-    //region Methods
-    @Override
-    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-        super.drawScreen(mouseX, mouseY, partialTicks);
-        super.renderHoveredToolTip(mouseX, mouseY);
-        if (!this.isGuiValid()) {
-            this.mc.player.closeScreen();
-            return;
-        }
-        try {
-            this.drawTooltips(mouseX, mouseY);
-        } catch (Throwable e) {
-            Occultism.logger.error("Error drawing tooltip.", e);
-        }
-    }
-
-    @Override
-    public void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
-        super.mouseClicked(mouseX, mouseY, mouseButton);
-        this.searchBar.setFocused(false);
-        int clearButtonX = 90;
-        int clearButtonY = 110;
-
-        //right mouse button clears search bar
-        if (this.isPointInSearchbar(mouseX, mouseY)) {
-            this.searchBar.setFocused(true);
-
-            if (mouseButton == InputUtil.MOUSE_BUTTON_RIGHT) {
-                this.clearSearch();
-            }
-        }
-        else if (this.guiMode == StorageControllerGuiMode.INVENTORY) {
-            ItemStack stackCarriedByMouse = this.mc.player.inventory.getItemStack();
-            if (mouseButton == InputUtil.MOUSE_BUTTON_MIDDLE && !stackCarriedByMouse.isEmpty()) {
-                //ignore middle clicks while dragging an item
-                return;
-            }
-
-            if (!this.stackUnderMouse.isEmpty() &&
-                (mouseButton == InputUtil.MOUSE_BUTTON_LEFT || mouseButton == InputUtil.MOUSE_BUTTON_RIGHT) &&
-                stackCarriedByMouse.isEmpty() && this.canClick()) {
-                //take item out of storage
-                Occultism.network.sendToServer(
-                        new MessageTakeItem(this.stackUnderMouse, mouseButton, isShiftKeyDown(), isCtrlKeyDown()));
-                this.lastClick = System.currentTimeMillis();
-            }
-            else if (!stackCarriedByMouse.isEmpty() && this.isPointInItemArea(mouseX, mouseY) && this.canClick()) {
-                //put item into storage
-                Occultism.network.sendToServer(new MessageInsertMouseHeldItem(mouseButton));
-                this.lastClick = System.currentTimeMillis();
-            }
-        }
-        else if (this.guiMode == StorageControllerGuiMode.AUTOCRAFTING) {
-            for (GuiMachineSlot slot : this.machineSlots) {
-                if (slot.isMouseOverSlot(mouseX, mouseY)) {
-                    if (mouseButton == InputUtil.MOUSE_BUTTON_LEFT) {
-                        ItemStack orderStack = this.storageControllerContainer.getOrderSlot().getStackInSlot(0);
-                        if (isShiftKeyDown()) {
-                            long time = System.currentTimeMillis() + 5000;
-                            Occultism.proxy.getClientData().selectBlock(slot.getMachine().globalPos.getPos(), time);
-                        }
-                        else if (!orderStack.isEmpty()) {
-                            //this message both clears the order slot and creates the order
-                            Occultism.network.sendToServer(new MessageRequestOrder(GlobalBlockPos.fromTileEntity(
-                                    (TileEntity) this.storageControllerContainer.getStorageController()),
-                                    slot.getMachine().globalPos, orderStack));
-                            //now switch back gui mode.
-                            this.guiMode = StorageControllerGuiMode.INVENTORY;
-                        }
-                    }
-                    break;
-                }
-            }
-        }
-    }
-
-    @Override
-    public void keyTyped(char typedChar, int keyCode) throws IOException {
-        if (!this.checkHotbarKeys(keyCode)) {
-            Keyboard.enableRepeatEvents(true);
-            if (this.searchBar.isFocused() && this.searchBar.textboxKeyTyped(typedChar, keyCode)) {
-                Occultism.network.sendToServer(new MessageRequestStacks());
-                if (JeiPlugin.isJeiLoaded() && JeiPlugin.isJeiSearchSynced()) {
-                    JeiPlugin.setFilterText(this.searchBar.getText());
-                }
-            }
-            else if (!this.stackUnderMouse.isEmpty()) {
-                //                    //TODO: check keybinds with jey
-                //                    //JeiPlugin.testJeiKeybind(keyCode, this.stackUnderMouse);
-            }
-            else {
-                super.keyTyped(typedChar, keyCode);
-            }
-        }
-    }
-
-    @Override
-    public void onGuiClosed() {
-        super.onGuiClosed();
-        Keyboard.enableRepeatEvents(false);
-    }
-
-    @Override
-    public void updateScreen() {
-        super.updateScreen();
-        if (this.searchBar != null) {
-            this.searchBar.updateCursorCounter();
-        }
     }
 
     public void handleButton(Button button) {
@@ -464,55 +452,36 @@ public abstract class GuiStorageControllerBase extends ContainerScreen implement
 
         boolean sort = true;
 
-        switch (button) {
-            case 0:
-                sort = false;
-                this.clearSearch();
-                this.forceFocus = true; //force focus
-                break;
-            case 1:
-
-                break;
-            case 2:
-                this.setSortType(this.getSortType().next());
-                break;
-            case 3:
-                this.setSortDirection(this.getSortDirection().next());
-                break;
-            case 4:
-                sort = false;
-                JeiPlugin.setJeiSearchSync(!JeiPlugin.isJeiSearchSynced());
-                break;
-            case 5:
-                this.guiMode = StorageControllerGuiMode.INVENTORY;
-                break;
-            case 6:
-                this.guiMode = StorageControllerGuiMode.AUTOCRAFTING;
-                break;
+        if (button == this.clearTextButton) {
+            sort = false;
+            this.clearSearch();
+            this.forceFocus = true; //force focus
+        }
+        if (button == this.clearRecipeButton) {
+            OccultismPacketHandler.sendToServer(new MessageClearCraftingMatrix());
+            OccultismPacketHandler.sendToServer(new MessageRequestStacks());
+        }
+        if (button == this.sortTypeButton) {
+            this.setSortType(this.getSortType().next());
+        }
+        if (button == this.sortDirectionButton) {
+            this.setSortDirection(this.getSortDirection().next());
+        }
+        if (button == this.jeiSyncButton) {
+            sort = false;
+            JeiPlugin.setJeiSearchSync(!JeiPlugin.isJeiSearchSynced());
+        }
+        if (button == this.inventoryModeButton) {
+            this.guiMode = StorageControllerGuiMode.INVENTORY;
+        }
+        if (button == this.autocraftingModeButton) {
+            this.guiMode = StorageControllerGuiMode.AUTOCRAFTING;
         }
 
         if (sort)
-            Occultism.network.sendToServer(
+            OccultismPacketHandler.sendToServer(
                     new MessageSortItems(this.getEntityPosition(), this.getSortDirection(), this.getSortType()));
-        this.initGui();
-    }
-
-    @Override
-    public void handleMouseInput() throws IOException {
-        super.handleMouseInput();
-
-        //check if mouse is over item area, then handle scrolling
-        int i = Mouse.getX() * this.width / this.mc.displayWidth;
-        int j = this.height - Mouse.getY() * this.height / this.mc.displayHeight - 1;
-        if (this.isPointInItemArea(i, j)) {
-            int mouse = Mouse.getEventDWheel();
-            if (mouse > 0 && this.currentPage > 1) {
-                this.currentPage--;
-            }
-            if (mouse < 0 && this.currentPage < this.totalPages) {
-                this.currentPage++;
-            }
-        }
+        this.init();
     }
 
     protected void drawItems(float partialTicks, int mouseX, int mouseY) {
@@ -535,12 +504,12 @@ public abstract class GuiStorageControllerBase extends ContainerScreen implement
         return System.currentTimeMillis() > this.lastClick + 100L;
     }
 
-    protected boolean isPointInSearchbar(int mouseX, int mouseY) {
+    protected boolean isPointInSearchbar(double mouseX, double mouseY) {
         return this.isPointInRegion(this.searchBar.x - this.guiLeft + 14, this.searchBar.y - this.guiTop,
-                this.searchBar.width, this.fontRenderer.FONT_HEIGHT + 6, mouseX, mouseY);
+                this.searchBar.getWidth(), this.font.FONT_HEIGHT + 6, mouseX, mouseY);
     }
 
-    protected boolean isPointInItemArea(int mouseX, int mouseY) {
+    protected boolean isPointInItemArea(double mouseX, double mouseY) {
         int itemAreaHeight = 82;
         int itemAreaTop = 24;
         int itemAreaLeft = 8 + ORDER_AREA_OFFSET;
@@ -568,7 +537,7 @@ public abstract class GuiStorageControllerBase extends ContainerScreen implement
 
         if (this.isPointInSearchbar(mouseX, mouseY)) {
             List<String> tooltip = new ArrayList<>();
-            if (!isShiftKeyDown()) {
+            if (!Screen.hasShiftDown()) {
                 tooltip.add(I18n.format(TRANSLATION_KEY_BASE + ".shift"));
             }
             else {
@@ -584,13 +553,13 @@ public abstract class GuiStorageControllerBase extends ContainerScreen implement
                 }
                 tooltip.add(I18n.format(TRANSLATION_KEY_BASE + ".search.tooltip_rightclick"));
             }
-            this.drawHoveringText(tooltip, mouseX, mouseY);
+            this.renderTooltip(tooltip, mouseX, mouseY);
         }
-        if (this.clearTextButton != null && this.clearTextButton.isMouseOver()) {
-            this.drawHoveringText(Lists.newArrayList(I18n.format(TRANSLATION_KEY_BASE + ".search.tooltip_clear")),
+        if (this.clearTextButton != null && this.clearTextButton.isMouseOver(mouseX, mouseY)) {
+            this.renderTooltip(Lists.newArrayList(I18n.format(TRANSLATION_KEY_BASE + ".search.tooltip_clear")),
                     mouseX, mouseY);
         }
-        if (this.sortTypeButton != null && this.sortTypeButton.isMouseOver()) {
+        if (this.sortTypeButton != null && this.sortTypeButton.isMouseOver(mouseX, mouseY)) {
             String translationKey = "";
             switch (this.guiMode) {
                 case INVENTORY:
@@ -601,24 +570,26 @@ public abstract class GuiStorageControllerBase extends ContainerScreen implement
                             TRANSLATION_KEY_BASE + ".search.machines.tooltip_sort_type_" + this.getSortType().getName();
                     break;
             }
-            this.drawHoveringText(Lists.newArrayList(I18n.format(translationKey)), mouseX, mouseY);
+            this.renderTooltip(Lists.newArrayList(I18n.format(translationKey)), mouseX, mouseY);
         }
-        if (this.sortDirectionButton != null && this.sortDirectionButton.isMouseOver()) {
-            this.drawHoveringText(Lists.newArrayList(I18n.format(
+        if (this.sortDirectionButton != null && this.sortDirectionButton.isMouseOver(mouseX, mouseY)) {
+            this.renderTooltip(Lists.newArrayList(I18n.format(
                     TRANSLATION_KEY_BASE + ".search.tooltip_sort_direction_" + this.getSortDirection().getName())),
                     mouseX, mouseY);
         }
-        if (this.jeiSyncButton != null && this.jeiSyncButton.isMouseOver()) {
+        if (this.jeiSyncButton != null && this.jeiSyncButton.isMouseOver(mouseX, mouseY)) {
             String s = I18n.format(
                     TRANSLATION_KEY_BASE + ".search.tooltip_jei_" + (JeiPlugin.isJeiSearchSynced() ? "on" : "off"));
-            this.drawHoveringText(Lists.newArrayList(s), mouseX, mouseY);
+            this.renderTooltip(Lists.newArrayList(s), mouseX, mouseY);
         }
     }
 
     protected void drawBackgroundTexture() {
-        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-        this.mc.getTextureManager().bindTexture(BACKGROUND);
-        this.drawTexturedModalRect(this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
+        RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+        this.minecraft.getTextureManager().bindTexture(BACKGROUND);
+        int xCenter = (this.width - this.xSize) / 2;
+        int yCenter = (this.height - this.ySize) / 2;
+        this.blit(this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
     }
 
     protected void drawItemSlots(int mouseX, int mouseY) {
@@ -687,10 +658,12 @@ public abstract class GuiStorageControllerBase extends ContainerScreen implement
                     case AMOUNT:
                         return Integer.compare(b.getCount(), a.getCount()) * this.direction;
                     case NAME:
-                        return a.getDisplayName().compareToIgnoreCase(b.getDisplayName()) * this.direction;
+                        return a.getDisplayName().getUnformattedComponentText()
+                                       .compareToIgnoreCase(b.getDisplayName().getUnformattedComponentText()) *
+                               this.direction;
                     case MOD:
-                        return ModNameUtil.getModNameForGameObject(a.getItem())
-                                       .compareToIgnoreCase(ModNameUtil.getModNameForGameObject(b.getItem())) *
+                        return TextUtil.getModNameForGameObject(a.getItem())
+                                       .compareToIgnoreCase(TextUtil.getModNameForGameObject(b.getItem())) *
                                this.direction;
                 }
                 return 0;
@@ -731,45 +704,47 @@ public abstract class GuiStorageControllerBase extends ContainerScreen implement
     protected boolean itemMatchesSearch(ItemStack stack) {
         String searchText = this.searchBar.getText();
         if (searchText.startsWith("@")) {
-            String name = ModNameUtil.getModNameForGameObject(stack.getItem());
+            String name = TextUtil.getModNameForGameObject(stack.getItem());
             return name.toLowerCase().contains(searchText.toLowerCase().substring(1));
         }
         else if (searchText.startsWith("#")) {
             String tooltipString;
-            List<String> tooltip = stack.getTooltip(this.mc.player, ITooltipFlag.TooltipFlags.NORMAL);
+            List<String> tooltip = stack.getTooltip(this.minecraft.player, ITooltipFlag.TooltipFlags.NORMAL).stream()
+                                           .map(ITextComponent::getUnformattedComponentText).collect(
+                            Collectors.toList());
             tooltipString = Joiner.on(' ').join(tooltip).toLowerCase();
-            tooltipString = ChatFormatting.stripFormatting(tooltipString);
             return tooltipString.toLowerCase().contains(searchText.toLowerCase().substring(1));
         }
         else if (searchText.startsWith("$")) {
-            StringBuilder oreDictStringBuilder = new StringBuilder();
-            for (int oreId : OreDictionary.getOreIDs(stack)) {
-                String oreName = OreDictionary.getOreName(oreId);
-                oreDictStringBuilder.append(oreName).append(' ');
+            StringBuilder tagStringBuilder = new StringBuilder();
+            for (ResourceLocation tag : stack.getItem().getTags()) {
+                tagStringBuilder.append(tag.toString()).append(' ');
             }
-            return oreDictStringBuilder.toString().toLowerCase().contains(searchText.toLowerCase().substring(1));
+            return tagStringBuilder.toString().toLowerCase().contains(searchText.toLowerCase().substring(1));
         }
         else {
-            return stack.getDisplayName().toLowerCase().contains(searchText.toLowerCase());
+            return stack.getDisplayName().getUnformattedComponentText().toLowerCase()
+                           .contains(searchText.toLowerCase());
         }
     }
 
     protected boolean machineMatchesSearch(MachineReference machine) {
         String searchText = this.searchBar.getText();
         if (searchText.startsWith("@")) {
-            String name = ModNameUtil.getModNameForGameObject(machine.getItem());
+            String name = TextUtil.getModNameForGameObject(machine.getItem());
             return name.toLowerCase().contains(searchText.toLowerCase().substring(1));
         }
         else {
             String customName = machine.customName == null ? "" : machine.customName.toLowerCase();
-            return machine.getItemStack().getDisplayName().toLowerCase().contains(searchText.toLowerCase()) ||
+            return machine.getItemStack().getDisplayName().getUnformattedComponentText().toLowerCase()
+                           .contains(searchText.toLowerCase()) ||
                    customName.contains(searchText.toLowerCase().substring(1));
         }
     }
 
     protected void sortMachines(List<MachineReference> machinesToDisplay) {
         BlockPos entityPosition = this.getEntityPosition();
-        int dimension = Minecraft.getMinecraft().player.dimension;
+        DimensionType dimensionType = this.minecraft.player.dimension;
         machinesToDisplay.sort(new Comparator<MachineReference>() {
 
             //region Fields
@@ -781,17 +756,21 @@ public abstract class GuiStorageControllerBase extends ContainerScreen implement
             public int compare(MachineReference a, MachineReference b) {
                 switch (GuiStorageControllerBase.this.getSortType()) {
                     case AMOUNT: //use distance in this case
-                        double distanceA = a.globalPos.getDimension() == dimension ? a.globalPos.getPos().distanceSq(
-                                entityPosition) : Double.MAX_VALUE;
-                        double distanceB = b.globalPos.getDimension() == dimension ? b.globalPos.getPos().distanceSq(
-                                entityPosition) : Double.MAX_VALUE;
+                        double distanceA =
+                                a.globalPos.getDimensionType() == dimensionType ? a.globalPos.getPos().distanceSq(
+                                        entityPosition) : Double.MAX_VALUE;
+                        double distanceB =
+                                b.globalPos.getDimensionType() == dimensionType ? b.globalPos.getPos().distanceSq(
+                                        entityPosition) : Double.MAX_VALUE;
                         return Double.compare(distanceB, distanceA) * this.direction;
                     case NAME:
-                        return a.getItemStack().getDisplayName()
-                                       .compareToIgnoreCase(b.getItemStack().getDisplayName()) * this.direction;
+                        return a.getItemStack().getDisplayName().getUnformattedComponentText()
+                                       .compareToIgnoreCase(
+                                               b.getItemStack().getDisplayName().getUnformattedComponentText()) *
+                               this.direction;
                     case MOD:
-                        return ModNameUtil.getModNameForGameObject(a.getItem())
-                                       .compareToIgnoreCase(ModNameUtil.getModNameForGameObject(b.getItem())) *
+                        return TextUtil.getModNameForGameObject(a.getItem())
+                                       .compareToIgnoreCase(TextUtil.getModNameForGameObject(b.getItem())) *
                                this.direction;
                 }
                 return 0;

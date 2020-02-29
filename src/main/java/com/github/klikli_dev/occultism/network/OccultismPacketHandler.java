@@ -77,6 +77,30 @@ public class OccultismPacketHandler {
                 MessageClearCraftingMatrix::encode,
                 MessageClearCraftingMatrix::new,
                 MessageClearCraftingMatrix::handle);
+
+        INSTANCE.registerMessage(nextID(),
+                MessageTakeItem.class,
+                MessageTakeItem::encode,
+                MessageTakeItem::new,
+                MessageTakeItem::handle);
+
+        INSTANCE.registerMessage(nextID(),
+                MessageUpdateMouseHeldItem.class,
+                MessageUpdateMouseHeldItem::encode,
+                MessageUpdateMouseHeldItem::new,
+                MessageUpdateMouseHeldItem::handle);
+
+        INSTANCE.registerMessage(nextID(),
+                MessageInsertMouseHeldItem.class,
+                MessageInsertMouseHeldItem::encode,
+                MessageInsertMouseHeldItem::new,
+                MessageInsertMouseHeldItem::handle);
+
+        INSTANCE.registerMessage(nextID(),
+                MessageRequestOrder.class,
+                MessageRequestOrder::encode,
+                MessageRequestOrder::new,
+                MessageRequestOrder::handle);
     }
 
     public static <MSG> void sendTo(ServerPlayerEntity player, MSG message) {

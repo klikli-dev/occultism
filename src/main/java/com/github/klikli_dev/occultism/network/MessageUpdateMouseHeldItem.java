@@ -20,24 +20,49 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.github.klikli_dev.occultism.api.client.gui;
+package com.github.klikli_dev.occultism.network;
 
-import com.github.klikli_dev.occultism.api.common.data.MachineReference;
-import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.Minecraft;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.PacketBuffer;
+import net.minecraftforge.fml.network.NetworkEvent;
 
-public interface IStorageControllerGuiContainer {
-    //region Getter / Setter
-    FontRenderer getFontRenderer();
-    //endregion Getter / Setter
+/**
+ * Updates the item currently held by the mouse
+ */
+public class MessageUpdateMouseHeldItem extends MessageBase {
 
-    //region Methods
-    void drawGradientRect(int left, int top, int right, int bottom, int startColor, int endColor);
+    //region Fields
+    private ItemStack stack;
+    //endregion Fields
 
-    boolean isPointInRegion(int rectX, int rectY, int rectWidth, int rectHeight, double pointX, double pointY);
+    //region Initialization
 
-    void renderToolTip(ItemStack stack, int x, int y);
+    public MessageUpdateMouseHeldItem(PacketBuffer buf) {
+        super(buf);
+    }
 
-    void renderToolTip(MachineReference machine, int x, int y);
-    //endregion Methods
+    public MessageUpdateMouseHeldItem(ItemStack itemStack) {
+        this.stack = itemStack;
+    }
+    //endregion Initialization
+
+    //region Overrides
+
+    @Override
+    public void onClientReceived(Minecraft minecraft, PlayerEntity player, NetworkEvent.Context context) {
+        player.inventory.setItemStack(this.stack);
+    }
+
+    @Override
+    public void encode(PacketBuffer buf) {
+        buf.writeItemStack(this.stack);
+    }
+
+    @Override
+    public void decode(PacketBuffer buf) {
+        this.stack = buf.readItemStack();
+    }
+    //endregion Overrides
 }

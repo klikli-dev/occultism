@@ -22,10 +22,65 @@
 
 package com.github.klikli_dev.occultism.util;
 
+import net.minecraft.block.Block;
+import net.minecraft.item.Item;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraftforge.fml.ModList;
+import net.minecraftforge.fml.loading.moddiscovery.ModInfo;
+import net.minecraftforge.registries.ForgeRegistries;
+import org.apache.commons.lang3.text.WordUtils;
+
+import javax.annotation.Nonnull;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
 
 public class TextUtil {
+
+    //region Fields
+    private static final Map<String, String> MOD_NAME_TO_ID = new HashMap<String, String>();
+    private static boolean modNamesInitialized = false;
+    //endregion Fields
+
     //region Static Methods
+    public static void initializeModNames() {
+        modNamesInitialized = true;
+        for (ModInfo info : ModList.get().getMods()) {
+            MOD_NAME_TO_ID.put(info.getModId(), info.getDisplayName());
+        }
+    }
+
+    /**
+     * Gets the mod name for the given game object
+     *
+     * @param object the game object (item or block) to get the mod name for.
+     * @return the mod name or null if invalid object type was supplied.
+     */
+    public static String getModNameForGameObject(@Nonnull Object object) {
+
+        if (modNamesInitialized)
+            initializeModNames();
+
+        ResourceLocation key;
+        if (object instanceof Item) {
+            key = ForgeRegistries.ITEMS.getKey((Item) object);
+        }
+        else if (object instanceof Block) {
+            key = ForgeRegistries.BLOCKS.getKey((Block) object);
+        }
+        else {
+            return null;
+        }
+        String modId = key.getNamespace();
+        String lowercaseModId = modId.toLowerCase(Locale.ENGLISH);
+        String modName = MOD_NAME_TO_ID.get(lowercaseModId);
+        if (modName == null) {
+            modName = WordUtils.capitalize(modId);
+            MOD_NAME_TO_ID.put(lowercaseModId, modName);
+        }
+        return modName;
+    }
 
     /**
      * Formats the given spirit name in bold and gold.
