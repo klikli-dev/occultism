@@ -22,6 +22,7 @@
 
 package com.github.klikli_dev.occultism;
 
+import com.github.klikli_dev.occultism.network.OccultismPacketHandler;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.common.OccultismItemGroup;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
@@ -72,6 +73,7 @@ public class Occultism {
     //region Methods
 
     private void commonSetup(final FMLCommonSetupEvent event) {
+        OccultismPacketHandler.registerMessages();
         LOGGER.info("Common setup complete.");
     }
 
