@@ -80,20 +80,21 @@ public class GuiButtonSizedImage extends ImageButton {
     //endregion Overrides
 
 //region Methods
-    public void drawButton(Minecraft mc, int mouseX, int mouseY, float partialTicks) {
+    @Override
+    public void renderButton(int mouseX, int mouseY, float partialTicks) {
         if (this.visible) {
             //TODO: if gui buttons work, remove this, otherwise find replacement for it
             //            this.hovered = mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.width &&
             //                           mouseY < this.y + this.height;
-            mc.getTextureManager().bindTexture(this.resourceLocation);
+            Minecraft.getInstance().getTextureManager().bindTexture(this.resourceLocation);
             RenderSystem.disableDepthTest();
             int i = this.xTexStart;
             int j = this.yTexStart;
             if (this.isHovered()) {
                 i += this.xDiffOffset;
             }
-            blit(this.x, this.y, i, j, this.textureWidth, this.textureHeight, this.width,
-                    this.height, this.textureMapWidth, this.textureMapHeight);
+            blit(this.x, this.y, this.width, this.height, i, j, this.textureWidth, this.textureHeight, this.textureMapWidth, this.textureMapHeight);
+            //blit(this.x, this.y, this.width, this.height, i, j, this.textureMapWidth, this.textureMapHeight, this.textureWidth, this.textureHeight);
             //TODO: verify we got the right function
             //            drawScaledCustomSizeModalRect(this.x, this.y, i, j, this.textureWidth, this.textureHeight, this.width,
             //                    this.height, this.textureMapWidth, this.textureMapHeight);
