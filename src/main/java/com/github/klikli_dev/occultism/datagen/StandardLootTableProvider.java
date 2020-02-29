@@ -42,19 +42,17 @@ public class StandardLootTableProvider extends BaseLootTableProvider {
                 .forEach(block -> {
                     //if the block should not drop anything (like glyph) generate empty table.
                     if (OccultismBlocks.requiresEmptyLootTable(block))
-                        this.lootTables.put(block, this.empty(block.getRegistryName().getPath(), block));
+                        this.lootTables.put(block, this.empty(block));
                         //if the block does not have a special table, just drop itself.
                     else if (!OccultismBlocks.requiresCustomLootTable(block))
-                        this.lootTables.put(block, this.basic(block.getRegistryName().getPath(), block));
+                        this.lootTables.put(block, this.basic(block));
                 });
 
         //All custom/"special" loot tables can be generated here
         this.lootTables.put(OccultismBlocks.STABLE_WORMHOLE.get(),
-                this.withTileNBT(OccultismBlocks.STABLE_WORMHOLE.get().getRegistryName().getPath(),
-                        OccultismBlocks.STABLE_WORMHOLE.get()));
+                this.withTileNBT(OccultismBlocks.STABLE_WORMHOLE.get()));
         this.lootTables.put(OccultismBlocks.STORAGE_CONTROLLER.get(),
-                this.withTileNBT(OccultismBlocks.STORAGE_CONTROLLER.get().getRegistryName().getPath(),
-                        OccultismBlocks.STORAGE_CONTROLLER.get()));
+                this.withTileNBT(OccultismBlocks.STORAGE_CONTROLLER.get()));
     }
     //endregion Overrides
 }

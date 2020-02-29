@@ -37,6 +37,7 @@ import net.minecraft.data.loot.BlockLootTables;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.storage.loot.*;
 import net.minecraft.world.storage.loot.conditions.SurvivesExplosion;
+import net.minecraft.world.storage.loot.functions.CopyName;
 import net.minecraft.world.storage.loot.functions.CopyNbt;
 
 import java.io.IOException;
@@ -92,14 +93,12 @@ public abstract class BaseLootTableProvider extends LootTableProvider {
      * Creates a basic loot table that drops only the block itself, if it survives the explosion.
      * Mirrors old vanilla behaviour.
      *
-     * @param name  the loot table name.
      * @param block the block to generate for.
      * @return the loot table.
      */
-    protected LootTable.Builder basic(String name, Block block) {
+    protected LootTable.Builder basic(Block block) {
         this.blockLootTables.registerDropSelfLootTable(block);
         LootPool.Builder builder = LootPool.builder()
-                                           .name(name)
                                            .rolls(ConstantRange.of(1))
                                            .addEntry(ItemLootEntry.builder(block))
                                            .acceptCondition(SurvivesExplosion.builder());
@@ -109,26 +108,22 @@ public abstract class BaseLootTableProvider extends LootTableProvider {
     /**
      * Creates an empty loot table with no drop.
      *
-     * @param name  the loot table name.
      * @param block the block to generate for.
      * @return the loot table.
      */
-    protected LootTable.Builder empty(String name, Block block) {
-        LootPool.Builder builder = LootPool.builder()
-                                           .name(name);
+    protected LootTable.Builder empty(Block block) {
+        LootPool.Builder builder = LootPool.builder();
         return LootTable.builder().addLootPool(builder);
     }
 
     /**
      * Creates a loot table to drop the block with tile entity nbt.
      *
-     * @param name  the loot table name.
      * @param block the block to generate for.
      * @return the loot table.
      */
-    protected LootTable.Builder withTileNBT(String name, Block block) {
+    protected LootTable.Builder withTileNBT(Block block) {
         LootPool.Builder builder = LootPool.builder()
-                                           .name(name)
                                            .rolls(ConstantRange.of(1))
                                            .addEntry(ItemLootEntry.builder(block)
                                                              .acceptFunction(
