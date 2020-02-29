@@ -22,12 +22,10 @@
 
 package com.github.klikli_dev.occultism;
 
-import com.github.klikli_dev.occultism.network.OccultismPacketHandler;
-import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.common.OccultismItemGroup;
-import com.github.klikli_dev.occultism.registry.OccultismItems;
-import com.github.klikli_dev.occultism.registry.OccultismSounds;
 import com.github.klikli_dev.occultism.config.OccultismConfig;
+import com.github.klikli_dev.occultism.network.OccultismPacketHandler;
+import com.github.klikli_dev.occultism.registry.*;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.item.ItemGroup;
@@ -56,8 +54,11 @@ public class Occultism {
     public Occultism() {
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, CONFIG.spec);
 
-        OccultismItems.ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
         OccultismBlocks.BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
+        OccultismItems.ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
+        OccultismTiles.TILES.register(FMLJavaModLoadingContext.get().getModEventBus());
+        OccultismContainers.CONTAINERS.register(FMLJavaModLoadingContext.get().getModEventBus());
+        OccultismEntities.ENTITIES.register(FMLJavaModLoadingContext.get().getModEventBus());
         OccultismSounds.SOUNDS.register(FMLJavaModLoadingContext.get().getModEventBus());
 
         //register event buses
@@ -71,6 +72,12 @@ public class Occultism {
 
     //endregion Initialization
     //region Methods
+    public void onModConfigEvent(final ModConfig.ModConfigEvent event) {
+        if (event.getConfig().getSpec() == CONFIG.spec) {
+            //Clear the config cache on reload.
+            CONFIG.clear();
+        }
+    }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
         OccultismPacketHandler.registerMessages();
@@ -90,13 +97,6 @@ public class Occultism {
 
         RenderTypeLookup.setRenderLayer(OccultismBlocks.STABLE_WORMHOLE.get(), RenderType.getTranslucent());
         LOGGER.info("Client setup complete.");
-    }
-
-    public void onModConfigEvent(final ModConfig.ModConfigEvent event) {
-        if (event.getConfig().getSpec() == CONFIG.spec) {
-            //Clear the config cache on reload.
-            CONFIG.clear();
-        }
     }
     //endregion Methods
 }
