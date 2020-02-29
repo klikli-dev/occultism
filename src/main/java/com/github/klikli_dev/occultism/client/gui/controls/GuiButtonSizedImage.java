@@ -94,10 +94,6 @@ public class GuiButtonSizedImage extends ImageButton {
                 i += this.xDiffOffset;
             }
             blit(this.x, this.y, this.width, this.height, i, j, this.textureWidth, this.textureHeight, this.textureMapWidth, this.textureMapHeight);
-            //blit(this.x, this.y, this.width, this.height, i, j, this.textureMapWidth, this.textureMapHeight, this.textureWidth, this.textureHeight);
-            //TODO: verify we got the right function
-            //            drawScaledCustomSizeModalRect(this.x, this.y, i, j, this.textureWidth, this.textureHeight, this.width,
-            //                    this.height, this.textureMapWidth, this.textureMapHeight);
             RenderSystem.enableDepthTest();
         }
 
