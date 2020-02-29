@@ -25,14 +25,19 @@ package com.github.klikli_dev.occultism.datagen;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.world.storage.loot.ConstantRange;
+import net.minecraft.world.storage.loot.ItemLootEntry;
+import net.minecraft.world.storage.loot.LootPool;
 import net.minecraft.world.storage.loot.LootTable;
+import net.minecraft.world.storage.loot.conditions.SurvivesExplosion;
+import net.minecraft.world.storage.loot.functions.CopyNbt;
 import net.minecraftforge.fml.RegistryObject;
 
 public class StandardLootTableProvider extends BaseLootTableProvider {
 
-//region Fields
+    //region Fields
     InternalBlockLootTable lootTable = new InternalBlockLootTable();
-//endregion Fields
+    //endregion Fields
 
     //region Initialization
     public StandardLootTableProvider(DataGenerator dataGeneratorIn) {
@@ -48,7 +53,7 @@ public class StandardLootTableProvider extends BaseLootTableProvider {
     //endregion Overrides
 
     private class InternalBlockLootTable extends StandardBlockLootTables {
-//region Overrides
+        //region Overrides
         @Override
         protected void addTables() {
             //Handle the non custom tables
@@ -63,14 +68,39 @@ public class StandardLootTableProvider extends BaseLootTableProvider {
                             this.registerDropSelfLootTable(block);
                     });
 
+            this.registerLootTable(OccultismBlocks.STORAGE_CONTROLLER.get(),
+                    this.storageController(OccultismBlocks.STORAGE_CONTROLLER.get()));
             this.registerDropWithNBTLootTable(OccultismBlocks.STABLE_WORMHOLE.get());
-            this.registerDropWithNBTLootTable(OccultismBlocks.STORAGE_CONTROLLER.get());
         }
 
         @Override
         protected void registerLootTable(Block blockIn, LootTable.Builder table) {
             StandardLootTableProvider.this.lootTables.put(blockIn, table);
         }
-//endregion Overrides
+        //endregion Overrides
+
+//region Methods
+        protected LootTable.Builder storageController(Block block) {
+            LootPool.Builder builder = LootPool.builder()
+                       .rolls(ConstantRange.of(1))
+                       .addEntry(ItemLootEntry.builder(block)
+                                         .acceptFunction(
+                                                 CopyNbt.builder(CopyNbt.Source.BLOCK_ENTITY)
+                                                         .replaceOperation("items","BlockEntityTag.items")
+                                                         .replaceOperation("sortDirection","BlockEntityTag.sortDirection")
+                                                         .replaceOperation("sortType","BlockEntityTag.sortType")
+                                                         .replaceOperation("maxSlots","BlockEntityTag.maxSlots")
+                                                         .replaceOperation("matrix","BlockEntityTag.matrix")
+                                                         .replaceOperation("orderStack","BlockEntityTag.orderStack")
+                                                         .replaceOperation("linkedMachines","BlockEntityTag.linkedMachines")
+
+                                         )
+
+
+                       )
+                       .acceptCondition(SurvivesExplosion.builder());
+            return LootTable.builder().addLootPool(builder);
+        }
+//endregion Methods
     }
 }

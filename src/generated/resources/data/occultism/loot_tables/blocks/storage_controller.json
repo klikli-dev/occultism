@@ -10,7 +10,43 @@
             {
               "function": "minecraft:copy_nbt",
               "source": "block_entity",
-              "ops": []
+              "ops": [
+                {
+                  "source": "items",
+                  "target": "BlockEntityTag.items",
+                  "op": "replace"
+                },
+                {
+                  "source": "sortDirection",
+                  "target": "BlockEntityTag.sortDirection",
+                  "op": "replace"
+                },
+                {
+                  "source": "sortType",
+                  "target": "BlockEntityTag.sortType",
+                  "op": "replace"
+                },
+                {
+                  "source": "maxSlots",
+                  "target": "BlockEntityTag.maxSlots",
+                  "op": "replace"
+                },
+                {
+                  "source": "matrix",
+                  "target": "BlockEntityTag.matrix",
+                  "op": "replace"
+                },
+                {
+                  "source": "orderStack",
+                  "target": "BlockEntityTag.orderStack",
+                  "op": "replace"
+                },
+                {
+                  "source": "linkedMachines",
+                  "target": "BlockEntityTag.linkedMachines",
+                  "op": "replace"
+                }
+              ]
             }
           ],
           "name": "occultism:storage_controller"
