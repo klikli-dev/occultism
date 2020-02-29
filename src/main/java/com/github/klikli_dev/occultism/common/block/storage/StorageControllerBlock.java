@@ -22,10 +22,13 @@
 
 package com.github.klikli_dev.occultism.common.block.storage;
 
+import com.github.klikli_dev.occultism.common.tile.StorageControllerTileEntity;
+import com.github.klikli_dev.occultism.registry.OccultismTiles;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
@@ -43,12 +46,23 @@ public class StorageControllerBlock extends Block {
 
     //region Overrides
 
-
+    @Override
+    public void onReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
+        if (state.getBlock() != newState.getBlock()) {
+            TileEntity tileentity = worldIn.getTileEntity(pos);
+            if (tileentity instanceof StorageControllerTileEntity) {
+                //We're not dropping anything here, should be handled correctly by loot table.
+                worldIn.updateComparatorOutputLevel(pos, this);
+            }
+            super.onReplaced(state, worldIn, pos, newState, isMoving);
+        }
+    }
 
     @Override
     public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player,
                                              Hand handIn, BlockRayTraceResult p_225533_6_) {
         if (!world.isRemote) {
+            //TODO: enable once gui is available
             TileEntity tileEntity = world.getTileEntity(pos);
             //            if (!(tileEntity instanceof TileEntityStorageController)) {
             //                return ActionResultType.FAIL;
@@ -59,30 +73,28 @@ public class StorageControllerBlock extends Block {
         return ActionResultType.SUCCESS;
     }
 
-
     @Override
     public ItemStack getItem(IBlockReader worldIn, BlockPos pos, BlockState state) {
         ItemStack itemstack = super.getItem(worldIn, pos, state);
 
-        //        TileEntity tileentity = worldIn.getTileEntity(pos);
-        //        if (tileentity instanceof TileEntityStorageController) {
-        //            CompoundNBT nbttagcompound = tileentity.writeToNBT(new CompoundNBT());
-        //            if (!nbttagcompound.isEmpty()) {
-        //                itemstack.setTagInfo("BlockEntityTag", nbttagcompound);
-        //            }
-        //        }
-
+        TileEntity tileentity = worldIn.getTileEntity(pos);
+        if (tileentity instanceof StorageControllerTileEntity) {
+            CompoundNBT compound = tileentity.serializeNBT();
+            if (!compound.isEmpty()) {
+                itemstack.setTagInfo("BlockEntityTag", compound);
+            }
+        }
         return itemstack;
     }
 
     @Override
     public boolean hasTileEntity(BlockState state) {
-        return false;
+        return true;
     }
 
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-        return null;
+        return OccultismTiles.STORAGE_CONTROLLER.get().create();
     }
 
     //endregion Overrides

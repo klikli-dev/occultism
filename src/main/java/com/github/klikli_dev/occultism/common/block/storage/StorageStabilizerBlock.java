@@ -22,7 +22,8 @@
 
 package com.github.klikli_dev.occultism.common.block.storage;
 
-import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.common.tile.StorageControllerTileEntity;
+import com.github.klikli_dev.occultism.util.Math3DUtil;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 import net.minecraft.block.Block;
@@ -45,6 +46,7 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
+import java.util.List;
 import java.util.Map;
 
 public class StorageStabilizerBlock extends Block {
@@ -68,7 +70,6 @@ public class StorageStabilizerBlock extends Block {
     }
     //endregion Initialization
 
-
     //region Overrides
     @Override
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
@@ -77,25 +78,9 @@ public class StorageStabilizerBlock extends Block {
 
     @Override
     public void onReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean isMoving) {
-        if(state != newState){
-            Direction facing = state.get(DirectionalBlock.FACING);
-            //TODO: enable once storage controller is ready
-//            //storage controller actually wants stabilizers to point at one block above it, so unless we are on y axis we trace one below
-//            BlockPos min = facing != Direction.DOWN && facing != Direction.UP ? pos.down() : pos;
-//            //trace a straight line for the possible controller positions
-//            Iterable<BlockPos> blocks = BlockPos.getAllInBox(min,
-//                    min.offset(facing, TileEntityStorageController.MAX_STABILIZER_DISTANCE));
-//
-//            //we do not use an actual trace, because players might have put a block inbetween controller and stabilizer
-//            for (BlockPos block : blocks) {
-//                TileEntity tileEntity = world.getTileEntity(block);
-//                if (tileEntity instanceof TileEntityStorageController) {
-//                    TileEntityStorageController controller = (TileEntityStorageController) tileEntity;
-//                    controller.updateStabilizers(); //force controller to re-check available stabilizers.
-//                }
-//            }
+        if (state != newState) {
+            this.notifyStorageControllers(world, pos, state);
         }
-
         super.onReplaced(state, world, pos, newState, isMoving);
     }
 
@@ -114,25 +99,8 @@ public class StorageStabilizerBlock extends Block {
     @Override
     public void onBlockPlacedBy(World world, BlockPos pos, BlockState state, LivingEntity placer,
                                 ItemStack stack) {
+        this.notifyStorageControllers(world, pos, state);
 
-        Direction facing = state.get(DirectionalBlock.FACING);
-
-        //storage controller actually wants stabilizers to point at one block above it, so unless we are on y axis we trace one below
-        BlockPos min = facing != Direction.DOWN && facing != Direction.UP ? pos.down() : pos;
-        //trace a straight line for the possible controller positions
-        //TODO: enable once the storage controller is ready
-//        Iterable<BlockPos> blocks = BlockPos.getAllInBox(min, min.offset(facing, TileEntityStorageController.MAX_STABILIZER_DISTANCE));
-//
-//        //we are also using the fake trace here, because players may have placed a block on this trace line.
-//        //The trace line is actually below the line the controller uses to check for valid stabilizers.
-//        //This is due to the stabilizers aiming for one block above the controller.
-//        for (BlockPos block : blocks) {
-//            TileEntity tileEntity = world.getTileEntity(block);
-//            if (tileEntity instanceof TileEntityStorageController) {
-//                TileEntityStorageController controller = (TileEntityStorageController) tileEntity;
-//                controller.updateStabilizers(); //force controller to re-check available stabilizers.
-//            }
-//        }
         super.onBlockPlacedBy(world, pos, state, placer, stack);
     }
 
@@ -141,9 +109,30 @@ public class StorageStabilizerBlock extends Block {
         builder.add(BlockStateProperties.FACING);
         super.fillStateContainer(builder);
     }
-
-
     //endregion Overrides
+
+    //region Methods
+    public void notifyStorageControllers(World world, BlockPos pos, BlockState state) {
+        Direction facing = state.get(DirectionalBlock.FACING);
+
+        //storage controller actually wants stabilizers to point at one block above it, so unless we are on y axis we trace one below
+        BlockPos min = facing != Direction.DOWN && facing != Direction.UP ? pos.down() : pos;
+        //trace a straight line for the possible controller positions
+        List<BlockPos> blocks = Math3DUtil.simpleTrace(min, facing,
+                StorageControllerTileEntity.MAX_STABILIZER_DISTANCE);
+
+        //we are also using the fake trace here, because players may have placed a block on this trace line.
+        //The trace line is actually below the line the controller uses to check for valid stabilizers.
+        //This is due to the stabilizers aiming for one block above the controller.
+        for (BlockPos block : blocks) {
+            TileEntity tileEntity = world.getTileEntity(block);
+            if (tileEntity instanceof StorageControllerTileEntity) {
+                StorageControllerTileEntity controller = (StorageControllerTileEntity) tileEntity;
+                controller.updateStabilizers(); //force controller to re-check available stabilizers.
+            }
+        }
+    }
+    //endregion Methods
 }
 
 
