@@ -82,7 +82,7 @@ public class StorageControllerTileEntity extends NetworkedTileEntity implements 
 
     protected static final List<RegistryObject<? extends Block>> BLOCK_BLACKLIST = Stream.of(
             OccultismBlocks.STORAGE_CONTROLLER).collect(Collectors.toList());
-    public Map<Integer, ItemStack> matrix = new HashMap<Integer, ItemStack>();
+    public Map<Integer, ItemStack> matrix = new HashMap<>();
     public ItemStack orderStack = ItemStack.EMPTY;
     public Map<GlobalBlockPos, MachineReference> linkedMachines = new HashMap<>();
     public Map<GlobalBlockPos, UUID> depositOrderSpirits = new HashMap<>();

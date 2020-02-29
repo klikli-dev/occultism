@@ -41,8 +41,7 @@ public class InventoryCraftingCached extends CraftingInventory {
     protected static Field stackListField;
 
     static {
-        //TODOUPDATE: update obfuscated name
-        stackListField = ObfuscationReflectionHelper.findField(CraftingInventory.class, "field_70466_a ");
+        stackListField = ObfuscationReflectionHelper.findField(CraftingInventory.class, "stackList");
     }
 
     protected final Container container;
