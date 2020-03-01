@@ -43,7 +43,9 @@ public class MessageSortItems extends MessageBase {
     //endregion Fields
 
     //region Initialization
-    public MessageSortItems() {
+
+    public MessageSortItems(PacketBuffer buf) {
+        super(buf);
     }
 
     public MessageSortItems(BlockPos entityPosition, SortDirection sortDirection, SortType sortType) {

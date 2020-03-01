@@ -101,6 +101,12 @@ public class OccultismPacketHandler {
                 MessageRequestOrder::encode,
                 MessageRequestOrder::new,
                 MessageRequestOrder::handle);
+
+        INSTANCE.registerMessage(nextID(),
+                MessageSortItems.class,
+                MessageSortItems::encode,
+                MessageSortItems::new,
+                MessageSortItems::handle);
     }
 
     public static <MSG> void sendTo(ServerPlayerEntity player, MSG message) {
