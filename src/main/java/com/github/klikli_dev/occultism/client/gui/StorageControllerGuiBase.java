@@ -333,6 +333,11 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     }
 
     @Override
+    public boolean shouldCloseOnEsc() {
+        return true;
+    }
+
+    @Override
     public void onInventoryChanged(IInventory inventory) {
         if (inventory == this.storageControllerContainer.getOrderSlot() && !inventory.getStackInSlot(0).isEmpty()) {
             this.guiMode = StorageControllerGuiMode.AUTOCRAFTING;

@@ -24,6 +24,7 @@ package com.github.klikli_dev.occultism.registry;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.container.StorageControllerContainer;
+import com.github.klikli_dev.occultism.common.container.StorageRemoteContainer;
 import com.github.klikli_dev.occultism.common.tile.StorageControllerTileEntity;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraftforge.common.extensions.IForgeContainerType;
@@ -42,5 +43,10 @@ public class OccultismContainers {
                                   .create((windowId, inv, data) -> new StorageControllerContainer(windowId, inv,
                                           (StorageControllerTileEntity) inv.player.world
                                                                                 .getTileEntity(data.readBlockPos()))));
+
+    public static final RegistryObject<ContainerType<StorageRemoteContainer>> STORAGE_REMOTE =
+            CONTAINERS.register("storage_remote",
+                    () -> IForgeContainerType
+                                  .create((windowId, inv, data) -> new StorageRemoteContainer(windowId, inv)));
     //endregion Fields
 }

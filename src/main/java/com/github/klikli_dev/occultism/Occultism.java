@@ -23,6 +23,7 @@
 package com.github.klikli_dev.occultism;
 
 import com.github.klikli_dev.occultism.client.gui.StorageControllerGui;
+import com.github.klikli_dev.occultism.client.gui.StorageRemoteGui;
 import com.github.klikli_dev.occultism.common.OccultismItemGroup;
 import com.github.klikli_dev.occultism.config.OccultismConfig;
 import com.github.klikli_dev.occultism.network.OccultismPackets;
@@ -93,6 +94,7 @@ public class Occultism {
     private void clientSetup(final FMLClientSetupEvent event) {
         //Register screen factories
         ScreenManager.registerFactory(OccultismContainers.STORAGE_CONTROLLER.get(), StorageControllerGui::new);
+        ScreenManager.registerFactory(OccultismContainers.STORAGE_REMOTE.get(), StorageRemoteGui::new);
 
         //Setup block render layers
         RenderTypeLookup.setRenderLayer(OccultismBlocks.CHALK_GLYPH_WHITE.get(), RenderType.getCutoutMipped());

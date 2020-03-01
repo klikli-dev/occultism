@@ -26,6 +26,7 @@ import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.item.ChalkItem;
 import com.github.klikli_dev.occultism.common.item.DebugWandItem;
 import com.github.klikli_dev.occultism.common.item.storage.StableWormholeBlockItem;
+import com.github.klikli_dev.occultism.common.item.storage.StorageRemoteItem;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
@@ -43,6 +44,9 @@ public class OccultismItems {
             () -> new DebugWandItem(defaultProperties().maxStackSize(1)));
 
     //Tools
+    public static final RegistryObject<Item> STORAGE_REMOTE = ITEMS.register("storage_remote",
+            () -> new StorageRemoteItem(defaultProperties().maxStackSize(1)));
+
     public static final RegistryObject<Item> CHALK_WHITE = ITEMS.register("chalk_white",
             () -> new ChalkItem(defaultProperties().setNoRepair().maxDamage(128),
                     OccultismBlocks.CHALK_GLYPH_WHITE));
