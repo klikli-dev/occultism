@@ -24,12 +24,18 @@ package com.github.klikli_dev.occultism.util;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.api.common.data.GlobalBlockPos;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.DimensionManager;
@@ -97,6 +103,57 @@ public class TileEntityUtil {
                 return true;
         }
         return false;
+    }
+
+    /**
+     * Creates the item entity with nbt from the tile entity.
+     * Default pickup delay is set.
+     * @param itemStack the stack to drop.
+     * @param tileEntity the tile entity to get nbt from.
+     * @return the item entity.
+     */
+    public static ItemEntity getDroppedItemWithNbt(ItemStack itemStack, TileEntity tileEntity){
+        CompoundNBT compoundnbt = tileEntity.serializeNBT();
+        if (!compoundnbt.isEmpty()) {
+            itemStack.setTagInfo("BlockEntityTag", compoundnbt);
+        }
+        ItemEntity itementity = new ItemEntity(tileEntity.getWorld(), tileEntity.getPos().getX(), tileEntity.getPos().getY(), tileEntity.getPos().getZ(), itemStack);
+        itementity.setDefaultPickupDelay();
+        return itementity;
+    }
+
+    /**
+     * Handles the common use case of dropping self with tile entity nbt on block change during replace.
+     * @param block the current block.
+     * @param state the old state.
+     * @param world the world
+     * @param pos the position.
+     * @param newState the new state
+     */
+    public static void onBlockChangeDropWithNbt(Block block, BlockState state, World world, BlockPos pos, BlockState newState){
+        if (state.getBlock() != newState.getBlock()) {
+            if (!world.isRemote) {
+                world.addEntity(TileEntityUtil.getDroppedItemWithNbt(new ItemStack(block), world.getTileEntity(pos)));
+            }
+            world.updateComparatorOutputLevel(pos, block);
+        }
+    }
+
+    /**
+     * Handles the common use case of giving self as item with tile entity nbt.
+     * @param block the current block.
+     * @param world the world
+     * @param pos the position.
+     */
+    public static ItemStack getItemWithNbt(Block block, IBlockReader world, BlockPos pos){
+        ItemStack itemStack = new ItemStack(block);
+        TileEntity tileEntity = world.getTileEntity(pos);
+        CompoundNBT compoundnbt = tileEntity.serializeNBT();
+        if (!compoundnbt.isEmpty()) {
+            itemStack.setTagInfo("BlockEntityTag", compoundnbt);
+        }
+
+        return itemStack;
     }
     //endregion Static Methods
 }
