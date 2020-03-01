@@ -22,8 +22,8 @@
 
 package com.github.klikli_dev.occultism.common.block.storage;
 
-import com.github.klikli_dev.occultism.common.tile.StorageControllerTileEntity;
 import com.github.klikli_dev.occultism.registry.OccultismTiles;
+import com.github.klikli_dev.occultism.util.TileEntityUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
@@ -51,16 +51,9 @@ public class StorageControllerBlock extends Block {
 
     @Override
     public void onReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
-        if (state.getBlock() != newState.getBlock()) {
-            TileEntity tileentity = worldIn.getTileEntity(pos);
-            if (tileentity instanceof StorageControllerTileEntity) {
-                //We're not dropping anything here, should be handled correctly by loot table.
-                worldIn.updateComparatorOutputLevel(pos, this);
-            }
-            super.onReplaced(state, worldIn, pos, newState, isMoving);
-        }
+        TileEntityUtil.onBlockChangeDropWithNbt(this, state, worldIn, pos, newState);
+        super.onReplaced(state, worldIn, pos, newState, isMoving);
     }
-
 
     @Override
     public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player,
@@ -76,16 +69,7 @@ public class StorageControllerBlock extends Block {
 
     @Override
     public ItemStack getItem(IBlockReader worldIn, BlockPos pos, BlockState state) {
-        ItemStack itemstack = super.getItem(worldIn, pos, state);
-
-        TileEntity tileentity = worldIn.getTileEntity(pos);
-        if (tileentity instanceof StorageControllerTileEntity) {
-            CompoundNBT compound = tileentity.serializeNBT();
-            if (!compound.isEmpty()) {
-                itemstack.setTagInfo("BlockEntityTag", compound);
-            }
-        }
-        return itemstack;
+        return TileEntityUtil.getItemWithNbt(this, worldIn, pos);
     }
 
     @Override

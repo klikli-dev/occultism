@@ -22,6 +22,7 @@
 
 package com.github.klikli_dev.occultism.common.block.storage;
 
+import com.github.klikli_dev.occultism.util.TileEntityUtil;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 import net.minecraft.block.Block;
@@ -79,6 +80,12 @@ public class StableWormholeBlock extends Block {
         return VoxelShapes.empty();
     }
 
+    @Override
+    public void onReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
+        TileEntityUtil.onBlockChangeDropWithNbt(this, state, worldIn, pos, newState);
+        super.onReplaced(state, worldIn, pos, newState, isMoving);
+    }
+
     @Nullable
     @Override
     public BlockState getStateForPlacement(BlockItemUseContext context) {
@@ -96,18 +103,7 @@ public class StableWormholeBlock extends Block {
 
     @Override
     public ItemStack getItem(IBlockReader worldIn, BlockPos pos, BlockState state) {
-        ItemStack itemstack = super.getItem(worldIn, pos, state);
-
-        TileEntity tileentity = worldIn.getTileEntity(pos);
-        //TODO: Enable once tile entity is ready
-        //        if (tileentity instanceof TileEntityStableWormhole) {
-        //            CompoundNBT nbttagcompound = tileentity.writeToNBT(new CompoundNBT());
-        //            if (!nbttagcompound.isEmpty()) {
-        //                itemstack.setTagInfo("BlockEntityTag", nbttagcompound);
-        //            }
-        //        }
-
-        return itemstack;
+        return TileEntityUtil.getItemWithNbt(this, worldIn, pos);
     }
 
     @Override

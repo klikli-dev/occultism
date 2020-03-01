@@ -69,11 +69,11 @@ public class OccultismBlocks {
     public static final RegistryObject<StorageControllerBlock> STORAGE_CONTROLLER = register("storage_controller",
             () -> new StorageControllerBlock(
                     Block.Properties.create(Material.ROCK).sound(SoundType.STONE)
-                            .hardnessAndResistance(5f, 100).notSolid()), true, LootTableType.CUSTOM);
+                            .hardnessAndResistance(5f, 100).notSolid()), true, LootTableType.EMPTY);
     public static final RegistryObject<StableWormholeBlock> STABLE_WORMHOLE = register("stable_wormhole",
             () -> new StableWormholeBlock(
                     Block.Properties.create(Material.ROCK).sound(SoundType.STONE).doesNotBlockMovement()
-                            .hardnessAndResistance(2f, 2).notSolid()), false, LootTableType.CUSTOM);
+                            .hardnessAndResistance(2f, 2).notSolid()), false, LootTableType.EMPTY);
     public static final RegistryObject<StorageStabilizerBlock> STORAGE_STABILIZER_TIER1 = register(
             "storage_stabilizer_tier1", () -> new StorageStabilizerBlock(
                     Block.Properties.create(Material.ROCK).sound(SoundType.STONE).hardnessAndResistance(1.5f, 30)

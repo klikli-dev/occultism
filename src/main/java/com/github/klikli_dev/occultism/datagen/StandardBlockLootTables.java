@@ -33,11 +33,6 @@ import net.minecraft.world.storage.loot.functions.CopyNbt;
 
 public class StandardBlockLootTables extends BlockLootTables {
 
-    //region Methods
-    public void registerDropWithNBTLootTable(Block block) {
-        this.registerLootTable(block, this.withTileNBT(block));
-    }
-
     /**
      * Creates an empty loot table with no drop.
      *
@@ -45,22 +40,6 @@ public class StandardBlockLootTables extends BlockLootTables {
      */
     public void registerDropNothingLootTable(Block block) {
         this.registerLootTable(block, LootTable.builder().addLootPool(LootPool.builder()));
-    }
-
-    /**
-     * Creates a loot table to drop the block with tile entity nbt.
-     *
-     * @param block the block to generate for.
-     * @return the loot table.
-     */
-    protected LootTable.Builder withTileNBT(Block block) {
-        LootPool.Builder builder = LootPool.builder()
-                                           .rolls(ConstantRange.of(1))
-                                           .addEntry(ItemLootEntry.builder(block)
-                                                             .acceptFunction(
-                                                                     CopyNbt.builder(CopyNbt.Source.BLOCK_ENTITY)))
-                                           .acceptCondition(SurvivesExplosion.builder());
-        return LootTable.builder().addLootPool(builder);
     }
     //endregion Methods
 }

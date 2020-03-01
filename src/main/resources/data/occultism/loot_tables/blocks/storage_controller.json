@@ -2,31 +2,8 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:copy_nbt",
-              "source": "block_entity",
-              "ops": [
-                {
-                  "source": "{}",
-                  "target": "BlockEntityTag",
-                  "op": "replace"
-                }
-              ]
-            }
-          ],
-          "name": "occultism:storage_controller"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:survives_explosion"
-        }
-      ]
+      "rolls": 1.0,
+      "entries": []
     }
   ]
 }
