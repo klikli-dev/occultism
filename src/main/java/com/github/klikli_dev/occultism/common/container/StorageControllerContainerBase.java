@@ -324,6 +324,8 @@ public abstract class StorageControllerContainerBase extends Container implement
 
         //update crafting matrix to handle container items / items that survive crafting
         this.onCraftMatrixChanged(this.matrix);
+        OccultismPackets.sendTo((ServerPlayerEntity) player, this.getStorageController().getMessageUpdateStacks());
+
     }
     //endregion Methods
 }

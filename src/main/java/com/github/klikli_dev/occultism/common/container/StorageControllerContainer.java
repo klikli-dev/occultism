@@ -54,8 +54,9 @@ public class StorageControllerContainer extends StorageControllerContainerBase {
         this.matrix = new InventoryCraftingCached(this, storageController.getMatrix());
         this.orderInventory.setInventorySlotContents(0, storageController.getOrderStack());
 
+        this.setupCraftingOutput(); //output is slot 0
+
         this.setupCraftingGrid();
-        this.setupCraftingOutput();
         this.setupOrderInventorySlot();
         this.setupPlayerInventorySlots();
         this.setupPlayerHotbar();

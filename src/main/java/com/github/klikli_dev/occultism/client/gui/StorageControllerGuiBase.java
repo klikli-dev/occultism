@@ -380,6 +380,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                 BUTTONS, (button) -> {
             OccultismPackets.sendToServer(new MessageClearCraftingMatrix());
             OccultismPackets.sendToServer(new MessageRequestStacks());
+            this.init();
         });
         this.addButton(this.clearRecipeButton);
 
@@ -391,6 +392,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                 BUTTONS, (button) -> {
             this.clearSearch();
             this.forceFocus = true;
+            this.init();
         });
         this.addButton(this.clearTextButton);
 
@@ -402,6 +404,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
             this.setSortType(this.getSortType().next());
             OccultismPackets.sendToServer(
                     new MessageSortItems(this.getEntityPosition(), this.getSortDirection(), this.getSortType()));
+            this.init();
         });
         this.addButton(this.sortTypeButton);
 
@@ -413,6 +416,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
             this.setSortDirection(this.getSortDirection().next());
             OccultismPackets.sendToServer(
                     new MessageSortItems(this.getEntityPosition(), this.getSortDirection(), this.getSortType()));
+            this.init();
         });
         this.addButton(this.sortDirectionButton);
 
@@ -422,6 +426,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                 3, this.guiTop + controlButtonTop, controlButtonSize, controlButtonSize, 0, jeiSyncOffset, 28, 28, 28,
                 256, 256, BUTTONS, (button) -> {
             JeiPlugin.setJeiSearchSync(!JeiPlugin.isJeiSearchSynced());
+            this.init();
         });
 
         if (JeiPlugin.isJeiLoaded())
@@ -440,6 +445,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                         this.guiTop + 112, guiModeButtonWidth, guiModeButtonHeight, 160, 0, 0, guiModeButtonWidth * 2,
                         guiModeButtonHeight * 2, 256, 256, BUTTONS, (button) -> {
                     this.guiMode = StorageControllerGuiMode.INVENTORY;
+                    this.init();
                 });
                 //inactive tab button for crafting
                 this.autocraftingModeButton = new GuiButtonSizedImage(this.guiLeft + guiModeButtonLeft,
@@ -447,6 +453,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                         160, 174, 0, guiModeButtonWidth * 2, guiModeButtonHeight * 2, 256, 256, BUTTONS,
                         (button) -> {
                             this.guiMode = StorageControllerGuiMode.AUTOCRAFTING;
+                            this.init();
                         });
                 break;
             case AUTOCRAFTING:
@@ -455,6 +462,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                         this.guiTop + 112, guiModeButtonWidth, guiModeButtonHeight, 160, 58, 0, guiModeButtonWidth * 2,
                         guiModeButtonHeight * 2, 256, 256, BUTTONS, (button) -> {
                     this.guiMode = StorageControllerGuiMode.INVENTORY;
+                    this.init();
                 });
                 //active tab button for crafting
                 this.autocraftingModeButton = new GuiButtonSizedImage(this.guiLeft + guiModeButtonLeft,
@@ -462,6 +470,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                         160, 116, 0, guiModeButtonWidth * 2, guiModeButtonHeight * 2, 256, 256, BUTTONS,
                         (button) -> {
                             this.guiMode = StorageControllerGuiMode.AUTOCRAFTING;
+                            this.init();
                         });
                 break;
         }
