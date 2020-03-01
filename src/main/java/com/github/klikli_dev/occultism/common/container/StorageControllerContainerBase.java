@@ -26,9 +26,9 @@ package com.github.klikli_dev.occultism.common.container;
 import com.github.klikli_dev.occultism.api.common.container.IStorageControllerContainer;
 import com.github.klikli_dev.occultism.api.common.tile.IStorageController;
 import com.github.klikli_dev.occultism.client.gui.StorageControllerGuiBase;
-import com.github.klikli_dev.occultism.common.misc.InventoryCraftingCached;
+import com.github.klikli_dev.occultism.common.misc.StorageControllerCraftingInventory;
 import com.github.klikli_dev.occultism.common.misc.ItemStackComparator;
-import com.github.klikli_dev.occultism.common.misc.SlotCraftingNetwork;
+import com.github.klikli_dev.occultism.common.misc.StorageControllerSlot;
 import com.github.klikli_dev.occultism.network.OccultismPackets;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -57,7 +57,7 @@ public abstract class StorageControllerContainerBase extends Container implement
     public PlayerInventory playerInventory;
     public PlayerEntity player;
     protected CraftResultInventory result;
-    protected InventoryCraftingCached matrix;
+    protected StorageControllerCraftingInventory matrix;
     protected Inventory orderInventory;
     protected ICraftingRecipe currentRecipe;
 
@@ -173,7 +173,7 @@ public abstract class StorageControllerContainerBase extends Container implement
     protected void setupCraftingOutput() {
         int craftingOutputTop = 131;
         int craftingOutputLeft = 130 + StorageControllerGuiBase.ORDER_AREA_OFFSET;
-        SlotCraftingNetwork slotCraftOutput = new SlotCraftingNetwork(this.playerInventory.player, this.matrix,
+        StorageControllerSlot slotCraftOutput = new StorageControllerSlot(this.playerInventory.player, this.matrix,
                 this.result, this, 0, craftingOutputLeft, craftingOutputTop);
         this.addSlot(slotCraftOutput);
     }

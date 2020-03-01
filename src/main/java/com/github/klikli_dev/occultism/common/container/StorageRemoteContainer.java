@@ -25,7 +25,7 @@ package com.github.klikli_dev.occultism.common.container;
 import com.github.klikli_dev.occultism.api.common.tile.IStorageController;
 import com.github.klikli_dev.occultism.client.gui.StorageControllerGuiBase;
 import com.github.klikli_dev.occultism.common.item.storage.StorageRemoteItem;
-import com.github.klikli_dev.occultism.common.misc.InventoryCraftingCached;
+import com.github.klikli_dev.occultism.common.misc.StorageControllerCraftingInventory;
 import com.github.klikli_dev.occultism.network.MessageUpdateLinkedMachines;
 import com.github.klikli_dev.occultism.network.OccultismPackets;
 import com.github.klikli_dev.occultism.registry.OccultismContainers;
@@ -56,7 +56,7 @@ public class StorageRemoteContainer extends StorageControllerContainerBase {
         this.playerInventory = playerInventory;
         this.storageRemote = playerInventory.player.getHeldItem(Hand.MAIN_HAND);
 
-        this.matrix = new InventoryCraftingCached(this, this.getCraftingMatrixFromItemStack(this.getStorageRemote()));
+        this.matrix = new StorageControllerCraftingInventory(this, this.getCraftingMatrixFromItemStack(this.getStorageRemote()));
         this.orderInventory.setInventorySlotContents(0, this.getOrderStackFromItemStack(this.getStorageRemote()));
 
         this.setupCraftingOutput();

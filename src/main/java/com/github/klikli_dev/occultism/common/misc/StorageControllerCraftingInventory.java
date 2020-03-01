@@ -35,7 +35,7 @@ import java.util.Map;
 /**
  * A cached version of InventoryCrafting. Allows to control when events are sent with the disableEvents field.
  */
-public class InventoryCraftingCached extends CraftingInventory {
+public class StorageControllerCraftingInventory extends CraftingInventory {
 
     //region Fields
     protected static Field stackListField;
@@ -52,12 +52,12 @@ public class InventoryCraftingCached extends CraftingInventory {
     //endregion Fields
 
     //region Initialization
-    public InventoryCraftingCached(Container container, int width, int height) {
+    public StorageControllerCraftingInventory(Container container, int width, int height) {
         super(container, width, height);
         this.container = container;
     }
 
-    public InventoryCraftingCached(Container container, Map<Integer, ItemStack> matrix) {
+    public StorageControllerCraftingInventory(Container container, Map<Integer, ItemStack> matrix) {
         this(container, 3, 3);
         this.disableEvents = true;
         for (int i = 0; i < this.getWidth() * this.getHeight(); i++) {
@@ -67,7 +67,7 @@ public class InventoryCraftingCached extends CraftingInventory {
         this.disableEvents = false;
     }
 
-    public InventoryCraftingCached(Container container, List<ItemStack> matrix) {
+    public StorageControllerCraftingInventory(Container container, List<ItemStack> matrix) {
         this(container, 3, 3);
         this.disableEvents = true;
         for (int i = 0; i < matrix.size(); i++) {

@@ -37,16 +37,16 @@ import java.util.List;
 /**
  * Extension of slot crafting that sends network updates.
  */
-public class SlotCraftingNetwork extends CraftingResultSlot {
+public class StorageControllerSlot extends CraftingResultSlot {
     //region Fields
     IStorageControllerContainer storageControllerContainer;
     CraftingInventory matrix;
     //endregion Fields
 
     //region Initialization
-    public SlotCraftingNetwork(PlayerEntity player, CraftingInventory matrix, IInventory inventory,
-                               IStorageControllerContainer storageControllerContainer, int slotIndex, int xPosition,
-                               int yPosition) {
+    public StorageControllerSlot(PlayerEntity player, CraftingInventory matrix, IInventory inventory,
+                                 IStorageControllerContainer storageControllerContainer, int slotIndex, int xPosition,
+                                 int yPosition) {
         super(player, matrix, inventory, slotIndex, xPosition, yPosition);
         this.storageControllerContainer = storageControllerContainer;
         this.matrix = matrix;

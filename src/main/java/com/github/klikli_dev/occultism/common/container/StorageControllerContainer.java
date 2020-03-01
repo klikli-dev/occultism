@@ -24,7 +24,7 @@
 package com.github.klikli_dev.occultism.common.container;
 
 import com.github.klikli_dev.occultism.client.gui.StorageControllerGuiBase;
-import com.github.klikli_dev.occultism.common.misc.InventoryCraftingCached;
+import com.github.klikli_dev.occultism.common.misc.StorageControllerCraftingInventory;
 import com.github.klikli_dev.occultism.common.tile.StorageControllerTileEntity;
 import com.github.klikli_dev.occultism.network.MessageUpdateLinkedMachines;
 import com.github.klikli_dev.occultism.network.OccultismPackets;
@@ -51,7 +51,7 @@ public class StorageControllerContainer extends StorageControllerContainerBase {
         super(OccultismContainers.STORAGE_CONTROLLER.get(), id, playerInventory);
         this.storageController = storageController;
 
-        this.matrix = new InventoryCraftingCached(this, storageController.getMatrix());
+        this.matrix = new StorageControllerCraftingInventory(this, storageController.getMatrix());
         this.orderInventory.setInventorySlotContents(0, storageController.getOrderStack());
 
         this.setupCraftingOutput(); //output is slot 0
