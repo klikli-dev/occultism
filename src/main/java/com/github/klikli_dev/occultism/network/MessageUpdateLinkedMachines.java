@@ -60,12 +60,13 @@ public class MessageUpdateLinkedMachines extends MessageBase {
 
     //region Overrides
 
-
     @Override
     public void onClientReceived(Minecraft minecraft, PlayerEntity player, NetworkEvent.Context context) {
-        IStorageControllerGui gui = (IStorageControllerGui) minecraft.currentScreen;
-        if (gui != null) {
-            gui.setLinkedMachines(this.linkedMachines);
+        if(minecraft.currentScreen instanceof IStorageControllerGui){
+            IStorageControllerGui gui = (IStorageControllerGui) minecraft.currentScreen;
+            if (gui != null) {
+                gui.setLinkedMachines(this.linkedMachines);
+            }
         }
     }
 
