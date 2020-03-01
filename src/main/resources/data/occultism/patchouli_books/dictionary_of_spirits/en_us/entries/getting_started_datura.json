@@ -1,0 +1,22 @@
+{
+  "name": "Demon's Dream",
+  "icon": "occultism:textures/items/datura.png",
+  "category": "getting_started",
+  "sortnum": 1,
+  "pages": [
+    {
+      "title": "Demon's Dream",
+      "type": "spotlight",
+      "item": "occultism:datura",
+      "text": "Upon consumption, Demon's Dream allows you to see the spirit world. Moderation is advised! To grow Demon's Dream, find seeds by breaking grass blocks, and plant them in soil."
+    },
+    {
+      "type": "image",
+      "border": "true",
+      "images": [
+        "occultism:textures/guide_book/datura_effect.png"
+      ],
+      "text": "The consumption of Demon's Dream allows to see parts of \"The Other Place\"."
+    }
+  ]
+}

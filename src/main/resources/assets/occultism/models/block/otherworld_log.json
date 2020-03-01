@@ -1,0 +1,7 @@
+{
+  "parent": "block/cube_column",
+  "textures": {
+    "end": "occultism:block/otherworld_log_top",
+    "side": "occultism:block/otherworld_log"
+  }
+}

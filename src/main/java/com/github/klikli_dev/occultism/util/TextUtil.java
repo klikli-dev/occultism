@@ -1,0 +1,121 @@
+/*
+ * MIT License
+ *
+ * Copyright 2020 klikli-dev
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
+ * associated documentation files (the "Software"), to deal in the Software without restriction, including
+ * without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+ * of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following
+ * conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all copies or substantial
+ * portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+ * INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
+ * PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+ * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ * OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+ * OTHER DEALINGS IN THE SOFTWARE.
+ */
+
+package com.github.klikli_dev.occultism.util;
+
+import net.minecraft.block.Block;
+import net.minecraft.item.Item;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraftforge.fml.ModList;
+import net.minecraftforge.fml.loading.moddiscovery.ModInfo;
+import net.minecraftforge.registries.ForgeRegistries;
+import org.apache.commons.lang3.text.WordUtils;
+
+import javax.annotation.Nonnull;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
+
+public class TextUtil {
+
+    //region Fields
+    private static final Map<String, String> MOD_NAME_TO_ID = new HashMap<String, String>();
+    private static boolean modNamesInitialized = false;
+    //endregion Fields
+
+    //region Static Methods
+    public static void initializeModNames() {
+        modNamesInitialized = true;
+        for (ModInfo info : ModList.get().getMods()) {
+            MOD_NAME_TO_ID.put(info.getModId(), info.getDisplayName());
+        }
+    }
+
+    /**
+     * Gets the mod name for the given game object
+     *
+     * @param object the game object (item or block) to get the mod name for.
+     * @return the mod name or null if invalid object type was supplied.
+     */
+    public static String getModNameForGameObject(@Nonnull Object object) {
+
+        if (modNamesInitialized)
+            initializeModNames();
+
+        ResourceLocation key;
+        if (object instanceof Item) {
+            key = ForgeRegistries.ITEMS.getKey((Item) object);
+        }
+        else if (object instanceof Block) {
+            key = ForgeRegistries.BLOCKS.getKey((Block) object);
+        }
+        else {
+            return null;
+        }
+        String modId = key.getNamespace();
+        String lowercaseModId = modId.toLowerCase(Locale.ENGLISH);
+        String modName = MOD_NAME_TO_ID.get(lowercaseModId);
+        if (modName == null) {
+            modName = WordUtils.capitalize(modId);
+            MOD_NAME_TO_ID.put(lowercaseModId, modName);
+        }
+        return modName;
+    }
+
+    /**
+     * Formats the given spirit name in bold and gold.
+     *
+     * @param name the name to format.
+     * @return the formatted name.
+     */
+    public static String formatDemonName(String name) {
+        return TextFormatting.GOLD.toString() + TextFormatting.BOLD.toString() + name + TextFormatting.RESET.toString();
+    }
+
+    /**
+     * Formats the given number for human friendly display.
+     * Rounds high numbers.
+     *
+     * @param number the number to format.
+     * @return a formatted string for the number.
+     */
+    public static String formatLargeNumber(int number) {
+        if (number < Math.pow(10, 3)) {
+            return number + "";
+        }
+        else if (number < Math.pow(10, 6)) {
+            int rounded = Math.round(number / 1000.0F);
+            return rounded + "K";
+        }
+        else if (number < Math.pow(10, 9)) {
+            int rounded = Math.round(number / (float) Math.pow(10, 6));
+            return rounded + "M";
+        }
+        else if (number < Math.pow(10, 12)) {
+            int rounded = Math.round(number / (float) Math.pow(10, 9));
+            return rounded + "B";
+        }
+        return Integer.toString(number);
+    }
+    //endregion Static Methods
+}

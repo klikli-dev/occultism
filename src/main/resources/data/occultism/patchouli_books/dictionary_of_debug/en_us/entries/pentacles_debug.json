@@ -1,0 +1,16 @@
+{
+  "name": "Debug Pentacle",
+  "icon": "occultism:textures/items/pentagram_rose.png",
+  "category": "pentacles",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "text",
+      "text": "A pentacle for debug rituals."
+    },
+    {
+      "type": "multiblock",
+      "multiblock_id": "occultism:pentacle.debug"
+    }
+  ]
+}
