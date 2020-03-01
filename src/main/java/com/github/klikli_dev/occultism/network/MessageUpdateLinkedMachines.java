@@ -73,7 +73,7 @@ public class MessageUpdateLinkedMachines extends MessageBase {
     public void encode(PacketBuffer buf) {
         buf.writeInt(this.linkedMachines.size());
         for (MachineReference machineReference : this.linkedMachines) {
-            machineReference.toBytes(buf);
+            machineReference.encode(buf);
         }
     }
 
@@ -83,7 +83,7 @@ public class MessageUpdateLinkedMachines extends MessageBase {
         this.linkedMachines = new ArrayList<>(linkedMachinesSize);
 
         for (int i = 0; i < linkedMachinesSize; i++) {
-            MachineReference machineReference = MachineReference.fromBytes(buf);
+            MachineReference machineReference = MachineReference.from(buf);
             this.linkedMachines.add(machineReference);
         }
     }

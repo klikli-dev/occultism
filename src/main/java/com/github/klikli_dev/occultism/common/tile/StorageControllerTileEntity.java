@@ -38,7 +38,6 @@ import com.github.klikli_dev.occultism.common.misc.StorageControllerItemStackHan
 import com.github.klikli_dev.occultism.exceptions.ItemHandlerMissingException;
 import com.github.klikli_dev.occultism.network.MessageUpdateStacks;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
-import com.github.klikli_dev.occultism.registry.OccultismContainers;
 import com.github.klikli_dev.occultism.registry.OccultismTiles;
 import com.github.klikli_dev.occultism.util.Math3DUtil;
 import com.github.klikli_dev.occultism.util.TileEntityUtil;
@@ -440,7 +439,7 @@ public class StorageControllerTileEntity extends NetworkedTileEntity implements 
         if (compound.contains("linkedMachines")) {
             ListNBT machinesNbt = compound.getList("linkedMachines", Constants.NBT.TAG_COMPOUND);
             for (int i = 0; i < machinesNbt.size(); i++) {
-                MachineReference reference = MachineReference.fromNbt(machinesNbt.getCompound(i));
+                MachineReference reference = MachineReference.from(machinesNbt.getCompound(i));
                 this.linkedMachines.put(reference.globalPos, reference);
             }
         }
@@ -470,7 +469,7 @@ public class StorageControllerTileEntity extends NetworkedTileEntity implements 
         //write linked machines
         ListNBT machinesNbt = new ListNBT();
         for (Map.Entry<GlobalBlockPos, MachineReference> entry : this.linkedMachines.entrySet()) {
-            machinesNbt.add(entry.getValue().writeToNBT(new CompoundNBT()));
+            machinesNbt.add(entry.getValue().serializeNBT());
         }
         compound.put("linkedMachines", machinesNbt);
 

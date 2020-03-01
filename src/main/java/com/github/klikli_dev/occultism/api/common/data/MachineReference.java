@@ -35,10 +35,11 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionType;
+import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.codehaus.plexus.util.StringUtils;
 
-public class MachineReference {
+public class MachineReference implements INBTSerializable<CompoundNBT> {
     //region Fields
     public GlobalBlockPos globalPos;
     public ResourceLocation registryName;
@@ -53,7 +54,7 @@ public class MachineReference {
     //endregion Fields
 
     //region Initialization
-    protected MachineReference() {
+    public MachineReference() {
 
     }
 
@@ -89,30 +90,44 @@ public class MachineReference {
     }
     //endregion Getter / Setter
 
+    //region Overrides
+    @Override
+    public CompoundNBT serializeNBT() {
+        return this.write(new CompoundNBT());
+    }
+
+    @Override
+    public void deserializeNBT(CompoundNBT nbt) {
+        this.read(nbt);
+    }
+    //endregion Overrides
+
     //region Static Methods
-    public static MachineReference fromTileEntity(TileEntity tileEntity) {
-        GlobalBlockPos pos = GlobalBlockPos.fromTileEntity(tileEntity);
+    public static MachineReference from(TileEntity tileEntity) {
+        GlobalBlockPos pos = GlobalBlockPos.from(tileEntity);
         BlockState state = tileEntity.getWorld().getBlockState(pos.getPos());
         ItemStack item = state.getBlock().getItem(tileEntity.getWorld(), pos.getPos(), state);
         boolean isLoaded = tileEntity.getWorld().isBlockLoaded(pos.getPos());
         return new MachineReference(pos, item.getItem().getRegistryName(), isLoaded);
     }
 
-    public static MachineReference fromNbt(CompoundNBT compound) {
+    public static MachineReference from(CompoundNBT compound) {
         MachineReference reference = new MachineReference();
-        reference.readFromNBT(compound);
+        reference.deserializeNBT(compound);
         return reference;
     }
 
-    public static MachineReference fromBytes(PacketBuffer buf) {
-        return MachineReference.fromNbt(buf.readCompoundTag());
+    public static MachineReference from(PacketBuffer buf) {
+        MachineReference reference = new MachineReference();
+        reference.decode(buf);
+        return reference;
     }
     //endregion Static Methods
 
     //region Methods
-    public CompoundNBT writeToNBT(CompoundNBT compound) {
+    public CompoundNBT write(CompoundNBT compound) {
         if (this.globalPos != null)
-            compound.put("globalPos", this.globalPos.writeToNBT(new CompoundNBT()));
+            compound.put("globalPos", this.globalPos.serializeNBT());
         if (this.registryName != null)
             compound.putString("registryName", this.registryName.toString());
         if (!StringUtils.isBlank(this.customName))
@@ -125,9 +140,9 @@ public class MachineReference {
         return compound;
     }
 
-    public void readFromNBT(CompoundNBT compound) {
+    public void read(CompoundNBT compound) {
         if (compound.contains("globalPos"))
-            this.globalPos = GlobalBlockPos.fromNbt(compound.getCompound("globalPos"));
+            this.globalPos = GlobalBlockPos.from(compound.getCompound("globalPos"));
         if (compound.contains("registryName"))
             this.registryName = new ResourceLocation(compound.getString("registryName"));
         if (compound.contains("customName"))
@@ -138,8 +153,12 @@ public class MachineReference {
         this.extractFacing = Direction.byIndex(compound.getInt("extractFacing"));
     }
 
-    public void toBytes(PacketBuffer buf) {
-        buf.writeCompoundTag(this.writeToNBT(new CompoundNBT()));
+    public void encode(PacketBuffer buf) {
+        buf.writeCompoundTag(this.write(new CompoundNBT()));
+    }
+
+    public void decode(PacketBuffer buf) {
+        this.deserializeNBT(buf.readCompoundTag());
     }
 
     public TileEntity getTileEntity(World world) {

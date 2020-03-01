@@ -22,7 +22,6 @@
 
 package com.github.klikli_dev.occultism.api.common.data;
 
-import io.netty.buffer.ByteBuf;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.tileentity.TileEntity;
@@ -30,17 +29,18 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionType;
+import net.minecraftforge.common.util.INBTSerializable;
 
 import java.util.StringJoiner;
 
-public class GlobalBlockPos {
+public class GlobalBlockPos implements INBTSerializable<CompoundNBT> {
     //region Fields
     protected BlockPos pos;
     protected DimensionType dimensionType;
     //endregion Fields
 
     //region Initialization
-    protected GlobalBlockPos() {
+    public GlobalBlockPos() {
     }
 
     public GlobalBlockPos(BlockPos pos, DimensionType dimensionType) {
@@ -91,44 +91,56 @@ public class GlobalBlockPos {
                        .add("x=" + this.pos.getX()).add("y=" + this.pos.getY())
                        .add("z=" + this.pos.getZ()).toString();
     }
+
+    @Override
+    public CompoundNBT serializeNBT() {
+        return this.write(new CompoundNBT());
+    }
+
+    @Override
+    public void deserializeNBT(CompoundNBT nbt) {
+        this.read(nbt);
+    }
     //endregion Overrides
 
     //region Static Methods
-    public static GlobalBlockPos fromNbt(CompoundNBT compound) {
+    public static GlobalBlockPos from(CompoundNBT compound) {
         GlobalBlockPos globalBlockPos = new GlobalBlockPos();
-        globalBlockPos.readFromNBT(compound);
+        globalBlockPos.deserializeNBT(compound);
         return globalBlockPos;
     }
 
-    public static GlobalBlockPos fromBytes(PacketBuffer buf) {
+    public static GlobalBlockPos from(PacketBuffer buf) {
         GlobalBlockPos globalBlockPos = new GlobalBlockPos();
-        globalBlockPos.pos = buf.readBlockPos();
-        globalBlockPos.dimensionType = DimensionType.byName(buf.readResourceLocation());
+        globalBlockPos.decode(buf);
         return globalBlockPos;
     }
 
-
-    public static GlobalBlockPos fromTileEntity(TileEntity tileEntity) {
+    public static GlobalBlockPos from(TileEntity tileEntity) {
         return new GlobalBlockPos(tileEntity.getPos(), tileEntity.getWorld());
     }
     //endregion Static Methods
 
     //region Methods
-    public CompoundNBT writeToNBT(CompoundNBT compound) {
+    public CompoundNBT write(CompoundNBT compound) {
         compound.putLong("pos", this.getPos().toLong());
         compound.putString("dimension", this.getDimensionType().getRegistryName().toString());
         return compound;
     }
 
-    public void readFromNBT(CompoundNBT compound) {
+    public void read(CompoundNBT compound) {
         this.pos = BlockPos.fromLong(compound.getLong("pos"));
         this.dimensionType = DimensionType.byName(new ResourceLocation(compound.getString("dimension")));
     }
 
-
-    public void toBytes(PacketBuffer buf) {
+    public void encode(PacketBuffer buf) {
         buf.writeBlockPos(this.pos);
         buf.writeResourceLocation(this.dimensionType.getRegistryName());
+    }
+
+    public void decode(PacketBuffer buf) {
+        this.pos = buf.readBlockPos();
+        this.dimensionType = DimensionType.byName(buf.readResourceLocation());
     }
     //endregion Methods
 }

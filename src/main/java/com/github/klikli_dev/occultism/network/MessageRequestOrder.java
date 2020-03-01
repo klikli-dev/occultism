@@ -93,15 +93,15 @@ public class MessageRequestOrder extends MessageBase {
 
     @Override
     public void encode(PacketBuffer buf) {
-        this.storageControllerPosition.toBytes(buf);
-        this.targetMachinePosition.toBytes(buf);
+        this.storageControllerPosition.encode(buf);
+        this.targetMachinePosition.encode(buf);
         buf.writeItemStack(this.stack);
     }
 
     @Override
     public void decode(PacketBuffer buf) {
-        this.storageControllerPosition = GlobalBlockPos.fromBytes(buf);
-        this.targetMachinePosition = GlobalBlockPos.fromBytes(buf);
+        this.storageControllerPosition = GlobalBlockPos.from(buf);
+        this.targetMachinePosition = GlobalBlockPos.from(buf);
         this.stack = buf.readItemStack();
     }
     //endregion Overrides
