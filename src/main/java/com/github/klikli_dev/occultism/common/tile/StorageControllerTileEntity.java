@@ -361,13 +361,6 @@ public class StorageControllerTileEntity extends NetworkedTileEntity implements 
         this.itemStackHandler.invalidate();
     }
 
-    @Override
-    public void onLoad() {
-        super.onLoad();
-        if (!this.world.isRemote)
-            this.updateStabilizers();
-    }
-
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, Direction direction) {
@@ -411,7 +404,6 @@ public class StorageControllerTileEntity extends NetworkedTileEntity implements 
 
     @Override
     public void readNetwork(CompoundNBT compound) {
-        super.readNetwork(compound);
         this.setSortDirection(SortDirection.get(compound.getInt("sortDirection")));
         this.setSortType(SortType.get(compound.getInt("sortType")));
 
@@ -473,7 +465,7 @@ public class StorageControllerTileEntity extends NetworkedTileEntity implements 
         }
         compound.put("linkedMachines", machinesNbt);
 
-        return super.writeNetwork(compound);
+        return compound;
     }
 
     @Nullable
