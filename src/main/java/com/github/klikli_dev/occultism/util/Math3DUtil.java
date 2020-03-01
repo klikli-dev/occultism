@@ -22,15 +22,22 @@
 
 package com.github.klikli_dev.occultism.util;
 
+import com.google.common.collect.ImmutableList;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.CubeCoordinateIterator;
+import net.minecraft.util.math.MutableBoundingBox;
 import net.minecraft.util.math.Vec3d;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Spliterators;
+import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 public class Math3DUtil {
 
@@ -72,8 +79,10 @@ public class Math3DUtil {
      * @return a list of block positions
      */
     public static List<BlockPos> simpleTrace(BlockPos start, Direction direction, int distance) {
-        Stream<BlockPos> blocks = BlockPos.getAllInBox(start, start.offset(direction, distance));
-        return blocks.sorted(Comparator.comparingDouble(start::distanceSq)).collect(Collectors.toList());
+        //map to a new block pos because getAllInBox uses a mutable blockpos internally for iteration,
+        // leading to the same block being collected 6x when not mapping it to an immutable blockpos
+        return BlockPos.getAllInBox(start, start.offset(direction, distance)).map(BlockPos::new)
+                       .sorted(Comparator.comparingDouble(start::distanceSq)).collect(Collectors.toList());
     }
 
     /**

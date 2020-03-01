@@ -213,8 +213,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         int maxSlots = this.storageControllerContainer.getStorageController() != null ? this.storageControllerContainer
                                                                                                 .getStorageController()
                                                                                                 .getMaxSlots() : 0;
-        int storageSpaceInfoLabelLeft = 110 + ORDER_AREA_OFFSET;
-        int storageSpaceInfoLabelTop = 115;
+
         this.storageSpaceInfoText = I18n.format(TRANSLATION_KEY_BASE + ".space_info_label", this.usedSlots, maxSlots);
 
         this.initButtons();
@@ -267,6 +266,10 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                 break;
         }
         this.searchBar.render(mouseX, mouseY, partialTicks);
+        int storageSpaceInfoLabelLeft = 186;
+        int storageSpaceInfoLabelTop = 115;
+        int width = this.font.getStringWidth(storageSpaceInfoText);
+        this.font.drawString(this.storageSpaceInfoText,this.guiLeft + storageSpaceInfoLabelLeft - width / 2.0f, this.guiTop + storageSpaceInfoLabelTop, 0x404040); //light gray text;
     }
 
     @Override

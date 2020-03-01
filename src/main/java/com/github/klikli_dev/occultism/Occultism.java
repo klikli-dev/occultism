@@ -24,6 +24,7 @@ package com.github.klikli_dev.occultism;
 
 import com.github.klikli_dev.occultism.client.gui.StorageControllerGui;
 import com.github.klikli_dev.occultism.client.gui.StorageRemoteGui;
+import com.github.klikli_dev.occultism.client.render.SelectedBlockRenderer;
 import com.github.klikli_dev.occultism.common.OccultismItemGroup;
 import com.github.klikli_dev.occultism.config.OccultismConfig;
 import com.github.klikli_dev.occultism.network.OccultismPackets;
@@ -51,10 +52,16 @@ public class Occultism {
     public static final ItemGroup ITEM_GROUP = new OccultismItemGroup();
     public static final Logger LOGGER = LogManager.getLogger(MODID);
     public static final OccultismConfig CONFIG = new OccultismConfig();
+
+
+    public static Occultism INSTANCE;
+
+    public static final SelectedBlockRenderer selectedBlockRenderer = new SelectedBlockRenderer();
     //endregion Fields
 
     //region Initialization
     public Occultism() {
+        INSTANCE = this;
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, CONFIG.spec);
 
         OccultismBlocks.BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
@@ -71,6 +78,7 @@ public class Occultism {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::onModConfigEvent);
 
         MinecraftForge.EVENT_BUS.register(this);
+        MinecraftForge.EVENT_BUS.register(selectedBlockRenderer);
     }
 
     //endregion Initialization
