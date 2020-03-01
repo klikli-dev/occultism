@@ -64,7 +64,7 @@ public abstract class NetworkedTileEntity extends TileEntity {
 
     @Override
     public void handleUpdateTag(CompoundNBT tag) {
-        super.handleUpdateTag(tag);
+        super.read(tag);
         this.readNetwork(tag);
     }
 
