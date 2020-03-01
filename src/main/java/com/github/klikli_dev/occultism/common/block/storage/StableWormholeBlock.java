@@ -27,7 +27,6 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.BooleanProperty;
@@ -89,16 +88,12 @@ public class StableWormholeBlock extends Block {
     @Nullable
     @Override
     public BlockState getStateForPlacement(BlockItemUseContext context) {
-        return this.getDefaultState().with(BlockStateProperties.FACING, context.getFace());
-    }
-
-    @Override
-    public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, @Nullable LivingEntity placer,
-                                ItemStack stack) {
-        //TODO: schedule a client side render update if still necessary
-        //Occultism.proxy.scheduleDelayedTask(worldIn, () -> worldIn.markBlockRangeForRenderUpdate(pos, pos), 1000);
-
-        super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
+        BlockState state = this.getDefaultState().with(BlockStateProperties.FACING, context.getFace());
+        if (context.getItem().getOrCreateTag().getCompound("BlockEntityTag")
+                    .contains("linkedStorageControllerPosition")) {
+            state = state.with(LINKED, true);
+        }
+        return state;
     }
 
     @Override
@@ -125,20 +120,7 @@ public class StableWormholeBlock extends Block {
         return null;
     }
 
-    @Override
-    public BlockState getExtendedState(BlockState state, IBlockReader world, BlockPos pos) {
-        TileEntity tileEntity = world.getTileEntity(pos);
-        boolean linked = false;
-        //TODO: enable once TileEntityStableWormhole is ready
-        //        if (tileEntity instanceof TileEntityStableWormhole)
-        //            linked = ((TileEntityStableWormhole) tileEntity).getLinkedStorageControllerPosition() != null;
-        return state.with(LINKED, linked);
-    }
     //endregion Overrides
-
-
-    //region Methods
-    //endregion Methods
 }
 
 

@@ -23,6 +23,8 @@
 package com.github.klikli_dev.occultism.common.item.storage;
 
 import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.api.common.data.GlobalBlockPos;
+import com.github.klikli_dev.occultism.api.common.tile.IStorageController;
 import net.minecraft.block.Block;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
@@ -35,6 +37,7 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 
@@ -51,7 +54,7 @@ public class StableWormholeBlockItem extends BlockItem {
     }
     //endregion Initialization
 
-//region Overrides
+    //region Overrides
     @Override
     public Rarity getRarity(ItemStack stack) {
         return stack.getOrCreateTag().getCompound("BlockEntityTag")
@@ -67,18 +70,15 @@ public class StableWormholeBlockItem extends BlockItem {
         if (!world.isRemote) {
             if (player.isShiftKeyDown()) {
                 TileEntity tileEntity = world.getTileEntity(pos);
-                //TODO: once storage controller is set up, enable this to allow linking
-                //                if (tileEntity instanceof IStorageController) {
-                //                    //if this is a storage controller, write the position into the block entity tag that will be used to spawn the tile entity.
-                //                    CompoundNBT itemTag =
-                //                            stack.getTag() != null ? stack.getTag() : new CompoundNBT();
-                //
-                //                    stack.getOrCreateChildTag("BlockEntityTag").put("linkedStorageControllerPosition", GlobalBlockPos.fromTileEntity(tileEntity).writeToNBT(new CompoundNBT()));
-                //                    player.sendStatusMessage(
-                //                            new TranslationTextComponent(TRANSLATION_KEY_BASE + ".message.set_storage_controller"),
-                //                            true);
-                //                    return ActionResultType.SUCCESS;
-                //                }
+                if (tileEntity instanceof IStorageController) {
+                    //if this is a storage controller, write the position into the block entity tag that will be used to spawn the tile entity.
+                    stack.getOrCreateChildTag("BlockEntityTag")
+                            .put("linkedStorageControllerPosition", GlobalBlockPos.from(tileEntity).serializeNBT());
+                    player.sendStatusMessage(
+                            new TranslationTextComponent(this.getTranslationKey() + ".message.set_storage_controller"),
+                            true);
+                    return ActionResultType.SUCCESS;
+                }
             }
         }
         return super.onItemUse(context);
@@ -88,19 +88,17 @@ public class StableWormholeBlockItem extends BlockItem {
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip,
                                ITooltipFlag flagIn) {
         super.addInformation(stack, worldIn, tooltip, flagIn);
-        //        if (stack.getOrCreateTag().getCompound("BlockEntityTag")
-        //                    .contains("linkedStorageControllerPosition")) {
-        //            GlobalBlockPos globalPos = GlobalBlockPos.fromNbt(stack.getChildTag("BlockEntityTag")
-        //                                                                      .getCompound(
-        //                                                                              "linkedStorageControllerPosition"));
-        //            tooltip.add(I18n.format(TRANSLATION_KEY_BASE + ".tooltip.linked",
-        //                    TextFormatting.GOLD.toString() + TextFormatting.BOLD.toString() + globalPos.getPos().toString() +
-        //                    TextFormatting.RESET.toString()));
-        //        }
-        //        else {
-        //            tooltip.add(I18n.format(TRANSLATION_KEY_BASE + ".tooltip.unlinked"));
-        //        }
-        tooltip.add(new TranslationTextComponent(this.getTranslationKey() + ".tooltip.unlinked"));
+        if (stack.getOrCreateTag().getCompound("BlockEntityTag")
+                    .contains("linkedStorageControllerPosition")) {
+            GlobalBlockPos globalPos = GlobalBlockPos.from(stack.getChildTag("BlockEntityTag")
+                                                                   .getCompound("linkedStorageControllerPosition"));
+            String formattedPosition = TextFormatting.GOLD.toString() + TextFormatting.BOLD.toString() + globalPos.getPos().toString() +
+                                       TextFormatting.RESET.toString();
+            tooltip.add(new TranslationTextComponent(this.getTranslationKey()+ ".tooltip.linked", formattedPosition));
+        }
+        else {
+            tooltip.add(new TranslationTextComponent(this.getTranslationKey() + ".tooltip.unlinked"));
+        }
     }
-//endregion Overrides
+    //endregion Overrides
 }

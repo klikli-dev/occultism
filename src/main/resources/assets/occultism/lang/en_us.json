@@ -46,7 +46,7 @@
     "item.occultism.book_of_calling_active.message_set_storage_controller": "%s will now accept work orders from %s",
     "item.occultism.book_of_calling_active.message_set_work_area_size": "%s will now monitor a work area of %s",
     "item.occultism.book_of_calling_active.message_set_managed_machine": "Updated machine settings for %s",
-    "item.occultism.stable_wormhole.message.set_storage_controller": "Linked the stable wormhole to this storage actuator.",
+    "block.occultism.stable_wormhole.message.set_storage_controller": "Linked the stable wormhole to this storage actuator.",
     "item.occultism.storage_remote.message.not_loaded": "Chunk for storage actuator not loaded!.",
     "item.occultism.divination_rod.message.no_linked_block": "The divination rod is not attuned to any material.",
     "item.occultism.divination_rod.message.linked_block": "The divination rod is now attuned to %s.",
