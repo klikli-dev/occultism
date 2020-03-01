@@ -23,7 +23,6 @@
 
 package com.github.klikli_dev.occultism.network;
 
-import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.api.common.container.IStorageControllerContainer;
 import com.github.klikli_dev.occultism.api.common.tile.IStorageController;
 import com.github.klikli_dev.occultism.common.misc.ItemStackComparator;
@@ -50,7 +49,7 @@ public class MessageTakeItem extends MessageBase {
     //region Initialization
 
     public MessageTakeItem(PacketBuffer buf) {
-        super(buf);
+        this.decode(buf);
     }
 
     public MessageTakeItem(ItemStack stack, int mouseButton, boolean isShiftDown, boolean isCtrlDown) {
@@ -61,9 +60,7 @@ public class MessageTakeItem extends MessageBase {
     }
     //endregion Initialization
 
-
     //region Overrides
-
 
     @Override
     public void onServerReceived(MinecraftServer minecraftServer, ServerPlayerEntity player,
@@ -110,12 +107,12 @@ public class MessageTakeItem extends MessageBase {
                 else {
                     //otherwise put it on the players mouse
                     player.inventory.setItemStack(stack);
-                    OccultismPacketHandler.sendTo(player, new MessageUpdateMouseHeldItem(stack));
+                    OccultismPackets.sendTo(player, new MessageUpdateMouseHeldItem(stack));
                 }
             }
 
             //finally, update the storage controller stacks
-            OccultismPacketHandler.sendTo(player, storageController.getMessageUpdateStacks());
+            OccultismPackets.sendTo(player, storageController.getMessageUpdateStacks());
             player.openContainer.detectAndSendChanges();
         }
     }
@@ -125,7 +122,7 @@ public class MessageTakeItem extends MessageBase {
         ItemStack toWrite = this.stack.copy();
         toWrite.setCount(1);
         buf.writeItemStack(toWrite);
-        buf.writeInt(this.stack.getCount());
+        buf.writeByte(this.stack.getCount());
         buf.writeInt(this.mouseButton);
 
         buf.writeBoolean(this.isShiftDown);
@@ -136,7 +133,7 @@ public class MessageTakeItem extends MessageBase {
     public void decode(PacketBuffer buf) {
         this.stack = buf.readItemStack();
         this.stack.setCount(buf.readInt());
-        this.mouseButton = buf.readInt();
+        this.mouseButton = buf.readByte();
         this.isShiftDown = buf.readBoolean();
         this.isCtrlDown = buf.readBoolean();
     }

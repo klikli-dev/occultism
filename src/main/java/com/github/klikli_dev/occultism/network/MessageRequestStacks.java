@@ -38,7 +38,7 @@ public class MessageRequestStacks extends MessageBase {
     }
 
     public MessageRequestStacks(PacketBuffer buf) {
-        super(buf);
+        this.decode(buf);
     }
     //endregion Initialization
 
@@ -52,8 +52,8 @@ public class MessageRequestStacks extends MessageBase {
             IStorageController storageController = ((IStorageControllerContainer) player.openContainer)
                                                            .getStorageController();
             if (storageController != null) {
-                OccultismPacketHandler.sendTo(player, storageController.getMessageUpdateStacks());
-                OccultismPacketHandler
+                OccultismPackets.sendTo(player, storageController.getMessageUpdateStacks());
+                OccultismPackets
                         .sendTo(player, new MessageUpdateLinkedMachines(storageController.getLinkedMachines()));
                 player.openContainer.detectAndSendChanges();
             }

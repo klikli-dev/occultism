@@ -40,7 +40,7 @@ public class MessageUpdateMouseHeldItem extends MessageBase {
     //region Initialization
 
     public MessageUpdateMouseHeldItem(PacketBuffer buf) {
-        super(buf);
+        this.decode(buf);
     }
 
     public MessageUpdateMouseHeldItem(ItemStack itemStack) {

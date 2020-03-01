@@ -36,7 +36,7 @@ public class MessageClearCraftingMatrix extends MessageBase {
     }
 
     public MessageClearCraftingMatrix(PacketBuffer buf) {
-        super(buf);
+        this.decode(buf);
     }
     //endregion Initialization
 

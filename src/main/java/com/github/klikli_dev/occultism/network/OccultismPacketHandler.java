@@ -22,99 +22,29 @@
 
 package com.github.klikli_dev.occultism.network;
 
-import com.github.klikli_dev.occultism.Occultism;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.network.NetworkRegistry;
-import net.minecraftforge.fml.network.PacketDistributor;
-import net.minecraftforge.fml.network.simple.SimpleChannel;
+import net.minecraft.client.Minecraft;
+import net.minecraft.server.MinecraftServer;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.network.NetworkEvent;
+
+import java.util.function.Supplier;
 
 public class OccultismPacketHandler {
-    //region Fields
-    private static final String PROTOCOL_VERSION = "1";
-    public static final SimpleChannel INSTANCE = NetworkRegistry.newSimpleChannel(
-            new ResourceLocation(Occultism.MODID, "main"),
-            () -> PROTOCOL_VERSION,
-            PROTOCOL_VERSION::equals,
-            PROTOCOL_VERSION::equals
-    );
-    private static int ID = 0;
-    //endregion Fields
-
     //region Static Methods
-    public static int nextID() {
-        return ID++;
-    }
-
-    public static void registerMessages() {
-
-        INSTANCE.registerMessage(nextID(),
-                MessageRequestStacks.class,
-                MessageRequestStacks::encode,
-                MessageRequestStacks::new,
-                MessageRequestStacks::handle);
-
-        INSTANCE.registerMessage(nextID(),
-                MessageUpdateLinkedMachines.class,
-                MessageUpdateLinkedMachines::encode,
-                MessageUpdateLinkedMachines::new,
-                MessageUpdateLinkedMachines::handle);
-
-        INSTANCE.registerMessage(nextID(),
-                MessageUpdateStacks.class,
-                MessageUpdateStacks::encode,
-                MessageUpdateStacks::new,
-                MessageUpdateStacks::handle);
-
-        INSTANCE.registerMessage(nextID(),
-                MessageSetRecipe.class,
-                MessageSetRecipe::encode,
-                MessageSetRecipe::new,
-                MessageSetRecipe::handle);
-
-        INSTANCE.registerMessage(nextID(),
-                MessageClearCraftingMatrix.class,
-                MessageClearCraftingMatrix::encode,
-                MessageClearCraftingMatrix::new,
-                MessageClearCraftingMatrix::handle);
-
-        INSTANCE.registerMessage(nextID(),
-                MessageTakeItem.class,
-                MessageTakeItem::encode,
-                MessageTakeItem::new,
-                MessageTakeItem::handle);
-
-        INSTANCE.registerMessage(nextID(),
-                MessageUpdateMouseHeldItem.class,
-                MessageUpdateMouseHeldItem::encode,
-                MessageUpdateMouseHeldItem::new,
-                MessageUpdateMouseHeldItem::handle);
-
-        INSTANCE.registerMessage(nextID(),
-                MessageInsertMouseHeldItem.class,
-                MessageInsertMouseHeldItem::encode,
-                MessageInsertMouseHeldItem::new,
-                MessageInsertMouseHeldItem::handle);
-
-        INSTANCE.registerMessage(nextID(),
-                MessageRequestOrder.class,
-                MessageRequestOrder::encode,
-                MessageRequestOrder::new,
-                MessageRequestOrder::handle);
-
-        INSTANCE.registerMessage(nextID(),
-                MessageSortItems.class,
-                MessageSortItems::encode,
-                MessageSortItems::new,
-                MessageSortItems::handle);
-    }
-
-    public static <MSG> void sendTo(ServerPlayerEntity player, MSG message) {
-        INSTANCE.send(PacketDistributor.PLAYER.with(() -> player), message);
-    }
-
-    public static <MSG> void sendToServer(MSG message) {
-        INSTANCE.sendToServer(message);
+    public static <T extends IMessage> void handle(T message, Supplier<NetworkEvent.Context> ctx) {
+        if (ctx.get().getDirection().getReceptionSide() == LogicalSide.SERVER) {
+            ctx.get().enqueueWork(() -> {
+                MinecraftServer server = ctx.get().getSender().world.getServer();
+                message.onServerReceived(server, ctx.get().getSender(), ctx.get());
+            });
+        }
+        else {
+            ctx.get().enqueueWork(() -> {
+                Minecraft minecraft = Minecraft.getInstance();
+                message.onClientReceived(minecraft, minecraft.player, ctx.get());
+            });
+        }
+        ctx.get().setPacketHandled(true);
     }
     //endregion Static Methods
 }

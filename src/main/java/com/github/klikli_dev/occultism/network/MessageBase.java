@@ -25,50 +25,28 @@ package com.github.klikli_dev.occultism.network;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.network.PacketBuffer;
 import net.minecraft.server.MinecraftServer;
-import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.network.NetworkEvent;
-
-import java.util.function.Supplier;
 
 public abstract class MessageBase implements IMessage {
 
     //region Initialization
+
     protected MessageBase() {
     }
 
-    public MessageBase(PacketBuffer buf) {
-        this.decode(buf);
-    }
     //endregion Initialization
 
     //region Overrides
-    @Override
-    public void handle(Supplier<NetworkEvent.Context> ctx) {
-        if (ctx.get().getDirection().getReceptionSide() == LogicalSide.SERVER) {
-            ctx.get().enqueueWork(() -> {
-                MinecraftServer server = ctx.get().getSender().world.getServer();
-                this.onServerReceived(server, ctx.get().getSender(), ctx.get());
-            });
-        }
-        else {
-            ctx.get().enqueueWork(() -> {
-                Minecraft minecraft = Minecraft.getInstance();
-                this.onClientReceived(minecraft, minecraft.player, ctx.get());
-            });
-        }
-        ctx.get().setPacketHandled(true);
-    }
-    //endregion Overrides
-
-    //region Methods
     public void onClientReceived(Minecraft minecraft, PlayerEntity player, NetworkEvent.Context context) {
     }
-
 
     public void onServerReceived(MinecraftServer minecraftServer, ServerPlayerEntity player,
                                  NetworkEvent.Context context) {
     }
+    //endregion Overrides
+
+
+    //region Methods
     //endregion Methods
 }

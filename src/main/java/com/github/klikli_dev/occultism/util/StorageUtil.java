@@ -26,7 +26,7 @@ package com.github.klikli_dev.occultism.util;
 import com.github.klikli_dev.occultism.api.common.container.IStorageControllerContainer;
 import com.github.klikli_dev.occultism.api.common.tile.IStorageController;
 import com.github.klikli_dev.occultism.common.misc.ItemStackComparator;
-import com.github.klikli_dev.occultism.network.OccultismPacketHandler;
+import com.github.klikli_dev.occultism.network.OccultismPackets;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.inventory.Inventory;
@@ -76,7 +76,7 @@ public class StorageUtil {
 
             //finally if requested, send the updated storage controller contents to the player.
             if (sendStackUpdate) {
-                OccultismPacketHandler.sendTo(player, storageController.getMessageUpdateStacks());
+                OccultismPackets.sendTo(player, storageController.getMessageUpdateStacks());
                 ((Container) container).detectAndSendChanges();
             }
         }
@@ -114,7 +114,7 @@ public class StorageUtil {
 
             //finally if requested, send the updated storage controller contents to the player.
             if (sendStackUpdate) {
-                OccultismPacketHandler.sendTo(player, storageController.getMessageUpdateStacks());
+                OccultismPackets.sendTo(player, storageController.getMessageUpdateStacks());
                 ((Container) container).detectAndSendChanges();
             }
         }

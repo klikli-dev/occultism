@@ -22,10 +22,12 @@
 
 package com.github.klikli_dev.occultism.network;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.network.PacketBuffer;
+import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.fml.network.NetworkEvent;
-
-import java.util.function.Supplier;
 
 public interface IMessage {
     //region Methods
@@ -33,6 +35,9 @@ public interface IMessage {
 
     void decode(PacketBuffer buf);
 
-    void handle(Supplier<NetworkEvent.Context> ctx);
+    void onClientReceived(Minecraft minecraft, PlayerEntity player, NetworkEvent.Context context);
+
+    void onServerReceived(MinecraftServer minecraftServer, ServerPlayerEntity player,
+                          NetworkEvent.Context context);
     //endregion Methods
 }

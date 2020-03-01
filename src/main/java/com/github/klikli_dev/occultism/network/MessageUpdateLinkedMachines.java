@@ -46,7 +46,7 @@ public class MessageUpdateLinkedMachines extends MessageBase {
     //region Initialization
 
     public MessageUpdateLinkedMachines(PacketBuffer buf) {
-        super(buf);
+        this.decode(buf);
     }
 
     public MessageUpdateLinkedMachines(List<MachineReference> linkedMachines) {

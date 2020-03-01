@@ -29,7 +29,7 @@ import com.github.klikli_dev.occultism.client.gui.StorageControllerGuiBase;
 import com.github.klikli_dev.occultism.common.misc.InventoryCraftingCached;
 import com.github.klikli_dev.occultism.common.misc.ItemStackComparator;
 import com.github.klikli_dev.occultism.common.misc.SlotCraftingNetwork;
-import com.github.klikli_dev.occultism.network.OccultismPacketHandler;
+import com.github.klikli_dev.occultism.network.OccultismPackets;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -125,7 +125,7 @@ public abstract class StorageControllerContainerBase extends Container implement
                 this.detectAndSendChanges();
 
                 //get updated stacks from storage controller and send to client
-                OccultismPacketHandler.sendTo((ServerPlayerEntity) player, storageController.getMessageUpdateStacks());
+                OccultismPackets.sendTo((ServerPlayerEntity) player, storageController.getMessageUpdateStacks());
 
                 if (!remainingItemStack.isEmpty()) {
                     slot.onTake(player, slotStack);

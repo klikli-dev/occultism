@@ -52,7 +52,7 @@ public class MessageUpdateStacks extends MessageBase {
 
     //region Initialization
     public MessageUpdateStacks(PacketBuffer buf) {
-        super(buf);
+        this.decode(buf);
     }
 
     public MessageUpdateStacks(List<ItemStack> stacks, int usedSlots) {

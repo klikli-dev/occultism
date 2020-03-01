@@ -116,7 +116,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         this.stacks = new ArrayList<>();
         this.lastClick = System.currentTimeMillis();
 
-        OccultismPacketHandler.sendToServer(new MessageRequestStacks());
+        OccultismPackets.sendToServer(new MessageRequestStacks());
     }
     //endregion Initialization
 
@@ -290,14 +290,14 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                 (mouseButton == InputUtil.MOUSE_BUTTON_LEFT || mouseButton == InputUtil.MOUSE_BUTTON_RIGHT) &&
                 stackCarriedByMouse.isEmpty() && this.canClick()) {
                 //take item out of storage
-                OccultismPacketHandler.sendToServer(
+                OccultismPackets.sendToServer(
                         new MessageTakeItem(this.stackUnderMouse, mouseButton, Screen.hasShiftDown(),
                                 Screen.hasControlDown()));
                 this.lastClick = System.currentTimeMillis();
             }
             else if (!stackCarriedByMouse.isEmpty() && this.isPointInItemArea(mouseX, mouseY) && this.canClick()) {
                 //put item into storage
-                OccultismPacketHandler.sendToServer(new MessageInsertMouseHeldItem(mouseButton));
+                OccultismPackets.sendToServer(new MessageInsertMouseHeldItem(mouseButton));
                 this.lastClick = System.currentTimeMillis();
             }
         }
@@ -313,7 +313,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                         }
                         else if (!orderStack.isEmpty()) {
                             //this message both clears the order slot and creates the order
-                            OccultismPacketHandler.sendToServer(new MessageRequestOrder(GlobalBlockPos.from(
+                            OccultismPackets.sendToServer(new MessageRequestOrder(GlobalBlockPos.from(
                                     (TileEntity) this.storageControllerContainer.getStorageController()),
                                     slot.getMachine().globalPos, orderStack));
                             //now switch back gui mode.
@@ -359,7 +359,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     @Override
     public boolean charTyped(char typedChar, int keyCode) {
         if (this.searchBar.isFocused() && this.searchBar.charTyped(typedChar, keyCode)) {
-            OccultismPacketHandler.sendToServer(new MessageRequestStacks());
+            OccultismPackets.sendToServer(new MessageRequestStacks());
             if (JeiPlugin.isJeiLoaded() && JeiPlugin.isJeiSearchSynced()) {
                 JeiPlugin.setFilterText(this.searchBar.getText());
             }
@@ -377,7 +377,10 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         int clearRecipeButtonTop = 112;
         this.clearRecipeButton = new GuiButtonSizedImage(this.guiLeft + clearRecipeButtonLeft,
                 this.guiTop + clearRecipeButtonTop, controlButtonSize, controlButtonSize, 0, 196, 28, 28, 28, 256, 256,
-                BUTTONS, this::handleButton);
+                BUTTONS, (button) -> {
+            OccultismPackets.sendToServer(new MessageClearCraftingMatrix());
+            OccultismPackets.sendToServer(new MessageRequestStacks());
+        });
         this.addButton(this.clearRecipeButton);
 
         int controlButtonTop = 5;
@@ -385,28 +388,41 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         int clearTextButtonLeft = 99 + ORDER_AREA_OFFSET;
         this.clearTextButton = new GuiButtonSizedImage(this.guiLeft + clearTextButtonLeft,
                 this.guiTop + controlButtonTop, controlButtonSize, controlButtonSize, 0, 196, 28, 28, 28, 256, 256,
-                BUTTONS, this::handleButton);
+                BUTTONS, (button) -> {
+            this.clearSearch();
+            this.forceFocus = true;
+        });
         this.addButton(this.clearTextButton);
 
 
         int sortTypeOffset = this.getSortType().getValue() * 28;
         this.sortTypeButton = new GuiButtonSizedImage(this.guiLeft + clearTextButtonLeft + controlButtonSize + 3,
                 this.guiTop + controlButtonTop, controlButtonSize, controlButtonSize, 0, sortTypeOffset, 28, 28, 28,
-                256, 256, BUTTONS, this::handleButton);
+                256, 256, BUTTONS, (button) -> {
+            this.setSortType(this.getSortType().next());
+            OccultismPackets.sendToServer(
+                    new MessageSortItems(this.getEntityPosition(), this.getSortDirection(), this.getSortType()));
+        });
         this.addButton(this.sortTypeButton);
 
         int sortDirectionOffset = 84 + (1 - this.getSortDirection().getValue()) * 28;
         this.sortDirectionButton = new GuiButtonSizedImage(
                 this.guiLeft + clearTextButtonLeft + controlButtonSize + 3 + controlButtonSize + 3,
                 this.guiTop + controlButtonTop, controlButtonSize, controlButtonSize, 0, sortDirectionOffset, 28, 28,
-                28, 256, 256, BUTTONS, this::handleButton);
+                28, 256, 256, BUTTONS, (button) -> {
+            this.setSortDirection(this.getSortDirection().next());
+            OccultismPackets.sendToServer(
+                    new MessageSortItems(this.getEntityPosition(), this.getSortDirection(), this.getSortType()));
+        });
         this.addButton(this.sortDirectionButton);
 
         int jeiSyncOffset = 140 + (JeiPlugin.isJeiSearchSynced() ? 0 : 1) * 28;
         this.jeiSyncButton = new GuiButtonSizedImage(
                 this.guiLeft + clearTextButtonLeft + controlButtonSize + 3 + controlButtonSize + 3 + controlButtonSize +
                 3, this.guiTop + controlButtonTop, controlButtonSize, controlButtonSize, 0, jeiSyncOffset, 28, 28, 28,
-                256, 256, BUTTONS, this::handleButton);
+                256, 256, BUTTONS, (button) -> {
+            JeiPlugin.setJeiSearchSync(!JeiPlugin.isJeiSearchSynced());
+        });
 
         if (JeiPlugin.isJeiLoaded())
             this.addButton(this.jeiSyncButton);
@@ -422,66 +438,35 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                 //active tab button for inventory
                 this.inventoryModeButton = new GuiButtonSizedImage(this.guiLeft + guiModeButtonLeft,
                         this.guiTop + 112, guiModeButtonWidth, guiModeButtonHeight, 160, 0, 0, guiModeButtonWidth * 2,
-                        guiModeButtonHeight * 2, 256, 256, BUTTONS, this::handleButton);
+                        guiModeButtonHeight * 2, 256, 256, BUTTONS, (button) -> {
+                    this.guiMode = StorageControllerGuiMode.INVENTORY;
+                });
                 //inactive tab button for crafting
                 this.autocraftingModeButton = new GuiButtonSizedImage(this.guiLeft + guiModeButtonLeft,
                         this.guiTop + guiModeButtonTop + guiModeButtonHeight, guiModeButtonWidth, guiModeButtonHeight,
                         160, 174, 0, guiModeButtonWidth * 2, guiModeButtonHeight * 2, 256, 256, BUTTONS,
-                        this::handleButton);
+                        (button) -> {
+                            this.guiMode = StorageControllerGuiMode.AUTOCRAFTING;
+                        });
                 break;
             case AUTOCRAFTING:
                 //inactive tab button for inventory
                 this.inventoryModeButton = new GuiButtonSizedImage(this.guiLeft + guiModeButtonLeft,
                         this.guiTop + 112, guiModeButtonWidth, guiModeButtonHeight, 160, 58, 0, guiModeButtonWidth * 2,
-                        guiModeButtonHeight * 2, 256, 256, BUTTONS, this::handleButton);
+                        guiModeButtonHeight * 2, 256, 256, BUTTONS, (button) -> {
+                    this.guiMode = StorageControllerGuiMode.INVENTORY;
+                });
                 //active tab button for crafting
                 this.autocraftingModeButton = new GuiButtonSizedImage(this.guiLeft + guiModeButtonLeft,
                         this.guiTop + guiModeButtonTop + guiModeButtonHeight, guiModeButtonWidth, guiModeButtonHeight,
                         160, 116, 0, guiModeButtonWidth * 2, guiModeButtonHeight * 2, 256, 256, BUTTONS,
-                        this::handleButton);
+                        (button) -> {
+                            this.guiMode = StorageControllerGuiMode.AUTOCRAFTING;
+                        });
                 break;
         }
         this.addButton(this.inventoryModeButton);
         this.addButton(this.autocraftingModeButton);
-    }
-
-    public void handleButton(Button button) {
-        if (button == null) {
-            return;
-        }
-
-        boolean sort = true;
-
-        if (button == this.clearTextButton) {
-            sort = false;
-            this.clearSearch();
-            this.forceFocus = true; //force focus
-        }
-        if (button == this.clearRecipeButton) {
-            OccultismPacketHandler.sendToServer(new MessageClearCraftingMatrix());
-            OccultismPacketHandler.sendToServer(new MessageRequestStacks());
-        }
-        if (button == this.sortTypeButton) {
-            this.setSortType(this.getSortType().next());
-        }
-        if (button == this.sortDirectionButton) {
-            this.setSortDirection(this.getSortDirection().next());
-        }
-        if (button == this.jeiSyncButton) {
-            sort = false;
-            JeiPlugin.setJeiSearchSync(!JeiPlugin.isJeiSearchSynced());
-        }
-        if (button == this.inventoryModeButton) {
-            this.guiMode = StorageControllerGuiMode.INVENTORY;
-        }
-        if (button == this.autocraftingModeButton) {
-            this.guiMode = StorageControllerGuiMode.AUTOCRAFTING;
-        }
-
-        if (sort)
-            OccultismPacketHandler.sendToServer(
-                    new MessageSortItems(this.getEntityPosition(), this.getSortDirection(), this.getSortType()));
-        this.init();
     }
 
     protected void drawItems(float partialTicks, int mouseX, int mouseY) {
@@ -601,9 +586,6 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                 //        break;
             }
         }
-        if (this.itemSlots.isEmpty()) {
-            this.stackUnderMouse = ItemStack.EMPTY;
-        }
     }
 
     protected void buildItemSlots(List<ItemStack> stacksToDisplay) {
@@ -614,6 +596,9 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         this.itemSlots = new ArrayList<>();
         int index = (this.currentPage - 1) * (this.columns);
         for (int row = 0; row < this.rows; row++) {
+            if (index >= stacksToDisplay.size()) {
+                break;
+            }
             for (int col = 0; col < this.columns; col++) {
                 if (index >= stacksToDisplay.size()) {
                     break;

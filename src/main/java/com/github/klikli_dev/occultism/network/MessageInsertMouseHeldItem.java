@@ -44,7 +44,7 @@ public class MessageInsertMouseHeldItem extends MessageBase {
 
 
     public MessageInsertMouseHeldItem(PacketBuffer buf) {
-        super(buf);
+        this.decode(buf);
     }
 
     public MessageInsertMouseHeldItem(int mouseButton) {
@@ -88,10 +88,10 @@ public class MessageInsertMouseHeldItem extends MessageBase {
             //store result mouse held item
             player.inventory.setItemStack(result);
             //send new mouse held item to client
-            OccultismPacketHandler.sendTo(player, new MessageUpdateMouseHeldItem(result));
+            OccultismPackets.sendTo(player, new MessageUpdateMouseHeldItem(result));
 
             //update the storage controller
-            OccultismPacketHandler.sendTo(player, storageController.getMessageUpdateStacks());
+            OccultismPackets.sendTo(player, storageController.getMessageUpdateStacks());
             player.openContainer.detectAndSendChanges();
         }
     }

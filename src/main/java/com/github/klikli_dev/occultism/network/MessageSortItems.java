@@ -45,7 +45,7 @@ public class MessageSortItems extends MessageBase {
     //region Initialization
 
     public MessageSortItems(PacketBuffer buf) {
-        super(buf);
+        this.decode(buf);
     }
 
     public MessageSortItems(BlockPos entityPosition, SortDirection sortDirection, SortType sortType) {

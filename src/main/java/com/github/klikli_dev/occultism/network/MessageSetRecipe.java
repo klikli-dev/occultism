@@ -49,7 +49,7 @@ public class MessageSetRecipe extends MessageBase {
 
     //region Initialization
     public MessageSetRecipe(PacketBuffer buf) {
-        super(buf);
+        this.decode(buf);
     }
 
     public MessageSetRecipe(CompoundNBT nbt) {
@@ -120,7 +120,7 @@ public class MessageSetRecipe extends MessageBase {
         //sync to client
         container.updateCraftingSlots(true);
         //finally update controller content for client
-        OccultismPacketHandler.sendTo(player, storageController.getMessageUpdateStacks());
+        OccultismPackets.sendTo(player, storageController.getMessageUpdateStacks());
     }
 
     @Override

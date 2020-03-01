@@ -25,7 +25,7 @@ package com.github.klikli_dev.occultism.integration.jei;
 
 import com.github.klikli_dev.occultism.api.common.container.IStorageControllerContainer;
 import com.github.klikli_dev.occultism.network.MessageSetRecipe;
-import com.github.klikli_dev.occultism.network.OccultismPacketHandler;
+import com.github.klikli_dev.occultism.network.OccultismPackets;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.ingredient.IGuiIngredient;
 import mezz.jei.api.recipe.transfer.IRecipeTransferError;
@@ -65,7 +65,7 @@ public class StorageControllerRecipeTransferHandler<T extends Container & IStora
     public IRecipeTransferError transferRecipe(T container, IRecipeLayout recipeLayout, PlayerEntity player,
                                                boolean maxTransfer, boolean doTransfer) {
         if (doTransfer) {
-            OccultismPacketHandler.sendToServer(new MessageSetRecipe(this.recipeToTag(container, recipeLayout)));
+            OccultismPackets.sendToServer(new MessageSetRecipe(this.recipeToTag(container, recipeLayout)));
         }
         return null;
     }

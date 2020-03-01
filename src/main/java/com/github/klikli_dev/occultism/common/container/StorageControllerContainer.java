@@ -27,7 +27,7 @@ import com.github.klikli_dev.occultism.client.gui.StorageControllerGuiBase;
 import com.github.klikli_dev.occultism.common.misc.InventoryCraftingCached;
 import com.github.klikli_dev.occultism.common.tile.StorageControllerTileEntity;
 import com.github.klikli_dev.occultism.network.MessageUpdateLinkedMachines;
-import com.github.klikli_dev.occultism.network.OccultismPacketHandler;
+import com.github.klikli_dev.occultism.network.OccultismPackets;
 import com.github.klikli_dev.occultism.registry.OccultismContainers;
 import com.github.klikli_dev.occultism.util.TileEntityUtil;
 import net.minecraft.entity.player.PlayerEntity;
@@ -120,8 +120,8 @@ public class StorageControllerContainer extends StorageControllerContainerBase {
         World world = this.storageController.getWorld();
         //send stack updates on a slow tick while interacting
         if (!world.isRemote && world.getGameTime() % 40 == 0) {
-            OccultismPacketHandler.sendTo((ServerPlayerEntity) player, this.storageController.getMessageUpdateStacks());
-            OccultismPacketHandler.sendTo((ServerPlayerEntity) player,
+            OccultismPackets.sendTo((ServerPlayerEntity) player, this.storageController.getMessageUpdateStacks());
+            OccultismPackets.sendTo((ServerPlayerEntity) player,
                     new MessageUpdateLinkedMachines(this.storageController.getLinkedMachines()));
         }
         BlockPos controllerPosition = this.storageController.getPos();

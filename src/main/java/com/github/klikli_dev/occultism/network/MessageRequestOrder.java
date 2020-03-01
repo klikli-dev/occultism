@@ -50,7 +50,7 @@ public class MessageRequestOrder extends MessageBase {
     //region Initialization
 
     public MessageRequestOrder(PacketBuffer buf) {
-        super(buf);
+        this.decode(buf);
     }
 
     public MessageRequestOrder(GlobalBlockPos storageControllerPosition, GlobalBlockPos targetMachinePosition,
