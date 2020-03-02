@@ -23,7 +23,7 @@
 package com.github.klikli_dev.occultism.common.container;
 
 import com.github.klikli_dev.occultism.api.common.tile.IStorageController;
-import com.github.klikli_dev.occultism.client.gui.StorageControllerGuiBase;
+import com.github.klikli_dev.occultism.client.gui.storage.StorageControllerGuiBase;
 import com.github.klikli_dev.occultism.common.item.storage.StorageRemoteItem;
 import com.github.klikli_dev.occultism.common.misc.StorageControllerCraftingInventory;
 import com.github.klikli_dev.occultism.network.MessageUpdateLinkedMachines;

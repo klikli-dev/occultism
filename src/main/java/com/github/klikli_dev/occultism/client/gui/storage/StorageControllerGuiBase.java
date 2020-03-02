@@ -2,7 +2,6 @@
  * MIT License
  *
  * Copyright 2020 klikli-dev
- * Some of the software architecture of the storage system in this file has been based on https://github.com/MrRiegel.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the "Software"), to deal in the Software without restriction, including
@@ -21,7 +20,7 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.github.klikli_dev.occultism.client.gui;
+package com.github.klikli_dev.occultism.client.gui.storage;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.api.client.gui.IStorageControllerGui;

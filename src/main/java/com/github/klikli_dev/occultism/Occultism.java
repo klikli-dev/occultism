@@ -22,8 +22,8 @@
 
 package com.github.klikli_dev.occultism;
 
-import com.github.klikli_dev.occultism.client.gui.StorageControllerGui;
-import com.github.klikli_dev.occultism.client.gui.StorageRemoteGui;
+import com.github.klikli_dev.occultism.client.gui.storage.StorageControllerGui;
+import com.github.klikli_dev.occultism.client.gui.storage.StorageRemoteGui;
 import com.github.klikli_dev.occultism.client.render.SelectedBlockRenderer;
 import com.github.klikli_dev.occultism.common.OccultismItemGroup;
 import com.github.klikli_dev.occultism.config.OccultismConfig;
