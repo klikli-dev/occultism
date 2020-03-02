@@ -23,6 +23,7 @@
 package com.github.klikli_dev.occultism.common.entity.spirit;
 
 import com.github.klikli_dev.occultism.api.common.data.WorkAreaSize;
+import com.github.klikli_dev.occultism.common.container.spirit.SpiritContainer;
 import com.github.klikli_dev.occultism.common.entity.ISkinnedCreatureMixin;
 import com.github.klikli_dev.occultism.common.job.SpiritJob;
 import com.github.klikli_dev.occultism.exceptions.ItemHandlerMissingException;
@@ -31,8 +32,12 @@ import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.entity.projectile.AbstractArrowEntity;
 import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.inventory.container.Container;
+import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
@@ -49,12 +54,13 @@ import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.items.ItemStackHandler;
 
 import javax.annotation.Nullable;
 import java.util.Optional;
 
-public abstract class SpiritEntity extends TameableEntity implements ISkinnedCreatureMixin {
+public abstract class SpiritEntity extends TameableEntity implements ISkinnedCreatureMixin, INamedContainerProvider {
     //region Fields
     public static final DataParameter<Integer> SKIN = EntityDataManager
                                                               .createKey(SpiritEntity.class, DataSerializers.VARINT);
@@ -87,13 +93,10 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
      */
     private static final DataParameter<String> JOB_ID = EntityDataManager
                                                                 .createKey(SpiritEntity.class, DataSerializers.STRING);
-
-
-    protected LazyOptional<ItemStackHandler> itemStackHandler = LazyOptional.of(ItemStackHandler::new);
+    public LazyOptional<ItemStackHandler> itemStackHandler = LazyOptional.of(ItemStackHandler::new);
     protected LazyOptional<SpiritJob> job = LazyOptional.empty();
     protected boolean isInitialized = false;
     //endregion Fields
-
     //region Initialization
     public SpiritEntity(EntityType<? extends TameableEntity> type, World worldIn) {
         super(type, worldIn);
@@ -102,7 +105,6 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
     //endregion Initialization
 
     //region Getter / Setter
-
     public Optional<BlockPos> getDepositPosition() {
         return this.dataManager.get(DEPOSIT_POSITION);
     }
@@ -206,6 +208,12 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
     //endregion Getter / Setter
 
     //region Overrides
+    @Nullable
+    @Override
+    public Container createMenu(int id, PlayerInventory playerInventory, PlayerEntity player) {
+        return new SpiritContainer(id, playerInventory, this);
+    }
+
     @Override
     public DataParameter<Integer> getDataParameterSkin() {
         return SKIN;
@@ -450,12 +458,9 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
     }
 
     public void openGUI(PlayerEntity playerEntity) {
-        //TODO: enable once spirit gui is ready
-        //        if (!this.world.isRemote) {
-        //            playerEntity
-        //                    .openGui(Occultism.instance, GuiHandler.GuiID.SPIRIT.ordinal(), this.world, this.getEntityId(), 0,
-        //                            0);
-        //        }
+        if (!this.world.isRemote) {
+            NetworkHooks.openGui((ServerPlayerEntity) playerEntity, this, (buf) -> buf.writeInt(this.getEntityId()));
+        }
     }
     //endregion Methods
 }
