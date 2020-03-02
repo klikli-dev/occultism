@@ -29,6 +29,7 @@ import com.github.klikli_dev.occultism.api.common.container.IStorageControllerCo
 import com.github.klikli_dev.occultism.api.common.data.*;
 import com.github.klikli_dev.occultism.client.gui.controls.GuiButtonSizedImage;
 import com.github.klikli_dev.occultism.client.gui.controls.GuiItemSlot;
+import com.github.klikli_dev.occultism.client.gui.controls.GuiLabel;
 import com.github.klikli_dev.occultism.client.gui.controls.GuiMachineSlot;
 import com.github.klikli_dev.occultism.common.container.storage.StorageControllerContainerBase;
 import com.github.klikli_dev.occultism.integration.jei.JeiPlugin;
@@ -85,7 +86,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     protected Button jeiSyncButton;
     protected Button autocraftingModeButton;
     protected Button inventoryModeButton;
-    protected String storageSpaceInfoText;
+    protected GuiLabel storageSpaceLabel;
     protected int rows;
     protected int columns;
 
@@ -213,8 +214,11 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                                                                                                 .getStorageController()
                                                                                                 .getMaxSlots() : 0;
 
-        this.storageSpaceInfoText = I18n.format(TRANSLATION_KEY_BASE + ".space_info_label", this.usedSlots, maxSlots);
-
+        int storageSpaceInfoLabelLeft = 186;
+        int storageSpaceInfoLabelTop = 115;
+        this.storageSpaceLabel = new GuiLabel(this.guiLeft + storageSpaceInfoLabelLeft, this.guiTop + storageSpaceInfoLabelTop, true, -1, 2, 0x404040);
+        this.storageSpaceLabel.addLine(I18n.format(TRANSLATION_KEY_BASE + ".space_info_label", this.usedSlots, maxSlots), false);
+        this.addButton(this.storageSpaceLabel);
         this.initButtons();
     }
 
@@ -265,18 +269,12 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                 break;
         }
         this.searchBar.render(mouseX, mouseY, partialTicks);
-        int storageSpaceInfoLabelLeft = 186;
-        int storageSpaceInfoLabelTop = 115;
-        int width = this.font.getStringWidth(storageSpaceInfoText);
-        this.font.drawString(this.storageSpaceInfoText,this.guiLeft + storageSpaceInfoLabelLeft - width / 2.0f, this.guiTop + storageSpaceInfoLabelTop, 0x404040); //light gray text;
     }
 
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int mouseButton) {
         super.mouseClicked(mouseX, mouseY, mouseButton);
         this.searchBar.setFocused2(false);
-        int clearButtonX = 90;
-        int clearButtonY = 110;
 
         //right mouse button clears search bar
         if (this.isPointInSearchbar(mouseX, mouseY)) {
