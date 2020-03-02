@@ -30,7 +30,7 @@ import com.github.klikli_dev.occultism.api.common.data.*;
 import com.github.klikli_dev.occultism.client.gui.controls.GuiButtonSizedImage;
 import com.github.klikli_dev.occultism.client.gui.controls.GuiItemSlot;
 import com.github.klikli_dev.occultism.client.gui.controls.GuiMachineSlot;
-import com.github.klikli_dev.occultism.common.container.StorageControllerContainerBase;
+import com.github.klikli_dev.occultism.common.container.storage.StorageControllerContainerBase;
 import com.github.klikli_dev.occultism.integration.jei.JeiPlugin;
 import com.github.klikli_dev.occultism.network.*;
 import com.github.klikli_dev.occultism.util.InputUtil;

@@ -23,8 +23,8 @@
 package com.github.klikli_dev.occultism.registry;
 
 import com.github.klikli_dev.occultism.Occultism;
-import com.github.klikli_dev.occultism.common.container.StorageControllerContainer;
-import com.github.klikli_dev.occultism.common.container.StorageRemoteContainer;
+import com.github.klikli_dev.occultism.common.container.storage.StorageControllerContainer;
+import com.github.klikli_dev.occultism.common.container.storage.StorageRemoteContainer;
 import com.github.klikli_dev.occultism.common.tile.StorageControllerTileEntity;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraftforge.common.extensions.IForgeContainerType;

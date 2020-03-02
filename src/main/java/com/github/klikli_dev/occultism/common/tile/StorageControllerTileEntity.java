@@ -33,7 +33,7 @@ import com.github.klikli_dev.occultism.api.common.tile.IStorageAccessor;
 import com.github.klikli_dev.occultism.api.common.tile.IStorageController;
 import com.github.klikli_dev.occultism.api.common.tile.IStorageControllerProxy;
 import com.github.klikli_dev.occultism.common.block.storage.StorageStabilizerBlock;
-import com.github.klikli_dev.occultism.common.container.StorageControllerContainer;
+import com.github.klikli_dev.occultism.common.container.storage.StorageControllerContainer;
 import com.github.klikli_dev.occultism.common.misc.StorageControllerItemStackHandler;
 import com.github.klikli_dev.occultism.exceptions.ItemHandlerMissingException;
 import com.github.klikli_dev.occultism.network.MessageUpdateStacks;
