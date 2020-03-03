@@ -45,7 +45,7 @@ import net.minecraft.util.text.TextFormatting;
 import org.apache.commons.lang3.text.WordUtils;
 import org.codehaus.plexus.util.StringUtils;
 
-public class GuiSpirit extends ContainerScreen<SpiritContainer> {
+public class SpiritGui extends ContainerScreen<SpiritContainer> {
 //region Fields
     protected static final ResourceLocation TEXTURE = new ResourceLocation(Occultism.MODID,
             "textures/gui/inventory_spirit.png");
@@ -55,7 +55,7 @@ public class GuiSpirit extends ContainerScreen<SpiritContainer> {
 //endregion Fields
 
     //region Initialization
-    public GuiSpirit(SpiritContainer container, PlayerInventory playerInventory, ITextComponent titleIn) {
+    public SpiritGui(SpiritContainer container, PlayerInventory playerInventory, ITextComponent titleIn) {
         super(container, playerInventory, titleIn);
         this.container = container;
         this.spirit = this.container.spirit;
