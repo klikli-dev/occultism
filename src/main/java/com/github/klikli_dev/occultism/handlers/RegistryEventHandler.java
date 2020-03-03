@@ -37,6 +37,7 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.RegistryBuilder;
 
@@ -46,13 +47,15 @@ import static com.github.klikli_dev.occultism.util.StaticUtil.modLoc;
 public class RegistryEventHandler {
 
     //region Static Methods
+
     @SubscribeEvent
     public static void registerRegistries(RegistryEvent.NewRegistry event) {
-//        new RegistryBuilder<Pentacle>().setName(new ResourceLocation(Occultism.MODID, "pentacle"))
-//                .setType(Pentacle.class).create();
-//        new RegistryBuilder<Ritual>().setName(new ResourceLocation(Occultism.MODID, "ritual")).setType(Ritual.class)
-//                .create();
-        new RegistryBuilder<SpiritJobFactory>().setName(new ResourceLocation(Occultism.MODID, "spiritJobFactory")).setType(SpiritJobFactory.class).create();
+        //        new RegistryBuilder<Pentacle>().setName(new ResourceLocation(Occultism.MODID, "pentacle"))
+        //                .setType(Pentacle.class).create();
+        //        new RegistryBuilder<Ritual>().setName(new ResourceLocation(Occultism.MODID, "ritual")).setType(Ritual.class)
+        //                .create();
+        new RegistryBuilder<SpiritJobFactory>().setName(new ResourceLocation(Occultism.MODID, "spirit_job_factory")).setType(SpiritJobFactory.class).create();
+        OccultismSpiritJobs.JOBS.register(FMLJavaModLoadingContext.get().getModEventBus());
     }
 
     @SubscribeEvent
