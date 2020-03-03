@@ -34,7 +34,7 @@ import net.minecraft.item.ItemStack;
 import javax.annotation.Nonnull;
 import java.awt.*;
 
-public class GuiItemSlot {
+public class ItemSlotWidget {
     //region Fields
     protected int x;
     protected int y;
@@ -50,8 +50,8 @@ public class GuiItemSlot {
     //endregion Fields
 
     //region Initialization
-    public GuiItemSlot(IStorageControllerGuiContainer parent, @Nonnull ItemStack stack, int x, int y, int stackSize,
-                       int guiLeft, int guiTop, boolean showStackSize) {
+    public ItemSlotWidget(IStorageControllerGuiContainer parent, @Nonnull ItemStack stack, int x, int y, int stackSize,
+                          int guiLeft, int guiTop, boolean showStackSize) {
         this.x = x;
         this.y = y;
         this.stackSize = stackSize;

@@ -27,10 +27,10 @@ import com.github.klikli_dev.occultism.api.client.gui.IStorageControllerGui;
 import com.github.klikli_dev.occultism.api.client.gui.IStorageControllerGuiContainer;
 import com.github.klikli_dev.occultism.api.common.container.IStorageControllerContainer;
 import com.github.klikli_dev.occultism.api.common.data.*;
-import com.github.klikli_dev.occultism.client.gui.controls.GuiButtonSizedImage;
-import com.github.klikli_dev.occultism.client.gui.controls.GuiItemSlot;
-import com.github.klikli_dev.occultism.client.gui.controls.GuiLabel;
-import com.github.klikli_dev.occultism.client.gui.controls.GuiMachineSlot;
+import com.github.klikli_dev.occultism.client.gui.controls.SizedImageButton;
+import com.github.klikli_dev.occultism.client.gui.controls.ItemSlotWidget;
+import com.github.klikli_dev.occultism.client.gui.controls.LabelWidget;
+import com.github.klikli_dev.occultism.client.gui.controls.MachineSlotWidget;
 import com.github.klikli_dev.occultism.common.container.storage.StorageControllerContainerBase;
 import com.github.klikli_dev.occultism.integration.jei.JeiPlugin;
 import com.github.klikli_dev.occultism.network.*;
@@ -77,8 +77,8 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     public StorageControllerGuiMode guiMode = StorageControllerGuiMode.INVENTORY;
     protected ItemStack stackUnderMouse = ItemStack.EMPTY;
     protected TextFieldWidget searchBar;
-    protected List<GuiItemSlot> itemSlots = new ArrayList<>();
-    protected List<GuiMachineSlot> machineSlots = new ArrayList<>();
+    protected List<ItemSlotWidget> itemSlots = new ArrayList<>();
+    protected List<MachineSlotWidget> machineSlots = new ArrayList<>();
     protected Button clearTextButton;
     protected Button clearRecipeButton;
     protected Button sortTypeButton;
@@ -86,7 +86,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     protected Button jeiSyncButton;
     protected Button autocraftingModeButton;
     protected Button inventoryModeButton;
-    protected GuiLabel storageSpaceLabel;
+    protected LabelWidget storageSpaceLabel;
     protected int rows;
     protected int columns;
 
@@ -216,7 +216,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
         int storageSpaceInfoLabelLeft = 186;
         int storageSpaceInfoLabelTop = 115;
-        this.storageSpaceLabel = new GuiLabel(this.guiLeft + storageSpaceInfoLabelLeft, this.guiTop + storageSpaceInfoLabelTop, true, -1, 2, 0x404040);
+        this.storageSpaceLabel = new LabelWidget(this.guiLeft + storageSpaceInfoLabelLeft, this.guiTop + storageSpaceInfoLabelTop, true, -1, 2, 0x404040);
         this.storageSpaceLabel.addLine(I18n.format(TRANSLATION_KEY_BASE + ".space_info_label", this.usedSlots, maxSlots), false);
         this.addButton(this.storageSpaceLabel);
         this.initButtons();
@@ -302,7 +302,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
             }
         }
         else if (this.guiMode == StorageControllerGuiMode.AUTOCRAFTING) {
-            for (GuiMachineSlot slot : this.machineSlots) {
+            for (MachineSlotWidget slot : this.machineSlots) {
                 if (slot.isMouseOverSlot(mouseX, mouseY)) {
                     if (mouseButton == InputUtil.MOUSE_BUTTON_LEFT) {
                         ItemStack orderStack = this.storageControllerContainer.getOrderSlot().getStackInSlot(0);
@@ -380,7 +380,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
         int clearRecipeButtonLeft = 93 + ORDER_AREA_OFFSET;
         int clearRecipeButtonTop = 112;
-        this.clearRecipeButton = new GuiButtonSizedImage(this.guiLeft + clearRecipeButtonLeft,
+        this.clearRecipeButton = new SizedImageButton(this.guiLeft + clearRecipeButtonLeft,
                 this.guiTop + clearRecipeButtonTop, controlButtonSize, controlButtonSize, 0, 196, 28, 28, 28, 256, 256,
                 BUTTONS, (button) -> {
             OccultismPackets.sendToServer(new MessageClearCraftingMatrix());
@@ -392,7 +392,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         int controlButtonTop = 5;
 
         int clearTextButtonLeft = 99 + ORDER_AREA_OFFSET;
-        this.clearTextButton = new GuiButtonSizedImage(this.guiLeft + clearTextButtonLeft,
+        this.clearTextButton = new SizedImageButton(this.guiLeft + clearTextButtonLeft,
                 this.guiTop + controlButtonTop, controlButtonSize, controlButtonSize, 0, 196, 28, 28, 28, 256, 256,
                 BUTTONS, (button) -> {
             this.clearSearch();
@@ -403,7 +403,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
 
         int sortTypeOffset = this.getSortType().getValue() * 28;
-        this.sortTypeButton = new GuiButtonSizedImage(this.guiLeft + clearTextButtonLeft + controlButtonSize + 3,
+        this.sortTypeButton = new SizedImageButton(this.guiLeft + clearTextButtonLeft + controlButtonSize + 3,
                 this.guiTop + controlButtonTop, controlButtonSize, controlButtonSize, 0, sortTypeOffset, 28, 28, 28,
                 256, 256, BUTTONS, (button) -> {
             this.setSortType(this.getSortType().next());
@@ -414,7 +414,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         this.addButton(this.sortTypeButton);
 
         int sortDirectionOffset = 84 + (1 - this.getSortDirection().getValue()) * 28;
-        this.sortDirectionButton = new GuiButtonSizedImage(
+        this.sortDirectionButton = new SizedImageButton(
                 this.guiLeft + clearTextButtonLeft + controlButtonSize + 3 + controlButtonSize + 3,
                 this.guiTop + controlButtonTop, controlButtonSize, controlButtonSize, 0, sortDirectionOffset, 28, 28,
                 28, 256, 256, BUTTONS, (button) -> {
@@ -426,7 +426,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         this.addButton(this.sortDirectionButton);
 
         int jeiSyncOffset = 140 + (JeiPlugin.isJeiSearchSynced() ? 0 : 1) * 28;
-        this.jeiSyncButton = new GuiButtonSizedImage(
+        this.jeiSyncButton = new SizedImageButton(
                 this.guiLeft + clearTextButtonLeft + controlButtonSize + 3 + controlButtonSize + 3 + controlButtonSize +
                 3, this.guiTop + controlButtonTop, controlButtonSize, controlButtonSize, 0, jeiSyncOffset, 28, 28, 28,
                 256, 256, BUTTONS, (button) -> {
@@ -446,14 +446,14 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         switch (this.guiMode) {
             case INVENTORY:
                 //active tab button for inventory
-                this.inventoryModeButton = new GuiButtonSizedImage(this.guiLeft + guiModeButtonLeft,
+                this.inventoryModeButton = new SizedImageButton(this.guiLeft + guiModeButtonLeft,
                         this.guiTop + 112, guiModeButtonWidth, guiModeButtonHeight, 160, 0, 0, guiModeButtonWidth * 2,
                         guiModeButtonHeight * 2, 256, 256, BUTTONS, (button) -> {
                     this.guiMode = StorageControllerGuiMode.INVENTORY;
                     this.init();
                 });
                 //inactive tab button for crafting
-                this.autocraftingModeButton = new GuiButtonSizedImage(this.guiLeft + guiModeButtonLeft,
+                this.autocraftingModeButton = new SizedImageButton(this.guiLeft + guiModeButtonLeft,
                         this.guiTop + guiModeButtonTop + guiModeButtonHeight, guiModeButtonWidth, guiModeButtonHeight,
                         160, 174, 0, guiModeButtonWidth * 2, guiModeButtonHeight * 2, 256, 256, BUTTONS,
                         (button) -> {
@@ -463,14 +463,14 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                 break;
             case AUTOCRAFTING:
                 //inactive tab button for inventory
-                this.inventoryModeButton = new GuiButtonSizedImage(this.guiLeft + guiModeButtonLeft,
+                this.inventoryModeButton = new SizedImageButton(this.guiLeft + guiModeButtonLeft,
                         this.guiTop + 112, guiModeButtonWidth, guiModeButtonHeight, 160, 58, 0, guiModeButtonWidth * 2,
                         guiModeButtonHeight * 2, 256, 256, BUTTONS, (button) -> {
                     this.guiMode = StorageControllerGuiMode.INVENTORY;
                     this.init();
                 });
                 //active tab button for crafting
-                this.autocraftingModeButton = new GuiButtonSizedImage(this.guiLeft + guiModeButtonLeft,
+                this.autocraftingModeButton = new SizedImageButton(this.guiLeft + guiModeButtonLeft,
                         this.guiTop + guiModeButtonTop + guiModeButtonHeight, guiModeButtonWidth, guiModeButtonHeight,
                         160, 116, 0, guiModeButtonWidth * 2, guiModeButtonHeight * 2, 256, 256, BUTTONS,
                         (button) -> {
@@ -519,14 +519,14 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     protected void drawTooltips(int mouseX, int mouseY) {
         switch (this.guiMode) {
             case INVENTORY:
-                for (GuiItemSlot s : this.itemSlots) {
+                for (ItemSlotWidget s : this.itemSlots) {
                     if (s != null && s.isMouseOverSlot(mouseX, mouseY)) {
                         s.drawTooltip(mouseX, mouseY);
                     }
                 }
                 break;
             case AUTOCRAFTING:
-                for (GuiMachineSlot s : this.machineSlots) {
+                for (MachineSlotWidget s : this.machineSlots) {
                     if (s != null && s.isMouseOverSlot(mouseX, mouseY)) {
                         s.drawTooltip(mouseX, mouseY);
                     }
@@ -593,7 +593,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
     protected void drawItemSlots(int mouseX, int mouseY) {
         this.stackUnderMouse = ItemStack.EMPTY;
-        for (GuiItemSlot slot : this.itemSlots) {
+        for (ItemSlotWidget slot : this.itemSlots) {
             slot.drawSlot(mouseX, mouseY);
             if (slot.isMouseOverSlot(mouseX, mouseY)) {
                 this.stackUnderMouse = slot.getStack();
@@ -618,7 +618,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                     break;
                 }
                 this.itemSlots
-                        .add(new GuiItemSlot(this, stacksToDisplay.get(index), this.guiLeft + itemAreaLeft + col * 18,
+                        .add(new ItemSlotWidget(this, stacksToDisplay.get(index), this.guiLeft + itemAreaLeft + col * 18,
                                 this.guiTop + itemAreaTop + row * 18, stacksToDisplay.get(index).getCount(),
                                 this.guiLeft, this.guiTop, true));
                 index++;
@@ -790,7 +790,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                 if (index >= machinesToDisplay.size()) {
                     break;
                 }
-                this.machineSlots.add(new GuiMachineSlot(this, machinesToDisplay.get(index),
+                this.machineSlots.add(new MachineSlotWidget(this, machinesToDisplay.get(index),
                         this.guiLeft + itemAreaLeft + col * 18, this.guiTop + itemAreaTop + row * 18, this.guiLeft,
                         this.guiTop));
                 index++;
@@ -799,7 +799,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     }
 
     protected void drawMachineSlots(int mouseX, int mouseY) {
-        for (GuiMachineSlot slot : this.machineSlots) {
+        for (MachineSlotWidget slot : this.machineSlots) {
             slot.drawSlot(mouseX, mouseY);
         }
     }

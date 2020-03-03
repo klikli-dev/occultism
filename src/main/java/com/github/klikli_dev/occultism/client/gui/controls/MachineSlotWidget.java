@@ -32,7 +32,7 @@ import net.minecraft.client.gui.FontRenderer;
 import javax.annotation.Nonnull;
 import java.awt.*;
 
-public class GuiMachineSlot {
+public class MachineSlotWidget {
     //region Fields
     protected int x;
     protected int y;
@@ -46,8 +46,8 @@ public class GuiMachineSlot {
     //endregion Fields
 
     //region Initialization
-    public GuiMachineSlot(IStorageControllerGuiContainer parent, @Nonnull MachineReference machine, int x, int y,
-                          int guiLeft, int guiTop) {
+    public MachineSlotWidget(IStorageControllerGuiContainer parent, @Nonnull MachineReference machine, int x, int y,
+                             int guiLeft, int guiTop) {
         this.x = x;
         this.y = y;
         this.guiLeft = guiLeft;

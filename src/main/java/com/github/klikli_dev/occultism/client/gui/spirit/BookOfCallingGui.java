@@ -25,10 +25,11 @@ package com.github.klikli_dev.occultism.client.gui.spirit;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.util.text.ITextComponent;
 
-public class GuiBookOfCallingManagedMachine extends Screen {
+public class BookOfCallingGui extends Screen {
+
 
 //region Initialization
-    protected GuiBookOfCallingManagedMachine(ITextComponent titleIn) {
+    protected BookOfCallingGui(ITextComponent titleIn) {
         super(titleIn);
     }
 //endregion Initialization

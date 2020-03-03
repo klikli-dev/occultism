@@ -27,7 +27,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.widget.button.ImageButton;
 import net.minecraft.util.ResourceLocation;
 
-public class GuiButtonSizedImage extends ImageButton {
+public class SizedImageButton extends ImageButton {
     //region Fields
     public final ResourceLocation resourceLocation;
     public final int xTexStart;
@@ -56,10 +56,10 @@ public class GuiButtonSizedImage extends ImageButton {
      * @param resourceLocation the resource location for the textures
      */
     //region Initialization
-    public GuiButtonSizedImage(int xIn, int yIn, int widthIn, int heightIn, int textureOffsetX,
-                               int textureOffsetY, int hoverOffsetX, int textureWidth, int textureHeight,
-                               int textureMapWidth, int textureMapHeight, ResourceLocation resourceLocation,
-                               IPressable handler) {
+    public SizedImageButton(int xIn, int yIn, int widthIn, int heightIn, int textureOffsetX,
+                            int textureOffsetY, int hoverOffsetX, int textureWidth, int textureHeight,
+                            int textureMapWidth, int textureMapHeight, ResourceLocation resourceLocation,
+                            IPressable handler) {
         super(xIn, yIn, widthIn, heightIn, textureOffsetX, textureOffsetY, 0, resourceLocation, handler);
         this.xTexStart = textureOffsetX;
         this.yTexStart = textureOffsetY;

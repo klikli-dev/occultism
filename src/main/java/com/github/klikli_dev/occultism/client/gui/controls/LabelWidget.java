@@ -32,7 +32,7 @@ import net.minecraft.util.text.ITextComponent;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GuiLabel extends Widget {
+public class LabelWidget extends Widget {
     //region Fields
     public List<String> lines = new ArrayList<>();
     public boolean centered = false;
@@ -42,11 +42,11 @@ public class GuiLabel extends Widget {
     //endregion Fields
 
     //region Initialization
-    public GuiLabel(int xIn, int yIn) {
+    public LabelWidget(int xIn, int yIn) {
         this(xIn, yIn, false, 0, 2, UNSET_FG_COLOR);
     }
 
-    public GuiLabel(int xIn, int yIn, boolean centered, int width, int margin, int color) {
+    public LabelWidget(int xIn, int yIn, boolean centered, int width, int margin, int color) {
         super(xIn, yIn, "");
         this.centered = centered;
         this.width = width;

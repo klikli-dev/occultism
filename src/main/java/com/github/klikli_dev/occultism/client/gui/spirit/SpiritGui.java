@@ -23,7 +23,7 @@
 package com.github.klikli_dev.occultism.client.gui.spirit;
 
 import com.github.klikli_dev.occultism.Occultism;
-import com.github.klikli_dev.occultism.client.gui.controls.GuiLabel;
+import com.github.klikli_dev.occultism.client.gui.controls.LabelWidget;
 import com.github.klikli_dev.occultism.common.container.spirit.SpiritContainer;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.github.klikli_dev.occultism.util.TextUtil;
@@ -33,7 +33,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.Quaternion;
-import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.resources.I18n;
@@ -72,19 +71,19 @@ public class SpiritGui extends ContainerScreen<SpiritContainer> {
         this.buttons.clear();
 
         int labelHeight = 9;
-        GuiLabel nameLabel = new GuiLabel(this.guiLeft + 65, this.guiTop + 17, false, -1, 2, 0x404040);
+        LabelWidget nameLabel = new LabelWidget(this.guiLeft + 65, this.guiTop + 17, false, -1, 2, 0x404040);
         nameLabel.addLine(TextUtil.formatDemonName(this.spirit.getName().getFormattedText()));
         this.addButton(nameLabel);
 
         int agePercent = (int) Math.floor(this.spirit.getSpiritAge() / (float) this.spirit.getSpiritMaxAge() * 100);
-        GuiLabel ageLabel = new GuiLabel(this.guiLeft + 65, this.guiTop + 17 + labelHeight + 5, false, -1, 2, 0x404040);
+        LabelWidget ageLabel = new LabelWidget(this.guiLeft + 65, this.guiTop + 17 + labelHeight + 5, false, -1, 2, 0x404040);
         ageLabel.addLine(I18n.format(TRANSLATION_KEY_BASE + ".age", agePercent));
         this.addButton(ageLabel);
 
         String jobID = this.spirit.getJobID();
         if (!StringUtils.isBlank(jobID)) {
             jobID = jobID.replace(":", ".");
-            GuiLabel jobLabel = new GuiLabel(this.guiLeft + 65,
+            LabelWidget jobLabel = new LabelWidget(this.guiLeft + 65,
                     this.guiTop + 17 + labelHeight + 5 + labelHeight + 5 + 5, false, -1, 2, 0x404040);
 
             String jobText = I18n.format(TRANSLATION_KEY_BASE + ".job", I18n.format("job." + jobID + ".name"));
