@@ -34,6 +34,9 @@
     "item.occultism.butcher_knife": "Butcher Knife",
     "item.occultism.tallow": "Tallow",
 
+    "_comment": "# Spawn eggs",
+    "item.occultism.foliot": "Foliot Spawn Egg",
+
     "_comment": "# Item Messages",
 
     "_comment": "## Book of calling - also contains messages triggered in releated network messages",
@@ -89,7 +92,7 @@
     "block.occultism.candle_white": "White Candle",
 
     "_comment": "Entities",
-    "entity.foliot": "Foliot",
+    "entity.occultism.foliot": "Foliot",
 
     "_comment": "# Spirit Jobs",
     "job.occultism.lumberjack": "Lumberjack",
