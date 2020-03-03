@@ -96,6 +96,7 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
     public LazyOptional<ItemStackHandler> itemStackHandler = LazyOptional.of(ItemStackHandler::new);
     protected LazyOptional<SpiritJob> job = LazyOptional.empty();
     protected boolean isInitialized = false;
+
     //endregion Fields
     //region Initialization
     public SpiritEntity(EntityType<? extends TameableEntity> type, World worldIn) {
@@ -304,12 +305,20 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
 
     @Override
     public ItemStack getItemStackFromSlot(EquipmentSlotType slotIn) {
-        return this.itemStackHandler.orElseThrow(ItemHandlerMissingException::new).getStackInSlot(0);
+        switch (slotIn) {
+            case MAINHAND:
+                return this.itemStackHandler.orElseThrow(ItemHandlerMissingException::new).getStackInSlot(0);
+            default:
+                return ItemStack.EMPTY;
+        }
     }
 
     @Override
     public void setItemStackToSlot(EquipmentSlotType slotIn, ItemStack stack) {
-        this.itemStackHandler.orElseThrow(ItemHandlerMissingException::new).setStackInSlot(0, stack);
+        switch (slotIn) {
+            case MAINHAND:
+                this.itemStackHandler.orElseThrow(ItemHandlerMissingException::new).setStackInSlot(0, stack);
+        }
     }
 
     @Override
