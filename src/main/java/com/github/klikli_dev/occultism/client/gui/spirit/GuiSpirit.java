@@ -23,30 +23,38 @@
 package com.github.klikli_dev.occultism.client.gui.spirit;
 
 import com.github.klikli_dev.occultism.Occultism;
-import com.github.klikli_dev.occultism.client.render.OccultismRenderType;
+import com.github.klikli_dev.occultism.client.gui.controls.GuiLabel;
 import com.github.klikli_dev.occultism.common.container.spirit.SpiritContainer;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
+import com.github.klikli_dev.occultism.util.TextUtil;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
-import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.Quaternion;
+import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextFormatting;
+import org.apache.commons.lang3.text.WordUtils;
+import org.codehaus.plexus.util.StringUtils;
 
 public class GuiSpirit extends ContainerScreen<SpiritContainer> {
+//region Fields
     protected static final ResourceLocation TEXTURE = new ResourceLocation(Occultism.MODID,
             "textures/gui/inventory_spirit.png");
     protected static final String TRANSLATION_KEY_BASE = "gui." + Occultism.MODID + ".spirit";
     protected SpiritEntity spirit;
     protected SpiritContainer container;
+//endregion Fields
 
-//region Initialization
+    //region Initialization
     public GuiSpirit(SpiritContainer container, PlayerInventory playerInventory, ITextComponent titleIn) {
         super(container, playerInventory, titleIn);
         this.container = container;
@@ -55,17 +63,65 @@ public class GuiSpirit extends ContainerScreen<SpiritContainer> {
         this.xSize = 175;
         this.ySize = 165;
     }
-//endregion Initialization
+    //endregion Initialization
 
-//region Overrides
+    //region Overrides
     @Override
-    protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
+    public void init() {
+        super.init();
+        this.buttons.clear();
 
+        int labelHeight = 9;
+        GuiLabel nameLabel = new GuiLabel(this.guiLeft + 65, this.guiTop + 17, false, -1, 2, 0x404040);
+        nameLabel.addLine(TextUtil.formatDemonName(this.spirit.getName().getFormattedText()));
+        this.addButton(nameLabel);
+
+        int agePercent = (int) Math.floor(this.spirit.getSpiritAge() / (float) this.spirit.getSpiritMaxAge() * 100);
+        GuiLabel ageLabel = new GuiLabel(this.guiLeft + 65, this.guiTop + 17 + labelHeight + 5, false, -1, 2, 0x404040);
+        ageLabel.addLine(I18n.format(TRANSLATION_KEY_BASE + ".age", agePercent));
+        this.addButton(ageLabel);
+
+        String jobID = this.spirit.getJobID();
+        if (!StringUtils.isBlank(jobID)) {
+            jobID = jobID.replace(":", ".");
+            GuiLabel jobLabel = new GuiLabel(this.guiLeft + 65,
+                    this.guiTop + 17 + labelHeight + 5 + labelHeight + 5 + 5, false, -1, 2, 0x404040);
+
+            String jobText = I18n.format(TRANSLATION_KEY_BASE + ".job", I18n.format("job." + jobID + ".name"));
+            String[] lines = WordUtils.wrap(jobText, 15, "\n", true).split("[\\r\\n]+", 2);
+            for (String line : lines)
+                jobLabel.addLine(TextFormatting.ITALIC.toString() + line + TextFormatting.RESET.toString());
+            this.addButton(jobLabel);
+
+        }
     }
 
-    public static void drawEntityToGui(int posX, int posY, int scale, float mouseX, float mouseY,
-                                       LivingEntity entity) {
-    //TODO: if this does not work as intended, view InventoryScreen#drawEntityOnScreen which I think renders the player
+    @Override
+    public void render(int mouseX, int mouseY, float partialTicks) {
+        super.render(mouseX, mouseY, partialTicks);
+        this.renderHoveredToolTip(mouseX, mouseY);
+    }
+
+    @Override
+    protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
+        this.renderBackground();
+
+        RenderSystem.color4f(1, 1, 1, 1);
+        this.minecraft.getTextureManager().bindTexture(TEXTURE);
+        this.blit(this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
+
+        RenderSystem.pushMatrix();
+        int scale = 30;
+        drawEntityToGui(this.guiLeft + 35, this.guiTop + 65, scale, this.guiLeft + 51 - mouseX,
+                this.guiTop + 75 - 50 - mouseY, this.spirit);
+        RenderSystem.popMatrix();
+        ;
+    }
+    //endregion Overrides
+
+//region Static Methods
+    public static void drawEntityToGui(int posX, int posY, int scale, float mouseX, float mouseY, LivingEntity entity) {
+        //TODO: if this does not work as intended, view InventoryScreen#drawEntityOnScreen which I think renders the player
         RenderSystem.enableColorMaterial();
 
         RenderSystem.pushMatrix();
@@ -107,5 +163,5 @@ public class GuiSpirit extends ContainerScreen<SpiritContainer> {
         RenderHelper.disableStandardItemLighting();
         RenderSystem.disableRescaleNormal();
     }
-//endregion Overrides
+//endregion Static Methods
 }
