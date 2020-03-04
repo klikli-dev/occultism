@@ -81,7 +81,7 @@ public class Math3DUtil {
     public static List<BlockPos> simpleTrace(BlockPos start, Direction direction, int distance) {
         //map to a new block pos because getAllInBox uses a mutable blockpos internally for iteration,
         // leading to the same block being collected 6x when not mapping it to an immutable blockpos
-        return BlockPos.getAllInBox(start, start.offset(direction, distance)).map(BlockPos::new)
+        return BlockPos.getAllInBox(start, start.offset(direction, distance)).map(BlockPos::toImmutable)
                        .sorted(Comparator.comparingDouble(start::distanceSq)).collect(Collectors.toList());
     }
 
