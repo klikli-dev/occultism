@@ -23,6 +23,7 @@
 package com.github.klikli_dev.occultism.registry;
 
 import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.common.tile.StableWormholeTileEntity;
 import com.github.klikli_dev.occultism.common.tile.StorageControllerTileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.fml.RegistryObject;
@@ -37,6 +38,11 @@ public class OccultismTiles {
     public static final RegistryObject<TileEntityType<StorageControllerTileEntity>> STORAGE_CONTROLLER = TILES.register(
             "storage_controller", () -> TileEntityType.Builder.create(StorageControllerTileEntity::new,
                     OccultismBlocks.STORAGE_CONTROLLER.get()).build(null));
+
+
+    public static final RegistryObject<TileEntityType<StableWormholeTileEntity>> STABLE_WORMHOLE = TILES.register(
+            "stable_wormhole", () -> TileEntityType.Builder.create(StableWormholeTileEntity::new,
+                    OccultismBlocks.STABLE_WORMHOLE.get()).build(null));
 
     //endregion Fields
 
