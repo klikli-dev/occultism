@@ -23,14 +23,15 @@
 package com.github.klikli_dev.occultism.common.entity.ai;
 
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
+import com.github.klikli_dev.occultism.exceptions.ItemHandlerMissingException;
 import com.google.common.base.Predicate;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.ai.goal.TargetGoal;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Hand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.items.ItemHandlerHelper;
+import net.minecraftforge.items.ItemStackHandler;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
@@ -62,12 +63,14 @@ public class PickupItemsGoal extends TargetGoal {
             @Override
             public boolean apply(@Nullable ItemEntity item) {
                 ItemStack stack = item.getItem();
-                return !stack.isEmpty() && entity.canPickupItem(stack);
+                return !stack.isEmpty() && entity.canPickupItem(stack) && ItemHandlerHelper.insertItemStacked(
+                        entity.itemStackHandler.orElseThrow(ItemHandlerMissingException::new), stack, true).getCount() <
+                                                                          stack.getCount();
             }
             //endregion Overrides
         };
         this.entitySorter = new EntitySorter(entity);
-        this.setMutexFlags(EnumSet.of(Goal.Flag.TARGET));
+        this.setMutexFlags(EnumSet.of(Goal.Flag.MOVE));
     }
     //endregion Initialization
 
@@ -107,18 +110,18 @@ public class PickupItemsGoal extends TargetGoal {
             this.resetTask();
             this.goalOwner.getNavigator().clearPath();
         }
-        else if (this.goalOwner.getDistanceSq(this.targetItem) < 1) {
-            ItemStack heldItem = this.entity.getHeldItem(Hand.MAIN_HAND);
-            if (heldItem.isEmpty() || (ItemHandlerHelper.canItemStacksStack(this.targetItem.getItem(), heldItem) &&
-                                       heldItem.getCount() < heldItem.getMaxStackSize())) {
-                ItemStack duplicate = this.targetItem.getItem().copy();
+        else {
+            double distance = this.entity.getPositionVector().distanceTo(this.targetItem.getPositionVec());
+            if (distance < 2.5F) {
+                this.entity.setMotion(0, 0, 0);
+                this.entity.getNavigator().clearPath();
 
-                int extractSize = Math.min(heldItem.getMaxStackSize() - heldItem.getCount(),
-                        this.targetItem.getItem().getCount());
-                duplicate.setCount(extractSize);
-                this.targetItem.getItem().shrink(extractSize);
-                this.entity.setHeldItem(Hand.MAIN_HAND, duplicate);
-                this.resetTask();
+                ItemStack duplicate = this.targetItem.getItem().copy();
+                ItemStackHandler handler = this.entity.itemStackHandler.orElseThrow(ItemHandlerMissingException::new);
+                if (ItemHandlerHelper.insertItemStacked(handler, duplicate, true).getCount() < duplicate.getCount()) {
+                    ItemStack remaining = ItemHandlerHelper.insertItemStacked(handler, duplicate, false);
+                    this.targetItem.getItem().setCount(remaining.getCount());
+                }
             }
         }
     }
@@ -131,7 +134,7 @@ public class PickupItemsGoal extends TargetGoal {
     @Override
     public void startExecuting() {
         this.goalOwner.getNavigator()
-                .tryMoveToXYZ(this.targetItem.getPosX(), this.targetItem.getPosY(), this.targetItem.getPosZ(), 1);
+                .tryMoveToXYZ(this.targetItem.getPosX(), this.targetItem.getPosY(), this.targetItem.getPosZ(), 1f);
         super.startExecuting();
     }
     //endregion Overrides
