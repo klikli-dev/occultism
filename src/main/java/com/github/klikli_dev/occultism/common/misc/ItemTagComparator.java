@@ -56,22 +56,32 @@ public class ItemTagComparator implements IItemStackComparator {
 
         return this.tag.contains(stack.getItem());
     }
+
+    @Override
+    public CompoundNBT serializeNBT() {
+        return this.write(new CompoundNBT());
+    }
+
+    @Override
+    public void deserializeNBT(CompoundNBT nbt) {
+        this.read(nbt);
+    }
     //endregion Overrides
 
     //region Static Methods
-    public static ItemTagComparator loadFromNBT(CompoundNBT nbt) {
+    public static ItemTagComparator from(CompoundNBT nbt) {
         ItemTagComparator comparator = new ItemTagComparator();
-        comparator.readFromNBT(nbt);
+        comparator.deserializeNBT(nbt);
         return comparator;
     }
     //endregion Static Methods
 
     //region Methods
-    public void readFromNBT(CompoundNBT compound) {
+    public void read(CompoundNBT compound) {
         compound.putString("tag", this.tag.getId().toString());
     }
 
-    public CompoundNBT writeToNBT(CompoundNBT compound) {
+    public CompoundNBT write(CompoundNBT compound) {
         this.tag = ItemTags.getCollection().getOrCreate(new ResourceLocation(compound.getString("tag")));
         return compound;
     }

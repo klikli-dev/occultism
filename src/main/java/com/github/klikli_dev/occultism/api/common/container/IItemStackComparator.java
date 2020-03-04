@@ -23,10 +23,12 @@
 package com.github.klikli_dev.occultism.api.common.container;
 
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraftforge.common.util.INBTSerializable;
 
 import javax.annotation.Nonnull;
 
-public interface IItemStackComparator {
+public interface IItemStackComparator extends INBTSerializable<CompoundNBT> {
 
     //region Methods
 
