@@ -43,6 +43,7 @@ public class FellTreesGoal extends Goal {
     protected final SpiritEntity entity;
     protected final BlockSorter targetSorter;
     protected BlockPos targetBlock = null;
+    protected BlockPos moveTarget = null;
     protected int breakingTime;
     protected int previousBreakProgress;
     //endregion Fields
@@ -51,7 +52,7 @@ public class FellTreesGoal extends Goal {
     public FellTreesGoal(SpiritEntity entity) {
         this.entity = entity;
         this.targetSorter = new BlockSorter(entity);
-        this.setMutexFlags(EnumSet.of(Goal.Flag.TARGET));
+        this.setMutexFlags(EnumSet.of(Goal.Flag.TARGET, Goal.Flag.MOVE));
     }
     //endregion Initialization
 
@@ -73,21 +74,25 @@ public class FellTreesGoal extends Goal {
 
     public void resetTask() {
         this.entity.getNavigator().clearPath();
+        this.targetBlock = null;
+        this.moveTarget = null;
         this.resetTarget();
     }
 
     @Override
     public void tick() {
         if (this.targetBlock != null) {
-            if (!this.entity.getNavigator().tryMoveToXYZ(this.targetBlock.getX() + 0.5D, this.targetBlock.getY(),
-                    this.targetBlock.getZ() + 0.5D, 1.25D)) {
-
-                RayTraceContext context = new RayTraceContext(this.entity.getPositionVector(), Math3DUtil.center(this.targetBlock),RayTraceContext.BlockMode.COLLIDER,
+            if (!this.entity.getNavigator().tryMoveToXYZ(this.moveTarget.getX() + 0.5D, this.moveTarget.getY(),
+                    this.moveTarget.getZ() + 0.5D, 1.25D)) {
+                RayTraceContext context = new RayTraceContext(this.entity.getEyePosition(0), Math3DUtil.center(this.targetBlock), RayTraceContext.BlockMode.COLLIDER,
                         RayTraceContext.FluidMode.NONE, this.entity);
                 BlockRayTraceResult result = this.entity.world.rayTraceBlocks(context);
                 if (result.getType() != BlockRayTraceResult.Type.MISS) {
                     BlockPos pos = result.getPos().offset(result.getFace());
-                    this.entity.getNavigator().tryMoveToXYZ(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, 1D);
+                    if (this.entity.getNavigator()
+                                .tryMoveToXYZ(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, 1D)) {
+                        this.moveTarget = pos;
+                    }
                 }
             }
 
@@ -105,8 +110,8 @@ public class FellTreesGoal extends Goal {
                 }
             }
             else {
-                this.targetBlock = null;
                 this.resetTask();
+                return;
             }
         }
     }
@@ -176,8 +181,22 @@ public class FellTreesGoal extends Goal {
         }
         //set closest log as target
         if (!allBlocks.isEmpty()) {
-            allBlocks.sort(this.targetSorter);
-            this.targetBlock = allBlocks.get(0);
+            allBlocks = allBlocks.stream().distinct().sorted(this.targetSorter).collect(Collectors.toList());
+            for(BlockPos targetBlock : allBlocks){
+                RayTraceContext context = new RayTraceContext(this.entity.getEyePosition(0), Math3DUtil.center(targetBlock),RayTraceContext.BlockMode.COLLIDER,
+                        RayTraceContext.FluidMode.NONE, this.entity);
+                BlockRayTraceResult result = this.entity.world.rayTraceBlocks(context);
+                if (result.getType() != BlockRayTraceResult.Type.MISS) {
+                    BlockPos moveTarget = result.getPos().offset(result.getFace());
+                    if(this.entity.getNavigator().tryMoveToXYZ(moveTarget.getX() + 0.5D, moveTarget.getY() + 0.5D, moveTarget.getZ() + 0.5D, 1D)){
+                        this.targetBlock = targetBlock;
+                        this.moveTarget = moveTarget;
+                        return;
+                    }
+                }
+            }
+            this.targetBlock = null;
+            this.moveTarget = null;
         }
     }
 
