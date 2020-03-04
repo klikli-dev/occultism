@@ -83,9 +83,6 @@ public class SizedImageButton extends ImageButton {
     @Override
     public void renderButton(int mouseX, int mouseY, float partialTicks) {
         if (this.visible) {
-            //TODO: if gui buttons work, remove this, otherwise find replacement for it
-            //            this.hovered = mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.width &&
-            //                           mouseY < this.y + this.height;
             Minecraft.getInstance().getTextureManager().bindTexture(this.resourceLocation);
             RenderSystem.disableDepthTest();
             int i = this.xTexStart;

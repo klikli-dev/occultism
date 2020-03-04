@@ -308,8 +308,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                         ItemStack orderStack = this.storageControllerContainer.getOrderSlot().getStackInSlot(0);
                         if (Screen.hasShiftDown()) {
                             long time = System.currentTimeMillis() + 5000;
-                            //TODO: enable block selection and rendering
-                            //Occultism.proxy.getClientData().selectBlock(slot.getMachine().globalPos.getPos(), time);
+                            Occultism.SELECTED_BLOCK_RENDERER.selectBlock(slot.getMachine().globalPos.getPos(), time);
                         }
                         else if (!orderStack.isEmpty()) {
                             //this message both clears the order slot and creates the order

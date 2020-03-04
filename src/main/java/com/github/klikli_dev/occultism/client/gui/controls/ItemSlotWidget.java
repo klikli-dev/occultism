@@ -125,7 +125,6 @@ public class ItemSlotWidget {
 
     public void drawTooltip(int mx, int my) {
         if (this.isMouseOverSlot(mx, my) && !this.getStack().isEmpty()) {
-            //TODO: if necessary, subtract parent guileft and guitop
             this.parent.renderToolTip(this.getStack(), mx, my);
         }
     }

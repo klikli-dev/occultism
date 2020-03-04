@@ -58,7 +58,7 @@ public class Occultism {
     public static final ItemGroup ITEM_GROUP = new OccultismItemGroup();
     public static final Logger LOGGER = LogManager.getLogger(MODID);
     public static final OccultismConfig CONFIG = new OccultismConfig();
-    public static final SelectedBlockRenderer selectedBlockRenderer = new SelectedBlockRenderer();
+    public static final SelectedBlockRenderer SELECTED_BLOCK_RENDERER = new SelectedBlockRenderer();
     public static Occultism INSTANCE;
     //endregion Fields
 
@@ -81,7 +81,7 @@ public class Occultism {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::onModConfigEvent);
 
         MinecraftForge.EVENT_BUS.register(this);
-        MinecraftForge.EVENT_BUS.register(selectedBlockRenderer);
+        MinecraftForge.EVENT_BUS.register(SELECTED_BLOCK_RENDERER);
     }
 
     //endregion Initialization

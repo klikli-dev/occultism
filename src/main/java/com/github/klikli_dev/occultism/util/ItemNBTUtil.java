@@ -26,6 +26,7 @@ import com.github.klikli_dev.occultism.api.common.data.GlobalBlockPos;
 import com.github.klikli_dev.occultism.api.common.data.MachineReference;
 import com.github.klikli_dev.occultism.api.common.data.WorkAreaSize;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
+import com.github.klikli_dev.occultism.common.job.ManageMachineJob;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Direction;
@@ -57,14 +58,17 @@ public class ItemNBTUtil {
         ItemNBTUtil.setDepositPosition(stack, entity.getDepositPosition());
         ItemNBTUtil.setDepostFacing(stack, entity.getDepositFacing());
         ItemNBTUtil.setWorkAreaSize(stack, entity.getWorkAreaSize());
-        //TODO: Enable once manage machine job is available
-        //        if (entity.getJob() instanceof SpiritJobManageMachine) {
-        //            SpiritJobManageMachine job = (SpiritJobManageMachine) entity.getJob();
-        //            if (job.getStorageControllerPosition() != null)
-        //                ItemNBTUtil.setStorageControllerPosition(stack, job.getStorageControllerPosition());
-        //            if (job.getManagedMachine() != null)
-        //                ItemNBTUtil.setManagedMachine(stack, job.getManagedMachine());
-        //        }
+
+        entity.getJob().ifPresent(job -> {
+            if (job instanceof ManageMachineJob) {
+                ManageMachineJob manageMachine = (ManageMachineJob) job;
+                if (manageMachine.getStorageControllerPosition() != null)
+                    ItemNBTUtil.setStorageControllerPosition(stack, manageMachine.getStorageControllerPosition());
+                if (manageMachine.getManagedMachine() != null)
+                    ItemNBTUtil.setManagedMachine(stack, manageMachine.getManagedMachine());
+            }
+        });
+
     }
 
     public static void generateBoundSpiritName(ItemStack stack) {
