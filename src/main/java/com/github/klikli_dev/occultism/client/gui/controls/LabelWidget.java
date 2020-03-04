@@ -43,7 +43,7 @@ public class LabelWidget extends Widget {
 
     //region Initialization
     public LabelWidget(int xIn, int yIn) {
-        this(xIn, yIn, false, 0, 2, UNSET_FG_COLOR);
+        this(xIn, yIn, false, 0, 2, 16777215); //color is default color from widget
     }
 
     public LabelWidget(int xIn, int yIn, boolean centered, int width, int margin, int color) {
@@ -52,10 +52,13 @@ public class LabelWidget extends Widget {
         this.width = width;
         this.margin = margin;
         this.packedFGColor = color;
+        //active false prevents click intercepts and other unwanted interactions
+        this.active = false;
     }
     //endregion Initialization
 
     //region Overrides
+
     @Override
     public void render(int mouseX, int mouseY, float partialTicks) {
         if (this.visible) {
