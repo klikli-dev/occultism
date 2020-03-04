@@ -39,9 +39,9 @@ import java.util.List;
 public class LumberjackJob extends SpiritJob {
 
     //region Fields
-    protected PickupItemsGoal aiPickupItems;
-    protected FellTreesGoal aiFellTree;
-    protected DepositItemsGoal aiDepositItems;
+    protected PickupItemsGoal pickupItemsGoal;
+    protected FellTreesGoal fellTreesGoal;
+    protected DepositItemsGoal depositItemsGoal;
     protected List<IItemStackComparator> itemsToPickUp = new ArrayList<>();
     //endregion Fields
 
@@ -55,9 +55,9 @@ public class LumberjackJob extends SpiritJob {
     //region Overrides
     @Override
     public void init() {
-        this.entity.targetSelector.addGoal(0, this.aiPickupItems = new PickupItemsGoal(this.entity));
-        this.entity.goalSelector.addGoal(3, this.aiFellTree = new FellTreesGoal(this.entity));
-        this.entity.goalSelector.addGoal(4, this.aiDepositItems = new DepositItemsGoal(this.entity));
+        this.entity.targetSelector.addGoal(0, this.pickupItemsGoal = new PickupItemsGoal(this.entity));
+        this.entity.goalSelector.addGoal(3, this.fellTreesGoal = new FellTreesGoal(this.entity));
+        this.entity.goalSelector.addGoal(4, this.depositItemsGoal = new DepositItemsGoal(this.entity));
 
         this.itemsToPickUp.add(new ItemTagComparator(ItemTags.LOGS));
         this.itemsToPickUp.add(new ItemTagComparator(ItemTags.LEAVES));
@@ -67,9 +67,9 @@ public class LumberjackJob extends SpiritJob {
 
     @Override
     public void cleanup() {
-        this.entity.targetSelector.removeGoal(this.aiPickupItems);
-        this.entity.goalSelector.removeGoal(this.aiFellTree);
-        this.entity.goalSelector.removeGoal(this.aiDepositItems);
+        this.entity.targetSelector.removeGoal(this.pickupItemsGoal);
+        this.entity.goalSelector.removeGoal(this.fellTreesGoal);
+        this.entity.goalSelector.removeGoal(this.depositItemsGoal);
     }
 
     @Override
