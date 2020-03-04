@@ -22,17 +22,25 @@
 
 package com.github.klikli_dev.occultism.common.job;
 
+import com.github.klikli_dev.occultism.api.common.container.IItemStackComparator;
+import com.github.klikli_dev.occultism.common.entity.ai.FellTreesGoal;
+import com.github.klikli_dev.occultism.common.entity.ai.PickupItemsGoal;
+import com.github.klikli_dev.occultism.common.entity.ai.DepositItemsGoal;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
+import com.github.klikli_dev.occultism.common.misc.ItemTagComparator;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.NonNullList;
+import net.minecraft.tags.ItemTags;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class LumberjackJob extends SpiritJob {
 
     //region Fields
-    //    protected SpiritAIPickupItems aiPickupItems;
-    //    protected SpiritAIFellTrees aiFellTree;
-    //    protected SpiritAIDepositItems aiDepositItems;
-    protected NonNullList<ItemStack> itemsToPickUp = NonNullList.create();
+    protected PickupItemsGoal aiPickupItems;
+    protected FellTreesGoal aiFellTree;
+    protected DepositItemsGoal aiDepositItems;
+    protected List<IItemStackComparator> itemsToPickUp = new ArrayList<>();
     //endregion Fields
 
 
@@ -45,29 +53,28 @@ public class LumberjackJob extends SpiritJob {
     //region Overrides
     @Override
     public void init() {
-        //        this.entity.targetTasks.addTask(0, this.aiPickupItems = new SpiritAIPickupItems(this.entity));
-        //        this.entity.tasks.addTask(3, this.aiFellTree = new SpiritAIFellTrees(this.entity));
-        //        this.entity.tasks.addTask(4, this.aiDepositItems = new SpiritAIDepositItems(this.entity));
-        //
-        //        this.itemsToPickUp.addAll(OreDictionary.getOres("treeLeaves"));
-        //        this.itemsToPickUp.addAll(OreDictionary.getOres("logWood"));
-        //        this.itemsToPickUp.addAll(OreDictionary.getOres("treeSapling"));
+        this.entity.targetSelector.addGoal(0, this.aiPickupItems = new PickupItemsGoal(this.entity));
+        this.entity.goalSelector.addGoal(3, this.aiFellTree = new FellTreesGoal(this.entity));
+        this.entity.goalSelector.addGoal(4, this.aiDepositItems = new DepositItemsGoal(this.entity));
+
+        this.itemsToPickUp.add(new ItemTagComparator(ItemTags.LOGS));
+        this.itemsToPickUp.add(new ItemTagComparator(ItemTags.LEAVES));
+        this.itemsToPickUp.add(new ItemTagComparator(ItemTags.SAPLINGS));
     }
 
     @Override
     public void cleanup() {
-        //        this.entity.targetTasks.removeTask(this.aiPickupItems);
-        //        this.entity.tasks.removeTask(this.aiFellTree);
-        //        this.entity.tasks.removeTask(this.aiDepositItems);
+        this.entity.targetSelector.removeGoal(this.aiPickupItems);
+        this.entity.goalSelector.removeGoal(this.aiFellTree);
+        this.entity.goalSelector.removeGoal(this.aiDepositItems);
     }
 
     @Override
     public boolean canPickupItem(ItemStack stack) {
-        //        for (ItemStack itemToPickUp : this.itemsToPickUp) {
-        //            if (OreDictionary
-        //                        .itemMatches(itemToPickUp, stack, itemToPickUp.getMetadata() != OreDictionary.WILDCARD_VALUE))
-        //                return true;
-        //        }
+        for (IItemStackComparator comparator : this.itemsToPickUp) {
+            if (comparator.matches(stack))
+                return true;
+        }
         return false;
     }
     //endregion Overrides
