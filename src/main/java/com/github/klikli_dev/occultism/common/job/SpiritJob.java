@@ -28,8 +28,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.util.INBTSerializable;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public abstract class SpiritJob implements INBTSerializable<CompoundNBT> {
 
@@ -66,12 +64,15 @@ public abstract class SpiritJob implements INBTSerializable<CompoundNBT> {
     }
     //endregion Overrides
 
-    public static SpiritJob from(SpiritEntity entity, CompoundNBT nbt){
-        SpiritJobFactory factory = OccultismSpiritJobs.REGISTRY.getValue(new ResourceLocation(nbt.getString("factoryId")));
+    //region Static Methods
+    public static SpiritJob from(SpiritEntity entity, CompoundNBT nbt) {
+        SpiritJobFactory factory = OccultismSpiritJobs.REGISTRY
+                                           .getValue(new ResourceLocation(nbt.getString("factoryId")));
         SpiritJob job = factory.create(entity);
         job.deserializeNBT(nbt);
         return job;
     }
+    //endregion Static Methods
 
     //region Methods
 
