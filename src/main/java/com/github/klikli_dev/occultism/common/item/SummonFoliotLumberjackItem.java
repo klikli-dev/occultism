@@ -56,7 +56,7 @@ public class SummonFoliotLumberjackItem extends Item {
         spirit.onInitialSpawn(context.getWorld(), context.getWorld().getDifficultyForLocation(context.getPos()),
                 SpawnReason.SPAWN_EGG, null, null);
         spirit.setTamedBy(context.getPlayer());
-        spirit.setPosition(context.getPos().getX(), context.getPos().getY(), context.getPos().getZ());
+        spirit.setPosition(context.getPos().getX(), context.getPos().getY() + 1.0f, context.getPos().getZ());
         spirit.setCustomName(new StringTextComponent("Testspirit"));
 
         //set up the job
