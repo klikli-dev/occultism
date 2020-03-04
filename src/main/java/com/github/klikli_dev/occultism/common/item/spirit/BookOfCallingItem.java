@@ -23,6 +23,7 @@
 package com.github.klikli_dev.occultism.common.item.spirit;
 
 import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.api.common.data.GlobalBlockPos;
 import com.github.klikli_dev.occultism.api.common.data.MachineReference;
 import com.github.klikli_dev.occultism.api.common.data.WorkAreaSize;
 import com.github.klikli_dev.occultism.api.common.item.IHandleItemMode;
@@ -30,6 +31,7 @@ import com.github.klikli_dev.occultism.api.common.item.IIngredientCopyNBT;
 import com.github.klikli_dev.occultism.api.common.item.IIngredientPreventCrafting;
 import com.github.klikli_dev.occultism.api.common.tile.IStorageController;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
+import com.github.klikli_dev.occultism.common.job.ManageMachineJob;
 import com.github.klikli_dev.occultism.util.EntityUtil;
 import com.github.klikli_dev.occultism.util.ItemNBTUtil;
 import com.github.klikli_dev.occultism.util.TextUtil;
@@ -242,28 +244,29 @@ public class BookOfCallingItem extends Item implements IIngredientPreventCraftin
                                                          .map(e -> (SpiritEntity) e);
             TileEntity tileEntity = world.getTileEntity(pos);
             if (boundSpirit.isPresent() && tileEntity != null) {
-                //TODO: enable once spirit job manage machien is ready
-                //                if (boundSpirit.get().getJob() instanceof SpiritJobManageMachine) {
-                //                    SpiritJobManageMachine job = (SpiritJobManageMachine) boundSpirit.getJob();
-                //                    MachineReference newReference = MachineReference.fromTileEntity(tileEntity);
-                //                    if (job.getManagedMachine() == null ||
-                //                        !job.getManagedMachine().globalPos.equals(newReference.globalPos)) {
-                //                        //if we are setting a completely new machine, just overwrite the reference.
-                //                        job.setManagedMachine(newReference);
-                //                    }
-                //                    else {
-                //                        //otherwise just update the registry name in case the block type was switched out
-                //                        job.getManagedMachine().registryName = newReference.registryName;
-                //                    }
-                //
-                //                    //write data into item nbt for client side usage
-                //                    ItemNBTUtil.updateItemNBTFromEntity(stack, boundSpirit.get());
-                //
-                //                    player.sendStatusMessage(
-                //                            new TranslationTextComponent(this.getTranslationKeyBase()  + ".message_set_managed_machine",
-                //                                    TextUtil.formatDemonName(boundSpirit.get().getName().getFormattedText())), true);
-                //                    return true;
-                //                }
+
+                if (boundSpirit.get().getJob().isPresent() &&
+                    boundSpirit.get().getJob().get() instanceof ManageMachineJob) {
+                    ManageMachineJob manageMachine = (ManageMachineJob) boundSpirit.get().getJob().get();
+                    MachineReference newReference = MachineReference.from(tileEntity);
+                    if (manageMachine.getManagedMachine() == null ||
+                        !manageMachine.getManagedMachine().globalPos.equals(newReference.globalPos)) {
+                        //if we are setting a completely new machine, just overwrite the reference.
+                        manageMachine.setManagedMachine(newReference);
+                    }
+                    else {
+                        //otherwise just update the registry name in case the block type was switched out
+                        manageMachine.getManagedMachine().registryName = newReference.registryName;
+                    }
+
+                    //write data into item nbt for client side usage
+                    ItemNBTUtil.updateItemNBTFromEntity(stack, boundSpirit.get());
+
+                    player.sendStatusMessage(
+                            new TranslationTextComponent(this.getTranslationKeyBase() + ".message_set_managed_machine",
+                                    TextUtil.formatDemonName(boundSpirit.get().getName().getFormattedText())), true);
+                    return true;
+                }
             }
             else {
                 player.sendStatusMessage(
@@ -280,20 +283,20 @@ public class BookOfCallingItem extends Item implements IIngredientPreventCraftin
             Optional<SpiritEntity> boundSpirit = EntityUtil.getEntityByUuiDGlobal(world.getServer(), boundSpiritId)
                                                          .map(e -> (SpiritEntity) e);
 
-            if (boundSpirit.isPresent()) {
-                //TODO: enable once spirit job manage machine is ready
-                //                if (boundSpirit.get().getJob() instanceof SpiritJobManageMachine) {
-                //                    SpiritJobManageMachine job = (SpiritJobManageMachine) boundSpirit.getJob();
-                //                    job.setStorageControllerPosition(new GlobalBlockPos(pos, world.provider.getDimension()));
-                //                    //write data into item nbt for client side usage
-                //                    ItemNBTUtil.updateItemNBTFromEntity(stack, boundSpirit.get());
-                //
-                //                    String blockName = world.getBlockState(pos).getBlock().getTranslationKey();
-                //                    player.sendStatusMessage(
-                //                            new TranslationTextComponent(this.getTranslationKeyBase() + ".message_set_storage_controller",
-                //                                    TextUtil.formatDemonName(boundSpirit.get().getName().getFormattedText()), new TranslationTextComponent(blockName)), true);
-                //                    return true;
-                //                }
+            if (boundSpirit.isPresent() && boundSpirit.get().getJob().isPresent()) {
+                if (boundSpirit.get().getJob().get() instanceof ManageMachineJob) {
+                    ManageMachineJob job = (ManageMachineJob) boundSpirit.get().getJob().get();
+                    job.setStorageControllerPosition(new GlobalBlockPos(pos, world));
+                    //write data into item nbt for client side usage
+                    ItemNBTUtil.updateItemNBTFromEntity(stack, boundSpirit.get());
+
+                    String blockName = world.getBlockState(pos).getBlock().getTranslationKey();
+                    player.sendStatusMessage(new TranslationTextComponent(
+                            this.getTranslationKeyBase() + ".message_set_storage_controller",
+                            TextUtil.formatDemonName(boundSpirit.get().getName().getFormattedText()),
+                            new TranslationTextComponent(blockName)), true);
+                    return true;
+                }
             }
             else {
                 player.sendStatusMessage(
@@ -338,7 +341,6 @@ public class BookOfCallingItem extends Item implements IIngredientPreventCraftin
         if (boundSpiritId != null) {
             Optional<SpiritEntity> boundSpirit = EntityUtil.getEntityByUuiDGlobal(world.getServer(), boundSpiritId)
                                                          .map(e -> (SpiritEntity) e);
-
             if (boundSpirit.isPresent()) {
                 //update properties on entity
                 boundSpirit.get().setWorkAreaPosition(pos);

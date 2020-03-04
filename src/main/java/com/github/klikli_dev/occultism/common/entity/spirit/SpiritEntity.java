@@ -25,6 +25,7 @@ package com.github.klikli_dev.occultism.common.entity.spirit;
 import com.github.klikli_dev.occultism.api.common.data.WorkAreaSize;
 import com.github.klikli_dev.occultism.common.container.spirit.SpiritContainer;
 import com.github.klikli_dev.occultism.common.entity.ISkinnedCreatureMixin;
+import com.github.klikli_dev.occultism.common.item.spirit.BookOfCallingItem;
 import com.github.klikli_dev.occultism.common.job.SpiritJob;
 import com.github.klikli_dev.occultism.exceptions.ItemHandlerMissingException;
 import com.github.klikli_dev.occultism.registry.OccultismSounds;
@@ -94,7 +95,7 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
     private static final DataParameter<String> JOB_ID = EntityDataManager
                                                                 .createKey(SpiritEntity.class, DataSerializers.STRING);
     public LazyOptional<ItemStackHandler> itemStackHandler = LazyOptional.of(ItemStackHandler::new);
-    protected LazyOptional<SpiritJob> job = LazyOptional.empty();
+    protected Optional<SpiritJob> job = Optional.empty();
     protected boolean isInitialized = false;
 
     //endregion Fields
@@ -190,7 +191,7 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
         this.dataManager.set(JOB_ID, id);
     }
 
-    public LazyOptional<SpiritJob> getJob() {
+    public Optional<SpiritJob> getJob() {
         return this.job;
     }
 
@@ -201,8 +202,9 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
      */
     public void setJob(SpiritJob job) {
         this.job.ifPresent(SpiritJob::cleanup);
+        this.job = Optional.ofNullable(job);
         if (job != null) {
-            this.job = LazyOptional.of(() -> job);
+            this.job = Optional.ofNullable(job);
             this.setJobID(job.getFactoryID().toString());
         }
     }
@@ -420,8 +422,7 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
     public void onDeath(DamageSource cause) {
         if (!this.world.isRemote) {
             if (this.isTamed()) {
-                //TODO: enable once item book of calling is ready
-                //ItemBookOfCallingActive.spiritDeathRegister.put(this.entityUniqueID, this.world.getTotalWorldTime());
+                BookOfCallingItem.spiritDeathRegister.put(this.entityUniqueID, this.world.getGameTime());
             }
 
             //drop inventory on death
