@@ -24,7 +24,8 @@ package com.github.klikli_dev.occultism.common.entity.ai;
 
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.github.klikli_dev.occultism.util.Math3DUtil;
-import net.minecraft.block.BlockState;
+import net.minecraft.block.Block;
+import net.minecraft.block.LeavesBlock;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Hand;
@@ -35,6 +36,7 @@ import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.world.World;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class FellTreesGoal extends Goal {
     //region Fields
@@ -59,7 +61,7 @@ public class FellTreesGoal extends Goal {
         if (!this.entity.getHeldItem(Hand.MAIN_HAND).isEmpty()) {
             return false; //if already holding an item we need to first store it.
         }
-        this.findTree();
+        this.resetTarget();
         return this.targetBlock != null;
     }
 
@@ -71,23 +73,21 @@ public class FellTreesGoal extends Goal {
 
     public void resetTask() {
         this.entity.getNavigator().clearPath();
-        this.findTree();
+        this.resetTarget();
     }
 
     @Override
     public void tick() {
         if (this.targetBlock != null) {
             if (!this.entity.getNavigator().tryMoveToXYZ(this.targetBlock.getX() + 0.5D, this.targetBlock.getY(),
-                    this.targetBlock.getZ() + 0.5D, 1D)) {
+                    this.targetBlock.getZ() + 0.5D, 1.25D)) {
 
-                RayTraceContext context = new RayTraceContext(Math3DUtil.center(this.targetBlock),
-                        this.entity.getPositionVector(), RayTraceContext.BlockMode.COLLIDER,
+                RayTraceContext context = new RayTraceContext(this.entity.getPositionVector(), Math3DUtil.center(this.targetBlock),RayTraceContext.BlockMode.COLLIDER,
                         RayTraceContext.FluidMode.NONE, this.entity);
                 BlockRayTraceResult result = this.entity.world.rayTraceBlocks(context);
                 if (result.getType() != BlockRayTraceResult.Type.MISS) {
                     BlockPos pos = result.getPos().offset(result.getFace());
-                    this.entity.getNavigator()
-                            .tryMoveToXYZ(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, 1D);
+                    this.entity.getNavigator().tryMoveToXYZ(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, 1D);
                 }
             }
 
@@ -97,10 +97,8 @@ public class FellTreesGoal extends Goal {
                     //start breaking when close
                     if (distance < 0.6F) {
                         //Stop moving if very close
-                        this.entity.setMotion(0, this.entity.getMotion().y, 0);
+                        this.entity.setMotion(0, 0, 0);
                         this.entity.getNavigator().clearPath();
-                        //TODO: if the spirit does not properly stop, we need to AT action to manually set it
-                        //this.entity.getMoveHelper().action = MovementController.Action.WAIT;
                     }
 
                     this.updateBreakBlock();
@@ -120,7 +118,8 @@ public class FellTreesGoal extends Goal {
     }
 
     public static final boolean isLeaf(World world, BlockPos pos) {
-        return BlockTags.LEAVES.contains(world.getBlockState(pos).getBlock());
+        Block block = world.getBlockState(pos).getBlock();
+        return block instanceof LeavesBlock || BlockTags.LEAVES.contains(block);
     }
     //endregion Static Methods
 
@@ -148,22 +147,22 @@ public class FellTreesGoal extends Goal {
 
     }
 
-    private void findTree() {
-        World world = this.entity.world;
+    private void resetTarget() {
+         World world = this.entity.world;
         List<BlockPos> allBlocks = new ArrayList<>();
         BlockPos workAreaCenter = this.entity.getWorkAreaCenter();
 
         //get work area, but only half height, we don't need full.
         int workAreaSize = this.entity.getWorkAreaSize().getValue();
-        Iterable<BlockPos> searchBlocks = BlockPos.getAllInBoxMutable(
+        List<BlockPos> searchBlocks = BlockPos.getAllInBox(
                 workAreaCenter.add(-workAreaSize, -workAreaSize / 2, -workAreaSize),
-                workAreaCenter.add(workAreaSize, workAreaSize / 2, workAreaSize));
-
+                workAreaCenter.add(workAreaSize, workAreaSize / 2, workAreaSize)).map(BlockPos::toImmutable).collect(
+                Collectors.toList());
         for (BlockPos pos : searchBlocks) {
             if (isLog(world, pos)) {
 
                 //find top of tree
-                BlockPos topOfTree = pos;
+                BlockPos topOfTree = new BlockPos(pos);
                 while (!world.isAirBlock(topOfTree.up()) && topOfTree.getY() < world.getHeight()) {
                     topOfTree = topOfTree.up();
                 }
@@ -191,7 +190,8 @@ public class FellTreesGoal extends Goal {
     private BlockPos getStump(BlockPos log) {
         if (log.getY() > 0) {
             //for all nearby logs and leaves, move one block down and recurse.
-            for (BlockPos pos : BlockPos.getAllInBoxMutable(log.add(-4, -4, -4), log.add(4, 0, 4))) {
+            for (BlockPos pos : BlockPos.getAllInBox(log.add(-4, -4, -4), log.add(4, 0, 4)).map(BlockPos::toImmutable).collect(
+                    Collectors.toList())) {
                 if (isLog(this.entity.world, pos.down()) || isLeaf(this.entity.world, pos.down())) {
                     return this.getStump(pos.down());
                 }
