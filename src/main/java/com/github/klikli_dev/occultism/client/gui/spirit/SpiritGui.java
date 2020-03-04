@@ -86,7 +86,7 @@ public class SpiritGui extends ContainerScreen<SpiritContainer> {
             LabelWidget jobLabel = new LabelWidget(this.guiLeft + 65,
                     this.guiTop + 17 + labelHeight + 5 + labelHeight + 5 + 5, false, -1, 2, 0x404040);
 
-            String jobText = I18n.format(TRANSLATION_KEY_BASE + ".job", I18n.format("job." + jobID + ".name"));
+            String jobText = I18n.format(TRANSLATION_KEY_BASE + ".job", I18n.format("job." + jobID));
             String[] lines = WordUtils.wrap(jobText, 15, "\n", true).split("[\\r\\n]+", 2);
             for (String line : lines)
                 jobLabel.addLine(TextFormatting.ITALIC.toString() + line + TextFormatting.RESET.toString());
@@ -114,7 +114,6 @@ public class SpiritGui extends ContainerScreen<SpiritContainer> {
         drawEntityToGui(this.guiLeft + 35, this.guiTop + 65, scale, this.guiLeft + 51 - mouseX,
                 this.guiTop + 75 - 50 - mouseY, this.spirit);
         RenderSystem.popMatrix();
-        ;
     }
     //endregion Overrides
 
