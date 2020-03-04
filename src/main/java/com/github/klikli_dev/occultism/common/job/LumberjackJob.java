@@ -27,8 +27,10 @@ import com.github.klikli_dev.occultism.common.entity.ai.FellTreesGoal;
 import com.github.klikli_dev.occultism.common.entity.ai.PickupItemsGoal;
 import com.github.klikli_dev.occultism.common.entity.ai.DepositItemsGoal;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
+import com.github.klikli_dev.occultism.common.misc.ItemStackComparator;
 import com.github.klikli_dev.occultism.common.misc.ItemTagComparator;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.tags.ItemTags;
 
 import java.util.ArrayList;
@@ -60,6 +62,7 @@ public class LumberjackJob extends SpiritJob {
         this.itemsToPickUp.add(new ItemTagComparator(ItemTags.LOGS));
         this.itemsToPickUp.add(new ItemTagComparator(ItemTags.LEAVES));
         this.itemsToPickUp.add(new ItemTagComparator(ItemTags.SAPLINGS));
+        this.itemsToPickUp.add(new ItemStackComparator(new ItemStack(Items.STICK), false));
     }
 
     @Override
