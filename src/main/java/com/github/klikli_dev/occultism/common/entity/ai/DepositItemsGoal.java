@@ -169,8 +169,8 @@ public class DepositItemsGoal extends PausableGoal {
     //region Methods
     public boolean canSeeTarget() {
 
-        RayTraceContext context = new RayTraceContext(Math3DUtil.center(this.targetBlock),
-                this.entity.getPositionVector(), RayTraceContext.BlockMode.COLLIDER, RayTraceContext.FluidMode.NONE,
+        RayTraceContext context = new RayTraceContext(this.entity.getPositionVector(),
+                Math3DUtil.center(this.targetBlock), RayTraceContext.BlockMode.COLLIDER, RayTraceContext.FluidMode.NONE,
                 this.entity);
         BlockRayTraceResult result = this.entity.world.rayTraceBlocks(context);
 
