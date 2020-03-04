@@ -111,8 +111,9 @@ public class PickupItemsGoal extends TargetGoal {
             this.goalOwner.getNavigator().clearPath();
         }
         else {
+            this.goalOwner.getNavigator().setPath(this.goalOwner.getNavigator().getPathToEntity(this.targetItem, 0), 1.0f);
             double distance = this.entity.getPositionVector().distanceTo(this.targetItem.getPositionVec());
-            if (distance < 2.5F) {
+            if (distance < 1F) {
                 this.entity.setMotion(0, 0, 0);
                 this.entity.getNavigator().clearPath();
 
@@ -133,8 +134,7 @@ public class PickupItemsGoal extends TargetGoal {
 
     @Override
     public void startExecuting() {
-        this.goalOwner.getNavigator()
-                .tryMoveToXYZ(this.targetItem.getPosX(), this.targetItem.getPosY(), this.targetItem.getPosZ(), 1f);
+        this.goalOwner.getNavigator().setPath(this.goalOwner.getNavigator().getPathToEntity(this.targetItem, 0), 1.0f);
         super.startExecuting();
     }
     //endregion Overrides

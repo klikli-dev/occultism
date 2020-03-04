@@ -119,8 +119,7 @@ public class DepositItemsGoal extends PausableGoal {
                 else {
                     //continue moving
                     BlockPos moveTarget = this.getMoveTarget();
-                    this.entity.getNavigator()
-                            .tryMoveToXYZ(moveTarget.getX() + 0.5D, moveTarget.getY(), moveTarget.getZ() + 0.5D, 1D);
+                    this.entity.getNavigator().setPath(this.entity.getNavigator().getPathToPos(moveTarget, 0), 1.0f);
                 }
 
                 //when close enough insert item
