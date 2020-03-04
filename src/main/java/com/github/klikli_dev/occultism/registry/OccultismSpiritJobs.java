@@ -26,6 +26,7 @@ import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.job.LumberjackJob;
 import com.github.klikli_dev.occultism.common.job.ManageMachineJob;
 import com.github.klikli_dev.occultism.common.job.SpiritJobFactory;
+import com.github.klikli_dev.occultism.common.job.TraderJob;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.IForgeRegistry;
@@ -42,6 +43,9 @@ public class OccultismSpiritJobs {
 
     public static final RegistryObject<SpiritJobFactory> MANAGE_MACHINE = JOBS.register("manage_machine",
             () -> new SpiritJobFactory(ManageMachineJob::new));
+
+    public static final RegistryObject<SpiritJobFactory> TRADER = JOBS.register("trader",
+            () -> new SpiritJobFactory(TraderJob::new));
 
     //endregion Fields
 }

@@ -26,6 +26,7 @@ import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.item.ChalkItem;
 import com.github.klikli_dev.occultism.common.item.DebugWandItem;
 import com.github.klikli_dev.occultism.common.item.SummonFoliotLumberjackItem;
+import com.github.klikli_dev.occultism.common.item.SummonFoliotManageMachineItem;
 import com.github.klikli_dev.occultism.common.item.spirit.BookOfBindingBoundItem;
 import com.github.klikli_dev.occultism.common.item.spirit.BookOfBindingItem;
 import com.github.klikli_dev.occultism.common.item.spirit.BookOfCallingItem;
@@ -48,6 +49,10 @@ public class OccultismItems {
             () -> new DebugWandItem(defaultProperties().maxStackSize(1)));
     public static final RegistryObject<Item> DEBUG_FOLIOT_LUMBERJACK = ITEMS.register("debug_foliot_lumberjack",
             () -> new SummonFoliotLumberjackItem(defaultProperties().maxStackSize(1)));
+    public static final RegistryObject<Item> DEBUG_FOLIOT_MANAGE_MACHINE = ITEMS.register("debug_foliot_manage_machine",
+            () -> new SummonFoliotManageMachineItem(defaultProperties().maxStackSize(1)));
+    public static final RegistryObject<Item> DEBUG_FOLIOT_TRADER_ITEM = ITEMS.register("debug_foliot_trader",
+            () -> new SummonFoliotManageMachineItem(defaultProperties().maxStackSize(1)));
 
     //Resources
     //Components

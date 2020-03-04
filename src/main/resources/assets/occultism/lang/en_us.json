@@ -4,6 +4,9 @@
 
     "_comment": "Items",
     "item.occultism.pentacle": "Pentacle",
+    "item.occultism.debug_foliot_lumberjack": "Summon Debug Foliot Lumberjack",
+    "item.occultism.debug_foliot_manage_machine": "Summon Debug Foliot Manage Machine",
+    "item.occultism.debug_foliot_trader": "Summon Debug Foliot Trader",
 
     "item.occultism.chalk_ritual": "Purple Chalk",
     "item.occultism.chalk_red": "Red Chalk",
