@@ -25,6 +25,7 @@ package com.github.klikli_dev.occultism;
 import com.github.klikli_dev.occultism.client.gui.spirit.SpiritGui;
 import com.github.klikli_dev.occultism.client.gui.storage.StorageControllerGui;
 import com.github.klikli_dev.occultism.client.gui.storage.StorageRemoteGui;
+import com.github.klikli_dev.occultism.client.render.OccultismRenderType;
 import com.github.klikli_dev.occultism.client.render.SelectedBlockRenderer;
 import com.github.klikli_dev.occultism.client.render.entity.FoliotRenderer;
 import com.github.klikli_dev.occultism.client.render.tile.StorageControllerRenderer;
@@ -67,6 +68,7 @@ public class Occultism {
         INSTANCE = this;
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, CONFIG.spec);
 
+        OccultismRecipes.RECIPES.register(FMLJavaModLoadingContext.get().getModEventBus());
         OccultismBlocks.BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
         OccultismItems.ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
         OccultismTiles.TILES.register(FMLJavaModLoadingContext.get().getModEventBus());
