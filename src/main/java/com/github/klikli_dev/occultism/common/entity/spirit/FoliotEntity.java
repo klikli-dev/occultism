@@ -22,6 +22,7 @@
 
 package com.github.klikli_dev.occultism.common.entity.spirit;
 
+import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.passive.TameableEntity;
@@ -30,8 +31,8 @@ import net.minecraft.world.World;
 public class FoliotEntity extends SpiritEntity {
 
     //region Initialization
-    public FoliotEntity(EntityType<? extends TameableEntity> type, World world) {
-        super(type, world);
+    public FoliotEntity(EntityType<? extends SpiritEntity> type, World world) {
+        super(OccultismEntities.FOLIOT.get(), world);
         this.setSpiritMaxAge(60 * 60 * 24); //1 day default for foliot.
     }
     //endregion Initialization

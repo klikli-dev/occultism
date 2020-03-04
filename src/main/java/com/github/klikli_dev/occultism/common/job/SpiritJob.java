@@ -23,6 +23,7 @@
 package com.github.klikli_dev.occultism.common.job;
 
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
+import com.github.klikli_dev.occultism.registry.OccultismSpiritJobs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
@@ -65,13 +66,11 @@ public abstract class SpiritJob implements INBTSerializable<CompoundNBT> {
     }
     //endregion Overrides
 
-    public static SpiritJob from(CompoundNBT nbt){
-        //TODO: enable once spirit job factory and registry are ready
-//        SpiritJobFactory factory = GameRegistry.findRegistry(SpiritJobFactory.class).getValue(new ResourceLocation(nbt.getString("factoryId")));
-//        SpiritJob job = factory.create(this);
-//        job.deserializeNBT(nbt);
-//        return job;
-        throw new NotImplementedException();
+    public static SpiritJob from(SpiritEntity entity, CompoundNBT nbt){
+        SpiritJobFactory factory = OccultismSpiritJobs.REGISTRY.getValue(new ResourceLocation(nbt.getString("factoryId")));
+        SpiritJob job = factory.create(entity);
+        job.deserializeNBT(nbt);
+        return job;
     }
 
     //region Methods

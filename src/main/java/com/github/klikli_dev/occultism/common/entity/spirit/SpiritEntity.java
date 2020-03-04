@@ -99,7 +99,7 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
 
     //endregion Fields
     //region Initialization
-    public SpiritEntity(EntityType<? extends TameableEntity> type, World worldIn) {
+    public SpiritEntity(EntityType<? extends SpiritEntity> type, World worldIn) {
         super(type, worldIn);
         this.enablePersistence();
     }
@@ -404,7 +404,7 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
 
         //read job
         if (compound.contains("spiritJob")) {
-            SpiritJob job = SpiritJob.from(compound.getCompound("spiritJob"));
+            SpiritJob job = SpiritJob.from(this, compound.getCompound("spiritJob"));
             this.setJob(job);
         }
     }
