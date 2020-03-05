@@ -36,6 +36,7 @@ public class LabelWidget extends Widget {
     //region Fields
     public List<String> lines = new ArrayList<>();
     public boolean centered = false;
+    public boolean rightAligned = false;
     public int width = 0;
     public int margin = 2;
     public boolean shadow = false;
@@ -58,7 +59,6 @@ public class LabelWidget extends Widget {
     //endregion Initialization
 
     //region Overrides
-
     @Override
     public void render(int mouseX, int mouseY, float partialTicks) {
         if (this.visible) {
@@ -77,7 +77,10 @@ public class LabelWidget extends Widget {
                 if (this.centered) {
                     this.drawCenteredString(fontrenderer, this.lines.get(i), this.x, top, color);
                 }
-                else {
+                else if (this.rightAligned){
+                    this.drawRightAlignedString(fontrenderer, lines.get(i), this.x, top, color);
+                }
+                else{
                     this.drawString(fontrenderer, this.lines.get(i), this.x, top, color);
                 }
             }
@@ -96,8 +99,21 @@ public class LabelWidget extends Widget {
     }
 
     @Override
+    public void drawRightAlignedString(FontRenderer fontRenderer, String text,
+                                       int x, int y,
+                                       int color) {
+        if (this.shadow) {
+            fontRenderer.drawStringWithShadow(text, (float) (x - fontRenderer.getStringWidth(text)), (float) y, color);
+        }
+        else {
+            fontRenderer.drawString(text, (float) (x - fontRenderer.getStringWidth(text)), (float) y, color);
+        }
+
+    }
+
+    @Override
     public void drawString(FontRenderer fontRenderer, String text, int x, int y, int color) {
-        if (shadow) {
+        if (this.shadow) {
             fontRenderer.drawStringWithShadow(text, x, y, color);
         }
         else {
@@ -107,6 +123,13 @@ public class LabelWidget extends Widget {
     //endregion Overrides
 
     //region Methods
+    public LabelWidget alignRight(boolean align) {
+        this.rightAligned = align;
+        if (this.rightAligned)
+            this.centered = false;
+        return this;
+    }
+
     public void addLine(String string, boolean translate) {
         if (translate)
             this.addLine(I18n.format(string));
