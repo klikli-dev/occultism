@@ -409,10 +409,12 @@ public class BookOfCallingItem extends Item implements IIngredientPreventCraftin
                             CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)) {
                         MachineReference machine = ItemNBTUtil.getManagedMachine(stack);
                         if (machine != null) {
-                            //TODO: Open book of calling manage machine ui
-                            //                            Occultism.proxy
-                            //                                    .openBookOfCallingManageMachineUI(machine.insertFacing, machine.extractFacing,
-                            //                                            machine.customName);
+                            Minecraft.getInstance().displayGuiScreen(
+                                    new BookOfCallingManagedMachineGui(machine.insertFacing, machine.extractFacing,
+                                            machine.customName));
+                        }
+                        else {
+
                         }
                     }
                     break;
