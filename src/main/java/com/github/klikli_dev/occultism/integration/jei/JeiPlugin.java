@@ -23,7 +23,7 @@
 package com.github.klikli_dev.occultism.integration.jei;
 
 import com.github.klikli_dev.occultism.Occultism;
-import com.github.klikli_dev.occultism.common.container.StorageControllerContainer;
+import com.github.klikli_dev.occultism.common.container.storage.StorageControllerContainer;
 import com.google.common.base.Strings;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;

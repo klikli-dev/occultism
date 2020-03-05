@@ -38,13 +38,6 @@ public interface ISkinnedCreatureMixin {
     /**
      * @return the entity data manager
      */
-    default LivingEntity getEntity() {
-        return (LivingEntity) this;
-    }
-
-    /**
-     * @return the entity data manager
-     */
     EntityDataManager getDataManager();
 
     /**

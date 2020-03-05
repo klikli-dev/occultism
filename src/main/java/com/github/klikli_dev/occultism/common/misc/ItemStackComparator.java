@@ -57,9 +57,7 @@ public class ItemStackComparator implements IItemStackComparator {
     public void setMatchNbt(boolean matchNbt) {
         this.matchNbt = matchNbt;
     }
-    //endregion Getter / Setter
 
-    //region Overrides
     public ItemStack getFilterStack() {
         return this.filterStack;
     }
@@ -67,7 +65,9 @@ public class ItemStackComparator implements IItemStackComparator {
     public void setFilterStack(@Nonnull ItemStack filterStack) {
         this.filterStack = filterStack;
     }
+    //endregion Getter / Setter
 
+    //region Overrides
     @Override
     public boolean matches(@Nonnull ItemStack stack) {
         if (stack.isEmpty())
@@ -77,24 +77,34 @@ public class ItemStackComparator implements IItemStackComparator {
             return false;
         return stack.getItem() == this.filterStack.getItem();
     }
+
+    @Override
+    public CompoundNBT serializeNBT() {
+        return this.write(new CompoundNBT());
+    }
+
+    @Override
+    public void deserializeNBT(CompoundNBT nbt) {
+        this.read(nbt);
+    }
     //endregion Overrides
 
     //region Static Methods
-    public static ItemStackComparator loadFromNBT(CompoundNBT nbt) {
+    public static ItemStackComparator from(CompoundNBT nbt) {
         ItemStackComparator comparator = new ItemStackComparator();
-        comparator.readFromNBT(nbt);
+        comparator.deserializeNBT(nbt);
         return !comparator.filterStack.isEmpty() ? comparator : null;
     }
     //endregion Static Methods
 
     //region Methods
-    public void readFromNBT(CompoundNBT compound) {
+    public void read(CompoundNBT compound) {
         CompoundNBT nbt = compound.getCompound("stack");
         this.filterStack = ItemStack.read(nbt);
         this.matchNbt = compound.getBoolean("matchNbt");
     }
 
-    public CompoundNBT writeToNBT(CompoundNBT compound) {
+    public CompoundNBT write(CompoundNBT compound) {
         compound.put("stack", this.filterStack.write(new CompoundNBT()));
         compound.putBoolean("matchNbt", this.matchNbt);
         return compound;

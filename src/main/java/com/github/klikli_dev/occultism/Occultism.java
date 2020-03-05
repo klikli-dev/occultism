@@ -22,25 +22,37 @@
 
 package com.github.klikli_dev.occultism;
 
-import com.github.klikli_dev.occultism.client.gui.StorageControllerGui;
-import com.github.klikli_dev.occultism.client.gui.StorageRemoteGui;
+import com.github.klikli_dev.occultism.client.gui.spirit.SpiritGui;
+import com.github.klikli_dev.occultism.client.gui.storage.StorageControllerGui;
+import com.github.klikli_dev.occultism.client.gui.storage.StorageRemoteGui;
+import com.github.klikli_dev.occultism.client.render.OccultismRenderType;
 import com.github.klikli_dev.occultism.client.render.SelectedBlockRenderer;
+import com.github.klikli_dev.occultism.client.render.entity.FoliotRenderer;
+import com.github.klikli_dev.occultism.client.render.tile.StorageControllerRenderer;
 import com.github.klikli_dev.occultism.common.OccultismItemGroup;
 import com.github.klikli_dev.occultism.config.OccultismConfig;
+import com.github.klikli_dev.occultism.crafting.recipe.SpiritTrade;
 import com.github.klikli_dev.occultism.network.OccultismPackets;
 import com.github.klikli_dev.occultism.registry.*;
 import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.item.ItemGroup;
+import net.minecraft.item.crafting.IRecipeSerializer;
+import net.minecraft.item.crafting.IRecipeType;
+import net.minecraft.util.registry.Registry;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.ModLoadingContext;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
+import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLDedicatedServerSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -52,11 +64,8 @@ public class Occultism {
     public static final ItemGroup ITEM_GROUP = new OccultismItemGroup();
     public static final Logger LOGGER = LogManager.getLogger(MODID);
     public static final OccultismConfig CONFIG = new OccultismConfig();
-
-
+    public static final SelectedBlockRenderer SELECTED_BLOCK_RENDERER = new SelectedBlockRenderer();
     public static Occultism INSTANCE;
-
-    public static final SelectedBlockRenderer selectedBlockRenderer = new SelectedBlockRenderer();
     //endregion Fields
 
     //region Initialization
@@ -64,6 +73,7 @@ public class Occultism {
         INSTANCE = this;
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, CONFIG.spec);
 
+        OccultismRecipes.RECIPES.register(FMLJavaModLoadingContext.get().getModEventBus());
         OccultismBlocks.BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
         OccultismItems.ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
         OccultismTiles.TILES.register(FMLJavaModLoadingContext.get().getModEventBus());
@@ -78,7 +88,7 @@ public class Occultism {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::onModConfigEvent);
 
         MinecraftForge.EVENT_BUS.register(this);
-        MinecraftForge.EVENT_BUS.register(selectedBlockRenderer);
+        MinecraftForge.EVENT_BUS.register(SELECTED_BLOCK_RENDERER);
     }
 
     //endregion Initialization
@@ -100,9 +110,11 @@ public class Occultism {
     }
 
     private void clientSetup(final FMLClientSetupEvent event) {
-        //Register screen factories
-        ScreenManager.registerFactory(OccultismContainers.STORAGE_CONTROLLER.get(), StorageControllerGui::new);
-        ScreenManager.registerFactory(OccultismContainers.STORAGE_REMOTE.get(), StorageRemoteGui::new);
+        //Register Entity Renderers
+        RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.FOLIOT.get(), FoliotRenderer::new);
+
+        //Register Tile Entity Renderers
+        ClientRegistry.bindTileEntityRenderer(OccultismTiles.STORAGE_CONTROLLER.get(), StorageControllerRenderer::new);
 
         //Setup block render layers
         RenderTypeLookup.setRenderLayer(OccultismBlocks.CHALK_GLYPH_WHITE.get(), RenderType.getCutoutMipped());
@@ -110,6 +122,16 @@ public class Occultism {
         RenderTypeLookup.setRenderLayer(OccultismBlocks.CHALK_GLYPH_PURPLE.get(), RenderType.getCutoutMipped());
         RenderTypeLookup.setRenderLayer(OccultismBlocks.CHALK_GLYPH_RED.get(), RenderType.getCutoutMipped());
         RenderTypeLookup.setRenderLayer(OccultismBlocks.STABLE_WORMHOLE.get(), RenderType.getTranslucent());
+
+        //Not safe to call during parallel load, so register just after.
+        DeferredWorkQueue.runLater(() -> {
+            //Register screen factories
+            ScreenManager.registerFactory(OccultismContainers.STORAGE_CONTROLLER.get(), StorageControllerGui::new);
+            ScreenManager.registerFactory(OccultismContainers.STORAGE_REMOTE.get(), StorageRemoteGui::new);
+            ScreenManager.registerFactory(OccultismContainers.SPIRIT.get(), SpiritGui::new);
+            LOGGER.debug("Registered Screen Containers");
+        });
+
         LOGGER.info("Client setup complete.");
     }
     //endregion Methods

@@ -33,17 +33,23 @@ import com.github.klikli_dev.occultism.api.common.tile.IStorageAccessor;
 import com.github.klikli_dev.occultism.api.common.tile.IStorageController;
 import com.github.klikli_dev.occultism.api.common.tile.IStorageControllerProxy;
 import com.github.klikli_dev.occultism.common.block.storage.StorageStabilizerBlock;
-import com.github.klikli_dev.occultism.common.container.StorageControllerContainer;
+import com.github.klikli_dev.occultism.common.container.storage.StorageControllerContainer;
+import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
+import com.github.klikli_dev.occultism.common.job.ManageMachineJob;
+import com.github.klikli_dev.occultism.common.misc.DepositOrder;
+import com.github.klikli_dev.occultism.common.misc.ItemStackComparator;
 import com.github.klikli_dev.occultism.common.misc.StorageControllerItemStackHandler;
 import com.github.klikli_dev.occultism.exceptions.ItemHandlerMissingException;
 import com.github.klikli_dev.occultism.network.MessageUpdateStacks;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.registry.OccultismTiles;
+import com.github.klikli_dev.occultism.util.EntityUtil;
 import com.github.klikli_dev.occultism.util.Math3DUtil;
 import com.github.klikli_dev.occultism.util.TileEntityUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.DirectionalBlock;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
@@ -55,7 +61,6 @@ import net.minecraft.nbt.ListNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.common.capabilities.Capability;
@@ -198,8 +203,7 @@ public class StorageControllerTileEntity extends NetworkedTileEntity implements 
     @Override
     public void setMaxSlots(int slots) {
         this.maxSlots = slots;
-        this.itemStackHandler.orElseThrow(ItemHandlerMissingException::new)
-                .setSize(this.maxSlots);
+        this.itemStackHandler.orElseThrow(ItemHandlerMissingException::new).setSize(this.maxSlots);
         TileEntityUtil.updateTile(this.world, this.pos);
     }
 
@@ -226,27 +230,34 @@ public class StorageControllerTileEntity extends NetworkedTileEntity implements 
     @Override
     public void addDepositOrder(GlobalBlockPos linkedMachinePosition, IItemStackComparator comparator, int amount) {
         //check if the item is available in the desired amount, otherwise kill the order.
-        //TODO: Enable when spirit jobs are available
-        //        ItemStack stack = this.getItemStack(comparator, amount, true);
-        //        if (!stack.isEmpty()) {
-        //            UUID spiritUUID = this.depositOrderSpirits.get(linkedMachinePosition);
-        //            Entity entity = spiritUUID != null ? this.world.getMinecraftServer().getEntityFromUuid(spiritUUID) : null;
-        //            if (entity instanceof EntitySpirit) {
-        //                EntitySpirit spirit = (EntitySpirit) entity;
-        //                if (spirit.getJob() instanceof SpiritJobManageMachine) {
-        //                    SpiritJobManageMachine job = (SpiritJobManageMachine) spirit.getJob();
-        //                    job.addDepsitOrder(new DepositOrder(comparator, amount));
-        //                }
-        //                else {
-        //                    //if the entity does not have the proper job, remove it from the list for now. it will re-register itself on spawn
-        //                    this.removeDepositOrderSpirit(linkedMachinePosition);
-        //                }
-        //            }
-        //            else {
-        //                //if the entity cannot be found, remove it from the list for now. it will re-register itself on spawn
-        //                this.removeDepositOrderSpirit(linkedMachinePosition);
-        //            }
-        //        }
+        ItemStack stack = this.getItemStack(comparator, amount, true);
+        if (!stack.isEmpty()) {
+            UUID spiritUUID = this.depositOrderSpirits.get(linkedMachinePosition);
+            if (spiritUUID != null) {
+                Optional<? extends Entity> foundEntity = EntityUtil.getEntityByUuiDGlobal(this.world.getServer(),
+                        spiritUUID);
+                foundEntity.ifPresent(entity -> {
+                    if (entity instanceof SpiritEntity) {
+                        SpiritEntity spirit = (SpiritEntity) entity;
+                        spirit.getJob().ifPresent(job -> {
+                            if (job instanceof ManageMachineJob) {
+                                ManageMachineJob managemachine = (ManageMachineJob) job;
+                                managemachine
+                                        .addDepsitOrder(new DepositOrder((ItemStackComparator) comparator, amount));
+                            }
+                            else {
+                                //if the entity does not have the proper job, remove it from the list for now. it will re-register itself on spawn
+                                this.removeDepositOrderSpirit(linkedMachinePosition);
+                            }
+                        });
+                    }
+                });
+            }
+            else {
+                //if the entity cannot be found, remove it from the list for now. it will re-register itself on spawn
+                this.removeDepositOrderSpirit(linkedMachinePosition);
+            }
+        }
     }
 
     @Override
@@ -490,12 +501,9 @@ public class StorageControllerTileEntity extends NetworkedTileEntity implements 
         ArrayList<BlockPos> validStabilizers = new ArrayList<>();
 
         BlockPos up = this.pos.up();
-        Vec3d traceStartPosition = Math3DUtil.center(up);
         for (Direction face : Direction.values()) {
             BlockPos hit = Math3DUtil.simpleTrace(up, face, MAX_STABILIZER_DISTANCE, (pos) -> {
                 BlockState state = this.world.getBlockState(pos);
-                //TODO: remove log
-                Occultism.LOGGER.info("Hit block {}", state.getBlock().getRegistryName());
                 return state.getBlock() instanceof StorageStabilizerBlock;
             });
 

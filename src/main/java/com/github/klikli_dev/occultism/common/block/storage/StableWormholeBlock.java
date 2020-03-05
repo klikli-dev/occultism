@@ -22,6 +22,7 @@
 
 package com.github.klikli_dev.occultism.common.block.storage;
 
+import com.github.klikli_dev.occultism.registry.OccultismTiles;
 import com.github.klikli_dev.occultism.util.TileEntityUtil;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
@@ -109,15 +110,13 @@ public class StableWormholeBlock extends Block {
 
     @Override
     public boolean hasTileEntity(BlockState state) {
-        //TODO: return true once tile entity is ready
-        return false;
+        return true;
     }
 
     @Nullable
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-        //TODO: return tile entity once ready
-        return null;
+        return OccultismTiles.STABLE_WORMHOLE.get().create();
     }
 
     //endregion Overrides

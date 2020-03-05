@@ -4,6 +4,9 @@
 
     "_comment": "Items",
     "item.occultism.pentacle": "Pentacle",
+    "item.occultism.debug_foliot_lumberjack": "Summon Debug Foliot Lumberjack",
+    "item.occultism.debug_foliot_manage_machine": "Summon Debug Foliot Manage Machine",
+    "item.occultism.debug_foliot_trader": "Summon Debug Foliot Trader",
 
     "item.occultism.chalk_ritual": "Purple Chalk",
     "item.occultism.chalk_red": "Red Chalk",
@@ -15,13 +18,11 @@
     "item.occultism.brush": "Chalk Brush",
     "item.occultism.debug_wand": "Debug Wand",
     "item.occultism.book_of_binding_foliot": "Book of Binding: Foliot",
-    "item.occultism.book_of_binding_active_foliot": "Book of Binding: Foliot",
+    "item.occultism.book_of_binding_bound_foliot": "Book of Binding: Foliot",
     "item.occultism.book_of_binding_djinni": "Book of Binding: Djinni",
-    "item.occultism.book_of_binding_active_djinni": "Book of Binding: Djinni",
-    "item.occultism.book_of_calling_lumberjack_foliot": "Inactive Book of Calling: Foliot Lumberjack",
-    "item.occultism.book_of_calling_lumberjack_active_foliot": "Book of Calling: Foliot Lumberjack",
-    "item.occultism.book_of_calling_manage_machine_foliot": "Inactive Book of Calling: Foliot Crafter",
-    "item.occultism.book_of_calling_manage_machine_active_foliot": "Book of Calling: Foliot Crafter",
+    "item.occultism.book_of_binding_bound_djinni": "Book of Binding: Djinni",
+    "item.occultism.book_of_calling_lumberjack_foliot": "Book of Calling: Foliot Lumberjack",
+    "item.occultism.book_of_calling_manage_machine_foliot": "Book of Calling: Foliot Crafter",
     "item.occultism.storage_remote": "Storage Accessor",
     "item.occultism.dimensional_matrix": "Dimensional Crystal Matrix",
     "item.occultism.divination_rod": "Divination Rod",
@@ -35,6 +36,9 @@
     "item.occultism.spirit_fire_item": "Spiritfire",
     "item.occultism.butcher_knife": "Butcher Knife",
     "item.occultism.tallow": "Tallow",
+
+    "_comment": "# Spawn eggs",
+    "item.occultism.foliot": "Foliot Spawn Egg",
 
     "_comment": "# Item Messages",
 
@@ -54,10 +58,14 @@
     "item.occultism.divination_rod.message.no_link_found": "There is no resonance with this block.",
 
      "_comment": "# Item Tooltips",
-    "item.occultism.book_of_binding.tooltip": "This book has not been bound to a spirit yet.",
-    "item.occultism.book_of_binding_active.tooltip": "Can be used to summon %s",
-    "item.occultism.book_of_calling_active.tooltip": "%s",
-    "item.occultism.book_of_calling_active.tooltip_dead": "%s has left this plane of existence.",
+    "item.occultism.book_of_binding_foliot.tooltip": "This book has not been bound to a foliot yet.",
+    "item.occultism.book_of_binding_bound.tooltip": "Can be used to summon the foliot %s",
+    "item.occultism.book_of_binding_djinni.tooltip": "This book has not been bound to a djinni yet.",
+    "item.occultism.book_of_binding_bound_djinni.tooltip": "Can be used to summon the djinni %s",
+    "item.occultism.book_of_calling_foliot.tooltip": "Foliot %s",
+    "item.occultism.book_of_calling_foliot.tooltip_dead": "%s has left this plane of existence.",
+    "item.occultism.book_of_calling_djinni.tooltip": "Djinni %s",
+    "item.occultism.book_of_calling_djinni.tooltip_dead": "%s has left this plane of existence.",
     //block, because it's a block item.
     "block.occultism.stable_wormhole.tooltip.unlinked": "Not linked to a storage actuator.",
     "block.occultism.stable_wormhole.tooltip.linked": "Linked to storage actuator at %s.",
@@ -87,7 +95,7 @@
     "block.occultism.candle_white": "White Candle",
 
     "_comment": "Entities",
-    "entity.foliot": "Foliot",
+    "entity.occultism.foliot": "Foliot",
 
     "_comment": "# Spirit Jobs",
     "job.occultism.lumberjack": "Lumberjack",
