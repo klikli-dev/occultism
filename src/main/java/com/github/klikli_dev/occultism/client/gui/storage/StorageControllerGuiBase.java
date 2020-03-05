@@ -361,6 +361,13 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     }
 
     @Override
+    public boolean keyPressed(int keyCode, int scanCode, int p_keyPressed_3_) {
+        if(this.searchBar.isFocused() && this.searchBar.keyPressed(keyCode, scanCode, p_keyPressed_3_))
+            return true;
+        return super.keyPressed(keyCode, scanCode, p_keyPressed_3_);
+    }
+
+    @Override
     public boolean charTyped(char typedChar, int keyCode) {
         if (this.searchBar.isFocused() && this.searchBar.charTyped(typedChar, keyCode)) {
             OccultismPackets.sendToServer(new MessageRequestStacks());
