@@ -31,12 +31,14 @@ import com.github.klikli_dev.occultism.api.common.item.IHandleItemMode;
 import com.github.klikli_dev.occultism.api.common.item.IIngredientCopyNBT;
 import com.github.klikli_dev.occultism.api.common.item.IIngredientPreventCrafting;
 import com.github.klikli_dev.occultism.api.common.tile.IStorageController;
+import com.github.klikli_dev.occultism.client.gui.spirit.BookOfCallingGui;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.github.klikli_dev.occultism.common.job.ManageMachineJob;
 import com.github.klikli_dev.occultism.util.EntityUtil;
 import com.github.klikli_dev.occultism.util.ItemNBTUtil;
 import com.github.klikli_dev.occultism.util.TextUtil;
 import com.github.klikli_dev.occultism.util.TileEntityUtil;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -163,8 +165,7 @@ public class BookOfCallingItem extends Item implements IIngredientPreventCraftin
                 //if not sneaking, open general ui
                 ItemMode mode = ItemMode.get(this.getItemMode(itemStack));
                 WorkAreaSize workAreaSize = ItemNBTUtil.getWorkAreaSize(itemStack);
-                //TODO: open book of calling ui here
-                //Occultism.proxy.openBookOfCallingUI(mode, workAreaSize);
+                Minecraft.getInstance().displayGuiScreen(new BookOfCallingGui(mode, workAreaSize));
             }
         }
 
