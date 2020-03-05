@@ -281,8 +281,6 @@ public class StorageControllerTileEntity extends NetworkedTileEntity implements 
         ItemStackHandler handler = this.itemStackHandler.orElseThrow(ItemHandlerMissingException::new);
         if (ItemHandlerHelper.insertItem(handler, stack, true).getCount() < stack.getCount()) {
             stack = ItemHandlerHelper.insertItem(handler, stack, simulate);
-            if (!simulate) //invalidate our packet cache to re-create it on next get
-                this.cachedMessageUpdateStacks = null;
         }
 
         return stack.getCount();
@@ -338,8 +336,6 @@ public class StorageControllerTileEntity extends NetworkedTileEntity implements 
         int extractCount = requestedSize - remaining;
         if (!firstMatchedStack.isEmpty() && extractCount > 0) {
             firstMatchedStack.setCount(extractCount);
-            if (!simulate) //invalidate our packet cache to re-create it on next get
-                this.cachedMessageUpdateStacks = null;
         }
 
         return firstMatchedStack;
@@ -358,6 +354,12 @@ public class StorageControllerTileEntity extends NetworkedTileEntity implements 
                 totalCount += stack.getCount();
         }
         return totalCount;
+    }
+
+    @Override
+    public void onContentsChanged() {
+        this.cachedMessageUpdateStacks = null;
+        this.markDirty();
     }
 
     @Override

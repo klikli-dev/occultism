@@ -125,7 +125,7 @@ public class ManageMachineGoal extends Goal {
                     this.entity.getNavigator().setPath(this.entity.getNavigator().getPathToPos(moveTarget, 0), 1.0f);
                 }
 
-                //when close enough insert item
+                //when close enough, interact
                 if (distance < accessDistance && this.canSeeTarget()) {
                     DepositOrder currentOrder = this.job.getCurrentDepositOrder();
                     MachineReference machineReference = this.job.getManagedMachine();
