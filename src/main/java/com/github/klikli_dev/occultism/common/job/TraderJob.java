@@ -29,6 +29,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.RecipeManager;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.Hand;
@@ -57,8 +58,9 @@ public class TraderJob extends SpiritJob {
 
 
     //region Initialization
-    public TraderJob(SpiritEntity entity) {
+    public TraderJob(SpiritEntity entity, ResourceLocation recipeId) {
         super(entity);
+        this.setTradeRecipeId(recipeId);
     }
     //endregion Initialization
 
@@ -118,8 +120,8 @@ public class TraderJob extends SpiritJob {
                 //show particle effect while converting
                 Vec3d pos = this.entity.getPositionVector();
                 ((ServerWorld) this.entity.world)
-                        .spawnParticle(ParticleTypes.PORTAL, pos.x + 0.5 + this.entity.world.rand.nextGaussian() / 3,
-                                pos.y + 0.5, pos.z + 0.5 + this.entity.world.rand.nextGaussian() / 3, 1, 0.0, 0.0, 0.0,
+                        .spawnParticle(ParticleTypes.PORTAL, pos.x + this.entity.world.rand.nextGaussian() / 3,
+                                pos.y + 0.5, pos.z + this.entity.world.rand.nextGaussian() / 3, 1, 0.0, 0.0, 0.0,
                                 0.0);
             }
             if (this.entity.world.getGameTime() % 20 == 0) {
@@ -141,7 +143,6 @@ public class TraderJob extends SpiritJob {
                 else {
                     this.entity.setHeldItem(Hand.MAIN_HAND, input.get(0));
                 }
-
 
                 ItemStack converted = this.trade.getRecipeOutput().copy();
                 converted.setCount(resultCount);

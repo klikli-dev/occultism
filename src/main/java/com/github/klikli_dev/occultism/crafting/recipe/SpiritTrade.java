@@ -22,11 +22,13 @@
 
 package com.github.klikli_dev.occultism.crafting.recipe;
 
+import com.github.klikli_dev.occultism.client.render.OccultismRenderType;
 import com.github.klikli_dev.occultism.registry.OccultismRecipes;
 import com.google.gson.JsonObject;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
+import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.item.crafting.ShapelessRecipe;
 import net.minecraft.network.PacketBuffer;
@@ -36,6 +38,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import javax.annotation.Nonnull;
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
@@ -44,6 +47,8 @@ import java.util.stream.Collectors;
 import static com.github.klikli_dev.occultism.util.StaticUtil.modLoc;
 
 public class SpiritTrade extends ShapelessRecipe {
+    public static Serializer SERIALIZER = new Serializer();
+
     //region Initialization
     public SpiritTrade(ResourceLocation id, ItemStack result, NonNullList<Ingredient> input) {
         super(id, null, result, input);
@@ -53,7 +58,7 @@ public class SpiritTrade extends ShapelessRecipe {
     //region Overrides
     @Override
     public IRecipeSerializer<?> getSerializer() {
-        return OccultismRecipes.SPIRIT_TRADE.get();
+        return SERIALIZER;
     }
 
     @Override
@@ -66,6 +71,12 @@ public class SpiritTrade extends ShapelessRecipe {
         //as we don't have an inventory this is ignored.
         return null;
     }
+
+    @Override
+    public IRecipeType<?> getType() {
+        return OccultismRecipes.SPIRIT_TRADE_TYPE.get();
+    }
+
     //endregion Overrides
 
     //region Methods
@@ -119,7 +130,6 @@ public class SpiritTrade extends ShapelessRecipe {
 
     public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<SpiritTrade> {
         //region Fields
-        private static final ResourceLocation NAME = modLoc("spirit_trade");
         private static final ShapelessRecipe.Serializer serializer = new ShapelessRecipe.Serializer();
         //endregion Fields
 

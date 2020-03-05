@@ -32,6 +32,8 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.RegistryManager;
 
+import static com.github.klikli_dev.occultism.util.StaticUtil.modLoc;
+
 public class OccultismSpiritJobs {
     //region Fields
     public static IForgeRegistry<SpiritJobFactory> REGISTRY = RegistryManager.ACTIVE
@@ -44,8 +46,11 @@ public class OccultismSpiritJobs {
     public static final RegistryObject<SpiritJobFactory> MANAGE_MACHINE = JOBS.register("manage_machine",
             () -> new SpiritJobFactory(ManageMachineJob::new));
 
-    public static final RegistryObject<SpiritJobFactory> TRADER = JOBS.register("trader",
-            () -> new SpiritJobFactory(TraderJob::new));
+    public static final RegistryObject<SpiritJobFactory> TRADE_OTHERSTONE = JOBS.register("trade_otherstone",
+            () -> new SpiritJobFactory((entity) -> new TraderJob(entity, modLoc("spirit_trade/test"))));
+
+    public static final RegistryObject<SpiritJobFactory> TRADE_OTHERWORLD_SAPLINGS = JOBS.register("trade_otherworld_saplings",
+            () -> new SpiritJobFactory((entity) -> new TraderJob(entity, modLoc("spirit_trade/test"))));
 
     //endregion Fields
 }

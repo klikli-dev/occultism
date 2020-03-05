@@ -23,11 +23,10 @@
 package com.github.klikli_dev.occultism.registry;
 
 import com.github.klikli_dev.occultism.Occultism;
-import com.github.klikli_dev.occultism.common.tile.StableWormholeTileEntity;
-import com.github.klikli_dev.occultism.common.tile.StorageControllerTileEntity;
 import com.github.klikli_dev.occultism.crafting.recipe.SpiritTrade;
 import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.item.crafting.IRecipeType;
+import net.minecraftforge.common.util.NonNullLazy;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -37,8 +36,12 @@ public class OccultismRecipes {
     public static final DeferredRegister<IRecipeSerializer<?>> RECIPES = new DeferredRegister<>(
             ForgeRegistries.RECIPE_SERIALIZERS, Occultism.MODID);
 
-    public static final RegistryObject<IRecipeSerializer<SpiritTrade>> SPIRIT_TRADE = RECIPES.register(
-            "spirit_trade", SpiritTrade.Serializer::new);
+    public static final NonNullLazy<IRecipeType<SpiritTrade>> SPIRIT_TRADE_TYPE =
+            NonNullLazy.of(() -> IRecipeType.register("occultism:spirit_trade"));
+
+    public static final RegistryObject<IRecipeSerializer<SpiritTrade>> SPIRIT_TRADE = RECIPES.register("spirit_trade",
+            () -> SpiritTrade.SERIALIZER);
+
 
     //endregion Fields
 
