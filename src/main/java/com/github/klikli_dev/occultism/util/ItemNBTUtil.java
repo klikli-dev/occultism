@@ -177,14 +177,13 @@ public class ItemNBTUtil {
     }
 
     public static CompoundNBT getSpiritEntityData(ItemStack stack) {
-        CompoundNBT compound = stack.getTag();
         if (!stack.getOrCreateTag().contains(SPIRIT_DATA_TAG))
             return null;
         return stack.getTag().getCompound(SPIRIT_DATA_TAG);
     }
 
     public static void setSpiritEntityData(ItemStack stack, CompoundNBT entityData) {
-        stack.setTagInfo(SPIRIT_DATA_TAG, entityData);
+        stack.getOrCreateTag().put(SPIRIT_DATA_TAG, entityData);
     }
 
     public static Optional<SpiritEntity> getSpiritEntity(ItemStack itemStack) {

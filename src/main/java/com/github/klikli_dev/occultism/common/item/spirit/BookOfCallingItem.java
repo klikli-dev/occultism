@@ -32,6 +32,7 @@ import com.github.klikli_dev.occultism.api.common.item.IIngredientCopyNBT;
 import com.github.klikli_dev.occultism.api.common.item.IIngredientPreventCrafting;
 import com.github.klikli_dev.occultism.api.common.tile.IStorageController;
 import com.github.klikli_dev.occultism.client.gui.spirit.BookOfCallingGui;
+import com.github.klikli_dev.occultism.client.gui.spirit.BookOfCallingManagedMachineGui;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.github.klikli_dev.occultism.common.job.ManageMachineJob;
 import com.github.klikli_dev.occultism.util.EntityUtil;
@@ -185,18 +186,27 @@ public class BookOfCallingItem extends Item implements IIngredientPreventCraftin
 
         //books can only control the spirit that is bound to them.
         if (!entitySpirit.getUniqueID().equals(ItemNBTUtil.getSpiritEntityUUID(stack))) {
-            player.sendStatusMessage(
-                    new TranslationTextComponent(TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_target_uuid_no_match"),
-                    true);
-            return false;
+            //Creative players can re-link the book.
+            if (player.isCreative()) {
+                ItemNBTUtil.setSpiritEntityUUID(stack, entitySpirit.getUniqueID());
+                ItemNBTUtil.setBoundSpiritName(stack, entitySpirit.getName().getFormattedText());
+            }
+            else {
+                player.sendStatusMessage(
+                        new TranslationTextComponent(
+                                TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_target_uuid_no_match"),
+                        true);
+                return false;
+
+            }
         }
 
         //serialize entity
         ItemNBTUtil.setSpiritEntityData(stack, entitySpirit.serializeNBT());
-
         //show player swing anim
         player.swingArm(hand);
-        entitySpirit.onDeath(DamageSource.OUT_OF_WORLD);
+        player.setHeldItem(hand, stack); //need to write the item back to hand, otherwise we only modify a copy
+        entitySpirit.remove(true);
         player.container.detectAndSendChanges();
         return true;
     }
@@ -274,7 +284,8 @@ public class BookOfCallingItem extends Item implements IIngredientPreventCraftin
             }
             else {
                 player.sendStatusMessage(
-                        new TranslationTextComponent(TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_spirit_not_found"),
+                        new TranslationTextComponent(
+                                TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_spirit_not_found"),
                         true);
             }
         }
@@ -305,7 +316,8 @@ public class BookOfCallingItem extends Item implements IIngredientPreventCraftin
             }
             else {
                 player.sendStatusMessage(
-                        new TranslationTextComponent(TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_spirit_not_found"),
+                        new TranslationTextComponent(
+                                TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_spirit_not_found"),
                         true);
             }
         }
@@ -335,7 +347,8 @@ public class BookOfCallingItem extends Item implements IIngredientPreventCraftin
             }
             else {
                 player.sendStatusMessage(
-                        new TranslationTextComponent(TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_spirit_not_found"),
+                        new TranslationTextComponent(
+                                TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_spirit_not_found"),
                         true);
             }
         }
@@ -363,7 +376,8 @@ public class BookOfCallingItem extends Item implements IIngredientPreventCraftin
             }
             else {
                 player.sendStatusMessage(
-                        new TranslationTextComponent(TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_spirit_not_found"),
+                        new TranslationTextComponent(
+                                TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_spirit_not_found"),
                         true);
             }
         }
