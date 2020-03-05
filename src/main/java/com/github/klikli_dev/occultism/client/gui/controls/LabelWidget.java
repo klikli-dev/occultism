@@ -44,7 +44,19 @@ public class LabelWidget extends Widget {
 
     //region Initialization
     public LabelWidget(int xIn, int yIn) {
-        this(xIn, yIn, false, 0, 2, 16777215); //color is default color from widget
+        this(xIn, yIn, false);
+    }
+
+    public LabelWidget(int xIn, int yIn, boolean centered) {
+        this(xIn, yIn, centered, -1);
+    }
+
+    public LabelWidget(int xIn, int yIn, boolean centered, int width) {
+        this(xIn, yIn, centered, width, 2);
+    }
+
+    public LabelWidget(int xIn, int yIn, boolean centered, int width, int margin) {
+        this(xIn, yIn, centered, width, margin, 16777215); //color is default color from widget
     }
 
     public LabelWidget(int xIn, int yIn, boolean centered, int width, int margin, int color) {
@@ -77,10 +89,10 @@ public class LabelWidget extends Widget {
                 if (this.centered) {
                     this.drawCenteredString(fontrenderer, this.lines.get(i), this.x, top, color);
                 }
-                else if (this.rightAligned){
+                else if (this.rightAligned) {
                     this.drawRightAlignedString(fontrenderer, lines.get(i), this.x, top, color);
                 }
-                else{
+                else {
                     this.drawString(fontrenderer, this.lines.get(i), this.x, top, color);
                 }
             }
