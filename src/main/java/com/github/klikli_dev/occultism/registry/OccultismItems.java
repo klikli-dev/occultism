@@ -23,6 +23,7 @@
 package com.github.klikli_dev.occultism.registry;
 
 import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.TranslationKeys;
 import com.github.klikli_dev.occultism.common.item.*;
 import com.github.klikli_dev.occultism.common.item.spirit.BookOfBindingBoundItem;
 import com.github.klikli_dev.occultism.common.item.spirit.BookOfBindingItem;
@@ -82,10 +83,10 @@ public class OccultismItems {
     //Foliot
     public static final RegistryObject<BookOfCallingItem> BOOK_OF_CALLING_FOLIOT_LUMBERJACK = ITEMS.register(
             "book_of_calling_foliot_lumberjack",
-            () -> new BookOfCallingItem(defaultProperties().maxStackSize(1), "book_of_calling_foliot"));
+            () -> new BookOfCallingItem(defaultProperties().maxStackSize(1), TranslationKeys.BOOK_OF_CALLING_GENERIC + "_foliot"));
     public static final RegistryObject<BookOfCallingItem> BOOK_OF_CALLING_FOLIOT_MANAGE_MACHINE = ITEMS.register(
             "book_of_calling_foliot_manage_machine",
-            () -> new BookOfCallingItem(defaultProperties().maxStackSize(1), "book_of_calling_foliot"));
+            () -> new BookOfCallingItem(defaultProperties().maxStackSize(1), TranslationKeys.BOOK_OF_CALLING_GENERIC + "_foliot"));
     //Djinn
 
     //Machines

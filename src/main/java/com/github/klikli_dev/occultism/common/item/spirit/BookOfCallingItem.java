@@ -23,6 +23,7 @@
 package com.github.klikli_dev.occultism.common.item.spirit;
 
 import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.TranslationKeys;
 import com.github.klikli_dev.occultism.api.common.data.GlobalBlockPos;
 import com.github.klikli_dev.occultism.api.common.data.MachineReference;
 import com.github.klikli_dev.occultism.api.common.data.WorkAreaSize;
@@ -79,7 +80,7 @@ public class BookOfCallingItem extends Item implements IIngredientPreventCraftin
     //region Getter / Setter
 
     /**
-     * @return returns the base item translation key by removing the last _ and all text after that.
+     * @return returns the base item translation including the spirit name, but excluding the job.
      */
     public String getTranslationKeyBase() {
         return this.translationKeyBase;
@@ -184,7 +185,8 @@ public class BookOfCallingItem extends Item implements IIngredientPreventCraftin
         //books can only control the spirit that is bound to them.
         if (!entitySpirit.getUniqueID().equals(ItemNBTUtil.getSpiritEntityUUID(stack))) {
             player.sendStatusMessage(
-                    new TranslationTextComponent(this.getTranslationKeyBase() + ".message_target_uuid_no_match"), true);
+                    new TranslationTextComponent(TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_target_uuid_no_match"),
+                    true);
             return false;
         }
 
@@ -263,14 +265,16 @@ public class BookOfCallingItem extends Item implements IIngredientPreventCraftin
                     ItemNBTUtil.updateItemNBTFromEntity(stack, boundSpirit.get());
 
                     player.sendStatusMessage(
-                            new TranslationTextComponent(this.getTranslationKeyBase() + ".message_set_managed_machine",
+                            new TranslationTextComponent(
+                                    TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_set_managed_machine",
                                     TextUtil.formatDemonName(boundSpirit.get().getName().getFormattedText())), true);
                     return true;
                 }
             }
             else {
                 player.sendStatusMessage(
-                        new TranslationTextComponent(this.getTranslationKeyBase() + ".message_spirit_not_found"), true);
+                        new TranslationTextComponent(TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_spirit_not_found"),
+                        true);
             }
         }
         return false;
@@ -292,7 +296,7 @@ public class BookOfCallingItem extends Item implements IIngredientPreventCraftin
 
                     String blockName = world.getBlockState(pos).getBlock().getTranslationKey();
                     player.sendStatusMessage(new TranslationTextComponent(
-                            this.getTranslationKeyBase() + ".message_set_storage_controller",
+                            TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_set_storage_controller",
                             TextUtil.formatDemonName(boundSpirit.get().getName().getFormattedText()),
                             new TranslationTextComponent(blockName)), true);
                     return true;
@@ -300,7 +304,8 @@ public class BookOfCallingItem extends Item implements IIngredientPreventCraftin
             }
             else {
                 player.sendStatusMessage(
-                        new TranslationTextComponent(this.getTranslationKeyBase() + ".message_spirit_not_found"), true);
+                        new TranslationTextComponent(TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_spirit_not_found"),
+                        true);
             }
         }
         return false;
@@ -322,14 +327,15 @@ public class BookOfCallingItem extends Item implements IIngredientPreventCraftin
 
                 String blockName = world.getBlockState(pos).getBlock().getTranslationKey();
                 player.sendStatusMessage(
-                        new TranslationTextComponent(this.getTranslationKeyBase() + ".message_set_deposit",
+                        new TranslationTextComponent(TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_set_deposit",
                                 TextUtil.formatDemonName(boundSpirit.get().getName().getFormattedText()),
                                 new TranslationTextComponent(blockName), face.getName()), true);
                 return true;
             }
             else {
                 player.sendStatusMessage(
-                        new TranslationTextComponent(getTranslationKeyBase() + ".message_spirit_not_found"), true);
+                        new TranslationTextComponent(TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_spirit_not_found"),
+                        true);
             }
         }
         return false;
@@ -349,14 +355,15 @@ public class BookOfCallingItem extends Item implements IIngredientPreventCraftin
 
                 String blockName = world.getBlockState(pos).getBlock().getTranslationKey();
                 player.sendStatusMessage(
-                        new TranslationTextComponent(this.getTranslationKeyBase() + ".message_set_base",
+                        new TranslationTextComponent(TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_set_base",
                                 TextUtil.formatDemonName(boundSpirit.get().getName().getFormattedText()),
                                 new TranslationTextComponent(blockName)), true);
                 return true;
             }
             else {
                 player.sendStatusMessage(
-                        new TranslationTextComponent(getTranslationKeyBase() + ".message_spirit_not_found"), true);
+                        new TranslationTextComponent(TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_spirit_not_found"),
+                        true);
             }
         }
         return false;
@@ -427,7 +434,7 @@ public class BookOfCallingItem extends Item implements IIngredientPreventCraftin
         //region Fields
         private static final Map<Integer, ItemMode> lookup = new HashMap<Integer, ItemMode>();
         private static final String TRANSLATION_KEY_BASE =
-                "enum." + Occultism.MODID + ".book_of_calling_active.item_mode";
+                "enum." + Occultism.MODID + ".book_of_calling.item_mode";
 
         static {
             for (ItemMode itemMode : ItemMode.values()) {

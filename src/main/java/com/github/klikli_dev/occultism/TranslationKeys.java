@@ -22,6 +22,7 @@
 
 package com.github.klikli_dev.occultism;
 
-public class OccultismConstants {
-    public static final String BOOK_OF_CALLING_GENERIC_TRANSLATION_KEY = "item.occultism.book_of_calling";
+public class TranslationKeys {
+    protected static final String ITEM = "item." + Occultism.MODID;
+    public static final String BOOK_OF_CALLING_GENERIC = ITEM + ".book_of_calling";
 }

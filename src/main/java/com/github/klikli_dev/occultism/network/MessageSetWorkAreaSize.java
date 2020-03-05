@@ -22,9 +22,10 @@
 
 package com.github.klikli_dev.occultism.network;
 
-import com.github.klikli_dev.occultism.OccultismConstants;
+import com.github.klikli_dev.occultism.TranslationKeys;
 import com.github.klikli_dev.occultism.api.common.data.WorkAreaSize;
 import com.github.klikli_dev.occultism.common.item.spirit.BookOfCallingItem;
+import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.github.klikli_dev.occultism.util.ItemNBTUtil;
 import com.github.klikli_dev.occultism.util.TextUtil;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -67,7 +68,7 @@ public class MessageSetWorkAreaSize extends MessageBase {
                 player.container.detectAndSendChanges();
 
                 player.sendStatusMessage(new TranslationTextComponent(
-                        OccultismConstants.BOOK_OF_CALLING_GENERIC_TRANSLATION_KEY +
+                        TranslationKeys.BOOK_OF_CALLING_GENERIC +
                         ".message_set_work_area_size",
                         TextUtil.formatDemonName(spirit.getName()),
                         new TranslationTextComponent(workAreaSize.getTranslationKey())), true);
