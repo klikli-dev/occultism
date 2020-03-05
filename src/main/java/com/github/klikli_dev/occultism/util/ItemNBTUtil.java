@@ -59,14 +59,11 @@ public class ItemNBTUtil {
         ItemNBTUtil.setDepostFacing(stack, entity.getDepositFacing());
         ItemNBTUtil.setWorkAreaSize(stack, entity.getWorkAreaSize());
 
-        entity.getJob().ifPresent(job -> {
-            if (job instanceof ManageMachineJob) {
-                ManageMachineJob manageMachine = (ManageMachineJob) job;
-                if (manageMachine.getStorageControllerPosition() != null)
-                    ItemNBTUtil.setStorageControllerPosition(stack, manageMachine.getStorageControllerPosition());
-                if (manageMachine.getManagedMachine() != null)
-                    ItemNBTUtil.setManagedMachine(stack, manageMachine.getManagedMachine());
-            }
+        entity.getJob().filter(ManageMachineJob.class::isInstance).map(ManageMachineJob.class::cast).ifPresent(job -> {
+            if (job.getStorageControllerPosition() != null)
+                ItemNBTUtil.setStorageControllerPosition(stack, job.getStorageControllerPosition());
+            if (job.getManagedMachine() != null)
+                ItemNBTUtil.setManagedMachine(stack, job.getManagedMachine());
         });
 
     }
