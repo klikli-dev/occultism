@@ -25,6 +25,7 @@ package com.github.klikli_dev.occultism.registry;
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.block.CandleBlock;
 import com.github.klikli_dev.occultism.common.block.ChalkGlyphBlock;
+import com.github.klikli_dev.occultism.common.block.GoldenSacrificialBowlBlock;
 import com.github.klikli_dev.occultism.common.block.SacrificialBowlBlock;
 import com.github.klikli_dev.occultism.common.block.storage.StableWormholeBlock;
 import com.github.klikli_dev.occultism.common.block.storage.StorageControllerBlock;
@@ -63,9 +64,13 @@ public class OccultismBlocks {
 
     //Decorative and Ritual Blocks
 
+
     //Machines
     public static final RegistryObject<SacrificialBowlBlock> SACRIFICIAL_BOWL = register("sacrificial_bowl", () -> new SacrificialBowlBlock(
             Block.Properties.create(Material.ROCK).sound(SoundType.STONE).hardnessAndResistance(1.5f, 30)));
+    public static final RegistryObject<GoldenSacrificialBowlBlock> GOLDEN_SACRIFICIAL_BOWL = register("golden_sacrificial_bowl", () -> new GoldenSacrificialBowlBlock(
+            Block.Properties.create(Material.ROCK).sound(SoundType.STONE).hardnessAndResistance(1.5f, 30)));
+
     public static final RegistryObject<StorageControllerBlock> STORAGE_CONTROLLER = register("storage_controller",
             () -> new StorageControllerBlock(
                     Block.Properties.create(Material.ROCK).sound(SoundType.STONE)
