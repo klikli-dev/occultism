@@ -23,20 +23,17 @@
 package com.github.klikli_dev.occultism.handlers;
 
 import com.github.klikli_dev.occultism.Occultism;
-import com.github.klikli_dev.occultism.common.job.SpiritJob;
 import com.github.klikli_dev.occultism.common.job.SpiritJobFactory;
+import com.github.klikli_dev.occultism.common.ritual.pentacle.Pentacle;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
+import com.github.klikli_dev.occultism.registry.OccultismRituals;
 import com.github.klikli_dev.occultism.registry.OccultismSpiritJobs;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.SpawnEggItem;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.RecipeManager;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.event.RecipesUpdatedEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.RegistryObject;
@@ -54,8 +51,9 @@ public class RegistryEventHandler {
 
     @SubscribeEvent
     public static void registerRegistries(RegistryEvent.NewRegistry event) {
-        //        new RegistryBuilder<Pentacle>().setName(new ResourceLocation(Occultism.MODID, "pentacle"))
-        //                .setType(Pentacle.class).create();
+        new RegistryBuilder<Pentacle>().setName(new ResourceLocation(Occultism.MODID, "pentacle")).setType(Pentacle.class).create();
+        OccultismRituals.PENTACLES.register(FMLJavaModLoadingContext.get().getModEventBus());
+
         //        new RegistryBuilder<Ritual>().setName(new ResourceLocation(Occultism.MODID, "ritual")).setType(Ritual.class)
         //                .create();
         new RegistryBuilder<SpiritJobFactory>().setName(new ResourceLocation(Occultism.MODID, "spirit_job_factory")).setType(SpiritJobFactory.class).create();

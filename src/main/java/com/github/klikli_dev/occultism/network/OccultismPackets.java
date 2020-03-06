@@ -25,9 +25,11 @@ package com.github.klikli_dev.occultism.network;
 import com.github.klikli_dev.occultism.Occultism;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.dimension.DimensionType;
 import net.minecraftforge.fml.network.NetworkRegistry;
 import net.minecraftforge.fml.network.PacketDistributor;
 import net.minecraftforge.fml.network.simple.SimpleChannel;
+import sun.security.jca.GetInstance;
 
 public class OccultismPackets {
     //region Fields
@@ -129,6 +131,10 @@ public class OccultismPackets {
 
     public static <MSG> void sendTo(ServerPlayerEntity player, MSG message) {
         INSTANCE.send(PacketDistributor.PLAYER.with(() -> player), message);
+    }
+
+    public static <MSG> void sendToDimension(DimensionType dimensionType, MSG message) {
+        INSTANCE.send(PacketDistributor.DIMENSION.with(() -> dimensionType), message);
     }
 
     public static <MSG> void sendToServer(MSG message) {

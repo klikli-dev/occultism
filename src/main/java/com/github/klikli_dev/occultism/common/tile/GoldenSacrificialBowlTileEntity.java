@@ -27,6 +27,7 @@ import com.github.klikli_dev.occultism.client.particle.ModParticleType;
 import com.github.klikli_dev.occultism.common.ritual.Ritual;
 import com.github.klikli_dev.occultism.network.MessageModParticle;
 import com.github.klikli_dev.occultism.network.MessageParticle;
+import com.github.klikli_dev.occultism.registry.OccultismRituals;
 import com.github.klikli_dev.occultism.registry.OccultismTiles;
 import com.github.klikli_dev.occultism.util.EntityUtil;
 import net.minecraft.block.BlockState;
@@ -67,22 +68,22 @@ public class GoldenSacrificialBowlTileEntity extends SacrificialBowlTileEntity i
 
     //region Overrides
     @Override
-    public void readFromNBT(CompoundNBT compound) {
-        super.readFromNBT(compound);
-        if (this.currentRitual != null && compound.hasKey("remainingAdditionalIngredientsSize")) {
+    public void read(CompoundNBT compound) {
+        super.read(compound);
+        if (this.currentRitual != null && compound.contains("remainingAdditionalIngredientsSize")) {
             this.remainingAdditionalIngredients = this.currentRitual.additionalIngredients.subList(0,
                     compound.getByte("remainingAdditionalIngredientsSize") + 1);
         }
-        if (compound.hasKey("sacrificeProvided")) {
+        if (compound.contains("sacrificeProvided")) {
             this.sacrificeProvided = compound.getBoolean("sacrificeProvided");
         }
     }
 
     @Override
-    public CompoundNBT writeToNBT(CompoundNBT compound) {
-        compound.setByte("remainingAdditionalIngredientsSize", (byte) this.remainingAdditionalIngredients.size());
-        compound.setBoolean("sacrificeProvided", this.sacrificeProvided);
-        return super.writeToNBT(compound);
+    public CompoundNBT write(CompoundNBT compound) {
+        compound.putByte("remainingAdditionalIngredientsSize", (byte) this.remainingAdditionalIngredients.size());
+        compound.putBoolean("sacrificeProvided", this.sacrificeProvided);
+        return super.write(compound);
     }
 
     @Override
@@ -94,35 +95,33 @@ public class GoldenSacrificialBowlTileEntity extends SacrificialBowlTileEntity i
     }
 
     @Override
-    public void readFromNetworkNBT(CompoundNBT compound) {
-        super.readFromNetworkNBT(compound);
-
-        if (compound.hasKey("currentRitual")) {
+    public void readNetwork(CompoundNBT compound) {
+        if (compound.contains("currentRitual")) {
             this.currentRitual = GameRegistry.findRegistry(Ritual.class)
                                          .getValue(new ResourceLocation(compound.getString("currentRitual")));
         }
 
-        if (compound.hasKey("castingPlayerId")) {
+        if (compound.contains("castingPlayerId")) {
             this.castingPlayerId = UUID.fromString(compound.getString("castingPlayerId"));
         }
 
-        this.currentTime = compound.getInteger("currentTime");
+        this.currentTime = compound.getInt("currentTime");
     }
 
     @Override
-    public CompoundNBT writeToNetworkNBT(CompoundNBT compound) {
+    public CompoundNBT writeNetwork(CompoundNBT compound) {
         if (this.currentRitual != null) {
-            compound.setString("currentRitual", this.currentRitual.getRegistryName().toString());
+            compound.putString("currentRitual", this.currentRitual.getRegistryName().toString());
         }
         if (this.castingPlayerId != null) {
-            compound.setString("castingPlayerId", this.castingPlayerId.toString());
+            compound.putString("castingPlayerId", this.castingPlayerId.toString());
         }
-        compound.setInteger("currentTime", this.currentTime);
-        return super.writeToNetworkNBT(compound);
+        compound.setInt("currentTime", this.currentTime);
+        return compound;
     }
 
     @Override
-    public void update() {
+    public void tick() {
         if (!this.world.isRemote && this.currentRitual != null) {
             this.restoreCastingPlayer();
 
@@ -169,7 +168,7 @@ public class GoldenSacrificialBowlTileEntity extends SacrificialBowlTileEntity i
                 return;
             }
 
-            if (this.currentRitual.totalTime >= 0 && this.currentTime >= this.currentRitual.totalTime)
+            if (this.currentRitual.totalSeconds >= 0 && this.currentTime >= this.currentRitual.totalSeconds)
                 this.stopRitual(true);
         }
     }
@@ -180,8 +179,8 @@ public class GoldenSacrificialBowlTileEntity extends SacrificialBowlTileEntity i
         //every 30 seconds try to restore the casting player
         if (this.castingPlayer == null && this.castingPlayerId != null &&
             this.world.getTotalWorldTime() % (20 * 30) == 0) {
-            this.castingPlayer = EntityUtil.getPlayerByUUID(this.castingPlayerId);
-            this.syncToClient();
+            this.castingPlayer = EntityUtil.getPlayerByUuiDGlobal(this.castingPlayerId).orElse(null);
+            this.markDirty();
         }
     }
 
@@ -193,7 +192,8 @@ public class GoldenSacrificialBowlTileEntity extends SacrificialBowlTileEntity i
 
             if (this.currentRitual == null) {
                 //Identify the ritual in the ritual registry.
-                Ritual ritual = GameRegistry.findRegistry(Ritual.class).getValuesCollection().stream()
+
+                Ritual ritual =  OccultismRituals.RITUAL_REGISTRY.getValues().stream()
                                         .filter(r -> r.identify(world, pos, activationItem)).findFirst().orElse(null);
 
                 if (ritual != null) {
@@ -231,7 +231,7 @@ public class GoldenSacrificialBowlTileEntity extends SacrificialBowlTileEntity i
             //place activation item in handler
             this.itemStackHandler.insertItem(0, activationItem.splitStack(1), false);
             this.currentRitual.start(this.world, this.pos, this, player, this.itemStackHandler.getStackInSlot(0));
-            this.syncToClient();
+            this.markDirty();
         }
     }
 
@@ -256,7 +256,7 @@ public class GoldenSacrificialBowlTileEntity extends SacrificialBowlTileEntity i
             this.currentTime = 0;
             this.sacrificeProvided = false;
             this.remainingAdditionalIngredients.clear();
-            this.syncToClient();
+            this.markDirty();
         }
     }
 
