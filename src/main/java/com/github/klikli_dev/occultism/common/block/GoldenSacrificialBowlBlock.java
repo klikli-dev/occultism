@@ -75,7 +75,9 @@ public class GoldenSacrificialBowlBlock extends Block {
 
     public void onReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
         if (state.getBlock() != newState.getBlock()) {
-            StorageUtil.dropInventoryItems(worldIn.getTileEntity(pos));
+            GoldenSacrificialBowlTileEntity bowl = (GoldenSacrificialBowlTileEntity)worldIn.getTileEntity(pos);
+            bowl.stopRitual(false); //if block changed/was destroyed, interrupt the ritual.
+            StorageUtil.dropInventoryItems(bowl);
             super.onReplaced(state, worldIn, pos, newState, isMoving);
         }
     }

@@ -80,6 +80,11 @@ public class Occultism {
         OccultismContainers.CONTAINERS.register(FMLJavaModLoadingContext.get().getModEventBus());
         OccultismEntities.ENTITIES.register(FMLJavaModLoadingContext.get().getModEventBus());
         OccultismSounds.SOUNDS.register(FMLJavaModLoadingContext.get().getModEventBus());
+        OccultismParticles.PARTICLES.register(FMLJavaModLoadingContext.get().getModEventBus());
+
+        OccultismSpiritJobs.JOBS.register(FMLJavaModLoadingContext.get().getModEventBus());
+        OccultismRituals.PENTACLES.register(FMLJavaModLoadingContext.get().getModEventBus());
+        OccultismRituals.RITUALS.register(FMLJavaModLoadingContext.get().getModEventBus());
 
         //register event buses
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::commonSetup);

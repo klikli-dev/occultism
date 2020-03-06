@@ -23,14 +23,12 @@
 package com.github.klikli_dev.occultism.common.tile;
 
 import com.github.klikli_dev.occultism.Occultism;
-import com.github.klikli_dev.occultism.client.particle.ModParticleType;
 import com.github.klikli_dev.occultism.common.ritual.Ritual;
-import com.github.klikli_dev.occultism.network.MessageModParticle;
-import com.github.klikli_dev.occultism.network.MessageParticle;
+import com.github.klikli_dev.occultism.exceptions.ItemHandlerMissingException;
+import com.github.klikli_dev.occultism.registry.OccultismParticles;
 import com.github.klikli_dev.occultism.registry.OccultismRituals;
 import com.github.klikli_dev.occultism.registry.OccultismTiles;
 import com.github.klikli_dev.occultism.util.EntityUtil;
-import net.minecraft.block.BlockState;
 import net.minecraft.client.renderer.texture.ITickable;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -38,13 +36,15 @@ import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.items.IItemHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,9 +62,11 @@ public class GoldenSacrificialBowlTileEntity extends SacrificialBowlTileEntity i
 
     //endregion Fields
 
+    //region Initialization
     public GoldenSacrificialBowlTileEntity() {
         super(OccultismTiles.GOLDEN_SACRIFICIAL_BOWL.get());
     }
+    //endregion Initialization
 
     //region Overrides
     @Override
@@ -87,17 +89,9 @@ public class GoldenSacrificialBowlTileEntity extends SacrificialBowlTileEntity i
     }
 
     @Override
-    public boolean shouldRefresh(World world, BlockPos pos, BlockState oldState, BlockState newState) {
-        boolean shouldRefresh = super.shouldRefresh(world, pos, oldState, newState);
-        if (!world.isRemote && shouldRefresh)
-            this.stopRitual(false); //if block changed/was destroyed, interrupt the ritual.
-        return shouldRefresh;
-    }
-
-    @Override
     public void readNetwork(CompoundNBT compound) {
         if (compound.contains("currentRitual")) {
-            this.currentRitual = GameRegistry.findRegistry(Ritual.class)
+            this.currentRitual = OccultismRituals.RITUAL_REGISTRY
                                          .getValue(new ResourceLocation(compound.getString("currentRitual")));
         }
 
@@ -116,7 +110,7 @@ public class GoldenSacrificialBowlTileEntity extends SacrificialBowlTileEntity i
         if (this.castingPlayerId != null) {
             compound.putString("castingPlayerId", this.castingPlayerId.toString());
         }
-        compound.setInt("currentTime", this.currentTime);
+        compound.putInt("currentTime", this.currentTime);
         return compound;
     }
 
@@ -124,9 +118,9 @@ public class GoldenSacrificialBowlTileEntity extends SacrificialBowlTileEntity i
     public void tick() {
         if (!this.world.isRemote && this.currentRitual != null) {
             this.restoreCastingPlayer();
-
+            IItemHandler handler = this.itemStackHandler.orElseThrow(ItemHandlerMissingException::new);
             if (!this.currentRitual.isValid(this.world, this.pos, this, this.castingPlayer,
-                    this.itemStackHandler.getStackInSlot(0), this.remainingAdditionalIngredients)) {
+                    handler.getStackInSlot(0), this.remainingAdditionalIngredients)) {
                 //ritual is no longer valid, so interrupt
                 this.stopRitual(false);
                 return;
@@ -135,29 +129,33 @@ public class GoldenSacrificialBowlTileEntity extends SacrificialBowlTileEntity i
             //no casting player or if we do not have a sacrifice yet, we cannot advance time
             if (this.castingPlayer == null || (this.currentRitual.requiresSacrifice() && !this.sacrificeProvided)) {
                 if (this.world.rand.nextInt(16) == 0) {
-                    Occultism.network.sendToDimension(new MessageModParticle(ModParticleType.RITUAL_WAITING,
-                                    this.pos.getX() + 0.5 + this.world.rand.nextGaussian() / 3, this.pos.getY() + 0.5,
-                                    this.pos.getZ() + 0.5 + this.world.rand.nextGaussian() / 3),
-                            this.world.provider.getDimension());
+                    ((ServerWorld) this.world)
+                            .spawnParticle(OccultismParticles.RITUAL_WAITING.get(),
+                                    this.pos.getX() + 0.5 + this.world.rand.nextGaussian() / 3,
+                                    this.pos.getY() + 0.5, this.pos.getZ() + 0.5 + this.world.rand.nextGaussian() / 3,
+                                    1,
+                                    0.0, 0.0, 0.0,
+                                    0.0);
                 }
                 return;
             }
 
             //spawn particles in random intervals
             if (this.world.rand.nextInt(16) == 0) {
-                Occultism.network.sendToDimension(new MessageParticle(EnumParticleTypes.PORTAL,
-                                this.pos.getX() + 0.5 + this.world.rand.nextGaussian() / 3, this.pos.getY() + 0.5,
-                                this.pos.getZ() + 0.5 + this.world.rand.nextGaussian() / 3),
-                        this.world.provider.getDimension());
+                ((ServerWorld) this.world)
+                        .spawnParticle(ParticleTypes.PORTAL, this.pos.getX() + 0.5 + this.world.rand.nextGaussian() / 3,
+                                this.pos.getY() + 0.5, this.pos.getZ() + 0.5 + this.world.rand.nextGaussian() / 3, 1,
+                                0.0, 0.0, 0.0,
+                                0.0);
             }
 
             //Advance ritual time every second, based on the standard 20 tps.
-            if (this.world.getTotalWorldTime() % 20 == 0)
+            if (this.world.getGameTime() % 20 == 0)
                 this.currentTime++;
 
 
             this.currentRitual
-                    .update(this.world, this.pos, this, this.castingPlayer, this.itemStackHandler.getStackInSlot(0),
+                    .update(this.world, this.pos, this, this.castingPlayer, handler.getStackInSlot(0),
                             this.currentTime);
 
             if (!this.currentRitual
@@ -178,7 +176,7 @@ public class GoldenSacrificialBowlTileEntity extends SacrificialBowlTileEntity i
     public void restoreCastingPlayer() {
         //every 30 seconds try to restore the casting player
         if (this.castingPlayer == null && this.castingPlayerId != null &&
-            this.world.getTotalWorldTime() % (20 * 30) == 0) {
+            this.world.getGameTime() % (20 * 30) == 0) {
             this.castingPlayer = EntityUtil.getPlayerByUuiDGlobal(this.castingPlayerId).orElse(null);
             this.markDirty();
         }
@@ -193,7 +191,7 @@ public class GoldenSacrificialBowlTileEntity extends SacrificialBowlTileEntity i
             if (this.currentRitual == null) {
                 //Identify the ritual in the ritual registry.
 
-                Ritual ritual =  OccultismRituals.RITUAL_REGISTRY.getValues().stream()
+                Ritual ritual = OccultismRituals.RITUAL_REGISTRY.getValues().stream()
                                         .filter(r -> r.identify(world, pos, activationItem)).findFirst().orElse(null);
 
                 if (ritual != null) {
@@ -229,8 +227,9 @@ public class GoldenSacrificialBowlTileEntity extends SacrificialBowlTileEntity i
             this.sacrificeProvided = false;
             this.remainingAdditionalIngredients = new ArrayList<>(ritual.additionalIngredients);
             //place activation item in handler
-            this.itemStackHandler.insertItem(0, activationItem.splitStack(1), false);
-            this.currentRitual.start(this.world, this.pos, this, player, this.itemStackHandler.getStackInSlot(0));
+            IItemHandler handler = this.itemStackHandler.orElseThrow(ItemHandlerMissingException::new);
+            handler.insertItem(0, activationItem.split(1), false);
+            this.currentRitual.start(this.world, this.pos, this, player, handler.getStackInSlot(0));
             this.markDirty();
         }
     }
@@ -238,16 +237,17 @@ public class GoldenSacrificialBowlTileEntity extends SacrificialBowlTileEntity i
     public void stopRitual(boolean finished) {
         if (!this.world.isRemote) {
             if (this.currentRitual != null && this.castingPlayer != null) {
+                IItemHandler handler = this.itemStackHandler.orElseThrow(ItemHandlerMissingException::new);
                 if (finished) {
-                    ItemStack activationItem = this.itemStackHandler.getStackInSlot(0);
+                    ItemStack activationItem = handler.getStackInSlot(0);
                     this.currentRitual.finish(this.world, this.pos, this, this.castingPlayer, activationItem);
                 }
                 else {
                     this.currentRitual.interrupt(this.world, this.pos, this, this.castingPlayer,
-                            this.itemStackHandler.getStackInSlot(0));
+                            handler.getStackInSlot(0));
                     //Pop activation item back into world
                     InventoryHelper.spawnItemStack(this.world, this.pos.getX(), this.pos.getY(), this.pos.getZ(),
-                            this.itemStackHandler.extractItem(0, 1, false));
+                            handler.extractItem(0, 1, false));
                 }
             }
             this.currentRitual = null;
