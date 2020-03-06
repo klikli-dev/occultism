@@ -22,10 +22,9 @@
 
 package com.github.klikli_dev.occultism.common.misc;
 
+import com.github.klikli_dev.occultism.api.common.tile.IStorageController;
 import com.github.klikli_dev.occultism.common.data.NonNullArrayList;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.NonNullList;
 import net.minecraftforge.items.ItemStackHandler;
 
 import javax.annotation.Nonnull;
@@ -36,14 +35,14 @@ public class StorageControllerItemStackHandler extends ItemStackHandler {
     //region Fields
     protected int maxStackSize;
     protected int maxSlots;
-    protected TileEntity tileEntity;
+    protected IStorageController storageController;
     //endregion Fields
 
     //region Initialization
-    public StorageControllerItemStackHandler(TileEntity tileEntity, int size, int maxStackSize) {
+    public StorageControllerItemStackHandler(IStorageController storageController, int size, int maxStackSize) {
         super();
         this.stacks = NonNullArrayList.withSize(size, ItemStack.EMPTY);
-        this.tileEntity = tileEntity;
+        this.storageController = storageController;
         this.maxSlots = size;
         this.maxStackSize = maxStackSize;
     }
@@ -102,7 +101,7 @@ public class StorageControllerItemStackHandler extends ItemStackHandler {
 
     @Override
     protected void onContentsChanged(int slot) {
-        this.tileEntity.markDirty();
+         this.storageController.onContentsChanged();
     }
 
     //region Methods

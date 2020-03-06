@@ -49,7 +49,6 @@ import com.github.klikli_dev.occultism.util.TileEntityUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.DirectionalBlock;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
@@ -234,24 +233,18 @@ public class StorageControllerTileEntity extends NetworkedTileEntity implements 
         if (!stack.isEmpty()) {
             UUID spiritUUID = this.depositOrderSpirits.get(linkedMachinePosition);
             if (spiritUUID != null) {
-                Optional<? extends Entity> foundEntity = EntityUtil.getEntityByUuiDGlobal(this.world.getServer(),
-                        spiritUUID);
-                foundEntity.ifPresent(entity -> {
-                    if (entity instanceof SpiritEntity) {
-                        SpiritEntity spirit = (SpiritEntity) entity;
-                        spirit.getJob().ifPresent(job -> {
-                            if (job instanceof ManageMachineJob) {
-                                ManageMachineJob managemachine = (ManageMachineJob) job;
-                                managemachine
-                                        .addDepsitOrder(new DepositOrder((ItemStackComparator) comparator, amount));
+                EntityUtil.getEntityByUuiDGlobal(this.world.getServer(),
+                        spiritUUID).filter(SpiritEntity.class::isInstance).map(SpiritEntity.class::cast)
+                        .ifPresent(spirit -> {
+                            Optional<ManageMachineJob> job = spirit.getJob().filter(ManageMachineJob.class::isInstance)
+                                                                     .map(ManageMachineJob.class::cast);
+                            if (job.isPresent()) {
+                                job.get().addDepsitOrder(new DepositOrder((ItemStackComparator) comparator, amount));
                             }
                             else {
-                                //if the entity does not have the proper job, remove it from the list for now. it will re-register itself on spawn
                                 this.removeDepositOrderSpirit(linkedMachinePosition);
                             }
                         });
-                    }
-                });
             }
             else {
                 //if the entity cannot be found, remove it from the list for now. it will re-register itself on spawn
@@ -288,8 +281,6 @@ public class StorageControllerTileEntity extends NetworkedTileEntity implements 
         ItemStackHandler handler = this.itemStackHandler.orElseThrow(ItemHandlerMissingException::new);
         if (ItemHandlerHelper.insertItem(handler, stack, true).getCount() < stack.getCount()) {
             stack = ItemHandlerHelper.insertItem(handler, stack, simulate);
-            if (!simulate) //invalidate our packet cache to re-create it on next get
-                this.cachedMessageUpdateStacks = null;
         }
 
         return stack.getCount();
@@ -345,8 +336,6 @@ public class StorageControllerTileEntity extends NetworkedTileEntity implements 
         int extractCount = requestedSize - remaining;
         if (!firstMatchedStack.isEmpty() && extractCount > 0) {
             firstMatchedStack.setCount(extractCount);
-            if (!simulate) //invalidate our packet cache to re-create it on next get
-                this.cachedMessageUpdateStacks = null;
         }
 
         return firstMatchedStack;
@@ -365,6 +354,12 @@ public class StorageControllerTileEntity extends NetworkedTileEntity implements 
                 totalCount += stack.getCount();
         }
         return totalCount;
+    }
+
+    @Override
+    public void onContentsChanged() {
+        this.cachedMessageUpdateStacks = null;
+        this.markDirty();
     }
 
     @Override

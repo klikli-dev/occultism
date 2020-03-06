@@ -59,14 +59,11 @@ public class ItemNBTUtil {
         ItemNBTUtil.setDepostFacing(stack, entity.getDepositFacing());
         ItemNBTUtil.setWorkAreaSize(stack, entity.getWorkAreaSize());
 
-        entity.getJob().ifPresent(job -> {
-            if (job instanceof ManageMachineJob) {
-                ManageMachineJob manageMachine = (ManageMachineJob) job;
-                if (manageMachine.getStorageControllerPosition() != null)
-                    ItemNBTUtil.setStorageControllerPosition(stack, manageMachine.getStorageControllerPosition());
-                if (manageMachine.getManagedMachine() != null)
-                    ItemNBTUtil.setManagedMachine(stack, manageMachine.getManagedMachine());
-            }
+        entity.getJob().filter(ManageMachineJob.class::isInstance).map(ManageMachineJob.class::cast).ifPresent(job -> {
+            if (job.getStorageControllerPosition() != null)
+                ItemNBTUtil.setStorageControllerPosition(stack, job.getStorageControllerPosition());
+            if (job.getManagedMachine() != null)
+                ItemNBTUtil.setManagedMachine(stack, job.getManagedMachine());
         });
 
     }
@@ -177,14 +174,13 @@ public class ItemNBTUtil {
     }
 
     public static CompoundNBT getSpiritEntityData(ItemStack stack) {
-        CompoundNBT compound = stack.getTag();
         if (!stack.getOrCreateTag().contains(SPIRIT_DATA_TAG))
             return null;
         return stack.getTag().getCompound(SPIRIT_DATA_TAG);
     }
 
     public static void setSpiritEntityData(ItemStack stack, CompoundNBT entityData) {
-        stack.setTagInfo(SPIRIT_DATA_TAG, entityData);
+        stack.getOrCreateTag().put(SPIRIT_DATA_TAG, entityData);
     }
 
     public static Optional<SpiritEntity> getSpiritEntity(ItemStack itemStack) {

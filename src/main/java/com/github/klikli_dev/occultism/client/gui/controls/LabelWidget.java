@@ -36,6 +36,7 @@ public class LabelWidget extends Widget {
     //region Fields
     public List<String> lines = new ArrayList<>();
     public boolean centered = false;
+    public boolean rightAligned = false;
     public int width = 0;
     public int margin = 2;
     public boolean shadow = false;
@@ -43,7 +44,19 @@ public class LabelWidget extends Widget {
 
     //region Initialization
     public LabelWidget(int xIn, int yIn) {
-        this(xIn, yIn, false, 0, 2, 16777215); //color is default color from widget
+        this(xIn, yIn, false);
+    }
+
+    public LabelWidget(int xIn, int yIn, boolean centered) {
+        this(xIn, yIn, centered, -1);
+    }
+
+    public LabelWidget(int xIn, int yIn, boolean centered, int width) {
+        this(xIn, yIn, centered, width, 2);
+    }
+
+    public LabelWidget(int xIn, int yIn, boolean centered, int width, int margin) {
+        this(xIn, yIn, centered, width, margin, 16777215); //color is default color from widget
     }
 
     public LabelWidget(int xIn, int yIn, boolean centered, int width, int margin, int color) {
@@ -58,7 +71,6 @@ public class LabelWidget extends Widget {
     //endregion Initialization
 
     //region Overrides
-
     @Override
     public void render(int mouseX, int mouseY, float partialTicks) {
         if (this.visible) {
@@ -76,6 +88,9 @@ public class LabelWidget extends Widget {
                 int top = this.y + i * (fontrenderer.FONT_HEIGHT + this.margin);
                 if (this.centered) {
                     this.drawCenteredString(fontrenderer, this.lines.get(i), this.x, top, color);
+                }
+                else if (this.rightAligned) {
+                    this.drawRightAlignedString(fontrenderer, lines.get(i), this.x, top, color);
                 }
                 else {
                     this.drawString(fontrenderer, this.lines.get(i), this.x, top, color);
@@ -96,8 +111,21 @@ public class LabelWidget extends Widget {
     }
 
     @Override
+    public void drawRightAlignedString(FontRenderer fontRenderer, String text,
+                                       int x, int y,
+                                       int color) {
+        if (this.shadow) {
+            fontRenderer.drawStringWithShadow(text, (float) (x - fontRenderer.getStringWidth(text)), (float) y, color);
+        }
+        else {
+            fontRenderer.drawString(text, (float) (x - fontRenderer.getStringWidth(text)), (float) y, color);
+        }
+
+    }
+
+    @Override
     public void drawString(FontRenderer fontRenderer, String text, int x, int y, int color) {
-        if (shadow) {
+        if (this.shadow) {
             fontRenderer.drawStringWithShadow(text, x, y, color);
         }
         else {
@@ -107,6 +135,13 @@ public class LabelWidget extends Widget {
     //endregion Overrides
 
     //region Methods
+    public LabelWidget alignRight(boolean align) {
+        this.rightAligned = align;
+        if (this.rightAligned)
+            this.centered = false;
+        return this;
+    }
+
     public void addLine(String string, boolean translate) {
         if (translate)
             this.addLine(I18n.format(string));

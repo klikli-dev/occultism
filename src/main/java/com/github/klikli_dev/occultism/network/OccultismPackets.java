@@ -107,6 +107,24 @@ public class OccultismPackets {
                 MessageSortItems::encode,
                 MessageSortItems::new,
                 OccultismPacketHandler::handle);
+
+        INSTANCE.registerMessage(nextID(),
+                MessageSetItemMode.class,
+                MessageSetItemMode::encode,
+                MessageSetItemMode::new,
+                OccultismPacketHandler::handle);
+
+        INSTANCE.registerMessage(nextID(),
+                MessageSetWorkAreaSize.class,
+                MessageSetWorkAreaSize::encode,
+                MessageSetWorkAreaSize::new,
+                OccultismPacketHandler::handle);
+
+        INSTANCE.registerMessage(nextID(),
+                MessageSetManagedMachine.class,
+                MessageSetManagedMachine::encode,
+                MessageSetManagedMachine::new,
+                OccultismPacketHandler::handle);
     }
 
     public static <MSG> void sendTo(ServerPlayerEntity player, MSG message) {

@@ -139,5 +139,10 @@ public interface IStorageController {
      * @return the total available amount
      */
     int getAvailableAmount(IItemStackComparator comparator);
+
+    /**
+     * Called when the contents of the storage controller change.
+     */
+    void onContentsChanged();
     //endregion Methods
 }

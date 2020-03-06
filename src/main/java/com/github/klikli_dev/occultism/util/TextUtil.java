@@ -25,6 +25,7 @@ package com.github.klikli_dev.occultism.util;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.loading.moddiscovery.ModInfo;
@@ -96,6 +97,16 @@ public class TextUtil {
      */
     public static String formatDemonName(String name) {
         return TextFormatting.GOLD.toString() + TextFormatting.BOLD.toString() + name + TextFormatting.RESET.toString();
+    }
+
+    /**
+     * Formats the given spirit name in bold and gold.
+     *
+     * @param name the name to format.
+     * @return the formatted name.
+     */
+    public static ITextComponent formatDemonName(ITextComponent name) {
+        return name.applyTextStyles(TextFormatting.GOLD, TextFormatting.BOLD);
     }
 
     /**

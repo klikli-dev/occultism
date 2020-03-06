@@ -23,6 +23,7 @@
 package com.github.klikli_dev.occultism.common.item.spirit;
 
 import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.TranslationKeys;
 import com.github.klikli_dev.occultism.api.common.data.GlobalBlockPos;
 import com.github.klikli_dev.occultism.api.common.data.MachineReference;
 import com.github.klikli_dev.occultism.api.common.data.WorkAreaSize;
@@ -30,12 +31,15 @@ import com.github.klikli_dev.occultism.api.common.item.IHandleItemMode;
 import com.github.klikli_dev.occultism.api.common.item.IIngredientCopyNBT;
 import com.github.klikli_dev.occultism.api.common.item.IIngredientPreventCrafting;
 import com.github.klikli_dev.occultism.api.common.tile.IStorageController;
+import com.github.klikli_dev.occultism.client.gui.spirit.BookOfCallingGui;
+import com.github.klikli_dev.occultism.client.gui.spirit.BookOfCallingManagedMachineGui;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.github.klikli_dev.occultism.common.job.ManageMachineJob;
 import com.github.klikli_dev.occultism.util.EntityUtil;
 import com.github.klikli_dev.occultism.util.ItemNBTUtil;
 import com.github.klikli_dev.occultism.util.TextUtil;
 import com.github.klikli_dev.occultism.util.TileEntityUtil;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -79,7 +83,7 @@ public class BookOfCallingItem extends Item implements IIngredientPreventCraftin
     //region Getter / Setter
 
     /**
-     * @return returns the base item translation key by removing the last _ and all text after that.
+     * @return returns the base item translation including the spirit name, but excluding the job.
      */
     public String getTranslationKeyBase() {
         return this.translationKeyBase;
@@ -162,8 +166,7 @@ public class BookOfCallingItem extends Item implements IIngredientPreventCraftin
                 //if not sneaking, open general ui
                 ItemMode mode = ItemMode.get(this.getItemMode(itemStack));
                 WorkAreaSize workAreaSize = ItemNBTUtil.getWorkAreaSize(itemStack);
-                //TODO: open book of calling ui here
-                //Occultism.proxy.openBookOfCallingUI(mode, workAreaSize);
+                Minecraft.getInstance().displayGuiScreen(new BookOfCallingGui(mode, workAreaSize));
             }
         }
 
@@ -183,17 +186,27 @@ public class BookOfCallingItem extends Item implements IIngredientPreventCraftin
 
         //books can only control the spirit that is bound to them.
         if (!entitySpirit.getUniqueID().equals(ItemNBTUtil.getSpiritEntityUUID(stack))) {
-            player.sendStatusMessage(
-                    new TranslationTextComponent(this.getTranslationKeyBase() + ".message_target_uuid_no_match"), true);
-            return false;
+            //Creative players can re-link the book.
+            if (player.isCreative()) {
+                ItemNBTUtil.setSpiritEntityUUID(stack, entitySpirit.getUniqueID());
+                ItemNBTUtil.setBoundSpiritName(stack, entitySpirit.getName().getFormattedText());
+            }
+            else {
+                player.sendStatusMessage(
+                        new TranslationTextComponent(
+                                TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_target_uuid_no_match"),
+                        true);
+                return false;
+
+            }
         }
 
         //serialize entity
         ItemNBTUtil.setSpiritEntityData(stack, entitySpirit.serializeNBT());
-
         //show player swing anim
         player.swingArm(hand);
-        entitySpirit.onDeath(DamageSource.OUT_OF_WORLD);
+        player.setHeldItem(hand, stack); //need to write the item back to hand, otherwise we only modify a copy
+        entitySpirit.remove(true);
         player.container.detectAndSendChanges();
         return true;
     }
@@ -263,14 +276,17 @@ public class BookOfCallingItem extends Item implements IIngredientPreventCraftin
                     ItemNBTUtil.updateItemNBTFromEntity(stack, boundSpirit.get());
 
                     player.sendStatusMessage(
-                            new TranslationTextComponent(this.getTranslationKeyBase() + ".message_set_managed_machine",
+                            new TranslationTextComponent(
+                                    TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_set_managed_machine",
                                     TextUtil.formatDemonName(boundSpirit.get().getName().getFormattedText())), true);
                     return true;
                 }
             }
             else {
                 player.sendStatusMessage(
-                        new TranslationTextComponent(this.getTranslationKeyBase() + ".message_spirit_not_found"), true);
+                        new TranslationTextComponent(
+                                TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_spirit_not_found"),
+                        true);
             }
         }
         return false;
@@ -292,7 +308,7 @@ public class BookOfCallingItem extends Item implements IIngredientPreventCraftin
 
                     String blockName = world.getBlockState(pos).getBlock().getTranslationKey();
                     player.sendStatusMessage(new TranslationTextComponent(
-                            this.getTranslationKeyBase() + ".message_set_storage_controller",
+                            TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_set_storage_controller",
                             TextUtil.formatDemonName(boundSpirit.get().getName().getFormattedText()),
                             new TranslationTextComponent(blockName)), true);
                     return true;
@@ -300,7 +316,9 @@ public class BookOfCallingItem extends Item implements IIngredientPreventCraftin
             }
             else {
                 player.sendStatusMessage(
-                        new TranslationTextComponent(this.getTranslationKeyBase() + ".message_spirit_not_found"), true);
+                        new TranslationTextComponent(
+                                TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_spirit_not_found"),
+                        true);
             }
         }
         return false;
@@ -322,14 +340,16 @@ public class BookOfCallingItem extends Item implements IIngredientPreventCraftin
 
                 String blockName = world.getBlockState(pos).getBlock().getTranslationKey();
                 player.sendStatusMessage(
-                        new TranslationTextComponent(this.getTranslationKeyBase() + ".message_set_deposit",
+                        new TranslationTextComponent(TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_set_deposit",
                                 TextUtil.formatDemonName(boundSpirit.get().getName().getFormattedText()),
                                 new TranslationTextComponent(blockName), face.getName()), true);
                 return true;
             }
             else {
                 player.sendStatusMessage(
-                        new TranslationTextComponent(getTranslationKeyBase() + ".message_spirit_not_found"), true);
+                        new TranslationTextComponent(
+                                TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_spirit_not_found"),
+                        true);
             }
         }
         return false;
@@ -349,14 +369,16 @@ public class BookOfCallingItem extends Item implements IIngredientPreventCraftin
 
                 String blockName = world.getBlockState(pos).getBlock().getTranslationKey();
                 player.sendStatusMessage(
-                        new TranslationTextComponent(this.getTranslationKeyBase() + ".message_set_base",
+                        new TranslationTextComponent(TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_set_base",
                                 TextUtil.formatDemonName(boundSpirit.get().getName().getFormattedText()),
                                 new TranslationTextComponent(blockName)), true);
                 return true;
             }
             else {
                 player.sendStatusMessage(
-                        new TranslationTextComponent(getTranslationKeyBase() + ".message_spirit_not_found"), true);
+                        new TranslationTextComponent(
+                                TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_spirit_not_found"),
+                        true);
             }
         }
         return false;
@@ -401,10 +423,12 @@ public class BookOfCallingItem extends Item implements IIngredientPreventCraftin
                             CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)) {
                         MachineReference machine = ItemNBTUtil.getManagedMachine(stack);
                         if (machine != null) {
-                            //TODO: Open book of calling manage machine ui
-                            //                            Occultism.proxy
-                            //                                    .openBookOfCallingManageMachineUI(machine.insertFacing, machine.extractFacing,
-                            //                                            machine.customName);
+                            Minecraft.getInstance().displayGuiScreen(
+                                    new BookOfCallingManagedMachineGui(machine.insertFacing, machine.extractFacing,
+                                            machine.customName));
+                        }
+                        else {
+
                         }
                     }
                     break;
@@ -427,7 +451,7 @@ public class BookOfCallingItem extends Item implements IIngredientPreventCraftin
         //region Fields
         private static final Map<Integer, ItemMode> lookup = new HashMap<Integer, ItemMode>();
         private static final String TRANSLATION_KEY_BASE =
-                "enum." + Occultism.MODID + ".book_of_calling_active.item_mode";
+                "enum." + Occultism.MODID + ".book_of_calling.item_mode";
 
         static {
             for (ItemMode itemMode : ItemMode.values()) {
