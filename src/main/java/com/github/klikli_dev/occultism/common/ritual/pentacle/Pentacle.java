@@ -64,11 +64,9 @@ public abstract class Pentacle extends ForgeRegistryEntry<Pentacle> {
     /**
      * registers the multiblock with patchouli_books.
      */
-    public void registerMultiblock() {
+    public void registerMultiblock(ResourceLocation id) {
         this.setupMapping();
-        ResourceLocation multiblockResourceLocation = new ResourceLocation(this.getRegistryName().getNamespace(),
-                "pentacle." + this.getRegistryName().getPath());
-        this.blockMatcher = this.api.registerMultiblock(multiblockResourceLocation, this.setupMultiblock());
+        this.blockMatcher = this.api.registerMultiblock(id, this.setupMultiblock());
     }
 
     protected void setupMapping() {
@@ -91,18 +89,4 @@ public abstract class Pentacle extends ForgeRegistryEntry<Pentacle> {
      */
     protected abstract IMultiblock setupMultiblock();
     //endregion Methods
-
-    public static class Builder<T extends Pentacle>{
-        Supplier<T> supplier;
-
-        public Builder(Supplier<T> supplier){
-            this.supplier = supplier;
-        }
-
-        public T build(){
-            T pentacle = supplier.get();
-            pentacle.registerMultiblock();
-            return pentacle;
-        }
-    }
 }

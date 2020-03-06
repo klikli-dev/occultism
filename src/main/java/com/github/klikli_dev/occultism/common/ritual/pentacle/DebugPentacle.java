@@ -50,7 +50,7 @@ public class DebugPentacle extends Pentacle {
     //region Overrides
     @Override
     protected IMultiblock setupMultiblock() {
-        return this.api.makeMultiblock(this.pattern, this.mapping).setSymmetrical(true);
+        return this.api.makeMultiblock(this.pattern, this.mapping.toArray()).setSymmetrical(true);
     }
     //endregion Overrides
 }

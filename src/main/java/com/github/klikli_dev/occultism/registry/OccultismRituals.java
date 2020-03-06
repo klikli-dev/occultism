@@ -24,26 +24,37 @@ package com.github.klikli_dev.occultism.registry;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.ritual.Ritual;
-import com.github.klikli_dev.occultism.common.ritual.pentacle.Pentacle;
 import com.github.klikli_dev.occultism.common.ritual.pentacle.DebugPentacle;
-import net.minecraft.block.Block;
+import com.github.klikli_dev.occultism.common.ritual.pentacle.Pentacle;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.RegistryManager;
+import vazkii.patchouli.api.PatchouliAPI;
 
 import java.util.function.Supplier;
+
+import static com.github.klikli_dev.occultism.util.StaticUtil.modLoc;
 
 public class OccultismRituals {
     //region Fields
     public static IForgeRegistry<Pentacle> PENTACLE_REGISTRY = RegistryManager.ACTIVE.getRegistry(Pentacle.class);
     public static DeferredRegister<Pentacle> PENTACLES = new DeferredRegister<>(PENTACLE_REGISTRY, Occultism.MODID);
-
+    public static final RegistryObject<DebugPentacle> PENTACLE_DEBUG = register("debug", DebugPentacle::new);
     public static IForgeRegistry<Ritual> RITUAL_REGISTRY = RegistryManager.ACTIVE.getRegistry(Ritual.class);
     public static DeferredRegister<Ritual> RITUALS = new DeferredRegister<>(RITUAL_REGISTRY, Occultism.MODID);
-
-    public static final RegistryObject<DebugPentacle> PENTACLE_DEBUG = PENTACLES.register("debug", () -> new Pentacle.Builder<>(
-            DebugPentacle::new).build());
-
     //endregion Fields
+
+    //region Static Methods
+    public static <T extends Pentacle> RegistryObject<T> register(final String name, final Supplier<? extends T> sup) {
+        return PENTACLES.register(name, () -> {
+            T pentacle = sup.get();
+            ResourceLocation multiBlockId = modLoc("pentacle." + name);
+            if (PatchouliAPI.instance.getMultiblock(multiBlockId) == null)
+                pentacle.registerMultiblock(multiBlockId);
+            return pentacle;
+        });
+    }
+    //endregion Static Methods
 }

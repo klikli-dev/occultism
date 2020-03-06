@@ -42,6 +42,7 @@ import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.util.registry.Registry;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
@@ -72,25 +73,21 @@ public class Occultism {
     public Occultism() {
         INSTANCE = this;
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, CONFIG.spec);
-
-        OccultismRecipes.RECIPES.register(FMLJavaModLoadingContext.get().getModEventBus());
-        OccultismBlocks.BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
-        OccultismItems.ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
-        OccultismTiles.TILES.register(FMLJavaModLoadingContext.get().getModEventBus());
-        OccultismContainers.CONTAINERS.register(FMLJavaModLoadingContext.get().getModEventBus());
-        OccultismEntities.ENTITIES.register(FMLJavaModLoadingContext.get().getModEventBus());
-        OccultismSounds.SOUNDS.register(FMLJavaModLoadingContext.get().getModEventBus());
-        OccultismParticles.PARTICLES.register(FMLJavaModLoadingContext.get().getModEventBus());
-
-        OccultismSpiritJobs.JOBS.register(FMLJavaModLoadingContext.get().getModEventBus());
-        OccultismRituals.PENTACLES.register(FMLJavaModLoadingContext.get().getModEventBus());
-        OccultismRituals.RITUALS.register(FMLJavaModLoadingContext.get().getModEventBus());
+        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+        OccultismRecipes.RECIPES.register(modEventBus);
+        OccultismBlocks.BLOCKS.register(modEventBus);
+        OccultismItems.ITEMS.register(modEventBus);
+        OccultismTiles.TILES.register(modEventBus);
+        OccultismContainers.CONTAINERS.register(modEventBus);
+        OccultismEntities.ENTITIES.register(modEventBus);
+        OccultismSounds.SOUNDS.register(modEventBus);
+        OccultismParticles.PARTICLES.register(modEventBus);
 
         //register event buses
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::commonSetup);
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetup);
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::serverSetup);
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::onModConfigEvent);
+        modEventBus.addListener(this::commonSetup);
+        modEventBus.addListener(this::clientSetup);
+        modEventBus.addListener(this::serverSetup);
+        modEventBus.addListener(this::onModConfigEvent);
 
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(SELECTED_BLOCK_RENDERER);

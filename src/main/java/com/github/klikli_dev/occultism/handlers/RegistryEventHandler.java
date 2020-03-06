@@ -25,6 +25,7 @@ package com.github.klikli_dev.occultism.handlers;
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.client.particle.RitualWaitingParticle;
 import com.github.klikli_dev.occultism.common.job.SpiritJobFactory;
+import com.github.klikli_dev.occultism.common.ritual.Ritual;
 import com.github.klikli_dev.occultism.common.ritual.pentacle.Pentacle;
 import com.github.klikli_dev.occultism.registry.*;
 import net.minecraft.client.Minecraft;
@@ -36,6 +37,7 @@ import net.minecraft.item.SpawnEggItem;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.common.Mod;
@@ -52,15 +54,17 @@ public class RegistryEventHandler {
 
     @SubscribeEvent
     public static void registerRegistries(RegistryEvent.NewRegistry event) {
+        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         new RegistryBuilder<Pentacle>().setName(new ResourceLocation(Occultism.MODID, "pentacle"))
                 .setType(Pentacle.class).create();
-        OccultismRituals.PENTACLES.register(FMLJavaModLoadingContext.get().getModEventBus());
-
-        //        new RegistryBuilder<Ritual>().setName(new ResourceLocation(Occultism.MODID, "ritual")).setType(Ritual.class)
-        //                .create();
+        new RegistryBuilder<Ritual>().setName(new ResourceLocation(Occultism.MODID, "ritual"))
+                .setType(Ritual.class).create();
         new RegistryBuilder<SpiritJobFactory>().setName(new ResourceLocation(Occultism.MODID, "spirit_job_factory"))
                 .setType(SpiritJobFactory.class).create();
-        OccultismSpiritJobs.JOBS.register(FMLJavaModLoadingContext.get().getModEventBus());
+
+        OccultismRituals.PENTACLES.register(modEventBus);
+        OccultismRituals.RITUALS.register(modEventBus);
+        OccultismSpiritJobs.JOBS.register(modEventBus);
     }
 
     @SubscribeEvent
