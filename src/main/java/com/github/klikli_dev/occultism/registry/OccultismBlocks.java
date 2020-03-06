@@ -25,6 +25,7 @@ package com.github.klikli_dev.occultism.registry;
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.block.CandleBlock;
 import com.github.klikli_dev.occultism.common.block.ChalkGlyphBlock;
+import com.github.klikli_dev.occultism.common.block.SacrificialBowlBlock;
 import com.github.klikli_dev.occultism.common.block.storage.StableWormholeBlock;
 import com.github.klikli_dev.occultism.common.block.storage.StorageControllerBlock;
 import com.github.klikli_dev.occultism.common.block.storage.StorageStabilizerBlock;
@@ -61,19 +62,14 @@ public class OccultismBlocks {
             () -> new ChalkGlyphBlock(GLYPH_PROPERTIES, 0xcc0101), false, LootTableType.EMPTY);
 
     //Decorative and Ritual Blocks
-    public static final RegistryObject<CandleBlock> CANDLE_WHITE = register("candle_white", () -> new CandleBlock(
-            Block.Properties.create(Material.MISCELLANEOUS).sound(SoundType.CLOTH).doesNotBlockMovement()
-                    .hardnessAndResistance(0.1f, 0).lightValue(12)));
 
     //Machines
+    public static final RegistryObject<SacrificialBowlBlock> SACRIFICIAL_BOWL = register("sacrificial_bowl", () -> new SacrificialBowlBlock(
+            Block.Properties.create(Material.ROCK).sound(SoundType.STONE).hardnessAndResistance(1.5f, 30)));
     public static final RegistryObject<StorageControllerBlock> STORAGE_CONTROLLER = register("storage_controller",
             () -> new StorageControllerBlock(
                     Block.Properties.create(Material.ROCK).sound(SoundType.STONE)
                             .hardnessAndResistance(5f, 100).notSolid()), true, LootTableType.EMPTY);
-    public static final RegistryObject<StableWormholeBlock> STABLE_WORMHOLE = register("stable_wormhole",
-            () -> new StableWormholeBlock(
-                    Block.Properties.create(Material.ROCK).sound(SoundType.STONE).doesNotBlockMovement()
-                            .hardnessAndResistance(2f, 2).notSolid()), false, LootTableType.EMPTY);
     public static final RegistryObject<StorageStabilizerBlock> STORAGE_STABILIZER_TIER1 = register(
             "storage_stabilizer_tier1", () -> new StorageStabilizerBlock(
                     Block.Properties.create(Material.ROCK).sound(SoundType.STONE).hardnessAndResistance(1.5f, 30)
@@ -90,6 +86,11 @@ public class OccultismBlocks {
             "storage_stabilizer_tier4", () -> new StorageStabilizerBlock(
                     Block.Properties.create(Material.ROCK).sound(SoundType.STONE).hardnessAndResistance(1.5f, 30)
                             .notSolid()));
+
+    public static final RegistryObject<StableWormholeBlock> STABLE_WORMHOLE = register("stable_wormhole",
+            () -> new StableWormholeBlock(
+                    Block.Properties.create(Material.ROCK).sound(SoundType.STONE).doesNotBlockMovement()
+                            .hardnessAndResistance(2f, 2).notSolid()), false, LootTableType.EMPTY);
 
     //endregion Fields
 

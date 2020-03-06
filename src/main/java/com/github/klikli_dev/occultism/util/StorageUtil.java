@@ -29,11 +29,19 @@ import com.github.klikli_dev.occultism.common.misc.ItemStackComparator;
 import com.github.klikli_dev.occultism.network.OccultismPackets;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.CraftingInventory;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Inventory;
+import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
+import net.minecraftforge.items.ItemStackHandler;
 
 public class StorageUtil {
     //region Static Methods
@@ -156,6 +164,23 @@ public class StorageUtil {
             }
         }
         return ItemStack.EMPTY;
+    }
+
+    /**
+     * Drops all items of the given tile entity.
+     * Tile entity <bold>must</bold> return a combined item handler for direction null.
+     * @param tileEntity the tile entity to drop contents for.
+     */
+    public static void dropInventoryItems(TileEntity tileEntity){
+        tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(handler -> {
+            dropInventoryItems(tileEntity.getWorld(), tileEntity.getPos(), handler);
+        });
+    }
+
+    public static void dropInventoryItems(World worldIn, BlockPos pos, IItemHandler itemHandler){
+        for(int i = 0; i < itemHandler.getSlots(); i++){
+            InventoryHelper.spawnItemStack(worldIn, pos.getX(), pos.getY(), pos.getZ(), itemHandler.getStackInSlot(i));
+        }
     }
     //endregion Static Methods
 
