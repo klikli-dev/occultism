@@ -74,8 +74,13 @@ public class GoldenSacrificialBowlTileEntity extends SacrificialBowlTileEntity i
     public void read(CompoundNBT compound) {
         super.read(compound);
         if (this.currentRitual != null && compound.contains("remainingAdditionalIngredientsSize")) {
-            this.remainingAdditionalIngredients = this.currentRitual.additionalIngredients.subList(0,
-                    compound.getByte("remainingAdditionalIngredientsSize") + 1);
+            int size =  compound.getByte("remainingAdditionalIngredientsSize");
+            if(size >= 0 && size <= this.currentRitual.additionalIngredients.size()){
+                this.remainingAdditionalIngredients = this.currentRitual.additionalIngredients.subList(this.currentRitual.additionalIngredients.size() - size, this.currentRitual.additionalIngredients.size() -1);
+            }
+            else {
+                this.remainingAdditionalIngredients = new ArrayList<>(this.currentRitual.additionalIngredients);
+            }
         }
         if (compound.contains("sacrificeProvided")) {
             this.sacrificeProvided = compound.getBoolean("sacrificeProvided");
@@ -84,8 +89,13 @@ public class GoldenSacrificialBowlTileEntity extends SacrificialBowlTileEntity i
 
     @Override
     public CompoundNBT write(CompoundNBT compound) {
-        compound.putByte("remainingAdditionalIngredientsSize", (byte) this.remainingAdditionalIngredients.size());
-        compound.putBoolean("sacrificeProvided", this.sacrificeProvided);
+        if(this.currentRitual != null) {
+            if(this.currentRitual.additionalIngredients.size() > 0){
+                //we only store additional ingredients, if the ritual has any.
+                compound.putByte("remainingAdditionalIngredientsSize", (byte) this.remainingAdditionalIngredients.size());
+            }
+            compound.putBoolean("sacrificeProvided", this.sacrificeProvided);
+        }
         return super.write(compound);
     }
 
