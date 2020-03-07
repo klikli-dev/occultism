@@ -20,7 +20,7 @@ archivesBaseName = "occultism"
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = JavaVersion.VERSION_1_8 // Need this here so eclipse task generates correctly.
 
 minecraft {
-    mappings channel: 'snapshot', version: '20200305-1.15.1'
+    mappings channel: 'snapshot', version: '20200306-1.15.1'
 
     // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
     
