@@ -1,0 +1,11 @@
+{
+  "type": "occultism:custom_shapeless",
+  "ingredients": [
+    {
+      "tag": "occultism:books/book_of_calling_foliot"
+    }
+  ],
+  "result": {
+    "item": "occultism:book_of_binding_bound_foliot"
+  }
+}

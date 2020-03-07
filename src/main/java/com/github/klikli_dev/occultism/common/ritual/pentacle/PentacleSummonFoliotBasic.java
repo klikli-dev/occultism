@@ -20,26 +20,31 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.github.klikli_dev.occultism.util;
+package com.github.klikli_dev.occultism.common.ritual.pentacle;
 
-import com.github.klikli_dev.occultism.Occultism;
-import net.minecraft.client.Minecraft;
-import net.minecraft.item.crafting.RecipeManager;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.server.ServerLifecycleHooks;
+import vazkii.patchouli.api.IMultiblock;
 
-public class StaticUtil {
+public class PentacleSummonFoliotBasic extends Pentacle {
 
-    public static ResourceLocation modLoc(String path){
-        return new ResourceLocation(Occultism.MODID, path);
+    //region Fields
+    private final String[][] pattern = new String[][]{
+            {
+                    "  WWW  ",
+                    " W W W ",
+                    "W  W  W",
+                    "WWW0WWW",
+                    "W  W  W",
+                    " W W W ",
+                    "  WWW  "
+            }
+    };
+
+    //endregion Fields
+
+    //region Overrides
+    @Override
+    protected IMultiblock setupMultiblock() {
+        return this.api.makeMultiblock(this.pattern, this.mapping.toArray()).setSymmetrical(true);
     }
-
-    public static RecipeManager getRecipeManager(){
-        MinecraftServer server = ServerLifecycleHooks.getCurrentServer();
-        if(server != null)
-            return server.getRecipeManager();
-
-        return Minecraft.getInstance().world.getRecipeManager();
-    }
+    //endregion Overrides
 }

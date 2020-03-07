@@ -23,6 +23,7 @@
 package com.github.klikli_dev.occultism.registry;
 
 import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.crafting.recipe.CustomShapeless;
 import com.github.klikli_dev.occultism.crafting.recipe.SpiritTrade;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.IRecipeType;
@@ -38,10 +39,13 @@ public class OccultismRecipes {
 
     public static final NonNullLazy<IRecipeType<SpiritTrade>> SPIRIT_TRADE_TYPE =
             NonNullLazy.of(() -> IRecipeType.register("occultism:spirit_trade"));
+    public static final NonNullLazy<IRecipeType<?>> CUSTOM_SHAPELESS_TYPE =
+            NonNullLazy.of(() -> IRecipeType.CRAFTING);
 
     public static final RegistryObject<IRecipeSerializer<SpiritTrade>> SPIRIT_TRADE = RECIPES.register("spirit_trade",
             () -> SpiritTrade.SERIALIZER);
-
+    public static final RegistryObject<IRecipeSerializer<CustomShapeless>> CUSTOM_SHAPELESS = RECIPES.register("custom_shapeless",
+            () -> CustomShapeless.SERIALIZER);
 
     //endregion Fields
 

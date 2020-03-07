@@ -28,8 +28,10 @@ import com.github.klikli_dev.occultism.client.gui.storage.StorageRemoteGui;
 import com.github.klikli_dev.occultism.client.render.OccultismRenderType;
 import com.github.klikli_dev.occultism.client.render.SelectedBlockRenderer;
 import com.github.klikli_dev.occultism.client.render.entity.FoliotRenderer;
+import com.github.klikli_dev.occultism.client.render.tile.SacrificialBowlRenderer;
 import com.github.klikli_dev.occultism.client.render.tile.StorageControllerRenderer;
 import com.github.klikli_dev.occultism.common.OccultismItemGroup;
+import com.github.klikli_dev.occultism.common.tile.GoldenSacrificialBowlTileEntity;
 import com.github.klikli_dev.occultism.config.OccultismConfig;
 import com.github.klikli_dev.occultism.crafting.recipe.SpiritTrade;
 import com.github.klikli_dev.occultism.network.OccultismPackets;
@@ -42,6 +44,7 @@ import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.util.registry.Registry;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
@@ -72,20 +75,21 @@ public class Occultism {
     public Occultism() {
         INSTANCE = this;
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, CONFIG.spec);
-
-        OccultismRecipes.RECIPES.register(FMLJavaModLoadingContext.get().getModEventBus());
-        OccultismBlocks.BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
-        OccultismItems.ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
-        OccultismTiles.TILES.register(FMLJavaModLoadingContext.get().getModEventBus());
-        OccultismContainers.CONTAINERS.register(FMLJavaModLoadingContext.get().getModEventBus());
-        OccultismEntities.ENTITIES.register(FMLJavaModLoadingContext.get().getModEventBus());
-        OccultismSounds.SOUNDS.register(FMLJavaModLoadingContext.get().getModEventBus());
+        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+        OccultismRecipes.RECIPES.register(modEventBus);
+        OccultismBlocks.BLOCKS.register(modEventBus);
+        OccultismItems.ITEMS.register(modEventBus);
+        OccultismTiles.TILES.register(modEventBus);
+        OccultismContainers.CONTAINERS.register(modEventBus);
+        OccultismEntities.ENTITIES.register(modEventBus);
+        OccultismSounds.SOUNDS.register(modEventBus);
+        OccultismParticles.PARTICLES.register(modEventBus);
 
         //register event buses
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::commonSetup);
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetup);
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::serverSetup);
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::onModConfigEvent);
+        modEventBus.addListener(this::commonSetup);
+        modEventBus.addListener(this::clientSetup);
+        modEventBus.addListener(this::serverSetup);
+        modEventBus.addListener(this::onModConfigEvent);
 
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(SELECTED_BLOCK_RENDERER);
@@ -115,6 +119,8 @@ public class Occultism {
 
         //Register Tile Entity Renderers
         ClientRegistry.bindTileEntityRenderer(OccultismTiles.STORAGE_CONTROLLER.get(), StorageControllerRenderer::new);
+        ClientRegistry.bindTileEntityRenderer(OccultismTiles.SACRIFICIAL_BOWL.get(), SacrificialBowlRenderer::new);
+        ClientRegistry.bindTileEntityRenderer(OccultismTiles.GOLDEN_SACRIFICIAL_BOWL.get(), SacrificialBowlRenderer::new);
 
         //Setup block render layers
         RenderTypeLookup.setRenderLayer(OccultismBlocks.CHALK_GLYPH_WHITE.get(), RenderType.getCutoutMipped());

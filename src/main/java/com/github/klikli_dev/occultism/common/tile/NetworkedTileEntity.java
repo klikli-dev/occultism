@@ -89,4 +89,10 @@ public abstract class NetworkedTileEntity extends TileEntity {
     public CompoundNBT writeNetwork(CompoundNBT compound) {
         return compound;
     }
+
+    public void markNetworkDirty(){
+        if (this.world != null) {
+            this.world.notifyBlockUpdate(this.pos, this.getBlockState(), this.getBlockState(), 2);
+        }
+    }
 }

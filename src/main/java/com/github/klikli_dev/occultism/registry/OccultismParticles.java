@@ -20,26 +20,22 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.github.klikli_dev.occultism.util;
+package com.github.klikli_dev.occultism.registry;
 
 import com.github.klikli_dev.occultism.Occultism;
-import net.minecraft.client.Minecraft;
-import net.minecraft.item.crafting.RecipeManager;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.server.ServerLifecycleHooks;
+import net.minecraft.particles.BasicParticleType;
+import net.minecraft.particles.ParticleType;
+import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
 
-public class StaticUtil {
+public class OccultismParticles {
+//region Fields
+    public static final DeferredRegister<ParticleType<?>> PARTICLES = new DeferredRegister<>(
+            ForgeRegistries.PARTICLE_TYPES, Occultism.MODID);
 
-    public static ResourceLocation modLoc(String path){
-        return new ResourceLocation(Occultism.MODID, path);
-    }
-
-    public static RecipeManager getRecipeManager(){
-        MinecraftServer server = ServerLifecycleHooks.getCurrentServer();
-        if(server != null)
-            return server.getRecipeManager();
-
-        return Minecraft.getInstance().world.getRecipeManager();
-    }
+    //Debug and placeholder items
+    public static final RegistryObject<BasicParticleType> RITUAL_WAITING = PARTICLES.register(
+            "ritual_waiting", () -> new BasicParticleType(false));
+//endregion Fields
 }

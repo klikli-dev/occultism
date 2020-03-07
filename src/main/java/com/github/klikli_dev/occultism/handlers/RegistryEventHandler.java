@@ -23,21 +23,21 @@
 package com.github.klikli_dev.occultism.handlers;
 
 import com.github.klikli_dev.occultism.Occultism;
-import com.github.klikli_dev.occultism.common.job.SpiritJob;
+import com.github.klikli_dev.occultism.client.particle.RitualWaitingParticle;
 import com.github.klikli_dev.occultism.common.job.SpiritJobFactory;
-import com.github.klikli_dev.occultism.registry.OccultismBlocks;
-import com.github.klikli_dev.occultism.registry.OccultismEntities;
-import com.github.klikli_dev.occultism.registry.OccultismSpiritJobs;
+import com.github.klikli_dev.occultism.common.ritual.Ritual;
+import com.github.klikli_dev.occultism.common.ritual.pentacle.Pentacle;
+import com.github.klikli_dev.occultism.registry.*;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.particle.ParticleManager;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.SpawnEggItem;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.RecipeManager;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.event.RecipesUpdatedEvent;
+import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.common.Mod;
@@ -54,12 +54,17 @@ public class RegistryEventHandler {
 
     @SubscribeEvent
     public static void registerRegistries(RegistryEvent.NewRegistry event) {
-        //        new RegistryBuilder<Pentacle>().setName(new ResourceLocation(Occultism.MODID, "pentacle"))
-        //                .setType(Pentacle.class).create();
-        //        new RegistryBuilder<Ritual>().setName(new ResourceLocation(Occultism.MODID, "ritual")).setType(Ritual.class)
-        //                .create();
-        new RegistryBuilder<SpiritJobFactory>().setName(new ResourceLocation(Occultism.MODID, "spirit_job_factory")).setType(SpiritJobFactory.class).create();
-        OccultismSpiritJobs.JOBS.register(FMLJavaModLoadingContext.get().getModEventBus());
+        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+        new RegistryBuilder<Pentacle>().setName(new ResourceLocation(Occultism.MODID, "pentacle"))
+                .setType(Pentacle.class).create();
+        new RegistryBuilder<Ritual>().setName(new ResourceLocation(Occultism.MODID, "ritual"))
+                .setType(Ritual.class).create();
+        new RegistryBuilder<SpiritJobFactory>().setName(new ResourceLocation(Occultism.MODID, "spirit_job_factory"))
+                .setType(SpiritJobFactory.class).create();
+
+        OccultismRituals.PENTACLES.register(modEventBus);
+        OccultismRituals.RITUALS.register(modEventBus);
+        OccultismSpiritJobs.JOBS.register(modEventBus);
     }
 
     @SubscribeEvent
@@ -79,11 +84,20 @@ public class RegistryEventHandler {
         Occultism.LOGGER.info("Registered SpawnEggItems");
     }
 
-    public static void registerSpawnEgg(IForgeRegistry<Item> registry, EntityType<?> entityType, ResourceLocation registryName){
+    public static void registerSpawnEgg(IForgeRegistry<Item> registry, EntityType<?> entityType,
+                                        ResourceLocation registryName) {
         SpawnEggItem spawnEggItem = new SpawnEggItem(entityType, 0xaa728d, 0x37222c,
                 new Item.Properties().group(Occultism.ITEM_GROUP));
         spawnEggItem.setRegistryName(registryName);
         registry.register(spawnEggItem);
+    }
+
+    @SubscribeEvent
+    public static void onRegisterParticleFactories(ParticleFactoryRegisterEvent event) {
+        ParticleManager manager = Minecraft.getInstance().particles;
+        manager.registerFactory(OccultismParticles.RITUAL_WAITING.get(), RitualWaitingParticle.Factory::new);
+
+        Occultism.LOGGER.info("Registered Particle Factories");
     }
     //endregion Static Methods
 }

@@ -23,6 +23,8 @@
 package com.github.klikli_dev.occultism.registry;
 
 import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.common.tile.GoldenSacrificialBowlTileEntity;
+import com.github.klikli_dev.occultism.common.tile.SacrificialBowlTileEntity;
 import com.github.klikli_dev.occultism.common.tile.StableWormholeTileEntity;
 import com.github.klikli_dev.occultism.common.tile.StorageControllerTileEntity;
 import net.minecraft.tileentity.TileEntityType;
@@ -39,10 +41,17 @@ public class OccultismTiles {
             "storage_controller", () -> TileEntityType.Builder.create(StorageControllerTileEntity::new,
                     OccultismBlocks.STORAGE_CONTROLLER.get()).build(null));
 
-
     public static final RegistryObject<TileEntityType<StableWormholeTileEntity>> STABLE_WORMHOLE = TILES.register(
             "stable_wormhole", () -> TileEntityType.Builder.create(StableWormholeTileEntity::new,
                     OccultismBlocks.STABLE_WORMHOLE.get()).build(null));
+
+    public static final RegistryObject<TileEntityType<SacrificialBowlTileEntity>> SACRIFICIAL_BOWL = TILES.register(
+            "sacrificial_bowls", () -> TileEntityType.Builder.create(SacrificialBowlTileEntity::new,
+                    OccultismBlocks.SACRIFICIAL_BOWL.get()).build(null));
+
+    public static final RegistryObject<TileEntityType<GoldenSacrificialBowlTileEntity>> GOLDEN_SACRIFICIAL_BOWL = TILES.register(
+            "golden_sacrificial_bowls", () -> TileEntityType.Builder.create(GoldenSacrificialBowlTileEntity::new,
+                    OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL.get()).build(null));
 
     //endregion Fields
 

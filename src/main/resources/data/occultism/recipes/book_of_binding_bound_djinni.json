@@ -1,0 +1,17 @@
+{
+  "type": "occultism:custom_shapeless",
+  "ingredients": [
+    {
+      "item": "occultism:book_of_binding_djinni"
+    },
+    {
+      "item": "patchouli:guide_book",
+      "nbt": {
+        "patchouli:book": "occultism:dictionary_of_spirits"
+      }
+    }
+  ],
+  "result": {
+    "item": "occultism:book_of_binding_bound_djinni"
+  }
+}
