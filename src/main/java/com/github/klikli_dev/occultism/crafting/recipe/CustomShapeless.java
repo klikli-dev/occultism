@@ -131,6 +131,7 @@ public class CustomShapeless extends ShapelessRecipe {
     @Override
     public IRecipeType<?> getType() {
         return OccultismRecipes.CUSTOM_SHAPELESS_TYPE.get();
+       // return IRecipeType.CRAFTING;
     }
 
     //endregion Overrides

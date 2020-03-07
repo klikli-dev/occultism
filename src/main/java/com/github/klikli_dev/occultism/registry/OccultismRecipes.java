@@ -39,8 +39,8 @@ public class OccultismRecipes {
 
     public static final NonNullLazy<IRecipeType<SpiritTrade>> SPIRIT_TRADE_TYPE =
             NonNullLazy.of(() -> IRecipeType.register("occultism:spirit_trade"));
-    public static final NonNullLazy<IRecipeType<SpiritTrade>> CUSTOM_SHAPELESS_TYPE =
-            NonNullLazy.of(() -> IRecipeType.register("occultism:custom_shapeless"));
+    public static final NonNullLazy<IRecipeType<?>> CUSTOM_SHAPELESS_TYPE =
+            NonNullLazy.of(() -> IRecipeType.CRAFTING);
 
     public static final RegistryObject<IRecipeSerializer<SpiritTrade>> SPIRIT_TRADE = RECIPES.register("spirit_trade",
             () -> SpiritTrade.SERIALIZER);
