@@ -180,6 +180,7 @@ public class GoldenSacrificialBowlTileEntity extends SacrificialBowlTileEntity i
             this.world.getGameTime() % (20 * 30) == 0) {
             this.castingPlayer = EntityUtil.getPlayerByUuiDGlobal(this.castingPlayerId).orElse(null);
             this.markDirty();
+            this.markNetworkDirty();
         }
     }
 
@@ -232,6 +233,7 @@ public class GoldenSacrificialBowlTileEntity extends SacrificialBowlTileEntity i
             handler.insertItem(0, activationItem.split(1), false);
             this.currentRitual.start(this.world, this.pos, this, player, handler.getStackInSlot(0));
             this.markDirty();
+            this.markNetworkDirty();
         }
     }
 
@@ -258,6 +260,7 @@ public class GoldenSacrificialBowlTileEntity extends SacrificialBowlTileEntity i
             this.sacrificeProvided = false;
             this.remainingAdditionalIngredients.clear();
             this.markDirty();
+            this.markNetworkDirty();
         }
     }
 
