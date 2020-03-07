@@ -206,6 +206,12 @@
     "_comment": "Effects",
     "effect.occultism.third_eye": "Third Eye",
 
+    "_comment": "Sounds",
+    "occultism.subtitle.chalk": "Chalk",
+    "occultism.subtitle.brush": "Brush",
+    "occultism.subtitle.start_ritual": "Start Ritual",
+    "occultism.subtitle.tuning_fork": "Tuning Fork",
+
     "_comment": "JEI",
     "occultism.jei.spirit_fire": "Spiritfire"
 }
