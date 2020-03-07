@@ -8,12 +8,13 @@ on:
       - 'alpha/**' 
       - 'beta/**' 
       - 'release/**' 
+      - 'test/**' 
   pull_request:
     branches:
       - 'alpha/**' 
       - 'beta/**' 
       - 'release/**' 
-
+      - 'test/**' 
 jobs:
   build:
     runs-on: ubuntu-latest
