@@ -141,7 +141,9 @@ public class ChalkGlyphBlock extends Block {
     @Override
     public ItemStack getPickBlock(BlockState state, RayTraceResult target, IBlockReader world, BlockPos pos,
                                   PlayerEntity player) {
-        return new ItemStack(this.getChalk().get());
+        if(this.getChalk().isPresent()) //fix for startup crash related to patchouli 
+            return new ItemStack(this.getChalk().get());
+        return ItemStack.EMPTY;
     }
 
     @Nullable
