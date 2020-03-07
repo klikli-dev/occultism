@@ -1,0 +1,11 @@
+{
+  "type": "occultism:spirit_trade",
+  "ingredients": [
+    {
+      "item": "occultism:otherworld_sapling_natural"
+    }
+  ],
+  "result": {
+    "item": "occultism:otherworld_sapling"
+  }
+}
