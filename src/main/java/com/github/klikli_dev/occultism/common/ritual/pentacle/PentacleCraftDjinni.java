@@ -22,26 +22,52 @@
 
 package com.github.klikli_dev.occultism.common.ritual.pentacle;
 
+import com.github.klikli_dev.occultism.common.block.CandleBlock;
+import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import vazkii.patchouli.api.IMultiblock;
+import vazkii.patchouli.common.multiblock.StateMatcher;
 
-public class DebugPentacle extends Pentacle {
+import java.util.Arrays;
+
+public class PentacleCraftDjinni extends Pentacle {
 
     //region Fields
     private final String[][] pattern = new String[][]{
             {
-                    "  GRG  ",
-                    " G W G ",
-                    "G  W  G",
-                    "RWW0WWR",
-                    "G  W  G",
-                    " G W G ",
-                    "  GRG  "
+                    "C WGW C",
+                    " P W P ",
+                    "W SWS W",
+                    "GWW0WWG",
+                    "W SWS W",
+                    " P W P ",
+                    "C WGW C"
             }
     };
 
+    //    private final Object[] mapping = new Object[]{
+    //            '0', StateMatcher.fromBlockLoose(BlockRegistry.GOLDEN_SACRIFICIAL_BOWL),
+    //            'W', PentacleStateMatcher.glyphType(GLYPH_WHITE),
+    //            'G', PentacleStateMatcher.glyphType(GLYPH_GOLD),
+    //            'P', PentacleStateMatcher.glyphType(GLYPH_PURPLE),
+    //            'S',  StateMatcher.fromBlockLoose(BlockRegistry.SPIRIT_ATTUNED_CRYSTAL),
+    //            'C',  StateMatcher.fromPredicate(BlockRegistry.CANDLE_WHITE, b -> b.getBlock() instanceof BlockCandle),
+    //            ' ', this.api.anyMatcher()};
     //endregion Fields
 
     //region Overrides
+
+
+    @Override
+    protected void setupMapping() {
+        super.setupMapping();
+        this.mapping.addAll(Arrays.asList(
+                //TODO: enable once spirit attuned crystal is ready
+                //            'S',  StateMatcher.fromBlockLoose(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL.get()),
+                'C', StateMatcher.fromPredicate(OccultismBlocks.CANDLE_WHITE.get(),
+                        b -> b.getBlock() instanceof CandleBlock)
+        ));
+    }
+
     @Override
     protected IMultiblock setupMultiblock() {
         return this.api.makeMultiblock(this.pattern, this.mapping.toArray()).setSymmetrical(true);

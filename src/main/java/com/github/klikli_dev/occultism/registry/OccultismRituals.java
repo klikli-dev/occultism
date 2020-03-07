@@ -26,6 +26,8 @@ import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.ritual.Ritual;
 import com.github.klikli_dev.occultism.common.ritual.pentacle.DebugPentacle;
 import com.github.klikli_dev.occultism.common.ritual.pentacle.Pentacle;
+import com.github.klikli_dev.occultism.common.ritual.pentacle.PentacleCraftDjinni;
+import com.github.klikli_dev.occultism.common.ritual.pentacle.PentacleSummonFoliotBasic;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
@@ -39,11 +41,15 @@ import static com.github.klikli_dev.occultism.util.StaticUtil.modLoc;
 
 public class OccultismRituals {
     //region Fields
-    public static IForgeRegistry<Pentacle> PENTACLE_REGISTRY = RegistryManager.ACTIVE.getRegistry(Pentacle.class);
-    public static DeferredRegister<Pentacle> PENTACLES = new DeferredRegister<>(PENTACLE_REGISTRY, Occultism.MODID);
+    public static final IForgeRegistry<Pentacle> PENTACLE_REGISTRY = RegistryManager.ACTIVE.getRegistry(Pentacle.class);
+    public static final DeferredRegister<Pentacle> PENTACLES = new DeferredRegister<>(PENTACLE_REGISTRY, Occultism.MODID);
+    public static final IForgeRegistry<Ritual> RITUAL_REGISTRY = RegistryManager.ACTIVE.getRegistry(Ritual.class);
+    public static final DeferredRegister<Ritual> RITUALS = new DeferredRegister<>(RITUAL_REGISTRY, Occultism.MODID);
+
     public static final RegistryObject<DebugPentacle> PENTACLE_DEBUG = register("debug", DebugPentacle::new);
-    public static IForgeRegistry<Ritual> RITUAL_REGISTRY = RegistryManager.ACTIVE.getRegistry(Ritual.class);
-    public static DeferredRegister<Ritual> RITUALS = new DeferredRegister<>(RITUAL_REGISTRY, Occultism.MODID);
+    public static final RegistryObject<PentacleSummonFoliotBasic> PENTALCE_SUMMON_FOLIOT_BASIC = register("summon_foliot_basic", PentacleSummonFoliotBasic::new);
+    public static final RegistryObject<PentacleCraftDjinni> PENTALCE_CRAFT_DJINNI = register("craft_djinni", PentacleCraftDjinni::new);
+
     //endregion Fields
 
     //region Static Methods

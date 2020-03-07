@@ -24,18 +24,18 @@ package com.github.klikli_dev.occultism.common.ritual.pentacle;
 
 import vazkii.patchouli.api.IMultiblock;
 
-public class DebugPentacle extends Pentacle {
+public class PentacleSummonFoliotBasic extends Pentacle {
 
     //region Fields
     private final String[][] pattern = new String[][]{
             {
-                    "  GRG  ",
-                    " G W G ",
-                    "G  W  G",
-                    "RWW0WWR",
-                    "G  W  G",
-                    " G W G ",
-                    "  GRG  "
+                    "  WWW  ",
+                    " W W W ",
+                    "W  W  W",
+                    "WWW0WWW",
+                    "W  W  W",
+                    " W W W ",
+                    "  WWW  "
             }
     };
 
