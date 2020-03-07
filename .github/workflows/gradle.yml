@@ -24,6 +24,8 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
+    - name: Setup Gradle
+      run: chmod 777 gradlew
     - name: Gradle Build
       uses: eskatos/gradle-command-action@v1
       with:
