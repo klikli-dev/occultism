@@ -28,8 +28,10 @@ import com.github.klikli_dev.occultism.client.gui.storage.StorageRemoteGui;
 import com.github.klikli_dev.occultism.client.render.OccultismRenderType;
 import com.github.klikli_dev.occultism.client.render.SelectedBlockRenderer;
 import com.github.klikli_dev.occultism.client.render.entity.FoliotRenderer;
+import com.github.klikli_dev.occultism.client.render.tile.SacrificialBowlRenderer;
 import com.github.klikli_dev.occultism.client.render.tile.StorageControllerRenderer;
 import com.github.klikli_dev.occultism.common.OccultismItemGroup;
+import com.github.klikli_dev.occultism.common.tile.GoldenSacrificialBowlTileEntity;
 import com.github.klikli_dev.occultism.config.OccultismConfig;
 import com.github.klikli_dev.occultism.crafting.recipe.SpiritTrade;
 import com.github.klikli_dev.occultism.network.OccultismPackets;
@@ -117,6 +119,8 @@ public class Occultism {
 
         //Register Tile Entity Renderers
         ClientRegistry.bindTileEntityRenderer(OccultismTiles.STORAGE_CONTROLLER.get(), StorageControllerRenderer::new);
+        ClientRegistry.bindTileEntityRenderer(OccultismTiles.SACRIFICIAL_BOWL.get(), SacrificialBowlRenderer::new);
+        ClientRegistry.bindTileEntityRenderer(OccultismTiles.GOLDEN_SACRIFICIAL_BOWL.get(), SacrificialBowlRenderer::new);
 
         //Setup block render layers
         RenderTypeLookup.setRenderLayer(OccultismBlocks.CHALK_GLYPH_WHITE.get(), RenderType.getCutoutMipped());
