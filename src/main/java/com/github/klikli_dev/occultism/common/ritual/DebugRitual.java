@@ -42,11 +42,11 @@ import net.minecraft.world.server.ServerWorld;
 
 import static com.github.klikli_dev.occultism.util.StaticUtil.modLoc;
 
-public class RitualDebug extends Ritual {
+public class DebugRitual extends Ritual {
 
     //region Initialization
-    public RitualDebug() {
-        super(OccultismRituals.PENTACLE_DEBUG.get(),
+    public DebugRitual() {
+        super(OccultismRituals.DEBUG_PENTACLE.get(),
                 Ingredient.fromItems(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()),
                 5);
     }

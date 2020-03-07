@@ -37,7 +37,7 @@ import net.minecraftforge.items.ItemHandlerHelper;
 
 import java.util.function.Predicate;
 
-public class RitualSummonSpirit extends Ritual {
+public class SummonSpiritRitual extends Ritual {
 
     //region Fields
     public Item bookOfCalling;
@@ -45,32 +45,32 @@ public class RitualSummonSpirit extends Ritual {
 
     //region Initialization
 
-    public RitualSummonSpirit(Item bookOfCalling, Pentacle pentacle, Ingredient startingItem,
+    public SummonSpiritRitual(Item bookOfCalling, Pentacle pentacle, Ingredient startingItem,
                               int totalTime) {
         super(pentacle, startingItem, totalTime);
         this.bookOfCalling = bookOfCalling;
     }
 
-    public RitualSummonSpirit(Item bookOfCalling, Pentacle pentacle, Ingredient startingItem,
+    public SummonSpiritRitual(Item bookOfCalling, Pentacle pentacle, Ingredient startingItem,
                               String additionalIngredientsRecipeName, int totalTime) {
         super(pentacle, startingItem, additionalIngredientsRecipeName, totalTime);
         this.bookOfCalling = bookOfCalling;
     }
 
-    public RitualSummonSpirit(Item bookOfCalling, Pentacle pentacle, Ingredient startingItem,
+    public SummonSpiritRitual(Item bookOfCalling, Pentacle pentacle, Ingredient startingItem,
                               Predicate<LivingEntity> sacrificePredicate, int totalTime) {
         super(pentacle, startingItem, sacrificePredicate, totalTime);
         this.bookOfCalling = bookOfCalling;
     }
 
-    public RitualSummonSpirit(Item bookOfCalling, Pentacle pentacle, Ingredient startingItem,
+    public SummonSpiritRitual(Item bookOfCalling, Pentacle pentacle, Ingredient startingItem,
                               String additionalIngredientsRecipeName, Predicate<LivingEntity> sacrificePredicate,
                               int totalTime) {
         super(pentacle, startingItem, additionalIngredientsRecipeName, sacrificePredicate, totalTime);
         this.bookOfCalling = bookOfCalling;
     }
 
-    public RitualSummonSpirit(Item bookOfCalling, Pentacle pentacle, Ingredient startingItem,
+    public SummonSpiritRitual(Item bookOfCalling, Pentacle pentacle, Ingredient startingItem,
                               String additionalIngredientsRecipeName, int sacrificialBowlRange,
                               Predicate<LivingEntity> sacrificePredicate, int totalTime) {
         super(pentacle, startingItem, additionalIngredientsRecipeName, sacrificialBowlRange, sacrificePredicate,

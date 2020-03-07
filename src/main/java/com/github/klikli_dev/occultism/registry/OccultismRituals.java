@@ -23,6 +23,7 @@
 package com.github.klikli_dev.occultism.registry;
 
 import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.common.ritual.DebugRitual;
 import com.github.klikli_dev.occultism.common.ritual.Ritual;
 import com.github.klikli_dev.occultism.common.ritual.pentacle.DebugPentacle;
 import com.github.klikli_dev.occultism.common.ritual.pentacle.Pentacle;
@@ -46,9 +47,13 @@ public class OccultismRituals {
     public static final IForgeRegistry<Ritual> RITUAL_REGISTRY = RegistryManager.ACTIVE.getRegistry(Ritual.class);
     public static final DeferredRegister<Ritual> RITUALS = new DeferredRegister<>(RITUAL_REGISTRY, Occultism.MODID);
 
-    public static final RegistryObject<DebugPentacle> PENTACLE_DEBUG = register("debug", DebugPentacle::new);
-    public static final RegistryObject<PentacleSummonFoliotBasic> PENTALCE_SUMMON_FOLIOT_BASIC = register("summon_foliot_basic", PentacleSummonFoliotBasic::new);
-    public static final RegistryObject<PentacleCraftDjinni> PENTALCE_CRAFT_DJINNI = register("craft_djinni", PentacleCraftDjinni::new);
+    //Pentacles
+    public static final RegistryObject<DebugPentacle> DEBUG_PENTACLE = register("debug", DebugPentacle::new);
+    public static final RegistryObject<PentacleSummonFoliotBasic> SUMMON_FOLIOT_BASIC_PENTACLE = register("summon_foliot_basic", PentacleSummonFoliotBasic::new);
+    public static final RegistryObject<PentacleCraftDjinni> CRAFT_DJINNI_PENTACLE = register("craft_djinni", PentacleCraftDjinni::new);
+
+    //Rituals
+    public static final RegistryObject<DebugRitual> DEBUG_RITUAL = RITUALS.register("debug", DebugRitual::new);
 
     //endregion Fields
 
