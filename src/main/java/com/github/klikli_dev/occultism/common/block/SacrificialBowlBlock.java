@@ -108,7 +108,7 @@ public class SacrificialBowlBlock extends Block {
     @Nullable
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-        return OccultismTiles.STABLE_WORMHOLE.get().create();
+        return OccultismTiles.SACRIFICIAL_BOWL.get().create();
     }
     //endregion Overrides
 }

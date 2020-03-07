@@ -63,13 +63,15 @@ public class OccultismBlocks {
             () -> new ChalkGlyphBlock(GLYPH_PROPERTIES, 0xcc0101), false, LootTableType.EMPTY);
 
     //Decorative and Ritual Blocks
-
+    public static final RegistryObject<CandleBlock> CANDLE_WHITE = register("candle_white", () -> new CandleBlock(
+            Block.Properties.create(Material.MISCELLANEOUS).sound(SoundType.CLOTH).doesNotBlockMovement()
+                    .hardnessAndResistance(0.1f, 0).lightValue(12)));
 
     //Machines
     public static final RegistryObject<SacrificialBowlBlock> SACRIFICIAL_BOWL = register("sacrificial_bowl", () -> new SacrificialBowlBlock(
-            Block.Properties.create(Material.ROCK).sound(SoundType.STONE).hardnessAndResistance(1.5f, 30)));
+            Block.Properties.create(Material.ROCK).sound(SoundType.STONE).hardnessAndResistance(1.5f, 30).notSolid()));
     public static final RegistryObject<GoldenSacrificialBowlBlock> GOLDEN_SACRIFICIAL_BOWL = register("golden_sacrificial_bowl", () -> new GoldenSacrificialBowlBlock(
-            Block.Properties.create(Material.ROCK).sound(SoundType.STONE).hardnessAndResistance(1.5f, 30)));
+            Block.Properties.create(Material.ROCK).sound(SoundType.STONE).hardnessAndResistance(1.5f, 30).notSolid()));
 
     public static final RegistryObject<StorageControllerBlock> STORAGE_CONTROLLER = register("storage_controller",
             () -> new StorageControllerBlock(

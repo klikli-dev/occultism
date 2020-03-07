@@ -56,14 +56,14 @@ public class SacrificialBowlRenderer extends TileEntityRenderer<SacrificialBowlT
 
             //slowly bob up and down following a sine
             double offset = Math.sin((time - tileEntity.lastChangeTime + partialTicks) / 16) / 16.0;
-            matrixStack.translate(0.5, 0.25 + offset, 0.5);
+            matrixStack.translate(0.5, 0.5 + offset, 0.5);
 
             //rotate item slowly around y axis
-            float angle = (float) (time + partialTicks) / 16.0f;
+            float angle =  (time + partialTicks) / 16.0f;
             matrixStack.rotate(new Quaternion(new Vector3f(0, 1, 0), angle, false));
 
             //Fixed scale
-            float scale = getScale(stack);
+            float scale = getScale(stack) * 0.5f;
             matrixStack.scale(scale, scale, scale);
 
             ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
