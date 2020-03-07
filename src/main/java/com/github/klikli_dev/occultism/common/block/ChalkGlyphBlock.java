@@ -44,6 +44,7 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
 
@@ -141,7 +142,8 @@ public class ChalkGlyphBlock extends Block {
     @Override
     public ItemStack getPickBlock(BlockState state, RayTraceResult target, IBlockReader world, BlockPos pos,
                                   PlayerEntity player) {
-        if(this.getChalk().isPresent()) //fix for startup crash related to patchouli 
+        if (ForgeRegistries.ITEMS.containsKey(
+                this.getChalk().getId()))//fix for startup crash related to patchouli getting pick block too early
             return new ItemStack(this.getChalk().get());
         return ItemStack.EMPTY;
     }
