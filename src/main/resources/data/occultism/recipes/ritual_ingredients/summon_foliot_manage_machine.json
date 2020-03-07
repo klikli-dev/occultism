@@ -2,16 +2,13 @@
   "type": "occultism:spirit_trade",
   "ingredients": [
     {
-      "type": "forge:ore_dict",
-      "ore": "blockCoal"
+      "tag": "forge:storage_blocks/coal"
     },
     {
-      "type": "forge:ore_dict",
-      "ore": "ingotGold"
+      "tag": "forge:ingots/gold"
     },
     {
-      "type": "forge:ore_dict",
-      "ore": "ingotIron"
+      "tag": "forge:ingots/iron"
     },
     {
       "item": "minecraft:furnace"

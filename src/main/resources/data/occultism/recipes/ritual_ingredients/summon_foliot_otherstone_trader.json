@@ -2,24 +2,16 @@
   "type": "occultism:spirit_trade",
   "ingredients": [
     {
-      "_comment": "Stone",
-      "item": "minecraft:stone",
-      "data": 0
+      "item": "minecraft:stone"
     },
     {
-      "_comment": "Granite",
-      "item": "minecraft:stone",
-      "data": 1
+      "item": "minecraft:granite"
     },
     {
-      "_comment": "Diorite",
-      "item": "minecraft:stone",
-      "data": 3
+      "item": "minecraft:diorite"
     },
     {
-      "_comment": "Andesite",
-      "item": "minecraft:stone",
-      "data": 5
+      "item": "minecraft:andesite"
     }
   ],
   "result": {

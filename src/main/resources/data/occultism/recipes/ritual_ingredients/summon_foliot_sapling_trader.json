@@ -2,24 +2,16 @@
   "type": "occultism:spirit_trade",
   "ingredients": [
     {
-      "_comment": "Oak",
-      "item": "minecraft:sapling",
-      "data": 0
+      "item": "minecraft:oak_sapling"
     },
     {
-      "_comment": "Birch",
-      "item": "minecraft:sapling",
-      "data": 1
+      "item": "minecraft:birch_sapling"
     },
     {
-      "_comment": "Spruce",
-      "item": "minecraft:sapling",
-      "data": 2
+      "item": "minecraft:spruce_sapling"
     },
     {
-      "_comment": "Jungle",
-      "item": "minecraft:sapling",
-      "data": 3
+      "item": "minecraft:jungle_sapling"
     }
   ],
   "result": {
