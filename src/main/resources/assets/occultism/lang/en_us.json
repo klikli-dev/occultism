@@ -59,7 +59,7 @@
 
      "_comment": "# Item Tooltips",
     "item.occultism.book_of_binding_foliot.tooltip": "This book has not been bound to a foliot yet.",
-    "item.occultism.book_of_binding_bound.tooltip": "Can be used to summon the foliot %s",
+    "item.occultism.book_of_binding_bound_foliot.tooltip": "Can be used to summon the foliot %s",
     "item.occultism.book_of_binding_djinni.tooltip": "This book has not been bound to a djinni yet.",
     "item.occultism.book_of_binding_bound_djinni.tooltip": "Can be used to summon the djinni %s",
     "item.occultism.book_of_calling_foliot.tooltip": "Foliot %s",

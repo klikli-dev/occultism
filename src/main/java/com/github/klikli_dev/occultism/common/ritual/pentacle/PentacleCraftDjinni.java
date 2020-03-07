@@ -24,6 +24,7 @@ package com.github.klikli_dev.occultism.common.ritual.pentacle;
 
 import com.github.klikli_dev.occultism.common.block.CandleBlock;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
+import net.minecraft.block.Blocks;
 import vazkii.patchouli.api.IMultiblock;
 import vazkii.patchouli.common.multiblock.StateMatcher;
 
@@ -44,14 +45,6 @@ public class PentacleCraftDjinni extends Pentacle {
             }
     };
 
-    //    private final Object[] mapping = new Object[]{
-    //            '0', StateMatcher.fromBlockLoose(BlockRegistry.GOLDEN_SACRIFICIAL_BOWL),
-    //            'W', PentacleStateMatcher.glyphType(GLYPH_WHITE),
-    //            'G', PentacleStateMatcher.glyphType(GLYPH_GOLD),
-    //            'P', PentacleStateMatcher.glyphType(GLYPH_PURPLE),
-    //            'S',  StateMatcher.fromBlockLoose(BlockRegistry.SPIRIT_ATTUNED_CRYSTAL),
-    //            'C',  StateMatcher.fromPredicate(BlockRegistry.CANDLE_WHITE, b -> b.getBlock() instanceof BlockCandle),
-    //            ' ', this.api.anyMatcher()};
     //endregion Fields
 
     //region Overrides
@@ -61,8 +54,9 @@ public class PentacleCraftDjinni extends Pentacle {
     protected void setupMapping() {
         super.setupMapping();
         this.mapping.addAll(Arrays.asList(
-                //TODO: enable once spirit attuned crystal is ready
+                //TODO: enable once spirit attuned crystal is ready and remove quartz block mapping
                 //            'S',  StateMatcher.fromBlockLoose(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL.get()),
+                'S',  StateMatcher.fromBlockLoose(Blocks.QUARTZ_BLOCK),
                 'C', StateMatcher.fromPredicate(OccultismBlocks.CANDLE_WHITE.get(),
                         b -> b.getBlock() instanceof CandleBlock)
         ));
