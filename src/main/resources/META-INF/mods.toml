@@ -22,8 +22,8 @@ displayURL="https://www.curseforge.com/minecraft/mc-mods/occultism" #optional
 # A file name (in the root of the mod JAR) containing a logo for display
 logoFile="occultism.png" #optional
 # A text field displayed in the mod UI
-credits="""To all contributors of the mod.
-           All resources not listed are released in the public domain or created by the mod team, in whic case they are under the the MIT License.
+credits="""This mod is released under the MIT license. View https://github.com/klikli-dev/occultism/blob/master/LICENSE.txt for the full text.
+           All resources not listed are released in the public domain or created by the mod team, in which case they are under the the MIT License.
            - Images:
                - Various icons from https://shikashiassets.itch.io/shikashis-fantasy-icons-pack (CC BY 3.0)
                - Book by Lorc https://game-icons.net/1x1/lorc/book-cover.html (CC BY 3.0)
