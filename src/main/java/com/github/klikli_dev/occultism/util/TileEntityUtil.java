@@ -73,21 +73,13 @@ public class TileEntityUtil {
      * @param pos
      */
     public static void updateTile(World world, BlockPos pos) {
-        if (world == null || world.isRemote || world.getTileEntity(pos) == null || !world.isBlockLoaded(pos)) {
+        if (world.isRemote || !world.isBlockLoaded(pos)) {
             return;
         }
-        ServerWorld server = (ServerWorld) world;
-        int range = 16;
-        List<PlayerEntity> players = server.getEntitiesWithinAABB(PlayerEntity.class,
-                new AxisAlignedBB(-range, -range, -range, range, range, range).offset(pos));
-        for (PlayerEntity p : players) {
-            try {
-                ((ServerPlayerEntity) p).connection.sendPacket(world.getTileEntity(pos).getUpdatePacket());
-                world.markChunkDirty(pos, world.getTileEntity(pos));
-            } catch (Error e) {
-                Occultism.LOGGER.error("Could not update tile ", e);
-            }
-        }
+
+        BlockState state = world.getBlockState(pos);
+        world.notifyBlockUpdate(pos, state, state, 2);
+        world.markChunkDirty(pos, world.getTileEntity(pos));
     }
 
     /**

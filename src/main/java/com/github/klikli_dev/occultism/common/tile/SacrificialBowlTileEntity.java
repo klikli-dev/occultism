@@ -53,8 +53,7 @@ public class SacrificialBowlTileEntity extends NetworkedTileEntity {
                     if (!SacrificialBowlTileEntity.this.world.isRemote) {
                         SacrificialBowlTileEntity.this.lastChangeTime = SacrificialBowlTileEntity.this.world
                                                                                 .getGameTime();
-                        TileEntityUtil.updateTile(SacrificialBowlTileEntity.this.world,
-                                SacrificialBowlTileEntity.this.getPos());
+                        SacrificialBowlTileEntity.this.markNetworkDirty();
                     }
                 }
                 //endregion Overrides

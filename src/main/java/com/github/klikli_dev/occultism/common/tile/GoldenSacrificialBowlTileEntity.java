@@ -101,6 +101,7 @@ public class GoldenSacrificialBowlTileEntity extends SacrificialBowlTileEntity i
 
     @Override
     public void readNetwork(CompoundNBT compound) {
+        super.readNetwork(compound);
         if (compound.contains("currentRitual")) {
             this.currentRitual = OccultismRituals.RITUAL_REGISTRY
                                          .getValue(new ResourceLocation(compound.getString("currentRitual")));
@@ -122,7 +123,7 @@ public class GoldenSacrificialBowlTileEntity extends SacrificialBowlTileEntity i
             compound.putString("castingPlayerId", this.castingPlayerId.toString());
         }
         compound.putInt("currentTime", this.currentTime);
-        return compound;
+        return super.writeNetwork(compound);
     }
 
     @Override
