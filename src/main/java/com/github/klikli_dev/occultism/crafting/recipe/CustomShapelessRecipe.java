@@ -46,13 +46,13 @@ import javax.annotation.Nonnull;
 /**
  * A custom shapeless recipe that allows to preserve select ingredients, as well as copy nbt from certain ingredients.
  */
-public class CustomShapeless extends ShapelessRecipe {
+public class CustomShapelessRecipe extends ShapelessRecipe {
     //region Fields
     public static Serializer SERIALIZER = new Serializer();
     //endregion Fields
 
     //region Initialization
-    public CustomShapeless(ResourceLocation id, ItemStack result, NonNullList<Ingredient> input) {
+    public CustomShapelessRecipe(ResourceLocation id, ItemStack result, NonNullList<Ingredient> input) {
         super(id, null, result, input);
     }
     //endregion Initialization
@@ -139,24 +139,26 @@ public class CustomShapeless extends ShapelessRecipe {
 
     //endregion Methods
 
-    public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<CustomShapeless> {
+    public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<CustomShapelessRecipe> {
         //region Fields
         private static final ShapelessRecipe.Serializer serializer = new ShapelessRecipe.Serializer();
         //endregion Fields
 
         //region Overrides
-        public CustomShapeless read(ResourceLocation recipeId, JsonObject json) {
+        @Override
+        public CustomShapelessRecipe read(ResourceLocation recipeId, JsonObject json) {
             ShapelessRecipe recipe = serializer.read(recipeId, json);
-            return new CustomShapeless(recipe.getId(), recipe.getRecipeOutput(), recipe.getIngredients());
+            return new CustomShapelessRecipe(recipe.getId(), recipe.getRecipeOutput(), recipe.getIngredients());
         }
 
-
-        public CustomShapeless read(ResourceLocation recipeId, PacketBuffer buffer) {
+        @Override
+        public CustomShapelessRecipe read(ResourceLocation recipeId, PacketBuffer buffer) {
             ShapelessRecipe recipe = serializer.read(recipeId, buffer);
-            return new CustomShapeless(recipe.getId(), recipe.getRecipeOutput(), recipe.getIngredients());
+            return new CustomShapelessRecipe(recipe.getId(), recipe.getRecipeOutput(), recipe.getIngredients());
         }
 
-        public void write(PacketBuffer buffer, CustomShapeless recipe) {
+        @Override
+        public void write(PacketBuffer buffer, CustomShapelessRecipe recipe) {
             serializer.write(buffer, recipe);
         }
         //endregion Overrides

@@ -28,7 +28,6 @@ import com.github.klikli_dev.occultism.common.ritual.pentacle.Pentacle;
 import com.github.klikli_dev.occultism.common.tile.GoldenSacrificialBowlTileEntity;
 import com.github.klikli_dev.occultism.common.tile.SacrificialBowlTileEntity;
 import com.github.klikli_dev.occultism.registry.OccultismSounds;
-import com.github.klikli_dev.occultism.util.StaticUtil;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.player.PlayerEntity;
@@ -37,7 +36,6 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.item.crafting.RecipeManager;
 import net.minecraft.particles.ParticleTypes;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
@@ -47,14 +45,12 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
-import net.minecraftforge.fml.server.ServerLifecycleHooks;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.BiFunction;
 import java.util.function.Predicate;
 
 public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
@@ -86,32 +82,28 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
      * The SpiritTrade recipe id representing the additional ingredients for this ritual.
      */
     public ResourceLocation additionalIngredientsRecipeId;
-
-    /**
-     * The additional ingredients required to finish the ritual.
-     * These ingredients need to be placed within the ritual area.
-     */
-    public List<Ingredient> additionalIngredients;
-
     /**
      * The predicate to check sacrifices against.
      */
     public Predicate<LivingEntity> sacrificePredicate;
-
     /**
      * The range to look for sacrificial bowls for additional ingredients.
      */
     public int sacrificialBowlRange;
-
     /**
      * The total time in seconds it takes to finish the ritual.
      */
     public int totalSeconds;
-
     /**
      * The ritual time to pass per ingredient.
      */
     public float timePerIngredient;
+    /**
+     * The additional ingredients required to finish the ritual.
+     * These ingredients need to be placed within the ritual area.
+     */
+    protected List<Ingredient> additionalIngredients;
+    protected boolean additionalIngredientsLoaded;
     //endregion Fields
 
 
@@ -201,8 +193,7 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
         this.sacrificialBowlRange = sacrificialBowlRange;
         this.sacrificePredicate = sacrificePredicate;
         this.totalSeconds = totalSeconds;
-        this.timePerIngredient = this.totalSeconds / (float) this.additionalIngredients.size();
-        this.registerAdditionalIngredients();
+        this.timePerIngredient = this.totalSeconds;
     }
     //endregion Initialization
 
@@ -238,13 +229,25 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
     //endregion Getter / Setter
 
     //region Methods
+    /**
+     * The additional ingredients required to finish the ritual.
+     * These ingredients need to be placed within the ritual area.
+     */
+    public List<Ingredient> getAdditionalIngredients(World world) {
+        if (!this.additionalIngredientsLoaded) {
+            //this is lazily loading the ingredients.
+            this.registerAdditionalIngredients(world.getRecipeManager());
+        }
+        return this.additionalIngredients;
+    }
 
     /**
      * Gets the additional ingredients from the recipe registry.
      */
-    public void registerAdditionalIngredients() {
-        if (this.additionalIngredientsRecipeId != null) {
-            Optional<? extends IRecipe<?>> recipe = StaticUtil.getRecipeManager().getRecipe(this.additionalIngredientsRecipeId);
+    public void registerAdditionalIngredients(RecipeManager recipeManager) {
+        this.additionalIngredientsLoaded = true;
+        if (this.additionalIngredientsRecipeId != null && recipeManager != null) {
+            Optional<? extends IRecipe<?>> recipe = recipeManager.getRecipe(this.additionalIngredientsRecipeId);
             if (recipe.isPresent()) {
                 this.additionalIngredients = recipe.get().getIngredients();
                 this.timePerIngredient = this.totalSeconds / (float) this.additionalIngredients.size();
@@ -363,7 +366,7 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
      */
     public boolean identify(World world, BlockPos goldenBowlPosition, ItemStack activationItem) {
         return this.startingItem.test(activationItem) &&
-               this.areAdditionalIngredientsFulfilled(world, goldenBowlPosition, this.additionalIngredients) &&
+               this.areAdditionalIngredientsFulfilled(world, goldenBowlPosition, this.getAdditionalIngredients(world)) &&
                this.pentacle.getBlockMatcher().validate(world, goldenBowlPosition) != null;
     }
 
@@ -382,7 +385,7 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
             return true;
 
         int totalIngredientsToConsume = (int) Math.floor(time / this.timePerIngredient);
-        int ingredientsConsumed = this.additionalIngredients.size() - remainingAdditionalIngredients.size();
+        int ingredientsConsumed = this.getAdditionalIngredients(world).size() - remainingAdditionalIngredients.size();
 
         int ingredientsToConsume = totalIngredientsToConsume - ingredientsConsumed;
         if (ingredientsToConsume == 0)

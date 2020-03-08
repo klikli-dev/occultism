@@ -1,0 +1,14 @@
+{
+  "multipart": [
+    {
+      "apply": [
+        {
+          "model": "occultism:block/spirit_fire_layer_0"
+        },
+        {
+          "model": "occultism:block/spirit_fire_layer_1"
+        }
+      ]
+    }
+  ]
+}

@@ -23,16 +23,15 @@
 package com.github.klikli_dev.occultism.registry;
 
 import com.github.klikli_dev.occultism.Occultism;
-import com.github.klikli_dev.occultism.common.block.CandleBlock;
-import com.github.klikli_dev.occultism.common.block.ChalkGlyphBlock;
-import com.github.klikli_dev.occultism.common.block.GoldenSacrificialBowlBlock;
-import com.github.klikli_dev.occultism.common.block.SacrificialBowlBlock;
+import com.github.klikli_dev.occultism.common.block.*;
+import com.github.klikli_dev.occultism.common.block.crops.ReplantableCropsBlock;
 import com.github.klikli_dev.occultism.common.block.storage.StableWormholeBlock;
 import com.github.klikli_dev.occultism.common.block.storage.StorageControllerBlock;
 import com.github.klikli_dev.occultism.common.block.storage.StorageStabilizerBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.material.MaterialColor;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
@@ -50,28 +49,46 @@ public class OccultismBlocks {
     public static final Map<ResourceLocation, BlockDataGenSettings> BLOCK_DATA_GEN_SETTINGS = new HashMap<>();
 
     //Blocks without item
+    public static final RegistryObject<SpiritFireBlock> SPIRIT_FIRE = register("spirit_fire",
+            () -> new SpiritFireBlock(Block.Properties.create(Material.FIRE, MaterialColor.TNT).doesNotBlockMovement().tickRandomly()
+                                              .hardnessAndResistance(0, 0)
+                                              .lightValue(12).sound(SoundType.CLOTH).noDrops()), false,
+            LootTableType.EMPTY);
+
     public static final Block.Properties GLYPH_PROPERTIES = Block.Properties.create(Material.MISCELLANEOUS)
                                                                     .sound(SoundType.CLOTH).doesNotBlockMovement()
-                                                                    .hardnessAndResistance(5f, 30).notSolid();
+                                                                    .hardnessAndResistance(5f, 30)
+                                                                    .notSolid().noDrops();
     public static final RegistryObject<ChalkGlyphBlock> CHALK_GLYPH_WHITE = register("chalk_glyph_white",
-            () -> new ChalkGlyphBlock(GLYPH_PROPERTIES, 0xffffff), false, LootTableType.EMPTY);
+            () -> new ChalkGlyphBlock(GLYPH_PROPERTIES, 0xffffff, () -> OccultismItems.CHALK_WHITE.get()),
+            false, LootTableType.EMPTY);
     public static final RegistryObject<ChalkGlyphBlock> CHALK_GLYPH_GOLD = register("chalk_glyph_gold",
-            () -> new ChalkGlyphBlock(GLYPH_PROPERTIES, 0xf0d700), false, LootTableType.EMPTY);
+            () -> new ChalkGlyphBlock(GLYPH_PROPERTIES, 0xf0d700, () -> OccultismItems.CHALK_GOLD.get()), false,
+            LootTableType.EMPTY);
     public static final RegistryObject<ChalkGlyphBlock> CHALK_GLYPH_PURPLE = register("chalk_glyph_purple",
-            () -> new ChalkGlyphBlock(GLYPH_PROPERTIES, 0x9c0393), false, LootTableType.EMPTY);
+            () -> new ChalkGlyphBlock(GLYPH_PROPERTIES, 0x9c0393, () -> OccultismItems.CHALK_PURPLE.get()),
+            false, LootTableType.EMPTY);
     public static final RegistryObject<ChalkGlyphBlock> CHALK_GLYPH_RED = register("chalk_glyph_red",
-            () -> new ChalkGlyphBlock(GLYPH_PROPERTIES, 0xcc0101), false, LootTableType.EMPTY);
+            () -> new ChalkGlyphBlock(GLYPH_PROPERTIES, 0xcc0101, () -> OccultismItems.CHALK_RED.get()), false,
+            LootTableType.EMPTY);
 
     //Decorative and Ritual Blocks
     public static final RegistryObject<CandleBlock> CANDLE_WHITE = register("candle_white", () -> new CandleBlock(
             Block.Properties.create(Material.MISCELLANEOUS).sound(SoundType.CLOTH).doesNotBlockMovement()
                     .hardnessAndResistance(0.1f, 0).lightValue(12)));
+    public static final RegistryObject<SpiritAttunedCrystalBlock> SPIRIT_ATTUNED_CRYSTAL = register("spirit_attuned_crystal", () -> new SpiritAttunedCrystalBlock(
+            Block.Properties.create(Material.ROCK).sound(SoundType.STONE).notSolid()
+                    .hardnessAndResistance(1.5f, 30).lightValue(8)));
 
     //Machines
-    public static final RegistryObject<SacrificialBowlBlock> SACRIFICIAL_BOWL = register("sacrificial_bowl", () -> new SacrificialBowlBlock(
-            Block.Properties.create(Material.ROCK).sound(SoundType.STONE).hardnessAndResistance(1.5f, 30).notSolid()));
-    public static final RegistryObject<GoldenSacrificialBowlBlock> GOLDEN_SACRIFICIAL_BOWL = register("golden_sacrificial_bowl", () -> new GoldenSacrificialBowlBlock(
-            Block.Properties.create(Material.ROCK).sound(SoundType.STONE).hardnessAndResistance(1.5f, 30).notSolid()));
+    public static final RegistryObject<SacrificialBowlBlock> SACRIFICIAL_BOWL =
+            register("sacrificial_bowl", () -> new SacrificialBowlBlock(
+                    Block.Properties.create(Material.ROCK).sound(SoundType.STONE).hardnessAndResistance(1.5f, 30)
+                            .notSolid()));
+    public static final RegistryObject<GoldenSacrificialBowlBlock> GOLDEN_SACRIFICIAL_BOWL =
+            register("golden_sacrificial_bowl", () -> new GoldenSacrificialBowlBlock(
+                    Block.Properties.create(Material.ROCK).sound(SoundType.STONE).hardnessAndResistance(1.5f, 30)
+                            .notSolid()));
 
     public static final RegistryObject<StorageControllerBlock> STORAGE_CONTROLLER = register("storage_controller",
             () -> new StorageControllerBlock(
@@ -99,6 +116,14 @@ public class OccultismBlocks {
                     Block.Properties.create(Material.ROCK).sound(SoundType.STONE).doesNotBlockMovement()
                             .hardnessAndResistance(2f, 2).notSolid()), false, LootTableType.EMPTY);
 
+    //Crops
+    public static final RegistryObject<ReplantableCropsBlock> DATURA = register("datura",
+            () -> new ReplantableCropsBlock(
+                    Block.Properties.create(Material.PLANTS).sound(SoundType.CROP).doesNotBlockMovement().tickRandomly()
+                            //registry object is wrapped in lambda to account for load order and circular dependencies
+                            .hardnessAndResistance(0, 0), () -> OccultismItems.DATURA_SEEDS.get(),
+                    () -> OccultismItems.DATURA.get()), false, LootTableType.REPLANTABLE_CROP);
+
     //endregion Fields
 
     //region Static Methods
@@ -123,6 +148,7 @@ public class OccultismBlocks {
     public enum LootTableType {
         EMPTY,
         DROP_SELF,
+        REPLANTABLE_CROP,
         CUSTOM
     }
 

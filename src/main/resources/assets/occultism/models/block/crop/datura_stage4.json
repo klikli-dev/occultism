@@ -1,0 +1,6 @@
+{
+  "parent": "block/cross",
+  "textures": {
+    "cross": "occultism:block/crop/datura_stage4"
+  }
+}

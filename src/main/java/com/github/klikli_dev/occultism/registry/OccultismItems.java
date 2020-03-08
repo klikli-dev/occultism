@@ -24,12 +24,15 @@ package com.github.klikli_dev.occultism.registry;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.TranslationKeys;
+import com.github.klikli_dev.occultism.common.block.SpiritFireBlock;
 import com.github.klikli_dev.occultism.common.item.*;
 import com.github.klikli_dev.occultism.common.item.spirit.BookOfBindingBoundItem;
 import com.github.klikli_dev.occultism.common.item.spirit.BookOfBindingItem;
 import com.github.klikli_dev.occultism.common.item.spirit.BookOfCallingItem;
 import com.github.klikli_dev.occultism.common.item.storage.StableWormholeBlockItem;
 import com.github.klikli_dev.occultism.common.item.storage.StorageRemoteItem;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.BlockNamedItem;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
@@ -52,23 +55,31 @@ public class OccultismItems {
     public static final RegistryObject<Item> DEBUG_FOLIOT_TRADER_ITEM = ITEMS.register("debug_foliot_trader",
             () -> new SummonFoliotTraderItem(defaultProperties().maxStackSize(1)));
 
+    public static final RegistryObject<BlockItem> SPIRIT_FIRE = ITEMS.register("spirit_fire", () -> new BlockItem(OccultismBlocks.SPIRIT_FIRE.get(), defaultProperties()));
+
     //Resources
     //Components
     public static final RegistryObject<Item> DIMENSIONAL_MATRIX = ITEMS.register("dimensional_matrix",
-            () -> new Item(new Item.Properties()));
+            () -> new Item(defaultProperties()));
+    public static final RegistryObject<Item> SPIRIT_ATTUNED_GEM = ITEMS.register("spirit_attuned_gem",
+            () -> new Item(defaultProperties()));
 
     //Tools
     public static final RegistryObject<Item> STORAGE_REMOTE = ITEMS.register("storage_remote",
             () -> new StorageRemoteItem(defaultProperties().maxStackSize(1)));
 
     public static final RegistryObject<Item> CHALK_WHITE = ITEMS.register("chalk_white",
-            () -> new ChalkItem(defaultProperties().setNoRepair().maxDamage(128), OccultismBlocks.CHALK_GLYPH_WHITE));
+            () -> new ChalkItem(defaultProperties().setNoRepair().maxDamage(128),
+                    () -> OccultismBlocks.CHALK_GLYPH_WHITE.get()));
     public static final RegistryObject<Item> CHALK_GOLD = ITEMS.register("chalk_gold",
-            () -> new ChalkItem(defaultProperties().setNoRepair().maxDamage(128), OccultismBlocks.CHALK_GLYPH_GOLD));
+            () -> new ChalkItem(defaultProperties().setNoRepair().maxDamage(128),
+                    () -> OccultismBlocks.CHALK_GLYPH_GOLD.get()));
     public static final RegistryObject<Item> CHALK_PURPLE = ITEMS.register("chalk_purple",
-            () -> new ChalkItem(defaultProperties().setNoRepair().maxDamage(128), OccultismBlocks.CHALK_GLYPH_PURPLE));
+            () -> new ChalkItem(defaultProperties().setNoRepair().maxDamage(128),
+                    () -> OccultismBlocks.CHALK_GLYPH_PURPLE.get()));
     public static final RegistryObject<Item> CHALK_RED = ITEMS.register("chalk_red",
-            () -> new ChalkItem(defaultProperties().setNoRepair().maxDamage(128), OccultismBlocks.CHALK_GLYPH_RED));
+            () -> new ChalkItem(defaultProperties().setNoRepair().maxDamage(128),
+                    () -> OccultismBlocks.CHALK_GLYPH_RED.get()));
 
     //Books of Binding
     public static final RegistryObject<BookOfBindingItem> BOOK_OF_BINDING_FOLIOT = ITEMS.register(
@@ -83,16 +94,25 @@ public class OccultismItems {
     //Foliot
     public static final RegistryObject<BookOfCallingItem> BOOK_OF_CALLING_FOLIOT_LUMBERJACK = ITEMS.register(
             "book_of_calling_foliot_lumberjack",
-            () -> new BookOfCallingItem(defaultProperties().maxStackSize(1), TranslationKeys.BOOK_OF_CALLING_GENERIC + "_foliot"));
+            () -> new BookOfCallingItem(defaultProperties().maxStackSize(1),
+                    TranslationKeys.BOOK_OF_CALLING_GENERIC + "_foliot"));
     public static final RegistryObject<BookOfCallingItem> BOOK_OF_CALLING_FOLIOT_MANAGE_MACHINE = ITEMS.register(
             "book_of_calling_foliot_manage_machine",
-            () -> new BookOfCallingItem(defaultProperties().maxStackSize(1), TranslationKeys.BOOK_OF_CALLING_GENERIC + "_foliot"));
+            () -> new BookOfCallingItem(defaultProperties().maxStackSize(1),
+                    TranslationKeys.BOOK_OF_CALLING_GENERIC + "_foliot"));
     //Djinn
 
     //Machines
     public static final RegistryObject<StableWormholeBlockItem> STABLE_WORMHOLE = ITEMS.register("stable_wormhole",
             () -> new StableWormholeBlockItem(OccultismBlocks.STABLE_WORMHOLE.get(), defaultProperties()));
 
+    //Crops
+    public static final RegistryObject<Item> DATURA_SEEDS =
+            ITEMS.register("datura_seeds", () -> new BlockNamedItem(OccultismBlocks.DATURA.get(), defaultProperties()));
+
+    //Foods
+    public static final RegistryObject<Item> DATURA = ITEMS.register("datura",
+            () -> new Item(defaultProperties().food(OccultismFoods.DATURA.get())));
 
     //endregion Fields
 

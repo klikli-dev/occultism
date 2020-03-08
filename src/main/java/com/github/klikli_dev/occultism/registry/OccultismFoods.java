@@ -20,18 +20,17 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.github.klikli_dev.occultism.util;
+package com.github.klikli_dev.occultism.registry;
 
-import com.github.klikli_dev.occultism.Occultism;
-import net.minecraft.client.Minecraft;
-import net.minecraft.item.crafting.RecipeManager;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.server.ServerLifecycleHooks;
+import net.minecraft.item.Food;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Effects;
+import net.minecraftforge.common.util.NonNullLazy;
 
-public class StaticUtil {
-
-    public static ResourceLocation modLoc(String path){
-        return new ResourceLocation(Occultism.MODID, path);
-    }
+public class OccultismFoods {
+    public static final NonNullLazy<Food> DATURA = NonNullLazy.of(
+            () -> new Food.Builder().hunger(0).saturation(0).setAlwaysEdible()
+                          .effect(() -> new EffectInstance(OccultismEffects.THIRD_EYE.get(), 15*20, 1), 0.7f)
+                          .effect(() -> new EffectInstance(Effects.HUNGER, 15*20, 1), 1.0f)
+                          .build());
 }

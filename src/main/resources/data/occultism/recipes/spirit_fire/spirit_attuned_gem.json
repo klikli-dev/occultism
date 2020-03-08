@@ -1,0 +1,11 @@
+{
+  "type": "occultism:spirit_fire",
+  "ingredient": [
+    {
+      "tag": "forge:gems/diamond"
+    }
+  ],
+  "result": {
+    "item": "occultism:spirit_attuned_gem"
+  }
+}

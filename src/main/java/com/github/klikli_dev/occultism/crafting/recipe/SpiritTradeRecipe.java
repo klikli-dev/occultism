@@ -22,7 +22,6 @@
 
 package com.github.klikli_dev.occultism.crafting.recipe;
 
-import com.github.klikli_dev.occultism.client.render.OccultismRenderType;
 import com.github.klikli_dev.occultism.registry.OccultismRecipes;
 import com.google.gson.JsonObject;
 import net.minecraft.inventory.CraftingInventory;
@@ -38,19 +37,16 @@ import net.minecraft.world.World;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import javax.annotation.Nonnull;
-import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.github.klikli_dev.occultism.util.StaticUtil.modLoc;
-
-public class SpiritTrade extends ShapelessRecipe {
+public class SpiritTradeRecipe extends ShapelessRecipe {
     public static Serializer SERIALIZER = new Serializer();
 
     //region Initialization
-    public SpiritTrade(ResourceLocation id, ItemStack result, NonNullList<Ingredient> input) {
+    public SpiritTradeRecipe(ResourceLocation id, ItemStack result, NonNullList<Ingredient> input) {
         super(id, null, result, input);
     }
     //endregion Initialization
@@ -128,24 +124,26 @@ public class SpiritTrade extends ShapelessRecipe {
     }
     //endregion Methods
 
-    public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<SpiritTrade> {
+    public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<SpiritTradeRecipe> {
         //region Fields
         private static final ShapelessRecipe.Serializer serializer = new ShapelessRecipe.Serializer();
         //endregion Fields
 
         //region Overrides
-        public SpiritTrade read(ResourceLocation recipeId, JsonObject json) {
+        @Override
+        public SpiritTradeRecipe read(ResourceLocation recipeId, JsonObject json) {
             ShapelessRecipe recipe = serializer.read(recipeId, json);
-            return new SpiritTrade(recipe.getId(), recipe.getRecipeOutput(), recipe.getIngredients());
+            return new SpiritTradeRecipe(recipe.getId(), recipe.getRecipeOutput(), recipe.getIngredients());
         }
 
-
-        public SpiritTrade read(ResourceLocation recipeId, PacketBuffer buffer) {
+        @Override
+        public SpiritTradeRecipe read(ResourceLocation recipeId, PacketBuffer buffer) {
             ShapelessRecipe recipe = serializer.read(recipeId, buffer);
-            return new SpiritTrade(recipe.getId(), recipe.getRecipeOutput(), recipe.getIngredients());
+            return new SpiritTradeRecipe(recipe.getId(), recipe.getRecipeOutput(), recipe.getIngredients());
         }
 
-        public void write(PacketBuffer buffer, SpiritTrade recipe) {
+        @Override
+        public void write(PacketBuffer buffer, SpiritTradeRecipe recipe) {
             serializer.write(buffer, recipe);
         }
         //endregion Overrides

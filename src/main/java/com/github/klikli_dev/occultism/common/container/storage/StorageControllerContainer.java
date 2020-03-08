@@ -89,14 +89,14 @@ public class StorageControllerContainer extends StorageControllerContainerBase {
             this.storageController.getMatrix().put(i, this.matrix.getStackInSlot(i));
         }
         if (force)
-            TileEntityUtil.updateTile(this.storageController.getWorld(), this.storageController.getPos());
+            this.storageController.markNetworkDirty();
     }
 
     @Override
     public void updateOrderSlot(boolean force) {
         this.storageController.setOrderStack(this.orderInventory.getStackInSlot(0));
         if (force)
-            TileEntityUtil.updateTile(this.storageController.getWorld(), this.storageController.getPos());
+            this.storageController.markNetworkDirty();
     }
 
     @Override

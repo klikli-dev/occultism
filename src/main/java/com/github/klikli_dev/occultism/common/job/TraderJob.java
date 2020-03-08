@@ -24,12 +24,11 @@ package com.github.klikli_dev.occultism.common.job;
 
 import com.github.klikli_dev.occultism.common.entity.ai.PickupItemsGoal;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
-import com.github.klikli_dev.occultism.crafting.recipe.SpiritTrade;
+import com.github.klikli_dev.occultism.crafting.recipe.SpiritTradeRecipe;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.item.crafting.RecipeManager;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.Hand;
@@ -52,7 +51,7 @@ public class TraderJob extends SpiritJob {
 
     protected PickupItemsGoal pickupItemsGoal;
 
-    protected SpiritTrade trade;
+    protected SpiritTradeRecipe trade;
     protected int maxTradesPerRound = 4;
     //endregion Fields
 
@@ -86,8 +85,8 @@ public class TraderJob extends SpiritJob {
         this.trade = null;
         Optional<? extends IRecipe<?>> recipe = this.entity.world.getRecipeManager().getRecipe(recipeId);
         recipe.ifPresent(r -> {
-            if (r instanceof SpiritTrade)
-                this.trade = (SpiritTrade) r;
+            if (r instanceof SpiritTradeRecipe)
+                this.trade = (SpiritTradeRecipe) r;
         });
     }
 

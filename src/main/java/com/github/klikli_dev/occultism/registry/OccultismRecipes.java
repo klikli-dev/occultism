@@ -23,8 +23,9 @@
 package com.github.klikli_dev.occultism.registry;
 
 import com.github.klikli_dev.occultism.Occultism;
-import com.github.klikli_dev.occultism.crafting.recipe.CustomShapeless;
-import com.github.klikli_dev.occultism.crafting.recipe.SpiritTrade;
+import com.github.klikli_dev.occultism.crafting.recipe.CustomShapelessRecipe;
+import com.github.klikli_dev.occultism.crafting.recipe.SpiritTradeRecipe;
+import com.github.klikli_dev.occultism.crafting.recipe.SpiritFireRecipe;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraftforge.common.util.NonNullLazy;
@@ -37,15 +38,19 @@ public class OccultismRecipes {
     public static final DeferredRegister<IRecipeSerializer<?>> RECIPES = new DeferredRegister<>(
             ForgeRegistries.RECIPE_SERIALIZERS, Occultism.MODID);
 
-    public static final NonNullLazy<IRecipeType<SpiritTrade>> SPIRIT_TRADE_TYPE =
+    public static final NonNullLazy<IRecipeType<SpiritTradeRecipe>> SPIRIT_TRADE_TYPE =
             NonNullLazy.of(() -> IRecipeType.register("occultism:spirit_trade"));
+    public static final NonNullLazy<IRecipeType<SpiritFireRecipe>> SPIRIT_FIRE_TYPE =
+            NonNullLazy.of(() -> IRecipeType.register("occultism:spirit_fire"));
     public static final NonNullLazy<IRecipeType<?>> CUSTOM_SHAPELESS_TYPE =
             NonNullLazy.of(() -> IRecipeType.CRAFTING);
 
-    public static final RegistryObject<IRecipeSerializer<SpiritTrade>> SPIRIT_TRADE = RECIPES.register("spirit_trade",
-            () -> SpiritTrade.SERIALIZER);
-    public static final RegistryObject<IRecipeSerializer<CustomShapeless>> CUSTOM_SHAPELESS = RECIPES.register("custom_shapeless",
-            () -> CustomShapeless.SERIALIZER);
+    public static final RegistryObject<IRecipeSerializer<SpiritTradeRecipe>> SPIRIT_TRADE = RECIPES.register("spirit_trade",
+            () -> SpiritTradeRecipe.SERIALIZER);
+    public static final RegistryObject<IRecipeSerializer<SpiritFireRecipe>> SPIRIT_FIRE = RECIPES.register("spirit_fire",
+            () -> SpiritFireRecipe.SERIALIZER);
+    public static final RegistryObject<IRecipeSerializer<CustomShapelessRecipe>> CUSTOM_SHAPELESS = RECIPES.register("custom_shapeless",
+            () -> CustomShapelessRecipe.SERIALIZER);
 
     //endregion Fields
 
