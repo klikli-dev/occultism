@@ -73,7 +73,7 @@ public class TileEntityUtil {
      * @param pos
      */
     public static void updateTile(World world, BlockPos pos) {
-        if (world.isRemote || !world.isBlockLoaded(pos)) {
+        if (world == null || world.isRemote || !world.isBlockLoaded(pos)) {
             return;
         }
 
