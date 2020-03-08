@@ -22,10 +22,15 @@
 
 package com.github.klikli_dev.occultism.datagen;
 
+import com.github.klikli_dev.occultism.common.block.crops.IReplantableCrops;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
+import net.minecraft.advancements.criterion.StatePropertiesPredicate;
 import net.minecraft.block.Block;
+import net.minecraft.block.CropsBlock;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.world.storage.loot.LootTable;
+import net.minecraft.world.storage.loot.conditions.BlockStateProperty;
+import net.minecraft.world.storage.loot.conditions.ILootCondition;
 import net.minecraftforge.fml.RegistryObject;
 
 public class StandardLootTableProvider extends BaseLootTableProvider {
@@ -59,6 +64,16 @@ public class StandardLootTableProvider extends BaseLootTableProvider {
                                                                                 .get(block.getRegistryName());
                         if (settings.lootTableType == OccultismBlocks.LootTableType.EMPTY)
                             this.registerDropNothingLootTable(block);
+                        else if (settings.lootTableType == OccultismBlocks.LootTableType.REPLANTABLE_CROP) {
+                            IReplantableCrops cropsBlock = (IReplantableCrops) block;
+                            ILootCondition.IBuilder lootCondition =
+                                    BlockStateProperty.builder(block).fromProperties(
+                                            StatePropertiesPredicate.Builder.newBuilder()
+                                                    .withIntProp(CropsBlock.AGE, 7));
+                            this.registerLootTable(block,
+                                    droppingAndBonusWhen(block, cropsBlock.getCropsItem().asItem(),
+                                            cropsBlock.getSeedsItem().asItem(), lootCondition));
+                        }
                         else if (settings.lootTableType == OccultismBlocks.LootTableType.DROP_SELF)
                             this.registerDropSelfLootTable(block);
                     });

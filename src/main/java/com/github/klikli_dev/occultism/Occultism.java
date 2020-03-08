@@ -136,6 +136,8 @@ public class Occultism {
         RenderTypeLookup.setRenderLayer(OccultismBlocks.CHALK_GLYPH_RED.get(), RenderType.getCutoutMipped());
         RenderTypeLookup.setRenderLayer(OccultismBlocks.STABLE_WORMHOLE.get(), RenderType.getTranslucent());
 
+        RenderTypeLookup.setRenderLayer(OccultismBlocks.DATURA.get(), RenderType.getCutoutMipped());
+
         //Not safe to call during parallel load, so register just after.
         DeferredWorkQueue.runLater(() -> {
             //Register screen factories

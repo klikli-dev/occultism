@@ -30,10 +30,8 @@ import com.github.klikli_dev.occultism.common.item.spirit.BookOfBindingItem;
 import com.github.klikli_dev.occultism.common.item.spirit.BookOfCallingItem;
 import com.github.klikli_dev.occultism.common.item.storage.StableWormholeBlockItem;
 import com.github.klikli_dev.occultism.common.item.storage.StorageRemoteItem;
-import net.minecraft.item.Food;
+import net.minecraft.item.BlockNamedItem;
 import net.minecraft.item.Item;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Effects;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -86,10 +84,12 @@ public class OccultismItems {
     //Foliot
     public static final RegistryObject<BookOfCallingItem> BOOK_OF_CALLING_FOLIOT_LUMBERJACK = ITEMS.register(
             "book_of_calling_foliot_lumberjack",
-            () -> new BookOfCallingItem(defaultProperties().maxStackSize(1), TranslationKeys.BOOK_OF_CALLING_GENERIC + "_foliot"));
+            () -> new BookOfCallingItem(defaultProperties().maxStackSize(1),
+                    TranslationKeys.BOOK_OF_CALLING_GENERIC + "_foliot"));
     public static final RegistryObject<BookOfCallingItem> BOOK_OF_CALLING_FOLIOT_MANAGE_MACHINE = ITEMS.register(
             "book_of_calling_foliot_manage_machine",
-            () -> new BookOfCallingItem(defaultProperties().maxStackSize(1), TranslationKeys.BOOK_OF_CALLING_GENERIC + "_foliot"));
+            () -> new BookOfCallingItem(defaultProperties().maxStackSize(1),
+                    TranslationKeys.BOOK_OF_CALLING_GENERIC + "_foliot"));
     //Djinn
 
     //Machines
@@ -97,6 +97,8 @@ public class OccultismItems {
             () -> new StableWormholeBlockItem(OccultismBlocks.STABLE_WORMHOLE.get(), defaultProperties()));
 
     //Crops
+    public static final RegistryObject<Item> DATURA_SEEDS =
+            ITEMS.register("datura_seeds", () -> new BlockNamedItem(OccultismBlocks.DATURA.get(), defaultProperties()));
 
     //Foods
     public static final RegistryObject<Item> DATURA = ITEMS.register("datura",
