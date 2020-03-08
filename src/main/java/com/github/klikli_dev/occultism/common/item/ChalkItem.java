@@ -38,17 +38,17 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.ForgeRegistries;
 
+import java.util.function.Supplier;
+
 public class ChalkItem extends Item {
 //region Fields
-    RegistryObject<ChalkGlyphBlock> glyphBlock;
+Supplier<ChalkGlyphBlock> glyphBlock;
 //endregion Fields
 
     //region Initialization
-    public ChalkItem(Properties properties, RegistryObject<ChalkGlyphBlock> glyphBlock) {
+    public ChalkItem(Properties properties, Supplier<ChalkGlyphBlock> glyphBlock) {
         super(properties);
         this.glyphBlock = glyphBlock;
-        //Link the chalk back from the block
-        this.glyphBlock.get().setChalk(RegistryObject.of(glyphBlock.getId(), ForgeRegistries.ITEMS));
     }
 
     //endregion Initialization

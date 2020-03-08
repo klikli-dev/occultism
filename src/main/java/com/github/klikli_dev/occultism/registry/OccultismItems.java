@@ -63,13 +63,17 @@ public class OccultismItems {
             () -> new StorageRemoteItem(defaultProperties().maxStackSize(1)));
 
     public static final RegistryObject<Item> CHALK_WHITE = ITEMS.register("chalk_white",
-            () -> new ChalkItem(defaultProperties().setNoRepair().maxDamage(128), OccultismBlocks.CHALK_GLYPH_WHITE));
+            () -> new ChalkItem(defaultProperties().setNoRepair().maxDamage(128),
+                    () -> OccultismBlocks.CHALK_GLYPH_WHITE.get()));
     public static final RegistryObject<Item> CHALK_GOLD = ITEMS.register("chalk_gold",
-            () -> new ChalkItem(defaultProperties().setNoRepair().maxDamage(128), OccultismBlocks.CHALK_GLYPH_GOLD));
+            () -> new ChalkItem(defaultProperties().setNoRepair().maxDamage(128),
+                    () -> OccultismBlocks.CHALK_GLYPH_GOLD.get()));
     public static final RegistryObject<Item> CHALK_PURPLE = ITEMS.register("chalk_purple",
-            () -> new ChalkItem(defaultProperties().setNoRepair().maxDamage(128), OccultismBlocks.CHALK_GLYPH_PURPLE));
+            () -> new ChalkItem(defaultProperties().setNoRepair().maxDamage(128),
+                    () -> OccultismBlocks.CHALK_GLYPH_PURPLE.get()));
     public static final RegistryObject<Item> CHALK_RED = ITEMS.register("chalk_red",
-            () -> new ChalkItem(defaultProperties().setNoRepair().maxDamage(128), OccultismBlocks.CHALK_GLYPH_RED));
+            () -> new ChalkItem(defaultProperties().setNoRepair().maxDamage(128),
+                    () -> OccultismBlocks.CHALK_GLYPH_RED.get()));
 
     //Books of Binding
     public static final RegistryObject<BookOfBindingItem> BOOK_OF_BINDING_FOLIOT = ITEMS.register(

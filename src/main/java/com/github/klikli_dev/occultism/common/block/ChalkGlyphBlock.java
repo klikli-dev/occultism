@@ -47,6 +47,7 @@ import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
+import java.util.function.Supplier;
 
 public class ChalkGlyphBlock extends Block {
     //region Fields
@@ -57,14 +58,15 @@ public class ChalkGlyphBlock extends Block {
 
     private static final VoxelShape SHAPE = Block.makeCuboidShape(0, 0, 0, 16, 0.04, 16);
 
-    protected RegistryObject<Item> chalk;
+    protected Supplier<Item> chalk;
     protected int color;
     //endregion Fields
 
     //region Initialization
-    public ChalkGlyphBlock(Properties properties, int color) {
+    public ChalkGlyphBlock(Properties properties, int color, Supplier<Item>chalk) {
         super(properties);
         this.color = color;
+        this.chalk = chalk;
     }
     //endregion Initialization
 
@@ -77,13 +79,10 @@ public class ChalkGlyphBlock extends Block {
         this.color = color;
     }
 
-    public RegistryObject<Item> getChalk() {
-        return chalk;
+    public Item getChalk() {
+        return chalk.get();
     }
 
-    public void setChalk(RegistryObject<Item> chalk) {
-        this.chalk = chalk;
-    }
     //endregion Getter / Setter
 
     //region Overrides
@@ -143,8 +142,8 @@ public class ChalkGlyphBlock extends Block {
     public ItemStack getPickBlock(BlockState state, RayTraceResult target, IBlockReader world, BlockPos pos,
                                   PlayerEntity player) {
         if (ForgeRegistries.ITEMS.containsKey(
-                this.getChalk().getId()))//fix for startup crash related to patchouli getting pick block too early
-            return new ItemStack(this.getChalk().get());
+                this.getChalk().getRegistryName()))//fix for startup crash related to patchouli getting pick block too early
+            return new ItemStack(this.getChalk());
         return ItemStack.EMPTY;
     }
 

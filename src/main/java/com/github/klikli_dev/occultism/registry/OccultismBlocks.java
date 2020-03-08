@@ -55,13 +55,17 @@ public class OccultismBlocks {
                                                                     .sound(SoundType.CLOTH).doesNotBlockMovement()
                                                                     .hardnessAndResistance(5f, 30).notSolid();
     public static final RegistryObject<ChalkGlyphBlock> CHALK_GLYPH_WHITE = register("chalk_glyph_white",
-            () -> new ChalkGlyphBlock(GLYPH_PROPERTIES, 0xffffff), false, LootTableType.EMPTY);
+            () -> new ChalkGlyphBlock(GLYPH_PROPERTIES, 0xffffff, () -> OccultismItems.CHALK_WHITE.get()),
+            false, LootTableType.EMPTY);
     public static final RegistryObject<ChalkGlyphBlock> CHALK_GLYPH_GOLD = register("chalk_glyph_gold",
-            () -> new ChalkGlyphBlock(GLYPH_PROPERTIES, 0xf0d700), false, LootTableType.EMPTY);
+            () -> new ChalkGlyphBlock(GLYPH_PROPERTIES, 0xf0d700, () -> OccultismItems.CHALK_GOLD.get()), false,
+            LootTableType.EMPTY);
     public static final RegistryObject<ChalkGlyphBlock> CHALK_GLYPH_PURPLE = register("chalk_glyph_purple",
-            () -> new ChalkGlyphBlock(GLYPH_PROPERTIES, 0x9c0393), false, LootTableType.EMPTY);
+            () -> new ChalkGlyphBlock(GLYPH_PROPERTIES, 0x9c0393, () -> OccultismItems.CHALK_PURPLE.get()),
+            false, LootTableType.EMPTY);
     public static final RegistryObject<ChalkGlyphBlock> CHALK_GLYPH_RED = register("chalk_glyph_red",
-            () -> new ChalkGlyphBlock(GLYPH_PROPERTIES, 0xcc0101), false, LootTableType.EMPTY);
+            () -> new ChalkGlyphBlock(GLYPH_PROPERTIES, 0xcc0101, () -> OccultismItems.CHALK_RED.get()), false,
+            LootTableType.EMPTY);
 
     //Decorative and Ritual Blocks
     public static final RegistryObject<CandleBlock> CANDLE_WHITE = register("candle_white", () -> new CandleBlock(
