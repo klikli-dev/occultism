@@ -1,9 +1,9 @@
 {
   "variants": {
-    "unvovered=true": {
+    "uncovered=true": {
       "model": "occultism:block/otherstone"
     },
-    "unvovered=false": {
+    "uncovered=false": {
       "model": "minecraft:block/andesite"
     }
   }

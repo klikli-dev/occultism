@@ -64,7 +64,7 @@ public class OtherstoneNaturalBlock extends Block implements IOtherworldBlock {
 
     @Override
     public String getTranslationKey() {
-        return "block.andesite";
+        return "block.minecraft.andesite";
     }
 
     @Override
