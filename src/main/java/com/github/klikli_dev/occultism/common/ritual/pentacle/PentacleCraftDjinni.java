@@ -54,9 +54,7 @@ public class PentacleCraftDjinni extends Pentacle {
     protected void setupMapping() {
         super.setupMapping();
         this.mapping.addAll(Arrays.asList(
-                //TODO: enable once spirit attuned crystal is ready and remove quartz block mapping
-                //            'S',  StateMatcher.fromBlockLoose(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL.get()),
-                'S',  StateMatcher.fromBlockLoose(Blocks.QUARTZ_BLOCK),
+                'S',  StateMatcher.fromBlockLoose(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL.get()),
                 'C', StateMatcher.fromPredicate(OccultismBlocks.CANDLE_WHITE.get(),
                         b -> b.getBlock() instanceof CandleBlock)
         ));
