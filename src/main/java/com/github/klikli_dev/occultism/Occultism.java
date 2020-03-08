@@ -27,6 +27,7 @@ import com.github.klikli_dev.occultism.client.gui.storage.StorageControllerGui;
 import com.github.klikli_dev.occultism.client.gui.storage.StorageRemoteGui;
 import com.github.klikli_dev.occultism.client.render.OccultismRenderType;
 import com.github.klikli_dev.occultism.client.render.SelectedBlockRenderer;
+import com.github.klikli_dev.occultism.client.render.ThirdEyeEffectRenderer;
 import com.github.klikli_dev.occultism.client.render.entity.FoliotRenderer;
 import com.github.klikli_dev.occultism.client.render.tile.SacrificialBowlRenderer;
 import com.github.klikli_dev.occultism.client.render.tile.StorageControllerRenderer;
@@ -68,6 +69,7 @@ public class Occultism {
     public static final Logger LOGGER = LogManager.getLogger(MODID);
     public static final OccultismConfig CONFIG = new OccultismConfig();
     public static final SelectedBlockRenderer SELECTED_BLOCK_RENDERER = new SelectedBlockRenderer();
+    public static final ThirdEyeEffectRenderer THIRD_EYE_EFFECT_RENDERER = new ThirdEyeEffectRenderer();
     public static Occultism INSTANCE;
     //endregion Fields
 
@@ -92,7 +94,6 @@ public class Occultism {
         modEventBus.addListener(this::onModConfigEvent);
 
         MinecraftForge.EVENT_BUS.register(this);
-        MinecraftForge.EVENT_BUS.register(SELECTED_BLOCK_RENDERER);
     }
 
     //endregion Initialization
@@ -114,6 +115,11 @@ public class Occultism {
     }
 
     private void clientSetup(final FMLClientSetupEvent event) {
+        //Register client side event handlers
+        MinecraftForge.EVENT_BUS.register(SELECTED_BLOCK_RENDERER);
+        MinecraftForge.EVENT_BUS.register(THIRD_EYE_EFFECT_RENDERER);
+
+
         //Register Entity Renderers
         RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.FOLIOT.get(), FoliotRenderer::new);
 
