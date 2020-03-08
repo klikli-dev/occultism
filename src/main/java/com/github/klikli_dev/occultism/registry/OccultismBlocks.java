@@ -78,7 +78,7 @@ public class OccultismBlocks {
                     .hardnessAndResistance(0.1f, 0).lightValue(12)));
     public static final RegistryObject<SpiritAttunedCrystalBlock> SPIRIT_ATTUNED_CRYSTAL = register("spirit_attuned_crystal", () -> new SpiritAttunedCrystalBlock(
             Block.Properties.create(Material.ROCK).sound(SoundType.STONE).notSolid()
-                    .hardnessAndResistance(1.5f, 30).lightValue(2)));
+                    .hardnessAndResistance(1.5f, 30).lightValue(8)));
 
     //Machines
     public static final RegistryObject<SacrificialBowlBlock> SACRIFICIAL_BOWL =
