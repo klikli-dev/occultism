@@ -22,6 +22,7 @@
 
 package com.github.klikli_dev.occultism.client.render.tile;
 
+import com.github.klikli_dev.occultism.common.block.SpiritAttunedCrystalBlock;
 import com.github.klikli_dev.occultism.common.tile.SacrificialBowlTileEntity;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.Minecraft;
@@ -55,11 +56,12 @@ public class SacrificialBowlRenderer extends TileEntityRenderer<SacrificialBowlT
             matrixStack.push();
 
             //slowly bob up and down following a sine
-            double offset = Math.sin((time - tileEntity.lastChangeTime + partialTicks) / 16) / 16.0;
-            matrixStack.translate(0.5, 0.5 + offset, 0.5);
+            double offset = Math.sin((time - tileEntity.lastChangeTime + partialTicks) / 16) * 0.5f + 0.5f; // * 0.5f + 0.5f;  move sine between 0.0-1.0
+            offset = offset / 4.0f; //reduce amplitude
+            matrixStack.translate(0.5, 0.6 + offset, 0.5);
 
             //rotate item slowly around y axis
-            float angle =  (time + partialTicks) / 16.0f;
+            float angle = (time + partialTicks) / 16.0f;
             matrixStack.rotate(new Quaternion(new Vector3f(0, 1, 0), angle, false));
 
             //Fixed scale
@@ -80,9 +82,8 @@ public class SacrificialBowlRenderer extends TileEntityRenderer<SacrificialBowlT
     public static float getScale(ItemStack stack) {
         if (stack.getItem() instanceof BlockItem) {
             BlockItem itemBlock = (BlockItem) stack.getItem();
-            //TODO: Enable once spirit attuned crystal block is ready
-            //            if(itemBlock.getBlock() instanceof BlockSpiritAttunedCrystal)
-            //                return 3.0f;
+            if (itemBlock.getBlock() instanceof SpiritAttunedCrystalBlock)
+                return 3.0f;
         }
         return 1.0f;
     }
