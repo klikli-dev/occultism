@@ -53,7 +53,8 @@ public class OccultismBlocks {
     //Blocks without item
     public static final Block.Properties GLYPH_PROPERTIES = Block.Properties.create(Material.MISCELLANEOUS)
                                                                     .sound(SoundType.CLOTH).doesNotBlockMovement()
-                                                                    .hardnessAndResistance(5f, 30).notSolid();
+                                                                    .hardnessAndResistance(5f, 30)
+                                                                    .notSolid().noDrops();
     public static final RegistryObject<ChalkGlyphBlock> CHALK_GLYPH_WHITE = register("chalk_glyph_white",
             () -> new ChalkGlyphBlock(GLYPH_PROPERTIES, 0xffffff, () -> OccultismItems.CHALK_WHITE.get()),
             false, LootTableType.EMPTY);
