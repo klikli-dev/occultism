@@ -30,7 +30,10 @@ import com.github.klikli_dev.occultism.common.item.spirit.BookOfBindingItem;
 import com.github.klikli_dev.occultism.common.item.spirit.BookOfCallingItem;
 import com.github.klikli_dev.occultism.common.item.storage.StableWormholeBlockItem;
 import com.github.klikli_dev.occultism.common.item.storage.StorageRemoteItem;
+import net.minecraft.item.Food;
 import net.minecraft.item.Item;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Effects;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -55,7 +58,7 @@ public class OccultismItems {
     //Resources
     //Components
     public static final RegistryObject<Item> DIMENSIONAL_MATRIX = ITEMS.register("dimensional_matrix",
-            () -> new Item(new Item.Properties()));
+            () -> new Item(defaultProperties()));
 
     //Tools
     public static final RegistryObject<Item> STORAGE_REMOTE = ITEMS.register("storage_remote",
@@ -93,6 +96,11 @@ public class OccultismItems {
     public static final RegistryObject<StableWormholeBlockItem> STABLE_WORMHOLE = ITEMS.register("stable_wormhole",
             () -> new StableWormholeBlockItem(OccultismBlocks.STABLE_WORMHOLE.get(), defaultProperties()));
 
+    //Crops
+
+    //Foods
+    public static final RegistryObject<Item> DATURA = ITEMS.register("datura",
+            () -> new Item(defaultProperties().food(OccultismFoods.DATURA.get())));
 
     //endregion Fields
 

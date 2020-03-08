@@ -36,7 +36,7 @@ public class ThirdEyeEffect extends Effect {
 
     //region Fields
     public static final ResourceLocation ICON = new ResourceLocation(Occultism.MODID,
-            "textures/gui/potion/third_eye.png");
+            "textures/mob_effect/third_eye.png");
     //endregion Fields
 
     //region Initialization
