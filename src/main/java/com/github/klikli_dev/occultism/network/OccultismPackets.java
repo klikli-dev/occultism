@@ -29,7 +29,6 @@ import net.minecraft.world.dimension.DimensionType;
 import net.minecraftforge.fml.network.NetworkRegistry;
 import net.minecraftforge.fml.network.PacketDistributor;
 import net.minecraftforge.fml.network.simple.SimpleChannel;
-import sun.security.jca.GetInstance;
 
 public class OccultismPackets {
     //region Fields
