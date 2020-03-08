@@ -1,0 +1,5 @@
+{
+  "loader": "forge:obj",
+  "model": "occultism:models/block/spirit_attuned_crystal.obj",
+  "flip-v": true
+}
