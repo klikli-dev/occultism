@@ -25,6 +25,7 @@ package com.github.klikli_dev.occultism.crafting.recipe;
 import com.github.klikli_dev.occultism.registry.OccultismRecipes;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
@@ -39,7 +40,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
-public class SpiritFireRecipe implements IRecipe<IInventory> {
+public class SpiritFireRecipe implements IRecipe<SpiritFireRecipe.SpiritFireFakeInventory> {
     //region Fields
     public static Serializer SERIALIZER = new Serializer();
     protected final ResourceLocation id;
@@ -57,21 +58,19 @@ public class SpiritFireRecipe implements IRecipe<IInventory> {
 
     //region Overrides
     @Override
-    public boolean matches(IInventory inventoryCrafting, World world) {
-        //we do not use inventories, and all crafting inventories should ignore this.
-        return false;
+    public boolean matches(SpiritFireFakeInventory inv, World world) {
+        return this.input.test(inv.getStackInSlot(0));
     }
 
     @Override
-    public ItemStack getCraftingResult(IInventory inventoryCrafting) {
-        //as we don't have an inventory this is ignored.
-        return null;
+    public ItemStack getCraftingResult(SpiritFireFakeInventory inv) {
+        return this.getRecipeOutput().copy();
     }
 
     @Override
     public boolean canFit(int width, int height) {
-        //as we don't have an inventory this is ignored.
-        return false;
+        //as we don't have a real inventory so this is ignored.
+        return true;
     }
 
     @Override
@@ -100,11 +99,65 @@ public class SpiritFireRecipe implements IRecipe<IInventory> {
     }
     //endregion Overrides
 
-    //region Methods
-    public boolean isValid(ItemStack input) {
-        return this.input.test(input);
+    public static class SpiritFireFakeInventory implements IInventory {
+        //region Fields
+        protected ItemStack input;
+        //endregion Fields
+
+        //region Initialization
+        public SpiritFireFakeInventory(ItemStack input) {
+            this.input = input;
+        }
+        //endregion Initialization
+
+        //region Overrides
+        @Override
+        public int getSizeInventory() {
+            return 1;
+        }
+
+        @Override
+        public boolean isEmpty() {
+            return false;
+        }
+
+        @Override
+        public ItemStack getStackInSlot(int index) {
+            return this.input;
+        }
+
+        @Override
+        public ItemStack decrStackSize(int index, int count) {
+            this.input.shrink(count);
+            return this.input;
+        }
+
+        @Override
+        public ItemStack removeStackFromSlot(int index) {
+            return this.input = ItemStack.EMPTY;
+        }
+
+        @Override
+        public void setInventorySlotContents(int index, ItemStack stack) {
+            this.input = stack;
+        }
+
+        @Override
+        public void markDirty() {
+
+        }
+
+        @Override
+        public boolean isUsableByPlayer(PlayerEntity player) {
+            return false;
+        }
+
+        @Override
+        public void clear() {
+            this.input = ItemStack.EMPTY;
+        }
+        //endregion Overrides
     }
-    //endregion Methods
 
     public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<SpiritFireRecipe> {
 
@@ -120,12 +173,14 @@ public class SpiritFireRecipe implements IRecipe<IInventory> {
             return new SpiritFireRecipe(recipeId, ingredient, result);
         }
 
+        @Override
         public SpiritFireRecipe read(ResourceLocation recipeId, PacketBuffer buffer) {
             Ingredient ingredient = Ingredient.read(buffer);
             ItemStack result = buffer.readItemStack();
             return new SpiritFireRecipe(recipeId, ingredient, result);
         }
 
+        @Override
         public void write(PacketBuffer buffer, SpiritFireRecipe recipe) {
             recipe.input.write(buffer);
             buffer.writeItemStack(recipe.output);

@@ -23,10 +23,7 @@
 package com.github.klikli_dev.occultism.registry;
 
 import com.github.klikli_dev.occultism.Occultism;
-import com.github.klikli_dev.occultism.common.block.CandleBlock;
-import com.github.klikli_dev.occultism.common.block.ChalkGlyphBlock;
-import com.github.klikli_dev.occultism.common.block.GoldenSacrificialBowlBlock;
-import com.github.klikli_dev.occultism.common.block.SacrificialBowlBlock;
+import com.github.klikli_dev.occultism.common.block.*;
 import com.github.klikli_dev.occultism.common.block.crops.ReplantableCropsBlock;
 import com.github.klikli_dev.occultism.common.block.storage.StableWormholeBlock;
 import com.github.klikli_dev.occultism.common.block.storage.StorageControllerBlock;
@@ -34,6 +31,7 @@ import com.github.klikli_dev.occultism.common.block.storage.StorageStabilizerBlo
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.material.MaterialColor;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
@@ -51,6 +49,12 @@ public class OccultismBlocks {
     public static final Map<ResourceLocation, BlockDataGenSettings> BLOCK_DATA_GEN_SETTINGS = new HashMap<>();
 
     //Blocks without item
+    public static final RegistryObject<SpiritFireBlock> SPIRIT_FIRE = register("spirit_fire",
+            () -> new SpiritFireBlock(Block.Properties.create(Material.FIRE, MaterialColor.TNT).doesNotBlockMovement().tickRandomly()
+                                              .hardnessAndResistance(0, 0)
+                                              .lightValue(12).sound(SoundType.CLOTH).noDrops()), false,
+            LootTableType.EMPTY);
+
     public static final Block.Properties GLYPH_PROPERTIES = Block.Properties.create(Material.MISCELLANEOUS)
                                                                     .sound(SoundType.CLOTH).doesNotBlockMovement()
                                                                     .hardnessAndResistance(5f, 30)

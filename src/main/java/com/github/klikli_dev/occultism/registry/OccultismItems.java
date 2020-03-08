@@ -24,12 +24,14 @@ package com.github.klikli_dev.occultism.registry;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.TranslationKeys;
+import com.github.klikli_dev.occultism.common.block.SpiritFireBlock;
 import com.github.klikli_dev.occultism.common.item.*;
 import com.github.klikli_dev.occultism.common.item.spirit.BookOfBindingBoundItem;
 import com.github.klikli_dev.occultism.common.item.spirit.BookOfBindingItem;
 import com.github.klikli_dev.occultism.common.item.spirit.BookOfCallingItem;
 import com.github.klikli_dev.occultism.common.item.storage.StableWormholeBlockItem;
 import com.github.klikli_dev.occultism.common.item.storage.StorageRemoteItem;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.BlockNamedItem;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.RegistryObject;
@@ -53,9 +55,13 @@ public class OccultismItems {
     public static final RegistryObject<Item> DEBUG_FOLIOT_TRADER_ITEM = ITEMS.register("debug_foliot_trader",
             () -> new SummonFoliotTraderItem(defaultProperties().maxStackSize(1)));
 
+    public static final RegistryObject<BlockItem> SPIRIT_FIRE = ITEMS.register("spirit_fire", () -> new BlockItem(OccultismBlocks.SPIRIT_FIRE.get(), defaultProperties()));
+
     //Resources
     //Components
     public static final RegistryObject<Item> DIMENSIONAL_MATRIX = ITEMS.register("dimensional_matrix",
+            () -> new Item(defaultProperties()));
+    public static final RegistryObject<Item> SPIRIT_ATTUNED_GEM = ITEMS.register("spirit_attuned_gem",
             () -> new Item(defaultProperties()));
 
     //Tools
