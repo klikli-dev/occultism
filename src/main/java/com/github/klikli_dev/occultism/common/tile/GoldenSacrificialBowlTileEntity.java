@@ -29,7 +29,6 @@ import com.github.klikli_dev.occultism.registry.OccultismParticles;
 import com.github.klikli_dev.occultism.registry.OccultismRituals;
 import com.github.klikli_dev.occultism.registry.OccultismTiles;
 import com.github.klikli_dev.occultism.util.EntityUtil;
-import net.minecraft.client.renderer.texture.ITickable;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.InventoryHelper;
@@ -75,11 +74,13 @@ public class GoldenSacrificialBowlTileEntity extends SacrificialBowlTileEntity i
         super.read(compound);
         if (this.currentRitual != null && compound.contains("remainingAdditionalIngredientsSize")) {
             int size =  compound.getByte("remainingAdditionalIngredientsSize");
-            if(size >= 0 && size <= this.currentRitual.additionalIngredients.size()){
-                this.remainingAdditionalIngredients = this.currentRitual.additionalIngredients.subList(this.currentRitual.additionalIngredients.size() - size, this.currentRitual.additionalIngredients.size() -1);
+            List<Ingredient> additionalIngredients = this.currentRitual.getAdditionalIngredients(this.world);
+            if(size >= 0 && size <= additionalIngredients.size()){
+                this.remainingAdditionalIngredients = additionalIngredients.subList(
+                        additionalIngredients.size() - size, additionalIngredients.size() - 1);
             }
             else {
-                this.remainingAdditionalIngredients = new ArrayList<>(this.currentRitual.additionalIngredients);
+                this.remainingAdditionalIngredients = new ArrayList<>(additionalIngredients);
             }
         }
         if (compound.contains("sacrificeProvided")) {
@@ -90,7 +91,7 @@ public class GoldenSacrificialBowlTileEntity extends SacrificialBowlTileEntity i
     @Override
     public CompoundNBT write(CompoundNBT compound) {
         if(this.currentRitual != null) {
-            if(this.currentRitual.additionalIngredients.size() > 0){
+            if(this.currentRitual.getAdditionalIngredients(this.world).size() > 0){
                 //we only store additional ingredients, if the ritual has any.
                 compound.putByte("remainingAdditionalIngredientsSize", (byte) this.remainingAdditionalIngredients.size());
             }
@@ -208,7 +209,7 @@ public class GoldenSacrificialBowlTileEntity extends SacrificialBowlTileEntity i
                                         .filter(r -> r.identify(world, pos, activationItem)).findFirst().orElse(null);
 
                 if (ritual != null) {
-                    if (ritual.isValid(world, pos, this, player, activationItem, ritual.additionalIngredients)) {
+                    if (ritual.isValid(world, pos, this, player, activationItem, ritual.getAdditionalIngredients(world))) {
                         this.startRitual(player, activationItem, ritual);
                     }
                     else {
@@ -238,7 +239,7 @@ public class GoldenSacrificialBowlTileEntity extends SacrificialBowlTileEntity i
             this.castingPlayer = player;
             this.currentTime = 0;
             this.sacrificeProvided = false;
-            this.remainingAdditionalIngredients = new ArrayList<>(ritual.additionalIngredients);
+            this.remainingAdditionalIngredients = new ArrayList<>(ritual.getAdditionalIngredients(this.world));
             //place activation item in handler
             IItemHandler handler = this.itemStackHandler.orElseThrow(ItemHandlerMissingException::new);
             handler.insertItem(0, activationItem.split(1), false);

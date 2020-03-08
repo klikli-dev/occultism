@@ -34,12 +34,4 @@ public class StaticUtil {
     public static ResourceLocation modLoc(String path){
         return new ResourceLocation(Occultism.MODID, path);
     }
-
-    public static RecipeManager getRecipeManager(){
-        MinecraftServer server = ServerLifecycleHooks.getCurrentServer();
-        if(server != null)
-            return server.getRecipeManager();
-
-        return Minecraft.getInstance().world.getRecipeManager();
-    }
 }
