@@ -77,7 +77,7 @@ public class OccultismBlocks {
     public static final RegistryObject<Block> OTHERSTONE = register("otherstone", () -> new Block(
             Block.Properties.create(Material.ROCK).sound(SoundType.STONE).hardnessAndResistance(1.5f, 30)));
     public static final RegistryObject<OtherstoneNaturalBlock> OTHERSTONE_NATURAL = register("otherstone_natural", () -> new OtherstoneNaturalBlock(
-            Block.Properties.create(Material.ROCK).sound(SoundType.STONE).hardnessAndResistance(1.5f, 30)));
+            Block.Properties.create(Material.ROCK).sound(SoundType.STONE).hardnessAndResistance(1.5f, 30)), true, LootTableType.OTHERWORLD_BLOCK);
 
     //Decorative and Ritual Blocks
     public static final RegistryObject<CandleBlock> CANDLE_WHITE = register("candle_white", () -> new CandleBlock(
@@ -156,6 +156,7 @@ public class OccultismBlocks {
         EMPTY,
         DROP_SELF,
         REPLANTABLE_CROP,
+        OTHERWORLD_BLOCK,
         CUSTOM
     }
 

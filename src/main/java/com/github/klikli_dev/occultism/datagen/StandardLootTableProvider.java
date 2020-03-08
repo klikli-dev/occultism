@@ -22,15 +22,19 @@
 
 package com.github.klikli_dev.occultism.datagen;
 
+import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.block.crops.IReplantableCrops;
+import com.github.klikli_dev.occultism.common.block.otherworld.IOtherworldBlock;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import net.minecraft.advancements.criterion.StatePropertiesPredicate;
 import net.minecraft.block.Block;
 import net.minecraft.block.CropsBlock;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.world.storage.loot.LootTable;
+import net.minecraft.enchantment.Enchantments;
+import net.minecraft.world.storage.loot.*;
 import net.minecraft.world.storage.loot.conditions.BlockStateProperty;
 import net.minecraft.world.storage.loot.conditions.ILootCondition;
+import net.minecraft.world.storage.loot.functions.ApplyBonus;
 import net.minecraftforge.fml.RegistryObject;
 
 public class StandardLootTableProvider extends BaseLootTableProvider {
@@ -76,12 +80,37 @@ public class StandardLootTableProvider extends BaseLootTableProvider {
                         }
                         else if (settings.lootTableType == OccultismBlocks.LootTableType.DROP_SELF)
                             this.registerDropSelfLootTable(block);
+                        else if(settings.lootTableType == OccultismBlocks.LootTableType.OTHERWORLD_BLOCK)
+                            this.registerOtherworldBlockTable(block);
                     });
+
+
         }
 
         @Override
         protected void registerLootTable(Block blockIn, LootTable.Builder table) {
             StandardLootTableProvider.this.lootTables.put(blockIn, table);
+        }
+
+        protected void registerOtherworldBlockTable(Block block){
+            if(block instanceof IOtherworldBlock)
+                this.registerLootTable(block, this.createOtherworldBlockTable(block));
+            else
+                Occultism.LOGGER.warn("Tried to register otherworld block loot table for non-otherworld block {}", block.getRegistryName());
+        }
+
+        protected LootTable.Builder createOtherworldBlockTable(Block block) {
+            IOtherworldBlock otherworldBlock = (IOtherworldBlock) block;
+            ILootCondition.IBuilder uncoveredCondition =
+                    BlockStateProperty.builder(block).fromProperties(
+                            StatePropertiesPredicate.Builder.newBuilder()
+                                    .withBoolProp(IOtherworldBlock.UNCOVERED, true));
+            LootPool.Builder builder = LootPool.builder()
+                                               .rolls(ConstantRange.of(1))
+                                               .addEntry(ItemLootEntry.builder(otherworldBlock.getUncoveredBlock()).acceptCondition(uncoveredCondition)
+                                                                 .alternatively(ItemLootEntry.builder(otherworldBlock.getCoveredBlock()))
+                                               );
+            return LootTable.builder().addLootPool(builder);
         }
         //endregion Overrides
     }
