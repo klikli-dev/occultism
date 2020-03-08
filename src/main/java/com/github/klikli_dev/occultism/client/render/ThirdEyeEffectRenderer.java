@@ -46,7 +46,9 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import org.lwjgl.opengl.GL11;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ThirdEyeEffectRenderer {
 
@@ -60,7 +62,7 @@ public class ThirdEyeEffectRenderer {
 
     public boolean thirdEyeActiveLastTick = false;
 
-    public List<BlockPos> uncoveredBlocks = new ArrayList<>();
+    public Set<BlockPos> uncoveredBlocks = new HashSet<>();
     //endregion Fields
 
     //region Static Methods
@@ -95,7 +97,8 @@ public class ThirdEyeEffectRenderer {
     //region Methods
     @SubscribeEvent
     public void onPlayerTick(TickEvent.PlayerTickEvent event) {
-        this.onThirdEyeTick(event);
+        if(event.player.world.isRemote)
+            this.onThirdEyeTick(event);
     }
 
     @SubscribeEvent
@@ -125,8 +128,10 @@ public class ThirdEyeEffectRenderer {
      * @param clear true to delete the list of uncovered blocks.
      */
     public void resetUncoveredBlocks(World world, boolean clear){
-        for(int i = 0; i < this.uncoveredBlocks.size(); i++){
-            world.setBlockState(this.uncoveredBlocks.get(i), world.getBlockState(this.uncoveredBlocks.get(i)).with(IOtherworldBlock.UNCOVERED, false), 1);
+        for(BlockPos pos : this.uncoveredBlocks) {
+            BlockState state = world.getBlockState(pos);
+            if(state.getBlock() instanceof IOtherworldBlock) //handle replaced or removed blocks gracefully
+                world.setBlockState(pos, state.with(IOtherworldBlock.UNCOVERED, false), 1);
         }
         if(clear)
             this.uncoveredBlocks.clear();
@@ -145,8 +150,8 @@ public class ThirdEyeEffectRenderer {
             if(state.getBlock() instanceof IOtherworldBlock){
                 if(!state.get(IOtherworldBlock.UNCOVERED)){
                     world.setBlockState(pos, state.with(IOtherworldBlock.UNCOVERED, true), 1);
-                    this.uncoveredBlocks.add(pos.toImmutable());
                 }
+                this.uncoveredBlocks.add(pos.toImmutable());
             }
         });
     }
