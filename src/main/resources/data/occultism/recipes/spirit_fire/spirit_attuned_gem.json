@@ -3,7 +3,6 @@
   "ingredient": [
     {
       "tag": "forge:gems/diamond"
-      "ore": "gemDiamond"
     }
   ],
   "result": {
