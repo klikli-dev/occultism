@@ -85,7 +85,7 @@ public class SpiritFireRecipe implements IRecipe<SpiritFireRecipe.SpiritFireFake
 
     @Override
     public ResourceLocation getId() {
-        return this.getId();
+        return this.id;
     }
 
     @Override
