@@ -25,6 +25,7 @@ package com.github.klikli_dev.occultism.registry;
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.block.*;
 import com.github.klikli_dev.occultism.common.block.crops.ReplantableCropsBlock;
+import com.github.klikli_dev.occultism.common.block.otherworld.OtherstoneNaturalBlock;
 import com.github.klikli_dev.occultism.common.block.storage.StableWormholeBlock;
 import com.github.klikli_dev.occultism.common.block.storage.StorageControllerBlock;
 import com.github.klikli_dev.occultism.common.block.storage.StorageStabilizerBlock;
@@ -71,6 +72,12 @@ public class OccultismBlocks {
     public static final RegistryObject<ChalkGlyphBlock> CHALK_GLYPH_RED = register("chalk_glyph_red",
             () -> new ChalkGlyphBlock(GLYPH_PROPERTIES, 0xcc0101, () -> OccultismItems.CHALK_RED.get()), false,
             LootTableType.EMPTY);
+
+    //Resources
+    public static final RegistryObject<Block> OTHERSTONE = register("otherstone", () -> new Block(
+            Block.Properties.create(Material.ROCK).sound(SoundType.STONE).hardnessAndResistance(1.5f, 30)));
+    public static final RegistryObject<OtherstoneNaturalBlock> OTHERSTONE_NATURAL = register("otherstone_natural", () -> new OtherstoneNaturalBlock(
+            Block.Properties.create(Material.ROCK).sound(SoundType.STONE).hardnessAndResistance(1.5f, 30)));
 
     //Decorative and Ritual Blocks
     public static final RegistryObject<CandleBlock> CANDLE_WHITE = register("candle_white", () -> new CandleBlock(

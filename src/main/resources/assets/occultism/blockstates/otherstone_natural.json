@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "unvovered=true": {
+      "model": "occultism:block/otherstone"
+    },
+    "unvovered=false": {
+      "model": "minecraft:block/andesite"
+    }
+  }
+}
