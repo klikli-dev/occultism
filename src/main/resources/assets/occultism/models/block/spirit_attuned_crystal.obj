@@ -1,6 +1,7 @@
 # Blender v2.82 (sub 7) OBJ File: 'spirit_attuned_crystal.blend'
 # www.blender.org
 mtllib spirit_attuned_crystal.mtl
+usemtl material
 o Crystal_Circle
 v 0.491459 0.008160 0.451958
 v 0.450692 0.008160 0.481577

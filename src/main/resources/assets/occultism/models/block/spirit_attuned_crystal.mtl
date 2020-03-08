@@ -2,4 +2,4 @@
 # Material Count: 1
 
 newmtl material
-map_Ka occultism:block/spirit_attuned_crystal
+map_Kd occultism:block/spirit_attuned_crystal
