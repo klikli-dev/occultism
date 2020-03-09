@@ -41,7 +41,6 @@ import net.minecraft.world.storage.loot.functions.CopyNbt;
 public class StandardBlockLootTables extends BlockLootTables {
 
     //Copied from BlockLootTables
-    protected static final float[] COMMON_SAPLING_DROP_RATES = new float[]{0.1F, 0.126F, 0.16666f, 0.2F};
     protected static final float[] DEFAULT_SAPLING_DROP_RATES = new float[]{0.05F, 0.0625F, 0.083333336F, 0.1F};
     protected static final float[] RARE_SAPLING_DROP_RATES = new float[]{0.025F, 0.027777778F, 0.03125F, 0.041666668F, 0.1F};
 

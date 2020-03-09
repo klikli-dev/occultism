@@ -87,18 +87,9 @@ public class StandardLootTableProvider extends BaseLootTableProvider {
                             this.registerOtherworldBlockTable(block);
                     });
 
-            //Otherworld natuarl leaves drop
-            //            this.registerLootTable(Blocks.OAK_LEAVES, (p_218506_0_) -> {
-            //                return droppingWithChancesSticksAndApples(p_218506_0_, Blocks.OAK_SAPLING, DEFAULT_SAPLING_DROP_RATES);
-            //            });
-
-            //"normal" otherworld leaves behave like vanilla non-oak leaves
             //TODO: replace with otherworld sapling
             this.registerLootTable(OccultismBlocks.OTHERWORLD_LEAVES.get(),
                     (block) -> droppingWithChancesAndSticks(block, Blocks.ACACIA_SAPLING, DEFAULT_SAPLING_DROP_RATES));
-
-            //TODO: replace with otherworld sapling
-            this.registerOtherworldLeavesTable(OccultismBlocks.OTHERWORLD_LEAVES_NATURAL.get(), Blocks.OAK_SAPLING, Blocks.ACACIA_SAPLING, COMMON_SAPLING_DROP_RATES);
         }
 
         @Override
@@ -116,6 +107,10 @@ public class StandardLootTableProvider extends BaseLootTableProvider {
                         block.getRegistryName());
         }
 
+        /**
+         * Does not work currently, leads to no sapling drop.
+         */
+        @Deprecated
         protected void registerOtherworldLeavesTable(Block block, Block coveredSapling,
                                                      Block uncoveredSapling, float... chances) {
             if (block instanceof IOtherworldBlock)
@@ -141,6 +136,10 @@ public class StandardLootTableProvider extends BaseLootTableProvider {
             return LootTable.builder().addLootPool(builder);
         }
 
+        /**
+         * Does not work currently, leads to no sapling drop
+         */
+        @Deprecated
         protected LootTable.Builder otherWorldLeavesDroppingWithChancesAndSticks(Block forBlock, Block coveredSapling,
                                                                                  Block uncoveredSapling,
                                                                                  float... chances) {
@@ -160,7 +159,7 @@ public class StandardLootTableProvider extends BaseLootTableProvider {
                     //Sapling entry
                     ItemLootEntry.builder(uncoveredSapling)
                             .acceptCondition(uncoveredCondition)
-                            .alternatively(ItemLootEntry.builder(coveredSapling)));
+                            .alternatively(ItemLootEntry.builder(coveredSapling)), chances);
         }
 
         protected LootTable.Builder droppingAlternativeWithChancesAndSticks(Block leaves,
