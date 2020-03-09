@@ -23,6 +23,8 @@
 package com.github.klikli_dev.occultism.handlers;
 
 import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.common.block.otherworld.IOtherworldBlock;
+import com.github.klikli_dev.occultism.common.block.otherworld.OtherworldLeavesNaturalBlock;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ColorHandlerEvent;
@@ -47,11 +49,28 @@ public class ColorEventHandler {
         event.getBlockColors()
                 .register((state, light, pos, color) -> OccultismBlocks.CHALK_GLYPH_RED.get().getColor(),
                         OccultismBlocks.CHALK_GLYPH_RED.get());
+
+        //Otherworld leaves shows in oak leaves color unless uncovered.
+        event.getBlockColors()
+                .register((state, light, pos, color) ->  OtherworldLeavesNaturalBlock.COLOR,
+                        OccultismBlocks.OTHERWORLD_LEAVES.get());
+        event.getBlockColors()
+                .register((state, light, pos, color) -> state.get(
+                        IOtherworldBlock.UNCOVERED) ? OtherworldLeavesNaturalBlock.COLOR : 0x48B518,
+                        OccultismBlocks.OTHERWORLD_LEAVES_NATURAL.get());
+
         Occultism.LOGGER.info("Block color registration complete.");
     }
 
     @SubscribeEvent
     public static void onRegisterItemColors(ColorHandlerEvent.Item event) {
+        event.getItemColors()
+                .register((stack, color) -> OtherworldLeavesNaturalBlock.COLOR,
+                        OccultismBlocks.OTHERWORLD_LEAVES.get());
+        event.getItemColors()
+                .register((stack, color) -> 0x48B518, //oak leaves color
+                        OccultismBlocks.OTHERWORLD_LEAVES_NATURAL.get());
+
         Occultism.LOGGER.info("Item color registration complete.");
     }
     //endregion Static Methods

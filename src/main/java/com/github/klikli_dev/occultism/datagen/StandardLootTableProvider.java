@@ -28,13 +28,16 @@ import com.github.klikli_dev.occultism.common.block.otherworld.IOtherworldBlock;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import net.minecraft.advancements.criterion.StatePropertiesPredicate;
 import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.CropsBlock;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.enchantment.Enchantments;
+import net.minecraft.item.Items;
 import net.minecraft.world.storage.loot.*;
 import net.minecraft.world.storage.loot.conditions.BlockStateProperty;
 import net.minecraft.world.storage.loot.conditions.ILootCondition;
-import net.minecraft.world.storage.loot.functions.ApplyBonus;
+import net.minecraft.world.storage.loot.conditions.TableBonus;
+import net.minecraft.world.storage.loot.functions.SetCount;
 import net.minecraftforge.fml.RegistryObject;
 
 public class StandardLootTableProvider extends BaseLootTableProvider {
@@ -80,23 +83,46 @@ public class StandardLootTableProvider extends BaseLootTableProvider {
                         }
                         else if (settings.lootTableType == OccultismBlocks.LootTableType.DROP_SELF)
                             this.registerDropSelfLootTable(block);
-                        else if(settings.lootTableType == OccultismBlocks.LootTableType.OTHERWORLD_BLOCK)
+                        else if (settings.lootTableType == OccultismBlocks.LootTableType.OTHERWORLD_BLOCK)
                             this.registerOtherworldBlockTable(block);
                     });
 
+            //Otherworld natuarl leaves drop
+            //            this.registerLootTable(Blocks.OAK_LEAVES, (p_218506_0_) -> {
+            //                return droppingWithChancesSticksAndApples(p_218506_0_, Blocks.OAK_SAPLING, DEFAULT_SAPLING_DROP_RATES);
+            //            });
 
+            //"normal" otherworld leaves behave like vanilla non-oak leaves
+            //TODO: replace with otherworld sapling
+            this.registerLootTable(OccultismBlocks.OTHERWORLD_LEAVES.get(),
+                    (block) -> droppingWithChancesAndSticks(block, Blocks.ACACIA_SAPLING, DEFAULT_SAPLING_DROP_RATES));
+
+            //TODO: replace with otherworld sapling
+            this.registerOtherworldLeavesTable(OccultismBlocks.OTHERWORLD_LEAVES_NATURAL.get(), Blocks.OAK_SAPLING, Blocks.ACACIA_SAPLING, COMMON_SAPLING_DROP_RATES);
         }
 
         @Override
         protected void registerLootTable(Block blockIn, LootTable.Builder table) {
             StandardLootTableProvider.this.lootTables.put(blockIn, table);
         }
+        //endregion Overrides
 
-        protected void registerOtherworldBlockTable(Block block){
-            if(block instanceof IOtherworldBlock)
+//region Methods
+        protected void registerOtherworldBlockTable(Block block) {
+            if (block instanceof IOtherworldBlock)
                 this.registerLootTable(block, this.createOtherworldBlockTable(block));
             else
-                Occultism.LOGGER.warn("Tried to register otherworld block loot table for non-otherworld block {}", block.getRegistryName());
+                Occultism.LOGGER.warn("Tried to register otherworld block loot table for non-otherworld block {}",
+                        block.getRegistryName());
+        }
+
+        protected void registerOtherworldLeavesTable(Block block, Block coveredSapling,
+                                                     Block uncoveredSapling, float... chances) {
+            if (block instanceof IOtherworldBlock)
+                this.registerLootTable(block, this.otherWorldLeavesDroppingWithChancesAndSticks(block, coveredSapling, uncoveredSapling, chances));
+            else
+                Occultism.LOGGER.warn("Tried to register otherworld leaves loot table for non-otherworld block {}",
+                        block.getRegistryName());
         }
 
         protected LootTable.Builder createOtherworldBlockTable(Block block) {
@@ -107,11 +133,66 @@ public class StandardLootTableProvider extends BaseLootTableProvider {
                                     .withBoolProp(IOtherworldBlock.UNCOVERED, true));
             LootPool.Builder builder = LootPool.builder()
                                                .rolls(ConstantRange.of(1))
-                                               .addEntry(ItemLootEntry.builder(otherworldBlock.getUncoveredBlock()).acceptCondition(uncoveredCondition)
-                                                                 .alternatively(ItemLootEntry.builder(otherworldBlock.getCoveredBlock()))
+                                               .addEntry(ItemLootEntry.builder(otherworldBlock.getUncoveredBlock())
+                                                                 .acceptCondition(uncoveredCondition)
+                                                                 .alternatively(ItemLootEntry.builder(
+                                                                         otherworldBlock.getCoveredBlock()))
                                                );
             return LootTable.builder().addLootPool(builder);
         }
-        //endregion Overrides
+
+        protected LootTable.Builder otherWorldLeavesDroppingWithChancesAndSticks(Block forBlock, Block coveredSapling,
+                                                                                 Block uncoveredSapling,
+                                                                                 float... chances) {
+            IOtherworldBlock otherworldBlock = (IOtherworldBlock) forBlock;
+            ILootCondition.IBuilder uncoveredCondition =
+                    BlockStateProperty.builder(forBlock).fromProperties(
+                            StatePropertiesPredicate.Builder.newBuilder()
+                                    .withBoolProp(IOtherworldBlock.UNCOVERED, true));
+
+
+            return this.droppingAlternativeWithChancesAndSticks(forBlock,
+                    //Leaves entry
+                    ItemLootEntry.builder(otherworldBlock.getUncoveredBlock())
+                                                                             .acceptCondition(uncoveredCondition)
+                                                                             .alternatively(ItemLootEntry.builder(
+                                                                                     otherworldBlock.getCoveredBlock())),
+                    //Sapling entry
+                    ItemLootEntry.builder(uncoveredSapling)
+                            .acceptCondition(uncoveredCondition)
+                            .alternatively(ItemLootEntry.builder(coveredSapling)));
+        }
+
+        protected LootTable.Builder droppingAlternativeWithChancesAndSticks(Block leaves,
+                                                                            LootEntry.Builder<?> leavesEntry,
+                                                                            LootEntry.Builder<?> saplingEntry,
+                                                                            float... chances) {
+            return this.droppingAlternativeWithSilkTouchOrShears(leavesEntry,
+                    withSurvivesExplosion(leaves, saplingEntry)
+                            .acceptCondition(TableBonus.builder(Enchantments.FORTUNE, chances)))
+                           .addLootPool(LootPool.builder().rolls(ConstantRange.of(1))
+                                                .acceptCondition(NOT_SILK_TOUCH_OR_SHEARS)
+                                                .addEntry(withExplosionDecay(leaves,
+                                                        ItemLootEntry.builder(Items.STICK
+                                                        ).acceptFunction(
+                                                                SetCount.builder(RandomValueRange.of(1.0F, 2.0F))))
+                                                                  .acceptCondition(TableBonus.builder(
+                                                                          Enchantments.FORTUNE, 0.02F, 0.022222223F,
+                                                                          0.025F, 0.033333335F, 0.1F))));
+        }
+
+        protected LootTable.Builder droppingAlternativeWithSilkTouchOrShears(LootEntry.Builder<?> mainDropEntry,
+                                                                             LootEntry.Builder<?> silkTouchDropEntry) {
+            return this.droppingAlternative(mainDropEntry, SILK_TOUCH_OR_SHEARS, silkTouchDropEntry);
+        }
+
+        protected LootTable.Builder droppingAlternative(LootEntry.Builder<?> mainDropEntry,
+                                                        ILootCondition.IBuilder condition,
+                                                        LootEntry.Builder<?> alternativeDropEntry) {
+            return LootTable.builder().addLootPool(LootPool.builder().rolls(ConstantRange.of(1))
+                                                           .addEntry((mainDropEntry.acceptCondition(condition))
+                                                                             .alternatively(alternativeDropEntry)));
+        }
+//endregion Methods
     }
 }

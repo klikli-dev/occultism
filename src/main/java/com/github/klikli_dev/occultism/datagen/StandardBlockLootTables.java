@@ -22,16 +22,36 @@
 
 package com.github.klikli_dev.occultism.datagen;
 
+import net.minecraft.advancements.criterion.EnchantmentPredicate;
+import net.minecraft.advancements.criterion.ItemPredicate;
+import net.minecraft.advancements.criterion.MinMaxBounds;
 import net.minecraft.block.Block;
 import net.minecraft.data.loot.BlockLootTables;
+import net.minecraft.enchantment.Enchantments;
+import net.minecraft.item.Items;
 import net.minecraft.world.storage.loot.ConstantRange;
 import net.minecraft.world.storage.loot.ItemLootEntry;
 import net.minecraft.world.storage.loot.LootPool;
 import net.minecraft.world.storage.loot.LootTable;
+import net.minecraft.world.storage.loot.conditions.ILootCondition;
+import net.minecraft.world.storage.loot.conditions.MatchTool;
 import net.minecraft.world.storage.loot.conditions.SurvivesExplosion;
 import net.minecraft.world.storage.loot.functions.CopyNbt;
 
 public class StandardBlockLootTables extends BlockLootTables {
+
+    //Copied from BlockLootTables
+    protected static final float[] COMMON_SAPLING_DROP_RATES = new float[]{0.1F, 0.126F, 0.16666f, 0.2F};
+    protected static final float[] DEFAULT_SAPLING_DROP_RATES = new float[]{0.05F, 0.0625F, 0.083333336F, 0.1F};
+    protected static final float[] RARE_SAPLING_DROP_RATES = new float[]{0.025F, 0.027777778F, 0.03125F, 0.041666668F, 0.1F};
+
+    protected static final ILootCondition.IBuilder SILK_TOUCH = MatchTool.builder(
+            ItemPredicate.Builder.create().enchantment(new EnchantmentPredicate(
+                    Enchantments.SILK_TOUCH, MinMaxBounds.IntBound.atLeast(1))));
+    protected static final ILootCondition.IBuilder NO_SILK_TOUCH = SILK_TOUCH.inverted();
+    protected static final ILootCondition.IBuilder SHEARS = MatchTool.builder(ItemPredicate.Builder.create().item(Items.SHEARS));
+    protected static final ILootCondition.IBuilder SILK_TOUCH_OR_SHEARS = SHEARS.alternative(SILK_TOUCH);
+    protected static final ILootCondition.IBuilder NOT_SILK_TOUCH_OR_SHEARS = SILK_TOUCH_OR_SHEARS.inverted();
 
     /**
      * Creates an empty loot table with no drop.

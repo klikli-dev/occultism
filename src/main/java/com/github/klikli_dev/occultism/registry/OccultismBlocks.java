@@ -26,11 +26,13 @@ import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.block.*;
 import com.github.klikli_dev.occultism.common.block.crops.ReplantableCropsBlock;
 import com.github.klikli_dev.occultism.common.block.otherworld.OtherstoneNaturalBlock;
+import com.github.klikli_dev.occultism.common.block.otherworld.OtherworldLeavesNaturalBlock;
 import com.github.klikli_dev.occultism.common.block.otherworld.OtherworldLogNaturalBlock;
 import com.github.klikli_dev.occultism.common.block.storage.StableWormholeBlock;
 import com.github.klikli_dev.occultism.common.block.storage.StorageControllerBlock;
 import com.github.klikli_dev.occultism.common.block.storage.StorageStabilizerBlock;
 import net.minecraft.block.Block;
+import net.minecraft.block.LeavesBlock;
 import net.minecraft.block.LogBlock;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -92,6 +94,16 @@ public class OccultismBlocks {
             register("otherworld_log_natural", () -> new OtherworldLogNaturalBlock(MaterialColor.WOOD,
                     Block.Properties.create(Material.WOOD, MaterialColor.OBSIDIAN).sound(SoundType.WOOD)
                             .hardnessAndResistance(2.0f)), true, LootTableType.OTHERWORLD_BLOCK);
+
+    public static final RegistryObject<LeavesBlock> OTHERWORLD_LEAVES =
+            register("otherworld_leaves", () -> new LeavesBlock(
+                    Block.Properties.create(Material.LEAVES).sound(SoundType.PLANT)
+                            .hardnessAndResistance(0.2f).tickRandomly().notSolid()), true, LootTableType.CUSTOM);
+
+    public static final RegistryObject<OtherworldLeavesNaturalBlock> OTHERWORLD_LEAVES_NATURAL =
+            register("otherworld_leaves_natural", () -> new OtherworldLeavesNaturalBlock(
+                    Block.Properties.create(Material.LEAVES).sound(SoundType.PLANT)
+                            .hardnessAndResistance(0.2f).tickRandomly().notSolid()), true, LootTableType.CUSTOM);
 
     //Decorative and Ritual Blocks
     public static final RegistryObject<CandleBlock> CANDLE_WHITE = register("candle_white", () -> new CandleBlock(
