@@ -26,6 +26,11 @@ import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.block.otherworld.IOtherworldBlock;
 import com.github.klikli_dev.occultism.common.block.otherworld.OtherworldLeavesNaturalBlock;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
+import net.minecraft.block.BlockState;
+import net.minecraft.client.renderer.color.BlockColors;
+import net.minecraft.item.BlockItem;
+import net.minecraft.world.FoliageColors;
+import net.minecraft.world.biome.BiomeColors;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -38,25 +43,30 @@ public class ColorEventHandler {
     @SubscribeEvent
     public static void onRegisterBlockColors(ColorHandlerEvent.Block event) {
         event.getBlockColors()
-                .register((state, light, pos, color) -> OccultismBlocks.CHALK_GLYPH_WHITE.get().getColor(),
+                .register((state, light, pos, tintIndex) -> OccultismBlocks.CHALK_GLYPH_WHITE.get().getColor(),
                         OccultismBlocks.CHALK_GLYPH_WHITE.get());
         event.getBlockColors()
-                .register((state, light, pos, color) -> OccultismBlocks.CHALK_GLYPH_GOLD.get().getColor(),
+                .register((state, light, pos, tintIndex) -> OccultismBlocks.CHALK_GLYPH_GOLD.get().getColor(),
                         OccultismBlocks.CHALK_GLYPH_GOLD.get());
         event.getBlockColors()
-                .register((state, light, pos, color) -> OccultismBlocks.CHALK_GLYPH_PURPLE.get().getColor(),
+                .register((state, light, pos, tintIndex) -> OccultismBlocks.CHALK_GLYPH_PURPLE.get().getColor(),
                         OccultismBlocks.CHALK_GLYPH_PURPLE.get());
         event.getBlockColors()
-                .register((state, light, pos, color) -> OccultismBlocks.CHALK_GLYPH_RED.get().getColor(),
+                .register((state, light, pos, tintIndex) -> OccultismBlocks.CHALK_GLYPH_RED.get().getColor(),
                         OccultismBlocks.CHALK_GLYPH_RED.get());
 
         //Otherworld leaves shows in oak leaves color unless uncovered.
         event.getBlockColors()
-                .register((state, light, pos, color) ->  OtherworldLeavesNaturalBlock.COLOR,
+                .register((state, light, pos, tintIndex) -> OtherworldLeavesNaturalBlock.COLOR,
                         OccultismBlocks.OTHERWORLD_LEAVES.get());
         event.getBlockColors()
-                .register((state, light, pos, color) -> state.get(
-                        IOtherworldBlock.UNCOVERED) ? OtherworldLeavesNaturalBlock.COLOR : 0x48B518,
+                .register((state, light, pos, tintIndex) -> state.get(
+                        IOtherworldBlock.UNCOVERED) ? OtherworldLeavesNaturalBlock.COLOR :
+                                                                    (light != null && pos != null ? BiomeColors
+                                                                                                            .getFoliageColor(
+                                                                                                                    light,
+                                                                                                                    pos) : FoliageColors
+                                                                                                                                   .getDefault()),
                         OccultismBlocks.OTHERWORLD_LEAVES_NATURAL.get());
 
         Occultism.LOGGER.info("Block color registration complete.");
@@ -64,11 +74,16 @@ public class ColorEventHandler {
 
     @SubscribeEvent
     public static void onRegisterItemColors(ColorHandlerEvent.Item event) {
+        BlockColors blockColors = event.getBlockColors();
         event.getItemColors()
-                .register((stack, color) -> OtherworldLeavesNaturalBlock.COLOR,
+                .register((stack, tintIndex) -> OtherworldLeavesNaturalBlock.COLOR,
                         OccultismBlocks.OTHERWORLD_LEAVES.get());
+        
         event.getItemColors()
-                .register((stack, color) -> 0x48B518, //oak leaves color
+                .register((stack, tintIndex) -> {
+                            BlockState blockstate = ((BlockItem) stack.getItem()).getBlock().getDefaultState();
+                            return blockColors.getColor(blockstate, null, null, tintIndex);
+                        }, //oak leaves color
                         OccultismBlocks.OTHERWORLD_LEAVES_NATURAL.get());
 
         Occultism.LOGGER.info("Item color registration complete.");
