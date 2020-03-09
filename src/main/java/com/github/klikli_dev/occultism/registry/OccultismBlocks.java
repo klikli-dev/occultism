@@ -51,15 +51,16 @@ public class OccultismBlocks {
 
     //Blocks without item
     public static final RegistryObject<SpiritFireBlock> SPIRIT_FIRE = register("spirit_fire",
-            () -> new SpiritFireBlock(Block.Properties.create(Material.FIRE, MaterialColor.TNT).doesNotBlockMovement().tickRandomly()
-                                              .hardnessAndResistance(0, 0)
-                                              .lightValue(12).sound(SoundType.CLOTH).noDrops()), false,
+            () -> new SpiritFireBlock(
+                    Block.Properties.create(Material.FIRE, MaterialColor.TNT).doesNotBlockMovement().tickRandomly()
+                            .hardnessAndResistance(0, 0)
+                            .lightValue(12).sound(SoundType.CLOTH)), false,
             LootTableType.EMPTY);
 
     public static final Block.Properties GLYPH_PROPERTIES = Block.Properties.create(Material.MISCELLANEOUS)
                                                                     .sound(SoundType.CLOTH).doesNotBlockMovement()
                                                                     .hardnessAndResistance(5f, 30)
-                                                                    .notSolid().noDrops();
+                                                                    .notSolid();
     public static final RegistryObject<ChalkGlyphBlock> CHALK_GLYPH_WHITE = register("chalk_glyph_white",
             () -> new ChalkGlyphBlock(GLYPH_PROPERTIES, 0xffffff, () -> OccultismItems.CHALK_WHITE.get()),
             false, LootTableType.EMPTY);
