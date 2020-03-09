@@ -23,7 +23,6 @@
 package com.github.klikli_dev.occultism.common.item;
 
 import com.github.klikli_dev.occultism.common.entity.spirit.FoliotEntity;
-import com.github.klikli_dev.occultism.common.job.SpiritJob;
 import com.github.klikli_dev.occultism.common.job.TraderJob;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.registry.OccultismSpiritJobs;
@@ -48,25 +47,26 @@ public class SummonFoliotTraderItem extends Item {
     //region Overrides
     @Override
     public ActionResultType onItemUse(ItemUseContext context) {
-        FoliotEntity spirit = new FoliotEntity(OccultismEntities.FOLIOT.get(), context.getWorld());
-        spirit.onInitialSpawn(context.getWorld(), context.getWorld().getDifficultyForLocation(context.getPos()),
-                SpawnReason.SPAWN_EGG, null, null);
-        spirit.setTamedBy(context.getPlayer());
-        spirit.setPosition(context.getPos().getX(), context.getPos().getY() + 1.0f, context.getPos().getZ());
-        spirit.setCustomName(new StringTextComponent("Testspirit Trader"));
+        if (!context.getWorld().isRemote) {
+            FoliotEntity spirit = new FoliotEntity(OccultismEntities.FOLIOT.get(), context.getWorld());
+            spirit.onInitialSpawn(context.getWorld(), context.getWorld().getDifficultyForLocation(context.getPos()),
+                    SpawnReason.SPAWN_EGG, null, null);
+            spirit.setTamedBy(context.getPlayer());
+            spirit.setPosition(context.getPos().getX(), context.getPos().getY() + 1.0f, context.getPos().getZ());
+            spirit.setCustomName(new StringTextComponent("Testspirit Trader"));
 
-        //set up the job
-        TraderJob trader = (TraderJob) OccultismSpiritJobs.TRADE_OTHERSTONE.get().create(spirit);
-        trader.init();
-        trader.setTradeRecipeId(modLoc("spirit_trade/test"));
-        spirit.setJob(trader);
+            //set up the job
+            TraderJob trader = (TraderJob) OccultismSpiritJobs.TRADE_OTHERSTONE.get().create(spirit);
+            trader.init();
+            trader.setTradeRecipeId(modLoc("spirit_trade/test"));
+            spirit.setJob(trader);
 
-        //notify players nearby and spawn
-        for (ServerPlayerEntity player : context.getWorld().getEntitiesWithinAABB(ServerPlayerEntity.class,
-                spirit.getBoundingBox().grow(50)))
-            CriteriaTriggers.SUMMONED_ENTITY.trigger(player, spirit);
-        context.getWorld().addEntity(spirit);
-
+            //notify players nearby and spawn
+            for (ServerPlayerEntity player : context.getWorld().getEntitiesWithinAABB(ServerPlayerEntity.class,
+                    spirit.getBoundingBox().grow(50)))
+                CriteriaTriggers.SUMMONED_ENTITY.trigger(player, spirit);
+            context.getWorld().addEntity(spirit);
+        }
         return ActionResultType.SUCCESS;
     }
 

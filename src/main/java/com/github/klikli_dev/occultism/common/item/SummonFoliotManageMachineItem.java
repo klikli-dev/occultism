@@ -45,24 +45,25 @@ public class SummonFoliotManageMachineItem extends Item {
     //region Overrides
     @Override
     public ActionResultType onItemUse(ItemUseContext context) {
-        FoliotEntity spirit = new FoliotEntity(OccultismEntities.FOLIOT.get(), context.getWorld());
-        spirit.onInitialSpawn(context.getWorld(), context.getWorld().getDifficultyForLocation(context.getPos()),
-                SpawnReason.SPAWN_EGG, null, null);
-        spirit.setTamedBy(context.getPlayer());
-        spirit.setPosition(context.getPos().getX(), context.getPos().getY() + 1.0f, context.getPos().getZ());
-        spirit.setCustomName(new StringTextComponent("Testspirit Manage Machine"));
+        if (!context.getWorld().isRemote) {
+            FoliotEntity spirit = new FoliotEntity(OccultismEntities.FOLIOT.get(), context.getWorld());
+            spirit.onInitialSpawn(context.getWorld(), context.getWorld().getDifficultyForLocation(context.getPos()),
+                    SpawnReason.SPAWN_EGG, null, null);
+            spirit.setTamedBy(context.getPlayer());
+            spirit.setPosition(context.getPos().getX(), context.getPos().getY() + 1.0f, context.getPos().getZ());
+            spirit.setCustomName(new StringTextComponent("Testspirit Manage Machine"));
 
-        //set up the job
-        SpiritJob manageMachine = OccultismSpiritJobs.MANAGE_MACHINE.get().create(spirit);
-        manageMachine.init();
-        spirit.setJob(manageMachine);
+            //set up the job
+            SpiritJob manageMachine = OccultismSpiritJobs.MANAGE_MACHINE.get().create(spirit);
+            manageMachine.init();
+            spirit.setJob(manageMachine);
 
-        //notify players nearby and spawn
-        for (ServerPlayerEntity player : context.getWorld().getEntitiesWithinAABB(ServerPlayerEntity.class,
-                spirit.getBoundingBox().grow(50)))
-            CriteriaTriggers.SUMMONED_ENTITY.trigger(player, spirit);
-        context.getWorld().addEntity(spirit);
-
+            //notify players nearby and spawn
+            for (ServerPlayerEntity player : context.getWorld().getEntitiesWithinAABB(ServerPlayerEntity.class,
+                    spirit.getBoundingBox().grow(50)))
+                CriteriaTriggers.SUMMONED_ENTITY.trigger(player, spirit);
+            context.getWorld().addEntity(spirit);
+        }
         return ActionResultType.SUCCESS;
     }
 
