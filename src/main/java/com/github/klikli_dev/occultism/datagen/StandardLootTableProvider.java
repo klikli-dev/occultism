@@ -87,9 +87,8 @@ public class StandardLootTableProvider extends BaseLootTableProvider {
                             this.registerOtherworldBlockTable(block);
                     });
 
-            //TODO: replace with otherworld sapling
             this.registerLootTable(OccultismBlocks.OTHERWORLD_LEAVES.get(),
-                    (block) -> droppingWithChancesAndSticks(block, Blocks.ACACIA_SAPLING, DEFAULT_SAPLING_DROP_RATES));
+                    (block) -> droppingWithChancesAndSticks(block, OccultismBlocks.OTHERWORLD_SAPLING.get(), DEFAULT_SAPLING_DROP_RATES));
         }
 
         @Override

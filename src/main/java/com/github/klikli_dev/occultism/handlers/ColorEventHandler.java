@@ -78,7 +78,7 @@ public class ColorEventHandler {
         event.getItemColors()
                 .register((stack, tintIndex) -> OtherworldLeavesNaturalBlock.COLOR,
                         OccultismBlocks.OTHERWORLD_LEAVES.get());
-        
+
         event.getItemColors()
                 .register((stack, tintIndex) -> {
                             BlockState blockstate = ((BlockItem) stack.getItem()).getBlock().getDefaultState();

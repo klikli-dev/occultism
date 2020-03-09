@@ -25,18 +25,16 @@ package com.github.klikli_dev.occultism.registry;
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.block.*;
 import com.github.klikli_dev.occultism.common.block.crops.ReplantableCropsBlock;
-import com.github.klikli_dev.occultism.common.block.otherworld.OtherstoneNaturalBlock;
-import com.github.klikli_dev.occultism.common.block.otherworld.OtherworldLeavesNaturalBlock;
-import com.github.klikli_dev.occultism.common.block.otherworld.OtherworldLogNaturalBlock;
+import com.github.klikli_dev.occultism.common.block.otherworld.*;
 import com.github.klikli_dev.occultism.common.block.storage.StableWormholeBlock;
 import com.github.klikli_dev.occultism.common.block.storage.StorageControllerBlock;
 import com.github.klikli_dev.occultism.common.block.storage.StorageStabilizerBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.LeavesBlock;
-import net.minecraft.block.LogBlock;
-import net.minecraft.block.SoundType;
+import com.github.klikli_dev.occultism.common.world.tree.OtherworldTree;
+import com.github.klikli_dev.occultism.common.world.tree.OtherworldTreeNatural;
+import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
+import net.minecraft.block.trees.OakTree;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
@@ -99,11 +97,19 @@ public class OccultismBlocks {
             register("otherworld_leaves", () -> new LeavesBlock(
                     Block.Properties.create(Material.LEAVES).sound(SoundType.PLANT)
                             .hardnessAndResistance(0.2f).tickRandomly().notSolid()), true, LootTableType.CUSTOM);
-
     public static final RegistryObject<OtherworldLeavesNaturalBlock> OTHERWORLD_LEAVES_NATURAL =
             register("otherworld_leaves_natural", () -> new OtherworldLeavesNaturalBlock(
                     Block.Properties.create(Material.LEAVES).sound(SoundType.PLANT)
                             .hardnessAndResistance(0.2f).tickRandomly().notSolid()), true, LootTableType.CUSTOM);
+
+    public static final RegistryObject<OtherworldSaplingBlock> OTHERWORLD_SAPLING =
+            register("otherworld_sapling", () -> new OtherworldSaplingBlock(new OtherworldTree(),
+                    Block.Properties.create(Material.PLANTS).sound(SoundType.PLANT)
+                            .hardnessAndResistance(0.0f).tickRandomly().doesNotBlockMovement()));
+    public static final RegistryObject<OtherworldSaplingNaturalBlock> OTHERWORLD_SAPLING_NATURAL =
+            register("otherworld_sapling_natural", () -> new OtherworldSaplingNaturalBlock(new OtherworldTreeNatural(),
+                    Block.Properties.create(Material.PLANTS).sound(SoundType.PLANT)
+                            .hardnessAndResistance(0.0f).tickRandomly().doesNotBlockMovement()), true, LootTableType.OTHERWORLD_BLOCK);
 
     //Decorative and Ritual Blocks
     public static final RegistryObject<CandleBlock> CANDLE_WHITE = register("candle_white", () -> new CandleBlock(
