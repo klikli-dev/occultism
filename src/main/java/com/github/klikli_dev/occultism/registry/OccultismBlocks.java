@@ -26,10 +26,12 @@ import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.block.*;
 import com.github.klikli_dev.occultism.common.block.crops.ReplantableCropsBlock;
 import com.github.klikli_dev.occultism.common.block.otherworld.OtherstoneNaturalBlock;
+import com.github.klikli_dev.occultism.common.block.otherworld.OtherworldLogNaturalBlock;
 import com.github.klikli_dev.occultism.common.block.storage.StableWormholeBlock;
 import com.github.klikli_dev.occultism.common.block.storage.StorageControllerBlock;
 import com.github.klikli_dev.occultism.common.block.storage.StorageStabilizerBlock;
 import net.minecraft.block.Block;
+import net.minecraft.block.LogBlock;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
@@ -77,16 +79,28 @@ public class OccultismBlocks {
     //Resources
     public static final RegistryObject<Block> OTHERSTONE = register("otherstone", () -> new Block(
             Block.Properties.create(Material.ROCK).sound(SoundType.STONE).hardnessAndResistance(1.5f, 30)));
-    public static final RegistryObject<OtherstoneNaturalBlock> OTHERSTONE_NATURAL = register("otherstone_natural", () -> new OtherstoneNaturalBlock(
-            Block.Properties.create(Material.ROCK).sound(SoundType.STONE).hardnessAndResistance(1.5f, 30)), true, LootTableType.OTHERWORLD_BLOCK);
+    public static final RegistryObject<OtherstoneNaturalBlock> OTHERSTONE_NATURAL =
+            register("otherstone_natural", () -> new OtherstoneNaturalBlock(
+                            Block.Properties.create(Material.ROCK).sound(SoundType.STONE).hardnessAndResistance(1.5f, 30)),
+                    true, LootTableType.OTHERWORLD_BLOCK);
+
+    public static final RegistryObject<LogBlock> OTHERWORLD_LOG =
+            register("otherworld_log", () -> new LogBlock(MaterialColor.WOOD,
+                    Block.Properties.create(Material.WOOD, MaterialColor.OBSIDIAN).sound(SoundType.WOOD)
+                            .hardnessAndResistance(2.0f)));
+    public static final RegistryObject<LogBlock> OTHERWORLD_LOG_NATURAL =
+            register("otherworld_log_natural", () -> new OtherworldLogNaturalBlock(MaterialColor.WOOD,
+                    Block.Properties.create(Material.WOOD, MaterialColor.OBSIDIAN).sound(SoundType.WOOD)
+                            .hardnessAndResistance(2.0f)), true, LootTableType.OTHERWORLD_BLOCK);
 
     //Decorative and Ritual Blocks
     public static final RegistryObject<CandleBlock> CANDLE_WHITE = register("candle_white", () -> new CandleBlock(
             Block.Properties.create(Material.MISCELLANEOUS).sound(SoundType.CLOTH).doesNotBlockMovement()
                     .hardnessAndResistance(0.1f, 0).lightValue(12)));
-    public static final RegistryObject<SpiritAttunedCrystalBlock> SPIRIT_ATTUNED_CRYSTAL = register("spirit_attuned_crystal", () -> new SpiritAttunedCrystalBlock(
-            Block.Properties.create(Material.ROCK).sound(SoundType.STONE).notSolid()
-                    .hardnessAndResistance(1.5f, 30).lightValue(8)));
+    public static final RegistryObject<SpiritAttunedCrystalBlock> SPIRIT_ATTUNED_CRYSTAL =
+            register("spirit_attuned_crystal", () -> new SpiritAttunedCrystalBlock(
+                    Block.Properties.create(Material.ROCK).sound(SoundType.STONE).notSolid()
+                            .hardnessAndResistance(1.5f, 30).lightValue(8)));
 
     //Machines
     public static final RegistryObject<SacrificialBowlBlock> SACRIFICIAL_BOWL =
