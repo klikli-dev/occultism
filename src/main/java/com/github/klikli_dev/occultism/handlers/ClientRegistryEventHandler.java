@@ -23,36 +23,24 @@
 package com.github.klikli_dev.occultism.handlers;
 
 import com.github.klikli_dev.occultism.Occultism;
-import com.github.klikli_dev.occultism.registry.OccultismBlocks;
+import com.github.klikli_dev.occultism.client.particle.RitualWaitingParticle;
+import com.github.klikli_dev.occultism.registry.OccultismParticles;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.particle.ParticleManager;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.ColorHandlerEvent;
+import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = Occultism.MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
-public class ColorEventHandler {
-
+public class ClientRegistryEventHandler {
     //region Static Methods
-    @SubscribeEvent
-    public static void onRegisterBlockColors(ColorHandlerEvent.Block event) {
-        event.getBlockColors()
-                .register((state, light, pos, color) -> OccultismBlocks.CHALK_GLYPH_WHITE.get().getColor(),
-                        OccultismBlocks.CHALK_GLYPH_WHITE.get());
-        event.getBlockColors()
-                .register((state, light, pos, color) -> OccultismBlocks.CHALK_GLYPH_GOLD.get().getColor(),
-                        OccultismBlocks.CHALK_GLYPH_GOLD.get());
-        event.getBlockColors()
-                .register((state, light, pos, color) -> OccultismBlocks.CHALK_GLYPH_PURPLE.get().getColor(),
-                        OccultismBlocks.CHALK_GLYPH_PURPLE.get());
-        event.getBlockColors()
-                .register((state, light, pos, color) -> OccultismBlocks.CHALK_GLYPH_RED.get().getColor(),
-                        OccultismBlocks.CHALK_GLYPH_RED.get());
-        Occultism.LOGGER.info("Block color registration complete.");
-    }
+    @SubscribeEvent()
+    public static void onRegisterParticleFactories(ParticleFactoryRegisterEvent event) {
+        ParticleManager manager = Minecraft.getInstance().particles;
+        manager.registerFactory(OccultismParticles.RITUAL_WAITING.get(), RitualWaitingParticle.Factory::new);
 
-    @SubscribeEvent
-    public static void onRegisterItemColors(ColorHandlerEvent.Item event) {
-        Occultism.LOGGER.info("Item color registration complete.");
+        Occultism.LOGGER.info("Registered Particle Factories");
     }
     //endregion Static Methods
 }

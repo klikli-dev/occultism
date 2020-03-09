@@ -26,6 +26,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.server.MinecraftServer;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.network.NetworkEvent;
 
 public abstract class MessageBase implements IMessage {
@@ -38,6 +40,7 @@ public abstract class MessageBase implements IMessage {
     //endregion Initialization
 
     //region Overrides
+    @OnlyIn(Dist.CLIENT)
     public void onClientReceived(Minecraft minecraft, PlayerEntity player, NetworkEvent.Context context) {
     }
 

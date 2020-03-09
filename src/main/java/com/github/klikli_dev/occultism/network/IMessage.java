@@ -27,6 +27,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.server.MinecraftServer;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.network.NetworkEvent;
 
 public interface IMessage {
@@ -35,6 +37,7 @@ public interface IMessage {
 
     void decode(PacketBuffer buf);
 
+    @OnlyIn(Dist.CLIENT)
     void onClientReceived(Minecraft minecraft, PlayerEntity player, NetworkEvent.Context context);
 
     void onServerReceived(MinecraftServer minecraftServer, ServerPlayerEntity player,

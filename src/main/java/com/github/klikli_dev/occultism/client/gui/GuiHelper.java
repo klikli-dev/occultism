@@ -20,42 +20,30 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.github.klikli_dev.occultism.network;
+package com.github.klikli_dev.occultism.client.gui;
 
+import com.github.klikli_dev.occultism.api.common.data.WorkAreaSize;
+import com.github.klikli_dev.occultism.client.gui.spirit.BookOfCallingGui;
+import com.github.klikli_dev.occultism.client.gui.spirit.BookOfCallingManagedMachineGui;
+import com.github.klikli_dev.occultism.common.item.spirit.BookOfCallingItem;
 import net.minecraft.client.Minecraft;
-import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.Direction;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fml.LogicalSide;
-import net.minecraftforge.fml.network.NetworkEvent;
 
-import java.util.function.Supplier;
+public class GuiHelper {
 
-public class OccultismPacketHandler {
     //region Static Methods
-    public static <T extends IMessage> void handle(T message, Supplier<NetworkEvent.Context> ctx) {
-        if (ctx.get().getDirection().getReceptionSide() == LogicalSide.SERVER) {
-            ctx.get().enqueueWork(() -> {
-                handleServer(message, ctx);
-            });
-        }
-        else {
-            ctx.get().enqueueWork(() -> {
-                handleClient(message, ctx);
-            });
-        }
-        ctx.get().setPacketHandled(true);
-    }
-
-    public static <T extends IMessage> void handleServer(T message, Supplier<NetworkEvent.Context> ctx) {
-        MinecraftServer server = ctx.get().getSender().world.getServer();
-        message.onServerReceived(server, ctx.get().getSender(), ctx.get());
+    @OnlyIn(Dist.CLIENT)
+    public static void openBookOfCallingManagedMachineGui(Direction insertFacing, Direction extractFacing,
+                                                          String customName) {
+        Minecraft.getInstance().displayGuiScreen(
+                new BookOfCallingManagedMachineGui(insertFacing, extractFacing, customName));
     }
 
     @OnlyIn(Dist.CLIENT)
-    public static <T extends IMessage> void handleClient(T message, Supplier<NetworkEvent.Context> ctx) {
-        Minecraft minecraft = Minecraft.getInstance();
-        message.onClientReceived(minecraft, minecraft.player, ctx.get());
+    public static void openBookOfCallingGui(BookOfCallingItem.ItemMode itemMode, WorkAreaSize workAreaSize) {
+        Minecraft.getInstance().displayGuiScreen(new BookOfCallingGui(itemMode, workAreaSize));
     }
     //endregion Static Methods
 }
