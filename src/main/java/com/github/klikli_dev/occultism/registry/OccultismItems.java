@@ -24,8 +24,11 @@ package com.github.klikli_dev.occultism.registry;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.TranslationKeys;
-import com.github.klikli_dev.occultism.common.block.SpiritFireBlock;
 import com.github.klikli_dev.occultism.common.item.*;
+import com.github.klikli_dev.occultism.common.item.debug.DebugWandItem;
+import com.github.klikli_dev.occultism.common.item.debug.SummonFoliotLumberjackItem;
+import com.github.klikli_dev.occultism.common.item.debug.SummonFoliotManageMachineItem;
+import com.github.klikli_dev.occultism.common.item.debug.SummonFoliotTraderItem;
 import com.github.klikli_dev.occultism.common.item.spirit.BookOfBindingBoundItem;
 import com.github.klikli_dev.occultism.common.item.spirit.BookOfBindingItem;
 import com.github.klikli_dev.occultism.common.item.spirit.BookOfCallingItem;
