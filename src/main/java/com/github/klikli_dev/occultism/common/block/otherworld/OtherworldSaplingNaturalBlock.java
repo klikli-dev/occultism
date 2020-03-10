@@ -41,6 +41,7 @@ public class OtherworldSaplingNaturalBlock extends SaplingBlock implements IOthe
     //region Initialization
     public OtherworldSaplingNaturalBlock(Tree tree, Properties properties) {
         super(tree, properties);
+        this.setDefaultState(this.getStateContainer().getBaseState().with(UNCOVERED, false));
     }
     //endregion Initialization
 
