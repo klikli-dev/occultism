@@ -24,7 +24,9 @@ package com.github.klikli_dev.occultism.common.item.otherworld;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
+import com.github.klikli_dev.occultism.registry.OccultismEffects;
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
@@ -39,12 +41,16 @@ public class OtherworldBlockItem extends BlockItem {
         super(blockIn, builder);
 
         this.addPropertyOverride(new ResourceLocation(Occultism.MODID, "simulated"),
-                (stack, world, entity) -> stack.getOrCreateTag().getBoolean("isInventoryItem") ? 1.0f : 0.0f);
+                (stack, world, entity) -> {
+                    boolean thirdEye = Minecraft.getInstance().player.isPotionActive(OccultismEffects.THIRD_EYE.get());
+           return stack.getOrCreateTag().getBoolean("isInventoryItem") || thirdEye ? 1.0f : 0.0f;
+        });
     }
 
     @Override
     public String getTranslationKey(ItemStack stack) {
-        return stack.getOrCreateTag().getBoolean("isInventoryItem") ? this.getDefaultTranslationKey() : this.getTranslationKey();
+        boolean thirdEye = Minecraft.getInstance().player.isPotionActive(OccultismEffects.THIRD_EYE.get());
+        return stack.getOrCreateTag().getBoolean("isInventoryItem") || thirdEye ? this.getDefaultTranslationKey() : this.getTranslationKey();
     }
 
     @Override
