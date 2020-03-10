@@ -109,7 +109,7 @@ public class OccultismBlocks {
     public static final RegistryObject<OtherworldSaplingNaturalBlock> OTHERWORLD_SAPLING_NATURAL =
             register("otherworld_sapling_natural", () -> new OtherworldSaplingNaturalBlock(new OtherworldTreeNatural(),
                     Block.Properties.create(Material.PLANTS).sound(SoundType.PLANT)
-                            .hardnessAndResistance(0.0f).tickRandomly().doesNotBlockMovement()), true, LootTableType.OTHERWORLD_BLOCK);
+                            .hardnessAndResistance(0.0f).tickRandomly().doesNotBlockMovement()), false, LootTableType.OTHERWORLD_BLOCK);
 
     //Decorative and Ritual Blocks
     public static final RegistryObject<CandleBlock> CANDLE_WHITE = register("candle_white", () -> new CandleBlock(

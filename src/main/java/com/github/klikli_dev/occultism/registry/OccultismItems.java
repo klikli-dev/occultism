@@ -29,6 +29,7 @@ import com.github.klikli_dev.occultism.common.item.debug.DebugWandItem;
 import com.github.klikli_dev.occultism.common.item.debug.SummonFoliotLumberjackItem;
 import com.github.klikli_dev.occultism.common.item.debug.SummonFoliotManageMachineItem;
 import com.github.klikli_dev.occultism.common.item.debug.SummonFoliotTraderItem;
+import com.github.klikli_dev.occultism.common.item.otherworld.OtherworldBlockItem;
 import com.github.klikli_dev.occultism.common.item.spirit.BookOfBindingBoundItem;
 import com.github.klikli_dev.occultism.common.item.spirit.BookOfBindingItem;
 import com.github.klikli_dev.occultism.common.item.spirit.BookOfCallingItem;
@@ -61,6 +62,9 @@ public class OccultismItems {
     public static final RegistryObject<BlockItem> SPIRIT_FIRE = ITEMS.register("spirit_fire", () -> new BlockItem(OccultismBlocks.SPIRIT_FIRE.get(), defaultProperties()));
 
     //Resources
+    public static final RegistryObject<OtherworldBlockItem> OTHERWORLD_SAPLING_NATURAL = ITEMS.register("otherworld_sapling_natural",
+            () -> new OtherworldBlockItem(OccultismBlocks.OTHERWORLD_SAPLING_NATURAL.get(), defaultProperties()));
+
     //Components
     public static final RegistryObject<Item> DIMENSIONAL_MATRIX = ITEMS.register("dimensional_matrix",
             () -> new Item(defaultProperties()));
