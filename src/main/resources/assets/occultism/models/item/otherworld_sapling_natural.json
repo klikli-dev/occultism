@@ -1,5 +1,5 @@
 {
-  "parent": "occultism:item/otherworld_saplling_natural_simulated",
+  "parent": "occultism:item/otherworld_sapling_natural_simulated",
   "overrides": [
     {
       "__comment": "simulated >= 0.0",
