@@ -20,28 +20,27 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.github.klikli_dev.occultism.registry;
+package com.github.klikli_dev.occultism.handlers;
 
 import com.github.klikli_dev.occultism.Occultism;
-import com.github.klikli_dev.occultism.common.world.cave.UndergroundGroveFeature;
-import com.github.klikli_dev.occultism.common.world.ore.DimensionOreFeature;
-import com.github.klikli_dev.occultism.common.world.ore.DimensionOreFeatureConfig;
-import net.minecraft.world.gen.feature.Feature;
-import net.minecraftforge.fml.RegistryObject;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.storage.loot.LootPool;
+import net.minecraft.world.storage.loot.TableLootEntry;
+import net.minecraftforge.event.LootTableLoadEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 
-public class OccultismBiomeFeatures {
-    //region Fields
-    public static final DeferredRegister<Feature<?>> FEATURES =
-            new DeferredRegister<>(ForgeRegistries.FEATURES, Occultism.MODID);
+import static com.github.klikli_dev.occultism.util.StaticUtil.modLoc;
 
-    public static final RegistryObject<DimensionOreFeature> DIMENSION_ORE_FEATURE = FEATURES.register("dimension_ore",
-            () -> new DimensionOreFeature(DimensionOreFeatureConfig::deserialize));
-    public static final RegistryObject<UndergroundGroveFeature> UNDERGROUND_GROVE_FEATURE =
-            FEATURES.register("underground_grove",
-                    () -> new UndergroundGroveFeature(25, 25));
+@Mod.EventBusSubscriber(modid = Occultism.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
+public class LootEventHandler {
 
-    //endregion Fields
+    private static ResourceLocation grass = new ResourceLocation("minecraft", "blocks/grass");
 
+    @SubscribeEvent
+    public static void onLootLoad(LootTableLoadEvent event) {
+        if (event.getName().equals(grass)) {
+            event.getTable().addPool(LootPool.builder().addEntry(TableLootEntry.builder(modLoc("blocks/grass"))).build());
+        }
+    }
 }

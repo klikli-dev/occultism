@@ -31,6 +31,7 @@ import com.github.klikli_dev.occultism.client.render.entity.FoliotRenderer;
 import com.github.klikli_dev.occultism.client.render.tile.SacrificialBowlRenderer;
 import com.github.klikli_dev.occultism.client.render.tile.StorageControllerRenderer;
 import com.github.klikli_dev.occultism.common.OccultismItemGroup;
+import com.github.klikli_dev.occultism.common.world.WorldGenHandler;
 import com.github.klikli_dev.occultism.config.OccultismConfig;
 import com.github.klikli_dev.occultism.network.OccultismPackets;
 import com.github.klikli_dev.occultism.registry.*;
@@ -72,6 +73,7 @@ public class Occultism {
         INSTANCE = this;
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, CONFIG.spec);
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+
         OccultismEffects.EFFECTS.register(modEventBus);
         OccultismRecipes.RECIPES.register(modEventBus);
         OccultismBlocks.BLOCKS.register(modEventBus);
@@ -81,6 +83,7 @@ public class Occultism {
         OccultismEntities.ENTITIES.register(modEventBus);
         OccultismSounds.SOUNDS.register(modEventBus);
         OccultismParticles.PARTICLES.register(modEventBus);
+        OccultismBiomeFeatures.FEATURES.register(modEventBus);
 
         //register event buses
         modEventBus.addListener(this::commonSetup);
@@ -102,6 +105,11 @@ public class Occultism {
 
     private void commonSetup(final FMLCommonSetupEvent event) {
         OccultismPackets.registerMessages();
+
+        WorldGenHandler.setupOreGeneration();
+        //TODO: re enable grove generation after reworking it to fit new generation
+        //WorldGenHandler.setupUndergroundGroveGeneration();
+
         LOGGER.info("Common setup complete.");
     }
 

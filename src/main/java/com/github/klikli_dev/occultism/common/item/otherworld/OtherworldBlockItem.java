@@ -30,6 +30,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
@@ -49,7 +50,8 @@ public class OtherworldBlockItem extends BlockItem {
 
     @Override
     public String getTranslationKey(ItemStack stack) {
-        boolean thirdEye = Minecraft.getInstance().player.isPotionActive(OccultismEffects.THIRD_EYE.get());
+        boolean thirdEye = Minecraft.getInstance() != null && Minecraft.getInstance().player != null
+                           && Minecraft.getInstance().player.isPotionActive(OccultismEffects.THIRD_EYE.get());
         return stack.getOrCreateTag().getBoolean("isInventoryItem") || thirdEye ? this.getDefaultTranslationKey() : this.getTranslationKey();
     }
 

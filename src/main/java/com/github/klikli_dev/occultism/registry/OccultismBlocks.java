@@ -30,11 +30,10 @@ import com.github.klikli_dev.occultism.common.block.storage.StableWormholeBlock;
 import com.github.klikli_dev.occultism.common.block.storage.StorageControllerBlock;
 import com.github.klikli_dev.occultism.common.block.storage.StorageStabilizerBlock;
 import com.github.klikli_dev.occultism.common.world.tree.OtherworldTree;
-import com.github.klikli_dev.occultism.common.world.tree.OtherworldTreeNatural;
+import com.github.klikli_dev.occultism.common.world.tree.OtherworldNaturalTree;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
-import net.minecraft.block.trees.OakTree;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
@@ -107,7 +106,7 @@ public class OccultismBlocks {
                     Block.Properties.create(Material.PLANTS).sound(SoundType.PLANT)
                             .hardnessAndResistance(0.0f).tickRandomly().doesNotBlockMovement()));
     public static final RegistryObject<OtherworldSaplingNaturalBlock> OTHERWORLD_SAPLING_NATURAL =
-            register("otherworld_sapling_natural", () -> new OtherworldSaplingNaturalBlock(new OtherworldTreeNatural(),
+            register("otherworld_sapling_natural", () -> new OtherworldSaplingNaturalBlock(new OtherworldNaturalTree(),
                     Block.Properties.create(Material.PLANTS).sound(SoundType.PLANT)
                             .hardnessAndResistance(0.0f).tickRandomly().doesNotBlockMovement()), false, LootTableType.OTHERWORLD_BLOCK);
 

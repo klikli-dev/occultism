@@ -102,7 +102,7 @@ public class OccultismConfig extends ConfigBase {
         public class OreGenSettings extends ConfigCategoryBase {
             //region Fields
 
-            public final CachedObject<List<Integer>> dimensionWhitelist;
+            public final CachedObject<List<String>> dimensionTypeWhitelist;
             public final CachedInt otherstoneOreSize;
             public final CachedInt otherstoneOreChance;
             public final CachedInt otherstoneOreMin;
@@ -115,9 +115,9 @@ public class OccultismConfig extends ConfigBase {
                 super(parent, builder);
                 builder.comment("Ore Gen Settings").push("oregen");
 
-                this.dimensionWhitelist = CachedObject.cache(this,
+                this.dimensionTypeWhitelist = CachedObject.cache(this,
                         builder.comment("The dimensions whitelisted for Occultism Oregen.")
-                                .define("dimensionWhitelist", Stream.of(0).collect(Collectors.toList())));
+                                .define("dimensionWhitelist", Stream.of("overworld").collect(Collectors.toList())));
                 this.otherstoneOreSize = CachedInt.cache(this,
                         builder.comment("The size of otherstone ore veins.")
                                 .defineInRange("otherstoneOreSize", 7, 0, Byte.MAX_VALUE));
@@ -137,7 +137,7 @@ public class OccultismConfig extends ConfigBase {
 
         public class UndergroundGroveGenSettings extends ConfigCategoryBase {
             //region Fields
-            public CachedObject<List<Integer>> dimensionWhitelist;
+            public CachedObject<List<String>> dimensionTypeWhitelist;
             public CachedObject<List<String>> validBiomes;
             public CachedInt groveSpawnRarity;
             public CachedFloat minGroveDistance;
@@ -152,9 +152,9 @@ public class OccultismConfig extends ConfigBase {
                 super(parent, builder);
                 builder.comment("Underground Grove Settings").push("underground_grove");
 
-                this.dimensionWhitelist = CachedObject.cache(this,
+                this.dimensionTypeWhitelist = CachedObject.cache(this,
                         builder.comment("The dimensions whitelisted for underground grove generation.")
-                                .define("dimensionWhitelist", Stream.of(0).collect(Collectors.toList())));
+                                .define("dimensionWhitelist", Stream.of("overworld").collect(Collectors.toList())));
                 List<String> defaultValidBiomes = Arrays.stream(
                         new BiomeDictionary.Type[]{BiomeDictionary.Type.JUNGLE, BiomeDictionary.Type.LUSH, BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.CONIFEROUS, BiomeDictionary.Type.MAGICAL})
                                                           .map(BiomeDictionary.Type::getName)
