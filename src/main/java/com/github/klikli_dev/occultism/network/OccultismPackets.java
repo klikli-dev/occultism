@@ -126,6 +126,12 @@ public class OccultismPackets {
                 MessageSetManagedMachine::encode,
                 MessageSetManagedMachine::new,
                 OccultismPacketHandler::handle);
+
+        INSTANCE.registerMessage(nextID(),
+                MessageSetDivinationResult.class,
+                MessageSetDivinationResult::encode,
+                MessageSetDivinationResult::new,
+                OccultismPacketHandler::handle);
     }
 
     public static <MSG> void sendTo(ServerPlayerEntity player, MSG message) {
