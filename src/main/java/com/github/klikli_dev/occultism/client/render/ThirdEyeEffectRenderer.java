@@ -23,6 +23,7 @@
 package com.github.klikli_dev.occultism.client.render;
 
 import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.common.block.otherworld.IOtherworldBlock;
 import com.github.klikli_dev.occultism.registry.OccultismEffects;
 import com.github.klikli_dev.occultism.util.Math3DUtil;
 import com.mojang.blaze3d.platform.GlStateManager;
@@ -33,24 +34,35 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.potion.Effect;
+import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import org.lwjgl.opengl.GL11;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 public class ThirdEyeEffectRenderer {
 
     //region Fields
-    public static final float MAX_THIRD_EYE_DISTANCE = 15.0f;
-    public static final float MAX_THIRD_EYE_DISTANCE_SQUARED = (float) Math.pow(MAX_THIRD_EYE_DISTANCE, 2);
+    public static final int MAX_THIRD_EYE_DISTANCE = 10;
+
     public static final ResourceLocation THIRD_EYE_SHADER = new ResourceLocation(Occultism.MODID,
             "shaders/post/third_eye.json");
     public static final ResourceLocation THIRD_EYE_OVERLAY = new ResourceLocation(Occultism.MODID,
             "textures/overlay/third_eye.png");
 
     public boolean thirdEyeActiveLastTick = false;
+
+    public Set<BlockPos> uncoveredBlocks = new HashSet<>();
     //endregion Fields
 
     //region Static Methods
@@ -85,7 +97,8 @@ public class ThirdEyeEffectRenderer {
     //region Methods
     @SubscribeEvent
     public void onPlayerTick(TickEvent.PlayerTickEvent event) {
-        this.onThirdEyeTick(event);
+        if(event.player.world.isRemote)
+            this.onThirdEyeTick(event);
     }
 
     @SubscribeEvent
@@ -109,34 +122,69 @@ public class ThirdEyeEffectRenderer {
         }
     }
 
-    public boolean shouldRenderThirdEye(BlockState state, BlockPos pos) {
-        return this.thirdEyeActiveLastTick &&
-               Minecraft.getInstance().player.getDistanceSq(Math3DUtil.center(pos)) < MAX_THIRD_EYE_DISTANCE_SQUARED;
+    /**
+     * Resets the currently uncovered blocks
+     * @param world the world.
+     * @param clear true to delete the list of uncovered blocks.
+     */
+    public void resetUncoveredBlocks(World world, boolean clear){
+        for(BlockPos pos : this.uncoveredBlocks) {
+            BlockState state = world.getBlockState(pos);
+            if(state.getBlock() instanceof IOtherworldBlock) //handle replaced or removed blocks gracefully
+                world.setBlockState(pos, state.with(IOtherworldBlock.UNCOVERED, false), 1);
+        }
+        if(clear)
+            this.uncoveredBlocks.clear();
+    }
+
+    /**
+     * Uncovers the otherworld blocks within MAX_THIRD_EYE_DISTANCE of the player.
+     * @param player the player.
+     * @param world the world.
+     */
+    public void uncoverBlocks(PlayerEntity player, World world){
+        BlockPos origin = player.getPosition();
+        BlockPos.getAllInBoxMutable(origin.add(-MAX_THIRD_EYE_DISTANCE, -MAX_THIRD_EYE_DISTANCE, -MAX_THIRD_EYE_DISTANCE),
+                origin.add(MAX_THIRD_EYE_DISTANCE,MAX_THIRD_EYE_DISTANCE,MAX_THIRD_EYE_DISTANCE)).forEach(pos -> {
+            BlockState state = world.getBlockState(pos);
+            if(state.getBlock() instanceof IOtherworldBlock){
+                if(!state.get(IOtherworldBlock.UNCOVERED)){
+                    world.setBlockState(pos, state.with(IOtherworldBlock.UNCOVERED, true), 1);
+                }
+                this.uncoveredBlocks.add(pos.toImmutable());
+            }
+        });
     }
 
     public void onThirdEyeTick(TickEvent.PlayerTickEvent event) {
-        if (event.player.isPotionActive(OccultismEffects.THIRD_EYE.get())) {
+        EffectInstance effect = event.player.getActivePotionEffect(OccultismEffects.THIRD_EYE.get());
+        int duration = effect == null ? 0 : effect.getDuration();
+        if (duration > 1) {
             if (!this.thirdEyeActiveLastTick) {
                 this.thirdEyeActiveLastTick = true;
 
-                //load shader
-                Minecraft.getInstance()
-                        .enqueue(() -> Minecraft.getInstance().gameRenderer.loadShader(THIRD_EYE_SHADER));
+                //uncover nearby blocks
+                this.uncoverBlocks(event.player, event.player.world);
 
+                //load shader
+                Minecraft.getInstance().enqueue(() -> Minecraft.getInstance().gameRenderer.loadShader(THIRD_EYE_SHADER));
             }
-            else if (event.player.world.getGameTime() % (20 * 2) == 0) {
+            //else if (event.player.world.getGameTime() % (10) == 0) {
+            //TODO: verify if we need to uncover on a slowed tick or if we can do this every tick
+            else {
+                this.uncoverBlocks(event.player, event.player.world);
             }
         }
         else {
+            //cover uncovered blocks
+            //Try twice, but on the last effect tick, clear the list.
+            this.resetUncoveredBlocks(event.player.world, duration == 0);
+
             if (this.thirdEyeActiveLastTick) {
                 this.thirdEyeActiveLastTick = false;
-                //clean up block render
-
                 //unload shader
                 Minecraft.getInstance().enqueue(() -> Minecraft.getInstance().gameRenderer.stopUseShader());
-
             }
-
         }
     }
 }

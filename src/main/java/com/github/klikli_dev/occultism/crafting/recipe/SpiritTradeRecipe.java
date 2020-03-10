@@ -46,8 +46,8 @@ public class SpiritTradeRecipe extends ShapelessRecipe {
     public static Serializer SERIALIZER = new Serializer();
 
     //region Initialization
-    public SpiritTradeRecipe(ResourceLocation id, ItemStack result, NonNullList<Ingredient> input) {
-        super(id, null, result, input);
+    public SpiritTradeRecipe(ResourceLocation id, String group, ItemStack result, NonNullList<Ingredient> input) {
+        super(id, group, result, input);
     }
     //endregion Initialization
 
@@ -133,13 +133,13 @@ public class SpiritTradeRecipe extends ShapelessRecipe {
         @Override
         public SpiritTradeRecipe read(ResourceLocation recipeId, JsonObject json) {
             ShapelessRecipe recipe = serializer.read(recipeId, json);
-            return new SpiritTradeRecipe(recipe.getId(), recipe.getRecipeOutput(), recipe.getIngredients());
+            return new SpiritTradeRecipe(recipe.getId(), recipe.getGroup(), recipe.getRecipeOutput(), recipe.getIngredients());
         }
 
         @Override
         public SpiritTradeRecipe read(ResourceLocation recipeId, PacketBuffer buffer) {
             ShapelessRecipe recipe = serializer.read(recipeId, buffer);
-            return new SpiritTradeRecipe(recipe.getId(), recipe.getRecipeOutput(), recipe.getIngredients());
+            return new SpiritTradeRecipe(recipe.getId(), recipe.getGroup(), recipe.getRecipeOutput(), recipe.getIngredients());
         }
 
         @Override

@@ -135,6 +135,9 @@ public class Occultism {
         RenderTypeLookup.setRenderLayer(OccultismBlocks.DATURA.get(), RenderType.getCutoutMipped());
         RenderTypeLookup.setRenderLayer(OccultismBlocks.SPIRIT_FIRE.get(), RenderType.getCutoutMipped());
 
+        RenderTypeLookup.setRenderLayer(OccultismBlocks.OTHERWORLD_SAPLING.get(), RenderType.getCutoutMipped());
+        RenderTypeLookup.setRenderLayer(OccultismBlocks.OTHERWORLD_SAPLING_NATURAL.get(), RenderType.getCutoutMipped());
+
         //Not safe to call during parallel load, so register just after.
         DeferredWorkQueue.runLater(() -> {
             //Register screen factories

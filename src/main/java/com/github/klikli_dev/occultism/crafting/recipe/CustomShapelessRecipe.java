@@ -52,8 +52,8 @@ public class CustomShapelessRecipe extends ShapelessRecipe {
     //endregion Fields
 
     //region Initialization
-    public CustomShapelessRecipe(ResourceLocation id, ItemStack result, NonNullList<Ingredient> input) {
-        super(id, null, result, input);
+    public CustomShapelessRecipe(ResourceLocation id, String group, ItemStack result, NonNullList<Ingredient> input) {
+        super(id, group, result, input);
     }
     //endregion Initialization
 
@@ -148,13 +148,13 @@ public class CustomShapelessRecipe extends ShapelessRecipe {
         @Override
         public CustomShapelessRecipe read(ResourceLocation recipeId, JsonObject json) {
             ShapelessRecipe recipe = serializer.read(recipeId, json);
-            return new CustomShapelessRecipe(recipe.getId(), recipe.getRecipeOutput(), recipe.getIngredients());
+            return new CustomShapelessRecipe(recipe.getId(), recipe.getGroup(), recipe.getRecipeOutput(), recipe.getIngredients());
         }
 
         @Override
         public CustomShapelessRecipe read(ResourceLocation recipeId, PacketBuffer buffer) {
             ShapelessRecipe recipe = serializer.read(recipeId, buffer);
-            return new CustomShapelessRecipe(recipe.getId(), recipe.getRecipeOutput(), recipe.getIngredients());
+            return new CustomShapelessRecipe(recipe.getId(), recipe.getGroup(), recipe.getRecipeOutput(), recipe.getIngredients());
         }
 
         @Override

@@ -28,6 +28,8 @@ import com.github.klikli_dev.occultism.api.common.data.MachineReference;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketBuffer;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.network.NetworkEvent;
 
 import java.util.ArrayList;
@@ -61,6 +63,7 @@ public class MessageUpdateLinkedMachines extends MessageBase {
     //region Overrides
 
     @Override
+    @OnlyIn(Dist.CLIENT)
     public void onClientReceived(Minecraft minecraft, PlayerEntity player, NetworkEvent.Context context) {
         if(minecraft.currentScreen instanceof IStorageControllerGui){
             IStorageControllerGui gui = (IStorageControllerGui) minecraft.currentScreen;

@@ -31,15 +31,13 @@ import com.github.klikli_dev.occultism.api.common.item.IHandleItemMode;
 import com.github.klikli_dev.occultism.api.common.item.IIngredientCopyNBT;
 import com.github.klikli_dev.occultism.api.common.item.IIngredientPreventCrafting;
 import com.github.klikli_dev.occultism.api.common.tile.IStorageController;
-import com.github.klikli_dev.occultism.client.gui.spirit.BookOfCallingGui;
-import com.github.klikli_dev.occultism.client.gui.spirit.BookOfCallingManagedMachineGui;
+import com.github.klikli_dev.occultism.client.gui.GuiHelper;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.github.klikli_dev.occultism.common.job.ManageMachineJob;
 import com.github.klikli_dev.occultism.util.EntityUtil;
 import com.github.klikli_dev.occultism.util.ItemNBTUtil;
 import com.github.klikli_dev.occultism.util.TextUtil;
 import com.github.klikli_dev.occultism.util.TileEntityUtil;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -54,7 +52,6 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
-import net.minecraft.util.DamageSource;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
@@ -162,11 +159,11 @@ public class BookOfCallingItem extends Item implements IIngredientPreventCraftin
                 //when sneaking, perform action based on mode
                 return this.handleItemMode(player, world, pos, itemStack, facing);
             }
-            else {
+            else if(world.isRemote) {
                 //if not sneaking, open general ui
                 ItemMode mode = ItemMode.get(this.getItemMode(itemStack));
                 WorkAreaSize workAreaSize = ItemNBTUtil.getWorkAreaSize(itemStack);
-                Minecraft.getInstance().displayGuiScreen(new BookOfCallingGui(mode, workAreaSize));
+                GuiHelper.openBookOfCallingGui(mode, workAreaSize);
             }
         }
 
@@ -423,12 +420,8 @@ public class BookOfCallingItem extends Item implements IIngredientPreventCraftin
                             CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)) {
                         MachineReference machine = ItemNBTUtil.getManagedMachine(stack);
                         if (machine != null) {
-                            Minecraft.getInstance().displayGuiScreen(
-                                    new BookOfCallingManagedMachineGui(machine.insertFacing, machine.extractFacing,
-                                            machine.customName));
-                        }
-                        else {
-
+                            GuiHelper.openBookOfCallingManagedMachineGui(machine.insertFacing, machine.extractFacing,
+                                    machine.customName);
                         }
                     }
                     break;
@@ -438,6 +431,8 @@ public class BookOfCallingItem extends Item implements IIngredientPreventCraftin
 
         return ActionResultType.PASS;
     }
+
+
     //endregion Methods
 
     public enum ItemMode {

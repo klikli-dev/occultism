@@ -26,6 +26,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.network.NetworkEvent;
 
 /**
@@ -51,6 +53,7 @@ public class MessageUpdateMouseHeldItem extends MessageBase {
     //region Overrides
 
     @Override
+    @OnlyIn(Dist.CLIENT)
     public void onClientReceived(Minecraft minecraft, PlayerEntity player, NetworkEvent.Context context) {
         player.inventory.setItemStack(this.stack);
     }

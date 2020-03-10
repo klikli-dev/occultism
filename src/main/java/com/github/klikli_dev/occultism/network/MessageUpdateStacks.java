@@ -29,6 +29,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.network.NetworkEvent;
 
 import java.util.ArrayList;
@@ -65,6 +67,7 @@ public class MessageUpdateStacks extends MessageBase {
     //region Overrides
 
     @Override
+    @OnlyIn(Dist.CLIENT)
     public void onClientReceived(Minecraft minecraft, PlayerEntity player, NetworkEvent.Context context) {
         this.uncompress();
         IStorageControllerGui gui = (IStorageControllerGui) minecraft.currentScreen;

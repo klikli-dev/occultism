@@ -20,31 +20,26 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.github.klikli_dev.occultism.common.item;
+package com.github.klikli_dev.occultism.common.item.debug;
 
 import com.github.klikli_dev.occultism.common.entity.spirit.FoliotEntity;
-import com.github.klikli_dev.occultism.common.job.SpiritJob;
+import com.github.klikli_dev.occultism.common.job.TraderJob;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.registry.OccultismSpiritJobs;
-import com.github.klikli_dev.occultism.util.ItemNBTUtil;
 import net.minecraft.advancements.CriteriaTriggers;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
-import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
 import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.world.World;
 
-public class SummonFoliotLumberjackItem extends Item {
+import static com.github.klikli_dev.occultism.util.StaticUtil.modLoc;
+
+public class SummonFoliotTraderItem extends Item {
 
     //region Initialization
-    public SummonFoliotLumberjackItem(Properties properties) {
+    public SummonFoliotTraderItem(Properties properties) {
         super(properties);
     }
     //endregion Initialization
@@ -52,24 +47,26 @@ public class SummonFoliotLumberjackItem extends Item {
     //region Overrides
     @Override
     public ActionResultType onItemUse(ItemUseContext context) {
-        FoliotEntity spirit = new FoliotEntity(OccultismEntities.FOLIOT.get(), context.getWorld());
-        spirit.onInitialSpawn(context.getWorld(), context.getWorld().getDifficultyForLocation(context.getPos()),
-                SpawnReason.SPAWN_EGG, null, null);
-        spirit.setTamedBy(context.getPlayer());
-        spirit.setPosition(context.getPos().getX(), context.getPos().getY() + 1.0f, context.getPos().getZ());
-        spirit.setCustomName(new StringTextComponent("Testspirit Lumberjack"));
+        if (!context.getWorld().isRemote) {
+            FoliotEntity spirit = new FoliotEntity(OccultismEntities.FOLIOT.get(), context.getWorld());
+            spirit.onInitialSpawn(context.getWorld(), context.getWorld().getDifficultyForLocation(context.getPos()),
+                    SpawnReason.SPAWN_EGG, null, null);
+            spirit.setTamedBy(context.getPlayer());
+            spirit.setPosition(context.getPos().getX(), context.getPos().getY() + 1.0f, context.getPos().getZ());
+            spirit.setCustomName(new StringTextComponent("Testspirit Trader"));
 
-        //set up the job
-        SpiritJob lumberjack = OccultismSpiritJobs.LUMBERJACK.get().create(spirit);
-        lumberjack.init();
-        spirit.setJob(lumberjack);
+            //set up the job
+            TraderJob trader = (TraderJob) OccultismSpiritJobs.TRADE_OTHERSTONE.get().create(spirit);
+            trader.init();
+            trader.setTradeRecipeId(modLoc("spirit_trade/test"));
+            spirit.setJob(trader);
 
-        //notify players nearby and spawn
-        for (ServerPlayerEntity player : context.getWorld().getEntitiesWithinAABB(ServerPlayerEntity.class,
-                spirit.getBoundingBox().grow(50)))
-            CriteriaTriggers.SUMMONED_ENTITY.trigger(player, spirit);
-        context.getWorld().addEntity(spirit);
-
+            //notify players nearby and spawn
+            for (ServerPlayerEntity player : context.getWorld().getEntitiesWithinAABB(ServerPlayerEntity.class,
+                    spirit.getBoundingBox().grow(50)))
+                CriteriaTriggers.SUMMONED_ENTITY.trigger(player, spirit);
+            context.getWorld().addEntity(spirit);
+        }
         return ActionResultType.SUCCESS;
     }
 
