@@ -22,21 +22,42 @@
 
 package com.github.klikli_dev.occultism.common.world.tree;
 
-import com.github.klikli_dev.occultism.registry.OccultismBiomeFeatures;
+import com.github.klikli_dev.occultism.registry.OccultismBlocks;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.trees.Tree;
+import net.minecraft.world.gen.blockstateprovider.SimpleBlockStateProvider;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.TreeFeatureConfig;
+import net.minecraft.world.gen.foliageplacer.BlobFoliagePlacer;
+import net.minecraftforge.common.util.NonNullLazy;
 
 import javax.annotation.Nullable;
 import java.util.Random;
 
-public class OtherworldTreeNatural extends Tree {
-    public OtherworldTreeNatural() {
-    }
+public class OtherworldNaturalTree extends Tree {
+    //region Fields
+    protected static final NonNullLazy<BlockState> OTHERWORLD_LOG_NATURAL =
+            NonNullLazy.of(() -> OccultismBlocks.OTHERWORLD_LOG_NATURAL.get().getDefaultState());
+    protected static final NonNullLazy<BlockState> OTHERWORLD_LEAVES_NATURAL =
+            NonNullLazy.of(() -> OccultismBlocks.OTHERWORLD_LEAVES_NATURAL.get().getDefaultState());
+    public static final NonNullLazy<TreeFeatureConfig> OTHERWORLD_TREE_NATURAL_CONFIG =
+            NonNullLazy
+                    .of(() -> new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(OTHERWORLD_LOG_NATURAL.get()),
+                            new SimpleBlockStateProvider(OTHERWORLD_LEAVES_NATURAL.get()), new BlobFoliagePlacer(2, 0))
+                                      .baseHeight(4).heightRandA(2).foliageHeight(3).ignoreVines()
+                                      .setSapling(OccultismBlocks.OTHERWORLD_SAPLING_NATURAL.get()).build());
+    //endregion Fields
 
+    //region Initialization
+    public OtherworldNaturalTree() {
+    }
+    //endregion Initialization
+
+    //region Overrides
     @Nullable
     protected ConfiguredFeature<TreeFeatureConfig, ?> getTreeFeature(Random rand, boolean moreBeehives) {
-        return Feature.NORMAL_TREE.withConfiguration(OccultismBiomeFeatures.OTHERWORLD_TREE_NATURAL_CONFIG);
+        return Feature.NORMAL_TREE.withConfiguration(OTHERWORLD_TREE_NATURAL_CONFIG.get());
     }
+    //endregion Overrides
 }

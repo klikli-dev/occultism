@@ -23,6 +23,7 @@
 package com.github.klikli_dev.occultism.common.world.cave;
 
 import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.common.world.tree.OtherworldNaturalTree;
 import com.github.klikli_dev.occultism.registry.OccultismBiomeFeatures;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import net.minecraft.block.BlockState;
@@ -36,14 +37,15 @@ import net.minecraft.world.gen.GenerationSettings;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.TreeFeatureConfig;
+import net.minecraftforge.common.util.NonNullLazy;
 
 import java.util.Random;
 
 public class UndergroundGroveDecorator extends CaveDecorator {
 
     //region Fields
-    protected final ConfiguredFeature<TreeFeatureConfig, ?> treeFeature =
-            Feature.NORMAL_TREE.withConfiguration(OccultismBiomeFeatures.OTHERWORLD_TREE_NATURAL_CONFIG);
+    protected final NonNullLazy<ConfiguredFeature<TreeFeatureConfig, ?>> treeFeature =
+            NonNullLazy.of(() -> Feature.NORMAL_TREE.withConfiguration(OtherworldNaturalTree.OTHERWORLD_TREE_NATURAL_CONFIG.get()));
     //endregion Fields
 
     //region Initialization
@@ -71,7 +73,7 @@ public class UndergroundGroveDecorator extends CaveDecorator {
             world.setBlockState(pos.up(), Blocks.GRASS.getDefaultState(), 2);
 
         if (rand.nextFloat() < Occultism.CONFIG.worldGen.undergroundGroveGen.treeChance.get()) {
-            this.treeFeature.place(world, generator, rand, pos.up());
+            this.treeFeature.get().place(world, generator, rand, pos.up());
         }
     }
 

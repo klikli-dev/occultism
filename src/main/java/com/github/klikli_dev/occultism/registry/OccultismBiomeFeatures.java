@@ -23,18 +23,10 @@
 package com.github.klikli_dev.occultism.registry;
 
 import com.github.klikli_dev.occultism.Occultism;
-import com.github.klikli_dev.occultism.common.world.cave.SphericalCaveFeature;
-import com.github.klikli_dev.occultism.common.world.cave.UndergroundGroveDecorator;
 import com.github.klikli_dev.occultism.common.world.cave.UndergroundGroveFeature;
 import com.github.klikli_dev.occultism.common.world.ore.DimensionOreFeature;
 import com.github.klikli_dev.occultism.common.world.ore.DimensionOreFeatureConfig;
-import com.github.klikli_dev.occultism.crafting.recipe.SpiritTradeRecipe;
-import net.minecraft.block.BlockState;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.world.gen.blockstateprovider.SimpleBlockStateProvider;
 import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.TreeFeatureConfig;
-import net.minecraft.world.gen.foliageplacer.BlobFoliagePlacer;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -44,33 +36,11 @@ public class OccultismBiomeFeatures {
     public static final DeferredRegister<Feature<?>> FEATURES =
             new DeferredRegister<>(ForgeRegistries.FEATURES, Occultism.MODID);
 
-    protected static final BlockState OTHERWORLD_LOG = OccultismBlocks.OTHERWORLD_LOG.get().getDefaultState();
-    protected static final BlockState OTHERWORLD_LOG_NATURAL =
-            OccultismBlocks.OTHERWORLD_LOG_NATURAL.get().getDefaultState();
-    protected static final BlockState OTHERWORLD_LEAVES = OccultismBlocks.OTHERWORLD_LEAVES.get().getDefaultState();
-    public static final TreeFeatureConfig OTHERWORLD_TREE_CONFIG =
-            new TreeFeatureConfig.Builder(
-                    new SimpleBlockStateProvider(OTHERWORLD_LOG),
-                    new SimpleBlockStateProvider(OTHERWORLD_LEAVES),
-                    new BlobFoliagePlacer(2, 0))
-                    .baseHeight(4).heightRandA(2).foliageHeight(3).ignoreVines()
-                    .setSapling((net.minecraftforge.common.IPlantable) OccultismBlocks.OTHERWORLD_SAPLING.get())
-                    .build();
-    protected static final BlockState OTHERWORLD_LEAVES_NATURAL =
-            OccultismBlocks.OTHERWORLD_LEAVES_NATURAL.get().getDefaultState();
-    public static final TreeFeatureConfig OTHERWORLD_TREE_NATURAL_CONFIG =
-            new TreeFeatureConfig.Builder(
-                    new SimpleBlockStateProvider(OTHERWORLD_LOG_NATURAL),
-                    new SimpleBlockStateProvider(OTHERWORLD_LEAVES_NATURAL),
-                    new BlobFoliagePlacer(2, 0))
-                    .baseHeight(4).heightRandA(2).foliageHeight(3).ignoreVines()
-                    .setSapling((net.minecraftforge.common.IPlantable) OccultismBlocks.OTHERWORLD_SAPLING_NATURAL.get())
-                    .build();
-
     public static final RegistryObject<DimensionOreFeature> DIMENSION_ORE_FEATURE = FEATURES.register("dimension_ore",
             () -> new DimensionOreFeature(DimensionOreFeatureConfig::deserialize));
-    public static final RegistryObject<UndergroundGroveFeature> UNDERGROUND_GROVE_FEATURE = FEATURES.register("underground_grove",
-            () -> new UndergroundGroveFeature(25, 25));
+    public static final RegistryObject<UndergroundGroveFeature> UNDERGROUND_GROVE_FEATURE =
+            FEATURES.register("underground_grove",
+                    () -> new UndergroundGroveFeature(25, 25));
 
     //endregion Fields
 

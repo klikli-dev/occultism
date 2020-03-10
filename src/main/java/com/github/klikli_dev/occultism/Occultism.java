@@ -73,6 +73,7 @@ public class Occultism {
         INSTANCE = this;
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, CONFIG.spec);
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+
         OccultismEffects.EFFECTS.register(modEventBus);
         OccultismRecipes.RECIPES.register(modEventBus);
         OccultismBlocks.BLOCKS.register(modEventBus);
@@ -82,6 +83,7 @@ public class Occultism {
         OccultismEntities.ENTITIES.register(modEventBus);
         OccultismSounds.SOUNDS.register(modEventBus);
         OccultismParticles.PARTICLES.register(modEventBus);
+        OccultismBiomeFeatures.FEATURES.register(modEventBus);
 
         //register event buses
         modEventBus.addListener(this::commonSetup);
