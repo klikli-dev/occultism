@@ -24,7 +24,6 @@ package com.github.klikli_dev.occultism.registry;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.TranslationKeys;
-import com.github.klikli_dev.occultism.common.item.*;
 import com.github.klikli_dev.occultism.common.item.debug.DebugWandItem;
 import com.github.klikli_dev.occultism.common.item.debug.SummonFoliotLumberjackItem;
 import com.github.klikli_dev.occultism.common.item.debug.SummonFoliotManageMachineItem;
@@ -35,6 +34,8 @@ import com.github.klikli_dev.occultism.common.item.spirit.BookOfBindingItem;
 import com.github.klikli_dev.occultism.common.item.spirit.BookOfCallingItem;
 import com.github.klikli_dev.occultism.common.item.storage.StableWormholeBlockItem;
 import com.github.klikli_dev.occultism.common.item.storage.StorageRemoteItem;
+import com.github.klikli_dev.occultism.common.item.tools.ChalkItem;
+import com.github.klikli_dev.occultism.common.item.tools.DivinationRodItem;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.BlockNamedItem;
 import net.minecraft.item.Item;
@@ -87,6 +88,9 @@ public class OccultismItems {
     public static final RegistryObject<Item> CHALK_RED = ITEMS.register("chalk_red",
             () -> new ChalkItem(defaultProperties().setNoRepair().maxDamage(128),
                     () -> OccultismBlocks.CHALK_GLYPH_RED.get()));
+
+    public static final RegistryObject<DivinationRodItem> DIVINATION_ROD = ITEMS.register("divination_rod",
+            () -> new DivinationRodItem(defaultProperties().maxStackSize(1)));
 
     //Books of Binding
     public static final RegistryObject<BookOfBindingItem> BOOK_OF_BINDING_FOLIOT = ITEMS.register(

@@ -22,6 +22,7 @@
 
 package com.github.klikli_dev.occultism.client.render;
 
+import net.minecraft.client.renderer.RenderState;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.renderer.vertex.VertexFormat;
@@ -33,7 +34,7 @@ import java.util.OptionalDouble;
 
 public class OccultismRenderType extends RenderType {
     //region Fields
-    private static final LineState BLOCK_SELECTION_LINE_STATE = new LineState(OptionalDouble.of(2.0D));
+    private static final LineState BLOCK_SELECTION_LINE_STATE = new LineState(OptionalDouble.of(4.0D));
     public static final RenderType BLOCK_SELECTION = makeType("overlay_lines", DefaultVertexFormats.POSITION_COLOR, 1,
             256, State.getBuilder().line(BLOCK_SELECTION_LINE_STATE).layer(PROJECTION_LAYERING)
                          .transparency(TRANSLUCENT_TRANSPARENCY).texture(NO_TEXTURE).depthTest(DEPTH_ALWAYS)
