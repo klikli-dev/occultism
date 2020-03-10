@@ -31,6 +31,7 @@ import com.github.klikli_dev.occultism.client.render.entity.FoliotRenderer;
 import com.github.klikli_dev.occultism.client.render.tile.SacrificialBowlRenderer;
 import com.github.klikli_dev.occultism.client.render.tile.StorageControllerRenderer;
 import com.github.klikli_dev.occultism.common.OccultismItemGroup;
+import com.github.klikli_dev.occultism.common.world.WorldGenHandler;
 import com.github.klikli_dev.occultism.config.OccultismConfig;
 import com.github.klikli_dev.occultism.network.OccultismPackets;
 import com.github.klikli_dev.occultism.registry.*;
@@ -102,6 +103,10 @@ public class Occultism {
 
     private void commonSetup(final FMLCommonSetupEvent event) {
         OccultismPackets.registerMessages();
+
+        WorldGenHandler.setupOreGeneration();
+        WorldGenHandler.setupUndergroundGroveGeneration();
+
         LOGGER.info("Common setup complete.");
     }
 

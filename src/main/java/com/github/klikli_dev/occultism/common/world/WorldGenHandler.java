@@ -34,7 +34,6 @@ import net.minecraft.world.gen.feature.OreFeatureConfig;
 import net.minecraft.world.gen.placement.CountRangeConfig;
 import net.minecraft.world.gen.placement.Placement;
 import net.minecraftforge.common.BiomeDictionary;
-import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.List;
@@ -43,7 +42,7 @@ import java.util.stream.Collectors;
 public class WorldGenHandler {
 
     //region Fields
-    protected final List<BiomeDictionary.Type> undergroundGroveBiomes =
+    protected static final List<BiomeDictionary.Type> UNDERGROUND_GROVE_BIOMES =
             Occultism.CONFIG.worldGen.undergroundGroveGen.validBiomes.get().stream()
                     .map(s -> BiomeDictionary.Type.getType(s))
                     .collect(Collectors.toList());
@@ -51,7 +50,7 @@ public class WorldGenHandler {
 
 
     //region Methods
-    public void setupOreGeneration() {
+    public static void setupOreGeneration() {
         for (Biome biome : ForgeRegistries.BIOMES) {
             //TODO: restrict to dimensions -> requires a subclass of ore feature
             if (Occultism.CONFIG.worldGen.oreGen.otherstoneOreChance.get() > 0) {
@@ -69,9 +68,9 @@ public class WorldGenHandler {
         }
     }
 
-    public void setupUndergroundGroveGeneration() {
+    public static void setupUndergroundGroveGeneration() {
         for (Biome biome : ForgeRegistries.BIOMES) {
-            if (BiomeUtil.containsType(biome, this.undergroundGroveBiomes)) {
+            if (BiomeUtil.containsType(biome, UNDERGROUND_GROVE_BIOMES)) {
                 biome.addFeature(GenerationStage.Decoration.UNDERGROUND_STRUCTURES,
                         OccultismBiomeFeatures.UNDERGROUND_GROVE_FEATURE.get()
                                 .withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG));
