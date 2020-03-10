@@ -24,7 +24,6 @@ package com.github.klikli_dev.occultism.registry;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.TranslationKeys;
-import com.github.klikli_dev.occultism.common.item.*;
 import com.github.klikli_dev.occultism.common.item.debug.DebugWandItem;
 import com.github.klikli_dev.occultism.common.item.debug.SummonFoliotLumberjackItem;
 import com.github.klikli_dev.occultism.common.item.debug.SummonFoliotManageMachineItem;
@@ -35,6 +34,7 @@ import com.github.klikli_dev.occultism.common.item.spirit.BookOfBindingItem;
 import com.github.klikli_dev.occultism.common.item.spirit.BookOfCallingItem;
 import com.github.klikli_dev.occultism.common.item.storage.StableWormholeBlockItem;
 import com.github.klikli_dev.occultism.common.item.storage.StorageRemoteItem;
+import com.github.klikli_dev.occultism.common.item.tools.ChalkItem;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.BlockNamedItem;
 import net.minecraft.item.Item;
