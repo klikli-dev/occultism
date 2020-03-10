@@ -1,3 +1,6 @@
 {
-  "parent": "block/oak_sapling"
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "block/oak_sapling"
+  }
 }
