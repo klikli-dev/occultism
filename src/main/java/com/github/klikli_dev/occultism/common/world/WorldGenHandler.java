@@ -23,12 +23,14 @@
 package com.github.klikli_dev.occultism.common.world;
 
 import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.common.world.ore.DimensionOreFeatureConfig;
 import com.github.klikli_dev.occultism.registry.OccultismBiomeFeatures;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.util.BiomeUtil;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.gen.GenerationStage;
-import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.IFeatureConfig;
 import net.minecraft.world.gen.feature.OreFeatureConfig;
 import net.minecraft.world.gen.placement.CountRangeConfig;
@@ -46,17 +48,21 @@ public class WorldGenHandler {
             Occultism.CONFIG.worldGen.undergroundGroveGen.validBiomes.get().stream()
                     .map(s -> BiomeDictionary.Type.getType(s))
                     .collect(Collectors.toList());
+
+    protected static final List<DimensionType> OTHERSTONE_DIMENSION_WHITELIST =
+            Occultism.CONFIG.worldGen.oreGen.dimensionTypeWhitelist.get().stream()
+                    .map(s -> DimensionType.byName(new ResourceLocation(s))).collect(
+                    Collectors.toList());
     //endregion Fields
 
-
-    //region Methods
+    //region Static Methods
     public static void setupOreGeneration() {
         for (Biome biome : ForgeRegistries.BIOMES) {
-            //TODO: restrict to dimensions -> requires a subclass of ore feature
             if (Occultism.CONFIG.worldGen.oreGen.otherstoneOreChance.get() > 0) {
                 biome.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES,
-                        Feature.ORE
-                                .withConfiguration(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE,
+                        OccultismBiomeFeatures.DIMENSION_ORE_FEATURE.get()
+                                .withConfiguration(new DimensionOreFeatureConfig(OTHERSTONE_DIMENSION_WHITELIST,
+                                        OreFeatureConfig.FillerBlockType.NATURAL_STONE,
                                         OccultismBlocks.OTHERSTONE_NATURAL.get().getDefaultState(),
                                         Occultism.CONFIG.worldGen.oreGen.otherstoneOreSize.get()))
                                 .withPlacement(Placement.COUNT_RANGE.configure(
@@ -77,6 +83,9 @@ public class WorldGenHandler {
             }
         }
     }
+    //endregion Static Methods
+
+    //region Methods
     //endregion Methods
 
 }

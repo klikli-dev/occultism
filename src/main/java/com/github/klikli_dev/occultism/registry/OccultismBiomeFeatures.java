@@ -26,6 +26,8 @@ import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.world.cave.SphericalCaveFeature;
 import com.github.klikli_dev.occultism.common.world.cave.UndergroundGroveDecorator;
 import com.github.klikli_dev.occultism.common.world.cave.UndergroundGroveFeature;
+import com.github.klikli_dev.occultism.common.world.ore.DimensionOreFeature;
+import com.github.klikli_dev.occultism.common.world.ore.DimensionOreFeatureConfig;
 import com.github.klikli_dev.occultism.crafting.recipe.SpiritTradeRecipe;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.crafting.IRecipeSerializer;
@@ -65,6 +67,8 @@ public class OccultismBiomeFeatures {
                     .setSapling((net.minecraftforge.common.IPlantable) OccultismBlocks.OTHERWORLD_SAPLING_NATURAL.get())
                     .build();
 
+    public static final RegistryObject<DimensionOreFeature> DIMENSION_ORE_FEATURE = FEATURES.register("dimension_ore",
+            () -> new DimensionOreFeature(DimensionOreFeatureConfig::deserialize));
     public static final RegistryObject<UndergroundGroveFeature> UNDERGROUND_GROVE_FEATURE = FEATURES.register("underground_grove",
             () -> new UndergroundGroveFeature(25, 25));
 
