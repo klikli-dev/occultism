@@ -77,19 +77,16 @@ public class UndergroundGroveFeature extends SphericalCaveFeature {
             return false;
         }
 
-        BlockPos height = world.getHeight(Heightmap.Type.WORLD_SURFACE, new BlockPos(pos.getX(), 0, pos.getY()));
+        BlockPos horizontalPosition = new BlockPos(pos.getX(), 0, pos.getY());
 
         //ensure minimum distance between coves
         if (this.lastUndergroundGrove == null ||
-            this.lastUndergroundGrove.distanceSq(height) >= this.minGroveDistanceSquared) {
+            this.lastUndergroundGrove.distanceSq(horizontalPosition) >= this.minGroveDistanceSquared) {
             //check biome rarity
             if (rand.nextInt(Occultism.CONFIG.worldGen.undergroundGroveGen.groveSpawnRarity.get() + 1) == 0) {
                 BlockPos generatorPosition = new BlockPos(pos.getX(), 20 + rand.nextInt(20), + pos.getY());
-                //ensure the cove is underground and in a valid biome
-                if (!world.canBlockSeeSky(generatorPosition)) {
-                    this.lastUndergroundGrove = generatorPosition;
-                    return super.place(world, generator, rand, pos, config);
-                }
+                this.lastUndergroundGrove = horizontalPosition;
+                return super.place(world, generator, rand, generatorPosition, config);
             }
         }
         return false;
