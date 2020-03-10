@@ -98,7 +98,7 @@ public class DivinationRodItem extends Item {
                         stack.getOrCreateTag().putString("linkedBlockId", block.getRegistryName().toString());
                         player.sendMessage(
                                 new TranslationTextComponent(this.getTranslationKey() + ".message.linked_block",
-                                        new TranslationTextComponent(translationKey + ".name")));
+                                        new TranslationTextComponent(translationKey)));
                     }
 
                     world.playSound(player, player.getPosition(), OccultismSounds.TUNING_FORK.get(),
