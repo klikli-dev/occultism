@@ -99,7 +99,9 @@ public class SelectedBlockRenderer {
 
             matrixStack.pop();
             RenderSystem.enableTexture();
+            RenderSystem.disableDepthTest();
             buffer.finish(OccultismRenderType.BLOCK_SELECTION);
+            RenderSystem.enableDepthTest();
         }
     }
     //endregion Methods
