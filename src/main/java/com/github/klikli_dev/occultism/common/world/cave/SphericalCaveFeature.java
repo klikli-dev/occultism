@@ -112,7 +112,7 @@ public class SphericalCaveFeature extends Feature<NoFeatureConfig> {
         float f = (float) (j + k + l) * 0.333F + 0.5F;
         BlockPos.getAllInBox(center.add(-j, -k, -l), center.add(j, k, l)).forEach(blockPos -> {
             if (blockPos.distanceSq(center) <= (double) (f * f * MathHelper.clamp(rand.nextFloat(), 0.75F, 1.0F))) {
-                if (!(world.getBlockState(center).hasTileEntity())) {
+                if (!(world.getBlockState(blockPos).hasTileEntity())) {
                     world.setBlockState(blockPos, Blocks.CAVE_AIR.getDefaultState(), 2);
                 }
             }

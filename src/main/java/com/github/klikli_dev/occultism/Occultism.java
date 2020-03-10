@@ -107,7 +107,8 @@ public class Occultism {
         OccultismPackets.registerMessages();
 
         WorldGenHandler.setupOreGeneration();
-        WorldGenHandler.setupUndergroundGroveGeneration();
+        //TODO: re enable grove generation after reworking it to fit new generation
+        //WorldGenHandler.setupUndergroundGroveGeneration();
 
         LOGGER.info("Common setup complete.");
     }
