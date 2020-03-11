@@ -1,6 +1,6 @@
 {
   "name": "Strigeor's Higher Binding",
-  "icon": "occultism:textures/items/pentagram_rose.png",
+  "icon": "occultism:textures/item/pentagram_rose.png",
   "category": "pentacles",
   "sortnum": 2,
   "pages": [
