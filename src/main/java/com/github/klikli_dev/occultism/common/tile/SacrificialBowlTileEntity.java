@@ -23,7 +23,6 @@
 package com.github.klikli_dev.occultism.common.tile;
 
 import com.github.klikli_dev.occultism.registry.OccultismTiles;
-import com.github.klikli_dev.occultism.util.TileEntityUtil;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
@@ -81,15 +80,22 @@ public class SacrificialBowlTileEntity extends NetworkedTileEntity {
         return super.getCapability(cap, direction);
     }
 
+    @Override
     public void readNetwork(CompoundNBT compound) {
         this.itemStackHandler.ifPresent((handler) -> handler.deserializeNBT(compound.getCompound("inventory")));
         this.lastChangeTime = compound.getLong("lastChangeTime");
     }
 
+    @Override
     public CompoundNBT writeNetwork(CompoundNBT compound) {
         this.itemStackHandler.ifPresent(handler -> compound.put("inventory", handler.serializeNBT()));
         compound.putLong("lastChangeTime", this.lastChangeTime);
         return compound;
+    }
+
+    @Override
+    public void remove() {
+        this.itemStackHandler.invalidate();
     }
     //endregion Overrides
 }
