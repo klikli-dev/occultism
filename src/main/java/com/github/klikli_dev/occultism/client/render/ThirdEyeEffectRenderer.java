@@ -169,8 +169,6 @@ public class ThirdEyeEffectRenderer {
                 //load shader
                 Minecraft.getInstance().enqueue(() -> Minecraft.getInstance().gameRenderer.loadShader(THIRD_EYE_SHADER));
             }
-            //else if (event.player.world.getGameTime() % (10) == 0) {
-            //TODO: verify if we need to uncover on a slowed tick or if we can do this every tick
             else {
                 this.uncoverBlocks(event.player, event.player.world);
             }
