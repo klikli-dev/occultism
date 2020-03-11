@@ -27,12 +27,10 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 import vazkii.patchouli.api.IMultiblock;
 import vazkii.patchouli.api.PatchouliAPI;
-import vazkii.patchouli.common.multiblock.StateMatcher;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.function.Supplier;
 
 public abstract class Pentacle extends ForgeRegistryEntry<Pentacle> {
     //region Fields
@@ -71,11 +69,11 @@ public abstract class Pentacle extends ForgeRegistryEntry<Pentacle> {
 
     protected void setupMapping() {
         this.mapping.addAll(Arrays.asList(
-                '0', StateMatcher.fromBlockLoose(OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL.get()),
-                'W', StateMatcher.fromBlockLoose(OccultismBlocks.CHALK_GLYPH_WHITE.get()),
-                'G', StateMatcher.fromBlockLoose(OccultismBlocks.CHALK_GLYPH_GOLD.get()),
-                'P', StateMatcher.fromBlockLoose(OccultismBlocks.CHALK_GLYPH_PURPLE.get()),
-                'R', StateMatcher.fromBlockLoose(OccultismBlocks.CHALK_GLYPH_RED.get()),
+                '0', this.api.looseBlockMatcher(OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL.get()),
+                'W', this.api.looseBlockMatcher(OccultismBlocks.CHALK_GLYPH_WHITE.get()),
+                'G', this.api.looseBlockMatcher(OccultismBlocks.CHALK_GLYPH_GOLD.get()),
+                'P', this.api.looseBlockMatcher(OccultismBlocks.CHALK_GLYPH_PURPLE.get()),
+                'R', this.api.looseBlockMatcher(OccultismBlocks.CHALK_GLYPH_RED.get()),
                 ' ', this.api.anyMatcher())
         );
     }
