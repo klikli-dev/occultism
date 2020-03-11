@@ -71,6 +71,21 @@ public class OccultismItems {
             () -> new Item(defaultProperties()));
     public static final RegistryObject<Item> SPIRIT_ATTUNED_GEM = ITEMS.register("spirit_attuned_gem",
             () -> new Item(defaultProperties()));
+    public static final RegistryObject<Item> OTHERWORLD_ASHES = ITEMS.register("otherworld_ashes",
+            () -> new Item(defaultProperties()));
+    public static final RegistryObject<Item> BURNT_OTHERSTONE = ITEMS.register("burnt_otherstone",
+            () -> new Item(defaultProperties()));
+    public static final RegistryObject<Item> TALLOW = ITEMS.register("tallow",
+            () -> new Item(defaultProperties()));
+
+    public static final RegistryObject<Item> CHALK_WHITE_IMPURE = ITEMS.register("chalk_white_impure",
+            () -> new Item(defaultProperties()));
+    public static final RegistryObject<Item> CHALK_RED_IMPURE = ITEMS.register("chalk_white_impure",
+            () -> new Item(defaultProperties()));
+    public static final RegistryObject<Item> CHALK_GOLD_IMPURE = ITEMS.register("chalk_white_impure",
+            () -> new Item(defaultProperties()));
+    public static final RegistryObject<Item> CHALK_PURPLE_IMPURE = ITEMS.register("chalk_white_impure",
+            () -> new Item(defaultProperties()));
 
     //Tools
     public static final RegistryObject<Item> STORAGE_REMOTE = ITEMS.register("storage_remote",
