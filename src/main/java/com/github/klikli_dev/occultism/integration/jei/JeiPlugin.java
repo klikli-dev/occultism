@@ -24,6 +24,8 @@ package com.github.klikli_dev.occultism.integration.jei;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.container.storage.StorageControllerContainer;
+import com.github.klikli_dev.occultism.registry.OccultismBlocks;
+import com.github.klikli_dev.occultism.registry.OccultismRecipes;
 import com.google.common.base.Strings;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
@@ -31,7 +33,15 @@ import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import mezz.jei.api.registration.IRecipeTransferRegistration;
 import mezz.jei.api.runtime.IJeiRuntime;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.world.ClientWorld;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.RecipeManager;
 import net.minecraft.util.ResourceLocation;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @mezz.jei.api.JeiPlugin
 public class JeiPlugin implements IModPlugin {
@@ -83,13 +93,19 @@ public class JeiPlugin implements IModPlugin {
 
     @Override
     public void registerCategories(IRecipeCategoryRegistration registration) {
-        //registration.addRecipeCategories(new SpiritFireRecipeCategory(registry.getJeiHelpers().getGuiHelper()));
+        registration.addRecipeCategories(new SpiritFireRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
     }
 
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
-        //TODO: enable after spirit fire recipe is ready
-        //registration.addRecipes(OccultismBlocks.SPIRIT_FIRE.get().recipes, SpiritFireRecipeCategory.UID);
+        ClientWorld world = Minecraft.getInstance().world;
+        RecipeManager recipeManager = world.getRecipeManager();
+        List<IRecipe<?>> spiritFireRecipes = recipeManager.getRecipes().stream()
+                                                     .filter(r -> r.getType() ==
+                                                                  OccultismRecipes.SPIRIT_FIRE_TYPE.get())
+                                                     .collect(Collectors.toList());
+
+        registration.addRecipes(spiritFireRecipes, OccultismRecipes.SPIRIT_FIRE.getId());
     }
 
     @Override
@@ -100,8 +116,8 @@ public class JeiPlugin implements IModPlugin {
 
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
-        //TODO: enable after spirit fire recipe is ready
-        //registration.addRecipeCatalyst(new ItemStack(OccultismBlocks.SPIRIT_FIRE.get()), SpiritFireRecipeCategory.UID);
+        registration.addRecipeCatalyst(new ItemStack(OccultismBlocks.SPIRIT_FIRE.get()),
+                OccultismRecipes.SPIRIT_FIRE.getId());
     }
 
     @Override
