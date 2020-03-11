@@ -34,6 +34,7 @@ import com.github.klikli_dev.occultism.common.item.spirit.BookOfBindingItem;
 import com.github.klikli_dev.occultism.common.item.spirit.BookOfCallingItem;
 import com.github.klikli_dev.occultism.common.item.storage.StableWormholeBlockItem;
 import com.github.klikli_dev.occultism.common.item.storage.StorageRemoteItem;
+import com.github.klikli_dev.occultism.common.item.tools.BrushItem;
 import com.github.klikli_dev.occultism.common.item.tools.ButcherKnifeItem;
 import com.github.klikli_dev.occultism.common.item.tools.ChalkItem;
 import com.github.klikli_dev.occultism.common.item.tools.DivinationRodItem;
@@ -108,7 +109,8 @@ public class OccultismItems {
 
     public static final RegistryObject<DivinationRodItem> DIVINATION_ROD = ITEMS.register("divination_rod",
             () -> new DivinationRodItem(defaultProperties().maxStackSize(1)));
-
+    public static final RegistryObject<BrushItem> BRUSH = ITEMS.register("brush",
+            () -> new BrushItem(defaultProperties().maxStackSize(1)));
     public static final RegistryObject<ButcherKnifeItem> BUTCHER_KNIFE = ITEMS.register("butcher_knife",
             () -> new ButcherKnifeItem(ItemTier.IRON, 3, -2.4F, defaultProperties()));
 
