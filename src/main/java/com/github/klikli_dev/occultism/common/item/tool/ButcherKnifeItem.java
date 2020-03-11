@@ -20,11 +20,10 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.github.klikli_dev.occultism.common.item.tools;
+package com.github.klikli_dev.occultism.common.item.tool;
 
 import com.github.klikli_dev.occultism.api.OccultismAPI;
 import com.github.klikli_dev.occultism.util.Math3DUtil;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.item.IItemTier;

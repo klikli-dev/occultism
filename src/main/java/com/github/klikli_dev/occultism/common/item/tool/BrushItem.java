@@ -20,7 +20,7 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.github.klikli_dev.occultism.common.item.tools;
+package com.github.klikli_dev.occultism.common.item.tool;
 
 import com.github.klikli_dev.occultism.common.block.ChalkGlyphBlock;
 import com.github.klikli_dev.occultism.registry.OccultismSounds;

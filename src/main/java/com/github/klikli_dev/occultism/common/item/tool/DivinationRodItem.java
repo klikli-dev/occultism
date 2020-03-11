@@ -20,7 +20,7 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.github.klikli_dev.occultism.common.item.tools;
+package com.github.klikli_dev.occultism.common.item.tool;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.client.divination.ScanManager;
