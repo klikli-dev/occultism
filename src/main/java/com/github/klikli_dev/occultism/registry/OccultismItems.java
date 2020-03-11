@@ -82,11 +82,11 @@ public class OccultismItems {
 
     public static final RegistryObject<Item> CHALK_WHITE_IMPURE = ITEMS.register("chalk_white_impure",
             () -> new Item(defaultProperties()));
-    public static final RegistryObject<Item> CHALK_RED_IMPURE = ITEMS.register("chalk_white_impure",
+    public static final RegistryObject<Item> CHALK_RED_IMPURE = ITEMS.register("chalk_red_impure",
             () -> new Item(defaultProperties()));
-    public static final RegistryObject<Item> CHALK_GOLD_IMPURE = ITEMS.register("chalk_white_impure",
+    public static final RegistryObject<Item> CHALK_GOLD_IMPURE = ITEMS.register("chalk_gold_impure",
             () -> new Item(defaultProperties()));
-    public static final RegistryObject<Item> CHALK_PURPLE_IMPURE = ITEMS.register("chalk_white_impure",
+    public static final RegistryObject<Item> CHALK_PURPLE_IMPURE = ITEMS.register("chalk_purple_impure",
             () -> new Item(defaultProperties()));
 
     //Tools
