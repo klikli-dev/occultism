@@ -56,7 +56,7 @@ public class ChalkGlyphBlock extends Block {
      */
     public static final IntegerProperty SIGN = IntegerProperty.create("sign", 0, 12);
 
-    private static final VoxelShape SHAPE = Block.makeCuboidShape(0, 0, 0, 16, 0.04, 16);
+    private static final VoxelShape SHAPE = Block.makeCuboidShape(0, 0, 0, 15, 0.04, 15);
 
     protected Supplier<Item> chalk;
     protected int color;

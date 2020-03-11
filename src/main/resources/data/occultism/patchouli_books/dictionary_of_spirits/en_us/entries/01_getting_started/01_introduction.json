@@ -1,6 +1,6 @@
 {
   "name": "Introduction",
-  "icon": "occultism:textures/items/pentagram_rose.png",
+  "icon": "occultism:textures/item/pentagram_rose.png",
   "category": "getting_started",
   "sortnum": 0,
   "pages": [

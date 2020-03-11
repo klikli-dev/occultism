@@ -1,6 +1,6 @@
 {
   "name": "On Pentacles",
-  "icon": "occultism:textures/items/pentagram_rose.png",
+  "icon": "occultism:textures/item/pentagram_rose.png",
   "category": "pentacles",
   "sortnum": 0,
   "pages": [
