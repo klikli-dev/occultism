@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " s ",
+    "ttt",
+    "ttt"
+  ],
+  "key": {
+    "t": {
+      "item": "occultism:tallow"
+    },
+    "s": {
+      "tag": "forge:string"
+    }
+  },
+  "result": {
+    "item": "occultism:sacrificial_bowl"
+  }
+}

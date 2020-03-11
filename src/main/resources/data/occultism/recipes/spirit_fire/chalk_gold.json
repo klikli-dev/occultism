@@ -1,0 +1,11 @@
+{
+  "type": "occultism:spirit_fire",
+  "ingredients": [
+    {
+      "item": "occultism:chalk_gold_impure"
+    }
+  ],
+  "result": {
+    "item": "occultism:chalk_gold"
+  }
+}
