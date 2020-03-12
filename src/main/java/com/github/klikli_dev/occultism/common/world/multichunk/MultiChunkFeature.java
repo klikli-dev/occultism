@@ -83,7 +83,7 @@ public class MultiChunkFeature<T extends MultiChunkFeatureConfig> extends Featur
                     //this chunk contains a root, so we generate a random
                     return currentChunk.getBlock(
                             random.nextInt(15),
-                            random.nextInt(generator.getMaxHeight()),
+                            config.minGenerationHeight + random.nextInt(config.maxGenerationHeight - config.minGenerationHeight),
                             random.nextInt(15)
                     );
                 }

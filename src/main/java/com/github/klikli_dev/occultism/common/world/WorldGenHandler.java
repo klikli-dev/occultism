@@ -86,6 +86,8 @@ public class WorldGenHandler {
                         OccultismBiomeFeatures.UNDERGROUND_GROVE_FEATURE.get()
                                 .withConfiguration(new MultiChunkFeatureConfig(6,
                                         Occultism.CONFIG.worldGen.undergroundGroveGen.groveSpawnChance.get(),
+                                        Occultism.CONFIG.worldGen.undergroundGroveGen.groveSpawnMin.get(),
+                                        Occultism.CONFIG.worldGen.undergroundGroveGen.groveSpawnMax.get(),
                                         14653667, UNDERGROUND_GROVE_DIMENSIONS)));
             }
         }

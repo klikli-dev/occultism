@@ -39,37 +39,44 @@ public class MultiChunkFeatureConfig implements IFeatureConfig {
      */
     public final int maxChunksToRoot;
     public final int chanceToGenerate;
+    public final int minGenerationHeight;
+    public final int maxGenerationHeight;
     public final int featureSeedSalt;
     public final List<DimensionType> allowedDimensionTypes;
     //endregion Fields
 
     //region Initialization
-    public MultiChunkFeatureConfig(int maxChunksToRoot, int chanceToGenerate, int featureSeedSalt) {
-        this(maxChunksToRoot, chanceToGenerate, featureSeedSalt, ImmutableList.of(DimensionType.OVERWORLD));
+    public MultiChunkFeatureConfig(int maxChunksToRoot, int chanceToGenerate, int minGenerationHeight,
+                                   int maxGenerationHeight, int featureSeedSalt) {
+        this(maxChunksToRoot, chanceToGenerate, minGenerationHeight, maxGenerationHeight, featureSeedSalt,
+                ImmutableList.of(DimensionType.OVERWORLD));
     }
 
-    public MultiChunkFeatureConfig(int maxChunksToRoot, int chanceToGenerate, int featureSeedSalt,
+    public MultiChunkFeatureConfig(int maxChunksToRoot, int chanceToGenerate, int minGenerationHeight,
+                                   int maxGenerationHeight, int featureSeedSalt,
                                    List<DimensionType> allowedDimensionTypes) {
         this.maxChunksToRoot = maxChunksToRoot;
         this.chanceToGenerate = chanceToGenerate;
         this.featureSeedSalt = featureSeedSalt;
+        this.minGenerationHeight = minGenerationHeight;
+        this.maxGenerationHeight = maxGenerationHeight;
         this.allowedDimensionTypes = allowedDimensionTypes;
     }
     //endregion Initialization
 
     //region Overrides
     public <T> Dynamic<T> serialize(DynamicOps<T> ops) {
-        return new Dynamic<T>(ops,
-                ops.createMap(ImmutableMap.of(
-                        ops.createString("maxChunksToRoot"),
-                        ops.createInt(this.maxChunksToRoot),
-                        ops.createString("chanceToGenerate"),
-                        ops.createInt(this.chanceToGenerate),
-                        ops.createString("featureSeedSalt"),
-                        ops.createInt(this.featureSeedSalt),
-                        ops.createString("allowedDimensionTypes"),
-                        ops.createList(this.allowedDimensionTypes.stream().map(type -> type.serialize(ops)))
-                )));
+        return new Dynamic<T>(ops, ops.createMap(
+                ImmutableMap.<T, T>builder()
+                        .put(ops.createString("maxChunksToRoot"), ops.createInt(this.maxChunksToRoot))
+                        .put(ops.createString("chanceToGenerate"), ops.createInt(this.chanceToGenerate))
+                        .put(ops.createString("minGenerationHeight"), ops.createInt(this.minGenerationHeight))
+                        .put(ops.createString("maxGenerationHeight"), ops.createInt(this.maxGenerationHeight))
+                        .put(ops.createString("featureSeedSalt"), ops.createInt(this.featureSeedSalt))
+                        .put(ops.createString("chanceToGenerate"), ops.createInt(this.chanceToGenerate))
+                        .put(ops.createString("allowedDimensionTypes"), ops.createList(this.allowedDimensionTypes.stream().map(type -> type.serialize(ops)))).build()
+                        )
+                );
     }
     //endregion Overrides
 
@@ -77,9 +84,12 @@ public class MultiChunkFeatureConfig implements IFeatureConfig {
     public static MultiChunkFeatureConfig deserialize(Dynamic<?> in) {
         int maxChunksToRoot = in.get("maxChunksToRoot").asInt(0);
         int chanceToGenerate = in.get("chanceToGenerate").asInt(0);
+        int minGenerationHeight = in.get("minGenerationHeight").asInt(0);
+        int maxGenerationHeight = in.get("maxGenerationHeight").asInt(0);
         int featureSeedSalt = in.get("featureSeedSalt").asInt(0);
         List<DimensionType> allowedDimensionTypes = in.get("allowedDimensionTypes").asList(DimensionType::deserialize);
-        return new MultiChunkFeatureConfig(maxChunksToRoot, chanceToGenerate, featureSeedSalt, allowedDimensionTypes);
+        return new MultiChunkFeatureConfig(maxChunksToRoot, chanceToGenerate, minGenerationHeight, maxGenerationHeight, featureSeedSalt,
+                allowedDimensionTypes);
     }
     //endregion Static Methods
 }
