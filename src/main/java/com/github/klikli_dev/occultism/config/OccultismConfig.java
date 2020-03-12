@@ -171,7 +171,7 @@ public class OccultismConfig extends ConfigBase {
                                 .define("groveSpawnMin", 30));
                 this.groveSpawnMax = CachedInt.cache(this,
                         builder.comment("The max height for a grove to spawn (applied to the center of the grove, not the ceiling).")
-                                .define("groveSpawnMax", 150));
+                                .define("groveSpawnMax", 60));
 
                 this.grassChance = CachedFloat.cache(this,
                         builder.comment("The chance grass will spawn in the underground grove.")
