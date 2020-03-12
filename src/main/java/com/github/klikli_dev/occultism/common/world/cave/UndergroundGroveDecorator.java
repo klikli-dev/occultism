@@ -56,15 +56,7 @@ public class UndergroundGroveDecorator extends CaveDecorator {
     //endregion Initialization
 
     //region Overrides
-
-    @Override
-    public void fillFloor(IWorld world, ChunkGenerator<? extends GenerationSettings> generator, Random rand,
-                          BlockPos pos, BlockState state) {
-        super.fillFloor(world, generator, rand, pos, state);
-        //TODO: Remove this logger and entire override once we are happy with worldgen.
-        Occultism.LOGGER.info("Generating underground grove floor at {} {} {}", pos.getX(), pos.getY(), pos.getZ());
-    }
-
+    
     @Override
     public void finalFloorPass(IWorld world, ChunkGenerator<? extends GenerationSettings> generator, Random rand,
                                BlockPos pos) {

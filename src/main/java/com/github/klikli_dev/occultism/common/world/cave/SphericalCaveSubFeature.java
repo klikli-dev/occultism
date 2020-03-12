@@ -37,9 +37,7 @@ import net.minecraft.world.IWorld;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.GenerationSettings;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class SphericalCaveSubFeature<T extends MultiChunkFeatureConfig> implements IMultiChunkSubFeature<T> {
 
@@ -49,6 +47,8 @@ public class SphericalCaveSubFeature<T extends MultiChunkFeatureConfig> implemen
     protected int maxRandomRadiusOffset;
     protected int additionalSpheres;
     protected int maxRandomAdditionalSpheres;
+
+    public static Set<BlockPos> sphericalCaves = new HashSet<>();
     //endregion Fields
 
     //region Initialization
@@ -86,6 +86,9 @@ public class SphericalCaveSubFeature<T extends MultiChunkFeatureConfig> implemen
         //can never generate in daylight
         if(world.canBlockSeeSky(rootPosition))
             return false;
+
+        //Store a list of spherical caves for easy access during development, or future command access.
+        sphericalCaves.add(rootPosition);
 
         ChunkPos rootChunk = new ChunkPos(rootPosition);
         //Seed with root chunk position
