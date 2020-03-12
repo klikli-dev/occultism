@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-    "occultism:dusts/burnt_otherstone",
-    "occultism:dusts/otherworld_ashes"
+    "occultism:burnt_otherstone",
+    "occultism:otherworld_ashes"
   ]
 }
