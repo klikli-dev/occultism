@@ -60,7 +60,8 @@ public class MultiChunkFeature<T extends MultiChunkFeatureConfig> extends Featur
             return false;
         }
         ChunkPos generatingChunk = new ChunkPos(pos);
-        List<BlockPos> rootPositions = this.getRootPositions(generator, (SharedSeedRandom) rand, generatingChunk, config);
+        List<BlockPos> rootPositions =
+                this.getRootPositions(generator, (SharedSeedRandom) rand, generatingChunk, config);
         //If no root position was found in range, we exit
         if (rootPositions.isEmpty()) {
             return false;
@@ -68,7 +69,7 @@ public class MultiChunkFeature<T extends MultiChunkFeatureConfig> extends Featur
 
         boolean generatedAny = false;
         for (BlockPos rootPosition : rootPositions) {
-            if(this.subFeature.place(worldIn, generator, rand, rootPosition,
+            if (this.subFeature.place(worldIn, generator, rand, rootPosition,
                     Math3DUtil.bounds(generatingChunk, generator.getMaxHeight()), config))
                 generatedAny = true;
         }
@@ -77,7 +78,8 @@ public class MultiChunkFeature<T extends MultiChunkFeatureConfig> extends Featur
     //endregion Overrides
 
     //region Methods
-    protected List<BlockPos> getRootPositions(ChunkGenerator<?> generator, SharedSeedRandom random, ChunkPos generatingChunk,
+    protected List<BlockPos> getRootPositions(ChunkGenerator<?> generator, SharedSeedRandom random,
+                                              ChunkPos generatingChunk,
                                               T config) {
         ArrayList<BlockPos> result = new ArrayList<>(1);
         for (int i = -config.maxChunksToRoot; i < config.maxChunksToRoot; i++) {
@@ -85,14 +87,16 @@ public class MultiChunkFeature<T extends MultiChunkFeatureConfig> extends Featur
 
                 ChunkPos currentChunk = new ChunkPos(generatingChunk.x + i, generatingChunk.z + j);
                 //Seed random for this chunk, this way we get the same result no matter how often this is called.
-                random.setLargeFeatureSeedWithSalt(generator.getSeed(), currentChunk.x, currentChunk.z, config.featureSeedSalt);
+                random.setLargeFeatureSeedWithSalt(generator.getSeed(), currentChunk.x, currentChunk.z,
+                        config.featureSeedSalt);
 
                 if (random.nextInt(config.chanceToGenerate) == 0) {
                     //this chunk contains a root, so we generate a random
                     result.add(currentChunk.getBlock(
                             random.nextInt(15),
                             Math.min(generator.getMaxHeight(),
-                                    config.minGenerationHeight + random.nextInt(Math.max(0, config.maxGenerationHeight - config.minGenerationHeight))),
+                                    config.minGenerationHeight + random.nextInt(
+                                            Math.max(0, config.maxGenerationHeight - config.minGenerationHeight))),
                             random.nextInt(15))
                     );
                 }

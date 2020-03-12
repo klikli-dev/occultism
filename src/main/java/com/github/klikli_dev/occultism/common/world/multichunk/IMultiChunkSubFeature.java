@@ -33,6 +33,7 @@ import java.util.Random;
 public interface IMultiChunkSubFeature<T extends MultiChunkFeatureConfig> {
 
     //region Methods
-    boolean place(IWorld world, ChunkGenerator<? extends GenerationSettings> generator, Random rand, BlockPos rootPosition, AxisAlignedBB bounds, T config);
+    boolean place(IWorld world, ChunkGenerator<? extends GenerationSettings> generator, Random rand,
+                  BlockPos rootPosition, AxisAlignedBB bounds, T config);
     //endregion Methods
 }

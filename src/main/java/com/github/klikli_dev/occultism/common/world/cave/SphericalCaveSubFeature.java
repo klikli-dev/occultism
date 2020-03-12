@@ -42,13 +42,12 @@ import java.util.*;
 public class SphericalCaveSubFeature<T extends MultiChunkFeatureConfig> implements IMultiChunkSubFeature<T> {
 
     //region Fields
+    public static Set<BlockPos> sphericalCaves = new HashSet<>();
     protected ICaveDecorator caveDecorator;
     protected int radius;
     protected int maxRandomRadiusOffset;
     protected int additionalSpheres;
     protected int maxRandomAdditionalSpheres;
-
-    public static Set<BlockPos> sphericalCaves = new HashSet<>();
     //endregion Fields
 
     //region Initialization
@@ -82,9 +81,10 @@ public class SphericalCaveSubFeature<T extends MultiChunkFeatureConfig> implemen
     //region Overrides
 
     @Override
-    public boolean place(IWorld world, ChunkGenerator<? extends GenerationSettings> generator, Random rand, BlockPos rootPosition, AxisAlignedBB bounds, T config) {
+    public boolean place(IWorld world, ChunkGenerator<? extends GenerationSettings> generator, Random rand,
+                         BlockPos rootPosition, AxisAlignedBB bounds, T config) {
         //can never generate in daylight
-        if(world.canBlockSeeSky(rootPosition))
+        if (world.canBlockSeeSky(rootPosition))
             return false;
 
         //Store a list of spherical caves for easy access during development, or future command access.
@@ -92,7 +92,8 @@ public class SphericalCaveSubFeature<T extends MultiChunkFeatureConfig> implemen
 
         ChunkPos rootChunk = new ChunkPos(rootPosition);
         //Seed with root chunk position
-        ((SharedSeedRandom) rand).setLargeFeatureSeedWithSalt(generator.getSeed(), rootChunk.x, rootChunk.z, config.featureSeedSalt);
+        ((SharedSeedRandom) rand)
+                .setLargeFeatureSeedWithSalt(generator.getSeed(), rootChunk.x, rootChunk.z, config.featureSeedSalt);
 
         List<Sphere> spheres = new ArrayList<>();
         int radiusBase = this.radius + rand.nextInt(this.maxRandomRadiusOffset);
@@ -124,7 +125,7 @@ public class SphericalCaveSubFeature<T extends MultiChunkFeatureConfig> implemen
         int l = radius;
         float f = (float) (j + k + l) * 0.333F + 0.5F;
         BlockPos min = Math3DUtil.clamp(center.add(-j, -k, -l), bounds);
-        BlockPos max =  Math3DUtil.clamp(center.add(j, k, l), bounds);
+        BlockPos max = Math3DUtil.clamp(center.add(j, k, l), bounds);
 
         BlockPos.getAllInBox(min, max).forEach(blockPos -> {
             if (blockPos.distanceSq(center) <= (double) (f * f * MathHelper.clamp(rand.nextFloat(), 0.75F, 1.0F))) {
@@ -145,7 +146,7 @@ public class SphericalCaveSubFeature<T extends MultiChunkFeatureConfig> implemen
         CaveDecoratordata data = new CaveDecoratordata();
         float f = (float) (j + k + l) * 0.333F + 0.5F;
         BlockPos min = Math3DUtil.clamp(center.add(-j, -k, -l), bounds);
-        BlockPos max =  Math3DUtil.clamp(center.add(j, k, l), bounds);
+        BlockPos max = Math3DUtil.clamp(center.add(j, k, l), bounds);
         BlockPos.getAllInBox(min, max).forEach(blockPos -> {
             if (blockPos.distanceSq(center) <= (double) (f * f)) {
                 this.caveDecorator.fill(world, generator, rand, blockPos.toImmutable(), data);

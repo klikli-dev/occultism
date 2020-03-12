@@ -74,9 +74,11 @@ public class MultiChunkFeatureConfig implements IFeatureConfig {
                         .put(ops.createString("maxGenerationHeight"), ops.createInt(this.maxGenerationHeight))
                         .put(ops.createString("featureSeedSalt"), ops.createInt(this.featureSeedSalt))
                         .put(ops.createString("chanceToGenerate"), ops.createInt(this.chanceToGenerate))
-                        .put(ops.createString("allowedDimensionTypes"), ops.createList(this.allowedDimensionTypes.stream().map(type -> type.serialize(ops)))).build()
-                        )
-                );
+                        .put(ops.createString("allowedDimensionTypes"),
+                                ops.createList(this.allowedDimensionTypes.stream().map(type -> type.serialize(ops))))
+                        .build()
+        )
+        );
     }
     //endregion Overrides
 
@@ -88,7 +90,8 @@ public class MultiChunkFeatureConfig implements IFeatureConfig {
         int maxGenerationHeight = in.get("maxGenerationHeight").asInt(0);
         int featureSeedSalt = in.get("featureSeedSalt").asInt(0);
         List<DimensionType> allowedDimensionTypes = in.get("allowedDimensionTypes").asList(DimensionType::deserialize);
-        return new MultiChunkFeatureConfig(maxChunksToRoot, chanceToGenerate, minGenerationHeight, maxGenerationHeight, featureSeedSalt,
+        return new MultiChunkFeatureConfig(maxChunksToRoot, chanceToGenerate, minGenerationHeight, maxGenerationHeight,
+                featureSeedSalt,
                 allowedDimensionTypes);
     }
     //endregion Static Methods

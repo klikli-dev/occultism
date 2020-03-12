@@ -24,7 +24,6 @@ package com.github.klikli_dev.occultism.common.world.cave;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.world.tree.OtherworldNaturalTree;
-import com.github.klikli_dev.occultism.registry.OccultismBiomeFeatures;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -45,7 +44,8 @@ public class UndergroundGroveDecorator extends CaveDecorator {
 
     //region Fields
     protected final NonNullLazy<ConfiguredFeature<TreeFeatureConfig, ?>> treeFeature =
-            NonNullLazy.of(() -> Feature.NORMAL_TREE.withConfiguration(OtherworldNaturalTree.OTHERWORLD_TREE_NATURAL_CONFIG.get()));
+            NonNullLazy.of(() -> Feature.NORMAL_TREE.withConfiguration(
+                    OtherworldNaturalTree.OTHERWORLD_TREE_NATURAL_CONFIG.get()));
     //endregion Fields
 
     //region Initialization
@@ -56,7 +56,7 @@ public class UndergroundGroveDecorator extends CaveDecorator {
     //endregion Initialization
 
     //region Overrides
-    
+
     @Override
     public void finalFloorPass(IWorld world, ChunkGenerator<? extends GenerationSettings> generator, Random rand,
                                BlockPos pos) {
