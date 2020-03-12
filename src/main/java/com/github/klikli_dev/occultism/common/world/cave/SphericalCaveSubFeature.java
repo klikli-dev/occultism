@@ -96,10 +96,10 @@ public class SphericalCaveSubFeature<T extends MultiChunkFeatureConfig> implemen
         List<Sphere> spheres = new ArrayList<>();
         int radiusBase = this.radius + rand.nextInt(this.maxRandomRadiusOffset);
         int radius = (int) (radiusBase * 0.2F) + rand.nextInt(8);
-        spheres.add(this.generateSphere(world, rand, pos, radius, bounds));
+        spheres.add(this.generateSphere(world, rand, rootPosition, radius, bounds));
         for (int i = 0; i < this.additionalSpheres + rand.nextInt(this.maxRandomAdditionalSpheres); i++) {
             Direction direction = Direction.Plane.HORIZONTAL.random(rand);
-            spheres.add(this.generateSphere(world, rand, pos.offset(direction, radius - 2),
+            spheres.add(this.generateSphere(world, rand, rootPosition.offset(direction, radius - 2),
                     2 * (int) (radius / 3F) + rand.nextInt(8), bounds));
         }
         for (Sphere sphere : spheres) {
