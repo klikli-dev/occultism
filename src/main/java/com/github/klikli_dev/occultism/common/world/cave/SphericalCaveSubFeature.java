@@ -145,7 +145,7 @@ public class SphericalCaveSubFeature<T extends MultiChunkFeatureConfig> implemen
         BlockPos max =  Math3DUtil.clamp(center.add(j, k, l), bounds);
         BlockPos.getAllInBox(min, max).forEach(blockPos -> {
             if (blockPos.distanceSq(center) <= (double) (f * f)) {
-                this.caveDecorator.fill(world, generator, rand, blockPos, data);
+                this.caveDecorator.fill(world, generator, rand, blockPos.toImmutable(), data);
             }
         });
 

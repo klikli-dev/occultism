@@ -73,6 +73,7 @@ public class UndergroundGroveDecorator extends CaveDecorator {
             world.setBlockState(pos.up(), Blocks.GRASS.getDefaultState(), 2);
 
         if (rand.nextFloat() < Occultism.CONFIG.worldGen.undergroundGroveGen.treeChance.get()) {
+            Occultism.LOGGER.info("Generating underground tree at {} {} {}", pos.getX(), pos.getY(), pos.getZ());
             this.treeFeature.get().place(world, generator, rand, pos.up());
         }
     }

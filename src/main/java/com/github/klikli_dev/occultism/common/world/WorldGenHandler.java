@@ -84,7 +84,7 @@ public class WorldGenHandler {
             if (BiomeUtil.containsType(biome, UNDERGROUND_GROVE_BIOMES)) {
                 biome.addFeature(GenerationStage.Decoration.UNDERGROUND_STRUCTURES,
                         OccultismBiomeFeatures.UNDERGROUND_GROVE_FEATURE.get()
-                                .withConfiguration(new MultiChunkFeatureConfig(6,
+                                .withConfiguration(new MultiChunkFeatureConfig(7,
                                         Occultism.CONFIG.worldGen.undergroundGroveGen.groveSpawnChance.get(),
                                         Occultism.CONFIG.worldGen.undergroundGroveGen.groveSpawnMin.get(),
                                         Occultism.CONFIG.worldGen.undergroundGroveGen.groveSpawnMax.get(),
