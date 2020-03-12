@@ -68,7 +68,7 @@ public class MultiChunkFeature<T extends MultiChunkFeatureConfig> extends Featur
 
         boolean generatedAny = false;
         for (BlockPos rootPosition : rootPositions) {
-            if(this.subFeature.place(worldIn, generator, rand, pos, rootPosition,
+            if(this.subFeature.place(worldIn, generator, rand, rootPosition,
                     Math3DUtil.bounds(generatingChunk, generator.getMaxHeight()), config))
                 generatedAny = true;
         }
