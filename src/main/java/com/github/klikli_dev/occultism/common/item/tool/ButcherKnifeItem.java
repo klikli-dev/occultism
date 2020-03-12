@@ -45,13 +45,11 @@ public class ButcherKnifeItem extends SwordItem {
 
     public ButcherKnifeItem(IItemTier tier, int attackDamageIn, float attackSpeedIn, Properties builder) {
         super(tier, attackDamageIn, attackSpeedIn, builder);
-        MinecraftForge.EVENT_BUS.register(this);
-
     }
     //endregion Initialization
 
     //region Static Methods
-    private static List<ItemStack> getLoot(LivingEntity entity, ItemStack knife, LivingEntity trueDamageSource) {
+    public static List<ItemStack> getLoot(LivingEntity entity, ItemStack knife, LivingEntity trueDamageSource) {
         List<ItemStack> loot = new ArrayList<>();
         for (Predicate<LivingEntity> predicate : OccultismAPI.BUTCHER_KNIFE_LOOT.keySet())
             if (predicate.test(entity))
@@ -61,26 +59,6 @@ public class ButcherKnifeItem extends SwordItem {
     //endregion Static Methods
 
     //region Methods
-    @SubscribeEvent
-    public void livingDrop(LivingDropsEvent event) {
-        if (event.isRecentlyHit() && event.getSource().getTrueSource() instanceof LivingEntity) {
-            LivingEntity trueSource = (LivingEntity) event.getSource().getTrueSource();
-            ItemStack knifeItem = trueSource.getHeldItem(Hand.MAIN_HAND);
-            if (knifeItem.getItem() == this) {
-                List<ItemStack> loot = getLoot(event.getEntityLiving(), knifeItem, trueSource);
-                Random rand = event.getEntityLiving().getRNG();
 
-                if (!loot.isEmpty()) {
-                    for (ItemStack stack : loot) {
-                        ItemStack copy = stack.copy();
-                        copy.setCount(rand.nextInt(stack.getCount() + 1) + rand.nextInt(event.getLootingLevel() + 1));
-                        Vec3d center = Math3DUtil.center(event.getEntityLiving().getPosition());
-                        event.getDrops()
-                                .add(new ItemEntity(event.getEntityLiving().world, center.x, center.y, center.z, copy));
-                    }
-                }
-            }
-        }
-    }
     //endregion Methods
 }
