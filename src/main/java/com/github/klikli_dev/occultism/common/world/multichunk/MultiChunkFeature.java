@@ -92,8 +92,7 @@ public class MultiChunkFeature<T extends MultiChunkFeatureConfig> extends Featur
                     result.add(currentChunk.getBlock(
                             random.nextInt(15),
                             Math.min(generator.getMaxHeight(),
-                                    config.minGenerationHeight +
-                                    Math.max(0, random.nextInt(config.maxGenerationHeight - config.minGenerationHeight))),
+                                    config.minGenerationHeight + random.nextInt(Math.max(0, config.maxGenerationHeight - config.minGenerationHeight))),
                             random.nextInt(15))
                     );
                 }
