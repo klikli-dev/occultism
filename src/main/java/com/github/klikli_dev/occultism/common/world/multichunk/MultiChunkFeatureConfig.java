@@ -33,23 +33,26 @@ import java.util.List;
 
 public class MultiChunkFeatureConfig implements IFeatureConfig {
     //region Fields
+
     /**
      * The maximum amount of chunks from the root position to still generate this feature.
      */
     public final int maxChunksToRoot;
     public final int chanceToGenerate;
+    public final int featureSeedSalt;
     public final List<DimensionType> allowedDimensionTypes;
     //endregion Fields
 
     //region Initialization
-    public MultiChunkFeatureConfig(int maxChunksToRoot, int chanceToGenerate) {
-        this(maxChunksToRoot, chanceToGenerate, ImmutableList.of(DimensionType.OVERWORLD));
+    public MultiChunkFeatureConfig(int maxChunksToRoot, int chanceToGenerate, int featureSeedSalt) {
+        this(maxChunksToRoot, chanceToGenerate, featureSeedSalt, ImmutableList.of(DimensionType.OVERWORLD));
     }
 
-    public MultiChunkFeatureConfig(int maxChunksToRoot, int chanceToGenerate,
+    public MultiChunkFeatureConfig(int maxChunksToRoot, int chanceToGenerate, int featureSeedSalt,
                                    List<DimensionType> allowedDimensionTypes) {
         this.maxChunksToRoot = maxChunksToRoot;
         this.chanceToGenerate = chanceToGenerate;
+        this.featureSeedSalt = featureSeedSalt;
         this.allowedDimensionTypes = allowedDimensionTypes;
     }
     //endregion Initialization
@@ -62,6 +65,8 @@ public class MultiChunkFeatureConfig implements IFeatureConfig {
                         ops.createInt(this.maxChunksToRoot),
                         ops.createString("chanceToGenerate"),
                         ops.createInt(this.chanceToGenerate),
+                        ops.createString("featureSeedSalt"),
+                        ops.createInt(this.featureSeedSalt),
                         ops.createString("allowedDimensionTypes"),
                         ops.createList(this.allowedDimensionTypes.stream().map(type -> type.serialize(ops)))
                 )));
@@ -72,8 +77,9 @@ public class MultiChunkFeatureConfig implements IFeatureConfig {
     public static MultiChunkFeatureConfig deserialize(Dynamic<?> in) {
         int maxChunksToRoot = in.get("maxChunksToRoot").asInt(0);
         int chanceToGenerate = in.get("chanceToGenerate").asInt(0);
+        int featureSeedSalt = in.get("featureSeedSalt").asInt(0);
         List<DimensionType> allowedDimensionTypes = in.get("allowedDimensionTypes").asList(DimensionType::deserialize);
-        return new MultiChunkFeatureConfig(maxChunksToRoot, chanceToGenerate, allowedDimensionTypes);
+        return new MultiChunkFeatureConfig(maxChunksToRoot, chanceToGenerate, featureSeedSalt, allowedDimensionTypes);
     }
     //endregion Static Methods
 }
