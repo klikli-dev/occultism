@@ -175,13 +175,13 @@ public class OccultismConfig extends ConfigBase {
 
                 this.grassChance = CachedFloat.cache(this,
                         builder.comment("The chance grass will spawn in the underground grove.")
-                                .define("grassChance", 0.1));
+                                .define("grassChance", 0.6));
                 this.treeChance = CachedFloat.cache(this,
                         builder.comment("The chance small trees will spawn in the underground grove.")
                                 .define("treeChance", 0.7));
                 this.vineChance = CachedFloat.cache(this,
                         builder.comment("The chance vines will spawn in the underground grove.")
-                                .define("vineChance", 0.125));
+                                .define("vineChance", 0.3));
                 this.ceilingLightChance = CachedFloat.cache(this,
                         builder.comment("The chance glowstone will spawn in the ceiling of the underground grove.")
                                 .define("ceilingLightChance", 0.7));
