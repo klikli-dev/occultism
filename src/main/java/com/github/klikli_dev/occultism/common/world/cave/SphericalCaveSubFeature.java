@@ -81,7 +81,6 @@ public class SphericalCaveSubFeature<T extends MultiChunkFeatureConfig> implemen
 
     //region Overrides
 
-
     @Override
     public boolean place(IWorld world, ChunkGenerator<? extends GenerationSettings> generator, Random rand, BlockPos rootPosition, AxisAlignedBB bounds, T config) {
         //can never generate in daylight
