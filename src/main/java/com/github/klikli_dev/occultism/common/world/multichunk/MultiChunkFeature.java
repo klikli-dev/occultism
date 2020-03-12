@@ -32,6 +32,8 @@ import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.GenerationSettings;
 import net.minecraft.world.gen.feature.Feature;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.function.Function;
 
@@ -58,20 +60,26 @@ public class MultiChunkFeature<T extends MultiChunkFeatureConfig> extends Featur
             return false;
         }
         ChunkPos generatingChunk = new ChunkPos(pos);
-        BlockPos rootPosition = this.getRootPosition(generator, (SharedSeedRandom) rand, generatingChunk, config);
+        List<BlockPos> rootPositions = this.getRootPositions(generator, (SharedSeedRandom) rand, generatingChunk, config);
         //If no root position was found in range, we exit
-        if (rootPosition == null) {
+        if (rootPositions.isEmpty()) {
             return false;
         }
 
-        return this.subFeature.place(worldIn, generator, rand, pos, rootPosition,
-                Math3DUtil.bounds(generatingChunk, generator.getMaxHeight()), config);
+        boolean generatedAny = false;
+        for (BlockPos rootPosition : rootPositions) {
+            if(this.subFeature.place(worldIn, generator, rand, pos, rootPosition,
+                    Math3DUtil.bounds(generatingChunk, generator.getMaxHeight()), config))
+                generatedAny = true;
+        }
+        return generatedAny;
     }
     //endregion Overrides
 
     //region Methods
-    protected BlockPos getRootPosition(ChunkGenerator<?> generator, SharedSeedRandom random, ChunkPos generatingChunk,
-                                       T config) {
+    protected List<BlockPos> getRootPositions(ChunkGenerator<?> generator, SharedSeedRandom random, ChunkPos generatingChunk,
+                                              T config) {
+        ArrayList<BlockPos> result = new ArrayList<>(1);
         for (int i = -config.maxChunksToRoot; i < config.maxChunksToRoot; i++) {
             for (int j = -config.maxChunksToRoot; j < config.maxChunksToRoot; j++) {
 
@@ -81,17 +89,17 @@ public class MultiChunkFeature<T extends MultiChunkFeatureConfig> extends Featur
 
                 if (random.nextInt(config.chanceToGenerate) == 0) {
                     //this chunk contains a root, so we generate a random
-                    return currentChunk.getBlock(
+                    result.add(currentChunk.getBlock(
                             random.nextInt(15),
                             Math.min(generator.getMaxHeight(),
                                     config.minGenerationHeight +
                                     Math.max(0, random.nextInt(config.maxGenerationHeight - config.minGenerationHeight))),
-                            random.nextInt(15)
+                            random.nextInt(15))
                     );
                 }
             }
         }
-        return null;
+        return result;
     }
     //endregion Methods
 
