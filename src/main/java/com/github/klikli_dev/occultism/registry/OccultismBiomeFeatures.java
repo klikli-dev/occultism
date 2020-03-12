@@ -23,7 +23,10 @@
 package com.github.klikli_dev.occultism.registry;
 
 import com.github.klikli_dev.occultism.Occultism;
-import com.github.klikli_dev.occultism.common.world.cave.UndergroundGroveFeature;
+import com.github.klikli_dev.occultism.common.world.cave.SphericalCaveSubFeature;
+import com.github.klikli_dev.occultism.common.world.cave.UndergroundGroveDecorator;
+import com.github.klikli_dev.occultism.common.world.multichunk.MultiChunkFeature;
+import com.github.klikli_dev.occultism.common.world.multichunk.MultiChunkFeatureConfig;
 import com.github.klikli_dev.occultism.common.world.ore.DimensionOreFeature;
 import com.github.klikli_dev.occultism.common.world.ore.DimensionOreFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
@@ -38,9 +41,13 @@ public class OccultismBiomeFeatures {
 
     public static final RegistryObject<DimensionOreFeature> DIMENSION_ORE_FEATURE = FEATURES.register("dimension_ore",
             () -> new DimensionOreFeature(DimensionOreFeatureConfig::deserialize));
-    public static final RegistryObject<UndergroundGroveFeature> UNDERGROUND_GROVE_FEATURE =
+
+    public static final RegistryObject<MultiChunkFeature<MultiChunkFeatureConfig>> UNDERGROUND_GROVE_FEATURE =
             FEATURES.register("underground_grove",
-                    () -> new UndergroundGroveFeature(25, 25));
+                    () -> new MultiChunkFeature<>(
+                            MultiChunkFeatureConfig::deserialize,
+                            new SphericalCaveSubFeature<>(new UndergroundGroveDecorator(), 25,
+                                    25)));
 
     //endregion Fields
 

@@ -66,6 +66,14 @@ public class Math3DUtil {
         return new Vec3d(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D);
     }
 
+    public static BlockPos clamp(BlockPos pos, AxisAlignedBB bounds) {
+        return new BlockPos(
+                MathHelper.clamp(pos.getX(), bounds.minX, bounds.maxX),
+                MathHelper.clamp(pos.getY(), bounds.minY, bounds.maxY),
+                MathHelper.clamp(pos.getZ(), bounds.minZ, bounds.maxZ)
+                );
+    }
+
     public static AxisAlignedBB bounds(ChunkPos pos, int maxHeight){
         return new AxisAlignedBB(pos.getXStart(), 0, pos.getZStart(), pos.getXEnd(), maxHeight, pos.getZEnd());
     }
