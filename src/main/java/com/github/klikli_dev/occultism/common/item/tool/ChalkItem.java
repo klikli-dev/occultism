@@ -20,7 +20,7 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.github.klikli_dev.occultism.common.item.tools;
+package com.github.klikli_dev.occultism.common.item.tool;
 
 import com.github.klikli_dev.occultism.registry.OccultismSounds;
 import com.github.klikli_dev.occultism.common.block.ChalkGlyphBlock;
@@ -35,8 +35,6 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.RegistryObject;
-import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.function.Supplier;
 

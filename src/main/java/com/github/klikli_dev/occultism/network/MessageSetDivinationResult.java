@@ -22,7 +22,7 @@
 
 package com.github.klikli_dev.occultism.network;
 
-import com.github.klikli_dev.occultism.common.item.tools.DivinationRodItem;
+import com.github.klikli_dev.occultism.common.item.tool.DivinationRodItem;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;

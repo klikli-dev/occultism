@@ -248,6 +248,7 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
                 this.setSpiritAge(this.getSpiritAge() + 1);
                 if (this.getSpiritAge() > this.getSpiritMaxAge()) {
                     this.onDeath(DamageSource.GENERIC);
+                    this.remove();
                 }
             }
             if (!this.dead)

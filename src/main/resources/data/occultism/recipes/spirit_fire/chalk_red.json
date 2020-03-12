@@ -1,0 +1,9 @@
+{
+  "type": "occultism:spirit_fire",
+  "ingredient": {
+    "item": "occultism:chalk_red_impure"
+  },
+  "result": {
+    "item": "occultism:chalk_red"
+  }
+}

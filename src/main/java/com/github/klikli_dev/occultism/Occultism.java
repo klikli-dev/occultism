@@ -22,6 +22,7 @@
 
 package com.github.klikli_dev.occultism;
 
+import com.github.klikli_dev.occultism.api.OccultismAPI;
 import com.github.klikli_dev.occultism.client.gui.spirit.SpiritGui;
 import com.github.klikli_dev.occultism.client.gui.storage.StorageControllerGui;
 import com.github.klikli_dev.occultism.client.gui.storage.StorageRemoteGui;
@@ -109,6 +110,8 @@ public class Occultism {
         WorldGenHandler.setupOreGeneration();
         //TODO: re enable grove generation after reworking it to fit new generation
         //WorldGenHandler.setupUndergroundGroveGeneration();
+
+        OccultismAPI.commonSetup();
 
         LOGGER.info("Common setup complete.");
     }

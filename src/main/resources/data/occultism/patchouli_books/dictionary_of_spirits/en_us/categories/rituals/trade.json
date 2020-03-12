@@ -1,0 +1,7 @@
+{
+  "name": "Trade Rituals",
+  "description": "Rituals to trade or convert items.",
+  "icon": "occultism:textures/item/cash.png",
+  "parent": "rituals",
+  "sortnum": 3
+}

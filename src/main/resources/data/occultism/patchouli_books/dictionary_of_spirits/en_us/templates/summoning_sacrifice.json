@@ -1,0 +1,20 @@
+{
+  "components": [
+    {
+      "type": "header",
+      "text": "Summoning",
+      "x": -1,
+      "y": -1
+    },
+    {
+      "type": "separator",
+      "x": -1,
+      "y": -1
+    },
+    {
+      "type": "text",
+      "text": "Pentacle: #pentacle#$(br)Activate: $(thing)#activation_item->iname#$()$(br)Sacrifice:#sacrifice-ename#$(br)Ingredients:$(br)#ingredients#",
+      "y": 30
+    }
+  ]
+}

@@ -34,11 +34,14 @@ import com.github.klikli_dev.occultism.common.item.spirit.BookOfBindingItem;
 import com.github.klikli_dev.occultism.common.item.spirit.BookOfCallingItem;
 import com.github.klikli_dev.occultism.common.item.storage.StableWormholeBlockItem;
 import com.github.klikli_dev.occultism.common.item.storage.StorageRemoteItem;
-import com.github.klikli_dev.occultism.common.item.tools.ChalkItem;
-import com.github.klikli_dev.occultism.common.item.tools.DivinationRodItem;
+import com.github.klikli_dev.occultism.common.item.tool.BrushItem;
+import com.github.klikli_dev.occultism.common.item.tool.ButcherKnifeItem;
+import com.github.klikli_dev.occultism.common.item.tool.ChalkItem;
+import com.github.klikli_dev.occultism.common.item.tool.DivinationRodItem;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.BlockNamedItem;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemTier;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -71,6 +74,21 @@ public class OccultismItems {
             () -> new Item(defaultProperties()));
     public static final RegistryObject<Item> SPIRIT_ATTUNED_GEM = ITEMS.register("spirit_attuned_gem",
             () -> new Item(defaultProperties()));
+    public static final RegistryObject<Item> OTHERWORLD_ASHES = ITEMS.register("otherworld_ashes",
+            () -> new Item(defaultProperties()));
+    public static final RegistryObject<Item> BURNT_OTHERSTONE = ITEMS.register("burnt_otherstone",
+            () -> new Item(defaultProperties()));
+    public static final RegistryObject<Item> TALLOW = ITEMS.register("tallow",
+            () -> new Item(defaultProperties()));
+
+    public static final RegistryObject<Item> CHALK_WHITE_IMPURE = ITEMS.register("chalk_white_impure",
+            () -> new Item(defaultProperties()));
+    public static final RegistryObject<Item> CHALK_RED_IMPURE = ITEMS.register("chalk_red_impure",
+            () -> new Item(defaultProperties()));
+    public static final RegistryObject<Item> CHALK_GOLD_IMPURE = ITEMS.register("chalk_gold_impure",
+            () -> new Item(defaultProperties()));
+    public static final RegistryObject<Item> CHALK_PURPLE_IMPURE = ITEMS.register("chalk_purple_impure",
+            () -> new Item(defaultProperties()));
 
     //Tools
     public static final RegistryObject<Item> STORAGE_REMOTE = ITEMS.register("storage_remote",
@@ -91,6 +109,10 @@ public class OccultismItems {
 
     public static final RegistryObject<DivinationRodItem> DIVINATION_ROD = ITEMS.register("divination_rod",
             () -> new DivinationRodItem(defaultProperties().maxStackSize(1)));
+    public static final RegistryObject<BrushItem> BRUSH = ITEMS.register("brush",
+            () -> new BrushItem(defaultProperties().maxStackSize(1)));
+    public static final RegistryObject<ButcherKnifeItem> BUTCHER_KNIFE = ITEMS.register("butcher_knife",
+            () -> new ButcherKnifeItem(ItemTier.IRON, 3, -2.4F, defaultProperties()));
 
     //Books of Binding
     public static final RegistryObject<BookOfBindingItem> BOOK_OF_BINDING_FOLIOT = ITEMS.register(
