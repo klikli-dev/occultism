@@ -122,7 +122,8 @@ public class SphericalCaveSubFeature<T extends MultiChunkFeatureConfig> implemen
 
         BlockPos.getAllInBox(min, max).forEach(blockPos -> {
             if (blockPos.distanceSq(center) <= (double) (f * f * MathHelper.clamp(rand.nextFloat(), 0.75F, 1.0F))) {
-                if (!(world.getBlockState(blockPos).hasTileEntity())) {
+                BlockState currentState = world.getBlockState(blockPos);
+                if (!currentState.hasTileEntity() && currentState.getBlock() != Blocks.BEDROCK) {
                     world.setBlockState(blockPos, Blocks.CAVE_AIR.getDefaultState(), 2);
                 }
             }
