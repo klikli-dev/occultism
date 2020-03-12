@@ -22,24 +22,27 @@
 
 package com.github.klikli_dev.occultism.common.world.cave;
 
+import com.github.klikli_dev.occultism.common.world.multichunk.IMultiChunkSubFeature;
+import com.github.klikli_dev.occultism.common.world.multichunk.MultiChunkFeatureConfig;
+import com.github.klikli_dev.occultism.util.Math3DUtil;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.Direction;
+import net.minecraft.util.SharedSeedRandom;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.GenerationSettings;
-import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.IFeatureConfig;
-import net.minecraft.world.gen.feature.NoFeatureConfig;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
-public class SphericalCaveFeature extends Feature<NoFeatureConfig> {
+public class SphericalCaveSubFeature<T extends MultiChunkFeatureConfig> implements IMultiChunkSubFeature<T> {
 
     //region Fields
+    public static Set<BlockPos> sphericalCaves = new HashSet<>();
     protected ICaveDecorator caveDecorator;
     protected int radius;
     protected int maxRandomRadiusOffset;
@@ -54,7 +57,7 @@ public class SphericalCaveFeature extends Feature<NoFeatureConfig> {
      * @param radius                the radius of the cave.
      * @param maxRandomRadiusOffset the maximum random offset for the radius
      */
-    public SphericalCaveFeature(ICaveDecorator caveDecorator, int radius, int maxRandomRadiusOffset) {
+    public SphericalCaveSubFeature(ICaveDecorator caveDecorator, int radius, int maxRandomRadiusOffset) {
         this(caveDecorator, radius, maxRandomRadiusOffset, 3, 2);
     }
 
@@ -65,9 +68,8 @@ public class SphericalCaveFeature extends Feature<NoFeatureConfig> {
      * @param additionalSpheres          the amount of additional spheres to add on to the main sphere.
      * @param maxRandomAdditionalSpheres the maximum amount of random additional sphere to add to the main sphere.
      */
-    public SphericalCaveFeature(ICaveDecorator caveDecorator, int radius, int maxRandomRadiusOffset,
-                                int additionalSpheres, int maxRandomAdditionalSpheres) {
-        super(dynamic -> IFeatureConfig.NO_FEATURE_CONFIG);
+    public SphericalCaveSubFeature(ICaveDecorator caveDecorator, int radius, int maxRandomRadiusOffset,
+                                   int additionalSpheres, int maxRandomAdditionalSpheres) {
         this.caveDecorator = caveDecorator;
         this.radius = radius;
         this.maxRandomRadiusOffset = maxRandomRadiusOffset;
@@ -80,19 +82,31 @@ public class SphericalCaveFeature extends Feature<NoFeatureConfig> {
 
     @Override
     public boolean place(IWorld world, ChunkGenerator<? extends GenerationSettings> generator, Random rand,
-                         BlockPos pos, NoFeatureConfig config) {
+                         BlockPos rootPosition, AxisAlignedBB bounds, T config) {
+        //can never generate in daylight
+        if (world.canBlockSeeSky(rootPosition))
+            return false;
+
+        //Store a list of spherical caves for easy access during development, or future command access.
+        sphericalCaves.add(rootPosition);
+
+        ChunkPos rootChunk = new ChunkPos(rootPosition);
+        //Seed with root chunk position
+        ((SharedSeedRandom) rand)
+                .setLargeFeatureSeedWithSalt(generator.getSeed(), rootChunk.x, rootChunk.z, config.featureSeedSalt);
+
         List<Sphere> spheres = new ArrayList<>();
         int radiusBase = this.radius + rand.nextInt(this.maxRandomRadiusOffset);
         int radius = (int) (radiusBase * 0.2F) + rand.nextInt(8);
-        spheres.add(this.generateSphere(world, rand, pos, radius));
+        spheres.add(this.generateSphere(world, rand, rootPosition, radius, bounds));
         for (int i = 0; i < this.additionalSpheres + rand.nextInt(this.maxRandomAdditionalSpheres); i++) {
             Direction direction = Direction.Plane.HORIZONTAL.random(rand);
-            spheres.add(this.generateSphere(world, rand, pos.offset(direction, radius - 2),
-                    2 * (int) (radius / 3F) + rand.nextInt(8)));
+            spheres.add(this.generateSphere(world, rand, rootPosition.offset(direction, radius - 2),
+                    2 * (int) (radius / 3F) + rand.nextInt(8), bounds));
         }
         for (Sphere sphere : spheres) {
-            this.hollowOutSphere(world, rand, sphere.center, sphere.radius - 2);
-            this.decorateSphere(world, generator, rand, sphere.center, sphere.radius + 2);
+            this.hollowOutSphere(world, rand, sphere.center, sphere.radius - 2, bounds);
+            this.decorateSphere(world, generator, rand, sphere.center, sphere.radius + 2, bounds);
         }
         spheres.clear();
         return true;
@@ -101,18 +115,22 @@ public class SphericalCaveFeature extends Feature<NoFeatureConfig> {
     //endregion Overrides
 
     //region Methods
-    protected Sphere generateSphere(IWorld world, Random rand, BlockPos position, int radius) {
+    protected Sphere generateSphere(IWorld world, Random rand, BlockPos position, int radius, AxisAlignedBB bounds) {
         return new Sphere(position, radius);
     }
 
-    protected void hollowOutSphere(IWorld world, Random rand, BlockPos center, int radius) {
+    protected void hollowOutSphere(IWorld world, Random rand, BlockPos center, int radius, AxisAlignedBB bounds) {
         int j = radius;
         int k = radius / 2;
         int l = radius;
         float f = (float) (j + k + l) * 0.333F + 0.5F;
-        BlockPos.getAllInBox(center.add(-j, -k, -l), center.add(j, k, l)).forEach(blockPos -> {
+        BlockPos min = Math3DUtil.clamp(center.add(-j, -k, -l), bounds);
+        BlockPos max = Math3DUtil.clamp(center.add(j, k, l), bounds);
+
+        BlockPos.getAllInBox(min, max).forEach(blockPos -> {
             if (blockPos.distanceSq(center) <= (double) (f * f * MathHelper.clamp(rand.nextFloat(), 0.75F, 1.0F))) {
-                if (!(world.getBlockState(blockPos).hasTileEntity())) {
+                BlockState currentState = world.getBlockState(blockPos);
+                if (!currentState.hasTileEntity() && currentState.getBlock() != Blocks.BEDROCK) {
                     world.setBlockState(blockPos, Blocks.CAVE_AIR.getDefaultState(), 2);
                 }
             }
@@ -120,16 +138,18 @@ public class SphericalCaveFeature extends Feature<NoFeatureConfig> {
     }
 
     protected void decorateSphere(IWorld world, ChunkGenerator<? extends GenerationSettings> generator, Random rand,
-                                  BlockPos pos, int radius) {
+                                  BlockPos center, int radius, AxisAlignedBB bounds) {
         int j = radius;
         //int k = radius / 2;
         int k = radius / 2;
         int l = radius;
         CaveDecoratordata data = new CaveDecoratordata();
         float f = (float) (j + k + l) * 0.333F + 0.5F;
-        BlockPos.getAllInBox(pos.add(-j, -k, -l), pos.add(j, k, l)).forEach(blockPos -> {
-            if (blockPos.distanceSq(pos) <= (double) (f * f)) {
-                this.caveDecorator.fill(world, generator, rand, blockPos, data);
+        BlockPos min = Math3DUtil.clamp(center.add(-j, -k, -l), bounds);
+        BlockPos max = Math3DUtil.clamp(center.add(j, k, l), bounds);
+        BlockPos.getAllInBox(min, max).forEach(blockPos -> {
+            if (blockPos.distanceSq(center) <= (double) (f * f)) {
+                this.caveDecorator.fill(world, generator, rand, blockPos.toImmutable(), data);
             }
         });
 

@@ -23,6 +23,7 @@
 package com.github.klikli_dev.occultism.common.world;
 
 import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.common.world.multichunk.MultiChunkFeatureConfig;
 import com.github.klikli_dev.occultism.common.world.ore.DimensionOreFeatureConfig;
 import com.github.klikli_dev.occultism.registry.OccultismBiomeFeatures;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
@@ -31,7 +32,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.gen.GenerationStage;
-import net.minecraft.world.gen.feature.IFeatureConfig;
 import net.minecraft.world.gen.feature.OreFeatureConfig;
 import net.minecraft.world.gen.placement.CountRangeConfig;
 import net.minecraft.world.gen.placement.Placement;
@@ -48,6 +48,11 @@ public class WorldGenHandler {
             Occultism.CONFIG.worldGen.undergroundGroveGen.validBiomes.get().stream()
                     .map(s -> BiomeDictionary.Type.getType(s))
                     .collect(Collectors.toList());
+
+    protected static final List<DimensionType> UNDERGROUND_GROVE_DIMENSIONS =
+            Occultism.CONFIG.worldGen.undergroundGroveGen.dimensionTypeWhitelist.get().stream()
+                    .map(s -> DimensionType.byName(new ResourceLocation(s))).collect(
+                    Collectors.toList());
 
     protected static final List<DimensionType> OTHERSTONE_DIMENSION_WHITELIST =
             Occultism.CONFIG.worldGen.oreGen.dimensionTypeWhitelist.get().stream()
@@ -79,7 +84,11 @@ public class WorldGenHandler {
             if (BiomeUtil.containsType(biome, UNDERGROUND_GROVE_BIOMES)) {
                 biome.addFeature(GenerationStage.Decoration.UNDERGROUND_STRUCTURES,
                         OccultismBiomeFeatures.UNDERGROUND_GROVE_FEATURE.get()
-                                .withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG));
+                                .withConfiguration(new MultiChunkFeatureConfig(7,
+                                        Occultism.CONFIG.worldGen.undergroundGroveGen.groveSpawnChance.get(),
+                                        Occultism.CONFIG.worldGen.undergroundGroveGen.groveSpawnMin.get(),
+                                        Occultism.CONFIG.worldGen.undergroundGroveGen.groveSpawnMax.get(),
+                                        14653667, UNDERGROUND_GROVE_DIMENSIONS)));
             }
         }
     }

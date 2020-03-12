@@ -34,7 +34,7 @@ import java.util.List;
 
 public class DimensionOreFeatureConfig extends OreFeatureConfig {
     //region Fields
-    List<DimensionType> allowedDimensionTypes;
+    public List<DimensionType> allowedDimensionTypes;
     //endregion Fields
 
     //region Initialization

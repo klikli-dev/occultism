@@ -139,8 +139,9 @@ public class OccultismConfig extends ConfigBase {
             //region Fields
             public CachedObject<List<String>> dimensionTypeWhitelist;
             public CachedObject<List<String>> validBiomes;
-            public CachedInt groveSpawnRarity;
-            public CachedFloat minGroveDistance;
+            public CachedInt groveSpawnChance;
+            public CachedInt groveSpawnMin;
+            public CachedInt groveSpawnMax;
             public CachedFloat grassChance;
             public CachedFloat treeChance;
             public CachedFloat vineChance;
@@ -162,25 +163,28 @@ public class OccultismConfig extends ConfigBase {
                 this.validBiomes = CachedObject.cache(this,
                         builder.comment("The biome types to spawn underground groves in.")
                                 .define("validBiomes", defaultValidBiomes));
-                this.groveSpawnRarity = CachedInt.cache(this,
-                        builder.comment("The rarity of groves.")
-                                .define("groveSpawnRarity", 180));
+                this.groveSpawnChance = CachedInt.cache(this,
+                        builder.comment("The chance for a grove to spawn in a chunk (generates 1/groveSpawnChance chunks on average).")
+                                .define("groveSpawnChance", 400));
+                this.groveSpawnMin = CachedInt.cache(this,
+                        builder.comment("The min height for a grove to spawn (applied to the center of the grove, not the floor).")
+                                .define("groveSpawnMin", 25));
+                this.groveSpawnMax = CachedInt.cache(this,
+                        builder.comment("The max height for a grove to spawn (applied to the center of the grove, not the ceiling).")
+                                .define("groveSpawnMax", 60));
 
-                this.minGroveDistance = CachedFloat.cache(this,
-                        builder.comment("The minimum distance between groves.")
-                                .define("minGroveDistance", 300.0));
                 this.grassChance = CachedFloat.cache(this,
                         builder.comment("The chance grass will spawn in the underground grove.")
-                                .define("grassChance", 0.1));
+                                .define("grassChance", 0.6));
                 this.treeChance = CachedFloat.cache(this,
                         builder.comment("The chance small trees will spawn in the underground grove.")
-                                .define("treeChance", 0.7));
+                                .define("treeChance", 0.1));
                 this.vineChance = CachedFloat.cache(this,
                         builder.comment("The chance vines will spawn in the underground grove.")
-                                .define("vineChance", 0.125));
+                                .define("vineChance", 0.3));
                 this.ceilingLightChance = CachedFloat.cache(this,
                         builder.comment("The chance glowstone will spawn in the ceiling of the underground grove.")
-                                .define("ceilingLightChance", 0.7));
+                                .define("ceilingLightChance", 0.1));
 
                 builder.pop();
             }

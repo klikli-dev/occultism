@@ -109,7 +109,7 @@ public class Occultism {
 
         WorldGenHandler.setupOreGeneration();
         //TODO: re enable grove generation after reworking it to fit new generation
-        //WorldGenHandler.setupUndergroundGroveGeneration();
+        WorldGenHandler.setupUndergroundGroveGeneration();
 
         OccultismAPI.commonSetup();
 

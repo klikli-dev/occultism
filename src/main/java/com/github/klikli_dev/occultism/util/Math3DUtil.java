@@ -24,10 +24,7 @@ package com.github.klikli_dev.occultism.util;
 
 import com.google.common.collect.ImmutableList;
 import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.CubeCoordinateIterator;
-import net.minecraft.util.math.MutableBoundingBox;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.*;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -67,6 +64,18 @@ public class Math3DUtil {
 
     public static Vec3d center(BlockPos pos) {
         return new Vec3d(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D);
+    }
+
+    public static BlockPos clamp(BlockPos pos, AxisAlignedBB bounds) {
+        return new BlockPos(
+                MathHelper.clamp(pos.getX(), bounds.minX, bounds.maxX),
+                MathHelper.clamp(pos.getY(), bounds.minY, bounds.maxY),
+                MathHelper.clamp(pos.getZ(), bounds.minZ, bounds.maxZ)
+                );
+    }
+
+    public static AxisAlignedBB bounds(ChunkPos pos, int maxHeight){
+        return new AxisAlignedBB(pos.getXStart(), 0, pos.getZStart(), pos.getXEnd(), maxHeight, pos.getZEnd());
     }
 
     /**
