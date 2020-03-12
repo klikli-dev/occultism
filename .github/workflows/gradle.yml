@@ -2,7 +2,7 @@ name: Java CI
 
 on:
   # Trigger the workflow on push or pull request,
-  # but only for the master branch
+  # but only for release or test relevant branches.
   push:
     branches:
       - 'alpha/**' 
@@ -29,4 +29,4 @@ jobs:
     - name: Gradle Build
       uses: eskatos/gradle-command-action@v1
       with:
-        arguments: build
+        arguments: build --refresh-dependencies
