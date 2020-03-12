@@ -44,7 +44,7 @@ public class OtherworldLogNaturalBlock extends LogBlock implements IOtherworldBl
     public OtherworldLogNaturalBlock(MaterialColor verticalColorIn,
                                      Properties properties) {
         super(verticalColorIn, properties);
-        this.setDefaultState(this.getStateContainer().getBaseState().with(UNCOVERED, false));
+        this.setDefaultState(this.getDefaultState().with(UNCOVERED, false));
     }
     //endregion Initialization
 

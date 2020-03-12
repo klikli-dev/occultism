@@ -46,7 +46,7 @@ public class OtherworldLeavesNaturalBlock extends LeavesBlock implements IOtherw
     //region Initialization
     public OtherworldLeavesNaturalBlock(Properties properties) {
         super(properties);
-        this.setDefaultState(this.getStateContainer().getBaseState().with(UNCOVERED, false));
+        this.setDefaultState(this.getDefaultState().with(UNCOVERED, false));
     }
     //endregion Initialization
 
