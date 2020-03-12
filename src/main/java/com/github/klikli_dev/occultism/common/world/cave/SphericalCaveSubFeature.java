@@ -25,6 +25,7 @@ package com.github.klikli_dev.occultism.common.world.cave;
 import com.github.klikli_dev.occultism.common.world.multichunk.IMultiChunkSubFeature;
 import com.github.klikli_dev.occultism.common.world.multichunk.MultiChunkFeatureConfig;
 import com.github.klikli_dev.occultism.util.Math3DUtil;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.Direction;
 import net.minecraft.util.SharedSeedRandom;
@@ -84,6 +85,10 @@ public class SphericalCaveSubFeature<T extends MultiChunkFeatureConfig> implemen
     @Override
     public boolean place(IWorld world, ChunkGenerator<? extends GenerationSettings> generator, Random rand,
                          BlockPos pos, BlockPos rootPosition, AxisAlignedBB bounds, T config) {
+        //can never generate in daylight
+        if(world.canBlockSeeSky(rootPosition))
+            return false;
+
         ChunkPos rootChunk = new ChunkPos(rootPosition);
         //Seed with root chunk position
         ((SharedSeedRandom) rand).setLargeFeatureSeedWithSalt(generator.getSeed(), rootChunk.x, rootChunk.z, config.featureSeedSalt);
