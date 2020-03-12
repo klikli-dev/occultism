@@ -74,6 +74,7 @@
     "item.occultism.storage_remote.tooltip.linked": "Bound to %s.",
     "item.occultism.divination_rod.tooltip.no_linked_block": "Not attuned to any material.",
     "item.occultism.divination_rod.tooltip.linked_block": "Attuned to %s.",
+    "item.occultism.dimensional_matrix.tooltip": "%s is bound to this dimensional matrix.",
 
 
     "_comment": "Blocks",

@@ -32,6 +32,7 @@ import com.github.klikli_dev.occultism.common.item.otherworld.OtherworldBlockIte
 import com.github.klikli_dev.occultism.common.item.spirit.BookOfBindingBoundItem;
 import com.github.klikli_dev.occultism.common.item.spirit.BookOfBindingItem;
 import com.github.klikli_dev.occultism.common.item.spirit.BookOfCallingItem;
+import com.github.klikli_dev.occultism.common.item.storage.DimensionalMatrixItem;
 import com.github.klikli_dev.occultism.common.item.storage.StableWormholeBlockItem;
 import com.github.klikli_dev.occultism.common.item.storage.StorageRemoteItem;
 import com.github.klikli_dev.occultism.common.item.tool.BrushItem;
@@ -70,8 +71,8 @@ public class OccultismItems {
             () -> new OtherworldBlockItem(OccultismBlocks.OTHERWORLD_SAPLING_NATURAL.get(), defaultProperties()));
 
     //Components
-    public static final RegistryObject<Item> DIMENSIONAL_MATRIX = ITEMS.register("dimensional_matrix",
-            () -> new Item(defaultProperties()));
+    public static final RegistryObject<DimensionalMatrixItem> DIMENSIONAL_MATRIX = ITEMS.register("dimensional_matrix",
+            () -> new DimensionalMatrixItem(defaultProperties()));
     public static final RegistryObject<Item> SPIRIT_ATTUNED_GEM = ITEMS.register("spirit_attuned_gem",
             () -> new Item(defaultProperties()));
     public static final RegistryObject<Item> OTHERWORLD_ASHES = ITEMS.register("otherworld_ashes",

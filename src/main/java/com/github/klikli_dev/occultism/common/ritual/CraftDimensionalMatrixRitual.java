@@ -25,6 +25,7 @@ package com.github.klikli_dev.occultism.common.ritual;
 import com.github.klikli_dev.occultism.common.tile.GoldenSacrificialBowlTileEntity;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.github.klikli_dev.occultism.registry.OccultismRituals;
+import com.github.klikli_dev.occultism.util.ItemNBTUtil;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
@@ -51,13 +52,14 @@ public class CraftDimensionalMatrixRitual extends Ritual {
                        PlayerEntity castingPlayer, ItemStack activationItem) {
         super.finish(world, goldenBowlPosition, tileEntity, castingPlayer, activationItem);
 
+        ItemStack copy = activationItem.copy();
         activationItem.shrink(1); //remove activation item.
 
         ((ServerWorld) world).spawnParticle(ParticleTypes.LARGE_SMOKE, goldenBowlPosition.getX() + 0.5,
                 goldenBowlPosition.getY() + 0.5, goldenBowlPosition.getZ() + 0.5, 1, 0, 0, 0, 0);
 
         ItemStack result = new ItemStack(OccultismItems.DIMENSIONAL_MATRIX.get());
-
+        ItemNBTUtil.setBoundSpiritName(result, ItemNBTUtil.getBoundSpiritName(copy));
         ItemHandlerHelper.giveItemToPlayer(castingPlayer, result);
     }
     //endregion Overrides
