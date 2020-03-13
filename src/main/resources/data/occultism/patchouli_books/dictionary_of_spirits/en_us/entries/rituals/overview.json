@@ -1,6 +1,6 @@
 {
   "name": "Introduction to Rituals",
-  "icon": "occultism:textures/item/robe.png",
+  "icon": "occultism:textures/gui/book/robe.png",
   "category": "rituals",
   "sortnum": 1,
   "pages": [

@@ -1,6 +1,6 @@
 {
   "name": "Ritual",
   "description": "An overview of all rituals and their requirements.",
-  "icon": "occultism:textures/item/robe.png",
+  "icon": "occultism:textures/gui/book/robe.png",
   "sortnum": 2
 }

@@ -1,0 +1,16 @@
+{
+  "name": "Binding Rituals",
+  "icon": "occultism:textures/gui/book/infusion.png",
+  "category": "rituals",
+  "sortnum": 3,
+  "pages": [
+    {
+      "type": "text",
+      "text": "Binding rituals infuse spirits into items, where their powers are used for one specific purpose. The created items can act like simple empowering enchantments, or fulfill complex tasks to aid the summoner."
+    },
+    {
+      "type": "text",
+      "text": ""
+    }
+  ]
+}

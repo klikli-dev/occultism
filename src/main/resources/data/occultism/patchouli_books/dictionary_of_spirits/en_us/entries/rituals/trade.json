@@ -1,6 +1,6 @@
 {
   "name": "Trade Rituals",
-  "icon": "occultism:textures/item/cash.png",
+  "icon": "occultism:textures/gui/book/cash.png",
   "category": "rituals",
   "sortnum": 2,
   "pages": [

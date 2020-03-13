@@ -60,7 +60,7 @@ public class PentacleCraftFoliot extends Pentacle {
 
     @Override
     protected IMultiblock setupMultiblock() {
-        return this.api.makeMultiblock(this.pattern, this.mapping.toArray()).setSymmetrical(true);
+        return this.api.makeMultiblock(this.pattern, this.mapping.toArray()).setSymmetrical(false);
     }
     //endregion Overrides
 }
