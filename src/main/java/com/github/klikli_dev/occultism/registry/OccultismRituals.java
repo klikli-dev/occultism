@@ -24,10 +24,7 @@ package com.github.klikli_dev.occultism.registry;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.ritual.*;
-import com.github.klikli_dev.occultism.common.ritual.pentacle.DebugPentacle;
-import com.github.klikli_dev.occultism.common.ritual.pentacle.Pentacle;
-import com.github.klikli_dev.occultism.common.ritual.pentacle.PentacleCraftDjinni;
-import com.github.klikli_dev.occultism.common.ritual.pentacle.PentacleSummonFoliotBasic;
+import com.github.klikli_dev.occultism.common.ritual.pentacle.*;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
@@ -51,6 +48,8 @@ public class OccultismRituals {
     public static final RegistryObject<DebugPentacle> DEBUG_PENTACLE = register("debug", DebugPentacle::new);
     public static final RegistryObject<PentacleSummonFoliotBasic> SUMMON_FOLIOT_BASIC_PENTACLE =
             register("summon_foliot_basic", PentacleSummonFoliotBasic::new);
+    public static final RegistryObject<PentacleCraftFoliot> CRAFT_FOLIOT_PENTACLE =
+            register("craft_foliot", PentacleCraftFoliot::new);
     public static final RegistryObject<PentacleCraftDjinni> CRAFT_DJINNI_PENTACLE =
             register("craft_djinni", PentacleCraftDjinni::new);
 

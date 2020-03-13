@@ -13,7 +13,7 @@
     },
     {
       "type": "summoning",
-      "pentacle": "$(l:03_pentacles/02_summon_foliot_basic)Aviar's Circle$(/l)",
+      "pentacle": "$(l:pentacles/summon_foliot_basic)Aviar's Circle$(/l)",
       "activation_item": "occultism:book_of_binding_bound_foliot",
       "ingredients": "$(li)1x $(item)Stone$()$(li)1x $(item)Granite$()$(li)1x $(item)Diorite$()$(li)1x $(item)Andesite$()"
     }
