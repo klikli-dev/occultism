@@ -169,6 +169,10 @@
     "ritual.occultism.craft_dimensional_matrix.finished": "Successfully bound djinni into object.",
     "ritual.occultism.craft_dimensional_matrix.interrupted": "Binding of djinni interrupted.",
 
+    "ritual.occultism.craft_storage_controller_base.conditions": "Not all requirements for this ritual are met.",
+    "ritual.occultism.craft_storage_controller_base.started": "Started binding foliot.",
+    "ritual.occultism.craft_storage_controller_base.finished": "Successfully bound foliot into object.",
+    "ritual.occultism.craft_storage_controller_base.interrupted": "Binding of foliot interrupted.",
 
     "_comment": "GUI Strings",
     "gui.occultism.book_of_calling.mode": "Mode",
