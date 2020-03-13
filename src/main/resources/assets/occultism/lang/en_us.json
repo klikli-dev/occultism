@@ -37,6 +37,8 @@
     "item.occultism.spirit_fire_item": "Spiritfire",
     "item.occultism.butcher_knife": "Butcher Knife",
     "item.occultism.tallow": "Tallow",
+    "item.occultism.otherstone_frame": "Otherstone Frame",
+    "item.occultism.wormhole_frame": "Wormhole Frame",
 
     "_comment": "# Spawn eggs",
     "item.occultism.foliot": "Foliot Spawn Egg",

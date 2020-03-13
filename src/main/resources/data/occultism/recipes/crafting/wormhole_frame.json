@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " g ",
+    "gog",
+    " g "
+  ],
+  "key": {
+    "o": {
+      "item": "occultism:otherstone_frame"
+    },
+    "g": {
+      "tag": "forge:ingots/gold"
+    }
+  },
+  "result": {
+    "item": "occultism:wormhole_frame"
+  }
+}
