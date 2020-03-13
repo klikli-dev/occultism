@@ -24,6 +24,7 @@ package com.github.klikli_dev.occultism;
 
 import com.github.klikli_dev.occultism.api.OccultismAPI;
 import com.github.klikli_dev.occultism.client.gui.spirit.SpiritGui;
+import com.github.klikli_dev.occultism.client.gui.storage.StableWormholeGui;
 import com.github.klikli_dev.occultism.client.gui.storage.StorageControllerGui;
 import com.github.klikli_dev.occultism.client.gui.storage.StorageRemoteGui;
 import com.github.klikli_dev.occultism.client.render.SelectedBlockRenderer;
@@ -154,6 +155,7 @@ public class Occultism {
         DeferredWorkQueue.runLater(() -> {
             //Register screen factories
             ScreenManager.registerFactory(OccultismContainers.STORAGE_CONTROLLER.get(), StorageControllerGui::new);
+            ScreenManager.registerFactory(OccultismContainers.STABLE_WORMHOLE.get(), StableWormholeGui::new);
             ScreenManager.registerFactory(OccultismContainers.STORAGE_REMOTE.get(), StorageRemoteGui::new);
             ScreenManager.registerFactory(OccultismContainers.SPIRIT.get(), SpiritGui::new);
             LOGGER.debug("Registered Screen Containers");

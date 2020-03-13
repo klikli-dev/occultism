@@ -25,17 +25,26 @@ package com.github.klikli_dev.occultism.common.tile;
 import com.github.klikli_dev.occultism.api.common.data.GlobalBlockPos;
 import com.github.klikli_dev.occultism.api.common.tile.IStorageController;
 import com.github.klikli_dev.occultism.api.common.tile.IStorageControllerProxy;
+import com.github.klikli_dev.occultism.common.container.storage.StableWormholeContainer;
+import com.github.klikli_dev.occultism.common.container.storage.StorageControllerContainer;
 import com.github.klikli_dev.occultism.registry.OccultismTiles;
 import com.github.klikli_dev.occultism.util.TileEntityUtil;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.container.Container;
+import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
-public class StableWormholeTileEntity extends NetworkedTileEntity implements IStorageControllerProxy {
+public class StableWormholeTileEntity extends NetworkedTileEntity implements IStorageControllerProxy, INamedContainerProvider {
 
     //region Fields
     protected GlobalBlockPos linkedStorageControllerPosition;
@@ -47,6 +56,11 @@ public class StableWormholeTileEntity extends NetworkedTileEntity implements ISt
         super(OccultismTiles.STORAGE_CONTROLLER.get());
     }
     //endregion Initialization
+
+    @Override
+    public ITextComponent getDisplayName() {
+        return new StringTextComponent(getType().getRegistryName().getPath());
+    }
 
     //region Overrides
     @Override
@@ -96,5 +110,11 @@ public class StableWormholeTileEntity extends NetworkedTileEntity implements ISt
     //endregion Overrides
 
     //region Methods
+
+    @Nullable
+    @Override
+    public Container createMenu(int id, PlayerInventory playerInventory, PlayerEntity player) {
+        return new StableWormholeContainer(id, playerInventory, this);
+    }
     //endregion Methods
 }
