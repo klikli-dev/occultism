@@ -36,10 +36,10 @@ import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.items.ItemHandlerHelper;
 
-public class CraftStorageControllerBase extends Ritual {
+public class CraftStorageControllerBaseRitual extends Ritual {
 
     //region Initialization
-    public CraftStorageControllerBase() {
+    public CraftStorageControllerBaseRitual() {
         super(OccultismRituals.CRAFT_FOLIOT_PENTACLE.get(),
                 Ingredient.fromItems(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()), "craft_storage_controller_base",
                 20);

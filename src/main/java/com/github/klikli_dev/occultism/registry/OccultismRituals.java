@@ -67,10 +67,12 @@ public class OccultismRituals {
             RITUALS.register("summon_foliot_sapling_trader", SummonFoliotSaplingTraderRitual::new);
 
     //Crafting
-    public static final RegistryObject<CraftStorageControllerBase> CRAFT_STORAGE_CONTROLLER_BASE =
-            RITUALS.register("craft_storage_controller_base", CraftStorageControllerBase::new);
+    public static final RegistryObject<CraftStorageControllerBaseRitual> CRAFT_STORAGE_CONTROLLER_BASE_RITUAL =
+            RITUALS.register("craft_storage_controller_base", CraftStorageControllerBaseRitual::new);
     public static final RegistryObject<CraftDimensionalMatrixRitual> CRAFT_DIMENSIONAL_MATRIX_RITUAL =
             RITUALS.register("craft_dimensional_matrix", CraftDimensionalMatrixRitual::new);
+    public static final RegistryObject<CraftStableWormholeRitual> CRAFT_STABLE_WORMHOLE_RITUAL =
+            RITUALS.register("craft_stable_wormhole", CraftStableWormholeRitual::new);
 
     //endregion Fields
 

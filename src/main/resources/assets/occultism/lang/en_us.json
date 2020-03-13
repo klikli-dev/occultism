@@ -176,6 +176,11 @@
     "ritual.occultism.craft_storage_controller_base.finished": "Successfully bound foliot into object.",
     "ritual.occultism.craft_storage_controller_base.interrupted": "Binding of foliot interrupted.",
 
+    "ritual.occultism.craft_stable_wormhole.conditions": "Not all requirements for this ritual are met.",
+    "ritual.occultism.craft_stable_wormhole.started": "Started binding foliot.",
+    "ritual.occultism.craft_stable_wormhole.finished": "Successfully bound foliot into object.",
+    "ritual.occultism.craft_stable_wormhole.interrupted": "Binding of foliot interrupted.",
+
     "_comment": "GUI Strings",
     "gui.occultism.book_of_calling.mode": "Mode",
     "gui.occultism.book_of_calling.work_area": "Work Area",
