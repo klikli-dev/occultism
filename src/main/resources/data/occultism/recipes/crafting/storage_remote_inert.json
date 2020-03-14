@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "gtg",
+    "bgb",
+    "bbb"
+  ],
+  "key": {
+    "t": {
+      "item": "occultism:otherstone_tablet"
+    },
+    "b": {
+      "item": "minecraft:stone_button"
+    }
+  },
+  "result": {
+    "item": "occultism:storage_remote_inert"
+  }
+}

@@ -85,6 +85,10 @@ public class OccultismItems {
             () -> new Item(defaultProperties()));
     public static final RegistryObject<Item> WORMHOLE_FRAME = ITEMS.register("wormhole_frame",
             () -> new Item(defaultProperties()));
+    public static final RegistryObject<Item> OTHERSTONE_TABLET = ITEMS.register("otherstone_tablet",
+            () -> new Item(defaultProperties()));
+    public static final RegistryObject<Item> STORAGE_REMOTE_INERT = ITEMS.register("storage_remote_inert",
+            () -> new Item(defaultProperties()));
 
     public static final RegistryObject<Item> CHALK_WHITE_IMPURE = ITEMS.register("chalk_white_impure",
             () -> new Item(defaultProperties()));
