@@ -1,0 +1,27 @@
+All resources not listed are released in the public domain or created by the mod team, in which case they are under the the MIT License (see LICENSE.TXT).
+- Images:
+    - Various icons from https://shikashiassets.itch.io/shikashis-fantasy-icons-pack (CC BY 3.0)
+    - Book by Lorc https://game-icons.net/1x1/lorc/book-cover.html (CC BY 3.0)
+    - Anvil by Lorc https://game-icons.net/1x1/lorc/anvil-impact.html (CC BY 3.0)
+    - Pentacle by Skoll https://game-icons.net/1x1/skoll/pentacle.html  (CC BY 3.0)
+    - Pentagram Rose by Lorc https://game-icons.net/1x1/lorc/pentagram-rose.html (CC BY 3.0)
+        - Chalk Glyphs by Delapouite, Lorc cand Skoll https://game-icons.net/tags/egypt.html (CC BY 3.0)
+    - Debug Wand by Delapouite https://game-icons.net/1x1/delapouite/lunar-wand.html (CC BY 3.0)
+    - Demon Skull by Lorc https://game-icons.net/1x1/lorc/daemon-skull.html (CC BY 3.0)
+    - Hatchet by Delapouite https://game-icons.net/1x1/delapouite/hatchet.html (CC BY 3.0)
+    - Behold Eye by Lorc https://game-icons.net/1x1/lorc/behold.html (CC BY 3.0)
+    - Water diviner stick by Delapouite https://game-icons.net/1x1/delapouite/water-diviner-stick.html (CC BY 3.0)
+    - Crystal Cluster by Lorc https://game-icons.net/1x1/lorc/crystal-cluster.html (CC BY 3.0)
+    - Kenku Head (used as djinn) by Delapouite https://game-icons.net/1x1/delapouite/kenku-head.html (CC BY 3.0)
+    - Dolemen by Delapouite https://game-icons.net/1x1/delapouite/dolmen.html (CC BY 3.0)
+    - Robe by Lorc https://game-icons.net/1x1/lorc/robe.html (CC BY 3.0)
+    - Cash by Lorc https://game-icons.net/1x1/lorc/cash.html (CC BY 3.0)
+    - Magic Swirl by Lorc https://game-icons.net/1x1/lorc/magic-swirl.html (CC BY 3.0)
+    - Crystal Shine by Lorc https://game-icons.net/1x1/lorc/crystal-shine.html (CC BY 3.0)
+    - Hammer break by Delapouite https://game-icons.net/1x1/delapouite/hammer-break.html (CC BY 3.0)
+- Textures:
+    - Various textures are from the public domain Soartex pack 1.2.5 by Soar49. 
+    - Some textures are based on textures created by Bonemouse for Isabella ( http://www.minecraftforum.net/topic/242175-Isabella/ ), see About Isabella.txt in resources/assets/occultism/textures.
+- Sounds:
+    - Various sounds from freesound.org (CC0 1.0)
+    - Ritual Start Sound: https://freesound.org/people/xtrgamr/sounds/257787/ (CC BY 3.0)
