@@ -250,7 +250,8 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
             Optional<? extends IRecipe<?>> recipe = recipeManager.getRecipe(this.additionalIngredientsRecipeId);
             if (recipe.isPresent()) {
                 this.additionalIngredients = recipe.get().getIngredients();
-                this.timePerIngredient = this.totalSeconds / (float) this.additionalIngredients.size();
+                //if we have multiple ingredients, make sure
+                this.timePerIngredient = this.totalSeconds / (float) (this.additionalIngredients.size() + 1);
             }
             else {
                 Occultism.LOGGER.warn("Additional Ingredients Recipe {} not found for Ritual {}",
