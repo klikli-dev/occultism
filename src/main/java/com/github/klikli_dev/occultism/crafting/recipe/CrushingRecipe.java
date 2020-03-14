@@ -34,13 +34,13 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
-public class SpiritFireRecipe extends ItemStackFakeInventoryRecipe {
+public class CrushingRecipe extends ItemStackFakeInventoryRecipe {
     //region Fields
     public static Serializer SERIALIZER = new Serializer();
     //endregion Fields
 
     //region Initialization
-    public SpiritFireRecipe(ResourceLocation id, Ingredient input, ItemStack output) {
+    public CrushingRecipe(ResourceLocation id, Ingredient input, ItemStack output) {
         super(id, input, output);
     }
     //endregion Initialization
@@ -84,25 +84,25 @@ public class SpiritFireRecipe extends ItemStackFakeInventoryRecipe {
 
     @Override
     public IRecipeType<?> getType() {
-        return OccultismRecipes.SPIRIT_FIRE_TYPE.get();
+        return OccultismRecipes.CRUSHING_TYPE.get();
     }
     //endregion Overrides
 
-    public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<SpiritFireRecipe> {
+    public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<CrushingRecipe> {
 
         //region Overrides
         @Override
-        public SpiritFireRecipe read(ResourceLocation recipeId, JsonObject json) {
-            return ItemStackFakeInventoryRecipe.SERIALIZER.read(SpiritFireRecipe::new, recipeId, json);
+        public CrushingRecipe read(ResourceLocation recipeId, JsonObject json) {
+            return ItemStackFakeInventoryRecipe.SERIALIZER.read(CrushingRecipe::new, recipeId, json);
         }
 
         @Override
-        public SpiritFireRecipe read(ResourceLocation recipeId, PacketBuffer buffer) {
-            return ItemStackFakeInventoryRecipe.SERIALIZER.read(SpiritFireRecipe::new, recipeId, buffer);
+        public CrushingRecipe read(ResourceLocation recipeId, PacketBuffer buffer) {
+            return ItemStackFakeInventoryRecipe.SERIALIZER.read(CrushingRecipe::new, recipeId, buffer);
         }
 
         @Override
-        public void write(PacketBuffer buffer, SpiritFireRecipe recipe) {
+        public void write(PacketBuffer buffer, CrushingRecipe recipe) {
             ItemStackFakeInventoryRecipe.SERIALIZER.write(buffer, recipe);
         }
         //endregion Overrides

@@ -22,26 +22,31 @@
 
 package com.github.klikli_dev.occultism.crafting.recipe;
 
-import com.github.klikli_dev.occultism.registry.OccultismRecipes;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.IRecipeType;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.network.PacketBuffer;
+import net.minecraft.util.JSONUtils;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-import net.minecraftforge.registries.ForgeRegistryEntry;
+import net.minecraftforge.common.crafting.CraftingHelper;
 
-public class SpiritFireRecipe extends ItemStackFakeInventoryRecipe {
+public abstract class ItemStackFakeInventoryRecipe implements IRecipe<ItemStackFakeInventory> {
     //region Fields
     public static Serializer SERIALIZER = new Serializer();
+    protected final ResourceLocation id;
+    protected final Ingredient input;
+    protected final ItemStack output;
     //endregion Fields
 
     //region Initialization
-    public SpiritFireRecipe(ResourceLocation id, Ingredient input, ItemStack output) {
-        super(id, input, output);
+    public ItemStackFakeInventoryRecipe(ResourceLocation id, Ingredient input, ItemStack output) {
+        this.input = input;
+        this.output = output;
+        this.id = id;
     }
     //endregion Initialization
 
@@ -77,34 +82,42 @@ public class SpiritFireRecipe extends ItemStackFakeInventoryRecipe {
         return this.id;
     }
 
-    @Override
-    public IRecipeSerializer<?> getSerializer() {
-        return SERIALIZER;
-    }
-
-    @Override
-    public IRecipeType<?> getType() {
-        return OccultismRecipes.SPIRIT_FIRE_TYPE.get();
-    }
     //endregion Overrides
 
-    public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<SpiritFireRecipe> {
+    public static interface IItemStackFakeInventoryRecipeFactory<T extends ItemStackFakeInventoryRecipe> {
+        //region Methods
+        public T create(ResourceLocation id, Ingredient input, ItemStack output);
+        //endregion Methods
+    }
+
+    public static class Serializer {
 
         //region Overrides
-        @Override
-        public SpiritFireRecipe read(ResourceLocation recipeId, JsonObject json) {
-            return ItemStackFakeInventoryRecipe.SERIALIZER.read(SpiritFireRecipe::new, recipeId, json);
-        }
-
-        @Override
-        public SpiritFireRecipe read(ResourceLocation recipeId, PacketBuffer buffer) {
-            return ItemStackFakeInventoryRecipe.SERIALIZER.read(SpiritFireRecipe::new, recipeId, buffer);
-        }
-
-        @Override
-        public void write(PacketBuffer buffer, SpiritFireRecipe recipe) {
-            ItemStackFakeInventoryRecipe.SERIALIZER.write(buffer, recipe);
-        }
         //endregion Overrides
+
+        //region Methods
+        public <T extends ItemStackFakeInventoryRecipe> T read(IItemStackFakeInventoryRecipeFactory<T> factory,
+                                                               ResourceLocation recipeId, JsonObject json) {
+            //we also allow arrays, but only one ingredient will be used.
+            JsonElement ingredientElement = JSONUtils.isJsonArray(json, "ingredient") ? JSONUtils.getJsonArray(json,
+                    "ingredient") : JSONUtils.getJsonObject(json, "ingredient");
+            Ingredient ingredient = Ingredient.deserialize(ingredientElement);
+            ItemStack result = CraftingHelper.getItemStack(JSONUtils.getJsonObject(json, "result"), true);
+
+            return factory.create(recipeId, ingredient, result);
+        }
+
+        public <T extends ItemStackFakeInventoryRecipe> T read(IItemStackFakeInventoryRecipeFactory<T> factory,
+                                                               ResourceLocation recipeId, PacketBuffer buffer) {
+            Ingredient ingredient = Ingredient.read(buffer);
+            ItemStack result = buffer.readItemStack();
+            return factory.create(recipeId, ingredient, result);
+        }
+
+        public <T extends ItemStackFakeInventoryRecipe> void write(PacketBuffer buffer, T recipe) {
+            recipe.input.write(buffer);
+            buffer.writeItemStack(recipe.output);
+        }
+        //endregion Methods
     }
 }
