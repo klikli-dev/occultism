@@ -89,7 +89,7 @@ public class CrusherJob extends SpiritJob {
                     fakeInventory, this.entity.world);
             this.crushingTimer = 0;
             //play crushing sound
-            entity.world
+            this.entity.world
                     .playSound(null, this.entity.getPosition(), OccultismSounds.CHALK.get(), SoundCategory.BLOCKS, 0.5f,
                             1 + 0.5f * this.entity.getRNG().nextFloat());
         }
