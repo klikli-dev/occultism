@@ -41,6 +41,7 @@ import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.item.ItemGroup;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -56,6 +57,9 @@ import net.minecraftforge.fml.event.lifecycle.FMLDedicatedServerSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import vazkii.patchouli.api.PatchouliAPI;
+
+import static com.github.klikli_dev.occultism.util.StaticUtil.modLoc;
 
 @Mod(Occultism.MODID)
 public class Occultism {
@@ -113,6 +117,14 @@ public class Occultism {
         WorldGenHandler.setupUndergroundGroveGeneration();
 
         OccultismAPI.commonSetup();
+
+        //Register multiblocks
+        OccultismRituals.PENTACLE_REGISTRY.getValues().forEach(pentacle -> {
+            ResourceLocation multiBlockId = modLoc("pentacle." + pentacle.getRegistryName().getPath());
+            if (PatchouliAPI.instance.getMultiblock(multiBlockId) == null)
+                pentacle.registerMultiblock(multiBlockId);
+        });
+
 
         LOGGER.info("Common setup complete.");
     }
