@@ -25,16 +25,10 @@ package com.github.klikli_dev.occultism.registry;
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.ritual.*;
 import com.github.klikli_dev.occultism.common.ritual.pentacle.*;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.RegistryManager;
-import vazkii.patchouli.api.PatchouliAPI;
-
-import java.util.function.Supplier;
-
-import static com.github.klikli_dev.occultism.util.StaticUtil.modLoc;
 
 public class OccultismRituals {
     //region Fields
@@ -74,6 +68,7 @@ public class OccultismRituals {
             RITUALS.register("craft_dimensional_matrix", CraftDimensionalMatrixRitual::new);
     public static final RegistryObject<CraftStableWormholeRitual> CRAFT_STABLE_WORMHOLE_RITUAL =
             RITUALS.register("craft_stable_wormhole", CraftStableWormholeRitual::new);
-
+    public static final RegistryObject<CraftStorageRemoteRitual> CRAFT_STORAGE_REMOTE_RITUAL =
+            RITUALS.register("craft_storage_remote", CraftStorageRemoteRitual::new);
     //endregion Fields
 }

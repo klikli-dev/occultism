@@ -1,13 +1,11 @@
 {
     "_comment": "Item Groups",
     "itemGroup.occultism": "Occultism",
-
     "_comment": "Items",
     "item.occultism.pentacle": "Pentacle",
     "item.occultism.debug_foliot_lumberjack": "Summon Debug Foliot Lumberjack",
     "item.occultism.debug_foliot_manage_machine": "Summon Debug Foliot Manage Machine",
     "item.occultism.debug_foliot_trader": "Summon Debug Foliot Trader",
-
     "item.occultism.chalk_gold": "Golden Chalk",
     "item.occultism.chalk_purple": "Purple Chalk",
     "item.occultism.chalk_red": "Red Chalk",
@@ -40,12 +38,9 @@
     "item.occultism.tallow": "Tallow",
     "item.occultism.otherstone_frame": "Otherstone Frame",
     "item.occultism.wormhole_frame": "Wormhole Frame",
-
     "_comment": "# Spawn eggs",
     "item.occultism.foliot": "Foliot Spawn Egg",
-
     "_comment": "# Item Messages",
-
     "_comment": "## Book of calling - also contains messages triggered in releated network messages",
     "item.occultism.book_of_calling.message_target_uuid_no_match": "This spirit is not bound to this book.",
     "item.occultism.book_of_calling.message_spirit_not_found": "The spirit bound to this book is not dwelling on this plane of existence.",
@@ -60,8 +55,7 @@
     "item.occultism.divination_rod.message.no_linked_block": "The divination rod is not attuned to any material.",
     "item.occultism.divination_rod.message.linked_block": "The divination rod is now attuned to %s.",
     "item.occultism.divination_rod.message.no_link_found": "There is no resonance with this block.",
-
-     "_comment": "# Item Tooltips",
+    "_comment": "# Item Tooltips",
     "item.occultism.book_of_binding_foliot.tooltip": "This book has not been bound to a foliot yet.",
     "item.occultism.book_of_binding_bound_foliot.tooltip": "Can be used to summon the foliot %s",
     "item.occultism.book_of_binding_djinni.tooltip": "This book has not been bound to a djinni yet.",
@@ -78,8 +72,6 @@
     "item.occultism.divination_rod.tooltip.no_linked_block": "Not attuned to any material.",
     "item.occultism.divination_rod.tooltip.linked_block": "Attuned to %s.",
     "item.occultism.dimensional_matrix.tooltip": "%s is bound to this dimensional matrix.",
-
-
     "_comment": "Blocks",
     "block.occultism.otherstone": "Otherstone",
     "block.occultism.otherstone_slab": "Otherstone Slab",
@@ -101,17 +93,13 @@
     "block.occultism.spirit_fire": "Spiritfire",
     "block.occultism.spirit_attuned_crystal": "Spirit Attuned Crystal",
     "block.occultism.candle_white": "White Candle",
-
     "_comment": "Entities",
     "entity.occultism.foliot": "Foliot",
-
     "_comment": "# Spirit Jobs",
     "job.occultism.lumberjack": "Lumberjack",
     "job.occultism.manage_machine": "Machine Operator",
     "job.occultism.trade_otherstone": "Otherstone Trader",
     "job.occultism.trade_otherworld_saplings": "Otherworld Sapling Trader",
-
-
     "_comment": "Enums",
     "enum.occultism.facing.up": "Up",
     "enum.occultism.facing.down": "Down",
@@ -119,17 +107,14 @@
     "enum.occultism.facing.south": "South",
     "enum.occultism.facing.west": "West",
     "enum.occultism.facing.east": "East",
-
     "enum.occultism.book_of_calling.item_mode.set_deposit": "Set Deposit",
     "enum.occultism.book_of_calling.item_mode.set_pickup": "Set Pickup",
     "enum.occultism.book_of_calling.item_mode.set_base": "Set Base Location",
     "enum.occultism.book_of_calling.item_mode.set_storage_controller": "Set Storage Actuator",
     "enum.occultism.book_of_calling.item_mode.set_managed_machine": "Set Managed Machine",
-
     "enum.occultism.work_area_size.small": "16x16",
     "enum.occultism.work_area_size.medium": "32x32",
     "enum.occultism.work_area_size.large": "64x64",
-
     "_comment": "Debug Messages",
     "debug.occultism.debug_wand.printed_glyphs": "Printed glyphs",
     "debug.occultism.debug_wand.glyphs_verified": "Glyphs verified",
@@ -138,62 +123,52 @@
     "debug.occultism.debug_wand.spirit_tamed": "Tamed spirit with id %s",
     "debug.occultism.debug_wand.deposit_selected": "Set deposit block %s, facing %s",
     "debug.occultism.debug_wand.no_spirit_selected": "No spirit selected.",
-
     "_comment": "Ritual Messages",
     "ritual.occultism.does_not_exist": "Unknown ritual.",
-
     "ritual.occultism.debug.conditions": "Not all requirements for this ritual are met.",
     "ritual.occultism.debug.started": "Ritual started.",
     "ritual.occultism.debug.finished": "Ritual completed successfully.",
     "ritual.occultism.debug.interrupted": "Ritual interrupted.",
-
     "ritual.occultism.summon_foliot_lumberjack.conditions": "Not all requirements for this ritual are met.",
     "ritual.occultism.summon_foliot_lumberjack.started": "Started summoning foliot lumberjack.",
     "ritual.occultism.summon_foliot_lumberjack.finished": "Summoned foliot lumberjack successfully.",
     "ritual.occultism.summon_foliot_lumberjack.interrupted": "Summoning of foliot lumberjack interrupted.",
-
     "ritual.occultism.summon_foliot_manage_machine.conditions": "Not all requirements for this ritual are met.",
     "ritual.occultism.summon_foliot_manage_machine.started": "Started summoning foliot machine operator.",
     "ritual.occultism.summon_foliot_manage_machine.finished": "Summoned foliot machine operator successfully.",
     "ritual.occultism.summon_foliot_manage_machine.interrupted": "Summoning of foliot machine operator interrupted.",
-
     "ritual.occultism.summon_foliot_sapling_trader.conditions": "Not all requirements for this ritual are met.",
     "ritual.occultism.summon_foliot_sapling_trader.started": "Started summoning foliot otherworld sapling trader.",
     "ritual.occultism.summon_foliot_sapling_trader.finished": "Summoned foliot otherworld sapling successfully.",
     "ritual.occultism.summon_foliot_sapling_trader.interrupted": "Summoning of foliot otherworld sapling trader interrupted.",
-
     "ritual.occultism.summon_foliot_otherstone_trader.conditions": "Not all requirements for this ritual are met.",
     "ritual.occultism.summon_foliot_otherstone_trader.started": "Started summoning foliot otherstone trader.",
     "ritual.occultism.summon_foliot_otherstone_trader.finished": "Summoned foliot otherstone trader successfully.",
     "ritual.occultism.summon_foliot_otherstone_trader.interrupted": "Summoning of foliot otherstone trader interrupted.",
-
     "ritual.occultism.craft_dimensional_matrix.conditions": "Not all requirements for this ritual are met.",
     "ritual.occultism.craft_dimensional_matrix.started": "Started binding djinni.",
     "ritual.occultism.craft_dimensional_matrix.finished": "Successfully bound djinni into object.",
     "ritual.occultism.craft_dimensional_matrix.interrupted": "Binding of djinni interrupted.",
-
     "ritual.occultism.craft_storage_controller_base.conditions": "Not all requirements for this ritual are met.",
     "ritual.occultism.craft_storage_controller_base.started": "Started binding foliot.",
     "ritual.occultism.craft_storage_controller_base.finished": "Successfully bound foliot into object.",
     "ritual.occultism.craft_storage_controller_base.interrupted": "Binding of foliot interrupted.",
-
     "ritual.occultism.craft_stable_wormhole.conditions": "Not all requirements for this ritual are met.",
     "ritual.occultism.craft_stable_wormhole.started": "Started binding foliot.",
     "ritual.occultism.craft_stable_wormhole.finished": "Successfully bound foliot into object.",
     "ritual.occultism.craft_stable_wormhole.interrupted": "Binding of foliot interrupted.",
-
+    "ritual.occultism.craft_storage_remote.conditions": "Not all requirements for this ritual are met.",
+    "ritual.occultism.craft_storage_remote.started": "Started binding djinni.",
+    "ritual.occultism.craft_storage_remote.finished": "Successfully bound djinni into object.",
+    "ritual.occultism.craft_storage_remote.interrupted": "Binding of djinni interrupted.",
     "_comment": "GUI Strings",
     "gui.occultism.book_of_calling.mode": "Mode",
     "gui.occultism.book_of_calling.work_area": "Work Area",
-
     "gui.occultism.book_of_calling.manage_machine.insert": "Insert Facing",
     "gui.occultism.book_of_calling.manage_machine.extract": "Extract Facing",
     "gui.occultism.book_of_calling.manage_machine.custom_name": "Custom Name",
-
     "gui.occultism.spirit.age": "Essence Decay: %d%%",
     "gui.occultism.spirit.job": "%s",
-
-
     "_comment": "# Storage Controller",
     "gui.occultism.storage_controller.space_info_label": "%d/%d",
     "gui.occultism.storage_controller.shift": "Hold shift for more information.",
@@ -209,26 +184,20 @@
     "gui.occultism.storage_controller.search.tooltip_sort_type_mod": "Sort by mod name.",
     "gui.occultism.storage_controller.search.tooltip_sort_direction_down": "Sort ascending.",
     "gui.occultism.storage_controller.search.tooltip_sort_direction_up": "Sort descending.",
-
     "gui.occultism.storage_controller.search.machines.tooltip@": "Prefix @: Search mod id.",
     "gui.occultism.storage_controller.search.machines.tooltip_sort_type_amount": "Sort by distance.",
     "gui.occultism.storage_controller.search.machines.tooltip_sort_type_name": "Sort by machine name.",
     "gui.occultism.storage_controller.search.machines.tooltip_sort_type_mod": "Sort by mod name.",
-
     "_comment": "Network",
-
     "_comment": "# Messages",
     "network.messages.occultism.request_order.order_received": "Order received!",
-
     "_comment": "Effects",
     "effect.occultism.third_eye": "Third Eye",
-
     "_comment": "Sounds",
     "occultism.subtitle.chalk": "Chalk",
     "occultism.subtitle.brush": "Brush",
     "occultism.subtitle.start_ritual": "Start Ritual",
     "occultism.subtitle.tuning_fork": "Tuning Fork",
-
     "_comment": "JEI",
     "occultism.jei.spirit_fire": "Spiritfire"
 }

@@ -11,6 +11,9 @@
     },
     "b": {
       "item": "minecraft:stone_button"
+    },
+    "g": {
+      "tag": "forge:ingots/gold"
     }
   },
   "result": {

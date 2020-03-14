@@ -125,7 +125,6 @@ public class Occultism {
                 pentacle.registerMultiblock(multiBlockId);
         });
 
-
         LOGGER.info("Common setup complete.");
     }
 
