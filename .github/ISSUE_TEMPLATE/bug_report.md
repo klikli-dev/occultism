@@ -1,6 +1,6 @@
 ---
 name: Bug report
-about: Create a report to help us improve
+about: I found a bug or my game is crashing.
 title: ''
 labels: ''
 assignees: ''
@@ -25,8 +25,8 @@ If applicable, add screenshots to help explain your problem.
 
 **System (please complete the following information):**
  - OS: [e.g. Windows]
-- Modpack
 - Minecraft Version
+- Modpack Link and Version, or list of mods
 
 **Additional context**
 Add any other context about the problem here.
