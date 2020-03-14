@@ -113,6 +113,8 @@ public class OccultismItems {
     public static final RegistryObject<Item> PLATINUM_NUGGET = ITEMS.register("platinum_nugget",
             () -> new Item(defaultProperties()));
 
+    public static final RegistryObject<Item> OBSIDIAN_DUST = ITEMS.register("obsidian_dust",
+            () -> new Item(defaultProperties()));
     public static final RegistryObject<Item> IRON_DUST = ITEMS.register("iron_dust",
             () -> new Item(defaultProperties()));
     public static final RegistryObject<Item> GOLD_DUST = ITEMS.register("gold_dust",
