@@ -50,6 +50,12 @@ public class CrushingRecipe extends ItemStackFakeInventoryRecipe {
     }
     //endregion Initialization
 
+    //region Getter / Setter
+    public int getCrushingTime() {
+        return crushingTime;
+    }
+    //endregion Getter / Setter
+
     //region Overrides
     @Override
     public boolean matches(ItemStackFakeInventory inv, World world) {
