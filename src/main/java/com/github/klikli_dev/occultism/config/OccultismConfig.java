@@ -114,18 +114,20 @@ public class OccultismConfig extends ConfigBase {
             public OreGenSettings(IConfigCache parent, ForgeConfigSpec.Builder builder) {
                 super(parent, builder);
                 builder.comment("Ore Gen Settings").push("oregen");
+                List<String> whitelist = Stream.of("overworld").collect(Collectors.toList());
+
                 this.otherstoneNatural =
-                        new OreSettings("otherstone_natural", ImmutableList.of("overworld"), 7,
+                        new OreSettings("otherstone_natural", whitelist, 7,
                                 5, 10, 80, this, builder);
 
                 this.copperOre =
-                        new OreSettings("copper_ore", ImmutableList.of("overworld"), 9,
+                        new OreSettings("copper_ore", whitelist, 9,
                                 20, 20, 64, this, builder);
                 this.silverOre =
-                        new OreSettings("silver_ore", ImmutableList.of("overworld"), 7,
+                        new OreSettings("silver_ore", whitelist, 7,
                                 5, 0, 30, this, builder);
                 this.platinumOre =
-                        new OreSettings("platinum_ore", ImmutableList.of("overworld"), 3,
+                        new OreSettings("platinum_ore", whitelist, 3,
                                 1, 0, 30, this, builder);
                 builder.pop();
             }
