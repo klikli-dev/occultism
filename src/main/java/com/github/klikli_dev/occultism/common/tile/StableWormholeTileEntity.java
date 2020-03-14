@@ -25,8 +25,8 @@ package com.github.klikli_dev.occultism.common.tile;
 import com.github.klikli_dev.occultism.api.common.data.GlobalBlockPos;
 import com.github.klikli_dev.occultism.api.common.tile.IStorageController;
 import com.github.klikli_dev.occultism.api.common.tile.IStorageControllerProxy;
+import com.github.klikli_dev.occultism.common.block.storage.StableWormholeBlock;
 import com.github.klikli_dev.occultism.common.container.storage.StableWormholeContainer;
-import com.github.klikli_dev.occultism.common.container.storage.StorageControllerContainer;
 import com.github.klikli_dev.occultism.registry.OccultismTiles;
 import com.github.klikli_dev.occultism.util.TileEntityUtil;
 import net.minecraft.entity.player.PlayerEntity;
@@ -48,7 +48,6 @@ public class StableWormholeTileEntity extends NetworkedTileEntity implements ISt
 
     //region Fields
     protected GlobalBlockPos linkedStorageControllerPosition;
-    protected IStorageController linkedStorageController;
     //endregion Fields
 
     //region Initialization
@@ -57,19 +56,25 @@ public class StableWormholeTileEntity extends NetworkedTileEntity implements ISt
     }
     //endregion Initialization
 
-    @Override
-    public ITextComponent getDisplayName() {
-        return new StringTextComponent(getType().getRegistryName().getPath());
-    }
-
     //region Overrides
     @Override
+    public ITextComponent getDisplayName() {
+        return new StringTextComponent(this.getType().getRegistryName().getPath());
+    }
+
+    @Override
     public IStorageController getLinkedStorageController() {
-        if (this.linkedStorageController == null) {
-            this.linkedStorageController = (IStorageController) TileEntityUtil.get(this.world,
+        if (this.linkedStorageControllerPosition != null) {
+            TileEntity tileEntity = TileEntityUtil.get(this.world,
                     this.linkedStorageControllerPosition);
+            if (tileEntity instanceof IStorageController)
+                return (IStorageController) tileEntity;
+            else {
+                this.linkedStorageControllerPosition = null;
+                this.world.setBlockState(this.pos, this.getBlockState().with(StableWormholeBlock.LINKED, false), 2);
+            }
         }
-        return this.linkedStorageController;
+        return null;
     }
 
     @Override
@@ -80,7 +85,6 @@ public class StableWormholeTileEntity extends NetworkedTileEntity implements ISt
     @Override
     public void setLinkedStorageControllerPosition(GlobalBlockPos blockPos) {
         this.linkedStorageControllerPosition = blockPos;
-        this.linkedStorageController = null;
     }
 
     @Nonnull
@@ -107,14 +111,14 @@ public class StableWormholeTileEntity extends NetworkedTileEntity implements ISt
             compound.put("linkedStorageControllerPosition", this.linkedStorageControllerPosition.serializeNBT());
         return super.writeNetwork(compound);
     }
-    //endregion Overrides
-
-    //region Methods
 
     @Nullable
     @Override
     public Container createMenu(int id, PlayerInventory playerInventory, PlayerEntity player) {
         return new StableWormholeContainer(id, playerInventory, this);
     }
+    //endregion Overrides
+
+    //region Methods
     //endregion Methods
 }

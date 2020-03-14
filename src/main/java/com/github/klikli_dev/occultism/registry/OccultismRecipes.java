@@ -43,7 +43,7 @@ public class OccultismRecipes {
             NonNullLazy.of(() -> IRecipeType.register("occultism:spirit_trade"));
     public static final NonNullLazy<IRecipeType<SpiritFireRecipe>> SPIRIT_FIRE_TYPE =
             NonNullLazy.of(() -> IRecipeType.register("occultism:spirit_fire"));
-    public static final NonNullLazy<IRecipeType<SpiritFireRecipe>> CRUSHING_TYPE =
+    public static final NonNullLazy<IRecipeType<CrushingRecipe>> CRUSHING_TYPE =
             NonNullLazy.of(() -> IRecipeType.register("occultism:crushing"));
     public static final NonNullLazy<IRecipeType<?>> CUSTOM_SHAPELESS_TYPE =
             NonNullLazy.of(() -> IRecipeType.CRAFTING);

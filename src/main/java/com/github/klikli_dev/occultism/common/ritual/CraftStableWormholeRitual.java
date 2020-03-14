@@ -41,7 +41,7 @@ public class CraftStableWormholeRitual extends Ritual {
     public CraftStableWormholeRitual() {
         super(OccultismRituals.CRAFT_FOLIOT_PENTACLE.get(),
                 Ingredient.fromItems(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()), "craft_stable_wormhole",
-                20);
+                120);
     }
     //endregion Initialization
 

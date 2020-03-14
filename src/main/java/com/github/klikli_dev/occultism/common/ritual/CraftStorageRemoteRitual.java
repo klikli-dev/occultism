@@ -41,7 +41,7 @@ public class CraftStorageRemoteRitual extends Ritual {
     public CraftStorageRemoteRitual() {
         super(OccultismRituals.CRAFT_DJINNI_PENTACLE.get(),
                 Ingredient.fromItems(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()), "craft_storage_remote",
-                20);
+                120);
     }
     //endregion Initialization
 

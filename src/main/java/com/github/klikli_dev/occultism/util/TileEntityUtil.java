@@ -54,6 +54,9 @@ public class TileEntityUtil {
      * @return the tile entity or null.
      */
     public static TileEntity get(World world, GlobalBlockPos pos) {
+        if(pos == null)
+            return null;
+
         if (world.getDimension().getType() == pos.getDimensionType()) {
             return world.getTileEntity(pos.getPos());
         }

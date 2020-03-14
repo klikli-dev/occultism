@@ -70,10 +70,12 @@ public class MessageUpdateStacks extends MessageBase {
     @OnlyIn(Dist.CLIENT)
     public void onClientReceived(Minecraft minecraft, PlayerEntity player, NetworkEvent.Context context) {
         this.uncompress();
-        IStorageControllerGui gui = (IStorageControllerGui) minecraft.currentScreen;
-        if (gui != null) {
-            gui.setStacks(this.stacks);
-            gui.setUsedSlots(this.usedSlots);
+        if(minecraft.currentScreen instanceof IStorageControllerGui){
+            IStorageControllerGui gui = (IStorageControllerGui) minecraft.currentScreen;
+            if (gui != null) {
+                gui.setStacks(this.stacks);
+                gui.setUsedSlots(this.usedSlots);
+            }
         }
     }
 

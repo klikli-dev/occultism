@@ -22,9 +22,8 @@
 
 package com.github.klikli_dev.occultism.common.ritual;
 
-import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
-import com.github.klikli_dev.occultism.common.job.TraderJob;
+import com.github.klikli_dev.occultism.common.job.SpiritJob;
 import com.github.klikli_dev.occultism.common.tile.GoldenSacrificialBowlTileEntity;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
@@ -35,18 +34,18 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.particles.ParticleTypes;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
-public class SummonFoliotOtherstoneTraderRitual extends SummonSpiritRitual {
+public class SummonFoliotCrusherRitual extends SummonSpiritRitual {
 
     //region Initialization
-    public SummonFoliotOtherstoneTraderRitual() {
-        super(null, OccultismRituals.SUMMON_FOLIOT_BASIC_PENTACLE.get(),
+    public SummonFoliotCrusherRitual() {
+        super(OccultismItems.BOOK_OF_CALLING_FOLIOT_CRUSHER.get(),
+                OccultismRituals.SUMMON_FOLIOT_BASIC_PENTACLE.get(),
                 Ingredient.fromItems(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()),
-                "summon_foliot_otherstone_trader", 30);
+                "summon_foliot_crusher", 60);
     }
     //endregion Initialization
 
@@ -58,8 +57,7 @@ public class SummonFoliotOtherstoneTraderRitual extends SummonSpiritRitual {
         super.finish(world, goldenBowlPosition, tileEntity, castingPlayer, activationItem);
 
         //prepare active book of calling
-        ItemStack activationItemCopy = activationItem.copy();
-        activationItem.shrink(1); //remove original activation item.
+        ItemStack result = this.getBookOfCallingBound(activationItem);
 
         ((ServerWorld) world).spawnParticle(ParticleTypes.LARGE_SMOKE, goldenBowlPosition.getX() + 0.5,
                 goldenBowlPosition.getY() + 0.5, goldenBowlPosition.getZ() + 0.5, 1, 0, 0, 0, 0);
@@ -67,17 +65,20 @@ public class SummonFoliotOtherstoneTraderRitual extends SummonSpiritRitual {
         //set up the foliot entity
         SpiritEntity spirit = OccultismEntities.FOLIOT.get().create(world);
         this.prepareSpiritForSpawn(spirit, world, goldenBowlPosition, castingPlayer,
-                ItemNBTUtil.getBoundSpiritName(activationItemCopy));
+                ItemNBTUtil.getBoundSpiritName(result));
 
         //set up the job
-        TraderJob exchange = (TraderJob) OccultismSpiritJobs.TRADE_OTHERSTONE.get().create(spirit);
-        exchange.setTradeRecipeId(new ResourceLocation(Occultism.MODID, "spirit_trade/4x_stone_to_otherstone"));
-        exchange.init();
-        spirit.setJob(exchange);
-        spirit.setSpiritMaxAge(60);
+        SpiritJob job = OccultismSpiritJobs.CRUSH_TIER1.get().create(spirit);
+        job.init();
+        spirit.setJob(job);
+
+        spirit.setSpiritMaxAge(60 * 60 * 6); //6 hours max age
 
         //notify players nearby and spawn
         this.spawnSpirit(spirit, world);
+
+        //set up the book of calling
+        this.finishBookOfCallingSetup(result, spirit, castingPlayer);
     }
     //endregion Overrides
 }

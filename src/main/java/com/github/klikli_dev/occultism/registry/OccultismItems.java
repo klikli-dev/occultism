@@ -169,6 +169,10 @@ public class OccultismItems {
             "book_of_calling_foliot_manage_machine",
             () -> new BookOfCallingItem(defaultProperties().maxStackSize(1),
                     TranslationKeys.BOOK_OF_CALLING_GENERIC + "_foliot"));
+    public static final RegistryObject<BookOfCallingItem> BOOK_OF_CALLING_FOLIOT_CRUSHER = ITEMS.register(
+            "book_of_calling_foliot_crusher",
+            () -> new BookOfCallingItem(defaultProperties().maxStackSize(1),
+                    TranslationKeys.BOOK_OF_CALLING_GENERIC + "_foliot"));
     //Djinn
 
     //Machines

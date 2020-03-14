@@ -23,10 +23,7 @@
 package com.github.klikli_dev.occultism.registry;
 
 import com.github.klikli_dev.occultism.Occultism;
-import com.github.klikli_dev.occultism.common.job.LumberjackJob;
-import com.github.klikli_dev.occultism.common.job.ManageMachineJob;
-import com.github.klikli_dev.occultism.common.job.SpiritJobFactory;
-import com.github.klikli_dev.occultism.common.job.TraderJob;
+import com.github.klikli_dev.occultism.common.job.*;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.IForgeRegistry;
@@ -46,11 +43,20 @@ public class OccultismSpiritJobs {
     public static final RegistryObject<SpiritJobFactory> MANAGE_MACHINE = JOBS.register("manage_machine",
             () -> new SpiritJobFactory(ManageMachineJob::new));
 
+    //Trade jobs
     public static final RegistryObject<SpiritJobFactory> TRADE_OTHERSTONE = JOBS.register("trade_otherstone",
             () -> new SpiritJobFactory((entity) -> new TraderJob(entity, modLoc("spirit_trade/test"))));
-
     public static final RegistryObject<SpiritJobFactory> TRADE_OTHERWORLD_SAPLINGS = JOBS.register("trade_otherworld_saplings",
             () -> new SpiritJobFactory((entity) -> new TraderJob(entity, modLoc("spirit_trade/test"))));
 
+    //Crushing jobs
+    public static final RegistryObject<SpiritJobFactory> CRUSH_TIER1 = JOBS.register("crush_tier1",
+            () -> new SpiritJobFactory((entity) -> new CrusherJob(entity, 2.0f)));
+    public static final RegistryObject<SpiritJobFactory> CRUSH_TIER2 = JOBS.register("crush_tier2",
+            () -> new SpiritJobFactory((entity) -> new CrusherJob(entity, 1.0f)));
+    public static final RegistryObject<SpiritJobFactory> CRUSH_TIER3 = JOBS.register("crush_tier3",
+            () -> new SpiritJobFactory((entity) -> new CrusherJob(entity, 0.5f)));
+    public static final RegistryObject<SpiritJobFactory> CRUSH_TIER4 = JOBS.register("crush_tier4",
+            () -> new SpiritJobFactory((entity) -> new CrusherJob(entity, 0.2f)));
     //endregion Fields
 }
