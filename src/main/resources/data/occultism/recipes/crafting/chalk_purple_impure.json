@@ -8,7 +8,10 @@
       "item": "minecraft:end_stone"
     },
     {
-      "item": "minecraft:obsidian"
+      "tag": "forge:dusts/obsidian"
+    },
+    {
+      "tag": "forge:dusts/obsidian"
     }
   ],
   "result": {
