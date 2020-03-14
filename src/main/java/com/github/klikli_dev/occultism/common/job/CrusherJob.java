@@ -51,7 +51,7 @@ public class CrusherJob extends SpiritJob {
     protected int crushingTimer;
     protected float crushingTimeMultiplier;
 
-    protected Optional<CrushingRecipe> currentRecipe;
+    protected Optional<CrushingRecipe> currentRecipe = Optional.empty();
     protected PickupItemsGoal pickupItemsGoal;
 
     protected List<Ingredient> itemsToPickUp = new ArrayList<>();
