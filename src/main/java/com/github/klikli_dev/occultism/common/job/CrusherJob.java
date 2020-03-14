@@ -90,7 +90,7 @@ public class CrusherJob extends SpiritJob {
             this.crushingTimer = 0;
             //play crushing sound
             this.entity.world
-                    .playSound(null, this.entity.getPosition(), OccultismSounds.CHALK.get(), SoundCategory.BLOCKS, 0.5f,
+                    .playSound(null, this.entity.getPosition(), OccultismSounds.CRUNCHING.get(), SoundCategory.NEUTRAL, 0.5f,
                             1 + 0.5f * this.entity.getRNG().nextFloat());
         }
         if (this.currentRecipe.isPresent()) {
@@ -113,8 +113,8 @@ public class CrusherJob extends SpiritJob {
 
                 //every two seconds, play another crushing sound
                 if (this.crushingTimer % 40 == 0) {
-                    this.entity.world.playSound(null, this.entity.getPosition(), OccultismSounds.CHALK.get(),
-                            SoundCategory.BLOCKS, 0.5f,
+                    this.entity.world.playSound(null, this.entity.getPosition(), OccultismSounds.CRUNCHING.get(),
+                            SoundCategory.NEUTRAL, 0.5f,
                             1 + 0.5f * this.entity.getRNG().nextFloat());
                 }
 

@@ -48,7 +48,7 @@ public class BrushItem extends Item {
             //only remove chalks
             if (world.getBlockState(pos).getBlock() instanceof ChalkGlyphBlock) {
                 world.removeBlock(pos, false);
-                world.playSound(null, pos, OccultismSounds.BRUSH.get(), SoundCategory.BLOCKS, 0.5f,
+                world.playSound(null, pos, OccultismSounds.BRUSH.get(), SoundCategory.PLAYERS, 0.5f,
                         1 + 0.5f * context.getPlayer().getRNG().nextFloat());
             }
         }

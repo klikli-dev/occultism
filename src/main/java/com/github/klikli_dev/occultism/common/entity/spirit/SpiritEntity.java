@@ -442,7 +442,7 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
             ((ServerWorld) this.world)
                     .spawnParticle(ParticleTypes.LARGE_SMOKE, this.getPosX(), this.getPosY() + 0.5, this.getPosZ(), 1,
                             0.0, 0.0, 0.0, 0.0);
-            this.world.playSound(null, this.getPosition(), OccultismSounds.START_RITUAL.get(), SoundCategory.BLOCKS, 1,
+            this.world.playSound(null, this.getPosition(), OccultismSounds.START_RITUAL.get(), SoundCategory.NEUTRAL, 1,
                     1);
 
         }
