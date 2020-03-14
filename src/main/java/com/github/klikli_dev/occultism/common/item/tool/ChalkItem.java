@@ -25,6 +25,7 @@ package com.github.klikli_dev.occultism.common.item.tool;
 import com.github.klikli_dev.occultism.registry.OccultismSounds;
 import com.github.klikli_dev.occultism.common.block.ChalkGlyphBlock;
 import net.minecraft.block.BlockState;
+import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.Item;
@@ -33,8 +34,10 @@ import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.function.Supplier;
 
@@ -74,8 +77,9 @@ Supplier<ChalkGlyphBlock> glyphBlock;
                 world.setBlockState(placeAt,
                         this.glyphBlock.get().getStateForPlacement(new BlockItemUseContext(context)));
 
-                world.playSound(null, pos, OccultismSounds.CHALK.get(), SoundCategory.BLOCKS, 0.5f,
+                world.playSound(null, pos, OccultismSounds.CHALK.get(), SoundCategory.PLAYERS, 0.5f,
                         1 + 0.5f * player.getRNG().nextFloat());
+
                 if (!player.isCreative())
                     heldChalk.damageItem(1, player, t -> {
                     });

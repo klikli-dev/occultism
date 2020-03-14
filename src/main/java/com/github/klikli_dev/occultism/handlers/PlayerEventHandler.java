@@ -61,7 +61,7 @@ public class PlayerEventHandler {
                 World world = event.getWorld();
                 if (world.isAirBlock(pos)) {
                     world.playSound(event.getPlayer(), pos, SoundEvents.ITEM_FLINTANDSTEEL_USE,
-                            SoundCategory.BLOCKS, 1.0F, world.rand.nextFloat() * 0.4F + 0.8F);
+                            SoundCategory.PLAYERS, 1.0F, world.rand.nextFloat() * 0.4F + 0.8F);
                     world.setBlockState(pos, OccultismBlocks.SPIRIT_FIRE.get().getDefaultState(), 11);
                 }
                 event.getItemStack().damageItem(1, event.getPlayer(), (player) -> {

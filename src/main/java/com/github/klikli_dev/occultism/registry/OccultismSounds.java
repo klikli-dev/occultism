@@ -38,6 +38,7 @@ public class OccultismSounds {
     public static final RegistryObject<SoundEvent> BRUSH = SOUNDS.register("brush", () -> loadSoundEvent("brush"));
     public static final RegistryObject<SoundEvent> START_RITUAL = SOUNDS.register("start_ritual", () -> loadSoundEvent("start_ritual"));
     public static final RegistryObject<SoundEvent> TUNING_FORK = SOUNDS.register("tuning_fork", () -> loadSoundEvent("tuning_fork"));
+    public static final RegistryObject<SoundEvent> CRUNCHING = SOUNDS.register("crunching", () -> loadSoundEvent("crunching"));
 
     //endregion Fields
 
