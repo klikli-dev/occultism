@@ -46,7 +46,7 @@ public class SummonFoliotSaplingTraderRitual extends SummonSpiritRitual {
     public SummonFoliotSaplingTraderRitual() {
         super(null, OccultismRituals.SUMMON_FOLIOT_BASIC_PENTACLE.get(),
                 Ingredient.fromItems(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()), "summon_foliot_sapling_trader",
-                5);
+                30);
     }
     //endregion Initialization
 

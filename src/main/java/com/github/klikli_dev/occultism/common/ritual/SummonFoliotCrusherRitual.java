@@ -45,7 +45,7 @@ public class SummonFoliotCrusherRitual extends SummonSpiritRitual {
         super(OccultismItems.BOOK_OF_CALLING_FOLIOT_CRUSHER.get(),
                 OccultismRituals.SUMMON_FOLIOT_BASIC_PENTACLE.get(),
                 Ingredient.fromItems(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()),
-                "summon_foliot_crusher", 5);
+                "summon_foliot_crusher", 60);
     }
     //endregion Initialization
 

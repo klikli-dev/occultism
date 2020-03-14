@@ -45,7 +45,7 @@ public class SummonFoliotLumberjackRitual extends SummonSpiritRitual {
         super(OccultismItems.BOOK_OF_CALLING_FOLIOT_LUMBERJACK.get(),
                 OccultismRituals.SUMMON_FOLIOT_BASIC_PENTACLE.get(),
                 Ingredient.fromItems(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()),
-                "summon_foliot_lumberjack", 5);
+                "summon_foliot_lumberjack", 60);
     }
     //endregion Initialization
 
