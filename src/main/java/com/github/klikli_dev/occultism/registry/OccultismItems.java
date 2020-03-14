@@ -99,6 +99,31 @@ public class OccultismItems {
     public static final RegistryObject<Item> CHALK_PURPLE_IMPURE = ITEMS.register("chalk_purple_impure",
             () -> new Item(defaultProperties()));
 
+    public static final RegistryObject<Item> COPPER_INGOT = ITEMS.register("copper_ingot",
+            () -> new Item(defaultProperties()));
+    public static final RegistryObject<Item> SILVER_INGOT = ITEMS.register("silver_ingot",
+            () -> new Item(defaultProperties()));
+    public static final RegistryObject<Item> PLATINUM_INGOT = ITEMS.register("platinum_ingot",
+            () -> new Item(defaultProperties()));
+
+    public static final RegistryObject<Item> COPPER_NUGGET = ITEMS.register("copper_nugget",
+            () -> new Item(defaultProperties()));
+    public static final RegistryObject<Item> SILVER_NUGGET = ITEMS.register("silver_nugget",
+            () -> new Item(defaultProperties()));
+    public static final RegistryObject<Item> PLATINUM_NUGGET = ITEMS.register("platinum_nugget",
+            () -> new Item(defaultProperties()));
+
+    public static final RegistryObject<Item> IRON_DUST = ITEMS.register("iron_dust",
+            () -> new Item(defaultProperties()));
+    public static final RegistryObject<Item> GOLD_DUST = ITEMS.register("gold_dust",
+            () -> new Item(defaultProperties()));
+    public static final RegistryObject<Item> COPPER_DUST = ITEMS.register("copper_dust",
+            () -> new Item(defaultProperties()));
+    public static final RegistryObject<Item> SILVER_DUST = ITEMS.register("silver_dust",
+            () -> new Item(defaultProperties()));
+    public static final RegistryObject<Item> PLATINUM_DUST = ITEMS.register("platinum_dust",
+            () -> new Item(defaultProperties()));
+
     //Tools
     public static final RegistryObject<Item> STORAGE_REMOTE = ITEMS.register("storage_remote",
             () -> new StorageRemoteItem(defaultProperties().maxStackSize(1)));
