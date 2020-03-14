@@ -1,0 +1,10 @@
+{
+  "type": "occultism:crushing",
+  "ingredient": {
+    "tag": "forge:ores/iron"
+  },
+  "result": {
+    "item": "occultism:iron_dust",
+    "count": 2
+  }
+}

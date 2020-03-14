@@ -1,0 +1,10 @@
+{
+  "type": "occultism:crushing",
+  "ingredient": {
+    "tag": "forge:ores/silver"
+  },
+  "result": {
+    "item": "occultism:silver_dust",
+    "count": 2
+  }
+}

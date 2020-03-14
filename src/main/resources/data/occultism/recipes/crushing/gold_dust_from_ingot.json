@@ -1,0 +1,9 @@
+{
+  "type": "occultism:crushing",
+  "ingredient": {
+    "tag": "forge:ingots/gold"
+  },
+  "result": {
+    "item": "occultism:gold_dust"
+  }
+}

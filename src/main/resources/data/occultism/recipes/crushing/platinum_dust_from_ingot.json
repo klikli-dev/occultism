@@ -1,0 +1,9 @@
+{
+  "type": "occultism:crushing",
+  "ingredient": {
+    "tag": "forge:ingots/platinum"
+  },
+  "result": {
+    "item": "occultism:platinum_dust"
+  }
+}

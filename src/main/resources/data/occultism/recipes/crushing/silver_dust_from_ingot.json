@@ -1,0 +1,9 @@
+{
+  "type": "occultism:crushing",
+  "ingredient": {
+    "tag": "forge:ingots/silver"
+  },
+  "result": {
+    "item": "occultism:silver_dust"
+  }
+}

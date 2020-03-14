@@ -1,0 +1,10 @@
+{
+  "type": "occultism:crushing",
+  "ingredient": {
+    "tag": "forge:ores/platinum"
+  },
+  "result": {
+    "item": "occultism:platinum_dust",
+    "count": 2
+  }
+}
