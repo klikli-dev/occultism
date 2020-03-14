@@ -25,8 +25,6 @@ package com.github.klikli_dev.occultism.crafting.recipe;
 import com.github.klikli_dev.occultism.registry.OccultismRecipes;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeSerializer;
@@ -40,7 +38,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
-public class SpiritFireRecipe implements IRecipe<SpiritFireRecipe.SpiritFireFakeInventory> {
+public class SpiritFireRecipe implements IRecipe<ItemStackFakeInventory> {
     //region Fields
     public static Serializer SERIALIZER = new Serializer();
     protected final ResourceLocation id;
@@ -58,12 +56,12 @@ public class SpiritFireRecipe implements IRecipe<SpiritFireRecipe.SpiritFireFake
 
     //region Overrides
     @Override
-    public boolean matches(SpiritFireFakeInventory inv, World world) {
+    public boolean matches(ItemStackFakeInventory inv, World world) {
         return this.input.test(inv.getStackInSlot(0));
     }
 
     @Override
-    public ItemStack getCraftingResult(SpiritFireFakeInventory inv) {
+    public ItemStack getCraftingResult(ItemStackFakeInventory inv) {
         return this.getRecipeOutput().copy();
     }
 
@@ -98,66 +96,6 @@ public class SpiritFireRecipe implements IRecipe<SpiritFireRecipe.SpiritFireFake
         return OccultismRecipes.SPIRIT_FIRE_TYPE.get();
     }
     //endregion Overrides
-
-    public static class SpiritFireFakeInventory implements IInventory {
-        //region Fields
-        protected ItemStack input;
-        //endregion Fields
-
-        //region Initialization
-        public SpiritFireFakeInventory(ItemStack input) {
-            this.input = input;
-        }
-        //endregion Initialization
-
-        //region Overrides
-        @Override
-        public int getSizeInventory() {
-            return 1;
-        }
-
-        @Override
-        public boolean isEmpty() {
-            return false;
-        }
-
-        @Override
-        public ItemStack getStackInSlot(int index) {
-            return this.input;
-        }
-
-        @Override
-        public ItemStack decrStackSize(int index, int count) {
-            this.input.shrink(count);
-            return this.input;
-        }
-
-        @Override
-        public ItemStack removeStackFromSlot(int index) {
-            return this.input = ItemStack.EMPTY;
-        }
-
-        @Override
-        public void setInventorySlotContents(int index, ItemStack stack) {
-            this.input = stack;
-        }
-
-        @Override
-        public void markDirty() {
-
-        }
-
-        @Override
-        public boolean isUsableByPlayer(PlayerEntity player) {
-            return false;
-        }
-
-        @Override
-        public void clear() {
-            this.input = ItemStack.EMPTY;
-        }
-        //endregion Overrides
-    }
 
     public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<SpiritFireRecipe> {
 

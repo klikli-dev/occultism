@@ -22,6 +22,7 @@
 
 package com.github.klikli_dev.occultism.common.block;
 
+import com.github.klikli_dev.occultism.crafting.recipe.ItemStackFakeInventory;
 import com.github.klikli_dev.occultism.crafting.recipe.SpiritFireRecipe;
 import com.github.klikli_dev.occultism.registry.OccultismRecipes;
 import com.github.klikli_dev.occultism.registry.OccultismSounds;
@@ -272,8 +273,8 @@ public class SpiritFireBlock extends Block {
         Vec3d center = Math3DUtil.center(pos);
         AxisAlignedBB box = new AxisAlignedBB(-0.5, -0.5, -0.5, 0.5, 0.5, 0.5).offset(center);
         List<ItemEntity> list = world.getEntitiesWithinAABB(ItemEntity.class, box);
-        SpiritFireRecipe.SpiritFireFakeInventory fakeInventory =
-                new SpiritFireRecipe.SpiritFireFakeInventory(ItemStack.EMPTY);
+        ItemStackFakeInventory fakeInventory =
+                new ItemStackFakeInventory(ItemStack.EMPTY);
         boolean convertedAnyItem = false;
         for (ItemEntity item : list) {
             fakeInventory.setInventorySlotContents(0, item.getItem());
