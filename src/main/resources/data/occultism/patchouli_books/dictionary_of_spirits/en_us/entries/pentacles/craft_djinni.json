@@ -1,0 +1,16 @@
+{
+  "name": "Strigeor's Higher Binding",
+  "icon": "occultism:textures/gui/book/pentagram_rose.png",
+  "category": "pentacles",
+  "sortnum": 3,
+  "pages": [
+    {
+      "type": "text",
+      "text": "$(thing)Strigeor's Higher Binding$(), a pentacle for binding Djinn into objects, should not be attempted by the novice summoner. Supported by spirit attuned crystals and stabilized by candles it is highly suitable for permanent infusions of objects with spirits."
+    },
+    {
+      "type": "multiblock",
+      "multiblock_id": "occultism:pentacle.craft_djinni"
+    }
+  ]
+}

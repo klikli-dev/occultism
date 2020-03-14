@@ -32,6 +32,7 @@ import com.github.klikli_dev.occultism.common.item.otherworld.OtherworldBlockIte
 import com.github.klikli_dev.occultism.common.item.spirit.BookOfBindingBoundItem;
 import com.github.klikli_dev.occultism.common.item.spirit.BookOfBindingItem;
 import com.github.klikli_dev.occultism.common.item.spirit.BookOfCallingItem;
+import com.github.klikli_dev.occultism.common.item.storage.DimensionalMatrixItem;
 import com.github.klikli_dev.occultism.common.item.storage.StableWormholeBlockItem;
 import com.github.klikli_dev.occultism.common.item.storage.StorageRemoteItem;
 import com.github.klikli_dev.occultism.common.item.tool.BrushItem;
@@ -70,8 +71,8 @@ public class OccultismItems {
             () -> new OtherworldBlockItem(OccultismBlocks.OTHERWORLD_SAPLING_NATURAL.get(), defaultProperties()));
 
     //Components
-    public static final RegistryObject<Item> DIMENSIONAL_MATRIX = ITEMS.register("dimensional_matrix",
-            () -> new Item(defaultProperties()));
+    public static final RegistryObject<DimensionalMatrixItem> DIMENSIONAL_MATRIX = ITEMS.register("dimensional_matrix",
+            () -> new DimensionalMatrixItem(defaultProperties()));
     public static final RegistryObject<Item> SPIRIT_ATTUNED_GEM = ITEMS.register("spirit_attuned_gem",
             () -> new Item(defaultProperties()));
     public static final RegistryObject<Item> OTHERWORLD_ASHES = ITEMS.register("otherworld_ashes",
@@ -79,6 +80,14 @@ public class OccultismItems {
     public static final RegistryObject<Item> BURNT_OTHERSTONE = ITEMS.register("burnt_otherstone",
             () -> new Item(defaultProperties()));
     public static final RegistryObject<Item> TALLOW = ITEMS.register("tallow",
+            () -> new Item(defaultProperties()));
+    public static final RegistryObject<Item> OTHERSTONE_FRAME = ITEMS.register("otherstone_frame",
+            () -> new Item(defaultProperties()));
+    public static final RegistryObject<Item> WORMHOLE_FRAME = ITEMS.register("wormhole_frame",
+            () -> new Item(defaultProperties()));
+    public static final RegistryObject<Item> OTHERSTONE_TABLET = ITEMS.register("otherstone_tablet",
+            () -> new Item(defaultProperties()));
+    public static final RegistryObject<Item> STORAGE_REMOTE_INERT = ITEMS.register("storage_remote_inert",
             () -> new Item(defaultProperties()));
 
     public static final RegistryObject<Item> CHALK_WHITE_IMPURE = ITEMS.register("chalk_white_impure",
@@ -88,6 +97,33 @@ public class OccultismItems {
     public static final RegistryObject<Item> CHALK_GOLD_IMPURE = ITEMS.register("chalk_gold_impure",
             () -> new Item(defaultProperties()));
     public static final RegistryObject<Item> CHALK_PURPLE_IMPURE = ITEMS.register("chalk_purple_impure",
+            () -> new Item(defaultProperties()));
+
+    public static final RegistryObject<Item> COPPER_INGOT = ITEMS.register("copper_ingot",
+            () -> new Item(defaultProperties()));
+    public static final RegistryObject<Item> SILVER_INGOT = ITEMS.register("silver_ingot",
+            () -> new Item(defaultProperties()));
+    public static final RegistryObject<Item> PLATINUM_INGOT = ITEMS.register("platinum_ingot",
+            () -> new Item(defaultProperties()));
+
+    public static final RegistryObject<Item> COPPER_NUGGET = ITEMS.register("copper_nugget",
+            () -> new Item(defaultProperties()));
+    public static final RegistryObject<Item> SILVER_NUGGET = ITEMS.register("silver_nugget",
+            () -> new Item(defaultProperties()));
+    public static final RegistryObject<Item> PLATINUM_NUGGET = ITEMS.register("platinum_nugget",
+            () -> new Item(defaultProperties()));
+
+    public static final RegistryObject<Item> OBSIDIAN_DUST = ITEMS.register("obsidian_dust",
+            () -> new Item(defaultProperties()));
+    public static final RegistryObject<Item> IRON_DUST = ITEMS.register("iron_dust",
+            () -> new Item(defaultProperties()));
+    public static final RegistryObject<Item> GOLD_DUST = ITEMS.register("gold_dust",
+            () -> new Item(defaultProperties()));
+    public static final RegistryObject<Item> COPPER_DUST = ITEMS.register("copper_dust",
+            () -> new Item(defaultProperties()));
+    public static final RegistryObject<Item> SILVER_DUST = ITEMS.register("silver_dust",
+            () -> new Item(defaultProperties()));
+    public static final RegistryObject<Item> PLATINUM_DUST = ITEMS.register("platinum_dust",
             () -> new Item(defaultProperties()));
 
     //Tools

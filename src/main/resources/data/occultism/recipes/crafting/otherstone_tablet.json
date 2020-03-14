@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "sss",
+    "sss",
+    "sss"
+  ],
+  "key": {
+    "s": {
+      "item": "occultism:otherstone_slab"
+    }
+  },
+  "result": {
+    "item": "occultism:otherstone_tablet"
+  }
+}

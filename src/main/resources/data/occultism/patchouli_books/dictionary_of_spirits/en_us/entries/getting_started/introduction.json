@@ -1,0 +1,16 @@
+{
+  "name": "Introduction",
+  "icon": "occultism:textures/gui/book/pentagram_rose.png",
+  "category": "getting_started",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "text",
+      "text": "To facilitate communication with spirits, one requires materials that exist both in the physical world and in \"The Other Place\". Your first steps will be to attune your mind to see the spirit world, and find such materials, before you can perform your first ritual."
+    },
+    {
+      "type": "text",
+      "text": ""
+    }
+  ]
+}

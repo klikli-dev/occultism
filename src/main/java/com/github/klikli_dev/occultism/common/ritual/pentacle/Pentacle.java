@@ -70,6 +70,7 @@ public abstract class Pentacle extends ForgeRegistryEntry<Pentacle> {
     protected void setupMapping() {
         this.mapping.addAll(Arrays.asList(
                 '0', this.api.looseBlockMatcher(OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL.get()),
+                'X', this.api.displayOnlyMatcher(OccultismBlocks.SACRIFICIAL_BOWL.get()),
                 'W', this.api.looseBlockMatcher(OccultismBlocks.CHALK_GLYPH_WHITE.get()),
                 'G', this.api.looseBlockMatcher(OccultismBlocks.CHALK_GLYPH_GOLD.get()),
                 'P', this.api.looseBlockMatcher(OccultismBlocks.CHALK_GLYPH_PURPLE.get()),

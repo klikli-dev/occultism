@@ -1,0 +1,6 @@
+{
+  "parent": "occultism:block/storage_controller",
+  "textures": {
+    "1": "occultism:block/otherstone"
+  }
+}

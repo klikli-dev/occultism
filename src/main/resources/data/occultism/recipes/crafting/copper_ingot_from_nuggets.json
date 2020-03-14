@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ccc",
+    "ccc",
+    "ccc"
+  ],
+  "key": {
+    "c": {
+      "tag": "forge:nuggets/copper"
+    }
+  },
+  "result": {
+    "item": "occultism:copper_ingot"
+  }
+}

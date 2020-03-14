@@ -1,0 +1,10 @@
+{
+  "type": "occultism:crushing",
+  "ingredient": {
+    "tag": "forge:ingots/iron"
+  },
+  "result": {
+    "item": "occultism:iron_dust"
+  },
+  "crushing_time": 200
+}

@@ -25,6 +25,7 @@ package com.github.klikli_dev.occultism.config;
 import com.github.klikli_dev.occultism.config.value.CachedFloat;
 import com.github.klikli_dev.occultism.config.value.CachedInt;
 import com.github.klikli_dev.occultism.config.value.CachedObject;
+import com.google.common.collect.ImmutableList;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.ForgeConfigSpec;
 
@@ -102,11 +103,10 @@ public class OccultismConfig extends ConfigBase {
         public class OreGenSettings extends ConfigCategoryBase {
             //region Fields
 
-            public final CachedObject<List<String>> dimensionTypeWhitelist;
-            public final CachedInt otherstoneOreSize;
-            public final CachedInt otherstoneOreChance;
-            public final CachedInt otherstoneOreMin;
-            public final CachedInt otherstoneOreMax;
+            public final OreSettings otherstoneNatural;
+            public final OreSettings copperOre;
+            public final OreSettings silverOre;
+            public final OreSettings platinumOre;
 
             //endregion Fields
 
@@ -114,25 +114,59 @@ public class OccultismConfig extends ConfigBase {
             public OreGenSettings(IConfigCache parent, ForgeConfigSpec.Builder builder) {
                 super(parent, builder);
                 builder.comment("Ore Gen Settings").push("oregen");
+                this.otherstoneNatural =
+                        new OreSettings("otherstone_natural", ImmutableList.of("overworld"), 7,
+                                5, 10, 80, this, builder);
 
-                this.dimensionTypeWhitelist = CachedObject.cache(this,
-                        builder.comment("The dimensions whitelisted for Occultism Oregen.")
-                                .define("dimensionWhitelist", Stream.of("overworld").collect(Collectors.toList())));
-                this.otherstoneOreSize = CachedInt.cache(this,
-                        builder.comment("The size of otherstone ore veins.")
-                                .defineInRange("otherstoneOreSize", 7, 0, Byte.MAX_VALUE));
-                this.otherstoneOreChance = CachedInt.cache(this,
-                        builder.comment("The chance (amount of rolls) for otherstone ore to spawn.")
-                                .defineInRange("otherstoneOreChance", 5, 0, Byte.MAX_VALUE));
-                this.otherstoneOreMin = CachedInt.cache(this,
-                        builder.comment("The minimum height for otherstone ore veins to spawn.")
-                                .define("otherstoneOreMin", 10));
-                this.otherstoneOreMax = CachedInt.cache(this,
-                        builder.comment("The maximum height for otherstone ore veins to spawn.")
-                                .define("otherstoneOreMax", 80));
+                this.copperOre =
+                        new OreSettings("copper_ore", ImmutableList.of("overworld"), 9,
+                                20, 20, 64, this, builder);
+                this.silverOre =
+                        new OreSettings("silver_ore", ImmutableList.of("overworld"), 7,
+                                5, 0, 30, this, builder);
+                this.platinumOre =
+                        new OreSettings("platinum_ore", ImmutableList.of("overworld"), 3,
+                                1, 0, 30, this, builder);
                 builder.pop();
             }
             //endregion Initialization
+
+            public class OreSettings extends ConfigCategoryBase {
+                //region Fields
+
+                public final CachedObject<List<String>> dimensionTypeWhitelist;
+                public final CachedInt oreSize;
+                public final CachedInt oreChance;
+                public final CachedInt oreMin;
+                public final CachedInt oreMax;
+
+                //endregion Fields
+
+                //region Initialization
+                public OreSettings(String oreName, List<String> dimensionTypes, int size, int chance, int min, int max,
+                                   IConfigCache parent, ForgeConfigSpec.Builder builder) {
+                    super(parent, builder);
+                    builder.comment("Ore Settings").push(oreName);
+
+                    this.dimensionTypeWhitelist = CachedObject.cache(this,
+                            builder.comment("The dimensions this ore will spawn in.")
+                                    .define("dimensionWhitelist", dimensionTypes));
+                    this.oreSize = CachedInt.cache(this,
+                            builder.comment("The size of veins for this ore.")
+                                    .defineInRange("oreSize", size, 0, Byte.MAX_VALUE));
+                    this.oreChance = CachedInt.cache(this,
+                            builder.comment("The chance (amount of rolls) for this ore to spawn.")
+                                    .defineInRange("oreChance", chance, 0, Byte.MAX_VALUE));
+                    this.oreMin = CachedInt.cache(this,
+                            builder.comment("The minimum height for this ore veins to spawn.")
+                                    .define("oreMin", min));
+                    this.oreMax = CachedInt.cache(this,
+                            builder.comment("The maximum height for this ore veins to spawn.")
+                                    .define("oreMax", max));
+                    builder.pop();
+                }
+                //endregion Initialization
+            }
         }
 
         public class UndergroundGroveGenSettings extends ConfigCategoryBase {
@@ -164,13 +198,16 @@ public class OccultismConfig extends ConfigBase {
                         builder.comment("The biome types to spawn underground groves in.")
                                 .define("validBiomes", defaultValidBiomes));
                 this.groveSpawnChance = CachedInt.cache(this,
-                        builder.comment("The chance for a grove to spawn in a chunk (generates 1/groveSpawnChance chunks on average).")
+                        builder.comment(
+                                "The chance for a grove to spawn in a chunk (generates 1/groveSpawnChance chunks on average).")
                                 .define("groveSpawnChance", 400));
                 this.groveSpawnMin = CachedInt.cache(this,
-                        builder.comment("The min height for a grove to spawn (applied to the center of the grove, not the floor).")
+                        builder.comment(
+                                "The min height for a grove to spawn (applied to the center of the grove, not the floor).")
                                 .define("groveSpawnMin", 25));
                 this.groveSpawnMax = CachedInt.cache(this,
-                        builder.comment("The max height for a grove to spawn (applied to the center of the grove, not the ceiling).")
+                        builder.comment(
+                                "The max height for a grove to spawn (applied to the center of the grove, not the ceiling).")
                                 .define("groveSpawnMax", 60));
 
                 this.grassChance = CachedFloat.cache(this,

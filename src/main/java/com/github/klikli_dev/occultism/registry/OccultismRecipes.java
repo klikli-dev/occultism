@@ -23,6 +23,7 @@
 package com.github.klikli_dev.occultism.registry;
 
 import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.crafting.recipe.CrushingRecipe;
 import com.github.klikli_dev.occultism.crafting.recipe.CustomShapelessRecipe;
 import com.github.klikli_dev.occultism.crafting.recipe.SpiritTradeRecipe;
 import com.github.klikli_dev.occultism.crafting.recipe.SpiritFireRecipe;
@@ -42,6 +43,8 @@ public class OccultismRecipes {
             NonNullLazy.of(() -> IRecipeType.register("occultism:spirit_trade"));
     public static final NonNullLazy<IRecipeType<SpiritFireRecipe>> SPIRIT_FIRE_TYPE =
             NonNullLazy.of(() -> IRecipeType.register("occultism:spirit_fire"));
+    public static final NonNullLazy<IRecipeType<SpiritFireRecipe>> CRUSHING_TYPE =
+            NonNullLazy.of(() -> IRecipeType.register("occultism:crushing"));
     public static final NonNullLazy<IRecipeType<?>> CUSTOM_SHAPELESS_TYPE =
             NonNullLazy.of(() -> IRecipeType.CRAFTING);
 
@@ -49,6 +52,8 @@ public class OccultismRecipes {
             () -> SpiritTradeRecipe.SERIALIZER);
     public static final RegistryObject<IRecipeSerializer<SpiritFireRecipe>> SPIRIT_FIRE = RECIPES.register("spirit_fire",
             () -> SpiritFireRecipe.SERIALIZER);
+    public static final RegistryObject<IRecipeSerializer<CrushingRecipe>> CRUSHING = RECIPES.register("crushing",
+            () -> CrushingRecipe.SERIALIZER);
     public static final RegistryObject<IRecipeSerializer<CustomShapelessRecipe>> CUSTOM_SHAPELESS = RECIPES.register("custom_shapeless",
             () -> CustomShapelessRecipe.SERIALIZER);
 

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ppp",
+    "ppp",
+    "ppp"
+  ],
+  "key": {
+    "p": {
+      "tag": "forge:nuggets/platinum"
+    }
+  },
+  "result": {
+    "item": "occultism:platinum_ingot"
+  }
+}

@@ -24,20 +24,11 @@ package com.github.klikli_dev.occultism.registry;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.ritual.*;
-import com.github.klikli_dev.occultism.common.ritual.pentacle.DebugPentacle;
-import com.github.klikli_dev.occultism.common.ritual.pentacle.Pentacle;
-import com.github.klikli_dev.occultism.common.ritual.pentacle.PentacleCraftDjinni;
-import com.github.klikli_dev.occultism.common.ritual.pentacle.PentacleSummonFoliotBasic;
-import net.minecraft.util.ResourceLocation;
+import com.github.klikli_dev.occultism.common.ritual.pentacle.*;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.RegistryManager;
-import vazkii.patchouli.api.PatchouliAPI;
-
-import java.util.function.Supplier;
-
-import static com.github.klikli_dev.occultism.util.StaticUtil.modLoc;
 
 public class OccultismRituals {
     //region Fields
@@ -48,11 +39,14 @@ public class OccultismRituals {
     public static final DeferredRegister<Ritual> RITUALS = new DeferredRegister<>(RITUAL_REGISTRY, Occultism.MODID);
 
     //Pentacles
-    public static final RegistryObject<DebugPentacle> DEBUG_PENTACLE = register("debug", DebugPentacle::new);
+    public static final RegistryObject<DebugPentacle> DEBUG_PENTACLE =
+            PENTACLES.register("debug", DebugPentacle::new);
     public static final RegistryObject<PentacleSummonFoliotBasic> SUMMON_FOLIOT_BASIC_PENTACLE =
-            register("summon_foliot_basic", PentacleSummonFoliotBasic::new);
+            PENTACLES.register("summon_foliot_basic", PentacleSummonFoliotBasic::new);
+    public static final RegistryObject<PentacleCraftFoliot> CRAFT_FOLIOT_PENTACLE =
+            PENTACLES.register("craft_foliot", PentacleCraftFoliot::new);
     public static final RegistryObject<PentacleCraftDjinni> CRAFT_DJINNI_PENTACLE =
-            register("craft_djinni", PentacleCraftDjinni::new);
+            PENTACLES.register("craft_djinni", PentacleCraftDjinni::new);
 
     //Rituals
     public static final RegistryObject<DebugRitual> DEBUG_RITUAL = RITUALS.register("debug", DebugRitual::new);
@@ -68,20 +62,13 @@ public class OccultismRituals {
             RITUALS.register("summon_foliot_sapling_trader", SummonFoliotSaplingTraderRitual::new);
 
     //Crafting
+    public static final RegistryObject<CraftStorageControllerBaseRitual> CRAFT_STORAGE_CONTROLLER_BASE_RITUAL =
+            RITUALS.register("craft_storage_controller_base", CraftStorageControllerBaseRitual::new);
     public static final RegistryObject<CraftDimensionalMatrixRitual> CRAFT_DIMENSIONAL_MATRIX_RITUAL =
             RITUALS.register("craft_dimensional_matrix", CraftDimensionalMatrixRitual::new);
-
+    public static final RegistryObject<CraftStableWormholeRitual> CRAFT_STABLE_WORMHOLE_RITUAL =
+            RITUALS.register("craft_stable_wormhole", CraftStableWormholeRitual::new);
+    public static final RegistryObject<CraftStorageRemoteRitual> CRAFT_STORAGE_REMOTE_RITUAL =
+            RITUALS.register("craft_storage_remote", CraftStorageRemoteRitual::new);
     //endregion Fields
-
-    //region Static Methods
-    public static <T extends Pentacle> RegistryObject<T> register(final String name, final Supplier<? extends T> sup) {
-        return PENTACLES.register(name, () -> {
-            T pentacle = sup.get();
-            ResourceLocation multiBlockId = modLoc("pentacle." + name);
-            if (PatchouliAPI.instance.getMultiblock(multiBlockId) == null)
-                pentacle.registerMultiblock(multiBlockId);
-            return pentacle;
-        });
-    }
-    //endregion Static Methods
 }

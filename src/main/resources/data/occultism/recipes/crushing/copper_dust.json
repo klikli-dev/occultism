@@ -1,0 +1,11 @@
+{
+  "type": "occultism:crushing",
+  "ingredient": {
+    "tag": "forge:ores/copper"
+  },
+  "result": {
+    "item": "occultism:copper_dust",
+    "count": 2
+  },
+  "crushing_time": 200
+}

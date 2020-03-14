@@ -1,0 +1,7 @@
+{
+  "name": "Binding Rituals",
+  "description": "Rituals to infuse items.",
+  "icon": "occultism:textures/gui/book/infusion.png",
+  "parent": "rituals",
+  "sortnum": 2
+}

@@ -29,13 +29,15 @@ public class PentacleSummonFoliotBasic extends Pentacle {
     //region Fields
     private final String[][] pattern = new String[][]{
             {
-                    "  WWW  ",
-                    " W W W ",
-                    "W  W  W",
-                    "WWW0WWW",
-                    "W  W  W",
-                    " W W W ",
-                    "  WWW  "
+                    "    X    ",
+                    "   WWW   ",
+                    "  W W W  ",
+                    " W  W  W ",
+                    "XWWW0WWWX",
+                    " W  W  W ",
+                    "  W W W  ",
+                    "   WWW   ",
+                    "    X    "
             }
     };
 

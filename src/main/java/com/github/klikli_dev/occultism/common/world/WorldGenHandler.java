@@ -25,9 +25,11 @@ package com.github.klikli_dev.occultism.common.world;
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.world.multichunk.MultiChunkFeatureConfig;
 import com.github.klikli_dev.occultism.common.world.ore.DimensionOreFeatureConfig;
+import com.github.klikli_dev.occultism.config.OccultismConfig;
 import com.github.klikli_dev.occultism.registry.OccultismBiomeFeatures;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.util.BiomeUtil;
+import net.minecraft.block.BlockState;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.dimension.DimensionType;
@@ -55,7 +57,19 @@ public class WorldGenHandler {
                     Collectors.toList());
 
     protected static final List<DimensionType> OTHERSTONE_DIMENSION_WHITELIST =
-            Occultism.CONFIG.worldGen.oreGen.dimensionTypeWhitelist.get().stream()
+            Occultism.CONFIG.worldGen.oreGen.otherstoneNatural.dimensionTypeWhitelist.get().stream()
+                    .map(s -> DimensionType.byName(new ResourceLocation(s))).collect(
+                    Collectors.toList());
+    protected static final List<DimensionType> COPPER_DIMENSION_WHITELIST =
+            Occultism.CONFIG.worldGen.oreGen.copperOre.dimensionTypeWhitelist.get().stream()
+                    .map(s -> DimensionType.byName(new ResourceLocation(s))).collect(
+                    Collectors.toList());
+    protected static final List<DimensionType> SILVER_DIMENSION_WHITELIST =
+            Occultism.CONFIG.worldGen.oreGen.silverOre.dimensionTypeWhitelist.get().stream()
+                    .map(s -> DimensionType.byName(new ResourceLocation(s))).collect(
+                    Collectors.toList());
+    protected static final List<DimensionType> PLATINUM_DIMENSION_WHITELIST =
+            Occultism.CONFIG.worldGen.oreGen.platinumOre.dimensionTypeWhitelist.get().stream()
                     .map(s -> DimensionType.byName(new ResourceLocation(s))).collect(
                     Collectors.toList());
     //endregion Fields
@@ -63,19 +77,44 @@ public class WorldGenHandler {
     //region Static Methods
     public static void setupOreGeneration() {
         for (Biome biome : ForgeRegistries.BIOMES) {
-            if (Occultism.CONFIG.worldGen.oreGen.otherstoneOreChance.get() > 0) {
-                biome.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES,
-                        OccultismBiomeFeatures.DIMENSION_ORE_FEATURE.get()
-                                .withConfiguration(new DimensionOreFeatureConfig(OTHERSTONE_DIMENSION_WHITELIST,
-                                        OreFeatureConfig.FillerBlockType.NATURAL_STONE,
-                                        OccultismBlocks.OTHERSTONE_NATURAL.get().getDefaultState(),
-                                        Occultism.CONFIG.worldGen.oreGen.otherstoneOreSize.get()))
-                                .withPlacement(Placement.COUNT_RANGE.configure(
-                                        new CountRangeConfig(
-                                                Occultism.CONFIG.worldGen.oreGen.otherstoneOreChance.get(),
-                                                Occultism.CONFIG.worldGen.oreGen.otherstoneOreMin.get(), 0,
-                                                Occultism.CONFIG.worldGen.oreGen.otherstoneOreMax.get()))));
-            }
+            addOreFeature(biome,
+                    OreFeatureConfig.FillerBlockType.NATURAL_STONE,
+                    OccultismBlocks.OTHERSTONE_NATURAL.get().getDefaultState(),
+                    Occultism.CONFIG.worldGen.oreGen.otherstoneNatural);
+
+            addOreFeature(biome,
+                    OreFeatureConfig.FillerBlockType.NATURAL_STONE,
+                    OccultismBlocks.COPPER_ORE.get().getDefaultState(),
+                    Occultism.CONFIG.worldGen.oreGen.copperOre);
+
+            addOreFeature(biome,
+                    OreFeatureConfig.FillerBlockType.NATURAL_STONE,
+                    OccultismBlocks.SILVER_ORE.get().getDefaultState(),
+                    Occultism.CONFIG.worldGen.oreGen.silverOre);
+
+            addOreFeature(biome,
+                    OreFeatureConfig.FillerBlockType.NATURAL_STONE,
+                    OccultismBlocks.PLATINUM_ORE.get().getDefaultState(),
+                    Occultism.CONFIG.worldGen.oreGen.platinumOre);
+        }
+    }
+
+    public static void addOreFeature(Biome biome, OreFeatureConfig.FillerBlockType fillerBlockType,
+                                     BlockState blockState,
+                                     OccultismConfig.WorldGenSettings.OreGenSettings.OreSettings settings) {
+
+        List<DimensionType> dimensionWhitelist = settings.dimensionTypeWhitelist.get().stream()
+                                                         .map(s -> DimensionType.byName(new ResourceLocation(s)))
+                                                         .collect(Collectors.toList());
+
+        if (settings.oreChance.get() > 0) {
+            biome.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES,
+                    OccultismBiomeFeatures.DIMENSION_ORE_FEATURE.get()
+                            .withConfiguration(new DimensionOreFeatureConfig(dimensionWhitelist,
+                                    fillerBlockType, blockState, settings.oreSize.get()))
+                            .withPlacement(Placement.COUNT_RANGE.configure(
+                                    new CountRangeConfig(settings.oreChance.get(), settings.oreMin.get(),
+                                            0, settings.oreMax.get()))));
         }
     }
 

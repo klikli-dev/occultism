@@ -1,0 +1,21 @@
+{
+  "type": "occultism:spirit_trade",
+  "ingredients": [
+    {
+      "item": "occultism:storage_remote_inert"
+    },
+    {
+      "tag": "forge:gems/quartz"
+    },
+    {
+      "tag": "forge:gems/quartz"
+    },
+    {
+      "tag": "forge:gems/quartz"
+    }
+  ],
+  "result": {
+    "_comment": "Unused",
+    "item": "occultism:pentacle"
+  }
+}

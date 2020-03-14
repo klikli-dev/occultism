@@ -24,6 +24,7 @@ package com.github.klikli_dev.occultism;
 
 import com.github.klikli_dev.occultism.api.OccultismAPI;
 import com.github.klikli_dev.occultism.client.gui.spirit.SpiritGui;
+import com.github.klikli_dev.occultism.client.gui.storage.StableWormholeGui;
 import com.github.klikli_dev.occultism.client.gui.storage.StorageControllerGui;
 import com.github.klikli_dev.occultism.client.gui.storage.StorageRemoteGui;
 import com.github.klikli_dev.occultism.client.render.SelectedBlockRenderer;
@@ -40,6 +41,7 @@ import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.item.ItemGroup;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -55,6 +57,9 @@ import net.minecraftforge.fml.event.lifecycle.FMLDedicatedServerSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import vazkii.patchouli.api.PatchouliAPI;
+
+import static com.github.klikli_dev.occultism.util.StaticUtil.modLoc;
 
 @Mod(Occultism.MODID)
 public class Occultism {
@@ -113,6 +118,13 @@ public class Occultism {
 
         OccultismAPI.commonSetup();
 
+        //Register multiblocks
+        OccultismRituals.PENTACLE_REGISTRY.getValues().forEach(pentacle -> {
+            ResourceLocation multiBlockId = modLoc("pentacle." + pentacle.getRegistryName().getPath());
+            if (PatchouliAPI.instance.getMultiblock(multiBlockId) == null)
+                pentacle.registerMultiblock(multiBlockId);
+        });
+
         LOGGER.info("Common setup complete.");
     }
 
@@ -154,6 +166,7 @@ public class Occultism {
         DeferredWorkQueue.runLater(() -> {
             //Register screen factories
             ScreenManager.registerFactory(OccultismContainers.STORAGE_CONTROLLER.get(), StorageControllerGui::new);
+            ScreenManager.registerFactory(OccultismContainers.STABLE_WORMHOLE.get(), StableWormholeGui::new);
             ScreenManager.registerFactory(OccultismContainers.STORAGE_REMOTE.get(), StorageRemoteGui::new);
             ScreenManager.registerFactory(OccultismContainers.SPIRIT.get(), SpiritGui::new);
             LOGGER.debug("Registered Screen Containers");

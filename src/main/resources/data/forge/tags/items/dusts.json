@@ -2,6 +2,12 @@
   "replace": false,
   "values": [
     "occultism:burnt_otherstone",
-    "occultism:otherworld_ashes"
+    "occultism:otherworld_ashes",
+    "#forge:dusts/obsidian",
+    "#forge:dusts/copper",
+    "#forge:dusts/silver",
+    "#forge:dusts/platinum",
+    "#forge:dusts/iron",
+    "#forge:dusts/gold"
   ]
 }

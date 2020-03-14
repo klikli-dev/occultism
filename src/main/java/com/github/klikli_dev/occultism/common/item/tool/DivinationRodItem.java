@@ -202,8 +202,19 @@ public class DivinationRodItem extends Item {
     //region Methods
     public Block getOtherBlock(BlockState state) {
         //otherstone ore is linked to andesite.
-        if (state.getBlock() == Blocks.ANDESITE || state.getBlock() == OccultismBlocks.OTHERSTONE_NATURAL.get()) {
+        if (state.getBlock() == Blocks.ANDESITE || state.getBlock() == OccultismBlocks.OTHERSTONE_NATURAL.get()
+        || state.getBlock() == OccultismBlocks.OTHERSTONE.get()) {
             return OccultismBlocks.OTHERSTONE_NATURAL.get();
+        }
+        //Otherworld logs are linked to oak leaves.
+        if (state.getBlock() == Blocks.OAK_LOG || state.getBlock() == OccultismBlocks.OTHERWORLD_LOG_NATURAL.get()
+            || state.getBlock() == OccultismBlocks.OTHERWORLD_LOG.get()) {
+            return OccultismBlocks.OTHERWORLD_LOG_NATURAL.get();
+        }
+        //Otherworld leaves are linked to oak leaves.
+        if (state.getBlock() == Blocks.OAK_LEAVES || state.getBlock() == OccultismBlocks.OTHERWORLD_LEAVES_NATURAL.get()
+            || state.getBlock() == OccultismBlocks.OTHERWORLD_LEAVES.get()) {
+            return OccultismBlocks.OTHERWORLD_LEAVES_NATURAL.get();
         }
         return null;
     }

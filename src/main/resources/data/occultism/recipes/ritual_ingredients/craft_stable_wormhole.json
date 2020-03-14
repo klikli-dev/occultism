@@ -1,0 +1,21 @@
+{
+  "type": "occultism:spirit_trade",
+  "ingredients": [
+    {
+      "item": "occultism:wormhole_frame"
+    },
+    {
+      "tag": "forge:gems/quartz"
+    },
+    {
+      "tag": "forge:gems/quartz"
+    },
+    {
+      "tag": "forge:gems/quartz"
+    }
+  ],
+  "result": {
+    "_comment": "Unused",
+    "item": "occultism:pentacle"
+  }
+}

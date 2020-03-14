@@ -1,0 +1,16 @@
+{
+  "name": "Aviar's Circle",
+  "icon": "occultism:textures/gui/book/pentagram_rose.png",
+  "category": "pentacles",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "text",
+      "text": "Considered by most to be the simplest pentacle, $(thing)Aviar's Circle$() is easy to set up, but provides only a minimum of binding power and protection for the summoner.$(br2) Only the weakest and most easily bound entities can be summoned in rituals using this pentacle."
+    },
+    {
+      "type": "multiblock",
+      "multiblock_id": "occultism:pentacle.summon_foliot_basic"
+    }
+  ]
+}
