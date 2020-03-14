@@ -104,6 +104,9 @@ public class OccultismConfig extends ConfigBase {
             //region Fields
 
             public final OreSettings otherstoneNatural;
+            public final OreSettings copperOre;
+            public final OreSettings silverOre;
+            public final OreSettings platinumOre;
 
             //endregion Fields
 
@@ -114,6 +117,16 @@ public class OccultismConfig extends ConfigBase {
                 this.otherstoneNatural =
                         new OreSettings("otherstone_natural", ImmutableList.of("overworld"), 7,
                                 5, 10, 80, this, builder);
+
+                this.copperOre =
+                        new OreSettings("copper_ore", ImmutableList.of("overworld"), 9,
+                                20, 20, 64, this, builder);
+                this.silverOre =
+                        new OreSettings("silver_ore", ImmutableList.of("overworld"), 7,
+                                5, 0, 30, this, builder);
+                this.platinumOre =
+                        new OreSettings("platinum_ore", ImmutableList.of("overworld"), 3,
+                                1, 0, 30, this, builder);
                 builder.pop();
             }
             //endregion Initialization
