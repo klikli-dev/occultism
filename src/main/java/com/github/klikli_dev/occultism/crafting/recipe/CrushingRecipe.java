@@ -29,6 +29,7 @@ import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.network.PacketBuffer;
+import net.minecraft.util.JSONUtils;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
@@ -37,11 +38,15 @@ import net.minecraftforge.registries.ForgeRegistryEntry;
 public class CrushingRecipe extends ItemStackFakeInventoryRecipe {
     //region Fields
     public static Serializer SERIALIZER = new Serializer();
+    public static int DEFAULT_CRUSHING_TIME = 200;
+
+    protected final int crushingTime;
     //endregion Fields
 
     //region Initialization
-    public CrushingRecipe(ResourceLocation id, Ingredient input, ItemStack output) {
+    public CrushingRecipe(ResourceLocation id, Ingredient input, ItemStack output, int crushingTime) {
         super(id, input, output);
+        this.crushingTime = crushingTime;
     }
     //endregion Initialization
 
@@ -93,16 +98,23 @@ public class CrushingRecipe extends ItemStackFakeInventoryRecipe {
         //region Overrides
         @Override
         public CrushingRecipe read(ResourceLocation recipeId, JsonObject json) {
-            return ItemStackFakeInventoryRecipe.SERIALIZER.read(CrushingRecipe::new, recipeId, json);
+            int crushingTime = JSONUtils.getInt(json, "crushing_time", DEFAULT_CRUSHING_TIME);
+            return ItemStackFakeInventoryRecipe.SERIALIZER
+                           .read((id, input, output) ->
+                                         new CrushingRecipe(id, input, output, crushingTime), recipeId, json);
         }
 
         @Override
         public CrushingRecipe read(ResourceLocation recipeId, PacketBuffer buffer) {
-            return ItemStackFakeInventoryRecipe.SERIALIZER.read(CrushingRecipe::new, recipeId, buffer);
+            int crushingTime = buffer.readInt();
+            return ItemStackFakeInventoryRecipe.SERIALIZER
+                           .read((id, input, output) ->
+                                         new CrushingRecipe(id, input, output, crushingTime), recipeId, buffer);
         }
 
         @Override
         public void write(PacketBuffer buffer, CrushingRecipe recipe) {
+            buffer.writeInt(recipe.crushingTime);
             ItemStackFakeInventoryRecipe.SERIALIZER.write(buffer, recipe);
         }
         //endregion Overrides
