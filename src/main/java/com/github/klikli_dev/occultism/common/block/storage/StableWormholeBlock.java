@@ -22,6 +22,7 @@
 
 package com.github.klikli_dev.occultism.common.block.storage;
 
+import com.github.klikli_dev.occultism.common.tile.StableWormholeTileEntity;
 import com.github.klikli_dev.occultism.registry.OccultismTiles;
 import com.github.klikli_dev.occultism.util.TileEntityUtil;
 import com.google.common.collect.ImmutableMap;
@@ -98,8 +99,13 @@ public class StableWormholeBlock extends Block {
                                              Hand handIn, BlockRayTraceResult rayTraceResult) {
         if (!world.isRemote) {
             TileEntity tileEntity = world.getTileEntity(pos);
-            if (tileEntity instanceof INamedContainerProvider) {
-                NetworkHooks.openGui((ServerPlayerEntity) player, (INamedContainerProvider) tileEntity, pos);
+            if (tileEntity instanceof StableWormholeTileEntity) {
+                StableWormholeTileEntity wormhole = (StableWormholeTileEntity) tileEntity;
+                if(wormhole.getLinkedStorageController() != null)
+                    NetworkHooks.openGui((ServerPlayerEntity) player, (INamedContainerProvider) tileEntity, pos);
+                else{
+                    world.setBlockState(pos, state.with(LINKED, false), 2);
+                }
             }
         }
         return ActionResultType.SUCCESS;

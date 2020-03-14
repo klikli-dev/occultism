@@ -365,6 +365,7 @@ public class StorageControllerTileEntity extends NetworkedTileEntity implements 
     @Override
     public void remove() {
         this.itemStackHandler.invalidate();
+        super.remove();
     }
 
     @Nonnull
