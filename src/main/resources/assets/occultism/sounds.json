@@ -22,5 +22,11 @@
       "occultism:tuning_fork"
     ],
     "subtitle": "occultism.subtitle.tuning_fork"
+  },
+  "crunching": {
+    "sounds": [
+      "occultism:crunching_scraping"
+    ],
+    "subtitle": "occultism.subtitle.crunching"
   }
 }
