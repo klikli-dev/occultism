@@ -161,9 +161,9 @@ public class BookOfCallingItem extends Item implements IIngredientPreventCraftin
             }
             else if(world.isRemote) {
                 //if not sneaking, open general ui
-                ItemMode mode = ItemMode.get(this.getItemMode(itemStack));
+                IItemModeSubset<?> subset = this.getItemModeSubset(itemStack);
                 WorkAreaSize workAreaSize = ItemNBTUtil.getWorkAreaSize(itemStack);
-                GuiHelper.openBookOfCallingGui(mode, workAreaSize);
+                GuiHelper.openBookOfCallingGui(subset, workAreaSize);
             }
         }
 
@@ -246,6 +246,14 @@ public class BookOfCallingItem extends Item implements IIngredientPreventCraftin
     //endregion Overrides
 
     //region Methods
+    public IItemModeSubset<?> getItemModeSubset(ItemStack stack){
+        return ItemMode.get(this.getItemMode(stack));
+    }
+
+    public boolean useWorkAreaSize(){
+        return true;
+    }
+
     public boolean setSpiritManagedMachine(PlayerEntity player, World world, BlockPos pos, ItemStack stack,
                                            Direction face) {
         UUID boundSpiritId = ItemNBTUtil.getSpiritEntityUUID(stack);
@@ -432,10 +440,14 @@ public class BookOfCallingItem extends Item implements IIngredientPreventCraftin
         return ActionResultType.PASS;
     }
 
-
     //endregion Methods
 
-    public enum ItemMode {
+    public interface IItemModeSubset <T extends IItemModeSubset<T>>{
+        ItemMode getItemMode();
+        T next();
+    }
+
+    public enum ItemMode implements IItemModeSubset<ItemMode> {
 
         SET_DEPOSIT(0, "set_deposit"),
         SET_PICKUP(1, "set_pickup"),
@@ -480,6 +492,11 @@ public class BookOfCallingItem extends Item implements IIngredientPreventCraftin
             return lookup.get(value);
         }
         //endregion Static Methods
+
+        @Override
+        public ItemMode getItemMode() {
+            return this;
+        }
 
         //region Methods
         public ItemMode next() {
