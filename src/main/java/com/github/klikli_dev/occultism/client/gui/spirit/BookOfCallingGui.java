@@ -39,12 +39,12 @@ import java.awt.*;
 public class BookOfCallingGui extends Screen {
 
     //region Fields
-    public BookOfCallingItem.ItemMode mode;
+    public BookOfCallingItem.IItemModeSubset<?> mode;
     public WorkAreaSize workAreaSize;
     //endregion Fields
 
     //region Initialization
-    public BookOfCallingGui(BookOfCallingItem.ItemMode mode, WorkAreaSize workAreaSize) {
+    public BookOfCallingGui(BookOfCallingItem.IItemModeSubset<?> mode, WorkAreaSize workAreaSize) {
         super(new StringTextComponent(""));
 
         this.mode = mode;
@@ -73,38 +73,45 @@ public class BookOfCallingGui extends Screen {
         int guiTop = (this.height - 166) / 2;
         int buttonWidth = 150;
 
-        //Item mode button
-        this.addButton((new ExtendedButton(guiLeft - buttonWidth / 2, guiTop + 60, buttonWidth, 20,
-                I18n.format(this.mode.getTranslationKey()), (b) -> {
-            this.mode = this.mode.next();
-            OccultismPackets.sendToServer(new MessageSetItemMode(this.mode.getValue()));
-            this.init();
-        })));
-
-        //Work area size button
-        this.addButton(new ExtendedButton(guiLeft - buttonWidth / 2, guiTop + 85, buttonWidth, 20,
-                I18n.format(this.workAreaSize.getTranslationKey()), (b) -> {
-            this.workAreaSize = this.workAreaSize.next();
-            OccultismPackets.sendToServer(new MessageSetWorkAreaSize(this.workAreaSize.getValue()));
-            this.init();
-        }));
-
-        //Exit button
-        int exitButtonWidth = 20;
-        this.addButton(new ExtendedButton(guiLeft - exitButtonWidth / 2, guiTop + 110, exitButtonWidth, 20, "X", (b) -> {
-            this.minecraft.displayGuiScreen(null);
-            this.init();
-        }));
 
         LabelWidget modeLabel = new LabelWidget(guiLeft - 80,
                 guiTop + 66, false, -1, 2, Color.WHITE.getRGB()).alignRight(true);
         modeLabel.addLine("gui." + Occultism.MODID + ".book_of_calling.mode", true);
         this.addButton(modeLabel);
 
-        LabelWidget workAreaLabel = new LabelWidget(
-                guiLeft - 80, guiTop + 91, true, -1, 2, Color.WHITE.getRGB()).alignRight(true);
-        workAreaLabel.addLine("gui." + Occultism.MODID + ".book_of_calling.work_area", true);
-        this.addButton(workAreaLabel);
+        //Item mode button
+        this.addButton((new ExtendedButton(guiLeft - buttonWidth / 2, guiTop + 60, buttonWidth, 20,
+                I18n.format(this.mode.getItemMode().getTranslationKey()), (b) -> {
+            this.mode = this.mode.next();
+            OccultismPackets.sendToServer(new MessageSetItemMode(this.mode.getItemMode().getValue()));
+            this.init();
+        })));
+
+        boolean showSize = this.mode.getItemMode() == BookOfCallingItem.ItemMode.SET_BASE;
+        if (showSize) {
+            LabelWidget workAreaLabel = new LabelWidget(
+                    guiLeft - 80, guiTop + 91, true, -1, 2, Color.WHITE.getRGB()).alignRight(true);
+            workAreaLabel.addLine("gui." + Occultism.MODID + ".book_of_calling.work_area", true);
+            this.addButton(workAreaLabel);
+
+            //Work area size button
+            this.addButton(new ExtendedButton(guiLeft - buttonWidth / 2, guiTop + 85, buttonWidth, 20,
+                    I18n.format(this.workAreaSize.getTranslationKey()), (b) -> {
+                this.workAreaSize = this.workAreaSize.next();
+                OccultismPackets.sendToServer(new MessageSetWorkAreaSize(this.workAreaSize.getValue()));
+                this.init();
+            }));
+
+        }
+
+        //Exit button
+        int exitButtonWidth = 20;
+        this.addButton(
+                new ExtendedButton(guiLeft - exitButtonWidth / 2, guiTop + (showSize ? 110 : 85), exitButtonWidth, 20,
+                        "X", (b) -> {
+                    this.minecraft.displayGuiScreen(null);
+                    this.init();
+                }));
     }
 
     @Override

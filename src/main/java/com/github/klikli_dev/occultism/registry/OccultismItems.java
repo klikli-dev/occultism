@@ -29,9 +29,7 @@ import com.github.klikli_dev.occultism.common.item.debug.SummonFoliotLumberjackI
 import com.github.klikli_dev.occultism.common.item.debug.SummonFoliotManageMachineItem;
 import com.github.klikli_dev.occultism.common.item.debug.SummonFoliotTraderItem;
 import com.github.klikli_dev.occultism.common.item.otherworld.OtherworldBlockItem;
-import com.github.klikli_dev.occultism.common.item.spirit.BookOfBindingBoundItem;
-import com.github.klikli_dev.occultism.common.item.spirit.BookOfBindingItem;
-import com.github.klikli_dev.occultism.common.item.spirit.BookOfCallingItem;
+import com.github.klikli_dev.occultism.common.item.spirit.*;
 import com.github.klikli_dev.occultism.common.item.storage.DimensionalMatrixItem;
 import com.github.klikli_dev.occultism.common.item.storage.StableWormholeBlockItem;
 import com.github.klikli_dev.occultism.common.item.storage.StorageRemoteItem;
@@ -161,13 +159,13 @@ public class OccultismItems {
             "book_of_binding_bound_djinni", () -> new BookOfBindingBoundItem(defaultProperties().maxStackSize(1)));
     //Books of Calling
     //Foliot
-    public static final RegistryObject<BookOfCallingItem> BOOK_OF_CALLING_FOLIOT_LUMBERJACK = ITEMS.register(
+    public static final RegistryObject<BookOfCallingLumberjackItem> BOOK_OF_CALLING_FOLIOT_LUMBERJACK = ITEMS.register(
             "book_of_calling_foliot_lumberjack",
-            () -> new BookOfCallingItem(defaultProperties().maxStackSize(1),
+            () -> new BookOfCallingLumberjackItem(defaultProperties().maxStackSize(1),
                     TranslationKeys.BOOK_OF_CALLING_GENERIC + "_foliot"));
-    public static final RegistryObject<BookOfCallingItem> BOOK_OF_CALLING_FOLIOT_MANAGE_MACHINE = ITEMS.register(
+    public static final RegistryObject<BookOfCallingManageMachineItem> BOOK_OF_CALLING_FOLIOT_MANAGE_MACHINE = ITEMS.register(
             "book_of_calling_foliot_manage_machine",
-            () -> new BookOfCallingItem(defaultProperties().maxStackSize(1),
+            () -> new BookOfCallingManageMachineItem(defaultProperties().maxStackSize(1),
                     TranslationKeys.BOOK_OF_CALLING_GENERIC + "_foliot"));
     public static final RegistryObject<BookOfCallingItem> BOOK_OF_CALLING_FOLIOT_CRUSHER = ITEMS.register(
             "book_of_calling_foliot_crusher",
