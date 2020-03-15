@@ -19,6 +19,8 @@ All resources not listed are released in the public domain or created by the mod
     - Magic Swirl by Lorc https://game-icons.net/1x1/lorc/magic-swirl.html (CC BY 3.0)
     - Crystal Shine by Lorc https://game-icons.net/1x1/lorc/crystal-shine.html (CC BY 3.0)
     - Hammer break by Delapouite https://game-icons.net/1x1/delapouite/hammer-break.html (CC BY 3.0)
+    - Gargoyle by Delapouite https://game-icons.net/1x1/delapouite/gargoyle.html (CC BY 3.0)
+    - Ifrit by Lorc https://game-icons.net/1x1/lorc/ifrit.html (CC BY 3.0)
 - Textures:
     - Various textures are from the public domain Soartex pack 1.2.5 by Soar49. 
     - Some textures are based on textures created by Bonemouse for Isabella ( http://www.minecraftforum.net/topic/242175-Isabella/ ), see About Isabella.txt in resources/assets/occultism/textures.

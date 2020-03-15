@@ -157,6 +157,14 @@ public class OccultismItems {
             "book_of_binding_djinni", () -> new BookOfBindingItem(defaultProperties().maxStackSize(1)));
     public static final RegistryObject<BookOfBindingBoundItem> BOOK_OF_BINDING_BOUND_DJINNI = ITEMS.register(
             "book_of_binding_bound_djinni", () -> new BookOfBindingBoundItem(defaultProperties().maxStackSize(1)));
+    public static final RegistryObject<BookOfBindingItem> BOOK_OF_BINDING_IFRIT = ITEMS.register(
+            "book_of_binding_ifrit", () -> new BookOfBindingItem(defaultProperties().maxStackSize(1)));
+    public static final RegistryObject<BookOfBindingBoundItem> BOOK_OF_BINDING_BOUND_IFRIT = ITEMS.register(
+            "book_of_binding_bound_ifrit", () -> new BookOfBindingBoundItem(defaultProperties().maxStackSize(1)));
+    public static final RegistryObject<BookOfBindingItem> BOOK_OF_BINDING_MARID= ITEMS.register(
+            "book_of_binding_marid", () -> new BookOfBindingItem(defaultProperties().maxStackSize(1)));
+    public static final RegistryObject<BookOfBindingBoundItem> BOOK_OF_BINDING_BOUND_MARID = ITEMS.register(
+            "book_of_binding_bound_marid", () -> new BookOfBindingBoundItem(defaultProperties().maxStackSize(1)));
     //Books of Calling
     //Foliot
     public static final RegistryObject<BookOfCallingLumberjackItem> BOOK_OF_CALLING_FOLIOT_LUMBERJACK = ITEMS.register(
