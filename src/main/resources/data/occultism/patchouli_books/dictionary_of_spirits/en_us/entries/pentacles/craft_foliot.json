@@ -2,7 +2,7 @@
   "name": "Eziveus' Spectral Compulsion",
   "icon": "occultism:textures/gui/book/pentagram_rose.png",
   "category": "pentacles",
-  "sortnum": 2,
+  "sortnum": 1,
   "pages": [
     {
       "type": "text",

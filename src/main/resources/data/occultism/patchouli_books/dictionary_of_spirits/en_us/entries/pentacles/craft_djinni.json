@@ -2,7 +2,7 @@
   "name": "Strigeor's Higher Binding",
   "icon": "occultism:textures/gui/book/pentagram_rose.png",
   "category": "pentacles",
-  "sortnum": 3,
+  "sortnum": 20,
   "pages": [
     {
       "type": "text",

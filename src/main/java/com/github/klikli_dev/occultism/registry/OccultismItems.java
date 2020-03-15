@@ -157,10 +157,10 @@ public class OccultismItems {
             "book_of_binding_djinni", () -> new BookOfBindingItem(defaultProperties().maxStackSize(1)));
     public static final RegistryObject<BookOfBindingBoundItem> BOOK_OF_BINDING_BOUND_DJINNI = ITEMS.register(
             "book_of_binding_bound_djinni", () -> new BookOfBindingBoundItem(defaultProperties().maxStackSize(1)));
-    public static final RegistryObject<BookOfBindingItem> BOOK_OF_BINDING_IFRIT = ITEMS.register(
-            "book_of_binding_ifrit", () -> new BookOfBindingItem(defaultProperties().maxStackSize(1)));
-    public static final RegistryObject<BookOfBindingBoundItem> BOOK_OF_BINDING_BOUND_IFRIT = ITEMS.register(
-            "book_of_binding_bound_ifrit", () -> new BookOfBindingBoundItem(defaultProperties().maxStackSize(1)));
+    public static final RegistryObject<BookOfBindingItem> BOOK_OF_BINDING_AFRIT = ITEMS.register(
+            "book_of_binding_afrit", () -> new BookOfBindingItem(defaultProperties().maxStackSize(1)));
+    public static final RegistryObject<BookOfBindingBoundItem> BOOK_OF_BINDING_BOUND_AFRIT = ITEMS.register(
+            "book_of_binding_bound_afrit", () -> new BookOfBindingBoundItem(defaultProperties().maxStackSize(1)));
     public static final RegistryObject<BookOfBindingItem> BOOK_OF_BINDING_MARID= ITEMS.register(
             "book_of_binding_marid", () -> new BookOfBindingItem(defaultProperties().maxStackSize(1)));
     public static final RegistryObject<BookOfBindingBoundItem> BOOK_OF_BINDING_BOUND_MARID = ITEMS.register(
