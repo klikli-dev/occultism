@@ -47,6 +47,10 @@ public class OccultismRituals {
             PENTACLES.register("craft_foliot", PentacleCraftFoliot::new);
     public static final RegistryObject<PentacleCraftDjinni> CRAFT_DJINNI_PENTACLE =
             PENTACLES.register("craft_djinni", PentacleCraftDjinni::new);
+    public static final RegistryObject<PentacleCraftAfrit> CRAFT_AFRIT_PENTACLE =
+            PENTACLES.register("craft_afrit", PentacleCraftAfrit::new);
+    public static final RegistryObject<PentacleCraftMarid> CRAFT_MARID_PENTACLE =
+            PENTACLES.register("craft_marid", PentacleCraftMarid::new);
 
     //Rituals
     public static final RegistryObject<DebugRitual> DEBUG_RITUAL = RITUALS.register("debug", DebugRitual::new);
@@ -72,5 +76,13 @@ public class OccultismRituals {
             RITUALS.register("craft_stable_wormhole", CraftStableWormholeRitual::new);
     public static final RegistryObject<CraftStorageRemoteRitual> CRAFT_STORAGE_REMOTE_RITUAL =
             RITUALS.register("craft_storage_remote", CraftStorageRemoteRitual::new);
+    public static final RegistryObject<CraftStabilizerTier1Ritual> CRAFT_STABILIZER_TIER1 =
+            RITUALS.register("craft_stabilizer_tier1", CraftStabilizerTier1Ritual::new);
+    public static final RegistryObject<CraftStabilizerTier2Ritual> CRAFT_STABILIZER_TIER2 =
+            RITUALS.register("craft_stabilizer_tier2", CraftStabilizerTier2Ritual::new);
+    public static final RegistryObject<CraftStabilizerTier3Ritual> CRAFT_STABILIZER_TIER3 =
+            RITUALS.register("craft_stabilizer_tier3", CraftStabilizerTier3Ritual::new);
+    public static final RegistryObject<CraftStabilizerTier4Ritual> CRAFT_STABILIZER_TIER4 =
+            RITUALS.register("craft_stabilizer_tier4", CraftStabilizerTier4Ritual::new);
     //endregion Fields
 }

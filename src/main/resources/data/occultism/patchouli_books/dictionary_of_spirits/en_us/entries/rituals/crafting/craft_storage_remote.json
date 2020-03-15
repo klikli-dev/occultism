@@ -7,14 +7,14 @@
     {
       "type": "spotlight",
       "item": "occultism:storage_remote",
-      "text": "The $(iname:occcultism_storage_remote) can be linked to a $(iname:occultism:storage_controller). The djinni bound to the accessor will then be able to access items from the actuator even from across dimensions."
+      "text": "The $(item)Storage Remote$() can be linked to a $(item)Storage Actuator$(). The djinni bound to the accessor will then be able to access items from the actuator even from across dimensions."
     },
     {
       "type": "summoning",
       "heading": "Infusion",
       "pentacle": "$(l:pentacles/craft_djinni)Strigeor's Higher Binding$(/l)",
       "activation_item": "occultism:book_of_binding_bound_djinni",
-      "ingredients": "$(li)1x $(item)$(iname:occultism:storage_remote_inert) $()$(li)3x $(item)$(iname:minecraft:nether_quartz) $()"
+      "ingredients": "$(li)1x $(item)Inert Storage Remote $()$(li)3x $(item)Nether Quartz $()"
     }
   ]
 }

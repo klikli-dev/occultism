@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "cg ",
+    "gbg",
+    " g "
+  ],
+  "key": {
+    "g": {
+      "tag": "forge:dyes/green"
+    },
+    "b": {
+      "item": "minecraft:writable_book"
+    },
+    "c": {
+      "item": "occultism:chalk_purple"
+    }
+  },
+  "result": {
+    "item": "occultism:book_of_binding_djinni"
+  }
+}
