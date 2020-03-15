@@ -26,24 +26,28 @@ import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.block.crops.IReplantableCrops;
 import com.github.klikli_dev.occultism.common.block.otherworld.IOtherworldBlock;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
+import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import net.minecraft.advancements.criterion.StatePropertiesPredicate;
 import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
 import net.minecraft.block.CropsBlock;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.data.loot.EntityLootTables;
 import net.minecraft.enchantment.Enchantments;
+import net.minecraft.entity.EntityType;
 import net.minecraft.item.Items;
 import net.minecraft.world.storage.loot.*;
 import net.minecraft.world.storage.loot.conditions.BlockStateProperty;
 import net.minecraft.world.storage.loot.conditions.ILootCondition;
 import net.minecraft.world.storage.loot.conditions.TableBonus;
+import net.minecraft.world.storage.loot.functions.LootingEnchantBonus;
 import net.minecraft.world.storage.loot.functions.SetCount;
 import net.minecraftforge.fml.RegistryObject;
 
 public class StandardLootTableProvider extends BaseLootTableProvider {
 
     //region Fields
-    InternalBlockLootTable lootTable = new InternalBlockLootTable();
+    InternalBlockLootTable blockLoot = new InternalBlockLootTable();
+    InternalEntityLootTable entityLoot = new InternalEntityLootTable();
     //endregion Fields
 
     //region Initialization
@@ -55,9 +59,27 @@ public class StandardLootTableProvider extends BaseLootTableProvider {
     //region Overrides
     @Override
     protected void addTables() {
-        this.lootTable.addTables();
+        this.blockLoot.addTables();
+        this.entityLoot.addTables();
     }
     //endregion Overrides
+
+    private class InternalEntityLootTable extends EntityLootTables{
+        @Override
+        protected void addTables() {
+            this.registerLootTable(OccultismEntities.POSSESSED_ENDERMITE_TYPE.get(),
+                    LootTable.builder().addLootPool(
+                            LootPool.builder().rolls(ConstantRange.of(1))
+                                    .addEntry(ItemLootEntry.builder(Items.END_STONE)
+                                                      .acceptFunction(SetCount.builder(RandomValueRange.of(1.0f, 2.0F)))
+                                                      .acceptFunction(LootingEnchantBonus.builder(RandomValueRange.of(0.0F, 1.0F))))));
+        }
+
+        @Override
+        protected void registerLootTable(EntityType<?> type, LootTable.Builder table) {
+            StandardLootTableProvider.this.entityLootTable.put(type, table);
+        }
+    }
 
     private class InternalBlockLootTable extends StandardBlockLootTables {
         //region Overrides
@@ -93,7 +115,7 @@ public class StandardLootTableProvider extends BaseLootTableProvider {
 
         @Override
         protected void registerLootTable(Block blockIn, LootTable.Builder table) {
-            StandardLootTableProvider.this.lootTables.put(blockIn, table);
+            StandardLootTableProvider.this.blockLootTable.put(blockIn, table);
         }
         //endregion Overrides
 

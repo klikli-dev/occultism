@@ -33,12 +33,11 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DirectoryCache;
 import net.minecraft.data.IDataProvider;
 import net.minecraft.data.LootTableProvider;
-import net.minecraft.data.loot.BlockLootTables;
+import net.minecraft.entity.EntityType;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.storage.loot.*;
-import net.minecraft.world.storage.loot.conditions.SurvivesExplosion;
-import net.minecraft.world.storage.loot.functions.CopyName;
-import net.minecraft.world.storage.loot.functions.CopyNbt;
+import net.minecraft.world.storage.loot.LootParameterSets;
+import net.minecraft.world.storage.loot.LootTable;
+import net.minecraft.world.storage.loot.LootTableManager;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -51,17 +50,16 @@ public abstract class BaseLootTableProvider extends LootTableProvider {
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
 
     // Filled by subclasses
-    protected final Map<Block, LootTable.Builder> lootTables = new HashMap<>();
+    protected final Map<Block, LootTable.Builder> blockLootTable = new HashMap<>();
+    protected final Map<EntityType<?>, LootTable.Builder> entityLootTable = new HashMap<>();
 
     private final DataGenerator generator;
-    protected final BlockLootTables blockLootTables;
     //endregion Fields
 
     //region Initialization
     public BaseLootTableProvider(DataGenerator dataGeneratorIn) {
         super(dataGeneratorIn);
         this.generator = dataGeneratorIn;
-        this.blockLootTables = new BlockLootTables();
     }
     //endregion Initialization
 
@@ -69,13 +67,17 @@ public abstract class BaseLootTableProvider extends LootTableProvider {
     @Override
     // Entry point
     public void act(DirectoryCache cache) {
-        addTables();
+        this.addTables();
         Map<ResourceLocation, LootTable> tables = new HashMap<>();
-        for (Map.Entry<Block, LootTable.Builder> entry : lootTables.entrySet()) {
+        for (Map.Entry<Block, LootTable.Builder> entry : this.blockLootTable.entrySet()) {
             tables.put(entry.getKey().getLootTable(),
                     entry.getValue().setParameterSet(LootParameterSets.BLOCK).build());
         }
-        writeTables(cache, tables);
+        for (Map.Entry<EntityType<?>, LootTable.Builder> entry : this.entityLootTable.entrySet()) {
+            tables.put(entry.getKey().getLootTable(),
+                    entry.getValue().setParameterSet(LootParameterSets.ENTITY).build());
+        }
+        this.writeTables(cache, tables);
     }
 
     @Override
