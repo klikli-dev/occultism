@@ -31,4 +31,9 @@ public class PossessedEndermiteEntity extends EndermiteEntity {
                                     World worldIn) {
         super(type, worldIn);
     }
+
+    @Override
+    protected boolean isDespawnPeaceful() {
+        return false;
+    }
 }
