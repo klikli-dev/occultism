@@ -40,6 +40,7 @@ import com.github.klikli_dev.occultism.registry.*;
 import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
+import net.minecraft.client.renderer.entity.EndermiteRenderer;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.obj.OBJLoader;
@@ -113,7 +114,6 @@ public class Occultism {
         OccultismPackets.registerMessages();
 
         WorldGenHandler.setupOreGeneration();
-        //TODO: re enable grove generation after reworking it to fit new generation
         WorldGenHandler.setupUndergroundGroveGeneration();
 
         OccultismAPI.commonSetup();
@@ -140,6 +140,7 @@ public class Occultism {
 
         //Register Entity Renderers
         RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.FOLIOT.get(), FoliotRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.POSSESSED_ENDERMITE_TYPE.get(), EndermiteRenderer::new);
 
         //Register Tile Entity Renderers
         ClientRegistry.bindTileEntityRenderer(OccultismTiles.STORAGE_CONTROLLER.get(), StorageControllerRenderer::new);

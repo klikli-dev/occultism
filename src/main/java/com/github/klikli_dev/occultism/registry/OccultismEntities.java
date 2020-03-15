@@ -23,17 +23,14 @@
 package com.github.klikli_dev.occultism.registry;
 
 import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.common.entity.possessed.PossessedEndermiteEntity;
 import com.github.klikli_dev.occultism.common.entity.spirit.FoliotEntity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.util.NonNullLazy;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static com.github.klikli_dev.occultism.util.StaticUtil.modLoc;
 
@@ -43,10 +40,18 @@ public class OccultismEntities {
             Occultism.MODID);
 
     //TODO: remove once spawn eggs take a supplier.
-    public static final NonNullLazy<EntityType<FoliotEntity>> FOLIOT_TYPE = NonNullLazy.of( () -> EntityType.Builder.create(FoliotEntity::new, EntityClassification.CREATURE).size(0.6f, 0.9f)
-                                                                                                          .build(modLoc("foliot").toString()));
+    public static final NonNullLazy<EntityType<FoliotEntity>> FOLIOT_TYPE =
+            NonNullLazy.of(() -> EntityType.Builder.create(FoliotEntity::new, EntityClassification.CREATURE)
+                                         .size(0.6f, 0.9f)
+                                         .build(modLoc("foliot").toString()));
+    public static final NonNullLazy<EntityType<PossessedEndermiteEntity>> POSSESSED_ENDERMITE_TYPE =
+            NonNullLazy.of(() -> EntityType.Builder.create(PossessedEndermiteEntity::new, EntityClassification.MONSTER)
+                                         .size(0.4F, 0.3F)
+                                         .build(modLoc("possessed_endermite").toString()));
 
     public static final RegistryObject<EntityType<FoliotEntity>> FOLIOT = ENTITIES.register("foliot", FOLIOT_TYPE::get);
+    public static final RegistryObject<EntityType<PossessedEndermiteEntity>> POSSESSED_ENDERMITE =
+            ENTITIES.register("possessed_endermite", POSSESSED_ENDERMITE_TYPE::get);
 
 
     //endregion Fields
