@@ -73,6 +73,8 @@ public class SummonFoliotOtherstoneTraderRitual extends SummonSpiritRitual {
         TraderJob exchange = (TraderJob) OccultismSpiritJobs.TRADE_OTHERSTONE.get().create(spirit);
         exchange.setTradeRecipeId(new ResourceLocation(Occultism.MODID, "spirit_trade/4x_stone_to_otherstone"));
         exchange.init();
+        exchange.setTimeToConvert(15);
+        exchange.setMaxTradesPerRound(4);
         spirit.setJob(exchange);
         spirit.setSpiritMaxAge(60);
 

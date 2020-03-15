@@ -47,7 +47,7 @@ public class TraderJob extends SpiritJob {
      * The current ticks in the conversion, will convert once it reaches timeToConvert
      */
     protected int conversionTimer;
-    protected int timeToConvert = 5;
+    protected int timeToConvert = 20;
 
     protected PickupItemsGoal pickupItemsGoal;
 
