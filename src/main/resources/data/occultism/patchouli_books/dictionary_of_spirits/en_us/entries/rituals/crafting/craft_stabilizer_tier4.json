@@ -1,0 +1,20 @@
+{
+  "name": "Storage Stabilizer Tier 4",
+  "icon": "occultism:storage_stabilizer_tier4",
+  "category": "rituals/crafting",
+  "sortnum": 5,
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "occultism:storage_stabilizer_tier4",
+      "text": "This highly advanced stabilizer is inhabited by a $(thing)Marid$() that supports the dimensional matrix in keeping the storage dimension stable, thus allowing to store even more items."
+    },
+    {
+      "type": "summoning",
+      "heading": "Infusion",
+      "pentacle": "$(l:pentacles/craft_marid)Uphyxes Inverted Tower $(/l)",
+      "activation_item": "occultism:book_of_binding_bound_marid",
+      "ingredients": "$(li)1x $(item)Otherstone Pedestal $()$(li)1x $(item)Platinum Block $()$(li)1x $(item)Dragon Egg $() $(li)2x $(item)Spirit Infused Crystal $()"
+    }
+  ]
+}
