@@ -42,15 +42,17 @@ import net.minecraft.world.World;
 public class StableWormholeContainer extends StorageControllerContainerBase {
     //region Fields
     protected StorageControllerTileEntity storageController;
+    protected StableWormholeTileEntity stableWormhole;
     //endregion Fields
 
     //region Initialization
     public StableWormholeContainer(int id, PlayerInventory playerInventory,
                                    StableWormholeTileEntity stableWormhole) {
         super(OccultismContainers.STABLE_WORMHOLE.get(), id, playerInventory);
+        this.stableWormhole = stableWormhole;
         this.storageController = (StorageControllerTileEntity) stableWormhole.getLinkedStorageController();
-        this.matrix = new StorageControllerCraftingInventory(this, storageController.getMatrix());
-        this.orderInventory.setInventorySlotContents(0, storageController.getOrderStack());
+        this.matrix = new StorageControllerCraftingInventory(this, this.storageController.getMatrix());
+        this.orderInventory.setInventorySlotContents(0, this.storageController.getOrderStack());
 
         this.setupCraftingOutput(); //output is slot 0
 
@@ -114,18 +116,18 @@ public class StableWormholeContainer extends StorageControllerContainerBase {
 
     @Override
     public boolean canInteractWith(PlayerEntity player) {
-        if (this.storageController == null)
+        if (this.storageController == null || this.stableWormhole == null)
             return false;
-        World world = this.storageController.getWorld();
+        World world = this.stableWormhole.getWorld();
         //send stack updates on a slow tick while interacting
         if (!world.isRemote && world.getGameTime() % 40 == 0) {
             OccultismPackets.sendTo((ServerPlayerEntity) player, this.storageController.getMessageUpdateStacks());
             OccultismPackets.sendTo((ServerPlayerEntity) player,
                     new MessageUpdateLinkedMachines(this.storageController.getLinkedMachines()));
         }
-        BlockPos controllerPosition = this.storageController.getPos();
-        return player.getDistanceSq(controllerPosition.getX() + 0.5D, controllerPosition.getY() + 0.5D,
-                controllerPosition.getZ() + 0.5D) <= 64.0D;
+        BlockPos wormholePosition = this.stableWormhole.getPos();
+        return player.getDistanceSq(wormholePosition.getX() + 0.5D, wormholePosition.getY() + 0.5D,
+                wormholePosition.getZ() + 0.5D) <= 64.0D;
     }
     //endregion Overrides
 }
