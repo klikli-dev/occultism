@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "Cw ",
+    "wbw",
+    " w "
+  ],
+  "key": {
+    "w": {
+      "tag": "forge:dyes/white"
+    },
+    "b": {
+      "item": "minecraft:writable_book"
+    },
+    "c": {
+      "item": "occultism:chalk_white"
+    }
+  },
+  "result": {
+    "item": "occultism:book_of_binding_foliot"
+  }
+}

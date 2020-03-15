@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "co ",
+    "pbp",
+    " o "
+  ],
+  "key": {
+    "p": {
+      "tag": "forge:dyes/purple"
+    },
+    "o": {
+      "tag": "forge:dyes/orange"
+    },
+    "b": {
+      "item": "minecraft:writable_book"
+    },
+    "c": {
+      "item": "occultism:chalk_red"
+    }
+  },
+  "result": {
+    "item": "occultism:book_of_binding_afrit"
+  }
+}
