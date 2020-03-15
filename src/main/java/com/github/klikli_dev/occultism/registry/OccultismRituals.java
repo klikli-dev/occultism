@@ -72,5 +72,9 @@ public class OccultismRituals {
             RITUALS.register("craft_stable_wormhole", CraftStableWormholeRitual::new);
     public static final RegistryObject<CraftStorageRemoteRitual> CRAFT_STORAGE_REMOTE_RITUAL =
             RITUALS.register("craft_storage_remote", CraftStorageRemoteRitual::new);
+    public static final RegistryObject<CraftStabilizerTier1Ritual> CRAFT_STABILIZER_TIER1 =
+            RITUALS.register("craft_stabilizer_tier1", CraftStabilizerTier1Ritual::new);
+    public static final RegistryObject<CraftStabilizerTier2Ritual> CRAFT_STABILIZER_TIER2 =
+            RITUALS.register("craft_stabilizer_tier2", CraftStabilizerTier2Ritual::new);
     //endregion Fields
 }
