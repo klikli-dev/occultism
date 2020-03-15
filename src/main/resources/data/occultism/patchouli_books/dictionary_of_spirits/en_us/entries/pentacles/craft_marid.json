@@ -1,0 +1,16 @@
+{
+  "name": "Uphyxes Inverted Tower",
+  "icon": "occultism:textures/gui/book/pentagram_rose.png",
+  "category": "pentacles",
+  "sortnum": 40,
+  "pages": [
+    {
+      "type": "text",
+      "text": "$(thing)Uphyxes Inverted Tower$() is one of the few pentacles capable of binding $(thing)Marid$() into objects. Any rituals involving $(thing)Marid$() should be performed only by the most experienced summoners. "
+    },
+    {
+      "type": "multiblock",
+      "multiblock_id": "occultism:pentacle.craft_marid"
+    }
+  ]
+}
