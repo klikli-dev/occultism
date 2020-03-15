@@ -52,7 +52,7 @@ public class StableWormholeTileEntity extends NetworkedTileEntity implements ISt
 
     //region Initialization
     public StableWormholeTileEntity() {
-        super(OccultismTiles.STORAGE_CONTROLLER.get());
+        super(OccultismTiles.STABLE_WORMHOLE.get());
     }
     //endregion Initialization
 
