@@ -131,15 +131,18 @@ public class GoldenSacrificialBowlBlock extends Block {
     public void livingDeath(LivingDeathEvent event) {
         LivingEntity entityLivingBase = event.getEntityLiving();
         if (!entityLivingBase.world.isRemote) {
-            BlockPos pos = entityLivingBase.getPosition();
-            int range = Ritual.SACRIFICE_DETECTION_RANGE;
-            for (BlockPos positionToCheck : BlockPos.getAllInBoxMutable(pos.add(-range, -range, -range),
-                    pos.add(range, range, range))) {
-                TileEntity tileEntity = entityLivingBase.world.getTileEntity(positionToCheck);
-                if (tileEntity instanceof GoldenSacrificialBowlTileEntity) {
-                    GoldenSacrificialBowlTileEntity bowl = (GoldenSacrificialBowlTileEntity) tileEntity;
-                    if (bowl.currentRitual != null && bowl.currentRitual.isValidSacrifice(entityLivingBase)) {
-                        bowl.notifySacrifice(entityLivingBase);
+            //Limit to player kills
+            if(event.getSource().getTrueSource() instanceof PlayerEntity){
+                BlockPos pos = entityLivingBase.getPosition();
+                int range = Ritual.SACRIFICE_DETECTION_RANGE;
+                for (BlockPos positionToCheck : BlockPos.getAllInBoxMutable(pos.add(-range, -range, -range),
+                        pos.add(range, range, range))) {
+                    TileEntity tileEntity = entityLivingBase.world.getTileEntity(positionToCheck);
+                    if (tileEntity instanceof GoldenSacrificialBowlTileEntity) {
+                        GoldenSacrificialBowlTileEntity bowl = (GoldenSacrificialBowlTileEntity) tileEntity;
+                        if (bowl.currentRitual != null && bowl.currentRitual.isValidSacrifice(entityLivingBase)) {
+                            bowl.notifySacrifice(entityLivingBase);
+                        }
                     }
                 }
             }

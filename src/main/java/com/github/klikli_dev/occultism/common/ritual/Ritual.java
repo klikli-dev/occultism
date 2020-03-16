@@ -66,7 +66,7 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
     /**
      * The default range to listen for sacrifices.
      */
-    public static final int SACRIFICE_DETECTION_RANGE = 3;
+    public static final int SACRIFICE_DETECTION_RANGE = 8;
 
     /**
      * The default range to listen for sacrifices.
