@@ -32,4 +32,4 @@ jobs:
     - name: Setup Gradle
       run: chmod +x gradlew
     - name: Gradle Build
-      run: ./gradlew build
+      run: ./gradlew build --no-daemon
