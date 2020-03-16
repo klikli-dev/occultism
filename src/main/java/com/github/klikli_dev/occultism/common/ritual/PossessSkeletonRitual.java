@@ -23,6 +23,7 @@
 package com.github.klikli_dev.occultism.common.ritual;
 
 import com.github.klikli_dev.occultism.common.entity.possessed.PossessedEndermiteEntity;
+import com.github.klikli_dev.occultism.common.entity.possessed.PossessedSkeletonEntity;
 import com.github.klikli_dev.occultism.common.tile.GoldenSacrificialBowlTileEntity;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
@@ -34,20 +35,25 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.particles.ParticleTypes;
+import net.minecraft.tags.EntityTypeTags;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
-public class PossessEndermiteRitual extends SummonSpiritRitual {
+public class PossessSkeletonRitual extends SummonSpiritRitual {
 
     //region Initialization
-    public PossessEndermiteRitual() {
+    public PossessSkeletonRitual() {
         super(null,
                 OccultismRituals.POSSESS_FOLIOT_PENTACLE.get(),
                 Ingredient.fromItems(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()),
-                "possess_endermite", 30);
-        this.itemUsePredicate = (event) -> event.getItemStack().getItem() == Items.EGG;
+                "possess_skeleton", 30);
+        this.sacrificePredicate = (entity) -> {
+            ResourceLocation chickenTag = new ResourceLocation("forge", "chicken");
+            return EntityTypeTags.getCollection().getOrCreate(chickenTag).contains(entity.getType());
+        };
     }
     //endregion Initialization
 
@@ -65,15 +71,15 @@ public class PossessEndermiteRitual extends SummonSpiritRitual {
                 goldenBowlPosition.getY() + 0.5, goldenBowlPosition.getZ() + 0.5, 1, 0, 0, 0, 0);
 
         //set up the foliot entity
-        PossessedEndermiteEntity endermite = OccultismEntities.POSSESSED_ENDERMITE.get().create(world);
-        endermite.onInitialSpawn(world, world.getDifficultyForLocation(goldenBowlPosition), SpawnReason.MOB_SUMMONED, null,
+        PossessedSkeletonEntity skeleton = OccultismEntities.POSSESSED_SKELETON_TYPE.get().create(world);
+        skeleton.onInitialSpawn(world, world.getDifficultyForLocation(goldenBowlPosition), SpawnReason.MOB_SUMMONED, null,
                 null);
-        endermite.setPositionAndRotation(goldenBowlPosition.getX(), goldenBowlPosition.getY(), goldenBowlPosition.getZ(),
+        skeleton.setPositionAndRotation(goldenBowlPosition.getX(), goldenBowlPosition.getY(), goldenBowlPosition.getZ(),
                 world.rand.nextInt(360), 0);
-       endermite.setCustomName(new StringTextComponent(entityName));
+       skeleton.setCustomName(new StringTextComponent(entityName));
 
         //notify players nearby and spawn
-        this.spawnEntity(endermite, world);
+        this.spawnEntity(skeleton, world);
     }
     //endregion Overrides
 }

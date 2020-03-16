@@ -64,28 +64,52 @@ public class StandardLootTableProvider extends BaseLootTableProvider {
     }
     //endregion Overrides
 
-    private class InternalEntityLootTable extends EntityLootTables{
+    private class InternalEntityLootTable extends EntityLootTables {
+//region Overrides
         @Override
         protected void addTables() {
+            //Guaranteed end stone drop for endermite
             this.registerLootTable(OccultismEntities.POSSESSED_ENDERMITE_TYPE.get(),
                     LootTable.builder().addLootPool(
                             LootPool.builder().rolls(ConstantRange.of(1))
                                     .addEntry(ItemLootEntry.builder(Items.END_STONE)
                                                       .acceptFunction(SetCount.builder(RandomValueRange.of(1.0f, 2.0F)))
-                                                      .acceptFunction(LootingEnchantBonus.builder(RandomValueRange.of(0.0F, 1.0F))))));
+                                                      .acceptFunction(LootingEnchantBonus.builder(
+                                                              RandomValueRange.of(0.0F, 1.0F))))));
 
+            //Guaranteed ender pearl drop for enderman
             this.registerLootTable(OccultismEntities.POSSESSED_ENDERMAN_TYPE.get(),
                     LootTable.builder().addLootPool(
                             LootPool.builder().rolls(ConstantRange.of(1))
                                     .addEntry(ItemLootEntry.builder(Items.ENDER_PEARL)
                                                       .acceptFunction(SetCount.builder(RandomValueRange.of(1.0f, 3.0F)))
-                                                      .acceptFunction(LootingEnchantBonus.builder(RandomValueRange.of(0.0F, 1.0F))))));
+                                                      .acceptFunction(LootingEnchantBonus.builder(
+                                                              RandomValueRange.of(0.0F, 1.0F))))));
+
+            //Guaranteed skeleton skull drop for skeleton
+            this.registerLootTable(OccultismEntities.POSSESSED_SKELETON_TYPE.get(),
+                    LootTable.builder()
+                            .addLootPool(LootPool.builder().rolls(ConstantRange.of(1)).addEntry(
+                                    ItemLootEntry.builder(Items.ARROW)
+                                    .acceptFunction(SetCount.builder(RandomValueRange.of(0.0F, 2.0F)))
+                                    .acceptFunction(LootingEnchantBonus.builder(RandomValueRange.of(0.0F, 1.0F)))))
+                            .addLootPool(LootPool.builder().rolls(ConstantRange.of(1)).addEntry(
+                                    ItemLootEntry.builder(Items.SKELETON_SKULL)
+                                            .acceptFunction(SetCount.builder(RandomValueRange.of(1.0F, 1.0F)))
+                                            .acceptFunction(LootingEnchantBonus.builder(RandomValueRange.of(0.0F, 1.0F)))))
+                            .addLootPool(LootPool.builder().rolls(ConstantRange.of(1)).addEntry(
+                                    ItemLootEntry.builder(Items.BONE)
+                                            .acceptFunction(SetCount.builder(RandomValueRange.of(0.0F, 2.0F)))
+                                            .acceptFunction(
+                                                    LootingEnchantBonus.builder(RandomValueRange.of(0.0F, 1.0F))))));
+
         }
 
         @Override
         protected void registerLootTable(EntityType<?> type, LootTable.Builder table) {
             StandardLootTableProvider.this.entityLootTable.put(type, table);
         }
+//endregion Overrides
     }
 
     private class InternalBlockLootTable extends StandardBlockLootTables {
@@ -117,7 +141,8 @@ public class StandardLootTableProvider extends BaseLootTableProvider {
                     });
 
             this.registerLootTable(OccultismBlocks.OTHERWORLD_LEAVES.get(),
-                    (block) -> droppingWithChancesAndSticks(block, OccultismBlocks.OTHERWORLD_SAPLING.get(), DEFAULT_SAPLING_DROP_RATES));
+                    (block) -> droppingWithChancesAndSticks(block, OccultismBlocks.OTHERWORLD_SAPLING.get(),
+                            DEFAULT_SAPLING_DROP_RATES));
         }
 
         @Override
@@ -126,7 +151,7 @@ public class StandardLootTableProvider extends BaseLootTableProvider {
         }
         //endregion Overrides
 
-//region Methods
+        //region Methods
         protected void registerOtherworldBlockTable(Block block) {
             if (block instanceof IOtherworldBlock)
                 this.registerLootTable(block, this.createOtherworldBlockTable(block));
@@ -142,7 +167,9 @@ public class StandardLootTableProvider extends BaseLootTableProvider {
         protected void registerOtherworldLeavesTable(Block block, Block coveredSapling,
                                                      Block uncoveredSapling, float... chances) {
             if (block instanceof IOtherworldBlock)
-                this.registerLootTable(block, this.otherWorldLeavesDroppingWithChancesAndSticks(block, coveredSapling, uncoveredSapling, chances));
+                this.registerLootTable(block,
+                        this.otherWorldLeavesDroppingWithChancesAndSticks(block, coveredSapling, uncoveredSapling,
+                                chances));
             else
                 Occultism.LOGGER.warn("Tried to register otherworld leaves loot table for non-otherworld block {}",
                         block.getRegistryName());
@@ -181,9 +208,9 @@ public class StandardLootTableProvider extends BaseLootTableProvider {
             return this.droppingAlternativeWithChancesAndSticks(forBlock,
                     //Leaves entry
                     ItemLootEntry.builder(otherworldBlock.getUncoveredBlock())
-                                                                             .acceptCondition(uncoveredCondition)
-                                                                             .alternatively(ItemLootEntry.builder(
-                                                                                     otherworldBlock.getCoveredBlock())),
+                            .acceptCondition(uncoveredCondition)
+                            .alternatively(ItemLootEntry.builder(
+                                    otherworldBlock.getCoveredBlock())),
                     //Sapling entry
                     ItemLootEntry.builder(uncoveredSapling)
                             .acceptCondition(uncoveredCondition)
@@ -220,6 +247,6 @@ public class StandardLootTableProvider extends BaseLootTableProvider {
                                                            .addEntry((mainDropEntry.acceptCondition(condition))
                                                                              .alternatively(alternativeDropEntry)));
         }
-//endregion Methods
+        //endregion Methods
     }
 }

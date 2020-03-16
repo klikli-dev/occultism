@@ -25,6 +25,7 @@ package com.github.klikli_dev.occultism.registry;
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.entity.possessed.PossessedEndermanEntity;
 import com.github.klikli_dev.occultism.common.entity.possessed.PossessedEndermiteEntity;
+import com.github.klikli_dev.occultism.common.entity.possessed.PossessedSkeletonEntity;
 import com.github.klikli_dev.occultism.common.entity.spirit.FoliotEntity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
@@ -45,20 +46,27 @@ public class OccultismEntities {
             NonNullLazy.of(() -> EntityType.Builder.create(FoliotEntity::new, EntityClassification.CREATURE)
                                          .size(0.6f, 0.9f)
                                          .build(modLoc("foliot").toString()));
+
     public static final NonNullLazy<EntityType<PossessedEndermiteEntity>> POSSESSED_ENDERMITE_TYPE =
             NonNullLazy.of(() -> EntityType.Builder.create(PossessedEndermiteEntity::new, EntityClassification.MONSTER)
                                          .size(0.4F, 0.3F)
                                          .build(modLoc("possessed_endermite").toString()));
+    public static final NonNullLazy<EntityType<PossessedSkeletonEntity>> POSSESSED_SKELETON_TYPE =
+            NonNullLazy.of(() -> EntityType.Builder.create(PossessedSkeletonEntity::new, EntityClassification.MONSTER)
+                                         .size(0.6F, 1.99F)
+                                         .build(modLoc("possessed_skeleton").toString()));
     public static final NonNullLazy<EntityType<PossessedEndermanEntity>> POSSESSED_ENDERMAN_TYPE =
             NonNullLazy.of(() -> EntityType.Builder.create(PossessedEndermanEntity::new, EntityClassification.MONSTER)
                                          .size(0.6F, 2.9F)
                                          .build(modLoc("possessed_endermite").toString()));
 
+
     public static final RegistryObject<EntityType<FoliotEntity>> FOLIOT = ENTITIES.register("foliot", FOLIOT_TYPE::get);
 
     public static final RegistryObject<EntityType<PossessedEndermiteEntity>> POSSESSED_ENDERMITE =
             ENTITIES.register("possessed_endermite", POSSESSED_ENDERMITE_TYPE::get);
-
+    public static final RegistryObject<EntityType<PossessedSkeletonEntity>> POSSESSED_SKELETON =
+            ENTITIES.register("possessed_skeleton", POSSESSED_SKELETON_TYPE::get);
     public static final RegistryObject<EntityType<PossessedEndermanEntity>> POSSESSED_ENDERMAN =
             ENTITIES.register("possessed_enderman", POSSESSED_ENDERMAN_TYPE::get);
     //endregion Fields
