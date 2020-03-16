@@ -2,7 +2,7 @@
   "name": "Possessed Endermite",
   "icon": "minecraft:end_stone",
   "category": "rituals/possession",
-  "sortnum": 0,
+  "sortnum": 1,
   "pages": [
     {
       "type": "entity",

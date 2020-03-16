@@ -73,6 +73,13 @@ public class StandardLootTableProvider extends BaseLootTableProvider {
                                     .addEntry(ItemLootEntry.builder(Items.END_STONE)
                                                       .acceptFunction(SetCount.builder(RandomValueRange.of(1.0f, 2.0F)))
                                                       .acceptFunction(LootingEnchantBonus.builder(RandomValueRange.of(0.0F, 1.0F))))));
+
+            this.registerLootTable(OccultismEntities.POSSESSED_ENDERMAN_TYPE.get(),
+                    LootTable.builder().addLootPool(
+                            LootPool.builder().rolls(ConstantRange.of(1))
+                                    .addEntry(ItemLootEntry.builder(Items.ENDER_PEARL)
+                                                      .acceptFunction(SetCount.builder(RandomValueRange.of(1.0f, 3.0F)))
+                                                      .acceptFunction(LootingEnchantBonus.builder(RandomValueRange.of(0.0F, 1.0F))))));
         }
 
         @Override
