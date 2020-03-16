@@ -53,28 +53,15 @@ public class SummonSpiritRitual extends Ritual {
     }
 
     public SummonSpiritRitual(Item bookOfCalling, Pentacle pentacle, Ingredient startingItem,
-                              String additionalIngredientsRecipeName, int totalTime) {
+                              String additionalIngredientsRecipeName,
+                              int totalTime) {
         super(pentacle, startingItem, additionalIngredientsRecipeName, totalTime);
         this.bookOfCalling = bookOfCalling;
     }
 
     public SummonSpiritRitual(Item bookOfCalling, Pentacle pentacle, Ingredient startingItem,
-                              Predicate<LivingEntity> sacrificePredicate, int totalTime) {
-        super(pentacle, startingItem, sacrificePredicate, totalTime);
-        this.bookOfCalling = bookOfCalling;
-    }
-
-    public SummonSpiritRitual(Item bookOfCalling, Pentacle pentacle, Ingredient startingItem,
-                              String additionalIngredientsRecipeName, Predicate<LivingEntity> sacrificePredicate,
-                              int totalTime) {
-        super(pentacle, startingItem, additionalIngredientsRecipeName, sacrificePredicate, totalTime);
-        this.bookOfCalling = bookOfCalling;
-    }
-
-    public SummonSpiritRitual(Item bookOfCalling, Pentacle pentacle, Ingredient startingItem,
-                              String additionalIngredientsRecipeName, int sacrificialBowlRange,
-                              Predicate<LivingEntity> sacrificePredicate, int totalTime) {
-        super(pentacle, startingItem, additionalIngredientsRecipeName, sacrificialBowlRange, sacrificePredicate,
+                              String additionalIngredientsRecipeName, int sacrificialBowlRange, int totalTime) {
+        super(pentacle, startingItem, additionalIngredientsRecipeName, sacrificialBowlRange,
                 totalTime);
         this.bookOfCalling = bookOfCalling;
     }

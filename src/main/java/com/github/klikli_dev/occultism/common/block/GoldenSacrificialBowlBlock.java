@@ -43,6 +43,7 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 import javax.annotation.Nullable;
@@ -108,6 +109,25 @@ public class GoldenSacrificialBowlBlock extends Block {
 
     //region Methods
     @SubscribeEvent
+    public void onPlayerRightClickItem(PlayerInteractEvent.RightClickItem event) {
+        PlayerEntity player = event.getPlayer();
+        if (!player.world.isRemote) {
+            BlockPos pos = player.getPosition();
+            int range = Ritual.ITEM_USE_DETECTION_RANGE;
+            for (BlockPos positionToCheck : BlockPos.getAllInBoxMutable(pos.add(-range, -range, -range),
+                    pos.add(range, range, range))) {
+                TileEntity tileEntity = player.world.getTileEntity(positionToCheck);
+                if (tileEntity instanceof GoldenSacrificialBowlTileEntity) {
+                    GoldenSacrificialBowlTileEntity bowl = (GoldenSacrificialBowlTileEntity) tileEntity;
+                    if (bowl.currentRitual != null && bowl.currentRitual.isValidItemUse(event)) {
+                        bowl.notifyItemUse(event);
+                    }
+                }
+            }
+        }
+    }
+
+    @SubscribeEvent
     public void livingDeath(LivingDeathEvent event) {
         LivingEntity entityLivingBase = event.getEntityLiving();
         if (!entityLivingBase.world.isRemote) {
@@ -117,9 +137,7 @@ public class GoldenSacrificialBowlBlock extends Block {
                     pos.add(range, range, range))) {
                 TileEntity tileEntity = entityLivingBase.world.getTileEntity(positionToCheck);
                 if (tileEntity instanceof GoldenSacrificialBowlTileEntity) {
-                    GoldenSacrificialBowlTileEntity bowl = (GoldenSacrificialBowlTileEntity) entityLivingBase.world
-                                                                                                     .getTileEntity(
-                                                                                                             positionToCheck);
+                    GoldenSacrificialBowlTileEntity bowl = (GoldenSacrificialBowlTileEntity) tileEntity;
                     if (bowl.currentRitual != null && bowl.currentRitual.isValidSacrifice(entityLivingBase)) {
                         bowl.notifySacrifice(entityLivingBase);
                     }

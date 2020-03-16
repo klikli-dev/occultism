@@ -45,6 +45,7 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import java.util.ArrayList;
@@ -67,6 +68,10 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
      */
     public static final int SACRIFICE_DETECTION_RANGE = 3;
 
+    /**
+     * The default range to listen for sacrifices.
+     */
+    public static final int ITEM_USE_DETECTION_RANGE = 16;
 
     /**
      * The pentacle required to perform this ritual.
@@ -86,6 +91,10 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
      * The predicate to check sacrifices against.
      */
     public Predicate<LivingEntity> sacrificePredicate;
+    /**
+     * The predicate to check sacrifices against.
+     */
+    public Predicate<PlayerInteractEvent.RightClickItem> itemUsePredicate;
     /**
      * The range to look for sacrificial bowls for additional ingredients.
      */
@@ -141,35 +150,7 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
      */
     public Ritual(Pentacle pentacle, Ingredient startingItem, String additionalIngredientsRecipeName,
                   int totalSeconds) {
-        this(pentacle, startingItem, additionalIngredientsRecipeName, null, totalSeconds);
-    }
-
-    /**
-     * Constructs a ritual.
-     *
-     * @param pentacle           the pentacle for the ritual.
-     * @param startingItem       the item required to start the ritual.
-     * @param sacrificePredicate the predicate to match valid sacrifices.
-     * @param totalSeconds       the total time it takes to finish the ritual.
-     */
-    public Ritual(Pentacle pentacle, Ingredient startingItem,
-                  Predicate<LivingEntity> sacrificePredicate, int totalSeconds) {
-        this(pentacle, startingItem, null, sacrificePredicate, totalSeconds);
-    }
-
-    /**
-     * Constructs a ritual.
-     *
-     * @param pentacle                        the pentacle for the ritual.
-     * @param startingItem                    the item required to start the ritual.
-     * @param additionalIngredientsRecipeName the name of the additional ingredients recipe id. Will be prefixed with MODID:ritual_ingredients/
-     * @param sacrificePredicate              the predicate to match valid sacrifices.
-     * @param totalSeconds                    the total time it takes to finish the ritual.
-     */
-    public Ritual(Pentacle pentacle, Ingredient startingItem, String additionalIngredientsRecipeName,
-                  Predicate<LivingEntity> sacrificePredicate, int totalSeconds) {
-        this(pentacle, startingItem, additionalIngredientsRecipeName, SACRIFICIAL_BOWL_RANGE, sacrificePredicate,
-                totalSeconds);
+        this(pentacle, startingItem, additionalIngredientsRecipeName, SACRIFICIAL_BOWL_RANGE, totalSeconds);
     }
 
     /**
@@ -179,11 +160,10 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
      * @param startingItem                    the item required to start the ritual.
      * @param additionalIngredientsRecipeName the name of the additional ingredients recipe id. Will be prefixed with MODID:ritual_ingredients/
      * @param sacrificialBowlRange            the range to look for sacrificial bowls for additional ingredients.
-     * @param sacrificePredicate              the predicate to match valid sacrifices.
      * @param totalSeconds                    the total time it takes to finish the ritual.
      */
     public Ritual(Pentacle pentacle, Ingredient startingItem, String additionalIngredientsRecipeName,
-                  int sacrificialBowlRange, Predicate<LivingEntity> sacrificePredicate, int totalSeconds) {
+                  int sacrificialBowlRange, int totalSeconds) {
         this.pentacle = pentacle;
         this.startingItem = startingItem;
         if (additionalIngredientsRecipeName != null)
@@ -191,7 +171,6 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
                     "ritual_ingredients/" + additionalIngredientsRecipeName);
         this.additionalIngredients = new ArrayList<>();
         this.sacrificialBowlRange = sacrificialBowlRange;
-        this.sacrificePredicate = sacrificePredicate;
         this.totalSeconds = totalSeconds;
         this.timePerIngredient = this.totalSeconds;
     }
@@ -229,6 +208,7 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
     //endregion Getter / Setter
 
     //region Methods
+
     /**
      * The additional ingredients required to finish the ritual.
      * These ingredients need to be placed within the ritual area.
@@ -586,12 +566,34 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
     }
 
     /**
+     * Checks if the given item use event is valid for this ritual.
+     *
+     * @param event the event to check.
+     * @return true if the event represents a valid item use.
+     */
+    public boolean isValidItemUse(PlayerInteractEvent.RightClickItem event) {
+        if (this.itemUsePredicate == null)
+            return false;
+
+        return this.itemUsePredicate.test(event);
+    }
+
+    /**
      * Gets whether this ritual needs a sacrifice to progress.
      *
      * @return true if a sacrifice is required.
      */
     public boolean requiresSacrifice() {
         return this.sacrificePredicate != null;
+    }
+
+    /**
+     * Gets whether this ritual needs an item use to progress.
+     *
+     * @return true if an item use is required.
+     */
+    public boolean requiresItemUse() {
+        return this.itemUsePredicate != null;
     }
     //endregion Methods
 }
