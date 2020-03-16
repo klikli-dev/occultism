@@ -1,0 +1,11 @@
+{
+  "type": "occultism:crushing",
+  "ingredient": {
+    "tag": "forge:end_stones"
+  },
+  "result": {
+    "item": "occultism:crushed_end_stone",
+    "count": 2
+  },
+  "crushing_time": 200
+}
