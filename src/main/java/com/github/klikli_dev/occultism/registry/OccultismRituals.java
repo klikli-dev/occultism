@@ -93,7 +93,7 @@ public class OccultismRituals {
     public static final RegistryObject<PossessEndermiteRitual> POSSESS_ENDERMITE_RITUAL =
             RITUALS.register("possess_endermite", PossessEndermiteRitual::new);
     public static final RegistryObject<PossessSkeletonRitual> POSSESS_SKELETON_RITUAL =
-            RITUALS.register("possess_skeletone", PossessSkeletonRitual::new);
+            RITUALS.register("possess_skeleton", PossessSkeletonRitual::new);
     public static final RegistryObject<PossessEndermanRitual> POSSESS_ENDERMAN_RITUAL =
             RITUALS.register("possess_enderman", PossessEndermanRitual::new);
     //endregion Fields
