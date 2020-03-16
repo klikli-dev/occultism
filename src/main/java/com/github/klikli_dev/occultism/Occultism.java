@@ -40,6 +40,7 @@ import com.github.klikli_dev.occultism.registry.*;
 import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
+import net.minecraft.client.renderer.entity.EndermanRenderer;
 import net.minecraft.client.renderer.entity.EndermiteRenderer;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.util.ResourceLocation;
@@ -141,6 +142,7 @@ public class Occultism {
         //Register Entity Renderers
         RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.FOLIOT.get(), FoliotRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.POSSESSED_ENDERMITE_TYPE.get(), EndermiteRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.POSSESSED_ENDERMAN_TYPE.get(), EndermanRenderer::new);
 
         //Register Tile Entity Renderers
         ClientRegistry.bindTileEntityRenderer(OccultismTiles.STORAGE_CONTROLLER.get(), StorageControllerRenderer::new);
