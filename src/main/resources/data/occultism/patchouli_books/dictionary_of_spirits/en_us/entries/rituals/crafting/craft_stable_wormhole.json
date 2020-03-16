@@ -14,7 +14,7 @@
       "heading": "Infusion",
       "pentacle": "$(l:pentacles/craft_foliot)Eziveus' Spectral Compulsion$(/l)",
       "activation_item": "occultism:book_of_binding_bound_foliot",
-      "ingredients": "$(li)1x $(item)Wormhole Frame $()$(li)3x $(item)Netherquartz $()"
+      "ingredients": "$(li)1x $(item)Wormhole Frame $()$(li)1x $(item)Ender Pearl $()$(li)2x $(item)Netherquartz $()"
     }
   ]
 }
