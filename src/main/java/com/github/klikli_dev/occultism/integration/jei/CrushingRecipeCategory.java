@@ -23,6 +23,7 @@
 package com.github.klikli_dev.occultism.integration.jei;
 
 import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.crafting.recipe.CrushingRecipe;
 import com.github.klikli_dev.occultism.crafting.recipe.SpiritFireRecipe;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.github.klikli_dev.occultism.registry.OccultismRecipes;
@@ -33,40 +34,38 @@ import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
-public class SpiritFireRecipeCategory implements IRecipeCategory<SpiritFireRecipe> {
+public class CrushingRecipeCategory implements IRecipeCategory<CrushingRecipe> {
 
     //region Fields
     private final IDrawable background;
     private final String localizedName;
     private final IDrawable overlay;
-    private final IDrawable icon;
-    private final ItemStack renderStack = new ItemStack(OccultismItems.SPIRIT_FIRE.get());
     //endregion Fields
 
     //region Initialization
-    public SpiritFireRecipeCategory(IGuiHelper guiHelper) {
+    public CrushingRecipeCategory(IGuiHelper guiHelper) {
         this.background = guiHelper.createBlankDrawable(168, 46); //64
-        this.localizedName = I18n.format(Occultism.MODID + ".jei.spirit_fire");
+        this.localizedName = I18n.format(Occultism.MODID + ".jei.crushing");
         this.overlay = guiHelper.createDrawable(
-                new ResourceLocation(Occultism.MODID, "textures/gui/jei/spirit_fire.png"), 0, 0, 64, 46);
-        this.icon = guiHelper.createDrawableIngredient(this.renderStack);
-        this.renderStack.getOrCreateTag().putBoolean("RenderFull", true);
+                new ResourceLocation(Occultism.MODID, "textures/gui/jei/arrow.png"), 0, 0, 64, 46);
     }
     //endregion Initialization
 
     //region Overrides
     @Override
     public ResourceLocation getUid() {
-        return OccultismRecipes.SPIRIT_FIRE.getId();
+        return OccultismRecipes.CRUSHING.getId();
     }
 
     @Override
-    public Class<? extends SpiritFireRecipe> getRecipeClass() {
-        return SpiritFireRecipe.class;
+    public Class<? extends CrushingRecipe> getRecipeClass() {
+        return CrushingRecipe.class;
     }
 
     @Override
@@ -81,35 +80,36 @@ public class SpiritFireRecipeCategory implements IRecipeCategory<SpiritFireRecip
 
     @Override
     public IDrawable getIcon() {
-        return this.icon;
+        return null;
     }
 
     @Override
-    public void setIngredients(SpiritFireRecipe recipe, IIngredients ingredients) {
+    public void setIngredients(CrushingRecipe recipe, IIngredients ingredients) {
         ingredients.setInputIngredients(recipe.getIngredients());
         ingredients.setOutput(VanillaTypes.ITEM, recipe.getRecipeOutput());
     }
 
     @Override
-    public void setRecipe(IRecipeLayout recipeLayout, SpiritFireRecipe recipe, IIngredients ingredients) {
+    public void setRecipe(IRecipeLayout recipeLayout, CrushingRecipe recipe, IIngredients ingredients) {
         int index = 0;
-
-        recipeLayout.getItemStacks().init(index, true, 40, 12);
+        recipeLayout.getItemStacks().init(index, true, 56, 12);
         recipeLayout.getItemStacks().set(index, ingredients.getInputs(VanillaTypes.ITEM).get(0));
         index++;
 
-        recipeLayout.getItemStacks().init(index, true, 75, 12);
-        recipeLayout.getItemStacks().set(index, this.renderStack);
-        index++;
-
-        recipeLayout.getItemStacks().init(index, false, 110, 12);
+        recipeLayout.getItemStacks().init(index, false, 94, 12);
         recipeLayout.getItemStacks().set(index, ingredients.getOutputs(VanillaTypes.ITEM).get(0));
     }
 
     @Override
-    public void draw(SpiritFireRecipe recipe, double mouseX, double mouseY) {
+    public void draw(CrushingRecipe recipe, double mouseX, double mouseY) {
         RenderSystem.enableBlend();
-        this.overlay.draw(48, 0);
+        this.overlay.draw(76, 14); //(center=84) - (width/16=8) = 76
+        this.drawStringCentered(Minecraft.getInstance().fontRenderer, this.getTitle(), 84, 0);
+
+    }
+
+    protected void drawStringCentered(FontRenderer fontRenderer, String text, int x, int y) {
+        fontRenderer.drawString(text, (x - fontRenderer.getStringWidth(text) / 2.0f), y, 0);
     }
     //endregion Overrides
 }
