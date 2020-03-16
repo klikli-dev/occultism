@@ -26,6 +26,7 @@ import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.github.klikli_dev.occultism.common.ritual.pentacle.Pentacle;
 import com.github.klikli_dev.occultism.util.ItemNBTUtil;
 import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -52,28 +53,15 @@ public class SummonSpiritRitual extends Ritual {
     }
 
     public SummonSpiritRitual(Item bookOfCalling, Pentacle pentacle, Ingredient startingItem,
-                              String additionalIngredientsRecipeName, int totalTime) {
+                              String additionalIngredientsRecipeName,
+                              int totalTime) {
         super(pentacle, startingItem, additionalIngredientsRecipeName, totalTime);
         this.bookOfCalling = bookOfCalling;
     }
 
     public SummonSpiritRitual(Item bookOfCalling, Pentacle pentacle, Ingredient startingItem,
-                              Predicate<LivingEntity> sacrificePredicate, int totalTime) {
-        super(pentacle, startingItem, sacrificePredicate, totalTime);
-        this.bookOfCalling = bookOfCalling;
-    }
-
-    public SummonSpiritRitual(Item bookOfCalling, Pentacle pentacle, Ingredient startingItem,
-                              String additionalIngredientsRecipeName, Predicate<LivingEntity> sacrificePredicate,
-                              int totalTime) {
-        super(pentacle, startingItem, additionalIngredientsRecipeName, sacrificePredicate, totalTime);
-        this.bookOfCalling = bookOfCalling;
-    }
-
-    public SummonSpiritRitual(Item bookOfCalling, Pentacle pentacle, Ingredient startingItem,
-                              String additionalIngredientsRecipeName, int sacrificialBowlRange,
-                              Predicate<LivingEntity> sacrificePredicate, int totalTime) {
-        super(pentacle, startingItem, additionalIngredientsRecipeName, sacrificialBowlRange, sacrificePredicate,
+                              String additionalIngredientsRecipeName, int sacrificialBowlRange, int totalTime) {
+        super(pentacle, startingItem, additionalIngredientsRecipeName, sacrificialBowlRange,
                 totalTime);
         this.bookOfCalling = bookOfCalling;
     }
@@ -111,16 +99,16 @@ public class SummonSpiritRitual extends Ritual {
     }
 
     /**
-     * Spawns the given spirit and notifies nearby players.
+     * Spawns the given entity and notifies nearby players.
      *
-     * @param spirit the spirit to spawn
+     * @param entity the entity to spawn
      * @param world  the world to spawn in.
      */
-    public void spawnSpirit(SpiritEntity spirit, World world) {
+    public void spawnEntity(Entity entity, World world) {
         for (ServerPlayerEntity player : world.getEntitiesWithinAABB(ServerPlayerEntity.class,
-                spirit.getBoundingBox().grow(50)))
-            CriteriaTriggers.SUMMONED_ENTITY.trigger(player, spirit);
-        world.addEntity(spirit);
+                entity.getBoundingBox().grow(50)))
+            CriteriaTriggers.SUMMONED_ENTITY.trigger(player, entity);
+        world.addEntity(entity);
     }
     //endregion Methods
 }

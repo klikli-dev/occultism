@@ -51,6 +51,9 @@ public class OccultismRituals {
             PENTACLES.register("craft_afrit", PentacleCraftAfrit::new);
     public static final RegistryObject<PentacleCraftMarid> CRAFT_MARID_PENTACLE =
             PENTACLES.register("craft_marid", PentacleCraftMarid::new);
+    public static final RegistryObject<PentaclePossessFoliot> POSSESS_FOLIOT_PENTACLE =
+            PENTACLES.register("possess_foliot", PentaclePossessFoliot::new);
+
 
     //Rituals
     public static final RegistryObject<DebugRitual> DEBUG_RITUAL = RITUALS.register("debug", DebugRitual::new);
@@ -84,5 +87,10 @@ public class OccultismRituals {
             RITUALS.register("craft_stabilizer_tier3", CraftStabilizerTier3Ritual::new);
     public static final RegistryObject<CraftStabilizerTier4Ritual> CRAFT_STABILIZER_TIER4 =
             RITUALS.register("craft_stabilizer_tier4", CraftStabilizerTier4Ritual::new);
+
+    //Possession
+    public static final RegistryObject<PossessEndermiteRitual> POSSESS_ENDERMITE_RITUAL =
+            RITUALS.register("possess_endermite", PossessEndermiteRitual::new);
+
     //endregion Fields
 }

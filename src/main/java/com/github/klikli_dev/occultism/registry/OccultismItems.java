@@ -124,6 +124,9 @@ public class OccultismItems {
     public static final RegistryObject<Item> PLATINUM_DUST = ITEMS.register("platinum_dust",
             () -> new Item(defaultProperties()));
 
+    public static final RegistryObject<Item> CRUSHED_END_STONE = ITEMS.register("crushed_end_stone",
+            () -> new Item(defaultProperties()));
+
     //Tools
     public static final RegistryObject<Item> STORAGE_REMOTE = ITEMS.register("storage_remote",
             () -> new StorageRemoteItem(defaultProperties().maxStackSize(1)));

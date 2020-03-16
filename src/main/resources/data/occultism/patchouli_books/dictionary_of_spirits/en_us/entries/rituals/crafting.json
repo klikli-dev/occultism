@@ -2,7 +2,7 @@
   "name": "Binding Rituals",
   "icon": "occultism:textures/gui/book/infusion.png",
   "category": "rituals",
-  "sortnum": 3,
+  "sortnum": 4,
   "pages": [
     {
       "type": "text",

@@ -79,15 +79,16 @@ public class RegistryEventHandler {
         });
         Occultism.LOGGER.info("Registered BlockItems");
 
-        registerSpawnEgg(registry, OccultismEntities.FOLIOT_TYPE.get(), modLoc("foliot"));
+        registerSpawnEgg(registry, OccultismEntities.FOLIOT_TYPE.get(), "foliot", 0xaa728d, 0x37222c);
+        registerSpawnEgg(registry, OccultismEntities.POSSESSED_ENDERMITE_TYPE.get(),"possessed_endermite", 0x161616, 0x6E6E6E);
         Occultism.LOGGER.info("Registered SpawnEggItems");
     }
 
     public static void registerSpawnEgg(IForgeRegistry<Item> registry, EntityType<?> entityType,
-                                        ResourceLocation registryName) {
-        SpawnEggItem spawnEggItem = new SpawnEggItem(entityType, 0xaa728d, 0x37222c,
+                                        String name, int primaryColor, int secondaryColor) {
+        SpawnEggItem spawnEggItem = new SpawnEggItem(entityType, primaryColor, secondaryColor,
                 new Item.Properties().group(Occultism.ITEM_GROUP));
-        spawnEggItem.setRegistryName(registryName);
+        spawnEggItem.setRegistryName(modLoc("spawn_egg/" + name));
         registry.register(spawnEggItem);
     }
     //endregion Static Methods

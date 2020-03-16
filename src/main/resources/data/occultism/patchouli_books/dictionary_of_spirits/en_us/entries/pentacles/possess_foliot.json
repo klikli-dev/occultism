@@ -1,0 +1,16 @@
+{
+  "name": "Hedyrin's Lure",
+  "icon": "occultism:textures/gui/book/pentagram_rose.png",
+  "category": "pentacles",
+  "sortnum": 2,
+  "pages": [
+    {
+      "type": "text",
+      "text": "$(thing)Hedyrin's Lure$() attracts $(thing)Foliot$() and forces them to possess a nearby creature. This pentacle does not lead to permanent imprisonment, the spirit and possessed creature will perish within a short period of time."
+    },
+    {
+      "type": "multiblock",
+      "multiblock_id": "occultism:pentacle.possess_foliot"
+    }
+  ]
+}

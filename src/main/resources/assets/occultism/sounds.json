@@ -28,5 +28,11 @@
       "occultism:crunching_scraping"
     ],
     "subtitle": "occultism.subtitle.crunching"
+  },
+  "poof": {
+    "sounds": [
+      "occultism:poof"
+    ],
+    "subtitle": "occultism.subtitle.poof"
   }
 }

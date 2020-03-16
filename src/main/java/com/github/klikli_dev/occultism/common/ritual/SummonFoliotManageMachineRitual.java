@@ -74,7 +74,7 @@ public class SummonFoliotManageMachineRitual extends SummonSpiritRitual {
         spirit.setJob(manageMachine);
 
         //notify players nearby and spawn
-        this.spawnSpirit(spirit, world);
+        this.spawnEntity(spirit, world);
 
         //set up the book of calling
         this.finishBookOfCallingSetup(result, spirit, castingPlayer);

@@ -44,6 +44,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.items.IItemHandler;
 
 import java.util.ArrayList;
@@ -58,6 +59,7 @@ public class GoldenSacrificialBowlTileEntity extends SacrificialBowlTileEntity i
     public PlayerEntity castingPlayer;
     public List<Ingredient> remainingAdditionalIngredients = new ArrayList<>();
     public boolean sacrificeProvided;
+    public boolean itemUseProvided;
     public int currentTime;
 
     //endregion Fields
@@ -73,9 +75,9 @@ public class GoldenSacrificialBowlTileEntity extends SacrificialBowlTileEntity i
     public void read(CompoundNBT compound) {
         super.read(compound);
         if (this.currentRitual != null && compound.contains("remainingAdditionalIngredientsSize")) {
-            int size =  compound.getByte("remainingAdditionalIngredientsSize");
+            int size = compound.getByte("remainingAdditionalIngredientsSize");
             List<Ingredient> additionalIngredients = this.currentRitual.getAdditionalIngredients(this.world);
-            if(size >= 0 && size <= additionalIngredients.size()){
+            if (size >= 0 && size <= additionalIngredients.size()) {
                 this.remainingAdditionalIngredients = additionalIngredients.subList(
                         additionalIngredients.size() - size, additionalIngredients.size() - 1);
             }
@@ -86,16 +88,21 @@ public class GoldenSacrificialBowlTileEntity extends SacrificialBowlTileEntity i
         if (compound.contains("sacrificeProvided")) {
             this.sacrificeProvided = compound.getBoolean("sacrificeProvided");
         }
+        if (compound.contains("requiredItemUsed")) {
+            this.itemUseProvided = compound.getBoolean("requiredItemUsed");
+        }
     }
 
     @Override
     public CompoundNBT write(CompoundNBT compound) {
-        if(this.currentRitual != null) {
-            if(this.currentRitual.getAdditionalIngredients(this.world).size() > 0){
+        if (this.currentRitual != null) {
+            if (this.currentRitual.getAdditionalIngredients(this.world).size() > 0) {
                 //we only store additional ingredients, if the ritual has any.
-                compound.putByte("remainingAdditionalIngredientsSize", (byte) this.remainingAdditionalIngredients.size());
+                compound.putByte("remainingAdditionalIngredientsSize",
+                        (byte) this.remainingAdditionalIngredients.size());
             }
             compound.putBoolean("sacrificeProvided", this.sacrificeProvided);
+            compound.putBoolean("requiredItemUsed", this.itemUseProvided);
         }
         return super.write(compound);
     }
@@ -140,7 +147,7 @@ public class GoldenSacrificialBowlTileEntity extends SacrificialBowlTileEntity i
             }
 
             //no casting player or if we do not have a sacrifice yet, we cannot advance time
-            if (this.castingPlayer == null || (this.currentRitual.requiresSacrifice() && !this.sacrificeProvided)) {
+            if (this.castingPlayer == null || !this.sacrificeFulfilled() || !this.itemUseFulfilled()) {
                 if (this.world.rand.nextInt(16) == 0) {
                     ((ServerWorld) this.world)
                             .spawnParticle(OccultismParticles.RITUAL_WAITING.get(),
@@ -209,7 +216,8 @@ public class GoldenSacrificialBowlTileEntity extends SacrificialBowlTileEntity i
                                         .filter(r -> r.identify(world, pos, activationItem)).findFirst().orElse(null);
 
                 if (ritual != null) {
-                    if (ritual.isValid(world, pos, this, player, activationItem, ritual.getAdditionalIngredients(world))) {
+                    if (ritual.isValid(world, pos, this, player, activationItem,
+                            ritual.getAdditionalIngredients(world))) {
                         this.startRitual(player, activationItem, ritual);
                     }
                     else {
@@ -239,6 +247,7 @@ public class GoldenSacrificialBowlTileEntity extends SacrificialBowlTileEntity i
             this.castingPlayer = player;
             this.currentTime = 0;
             this.sacrificeProvided = false;
+            this.itemUseProvided = false;
             this.remainingAdditionalIngredients = new ArrayList<>(ritual.getAdditionalIngredients(this.world));
             //place activation item in handler
             IItemHandler handler = this.itemStackHandler.orElseThrow(ItemHandlerMissingException::new);
@@ -270,15 +279,27 @@ public class GoldenSacrificialBowlTileEntity extends SacrificialBowlTileEntity i
             this.castingPlayer = null;
             this.currentTime = 0;
             this.sacrificeProvided = false;
+            this.itemUseProvided = false;
             this.remainingAdditionalIngredients.clear();
             this.markDirty();
             this.markNetworkDirty();
         }
     }
 
+    public boolean sacrificeFulfilled() {
+        return !this.currentRitual.requiresSacrifice() || this.sacrificeProvided;
+    }
+
+    public boolean itemUseFulfilled() {
+        return !this.currentRitual.requiresItemUse() || this.itemUseProvided;
+    }
 
     public void notifySacrifice(LivingEntity entityLivingBase) {
         this.sacrificeProvided = true;
+    }
+
+    public void notifyItemUse(PlayerInteractEvent.RightClickItem event) {
+        this.itemUseProvided = true;
     }
     //endregion Methods
 }
