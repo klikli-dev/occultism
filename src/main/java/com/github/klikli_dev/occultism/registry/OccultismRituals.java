@@ -51,6 +51,9 @@ public class OccultismRituals {
             PENTACLES.register("craft_afrit", PentacleCraftAfrit::new);
     public static final RegistryObject<PentacleCraftMarid> CRAFT_MARID_PENTACLE =
             PENTACLES.register("craft_marid", PentacleCraftMarid::new);
+    public static final RegistryObject<PentaclePossessFoliot> POSSESS_FOLIOT_PENTACLE =
+            PENTACLES.register("possess_foliot", PentaclePossessFoliot::new);
+
 
     //Rituals
     public static final RegistryObject<DebugRitual> DEBUG_RITUAL = RITUALS.register("debug", DebugRitual::new);
