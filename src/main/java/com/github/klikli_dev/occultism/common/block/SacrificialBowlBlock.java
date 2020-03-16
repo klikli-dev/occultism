@@ -32,6 +32,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
@@ -81,6 +83,7 @@ public class SacrificialBowlBlock extends Block {
                     if (itemStack.isEmpty()) {
                         //if there is nothing in the bowl, put the hand held item in
                         player.setHeldItem(hand, handler.insertItem(0, heldItem, false));
+                        world.playSound(null, pos, SoundEvents.ENTITY_ITEM_FRAME_ADD_ITEM, SoundCategory.BLOCKS, 1, 1);
                     }
                     else {
                         //otherwise take out the item.
@@ -92,6 +95,7 @@ public class SacrificialBowlBlock extends Block {
                             //and if not, just put it in the inventory
                             ItemHandlerHelper.giveItemToPlayer(player, handler.extractItem(0, 64, false));
                         }
+                        world.playSound(null, pos, SoundEvents.ENTITY_ITEM_FRAME_REMOVE_ITEM, SoundCategory.BLOCKS, 1, 1);
                     }
                     bowl.markDirty();
                 }
