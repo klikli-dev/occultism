@@ -1,0 +1,16 @@
+{
+  "name": "Ihagan's Enthrallment",
+  "icon": "occultism:textures/gui/book/pentagram_rose.png",
+  "category": "pentacles",
+  "sortnum": 20,
+  "pages": [
+    {
+      "type": "text",
+      "text": "$(thing)Ihagan's Enthrallment$() forces $(thing)Djinni$() to possess a nearby creature. This pentacle does not lead to permanent imprisonment, the spirit and possessed creature will perish within a short period of time."
+    },
+    {
+      "type": "multiblock",
+      "multiblock_id": "occultism:pentacle.possess_djinni"
+    }
+  ]
+}
