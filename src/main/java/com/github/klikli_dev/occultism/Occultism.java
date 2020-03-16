@@ -42,6 +42,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.client.renderer.entity.EndermanRenderer;
 import net.minecraft.client.renderer.entity.EndermiteRenderer;
+import net.minecraft.client.renderer.entity.SkeletonRenderer;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.obj.OBJLoader;
@@ -142,6 +143,7 @@ public class Occultism {
         //Register Entity Renderers
         RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.FOLIOT.get(), FoliotRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.POSSESSED_ENDERMITE_TYPE.get(), EndermiteRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.POSSESSED_SKELETON_TYPE.get(), SkeletonRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.POSSESSED_ENDERMAN_TYPE.get(), EndermanRenderer::new);
 
         //Register Tile Entity Renderers
