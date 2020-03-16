@@ -92,6 +92,7 @@ public class OccultismRituals {
     //Possession
     public static final RegistryObject<PossessEndermiteRitual> POSSESS_ENDERMITE_RITUAL =
             RITUALS.register("possess_endermite", PossessEndermiteRitual::new);
-
+    public static final RegistryObject<PossessEndermanRitual> POSSESS_ENDERMAN_RITUAL =
+            RITUALS.register("possess_enderman", PossessEndermanRitual::new);
     //endregion Fields
 }
