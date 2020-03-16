@@ -31,6 +31,7 @@ import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.github.klikli_dev.occultism.registry.OccultismRituals;
 import com.github.klikli_dev.occultism.registry.OccultismSpiritJobs;
 import com.github.klikli_dev.occultism.util.ItemNBTUtil;
+import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
@@ -66,6 +67,10 @@ public class PossessEndermiteRitual extends SummonSpiritRitual {
 
         //set up the foliot entity
         PossessedEndermiteEntity endermite = OccultismEntities.POSSESSED_ENDERMITE.get().create(world);
+        endermite.onInitialSpawn(world, world.getDifficultyForLocation(goldenBowlPosition), SpawnReason.MOB_SUMMONED, null,
+                null);
+        endermite.setPositionAndRotation(goldenBowlPosition.getX(), goldenBowlPosition.getY(), goldenBowlPosition.getZ(),
+                world.rand.nextInt(360), 0);
        endermite.setCustomName(new StringTextComponent(entityName));
 
         //notify players nearby and spawn
