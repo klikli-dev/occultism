@@ -1,12 +1,12 @@
 {
   "name": "Possession Rituals",
-  "icon": "occultism:textures/gui/book/infusion.png",
+  "icon": "occultism:textures/gui/book/possession.png",
   "category": "rituals",
   "sortnum": 3,
   "pages": [
     {
       "type": "text",
-      "text": "Possession rituals bind spirits into living beings, giving the summoner a degree of control over the possessed being. This can range from controlling their item drops to forcing them to do the summoner's bidding.."
+      "text": "Possession rituals bind spirits into living beings, giving the summoner a degree of control over the possessed being. This can range from controlling their item drops to forcing them to do the summoner's bidding."
     },
     {
       "type": "text",
