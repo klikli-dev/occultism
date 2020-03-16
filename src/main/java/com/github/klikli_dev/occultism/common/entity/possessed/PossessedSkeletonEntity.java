@@ -42,6 +42,11 @@ public class PossessedSkeletonEntity extends SkeletonEntity {
     }
 
     @Override
+    protected boolean isInDaylight() {
+        return false;
+    }
+
+    @Override
     protected void registerAttributes() {
         super.registerAttributes();
         //increased AD compared to normal skeleton
