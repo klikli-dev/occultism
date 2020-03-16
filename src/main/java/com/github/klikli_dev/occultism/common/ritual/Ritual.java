@@ -285,7 +285,7 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
      */
     public void finish(World world, BlockPos goldenBowlPosition, GoldenSacrificialBowlTileEntity tileEntity,
                        PlayerEntity castingPlayer, ItemStack activationItem) {
-        world.playSound(null, goldenBowlPosition, SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.BLOCKS, 0.7f,
+        world.playSound(null, goldenBowlPosition, OccultismSounds.POOF.get(), SoundCategory.BLOCKS, 0.7f,
                 0.7f);
         castingPlayer.sendStatusMessage(new TranslationTextComponent(this.getFinishedMessage()), true);
     }
@@ -394,19 +394,6 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
      *
      * @param world              the world.
      * @param goldenBowlPosition the position of the golden bowl.
-     * @param ingredient         the ingredient to consume.
-     * @return true if the ingredient was found and consumed.
-     */
-    public boolean consumeAdditionalIngredient(World world, BlockPos goldenBowlPosition, Ingredient ingredient) {
-        List<SacrificialBowlTileEntity> sacrificialBowls = this.getSacrificialBowls(world, goldenBowlPosition);
-        return this.consumeAdditionalIngredient(world, goldenBowlPosition, sacrificialBowls, ingredient);
-    }
-
-    /**
-     * Consumes one ingredient from the first matching sacrificial bowl.
-     *
-     * @param world              the world.
-     * @param goldenBowlPosition the position of the golden bowl.
      * @param sacrificialBowls   the list of sacrificial bowls to check.
      * @param ingredient         the ingredient to consume.
      * @return true if the ingredient was found and consumed.
@@ -428,6 +415,8 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
                                     sacrificialBowl.getPos().getY() + 1.5, sacrificialBowl.getPos().getZ() + 0.5, 1,
                                     0.0, 0.0, 0.0,
                                     0.0);
+
+                    world.playSound(null, sacrificialBowl.getPos(), OccultismSounds.POOF.get(), SoundCategory.BLOCKS, 0.7f, 0.7f);
                     return true;
                 }
                 return false;
