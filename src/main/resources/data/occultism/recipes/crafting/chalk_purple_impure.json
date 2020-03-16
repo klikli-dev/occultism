@@ -5,7 +5,7 @@
       "item": "occultism:chalk_white_impure"
     },
     {
-      "item": "minecraft:end_stone"
+      "tag": "forge:dusts/end_stone"
     },
     {
       "tag": "forge:dusts/obsidian"
