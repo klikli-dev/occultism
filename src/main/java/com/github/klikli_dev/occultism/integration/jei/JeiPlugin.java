@@ -25,6 +25,7 @@ package com.github.klikli_dev.occultism.integration.jei;
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.container.storage.StorageControllerContainer;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
+import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.registry.OccultismRecipes;
 import com.google.common.base.Strings;
 import mezz.jei.api.IModPlugin;
@@ -94,18 +95,26 @@ public class JeiPlugin implements IModPlugin {
     @Override
     public void registerCategories(IRecipeCategoryRegistration registration) {
         registration.addRecipeCategories(new SpiritFireRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
+        registration.addRecipeCategories(new CrushingRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
     }
 
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
         ClientWorld world = Minecraft.getInstance().world;
         RecipeManager recipeManager = world.getRecipeManager();
+
         List<IRecipe<?>> spiritFireRecipes = recipeManager.getRecipes().stream()
                                                      .filter(r -> r.getType() ==
                                                                   OccultismRecipes.SPIRIT_FIRE_TYPE.get())
                                                      .collect(Collectors.toList());
-
         registration.addRecipes(spiritFireRecipes, OccultismRecipes.SPIRIT_FIRE.getId());
+
+        List<IRecipe<?>> crushingRecipes = recipeManager.getRecipes().stream()
+                                                   .filter(r -> r.getType() ==
+                                                                OccultismRecipes.CRUSHING_TYPE.get())
+                                                   .collect(Collectors.toList());
+
+        registration.addRecipes(crushingRecipes, OccultismRecipes.CRUSHING.getId());
     }
 
     @Override
