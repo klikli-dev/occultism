@@ -23,6 +23,7 @@
 package com.github.klikli_dev.occultism.common.entity.possessed;
 
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.monster.SkeletonEntity;
 import net.minecraft.world.World;
 
@@ -38,6 +39,16 @@ public class PossessedSkeletonEntity extends SkeletonEntity {
     @Override
     protected boolean isDespawnPeaceful() {
         return false;
+    }
+
+    @Override
+    protected void registerAttributes() {
+        super.registerAttributes();
+        //increased AD compared to normal skeleton
+        this.getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4.0D);
+        //increased health compared to normal skeleton
+        this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(30.0D);
+
     }
     //endregion Overrides
 }
