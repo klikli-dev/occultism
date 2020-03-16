@@ -46,7 +46,7 @@ public class PossessEndermiteRitual extends SummonSpiritRitual {
         super(null,
                 OccultismRituals.POSSESS_FOLIOT_PENTACLE.get(),
                 Ingredient.fromItems(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()),
-                "possess_endermite", 60);
+                "possess_endermite", 30);
         this.itemUsePredicate = (event) -> event.getItemStack().getItem() == Items.EGG;
     }
     //endregion Initialization

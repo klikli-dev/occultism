@@ -49,7 +49,7 @@ public class PossessSkeletonRitual extends SummonSpiritRitual {
         super(null,
                 OccultismRituals.POSSESS_FOLIOT_PENTACLE.get(),
                 Ingredient.fromItems(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()),
-                "possess_skeleton", 60);
+                "possess_skeleton", 30);
         this.sacrificePredicate = (entity) -> {
             ResourceLocation chickenTag = new ResourceLocation("forge", "chicken");
             return EntityTypeTags.getCollection().getOrCreate(chickenTag).contains(entity.getType());
