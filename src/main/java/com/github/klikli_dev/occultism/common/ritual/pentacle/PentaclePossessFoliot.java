@@ -39,7 +39,7 @@ public class PentaclePossessFoliot extends Pentacle {
                     "GC W W CG",
                     "GX  0  XG",
                     "GC W W CG",
-                    " Gw   WG ",
+                    " GW   WG ",
                     "  GCXCG  ",
                     "   GGG   "
             }
