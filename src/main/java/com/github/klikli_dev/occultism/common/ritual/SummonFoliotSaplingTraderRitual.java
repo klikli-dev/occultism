@@ -80,7 +80,7 @@ public class SummonFoliotSaplingTraderRitual extends SummonSpiritRitual {
         spirit.setSpiritMaxAge(60);
 
         //notify players nearby and spawn
-        this.spawnSpirit(spirit, world);
+        this.spawnEntity(spirit, world);
     }
     //endregion Overrides
 }

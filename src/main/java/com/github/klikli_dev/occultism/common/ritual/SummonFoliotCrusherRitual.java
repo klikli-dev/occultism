@@ -74,7 +74,7 @@ public class SummonFoliotCrusherRitual extends SummonSpiritRitual {
         spirit.setSpiritMaxAge(60 * 60 * 6); //6 hours max age
 
         //notify players nearby and spawn
-        this.spawnSpirit(spirit, world);
+        this.spawnEntity(spirit, world);
 
         //set up the book of calling
         this.finishBookOfCallingSetup(result, spirit, castingPlayer);
