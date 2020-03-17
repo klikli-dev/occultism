@@ -1,8 +1,8 @@
 {
   "name": "Otherworld Sapling Trader",
   "icon": "occultism:otherworld_sapling",
-  "category": "rituals/trade",
-  "sortnum": 0,
+  "category": "rituals/summoning",
+  "sortnum": 12,
   "pages": [
     {
       "type": "trade_description",
