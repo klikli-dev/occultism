@@ -1,6 +1,6 @@
 {
   "name": "Trade Rituals",
-  "description": "Rituals to trade or convert items.",
+  "description": "Trade rituals summon spirits to trade or convert items. Trade spirits pick up appropriate items and throw trade results on the ground. The spirit is only actively exchanging items if purple particles spawn around it. If you do not see any particles, ensure that you gave the proper item and amount.",
   "icon": "occultism:textures/gui/book/cash.png",
   "parent": "rituals",
   "sortnum": 1
