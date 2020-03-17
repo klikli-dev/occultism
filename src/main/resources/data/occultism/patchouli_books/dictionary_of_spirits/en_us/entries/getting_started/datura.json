@@ -18,8 +18,11 @@
       "type": "image",
       "border": "true",
       "images": [
-        "occultism:textures/guide_book/datura_effect.png"
-      ],
+        "occultism:textures/gui/book/datura_effect.png"
+      ]
+    },
+    {
+      "type": "text",
       "text": "The consumption of Demon's Dream allows to see parts of \"The Other Place\" that intersect with our plane of existence."
     }
   ]
