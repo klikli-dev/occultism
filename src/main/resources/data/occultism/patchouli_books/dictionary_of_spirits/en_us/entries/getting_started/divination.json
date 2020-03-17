@@ -16,7 +16,7 @@
     {
       "type": "text",
       "title": "Use of the Rod",
-      "text": "Shift-Right-Click a block to attune the rod to the corresponding Otherworld block.$(br)$(li)$(item)Andesite$() - $(item)Otherstone$()$(li)$(item)Oak Log$() - $(item)Otherwood Log$()$(li)$(item)Oak Leaves$() - $(item)Otherworld Leaves$()$(br2)Then Right-Click and hold until the rod animation finishes."
+      "text": "Shift-right-click a block to attune the rod to the corresponding Otherworld block.$(br)$(li)$(item)Andesite$() - $(item)Otherstone$()$(li)$(item)Oak Log$() - $(item)Otherwood Log$()$(li)$(item)Oak Leaves$() - $(item)Otherworld Leaves$()$(br2)Then right-click and hold until the rod animation finishes."
     },
     {
       "type": "text",
