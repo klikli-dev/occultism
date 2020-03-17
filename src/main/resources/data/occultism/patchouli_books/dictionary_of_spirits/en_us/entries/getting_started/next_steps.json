@@ -1,0 +1,27 @@
+{
+  "name": "Next Steps",
+  "icon": "occultism:chalk_purple",
+  "category": "getting_started",
+  "sortnum": 5,
+  "pages": [
+    {
+      "type": "text",
+      "text": "Now that you have successfully summoned your first spirit it's time to look at your next steps as a magician and start to plan for the long term."
+    },
+    {
+      "type": "text",
+      "title": "Craft Golden Chalk",
+      "text": "Obtain gold dust and glowstone dust and craft golden chalk for infusion and possession rituals."
+    },
+    {
+      "type": "text",
+      "title": "Summon Possessed Mobs",
+      "text": "Possessed Mobs are controlled by spirits, allowing the summoner to determine some of their properties. They usually have high drop rates for rare drops, but are generally harder to kill. Start by summoning a $(thing)Possessed Endermite$() to obtain Endstone to craft Purple Chalk."
+    },
+    {
+      "type": "text",
+      "title": "Dimensional Storage",
+      "text": "Among the advanced uses of spirits is the controlled creation and interaction with dimensions, which allow to store great amounts of items. Start by infusing a dimensional matrix and go from there. Now the sky is the limit - use stable wormholes and storage accessors to remotely access your items, summon spirits to manage machines for you and create storage stabilizers to maximize available space."
+    }
+  ]
+}
