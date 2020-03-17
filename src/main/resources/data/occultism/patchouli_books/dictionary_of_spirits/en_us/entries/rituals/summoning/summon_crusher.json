@@ -1,0 +1,20 @@
+{
+  "name": "Foliot Crusher",
+  "icon": "occultism:iron_dust",
+  "category": "rituals/summoning",
+  "sortnum": 10,
+  "pages": [
+    {
+      "type": "text",
+      "text": "The crusher is a spirit summoned to crush ores into dusts, effectively doubling the metal output. It will pick up appropriate ores and drop the resulting dusts into the world. A purple particle effect and a crushing sound indicate the crusher is at work."
+    },
+    {
+      "type": "summoning",
+      "heading": "Summoning",
+      "pentacle": "$(l:pentacles/summon_foliot_basic)Aviar's Circle$(/l)",
+      "activation_item": "occultism:book_of_binding_bound_foliot",
+      "ingredients": "$(li)1x $(item)Copper Ore $()$(li)1x $(item)Iron Ore $()$(li)1x $(item)Silver Ore $()$(li)1x $(item)Gold Ore $()"
+    }
+  ]
+}
+

@@ -71,7 +71,7 @@ public class SummonFoliotCrusherRitual extends SummonSpiritRitual {
         job.init();
         spirit.setJob(job);
 
-        spirit.setSpiritMaxAge(60 * 60 * 6); //6 hours max age
+        spirit.setSpiritMaxAge(60 * 60 * 3); //3 hours max age
 
         //notify players nearby and spawn
         this.spawnEntity(spirit, world);

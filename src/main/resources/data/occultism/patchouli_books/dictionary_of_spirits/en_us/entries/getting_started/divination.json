@@ -1,0 +1,31 @@
+{
+  "name": "Divination",
+  "icon": "occultism:divination_rod",
+  "category": "getting_started",
+  "sortnum": 3,
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "occultism:divination_rod",
+      "text": "Otherworld materials play an important role in interacting with spirits. As they are rare and not visible to the naked eye, finding them requires special tools. The divination rod allows to find Otherworld materials based on their similarities to materials common to our world."
+    },
+    {
+      "type": "text",
+      "text": "The divination rod uses a spirit attuned gem attached to a wooden rod. The gem resonates with the chosen material, and this movement is amplified by the wooden rod, allowing to detect nearby Otherworld materials.$(br2) The rod works by detecting resonance between real world and Otherworld materials. Attuned the rod to a real world material, and it will find the corresponding Otherworld block."
+    },
+    {
+      "type": "text",
+      "title": "Use of the Rod",
+      "text": "Shift-right-click a block to attune the rod to the corresponding Otherworld block.$(br)$(li)$(item)Andesite$() - $(item)Otherstone$()$(li)$(item)Oak Log$() - $(item)Otherwood Log$()$(li)$(item)Oak Leaves$() - $(item)Otherworld Leaves$()$(br2)Then right-click and hold until the rod animation finishes."
+    },
+    {
+      "type": "text",
+      "text": "A white crystal indicates no target blocks found, while degrees of purple indicate how close to the target block the diviner is. Only horizontal distance is considered, so the crystal will glow fully purple, even if many blocks above or below the target. The range of the divination rod is 96 blocks. The closest the rod can detect is 6 blocks, at that point the crystal glows fully purple, and getting closer will not change the color any further."
+    },
+    {
+      "type": "text",
+      "title": "Otherworld Groves",
+      "text": "Otherworld Groves are lush, overgrown caves, with $(item)Otherworld Trees$(), and walls of $(item)Otherstone$(), and represent the fastest way to get everything one needs to get set up as a summoner. To find them, attune your divination rod to Otherworld leaves or logs, as unlike Otherstone, they only spawn in these groves."
+    }
+  ]
+}

@@ -1,7 +1,0 @@
-{
-  "name": "Trade Rituals",
-  "description": "Rituals to trade or convert items.",
-  "icon": "occultism:textures/gui/book/cash.png",
-  "parent": "rituals",
-  "sortnum": 1
-}

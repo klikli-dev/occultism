@@ -12,6 +12,15 @@
       "type": "text",
       "title": "Performing a ritual",
       "text": "Rituals always follow the same steps: $(br)$(li)Draw the pentacle. $(li)Place a golden bowl. $(li)Place sacrificial bowls.$(li)Put ingredients in bowls.$(li)Right-click the golden bowl with the activation item.$(li)$(italic)Optional: Perform a sacrifice close to the center of the pentacle.$()$(br2)"
+    },
+    {
+      "type": "text",
+      "title": "Additional Requirements",
+      "text": "If a ritual shows grey particles above the golden sacrificial bowl, then additional requirements as described in the ritual's page need to be fulfilled. Once all requirements are fulfilled, the ritual will show purple particles and start to consume the items in the sacrificial bowls."
+    },
+    {
+      "type": "empty",
+      "draw_filler": false
     }
   ]
 }

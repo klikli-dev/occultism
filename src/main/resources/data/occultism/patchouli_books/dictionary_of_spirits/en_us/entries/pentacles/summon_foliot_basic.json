@@ -2,7 +2,7 @@
   "name": "Aviar's Circle",
   "icon": "occultism:textures/gui/book/pentagram_rose.png",
   "category": "pentacles",
-  "sortnum": 1,
+  "sortnum": 10,
   "pages": [
     {
       "type": "text",

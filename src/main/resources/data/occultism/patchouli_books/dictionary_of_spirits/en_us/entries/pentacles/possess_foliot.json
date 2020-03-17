@@ -2,7 +2,7 @@
   "name": "Hedyrin's Lure",
   "icon": "occultism:textures/gui/book/pentagram_rose.png",
   "category": "pentacles",
-  "sortnum": 2,
+  "sortnum": 12,
   "pages": [
     {
       "type": "text",

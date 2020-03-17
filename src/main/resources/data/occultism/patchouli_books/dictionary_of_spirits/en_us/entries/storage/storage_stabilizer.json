@@ -1,0 +1,22 @@
+{
+  "name": "Storage Stabilizers",
+  "icon": "occultism:storage_stabilizer_tier1",
+  "category": "storage",
+  "sortnum": 3,
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "occultism:storage_stabilizer_tier1",
+      "title": "Storage Stabilizers",
+      "text": "$(thing)$(l:rituals/crafting/craft_storage_stabilizer_tier1)Storage Stabilizers$(/l)$() increase the storage space in the storage dimension. There are four tiers, each adding more slots than the last. Storage controllers need to point at the $(item)Dimensional Matrix$() (one block above the Storage Actuator) and cannot be more than 5 blocks away."
+    },
+    {
+      "type": "image",
+      "border": "true",
+      "images": [
+        "occultism:textures/gui/book/storage_stabilizer.png"
+      ],
+      "text": "The red lines illustrate the line of sight, they will not show up in game!"
+    }
+  ]
+}

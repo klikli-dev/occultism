@@ -1,8 +1,8 @@
 {
   "name": "Otherstone Trader",
   "icon": "occultism:otherstone",
-  "category": "rituals/trade",
-  "sortnum": 0,
+  "category": "rituals/summoning",
+  "sortnum": 21,
   "pages": [
     {
       "type": "trade_description",
