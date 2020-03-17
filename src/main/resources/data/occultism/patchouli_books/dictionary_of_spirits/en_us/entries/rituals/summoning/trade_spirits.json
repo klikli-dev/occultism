@@ -2,7 +2,7 @@
   "name": "Trade Spirits",
   "icon": "occultism:textures/gui/book/cash.png",
   "category": "rituals/summoning",
-  "sortnum": 10,
+  "sortnum": 20,
   "pages": [
     {
       "type": "text",
