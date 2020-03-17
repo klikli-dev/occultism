@@ -3,7 +3,7 @@
   "version": "1",
   "landing_text": "This book aims to introduce the novice reader to the most common summoning rituals and equip them with a list of spirits and their names. The authors make no guarantees as to the binding power of the names and advise caution in the summoning of the listed entities.",
   "model": "occultism:dictionary_of_spirits",
-  "book_texture": "occultism:textures/gui/book_purple.png",
+  "book_texture": "occultism:textures/gui/book/book_purple.png",
   "show_toasts": true,
   "creative_tab": "occultism",
   "show_progress": false,

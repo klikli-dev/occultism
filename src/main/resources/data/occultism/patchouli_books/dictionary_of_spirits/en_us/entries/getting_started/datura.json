@@ -1,6 +1,6 @@
 {
   "name": "Demon's Dream",
-  "icon": "occultism:textures/item/datura.png",
+  "icon": "occultism:datura",
   "category": "getting_started",
   "sortnum": 1,
   "pages": [
