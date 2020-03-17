@@ -1,0 +1,17 @@
+{
+  "name": "Storage Actuator",
+  "icon": "occultism:storage_controller_base",
+  "category": "storage",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "item",
+      "item": "occultism:storage_controller",
+      "text": "The Dimensional Storage Actuator consists of a $(thing)$(l:rituals/crafting/craft_dimensional_matrix)Dimensional Matrix$(/l)$() inhabited by a Djinni that keeps creates and manages a storage dimension, and a $(thing)$(l:rituals/crafting/craft_storage_controller_base)Base$(/l)$(), infused with a Foliot that moves items in and out of the storage dimension."
+    },
+    {
+      "type": "empty",
+      "draw_filler": false
+    }
+  ]
+}
