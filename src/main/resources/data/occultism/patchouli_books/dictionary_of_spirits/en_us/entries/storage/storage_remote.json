@@ -5,9 +5,9 @@
   "sortnum": 2,
   "pages": [
     {
-      "type": "item",
+      "type": "spotlight",
       "item": "occultism:storage_remote",
-      "text": "The $(thing)$(l:rituals/crafting/craft_storage_remote)Storage Accessors(/l)$() is similar to the stable wormhole, but allow mobile access to the storage for players."
+      "text": "The $(thing)$(l:rituals/crafting/craft_storage_remote)Storage Accessors$(/l)$() are similar to the stable wormhole, but allow mobile access to the storage for players."
     },
     {
       "type": "empty",
