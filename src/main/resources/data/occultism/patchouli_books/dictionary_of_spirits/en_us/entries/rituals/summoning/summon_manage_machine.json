@@ -6,7 +6,7 @@
   "pages": [
     {
       "type": "text",
-      "text": "The machine operator transfers items specified in the Dimensional Storage Actuator GUI, to it's managed machine, and returns crafting results to the storage system."
+      "text": "The machine operator transfers items specified in the dimensional storage actuator GUI, to it's managed machine, and returns crafting results to the storage system."
     },
     {
       "type": "summoning",

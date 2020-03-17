@@ -6,7 +6,7 @@
   "pages": [
     {
       "type": "text",
-      "text": "The name $(thing)Pentacle$() in this context refers to ritual drawings of any shape, not just five-pointed stars. Pentacles are used to summon and bind spirits from \"The Other Place\". They act both as a device to call on the entity, an amplifier for the summoner's commanding power and as a protecting circle preventing attacks from within against the summoner."
+      "text": "The name $(thing)Pentacle$() in this context refers to ritual drawings of any shape, not just five-pointed stars. Pentacles are used to summon and bind spirits from $(thing)The Other Place$(). They act both as a device to call on the entity, an amplifier for the summoner's commanding power and as a protecting circle preventing attacks from within against the summoner."
     },
     {
       "type": "text",

@@ -25,7 +25,7 @@
     {
       "type": "text",
       "title": "Otherworld Groves",
-      "text": "Otherworld Groves are lush, overgrown caves, with $(item)Otherworld Trees$(), and walls of $(item)Otherstone$(), and represent the fastest way to get everything one needs to get set up as a summoner. To find them, attune your divination rod to Otherworld Leaves or Logs, as unlike Otherstone, they only spawn in these groves."
+      "text": "Otherworld Groves are lush, overgrown caves, with $(item)Otherworld Trees$(), and walls of $(item)Otherstone$(), and represent the fastest way to get everything one needs to get set up as a summoner. To find them, attune your divination rod to Otherworld leaves or logs, as unlike Otherstone, they only spawn in these groves."
     }
   ]
 }

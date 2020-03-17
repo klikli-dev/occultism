@@ -12,7 +12,7 @@
     },
     {
       "type": "text",
-      "text": "An additional side effect of Demon's dream, that other ways to obtain the $(thing)Third Eye$() do not bring, is the ability to interact with $(thing)Otherworld$() materials. While under the effect of Demon's dream you are able to harvest Otherstone as well as Otherworld trees."
+      "text": "An additional side effect of demon's dream, that other ways to obtain the $(thing)Third Eye$() do not bring, is the ability to interact with $(thing)Otherworld$() materials. While under the effect of demon's dream you are able to harvest Otherstone as well as Otherworld trees."
     },
     {
       "type": "image",
@@ -23,7 +23,7 @@
     },
     {
       "type": "text",
-      "text": "The consumption of Demon's Dream allows to see parts of \"The Other Place\" that intersect with our plane of existence."
+      "text": "The consumption of demon's dream allows to see parts of $(thing)The Other Place$() that intersect with our plane of existence."
     }
   ]
 }
