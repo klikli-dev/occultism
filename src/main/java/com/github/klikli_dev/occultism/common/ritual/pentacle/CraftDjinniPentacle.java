@@ -24,27 +24,24 @@ package com.github.klikli_dev.occultism.common.ritual.pentacle;
 
 import com.github.klikli_dev.occultism.common.block.CandleBlock;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
-import net.minecraft.block.Blocks;
 import vazkii.patchouli.api.IMultiblock;
 
 import java.util.Arrays;
 
-public class PentacleCraftAfrit extends Pentacle {
+public class CraftDjinniPentacle extends Pentacle {
 
     //region Fields
     private final String[][] pattern = new String[][]{
             {
-                    "    XNX    ",
-                    "    GGG    ",
-                    "  XGCPCGX  ",
-                    "  G WCW G  ",
-                    "XGCWW WWCGX",
-                    "ZGPC 0 CPGZ",
-                    "XGCWW WWCGX",
-                    "  G WCW G  ",
-                    "  XGCPCGX  ",
-                    "    GGG    ",
-                    "    XZX    "
+                    "    X    ",
+                    " C WGW C ",
+                    "  P W P  ",
+                    " W SWS W ",
+                    "XGWW0WWGX",
+                    " W SWS W ",
+                    "  P W P  ",
+                    " C WGW C ",
+                    "    X    "
             }
     };
 
@@ -52,14 +49,14 @@ public class PentacleCraftAfrit extends Pentacle {
 
     //region Overrides
 
+
     @Override
     protected void setupMapping() {
         super.setupMapping();
         this.mapping.addAll(Arrays.asList(
                 'S', this.api.looseBlockMatcher(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL.get()),
-                'Z', this.api.looseBlockMatcher(Blocks.SKELETON_SKULL),
-                'N', this.api.looseBlockMatcher(Blocks.WITHER_SKELETON_SKULL),
-                'C', this.api.predicateMatcher(OccultismBlocks.CANDLE_WHITE.get(), b -> b.getBlock() instanceof CandleBlock)
+                'C', this.api.predicateMatcher(OccultismBlocks.CANDLE_WHITE.get(),
+                        b -> b.getBlock() instanceof CandleBlock)
         ));
     }
 

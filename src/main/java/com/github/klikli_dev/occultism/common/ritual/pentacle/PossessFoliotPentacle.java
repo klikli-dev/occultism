@@ -28,33 +28,30 @@ import vazkii.patchouli.api.IMultiblock;
 
 import java.util.Arrays;
 
-public class PentacleCraftDjinni extends Pentacle {
+public class PossessFoliotPentacle extends Pentacle {
 
     //region Fields
     private final String[][] pattern = new String[][]{
             {
-                    "    X    ",
-                    " C WGW C ",
-                    "  P W P  ",
-                    " W SWS W ",
-                    "XGWW0WWGX",
-                    " W SWS W ",
-                    "  P W P  ",
-                    " C WGW C ",
-                    "    X    "
+                    "   GGG   ",
+                    "  GCXCG  ",
+                    " GW   WG ",
+                    "GC W W CG",
+                    "GX  0  XG",
+                    "GC W W CG",
+                    " GW   WG ",
+                    "  GCXCG  ",
+                    "   GGG   "
             }
     };
 
     //endregion Fields
 
     //region Overrides
-
-
     @Override
     protected void setupMapping() {
         super.setupMapping();
         this.mapping.addAll(Arrays.asList(
-                'S', this.api.looseBlockMatcher(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL.get()),
                 'C', this.api.predicateMatcher(OccultismBlocks.CANDLE_WHITE.get(),
                         b -> b.getBlock() instanceof CandleBlock)
         ));
