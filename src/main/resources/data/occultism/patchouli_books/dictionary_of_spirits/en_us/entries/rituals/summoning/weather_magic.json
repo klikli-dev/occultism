@@ -1,0 +1,20 @@
+{
+  "name": "Weather Magic",
+  "icon": "minecraft:wheat",
+  "category": "rituals/summoning",
+  "sortnum": 30,
+  "pages": [
+    {
+      "type": "text",
+      "text": "Weather magic is especially useful for farmers and others depending on specific weather. Summons spirits to modify the weather. Different types of weather modification require different power levels."
+    },
+    {
+      "type": "summoning",
+      "heading": "Clear Weather",
+      "pentacle": "$(l:pentacles/summon_djinni)Ophyx' Calling$(/l)",
+      "activation_item": "occultism:book_of_binding_bound_djinni",
+      "ingredients": "$(li)1x $(item)Beetroot $()$(li)1x $(item)Potato $()$(li)1x $(item)Carrot $()$(li)1x $(item)Wheat $()"
+    }
+  ]
+}
+

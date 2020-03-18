@@ -22,9 +22,8 @@
 
 package com.github.klikli_dev.occultism.common.ritual;
 
-import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
-import com.github.klikli_dev.occultism.common.job.TraderJob;
+import com.github.klikli_dev.occultism.common.job.SpiritJob;
 import com.github.klikli_dev.occultism.common.tile.GoldenSacrificialBowlTileEntity;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
@@ -35,18 +34,18 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.particles.ParticleTypes;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
-public class SummonFoliotSaplingTraderRitual extends SummonSpiritRitual {
+public class SummonDjinniClearWeatherRitual extends SummonSpiritRitual {
 
     //region Initialization
-    public SummonFoliotSaplingTraderRitual() {
-        super(null, OccultismRituals.SUMMON_FOLIOT_PENTACLE.get(),
-                Ingredient.fromItems(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()), "summon_foliot_sapling_trader",
-                30);
+    public SummonDjinniClearWeatherRitual() {
+        super(null,
+                OccultismRituals.SUMMON_DJINNI_PENTACLE.get(),
+                Ingredient.fromItems(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()),
+                "summon_djinni_clear_weather", 60);
     }
     //endregion Initialization
 
@@ -55,28 +54,25 @@ public class SummonFoliotSaplingTraderRitual extends SummonSpiritRitual {
     @Override
     public void finish(World world, BlockPos goldenBowlPosition, GoldenSacrificialBowlTileEntity tileEntity,
                        PlayerEntity castingPlayer, ItemStack activationItem) {
+
         super.finish(world, goldenBowlPosition, tileEntity, castingPlayer, activationItem);
 
         //consume activation item
-        ItemStack activationItemCopy = activationItem.copy();
-        activationItem.shrink(1); //remove original activation item.
+        ItemStack copy = activationItem.copy();
+        activationItem.shrink(1);
 
         ((ServerWorld) world).spawnParticle(ParticleTypes.LARGE_SMOKE, goldenBowlPosition.getX() + 0.5,
                 goldenBowlPosition.getY() + 0.5, goldenBowlPosition.getZ() + 0.5, 1, 0, 0, 0, 0);
 
-        //set up the foliot entity
-        SpiritEntity spirit = OccultismEntities.FOLIOT.get().create(world);
+        //set up the djinni entity
+        SpiritEntity spirit = OccultismEntities.DJINNI.get().create(world);
         this.prepareSpiritForSpawn(spirit, world, goldenBowlPosition, castingPlayer,
-                ItemNBTUtil.getBoundSpiritName(activationItemCopy));
+                ItemNBTUtil.getBoundSpiritName(copy));
 
         //set up the job
-        TraderJob exchange = (TraderJob) OccultismSpiritJobs.TRADE_OTHERWORLD_SAPLINGS.get()
-                                                 .create(spirit);
-        exchange.setTradeRecipeId(new ResourceLocation(Occultism.MODID, "spirit_trade/otherworld_sapling"));
-        exchange.init();
-        exchange.setTimeToConvert(60);
-        exchange.setMaxTradesPerRound(1);
-        spirit.setJob(exchange);
+        SpiritJob job = OccultismSpiritJobs.CLEAR_WEATHER.get().create(spirit);
+        job.init();
+        spirit.setJob(job);
         spirit.setSpiritMaxAge(60);
 
         //notify players nearby and spawn

@@ -72,7 +72,8 @@ public class OccultismRituals {
             RITUALS.register("summon_foliot_sapling_trader", SummonFoliotSaplingTraderRitual::new);
     public static final RegistryObject<SummonDjinniManageMachineRitual> SUMMON_DJINNI_MANAGE_MACHINE_RITUAL =
             RITUALS.register("summon_djinni_manage_machine", SummonDjinniManageMachineRitual::new);
-
+    public static final RegistryObject<SummonDjinniClearWeatherRitual> SUMMON_DJINNI_CLEAR_WEATHER_RITUAL =
+            RITUALS.register("summon_djinni_clear_weather", SummonDjinniClearWeatherRitual::new);
     //Crafting
     public static final RegistryObject<CraftStorageControllerBaseRitual> CRAFT_STORAGE_CONTROLLER_BASE_RITUAL =
             RITUALS.register("craft_storage_controller_base", CraftStorageControllerBaseRitual::new);

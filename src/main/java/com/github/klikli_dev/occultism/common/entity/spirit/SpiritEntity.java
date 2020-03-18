@@ -153,10 +153,10 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
     /**
      * Sets the spirit age.
      *
-     * @param age the spirit age in seconds.
+     * @param seconds the spirit age in seconds.
      */
-    public void setSpiritAge(int age) {
-        this.dataManager.set(SPIRIT_AGE, age);
+    public void setSpiritAge(int seconds) {
+        this.dataManager.set(SPIRIT_AGE, seconds);
     }
 
     /**
@@ -169,10 +169,10 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
     /**
      * Sets the spirit max age.
      *
-     * @param maxAge the spirit max age in seconds.
+     * @param seconds the spirit max age in seconds.
      */
-    public void setSpiritMaxAge(int maxAge) {
-        this.dataManager.set(SPIRIT_MAX_AGE, maxAge);
+    public void setSpiritMaxAge(int seconds) {
+        this.dataManager.set(SPIRIT_MAX_AGE, seconds);
     }
 
     /**

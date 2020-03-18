@@ -22,6 +22,7 @@
 
 package com.github.klikli_dev.occultism.config;
 
+import com.github.klikli_dev.occultism.config.value.CachedBoolean;
 import com.github.klikli_dev.occultism.config.value.CachedFloat;
 import com.github.klikli_dev.occultism.config.value.CachedInt;
 import com.github.klikli_dev.occultism.config.value.CachedObject;
@@ -50,6 +51,24 @@ public class OccultismConfig extends ConfigBase {
         this.spec = builder.build();
     }
     //endregion Initialization
+
+    public class RitualSettings extends ConfigCategoryBase {
+        //region Fields
+        public final CachedBoolean enableClearWeatherRitual;
+
+        //endregion Fields
+
+        //region Initialization
+        public RitualSettings(IConfigCache parent, ForgeConfigSpec.Builder builder) {
+            super(parent, builder);
+            builder.comment("Ritual Settings").push("rituals");
+            this.enableClearWeatherRitual = CachedBoolean.cache(this,
+                    builder.comment("Enables the ritual to clear rainy weather.")
+                            .define("enableClearWeatherRitual", true));
+            builder.pop();
+        }
+        //endregion Initialization
+    }
 
     public class StorageSettings extends ConfigCategoryBase {
         //region Fields
