@@ -66,12 +66,12 @@ public class OccultismRituals {
             RITUALS.register("summon_foliot_lumberjack", SummonFoliotLumberjackRitual::new);
     public static final RegistryObject<SummonFoliotCrusherRitual> SUMMON_FOLIOT_CRUSHER_RITUAL =
             RITUALS.register("summon_foliot_crusher", SummonFoliotCrusherRitual::new);
-    public static final RegistryObject<SummonFoliotManageMachineRitual> SUMMON_FOLIOT_MANAGE_MACHINE_RITUAL =
-            RITUALS.register("summon_foliot_manage_machine", SummonFoliotManageMachineRitual::new);
     public static final RegistryObject<SummonFoliotOtherstoneTraderRitual> SUMMON_FOLIOT_OTHERSTONE_TRADER_RITUAL =
             RITUALS.register("summon_foliot_otherstone_trader", SummonFoliotOtherstoneTraderRitual::new);
     public static final RegistryObject<SummonFoliotSaplingTraderRitual> SUMMON_FOLIOT_SAPLING_TRADER_RITUAL =
             RITUALS.register("summon_foliot_sapling_trader", SummonFoliotSaplingTraderRitual::new);
+    public static final RegistryObject<SummonDjinniManageMachineRitual> SUMMON_DJINNI_MANAGE_MACHINE_RITUAL =
+            RITUALS.register("summon_djinni_manage_machine", SummonDjinniManageMachineRitual::new);
 
     //Crafting
     public static final RegistryObject<CraftStorageControllerBaseRitual> CRAFT_STORAGE_CONTROLLER_BASE_RITUAL =

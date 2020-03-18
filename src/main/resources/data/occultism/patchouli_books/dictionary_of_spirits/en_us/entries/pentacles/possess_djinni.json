@@ -2,7 +2,7 @@
   "name": "Ihagan's Enthrallment",
   "icon": "occultism:textures/gui/book/pentagram_rose.png",
   "category": "pentacles",
-  "sortnum": 20,
+  "sortnum": 22,
   "pages": [
     {
       "type": "text",

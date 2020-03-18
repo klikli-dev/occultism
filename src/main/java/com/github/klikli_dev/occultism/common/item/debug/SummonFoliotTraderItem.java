@@ -48,7 +48,7 @@ public class SummonFoliotTraderItem extends Item {
     @Override
     public ActionResultType onItemUse(ItemUseContext context) {
         if (!context.getWorld().isRemote) {
-            FoliotEntity spirit = new FoliotEntity(OccultismEntities.FOLIOT.get(), context.getWorld());
+            FoliotEntity spirit = OccultismEntities.FOLIOT.get().create(context.getWorld());
             spirit.onInitialSpawn(context.getWorld(), context.getWorld().getDifficultyForLocation(context.getPos()),
                     SpawnReason.SPAWN_EGG, null, null);
             spirit.setTamedBy(context.getPlayer());

@@ -22,6 +22,7 @@
 
 package com.github.klikli_dev.occultism.common.item.debug;
 
+import com.github.klikli_dev.occultism.common.entity.spirit.DjinniEntity;
 import com.github.klikli_dev.occultism.common.entity.spirit.FoliotEntity;
 import com.github.klikli_dev.occultism.common.job.SpiritJob;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
@@ -34,10 +35,10 @@ import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.text.StringTextComponent;
 
-public class SummonFoliotManageMachineItem extends Item {
+public class SummonDjinniManageMachineItem extends Item {
 
     //region Initialization
-    public SummonFoliotManageMachineItem(Properties properties) {
+    public SummonDjinniManageMachineItem(Properties properties) {
         super(properties);
     }
     //endregion Initialization
@@ -46,7 +47,8 @@ public class SummonFoliotManageMachineItem extends Item {
     @Override
     public ActionResultType onItemUse(ItemUseContext context) {
         if (!context.getWorld().isRemote) {
-            FoliotEntity spirit = new FoliotEntity(OccultismEntities.FOLIOT.get(), context.getWorld());
+
+            DjinniEntity spirit = OccultismEntities.DJINNI.get().create(context.getWorld());
             spirit.onInitialSpawn(context.getWorld(), context.getWorld().getDifficultyForLocation(context.getPos()),
                     SpawnReason.SPAWN_EGG, null, null);
             spirit.setTamedBy(context.getPlayer());

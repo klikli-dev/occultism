@@ -38,14 +38,14 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
-public class SummonFoliotManageMachineRitual extends SummonSpiritRitual {
+public class SummonDjinniManageMachineRitual extends SummonSpiritRitual {
 
     //region Initialization
-    public SummonFoliotManageMachineRitual() {
-        super(OccultismItems.BOOK_OF_CALLING_FOLIOT_MANAGE_MACHINE.get(),
-                OccultismRituals.SUMMON_FOLIOT_BASIC_PENTACLE.get(),
-                Ingredient.fromItems(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()),
-                "summon_foliot_manage_machine", 60);
+    public SummonDjinniManageMachineRitual() {
+        super(OccultismItems.BOOK_OF_CALLING_DJINNI_MANAGE_MACHINE.get(),
+                OccultismRituals.SUMMON_DJINNI_PENTACLE.get(),
+                Ingredient.fromItems(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()),
+                "summon_djinni_manage_machine", 60);
     }
     //endregion Initialization
 
@@ -63,8 +63,8 @@ public class SummonFoliotManageMachineRitual extends SummonSpiritRitual {
         ((ServerWorld) world).spawnParticle(ParticleTypes.LARGE_SMOKE, goldenBowlPosition.getX() + 0.5,
                 goldenBowlPosition.getY() + 0.5, goldenBowlPosition.getZ() + 0.5, 1, 0, 0, 0, 0);
 
-        //set up the foliot entity
-        SpiritEntity spirit = OccultismEntities.FOLIOT.get().create(world);
+        //set up the djinni entity
+        SpiritEntity spirit = OccultismEntities.DJINNI.get().create(world);
         this.prepareSpiritForSpawn(spirit, world, goldenBowlPosition, castingPlayer,
                 ItemNBTUtil.getBoundSpiritName(result));
 

@@ -1,5 +1,5 @@
 {
-  "name": "Foliot Machine Operator",
+  "name": "Djinni Machine Operator",
   "icon": "minecraft:lever",
   "category": "rituals/summoning",
   "sortnum": 12,
@@ -11,8 +11,8 @@
     {
       "type": "summoning",
       "heading": "Summoning",
-      "pentacle": "$(l:pentacles/summon_foliot_basic)Aviar's Circle$(/l)",
-      "activation_item": "occultism:book_of_binding_bound_foliot",
+      "pentacle": "$(l:pentacles/summon_djinni)Ophyx' Calling$(/l)",
+      "activation_item": "occultism:book_of_binding_bound_djinni",
       "ingredients": "$(li)1x $(item)Coal Block $()$(li)1x $(item)Gold Ingot $()$(li)1x $(item)Iron Ingot $()$(li)1x $(item)Furnace $()"
     }
   ]
