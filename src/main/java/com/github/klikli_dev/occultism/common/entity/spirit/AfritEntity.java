@@ -41,6 +41,7 @@ public class AfritEntity extends SpiritEntity {
     protected void registerAttributes() {
         super.registerAttributes();
         this.getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(8);
+        this.getAttribute(SharedMonsterAttributes.ATTACK_SPEED).setBaseValue(8);
         this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(100);
         this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.30000001192092896);
         this.getAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(8.00);

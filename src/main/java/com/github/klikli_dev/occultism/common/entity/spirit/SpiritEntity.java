@@ -301,6 +301,7 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
         super.registerAttributes();
 
         this.getAttributes().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(1.0);
+        this.getAttributes().registerAttribute(SharedMonsterAttributes.ATTACK_SPEED).setBaseValue(4.0);
 
         //set existing attributes
         this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.30000001192092896D);
