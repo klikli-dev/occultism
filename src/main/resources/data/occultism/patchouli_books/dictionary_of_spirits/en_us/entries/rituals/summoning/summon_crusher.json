@@ -11,7 +11,7 @@
     {
       "type": "summoning",
       "heading": "Summoning",
-      "pentacle": "$(l:pentacles/summon_foliot_basic)Aviar's Circle$(/l)",
+      "pentacle": "$(l:pentacles/summon_foliot)Aviar's Circle$(/l)",
       "activation_item": "occultism:book_of_binding_bound_foliot",
       "ingredients": "$(li)1x $(item)Copper Ore $()$(li)1x $(item)Iron Ore $()$(li)1x $(item)Silver Ore $()$(li)1x $(item)Gold Ore $()"
     }
