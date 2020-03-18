@@ -6,7 +6,7 @@
   "pages": [
     {
       "type": "text",
-      "text": "Developed by Ophyx during the Third Era, the $(thing)Calling$() is the go-to pentacle for $(thing)Djinni$() summonings ever since. Skeleton skulls and purple chalk provide the calling power required to force Djinni into appearance and candles stabilize the ritual."
+      "text": "$(bold)Purpose:$() Summon Djinn $(br2)Developed by Ophyx during the Third Era, the $(thing)Calling$() is the go-to pentacle for $(thing)Djinni$() summonings ever since. Skeleton skulls and purple chalk provide the calling power required to force Djinni into appearance and candles stabilize the ritual."
     },
     {
       "type": "multiblock",
