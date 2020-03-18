@@ -58,5 +58,9 @@ public class OccultismSpiritJobs {
             () -> new SpiritJobFactory((entity) -> new CrusherJob(entity, 0.5f)));
     public static final RegistryObject<SpiritJobFactory> CRUSH_TIER4 = JOBS.register("crush_tier4",
             () -> new SpiritJobFactory((entity) -> new CrusherJob(entity, 0.2f)));
+
+    //Weather Jobs
+    public static final RegistryObject<SpiritJobFactory> CLEAR_WEATHER = JOBS.register("clear_weather",
+            () -> new SpiritJobFactory((entity) -> new ClearWeatherJob(entity, 20 * 15)));
     //endregion Fields
 }

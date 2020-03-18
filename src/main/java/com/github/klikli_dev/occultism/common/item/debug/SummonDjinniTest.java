@@ -58,6 +58,10 @@ public class SummonDjinniTest extends Item {
             spirit.setCustomName(new StringTextComponent("Djinni Test"));
 
             //Test code
+            SpiritJob weather = OccultismSpiritJobs.CLEAR_WEATHER.get().create(spirit);
+            weather.init();
+            spirit.setJob(weather);
+            spirit.setSpiritMaxAge(30);
 
             //notify players nearby and spawn
             for (ServerPlayerEntity player : context.getWorld().getEntitiesWithinAABB(ServerPlayerEntity.class,
