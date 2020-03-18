@@ -55,8 +55,9 @@ public class SummonFoliotCrusherRitual extends SummonSpiritRitual {
                        PlayerEntity castingPlayer, ItemStack activationItem) {
         super.finish(world, goldenBowlPosition, tileEntity, castingPlayer, activationItem);
 
-        //prepare active book of calling
-        ItemStack result = this.getBookOfCallingBound(activationItem);
+        //consume activation item
+        ItemStack copy = activationItem.copy();
+        activationItem.shrink(1);
 
         ((ServerWorld) world).spawnParticle(ParticleTypes.LARGE_SMOKE, goldenBowlPosition.getX() + 0.5,
                 goldenBowlPosition.getY() + 0.5, goldenBowlPosition.getZ() + 0.5, 1, 0, 0, 0, 0);
@@ -64,7 +65,7 @@ public class SummonFoliotCrusherRitual extends SummonSpiritRitual {
         //set up the foliot entity
         SpiritEntity spirit = OccultismEntities.FOLIOT.get().create(world);
         this.prepareSpiritForSpawn(spirit, world, goldenBowlPosition, castingPlayer,
-                ItemNBTUtil.getBoundSpiritName(result));
+                ItemNBTUtil.getBoundSpiritName(copy));
 
         //set up the job
         SpiritJob job = OccultismSpiritJobs.CRUSH_TIER1.get().create(spirit);
@@ -75,9 +76,6 @@ public class SummonFoliotCrusherRitual extends SummonSpiritRitual {
 
         //notify players nearby and spawn
         this.spawnEntity(spirit, world);
-
-        //set up the book of calling
-        this.finishBookOfCallingSetup(result, spirit, castingPlayer);
     }
     //endregion Overrides
 }

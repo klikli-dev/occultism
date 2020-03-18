@@ -20,39 +20,43 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.github.klikli_dev.occultism.client.render.entity;
+package com.github.klikli_dev.occultism.config.value;
 
-import com.github.klikli_dev.occultism.Occultism;
-import com.github.klikli_dev.occultism.client.model.entity.FoliotModel;
-import com.github.klikli_dev.occultism.common.entity.spirit.FoliotEntity;
-import com.mojang.blaze3d.matrix.MatrixStack;
-import net.minecraft.client.renderer.entity.EntityRendererManager;
-import net.minecraft.util.ResourceLocation;
+import com.github.klikli_dev.occultism.config.IConfigCache;
+import net.minecraftforge.common.ForgeConfigSpec;
 
-public class FoliotRenderer extends BipedSpiritRenderer<FoliotEntity, FoliotModel> {
+public class CachedBoolean extends CachedPrimitive<Boolean> {
     //region Fields
-    private static final ResourceLocation[] TEXTURES = {new ResourceLocation(Occultism.MODID,
-            "textures/entity/foliot.png")};
+    protected boolean cachedValue;
     //endregion Fields
 
-
     //region Initialization
-    public FoliotRenderer(EntityRendererManager renderManager) {
-        super(renderManager, new FoliotModel(), 0.25f);
+    protected CachedBoolean(IConfigCache cache,
+                            ForgeConfigSpec.ConfigValue<Boolean> configValue) {
+        super(cache, configValue);
     }
     //endregion Initialization
 
-    //region Overrides
+    //region Static Methods
+    public static CachedBoolean cache(IConfigCache cache, ForgeConfigSpec.ConfigValue<Boolean> internal) {
+        return new CachedBoolean(cache, internal);
+    }
+    //endregion Static Methods
 
-    @Override
-    public ResourceLocation getEntityTexture(FoliotEntity entity) {
-        return TEXTURES[entity.getDataManager().get(entity.getDataParameterSkin())];
+    //region Methods
+    public boolean get() {
+        if (!this.cacheAvailable) {
+            //If we don't have a cached value or need to resolve it again, get it from the actual ConfigValue
+            this.cachedValue = this.configValue.get();
+            this.cacheAvailable = true;
+        }
+        return this.cachedValue;
     }
 
-    @Override
-    protected void preRenderCallback(FoliotEntity entity, MatrixStack matrixStackIn, float partialTickTime) {
-        super.preRenderCallback(entity, matrixStackIn, partialTickTime);
-        matrixStackIn.scale(0.6f, 0.6f, 0.6f);
+    public void set(boolean value) {
+        this.configValue.set(value);
+        this.cachedValue = value;
+        this.cacheAvailable = true;
     }
-    //endregion Overrides
+    //endregion Methods
 }

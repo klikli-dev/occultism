@@ -57,7 +57,7 @@ public class SummonFoliotOtherstoneTraderRitual extends SummonSpiritRitual {
                        PlayerEntity castingPlayer, ItemStack activationItem) {
         super.finish(world, goldenBowlPosition, tileEntity, castingPlayer, activationItem);
 
-        //prepare active book of calling
+        //consume activation item
         ItemStack activationItemCopy = activationItem.copy();
         activationItem.shrink(1); //remove original activation item.
 

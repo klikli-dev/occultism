@@ -45,6 +45,8 @@ public class OccultismRituals {
             PENTACLES.register("summon_foliot", SummonFoliotPentacle::new);
     public static final RegistryObject<SummonDjinniPentacle> SUMMON_DJINNI_PENTACLE =
             PENTACLES.register("summon_djinni", SummonDjinniPentacle::new);
+    public static final RegistryObject<SummonAfritPentacle> SUMMON_AFRIT_PENTACLE =
+            PENTACLES.register("summon_afrit", SummonAfritPentacle::new);
     public static final RegistryObject<CraftFoliotPentacle> CRAFT_FOLIOT_PENTACLE =
             PENTACLES.register("craft_foliot", CraftFoliotPentacle::new);
     public static final RegistryObject<CraftDjinniPentacle> CRAFT_DJINNI_PENTACLE =
@@ -72,6 +74,12 @@ public class OccultismRituals {
             RITUALS.register("summon_foliot_sapling_trader", SummonFoliotSaplingTraderRitual::new);
     public static final RegistryObject<SummonDjinniManageMachineRitual> SUMMON_DJINNI_MANAGE_MACHINE_RITUAL =
             RITUALS.register("summon_djinni_manage_machine", SummonDjinniManageMachineRitual::new);
+    public static final RegistryObject<SummonDjinniClearWeatherRitual> SUMMON_DJINNI_CLEAR_WEATHER_RITUAL =
+            RITUALS.register("summon_djinni_clear_weather", SummonDjinniClearWeatherRitual::new);
+    public static final RegistryObject<SummonAfritRainWeatherRitual> SUMMON_AFRIT_RAIN_WEATHER_RITUAL =
+            RITUALS.register("summon_afrit_rain_weather", SummonAfritRainWeatherRitual::new);
+    public static final RegistryObject<SummonAfritThunderWeatherRitual> SUMMON_AFRIT_THUNDER_WEATHER_RITUAL =
+            RITUALS.register("summon_afrit_thunder_weather", SummonAfritThunderWeatherRitual::new);
 
     //Crafting
     public static final RegistryObject<CraftStorageControllerBaseRitual> CRAFT_STORAGE_CONTROLLER_BASE_RITUAL =

@@ -20,32 +20,28 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.github.klikli_dev.occultism.common.entity.spirit;
+package com.github.klikli_dev.occultism.common.job;
 
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.world.World;
+import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
+import net.minecraft.world.storage.WorldInfo;
 
-public class FoliotEntity extends SpiritEntity {
+public class ThunderWeatherJob extends ChangeWeatherJob {
 
     //region Initialization
-    public FoliotEntity(EntityType<? extends SpiritEntity> type, World world) {
-        super(type, world);
-        this.setSpiritMaxAge(60 * 60 * 24); //1 day default for foliot.
+    public ThunderWeatherJob(SpiritEntity entity, int ticksToClear) {
+        super(entity, ticksToClear);
     }
     //endregion Initialization
 
     //region Overrides
-
-    @Override
-    protected void registerAttributes() {
-        super.registerAttributes();
-        this.getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(1);
-        this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(8);
-        this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.30000001192092896);
-        this.getAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(2.00);
-        this.getAttribute(SharedMonsterAttributes.ARMOR_TOUGHNESS).setBaseValue(1);
-        this.getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(50);
+    public void changeWeather() {
+        WorldInfo info = this.entity.world.getWorldInfo();
+        //taken from weathercommand#thunder
+        info.setClearWeatherTime(0);
+        info.setRainTime(6000);
+        info.setThunderTime(6000);
+        info.setRaining(true);
+        info.setThundering(true);
     }
     //endregion Overrides
 }

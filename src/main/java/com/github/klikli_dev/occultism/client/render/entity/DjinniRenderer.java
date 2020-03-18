@@ -46,7 +46,6 @@ public class DjinniRenderer extends BipedSpiritRenderer<DjinniEntity, DjinniMode
 
     //region Overrides
 
-
     @Override
     public ResourceLocation getEntityTexture(DjinniEntity entity) {
         return TEXTURES[entity.getDataManager().get(entity.getDataParameterSkin())];

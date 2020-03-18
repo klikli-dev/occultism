@@ -2,7 +2,7 @@
   "name": "Sevira's Permanent Confinement",
   "icon": "occultism:textures/gui/book/pentagram_rose.png",
   "category": "pentacles",
-  "sortnum": 30,
+  "sortnum": 31,
   "pages": [
     {
       "type": "text",

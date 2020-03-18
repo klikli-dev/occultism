@@ -20,32 +20,39 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.github.klikli_dev.occultism.common.entity.spirit;
+package com.github.klikli_dev.occultism.client.render.entity;
 
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.world.World;
+import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.client.model.entity.AfritModel;
+import com.github.klikli_dev.occultism.common.entity.spirit.AfritEntity;
+import com.mojang.blaze3d.matrix.MatrixStack;
+import net.minecraft.client.renderer.entity.EntityRendererManager;
+import net.minecraft.util.ResourceLocation;
 
-public class FoliotEntity extends SpiritEntity {
+public class AfritRenderer extends BipedSpiritRenderer<AfritEntity, AfritModel> {
+    //region Fields
+    private static final ResourceLocation[] TEXTURES = {new ResourceLocation(Occultism.MODID,
+            "textures/entity/afrit.png")};
+    //endregion Fields
+
 
     //region Initialization
-    public FoliotEntity(EntityType<? extends SpiritEntity> type, World world) {
-        super(type, world);
-        this.setSpiritMaxAge(60 * 60 * 24); //1 day default for foliot.
+    public AfritRenderer(EntityRendererManager renderManager) {
+        super(renderManager, new AfritModel(), 0.5f);
     }
     //endregion Initialization
 
     //region Overrides
 
     @Override
-    protected void registerAttributes() {
-        super.registerAttributes();
-        this.getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(1);
-        this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(8);
-        this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.30000001192092896);
-        this.getAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(2.00);
-        this.getAttribute(SharedMonsterAttributes.ARMOR_TOUGHNESS).setBaseValue(1);
-        this.getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(50);
+    public ResourceLocation getEntityTexture(AfritEntity entity) {
+        return TEXTURES[entity.getDataManager().get(entity.getDataParameterSkin())];
+    }
+
+    @Override
+    protected void preRenderCallback(AfritEntity entity, MatrixStack matrixStackIn, float partialTickTime) {
+        super.preRenderCallback(entity, matrixStackIn, partialTickTime);
+        matrixStackIn.scale(1.2f, 1.2f, 1.2f);
     }
     //endregion Overrides
 }

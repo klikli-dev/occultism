@@ -29,22 +29,22 @@ import vazkii.patchouli.api.IMultiblock;
 
 import java.util.Arrays;
 
-public class CraftAfritPentacle extends Pentacle {
+public class SummonAfritPentacle extends Pentacle {
 
     //region Fields
     private final String[][] pattern = new String[][]{
             {
-                    "    XNX    ",
-                    "    GGG    ",
-                    "  XGCPCGX  ",
-                    "  G WCW G  ",
-                    "XGCWW WWCGX",
-                    "ZGPC 0 CPGZ",
-                    "XGCWW WWCGX",
-                    "  G WCW G  ",
-                    "  XGCPCGX  ",
-                    "    GGG    ",
-                    "    XZX    "
+                    "     X     ",
+                    "    PPP    ",
+                    "  XWCWCWX  ",
+                    "  W WNW W  ",
+                    " PCWP PWCP ",
+                    "XPWZ 0 ZWPX",
+                    " PCWP PWCP ",
+                    "  W WZW W  ",
+                    "  XWCWCWX  ",
+                    "    PPP    ",
+                    "     X     "
             }
     };
 
@@ -56,7 +56,6 @@ public class CraftAfritPentacle extends Pentacle {
     protected void setupMapping() {
         super.setupMapping();
         this.mapping.addAll(Arrays.asList(
-                'S', this.api.looseBlockMatcher(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL.get()),
                 'Z', this.api.looseBlockMatcher(Blocks.SKELETON_SKULL),
                 'N', this.api.looseBlockMatcher(Blocks.WITHER_SKELETON_SKULL),
                 'C', this.api.predicateMatcher(OccultismBlocks.CANDLE_WHITE.get(), b -> b.getBlock() instanceof CandleBlock)
