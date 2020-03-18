@@ -1,0 +1,21 @@
+{
+  "type": "occultism:spirit_trade",
+  "ingredients": [
+    {
+      "tag": "forge:sand"
+    },
+    {
+      "tag": "forge:gems/diamond"
+    },
+    {
+      "item": "minecraft:cactus"
+    },
+    {
+      "item": "minecraft:dead_bush"
+    }
+  ],
+  "result": {
+    "_comment": "Unused",
+    "item": "occultism:pentacle"
+  }
+}
