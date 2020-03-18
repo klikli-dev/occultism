@@ -24,10 +24,7 @@ package com.github.klikli_dev.occultism.registry;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.TranslationKeys;
-import com.github.klikli_dev.occultism.common.item.debug.DebugWandItem;
-import com.github.klikli_dev.occultism.common.item.debug.SummonFoliotLumberjackItem;
-import com.github.klikli_dev.occultism.common.item.debug.SummonDjinniManageMachineItem;
-import com.github.klikli_dev.occultism.common.item.debug.SummonFoliotTraderItem;
+import com.github.klikli_dev.occultism.common.item.debug.*;
 import com.github.klikli_dev.occultism.common.item.otherworld.OtherworldBlockItem;
 import com.github.klikli_dev.occultism.common.item.spirit.*;
 import com.github.klikli_dev.occultism.common.item.storage.DimensionalMatrixItem;
@@ -57,10 +54,12 @@ public class OccultismItems {
             () -> new DebugWandItem(defaultProperties().maxStackSize(1)));
     public static final RegistryObject<Item> DEBUG_FOLIOT_LUMBERJACK = ITEMS.register("debug_foliot_lumberjack",
             () -> new SummonFoliotLumberjackItem(defaultProperties().maxStackSize(1)));
-    public static final RegistryObject<Item> DEBUG_FOLIOT_MANAGE_MACHINE = ITEMS.register("debug_foliot_manage_machine",
-            () -> new SummonDjinniManageMachineItem(defaultProperties().maxStackSize(1)));
     public static final RegistryObject<Item> DEBUG_FOLIOT_TRADER_ITEM = ITEMS.register("debug_foliot_trader",
             () -> new SummonFoliotTraderItem(defaultProperties().maxStackSize(1)));
+    public static final RegistryObject<Item> DEBUG_DJINNI_MANAGE_MACHINE = ITEMS.register("debug_djinni_manage_machine",
+            () -> new SummonDjinniManageMachineItem(defaultProperties().maxStackSize(1)));
+    public static final RegistryObject<Item> DEBUG_DJINNI_TEST = ITEMS.register("debug_djinni_test",
+            () -> new SummonDjinniTest(defaultProperties().maxStackSize(1)));
 
     public static final RegistryObject<BlockItem> SPIRIT_FIRE = ITEMS.register("spirit_fire", () -> new BlockItem(OccultismBlocks.SPIRIT_FIRE.get(), defaultProperties()));
 
