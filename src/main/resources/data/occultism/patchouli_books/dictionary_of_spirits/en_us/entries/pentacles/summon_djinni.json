@@ -1,0 +1,16 @@
+{
+  "name": "Ophyx' Calling",
+  "icon": "occultism:textures/gui/book/pentagram_rose.png",
+  "category": "pentacles",
+  "sortnum": 20,
+  "pages": [
+    {
+      "type": "text",
+      "text": "Developed by Ophyx during the Third Era, the $(thing)Calling$() is the go-to pentacle for $(thing)Djinni$() summonings ever since. Skeleton skulls and purple chalk provide the calling power required to force Djinni into appearance and candles stabilize the ritual."
+    },
+    {
+      "type": "multiblock",
+      "multiblock_id": "occultism:pentacle.summon_djinni"
+    }
+  ]
+}
