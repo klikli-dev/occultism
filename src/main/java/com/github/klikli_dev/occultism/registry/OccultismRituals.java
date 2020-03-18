@@ -45,6 +45,8 @@ public class OccultismRituals {
             PENTACLES.register("summon_foliot", SummonFoliotPentacle::new);
     public static final RegistryObject<SummonDjinniPentacle> SUMMON_DJINNI_PENTACLE =
             PENTACLES.register("summon_djinni", SummonDjinniPentacle::new);
+    public static final RegistryObject<SummonAfritPentacle> SUMMON_AFRIT_PENTACLE =
+            PENTACLES.register("summon_afrit", SummonAfritPentacle::new);
     public static final RegistryObject<CraftFoliotPentacle> CRAFT_FOLIOT_PENTACLE =
             PENTACLES.register("craft_foliot", CraftFoliotPentacle::new);
     public static final RegistryObject<CraftDjinniPentacle> CRAFT_DJINNI_PENTACLE =

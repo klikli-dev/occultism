@@ -1,0 +1,16 @@
+{
+  "name": "Abras' Conjure",
+  "icon": "occultism:textures/gui/book/pentagram_rose.png",
+  "category": "pentacles",
+  "sortnum": 30,
+  "pages": [
+    {
+      "type": "text",
+      "text": "$(bold)Purpose:$() Summon Afrit $(br2)$(thing)Abras' Conjure$() is one of the few pentacles capable of (mostly) safely summoning an Afrit. While the requirement of a wither skeleton skull makes it comparatively expensive, the additional calling potential is required to reach these high-power spirits."
+    },
+    {
+      "type": "multiblock",
+      "multiblock_id": "occultism:pentacle.summon_afrit"
+    }
+  ]
+}
