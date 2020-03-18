@@ -201,7 +201,7 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
      * @param job the new job, should already be initialized
      */
     public void setJob(SpiritJob job) {
-        this.job.ifPresent(SpiritJob::cleanup);
+        this.removeJob();
         this.job = Optional.ofNullable(job);
         if (job != null) {
             this.job = Optional.ofNullable(job);
@@ -437,7 +437,7 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
                 }
             });
 
-            this.job.ifPresent(SpiritJob::cleanup);
+            this.removeJob();
 
             //Death sound and particle effects
             ((ServerWorld) this.world)
@@ -450,9 +450,20 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
 
         super.onDeath(cause);
     }
+
+    public void remove(boolean keepData) {
+        this.removeJob();
+        super.remove(keepData);
+    }
+
     //endregion Overrides
 
     //region Methods
+
+    public void removeJob() {
+        this.job.ifPresent(SpiritJob::cleanup);
+        this.job = Optional.empty();
+    }
 
     /**
      * @return true if the spirit has a max age and can die from age.
