@@ -56,6 +56,10 @@ public class OccultismEntities {
             NonNullLazy.of(() -> EntityType.Builder.create(AfritEntity::new, EntityClassification.CREATURE)
                                          .size(1.2f, 1.8f)
                                          .build(modLoc("afrit").toString()));
+    public static final NonNullLazy<EntityType<AfritEntity>> AFRIT_WILD_TYPE =
+            NonNullLazy.of(() -> EntityType.Builder.create(AfritEntity::new, EntityClassification.CREATURE)
+                                         .size(1.2f, 1.8f)
+                                         .build(modLoc("afrit_wild").toString()));
 
     public static final NonNullLazy<EntityType<PossessedEndermiteEntity>> POSSESSED_ENDERMITE_TYPE =
             NonNullLazy.of(() -> EntityType.Builder.create(PossessedEndermiteEntity::new, EntityClassification.MONSTER)
@@ -70,10 +74,10 @@ public class OccultismEntities {
                                          .size(0.6F, 2.9F)
                                          .build(modLoc("possessed_endermite").toString()));
 
-
     public static final RegistryObject<EntityType<FoliotEntity>> FOLIOT = ENTITIES.register("foliot", FOLIOT_TYPE::get);
     public static final RegistryObject<EntityType<DjinniEntity>> DJINNI = ENTITIES.register("djinni", DJINNI_TYPE::get);
     public static final RegistryObject<EntityType<AfritEntity>> AFRIT = ENTITIES.register("afrit", AFRIT_TYPE::get);
+    public static final RegistryObject<EntityType<AfritEntity>> AFRIT_WILD = ENTITIES.register("afrit_wild", AFRIT_WILD_TYPE::get);
 
     public static final RegistryObject<EntityType<PossessedEndermiteEntity>> POSSESSED_ENDERMITE =
             ENTITIES.register("possessed_endermite", POSSESSED_ENDERMITE_TYPE::get);
