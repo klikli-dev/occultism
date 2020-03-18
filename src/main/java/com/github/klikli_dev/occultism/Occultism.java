@@ -29,6 +29,7 @@ import com.github.klikli_dev.occultism.client.gui.storage.StorageControllerGui;
 import com.github.klikli_dev.occultism.client.gui.storage.StorageRemoteGui;
 import com.github.klikli_dev.occultism.client.render.SelectedBlockRenderer;
 import com.github.klikli_dev.occultism.client.render.ThirdEyeEffectRenderer;
+import com.github.klikli_dev.occultism.client.render.entity.AfritRenderer;
 import com.github.klikli_dev.occultism.client.render.entity.DjinniRenderer;
 import com.github.klikli_dev.occultism.client.render.entity.FoliotRenderer;
 import com.github.klikli_dev.occultism.client.render.tile.SacrificialBowlRenderer;
@@ -143,6 +144,7 @@ public class Occultism {
         //Register Entity Renderers
         RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.FOLIOT.get(), FoliotRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.DJINNI.get(), DjinniRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.AFRIT.get(), AfritRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.POSSESSED_ENDERMITE_TYPE.get(), EndermiteRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.POSSESSED_SKELETON_TYPE.get(), SkeletonRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.POSSESSED_ENDERMAN_TYPE.get(), EndermanRenderer::new);

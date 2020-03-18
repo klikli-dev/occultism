@@ -23,36 +23,36 @@
 package com.github.klikli_dev.occultism.client.render.entity;
 
 import com.github.klikli_dev.occultism.Occultism;
-import com.github.klikli_dev.occultism.client.model.entity.FoliotModel;
-import com.github.klikli_dev.occultism.common.entity.spirit.FoliotEntity;
+import com.github.klikli_dev.occultism.client.model.entity.AfritModel;
+import com.github.klikli_dev.occultism.common.entity.spirit.AfritEntity;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.util.ResourceLocation;
 
-public class FoliotRenderer extends BipedSpiritRenderer<FoliotEntity, FoliotModel> {
+public class AfritRenderer extends BipedSpiritRenderer<AfritEntity, AfritModel> {
     //region Fields
     private static final ResourceLocation[] TEXTURES = {new ResourceLocation(Occultism.MODID,
-            "textures/entity/foliot.png")};
+            "textures/entity/afrit.png")};
     //endregion Fields
 
 
     //region Initialization
-    public FoliotRenderer(EntityRendererManager renderManager) {
-        super(renderManager, new FoliotModel(), 0.25f);
+    public AfritRenderer(EntityRendererManager renderManager) {
+        super(renderManager, new AfritModel(), 0.5f);
     }
     //endregion Initialization
 
     //region Overrides
 
     @Override
-    public ResourceLocation getEntityTexture(FoliotEntity entity) {
+    public ResourceLocation getEntityTexture(AfritEntity entity) {
         return TEXTURES[entity.getDataManager().get(entity.getDataParameterSkin())];
     }
 
     @Override
-    protected void preRenderCallback(FoliotEntity entity, MatrixStack matrixStackIn, float partialTickTime) {
+    protected void preRenderCallback(AfritEntity entity, MatrixStack matrixStackIn, float partialTickTime) {
         super.preRenderCallback(entity, matrixStackIn, partialTickTime);
-        matrixStackIn.scale(0.6f, 0.6f, 0.6f);
+        matrixStackIn.scale(1.2f, 1.2f, 1.2f);
     }
     //endregion Overrides
 }

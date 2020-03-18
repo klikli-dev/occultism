@@ -20,39 +20,32 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.github.klikli_dev.occultism.client.render.entity;
+package com.github.klikli_dev.occultism.common.entity.spirit;
 
-import com.github.klikli_dev.occultism.Occultism;
-import com.github.klikli_dev.occultism.client.model.entity.FoliotModel;
-import com.github.klikli_dev.occultism.common.entity.spirit.FoliotEntity;
-import com.mojang.blaze3d.matrix.MatrixStack;
-import net.minecraft.client.renderer.entity.EntityRendererManager;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.world.World;
 
-public class FoliotRenderer extends BipedSpiritRenderer<FoliotEntity, FoliotModel> {
-    //region Fields
-    private static final ResourceLocation[] TEXTURES = {new ResourceLocation(Occultism.MODID,
-            "textures/entity/foliot.png")};
-    //endregion Fields
-
+public class AfritEntity extends SpiritEntity {
 
     //region Initialization
-    public FoliotRenderer(EntityRendererManager renderManager) {
-        super(renderManager, new FoliotModel(), 0.25f);
+    public AfritEntity(EntityType<? extends SpiritEntity> type, World world) {
+        super(type, world);
+        this.setSpiritMaxAge(60 * 60 * 24  * 3); //3 day default for afrit.
     }
     //endregion Initialization
 
     //region Overrides
 
     @Override
-    public ResourceLocation getEntityTexture(FoliotEntity entity) {
-        return TEXTURES[entity.getDataManager().get(entity.getDataParameterSkin())];
-    }
-
-    @Override
-    protected void preRenderCallback(FoliotEntity entity, MatrixStack matrixStackIn, float partialTickTime) {
-        super.preRenderCallback(entity, matrixStackIn, partialTickTime);
-        matrixStackIn.scale(0.6f, 0.6f, 0.6f);
+    protected void registerAttributes() {
+        super.registerAttributes();
+        this.getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(8);
+        this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(100);
+        this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.30000001192092896);
+        this.getAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(8.00);
+        this.getAttribute(SharedMonsterAttributes.ARMOR_TOUGHNESS).setBaseValue(10);
+        this.getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(50);
     }
     //endregion Overrides
 }
