@@ -87,7 +87,7 @@ public class SummonAfritThunderWeatherRitual extends SummonSpiritRitual {
 
     @Override
     public boolean identify(World world, BlockPos goldenBowlPosition, ItemStack activationItem) {
-        return Occultism.CONFIG.rituals.enableRainWeatherRitual.get() &&
+        return Occultism.CONFIG.rituals.enableThunderWeatherRitual.get() &&
                super.identify(world, goldenBowlPosition, activationItem);
     }
     //endregion Overrides

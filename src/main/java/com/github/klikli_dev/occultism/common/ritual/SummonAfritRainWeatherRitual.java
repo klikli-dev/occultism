@@ -48,7 +48,7 @@ public class SummonAfritRainWeatherRitual extends SummonSpiritRitual {
         super(null,
                 OccultismRituals.SUMMON_AFRIT_PENTACLE.get(),
                 Ingredient.fromItems(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()),
-                "summon_afrit_thunder_weather", 60);
+                "summon_afrit_rain_weather", 60);
         this.sacrificePredicate = (entity) -> {
             ResourceLocation cowTag = new ResourceLocation("forge", "cows");
             return EntityTypeTags.getCollection().getOrCreate(cowTag).contains(entity.getType());
@@ -76,7 +76,7 @@ public class SummonAfritRainWeatherRitual extends SummonSpiritRitual {
                 ItemNBTUtil.getBoundSpiritName(copy));
 
         //set up the job
-        SpiritJob job = OccultismSpiritJobs.THUNDER_WEATHER.get().create(spirit);
+        SpiritJob job = OccultismSpiritJobs.RAIN_WEATHER.get().create(spirit);
         job.init();
         spirit.setJob(job);
         spirit.setSpiritMaxAge(120);
@@ -87,7 +87,7 @@ public class SummonAfritRainWeatherRitual extends SummonSpiritRitual {
 
     @Override
     public boolean identify(World world, BlockPos goldenBowlPosition, ItemStack activationItem) {
-        return Occultism.CONFIG.rituals.enableThunderWeatherRitual.get() &&
+        return Occultism.CONFIG.rituals.enableRainWeatherRitual.get() &&
                super.identify(world, goldenBowlPosition, activationItem);
     }
     //endregion Overrides
