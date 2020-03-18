@@ -27,6 +27,7 @@ import com.github.klikli_dev.occultism.common.block.crops.IReplantableCrops;
 import com.github.klikli_dev.occultism.common.block.otherworld.IOtherworldBlock;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
+import com.github.klikli_dev.occultism.registry.OccultismItems;
 import net.minecraft.advancements.criterion.StatePropertiesPredicate;
 import net.minecraft.block.Block;
 import net.minecraft.block.CropsBlock;
@@ -103,6 +104,13 @@ public class StandardLootTableProvider extends BaseLootTableProvider {
                                             .acceptFunction(
                                                     LootingEnchantBonus.builder(RandomValueRange.of(0.0F, 1.0F))))));
 
+            this.registerLootTable(OccultismEntities.AFRIT_WILD_TYPE.get(),
+                    LootTable.builder().addLootPool(
+                            LootPool.builder().rolls(ConstantRange.of(1))
+                                    .addEntry(ItemLootEntry.builder(OccultismItems.AFRIT_ESSENCE.get())
+                                                      .acceptFunction(SetCount.builder(RandomValueRange.of(0.7f, 1.0F)))
+                                                      .acceptFunction(LootingEnchantBonus.builder(
+                                                              RandomValueRange.of(0.0F, 1.0F))))));
         }
 
         @Override
