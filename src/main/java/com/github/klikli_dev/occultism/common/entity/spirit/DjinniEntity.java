@@ -25,15 +25,14 @@ package com.github.klikli_dev.occultism.common.entity.spirit;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.world.World;
 
-public class FoliotEntity extends SpiritEntity {
+public class DjinniEntity extends SpiritEntity {
 
     //region Initialization
-    public FoliotEntity(EntityType<? extends SpiritEntity> type, World world) {
+    public DjinniEntity(EntityType<? extends SpiritEntity> type, World world) {
         super(type, world);
-        this.setSpiritMaxAge(60 * 60 * 24); //1 day default for foliot.
+        this.setSpiritMaxAge(60 * 60 * 24); //1 day default for djinni.
     }
     //endregion Initialization
 
@@ -42,11 +41,11 @@ public class FoliotEntity extends SpiritEntity {
     @Override
     protected void registerAttributes() {
         super.registerAttributes();
-        this.getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(1);
-        this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(8);
+        this.getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(3);
+        this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20);
         this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.30000001192092896);
-        this.getAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(2.00);
-        this.getAttribute(SharedMonsterAttributes.ARMOR_TOUGHNESS).setBaseValue(1);
+        this.getAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(4.00);
+        this.getAttribute(SharedMonsterAttributes.ARMOR_TOUGHNESS).setBaseValue(5);
         this.getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(50);
     }
     //endregion Overrides
