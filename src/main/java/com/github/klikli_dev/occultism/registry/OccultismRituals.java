@@ -43,6 +43,8 @@ public class OccultismRituals {
             PENTACLES.register("debug", DebugPentacle::new);
     public static final RegistryObject<PentacleSummonFoliotBasic> SUMMON_FOLIOT_BASIC_PENTACLE =
             PENTACLES.register("summon_foliot_basic", PentacleSummonFoliotBasic::new);
+    public static final RegistryObject<PentacleSummonDjinni> SUMMON_DJINNI_PENTACLE =
+            PENTACLES.register("summon_djinni", PentacleSummonDjinni::new);
     public static final RegistryObject<PentacleCraftFoliot> CRAFT_FOLIOT_PENTACLE =
             PENTACLES.register("craft_foliot", PentacleCraftFoliot::new);
     public static final RegistryObject<PentacleCraftDjinni> CRAFT_DJINNI_PENTACLE =
@@ -64,12 +66,12 @@ public class OccultismRituals {
             RITUALS.register("summon_foliot_lumberjack", SummonFoliotLumberjackRitual::new);
     public static final RegistryObject<SummonFoliotCrusherRitual> SUMMON_FOLIOT_CRUSHER_RITUAL =
             RITUALS.register("summon_foliot_crusher", SummonFoliotCrusherRitual::new);
-    public static final RegistryObject<SummonFoliotManageMachineRitual> SUMMON_FOLIOT_MANAGE_MACHINE_RITUAL =
-            RITUALS.register("summon_foliot_manage_machine", SummonFoliotManageMachineRitual::new);
     public static final RegistryObject<SummonFoliotOtherstoneTraderRitual> SUMMON_FOLIOT_OTHERSTONE_TRADER_RITUAL =
             RITUALS.register("summon_foliot_otherstone_trader", SummonFoliotOtherstoneTraderRitual::new);
     public static final RegistryObject<SummonFoliotSaplingTraderRitual> SUMMON_FOLIOT_SAPLING_TRADER_RITUAL =
             RITUALS.register("summon_foliot_sapling_trader", SummonFoliotSaplingTraderRitual::new);
+    public static final RegistryObject<SummonDjinniManageMachineRitual> SUMMON_DJINNI_MANAGE_MACHINE_RITUAL =
+            RITUALS.register("summon_djinni_manage_machine", SummonDjinniManageMachineRitual::new);
 
     //Crafting
     public static final RegistryObject<CraftStorageControllerBaseRitual> CRAFT_STORAGE_CONTROLLER_BASE_RITUAL =

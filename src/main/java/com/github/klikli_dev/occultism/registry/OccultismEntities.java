@@ -26,6 +26,7 @@ import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.entity.possessed.PossessedEndermanEntity;
 import com.github.klikli_dev.occultism.common.entity.possessed.PossessedEndermiteEntity;
 import com.github.klikli_dev.occultism.common.entity.possessed.PossessedSkeletonEntity;
+import com.github.klikli_dev.occultism.common.entity.spirit.DjinniEntity;
 import com.github.klikli_dev.occultism.common.entity.spirit.FoliotEntity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
@@ -46,6 +47,10 @@ public class OccultismEntities {
             NonNullLazy.of(() -> EntityType.Builder.create(FoliotEntity::new, EntityClassification.CREATURE)
                                          .size(0.6f, 0.9f)
                                          .build(modLoc("foliot").toString()));
+    public static final NonNullLazy<EntityType<DjinniEntity>> DJINNI_TYPE =
+            NonNullLazy.of(() -> EntityType.Builder.create(DjinniEntity::new, EntityClassification.CREATURE)
+                                         .size(0.6f, 0.9f)
+                                         .build(modLoc("djinni").toString()));
 
     public static final NonNullLazy<EntityType<PossessedEndermiteEntity>> POSSESSED_ENDERMITE_TYPE =
             NonNullLazy.of(() -> EntityType.Builder.create(PossessedEndermiteEntity::new, EntityClassification.MONSTER)
@@ -62,6 +67,7 @@ public class OccultismEntities {
 
 
     public static final RegistryObject<EntityType<FoliotEntity>> FOLIOT = ENTITIES.register("foliot", FOLIOT_TYPE::get);
+    public static final RegistryObject<EntityType<DjinniEntity>> DJINNI = ENTITIES.register("djinni", DJINNI_TYPE::get);
 
     public static final RegistryObject<EntityType<PossessedEndermiteEntity>> POSSESSED_ENDERMITE =
             ENTITIES.register("possessed_endermite", POSSESSED_ENDERMITE_TYPE::get);

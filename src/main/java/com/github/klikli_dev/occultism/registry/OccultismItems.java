@@ -26,7 +26,7 @@ import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.TranslationKeys;
 import com.github.klikli_dev.occultism.common.item.debug.DebugWandItem;
 import com.github.klikli_dev.occultism.common.item.debug.SummonFoliotLumberjackItem;
-import com.github.klikli_dev.occultism.common.item.debug.SummonFoliotManageMachineItem;
+import com.github.klikli_dev.occultism.common.item.debug.SummonDjinniManageMachineItem;
 import com.github.klikli_dev.occultism.common.item.debug.SummonFoliotTraderItem;
 import com.github.klikli_dev.occultism.common.item.otherworld.OtherworldBlockItem;
 import com.github.klikli_dev.occultism.common.item.spirit.*;
@@ -58,7 +58,7 @@ public class OccultismItems {
     public static final RegistryObject<Item> DEBUG_FOLIOT_LUMBERJACK = ITEMS.register("debug_foliot_lumberjack",
             () -> new SummonFoliotLumberjackItem(defaultProperties().maxStackSize(1)));
     public static final RegistryObject<Item> DEBUG_FOLIOT_MANAGE_MACHINE = ITEMS.register("debug_foliot_manage_machine",
-            () -> new SummonFoliotManageMachineItem(defaultProperties().maxStackSize(1)));
+            () -> new SummonDjinniManageMachineItem(defaultProperties().maxStackSize(1)));
     public static final RegistryObject<Item> DEBUG_FOLIOT_TRADER_ITEM = ITEMS.register("debug_foliot_trader",
             () -> new SummonFoliotTraderItem(defaultProperties().maxStackSize(1)));
 
@@ -174,10 +174,10 @@ public class OccultismItems {
             "book_of_calling_foliot_lumberjack",
             () -> new BookOfCallingLumberjackItem(defaultProperties().maxStackSize(1),
                     TranslationKeys.BOOK_OF_CALLING_GENERIC + "_foliot"));
-    public static final RegistryObject<BookOfCallingManageMachineItem> BOOK_OF_CALLING_FOLIOT_MANAGE_MACHINE = ITEMS.register(
-            "book_of_calling_foliot_manage_machine",
+    public static final RegistryObject<BookOfCallingManageMachineItem> BOOK_OF_CALLING_DJINNI_MANAGE_MACHINE = ITEMS.register(
+            "book_of_calling_djinni_manage_machine",
             () -> new BookOfCallingManageMachineItem(defaultProperties().maxStackSize(1),
-                    TranslationKeys.BOOK_OF_CALLING_GENERIC + "_foliot"));
+                    TranslationKeys.BOOK_OF_CALLING_GENERIC + "_djinni"));
     //Djinn
 
     //Machines

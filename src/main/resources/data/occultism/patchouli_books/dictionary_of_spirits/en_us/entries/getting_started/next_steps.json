@@ -21,7 +21,16 @@
     {
       "type": "text",
       "title": "Dimensional Storage",
-      "text": "Among the advanced uses of spirits is the controlled creation and interaction with dimensions, which allow to store great amounts of items. Start by infusing a dimensional matrix and go from there. Now the sky is the limit - use stable wormholes and storage accessors to remotely access your items, summon spirits to manage machines for you and create storage stabilizers to maximize available space."
+      "text": "Among the advanced uses of spirits is the controlled creation and interaction with dimensions, which allow to store great amounts of items. Start by infusing a dimensional matrix and go from there. Now the sky is the limit - use stable wormholes as additional access points, storage accessors to remotely access your items and create storage stabilizers to maximize available space."
+    },
+    {
+      "type": "text",
+      "title": "Autocrafting",
+      "text": "The final step for ultimate comfort is to summon machine operator Djinni to manage furnaces and other machines for you. Their book of calling allows to set their managed machine and home storage system, then you can give orders using the storage system GUI."
+    },
+    {
+      "type": "empty",
+      "draw_filler": false
     }
   ]
 }
