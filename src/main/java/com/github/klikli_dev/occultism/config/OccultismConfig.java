@@ -40,6 +40,7 @@ public class OccultismConfig extends ConfigBase {
     //region Fields
     public final StorageSettings storage;
     public final WorldGenSettings worldGen;
+    public final RitualSettings rituals;
     public final ForgeConfigSpec spec;
     //endregion Fields
 
@@ -48,6 +49,7 @@ public class OccultismConfig extends ConfigBase {
         ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
         this.storage = new StorageSettings(this, builder);
         this.worldGen = new WorldGenSettings(this, builder);
+        this.rituals = new RitualSettings(this, builder);
         this.spec = builder.build();
     }
     //endregion Initialization
@@ -55,16 +57,25 @@ public class OccultismConfig extends ConfigBase {
     public class RitualSettings extends ConfigCategoryBase {
         //region Fields
         public final CachedBoolean enableClearWeatherRitual;
-
+        public final CachedBoolean enableRainWeatherRitual;
+        public final CachedBoolean enableThunderWeatherRitual;
         //endregion Fields
 
         //region Initialization
         public RitualSettings(IConfigCache parent, ForgeConfigSpec.Builder builder) {
             super(parent, builder);
             builder.comment("Ritual Settings").push("rituals");
+
             this.enableClearWeatherRitual = CachedBoolean.cache(this,
                     builder.comment("Enables the ritual to clear rainy weather.")
                             .define("enableClearWeatherRitual", true));
+            this.enableRainWeatherRitual = CachedBoolean.cache(this,
+                    builder.comment("Enables the ritual to start rainy weather.")
+                            .define("enableRainWeatherRitual", true));
+            this.enableThunderWeatherRitual = CachedBoolean.cache(this,
+                    builder.comment("Enables the ritual to start a thunderstorm.")
+                            .define("enableThunderWeatherRitual", true));
+
             builder.pop();
         }
         //endregion Initialization

@@ -22,6 +22,7 @@
 
 package com.github.klikli_dev.occultism.common.ritual;
 
+import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.github.klikli_dev.occultism.common.job.SpiritJob;
 import com.github.klikli_dev.occultism.common.tile.GoldenSacrificialBowlTileEntity;
@@ -50,7 +51,6 @@ public class SummonDjinniClearWeatherRitual extends SummonSpiritRitual {
     //endregion Initialization
 
     //region Overrides
-
     @Override
     public void finish(World world, BlockPos goldenBowlPosition, GoldenSacrificialBowlTileEntity tileEntity,
                        PlayerEntity castingPlayer, ItemStack activationItem) {
@@ -77,6 +77,12 @@ public class SummonDjinniClearWeatherRitual extends SummonSpiritRitual {
 
         //notify players nearby and spawn
         this.spawnEntity(spirit, world);
+    }
+
+    @Override
+    public boolean identify(World world, BlockPos goldenBowlPosition, ItemStack activationItem) {
+        return Occultism.CONFIG.rituals.enableClearWeatherRitual.get() &&
+               super.identify(world, goldenBowlPosition, activationItem);
     }
     //endregion Overrides
 }
