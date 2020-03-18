@@ -254,6 +254,7 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
             if (!this.dead)
                 this.job.ifPresent(SpiritJob::update);
         }
+        this.updateArmSwingProgress();
         super.livingTick();
     }
 

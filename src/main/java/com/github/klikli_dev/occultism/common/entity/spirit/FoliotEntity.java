@@ -22,10 +22,8 @@
 
 package com.github.klikli_dev.occultism.common.entity.spirit;
 
-import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.world.World;
 
 public class FoliotEntity extends SpiritEntity {
