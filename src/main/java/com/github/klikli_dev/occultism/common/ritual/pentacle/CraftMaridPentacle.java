@@ -24,36 +24,46 @@ package com.github.klikli_dev.occultism.common.ritual.pentacle;
 
 import com.github.klikli_dev.occultism.common.block.CandleBlock;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
+import net.minecraft.block.Blocks;
 import vazkii.patchouli.api.IMultiblock;
 
 import java.util.Arrays;
 
-public class PentaclePossessFoliot extends Pentacle {
+public class CraftMaridPentacle extends Pentacle {
 
     //region Fields
     private final String[][] pattern = new String[][]{
             {
-                    "   GGG   ",
-                    "  GCXCG  ",
-                    " GW   WG ",
-                    "GC W W CG",
-                    "GX  0  XG",
-                    "GC W W CG",
-                    " GW   WG ",
-                    "  GCXCG  ",
-                    "   GGG   "
+                    "      XZX      ",
+                    "      RRR      ",
+                    "   X RCWCR X   ",
+                    "  X R  W  R X  ",
+                    "   RGSWNWSGR   ",
+                    "  R SGW WGS R  ",
+                    "XRC WW   WW CRX",
+                    "ZRWWN  0  NWWRZ",
+                    "XRC WW   WW CRX",
+                    "  R SGW WGS R  ",
+                    "   RGSWNWSGR   ",
+                    "  X R  W  R X  ",
+                    "   X RCWCR X   ",
+                    "      RRR      ",
+                    "      XZX      "
             }
     };
 
     //endregion Fields
 
     //region Overrides
+
     @Override
     protected void setupMapping() {
         super.setupMapping();
         this.mapping.addAll(Arrays.asList(
-                'C', this.api.predicateMatcher(OccultismBlocks.CANDLE_WHITE.get(),
-                        b -> b.getBlock() instanceof CandleBlock)
+                'S', this.api.looseBlockMatcher(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL.get()),
+                'Z', this.api.looseBlockMatcher(Blocks.SKELETON_SKULL),
+                'N', this.api.looseBlockMatcher(Blocks.WITHER_SKELETON_SKULL),
+                'C', this.api.predicateMatcher(OccultismBlocks.CANDLE_WHITE.get(), b -> b.getBlock() instanceof CandleBlock)
         ));
     }
 

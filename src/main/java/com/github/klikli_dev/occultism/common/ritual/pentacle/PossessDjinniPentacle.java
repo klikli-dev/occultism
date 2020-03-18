@@ -29,7 +29,7 @@ import vazkii.patchouli.api.IMultiblock;
 
 import java.util.Arrays;
 
-public class PentaclePossessDjinni extends Pentacle {
+public class PossessDjinniPentacle extends Pentacle {
 
     //region Fields
     private final String[][] pattern = new String[][]{

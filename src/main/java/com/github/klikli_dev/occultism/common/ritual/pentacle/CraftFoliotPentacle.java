@@ -24,36 +24,35 @@ package com.github.klikli_dev.occultism.common.ritual.pentacle;
 
 import com.github.klikli_dev.occultism.common.block.CandleBlock;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
-import net.minecraft.block.Blocks;
 import vazkii.patchouli.api.IMultiblock;
 
 import java.util.Arrays;
 
-public class PentacleSummonDjinni extends Pentacle {
+public class CraftFoliotPentacle extends Pentacle {
 
     //region Fields
     private final String[][] pattern = new String[][]{
             {
-                    "   CXC   ",
-                    "   PPP   ",
-                    "  W Z W  ",
-                    "CP W W PC",
-                    "XPZ 0 ZPX",
-                    "CP W W PC",
-                    "  W Z W  ",
-                    "   PPP   ",
-                    "   CXC   "
+                    "  WSW  ",
+                    " G   G ",
+                    "W XWX W",
+                    "C W0W C",
+                    "W XWX W",
+                    " G   G ",
+                    "  WSW  "
             }
     };
 
     //endregion Fields
 
     //region Overrides
+
+
     @Override
     protected void setupMapping() {
         super.setupMapping();
         this.mapping.addAll(Arrays.asList(
-                'Z', this.api.looseBlockMatcher(Blocks.SKELETON_SKULL),
+                'S', this.api.looseBlockMatcher(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL.get()),
                 'C', this.api.predicateMatcher(OccultismBlocks.CANDLE_WHITE.get(),
                         b -> b.getBlock() instanceof CandleBlock)
         ));
@@ -61,7 +60,7 @@ public class PentacleSummonDjinni extends Pentacle {
 
     @Override
     protected IMultiblock setupMultiblock() {
-        return this.api.makeMultiblock(this.pattern, this.mapping.toArray()).setSymmetrical(true);
+        return this.api.makeMultiblock(this.pattern, this.mapping.toArray()).setSymmetrical(false);
     }
     //endregion Overrides
 }

@@ -6,7 +6,7 @@
   "pages": [
     {
       "type": "text",
-      "text": "$(thing)Ihagan's Enthrallment$() forces $(thing)Djinn$() to possess a nearby creature. This pentacle does not lead to permanent imprisonment, the spirit and possessed creature will perish within a short period of time."
+      "text": "$(bold)Purpose:$() Djinni Possession $(br2)$(thing)Ihagan's Enthrallment$() forces $(thing)Djinn$() to possess a nearby creature. This pentacle does not lead to permanent imprisonment, the spirit and possessed creature will perish within a short period of time."
     },
     {
       "type": "multiblock",

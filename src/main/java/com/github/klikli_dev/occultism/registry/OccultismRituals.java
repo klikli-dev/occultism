@@ -41,22 +41,22 @@ public class OccultismRituals {
     //Pentacles
     public static final RegistryObject<DebugPentacle> DEBUG_PENTACLE =
             PENTACLES.register("debug", DebugPentacle::new);
-    public static final RegistryObject<PentacleSummonFoliotBasic> SUMMON_FOLIOT_BASIC_PENTACLE =
-            PENTACLES.register("summon_foliot_basic", PentacleSummonFoliotBasic::new);
-    public static final RegistryObject<PentacleSummonDjinni> SUMMON_DJINNI_PENTACLE =
-            PENTACLES.register("summon_djinni", PentacleSummonDjinni::new);
-    public static final RegistryObject<PentacleCraftFoliot> CRAFT_FOLIOT_PENTACLE =
-            PENTACLES.register("craft_foliot", PentacleCraftFoliot::new);
-    public static final RegistryObject<PentacleCraftDjinni> CRAFT_DJINNI_PENTACLE =
-            PENTACLES.register("craft_djinni", PentacleCraftDjinni::new);
-    public static final RegistryObject<PentacleCraftAfrit> CRAFT_AFRIT_PENTACLE =
-            PENTACLES.register("craft_afrit", PentacleCraftAfrit::new);
-    public static final RegistryObject<PentacleCraftMarid> CRAFT_MARID_PENTACLE =
-            PENTACLES.register("craft_marid", PentacleCraftMarid::new);
-    public static final RegistryObject<PentaclePossessFoliot> POSSESS_FOLIOT_PENTACLE =
-            PENTACLES.register("possess_foliot", PentaclePossessFoliot::new);
-    public static final RegistryObject<PentaclePossessDjinni> POSSESS_DJINNI_PENTACLE =
-            PENTACLES.register("possess_djinni", PentaclePossessDjinni::new);
+    public static final RegistryObject<SummonFoliotPentacle> SUMMON_FOLIOT_PENTACLE =
+            PENTACLES.register("summon_foliot", SummonFoliotPentacle::new);
+    public static final RegistryObject<SummonDjinniPentacle> SUMMON_DJINNI_PENTACLE =
+            PENTACLES.register("summon_djinni", SummonDjinniPentacle::new);
+    public static final RegistryObject<CraftFoliotPentacle> CRAFT_FOLIOT_PENTACLE =
+            PENTACLES.register("craft_foliot", CraftFoliotPentacle::new);
+    public static final RegistryObject<CraftDjinniPentacle> CRAFT_DJINNI_PENTACLE =
+            PENTACLES.register("craft_djinni", CraftDjinniPentacle::new);
+    public static final RegistryObject<CraftAfritPentacle> CRAFT_AFRIT_PENTACLE =
+            PENTACLES.register("craft_afrit", CraftAfritPentacle::new);
+    public static final RegistryObject<CraftMaridPentacle> CRAFT_MARID_PENTACLE =
+            PENTACLES.register("craft_marid", CraftMaridPentacle::new);
+    public static final RegistryObject<PossessFoliotPentacle> POSSESS_FOLIOT_PENTACLE =
+            PENTACLES.register("possess_foliot", PossessFoliotPentacle::new);
+    public static final RegistryObject<PossessDjinniPentacle> POSSESS_DJINNI_PENTACLE =
+            PENTACLES.register("possess_djinni", PossessDjinniPentacle::new);
 
     //Rituals
     public static final RegistryObject<DebugRitual> DEBUG_RITUAL = RITUALS.register("debug", DebugRitual::new);

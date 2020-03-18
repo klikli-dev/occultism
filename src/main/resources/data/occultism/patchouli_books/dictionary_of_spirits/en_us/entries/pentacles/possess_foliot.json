@@ -6,7 +6,7 @@
   "pages": [
     {
       "type": "text",
-      "text": "$(thing)Hedyrin's Lure$() attracts $(thing)Foliot$() and forces them to possess a nearby creature. This pentacle does not lead to permanent imprisonment, the spirit and possessed creature will perish within a short period of time."
+      "text": "$(bold)Purpose:$() Foliot Possession $(br2)$(thing)Hedyrin's Lure$() attracts $(thing)Foliot$() and forces them to possess a nearby creature. This pentacle does not lead to permanent imprisonment, the spirit and possessed creature will perish within a short period of time."
     },
     {
       "type": "multiblock",
