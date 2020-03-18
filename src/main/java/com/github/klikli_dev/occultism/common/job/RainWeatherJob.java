@@ -23,12 +23,13 @@
 package com.github.klikli_dev.occultism.common.job;
 
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.storage.WorldInfo;
 
-public class ClearWeatherJob extends ChangeWeatherJob {
+public class RainWeatherJob extends ChangeWeatherJob {
 
     //region Initialization
-    public ClearWeatherJob(SpiritEntity entity, int ticksToClear) {
+    public RainWeatherJob(SpiritEntity entity, int ticksToClear) {
         super(entity, ticksToClear);
     }
     //endregion Initialization
@@ -36,11 +37,11 @@ public class ClearWeatherJob extends ChangeWeatherJob {
     //region Overrides
     public void changeWeather() {
         WorldInfo info = this.entity.world.getWorldInfo();
-        //taken from weathercommand#clear
-        info.setClearWeatherTime(6000);
-        info.setRainTime(0);
-        info.setThunderTime(0);
-        info.setRaining(false);
+        //taken from weathercommand#rain
+        info.setClearWeatherTime(0);
+        info.setRainTime(6000);
+        info.setThunderTime(6000);
+        info.setRaining(true);
         info.setThundering(false);
     }
     //endregion Overrides
