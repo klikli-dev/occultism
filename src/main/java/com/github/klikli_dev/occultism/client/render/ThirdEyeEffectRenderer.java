@@ -24,6 +24,7 @@ package com.github.klikli_dev.occultism.client.render;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.block.otherworld.IOtherworldBlock;
+import com.github.klikli_dev.occultism.common.item.armor.OtherworldGogglesItem;
 import com.github.klikli_dev.occultism.registry.OccultismEffects;
 import com.github.klikli_dev.occultism.util.Math3DUtil;
 import com.mojang.blaze3d.platform.GlStateManager;
@@ -35,6 +36,8 @@ import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.ResourceLocation;
@@ -61,6 +64,7 @@ public class ThirdEyeEffectRenderer {
             "textures/overlay/third_eye.png");
 
     public boolean thirdEyeActiveLastTick = false;
+    public boolean gogglesActiveLastTick = false;
 
     public Set<BlockPos> uncoveredBlocks = new HashSet<>();
     //endregion Fields
@@ -97,15 +101,16 @@ public class ThirdEyeEffectRenderer {
     //region Methods
     @SubscribeEvent
     public void onPlayerTick(TickEvent.PlayerTickEvent event) {
-        if(event.player.world.isRemote)
+        if(event.player.world.isRemote){
             this.onThirdEyeTick(event);
+            this.onGogglesTick(event);
+        }
     }
 
     @SubscribeEvent
     public void onRenderOverlay(RenderGameOverlayEvent.Post event) {
         if (event.getType() == RenderGameOverlayEvent.ElementType.HELMET) {
-            if (this.thirdEyeActiveLastTick) {
-
+            if (this.thirdEyeActiveLastTick || this.gogglesActiveLastTick) {
                 RenderSystem.enableBlend();
                 RenderSystem.blendFuncSeparate(
                         GlStateManager.SourceFactor.SRC_ALPHA,
@@ -182,6 +187,20 @@ public class ThirdEyeEffectRenderer {
                 this.thirdEyeActiveLastTick = false;
                 //unload shader
                 Minecraft.getInstance().enqueue(() -> Minecraft.getInstance().gameRenderer.stopUseShader());
+            }
+        }
+    }
+
+    public void onGogglesTick(TickEvent.PlayerTickEvent event){
+        ItemStack helmet = event.player.getItemStackFromSlot(EquipmentSlotType.HEAD);
+        if(helmet.getItem() instanceof OtherworldGogglesItem){
+            if(!this.gogglesActiveLastTick){
+                this.gogglesActiveLastTick = true;
+            }
+        }
+        else {
+            if (this.gogglesActiveLastTick) {
+                this.gogglesActiveLastTick = false;
             }
         }
     }
