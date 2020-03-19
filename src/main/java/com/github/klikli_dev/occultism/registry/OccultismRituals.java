@@ -97,13 +97,14 @@ public class OccultismRituals {
             RITUALS.register("craft_stable_wormhole", CraftStableWormholeRitual::new);
     public static final RegistryObject<CraftStorageRemoteRitual> CRAFT_STORAGE_REMOTE_RITUAL =
             RITUALS.register("craft_storage_remote", CraftStorageRemoteRitual::new);
-    public static final RegistryObject<CraftStabilizerTier1Ritual> CRAFT_STABILIZER_TIER1 =
+
+    public static final RegistryObject<CraftStabilizerTier1Ritual> CRAFT_STABILIZER_TIER1_RITUAL =
             RITUALS.register("craft_stabilizer_tier1", CraftStabilizerTier1Ritual::new);
-    public static final RegistryObject<CraftStabilizerTier2Ritual> CRAFT_STABILIZER_TIER2 =
+    public static final RegistryObject<CraftStabilizerTier2Ritual> CRAFT_STABILIZER_TIER2_RITUAL =
             RITUALS.register("craft_stabilizer_tier2", CraftStabilizerTier2Ritual::new);
-    public static final RegistryObject<CraftStabilizerTier3Ritual> CRAFT_STABILIZER_TIER3 =
+    public static final RegistryObject<CraftStabilizerTier3Ritual> CRAFT_STABILIZER_TIER3_RITUAL =
             RITUALS.register("craft_stabilizer_tier3", CraftStabilizerTier3Ritual::new);
-    public static final RegistryObject<CraftStabilizerTier4Ritual> CRAFT_STABILIZER_TIER4 =
+    public static final RegistryObject<CraftStabilizerTier4Ritual> CRAFT_STABILIZER_TIER4_RITUAL =
             RITUALS.register("craft_stabilizer_tier4", CraftStabilizerTier4Ritual::new);
 
     //Possession
