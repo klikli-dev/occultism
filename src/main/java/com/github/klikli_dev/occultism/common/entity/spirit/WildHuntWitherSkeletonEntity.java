@@ -24,6 +24,7 @@ package com.github.klikli_dev.occultism.common.entity.spirit;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
+import com.github.klikli_dev.occultism.util.TextUtil;
 import net.minecraft.entity.*;
 import net.minecraft.entity.monster.WitherSkeletonEntity;
 import net.minecraft.nbt.CompoundNBT;
@@ -31,6 +32,7 @@ import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.tags.Tag;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
@@ -66,6 +68,7 @@ public class WildHuntWitherSkeletonEntity extends WitherSkeletonEntity {
             double offsetZ = (world.getRandom().nextGaussian() - 1.0) * (1 + world.getRandom().nextInt(4));
             entity.setPositionAndRotation(this.getPosX() + offsetX, this.getPosY() + 1.5, this.getPosZ() + offsetZ,
                     world.getRandom().nextInt(360), 0);
+            entity.setCustomName(new StringTextComponent(TextUtil.generateName()));
             world.addEntity(entity);
             entity.setMaster(this);
             this.minions.add(entity);
