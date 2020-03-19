@@ -26,7 +26,7 @@
     {
       "type": "spotlight",
       "item": "occultism:chalk_red",
-      "text": "Red chalk is used to call on the most powerful and dangerous beings, such as $(thing)Marid$()."
+      "text": "Red chalk is used to call on the most powerful and dangerous beings, such as $(thing)Marid$(). $(l:rituals/summoning/afrit_essence)$(item)Afrit Essence$()$(/l) is required to craft red chalk."
     }
   ]
 }
