@@ -47,6 +47,8 @@ public class OccultismRituals {
             PENTACLES.register("summon_djinni", SummonDjinniPentacle::new);
     public static final RegistryObject<SummonAfritPentacle> SUMMON_AFRIT_PENTACLE =
             PENTACLES.register("summon_afrit", SummonAfritPentacle::new);
+    public static final RegistryObject<SummonWildAfritPentacle> SUMMON_WILD_AFRIT_PENTACLE =
+            PENTACLES.register("summon_wild_afrit", SummonWildAfritPentacle::new);
     public static final RegistryObject<CraftFoliotPentacle> CRAFT_FOLIOT_PENTACLE =
             PENTACLES.register("craft_foliot", CraftFoliotPentacle::new);
     public static final RegistryObject<CraftDjinniPentacle> CRAFT_DJINNI_PENTACLE =
@@ -80,7 +82,8 @@ public class OccultismRituals {
             RITUALS.register("summon_afrit_rain_weather", SummonAfritRainWeatherRitual::new);
     public static final RegistryObject<SummonAfritThunderWeatherRitual> SUMMON_AFRIT_THUNDER_WEATHER_RITUAL =
             RITUALS.register("summon_afrit_thunder_weather", SummonAfritThunderWeatherRitual::new);
-
+    public static final RegistryObject<SummonWildAfritRitual> SUMMON_WILD_AFRIT_RITUAL =
+            RITUALS.register("summon_wild_afrit", SummonWildAfritRitual::new);
     //Crafting
     public static final RegistryObject<CraftStorageControllerBaseRitual> CRAFT_STORAGE_CONTROLLER_BASE_RITUAL =
             RITUALS.register("craft_storage_controller_base", CraftStorageControllerBaseRitual::new);
