@@ -127,7 +127,7 @@ public class StandardLootTableProvider extends BaseLootTableProvider {
                 ).addLootPool(LootPool.builder().rolls(ConstantRange.of(1))
                        .addEntry(ItemLootEntry.builder(Blocks.WITHER_SKELETON_SKULL))
                                        .acceptCondition(KilledByPlayer.builder())
-                                           .acceptFunction(SetCount.builder(RandomValueRange.of(0.5f, 1.0F)))
+                                           .acceptFunction(SetCount.builder(RandomValueRange.of(1f, 1.0F)))
                                            .acceptFunction(LootingEnchantBonus.builder(RandomValueRange.of(0.0F, 1.0F)))));
 
             //normal drop from wild hunt skeletons
