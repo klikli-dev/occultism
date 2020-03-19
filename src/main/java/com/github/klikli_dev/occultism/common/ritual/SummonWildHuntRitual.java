@@ -22,63 +22,64 @@
 
 package com.github.klikli_dev.occultism.common.ritual;
 
-import com.github.klikli_dev.occultism.Occultism;
-import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
-import com.github.klikli_dev.occultism.common.job.SpiritJob;
+import com.github.klikli_dev.occultism.common.entity.spirit.WildHuntWitherSkeletonEntity;
 import com.github.klikli_dev.occultism.common.tile.GoldenSacrificialBowlTileEntity;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
-import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.github.klikli_dev.occultism.registry.OccultismRituals;
-import com.github.klikli_dev.occultism.registry.OccultismSpiritJobs;
-import com.github.klikli_dev.occultism.util.ItemNBTUtil;
+import com.github.klikli_dev.occultism.util.TextUtil;
+import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
-public class SummonWildAfritRitual extends SummonSpiritRitual {
+public class SummonWildHuntRitual extends SummonSpiritRitual {
 
     //region Initialization
-    public SummonWildAfritRitual() {
+    public SummonWildHuntRitual() {
         super(null,
-                OccultismRituals.SUMMON_WILD_AFRIT_PENTACLE.get(),
-                Ingredient.fromItems(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()),
-                "summon_wild_afrit", 60);
+                OccultismRituals.SUMMON_WILD_GREATER_SPIRIT_PENTACLE.get(),
+                Ingredient.fromItems(Items.SKELETON_SKULL),
+                "summon_wild_hunt", 30);
         this.sacrificePredicate = (entity) -> {
-            ResourceLocation cowTag = new ResourceLocation("forge", "cows");
-            return EntityTypeTags.getCollection().getOrCreate(cowTag).contains(entity.getType());
+            ResourceLocation villagerTag = new ResourceLocation("forge", "villagers");
+            return entity instanceof PlayerEntity || EntityTypeTags.getCollection().getOrCreate(villagerTag).contains(entity.getType());
         };
     }
     //endregion Initialization
 
     //region Overrides
+
     @Override
     public void finish(World world, BlockPos goldenBowlPosition, GoldenSacrificialBowlTileEntity tileEntity,
                        PlayerEntity castingPlayer, ItemStack activationItem) {
-
         super.finish(world, goldenBowlPosition, tileEntity, castingPlayer, activationItem);
 
-        //consume activation item
-        ItemStack copy = activationItem.copy();
-        activationItem.shrink(1);
+        activationItem.shrink(1); //remove original activation item.
 
         ((ServerWorld) world).spawnParticle(ParticleTypes.LARGE_SMOKE, goldenBowlPosition.getX() + 0.5,
                 goldenBowlPosition.getY() + 0.5, goldenBowlPosition.getZ() + 0.5, 1, 0, 0, 0, 0);
 
-        //set up the entity
-        SpiritEntity spirit = OccultismEntities.AFRIT_WILD.get().create(world);
-        this.prepareSpiritForSpawn(spirit, world, goldenBowlPosition, castingPlayer,
-                ItemNBTUtil.getBoundSpiritName(copy));
+        //Spawn the wither skeletons, who will spawn their minions
+        for (int i = 0; i < 3; i++) {
+            WildHuntWitherSkeletonEntity skeleton = OccultismEntities.WILD_HUNT_WITHER_SKELETON.get().create(world);
+            skeleton.onInitialSpawn(world, world.getDifficultyForLocation(goldenBowlPosition), SpawnReason.MOB_SUMMONED, null,
+                    null);
+            double offsetX = (world.getRandom().nextGaussian() - 1.0) * (1 + world.getRandom().nextInt(4));
+            double offsetZ = (world.getRandom().nextGaussian() - 1.0) * (1 + world.getRandom().nextInt(4));
 
-        spirit.setSpiritMaxAge(60*60); //1h max time
-
-        //notify players nearby and spawn
-        this.spawnEntity(spirit, world);
+            skeleton.setPositionAndRotation(goldenBowlPosition.getX() + offsetX, goldenBowlPosition.getY()+ 1.5, goldenBowlPosition.getZ() + offsetZ,
+                    world.getRandom().nextInt(360), 0);
+            skeleton.setCustomName(new StringTextComponent(TextUtil.generateName()));
+            this.spawnEntity(skeleton, world);
+        }
     }
     //endregion Overrides
 }

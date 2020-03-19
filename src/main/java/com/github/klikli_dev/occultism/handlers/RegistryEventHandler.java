@@ -30,7 +30,9 @@ import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.registry.OccultismRituals;
 import com.github.klikli_dev.occultism.registry.OccultismSpiritJobs;
+import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.monster.SkeletonEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.SpawnEggItem;
@@ -86,6 +88,9 @@ public class RegistryEventHandler {
         registerSpawnEgg(registry, OccultismEntities.POSSESSED_ENDERMITE_TYPE.get(),"possessed_endermite", 0x161616, 0x6E6E6E);
         registerSpawnEgg(registry, OccultismEntities.POSSESSED_SKELETON_TYPE.get(),"possessed_skeleton", 0xC1C1C1, 0x494949);
         registerSpawnEgg(registry, OccultismEntities.POSSESSED_ENDERMAN_TYPE.get(),"possessed_enderman", 0x161616, 0x0);
+        registerSpawnEgg(registry, OccultismEntities.WILD_HUNT_SKELETON_TYPE.get(),"wild_hunt_skeleton", 12698049, 4802889);
+        registerSpawnEgg(registry, OccultismEntities.WILD_HUNT_WITHER_SKELETON_TYPE.get(),"wild_hunt_wither_skeleton", 1315860, 4672845);
+
         Occultism.LOGGER.info("Registered SpawnEggItems");
     }
 

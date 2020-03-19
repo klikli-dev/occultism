@@ -1,0 +1,27 @@
+{
+  "type": "occultism:spirit_trade",
+  "ingredients": [
+    {
+      "tag": "forge:storage_blocks/copper"
+    },
+    {
+      "tag": "forge:storage_blocks/silver"
+    },
+    {
+      "tag": "forge:storage_blocks/gold"
+    },
+    {
+      "tag": "forge:gems/diamond"
+    },
+    {
+      "tag": "forge:netherrack"
+    },
+    {
+      "item": "minecraft:soul_sand"
+    }
+  ],
+  "result": {
+    "_comment": "Unused",
+    "item": "occultism:pentacle"
+  }
+}

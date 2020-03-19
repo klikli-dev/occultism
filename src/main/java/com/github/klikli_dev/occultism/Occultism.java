@@ -45,6 +45,8 @@ import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.client.renderer.entity.EndermanRenderer;
 import net.minecraft.client.renderer.entity.EndermiteRenderer;
 import net.minecraft.client.renderer.entity.SkeletonRenderer;
+import net.minecraft.client.renderer.entity.WitherSkeletonRenderer;
+import net.minecraft.entity.monster.WitherSkeletonEntity;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.obj.OBJLoader;
@@ -146,9 +148,11 @@ public class Occultism {
         RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.DJINNI.get(), DjinniRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.AFRIT.get(), AfritRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.AFRIT_WILD.get(), AfritRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.POSSESSED_ENDERMITE_TYPE.get(), EndermiteRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.POSSESSED_SKELETON_TYPE.get(), SkeletonRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.POSSESSED_ENDERMAN_TYPE.get(), EndermanRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.POSSESSED_ENDERMITE.get(), EndermiteRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.POSSESSED_SKELETON.get(), SkeletonRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.POSSESSED_ENDERMAN.get(), EndermanRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.WILD_HUNT_SKELETON.get(), SkeletonRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.WILD_HUNT_WITHER_SKELETON.get(), WitherSkeletonRenderer::new);
 
         //Register Tile Entity Renderers
         ClientRegistry.bindTileEntityRenderer(OccultismTiles.STORAGE_CONTROLLER.get(), StorageControllerRenderer::new);

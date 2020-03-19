@@ -53,7 +53,6 @@ public class PossessedSkeletonEntity extends SkeletonEntity {
         this.getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4.0D);
         //increased health compared to normal skeleton
         this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(30.0D);
-
     }
     //endregion Overrides
 }

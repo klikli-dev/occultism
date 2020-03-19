@@ -41,7 +41,7 @@ public class SummonAfritPentacle extends Pentacle {
                     " PCWP PWCP ",
                     "XRWZ 0 ZWRX",
                     " PCWP PWCP ",
-                    "  W WZW W  ",
+                    "  W WNW W  ",
                     "  XWCWCWX  ",
                     "    PRP    ",
                     "     X     "
