@@ -2,7 +2,7 @@
   "name": "Dimensional Matrix",
   "icon": "occultism:dimensional_matrix",
   "category": "rituals/crafting",
-  "sortnum": 2,
+  "sortnum": 22,
   "pages": [
     {
       "type": "spotlight",

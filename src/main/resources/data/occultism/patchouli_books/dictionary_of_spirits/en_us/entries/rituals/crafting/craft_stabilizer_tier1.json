@@ -2,7 +2,7 @@
   "name": "Storage Stabilizer Tier 1",
   "icon": "occultism:storage_stabilizer_tier1",
   "category": "rituals/crafting",
-  "sortnum": 4,
+  "sortnum": 24,
   "pages": [
     {
       "type": "spotlight",

@@ -2,7 +2,7 @@
   "name": "Stable Wormhole",
   "icon": "occultism:stable_wormhole",
   "category": "rituals/crafting",
-  "sortnum": 3,
+  "sortnum": 23,
   "pages": [
     {
       "type": "spotlight",
