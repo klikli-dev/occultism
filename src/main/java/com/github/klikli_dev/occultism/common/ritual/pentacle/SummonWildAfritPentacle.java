@@ -29,21 +29,24 @@ import vazkii.patchouli.api.IMultiblock;
 
 import java.util.Arrays;
 
-public class SummonAfritPentacle extends Pentacle {
+/**
+ * Basically the same as a summon afrit pentacle, but without red chalk
+ */
+public class SummonWildAfritPentacle extends Pentacle {
 
     //region Fields
     private final String[][] pattern = new String[][]{
             {
                     "     X     ",
-                    "    PRP    ",
+                    "    PPP    ",
                     "  XWCWCWX  ",
                     "  W WNW W  ",
                     " PCWP PWCP ",
-                    "XRWZ 0 ZWRX",
+                    "XPWZ 0 ZWPX",
                     " PCWP PWCP ",
                     "  W WZW W  ",
                     "  XWCWCWX  ",
-                    "    PRP    ",
+                    "    PPP    ",
                     "     X     "
             }
     };

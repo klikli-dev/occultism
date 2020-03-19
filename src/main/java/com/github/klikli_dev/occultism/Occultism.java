@@ -145,6 +145,7 @@ public class Occultism {
         RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.FOLIOT.get(), FoliotRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.DJINNI.get(), DjinniRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.AFRIT.get(), AfritRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.AFRIT_WILD.get(), AfritRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.POSSESSED_ENDERMITE_TYPE.get(), EndermiteRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.POSSESSED_SKELETON_TYPE.get(), SkeletonRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.POSSESSED_ENDERMAN_TYPE.get(), EndermanRenderer::new);
