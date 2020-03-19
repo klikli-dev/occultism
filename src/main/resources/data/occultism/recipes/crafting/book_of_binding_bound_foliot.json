@@ -5,10 +5,7 @@
       "item": "occultism:book_of_binding_foliot"
     },
     {
-      "item": "patchouli:guide_book",
-      "nbt": {
-        "patchouli:book": "occultism:dictionary_of_spirits"
-      }
+      "item": "occultism:dictionary_of_spirits"
     }
   ],
   "result": {
