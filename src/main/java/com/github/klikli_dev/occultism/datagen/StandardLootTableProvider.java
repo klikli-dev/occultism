@@ -30,6 +30,7 @@ import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import net.minecraft.advancements.criterion.StatePropertiesPredicate;
 import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.CropsBlock;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.loot.EntityLootTables;
@@ -37,9 +38,7 @@ import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Items;
 import net.minecraft.world.storage.loot.*;
-import net.minecraft.world.storage.loot.conditions.BlockStateProperty;
-import net.minecraft.world.storage.loot.conditions.ILootCondition;
-import net.minecraft.world.storage.loot.conditions.TableBonus;
+import net.minecraft.world.storage.loot.conditions.*;
 import net.minecraft.world.storage.loot.functions.LootingEnchantBonus;
 import net.minecraft.world.storage.loot.functions.SetCount;
 import net.minecraftforge.fml.RegistryObject;
@@ -66,7 +65,7 @@ public class StandardLootTableProvider extends BaseLootTableProvider {
     //endregion Overrides
 
     private class InternalEntityLootTable extends EntityLootTables {
-//region Overrides
+        //region Overrides
         @Override
         protected void addTables() {
             //Guaranteed end stone drop for endermite
@@ -92,18 +91,21 @@ public class StandardLootTableProvider extends BaseLootTableProvider {
                     LootTable.builder()
                             .addLootPool(LootPool.builder().rolls(ConstantRange.of(1)).addEntry(
                                     ItemLootEntry.builder(Items.ARROW)
-                                    .acceptFunction(SetCount.builder(RandomValueRange.of(0.0F, 2.0F)))
-                                    .acceptFunction(LootingEnchantBonus.builder(RandomValueRange.of(0.0F, 1.0F)))))
+                                            .acceptFunction(SetCount.builder(RandomValueRange.of(0.0F, 2.0F)))
+                                            .acceptFunction(
+                                                    LootingEnchantBonus.builder(RandomValueRange.of(0.0F, 1.0F)))))
                             .addLootPool(LootPool.builder().rolls(ConstantRange.of(1)).addEntry(
                                     ItemLootEntry.builder(Items.SKELETON_SKULL)
                                             .acceptFunction(SetCount.builder(RandomValueRange.of(1.0F, 1.0F)))
-                                            .acceptFunction(LootingEnchantBonus.builder(RandomValueRange.of(0.0F, 1.0F)))))
+                                            .acceptFunction(
+                                                    LootingEnchantBonus.builder(RandomValueRange.of(0.0F, 1.0F)))))
                             .addLootPool(LootPool.builder().rolls(ConstantRange.of(1)).addEntry(
                                     ItemLootEntry.builder(Items.BONE)
                                             .acceptFunction(SetCount.builder(RandomValueRange.of(0.0F, 2.0F)))
                                             .acceptFunction(
                                                     LootingEnchantBonus.builder(RandomValueRange.of(0.0F, 1.0F))))));
 
+            //Essence drop from wild afrit
             this.registerLootTable(OccultismEntities.AFRIT_WILD_TYPE.get(),
                     LootTable.builder().addLootPool(
                             LootPool.builder().rolls(ConstantRange.of(1))
@@ -111,13 +113,41 @@ public class StandardLootTableProvider extends BaseLootTableProvider {
                                                       .acceptFunction(SetCount.builder(RandomValueRange.of(0.7f, 1.0F)))
                                                       .acceptFunction(LootingEnchantBonus.builder(
                                                               RandomValueRange.of(0.0F, 1.0F))))));
+
+            //increased wither skull drop from wild hunt
+            this.registerLootTable(OccultismEntities.WILD_HUNT_WITHER_SKELETON_TYPE.get(), LootTable.builder()
+                .addLootPool(LootPool.builder().rolls(ConstantRange.of(1))
+                     .addEntry(ItemLootEntry.builder(Items.COAL)
+                                       .acceptFunction(SetCount.builder(RandomValueRange.of(-1.0F, 1.0F)))
+                                       .acceptFunction(LootingEnchantBonus.builder(RandomValueRange.of(0.0F, 1.0F))))
+                ).addLootPool(LootPool.builder().rolls(ConstantRange.of(1))
+                      .addEntry(ItemLootEntry.builder(Items.BONE)
+                                        .acceptFunction(SetCount.builder(RandomValueRange.of(0.0F, 2.0F)))
+                                        .acceptFunction(LootingEnchantBonus.builder(RandomValueRange.of(0.0F, 1.0F))))
+                ).addLootPool(LootPool.builder().rolls(ConstantRange.of(1))
+                       .addEntry(ItemLootEntry.builder(Blocks.WITHER_SKELETON_SKULL))
+                                       .acceptCondition(KilledByPlayer.builder())
+                                           .acceptFunction(SetCount.builder(RandomValueRange.of(0.5f, 1.0F)))
+                                           .acceptFunction(LootingEnchantBonus.builder(RandomValueRange.of(0.0F, 1.0F)))));
+
+            //normal drop from wild hunt skeletons
+            this.registerLootTable(OccultismEntities.WILD_HUNT_SKELETON_TYPE.get(), LootTable.builder()
+                .addLootPool(LootPool.builder().rolls(ConstantRange.of(1))
+                     .addEntry(ItemLootEntry.builder(Items.ARROW)
+                                       .acceptFunction(SetCount.builder(RandomValueRange.of(0.0F, 2.0F)))
+                                       .acceptFunction(LootingEnchantBonus.builder(RandomValueRange.of(0.0F, 1.0F))))
+                ).addLootPool(LootPool.builder().rolls(ConstantRange.of(1))
+                      .addEntry(ItemLootEntry.builder(Items.BONE)
+                                        .acceptFunction(SetCount.builder(RandomValueRange.of(0.0F, 2.0F)))
+                                        .acceptFunction(LootingEnchantBonus.builder(RandomValueRange.of(0.0F, 1.0F))))));
+
         }
 
         @Override
         protected void registerLootTable(EntityType<?> type, LootTable.Builder table) {
             StandardLootTableProvider.this.entityLootTable.put(type, table);
         }
-//endregion Overrides
+        //endregion Overrides
     }
 
     private class InternalBlockLootTable extends StandardBlockLootTables {
