@@ -24,10 +24,7 @@ package com.github.klikli_dev.occultism.common.entity.possessed;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ILivingEntityData;
-import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.*;
 import net.minecraft.entity.monster.WitherSkeletonEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tags.EntityTypeTags;
@@ -39,7 +36,6 @@ import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,7 +57,7 @@ public class WildHuntWitherSkeletonEntity extends WitherSkeletonEntity {
     @Override
     public ILivingEntityData onInitialSpawn(IWorld world, DifficultyInstance difficultyIn, SpawnReason reason,
                                             @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
-        int maxSkeletons = 2 + world.getRandom().nextInt(4);
+        int maxSkeletons = 3 + world.getRandom().nextInt(6);
 
         for (int i = 0; i < maxSkeletons; i++) {
             WildHuntSkeletonEntity entity = OccultismEntities.WILD_HUNT_SKELETON.get().create(this.world);
@@ -76,6 +72,15 @@ public class WildHuntWitherSkeletonEntity extends WitherSkeletonEntity {
         }
 
         return super.onInitialSpawn(world, difficultyIn, reason, spawnDataIn, dataTag);
+    }
+
+    @Override
+    protected void registerAttributes() {
+        super.registerAttributes();
+        //increased AD compared to normal skeleton
+        this.getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(6.0D);
+        //increased health compared to normal skeleton
+        this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(60.0D);
     }
 
     @Override

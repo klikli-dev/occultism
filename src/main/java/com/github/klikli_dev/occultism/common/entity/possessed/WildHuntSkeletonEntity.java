@@ -25,6 +25,7 @@ package com.github.klikli_dev.occultism.common.entity.possessed;
 import com.github.klikli_dev.occultism.Occultism;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.monster.SkeletonEntity;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.tags.Tag;
@@ -54,6 +55,15 @@ public class WildHuntSkeletonEntity extends SkeletonEntity {
     //endregion Getter / Setter
 
     //region Overrides
+    @Override
+    protected void registerAttributes() {
+        super.registerAttributes();
+        //increased AD compared to normal skeleton
+        this.getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4.0D);
+        //increased health compared to normal skeleton
+        this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20.0D);
+    }
+
     @Override
     protected boolean isDespawnPeaceful() {
         return false;
