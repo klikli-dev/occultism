@@ -70,7 +70,7 @@ public class SummonWildAfritRitual extends SummonSpiritRitual {
         ((ServerWorld) world).spawnParticle(ParticleTypes.LARGE_SMOKE, goldenBowlPosition.getX() + 0.5,
                 goldenBowlPosition.getY() + 0.5, goldenBowlPosition.getZ() + 0.5, 1, 0, 0, 0, 0);
 
-        //set up the afrit entity
+        //set up the entity
         SpiritEntity spirit = OccultismEntities.AFRIT_WILD.get().create(world);
         this.prepareSpiritForSpawn(spirit, world, goldenBowlPosition, castingPlayer,
                 ItemNBTUtil.getBoundSpiritName(copy));

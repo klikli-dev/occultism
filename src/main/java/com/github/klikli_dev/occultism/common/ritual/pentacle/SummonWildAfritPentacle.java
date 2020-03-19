@@ -44,7 +44,7 @@ public class SummonWildAfritPentacle extends Pentacle {
                     " PCWP PWCP ",
                     "XPWZ 0 ZWPX",
                     " PCWP PWCP ",
-                    "  W WZW W  ",
+                    "  W WNW W  ",
                     "  XWCWCWX  ",
                     "    PPP    ",
                     "     X     "
