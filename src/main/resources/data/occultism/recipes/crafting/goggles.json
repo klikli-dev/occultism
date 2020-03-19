@@ -2,15 +2,15 @@
   "type": "minecraft:crafting_shaped",
   "pattern": [
     " l ",
-    "l l",
-    "ifi"
+    "lil",
+    " f "
   ],
   "key": {
     "f": {
       "item": "occultism:lens_frame"
     },
     "i": {
-      "item": "forge:ingots/infused_lenses"
+      "item": "occultism:infused_lenses"
     },
     "l": {
       "tag": "forge:leather"
