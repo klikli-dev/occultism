@@ -37,7 +37,7 @@ import java.util.Optional;
 public class WildHuntSkeletonEntity extends SkeletonEntity {
     //region Fields
     public static final ResourceLocation wildHuntTag = new ResourceLocation(Occultism.MODID, "wild_hunt");
-    protected Optional<WildHuntWitherSkeletonEntity> master;
+    protected Optional<WildHuntWitherSkeletonEntity> master = Optional.empty();
     //endregion Fields
 
     //region Initialization
