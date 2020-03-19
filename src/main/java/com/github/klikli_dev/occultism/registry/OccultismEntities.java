@@ -24,10 +24,7 @@ package com.github.klikli_dev.occultism.registry;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.entity.possessed.*;
-import com.github.klikli_dev.occultism.common.entity.spirit.AfritEntity;
-import com.github.klikli_dev.occultism.common.entity.spirit.AfritWildEntity;
-import com.github.klikli_dev.occultism.common.entity.spirit.DjinniEntity;
-import com.github.klikli_dev.occultism.common.entity.spirit.FoliotEntity;
+import com.github.klikli_dev.occultism.common.entity.spirit.*;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraftforge.common.util.NonNullLazy;
