@@ -151,9 +151,16 @@ public class GoldenSacrificialBowlTileEntity extends SacrificialBowlTileEntity i
                 if (this.world.rand.nextInt(16) == 0) {
                     ((ServerWorld) this.world)
                             .spawnParticle(OccultismParticles.RITUAL_WAITING.get(),
-                                    this.pos.getX() + 0.5 + this.world.rand.nextGaussian() / 3,
-                                    this.pos.getY() + 0.5, this.pos.getZ() + 0.5 + this.world.rand.nextGaussian() / 3,
-                                    5,
+                                    this.pos.getX() + this.world.rand.nextGaussian(),
+                                    this.pos.getY() + 0.5, this.pos.getZ() + this.world.rand.nextGaussian(),
+                                    3,
+                                    0.0, 0.0, 0.0,
+                                    0.0);
+                    ((ServerWorld) this.world)
+                            .spawnParticle(OccultismParticles.RITUAL_WAITING.get(),
+                                    this.pos.getX() + this.world.rand.nextGaussian(),
+                                    this.pos.getY() + 0.5, this.pos.getZ() + this.world.rand.nextGaussian(),
+                                    3,
                                     0.0, 0.0, 0.0,
                                     0.0);
                 }
