@@ -107,6 +107,9 @@ public class OccultismRituals {
     public static final RegistryObject<CraftStabilizerTier4Ritual> CRAFT_STABILIZER_TIER4_RITUAL =
             RITUALS.register("craft_stabilizer_tier4", CraftStabilizerTier4Ritual::new);
 
+    public static final RegistryObject<CraftInfusedLensesRitual> CRAFT_INFUSED_LENSES_RITUAL =
+            RITUALS.register("craft_infused_lenses", CraftInfusedLensesRitual::new);
+
     //Possession
     public static final RegistryObject<PossessEndermiteRitual> POSSESS_ENDERMITE_RITUAL =
             RITUALS.register("possess_endermite", PossessEndermiteRitual::new);
