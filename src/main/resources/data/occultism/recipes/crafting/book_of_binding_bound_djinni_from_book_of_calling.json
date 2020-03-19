@@ -2,10 +2,7 @@
   "type": "occultism:custom_shapeless",
   "ingredients": [
     {
-      "item": "occultism:book_of_binding_djinni"
-    },
-    {
-      "item": "occultism:dictionary_of_spirits"
+      "tag": "occultism:books/book_of_calling_djinni"
     }
   ],
   "result": {
