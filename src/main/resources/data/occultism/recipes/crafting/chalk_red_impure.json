@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "occultism:chalk_white_impure"
+    },
+    {
+      "item": "occultism:afrit_essence"
+    },
+    {
+      "tag": "occultism:blaze_powder"
+    }
+  ],
+  "result": {
+    "item": "occultism:chalk_purple_impure"
+  }
+}
