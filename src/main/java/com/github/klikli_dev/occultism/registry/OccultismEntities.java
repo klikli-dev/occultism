@@ -23,9 +23,7 @@
 package com.github.klikli_dev.occultism.registry;
 
 import com.github.klikli_dev.occultism.Occultism;
-import com.github.klikli_dev.occultism.common.entity.possessed.PossessedEndermanEntity;
-import com.github.klikli_dev.occultism.common.entity.possessed.PossessedEndermiteEntity;
-import com.github.klikli_dev.occultism.common.entity.possessed.PossessedSkeletonEntity;
+import com.github.klikli_dev.occultism.common.entity.possessed.*;
 import com.github.klikli_dev.occultism.common.entity.spirit.AfritEntity;
 import com.github.klikli_dev.occultism.common.entity.spirit.AfritWildEntity;
 import com.github.klikli_dev.occultism.common.entity.spirit.DjinniEntity;
@@ -74,6 +72,14 @@ public class OccultismEntities {
             NonNullLazy.of(() -> EntityType.Builder.create(PossessedEndermanEntity::new, EntityClassification.MONSTER)
                                          .size(0.6F, 2.9F)
                                          .build(modLoc("possessed_endermite").toString()));
+    public static final NonNullLazy<EntityType<WildHuntSkeletonEntity>> WILD_HUNT_SKELETON_TYPE =
+            NonNullLazy.of(() -> EntityType.Builder.create(WildHuntSkeletonEntity::new, EntityClassification.MONSTER)
+                                         .size(0.6F, 2.9F)
+                                         .build(modLoc("wild_hunt_skeleton").toString()));
+    public static final NonNullLazy<EntityType<WildHuntWitherSkeletonEntity>> WILD_HUNT_WITHER_SKELETON_TYPE =
+            NonNullLazy.of(() -> EntityType.Builder.create(WildHuntWitherSkeletonEntity::new, EntityClassification.MONSTER)
+                                         .size(0.6F, 2.9F)
+                                         .build(modLoc("wild_hunt_wither_skeleton").toString()));
 
     public static final RegistryObject<EntityType<FoliotEntity>> FOLIOT = ENTITIES.register("foliot", FOLIOT_TYPE::get);
     public static final RegistryObject<EntityType<DjinniEntity>> DJINNI = ENTITIES.register("djinni", DJINNI_TYPE::get);
@@ -86,5 +92,9 @@ public class OccultismEntities {
             ENTITIES.register("possessed_skeleton", POSSESSED_SKELETON_TYPE::get);
     public static final RegistryObject<EntityType<PossessedEndermanEntity>> POSSESSED_ENDERMAN =
             ENTITIES.register("possessed_enderman", POSSESSED_ENDERMAN_TYPE::get);
+    public static final RegistryObject<EntityType<WildHuntSkeletonEntity>> WILD_HUNT_SKELETON =
+            ENTITIES.register("wild_hunt_skeleton", WILD_HUNT_SKELETON_TYPE::get);
+    public static final RegistryObject<EntityType<WildHuntWitherSkeletonEntity>> WILD_HUNT_WITHER_SKELETON =
+            ENTITIES.register("wild_hunt_wither_skeleton", WILD_HUNT_WITHER_SKELETON_TYPE::get);
     //endregion Fields
 }

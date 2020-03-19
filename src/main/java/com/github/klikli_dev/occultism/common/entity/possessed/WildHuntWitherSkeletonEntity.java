@@ -20,21 +20,15 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.github.klikli_dev.occultism.common.entity.spirit;
+package com.github.klikli_dev.occultism.common.entity.possessed;
 
 import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.ai.goal.*;
-import net.minecraft.entity.merchant.villager.AbstractVillagerEntity;
-import net.minecraft.entity.monster.BlazeEntity;
-import net.minecraft.entity.monster.ZombieEntity;
-import net.minecraft.entity.monster.ZombiePigmanEntity;
-import net.minecraft.entity.passive.IronGolemEntity;
-import net.minecraft.entity.passive.TurtleEntity;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.monster.WitherSkeletonEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.tags.Tag;
@@ -45,67 +39,79 @@ import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.List;
 
-public class AfritWildEntity extends AfritEntity {
+public class WildHuntWitherSkeletonEntity extends WitherSkeletonEntity {
     //region Fields
-    public static final ResourceLocation afritAlliesTag = new ResourceLocation(Occultism.MODID, "afrit_allies");
+    public static final ResourceLocation wildHuntTag = new ResourceLocation(Occultism.MODID, "wild_hunt");
+
+    List<WildHuntSkeletonEntity> minions = new ArrayList<>();
     //endregion Fields
 
     //region Initialization
-    public AfritWildEntity(EntityType<? extends SpiritEntity> type, World world) {
-        super(type, world);
-        this.setSpiritMaxAge(60 * 603); //1h default for wild afrit
+    public WildHuntWitherSkeletonEntity(EntityType<? extends WildHuntWitherSkeletonEntity> type,
+                                        World worldIn) {
+        super(type, worldIn);
     }
     //endregion Initialization
 
     //region Overrides
-
-    @Override
-    protected void registerGoals() {
-        //Override all base goals
-        this.goalSelector.addGoal(1, new SwimGoal(this));
-        this.goalSelector.addGoal(5, new MeleeAttackGoal(this, 1.0D, true));
-        this.goalSelector.addGoal(8, new LookAtGoal(this, PlayerEntity.class, 8.0F));
-        this.goalSelector.addGoal(8, new LookRandomlyGoal(this));
-        this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.0D, false));
-        this.goalSelector.addGoal(7, new WaterAvoidingRandomWalkingGoal(this, 1.0D));
-        this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setCallsForHelp(BlazeEntity.class));
-        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
-    }
-
     @Override
     public ILivingEntityData onInitialSpawn(IWorld world, DifficultyInstance difficultyIn, SpawnReason reason,
                                             @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
-        int maxBlazes = 3 + world.getRandom().nextInt(6);
+        int maxSkeletons = 2 + world.getRandom().nextInt(4);
 
-        for(int i = 0; i < maxBlazes; i++){
-            BlazeEntity entity = EntityType.BLAZE.create(this.world);
+        for (int i = 0; i < maxSkeletons; i++) {
+            WildHuntSkeletonEntity entity = OccultismEntities.WILD_HUNT_SKELETON.get().create(this.world);
             entity.onInitialSpawn(world, difficultyIn, reason, spawnDataIn, dataTag);
-            double offsetX =  (world.getRandom().nextGaussian() -1.0) * (1 + world.getRandom().nextInt(4));
-            double offsetZ =  (world.getRandom().nextGaussian() -1.0) * (1 + world.getRandom().nextInt(4));
+            double offsetX = (world.getRandom().nextGaussian() - 1.0) * (1 + world.getRandom().nextInt(4));
+            double offsetZ = (world.getRandom().nextGaussian() - 1.0) * (1 + world.getRandom().nextInt(4));
             entity.setPositionAndRotation(this.getPosX() + offsetX, this.getPosY() + 1.5, this.getPosZ() + offsetZ,
                     world.getRandom().nextInt(360), 0);
             world.addEntity(entity);
+            entity.setMaster(this);
+            this.minions.add(entity);
         }
 
         return super.onInitialSpawn(world, difficultyIn, reason, spawnDataIn, dataTag);
     }
 
     @Override
+    protected boolean isDespawnPeaceful() {
+        return false;
+    }
+
+    @Override
+    protected boolean isInDaylight() {
+        return false;
+    }
+
+    @Override
     public boolean isInvulnerableTo(DamageSource source) {
-        if(source.isFireDamage())
-            return true;
-        Tag<EntityType<?>> alliesTags = EntityTypeTags.getCollection().getOrCreate(afritAlliesTag);
+        Tag<EntityType<?>> wildHuntTags = EntityTypeTags.getCollection().getOrCreate(wildHuntTag);
 
         Entity trueSource = source.getTrueSource();
-        if(trueSource != null && alliesTags.contains(trueSource.getType()))
+        if (trueSource != null && wildHuntTags.contains(trueSource.getType()))
             return true;
 
         Entity immediateSource = source.getImmediateSource();
-        if(immediateSource != null && alliesTags.contains(immediateSource.getType()))
+        if (immediateSource != null && wildHuntTags.contains(immediateSource.getType()))
             return true;
 
         return super.isInvulnerableTo(source);
     }
+
+    @Override
+    public boolean isInvulnerable() {
+        return !this.minions.isEmpty() || super.isInvulnerable();
+    }
     //endregion Overrides
+
+    //region Methods
+    public void notifyMinionDeath(WildHuntSkeletonEntity minion) {
+        this.minions.remove(minion);
+    }
+    //endregion Methods
 }
