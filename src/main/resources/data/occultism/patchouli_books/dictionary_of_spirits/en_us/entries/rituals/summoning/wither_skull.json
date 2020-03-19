@@ -12,7 +12,7 @@
       "type": "summoning_sacrifice_noformat",
       "heading": "Unbound Afrit",
       "pentacle": "$(l:pentacles/summon_wild_greater_spirit)Osorin' Unbound Calling$(/l)",
-      "activation_item": "minecraft:skeleton_Skull",
+      "activation_item": "minecraft:skeleton_skull",
       "sacrifice": "$(thing)Player$() or $(thing)Villager$()",
       "ingredients": "$(li)1x $(item)Copper Block $()$(li)1x $(item)Silver Block $()$(li)1x $(item)Gold Block  $()$(li)1x $(item)Diamond $()$(li)1x $(item)Netherrack $()$(li)1x $(item)Soul Sand $()"
     }
