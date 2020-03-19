@@ -62,6 +62,10 @@ public class OccultismItems {
     //Resources
     public static final RegistryObject<OtherworldBlockItem> OTHERWORLD_SAPLING_NATURAL = ITEMS.register("otherworld_sapling_natural",
             () -> new OtherworldBlockItem(OccultismBlocks.OTHERWORLD_SAPLING_NATURAL.get(), defaultProperties()));
+    public static final RegistryObject<Item> TALLOW = ITEMS.register("tallow",
+            () -> new Item(defaultProperties()));
+    public static final RegistryObject<Item> AFRIT_ESSENCE = ITEMS.register("afrit_essence",
+            () -> new Item(defaultProperties()));
 
     //Components
     public static final RegistryObject<DimensionalMatrixItem> DIMENSIONAL_MATRIX = ITEMS.register("dimensional_matrix",
@@ -72,10 +76,7 @@ public class OccultismItems {
             () -> new Item(defaultProperties()));
     public static final RegistryObject<Item> BURNT_OTHERSTONE = ITEMS.register("burnt_otherstone",
             () -> new Item(defaultProperties()));
-    public static final RegistryObject<Item> TALLOW = ITEMS.register("tallow",
-            () -> new Item(defaultProperties()));
-    public static final RegistryObject<Item> AFRIT_ESSENCE = ITEMS.register("afrit_essence",
-            () -> new Item(defaultProperties()));
+
     public static final RegistryObject<Item> OTHERSTONE_FRAME = ITEMS.register("otherstone_frame",
             () -> new Item(defaultProperties()));
     public static final RegistryObject<Item> WORMHOLE_FRAME = ITEMS.register("wormhole_frame",
