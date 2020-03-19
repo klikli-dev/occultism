@@ -37,6 +37,7 @@ import net.minecraft.entity.passive.TurtleEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tags.EntityTypeTags;
+import net.minecraft.tags.Tag;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.DifficultyInstance;
@@ -92,11 +93,16 @@ public class AfritWildEntity extends AfritEntity {
 
     @Override
     public boolean isInvulnerableTo(DamageSource source) {
-        Entity trueSource = source.getTrueSource();
         if(source.isFireDamage())
-            return false;
+            return true;
+        Tag<EntityType<?>> alliesTags = EntityTypeTags.getCollection().getOrCreate(this.afritAlliesTag);
 
-        if(trueSource != null && EntityTypeTags.getCollection().getOrCreate(this.afritAlliesTag).contains(trueSource.getType()))
+        Entity trueSource = source.getTrueSource();
+        if(trueSource != null && alliesTags.contains(trueSource.getType()))
+            return true;
+
+        Entity immediateSource = source.getImmediateSource();
+        if(immediateSource != null && alliesTags.contains(immediateSource.getType()))
             return true;
 
         return super.isInvulnerableTo(source);
