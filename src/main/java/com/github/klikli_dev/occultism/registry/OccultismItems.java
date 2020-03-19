@@ -24,6 +24,7 @@ package com.github.klikli_dev.occultism.registry;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.TranslationKeys;
+import com.github.klikli_dev.occultism.common.item.armor.OtherworldGogglesItem;
 import com.github.klikli_dev.occultism.common.item.debug.*;
 import com.github.klikli_dev.occultism.common.item.otherworld.OtherworldBlockItem;
 import com.github.klikli_dev.occultism.common.item.spirit.*;
@@ -31,10 +32,8 @@ import com.github.klikli_dev.occultism.common.item.storage.DimensionalMatrixItem
 import com.github.klikli_dev.occultism.common.item.storage.StableWormholeBlockItem;
 import com.github.klikli_dev.occultism.common.item.storage.StorageRemoteItem;
 import com.github.klikli_dev.occultism.common.item.tool.*;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.BlockNamedItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemTier;
+import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.item.*;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -63,6 +62,10 @@ public class OccultismItems {
     //Resources
     public static final RegistryObject<OtherworldBlockItem> OTHERWORLD_SAPLING_NATURAL = ITEMS.register("otherworld_sapling_natural",
             () -> new OtherworldBlockItem(OccultismBlocks.OTHERWORLD_SAPLING_NATURAL.get(), defaultProperties()));
+    public static final RegistryObject<Item> TALLOW = ITEMS.register("tallow",
+            () -> new Item(defaultProperties()));
+    public static final RegistryObject<Item> AFRIT_ESSENCE = ITEMS.register("afrit_essence",
+            () -> new Item(defaultProperties()));
 
     //Components
     public static final RegistryObject<DimensionalMatrixItem> DIMENSIONAL_MATRIX = ITEMS.register("dimensional_matrix",
@@ -73,10 +76,7 @@ public class OccultismItems {
             () -> new Item(defaultProperties()));
     public static final RegistryObject<Item> BURNT_OTHERSTONE = ITEMS.register("burnt_otherstone",
             () -> new Item(defaultProperties()));
-    public static final RegistryObject<Item> TALLOW = ITEMS.register("tallow",
-            () -> new Item(defaultProperties()));
-    public static final RegistryObject<Item> AFRIT_ESSENCE = ITEMS.register("afrit_essence",
-            () -> new Item(defaultProperties()));
+
     public static final RegistryObject<Item> OTHERSTONE_FRAME = ITEMS.register("otherstone_frame",
             () -> new Item(defaultProperties()));
     public static final RegistryObject<Item> WORMHOLE_FRAME = ITEMS.register("wormhole_frame",
@@ -125,6 +125,12 @@ public class OccultismItems {
     public static final RegistryObject<Item> CRUSHED_END_STONE = ITEMS.register("crushed_end_stone",
             () -> new Item(defaultProperties()));
 
+    public static final RegistryObject<Item> LENSES = ITEMS.register("lenses",
+            () -> new Item(defaultProperties()));
+    public static final RegistryObject<Item> INFUSED_LENSES = ITEMS.register("infused_lenses",
+            () -> new Item(defaultProperties()));
+    public static final RegistryObject<Item> LENS_FRAME = ITEMS.register("lens_frame",
+            () -> new Item(defaultProperties()));
     //Tools
     public static final RegistryObject<GuideBookItem> GUIDE_BOOK = ITEMS.register("dictionary_of_spirits",
             () -> new GuideBookItem(defaultProperties().maxStackSize(1)));
@@ -180,6 +186,11 @@ public class OccultismItems {
             () -> new BookOfCallingManageMachineItem(defaultProperties().maxStackSize(1),
                     TranslationKeys.BOOK_OF_CALLING_GENERIC + "_djinni"));
     //Djinn
+
+    //Armor
+    public static final RegistryObject<OtherworldGogglesItem> OTHERWORLD_GOGGLES = ITEMS.register("otherworld_goggles",
+            () -> new OtherworldGogglesItem(ArmorMaterial.IRON,
+                    EquipmentSlotType.HEAD, defaultProperties().maxStackSize(1)));
 
     //Machines
     public static final RegistryObject<StableWormholeBlockItem> STABLE_WORMHOLE = ITEMS.register("stable_wormhole",

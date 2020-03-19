@@ -22,6 +22,7 @@
 
 package com.github.klikli_dev.occultism.common.block.otherworld;
 
+import com.github.klikli_dev.occultism.api.common.data.OtherworldBlockTier;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -60,9 +61,15 @@ public class OtherworldLogNaturalBlock extends LogBlock implements IOtherworldBl
     }
 
     @Override
+    public OtherworldBlockTier getTier() {
+        return OtherworldBlockTier.ONE;
+    }
+
+    @Override
     public void harvestBlock(World worldIn, PlayerEntity player, BlockPos pos, BlockState state,
                              @Nullable TileEntity te, ItemStack stack) {
-        super.harvestBlock(worldIn, player, pos, IOtherworldBlock.super.getHarvestState(player, state), te, stack);
+        super.harvestBlock(worldIn, player, pos, IOtherworldBlock.super.getHarvestState(player, state, stack), te,
+                stack);
     }
 
     @Override

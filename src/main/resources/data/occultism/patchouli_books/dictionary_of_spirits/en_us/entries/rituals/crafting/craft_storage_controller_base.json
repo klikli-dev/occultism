@@ -2,7 +2,7 @@
   "name": "Storage Actuator Base",
   "icon": "occultism:storage_controller_base",
   "category": "rituals/crafting",
-  "sortnum": 1,
+  "sortnum": 21,
   "pages": [
     {
       "type": "spotlight",
