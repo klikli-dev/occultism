@@ -24,6 +24,7 @@ package com.github.klikli_dev.occultism.registry;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.TranslationKeys;
+import com.github.klikli_dev.occultism.common.item.armor.OtherworldGogglesItem;
 import com.github.klikli_dev.occultism.common.item.debug.*;
 import com.github.klikli_dev.occultism.common.item.otherworld.OtherworldBlockItem;
 import com.github.klikli_dev.occultism.common.item.spirit.*;
@@ -31,10 +32,8 @@ import com.github.klikli_dev.occultism.common.item.storage.DimensionalMatrixItem
 import com.github.klikli_dev.occultism.common.item.storage.StableWormholeBlockItem;
 import com.github.klikli_dev.occultism.common.item.storage.StorageRemoteItem;
 import com.github.klikli_dev.occultism.common.item.tool.*;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.BlockNamedItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemTier;
+import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.item.*;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -180,6 +179,11 @@ public class OccultismItems {
             () -> new BookOfCallingManageMachineItem(defaultProperties().maxStackSize(1),
                     TranslationKeys.BOOK_OF_CALLING_GENERIC + "_djinni"));
     //Djinn
+
+    //Armor
+    public static final RegistryObject<OtherworldGogglesItem> OTHERWORLD_GOGGLES = ITEMS.register("otherworld_goggles",
+            () -> new OtherworldGogglesItem(ArmorMaterial.IRON,
+                    EquipmentSlotType.HEAD, defaultProperties().maxStackSize(1)));
 
     //Machines
     public static final RegistryObject<StableWormholeBlockItem> STABLE_WORMHOLE = ITEMS.register("stable_wormhole",
