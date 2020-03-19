@@ -30,10 +30,7 @@ import com.github.klikli_dev.occultism.common.item.spirit.*;
 import com.github.klikli_dev.occultism.common.item.storage.DimensionalMatrixItem;
 import com.github.klikli_dev.occultism.common.item.storage.StableWormholeBlockItem;
 import com.github.klikli_dev.occultism.common.item.storage.StorageRemoteItem;
-import com.github.klikli_dev.occultism.common.item.tool.BrushItem;
-import com.github.klikli_dev.occultism.common.item.tool.ButcherKnifeItem;
-import com.github.klikli_dev.occultism.common.item.tool.ChalkItem;
-import com.github.klikli_dev.occultism.common.item.tool.DivinationRodItem;
+import com.github.klikli_dev.occultism.common.item.tool.*;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.BlockNamedItem;
 import net.minecraft.item.Item;
@@ -129,6 +126,9 @@ public class OccultismItems {
             () -> new Item(defaultProperties()));
 
     //Tools
+    public static final RegistryObject<GuideBookItem> GUIDE_BOOK = ITEMS.register("dictionary_of_spirits",
+            () -> new GuideBookItem(defaultProperties().maxStackSize(1)));
+
     public static final RegistryObject<Item> STORAGE_REMOTE = ITEMS.register("storage_remote",
             () -> new StorageRemoteItem(defaultProperties().maxStackSize(1)));
 
