@@ -125,6 +125,11 @@ public class OccultismItems {
     public static final RegistryObject<Item> CRUSHED_END_STONE = ITEMS.register("crushed_end_stone",
             () -> new Item(defaultProperties()));
 
+    public static final RegistryObject<Item> LENSES = ITEMS.register("lenses",
+            () -> new Item(defaultProperties()));
+    public static final RegistryObject<Item> INFUSED_LENSES = ITEMS.register("infused_lenses",
+            () -> new Item(defaultProperties()));
+
     //Tools
     public static final RegistryObject<GuideBookItem> GUIDE_BOOK = ITEMS.register("dictionary_of_spirits",
             () -> new GuideBookItem(defaultProperties().maxStackSize(1)));
