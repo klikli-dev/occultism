@@ -23,6 +23,7 @@
 package com.github.klikli_dev.occultism.common.entity.spirit;
 
 import com.github.klikli_dev.occultism.Occultism;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.SpawnReason;
@@ -91,9 +92,14 @@ public class AfritWildEntity extends AfritEntity {
 
     @Override
     public boolean isInvulnerableTo(DamageSource source) {
-        return source.isFireDamage() ||
-               EntityTypeTags.getCollection().getOrCreate(afritAlliesTag).contains(source.getTrueSource().getType()) ||
-               super.isInvulnerableTo(source);
+        Entity trueSource = source.getTrueSource();
+        if(source.isFireDamage())
+            return false;
+
+        if(trueSource != null && EntityTypeTags.getCollection().getOrCreate(this.afritAlliesTag).contains(trueSource.getType()))
+            return true;
+
+        return super.isInvulnerableTo(source);
     }
     //endregion Overrides
 }
