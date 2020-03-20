@@ -163,7 +163,10 @@ public class OccultismItems {
             () -> new ButcherKnifeItem(ItemTier.IRON, 3, -2.4F, defaultProperties()));
 
     public static final RegistryObject<InfusedPickaxeItem> INFUSED_PICKAXE = ITEMS.register("infused_pickaxe",
-            () -> new InfusedPickaxeItem(OccultismItemTier.SPIRIT_ATTUNED_GEM, 3, -2.4F, defaultProperties()));
+            () -> new InfusedPickaxeItem(OccultismItemTier.SPIRIT_ATTUNED_GEM, 1, -2.8F, defaultProperties()));
+    public static final RegistryObject<OtherworldPickaxeItem> IESNIUM_PICKAXE = ITEMS.register("iesnium_pickaxe",
+            () -> new OtherworldPickaxeItem(ItemTier.DIAMOND, 1, -2.8F, defaultProperties()));
+
     //Books of Binding
     public static final RegistryObject<BookOfBindingItem> BOOK_OF_BINDING_FOLIOT = ITEMS.register(
             "book_of_binding_foliot", () -> new BookOfBindingItem(defaultProperties().maxStackSize(1)));
