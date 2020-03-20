@@ -22,6 +22,7 @@
 
 package com.github.klikli_dev.occultism.client.render;
 
+import com.github.klikli_dev.occultism.client.render.SelectedBlockRenderer.SelectionInfo;
 import com.github.klikli_dev.occultism.util.RenderUtil;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -35,14 +36,14 @@ import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 import java.awt.*;
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
-import java.util.List;
+import java.util.Set;
 
 public class SelectedBlockRenderer {
 
     //region Fields
-    protected List<SelectionInfo> selectedBlocks = new ArrayList<>();
+    protected Set<SelectionInfo> selectedBlocks = new HashSet<>();
     //endregion Fields
 
     //region Methods
@@ -65,7 +66,11 @@ public class SelectedBlockRenderer {
      * @param color      the color to render the block in.
      */
     public void selectBlock(BlockPos pos, long expireTime, Color color) {
-        this.selectedBlocks.add(new SelectionInfo(pos, expireTime, color));
+        SelectionInfo info = new SelectionInfo(pos, expireTime, color);
+        if(this.selectedBlocks.contains(info)){
+            this.selectedBlocks.remove(info);
+        }
+        this.selectedBlocks.add(info);
     }
 
     /**
@@ -134,5 +139,24 @@ public class SelectedBlockRenderer {
             this.color = color;
         }
         //endregion Initialization
+
+        //region Overrides
+        @Override
+        public int hashCode() {
+            return this.selectedBlock.hashCode();
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (obj == this)
+                return true;
+
+            SelectionInfo other = (SelectionInfo) obj;
+            if (other == null)
+                return false;
+
+            return other.selectedBlock.equals(this.selectedBlock);
+        }
+        //endregion Overrides
     }
 }
