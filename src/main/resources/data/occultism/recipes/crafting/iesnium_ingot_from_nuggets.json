@@ -7,10 +7,10 @@
   ],
   "key": {
     "p": {
-      "tag": "forge:nuggets/platinum"
+      "tag": "forge:nuggets/iesnium"
     }
   },
   "result": {
-    "item": "occultism:platinum_ingot"
+    "item": "occultism:iesnium_ingot"
   }
 }

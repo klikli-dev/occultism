@@ -2,11 +2,11 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "tag": "forge:storage_blocks/platinum"
+      "tag": "forge:ingots/iesnium"
     }
   ],
   "result": {
-    "item": "occultism:platinum_ingot",
+    "item": "occultism:iesnium_nugget",
     "count": 9
   }
 }
