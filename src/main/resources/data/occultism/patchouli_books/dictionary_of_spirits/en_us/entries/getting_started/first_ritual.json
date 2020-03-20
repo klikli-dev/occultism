@@ -15,6 +15,11 @@
     },
     {
       "type": "spotlight",
+      "item": "occultism:candle_white",
+      "text": "Candles provide stability to rituals and are an important part of almost all pentacles. To make candles, kill large animals like pigs, cows or sheep with a Butcher Knife to harvest their fat in the form of tallow and use that to craft candles."
+    },
+    {
+      "type": "spotlight",
       "item": "occultism:golden_sacrificial_bowl",
       "text": "Craft Otherstone into the shape of a bowl to create a sacrificial bowl. These bowls are used to sacrifice items as part of a ritual and you will need a handful of them. Then take one of the bowls and craft it into a golden sacrificial bowl by surrounding it with gold ingots."
     },
@@ -30,6 +35,10 @@
     {
       "type": "text",
       "text": "Now craft a $(item)Book of Binding: Foliot$() and combine it with this guide book to assign a spirit name. $(br)Finally, right-click the golden sacrificial bowl with the resulting book and wait until the crusher spawns. $(br)Now all that remains is to drop appropriate ores near the crusher and wait for it to turn it into dust."
+    },
+    {
+      "type": "empty",
+      "draw_filler": false
     }
   ]
 }

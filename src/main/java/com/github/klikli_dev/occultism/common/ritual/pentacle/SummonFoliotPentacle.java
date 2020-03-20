@@ -22,7 +22,12 @@
 
 package com.github.klikli_dev.occultism.common.ritual.pentacle;
 
+import com.github.klikli_dev.occultism.common.block.CandleBlock;
+import com.github.klikli_dev.occultism.registry.OccultismBlocks;
+import net.minecraft.block.Blocks;
 import vazkii.patchouli.api.IMultiblock;
+
+import java.util.Arrays;
 
 public class SummonFoliotPentacle extends Pentacle {
 
@@ -30,13 +35,13 @@ public class SummonFoliotPentacle extends Pentacle {
     private final String[][] pattern = new String[][]{
             {
                     "    X    ",
-                    "   WWW   ",
+                    "   WCW   ",
                     "  W W W  ",
                     " W  W  W ",
-                    "XWWW0WWWX",
+                    "XCWW0WWCX",
                     " W  W  W ",
                     "  W W W  ",
-                    "   WWW   ",
+                    "   WCW   ",
                     "    X    "
             }
     };
@@ -44,6 +49,15 @@ public class SummonFoliotPentacle extends Pentacle {
     //endregion Fields
 
     //region Overrides
+    @Override
+    protected void setupMapping() {
+        super.setupMapping();
+        this.mapping.addAll(Arrays.asList(
+                'C', this.api.predicateMatcher(OccultismBlocks.CANDLE_WHITE.get(),
+                        b -> b.getBlock() instanceof CandleBlock)
+        ));
+    }
+
     @Override
     protected IMultiblock setupMultiblock() {
         return this.api.makeMultiblock(this.pattern, this.mapping.toArray()).setSymmetrical(true);
