@@ -360,6 +360,37 @@ public class BookOfCallingItem extends Item implements IIngredientPreventCraftin
         return false;
     }
 
+    public boolean setSpiritExtractLocation(PlayerEntity player, World world, BlockPos pos, ItemStack stack,
+                                            Direction face) {
+        UUID boundSpiritId = ItemNBTUtil.getSpiritEntityUUID(stack);
+        if (boundSpiritId != null) {
+            Optional<SpiritEntity> boundSpirit = EntityUtil.getEntityByUuiDGlobal(world.getServer(), boundSpiritId)
+                                                         .map(e -> (SpiritEntity) e);
+
+            if (boundSpirit.isPresent()) {
+                //update properties on entity
+                boundSpirit.get().setExtractPosition(pos);
+                boundSpirit.get().setExtractFacing(face);
+                //also update control item with latest data
+                ItemNBTUtil.updateItemNBTFromEntity(stack, boundSpirit.get());
+
+                String blockName = world.getBlockState(pos).getBlock().getTranslationKey();
+                player.sendStatusMessage(
+                        new TranslationTextComponent(TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_set_extract",
+                                TextUtil.formatDemonName(boundSpirit.get().getName().getFormattedText()),
+                                new TranslationTextComponent(blockName), face.getName()), true);
+                return true;
+            }
+            else {
+                player.sendStatusMessage(
+                        new TranslationTextComponent(
+                                TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_spirit_not_found"),
+                        true);
+            }
+        }
+        return false;
+    }
+
     public boolean setSpiritBaseLocation(PlayerEntity player, World world, BlockPos pos, ItemStack stack,
                                          Direction face) {
         UUID boundSpiritId = ItemNBTUtil.getSpiritEntityUUID(stack);
@@ -401,6 +432,13 @@ public class BookOfCallingItem extends Item implements IIngredientPreventCraftin
                     if (tileEntity != null &&
                         tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, facing).isPresent()) {
                         return this.setSpiritDepositLocation(player, world, pos, stack,
+                                facing) ? ActionResultType.SUCCESS : ActionResultType.PASS;
+                    }
+                    break;
+                case SET_EXTRACT:
+                    if (tileEntity != null &&
+                        tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, facing).isPresent()) {
+                        return this.setSpiritExtractLocation(player, world, pos, stack,
                                 facing) ? ActionResultType.SUCCESS : ActionResultType.PASS;
                     }
                     break;
@@ -450,7 +488,7 @@ public class BookOfCallingItem extends Item implements IIngredientPreventCraftin
     public enum ItemMode implements IItemModeSubset<ItemMode> {
 
         SET_DEPOSIT(0, "set_deposit"),
-        SET_PICKUP(1, "set_pickup"),
+        SET_EXTRACT(1, "set_extract"),
         SET_BASE(2, "set_base"),
         SET_STORAGE_CONTROLLER(3, "set_storage_controller"),
         SET_MANAGED_MACHINE(4, "set_managed_machine");

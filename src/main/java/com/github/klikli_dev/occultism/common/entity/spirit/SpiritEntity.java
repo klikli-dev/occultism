@@ -69,16 +69,18 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
      * The default max age in seconds.
      */
     public static final int DEFAULT_MAX_AGE = -1;//default age is unlimited.
-    private static final DataParameter<Optional<BlockPos>> DEPOSIT_POSITION = EntityDataManager
-                                                                                      .createKey(SpiritEntity.class,
-                                                                                              DataSerializers.OPTIONAL_BLOCK_POS);
-    private static final DataParameter<Direction> DEPOSIT_FACING = EntityDataManager.createKey(SpiritEntity.class,
-            DataSerializers.DIRECTION);
-    private static final DataParameter<Optional<BlockPos>> WORK_AREA_POSITION = EntityDataManager
-                                                                                        .createKey(SpiritEntity.class,
-                                                                                                DataSerializers.OPTIONAL_BLOCK_POS);
-    private static final DataParameter<Integer> WORK_AREA_SIZE = EntityDataManager.createKey(SpiritEntity.class,
-            DataSerializers.VARINT);
+    private static final DataParameter<Optional<BlockPos>> DEPOSIT_POSITION =
+            EntityDataManager.createKey(SpiritEntity.class, DataSerializers.OPTIONAL_BLOCK_POS);
+    private static final DataParameter<Direction> DEPOSIT_FACING =
+            EntityDataManager.createKey(SpiritEntity.class, DataSerializers.DIRECTION);
+    private static final DataParameter<Optional<BlockPos>> EXTRACT_POSITION =
+            EntityDataManager.createKey(SpiritEntity.class, DataSerializers.OPTIONAL_BLOCK_POS);
+    private static final DataParameter<Direction> EXTRACT_FACING =
+            EntityDataManager.createKey(SpiritEntity.class, DataSerializers.DIRECTION);
+    private static final DataParameter<Optional<BlockPos>> WORK_AREA_POSITION =
+            EntityDataManager.createKey(SpiritEntity.class, DataSerializers.OPTIONAL_BLOCK_POS);
+    private static final DataParameter<Integer> WORK_AREA_SIZE =
+            EntityDataManager.createKey(SpiritEntity.class, DataSerializers.VARINT);
     /**
      * The spirit age in seconds.
      */
@@ -115,6 +117,14 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
         this.dataManager.set(DEPOSIT_POSITION, Optional.ofNullable(position));
     }
 
+    public Optional<BlockPos> getExtractPosition() {
+        return this.dataManager.get(EXTRACT_POSITION);
+    }
+
+    public void setExtractPosition(BlockPos position) {
+        this.dataManager.set(EXTRACT_POSITION, Optional.ofNullable(position));
+    }
+
     public Optional<BlockPos> getWorkAreaPosition() {
         return this.dataManager.get(WORK_AREA_POSITION);
     }
@@ -141,6 +151,14 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
 
     public void setDepositFacing(Direction depositFacing) {
         this.dataManager.set(DEPOSIT_FACING, depositFacing);
+    }
+
+    public Direction getExtractFacing() {
+        return this.dataManager.get(EXTRACT_FACING);
+    }
+
+    public void setExtractFacing(Direction extractFacing) {
+        this.dataManager.set(EXTRACT_FACING, extractFacing);
     }
 
     /**
@@ -345,6 +363,8 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
 
         this.dataManager.register(DEPOSIT_POSITION, Optional.empty());
         this.dataManager.register(DEPOSIT_FACING, Direction.UP);
+        this.dataManager.register(EXTRACT_POSITION, Optional.empty());
+        this.dataManager.register(EXTRACT_FACING, Direction.DOWN);
         this.dataManager.register(WORK_AREA_POSITION, Optional.empty());
         this.dataManager.register(WORK_AREA_SIZE, WorkAreaSize.SMALL.getValue());
         this.dataManager.register(SPIRIT_AGE, 0);
@@ -362,10 +382,15 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
 
         //store work area position
         this.getWorkAreaPosition().ifPresent(pos -> compound.putLong("workAreaPosition", pos.toLong()));
+        compound.putInt("workAreaSize", this.getWorkAreaSize().getValue());
+
         //store deposit info
         this.getDepositPosition().ifPresent(pos -> compound.putLong("depositPosition", pos.toLong()));
         compound.putInt("depositFacing", this.getDepositFacing().ordinal());
-        compound.putInt("workAreaSize", this.getWorkAreaSize().getValue());
+
+        //store extract info
+        this.getExtractPosition().ifPresent(pos -> compound.putLong("extractPosition", pos.toLong()));
+        compound.putInt("extractFacing", this.getExtractFacing().ordinal());
 
         //store current inventory
         this.itemStackHandler.ifPresent(handler -> compound.put("inventory", handler.serializeNBT()));
@@ -390,16 +415,25 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
         if (compound.contains("workAreaPosition")) {
             this.setWorkAreaPosition(BlockPos.fromLong(compound.getLong("workAreaPosition")));
         }
+        if (compound.contains("workAreaSize")){
+            this.setWorkAreaSize(WorkAreaSize.get(compound.getInt("workAreaSize")));
+        }
 
         //read deposit information
         if (compound.contains("depositPosition")) {
             this.setDepositPosition(BlockPos.fromLong(compound.getLong("depositPosition")));
-            if (compound.contains("depositFacing")) {
-                this.setDepositFacing(Direction.values()[compound.getInt("depositFacing")]);
-            }
         }
-        if (compound.contains("workAreaSize"))
-            this.setWorkAreaSize(WorkAreaSize.get(compound.getInt("workAreaSize")));
+;       if (compound.contains("depositFacing")) {
+            this.setDepositFacing(Direction.values()[compound.getInt("depositFacing")]);
+        }
+
+        //read extract information
+        if (compound.contains("extractPosition")) {
+            this.setExtractPosition(BlockPos.fromLong(compound.getLong("extractPosition")));
+        }
+        if (compound.contains("extractFacing")) {
+            this.setExtractFacing(Direction.values()[compound.getInt("extractFacing")]);
+        }
 
         //set up inventory and read items
 

@@ -46,6 +46,8 @@ public class ItemNBTUtil {
     public static final String WORK_AREA_POSITION_TAG = "workAreaPosition";
     public static final String DEPOSIT_POSITION_TAG = "depositPosition";
     public static final String DEPOSIT_FACING_TAG = "depositFacing";
+    public static final String EXTRACT_POSITION_TAG = "extractPosition";
+    public static final String EXTRACT_FACING_TAG = "extractFacing";
     public static final String STORAGE_CONTROLLER_POSITION_TAG = "storageControllerPosition";
     public static final String MANAGED_MACHINE = "managedMachine";
 
@@ -57,6 +59,8 @@ public class ItemNBTUtil {
         ItemNBTUtil.setWorkAreaPosition(stack, entity.getWorkAreaPosition());
         ItemNBTUtil.setDepositPosition(stack, entity.getDepositPosition());
         ItemNBTUtil.setDepostFacing(stack, entity.getDepositFacing());
+        ItemNBTUtil.setExtractPosition(stack, entity.getExtractPosition());
+        ItemNBTUtil.setExtractFacing(stack, entity.getExtractFacing());
         ItemNBTUtil.setWorkAreaSize(stack, entity.getWorkAreaSize());
 
         entity.getJob().filter(ManageMachineJob.class::isInstance).map(ManageMachineJob.class::cast).ifPresent(job -> {
@@ -118,11 +122,11 @@ public class ItemNBTUtil {
             stack.setTagInfo(MANAGED_MACHINE, position.serializeNBT());
     }
 
-    public static GlobalBlockPos getDepositPosition(ItemStack stack) {
+    public static BlockPos getDepositPosition(ItemStack stack) {
         if (!stack.getOrCreateTag().contains(DEPOSIT_POSITION_TAG))
             return null;
 
-        return GlobalBlockPos.from(stack.getTag().getCompound(DEPOSIT_POSITION_TAG));
+        return BlockPos.fromLong(stack.getTag().getLong(DEPOSIT_POSITION_TAG));
     }
 
     public static void setDepositPosition(ItemStack stack, Optional<BlockPos> position) {
@@ -137,6 +141,27 @@ public class ItemNBTUtil {
 
     public static void setDepostFacing(ItemStack stack, Direction facing) {
         stack.getOrCreateTag().putInt(DEPOSIT_FACING_TAG, facing.ordinal());
+    }
+
+    public static BlockPos getExtractPosition(ItemStack stack) {
+        if (!stack.getOrCreateTag().contains(EXTRACT_POSITION_TAG))
+            return null;
+
+        return BlockPos.fromLong(stack.getTag().getLong(EXTRACT_POSITION_TAG));
+    }
+
+    public static void setExtractPosition(ItemStack stack, Optional<BlockPos> position) {
+        position.ifPresent(p -> stack.getOrCreateTag().putLong(EXTRACT_POSITION_TAG, p.toLong()));
+    }
+
+    public static Direction getExtractFacing(ItemStack stack) {
+        if (!stack.getOrCreateTag().contains(EXTRACT_FACING_TAG))
+            return null;
+        return Direction.values()[stack.getTag().getInt(EXTRACT_FACING_TAG)];
+    }
+
+    public static void setExtractFacing(ItemStack stack, Direction facing) {
+        stack.getOrCreateTag().putInt(EXTRACT_FACING_TAG, facing.ordinal());
     }
 
     public static BlockPos getWorkAreaPosition(ItemStack stack) {
