@@ -62,6 +62,8 @@
     "item.occultism.infused_lenses": "Infused Lenses",
     "item.occultism.lens_frame": "Lens Frame",
     "item.occultism.otherworld_goggles": "Otherworld Goggles",
+    "item.occultism.infused_pickaxe": "Infused Pickaxe",
+    "item.occultism.spirit_attuned_pickaxe_head": "Spirit Attuned Pickaxe Head",
     "_comment": "# Spawn eggs",
     "item.occultism.spawn_egg.foliot": "Foliot Spawn Egg",
     "item.occultism.spawn_egg.djinni": "Djinni Spawn Egg",
