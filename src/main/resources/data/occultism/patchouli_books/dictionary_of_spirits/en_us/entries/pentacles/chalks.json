@@ -6,7 +6,7 @@
   "pages": [
     {
       "type": "text",
-      "text": "Chalk is used to draw pentacle runes and define the pentacle shape. Different types of chalk are used for different purposes, as outlined on the next pages."
+      "text": "Chalk is used to draw pentacle runes and define the pentacle shape. Different types of chalk are used for different purposes, as outlined on the next pages. Using a $(item)Brush$() is the easiest way to $(bold)remove$() chalk runes that have been incorrectly placed."
     },
     {
       "type": "spotlight",
