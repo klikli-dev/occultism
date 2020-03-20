@@ -20,36 +20,43 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.github.klikli_dev.occultism.registry;
+package com.github.klikli_dev.occultism.common.command;
 
 import com.github.klikli_dev.occultism.Occultism;
-import com.github.klikli_dev.occultism.common.command.DebugAICommand;
-import com.github.klikli_dev.occultism.common.command.NbtCommand;
+import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
-import com.mojang.brigadier.tree.LiteralCommandNode;
+import com.mojang.brigadier.builder.ArgumentBuilder;
+import com.mojang.brigadier.context.CommandContext;
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
-import net.minecraft.command.impl.DebugCommand;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.Hand;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
 
-public class OccultismCommands {
+public class DebugAICommand implements Command<CommandSource> {
+
+    //region Fields
+    private static final DebugAICommand CMD = new DebugAICommand();
+
+    //endregion Fields
+
+    //region Overrides
+    @Override
+    public int run(CommandContext<CommandSource> context) throws CommandSyntaxException {
+        Occultism.DEBUG.debugAI = !Occultism.DEBUG.debugAI;
+        context.getSource().sendFeedback(new StringTextComponent("AI Debugging enabled: " + Occultism.DEBUG.debugAI), false);
+        return 0;
+    }
+    //endregion Overrides
+
     //region Static Methods
-    public static void register(CommandDispatcher<CommandSource> dispatcher) {
-
-        //register dispatcher for subcommands of /occultism debug
-        LiteralCommandNode<CommandSource> debugCommand = dispatcher.register(
-                Commands.literal("debug")
-                        .then(DebugAICommand.register(dispatcher))
-        );
-
-        //register dispatcher for subcommands of /occultism
-        LiteralCommandNode<CommandSource> occultismCommand = dispatcher.register(
-                Commands.literal(Occultism.MODID)
-                        .then(NbtCommand.register(dispatcher))
-                        .then(debugCommand)
-        );
-
-        //register /occultism for dispatching
-        dispatcher.register(Commands.literal("occultism").redirect(occultismCommand));
+    public static ArgumentBuilder<CommandSource, ?> register(CommandDispatcher<CommandSource> dispatcher) {
+        return Commands.literal("ai")
+                       .requires(cs -> cs.hasPermissionLevel(1))
+                       .executes(CMD);
     }
     //endregion Static Methods
 }
