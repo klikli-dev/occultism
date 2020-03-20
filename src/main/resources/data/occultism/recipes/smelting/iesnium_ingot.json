@@ -1,9 +1,9 @@
 {
   "type": "minecraft:smelting",
   "ingredient": {
-    "tag": "forge:ores/platinum"
+    "tag": "forge:ores/iesnium"
   },
-  "result": "occultism:platinum_ingot",
+  "result": "occultism:iesnium_ingot",
   "experience": 0.7,
   "cookingtime": 200
 }

@@ -113,7 +113,7 @@ public class OccultismBlocks {
 
     public static final RegistryObject<Block> COPPER_ORE = register("copper_ore", () -> new Block(Block.Properties.from(Blocks.IRON_ORE)));
     public static final RegistryObject<Block> SILVER_ORE = register("silver_ore", () -> new Block(Block.Properties.from(Blocks.IRON_ORE)));
-    public static final RegistryObject<Block> PLATINUM_ORE = register("platinum_ore", () -> new Block(Block.Properties.from(Blocks.IRON_ORE)));
+    public static final RegistryObject<Block> IESNIUM_ORE = register("iesnium_ore", () -> new Block(Block.Properties.from(Blocks.IRON_ORE)));
 
     //Components
     public static final RegistryObject<SlabBlock> OTHERSTONE_SLAB = register("otherstone_slab", () -> new SlabBlock(Block.Properties.from(OTHERSTONE.get())));
@@ -122,7 +122,7 @@ public class OccultismBlocks {
 
     public static final RegistryObject<Block> COPPER_BLOCK = register("copper_block", () -> new Block(Block.Properties.from(Blocks.IRON_BLOCK)));
     public static final RegistryObject<Block> SILVER_BLOCK = register("silver_block", () -> new Block(Block.Properties.from(Blocks.IRON_BLOCK)));
-    public static final RegistryObject<Block> PLATINUM_BLOCK = register("platinum_block", () -> new Block(Block.Properties.from(Blocks.IRON_BLOCK)));
+    public static final RegistryObject<Block> IESNIUM_BLOCK = register("iesnium_block", () -> new Block(Block.Properties.from(Blocks.IRON_BLOCK)));
 
     //Decorative and Ritual Blocks
     public static final RegistryObject<CandleBlock> CANDLE_WHITE = register("candle_white", () -> new CandleBlock(

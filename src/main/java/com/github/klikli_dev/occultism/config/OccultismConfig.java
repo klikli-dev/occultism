@@ -136,7 +136,7 @@ public class OccultismConfig extends ConfigBase {
             public final OreSettings otherstoneNatural;
             public final OreSettings copperOre;
             public final OreSettings silverOre;
-            public final OreSettings platinumOre;
+            public final OreSettings iesniumOre;
 
             //endregion Fields
 
@@ -144,20 +144,21 @@ public class OccultismConfig extends ConfigBase {
             public OreGenSettings(IConfigCache parent, ForgeConfigSpec.Builder builder) {
                 super(parent, builder);
                 builder.comment("Ore Gen Settings").push("oregen");
-                List<String> whitelist = Stream.of("overworld").collect(Collectors.toList());
+                List<String> overworld = Stream.of("overworld").collect(Collectors.toList());
+                List<String> nether = Stream.of("nether").collect(Collectors.toList());
 
                 this.otherstoneNatural =
-                        new OreSettings("otherstone_natural", whitelist, 7,
+                        new OreSettings("otherstone_natural", overworld, 7,
                                 5, 10, 80, this, builder);
 
                 this.copperOre =
-                        new OreSettings("copper_ore", whitelist, 9,
+                        new OreSettings("copper_ore", overworld, 9,
                                 20, 20, 64, this, builder);
                 this.silverOre =
-                        new OreSettings("silver_ore", whitelist, 7,
+                        new OreSettings("silver_ore", overworld, 7,
                                 5, 0, 30, this, builder);
-                this.platinumOre =
-                        new OreSettings("platinum_ore", whitelist, 3,
+                this.iesniumOre =
+                        new OreSettings("iesnium_ore", nether, 3,
                                 1, 0, 30, this, builder);
                 builder.pop();
             }

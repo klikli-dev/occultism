@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "occultism:item/platinum_ingot"
+    "layer0": "occultism:item/iesnium_ingot"
   }
 }

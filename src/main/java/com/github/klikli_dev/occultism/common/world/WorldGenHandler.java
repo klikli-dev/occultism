@@ -68,8 +68,8 @@ public class WorldGenHandler {
             Occultism.CONFIG.worldGen.oreGen.silverOre.dimensionTypeWhitelist.get().stream()
                     .map(s -> DimensionType.byName(new ResourceLocation(s))).collect(
                     Collectors.toList());
-    protected static final List<DimensionType> PLATINUM_DIMENSION_WHITELIST =
-            Occultism.CONFIG.worldGen.oreGen.platinumOre.dimensionTypeWhitelist.get().stream()
+    protected static final List<DimensionType> IESNIUM_DIMENSION_WHITELIST =
+            Occultism.CONFIG.worldGen.oreGen.iesniumOre.dimensionTypeWhitelist.get().stream()
                     .map(s -> DimensionType.byName(new ResourceLocation(s))).collect(
                     Collectors.toList());
     //endregion Fields
@@ -92,10 +92,11 @@ public class WorldGenHandler {
                     OccultismBlocks.SILVER_ORE.get().getDefaultState(),
                     Occultism.CONFIG.worldGen.oreGen.silverOre);
 
+            //TODO: use otherworld block here that in turn shows iesnium only under third eye
             addOreFeature(biome,
-                    OreFeatureConfig.FillerBlockType.NATURAL_STONE,
-                    OccultismBlocks.PLATINUM_ORE.get().getDefaultState(),
-                    Occultism.CONFIG.worldGen.oreGen.platinumOre);
+                    OreFeatureConfig.FillerBlockType.NETHERRACK,
+                    OccultismBlocks.IESNIUM_ORE.get().getDefaultState(),
+                    Occultism.CONFIG.worldGen.oreGen.iesniumOre);
         }
     }
 

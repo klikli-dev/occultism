@@ -1,6 +1,6 @@
 {
   "parent": "block/cube_all",
   "textures": {
-    "all": "occultism:block/platinum_block"
+    "all": "occultism:block/iesnium_ore"
   }
 }
