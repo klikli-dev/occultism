@@ -25,18 +25,16 @@ package com.github.klikli_dev.occultism.common.entity.ai;
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.github.klikli_dev.occultism.network.MessageSelectBlock;
-import com.github.klikli_dev.occultism.network.OccultismPacketHandler;
 import com.github.klikli_dev.occultism.network.OccultismPackets;
 import com.github.klikli_dev.occultism.util.Math3DUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.LeavesBlock;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.world.World;
 
 import java.util.*;
@@ -47,6 +45,7 @@ public class FellTreesGoal extends Goal {
     protected final SpiritEntity entity;
     protected final BlockSorter targetSorter;
     protected BlockPos targetBlock = null;
+    protected BlockPos moveTarget = null;
     protected int breakingTime;
     protected int previousBreakProgress;
     //endregion Fields
@@ -78,34 +77,26 @@ public class FellTreesGoal extends Goal {
     public void resetTask() {
         this.entity.getNavigator().clearPath();
         this.targetBlock = null;
+        this.moveTarget = null;
         this.resetTarget();
     }
 
     @Override
     public void tick() {
         if (this.targetBlock != null) {
-            if(!this.entity.getNavigator().setPath(this.entity.getNavigator().getPathToPos(this.targetBlock, 0), 1.0f)){
-                RayTraceContext context = new RayTraceContext(this.entity.getEyePosition(0), Math3DUtil.center(this.targetBlock), RayTraceContext.BlockMode.COLLIDER,
-                        RayTraceContext.FluidMode.NONE, this.entity);
-                BlockRayTraceResult result = this.entity.world.rayTraceBlocks(context);
-                if (result.getType() != BlockRayTraceResult.Type.MISS) {
-                    BlockPos pos = result.getPos().offset(result.getFace());
-                    if(Occultism.DEBUG.debugAI) {
-                        OccultismPackets.sendToTracking(this.entity, new MessageSelectBlock(pos, 5000, 0x00ff00));
-                    }
-                    this.entity.getNavigator().setPath(this.entity.getNavigator().getPathToPos(pos, 0), 1.0f);
-                }
-            }
-            if(Occultism.DEBUG.debugAI){
+
+            this.entity.getNavigator().setPath(
+                    this.entity.getNavigator().getPathToPos(this.moveTarget, 0), 1.0f);
+
+            if (Occultism.DEBUG.debugAI) {
                 OccultismPackets.sendToTracking(this.entity, new MessageSelectBlock(this.targetBlock, 5000, 0xffffff));
             }
 
-
             if (isLog(this.entity.world, this.targetBlock)) {
-                double distance = this.entity.getPositionVector().distanceTo(Math3DUtil.center(this.targetBlock));
+                double distance = this.entity.getPositionVector().distanceTo(Math3DUtil.center(this.moveTarget));
                 if (distance < 2.5F) {
                     //start breaking when close
-                    if (distance < 0.6F) {
+                    if (distance < 1F) {
                         //Stop moving if very close
                         this.entity.setMotion(0, 0, 0);
                         this.entity.getNavigator().clearPath();
@@ -113,9 +104,6 @@ public class FellTreesGoal extends Goal {
 
                     this.updateBreakBlock();
                 }
-            }
-            else if(isLeaf(this.entity.world, this.targetBlock)){
-                this.entity.world.removeBlock(this.targetBlock, false);
             }
             else {
                 this.resetTask();
@@ -160,7 +148,7 @@ public class FellTreesGoal extends Goal {
     }
 
     private void resetTarget() {
-         World world = this.entity.world;
+        World world = this.entity.world;
         List<BlockPos> allBlocks = new ArrayList<>();
         BlockPos workAreaCenter = this.entity.getWorkAreaCenter();
 
@@ -182,7 +170,8 @@ public class FellTreesGoal extends Goal {
                 //find the stump of the tree
                 if (isLeaf(world, topOfTree)) {
                     BlockPos logPos = this.getStump(topOfTree);
-                    allBlocks.add(logPos);
+                    if (isLog(world, logPos))
+                        allBlocks.add(logPos);
                 }
             }
         }
@@ -190,6 +179,21 @@ public class FellTreesGoal extends Goal {
         if (!allBlocks.isEmpty()) {
             allBlocks = allBlocks.stream().distinct().sorted(this.targetSorter).collect(Collectors.toList());
             this.targetBlock = allBlocks.get(0);
+
+            //Find a nearby empty block to move to
+            this.moveTarget = null;
+            for (Direction facing : Direction.Plane.HORIZONTAL) {
+                BlockPos pos = this.targetBlock.offset(facing);
+                if (this.entity.world.isAirBlock(pos)) {
+                    this.moveTarget = pos;
+                    break;
+                }
+            }
+
+            //none found -> invalid target
+            if (this.moveTarget == null) {
+                this.targetBlock = null;
+            }
         }
     }
 
@@ -202,8 +206,9 @@ public class FellTreesGoal extends Goal {
     private BlockPos getStump(BlockPos log) {
         if (log.getY() > 0) {
             //for all nearby logs and leaves, move one block down and recurse.
-            for (BlockPos pos : BlockPos.getAllInBox(log.add(-4, -4, -4), log.add(4, 0, 4)).map(BlockPos::toImmutable).collect(
-                    Collectors.toList())) {
+            for (BlockPos pos : BlockPos.getAllInBox(log.add(-4, -4, -4), log.add(4, 0, 4)).map(BlockPos::toImmutable)
+                                        .collect(
+                                                Collectors.toList())) {
                 if (isLog(this.entity.world, pos.down()) || isLeaf(this.entity.world, pos.down())) {
                     return this.getStump(pos.down());
                 }
