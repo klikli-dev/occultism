@@ -1,10 +1,10 @@
 {
   "type": "occultism:crushing",
   "ingredient": {
-    "tag": "forge:ingots/platinum"
+    "tag": "forge:ingots/iesnium"
   },
   "result": {
-    "item": "occultism:platinum_dust"
+    "item": "occultism:iesnium_dust"
   },
   "crushing_time": 200
 }
