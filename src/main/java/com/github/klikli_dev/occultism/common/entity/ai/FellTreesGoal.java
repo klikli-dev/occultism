@@ -220,30 +220,42 @@ public class FellTreesGoal extends Goal {
     private void fellTree() {
         World world = this.entity.world;
         BlockPos base = new BlockPos(this.targetBlock);
-        Queue<BlockPos> queue = new LinkedList<BlockPos>();
-        //iterate through tree and store logs
-        while (isLog(world, base)) {
-            if (!queue.contains(base)) {
-                queue.add(base);
+        Queue<BlockPos> blocks = new ArrayDeque<>();
+        Set<BlockPos> visited = new HashSet<>();
+        blocks.add(base);
+
+        while (!blocks.isEmpty()) {
+
+            BlockPos pos = blocks.remove();
+            if (!visited.add(pos)) {
+                continue;
             }
-            for (BlockPos pos : BlockPos.getAllInBox(base.add(-8, 0, -8), base.add(8, 2, 8))
-                                        .map(BlockPos::toImmutable).collect(Collectors.toList())) {
-                if (isLog(world, pos) && !queue.contains(pos)) {
-                    if (isLog(world, pos.up()) && !isLog(world, base.up())) {
-                        base = pos;
-                    }
-                    queue.add(pos);
+
+            if (!isLog(world, pos)) {
+                continue;
+            }
+
+            for (Direction facing : Direction.Plane.HORIZONTAL) {
+                BlockPos pos2 = pos.offset(facing);
+                if (!visited.contains(pos2)) {
+                    blocks.add(pos2);
                 }
             }
-            base = base.up();
-        }
-        //break all tree blocks
-        while (!queue.isEmpty()) {
-            BlockPos pop = queue.remove();
-            world.destroyBlock(pop, true);
-        }
-    }
-    //endregion Methods
 
+            for (int x = 0; x < 3; x++) {
+                for (int z = 0; z < 3; z++) {
+                    BlockPos pos2 = pos.add(-1 + x, 1, -1 + z);
+                    if (!visited.contains(pos2)) {
+                        blocks.add(pos2);
+                    }
+                }
+            }
+
+            world.destroyBlock(pos, true);
+        }
+
+    }
+
+    //endregion Methods
 
 }
