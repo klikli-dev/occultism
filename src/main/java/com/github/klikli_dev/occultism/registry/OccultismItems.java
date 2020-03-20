@@ -24,6 +24,7 @@ package com.github.klikli_dev.occultism.registry;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.TranslationKeys;
+import com.github.klikli_dev.occultism.api.common.misc.OccultismItemTier;
 import com.github.klikli_dev.occultism.common.item.armor.OtherworldGogglesItem;
 import com.github.klikli_dev.occultism.common.item.debug.*;
 import com.github.klikli_dev.occultism.common.item.otherworld.OtherworldBlockItem;
@@ -131,6 +132,9 @@ public class OccultismItems {
             () -> new Item(defaultProperties()));
     public static final RegistryObject<Item> LENS_FRAME = ITEMS.register("lens_frame",
             () -> new Item(defaultProperties()));
+
+    public static final RegistryObject<Item> SPIRIT_ATTUNED_PICKAXE_HEAD = ITEMS.register("spirit_attuned_pickaxe_head",
+            () -> new Item(defaultProperties()));
     //Tools
     public static final RegistryObject<GuideBookItem> GUIDE_BOOK = ITEMS.register("dictionary_of_spirits",
             () -> new GuideBookItem(defaultProperties().maxStackSize(1)));
@@ -158,6 +162,8 @@ public class OccultismItems {
     public static final RegistryObject<ButcherKnifeItem> BUTCHER_KNIFE = ITEMS.register("butcher_knife",
             () -> new ButcherKnifeItem(ItemTier.IRON, 3, -2.4F, defaultProperties()));
 
+    public static final RegistryObject<InfusedPickaxeItem> INFUSED_PICKAXE = ITEMS.register("infused_pickaxe",
+            () -> new InfusedPickaxeItem(OccultismItemTier.SPIRIT_ATTUNED_GEM, 3, -2.4F, defaultProperties()));
     //Books of Binding
     public static final RegistryObject<BookOfBindingItem> BOOK_OF_BINDING_FOLIOT = ITEMS.register(
             "book_of_binding_foliot", () -> new BookOfBindingItem(defaultProperties().maxStackSize(1)));

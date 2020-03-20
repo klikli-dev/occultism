@@ -16,7 +16,12 @@
     {
       "type": "text",
       "title": "Craft Otherworld Goggles",
-      "text": "Prevent an Demon's Dream addiction by switching to $(l:rituals/crafting/craft_otherworld_goggles)Otherworld Goggles$(/l)$() for Third Eye vision."
+      "text": "Prevent an Demon's Dream addiction by switching to $(l:rituals/crafting/craft_otherworld_goggles)Otherworld Goggles$(/l)$() for Third Eye vision. Additional benefit: You can now see higher tier Otherworld materials such as ores."
+    },
+    {
+      "type": "text",
+      "title": "Infuse Pickaxe",
+      "text": "$(l:rituals/crafting/craft_infused_pickaxe)$(thing)Infuse a pickaxe$()(/l)$() to harvest Otherworld ores. The resulting metal can be crafted into a more durable tool with the same abilities."
     },
     {
       "type": "text",
@@ -32,6 +37,10 @@
       "type": "text",
       "title": "Autocrafting",
       "text": "The final step for ultimate comfort is to summon machine operator Djinni to manage furnaces and other machines for you. Their book of calling allows to set their managed machine and home storage system, then you can give orders using the storage system GUI."
+    },
+    {
+      "type": "empty",
+      "draw_filler": false
     }
   ]
 }
