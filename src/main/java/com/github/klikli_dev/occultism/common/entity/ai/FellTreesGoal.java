@@ -22,7 +22,11 @@
 
 package com.github.klikli_dev.occultism.common.entity.ai;
 
+import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
+import com.github.klikli_dev.occultism.network.MessageSelectBlock;
+import com.github.klikli_dev.occultism.network.OccultismPacketHandler;
+import com.github.klikli_dev.occultism.network.OccultismPackets;
 import com.github.klikli_dev.occultism.util.Math3DUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.LeavesBlock;
@@ -43,7 +47,6 @@ public class FellTreesGoal extends Goal {
     protected final SpiritEntity entity;
     protected final BlockSorter targetSorter;
     protected BlockPos targetBlock = null;
-    protected BlockPos moveTarget = null;
     protected int breakingTime;
     protected int previousBreakProgress;
     //endregion Fields
@@ -75,24 +78,28 @@ public class FellTreesGoal extends Goal {
     public void resetTask() {
         this.entity.getNavigator().clearPath();
         this.targetBlock = null;
-        this.moveTarget = null;
         this.resetTarget();
     }
 
     @Override
     public void tick() {
         if (this.targetBlock != null) {
-            if(this.entity.getNavigator().setPath(this.entity.getNavigator().getPathToPos(this.moveTarget, 0), 1.0f)){
+            if(!this.entity.getNavigator().setPath(this.entity.getNavigator().getPathToPos(this.targetBlock, 0), 1.0f)){
                 RayTraceContext context = new RayTraceContext(this.entity.getEyePosition(0), Math3DUtil.center(this.targetBlock), RayTraceContext.BlockMode.COLLIDER,
                         RayTraceContext.FluidMode.NONE, this.entity);
                 BlockRayTraceResult result = this.entity.world.rayTraceBlocks(context);
                 if (result.getType() != BlockRayTraceResult.Type.MISS) {
                     BlockPos pos = result.getPos().offset(result.getFace());
-                    if(this.entity.getNavigator().setPath(this.entity.getNavigator().getPathToPos(pos, 0), 1.0f)) {
-                        this.moveTarget = pos;
+                    if(Occultism.DEBUG.debugAI) {
+                        OccultismPackets.sendToTracking(this.entity, new MessageSelectBlock(pos, 5000, 0x00ff00));
                     }
+                    this.entity.getNavigator().setPath(this.entity.getNavigator().getPathToPos(pos, 0), 1.0f);
                 }
             }
+            if(Occultism.DEBUG.debugAI){
+                OccultismPackets.sendToTracking(this.entity, new MessageSelectBlock(this.targetBlock, 5000, 0xffffff));
+            }
+
 
             if (isLog(this.entity.world, this.targetBlock)) {
                 double distance = this.entity.getPositionVector().distanceTo(Math3DUtil.center(this.targetBlock));
@@ -182,21 +189,7 @@ public class FellTreesGoal extends Goal {
         //set closest log as target
         if (!allBlocks.isEmpty()) {
             allBlocks = allBlocks.stream().distinct().sorted(this.targetSorter).collect(Collectors.toList());
-            for(BlockPos targetBlock : allBlocks){
-                RayTraceContext context = new RayTraceContext(this.entity.getEyePosition(0), Math3DUtil.center(targetBlock),RayTraceContext.BlockMode.COLLIDER,
-                        RayTraceContext.FluidMode.NONE, this.entity);
-                BlockRayTraceResult result = this.entity.world.rayTraceBlocks(context);
-                if (result.getType() != BlockRayTraceResult.Type.MISS) {
-                    BlockPos moveTarget = result.getPos().offset(result.getFace());
-                    if(this.entity.getNavigator().setPath(this.entity.getNavigator().getPathToPos(moveTarget, 0), 1.0f)){
-                        this.targetBlock = targetBlock;
-                        this.moveTarget = moveTarget;
-                        return;
-                    }
-                }
-            }
-            this.targetBlock = null;
-            this.moveTarget = null;
+            this.targetBlock = allBlocks.get(0);
         }
     }
 
@@ -228,12 +221,13 @@ public class FellTreesGoal extends Goal {
             if (!queue.contains(base)) {
                 queue.add(base);
             }
-            for (BlockPos pos : BlockPos.getAllInBoxMutable(base.add(-8, 0, -8), base.add(8, 2, 8))) {
+            for (BlockPos pos : BlockPos.getAllInBox(base.add(-8, 0, -8), base.add(8, 2, 8))
+                                        .map(BlockPos::toImmutable).collect(Collectors.toList())) {
                 if (isLog(world, pos) && !queue.contains(pos)) {
                     if (isLog(world, pos.up()) && !isLog(world, base.up())) {
-                        base = pos.toImmutable();
+                        base = pos;
                     }
-                    queue.add(pos.toImmutable());
+                    queue.add(pos);
                 }
             }
             base = base.up();
