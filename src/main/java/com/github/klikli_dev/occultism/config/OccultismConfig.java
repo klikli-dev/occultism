@@ -27,6 +27,11 @@ import com.github.klikli_dev.occultism.config.value.CachedFloat;
 import com.github.klikli_dev.occultism.config.value.CachedInt;
 import com.github.klikli_dev.occultism.config.value.CachedObject;
 import com.google.common.collect.ImmutableList;
+import net.minecraft.block.Blocks;
+import net.minecraft.world.gen.feature.Feature;
+import net.minecraft.world.gen.feature.OreFeatureConfig;
+import net.minecraft.world.gen.placement.CountRangeConfig;
+import net.minecraft.world.gen.placement.Placement;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.ForgeConfigSpec;
 
@@ -136,7 +141,7 @@ public class OccultismConfig extends ConfigBase {
             public final OreSettings otherstoneNatural;
             public final OreSettings copperOre;
             public final OreSettings silverOre;
-            public final OreSettings platinumOre;
+            public final OreSettings iesniumOre;
 
             //endregion Fields
 
@@ -144,21 +149,23 @@ public class OccultismConfig extends ConfigBase {
             public OreGenSettings(IConfigCache parent, ForgeConfigSpec.Builder builder) {
                 super(parent, builder);
                 builder.comment("Ore Gen Settings").push("oregen");
-                List<String> whitelist = Stream.of("overworld").collect(Collectors.toList());
+                List<String> overworld = Stream.of("overworld").collect(Collectors.toList());
+                List<String> nether = Stream.of("the_nether").collect(Collectors.toList());
 
                 this.otherstoneNatural =
-                        new OreSettings("otherstone_natural", whitelist, 7,
+                        new OreSettings("otherstone_natural", overworld, OreFeatureConfig.FillerBlockType.NATURAL_STONE,7,
                                 5, 10, 80, this, builder);
 
                 this.copperOre =
-                        new OreSettings("copper_ore", whitelist, 9,
+                        new OreSettings("copper_ore", overworld,  OreFeatureConfig.FillerBlockType.NATURAL_STONE,9,
                                 20, 20, 64, this, builder);
                 this.silverOre =
-                        new OreSettings("silver_ore", whitelist, 7,
+                        new OreSettings("silver_ore", overworld,  OreFeatureConfig.FillerBlockType.NATURAL_STONE,7,
                                 5, 0, 30, this, builder);
-                this.platinumOre =
-                        new OreSettings("platinum_ore", whitelist, 3,
-                                1, 0, 30, this, builder);
+
+                this.iesniumOre =
+                        new OreSettings("iesnium_ore", nether,  OreFeatureConfig.FillerBlockType.NETHERRACK,3,
+                                10, 10, 128, this, builder);
                 builder.pop();
             }
             //endregion Initialization
@@ -167,6 +174,7 @@ public class OccultismConfig extends ConfigBase {
                 //region Fields
 
                 public final CachedObject<List<String>> dimensionTypeWhitelist;
+                public final CachedObject<String> fillerBlockType;
                 public final CachedInt oreSize;
                 public final CachedInt oreChance;
                 public final CachedInt oreMin;
@@ -175,7 +183,7 @@ public class OccultismConfig extends ConfigBase {
                 //endregion Fields
 
                 //region Initialization
-                public OreSettings(String oreName, List<String> dimensionTypes, int size, int chance, int min, int max,
+                public OreSettings(String oreName, List<String> dimensionTypes, OreFeatureConfig.FillerBlockType fillerBlockType, int size, int chance, int min, int max,
                                    IConfigCache parent, ForgeConfigSpec.Builder builder) {
                     super(parent, builder);
                     builder.comment("Ore Settings").push(oreName);
@@ -183,6 +191,9 @@ public class OccultismConfig extends ConfigBase {
                     this.dimensionTypeWhitelist = CachedObject.cache(this,
                             builder.comment("The dimensions this ore will spawn in.")
                                     .define("dimensionWhitelist", dimensionTypes));
+                    this.fillerBlockType = CachedObject.cache(this,
+                            builder.comment("The type of block this ore will spawn in.")
+                                    .define("fillerBlockType", fillerBlockType.func_214737_a()));
                     this.oreSize = CachedInt.cache(this,
                             builder.comment("The size of veins for this ore.")
                                     .defineInRange("oreSize", size, 0, Byte.MAX_VALUE));

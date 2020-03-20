@@ -216,6 +216,11 @@ public class DivinationRodItem extends Item {
             || state.getBlock() == OccultismBlocks.OTHERWORLD_LEAVES.get()) {
             return OccultismBlocks.OTHERWORLD_LEAVES_NATURAL.get();
         }
+        //iesnium ore is linked to netherrack.
+        if (state.getBlock() == Blocks.NETHERRACK || state.getBlock() == OccultismBlocks.IESNIUM_ORE_NATURAL.get()
+            || state.getBlock() == OccultismBlocks.IESNIUM_ORE.get()) {
+            return OccultismBlocks.IESNIUM_ORE_NATURAL.get();
+        }
         return null;
     }
 

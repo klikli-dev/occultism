@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ppp",
+    "ppp",
+    "ppp"
+  ],
+  "key": {
+    "p": {
+      "tag": "forge:nuggets/iesnium"
+    }
+  },
+  "result": {
+    "item": "occultism:iesnium_ingot"
+  }
+}

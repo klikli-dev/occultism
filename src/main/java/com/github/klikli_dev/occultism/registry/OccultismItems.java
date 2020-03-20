@@ -100,14 +100,14 @@ public class OccultismItems {
             () -> new Item(defaultProperties()));
     public static final RegistryObject<Item> SILVER_INGOT = ITEMS.register("silver_ingot",
             () -> new Item(defaultProperties()));
-    public static final RegistryObject<Item> PLATINUM_INGOT = ITEMS.register("platinum_ingot",
+    public static final RegistryObject<Item> IESNIUM_INGOT = ITEMS.register("iesnium_ingot",
             () -> new Item(defaultProperties()));
 
     public static final RegistryObject<Item> COPPER_NUGGET = ITEMS.register("copper_nugget",
             () -> new Item(defaultProperties()));
     public static final RegistryObject<Item> SILVER_NUGGET = ITEMS.register("silver_nugget",
             () -> new Item(defaultProperties()));
-    public static final RegistryObject<Item> PLATINUM_NUGGET = ITEMS.register("platinum_nugget",
+    public static final RegistryObject<Item> IESNIUM_NUGGET = ITEMS.register("iesnium_nugget",
             () -> new Item(defaultProperties()));
 
     public static final RegistryObject<Item> OBSIDIAN_DUST = ITEMS.register("obsidian_dust",
@@ -120,7 +120,7 @@ public class OccultismItems {
             () -> new Item(defaultProperties()));
     public static final RegistryObject<Item> SILVER_DUST = ITEMS.register("silver_dust",
             () -> new Item(defaultProperties()));
-    public static final RegistryObject<Item> PLATINUM_DUST = ITEMS.register("platinum_dust",
+    public static final RegistryObject<Item> IESNIUM_DUST = ITEMS.register("iesnium_dust",
             () -> new Item(defaultProperties()));
 
     public static final RegistryObject<Item> CRUSHED_END_STONE = ITEMS.register("crushed_end_stone",
