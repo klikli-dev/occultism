@@ -70,6 +70,8 @@ public class OccultismRituals {
     //Summonig
     public static final RegistryObject<SummonFoliotLumberjackRitual> SUMMON_FOLIOT_LUMBERJACK_RITUAL =
             RITUALS.register("summon_foliot_lumberjack", SummonFoliotLumberjackRitual::new);
+    public static final RegistryObject<SummonFoliotTransportItemsRitual> SUMMON_FOLIOT_TRANSPORT_ITEMS_RITUAL =
+            RITUALS.register("summon_foliot_transport_items", SummonFoliotTransportItemsRitual::new);
     public static final RegistryObject<SummonFoliotCrusherRitual> SUMMON_FOLIOT_CRUSHER_RITUAL =
             RITUALS.register("summon_foliot_crusher", SummonFoliotCrusherRitual::new);
     public static final RegistryObject<SummonFoliotOtherstoneTraderRitual> SUMMON_FOLIOT_OTHERSTONE_TRADER_RITUAL =
