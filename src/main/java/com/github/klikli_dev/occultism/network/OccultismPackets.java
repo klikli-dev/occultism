@@ -23,6 +23,7 @@
 package com.github.klikli_dev.occultism.network;
 
 import com.github.klikli_dev.occultism.Occultism;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.dimension.DimensionType;
@@ -132,10 +133,20 @@ public class OccultismPackets {
                 MessageSetDivinationResult::encode,
                 MessageSetDivinationResult::new,
                 OccultismPacketHandler::handle);
+
+        INSTANCE.registerMessage(nextID(),
+                MessageSelectBlock.class,
+                MessageSelectBlock::encode,
+                MessageSelectBlock::new,
+                OccultismPacketHandler::handle);
     }
 
     public static <MSG> void sendTo(ServerPlayerEntity player, MSG message) {
         INSTANCE.send(PacketDistributor.PLAYER.with(() -> player), message);
+    }
+
+    public static <MSG> void sendToTracking(Entity entity, MSG message) {
+        INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(() -> entity), message);
     }
 
     public static <MSG> void sendToDimension(DimensionType dimensionType, MSG message) {

@@ -34,6 +34,7 @@ import com.github.klikli_dev.occultism.client.render.entity.DjinniRenderer;
 import com.github.klikli_dev.occultism.client.render.entity.FoliotRenderer;
 import com.github.klikli_dev.occultism.client.render.tile.SacrificialBowlRenderer;
 import com.github.klikli_dev.occultism.client.render.tile.StorageControllerRenderer;
+import com.github.klikli_dev.occultism.common.DebugHelper;
 import com.github.klikli_dev.occultism.common.OccultismItemGroup;
 import com.github.klikli_dev.occultism.common.world.WorldGenHandler;
 import com.github.klikli_dev.occultism.config.OccultismConfig;
@@ -78,6 +79,7 @@ public class Occultism {
     public static final OccultismConfig CONFIG = new OccultismConfig();
     public static final SelectedBlockRenderer SELECTED_BLOCK_RENDERER = new SelectedBlockRenderer();
     public static final ThirdEyeEffectRenderer THIRD_EYE_EFFECT_RENDERER = new ThirdEyeEffectRenderer();
+    public static final DebugHelper DEBUG = new DebugHelper();
     public static Occultism INSTANCE;
     //endregion Fields
 

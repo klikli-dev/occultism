@@ -22,6 +22,7 @@
 
 package com.github.klikli_dev.occultism.client.render;
 
+import com.github.klikli_dev.occultism.client.render.SelectedBlockRenderer.SelectionInfo;
 import com.github.klikli_dev.occultism.util.RenderUtil;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -34,14 +35,15 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
-import java.util.ArrayList;
+import java.awt.*;
+import java.util.HashSet;
 import java.util.Iterator;
-import java.util.List;
+import java.util.Set;
 
 public class SelectedBlockRenderer {
 
     //region Fields
-    protected List<SelectionInfo> selectedBlocks = new ArrayList<>();
+    protected Set<SelectionInfo> selectedBlocks = new HashSet<>();
     //endregion Fields
 
     //region Methods
@@ -53,7 +55,22 @@ public class SelectedBlockRenderer {
      * @param expireTime the time when it expires. Absolute system time, not interval!
      */
     public void selectBlock(BlockPos pos, long expireTime) {
-        this.selectedBlocks.add(new SelectionInfo(pos, expireTime));
+        this.selectBlock(pos, expireTime, new Color(1.0f, 1.0f, 1.0f, 0.8f));
+    }
+
+    /**
+     * Highlights the given block position until the given system time (not game time)
+     *
+     * @param pos        the position to highlight.
+     * @param expireTime the time when it expires. Absolute system time, not interval!
+     * @param color      the color to render the block in.
+     */
+    public void selectBlock(BlockPos pos, long expireTime, Color color) {
+        SelectionInfo info = new SelectionInfo(pos, expireTime, color);
+        if(this.selectedBlocks.contains(info)){
+            this.selectedBlocks.remove(info);
+        }
+        this.selectedBlocks.add(info);
     }
 
     /**
@@ -93,7 +110,9 @@ public class SelectedBlockRenderer {
                 else {
                     RenderUtil
                             .buildBlockOutline(builder, transform, info.selectedBlock.getX(), info.selectedBlock.getY(),
-                                    info.selectedBlock.getZ(), 1.0f, 1.0f, 1.0f, 0.8f);
+                                    info.selectedBlock.getZ(), info.color.getRed() / 255.0f,
+                                    info.color.getGreen() / 255.0f, info.color.getBlue() / 255.0f,
+                                    info.color.getAlpha() / 255.0f);
                 }
             }
 
@@ -110,13 +129,34 @@ public class SelectedBlockRenderer {
         //region Fields
         public BlockPos selectedBlock;
         public long selectionExpireTime;
+        public Color color;
         //endregion Fields
 
         //region Initialization
-        public SelectionInfo(BlockPos selectedBlock, long selectionExpireTime) {
+        public SelectionInfo(BlockPos selectedBlock, long selectionExpireTime, Color color) {
             this.selectedBlock = selectedBlock;
             this.selectionExpireTime = selectionExpireTime;
+            this.color = color;
         }
         //endregion Initialization
+
+        //region Overrides
+        @Override
+        public int hashCode() {
+            return this.selectedBlock.hashCode();
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (obj == this)
+                return true;
+
+            SelectionInfo other = (SelectionInfo) obj;
+            if (other == null)
+                return false;
+
+            return other.selectedBlock.equals(this.selectedBlock);
+        }
+        //endregion Overrides
     }
 }

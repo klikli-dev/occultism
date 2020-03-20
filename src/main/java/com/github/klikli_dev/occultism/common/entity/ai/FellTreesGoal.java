@@ -22,17 +22,19 @@
 
 package com.github.klikli_dev.occultism.common.entity.ai;
 
+import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
+import com.github.klikli_dev.occultism.network.MessageSelectBlock;
+import com.github.klikli_dev.occultism.network.OccultismPackets;
 import com.github.klikli_dev.occultism.util.Math3DUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.LeavesBlock;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.world.World;
 
 import java.util.*;
@@ -82,23 +84,19 @@ public class FellTreesGoal extends Goal {
     @Override
     public void tick() {
         if (this.targetBlock != null) {
-            if(this.entity.getNavigator().setPath(this.entity.getNavigator().getPathToPos(this.moveTarget, 0), 1.0f)){
-                RayTraceContext context = new RayTraceContext(this.entity.getEyePosition(0), Math3DUtil.center(this.targetBlock), RayTraceContext.BlockMode.COLLIDER,
-                        RayTraceContext.FluidMode.NONE, this.entity);
-                BlockRayTraceResult result = this.entity.world.rayTraceBlocks(context);
-                if (result.getType() != BlockRayTraceResult.Type.MISS) {
-                    BlockPos pos = result.getPos().offset(result.getFace());
-                    if(this.entity.getNavigator().setPath(this.entity.getNavigator().getPathToPos(pos, 0), 1.0f)) {
-                        this.moveTarget = pos;
-                    }
-                }
+
+            this.entity.getNavigator().setPath(
+                    this.entity.getNavigator().getPathToPos(this.moveTarget, 0), 1.0f);
+
+            if (Occultism.DEBUG.debugAI) {
+                OccultismPackets.sendToTracking(this.entity, new MessageSelectBlock(this.targetBlock, 5000, 0xffffff));
             }
 
             if (isLog(this.entity.world, this.targetBlock)) {
-                double distance = this.entity.getPositionVector().distanceTo(Math3DUtil.center(this.targetBlock));
+                double distance = this.entity.getPositionVector().distanceTo(Math3DUtil.center(this.moveTarget));
                 if (distance < 2.5F) {
                     //start breaking when close
-                    if (distance < 0.6F) {
+                    if (distance < 1F) {
                         //Stop moving if very close
                         this.entity.setMotion(0, 0, 0);
                         this.entity.getNavigator().clearPath();
@@ -109,7 +107,6 @@ public class FellTreesGoal extends Goal {
             }
             else {
                 this.resetTask();
-                return;
             }
         }
     }
@@ -151,7 +148,7 @@ public class FellTreesGoal extends Goal {
     }
 
     private void resetTarget() {
-         World world = this.entity.world;
+        World world = this.entity.world;
         List<BlockPos> allBlocks = new ArrayList<>();
         BlockPos workAreaCenter = this.entity.getWorkAreaCenter();
 
@@ -173,28 +170,30 @@ public class FellTreesGoal extends Goal {
                 //find the stump of the tree
                 if (isLeaf(world, topOfTree)) {
                     BlockPos logPos = this.getStump(topOfTree);
-                    allBlocks.add(logPos);
+                    if (isLog(world, logPos))
+                        allBlocks.add(logPos);
                 }
             }
         }
         //set closest log as target
         if (!allBlocks.isEmpty()) {
             allBlocks = allBlocks.stream().distinct().sorted(this.targetSorter).collect(Collectors.toList());
-            for(BlockPos targetBlock : allBlocks){
-                RayTraceContext context = new RayTraceContext(this.entity.getEyePosition(0), Math3DUtil.center(targetBlock),RayTraceContext.BlockMode.COLLIDER,
-                        RayTraceContext.FluidMode.NONE, this.entity);
-                BlockRayTraceResult result = this.entity.world.rayTraceBlocks(context);
-                if (result.getType() != BlockRayTraceResult.Type.MISS) {
-                    BlockPos moveTarget = result.getPos().offset(result.getFace());
-                    if(this.entity.getNavigator().setPath(this.entity.getNavigator().getPathToPos(moveTarget, 0), 1.0f)){
-                        this.targetBlock = targetBlock;
-                        this.moveTarget = moveTarget;
-                        return;
-                    }
+            this.targetBlock = allBlocks.get(0);
+
+            //Find a nearby empty block to move to
+            this.moveTarget = null;
+            for (Direction facing : Direction.Plane.HORIZONTAL) {
+                BlockPos pos = this.targetBlock.offset(facing);
+                if (this.entity.world.isAirBlock(pos)) {
+                    this.moveTarget = pos;
+                    break;
                 }
             }
-            this.targetBlock = null;
-            this.moveTarget = null;
+
+            //none found -> invalid target
+            if (this.moveTarget == null) {
+                this.targetBlock = null;
+            }
         }
     }
 
@@ -207,8 +206,9 @@ public class FellTreesGoal extends Goal {
     private BlockPos getStump(BlockPos log) {
         if (log.getY() > 0) {
             //for all nearby logs and leaves, move one block down and recurse.
-            for (BlockPos pos : BlockPos.getAllInBox(log.add(-4, -4, -4), log.add(4, 0, 4)).map(BlockPos::toImmutable).collect(
-                    Collectors.toList())) {
+            for (BlockPos pos : BlockPos.getAllInBox(log.add(-4, -4, -4), log.add(4, 0, 4)).map(BlockPos::toImmutable)
+                                        .collect(
+                                                Collectors.toList())) {
                 if (isLog(this.entity.world, pos.down()) || isLeaf(this.entity.world, pos.down())) {
                     return this.getStump(pos.down());
                 }
@@ -220,29 +220,42 @@ public class FellTreesGoal extends Goal {
     private void fellTree() {
         World world = this.entity.world;
         BlockPos base = new BlockPos(this.targetBlock);
-        Queue<BlockPos> queue = new LinkedList<BlockPos>();
-        //iterate through tree and store logs
-        while (isLog(world, base)) {
-            if (!queue.contains(base)) {
-                queue.add(base);
+        Queue<BlockPos> blocks = new ArrayDeque<>();
+        Set<BlockPos> visited = new HashSet<>();
+        blocks.add(base);
+
+        while (!blocks.isEmpty()) {
+
+            BlockPos pos = blocks.remove();
+            if (!visited.add(pos)) {
+                continue;
             }
-            for (BlockPos pos : BlockPos.getAllInBoxMutable(base.add(-8, 0, -8), base.add(8, 2, 8))) {
-                if (isLog(world, pos) && !queue.contains(pos)) {
-                    if (isLog(world, pos.up()) && !isLog(world, base.up())) {
-                        base = pos.toImmutable();
-                    }
-                    queue.add(pos.toImmutable());
+
+            if (!isLog(world, pos)) {
+                continue;
+            }
+
+            for (Direction facing : Direction.Plane.HORIZONTAL) {
+                BlockPos pos2 = pos.offset(facing);
+                if (!visited.contains(pos2)) {
+                    blocks.add(pos2);
                 }
             }
-            base = base.up();
-        }
-        //break all tree blocks
-        while (!queue.isEmpty()) {
-            BlockPos pop = queue.remove();
-            world.destroyBlock(pop, true);
-        }
-    }
-    //endregion Methods
 
+            for (int x = 0; x < 3; x++) {
+                for (int z = 0; z < 3; z++) {
+                    BlockPos pos2 = pos.add(-1 + x, 1, -1 + z);
+                    if (!visited.contains(pos2)) {
+                        blocks.add(pos2);
+                    }
+                }
+            }
+
+            world.destroyBlock(pos, true);
+        }
+
+    }
+
+    //endregion Methods
 
 }
