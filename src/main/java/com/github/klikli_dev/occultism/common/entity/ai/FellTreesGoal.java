@@ -107,9 +107,11 @@ public class FellTreesGoal extends Goal {
                     this.updateBreakBlock();
                 }
             }
+            else if(isLeaf(this.entity.world, this.targetBlock)){
+                this.entity.world.removeBlock(this.targetBlock, false);
+            }
             else {
                 this.resetTask();
-                return;
             }
         }
     }
