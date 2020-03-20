@@ -51,6 +51,8 @@ public class OccultismItems {
             () -> new DebugWandItem(defaultProperties().maxStackSize(1)));
     public static final RegistryObject<Item> DEBUG_FOLIOT_LUMBERJACK = ITEMS.register("debug_foliot_lumberjack",
             () -> new SummonFoliotLumberjackItem(defaultProperties().maxStackSize(1)));
+    public static final RegistryObject<Item> DEBUG_FOLIOT_TRANSPORT_ITEMS = ITEMS.register("debug_foliot_transport_items",
+            () -> new SummonFoliotTransportItemsItem(defaultProperties().maxStackSize(1)));
     public static final RegistryObject<Item> DEBUG_FOLIOT_TRADER_ITEM = ITEMS.register("debug_foliot_trader",
             () -> new SummonFoliotTraderItem(defaultProperties().maxStackSize(1)));
     public static final RegistryObject<Item> DEBUG_DJINNI_MANAGE_MACHINE = ITEMS.register("debug_djinni_manage_machine",
@@ -186,15 +188,20 @@ public class OccultismItems {
             "book_of_binding_bound_marid", () -> new BookOfBindingBoundItem(defaultProperties().maxStackSize(1)));
     //Books of Calling
     //Foliot
-    public static final RegistryObject<BookOfCallingLumberjackItem> BOOK_OF_CALLING_FOLIOT_LUMBERJACK = ITEMS.register(
-            "book_of_calling_foliot_lumberjack",
+    public static final RegistryObject<BookOfCallingLumberjackItem> BOOK_OF_CALLING_FOLIOT_LUMBERJACK =
+            ITEMS.register("book_of_calling_foliot_lumberjack",
             () -> new BookOfCallingLumberjackItem(defaultProperties().maxStackSize(1),
                     TranslationKeys.BOOK_OF_CALLING_GENERIC + "_foliot"));
-    public static final RegistryObject<BookOfCallingManageMachineItem> BOOK_OF_CALLING_DJINNI_MANAGE_MACHINE = ITEMS.register(
-            "book_of_calling_djinni_manage_machine",
+    public static final RegistryObject<BookOfCallingTransportItems> BOOK_OF_CALLING_FOLIOT_TRANSPORT_ITEMS =
+            ITEMS.register("book_of_calling_foliot_transport_items",
+            () -> new BookOfCallingTransportItems(defaultProperties().maxStackSize(1),
+                    TranslationKeys.BOOK_OF_CALLING_GENERIC + "_foliot"));
+
+    //Djinn
+    public static final RegistryObject<BookOfCallingManageMachineItem> BOOK_OF_CALLING_DJINNI_MANAGE_MACHINE =
+            ITEMS.register("book_of_calling_djinni_manage_machine",
             () -> new BookOfCallingManageMachineItem(defaultProperties().maxStackSize(1),
                     TranslationKeys.BOOK_OF_CALLING_GENERIC + "_djinni"));
-    //Djinn
 
     //Armor
     public static final RegistryObject<OtherworldGogglesItem> OTHERWORLD_GOGGLES = ITEMS.register("otherworld_goggles",

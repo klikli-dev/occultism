@@ -24,6 +24,7 @@ package com.github.klikli_dev.occultism.common.item.debug;
 
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
@@ -31,6 +32,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
+import net.minecraftforge.common.capabilities.Capability;
 
 public class DebugWandItem extends Item {
 
@@ -43,7 +45,7 @@ public class DebugWandItem extends Item {
     //region Overrides
     @Override
     public ActionResultType onItemUse(ItemUseContext context) {
-
+        ServerPlayerEntity player = (ServerPlayerEntity) context.getPlayer();
         //        World world = context.getWorld();
         //        PlayerEntity player = context.getPlayer();
         //        Hand hand = context.getHand();

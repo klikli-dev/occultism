@@ -1,0 +1,21 @@
+{
+  "type": "occultism:spirit_trade",
+  "ingredients": [
+    {
+      "item": "minecraft:minecart"
+    },
+    {
+      "item": "minecraft:chest"
+    },
+    {
+      "item": "minecraft:dispenser"
+    },
+    {
+      "item": "minecraft:hopper"
+    }
+  ],
+  "result": {
+    "_comment": "Unused",
+    "item": "occultism:pentacle"
+  }
+}
