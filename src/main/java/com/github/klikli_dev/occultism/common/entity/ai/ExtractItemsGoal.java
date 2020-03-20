@@ -143,10 +143,10 @@ public class ExtractItemsGoal extends PausableGoal {
                         //simulate extraction
                         ItemStack toExtract = tileHandler.extractItem(slot, Integer.MAX_VALUE, true).copy();
                         if (!toExtract.isEmpty()) {
-                            ItemStack toInsert = ItemHandlerHelper.insertItem(entityHandler, toExtract, true);
-                            if (toInsert.getCount() != toExtract.getCount()) {
+                            ItemStack remaining = ItemHandlerHelper.insertItem(entityHandler, toExtract, true);
+                            if (remaining.getCount() < toExtract.getCount()) {
                                 //if simulation went well, do for real
-                                ItemStack extracted = tileHandler.extractItem(slot, toInsert.getCount(), false);
+                                ItemStack extracted = tileHandler.extractItem(slot, toExtract.getCount() - remaining.getCount(), false);
                                 ItemHandlerHelper.insertItem(entityHandler, extracted, false);
                             }
                         }
