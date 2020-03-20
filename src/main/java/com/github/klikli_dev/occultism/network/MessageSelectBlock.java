@@ -34,11 +34,14 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.network.NetworkEvent;
 
+import java.awt.*;
+
 public class MessageSelectBlock extends MessageBase {
 
     //region Fields
     public BlockPos blockPos;
     public int durationMilliseconds;
+    public int color;
     //endregion Fields
 
     //region Initialization
@@ -47,9 +50,10 @@ public class MessageSelectBlock extends MessageBase {
         this.decode(buf);
     }
 
-    public MessageSelectBlock(BlockPos blockPos, int durationMilliseconds) {
+    public MessageSelectBlock(BlockPos blockPos, int durationMilliseconds, int color) {
         this.blockPos = blockPos;
         this.durationMilliseconds = durationMilliseconds;
+        this.color = color;
     }
     //endregion Initialization
 
@@ -57,19 +61,22 @@ public class MessageSelectBlock extends MessageBase {
 
     @Override
     public void onClientReceived(Minecraft minecraft, PlayerEntity player, NetworkEvent.Context context) {
-        Occultism.SELECTED_BLOCK_RENDERER.selectBlock(this.blockPos, System.currentTimeMillis() + this.durationMilliseconds);
+        Color color = new Color(this.color);
+        Occultism.SELECTED_BLOCK_RENDERER.selectBlock(this.blockPos, System.currentTimeMillis() + this.durationMilliseconds, color);
     }
 
     @Override
     public void encode(PacketBuffer buf) {
         buf.writeBlockPos(this.blockPos);
         buf.writeInt(this.durationMilliseconds);
+        buf.writeInt(this.color);
     }
 
     @Override
     public void decode(PacketBuffer buf) {
         this.blockPos = buf.readBlockPos();
         this.durationMilliseconds = buf.readInt();
+        this.color = buf.readInt();
     }
     //endregion Overrides
 }

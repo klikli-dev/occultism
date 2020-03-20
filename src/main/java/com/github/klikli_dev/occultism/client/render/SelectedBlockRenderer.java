@@ -34,6 +34,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -53,7 +54,18 @@ public class SelectedBlockRenderer {
      * @param expireTime the time when it expires. Absolute system time, not interval!
      */
     public void selectBlock(BlockPos pos, long expireTime) {
-        this.selectedBlocks.add(new SelectionInfo(pos, expireTime));
+        this.selectBlock(pos, expireTime, new Color(1.0f, 1.0f, 1.0f, 0.8f));
+    }
+
+    /**
+     * Highlights the given block position until the given system time (not game time)
+     *
+     * @param pos        the position to highlight.
+     * @param expireTime the time when it expires. Absolute system time, not interval!
+     * @param color      the color to render the block in.
+     */
+    public void selectBlock(BlockPos pos, long expireTime, Color color) {
+        this.selectedBlocks.add(new SelectionInfo(pos, expireTime, color));
     }
 
     /**
@@ -93,7 +105,9 @@ public class SelectedBlockRenderer {
                 else {
                     RenderUtil
                             .buildBlockOutline(builder, transform, info.selectedBlock.getX(), info.selectedBlock.getY(),
-                                    info.selectedBlock.getZ(), 1.0f, 1.0f, 1.0f, 0.8f);
+                                    info.selectedBlock.getZ(), info.color.getRed() / 255.0f,
+                                    info.color.getGreen() / 255.0f, info.color.getBlue() / 255.0f,
+                                    info.color.getAlpha() / 255.0f);
                 }
             }
 
@@ -110,12 +124,14 @@ public class SelectedBlockRenderer {
         //region Fields
         public BlockPos selectedBlock;
         public long selectionExpireTime;
+        public Color color;
         //endregion Fields
 
         //region Initialization
-        public SelectionInfo(BlockPos selectedBlock, long selectionExpireTime) {
+        public SelectionInfo(BlockPos selectedBlock, long selectionExpireTime, Color color) {
             this.selectedBlock = selectedBlock;
             this.selectionExpireTime = selectionExpireTime;
+            this.color = color;
         }
         //endregion Initialization
     }
