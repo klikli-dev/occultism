@@ -27,9 +27,9 @@ import net.minecraft.item.ItemStack;
 import java.util.HashMap;
 import java.util.Map;
 
-public class BookOfCallingTransporter extends BookOfCallingItem {
+public class BookOfCallingTransportItems extends BookOfCallingItem {
     //region Initialization
-    public BookOfCallingTransporter(Properties properties, String translationKeyBase) {
+    public BookOfCallingTransportItems(Properties properties, String translationKeyBase) {
         super(properties, translationKeyBase);
     }
     //endregion Initialization
