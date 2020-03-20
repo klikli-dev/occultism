@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "iii",
+    " s ",
+    " s "
+  ],
+  "key": {
+    "i": {
+      "tag": "forge:ingots/iesnium"
+    },
+    "s": {
+      "tag": "forge:rods/wooden"
+    }
+  },
+  "result": {
+    "item": "occultism:iesnium_pickaxe"
+  }
+}
