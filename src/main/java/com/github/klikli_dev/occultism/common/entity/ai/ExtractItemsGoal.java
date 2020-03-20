@@ -77,8 +77,9 @@ public class ExtractItemsGoal extends PausableGoal {
         if (this.entity.getAttackTarget() != null) {
             return false;
         }
-        //nothing to deposit in hand
-        if (this.entity.getHeldItem(Hand.MAIN_HAND).isEmpty()) {
+
+        //hand already full, cannot pick up anythings
+        if (!this.entity.getHeldItem(Hand.MAIN_HAND).isEmpty()) {
             return false;
         }
         this.resetTarget();
