@@ -27,6 +27,11 @@ import com.github.klikli_dev.occultism.config.value.CachedFloat;
 import com.github.klikli_dev.occultism.config.value.CachedInt;
 import com.github.klikli_dev.occultism.config.value.CachedObject;
 import com.google.common.collect.ImmutableList;
+import net.minecraft.block.Blocks;
+import net.minecraft.world.gen.feature.Feature;
+import net.minecraft.world.gen.feature.OreFeatureConfig;
+import net.minecraft.world.gen.placement.CountRangeConfig;
+import net.minecraft.world.gen.placement.Placement;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.ForgeConfigSpec;
 
@@ -157,9 +162,10 @@ public class OccultismConfig extends ConfigBase {
                 this.silverOre =
                         new OreSettings("silver_ore", overworld, 7,
                                 5, 0, 30, this, builder);
+
                 this.iesniumOre =
                         new OreSettings("iesnium_ore", nether, 3,
-                                1, 0, 30, this, builder);
+                                10, 10, 128, this, builder);
                 builder.pop();
             }
             //endregion Initialization
