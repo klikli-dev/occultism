@@ -113,8 +113,11 @@ public class OccultismBlocks {
 
     public static final RegistryObject<Block> COPPER_ORE = register("copper_ore", () -> new Block(Block.Properties.from(Blocks.IRON_ORE)));
     public static final RegistryObject<Block> SILVER_ORE = register("silver_ore", () -> new Block(Block.Properties.from(Blocks.IRON_ORE)));
-    public static final RegistryObject<Block> IESNIUM_ORE = register("iesnium_ore", () -> new Block(Block.Properties.from(Blocks.IRON_ORE)));
 
+    public static final RegistryObject<Block> IESNIUM_ORE = register("iesnium_ore", () -> new Block(Block.Properties.from(Blocks.IRON_ORE)));
+    public static final RegistryObject<IesniumOreNaturalBlock> IESNIUM_ORE_NATURAL =
+            register("iesnium_ore_natural", () -> new IesniumOreNaturalBlock(Block.Properties.from(Blocks.IRON_ORE)),
+                    true, LootTableType.OTHERWORLD_BLOCK);
     //Components
     public static final RegistryObject<SlabBlock> OTHERSTONE_SLAB = register("otherstone_slab", () -> new SlabBlock(Block.Properties.from(OTHERSTONE.get())));
     public static final RegistryObject<Block> OTHERSTONE_PEDESTAL = register("otherstone_pedestal", () -> new Block(Block.Properties.from(OTHERSTONE.get())));

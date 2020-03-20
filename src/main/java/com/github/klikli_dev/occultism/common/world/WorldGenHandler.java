@@ -92,10 +92,9 @@ public class WorldGenHandler {
                     OccultismBlocks.SILVER_ORE.get().getDefaultState(),
                     Occultism.CONFIG.worldGen.oreGen.silverOre);
 
-            //TODO: use otherworld block here that in turn shows iesnium only under third eye
             addOreFeature(biome,
                     OreFeatureConfig.FillerBlockType.NETHERRACK,
-                    OccultismBlocks.IESNIUM_ORE.get().getDefaultState(),
+                    OccultismBlocks.IESNIUM_ORE_NATURAL.get().getDefaultState(),
                     Occultism.CONFIG.worldGen.oreGen.iesniumOre);
         }
     }
