@@ -138,18 +138,16 @@ public class ExtractItemsGoal extends PausableGoal {
                             this.entity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, Direction.DOWN)
                                     .orElseThrow(ItemHandlerMissingException::new);
 
-                    if (entity.getHeldItem(Hand.MAIN_HAND).isEmpty()) {
-                        int slot = StorageUtil.getFirstFilledSlot(tileHandler);
-                        if (slot >= 0) {
-                            //simulate extraction
-                            ItemStack toExtract = tileHandler.extractItem(slot, Integer.MAX_VALUE, true).copy();
-                            if (toExtract.isEmpty()) {
-                                ItemStack toInsert = ItemHandlerHelper.insertItem(entityHandler, toExtract, true);
-                                if (toInsert.getCount() != toExtract.getCount()) {
-                                    //if simulation went well, do for real
-                                    ItemStack extracted = tileHandler.extractItem(slot, toInsert.getCount(), false);
-                                    ItemHandlerHelper.insertItem(entityHandler, extracted, false);
-                                }
+                    int slot = StorageUtil.getFirstFilledSlot(tileHandler);
+                    if (slot >= 0) {
+                        //simulate extraction
+                        ItemStack toExtract = tileHandler.extractItem(slot, Integer.MAX_VALUE, true).copy();
+                        if (!toExtract.isEmpty()) {
+                            ItemStack toInsert = ItemHandlerHelper.insertItem(entityHandler, toExtract, true);
+                            if (toInsert.getCount() != toExtract.getCount()) {
+                                //if simulation went well, do for real
+                                ItemStack extracted = tileHandler.extractItem(slot, toInsert.getCount(), false);
+                                ItemHandlerHelper.insertItem(entityHandler, extracted, false);
                             }
                         }
                     }
