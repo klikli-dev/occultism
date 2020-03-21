@@ -26,15 +26,15 @@ jobs:
           result-encoding: string
           script: |
            return '${{ github.ref }}'.replace('refs/tags/v', '');
-      - name: Restore cache
-        uses: actions/cache@v1
-        with:
-          path: ~/.gradle/caches
-          key: ${{ runner.os }}-gradle-${{ hashFiles('build.gradle') }}
+#      - name: Restore cache
+#        uses: actions/cache@v1
+#        with:
+#          path: ~/.gradle/caches
+#          key: ${{ runner.os }}-gradle-${{ hashFiles('build.gradle') }}
       - name: Setup Gradle
         run: chmod +x gradlew
       - name: Build
-        run: ./gradlew build --no-daemon
+        run: ./gradlew build --no-daemon --refresh-dependencies
         env:
           VERSION:  ${{ steps.get_version.outputs.result }}
           CURSEFORGE_API_KEY: ${{ secrets.CURSEFORGE_API_KEY }}
