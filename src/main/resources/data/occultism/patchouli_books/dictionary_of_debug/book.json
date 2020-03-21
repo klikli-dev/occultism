@@ -3,7 +3,7 @@
   "version": "1",
   "landing_text": "Unless you are a mod developer, tester or modpack creator you likely don't need this.",
   "model": "occultism:dictionary_of_debug",
-  "book_texture": "occultism:textures/gui/book_purple.png",
+  "book_texture": "occultism:textures/gui/book/book_purple.png",
   "show_toasts": true,
   "creative_tab": "occultism",
   "show_progress": false

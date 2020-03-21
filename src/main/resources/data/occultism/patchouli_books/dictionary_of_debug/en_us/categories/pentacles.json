@@ -1,6 +1,6 @@
 {
   "name": "Pentacles",
   "description": "A comprehensive list of ritual pentacles.",
-  "icon": "occultism:textures/item/pentagram_rose.png",
+  "icon": "occultism:textures/gui/book/pentagram_rose.png",
   "sortnum": 1
 }
