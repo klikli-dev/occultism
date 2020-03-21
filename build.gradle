@@ -1,16 +1,22 @@
 buildscript {
     repositories {
-        maven { url = 'https://files.minecraftforge.net/maven' }
+        maven {
+            name = "forge"
+            url = 'https://files.minecraftforge.net/maven' }
+        maven {
+            name = "curseforge"
+            url "https://plugins.gradle.org/m2/"
+        }
         jcenter()
         mavenCentral()
     }
     dependencies {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
+        classpath "gradle.plugin.com.matthewprenger:CurseGradle:1.4.0"
     }
 }
 apply plugin: 'net.minecraftforge.gradle'
-// Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
-apply plugin: 'eclipse'
+apply plugin: "com.matthewprenger.cursegradle"
 apply plugin: 'maven-publish'
 
 version = "${mc_version}-${mod_version}"
@@ -155,5 +161,24 @@ processResources {
     // Copy everything else except the mods.toml
     from(sourceSets.main.resources.srcDirs) {
         exclude 'META-INF/mods.toml'
+    }
+}
+
+curseforge {
+    def curse_api_key = System.getenv('CURSEFORGE_API_KEY')
+    if (curse_api_key == null) {
+        println 'No API Key for Curseforge found'
+        curse_api_key = ''
+        return
+    }
+    project {
+        apiKey = curse_api_key
+        id = '361026'
+        changelog = '[Automated Build]\nFind changes at https://github.com/klikli-dev/occultism'
+        releaseType = 'alpha'
+        addGameVersion "${mcVersion}"
+    }
+    options {
+        javaVersionAutoDetect = false
     }
 }
