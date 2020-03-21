@@ -34,7 +34,7 @@ jobs:
       - name: Setup Gradle
         run: chmod +x gradlew
       - name: Build
-        run: ./gradlew build --no-daemon --refresh-dependencies
+        run: ./gradlew build --no-daemon
         env:
           VERSION:  ${{ steps.get_version.outputs.result }}
           CURSEFORGE_API_KEY: ${{ secrets.CURSEFORGE_API_KEY }}
