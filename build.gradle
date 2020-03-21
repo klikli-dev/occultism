@@ -176,7 +176,7 @@ curseforge {
         id = '361026'
         changelog = '[Automated Build]\nFind changes at https://github.com/klikli-dev/occultism'
         releaseType = 'alpha'
-        addGameVersion "${mcVersion}"
+        addGameVersion "${mc_version}"
     }
     options {
         javaVersionAutoDetect = false
