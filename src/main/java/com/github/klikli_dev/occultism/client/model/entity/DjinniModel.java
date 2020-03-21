@@ -23,19 +23,25 @@
 package com.github.klikli_dev.occultism.client.model.entity;
 
 import com.github.klikli_dev.occultism.common.entity.spirit.DjinniEntity;
-import com.github.klikli_dev.occultism.common.entity.spirit.FoliotEntity;
 import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
+import net.minecraft.item.CrossbowItem;
+import net.minecraft.util.HandSide;
+import net.minecraft.util.math.MathHelper;
 
 
 public class DjinniModel extends BipedModel<DjinniEntity> {
     //region Fields
-    public ModelRenderer nose;
-    public ModelRenderer earLeft;
-    public ModelRenderer earRight;
-    public ModelRenderer wingedWings;
-    public ModelRenderer wingedWingsLeft;
-    public ModelRenderer wingedWingsRight;
+    private final ModelRenderer leftHorn;
+    private final ModelRenderer rightHorn;
+    private final ModelRenderer leftEar;
+    private final ModelRenderer leftInnerEar;
+    private final ModelRenderer rightEar;
+    private final ModelRenderer rightInnerEar;
+    private final ModelRenderer wingedWings;
+    private final ModelRenderer wingedWingsLeft;
+    private final ModelRenderer wingedWingsRight;
+
 
     //endregion Fields
 
@@ -47,55 +53,79 @@ public class DjinniModel extends BipedModel<DjinniEntity> {
         this.textureWidth = 64;
         this.textureHeight = 64;
 
-        this.bipedHead = new ModelRenderer(this, 0, 0);
+        this.bipedHead = new ModelRenderer(this);
         this.bipedHead.setRotationPoint(0.0F, 0.0F, 0.0F);
-        this.bipedHead.addBox(-4.0F, -10.0F, -4.0F, 8, 10, 8, 0.0F);
+        this.bipedHead.addBox("bipedHead", -4.0F, -8.0F, -4.0F, 8, 8, 8, 0.0F, 0, 14);
 
-        this.bipedHeadwear = new ModelRenderer(this, 1, 45);
-        this.bipedHeadwear.setRotationPoint(0.0F, -3.0F, 0.0F);
-        this.bipedHeadwear.addBox(-4.0F, -8.0F, -4.0F, 8, 10, 8, 0.5F);
+        this.bipedHeadwear = new ModelRenderer(this);
+        this.bipedHeadwear.setRotationPoint(0.0F, 0.0F, 0.0F);
 
-        this.earLeft = new ModelRenderer(this, 0, 0);
-        this.earLeft.setRotationPoint(4.0F, -11.3F, 3.5F);
-        this.earLeft.addBox(-0.5F, 0.0F, 0.0F, 1, 3, 1, 0.0F);
-        this.setRotateAngle(this.earLeft, -0.5009094953223726F, 0.0F, 0.0F);
+        this.leftHorn = new ModelRenderer(this);
+        this.leftHorn.setRotationPoint(3.0F, -8.0F, -2.0F);
+        this.setRotationAngle(this.leftHorn, 0.0F, 0.0F, 0.3491F);
+        this.bipedHead.addChild(this.leftHorn);
+        this.leftHorn.addBox("leftHorn", 0.0F, -2.0F, 0.0F, 1, 2, 1, 0.0F, 16, 43);
+        this.leftHorn.addBox("leftHorn", 1.0F, -4.0F, 0.0F, 1, 3, 1, 0.0F, 41, 3);
 
-        this.earRight = new ModelRenderer(this, 0, 0);
-        this.earRight.setRotationPoint(-4.0F, -11.3F, 3.5F);
-        this.earRight.addBox(-0.5F, 0.0F, 0.0F, 1, 3, 1, 0.0F);
-        this.setRotateAngle(this.earRight, -0.5009094953223726F, 0.0F, 0.0F);
+        this.rightHorn = new ModelRenderer(this);
+        this.rightHorn.setRotationPoint(-3.0F, -8.0F, -2.0F);
+        this.setRotationAngle(this.rightHorn, 0.0F, 0.0F, -0.3491F);
+        this.bipedHead.addChild(this.rightHorn);
+        this.rightHorn.addBox("rightHorn", -1.0F, -2.0F, 0.0F, 1, 2, 1, 0.0F, 28, 42);
+        this.rightHorn.addBox("rightHorn", -2.0F, -4.0F, 0.0F, 1, 3, 1, 0.0F, 0, 39);
 
-        this.nose = new ModelRenderer(this, 24, 0);
-        this.nose.setRotationPoint(0.0F, -5.0F, -4.4F);
-        this.nose.addBox(-1.0F, 0.0F, 0.0F, 2, 4, 2, 0.0F);
-        this.setRotateAngle(this.nose, -0.4553564018453205F, 0.0F, 0.0F);
+        this.leftEar = new ModelRenderer(this);
+        this.leftEar.setRotationPoint(5.0F, -4.0F, 1.0F);
+        this.setRotationAngle(this.leftEar, 0.0F, 0.2618F, 0.0F);
+        this.bipedHead.addChild(this.leftEar);
+        this.leftEar.addBox("leftEar", 0.0F, -2.0F, -1.0F, 1, 2, 1, 0.0F, 40, 25);
+        this.leftEar.addBox("leftEar", 0.0F, -3.0F, 0.0F, 1, 1, 1, 0.0F, 38, 31);
+        this.leftEar.addBox("leftEar", 0.0F, -4.0F, 1.0F, 1, 1, 3, 0.0F, 12, 39);
+        this.leftEar.addBox("leftEar", 0.0F, -3.0F, 4.0F, 1, 1, 1, 0.0F, 34, 31);
+        this.leftEar.addBox("leftEar", 0.0F, 0.0F, 0.0F, 1, 1, 2, 0.0F, 37, 0);
+        this.leftEar.addBox("leftEar", 0.0F, -1.0F, 2.0F, 1, 1, 1, 0.0F, 30, 31);
+        this.leftEar.addBox("leftEar", 0.0F, -2.0F, 3.0F, 1, 1, 1, 0.0F, 34, 4);
 
-        this.bipedLeftArm = new ModelRenderer(this, 44, 22);
-        this.bipedLeftArm.setRotationPoint(5.0F, 3.0F, -1.0F);
-        this.bipedLeftArm.addBox(-1.0F, -2.0F, -2.0F, 4, 11, 4, 0.0F);
-        this.setRotateAngle(this.bipedLeftArm, -0.7499679795819634F, 0.0F, 0.0F);
+        this.leftInnerEar = new ModelRenderer(this);
+        this.leftInnerEar.setRotationPoint(-1.0F, 0.0F, -3.0F);
+        this.leftEar.addChild(this.leftInnerEar);
+        this.leftInnerEar.addBox("leftInnerEar", 0.0F, -2.0F, 3.0F, 1, 1, 3, 0.0F, 36, 4);
+        this.leftInnerEar.addBox("leftInnerEar", 0.0F, -1.0F, 3.0F, 1, 1, 2, 0.0F, 24, 19);
+        this.leftInnerEar.addBox("leftInnerEar", 0.0F, -3.0F, 4.0F, 1, 1, 3, 0.0F, 35, 25);
 
-        this.bipedRightArm = new ModelRenderer(this, 44, 22);
-        this.bipedRightArm.setRotationPoint(-5.0F, 3.0F, -1.0F);
-        this.bipedRightArm.addBox(-3.0F, -2.0F, -2.0F, 4, 12, 4, 0.0F);
-        this.setRotateAngle(this.bipedRightArm, -0.7499679795819634F, 0.0F, 0.0F);
+        this.rightEar = new ModelRenderer(this);
+        this.rightEar.setRotationPoint(-5.0F, -4.0F, 1.0F);
+        this.setRotationAngle(this.rightEar, 0.0F, -0.2618F, 0.0F);
+        this.bipedHead.addChild(this.rightEar);
+        this.rightEar.addBox("rightEar", -1.0F, -2.0F, -1.0F, 1, 2, 1, 0.0F, 17, 39);
+        this.rightEar.addBox("rightEar", -1.0F, -3.0F, 0.0F, 1, 1, 1, 0.0F, 26, 31);
+        this.rightEar.addBox("rightEar", -1.0F, -4.0F, 1.0F, 1, 1, 3, 0.0F, 24, 15);
+        this.rightEar.addBox("rightEar", -1.0F, -3.0F, 4.0F, 1, 1, 1, 0.0F, 22, 31);
+        this.rightEar.addBox("rightEar", -1.0F, 0.0F, 0.0F, 1, 1, 2, 0.0F, 0, 3);
+        this.rightEar.addBox("rightEar", -1.0F, -1.0F, 2.0F, 1, 1, 1, 0.0F, 30, 4);
+        this.rightEar.addBox("rightEar", -1.0F, -2.0F, 3.0F, 1, 1, 1, 0.0F, 28, 19);
 
-        this.bipedBody = new ModelRenderer(this, 16, 20);
+        this.rightInnerEar = new ModelRenderer(this);
+        this.rightInnerEar.setRotationPoint(-1.0F, 0.0F, -3.0F);
+        this.rightEar.addChild(this.rightInnerEar);
+        this.rightInnerEar.addBox("rightInnerEar", 1.0F, -2.0F, 3.0F, 1, 1, 3, 0.0F, 0, 18);
+        this.rightInnerEar.addBox("rightInnerEar", 1.0F, -1.0F, 3.0F, 1, 1, 2, 0.0F, 0, 0);
+        this.rightInnerEar.addBox("rightInnerEar", 1.0F, -3.0F, 4.0F, 1, 1, 3, 0.0F, 0, 14);
+
+        this.bipedLeftArm = new ModelRenderer(this);
+        this.bipedLeftArm.setRotationPoint(6.0F, 3.0F, -1.0F);
+        this.setRotationAngle(this.bipedLeftArm, -0.75F, 0.0F, 0.0F);
+        this.bipedLeftArm.addBox("bipedLeftArm", 0.0F, -1.6816F, -1.2683F, 3, 11, 3, 0.0F, 44, 45);
+
+        this.bipedRightArm = new ModelRenderer(this);
+        this.bipedRightArm.setRotationPoint(-6.0F, 3.0F, -1.0F);
+        this.setRotationAngle(this.bipedRightArm, -0.75F, 0.0F, 0.0F);
+        this.bipedRightArm.addBox("bipedLeftArm", -3.0F, -2.0F, -2.0F, 3, 11, 3, 0.0F, 32, 45);
+
+        this.bipedBody = new ModelRenderer(this);
         this.bipedBody.setRotationPoint(0.0F, 0.0F, 0.0F);
-        this.bipedBody.addBox(-4.0F, 0.0F, -3.0F, 8, 12, 6, 0.0F);
-
-        this.bipedLeftLeg = new ModelRenderer(this, 0, 22);
-        this.bipedLeftLeg.mirror = true;
-        this.bipedLeftLeg.setRotationPoint(2.0F, 12.0F, 0.0F);
-        this.bipedLeftLeg.addBox(-2.0F, 0.0F, -2.0F, 4, 12, 4, 0.0F);
-
-        this.bipedRightLeg = new ModelRenderer(this, 0, 22);
-        this.bipedRightLeg.setRotationPoint(-2.0F, 12.0F, 0.0F);
-        this.bipedRightLeg.addBox(-2.0F, 0.0F, -2.0F, 4, 12, 4, 0.0F);
-
-        this.bipedHead.addChild(this.earRight);
-        this.bipedHead.addChild(this.earLeft);
-        this.bipedHead.addChild(this.nose);
+        this.bipedBody.addBox("bipedBody", -6.0F, 0.0F, -3.0F, 12, 8, 6, 0.0F, 0, 0);
+        this.bipedBody.addBox("bipedBody", -4.0F, 8.0F, -3.0F, 8, 4, 6, 0.0F, 30, 8);
 
         this.wingedWings = new ModelRenderer(this);
         this.wingedWings.setRotationPoint(0.0F, 24.0F, 0.0F);
@@ -103,27 +133,47 @@ public class DjinniModel extends BipedModel<DjinniEntity> {
 
         this.wingedWingsLeft = new ModelRenderer(this);
         this.wingedWingsLeft.setRotationPoint(1.5F, -21.5F, 3.0F);
-        this.setRotateAngle(this.wingedWingsLeft, 0.4363F, 0.8727F, 0.0F);
+        this.setRotationAngle(this.wingedWingsLeft, 0.4363F, 0.8727F, 0.0F);
         this.wingedWings.addChild(this.wingedWingsLeft);
-        this.wingedWingsLeft.setTextureOffset(40, 38);
-        this.wingedWingsLeft.addBox(-1.0F, -1.0F, 0.0F, 1, 1, 11);
-        this.wingedWingsLeft.setTextureOffset(32, 0);
-        this.wingedWingsLeft.addBox(-0.1F, 0.0F, -0.4226F, 0, 9, 11);
+        this.wingedWingsLeft.addBox("wingedWingsLeft", -1.0F, -1.0F, 0.0F, 1, 1, 11, 0.0F, 33, 33);
+        this.wingedWingsLeft.addBox("wingedWingsLeft", -0.1F, 0.0F, -0.4226F, 0, 9, 11, 0.0F, 22, 22);
 
         this.wingedWingsRight = new ModelRenderer(this);
         this.wingedWingsRight.setRotationPoint(-0.5F, -21.5F, 3.0F);
-        this.setRotateAngle(this.wingedWingsRight, 0.4363F, -0.8727F, 0.0F);
+        this.setRotationAngle(this.wingedWingsRight, 0.4363F, -0.8727F, 0.0F);
         this.wingedWings.addChild(this.wingedWingsRight);
-        this.wingedWingsRight.setTextureOffset(40, 38);
-        this.wingedWingsRight.addBox( -1.0F, -1.0F, 0.0F, 1, 1, 11);
-        this.wingedWingsRight.setTextureOffset(32, 0);
-        this.wingedWingsRight.addBox(-0.1F, 0.0F, -0.4226F, 0, 9, 11);
+        this.wingedWingsRight.addBox("wingedWingsRight", -1.0F, -1.0F, 0.0F, 1, 1, 11, 0.0F, 22, 19);
+        this.wingedWingsRight.addBox("wingedWingsRight", -0.1F, 0.0F, -0.4226F, 0, 9, 11, 0.0F, 0, 19);
 
+        this.bipedLeftLeg = new ModelRenderer(this);
+        this.bipedLeftLeg.setRotationPoint(-2.0F, 12.0F, 0.0F);
+        this.bipedLeftLeg.addBox("bipedLeftLeg", -2.0F, 0.0F, -2.0F, 4, 12, 4, 0.0F, 16, 42);
+
+        this.bipedRightLeg = new ModelRenderer(this);
+        this.bipedRightLeg.setRotationPoint(2.0F, 12.0F, 0.0F);
+        this.bipedRightLeg.addBox("bipedRightLeg", -2.0F, 0.0F, -2.0F, 4, 12, 4, 0.0F, 0, 39);
     }
     //endregion Initialization
 
     //region Methods
-    public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z) {
+    public void setRotationAngles(DjinniEntity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks,
+                                  float netHeadYaw, float headPitch) {
+
+        super.setRotationAngles(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
+
+
+        //Copied from BipedModel, removed all code except that which accesses rotationPointX
+        this.bipedRightArm.rotationPointX = -6.0F;
+        this.bipedLeftArm.rotationPointX = 6.0F;
+
+        if (this.swingProgress > 0.0F) {
+            //original x needs to be used as the multiplier here
+            this.bipedRightArm.rotationPointX = -MathHelper.cos(this.bipedBody.rotateAngleY) * 6.0F;
+            this.bipedLeftArm.rotationPointX = MathHelper.cos(this.bipedBody.rotateAngleY) * 6.0F;
+        }
+    }
+
+    public void setRotationAngle(ModelRenderer modelRenderer, float x, float y, float z) {
         modelRenderer.rotateAngleX = x;
         modelRenderer.rotateAngleY = y;
         modelRenderer.rotateAngleZ = z;
