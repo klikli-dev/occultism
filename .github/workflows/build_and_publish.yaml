@@ -37,6 +37,7 @@ jobs:
         run: ./gradlew build --no-daemon --refresh-dependencies
         env:
           VERSION:  ${{ steps.get_version.outputs.result }}
+          CURSEFORGE_API_KEY: ${{ secrets.CURSEFORGE_API_KEY }}
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
