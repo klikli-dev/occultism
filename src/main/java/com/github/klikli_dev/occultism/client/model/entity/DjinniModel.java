@@ -112,15 +112,15 @@ public class DjinniModel extends BipedModel<DjinniEntity> {
         this.rightInnerEar.addBox("rightInnerEar", 1.0F, -1.0F, 3.0F, 1, 1, 2, 0.0F, 0, 0);
         this.rightInnerEar.addBox("rightInnerEar", 1.0F, -3.0F, 4.0F, 1, 1, 3, 0.0F, 0, 14);
 
-        this.bipedRightArm = new ModelRenderer(this);
-        this.bipedRightArm.setRotationPoint(6.0F, 3.0F, -1.0F);
-        this.setRotationAngle(this.bipedRightArm, -0.75F, 0.0F, 0.0F);
-        this.bipedRightArm.addBox("bipedRightArm", 0.0F, -1.6816F, -1.2683F, 3, 11, 3, 0.0F, 44, 45);
-
         this.bipedLeftArm = new ModelRenderer(this);
-        this.bipedLeftArm.setRotationPoint(-6.0F, 3.0F, -1.0F);
+        this.bipedLeftArm.setRotationPoint(6.0F, 3.0F, -1.0F);
         this.setRotationAngle(this.bipedLeftArm, -0.75F, 0.0F, 0.0F);
-        this.bipedLeftArm.addBox("bipedLeftArm", -3.0F, -2.0F, -2.0F, 3, 11, 3, 0.0F, 32, 45);
+        this.bipedLeftArm.addBox("bipedLeftArm", 0.0F, -1.6816F, -1.2683F, 3, 11, 3, 0.0F, 44, 45);
+
+        this.bipedRightArm = new ModelRenderer(this);
+        this.bipedRightArm.setRotationPoint(-6.0F, 3.0F, -1.0F);
+        this.setRotationAngle(this.bipedRightArm, -0.75F, 0.0F, 0.0F);
+        this.bipedRightArm.addBox("bipedLeftArm", -3.0F, -2.0F, -2.0F, 3, 11, 3, 0.0F, 32, 45);
 
         this.bipedBody = new ModelRenderer(this);
         this.bipedBody.setRotationPoint(0.0F, 0.0F, 0.0F);
@@ -167,18 +167,8 @@ public class DjinniModel extends BipedModel<DjinniEntity> {
         this.bipedLeftArm.rotationPointX = 6.0F;
 
         if (this.swingProgress > 0.0F) {
-            HandSide handside = this.getMainHand(entityIn);
-            ModelRenderer modelrenderer = this.getArmForSide(handside);
-            float f1 = this.swingProgress;
-            this.bipedBody.rotateAngleY = MathHelper.sin(MathHelper.sqrt(f1) * ((float) Math.PI * 2F)) * 0.2F;
-            if (handside == HandSide.LEFT) {
-                this.bipedBody.rotateAngleY *= -1.0F;
-            }
-
             //original x needs to be used as the multiplier here
-            this.bipedRightArm.rotationPointZ = MathHelper.sin(this.bipedBody.rotateAngleY) * 5.0F;
             this.bipedRightArm.rotationPointX = -MathHelper.cos(this.bipedBody.rotateAngleY) * 6.0F;
-            this.bipedLeftArm.rotationPointZ = -MathHelper.sin(this.bipedBody.rotateAngleY) * 5.0F;
             this.bipedLeftArm.rotationPointX = MathHelper.cos(this.bipedBody.rotateAngleY) * 6.0F;
         }
     }
