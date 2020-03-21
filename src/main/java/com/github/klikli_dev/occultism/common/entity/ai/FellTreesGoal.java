@@ -90,6 +90,7 @@ public class FellTreesGoal extends Goal {
 
             if (Occultism.DEBUG.debugAI) {
                 OccultismPackets.sendToTracking(this.entity, new MessageSelectBlock(this.targetBlock, 5000, 0xffffff));
+                OccultismPackets.sendToTracking(this.entity, new MessageSelectBlock(this.moveTarget, 5000, 0x00ff00));
             }
 
             if (isLog(this.entity.world, this.targetBlock)) {
