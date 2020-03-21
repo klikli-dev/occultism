@@ -22,7 +22,7 @@ apply plugin: 'maven-publish'
 if (System.getenv('VERSION') != null) {
     version = System.getenv('VERSION')
 } else {
-    version = 'local'
+    version = "${mc_version}-local"
 }
 
 group = "com.github.klikli_dev"
