@@ -26,11 +26,11 @@ jobs:
           result-encoding: string
           script: |
            return '${{ github.ref }}'.replace('refs/tags/v', '');
-#      - name: Restore cache
-#        uses: actions/cache@v1
-#        with:
-#          path: ~/.gradle/caches
-#          key: ${{ runner.os }}-gradle-${{ hashFiles('build.gradle') }}
+      - name: Restore cache
+        uses: actions/cache@v1
+        with:
+          path: ~/.gradle/caches
+          key: ${{ runner.os }}-gradle-${{ hashFiles('build.gradle') }}
       - name: Setup Gradle
         run: chmod +x gradlew
       - name: Build
