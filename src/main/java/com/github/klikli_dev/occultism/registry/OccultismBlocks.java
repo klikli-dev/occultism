@@ -172,6 +172,10 @@ public class OccultismBlocks {
                     Block.Properties.create(Material.ROCK).sound(SoundType.STONE).doesNotBlockMovement()
                             .hardnessAndResistance(2f, 2).notSolid()), false, LootTableType.EMPTY);
 
+    public static final RegistryObject<OtherworldMinerBlock> OTHERWORLD_MINER =
+            register("otherworld_miner", () -> new OtherworldMinerBlock(
+                    Block.Properties.create(Material.ROCK).sound(SoundType.STONE).hardnessAndResistance(1.5f, 30)));
+
     //Crops
     public static final RegistryObject<ReplantableCropsBlock> DATURA = register("datura",
             () -> new ReplantableCropsBlock(
