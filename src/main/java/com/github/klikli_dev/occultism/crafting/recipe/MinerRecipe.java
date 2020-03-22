@@ -114,7 +114,7 @@ public class MinerRecipe implements IRecipe<RecipeWrapper> {
                     "ingredient") : JSONUtils.getJsonObject(json, "ingredient");
             Ingredient ingredient = Ingredient.deserialize(ingredientElement);
             JsonElement resultElement = JSONUtils.getJsonObject(json, "result");
-            Ingredient result = Ingredient.deserialize(ingredientElement);
+            Ingredient result = Ingredient.deserialize(resultElement);
             int weight = JSONUtils.getInt(json, "weight");
 
             return new MinerRecipe(recipeId, ingredient, new WeightedIngredient(result, weight));
