@@ -19,7 +19,12 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: "com.matthewprenger.cursegradle"
 apply plugin: 'maven-publish'
 
-version = "${mc_version}-${mod_version}"
+if (System.getenv('VERSION') != null) {
+    version = System.getenv('VERSION')
+} else {
+    version = "${mc_version}-${mod_version}"
+}
+
 group = "com.github.klikli_dev"
 archivesBaseName = "occultism"
 
@@ -88,9 +93,22 @@ minecraft {
 }
 
 repositories {
-    maven {url "http://tehnut.info/maven"}
-    maven { url 'https://maven.blamejared.com' }
-    maven { url 'https://dvs1.progwml6.com/files/maven' }
+    maven {
+        name = "Hwyla/Waila Maven"
+        url = "http://tehnut.info/maven"
+    }
+    maven {
+        name = "Patchouli Maven"
+        url = 'https://maven.blamejared.com'
+    }
+    maven {
+        name = "Progwm16 maven - JEI"
+        url = 'https://dvs1.progwml6.com/files/maven'
+    }
+    maven {
+        name = "ModMaven - JEI"
+        url = "https://modmaven.k-4u.nl"
+    }
 }
 
 dependencies {
@@ -100,7 +118,7 @@ dependencies {
     minecraft 'net.minecraftforge:forge:1.15.2-31.1.25'
     //compileOnly fg.deobf("vazkii.patchouli:Patchouli:${patchouli_version}:api")
     //runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:${patchouli_version}")
-    compile fg.deobf("vazkii.patchouli:Patchouli:${patchouli_version}")
+    compile fg.deobf("vazkii.patchouli:Patchouli:${mc_version}-${patchouli_version}")
     //Note: Enable hwyla leads to build errors on github actions, even when just including the runtime version.
     //compileOnly fg.deobf("mcp.mobius.waila:Hwyla:${hwyla_version}:api")
     //runtimeOnly fg.deobf("mcp.mobius.waila:Hwyla:${hwyla_version}")
@@ -167,16 +185,33 @@ processResources {
 curseforge {
     def curse_api_key = System.getenv('CURSEFORGE_API_KEY')
     if (curse_api_key == null) {
-        println 'No API Key for Curseforge found'
+        println 'No API Key for Curseforge found.'
         curse_api_key = ''
         return
     }
+
+    def release_type = System.getenv("RELEASE_TYPE")
+    if(release_type == null){
+        println "No release type, no upload to Curseforge."
+        return
+    }
+    if(release_type == "test"){
+        println "Release type test, no upload to Curseforge."
+        return
+    }
+    def env_mc_version = System.getenv("MC_VERSION")
+    if(env_mc_version == null){
+        println "No mc version found, assuming ${mc_version}"
+        env_mc_version = "${mc_version}"
+        return
+    }
+
     project {
         apiKey = curse_api_key
         id = '361026'
         changelog = '[Automated Build]\nFind changes at https://github.com/klikli-dev/occultism'
-        releaseType = 'alpha'
-        addGameVersion "${mc_version}"
+        releaseType = release_type
+        addGameVersion env_mc_version
     }
     options {
         javaVersionAutoDetect = false

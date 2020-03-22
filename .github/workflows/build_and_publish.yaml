@@ -1,0 +1,92 @@
+name: Build and Publish
+
+on:
+  push:
+    tags: 
+      - 'alpha/v**' 
+      - 'beta/v**' 
+      - 'release/v**' 
+      - 'test/v**' 
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        id: checkout
+        uses: actions/checkout@v2
+      - name: Set up JDK 1.8
+        id: set_up_jdk
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+      - name: Get release type from github tag
+        id: get_release_type
+        uses: actions/github-script@0.4.0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          result-encoding: string
+          script: |
+           return '${{ github.ref }}'.match(/refs\/tags\/(.*)\/v((.*)-(.*))/)[1];
+      - name: Get file version from tag
+        id: get_version
+        uses: actions/github-script@0.4.0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          result-encoding: string
+          script: |
+            return '${{ github.ref }}'.match(/refs\/tags\/(.*)\/v((.*)-(.*))/)[4];
+      - name: Get mc version from tag
+        id: get_mc_version
+        uses: actions/github-script@0.4.0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          result-encoding: string
+          script: |
+            return '${{ github.ref }}'.match(/refs\/tags\/(.*)\/v((.*)-(.*))/)[3];
+#      - name: Restore cache
+#        uses: actions/cache@v1
+#        with:
+#          path: ~/.gradle/caches
+#          key: ${{ runner.os }}-gradle-${{ hashFiles('build.gradle') }}
+      - name: Setup Gradle
+        run: chmod +x gradlew
+      - name: Build
+        run: ./gradlew build --no-daemon --refresh-dependencies
+        env:
+          VERSION: ${{ steps.get_mc_version.outputs.result }}-${{ steps.get_version.outputs.result }}
+          CURSEFORGE_API_KEY: ${{ secrets.CURSEFORGE_API_KEY }}
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: occultism-${{ steps.get_mc_version.outputs.result }}-${{ steps.get_version.outputs.result }}-${{ steps.get_release_type.outputs.result }}
+          body: |
+            [Automated Build]]
+            //TODO: Add important changes
+          draft: false
+          prerelease: false
+      - name: Upload release asset
+        id: upload_release_asset
+        uses: actions/upload-release-asset@v1.0.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }} 
+          asset_path: ./build/libs/occultism-${{ steps.get_mc_version.outputs.result }}-${{ steps.get_version.outputs.result }}.jar
+          asset_name: occultism-${{ steps.get_mc_version.outputs.result }}-${{ steps.get_version.outputs.result }}.jar
+          asset_content_type: application/java-archive
+      - name: Upload to Curseforge
+        id: curseforge
+        if: ${{ steps.get_release_type.outputs.result }} != "test"
+        run: ./gradlew curseforge
+        env:
+          VERSION: ${{ steps.get_version.outputs.result }}
+          MC_VERSION: ${{ steps.get_mc_version.outputs.result }}
+          RELEASE_TYPE: ${{ steps.get_release_type.outputs.result }}
+          CURSEFORGE_API_KEY: ${{ secrets.CURSEFORGE_API_KEY }}

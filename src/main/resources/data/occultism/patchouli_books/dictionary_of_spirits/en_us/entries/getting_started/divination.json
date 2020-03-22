@@ -26,6 +26,11 @@
       "type": "text",
       "title": "Otherworld Groves",
       "text": "Otherworld Groves are lush, overgrown caves, with $(item)Otherworld Trees$(), and walls of $(item)Otherstone$(), and represent the fastest way to get everything one needs to get set up as a summoner. To find them, attune your divination rod to Otherworld leaves or logs, as unlike Otherstone, they only spawn in these groves."
+    },
+    {
+      "type": "text",
+      "title": "Otherworld Trees",
+      "text": "Otherworld trees grow naturally in Otherworld Groves. To the naked eye they appear as oak trees, but to the Third Eye they reveal their true nature. $(bold)Important:$() Otherworld Saplings can only be obtained by breaking the leaves manually, naturally only oak saplings drop. Trees grown from Stable Otherworld Saplings as obtained from spirit traders do not have that limitation."
     }
   ]
 }

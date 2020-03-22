@@ -178,7 +178,7 @@ public class FellTreesGoal extends Goal {
         }
         //set closest log as target
         if (!allBlocks.isEmpty()) {
-            allBlocks = allBlocks.stream().distinct().sorted(this.targetSorter).collect(Collectors.toList());
+            allBlocks.sort(this.targetSorter);
             this.targetBlock = allBlocks.get(0);
 
             //Find a nearby empty block to move to
