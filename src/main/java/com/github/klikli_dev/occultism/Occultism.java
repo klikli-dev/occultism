@@ -23,6 +23,7 @@
 package com.github.klikli_dev.occultism;
 
 import com.github.klikli_dev.occultism.api.OccultismAPI;
+import com.github.klikli_dev.occultism.client.gui.OtherworldMinerScreen;
 import com.github.klikli_dev.occultism.client.gui.spirit.SpiritGui;
 import com.github.klikli_dev.occultism.client.gui.storage.StableWormholeGui;
 import com.github.klikli_dev.occultism.client.gui.storage.StorageControllerGui;
@@ -184,6 +185,7 @@ public class Occultism {
             ScreenManager.registerFactory(OccultismContainers.STABLE_WORMHOLE.get(), StableWormholeGui::new);
             ScreenManager.registerFactory(OccultismContainers.STORAGE_REMOTE.get(), StorageRemoteGui::new);
             ScreenManager.registerFactory(OccultismContainers.SPIRIT.get(), SpiritGui::new);
+            ScreenManager.registerFactory(OccultismContainers.OTHERWORLD_MINER.get(), OtherworldMinerScreen::new);
             LOGGER.debug("Registered Screen Containers");
         });
 

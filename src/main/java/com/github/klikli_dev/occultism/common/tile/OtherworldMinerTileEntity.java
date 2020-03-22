@@ -22,6 +22,8 @@
 
 package com.github.klikli_dev.occultism.common.tile;
 
+import com.github.klikli_dev.occultism.common.container.OtherworldMinerContainer;
+import com.github.klikli_dev.occultism.exceptions.ItemHandlerMissingException;
 import com.github.klikli_dev.occultism.registry.OccultismTiles;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -35,7 +37,10 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.ItemStackHandler;
+import net.minecraftforge.items.wrapper.CombinedInvWrapper;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -45,6 +50,12 @@ public class OtherworldMinerTileEntity extends NetworkedTileEntity implements IT
     //region Fields
     public LazyOptional<ItemStackHandler> inputHandler = LazyOptional.of(() -> new ItemStackHandler(1));
     public LazyOptional<ItemStackHandler> outputHandler = LazyOptional.of(() -> new ItemStackHandler(9));
+    public LazyOptional<CombinedInvWrapper> combinedHandler =
+            LazyOptional.of(() -> new CombinedInvWrapper(this.inputHandler.orElseThrow(ItemHandlerMissingException::new),
+                            this.outputHandler.orElseThrow(ItemHandlerMissingException::new)));
+
+    public int miningTime;
+    public int maxMiningTime = 400;
     //endregion Fields
 
     //region Initialization
@@ -64,21 +75,33 @@ public class OtherworldMinerTileEntity extends NetworkedTileEntity implements IT
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction direction) {
         if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-            return this.inputHandler.cast();
+            if (direction == null) {
+                //null is full access for machines or similar.
+                return this.combinedHandler.cast();
+            }
+            else if (direction == Direction.UP){
+                return this.inputHandler.cast();
+            }
+            else {
+                return this.outputHandler.cast();
+            }
         }
         return super.getCapability(cap, direction);
     }
+
 
     @Override
     public void readNetwork(CompoundNBT compound) {
         this.inputHandler.ifPresent((handler) -> handler.deserializeNBT(compound.getCompound("inputHandler")));
         this.outputHandler.ifPresent((handler) -> handler.deserializeNBT(compound.getCompound("outputHandler")));
+        this.miningTime = compound.getInt("miningTime");
     }
 
     @Override
     public CompoundNBT writeNetwork(CompoundNBT compound) {
         this.inputHandler.ifPresent(handler -> compound.put("inputHandler", handler.serializeNBT()));
         this.outputHandler.ifPresent(handler -> compound.put("outputHandler", handler.serializeNBT()));
+        compound.putInt("miningTime", this.miningTime);
         return compound;
     }
 
@@ -91,14 +114,18 @@ public class OtherworldMinerTileEntity extends NetworkedTileEntity implements IT
 
     @Override
     public void tick() {
+        if (this.miningTime > 0)
+            this.miningTime--;
 
+        if (this.miningTime <= 0)
+            this.miningTime = this.maxMiningTime;
     }
 
     @Nullable
     @Override
     public Container createMenu(int id, PlayerInventory playerInventory, PlayerEntity player) {
-        //TODO: create menu for otherworld miner
-        return null;
+        return new OtherworldMinerContainer(id, playerInventory, this);
     }
+
     //endregion Overrides
 }
