@@ -23,7 +23,7 @@ jobs:
         with:
           java-version: 1.8
       - name: Get release type from github tag
-        id: get_telease_type
+        id: get_release_type
         uses: actions/github-script@0.4.0
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -56,7 +56,7 @@ jobs:
       - name: Build
         run: ./gradlew build --no-daemon --refresh-dependencies
         env:
-          VERSION:  ${{ steps.get_version.outputs.result }}
+          VERSION: ${{ steps.get_mc_version.outputs.result }}-${{ steps.get_version.outputs.result }}
           CURSEFORGE_API_KEY: ${{ secrets.CURSEFORGE_API_KEY }}
       - name: Create Release
         id: create_release
@@ -64,8 +64,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: v${{ steps.get_version.outputs.result }}
-          release_name: occultism-${{ steps.get_version.outputs.result }}
+          tag_name: ${{ github.ref }}
+          release_name: occultism-${{ steps.get_mc_version.outputs.result }}-${{ steps.get_version.outputs.result }}-${{ steps.get_release_type.outputs.result }}
           body: |
             [Automated Build]]
             //TODO: Add important changes
@@ -78,8 +78,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }} 
-          asset_path: ./build/libs/occultism-${{ steps.get_version.outputs.result }}.jar
-          asset_name: occultism-${{ steps.get_version.outputs.result }}.jar
+          asset_path: ./build/libs/occultism-${{ steps.get_mc_version.outputs.result }}-${{ steps.get_version.outputs.result }}.jar
+          asset_name: occultism-${{ steps.get_mc_version.outputs.result }}-${{ steps.get_version.outputs.result }}.jar
           asset_content_type: application/java-archive
       - name: Upload to Curseforge
         id: curseforge
