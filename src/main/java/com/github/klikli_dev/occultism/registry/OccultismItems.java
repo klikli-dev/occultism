@@ -137,6 +137,9 @@ public class OccultismItems {
 
     public static final RegistryObject<Item> SPIRIT_ATTUNED_PICKAXE_HEAD = ITEMS.register("spirit_attuned_pickaxe_head",
             () -> new Item(defaultProperties()));
+
+    public static final RegistryObject<Item> MAGIC_LAMP_EMPTY = ITEMS.register("magic_lamp_empty",
+            () -> new Item(defaultProperties()));
     //Tools
     public static final RegistryObject<GuideBookItem> GUIDE_BOOK = ITEMS.register("dictionary_of_spirits",
             () -> new GuideBookItem(defaultProperties().maxStackSize(1)));
