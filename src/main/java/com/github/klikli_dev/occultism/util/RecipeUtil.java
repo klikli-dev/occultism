@@ -36,7 +36,7 @@ public class RecipeUtil {
     //region Static Methods
     public static <C extends IInventory, T extends IRecipe<C>> Map<ResourceLocation, IRecipe<C>> getRecipes(
             RecipeManager recipeManager, IRecipeType<T> recipeType) {
-        return ReflectionUtil.RecipeManager.getRecipes(recipeManager, recipeType);
+        return ReflectionUtil.RecipeManagerReflection.getRecipes(recipeManager, recipeType);
     }
 
     public static <C extends IInventory, T extends IRecipe<C>> boolean isValidIngredient(RecipeManager recipeManager,

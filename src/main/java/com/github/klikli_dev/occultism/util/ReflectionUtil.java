@@ -25,6 +25,7 @@ package com.github.klikli_dev.occultism.util;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeType;
+import net.minecraft.item.crafting.RecipeManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 
@@ -34,23 +35,22 @@ import java.util.Map;
 
 public class ReflectionUtil {
 
-    public static class RecipeManager {
+    public static class RecipeManagerReflection {
         //region Fields
         protected static Method getRecipesByType =
                 ObfuscationReflectionHelper.findMethod(RecipeManager.class, "getRecipes", IRecipeType.class);
         //endregion Fields
 
-        //region Methods
+        //region Static Methods
         public static <C extends IInventory, T extends IRecipe<C>> Map<ResourceLocation, IRecipe<C>> getRecipes(
-                net.minecraft.item.crafting.RecipeManager recipeManager, IRecipeType<T> recipeType) {
+                RecipeManager recipeManager, IRecipeType<T> recipeType) {
             try {
                 return (Map<ResourceLocation, IRecipe<C>>) getRecipesByType.invoke(recipeManager, recipeType);
             } catch (Exception ignored) {
                 return Collections.emptyMap();
             }
         }
-        //endregion Methods
-
+        //endregion Static Methods
     }
 
 }
