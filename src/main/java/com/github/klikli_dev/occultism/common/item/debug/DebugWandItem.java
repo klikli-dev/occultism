@@ -22,17 +22,27 @@
 
 package com.github.klikli_dev.occultism.common.item.debug;
 
+import com.github.klikli_dev.occultism.common.misc.WeightedIngredient;
+import com.github.klikli_dev.occultism.crafting.recipe.MinerRecipe;
+import com.github.klikli_dev.occultism.registry.OccultismRecipes;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
+import net.minecraft.util.WeightedRandom;
 import net.minecraft.world.World;
-import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.items.ItemHandlerHelper;
+import net.minecraftforge.items.ItemStackHandler;
+import net.minecraftforge.items.wrapper.RecipeWrapper;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class DebugWandItem extends Item {
 
@@ -45,87 +55,34 @@ public class DebugWandItem extends Item {
     //region Overrides
     @Override
     public ActionResultType onItemUse(ItemUseContext context) {
-        ServerPlayerEntity player = (ServerPlayerEntity) context.getPlayer();
-        //        World world = context.getWorld();
-        //        PlayerEntity player = context.getPlayer();
-        //        Hand hand = context.getHand();
-        //        BlockPos pos = context.getPos();
-        //        if (!world.isRemote) {
-        //            ItemStack stack = player.getHeldItem(hand);
-        //
-        //            //test potion
-        //            player.addPotionEffect(new EffectInstance(PotionRegistry.THIRD_EYE, 100));
-        //
-        //            BlockState state = world.getBlockState(pos);
-        //            TileEntity tileEntity = world.getTileEntity(pos);
-        //            if (tileEntity instanceof TileEntityStorageController) {
-        //                TileEntityStorageController storageController = (TileEntityStorageController) tileEntity;
-        //                stack.setTagInfo("linkedStorageControllerPos", LongNBT.of(storageController.getPos().toLong()));
-        //                CompoundNBT tag;
-        //                stack.setTagInfo("linkedStorageControllerDim", StringNBT.of(
-        //                        storageController.getWorld().getDimension().getDimension().getType().getRegistryName()
-        //                                .toString()));
-        //                player.sendStatusMessage(new StringTextComponent("Linked Storage Controller"), true);
-        //            }
-        //            else if (tileEntity != null &&
-        //                     TileEntityUtil.hasCapabilityOnAnySide(tileEntity, CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)) {
-        //                if (stack.getOrCreateTag().contains("linkedStorageControllerPos")) {
-        //                    BlockPos storageControllerPos = BlockPos.fromLong(
-        //                            stack.getTag().getLong("linkedStorageControllerPos"));
-        //                    var dimension = new ResourceLocation(stack.getTag().getString("linkedStorageControllerDim"));
-        //                    TileEntity linkedTileEntity = world.getServer().getWorld(DimensionType.byName(dimension))
-        //                                                          .getTileEntity(storageControllerPos);
-        //                    if (linkedTileEntity instanceof TileEntityStorageController) {
-        //                        TileEntityStorageController storageController = (TileEntityStorageController) linkedTileEntity;
-        //                        MachineReference reference = MachineReference.fromTileEntity(tileEntity);
-        //                        //generate a random name for the tile to test search
-        //                        reference.customName = NameUtil.generateName();
-        //                        storageController.linkedMachines.put(reference.globalPos, reference);
-        //                        player.sendStatusMessage(new StringTextComponent(
-        //                                String.format("Linked tile entity %s to storage controller.", state.getBlock().getTranslationKey())), true);
-        //                    }
-        //                }
-        //            }
-        //        }
+
+        if (context.getWorld().isRemote) {
+            PlayerEntity player = context.getPlayer();
+
+            ItemStackHandler handler = new ItemStackHandler(1);
+            handler.setStackInSlot(0, context.getItem());
+            List<MinerRecipe> recipes = context.getWorld().getRecipeManager()
+                                                .getRecipes(OccultismRecipes.MINER_TYPE.get(),
+                                                        new RecipeWrapper(handler), context.getWorld());
+
+            List<WeightedIngredient> possibleResults =
+                    recipes.stream().map(r -> r.getWeightedOutput()).collect(Collectors.toList());
+            WeightedIngredient result = WeightedRandom.getRandomItem(context.getWorld().getRandom(), possibleResults);
+            ItemHandlerHelper.giveItemToPlayer(player, result.getStack());
+        }
         return ActionResultType.SUCCESS;
     }
 
     @Override
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
-        //        IItemHandler itemHandler = playerIn.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, Direction.DOWN)
-        //                                           .orElseThrow(() -> new RuntimeException(
-        //                                                   "ITEM_HANDLER_CAPABILITY missing on player."));
-        //        for (int i = 0; i <= itemHandler.getSlots(); i++) {
-        //            ItemStack itemStack = itemHandler.getStackInSlot(i);
-        //            if (itemStack.getItem() instanceof ItemBookOfCallingActive) {
-        //                //Set a random uuid to test the glow effect
-        //                if (ItemNBTUtil.getSpiritEntityUUID(itemStack) == null)
-        //                    ItemNBTUtil.setSpiritEntityUUID(itemStack, UUID.randomUUID());
-        //            }
-        //        }
+
         return super.onItemRightClick(worldIn, playerIn, handIn);
     }
 
     @Override
     public boolean itemInteractionForEntity(ItemStack stack, PlayerEntity player, LivingEntity target,
                                             Hand hand) {
-        //        if (!(target instanceof EntitySpirit))
-        //            return false;
-        //
-        //        EntitySpirit entitySpirit = (EntitySpirit) target;
-        //        if (!entitySpirit.isTamed() || !entitySpirit.isOwner(player)) {
-        //            entitySpirit.setTamedBy(player);
-        //            player.sendStatusMessage(new TranslationTextComponent(
-        //                    String.format("debug.%s.%s.spirit_tamed", Occultism.MODID, this.getRegistryName().getPath()),
-        //                    target.getUniqueID().toString()), true);
-        //        }
-        //        else {
-        //            stack.getOrCreateTag().putUniqueId(SPIRIT_UUID_TAG, target.getUniqueID());
-        //            player.sendStatusMessage(new TranslationTextComponent(
-        //                    String.format("debug.%s.%s.spirit_selected", Occultism.MODID, this.getRegistryName().getPath()),
-        //                    target.getUniqueID().toString()), true);
-        //        }
-        //
+
 
         return true;
     }
