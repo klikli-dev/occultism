@@ -37,7 +37,7 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           result-encoding: string
           script: |
-            return '${{ github.ref }}'.match(/refs\/tags\/(.*)\/v((.*)-(.*))/)[2];
+            return '${{ github.ref }}'.match(/refs\/tags\/(.*)\/v((.*)-(.*))/)[4];
       - name: Get mc version from tag
         id: get_mc_version
         uses: actions/github-script@0.4.0
