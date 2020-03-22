@@ -114,11 +114,21 @@ public class OtherworldMinerTileEntity extends NetworkedTileEntity implements IT
 
     @Override
     public void tick() {
-        if (this.miningTime > 0)
+        boolean dirty = false;
+        if (this.miningTime > 0){
             this.miningTime--;
+            dirty = true;
+        }
 
-        if (this.miningTime <= 0)
+
+        if (this.miningTime <= 0){
             this.miningTime = this.maxMiningTime;
+            dirty = true;
+        }
+
+        if(dirty){
+            this.markNetworkDirty();
+        }
     }
 
     @Nullable
