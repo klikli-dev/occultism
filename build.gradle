@@ -184,7 +184,7 @@ curseforge {
         return
     }
 
-    def release_type = System.getenv("CURSEFORGE_RELEASE_TYPE")
+    def release_type = System.getenv("RELEASE_TYPE")
     if(release_type == null){
         println "No release type, no upload to Curseforge."
         return
