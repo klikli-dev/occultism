@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "occultism:block/debug_block"
+      "model": "occultism:block/otherworld_miner"
     }
   }
 }

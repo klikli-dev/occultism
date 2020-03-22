@@ -139,6 +139,7 @@
     "block.occultism.copper_block": "Copper Block",
     "block.occultism.silver_block": "Silver Block",
     "block.occultism.iesnium_block": "Iesnium Block",
+    "block.occultism.otherworld_miner": "Otherworld Miner",
     "_comment": "Entities",
     "entity.occultism.foliot": "Foliot",
     "entity.occultism.djinni": "Djinni",
