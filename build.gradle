@@ -22,7 +22,7 @@ apply plugin: 'maven-publish'
 if (System.getenv('VERSION') != null) {
     version = System.getenv('VERSION')
 } else {
-    version = "${mc_version}-local"
+    version = "${mc_version}-${mod_version}"
 }
 
 group = "com.github.klikli_dev"
@@ -183,12 +183,25 @@ curseforge {
         curse_api_key = ''
         return
     }
+
+    def release_type = System.getenv("CURSEFORGE_RELEASE_TYPE")
+    if(release_type == null || release_type == "test"){
+        println "No release type, or release type test, no upload to curseforge."
+        return
+    }
+    def env_mc_version = System.getenv("MC_VERSION")
+    if(env_mc_version == null){
+        println "No mc version found, assuming ${mc_version}"
+        env_mc_version = "${mc_version}"
+        return
+    }
+
     project {
         apiKey = curse_api_key
         id = '361026'
         changelog = '[Automated Build]\nFind changes at https://github.com/klikli-dev/occultism'
-        releaseType = 'alpha'
-        addGameVersion "${mc_version}"
+        releaseType = release_type
+        addGameVersion env_mc_version
     }
     options {
         javaVersionAutoDetect = false
