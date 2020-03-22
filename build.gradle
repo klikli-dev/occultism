@@ -95,9 +95,10 @@ minecraft {
 repositories {
     maven {url "http://tehnut.info/maven"}
     maven { url 'https://maven.blamejared.com' }
-    maven {
-        name = "Progwm16 maven - JEI"
-        url 'https://dvs1.progwml6.com/files/maven' }
+//    maven {
+//        name = "Progwm16 maven - JEI"
+//        url 'https://dvs1.progwml6.com/files/maven'
+//    }
     maven {
         name = "ModMaven - JEI"
         url = "https://modmaven.k-4u.nl"
