@@ -61,8 +61,18 @@ public class OtherworldMinerTileEntity extends NetworkedTileEntity implements IT
     public static final int DEFAULT_MAX_MINING_TIME = 400;
     public static int DEFAULT_ROLLS_PER_OPERATION = 1;
     public static String ROLLS_PER_OPERATION_TAG = "rollsPerOperation";
-    public LazyOptional<ItemStackHandler> inputHandler = LazyOptional.of(() -> new ItemStackHandler(1));
-    public LazyOptional<ItemStackHandler> outputHandler = LazyOptional.of(() -> new ItemStackHandler(9));
+    public LazyOptional<ItemStackHandler> inputHandler = LazyOptional.of(() -> new ItemStackHandler(1) {
+        @Override
+        protected void onContentsChanged(int slot) {
+            OtherworldMinerTileEntity.this.markDirty();
+        }
+    });
+    public LazyOptional<ItemStackHandler> outputHandler = LazyOptional.of(() -> new ItemStackHandler(9){
+        @Override
+        protected void onContentsChanged(int slot) {
+            OtherworldMinerTileEntity.this.markDirty();
+        }
+    });
     public LazyOptional<CombinedInvWrapper> combinedHandler =
             LazyOptional
                     .of(() -> new CombinedInvWrapper(this.inputHandler.orElseThrow(ItemHandlerMissingException::new),
@@ -109,17 +119,28 @@ public class OtherworldMinerTileEntity extends NetworkedTileEntity implements IT
         super.read(compound);
         this.inputHandler.ifPresent((handler) -> handler.deserializeNBT(compound.getCompound("inputHandler")));
         this.outputHandler.ifPresent((handler) -> handler.deserializeNBT(compound.getCompound("outputHandler")));
-        this.miningTime = compound.getInt("miningTime");
-
     }
 
     @Override
     public CompoundNBT write(CompoundNBT compound) {
         this.inputHandler.ifPresent(handler -> compound.put("inputHandler", handler.serializeNBT()));
         this.outputHandler.ifPresent(handler -> compound.put("outputHandler", handler.serializeNBT()));
-        compound.putInt("miningTime", this.miningTime);
-
         return super.write(compound);
+    }
+
+    @Override
+    public void readNetwork(CompoundNBT compound) {
+        super.readNetwork(compound);
+        this.miningTime = compound.getInt("miningTime");
+        this.maxMiningTime = compound.getInt("maxMiningTime");
+    }
+
+
+    @Override
+    public CompoundNBT writeNetwork(CompoundNBT compound) {
+        compound.putInt("miningTime", this.miningTime);
+        compound.putInt("maxMiningTime", this.maxMiningTime);
+        return super.writeNetwork(compound);
     }
 
     @Override
@@ -131,38 +152,42 @@ public class OtherworldMinerTileEntity extends NetworkedTileEntity implements IT
 
     @Override
     public void tick() {
-        IItemHandler inputHandler = this.inputHandler.orElseThrow(ItemHandlerMissingException::new);
-        ItemStack input = inputHandler.getStackInSlot(0);
 
-        boolean dirty = false;
-        if (this.miningTime > 0) {
-            this.miningTime--;
+        if(!this.world.isRemote){
+            IItemHandler inputHandler = this.inputHandler.orElseThrow(ItemHandlerMissingException::new);
+            ItemStack input = inputHandler.getStackInSlot(0);
 
-            if (this.miningTime == 0 && !this.world.isRemote) {
-                this.mine();
+            boolean dirty = false;
+            if (this.miningTime > 0) {
+                this.miningTime--;
+
+                if (this.miningTime == 0 && !this.world.isRemote) {
+                    this.mine();
+                }
+
+                if (input.getItem() != this.currentInputType) {
+                    //If the item was removed manually or consumed, set mining time to 0, which prevents further processing
+                    //and sets up for starting the next operation in the next tick
+                    this.miningTime = 0;
+
+                    //if the item was used up or switched, we also delete our result cache
+                    this.possibleResults = null;
+                }
+                if(this.miningTime % 10 == 0)
+                    dirty = true;
+            }
+            else if (!input.isEmpty()) {
+                //if we're done with the last mining job, and we have valid input, start the next one.
+                this.currentInputType = input.getItem();
+                this.maxMiningTime = getMaxMiningTime(input);
+                this.rollsPerOperation = getRollsPerOperation(input);
+                this.miningTime = this.maxMiningTime;
+                dirty = true;
             }
 
-            if (input.getItem() != this.currentInputType) {
-                //If the item was removed manually or consumed, set mining time to 0, which prevents further processing
-                //and sets up for starting the next operation in the next tick
-                this.miningTime = 0;
-
-                //if the item was used up or switched, we also delete our result cache
-                this.possibleResults = null;
+            if (dirty) {
+                this.markNetworkDirty();
             }
-            dirty = true;
-        }
-        else if (!input.isEmpty()) {
-            //if we're done with the last mining job, and we have valid input, start the next one.
-            this.currentInputType = input.getItem();
-            this.maxMiningTime = getMaxMiningTime(input);
-            this.rollsPerOperation = getRollsPerOperation(input);
-            this.miningTime = this.maxMiningTime;
-            dirty = true;
-        }
-
-        if (dirty) {
-            this.markNetworkDirty();
         }
     }
 
