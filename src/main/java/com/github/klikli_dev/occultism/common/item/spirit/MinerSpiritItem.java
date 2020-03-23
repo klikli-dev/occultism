@@ -36,7 +36,7 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class MinerSpiritInLampItem extends Item {
+public class MinerSpiritItem extends Item {
 
     //region Fields
     private final int maxMiningTime;
@@ -44,7 +44,7 @@ public class MinerSpiritInLampItem extends Item {
     //endregion Fields
 
     //region Initialization
-    public MinerSpiritInLampItem(Properties properties, int maxMiningTime, int rollsPerOperation) {
+    public MinerSpiritItem(Properties properties, int maxMiningTime, int rollsPerOperation) {
         super(properties);
         this.maxMiningTime = maxMiningTime;
         this.rollsPerOperation = rollsPerOperation;

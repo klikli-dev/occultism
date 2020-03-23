@@ -225,8 +225,8 @@ public class OccultismItems {
 
     //Miner Spirits
     //TODO: Set proper time and rolls per operation
-    public static final RegistryObject<MinerSpiritInLampItem> MINER_SPIRIT_TIER1 = ITEMS.register("miner_spirit_tier1",
-            () -> new MinerSpiritInLampItem(defaultProperties().maxDamage(100), 100, 4));
+    public static final RegistryObject<MinerSpiritItem> MINER_SPIRIT_TIER1 = ITEMS.register("miner_spirit_tier1",
+            () -> new MinerSpiritItem(defaultProperties().maxDamage(100), 100, 4));
 
     //endregion Fields
 
