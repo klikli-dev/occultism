@@ -1,0 +1,10 @@
+{
+  "type": "occultism:miner",
+  "ingredient": {
+    "item": "occultism:miner_spirit_tier1"
+  },
+  "result":{
+    "item": "occultism:otherstone"
+  },
+  "weight": 200
+}

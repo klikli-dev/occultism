@@ -223,6 +223,11 @@ public class OccultismItems {
     public static final RegistryObject<Item> DATURA = ITEMS.register("datura",
             () -> new Item(defaultProperties().food(OccultismFoods.DATURA.get())));
 
+    //Miner Spirits
+    //TODO: Set proper time and rolls per operation
+    public static final RegistryObject<MinerSpiritInLampItem> MINER_SPIRIT_TIER1 = ITEMS.register("miner_spirit_tier1",
+            () -> new MinerSpiritInLampItem(defaultProperties().maxStackSize(1), 100, 4));
+
     //endregion Fields
 
     //region Static Methods

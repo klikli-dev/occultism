@@ -24,6 +24,7 @@ package com.github.klikli_dev.occultism.common.item.debug;
 
 import com.github.klikli_dev.occultism.common.misc.WeightedIngredient;
 import com.github.klikli_dev.occultism.crafting.recipe.MinerRecipe;
+import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.github.klikli_dev.occultism.registry.OccultismRecipes;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -59,16 +60,9 @@ public class DebugWandItem extends Item {
         if (context.getWorld().isRemote) {
             PlayerEntity player = context.getPlayer();
 
-            ItemStackHandler handler = new ItemStackHandler(1);
-            handler.setStackInSlot(0, context.getItem());
-            List<MinerRecipe> recipes = context.getWorld().getRecipeManager()
-                                                .getRecipes(OccultismRecipes.MINER_TYPE.get(),
-                                                        new RecipeWrapper(handler), context.getWorld());
-
-            List<WeightedIngredient> possibleResults =
-                    recipes.stream().map(r -> r.getWeightedOutput()).collect(Collectors.toList());
-            WeightedIngredient result = WeightedRandom.getRandomItem(context.getWorld().getRandom(), possibleResults);
-            ItemHandlerHelper.giveItemToPlayer(player, result.getStack());
+            ItemStack spirit = new ItemStack(OccultismItems.MINER_SPIRIT_TIER1.get());
+            spirit.getItem().onCreated(spirit, context.getWorld(), context.getPlayer());
+            ItemHandlerHelper.giveItemToPlayer(player, spirit);
         }
         return ActionResultType.SUCCESS;
     }
