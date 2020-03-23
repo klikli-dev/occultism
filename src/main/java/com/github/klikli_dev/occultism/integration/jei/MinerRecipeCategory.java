@@ -49,7 +49,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class MinerRecipeCategorry implements IRecipeCategory<MinerRecipe> {
+public class MinerRecipeCategory implements IRecipeCategory<MinerRecipe> {
 
     //region Fields
     private final IDrawable background;
@@ -60,7 +60,7 @@ public class MinerRecipeCategorry implements IRecipeCategory<MinerRecipe> {
     //endregion Fields
 
     //region Initialization
-    public MinerRecipeCategorry(IGuiHelper guiHelper) {
+    public MinerRecipeCategory(IGuiHelper guiHelper) {
         this.background = guiHelper.createBlankDrawable(168, 46); //64
         this.localizedName = I18n.format(Occultism.MODID + ".jei.miner");
         this.overlay = guiHelper.createDrawable(
