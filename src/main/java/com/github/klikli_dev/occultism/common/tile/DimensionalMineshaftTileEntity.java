@@ -35,6 +35,7 @@ import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.WeightedRandom;
@@ -189,6 +190,12 @@ public class DimensionalMineshaftTileEntity extends NetworkedTileEntity implemen
 
             if (dirty) {
                 this.markNetworkDirty();
+            }
+        }
+        else {
+            if (this.miningTime > 0 && world.getGameTime() % 10 == 0) {
+                this.world.addParticle(ParticleTypes.PORTAL, this.pos.getX() + 0.5f,
+                        this.pos.getY() + 0.5, this.pos.getZ() + 0.5f, 0.0D, 0.0D, 0.0D);
             }
         }
     }
