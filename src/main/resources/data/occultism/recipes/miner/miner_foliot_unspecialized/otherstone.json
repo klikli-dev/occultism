@@ -1,7 +1,7 @@
 {
   "type": "occultism:miner",
   "ingredient": {
-    "item": "occultism:miner_spirit_tier1"
+    "item": "occultism:miner_foliot_unspecialized"
   },
   "result":{
     "item": "occultism:otherstone"
