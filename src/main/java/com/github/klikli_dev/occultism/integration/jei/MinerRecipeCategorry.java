@@ -44,7 +44,9 @@ import net.minecraft.world.World;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.wrapper.RecipeWrapper;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class MinerRecipeCategorry implements IRecipeCategory<MinerRecipe> {
@@ -53,7 +55,8 @@ public class MinerRecipeCategorry implements IRecipeCategory<MinerRecipe> {
     private final IDrawable background;
     private final String localizedName;
     private final IDrawable overlay;
-    private float chance;
+
+    private Map<MinerRecipe, Float> chances = new HashMap<>();
     //endregion Fields
 
     //region Initialization
@@ -104,7 +107,8 @@ public class MinerRecipeCategorry implements IRecipeCategory<MinerRecipe> {
                                             .getRecipes(OccultismRecipes.MINER_TYPE.get(),
                                                     new RecipeWrapper(simulatedHandler), world);
         List<WeightedIngredient> possibleResults = recipes.stream().map(MinerRecipe::getWeightedOutput).collect(Collectors.toList());
-        this.chance = Math.round(recipe.getWeightedOutput().itemWeight / (float)WeightedRandom.getTotalWeight(possibleResults) * 10000.0F) / 100.0F;
+        float chance = Math.round(recipe.getWeightedOutput().itemWeight / (float)WeightedRandom.getTotalWeight(possibleResults) * 10000.0F) / 100.0F;
+        this.chances.put(recipe, chance);
     }
 
     @Override
@@ -122,7 +126,7 @@ public class MinerRecipeCategorry implements IRecipeCategory<MinerRecipe> {
     public void draw(MinerRecipe recipe, double mouseX, double mouseY) {
         RenderSystem.enableBlend();
         this.overlay.draw(76, 14); //(center=84) - (width/16=8) = 76
-        String text = I18n.format(Occultism.MODID + ".jei.miner.chance", this.chance);
+        String text = I18n.format(Occultism.MODID + ".jei.miner.chance", this.chances.get(recipe));
         this.drawStringCentered(Minecraft.getInstance().fontRenderer, text, 84, 0);
 
     }
