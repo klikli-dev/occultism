@@ -55,7 +55,7 @@ public class OtherworldMinerScreen extends ContainerScreen<OtherworldMinerContai
         this.blit(this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
         int miningTime = this.otherworldMiner.miningTime;
         int progress = (int) (18 * (1.0F - (float) miningTime / this.otherworldMiner.maxMiningTime));
-        if (progress > 0) {
+        if (progress > 0 && miningTime > 0) {
             this.blit(this.guiLeft + 61, this.guiTop + 41, 176, 0, progress, 4);
         }
     }
