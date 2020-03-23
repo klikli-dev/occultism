@@ -50,9 +50,9 @@ public class OccultismTiles {
             "golden_sacrificial_bowl", () -> TileEntityType.Builder.create(GoldenSacrificialBowlTileEntity::new,
                     OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL.get()).build(null));
 
-    public static final RegistryObject<TileEntityType<OtherworldMinerTileEntity>> OTHERWORLD_MINER = TILES.register(
-            "otherworld_miner", () -> TileEntityType.Builder.create(OtherworldMinerTileEntity::new,
-                    OccultismBlocks.OTHERWORLD_MINER.get()).build(null));
+    public static final RegistryObject<TileEntityType<DimensionalMineshaftTileEntity>> DIMENSIONAL_MINESHAFT = TILES.register(
+            "dimensional_mineshaft", () -> TileEntityType.Builder.create(DimensionalMineshaftTileEntity::new,
+                    OccultismBlocks.DIMENSIONAL_MINESHAFT.get()).build(null));
 
     //endregion Fields
 

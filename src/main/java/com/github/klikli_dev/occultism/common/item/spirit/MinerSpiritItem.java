@@ -22,7 +22,7 @@
 
 package com.github.klikli_dev.occultism.common.item.spirit;
 
-import com.github.klikli_dev.occultism.common.tile.OtherworldMinerTileEntity;
+import com.github.klikli_dev.occultism.common.tile.DimensionalMineshaftTileEntity;
 import com.github.klikli_dev.occultism.util.ItemNBTUtil;
 import com.github.klikli_dev.occultism.util.TextUtil;
 import net.minecraft.client.util.ITooltipFlag;
@@ -64,8 +64,8 @@ public class MinerSpiritItem extends Item {
     public void onCreated(ItemStack stack, World worldIn, PlayerEntity playerIn) {
         super.onCreated(stack, worldIn, playerIn);
 
-        stack.getOrCreateTag().putInt(OtherworldMinerTileEntity.MAX_MINING_TIME_TAG, this.maxMiningTime);
-        stack.getOrCreateTag().putInt(OtherworldMinerTileEntity.ROLLS_PER_OPERATION_TAG, this.rollsPerOperation);
+        stack.getOrCreateTag().putInt(DimensionalMineshaftTileEntity.MAX_MINING_TIME_TAG, this.maxMiningTime);
+        stack.getOrCreateTag().putInt(DimensionalMineshaftTileEntity.ROLLS_PER_OPERATION_TAG, this.rollsPerOperation);
     }
     //endregion Overrides
 }

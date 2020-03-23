@@ -22,7 +22,7 @@
 
 package com.github.klikli_dev.occultism.common.tile;
 
-import com.github.klikli_dev.occultism.common.container.OtherworldMinerContainer;
+import com.github.klikli_dev.occultism.common.container.DimensionalMineshaftContainer;
 import com.github.klikli_dev.occultism.common.misc.WeightedIngredient;
 import com.github.klikli_dev.occultism.crafting.recipe.MinerRecipe;
 import com.github.klikli_dev.occultism.exceptions.ItemHandlerMissingException;
@@ -54,7 +54,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class OtherworldMinerTileEntity extends NetworkedTileEntity implements ITickableTileEntity, INamedContainerProvider {
+public class DimensionalMineshaftTileEntity extends NetworkedTileEntity implements ITickableTileEntity, INamedContainerProvider {
 
     //region Fields
     public static final String MAX_MINING_TIME_TAG = "maxMiningTime";
@@ -65,7 +65,7 @@ public class OtherworldMinerTileEntity extends NetworkedTileEntity implements IT
         //region Overrides
         @Override
         protected void onContentsChanged(int slot) {
-            OtherworldMinerTileEntity.this.markDirty();
+            DimensionalMineshaftTileEntity.this.markDirty();
         }
         //endregion Overrides
     });
@@ -73,7 +73,7 @@ public class OtherworldMinerTileEntity extends NetworkedTileEntity implements IT
         //region Overrides
         @Override
         protected void onContentsChanged(int slot) {
-            OtherworldMinerTileEntity.this.markDirty();
+            DimensionalMineshaftTileEntity.this.markDirty();
         }
         //endregion Overrides
     });
@@ -89,8 +89,8 @@ public class OtherworldMinerTileEntity extends NetworkedTileEntity implements IT
 
     //endregion Fields
     //region Initialization
-    public OtherworldMinerTileEntity() {
-        super(OccultismTiles.OTHERWORLD_MINER.get());
+    public DimensionalMineshaftTileEntity() {
+        super(OccultismTiles.DIMENSIONAL_MINESHAFT.get());
     }
     //endregion Initialization
 
@@ -196,7 +196,7 @@ public class OtherworldMinerTileEntity extends NetworkedTileEntity implements IT
     @Nullable
     @Override
     public Container createMenu(int id, PlayerInventory playerInventory, PlayerEntity player) {
-        return new OtherworldMinerContainer(id, playerInventory, this);
+        return new DimensionalMineshaftContainer(id, playerInventory, this);
     }
     //endregion Overrides
 

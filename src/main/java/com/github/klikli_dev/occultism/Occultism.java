@@ -23,7 +23,7 @@
 package com.github.klikli_dev.occultism;
 
 import com.github.klikli_dev.occultism.api.OccultismAPI;
-import com.github.klikli_dev.occultism.client.gui.OtherworldMinerScreen;
+import com.github.klikli_dev.occultism.client.gui.DimensionalMineshaftScreen;
 import com.github.klikli_dev.occultism.client.gui.spirit.SpiritGui;
 import com.github.klikli_dev.occultism.client.gui.storage.StableWormholeGui;
 import com.github.klikli_dev.occultism.client.gui.storage.StorageControllerGui;
@@ -48,10 +48,8 @@ import net.minecraft.client.renderer.entity.EndermanRenderer;
 import net.minecraft.client.renderer.entity.EndermiteRenderer;
 import net.minecraft.client.renderer.entity.SkeletonRenderer;
 import net.minecraft.client.renderer.entity.WitherSkeletonRenderer;
-import net.minecraft.entity.monster.WitherSkeletonEntity;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DeferredWorkQueue;
@@ -185,7 +183,7 @@ public class Occultism {
             ScreenManager.registerFactory(OccultismContainers.STABLE_WORMHOLE.get(), StableWormholeGui::new);
             ScreenManager.registerFactory(OccultismContainers.STORAGE_REMOTE.get(), StorageRemoteGui::new);
             ScreenManager.registerFactory(OccultismContainers.SPIRIT.get(), SpiritGui::new);
-            ScreenManager.registerFactory(OccultismContainers.OTHERWORLD_MINER.get(), OtherworldMinerScreen::new);
+            ScreenManager.registerFactory(OccultismContainers.OTHERWORLD_MINER.get(), DimensionalMineshaftScreen::new);
             LOGGER.debug("Registered Screen Containers");
         });
 

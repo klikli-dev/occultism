@@ -22,7 +22,7 @@
 
 package com.github.klikli_dev.occultism.common.container;
 
-import com.github.klikli_dev.occultism.common.tile.OtherworldMinerTileEntity;
+import com.github.klikli_dev.occultism.common.tile.DimensionalMineshaftTileEntity;
 import com.github.klikli_dev.occultism.exceptions.ItemHandlerMissingException;
 import com.github.klikli_dev.occultism.registry.OccultismContainers;
 import com.github.klikli_dev.occultism.registry.OccultismRecipes;
@@ -37,18 +37,18 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.SlotItemHandler;
 
-public class OtherworldMinerContainer extends Container {
+public class DimensionalMineshaftContainer extends Container {
 
     //region Fields
     public ItemStackHandler inputHandler;
     public ItemStackHandler outputHandler;
-    public OtherworldMinerTileEntity otherworldMiner;
+    public DimensionalMineshaftTileEntity otherworldMiner;
     public PlayerInventory playerInventory;
     //endregion Fields
 
     //region Initialization
-    public OtherworldMinerContainer(int id, PlayerInventory playerInventory,
-                                    OtherworldMinerTileEntity otherworldMiner) {
+    public DimensionalMineshaftContainer(int id, PlayerInventory playerInventory,
+                                         DimensionalMineshaftTileEntity otherworldMiner) {
         super(OccultismContainers.OTHERWORLD_MINER.get(), id);
         this.playerInventory = playerInventory;
         this.otherworldMiner = otherworldMiner;
@@ -144,7 +144,7 @@ public class OtherworldMinerContainer extends Container {
 
         //region Overrides
         public boolean isItemValid(ItemStack stack) {
-            RecipeManager recipeManager = OtherworldMinerContainer.this.otherworldMiner.getWorld().getRecipeManager();
+            RecipeManager recipeManager = DimensionalMineshaftContainer.this.otherworldMiner.getWorld().getRecipeManager();
             return RecipeUtil.isValidIngredient(recipeManager, OccultismRecipes.MINER_TYPE.get(), stack);
         }
         //endregion Overrides

@@ -44,13 +44,13 @@ import net.minecraftforge.fml.network.NetworkHooks;
 
 import javax.annotation.Nullable;
 
-public class OtherworldMinerBlock extends Block {
+public class DimensionalMineshaftBlock extends Block {
     //region Fields
     private static final VoxelShape SHAPE = VoxelShapes.create(new AxisAlignedBB(0, 0, 0, 1, 1, 1));
     //endregion Fields
 
     //region Initialization
-    public OtherworldMinerBlock(Properties properties) {
+    public DimensionalMineshaftBlock(Properties properties) {
         super(properties);
     }
     //endregion Initialization
@@ -88,7 +88,7 @@ public class OtherworldMinerBlock extends Block {
     @Nullable
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-        return OccultismTiles.OTHERWORLD_MINER.get().create();
+        return OccultismTiles.DIMENSIONAL_MINESHAFT.get().create();
     }
     //endregion Overrides
 }

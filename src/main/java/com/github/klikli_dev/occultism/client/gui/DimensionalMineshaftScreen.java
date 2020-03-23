@@ -23,25 +23,25 @@
 package com.github.klikli_dev.occultism.client.gui;
 
 import com.github.klikli_dev.occultism.Occultism;
-import com.github.klikli_dev.occultism.common.container.OtherworldMinerContainer;
-import com.github.klikli_dev.occultism.common.tile.OtherworldMinerTileEntity;
+import com.github.klikli_dev.occultism.common.container.DimensionalMineshaftContainer;
+import com.github.klikli_dev.occultism.common.tile.DimensionalMineshaftTileEntity;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 
-public class OtherworldMinerScreen extends ContainerScreen<OtherworldMinerContainer> {
+public class DimensionalMineshaftScreen extends ContainerScreen<DimensionalMineshaftContainer> {
     //region Fields
     public static final ResourceLocation TEXTURE =
             new ResourceLocation(Occultism.MODID, "textures/gui/otherworld_miner.png");
 
-    public OtherworldMinerTileEntity otherworldMiner;
+    public DimensionalMineshaftTileEntity otherworldMiner;
     //endregion Fields
 
     //region Initialization
-    public OtherworldMinerScreen(OtherworldMinerContainer screenContainer, PlayerInventory inv,
-                                 ITextComponent titleIn) {
+    public DimensionalMineshaftScreen(DimensionalMineshaftContainer screenContainer, PlayerInventory inv,
+                                      ITextComponent titleIn) {
         super(screenContainer, inv, titleIn);
         this.otherworldMiner = screenContainer.otherworldMiner;
     }
