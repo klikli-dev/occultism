@@ -84,8 +84,8 @@ public class OtherworldMinerContainer extends Container {
     }
 
     protected void setupMinerInventory() {
-        int craftingGridTop = 98;
-        int craftingGridLeft = 17;
+        int outputGridTop = 17;
+        int outputGridLeft = 98;
         int index = 0;
 
         IItemHandler outputHandler = this.otherworldMiner.outputHandler.orElseThrow(ItemHandlerMissingException::new);
@@ -94,7 +94,7 @@ public class OtherworldMinerContainer extends Container {
         for (int i = 0; i < 3; ++i) {
             for (int j = 0; j < 3; ++j) {
                 this.addSlot(
-                        new OutputSlot(outputHandler, index++, craftingGridLeft + j * 18, craftingGridTop + i * 18));
+                        new OutputSlot(outputHandler, index++, outputGridLeft + j * 18, outputGridTop + i * 18));
             }
         }
 
