@@ -173,7 +173,10 @@ public class OccultismBlocks {
 
     public static final RegistryObject<DimensionalMineshaftBlock> DIMENSIONAL_MINESHAFT =
             register("dimensional_mineshaft", () -> new DimensionalMineshaftBlock(
-                    Block.Properties.create(Material.ROCK).sound(SoundType.STONE).hardnessAndResistance(1.5f, 30)));
+                    Block.Properties.create(Material.ROCK).sound(SoundType.STONE)
+                            .hardnessAndResistance(1.5f, 30)
+                    .notSolid()
+            ));
 
     //Crops
     public static final RegistryObject<ReplantableCropsBlock> DATURA = register("datura",

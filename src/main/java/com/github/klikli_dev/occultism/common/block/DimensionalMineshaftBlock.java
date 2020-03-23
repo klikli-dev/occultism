@@ -46,7 +46,7 @@ import javax.annotation.Nullable;
 
 public class DimensionalMineshaftBlock extends Block {
     //region Fields
-    private static final VoxelShape SHAPE = VoxelShapes.create(new AxisAlignedBB(0, 0, 0, 1, 1, 1));
+    private static final VoxelShape SHAPE = Block.makeCuboidShape(0, 0,0, 16, 4, 16);
     //endregion Fields
 
     //region Initialization
