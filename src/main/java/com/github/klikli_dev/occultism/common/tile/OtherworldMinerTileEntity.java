@@ -199,7 +199,8 @@ public class OtherworldMinerTileEntity extends NetworkedTileEntity implements IT
 
         for (int i = 0; i < this.rollsPerOperation; i++) {
             WeightedIngredient result = WeightedRandom.getRandomItem(this.world.rand, this.possibleResults);
-            ItemHandlerHelper.insertItemStacked(outputHandler, result.getStack(), false);
+            //Important: copy the result, don't use it raw!
+            ItemHandlerHelper.insertItemStacked(outputHandler, result.getStack().copy(), false);
             //If there is no space, we simply continue. The otherworld miner spirit keeps working,
             // but the miner tile entity simply discards the results
         }
