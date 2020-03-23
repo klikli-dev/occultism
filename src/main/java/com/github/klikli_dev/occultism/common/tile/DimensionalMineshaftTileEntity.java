@@ -193,7 +193,7 @@ public class DimensionalMineshaftTileEntity extends NetworkedTileEntity implemen
             }
         }
         else {
-            if (this.miningTime > 0 && world.getGameTime() % 10 == 0) {
+            if (this.miningTime > 0 && this.world.getGameTime() % 10 == 0) {
                 this.world.addParticle(ParticleTypes.PORTAL, this.pos.getX() + 0.5f,
                         this.pos.getY() + 0.5, this.pos.getZ() + 0.5f, 0.0D, 0.0D, 0.0D);
             }
@@ -241,7 +241,7 @@ public class DimensionalMineshaftTileEntity extends NetworkedTileEntity implemen
 
         //damage and eventually consume item.
         ItemStack input = inputHandler.getStackInSlot(0);
-        if (input.attemptDamageItem(1, world.rand, null)) {
+        if (input.attemptDamageItem(1, this.world.rand, null)) {
             input.shrink(1);
             input.setDamage(0);
         }
