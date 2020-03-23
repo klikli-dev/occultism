@@ -34,11 +34,14 @@ import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.RecipeManager;
 import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.SlotItemHandler;
 
 public class OtherworldMinerContainer extends Container {
 
     //region Fields
+    public ItemStackHandler inputHandler;
+    public ItemStackHandler outputHandler;
     public OtherworldMinerTileEntity otherworldMiner;
     public PlayerInventory playerInventory;
     //endregion Fields
@@ -49,6 +52,8 @@ public class OtherworldMinerContainer extends Container {
         super(OccultismContainers.OTHERWORLD_MINER.get(), id);
         this.playerInventory = playerInventory;
         this.otherworldMiner = otherworldMiner;
+        this.inputHandler = otherworldMiner.inputHandler.orElseThrow(ItemHandlerMissingException::new);
+        this.outputHandler = otherworldMiner.outputHandler.orElseThrow(ItemHandlerMissingException::new);
 
         this.setupPlayerInventorySlots(playerInventory.player);
         this.setupPlayerHotbar(playerInventory.player);
@@ -62,6 +67,33 @@ public class OtherworldMinerContainer extends Container {
         return player.getDistanceSq(this.otherworldMiner.getPos().getX() + 0.5D,
                 this.otherworldMiner.getPos().getY() + 0.5D,
                 this.otherworldMiner.getPos().getZ() + 0.5D) <= 64.0D;
+    }
+
+    @Override
+    public ItemStack transferStackInSlot(PlayerEntity playerIn, int index) {
+        ItemStack itemstack = ItemStack.EMPTY;
+        Slot slot = this.inventorySlots.get(index);
+        if (slot != null && slot.getHasStack()) {
+            ItemStack itemstack1 = slot.getStack();
+            itemstack = itemstack1.copy();
+            if (index < this.outputHandler.getSlots()) {
+                if (!this.mergeItemStack(itemstack1, this.outputHandler.getSlots(), this.inventorySlots.size(), true)) {
+                    return ItemStack.EMPTY;
+                }
+            }
+            else if (!this.mergeItemStack(itemstack1, 0, this.outputHandler.getSlots(), false)) {
+                return ItemStack.EMPTY;
+            }
+
+            if (itemstack1.isEmpty()) {
+                slot.putStack(ItemStack.EMPTY);
+            }
+            else {
+                slot.onSlotChanged();
+            }
+        }
+
+        return itemstack;
     }
     //endregion Overrides
 
