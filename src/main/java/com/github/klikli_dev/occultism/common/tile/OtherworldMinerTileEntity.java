@@ -123,15 +123,6 @@ public class OtherworldMinerTileEntity extends NetworkedTileEntity implements IT
     }
 
     @Override
-    public void readNetwork(CompoundNBT compound) {
-    }
-
-    @Override
-    public CompoundNBT writeNetwork(CompoundNBT compound) {
-        return compound;
-    }
-
-    @Override
     public void remove() {
         this.inputHandler.invalidate();
         this.outputHandler.invalidate();
