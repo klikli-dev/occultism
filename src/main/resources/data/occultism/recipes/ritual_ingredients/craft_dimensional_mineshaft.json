@@ -1,0 +1,33 @@
+{
+  "type": "occultism:spirit_trade",
+  "ingredients": [
+    {
+      "item": "occultism:otherstone"
+    },
+    {
+      "item": "occultism:otherstone"
+    },
+    {
+      "item": "occultism:otherstone"
+    },
+    {
+      "item": "occultism:otherstone"
+    },
+    {
+      "tag": "forge:ingots/gold"
+    },
+    {
+      "tag": "forge:storage_blocks/iesnium"
+    },
+    {
+      "tag": "forge:storage_blocks/iesnium"
+    },
+    {
+      "item": "occultism:spirit_attuned_crystal"
+    }
+  ],
+  "result": {
+    "_comment": "Unused",
+    "item": "occultism:pentacle"
+  }
+}

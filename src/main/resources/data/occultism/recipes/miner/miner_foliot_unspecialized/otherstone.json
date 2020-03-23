@@ -1,0 +1,10 @@
+{
+  "type": "occultism:miner",
+  "ingredient": {
+    "item": "occultism:miner_foliot_unspecialized"
+  },
+  "result":{
+    "item": "occultism:otherstone"
+  },
+  "weight": 1000
+}

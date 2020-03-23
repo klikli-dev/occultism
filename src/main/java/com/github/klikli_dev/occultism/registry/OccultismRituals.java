@@ -113,6 +113,9 @@ public class OccultismRituals {
             RITUALS.register("craft_infused_lenses", CraftInfusedLensesRitual::new);
     public static final RegistryObject<CraftInfusedPickaxe> CRAFT_INFUSED_PICKAXE_RITUAL =
             RITUALS.register("craft_infused_pickaxe", CraftInfusedPickaxe::new);
+
+    public static final RegistryObject<CraftDimensionalMineshaftRitual> CRAFT_DIMENSIONAL_MINESHAFT =
+            RITUALS.register("craft_dimensional_mineshaft", CraftDimensionalMineshaftRitual::new);
     //Possession
     public static final RegistryObject<PossessEndermiteRitual> POSSESS_ENDERMITE_RITUAL =
             RITUALS.register("possess_endermite", PossessEndermiteRitual::new);

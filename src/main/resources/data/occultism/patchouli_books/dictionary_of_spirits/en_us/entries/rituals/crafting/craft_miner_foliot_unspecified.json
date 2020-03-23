@@ -1,0 +1,19 @@
+{
+  "name": "Miner Spirit",
+  "icon": "occultism:miner_foliot_unspecified",
+  "category": "rituals/crafting",
+  "sortnum": 27,
+  "pages": [
+    {
+      "type": "text",
+      "text": "Miner spirits use $(thing)Dimensional Mineshafts$() to acquire resources from other dimensions. They are summoned and bound into magic lamps, which they can leave only through the mineshaft. The magic lamp degrades over time, once it breaks the spirit is released back to $(thing)The Other Place$()."
+    },
+    {
+      "type": "summoning",
+      "heading": "Foliot Miner",
+      "pentacle": "$(l:pentacles/craft_foliot)Eziveus' Spectral Compulsion$(/l)",
+      "activation_item": "occultism:book_of_binding_bound_foliot",
+      "ingredients": "$(li)1x $(item)Magic Lamp $()$(li)1x $(item)Iesnium Pickaxe $()$(li)1x $(item)Iron Ore $() $(li)1x $(item)Gravel $()"
+    }
+  ]
+}

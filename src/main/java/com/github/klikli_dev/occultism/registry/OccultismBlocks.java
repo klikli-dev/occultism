@@ -34,7 +34,6 @@ import com.github.klikli_dev.occultism.common.world.tree.OtherworldNaturalTree;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
-import net.minecraft.block.trees.OakTree;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
@@ -171,6 +170,13 @@ public class OccultismBlocks {
             () -> new StableWormholeBlock(
                     Block.Properties.create(Material.ROCK).sound(SoundType.STONE).doesNotBlockMovement()
                             .hardnessAndResistance(2f, 2).notSolid()), false, LootTableType.EMPTY);
+
+    public static final RegistryObject<DimensionalMineshaftBlock> DIMENSIONAL_MINESHAFT =
+            register("dimensional_mineshaft", () -> new DimensionalMineshaftBlock(
+                    Block.Properties.create(Material.ROCK).sound(SoundType.STONE)
+                            .hardnessAndResistance(1.5f, 30)
+                    .notSolid()
+            ));
 
     //Crops
     public static final RegistryObject<ReplantableCropsBlock> DATURA = register("datura",

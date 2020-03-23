@@ -24,9 +24,10 @@ package com.github.klikli_dev.occultism.integration.jei;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.container.storage.StorageControllerContainer;
+import com.github.klikli_dev.occultism.crafting.recipe.ItemStackFakeInventory;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
-import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.registry.OccultismRecipes;
+import com.github.klikli_dev.occultism.util.RecipeUtil;
 import com.google.common.base.Strings;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
@@ -40,9 +41,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.RecipeManager;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.items.wrapper.RecipeWrapper;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Collection;
 
 @mezz.jei.api.JeiPlugin
 public class JeiPlugin implements IModPlugin {
@@ -96,6 +97,7 @@ public class JeiPlugin implements IModPlugin {
     public void registerCategories(IRecipeCategoryRegistration registration) {
         registration.addRecipeCategories(new SpiritFireRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new CrushingRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
+        registration.addRecipeCategories(new MinerRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
     }
 
     @Override
@@ -103,18 +105,17 @@ public class JeiPlugin implements IModPlugin {
         ClientWorld world = Minecraft.getInstance().world;
         RecipeManager recipeManager = world.getRecipeManager();
 
-        List<IRecipe<?>> spiritFireRecipes = recipeManager.getRecipes().stream()
-                                                     .filter(r -> r.getType() ==
-                                                                  OccultismRecipes.SPIRIT_FIRE_TYPE.get())
-                                                     .collect(Collectors.toList());
+        Collection<IRecipe<ItemStackFakeInventory>> spiritFireRecipes =
+                RecipeUtil.getRecipes(recipeManager, OccultismRecipes.SPIRIT_FIRE_TYPE.get()).values();
         registration.addRecipes(spiritFireRecipes, OccultismRecipes.SPIRIT_FIRE.getId());
 
-        List<IRecipe<?>> crushingRecipes = recipeManager.getRecipes().stream()
-                                                   .filter(r -> r.getType() ==
-                                                                OccultismRecipes.CRUSHING_TYPE.get())
-                                                   .collect(Collectors.toList());
-
+        Collection<IRecipe<ItemStackFakeInventory>> crushingRecipes =
+                RecipeUtil.getRecipes(recipeManager, OccultismRecipes.CRUSHING_TYPE.get()).values();
         registration.addRecipes(crushingRecipes, OccultismRecipes.CRUSHING.getId());
+
+        Collection<IRecipe<RecipeWrapper>> minerRecipes =
+                RecipeUtil.getRecipes(recipeManager, OccultismRecipes.MINER_TYPE.get()).values();
+        registration.addRecipes(minerRecipes, OccultismRecipes.MINER.getId());
     }
 
     @Override
@@ -127,6 +128,8 @@ public class JeiPlugin implements IModPlugin {
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
         registration.addRecipeCatalyst(new ItemStack(OccultismBlocks.SPIRIT_FIRE.get()),
                 OccultismRecipes.SPIRIT_FIRE.getId());
+        registration.addRecipeCatalyst(new ItemStack(OccultismBlocks.DIMENSIONAL_MINESHAFT.get()),
+                OccultismRecipes.MINER.getId());
     }
 
     @Override

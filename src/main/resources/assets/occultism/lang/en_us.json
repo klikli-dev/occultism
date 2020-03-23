@@ -68,6 +68,7 @@
     "item.occultism.spirit_attuned_pickaxe_head": "Spirit Attuned Pickaxe Head",
     "item.occultism.iesnium_pickaxe": "Iesnium Pickaxe",
     "item.occultism.magic_lamp_empty": "Empty Magic Lamp",
+    "item.occultism.miner_foliot_unspecialized": "Otherworld Miner Foliot",
     "_comment": "# Spawn eggs",
     "item.occultism.spawn_egg.foliot": "Foliot Spawn Egg",
     "item.occultism.spawn_egg.djinni": "Djinni Spawn Egg",
@@ -112,6 +113,7 @@
     "item.occultism.divination_rod.tooltip.linked_block": "Attuned to %s.",
     "item.occultism.dimensional_matrix.tooltip": "%s is bound to this dimensional matrix.",
     "item.occultism.infused_pickaxe.tooltip": "%s is bound to this pickaxe.",
+    "item.occultism.miner_foliot_unspecialized.tooltip": "%s will mine random blocks in the mining dimension.",
     "_comment": "Blocks",
     "block.occultism.otherstone": "Otherstone",
     "block.occultism.otherstone_slab": "Otherstone Slab",
@@ -139,6 +141,7 @@
     "block.occultism.copper_block": "Copper Block",
     "block.occultism.silver_block": "Silver Block",
     "block.occultism.iesnium_block": "Iesnium Block",
+    "block.occultism.dimensional_mineshaft": "Dimensional Mineshaft",
     "_comment": "Entities",
     "entity.occultism.foliot": "Foliot",
     "entity.occultism.djinni": "Djinni",
@@ -308,5 +311,7 @@
     "occultism.subtitle.poof": "Poof!",
     "_comment": "JEI",
     "occultism.jei.spirit_fire": "Spiritfire",
-    "occultism.jei.crushing": "Crusher Spirit"
+    "occultism.jei.crushing": "Crusher Spirit",
+    "occultism.jei.miner": "Dimensional Mineshaft",
+    "occultism.jei.miner.chance": "Chance: %d%%"
 }

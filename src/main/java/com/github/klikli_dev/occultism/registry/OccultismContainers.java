@@ -23,11 +23,13 @@
 package com.github.klikli_dev.occultism.registry;
 
 import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.common.container.DimensionalMineshaftContainer;
 import com.github.klikli_dev.occultism.common.container.spirit.SpiritContainer;
 import com.github.klikli_dev.occultism.common.container.storage.StableWormholeContainer;
 import com.github.klikli_dev.occultism.common.container.storage.StorageControllerContainer;
 import com.github.klikli_dev.occultism.common.container.storage.StorageRemoteContainer;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
+import com.github.klikli_dev.occultism.common.tile.DimensionalMineshaftTileEntity;
 import com.github.klikli_dev.occultism.common.tile.StableWormholeTileEntity;
 import com.github.klikli_dev.occultism.common.tile.StorageControllerTileEntity;
 import net.minecraft.inventory.container.ContainerType;
@@ -65,5 +67,11 @@ public class OccultismContainers {
                                   .create((windowId, inv, data) ->{
                                       return new SpiritContainer(windowId, inv, (SpiritEntity) inv.player.world.getEntityByID(data.readInt()));
                                   } ));
+
+    public static final RegistryObject<ContainerType<DimensionalMineshaftContainer>> OTHERWORLD_MINER =
+            CONTAINERS.register("otherworld_miner",
+                    () -> IForgeContainerType
+                                  .create((windowId, inv, data) -> new DimensionalMineshaftContainer(windowId, inv,
+                                          (DimensionalMineshaftTileEntity) inv.player.world.getTileEntity(data.readBlockPos()))));
     //endregion Fields
 }

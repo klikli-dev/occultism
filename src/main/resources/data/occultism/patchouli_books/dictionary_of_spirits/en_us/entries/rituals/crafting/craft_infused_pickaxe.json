@@ -14,7 +14,7 @@
       "heading": "Infusion",
       "pentacle": "$(l:pentacles/craft_djinni)Strigeor's Higher Binding$(/l)",
       "activation_item": "occultism:book_of_binding_bound_djinni",
-      "ingredients": "$(li)1x $(item)Spirit Attuned Pickaxe Head $(li)2x $(item)Silver Ingot $()$(li)2x $(item)Stick $()"
+      "ingredients": "$(li)1x $(item)Spirit Attuned Pickaxe Head $()$(li)2x $(item)Silver Ingot $()$(li)2x $(item)Stick $()"
     }
   ]
 }
