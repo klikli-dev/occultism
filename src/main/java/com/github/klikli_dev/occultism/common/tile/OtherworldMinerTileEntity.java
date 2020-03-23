@@ -62,16 +62,20 @@ public class OtherworldMinerTileEntity extends NetworkedTileEntity implements IT
     public static int DEFAULT_ROLLS_PER_OPERATION = 1;
     public static String ROLLS_PER_OPERATION_TAG = "rollsPerOperation";
     public LazyOptional<ItemStackHandler> inputHandler = LazyOptional.of(() -> new ItemStackHandler(1) {
+        //region Overrides
         @Override
         protected void onContentsChanged(int slot) {
             OtherworldMinerTileEntity.this.markDirty();
         }
+        //endregion Overrides
     });
-    public LazyOptional<ItemStackHandler> outputHandler = LazyOptional.of(() -> new ItemStackHandler(9){
+    public LazyOptional<ItemStackHandler> outputHandler = LazyOptional.of(() -> new ItemStackHandler(9) {
+        //region Overrides
         @Override
         protected void onContentsChanged(int slot) {
             OtherworldMinerTileEntity.this.markDirty();
         }
+        //endregion Overrides
     });
     public LazyOptional<CombinedInvWrapper> combinedHandler =
             LazyOptional
@@ -135,7 +139,6 @@ public class OtherworldMinerTileEntity extends NetworkedTileEntity implements IT
         this.maxMiningTime = compound.getInt("maxMiningTime");
     }
 
-
     @Override
     public CompoundNBT writeNetwork(CompoundNBT compound) {
         compound.putInt("miningTime", this.miningTime);
@@ -152,8 +155,7 @@ public class OtherworldMinerTileEntity extends NetworkedTileEntity implements IT
 
     @Override
     public void tick() {
-
-        if(!this.world.isRemote){
+        if (!this.world.isRemote) {
             IItemHandler inputHandler = this.inputHandler.orElseThrow(ItemHandlerMissingException::new);
             ItemStack input = inputHandler.getStackInSlot(0);
 
@@ -173,7 +175,7 @@ public class OtherworldMinerTileEntity extends NetworkedTileEntity implements IT
                     //if the item was used up or switched, we also delete our result cache
                     this.possibleResults = null;
                 }
-                if(this.miningTime % 10 == 0)
+                if (this.miningTime % 10 == 0)
                     dirty = true;
             }
             else if (!input.isEmpty()) {
