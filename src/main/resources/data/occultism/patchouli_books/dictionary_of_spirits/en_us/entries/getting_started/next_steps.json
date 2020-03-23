@@ -39,6 +39,11 @@
       "text": "The final step for ultimate comfort is to summon machine operator Djinni to manage furnaces and other machines for you. Their book of calling allows to set their managed machine and home storage system, then you can give orders using the storage system GUI."
     },
     {
+      "type": "text",
+      "title": "Automated Mining",
+      "text": "The $(l:rituals/crafting/craft_dimensional_mineshaft)$(thing)Dimensional Mineshaft$()(/l)$() allows automated mining in a void dimension. The type of spirit and it's concrete instructions determine the mining speed, amount and resulting items. In theory at least, it is possible to obtain any block or item that exists in the real world from the mining dimension."
+    },
+    {
       "type": "empty",
       "draw_filler": false
     }
