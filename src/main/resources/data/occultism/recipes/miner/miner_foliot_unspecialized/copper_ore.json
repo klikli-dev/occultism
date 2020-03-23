@@ -4,7 +4,7 @@
     "item": "occultism:miner_foliot_unspecialized"
   },
   "result":{
-    "item": "minecraft:andesite"
+    "tag": "forge:ores/copper"
   },
-  "weight": 1000
+  "weight": 584
 }
