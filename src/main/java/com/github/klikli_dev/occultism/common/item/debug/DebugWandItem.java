@@ -57,7 +57,7 @@ public class DebugWandItem extends Item {
     @Override
     public ActionResultType onItemUse(ItemUseContext context) {
 
-        if (context.getWorld().isRemote) {
+        if (!context.getWorld().isRemote) {
             PlayerEntity player = context.getPlayer();
 
             ItemStack spirit = new ItemStack(OccultismItems.MINER_SPIRIT_TIER1.get());
