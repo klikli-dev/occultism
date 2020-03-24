@@ -6,5 +6,11 @@
   "result":{
     "item": "rftools:dimensional_shard_ore"
   },
-  "weight": 127
+  "weight": 127,
+  "conditions": [
+    {
+      "type": "forge:item_exists",
+      "item": "rftools:dimensional_shard_ore"
+    }
+  ]
 }

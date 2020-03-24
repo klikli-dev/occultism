@@ -6,5 +6,14 @@
   "result":{
     "tag": "forge:ores/osmium"
   },
-  "weight": 203
+  "weight": 203,
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:ores/osmium"
+      }
+    }
+  ]
 }
