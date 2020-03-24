@@ -55,9 +55,9 @@ public class DimensionalMineshaftContainer extends Container {
         this.inputHandler = otherworldMiner.inputHandler.orElseThrow(ItemHandlerMissingException::new);
         this.outputHandler = otherworldMiner.outputHandler.orElseThrow(ItemHandlerMissingException::new);
 
+        this.setupMinerInventory();
         this.setupPlayerInventorySlots(playerInventory.player);
         this.setupPlayerHotbar(playerInventory.player);
-        this.setupMinerInventory();
     }
     //endregion Initialization
 
@@ -77,24 +77,32 @@ public class DimensionalMineshaftContainer extends Container {
             ItemStack itemstack1 = slot.getStack();
             itemstack = itemstack1.copy();
             if (index < this.outputHandler.getSlots()) {
-                if (!this.mergeItemStack(itemstack1, this.outputHandler.getSlots(), this.inventorySlots.size(), true)) {
+                //+1 because we have the input handler slot after the output hander slots
+                if (!this.mergeItemStack(itemstack1, this.outputHandler.getSlots() + 1, this.inventorySlots.size(), true)) {
                     return ItemStack.EMPTY;
                 }
             }
-            else if (!this.mergeItemStack(itemstack1, 0, this.outputHandler.getSlots(), false)) {
+            //input handler slot is exactly at last output handler slot + 1
+            else if(index == this.outputHandler.getSlots()){
+                if (!this.mergeItemStack(itemstack1, this.outputHandler.getSlots() + 1, this.inventorySlots.size(), true)) {
+                    return ItemStack.EMPTY;
+                }
+            }
+            //+1 because we are actually only interested in inserting in the input handler. Could even start at the end index instead of 0.
+            else if (!this.mergeItemStack(itemstack1,0, this.outputHandler.getSlots() + 1, false)) {
                 return ItemStack.EMPTY;
             }
 
             if (itemstack1.isEmpty()) {
                 slot.putStack(ItemStack.EMPTY);
-            }
-            else {
+            } else {
                 slot.onSlotChanged();
             }
         }
 
         return itemstack;
     }
+
     //endregion Overrides
 
     //region Methods
