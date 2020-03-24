@@ -124,7 +124,14 @@ public class MinerRecipe implements IRecipe<RecipeWrapper> {
                 if (e.getMessage().contains("Unknown item tag")) {
                     //fail silently (minus the null-warning that forge will log) because it's fine.
                     Occultism.LOGGER
-                            .debug("Unknown tag in MinerRecipe. This is expected to happen, but in some cases may indicate a typo in the tag, so it's being logged. Original message: {}",
+                            .debug("Unknown tag in MinerRecipe. This is expected to happen because we add a lot of common ones, but in some cases may indicate a typo in the tag, so it's being logged. Original message: {}",
+                                    e.getMessage());
+                    return null;
+                }
+                //Special handling for unknown items, because we add a whole bunch by default.
+                else if(e.getMessage().contains("Unknown item")){
+                    Occultism.LOGGER
+                            .debug("Unknown item in MinerRecipe. This is expected to happen because we add a lot of common ones, but in some cases may indicate a typo in the tag, so it's being logged. Original message: {}",
                                     e.getMessage());
                     return null;
                 }
