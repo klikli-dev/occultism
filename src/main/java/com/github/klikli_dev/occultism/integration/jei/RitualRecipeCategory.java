@@ -23,7 +23,6 @@
 package com.github.klikli_dev.occultism.integration.jei;
 
 import com.github.klikli_dev.occultism.Occultism;
-import com.github.klikli_dev.occultism.crafting.recipe.CrushingRecipe;
 import com.github.klikli_dev.occultism.crafting.recipe.RitualFakeRecipe;
 import com.github.klikli_dev.occultism.registry.OccultismRecipes;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -51,7 +50,7 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualFakeRecipe> {
         this.background = guiHelper.createBlankDrawable(168, 46); //64
         this.localizedName = I18n.format(Occultism.MODID + ".jei.ritual");
         this.overlay = guiHelper.createDrawable(
-                new ResourceLocation(Occultism.MODID, "textures/gui/jei/pentacle.png"), 0, 0, 64, 46);
+                new ResourceLocation(Occultism.MODID, "textures/gui/jei/arrow.png"), 0, 0, 64, 46);
     }
     //endregion Initialization
 
@@ -103,12 +102,12 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualFakeRecipe> {
         RenderSystem.enableBlend();
         this.overlay.draw(76, 14); //(center=84) - (width/16=8) = 76
         this.drawStringCentered(Minecraft.getInstance().fontRenderer, this.getTitle(), 84, 0);
-        //TODO: Print hint
-
     }
+    //endregion Overrides
 
+    //region Methods
     protected void drawStringCentered(FontRenderer fontRenderer, String text, int x, int y) {
         fontRenderer.drawString(text, (x - fontRenderer.getStringWidth(text) / 2.0f), y, 0);
     }
-    //endregion Overrides
+    //endregion Methods
 }
