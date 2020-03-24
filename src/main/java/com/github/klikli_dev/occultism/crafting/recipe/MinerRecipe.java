@@ -116,28 +116,7 @@ public class MinerRecipe implements IRecipe<RecipeWrapper> {
                     "ingredient") : JSONUtils.getJsonObject(json, "ingredient");
             Ingredient ingredient = Ingredient.deserialize(ingredientElement);
             JsonElement resultElement = JSONUtils.getJsonObject(json, "result");
-            Ingredient result;
-            try {
-                result = Ingredient.deserialize(resultElement);
-            } catch (JsonSyntaxException e) {
-                //Special handling for unknown tags, because we add a whole bunch by default.
-                if (e.getMessage().contains("Unknown item tag")) {
-                    //fail silently (minus the null-warning that forge will log) because it's fine.
-                    Occultism.LOGGER
-                            .debug("Unknown tag in MinerRecipe. This is expected to happen because we add a lot of common ones, but in some cases may indicate a typo in the tag, so it's being logged. Original message: {}",
-                                    e.getMessage());
-                    return null;
-                }
-                //Special handling for unknown items, because we add a whole bunch by default.
-                else if(e.getMessage().contains("Unknown item")){
-                    Occultism.LOGGER
-                            .debug("Unknown item in MinerRecipe. This is expected to happen because we add a lot of common ones, but in some cases may indicate a typo in the tag, so it's being logged. Original message: {}",
-                                    e.getMessage());
-                    return null;
-                }
-                //if the error is not related to the tag, throw.
-                throw e;
-            }
+            Ingredient result = Ingredient.deserialize(resultElement);
             int weight = JSONUtils.getInt(json, "weight");
 
             return new MinerRecipe(recipeId, ingredient, new WeightedIngredient(result, weight));
