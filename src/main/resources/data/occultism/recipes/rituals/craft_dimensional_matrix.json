@@ -1,0 +1,9 @@
+{
+  "type": "occultism:ritual",
+  "ingredient": {
+    "item": "occultism:book_of_binding_bound_djinni"
+  },
+  "result":{
+    "item": "occultism:dimensional_matrix"
+  }
+}

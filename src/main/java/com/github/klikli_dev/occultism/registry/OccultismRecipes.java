@@ -23,11 +23,7 @@
 package com.github.klikli_dev.occultism.registry;
 
 import com.github.klikli_dev.occultism.Occultism;
-import com.github.klikli_dev.occultism.crafting.recipe.CrushingRecipe;
-import com.github.klikli_dev.occultism.crafting.recipe.CustomShapelessRecipe;
-import com.github.klikli_dev.occultism.crafting.recipe.SpiritTradeRecipe;
-import com.github.klikli_dev.occultism.crafting.recipe.SpiritFireRecipe;
-import com.github.klikli_dev.occultism.crafting.recipe.MinerRecipe;
+import com.github.klikli_dev.occultism.crafting.recipe.*;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraftforge.common.util.NonNullLazy;
@@ -48,6 +44,8 @@ public class OccultismRecipes {
             NonNullLazy.of(() -> IRecipeType.register("occultism:crushing"));
     public static final NonNullLazy<IRecipeType<MinerRecipe>> MINER_TYPE =
             NonNullLazy.of(() -> IRecipeType.register("occultism:miner"));
+    public static final NonNullLazy<IRecipeType<RitualFakeRecipe>> RITUAL_TYPE =
+            NonNullLazy.of(() -> IRecipeType.register("occultism:ritual"));
     public static final NonNullLazy<IRecipeType<?>> CUSTOM_SHAPELESS_TYPE =
             NonNullLazy.of(() -> IRecipeType.CRAFTING);
 
@@ -59,6 +57,8 @@ public class OccultismRecipes {
             () -> CrushingRecipe.SERIALIZER);
     public static final RegistryObject<IRecipeSerializer<MinerRecipe>> MINER = RECIPES.register("miner",
             () -> MinerRecipe.SERIALIZER);
+    public static final RegistryObject<IRecipeSerializer<RitualFakeRecipe>> RITUAL = RECIPES.register("ritual",
+            () -> RitualFakeRecipe.SERIALIZER);
     public static final RegistryObject<IRecipeSerializer<CustomShapelessRecipe>> CUSTOM_SHAPELESS = RECIPES.register("custom_shapeless",
             () -> CustomShapelessRecipe.SERIALIZER);
 
