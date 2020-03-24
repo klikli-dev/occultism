@@ -36,10 +36,10 @@ import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.items.ItemHandlerHelper;
 
-public class CraftMinerFoliotUnspecifiedRitual extends Ritual {
+public class CraftMinerFoliotUnspecialized extends Ritual {
 
     //region Initialization
-    public CraftMinerFoliotUnspecifiedRitual() {
+    public CraftMinerFoliotUnspecialized() {
         super(OccultismRituals.CRAFT_FOLIOT_PENTACLE.get(),
                 Ingredient.fromItems(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()),
                 "craft_miner_foliot_unspecified", 60);
