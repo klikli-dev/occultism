@@ -104,7 +104,7 @@ public class WorldGenHandler {
 
         if (settings.oreChance.get() > 0) {
             OreFeatureConfig.FillerBlockType fillerBlockType =
-                    OreFeatureConfig.FillerBlockType.func_214736_a(settings.fillerBlockType.get());
+                    OreFeatureConfig.FillerBlockType.byName(settings.fillerBlockType.get());
             biome.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES,
                     OccultismBiomeFeatures.DIMENSION_ORE_FEATURE.get()
                             .withConfiguration(new DimensionOreFeatureConfig(dimensionWhitelist,

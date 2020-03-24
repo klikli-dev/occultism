@@ -23,6 +23,7 @@
 package com.github.klikli_dev.occultism.common.ritual;
 
 import com.github.klikli_dev.occultism.common.tile.GoldenSacrificialBowlTileEntity;
+import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.github.klikli_dev.occultism.registry.OccultismRituals;
 import com.github.klikli_dev.occultism.util.ItemNBTUtil;
@@ -35,13 +36,13 @@ import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.items.ItemHandlerHelper;
 
-public class CraftInfusedPickaxe extends Ritual {
+public class CraftMinerFoliotUnspecialized extends Ritual {
 
     //region Initialization
-    public CraftInfusedPickaxe() {
-        super(OccultismRituals.CRAFT_DJINNI_PENTACLE.get(),
-                Ingredient.fromItems(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()), "craft_infused_pickaxe",
-                60);
+    public CraftMinerFoliotUnspecialized() {
+        super(OccultismRituals.CRAFT_FOLIOT_PENTACLE.get(),
+                Ingredient.fromItems(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()),
+                "craft_miner_foliot_unspecified", 60);
     }
     //endregion Initialization
 
@@ -51,15 +52,20 @@ public class CraftInfusedPickaxe extends Ritual {
     public void finish(World world, BlockPos goldenBowlPosition, GoldenSacrificialBowlTileEntity tileEntity,
                        PlayerEntity castingPlayer, ItemStack activationItem) {
         super.finish(world, goldenBowlPosition, tileEntity, castingPlayer, activationItem);
-
         ItemStack copy = activationItem.copy();
         activationItem.shrink(1); //remove activation item.
 
         ((ServerWorld) world).spawnParticle(ParticleTypes.LARGE_SMOKE, goldenBowlPosition.getX() + 0.5,
                 goldenBowlPosition.getY() + 0.5, goldenBowlPosition.getZ() + 0.5, 1, 0, 0, 0, 0);
 
-        ItemStack result = new ItemStack(OccultismItems.INFUSED_PICKAXE.get());
+        ItemStack result = new ItemStack(OccultismItems.MINER_FOLIOT_UNSPECIALIZED.get());
+
+        //sets up nbt configuration for miner
+        result.getItem().onCreated(result, world, castingPlayer);
+
+        //copy over spirit name
         ItemNBTUtil.setBoundSpiritName(result, ItemNBTUtil.getBoundSpiritName(copy));
+
         ItemHandlerHelper.giveItemToPlayer(castingPlayer, result);
     }
     //endregion Overrides

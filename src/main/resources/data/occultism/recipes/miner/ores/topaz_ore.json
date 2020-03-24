@@ -1,10 +1,10 @@
 {
   "type": "occultism:miner",
   "ingredient": {
-    "item": "occultism:miner_foliot_unspecialized"
+    "tag": "occultism:miners/ores"
   },
   "result":{
-    "item": "minecraft:andesite"
+    "tag": "forge:ores/topaz"
   },
   "weight": 200
 }

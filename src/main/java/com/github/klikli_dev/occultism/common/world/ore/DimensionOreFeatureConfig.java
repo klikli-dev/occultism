@@ -50,7 +50,7 @@ public class DimensionOreFeatureConfig extends OreFeatureConfig {
         return new Dynamic<T>(ops,
                 ops.createMap(ImmutableMap.of(ops.createString("size"),
                         ops.createInt(this.size), ops.createString("target"),
-                        ops.createString(this.target.func_214737_a()),
+                        ops.createString(this.target.getName()),
                         ops.createString("state"),
                         BlockState.serialize(ops, this.state).getValue(),
                         ops.createString("allowedDimensionTypes"),
@@ -63,7 +63,7 @@ public class DimensionOreFeatureConfig extends OreFeatureConfig {
     public static DimensionOreFeatureConfig deserialize(Dynamic<?> in) {
         int size = in.get("size").asInt(0);
         OreFeatureConfig.FillerBlockType filler =
-                OreFeatureConfig.FillerBlockType.func_214736_a(in.get("target").asString(""));
+                OreFeatureConfig.FillerBlockType.byName(in.get("target").asString(""));
         BlockState blockstate = in.get("state").map(BlockState::deserialize).orElse(Blocks.AIR.getDefaultState());
         List<DimensionType> allowedDimensionTypes = in.get("allowedDimensionTypes").asList(DimensionType::deserialize);
         return new DimensionOreFeatureConfig(allowedDimensionTypes, filler, blockstate, size);

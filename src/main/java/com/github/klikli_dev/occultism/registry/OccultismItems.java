@@ -224,9 +224,12 @@ public class OccultismItems {
             () -> new Item(defaultProperties().food(OccultismFoods.DATURA.get())));
 
     //Miner Spirits
+    public static final RegistryObject<MinerSpiritItem> MINER_DEBUG_UNSPECIALIZED = ITEMS.register("miner_debug_unspecialized",
+            () -> new MinerSpiritItem(defaultProperties().maxDamage(10000), 100, 10));
     public static final RegistryObject<MinerSpiritItem> MINER_FOLIOT_UNSPECIALIZED = ITEMS.register("miner_foliot_unspecialized",
             () -> new MinerSpiritItem(defaultProperties().maxDamage(1000), 400, 1));
-
+    public static final RegistryObject<MinerSpiritItem> MINER_DJINNI_ORES = ITEMS.register("miner_djinni_ores",
+            () -> new MinerSpiritItem(defaultProperties().maxDamage(100), 400, 1));
     //endregion Fields
 
     //region Static Methods

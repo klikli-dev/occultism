@@ -123,11 +123,11 @@ public class ExtractItemsGoal extends PausableGoal {
                     this.entity.getNavigator().setPath(this.entity.getNavigator().getPathToPos(moveTarget, 0), 1.0f);
                 }
 
-                //when close enough insert item
+                //when close enough extract item
                 if (distance < 1.86 && this.canSeeTarget()) {
 
                     LazyOptional<IItemHandler> handlerCapability = tileEntity.getCapability(
-                            CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, this.entity.getDepositFacing());
+                            CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, this.entity.getExtractFacing());
                     if (!handlerCapability
                                  .isPresent()) { //worst case scenario if tile entity changes since last target reset.
                         this.resetTarget();
@@ -209,7 +209,7 @@ public class ExtractItemsGoal extends PausableGoal {
             if (tileEntity == null ||
                 !tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, this.entity.getExtractFacing())
                          .isPresent()) {
-                //the deposit tile is not valid for depositing, so we disable this to allow exiting this task.
+                //the extract tile is not valid for extracting, so we disable this to allow exiting this task.
                 this.entity.setExtractPosition(null);
             }
         });
