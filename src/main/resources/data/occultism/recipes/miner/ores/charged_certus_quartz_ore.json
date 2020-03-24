@@ -6,5 +6,14 @@
   "result":{
     "tag": "forge:ores/charged_certus_quartz"
   },
-  "weight": 109
+  "weight": 109,
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:ores/charged_certus_quartz"
+      }
+    }
+  ]
 }

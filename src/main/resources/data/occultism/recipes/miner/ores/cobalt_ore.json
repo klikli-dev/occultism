@@ -6,5 +6,14 @@
   "result":{
     "tag": "forge:ores/cobalt"
   },
-  "weight": 163
+  "weight": 163,
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:ores/cobalt"
+      }
+    }
+  ]
 }

@@ -6,5 +6,11 @@
   "result":{
     "item": "draconicevolution:draconium_ore"
   },
-  "weight": 142
+  "weight": 142,
+  "conditions": [
+    {
+      "type": "forge:item_exists",
+      "item": "draconicevolution:draconium_ore"
+    }
+  ]
 }
