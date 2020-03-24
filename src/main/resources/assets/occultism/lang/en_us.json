@@ -69,6 +69,7 @@
     "item.occultism.iesnium_pickaxe": "Iesnium Pickaxe",
     "item.occultism.magic_lamp_empty": "Empty Magic Lamp",
     "item.occultism.miner_foliot_unspecialized": "Otherworld Miner Foliot",
+    "item.occultism.miner_debug_unspecialized": "Otherworld Miner Debug",
     "_comment": "# Spawn eggs",
     "item.occultism.spawn_egg.foliot": "Foliot Spawn Egg",
     "item.occultism.spawn_egg.djinni": "Djinni Spawn Egg",

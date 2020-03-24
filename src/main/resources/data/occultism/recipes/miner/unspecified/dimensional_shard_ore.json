@@ -1,0 +1,10 @@
+{
+  "type": "occultism:miner",
+  "ingredient": {
+    "tag": "occultism:miners/unspecialized"
+  },
+  "result":{
+    "item": "rftools:dimensional_shard_ore"
+  },
+  "weight": 127
+}

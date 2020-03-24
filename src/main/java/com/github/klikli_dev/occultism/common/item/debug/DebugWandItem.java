@@ -49,7 +49,7 @@ public class DebugWandItem extends Item {
         if (!context.getWorld().isRemote) {
             PlayerEntity player = context.getPlayer();
 
-            ItemStack spirit = new ItemStack(OccultismItems.MINER_FOLIOT_UNSPECIALIZED.get());
+            ItemStack spirit = new ItemStack(OccultismItems.MINER_DEBUG_UNSPECIALIZED.get());
             spirit.getItem().onCreated(spirit, context.getWorld(), context.getPlayer());
             ItemHandlerHelper.giveItemToPlayer(player, spirit);
         }

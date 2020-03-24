@@ -1,0 +1,10 @@
+{
+  "type": "occultism:miner",
+  "ingredient": {
+    "tag": "occultism:miners/unspecialized"
+  },
+  "result":{
+    "item": "draconicevolution:draconium_ore"
+  },
+  "weight": 142
+}

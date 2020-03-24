@@ -1,0 +1,10 @@
+{
+  "type": "occultism:miner",
+  "ingredient": {
+    "tag": "occultism:miners/unspecialized"
+  },
+  "result":{
+    "tag": "forge:ores/amethyst"
+  },
+  "weight": 200
+}

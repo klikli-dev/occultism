@@ -1,0 +1,10 @@
+{
+  "type": "occultism:miner",
+  "ingredient": {
+    "tag": "occultism:miners/basic_resources"
+  },
+  "result":{
+    "item": "minecraft:stone"
+  },
+  "weight": 1000
+}

@@ -1,0 +1,10 @@
+{
+  "type": "occultism:miner",
+  "ingredient": {
+    "tag": "occultism:miners/unspecialized"
+  },
+  "result":{
+    "tag": "forge:ores/cobalt"
+  },
+  "weight": 163
+}
