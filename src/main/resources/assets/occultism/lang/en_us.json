@@ -327,6 +327,7 @@
     "_comment": "JEI",
     "occultism.jei.spirit_fire": "Spiritfire",
     "occultism.jei.crushing": "Crusher Spirit",
+    "occultism.jei.ritual": "Occult Ritual",
     "occultism.jei.miner": "Dimensional Mineshaft",
     "occultism.jei.miner.chance": "Chance: %d%%"
 }

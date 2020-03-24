@@ -98,6 +98,7 @@ public class JeiPlugin implements IModPlugin {
         registration.addRecipeCategories(new SpiritFireRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new CrushingRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new MinerRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
+        registration.addRecipeCategories(new RitualRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
     }
 
     @Override
@@ -116,6 +117,10 @@ public class JeiPlugin implements IModPlugin {
         Collection<IRecipe<RecipeWrapper>> minerRecipes =
                 RecipeUtil.getRecipes(recipeManager, OccultismRecipes.MINER_TYPE.get()).values();
         registration.addRecipes(minerRecipes, OccultismRecipes.MINER.getId());
+
+        Collection<IRecipe<RecipeWrapper>> ritualRecipes =
+                RecipeUtil.getRecipes(recipeManager, OccultismRecipes.RITUAL_TYPE.get()).values();
+        registration.addRecipes(ritualRecipes, OccultismRecipes.RITUAL.getId());
     }
 
     @Override
@@ -130,6 +135,8 @@ public class JeiPlugin implements IModPlugin {
                 OccultismRecipes.SPIRIT_FIRE.getId());
         registration.addRecipeCatalyst(new ItemStack(OccultismBlocks.DIMENSIONAL_MINESHAFT.get()),
                 OccultismRecipes.MINER.getId());
+        registration.addRecipeCatalyst(new ItemStack(OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL.get()),
+                OccultismRecipes.RITUAL.getId());
     }
 
     @Override
