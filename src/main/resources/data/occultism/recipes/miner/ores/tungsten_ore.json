@@ -1,7 +1,7 @@
 {
   "type": "occultism:miner",
   "ingredient": {
-    "tag": "occultism:miners/unspecialized"
+    "tag": "occultism:miners/ores"
   },
   "result":{
     "tag": "forge:ores/tungsten"
