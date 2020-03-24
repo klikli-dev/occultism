@@ -115,6 +115,7 @@
     "item.occultism.dimensional_matrix.tooltip": "%s is bound to this dimensional matrix.",
     "item.occultism.infused_pickaxe.tooltip": "%s is bound to this pickaxe.",
     "item.occultism.miner_foliot_unspecialized.tooltip": "%s will mine random blocks in the mining dimension.",
+    "item.occultism.miner_debug_unspecialized.tooltip": "Debug Miner will mine random blocks in the mining dimension.",
     "_comment": "Blocks",
     "block.occultism.otherstone": "Otherstone",
     "block.occultism.otherstone_slab": "Otherstone Slab",
