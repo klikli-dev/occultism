@@ -193,7 +193,7 @@ public class OccultismConfig extends ConfigBase {
                                     .define("dimensionWhitelist", dimensionTypes));
                     this.fillerBlockType = CachedObject.cache(this,
                             builder.comment("The type of block this ore will spawn in.")
-                                    .define("fillerBlockType", fillerBlockType.func_214737_a()));
+                                    .define("fillerBlockType", fillerBlockType.getName()));
                     this.oreSize = CachedInt.cache(this,
                             builder.comment("The size of veins for this ore.")
                                     .defineInRange("oreSize", size, 0, Byte.MAX_VALUE));
