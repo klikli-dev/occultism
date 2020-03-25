@@ -201,19 +201,19 @@ public class OccultismConfig extends ConfigBase {
                 List<String> nether = Stream.of("the_nether").collect(Collectors.toList());
 
                 this.otherstoneNatural =
-                        new OreSettings("otherstone_natural", overworld, OreFeatureConfig.FillerBlockType.NATURAL_STONE,
+                        new OreSettings("otherstoneNatural", overworld, OreFeatureConfig.FillerBlockType.NATURAL_STONE,
                                 7,
                                 5, 10, 80, this, builder);
 
                 this.copperOre =
-                        new OreSettings("copper_ore", overworld, OreFeatureConfig.FillerBlockType.NATURAL_STONE, 9,
+                        new OreSettings("copperOre", overworld, OreFeatureConfig.FillerBlockType.NATURAL_STONE, 9,
                                 20, 20, 64, this, builder);
                 this.silverOre =
-                        new OreSettings("silver_ore", overworld, OreFeatureConfig.FillerBlockType.NATURAL_STONE, 7,
+                        new OreSettings("silverOre", overworld, OreFeatureConfig.FillerBlockType.NATURAL_STONE, 7,
                                 5, 0, 30, this, builder);
 
                 this.iesniumOre =
-                        new OreSettings("iesnium_ore", nether, OreFeatureConfig.FillerBlockType.NETHERRACK, 3,
+                        new OreSettings("iesniumOre", nether, OreFeatureConfig.FillerBlockType.NETHERRACK, 3,
                                 10, 10, 128, this, builder);
                 builder.pop();
             }
