@@ -112,6 +112,8 @@ public class OccultismConfig extends ConfigBase {
         public final CachedBoolean enableClearWeatherRitual;
         public final CachedBoolean enableRainWeatherRitual;
         public final CachedBoolean enableThunderWeatherRitual;
+        public final CachedBoolean enableDayTimeRitual;
+        public final CachedBoolean enableNightTimeRitual;
         //endregion Fields
 
         //region Initialization
@@ -128,7 +130,12 @@ public class OccultismConfig extends ConfigBase {
             this.enableThunderWeatherRitual = CachedBoolean.cache(this,
                     builder.comment("Enables the ritual to start a thunderstorm.")
                             .define("enableThunderWeatherRitual", true));
-
+            this.enableDayTimeRitual = CachedBoolean.cache(this,
+                    builder.comment("Enables the ritual to set time to day.")
+                            .define("enableDayTimeRitual", true));
+            this.enableNightTimeRitual = CachedBoolean.cache(this,
+                    builder.comment("Enables the ritual to set time to night.")
+                            .define("enableNightTimeRitual", true));
             builder.pop();
         }
         //endregion Initialization

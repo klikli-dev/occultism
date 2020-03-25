@@ -29,9 +29,11 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Hand;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.world.server.ServerWorld;
 
-public abstract class ChangeWeatherJob extends SpiritJob {
+public abstract class ChangeTimeJob extends SpiritJob {
 
     //region Fields
     protected int currentChangeTicks;
@@ -40,7 +42,7 @@ public abstract class ChangeWeatherJob extends SpiritJob {
 
 
     //region Initialization
-    public ChangeWeatherJob(SpiritEntity entity, int requiredChangeTicks) {
+    public ChangeTimeJob(SpiritEntity entity, int requiredChangeTicks) {
         super(entity);
         this.requiredChangeTicks = requiredChangeTicks;
     }
@@ -58,7 +60,7 @@ public abstract class ChangeWeatherJob extends SpiritJob {
         //in this case called on spirit death
         for(int i = 0; i < 5; i++){
             ((ServerWorld) this.entity.world)
-                    .spawnParticle(ParticleTypes.LARGE_SMOKE, this.entity.getPosX() + this.entity.world.getRandom().nextGaussian(),
+                    .spawnParticle(ParticleTypes.PORTAL, this.entity.getPosX() + this.entity.world.getRandom().nextGaussian(),
                             this.entity.getPosY() + 0.5 + this.entity.world.getRandom().nextGaussian(), this.entity.getPosZ()+ this.entity.world.getRandom().nextGaussian(), 5,
                             0.0, 0.0, 0.0,
                             0.0);
@@ -76,18 +78,16 @@ public abstract class ChangeWeatherJob extends SpiritJob {
         }
         if(this.entity.world.getGameTime() % 2 == 0){
             ((ServerWorld) this.entity.world)
-                    .spawnParticle(ParticleTypes.SMOKE, this.entity.getPosX(),
+                    .spawnParticle(ParticleTypes.PORTAL, this.entity.getPosX(),
                             this.entity.getPosY() + 0.5, this.entity.getPosZ(), 3,
                             0.5, 0.0, 0.0,
                             0.0);
         }
 
         if (this.currentChangeTicks == this.requiredChangeTicks) {
-            this.changeWeather();
-            ((ServerWorld) this.entity.world).addLightningBolt(
-                    new LightningBoltEntity(entity.world, entity.getPosX(), entity.getPosY(), entity.getPosZ(),
-                            true));
-            this.entity.onDeath(DamageSource.LIGHTNING_BOLT);
+            this.changeTime();
+            this.entity.world.playSound(null, this.entity.getPosition(), SoundEvents.BLOCK_BEACON_ACTIVATE, SoundCategory.NEUTRAL, 1, 1);
+            this.entity.onDeath(DamageSource.OUT_OF_WORLD);
             this.entity.remove();
         }
     }
@@ -113,6 +113,6 @@ public abstract class ChangeWeatherJob extends SpiritJob {
     //endregion Overrides
 
     //region Methods
-    public abstract void changeWeather();
+    public abstract void changeTime();
     //endregion Methods
 }

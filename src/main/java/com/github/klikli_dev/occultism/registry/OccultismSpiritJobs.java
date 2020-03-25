@@ -67,5 +67,12 @@ public class OccultismSpiritJobs {
             () -> new SpiritJobFactory((entity) -> new RainWeatherJob(entity, 20 * 30)));
     public static final RegistryObject<SpiritJobFactory> THUNDER_WEATHER = JOBS.register("rain_thunder",
             () -> new SpiritJobFactory((entity) -> new ThunderWeatherJob(entity, 20 * 60)));
+
+    //Time Jobs
+    public static final RegistryObject<SpiritJobFactory> DAY_TIME = JOBS.register("day_time",
+            () -> new SpiritJobFactory((entity) -> new DayTimeJob(entity, 20 * 30)));
+    public static final RegistryObject<SpiritJobFactory> NIGHT_TIME = JOBS.register("night_time",
+            () -> new SpiritJobFactory((entity) -> new NightTimeJob(entity, 20 * 60)));
+
     //endregion Fields
 }
