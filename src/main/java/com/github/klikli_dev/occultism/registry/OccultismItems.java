@@ -51,8 +51,9 @@ public class OccultismItems {
             () -> new DebugWandItem(defaultProperties().maxStackSize(1)));
     public static final RegistryObject<Item> DEBUG_FOLIOT_LUMBERJACK = ITEMS.register("debug_foliot_lumberjack",
             () -> new SummonFoliotLumberjackItem(defaultProperties().maxStackSize(1)));
-    public static final RegistryObject<Item> DEBUG_FOLIOT_TRANSPORT_ITEMS = ITEMS.register("debug_foliot_transport_items",
-            () -> new SummonFoliotTransportItemsItem(defaultProperties().maxStackSize(1)));
+    public static final RegistryObject<Item> DEBUG_FOLIOT_TRANSPORT_ITEMS =
+            ITEMS.register("debug_foliot_transport_items",
+                    () -> new SummonFoliotTransportItemsItem(defaultProperties().maxStackSize(1)));
     public static final RegistryObject<Item> DEBUG_FOLIOT_TRADER_ITEM = ITEMS.register("debug_foliot_trader",
             () -> new SummonFoliotTraderItem(defaultProperties().maxStackSize(1)));
     public static final RegistryObject<Item> DEBUG_DJINNI_MANAGE_MACHINE = ITEMS.register("debug_djinni_manage_machine",
@@ -60,11 +61,14 @@ public class OccultismItems {
     public static final RegistryObject<Item> DEBUG_DJINNI_TEST = ITEMS.register("debug_djinni_test",
             () -> new SummonDjinniTest(defaultProperties().maxStackSize(1)));
 
-    public static final RegistryObject<BlockItem> SPIRIT_FIRE = ITEMS.register("spirit_fire", () -> new BlockItem(OccultismBlocks.SPIRIT_FIRE.get(), defaultProperties()));
+    public static final RegistryObject<BlockItem> SPIRIT_FIRE =
+            ITEMS.register("spirit_fire", () -> new BlockItem(OccultismBlocks.SPIRIT_FIRE.get(), defaultProperties()));
 
     //Resources
-    public static final RegistryObject<OtherworldBlockItem> OTHERWORLD_SAPLING_NATURAL = ITEMS.register("otherworld_sapling_natural",
-            () -> new OtherworldBlockItem(OccultismBlocks.OTHERWORLD_SAPLING_NATURAL.get(), defaultProperties()));
+    public static final RegistryObject<OtherworldBlockItem> OTHERWORLD_SAPLING_NATURAL =
+            ITEMS.register("otherworld_sapling_natural",
+                    () -> new OtherworldBlockItem(OccultismBlocks.OTHERWORLD_SAPLING_NATURAL.get(),
+                            defaultProperties()));
     public static final RegistryObject<Item> TALLOW = ITEMS.register("tallow",
             () -> new Item(defaultProperties()));
     public static final RegistryObject<Item> AFRIT_ESSENCE = ITEMS.register("afrit_essence",
@@ -185,7 +189,7 @@ public class OccultismItems {
             "book_of_binding_afrit", () -> new BookOfBindingItem(defaultProperties().maxStackSize(1)));
     public static final RegistryObject<BookOfBindingBoundItem> BOOK_OF_BINDING_BOUND_AFRIT = ITEMS.register(
             "book_of_binding_bound_afrit", () -> new BookOfBindingBoundItem(defaultProperties().maxStackSize(1)));
-    public static final RegistryObject<BookOfBindingItem> BOOK_OF_BINDING_MARID= ITEMS.register(
+    public static final RegistryObject<BookOfBindingItem> BOOK_OF_BINDING_MARID = ITEMS.register(
             "book_of_binding_marid", () -> new BookOfBindingItem(defaultProperties().maxStackSize(1)));
     public static final RegistryObject<BookOfBindingBoundItem> BOOK_OF_BINDING_BOUND_MARID = ITEMS.register(
             "book_of_binding_bound_marid", () -> new BookOfBindingBoundItem(defaultProperties().maxStackSize(1)));
@@ -193,18 +197,18 @@ public class OccultismItems {
     //Foliot
     public static final RegistryObject<BookOfCallingLumberjackItem> BOOK_OF_CALLING_FOLIOT_LUMBERJACK =
             ITEMS.register("book_of_calling_foliot_lumberjack",
-            () -> new BookOfCallingLumberjackItem(defaultProperties().maxStackSize(1),
-                    TranslationKeys.BOOK_OF_CALLING_GENERIC + "_foliot"));
+                    () -> new BookOfCallingLumberjackItem(defaultProperties().maxStackSize(1),
+                            TranslationKeys.BOOK_OF_CALLING_GENERIC + "_foliot"));
     public static final RegistryObject<BookOfCallingTransportItems> BOOK_OF_CALLING_FOLIOT_TRANSPORT_ITEMS =
             ITEMS.register("book_of_calling_foliot_transport_items",
-            () -> new BookOfCallingTransportItems(defaultProperties().maxStackSize(1),
-                    TranslationKeys.BOOK_OF_CALLING_GENERIC + "_foliot"));
+                    () -> new BookOfCallingTransportItems(defaultProperties().maxStackSize(1),
+                            TranslationKeys.BOOK_OF_CALLING_GENERIC + "_foliot"));
 
     //Djinn
     public static final RegistryObject<BookOfCallingManageMachineItem> BOOK_OF_CALLING_DJINNI_MANAGE_MACHINE =
             ITEMS.register("book_of_calling_djinni_manage_machine",
-            () -> new BookOfCallingManageMachineItem(defaultProperties().maxStackSize(1),
-                    TranslationKeys.BOOK_OF_CALLING_GENERIC + "_djinni"));
+                    () -> new BookOfCallingManageMachineItem(defaultProperties().maxStackSize(1),
+                            TranslationKeys.BOOK_OF_CALLING_GENERIC + "_djinni"));
 
     //Armor
     public static final RegistryObject<OtherworldGogglesItem> OTHERWORLD_GOGGLES = ITEMS.register("otherworld_goggles",
@@ -224,12 +228,22 @@ public class OccultismItems {
             () -> new Item(defaultProperties().food(OccultismFoods.DATURA.get())));
 
     //Miner Spirits
-    public static final RegistryObject<MinerSpiritItem> MINER_DEBUG_UNSPECIALIZED = ITEMS.register("miner_debug_unspecialized",
-            () -> new MinerSpiritItem(defaultProperties().maxDamage(10000), 100, 10));
-    public static final RegistryObject<MinerSpiritItem> MINER_FOLIOT_UNSPECIALIZED = ITEMS.register("miner_foliot_unspecialized",
-            () -> new MinerSpiritItem(defaultProperties().maxDamage(1000), 400, 1));
+    public static final RegistryObject<MinerSpiritItem> MINER_DEBUG_UNSPECIALIZED =
+            ITEMS.register("miner_debug_unspecialized",
+                    () -> new MinerSpiritItem(defaultProperties().maxDamage(10000), 100, 10));
+    public static final RegistryObject<MinerSpiritItem> MINER_FOLIOT_UNSPECIALIZED =
+            ITEMS.register("miner_foliot_unspecialized",
+                    () -> new MinerSpiritItem(defaultProperties()
+                                                      .maxDamage(
+                                                              Occultism.CONFIG.dimensionalMineshaft.minerFoliotUnspecialized.durability
+                                                                      .get()),
+                            Occultism.CONFIG.dimensionalMineshaft.minerFoliotUnspecialized.maxMiningTime.get(),
+                            Occultism.CONFIG.dimensionalMineshaft.minerFoliotUnspecialized.rollsPerOperation.get()));
     public static final RegistryObject<MinerSpiritItem> MINER_DJINNI_ORES = ITEMS.register("miner_djinni_ores",
-            () -> new MinerSpiritItem(defaultProperties().maxDamage(100), 400, 1));
+            () -> new MinerSpiritItem(defaultProperties().maxDamage(
+                    Occultism.CONFIG.dimensionalMineshaft.minerDjinniOres.durability.get())
+                    , Occultism.CONFIG.dimensionalMineshaft.minerDjinniOres.maxMiningTime.get(),
+                    Occultism.CONFIG.dimensionalMineshaft.minerDjinniOres.rollsPerOperation.get()));
     //endregion Fields
 
     //region Static Methods
