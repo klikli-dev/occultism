@@ -68,7 +68,8 @@ jobs:
           release_name: occultism-${{ steps.get_mc_version.outputs.result }}-${{ steps.get_version.outputs.result }}-${{ steps.get_release_type.outputs.result }}
           body: |
             [Automated Build]]
-            //TODO: Add important changes
+            ## Changelog
+            - //TODO: Add important changes
           draft: false
           prerelease: false
       - name: Upload release asset
