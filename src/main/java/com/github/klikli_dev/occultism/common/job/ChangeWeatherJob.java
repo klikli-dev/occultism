@@ -34,9 +34,6 @@ import net.minecraft.world.server.ServerWorld;
 public abstract class ChangeWeatherJob extends SpiritJob {
 
     //region Fields
-    /**
-     * The current ticks in the crushing, will crush once it reaches crushing_time * crushingTimeMultiplier
-     */
     protected int currentChangeTicks;
     protected int requiredChangeTicks;
     //endregion Fields
