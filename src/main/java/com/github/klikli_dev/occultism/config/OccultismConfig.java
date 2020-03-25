@@ -26,12 +26,7 @@ import com.github.klikli_dev.occultism.config.value.CachedBoolean;
 import com.github.klikli_dev.occultism.config.value.CachedFloat;
 import com.github.klikli_dev.occultism.config.value.CachedInt;
 import com.github.klikli_dev.occultism.config.value.CachedObject;
-import com.google.common.collect.ImmutableList;
-import net.minecraft.block.Blocks;
-import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.OreFeatureConfig;
-import net.minecraft.world.gen.placement.CountRangeConfig;
-import net.minecraft.world.gen.placement.Placement;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.ForgeConfigSpec;
 
@@ -46,6 +41,7 @@ public class OccultismConfig extends ConfigBase {
     public final StorageSettings storage;
     public final WorldGenSettings worldGen;
     public final RitualSettings rituals;
+    public final DimensionalMineshaftSettings dimensionalMineshaft;
     public final ForgeConfigSpec spec;
     //endregion Fields
 
@@ -55,9 +51,61 @@ public class OccultismConfig extends ConfigBase {
         this.storage = new StorageSettings(this, builder);
         this.worldGen = new WorldGenSettings(this, builder);
         this.rituals = new RitualSettings(this, builder);
+        this.dimensionalMineshaft = new DimensionalMineshaftSettings(this, builder);
         this.spec = builder.build();
     }
     //endregion Initialization
+
+    public class DimensionalMineshaftSettings extends ConfigCategoryBase {
+        //region Fields
+        public final MinerSpiritSettings minerFoliotUnspecialized;
+        public final MinerSpiritSettings minerDjinniOres;
+        //endregion Fields
+
+        //region Initialization
+        public DimensionalMineshaftSettings(IConfigCache parent, ForgeConfigSpec.Builder builder) {
+            super(parent, builder);
+            builder.comment("Dimensional Mineshaft Settings").push("dimensional_mineshaft");
+
+            this.minerFoliotUnspecialized =
+                    new MinerSpiritSettings("miner_foliot_unspecialized", parent, builder, 400, 1, 1000);
+
+            this.minerDjinniOres =
+                    new MinerSpiritSettings("miner_djinni_ores", parent, builder, 400, 1, 100);
+
+            builder.pop();
+        }
+
+        //endregion Initialization
+        public class MinerSpiritSettings extends ConfigCategoryBase {
+            //region Fields
+            public final CachedInt maxMiningTime;
+            public final CachedInt rollsPerOperation;
+            public final CachedInt durability;
+            //endregion Fields
+
+            //region Initialization
+            public MinerSpiritSettings(String oreName, IConfigCache parent, ForgeConfigSpec.Builder builder,
+                                       int maxMiningTime, int rollsPerOperation, int durability) {
+                super(parent, builder);
+                builder.comment("Miner Spirit Settings").push(oreName);
+
+                this.maxMiningTime = CachedInt.cache(this,
+                        builder.comment("The amount of time it takes the spirit to perform one mining operation.")
+                                .define("maxMiningTime", maxMiningTime));
+                this.rollsPerOperation = CachedInt.cache(this,
+                        builder.comment("The amount of blocks the spirit will obtain per mining operation")
+                                .define("rollsPerOperation", rollsPerOperation));
+                this.durability = CachedInt.cache(this,
+                        builder.comment("The amount of mining operations the spirit can perform before breaking.")
+                                .define("durability", durability));
+
+                builder.pop();
+            }
+            //endregion Initialization
+        }
+
+    }
 
     public class RitualSettings extends ConfigCategoryBase {
         //region Fields
@@ -153,18 +201,19 @@ public class OccultismConfig extends ConfigBase {
                 List<String> nether = Stream.of("the_nether").collect(Collectors.toList());
 
                 this.otherstoneNatural =
-                        new OreSettings("otherstone_natural", overworld, OreFeatureConfig.FillerBlockType.NATURAL_STONE,7,
+                        new OreSettings("otherstoneNatural", overworld, OreFeatureConfig.FillerBlockType.NATURAL_STONE,
+                                7,
                                 5, 10, 80, this, builder);
 
                 this.copperOre =
-                        new OreSettings("copper_ore", overworld,  OreFeatureConfig.FillerBlockType.NATURAL_STONE,9,
+                        new OreSettings("copperOre", overworld, OreFeatureConfig.FillerBlockType.NATURAL_STONE, 9,
                                 20, 20, 64, this, builder);
                 this.silverOre =
-                        new OreSettings("silver_ore", overworld,  OreFeatureConfig.FillerBlockType.NATURAL_STONE,7,
+                        new OreSettings("silverOre", overworld, OreFeatureConfig.FillerBlockType.NATURAL_STONE, 7,
                                 5, 0, 30, this, builder);
 
                 this.iesniumOre =
-                        new OreSettings("iesnium_ore", nether,  OreFeatureConfig.FillerBlockType.NETHERRACK,3,
+                        new OreSettings("iesniumOre", nether, OreFeatureConfig.FillerBlockType.NETHERRACK, 3,
                                 10, 10, 128, this, builder);
                 builder.pop();
             }
@@ -183,7 +232,9 @@ public class OccultismConfig extends ConfigBase {
                 //endregion Fields
 
                 //region Initialization
-                public OreSettings(String oreName, List<String> dimensionTypes, OreFeatureConfig.FillerBlockType fillerBlockType, int size, int chance, int min, int max,
+                public OreSettings(String oreName, List<String> dimensionTypes,
+                                   OreFeatureConfig.FillerBlockType fillerBlockType, int size, int chance, int min,
+                                   int max,
                                    IConfigCache parent, ForgeConfigSpec.Builder builder) {
                     super(parent, builder);
                     builder.comment("Ore Settings").push(oreName);
