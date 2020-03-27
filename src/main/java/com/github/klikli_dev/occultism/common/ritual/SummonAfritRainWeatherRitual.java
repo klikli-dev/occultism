@@ -42,6 +42,9 @@ import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
 public class SummonAfritRainWeatherRitual extends SummonSpiritRitual {
+    //region Fields
+    public static final ResourceLocation cowTag = new ResourceLocation("forge", "cows");
+    //endregion Fields
 
     //region Initialization
     public SummonAfritRainWeatherRitual() {
@@ -49,10 +52,8 @@ public class SummonAfritRainWeatherRitual extends SummonSpiritRitual {
                 OccultismRituals.SUMMON_AFRIT_PENTACLE.get(),
                 Ingredient.fromItems(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()),
                 "summon_afrit_rain_weather", 60);
-        this.sacrificePredicate = (entity) -> {
-            ResourceLocation cowTag = new ResourceLocation("forge", "cows");
-            return EntityTypeTags.getCollection().getOrCreate(cowTag).contains(entity.getType());
-        };
+        this.sacrificePredicate =
+                (entity) -> EntityTypeTags.getCollection().getOrCreate(cowTag).contains(entity.getType());
     }
     //endregion Initialization
 

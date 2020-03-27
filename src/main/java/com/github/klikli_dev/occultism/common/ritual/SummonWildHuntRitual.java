@@ -41,6 +41,9 @@ import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
 public class SummonWildHuntRitual extends SummonSpiritRitual {
+    //region Fields
+    public static final ResourceLocation villagerTag = new ResourceLocation("forge", "villagers");
+    //endregion Fields
 
     //region Initialization
     public SummonWildHuntRitual() {
@@ -48,10 +51,9 @@ public class SummonWildHuntRitual extends SummonSpiritRitual {
                 OccultismRituals.SUMMON_WILD_GREATER_SPIRIT_PENTACLE.get(),
                 Ingredient.fromItems(Items.SKELETON_SKULL),
                 "summon_wild_hunt", 30);
-        this.sacrificePredicate = (entity) -> {
-            ResourceLocation villagerTag = new ResourceLocation("forge", "villagers");
-            return entity instanceof PlayerEntity || EntityTypeTags.getCollection().getOrCreate(villagerTag).contains(entity.getType());
-        };
+        this.sacrificePredicate = (entity) -> entity instanceof PlayerEntity ||
+                                              EntityTypeTags.getCollection().getOrCreate(villagerTag)
+                                                      .contains(entity.getType());
     }
     //endregion Initialization
 
@@ -70,12 +72,14 @@ public class SummonWildHuntRitual extends SummonSpiritRitual {
         //Spawn the wither skeletons, who will spawn their minions
         for (int i = 0; i < 3; i++) {
             WildHuntWitherSkeletonEntity skeleton = OccultismEntities.WILD_HUNT_WITHER_SKELETON.get().create(world);
-            skeleton.onInitialSpawn(world, world.getDifficultyForLocation(goldenBowlPosition), SpawnReason.MOB_SUMMONED, null,
+            skeleton.onInitialSpawn(world, world.getDifficultyForLocation(goldenBowlPosition), SpawnReason.MOB_SUMMONED,
+                    null,
                     null);
             double offsetX = (world.getRandom().nextGaussian() - 1.0) * (1 + world.getRandom().nextInt(4));
             double offsetZ = (world.getRandom().nextGaussian() - 1.0) * (1 + world.getRandom().nextInt(4));
 
-            skeleton.setPositionAndRotation(goldenBowlPosition.getX() + offsetX, goldenBowlPosition.getY()+ 1.5, goldenBowlPosition.getZ() + offsetZ,
+            skeleton.setPositionAndRotation(goldenBowlPosition.getX() + offsetX, goldenBowlPosition.getY() + 1.5,
+                    goldenBowlPosition.getZ() + offsetZ,
                     world.getRandom().nextInt(360), 0);
             skeleton.setCustomName(new StringTextComponent(TextUtil.generateName()));
             this.spawnEntity(skeleton, world);

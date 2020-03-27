@@ -22,7 +22,6 @@
 
 package com.github.klikli_dev.occultism.common.ritual;
 
-import com.github.klikli_dev.occultism.common.entity.possessed.PossessedEndermiteEntity;
 import com.github.klikli_dev.occultism.common.entity.possessed.PossessedSkeletonEntity;
 import com.github.klikli_dev.occultism.common.tile.GoldenSacrificialBowlTileEntity;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
@@ -32,7 +31,6 @@ import com.github.klikli_dev.occultism.util.ItemNBTUtil;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.tags.EntityTypeTags;
@@ -43,6 +41,9 @@ import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
 public class PossessSkeletonRitual extends SummonSpiritRitual {
+    //region Fields
+    public static final ResourceLocation chickenTag = new ResourceLocation("forge", "chicken");
+    //endregion Fields
 
     //region Initialization
     public PossessSkeletonRitual() {
@@ -50,10 +51,8 @@ public class PossessSkeletonRitual extends SummonSpiritRitual {
                 OccultismRituals.POSSESS_FOLIOT_PENTACLE.get(),
                 Ingredient.fromItems(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()),
                 "possess_skeleton", 30);
-        this.sacrificePredicate = (entity) -> {
-            ResourceLocation chickenTag = new ResourceLocation("forge", "chicken");
-            return EntityTypeTags.getCollection().getOrCreate(chickenTag).contains(entity.getType());
-        };
+        this.sacrificePredicate =
+                (entity) -> EntityTypeTags.getCollection().getOrCreate(chickenTag).contains(entity.getType());
     }
     //endregion Initialization
 
@@ -72,11 +71,12 @@ public class PossessSkeletonRitual extends SummonSpiritRitual {
 
         //set up the foliot entity
         PossessedSkeletonEntity skeleton = OccultismEntities.POSSESSED_SKELETON_TYPE.get().create(world);
-        skeleton.onInitialSpawn(world, world.getDifficultyForLocation(goldenBowlPosition), SpawnReason.MOB_SUMMONED, null,
+        skeleton.onInitialSpawn(world, world.getDifficultyForLocation(goldenBowlPosition), SpawnReason.MOB_SUMMONED,
+                null,
                 null);
         skeleton.setPositionAndRotation(goldenBowlPosition.getX(), goldenBowlPosition.getY(), goldenBowlPosition.getZ(),
                 world.rand.nextInt(360), 0);
-       skeleton.setCustomName(new StringTextComponent(entityName));
+        skeleton.setCustomName(new StringTextComponent(entityName));
 
         //notify players nearby and spawn
         this.spawnEntity(skeleton, world);
