@@ -1,0 +1,29 @@
+{
+  "name": "Parrot Familiar",
+  "icon": "occultism:textures/gui/book/parrot.png",
+  "category": "rituals/possession",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "entity",
+      "entity": "minecraft:parrot"
+    },
+    {
+      "type": "summoning_sacrifice",
+      "heading": "Summoning",
+      "pentacle": "$(l:pentacles/possess_foliot)Hedyrin's Lure$(/l)",
+      "activation_item": "occultism:book_of_binding_bound_foliot",
+      "sacrifice": "Chicken",
+      "ingredients": "$(li)1x $(item)Feather $()$(li)1x $(item)Green Dye  $()$(li)1x $(item)Yellow Dye  $()$(li)1x $(item)Red Dye  $()$()$(li)1x $(item)Blue Dye  $()"
+    },
+    {
+      "type": "text",
+      "text": "In this ritual an $(thing)Foliot$() is summoned, the slaughter of a $(thing)chicken$() and the offering of dyes are intended to entice the foliot to take the shape of a parrot. As $(thing)Foliot$() are not among the smartest spirits, they sometimes misunderstand the instructions ..."
+    },
+    {
+      "type": "text",
+      "text": ""
+    }
+  ]
+}
+
