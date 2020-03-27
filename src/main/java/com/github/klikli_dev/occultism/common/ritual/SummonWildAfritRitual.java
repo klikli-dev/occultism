@@ -22,14 +22,11 @@
 
 package com.github.klikli_dev.occultism.common.ritual;
 
-import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
-import com.github.klikli_dev.occultism.common.job.SpiritJob;
 import com.github.klikli_dev.occultism.common.tile.GoldenSacrificialBowlTileEntity;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.github.klikli_dev.occultism.registry.OccultismRituals;
-import com.github.klikli_dev.occultism.registry.OccultismSpiritJobs;
 import com.github.klikli_dev.occultism.util.ItemNBTUtil;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -42,6 +39,9 @@ import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
 public class SummonWildAfritRitual extends SummonSpiritRitual {
+    //region Fields
+    public static final ResourceLocation cowTag = new ResourceLocation("forge", "cows");
+    //endregion Fields
 
     //region Initialization
     public SummonWildAfritRitual() {
@@ -49,10 +49,8 @@ public class SummonWildAfritRitual extends SummonSpiritRitual {
                 OccultismRituals.SUMMON_WILD_AFRIT_PENTACLE.get(),
                 Ingredient.fromItems(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()),
                 "summon_wild_afrit", 60);
-        this.sacrificePredicate = (entity) -> {
-            ResourceLocation cowTag = new ResourceLocation("forge", "cows");
-            return EntityTypeTags.getCollection().getOrCreate(cowTag).contains(entity.getType());
-        };
+        this.sacrificePredicate =
+                (entity) -> EntityTypeTags.getCollection().getOrCreate(cowTag).contains(entity.getType());
     }
     //endregion Initialization
 
@@ -75,7 +73,7 @@ public class SummonWildAfritRitual extends SummonSpiritRitual {
         this.prepareSpiritForSpawn(spirit, world, goldenBowlPosition, castingPlayer,
                 ItemNBTUtil.getBoundSpiritName(copy));
 
-        spirit.setSpiritMaxAge(60*60); //1h max time
+        spirit.setSpiritMaxAge(60 * 60); //1h max time
 
         //notify players nearby and spawn
         this.spawnEntity(spirit, world);

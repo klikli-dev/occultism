@@ -22,15 +22,17 @@
 
 package com.github.klikli_dev.occultism.common.ritual;
 
-import com.github.klikli_dev.occultism.common.entity.spirit.WildHuntWitherSkeletonEntity;
 import com.github.klikli_dev.occultism.common.tile.GoldenSacrificialBowlTileEntity;
-import com.github.klikli_dev.occultism.registry.OccultismEntities;
+import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.github.klikli_dev.occultism.registry.OccultismRituals;
-import com.github.klikli_dev.occultism.util.TextUtil;
+import com.github.klikli_dev.occultism.util.ItemNBTUtil;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.passive.AnimalEntity;
+import net.minecraft.entity.passive.ParrotEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.tags.EntityTypeTags;
@@ -40,20 +42,19 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
-public class SummonWildHuntRitual extends SummonSpiritRitual {
+public class PossessParrotRitual extends SummonSpiritRitual {
     //region Fields
-    public static final ResourceLocation villagerTag = new ResourceLocation("forge", "villagers");
+    public static final ResourceLocation chickenTag = new ResourceLocation("forge", "chicken");
     //endregion Fields
 
     //region Initialization
-    public SummonWildHuntRitual() {
+    public PossessParrotRitual() {
         super(null,
-                OccultismRituals.SUMMON_WILD_GREATER_SPIRIT_PENTACLE.get(),
-                Ingredient.fromItems(Items.SKELETON_SKULL),
-                "summon_wild_hunt", 30);
-        this.sacrificePredicate = (entity) -> entity instanceof PlayerEntity ||
-                                              EntityTypeTags.getCollection().getOrCreate(villagerTag)
-                                                      .contains(entity.getType());
+                OccultismRituals.POSSESS_FOLIOT_PENTACLE.get(),
+                Ingredient.fromItems(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()),
+                "possess_parrot", 30);
+        this.sacrificePredicate =
+                (entity) -> EntityTypeTags.getCollection().getOrCreate(chickenTag).contains(entity.getType());
     }
     //endregion Initialization
 
@@ -64,26 +65,24 @@ public class SummonWildHuntRitual extends SummonSpiritRitual {
                        PlayerEntity castingPlayer, ItemStack activationItem) {
         super.finish(world, goldenBowlPosition, tileEntity, castingPlayer, activationItem);
 
+        String entityName = ItemNBTUtil.getBoundSpiritName(activationItem);
         activationItem.shrink(1); //remove original activation item.
 
         ((ServerWorld) world).spawnParticle(ParticleTypes.LARGE_SMOKE, goldenBowlPosition.getX() + 0.5,
                 goldenBowlPosition.getY() + 0.5, goldenBowlPosition.getZ() + 0.5, 1, 0, 0, 0, 0);
 
-        //Spawn the wither skeletons, who will spawn their minions
-        for (int i = 0; i < 3; i++) {
-            WildHuntWitherSkeletonEntity skeleton = OccultismEntities.WILD_HUNT_WITHER_SKELETON.get().create(world);
-            skeleton.onInitialSpawn(world, world.getDifficultyForLocation(goldenBowlPosition), SpawnReason.MOB_SUMMONED,
-                    null,
-                    null);
-            double offsetX = (world.getRandom().nextGaussian() - 1.0) * (1 + world.getRandom().nextInt(4));
-            double offsetZ = (world.getRandom().nextGaussian() - 1.0) * (1 + world.getRandom().nextInt(4));
+        //1/3 are a parrot, 2/3 are chickens.
+        AnimalEntity parrot = world.rand.nextInt(3) == 0 ? EntityType.PARROT.create(world) : EntityType.CHICKEN.create(world);
+        parrot.onInitialSpawn(world, world.getDifficultyForLocation(goldenBowlPosition), SpawnReason.MOB_SUMMONED,
+                null,
+                null);
+        parrot
+                .setPositionAndRotation(goldenBowlPosition.getX(), goldenBowlPosition.getY(), goldenBowlPosition.getZ(),
+                        world.rand.nextInt(360), 0);
+        parrot.setCustomName(new StringTextComponent(entityName));
 
-            skeleton.setPositionAndRotation(goldenBowlPosition.getX() + offsetX, goldenBowlPosition.getY() + 1.5,
-                    goldenBowlPosition.getZ() + offsetZ,
-                    world.getRandom().nextInt(360), 0);
-            skeleton.setCustomName(new StringTextComponent(TextUtil.generateName()));
-            this.spawnEntity(skeleton, world);
-        }
+        //notify players nearby and spawn
+        this.spawnEntity(parrot, world);
     }
     //endregion Overrides
 }

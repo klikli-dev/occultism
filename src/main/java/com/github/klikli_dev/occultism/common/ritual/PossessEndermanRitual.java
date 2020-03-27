@@ -23,7 +23,6 @@
 package com.github.klikli_dev.occultism.common.ritual;
 
 import com.github.klikli_dev.occultism.common.entity.possessed.PossessedEndermanEntity;
-import com.github.klikli_dev.occultism.common.entity.possessed.PossessedEndermiteEntity;
 import com.github.klikli_dev.occultism.common.tile.GoldenSacrificialBowlTileEntity;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
@@ -32,7 +31,6 @@ import com.github.klikli_dev.occultism.util.ItemNBTUtil;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.tags.EntityTypeTags;
@@ -41,9 +39,11 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
-import net.minecraftforge.common.Tags;
 
 public class PossessEndermanRitual extends SummonSpiritRitual {
+    //region Fields
+    public static final ResourceLocation pigTag = new ResourceLocation("forge", "pigs");
+    //endregion Fields
 
     //region Initialization
     public PossessEndermanRitual() {
@@ -51,10 +51,8 @@ public class PossessEndermanRitual extends SummonSpiritRitual {
                 OccultismRituals.POSSESS_DJINNI_PENTACLE.get(),
                 Ingredient.fromItems(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()),
                 "possess_enderman", 60);
-        this.sacrificePredicate = (entity) -> {
-            ResourceLocation pigTag = new ResourceLocation("forge", "pigs");
-            return EntityTypeTags.getCollection().getOrCreate(pigTag).contains(entity.getType());
-        };
+        this.sacrificePredicate =
+                (entity) -> EntityTypeTags.getCollection().getOrCreate(pigTag).contains(entity.getType());
     }
     //endregion Initialization
 
@@ -73,11 +71,12 @@ public class PossessEndermanRitual extends SummonSpiritRitual {
 
         //set up the foliot entity
         PossessedEndermanEntity enderman = OccultismEntities.POSSESSED_ENDERMAN.get().create(world);
-        enderman.onInitialSpawn(world, world.getDifficultyForLocation(goldenBowlPosition), SpawnReason.MOB_SUMMONED, null,
+        enderman.onInitialSpawn(world, world.getDifficultyForLocation(goldenBowlPosition), SpawnReason.MOB_SUMMONED,
+                null,
                 null);
         enderman.setPositionAndRotation(goldenBowlPosition.getX(), goldenBowlPosition.getY(), goldenBowlPosition.getZ(),
                 world.rand.nextInt(360), 0);
-       enderman.setCustomName(new StringTextComponent(entityName));
+        enderman.setCustomName(new StringTextComponent(entityName));
 
         //notify players nearby and spawn
         this.spawnEntity(enderman, world);

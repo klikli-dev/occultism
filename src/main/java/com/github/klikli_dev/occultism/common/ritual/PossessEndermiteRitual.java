@@ -66,11 +66,13 @@ public class PossessEndermiteRitual extends SummonSpiritRitual {
 
         //set up the foliot entity
         PossessedEndermiteEntity endermite = OccultismEntities.POSSESSED_ENDERMITE.get().create(world);
-        endermite.onInitialSpawn(world, world.getDifficultyForLocation(goldenBowlPosition), SpawnReason.MOB_SUMMONED, null,
+        endermite.onInitialSpawn(world, world.getDifficultyForLocation(goldenBowlPosition), SpawnReason.MOB_SUMMONED,
+                null,
                 null);
-        endermite.setPositionAndRotation(goldenBowlPosition.getX(), goldenBowlPosition.getY(), goldenBowlPosition.getZ(),
-                world.rand.nextInt(360), 0);
-       endermite.setCustomName(new StringTextComponent(entityName));
+        endermite
+                .setPositionAndRotation(goldenBowlPosition.getX(), goldenBowlPosition.getY(), goldenBowlPosition.getZ(),
+                        world.rand.nextInt(360), 0);
+        endermite.setCustomName(new StringTextComponent(entityName));
 
         //notify players nearby and spawn
         this.spawnEntity(endermite, world);
