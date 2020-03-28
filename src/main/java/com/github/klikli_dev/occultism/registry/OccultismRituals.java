@@ -126,13 +126,17 @@ public class OccultismRituals {
     public static final RegistryObject<CraftMinerDjinniOresRitual> CRAFT_MINER_DJINNI_ORES_RITUAL =
             RITUALS.register("craft_miner_djinni_ores", CraftMinerDjinniOresRitual::new);
     //Possession
-    public static final RegistryObject<PossessParrotRitual> POSSESS_PARROT_RITUAL =
-            RITUALS.register("possess_parrot", PossessParrotRitual::new);
     public static final RegistryObject<PossessEndermiteRitual> POSSESS_ENDERMITE_RITUAL =
             RITUALS.register("possess_endermite", PossessEndermiteRitual::new);
     public static final RegistryObject<PossessSkeletonRitual> POSSESS_SKELETON_RITUAL =
             RITUALS.register("possess_skeleton", PossessSkeletonRitual::new);
     public static final RegistryObject<PossessEndermanRitual> POSSESS_ENDERMAN_RITUAL =
             RITUALS.register("possess_enderman", PossessEndermanRitual::new);
+
+    //Familiars
+    public static final RegistryObject<FamiliarParrotRitual> FAMILIAR_PARROT_RITUAL =
+            RITUALS.register("familiar_parrot", FamiliarParrotRitual::new);
+    public static final RegistryObject<FamiliarOtherworldBirdRitual> FAMILIAR_OTHERWORLD_BIRD =
+            RITUALS.register("familiar_otherworld_bird", FamiliarOtherworldBirdRitual::new);
     //endregion Fields
 }

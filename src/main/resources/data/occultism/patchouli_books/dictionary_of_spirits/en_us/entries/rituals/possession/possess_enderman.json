@@ -2,7 +2,7 @@
   "name": "Possessed Enderman",
   "icon": "minecraft:ender_pearl",
   "category": "rituals/possession",
-  "sortnum": 2,
+  "sortnum": 3,
   "pages": [
     {
       "type": "entity",

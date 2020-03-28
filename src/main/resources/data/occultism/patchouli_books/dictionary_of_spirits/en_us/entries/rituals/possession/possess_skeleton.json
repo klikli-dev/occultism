@@ -2,7 +2,7 @@
   "name": "Possessed Skeleton",
   "icon": "minecraft:skeleton_skull",
   "category": "rituals/possession",
-  "sortnum": 1,
+  "sortnum": 2,
   "pages": [
     {
       "type": "entity",

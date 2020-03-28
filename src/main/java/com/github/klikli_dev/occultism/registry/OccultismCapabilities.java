@@ -22,18 +22,29 @@
 
 package com.github.klikli_dev.occultism.registry;
 
-import com.github.klikli_dev.occultism.Occultism;
-import com.github.klikli_dev.occultism.common.effect.DoubleJumpEffect;
-import com.github.klikli_dev.occultism.common.effect.ThirdEyeEffect;
-import net.minecraft.item.Item;
-import net.minecraft.potion.Effect;
-import net.minecraftforge.fml.RegistryObject;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
+import com.github.klikli_dev.occultism.common.capability.DoubleJumpCapability;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.CapabilityInject;
+import net.minecraftforge.common.capabilities.CapabilityManager;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 
-public class OccultismEffects {
-    public static final DeferredRegister<Effect> EFFECTS = new DeferredRegister<>(ForgeRegistries.POTIONS, Occultism.MODID);
+import static com.github.klikli_dev.occultism.util.StaticUtil.modLoc;
 
-    public static final RegistryObject<ThirdEyeEffect> THIRD_EYE = EFFECTS.register("third_eye", ThirdEyeEffect::new);
-    public static final RegistryObject<DoubleJumpEffect> DOUBLE_JUMP = EFFECTS.register("double_jump", DoubleJumpEffect::new);
+public class OccultismCapabilities {
+
+    //region Fields
+    public static final ResourceLocation DOUBLE_JUMP_ID = modLoc("double_jump");
+
+    @CapabilityInject(DoubleJumpCapability.class)
+    public static Capability<DoubleJumpCapability> DOUBLE_JUMP;
+    //endregion Fields
+
+    //region Static Methods
+    public static void commonSetup(final FMLCommonSetupEvent event) {
+        CapabilityManager.INSTANCE
+                .register(DoubleJumpCapability.class, new DoubleJumpCapability.Storage(), DoubleJumpCapability::new);
+    }
+
+    //endregion Static Methods
 }

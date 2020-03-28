@@ -23,9 +23,14 @@
 package com.github.klikli_dev.occultism.handlers;
 
 import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.network.MessageDoubleJump;
+import com.github.klikli_dev.occultism.network.OccultismPackets;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.github.klikli_dev.occultism.util.Math3DUtil;
+import com.github.klikli_dev.occultism.util.MovementUtil;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.item.Items;
@@ -35,11 +40,14 @@ import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 import java.util.List;
+
+import static org.lwjgl.glfw.GLFW.GLFW_PRESS;
 
 @Mod.EventBusSubscriber(modid = Occultism.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class PlayerEventHandler {
@@ -72,7 +80,23 @@ public class PlayerEventHandler {
             }
         }
     }
+
+    @SubscribeEvent
+    public static void onKeyInput(final InputEvent.KeyInputEvent evt) {
+        Minecraft minecraft = Minecraft.getInstance();
+        if (!minecraft.isGameFocused() || evt.getAction() != GLFW_PRESS) {
+            return;
+        }
+
+        if(minecraft.gameSettings.keyBindJump.isKeyDown()) {
+
+            if (minecraft.player != null && MovementUtil.doubleJump(minecraft.player)) {
+                OccultismPackets.sendToServer(new MessageDoubleJump());
+            }
+
+
+        }
+
+    }
     //endregion Static Methods
-    //region Methods
-    //endregion Methods
 }

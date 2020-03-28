@@ -90,6 +90,7 @@ public class RegistryEventHandler {
         registerSpawnEgg(registry, OccultismEntities.POSSESSED_ENDERMAN_TYPE.get(),"possessed_enderman", 0x161616, 0x0);
         registerSpawnEgg(registry, OccultismEntities.WILD_HUNT_SKELETON_TYPE.get(),"wild_hunt_skeleton", 12698049, 4802889);
         registerSpawnEgg(registry, OccultismEntities.WILD_HUNT_WITHER_SKELETON_TYPE.get(),"wild_hunt_wither_skeleton", 1315860, 4672845);
+        registerSpawnEgg(registry, OccultismEntities.OTHERWORLD_BIRD_TYPE.get(),"otherworld_bird", 0x221269, 0x6b56c4);
 
         Occultism.LOGGER.info("Registered SpawnEggItems");
     }
