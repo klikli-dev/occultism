@@ -40,7 +40,7 @@ import net.minecraftforge.fml.common.Mod;
 public class CapabilityEventHandler {
     //region Static Methods
     @SubscribeEvent
-    public void onPlayerTick(final TickEvent.PlayerTickEvent evt) {
+    public static void onPlayerTick(final TickEvent.PlayerTickEvent evt) {
         if (evt.phase == TickEvent.Phase.END) {
             //Reset the double jump capability
             if (evt.player.onGround) {
@@ -50,7 +50,7 @@ public class CapabilityEventHandler {
     }
 
     @SubscribeEvent
-    public void onEntityJoinWorld(final EntityJoinWorldEvent evt) {
+    public static void onEntityJoinWorld(final EntityJoinWorldEvent evt) {
         if (evt.getEntity() instanceof ServerPlayerEntity) {
             ServerPlayerEntity player = (ServerPlayerEntity) evt.getEntity();
             int jumps = player.getCapability(OccultismCapabilities.DOUBLE_JUMP).map(DoubleJumpCapability::getJumps).orElse(0);
