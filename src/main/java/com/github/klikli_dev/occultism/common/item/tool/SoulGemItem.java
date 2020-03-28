@@ -88,6 +88,10 @@ public class SoulGemItem extends Item {
         if (target.world.isRemote)
             return false;
 
+        //Do not allow bosses or players.
+        if(!target.isNonBoss() || target instanceof PlayerEntity)
+            return false;
+
         //Already got an entity in there.
         if(stack.getOrCreateTag().contains("entityData"))
             return false;
