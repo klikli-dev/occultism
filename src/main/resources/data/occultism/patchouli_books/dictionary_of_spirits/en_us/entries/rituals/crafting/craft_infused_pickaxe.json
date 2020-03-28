@@ -2,7 +2,7 @@
   "name": "Infused Pickaxe",
   "icon": "occultism:infused_pickaxe",
   "category": "rituals/crafting",
-  "sortnum": 10,
+  "sortnum": 11,
   "pages": [
     {
       "type": "spotlight",
