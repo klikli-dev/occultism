@@ -323,6 +323,7 @@
     "network.messages.occultism.request_order.order_received": "Order received!",
     "_comment": "Effects",
     "effect.occultism.third_eye": "Third Eye",
+    "effect.occultism.double_jump": "Multi Jump",
     "_comment": "Sounds",
     "occultism.subtitle.chalk": "Chalk",
     "occultism.subtitle.brush": "Brush",

@@ -22,6 +22,7 @@
 
 package com.github.klikli_dev.occultism.common.entity;
 
+import com.github.klikli_dev.occultism.registry.OccultismEffects;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.passive.ParrotEntity;
@@ -64,9 +65,9 @@ public class OtherworldBirdEntity extends ParrotEntity {
             LivingEntity owner = this.getOwnerCached();
             if (owner != null && this.getDistance(owner) < MAX_BOOST_DISTANCE) {
                 //close enough to boost
-                //TODO: apply double jump effect here
                 owner.addPotionEffect(new EffectInstance(Effects.JUMP_BOOST, 60, 5));
                 owner.addPotionEffect(new EffectInstance(Effects.SLOW_FALLING, 3600));
+                owner.addPotionEffect(new EffectInstance(OccultismEffects.DOUBLE_JUMP.get(), 3600, 4));
             }
         }
 

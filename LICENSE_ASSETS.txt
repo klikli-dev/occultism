@@ -28,6 +28,8 @@ All resources not listed are released in the public domain or created by the mod
     - Handcuffs by Lorc https://game-icons.net/1x1/lorc/handcuffs.html (CC BY 3.0)
     - Hunting horn by Lorc https://game-icons.net/1x1/lorc/hunting-horn.html (CC BY 3.0)
     - Mine wagon by Delapouite https://game-icons.net/1x1/delapouite/mine-wagon.html (CC BY 3.0)
+    - Arrow dunc by Lorc https://game-icons.net/1x1/lorc/arrow-dunk.html (CC BY 3.0)
+    - Sun cloud by Delapouite https://game-icons.net/1x1/delapouite/sun-cloud.html (CC  BY 3.0)
 - Textures:
     - Various textures are from the public domain Soartex pack 1.2.5 by Soar49. 
     - Some textures are based on textures created by Bonemouse for Isabella ( http://www.minecraftforum.net/topic/242175-Isabella/ ), see About Isabella.txt in resources/assets/occultism/textures.

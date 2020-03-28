@@ -23,6 +23,7 @@
 package com.github.klikli_dev.occultism.registry;
 
 import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.common.effect.DoubleJumpEffect;
 import com.github.klikli_dev.occultism.common.effect.ThirdEyeEffect;
 import net.minecraft.item.Item;
 import net.minecraft.potion.Effect;
@@ -34,4 +35,5 @@ public class OccultismEffects {
     public static final DeferredRegister<Effect> EFFECTS = new DeferredRegister<>(ForgeRegistries.POTIONS, Occultism.MODID);
 
     public static final RegistryObject<ThirdEyeEffect> THIRD_EYE = EFFECTS.register("third_eye", ThirdEyeEffect::new);
+    public static final RegistryObject<DoubleJumpEffect> DOUBLE_JUMP = EFFECTS.register("double_jump", DoubleJumpEffect::new);
 }
