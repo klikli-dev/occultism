@@ -67,7 +67,7 @@ public class OtherworldBirdEntity extends ParrotEntity {
                 //close enough to boost
                 owner.addPotionEffect(new EffectInstance(Effects.JUMP_BOOST, 60, 5));
                 owner.addPotionEffect(new EffectInstance(Effects.SLOW_FALLING, 3600));
-                owner.addPotionEffect(new EffectInstance(OccultismEffects.DOUBLE_JUMP.get(), 3600, 4));
+                owner.addPotionEffect(new EffectInstance(OccultismEffects.DOUBLE_JUMP.get(), 120, 4));
             }
         }
 
