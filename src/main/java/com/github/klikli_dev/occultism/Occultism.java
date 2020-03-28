@@ -33,6 +33,7 @@ import com.github.klikli_dev.occultism.client.render.ThirdEyeEffectRenderer;
 import com.github.klikli_dev.occultism.client.render.entity.AfritRenderer;
 import com.github.klikli_dev.occultism.client.render.entity.DjinniRenderer;
 import com.github.klikli_dev.occultism.client.render.entity.FoliotRenderer;
+import com.github.klikli_dev.occultism.client.render.entity.OtherworldBirdRenderer;
 import com.github.klikli_dev.occultism.client.render.tile.SacrificialBowlRenderer;
 import com.github.klikli_dev.occultism.client.render.tile.StorageControllerRenderer;
 import com.github.klikli_dev.occultism.common.DebugHelper;
@@ -154,6 +155,7 @@ public class Occultism {
         RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.POSSESSED_ENDERMAN.get(), EndermanRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.WILD_HUNT_SKELETON.get(), SkeletonRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.WILD_HUNT_WITHER_SKELETON.get(), WitherSkeletonRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.OTHERWORLD_BIRD.get(), OtherworldBirdRenderer::new);
 
         //Register Tile Entity Renderers
         ClientRegistry.bindTileEntityRenderer(OccultismTiles.STORAGE_CONTROLLER.get(), StorageControllerRenderer::new);

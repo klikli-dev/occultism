@@ -23,10 +23,12 @@
 package com.github.klikli_dev.occultism.registry;
 
 import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.common.entity.OtherworldBirdEntity;
 import com.github.klikli_dev.occultism.common.entity.possessed.*;
 import com.github.klikli_dev.occultism.common.entity.spirit.*;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.passive.ParrotEntity;
 import net.minecraftforge.common.util.NonNullLazy;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
@@ -77,6 +79,10 @@ public class OccultismEntities {
             NonNullLazy.of(() -> EntityType.Builder.create(WildHuntWitherSkeletonEntity::new, EntityClassification.MONSTER)
                                          .size(0.6F, 2.9F)
                                          .build(modLoc("wild_hunt_wither_skeleton").toString()));
+    public static final NonNullLazy<EntityType<OtherworldBirdEntity>> OTHERWORLD_BIRD_TYPE =
+            NonNullLazy.of(() -> EntityType.Builder.create(OtherworldBirdEntity::new, EntityClassification.CREATURE)
+                                         .size(0.5F, 0.9F)
+                                         .build(modLoc("otherworld_bird").toString()));
 
     public static final RegistryObject<EntityType<FoliotEntity>> FOLIOT = ENTITIES.register("foliot", FOLIOT_TYPE::get);
     public static final RegistryObject<EntityType<DjinniEntity>> DJINNI = ENTITIES.register("djinni", DJINNI_TYPE::get);
@@ -93,5 +99,7 @@ public class OccultismEntities {
             ENTITIES.register("wild_hunt_skeleton", WILD_HUNT_SKELETON_TYPE::get);
     public static final RegistryObject<EntityType<WildHuntWitherSkeletonEntity>> WILD_HUNT_WITHER_SKELETON =
             ENTITIES.register("wild_hunt_wither_skeleton", WILD_HUNT_WITHER_SKELETON_TYPE::get);
+    public static final RegistryObject<EntityType<OtherworldBirdEntity>> OTHERWORLD_BIRD =
+            ENTITIES.register("otherworld_bird", OTHERWORLD_BIRD_TYPE::get);
     //endregion Fields
 }
