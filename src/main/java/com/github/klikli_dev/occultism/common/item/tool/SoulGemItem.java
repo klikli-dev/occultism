@@ -23,8 +23,11 @@
 package com.github.klikli_dev.occultism.common.item.tool;
 
 import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.api.common.data.GlobalBlockPos;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.github.klikli_dev.occultism.util.EntityUtil;
+import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -36,13 +39,18 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
+
+import javax.annotation.Nullable;
+import java.util.List;
 
 public class SoulGemItem extends Item {
     //region Initialization
     public SoulGemItem(Properties properties) {
         super(properties);
-        this.addPropertyOverride(new ResourceLocation(Occultism.MODID, "hasEntity"),
+        this.addPropertyOverride(new ResourceLocation(Occultism.MODID, "has_entity"),
                 (stack, world, entity) -> stack.getOrCreateTag().contains("entityData") ? 1.0f : 0.0f);
     }
     //endregion Initialization
@@ -59,7 +67,7 @@ public class SoulGemItem extends Item {
             //whenever we have an entity stored we can do nothing but release it
             if (!world.isRemote) {
                 CompoundNBT entityData = itemStack.getTag().getCompound("entityData");
-                SpiritEntity entity = (SpiritEntity) EntityUtil.entityFromNBT(world, entityData);
+                LivingEntity entity = (LivingEntity) EntityUtil.entityFromNBT(world, entityData);
 
                 facing = facing == null ? Direction.UP : facing;
 
@@ -75,7 +83,6 @@ public class SoulGemItem extends Item {
         return ActionResultType.PASS;
     }
 
-
     @Override
     public boolean itemInteractionForEntity(ItemStack stack, PlayerEntity player, LivingEntity target, Hand hand) {
         if (target.world.isRemote)
@@ -90,5 +97,26 @@ public class SoulGemItem extends Item {
         player.container.detectAndSendChanges();
         return true;
     }
+
+    @Override
+    public String getTranslationKey(ItemStack stack) {
+        return stack.getOrCreateTag().contains("entityData") ? this.getTranslationKey() :
+                       this.getTranslationKey() + "_empty";
+    }
+
+    @Override
+    public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip,
+                               ITooltipFlag flagIn) {
+        super.addInformation(stack, worldIn, tooltip, flagIn);
+
+        if(stack.getOrCreateTag().contains("entityData")){
+            EntityType<?> type = EntityUtil.entityTypeFromNbt(stack.getTag().getCompound("entityData"));
+            tooltip.add(new TranslationTextComponent(this.getTranslationKey() + ".tooltip_filled", type.getName()));
+        }
+        else{
+            tooltip.add(new TranslationTextComponent(this.getTranslationKey() + ".tooltip_empty"));
+        }
+    }
+
     //endregion Overrides
 }

@@ -23,6 +23,7 @@
 package com.github.klikli_dev.occultism.util;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.server.MinecraftServer;
@@ -97,6 +98,17 @@ public class EntityUtil {
         Entity entity = ForgeRegistries.ENTITIES.getValue(typeId).create(world);
         entity.deserializeNBT(nbtTagCompound);
         return entity;
+    }
+
+    /**
+     * Creates an entity type from the given nbt tag
+     *
+     * @param nbtTagCompound the tag compound to create the entity from.
+     * @return the entity type if successful or null otherwise.
+     */
+    public static EntityType<?> entityTypeFromNbt(CompoundNBT nbtTagCompound) {
+        ResourceLocation typeId = new ResourceLocation(nbtTagCompound.getString("id"));
+        return ForgeRegistries.ENTITIES.getValue(typeId);
     }
     //endregion Static Methods
 
