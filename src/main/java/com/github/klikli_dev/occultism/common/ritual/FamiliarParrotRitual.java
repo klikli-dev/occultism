@@ -22,13 +22,14 @@
 
 package com.github.klikli_dev.occultism.common.ritual;
 
-import com.github.klikli_dev.occultism.common.entity.OtherworldBirdEntity;
 import com.github.klikli_dev.occultism.common.tile.GoldenSacrificialBowlTileEntity;
-import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.github.klikli_dev.occultism.registry.OccultismRituals;
 import com.github.klikli_dev.occultism.util.ItemNBTUtil;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.passive.AnimalEntity;
+import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
@@ -40,19 +41,19 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
-public class SummonOtherworldBirdRitual extends SummonSpiritRitual {
+public class FamiliarParrotRitual extends SummonSpiritRitual {
     //region Fields
-    public static final ResourceLocation parrotTag = new ResourceLocation("forge", "parrots");
+    public static final ResourceLocation chickenTag = new ResourceLocation("forge", "chicken");
     //endregion Fields
 
     //region Initialization
-    public SummonOtherworldBirdRitual() {
+    public FamiliarParrotRitual() {
         super(null,
-                OccultismRituals.SUMMON_DJINNI_PENTACLE.get(),
-                Ingredient.fromItems(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()),
-                "summon_otherworld_bird", 30);
+                OccultismRituals.POSSESS_FOLIOT_PENTACLE.get(),
+                Ingredient.fromItems(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()),
+                "familiar_parrot", 30);
         this.sacrificePredicate =
-                (entity) -> EntityTypeTags.getCollection().getOrCreate(parrotTag).contains(entity.getType());
+                (entity) -> EntityTypeTags.getCollection().getOrCreate(chickenTag).contains(entity.getType());
     }
     //endregion Initialization
 
@@ -69,16 +70,22 @@ public class SummonOtherworldBirdRitual extends SummonSpiritRitual {
         ((ServerWorld) world).spawnParticle(ParticleTypes.LARGE_SMOKE, goldenBowlPosition.getX() + 0.5,
                 goldenBowlPosition.getY() + 0.5, goldenBowlPosition.getZ() + 0.5, 1, 0, 0, 0, 0);
 
-        OtherworldBirdEntity bird = OccultismEntities.OTHERWORLD_BIRD.get().create(world);
-        bird.onInitialSpawn(world, world.getDifficultyForLocation(goldenBowlPosition), SpawnReason.MOB_SUMMONED,
-                null, null);
-        bird.setPositionAndRotation(goldenBowlPosition.getX(), goldenBowlPosition.getY(), goldenBowlPosition.getZ(),
-                world.rand.nextInt(360), 0);
-        bird.setCustomName(new StringTextComponent(entityName));
-        bird.setOwnerId(castingPlayer.getUniqueID());
+        //1/3 are a parrot, 2/3 are chickens.
+        AnimalEntity parrot =
+                world.rand.nextInt(3) == 0 ? EntityType.PARROT.create(world) : EntityType.CHICKEN.create(world);
+        parrot.onInitialSpawn(world, world.getDifficultyForLocation(goldenBowlPosition), SpawnReason.MOB_SUMMONED,
+                null,
+                null);
+        parrot
+                .setPositionAndRotation(goldenBowlPosition.getX(), goldenBowlPosition.getY(), goldenBowlPosition.getZ(),
+                        world.rand.nextInt(360), 0);
+        parrot.setCustomName(new StringTextComponent(entityName));
+        if (parrot instanceof TameableEntity) {
+            ((TameableEntity) parrot).setOwnerId(castingPlayer.getUniqueID());
+        }
 
         //notify players nearby and spawn
-        this.spawnEntity(bird, world);
+        this.spawnEntity(parrot, world);
     }
     //endregion Overrides
 }
