@@ -139,6 +139,18 @@ public class OccultismPackets {
                 MessageSelectBlock::encode,
                 MessageSelectBlock::new,
                 OccultismPacketHandler::handle);
+
+        INSTANCE.registerMessage(nextID(),
+                MessageSetJumps.class,
+                MessageSetJumps::encode,
+                MessageSetJumps::new,
+                OccultismPacketHandler::handle);
+
+        INSTANCE.registerMessage(nextID(),
+                MessageDoubleJump.class,
+                MessageDoubleJump::encode,
+                MessageDoubleJump::new,
+                OccultismPacketHandler::handle);
     }
 
     public static <MSG> void sendTo(ServerPlayerEntity player, MSG message) {

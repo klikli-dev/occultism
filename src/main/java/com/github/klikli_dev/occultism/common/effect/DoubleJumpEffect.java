@@ -23,10 +23,12 @@
 package com.github.klikli_dev.occultism.common.effect;
 
 import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.registry.OccultismEffects;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.client.gui.DisplayEffectsScreen;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.EffectType;
@@ -44,6 +46,7 @@ public class DoubleJumpEffect extends Effect {
         super(EffectType.NEUTRAL, 0xffff00);
     }
     //endregion Initialization
+
 
     //region Overrides
     @Override
@@ -73,4 +76,21 @@ public class DoubleJumpEffect extends Effect {
         AbstractGui.blit(x + 3, y + 3, 18, 18, 0, 0, 255, 255, 256, 256);
     }
     //endregion Overrides
+
+    //region Static Methods
+
+    /**
+     * Gets the amount of jumps provided by the double jump effect on the player, or 0 if there is no double jump effect present.
+     *
+     * @param player the player
+     * @return the max amount of jumps.
+     */
+    public static int getMaxJumps(PlayerEntity player) {
+        EffectInstance effect = player.getActivePotionEffect(OccultismEffects.DOUBLE_JUMP.get());
+        if (effect != null) {
+            return 1 + effect.getAmplifier();
+        }
+        return 0;
+    }
+    //endregion Static Methods
 }

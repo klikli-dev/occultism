@@ -101,6 +101,7 @@ public class Occultism {
         OccultismBiomeFeatures.FEATURES.register(modEventBus);
 
         //register event buses
+        modEventBus.addListener(OccultismCapabilities::commonSetup);
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::clientSetup);
         modEventBus.addListener(this::serverSetup);
