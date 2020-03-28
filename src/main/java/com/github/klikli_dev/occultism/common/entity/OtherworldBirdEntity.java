@@ -25,7 +25,9 @@ package com.github.klikli_dev.occultism.common.entity;
 import com.github.klikli_dev.occultism.registry.OccultismEffects;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.passive.ParrotEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.world.World;
@@ -58,6 +60,21 @@ public class OtherworldBirdEntity extends ParrotEntity {
     //endregion Getter / Setter
 
     //region Overrides
+
+
+    @Override
+    protected void registerGoals() {
+        //same as parrot, except we don't land on shoulders.
+        this.sitGoal = new SitGoal(this);
+        this.goalSelector.addGoal(0, new PanicGoal(this, 1.25D));
+        this.goalSelector.addGoal(0, new SwimGoal(this));
+        this.goalSelector.addGoal(1, new LookAtGoal(this, PlayerEntity.class, 8.0F));
+        this.goalSelector.addGoal(2, this.sitGoal);
+        this.goalSelector.addGoal(2, new FollowOwnerGoal(this, 1.0D, 5.0F, 1.0F, true));
+        this.goalSelector.addGoal(2, new WaterAvoidingRandomFlyingGoal(this, 1.0D));
+        this.goalSelector.addGoal(3, new FollowMobGoal(this, 1.0D, 3.0F, 7.0F));
+    }
+
     @Override
     public void livingTick() {
         //Every 10 ticks, attempt to refresh the owner buff
