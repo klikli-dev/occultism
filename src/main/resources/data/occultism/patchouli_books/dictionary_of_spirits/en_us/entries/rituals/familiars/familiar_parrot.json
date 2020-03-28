@@ -1,12 +1,13 @@
 {
   "name": "Parrot Familiar",
   "icon": "occultism:textures/gui/book/parrot.png",
-  "category": "rituals/possession",
+  "category": "rituals/familiars",
   "sortnum": 1,
   "pages": [
     {
       "type": "entity",
-      "entity": "minecraft:parrot"
+      "entity": "minecraft:parrot",
+      "text": "$(bold)Provides$(): Company"
     },
     {
       "type": "summoning_sacrifice",

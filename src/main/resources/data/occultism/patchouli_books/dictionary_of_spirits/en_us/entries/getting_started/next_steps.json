@@ -21,7 +21,12 @@
     {
       "type": "text",
       "title": "Infuse Pickaxe",
-      "text": "$(l:rituals/crafting/craft_infused_pickaxe)$(thing)Infuse a pickaxe$()(/l)$() to harvest Otherworld ores. The logical next step is to craft an $(item)Iesnium Pickaxe$() for the same effect, but with a higher durability."
+      "text": "$(l:rituals/crafting/craft_infused_pickaxe)$(thing)Infuse a pickaxe$()$(/l)$() to harvest Otherworld ores. The logical next step is to craft an $(item)Iesnium Pickaxe$() for the same effect, but with a higher durability."
+    },
+    {
+      "type": "text",
+      "title": "Summon Familiars",
+      "text": "Become a pirate with a $(l:rituals/familiars/familiar_parrot)$(thing)Parrot Familiar$()$(/l) or take to the skies aided by a $(l:rituals/familiars/familiar_otherworld_bird)$(thing)Drikwing()$(/l)."
     },
     {
       "type": "text",
