@@ -94,7 +94,8 @@ public class OccultismRituals {
             RITUALS.register("summon_djinni_day_time", SummonDjinniDayTimeRitual::new);
     public static final RegistryObject<SummonDjinniNightTimeRitual> SUMMON_DJINNI_NIGHT_TIME_RITUAL =
             RITUALS.register("summon_djinni_night_time", SummonDjinniNightTimeRitual::new);
-
+    public static final RegistryObject<SummonOtherworldBirdRitual> SUMMON_OTHERWORLD_BIRD =
+            RITUALS.register("summon_otherworld_bird", SummonOtherworldBirdRitual::new);
     //Crafting
     public static final RegistryObject<CraftStorageControllerBaseRitual> CRAFT_STORAGE_CONTROLLER_BASE_RITUAL =
             RITUALS.register("craft_storage_controller_base", CraftStorageControllerBaseRitual::new);
