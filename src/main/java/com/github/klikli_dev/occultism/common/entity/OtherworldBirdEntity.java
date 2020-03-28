@@ -65,9 +65,9 @@ public class OtherworldBirdEntity extends ParrotEntity {
             LivingEntity owner = this.getOwnerCached();
             if (owner != null && this.getDistance(owner) < MAX_BOOST_DISTANCE) {
                 //close enough to boost
-                owner.addPotionEffect(new EffectInstance(Effects.JUMP_BOOST, 60, 5));
-                owner.addPotionEffect(new EffectInstance(Effects.SLOW_FALLING, 3600));
-                owner.addPotionEffect(new EffectInstance(OccultismEffects.DOUBLE_JUMP.get(), 120, 4));
+                owner.addPotionEffect(new EffectInstance(Effects.JUMP_BOOST, 60, 5, false, false));
+                owner.addPotionEffect(new EffectInstance(Effects.SLOW_FALLING, 3600, 0, false, false));
+                owner.addPotionEffect(new EffectInstance(OccultismEffects.DOUBLE_JUMP.get(), 120, 4, false, false));
             }
         }
 
