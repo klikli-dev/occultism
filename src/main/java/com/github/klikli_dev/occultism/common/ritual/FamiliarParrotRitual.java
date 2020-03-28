@@ -81,7 +81,7 @@ public class FamiliarParrotRitual extends SummonSpiritRitual {
                         world.rand.nextInt(360), 0);
         parrot.setCustomName(new StringTextComponent(entityName));
         if (parrot instanceof TameableEntity) {
-            ((TameableEntity) parrot).setOwnerId(castingPlayer.getUniqueID());
+            ((TameableEntity) parrot).setTamedBy(castingPlayer);
         }
 
         //notify players nearby and spawn

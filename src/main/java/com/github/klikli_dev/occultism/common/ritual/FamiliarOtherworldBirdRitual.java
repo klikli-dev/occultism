@@ -75,7 +75,7 @@ public class FamiliarOtherworldBirdRitual extends SummonSpiritRitual {
         bird.setPositionAndRotation(goldenBowlPosition.getX(), goldenBowlPosition.getY(), goldenBowlPosition.getZ(),
                 world.rand.nextInt(360), 0);
         bird.setCustomName(new StringTextComponent(entityName));
-        bird.setOwnerId(castingPlayer.getUniqueID());
+        bird.setTamedBy(castingPlayer);
 
         //notify players nearby and spawn
         this.spawnEntity(bird, world);
