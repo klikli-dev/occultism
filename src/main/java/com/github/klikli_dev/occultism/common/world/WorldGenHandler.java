@@ -55,23 +55,6 @@ public class WorldGenHandler {
             Occultism.CONFIG.worldGen.undergroundGroveGen.dimensionTypeWhitelist.get().stream()
                     .map(s -> DimensionType.byName(new ResourceLocation(s))).collect(
                     Collectors.toList());
-
-    protected static final List<DimensionType> OTHERSTONE_DIMENSION_WHITELIST =
-            Occultism.CONFIG.worldGen.oreGen.otherstoneNatural.dimensionTypeWhitelist.get().stream()
-                    .map(s -> DimensionType.byName(new ResourceLocation(s))).collect(
-                    Collectors.toList());
-    protected static final List<DimensionType> COPPER_DIMENSION_WHITELIST =
-            Occultism.CONFIG.worldGen.oreGen.copperOre.dimensionTypeWhitelist.get().stream()
-                    .map(s -> DimensionType.byName(new ResourceLocation(s))).collect(
-                    Collectors.toList());
-    protected static final List<DimensionType> SILVER_DIMENSION_WHITELIST =
-            Occultism.CONFIG.worldGen.oreGen.silverOre.dimensionTypeWhitelist.get().stream()
-                    .map(s -> DimensionType.byName(new ResourceLocation(s))).collect(
-                    Collectors.toList());
-    protected static final List<DimensionType> IESNIUM_DIMENSION_WHITELIST =
-            Occultism.CONFIG.worldGen.oreGen.iesniumOre.dimensionTypeWhitelist.get().stream()
-                    .map(s -> DimensionType.byName(new ResourceLocation(s))).collect(
-                    Collectors.toList());
     //endregion Fields
 
     //region Static Methods

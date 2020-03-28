@@ -119,12 +119,16 @@ public class OccultismRituals {
     public static final RegistryObject<CraftInfusedPickaxeRitual> CRAFT_INFUSED_PICKAXE_RITUAL =
             RITUALS.register("craft_infused_pickaxe", CraftInfusedPickaxeRitual::new);
 
+    public static final RegistryObject<CraftSoulGemRitual> CRAFT_SOUL_GEM_RITUAL =
+            RITUALS.register("craft_soul_gem", CraftSoulGemRitual::new);
+
     public static final RegistryObject<CraftDimensionalMineshaftRitual> CRAFT_DIMENSIONAL_MINESHAFT_RITUAL =
             RITUALS.register("craft_dimensional_mineshaft", CraftDimensionalMineshaftRitual::new);
     public static final RegistryObject<CraftMinerFoliotUnspecialized> CRAFT_MINER_FOLIOT_UNSPECIALIZED_RITUAL =
             RITUALS.register("craft_miner_foliot_unspecialized", CraftMinerFoliotUnspecialized::new);
     public static final RegistryObject<CraftMinerDjinniOresRitual> CRAFT_MINER_DJINNI_ORES_RITUAL =
             RITUALS.register("craft_miner_djinni_ores", CraftMinerDjinniOresRitual::new);
+
     //Possession
     public static final RegistryObject<PossessEndermiteRitual> POSSESS_ENDERMITE_RITUAL =
             RITUALS.register("possess_endermite", PossessEndermiteRitual::new);
