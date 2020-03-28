@@ -88,8 +88,12 @@ public class SoulGemItem extends Item {
         if (target.world.isRemote)
             return false;
 
+        //Already got an entity in there.
+        if(stack.getOrCreateTag().contains("entityData"))
+            return false;
+
         //serialize entity
-        stack.getOrCreateTag().put("entityData", target.serializeNBT());
+        stack.getTag().put("entityData", target.serializeNBT());
         //show player swing anim
         player.swingArm(hand);
         player.setHeldItem(hand, stack); //need to write the item back to hand, otherwise we only modify a copy
