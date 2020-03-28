@@ -26,11 +26,10 @@ import com.github.klikli_dev.occultism.common.tile.GoldenSacrificialBowlTileEnti
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.github.klikli_dev.occultism.registry.OccultismRituals;
 import com.github.klikli_dev.occultism.util.ItemNBTUtil;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.entity.passive.ParrotEntity;
+import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
@@ -72,7 +71,8 @@ public class PossessParrotRitual extends SummonSpiritRitual {
                 goldenBowlPosition.getY() + 0.5, goldenBowlPosition.getZ() + 0.5, 1, 0, 0, 0, 0);
 
         //1/3 are a parrot, 2/3 are chickens.
-        AnimalEntity parrot = world.rand.nextInt(3) == 0 ? EntityType.PARROT.create(world) : EntityType.CHICKEN.create(world);
+        AnimalEntity parrot =
+                world.rand.nextInt(3) == 0 ? EntityType.PARROT.create(world) : EntityType.CHICKEN.create(world);
         parrot.onInitialSpawn(world, world.getDifficultyForLocation(goldenBowlPosition), SpawnReason.MOB_SUMMONED,
                 null,
                 null);
@@ -80,6 +80,9 @@ public class PossessParrotRitual extends SummonSpiritRitual {
                 .setPositionAndRotation(goldenBowlPosition.getX(), goldenBowlPosition.getY(), goldenBowlPosition.getZ(),
                         world.rand.nextInt(360), 0);
         parrot.setCustomName(new StringTextComponent(entityName));
+        if (parrot instanceof TameableEntity) {
+            ((TameableEntity) parrot).setOwnerId(castingPlayer.getUniqueID());
+        }
 
         //notify players nearby and spawn
         this.spawnEntity(parrot, world);
