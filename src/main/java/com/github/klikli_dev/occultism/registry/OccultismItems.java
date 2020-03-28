@@ -176,6 +176,9 @@ public class OccultismItems {
     public static final RegistryObject<OtherworldPickaxeItem> IESNIUM_PICKAXE = ITEMS.register("iesnium_pickaxe",
             () -> new OtherworldPickaxeItem(ItemTier.DIAMOND, 1, -2.8F, defaultProperties()));
 
+    public static final RegistryObject<SoulGemItem> SOUL_GEM_ITEM = ITEMS.register("soul_gem",
+            () -> new SoulGemItem(defaultProperties().maxStackSize(1)));
+
     //Books of Binding
     public static final RegistryObject<BookOfBindingItem> BOOK_OF_BINDING_FOLIOT = ITEMS.register(
             "book_of_binding_foliot", () -> new BookOfBindingItem(defaultProperties().maxStackSize(1)));
