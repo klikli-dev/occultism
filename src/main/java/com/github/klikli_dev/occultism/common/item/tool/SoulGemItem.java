@@ -85,6 +85,7 @@ public class SoulGemItem extends Item {
 
     @Override
     public boolean itemInteractionForEntity(ItemStack stack, PlayerEntity player, LivingEntity target, Hand hand) {
+        //This is called from PlayerEventHandler#onPlayerRightClickEntity, because we need to bypass sitting entities processInteraction
         if (target.world.isRemote)
             return false;
 
