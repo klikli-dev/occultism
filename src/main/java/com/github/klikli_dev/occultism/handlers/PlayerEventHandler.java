@@ -30,8 +30,8 @@ import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.github.klikli_dev.occultism.util.Math3DUtil;
 import com.github.klikli_dev.occultism.util.MovementUtil;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.item.Items;
 import net.minecraft.util.Hand;
@@ -82,13 +82,25 @@ public class PlayerEventHandler {
     }
 
     @SubscribeEvent
+    public static void onPlayerRightClickEntity(PlayerInteractEvent.EntityInteract event) {
+        if (event.getItemStack().getItem() == OccultismItems.SOUL_GEM_ITEM.get() && event.getTarget() instanceof LivingEntity) {
+            //called from here to bypass sitting entity's sit command.
+            if (OccultismItems.SOUL_GEM_ITEM.get()
+                        .itemInteractionForEntity(event.getItemStack(), event.getPlayer(), (LivingEntity) event.getTarget(),
+                                event.getHand())){
+                event.setCanceled(true);
+            }
+        }
+    }
+
+    @SubscribeEvent
     public static void onKeyInput(final InputEvent.KeyInputEvent evt) {
         Minecraft minecraft = Minecraft.getInstance();
         if (!minecraft.isGameFocused() || evt.getAction() != GLFW_PRESS) {
             return;
         }
 
-        if(minecraft.gameSettings.keyBindJump.isKeyDown()) {
+        if (minecraft.gameSettings.keyBindJump.isKeyDown()) {
 
             if (minecraft.player != null && MovementUtil.doubleJump(minecraft.player)) {
                 OccultismPackets.sendToServer(new MessageDoubleJump());
