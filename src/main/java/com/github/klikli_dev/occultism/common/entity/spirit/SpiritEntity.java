@@ -297,7 +297,7 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
         ItemStack itemStack = player.getHeldItem(hand);
         boolean flag = !itemStack.isEmpty();
         if (itemStack.isEmpty()) {
-            if (this.isTamed() && player.isShiftKeyDown()) {
+            if (this.isTamed() && player.isSneaking()) {
                 this.openGUI(player);
                 return true;
             }

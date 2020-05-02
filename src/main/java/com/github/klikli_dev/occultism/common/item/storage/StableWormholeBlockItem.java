@@ -68,7 +68,7 @@ public class StableWormholeBlockItem extends BlockItem {
         World world = context.getWorld();
         BlockPos pos = context.getPos();
         if (!world.isRemote) {
-            if (player.isShiftKeyDown()) {
+            if (player.isSneaking()) {
                 TileEntity tileEntity = world.getTileEntity(pos);
                 if (tileEntity instanceof IStorageController) {
                     //if this is a storage controller, write the position into the block entity tag that will be used to spawn the tile entity.

@@ -78,7 +78,7 @@ public class SacrificialBowlBlock extends Block {
             ItemStack heldItem = player.getHeldItem(hand);
             SacrificialBowlTileEntity bowl = (SacrificialBowlTileEntity) world.getTileEntity(pos);
             bowl.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, hit.getFace()).ifPresent(handler -> {
-                if (!player.isShiftKeyDown()) {
+                if (!player.isSneaking()) {
                     ItemStack itemStack = handler.getStackInSlot(0);
                     if (itemStack.isEmpty()) {
                         //if there is nothing in the bowl, put the hand held item in
