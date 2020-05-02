@@ -210,7 +210,7 @@ curseforge {
     project {
         apiKey = curse_api_key
         id = '361026'
-        changelog = '[Automated Build]\nFind changes at https://github.com/klikli-dev/occultism'
+        changelog = '[Automated Build]\nFind changes at https://github.com/klikli-dev/occultism/releases'
         releaseType = release_type
         addGameVersion env_mc_version
     }
