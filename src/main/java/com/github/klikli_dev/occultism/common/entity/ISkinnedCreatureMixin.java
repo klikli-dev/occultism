@@ -22,13 +22,10 @@
 
 package com.github.klikli_dev.occultism.common.entity;
 
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.EntityDataManager;
-
-import java.util.Random;
 
 /**
  * Mixin to support multiple different skins for a creature.
@@ -39,7 +36,7 @@ public interface ISkinnedCreatureMixin {
     /**
      * @return the entity
      */
-    default LivingEntity getEntity(){
+    default LivingEntity getEntity() {
         return (LivingEntity) this;
     }
 
@@ -72,7 +69,7 @@ public interface ISkinnedCreatureMixin {
      */
     default void selectRandomSkin() {
         EntityDataManager dataManager = this.getEntity().getDataManager();
-        dataManager.set(this.getDataParameterSkin(), this.getEntity().getRMG().nextInt(this.getSkinTypes()));
+        dataManager.set(this.getDataParameterSkin(), this.getEntity().getRNG().nextInt(this.getSkinTypes()));
     }
 
     /**
