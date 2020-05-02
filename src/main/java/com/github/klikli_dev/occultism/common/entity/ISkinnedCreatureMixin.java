@@ -22,6 +22,7 @@
 
 package com.github.klikli_dev.occultism.common.entity;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
@@ -36,19 +37,16 @@ public interface ISkinnedCreatureMixin {
     //region Getter / Setter
 
     /**
-     * @return the entity data manager
+     * @return the entity
      */
-    EntityDataManager getDataManager();
+    default LivingEntity getEntity(){
+        return (LivingEntity) this;
+    }
 
     /**
      * @return the data parameter for the skin type.
      */
     DataParameter<Integer> getDataParameterSkin();
-
-    /**
-     * @return the entity rand.
-     */
-    Random getRNG();
 
     /**
      * @return the amount of different skin types for this creature
@@ -60,12 +58,12 @@ public interface ISkinnedCreatureMixin {
 
     //region Methods
     default void writeSkinToNBT(CompoundNBT tag) {
-        EntityDataManager dataManager = this.getDataManager();
+        EntityDataManager dataManager = this.getEntity().getDataManager();
         tag.putInt("skin", dataManager.get(this.getDataParameterSkin()));
     }
 
     default void readSkinFromNBT(CompoundNBT tag) {
-        EntityDataManager dataManager = this.getDataManager();
+        EntityDataManager dataManager = this.getEntity().getDataManager();
         dataManager.set(this.getDataParameterSkin(), tag.getInt("skin"));
     }
 
@@ -73,15 +71,15 @@ public interface ISkinnedCreatureMixin {
      * selects a random skin and stores it in the datamanager.
      */
     default void selectRandomSkin() {
-        EntityDataManager dataManager = this.getDataManager();
-        dataManager.set(this.getDataParameterSkin(), this.getRNG().nextInt(this.getSkinTypes()));
+        EntityDataManager dataManager = this.getEntity().getDataManager();
+        dataManager.set(this.getDataParameterSkin(), this.getEntity().getRMG().nextInt(this.getSkinTypes()));
     }
 
     /**
      * registers the skin data parameter with the data manager.
      */
     default void registerSkinDataParameter() {
-        this.getDataManager().register(this.getDataParameterSkin(), 0);
+        this.getEntity().getDataManager().register(this.getDataParameterSkin(), 0);
     }
     //endregion Methods
 }
