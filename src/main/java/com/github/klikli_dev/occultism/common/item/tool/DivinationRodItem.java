@@ -86,7 +86,7 @@ public class DivinationRodItem extends Item {
         BlockPos pos = context.getPos();
         ItemStack stack = context.getItem();
 
-        if (player.isShiftKeyDown()) {
+        if (player.isSneaking()) {
             BlockState state = world.getBlockState(pos);
             if (!state.getBlock().isAir(state, world, pos)) {
                 Block block = this.getOtherBlock(state);
@@ -121,7 +121,7 @@ public class DivinationRodItem extends Item {
     public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, Hand hand) {
         ItemStack stack = player.getHeldItem(hand);
 
-        if (!player.isShiftKeyDown()) {
+        if (!player.isSneaking()) {
             if (stack.getOrCreateTag().contains("linkedBlockId")) {
                 stack.getTag().putFloat("distance", SEARCHING);
                 player.setActiveHand(hand);

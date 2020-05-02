@@ -155,7 +155,7 @@ public class BookOfCallingItem extends Item implements IIngredientPreventCraftin
         }
         else {
             //if there are no entities stored, we can either open the ui or perform the action
-            if (player.isShiftKeyDown()) {
+            if (player.isSneaking()) {
                 //when sneaking, perform action based on mode
                 return this.handleItemMode(player, world, pos, itemStack, facing);
             }
