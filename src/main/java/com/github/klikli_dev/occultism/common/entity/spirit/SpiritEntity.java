@@ -236,6 +236,11 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
     }
 
     @Override
+    public LivingEntity getEntity() {
+        return (LivingEntity) this;
+    }
+
+    @Override
     public DataParameter<Integer> getDataParameterSkin() {
         return SKIN;
     }
