@@ -41,8 +41,8 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.WordUtils;
-import org.codehaus.plexus.util.StringUtils;
 
 public class SpiritGui extends ContainerScreen<SpiritContainer> {
 //region Fields
