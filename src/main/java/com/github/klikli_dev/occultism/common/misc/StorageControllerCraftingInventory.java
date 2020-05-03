@@ -41,7 +41,7 @@ public class StorageControllerCraftingInventory extends CraftingInventory {
     protected static Field stackListField;
 
     static {
-        stackListField = ObfuscationReflectionHelper.findField(CraftingInventory.class, "stackList");
+        stackListField = ObfuscationReflectionHelper.findField(CraftingInventory.class, "field_70466_a");
     }
 
     protected final Container container;
