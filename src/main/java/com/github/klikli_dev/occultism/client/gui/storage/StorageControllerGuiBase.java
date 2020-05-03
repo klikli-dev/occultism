@@ -327,8 +327,8 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     }
 
     @Override
-    public boolean isPointInRegion(int rectX, int rectY, int rectWidth, int rectHeight, double pointX, double pointY) {
-        return super.isPointInRegion(rectX, rectY, rectWidth, rectHeight, pointX, pointY);
+    public boolean isPointInRegionController(int rectX, int rectY, int rectWidth, int rectHeight, double pointX, double pointY) {
+        return this.isPointInRegion(rectX, rectY, rectWidth, rectHeight, pointX, pointY);
     }
 
     @Override

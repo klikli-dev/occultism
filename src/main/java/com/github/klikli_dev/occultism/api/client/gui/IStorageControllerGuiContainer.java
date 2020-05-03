@@ -34,7 +34,7 @@ public interface IStorageControllerGuiContainer {
     //region Methods
     void drawGradientRect(int left, int top, int right, int bottom, int startColor, int endColor);
 
-    boolean isPointInRegion(int rectX, int rectY, int rectWidth, int rectHeight, double pointX, double pointY);
+    boolean isPointInRegionController(int rectX, int rectY, int rectWidth, int rectHeight, double pointX, double pointY);
 
     void renderToolTip(ItemStack stack, int x, int y);
 
