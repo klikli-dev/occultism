@@ -38,7 +38,7 @@ public class ReflectionUtil {
     public static class RecipeManagerReflection {
         //region Fields
         protected static Method getRecipesByType =
-                ObfuscationReflectionHelper.findMethod(RecipeManager.class, "func_215370_b", IRecipeType.class);
+                ObfuscationReflectionHelper.findMethod(RecipeManager.class, "func_215366_a", IRecipeType.class);
         //endregion Fields
 
         //region Static Methods
