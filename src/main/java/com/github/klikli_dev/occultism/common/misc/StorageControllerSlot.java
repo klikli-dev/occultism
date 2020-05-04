@@ -28,6 +28,7 @@ import com.github.klikli_dev.occultism.api.common.tile.IStorageController;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.CraftingResultSlot;
 import net.minecraft.item.ItemStack;
 
@@ -66,7 +67,7 @@ public class StorageControllerSlot extends CraftingResultSlot {
             craftingStacks.add(this.matrix.getStackInSlot(i).copy());
         }
         super.onTake(player, stack);
-        this.storageControllerContainer.detectAndSendChanges();
+        ((Container)this.storageControllerContainer).detectAndSendChanges();
         for (int i = 0; i < this.matrix.getSizeInventory(); i++) {
             IStorageController storageController = this.storageControllerContainer.getStorageController();
             if (this.matrix.getStackInSlot(i).isEmpty() && storageController != null) {
@@ -78,7 +79,7 @@ public class StorageControllerSlot extends CraftingResultSlot {
                 }
             }
         }
-        this.storageControllerContainer.detectAndSendChanges();
+        ((Container)this.storageControllerContainer).detectAndSendChanges();
         return stack;
     }
     //endregion Overrides

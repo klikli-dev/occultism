@@ -114,6 +114,8 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         this.totalPages = 1;
 
         this.stacks = new ArrayList<>();
+        this.linkedMachines = new ArrayList<>();
+
         this.lastClick = System.currentTimeMillis();
 
         OccultismPackets.sendToServer(new MessageRequestStacks());

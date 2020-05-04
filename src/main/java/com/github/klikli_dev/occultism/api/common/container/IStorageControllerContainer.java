@@ -56,9 +56,5 @@ public interface IStorageControllerContainer {
      */
     void updateOrderSlot(boolean force);
 
-    /**
-     * detects changes in the underlying inventory handler and broadcasts them.
-     */
-    void detectAndSendChanges();
     //endregion Methods
 }
