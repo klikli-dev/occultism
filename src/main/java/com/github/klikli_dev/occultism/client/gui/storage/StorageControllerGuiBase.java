@@ -518,9 +518,10 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
     protected boolean isPointInItemArea(double mouseX, double mouseY) {
         int itemAreaHeight = 82;
+        int itemAreaWidth = 160;
         int itemAreaTop = 24;
         int itemAreaLeft = 8 + ORDER_AREA_OFFSET;
-        return mouseX > (this.guiLeft + itemAreaLeft) && mouseX < (this.guiLeft + this.xSize - itemAreaLeft) &&
+        return mouseX > (this.guiLeft + itemAreaLeft) && mouseX < (this.guiLeft + itemAreaWidth + itemAreaLeft) &&
                mouseY > (this.guiTop + itemAreaTop) && mouseY < (this.guiTop + itemAreaTop + itemAreaHeight);
     }
 
