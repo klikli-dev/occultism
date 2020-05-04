@@ -30,6 +30,7 @@ import com.github.klikli_dev.occultism.registry.OccultismRecipes;
 import com.github.klikli_dev.occultism.util.RecipeUtil;
 import com.google.common.base.Strings;
 import mezz.jei.api.IModPlugin;
+import mezz.jei.api.constants.VanillaRecipeCategoryUid;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
@@ -125,8 +126,8 @@ public class JeiPlugin implements IModPlugin {
 
     @Override
     public void registerRecipeTransferHandlers(IRecipeTransferRegistration registration) {
-        registration.addUniversalRecipeTransferHandler(
-                new StorageControllerRecipeTransferHandler<>(StorageControllerContainer.class));
+        registration.addRecipeTransferHandler(new StorageControllerRecipeTransferHandler<>(StorageControllerContainer.class),
+                VanillaRecipeCategoryUid.CRAFTING);
     }
 
     @Override
