@@ -71,8 +71,14 @@ public class SoulGemItem extends Item {
 
                 facing = facing == null ? Direction.UP : facing;
 
-                entity.setLocationAndAngles(pos.getX() + facing.getXOffset(), pos.getY() + facing.getYOffset(),
-                        pos.getZ() + facing.getZOffset(), world.rand.nextInt(360), 0);
+                BlockPos spawnPos = pos.toImmutable();
+                if(!world.getBlockState(spawnPos).getCollisionShape(world, spawnPos).isEmpty())
+                {
+                    spawnPos = spawnPos.offset(facing);
+                }
+
+                entity.setLocationAndAngles(spawnPos.getX(), spawnPos.getY(),
+                        spawnPos.getZ(), world.rand.nextInt(360), 0);
                 world.addEntity(entity);
                 itemStack.getTag().remove("entityData"); //delete entity from item
                 player.swingArm(context.getHand());

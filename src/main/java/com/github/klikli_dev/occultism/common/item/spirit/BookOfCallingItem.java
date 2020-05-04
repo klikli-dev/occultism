@@ -140,8 +140,14 @@ public class BookOfCallingItem extends Item implements IIngredientPreventCraftin
 
                 facing = facing == null ? Direction.UP : facing;
 
-                entity.setLocationAndAngles(pos.getX() + facing.getXOffset(), pos.getY() + facing.getYOffset(),
-                        pos.getZ() + facing.getZOffset(), world.rand.nextInt(360), 0);
+                BlockPos spawnPos = pos.toImmutable();
+                if(!world.getBlockState(spawnPos).getCollisionShape(world, spawnPos).isEmpty())
+                {
+                    spawnPos = spawnPos.offset(facing);
+                }
+
+                entity.setLocationAndAngles(spawnPos.getX(), spawnPos.getY(),
+                        spawnPos.getZ(), world.rand.nextInt(360), 0);
                 entity.setTamedBy(player);
 
                 //refresh item nbt
