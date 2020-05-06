@@ -47,12 +47,12 @@ import static com.github.klikli_dev.occultism.util.StaticUtil.modLoc;
 @Mod.EventBusSubscriber(modid = Occultism.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class LootEventHandler {
 
-    private static ResourceLocation grass = new ResourceLocation("minecraft", "blocks/grass");
+    private static final ResourceLocation grass = new ResourceLocation("minecraft", "blocks/grass");
 
     @SubscribeEvent
     public static void onLootLoad(LootTableLoadEvent event) {
         if (event.getName().equals(grass)) {
-            event.getTable().addPool(LootPool.builder().addEntry(TableLootEntry.builder(modLoc("blocks/grass"))).build());
+            event.getTable().addPool(LootPool.builder().addEntry(TableLootEntry.builder(modLoc("blocks/grass"))).name(Occultism.MODID + ":grass").build());
         }
     }
 
