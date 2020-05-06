@@ -193,10 +193,15 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
         int searchBarLeft = 9 + ORDER_AREA_OFFSET;
         int searchBarTop = 7;
-
+        boolean focus = true;
         String searchBarText = "";
-        if (this.searchBar != null)
+        if (this.searchBar != null){
             searchBarText = this.searchBar.getText();
+            if(!this.searchBar.isFocused()){
+                focus = false;
+            }
+        }
+
 
         this.searchBar = new TextFieldWidget(this.font, this.guiLeft + searchBarLeft,
                 this.guiTop + searchBarTop, 90, this.font.FONT_HEIGHT, "search");
@@ -205,7 +210,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         this.searchBar.setEnableBackgroundDrawing(false);
         this.searchBar.setVisible(true);
         this.searchBar.setTextColor(Color.WHITE.getRGB());
-        this.searchBar.setFocused2(true);
+        this.searchBar.setFocused2(focus);
 
         this.searchBar.setText(searchBarText);
         if (JeiPlugin.isJeiLoaded() && JeiPlugin.isJeiSearchSynced()) {
