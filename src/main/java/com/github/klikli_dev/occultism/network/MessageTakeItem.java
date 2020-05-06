@@ -122,8 +122,8 @@ public class MessageTakeItem extends MessageBase {
         ItemStack toWrite = this.stack.copy();
         toWrite.setCount(1);
         buf.writeItemStack(toWrite);
-        buf.writeByte(this.stack.getCount());
-        buf.writeInt(this.mouseButton);
+        buf.writeInt(this.stack.getCount());
+        buf.writeByte(this.mouseButton);
 
         buf.writeBoolean(this.isShiftDown);
         buf.writeBoolean(this.isCtrlDown);
