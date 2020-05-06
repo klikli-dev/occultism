@@ -2,7 +2,7 @@
 name: Feature request
 about: I have an idea for this project, or need a new feature for my modpack.
 title: ''
-labels: ''
+labels: 'enhancement'
 assignees: ''
 
 ---
