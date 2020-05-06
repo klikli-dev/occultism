@@ -23,7 +23,9 @@
 package com.github.klikli_dev.occultism.integration.jei;
 
 import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.common.container.storage.StableWormholeContainer;
 import com.github.klikli_dev.occultism.common.container.storage.StorageControllerContainer;
+import com.github.klikli_dev.occultism.common.container.storage.StorageRemoteContainer;
 import com.github.klikli_dev.occultism.crafting.recipe.ItemStackFakeInventory;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.registry.OccultismRecipes;
@@ -127,6 +129,10 @@ public class JeiPlugin implements IModPlugin {
     @Override
     public void registerRecipeTransferHandlers(IRecipeTransferRegistration registration) {
         registration.addRecipeTransferHandler(new StorageControllerRecipeTransferHandler<>(StorageControllerContainer.class),
+                VanillaRecipeCategoryUid.CRAFTING);
+        registration.addRecipeTransferHandler(new StorageControllerRecipeTransferHandler<>(StorageRemoteContainer.class),
+                VanillaRecipeCategoryUid.CRAFTING);
+        registration.addRecipeTransferHandler(new StorageControllerRecipeTransferHandler<>(StableWormholeContainer.class),
                 VanillaRecipeCategoryUid.CRAFTING);
     }
 
