@@ -50,7 +50,7 @@ import javax.annotation.Nullable;
 import java.util.Iterator;
 import java.util.List;
 
-public class GuideBookItem extends Item {
+public class GuideBookItem extends Item implements IIngredientPreserve {
     //region Fields
     public static final ResourceLocation GUIDE = new ResourceLocation(Occultism.MODID, "dictionary_of_spirits");
     //endregion Fields

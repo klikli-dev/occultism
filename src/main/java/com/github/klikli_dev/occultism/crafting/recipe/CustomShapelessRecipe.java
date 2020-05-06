@@ -117,12 +117,6 @@ public class CustomShapelessRecipe extends ShapelessRecipe {
             if (itemStack.getItem() instanceof IIngredientPreserve &&
                 ((IIngredientPreserve) itemStack.getItem()).shouldPreserve(itemStack, this, inventory))
                 remainingItems.set(i, itemStack.copy());
-
-            //preserver the dictionary of spirits
-            CompoundNBT compound = itemStack.getTag();
-            if (compound != null && compound.contains("patchouli:book") &&
-                compound.getString("patchouli:book").equals("occultism:dictionary_of_spirits"))
-                remainingItems.set(i, itemStack.copy());
         }
 
         return remainingItems;
