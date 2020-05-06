@@ -40,6 +40,6 @@ public interface IIngredientPreserve {
      * @param inventory the crafting inventory.
      * @return true to preserve.
      */
-    boolean shouldPreserve(ItemStack itemStack, IRecipe recipe, CraftingInventory inventory);
+    boolean shouldPreserve(ItemStack itemStack, IRecipe<?> recipe, CraftingInventory inventory);
     //endregion Methods
 }

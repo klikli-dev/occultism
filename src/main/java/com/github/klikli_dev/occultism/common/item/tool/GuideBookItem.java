@@ -23,13 +23,16 @@
 package com.github.klikli_dev.occultism.common.item.tool;
 
 import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.api.common.item.IIngredientPreserve;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
@@ -62,6 +65,7 @@ public class GuideBookItem extends Item implements IIngredientPreserve {
         this.addPropertyOverride(new ResourceLocation("completion"), new IItemPropertyGetter() {
             //region Overrides
             @OnlyIn(Dist.CLIENT)
+            @Override
             public float call(ItemStack stack, @Nullable World worldIn, @Nullable LivingEntity entityIn) {
                 Book book = BookRegistry.INSTANCE.books.get(GUIDE);
                 float progression = 0.0F;
@@ -86,11 +90,15 @@ public class GuideBookItem extends Item implements IIngredientPreserve {
                 return progression;
             }
             //endregion Overrides
+
+            //region Methods
+            //endregion Methods
         });
     }
     //endregion Initialization
 
     //region Overrides
+    @Override
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
         if (!worldIn.isRemote) {
             PatchouliAPI.instance.openBookGUI((ServerPlayerEntity) playerIn, GUIDE);
@@ -99,6 +107,7 @@ public class GuideBookItem extends Item implements IIngredientPreserve {
     }
 
     @OnlyIn(Dist.CLIENT)
+    @Override
     public void addInformation(ItemStack stack, World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         super.addInformation(stack, worldIn, tooltip, flagIn);
         Book book = BookRegistry.INSTANCE.books.get(GUIDE);
@@ -108,10 +117,18 @@ public class GuideBookItem extends Item implements IIngredientPreserve {
 
     }
 
+    @Override
     public ITextComponent getDisplayName(ItemStack stack) {
         Book book = BookRegistry.INSTANCE.books.get(GUIDE);
-        return (ITextComponent) (
-                book != null ? new TranslationTextComponent(book.name, new Object[0]) : super.getDisplayName(stack));
+        return book != null ? new TranslationTextComponent(book.name, new Object[0]) : super.getDisplayName(stack);
+    }
+
+    @Override
+    public boolean shouldPreserve(ItemStack itemStack, IRecipe<?> recipe, CraftingInventory inventory) {
+        return true;
     }
     //endregion Overrides
+
+    //region Methods
+    //endregion Methods
 }
