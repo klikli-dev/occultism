@@ -40,7 +40,9 @@ import com.github.klikli_dev.occultism.util.TextUtil;
 import com.github.klikli_dev.occultism.util.TileEntityUtil;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.Item;
@@ -136,19 +138,26 @@ public class BookOfCallingItem extends Item implements IIngredientPreventCraftin
         if (entityData != null) {
             //whenever we have an entity stored we can do nothing but release it
             if (!world.isRemote) {
-                SpiritEntity entity = (SpiritEntity) EntityUtil.entityFromNBT(world, entityData);
+                EntityType type = EntityUtil.entityTypeFromNbt(entityData);
 
                 facing = facing == null ? Direction.UP : facing;
 
                 BlockPos spawnPos = pos.toImmutable();
-                if(!world.getBlockState(spawnPos).getCollisionShape(world, spawnPos).isEmpty())
-                {
+                if (!world.getBlockState(spawnPos).getCollisionShape(world, spawnPos).isEmpty()) {
                     spawnPos = spawnPos.offset(facing);
                 }
 
-                entity.setLocationAndAngles(spawnPos.getX(), spawnPos.getY(),
-                        spawnPos.getZ(), world.rand.nextInt(360), 0);
-                entity.setTamedBy(player);
+
+                ITextComponent customName = null;
+                if (entityData.contains("CustomName")) {
+                    customName = ITextComponent.Serializer.fromJson(entityData.getString("CustomName"));
+                }
+
+                SpiritEntity entity = (SpiritEntity) type.spawn(world, entityData, customName, null, spawnPos,
+                        SpawnReason.MOB_SUMMONED, true, !pos.equals(spawnPos) && facing == Direction.UP);
+                if (entityData.contains("OwnerUUID")) {
+                    entity.setOwnerId(UUID.fromString(entityData.getString("OwnerUUID")));
+                }
 
                 //refresh item nbt
                 ItemNBTUtil.updateItemNBTFromEntity(itemStack, entity);
@@ -165,7 +174,7 @@ public class BookOfCallingItem extends Item implements IIngredientPreventCraftin
                 //when sneaking, perform action based on mode
                 return this.handleItemMode(player, world, pos, itemStack, facing);
             }
-            else if(world.isRemote) {
+            else if (world.isRemote) {
                 //if not sneaking, open general ui
                 IItemModeSubset<?> subset = this.getItemModeSubset(itemStack);
                 WorkAreaSize workAreaSize = ItemNBTUtil.getWorkAreaSize(itemStack);
@@ -252,11 +261,11 @@ public class BookOfCallingItem extends Item implements IIngredientPreventCraftin
     //endregion Overrides
 
     //region Methods
-    public IItemModeSubset<?> getItemModeSubset(ItemStack stack){
+    public IItemModeSubset<?> getItemModeSubset(ItemStack stack) {
         return ItemMode.get(this.getItemMode(stack));
     }
 
-    public boolean useWorkAreaSize(){
+    public boolean useWorkAreaSize() {
         return true;
     }
 
@@ -486,11 +495,6 @@ public class BookOfCallingItem extends Item implements IIngredientPreventCraftin
 
     //endregion Methods
 
-    public interface IItemModeSubset <T extends IItemModeSubset<T>>{
-        ItemMode getItemMode();
-        T next();
-    }
-
     public enum ItemMode implements IItemModeSubset<ItemMode> {
 
         SET_DEPOSIT(0, "set_deposit"),
@@ -531,25 +535,37 @@ public class BookOfCallingItem extends Item implements IIngredientPreventCraftin
         }
         //endregion Getter / Setter
 
+        //region Overrides
+        @Override
+        public ItemMode getItemMode() {
+            return this;
+        }
+
+        public ItemMode next() {
+            return values()[(this.ordinal() + 1) % values().length];
+        }
+        //endregion Overrides
+
         //region Static Methods
         public static ItemMode get(int value) {
             return lookup.get(value);
         }
         //endregion Static Methods
 
-        @Override
-        public ItemMode getItemMode() {
-            return this;
-        }
-
         //region Methods
-        public ItemMode next() {
-            return values()[(this.ordinal() + 1) % values().length];
-        }
-
         public boolean equals(int value) {
             return this.value == value;
         }
+        //endregion Methods
+    }
+
+    public interface IItemModeSubset<T extends IItemModeSubset<T>> {
+        //region Getter / Setter
+        ItemMode getItemMode();
+        //endregion Getter / Setter
+
+        //region Methods
+        T next();
         //endregion Methods
     }
 }

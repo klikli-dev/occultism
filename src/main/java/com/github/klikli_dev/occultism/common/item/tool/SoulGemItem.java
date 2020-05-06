@@ -23,12 +23,13 @@
 package com.github.klikli_dev.occultism.common.item.tool;
 
 import com.github.klikli_dev.occultism.Occultism;
-import com.github.klikli_dev.occultism.api.common.data.GlobalBlockPos;
-import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.github.klikli_dev.occultism.util.EntityUtil;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -45,6 +46,7 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.UUID;
 
 public class SoulGemItem extends Item {
     //region Initialization
@@ -67,19 +69,27 @@ public class SoulGemItem extends Item {
             //whenever we have an entity stored we can do nothing but release it
             if (!world.isRemote) {
                 CompoundNBT entityData = itemStack.getTag().getCompound("entityData");
-                LivingEntity entity = (LivingEntity) EntityUtil.entityFromNBT(world, entityData);
+                EntityType type = EntityUtil.entityTypeFromNbt(entityData);
 
                 facing = facing == null ? Direction.UP : facing;
 
                 BlockPos spawnPos = pos.toImmutable();
-                if(!world.getBlockState(spawnPos).getCollisionShape(world, spawnPos).isEmpty())
-                {
+                if (!world.getBlockState(spawnPos).getCollisionShape(world, spawnPos).isEmpty()) {
                     spawnPos = spawnPos.offset(facing);
                 }
 
-                entity.setLocationAndAngles(spawnPos.getX(), spawnPos.getY(),
-                        spawnPos.getZ(), world.rand.nextInt(360), 0);
-                world.addEntity(entity);
+                ITextComponent customName = null;
+                if (entityData.contains("CustomName")) {
+                    customName = ITextComponent.Serializer.fromJson(entityData.getString("CustomName"));
+                }
+
+                Entity entity = type.spawn(world, entityData, customName, null, spawnPos,
+                        SpawnReason.MOB_SUMMONED, true, !pos.equals(spawnPos) && facing == Direction.UP);
+                if (entity instanceof TameableEntity && entityData.contains("OwnerUUID")) {
+                    TameableEntity tameableEntity = (TameableEntity) entity;
+                    tameableEntity.setOwnerId(UUID.fromString(entityData.getString("OwnerUUID")));
+                }
+
                 itemStack.getTag().remove("entityData"); //delete entity from item
                 player.swingArm(context.getHand());
                 player.container.detectAndSendChanges();
@@ -96,11 +106,11 @@ public class SoulGemItem extends Item {
             return false;
 
         //Do not allow bosses or players.
-        if(!target.isNonBoss() || target instanceof PlayerEntity)
+        if (!target.isNonBoss() || target instanceof PlayerEntity)
             return false;
 
         //Already got an entity in there.
-        if(stack.getOrCreateTag().contains("entityData"))
+        if (stack.getOrCreateTag().contains("entityData"))
             return false;
 
         //serialize entity
@@ -124,11 +134,11 @@ public class SoulGemItem extends Item {
                                ITooltipFlag flagIn) {
         super.addInformation(stack, worldIn, tooltip, flagIn);
 
-        if(stack.getOrCreateTag().contains("entityData")){
+        if (stack.getOrCreateTag().contains("entityData")) {
             EntityType<?> type = EntityUtil.entityTypeFromNbt(stack.getTag().getCompound("entityData"));
             tooltip.add(new TranslationTextComponent(this.getTranslationKey() + ".tooltip_filled", type.getName()));
         }
-        else{
+        else {
             tooltip.add(new TranslationTextComponent(this.getTranslationKey() + ".tooltip_empty"));
         }
     }
