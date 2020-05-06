@@ -2,7 +2,7 @@
 name: Bug report
 about: I found a bug or my game is crashing.
 title: ''
-labels: ''
+labels: 'bug'
 assignees: ''
 
 ---
