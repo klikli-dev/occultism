@@ -27,10 +27,10 @@ import com.github.klikli_dev.occultism.api.client.gui.IStorageControllerGui;
 import com.github.klikli_dev.occultism.api.client.gui.IStorageControllerGuiContainer;
 import com.github.klikli_dev.occultism.api.common.container.IStorageControllerContainer;
 import com.github.klikli_dev.occultism.api.common.data.*;
-import com.github.klikli_dev.occultism.client.gui.controls.SizedImageButton;
 import com.github.klikli_dev.occultism.client.gui.controls.ItemSlotWidget;
 import com.github.klikli_dev.occultism.client.gui.controls.LabelWidget;
 import com.github.klikli_dev.occultism.client.gui.controls.MachineSlotWidget;
+import com.github.klikli_dev.occultism.client.gui.controls.SizedImageButton;
 import com.github.klikli_dev.occultism.common.container.storage.StorageControllerContainerBase;
 import com.github.klikli_dev.occultism.integration.jei.JeiPlugin;
 import com.github.klikli_dev.occultism.network.*;
@@ -46,6 +46,7 @@ import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.client.util.InputMappings;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.IInventoryChangedListener;
@@ -149,6 +150,12 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     }
 
     @Override
+    public boolean isPointInRegionController(int rectX, int rectY, int rectWidth, int rectHeight, double pointX,
+                                             double pointY) {
+        return this.isPointInRegion(rectX, rectY, rectWidth, rectHeight, pointX, pointY);
+    }
+
+    @Override
     public void renderToolTip(ItemStack stack, int x, int y) {
         super.renderTooltip(stack, x, y);
     }
@@ -195,9 +202,9 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         int searchBarTop = 7;
         boolean focus = true;
         String searchBarText = "";
-        if (this.searchBar != null){
+        if (this.searchBar != null) {
             searchBarText = this.searchBar.getText();
-            if(!this.searchBar.isFocused()){
+            if (!this.searchBar.isFocused()) {
                 focus = false;
             }
         }
@@ -223,8 +230,11 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
         int storageSpaceInfoLabelLeft = 186;
         int storageSpaceInfoLabelTop = 115;
-        this.storageSpaceLabel = new LabelWidget(this.guiLeft + storageSpaceInfoLabelLeft, this.guiTop + storageSpaceInfoLabelTop, true, -1, 2, 0x404040);
-        this.storageSpaceLabel.addLine(I18n.format(TRANSLATION_KEY_BASE + ".space_info_label", this.usedSlots, maxSlots), false);
+        this.storageSpaceLabel =
+                new LabelWidget(this.guiLeft + storageSpaceInfoLabelLeft, this.guiTop + storageSpaceInfoLabelTop, true,
+                        -1, 2, 0x404040);
+        this.storageSpaceLabel
+                .addLine(I18n.format(TRANSLATION_KEY_BASE + ".space_info_label", this.usedSlots, maxSlots), false);
         this.addButton(this.storageSpaceLabel);
         this.initButtons();
     }
@@ -334,13 +344,28 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     }
 
     @Override
-    public boolean isPointInRegionController(int rectX, int rectY, int rectWidth, int rectHeight, double pointX, double pointY) {
-        return this.isPointInRegion(rectX, rectY, rectWidth, rectHeight, pointX, pointY);
+    public boolean shouldCloseOnEsc() {
+        return true;
     }
 
     @Override
-    public boolean shouldCloseOnEsc() {
-        return true;
+    public boolean keyPressed(int keyCode, int scanCode, int p_keyPressed_3_) {
+        if (this.searchBar.isFocused() && this.searchBar.keyPressed(keyCode, scanCode, p_keyPressed_3_)){
+            if (JeiPlugin.isJeiLoaded() && JeiPlugin.isJeiSearchSynced()) {
+                JeiPlugin.setFilterText(this.searchBar.getText());
+            }
+            return true;
+        }
+
+        //Handle inventory key down in search bar:
+        if (this.searchBar.isFocused()) {
+            InputMappings.Input mouseKey = InputMappings.getInputByCode(keyCode, scanCode);
+            if (this.minecraft.gameSettings.keyBindInventory.isActiveAndMatches(mouseKey)) {
+                return true;
+            }
+        }
+
+        return super.keyPressed(keyCode, scanCode, p_keyPressed_3_);
     }
 
     @Override
@@ -365,13 +390,6 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
             }
         }
         return true;
-    }
-
-    @Override
-    public boolean keyPressed(int keyCode, int scanCode, int p_keyPressed_3_) {
-        if(this.searchBar.isFocused() && this.searchBar.keyPressed(keyCode, scanCode, p_keyPressed_3_))
-            return true;
-        return super.keyPressed(keyCode, scanCode, p_keyPressed_3_);
     }
 
     @Override
@@ -632,7 +650,8 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                     break;
                 }
                 this.itemSlots
-                        .add(new ItemSlotWidget(this, stacksToDisplay.get(index), this.guiLeft + itemAreaLeft + col * 18,
+                        .add(new ItemSlotWidget(this, stacksToDisplay.get(index),
+                                this.guiLeft + itemAreaLeft + col * 18,
                                 this.guiTop + itemAreaTop + row * 18, stacksToDisplay.get(index).getCount(),
                                 this.guiLeft, this.guiTop, true));
                 index++;
