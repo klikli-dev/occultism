@@ -11,7 +11,7 @@
     {
       "type": "spotlight",
       "item": "occultism:chalk_white",
-      "text": "First, burn Otherstone and Otherworld wood in a furnace and craft the resulting ashes into impure white chalk, then purify it in $(thing)Spiritfire$(). The chalk can now be used to draw ritual glyphs to form pentacles. View the chapter on pentacles for possible options."
+      "text": "First, burn Otherstone in a furnace and burn Otherworld Logs in $(thing)Spiritfire$(), then craft the resulting ashes into impure white chalk, and finally purify it once more in $(thing)Spiritfire$(). The chalk can now be used to draw ritual glyphs to form pentacles. View the chapter on pentacles for possible options."
     },
     {
       "type": "spotlight",

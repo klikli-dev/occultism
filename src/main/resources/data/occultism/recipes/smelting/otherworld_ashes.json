@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:smelting",
-  "ingredient": {
-    "item": "occultism:otherworld_log"
-  },
-  "result": "occultism:otherworld_ashes",
-  "experience": 0.15,
-  "cookingtime": 200
-}
