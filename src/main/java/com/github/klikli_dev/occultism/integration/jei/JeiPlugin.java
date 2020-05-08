@@ -27,6 +27,10 @@ import com.github.klikli_dev.occultism.common.container.storage.StableWormholeCo
 import com.github.klikli_dev.occultism.common.container.storage.StorageControllerContainer;
 import com.github.klikli_dev.occultism.common.container.storage.StorageRemoteContainer;
 import com.github.klikli_dev.occultism.crafting.recipe.ItemStackFakeInventory;
+import com.github.klikli_dev.occultism.integration.jei.recipes.CrushingRecipeCategory;
+import com.github.klikli_dev.occultism.integration.jei.recipes.MinerRecipeCategory;
+import com.github.klikli_dev.occultism.integration.jei.recipes.RitualRecipeCategory;
+import com.github.klikli_dev.occultism.integration.jei.recipes.SpiritFireRecipeCategory;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.registry.OccultismRecipes;
 import com.github.klikli_dev.occultism.util.RecipeUtil;
@@ -52,42 +56,16 @@ import java.util.Collection;
 public class JeiPlugin implements IModPlugin {
 
     //region Fields
-    protected static boolean jeiLoaded = false;
-    protected static boolean jeiSearchSync = true;
+
     protected static IJeiRuntime runtime;
     //endregion Fields
 
     //region Getter / Setter
-    public static boolean isJeiLoaded() {
-        return jeiLoaded;
-    }
-
-    public static void setJeiLoaded(boolean loaded) {
-        JeiPlugin.jeiLoaded = loaded;
-    }
-
-    public static boolean isJeiSearchSynced() {
-        return jeiSearchSync;
-    }
 
     public static IJeiRuntime getJeiRuntime() {
         return runtime;
     }
 
-    public static String getFilterText() {
-        if (runtime != null)
-            return runtime.getIngredientFilter().getFilterText();
-        return "";
-    }
-
-    public static void setFilterText(String filter) {
-        if (runtime != null)
-            runtime.getIngredientFilter().setFilterText(Strings.nullToEmpty(filter));
-    }
-
-    public static void setJeiSearchSync(boolean synced) {
-        JeiPlugin.jeiSearchSync = synced;
-    }
     //endregion Getter / Setter
 
     //region Overrides
@@ -149,7 +127,7 @@ public class JeiPlugin implements IModPlugin {
     @Override
     public void onRuntimeAvailable(IJeiRuntime jeiRuntime) {
         JeiPlugin.runtime = jeiRuntime;
-        JeiPlugin.jeiLoaded = true;
+        JeiSettings.setJeiLoaded(true);
     }
     //endregion Overrides
 
