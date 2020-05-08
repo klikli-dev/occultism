@@ -27,6 +27,10 @@ import com.github.klikli_dev.occultism.common.container.storage.StableWormholeCo
 import com.github.klikli_dev.occultism.common.container.storage.StorageControllerContainer;
 import com.github.klikli_dev.occultism.common.container.storage.StorageRemoteContainer;
 import com.github.klikli_dev.occultism.crafting.recipe.ItemStackFakeInventory;
+import com.github.klikli_dev.occultism.integration.jei.recipes.CrushingRecipeCategory;
+import com.github.klikli_dev.occultism.integration.jei.recipes.MinerRecipeCategory;
+import com.github.klikli_dev.occultism.integration.jei.recipes.RitualRecipeCategory;
+import com.github.klikli_dev.occultism.integration.jei.recipes.SpiritFireRecipeCategory;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.registry.OccultismRecipes;
 import com.github.klikli_dev.occultism.util.RecipeUtil;
