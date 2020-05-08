@@ -32,7 +32,8 @@ import com.github.klikli_dev.occultism.client.gui.controls.LabelWidget;
 import com.github.klikli_dev.occultism.client.gui.controls.MachineSlotWidget;
 import com.github.klikli_dev.occultism.client.gui.controls.SizedImageButton;
 import com.github.klikli_dev.occultism.common.container.storage.StorageControllerContainerBase;
-import com.github.klikli_dev.occultism.integration.jei.JeiPlugin;
+import com.github.klikli_dev.occultism.integration.jei.JeiAccess;
+import com.github.klikli_dev.occultism.integration.jei.JeiSettings;
 import com.github.klikli_dev.occultism.network.*;
 import com.github.klikli_dev.occultism.util.InputUtil;
 import com.github.klikli_dev.occultism.util.TextUtil;
@@ -220,8 +221,8 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         this.searchBar.setFocused2(focus);
 
         this.searchBar.setText(searchBarText);
-        if (JeiPlugin.isJeiLoaded() && JeiPlugin.isJeiSearchSynced()) {
-            this.searchBar.setText(JeiPlugin.getFilterText());
+        if (JeiSettings.isJeiLoaded() && JeiSettings.isJeiSearchSynced()) {
+            this.searchBar.setText(JeiAccess.getFilterText());
         }
 
         int maxSlots = this.storageControllerContainer.getStorageController() != null ? this.storageControllerContainer
@@ -350,9 +351,9 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int p_keyPressed_3_) {
-        if (this.searchBar.isFocused() && this.searchBar.keyPressed(keyCode, scanCode, p_keyPressed_3_)){
-            if (JeiPlugin.isJeiLoaded() && JeiPlugin.isJeiSearchSynced()) {
-                JeiPlugin.setFilterText(this.searchBar.getText());
+        if (this.searchBar.isFocused() && this.searchBar.keyPressed(keyCode, scanCode, p_keyPressed_3_)) {
+            if (JeiSettings.isJeiLoaded() && JeiSettings.isJeiSearchSynced()) {
+                JeiAccess.setFilterText(this.searchBar.getText());
             }
             return true;
         }
@@ -396,8 +397,8 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     public boolean charTyped(char typedChar, int keyCode) {
         if (this.searchBar.isFocused() && this.searchBar.charTyped(typedChar, keyCode)) {
             OccultismPackets.sendToServer(new MessageRequestStacks());
-            if (JeiPlugin.isJeiLoaded() && JeiPlugin.isJeiSearchSynced()) {
-                JeiPlugin.setFilterText(this.searchBar.getText());
+            if (JeiSettings.isJeiLoaded() && JeiSettings.isJeiSearchSynced()) {
+                JeiAccess.setFilterText(this.searchBar.getText());
             }
         }
 
@@ -456,16 +457,16 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         });
         this.addButton(this.sortDirectionButton);
 
-        int jeiSyncOffset = 140 + (JeiPlugin.isJeiSearchSynced() ? 0 : 1) * 28;
+        int jeiSyncOffset = 140 + (JeiSettings.isJeiSearchSynced() ? 0 : 1) * 28;
         this.jeiSyncButton = new SizedImageButton(
                 this.guiLeft + clearTextButtonLeft + controlButtonSize + 3 + controlButtonSize + 3 + controlButtonSize +
                 3, this.guiTop + controlButtonTop, controlButtonSize, controlButtonSize, 0, jeiSyncOffset, 28, 28, 28,
                 256, 256, BUTTONS, (button) -> {
-            JeiPlugin.setJeiSearchSync(!JeiPlugin.isJeiSearchSynced());
+            JeiSettings.setJeiSearchSync(!JeiSettings.isJeiSearchSynced());
             this.init();
         });
 
-        if (JeiPlugin.isJeiLoaded())
+        if (JeiSettings.isJeiLoaded())
             this.addButton(this.jeiSyncButton);
 
 
@@ -610,7 +611,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         }
         if (this.jeiSyncButton != null && this.jeiSyncButton.isMouseOver(mouseX, mouseY)) {
             String s = I18n.format(
-                    TRANSLATION_KEY_BASE + ".search.tooltip_jei_" + (JeiPlugin.isJeiSearchSynced() ? "on" : "off"));
+                    TRANSLATION_KEY_BASE + ".search.tooltip_jei_" + (JeiSettings.isJeiSearchSynced() ? "on" : "off"));
             this.renderTooltip(Lists.newArrayList(s), mouseX, mouseY);
         }
     }
@@ -839,8 +840,8 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
     protected void clearSearch() {
         this.searchBar.setText("");
-        if (JeiPlugin.isJeiSearchSynced()) {
-            JeiPlugin.setFilterText("");
+        if (JeiSettings.isJeiLoaded() && JeiSettings.isJeiSearchSynced()) {
+            JeiAccess.setFilterText("");
         }
     }
 
