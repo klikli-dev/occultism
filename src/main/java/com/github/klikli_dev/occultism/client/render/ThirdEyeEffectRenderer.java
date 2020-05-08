@@ -100,7 +100,7 @@ public class ThirdEyeEffectRenderer {
     //region Methods
     @SubscribeEvent
     public void onPlayerTick(TickEvent.PlayerTickEvent event) {
-        if(event.player.world.isRemote){
+        if(event.player.world.isRemote && event.player == Minecraft.getInstance().player){
             this.onThirdEyeTick(event);
             this.onGogglesTick(event);
         }
@@ -164,6 +164,7 @@ public class ThirdEyeEffectRenderer {
     }
 
     public void onThirdEyeTick(TickEvent.PlayerTickEvent event) {
+
         ItemStack helmet = event.player.getItemStackFromSlot(EquipmentSlotType.HEAD);
         boolean hasGoggles = helmet.getItem() instanceof OtherworldGogglesItem;
 
