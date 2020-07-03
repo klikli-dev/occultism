@@ -78,7 +78,7 @@ public class OtherworldBirdEntity extends ParrotEntity {
     @Override
     public void livingTick() {
         //Every 10 ticks, attempt to refresh the owner buff
-        if (this.world.getGameTime() % 10 == 0 && this.isTamed()) {
+        if (!this.world.isRemote && this.world.getGameTime() % 10 == 0 && this.isTamed()) {
             LivingEntity owner = this.getOwnerCached();
             if (owner != null && this.getDistance(owner) < MAX_BOOST_DISTANCE) {
                 //close enough to boost
