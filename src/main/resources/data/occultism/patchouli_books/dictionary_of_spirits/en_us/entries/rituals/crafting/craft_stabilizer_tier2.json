@@ -14,7 +14,7 @@
       "heading": "Infusion",
       "pentacle": "$(l:pentacles/craft_djinni)Strigeor's Higher Binding$(/l)",
       "activation_item": "occultism:book_of_binding_bound_djinni",
-      "ingredients": "$(li)1x $(item)Otherstone Pedestal $()$(li)1x $(item)Copper Block $()$(li)1x $(item)Blaze Powder$() $(li)2x $(item)Spirit Infused Gem $()"
+      "ingredients": "$(li)1x $(item)Otherstone Pedestal $()$(li)1x $(item)Silver Block $()$(li)1x $(item)Ghast Tear$() $(li)2x $(item)Spirit Attuned Gem $()"
     }
   ]
 }
