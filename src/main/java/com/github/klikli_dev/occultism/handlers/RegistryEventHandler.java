@@ -26,10 +26,8 @@ import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.job.SpiritJobFactory;
 import com.github.klikli_dev.occultism.common.ritual.Ritual;
 import com.github.klikli_dev.occultism.common.ritual.pentacle.Pentacle;
-import com.github.klikli_dev.occultism.registry.OccultismBlocks;
-import com.github.klikli_dev.occultism.registry.OccultismEntities;
-import com.github.klikli_dev.occultism.registry.OccultismRituals;
-import com.github.klikli_dev.occultism.registry.OccultismSpiritJobs;
+import com.github.klikli_dev.occultism.registry.*;
+import net.minecraft.block.ComposterBlock;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.monster.SkeletonEntity;
@@ -93,6 +91,16 @@ public class RegistryEventHandler {
         registerSpawnEgg(registry, OccultismEntities.OTHERWORLD_BIRD_TYPE.get(),"otherworld_bird", 0x221269, 0x6b56c4);
 
         Occultism.LOGGER.info("Registered SpawnEggItems");
+
+        //Register compostable items
+        ComposterBlock.CHANCES.put(OccultismItems.DATURA_SEEDS::get, 0.3f);
+        ComposterBlock.CHANCES.put(() -> OccultismBlocks.OTHERWORLD_LEAVES.get().asItem(), 0.3f);
+        ComposterBlock.CHANCES.put(() -> OccultismBlocks.OTHERWORLD_LEAVES_NATURAL.get().asItem(), 0.3f);
+        ComposterBlock.CHANCES.put(() -> OccultismBlocks.OTHERWORLD_SAPLING.get().asItem(), 0.3f);
+        ComposterBlock.CHANCES.put(() -> OccultismBlocks.OTHERWORLD_SAPLING_NATURAL.get().asItem(), 0.3f);
+
+        ComposterBlock.CHANCES.put(OccultismItems.DATURA::get, 0.65f);
+        Occultism.LOGGER.info("Registered compostable Items");
     }
 
     public static void registerSpawnEgg(IForgeRegistry<Item> registry, EntityType<?> entityType,
