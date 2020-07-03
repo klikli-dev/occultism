@@ -84,8 +84,15 @@ public class SoulGemItem extends Item {
                 if (entityData.contains("CustomName")) {
                     customName = ITextComponent.Serializer.fromJson(entityData.getString("CustomName"));
                 }
+
+                //remove position from tag to allow the entity to spawn where it should be
+                //ListNBT listnbt = compound.getList("Pos", 6);
+                entityData.remove("Pos");
+
+                //type.spawn uses the sub-tag EntityTag
                 CompoundNBT wrapper = new CompoundNBT();
                 wrapper.put("EntityTag", entityData);
+
                 Entity entity = type.spawn(world, wrapper, customName, null, spawnPos,
                         SpawnReason.MOB_SUMMONED, true, !pos.equals(spawnPos) && facing == Direction.UP);
                 if (entity instanceof TameableEntity && entityData.contains("OwnerUUID") && !entityData.getString("OwnerUUID").isEmpty()) {
