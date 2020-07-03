@@ -69,6 +69,8 @@ public class SoulGemItem extends Item {
             //whenever we have an entity stored we can do nothing but release it
             if (!world.isRemote) {
                 CompoundNBT entityData = itemStack.getTag().getCompound("entityData");
+                itemStack.getTag().remove("entityData"); //delete entity from item right away to avoid duplicate in case of unexpected error
+
                 EntityType type = EntityUtil.entityTypeFromNbt(entityData);
 
                 facing = facing == null ? Direction.UP : facing;
@@ -83,14 +85,25 @@ public class SoulGemItem extends Item {
                     customName = ITextComponent.Serializer.fromJson(entityData.getString("CustomName"));
                 }
 
-                Entity entity = type.spawn(world, entityData, customName, null, spawnPos,
+                //remove position from tag to allow the entity to spawn where it should be
+                //ListNBT listnbt = compound.getList("Pos", 6);
+                entityData.remove("Pos");
+
+                //type.spawn uses the sub-tag EntityTag
+                CompoundNBT wrapper = new CompoundNBT();
+                wrapper.put("EntityTag", entityData);
+
+                Entity entity = type.spawn(world, wrapper, customName, null, spawnPos,
                         SpawnReason.MOB_SUMMONED, true, !pos.equals(spawnPos) && facing == Direction.UP);
-                if (entity instanceof TameableEntity && entityData.contains("OwnerUUID")) {
+                if (entity instanceof TameableEntity && entityData.contains("OwnerUUID") && !entityData.getString("OwnerUUID").isEmpty()) {
                     TameableEntity tameableEntity = (TameableEntity) entity;
-                    tameableEntity.setOwnerId(UUID.fromString(entityData.getString("OwnerUUID")));
+                    try{
+                        tameableEntity.setOwnerId(UUID.fromString(entityData.getString("OwnerUUID")));
+                    } catch(IllegalArgumentException e) {
+                        //catch invalid uuid exception
+                    }
                 }
 
-                itemStack.getTag().remove("entityData"); //delete entity from item
                 player.swingArm(context.getHand());
                 player.container.detectAndSendChanges();
             }
