@@ -27,6 +27,7 @@ import com.github.klikli_dev.occultism.common.tile.GoldenSacrificialBowlTileEnti
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.registry.OccultismRituals;
 import com.github.klikli_dev.occultism.util.TextUtil;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -49,7 +50,7 @@ public class SummonWildHuntRitual extends SummonSpiritRitual {
     public SummonWildHuntRitual() {
         super(null,
                 OccultismRituals.SUMMON_WILD_GREATER_SPIRIT_PENTACLE.get(),
-                Ingredient.fromItems(Items.SKELETON_SKULL),
+                Ingredient.fromItems(Blocks.SKELETON_SKULL),
                 "summon_wild_hunt", 30);
         this.sacrificePredicate = (entity) -> entity instanceof PlayerEntity ||
                                               EntityTypeTags.getCollection().getOrCreate(villagerTag)
@@ -72,9 +73,7 @@ public class SummonWildHuntRitual extends SummonSpiritRitual {
         //Spawn the wither skeletons, who will spawn their minions
         for (int i = 0; i < 3; i++) {
             WildHuntWitherSkeletonEntity skeleton = OccultismEntities.WILD_HUNT_WITHER_SKELETON.get().create(world);
-            skeleton.onInitialSpawn(world, world.getDifficultyForLocation(goldenBowlPosition), SpawnReason.MOB_SUMMONED,
-                    null,
-                    null);
+
             double offsetX = (world.getRandom().nextGaussian() - 1.0) * (1 + world.getRandom().nextInt(4));
             double offsetZ = (world.getRandom().nextGaussian() - 1.0) * (1 + world.getRandom().nextInt(4));
 
@@ -82,6 +81,10 @@ public class SummonWildHuntRitual extends SummonSpiritRitual {
                     goldenBowlPosition.getZ() + offsetZ,
                     world.getRandom().nextInt(360), 0);
             skeleton.setCustomName(new StringTextComponent(TextUtil.generateName()));
+
+            skeleton.onInitialSpawn(world, world.getDifficultyForLocation(goldenBowlPosition), SpawnReason.MOB_SUMMONED,
+                    null,
+                    null);
             this.spawnEntity(skeleton, world);
         }
     }

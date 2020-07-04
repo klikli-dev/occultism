@@ -10,7 +10,7 @@
     },
     {
       "type": "summoning_sacrifice_noformat",
-      "heading": "Unbound Afrit",
+      "heading": "The Wild Hunt",
       "pentacle": "$(l:pentacles/summon_wild_greater_spirit)Osorin' Unbound Calling$(/l)",
       "activation_item": "minecraft:skeleton_skull",
       "sacrifice": "$(thing)Player$() or $(thing)Villager$()",
