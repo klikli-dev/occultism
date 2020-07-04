@@ -88,8 +88,8 @@ public class OccultismRituals {
             RITUALS.register("summon_afrit_thunder_weather", SummonAfritThunderWeatherRitual::new);
     public static final RegistryObject<SummonWildAfritRitual> SUMMON_WILD_AFRIT_RITUAL =
             RITUALS.register("summon_wild_afrit", SummonWildAfritRitual::new);
-    public static final RegistryObject<SummonWildAfritRitual> SUMMON_WILD_HUNT_RITUAL =
-            RITUALS.register("summon_wild_hunt", SummonWildAfritRitual::new);
+    public static final RegistryObject<SummonWildHuntRitual> SUMMON_WILD_HUNT_RITUAL =
+            RITUALS.register("summon_wild_hunt", SummonWildHuntRitual::new);
     public static final RegistryObject<SummonDjinniDayTimeRitual> SUMMON_DJINNI_DAY_TIME_RITUAL =
             RITUALS.register("summon_djinni_day_time", SummonDjinniDayTimeRitual::new);
     public static final RegistryObject<SummonDjinniNightTimeRitual> SUMMON_DJINNI_NIGHT_TIME_RITUAL =

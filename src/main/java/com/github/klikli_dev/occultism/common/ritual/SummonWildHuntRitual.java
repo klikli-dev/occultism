@@ -27,6 +27,7 @@ import com.github.klikli_dev.occultism.common.tile.GoldenSacrificialBowlTileEnti
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.registry.OccultismRituals;
 import com.github.klikli_dev.occultism.util.TextUtil;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -49,7 +50,7 @@ public class SummonWildHuntRitual extends SummonSpiritRitual {
     public SummonWildHuntRitual() {
         super(null,
                 OccultismRituals.SUMMON_WILD_GREATER_SPIRIT_PENTACLE.get(),
-                Ingredient.fromItems(Items.SKELETON_SKULL),
+                Ingredient.fromItems(Blocks.SKELETON_SKULL),
                 "summon_wild_hunt", 30);
         this.sacrificePredicate = (entity) -> entity instanceof PlayerEntity ||
                                               EntityTypeTags.getCollection().getOrCreate(villagerTag)
