@@ -86,7 +86,6 @@ public class SoulGemItem extends Item {
                 }
 
                 //remove position from tag to allow the entity to spawn where it should be
-                //ListNBT listnbt = compound.getList("Pos", 6);
                 entityData.remove("Pos");
 
                 //type.spawn uses the sub-tag EntityTag

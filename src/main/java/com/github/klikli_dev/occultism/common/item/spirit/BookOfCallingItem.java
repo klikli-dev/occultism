@@ -147,15 +147,21 @@ public class BookOfCallingItem extends Item implements IIngredientPreventCraftin
                     spawnPos = spawnPos.offset(facing);
                 }
 
-
                 ITextComponent customName = null;
                 if (entityData.contains("CustomName")) {
                     customName = ITextComponent.Serializer.fromJson(entityData.getString("CustomName"));
                 }
 
-                SpiritEntity entity = (SpiritEntity) type.spawn(world, entityData, customName, null, spawnPos,
+                //remove position from tag to allow the entity to spawn where it should be
+                entityData.remove("Pos");
+
+                //type.spawn uses the sub-tag EntityTag
+                CompoundNBT wrapper = new CompoundNBT();
+                wrapper.put("EntityTag", entityData);
+
+                SpiritEntity entity = (SpiritEntity) type.spawn(world, wrapper, customName, null, spawnPos,
                         SpawnReason.MOB_SUMMONED, true, !pos.equals(spawnPos) && facing == Direction.UP);
-                if (entityData.contains("OwnerUUID")) {
+                if (entityData.contains("OwnerUUID") && !entityData.getString("OwnerUUID").isEmpty()) {
                     entity.setOwnerId(UUID.fromString(entityData.getString("OwnerUUID")));
                 }
 
