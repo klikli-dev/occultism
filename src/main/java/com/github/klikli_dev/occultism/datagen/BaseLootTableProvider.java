@@ -1,10 +1,7 @@
-
 /*
  * MIT License
  *
  * Copyright 2020 klikli-dev, McJty
- *
- * Based on https://github.com/McJty/YouTubeModding14/blob/master/src/main/java/com/mcjty/mytutorial/datagen/BaseLootTableProvider.java
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the "Software"), to deal in the Software without restriction, including
@@ -44,6 +41,9 @@ import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Based on https://github.com/McJty/YouTubeModding14
+ */
 public abstract class BaseLootTableProvider extends LootTableProvider {
 
     //region Fields

@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright 2020 klikli-dev
+ * Copyright 2020 klikli-dev, McJty
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the "Software"), to deal in the Software without restriction, including
@@ -38,6 +38,9 @@ import net.minecraft.world.storage.loot.conditions.MatchTool;
 import net.minecraft.world.storage.loot.conditions.SurvivesExplosion;
 import net.minecraft.world.storage.loot.functions.CopyNbt;
 
+/**
+ * Based on https://github.com/McJty/YouTubeModding14
+ */
 public class StandardBlockLootTables extends BlockLootTables {
 
     //Copied from BlockLootTables

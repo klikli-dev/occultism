@@ -1,11 +1,6 @@
 MIT License
 
 Copyright 2020 klikli-dev
-Some of the software architecture of the storage system has been based on https://github.com/MrRiegel. All relevant files contain a notice.
-Some of the software architecture of the scan system has been based on https://github.com/MightyPirates/Scannable. All relevant files contain a notice.
-Data generators are based on https://github.com/McJty/YouTubeModding14. All relevant files contain a notice.
-
-This license coverse only the source code of this software, please view license terms for images, textures and sound at LICENSE_ASSETS.txt
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

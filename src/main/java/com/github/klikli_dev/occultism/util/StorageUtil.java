@@ -1,8 +1,7 @@
 /*
  * MIT License
  *
- * Copyright 2020 klikli-dev
- * Some of the software architecture of the storage system in this file has been based on https://github.com/MrRiegel.
+ * Copyright 2020 klikli-dev, MrRiegel, Sam Bassett
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the "Software"), to deal in the Software without restriction, including
@@ -40,6 +39,9 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
 
+/**
+ * Based on https://github.com/Lothrazar/Storage-Network
+ */
 public class StorageUtil {
     //region Static Methods
 
