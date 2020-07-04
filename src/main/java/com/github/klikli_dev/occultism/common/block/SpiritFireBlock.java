@@ -126,41 +126,6 @@ public class SpiritFireBlock extends Block {
                     return;
                 }
             }
-
-            boolean flag1 = worldIn.isBlockinHighHumidity(pos);
-            int k = flag1 ? -50 : 0;
-
-            BlockPos.Mutable mutablePos = new BlockPos.Mutable();
-
-            for (int l = -1; l <= 1; ++l) {
-                for (int i1 = -1; i1 <= 1; ++i1) {
-                    for (int j1 = -1; j1 <= 4; ++j1) {
-                        if (l != 0 || j1 != 0 || i1 != 0) {
-                            int k1 = 100;
-                            if (j1 > 1) {
-                                k1 += (j1 - 1) * 100;
-                            }
-
-                            mutablePos.setPos(pos).move(l, j1, i1);
-                            int l1 = this.getNeighborEncouragement(worldIn, mutablePos);
-                            if (l1 > 0) {
-                                int i2 = (l1 + 40 + worldIn.getDifficulty().getId() * 7) / (i + 30);
-                                if (flag1) {
-                                    i2 /= 2;
-                                }
-
-                                if (i2 > 0 && rand.nextInt(k1) <= i2 &&
-                                    (!worldIn.isRaining() || !this.canDie(worldIn, mutablePos))) {
-                                    int j2 = Math.min(15, i + rand.nextInt(5) / 4);
-                                    worldIn.setBlockState(mutablePos, this.getDefaultState().with(FireBlock.AGE, j2),
-                                            3);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
         }
     }
 
