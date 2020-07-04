@@ -20,7 +20,7 @@
     },
     {
       "type": "text",
-      "text": "A white crystal indicates no target blocks found, while degrees of purple indicate how close to the target block the diviner is. Only horizontal distance is considered, so the crystal will glow fully purple, even if many blocks above or below the target. The range of the divination rod is 96 blocks. The closest the rod can detect is 6 blocks, at that point the crystal glows fully purple, and getting closer will not change the color any further."
+      "text": "After the animation finishes, a white crystal indicates no target blocks found, while degrees of purple indicate how close to the target block the diviner is. Only horizontal distance is considered, so the crystal will glow fully purple, even if many blocks above or below the target. The range of the divination rod is 96 blocks. The closest the rod can detect is 6 blocks, at that point the crystal glows fully purple, and getting closer will not change the color any further."
     },
     {
       "type": "text",
