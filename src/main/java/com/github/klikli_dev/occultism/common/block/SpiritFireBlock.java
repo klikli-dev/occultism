@@ -283,7 +283,7 @@ public class SpiritFireBlock extends Block {
 
             if (recipe.isPresent()) {
                 convertedAnyItem = true;
-                item.getItem().shrink(1);
+                item.remove();
 
                 ItemStack result = recipe.get().getCraftingResult(fakeInventory);
                 InventoryHelper.spawnItemStack(world, center.x, center.y + 0.5, center.z, result);
