@@ -73,9 +73,7 @@ public class SummonWildHuntRitual extends SummonSpiritRitual {
         //Spawn the wither skeletons, who will spawn their minions
         for (int i = 0; i < 3; i++) {
             WildHuntWitherSkeletonEntity skeleton = OccultismEntities.WILD_HUNT_WITHER_SKELETON.get().create(world);
-            skeleton.onInitialSpawn(world, world.getDifficultyForLocation(goldenBowlPosition), SpawnReason.MOB_SUMMONED,
-                    null,
-                    null);
+
             double offsetX = (world.getRandom().nextGaussian() - 1.0) * (1 + world.getRandom().nextInt(4));
             double offsetZ = (world.getRandom().nextGaussian() - 1.0) * (1 + world.getRandom().nextInt(4));
 
@@ -83,6 +81,10 @@ public class SummonWildHuntRitual extends SummonSpiritRitual {
                     goldenBowlPosition.getZ() + offsetZ,
                     world.getRandom().nextInt(360), 0);
             skeleton.setCustomName(new StringTextComponent(TextUtil.generateName()));
+
+            skeleton.onInitialSpawn(world, world.getDifficultyForLocation(goldenBowlPosition), SpawnReason.MOB_SUMMONED,
+                    null,
+                    null);
             this.spawnEntity(skeleton, world);
         }
     }
