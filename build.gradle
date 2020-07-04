@@ -31,7 +31,7 @@ archivesBaseName = "occultism"
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = JavaVersion.VERSION_1_8 // Need this here so eclipse task generates correctly.
 
 minecraft {
-    mappings channel: 'snapshot', version: '20200428-1.15.1'
+    mappings channel: 'snapshot', version: '20200701-1.15.1'
 
     // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
     
@@ -95,16 +95,16 @@ minecraft {
 repositories {
     maven {
         name = "Hwyla/Waila Maven"
-        url = "http://tehnut.info/maven"
+        url = "https://maven.tehnut.info"
     }
     maven {
         name = "Patchouli Maven"
         url = 'https://maven.blamejared.com'
     }
-//    maven {
-//        name = "Progwm16 maven - JEI"
-//        url = 'https://dvs1.progwml6.com/files/maven'
-//    }
+    maven {
+        name = "Progwm16 maven - JEI"
+        url = 'https://dvs1.progwml6.com/files/maven'
+    }
     maven {
         name = "ModMaven - JEI"
         url = "https://modmaven.k-4u.nl"
