@@ -1,8 +1,7 @@
 /*
  * MIT License
  *
- * Copyright 2020 klikli-dev
- * Some of the software architecture of the scan system has been based on https://github.com/MightyPirates/Scannable
+ * Copyright 2020 klikli-dev, Florian "Sangar" Nücke
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the "Software"), to deal in the Software without restriction, including
@@ -33,6 +32,9 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+/**
+ * Based on https://github.com/MightyPirates/Scannable
+ */
 public class ScanManager {
     //region Fields
     public static final ScanManager instance = new ScanManager();

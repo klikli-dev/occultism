@@ -4,5 +4,8 @@ A magic mod inspired by the world of Jonathan Stroud's Bartimaeus. With the help
 ## Curseforge
 https://www.curseforge.com/minecraft/mc-mods/occultism
 
-## License
-This mod is licensed under the MIT license, view LICENSE.txt for the full text.
+## Licensing
+Copyright 2020 klikli-dev
+
+Licensed under the MIT license, view [LICENSE](./LICENSE).
+Third party software and assets may be distributed under a different license, see [THIRD_PARTY_NOTICES.md](./THIRD_PARTY_NOTICES.md).
