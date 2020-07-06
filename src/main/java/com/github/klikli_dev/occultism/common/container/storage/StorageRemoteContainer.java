@@ -116,11 +116,11 @@ public class StorageRemoteContainer extends StorageControllerContainerBase {
 
     @Override
     public void updateCraftingSlots(boolean force) {
-        CompoundNBT compound = storageRemote.getOrCreateTag();
         ListNBT nbtTagList = new ListNBT();
         for (int i = 0; i < this.matrix.getSizeInventory(); i++) {
             nbtTagList.add(this.matrix.getStackInSlot(i).serializeNBT());
         }
+        storageRemote.getOrCreateTag().put("craftingMatrix", nbtTagList);
     }
 
     @Override
