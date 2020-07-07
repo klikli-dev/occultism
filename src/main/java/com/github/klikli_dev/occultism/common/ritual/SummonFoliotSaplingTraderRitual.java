@@ -74,7 +74,7 @@ public class SummonFoliotSaplingTraderRitual extends SummonSpiritRitual {
                                                  .create(spirit);
         exchange.setTradeRecipeId(new ResourceLocation(Occultism.MODID, "spirit_trade/otherworld_sapling"));
         exchange.init();
-        exchange.setTimeToConvert(60);
+        exchange.setTimeToConvert(20);
         exchange.setMaxTradesPerRound(1);
         spirit.setJob(exchange);
         spirit.setSpiritMaxAge(60);
