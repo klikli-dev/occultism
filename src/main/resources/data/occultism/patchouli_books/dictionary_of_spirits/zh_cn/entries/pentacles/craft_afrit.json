@@ -1,0 +1,16 @@
+{
+  "name": "赛维拉的永久监禁",
+  "icon": "occultism:textures/gui/book/pentagram_rose.png",
+  "category": "pentacles",
+  "sortnum": 31,
+  "pages": [
+    {
+      "type": "text",
+      "text": "$(bold)目的：$()绑定埃弗里特$(br2)。由艾博伍兹的外婆赛维拉首次发现， $(thing)赛维拉的永久监禁$()被用来将$(thing)埃弗里特$()注入到物品中。由于涉及到高等灵魂力量，这应该只由高级召唤师来执行。"
+    },
+    {
+      "type": "multiblock",
+      "multiblock_id": "occultism:pentacle.craft_afrit"
+    }
+  ]
+}

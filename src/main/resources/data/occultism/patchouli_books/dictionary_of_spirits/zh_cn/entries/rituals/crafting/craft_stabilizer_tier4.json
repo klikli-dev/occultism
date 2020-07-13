@@ -1,0 +1,20 @@
+{
+  "name": "阶段（4）维度存储稳定器",
+  "icon": "occultism:storage_stabilizer_tier4",
+  "category": "rituals/crafting",
+  "sortnum": 25,
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "occultism:storage_stabilizer_tier4",
+      "text": "这种进阶的稳定器注入了一个$(thing)恶魔$()。该灵魂支撑维度矩阵以保持存储维度稳定，从而允许存储更多物品。"
+    },
+    {
+      "type": "summoning",
+      "heading": "注入",
+      "pentacle": "$(l:pentacles/craft_marid)尤菲克斯的倒塔$(/l)",
+      "activation_item": "occultism:book_of_binding_bound_marid",
+      "ingredients": "$(li)1x $(item)彼岸石基座$()$(li)1x $(item)铱块$()$(li)1x $(item)龙蛋$() $(li)2x $(item)灵魂调谐宝石$()"
+    }
+  ]
+}

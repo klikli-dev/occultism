@@ -1,0 +1,40 @@
+{
+  "name": "矿工灵魂",
+  "icon": "occultism:miner_foliot_unspecialized",
+  "category": "rituals/crafting",
+  "sortnum": 27,
+  "pages": [
+    {
+      "type": "text",
+      "text": "矿工灵魂可以使用$(thing)维度矿井$()来从采矿维度获取资源。他们被召唤并注入到魔法灯中，只有通过维度矿井才能离开。魔法灯会随着时间的推移而衰退，一旦完全损坏，其中的灵魂就会被释放，回到$(thing)彼岸$()."
+    },
+    {
+      "type": "text",
+      "title": "矿工佛利奥特",
+      "text": "矿工佛利奥特会无目的地挖掘他所看到的任何方块。采矿过程相当缓慢，由于这一点，佛利奥特只消耗少量的能量，所以魔法灯存在的时间将被延长。"
+    },
+    {
+      "type": "summoning",
+      "heading": "矿工佛利奥特",
+      "pentacle": "$(l:pentacles/craft_foliot)艾滋威尔斯的初等迫使$(/l)",
+      "activation_item": "occultism:book_of_binding_bound_foliot",
+      "ingredients": "$(li)1x $(item)空魔法灯$()$(li)1x $(item)铱镐$()$(li)1x $(item)铁矿$() $(li)1x $(item)砂砾$()"
+    },
+    {
+      "type": "text",
+      "title": "矿工金妮",
+      "text": "矿工金妮可以挖掘特定种类的矿物。但金尼强大的力量使得它损耗魔法灯的速度加快。"
+    },
+    {
+      "type": "summoning",
+      "heading": "矿工金妮",
+      "pentacle": "$(l:pentacles/craft_djinni)斯崔格的高等绑定$(/l)",
+      "activation_item": "occultism:book_of_binding_bound_djinni",
+      "ingredients": "$(li)1x $(item)空魔法灯$()$(li)1x $(item)铱镐$()$(li)2x $(item)铱块$()$(li)1x $(item)灵魂调谐宝石$()$(li)1x $(item)金矿$()"
+    },
+    {
+      "type": "empty",
+      "draw_filler": false
+    }
+  ]
+}

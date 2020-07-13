@@ -1,0 +1,30 @@
+{
+  "name": "鹦鹉伙伴",
+  "icon": "occultism:textures/gui/book/parrot.png",
+  "category": "rituals/familiars",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "entity",
+      "entity": "minecraft:parrot",
+      "text": "$(bold)提供$()：陪伴"
+    },
+    {
+      "type": "summoning_sacrifice",
+      "heading": "召唤",
+      "pentacle": "$(l:pentacles/possess_foliot)赫德林的诱饵$(/l)",
+      "activation_item": "occultism:book_of_binding_bound_foliot",
+      "sacrifice": "鸡",
+      "ingredients": "$(li)1x $(item)羽毛$()$(li)1x $(item)绿色染料$()$(li)1x $(item)黄色染料$()$(li)1x $(item)红色染料$()$()$(li)1x $(item)蓝色染料$()"
+    },
+    {
+      "type": "text",
+      "text": "在这个仪式中将会召唤一个$(thing)佛利奥特$()。仪式中$(thing)鸡$()的宰杀以及所提供染料是为了诱使佛利奥特模仿鹦鹉的形状。因为$(thing)佛利奥特$()智力不高，所以有的时候会发生一些意想不到的事情……"
+    },
+    {
+      "type": "text",
+      "text": ""
+    }
+  ]
+}
+

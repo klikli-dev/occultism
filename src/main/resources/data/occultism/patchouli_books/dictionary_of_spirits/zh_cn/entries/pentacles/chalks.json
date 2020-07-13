@@ -1,0 +1,32 @@
+{
+  "name": "粉笔种类",
+  "icon": "occultism:chalk_white",
+  "category": "pentacles",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "text",
+      "text": "粉笔用来画五芒星以及定义五芒星形状。不同类型的粉笔有着不同的作用，具体作用如下文所示。注：使用一个$(item)粉板擦$()是$(bold)移除$()错误放置的粉笔符文的最简单方法。"
+    },
+    {
+      "type": "spotlight",
+      "item": "occultism:chalk_white",
+      "text": "白色粉笔是粉笔的最基本类型，在大多数五芒星中都能找到。除了定义五芒星的形状外，没有什么特别的能力。"
+    },
+    {
+      "type": "spotlight",
+      "item": "occultism:chalk_gold",
+      "text": "金色粉笔是用来绑定符文的，它可以给物品注入灵魂，或者使它附身在一个生物身上。"
+    },
+    {
+      "type": "spotlight",
+      "item": "occultism:chalk_purple",
+      "text": "紫色粉笔一般用来召唤更高级的生物，如$(thing)金妮$() 或者 $(thing)埃弗里特$()，同时也可以减缓灵魂的本质衰退"
+    },
+    {
+      "type": "spotlight",
+      "item": "occultism:chalk_red",
+      "text": "红色粉笔用来召唤最强大也是最危险的生物，如$(thing)马里德$()。制作红色粉笔需要$(l:rituals/summoning/afrit_essence)$(item)精华$()$(/l)"
+    }
+  ]
+}

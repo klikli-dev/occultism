@@ -1,0 +1,20 @@
+{
+  "name": "稳定虫洞",
+  "icon": "occultism:stable_wormhole",
+  "category": "rituals/crafting",
+  "sortnum": 23,
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "occultism:stable_wormhole",
+      "text": "稳定虫洞允许远程访问维度矩阵。"
+    },
+    {
+      "type": "summoning",
+      "heading": "注入",
+      "pentacle": "$(l:pentacles/craft_foliot)艾滋威尔斯的初等迫使$(/l)",
+      "activation_item": "occultism:book_of_binding_bound_foliot",
+      "ingredients": "$(li)1x $(item)虫洞框架$()$(li)1x $(item)末影珍珠$()$(li)2x $(item)下界石英$()"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "name": "召唤之书",
+  "icon": "occultism:book_of_calling_djinni_manage_machine",
+  "category": "spirits",
+  "sortnum": 4,
+  "pages": [
+    {
+      "type": "spotlight",
+      "title": "召唤之书",
+      "item": "occultism:book_of_calling_djinni_manage_machine",
+      "text": "召唤之书使得你可以控制一个被召唤出的灵魂，或者将灵魂收留，使他们免于本质衰退。右击打开配置界面，Shift键右键以应用“配置”。右键单击灵魂来捕获，再次右击释放它们。"
+    },
+    {
+      "type": "empty",
+      "draw_filler": false
+    }
+  ]
+}

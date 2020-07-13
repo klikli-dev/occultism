@@ -1,0 +1,29 @@
+{
+  "name": "灵魂火焰",
+  "icon": "occultism:spirit_fire",
+  "category": "getting_started",
+  "sortnum": 2,
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "occultism:spirit_fire",
+      "text": "灵魂火焰是一种只存在于$(thing)彼岸$()的火焰，它不会伤害生物。灵魂火焰的特殊属性使得它能够在不消耗自身的情况下，通过燃烧来净化和转化某些物质。制作灵魂火焰需要$(item)恶魔之梦果实$()以及$(item)打火石$()."
+    },
+    {
+      "type": "image",
+      "border": "true",
+      "images": [
+        "occultism:textures/gui/book/spiritfire_instructions.png"
+      ],
+      "text": "将$(item)恶魔之梦果实$()丢弃至地面并点火。"
+    },
+    {
+      "type": "text",
+      "text": "灵魂火焰的主要用途就是将$(item)钻石$()转换成$(item)灵魂谐振宝石$()，以及净化粉笔。"
+    },
+    {
+      "type": "empty",
+      "draw_filler": false
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "name": "存储访问器",
+  "icon": "occultism:storage_remote",
+  "category": "rituals/crafting",
+  "sortnum": 24,
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "occultism:storage_remote",
+      "text": "$(item)存储访问器$()可以与$(item)存储执行器$()绑定。被注入其中的$(thing)金妮$()使得我们可以远程访问存储执行器。"
+    },
+    {
+      "type": "summoning",
+      "heading": "注入",
+      "pentacle": "$(l:pentacles/craft_djinni)斯崔格的高等绑定$(/l)",
+      "activation_item": "occultism:book_of_binding_bound_djinni",
+      "ingredients": "$(li)1x $(item)无灵魂的存储访问器$()$(li)2x $(item)末影珍珠$()$(li)1x $(item)下界石英$()"
+    }
+  ]
+}

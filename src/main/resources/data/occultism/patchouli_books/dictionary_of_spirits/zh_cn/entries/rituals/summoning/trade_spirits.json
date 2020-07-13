@@ -1,0 +1,17 @@
+{
+  "name": "商人灵魂",
+  "icon": "occultism:textures/gui/book/cash.png",
+  "category": "rituals/summoning",
+  "sortnum": 20,
+  "pages": [
+    {
+      "type": "text",
+      "text": "商人灵魂会挑选合适的物品，并将贸易结果丢在地上。只有在周围散发出紫色粒子时，灵魂才会主动交换物品。如果您看不到任何粒子，请确认您是否给予了正确数量的物品。$(br2)大多数贸易灵魂会经历极端的本质衰退，并将迅速返回$(thing)彼岸$()"
+    },
+    {
+      "type": "empty",
+      "draw_filler": false
+    }
+  ]
+}
+

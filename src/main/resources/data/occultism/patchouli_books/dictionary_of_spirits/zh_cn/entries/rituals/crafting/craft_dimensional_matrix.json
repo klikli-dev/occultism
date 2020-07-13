@@ -1,0 +1,20 @@
+{
+  "name": "维度矩阵",
+  "icon": "occultism:dimensional_matrix",
+  "category": "rituals/crafting",
+  "sortnum": 22,
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "occultism:dimensional_matrix",
+      "text": "维度矩阵是存储维度的入口。被注入到维度矩阵中的$(thing)金妮$()保持了存储维度的稳定性。可以使用存储稳定器来扩充存储维度的容量"
+    },
+    {
+      "type": "summoning",
+      "heading": "注入",
+      "pentacle": "$(l:pentacles/craft_djinni)斯崔格的高等绑定$(/l)",
+      "activation_item": "occultism:book_of_binding_bound_djinni",
+      "ingredients": "$(li)1x $(item)末影珍珠$()$(li)3x $(item)石英块$()"
+    }
+  ]
+}

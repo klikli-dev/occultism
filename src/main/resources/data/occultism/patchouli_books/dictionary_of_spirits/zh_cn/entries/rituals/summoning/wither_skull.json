@@ -1,0 +1,21 @@
+{
+  "name": "凋零骷髅头",
+  "icon": "minecraft:wither_skeleton_skull",
+  "category": "rituals/summoning",
+  "sortnum": 40,
+  "pages": [
+    {
+      "type": "text",
+      "text": "除了冒险进入地狱堡垒之外，还有另一种获取凋零骷髅头的方法。传说中的$(thing)野猎$()中有着以凋灵骷髅的形式出现的灵魂主宰，击杀后会掉落凋零骷髅头。虽然召唤野猎非常危险，但毋庸置疑，这是获取凋零骷髅头的最快方法。"
+    },
+    {
+      "type": "summoning_sacrifice_noformat",
+      "heading": "Unbound Afrit",
+      "pentacle": "$(l:pentacles/summon_wild_greater_spirit)奥索林无拘无束的呼唤$(/l)",
+      "activation_item": "minecraft:skeleton_skull",
+      "sacrifice": "$(thing)玩家$() 或 $(thing)村民$()",
+      "ingredients": "$(li)1x $(item)铜块$()$(li)1x $(item)银块$()$(li)1x $(item)金块$()$(li)1x $(item)钻石$()$(li)1x $(item)地狱岩$()$(li)1x $(item)灵魂沙$()"
+    }
+  ]
+}
+
