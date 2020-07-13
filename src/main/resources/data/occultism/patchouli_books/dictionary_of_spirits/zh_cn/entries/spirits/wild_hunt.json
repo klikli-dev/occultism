@@ -1,0 +1,16 @@
+{
+  "name": "野猎",
+  "icon": "occultism:textures/gui/book/wild_hunt.png",
+  "category": "spirits",
+  "sortnum": 6,
+  "pages": [
+    {
+      "type": "text",
+      "text": "一群传说中伟大的灵魂，通常以凋零骷髅的形式伴随着骷髅仆从出现。伟大的灵魂以这样的方式被束缚在他们的仆从身上，直到他们的仆从们被送回$(thing)彼岸$()之前，他们几乎是无敌的。虽然召唤狂野的暗示是极其危险的，但一些召唤师已经知道这样做可以获取快速的晋升。"
+    },
+    {
+      "type": "text",
+      "text": "它们掉落的罕见的凋零骷髅头颅。召唤野猎在获得$(item)$(l:rituals/summoning/wither_skull)凋零骷髅头颅$(/l)$()的页面上有详细的描述"
+    }
+  ]
+}

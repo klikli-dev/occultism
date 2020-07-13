@@ -1,0 +1,16 @@
+{
+  "name": "阿巴拉的戏法",
+  "icon": "occultism:textures/gui/book/pentagram_rose.png",
+  "category": "pentacles",
+  "sortnum": 30,
+  "pages": [
+    {
+      "type": "text",
+      "text": "$(bold)目的：$()召唤埃弗里特$(br2)$(thing)阿巴拉的戏法$()是为数不多能够（大部分）安全地召唤一个埃弗里特的五芒星之一。这个五芒星需要一个凋零骷髅头。想要达到高能量的灵魂力量，提升召唤潜力的物品是必须的。"
+    },
+    {
+      "type": "multiblock",
+      "multiblock_id": "occultism:pentacle.summon_afrit"
+    }
+  ]
+}

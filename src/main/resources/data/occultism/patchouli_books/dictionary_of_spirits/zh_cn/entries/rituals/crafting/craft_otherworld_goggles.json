@@ -1,0 +1,29 @@
+{
+  "name": "彼岸目镜",
+  "icon": "occultism:otherworld_goggles",
+  "category": "rituals/crafting",
+  "sortnum": 10,
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "occultism:otherworld_goggles",
+      "text": "$(item)彼岸目镜$()给予使用者永久的$(thing)第三只眼$()使得你甚至可以看到食用$(thing)$(l:getting_started/datura)恶魔之梦$(/l)$()后也看不到的方块。但是，他们无法使我们获得彼岸的材料。因为是使用这种特殊工具或使用“恶魔之梦”，具体还是要取决于材料的类型。"
+    },
+    {
+      "type": "spotlight",
+      "item": "occultism:infused_lenses",
+      "text": "彼岸目镜使用注入在镜片上的佛利奥特。佛利奥特与佩戴者共享查看彼岸的能力，从而使他们能够看到彼岸的材料。由于所需的召唤相对简单，制作这些护目镜通常是普通的学徒召唤任务。"
+    },
+    {
+      "type": "summoning",
+      "heading": "注入",
+      "pentacle": "$(l:pentacles/craft_foliot)艾滋威尔斯的初等迫使$(/l)",
+      "activation_item": "occultism:book_of_binding_bound_foliot",
+      "ingredients": "$(li)1x $(item)镜片$()$(li)2x $(item)银锭$()$(li)1x $(item)金锭$()"
+    },
+    {
+      "type": "empty",
+      "draw_filler": false
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "name": "更进一步",
+  "icon": "occultism:chalk_purple",
+  "category": "getting_started",
+  "sortnum": 5,
+  "pages": [
+    {
+      "type": "text",
+      "text": "现在你已经成功地召唤了你的第一个灵魂。是时候看看你作为一个召唤者，下一步该如何进行并思考之后该做些什么。"
+    },
+    {
+      "type": "text",
+      "title": "制作金粉笔",
+      "text": "获得金粉和萤石粉，制作金粉笔。为绑定和附身仪式做准备。"
+    },
+    {
+      "type": "text",
+      "title": "制作彼岸护目镜",
+      "text": "可以通过使用$(l:rituals/crafting/craft_otherworld_goggles)彼岸目镜$(/l)$()获得第三只眼效果，这可以有效防止恶魔之梦上瘾。额外的好处：你可以看到更高阶的彼岸材料，比如说矿物"
+    },
+    {
+      "type": "text",
+      "title": "注魔镐",
+      "text": "$(l:rituals/crafting/craft_infused_pickaxe)$(thing)注魔镐$()$(/l)$()挖掘彼岸矿物。再下一步就是制造一个有着相同效果不过更高耐久的$(item)铱镐$()"
+    },
+    {
+      "type": "text",
+      "title": "召唤熟人",
+      "text": "通过一只$(l:rituals/familiars/familiar_parrot)$(thing)熟人鹦鹉$()$(/l)来变成海盗！或者借助$(l:rituals/familiars/familiar_otherworld_bird)$(thing)彼岸鸟$()$(/l)飞上天空。使用$(l:rituals/crafting/craft_soul_gem)$(item)灵魂宝石$()$(/l)来安全地储存这些能力。"
+    },
+    {
+      "type": "text",
+      "title": "召唤被附身的怪物",
+      "text": "被附身的怪物被灵魂所控制，使得召唤者可以决定他们的一些属性。他们通常有着更高的稀有物品的掉率，同样他们也更难被杀死。召唤一个$(thing)被附身的末影螨$()来获取末地石以制造紫色粉笔。"
+    },
+    {
+      "type": "text",
+      "title": "维度储存",
+      "text": "在灵魂的高级用途中，有控制维度的创造以及与维度的互动，这使得我们可以存储大量的物品。通过注入一个维度矩阵开始使用维度存储。现在天空是极限 - 使用稳定的虫洞作为额外的接入点，存储访问器可远程访问物品并创建存储稳定器以最大限度地利用可用空间。"
+    },
+    {
+      "type": "text",
+      "title": "自动化",
+      "text": "最后一步，为了解放生产力，你需要召唤机器操纵者金妮来管理熔炉以及你其他的机器。他们的召唤之书可以设置他们管理的机器以及家中的库存，然后你就可以通过存储系统的GUI下达指令来实现自动化。"
+    },
+    {
+      "type": "text",
+      "title": "自动化采矿",
+      "text": "$(l:rituals/crafting/craft_dimensional_mineshaft)$(thing)维度矿井$()$(/l)可以在虚空维度中挖矿。灵魂的种类以及其具体信息决定了挖掘速度、产量以及产物。理论上可以在挖掘维度获得存在的一切方块及矿物。"
+    },
+    {
+      "type": "empty",
+      "draw_filler": false
+    }
+  ]
+}

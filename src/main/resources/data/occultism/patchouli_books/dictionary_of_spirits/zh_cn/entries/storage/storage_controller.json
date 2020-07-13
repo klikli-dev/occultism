@@ -1,0 +1,18 @@
+{
+  "name": "存储执行器",
+  "icon": "occultism:storage_controller_base",
+  "category": "storage",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "occultism:storage_controller",
+      "title": "存储执行器",
+      "text": "$(item)维度存储执行器$()包含了一个被注入可以创建和管理存储维度的金妮的$(thing)$(l:rituals/crafting/craft_dimensional_matrix)维度矩阵$(/l)$()，以及一个被注入可以将物品移入和移出存储维度的佛利奥特的$(thing)$(l:rituals/crafting/craft_storage_controller_base)底座$(/l)$()。"
+    },
+    {
+      "type": "empty",
+      "draw_filler": false
+    }
+  ]
+}

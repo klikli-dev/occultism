@@ -1,0 +1,36 @@
+{
+  "name": "天气魔法",
+  "icon": "minecraft:wheat",
+  "category": "rituals/summoning",
+  "sortnum": 30,
+  "pages": [
+    {
+      "type": "text",
+      "text": "天气魔术对农民和其他需要特定天气的场合特别有用。召唤灵魂改变天气。不同类型的天气变化需要不同的力量等级。"
+    },
+    {
+      "type": "summoning",
+      "heading": "晴天",
+      "pentacle": "$(l:pentacles/summon_djinni)奥菲克斯的召唤$(/l)",
+      "activation_item": "occultism:book_of_binding_bound_djinni",
+      "ingredients": "$(li)1x $(item)甜菜根$()$(li)1x $(item)土豆$()$(li)1x $(item)胡萝卜$()$(li)1x $(item)小麦$()"
+    },
+    {
+      "type": "summoning_sacrifice",
+      "heading": "雨天",
+      "pentacle": "$(l:pentacles/summon_afrit)阿巴拉的戏法$(/l)",
+      "activation_item": "occultism:book_of_binding_bound_afrit",
+      "sacrifice": "牛",
+      "ingredients": "$(li)1x $(item)枯萎的灌木$()$(li)1x $(item)仙人掌$()$(li)1x $(item)沙子$()$(li)1x $(item)钻石$()"
+    },
+    {
+      "type": "summoning_sacrifice",
+      "heading": "雷暴",
+      "pentacle": "$(l:pentacles/summon_afrit)阿巴拉的戏法$(/l)",
+      "activation_item": "occultism:book_of_binding_bound_afrit",
+      "sacrifice": "牛",
+      "ingredients": "$(li)1x $(item)恶魂之泪$()$(li)2x $(item)火药$()$(li)1x $(item)骨头$()"
+    }
+  ]
+}
+

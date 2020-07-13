@@ -1,0 +1,20 @@
+{
+  "name": "矿石粉碎者佛利奥特",
+  "icon": "occultism:iron_dust",
+  "category": "rituals/summoning",
+  "sortnum": 10,
+  "pages": [
+    {
+      "type": "text",
+      "text": "矿石粉碎者是一种将矿石粉碎成粉的灵魂，有效地将金属产量提高了一倍。它将捡起合适的矿石，并生成对应的的粉。紫色粒子效果和粉碎声表明矿石粉碎者正在工作。"
+    },
+    {
+      "type": "summoning",
+      "heading": "召唤",
+      "pentacle": "$(l:pentacles/summon_foliot)阿维亚之圈$(/l)",
+      "activation_item": "occultism:book_of_binding_bound_foliot",
+      "ingredients": "$(li)1x $(item)铜矿$()$(li)1x $(item)铁矿$()$(li)1x $(item)银矿$()$(li)1x $(item)金矿$()"
+    }
+  ]
+}
+

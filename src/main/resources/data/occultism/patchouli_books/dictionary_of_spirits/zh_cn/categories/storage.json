@@ -1,0 +1,6 @@
+{
+  "name": "维度存储",
+  "description": "维度存储使得我们可以存储并远程访问大量的物品。此外，灵魂助手可以运输这些物品，甚至可以为你自动制作你所需要的物品。",
+  "icon": "occultism:storage_controller_base",
+  "sortnum": 5
+}

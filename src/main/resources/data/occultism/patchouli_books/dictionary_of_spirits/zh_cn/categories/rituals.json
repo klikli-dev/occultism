@@ -1,0 +1,6 @@
+{
+  "name": "仪式",
+  "description": "所有仪式及其要求的总览。单击下面的图标查看仪式的类别，或直接查看右侧的通用信息。",
+  "icon": "occultism:textures/gui/book/robe.png",
+  "sortnum": 4
+}

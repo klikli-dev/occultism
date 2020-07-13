@@ -1,0 +1,16 @@
+{
+  "name": "机器操纵者",
+  "icon": "occultism:textures/gui/book/autocrafting.png",
+  "category": "storage",
+  "sortnum": 4,
+  "pages": [
+    {
+      "type": "text",
+      "text": "$(thing)$(l:rituals/summoning/summon_manage_machine)机器操纵者$(/l)$()是使熔炉和其他机器自动化的灵魂。在存储系统的GUI中的放置一堆物品，灵魂就会将其放入分配给它的机器中，并将产物返回到存储系统中。"
+    },
+    {
+      "type": "empty",
+      "draw_filler": false
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "name": "绑定之书",
+  "icon": "occultism:book_of_binding_bound_marid",
+  "category": "spirits",
+  "sortnum": 4,
+  "pages": [
+    {
+      "type": "spotlight",
+      "title": "绑定之书",
+      "item": "occultism:book_of_binding_bound_foliot",
+      "text": "绑定之书包含了特定灵魂的召唤文本。一旦召唤的灵魂的名字被写进书中，这本书就和那个灵魂绑定在一起，且可以用来召唤灵魂。"
+    },
+    {
+      "type": "text",
+      "text": "要在书中添加灵魂的名字，需要将绑定之书与这本词典合成。绑定之书本身是用$(item)书和笔$()以及各种染料合成。"
+    }
+  ]
+}

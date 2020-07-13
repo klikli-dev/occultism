@@ -1,0 +1,20 @@
+{
+  "name": "灵魂宝石",
+  "icon": "occultism:soul_gem",
+  "category": "rituals/crafting",
+  "sortnum": 12,
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "occultism:soul_gem",
+      "text": "灵魂宝石是镶嵌在金属中的钻石，然后再向其中注入$(thing)金妮$()。金妮创造了一个很小的空间，可以暂时存储生物。但是无法存储伟大的灵魂。"
+    },
+    {
+      "type": "summoning",
+      "heading": "注入",
+      "pentacle": "$(l:pentacles/craft_djinni)斯崔格的高等绑定$(/l)",
+      "activation_item": "occultism:book_of_binding_bound_djinni",
+      "ingredients": "$(li)1x $(item)钻石$()$(li)1x $(item)铜锭$()$(li)1x $(item)银锭$()$(li)1x $(item)金锭$()$(li)4x $(item)灵魂沙$()"
+    }
+  ]
+}

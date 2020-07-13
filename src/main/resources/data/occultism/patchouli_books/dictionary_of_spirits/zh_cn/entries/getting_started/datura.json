@@ -1,0 +1,29 @@
+{
+  "name": "恶魔之梦",
+  "icon": "occultism:datura",
+  "category": "getting_started",
+  "sortnum": 1,
+  "pages": [
+    {
+      "title": "恶魔之梦",
+      "type": "spotlight",
+      "item": "occultism:datura",
+      "text": "恶魔之梦是一种给予玩家$(thing)第三只眼$()能力的一种草药，这种能力可以与$(thing)彼岸$()的材料进行交互。恶魔之梦的种子获取方式和小麦种子一样，打草。食用成熟的恶魔之梦可以激活第三只眼。"
+    },
+    {
+      "type": "text",
+      "text": "不过食用恶魔之梦也有一个其他获取$(thing)第三只眼$()能力方法所没有的额外效果，那就是可以与$(thing)彼岸$()的材料进行交互。当你拥有恶魔之梦效果时，你可以获得彼岸石以及彼岸原木。"
+    },
+    {
+      "type": "image",
+      "border": "true",
+      "images": [
+        "occultism:textures/gui/book/datura_effect.png"
+      ]
+    },
+    {
+      "type": "text",
+      "text": "食用恶魔之梦可以使得你看到部分与我们所在位面平面相交的$(thing)彼岸$()。"
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "name": "时间魔法",
+  "icon": "minecraft:clock",
+  "category": "rituals/summoning",
+  "sortnum": 31,
+  "pages": [
+    {
+      "type": "text",
+      "text": "时间魔术的范围是有限的，它不能将你送回过去，而是可以更改一天中的时间。这对于条件中需要白天或黑夜的仪式或其他任务特别有用。"
+    },
+    {
+      "type": "summoning",
+      "heading": "黎明召唤",
+      "pentacle": "$(l:pentacles/summon_djinni)奥菲克斯的召唤$(/l)",
+      "activation_item": "occultism:book_of_binding_bound_djinni",
+      "ingredients": "$(li)1x $(item)火把$()$(li)1x $(item)任意树苗$()$(li)1x $(item)小麦$()$(li)1x $(item)黄色染料$()"
+    },
+    {
+      "type": "summoning",
+      "heading": "黄昏召唤",
+      "pentacle": "$(l:pentacles/summon_djinni)奥菲克斯的召唤$(/l)",
+      "activation_item": "occultism:book_of_binding_bound_djinni",
+      "ingredients": "$(li)1x $(item)任意床$()$(li)1x $(item)腐肉$()$(li)1x $(item)骨头$()$(li)1x $(item)黑色染料$()"
+    },
+    {
+      "type": "empty",
+      "draw_filler": false
+    }
+  ]
+}
+

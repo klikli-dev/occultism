@@ -1,0 +1,17 @@
+{
+  "name": "魔法灯",
+  "icon": "occultism:magic_lamp_empty",
+  "category": "misc",
+  "sortnum": 11,
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "occultism:magic_lamp_empty",
+      "text": "魔法灯可以把灵魂囚禁在我们的世界里，而且不会让它们暴露在本质衰退的环境中。与召唤之书不同，神灯中的灵魂并没有回到$(thing)彼岸$()，这使得每个灵魂在神灯中工作时仍然在召唤者的控制之下。"
+    },
+    {
+      "type": "empty",
+      "draw_filler": false
+    }
+  ]
+}

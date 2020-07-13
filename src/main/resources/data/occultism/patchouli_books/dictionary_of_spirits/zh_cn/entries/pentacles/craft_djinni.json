@@ -1,0 +1,16 @@
+{
+  "name": "斯崔格的高等绑定",
+  "icon": "occultism:textures/gui/book/pentagram_rose.png",
+  "category": "pentacles",
+  "sortnum": 21,
+  "pages": [
+    {
+      "type": "text",
+      "text": "$(bold)目的：$()绑定金妮$(br2)$(thing)斯崔格的高等绑定$()，一种将金妮注入到物品中的五芒星，新手召唤师切勿尝试！它由灵魂调谐水晶支撑，并由蜡烛稳定，非常适合永久性地注入带有灵魂的物体。"
+    },
+    {
+      "type": "multiblock",
+      "multiblock_id": "occultism:pentacle.craft_djinni"
+    }
+  ]
+}

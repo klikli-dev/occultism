@@ -1,0 +1,16 @@
+{
+  "name": "阿维亚之圈",
+  "icon": "occultism:textures/gui/book/pentagram_rose.png",
+  "category": "pentacles",
+  "sortnum": 10,
+  "pages": [
+    {
+      "type": "text",
+      "text": "$(bold)目的：$()召唤佛利奥特$(br2)$(thing)阿维亚之圈$()被大多数人认为是最简单的五芒星，十分容易被构造。但只为召唤者提供了最低限度的约束力和保护力度。$(br2)只有最脆弱和最容易绑定的灵魂：$(thing)佛利奥特$()，可以用这个五芒星在仪式中召唤。"
+    },
+    {
+      "type": "multiblock",
+      "multiblock_id": "occultism:pentacle.summon_foliot"
+    }
+  ]
+}

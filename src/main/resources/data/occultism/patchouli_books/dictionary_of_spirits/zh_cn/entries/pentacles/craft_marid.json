@@ -1,0 +1,16 @@
+{
+  "name": "尤菲克斯的倒塔",
+  "icon": "occultism:textures/gui/book/pentagram_rose.png",
+  "category": "pentacles",
+  "sortnum": 40,
+  "pages": [
+    {
+      "type": "text",
+      "text": "$(bold)目的：$()绑定恶魔$(br2)$(thing)尤菲克斯的倒塔$()是为数不多的能将$(thing)恶魔$()注入到物品中的五芒星之一。切记！任何涉及到$(thing)恶魔$()的仪式只能由最有经验的召唤师执行！ "
+    },
+    {
+      "type": "multiblock",
+      "multiblock_id": "occultism:pentacle.craft_marid"
+    }
+  ]
+}

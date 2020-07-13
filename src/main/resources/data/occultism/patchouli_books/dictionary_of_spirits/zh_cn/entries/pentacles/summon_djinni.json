@@ -1,0 +1,16 @@
+{
+  "name": "奥菲克斯的召唤",
+  "icon": "occultism:textures/gui/book/pentagram_rose.png",
+  "category": "pentacles",
+  "sortnum": 20,
+  "pages": [
+    {
+      "type": "text",
+      "text": "$(bold)目的：$()召唤金妮$(br2)这是奥菲克斯在第三个世代发明的五芒星，作用是召唤$(thing)金妮$()。骷髅头颅和紫色粉笔提供了使金妮出现的召唤力量，于此同时蜡烛稳定了召唤仪式。"
+    },
+    {
+      "type": "multiblock",
+      "multiblock_id": "occultism:pentacle.summon_djinni"
+    }
+  ]
+}

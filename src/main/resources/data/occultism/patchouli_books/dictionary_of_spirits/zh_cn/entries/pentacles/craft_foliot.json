@@ -1,0 +1,16 @@
+{
+  "name": "艾滋威尔斯的初等迫使",
+  "icon": "occultism:textures/gui/book/pentagram_rose.png",
+  "category": "pentacles",
+  "sortnum": 11,
+  "pages": [
+    {
+      "type": "text",
+      "text": "$(bold)目的：$()绑定佛利奥特$(br2)作为一种初等的五芒星， $(thing)艾滋威尔斯的初等迫使$()是低等灵魂物品注入的一个共同开始。仪式通过蜡烛和灵魂调谐水晶而达到永久稳定。"
+    },
+    {
+      "type": "multiblock",
+      "multiblock_id": "occultism:pentacle.craft_foliot"
+    }
+  ]
+}
