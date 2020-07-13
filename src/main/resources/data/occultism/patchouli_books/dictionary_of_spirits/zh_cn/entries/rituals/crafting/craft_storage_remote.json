@@ -7,7 +7,7 @@
     {
       "type": "spotlight",
       "item": "occultism:storage_remote",
-      "text": "$(item)存储访问器$()可以与$(item)存储执行器$()相连。被注入其中的$(thing)金妮$()使得可以远程访问存储执行器。"
+      "text": "$(item)存储访问器$()可以与$(item)存储执行器$()绑定。被注入其中的$(thing)金妮$()使得我们可以远程访问存储执行器。"
     },
     {
       "type": "summoning",

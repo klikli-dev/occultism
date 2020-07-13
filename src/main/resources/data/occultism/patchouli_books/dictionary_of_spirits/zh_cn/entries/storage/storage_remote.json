@@ -7,7 +7,7 @@
     {
       "type": "spotlight",
       "item": "occultism:storage_remote",
-      "text": "$(thing)$(l:rituals/crafting/craft_storage_remote)存储访问器$(/l)$()与虫洞类似，但允许玩家远程访问存储。"
+      "text": "$(thing)$(l:rituals/crafting/craft_storage_remote)存储访问器$(/l)$()与虫洞类似，但允许玩家远程访问存储执行器。"
     },
     {
       "type": "empty",

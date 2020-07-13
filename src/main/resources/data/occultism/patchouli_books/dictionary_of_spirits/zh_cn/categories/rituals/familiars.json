@@ -1,6 +1,6 @@
 {
-  "name": "熟人仪式",
-  "description": "熟人仪式直接召唤灵魂帮助召唤者。这样仪式中的灵魂通常栖息在动物的身体上，从而使它们在大多数情况下都能抵抗本质的衰退。熟人提供增益BUFF，也会主动保护召唤者。",
+  "name": "伙伴仪式",
+  "description": "伙伴仪式直接召唤灵魂帮助召唤者。这样仪式中的灵魂通常栖息在动物的身体上，从而使它们在大多数情况下能抵抗本质衰退。伙伴将会提供增益BUFF，也会主动保护召唤者。",
   "icon": "occultism:textures/gui/book/parrot.png",
   "parent": "rituals",
   "sortnum": 4

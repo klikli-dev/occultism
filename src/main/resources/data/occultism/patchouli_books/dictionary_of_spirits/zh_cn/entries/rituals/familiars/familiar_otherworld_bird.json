@@ -1,5 +1,5 @@
 {
-  "name": "彼岸鸟仪式",
+  "name": "彼岸鸟伙伴",
   "icon": "occultism:textures/gui/book/otherworld_bird.png",
   "category": "rituals/familiars",
   "sortnum": 2,
@@ -14,12 +14,12 @@
       "heading": "召唤",
       "pentacle": "$(l:pentacles/summon_djinni)奥菲克斯的召唤$(/l)",
       "activation_item": "occultism:book_of_binding_bound_djinni",
-      "sacrifice": "$(thing)鹦鹉$() or $(thing)类鹦鹉动物$()",
+      "sacrifice": "$(thing)鹦鹉$() or $(thing)仪式召唤的鹦鹉$()",
       "ingredients": "$(li)2x $(item)羽毛$()$(li)1x $(item)蜘蛛网$()$(li)1x $(item)任意树叶$()"
     },
     {
       "type": "text",
-      "text": "$(thing)彼岸鸟$()是$(thing)金妮$()的子类。已知它对人类友善且通常呈深蓝色和紫色的鹦鹉形状。彼岸鸟将为所有者提供有限的保护以及在附近飞行的能力。"
+      "text": "$(thing)彼岸鸟$()是$(thing)金妮$()的同类。它对人类友善且通常以深蓝色和紫色的鹦鹉形式存在。彼岸鸟将为所有者提供有限的保护以及在附近飞行的能力。"
     },
     {
       "type": "text",

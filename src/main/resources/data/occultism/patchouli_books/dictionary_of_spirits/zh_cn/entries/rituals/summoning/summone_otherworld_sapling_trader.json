@@ -7,7 +7,7 @@
     {
       "type": "trade_description",
       "heading": "彼岸树苗商人",
-      "content": "彼岸树苗商人将自然的彼岸树苗交易为稳定的树苗。稳定树苗可以在没有$(thing)第三只眼$()时收获。",
+      "content": "彼岸树苗商人将自然生成在彼岸的彼岸树苗交易为稳定的树苗。注：稳定树苗生长而来的彼岸树可以在没有$(thing)第三只眼$()时收获。",
       "input_item": "occultism:otherworld_sapling_natural",
       "output_item": "occultism:otherworld_sapling"
     },

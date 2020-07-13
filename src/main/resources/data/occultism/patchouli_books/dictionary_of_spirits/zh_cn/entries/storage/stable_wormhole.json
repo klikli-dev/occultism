@@ -7,7 +7,7 @@
     {
       "type": "spotlight",
       "item": "occultism:stable_wormhole",
-      "text": "$(thing)$(l:rituals/crafting/craft_stable_wormhole)稳定虫洞$(/l)$()与存储控制器相连，使得玩家和灵魂可以进行远程访问存储。"
+      "text": "$(thing)$(l:rituals/crafting/craft_stable_wormhole)稳定虫洞$(/l)$()与存储控制器相连，使得玩家和灵魂可以进行远程访问存储执行器。"
     },
     {
       "type": "empty",

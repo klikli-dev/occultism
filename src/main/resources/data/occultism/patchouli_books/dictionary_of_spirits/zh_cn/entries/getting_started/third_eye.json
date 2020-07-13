@@ -10,11 +10,11 @@
     },
     {
       "type": "text",
-      "text": "佩戴注入灵魂的目镜是最舒适 - 也是最昂贵 - 的方法来获取这个能力的方法，灵魂会将他们的视野$(o)传输$()给他们的佩戴者。与此同时，一个稍微让人恶心但价格实惠的替代品是食用$(thing)$(l:getting_started/datura)恶魔之梦$(/l)$()来获取第三只眼的能力。"
+      "text": "佩戴彼岸目镜是最舒适 - 也是最昂贵 - 的获取这个能力的方法，灵魂会将看到彼岸的能力$(o)传输$()给他们的佩戴者。与此同时，一个稍微让人恶心但十分实惠的替代品是食用$(thing)$(l:getting_started/datura)恶魔之梦$(/l)$()来获取第三只眼的能力。"
     },
     {
       "type": "text",
-      "text": "$(l:rituals/crafting/craft_otherworld_goggles)彼岸目镜$(/l)$()使你可以看到更多彼岸隐藏的方块，但不可破坏。低阶段的材料可以通过食用$(thing)$(l:getting_started/datura)恶魔之梦$(/l)$()来获取，但是更稀有的物品需要特殊的工具才能开采。"
+      "text": "$(l:rituals/crafting/craft_otherworld_goggles)彼岸目镜$(/l)$()使你可以看到更多彼岸隐藏的方块，但你无法破坏这些方块。低阶段的材料可以通过食用$(thing)$(l:getting_started/datura)恶魔之梦$(/l)$()来获取，但是更稀有的物品需要特殊的工具才能进行采集。"
     },
     {
       "type": "empty",

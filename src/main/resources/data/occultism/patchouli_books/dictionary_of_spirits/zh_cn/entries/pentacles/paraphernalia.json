@@ -11,17 +11,17 @@
     {
       "type": "spotlight",
       "item": "occultism:candle_white",
-      "text": "蜡烛增加了五芒星的稳定性。使得被召唤灵魂的本质可以慢慢衰退，灵魂、被附身物的存在时间可以更长。"
+      "text": "蜡烛增加了五芒星的稳定性。使得被召唤灵魂的本质可以慢慢衰退，灵魂以及被附身物的存在时间可以更长。"
     },
     {
       "type": "spotlight",
       "item": "occultism:spirit_attuned_crystal",
-      "text": "水晶增加了五芒星的束缚力，使得灵魂可以永久的束缚在一个物品或生命中。"
+      "text": "水晶增加了五芒星的束缚力，使得灵魂可以永久的被束缚在一个物品或生命中。"
     },
     {
       "type": "spotlight",
       "item": "minecraft:skeleton_skull",
-      "text": "头颅增加了五芒星的召唤力，使得更多危险的灵魂可以被召唤出来。"
+      "text": "头颅增加了五芒星的召唤力，使得更多更危险的灵魂可以被召唤出来。"
     }
   ]
 }

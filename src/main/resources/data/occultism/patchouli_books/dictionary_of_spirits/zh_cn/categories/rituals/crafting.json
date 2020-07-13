@@ -1,6 +1,6 @@
 {
   "name": "绑定仪式",
-  "description": "绑定仪式将灵魂注入物品中，且这些灵魂拥有一个特定的力量。被仪式创造的物品可以像简单的附魔物品一样使用，或者帮助召唤者完成复杂的工作。",
+  "description": "绑定仪式将灵魂注入物品中，且这些灵魂大多拥有一种特定的力量。被仪式创造的物品可以像简单的附魔物品一样使用，或者可以帮助召唤者完成复杂的工作。",
   "icon": "occultism:textures/gui/book/infusion.png",
   "parent": "rituals",
   "sortnum": 3

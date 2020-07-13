@@ -7,14 +7,14 @@
     {
       "type": "spotlight",
       "item": "occultism:storage_stabilizer_tier2",
-      "text": "这种进阶的稳定器注入了一个$(thing)金妮$()。该灵魂支撑维度矩阵以保持存储维度稳定，从而允许存储更多物品。"
+      "text": "这种进阶的稳定器注入了一个$(thing)金妮$()金妮会支撑维度矩阵来保持存储维度稳定，从而使得存储维度存储更多物品。"
     },
     {
       "type": "summoning",
       "heading": "注入",
       "pentacle": "$(l:pentacles/craft_djinni)斯崔格的高等绑定$(/l)",
       "activation_item": "occultism:book_of_binding_bound_djinni",
-      "ingredients": "$(li)1x $(item)彼岸石基座$()$(li)1x $(item)银块$()$(li)1x $(item)恶魂之泪$() $(li)2x $(item)灵魂谐振宝石$()"
+      "ingredients": "$(li)1x $(item)彼岸石基座$()$(li)1x $(item)银块$()$(li)1x $(item)恶魂之泪$() $(li)2x $(item)灵魂调谐宝石$()"
     }
   ]
 }

@@ -6,12 +6,12 @@
   "pages": [
     {
       "type": "text",
-      "text": "精华的获取通常需要以红色粉笔形式安全地召唤更强大的灵魂。为了获得精华，一个埃弗里特需要被召唤至我们的位面并被杀死。请注意，这不是简单的工作，野生灵魂会对附近所有人构成极大危险。"
+      "text": "精华的获取通常需要红色符文来安全地召唤更强大的灵魂。为了获得精华，一个埃弗里特需要被召唤至我们的位面并被杀死。请注意，这不是简单的事情，未被束缚的灵魂会对附近所有人构成极大危险。"
     },
     {
       "type": "summoning_sacrifice",
-      "heading": "野生埃弗里特",
-      "pentacle": "$(l:pentacles/summon_wild_afrit)阿布拉斯的公开咒语$(/l)",
+      "heading": "未被束缚的埃弗里特",
+      "pentacle": "$(l:pentacles/summon_wild_afrit)阿布拉斯的无限制传送门$(/l)",
       "activation_item": "occultism:book_of_binding_bound_afrit",
       "sacrifice": "牛",
       "ingredients": "$(li)1x $(item)地狱岩$()$(li)1x $(item)下界石英$()$(li)1x $(item)打火石$()$(li)1x $(item)火药$()"

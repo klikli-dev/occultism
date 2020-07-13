@@ -1,5 +1,5 @@
 {
-  "name": "附身末影人",
+  "name": "被附身的末影人",
   "icon": "minecraft:ender_pearl",
   "category": "rituals/possession",
   "sortnum": 3,
@@ -19,7 +19,7 @@
     },
     {
       "type": "text",
-      "text": "在这个仪式中$(thing)末影人$()使用$(thing)猪$()的生命力量诞生，然后立刻被$(thing)金妮$()所附身。$(thing)被附身的末影人$()在被击杀时总会掉落1-3个$(item)末影珍珠$()"
+      "text": "在这个仪式中$(thing)末影人$()使用$(thing)猪$()的生命力量诞生，然后立刻被$(thing)金妮$()所附身。$(thing)被附身的末影人$()在被击杀时会掉落1-3个$(item)末影珍珠$()"
     },
     {
       "type": "text",
