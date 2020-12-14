@@ -34,6 +34,8 @@ import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Direction;
+import net.minecraft.util.math.Vector3f;
+import net.minecraft.util.math.vector.Quaternion;
 
 import java.awt.*;
 import java.util.List;

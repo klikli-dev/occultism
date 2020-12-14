@@ -27,7 +27,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.tags.Tag;
+import net.minecraft.tags.ITag;
 import net.minecraft.util.ResourceLocation;
 
 import javax.annotation.Nonnull;
@@ -37,11 +37,11 @@ import javax.annotation.Nonnull;
  */
 public class ItemTagComparator implements IItemStackComparator {
     //region Fields
-    protected Tag<Item> tag;
+    protected ITag<Item> tag;
     //endregion Fields
 
     //region Initialization
-    public ItemTagComparator(Tag<Item> tag) {
+    public ItemTagComparator(ITag<Item> tag) {
         this.tag = tag;
     }
 

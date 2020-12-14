@@ -30,13 +30,13 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.BooleanProperty;
-import net.minecraft.state.IProperty;
+import net.minecraft.state.Property;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 
 public interface IOtherworldBlock {
     //region Fields
-    IProperty<Boolean> UNCOVERED = BooleanProperty.create("uncovered");
+    Property<Boolean> UNCOVERED = BooleanProperty.create("uncovered");
     //endregion Fields
 
     //region Getter / Setter

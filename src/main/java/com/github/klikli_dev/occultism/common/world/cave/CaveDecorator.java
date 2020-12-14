@@ -25,7 +25,7 @@ package com.github.klikli_dev.occultism.common.world.cave;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.Tag;
+import net.minecraft.tags.ITag;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
@@ -39,7 +39,7 @@ import static com.github.klikli_dev.occultism.util.StaticUtil.modLoc;
 public abstract class CaveDecorator implements ICaveDecorator {
 
     //region Fields
-    public static final Tag<Block> CAVE_WALL_BLOCKS = new BlockTags.Wrapper(modLoc("cave_wall_blocks"));
+    public static final ITag<Block> CAVE_WALL_BLOCKS = new BlockTags.Wrapper(modLoc("cave_wall_blocks"));
 
     public BlockState floorState;
     public BlockState ceilingState;

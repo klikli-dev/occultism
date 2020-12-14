@@ -27,8 +27,9 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.registry.DynamicRegistries;
 import net.minecraft.world.World;
-import net.minecraft.world.dimension.DimensionType;
+import net.minecraft.world.DimensionType;
 import net.minecraftforge.common.util.INBTSerializable;
 
 import java.util.StringJoiner;
@@ -50,7 +51,7 @@ public class GlobalBlockPos implements INBTSerializable<CompoundNBT> {
 
     public GlobalBlockPos(BlockPos pos, World world) {
         this.pos = pos;
-        this.dimensionType = world.getDimension().getType();
+        this.dimensionType = world.getDimensionType();
     }
     //endregion Initialization
 
@@ -67,7 +68,7 @@ public class GlobalBlockPos implements INBTSerializable<CompoundNBT> {
     //region Overrides
     @Override
     public int hashCode() {
-        //multiply first hash code by a prime to avoid hash collisions (see Objects.hash() for reference)
+        //multiply first hash code by a prime to avoid hash collisions (see Objects.hash() for reference
         return this.getPos().hashCode() * 31 + this.getDimensionType().getRegistryName().hashCode();
     }
 

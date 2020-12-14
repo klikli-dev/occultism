@@ -36,8 +36,8 @@ public class FoliotModel extends BipedModel<FoliotEntity> {
     //region Initialization
     public FoliotModel() {
         super(1.0f);
-        this.leftArmPose = BipedModel.ArmPose.EMPTY;
-        this.rightArmPose = BipedModel.ArmPose.EMPTY;
+        this.leftArmPose = ArmPose.EMPTY;
+        this.rightArmPose = ArmPose.EMPTY;
         this.textureWidth = 64;
         this.textureHeight = 64;
 

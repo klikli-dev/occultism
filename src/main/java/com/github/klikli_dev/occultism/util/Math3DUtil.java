@@ -22,24 +22,19 @@
 
 package com.github.klikli_dev.occultism.util;
 
-import com.google.common.collect.ImmutableList;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.*;
+import net.minecraft.util.math.vector.Vector3d;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Spliterators;
-import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
-import java.util.stream.StreamSupport;
 
 public class Math3DUtil {
 
     //region Static Methods
-    public static double yaw(Vec3d a, Vec3d b) {
+    public static double yaw(Vector3d a, Vector3d b) {
         double dirx = a.x - b.x;
         double diry = a.y - b.y;
         double dirz = a.z - b.z;
@@ -62,8 +57,8 @@ public class Math3DUtil {
         return yaw;
     }
 
-    public static Vec3d center(BlockPos pos) {
-        return new Vec3d(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D);
+    public static Vector3d center(BlockPos pos) {
+        return new Vector3d(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D);
     }
 
     public static BlockPos clamp(BlockPos pos, AxisAlignedBB bounds) {

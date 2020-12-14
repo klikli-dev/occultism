@@ -33,7 +33,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.server.ServerWorld;
 
 import java.util.Arrays;
@@ -117,7 +117,7 @@ public class TraderJob extends SpiritJob {
         if (this.trade != null && this.trade.isValid(handHeld)) {
             if (this.entity.world.getGameTime() % 10 == 0) {
                 //show particle effect while converting
-                Vec3d pos = this.entity.getPositionVector();
+                Vector3d pos = this.entity.getPositionVector();
                 ((ServerWorld) this.entity.world)
                         .spawnParticle(ParticleTypes.PORTAL, pos.x + this.entity.world.rand.nextGaussian() / 3,
                                 pos.y + 0.5, pos.z + this.entity.world.rand.nextGaussian() / 3, 1, 0.0, 0.0, 0.0,

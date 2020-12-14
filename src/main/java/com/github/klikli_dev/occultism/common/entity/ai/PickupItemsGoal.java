@@ -70,7 +70,7 @@ public class PickupItemsGoal extends TargetGoal {
             //endregion Overrides
         };
         this.entitySorter = new EntitySorter(entity);
-        this.setMutexFlags(EnumSet.of(Goal.Flag.MOVE));
+        this.setMutexFlags(EnumSet.of(Flag.MOVE));
     }
     //endregion Initialization
 

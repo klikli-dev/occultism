@@ -28,16 +28,12 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.goal.*;
-import net.minecraft.entity.merchant.villager.AbstractVillagerEntity;
 import net.minecraft.entity.monster.BlazeEntity;
-import net.minecraft.entity.monster.ZombieEntity;
 import net.minecraft.entity.monster.ZombiePigmanEntity;
-import net.minecraft.entity.passive.IronGolemEntity;
-import net.minecraft.entity.passive.TurtleEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tags.EntityTypeTags;
-import net.minecraft.tags.Tag;
+import net.minecraft.tags.ITag;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.DifficultyInstance;
@@ -95,7 +91,7 @@ public class AfritWildEntity extends AfritEntity {
     public boolean isInvulnerableTo(DamageSource source) {
         if(source.isFireDamage())
             return true;
-        Tag<EntityType<?>> alliesTags = EntityTypeTags.getCollection().getOrCreate(afritAlliesTag);
+        ITag<EntityType<?>> alliesTags = EntityTypeTags.getCollection().getOrCreate(afritAlliesTag);
 
         Entity trueSource = source.getTrueSource();
         if(trueSource != null && alliesTags.contains(trueSource.getType()))

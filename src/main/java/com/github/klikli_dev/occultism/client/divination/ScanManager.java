@@ -26,7 +26,7 @@ import com.github.klikli_dev.occultism.util.Math3DUtil;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.vector.Vector3d;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -50,7 +50,7 @@ public class ScanManager {
         this.cancelScan();
 
         this.scanner = new Scanner(target);
-        this.scanner.initialize(player, player.getPositionVector(), SCAN_RADIUS_BLOCKS, SCAN_DURATION_TICKS);
+        this.scanner.initialize(player, player.getPositionVec(), SCAN_RADIUS_BLOCKS, SCAN_DURATION_TICKS);
     }
 
     public void updateScan(PlayerEntity player, boolean forceFinish) {
@@ -77,7 +77,7 @@ public class ScanManager {
     public BlockPos finishScan(PlayerEntity player) {
         this.updateScan(player, true);
 
-        Vec3d scanCenter = player.getPositionVector();
+        Vector3d scanCenter = player.getPositionVec();
         this.results
                 .sort(Comparator.comparing(result -> scanCenter.squareDistanceTo(Math3DUtil.center(result))));
         BlockPos result = !this.results.isEmpty() ? this.results.get(0) : null;

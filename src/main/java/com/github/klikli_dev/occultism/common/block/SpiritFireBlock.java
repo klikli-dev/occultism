@@ -41,7 +41,7 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
@@ -235,7 +235,7 @@ public class SpiritFireBlock extends Block {
     }
 
     protected void convertItems(World world, BlockPos pos, BlockState state) {
-        Vec3d center = Math3DUtil.center(pos);
+        Vector3d center = Math3DUtil.center(pos);
         AxisAlignedBB box = new AxisAlignedBB(-0.5, -0.5, -0.5, 0.5, 0.5, 0.5).offset(center);
         List<ItemEntity> list = world.getEntitiesWithinAABB(ItemEntity.class, box);
         ItemStackFakeInventory fakeInventory =

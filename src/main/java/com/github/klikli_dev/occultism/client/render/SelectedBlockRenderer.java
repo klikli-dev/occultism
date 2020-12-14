@@ -22,16 +22,15 @@
 
 package com.github.klikli_dev.occultism.client.render;
 
-import com.github.klikli_dev.occultism.client.render.SelectedBlockRenderer.SelectionInfo;
 import com.github.klikli_dev.occultism.util.RenderUtil;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.Matrix4f;
+import net.minecraft.util.math.Matrix4f;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
@@ -95,7 +94,7 @@ public class SelectedBlockRenderer {
             IRenderTypeBuffer.Impl buffer = Minecraft.getInstance().getRenderTypeBuffers().getBufferSource();
             IVertexBuilder builder = buffer.getBuffer(OccultismRenderType.BLOCK_SELECTION);
             matrixStack.push();
-            Vec3d projectedView = Minecraft.getInstance().gameRenderer.getActiveRenderInfo().getProjectedView();
+            Vector3d projectedView = Minecraft.getInstance().gameRenderer.getActiveRenderInfo().getProjectedView();
             matrixStack.translate(-projectedView.x, -projectedView.y, -projectedView.z);
             Matrix4f transform = matrixStack.getLast().getMatrix();
 

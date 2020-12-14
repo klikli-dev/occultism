@@ -28,7 +28,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.monster.SkeletonEntity;
 import net.minecraft.tags.EntityTypeTags;
-import net.minecraft.tags.Tag;
+import net.minecraft.tags.ITag;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
@@ -76,7 +76,7 @@ public class WildHuntSkeletonEntity extends SkeletonEntity {
 
     @Override
     public boolean isInvulnerableTo(DamageSource source) {
-        Tag<EntityType<?>> wildHuntTags = EntityTypeTags.getCollection().getOrCreate(wildHuntTag);
+        ITag<EntityType<?>> wildHuntTags = EntityTypeTags.getCollection().getOrCreate(wildHuntTag);
 
         Entity trueSource = source.getTrueSource();
         if (trueSource != null && wildHuntTags.contains(trueSource.getType()))

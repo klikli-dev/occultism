@@ -54,7 +54,7 @@ public class DepositItemsGoal extends PausableGoal {
     public DepositItemsGoal(SpiritEntity entity) {
         this.entity = entity;
         this.targetSorter = new BlockSorter(entity);
-        this.setMutexFlags(EnumSet.of(Goal.Flag.TARGET));
+        this.setMutexFlags(EnumSet.of(Flag.TARGET));
     }
     //endregion Initialization
 

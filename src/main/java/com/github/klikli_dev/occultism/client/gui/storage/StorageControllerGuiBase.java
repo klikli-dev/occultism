@@ -39,6 +39,7 @@ import com.github.klikli_dev.occultism.util.InputUtil;
 import com.github.klikli_dev.occultism.util.TextUtil;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.screen.Screen;
@@ -57,7 +58,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.world.dimension.DimensionType;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -169,7 +169,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
             tooltip.add(
                     TextFormatting.GRAY.toString() + TextFormatting.BOLD + machine.customName + TextFormatting.RESET);
         }
-        if (this.minecraft.player.dimension != machine.globalPos.getDimensionType())
+        if (this.minecraft.player.world.getDimensionType() != machine.globalPos.getDimensionType())
             tooltip.add(TextFormatting.GRAY.toString() + TextFormatting.ITALIC + I18n.format(
                     machine.globalPos.getDimensionType().getRegistryName().toString() + TextFormatting.RESET));
         this.renderTooltip(tooltip, x, y);
@@ -241,9 +241,10 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     }
 
     @Override
-    public void render(int mouseX, int mouseY, float partialTicks) {
-        super.render(mouseX, mouseY, partialTicks);
-        this.renderHoveredToolTip(mouseX, mouseY);
+    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+        super.render(matrixStack, mouseX, mouseY, partialTicks);
+
+        this.renderHoveredTooltip(matrixStack, mouseX, mouseY);
         if (!this.isGuiValid()) {
             this.minecraft.player.closeScreen();
             return;
@@ -255,9 +256,10 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         }
     }
 
+
     @Override
-    public void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-        super.drawGuiContainerForegroundLayer(mouseX, mouseY);
+    public void drawGuiContainerForegroundLayer(MatrixStack matrixStack, int mouseX, int mouseY) {
+        super.drawGuiContainerForegroundLayer(matrixStack, mouseX, mouseY);
         if (!this.isGuiValid()) {
             return;
         }
@@ -270,7 +272,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     }
 
     @Override
-    protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
+    protected void drawGuiContainerBackgroundLayer(MatrixStack matrixStack, float partialTicks, int mouseX, int mouseY) {
         if (!this.isGuiValid()) {
             return;
         }
@@ -286,7 +288,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                 this.drawMachines(partialTicks, mouseX, mouseY);
                 break;
         }
-        this.searchBar.render(mouseX, mouseY, partialTicks);
+        this.searchBar.render(matrixStack, mouseX, mouseY, partialTicks);
     }
 
     @Override
@@ -549,7 +551,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                mouseY > (this.guiTop + itemAreaTop) && mouseY < (this.guiTop + itemAreaTop + itemAreaHeight);
     }
 
-    protected void drawTooltips(int mouseX, int mouseY) {
+    protected void drawTooltips(MatrixStack matrixStack, int mouseX, int mouseY) {
         switch (this.guiMode) {
             case INVENTORY:
                 for (ItemSlotWidget s : this.itemSlots) {
@@ -585,7 +587,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                 }
                 tooltip.add(I18n.format(TRANSLATION_KEY_BASE + ".search.tooltip_rightclick"));
             }
-            this.renderTooltip(tooltip, mouseX, mouseY);
+            this.renderTooltip(matrixStack, tooltip, mouseX, mouseY);
         }
         if (this.clearTextButton != null && this.clearTextButton.isMouseOver(mouseX, mouseY)) {
             this.renderTooltip(Lists.newArrayList(I18n.format(TRANSLATION_KEY_BASE + ".search.tooltip_clear")),

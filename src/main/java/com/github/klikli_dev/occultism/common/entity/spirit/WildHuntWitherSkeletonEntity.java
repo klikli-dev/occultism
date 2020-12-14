@@ -29,7 +29,7 @@ import net.minecraft.entity.*;
 import net.minecraft.entity.monster.WitherSkeletonEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tags.EntityTypeTags;
-import net.minecraft.tags.Tag;
+import net.minecraft.tags.ITag;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.StringTextComponent;
@@ -98,7 +98,7 @@ public class WildHuntWitherSkeletonEntity extends WitherSkeletonEntity {
 
     @Override
     public boolean isInvulnerableTo(DamageSource source) {
-        Tag<EntityType<?>> wildHuntTags = EntityTypeTags.getCollection().getOrCreate(wildHuntTag);
+        ITag<EntityType<?>> wildHuntTags = EntityTypeTags.getCollection().getOrCreate(wildHuntTag);
 
         Entity trueSource = source.getTrueSource();
         if (trueSource != null && wildHuntTags.contains(trueSource.getType()))

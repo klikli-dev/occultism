@@ -27,7 +27,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 
 import java.util.function.Consumer;
@@ -40,7 +40,7 @@ public class Scanner {
     protected Block target;
 
     protected PlayerEntity player;
-    protected Vec3d center;
+    protected Vector3d center;
     protected float radius;
     //radius squared for faster comparison of distance
     protected float radiusSquared;
@@ -64,7 +64,7 @@ public class Scanner {
     //endregion Initialization
 
     //region Methods
-    public void initialize(PlayerEntity player, Vec3d center, float radius, int totalTicks) {
+    public void initialize(PlayerEntity player, Vector3d center, float radius, int totalTicks) {
         this.player = player;
         this.center = center;
         this.radius = radius;

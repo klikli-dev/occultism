@@ -41,7 +41,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -231,13 +231,13 @@ public class DivinationRodItem extends Item {
      * @param result         the result position to get the distance to.
      * @return the distance parameter as used in the distance property, not the actual distance.
      */
-    public float getDistance(Vec3d playerPosition, BlockPos result) {
+    public float getDistance(Vector3d playerPosition, BlockPos result) {
         if (result == null)
             return NOT_FOUND;
 
-        Vec3d resultCenter = Math3DUtil.center(result);
-        Vec3d playerPosition2d = new Vec3d(playerPosition.x, 0, playerPosition.z);
-        Vec3d resultCenter2d = new Vec3d(resultCenter.x, 0, resultCenter.z);
+        Vector3d resultCenter = Math3DUtil.center(result);
+        Vector3d playerPosition2d = new Vector3d(playerPosition.x, 0, playerPosition.z);
+        Vector3d resultCenter2d = new Vector3d(resultCenter.x, 0, resultCenter.z);
         double distance = playerPosition2d.distanceTo(resultCenter2d);
 
         if (distance < 6.0)

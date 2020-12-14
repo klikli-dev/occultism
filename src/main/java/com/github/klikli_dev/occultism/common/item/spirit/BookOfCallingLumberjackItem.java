@@ -66,7 +66,7 @@ public class BookOfCallingLumberjackItem extends BookOfCallingItem {
 
         //region Overrides
         @Override
-        public BookOfCallingItem.ItemMode getItemMode() {
+        public ItemMode getItemMode() {
             return this.itemMode;
         }
 

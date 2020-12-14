@@ -54,7 +54,7 @@ public class FellTreesGoal extends Goal {
     public FellTreesGoal(SpiritEntity entity) {
         this.entity = entity;
         this.targetSorter = new BlockSorter(entity);
-        this.setMutexFlags(EnumSet.of(Goal.Flag.MOVE));
+        this.setMutexFlags(EnumSet.of(Flag.MOVE));
     }
     //endregion Initialization
 

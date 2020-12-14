@@ -27,7 +27,7 @@ import com.mojang.datafixers.Dynamic;
 import com.mojang.datafixers.types.DynamicOps;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.world.dimension.DimensionType;
+import net.minecraft.world.DimensionType;
 import net.minecraft.world.gen.feature.OreFeatureConfig;
 
 import java.util.List;
@@ -62,8 +62,8 @@ public class DimensionOreFeatureConfig extends OreFeatureConfig {
     //region Static Methods
     public static DimensionOreFeatureConfig deserialize(Dynamic<?> in) {
         int size = in.get("size").asInt(0);
-        OreFeatureConfig.FillerBlockType filler =
-                OreFeatureConfig.FillerBlockType.byName(in.get("target").asString(""));
+        FillerBlockType filler =
+                FillerBlockType.byName(in.get("target").asString(""));
         BlockState blockstate = in.get("state").map(BlockState::deserialize).orElse(Blocks.AIR.getDefaultState());
         List<DimensionType> allowedDimensionTypes = in.get("allowedDimensionTypes").asList(DimensionType::deserialize);
         return new DimensionOreFeatureConfig(allowedDimensionTypes, filler, blockstate, size);
