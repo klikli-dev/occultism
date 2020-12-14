@@ -58,6 +58,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -570,28 +571,28 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         }
 
         if (this.isPointInSearchbar(mouseX, mouseY)) {
-            List<String> tooltip = new ArrayList<>();
+            List<ITextComponent> tooltip = new ArrayList<>();
             if (!Screen.hasShiftDown()) {
-                tooltip.add(I18n.format(TRANSLATION_KEY_BASE + ".shift"));
+                tooltip.add(new TranslationTextComponent(TRANSLATION_KEY_BASE + ".shift");
             }
             else {
                 switch (this.guiMode) {
                     case INVENTORY:
-                        tooltip.add(I18n.format(TRANSLATION_KEY_BASE + ".search.tooltip@"));
-                        tooltip.add(I18n.format(TRANSLATION_KEY_BASE + ".search.tooltip#"));
-                        tooltip.add(I18n.format(TRANSLATION_KEY_BASE + ".search.tooltip$"));
+                        tooltip.add(new TranslationTextComponent(TRANSLATION_KEY_BASE + ".search.tooltip@"));
+                        tooltip.add(new TranslationTextComponent(TRANSLATION_KEY_BASE + ".search.tooltip#"));
+                        tooltip.add(new TranslationTextComponent(TRANSLATION_KEY_BASE + ".search.tooltip$"));
                         break;
                     case AUTOCRAFTING:
-                        tooltip.add(I18n.format(TRANSLATION_KEY_BASE + ".search.machines.tooltip@"));
+                        tooltip.add(new TranslationTextComponent(TRANSLATION_KEY_BASE + ".search.machines.tooltip@"));
                         break;
                 }
-                tooltip.add(I18n.format(TRANSLATION_KEY_BASE + ".search.tooltip_rightclick"));
+                tooltip.add(new TranslationTextComponent(TRANSLATION_KEY_BASE + ".search.tooltip_rightclick"));
             }
-            this.renderTooltip(matrixStack, tooltip, mouseX, mouseY);
+            this.func_243308_b(matrixStack, tooltip, mouseX, mouseY); //renderTooltip
         }
         if (this.clearTextButton != null && this.clearTextButton.isMouseOver(mouseX, mouseY)) {
-            this.renderTooltip(Lists.newArrayList(I18n.format(TRANSLATION_KEY_BASE + ".search.tooltip_clear")),
-                    mouseX, mouseY);
+            this.func_243308_b(matrixStack, Lists.newArrayList(new TranslationTextComponent(TRANSLATION_KEY_BASE + ".search.tooltip_clear")),
+                    mouseX, mouseY); // renderTooltip
         }
         if (this.sortTypeButton != null && this.sortTypeButton.isMouseOver(mouseX, mouseY)) {
             String translationKey = "";
@@ -604,17 +605,18 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                             TRANSLATION_KEY_BASE + ".search.machines.tooltip_sort_type_" + this.getSortType().getName();
                     break;
             }
-            this.renderTooltip(Lists.newArrayList(I18n.format(translationKey)), mouseX, mouseY);
+            this.renderTooltip(matrixStack, new TranslationTextComponent(translationKey), mouseX, mouseY);
         }
         if (this.sortDirectionButton != null && this.sortDirectionButton.isMouseOver(mouseX, mouseY)) {
-            this.renderTooltip(Lists.newArrayList(I18n.format(
-                    TRANSLATION_KEY_BASE + ".search.tooltip_sort_direction_" + this.getSortDirection().getName())),
+            this.renderTooltip(matrixStack, new TranslationTextComponent(
+                    TRANSLATION_KEY_BASE + ".search.tooltip_sort_direction_" + this.getSortDirection().getName()),
                     mouseX, mouseY);
         }
         if (this.jeiSyncButton != null && this.jeiSyncButton.isMouseOver(mouseX, mouseY)) {
-            String s = I18n.format(
-                    TRANSLATION_KEY_BASE + ".search.tooltip_jei_" + (JeiSettings.isJeiSearchSynced() ? "on" : "off"));
-            this.renderTooltip(Lists.newArrayList(s), mouseX, mouseY);
+            this.renderTooltip(matrixStack, new TranslationTextComponent(
+                    TRANSLATION_KEY_BASE + ".search.tooltip_jei_" +
+                    (JeiSettings.isJeiSearchSynced() ? "on" : "off")),
+                    mouseX, mouseY);
         }
     }
 
