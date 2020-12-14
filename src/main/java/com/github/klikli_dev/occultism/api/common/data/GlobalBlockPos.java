@@ -28,6 +28,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.DynamicRegistries;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import net.minecraft.world.DimensionType;
 import net.minecraftforge.common.util.INBTSerializable;
@@ -47,6 +48,7 @@ public class GlobalBlockPos implements INBTSerializable<CompoundNBT> {
     public GlobalBlockPos(BlockPos pos, DimensionType dimensionType) {
         this.pos = pos;
         this.dimensionType = dimensionType;
+
     }
 
     public GlobalBlockPos(BlockPos pos, World world) {
@@ -69,7 +71,8 @@ public class GlobalBlockPos implements INBTSerializable<CompoundNBT> {
     @Override
     public int hashCode() {
         //multiply first hash code by a prime to avoid hash collisions (see Objects.hash() for reference
-        return this.getPos().hashCode() * 31 + this.getDimensionType().getRegistryName().hashCode();
+        return this.getPos().hashCode() * 31 + DynamicRegistries.Impl.func_239770_b_().getRegistry(
+                Registry.DIMENSION_TYPE_KEY).getKey(this.getDimensionType()).hashCode();
     }
 
     @Override
@@ -88,7 +91,8 @@ public class GlobalBlockPos implements INBTSerializable<CompoundNBT> {
 
     @Override
     public String toString() {
-        return new StringJoiner(", ", "[", "]").add(this.dimensionType.getRegistryName().toString())
+        return new StringJoiner(", ", "[", "]").add(DynamicRegistries.Impl.func_239770_b_().getRegistry(
+                Registry.DIMENSION_TYPE_KEY).getKey(this.getDimensionType()).toString())
                        .add("x=" + this.pos.getX()).add("y=" + this.pos.getY())
                        .add("z=" + this.pos.getZ()).toString();
     }
@@ -125,23 +129,28 @@ public class GlobalBlockPos implements INBTSerializable<CompoundNBT> {
     //region Methods
     public CompoundNBT write(CompoundNBT compound) {
         compound.putLong("pos", this.getPos().toLong());
-        compound.putString("dimension", this.getDimensionType().getRegistryName().toString());
+        compound.putString("dimension", DynamicRegistries.Impl.func_239770_b_().getRegistry(
+                Registry.DIMENSION_TYPE_KEY).getKey(this.getDimensionType()).toString());
         return compound;
     }
 
     public void read(CompoundNBT compound) {
         this.pos = BlockPos.fromLong(compound.getLong("pos"));
-        this.dimensionType = DimensionType.byName(new ResourceLocation(compound.getString("dimension")));
+
+        this.dimensionType =  DynamicRegistries.Impl.func_239770_b_().getRegistry(
+                Registry.DIMENSION_TYPE_KEY).getOrDefault(new ResourceLocation(compound.getString("dimension")));
     }
 
     public void encode(PacketBuffer buf) {
         buf.writeBlockPos(this.pos);
-        buf.writeResourceLocation(this.dimensionType.getRegistryName());
+        buf.writeResourceLocation(DynamicRegistries.Impl.func_239770_b_().getRegistry(
+                Registry.DIMENSION_TYPE_KEY).getKey(this.getDimensionType()));
     }
 
     public void decode(PacketBuffer buf) {
         this.pos = buf.readBlockPos();
-        this.dimensionType = DimensionType.byName(buf.readResourceLocation());
+        this.dimensionType =  DynamicRegistries.Impl.func_239770_b_().getRegistry(
+                Registry.DIMENSION_TYPE_KEY).getOrDefault(buf.readResourceLocation());
     }
     //endregion Methods
 }
