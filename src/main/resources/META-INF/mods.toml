@@ -6,7 +6,10 @@
 # The name of the mod loader type to load - for regular FML @Mod mods it should be javafml
 modLoader="javafml" #mandatory
 # A version range to match for said mod loader - for regular FML @Mod it will be the forge version
-loaderVersion="[31,)" #mandatory This is typically bumped every Minecraft version by Forge. See our download page for lists of versions.
+loaderVersion="[35,)" #mandatory This is typically bumped every Minecraft version by Forge. See our download page for lists of versions.
+# The license for you mod. This is mandatory metadata and allows for easier comprehension of your redistributive properties.
+# Review your options at https://choosealicense.com/. All rights reserved is the default copyright stance, and is thus the default here.
+license="MIT"
 # A URL to refer people to when problems occur with this mod
 issueTrackerURL="https://github.com/klikli-dev/occultism/issues" #optional
 # A list of mods - how many allowed here is determined by the individual mod loader
@@ -14,11 +17,15 @@ issueTrackerURL="https://github.com/klikli-dev/occultism/issues" #optional
 # The modid of the mod
 modId="occultism" #mandatory
 # The version number of the mod - there's a few well known ${} variables useable here or just hardcode it
-version="${version}" #mandatory
+# ${file.jarVersion} will substitute the value of the Implementation-Version as read from the mod's JAR file metadata
+# see the associated build.gradle script for how to populate this completely automatically during a build
+version="${file.jarVersion}" #mandatory
  # A display name for the mod
 displayName="Occultism" #mandatory
+# A URL to query for updates for this mod. See the JSON update specification <here>
+# updateJSONURL="http://myurl.me/" #optional
 # A URL for the "homepage" for this mod, displayed in the mod UI
-displayURL="https://www.curseforge.com/minecraft/mc-mods/occultism" #optional
+displayURL="http://example.com/" #optional
 # A file name (in the root of the mod JAR) containing a logo for display
 logoFile="occultism.png" #optional
 # A text field displayed in the mod UI
@@ -27,15 +34,22 @@ credits="""See https://github.com/klikli-dev/occultism#licensing""" #optional
 authors="Kli Kli" #optional
 # The description text for the mod (multi line!) (#mandatory)
 description='''A magic mod inspired by the world of Jonathan Stroud's Bartimaeus. With the help of occult rituals players can summon entities from the "Other Side" to perform magic.'''
+
 # A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
-[[dependencies.occultism]]
+[[dependencies.examplemod]] #optional
+    # the modid of the dependency
     modId="forge" #mandatory
+    # Does this dependency have to exist - if not, ordering below must be specified
     mandatory=true #mandatory
-    versionRange="[31,)" #mandatory
+    # The version range of the dependency
+    versionRange="[35,)" #mandatory
+    # An ordering relationship for the dependency - BEFORE or AFTER required if the relationship is not mandatory
     ordering="NONE"
+    # Side this dependency is applied on - BOTH, CLIENT or SERVER
     side="BOTH"
+
 [[dependencies.occultism]]
     modId="patchouli"
     mandatory=true
-    versionRange="[1.15.2-1.2-28,)"
+    versionRange="[1.16.4-1.2-28,)"
     side="BOTH"
