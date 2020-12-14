@@ -23,6 +23,7 @@
 package com.github.klikli_dev.occultism.api.client.gui;
 
 import com.github.klikli_dev.occultism.api.common.data.MachineReference;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.ItemStack;
 
@@ -32,12 +33,12 @@ public interface IStorageControllerGuiContainer {
     //endregion Getter / Setter
 
     //region Methods
-    void drawGradientRect(int left, int top, int right, int bottom, int startColor, int endColor);
+    void drawGradientRect(MatrixStack matrixStack, int left, int top, int right, int bottom, int startColor, int endColor);
 
     boolean isPointInRegionController(int rectX, int rectY, int rectWidth, int rectHeight, double pointX, double pointY);
 
-    void renderToolTip(ItemStack stack, int x, int y);
+    void renderToolTip(MatrixStack matrixStack, ItemStack stack, int x, int y);
 
-    void renderToolTip(MachineReference machine, int x, int y);
+    void renderToolTip(MatrixStack matrixStack,MachineReference machine, int x, int y);
     //endregion Methods
 }

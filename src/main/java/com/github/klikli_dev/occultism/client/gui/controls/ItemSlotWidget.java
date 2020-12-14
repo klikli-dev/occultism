@@ -25,6 +25,7 @@ package com.github.klikli_dev.occultism.client.gui.controls;
 
 import com.github.klikli_dev.occultism.api.client.gui.IStorageControllerGuiContainer;
 import com.github.klikli_dev.occultism.util.TextUtil;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -89,7 +90,7 @@ public class ItemSlotWidget {
         return this.parent.isPointInRegionController(this.x - this.guiLeft, this.y - this.guiTop, 16, 16, mouseX, mouseY);
     }
 
-    public void drawSlot(int mx, int my) {
+    public void drawSlot(MatrixStack matrixStack, int mx, int my) {
         RenderSystem.pushMatrix();
         if (!this.getStack().isEmpty()) {
             //RenderHelper.enableGUIStandardItemLighting();
@@ -114,7 +115,7 @@ public class ItemSlotWidget {
 
             if (this.isMouseOverSlot(mx, my)) {
                 RenderSystem.colorMask(true, true, true, false);
-                this.parent.drawGradientRect(this.x, this.y, this.x + 16, this.y + 16, this.slotHighlightColor,
+                this.parent.drawGradientRect(matrixStack, this.x, this.y, this.x + 16, this.y + 16, this.slotHighlightColor,
                         this.slotHighlightColor);
                 RenderSystem.colorMask(true, true, true, true);
             }
@@ -123,9 +124,9 @@ public class ItemSlotWidget {
         RenderSystem.popMatrix();
     }
 
-    public void drawTooltip(int mx, int my) {
+    public void drawTooltip(MatrixStack matrixStack, int mx, int my) {
         if (this.isMouseOverSlot(mx, my) && !this.getStack().isEmpty()) {
-            this.parent.renderToolTip(this.getStack(), mx, my);
+            this.parent.renderToolTip(matrixStack, this.getStack(), mx, my);
         }
     }
     //endregion Methods
