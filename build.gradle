@@ -131,6 +131,7 @@ dependencies {
     compileOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}:api")
     runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}")
 
+    compile fg.deobf("vazkii.patchouli:Patchouli:${mc_version}-${patchouli_version}")
 }
 
 // Example for how to get properties into the manifest for reading by the runtime..
