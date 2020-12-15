@@ -23,7 +23,7 @@
 package com.github.klikli_dev.occultism.util;
 
 import com.mojang.blaze3d.vertex.IVertexBuilder;
-import net.minecraft.util.math.Matrix4f;
+import net.minecraft.util.math.vector.Matrix4f;
 
 public class RenderUtil {
 
