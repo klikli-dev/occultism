@@ -22,6 +22,7 @@
 
 package com.github.klikli_dev.occultism.common.tile;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
@@ -36,9 +37,9 @@ public abstract class NetworkedTileEntity extends TileEntity {
 
     //region Overrides
     @Override
-    public void read(CompoundNBT compound) {
+    public void read(BlockState state, CompoundNBT compound) {
         this.readNetwork(compound);
-        super.read(compound);
+        super.read(state, compound);
     }
 
     @Override
@@ -63,8 +64,8 @@ public abstract class NetworkedTileEntity extends TileEntity {
     }
 
     @Override
-    public void handleUpdateTag(CompoundNBT tag) {
-        super.read(tag);
+    public void handleUpdateTag(BlockState state, CompoundNBT tag) {
+        super.read(state, tag);
         this.readNetwork(tag);
     }
 

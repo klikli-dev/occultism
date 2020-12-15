@@ -388,9 +388,9 @@ public class StorageControllerTileEntity extends NetworkedTileEntity implements 
     }
 
     @Override
-    public void read(CompoundNBT compound) {
+    public void read(BlockState state, CompoundNBT compound) {
         compound.remove("linkedMachines"); //linked machines are not saved, they self-register.
-        super.read(compound);
+        super.read(state, compound);
 
         //read stored items
         if (compound.contains("items")) {

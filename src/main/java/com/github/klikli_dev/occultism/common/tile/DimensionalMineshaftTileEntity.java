@@ -28,6 +28,7 @@ import com.github.klikli_dev.occultism.crafting.recipe.MinerRecipe;
 import com.github.klikli_dev.occultism.exceptions.ItemHandlerMissingException;
 import com.github.klikli_dev.occultism.registry.OccultismRecipes;
 import com.github.klikli_dev.occultism.registry.OccultismTiles;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
@@ -120,8 +121,8 @@ public class DimensionalMineshaftTileEntity extends NetworkedTileEntity implemen
     }
 
     @Override
-    public void read(CompoundNBT compound) {
-        super.read(compound);
+    public void read(BlockState state, CompoundNBT compound) {
+        super.read(state, compound);
         this.inputHandler.ifPresent((handler) -> handler.deserializeNBT(compound.getCompound("inputHandler")));
         this.outputHandler.ifPresent((handler) -> handler.deserializeNBT(compound.getCompound("outputHandler")));
     }
