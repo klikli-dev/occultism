@@ -58,8 +58,8 @@ public enum StorageControllerGuiMode implements IStringSerializable {
 
     //region Overrides
     @Override
-    public String getName() {
-        return this.name().toLowerCase();
+    public String getString() {
+        return  this.name().toLowerCase();
     }
     //endregion Overrides
 

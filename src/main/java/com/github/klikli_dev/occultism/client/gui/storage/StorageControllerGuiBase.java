@@ -607,18 +607,18 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
             String translationKey = "";
             switch (this.guiMode) {
                 case INVENTORY:
-                    translationKey = TRANSLATION_KEY_BASE + ".search.tooltip_sort_type_" + this.getSortType().getName();
+                    translationKey = TRANSLATION_KEY_BASE + ".search.tooltip_sort_type_" + this.getSortType().getString();
                     break;
                 case AUTOCRAFTING:
                     translationKey =
-                            TRANSLATION_KEY_BASE + ".search.machines.tooltip_sort_type_" + this.getSortType().getName();
+                            TRANSLATION_KEY_BASE + ".search.machines.tooltip_sort_type_" + this.getSortType().getString();
                     break;
             }
             this.renderTooltip(matrixStack, new TranslationTextComponent(translationKey), mouseX, mouseY);
         }
         if (this.sortDirectionButton != null && this.sortDirectionButton.isMouseOver(mouseX, mouseY)) {
             this.renderTooltip(matrixStack, new TranslationTextComponent(
-                    TRANSLATION_KEY_BASE + ".search.tooltip_sort_direction_" + this.getSortDirection().getName()),
+                    TRANSLATION_KEY_BASE + ".search.tooltip_sort_direction_" + this.getSortDirection().getString()),
                     mouseX, mouseY);
         }
         if (this.jeiSyncButton != null && this.jeiSyncButton.isMouseOver(mouseX, mouseY)) {
