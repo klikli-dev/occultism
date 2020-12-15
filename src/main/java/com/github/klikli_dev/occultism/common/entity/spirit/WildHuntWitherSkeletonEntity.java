@@ -34,6 +34,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.IServerWorld;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 
@@ -57,7 +58,7 @@ public class WildHuntWitherSkeletonEntity extends WitherSkeletonEntity {
 
     //region Overrides
     @Override
-    public ILivingEntityData onInitialSpawn(IWorld world, DifficultyInstance difficultyIn, SpawnReason reason,
+    public ILivingEntityData onInitialSpawn(IServerWorld world, DifficultyInstance difficultyIn, SpawnReason reason,
                                             @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
         int maxSkeletons = 3 + world.getRandom().nextInt(6);
 
@@ -77,14 +78,15 @@ public class WildHuntWitherSkeletonEntity extends WitherSkeletonEntity {
         return super.onInitialSpawn(world, difficultyIn, reason, spawnDataIn, dataTag);
     }
 
-    @Override
-    protected void registerAttributes() {
-        super.registerAttributes();
-        //increased AD compared to normal skeleton
-        this.getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(6.0D);
-        //increased health compared to normal skeleton
-        this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(60.0D);
-    }
+    //TODO: Register attributes when registering entity
+//    @Override
+//    protected void registerAttributes() {
+//        super.registerAttributes();
+//        //increased AD compared to normal skeleton
+//        this.getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(6.0D);
+//        //increased health compared to normal skeleton
+//        this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(60.0D);
+//    }
 
     @Override
     protected boolean isDespawnPeaceful() {
@@ -98,7 +100,7 @@ public class WildHuntWitherSkeletonEntity extends WitherSkeletonEntity {
 
     @Override
     public boolean isInvulnerableTo(DamageSource source) {
-        ITag<EntityType<?>> wildHuntTags = EntityTypeTags.getCollection().getOrCreate(wildHuntTag);
+        ITag<EntityType<?>> wildHuntTags = EntityTypeTags.getCollection().get(wildHuntTag);
 
         Entity trueSource = source.getTrueSource();
         if (trueSource != null && wildHuntTags.contains(trueSource.getType()))

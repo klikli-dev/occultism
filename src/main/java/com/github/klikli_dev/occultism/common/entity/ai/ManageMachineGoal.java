@@ -75,7 +75,7 @@ public class ManageMachineGoal extends Goal {
      * @return the position to move to to deposit the target block.
      */
     private BlockPos getMoveTarget() {
-        double angle = Math3DUtil.yaw(this.entity.getPositionVector(), Math3DUtil.center(this.targetBlock));
+        double angle = Math3DUtil.yaw(this.entity.getPositionVec(), Math3DUtil.center(this.targetBlock));
         return this.targetBlock.offset(Direction.fromAngle(angle).getOpposite());
     }
     //endregion Getter / Setter
@@ -113,7 +113,7 @@ public class ManageMachineGoal extends Goal {
                 TileEntity tileEntity = this.entity.world.getTileEntity(this.targetBlock);
 
                 //when approaching a chest, open it visually
-                double distance = this.entity.getPositionVector().distanceTo(Math3DUtil.center(this.targetBlock));
+                double distance = this.entity.getPositionVec().distanceTo(Math3DUtil.center(this.targetBlock));
                 float accessDistance = 1.86f;
                 if (distance < accessDistance) {
                     //stop moving while taking out

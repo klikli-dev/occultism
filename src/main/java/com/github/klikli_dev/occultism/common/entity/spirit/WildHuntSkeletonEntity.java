@@ -25,7 +25,6 @@ package com.github.klikli_dev.occultism.common.entity.spirit;
 import com.github.klikli_dev.occultism.Occultism;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.monster.SkeletonEntity;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.tags.ITag;
@@ -55,14 +54,15 @@ public class WildHuntSkeletonEntity extends SkeletonEntity {
     //endregion Getter / Setter
 
     //region Overrides
-    @Override
-    protected void registerAttributes() {
-        super.registerAttributes();
-        //increased AD compared to normal skeleton
-        this.getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4.0D);
-        //increased health compared to normal skeleton
-        this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20.0D);
-    }
+    //TODO: Register attributes when registering entity
+    //    @Override
+    //    protected void registerAttributes() {
+    //        super.registerAttributes();
+    //        //increased AD compared to normal skeleton
+    //        this.getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4.0D);
+    //        //increased health compared to normal skeleton
+    //        this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20.0D);
+    //    }
 
     @Override
     protected boolean isDespawnPeaceful() {
@@ -75,8 +75,16 @@ public class WildHuntSkeletonEntity extends SkeletonEntity {
     }
 
     @Override
+    public void remove(boolean keepData) {
+        this.master.ifPresent(boss -> {
+            boss.notifyMinionDeath(this);
+        });
+        super.remove(keepData);
+    }
+
+    @Override
     public boolean isInvulnerableTo(DamageSource source) {
-        ITag<EntityType<?>> wildHuntTags = EntityTypeTags.getCollection().getOrCreate(wildHuntTag);
+        ITag<EntityType<?>> wildHuntTags = EntityTypeTags.getCollection().get(wildHuntTag);
 
         Entity trueSource = source.getTrueSource();
         if (trueSource != null && wildHuntTags.contains(trueSource.getType()))
@@ -87,14 +95,6 @@ public class WildHuntSkeletonEntity extends SkeletonEntity {
             return true;
 
         return super.isInvulnerableTo(source);
-    }
-
-    @Override
-    public void remove(boolean keepData) {
-        this.master.ifPresent(boss -> {
-            boss.notifyMinionDeath(this);
-        });
-        super.remove(keepData);
     }
     //endregion Overrides
 }

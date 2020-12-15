@@ -30,6 +30,7 @@ import com.github.klikli_dev.occultism.common.job.SpiritJob;
 import com.github.klikli_dev.occultism.exceptions.ItemHandlerMissingException;
 import com.github.klikli_dev.occultism.registry.OccultismSounds;
 import net.minecraft.entity.*;
+import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -45,13 +46,11 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.particles.ParticleTypes;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.Direction;
-import net.minecraft.util.Hand;
-import net.minecraft.util.SoundCategory;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.IWorld;
+import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.util.LazyOptional;
@@ -245,8 +244,9 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
         return SKIN;
     }
 
+
     @Override
-    public ILivingEntityData onInitialSpawn(IWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason,
+    public ILivingEntityData onInitialSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason,
                                             @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
         this.selectRandomSkin();
         return super.onInitialSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
@@ -254,7 +254,8 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
 
     @Nullable
     @Override
-    public AgeableEntity createChild(AgeableEntity ageable) {
+    public AgeableEntity func_241840_a(ServerWorld serverWorld, AgeableEntity ageable) {
+        //createChild
         return null;
     }
 
@@ -298,37 +299,12 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
     }
 
     @Override
-    public boolean processInteract(PlayerEntity player, Hand hand) {
-        ItemStack itemStack = player.getHeldItem(hand);
-        boolean flag = !itemStack.isEmpty();
-        if (itemStack.isEmpty()) {
-            if (this.isTamed() && player.isSneaking()) {
-                this.openGUI(player);
-                return true;
-            }
-        }
-        return super.processInteract(player, hand);
-    }
-
-    @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new SwimGoal(this));
         this.goalSelector.addGoal(5, new MeleeAttackGoal(this, 1.0D, true));
         this.goalSelector.addGoal(9, new LookAtGoal(this, PlayerEntity.class, 8.0F, 1));
         this.goalSelector.addGoal(10, new LookRandomlyGoal(this));
         this.targetSelector.addGoal(3, new HurtByTargetGoal(this));
-    }
-
-    @Override
-    protected void registerAttributes() {
-        super.registerAttributes();
-
-        this.getAttributes().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(1.0);
-        this.getAttributes().registerAttribute(SharedMonsterAttributes.ATTACK_SPEED).setBaseValue(4.0);
-
-        //set existing attributes
-        this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.30000001192092896D);
-        this.getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(50);
     }
 
     @Override
@@ -340,6 +316,20 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
                 return ItemStack.EMPTY;
         }
     }
+
+    //TODO: Register attributes when registering entity
+    //    @Override
+    //    protected void registerAttributes() {
+    //        super.registerAttributes();
+    //
+    //        //GlobalEntityTypeAttributes.put() -> somewhere when registering mob I suppose
+    //        this.getAttributes().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(1.0);
+    //        this.getAttributes().registerAttribute(SharedMonsterAttributes.ATTACK_SPEED).setBaseValue(4.0);
+    //
+    //        //set existing attributes
+    //        this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.30000001192092896D);
+    //        this.getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(50);
+    //    }
 
     @Override
     public void setItemStackToSlot(EquipmentSlotType slotIn, ItemStack stack) {
@@ -353,7 +343,7 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
     public boolean attackEntityAsMob(Entity entityIn) {
         //copied from wolf
         boolean flag = entityIn.attackEntityFrom(DamageSource.causeMobDamage(this),
-                (float) ((int) this.getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getValue()));
+                (float) ((int) this.getAttributeValue(Attributes.ATTACK_DAMAGE)));
         if (flag) {
             this.applyEnchantments(this, entityIn);
         }
@@ -420,7 +410,7 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
         if (compound.contains("workAreaPosition")) {
             this.setWorkAreaPosition(BlockPos.fromLong(compound.getLong("workAreaPosition")));
         }
-        if (compound.contains("workAreaSize")){
+        if (compound.contains("workAreaSize")) {
             this.setWorkAreaSize(WorkAreaSize.get(compound.getInt("workAreaSize")));
         }
 
@@ -428,7 +418,8 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
         if (compound.contains("depositPosition")) {
             this.setDepositPosition(BlockPos.fromLong(compound.getLong("depositPosition")));
         }
-;       if (compound.contains("depositFacing")) {
+        ;
+        if (compound.contains("depositFacing")) {
             this.setDepositFacing(Direction.values()[compound.getInt("depositFacing")]);
         }
 
@@ -496,6 +487,18 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
         super.remove(keepData);
     }
 
+    @Override
+    public ActionResultType applyPlayerInteraction(PlayerEntity player, Vector3d vec, Hand hand) {
+        ItemStack itemStack = player.getHeldItem(hand);
+        boolean flag = !itemStack.isEmpty();
+        if (itemStack.isEmpty()) {
+            if (this.isTamed() && player.isSneaking()) {
+                this.openGUI(player);
+                return ActionResultType.SUCCESS;
+            }
+        }
+        return super.applyPlayerInteraction(player, vec, hand);
+    }
     //endregion Overrides
 
     //region Methods

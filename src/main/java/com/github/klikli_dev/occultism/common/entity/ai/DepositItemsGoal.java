@@ -64,7 +64,7 @@ public class DepositItemsGoal extends PausableGoal {
      * @return the position to move to to deposit the target block.
      */
     private BlockPos getMoveTarget() {
-        double angle = Math3DUtil.yaw(this.entity.getPositionVector(), Math3DUtil.center(this.targetBlock));
+        double angle = Math3DUtil.yaw(this.entity.getPositionVec(), Math3DUtil.center(this.targetBlock));
         return this.targetBlock.offset(Direction.fromAngle(angle).getOpposite());
     }
     //endregion Getter / Setter
@@ -104,7 +104,7 @@ public class DepositItemsGoal extends PausableGoal {
                 float accessDistance = 1.86f;
 
                 //when approaching a chest, open it visually
-                double distance = this.entity.getPositionVector().distanceTo(Math3DUtil.center(this.targetBlock));
+                double distance = this.entity.getPositionVec().distanceTo(Math3DUtil.center(this.targetBlock));
 
                 //briefly before reaching the target, open chest, if it is one.
                 if (distance < 2.5 && distance >= accessDistance && this.canSeeTarget() &&
@@ -168,7 +168,7 @@ public class DepositItemsGoal extends PausableGoal {
     //region Methods
     public boolean canSeeTarget() {
 
-        RayTraceContext context = new RayTraceContext(this.entity.getPositionVector(),
+        RayTraceContext context = new RayTraceContext(this.entity.getPositionVec(),
                 Math3DUtil.center(this.targetBlock), RayTraceContext.BlockMode.COLLIDER, RayTraceContext.FluidMode.NONE,
                 this.entity);
         BlockRayTraceResult result = this.entity.world.rayTraceBlocks(context);

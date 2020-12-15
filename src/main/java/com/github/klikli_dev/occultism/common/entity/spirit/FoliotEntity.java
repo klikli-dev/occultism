@@ -23,7 +23,6 @@
 package com.github.klikli_dev.occultism.common.entity.spirit;
 
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.world.World;
 
 public class FoliotEntity extends SpiritEntity {
@@ -36,16 +35,16 @@ public class FoliotEntity extends SpiritEntity {
     //endregion Initialization
 
     //region Overrides
-
-    @Override
-    protected void registerAttributes() {
-        super.registerAttributes();
-        this.getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(1);
-        this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(8);
-        this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.30000001192092896);
-        this.getAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(2.00);
-        this.getAttribute(SharedMonsterAttributes.ARMOR_TOUGHNESS).setBaseValue(1);
-        this.getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(50);
-    }
+    //TODO: Register attributes when registering entity
+    //    @Override
+    //    protected void registerAttributes() {
+    //        super.registerAttributes();
+    //        this.getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(1);
+    //        this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(8);
+    //        this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.30000001192092896);
+    //        this.getAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(2.00);
+    //        this.getAttribute(SharedMonsterAttributes.ARMOR_TOUGHNESS).setBaseValue(1);
+    //        this.getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(50);
+    //    }
     //endregion Overrides
 }

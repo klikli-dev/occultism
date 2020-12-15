@@ -40,6 +40,8 @@ public class OtherworldBirdEntity extends ParrotEntity {
     //region Fields
     public static final float MAX_BOOST_DISTANCE = 8f;
     public LivingEntity ownerCached;
+
+    public SitGoal sitGoal;
     //endregion Fields
 
 
