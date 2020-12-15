@@ -22,12 +22,14 @@
 
 package com.github.klikli_dev.occultism.client.gui.controls;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.widget.Widget;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,19 +50,19 @@ public class LabelWidget extends Widget {
     }
 
     public LabelWidget(int xIn, int yIn, boolean centered) {
-        this(xIn, yIn, centered, -1);
+        this(xIn, yIn, centered, -1, -1);
     }
 
-    public LabelWidget(int xIn, int yIn, boolean centered, int width) {
-        this(xIn, yIn, centered, width, 2);
+    public LabelWidget(int xIn, int yIn, boolean centered, int width, int height) {
+        this(xIn, yIn, centered, width, height, 2);
     }
 
-    public LabelWidget(int xIn, int yIn, boolean centered, int width, int margin) {
-        this(xIn, yIn, centered, width, margin, 16777215); //color is default color from widget
+    public LabelWidget(int xIn, int yIn, boolean centered, int width, int height, int margin) {
+        this(xIn, yIn, centered, width, height, margin, 16777215); //color is default color from widget
     }
 
-    public LabelWidget(int xIn, int yIn, boolean centered, int width, int margin, int color) {
-        super(xIn, yIn, "");
+    public LabelWidget(int xIn, int yIn, boolean centered, int width, int height, int margin, int color) {
+        super(xIn, yIn, width, height, new StringTextComponent(""));
         this.centered = centered;
         this.width = width;
         this.margin = margin;
@@ -72,7 +74,7 @@ public class LabelWidget extends Widget {
 
     //region Overrides
     @Override
-    public void render(int mouseX, int mouseY, float partialTicks) {
+    public void render(MatrixStack stack, int mouseX, int mouseY, float partialTicks) {
         if (this.visible) {
             Minecraft minecraft = Minecraft.getInstance();
             FontRenderer fontrenderer = minecraft.fontRenderer;
@@ -87,49 +89,46 @@ public class LabelWidget extends Widget {
             for (int i = 0; i < this.lines.size(); i++) {
                 int top = this.y + i * (fontrenderer.FONT_HEIGHT + this.margin);
                 if (this.centered) {
-                    this.drawCenteredString(fontrenderer, this.lines.get(i), this.x, top, color);
+                    this.drawCenteredLabelString(stack, fontrenderer, this.lines.get(i), this.x, top, color);
                 }
                 else if (this.rightAligned) {
-                    this.drawRightAlignedString(fontrenderer, lines.get(i), this.x, top, color);
+                    this.drawRightAlignedLabelString(stack, fontrenderer, lines.get(i), this.x, top, color);
                 }
                 else {
-                    this.drawString(fontrenderer, this.lines.get(i), this.x, top, color);
+                    this.drawLabelString(stack, fontrenderer, this.lines.get(i), this.x, top, color);
                 }
             }
         }
     }
 
-    @Override
-    public void drawCenteredString(FontRenderer fontRenderer, String text, int x, int y, int color) {
+    public void drawCenteredLabelString(MatrixStack stack, FontRenderer fontRenderer, String text, int x, int y, int color) {
         if (this.shadow) {
             fontRenderer
-                    .drawStringWithShadow(text, (float) (x - fontRenderer.getStringWidth(text) / 2), (float) y, color);
+                    .drawStringWithShadow(stack, text, (float) (x - fontRenderer.getStringWidth(text) / 2), (float) y, color);
         }
         else {
-            fontRenderer.drawString(text, (float) (x - fontRenderer.getStringWidth(text) / 2), (float) y, color);
+            fontRenderer.drawString(stack, text, (float) (x - fontRenderer.getStringWidth(text) / 2), (float) y, color);
         }
     }
 
-    @Override
-    public void drawRightAlignedString(FontRenderer fontRenderer, String text,
+    public void drawRightAlignedLabelString(MatrixStack stack, FontRenderer fontRenderer, String text,
                                        int x, int y,
                                        int color) {
         if (this.shadow) {
-            fontRenderer.drawStringWithShadow(text, (float) (x - fontRenderer.getStringWidth(text)), (float) y, color);
+            fontRenderer.drawStringWithShadow(stack, text, (float) (x - fontRenderer.getStringWidth(text)), (float) y, color);
         }
         else {
-            fontRenderer.drawString(text, (float) (x - fontRenderer.getStringWidth(text)), (float) y, color);
+            fontRenderer.drawString(stack, text, (float) (x - fontRenderer.getStringWidth(text)), (float) y, color);
         }
 
     }
 
-    @Override
-    public void drawString(FontRenderer fontRenderer, String text, int x, int y, int color) {
+    public void drawLabelString(MatrixStack stack, FontRenderer fontRenderer, String text, int x, int y, int color) {
         if (this.shadow) {
-            fontRenderer.drawStringWithShadow(text, x, y, color);
+            fontRenderer.drawStringWithShadow(stack, text, x, y, color);
         }
         else {
-            fontRenderer.drawString(text, x, y, color);
+            fontRenderer.drawString(stack, text, x, y, color);
         }
     }
     //endregion Overrides
@@ -154,7 +153,7 @@ public class LabelWidget extends Widget {
     }
 
     public void addLine(ITextComponent component) {
-        this.lines.add(component.getFormattedText());
+        this.lines.add(component.getString());
     }
     //endregion Methods
 }
