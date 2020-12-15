@@ -22,6 +22,7 @@
 
 package com.github.klikli_dev.occultism.client.gui.controls;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.widget.button.ImageButton;
@@ -81,7 +82,7 @@ public class SizedImageButton extends ImageButton {
 
 //region Methods
     @Override
-    public void renderButton(int mouseX, int mouseY, float partialTicks) {
+    public void renderButton(MatrixStack stack, int mouseX, int mouseY, float partialTicks) {
         if (this.visible) {
             Minecraft.getInstance().getTextureManager().bindTexture(this.resourceLocation);
             RenderSystem.disableDepthTest();
@@ -90,7 +91,7 @@ public class SizedImageButton extends ImageButton {
             if (this.isHovered()) {
                 i += this.xDiffOffset;
             }
-            blit(this.x, this.y, this.width, this.height, i, j, this.textureWidth, this.textureHeight, this.textureMapWidth, this.textureMapHeight);
+            blit(stack, this.x, this.y, this.width, this.height, i, j, this.textureWidth, this.textureHeight, this.textureMapWidth, this.textureMapHeight);
             RenderSystem.enableDepthTest();
         }
 
