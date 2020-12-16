@@ -23,6 +23,7 @@
 package com.github.klikli_dev.occultism.common.effect;
 
 import com.github.klikli_dev.occultism.Occultism;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.client.gui.DisplayEffectsScreen;
@@ -61,16 +62,19 @@ public class ThirdEyeEffect extends Effect {
     }
 
     @Override
-    public void renderInventoryEffect(EffectInstance effect, DisplayEffectsScreen<?> gui, int x, int y, float z) {
+    public void renderInventoryEffect(EffectInstance effect, DisplayEffectsScreen<?> gui, MatrixStack mStack, int x,
+                                      int y, float z) {
         gui.getMinecraft().getTextureManager().bindTexture(ICON);
-        AbstractGui.blit(x + 6, y + 7, 18, 18, 0, 0, 255, 255, 256, 256);
+        AbstractGui.blit(mStack, x + 6, y + 7, 18, 18, 0, 0, 255, 255, 256, 256);
 
     }
 
     @Override
-    public void renderHUDEffect(EffectInstance effect, AbstractGui gui, int x, int y, float z, float alpha) {
+    public void renderHUDEffect(EffectInstance effect, AbstractGui gui, MatrixStack mStack, int x, int y, float z,
+                                float alpha) {
         Minecraft.getInstance().getTextureManager().bindTexture(ICON);
-        AbstractGui.blit(x + 3, y + 3, 18, 18, 0, 0, 255, 255, 256, 256);
+        AbstractGui.blit(mStack, x + 3, y + 3, 18, 18, 0, 0, 255, 255, 256, 256);
     }
+
     //endregion Overrides
 }
