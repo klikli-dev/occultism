@@ -60,6 +60,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.items.CapabilityItemHandler;
 
 import javax.annotation.Nullable;
@@ -149,7 +150,7 @@ public class BookOfCallingItem extends Item implements IIngredientPreventCraftin
 
                 ITextComponent customName = null;
                 if (entityData.contains("CustomName")) {
-                    customName = ITextComponent.Serializer.fromJson(entityData.getString("CustomName"));
+                    customName = ITextComponent.Serializer.getComponentFromJson(entityData.getString("CustomName"));
                 }
 
                 //remove position from tag to allow the entity to spawn where it should be
@@ -159,7 +160,7 @@ public class BookOfCallingItem extends Item implements IIngredientPreventCraftin
                 CompoundNBT wrapper = new CompoundNBT();
                 wrapper.put("EntityTag", entityData);
 
-                SpiritEntity entity = (SpiritEntity) type.spawn(world, wrapper, customName, null, spawnPos,
+                SpiritEntity entity = (SpiritEntity) type.spawn((ServerWorld)world, wrapper, customName, null, spawnPos,
                         SpawnReason.MOB_SUMMONED, true, !pos.equals(spawnPos) && facing == Direction.UP);
                 if (entityData.contains("OwnerUUID") && !entityData.getString("OwnerUUID").isEmpty()) {
                     entity.setOwnerId(UUID.fromString(entityData.getString("OwnerUUID")));
@@ -192,13 +193,13 @@ public class BookOfCallingItem extends Item implements IIngredientPreventCraftin
     }
 
     @Override
-    public boolean itemInteractionForEntity(ItemStack stack, PlayerEntity player, LivingEntity target, Hand hand) {
+    public ActionResultType itemInteractionForEntity(ItemStack stack, PlayerEntity player, LivingEntity target, Hand hand) {
         if (target.world.isRemote)
-            return false;
+            return ActionResultType.PASS;
 
         //Ignore anything that is not a spirit
         if (!(target instanceof SpiritEntity))
-            return false;
+            return ActionResultType.PASS;
 
         SpiritEntity entitySpirit = (SpiritEntity) target;
 
@@ -207,15 +208,14 @@ public class BookOfCallingItem extends Item implements IIngredientPreventCraftin
             //Creative players can re-link the book.
             if (player.isCreative()) {
                 ItemNBTUtil.setSpiritEntityUUID(stack, entitySpirit.getUniqueID());
-                ItemNBTUtil.setBoundSpiritName(stack, entitySpirit.getName().getFormattedText());
+                ItemNBTUtil.setBoundSpiritName(stack, entitySpirit.getName().getString());
             }
             else {
                 player.sendStatusMessage(
                         new TranslationTextComponent(
                                 TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_target_uuid_no_match"),
                         true);
-                return false;
-
+                return ActionResultType.FAIL;
             }
         }
 
@@ -226,7 +226,7 @@ public class BookOfCallingItem extends Item implements IIngredientPreventCraftin
         player.setHeldItem(hand, stack); //need to write the item back to hand, otherwise we only modify a copy
         entitySpirit.remove(true);
         player.container.detectAndSendChanges();
-        return true;
+        return ActionResultType.SUCCESS;
     }
 
     @Override
@@ -304,7 +304,7 @@ public class BookOfCallingItem extends Item implements IIngredientPreventCraftin
                     player.sendStatusMessage(
                             new TranslationTextComponent(
                                     TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_set_managed_machine",
-                                    TextUtil.formatDemonName(boundSpirit.get().getName().getFormattedText())), true);
+                                    TextUtil.formatDemonName(boundSpirit.get().getName().getString())), true);
                     return true;
                 }
             }
@@ -335,7 +335,7 @@ public class BookOfCallingItem extends Item implements IIngredientPreventCraftin
                     String blockName = world.getBlockState(pos).getBlock().getTranslationKey();
                     player.sendStatusMessage(new TranslationTextComponent(
                             TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_set_storage_controller",
-                            TextUtil.formatDemonName(boundSpirit.get().getName().getFormattedText()),
+                            TextUtil.formatDemonName(boundSpirit.get().getName().getString()),
                             new TranslationTextComponent(blockName)), true);
                     return true;
                 }
@@ -367,8 +367,8 @@ public class BookOfCallingItem extends Item implements IIngredientPreventCraftin
                 String blockName = world.getBlockState(pos).getBlock().getTranslationKey();
                 player.sendStatusMessage(
                         new TranslationTextComponent(TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_set_deposit",
-                                TextUtil.formatDemonName(boundSpirit.get().getName().getFormattedText()),
-                                new TranslationTextComponent(blockName), face.getName()), true);
+                                TextUtil.formatDemonName(boundSpirit.get().getName().getString()),
+                                new TranslationTextComponent(blockName), face.getString()), true);
                 return true;
             }
             else {
@@ -398,8 +398,8 @@ public class BookOfCallingItem extends Item implements IIngredientPreventCraftin
                 String blockName = world.getBlockState(pos).getBlock().getTranslationKey();
                 player.sendStatusMessage(
                         new TranslationTextComponent(TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_set_extract",
-                                TextUtil.formatDemonName(boundSpirit.get().getName().getFormattedText()),
-                                new TranslationTextComponent(blockName), face.getName()), true);
+                                TextUtil.formatDemonName(boundSpirit.get().getName().getString()),
+                                new TranslationTextComponent(blockName), face.getString()), true);
                 return true;
             }
             else {
@@ -427,7 +427,7 @@ public class BookOfCallingItem extends Item implements IIngredientPreventCraftin
                 String blockName = world.getBlockState(pos).getBlock().getTranslationKey();
                 player.sendStatusMessage(
                         new TranslationTextComponent(TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_set_base",
-                                TextUtil.formatDemonName(boundSpirit.get().getName().getFormattedText()),
+                                TextUtil.formatDemonName(boundSpirit.get().getName().getString()),
                                 new TranslationTextComponent(blockName)), true);
                 return true;
             }
