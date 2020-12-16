@@ -30,6 +30,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.item.Items;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
@@ -82,7 +83,7 @@ public class PlayerEventHandler {
             if (OccultismItems.SOUL_GEM_ITEM.get()
                         .itemInteractionForEntity(event.getItemStack(), event.getPlayer(),
                                 (LivingEntity) event.getTarget(),
-                                event.getHand())) {
+                                event.getHand()) == ActionResultType.SUCCESS) {
                 event.setCanceled(true);
             }
         }
