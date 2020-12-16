@@ -57,19 +57,16 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.registry.DynamicRegistries;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.DimensionType;
+import net.minecraft.world.World;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 public abstract class StorageControllerGuiBase<T extends StorageControllerContainerBase> extends ContainerScreen<T> implements IStorageControllerGui, IStorageControllerGuiContainer, IInventoryChangedListener {
@@ -109,7 +106,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     //region Initialization
     public StorageControllerGuiBase(T container, PlayerInventory playerInventory, ITextComponent name) {
         super(container, playerInventory, name);
-        this.storageControllerContainer = (IStorageControllerContainer) container;
+        this.storageControllerContainer = container;
         this.storageControllerContainer.getOrderSlot().addListener(this);
 
         //size of the gui texture
@@ -153,7 +150,8 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     }
 
     @Override
-    public void drawGradientRect(MatrixStack matrixStack, int left, int top, int right, int bottom, int startColor, int endColor) {
+    public void drawGradientRect(MatrixStack matrixStack, int left, int top, int right, int bottom, int startColor,
+                                 int endColor) {
         super.fillGradient(matrixStack, left, top, right, bottom, startColor, endColor);
     }
 
@@ -177,11 +175,11 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                                                 TextFormatting.BOLD + machine.customName +
                                                 TextFormatting.RESET));
         }
-       ResourceLocation dimensionTypeKey = DynamicRegistries.Impl.func_239770_b_().getRegistry(Registry.DIMENSION_TYPE_KEY).getKey(machine.globalPos.getDimensionType());
 
-        if (this.minecraft.player.world.getDimensionType() != machine.globalPos.getDimensionType())
-            tooltip.add(new TranslationTextComponent(TextFormatting.GRAY.toString() + TextFormatting.ITALIC + I18n.format(
-                    dimensionTypeKey.toString() + TextFormatting.RESET)));
+        if (this.minecraft.player.world.getDimensionKey() != machine.globalPos.getDimensionKey())
+            tooltip.add(new TranslationTextComponent(TextFormatting.GRAY.toString() + TextFormatting.ITALIC +
+                                                     machine.globalPos.getDimensionKey().getLocation().toString() +
+                                                     TextFormatting.RESET));
         this.func_243308_b(matrixStack, tooltip, x, y); //renderTooltip
     }
 
@@ -282,7 +280,8 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     }
 
     @Override
-    protected void drawGuiContainerBackgroundLayer(MatrixStack matrixStack, float partialTicks, int mouseX, int mouseY) {
+    protected void drawGuiContainerBackgroundLayer(MatrixStack matrixStack, float partialTicks, int mouseX,
+                                                   int mouseY) {
         if (!this.isGuiValid()) {
             return;
         }
@@ -357,11 +356,6 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     }
 
     @Override
-    public boolean shouldCloseOnEsc() {
-        return true;
-    }
-
-    @Override
     public boolean keyPressed(int keyCode, int scanCode, int p_keyPressed_3_) {
         if (this.searchBar.isFocused() && this.searchBar.keyPressed(keyCode, scanCode, p_keyPressed_3_)) {
             if (JeiSettings.isJeiLoaded() && JeiSettings.isJeiSearchSynced()) {
@@ -379,6 +373,11 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         }
 
         return super.keyPressed(keyCode, scanCode, p_keyPressed_3_);
+    }
+
+    @Override
+    public boolean shouldCloseOnEsc() {
+        return true;
     }
 
     @Override
@@ -600,31 +599,34 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
             this.func_243308_b(matrixStack, tooltip, mouseX, mouseY); //renderTooltip
         }
         if (this.clearTextButton != null && this.clearTextButton.isMouseOver(mouseX, mouseY)) {
-            this.func_243308_b(matrixStack, Lists.newArrayList(new TranslationTextComponent(TRANSLATION_KEY_BASE + ".search.tooltip_clear")),
+            this.func_243308_b(matrixStack,
+                    Lists.newArrayList(new TranslationTextComponent(TRANSLATION_KEY_BASE + ".search.tooltip_clear")),
                     mouseX, mouseY); // renderTooltip
         }
         if (this.sortTypeButton != null && this.sortTypeButton.isMouseOver(mouseX, mouseY)) {
             String translationKey = "";
             switch (this.guiMode) {
                 case INVENTORY:
-                    translationKey = TRANSLATION_KEY_BASE + ".search.tooltip_sort_type_" + this.getSortType().getString();
+                    translationKey =
+                            TRANSLATION_KEY_BASE + ".search.tooltip_sort_type_" + this.getSortType().getString();
                     break;
                 case AUTOCRAFTING:
                     translationKey =
-                            TRANSLATION_KEY_BASE + ".search.machines.tooltip_sort_type_" + this.getSortType().getString();
+                            TRANSLATION_KEY_BASE + ".search.machines.tooltip_sort_type_" +
+                            this.getSortType().getString();
                     break;
             }
             this.renderTooltip(matrixStack, new TranslationTextComponent(translationKey), mouseX, mouseY);
         }
         if (this.sortDirectionButton != null && this.sortDirectionButton.isMouseOver(mouseX, mouseY)) {
             this.renderTooltip(matrixStack, new TranslationTextComponent(
-                    TRANSLATION_KEY_BASE + ".search.tooltip_sort_direction_" + this.getSortDirection().getString()),
+                            TRANSLATION_KEY_BASE + ".search.tooltip_sort_direction_" + this.getSortDirection().getString()),
                     mouseX, mouseY);
         }
         if (this.jeiSyncButton != null && this.jeiSyncButton.isMouseOver(mouseX, mouseY)) {
             this.renderTooltip(matrixStack, new TranslationTextComponent(
-                    TRANSLATION_KEY_BASE + ".search.tooltip_jei_" +
-                    (JeiSettings.isJeiSearchSynced() ? "on" : "off")),
+                            TRANSLATION_KEY_BASE + ".search.tooltip_jei_" +
+                            (JeiSettings.isJeiSearchSynced() ? "on" : "off")),
                     mouseX, mouseY);
         }
     }
@@ -790,7 +792,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
     protected void sortMachines(List<MachineReference> machinesToDisplay) {
         BlockPos entityPosition = this.getEntityPosition();
-        DimensionType dimensionType = this.minecraft.player.world.getDimensionType();
+        RegistryKey<World> dimensionKey = this.minecraft.player.world.getDimensionKey();
         machinesToDisplay.sort(new Comparator<MachineReference>() {
 
             //region Fields
@@ -803,10 +805,10 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                 switch (StorageControllerGuiBase.this.getSortType()) {
                     case AMOUNT: //use distance in this case
                         double distanceA =
-                                a.globalPos.getDimensionType() == dimensionType ? a.globalPos.getPos().distanceSq(
+                                a.globalPos.getDimensionKey() == dimensionKey ? a.globalPos.getPos().distanceSq(
                                         entityPosition) : Double.MAX_VALUE;
                         double distanceB =
-                                b.globalPos.getDimensionType() == dimensionType ? b.globalPos.getPos().distanceSq(
+                                b.globalPos.getDimensionKey() == dimensionKey ? b.globalPos.getPos().distanceSq(
                                         entityPosition) : Double.MAX_VALUE;
                         return Double.compare(distanceB, distanceA) * this.direction;
                     case NAME:

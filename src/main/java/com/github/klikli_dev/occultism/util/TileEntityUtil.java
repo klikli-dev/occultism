@@ -22,26 +22,19 @@
 
 package com.github.klikli_dev.occultism.util;
 
-import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.api.common.data.GlobalBlockPos;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
-import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.capabilities.Capability;
-
-import java.util.List;
+import net.minecraftforge.fml.server.ServerLifecycleHooks;
 
 public class TileEntityUtil {
     //region Static Methods
@@ -54,18 +47,19 @@ public class TileEntityUtil {
      * @return the tile entity or null.
      */
     public static TileEntity get(World world, GlobalBlockPos pos) {
-        if(pos == null)
+        if (pos == null)
             return null;
 
-        if (world.getDimension().getType() == pos.getDimensionType()) {
+        if (world.getDimensionKey() == pos.getDimensionKey()) {
             return world.getTileEntity(pos.getPos());
         }
         if (world.isRemote) //can only access other dimensions on the server.
             return null;
 
-        World dimensionWorld = DimensionManager.getWorld(world.getServer(), pos.getDimensionType(), false, false);
+        World dimensionWorld = ServerLifecycleHooks.getCurrentServer().getWorld(pos.getDimensionKey());
         if (dimensionWorld != null)
             return dimensionWorld.getTileEntity(pos.getPos());
+
         return null;
     }
 
@@ -103,29 +97,34 @@ public class TileEntityUtil {
     /**
      * Creates the item entity with nbt from the tile entity.
      * Default pickup delay is set.
-     * @param itemStack the stack to drop.
+     *
+     * @param itemStack  the stack to drop.
      * @param tileEntity the tile entity to get nbt from.
      * @return the item entity.
      */
-    public static ItemEntity getDroppedItemWithNbt(ItemStack itemStack, TileEntity tileEntity){
+    public static ItemEntity getDroppedItemWithNbt(ItemStack itemStack, TileEntity tileEntity) {
         CompoundNBT compoundnbt = tileEntity.serializeNBT();
         if (!compoundnbt.isEmpty()) {
             itemStack.setTagInfo("BlockEntityTag", compoundnbt);
         }
-        ItemEntity itementity = new ItemEntity(tileEntity.getWorld(), tileEntity.getPos().getX(), tileEntity.getPos().getY(), tileEntity.getPos().getZ(), itemStack);
+        ItemEntity itementity =
+                new ItemEntity(tileEntity.getWorld(), tileEntity.getPos().getX(), tileEntity.getPos().getY(),
+                        tileEntity.getPos().getZ(), itemStack);
         itementity.setDefaultPickupDelay();
         return itementity;
     }
 
     /**
      * Handles the common use case of dropping self with tile entity nbt on block change during replace.
-     * @param block the current block.
-     * @param state the old state.
-     * @param world the world
-     * @param pos the position.
+     *
+     * @param block    the current block.
+     * @param state    the old state.
+     * @param world    the world
+     * @param pos      the position.
      * @param newState the new state
      */
-    public static void onBlockChangeDropWithNbt(Block block, BlockState state, World world, BlockPos pos, BlockState newState){
+    public static void onBlockChangeDropWithNbt(Block block, BlockState state, World world, BlockPos pos,
+                                                BlockState newState) {
         if (state.getBlock() != newState.getBlock()) {
             if (!world.isRemote) {
                 world.addEntity(TileEntityUtil.getDroppedItemWithNbt(new ItemStack(block), world.getTileEntity(pos)));
@@ -136,11 +135,12 @@ public class TileEntityUtil {
 
     /**
      * Handles the common use case of giving self as item with tile entity nbt.
+     *
      * @param block the current block.
      * @param world the world
-     * @param pos the position.
+     * @param pos   the position.
      */
-    public static ItemStack getItemWithNbt(Block block, IBlockReader world, BlockPos pos){
+    public static ItemStack getItemWithNbt(Block block, IBlockReader world, BlockPos pos) {
         ItemStack itemStack = new ItemStack(block);
         TileEntity tileEntity = world.getTileEntity(pos);
         CompoundNBT compoundnbt = tileEntity.serializeNBT();
