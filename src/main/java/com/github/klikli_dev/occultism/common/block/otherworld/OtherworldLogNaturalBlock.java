@@ -27,8 +27,7 @@ import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.LogBlock;
-import net.minecraft.block.material.MaterialColor;
+import net.minecraft.block.RotatedPillarBlock;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateContainer;
@@ -39,12 +38,11 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
-public class OtherworldLogNaturalBlock extends LogBlock implements IOtherworldBlock {
+public class OtherworldLogNaturalBlock extends RotatedPillarBlock implements IOtherworldBlock {
 
     //region Initialization
-    public OtherworldLogNaturalBlock(MaterialColor verticalColorIn,
-                                     Properties properties) {
-        super(verticalColorIn, properties);
+    public OtherworldLogNaturalBlock(Properties properties) {
+        super(properties);
         this.setDefaultState(this.getDefaultState().with(UNCOVERED, false));
     }
     //endregion Initialization
@@ -64,6 +62,7 @@ public class OtherworldLogNaturalBlock extends LogBlock implements IOtherworldBl
     public OtherworldBlockTier getTier() {
         return OtherworldBlockTier.ONE;
     }
+
 
     @Override
     public void harvestBlock(World worldIn, PlayerEntity player, BlockPos pos, BlockState state,

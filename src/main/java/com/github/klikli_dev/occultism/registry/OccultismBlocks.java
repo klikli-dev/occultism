@@ -83,11 +83,17 @@ public class OccultismBlocks {
                             Block.Properties.create(Material.ROCK).sound(SoundType.STONE).hardnessAndResistance(1.5f, 30)),
                     true, LootTableType.OTHERWORLD_BLOCK);
 
-    public static final RegistryObject<LogBlock> OTHERWORLD_LOG =
+    //TODO: Create properties like in Blocks class:
+    //        private static RotatedPillarBlock createLogBlock(MaterialColor topColor, MaterialColor barkColor) {
+    //            return new RotatedPillarBlock(AbstractBlock.Properties.create(Material.WOOD, (state) -> {
+    //                return state.get(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? topColor : barkColor;
+    //            }).hardnessAndResistance(2.0F).sound(SoundType.WOOD));
+    //        }
+    public static final RegistryObject<Block> OTHERWORLD_LOG =
             register("otherworld_log", () -> new LogBlock(MaterialColor.WOOD,
                     Block.Properties.create(Material.WOOD, MaterialColor.OBSIDIAN).sound(SoundType.WOOD)
                             .hardnessAndResistance(2.0f)));
-    public static final RegistryObject<LogBlock> OTHERWORLD_LOG_NATURAL =
+    public static final RegistryObject<Block> OTHERWORLD_LOG_NATURAL =
             register("otherworld_log_natural", () -> new OtherworldLogNaturalBlock(MaterialColor.WOOD,
                     Block.Properties.create(Material.WOOD, MaterialColor.OBSIDIAN).sound(SoundType.WOOD)
                             .hardnessAndResistance(2.0f)), true, LootTableType.OTHERWORLD_BLOCK);
