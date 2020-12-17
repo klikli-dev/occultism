@@ -52,7 +52,7 @@ public class FamiliarOtherworldBirdRitual extends SummonSpiritRitual {
                 Ingredient.fromItems(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()),
                 "familiar_otherworld_bird", 30);
         this.sacrificePredicate =
-                (entity) -> EntityTypeTags.getCollection().getOrCreate(parrotTag).contains(entity.getType());
+                (entity) -> EntityTypeTags.getCollection().get(parrotTag).contains(entity.getType());
     }
     //endregion Initialization
 
@@ -70,7 +70,7 @@ public class FamiliarOtherworldBirdRitual extends SummonSpiritRitual {
                 goldenBowlPosition.getY() + 0.5, goldenBowlPosition.getZ() + 0.5, 1, 0, 0, 0, 0);
 
         OtherworldBirdEntity bird = OccultismEntities.OTHERWORLD_BIRD.get().create(world);
-        bird.onInitialSpawn(world, world.getDifficultyForLocation(goldenBowlPosition), SpawnReason.MOB_SUMMONED,
+        bird.onInitialSpawn((ServerWorld) world, world.getDifficultyForLocation(goldenBowlPosition), SpawnReason.MOB_SUMMONED,
                 null, null);
         bird.setPositionAndRotation(goldenBowlPosition.getX(), goldenBowlPosition.getY(), goldenBowlPosition.getZ(),
                 world.rand.nextInt(360), 0);

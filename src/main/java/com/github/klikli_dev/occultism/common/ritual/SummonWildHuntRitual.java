@@ -53,7 +53,7 @@ public class SummonWildHuntRitual extends SummonSpiritRitual {
                 Ingredient.fromItems(Blocks.SKELETON_SKULL),
                 "summon_wild_hunt", 30);
         this.sacrificePredicate = (entity) -> entity instanceof PlayerEntity ||
-                                              EntityTypeTags.getCollection().getOrCreate(villagerTag)
+                                              EntityTypeTags.getCollection().get(villagerTag)
                                                       .contains(entity.getType());
     }
     //endregion Initialization
@@ -82,7 +82,7 @@ public class SummonWildHuntRitual extends SummonSpiritRitual {
                     world.getRandom().nextInt(360), 0);
             skeleton.setCustomName(new StringTextComponent(TextUtil.generateName()));
 
-            skeleton.onInitialSpawn(world, world.getDifficultyForLocation(goldenBowlPosition), SpawnReason.MOB_SUMMONED,
+            skeleton.onInitialSpawn((ServerWorld) world, world.getDifficultyForLocation(goldenBowlPosition), SpawnReason.MOB_SUMMONED,
                     null,
                     null);
             this.spawnEntity(skeleton, world);

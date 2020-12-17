@@ -53,7 +53,7 @@ public class FamiliarParrotRitual extends SummonSpiritRitual {
                 Ingredient.fromItems(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()),
                 "familiar_parrot", 30);
         this.sacrificePredicate =
-                (entity) -> EntityTypeTags.getCollection().getOrCreate(chickenTag).contains(entity.getType());
+                (entity) -> EntityTypeTags.getCollection().get(chickenTag).contains(entity.getType());
     }
     //endregion Initialization
 
@@ -73,7 +73,7 @@ public class FamiliarParrotRitual extends SummonSpiritRitual {
         //1/3 are a parrot, 2/3 are chickens.
         AnimalEntity parrot =
                 world.rand.nextInt(3) == 0 ? EntityType.PARROT.create(world) : EntityType.CHICKEN.create(world);
-        parrot.onInitialSpawn(world, world.getDifficultyForLocation(goldenBowlPosition), SpawnReason.MOB_SUMMONED,
+        parrot.onInitialSpawn((ServerWorld) world, world.getDifficultyForLocation(goldenBowlPosition), SpawnReason.MOB_SUMMONED,
                 null,
                 null);
         parrot

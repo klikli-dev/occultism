@@ -40,6 +40,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.common.Tags;
+import net.minecraftforge.common.data.ForgeRegistryTagsProvider;
 
 public class SummonAfritThunderWeatherRitual extends SummonSpiritRitual {
     //region Fields
@@ -53,7 +55,7 @@ public class SummonAfritThunderWeatherRitual extends SummonSpiritRitual {
                 Ingredient.fromItems(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()),
                 "summon_afrit_thunder_weather", 60);
         this.sacrificePredicate =
-                (entity) -> EntityTypeTags.getCollection().getOrCreate(cowTag).contains(entity.getType());
+                (entity) -> EntityTypeTags.getCollection().get(cowTag).contains(entity.getType());
     }
     //endregion Initialization
 

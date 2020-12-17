@@ -52,7 +52,7 @@ public class PossessEndermanRitual extends SummonSpiritRitual {
                 Ingredient.fromItems(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()),
                 "possess_enderman", 60);
         this.sacrificePredicate =
-                (entity) -> EntityTypeTags.getCollection().getOrCreate(pigTag).contains(entity.getType());
+                (entity) -> EntityTypeTags.getCollection().get(pigTag).contains(entity.getType());
     }
     //endregion Initialization
 
@@ -71,7 +71,7 @@ public class PossessEndermanRitual extends SummonSpiritRitual {
 
         //set up the foliot entity
         PossessedEndermanEntity enderman = OccultismEntities.POSSESSED_ENDERMAN.get().create(world);
-        enderman.onInitialSpawn(world, world.getDifficultyForLocation(goldenBowlPosition), SpawnReason.MOB_SUMMONED,
+        enderman.onInitialSpawn((ServerWorld) world, world.getDifficultyForLocation(goldenBowlPosition), SpawnReason.MOB_SUMMONED,
                 null,
                 null);
         enderman.setPositionAndRotation(goldenBowlPosition.getX(), goldenBowlPosition.getY(), goldenBowlPosition.getZ(),

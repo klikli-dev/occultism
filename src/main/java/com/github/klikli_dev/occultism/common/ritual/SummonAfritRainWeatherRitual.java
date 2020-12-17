@@ -53,7 +53,7 @@ public class SummonAfritRainWeatherRitual extends SummonSpiritRitual {
                 Ingredient.fromItems(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()),
                 "summon_afrit_rain_weather", 60);
         this.sacrificePredicate =
-                (entity) -> EntityTypeTags.getCollection().getOrCreate(cowTag).contains(entity.getType());
+                (entity) -> EntityTypeTags.getCollection().get(cowTag).contains(entity.getType());
     }
     //endregion Initialization
 

@@ -533,7 +533,7 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
      */
     public void prepareSpiritForSpawn(SpiritEntity spirit, World world, BlockPos goldenBowlPosition,
                                       PlayerEntity castingPlayer, String spiritName) {
-        spirit.onInitialSpawn(world, world.getDifficultyForLocation(goldenBowlPosition), SpawnReason.MOB_SUMMONED, null,
+        spirit.onInitialSpawn((ServerWorld) world, world.getDifficultyForLocation(goldenBowlPosition), SpawnReason.MOB_SUMMONED, null,
                 null);
         spirit.setTamedBy(castingPlayer);
         spirit.setPositionAndRotation(goldenBowlPosition.getX(), goldenBowlPosition.getY(), goldenBowlPosition.getZ(),

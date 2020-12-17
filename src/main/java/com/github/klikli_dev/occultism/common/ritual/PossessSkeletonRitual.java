@@ -52,7 +52,7 @@ public class PossessSkeletonRitual extends SummonSpiritRitual {
                 Ingredient.fromItems(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()),
                 "possess_skeleton", 30);
         this.sacrificePredicate =
-                (entity) -> EntityTypeTags.getCollection().getOrCreate(chickenTag).contains(entity.getType());
+                (entity) -> EntityTypeTags.getCollection().get(chickenTag).contains(entity.getType());
     }
     //endregion Initialization
 
@@ -71,7 +71,7 @@ public class PossessSkeletonRitual extends SummonSpiritRitual {
 
         //set up the foliot entity
         PossessedSkeletonEntity skeleton = OccultismEntities.POSSESSED_SKELETON_TYPE.get().create(world);
-        skeleton.onInitialSpawn(world, world.getDifficultyForLocation(goldenBowlPosition), SpawnReason.MOB_SUMMONED,
+        skeleton.onInitialSpawn((ServerWorld) world, world.getDifficultyForLocation(goldenBowlPosition), SpawnReason.MOB_SUMMONED,
                 null,
                 null);
         skeleton.setPositionAndRotation(goldenBowlPosition.getX(), goldenBowlPosition.getY(), goldenBowlPosition.getZ(),

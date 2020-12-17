@@ -50,7 +50,7 @@ public class SummonWildAfritRitual extends SummonSpiritRitual {
                 Ingredient.fromItems(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()),
                 "summon_wild_afrit", 60);
         this.sacrificePredicate =
-                (entity) -> EntityTypeTags.getCollection().getOrCreate(cowTag).contains(entity.getType());
+                (entity) -> EntityTypeTags.getCollection().get(cowTag).contains(entity.getType());
     }
     //endregion Initialization
 
