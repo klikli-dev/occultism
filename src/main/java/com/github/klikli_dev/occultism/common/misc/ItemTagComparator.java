@@ -26,6 +26,7 @@ import com.github.klikli_dev.occultism.api.common.container.IItemStackComparator
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.ITag;
 import net.minecraft.util.ResourceLocation;
@@ -80,11 +81,11 @@ public class ItemTagComparator implements IItemStackComparator {
 
     //region Methods
     public void read(CompoundNBT compound) {
-        compound.putString("tag", this.tag.getId().toString());
+        compound.putString("tag", ItemTags.getCollection().getDirectIdFromTag(this.tag).toString());
     }
 
     public CompoundNBT write(CompoundNBT compound) {
-        this.tag = ItemTags.getCollection().getOrCreate(new ResourceLocation(compound.getString("tag")));
+        this.tag = ItemTags.getCollection().get(new ResourceLocation(compound.getString("tag")));
         return compound;
     }
     //endregion Methods
