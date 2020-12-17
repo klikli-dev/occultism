@@ -23,12 +23,14 @@
 package com.github.klikli_dev.occultism.common.job;
 
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.effect.LightningBoltEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Hand;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.server.ServerWorld;
 
 public abstract class ChangeWeatherJob extends SpiritJob {
@@ -84,9 +86,11 @@ public abstract class ChangeWeatherJob extends SpiritJob {
 
         if (this.currentChangeTicks == this.requiredChangeTicks) {
             this.changeWeather();
-            ((ServerWorld) this.entity.world).addLightningBolt(
-                    new LightningBoltEntity(entity.world, entity.getPosX(), entity.getPosY(), entity.getPosZ(),
-                            true));
+
+            LightningBoltEntity lightningboltentity = EntityType.LIGHTNING_BOLT.create(this.entity.world);
+            lightningboltentity.moveForced(Vector3d.copyCenteredHorizontally(entity.getPosition()));
+            lightningboltentity.setEffectOnly(true);
+
             this.entity.onDeath(DamageSource.LIGHTNING_BOLT);
             this.entity.remove();
         }
