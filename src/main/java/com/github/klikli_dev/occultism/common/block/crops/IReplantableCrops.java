@@ -31,11 +31,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.IItemProvider;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
-import net.minecraftforge.event.ForgeEventFactory;
 
 import java.util.List;
 
@@ -59,9 +57,11 @@ public interface IReplantableCrops {
             if (state.get(CropsBlock.AGE) >= 7) {
                 List<ItemStack> drops = Block.getDrops(state, (ServerWorld) world, pos, null, player,
                         player.getHeldItem(hand));
-                ForgeEventFactory.fireBlockHarvesting(
-                        NonNullList.from(ItemStack.EMPTY, drops.toArray(new ItemStack[0])), world, pos, state,
-                        0, 1.0F, false, player);
+
+                // From 1.15 -> does not exist any more and I guess we don't need it.
+                //                ForgeEventFactory.fireBlockHarvesting(
+                //                        NonNullList.from(ItemStack.EMPTY, drops.toArray(new ItemStack[0])), world, pos, state,
+                //                        0, 1.0F, false, player);
 
                 //reset crop
                 world.setBlockState(pos, state.with(CropsBlock.AGE, 0));
