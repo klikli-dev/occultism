@@ -35,6 +35,7 @@ import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.fml.LogicalSidedProvider;
 
 public class SummonDjinniTest extends Item {
@@ -51,7 +52,7 @@ public class SummonDjinniTest extends Item {
         if (!context.getWorld().isRemote) {
 
             DjinniEntity spirit = OccultismEntities.DJINNI.get().create(context.getWorld());
-            spirit.onInitialSpawn(context.getWorld(), context.getWorld().getDifficultyForLocation(context.getPos()),
+            spirit.onInitialSpawn((ServerWorld) context.getWorld(), context.getWorld().getDifficultyForLocation(context.getPos()),
                     SpawnReason.SPAWN_EGG, null, null);
             spirit.setTamedBy(context.getPlayer());
             spirit.setPosition(context.getPos().getX(), context.getPos().getY() + 1.0f, context.getPos().getZ());
