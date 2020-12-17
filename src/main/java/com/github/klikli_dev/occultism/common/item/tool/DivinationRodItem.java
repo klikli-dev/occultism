@@ -34,8 +34,10 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
@@ -46,6 +48,8 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
@@ -61,15 +65,8 @@ public class DivinationRodItem extends Item {
     //region Initialization
     public DivinationRodItem(Properties properties) {
         super(properties);
-        this.addPropertyOverride(new ResourceLocation(Occultism.MODID, "distance"),
-                (stack, world, entity) -> {
-                    if (!stack.getOrCreateTag().contains("distance") || stack.getTag().getFloat("distance") < 0)
-                        return NOT_FOUND;
-                    return stack.getTag().getFloat("distance");
-                });
     }
     //endregion Initialization
-
 
     //region Overrides
     @Override
@@ -98,7 +95,7 @@ public class DivinationRodItem extends Item {
                         stack.getOrCreateTag().putString("linkedBlockId", block.getRegistryName().toString());
                         player.sendMessage(
                                 new TranslationTextComponent(this.getTranslationKey() + ".message.linked_block",
-                                        new TranslationTextComponent(translationKey)));
+                                        new TranslationTextComponent(translationKey)), Util.DUMMY_UUID);
                     }
 
                     world.playSound(player, player.getPosition(), OccultismSounds.TUNING_FORK.get(),
@@ -108,7 +105,7 @@ public class DivinationRodItem extends Item {
                 else {
                     if (!world.isRemote) {
                         player.sendMessage(
-                                new TranslationTextComponent(this.getTranslationKey() + ".message.no_link_found"));
+                                new TranslationTextComponent(this.getTranslationKey() + ".message.no_link_found"), Util.DUMMY_UUID);
                     }
                 }
                 return ActionResultType.SUCCESS;
@@ -134,7 +131,7 @@ public class DivinationRodItem extends Item {
                 }
             }
             else if (!world.isRemote) {
-                player.sendMessage(new TranslationTextComponent(this.getTranslationKey() + ".message.no_linked_block"));
+                player.sendMessage(new TranslationTextComponent(this.getTranslationKey() + ".message.no_linked_block"), Util.DUMMY_UUID);
             }
         }
 
@@ -151,7 +148,7 @@ public class DivinationRodItem extends Item {
         stack.getOrCreateTag().putFloat("distance", NOT_FOUND);
         if (world.isRemote) {
             BlockPos result = ScanManager.instance.finishScan(player);
-            float distance = this.getDistance(player.getPositionVector(), result);
+            float distance = this.getDistance(player.getPositionVec(), result);
             stack.getTag().putFloat("distance", distance);
             OccultismPackets.sendToServer(new MessageSetDivinationResult(distance));
 
@@ -190,7 +187,7 @@ public class DivinationRodItem extends Item {
                                                                                 .getTranslationKey() : block.getTranslationKey();
             tooltip.add(new TranslationTextComponent(this.getTranslationKey() + ".tooltip.linked_block",
                     new TranslationTextComponent(translationKey)
-                            .applyTextStyles(TextFormatting.BOLD, TextFormatting.ITALIC)));
+                            .mergeStyle(TextFormatting.BOLD, TextFormatting.ITALIC)));
         }
         else {
             tooltip.add(new TranslationTextComponent(this.getTranslationKey() + ".tooltip.no_linked_block"));
@@ -203,7 +200,7 @@ public class DivinationRodItem extends Item {
     public Block getOtherBlock(BlockState state) {
         //otherstone ore is linked to andesite.
         if (state.getBlock() == Blocks.ANDESITE || state.getBlock() == OccultismBlocks.OTHERSTONE_NATURAL.get()
-        || state.getBlock() == OccultismBlocks.OTHERSTONE.get()) {
+            || state.getBlock() == OccultismBlocks.OTHERSTONE.get()) {
             return OccultismBlocks.OTHERSTONE_NATURAL.get();
         }
         //Otherworld logs are linked to oak leaves.
@@ -255,5 +252,16 @@ public class DivinationRodItem extends Item {
         return 6.0f;
     }
     //endregion Methods
+
+    public static class ItemPropertyGetter implements IItemPropertyGetter {
+        //region Overrides
+        @OnlyIn(Dist.CLIENT)
+        @Override
+        public float call(ItemStack stack, @Nullable ClientWorld worldIn, @Nullable LivingEntity entityIn) {
+            if (!stack.getOrCreateTag().contains("distance") || stack.getTag().getFloat("distance") < 0)
+                return NOT_FOUND;
+            return stack.getTag().getFloat("distance");
+        }
+    }
 }
 

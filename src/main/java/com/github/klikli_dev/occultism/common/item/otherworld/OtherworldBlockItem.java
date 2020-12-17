@@ -22,42 +22,54 @@
 
 package com.github.klikli_dev.occultism.common.item.otherworld;
 
-import com.github.klikli_dev.occultism.Occultism;
-import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.registry.OccultismEffects;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.BlockItem;
+import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.ItemStack;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+
+import javax.annotation.Nullable;
 
 /**
  * Allows to show different textures and translation keys for HWYLA and in the inventory
  */
 public class OtherworldBlockItem extends BlockItem {
+    //region Initialization
     public OtherworldBlockItem(Block blockIn, Properties builder) {
         super(blockIn, builder);
-
-        this.addPropertyOverride(new ResourceLocation(Occultism.MODID, "simulated"),
-                (stack, world, entity) -> {
-                    boolean thirdEye = Minecraft.getInstance().player.isPotionActive(OccultismEffects.THIRD_EYE.get());
-           return stack.getOrCreateTag().getBoolean("isInventoryItem") || thirdEye ? 1.0f : 0.0f;
-        });
     }
+    //endregion Initialization
 
+    //region Overrides
     @Override
     public String getTranslationKey(ItemStack stack) {
         boolean thirdEye = Minecraft.getInstance() != null && Minecraft.getInstance().player != null
                            && Minecraft.getInstance().player.isPotionActive(OccultismEffects.THIRD_EYE.get());
-        return stack.getOrCreateTag().getBoolean("isInventoryItem") || thirdEye ? this.getDefaultTranslationKey() : this.getTranslationKey();
+        return stack.getOrCreateTag().getBoolean("isInventoryItem") ||
+               thirdEye ? this.getDefaultTranslationKey() : this.getTranslationKey();
     }
 
     @Override
     public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
         super.inventoryTick(stack, worldIn, entityIn, itemSlot, isSelected);
         stack.getOrCreateTag().putBoolean("isInventoryItem", true);
+    }
+    //endregion Overrides
+
+    public static class ItemPropertyGetter implements IItemPropertyGetter {
+        //region Overrides
+        @OnlyIn(Dist.CLIENT)
+        @Override
+        public float call(ItemStack stack, @Nullable ClientWorld worldIn, @Nullable LivingEntity entityIn) {
+            boolean thirdEye = Minecraft.getInstance().player.isPotionActive(OccultismEffects.THIRD_EYE.get());
+            return stack.getOrCreateTag().getBoolean("isInventoryItem") || thirdEye ? 1.0f : 0.0f;
+        }
     }
 }

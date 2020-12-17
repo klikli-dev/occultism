@@ -22,24 +22,23 @@
 
 package com.github.klikli_dev.occultism.common.item.storage;
 
-import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.api.common.data.GlobalBlockPos;
 import com.github.klikli_dev.occultism.api.common.tile.IStorageController;
 import net.minecraft.block.Block;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.client.world.ClientWorld;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUseContext;
-import net.minecraft.item.Rarity;
+import net.minecraft.item.*;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -48,10 +47,8 @@ public class StableWormholeBlockItem extends BlockItem {
     //region Initialization
     public StableWormholeBlockItem(Block blockIn, Properties builder) {
         super(blockIn, builder);
-        this.addPropertyOverride(new ResourceLocation(Occultism.MODID, "linked"),
-                (stack, world, entity) -> stack.getOrCreateTag().getCompound("BlockEntityTag")
-                                                  .contains("linkedStorageControllerPosition") ? 1.0f : 0.0f);
     }
+
     //endregion Initialization
 
     //region Overrides
@@ -92,13 +89,24 @@ public class StableWormholeBlockItem extends BlockItem {
                     .contains("linkedStorageControllerPosition")) {
             GlobalBlockPos globalPos = GlobalBlockPos.from(stack.getChildTag("BlockEntityTag")
                                                                    .getCompound("linkedStorageControllerPosition"));
-            String formattedPosition = TextFormatting.GOLD.toString() + TextFormatting.BOLD.toString() + globalPos.getPos().toString() +
-                                       TextFormatting.RESET.toString();
-            tooltip.add(new TranslationTextComponent(this.getTranslationKey()+ ".tooltip.linked", formattedPosition));
+            String formattedPosition =
+                    TextFormatting.GOLD.toString() + TextFormatting.BOLD.toString() + globalPos.getPos().toString() +
+                    TextFormatting.RESET.toString();
+            tooltip.add(new TranslationTextComponent(this.getTranslationKey() + ".tooltip.linked", formattedPosition));
         }
         else {
             tooltip.add(new TranslationTextComponent(this.getTranslationKey() + ".tooltip.unlinked"));
         }
     }
     //endregion Overrides
+
+    public static class ItemPropertyGetter implements IItemPropertyGetter {
+        //region Overrides
+        @OnlyIn(Dist.CLIENT)
+        @Override
+        public float call(ItemStack stack, @Nullable ClientWorld worldIn, @Nullable LivingEntity entityIn) {
+            return stack.getOrCreateTag().getCompound("BlockEntityTag")
+                           .contains("linkedStorageControllerPosition") ? 1.0f : 0.0f;
+        }
+    }
 }

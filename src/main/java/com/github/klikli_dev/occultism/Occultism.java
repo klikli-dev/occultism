@@ -38,6 +38,12 @@ import com.github.klikli_dev.occultism.client.render.tile.SacrificialBowlRendere
 import com.github.klikli_dev.occultism.client.render.tile.StorageControllerRenderer;
 import com.github.klikli_dev.occultism.common.DebugHelper;
 import com.github.klikli_dev.occultism.common.OccultismItemGroup;
+import com.github.klikli_dev.occultism.common.item.otherworld.OtherworldBlockItem;
+import com.github.klikli_dev.occultism.common.item.storage.StableWormholeBlockItem;
+import com.github.klikli_dev.occultism.common.item.storage.StorageRemoteItem;
+import com.github.klikli_dev.occultism.common.item.tool.DivinationRodItem;
+import com.github.klikli_dev.occultism.common.item.tool.GuideBookItem;
+import com.github.klikli_dev.occultism.common.item.tool.SoulGemItem;
 import com.github.klikli_dev.occultism.common.world.WorldGenHandler;
 import com.github.klikli_dev.occultism.config.OccultismConfig;
 import com.github.klikli_dev.occultism.network.OccultismPackets;
@@ -50,6 +56,7 @@ import net.minecraft.client.renderer.entity.EndermiteRenderer;
 import net.minecraft.client.renderer.entity.SkeletonRenderer;
 import net.minecraft.client.renderer.entity.WitherSkeletonRenderer;
 import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemModelsProperties;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -179,8 +186,20 @@ public class Occultism {
         RenderTypeLookup.setRenderLayer(OccultismBlocks.OTHERWORLD_LEAVES.get(), RenderType.getCutoutMipped());
         RenderTypeLookup.setRenderLayer(OccultismBlocks.OTHERWORLD_LEAVES_NATURAL.get(), RenderType.getCutoutMipped());
 
-        //Not safe to call during parallel load, so register just after.
-        DeferredWorkQueue.runLater(() -> {
+        //Not safe to call during parallel load, so register to run threadsafe.
+        event.enqueueWork(() -> {
+            //Register screen factories
+            ItemModelsProperties.registerProperty(OccultismItems.GUIDE_BOOK.get(), new ResourceLocation("completion"), new GuideBookItem.ItemPropertyGetter());
+            ItemModelsProperties.registerProperty(OccultismItems.SOUL_GEM_ITEM.get(), new ResourceLocation(Occultism.MODID, "has_entity"), new SoulGemItem.ItemPropertyGetter());
+            ItemModelsProperties.registerProperty(OccultismItems.DIVINATION_ROD.get(), new ResourceLocation(Occultism.MODID, "distance"), new DivinationRodItem.ItemPropertyGetter());
+            ItemModelsProperties.registerProperty(OccultismItems.OTHERWORLD_SAPLING_NATURAL.get(), new ResourceLocation(Occultism.MODID, "simulated"), new OtherworldBlockItem.ItemPropertyGetter());
+            ItemModelsProperties.registerProperty(OccultismItems.STORAGE_REMOTE.get(), new ResourceLocation(Occultism.MODID, "linked"), new StorageRemoteItem.ItemPropertyGetter());
+            ItemModelsProperties.registerProperty(OccultismItems.STABLE_WORMHOLE.get(), new ResourceLocation(Occultism.MODID, "linked"), new StableWormholeBlockItem.ItemPropertyGetter());
+
+            LOGGER.debug("Registered Item Properties");
+        });
+
+        event.enqueueWork(() -> {
             //Register screen factories
             ScreenManager.registerFactory(OccultismContainers.STORAGE_CONTROLLER.get(), StorageControllerGui::new);
             ScreenManager.registerFactory(OccultismContainers.STABLE_WORMHOLE.get(), StableWormholeGui::new);

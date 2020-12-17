@@ -22,15 +22,16 @@
 
 package com.github.klikli_dev.occultism.common.item.tool;
 
-import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.util.EntityUtil;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
@@ -38,12 +39,13 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -53,13 +55,11 @@ public class SoulGemItem extends Item {
     //region Initialization
     public SoulGemItem(Properties properties) {
         super(properties);
-        //TODO: Implement ItemModelsProperties -> https://forums.minecraftforge.net/topic/88935-item-property-override-in-116/
-        this.addPropertyOverride(new ResourceLocation(Occultism.MODID, "has_entity"),
-                (stack, world, entity) -> stack.getOrCreateTag().contains("entityData") ? 1.0f : 0.0f);
     }
     //endregion Initialization
 
     //region Overrides
+    //endregion Overrides
     @Override
     public ActionResultType onItemUse(ItemUseContext context) {
         PlayerEntity player = context.getPlayer();
@@ -160,5 +160,12 @@ public class SoulGemItem extends Item {
         }
     }
 
-    //endregion Overrides
+    public static class ItemPropertyGetter implements IItemPropertyGetter {
+        //region Overrides
+        @OnlyIn(Dist.CLIENT)
+        @Override
+        public float call(ItemStack stack, @Nullable ClientWorld worldIn, @Nullable LivingEntity entityIn) {
+            return stack.getOrCreateTag().contains("entityData") ? 1.0f : 0.0f;
+        }
+    }
 }
