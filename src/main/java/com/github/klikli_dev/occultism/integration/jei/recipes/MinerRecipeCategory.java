@@ -28,6 +28,7 @@ import com.github.klikli_dev.occultism.crafting.recipe.CrushingRecipe;
 import com.github.klikli_dev.occultism.crafting.recipe.MinerRecipe;
 import com.github.klikli_dev.occultism.registry.OccultismRecipes;
 import com.github.klikli_dev.occultism.util.RecipeUtil;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
@@ -123,16 +124,16 @@ public class MinerRecipeCategory implements IRecipeCategory<MinerRecipe> {
     }
 
     @Override
-    public void draw(MinerRecipe recipe, double mouseX, double mouseY) {
+    public void draw(MinerRecipe recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
         RenderSystem.enableBlend();
-        this.overlay.draw(76, 14); //(center=84) - (width/16=8) = 76
+        this.overlay.draw(matrixStack, 76, 14); //(center=84) - (width/16=8) = 76
         String text = I18n.format(Occultism.MODID + ".jei.miner.chance", this.chances.get(recipe));
-        this.drawStringCentered(Minecraft.getInstance().fontRenderer, text, 84, 0);
+        this.drawStringCentered(matrixStack, Minecraft.getInstance().fontRenderer, text, 84, 0);
 
     }
 
-    protected void drawStringCentered(FontRenderer fontRenderer, String text, int x, int y) {
-        fontRenderer.drawString(text, (x - fontRenderer.getStringWidth(text) / 2.0f), y, 0);
+    protected void drawStringCentered(MatrixStack matrixStack, FontRenderer fontRenderer, String text, int x, int y) {
+        fontRenderer.drawString(matrixStack, text, (x - fontRenderer.getStringWidth(text) / 2.0f), y, 0);
     }
     //endregion Overrides
 }
