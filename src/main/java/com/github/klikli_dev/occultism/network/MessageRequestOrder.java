@@ -69,7 +69,7 @@ public class MessageRequestOrder extends MessageBase {
     public void onServerReceived(MinecraftServer minecraftServer, ServerPlayerEntity player,
                                  NetworkEvent.Context context) {
 
-        World world = minecraftServer.getWorld(this.storageControllerPosition.getDimensionType());
+        World world = minecraftServer.getWorld(this.storageControllerPosition.getDimensionKey());
         //prevent block loading by message
         if (!world.isBlockLoaded(this.storageControllerPosition.getPos()))
             return;
