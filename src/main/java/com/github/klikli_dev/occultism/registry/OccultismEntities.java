@@ -38,7 +38,7 @@ import static com.github.klikli_dev.occultism.util.StaticUtil.modLoc;
 
 public class OccultismEntities {
     //region Fields
-    public static final DeferredRegister<EntityType<?>> ENTITIES = new DeferredRegister<>(ForgeRegistries.ENTITIES,
+    public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITIES,
             Occultism.MODID);
 
     //TODO: remove once spawn eggs take a supplier.

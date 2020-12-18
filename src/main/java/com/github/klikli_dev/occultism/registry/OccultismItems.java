@@ -42,7 +42,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 public class OccultismItems {
 
     //region Fields
-    public static final DeferredRegister<Item> ITEMS = new DeferredRegister<>(ForgeRegistries.ITEMS, Occultism.MODID);
+    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Occultism.MODID);
 
     //Debug and placeholder items
     public static final RegistryObject<Item> PENTACLE = ITEMS.register("pentacle",

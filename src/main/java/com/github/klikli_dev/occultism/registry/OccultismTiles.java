@@ -25,13 +25,14 @@ package com.github.klikli_dev.occultism.registry;
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.tile.*;
 import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.util.registry.DynamicRegistries;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class OccultismTiles {
     //region Fields
-    public static final DeferredRegister<TileEntityType<?>> TILES = new DeferredRegister<>(
+    public static final DeferredRegister<TileEntityType<?>> TILES =  DeferredRegister.create(
             ForgeRegistries.TILE_ENTITIES, Occultism.MODID);
 
     public static final RegistryObject<TileEntityType<StorageControllerTileEntity>> STORAGE_CONTROLLER = TILES.register(

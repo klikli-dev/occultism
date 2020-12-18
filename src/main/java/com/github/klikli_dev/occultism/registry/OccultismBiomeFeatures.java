@@ -37,7 +37,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 public class OccultismBiomeFeatures {
     //region Fields
     public static final DeferredRegister<Feature<?>> FEATURES =
-            new DeferredRegister<>(ForgeRegistries.FEATURES, Occultism.MODID);
+            DeferredRegister.create(ForgeRegistries.FEATURES, Occultism.MODID);
 
     public static final RegistryObject<DimensionOreFeature> DIMENSION_ORE_FEATURE = FEATURES.register("dimension_ore",
             () -> new DimensionOreFeature(DimensionOreFeatureConfig::deserialize));

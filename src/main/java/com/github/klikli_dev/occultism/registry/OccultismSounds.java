@@ -32,7 +32,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 public class OccultismSounds {
 
     //region Fields
-    public static DeferredRegister<SoundEvent> SOUNDS = new DeferredRegister<>(ForgeRegistries.SOUND_EVENTS, Occultism.MODID);
+    public static DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, Occultism.MODID);
 
     public static final RegistryObject<SoundEvent> CHALK = SOUNDS.register("chalk", () -> loadSoundEvent("chalk"));
     public static final RegistryObject<SoundEvent> BRUSH = SOUNDS.register("brush", () -> loadSoundEvent("brush"));

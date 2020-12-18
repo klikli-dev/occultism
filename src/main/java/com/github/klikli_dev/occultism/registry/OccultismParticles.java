@@ -31,7 +31,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public class OccultismParticles {
 //region Fields
-    public static final DeferredRegister<ParticleType<?>> PARTICLES = new DeferredRegister<>(
+    public static final DeferredRegister<ParticleType<?>> PARTICLES = DeferredRegister.create(
             ForgeRegistries.PARTICLE_TYPES, Occultism.MODID);
 
     public static final RegistryObject<BasicParticleType> RITUAL_WAITING = PARTICLES.register(

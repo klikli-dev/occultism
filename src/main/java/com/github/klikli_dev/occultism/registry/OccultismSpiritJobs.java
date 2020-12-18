@@ -35,7 +35,7 @@ public class OccultismSpiritJobs {
     //region Fields
     public static IForgeRegistry<SpiritJobFactory> REGISTRY = RegistryManager.ACTIVE
                                                                       .getRegistry(SpiritJobFactory.class);
-    public static DeferredRegister<SpiritJobFactory> JOBS = new DeferredRegister<>(REGISTRY, Occultism.MODID);
+    public static DeferredRegister<SpiritJobFactory> JOBS = DeferredRegister.create(REGISTRY, Occultism.MODID);
 
     public static final RegistryObject<SpiritJobFactory> LUMBERJACK = JOBS.register("lumberjack",
             () -> new SpiritJobFactory(LumberjackJob::new));
