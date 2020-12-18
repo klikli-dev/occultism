@@ -58,7 +58,7 @@ public class UndergroundGroveDecorator extends CaveDecorator {
     //region Overrides
 
     @Override
-    public void finalFloorPass(IWorld world, ChunkGenerator<? extends GenerationSettings> generator, Random rand,
+    public void finalFloorPass(IWorld world, ChunkGenerator generator, Random rand,
                                BlockPos pos) {
         if (world.getBlockState(pos).getBlock() == Blocks.GRASS_BLOCK &&
             rand.nextFloat() < Occultism.CONFIG.worldGen.undergroundGroveGen.grassChance.get())
@@ -71,7 +71,7 @@ public class UndergroundGroveDecorator extends CaveDecorator {
     }
 
     @Override
-    public void finalCeilingPass(IWorld world, ChunkGenerator<? extends GenerationSettings> generator, Random rand,
+    public void finalCeilingPass(IWorld world, ChunkGenerator generator, Random rand,
                                  BlockPos pos) {
         if (rand.nextFloat() < Occultism.CONFIG.worldGen.undergroundGroveGen.ceilingLightChance.get()) {
             world.setBlockState(pos, Blocks.GLOWSTONE.getDefaultState(), 2);
@@ -80,7 +80,7 @@ public class UndergroundGroveDecorator extends CaveDecorator {
     }
 
     @Override
-    public void finalWallPass(IWorld world, ChunkGenerator<? extends GenerationSettings> generator, Random rand,
+    public void finalWallPass(IWorld world, ChunkGenerator generator, Random rand,
                               BlockPos pos) {
         for (Direction facing : Direction.Plane.HORIZONTAL) {
             BlockPos offset = pos.offset(facing);

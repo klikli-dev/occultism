@@ -25,15 +25,14 @@ package com.github.klikli_dev.occultism.common.world.cave;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.gen.ChunkGenerator;
-import net.minecraft.world.gen.GenerationSettings;
 
 import java.util.Random;
 
 public interface ICaveDecorator {
     //region Methods
-    void finalPass(IWorld world, ChunkGenerator<? extends GenerationSettings> generator, Random rand,
+    void finalPass(IWorld world, ChunkGenerator generator, Random rand,
                    CaveDecoratordata data);
 
-    void fill(IWorld world, ChunkGenerator<? extends GenerationSettings> generator, Random rand,
+    void fill(IWorld world, ChunkGenerator generator, Random rand,
               BlockPos pos, CaveDecoratordata data);
 }

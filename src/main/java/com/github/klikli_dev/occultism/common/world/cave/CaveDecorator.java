@@ -22,6 +22,7 @@
 
 package com.github.klikli_dev.occultism.common.world.cave;
 
+import com.github.klikli_dev.occultism.util.StaticUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.tags.BlockTags;
@@ -30,17 +31,14 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.gen.ChunkGenerator;
-import net.minecraft.world.gen.GenerationSettings;
 
 import java.util.Random;
 
 import static com.github.klikli_dev.occultism.util.StaticUtil.modLoc;
 
 public abstract class CaveDecorator implements ICaveDecorator {
-
     //region Fields
-    public static final ITag<Block> CAVE_WALL_BLOCKS = new BlockTags.Wrapper(modLoc("cave_wall_blocks"));
-
+    public static final ITag<Block> CAVE_WALL_BLOCKS = BlockTags.getCollection().get(modLoc("cave_wall_blocks"));
     public BlockState floorState;
     public BlockState ceilingState;
     public BlockState wallState;
@@ -57,7 +55,7 @@ public abstract class CaveDecorator implements ICaveDecorator {
 
     //region Overrides
     @Override
-    public void finalPass(IWorld world, ChunkGenerator<? extends GenerationSettings> generator, Random rand,
+    public void finalPass(IWorld world, ChunkGenerator generator, Random rand,
                           CaveDecoratordata data) {
         data.floorBlocks.forEach(blockPos -> this.finalFloorPass(world, generator, rand, blockPos));
         data.ceilingBlocks.forEach(blockPos -> this.finalCeilingPass(world, generator, rand, blockPos));
@@ -66,7 +64,7 @@ public abstract class CaveDecorator implements ICaveDecorator {
     }
 
     @Override
-    public void fill(IWorld world, ChunkGenerator<? extends GenerationSettings> generator, Random rand,
+    public void fill(IWorld world, ChunkGenerator generator, Random rand,
                      BlockPos pos, CaveDecoratordata data) {
         BlockState state = world.getBlockState(pos);
         if (state.getBlockHardness(world, pos) == -1 || world.canBlockSeeSky(pos))
@@ -92,43 +90,43 @@ public abstract class CaveDecorator implements ICaveDecorator {
     //endregion Overrides
 
     //region Methods
-    public void fillFloor(IWorld world, ChunkGenerator<? extends GenerationSettings> generator, Random rand,
+    public void fillFloor(IWorld world, ChunkGenerator generator, Random rand,
                           BlockPos pos, BlockState state) {
         if (this.floorState != null) {
             world.setBlockState(pos, this.floorState, 2);
         }
     }
 
-    public void fillCeiling(IWorld world, ChunkGenerator<? extends GenerationSettings> generator, Random rand,
+    public void fillCeiling(IWorld world, ChunkGenerator generator, Random rand,
                             BlockPos pos, BlockState state) {
         if (this.ceilingState != null)
             world.setBlockState(pos, this.ceilingState, 2);
     }
 
-    public void fillWall(IWorld world, ChunkGenerator<? extends GenerationSettings> generator, Random rand,
+    public void fillWall(IWorld world, ChunkGenerator generator, Random rand,
                          BlockPos pos, BlockState state) {
         if (this.wallState != null)
             world.setBlockState(pos, this.wallState, 2);
     }
 
-    public void fillInside(IWorld world, ChunkGenerator<? extends GenerationSettings> generator, Random rand,
+    public void fillInside(IWorld world, ChunkGenerator generator, Random rand,
                            BlockPos pos, BlockState state) {
         //world.setBlockState(pos, Blocks.AIR.getDefaultState(), 2);
     }
 
-    public void finalFloorPass(IWorld world, ChunkGenerator<? extends GenerationSettings> generator, Random rand,
+    public void finalFloorPass(IWorld world, ChunkGenerator generator, Random rand,
                                BlockPos pos) {
     }
 
-    public void finalCeilingPass(IWorld world, ChunkGenerator<? extends GenerationSettings> generator, Random rand,
+    public void finalCeilingPass(IWorld world, ChunkGenerator generator, Random rand,
                                  BlockPos pos) {
     }
 
-    public void finalWallPass(IWorld world, ChunkGenerator<? extends GenerationSettings> generator, Random rand,
+    public void finalWallPass(IWorld world, ChunkGenerator generator, Random rand,
                               BlockPos pos) {
     }
 
-    public void finalInsidePass(IWorld world, ChunkGenerator<? extends GenerationSettings> generator, Random rand,
+    public void finalInsidePass(IWorld world, ChunkGenerator generator, Random rand,
                                 BlockPos pos) {
     }
 

@@ -24,16 +24,17 @@ package com.github.klikli_dev.occultism.common.world.multichunk;
 
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IWorld;
+import net.minecraft.world.ISeedReader;
 import net.minecraft.world.gen.ChunkGenerator;
-import net.minecraft.world.gen.GenerationSettings;
 
 import java.util.Random;
 
-public interface IMultiChunkSubFeature<T extends MultiChunkFeatureConfig> {
+public interface IMultiChunkSubFeature {
 
     //region Methods
-    boolean place(IWorld world, ChunkGenerator<? extends GenerationSettings> generator, Random rand,
-                  BlockPos rootPosition, AxisAlignedBB bounds, T config);
+
+    boolean generate(ISeedReader reader, ChunkGenerator generator, Random rand, BlockPos rootPosition,
+                     AxisAlignedBB bounds,
+                     MultiChunkFeatureConfig config);
     //endregion Methods
 }
