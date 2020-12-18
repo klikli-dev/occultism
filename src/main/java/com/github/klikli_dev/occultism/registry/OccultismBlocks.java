@@ -34,6 +34,7 @@ import com.github.klikli_dev.occultism.common.world.tree.OtherworldNaturalTree;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
+import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
@@ -54,8 +55,8 @@ public class OccultismBlocks {
     public static final RegistryObject<SpiritFireBlock> SPIRIT_FIRE = register("spirit_fire",
             () -> new SpiritFireBlock(
                     Block.Properties.create(Material.FIRE, MaterialColor.TNT).doesNotBlockMovement().tickRandomly()
-                            .hardnessAndResistance(0, 0)
-                            .lightValue(12).sound(SoundType.CLOTH)), false,
+                            .hardnessAndResistance(0, 0).setLightLevel((state) -> 12)
+                            .sound(SoundType.CLOTH)), false,
             LootTableType.EMPTY);
 
     public static final Block.Properties GLYPH_PROPERTIES = Block.Properties.create(Material.MISCELLANEOUS)
@@ -83,20 +84,15 @@ public class OccultismBlocks {
                             Block.Properties.create(Material.ROCK).sound(SoundType.STONE).hardnessAndResistance(1.5f, 30)),
                     true, LootTableType.OTHERWORLD_BLOCK);
 
-    //TODO: Create properties like in Blocks class:
-    //        private static RotatedPillarBlock createLogBlock(MaterialColor topColor, MaterialColor barkColor) {
-    //            return new RotatedPillarBlock(AbstractBlock.Properties.create(Material.WOOD, (state) -> {
-    //                return state.get(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? topColor : barkColor;
-    //            }).hardnessAndResistance(2.0F).sound(SoundType.WOOD));
-    //        }
     public static final RegistryObject<Block> OTHERWORLD_LOG =
-            register("otherworld_log", () -> new LogBlock(MaterialColor.WOOD,
-                    Block.Properties.create(Material.WOOD, MaterialColor.OBSIDIAN).sound(SoundType.WOOD)
-                            .hardnessAndResistance(2.0f)));
+            register("otherworld_log", () ->   new RotatedPillarBlock(Block.Properties.create(Material.WOOD, (state) -> {
+                return state.get(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? MaterialColor.WOOD : MaterialColor.OBSIDIAN;
+            }).hardnessAndResistance(2.0F).sound(SoundType.WOOD).hardnessAndResistance(2.0f)));
+
     public static final RegistryObject<Block> OTHERWORLD_LOG_NATURAL =
-            register("otherworld_log_natural", () -> new OtherworldLogNaturalBlock(MaterialColor.WOOD,
-                    Block.Properties.create(Material.WOOD, MaterialColor.OBSIDIAN).sound(SoundType.WOOD)
-                            .hardnessAndResistance(2.0f)), true, LootTableType.OTHERWORLD_BLOCK);
+            register("otherworld_log_natural", () -> new OtherworldLogNaturalBlock(Block.Properties.create(Material.WOOD, (state) -> {
+                return state.get(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? MaterialColor.WOOD : MaterialColor.OBSIDIAN;
+            }).hardnessAndResistance(2.0f)), true, LootTableType.OTHERWORLD_BLOCK);
 
     public static final RegistryObject<LeavesBlock> OTHERWORLD_LEAVES =
             register("otherworld_leaves", () -> new LeavesBlock(
@@ -135,11 +131,11 @@ public class OccultismBlocks {
     //Decorative and Ritual Blocks
     public static final RegistryObject<CandleBlock> CANDLE_WHITE = register("candle_white", () -> new CandleBlock(
             Block.Properties.create(Material.MISCELLANEOUS).sound(SoundType.CLOTH).doesNotBlockMovement()
-                    .hardnessAndResistance(0.1f, 0).lightValue(12)));
+                    .hardnessAndResistance(0.1f, 0).setLightLevel((state) -> 12)));
     public static final RegistryObject<SpiritAttunedCrystalBlock> SPIRIT_ATTUNED_CRYSTAL =
             register("spirit_attuned_crystal", () -> new SpiritAttunedCrystalBlock(
                     Block.Properties.create(Material.ROCK).sound(SoundType.STONE).notSolid()
-                            .hardnessAndResistance(1.5f, 30).lightValue(8)));
+                            .hardnessAndResistance(1.5f, 30).setLightLevel((state) -> 8)));
 
     //Machines
     public static final RegistryObject<SacrificialBowlBlock> SACRIFICIAL_BOWL =
