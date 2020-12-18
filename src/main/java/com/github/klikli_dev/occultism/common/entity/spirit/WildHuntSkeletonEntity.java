@@ -25,6 +25,8 @@ package com.github.klikli_dev.occultism.common.entity.spirit;
 import com.github.klikli_dev.occultism.Occultism;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.ai.attributes.AttributeModifierMap;
+import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.monster.SkeletonEntity;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.tags.ITag;
@@ -54,16 +56,6 @@ public class WildHuntSkeletonEntity extends SkeletonEntity {
     //endregion Getter / Setter
 
     //region Overrides
-    //TODO: Register attributes when registering entity
-    //    @Override
-    //    protected void registerAttributes() {
-    //        super.registerAttributes();
-    //        //increased AD compared to normal skeleton
-    //        this.getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4.0D);
-    //        //increased health compared to normal skeleton
-    //        this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20.0D);
-    //    }
-
     @Override
     protected boolean isDespawnPeaceful() {
         return false;
@@ -97,4 +89,12 @@ public class WildHuntSkeletonEntity extends SkeletonEntity {
         return super.isInvulnerableTo(source);
     }
     //endregion Overrides
+
+    //region Static Methods
+    public static AttributeModifierMap.MutableAttribute registerAttributes() {
+        return SkeletonEntity.registerAttributes()
+                       .createMutableAttribute(Attributes.ATTACK_DAMAGE, 4.0)
+                       .createMutableAttribute(Attributes.MAX_HEALTH, 20.0);
+    }
+    //endregion Static Methods
 }

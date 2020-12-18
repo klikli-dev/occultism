@@ -23,6 +23,8 @@
 package com.github.klikli_dev.occultism.common.entity.spirit;
 
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.ai.attributes.AttributeModifierMap;
+import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.world.World;
 
 public class DjinniEntity extends SpiritEntity {
@@ -34,17 +36,15 @@ public class DjinniEntity extends SpiritEntity {
     }
     //endregion Initialization
 
-    //region Overrides
-    //TODO: Register attributes when registering entity
-    //    @Override
-    //    protected void registerAttributes() {
-    //        super.registerAttributes();
-    //        this.getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(3);
-    //        this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20);
-    //        this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.30000001192092896);
-    //        this.getAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(4.00);
-    //        this.getAttribute(SharedMonsterAttributes.ARMOR_TOUGHNESS).setBaseValue(5);
-    //        this.getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(50);
-    //    }
-    //endregion Overrides
+    //region Static Methods
+    public static AttributeModifierMap.MutableAttribute registerAttributes() {
+        return SpiritEntity.registerAttributes()
+                       .createMutableAttribute(Attributes.ATTACK_DAMAGE, 3.0)
+                       .createMutableAttribute(Attributes.MAX_HEALTH, 20.0)
+                       .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.30000001192092896)
+                       .createMutableAttribute(Attributes.ARMOR, 4.0)
+                       .createMutableAttribute(Attributes.ARMOR_TOUGHNESS, 5.0)
+                       .createMutableAttribute(Attributes.FOLLOW_RANGE, 50.0);
+    }
+    //endregion Static Methods
 }

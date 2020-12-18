@@ -141,6 +141,9 @@ public class Occultism {
                 pentacle.registerMultiblock(multiBlockId);
         });
 
+        //Register entity attributes on single thread
+        event.enqueueWork(OccultismEntities::registerEntityAttributes);
+
         LOGGER.info("Common setup complete.");
     }
 

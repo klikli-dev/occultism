@@ -23,6 +23,10 @@
 package com.github.klikli_dev.occultism.common.entity.spirit;
 
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.ai.attributes.AttributeModifierMap;
+import net.minecraft.entity.ai.attributes.Attributes;
+import net.minecraft.entity.monster.SkeletonEntity;
+import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.world.World;
 
 public class AfritEntity extends SpiritEntity {
@@ -30,22 +34,19 @@ public class AfritEntity extends SpiritEntity {
     //region Initialization
     public AfritEntity(EntityType<? extends SpiritEntity> type, World world) {
         super(type, world);
-        this.setSpiritMaxAge(60 * 60 * 24  * 3); //3 day default for afrit.
+        this.setSpiritMaxAge(60 * 60 * 24 * 3); //3 day default for afrit.
     }
     //endregion Initialization
 
-    //region Overrides
-    //TODO: Register attributes when registering entity
-//    @Override
-//    protected void registerAttributes() {
-//        super.registerAttributes();
-//        this.getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(8);
-//        this.getAttribute(SharedMonsterAttributes.ATTACK_SPEED).setBaseValue(8);
-//        this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(100);
-//        this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.40000001192092896);
-//        this.getAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(8.00);
-//        this.getAttribute(SharedMonsterAttributes.ARMOR_TOUGHNESS).setBaseValue(10);
-//        this.getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(50);
-//    }
-    //endregion Overrides
+    //region Static Methods
+    public static AttributeModifierMap.MutableAttribute registerAttributes() {
+        return SpiritEntity.registerAttributes()
+                       .createMutableAttribute(Attributes.ATTACK_DAMAGE, 8.0)
+                       .createMutableAttribute(Attributes.ATTACK_SPEED, 8.0)
+                       .createMutableAttribute(Attributes.MAX_HEALTH, 100.0)
+                       .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.40000001192092896)
+                       .createMutableAttribute(Attributes.ARMOR, 8.0)
+                       .createMutableAttribute(Attributes.ARMOR_TOUGHNESS, 50.0);
+    }
+    //endregion Static Methods
 }

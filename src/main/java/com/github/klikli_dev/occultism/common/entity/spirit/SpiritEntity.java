@@ -30,6 +30,7 @@ import com.github.klikli_dev.occultism.common.job.SpiritJob;
 import com.github.klikli_dev.occultism.exceptions.ItemHandlerMissingException;
 import com.github.klikli_dev.occultism.registry.OccultismSounds;
 import net.minecraft.entity.*;
+import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.passive.TameableEntity;
@@ -317,20 +318,6 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
         }
     }
 
-    //TODO: Register attributes when registering entity
-    //    @Override
-    //    protected void registerAttributes() {
-    //        super.registerAttributes();
-    //
-    //        //GlobalEntityTypeAttributes.put() -> somewhere when registering mob I suppose
-    //        this.getAttributes().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(1.0);
-    //        this.getAttributes().registerAttribute(SharedMonsterAttributes.ATTACK_SPEED).setBaseValue(4.0);
-    //
-    //        //set existing attributes
-    //        this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.30000001192092896D);
-    //        this.getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(50);
-    //    }
-
     @Override
     public void setItemStackToSlot(EquipmentSlotType slotIn, ItemStack stack) {
         switch (slotIn) {
@@ -500,6 +487,16 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
         return super.applyPlayerInteraction(player, vec, hand);
     }
     //endregion Overrides
+
+    //region Static Methods
+    public static AttributeModifierMap.MutableAttribute registerAttributes() {
+        return TameableEntity.registerAttributes()
+                       .createMutableAttribute(Attributes.ATTACK_DAMAGE, 1.0)
+                       .createMutableAttribute(Attributes.ATTACK_SPEED, 4.0)
+                       .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.30000001192092896)
+                       .createMutableAttribute(Attributes.FOLLOW_RANGE, 50.0);
+    }
+    //endregion Static Methods
 
     //region Methods
 

@@ -25,7 +25,13 @@ package com.github.klikli_dev.occultism.common.entity.spirit;
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.util.TextUtil;
-import net.minecraft.entity.*;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.ILivingEntityData;
+import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.ai.attributes.AttributeModifierMap;
+import net.minecraft.entity.ai.attributes.Attributes;
+import net.minecraft.entity.monster.SkeletonEntity;
 import net.minecraft.entity.monster.WitherSkeletonEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tags.EntityTypeTags;
@@ -35,7 +41,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IServerWorld;
-import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
@@ -78,16 +83,6 @@ public class WildHuntWitherSkeletonEntity extends WitherSkeletonEntity {
         return super.onInitialSpawn(world, difficultyIn, reason, spawnDataIn, dataTag);
     }
 
-    //TODO: Register attributes when registering entity
-//    @Override
-//    protected void registerAttributes() {
-//        super.registerAttributes();
-//        //increased AD compared to normal skeleton
-//        this.getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(6.0D);
-//        //increased health compared to normal skeleton
-//        this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(60.0D);
-//    }
-
     @Override
     protected boolean isDespawnPeaceful() {
         return false;
@@ -118,6 +113,14 @@ public class WildHuntWitherSkeletonEntity extends WitherSkeletonEntity {
         return !this.minions.isEmpty() || super.isInvulnerable();
     }
     //endregion Overrides
+
+    //region Static Methods
+    public static AttributeModifierMap.MutableAttribute registerAttributes() {
+        return SkeletonEntity.registerAttributes()
+                       .createMutableAttribute(Attributes.ATTACK_DAMAGE, 6.0)
+                       .createMutableAttribute(Attributes.MAX_HEALTH, 60.0);
+    }
+    //endregion Static Methods
 
     //region Methods
     public void notifyMinionDeath(WildHuntSkeletonEntity minion) {

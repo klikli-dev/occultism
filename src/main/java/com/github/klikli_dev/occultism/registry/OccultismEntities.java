@@ -28,6 +28,8 @@ import com.github.klikli_dev.occultism.common.entity.possessed.*;
 import com.github.klikli_dev.occultism.common.entity.spirit.*;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraft.entity.passive.ParrotEntity;
 import net.minecraftforge.common.util.NonNullLazy;
 import net.minecraftforge.fml.RegistryObject;
@@ -102,4 +104,17 @@ public class OccultismEntities {
     public static final RegistryObject<EntityType<OtherworldBirdEntity>> OTHERWORLD_BIRD =
             ENTITIES.register("otherworld_bird", OTHERWORLD_BIRD_TYPE::get);
     //endregion Fields
+
+    public static void registerEntityAttributes(){
+        GlobalEntityTypeAttributes.put(FOLIOT_TYPE.get(), FoliotEntity.registerAttributes().create());
+        GlobalEntityTypeAttributes.put(DJINNI_TYPE.get(), DjinniEntity.registerAttributes().create());
+        GlobalEntityTypeAttributes.put(AFRIT_TYPE.get(), AfritEntity.registerAttributes().create());
+        GlobalEntityTypeAttributes.put(AFRIT_WILD_TYPE.get(), AfritWildEntity.registerAttributes().create());
+        GlobalEntityTypeAttributes.put(POSSESSED_ENDERMITE_TYPE.get(), PossessedEndermiteEntity.registerAttributes().create());
+        GlobalEntityTypeAttributes.put(POSSESSED_SKELETON_TYPE.get(), PossessedSkeletonEntity.registerAttributes().create());
+        GlobalEntityTypeAttributes.put(POSSESSED_ENDERMAN_TYPE.get(), PossessedEndermanEntity.registerAttributes().create());
+        GlobalEntityTypeAttributes.put(WILD_HUNT_SKELETON_TYPE.get(), WildHuntSkeletonEntity.registerAttributes().create());
+        GlobalEntityTypeAttributes.put(WILD_HUNT_WITHER_SKELETON_TYPE.get(), WildHuntWitherSkeletonEntity.registerAttributes().create());
+        GlobalEntityTypeAttributes.put(OTHERWORLD_BIRD_TYPE.get(), OtherworldBirdEntity.registerAttributes().create());
+    }
 }
