@@ -24,16 +24,19 @@ package com.github.klikli_dev.occultism.handlers;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.registry.OccultismCommands;
+import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 
 @Mod.EventBusSubscriber(modid = Occultism.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class ForgeEventHandler {
+
     //region Static Methods
+
     @SubscribeEvent
-    public static void onServerStarting(FMLServerStartingEvent event) {
-        OccultismCommands.register(event.getCommandDispatcher());
+    public static void registerCommands(RegisterCommandsEvent event) {
+        OccultismCommands.register(event.getDispatcher());
     }
     //endregion Static Methods
 }
