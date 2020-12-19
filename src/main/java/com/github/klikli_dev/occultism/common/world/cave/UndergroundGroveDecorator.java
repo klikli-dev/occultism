@@ -23,7 +23,6 @@
 package com.github.klikli_dev.occultism.common.world.cave;
 
 import com.github.klikli_dev.occultism.Occultism;
-import com.github.klikli_dev.occultism.common.world.tree.OtherworldNaturalTree;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -32,20 +31,15 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.gen.ChunkGenerator;
-import net.minecraft.world.gen.GenerationSettings;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
-import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.TreeFeatureConfig;
-import net.minecraftforge.common.util.NonNullLazy;
 
 import java.util.Random;
 
 public class UndergroundGroveDecorator extends CaveDecorator {
 
     //region Fields
-    protected final NonNullLazy<ConfiguredFeature<TreeFeatureConfig, ?>> treeFeature =
-            NonNullLazy.of(() -> Feature.NORMAL_TREE.withConfiguration(
-                    OtherworldNaturalTree.OTHERWORLD_TREE_NATURAL_CONFIG.get()));
+//    protected final NonNullLazy<ConfiguredFeature<TreeFeatureConfig, ?>> treeFeature =
+    //            NonNullLazy.of(() -> Feature.NORMAL_TREE.withConfiguration(
+    //                    OtherworldNaturalTree.OTHERWORLD_TREE_NATURAL_CONFIG.get()));
     //endregion Fields
 
     //region Initialization
@@ -65,8 +59,9 @@ public class UndergroundGroveDecorator extends CaveDecorator {
             world.setBlockState(pos.up(), Blocks.GRASS.getDefaultState(), 2);
 
         if (rand.nextFloat() < Occultism.CONFIG.worldGen.undergroundGroveGen.treeChance.get()) {
-            this.treeFeature.get().config.forcePlacement();
-            this.treeFeature.get().place(world, generator, rand, pos.up());
+            //TODO: Place trees as intended in 1.16 - maybe load configured tree feature from registry
+//            this.treeFeature.get().config.forcePlacement();
+//            this.treeFeature.get().place(world, generator, rand, pos.up());
         }
     }
 

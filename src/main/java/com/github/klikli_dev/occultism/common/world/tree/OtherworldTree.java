@@ -26,9 +26,9 @@ import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.trees.Tree;
 import net.minecraft.world.gen.blockstateprovider.SimpleBlockStateProvider;
+import net.minecraft.world.gen.feature.BaseTreeFeatureConfig;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.TreeFeatureConfig;
 import net.minecraft.world.gen.foliageplacer.BlobFoliagePlacer;
 import net.minecraftforge.common.util.NonNullLazy;
 
@@ -41,14 +41,15 @@ public class OtherworldTree extends Tree {
             NonNullLazy.of(() -> OccultismBlocks.OTHERWORLD_LOG.get().getDefaultState());
     protected static final NonNullLazy<BlockState> OTHERWORLD_LEAVES =
             NonNullLazy.of(() -> OccultismBlocks.OTHERWORLD_LEAVES.get().getDefaultState());
-    public static final NonNullLazy<TreeFeatureConfig> OTHERWORLD_TREE_CONFIG =
-            NonNullLazy.of(() -> new TreeFeatureConfig.Builder(
-                    new SimpleBlockStateProvider(OTHERWORLD_LOG.get()),
-                    new SimpleBlockStateProvider(OTHERWORLD_LEAVES.get()),
-                    new BlobFoliagePlacer(2, 0))
-                                         .baseHeight(4).heightRandA(2).foliageHeight(3).ignoreVines()
-                                         .setSapling(OccultismBlocks.OTHERWORLD_SAPLING.get())
-                                         .build());
+    //TODO: update tree placement to 1.16
+//    public static final NonNullLazy<TreeFeatureConfig> OTHERWORLD_TREE_CONFIG =
+//            NonNullLazy.of(() -> new TreeFeatureConfig.Builder(
+//                    new SimpleBlockStateProvider(OTHERWORLD_LOG.get()),
+//                    new SimpleBlockStateProvider(OTHERWORLD_LEAVES.get()),
+//                    new BlobFoliagePlacer(2, 0))
+//                                         .baseHeight(4).heightRandA(2).foliageHeight(3).ignoreVines()
+//                                         .setSapling(OccultismBlocks.OTHERWORLD_SAPLING.get())
+//                                         .build());
     //endregion Fields
 
     //region Initialization
@@ -58,8 +59,10 @@ public class OtherworldTree extends Tree {
 
     //region Overrides
     @Nullable
-    protected ConfiguredFeature<TreeFeatureConfig, ?> getTreeFeature(Random rand, boolean moreBeehives) {
-        return Feature.NORMAL_TREE.withConfiguration(OTHERWORLD_TREE_CONFIG.get());
+    protected ConfiguredFeature<BaseTreeFeatureConfig, ?> getTreeFeature(Random rand, boolean moreBeehives) {
+        //return Feature.NORMAL_TREE.withConfiguration(OTHERWORLD_TREE_CONFIG.get());
+        //TODO: return proper tree configs
+        return null;
     }
     //endregion Overrides
 }
