@@ -190,11 +190,6 @@ public class OccultismConfig extends ConfigBase {
 
         public class UndergroundGroveGenSettings extends ConfigCategoryBase {
             //region Fields
-            public CachedObject<List<String>> dimensionTypeWhitelist;
-            public CachedObject<List<String>> validBiomes;
-            public CachedInt groveSpawnChance;
-            public CachedInt groveSpawnMin;
-            public CachedInt groveSpawnMax;
             public CachedFloat grassChance;
             public CachedFloat treeChance;
             public CachedFloat vineChance;
@@ -205,29 +200,6 @@ public class OccultismConfig extends ConfigBase {
             public UndergroundGroveGenSettings(IConfigCache parent, ForgeConfigSpec.Builder builder) {
                 super(parent, builder);
                 builder.comment("Underground Grove Settings").push("underground_grove");
-
-                this.dimensionTypeWhitelist = CachedObject.cache(this,
-                        builder.comment("The dimensions whitelisted for underground grove generation.")
-                                .define("dimensionWhitelist", Stream.of("overworld").collect(Collectors.toList())));
-                List<String> defaultValidBiomes = Arrays.stream(
-                        new BiomeDictionary.Type[]{BiomeDictionary.Type.JUNGLE, BiomeDictionary.Type.LUSH, BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.CONIFEROUS, BiomeDictionary.Type.MAGICAL})
-                                                          .map(BiomeDictionary.Type::getName)
-                                                          .collect(Collectors.toList());
-                this.validBiomes = CachedObject.cache(this,
-                        builder.comment("The biome types to spawn underground groves in.")
-                                .define("validBiomes", defaultValidBiomes));
-                this.groveSpawnChance = CachedInt.cache(this,
-                        builder.comment(
-                                "The chance for a grove to spawn in a chunk (generates 1/groveSpawnChance chunks on average).")
-                                .define("groveSpawnChance", 400));
-                this.groveSpawnMin = CachedInt.cache(this,
-                        builder.comment(
-                                "The min height for a grove to spawn (applied to the center of the grove, not the floor).")
-                                .define("groveSpawnMin", 25));
-                this.groveSpawnMax = CachedInt.cache(this,
-                        builder.comment(
-                                "The max height for a grove to spawn (applied to the center of the grove, not the ceiling).")
-                                .define("groveSpawnMax", 60));
 
                 this.grassChance = CachedFloat.cache(this,
                         builder.comment("The chance grass will spawn in the underground grove.")

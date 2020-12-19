@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:decorated",
+  "config": {
+    "feature": {
+      "type": "occultism:underground_grove",
+      "config": {
+        "max_chunks_to_root": 7,
+        "chance_to_generate" : 400,
+        "min_generation_height": 25,
+        "max_generation_height": 60,
+        "feature_seed_salt": 14653667
+      }
+    },
+    "decorator": {
+      "type": "nope",
+      "config": {
+      }
+    }
+  }
+}
