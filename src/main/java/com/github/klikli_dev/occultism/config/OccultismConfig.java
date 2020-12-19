@@ -193,10 +193,10 @@ public class OccultismConfig extends ConfigBase {
         public class OreGenSettings extends ConfigCategoryBase {
             //region Fields
 
-            public final OreSettings otherstoneNatural;
-            public final OreSettings copperOre;
-            public final OreSettings silverOre;
-            public final OreSettings iesniumOre;
+//            public final OreSettings otherstoneNatural;
+//            public final OreSettings copperOre;
+//            public final OreSettings silverOre;
+//            public final OreSettings iesniumOre;
 
             //endregion Fields
 
@@ -206,22 +206,22 @@ public class OccultismConfig extends ConfigBase {
                 builder.comment("Ore Gen Settings").push("oregen");
                 List<String> overworld = Stream.of("overworld").collect(Collectors.toList());
                 List<String> nether = Stream.of("the_nether").collect(Collectors.toList());
-
-                this.otherstoneNatural =
-                        new OreSettings("otherstoneNatural", overworld, OreFeatureConfig.FillerBlockType.NATURAL_STONE,
-                                7,
-                                5, 10, 80, this, builder);
-
-                this.copperOre =
-                        new OreSettings("copperOre", overworld, OreFeatureConfig.FillerBlockType.NATURAL_STONE, 9,
-                                20, 20, 64, this, builder);
-                this.silverOre =
-                        new OreSettings("silverOre", overworld, OreFeatureConfig.FillerBlockType.NATURAL_STONE, 7,
-                                5, 0, 30, this, builder);
-
-                this.iesniumOre =
-                        new OreSettings("iesniumOre", nether, OreFeatureConfig.FillerBlockType.NETHERRACK, 3,
-                                10, 10, 128, this, builder);
+//
+//                this.otherstoneNatural =
+//                        new OreSettings("otherstoneNatural", overworld, OreFeatureConfig.FillerBlockType.NATURAL_STONE,
+//                                7,
+//                                5, 10, 80, this, builder);
+//
+//                this.copperOre =
+//                        new OreSettings("copperOre", overworld, OreFeatureConfig.FillerBlockType.NATURAL_STONE, 9,
+//                                20, 20, 64, this, builder);
+//                this.silverOre =
+//                        new OreSettings("silverOre", overworld, OreFeatureConfig.FillerBlockType.NATURAL_STONE, 7,
+//                                5, 0, 30, this, builder);
+//
+//                this.iesniumOre =
+//                        new OreSettings("iesniumOre", nether, OreFeatureConfig.FillerBlockType.NETHERRACK, 3,
+//                                10, 10, 128, this, builder);
                 builder.pop();
             }
             //endregion Initialization
@@ -251,7 +251,7 @@ public class OccultismConfig extends ConfigBase {
                                     .define("dimensionWhitelist", dimensionTypes));
                     this.fillerBlockType = CachedObject.cache(this,
                             builder.comment("The type of block this ore will spawn in.")
-                                    .define("fillerBlockType", fillerBlockType.getName()));
+                                    .define("fillerBlockType", ""));
                     this.oreSize = CachedInt.cache(this,
                             builder.comment("The size of veins for this ore.")
                                     .defineInRange("oreSize", size, 0, Byte.MAX_VALUE));

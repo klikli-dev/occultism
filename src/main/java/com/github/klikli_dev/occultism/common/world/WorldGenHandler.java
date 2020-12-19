@@ -23,26 +23,21 @@
 package com.github.klikli_dev.occultism.common.world;
 
 import com.github.klikli_dev.occultism.Occultism;
-import com.github.klikli_dev.occultism.common.world.multichunk.MultiChunkFeatureConfig;
-import com.github.klikli_dev.occultism.common.world.ore.DimensionOreFeatureConfig;
-import com.github.klikli_dev.occultism.config.OccultismConfig;
-import com.github.klikli_dev.occultism.registry.OccultismBiomeFeatures;
-import com.github.klikli_dev.occultism.registry.OccultismBlocks;
-import com.github.klikli_dev.occultism.util.BiomeUtil;
-import net.minecraft.block.BlockState;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.DimensionType;
-import net.minecraft.world.biome.Biome;
+import net.minecraft.util.registry.WorldGenRegistries;
 import net.minecraft.world.gen.GenerationStage;
-import net.minecraft.world.gen.feature.OreFeatureConfig;
-import net.minecraft.world.gen.placement.CountRangeConfig;
-import net.minecraft.world.gen.placement.Placement;
+import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraftforge.common.BiomeDictionary;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.event.world.BiomeLoadingEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static com.github.klikli_dev.occultism.util.StaticUtil.modLoc;
+
+@Mod.EventBusSubscriber(modid = Occultism.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class WorldGenHandler {
 
     //region Fields
@@ -51,69 +46,67 @@ public class WorldGenHandler {
                     .map(s -> BiomeDictionary.Type.getType(s))
                     .collect(Collectors.toList());
 
-    protected static final List<DimensionType> UNDERGROUND_GROVE_DIMENSIONS =
-            Occultism.CONFIG.worldGen.undergroundGroveGen.dimensionTypeWhitelist.get().stream()
-                    .map(s -> DimensionType.byName(new ResourceLocation(s))).collect(
-                    Collectors.toList());
     //endregion Fields
 
     //region Static Methods
-    public static void setupOreGeneration() {
-        for (Biome biome : ForgeRegistries.BIOMES) {
-            addOreFeature(biome,
-                    OccultismBlocks.OTHERSTONE_NATURAL.get().getDefaultState(),
-                    Occultism.CONFIG.worldGen.oreGen.otherstoneNatural);
+    //    public static void setupOreGeneration() {
+    //        for (Biome biome : ForgeRegistries.BIOMES) {
+    //            addOreFeature(biome,
+    //                    OccultismBlocks.OTHERSTONE_NATURAL.get().getDefaultState(),
+    //                    Occultism.CONFIG.worldGen.oreGen.otherstoneNatural);
+    //
+    //            addOreFeature(biome,
+    //                    OccultismBlocks.COPPER_ORE.get().getDefaultState(),
+    //                    Occultism.CONFIG.worldGen.oreGen.copperOre);
+    //
+    //            addOreFeature(biome,
+    //                    OccultismBlocks.SILVER_ORE.get().getDefaultState(),
+    //                    Occultism.CONFIG.worldGen.oreGen.silverOre);
+    //
+    //            addOreFeature(biome,
+    //                    OccultismBlocks.IESNIUM_ORE_NATURAL.get().getDefaultState(),
+    //                    Occultism.CONFIG.worldGen.oreGen.iesniumOre);
+    //        }
+    //    }
 
-            addOreFeature(biome,
-                    OccultismBlocks.COPPER_ORE.get().getDefaultState(),
-                    Occultism.CONFIG.worldGen.oreGen.copperOre);
-
-            addOreFeature(biome,
-                    OccultismBlocks.SILVER_ORE.get().getDefaultState(),
-                    Occultism.CONFIG.worldGen.oreGen.silverOre);
-
-            addOreFeature(biome,
-                    OccultismBlocks.IESNIUM_ORE_NATURAL.get().getDefaultState(),
-                    Occultism.CONFIG.worldGen.oreGen.iesniumOre);
-        }
-    }
-
-    public static void addOreFeature(Biome biome, BlockState blockState,
-                                     OccultismConfig.WorldGenSettings.OreGenSettings.OreSettings settings) {
-
-        List<DimensionType> dimensionWhitelist = settings.dimensionTypeWhitelist.get().stream()
-                                                         .map(s -> DimensionType.byName(new ResourceLocation(s)))
-                                                         .collect(Collectors.toList());
-
-        if (settings.oreChance.get() > 0) {
-            OreFeatureConfig.FillerBlockType fillerBlockType =
-                    OreFeatureConfig.FillerBlockType.byName(settings.fillerBlockType.get());
-            biome.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES,
-                    OccultismBiomeFeatures.DIMENSION_ORE_FEATURE.get()
-                            .withConfiguration(new DimensionOreFeatureConfig(dimensionWhitelist,
-                                    fillerBlockType, blockState, settings.oreSize.get()))
-                            .withPlacement(Placement.COUNT_RANGE.configure(
-                                    new CountRangeConfig(settings.oreChance.get(), settings.oreMin.get(),
-                                            0, settings.oreMax.get()))));
-        }
-    }
-
-    public static void setupUndergroundGroveGeneration() {
-        for (Biome biome : ForgeRegistries.BIOMES) {
-            if (BiomeUtil.containsType(biome, UNDERGROUND_GROVE_BIOMES)) {
-                biome.addFeature(GenerationStage.Decoration.UNDERGROUND_STRUCTURES,
-                        OccultismBiomeFeatures.UNDERGROUND_GROVE_FEATURE.get()
-                                .withConfiguration(new MultiChunkFeatureConfig(7,
-                                        Occultism.CONFIG.worldGen.undergroundGroveGen.groveSpawnChance.get(),
-                                        Occultism.CONFIG.worldGen.undergroundGroveGen.groveSpawnMin.get(),
-                                        Occultism.CONFIG.worldGen.undergroundGroveGen.groveSpawnMax.get(),
-                                        14653667, UNDERGROUND_GROVE_DIMENSIONS)));
-            }
-        }
+    //    public static void setupUndergroundGroveGeneration() {
+    //        for (Map.Entry<RegistryKey<Biome>, Biome> biome : ForgeRegistries.BIOMES.getEntries()) {
+    //            if (BiomeUtil.containsType(biome.getKey(), UNDERGROUND_GROVE_BIOMES)) {
+    //                biome.getValue().addFeature(GenerationStage.Decoration.UNDERGROUND_STRUCTURES,
+    //                        OccultismBiomeFeatures.UNDERGROUND_GROVE_FEATURE.get()
+    //                                .withConfiguration(new MultiChunkFeatureConfig(7,
+    //                                        Occultism.CONFIG.worldGen.undergroundGroveGen.groveSpawnChance.get(),
+    //                                        Occultism.CONFIG.worldGen.undergroundGroveGen.groveSpawnMin.get(),
+    //                                        Occultism.CONFIG.worldGen.undergroundGroveGen.groveSpawnMax.get(),
+    //                                        14653667, UNDERGROUND_GROVE_DIMENSIONS)));
+    //            }
+    //        }
+    //    }
+    @SubscribeEvent
+    public static void onBiomeLoading(BiomeLoadingEvent event) {
+        //TODO: figure out if we can just get the registered feaeture from the registry or if we need to register it manually
+        Optional<ConfiguredFeature<?, ?>> oreCopper =
+                WorldGenRegistries.CONFIGURED_FEATURE.getOptional(modLoc("ore_copper"));
+        //TODO: use blacklists for ores for biomes?
+        if (oreCopper.isPresent())
+            event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, oreCopper.get());
+        //TODO: register other ores
+        //TODO: register grove generation
+        //TODO: use whitelist/blacklist for underground groves?
     }
     //endregion Static Methods
-
     //region Methods
-    //endregion Methods
+    //public static ConfiguredFeature<?,?> ORE_COPPER;
 
+    //TODO: Figure out if we need to do this
+    //    public static void registerConfiguredFeatures() {
+    //        ORE_COPPER = Feature.ORE
+    //                             .withConfiguration(new OreFeatureConfig(
+    //                                     OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD,
+    //                                     OccultismBlocks.COPPER_ORE.get().getDefaultState(), 9))
+    //                             .withPlacement(Placement.RANGE.configure(new TopSolidRangeConfig(10, 0, 64)))
+    //                             .func_242731_b(20); //count decorator
+    //        Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, modLoc("ore_copper"), ORE_COPPER);
+    //    }
+    //endregion Methods
 }
