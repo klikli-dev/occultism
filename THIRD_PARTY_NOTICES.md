@@ -147,6 +147,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ## Third Party Assets
 All resources not explicitly listed below are available under the terms of the license of this project, see [LICENSE](./LICENSE).
 
+Large parts of the textures have been created by [ridanisaurus](https://www.curseforge.com/members/ridanisaurus/followers).
+
 ### Images
 - Various icons from https://shikashiassets.itch.io/shikashis-fantasy-icons-pack (CC BY 3.0)
 - Book by Lorc https://game-icons.net/1x1/lorc/book-cover.html (CC BY 3.0)
