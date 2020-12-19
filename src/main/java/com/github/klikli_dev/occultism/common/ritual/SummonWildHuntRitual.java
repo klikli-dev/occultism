@@ -26,6 +26,7 @@ import com.github.klikli_dev.occultism.common.entity.spirit.WildHuntWitherSkelet
 import com.github.klikli_dev.occultism.common.tile.GoldenSacrificialBowlTileEntity;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.registry.OccultismRituals;
+import com.github.klikli_dev.occultism.registry.OccultismTags;
 import com.github.klikli_dev.occultism.util.TextUtil;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.SpawnReason;
@@ -53,8 +54,7 @@ public class SummonWildHuntRitual extends SummonSpiritRitual {
                 Ingredient.fromItems(Blocks.SKELETON_SKULL),
                 "summon_wild_hunt", 30);
         this.sacrificePredicate = (entity) -> entity instanceof PlayerEntity ||
-                                              EntityTypeTags.getCollection().get(villagerTag)
-                                                      .contains(entity.getType());
+                                              OccultismTags.VILLAGERS.contains(entity.getType());
     }
     //endregion Initialization
 

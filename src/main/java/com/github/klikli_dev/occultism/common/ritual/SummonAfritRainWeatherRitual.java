@@ -26,10 +26,7 @@ import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.github.klikli_dev.occultism.common.job.SpiritJob;
 import com.github.klikli_dev.occultism.common.tile.GoldenSacrificialBowlTileEntity;
-import com.github.klikli_dev.occultism.registry.OccultismEntities;
-import com.github.klikli_dev.occultism.registry.OccultismItems;
-import com.github.klikli_dev.occultism.registry.OccultismRituals;
-import com.github.klikli_dev.occultism.registry.OccultismSpiritJobs;
+import com.github.klikli_dev.occultism.registry.*;
 import com.github.klikli_dev.occultism.util.ItemNBTUtil;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -42,9 +39,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
 public class SummonAfritRainWeatherRitual extends SummonSpiritRitual {
-    //region Fields
-    public static final ResourceLocation cowTag = new ResourceLocation("forge", "cows");
-    //endregion Fields
 
     //region Initialization
     public SummonAfritRainWeatherRitual() {
@@ -53,7 +47,7 @@ public class SummonAfritRainWeatherRitual extends SummonSpiritRitual {
                 Ingredient.fromItems(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()),
                 "summon_afrit_rain_weather", 60);
         this.sacrificePredicate =
-                (entity) -> EntityTypeTags.getCollection().get(cowTag).contains(entity.getType());
+                (entity) -> OccultismTags.COWS.contains(entity.getType());
     }
     //endregion Initialization
 

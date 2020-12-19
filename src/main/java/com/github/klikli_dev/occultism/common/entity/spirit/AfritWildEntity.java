@@ -23,6 +23,7 @@
 package com.github.klikli_dev.occultism.common.entity.spirit;
 
 import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.registry.OccultismTags;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ILivingEntityData;
@@ -42,9 +43,6 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 
 public class AfritWildEntity extends AfritEntity {
-    //region Fields
-    public static final ResourceLocation afritAlliesTag = new ResourceLocation(Occultism.MODID, "afrit_allies");
-    //endregion Fields
 
     //region Initialization
     public AfritWildEntity(EntityType<? extends SpiritEntity> type, World world) {
@@ -89,7 +87,7 @@ public class AfritWildEntity extends AfritEntity {
     public boolean isInvulnerableTo(DamageSource source) {
         if (source.isFireDamage())
             return true;
-        ITag<EntityType<?>> alliesTags = EntityTypeTags.getCollection().get(afritAlliesTag);
+        ITag<EntityType<?>> alliesTags = OccultismTags.AFRIT_ALLIES;
 
         Entity trueSource = source.getTrueSource();
         if (trueSource != null && alliesTags.contains(trueSource.getType()))

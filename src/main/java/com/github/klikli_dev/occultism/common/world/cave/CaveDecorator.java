@@ -22,11 +22,8 @@
 
 package com.github.klikli_dev.occultism.common.world.cave;
 
-import com.github.klikli_dev.occultism.util.StaticUtil;
-import net.minecraft.block.Block;
+import com.github.klikli_dev.occultism.registry.OccultismTags;
 import net.minecraft.block.BlockState;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.ITag;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
@@ -34,11 +31,8 @@ import net.minecraft.world.gen.ChunkGenerator;
 
 import java.util.Random;
 
-import static com.github.klikli_dev.occultism.util.StaticUtil.modLoc;
-
 public abstract class CaveDecorator implements ICaveDecorator {
     //region Fields
-    public static final ITag<Block> CAVE_WALL_BLOCKS = BlockTags.getCollection().get(modLoc("cave_wall_blocks"));
     public BlockState floorState;
     public BlockState ceilingState;
     public BlockState wallState;
@@ -176,7 +170,7 @@ public abstract class CaveDecorator implements ICaveDecorator {
 
     public boolean isStone(BlockState state) {
         if (state != null) {
-            return state.getBlock().isIn(CAVE_WALL_BLOCKS);
+            return state.getBlock().isIn(OccultismTags.CAVE_WALL_BLOCKS);
         }
         return false;
     }

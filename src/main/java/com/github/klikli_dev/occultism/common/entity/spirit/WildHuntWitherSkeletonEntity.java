@@ -24,6 +24,7 @@ package com.github.klikli_dev.occultism.common.entity.spirit;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
+import com.github.klikli_dev.occultism.registry.OccultismTags;
 import com.github.klikli_dev.occultism.util.TextUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -49,8 +50,6 @@ import java.util.List;
 
 public class WildHuntWitherSkeletonEntity extends WitherSkeletonEntity {
     //region Fields
-    public static final ResourceLocation wildHuntTag = new ResourceLocation(Occultism.MODID, "wild_hunt");
-
     List<WildHuntSkeletonEntity> minions = new ArrayList<>();
     //endregion Fields
 
@@ -95,14 +94,14 @@ public class WildHuntWitherSkeletonEntity extends WitherSkeletonEntity {
 
     @Override
     public boolean isInvulnerableTo(DamageSource source) {
-        ITag<EntityType<?>> wildHuntTags = EntityTypeTags.getCollection().get(wildHuntTag);
+        ITag<EntityType<?>> wildHuntTag = OccultismTags.WILD_HUNT;
 
         Entity trueSource = source.getTrueSource();
-        if (trueSource != null && wildHuntTags.contains(trueSource.getType()))
+        if (trueSource != null && wildHuntTag.contains(trueSource.getType()))
             return true;
 
         Entity immediateSource = source.getImmediateSource();
-        if (immediateSource != null && wildHuntTags.contains(immediateSource.getType()))
+        if (immediateSource != null && wildHuntTag.contains(immediateSource.getType()))
             return true;
 
         return super.isInvulnerableTo(source);

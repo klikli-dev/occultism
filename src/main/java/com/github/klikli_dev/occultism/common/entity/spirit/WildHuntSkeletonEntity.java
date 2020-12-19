@@ -23,6 +23,7 @@
 package com.github.klikli_dev.occultism.common.entity.spirit;
 
 import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.registry.OccultismTags;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
@@ -38,7 +39,6 @@ import java.util.Optional;
 
 public class WildHuntSkeletonEntity extends SkeletonEntity {
     //region Fields
-    public static final ResourceLocation wildHuntTag = new ResourceLocation(Occultism.MODID, "wild_hunt");
     protected Optional<WildHuntWitherSkeletonEntity> master = Optional.empty();
     //endregion Fields
 
@@ -76,14 +76,14 @@ public class WildHuntSkeletonEntity extends SkeletonEntity {
 
     @Override
     public boolean isInvulnerableTo(DamageSource source) {
-        ITag<EntityType<?>> wildHuntTags = EntityTypeTags.getCollection().get(wildHuntTag);
+        ITag<EntityType<?>> wildHuntTag = OccultismTags.WILD_HUNT;
 
         Entity trueSource = source.getTrueSource();
-        if (trueSource != null && wildHuntTags.contains(trueSource.getType()))
+        if (trueSource != null && wildHuntTag.contains(trueSource.getType()))
             return true;
 
         Entity immediateSource = source.getImmediateSource();
-        if (immediateSource != null && wildHuntTags.contains(immediateSource.getType()))
+        if (immediateSource != null && wildHuntTag.contains(immediateSource.getType()))
             return true;
 
         return super.isInvulnerableTo(source);
