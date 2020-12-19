@@ -86,7 +86,7 @@ public class DivinationRodItem extends Item {
         if (player.isSneaking()) {
             BlockState state = world.getBlockState(pos);
             if (!state.getBlock().isAir(state, world, pos)) {
-                Block block = this.getOtherBlock(state);
+                Block block = this.getOtherBlock(state, player.isCreative());
                 if (block != null) {
                     if (!world.isRemote) {
                         String translationKey =
@@ -197,7 +197,7 @@ public class DivinationRodItem extends Item {
     //endregion Overrides
 
     //region Methods
-    public Block getOtherBlock(BlockState state) {
+    public Block getOtherBlock(BlockState state, boolean isCreative) {
         //otherstone ore is linked to andesite.
         if (state.getBlock() == Blocks.ANDESITE || state.getBlock() == OccultismBlocks.OTHERSTONE_NATURAL.get()
             || state.getBlock() == OccultismBlocks.OTHERSTONE.get()) {
@@ -218,7 +218,8 @@ public class DivinationRodItem extends Item {
             || state.getBlock() == OccultismBlocks.IESNIUM_ORE.get()) {
             return OccultismBlocks.IESNIUM_ORE_NATURAL.get();
         }
-        return null;
+        //In creative allow to find the clicked block
+        return isCreative ? state.getBlock() : null;
     }
 
     /**
