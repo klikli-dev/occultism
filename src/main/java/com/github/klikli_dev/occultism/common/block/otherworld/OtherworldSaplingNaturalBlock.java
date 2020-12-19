@@ -39,6 +39,7 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 
 public class OtherworldSaplingNaturalBlock extends SaplingBlock implements IOtherworldBlock {
+
     //region Initialization
     public OtherworldSaplingNaturalBlock(Tree tree, Properties properties) {
         super(tree, properties);

@@ -24,18 +24,19 @@ package com.github.klikli_dev.occultism.common.world;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.world.multichunk.MultiChunkFeatureConfig;
+import com.github.klikli_dev.occultism.common.world.tree.OtherworldNaturalTree;
 import com.github.klikli_dev.occultism.registry.OccultismBiomeFeatures;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.WorldGenRegistries;
 import net.minecraft.world.gen.GenerationStage;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
-import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.Features;
-import net.minecraft.world.gen.feature.OreFeatureConfig;
+import net.minecraft.world.gen.blockstateprovider.SimpleBlockStateProvider;
+import net.minecraft.world.gen.feature.*;
+import net.minecraft.world.gen.foliageplacer.BlobFoliagePlacer;
 import net.minecraft.world.gen.placement.NoPlacementConfig;
 import net.minecraft.world.gen.placement.Placement;
 import net.minecraft.world.gen.placement.TopSolidRangeConfig;
+import net.minecraft.world.gen.trunkplacer.StraightTrunkPlacer;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -51,6 +52,9 @@ public class WorldGenHandler {
     public static ConfiguredFeature<?, ?> ORE_IESNIUM;
 
     public static ConfiguredFeature<?, ?> UNDERGROUND_GROVE;
+
+    public static ConfiguredFeature<BaseTreeFeatureConfig, ?> OTHERWORLD_TREE_NATURAL;
+    public static ConfiguredFeature<BaseTreeFeatureConfig, ?> OTHERWORLD_TREE;
     //endregion Fields
 
     //region Static Methods
@@ -96,6 +100,23 @@ public class WorldGenHandler {
                         .withPlacement(Placement.NOPE.configure(new NoPlacementConfig()));
         Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, modLoc("underground_grove"), UNDERGROUND_GROVE);
 
+        OTHERWORLD_TREE_NATURAL = Feature.TREE.withConfiguration((
+                new BaseTreeFeatureConfig.Builder(
+                        new SimpleBlockStateProvider(OccultismBlocks.OTHERWORLD_LOG_NATURAL.get().getDefaultState()),
+                        new SimpleBlockStateProvider(OccultismBlocks.OTHERWORLD_LEAVES_NATURAL.get().getDefaultState()),
+                        new BlobFoliagePlacer(FeatureSpread.func_242252_a(2), FeatureSpread.func_242252_a(0), 3),
+                        new StraightTrunkPlacer(4, 2, 0),
+                        new TwoLayerFeature(1, 0, 1))).setIgnoreVines().build());
+        Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, modLoc("otherworld_tree_natural"), OTHERWORLD_TREE_NATURAL);
+
+        OTHERWORLD_TREE = Feature.TREE.withConfiguration((
+                new BaseTreeFeatureConfig.Builder(
+                        new SimpleBlockStateProvider(OccultismBlocks.OTHERWORLD_LOG.get().getDefaultState()),
+                        new SimpleBlockStateProvider(OccultismBlocks.OTHERWORLD_LEAVES.get().getDefaultState()),
+                        new BlobFoliagePlacer(FeatureSpread.func_242252_a(2), FeatureSpread.func_242252_a(0), 3),
+                        new StraightTrunkPlacer(4, 2, 0),
+                        new TwoLayerFeature(1, 0, 1))).setIgnoreVines().build());
+        Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, modLoc("otherworld"), OTHERWORLD_TREE);
     }
     //endregion Static Methods
 }

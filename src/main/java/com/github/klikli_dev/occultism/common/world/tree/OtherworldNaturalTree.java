@@ -22,6 +22,7 @@
 
 package com.github.klikli_dev.occultism.common.world.tree;
 
+import com.github.klikli_dev.occultism.common.world.WorldGenHandler;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.trees.Tree;
@@ -37,20 +38,6 @@ import javax.annotation.Nullable;
 import java.util.Random;
 
 public class OtherworldNaturalTree extends Tree {
-    //region Fields
-    protected static final NonNullLazy<BlockState> OTHERWORLD_LOG_NATURAL =
-            NonNullLazy.of(() -> OccultismBlocks.OTHERWORLD_LOG_NATURAL.get().getDefaultState());
-    protected static final NonNullLazy<BlockState> OTHERWORLD_LEAVES_NATURAL =
-            NonNullLazy.of(() -> OccultismBlocks.OTHERWORLD_LEAVES_NATURAL.get().getDefaultState());
-    //TODO: update tree placement to 1.16
-//    public static final NonNullLazy<BaseTreeFeatureConfig> OTHERWORLD_TREE_NATURAL_CONFIG =
-//            NonNullLazy
-//                    .of(() -> new BaseTreeFeatureConfig.Builder(new SimpleBlockStateProvider(OTHERWORLD_LOG_NATURAL.get()),
-//                            new SimpleBlockStateProvider(OTHERWORLD_LEAVES_NATURAL.get()),
-//                            new BlobFoliagePlacer(FeatureSpread.func_242252_a(2), FeatureSpread.func_242252_a(0), 16)) //func_242252_a = creates
-//                                      .baseHeight(4).heightRandA(2).foliageHeight(3).ignoreVines()
-//                                      .setSapling(OccultismBlocks.OTHERWORLD_SAPLING_NATURAL.get()).build());
-    //endregion Fields
 
     //region Initialization
     public OtherworldNaturalTree() {
@@ -60,9 +47,7 @@ public class OtherworldNaturalTree extends Tree {
     //region Overrides
     @Nullable
     protected ConfiguredFeature<BaseTreeFeatureConfig, ?> getTreeFeature(Random rand, boolean moreBeehives) {
-        //return Feature.TREE.withConfiguration(OTHERWORLD_TREE_NATURAL_CONFIG.get());
-        //TODO: return proper tree configs
-        return null;
+        return WorldGenHandler.OTHERWORLD_TREE_NATURAL;
     }
     //endregion Overrides
 }
