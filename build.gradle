@@ -45,9 +45,6 @@ minecraft {
     // These can be tweaked, removed, or duplicated as needed.
     runs {
         client {
-            //Workaround for patchouli mixin crash
-            properties 'mixin.env.disableRefMap': 'true'
-
             workingDirectory project.file('run')
             args += "--username=Occultism"
             // Recommended logging data for a userdev environment
@@ -55,6 +52,9 @@ minecraft {
 
             // Recommended logging level for the console
             property 'forge.logging.console.level', 'debug'
+
+            //Workaround for patchouli mixin crash
+            property 'mixin.env.disableRefMap', 'true'
 
             mods {
                 occultism {
@@ -64,8 +64,6 @@ minecraft {
         }
 
         server {
-            //Workaround for patchouli mixin crash
-            properties 'mixin.env.disableRefMap': 'true'
             workingDirectory project.file('run')
 
             // Recommended logging data for a userdev environment
@@ -73,6 +71,9 @@ minecraft {
 
             // Recommended logging level for the console
             property 'forge.logging.console.level', 'debug'
+
+            //Workaround for patchouli mixin crash
+            property 'mixin.env.disableRefMap', 'true'
 
             mods {
                 occultism {
@@ -82,8 +83,6 @@ minecraft {
         }
 
         data {
-            //Workaround for patchouli mixin crash
-            properties 'mixin.env.disableRefMap': 'true'
             workingDirectory project.file('run')
 
             // Recommended logging data for a userdev environment
@@ -91,6 +90,9 @@ minecraft {
 
             // Recommended logging level for the console
             property 'forge.logging.console.level', 'debug'
+
+            //Workaround for patchouli mixin crash
+            property 'mixin.env.disableRefMap', 'true'
 
             // Specify the modid for data generation, where to output the resulting resource, and where to look for existing resources.
             args '--mod', 'occultism', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
