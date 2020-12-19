@@ -11,7 +11,7 @@
           "predicate_type": "tag_match",
           "tag": "minecraft:base_stone_overworld"
         },
-        "size": 9,
+        "size": 9
       }
     },
     "decorator": {
