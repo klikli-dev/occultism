@@ -45,6 +45,9 @@ minecraft {
     // These can be tweaked, removed, or duplicated as needed.
     runs {
         client {
+            //Workaround for patchouli mixin crash
+            properties 'mixin.env.disableRefMap': 'true'
+
             workingDirectory project.file('run')
             args += "--username=Occultism"
             // Recommended logging data for a userdev environment
@@ -61,6 +64,8 @@ minecraft {
         }
 
         server {
+            //Workaround for patchouli mixin crash
+            properties 'mixin.env.disableRefMap': 'true'
             workingDirectory project.file('run')
 
             // Recommended logging data for a userdev environment
@@ -77,6 +82,8 @@ minecraft {
         }
 
         data {
+            //Workaround for patchouli mixin crash
+            properties 'mixin.env.disableRefMap': 'true'
             workingDirectory project.file('run')
 
             // Recommended logging data for a userdev environment
