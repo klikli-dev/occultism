@@ -23,16 +23,22 @@
 package com.github.klikli_dev.occultism.common.world;
 
 import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.registry.OccultismBlocks;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.WorldGenRegistries;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
+import net.minecraft.world.gen.feature.Feature;
+import net.minecraft.world.gen.feature.Features;
+import net.minecraft.world.gen.feature.OreFeatureConfig;
+import net.minecraft.world.gen.placement.Placement;
+import net.minecraft.world.gen.placement.TopSolidRangeConfig;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static com.github.klikli_dev.occultism.util.StaticUtil.modLoc;
@@ -45,30 +51,12 @@ public class WorldGenHandler {
             Occultism.CONFIG.worldGen.undergroundGroveGen.validBiomes.get().stream()
                     .map(s -> BiomeDictionary.Type.getType(s))
                     .collect(Collectors.toList());
-
+    public static ConfiguredFeature<?, ?> ORE_COPPER;
+    public static ConfiguredFeature<?, ?> ORE_SILVER;
+    public static ConfiguredFeature<?, ?> ORE_IESNIUM;
     //endregion Fields
 
     //region Static Methods
-    //    public static void setupOreGeneration() {
-    //        for (Biome biome : ForgeRegistries.BIOMES) {
-    //            addOreFeature(biome,
-    //                    OccultismBlocks.OTHERSTONE_NATURAL.get().getDefaultState(),
-    //                    Occultism.CONFIG.worldGen.oreGen.otherstoneNatural);
-    //
-    //            addOreFeature(biome,
-    //                    OccultismBlocks.COPPER_ORE.get().getDefaultState(),
-    //                    Occultism.CONFIG.worldGen.oreGen.copperOre);
-    //
-    //            addOreFeature(biome,
-    //                    OccultismBlocks.SILVER_ORE.get().getDefaultState(),
-    //                    Occultism.CONFIG.worldGen.oreGen.silverOre);
-    //
-    //            addOreFeature(biome,
-    //                    OccultismBlocks.IESNIUM_ORE_NATURAL.get().getDefaultState(),
-    //                    Occultism.CONFIG.worldGen.oreGen.iesniumOre);
-    //        }
-    //    }
-
     //    public static void setupUndergroundGroveGeneration() {
     //        for (Map.Entry<RegistryKey<Biome>, Biome> biome : ForgeRegistries.BIOMES.getEntries()) {
     //            if (BiomeUtil.containsType(biome.getKey(), UNDERGROUND_GROVE_BIOMES)) {
@@ -84,29 +72,40 @@ public class WorldGenHandler {
     //    }
     @SubscribeEvent
     public static void onBiomeLoading(BiomeLoadingEvent event) {
-        //TODO: figure out if we can just get the registered feaeture from the registry or if we need to register it manually
-        Optional<ConfiguredFeature<?, ?>> oreCopper =
-                WorldGenRegistries.CONFIGURED_FEATURE.getOptional(modLoc("ore_copper"));
-        //TODO: use blacklists for ores for biomes?
-        if (oreCopper.isPresent())
-            event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, oreCopper.get());
-        //TODO: register other ores
+        event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, ORE_COPPER);
+        event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, ORE_SILVER);
+        event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, ORE_IESNIUM);
+
         //TODO: register grove generation
         //TODO: use whitelist/blacklist for underground groves?
     }
-    //endregion Static Methods
-    //region Methods
-    //public static ConfiguredFeature<?,?> ORE_COPPER;
 
-    //TODO: Figure out if we need to do this
-    //    public static void registerConfiguredFeatures() {
-    //        ORE_COPPER = Feature.ORE
-    //                             .withConfiguration(new OreFeatureConfig(
-    //                                     OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD,
-    //                                     OccultismBlocks.COPPER_ORE.get().getDefaultState(), 9))
-    //                             .withPlacement(Placement.RANGE.configure(new TopSolidRangeConfig(10, 0, 64)))
-    //                             .func_242731_b(20); //count decorator
-    //        Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, modLoc("ore_copper"), ORE_COPPER);
-    //    }
-    //endregion Methods
+    public static void registerConfiguredFeatures() {
+        //Register the features with default setting here.
+        ORE_COPPER = Feature.ORE
+                             .withConfiguration(new OreFeatureConfig(
+                                     OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD,
+                                     OccultismBlocks.COPPER_ORE.get().getDefaultState(), 9))
+                             .withPlacement(Placement.RANGE.configure(new TopSolidRangeConfig(10, 0, 64)))
+                             .func_242731_b(20); //count decorator
+        Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, modLoc("ore_copper"), ORE_COPPER);
+
+        ORE_SILVER = Feature.ORE
+                             .withConfiguration(new OreFeatureConfig(
+                                     OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD,
+                                     OccultismBlocks.SILVER_ORE.get().getDefaultState(), 7))
+                             .withPlacement(Placement.RANGE.configure(new TopSolidRangeConfig(5, 0, 30)))
+                             .func_242731_b(3); // func_242731_b = count decorator
+        Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, modLoc("ore_silver"), ORE_SILVER);
+
+        ORE_IESNIUM = Feature.ORE
+                              .withConfiguration(new OreFeatureConfig(
+                                      OreFeatureConfig.FillerBlockType.BASE_STONE_NETHER,
+                                      OccultismBlocks.IESNIUM_ORE.get().getDefaultState(), 3))
+                              .withPlacement(Features.Placements.NETHER_SPRING_ORE_PLACEMENT)
+                              .func_242731_b(10); // func_242731_b = count decorator
+        Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, modLoc("ore_iesnium"), ORE_IESNIUM);
+
+    }
+    //endregion Static Methods
 }

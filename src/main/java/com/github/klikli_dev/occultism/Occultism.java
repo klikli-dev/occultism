@@ -129,9 +129,7 @@ public class Occultism {
     private void commonSetup(final FMLCommonSetupEvent event) {
         OccultismPackets.registerMessages();
 
-        //TODO: Check if we need to call anyting on the world gen handler here, or if biome load event handles it all
-//        WorldGenHandler.setupOreGeneration();
-//        WorldGenHandler.setupUndergroundGroveGeneration();
+        WorldGenHandler.registerConfiguredFeatures();
 
         OccultismAPI.commonSetup();
 

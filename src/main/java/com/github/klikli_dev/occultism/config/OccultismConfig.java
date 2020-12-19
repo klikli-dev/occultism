@@ -176,7 +176,6 @@ public class OccultismConfig extends ConfigBase {
 
     public class WorldGenSettings extends ConfigCategoryBase {
         //region Fields
-        public final OreGenSettings oreGen;
         public final UndergroundGroveGenSettings undergroundGroveGen;
         //endregion Fields
 
@@ -184,91 +183,10 @@ public class OccultismConfig extends ConfigBase {
         public WorldGenSettings(IConfigCache parent, ForgeConfigSpec.Builder builder) {
             super(parent, builder);
             builder.comment("WorldGen Settings").push("worldgen");
-            this.oreGen = new OreGenSettings(this, builder);
             this.undergroundGroveGen = new UndergroundGroveGenSettings(this, builder);
             builder.pop();
         }
         //endregion Initialization
-
-        public class OreGenSettings extends ConfigCategoryBase {
-            //region Fields
-
-//            public final OreSettings otherstoneNatural;
-//            public final OreSettings copperOre;
-//            public final OreSettings silverOre;
-//            public final OreSettings iesniumOre;
-
-            //endregion Fields
-
-            //region Initialization
-            public OreGenSettings(IConfigCache parent, ForgeConfigSpec.Builder builder) {
-                super(parent, builder);
-                builder.comment("Ore Gen Settings").push("oregen");
-                List<String> overworld = Stream.of("overworld").collect(Collectors.toList());
-                List<String> nether = Stream.of("the_nether").collect(Collectors.toList());
-//
-//                this.otherstoneNatural =
-//                        new OreSettings("otherstoneNatural", overworld, OreFeatureConfig.FillerBlockType.NATURAL_STONE,
-//                                7,
-//                                5, 10, 80, this, builder);
-//
-//                this.copperOre =
-//                        new OreSettings("copperOre", overworld, OreFeatureConfig.FillerBlockType.NATURAL_STONE, 9,
-//                                20, 20, 64, this, builder);
-//                this.silverOre =
-//                        new OreSettings("silverOre", overworld, OreFeatureConfig.FillerBlockType.NATURAL_STONE, 7,
-//                                5, 0, 30, this, builder);
-//
-//                this.iesniumOre =
-//                        new OreSettings("iesniumOre", nether, OreFeatureConfig.FillerBlockType.NETHERRACK, 3,
-//                                10, 10, 128, this, builder);
-                builder.pop();
-            }
-            //endregion Initialization
-
-            public class OreSettings extends ConfigCategoryBase {
-                //region Fields
-
-                public final CachedObject<List<String>> dimensionTypeWhitelist;
-                public final CachedObject<String> fillerBlockType;
-                public final CachedInt oreSize;
-                public final CachedInt oreChance;
-                public final CachedInt oreMin;
-                public final CachedInt oreMax;
-
-                //endregion Fields
-
-                //region Initialization
-                public OreSettings(String oreName, List<String> dimensionTypes,
-                                   OreFeatureConfig.FillerBlockType fillerBlockType, int size, int chance, int min,
-                                   int max,
-                                   IConfigCache parent, ForgeConfigSpec.Builder builder) {
-                    super(parent, builder);
-                    builder.comment("Ore Settings").push(oreName);
-
-                    this.dimensionTypeWhitelist = CachedObject.cache(this,
-                            builder.comment("The dimensions this ore will spawn in.")
-                                    .define("dimensionWhitelist", dimensionTypes));
-                    this.fillerBlockType = CachedObject.cache(this,
-                            builder.comment("The type of block this ore will spawn in.")
-                                    .define("fillerBlockType", ""));
-                    this.oreSize = CachedInt.cache(this,
-                            builder.comment("The size of veins for this ore.")
-                                    .defineInRange("oreSize", size, 0, Byte.MAX_VALUE));
-                    this.oreChance = CachedInt.cache(this,
-                            builder.comment("The chance (amount of rolls) for this ore to spawn.")
-                                    .defineInRange("oreChance", chance, 0, Byte.MAX_VALUE));
-                    this.oreMin = CachedInt.cache(this,
-                            builder.comment("The minimum height for this ore veins to spawn.")
-                                    .define("oreMin", min));
-                    this.oreMax = CachedInt.cache(this,
-                            builder.comment("The maximum height for this ore veins to spawn.")
-                                    .define("oreMax", max));
-                    builder.pop();
-                }
-                //endregion Initialization
-            }
-        }
 
         public class UndergroundGroveGenSettings extends ConfigCategoryBase {
             //region Fields
