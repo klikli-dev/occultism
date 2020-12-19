@@ -1,6 +1,6 @@
 {
+  "type": "minecraft:decorated",
   "config": {
-    "type": "minecraft:decorated",
     "feature": {
       "type": "minecraft:ore",
       "config": {
@@ -16,19 +16,23 @@
     },
     "decorator": {
       "type": "decorated",
-      "inner": {
-        "type": "minecraft:range",
-        "config": {
-          "bottom_offset": 10,
-          "top_offset": 0,
-          "maximum": 64
-        }
-      },
-      "outer": {
-        "type": "minecraft:count",
-        "count":{
-          "base": 20,
-          "spread": 0
+      "config": {
+        "inner": {
+          "type": "minecraft:range",
+          "config": {
+            "bottom_offset": 10,
+            "top_offset": 0,
+            "maximum": 64
+          }
+        },
+        "outer": {
+          "type": "minecraft:count",
+          "config": {
+            "count": {
+              "base": 20,
+              "spread": 0
+            }
+          }
         }
       }
     }
