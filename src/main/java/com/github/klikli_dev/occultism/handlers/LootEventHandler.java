@@ -47,17 +47,10 @@ import static com.github.klikli_dev.occultism.util.StaticUtil.modLoc;
 @Mod.EventBusSubscriber(modid = Occultism.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class LootEventHandler {
 
-    private static final ResourceLocation grass = new ResourceLocation("minecraft", "blocks/grass");
-
-    @SubscribeEvent
-    public static void onLootLoad(LootTableLoadEvent event) {
-        if (event.getName().equals(grass)) {
-            event.getTable().addPool(LootPool.builder().addEntry(TableLootEntry.builder(modLoc("blocks/grass"))).name(Occultism.MODID + ":grass").build());
-        }
-    }
-
     @SubscribeEvent
     public static void onLivingDrops(LivingDropsEvent event) {
+        //Add butcher knife drops dynamically.
+        //TODO: Consider doing a global loot table for that
         if (event.isRecentlyHit() && event.getSource().getTrueSource() instanceof LivingEntity) {
             LivingEntity trueSource = (LivingEntity) event.getSource().getTrueSource();
             ItemStack knifeItem = trueSource.getHeldItem(Hand.MAIN_HAND);

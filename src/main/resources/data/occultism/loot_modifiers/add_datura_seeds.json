@@ -1,0 +1,10 @@
+{
+  "type": "occultism:append_loot",
+  "conditions": [
+    {
+      "condition": "occultism:match_block",
+      "tag": "occultism:datura_seed_sources"
+    }
+  ],
+  "add_loot": "occultism:blocks/datura_seed_additions"
+}
