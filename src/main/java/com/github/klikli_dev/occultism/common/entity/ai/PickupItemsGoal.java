@@ -70,7 +70,7 @@ public class PickupItemsGoal extends TargetGoal {
             //endregion Overrides
         };
         this.entitySorter = new EntitySorter(entity);
-        this.setMutexFlags(EnumSet.of(Goal.Flag.MOVE));
+        this.setMutexFlags(EnumSet.of(Flag.MOVE));
     }
     //endregion Initialization
 
@@ -112,7 +112,7 @@ public class PickupItemsGoal extends TargetGoal {
         }
         else {
             this.goalOwner.getNavigator().setPath(this.goalOwner.getNavigator().getPathToEntity(this.targetItem, 0), 1.0f);
-            double distance = this.entity.getPositionVector().distanceTo(this.targetItem.getPositionVec());
+            double distance = this.entity.getPositionVec().distanceTo(this.targetItem.getPositionVec());
             if (distance < 1F) {
                 this.entity.setMotion(0, 0, 0);
                 this.entity.getNavigator().clearPath();

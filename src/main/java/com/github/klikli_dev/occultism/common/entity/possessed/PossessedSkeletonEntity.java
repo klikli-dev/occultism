@@ -23,7 +23,8 @@
 package com.github.klikli_dev.occultism.common.entity.possessed;
 
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.attributes.AttributeModifierMap;
+import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.monster.SkeletonEntity;
 import net.minecraft.world.World;
 
@@ -45,14 +46,13 @@ public class PossessedSkeletonEntity extends SkeletonEntity {
     protected boolean isInDaylight() {
         return false;
     }
-
-    @Override
-    protected void registerAttributes() {
-        super.registerAttributes();
-        //increased AD compared to normal skeleton
-        this.getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4.0D);
-        //increased health compared to normal skeleton
-        this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(30.0D);
-    }
     //endregion Overrides
+
+    //region Static Methods
+    public static AttributeModifierMap.MutableAttribute registerAttributes() {
+        return SkeletonEntity.registerAttributes()
+                       .createMutableAttribute(Attributes.ATTACK_DAMAGE, 4.0)
+                       .createMutableAttribute(Attributes.MAX_HEALTH, 30.0);
+    }
+    //endregion Static Methods
 }

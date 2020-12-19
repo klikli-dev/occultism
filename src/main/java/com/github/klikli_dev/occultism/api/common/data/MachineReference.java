@@ -31,10 +31,11 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
+import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.dimension.DimensionType;
+import net.minecraft.world.DimensionType;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.commons.lang3.StringUtils;
@@ -58,9 +59,9 @@ public class MachineReference implements INBTSerializable<CompoundNBT> {
 
     }
 
-    public MachineReference(BlockPos pos, DimensionType dimensionType, ResourceLocation registryName,
+    public MachineReference(BlockPos pos, RegistryKey<World> dimensionKey, ResourceLocation registryName,
                             boolean chunkLoaded) {
-        this(new GlobalBlockPos(pos, dimensionType), registryName, chunkLoaded);
+        this(new GlobalBlockPos(pos, dimensionKey), registryName, chunkLoaded);
     }
 
     public MachineReference(GlobalBlockPos globalPos, ResourceLocation registryName, boolean chunkLoaded) {

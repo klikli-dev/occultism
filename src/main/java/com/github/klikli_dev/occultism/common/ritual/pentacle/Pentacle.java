@@ -27,7 +27,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 import vazkii.patchouli.api.IMultiblock;
 import vazkii.patchouli.api.PatchouliAPI;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

@@ -33,10 +33,10 @@ import net.minecraftforge.registries.RegistryManager;
 public class OccultismRituals {
     //region Fields
     public static final IForgeRegistry<Pentacle> PENTACLE_REGISTRY = RegistryManager.ACTIVE.getRegistry(Pentacle.class);
-    public static final DeferredRegister<Pentacle> PENTACLES = new DeferredRegister<>(PENTACLE_REGISTRY,
+    public static final DeferredRegister<Pentacle> PENTACLES = DeferredRegister.create(PENTACLE_REGISTRY,
             Occultism.MODID);
     public static final IForgeRegistry<Ritual> RITUAL_REGISTRY = RegistryManager.ACTIVE.getRegistry(Ritual.class);
-    public static final DeferredRegister<Ritual> RITUALS = new DeferredRegister<>(RITUAL_REGISTRY, Occultism.MODID);
+    public static final DeferredRegister<Ritual> RITUALS = DeferredRegister.create(RITUAL_REGISTRY, Occultism.MODID);
 
     //Pentacles
     public static final RegistryObject<DebugPentacle> DEBUG_PENTACLE =

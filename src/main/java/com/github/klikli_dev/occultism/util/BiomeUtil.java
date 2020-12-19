@@ -22,6 +22,7 @@
 
 package com.github.klikli_dev.occultism.util;
 
+import net.minecraft.util.RegistryKey;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
 
@@ -38,7 +39,7 @@ public class BiomeUtil {
      * @param typeList the biome type list to check
      * @return true if the bimoe contains any of the given biome types.
      */
-    public static boolean containsType(Biome biome, List<BiomeDictionary.Type> typeList) {
+    public static boolean containsType(RegistryKey<Biome> biome, List<BiomeDictionary.Type> typeList) {
         Set<BiomeDictionary.Type> biomeTypes = BiomeDictionary.getTypes(biome);
         for (BiomeDictionary.Type type : typeList)
             if (biomeTypes.contains(type))

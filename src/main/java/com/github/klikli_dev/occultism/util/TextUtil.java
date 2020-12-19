@@ -25,6 +25,7 @@ package com.github.klikli_dev.occultism.util;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.fml.ModList;
@@ -105,8 +106,8 @@ public class TextUtil {
      * @param name the name to format.
      * @return the formatted name.
      */
-    public static ITextComponent formatDemonName(ITextComponent name) {
-        return name.applyTextStyles(TextFormatting.GOLD, TextFormatting.BOLD);
+    public static IFormattableTextComponent formatDemonName(IFormattableTextComponent name) {
+        return name.mergeStyle(TextFormatting.GOLD, TextFormatting.BOLD);
     }
 
     /**

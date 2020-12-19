@@ -34,6 +34,8 @@ import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Direction;
+import net.minecraft.util.math.vector.Vector3f;
+import net.minecraft.util.math.vector.Quaternion;
 
 import java.awt.*;
 import java.util.List;
@@ -84,7 +86,7 @@ public class StorageControllerRenderer extends TileEntityRenderer<StorageControl
 
         //from ItemRenderer#renderItem
         matrixStack.translate(-0.5D, -0.5D, -0.5D);
-        RenderType rendertype = RenderTypeLookup.getRenderType(stack);
+        RenderType rendertype = RenderTypeLookup.func_239219_a_(stack, false); //getRenderType(itemstack, isBlock(??)) isBlock = false -> is item entity?
         IVertexBuilder ivertexbuilder = ItemRenderer.getBuffer(buffer, rendertype, true, stack.hasEffect());
         //from  ItemRenderer#rendermodel
         Random random = new Random();

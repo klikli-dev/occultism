@@ -22,18 +22,29 @@
 
 package com.github.klikli_dev.occultism.common.world.multichunk;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
-import com.mojang.datafixers.Dynamic;
-import com.mojang.datafixers.types.DynamicOps;
-import net.minecraft.world.dimension.DimensionType;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.world.gen.feature.IFeatureConfig;
 
-import java.util.List;
-
 public class MultiChunkFeatureConfig implements IFeatureConfig {
-    //region Fields
 
+    //region Fields
+    public static final Codec<MultiChunkFeatureConfig> CODEC = RecordCodecBuilder.create((kind1) -> {
+        //field_237127_c_ = codec
+        return kind1.group(
+                Codec.intRange(0, 16).fieldOf("max_chunks_to_root").forGetter((config) -> {
+                    return config.maxChunksToRoot;
+                }), Codec.intRange(0, 10000).fieldOf("chance_to_generate").forGetter((config) -> {
+                    return config.chanceToGenerate;
+                }), Codec.intRange(0, 512).fieldOf("min_generation_height").forGetter((config) -> {
+                    return config.minGenerationHeight;
+                }), Codec.intRange(0, 512).fieldOf("max_generation_height").forGetter((config) -> {
+                    return config.maxGenerationHeight;
+                }), Codec.intRange(0, Integer.MAX_VALUE).fieldOf("feature_seed_salt").forGetter((config) -> {
+                    return config.featureSeedSalt;
+                })
+        ).apply(kind1, MultiChunkFeatureConfig::new);
+    });
     /**
      * The maximum amount of chunks from the root position to still generate this feature.
      */
@@ -42,57 +53,19 @@ public class MultiChunkFeatureConfig implements IFeatureConfig {
     public final int minGenerationHeight;
     public final int maxGenerationHeight;
     public final int featureSeedSalt;
-    public final List<DimensionType> allowedDimensionTypes;
     //endregion Fields
 
     //region Initialization
-    public MultiChunkFeatureConfig(int maxChunksToRoot, int chanceToGenerate, int minGenerationHeight,
-                                   int maxGenerationHeight, int featureSeedSalt) {
-        this(maxChunksToRoot, chanceToGenerate, minGenerationHeight, maxGenerationHeight, featureSeedSalt,
-                ImmutableList.of(DimensionType.OVERWORLD));
-    }
 
     public MultiChunkFeatureConfig(int maxChunksToRoot, int chanceToGenerate, int minGenerationHeight,
-                                   int maxGenerationHeight, int featureSeedSalt,
-                                   List<DimensionType> allowedDimensionTypes) {
+                                   int maxGenerationHeight, int featureSeedSalt) {
         this.maxChunksToRoot = maxChunksToRoot;
         this.chanceToGenerate = chanceToGenerate;
         this.featureSeedSalt = featureSeedSalt;
         this.minGenerationHeight = minGenerationHeight;
         this.maxGenerationHeight = maxGenerationHeight;
-        this.allowedDimensionTypes = allowedDimensionTypes;
     }
     //endregion Initialization
 
-    //region Overrides
-    public <T> Dynamic<T> serialize(DynamicOps<T> ops) {
-        return new Dynamic<T>(ops, ops.createMap(
-                ImmutableMap.<T, T>builder()
-                        .put(ops.createString("maxChunksToRoot"), ops.createInt(this.maxChunksToRoot))
-                        .put(ops.createString("chanceToGenerate"), ops.createInt(this.chanceToGenerate))
-                        .put(ops.createString("minGenerationHeight"), ops.createInt(this.minGenerationHeight))
-                        .put(ops.createString("maxGenerationHeight"), ops.createInt(this.maxGenerationHeight))
-                        .put(ops.createString("featureSeedSalt"), ops.createInt(this.featureSeedSalt))
-                        .put(ops.createString("chanceToGenerate"), ops.createInt(this.chanceToGenerate))
-                        .put(ops.createString("allowedDimensionTypes"),
-                                ops.createList(this.allowedDimensionTypes.stream().map(type -> type.serialize(ops))))
-                        .build()
-        )
-        );
-    }
-    //endregion Overrides
 
-    //region Static Methods
-    public static MultiChunkFeatureConfig deserialize(Dynamic<?> in) {
-        int maxChunksToRoot = in.get("maxChunksToRoot").asInt(0);
-        int chanceToGenerate = in.get("chanceToGenerate").asInt(0);
-        int minGenerationHeight = in.get("minGenerationHeight").asInt(0);
-        int maxGenerationHeight = in.get("maxGenerationHeight").asInt(0);
-        int featureSeedSalt = in.get("featureSeedSalt").asInt(0);
-        List<DimensionType> allowedDimensionTypes = in.get("allowedDimensionTypes").asList(DimensionType::deserialize);
-        return new MultiChunkFeatureConfig(maxChunksToRoot, chanceToGenerate, minGenerationHeight, maxGenerationHeight,
-                featureSeedSalt,
-                allowedDimensionTypes);
-    }
-    //endregion Static Methods
 }

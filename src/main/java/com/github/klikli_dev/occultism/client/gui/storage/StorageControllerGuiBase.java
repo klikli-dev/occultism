@@ -39,6 +39,7 @@ import com.github.klikli_dev.occultism.util.InputUtil;
 import com.github.klikli_dev.occultism.util.TextUtil;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.screen.Screen;
@@ -53,11 +54,14 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.IInventoryChangedListener;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.world.dimension.DimensionType;
+import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.World;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -102,7 +106,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     //region Initialization
     public StorageControllerGuiBase(T container, PlayerInventory playerInventory, ITextComponent name) {
         super(container, playerInventory, name);
-        this.storageControllerContainer = (IStorageControllerContainer) container;
+        this.storageControllerContainer = container;
         this.storageControllerContainer.getOrderSlot().addListener(this);
 
         //size of the gui texture
@@ -146,8 +150,9 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     }
 
     @Override
-    public void drawGradientRect(int left, int top, int right, int bottom, int startColor, int endColor) {
-        super.fillGradient(left, top, right, bottom, startColor, endColor);
+    public void drawGradientRect(MatrixStack matrixStack, int left, int top, int right, int bottom, int startColor,
+                                 int endColor) {
+        super.fillGradient(matrixStack, left, top, right, bottom, startColor, endColor);
     }
 
     @Override
@@ -157,22 +162,25 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     }
 
     @Override
-    public void renderToolTip(ItemStack stack, int x, int y) {
-        super.renderTooltip(stack, x, y);
+    public void renderToolTip(MatrixStack matrixStack, ItemStack stack, int x, int y) {
+        super.renderTooltip(matrixStack, stack, x, y);
     }
 
     @Override
-    public void renderToolTip(MachineReference machine, int x, int y) {
-        List<String> tooltip = new ArrayList<>();
-        tooltip.add(machine.getItemStack().getDisplayName().getFormattedText());
+    public void renderToolTip(MatrixStack matrixStack, MachineReference machine, int x, int y) {
+        List<ITextComponent> tooltip = new ArrayList<>();
+        tooltip.add(machine.getItemStack().getDisplayName());
         if (machine.customName != null) {
-            tooltip.add(
-                    TextFormatting.GRAY.toString() + TextFormatting.BOLD + machine.customName + TextFormatting.RESET);
+            tooltip.add(new StringTextComponent(TextFormatting.GRAY.toString() +
+                                                TextFormatting.BOLD + machine.customName +
+                                                TextFormatting.RESET));
         }
-        if (this.minecraft.player.dimension != machine.globalPos.getDimensionType())
-            tooltip.add(TextFormatting.GRAY.toString() + TextFormatting.ITALIC + I18n.format(
-                    machine.globalPos.getDimensionType().getRegistryName().toString() + TextFormatting.RESET));
-        this.renderTooltip(tooltip, x, y);
+
+        if (this.minecraft.player.world.getDimensionKey() != machine.globalPos.getDimensionKey())
+            tooltip.add(new TranslationTextComponent(TextFormatting.GRAY.toString() + TextFormatting.ITALIC +
+                                                     machine.globalPos.getDimensionKey().getLocation().toString() +
+                                                     TextFormatting.RESET));
+        this.func_243308_b(matrixStack, tooltip, x, y); //renderTooltip
     }
 
     @Override
@@ -212,7 +220,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
 
         this.searchBar = new TextFieldWidget(this.font, this.guiLeft + searchBarLeft,
-                this.guiTop + searchBarTop, 90, this.font.FONT_HEIGHT, "search");
+                this.guiTop + searchBarTop, 90, this.font.FONT_HEIGHT, new StringTextComponent("search"));
         this.searchBar.setMaxStringLength(30);
 
         this.searchBar.setEnableBackgroundDrawing(false);
@@ -241,23 +249,25 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     }
 
     @Override
-    public void render(int mouseX, int mouseY, float partialTicks) {
-        super.render(mouseX, mouseY, partialTicks);
-        this.renderHoveredToolTip(mouseX, mouseY);
+    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+        super.render(matrixStack, mouseX, mouseY, partialTicks);
+
+        this.renderHoveredTooltip(matrixStack, mouseX, mouseY);
         if (!this.isGuiValid()) {
             this.minecraft.player.closeScreen();
             return;
         }
         try {
-            this.drawTooltips(mouseX, mouseY);
+            this.drawTooltips(matrixStack, mouseX, mouseY);
         } catch (Throwable e) {
             Occultism.LOGGER.error("Error drawing tooltip.", e);
         }
     }
 
+
     @Override
-    public void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-        super.drawGuiContainerForegroundLayer(mouseX, mouseY);
+    public void drawGuiContainerForegroundLayer(MatrixStack matrixStack, int mouseX, int mouseY) {
+        super.drawGuiContainerForegroundLayer(matrixStack, mouseX, mouseY);
         if (!this.isGuiValid()) {
             return;
         }
@@ -270,23 +280,24 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     }
 
     @Override
-    protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
+    protected void drawGuiContainerBackgroundLayer(MatrixStack matrixStack, float partialTicks, int mouseX,
+                                                   int mouseY) {
         if (!this.isGuiValid()) {
             return;
         }
 
-        this.renderBackground();
-        this.drawBackgroundTexture();
+        this.renderBackground(matrixStack);
+        this.drawBackgroundTexture(matrixStack);
 
         switch (this.guiMode) {
             case INVENTORY:
-                this.drawItems(partialTicks, mouseX, mouseY);
+                this.drawItems(matrixStack, partialTicks, mouseX, mouseY);
                 break;
             case AUTOCRAFTING:
-                this.drawMachines(partialTicks, mouseX, mouseY);
+                this.drawMachines(matrixStack, partialTicks, mouseX, mouseY);
                 break;
         }
-        this.searchBar.render(mouseX, mouseY, partialTicks);
+        this.searchBar.render(matrixStack, mouseX, mouseY, partialTicks);
     }
 
     @Override
@@ -345,11 +356,6 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     }
 
     @Override
-    public boolean shouldCloseOnEsc() {
-        return true;
-    }
-
-    @Override
     public boolean keyPressed(int keyCode, int scanCode, int p_keyPressed_3_) {
         if (this.searchBar.isFocused() && this.searchBar.keyPressed(keyCode, scanCode, p_keyPressed_3_)) {
             if (JeiSettings.isJeiLoaded() && JeiSettings.isJeiSearchSynced()) {
@@ -367,6 +373,11 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         }
 
         return super.keyPressed(keyCode, scanCode, p_keyPressed_3_);
+    }
+
+    @Override
+    public boolean shouldCloseOnEsc() {
+        return true;
     }
 
     @Override
@@ -515,20 +526,20 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         this.addButton(this.autocraftingModeButton);
     }
 
-    protected void drawItems(float partialTicks, int mouseX, int mouseY) {
+    protected void drawItems(MatrixStack matrixStack, float partialTicks, int mouseX, int mouseY) {
         List<ItemStack> stacksToDisplay = this.applySearchToItems();
         this.sortItemStacks(stacksToDisplay);
         this.buildPage(stacksToDisplay);
         this.buildItemSlots(stacksToDisplay);
-        this.drawItemSlots(mouseX, mouseY);
+        this.drawItemSlots(matrixStack, mouseX, mouseY);
     }
 
-    protected void drawMachines(float partialTicks, int mouseX, int mouseY) {
+    protected void drawMachines(MatrixStack matrixStack, float partialTicks, int mouseX, int mouseY) {
         List<MachineReference> machinesToDisplay = this.applySearchToMachines();
         this.sortMachines(machinesToDisplay);
         this.buildPage(machinesToDisplay);
         this.buildMachineSlots(machinesToDisplay);
-        this.drawMachineSlots(mouseX, mouseY);
+        this.drawMachineSlots(matrixStack, mouseX, mouseY);
     }
 
     protected boolean canClick() {
@@ -549,85 +560,89 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                mouseY > (this.guiTop + itemAreaTop) && mouseY < (this.guiTop + itemAreaTop + itemAreaHeight);
     }
 
-    protected void drawTooltips(int mouseX, int mouseY) {
+    protected void drawTooltips(MatrixStack matrixStack, int mouseX, int mouseY) {
         switch (this.guiMode) {
             case INVENTORY:
                 for (ItemSlotWidget s : this.itemSlots) {
                     if (s != null && s.isMouseOverSlot(mouseX, mouseY)) {
-                        s.drawTooltip(mouseX, mouseY);
+                        s.drawTooltip(matrixStack, mouseX, mouseY);
                     }
                 }
                 break;
             case AUTOCRAFTING:
                 for (MachineSlotWidget s : this.machineSlots) {
                     if (s != null && s.isMouseOverSlot(mouseX, mouseY)) {
-                        s.drawTooltip(mouseX, mouseY);
+                        s.drawTooltip(matrixStack, mouseX, mouseY);
                     }
                 }
                 break;
         }
 
         if (this.isPointInSearchbar(mouseX, mouseY)) {
-            List<String> tooltip = new ArrayList<>();
+            List<ITextComponent> tooltip = new ArrayList<>();
             if (!Screen.hasShiftDown()) {
-                tooltip.add(I18n.format(TRANSLATION_KEY_BASE + ".shift"));
+                tooltip.add(new TranslationTextComponent(TRANSLATION_KEY_BASE + ".shift"));
             }
             else {
                 switch (this.guiMode) {
                     case INVENTORY:
-                        tooltip.add(I18n.format(TRANSLATION_KEY_BASE + ".search.tooltip@"));
-                        tooltip.add(I18n.format(TRANSLATION_KEY_BASE + ".search.tooltip#"));
-                        tooltip.add(I18n.format(TRANSLATION_KEY_BASE + ".search.tooltip$"));
+                        tooltip.add(new TranslationTextComponent(TRANSLATION_KEY_BASE + ".search.tooltip@"));
+                        tooltip.add(new TranslationTextComponent(TRANSLATION_KEY_BASE + ".search.tooltip#"));
+                        tooltip.add(new TranslationTextComponent(TRANSLATION_KEY_BASE + ".search.tooltip$"));
                         break;
                     case AUTOCRAFTING:
-                        tooltip.add(I18n.format(TRANSLATION_KEY_BASE + ".search.machines.tooltip@"));
+                        tooltip.add(new TranslationTextComponent(TRANSLATION_KEY_BASE + ".search.machines.tooltip@"));
                         break;
                 }
-                tooltip.add(I18n.format(TRANSLATION_KEY_BASE + ".search.tooltip_rightclick"));
+                tooltip.add(new TranslationTextComponent(TRANSLATION_KEY_BASE + ".search.tooltip_rightclick"));
             }
-            this.renderTooltip(tooltip, mouseX, mouseY);
+            this.func_243308_b(matrixStack, tooltip, mouseX, mouseY); //renderTooltip
         }
         if (this.clearTextButton != null && this.clearTextButton.isMouseOver(mouseX, mouseY)) {
-            this.renderTooltip(Lists.newArrayList(I18n.format(TRANSLATION_KEY_BASE + ".search.tooltip_clear")),
-                    mouseX, mouseY);
+            this.func_243308_b(matrixStack,
+                    Lists.newArrayList(new TranslationTextComponent(TRANSLATION_KEY_BASE + ".search.tooltip_clear")),
+                    mouseX, mouseY); // renderTooltip
         }
         if (this.sortTypeButton != null && this.sortTypeButton.isMouseOver(mouseX, mouseY)) {
             String translationKey = "";
             switch (this.guiMode) {
                 case INVENTORY:
-                    translationKey = TRANSLATION_KEY_BASE + ".search.tooltip_sort_type_" + this.getSortType().getName();
+                    translationKey =
+                            TRANSLATION_KEY_BASE + ".search.tooltip_sort_type_" + this.getSortType().getString();
                     break;
                 case AUTOCRAFTING:
                     translationKey =
-                            TRANSLATION_KEY_BASE + ".search.machines.tooltip_sort_type_" + this.getSortType().getName();
+                            TRANSLATION_KEY_BASE + ".search.machines.tooltip_sort_type_" +
+                            this.getSortType().getString();
                     break;
             }
-            this.renderTooltip(Lists.newArrayList(I18n.format(translationKey)), mouseX, mouseY);
+            this.renderTooltip(matrixStack, new TranslationTextComponent(translationKey), mouseX, mouseY);
         }
         if (this.sortDirectionButton != null && this.sortDirectionButton.isMouseOver(mouseX, mouseY)) {
-            this.renderTooltip(Lists.newArrayList(I18n.format(
-                    TRANSLATION_KEY_BASE + ".search.tooltip_sort_direction_" + this.getSortDirection().getName())),
+            this.renderTooltip(matrixStack, new TranslationTextComponent(
+                            TRANSLATION_KEY_BASE + ".search.tooltip_sort_direction_" + this.getSortDirection().getString()),
                     mouseX, mouseY);
         }
         if (this.jeiSyncButton != null && this.jeiSyncButton.isMouseOver(mouseX, mouseY)) {
-            String s = I18n.format(
-                    TRANSLATION_KEY_BASE + ".search.tooltip_jei_" + (JeiSettings.isJeiSearchSynced() ? "on" : "off"));
-            this.renderTooltip(Lists.newArrayList(s), mouseX, mouseY);
+            this.renderTooltip(matrixStack, new TranslationTextComponent(
+                            TRANSLATION_KEY_BASE + ".search.tooltip_jei_" +
+                            (JeiSettings.isJeiSearchSynced() ? "on" : "off")),
+                    mouseX, mouseY);
         }
     }
 
-    protected void drawBackgroundTexture() {
+    protected void drawBackgroundTexture(MatrixStack matrixStack) {
         RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.minecraft.getTextureManager().bindTexture(BACKGROUND);
         int xCenter = (this.width - this.xSize) / 2;
         int yCenter = (this.height - this.ySize) / 2;
-        this.blit(this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
+        this.blit(matrixStack, this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
     }
 
-    protected void drawItemSlots(int mouseX, int mouseY) {
+    protected void drawItemSlots(MatrixStack matrixStack, int mouseX, int mouseY) {
         this.stackUnderMouse = ItemStack.EMPTY;
         for (ItemSlotWidget slot : this.itemSlots) {
-            slot.drawSlot(mouseX, mouseY);
+            slot.drawSlot(matrixStack, mouseX, mouseY);
             if (slot.isMouseOverSlot(mouseX, mouseY)) {
                 this.stackUnderMouse = slot.getStack();
                 //        break;
@@ -777,7 +792,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
     protected void sortMachines(List<MachineReference> machinesToDisplay) {
         BlockPos entityPosition = this.getEntityPosition();
-        DimensionType dimensionType = this.minecraft.player.dimension;
+        RegistryKey<World> dimensionKey = this.minecraft.player.world.getDimensionKey();
         machinesToDisplay.sort(new Comparator<MachineReference>() {
 
             //region Fields
@@ -790,10 +805,10 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                 switch (StorageControllerGuiBase.this.getSortType()) {
                     case AMOUNT: //use distance in this case
                         double distanceA =
-                                a.globalPos.getDimensionType() == dimensionType ? a.globalPos.getPos().distanceSq(
+                                a.globalPos.getDimensionKey() == dimensionKey ? a.globalPos.getPos().distanceSq(
                                         entityPosition) : Double.MAX_VALUE;
                         double distanceB =
-                                b.globalPos.getDimensionType() == dimensionType ? b.globalPos.getPos().distanceSq(
+                                b.globalPos.getDimensionKey() == dimensionKey ? b.globalPos.getPos().distanceSq(
                                         entityPosition) : Double.MAX_VALUE;
                         return Double.compare(distanceB, distanceA) * this.direction;
                     case NAME:
@@ -832,9 +847,9 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         }
     }
 
-    protected void drawMachineSlots(int mouseX, int mouseY) {
+    protected void drawMachineSlots(MatrixStack matrixStack, int mouseX, int mouseY) {
         for (MachineSlotWidget slot : this.machineSlots) {
-            slot.drawSlot(mouseX, mouseY);
+            slot.drawSlot(matrixStack, mouseX, mouseY);
         }
     }
 

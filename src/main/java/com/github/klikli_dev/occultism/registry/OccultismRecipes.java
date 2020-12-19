@@ -33,7 +33,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public class OccultismRecipes {
     //region Fields
-    public static final DeferredRegister<IRecipeSerializer<?>> RECIPES = new DeferredRegister<>(
+    public static final DeferredRegister<IRecipeSerializer<?>> RECIPES = DeferredRegister.create(
             ForgeRegistries.RECIPE_SERIALIZERS, Occultism.MODID);
 
     public static final NonNullLazy<IRecipeType<SpiritTradeRecipe>> SPIRIT_TRADE_TYPE =

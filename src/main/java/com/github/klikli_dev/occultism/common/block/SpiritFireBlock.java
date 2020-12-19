@@ -41,10 +41,10 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
@@ -75,12 +75,32 @@ public class SpiritFireBlock extends Block {
     }
 
     @Override
+    public void onBlockAdded(BlockState state, World worldIn, BlockPos pos, BlockState oldState, boolean isMoving) {
+        if (oldState.getBlock() != state.getBlock()) {
+            if (!state.isValidPosition(worldIn, pos)) {
+                worldIn.removeBlock(pos, false);
+            }
+            else {
+                worldIn.getPendingBlockTicks().scheduleTick(pos, this, getTickCooldown(worldIn.rand));
+            }
+        }
+    }
+
+    @Override
+    public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
+        BlockPos blockpos = pos.down();
+        return worldIn.getBlockState(blockpos).isSolidSide(worldIn, blockpos, Direction.UP) ||
+               this.areNeighborsFlammable(worldIn, pos);
+    }
+
+    @Override
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
         return VoxelShapes.empty();
     }
 
     @Override
     public void tick(BlockState state, ServerWorld worldIn, BlockPos pos, Random rand) {
+        //TODO: Test if spiritfire works, if there are issues, update tick based on vanilla FireBlock
         if (!worldIn.isAreaLoaded(pos, 2)) {
             return;
         }
@@ -111,7 +131,7 @@ public class SpiritFireBlock extends Block {
             }
 
             if (!isOnFireSource) {
-                worldIn.getPendingBlockTicks().scheduleTick(pos, this, this.tickRate(worldIn) + rand.nextInt(10));
+                worldIn.getPendingBlockTicks().scheduleTick(pos, this, getTickCooldown(worldIn.rand));
                 if (!this.areNeighborsFlammable(worldIn, pos)) {
                     BlockPos blockpos = pos.down();
                     if (!worldIn.getBlockState(blockpos).isSolidSide(worldIn, blockpos, Direction.UP) || i > 3) {
@@ -140,7 +160,7 @@ public class SpiritFireBlock extends Block {
         BlockPos blockpos = pos.down();
         BlockState blockstate = worldIn.getBlockState(blockpos);
         if (!this.canCatchFire(worldIn, blockpos, Direction.UP) &&
-            !Block.hasSolidSide(blockstate, worldIn, blockpos, Direction.UP)) {
+            !Block.hasSolidSideOnTop(worldIn, blockpos)) {
             if (this.canCatchFire(worldIn, blockpos.west(), Direction.EAST)) {
                 for (int j = 0; j < 2; ++j) {
                     double d3 = (double) pos.getX() + rand.nextDouble() * (double) 0.1F;
@@ -198,36 +218,17 @@ public class SpiritFireBlock extends Block {
     }
 
     @Override
-    public int tickRate(IWorldReader worldIn) {
-        return 30;
-    }
-
-    @Override
-    public void onBlockAdded(BlockState state, World worldIn, BlockPos pos, BlockState oldState, boolean isMoving) {
-        if (oldState.getBlock() != state.getBlock()) {
-            if (!state.isValidPosition(worldIn, pos)) {
-                worldIn.removeBlock(pos, false);
-            }
-            else {
-                worldIn.getPendingBlockTicks()
-                        .scheduleTick(pos, this, this.tickRate(worldIn) + worldIn.rand.nextInt(10));
-            }
-        }
-    }
-
-    @Override
-    public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
-        BlockPos blockpos = pos.down();
-        return worldIn.getBlockState(blockpos).isSolidSide(worldIn, blockpos, Direction.UP) ||
-               this.areNeighborsFlammable(worldIn, pos);
-    }
-
-    @Override
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
         builder.add(FireBlock.AGE);
         super.fillStateContainer(builder);
     }
     //endregion Overrides
+
+//region Static Methods
+    private static int getTickCooldown(Random rand) {
+        return 30 + rand.nextInt(10);
+    }
+//endregion Static Methods
 
     //region Methods
     public boolean canCatchFire(IBlockReader world, BlockPos pos, Direction face) {
@@ -235,7 +236,7 @@ public class SpiritFireBlock extends Block {
     }
 
     protected void convertItems(World world, BlockPos pos, BlockState state) {
-        Vec3d center = Math3DUtil.center(pos);
+        Vector3d center = Math3DUtil.center(pos);
         AxisAlignedBB box = new AxisAlignedBB(-0.5, -0.5, -0.5, 0.5, 0.5, 0.5).offset(center);
         List<ItemEntity> list = world.getEntitiesWithinAABB(ItemEntity.class, box);
         ItemStackFakeInventory fakeInventory =

@@ -25,6 +25,7 @@ package com.github.klikli_dev.occultism.integration.jei.recipes;
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.crafting.recipe.RitualFakeRecipe;
 import com.github.klikli_dev.occultism.registry.OccultismRecipes;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
@@ -98,16 +99,16 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualFakeRecipe> {
     }
 
     @Override
-    public void draw(RitualFakeRecipe recipe, double mouseX, double mouseY) {
+    public void draw(RitualFakeRecipe recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
         RenderSystem.enableBlend();
-        this.overlay.draw(76, 14); //(center=84) - (width/16=8) = 76
-        this.drawStringCentered(Minecraft.getInstance().fontRenderer, this.getTitle(), 84, 0);
+        this.overlay.draw(matrixStack,76, 14); //(center=84) - (width/16=8) = 76
+        this.drawStringCentered(matrixStack, Minecraft.getInstance().fontRenderer, this.getTitle(), 84, 0);
     }
     //endregion Overrides
 
     //region Methods
-    protected void drawStringCentered(FontRenderer fontRenderer, String text, int x, int y) {
-        fontRenderer.drawString(text, (x - fontRenderer.getStringWidth(text) / 2.0f), y, 0);
+    protected void drawStringCentered(MatrixStack matrixStack, FontRenderer fontRenderer, String text, int x, int y) {
+        fontRenderer.drawString(matrixStack, text, (x - fontRenderer.getStringWidth(text) / 2.0f), y, 0);
     }
     //endregion Methods
 }

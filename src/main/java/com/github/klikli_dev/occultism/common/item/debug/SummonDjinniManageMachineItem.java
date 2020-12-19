@@ -23,7 +23,6 @@
 package com.github.klikli_dev.occultism.common.item.debug;
 
 import com.github.klikli_dev.occultism.common.entity.spirit.DjinniEntity;
-import com.github.klikli_dev.occultism.common.entity.spirit.FoliotEntity;
 import com.github.klikli_dev.occultism.common.job.SpiritJob;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.registry.OccultismSpiritJobs;
@@ -34,6 +33,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.world.server.ServerWorld;
 
 public class SummonDjinniManageMachineItem extends Item {
 
@@ -49,7 +49,8 @@ public class SummonDjinniManageMachineItem extends Item {
         if (!context.getWorld().isRemote) {
 
             DjinniEntity spirit = OccultismEntities.DJINNI.get().create(context.getWorld());
-            spirit.onInitialSpawn(context.getWorld(), context.getWorld().getDifficultyForLocation(context.getPos()),
+            spirit.onInitialSpawn((ServerWorld) context.getWorld(),
+                    context.getWorld().getDifficultyForLocation(context.getPos()),
                     SpawnReason.SPAWN_EGG, null, null);
             spirit.setTamedBy(context.getPlayer());
             spirit.setPosition(context.getPos().getX(), context.getPos().getY() + 1.0f, context.getPos().getZ());

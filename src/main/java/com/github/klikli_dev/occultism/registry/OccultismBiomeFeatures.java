@@ -27,8 +27,6 @@ import com.github.klikli_dev.occultism.common.world.cave.SphericalCaveSubFeature
 import com.github.klikli_dev.occultism.common.world.cave.UndergroundGroveDecorator;
 import com.github.klikli_dev.occultism.common.world.multichunk.MultiChunkFeature;
 import com.github.klikli_dev.occultism.common.world.multichunk.MultiChunkFeatureConfig;
-import com.github.klikli_dev.occultism.common.world.ore.DimensionOreFeature;
-import com.github.klikli_dev.occultism.common.world.ore.DimensionOreFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
@@ -37,17 +35,13 @@ import net.minecraftforge.registries.ForgeRegistries;
 public class OccultismBiomeFeatures {
     //region Fields
     public static final DeferredRegister<Feature<?>> FEATURES =
-            new DeferredRegister<>(ForgeRegistries.FEATURES, Occultism.MODID);
+            DeferredRegister.create(ForgeRegistries.FEATURES, Occultism.MODID);
 
-    public static final RegistryObject<DimensionOreFeature> DIMENSION_ORE_FEATURE = FEATURES.register("dimension_ore",
-            () -> new DimensionOreFeature(DimensionOreFeatureConfig::deserialize));
-
-    public static final RegistryObject<MultiChunkFeature<MultiChunkFeatureConfig>> UNDERGROUND_GROVE_FEATURE =
-            FEATURES.register("underground_grove",
-                    () -> new MultiChunkFeature<>(
-                            MultiChunkFeatureConfig::deserialize,
-                            new SphericalCaveSubFeature<>(new UndergroundGroveDecorator(), 25,
-                                    25)));
+        public static final RegistryObject<MultiChunkFeature> UNDERGROUND_GROVE_FEATURE =
+                FEATURES.register("underground_grove",
+                        () -> new MultiChunkFeature(
+                                MultiChunkFeatureConfig.CODEC,
+                                new SphericalCaveSubFeature(new UndergroundGroveDecorator(), 25, 25)));
 
     //endregion Fields
 

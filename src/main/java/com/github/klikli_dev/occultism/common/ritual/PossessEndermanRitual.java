@@ -27,6 +27,7 @@ import com.github.klikli_dev.occultism.common.tile.GoldenSacrificialBowlTileEnti
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.github.klikli_dev.occultism.registry.OccultismRituals;
+import com.github.klikli_dev.occultism.registry.OccultismTags;
 import com.github.klikli_dev.occultism.util.ItemNBTUtil;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.player.PlayerEntity;
@@ -41,9 +42,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
 public class PossessEndermanRitual extends SummonSpiritRitual {
-    //region Fields
-    public static final ResourceLocation pigTag = new ResourceLocation("forge", "pigs");
-    //endregion Fields
 
     //region Initialization
     public PossessEndermanRitual() {
@@ -52,7 +50,7 @@ public class PossessEndermanRitual extends SummonSpiritRitual {
                 Ingredient.fromItems(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()),
                 "possess_enderman", 60);
         this.sacrificePredicate =
-                (entity) -> EntityTypeTags.getCollection().getOrCreate(pigTag).contains(entity.getType());
+                (entity) -> OccultismTags.PIGS.contains(entity.getType());
     }
     //endregion Initialization
 
@@ -71,7 +69,7 @@ public class PossessEndermanRitual extends SummonSpiritRitual {
 
         //set up the foliot entity
         PossessedEndermanEntity enderman = OccultismEntities.POSSESSED_ENDERMAN.get().create(world);
-        enderman.onInitialSpawn(world, world.getDifficultyForLocation(goldenBowlPosition), SpawnReason.MOB_SUMMONED,
+        enderman.onInitialSpawn((ServerWorld) world, world.getDifficultyForLocation(goldenBowlPosition), SpawnReason.MOB_SUMMONED,
                 null,
                 null);
         enderman.setPositionAndRotation(goldenBowlPosition.getX(), goldenBowlPosition.getY(), goldenBowlPosition.getZ(),

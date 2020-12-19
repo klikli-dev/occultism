@@ -22,29 +22,29 @@
 
 package com.github.klikli_dev.occultism.common.item.storage;
 
-import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.api.common.data.GlobalBlockPos;
 import com.github.klikli_dev.occultism.api.common.tile.IStorageController;
 import com.github.klikli_dev.occultism.common.container.storage.StorageRemoteContainer;
 import com.github.klikli_dev.occultism.util.TileEntityUtil;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.client.world.ClientWorld;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUseContext;
-import net.minecraft.item.Rarity;
+import net.minecraft.item.*;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Util;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.network.NetworkHooks;
 
 import javax.annotation.Nullable;
@@ -55,9 +55,6 @@ public class StorageRemoteItem extends Item implements INamedContainerProvider {
     //region Initialization
     public StorageRemoteItem(Properties properties) {
         super(properties);
-        this.addPropertyOverride(new ResourceLocation(Occultism.MODID, "linked"),
-                (stack, world, entity) -> stack.getOrCreateTag()
-                                                  .contains("linkedStorageController") ? 1.0f : 0.0f);
     }
     //endregion Initialization
 
@@ -74,7 +71,9 @@ public class StorageRemoteItem extends Item implements INamedContainerProvider {
             TileEntity tileEntity = context.getWorld().getTileEntity(context.getPos());
             if (tileEntity instanceof IStorageController) {
                 stack.setTagInfo("linkedStorageController", GlobalBlockPos.from(tileEntity).serializeNBT());
-                context.getPlayer().sendMessage(new TranslationTextComponent(this.getTranslationKey() + ".message.linked"));
+                context.getPlayer()
+                        .sendMessage(new TranslationTextComponent(this.getTranslationKey() + ".message.linked"),
+                                Util.DUMMY_UUID);
             }
         }
 
@@ -90,11 +89,11 @@ public class StorageRemoteItem extends Item implements INamedContainerProvider {
 
         GlobalBlockPos storageControllerPos = GlobalBlockPos.from(
                 stack.getTag().getCompound("linkedStorageController"));
-        World storageControllerWorld = world.getServer().getWorld(storageControllerPos.getDimensionType());
+        World storageControllerWorld = world.getServer().getWorld(storageControllerPos.getDimensionKey());
 
         //ensure TE is available
         if (!storageControllerWorld.isBlockLoaded(storageControllerPos.getPos())) {
-            player.sendMessage(new TranslationTextComponent(this.getTranslationKey() + ".message.not_loaded"));
+            player.sendMessage(new TranslationTextComponent(this.getTranslationKey() + ".message.not_loaded"), Util.DUMMY_UUID);
             return super.onItemRightClick(world, player, hand);
         }
 
@@ -117,7 +116,6 @@ public class StorageRemoteItem extends Item implements INamedContainerProvider {
             tooltip.add(new TranslationTextComponent(this.getTranslationKey() + ".tooltip.linked", pos.toString()));
         }
     }
-
 
     @Override
     public Rarity getRarity(ItemStack stack) {
@@ -148,5 +146,15 @@ public class StorageRemoteItem extends Item implements INamedContainerProvider {
         return tileEntity instanceof IStorageController ? (IStorageController) tileEntity : null;
     }
     //endregion Static Methods
+
+    public static class ItemPropertyGetter implements IItemPropertyGetter {
+        //region Overrides
+        @OnlyIn(Dist.CLIENT)
+        @Override
+        public float call(ItemStack stack, @Nullable ClientWorld worldIn, @Nullable LivingEntity entityIn) {
+            return stack.getOrCreateTag()
+                           .contains("linkedStorageController") ? 1.0f : 0.0f;
+        }
+    }
 }
 

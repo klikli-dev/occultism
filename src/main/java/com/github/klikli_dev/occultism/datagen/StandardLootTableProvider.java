@@ -37,10 +37,10 @@ import net.minecraft.data.loot.EntityLootTables;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Items;
-import net.minecraft.world.storage.loot.*;
-import net.minecraft.world.storage.loot.conditions.*;
-import net.minecraft.world.storage.loot.functions.LootingEnchantBonus;
-import net.minecraft.world.storage.loot.functions.SetCount;
+import net.minecraft.loot.*;
+import net.minecraft.loot.conditions.*;
+import net.minecraft.loot.functions.LootingEnchantBonus;
+import net.minecraft.loot.functions.SetCount;
 import net.minecraftforge.fml.RegistryObject;
 
 /**

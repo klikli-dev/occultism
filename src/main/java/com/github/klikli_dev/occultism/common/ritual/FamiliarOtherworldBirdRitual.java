@@ -27,6 +27,7 @@ import com.github.klikli_dev.occultism.common.tile.GoldenSacrificialBowlTileEnti
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.github.klikli_dev.occultism.registry.OccultismRituals;
+import com.github.klikli_dev.occultism.registry.OccultismTags;
 import com.github.klikli_dev.occultism.util.ItemNBTUtil;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.player.PlayerEntity;
@@ -41,9 +42,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
 public class FamiliarOtherworldBirdRitual extends SummonSpiritRitual {
-    //region Fields
-    public static final ResourceLocation parrotTag = new ResourceLocation("forge", "parrots");
-    //endregion Fields
 
     //region Initialization
     public FamiliarOtherworldBirdRitual() {
@@ -52,7 +50,7 @@ public class FamiliarOtherworldBirdRitual extends SummonSpiritRitual {
                 Ingredient.fromItems(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()),
                 "familiar_otherworld_bird", 30);
         this.sacrificePredicate =
-                (entity) -> EntityTypeTags.getCollection().getOrCreate(parrotTag).contains(entity.getType());
+                (entity) -> OccultismTags.PARROTS.contains(entity.getType());
     }
     //endregion Initialization
 
@@ -70,7 +68,7 @@ public class FamiliarOtherworldBirdRitual extends SummonSpiritRitual {
                 goldenBowlPosition.getY() + 0.5, goldenBowlPosition.getZ() + 0.5, 1, 0, 0, 0, 0);
 
         OtherworldBirdEntity bird = OccultismEntities.OTHERWORLD_BIRD.get().create(world);
-        bird.onInitialSpawn(world, world.getDifficultyForLocation(goldenBowlPosition), SpawnReason.MOB_SUMMONED,
+        bird.onInitialSpawn((ServerWorld) world, world.getDifficultyForLocation(goldenBowlPosition), SpawnReason.MOB_SUMMONED,
                 null, null);
         bird.setPositionAndRotation(goldenBowlPosition.getX(), goldenBowlPosition.getY(), goldenBowlPosition.getZ(),
                 world.rand.nextInt(360), 0);

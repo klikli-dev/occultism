@@ -40,6 +40,7 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 
 public class SummonFoliotLumberjackItem extends Item {
 
@@ -54,7 +55,7 @@ public class SummonFoliotLumberjackItem extends Item {
     public ActionResultType onItemUse(ItemUseContext context) {
         if(!context.getWorld().isRemote){
             FoliotEntity spirit = OccultismEntities.FOLIOT.get().create(context.getWorld());
-            spirit.onInitialSpawn(context.getWorld(), context.getWorld().getDifficultyForLocation(context.getPos()),
+            spirit.onInitialSpawn((ServerWorld) context.getWorld(), context.getWorld().getDifficultyForLocation(context.getPos()),
                     SpawnReason.SPAWN_EGG, null, null);
             spirit.setTamedBy(context.getPlayer());
             spirit.setPosition(context.getPos().getX(), context.getPos().getY() + 1.0f, context.getPos().getZ());

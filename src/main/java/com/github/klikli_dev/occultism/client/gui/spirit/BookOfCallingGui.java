@@ -29,9 +29,11 @@ import com.github.klikli_dev.occultism.common.item.spirit.BookOfCallingItem;
 import com.github.klikli_dev.occultism.network.MessageSetItemMode;
 import com.github.klikli_dev.occultism.network.MessageSetWorkAreaSize;
 import com.github.klikli_dev.occultism.network.OccultismPackets;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.fml.client.gui.widget.ExtendedButton;
 
 import java.awt.*;
@@ -55,9 +57,9 @@ public class BookOfCallingGui extends Screen {
 
     //region Overrides
     @Override
-    public void render(int mouseX, int mouseY, float partialTicks) {
-        this.renderBackground();
-        super.render(mouseX, mouseY, partialTicks);
+    public void render(MatrixStack stack, int mouseX, int mouseY, float partialTicks) {
+        this.renderBackground(stack);
+        super.render(stack, mouseX, mouseY, partialTicks);
     }
 
     @Override
@@ -81,7 +83,7 @@ public class BookOfCallingGui extends Screen {
 
         //Item mode button
         this.addButton((new ExtendedButton(guiLeft - buttonWidth / 2, guiTop + 60, buttonWidth, 20,
-                I18n.format(this.mode.getItemMode().getTranslationKey()), (b) -> {
+                new TranslationTextComponent(this.mode.getItemMode().getTranslationKey()), (b) -> {
             this.mode = this.mode.next();
             OccultismPackets.sendToServer(new MessageSetItemMode(this.mode.getItemMode().getValue()));
             this.init();
@@ -96,7 +98,7 @@ public class BookOfCallingGui extends Screen {
 
             //Work area size button
             this.addButton(new ExtendedButton(guiLeft - buttonWidth / 2, guiTop + 85, buttonWidth, 20,
-                    I18n.format(this.workAreaSize.getTranslationKey()), (b) -> {
+                    new TranslationTextComponent(this.workAreaSize.getTranslationKey()), (b) -> {
                 this.workAreaSize = this.workAreaSize.next();
                 OccultismPackets.sendToServer(new MessageSetWorkAreaSize(this.workAreaSize.getValue()));
                 this.init();
@@ -108,7 +110,7 @@ public class BookOfCallingGui extends Screen {
         int exitButtonWidth = 20;
         this.addButton(
                 new ExtendedButton(guiLeft - exitButtonWidth / 2, guiTop + (showSize ? 110 : 85), exitButtonWidth, 20,
-                        "X", (b) -> {
+                        new StringTextComponent("X"), (b) -> {
                     this.minecraft.displayGuiScreen(null);
                     this.init();
                 }));

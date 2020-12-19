@@ -54,7 +54,7 @@ public class FellTreesGoal extends Goal {
     public FellTreesGoal(SpiritEntity entity) {
         this.entity = entity;
         this.targetSorter = new BlockSorter(entity);
-        this.setMutexFlags(EnumSet.of(Goal.Flag.MOVE));
+        this.setMutexFlags(EnumSet.of(Flag.MOVE));
     }
     //endregion Initialization
 
@@ -94,7 +94,7 @@ public class FellTreesGoal extends Goal {
             }
 
             if (isLog(this.entity.world, this.targetBlock)) {
-                double distance = this.entity.getPositionVector().distanceTo(Math3DUtil.center(this.moveTarget));
+                double distance = this.entity.getPositionVec().distanceTo(Math3DUtil.center(this.moveTarget));
                 if (distance < 2.5F) {
                     //start breaking when close
                     if (distance < 1F) {

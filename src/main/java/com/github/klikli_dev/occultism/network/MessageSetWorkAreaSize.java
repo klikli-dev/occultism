@@ -33,6 +33,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.Hand;
+import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.fml.network.NetworkEvent;
 
@@ -70,7 +71,7 @@ public class MessageSetWorkAreaSize extends MessageBase {
                 player.sendStatusMessage(new TranslationTextComponent(
                         TranslationKeys.BOOK_OF_CALLING_GENERIC +
                         ".message_set_work_area_size",
-                        TextUtil.formatDemonName(spirit.getName()),
+                        TextUtil.formatDemonName((IFormattableTextComponent) spirit.getName()),
                         new TranslationTextComponent(workAreaSize.getTranslationKey())), true);
             });
         }

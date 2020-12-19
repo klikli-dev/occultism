@@ -53,7 +53,7 @@ public class FallbackDepositToControllerGoal extends PausableGoal {
         this.entity = entity;
         this.job = job;
         this.targetSorter = new BlockSorter(entity);
-        this.setMutexFlags(EnumSet.of(Goal.Flag.MOVE));
+        this.setMutexFlags(EnumSet.of(Flag.MOVE));
     }
     //endregion Initialization
 

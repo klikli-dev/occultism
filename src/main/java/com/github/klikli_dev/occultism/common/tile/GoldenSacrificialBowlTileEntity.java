@@ -29,6 +29,7 @@ import com.github.klikli_dev.occultism.registry.OccultismParticles;
 import com.github.klikli_dev.occultism.registry.OccultismRituals;
 import com.github.klikli_dev.occultism.registry.OccultismTiles;
 import com.github.klikli_dev.occultism.util.EntityUtil;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.InventoryHelper;
@@ -72,8 +73,8 @@ public class GoldenSacrificialBowlTileEntity extends SacrificialBowlTileEntity i
 
     //region Overrides
     @Override
-    public void read(CompoundNBT compound) {
-        super.read(compound);
+    public void read(BlockState state, CompoundNBT compound) {
+        super.read(state, compound);
         if (this.currentRitual != null && compound.contains("remainingAdditionalIngredientsSize")) {
             int size = compound.getByte("remainingAdditionalIngredientsSize");
             List<Ingredient> additionalIngredients = this.currentRitual.getAdditionalIngredients(this.world);

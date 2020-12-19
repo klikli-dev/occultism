@@ -23,33 +23,26 @@
 package com.github.klikli_dev.occultism.common.entity.spirit;
 
 import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.registry.OccultismTags;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.goal.*;
-import net.minecraft.entity.merchant.villager.AbstractVillagerEntity;
 import net.minecraft.entity.monster.BlazeEntity;
-import net.minecraft.entity.monster.ZombieEntity;
-import net.minecraft.entity.monster.ZombiePigmanEntity;
-import net.minecraft.entity.passive.IronGolemEntity;
-import net.minecraft.entity.passive.TurtleEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tags.EntityTypeTags;
-import net.minecraft.tags.Tag;
+import net.minecraft.tags.ITag;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.IWorld;
+import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
 public class AfritWildEntity extends AfritEntity {
-    //region Fields
-    public static final ResourceLocation afritAlliesTag = new ResourceLocation(Occultism.MODID, "afrit_allies");
-    //endregion Fields
 
     //region Initialization
     public AfritWildEntity(EntityType<? extends SpiritEntity> type, World world) {
@@ -59,6 +52,23 @@ public class AfritWildEntity extends AfritEntity {
     //endregion Initialization
 
     //region Overrides
+    @Override
+    public ILivingEntityData onInitialSpawn(IServerWorld world, DifficultyInstance difficultyIn, SpawnReason reason,
+                                            @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
+        int maxBlazes = 3 + world.getRandom().nextInt(6);
+
+        for (int i = 0; i < maxBlazes; i++) {
+            BlazeEntity entity = EntityType.BLAZE.create(this.world);
+            entity.onInitialSpawn(world, difficultyIn, reason, spawnDataIn, dataTag);
+            double offsetX = (world.getRandom().nextGaussian() - 1.0) * (1 + world.getRandom().nextInt(4));
+            double offsetZ = (world.getRandom().nextGaussian() - 1.0) * (1 + world.getRandom().nextInt(4));
+            entity.setPositionAndRotation(this.getPosX() + offsetX, this.getPosY() + 1.5, this.getPosZ() + offsetZ,
+                    world.getRandom().nextInt(360), 0);
+            world.addEntity(entity);
+        }
+
+        return super.onInitialSpawn(world, difficultyIn, reason, spawnDataIn, dataTag);
+    }
 
     @Override
     protected void registerGoals() {
@@ -74,35 +84,17 @@ public class AfritWildEntity extends AfritEntity {
     }
 
     @Override
-    public ILivingEntityData onInitialSpawn(IWorld world, DifficultyInstance difficultyIn, SpawnReason reason,
-                                            @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
-        int maxBlazes = 3 + world.getRandom().nextInt(6);
-
-        for(int i = 0; i < maxBlazes; i++){
-            BlazeEntity entity = EntityType.BLAZE.create(this.world);
-            entity.onInitialSpawn(world, difficultyIn, reason, spawnDataIn, dataTag);
-            double offsetX =  (world.getRandom().nextGaussian() -1.0) * (1 + world.getRandom().nextInt(4));
-            double offsetZ =  (world.getRandom().nextGaussian() -1.0) * (1 + world.getRandom().nextInt(4));
-            entity.setPositionAndRotation(this.getPosX() + offsetX, this.getPosY() + 1.5, this.getPosZ() + offsetZ,
-                    world.getRandom().nextInt(360), 0);
-            world.addEntity(entity);
-        }
-
-        return super.onInitialSpawn(world, difficultyIn, reason, spawnDataIn, dataTag);
-    }
-
-    @Override
     public boolean isInvulnerableTo(DamageSource source) {
-        if(source.isFireDamage())
+        if (source.isFireDamage())
             return true;
-        Tag<EntityType<?>> alliesTags = EntityTypeTags.getCollection().getOrCreate(afritAlliesTag);
+        ITag<EntityType<?>> alliesTags = OccultismTags.AFRIT_ALLIES;
 
         Entity trueSource = source.getTrueSource();
-        if(trueSource != null && alliesTags.contains(trueSource.getType()))
+        if (trueSource != null && alliesTags.contains(trueSource.getType()))
             return true;
 
         Entity immediateSource = source.getImmediateSource();
-        if(immediateSource != null && alliesTags.contains(immediateSource.getType()))
+        if (immediateSource != null && alliesTags.contains(immediateSource.getType()))
             return true;
 
         return super.isInvulnerableTo(source);

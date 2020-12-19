@@ -22,25 +22,18 @@
 
 package com.github.klikli_dev.occultism.common.world.cave;
 
-import net.minecraft.block.Block;
+import com.github.klikli_dev.occultism.registry.OccultismTags;
 import net.minecraft.block.BlockState;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.Tag;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.ISeedReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.gen.ChunkGenerator;
-import net.minecraft.world.gen.GenerationSettings;
 
 import java.util.Random;
 
-import static com.github.klikli_dev.occultism.util.StaticUtil.modLoc;
-
 public abstract class CaveDecorator implements ICaveDecorator {
-
     //region Fields
-    public static final Tag<Block> CAVE_WALL_BLOCKS = new BlockTags.Wrapper(modLoc("cave_wall_blocks"));
-
     public BlockState floorState;
     public BlockState ceilingState;
     public BlockState wallState;
@@ -57,119 +50,119 @@ public abstract class CaveDecorator implements ICaveDecorator {
 
     //region Overrides
     @Override
-    public void finalPass(IWorld world, ChunkGenerator<? extends GenerationSettings> generator, Random rand,
+    public void finalPass(ISeedReader seedReader, ChunkGenerator generator, Random rand,
                           CaveDecoratordata data) {
-        data.floorBlocks.forEach(blockPos -> this.finalFloorPass(world, generator, rand, blockPos));
-        data.ceilingBlocks.forEach(blockPos -> this.finalCeilingPass(world, generator, rand, blockPos));
-        data.wallBlocks.keySet().forEach(blockPos -> this.finalWallPass(world, generator, rand, blockPos));
-        data.insideBlocks.forEach(blockPos -> this.finalInsidePass(world, generator, rand, blockPos));
+        data.floorBlocks.forEach(blockPos -> this.finalFloorPass(seedReader, generator, rand, blockPos));
+        data.ceilingBlocks.forEach(blockPos -> this.finalCeilingPass(seedReader, generator, rand, blockPos));
+        data.wallBlocks.keySet().forEach(blockPos -> this.finalWallPass(seedReader, generator, rand, blockPos));
+        data.insideBlocks.forEach(blockPos -> this.finalInsidePass(seedReader, generator, rand, blockPos));
     }
 
     @Override
-    public void fill(IWorld world, ChunkGenerator<? extends GenerationSettings> generator, Random rand,
+    public void fill(ISeedReader seedReader, ChunkGenerator generator, Random rand,
                      BlockPos pos, CaveDecoratordata data) {
-        BlockState state = world.getBlockState(pos);
-        if (state.getBlockHardness(world, pos) == -1 || world.canBlockSeeSky(pos))
+        BlockState state = seedReader.getBlockState(pos);
+        if (state.getBlockHardness(seedReader, pos) == -1 || seedReader.canBlockSeeSky(pos))
             return;
 
-        if (this.isFloor(world, pos, state)) {
+        if (this.isFloor(seedReader, pos, state)) {
             data.floorBlocks.add(pos);
-            this.fillFloor(world, generator, rand, pos, state);
+            this.fillFloor(seedReader, generator, rand, pos, state);
         }
-        else if (this.isCeiling(world, pos, state)) {
+        else if (this.isCeiling(seedReader, pos, state)) {
             data.ceilingBlocks.add(pos);
-            this.fillCeiling(world, generator, rand, pos, state);
+            this.fillCeiling(seedReader, generator, rand, pos, state);
         }
-        else if (this.isWall(world, pos, state)) {
-            data.wallBlocks.put(pos, this.getBorderDirection(world, pos));
-            this.fillWall(world, generator, rand, pos, state);
+        else if (this.isWall(seedReader, pos, state)) {
+            data.wallBlocks.put(pos, this.getBorderDirection(seedReader, pos));
+            this.fillWall(seedReader, generator, rand, pos, state);
         }
         else if (this.isInside(state)) {
             data.insideBlocks.add(pos);
-            this.fillInside(world, generator, rand, pos, state);
+            this.fillInside(seedReader, generator, rand, pos, state);
         }
     }
     //endregion Overrides
 
     //region Methods
-    public void fillFloor(IWorld world, ChunkGenerator<? extends GenerationSettings> generator, Random rand,
+    public void fillFloor(ISeedReader seedReader, ChunkGenerator generator, Random rand,
                           BlockPos pos, BlockState state) {
         if (this.floorState != null) {
-            world.setBlockState(pos, this.floorState, 2);
+            seedReader.setBlockState(pos, this.floorState, 2);
         }
     }
 
-    public void fillCeiling(IWorld world, ChunkGenerator<? extends GenerationSettings> generator, Random rand,
+    public void fillCeiling(ISeedReader seedReader, ChunkGenerator generator, Random rand,
                             BlockPos pos, BlockState state) {
         if (this.ceilingState != null)
-            world.setBlockState(pos, this.ceilingState, 2);
+            seedReader.setBlockState(pos, this.ceilingState, 2);
     }
 
-    public void fillWall(IWorld world, ChunkGenerator<? extends GenerationSettings> generator, Random rand,
+    public void fillWall(ISeedReader seedReader, ChunkGenerator generator, Random rand,
                          BlockPos pos, BlockState state) {
         if (this.wallState != null)
-            world.setBlockState(pos, this.wallState, 2);
+            seedReader.setBlockState(pos, this.wallState, 2);
     }
 
-    public void fillInside(IWorld world, ChunkGenerator<? extends GenerationSettings> generator, Random rand,
+    public void fillInside(ISeedReader seedReader, ChunkGenerator generator, Random rand,
                            BlockPos pos, BlockState state) {
         //world.setBlockState(pos, Blocks.AIR.getDefaultState(), 2);
     }
 
-    public void finalFloorPass(IWorld world, ChunkGenerator<? extends GenerationSettings> generator, Random rand,
+    public void finalFloorPass(ISeedReader seedReader, ChunkGenerator generator, Random rand,
                                BlockPos pos) {
     }
 
-    public void finalCeilingPass(IWorld world, ChunkGenerator<? extends GenerationSettings> generator, Random rand,
+    public void finalCeilingPass(ISeedReader seedReader, ChunkGenerator generator, Random rand,
                                  BlockPos pos) {
     }
 
-    public void finalWallPass(IWorld world, ChunkGenerator<? extends GenerationSettings> generator, Random rand,
+    public void finalWallPass(ISeedReader seedReader, ChunkGenerator generator, Random rand,
                               BlockPos pos) {
     }
 
-    public void finalInsidePass(IWorld world, ChunkGenerator<? extends GenerationSettings> generator, Random rand,
+    public void finalInsidePass(ISeedReader seedReader, ChunkGenerator generator, Random rand,
                                 BlockPos pos) {
     }
 
-    public boolean isFloor(IWorld world, BlockPos pos, BlockState state) {
-        if (!state.isOpaqueCube(world, pos))
+    public boolean isFloor(ISeedReader seedReader, BlockPos pos, BlockState state) {
+        if (!state.isOpaqueCube(seedReader, pos))
             return false;
 
         BlockPos upPos = pos.up();
-        return world.isAirBlock(upPos) || world.getBlockState(upPos).getMaterial().isReplaceable();
+        return seedReader.isAirBlock(upPos) || seedReader.getBlockState(upPos).getMaterial().isReplaceable();
     }
 
-    public boolean isCeiling(IWorld world, BlockPos pos, BlockState state) {
-        if (!state.isOpaqueCube(world, pos))
+    public boolean isCeiling(ISeedReader seedReader, BlockPos pos, BlockState state) {
+        if (!state.isOpaqueCube(seedReader, pos))
             return false;
 
         BlockPos downPos = pos.down();
-        return world.isAirBlock(downPos); // || world.getBlockState(downPos).getBlock().isReplaceable(world, downPos);
+        return seedReader.isAirBlock(downPos); // || world.getBlockState(downPos).getBlock().isReplaceable(world, downPos);
     }
 
-    public boolean isWall(IWorld world, BlockPos pos, BlockState state) {
-        if (!state.isOpaqueCube(world, pos) || !this.isStone(state))
+    public boolean isWall(ISeedReader seedReader, BlockPos pos, BlockState state) {
+        if (!state.isOpaqueCube(seedReader, pos) || !this.isStone(state))
             return false;
 
-        return this.isBorder(world, pos);
+        return this.isBorder(seedReader, pos);
     }
 
-    public Direction getBorderDirection(IWorld world, BlockPos pos) {
-        BlockState state = world.getBlockState(pos);
+    public Direction getBorderDirection(ISeedReader seedReader, BlockPos pos) {
+        BlockState state = seedReader.getBlockState(pos);
         for (Direction facing : Direction.Plane.HORIZONTAL) {
             BlockPos offsetPos = pos.offset(facing);
-            BlockState stateAt = world.getBlockState(offsetPos);
+            BlockState stateAt = seedReader.getBlockState(offsetPos);
 
-            if (state != stateAt && world.isAirBlock(offsetPos) || stateAt.getMaterial().isReplaceable())
+            if (state != stateAt && seedReader.isAirBlock(offsetPos) || stateAt.getMaterial().isReplaceable())
                 return facing;
         }
 
         return null;
     }
 
-    public boolean isBorder(IWorld world, BlockPos pos) {
-        return this.getBorderDirection(world, pos) != null;
+    public boolean isBorder(ISeedReader seedReader, BlockPos pos) {
+        return this.getBorderDirection(seedReader, pos) != null;
     }
 
     public boolean isInside(BlockState state) {
@@ -178,7 +171,7 @@ public abstract class CaveDecorator implements ICaveDecorator {
 
     public boolean isStone(BlockState state) {
         if (state != null) {
-            return state.getBlock().isIn(CAVE_WALL_BLOCKS);
+            return state.getBlock().isIn(OccultismTags.CAVE_WALL_BLOCKS);
         }
         return false;
     }

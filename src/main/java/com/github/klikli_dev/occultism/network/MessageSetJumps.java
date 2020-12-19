@@ -50,7 +50,7 @@ public class MessageSetJumps extends MessageBase {
 
     @Override
     public void onClientReceived(Minecraft minecraft, PlayerEntity player, NetworkEvent.Context context) {
-        if(!player.onGround) {
+        if(!player.isOnGround()) {
             player.getCapability(OccultismCapabilities.DOUBLE_JUMP).ifPresent(cap -> cap.setJumps(this.jumps));
         }
     }

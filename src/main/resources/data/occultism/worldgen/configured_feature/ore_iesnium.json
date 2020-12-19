@@ -1,0 +1,40 @@
+{
+  "type": "minecraft:decorated",
+  "config": {
+    "feature": {
+      "type": "minecraft:ore",
+      "config": {
+        "state": {
+          "Name": "occultism:iesnium_ore"
+        },
+        "target": {
+          "predicate_type": "tag_match",
+          "tag": "minecraft:base_stone_nether"
+        },
+        "size": 7
+      }
+    },
+    "decorator": {
+      "type": "decorated",
+      "config": {
+        "inner": {
+          "type": "minecraft:range",
+          "config": {
+            "bottom_offset": 10,
+            "top_offset": 20,
+            "maximum": 128
+          }
+        },
+        "outer": {
+          "type": "minecraft:count",
+          "config": {
+            "count": {
+              "base": 10,
+              "spread": 0
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -34,7 +34,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.server.ServerWorld;
 
 import java.util.ArrayList;
@@ -104,7 +104,7 @@ public class CrusherJob extends SpiritJob {
 
                 //show particle effect while crushing
                 if (this.entity.world.getGameTime() % 10 == 0) {
-                    Vec3d pos = this.entity.getPositionVector();
+                    Vector3d pos = this.entity.getPositionVec();
                     ((ServerWorld) this.entity.world)
                             .spawnParticle(ParticleTypes.PORTAL, pos.x + this.entity.world.rand.nextGaussian() / 3,
                                     pos.y + 0.5, pos.z + this.entity.world.rand.nextGaussian() / 3, 1, 0.0, 0.0, 0.0,

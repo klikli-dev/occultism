@@ -31,9 +31,9 @@ import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.storage.loot.LootPool;
-import net.minecraft.world.storage.loot.TableLootEntry;
+import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.loot.LootPool;
+import net.minecraft.loot.TableLootEntry;
 import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -47,17 +47,10 @@ import static com.github.klikli_dev.occultism.util.StaticUtil.modLoc;
 @Mod.EventBusSubscriber(modid = Occultism.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class LootEventHandler {
 
-    private static final ResourceLocation grass = new ResourceLocation("minecraft", "blocks/grass");
-
-    @SubscribeEvent
-    public static void onLootLoad(LootTableLoadEvent event) {
-        if (event.getName().equals(grass)) {
-            event.getTable().addPool(LootPool.builder().addEntry(TableLootEntry.builder(modLoc("blocks/grass"))).name(Occultism.MODID + ":grass").build());
-        }
-    }
-
     @SubscribeEvent
     public static void onLivingDrops(LivingDropsEvent event) {
+        //Add butcher knife drops dynamically.
+        //TODO: Consider doing a global loot table for that
         if (event.isRecentlyHit() && event.getSource().getTrueSource() instanceof LivingEntity) {
             LivingEntity trueSource = (LivingEntity) event.getSource().getTrueSource();
             ItemStack knifeItem = trueSource.getHeldItem(Hand.MAIN_HAND);
@@ -69,7 +62,7 @@ public class LootEventHandler {
                     for (ItemStack stack : loot) {
                         ItemStack copy = stack.copy();
                         copy.setCount(rand.nextInt(stack.getCount() + 1) + rand.nextInt(event.getLootingLevel() + 1));
-                        Vec3d center = Math3DUtil.center(event.getEntityLiving().getPosition());
+                        Vector3d center = Math3DUtil.center(event.getEntityLiving().getPosition());
                         event.getDrops()
                                 .add(new ItemEntity(event.getEntityLiving().world, center.x, center.y, center.z, copy));
                     }

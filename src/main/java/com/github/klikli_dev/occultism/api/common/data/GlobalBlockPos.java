@@ -25,38 +25,44 @@ package com.github.klikli_dev.occultism.api.common.data;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.registry.DynamicRegistries;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
-import net.minecraft.world.dimension.DimensionType;
 import net.minecraftforge.common.util.INBTSerializable;
 
+import java.util.Objects;
+import java.util.Optional;
 import java.util.StringJoiner;
 
 public class GlobalBlockPos implements INBTSerializable<CompoundNBT> {
     //region Fields
     protected BlockPos pos;
-    protected DimensionType dimensionType;
+    protected RegistryKey<World> dimensionKey;
     //endregion Fields
 
     //region Initialization
     public GlobalBlockPos() {
     }
 
-    public GlobalBlockPos(BlockPos pos, DimensionType dimensionType) {
+    public GlobalBlockPos(BlockPos pos, RegistryKey<World> dimensionKey) {
         this.pos = pos;
-        this.dimensionType = dimensionType;
+        this.dimensionKey = dimensionKey;
     }
 
     public GlobalBlockPos(BlockPos pos, World world) {
         this.pos = pos;
-        this.dimensionType = world.getDimension().getType();
+        Optional<RegistryKey<World>> optionalKey =
+                DynamicRegistries.Impl.func_239770_b_().getRegistry(Registry.WORLD_KEY).getOptionalKey(world);
+        this.dimensionKey = optionalKey.orElseGet(null);
     }
     //endregion Initialization
 
     //region Getter / Setter
-    public DimensionType getDimensionType() {
-        return this.dimensionType;
+    public RegistryKey<World> getDimensionKey() {
+        return this.dimensionKey;
     }
 
     public BlockPos getPos() {
@@ -67,8 +73,7 @@ public class GlobalBlockPos implements INBTSerializable<CompoundNBT> {
     //region Overrides
     @Override
     public int hashCode() {
-        //multiply first hash code by a prime to avoid hash collisions (see Objects.hash() for reference)
-        return this.getPos().hashCode() * 31 + this.getDimensionType().getRegistryName().hashCode();
+        return Objects.hash(this.dimensionKey, this.pos);
     }
 
     @Override
@@ -82,12 +87,12 @@ public class GlobalBlockPos implements INBTSerializable<CompoundNBT> {
         GlobalBlockPos other = (GlobalBlockPos) obj;
         if (!this.pos.equals(other.pos))
             return false;
-        return this.dimensionType == other.dimensionType;
+        return this.dimensionKey.equals(other.dimensionKey);
     }
 
     @Override
     public String toString() {
-        return new StringJoiner(", ", "[", "]").add(this.dimensionType.getRegistryName().toString())
+        return new StringJoiner(", ", "[", "]").add(this.dimensionKey.getLocation().toString())
                        .add("x=" + this.pos.getX()).add("y=" + this.pos.getY())
                        .add("z=" + this.pos.getZ()).toString();
     }
@@ -124,23 +129,24 @@ public class GlobalBlockPos implements INBTSerializable<CompoundNBT> {
     //region Methods
     public CompoundNBT write(CompoundNBT compound) {
         compound.putLong("pos", this.getPos().toLong());
-        compound.putString("dimension", this.getDimensionType().getRegistryName().toString());
+        compound.putString("dimension", this.dimensionKey.getLocation().toString());
         return compound;
     }
 
     public void read(CompoundNBT compound) {
         this.pos = BlockPos.fromLong(compound.getLong("pos"));
-        this.dimensionType = DimensionType.byName(new ResourceLocation(compound.getString("dimension")));
+        this.dimensionKey =
+                RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation(compound.getString("dimension")));
     }
 
     public void encode(PacketBuffer buf) {
         buf.writeBlockPos(this.pos);
-        buf.writeResourceLocation(this.dimensionType.getRegistryName());
+        buf.writeResourceLocation(this.dimensionKey.getLocation());
     }
 
     public void decode(PacketBuffer buf) {
         this.pos = buf.readBlockPos();
-        this.dimensionType = DimensionType.byName(buf.readResourceLocation());
+        this.dimensionKey = RegistryKey.getOrCreateKey(Registry.WORLD_KEY, buf.readResourceLocation());
     }
     //endregion Methods
 }

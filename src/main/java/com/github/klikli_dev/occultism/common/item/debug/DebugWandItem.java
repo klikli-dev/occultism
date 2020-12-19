@@ -63,11 +63,11 @@ public class DebugWandItem extends Item {
     }
 
     @Override
-    public boolean itemInteractionForEntity(ItemStack stack, PlayerEntity player, LivingEntity target,
+    public ActionResultType itemInteractionForEntity(ItemStack stack, PlayerEntity player, LivingEntity target,
                                             Hand hand) {
 
 
-        return true;
+        return ActionResultType.SUCCESS;
     }
     //endregion Overrides
 }

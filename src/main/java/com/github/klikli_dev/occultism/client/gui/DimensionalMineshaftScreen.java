@@ -25,6 +25,7 @@ package com.github.klikli_dev.occultism.client.gui;
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.container.DimensionalMineshaftContainer;
 import com.github.klikli_dev.occultism.common.tile.DimensionalMineshaftTileEntity;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.entity.player.PlayerInventory;
@@ -48,21 +49,21 @@ public class DimensionalMineshaftScreen extends ContainerScreen<DimensionalMines
     //endregion Initialization
 
     //region Overrides
-    public void render(int mouseX, int mouseY, float partialTicks) {
-        this.renderBackground();
-        super.render(mouseX, mouseY, partialTicks);
-        this.renderHoveredToolTip(mouseX, mouseY);
+    public void render(MatrixStack stack, int mouseX, int mouseY, float partialTicks) {
+        this.renderBackground(stack);
+        super.render(stack, mouseX, mouseY, partialTicks);
+        this.renderHoveredTooltip(stack, mouseX, mouseY);
     }
 
     @Override
-    protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
+    protected void drawGuiContainerBackgroundLayer(MatrixStack stack, float partialTicks, int mouseX, int mouseY) {
         RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.minecraft.getTextureManager().bindTexture(TEXTURE);
-        this.blit(this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
+        this.blit(stack, this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
         int miningTime = this.otherworldMiner.miningTime;
         int progress = (int) (18 * (1.0F - (float) miningTime / this.otherworldMiner.maxMiningTime));
         if (progress > 0 && miningTime > 0) {
-            this.blit(this.guiLeft + 61, this.guiTop + 41, 176, 0, progress+1, 4);
+            this.blit(stack, this.guiLeft + 61, this.guiTop + 41, 176, 0, progress+1, 4);
         }
     }
     //endregion Overrides

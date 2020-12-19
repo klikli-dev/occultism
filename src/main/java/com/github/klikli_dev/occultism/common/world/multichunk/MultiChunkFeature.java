@@ -23,54 +23,47 @@
 package com.github.klikli_dev.occultism.common.world.multichunk;
 
 import com.github.klikli_dev.occultism.util.Math3DUtil;
-import com.mojang.datafixers.Dynamic;
+import com.mojang.serialization.Codec;
 import net.minecraft.util.SharedSeedRandom;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
-import net.minecraft.world.IWorld;
+import net.minecraft.world.ISeedReader;
 import net.minecraft.world.gen.ChunkGenerator;
-import net.minecraft.world.gen.GenerationSettings;
 import net.minecraft.world.gen.feature.Feature;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.function.Function;
 
-public class MultiChunkFeature<T extends MultiChunkFeatureConfig> extends Feature<T> {
+public class MultiChunkFeature extends Feature<MultiChunkFeatureConfig> {
 
     //region Fields
-    public final IMultiChunkSubFeature<T> subFeature;
+    public final IMultiChunkSubFeature subFeature;
     //endregion Fields
 
     //region Initialization
-    public MultiChunkFeature(Function<Dynamic<?>, ? extends T> configFactoryIn, IMultiChunkSubFeature<T> subFeature) {
-        super(configFactoryIn);
+    public MultiChunkFeature(Codec<MultiChunkFeatureConfig> codec, IMultiChunkSubFeature subFeature) {
+        //IMultiChunkSubFeature<T> subFeature
+        super(codec);
         this.subFeature = subFeature;
     }
     //endregion Initialization
 
     //region Overrides
     @Override
-    public boolean place(IWorld worldIn, ChunkGenerator<? extends GenerationSettings> generator, Random rand,
-                         BlockPos pos, T config) {
-        //If dimensions are restricted and this dimension is not allowed, exit
-        if (!config.allowedDimensionTypes.contains(worldIn.getDimension().getType()) &&
-            !config.allowedDimensionTypes.isEmpty()) {
-            return false;
-        }
+    public boolean generate(ISeedReader reader, ChunkGenerator generator, Random rand, BlockPos pos,
+                            MultiChunkFeatureConfig config) {
         ChunkPos generatingChunk = new ChunkPos(pos);
         List<BlockPos> rootPositions =
-                this.getRootPositions(generator, (SharedSeedRandom) rand, generatingChunk, config);
+                this.getRootPositions(reader, generator, (SharedSeedRandom) rand, generatingChunk, config);
         //If no root position was found in range, we exit
         if (rootPositions.isEmpty()) {
             return false;
         }
-
         boolean generatedAny = false;
         for (BlockPos rootPosition : rootPositions) {
-            if (this.subFeature.place(worldIn, generator, rand, rootPosition,
-                    Math3DUtil.bounds(generatingChunk, generator.getMaxHeight()), config))
+            if (this.subFeature.generate(reader, generator, rand, rootPosition,
+                    Math3DUtil.bounds(generatingChunk, generator.getMaxBuildHeight()), config))
                 generatedAny = true;
         }
         return generatedAny;
@@ -78,23 +71,24 @@ public class MultiChunkFeature<T extends MultiChunkFeatureConfig> extends Featur
     //endregion Overrides
 
     //region Methods
-    protected List<BlockPos> getRootPositions(ChunkGenerator<?> generator, SharedSeedRandom random,
+    protected List<BlockPos> getRootPositions(ISeedReader reader, ChunkGenerator generator, SharedSeedRandom random,
                                               ChunkPos generatingChunk,
-                                              T config) {
+                                              MultiChunkFeatureConfig config) {
         ArrayList<BlockPos> result = new ArrayList<>(1);
         for (int i = -config.maxChunksToRoot; i < config.maxChunksToRoot; i++) {
             for (int j = -config.maxChunksToRoot; j < config.maxChunksToRoot; j++) {
 
                 ChunkPos currentChunk = new ChunkPos(generatingChunk.x + i, generatingChunk.z + j);
+
                 //Seed random for this chunk, this way we get the same result no matter how often this is called.
-                random.setLargeFeatureSeedWithSalt(generator.getSeed(), currentChunk.x, currentChunk.z,
+                random.setLargeFeatureSeedWithSalt(reader.getSeed(), currentChunk.x, currentChunk.z,
                         config.featureSeedSalt);
 
                 if (random.nextInt(config.chanceToGenerate) == 0) {
                     //this chunk contains a root, so we generate a random
-                    result.add(currentChunk.getBlock(
+                    result.add(currentChunk.asBlockPos().add(
                             random.nextInt(15),
-                            Math.min(generator.getMaxHeight(),
+                            Math.min(generator.getMaxBuildHeight(),
                                     config.minGenerationHeight + random.nextInt(
                                             Math.max(0, config.maxGenerationHeight - config.minGenerationHeight))),
                             random.nextInt(15))

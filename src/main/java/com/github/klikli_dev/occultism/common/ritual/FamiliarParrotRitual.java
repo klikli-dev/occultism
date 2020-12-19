@@ -25,6 +25,7 @@ package com.github.klikli_dev.occultism.common.ritual;
 import com.github.klikli_dev.occultism.common.tile.GoldenSacrificialBowlTileEntity;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.github.klikli_dev.occultism.registry.OccultismRituals;
+import com.github.klikli_dev.occultism.registry.OccultismTags;
 import com.github.klikli_dev.occultism.util.ItemNBTUtil;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
@@ -42,9 +43,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
 public class FamiliarParrotRitual extends SummonSpiritRitual {
-    //region Fields
-    public static final ResourceLocation chickenTag = new ResourceLocation("forge", "chicken");
-    //endregion Fields
 
     //region Initialization
     public FamiliarParrotRitual() {
@@ -53,7 +51,7 @@ public class FamiliarParrotRitual extends SummonSpiritRitual {
                 Ingredient.fromItems(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()),
                 "familiar_parrot", 30);
         this.sacrificePredicate =
-                (entity) -> EntityTypeTags.getCollection().getOrCreate(chickenTag).contains(entity.getType());
+                (entity) -> OccultismTags.CHICKEN.contains(entity.getType());
     }
     //endregion Initialization
 
@@ -73,7 +71,7 @@ public class FamiliarParrotRitual extends SummonSpiritRitual {
         //1/3 are a parrot, 2/3 are chickens.
         AnimalEntity parrot =
                 world.rand.nextInt(3) == 0 ? EntityType.PARROT.create(world) : EntityType.CHICKEN.create(world);
-        parrot.onInitialSpawn(world, world.getDifficultyForLocation(goldenBowlPosition), SpawnReason.MOB_SUMMONED,
+        parrot.onInitialSpawn((ServerWorld) world, world.getDifficultyForLocation(goldenBowlPosition), SpawnReason.MOB_SUMMONED,
                 null,
                 null);
         parrot

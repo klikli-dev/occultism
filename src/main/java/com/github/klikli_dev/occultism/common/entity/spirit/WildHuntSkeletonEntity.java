@@ -23,12 +23,14 @@
 package com.github.klikli_dev.occultism.common.entity.spirit;
 
 import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.registry.OccultismTags;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.attributes.AttributeModifierMap;
+import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.monster.SkeletonEntity;
 import net.minecraft.tags.EntityTypeTags;
-import net.minecraft.tags.Tag;
+import net.minecraft.tags.ITag;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
@@ -37,7 +39,6 @@ import java.util.Optional;
 
 public class WildHuntSkeletonEntity extends SkeletonEntity {
     //region Fields
-    public static final ResourceLocation wildHuntTag = new ResourceLocation(Occultism.MODID, "wild_hunt");
     protected Optional<WildHuntWitherSkeletonEntity> master = Optional.empty();
     //endregion Fields
 
@@ -56,15 +57,6 @@ public class WildHuntSkeletonEntity extends SkeletonEntity {
 
     //region Overrides
     @Override
-    protected void registerAttributes() {
-        super.registerAttributes();
-        //increased AD compared to normal skeleton
-        this.getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4.0D);
-        //increased health compared to normal skeleton
-        this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20.0D);
-    }
-
-    @Override
     protected boolean isDespawnPeaceful() {
         return false;
     }
@@ -75,26 +67,34 @@ public class WildHuntSkeletonEntity extends SkeletonEntity {
     }
 
     @Override
-    public boolean isInvulnerableTo(DamageSource source) {
-        Tag<EntityType<?>> wildHuntTags = EntityTypeTags.getCollection().getOrCreate(wildHuntTag);
-
-        Entity trueSource = source.getTrueSource();
-        if (trueSource != null && wildHuntTags.contains(trueSource.getType()))
-            return true;
-
-        Entity immediateSource = source.getImmediateSource();
-        if (immediateSource != null && wildHuntTags.contains(immediateSource.getType()))
-            return true;
-
-        return super.isInvulnerableTo(source);
-    }
-
-    @Override
     public void remove(boolean keepData) {
         this.master.ifPresent(boss -> {
             boss.notifyMinionDeath(this);
         });
         super.remove(keepData);
     }
+
+    @Override
+    public boolean isInvulnerableTo(DamageSource source) {
+        ITag<EntityType<?>> wildHuntTag = OccultismTags.WILD_HUNT;
+
+        Entity trueSource = source.getTrueSource();
+        if (trueSource != null && wildHuntTag.contains(trueSource.getType()))
+            return true;
+
+        Entity immediateSource = source.getImmediateSource();
+        if (immediateSource != null && wildHuntTag.contains(immediateSource.getType()))
+            return true;
+
+        return super.isInvulnerableTo(source);
+    }
     //endregion Overrides
+
+    //region Static Methods
+    public static AttributeModifierMap.MutableAttribute registerAttributes() {
+        return SkeletonEntity.registerAttributes()
+                       .createMutableAttribute(Attributes.ATTACK_DAMAGE, 4.0)
+                       .createMutableAttribute(Attributes.MAX_HEALTH, 20.0);
+    }
+    //endregion Static Methods
 }

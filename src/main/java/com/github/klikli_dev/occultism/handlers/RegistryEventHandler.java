@@ -27,14 +27,18 @@ import com.github.klikli_dev.occultism.common.job.SpiritJobFactory;
 import com.github.klikli_dev.occultism.common.ritual.Ritual;
 import com.github.klikli_dev.occultism.common.ritual.pentacle.Pentacle;
 import com.github.klikli_dev.occultism.registry.*;
+import com.github.klikli_dev.occultism.util.loot.AppendLootTable;
+import com.github.klikli_dev.occultism.util.loot.MatchBlockCondition;
 import net.minecraft.block.ComposterBlock;
-import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.monster.SkeletonEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.SpawnEggItem;
+import net.minecraft.loot.LootConditionType;
+import net.minecraft.loot.conditions.LootConditionManager;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.registry.Registry;
+import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -83,12 +87,17 @@ public class RegistryEventHandler {
         registerSpawnEgg(registry, OccultismEntities.DJINNI_TYPE.get(), "djinni", 0xaa728d, 0x37222c);
         registerSpawnEgg(registry, OccultismEntities.AFRIT_TYPE.get(), "afrit", 0xaa728d, 0x37222c);
         registerSpawnEgg(registry, OccultismEntities.AFRIT_WILD_TYPE.get(), "afrit_wild", 0xaa728d, 0x37222c);
-        registerSpawnEgg(registry, OccultismEntities.POSSESSED_ENDERMITE_TYPE.get(),"possessed_endermite", 0x161616, 0x6E6E6E);
-        registerSpawnEgg(registry, OccultismEntities.POSSESSED_SKELETON_TYPE.get(),"possessed_skeleton", 0xC1C1C1, 0x494949);
-        registerSpawnEgg(registry, OccultismEntities.POSSESSED_ENDERMAN_TYPE.get(),"possessed_enderman", 0x161616, 0x0);
-        registerSpawnEgg(registry, OccultismEntities.WILD_HUNT_SKELETON_TYPE.get(),"wild_hunt_skeleton", 12698049, 4802889);
-        registerSpawnEgg(registry, OccultismEntities.WILD_HUNT_WITHER_SKELETON_TYPE.get(),"wild_hunt_wither_skeleton", 1315860, 4672845);
-        registerSpawnEgg(registry, OccultismEntities.OTHERWORLD_BIRD_TYPE.get(),"otherworld_bird", 0x221269, 0x6b56c4);
+        registerSpawnEgg(registry, OccultismEntities.POSSESSED_ENDERMITE_TYPE.get(), "possessed_endermite", 0x161616,
+                0x6E6E6E);
+        registerSpawnEgg(registry, OccultismEntities.POSSESSED_SKELETON_TYPE.get(), "possessed_skeleton", 0xC1C1C1,
+                0x494949);
+        registerSpawnEgg(registry, OccultismEntities.POSSESSED_ENDERMAN_TYPE.get(), "possessed_enderman", 0x161616,
+                0x0);
+        registerSpawnEgg(registry, OccultismEntities.WILD_HUNT_SKELETON_TYPE.get(), "wild_hunt_skeleton", 12698049,
+                4802889);
+        registerSpawnEgg(registry, OccultismEntities.WILD_HUNT_WITHER_SKELETON_TYPE.get(), "wild_hunt_wither_skeleton",
+                1315860, 4672845);
+        registerSpawnEgg(registry, OccultismEntities.OTHERWORLD_BIRD_TYPE.get(), "otherworld_bird", 0x221269, 0x6b56c4);
 
         Occultism.LOGGER.info("Registered SpawnEggItems");
 
@@ -109,6 +118,18 @@ public class RegistryEventHandler {
                 new Item.Properties().group(Occultism.ITEM_GROUP));
         spawnEggItem.setRegistryName(modLoc("spawn_egg/" + name));
         registry.register(spawnEggItem);
+    }
+
+    @SubscribeEvent
+    public static void onRegisterGlobalLootModifierSerializer(
+            RegistryEvent.Register<GlobalLootModifierSerializer<?>> event) {
+
+        //Register the serializer to append to loot tables (see https://github.com/gigaherz/Survivalist/blob/87b2e6b547152262544020587f5a31a778f72899/src/main/java/gigaherz/survivalist/SurvivalistMod.java#L153)
+        MatchBlockCondition.BLOCK_TAG_CONDITION = Registry.register(
+                Registry.LOOT_CONDITION_TYPE,
+                modLoc("match_block"),
+                new LootConditionType(new MatchBlockCondition.Serializer()));
+        event.getRegistry().register(new AppendLootTable.Serializer().setRegistryName(modLoc("append_loot")));
     }
     //endregion Static Methods
 }

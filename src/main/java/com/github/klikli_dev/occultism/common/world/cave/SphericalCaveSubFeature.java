@@ -33,13 +33,13 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.ISeedReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.gen.ChunkGenerator;
-import net.minecraft.world.gen.GenerationSettings;
 
 import java.util.*;
 
-public class SphericalCaveSubFeature<T extends MultiChunkFeatureConfig> implements IMultiChunkSubFeature<T> {
+public class SphericalCaveSubFeature implements IMultiChunkSubFeature {
 
     //region Fields
     public static Set<BlockPos> sphericalCaves = new HashSet<>();
@@ -79,12 +79,11 @@ public class SphericalCaveSubFeature<T extends MultiChunkFeatureConfig> implemen
     //endregion Initialization
 
     //region Overrides
-
     @Override
-    public boolean place(IWorld world, ChunkGenerator<? extends GenerationSettings> generator, Random rand,
-                         BlockPos rootPosition, AxisAlignedBB bounds, T config) {
+    public boolean generate(ISeedReader reader, ChunkGenerator generator, Random rand, BlockPos rootPosition,
+                            AxisAlignedBB bounds, MultiChunkFeatureConfig config) {
         //can never generate in daylight
-        if (world.canBlockSeeSky(rootPosition))
+        if (reader.canBlockSeeSky(rootPosition))
             return false;
 
         //Store a list of spherical caves for easy access during development, or future command access.
@@ -93,25 +92,24 @@ public class SphericalCaveSubFeature<T extends MultiChunkFeatureConfig> implemen
         ChunkPos rootChunk = new ChunkPos(rootPosition);
         //Seed with root chunk position
         ((SharedSeedRandom) rand)
-                .setLargeFeatureSeedWithSalt(generator.getSeed(), rootChunk.x, rootChunk.z, config.featureSeedSalt);
+                .setLargeFeatureSeedWithSalt(reader.getSeed(), rootChunk.x, rootChunk.z, config.featureSeedSalt);
 
         List<Sphere> spheres = new ArrayList<>();
         int radiusBase = this.radius + rand.nextInt(this.maxRandomRadiusOffset);
         int radius = (int) (radiusBase * 0.2F) + rand.nextInt(8);
-        spheres.add(this.generateSphere(world, rand, rootPosition, radius, bounds));
+        spheres.add(this.generateSphere(reader, rand, rootPosition, radius, bounds));
         for (int i = 0; i < this.additionalSpheres + rand.nextInt(this.maxRandomAdditionalSpheres); i++) {
             Direction direction = Direction.Plane.HORIZONTAL.random(rand);
-            spheres.add(this.generateSphere(world, rand, rootPosition.offset(direction, radius - 2),
+            spheres.add(this.generateSphere(reader, rand, rootPosition.offset(direction, radius - 2),
                     2 * (int) (radius / 3F) + rand.nextInt(8), bounds));
         }
         for (Sphere sphere : spheres) {
-            this.hollowOutSphere(world, rand, sphere.center, sphere.radius - 2, bounds);
-            this.decorateSphere(world, generator, rand, sphere.center, sphere.radius + 2, bounds);
+            this.hollowOutSphere(reader, rand, sphere.center, sphere.radius - 2, bounds);
+            this.decorateSphere(reader, generator, rand, sphere.center, sphere.radius + 2, bounds);
         }
         spheres.clear();
         return true;
     }
-
     //endregion Overrides
 
     //region Methods
@@ -119,7 +117,7 @@ public class SphericalCaveSubFeature<T extends MultiChunkFeatureConfig> implemen
         return new Sphere(position, radius);
     }
 
-    protected void hollowOutSphere(IWorld world, Random rand, BlockPos center, int radius, AxisAlignedBB bounds) {
+    protected void hollowOutSphere(ISeedReader reader, Random rand, BlockPos center, int radius, AxisAlignedBB bounds) {
         int j = radius;
         int k = radius / 2;
         int l = radius;
@@ -129,15 +127,15 @@ public class SphericalCaveSubFeature<T extends MultiChunkFeatureConfig> implemen
 
         BlockPos.getAllInBox(min, max).forEach(blockPos -> {
             if (blockPos.distanceSq(center) <= (double) (f * f * MathHelper.clamp(rand.nextFloat(), 0.75F, 1.0F))) {
-                BlockState currentState = world.getBlockState(blockPos);
+                BlockState currentState = reader.getBlockState(blockPos);
                 if (!currentState.hasTileEntity() && currentState.getBlock() != Blocks.BEDROCK) {
-                    world.setBlockState(blockPos, Blocks.CAVE_AIR.getDefaultState(), 2);
+                    reader.setBlockState(blockPos, Blocks.CAVE_AIR.getDefaultState(), 2);
                 }
             }
         });
     }
 
-    protected void decorateSphere(IWorld world, ChunkGenerator<? extends GenerationSettings> generator, Random rand,
+    protected void decorateSphere(ISeedReader reader, ChunkGenerator generator, Random rand,
                                   BlockPos center, int radius, AxisAlignedBB bounds) {
         int j = radius;
         //int k = radius / 2;
@@ -149,11 +147,11 @@ public class SphericalCaveSubFeature<T extends MultiChunkFeatureConfig> implemen
         BlockPos max = Math3DUtil.clamp(center.add(j, k, l), bounds);
         BlockPos.getAllInBox(min, max).forEach(blockPos -> {
             if (blockPos.distanceSq(center) <= (double) (f * f)) {
-                this.caveDecorator.fill(world, generator, rand, blockPos.toImmutable(), data);
+                this.caveDecorator.fill(reader, generator, rand, blockPos.toImmutable(), data);
             }
         });
 
-        this.caveDecorator.finalPass(world, generator, rand, data);
+        this.caveDecorator.finalPass(reader, generator, rand, data);
     }
     //endregion Methods
 
