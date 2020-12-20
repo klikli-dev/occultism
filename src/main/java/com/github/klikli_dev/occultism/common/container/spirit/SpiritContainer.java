@@ -46,14 +46,11 @@ public class SpiritContainer extends Container {
         this.inventory = spirit.itemStackHandler.orElseThrow(ItemHandlerMissingException::new);
         this.spirit = spirit;
 
-        this.setupPlayerInventorySlots(playerInventory.player);
-        this.setupPlayerHotbar(playerInventory.player);
-        this.setupEntityInventory();
+        this.setupSlots(playerInventory);
     }
     //endregion Initialization
 
     //region Overrides
-
     @Override
     public ItemStack transferStackInSlot(PlayerEntity playerIn, int index) {
         ItemStack itemstack = ItemStack.EMPTY;
@@ -93,6 +90,12 @@ public class SpiritContainer extends Container {
     //endregion Overrides
 
     //region Methods
+    public void setupSlots(PlayerInventory playerInventory) {
+        this.setupPlayerInventorySlots(playerInventory.player);
+        this.setupPlayerHotbar(playerInventory.player);
+        this.setupEntityInventory();
+    }
+
     protected void setupPlayerInventorySlots(PlayerEntity player) {
         int playerInventoryTop = 84;
         int playerInventoryLeft = 8;
