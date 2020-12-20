@@ -23,6 +23,7 @@
 package com.github.klikli_dev.occultism.common.item.otherworld;
 
 import com.github.klikli_dev.occultism.registry.OccultismEffects;
+import com.github.klikli_dev.occultism.util.OtherworldUtil;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.world.ClientWorld;
@@ -48,12 +49,18 @@ public class OtherworldBlockItem extends BlockItem {
     //endregion Initialization
 
     //region Overrides
+
+    /**
+     * Make getDefaultTranslationKey public for use in OtherworldUtil
+     */
+    @Override
+    public String getDefaultTranslationKey() {
+        return super.getDefaultTranslationKey();
+    }
+
     @Override
     public String getTranslationKey(ItemStack stack) {
-        boolean thirdEye = Minecraft.getInstance() != null && Minecraft.getInstance().player != null
-                           && Minecraft.getInstance().player.isPotionActive(OccultismEffects.THIRD_EYE.get());
-        return stack.getOrCreateTag().getBoolean("isInventoryItem") ||
-               thirdEye ? this.getDefaultTranslationKey() : this.getTranslationKey();
+        return OtherworldUtil.getTranslationKeyDistAware(this, stack);
     }
 
     @Override
