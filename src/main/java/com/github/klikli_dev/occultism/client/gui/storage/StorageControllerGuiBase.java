@@ -771,7 +771,8 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
             return tagStringBuilder.toString().toLowerCase().contains(searchText.toLowerCase().substring(1));
         }
         else {
-            return stack.getDisplayName().getUnformattedComponentText().toLowerCase()
+            //Note: If search stops working, forge may have re-implemented .getUnformattedComponentText() for translated text components
+            return stack.getDisplayName().getString().toLowerCase()
                            .contains(searchText.toLowerCase());
         }
     }
