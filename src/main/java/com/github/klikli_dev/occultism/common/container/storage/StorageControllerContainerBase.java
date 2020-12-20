@@ -295,6 +295,7 @@ public abstract class StorageControllerContainerBase extends Container implement
                 else if (!stackInSlot.isEmpty()) {
                     //decrease the stack size in the matrix
                     this.matrix.decrStackSize(i, 1);
+                    stackInSlot = this.matrix.getStackInSlot(i);
                 }
             }
             //endregion onTake replacement for crafting
