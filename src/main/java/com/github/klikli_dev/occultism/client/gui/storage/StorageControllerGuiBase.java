@@ -267,7 +267,9 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
     @Override
     public void drawGuiContainerForegroundLayer(MatrixStack matrixStack, int mouseX, int mouseY) {
-        super.drawGuiContainerForegroundLayer(matrixStack, mouseX, mouseY);
+        //Note: Do not call super.drawGuiContainerForegroundLayer(matrixStack, mouseX, mouseY);
+        //      it renders inventory titles which no vanilla inventory does
+
         if (!this.isGuiValid()) {
             return;
         }
@@ -771,7 +773,8 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
             return tagStringBuilder.toString().toLowerCase().contains(searchText.toLowerCase().substring(1));
         }
         else {
-            return stack.getDisplayName().getUnformattedComponentText().toLowerCase()
+            //Note: If search stops working, forge may have re-implemented .getUnformattedComponentText() for translated text components
+            return stack.getDisplayName().getString().toLowerCase()
                            .contains(searchText.toLowerCase());
         }
     }
