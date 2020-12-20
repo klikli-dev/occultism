@@ -25,6 +25,7 @@ package com.github.klikli_dev.occultism.registry;
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.container.DimensionalMineshaftContainer;
 import com.github.klikli_dev.occultism.common.container.spirit.SpiritContainer;
+import com.github.klikli_dev.occultism.common.container.spirit.SpiritTransporterContainer;
 import com.github.klikli_dev.occultism.common.container.storage.StableWormholeContainer;
 import com.github.klikli_dev.occultism.common.container.storage.StorageControllerContainer;
 import com.github.klikli_dev.occultism.common.container.storage.StorageRemoteContainer;
@@ -66,6 +67,13 @@ public class OccultismContainers {
                     () -> IForgeContainerType
                                   .create((windowId, inv, data) ->{
                                       return new SpiritContainer(windowId, inv, (SpiritEntity) inv.player.world.getEntityByID(data.readInt()));
+                                  } ));
+
+    public static final RegistryObject<ContainerType<SpiritTransporterContainer>> TRANSPORTER =
+            CONTAINERS.register("spirit_transporter",
+                    () -> IForgeContainerType
+                                  .create((windowId, inv, data) ->{
+                                      return new SpiritTransporterContainer(windowId, inv, (SpiritEntity) inv.player.world.getEntityByID(data.readInt()));
                                   } ));
 
     public static final RegistryObject<ContainerType<DimensionalMineshaftContainer>> OTHERWORLD_MINER =

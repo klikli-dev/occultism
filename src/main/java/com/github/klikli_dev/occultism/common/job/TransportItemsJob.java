@@ -47,8 +47,8 @@ public class TransportItemsJob extends SpiritJob implements INamedContainerProvi
     protected ExtractItemsGoal extractItemsGoal;
     protected OpenDoorGoal openDoorGoal;
     protected boolean isFilterBlacklist;
-    //endregion Fields
 
+    //endregion Fields
     //region Initialization
     public TransportItemsJob(SpiritEntity entity) {
         super(entity);
@@ -58,15 +58,19 @@ public class TransportItemsJob extends SpiritJob implements INamedContainerProvi
     }
     //endregion Initialization
 
-//region Getter / Setter
+    //region Getter / Setter
     public boolean isFilterBlacklist() {
         return this.isFilterBlacklist;
+    }
+
+    public void setFilterBlacklist(boolean filterBlacklist) {
+        this.isFilterBlacklist = filterBlacklist;
     }
 
     public ItemStackHandler getItemFilter() {
         return this.itemFilter;
     }
-//endregion Getter / Setter
+    //endregion Getter / Setter
 
     //region Overrides
     @Override
@@ -102,8 +106,10 @@ public class TransportItemsJob extends SpiritJob implements INamedContainerProvi
     @Override
     public void readJobFromNBT(CompoundNBT compound) {
         super.readJobFromNBT(compound);
-        this.isFilterBlacklist = compound.getBoolean("isFilterBlacklist");
-        this.itemFilter.deserializeNBT(compound.getCompound("itemFilter"));
+        if(compound.contains("isFilterBlacklist"))
+            this.isFilterBlacklist = compound.getBoolean("isFilterBlacklist");
+        if(compound.contains("itemFilter"))
+            this.itemFilter.deserializeNBT(compound.getCompound("itemFilter"));
     }
 
     @Override

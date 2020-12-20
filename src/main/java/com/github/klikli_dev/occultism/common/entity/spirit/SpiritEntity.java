@@ -40,6 +40,7 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.entity.projectile.AbstractArrowEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.inventory.container.Container;
+import net.minecraft.inventory.container.IContainerProvider;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
@@ -522,7 +523,13 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
 
     public void openGUI(PlayerEntity playerEntity) {
         if (!this.world.isRemote) {
-            NetworkHooks.openGui((ServerPlayerEntity) playerEntity, this, (buf) -> buf.writeInt(this.getEntityId()));
+            INamedContainerProvider containerProvider = this;
+
+            SpiritJob currentJob = this.job.orElse(null);
+            if(currentJob instanceof INamedContainerProvider)
+                containerProvider = (INamedContainerProvider) currentJob;
+
+            NetworkHooks.openGui((ServerPlayerEntity) playerEntity, containerProvider, (buf) -> buf.writeInt(this.getEntityId()));
         }
     }
     //endregion Methods
