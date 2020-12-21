@@ -66,7 +66,7 @@ public class SummonFoliotTransportItemsRitual extends SummonSpiritRitual {
         SpiritEntity spirit = OccultismEntities.FOLIOT.get().create(world);
         this.prepareSpiritForSpawn(spirit, world, goldenBowlPosition, castingPlayer,
                 ItemNBTUtil.getBoundSpiritName(result));
-
+        spirit.setSpiritMaxAge(-1); //cannot die from age
         //set up the job
         SpiritJob lumberjack = OccultismSpiritJobs.TRANSPORT_ITEMS.get().create(spirit);
         lumberjack.init();

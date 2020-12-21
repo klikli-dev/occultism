@@ -53,7 +53,7 @@ public class SummonFoliotTransportItemsItem extends Item {
             spirit.setTamedBy(context.getPlayer());
             spirit.setPosition(context.getPos().getX(), context.getPos().getY() + 1.0f, context.getPos().getZ());
             spirit.setCustomName(new StringTextComponent("Testspirit Transporter"));
-
+            spirit.setSpiritMaxAge(-1); //cannot die from age
             //set up the job
             SpiritJob job = OccultismSpiritJobs.TRANSPORT_ITEMS.get().create(spirit);
             job.init();

@@ -67,7 +67,7 @@ public class SummonDjinniManageMachineRitual extends SummonSpiritRitual {
         SpiritEntity spirit = OccultismEntities.DJINNI.get().create(world);
         this.prepareSpiritForSpawn(spirit, world, goldenBowlPosition, castingPlayer,
                 ItemNBTUtil.getBoundSpiritName(result));
-
+        spirit.setSpiritMaxAge(-1); //cannot die from age
         //set up the job
         SpiritJob manageMachine = OccultismSpiritJobs.MANAGE_MACHINE.get().create(spirit);
         manageMachine.init();
