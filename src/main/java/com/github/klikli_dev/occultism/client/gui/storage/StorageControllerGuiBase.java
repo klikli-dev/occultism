@@ -110,7 +110,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         this.storageControllerContainer.getOrderSlot().addListener(this);
 
         //size of the gui texture
-        this.xSize = 223;
+        this.xSize = 224;
         this.ySize = 256;
 
         this.rows = 4;
