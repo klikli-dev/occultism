@@ -146,15 +146,5 @@ public class StorageRemoteItem extends Item implements INamedContainerProvider {
         return tileEntity instanceof IStorageController ? (IStorageController) tileEntity : null;
     }
     //endregion Static Methods
-
-    public static class ItemPropertyGetter implements IItemPropertyGetter {
-        //region Overrides
-        @OnlyIn(Dist.CLIENT)
-        @Override
-        public float call(ItemStack stack, @Nullable ClientWorld worldIn, @Nullable LivingEntity entityIn) {
-            return stack.getOrCreateTag()
-                           .contains("linkedStorageController") ? 1.0f : 0.0f;
-        }
-    }
 }
 

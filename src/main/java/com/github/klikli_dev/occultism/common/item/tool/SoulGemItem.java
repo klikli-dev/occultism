@@ -159,13 +159,4 @@ public class SoulGemItem extends Item {
             tooltip.add(new TranslationTextComponent(this.getTranslationKey() + ".tooltip_empty"));
         }
     }
-
-    public static class ItemPropertyGetter implements IItemPropertyGetter {
-        //region Overrides
-        @OnlyIn(Dist.CLIENT)
-        @Override
-        public float call(ItemStack stack, @Nullable ClientWorld worldIn, @Nullable LivingEntity entityIn) {
-            return stack.getOrCreateTag().contains("entityData") ? 1.0f : 0.0f;
-        }
-    }
 }

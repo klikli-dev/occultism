@@ -253,16 +253,5 @@ public class DivinationRodItem extends Item {
         return 6.0f;
     }
     //endregion Methods
-
-    public static class ItemPropertyGetter implements IItemPropertyGetter {
-        //region Overrides
-        @OnlyIn(Dist.CLIENT)
-        @Override
-        public float call(ItemStack stack, @Nullable ClientWorld worldIn, @Nullable LivingEntity entityIn) {
-            if (!stack.getOrCreateTag().contains("distance") || stack.getTag().getFloat("distance") < 0)
-                return NOT_FOUND;
-            return stack.getTag().getFloat("distance");
-        }
-    }
 }
 
