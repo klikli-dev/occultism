@@ -41,36 +41,19 @@ import javax.annotation.Nullable;
 
 public class TransportItemsJob extends SpiritJob implements INamedContainerProvider {
     //region Fields
-    public static final int MAX_FILTER_SLOTS = 7;
-    protected final ItemStackHandler itemFilter;
+
     protected DepositItemsGoal depositItemsGoal;
     protected ExtractItemsGoal extractItemsGoal;
     protected OpenDoorGoal openDoorGoal;
-    protected boolean isFilterBlacklist;
-
     //endregion Fields
+
     //region Initialization
+
+
     public TransportItemsJob(SpiritEntity entity) {
         super(entity);
-
-        this.isFilterBlacklist = false;
-        this.itemFilter = new ItemStackHandler(MAX_FILTER_SLOTS);
     }
     //endregion Initialization
-
-    //region Getter / Setter
-    public boolean isFilterBlacklist() {
-        return this.isFilterBlacklist;
-    }
-
-    public void setFilterBlacklist(boolean filterBlacklist) {
-        this.isFilterBlacklist = filterBlacklist;
-    }
-
-    public ItemStackHandler getItemFilter() {
-        return this.itemFilter;
-    }
-    //endregion Getter / Setter
 
     //region Overrides
     @Override
@@ -85,6 +68,7 @@ public class TransportItemsJob extends SpiritJob implements INamedContainerProvi
         this.entity.goalSelector.addGoal(3, this.depositItemsGoal = new DepositItemsGoal(this.entity));
         this.entity.goalSelector.addGoal(4, this.extractItemsGoal = new ExtractItemsGoal(this.entity));
         this.entity.goalSelector.addGoal(5, this.openDoorGoal = new OpenDoorGoal(this.entity, true));
+        //TODO: register data
     }
 
     @Override
@@ -94,22 +78,6 @@ public class TransportItemsJob extends SpiritJob implements INamedContainerProvi
         this.entity.goalSelector.removeGoal(this.depositItemsGoal);
         this.entity.goalSelector.removeGoal(this.extractItemsGoal);
         this.entity.goalSelector.removeGoal(this.openDoorGoal);
-    }
-
-    @Override
-    public CompoundNBT writeJobToNBT(CompoundNBT compound) {
-        compound.putBoolean("isFilterBlacklist", isFilterBlacklist);
-        compound.put("itemFilter", this.itemFilter.serializeNBT());
-        return super.writeJobToNBT(compound);
-    }
-
-    @Override
-    public void readJobFromNBT(CompoundNBT compound) {
-        super.readJobFromNBT(compound);
-        if(compound.contains("isFilterBlacklist"))
-            this.isFilterBlacklist = compound.getBoolean("isFilterBlacklist");
-        if(compound.contains("itemFilter"))
-            this.itemFilter.deserializeNBT(compound.getCompound("itemFilter"));
     }
 
     @Override
