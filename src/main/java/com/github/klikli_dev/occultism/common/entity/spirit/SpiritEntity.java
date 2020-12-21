@@ -97,6 +97,7 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
      */
     private static final DataParameter<String> JOB_ID = EntityDataManager
                                                                 .createKey(SpiritEntity.class, DataSerializers.STRING);
+
     public LazyOptional<ItemStackHandler> itemStackHandler = LazyOptional.of(ItemStackHandler::new);
     protected Optional<SpiritJob> job = Optional.empty();
     protected boolean isInitialized = false;

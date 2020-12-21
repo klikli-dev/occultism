@@ -69,7 +69,7 @@ public class OccultismContainers {
                                       return new SpiritContainer(windowId, inv, (SpiritEntity) inv.player.world.getEntityByID(data.readInt()));
                                   } ));
 
-    public static final RegistryObject<ContainerType<SpiritTransporterContainer>> TRANSPORTER =
+    public static final RegistryObject<ContainerType<SpiritTransporterContainer>> SPIRIT_TRANSPORTER =
             CONTAINERS.register("spirit_transporter",
                     () -> IForgeContainerType
                                   .create((windowId, inv, data) ->{

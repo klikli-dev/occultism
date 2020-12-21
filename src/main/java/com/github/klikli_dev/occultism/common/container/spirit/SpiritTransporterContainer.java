@@ -24,6 +24,7 @@ package com.github.klikli_dev.occultism.common.container.spirit;
 
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.github.klikli_dev.occultism.common.job.TransportItemsJob;
+import com.github.klikli_dev.occultism.registry.OccultismContainers;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Slot;
@@ -43,7 +44,7 @@ public class SpiritTransporterContainer extends SpiritContainer {
     public SpiritTransporterContainer(int id, PlayerInventory playerInventory,
                                       SpiritEntity spirit) {
 
-        super(id, playerInventory, spirit);
+        super(OccultismContainers.SPIRIT_TRANSPORTER.get(), id, playerInventory, spirit);
         this.transportItemsJob = (TransportItemsJob) this.spirit.getJob().orElse(null);
         //needs to be called after transport item jobs has been set, so its not in setupSlots()
         this.setupFilterSlots();
