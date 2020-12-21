@@ -26,6 +26,9 @@ import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.client.gui.controls.SizedImageButton;
 import com.github.klikli_dev.occultism.common.container.spirit.SpiritTransporterContainer;
 import com.github.klikli_dev.occultism.common.job.TransportItemsJob;
+import com.github.klikli_dev.occultism.network.MessageSetFilterMode;
+import com.github.klikli_dev.occultism.network.MessageSortItems;
+import com.github.klikli_dev.occultism.network.OccultismPackets;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
@@ -47,7 +50,6 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
     protected static final String TRANSLATION_KEY_BASE = "gui." + Occultism.MODID + ".spirit.transporter";
     protected final List<ITextComponent> tooltip = new ArrayList<>();
     protected SpiritTransporterContainer container;
-    protected TransportItemsJob transportItemsJob;
 
     protected Button filterModeButton;
     //endregion Fields
@@ -59,21 +61,20 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
         super(container, playerInventory, titleIn);
 
         this.container = container;
-        this.transportItemsJob = (TransportItemsJob) this.spirit.getJob().orElse(null);
 
-        this.xSize = 175; //photoshop says 176
-        this.ySize = 187; //photoshop says 188
+        this.xSize = 176; //photoshop says 176
+        this.ySize = 188; //photoshop says 188
     }
     //endregion Initialization
 
     //region Getter / Setter
     public boolean isBlacklist() {
-        return this.transportItemsJob.isFilterBlacklist();
+        return this.spirit.isFilterBlacklist();
     }
 
     public void setIsBlacklist(boolean isBlacklist) {
-        this.transportItemsJob.setFilterBlacklist(isBlacklist);
-        //TODO: send filter setting packet
+        this.spirit.setFilterBlacklist(isBlacklist);
+        OccultismPackets.sendToServer(new MessageSetFilterMode(isBlacklist, this.spirit.getEntityId()));
     }
     //endregion Getter / Setter
 
@@ -86,10 +87,8 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
         int isBlacklistButtonLeft = 151;
         int buttonSize = 18;
 
-        //TODO: controller gui uses button offsets of 28, for size 24
-        //      our button size is 18, find proper offset -> could be 20
-        int isBlacklistOffset = (this.isBlacklist() ? 1 : 2) * 20;
-        this.filterModeButton = new SizedImageButton(this.guiLeft + isBlacklistButtonLeft + isBlacklistButtonLeft + 3,
+        int isBlacklistOffset = (this.isBlacklist() ? 0 : 1) * 20;
+        this.filterModeButton = new SizedImageButton(this.guiLeft + isBlacklistButtonLeft,
                 this.guiTop + isBlacklistButtonTop, buttonSize, buttonSize, 177, isBlacklistOffset,
                 20, 20, 20, 256, 256, TEXTURE,
                 (button) -> {
