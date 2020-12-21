@@ -251,7 +251,7 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
     /**
      * @return the filter mode
      */
-    public Boolean isFilterBlacklist() {
+    public boolean isFilterBlacklist() {
         return this.dataManager.get(IS_FILTER_BLACKLIST);
     }
 
