@@ -23,21 +23,22 @@
 package com.github.klikli_dev.occultism.common.container.spirit;
 
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
-import com.github.klikli_dev.occultism.common.job.TransportItemsJob;
+import com.github.klikli_dev.occultism.exceptions.ItemHandlerMissingException;
 import com.github.klikli_dev.occultism.registry.OccultismContainers;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.container.ClickType;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.SlotItemHandler;
 
 import javax.annotation.Nonnull;
 
 public class SpiritTransporterContainer extends SpiritContainer {
-
     //region Fields
-    protected TransportItemsJob transportItemsJob;
+    protected final PlayerEntity player;
     //endregion Fields
 
     //region Initialization
@@ -45,7 +46,8 @@ public class SpiritTransporterContainer extends SpiritContainer {
                                       SpiritEntity spirit) {
 
         super(OccultismContainers.SPIRIT_TRANSPORTER.get(), id, playerInventory, spirit);
-        this.transportItemsJob = (TransportItemsJob) this.spirit.getJob().orElse(null);
+
+        this.player = playerInventory.player;
         //needs to be called after transport item jobs has been set, so its not in setupSlots()
         this.setupFilterSlots();
     }
@@ -71,14 +73,44 @@ public class SpiritTransporterContainer extends SpiritContainer {
         for (int i = 0; i < 9; i++)
             this.addSlot(new Slot(player.inventory, i, hotbarLeft + i * 18, hotbarTop));
     }
+
+    @Override
+    public ItemStack slotClick(int id, int dragType, ClickType clickType, PlayerEntity player) {
+        Slot slot = id >= 0 ? getSlot(id) : null;
+
+        ItemStack holding = player.inventory.getItemStack();
+
+        if (slot instanceof FilterSlot) {
+            if (holding.isEmpty()) {
+                slot.putStack(ItemStack.EMPTY);
+            }
+            else if (slot.isItemValid(holding)) {
+                slot.putStack(holding.copy());
+            }
+
+            return holding;
+        }
+
+        return super.slotClick(id, dragType, clickType, player);
+    }
+
+    @Override
+    public boolean canMergeSlot(ItemStack stack, Slot slot) {
+        if (slot instanceof FilterSlot) {
+            return false;
+        }
+
+        return super.canMergeSlot(stack, slot);
+    }
     //endregion Overrides
 
     //region Methods
     protected void setupFilterSlots() {
         int x = 8;
         int y = 84;
-        for (int i = 0; i < TransportItemsJob.MAX_FILTER_SLOTS; ++i) {
-            this.addSlot(new FilterSlot(this.transportItemsJob.getItemFilter(), i, x, y));
+        ItemStackHandler filterItems = this.spirit.filterItemStackHandler.orElseThrow(ItemHandlerMissingException::new);
+        for (int i = 0; i < filterItems.getSlots(); ++i) {
+            this.addSlot(new FilterSlot(filterItems, i, x, y));
             x += 18;
         }
 
