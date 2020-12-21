@@ -10,7 +10,7 @@
     },
     {
       "type": "text",
-      "text": "to the rare wither skeleton skulls they are known to leave behind. Summoning the wild hunt is described in detail on the page on obtaining $(item)$(l:rituals/summoning/wither_skull)Wither Skeleton Skulls$(/l)$()"
+      "text": "to the rare wither skeleton skulls they are known to leave behind. Summoning the wild hunt is described in detail on the page on obtaining $(l:rituals/summoning/wither_skull)Wither Skeleton Skulls$(/l)"
     }
   ]
 }
