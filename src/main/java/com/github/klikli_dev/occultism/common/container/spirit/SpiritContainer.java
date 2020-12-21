@@ -28,10 +28,13 @@ import com.github.klikli_dev.occultism.registry.OccultismContainers;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
+import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.SlotItemHandler;
+
+import javax.annotation.Nullable;
 
 public class SpiritContainer extends Container {
 
@@ -42,7 +45,11 @@ public class SpiritContainer extends Container {
 
     //region Initialization
     public SpiritContainer(int id, PlayerInventory playerInventory, SpiritEntity spirit) {
-        super(OccultismContainers.SPIRIT.get(), id);
+        this(OccultismContainers.SPIRIT.get(), id, playerInventory, spirit);
+    }
+
+    public SpiritContainer(@Nullable ContainerType<?> type, int id, PlayerInventory playerInventory, SpiritEntity spirit) {
+        super(type, id);
         this.inventory = spirit.itemStackHandler.orElseThrow(ItemHandlerMissingException::new);
         this.spirit = spirit;
 
