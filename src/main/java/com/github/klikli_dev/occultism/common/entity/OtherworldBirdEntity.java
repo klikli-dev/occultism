@@ -25,7 +25,9 @@ package com.github.klikli_dev.occultism.common.entity;
 import com.github.klikli_dev.occultism.registry.OccultismEffects;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.goal.*;
+import net.minecraft.entity.monster.EndermanEntity;
 import net.minecraft.entity.passive.ParrotEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.potion.EffectInstance;
@@ -97,6 +99,10 @@ public class OtherworldBirdEntity extends ParrotEntity {
     public void setOwnerId(@Nullable UUID ownerId) {
         this.ownerCached = null;
         super.setOwnerId(ownerId);
+    }
+
+    public static AttributeModifierMap.MutableAttribute registerAttributes() {
+        return ParrotEntity.func_234213_eS_(); //=registerAttributes
     }
     //endregion Overrides
 }
