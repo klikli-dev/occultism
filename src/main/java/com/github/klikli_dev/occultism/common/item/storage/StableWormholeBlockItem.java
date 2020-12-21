@@ -99,14 +99,4 @@ public class StableWormholeBlockItem extends BlockItem {
         }
     }
     //endregion Overrides
-
-    public static class ItemPropertyGetter implements IItemPropertyGetter {
-        //region Overrides
-        @OnlyIn(Dist.CLIENT)
-        @Override
-        public float call(ItemStack stack, @Nullable ClientWorld worldIn, @Nullable LivingEntity entityIn) {
-            return stack.getOrCreateTag().getCompound("BlockEntityTag")
-                           .contains("linkedStorageControllerPosition") ? 1.0f : 0.0f;
-        }
-    }
 }

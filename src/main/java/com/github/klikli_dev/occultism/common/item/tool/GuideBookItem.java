@@ -95,32 +95,4 @@ public class GuideBookItem extends Item implements IIngredientPreserve {
         return true;
     }
 
-    public static class ItemPropertyGetter implements IItemPropertyGetter {
-        //region Overrides
-        @OnlyIn(Dist.CLIENT)
-        @Override
-        public float call(ItemStack stack, @Nullable ClientWorld worldIn, @Nullable LivingEntity entityIn) {
-            Book book = BookRegistry.INSTANCE.books.get(GUIDE);
-            float progression = 0.0F;
-            if (book != null) {
-                int totalEntries = 0;
-                int unlockedEntries = 0;
-                Iterator var8 = book.contents.entries.values().iterator();
-
-                while (var8.hasNext()) {
-                    BookEntry entry = (BookEntry) var8.next();
-                    if (!entry.isSecret()) {
-                        ++totalEntries;
-                        if (!entry.isLocked()) {
-                            ++unlockedEntries;
-                        }
-                    }
-                }
-
-                progression = (float) unlockedEntries / Math.max(1.0F, (float) totalEntries);
-            }
-
-            return progression;
-        }
-    }
 }

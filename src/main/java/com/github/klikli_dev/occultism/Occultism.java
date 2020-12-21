@@ -111,7 +111,6 @@ public class Occultism {
         //register event buses
         modEventBus.addListener(OccultismCapabilities::commonSetup);
         modEventBus.addListener(this::commonSetup);
-        modEventBus.addListener(this::clientSetup);
         modEventBus.addListener(this::serverSetup);
         modEventBus.addListener(this::onModConfigEvent);
 
@@ -149,71 +148,6 @@ public class Occultism {
 
     private void serverSetup(final FMLDedicatedServerSetupEvent event) {
         LOGGER.info("Dedicated server setup complete.");
-    }
-
-    private void clientSetup(final FMLClientSetupEvent event) {
-        //Register client side event handlers
-        MinecraftForge.EVENT_BUS.register(SELECTED_BLOCK_RENDERER);
-        MinecraftForge.EVENT_BUS.register(THIRD_EYE_EFFECT_RENDERER);
-
-        //Register Entity Renderers
-        RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.FOLIOT.get(), FoliotRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.DJINNI.get(), DjinniRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.AFRIT.get(), AfritRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.AFRIT_WILD.get(), AfritRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.POSSESSED_ENDERMITE.get(), EndermiteRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.POSSESSED_SKELETON.get(), SkeletonRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.POSSESSED_ENDERMAN.get(), EndermanRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.WILD_HUNT_SKELETON.get(), SkeletonRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.WILD_HUNT_WITHER_SKELETON.get(), WitherSkeletonRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.OTHERWORLD_BIRD.get(), OtherworldBirdRenderer::new);
-
-        //Register Tile Entity Renderers
-        ClientRegistry.bindTileEntityRenderer(OccultismTiles.STORAGE_CONTROLLER.get(), StorageControllerRenderer::new);
-        ClientRegistry.bindTileEntityRenderer(OccultismTiles.SACRIFICIAL_BOWL.get(), SacrificialBowlRenderer::new);
-        ClientRegistry
-                .bindTileEntityRenderer(OccultismTiles.GOLDEN_SACRIFICIAL_BOWL.get(), SacrificialBowlRenderer::new);
-
-        //Setup block render layers
-        RenderTypeLookup.setRenderLayer(OccultismBlocks.CHALK_GLYPH_WHITE.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(OccultismBlocks.CHALK_GLYPH_GOLD.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(OccultismBlocks.CHALK_GLYPH_PURPLE.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(OccultismBlocks.CHALK_GLYPH_RED.get(), RenderType.getCutout());
-
-        RenderTypeLookup.setRenderLayer(OccultismBlocks.STABLE_WORMHOLE.get(), RenderType.getTranslucent());
-        RenderTypeLookup.setRenderLayer(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL.get(), RenderType.getTranslucent());
-        RenderTypeLookup.setRenderLayer(OccultismBlocks.DATURA.get(), RenderType.getCutoutMipped());
-        RenderTypeLookup.setRenderLayer(OccultismBlocks.SPIRIT_FIRE.get(), RenderType.getCutoutMipped());
-        RenderTypeLookup.setRenderLayer(OccultismBlocks.OTHERWORLD_SAPLING.get(), RenderType.getCutoutMipped());
-        RenderTypeLookup.setRenderLayer(OccultismBlocks.OTHERWORLD_SAPLING_NATURAL.get(), RenderType.getCutoutMipped());
-        RenderTypeLookup.setRenderLayer(OccultismBlocks.OTHERWORLD_LEAVES.get(), RenderType.getCutoutMipped());
-        RenderTypeLookup.setRenderLayer(OccultismBlocks.OTHERWORLD_LEAVES_NATURAL.get(), RenderType.getCutoutMipped());
-
-        //Not safe to call during parallel load, so register to run threadsafe.
-        event.enqueueWork(() -> {
-            //Register screen factories
-            ItemModelsProperties.registerProperty(OccultismItems.GUIDE_BOOK.get(), new ResourceLocation("completion"), new GuideBookItem.ItemPropertyGetter());
-            ItemModelsProperties.registerProperty(OccultismItems.SOUL_GEM_ITEM.get(), new ResourceLocation(Occultism.MODID, "has_entity"), new SoulGemItem.ItemPropertyGetter());
-            ItemModelsProperties.registerProperty(OccultismItems.DIVINATION_ROD.get(), new ResourceLocation(Occultism.MODID, "distance"), new DivinationRodItem.ItemPropertyGetter());
-            ItemModelsProperties.registerProperty(OccultismItems.OTHERWORLD_SAPLING_NATURAL.get(), new ResourceLocation(Occultism.MODID, "simulated"), new OtherworldBlockItem.ItemPropertyGetter());
-            ItemModelsProperties.registerProperty(OccultismItems.STORAGE_REMOTE.get(), new ResourceLocation(Occultism.MODID, "linked"), new StorageRemoteItem.ItemPropertyGetter());
-            ItemModelsProperties.registerProperty(OccultismItems.STABLE_WORMHOLE.get(), new ResourceLocation(Occultism.MODID, "linked"), new StableWormholeBlockItem.ItemPropertyGetter());
-
-            LOGGER.debug("Registered Item Properties");
-        });
-
-        event.enqueueWork(() -> {
-            //Register screen factories
-            ScreenManager.registerFactory(OccultismContainers.STORAGE_CONTROLLER.get(), StorageControllerGui::new);
-            ScreenManager.registerFactory(OccultismContainers.STABLE_WORMHOLE.get(), StableWormholeGui::new);
-            ScreenManager.registerFactory(OccultismContainers.STORAGE_REMOTE.get(), StorageRemoteGui::new);
-            ScreenManager.registerFactory(OccultismContainers.SPIRIT.get(), SpiritGui<SpiritContainer>::new);
-            ScreenManager.registerFactory(OccultismContainers.SPIRIT_TRANSPORTER.get(),SpiritTransporterGui::new);
-            ScreenManager.registerFactory(OccultismContainers.OTHERWORLD_MINER.get(), DimensionalMineshaftScreen::new);
-            LOGGER.debug("Registered Screen Containers");
-        });
-
-        LOGGER.info("Client setup complete.");
     }
     //endregion Methods
 }

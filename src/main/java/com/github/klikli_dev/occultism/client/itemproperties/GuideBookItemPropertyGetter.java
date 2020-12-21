@@ -20,53 +20,48 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.github.klikli_dev.occultism.common.item.otherworld;
+package com.github.klikli_dev.occultism.client.itemproperties;
 
-import com.github.klikli_dev.occultism.registry.OccultismEffects;
-import com.github.klikli_dev.occultism.util.OtherworldUtil;
-import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
+import com.github.klikli_dev.occultism.common.item.tool.GuideBookItem;
 import net.minecraft.client.world.ClientWorld;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.BlockItem;
 import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import vazkii.patchouli.client.book.BookEntry;
+import vazkii.patchouli.common.book.Book;
+import vazkii.patchouli.common.book.BookRegistry;
 
 import javax.annotation.Nullable;
+import java.util.Iterator;
 
-/**
- * Allows to show different textures and translation keys for HWYLA and in the inventory
- */
-public class OtherworldBlockItem extends BlockItem {
-    //region Initialization
-    public OtherworldBlockItem(Block blockIn, Properties builder) {
-        super(blockIn, builder);
-    }
-    //endregion Initialization
-
+@OnlyIn(Dist.CLIENT)
+public class GuideBookItemPropertyGetter implements IItemPropertyGetter {
     //region Overrides
-
-    /**
-     * Make getDefaultTranslationKey public for use in OtherworldUtil
-     */
+    @OnlyIn(Dist.CLIENT)
     @Override
-    public String getDefaultTranslationKey() {
-        return super.getDefaultTranslationKey();
-    }
+    public float call(ItemStack stack, @Nullable ClientWorld worldIn, @Nullable LivingEntity entityIn) {
+        Book book = BookRegistry.INSTANCE.books.get(GuideBookItem.GUIDE);
+        float progression = 0.0F;
+        if (book != null) {
+            int totalEntries = 0;
+            int unlockedEntries = 0;
+            Iterator var8 = book.contents.entries.values().iterator();
 
-    @Override
-    public String getTranslationKey(ItemStack stack) {
-        return OtherworldUtil.getTranslationKeyDistAware(this, stack);
-    }
+            while (var8.hasNext()) {
+                BookEntry entry = (BookEntry) var8.next();
+                if (!entry.isSecret()) {
+                    ++totalEntries;
+                    if (!entry.isLocked()) {
+                        ++unlockedEntries;
+                    }
+                }
+            }
 
-    @Override
-    public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
-        super.inventoryTick(stack, worldIn, entityIn, itemSlot, isSelected);
-        stack.getOrCreateTag().putBoolean("isInventoryItem", true);
+            progression = (float) unlockedEntries / Math.max(1.0F, (float) totalEntries);
+        }
+
+        return progression;
     }
-    //endregion Overrides
 }
