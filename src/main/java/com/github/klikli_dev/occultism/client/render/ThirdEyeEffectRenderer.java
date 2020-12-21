@@ -107,6 +107,13 @@ public class ThirdEyeEffectRenderer {
     }
 
     @SubscribeEvent
+    public void onPreRenderOverlay(RenderGameOverlayEvent.Pre event) {
+        //TODO: Remove this hack once MC fixes shader rendering on their own
+        //      Based on: https://discordapp.com/channels/313125603924639766/725850371834118214/784883909694980167
+        RenderSystem.enableTexture();
+    }
+
+    @SubscribeEvent
     public void onRenderOverlay(RenderGameOverlayEvent.Post event) {
         if (event.getType() == RenderGameOverlayEvent.ElementType.HELMET) {
             if (this.thirdEyeActiveLastTick || this.gogglesActiveLastTick) {
@@ -122,8 +129,10 @@ public class ThirdEyeEffectRenderer {
                 renderOverlay(event, THIRD_EYE_OVERLAY);
 
                 RenderSystem.color4f(1, 1, 1, 1);
+                RenderSystem.disableBlend();
             }
         }
+
     }
 
     /**
@@ -175,8 +184,9 @@ public class ThirdEyeEffectRenderer {
                 this.thirdEyeActiveLastTick = true;
 
                 //load shader, but only if we are on the natural effects
-                if(!hasGoggles)
+                if(!hasGoggles){
                     Minecraft.getInstance().enqueue(() -> Minecraft.getInstance().gameRenderer.loadShader(THIRD_EYE_SHADER));
+                }
             }
             //also handle goggles in one if we have them
             this.uncoverBlocks(event.player, event.player.world, hasGoggles ? OtherworldBlockTier.TWO: OtherworldBlockTier.ONE);
