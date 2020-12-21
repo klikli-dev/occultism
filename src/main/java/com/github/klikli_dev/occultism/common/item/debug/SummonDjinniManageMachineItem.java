@@ -55,7 +55,7 @@ public class SummonDjinniManageMachineItem extends Item {
             spirit.setTamedBy(context.getPlayer());
             spirit.setPosition(context.getPos().getX(), context.getPos().getY() + 1.0f, context.getPos().getZ());
             spirit.setCustomName(new StringTextComponent("Testspirit Manage Machine"));
-
+            spirit.setSpiritMaxAge(-1); //cannot die from age
             //set up the job
             SpiritJob manageMachine = OccultismSpiritJobs.MANAGE_MACHINE.get().create(spirit);
             manageMachine.init();
