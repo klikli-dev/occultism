@@ -4,13 +4,15 @@
     "trunk_provider": {
       "type": "simple_state_provider",
       "state": {
-        "Name": "occultism:otherworld_log_natural"
+        "Name": "occultism:otherworld_log_natural",
+        "Properties": {}
       }
     },
     "leaves_provider": {
       "type": "simple_state_provider",
       "state": {
-        "Name": "occultism:otherworld_leaves_natural"
+        "Name": "occultism:otherworld_leaves_natural",
+        "Properties": {}
       }
     },
     "foliage_placer": {
@@ -32,6 +34,8 @@
       "lower_size": 0,
       "upper_size": 1
     },
-    "ignore_vines": true
+    "ignore_vines": true,
+    "heightmap": "MOTION_BLOCKING_NO_LEAVES",
+    "decorators": []
   }
 }
