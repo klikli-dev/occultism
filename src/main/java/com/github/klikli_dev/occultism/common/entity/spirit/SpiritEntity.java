@@ -22,6 +22,7 @@
 
 package com.github.klikli_dev.occultism.common.entity.spirit;
 
+import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.api.common.data.WorkAreaSize;
 import com.github.klikli_dev.occultism.common.container.spirit.SpiritContainer;
 import com.github.klikli_dev.occultism.common.entity.ISkinnedCreatureMixin;
@@ -40,6 +41,7 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.entity.projectile.AbstractArrowEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.inventory.container.Container;
+import net.minecraft.inventory.container.IContainerProvider;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
@@ -69,6 +71,7 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
      * The default max age in seconds.
      */
     public static final int DEFAULT_MAX_AGE = -1;//default age is unlimited.
+    public static final int MAX_FILTER_SLOTS = 7;
     private static final DataParameter<Optional<BlockPos>> DEPOSIT_POSITION =
             EntityDataManager.createKey(SpiritEntity.class, DataSerializers.OPTIONAL_BLOCK_POS);
     private static final DataParameter<Direction> DEPOSIT_FACING =
@@ -96,7 +99,27 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
      */
     private static final DataParameter<String> JOB_ID = EntityDataManager
                                                                 .createKey(SpiritEntity.class, DataSerializers.STRING);
+
+    /**
+     * The filter mode (blacklist/whitelist)
+     */
+    private static final DataParameter<Boolean> IS_FILTER_BLACKLIST = EntityDataManager
+                                                                .createKey(SpiritEntity.class, DataSerializers.BOOLEAN);
+
+    /**
+     * The filter item list
+     */
+    private static final DataParameter<CompoundNBT> FILTER_ITEMS = EntityDataManager
+                                                                              .createKey(SpiritEntity.class, DataSerializers.COMPOUND_NBT);
+
     public LazyOptional<ItemStackHandler> itemStackHandler = LazyOptional.of(ItemStackHandler::new);
+    public LazyOptional<ItemStackHandler> filterItemStackHandler = LazyOptional.of(() -> new ItemStackHandler(MAX_FILTER_SLOTS) {
+        @Override
+        protected void onContentsChanged(int slot) {
+            super.onContentsChanged(slot);
+            SpiritEntity.this.dataManager.set(FILTER_ITEMS, this.serializeNBT());
+        }
+    });
     protected Optional<SpiritJob> job = Optional.empty();
     protected boolean isInitialized = false;
 
@@ -107,6 +130,22 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
         this.enablePersistence();
     }
     //endregion Initialization
+
+    @Override
+    public void notifyDataManagerChange(DataParameter<?> key) {
+        super.notifyDataManagerChange(key);
+
+        if(key == FILTER_ITEMS){
+            //restore filter item handler from data param on client
+            if(this.world.isRemote){
+                this.filterItemStackHandler.ifPresent((handler) -> {
+                    CompoundNBT compound = this.dataManager.get(FILTER_ITEMS);
+                    if(!compound.isEmpty())
+                        handler.deserializeNBT(compound);
+                });
+            }
+        }
+    }
 
     //region Getter / Setter
     public Optional<BlockPos> getDepositPosition() {
@@ -207,6 +246,29 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
      */
     public void setJobID(String id) {
         this.dataManager.set(JOB_ID, id);
+    }
+
+    /**
+     * @return the filter mode
+     */
+    public boolean isFilterBlacklist() {
+        return this.dataManager.get(IS_FILTER_BLACKLIST);
+    }
+
+    /**
+     * Sets the filter mode
+     *
+     * @param isFilterBlacklist the filter mode
+     */
+    public void setFilterBlacklist(boolean isFilterBlacklist) {
+        this.dataManager.set(IS_FILTER_BLACKLIST, isFilterBlacklist);
+    }
+
+    /**
+     * @return the filter mode
+     */
+    public LazyOptional<ItemStackHandler> getFilterItems() {
+        return this.filterItemStackHandler;
     }
 
     public Optional<SpiritJob> getJob() {
@@ -342,7 +404,6 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
     protected void registerData() {
         super.registerData();
         this.registerSkinDataParameter();
-
         this.dataManager.register(DEPOSIT_POSITION, Optional.empty());
         this.dataManager.register(DEPOSIT_FACING, Direction.UP);
         this.dataManager.register(EXTRACT_POSITION, Optional.empty());
@@ -352,7 +413,10 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
         this.dataManager.register(SPIRIT_AGE, 0);
         this.dataManager.register(SPIRIT_MAX_AGE, DEFAULT_MAX_AGE);
         this.dataManager.register(JOB_ID, "");
+        this.dataManager.register(IS_FILTER_BLACKLIST, false);
+        this.dataManager.register(FILTER_ITEMS, new CompoundNBT());
     }
+
 
     @Override
     public void writeAdditional(CompoundNBT compound) {
@@ -379,6 +443,10 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
 
         //store job
         this.job.ifPresent(job -> compound.put("spiritJob", job.serializeNBT()));
+
+        compound.putBoolean("isFilterBlacklist", this.isFilterBlacklist());
+        this.filterItemStackHandler.ifPresent(handler -> compound.put("filterItems", handler.serializeNBT()));
+
     }
 
     @Override
@@ -428,6 +496,14 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
         if (compound.contains("spiritJob")) {
             SpiritJob job = SpiritJob.from(this, compound.getCompound("spiritJob"));
             this.setJob(job);
+        }
+
+        if(compound.contains("isFilterBlacklist")){
+            this.setFilterBlacklist(compound.getBoolean("isFilterBlacklist"));
+        }
+
+        if(compound.contains("filterItems")){
+            this.filterItemStackHandler.ifPresent(handler -> handler.deserializeNBT(compound.getCompound("filterItems")));
         }
     }
 
@@ -522,7 +598,13 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
 
     public void openGUI(PlayerEntity playerEntity) {
         if (!this.world.isRemote) {
-            NetworkHooks.openGui((ServerPlayerEntity) playerEntity, this, (buf) -> buf.writeInt(this.getEntityId()));
+            INamedContainerProvider containerProvider = this;
+
+            SpiritJob currentJob = this.job.orElse(null);
+            if(currentJob instanceof INamedContainerProvider)
+                containerProvider = (INamedContainerProvider) currentJob;
+
+            NetworkHooks.openGui((ServerPlayerEntity) playerEntity, containerProvider, (buf) -> buf.writeInt(this.getEntityId()));
         }
     }
     //endregion Methods

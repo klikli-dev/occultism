@@ -44,17 +44,17 @@ import net.minecraft.util.text.TextFormatting;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.WordUtils;
 
-public class SpiritGui extends ContainerScreen<SpiritContainer> {
+public class SpiritGui<T extends SpiritContainer> extends ContainerScreen<T> {
 //region Fields
     protected static final ResourceLocation TEXTURE = new ResourceLocation(Occultism.MODID,
             "textures/gui/inventory_spirit.png");
     protected static final String TRANSLATION_KEY_BASE = "gui." + Occultism.MODID + ".spirit";
     protected SpiritEntity spirit;
-    protected SpiritContainer container;
+    protected T container;
 //endregion Fields
 
     //region Initialization
-    public SpiritGui(SpiritContainer container, PlayerInventory playerInventory, ITextComponent titleIn) {
+    public SpiritGui(T container, PlayerInventory playerInventory, ITextComponent titleIn) {
         super(container, playerInventory, titleIn);
         this.container = container;
         this.spirit = this.container.spirit;
