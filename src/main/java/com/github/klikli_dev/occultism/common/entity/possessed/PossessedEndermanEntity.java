@@ -23,18 +23,28 @@
 package com.github.klikli_dev.occultism.common.entity.possessed;
 
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.monster.EndermanEntity;
-import net.minecraft.entity.monster.EndermiteEntity;
 import net.minecraft.world.World;
 
 public class PossessedEndermanEntity extends EndermanEntity {
+    //region Initialization
     public PossessedEndermanEntity(EntityType<? extends EndermanEntity> type,
                                    World worldIn) {
         super(type, worldIn);
     }
+    //endregion Initialization
 
+    //region Overrides
     @Override
     protected boolean isDespawnPeaceful() {
         return false;
     }
+    //endregion Overrides
+
+    //region Static Methods
+    public static AttributeModifierMap.MutableAttribute registerAttributes() {
+        return EndermanEntity.func_234287_m_(); //=registerAttributes
+    }
+    //endregion Static Methods
 }
