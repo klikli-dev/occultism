@@ -138,7 +138,8 @@ public class ExtractItemsGoal extends PausableGoal {
                             this.entity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, Direction.DOWN)
                                     .orElseThrow(ItemHandlerMissingException::new);
 
-                    int slot = StorageUtil.getFirstFilledSlot(tileHandler);
+                    int slot = StorageUtil.getFirstMatchingSlot(tileHandler,
+                            this.entity.getFilterItems().orElseThrow(ItemHandlerMissingException::new), this.entity.isFilterBlacklist());
                     if (slot >= 0) {
                         //simulate extraction
                         ItemStack toExtract = tileHandler.extractItem(slot, Integer.MAX_VALUE, true).copy();

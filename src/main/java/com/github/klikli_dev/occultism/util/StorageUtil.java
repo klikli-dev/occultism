@@ -38,6 +38,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
+import net.minecraftforge.items.ItemStackHandler;
 
 /**
  * Based on https://github.com/Lothrazar/Storage-Network
@@ -166,11 +167,46 @@ public class StorageUtil {
     }
 
     public static int getFirstFilledSlot(IItemHandler handler) {
-        for (int i = 0; i < handler.getSlots(); i++) {
+        return getFirstFilledSlotAfter(handler, -1);
+    }
+
+    public static int getFirstFilledSlotAfter(IItemHandler handler, int slot) {
+        for (int i = slot+1; i < handler.getSlots(); i++) {
             if (!handler.getStackInSlot(i).isEmpty())
                 return i;
         }
         return -1;
+    }
+
+    public static int getFirstMatchingSlot(IItemHandler handler, IItemHandler filter, boolean isBlacklist){
+        return getFirstMatchingSlotAfter(handler, -1, filter, isBlacklist);
+    }
+
+    public static int getFirstMatchingSlotAfter(IItemHandler handler, int slot, IItemHandler filter, boolean isBlacklist) {
+        for (int i = slot+1; i < handler.getSlots(); i++) {
+            if (!handler.getStackInSlot(i).isEmpty() && matchesFilter(handler.getStackInSlot(i), filter, isBlacklist)){
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public static boolean matchesFilter(ItemStack stack, IItemHandler filter, boolean isBlacklist){
+        for (int i = 0; i < filter.getSlots(); i++) {
+            ItemStack filtered = filter.getStackInSlot(i);
+
+            boolean equals = filtered.isItemEqual(stack);
+
+            if (equals) {
+                //if it's a blacklist, we return false, because a match means the item is not allowed
+                //if it's a whitelist, we return true, because a match means the item is allowed
+                return !isBlacklist;
+            }
+        }
+
+        //if it's a blacklist, we return true, because no match means the item is allowed
+        //if it's a whitelist, w return false, because no match means the item is not allowed
+        return isBlacklist;
     }
 
     /**
