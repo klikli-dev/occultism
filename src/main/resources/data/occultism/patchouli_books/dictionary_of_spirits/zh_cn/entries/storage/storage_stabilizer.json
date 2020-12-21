@@ -8,7 +8,7 @@
       "type": "spotlight",
       "item": "occultism:storage_stabilizer_tier1",
       "title": "存储稳定器",
-      "text": "$(thing)$(l:rituals/crafting/craft_storage_stabilizer_tier1)存储稳定器$(/l)$()增加了存储维度的储存空间。存储稳定器一共有四个阶段，且每个阶段都比上一阶段添加更多的存储空间。存储控制器需要指向$(item)维度矩阵$()（存储执行器上面的一个方块）且距离不能超过5格。"
+      "text": "$(l:rituals/crafting/craft_storage_stabilizer_tier1)存储稳定器$(/l)增加了存储维度的储存空间。存储稳定器一共有四个阶段，且每个阶段都比上一阶段添加更多的存储空间。存储控制器需要指向$(item)维度矩阵$()（存储执行器上面的一个方块）且距离不能超过5格。"
     },
     {
       "type": "image",

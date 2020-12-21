@@ -7,7 +7,7 @@
     {
       "type": "spotlight",
       "item": "occultism:otherworld_goggles",
-      "text": "$(item)彼岸目镜$()给予使用者永久的$(thing)第三只眼$()装备彼岸目镜后可以看到食用$(thing)$(l:getting_started/datura)恶魔之梦$(/l)$()后也看不到的方块。但是他们无法使我们获得彼岸的材料。所以说，是使用这种特殊工具还是食用“恶魔之梦”，具体还是要取决于我们需要什么彼岸材料。"
+      "text": "$(item)彼岸目镜$()给予使用者永久的$(thing)第三只眼$()装备彼岸目镜后可以看到食用$(thing)$(l:getting_started/datura)恶魔之梦$(/l)后也看不到的方块。但是他们无法使我们获得彼岸的材料。所以说，是使用这种特殊工具还是食用“恶魔之梦”，具体还是要取决于我们需要什么彼岸材料。"
     },
     {
       "type": "spotlight",

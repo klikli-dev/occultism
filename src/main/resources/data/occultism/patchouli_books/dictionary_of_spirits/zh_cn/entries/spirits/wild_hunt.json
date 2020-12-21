@@ -10,7 +10,7 @@
     },
     {
       "type": "text",
-      "text": "它们会掉落的罕见的凋零骷髅头颅。召唤野猎在获得$(item)$(l:rituals/summoning/wither_skull)凋零骷髅头颅$(/l)$()的页面上有详细的描述"
+      "text": "它们会掉落的罕见的凋零骷髅头颅。召唤野猎在获得$(l:rituals/summoning/wither_skull)凋零骷髅头颅$(/l)的页面上有详细的描述"
     }
   ]
 }

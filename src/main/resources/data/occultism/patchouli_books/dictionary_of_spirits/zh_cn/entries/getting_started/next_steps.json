@@ -21,12 +21,12 @@
     {
       "type": "text",
       "title": "注魔镐",
-      "text": "使用$(l:rituals/crafting/craft_infused_pickaxe)$(thing)注魔镐$()$(/l)$()来挖掘彼岸矿物。如果想要更进一步，可以制造一个有着相同效果不过拥有更高耐久的$(item)铱镐$()来替代注魔镐"
+      "text": "使用$(l:rituals/crafting/craft_infused_pickaxe)注魔镐$(/l)来挖掘彼岸矿物。如果想要更进一步，可以制造一个有着相同效果不过拥有更高耐久的$(item)铱镐$()来替代注魔镐"
     },
     {
       "type": "text",
       "title": "召唤伙伴",
-      "text": "召唤一只$(l:rituals/familiars/familiar_parrot)$(thing)鹦鹉伙伴$()$(/l)来变成海盗！或者召唤一只$(l:rituals/familiars/familiar_otherworld_bird)$(thing)彼岸鸟$()$(/l)在空中遨游。可以使用$(l:rituals/crafting/craft_soul_gem)$(item)灵魂宝石$()$(/l)来安全地储存这些能力。"
+      "text": "召唤一只$(l:rituals/familiars/familiar_parrot)鹦鹉伙伴$(/l)来变成海盗！或者召唤一只$(l:rituals/familiars/familiar_otherworld_bird)彼岸鸟$(/l)在空中遨游。可以使用$(l:rituals/crafting/craft_soul_gem)灵魂宝石$(/l)来安全地储存这些能力。"
     },
     {
       "type": "text",
@@ -46,7 +46,7 @@
     {
       "type": "text",
       "title": "自动化采矿",
-      "text": "$(l:rituals/crafting/craft_dimensional_mineshaft)$(thing)维度矿井$()$(/l)可以在采矿维度中挖矿。灵魂的种类以及其属性决定了挖掘速度、产量以及产物。理论上灵魂可以在采矿维度获得一切存在的矿物。"
+      "text": "$(l:rituals/crafting/craft_dimensional_mineshaft)维度矿井$(/l)可以在采矿维度中挖矿。灵魂的种类以及其属性决定了挖掘速度、产量以及产物。理论上灵魂可以在采矿维度获得一切存在的矿物。"
     },
     {
       "type": "empty",

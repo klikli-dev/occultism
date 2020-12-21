@@ -26,7 +26,7 @@
     {
       "type": "spotlight",
       "item": "occultism:chalk_red",
-      "text": "红色粉笔用来召唤最强大也是最危险的生物，如$(thing)马里德$()。制作红色粉笔需要$(l:rituals/summoning/afrit_essence)$(item)精华$()$(/l)"
+      "text": "红色粉笔用来召唤最强大也是最危险的生物，如$(thing)马里德$()。制作红色粉笔需要$(l:rituals/summoning/afrit_essence)精华$(/l)"
     }
   ]
 }

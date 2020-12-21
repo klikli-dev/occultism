@@ -30,7 +30,7 @@
     {
       "type": "text",
       "title": "仪式",
-      "text": "有关仪式的描述可以在：$(thing)$(l:rituals/summoning/summon_crusher)仪式部分$(/l)$()获取。词典会根据玩家进度，一步一步解锁更多的仪式。$(br2)我们先放上金色的祭祀碗，然后画出合适的五芒星$(l:pentacles/summon_foliot)阿维亚之圈$(/l)$(br)然后，将四个祭祀碗放在五角星附近。并把铜、铁、银和金矿放在四个祭祀碗中。"
+      "text": "有关仪式的描述可以在：$(l:rituals/summoning/summon_crusher)仪式部分$(/l)获取。词典会根据玩家进度，一步一步解锁更多的仪式。$(br2)我们先放上金色的祭祀碗，然后画出合适的五芒星$(l:pentacles/summon_foliot)阿维亚之圈$(/l)$(br)然后，将四个祭祀碗放在五角星附近。并把铜、铁、银和金矿放在四个祭祀碗中。"
     },
     {
       "type": "text",
