@@ -30,6 +30,7 @@ import com.github.klikli_dev.occultism.common.item.debug.*;
 import com.github.klikli_dev.occultism.common.item.otherworld.OtherworldBlockItem;
 import com.github.klikli_dev.occultism.common.item.spirit.*;
 import com.github.klikli_dev.occultism.common.item.storage.DimensionalMatrixItem;
+import com.github.klikli_dev.occultism.common.item.storage.SatchelItem;
 import com.github.klikli_dev.occultism.common.item.storage.StableWormholeBlockItem;
 import com.github.klikli_dev.occultism.common.item.storage.StorageRemoteItem;
 import com.github.klikli_dev.occultism.common.item.tool.*;
@@ -178,6 +179,9 @@ public class OccultismItems {
 
     public static final RegistryObject<SoulGemItem> SOUL_GEM_ITEM = ITEMS.register("soul_gem",
             () -> new SoulGemItem(defaultProperties().maxStackSize(1)));
+
+    public static final RegistryObject<Item> SATCHEL = ITEMS.register("satchel",
+            () -> new SatchelItem(defaultProperties().maxStackSize(1).rarity(Rarity.RARE)));
 
     //Books of Binding
     public static final RegistryObject<BookOfBindingItem> BOOK_OF_BINDING_FOLIOT = ITEMS.register(
