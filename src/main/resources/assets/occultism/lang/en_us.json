@@ -124,6 +124,7 @@
     "item.occultism.miner_debug_unspecialized.tooltip": "Debug Miner will mine random blocks in the mining dimension.",
     "item.occultism.soul_gem.tooltip_filled": "Contains a captured %s.",
     "item.occultism.soul_gem.tooltip_empty": "Use on a creature to capture it.",
+    "item.occultism.satchel.tooltip": "%s is bound to this satchel.",
     "_comment": "Blocks",
     "block.occultism.otherstone": "Otherstone",
     "block.occultism.otherstone_slab": "Otherstone Slab",

@@ -24,6 +24,9 @@ package com.github.klikli_dev.occultism.common.item.storage;
 
 import com.github.klikli_dev.occultism.common.container.storage.SatchelContainer;
 import com.github.klikli_dev.occultism.common.container.storage.SatchelInventory;
+import com.github.klikli_dev.occultism.util.ItemNBTUtil;
+import com.github.klikli_dev.occultism.util.TextUtil;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.IInventory;
@@ -33,8 +36,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
+
+import javax.annotation.Nullable;
+import java.util.List;
 
 public class SatchelItem extends Item {
     //region Initialization
@@ -71,17 +79,19 @@ public class SatchelItem extends Item {
 
         return new ActionResult<>(ActionResultType.SUCCESS, stack);
     }
+    @Override
+    public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip,
+                               ITooltipFlag flagIn) {
+        super.addInformation(stack, worldIn, tooltip, flagIn);
+        tooltip.add(new TranslationTextComponent(this.getTranslationKey() + ".tooltip",
+                TextUtil.formatDemonName(ItemNBTUtil.getBoundSpiritName(stack))));
+    }
+
     //endregion Overrides
 
     //region Methods
     public IInventory getInventory(ServerPlayerEntity player, ItemStack stack) {
         return new SatchelInventory(stack, SatchelContainer.SATCHEL_SIZE);
-    }
-
-    public void saveInventory(IInventory inventory) {
-        if (inventory instanceof SatchelInventory) {
-            ((SatchelInventory) inventory).writeItemStack();
-        }
     }
     //endregion Methods
 }

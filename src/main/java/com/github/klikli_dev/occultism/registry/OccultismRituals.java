@@ -129,6 +129,9 @@ public class OccultismRituals {
     public static final RegistryObject<CraftMinerDjinniOresRitual> CRAFT_MINER_DJINNI_ORES_RITUAL =
             RITUALS.register("craft_miner_djinni_ores", CraftMinerDjinniOresRitual::new);
 
+    public static final RegistryObject<CraftSatchelRitual> CRAFT_SATCHEL_RITUAL =
+            RITUALS.register("craft_satchel", CraftSatchelRitual::new);
+
     //Possession
     public static final RegistryObject<PossessEndermiteRitual> POSSESS_ENDERMITE_RITUAL =
             RITUALS.register("possess_endermite", PossessEndermiteRitual::new);
