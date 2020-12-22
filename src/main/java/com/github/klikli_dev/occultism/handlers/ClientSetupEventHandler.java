@@ -26,6 +26,7 @@ import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.client.gui.DimensionalMineshaftScreen;
 import com.github.klikli_dev.occultism.client.gui.spirit.SpiritGui;
 import com.github.klikli_dev.occultism.client.gui.spirit.SpiritTransporterGui;
+import com.github.klikli_dev.occultism.client.gui.storage.SatchelScreen;
 import com.github.klikli_dev.occultism.client.gui.storage.StableWormholeGui;
 import com.github.klikli_dev.occultism.client.gui.storage.StorageControllerGui;
 import com.github.klikli_dev.occultism.client.gui.storage.StorageRemoteGui;
@@ -37,12 +38,6 @@ import com.github.klikli_dev.occultism.client.render.entity.OtherworldBirdRender
 import com.github.klikli_dev.occultism.client.render.tile.SacrificialBowlRenderer;
 import com.github.klikli_dev.occultism.client.render.tile.StorageControllerRenderer;
 import com.github.klikli_dev.occultism.common.container.spirit.SpiritContainer;
-import com.github.klikli_dev.occultism.common.item.otherworld.OtherworldBlockItem;
-import com.github.klikli_dev.occultism.common.item.storage.StableWormholeBlockItem;
-import com.github.klikli_dev.occultism.common.item.storage.StorageRemoteItem;
-import com.github.klikli_dev.occultism.common.item.tool.DivinationRodItem;
-import com.github.klikli_dev.occultism.common.item.tool.GuideBookItem;
-import com.github.klikli_dev.occultism.common.item.tool.SoulGemItem;
 import com.github.klikli_dev.occultism.registry.*;
 import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.client.renderer.RenderType;
@@ -115,6 +110,7 @@ public class ClientSetupEventHandler {
             ScreenManager.registerFactory(OccultismContainers.SPIRIT.get(), SpiritGui<SpiritContainer>::new);
             ScreenManager.registerFactory(OccultismContainers.SPIRIT_TRANSPORTER.get(), SpiritTransporterGui::new);
             ScreenManager.registerFactory(OccultismContainers.OTHERWORLD_MINER.get(), DimensionalMineshaftScreen::new);
+            ScreenManager.registerFactory(OccultismContainers.SATCHEL.get(), SatchelScreen::new);
             Occultism.LOGGER.debug("Registered Screen Containers");
         });
 
