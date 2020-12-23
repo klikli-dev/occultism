@@ -154,8 +154,9 @@ public class StorageRemoteContainer extends StorageControllerContainerBase {
 
                 });
             }
-
-            this.addSlot(new Slot(this.playerInventory, i, hotbarLeft + i * 18, hotbarTop));
+            else {
+                this.addSlot(new Slot(this.playerInventory, i, hotbarLeft + i * 18, hotbarTop));
+            }
         }
     }
     //endregion Overrides
