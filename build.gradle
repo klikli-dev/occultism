@@ -134,9 +134,6 @@ dependencies {
     // The userdev artifact is a special name and will get all sorts of transformations applied to it.
     minecraft 'net.minecraftforge:forge:1.16.4-35.1.13'
 
-    //Note: Enabling hwyla leads to build errors on github actions, even when just including the runtime version.
-    //compileOnly fg.deobf("mcp.mobius.waila:Hwyla:${hwyla_version}:api")
-    //runtimeOnly fg.deobf("mcp.mobius.waila:Hwyla:${hwyla_version}")
     compileOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}:api")
     runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}")
 

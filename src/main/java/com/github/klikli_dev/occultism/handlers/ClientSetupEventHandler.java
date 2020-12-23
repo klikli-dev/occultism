@@ -122,7 +122,7 @@ public class ClientSetupEventHandler {
 
         //Not safe to call during parallel load, so register to run threadsafe
         event.enqueueWork(() -> {
-            //Register screen factories
+            //Register item model properties
             ItemModelsProperties.registerProperty(OccultismItems.GUIDE_BOOK.get(),
                     new ResourceLocation("completion"), new GuideBookItemPropertyGetter());
             ItemModelsProperties.registerProperty(OccultismItems.SOUL_GEM_ITEM.get(),
