@@ -67,14 +67,6 @@ public class SatchelItem extends Item {
                     }, stack.getDisplayName()), buffer -> {
                         buffer.writeVarInt(selectedSlot);
                     });
-
-            NetworkHooks.openGui((ServerPlayerEntity) player,
-                    new SimpleNamedContainerProvider((id, playerInventory, unused) -> {
-                        return new SatchelContainer(id, playerInventory,
-                                this.getInventory((ServerPlayerEntity) player, stack), selectedSlot);
-                    }, stack.getDisplayName()), buffer -> {
-                        buffer.writeVarInt(selectedSlot);
-                    });
         }
 
         return new ActionResult<>(ActionResultType.SUCCESS, stack);
