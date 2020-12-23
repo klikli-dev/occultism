@@ -28,13 +28,11 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.registry.DynamicRegistries;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.INBTSerializable;
 
 import java.util.Objects;
-import java.util.Optional;
 import java.util.StringJoiner;
 
 public class GlobalBlockPos implements INBTSerializable<CompoundNBT> {
@@ -54,9 +52,7 @@ public class GlobalBlockPos implements INBTSerializable<CompoundNBT> {
 
     public GlobalBlockPos(BlockPos pos, World world) {
         this.pos = pos;
-        Optional<RegistryKey<World>> optionalKey =
-                DynamicRegistries.Impl.func_239770_b_().getRegistry(Registry.WORLD_KEY).getOptionalKey(world);
-        this.dimensionKey = optionalKey.orElseGet(null);
+        this.dimensionKey = world.getDimensionKey();
     }
     //endregion Initialization
 
