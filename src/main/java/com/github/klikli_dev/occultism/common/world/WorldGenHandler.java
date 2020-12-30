@@ -24,7 +24,7 @@ package com.github.klikli_dev.occultism.common.world;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.world.multichunk.MultiChunkFeatureConfig;
-import com.github.klikli_dev.occultism.common.world.tree.OtherworldNaturalTree;
+import com.github.klikli_dev.occultism.config.OccultismConfig;
 import com.github.klikli_dev.occultism.registry.OccultismBiomeFeatures;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import net.minecraft.util.registry.Registry;
@@ -32,6 +32,7 @@ import net.minecraft.util.registry.WorldGenRegistries;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.blockstateprovider.SimpleBlockStateProvider;
 import net.minecraft.world.gen.feature.*;
+import net.minecraft.world.gen.feature.template.TagMatchRuleTest;
 import net.minecraft.world.gen.foliageplacer.BlobFoliagePlacer;
 import net.minecraft.world.gen.placement.NoPlacementConfig;
 import net.minecraft.world.gen.placement.Placement;
@@ -47,9 +48,9 @@ import static com.github.klikli_dev.occultism.util.StaticUtil.modLoc;
 public class WorldGenHandler {
 
     //region Fields
-    public static ConfiguredFeature<?, ?> ORE_COPPER;
-    public static ConfiguredFeature<?, ?> ORE_SILVER;
-    public static ConfiguredFeature<?, ?> ORE_IESNIUM;
+    public static ConfiguredFeature<?, ?> COPPER_ORE;
+    public static ConfiguredFeature<?, ?> SILVER_ORE;
+    public static ConfiguredFeature<?, ?> IESNIUM_ORE;
 
     public static ConfiguredFeature<?, ?> UNDERGROUND_GROVE;
 
@@ -60,43 +61,66 @@ public class WorldGenHandler {
     //region Static Methods
     @SubscribeEvent
     public static void onBiomeLoading(BiomeLoadingEvent event) {
-        event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, ORE_COPPER);
-        event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, ORE_SILVER);
-        event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, ORE_IESNIUM);
-
-        event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_STRUCTURES, UNDERGROUND_GROVE);
+        if(Occultism.CONFIG.worldGen.oreGen.copperOre.generateOre.get())
+            event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, COPPER_ORE);
+        if(Occultism.CONFIG.worldGen.oreGen.silverOre.generateOre.get())
+            event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, SILVER_ORE);
+        if(Occultism.CONFIG.worldGen.oreGen.iesniumOre.generateOre.get())
+            event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, IESNIUM_ORE);
+        if(Occultism.CONFIG.worldGen.undergroundGroveGen.generateUndergroundGroves.get())
+            event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_STRUCTURES, UNDERGROUND_GROVE);
     }
 
     public static void registerConfiguredFeatures() {
         //Register the features with default setting here.
-        ORE_COPPER = Feature.ORE
-                             .withConfiguration(new OreFeatureConfig(
-                                     OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD,
-                                     OccultismBlocks.COPPER_ORE.get().getDefaultState(), 9))
-                             .withPlacement(Placement.RANGE.configure(new TopSolidRangeConfig(10, 0, 64)))
-                             .func_242731_b(20); //count decorator
-        Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, modLoc("ore_copper"), ORE_COPPER);
+        OccultismConfig.WorldGenSettings.OreGenSettings oreGen = Occultism.CONFIG.worldGen.oreGen;
+        OccultismConfig.WorldGenSettings.UndergroundGroveGenSettings groveGen = Occultism.CONFIG.worldGen.undergroundGroveGen;
 
-        ORE_SILVER = Feature.ORE
-                             .withConfiguration(new OreFeatureConfig(
-                                     OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD,
-                                     OccultismBlocks.SILVER_ORE.get().getDefaultState(), 7))
-                             .withPlacement(Placement.RANGE.configure(new TopSolidRangeConfig(5, 0, 30)))
-                             .func_242731_b(3); // func_242731_b = count decorator
-        Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, modLoc("ore_silver"), ORE_SILVER);
 
-        ORE_IESNIUM = Feature.ORE
-                              .withConfiguration(new OreFeatureConfig(
-                                      OreFeatureConfig.FillerBlockType.BASE_STONE_NETHER,
-                                      OccultismBlocks.IESNIUM_ORE.get().getDefaultState(), 3))
-                              .withPlacement(Features.Placements.NETHER_SPRING_ORE_PLACEMENT)
-                              .func_242731_b(10); // func_242731_b = count decorator
-        Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, modLoc("ore_iesnium"), ORE_IESNIUM);
+        COPPER_ORE = Feature.ORE.withConfiguration(
+                new OreFeatureConfig(
+                        new TagMatchRuleTest(oreGen.copperOre.getFillerBlockTag()),
+                        OccultismBlocks.COPPER_ORE.get().getDefaultState(), oreGen.copperOre.size.get()))
+                             .withPlacement(Placement.RANGE.configure(
+                                     new TopSolidRangeConfig(
+                                             oreGen.copperOre.bottomOffset.get(),
+                                             oreGen.copperOre.topOffset.get(),
+                                             oreGen.copperOre.maximum.get())))
+                             .func_242731_b(oreGen.copperOre.count.get()); // func_242731_b =count decorator
+        Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, modLoc("copper_ore"), COPPER_ORE);
+
+        SILVER_ORE = Feature.ORE.withConfiguration(
+                new OreFeatureConfig(
+                        new TagMatchRuleTest(oreGen.silverOre.getFillerBlockTag()),
+                        OccultismBlocks.SILVER_ORE.get().getDefaultState(), oreGen.silverOre.size.get()))
+                             .withPlacement(Placement.RANGE.configure(
+                                     new TopSolidRangeConfig(
+                                             oreGen.silverOre.bottomOffset.get(),
+                                             oreGen.silverOre.topOffset.get(),
+                                             oreGen.silverOre.maximum.get())))
+                             .func_242731_b(oreGen.silverOre.count.get()); // func_242731_b =count decorator
+        Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, modLoc("silver_ore"), SILVER_ORE);
+
+        IESNIUM_ORE = Feature.ORE.withConfiguration(
+                new OreFeatureConfig(
+                        new TagMatchRuleTest(oreGen.iesniumOre.getFillerBlockTag()),
+                        OccultismBlocks.IESNIUM_ORE.get().getDefaultState(), oreGen.iesniumOre.size.get()))
+                              .withPlacement(Placement.RANGE.configure(
+                                      new TopSolidRangeConfig(
+                                              oreGen.iesniumOre.bottomOffset.get(),
+                                              oreGen.iesniumOre.topOffset.get(),
+                                              oreGen.iesniumOre.maximum.get())))
+                              .func_242731_b(oreGen.iesniumOre.count.get()); // func_242731_b =count decorator
+        Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, modLoc("iesnium_ore"), IESNIUM_ORE);
 
         UNDERGROUND_GROVE =
-                OccultismBiomeFeatures.UNDERGROUND_GROVE_FEATURE.get()
-                        .withConfiguration(new MultiChunkFeatureConfig(
-                                7, 400, 25, 60, 14653667))
+                OccultismBiomeFeatures.UNDERGROUND_GROVE_FEATURE.get().withConfiguration(
+                        new MultiChunkFeatureConfig(
+                                7,
+                                groveGen.groveSpawnChance.get(),
+                                groveGen.groveSpawnMin.get(),
+                                groveGen.groveSpawnMax.get(),
+                                14653667))
                         .withPlacement(Placement.NOPE.configure(new NoPlacementConfig()));
         Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, modLoc("underground_grove"), UNDERGROUND_GROVE);
 
@@ -107,7 +131,8 @@ public class WorldGenHandler {
                         new BlobFoliagePlacer(FeatureSpread.func_242252_a(2), FeatureSpread.func_242252_a(0), 3),
                         new StraightTrunkPlacer(4, 2, 0),
                         new TwoLayerFeature(1, 0, 1))).setIgnoreVines().build());
-        Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, modLoc("otherworld_tree_natural"), OTHERWORLD_TREE_NATURAL);
+        Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, modLoc("otherworld_tree_natural"),
+                OTHERWORLD_TREE_NATURAL);
 
         OTHERWORLD_TREE = Feature.TREE.withConfiguration((
                 new BaseTreeFeatureConfig.Builder(

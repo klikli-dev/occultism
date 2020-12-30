@@ -26,11 +26,14 @@ import com.github.klikli_dev.occultism.config.value.CachedBoolean;
 import com.github.klikli_dev.occultism.config.value.CachedFloat;
 import com.github.klikli_dev.occultism.config.value.CachedInt;
 import com.github.klikli_dev.occultism.config.value.CachedObject;
+import com.github.klikli_dev.occultism.registry.OccultismTags;
+import net.minecraft.block.Block;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.ITag;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.gen.feature.OreFeatureConfig;
-import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.ForgeConfigSpec;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -176,6 +179,7 @@ public class OccultismConfig extends ConfigBase {
 
     public class WorldGenSettings extends ConfigCategoryBase {
         //region Fields
+        public final OreGenSettings oreGen;
         public final UndergroundGroveGenSettings undergroundGroveGen;
         //endregion Fields
 
@@ -183,23 +187,126 @@ public class OccultismConfig extends ConfigBase {
         public WorldGenSettings(IConfigCache parent, ForgeConfigSpec.Builder builder) {
             super(parent, builder);
             builder.comment("WorldGen Settings").push("worldgen");
+            this.oreGen = new OreGenSettings(this, builder);
             this.undergroundGroveGen = new UndergroundGroveGenSettings(this, builder);
             builder.pop();
         }
         //endregion Initialization
 
+        public class OreGenSettings extends ConfigCategoryBase {
+            //region Fields
+
+            public final OreSettings copperOre;
+            public final OreSettings silverOre;
+            public final OreSettings iesniumOre;
+
+            //endregion Fields
+
+            //region Initialization
+            public OreGenSettings(IConfigCache parent, ForgeConfigSpec.Builder builder) {
+                super(parent, builder);
+                builder.comment("Ore Gen Settings").push("oregen");
+
+                this.copperOre =
+                        new OreSettings("copperOre", BlockTags.BASE_STONE_OVERWORLD, 9,
+                                20, 20, 0, 64, this, builder);
+                this.silverOre =
+                        new OreSettings("silverOre",  BlockTags.BASE_STONE_OVERWORLD, 7,
+                                3,5, 0, 30, this, builder);
+                this.iesniumOre =
+                        new OreSettings("iesniumOre", OccultismTags.NETHERRACK, 3, 10,
+                                10, 10, 128, this, builder);
+                builder.pop();
+            }
+            //endregion Initialization
+
+            public class OreSettings extends ConfigCategoryBase {
+                //region Fields
+                public final CachedBoolean generateOre;
+                public final CachedObject<String> fillerBlockTag;
+                public final CachedInt size;
+                public final CachedInt count;
+                public final CachedInt bottomOffset;
+                public final CachedInt topOffset;
+                public final CachedInt maximum;
+                //endregion Fields
+
+                //region Initialization
+                public OreSettings(String oreName, ITag<Block> fillerBlockTag,
+                                   int size, int count, int bottomOffset, int topOffset, int maximum,
+                                   IConfigCache parent, ForgeConfigSpec.Builder builder) {
+                    super(parent, builder);
+                    builder.comment("Ore Settings").push(oreName);
+
+                    this.generateOre = CachedBoolean.cache(this,
+                            builder.comment("True to generate this ore.")
+                                    .define("generateOre", true));
+                    this.fillerBlockTag = CachedObject.cache(this,
+                            builder.comment("The tag for the blocks this ore will spawn in.")
+                                    .define("fillerBlockTag",
+                                            BlockTags.getCollection()
+                                                    .getDirectIdFromTag(fillerBlockTag).toString()));
+                    this.size = CachedInt.cache(this,
+                            builder.comment("The size of veins for this ore.")
+                                    .defineInRange("size", size, 0, Byte.MAX_VALUE));
+                    this.count = CachedInt.cache(this,
+                            builder.comment("The count value for the decorator for this ore.")
+                                    .defineInRange("count", count, 0, Byte.MAX_VALUE));
+                    this.bottomOffset = CachedInt.cache(this,
+                            builder.comment("Range configuration bottom offset.")
+                                    .define("bottomOffset", bottomOffset));
+                    this.topOffset = CachedInt.cache(this,
+                            builder.comment("Range configuration top offset.")
+                                    .define("topOffset", topOffset));
+                    this.maximum = CachedInt.cache(this,
+                            builder.comment("Range configuration maximum.")
+                                    .define("maximum", maximum));
+                    builder.pop();
+                }
+                //endregion Initialization
+
+                //region Getter / Setter
+                public ITag<Block> getFillerBlockTag() {
+                    return BlockTags.createOptional(new ResourceLocation(this.fillerBlockTag.get()));
+                }
+                //endregion Getter / Setter
+            }
+        }
+
+
         public class UndergroundGroveGenSettings extends ConfigCategoryBase {
             //region Fields
-            public CachedFloat grassChance;
-            public CachedFloat treeChance;
-            public CachedFloat vineChance;
-            public CachedFloat ceilingLightChance;
+            public final CachedBoolean generateUndergroundGroves;
+            public final CachedInt groveSpawnChance;
+            public final CachedInt groveSpawnMin;
+            public final CachedInt groveSpawnMax;
+            public final CachedFloat grassChance;
+            public final CachedFloat treeChance;
+            public final CachedFloat vineChance;
+            public final CachedFloat ceilingLightChance;
             //endregion Fields
 
             //region Initialization
             public UndergroundGroveGenSettings(IConfigCache parent, ForgeConfigSpec.Builder builder) {
                 super(parent, builder);
                 builder.comment("Underground Grove Settings").push("underground_grove");
+                this.generateUndergroundGroves = CachedBoolean.cache(this,
+                        builder.comment("True to generate underground groves. Should not be changed in most scenarios.")
+                                .define("generateUndergroundGroves", true));
+
+                this.groveSpawnChance = CachedInt.cache(this,
+                        builder.comment(
+                                "The chance for a grove to spawn in a chunk (generates 1/groveSpawnChance chunks on average).")
+                                .define("groveSpawnChance", 400));
+                this.groveSpawnMin = CachedInt.cache(this,
+                        builder.comment(
+                                "The min height for a grove to spawn (applied to the center of the grove, not the floor).")
+                                .define("groveSpawnMin", 25));
+                this.groveSpawnMax = CachedInt.cache(this,
+                        builder.comment(
+                                "The max height for a grove to spawn (applied to the center of the grove, not the ceiling).")
+                                .define("groveSpawnMax", 60));
+
 
                 this.grassChance = CachedFloat.cache(this,
                         builder.comment("The chance grass will spawn in the underground grove.")
