@@ -44,7 +44,7 @@ public class DoubleJumpEffect extends Effect {
 
     //region Initialization
     public DoubleJumpEffect() {
-        super(EffectType.NEUTRAL, 0xffff00);
+        super(EffectType.BENEFICIAL, 0xffff00);
     }
     //endregion Initialization
 

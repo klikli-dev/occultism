@@ -42,7 +42,7 @@ public class ThirdEyeEffect extends Effect {
 
     //region Initialization
     public ThirdEyeEffect() {
-        super(EffectType.NEUTRAL, 0xffff00);
+        super(EffectType.BENEFICIAL, 0xffff00);
     }
     //endregion Initialization
 
