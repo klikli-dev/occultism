@@ -5,7 +5,7 @@
       "type": "minecraft:ore",
       "config": {
         "state": {
-          "Name": "occultism:iesnium_ore"
+          "Name": "occultism:iesnium_ore_natural"
         },
         "target": {
           "predicate_type": "tag_match",

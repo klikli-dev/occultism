@@ -104,7 +104,7 @@ public class WorldGenHandler {
         IESNIUM_ORE = Feature.ORE.withConfiguration(
                 new OreFeatureConfig(
                         new TagMatchRuleTest(oreGen.iesniumOre.getFillerBlockTag()),
-                        OccultismBlocks.IESNIUM_ORE.get().getDefaultState(), oreGen.iesniumOre.size.get()))
+                        OccultismBlocks.IESNIUM_ORE_NATURAL.get().getDefaultState(), oreGen.iesniumOre.size.get()))
                               .withPlacement(Placement.RANGE.configure(
                                       new TopSolidRangeConfig(
                                               oreGen.iesniumOre.bottomOffset.get(),
