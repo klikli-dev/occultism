@@ -56,8 +56,10 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fml.network.NetworkHooks;
+import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 
 import javax.annotation.Nullable;
@@ -146,6 +148,14 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
             }
         }
     }
+
+    public <T> LazyOptional<T> getCapability(Capability<T> capability, @Nullable Direction facing) {
+        if (this.isAlive() && capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+            return this.itemStackHandler.cast();
+        }
+        return super.getCapability(capability, facing);
+    }
+
 
     //region Getter / Setter
     public Optional<BlockPos> getDepositPosition() {
