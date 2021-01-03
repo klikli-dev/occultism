@@ -28,6 +28,8 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.ai.attributes.AttributeModifierMap;
+import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.monster.BlazeEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -98,6 +100,10 @@ public class AfritWildEntity extends AfritEntity {
             return true;
 
         return super.isInvulnerableTo(source);
+    }
+
+    public static AttributeModifierMap.MutableAttribute registerAttributes() {
+        return AfritEntity.registerAttributes();
     }
     //endregion Overrides
 }
