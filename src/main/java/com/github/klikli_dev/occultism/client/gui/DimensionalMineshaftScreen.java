@@ -56,6 +56,11 @@ public class DimensionalMineshaftScreen extends ContainerScreen<DimensionalMines
     }
 
     @Override
+    protected void drawGuiContainerForegroundLayer(MatrixStack matrixStack, int x, int y) {
+        //do not call super as it renders the inventory name which we do not want
+    }
+
+    @Override
     protected void drawGuiContainerBackgroundLayer(MatrixStack stack, float partialTicks, int mouseX, int mouseY) {
         RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.minecraft.getTextureManager().bindTexture(TEXTURE);

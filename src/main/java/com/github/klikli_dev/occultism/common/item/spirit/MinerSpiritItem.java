@@ -23,31 +23,45 @@
 package com.github.klikli_dev.occultism.common.item.spirit;
 
 import com.github.klikli_dev.occultism.common.tile.DimensionalMineshaftTileEntity;
+import com.github.klikli_dev.occultism.config.value.CachedInt;
 import com.github.klikli_dev.occultism.util.ItemNBTUtil;
 import com.github.klikli_dev.occultism.util.TextUtil;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipeType;
+import net.minecraft.item.crafting.RecipeManager;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 
 import javax.annotation.Nullable;
+import java.lang.reflect.Field;
 import java.util.List;
+import java.util.function.Supplier;
 
 public class MinerSpiritItem extends Item {
 
+    protected static Field maxDamageField =
+            ObfuscationReflectionHelper.findField(Item.class, "field_77699_b");
+
     //region Fields
-    private final int maxMiningTime;
-    private final int rollsPerOperation;
+    private final Supplier<Integer>  maxMiningTime;
+    private final Supplier<Integer> rollsPerOperation;
+    private final Supplier<Integer> maxDamage;
+    private boolean hasInitializedMaxDamage;
     //endregion Fields
 
     //region Initialization
-    public MinerSpiritItem(Properties properties, int maxMiningTime, int rollsPerOperation) {
+    public MinerSpiritItem(Properties properties, Supplier<Integer> maxMiningTime, Supplier<Integer>  rollsPerOperation, Supplier<Integer> maxDamage) {
         super(properties);
         this.maxMiningTime = maxMiningTime;
         this.rollsPerOperation = rollsPerOperation;
+        this.maxDamage = maxDamage;
+        this.hasInitializedMaxDamage = false;
     }
     //endregion Initialization
 
@@ -61,11 +75,31 @@ public class MinerSpiritItem extends Item {
     }
 
     @Override
+    public double getDurabilityForDisplay(ItemStack stack) {
+        if(!this.hasInitializedMaxDamage){
+            this.hasInitializedMaxDamage = true;
+            try {
+                maxDamageField.setInt(this, this.maxDamage.get());
+            } catch (IllegalAccessException ignored) {
+
+            }
+        }
+        return super.getDurabilityForDisplay(stack);
+    }
+
+    @Override
     public void onCreated(ItemStack stack, World worldIn, PlayerEntity playerIn) {
         super.onCreated(stack, worldIn, playerIn);
+        if(!this.hasInitializedMaxDamage){
+            this.hasInitializedMaxDamage = true;
+            try {
+                maxDamageField.setInt(this, this.maxDamage.get());
+            } catch (IllegalAccessException ignored) {
 
-        stack.getOrCreateTag().putInt(DimensionalMineshaftTileEntity.MAX_MINING_TIME_TAG, this.maxMiningTime);
-        stack.getOrCreateTag().putInt(DimensionalMineshaftTileEntity.ROLLS_PER_OPERATION_TAG, this.rollsPerOperation);
+            }
+        }
+        stack.getOrCreateTag().putInt(DimensionalMineshaftTileEntity.MAX_MINING_TIME_TAG, this.maxMiningTime.get());
+        stack.getOrCreateTag().putInt(DimensionalMineshaftTileEntity.ROLLS_PER_OPERATION_TAG, this.rollsPerOperation.get());
     }
     //endregion Overrides
 }

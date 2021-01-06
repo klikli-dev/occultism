@@ -42,7 +42,10 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.WeightedRandom;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.util.FakePlayerFactory;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
@@ -183,6 +186,8 @@ public class DimensionalMineshaftTileEntity extends NetworkedTileEntity implemen
             else if (!input.isEmpty()) {
                 //if we're done with the last mining job, and we have valid input, start the next one.
                 this.currentInputType = input.getItem();
+                //ensure nbt is initialized, fixes issues with spawned miner spirits
+                forceInitStackNBT(input, (ServerWorld) this.world);
                 this.maxMiningTime = getMaxMiningTime(input);
                 this.rollsPerOperation = getRollsPerOperation(input);
                 this.miningTime = this.maxMiningTime;
@@ -209,6 +214,10 @@ public class DimensionalMineshaftTileEntity extends NetworkedTileEntity implemen
     //endregion Overrides
 
     //region Static Methods
+    public static void forceInitStackNBT(ItemStack stack, ServerWorld world){
+        stack.getItem().onCreated(stack, world, FakePlayerFactory.getMinecraft(world));
+    }
+
     public static int getMaxMiningTime(ItemStack stack) {
         int time = stack.getOrCreateTag().getInt(MAX_MINING_TIME_TAG);
         return time <= 0 ? DEFAULT_MAX_MINING_TIME : time;
