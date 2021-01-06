@@ -52,6 +52,7 @@ public class MinerSpiritItem extends Item {
     private final Supplier<Integer>  maxMiningTime;
     private final Supplier<Integer> rollsPerOperation;
     private final Supplier<Integer> maxDamage;
+    private boolean hasInitializedMaxDamage;
     //endregion Fields
 
     //region Initialization
@@ -60,6 +61,7 @@ public class MinerSpiritItem extends Item {
         this.maxMiningTime = maxMiningTime;
         this.rollsPerOperation = rollsPerOperation;
         this.maxDamage = maxDamage;
+        this.hasInitializedMaxDamage = false;
     }
     //endregion Initialization
 
@@ -73,12 +75,28 @@ public class MinerSpiritItem extends Item {
     }
 
     @Override
+    public double getDurabilityForDisplay(ItemStack stack) {
+        if(!this.hasInitializedMaxDamage){
+            this.hasInitializedMaxDamage = true;
+            try {
+                maxDamageField.setInt(this, this.maxDamage.get());
+            } catch (IllegalAccessException ignored) {
+
+            }
+        }
+        return super.getDurabilityForDisplay(stack);
+    }
+
+    @Override
     public void onCreated(ItemStack stack, World worldIn, PlayerEntity playerIn) {
         super.onCreated(stack, worldIn, playerIn);
-        try {
-            maxDamageField.setInt(this, this.maxDamage.get());
-        } catch (IllegalAccessException ignored) {
+        if(!this.hasInitializedMaxDamage){
+            this.hasInitializedMaxDamage = true;
+            try {
+                maxDamageField.setInt(this, this.maxDamage.get());
+            } catch (IllegalAccessException ignored) {
 
+            }
         }
         stack.getOrCreateTag().putInt(DimensionalMineshaftTileEntity.MAX_MINING_TIME_TAG, this.maxMiningTime.get());
         stack.getOrCreateTag().putInt(DimensionalMineshaftTileEntity.ROLLS_PER_OPERATION_TAG, this.rollsPerOperation.get());
