@@ -55,13 +55,11 @@ public class ColorEventHandler {
                 .register((state, light, pos, tintIndex) -> OccultismBlocks.CHALK_GLYPH_RED.get().getColor(),
                         OccultismBlocks.CHALK_GLYPH_RED.get());
 
-        //Otherworld leaves shows in oak leaves color unless uncovered.
-        event.getBlockColors()
-                .register((state, light, pos, tintIndex) -> OtherworldLeavesNaturalBlock.COLOR,
-                        OccultismBlocks.OTHERWORLD_LEAVES.get());
+        //Otherworld leaves have a colored texture, so return white tint;
+        //but while covered the oak leaves need their vanilla tint
         event.getBlockColors()
                 .register((state, light, pos, tintIndex) -> state.get(
-                        IOtherworldBlock.UNCOVERED) ? OtherworldLeavesNaturalBlock.COLOR :
+                        IOtherworldBlock.UNCOVERED) ? 	0xFFFFFF :
                                                                     (light != null && pos != null ? BiomeColors
                                                                                                             .getFoliageColor(
                                                                                                                     light,
