@@ -27,8 +27,10 @@ import net.minecraft.block.BlockState;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.shapes.IBooleanFunction;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
@@ -36,10 +38,26 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.Random;
+import java.util.stream.Stream;
 
 public class CandleBlock extends Block {
     //region Fields
-    private static final VoxelShape SHAPE = Block.makeCuboidShape(4, 0, 4, 12, 12, 12);
+    private static final VoxelShape SHAPE = Stream.of(
+            Block.makeCuboidShape(7, 0, 10, 9, 4, 11),
+            Block.makeCuboidShape(10, 0, 8, 11, 3, 9),
+            Block.makeCuboidShape(10, 0, 6, 11, 1, 7),
+            Block.makeCuboidShape(11, 0, 7, 12, 1, 8),
+            Block.makeCuboidShape(7, 0, 11, 8, 1, 12),
+            Block.makeCuboidShape(6, 0, 10, 7, 1, 11),
+            Block.makeCuboidShape(4, 0, 7, 5, 1, 8),
+            Block.makeCuboidShape(5, 0, 6, 6, 1, 7),
+            Block.makeCuboidShape(7, 0, 5, 8, 2, 6),
+            Block.makeCuboidShape(10, 0, 7, 11, 5, 8),
+            Block.makeCuboidShape(8, 0, 5, 9, 6, 6),
+            Block.makeCuboidShape(5, 0, 7, 6, 3, 9),
+            Block.makeCuboidShape(6, 0, 6, 10, 9, 10),
+            Block.makeCuboidShape(7.75, 8, 7.75, 8.25, 10, 8.25)
+    ).reduce((v1, v2) -> {return VoxelShapes.combineAndSimplify(v1, v2, IBooleanFunction.OR);}).get();
     //endregion Fields
 
     //region Initialization

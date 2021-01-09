@@ -27,8 +27,10 @@ import net.minecraft.block.BlockState;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.shapes.IBooleanFunction;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
@@ -36,10 +38,17 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.Random;
+import java.util.stream.Stream;
 
 public class SpiritAttunedCrystalBlock extends Block {
     //region Fields
-    private static final VoxelShape SHAPE = Block.makeCuboidShape(4, 0, 4, 12, 12, 12);
+    private static final VoxelShape SHAPE = Stream.of(
+            Block.makeCuboidShape(5, 0, 9, 8, 4, 12),
+            Block.makeCuboidShape(9, 0, 8, 12, 8, 11),
+            Block.makeCuboidShape(8, 0, 4, 11, 2, 7),
+            Block.makeCuboidShape(4, 0, 5, 7, 6, 8),
+            Block.makeCuboidShape(6, 0, 6, 10, 12, 10)
+    ).reduce((v1, v2) -> {return VoxelShapes.combineAndSimplify(v1, v2, IBooleanFunction.OR);}).get();
     //endregion Fields
 
     //region Initialization

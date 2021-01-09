@@ -1,4 +1,5 @@
 {
+	"credit": "Made with Blockbench",
 	"parent": "block/block",
 	"texture_size": [64, 64],
 	"textures": {
@@ -203,16 +204,55 @@
 		{
 			"name": "Otherworld",
 			"from": [6, 0, 6],
-			"to": [10, 1, 10],
+			"to": [10, 3, 10],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 10, 8]},
 			"faces": {
 				"north": {"uv": [1.25, 4.625, 1.75, 4.75], "texture": "#0"},
 				"east": {"uv": [1.75, 4.625, 2.25, 4.75], "texture": "#0"},
 				"south": {"uv": [4.5, 4.625, 5, 4.75], "texture": "#0"},
 				"west": {"uv": [4.625, 2, 5.125, 2.125], "texture": "#0"},
-				"up": {"uv": [0, 0, 4, 4], "texture": "#1"},
+				"up": {"uv": [0, 0, 16, 16], "texture": "#1"},
 				"down": {"uv": [6, 6, 10, 10], "texture": "#0"}
 			}
 		}
 	],
-	"display": {}
+	"display": {
+		"thirdperson_righthand": {
+			"rotation": [75, 45, 0],
+			"translation": [0, 2.5, 2.5],
+			"scale": [0.375, 0.375, 0.375]
+		},
+		"thirdperson_lefthand": {
+			"rotation": [75, 45, 0],
+			"translation": [0, 2.5, 2.5],
+			"scale": [0.375, 0.375, 0.375]
+		},
+		"firstperson_righthand": {
+			"rotation": [0, 45, 0],
+			"translation": [0, 3, 0],
+			"scale": [0.4, 0.4, 0.4]
+		},
+		"firstperson_lefthand": {
+			"rotation": [0, 225, 0],
+			"translation": [0, 3, 0],
+			"scale": [0.4, 0.4, 0.4]
+		},
+		"ground": {
+			"translation": [0, 3, 0],
+			"scale": [0.25, 0.25, 0.25]
+		},
+		"gui": {
+			"rotation": [30, 225, 0],
+			"translation": [0, 0.75, 0],
+			"scale": [0.625, 0.625, 0.625]
+		},
+		"head": {
+			"translation": [0, 14.5, 0]
+		},
+		"fixed": {
+			"rotation": [-90, 0, 0],
+			"translation": [0, 0, -6],
+			"scale": [0.75, 0.75, 0.75]
+		}
+	}
 }
