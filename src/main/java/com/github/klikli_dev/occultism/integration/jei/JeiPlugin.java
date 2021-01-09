@@ -32,11 +32,13 @@ import com.github.klikli_dev.occultism.integration.jei.recipes.MinerRecipeCatego
 import com.github.klikli_dev.occultism.integration.jei.recipes.RitualRecipeCategory;
 import com.github.klikli_dev.occultism.integration.jei.recipes.SpiritFireRecipeCategory;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
+import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.github.klikli_dev.occultism.registry.OccultismRecipes;
 import com.github.klikli_dev.occultism.util.RecipeUtil;
 import com.google.common.base.Strings;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.constants.VanillaRecipeCategoryUid;
+import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
@@ -47,6 +49,7 @@ import net.minecraft.client.world.ClientWorld;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.RecipeManager;
+import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.items.wrapper.RecipeWrapper;
 
@@ -102,6 +105,13 @@ public class JeiPlugin implements IModPlugin {
         Collection<IRecipe<RecipeWrapper>> ritualRecipes =
                 RecipeUtil.getRecipes(recipeManager, OccultismRecipes.RITUAL_TYPE.get()).values();
         registration.addRecipes(ritualRecipes, OccultismRecipes.RITUAL.getId());
+
+        this.registerIngredientInfo(registration, OccultismItems.TALLOW.get());
+    }
+
+    public void registerIngredientInfo(IRecipeRegistration registration, IItemProvider ingredient){
+        registration.addIngredientInfo(new ItemStack(ingredient.asItem()), VanillaTypes.ITEM,
+                "jei."+ Occultism.MODID + ".ingredient."+ingredient.asItem().getRegistryName().getPath()+".description");
     }
 
     @Override
