@@ -152,7 +152,7 @@ public class DivinationRodItem extends Item {
             stack.getTag().putFloat("distance", distance);
             OccultismPackets.sendToServer(new MessageSetDivinationResult(distance));
 
-            if (result != null && player.isCreative()) {
+            if (result != null) { // && player.isCreative()
                 //Show debug visualization
                 Occultism.SELECTED_BLOCK_RENDERER.selectBlock(result, System.currentTimeMillis() + 10000);
             }
