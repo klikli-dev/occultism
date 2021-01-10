@@ -58,13 +58,11 @@ public class ColorEventHandler {
         //Otherworld leaves have a colored texture, so return white tint;
         //but while covered the oak leaves need their vanilla tint
         event.getBlockColors()
-                .register((state, light, pos, tintIndex) -> state.get(
-                        IOtherworldBlock.UNCOVERED) ? 	0xFFFFFF :
-                                                                    (light != null && pos != null ? BiomeColors
-                                                                                                            .getFoliageColor(
-                                                                                                                    light,
-                                                                                                                    pos) : FoliageColors
-                                                                                                                                   .getDefault()),
+                .register((state, light, pos, tintIndex) ->
+                                  state.get(IOtherworldBlock.UNCOVERED) ?
+                                          0xFFFFFF : (light != null && pos != null ?
+                                                              BiomeColors.getFoliageColor(light, pos) :
+                                                              FoliageColors.getDefault()),
                         OccultismBlocks.OTHERWORLD_LEAVES_NATURAL.get());
 
         Occultism.LOGGER.info("Block color registration complete.");
@@ -73,10 +71,8 @@ public class ColorEventHandler {
     @SubscribeEvent
     public static void onRegisterItemColors(ColorHandlerEvent.Item event) {
         BlockColors blockColors = event.getBlockColors();
-        event.getItemColors()
-                .register((stack, tintIndex) -> OtherworldLeavesNaturalBlock.COLOR,
-                        OccultismBlocks.OTHERWORLD_LEAVES.get());
-
+        //Otherworld leaves have a colored texture, so return white tint;
+        //but while covered the oak leaves need their vanilla tint
         event.getItemColors()
                 .register((stack, tintIndex) -> {
                             BlockState blockstate = ((BlockItem) stack.getItem()).getBlock().getDefaultState();
