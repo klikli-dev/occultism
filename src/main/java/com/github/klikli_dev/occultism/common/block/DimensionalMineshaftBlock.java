@@ -35,6 +35,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.shapes.IBooleanFunction;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
@@ -43,10 +44,29 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 
 import javax.annotation.Nullable;
+import java.util.stream.Stream;
 
 public class DimensionalMineshaftBlock extends Block {
     //region Fields
-    private static final VoxelShape SHAPE = Block.makeCuboidShape(0, 0,0, 16, 4, 16);
+    private static final VoxelShape SHAPE = Stream.of(
+            Block.makeCuboidShape(10, 0, 6, 16, 1, 10),
+            Block.makeCuboidShape(0, 0, 6, 6, 1, 10),
+            Block.makeCuboidShape(0, 0, 10, 16, 1, 16),
+            Block.makeCuboidShape(0, 0, 0, 16, 1, 6),
+            Block.makeCuboidShape(10, 1, 6, 15, 2, 10),
+            Block.makeCuboidShape(2, 2, 6, 6, 3, 10),
+            Block.makeCuboidShape(1, 1, 6, 6, 2, 10),
+            Block.makeCuboidShape(10, 2, 6, 14, 3, 10),
+            Block.makeCuboidShape(10, 3, 6, 13, 4, 10),
+            Block.makeCuboidShape(1, 1, 10, 15, 2, 15),
+            Block.makeCuboidShape(1, 1, 1, 15, 2, 6),
+            Block.makeCuboidShape(2, 2, 10, 14, 3, 14),
+            Block.makeCuboidShape(3, 3, 10, 13, 4, 13),
+            Block.makeCuboidShape(3, 3, 3, 13, 4, 6),
+            Block.makeCuboidShape(2, 2, 2, 14, 3, 6),
+            Block.makeCuboidShape(3, 3, 6, 6, 4, 10),
+            Block.makeCuboidShape(6, 0, 6, 10, 3, 10)
+    ).reduce((v1, v2) -> {return VoxelShapes.combineAndSimplify(v1, v2, IBooleanFunction.OR);}).get();
     //endregion Fields
 
     //region Initialization

@@ -36,11 +36,24 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.shapes.IBooleanFunction;
+import net.minecraft.util.math.shapes.ISelectionContext;
+import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 
+import java.util.stream.Stream;
+
 public class StorageControllerBlock extends Block {
+
+    private static final VoxelShape SHAPE = Stream.of(
+            Block.makeCuboidShape(0, 0, 0, 16, 4, 16),
+            Block.makeCuboidShape(4, 4, 4, 12, 12, 12),
+            Block.makeCuboidShape(2, 12, 2, 14, 16, 14)
+    ).reduce((v1, v2) -> {return VoxelShapes.combineAndSimplify(v1, v2, IBooleanFunction.OR);}).get();
+
     //region Initialization
     public StorageControllerBlock(Properties properties) {
         super(properties);
@@ -48,6 +61,11 @@ public class StorageControllerBlock extends Block {
     //endregion Initialization
 
     //region Overrides
+
+    @Override
+    public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+        return SHAPE;
+    }
 
     @Override
     public void onReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {

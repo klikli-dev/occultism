@@ -50,7 +50,7 @@ import javax.annotation.Nullable;
 
 public class GoldenSacrificialBowlBlock extends Block {
     //region Fields
-    private static final VoxelShape SHAPE = VoxelShapes.create(new AxisAlignedBB(0, 0, 0, 1, 0.20, 1));
+    private static final VoxelShape SHAPE = Block.makeCuboidShape(4, 0, 4, 12, 2.3, 12);
     //endregion Fields
 
     //region Initialization

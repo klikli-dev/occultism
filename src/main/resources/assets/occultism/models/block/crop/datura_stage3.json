@@ -1,6 +1,6 @@
 {
-  "parent": "block/crop",
+  "parent": "occultism:block/cross_crop",
   "textures": {
-    "crop": "occultism:block/crop/datura_stage3"
+    "cross_crop": "occultism:block/crop/datura_stage3"
   }
 }

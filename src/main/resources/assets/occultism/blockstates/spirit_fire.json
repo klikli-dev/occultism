@@ -2,12 +2,40 @@
   "multipart": [
     {
       "apply": [
-        {
-          "model": "occultism:block/spirit_fire_layer_0"
-        },
-        {
-          "model": "occultism:block/spirit_fire_layer_1"
-        }
+        { "model": "occultism:block/spirit_fire_floor0" },
+        { "model": "occultism:block/spirit_fire_floor1" }
+      ]
+    },
+    {
+      "apply": [
+        { "model": "occultism:block/spirit_fire_side0" },
+        { "model": "occultism:block/spirit_fire_side1" },
+        { "model": "occultism:block/spirit_fire_side_alt0" },
+        { "model": "occultism:block/spirit_fire_side_alt1" }
+      ]
+    },
+    {
+      "apply": [
+        { "model": "occultism:block/spirit_fire_side0", "y": 90 },
+        { "model": "occultism:block/spirit_fire_side1", "y": 90 },
+        { "model": "occultism:block/spirit_fire_side_alt0", "y": 90 },
+        { "model": "occultism:block/spirit_fire_side_alt1", "y": 90 }
+      ]
+    },
+    {
+      "apply": [
+        { "model": "occultism:block/spirit_fire_side0", "y": 180 },
+        { "model": "occultism:block/spirit_fire_side1", "y": 180 },
+        { "model": "occultism:block/spirit_fire_side_alt0", "y": 180 },
+        { "model": "occultism:block/spirit_fire_side_alt1", "y": 180 }
+      ]
+    },
+    {
+      "apply": [
+        { "model": "occultism:block/spirit_fire_side0", "y": 270 },
+        { "model": "occultism:block/spirit_fire_side1", "y": 270 },
+        { "model": "occultism:block/spirit_fire_side_alt0", "y": 270 },
+        { "model": "occultism:block/spirit_fire_side_alt1", "y": 270 }
       ]
     }
   ]
