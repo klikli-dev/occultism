@@ -31,9 +31,10 @@ import net.minecraft.block.Block;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ITag;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.gen.feature.OreFeatureConfig;
+import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.ForgeConfigSpec;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -211,8 +212,8 @@ public class OccultismConfig extends ConfigBase {
                         new OreSettings("copperOre", BlockTags.BASE_STONE_OVERWORLD, 9,
                                 20, 20, 0, 64, this, builder);
                 this.silverOre =
-                        new OreSettings("silverOre",  BlockTags.BASE_STONE_OVERWORLD, 7,
-                                3,5, 0, 30, this, builder);
+                        new OreSettings("silverOre", BlockTags.BASE_STONE_OVERWORLD, 7,
+                                3, 5, 0, 30, this, builder);
                 this.iesniumOre =
                         new OreSettings("iesniumOre", OccultismTags.NETHERRACK, 3, 10,
                                 10, 10, 128, this, builder);
@@ -284,6 +285,7 @@ public class OccultismConfig extends ConfigBase {
             public final CachedFloat treeChance;
             public final CachedFloat vineChance;
             public final CachedFloat ceilingLightChance;
+            public final CachedObject<List<String>> biomeTypeBlacklist;
             //endregion Fields
 
             //region Initialization
@@ -320,6 +322,14 @@ public class OccultismConfig extends ConfigBase {
                 this.ceilingLightChance = CachedFloat.cache(this,
                         builder.comment("The chance glowstone will spawn in the ceiling of the underground grove.")
                                 .define("ceilingLightChance", 0.1));
+
+                List<String> defaultBiomeTypeBlacklist =
+                        Stream.of(BiomeDictionary.Type.NETHER, BiomeDictionary.Type.END)
+                                .map(BiomeDictionary.Type::getName)
+                                .collect(Collectors.toList());
+                this.biomeTypeBlacklist = CachedObject.cache(this,
+                        builder.comment("The biome types the underground grove cannot spawn in.")
+                                .define("biomeTypeBlacklist", defaultBiomeTypeBlacklist));
 
                 builder.pop();
             }

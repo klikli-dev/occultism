@@ -8,7 +8,15 @@
         "chance_to_generate" : 400,
         "min_generation_height": 25,
         "max_generation_height": 60,
-        "feature_seed_salt": 14653667
+        "feature_seed_salt": 14653667,
+        "biome_type_blacklist": [
+          {
+            "name": "nether"
+          },
+          {
+            "name": "end"
+          }
+        ]
       }
     },
     "decorator": {
