@@ -184,7 +184,7 @@ public class ThirdEyeEffectRenderer {
                 this.thirdEyeActiveLastTick = true;
 
                 //load shader, but only if we are on the natural effects
-                if(!hasGoggles && !Occultism.CONFIG.visuals.disableDemonsDreamShaders.get()){
+                if(!hasGoggles && !Occultism.CLIENT_CONFIG.visuals.disableDemonsDreamShaders.get()){
                     Minecraft.getInstance().enqueue(() -> Minecraft.getInstance().gameRenderer.loadShader(THIRD_EYE_SHADER));
                 }
             }

@@ -39,46 +39,26 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class OccultismConfig extends ConfigBase {
+public class OccultismCommonConfig extends ConfigBase {
 
     //region Fields
     public final StorageSettings storage;
     public final WorldGenSettings worldGen;
     public final RitualSettings rituals;
-    public final VisualSettings visuals;
     public final DimensionalMineshaftSettings dimensionalMineshaft;
     public final ForgeConfigSpec spec;
     //endregion Fields
 
     //region Initialization
-    public OccultismConfig() {
+    public OccultismCommonConfig() {
         ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
         this.storage = new StorageSettings(this, builder);
         this.worldGen = new WorldGenSettings(this, builder);
         this.rituals = new RitualSettings(this, builder);
-        this.visuals = new VisualSettings(this, builder);
         this.dimensionalMineshaft = new DimensionalMineshaftSettings(this, builder);
         this.spec = builder.build();
     }
     //endregion Initialization
-
-    public class VisualSettings extends ConfigCategoryBase {
-        //region Fields
-        public final CachedBoolean disableDemonsDreamShaders;
-        //endregion Fields
-
-        //region Initialization
-        public VisualSettings(IConfigCache parent, ForgeConfigSpec.Builder builder) {
-            super(parent, builder);
-            builder.comment("Visual Settings").push("visual");
-
-            this.disableDemonsDreamShaders = CachedBoolean.cache(this,
-                    builder.comment("Disables the headache- and possibly seizure-inducing visual effects of Demon's Dream.")
-                            .define("disableDemonsDreamShaders", false));
-            builder.pop();
-        }
-        //endregion Initialization
-    }
 
     public class DimensionalMineshaftSettings extends ConfigCategoryBase {
         //region Fields

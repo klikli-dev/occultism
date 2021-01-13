@@ -24,7 +24,7 @@ package com.github.klikli_dev.occultism.common.world;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.world.multichunk.MultiChunkFeatureConfig;
-import com.github.klikli_dev.occultism.config.OccultismConfig;
+import com.github.klikli_dev.occultism.config.OccultismCommonConfig;
 import com.github.klikli_dev.occultism.registry.OccultismBiomeFeatures;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import net.minecraft.util.registry.Registry;
@@ -43,7 +43,6 @@ import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.github.klikli_dev.occultism.util.StaticUtil.modLoc;
@@ -78,8 +77,8 @@ public class WorldGenHandler {
 
     public static void registerConfiguredFeatures() {
         //Register the features with default setting here.
-        OccultismConfig.WorldGenSettings.OreGenSettings oreGen = Occultism.CONFIG.worldGen.oreGen;
-        OccultismConfig.WorldGenSettings.UndergroundGroveGenSettings groveGen =
+        OccultismCommonConfig.WorldGenSettings.OreGenSettings oreGen = Occultism.CONFIG.worldGen.oreGen;
+        OccultismCommonConfig.WorldGenSettings.UndergroundGroveGenSettings groveGen =
                 Occultism.CONFIG.worldGen.undergroundGroveGen;
 
 

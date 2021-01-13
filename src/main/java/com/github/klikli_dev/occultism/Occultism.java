@@ -23,51 +23,22 @@
 package com.github.klikli_dev.occultism;
 
 import com.github.klikli_dev.occultism.api.OccultismAPI;
-import com.github.klikli_dev.occultism.client.gui.DimensionalMineshaftScreen;
-import com.github.klikli_dev.occultism.client.gui.spirit.SpiritGui;
-import com.github.klikli_dev.occultism.client.gui.spirit.SpiritTransporterGui;
-import com.github.klikli_dev.occultism.client.gui.storage.StableWormholeGui;
-import com.github.klikli_dev.occultism.client.gui.storage.StorageControllerGui;
-import com.github.klikli_dev.occultism.client.gui.storage.StorageRemoteGui;
 import com.github.klikli_dev.occultism.client.render.SelectedBlockRenderer;
 import com.github.klikli_dev.occultism.client.render.ThirdEyeEffectRenderer;
-import com.github.klikli_dev.occultism.client.render.entity.AfritRenderer;
-import com.github.klikli_dev.occultism.client.render.entity.DjinniRenderer;
-import com.github.klikli_dev.occultism.client.render.entity.FoliotRenderer;
-import com.github.klikli_dev.occultism.client.render.entity.OtherworldBirdRenderer;
-import com.github.klikli_dev.occultism.client.render.tile.SacrificialBowlRenderer;
-import com.github.klikli_dev.occultism.client.render.tile.StorageControllerRenderer;
 import com.github.klikli_dev.occultism.common.DebugHelper;
 import com.github.klikli_dev.occultism.common.OccultismItemGroup;
-import com.github.klikli_dev.occultism.common.container.spirit.SpiritContainer;
-import com.github.klikli_dev.occultism.common.item.otherworld.OtherworldBlockItem;
-import com.github.klikli_dev.occultism.common.item.storage.StableWormholeBlockItem;
-import com.github.klikli_dev.occultism.common.item.storage.StorageRemoteItem;
-import com.github.klikli_dev.occultism.common.item.tool.DivinationRodItem;
-import com.github.klikli_dev.occultism.common.item.tool.GuideBookItem;
-import com.github.klikli_dev.occultism.common.item.tool.SoulGemItem;
 import com.github.klikli_dev.occultism.common.world.WorldGenHandler;
-import com.github.klikli_dev.occultism.config.OccultismConfig;
+import com.github.klikli_dev.occultism.config.OccultismClientConfig;
+import com.github.klikli_dev.occultism.config.OccultismCommonConfig;
 import com.github.klikli_dev.occultism.network.OccultismPackets;
 import com.github.klikli_dev.occultism.registry.*;
-import net.minecraft.client.gui.ScreenManager;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.RenderTypeLookup;
-import net.minecraft.client.renderer.entity.EndermanRenderer;
-import net.minecraft.client.renderer.entity.EndermiteRenderer;
-import net.minecraft.client.renderer.entity.SkeletonRenderer;
-import net.minecraft.client.renderer.entity.WitherSkeletonRenderer;
 import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemModelsProperties;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
-import net.minecraftforge.fml.client.registry.ClientRegistry;
-import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLDedicatedServerSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -84,7 +55,8 @@ public class Occultism {
     public static final String NAME = "Occultism";
     public static final ItemGroup ITEM_GROUP = new OccultismItemGroup();
     public static final Logger LOGGER = LogManager.getLogger(MODID);
-    public static final OccultismConfig CONFIG = new OccultismConfig();
+    public static final OccultismCommonConfig CONFIG = new OccultismCommonConfig();
+    public static final OccultismClientConfig CLIENT_CONFIG = new OccultismClientConfig();
     public static final SelectedBlockRenderer SELECTED_BLOCK_RENDERER = new SelectedBlockRenderer();
     public static final ThirdEyeEffectRenderer THIRD_EYE_EFFECT_RENDERER = new ThirdEyeEffectRenderer();
     public static final DebugHelper DEBUG = new DebugHelper();
@@ -95,6 +67,7 @@ public class Occultism {
     public Occultism() {
         INSTANCE = this;
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, CONFIG.spec);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, CLIENT_CONFIG.spec);
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         OccultismEffects.EFFECTS.register(modEventBus);
@@ -123,6 +96,10 @@ public class Occultism {
         if (event.getConfig().getSpec() == CONFIG.spec) {
             //Clear the config cache on reload.
             CONFIG.clear();
+        }
+        if (event.getConfig().getSpec() == CLIENT_CONFIG.spec) {
+            //Clear the config cache on reload.
+            CLIENT_CONFIG.clear();
         }
     }
 
