@@ -73,8 +73,8 @@ public class OccultismConfig extends ConfigBase {
             builder.comment("Visual Settings").push("visual");
 
             this.disableDemonsDreamShaders = CachedBoolean.cache(this,
-                    builder.comment("Disables the headache- and possibly seizure-inducing visual effects of Deamon's Dream.")
-                            .define("disableDemonsDreamShaders", true));
+                    builder.comment("Disables the headache- and possibly seizure-inducing visual effects of Demon's Dream.")
+                            .define("disableDemonsDreamShaders", false));
             builder.pop();
         }
         //endregion Initialization
