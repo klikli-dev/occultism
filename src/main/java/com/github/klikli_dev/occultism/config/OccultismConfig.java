@@ -45,6 +45,7 @@ public class OccultismConfig extends ConfigBase {
     public final StorageSettings storage;
     public final WorldGenSettings worldGen;
     public final RitualSettings rituals;
+    public final VisualSettings visuals;
     public final DimensionalMineshaftSettings dimensionalMineshaft;
     public final ForgeConfigSpec spec;
     //endregion Fields
@@ -55,10 +56,29 @@ public class OccultismConfig extends ConfigBase {
         this.storage = new StorageSettings(this, builder);
         this.worldGen = new WorldGenSettings(this, builder);
         this.rituals = new RitualSettings(this, builder);
+        this.visuals = new VisualSettings(this, builder);
         this.dimensionalMineshaft = new DimensionalMineshaftSettings(this, builder);
         this.spec = builder.build();
     }
     //endregion Initialization
+
+    public class VisualSettings extends ConfigCategoryBase {
+        //region Fields
+        public final CachedBoolean disableDemonsDreamShaders;
+        //endregion Fields
+
+        //region Initialization
+        public VisualSettings(IConfigCache parent, ForgeConfigSpec.Builder builder) {
+            super(parent, builder);
+            builder.comment("Visual Settings").push("visual");
+
+            this.disableDemonsDreamShaders = CachedBoolean.cache(this,
+                    builder.comment("Disables the headache- and possibly seizure-inducing visual effects of Deamon's Dream.")
+                            .define("disableDemonsDreamShaders", true));
+            builder.pop();
+        }
+        //endregion Initialization
+    }
 
     public class DimensionalMineshaftSettings extends ConfigCategoryBase {
         //region Fields
