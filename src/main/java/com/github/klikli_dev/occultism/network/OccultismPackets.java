@@ -159,6 +159,12 @@ public class OccultismPackets {
                 MessageSetFilterMode::encode,
                 MessageSetFilterMode::new,
                 OccultismPacketHandler::handle);
+
+        INSTANCE.registerMessage(nextID(),
+                MessageSetRecipeByID.class,
+                MessageSetRecipeByID::encode,
+                MessageSetRecipeByID::new,
+                OccultismPacketHandler::handle);
     }
 
     public static <MSG> void sendTo(ServerPlayerEntity player, MSG message) {

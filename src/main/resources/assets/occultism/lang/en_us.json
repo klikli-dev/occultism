@@ -364,6 +364,9 @@
     "occultism.jei.miner": "Dimensional Mineshaft",
     "occultism.jei.miner.chance": "Chance: %d%%",
     "occultism.jei.ritual": "Occult Ritual",
-    "jei.occultism.ingredient.tallow.description": "Kill animals, such as §2pigs§r, §2cows§r, §sheep§r, §2horses§r and §2lamas§r with the Butcher Knife to obtain tallow."
+    "jei.occultism.ingredient.tallow.description": "Kill animals, such as §2pigs§r, §2cows§r, §sheep§r, §2horses§r and §2lamas§r with the Butcher Knife to obtain tallow.",
+    "jei.occultism.error.missing_id": "Cannot identify recipe.",
+    "jei.occultism.error.invalid_type": "Invalid recipe type.",
+    "jei.occultism.error.recipe_too_large": "Recipe larger than 3x3."
 
 }

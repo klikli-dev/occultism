@@ -116,11 +116,14 @@ public class JeiPlugin implements IModPlugin {
 
     @Override
     public void registerRecipeTransferHandlers(IRecipeTransferRegistration registration) {
-        registration.addRecipeTransferHandler(new StorageControllerRecipeTransferHandler<>(StorageControllerContainer.class),
+        registration.addRecipeTransferHandler(new StorageControllerRecipeTransferHandler<>(
+                StorageControllerContainer.class, registration.getTransferHelper()),
                 VanillaRecipeCategoryUid.CRAFTING);
-        registration.addRecipeTransferHandler(new StorageControllerRecipeTransferHandler<>(StorageRemoteContainer.class),
+        registration.addRecipeTransferHandler(new StorageControllerRecipeTransferHandler<>(
+                StorageRemoteContainer.class, registration.getTransferHelper()),
                 VanillaRecipeCategoryUid.CRAFTING);
-        registration.addRecipeTransferHandler(new StorageControllerRecipeTransferHandler<>(StableWormholeContainer.class),
+        registration.addRecipeTransferHandler(new StorageControllerRecipeTransferHandler<>(
+                StableWormholeContainer.class, registration.getTransferHelper()),
                 VanillaRecipeCategoryUid.CRAFTING);
     }
 

@@ -40,6 +40,8 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
 
+import java.util.function.Predicate;
+
 /**
  * Based on https://github.com/Lothrazar/Storage-Network
  */
@@ -137,7 +139,7 @@ public class StorageUtil {
      * @param simulate    true to simulate.
      * @return the extracted stack.
      */
-    public static ItemStack extractItem(IItemHandler itemHandler, ItemStackComparator comparator, int amount,
+    public static ItemStack extractItem(IItemHandler itemHandler, Predicate<ItemStack> comparator, int amount,
                                         boolean simulate) {
         if (itemHandler == null || comparator == null) {
             return ItemStack.EMPTY;
@@ -147,7 +149,7 @@ public class StorageUtil {
         for (int i = 0; i < itemHandler.getSlots(); i++) {
             ItemStack slot = itemHandler.getStackInSlot(i);
             //check if current slot matches
-            if (comparator.matches(slot)) {
+            if (comparator.test(slot)) {
                 //take out of handler, one by one
                 ItemStack extractedStack = itemHandler.extractItem(i, 1, simulate);
                 if (!extractedStack.isEmpty()) {

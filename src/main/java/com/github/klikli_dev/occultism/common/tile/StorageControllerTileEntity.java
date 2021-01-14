@@ -73,6 +73,7 @@ import net.minecraftforge.items.ItemStackHandler;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.*;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -287,7 +288,7 @@ public class StorageControllerTileEntity extends NetworkedTileEntity implements 
     }
 
     @Override
-    public ItemStack getItemStack(IItemStackComparator comparator, int requestedSize, boolean simulate) {
+    public ItemStack getItemStack(Predicate<ItemStack> comparator, int requestedSize, boolean simulate) {
         if (requestedSize <= 0 || comparator == null) {
             return ItemStack.EMPTY;
         }
@@ -305,7 +306,7 @@ public class StorageControllerTileEntity extends NetworkedTileEntity implements 
             //if we have not found anything yet we can just store the result or move on
             if (firstMatchedStack.isEmpty()) {
 
-                if (!comparator.matches(stack)) {
+                if (!comparator.test(stack)) {
                     //this slot does not match so we move on
                     continue;
                 }
