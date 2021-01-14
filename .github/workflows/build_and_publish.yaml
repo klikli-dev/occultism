@@ -65,7 +65,7 @@ jobs:
           body: |
             [[Automated Build]]
             ## Changelog
-            [${{ steps.get_version.outputs.result }}](https://github.com/klikli-dev/theurgy/wiki/${{ steps.get_version.outputs.result }})
+            [${{ steps.get_version.outputs.result }}](https://github.com/klikli-dev/occultism/wiki/${{ steps.get_version.outputs.result }})
           draft: false
           prerelease: false
       - name: Upload release asset
