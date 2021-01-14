@@ -292,6 +292,10 @@
     "ritual.occultism.craft_miner_djinni_ores.started": "Started summoning djinni into magic lamp.",
     "ritual.occultism.craft_miner_djinni_ores.finished": "Successfully summoned djinni into magic lamp.",
     "ritual.occultism.craft_miner_djinni_ores.interrupted": "Summoning of djinni interrupted.",
+    "ritual.occultism.craft_satchel.conditions": "Not all requirements for this ritual are met.",
+    "ritual.occultism.craft_satchel.started": "Started binding foliot into satchel.",
+    "ritual.occultism.craft_satchel.finished": "Successfully bound foliot into satchel.",
+    "ritual.occultism.craft_satchel.interrupted": "Binding of foliot interrupted.",
 
     "ritual.occultism.possess_endermite.conditions": "Not all requirements for this ritual are met.",
     "ritual.occultism.possess_endermite.started": "Started summoning possessed endermite.",
