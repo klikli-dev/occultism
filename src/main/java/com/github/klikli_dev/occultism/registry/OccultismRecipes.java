@@ -48,6 +48,8 @@ public class OccultismRecipes {
             NonNullLazy.of(() -> IRecipeType.register("occultism:ritual"));
     public static final NonNullLazy<IRecipeType<?>> CUSTOM_SHAPELESS_TYPE =
             NonNullLazy.of(() -> IRecipeType.CRAFTING);
+    public static final NonNullLazy<IRecipeType<RitualIngredientRecipe>> RITUAL_INGREDIENT_TYPE =
+            NonNullLazy.of(() -> IRecipeType.register("occultism:ritual_ingredient"));
 
     public static final RegistryObject<IRecipeSerializer<SpiritTradeRecipe>> SPIRIT_TRADE = RECIPES.register("spirit_trade",
             () -> SpiritTradeRecipe.SERIALIZER);
@@ -61,6 +63,8 @@ public class OccultismRecipes {
             () -> RitualFakeRecipe.SERIALIZER);
     public static final RegistryObject<IRecipeSerializer<CustomShapelessRecipe>> CUSTOM_SHAPELESS = RECIPES.register("custom_shapeless",
             () -> CustomShapelessRecipe.SERIALIZER);
+    public static final RegistryObject<IRecipeSerializer<RitualIngredientRecipe>> RITUAL_INGREDIENT = RECIPES.register("ritual_ingredient",
+            () -> RitualIngredientRecipe.SERIALIZER);
 
     //endregion Fields
 
