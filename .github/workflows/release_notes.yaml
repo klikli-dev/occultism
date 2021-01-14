@@ -1,0 +1,26 @@
+on:
+  milestone:
+    types: [closed]
+name: Milestone Closure
+jobs:
+  create-release-notes:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+      - name: Create Release Notes
+        uses: docker://decathlon/release-notes-generator-action:3.0.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.RELEASE_NOTES_TOKEN }}
+          OUTPUT_FOLDER: temp_release_notes
+          USE_MILESTONE_TITLE: "true"
+      - name: Upload Release Notes to Wiki
+        uses: docker://decathlon/wiki-page-creator-action:latest
+        env:
+          ACTION_MAIL: klikli@outlook.at
+          ACTION_NAME:  klikli-dev
+          GH_PAT: ${{ secrets.RELEASE_NOTES_TOKEN }}
+          MD_FOLDER: temp_release_notes
+          OWNER: klikli-dev
+          REPO_NAME: occultism
+          SKIP_MD: README.md

@@ -63,9 +63,9 @@ jobs:
           tag_name: ${{ github.ref }}
           release_name: occultism-${{ steps.get_mc_version.outputs.result }}-${{ steps.get_version.outputs.result }}-${{ steps.get_release_type.outputs.result }}
           body: |
-            [Automated Build]]
+            [[Automated Build]]
             ## Changelog
-            - //TODO: Add important changes
+            [${{ steps.get_version.outputs.result }}](https://github.com/klikli-dev/theurgy/wiki/${{ steps.get_version.outputs.result }})
           draft: false
           prerelease: false
       - name: Upload release asset
