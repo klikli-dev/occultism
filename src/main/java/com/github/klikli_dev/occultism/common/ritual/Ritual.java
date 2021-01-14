@@ -347,7 +347,8 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
      */
     public boolean identify(World world, BlockPos goldenBowlPosition, ItemStack activationItem) {
         return this.startingItem.test(activationItem) &&
-               this.areAdditionalIngredientsFulfilled(world, goldenBowlPosition, this.getAdditionalIngredients(world)) &&
+               this.areAdditionalIngredientsFulfilled(world, goldenBowlPosition,
+                       this.getAdditionalIngredients(world)) &&
                this.pentacle.getBlockMatcher().validate(world, goldenBowlPosition) != null;
     }
 
@@ -358,10 +359,12 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
      * @param goldenBowlPosition             the position of the golden bowl.
      * @param remainingAdditionalIngredients the remaining additional ingredients. Will be modified if something was consumed!
      * @param time                           the current ritual time.
+     * @param consumedIngredients            the list of already consumed ingredients, newly consumd ingredients will be appended
      * @return true if ingredients were consumed successfully, or none needed to be consumed.
      */
     public boolean consumeAdditionalIngredients(World world, BlockPos goldenBowlPosition,
-                                                List<Ingredient> remainingAdditionalIngredients, int time) {
+                                                List<Ingredient> remainingAdditionalIngredients, int time,
+                                                List<ItemStack> consumedIngredients) {
         if (remainingAdditionalIngredients.isEmpty())
             return true;
 
@@ -377,7 +380,8 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
         for (Iterator<Ingredient> it = remainingAdditionalIngredients.iterator();
              it.hasNext() && consumed < ingredientsToConsume; consumed++) {
             Ingredient ingredient = it.next();
-            if (this.consumeAdditionalIngredient(world, goldenBowlPosition, sacrificialBowls, ingredient)) {
+            if (this.consumeAdditionalIngredient(world, goldenBowlPosition, sacrificialBowls, ingredient,
+                    consumedIngredients)) {
                 //remove from the remaining required ingredients
                 it.remove();
             }
@@ -392,23 +396,24 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
     /**
      * Consumes one ingredient from the first matching sacrificial bowl.
      *
-     * @param world              the world.
-     * @param goldenBowlPosition the position of the golden bowl.
-     * @param sacrificialBowls   the list of sacrificial bowls to check.
-     * @param ingredient         the ingredient to consume.
+     * @param world               the world.
+     * @param goldenBowlPosition  the position of the golden bowl.
+     * @param sacrificialBowls    the list of sacrificial bowls to check.
+     * @param ingredient          the ingredient to consume.
+     * @param consumedIngredients the list of already consumed ingredients, newly consumd ingredients will be appended
      * @return true if the ingredient was found and consumed.
      */
     public boolean consumeAdditionalIngredient(World world, BlockPos goldenBowlPosition,
                                                List<SacrificialBowlTileEntity> sacrificialBowls,
-                                               Ingredient ingredient) {
+                                               Ingredient ingredient, List<ItemStack> consumedIngredients) {
         for (SacrificialBowlTileEntity sacrificialBowl : sacrificialBowls) {
             //first simulate removal to check the ingredient
             if (sacrificialBowl.itemStackHandler.map(handler -> {
                 ItemStack stack = handler.extractItem(0, 1, true);
                 if (ingredient.test(stack)) {
                     //now take for real
-                    handler.extractItem(0, 1, false);
-
+                    ItemStack extracted = handler.extractItem(0, 1, false);
+                    consumedIngredients.add(extracted);
                     //Show effect in world
                     ((ServerWorld) world)
                             .spawnParticle(ParticleTypes.LARGE_SMOKE, sacrificialBowl.getPos().getX() + 0.5,
@@ -416,7 +421,8 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
                                     0.0, 0.0, 0.0,
                                     0.0);
 
-                    world.playSound(null, sacrificialBowl.getPos(), OccultismSounds.POOF.get(), SoundCategory.BLOCKS, 0.7f, 0.7f);
+                    world.playSound(null, sacrificialBowl.getPos(), OccultismSounds.POOF.get(), SoundCategory.BLOCKS,
+                            0.7f, 0.7f);
                     return true;
                 }
                 return false;
@@ -425,6 +431,30 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
 
         }
         return false;
+    }
+
+    /**
+     * Removes all matching consumed already consumed ingredients from the remaining additional ingredients.
+     * @param additionalIngredients the total additional ingredients required.
+     * @param consumedIngredients the already consumed ingredients.
+     * @return the remaining additional ingredients that still need to be consumed.
+     */
+    public static List<Ingredient> getRemainingAdditionalIngredients( List<Ingredient> additionalIngredients, List<ItemStack> consumedIngredients){
+        //copy the consumed ingredients to not modify the input
+        List<ItemStack> consumedIngredientsCopy = new ArrayList<>(consumedIngredients);
+        List<Ingredient> remainingAdditionalIngredients = new ArrayList<>();
+        for(Ingredient ingredient : additionalIngredients){
+            Optional<ItemStack> matchedStack = consumedIngredientsCopy.stream().filter(ingredient::test).findFirst();
+            if(matchedStack.isPresent()){
+                //if it is in the consumed ingredients, we do not need to add it to the remaining required ones
+                //but we remove it from our consumed ingredients copy so each provided ingredient an only be simulated consumed once
+                consumedIngredientsCopy.remove(matchedStack.get());
+            } else {
+                //if it is not already consumed, we add it to the remaining additional ingredients.
+                remainingAdditionalIngredients.add(ingredient);
+            }
+        }
+        return remainingAdditionalIngredients;
     }
 
     /**
@@ -533,7 +563,8 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
      */
     public void prepareSpiritForSpawn(SpiritEntity spirit, World world, BlockPos goldenBowlPosition,
                                       PlayerEntity castingPlayer, String spiritName) {
-        spirit.onInitialSpawn((ServerWorld) world, world.getDifficultyForLocation(goldenBowlPosition), SpawnReason.MOB_SUMMONED, null,
+        spirit.onInitialSpawn((ServerWorld) world, world.getDifficultyForLocation(goldenBowlPosition),
+                SpawnReason.MOB_SUMMONED, null,
                 null);
         spirit.setTamedBy(castingPlayer);
         spirit.setPositionAndRotation(goldenBowlPosition.getX(), goldenBowlPosition.getY(), goldenBowlPosition.getZ(),

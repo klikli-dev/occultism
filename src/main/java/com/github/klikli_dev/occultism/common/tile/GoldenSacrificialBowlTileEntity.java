@@ -36,6 +36,7 @@ import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.ListNBT;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.Direction;
@@ -45,6 +46,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.items.IItemHandler;
 
@@ -59,6 +61,7 @@ public class GoldenSacrificialBowlTileEntity extends SacrificialBowlTileEntity i
     public UUID castingPlayerId;
     public PlayerEntity castingPlayer;
     public List<Ingredient> remainingAdditionalIngredients = new ArrayList<>();
+    public List<ItemStack> consumedIngredients = new ArrayList<>();
     public boolean sacrificeProvided;
     public boolean itemUseProvided;
     public int currentTime;
@@ -75,15 +78,21 @@ public class GoldenSacrificialBowlTileEntity extends SacrificialBowlTileEntity i
     @Override
     public void read(BlockState state, CompoundNBT compound) {
         super.read(state, compound);
-        if (this.currentRitual != null && compound.contains("remainingAdditionalIngredientsSize")) {
-            int size = compound.getByte("remainingAdditionalIngredientsSize");
-            List<Ingredient> additionalIngredients = this.currentRitual.getAdditionalIngredients(this.world);
-            if (size >= 0 && size <= additionalIngredients.size()) {
-                this.remainingAdditionalIngredients = additionalIngredients.subList(
-                        additionalIngredients.size() - size, additionalIngredients.size() - 1);
+
+        this.consumedIngredients.clear();
+        this.remainingAdditionalIngredients.clear();
+        if (this.currentRitual != null) {
+            if(compound.contains("consumedIngredients")){
+                ListNBT list = compound.getList("consumedIngredients", Constants.NBT.TAG_COMPOUND);
+                for(int i = 0; i < list.size(); i++){
+                    ItemStack stack = ItemStack.read(list.getCompound(i));
+                    this.consumedIngredients.add(stack);
+                }
+                this.remainingAdditionalIngredients = Ritual.getRemainingAdditionalIngredients(
+                        this.currentRitual.getAdditionalIngredients(this.world), this.consumedIngredients);
             }
             else {
-                this.remainingAdditionalIngredients = new ArrayList<>(additionalIngredients);
+                this.remainingAdditionalIngredients = this.currentRitual.getAdditionalIngredients(this.world);
             }
         }
         if (compound.contains("sacrificeProvided")) {
@@ -97,10 +106,12 @@ public class GoldenSacrificialBowlTileEntity extends SacrificialBowlTileEntity i
     @Override
     public CompoundNBT write(CompoundNBT compound) {
         if (this.currentRitual != null) {
-            if (this.currentRitual.getAdditionalIngredients(this.world).size() > 0) {
-                //we only store additional ingredients, if the ritual has any.
-                compound.putByte("remainingAdditionalIngredientsSize",
-                        (byte) this.remainingAdditionalIngredients.size());
+            if(this.consumedIngredients.size() > 0){
+                ListNBT list = new ListNBT();
+                for(ItemStack stack : this.consumedIngredients){
+                    list.add(stack.serializeNBT());
+                }
+                compound.put("consumedIngredients", list);
             }
             compound.putBoolean("sacrificeProvided", this.sacrificeProvided);
             compound.putBoolean("requiredItemUsed", this.itemUseProvided);
@@ -117,7 +128,7 @@ public class GoldenSacrificialBowlTileEntity extends SacrificialBowlTileEntity i
         }
 
         if (compound.contains("castingPlayerId")) {
-            this.castingPlayerId = UUID.fromString(compound.getString("castingPlayerId"));
+            this.castingPlayerId = compound.getUniqueId("castingPlayerId");
         }
 
         this.currentTime = compound.getInt("currentTime");
@@ -129,7 +140,7 @@ public class GoldenSacrificialBowlTileEntity extends SacrificialBowlTileEntity i
             compound.putString("currentRitual", this.currentRitual.getRegistryName().toString());
         }
         if (this.castingPlayerId != null) {
-            compound.putString("castingPlayerId", this.castingPlayerId.toString());
+            compound.putUniqueId("castingPlayerId", this.castingPlayerId);
         }
         compound.putInt("currentTime", this.currentTime);
         return super.writeNetwork(compound);
@@ -139,6 +150,9 @@ public class GoldenSacrificialBowlTileEntity extends SacrificialBowlTileEntity i
     public void tick() {
         if (!this.world.isRemote && this.currentRitual != null) {
             this.restoreCastingPlayer();
+
+            //if we ever have a ritual that depends on casting player for validity, we need to rework this
+            //to involve casting player id with some good pre-check
             IItemHandler handler = this.itemStackHandler.orElseThrow(ItemHandlerMissingException::new);
             if (!this.currentRitual.isValid(this.world, this.pos, this, this.castingPlayer,
                     handler.getStackInSlot(0), this.remainingAdditionalIngredients)) {
@@ -188,7 +202,7 @@ public class GoldenSacrificialBowlTileEntity extends SacrificialBowlTileEntity i
 
             if (!this.currentRitual
                          .consumeAdditionalIngredients(this.world, this.pos, this.remainingAdditionalIngredients,
-                                 this.currentTime)) {
+                                 this.currentTime, this.consumedIngredients)) {
                 //if ingredients cannot be found, interrupt
                 this.stopRitual(false);
                 return;
@@ -289,6 +303,7 @@ public class GoldenSacrificialBowlTileEntity extends SacrificialBowlTileEntity i
             this.sacrificeProvided = false;
             this.itemUseProvided = false;
             this.remainingAdditionalIngredients.clear();
+            this.consumedIngredients.clear();
             this.markDirty();
             this.markNetworkDirty();
         }
