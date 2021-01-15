@@ -14,6 +14,11 @@
       "text": "First, burn Otherstone in a furnace and burn Otherworld Logs in $(thing)Spiritfire$(), then craft the resulting ashes into impure white chalk, and finally purify it once more in $(thing)Spiritfire$(). The chalk can now be used to draw ritual glyphs to form pentacles. View the chapter on pentacles for possible options."
     },
     {
+      "type": "crafting",
+      "recipe": "occultism:crafting/brush",
+      "text": "The brush can be used to easily remove chalk signs fom the ground."
+    },
+    {
       "type": "spotlight",
       "item": "occultism:candle_white",
       "text": "Candles provide stability to rituals and are an important part of almost all pentacles. To make candles, kill large animals like pigs, cows or sheep with a Butcher Knife to harvest their fat in the form of tallow and use that to craft candles."
@@ -35,10 +40,6 @@
     {
       "type": "text",
       "text": "Now craft a $(item)Book of Binding: Foliot$() and combine it with this guide book to assign a spirit name. $(br)Finally, right-click the golden sacrificial bowl with the resulting book and wait until the crusher spawns. $(br)Now all that remains is to drop appropriate ores near the crusher and wait for it to turn it into dust."
-    },
-    {
-      "type": "empty",
-      "draw_filler": false
     }
   ]
 }
