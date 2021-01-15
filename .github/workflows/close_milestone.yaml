@@ -1,4 +1,4 @@
-name: 'Update Milestone on Release'
+name: 'Close Milestone on Release'
 
 on:
   release:
