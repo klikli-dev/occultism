@@ -139,6 +139,8 @@ public class OccultismItems {
             () -> new Item(defaultProperties()));
     public static final RegistryObject<Item> LENS_FRAME = ITEMS.register("lens_frame",
             () -> new Item(defaultProperties()));
+    public static final RegistryObject<Item> PURIFIED_INK = ITEMS.register("purified_ink",
+            () -> new Item(defaultProperties()));
 
     public static final RegistryObject<Item> SPIRIT_ATTUNED_PICKAXE_HEAD = ITEMS.register("spirit_attuned_pickaxe_head",
             () -> new Item(defaultProperties()));

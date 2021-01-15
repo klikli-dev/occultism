@@ -1,0 +1,9 @@
+{
+  "type": "occultism:spirit_fire",
+  "ingredient": {
+    "tag": "forge:dyes/black"
+  },
+  "result": {
+    "item": "occultism:purified_ink"
+  }
+}
