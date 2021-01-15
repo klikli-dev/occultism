@@ -5,6 +5,20 @@
   "sortnum": 3,
   "pages": [
     {
+      "type": "text",
+      "text": "To make it easier to get started, the materials obtained by divination now also have crafting recipes. $(bold)If you want the full experience, skip the following recipe pages and move on to the divination instructions.$()"
+    },
+    {
+      "type": "spotlight",
+      "item": "occultism:otherstone",
+      "text": "To obtain Otherstone, purify $(item)Andesite$() in $(thing)Spirit Fire$()."
+    },
+    {
+      "type": "spotlight",
+      "item": "occultism:otherworld_sapling",
+      "text": "To obtain an Otherworld Sapling, purify an $(item)Oak Sapling$() in $(thing)Spirit Fire$(). $(bold)Beware$(): the tree growing from the sapling will look like a normal oak tree. You need to activate the $(thing)Third Eye$() to harvest the Otherworld Logs and Leaves."
+    },
+    {
       "type": "spotlight",
       "item": "occultism:divination_rod",
       "text": "Otherworld materials play an important role in interacting with spirits. As they are rare and not visible to the naked eye, finding them requires special tools. The divination rod allows to find Otherworld materials based on their similarities to materials common to our world."
