@@ -27,10 +27,12 @@ import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.github.klikli_dev.occultism.common.ritual.pentacle.Pentacle;
 import com.github.klikli_dev.occultism.common.tile.GoldenSacrificialBowlTileEntity;
 import com.github.klikli_dev.occultism.common.tile.SacrificialBowlTileEntity;
+import com.github.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.github.klikli_dev.occultism.registry.OccultismSounds;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.Ingredient;
@@ -288,6 +290,7 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
         world.playSound(null, goldenBowlPosition, OccultismSounds.POOF.get(), SoundCategory.BLOCKS, 0.7f,
                 0.7f);
         castingPlayer.sendStatusMessage(new TranslationTextComponent(this.getFinishedMessage()), true);
+        OccultismAdvancements.RITUAL.trigger((ServerPlayerEntity) castingPlayer, this);
     }
 
     /**

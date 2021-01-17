@@ -1,0 +1,31 @@
+{
+  "parent": "occultism:root",
+  "display": {
+    "icon": {
+      "item": "occultism:miner_djinni_ores"
+    },
+    "title": {
+      "translate": "advancements.occultism.craft_miner_djinni_ores.title"
+    },
+    "description": {
+      "translate": "advancements.occultism.craft_miner_djinni_ores.description"
+    },
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false,
+    "hidden": true
+  },
+  "criteria": {
+    "craft_infused_lenses": {
+      "trigger": "occultism:ritual",
+      "conditions": {
+        "ritual_id": "occultism:craft_miner_djinni_ores"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "craft_infused_lenses"
+    ]
+  ]
+}

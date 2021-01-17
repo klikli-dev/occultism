@@ -80,6 +80,7 @@ public class Occultism {
         OccultismSounds.SOUNDS.register(modEventBus);
         OccultismParticles.PARTICLES.register(modEventBus);
         OccultismBiomeFeatures.FEATURES.register(modEventBus);
+        OccultismAdvancements.register();
 
         //register event buses
         modEventBus.addListener(OccultismCapabilities::commonSetup);
