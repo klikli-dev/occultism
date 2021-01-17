@@ -1,20 +1,4 @@
 {
-  "display": {
-    "icon": {
-      "item": "occultism:dictionary_of_spirits"
-    },
-    "title": {
-      "translate": "advancements.occultism.root.title"
-    },
-    "description": {
-      "translate": "advancements.occultism.root.description"
-    },
-    "frame": "task",
-    "show_toast": false,
-    "announce_to_chat": false,
-    "hidden": true,
-    "background": "occultism:textures/block/otherstone_16x16_seamless.png"
-  },
   "criteria": {
     "occultism_present": {
       "trigger": "minecraft:tick"
