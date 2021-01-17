@@ -40,6 +40,7 @@ import net.minecraft.world.server.ServerWorld;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 public class CrusherJob extends SpiritJob {
@@ -49,7 +50,7 @@ public class CrusherJob extends SpiritJob {
      * The current ticks in the crushing, will crush once it reaches crushing_time * crushingTimeMultiplier
      */
     protected int crushingTimer;
-    protected float crushingTimeMultiplier;
+    protected Supplier<Float> crushingTimeMultiplier;
 
     protected Optional<CrushingRecipe> currentRecipe = Optional.empty();
     protected PickupItemsGoal pickupItemsGoal;
@@ -59,7 +60,7 @@ public class CrusherJob extends SpiritJob {
 
 
     //region Initialization
-    public CrusherJob(SpiritEntity entity, float crushingTimeMultiplier) {
+    public CrusherJob(SpiritEntity entity, Supplier<Float> crushingTimeMultiplier) {
         super(entity);
         this.crushingTimeMultiplier = crushingTimeMultiplier;
     }
@@ -118,7 +119,7 @@ public class CrusherJob extends SpiritJob {
                             1 + 0.5f * this.entity.getRNG().nextFloat());
                 }
 
-                if (this.crushingTimer >= this.currentRecipe.get().getCrushingTime() * this.crushingTimeMultiplier) {
+                if (this.crushingTimer >= this.currentRecipe.get().getCrushingTime() * this.crushingTimeMultiplier.get()) {
                     this.crushingTimer = 0;
 
                     ItemStack result = this.currentRecipe.get().getCraftingResult(fakeInventory);
@@ -138,7 +139,6 @@ public class CrusherJob extends SpiritJob {
 
     @Override
     public CompoundNBT writeJobToNBT(CompoundNBT compound) {
-        compound.putFloat("crushingTimeMultiplier", this.crushingTimeMultiplier);
         compound.putInt("conversionTimer", this.crushingTimer);
         return super.writeJobToNBT(compound);
     }
@@ -146,7 +146,6 @@ public class CrusherJob extends SpiritJob {
     @Override
     public void readJobFromNBT(CompoundNBT compound) {
         super.readJobFromNBT(compound);
-        this.crushingTimeMultiplier = compound.getFloat("crushingTimeMultiplier");
         this.crushingTimer = compound.getInt("conversionTimer");
     }
 

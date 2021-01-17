@@ -43,6 +43,7 @@ public class OccultismCommonConfig extends ConfigBase {
 
     //region Fields
     public final StorageSettings storage;
+    public final SpiritJobSettings spiritJobs;
     public final WorldGenSettings worldGen;
     public final RitualSettings rituals;
     public final DimensionalMineshaftSettings dimensionalMineshaft;
@@ -53,12 +54,44 @@ public class OccultismCommonConfig extends ConfigBase {
     public OccultismCommonConfig() {
         ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
         this.storage = new StorageSettings(this, builder);
+        this.spiritJobs = new SpiritJobSettings(this, builder);
         this.worldGen = new WorldGenSettings(this, builder);
         this.rituals = new RitualSettings(this, builder);
         this.dimensionalMineshaft = new DimensionalMineshaftSettings(this, builder);
         this.spec = builder.build();
     }
     //endregion Initialization
+
+    public class SpiritJobSettings extends ConfigCategoryBase {
+        //region Fields
+        public final CachedFloat tier1CrusherTimeMultiplier;
+        public final CachedFloat tier2CrusherTimeMultiplier;
+        public final CachedFloat tier3CrusherTimeMultiplier;
+        public final CachedFloat tier4CrusherTimeMultiplier;
+        //endregion Fields
+
+        //region Initialization
+        public SpiritJobSettings(IConfigCache parent, ForgeConfigSpec.Builder builder) {
+            super(parent, builder);
+            builder.comment("Spirit Job Settings").push("spirit_job");
+
+            this.tier1CrusherTimeMultiplier = CachedFloat.cache(this,
+                    builder.comment("The multiplier to each crushing recipe's crushing_time for Tier 1 Crusher Spirits.")
+                            .define("tier1CrusherTimeMultiplier", 2.0));
+            this.tier2CrusherTimeMultiplier = CachedFloat.cache(this,
+                    builder.comment("Currently unused. The multiplier to each crushing recipe's crushing_time for Tier 2 Crusher Spirits.")
+                            .define("tier2CrusherTimeMultiplier", 1.0));
+            this.tier3CrusherTimeMultiplier = CachedFloat.cache(this,
+                    builder.comment("Currently unused. The multiplier to each crushing recipe's crushing_time for Tier 3 Crusher Spirits.")
+                            .define("tier3CrusherTimeMultiplier", 0.5));
+            this.tier4CrusherTimeMultiplier = CachedFloat.cache(this,
+                    builder.comment("Currently unused. The multiplier to each crushing recipe's crushing_time for Tier 4 Crusher Spirits.")
+                            .define("tier4CrusherTimeMultiplier", 0.2));
+            builder.pop();
+        }
+        //endregion Initialization
+    }
+
 
     public class DimensionalMineshaftSettings extends ConfigCategoryBase {
         //region Fields
