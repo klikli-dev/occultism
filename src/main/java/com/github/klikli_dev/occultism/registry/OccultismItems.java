@@ -244,17 +244,17 @@ public class OccultismItems {
             ITEMS.register("miner_foliot_unspecialized",
                     () -> new MinerSpiritItem(defaultProperties()
                                                       .maxDamage(
-                                                              Occultism.CONFIG.dimensionalMineshaft.minerFoliotUnspecialized.durability
+                                                              Occultism.SERVER_CONFIG.dimensionalMineshaft.minerFoliotUnspecialized.durability
                                                                       .get()),
-                            Occultism.CONFIG.dimensionalMineshaft.minerFoliotUnspecialized.maxMiningTime::get,
-                            Occultism.CONFIG.dimensionalMineshaft.minerFoliotUnspecialized.rollsPerOperation::get,
-                            Occultism.CONFIG.dimensionalMineshaft.minerFoliotUnspecialized.durability::get));
+                            Occultism.SERVER_CONFIG.dimensionalMineshaft.minerFoliotUnspecialized.maxMiningTime::get,
+                            Occultism.SERVER_CONFIG.dimensionalMineshaft.minerFoliotUnspecialized.rollsPerOperation::get,
+                            Occultism.SERVER_CONFIG.dimensionalMineshaft.minerFoliotUnspecialized.durability::get));
     public static final RegistryObject<MinerSpiritItem> MINER_DJINNI_ORES = ITEMS.register("miner_djinni_ores",
             () -> new MinerSpiritItem(defaultProperties().maxDamage(
-                    Occultism.CONFIG.dimensionalMineshaft.minerDjinniOres.durability.get())
-                    , Occultism.CONFIG.dimensionalMineshaft.minerDjinniOres.maxMiningTime::get,
-                    Occultism.CONFIG.dimensionalMineshaft.minerDjinniOres.rollsPerOperation::get,
-                    Occultism.CONFIG.dimensionalMineshaft.minerDjinniOres.durability::get));
+                    Occultism.SERVER_CONFIG.dimensionalMineshaft.minerDjinniOres.durability.get())
+                    , Occultism.SERVER_CONFIG.dimensionalMineshaft.minerDjinniOres.maxMiningTime::get,
+                    Occultism.SERVER_CONFIG.dimensionalMineshaft.minerDjinniOres.rollsPerOperation::get,
+                    Occultism.SERVER_CONFIG.dimensionalMineshaft.minerDjinniOres.durability::get));
     //endregion Fields
 
     //region Static Methods

@@ -52,10 +52,10 @@ public class UndergroundGroveDecorator extends CaveDecorator {
     public void finalFloorPass(ISeedReader seedReader, ChunkGenerator generator, Random rand,
                                BlockPos pos) {
         if (seedReader.getBlockState(pos).getBlock() == Blocks.GRASS_BLOCK &&
-            rand.nextFloat() < Occultism.CONFIG.worldGen.undergroundGroveGen.grassChance.get())
+            rand.nextFloat() < Occultism.SERVER_CONFIG.worldGen.undergroundGroveGen.grassChance.get())
             seedReader.setBlockState(pos.up(), Blocks.GRASS.getDefaultState(), 2);
 
-        if (rand.nextFloat() < Occultism.CONFIG.worldGen.undergroundGroveGen.treeChance.get()) {
+        if (rand.nextFloat() < Occultism.SERVER_CONFIG.worldGen.undergroundGroveGen.treeChance.get()) {
             ConfiguredFeature<BaseTreeFeatureConfig, ?> treeFeature = WorldGenHandler.OTHERWORLD_TREE_NATURAL;
             treeFeature.config.forcePlacement();
             treeFeature.generate(seedReader, generator, rand, pos.up());
@@ -65,7 +65,7 @@ public class UndergroundGroveDecorator extends CaveDecorator {
     @Override
     public void finalCeilingPass(ISeedReader seedReader, ChunkGenerator generator, Random rand,
                                  BlockPos pos) {
-        if (rand.nextFloat() < Occultism.CONFIG.worldGen.undergroundGroveGen.ceilingLightChance.get()) {
+        if (rand.nextFloat() < Occultism.SERVER_CONFIG.worldGen.undergroundGroveGen.ceilingLightChance.get()) {
             seedReader.setBlockState(pos, Blocks.GLOWSTONE.getDefaultState(), 2);
         }
         super.finalCeilingPass(seedReader, generator, rand, pos);
@@ -78,7 +78,7 @@ public class UndergroundGroveDecorator extends CaveDecorator {
             BlockPos offset = pos.offset(facing);
             BlockPos up = offset.up();
             if (this.isCeiling(seedReader, up, seedReader.getBlockState(up)) &&
-                rand.nextFloat() < Occultism.CONFIG.worldGen.undergroundGroveGen.vineChance.get()) {
+                rand.nextFloat() < Occultism.SERVER_CONFIG.worldGen.undergroundGroveGen.vineChance.get()) {
                 BlockState stateAt = seedReader.getBlockState(offset);
                 boolean spawnedVine = false;
                 while (stateAt.getBlock().isAir(stateAt, seedReader, offset) && offset.getY() > 0) {

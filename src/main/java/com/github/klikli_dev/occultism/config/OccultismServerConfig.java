@@ -39,7 +39,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class OccultismCommonConfig extends ConfigBase {
+public class OccultismServerConfig extends ConfigBase {
 
     //region Fields
     public final StorageSettings storage;
@@ -51,7 +51,7 @@ public class OccultismCommonConfig extends ConfigBase {
     //endregion Fields
 
     //region Initialization
-    public OccultismCommonConfig() {
+    public OccultismServerConfig() {
         ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
         this.storage = new StorageSettings(this, builder);
         this.spiritJobs = new SpiritJobSettings(this, builder);

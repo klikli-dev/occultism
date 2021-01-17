@@ -24,7 +24,7 @@ package com.github.klikli_dev.occultism.common.world;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.world.multichunk.MultiChunkFeatureConfig;
-import com.github.klikli_dev.occultism.config.OccultismCommonConfig;
+import com.github.klikli_dev.occultism.config.OccultismServerConfig;
 import com.github.klikli_dev.occultism.registry.OccultismBiomeFeatures;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import net.minecraft.util.registry.Registry;
@@ -65,21 +65,21 @@ public class WorldGenHandler {
     @SubscribeEvent
     public static void onBiomeLoading(BiomeLoadingEvent event) {
 
-        if (Occultism.CONFIG.worldGen.oreGen.copperOre.generateOre.get())
+        if (Occultism.SERVER_CONFIG.worldGen.oreGen.copperOre.generateOre.get())
             event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, COPPER_ORE);
-        if (Occultism.CONFIG.worldGen.oreGen.silverOre.generateOre.get())
+        if (Occultism.SERVER_CONFIG.worldGen.oreGen.silverOre.generateOre.get())
             event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, SILVER_ORE);
-        if (Occultism.CONFIG.worldGen.oreGen.iesniumOre.generateOre.get())
+        if (Occultism.SERVER_CONFIG.worldGen.oreGen.iesniumOre.generateOre.get())
             event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, IESNIUM_ORE);
-        if (Occultism.CONFIG.worldGen.undergroundGroveGen.generateUndergroundGroves.get())
+        if (Occultism.SERVER_CONFIG.worldGen.undergroundGroveGen.generateUndergroundGroves.get())
             event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_STRUCTURES, UNDERGROUND_GROVE);
     }
 
     public static void registerConfiguredFeatures() {
         //Register the features with default setting here.
-        OccultismCommonConfig.WorldGenSettings.OreGenSettings oreGen = Occultism.CONFIG.worldGen.oreGen;
-        OccultismCommonConfig.WorldGenSettings.UndergroundGroveGenSettings groveGen =
-                Occultism.CONFIG.worldGen.undergroundGroveGen;
+        OccultismServerConfig.WorldGenSettings.OreGenSettings oreGen = Occultism.SERVER_CONFIG.worldGen.oreGen;
+        OccultismServerConfig.WorldGenSettings.UndergroundGroveGenSettings groveGen =
+                Occultism.SERVER_CONFIG.worldGen.undergroundGroveGen;
 
 
         COPPER_ORE = Feature.ORE.withConfiguration(
@@ -126,7 +126,7 @@ public class WorldGenHandler {
                                 groveGen.groveSpawnMin.get(),
                                 groveGen.groveSpawnMax.get(),
                                 14653667,
-                                Occultism.CONFIG.worldGen.undergroundGroveGen.biomeTypeBlacklist.get().stream()
+                                Occultism.SERVER_CONFIG.worldGen.undergroundGroveGen.biomeTypeBlacklist.get().stream()
                                         .map(BiomeDictionary.Type::getType)
                                         .collect(Collectors.toList())))
                         .withPlacement(Placement.NOPE.configure(new NoPlacementConfig()));

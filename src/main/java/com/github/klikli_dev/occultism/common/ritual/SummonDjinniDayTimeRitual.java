@@ -81,7 +81,7 @@ public class SummonDjinniDayTimeRitual extends SummonSpiritRitual {
 
     @Override
     public boolean identify(World world, BlockPos goldenBowlPosition, ItemStack activationItem) {
-        return Occultism.CONFIG.rituals.enableDayTimeRitual.get() &&
+        return Occultism.SERVER_CONFIG.rituals.enableDayTimeRitual.get() &&
                super.identify(world, goldenBowlPosition, activationItem);
     }
     //endregion Overrides

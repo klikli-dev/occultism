@@ -32,13 +32,9 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.particles.ParticleTypes;
-import net.minecraft.tags.EntityTypeTags;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
-import net.minecraftforge.common.Tags;
-import net.minecraftforge.common.data.ForgeRegistryTagsProvider;
 
 public class SummonAfritThunderWeatherRitual extends SummonSpiritRitual {
 
@@ -84,7 +80,7 @@ public class SummonAfritThunderWeatherRitual extends SummonSpiritRitual {
 
     @Override
     public boolean identify(World world, BlockPos goldenBowlPosition, ItemStack activationItem) {
-        return Occultism.CONFIG.rituals.enableThunderWeatherRitual.get() &&
+        return Occultism.SERVER_CONFIG.rituals.enableThunderWeatherRitual.get() &&
                super.identify(world, goldenBowlPosition, activationItem);
     }
     //endregion Overrides

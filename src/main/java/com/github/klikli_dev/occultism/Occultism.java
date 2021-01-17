@@ -29,7 +29,7 @@ import com.github.klikli_dev.occultism.common.DebugHelper;
 import com.github.klikli_dev.occultism.common.OccultismItemGroup;
 import com.github.klikli_dev.occultism.common.world.WorldGenHandler;
 import com.github.klikli_dev.occultism.config.OccultismClientConfig;
-import com.github.klikli_dev.occultism.config.OccultismCommonConfig;
+import com.github.klikli_dev.occultism.config.OccultismServerConfig;
 import com.github.klikli_dev.occultism.network.OccultismPackets;
 import com.github.klikli_dev.occultism.registry.*;
 import net.minecraft.item.ItemGroup;
@@ -55,7 +55,7 @@ public class Occultism {
     public static final String NAME = "Occultism";
     public static final ItemGroup ITEM_GROUP = new OccultismItemGroup();
     public static final Logger LOGGER = LogManager.getLogger(MODID);
-    public static final OccultismCommonConfig CONFIG = new OccultismCommonConfig();
+    public static final OccultismServerConfig SERVER_CONFIG = new OccultismServerConfig();
     public static final OccultismClientConfig CLIENT_CONFIG = new OccultismClientConfig();
     public static final SelectedBlockRenderer SELECTED_BLOCK_RENDERER = new SelectedBlockRenderer();
     public static final ThirdEyeEffectRenderer THIRD_EYE_EFFECT_RENDERER = new ThirdEyeEffectRenderer();
@@ -66,7 +66,7 @@ public class Occultism {
     //region Initialization
     public Occultism() {
         INSTANCE = this;
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, CONFIG.spec);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, SERVER_CONFIG.spec);
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, CLIENT_CONFIG.spec);
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
@@ -94,9 +94,9 @@ public class Occultism {
     //endregion Initialization
     //region Methods
     public void onModConfigEvent(final ModConfig.ModConfigEvent event) {
-        if (event.getConfig().getSpec() == CONFIG.spec) {
+        if (event.getConfig().getSpec() == SERVER_CONFIG.spec) {
             //Clear the config cache on reload.
-            CONFIG.clear();
+            SERVER_CONFIG.clear();
         }
         if (event.getConfig().getSpec() == CLIENT_CONFIG.spec) {
             //Clear the config cache on reload.
