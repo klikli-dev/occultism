@@ -48,6 +48,7 @@ public class MessageUpdateStacks extends MessageBase {
 
     private List<ItemStack> stacks;
     private int usedSlots;
+    private int maxSlots;
     private ByteBuf payload;
 
     //endregion Fields
@@ -57,9 +58,10 @@ public class MessageUpdateStacks extends MessageBase {
         this.decode(buf);
     }
 
-    public MessageUpdateStacks(List<ItemStack> stacks, int usedSlots) {
+    public MessageUpdateStacks(List<ItemStack> stacks, int usedSlots, int maxSlots) {
         this.stacks = stacks;
         this.usedSlots = usedSlots;
+        this.maxSlots = maxSlots;
         this.compress();
     }
     //endregion Initialization
@@ -75,24 +77,28 @@ public class MessageUpdateStacks extends MessageBase {
             if (gui != null) {
                 gui.setStacks(this.stacks);
                 gui.setUsedSlots(this.usedSlots);
+                gui.setMaxSlots(this.maxSlots);
+                gui.markDirty();
             }
         }
     }
 
     @Override
     public void encode(PacketBuffer buf) {
-        buf.writeInt(this.usedSlots);
+        buf.writeVarInt(this.usedSlots);
+        buf.writeVarInt(this.maxSlots);
 
         //write compressed size, then compressed data
-        buf.writeInt(this.payload.readableBytes());
+        buf.writeVarInt(this.payload.readableBytes());
         buf.writeBytes(this.payload, 0, this.payload.readableBytes());
     }
 
     @Override
     public void decode(PacketBuffer buf) {
-        this.usedSlots = buf.readInt();
+        this.usedSlots = buf.readVarInt();
+        this.maxSlots = buf.readVarInt();
         //read compressed size, then compressed data.
-        int compressedSize = buf.readInt();
+        int compressedSize = buf.readVarInt();
         this.payload = Unpooled.buffer(compressedSize);
         buf.readBytes(this.payload, 0, compressedSize);
     }

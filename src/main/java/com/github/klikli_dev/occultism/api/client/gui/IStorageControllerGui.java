@@ -33,6 +33,10 @@ public interface IStorageControllerGui {
 
     void setUsedSlots(int slots);
 
+    void setMaxSlots(int slots);
+
+    void markDirty();
+
     void setLinkedMachines(List<MachineReference> machines);
     //endregion Getter / Setter
 }

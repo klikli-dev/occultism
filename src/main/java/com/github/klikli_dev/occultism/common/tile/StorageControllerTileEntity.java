@@ -189,7 +189,7 @@ public class StorageControllerTileEntity extends NetworkedTileEntity implements 
     public MessageUpdateStacks getMessageUpdateStacks() {
         if (this.cachedMessageUpdateStacks == null) {
             List<ItemStack> stacks = this.getStacks();
-            this.cachedMessageUpdateStacks = new MessageUpdateStacks(stacks, this.getUsedSlots());
+            this.cachedMessageUpdateStacks = new MessageUpdateStacks(stacks, this.getUsedSlots(), this.getMaxSlots());
         }
         return this.cachedMessageUpdateStacks;
     }

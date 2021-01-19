@@ -35,12 +35,14 @@ public class StableWormholeGui extends StorageControllerGuiBase<StableWormholeCo
 
     //region Fields
     protected StorageControllerTileEntity storageController;
+    protected StableWormholeContainer container;
     //endregion Fields
 
     //region Initialization
     public StableWormholeGui(StableWormholeContainer container, PlayerInventory playerInventory,
                              ITextComponent name) {
         super(container, playerInventory, name);
+        this.container = container;
         this.storageController = container.getStorageController();
     }
     //endregion Initialization
@@ -53,27 +55,27 @@ public class StableWormholeGui extends StorageControllerGuiBase<StableWormholeCo
 
     @Override
     protected BlockPos getEntityPosition() {
-        return this.storageController.getPos();
+        return this.container.getStableWormhole().getPos();
     }
 
     @Override
     public SortDirection getSortDirection() {
-        return this.storageController.getSortDirection();
+        return this.container.getStableWormhole().getSortDirection();
     }
 
     @Override
     public void setSortDirection(SortDirection sortDirection) {
-        this.storageController.setSortDirection(sortDirection);
+        this.container.getStableWormhole().setSortDirection(sortDirection);
     }
 
     @Override
     public SortType getSortType() {
-        return this.storageController.getSortType();
+        return this.container.getStableWormhole().getSortType();
     }
 
     @Override
     public void setSortType(SortType sortType) {
-        this.storageController.setSortType(sortType);
+        this.container.getStableWormhole().setSortType(sortType);
     }
     //endregion Overrides
 }
