@@ -1,6 +1,10 @@
 {
   "replace": false,
   "values": [
-    "minecraft:elytra"
+    "minecraft:elytra",
+    {
+      "id": "mana-and-artifice:spectral_elytra",
+      "required": false
+    }
   ]
 }
