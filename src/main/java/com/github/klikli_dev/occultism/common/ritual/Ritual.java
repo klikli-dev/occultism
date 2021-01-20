@@ -172,6 +172,7 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
             this.additionalIngredientsRecipeId = new ResourceLocation(Occultism.MODID,
                     "ritual_ingredients/" + additionalIngredientsRecipeName);
         this.additionalIngredients = new ArrayList<>();
+        this.additionalIngredientsLoaded = false;
         this.sacrificialBowlRange = sacrificialBowlRange;
         this.totalSeconds = totalSeconds;
         this.timePerIngredient = this.totalSeconds;
@@ -216,7 +217,9 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
      * These ingredients need to be placed within the ritual area.
      */
     public List<Ingredient> getAdditionalIngredients(World world) {
-        if (!this.additionalIngredientsLoaded) {
+        //rituals persist between world unload/reloads, so additionalIngredientsLoaded will be true
+        //therefore we also check for additional ingredients size
+        if (!this.additionalIngredientsLoaded || this.additionalIngredients.size() == 0) {
             //this is lazily loading the ingredients.
             this.registerAdditionalIngredients(world.getRecipeManager());
         }
@@ -227,7 +230,7 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
      * Gets the additional ingredients from the recipe registry.
      */
     public void registerAdditionalIngredients(RecipeManager recipeManager) {
-        this.additionalIngredientsLoaded = true;
+        this.additionalIngredientsLoaded = recipeManager != null;
         if (this.additionalIngredientsRecipeId != null && recipeManager != null) {
             Optional<? extends IRecipe<?>> recipe = recipeManager.getRecipe(this.additionalIngredientsRecipeId);
             if (recipe.isPresent()) {
@@ -372,7 +375,7 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
             return true;
 
         int totalIngredientsToConsume = (int) Math.floor(time / this.timePerIngredient);
-        int ingredientsConsumed = this.getAdditionalIngredients(world).size() - remainingAdditionalIngredients.size();
+        int ingredientsConsumed = consumedIngredients.size();
 
         int ingredientsToConsume = totalIngredientsToConsume - ingredientsConsumed;
         if (ingredientsToConsume == 0)

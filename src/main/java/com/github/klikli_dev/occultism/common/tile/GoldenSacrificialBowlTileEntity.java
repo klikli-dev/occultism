@@ -80,20 +80,15 @@ public class GoldenSacrificialBowlTileEntity extends SacrificialBowlTileEntity i
         super.read(state, compound);
 
         this.consumedIngredients.clear();
-        this.remainingAdditionalIngredients.clear();
         if (this.currentRitual != null) {
-            if(compound.contains("consumedIngredients")){
+            if (compound.contains("consumedIngredients")) {
                 ListNBT list = compound.getList("consumedIngredients", Constants.NBT.TAG_COMPOUND);
-                for(int i = 0; i < list.size(); i++){
+                for (int i = 0; i < list.size(); i++) {
                     ItemStack stack = ItemStack.read(list.getCompound(i));
                     this.consumedIngredients.add(stack);
                 }
-                this.remainingAdditionalIngredients = Ritual.getRemainingAdditionalIngredients(
-                        this.currentRitual.getAdditionalIngredients(this.world), this.consumedIngredients);
             }
-            else {
-                this.remainingAdditionalIngredients = this.currentRitual.getAdditionalIngredients(this.world);
-            }
+            this.restoreRemainingAdditionalIngredients();
         }
         if (compound.contains("sacrificeProvided")) {
             this.sacrificeProvided = compound.getBoolean("sacrificeProvided");
@@ -106,9 +101,9 @@ public class GoldenSacrificialBowlTileEntity extends SacrificialBowlTileEntity i
     @Override
     public CompoundNBT write(CompoundNBT compound) {
         if (this.currentRitual != null) {
-            if(this.consumedIngredients.size() > 0){
+            if (this.consumedIngredients.size() > 0) {
                 ListNBT list = new ListNBT();
-                for(ItemStack stack : this.consumedIngredients){
+                for (ItemStack stack : this.consumedIngredients) {
                     list.add(stack.serializeNBT());
                 }
                 compound.put("consumedIngredients", list);
@@ -151,6 +146,14 @@ public class GoldenSacrificialBowlTileEntity extends SacrificialBowlTileEntity i
         if (!this.world.isRemote && this.currentRitual != null) {
             this.restoreCastingPlayer();
 
+            if (this.remainingAdditionalIngredients == null) {
+                this.restoreRemainingAdditionalIngredients();
+                if (this.remainingAdditionalIngredients == null) {
+                    Occultism.LOGGER
+                            .warn("Could not restore remainingAdditionalIngredients during tick - world seems to be null. Will attempt again next tick.");
+                    return;
+                }
+            }
             //if we ever have a ritual that depends on casting player for validity, we need to rework this
             //to involve casting player id with some good pre-check
             IItemHandler handler = this.itemStackHandler.orElseThrow(ItemHandlerMissingException::new);
@@ -270,6 +273,7 @@ public class GoldenSacrificialBowlTileEntity extends SacrificialBowlTileEntity i
             this.currentTime = 0;
             this.sacrificeProvided = false;
             this.itemUseProvided = false;
+            this.consumedIngredients.clear();
             this.remainingAdditionalIngredients = new ArrayList<>(ritual.getAdditionalIngredients(this.world));
             //place activation item in handler
             IItemHandler handler = this.itemStackHandler.orElseThrow(ItemHandlerMissingException::new);
@@ -302,7 +306,8 @@ public class GoldenSacrificialBowlTileEntity extends SacrificialBowlTileEntity i
             this.currentTime = 0;
             this.sacrificeProvided = false;
             this.itemUseProvided = false;
-            this.remainingAdditionalIngredients.clear();
+            if (this.remainingAdditionalIngredients != null)
+                this.remainingAdditionalIngredients.clear();
             this.consumedIngredients.clear();
             this.markDirty();
             this.markNetworkDirty();
@@ -323,6 +328,23 @@ public class GoldenSacrificialBowlTileEntity extends SacrificialBowlTileEntity i
 
     public void notifyItemUse(PlayerInteractEvent.RightClickItem event) {
         this.itemUseProvided = true;
+    }
+
+    protected void restoreRemainingAdditionalIngredients() {
+        if (this.world == null) {
+            //this sets the signal that loading didn't go right -> will reattempt during tick()
+            this.remainingAdditionalIngredients = null;
+        }
+        else {
+            if (this.consumedIngredients.size() > 0) {
+                this.remainingAdditionalIngredients = Ritual.getRemainingAdditionalIngredients(
+                        this.currentRitual.getAdditionalIngredients(this.world), this.consumedIngredients);
+            }
+            else {
+                this.remainingAdditionalIngredients = new ArrayList<>(this.currentRitual.getAdditionalIngredients(this.world));
+            }
+        }
+
     }
     //endregion Methods
 }
