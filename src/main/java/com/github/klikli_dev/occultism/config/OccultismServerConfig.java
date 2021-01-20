@@ -34,7 +34,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.ForgeConfigSpec;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -76,16 +75,20 @@ public class OccultismServerConfig extends ConfigBase {
             builder.comment("Spirit Job Settings").push("spirit_job");
 
             this.tier1CrusherTimeMultiplier = CachedFloat.cache(this,
-                    builder.comment("The multiplier to each crushing recipe's crushing_time for Tier 1 Crusher Spirits.")
+                    builder.comment(
+                            "The multiplier to each crushing recipe's crushing_time for Tier 1 Crusher Spirits.")
                             .define("tier1CrusherTimeMultiplier", 2.0));
             this.tier2CrusherTimeMultiplier = CachedFloat.cache(this,
-                    builder.comment("Currently unused. The multiplier to each crushing recipe's crushing_time for Tier 2 Crusher Spirits.")
+                    builder.comment(
+                            "Currently unused. The multiplier to each crushing recipe's crushing_time for Tier 2 Crusher Spirits.")
                             .define("tier2CrusherTimeMultiplier", 1.0));
             this.tier3CrusherTimeMultiplier = CachedFloat.cache(this,
-                    builder.comment("Currently unused. The multiplier to each crushing recipe's crushing_time for Tier 3 Crusher Spirits.")
+                    builder.comment(
+                            "Currently unused. The multiplier to each crushing recipe's crushing_time for Tier 3 Crusher Spirits.")
                             .define("tier3CrusherTimeMultiplier", 0.5));
             this.tier4CrusherTimeMultiplier = CachedFloat.cache(this,
-                    builder.comment("Currently unused. The multiplier to each crushing recipe's crushing_time for Tier 4 Crusher Spirits.")
+                    builder.comment(
+                            "Currently unused. The multiplier to each crushing recipe's crushing_time for Tier 4 Crusher Spirits.")
                             .define("tier4CrusherTimeMultiplier", 0.2));
             builder.pop();
         }
@@ -151,6 +154,7 @@ public class OccultismServerConfig extends ConfigBase {
         public final CachedBoolean enableThunderWeatherRitual;
         public final CachedBoolean enableDayTimeRitual;
         public final CachedBoolean enableNightTimeRitual;
+        public final CachedBoolean enableRemainingIngredientCountMatching;
         //endregion Fields
 
         //region Initialization
@@ -173,6 +177,12 @@ public class OccultismServerConfig extends ConfigBase {
             this.enableNightTimeRitual = CachedBoolean.cache(this,
                     builder.comment("Enables the ritual to set time to night.")
                             .define("enableNightTimeRitual", true));
+            this.enableRemainingIngredientCountMatching = CachedBoolean.cache(this,
+                    builder.comment(
+                            "If enabled, rituals are interrupted if *more* ingredients are present than needed. " +
+                            "This should usually be disabled, but can improve performance if " +
+                            "(very very) many rituals are running.")
+                            .define("enableRemainingIngredientCountMatching", false));
             builder.pop();
         }
         //endregion Initialization

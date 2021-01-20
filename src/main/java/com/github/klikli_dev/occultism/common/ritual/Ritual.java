@@ -481,7 +481,9 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
      */
     public boolean matchesAdditionalIngredients(List<Ingredient> additionalIngredients, List<ItemStack> items) {
 
-        if (additionalIngredients.size() != items.size())
+        //optional performance improvement to speed up matching at the cost of convenience
+        if (Occultism.SERVER_CONFIG.rituals.enableRemainingIngredientCountMatching.get() &&
+            additionalIngredients.size() != items.size())
             return false; //if we have different sizes, it cannot be right
 
         if (additionalIngredients.isEmpty())
