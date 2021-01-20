@@ -60,7 +60,6 @@ public class ClientPlayerEventHandler {
         if (!minecraft.isGameFocused() || evt.getAction() != GLFW_PRESS) {
             return;
         }
-
         if (minecraft.gameSettings.keyBindJump.isKeyDown()) {
 
             if (minecraft.player != null && MovementUtil.doubleJump(minecraft.player)) {

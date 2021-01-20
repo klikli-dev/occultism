@@ -58,9 +58,9 @@ public class MovementUtil {
             return false;
         }
 
-        //If ready to use elytra, we don't interfere
         ItemStack itemstack = player.getItemStackFromSlot(EquipmentSlotType.CHEST);
-        if( !player.isElytraFlying() && OccultismTags.ELYTRA.contains(itemstack.getItem()) && ElytraItem.isUsable(itemstack)){
+        //If player
+        if(OccultismTags.ELYTRA.contains(itemstack.getItem()) && (itemstack.getDamage() <= 0 || ElytraItem.isUsable(itemstack))){
             return false;
         }
 
