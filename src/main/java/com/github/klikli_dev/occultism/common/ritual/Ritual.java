@@ -509,7 +509,8 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
         }
 
         //more items need to cause failure, otherwise we cannot properly identify the type of ritual.
-        return remainingItems.size() == 0;
+        //return remainingItems.size() == 0;
+        return true;
     }
 
     /**
