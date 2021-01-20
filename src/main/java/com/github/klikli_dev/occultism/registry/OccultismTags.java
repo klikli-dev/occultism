@@ -42,6 +42,7 @@ public class OccultismTags {
     public static final ITag<Block> NETHERRACK = makeBlockTag(new ResourceLocation(Occultism.MODID,"netherrack"));
 
     //Item Tags
+    public static final ITag<Item> ELYTRA = makeItemTag(new ResourceLocation(Occultism.MODID,"elytra"));
 
     //Entity Tags
     public static final ITag<EntityType<?>> AFRIT_ALLIES = makeEntityTypeTag(new ResourceLocation(Occultism.MODID,"afrit_allies"));

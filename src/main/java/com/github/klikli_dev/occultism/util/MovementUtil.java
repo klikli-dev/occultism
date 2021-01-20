@@ -25,6 +25,7 @@ package com.github.klikli_dev.occultism.util;
 import com.github.klikli_dev.occultism.common.capability.DoubleJumpCapability;
 import com.github.klikli_dev.occultism.common.effect.DoubleJumpEffect;
 import com.github.klikli_dev.occultism.registry.OccultismCapabilities;
+import com.github.klikli_dev.occultism.registry.OccultismTags;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ElytraItem;
@@ -59,7 +60,7 @@ public class MovementUtil {
 
         //If ready to use elytra, we don't interfere
         ItemStack itemstack = player.getItemStackFromSlot(EquipmentSlotType.CHEST);
-        if(!player.isElytraFlying() && itemstack.getItem() == Items.ELYTRA && ElytraItem.isUsable(itemstack)){
+        if( !player.isElytraFlying() && OccultismTags.ELYTRA.contains(itemstack.getItem()) && ElytraItem.isUsable(itemstack)){
             return false;
         }
 
