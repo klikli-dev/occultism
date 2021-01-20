@@ -65,18 +65,21 @@ import net.minecraftforge.items.CapabilityItemHandler;
 
 import javax.annotation.Nullable;
 import java.util.*;
+import java.util.function.Predicate;
 
 public class BookOfCallingItem extends Item implements IIngredientPreventCrafting, IIngredientCopyNBT, IHandleItemMode {
 
     //region Fields
     public static Map<UUID, Long> spiritDeathRegister = new HashMap<>();
     public String translationKeyBase;
+    public Predicate<SpiritEntity> targetSpirit;
     //endregion Fields
 
     //region Initialization
-    public BookOfCallingItem(Properties properties, String translationKeyBase) {
+    public BookOfCallingItem(Properties properties, String translationKeyBase, Predicate<SpiritEntity> targetSpirit) {
         super(properties);
         this.translationKeyBase = translationKeyBase;
+        this.targetSpirit = targetSpirit;
     }
     //endregion Initialization
 
@@ -160,11 +163,17 @@ public class BookOfCallingItem extends Item implements IIngredientPreventCraftin
                 CompoundNBT wrapper = new CompoundNBT();
                 wrapper.put("EntityTag", entityData);
 
-                SpiritEntity entity = (SpiritEntity) type.spawn((ServerWorld)world, wrapper, customName, null, spawnPos,
-                        SpawnReason.MOB_SUMMONED, true, !pos.equals(spawnPos) && facing == Direction.UP);
-                if (entityData.contains("OwnerUUID") && !entityData.getString("OwnerUUID").isEmpty()) {
-                    entity.setOwnerId(UUID.fromString(entityData.getString("OwnerUUID")));
-                }
+                SpiritEntity entity = (SpiritEntity) type.create(world);
+                entity.read(entityData);
+                entity.setPositionAndRotation(spawnPos.getX() + 0.5, spawnPos.getY(), spawnPos.getZ() + 0.5, 0, 0);
+                world.addEntity(entity);
+
+                //old spawn code
+//                SpiritEntity entity = (SpiritEntity) type.spawn((ServerWorld)world, wrapper, customName, null, spawnPos,
+//                        SpawnReason.MOB_SUMMONED, true, !pos.equals(spawnPos) && facing == Direction.UP);
+//                if (entityData.contains("OwnerUUID") && !entityData.getString("OwnerUUID").isEmpty()) {
+//                    entity.setOwnerId(UUID.fromString(entityData.getString("OwnerUUID")));
+//                }
 
                 //refresh item nbt
                 ItemNBTUtil.updateItemNBTFromEntity(itemStack, entity);
@@ -206,9 +215,23 @@ public class BookOfCallingItem extends Item implements IIngredientPreventCraftin
         //books can only control the spirit that is bound to them.
         if (!entitySpirit.getUniqueID().equals(ItemNBTUtil.getSpiritEntityUUID(stack))) {
             //Creative players can re-link the book.
-            if (player.isCreative()) {
-                ItemNBTUtil.setSpiritEntityUUID(stack, entitySpirit.getUniqueID());
-                ItemNBTUtil.setBoundSpiritName(stack, entitySpirit.getName().getString());
+            if (player.isSneaking()) {
+                if(this.targetSpirit.test(entitySpirit)){
+                    ItemNBTUtil.setSpiritEntityUUID(stack, entitySpirit.getUniqueID());
+                    ItemNBTUtil.setBoundSpiritName(stack, entitySpirit.getName().getString());
+                    player.sendStatusMessage(
+                            new TranslationTextComponent(
+                                    TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_target_linked"),
+                            true);
+                    return ActionResultType.SUCCESS;
+                }
+                else {
+                    player.sendStatusMessage(
+                            new TranslationTextComponent(
+                                    TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_target_cannot_link"),
+                            true);
+                    return ActionResultType.FAIL;
+                }
             }
             else {
                 player.sendStatusMessage(

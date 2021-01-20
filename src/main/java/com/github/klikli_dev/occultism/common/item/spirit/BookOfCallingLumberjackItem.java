@@ -22,6 +22,7 @@
 
 package com.github.klikli_dev.occultism.common.item.spirit;
 
+import com.github.klikli_dev.occultism.common.job.LumberjackJob;
 import net.minecraft.item.ItemStack;
 
 import java.util.HashMap;
@@ -30,7 +31,7 @@ import java.util.Map;
 public class BookOfCallingLumberjackItem extends BookOfCallingItem {
     //region Initialization
     public BookOfCallingLumberjackItem(Properties properties, String translationKeyBase) {
-        super(properties, translationKeyBase);
+        super(properties, translationKeyBase, spirit -> spirit.getJob().orElse(null) instanceof LumberjackJob);
     }
     //endregion Initialization
 
