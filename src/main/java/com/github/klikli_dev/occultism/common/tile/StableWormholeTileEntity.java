@@ -69,30 +69,37 @@ public class StableWormholeTileEntity extends NetworkedTileEntity implements ISt
     //endregion Initialization
 
     //region Getter / Setter
+    @Override
     public SortDirection getSortDirection() {
         return this.sortDirection;
     }
 
+    @Override
     public void setSortDirection(SortDirection sortDirection) {
         this.sortDirection = sortDirection;
     }
 
+    @Override
     public SortType getSortType() {
         return this.sortType;
     }
 
+    @Override
     public void setSortType(SortType sortType) {
         this.sortType = sortType;
     }
 
+    @Override
     public Map<Integer, ItemStack> getMatrix() {
         return this.matrix;
     }
 
+    @Override
     public ItemStack getOrderStack() {
         return this.orderStack;
     }
 
+    @Override
     public void setOrderStack(@Nonnull ItemStack orderStack) {
         this.orderStack = orderStack;
     }
