@@ -71,12 +71,20 @@ public class SatchelContainer extends Container {
         if (slot != null && slot.getHasStack()) {
             ItemStack itemstack1 = slot.getStack();
             itemstack = itemstack1.copy();
+
+            if(index >= this.satchelInventory.getSizeInventory()) {
+                //if putting into satchel, abort if it's another satchel
+                if(itemstack.getItem() == OccultismItems.SATCHEL.get())
+                    return ItemStack.EMPTY;
+            }
+            //take out of satchel
             if (index < this.satchelInventory.getSizeInventory()) {
                 if (!this.mergeItemStack(itemstack1, this.satchelInventory.getSizeInventory(),
                         this.inventorySlots.size(), true)) {
                     return ItemStack.EMPTY;
                 }
             }
+            //put into satchel
             else if (!this.mergeItemStack(itemstack1, 0, this.satchelInventory.getSizeInventory(), false)) {
                 return ItemStack.EMPTY;
             }
