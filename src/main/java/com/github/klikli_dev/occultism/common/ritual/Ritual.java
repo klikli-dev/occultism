@@ -562,7 +562,11 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
     }
 
     /**
-     * Prepares the given spirit for spawning by initializing it, setting the taming player, preparing position and rotation, and setting the custom name.
+     * Prepares the given spirit for spawning by
+     *  - initializing it
+     *  - setting the taming player
+     *  - preparing position and rotation
+     *  - setting the custom name.
      *
      * @param spirit             the spirit to prepare.
      * @param world              the world to spawn in.
@@ -572,13 +576,34 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
      */
     public void prepareSpiritForSpawn(SpiritEntity spirit, World world, BlockPos goldenBowlPosition,
                                       PlayerEntity castingPlayer, String spiritName) {
-        spirit.onInitialSpawn((ServerWorld) world, world.getDifficultyForLocation(goldenBowlPosition),
-                SpawnReason.MOB_SUMMONED, null,
-                null);
-        spirit.setTamedBy(castingPlayer);
+        this.prepareSpiritForSpawn(spirit, world, goldenBowlPosition, castingPlayer, spiritName, true);
+    }
+
+    /**
+     * Prepares the given spirit for spawning by
+     *  - initializing it
+     *  - optionally setting the taming player
+     *  - preparing position and rotation
+     *  - setting the custom name.
+     *
+     * @param spirit             the spirit to prepare.
+     * @param world              the world to spawn in.
+     * @param goldenBowlPosition the golden bowl position.
+     * @param castingPlayer      the ritual casting player.
+     * @param spiritName         the spirit name.
+     * @param setTamed           true to tame the spirit
+     */
+    public void prepareSpiritForSpawn(SpiritEntity spirit, World world, BlockPos goldenBowlPosition,
+                                      PlayerEntity castingPlayer, String spiritName, boolean setTamed) {
+        if(setTamed){
+            spirit.setTamedBy(castingPlayer);
+        }
         spirit.setPositionAndRotation(goldenBowlPosition.getX(), goldenBowlPosition.getY(), goldenBowlPosition.getZ(),
                 world.rand.nextInt(360), 0);
         spirit.setCustomName(new StringTextComponent(spiritName));
+        spirit.onInitialSpawn((ServerWorld) world, world.getDifficultyForLocation(goldenBowlPosition),
+                SpawnReason.MOB_SUMMONED, null,
+                null);
     }
 
     /**

@@ -69,7 +69,7 @@ public class SummonWildAfritRitual extends SummonSpiritRitual {
         //set up the entity
         SpiritEntity spirit = OccultismEntities.AFRIT_WILD.get().create(world);
         this.prepareSpiritForSpawn(spirit, world, goldenBowlPosition, castingPlayer,
-                ItemNBTUtil.getBoundSpiritName(copy));
+                ItemNBTUtil.getBoundSpiritName(copy), false);
 
         spirit.setSpiritMaxAge(60 * 60); //1h max time
 
