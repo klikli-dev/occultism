@@ -22,12 +22,12 @@
 
 package com.github.klikli_dev.occultism.common.entity;
 
+import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.registry.OccultismEffects;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.goal.*;
-import net.minecraft.entity.monster.EndermanEntity;
 import net.minecraft.entity.passive.ParrotEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.potion.EffectInstance;
@@ -87,7 +87,9 @@ public class OtherworldBirdEntity extends ParrotEntity {
             if (owner != null && this.getDistance(owner) < MAX_BOOST_DISTANCE) {
                 //close enough to boost
                 owner.addPotionEffect(new EffectInstance(Effects.JUMP_BOOST, 60, 5, false, false));
-                owner.addPotionEffect(new EffectInstance(Effects.SLOW_FALLING, 20*60, 0, false, false));
+                owner.addPotionEffect(new EffectInstance(Effects.SLOW_FALLING,
+                        20 * Occultism.SERVER_CONFIG.spiritJobs.drikwingFamiliarSlowFallingSeconds.get(), 0, false,
+                        false));
                 owner.addPotionEffect(new EffectInstance(OccultismEffects.DOUBLE_JUMP.get(), 120, 4, false, false));
             }
         }
@@ -100,9 +102,11 @@ public class OtherworldBirdEntity extends ParrotEntity {
         this.ownerCached = null;
         super.setOwnerId(ownerId);
     }
+    //endregion Overrides
 
+//region Static Methods
     public static AttributeModifierMap.MutableAttribute registerAttributes() {
         return ParrotEntity.func_234213_eS_(); //=registerAttributes
     }
-    //endregion Overrides
+//endregion Static Methods
 }

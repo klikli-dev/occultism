@@ -67,13 +67,17 @@ public class OccultismServerConfig extends ConfigBase {
         public final CachedFloat tier2CrusherTimeMultiplier;
         public final CachedFloat tier3CrusherTimeMultiplier;
         public final CachedFloat tier4CrusherTimeMultiplier;
+        public final CachedInt drikwingFamiliarSlowFallingSeconds;
         //endregion Fields
 
         //region Initialization
         public SpiritJobSettings(IConfigCache parent, ForgeConfigSpec.Builder builder) {
             super(parent, builder);
             builder.comment("Spirit Job Settings").push("spirit_job");
-
+            this.drikwingFamiliarSlowFallingSeconds = CachedInt.cache(this,
+                    builder.comment(
+                            "The duration for the slow falling effect applied by a drikwing.")
+                            .define("drikwingFamiliarSlowFallingSeconds", 15));
             this.tier1CrusherTimeMultiplier = CachedFloat.cache(this,
                     builder.comment(
                             "The multiplier to each crushing recipe's crushing_time for Tier 1 Crusher Spirits.")
@@ -94,7 +98,6 @@ public class OccultismServerConfig extends ConfigBase {
         }
         //endregion Initialization
     }
-
 
     public class DimensionalMineshaftSettings extends ConfigCategoryBase {
         //region Fields
