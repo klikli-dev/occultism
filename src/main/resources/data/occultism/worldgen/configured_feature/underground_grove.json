@@ -20,7 +20,7 @@
       }
     },
     "decorator": {
-      "type": "nope",
+      "type": "minecraft:nope",
       "config": {
       }
     }

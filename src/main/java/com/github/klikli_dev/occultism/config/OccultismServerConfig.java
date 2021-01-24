@@ -253,7 +253,7 @@ public class OccultismServerConfig extends ConfigBase {
 
                 this.copperOre =
                         new OreSettings("copperOre", BlockTags.BASE_STONE_OVERWORLD, 9,
-                                20, 20, 0, 64, this, builder);
+                                10, 20, 0, 64, this, builder);
                 this.silverOre =
                         new OreSettings("silverOre", BlockTags.BASE_STONE_OVERWORLD, 7,
                                 3, 5, 0, 30, this, builder);

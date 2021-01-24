@@ -1,43 +1,49 @@
 {
-  "type": "minecraft:decorated",
   "config": {
     "feature": {
-      "type": "minecraft:ore",
       "config": {
-        "state": {
-          "Name": "occultism:iesnium_ore_natural",
-          "Properties": {
-            "uncovered": "false"
-          }
+        "feature": {
+          "config": {
+            "feature": {
+              "config": {
+                "target": {
+                  "tag": "minecraft:base_stone_nether",
+                  "predicate_type": "minecraft:tag_match"
+                },
+                "state": {
+                  "Name": "occultism:iesnium_ore_natural",
+                  "Properties": {
+                    "uncovered": "false"
+                  }
+                },
+                "size": 7
+              },
+              "type": "minecraft:ore"
+            },
+            "decorator": {
+              "config": {
+                "bottom_offset": 10,
+                "top_offset": 20,
+                "maximum": 128
+              },
+              "type": "minecraft:range"
+            }
+          },
+          "type": "minecraft:decorated"
         },
-        "target": {
-          "predicate_type": "tag_match",
-          "tag": "minecraft:base_stone_nether"
-        },
-        "size": 7
-      }
+        "decorator": {
+          "config": {},
+          "type": "minecraft:square"
+        }
+      },
+      "type": "minecraft:decorated"
     },
     "decorator": {
-      "type": "decorated",
       "config": {
-        "inner": {
-          "type": "minecraft:range",
-          "config": {
-            "bottom_offset": 10,
-            "top_offset": 20,
-            "maximum": 128
-          }
-        },
-        "outer": {
-          "type": "minecraft:count",
-          "config": {
-            "count": {
-              "base": 10,
-              "spread": 0
-            }
-          }
-        }
-      }
+        "count": 10
+      },
+      "type": "minecraft:count"
     }
-  }
+  },
+  "type": "minecraft:decorated"
 }

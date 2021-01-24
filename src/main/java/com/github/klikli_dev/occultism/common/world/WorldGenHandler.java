@@ -81,7 +81,6 @@ public class WorldGenHandler {
         OccultismServerConfig.WorldGenSettings.UndergroundGroveGenSettings groveGen =
                 Occultism.SERVER_CONFIG.worldGen.undergroundGroveGen;
 
-
         COPPER_ORE = Feature.ORE.withConfiguration(
                 new OreFeatureConfig(
                         new TagMatchRuleTest(oreGen.copperOre.getFillerBlockTag()),
@@ -91,7 +90,7 @@ public class WorldGenHandler {
                                              oreGen.copperOre.bottomOffset.get(),
                                              oreGen.copperOre.topOffset.get(),
                                              oreGen.copperOre.maximum.get())))
-                             .func_242731_b(oreGen.copperOre.count.get()); // func_242731_b =count decorator
+                             .square().func_242731_b(oreGen.copperOre.count.get()); // func_242731_b =count decorator
         Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, modLoc("copper_ore"), COPPER_ORE);
 
         SILVER_ORE = Feature.ORE.withConfiguration(
@@ -103,7 +102,7 @@ public class WorldGenHandler {
                                              oreGen.silverOre.bottomOffset.get(),
                                              oreGen.silverOre.topOffset.get(),
                                              oreGen.silverOre.maximum.get())))
-                             .func_242731_b(oreGen.silverOre.count.get()); // func_242731_b =count decorator
+                             .square().func_242731_b(oreGen.silverOre.count.get()); // func_242731_b =count decorator
         Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, modLoc("silver_ore"), SILVER_ORE);
 
         IESNIUM_ORE = Feature.ORE.withConfiguration(
@@ -115,7 +114,7 @@ public class WorldGenHandler {
                                               oreGen.iesniumOre.bottomOffset.get(),
                                               oreGen.iesniumOre.topOffset.get(),
                                               oreGen.iesniumOre.maximum.get())))
-                              .func_242731_b(oreGen.iesniumOre.count.get()); // func_242731_b =count decorator
+                              .square().func_242731_b(oreGen.iesniumOre.count.get()); // func_242731_b =count decorator
         Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, modLoc("iesnium_ore"), IESNIUM_ORE);
 
         UNDERGROUND_GROVE =

@@ -6,7 +6,8 @@
       "state": {
         "Name": "occultism:otherworld_log_natural",
         "Properties": {
-          "uncovered": "false"
+          "uncovered": "false",
+          "axis": "y"
         }
       }
     },
@@ -15,7 +16,9 @@
       "state": {
         "Name": "occultism:otherworld_leaves_natural",
         "Properties": {
-          "uncovered": "false"
+          "uncovered": "false",
+          "persistent": "false",
+          "distance": "7"
         }
       }
     },
