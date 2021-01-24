@@ -43,6 +43,7 @@ public class OccultismTags {
 
     //Item Tags
     public static final ITag<Item> ELYTRA = makeItemTag(new ResourceLocation(Occultism.MODID,"elytra"));
+    public static final ITag<Item> FRUITS = makeItemTag(new ResourceLocation("forge","fruits"));
 
     //Entity Tags
     public static final ITag<EntityType<?>> AFRIT_ALLIES = makeEntityTypeTag(new ResourceLocation(Occultism.MODID,"afrit_allies"));
