@@ -60,9 +60,11 @@ public class SacrificialBowlRenderer extends TileEntityRenderer<SacrificialBowlT
             offset = offset / 4.0f; //reduce amplitude
             matrixStack.translate(0.5, 0.6 + offset, 0.5);
 
+            //use system time to become independent of game time
+            long systemTime = System.currentTimeMillis();
             //rotate item slowly around y axis
-            float angle = (time + partialTicks) / 16.0f;
-            matrixStack.rotate(new Quaternion(new Vector3f(0, 1, 0), angle, false));
+            float angle = (systemTime / 16) % 360;
+            matrixStack.rotate(Vector3f.YP.rotationDegrees(angle));
 
             //Fixed scale
             float scale = getScale(stack) * 0.5f;
