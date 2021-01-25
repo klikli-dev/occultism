@@ -56,6 +56,7 @@ import net.minecraftforge.items.wrapper.RecipeWrapper;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.swing.border.CompoundBorder;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -219,12 +220,18 @@ public class DimensionalMineshaftTileEntity extends NetworkedTileEntity implemen
     }
 
     public static int getMaxMiningTime(ItemStack stack) {
-        int time = stack.getOrCreateTag().getInt(MAX_MINING_TIME_TAG);
+        CompoundNBT tag = stack.getTag();
+        if(tag == null)
+            return DEFAULT_MAX_MINING_TIME;
+        int time = tag.getInt(MAX_MINING_TIME_TAG);
         return time <= 0 ? DEFAULT_MAX_MINING_TIME : time;
     }
 
     public static int getRollsPerOperation(ItemStack stack) {
-        int rolls = stack.getOrCreateTag().getInt(ROLLS_PER_OPERATION_TAG);
+        CompoundNBT tag = stack.getTag();
+        if(tag == null)
+            return DEFAULT_ROLLS_PER_OPERATION;
+        int rolls = tag.getInt(ROLLS_PER_OPERATION_TAG);
         return rolls <= 0 ? DEFAULT_ROLLS_PER_OPERATION : rolls;
     }
     //endregion Static Methods
@@ -240,6 +247,9 @@ public class DimensionalMineshaftTileEntity extends NetworkedTileEntity implemen
                                                         new RecipeWrapper(inputHandler), this.world);
             this.possibleResults = recipes.stream().map(r -> r.getWeightedOutput()).collect(Collectors.toList());
         }
+
+        if(this.possibleResults.size() == 0)
+            return;
 
         for (int i = 0; i < this.rollsPerOperation; i++) {
             WeightedIngredient result = WeightedRandom.getRandomItem(this.world.rand, this.possibleResults);
