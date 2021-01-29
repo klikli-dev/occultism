@@ -214,7 +214,7 @@ public class BookOfCallingItem extends Item implements IIngredientPreventCraftin
 
         //books can only control the spirit that is bound to them.
         if (!entitySpirit.getUniqueID().equals(ItemNBTUtil.getSpiritEntityUUID(stack))) {
-            //Creative players can re-link the book.
+            //re-link book
             if (player.isSneaking()) {
                 if(this.targetSpirit.test(entitySpirit)){
                     ItemNBTUtil.setSpiritEntityUUID(stack, entitySpirit.getUniqueID());
