@@ -90,9 +90,11 @@ public class StorageControllerRecipeTransferHandler<T extends Container & IStora
         }
 
         // can only send shaped/shapeless recipes to storage controller
-        if (!(recipe instanceof ShapedRecipe) && !(recipe instanceof ShapelessRecipe)) {
-            return this.helper.createUserErrorWithTooltip(I18n.format("jei." + Occultism.MODID + "error.invalid_type"));
-        }
+        //  disabled this -> not a good idea for custom recipes that fit in 3x3 such as botania
+        //  not needed either -> the 3x3 check handles anything that is invalid and still registers as crafting.
+//        if (!(recipe instanceof ShapedRecipe) && !(recipe instanceof ShapelessRecipe)) {
+//            return this.helper.createUserErrorWithTooltip(I18n.format("jei." + Occultism.MODID + "error.invalid_type"));
+//        }
 
         //if recipe is in recipe manager send by id, otherwise fallback to ingredient list
         if (player.getEntityWorld().getRecipeManager().getRecipe(recipe.getId()).isPresent()) {
