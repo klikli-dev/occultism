@@ -48,8 +48,12 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.items.ItemHandlerHelper;
 import org.lwjgl.opengl.GL11;
+import top.theillusivec4.curios.api.CuriosApi;
+import top.theillusivec4.curios.api.SlotTypePreset;
+import top.theillusivec4.curios.api.type.inventory.IDynamicStackHandler;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 public class ThirdEyeEffectRenderer {
@@ -172,10 +176,32 @@ public class ThirdEyeEffectRenderer {
         });
     }
 
-    public void onThirdEyeTick(TickEvent.PlayerTickEvent event) {
+    public boolean hasGoggles(PlayerEntity player){
+        ItemStack helmet = player.getItemStackFromSlot(EquipmentSlotType.HEAD);
+        if(helmet.getItem() instanceof OtherworldGogglesItem)
+            return true;
 
-        ItemStack helmet = event.player.getItemStackFromSlot(EquipmentSlotType.HEAD);
-        boolean hasGoggles = helmet.getItem() instanceof OtherworldGogglesItem;
+        Optional<Boolean> hasGoggles = CuriosApi.getCuriosHelper().getCuriosHandler(player).map(curiosHandler -> {
+
+            Optional<Boolean> hasGogglesStack = curiosHandler.getStacksHandler(SlotTypePreset.HEAD.getIdentifier()).map(slotHandler -> {
+                IDynamicStackHandler stackHandler = slotHandler.getStacks();
+                for (int i = 0; i < stackHandler.getSlots(); i++) {
+                    ItemStack stack = stackHandler.getStackInSlot(i);
+                    if(stack.getItem() instanceof OtherworldGogglesItem){
+                        return true;
+
+                    }
+                }
+                return false;
+            });
+            return hasGogglesStack.orElse(false);
+        });
+
+        return hasGoggles.orElse(false);
+    }
+
+    public void onThirdEyeTick(TickEvent.PlayerTickEvent event) {
+        boolean hasGoggles = this.hasGoggles(event.player);
 
         EffectInstance effect = event.player.getActivePotionEffect(OccultismEffects.THIRD_EYE.get());
         int duration = effect == null ? 0 : effect.getDuration();
@@ -207,8 +233,7 @@ public class ThirdEyeEffectRenderer {
     }
 
     public void onGogglesTick(TickEvent.PlayerTickEvent event){
-        ItemStack helmet = event.player.getItemStackFromSlot(EquipmentSlotType.HEAD);
-        boolean hasGoggles = helmet.getItem() instanceof OtherworldGogglesItem;
+        boolean hasGoggles = this.hasGoggles(event.player);
         if(hasGoggles){
             if(!this.gogglesActiveLastTick){
                 this.gogglesActiveLastTick = true;
