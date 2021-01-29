@@ -260,6 +260,7 @@ public class BookOfCallingItem extends Item implements IIngredientPreventCraftin
                 Long deathTime = spiritDeathRegister.get(spiritID);
                 if (deathTime != null && deathTime < worldIn.getGameTime()) {
                     spiritDeathRegister.remove(spiritID);
+                    stack.getTag().putBoolean(ItemNBTUtil.SPIRIT_DEAD_TAG, true);
                     stack.getTag().remove(ItemNBTUtil.SPIRIT_UUID_TAG);
                 }
             }
@@ -273,8 +274,7 @@ public class BookOfCallingItem extends Item implements IIngredientPreventCraftin
                                ITooltipFlag flagIn) {
         super.addInformation(stack, worldIn, tooltip, flagIn);
         tooltip.add(new TranslationTextComponent(this.getTranslationKeyBase() +
-                                                 (ItemNBTUtil.getSpiritEntityUUID(stack) !=
-                                                  null ? ".tooltip" : ".tooltip_dead"),
+                                                 (ItemNBTUtil.getSpiritDead(stack) ? ".tooltip_dead" : ".tooltip"),
                 TextUtil.formatDemonName(ItemNBTUtil.getBoundSpiritName(stack))));
     }
 

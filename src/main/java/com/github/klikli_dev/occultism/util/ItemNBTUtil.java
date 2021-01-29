@@ -40,6 +40,7 @@ public class ItemNBTUtil {
     //region Fields
     public static final String SPIRIT_NAME_TAG = "spiritName";
     public static final String SPIRIT_UUID_TAG = "spiritUUID";
+    public static final String SPIRIT_DEAD_TAG = "spiritDead";
     public static final String SPIRIT_DATA_TAG = "spiritData";
     public static final String ITEM_MODE_TAG = "itemMode";
     public static final String WORK_AREA_SIZE_TAG = "workAreaSize";
@@ -186,7 +187,6 @@ public class ItemNBTUtil {
     }
 
     public static UUID getSpiritEntityUUID(ItemStack stack) {
-        CompoundNBT compound = stack.getTag();
         if (!stack.getOrCreateTag().contains(SPIRIT_UUID_TAG))
             return null;
         return stack.getTag().getCompound(SPIRIT_UUID_TAG).getUniqueId("");
@@ -196,6 +196,10 @@ public class ItemNBTUtil {
         CompoundNBT uuidCompound = new CompoundNBT();
         uuidCompound.putUniqueId("", id);
         stack.setTagInfo(SPIRIT_UUID_TAG, uuidCompound);
+    }
+
+    public static boolean getSpiritDead(ItemStack stack) {
+        return stack.getOrCreateTag().getBoolean(SPIRIT_DEAD_TAG);
     }
 
     public static CompoundNBT getSpiritEntityData(ItemStack stack) {
