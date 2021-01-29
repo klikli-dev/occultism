@@ -27,6 +27,7 @@ import com.github.klikli_dev.occultism.common.block.otherworld.IOtherworldBlock;
 import com.github.klikli_dev.occultism.common.item.armor.OtherworldGogglesItem;
 import com.github.klikli_dev.occultism.api.common.data.OtherworldBlockTier;
 import com.github.klikli_dev.occultism.registry.OccultismEffects;
+import com.github.klikli_dev.occultism.util.CuriosUtil;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.block.BlockState;
@@ -176,32 +177,8 @@ public class ThirdEyeEffectRenderer {
         });
     }
 
-    public boolean hasGoggles(PlayerEntity player){
-        ItemStack helmet = player.getItemStackFromSlot(EquipmentSlotType.HEAD);
-        if(helmet.getItem() instanceof OtherworldGogglesItem)
-            return true;
-
-        Optional<Boolean> hasGoggles = CuriosApi.getCuriosHelper().getCuriosHandler(player).map(curiosHandler -> {
-
-            Optional<Boolean> hasGogglesStack = curiosHandler.getStacksHandler(SlotTypePreset.HEAD.getIdentifier()).map(slotHandler -> {
-                IDynamicStackHandler stackHandler = slotHandler.getStacks();
-                for (int i = 0; i < stackHandler.getSlots(); i++) {
-                    ItemStack stack = stackHandler.getStackInSlot(i);
-                    if(stack.getItem() instanceof OtherworldGogglesItem){
-                        return true;
-
-                    }
-                }
-                return false;
-            });
-            return hasGogglesStack.orElse(false);
-        });
-
-        return hasGoggles.orElse(false);
-    }
-
     public void onThirdEyeTick(TickEvent.PlayerTickEvent event) {
-        boolean hasGoggles = this.hasGoggles(event.player);
+        boolean hasGoggles = CuriosUtil.hasGoggles(event.player);
 
         EffectInstance effect = event.player.getActivePotionEffect(OccultismEffects.THIRD_EYE.get());
         int duration = effect == null ? 0 : effect.getDuration();
@@ -233,7 +210,7 @@ public class ThirdEyeEffectRenderer {
     }
 
     public void onGogglesTick(TickEvent.PlayerTickEvent event){
-        boolean hasGoggles = this.hasGoggles(event.player);
+        boolean hasGoggles = CuriosUtil.hasGoggles(event.player);
         if(hasGoggles){
             if(!this.gogglesActiveLastTick){
                 this.gogglesActiveLastTick = true;
