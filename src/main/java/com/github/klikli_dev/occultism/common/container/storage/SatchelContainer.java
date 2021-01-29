@@ -24,6 +24,7 @@ package com.github.klikli_dev.occultism.common.container.storage;
 
 import com.github.klikli_dev.occultism.registry.OccultismContainers;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
+import com.github.klikli_dev.occultism.util.CuriosUtil;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.IInventory;
@@ -102,6 +103,9 @@ public class SatchelContainer extends Container {
 
     @Override
     public boolean canInteractWith(PlayerEntity player) {
+        if(this.selectedSlot == -1){
+            return CuriosUtil.getBackpack(player).getItem() == OccultismItems.SATCHEL.get();
+        }
         return player.inventory.getStackInSlot(this.selectedSlot).getItem() == OccultismItems.SATCHEL.get();
     }
     //endregion Overrides

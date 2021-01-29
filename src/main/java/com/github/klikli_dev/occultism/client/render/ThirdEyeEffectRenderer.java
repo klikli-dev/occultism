@@ -27,6 +27,7 @@ import com.github.klikli_dev.occultism.common.block.otherworld.IOtherworldBlock;
 import com.github.klikli_dev.occultism.common.item.armor.OtherworldGogglesItem;
 import com.github.klikli_dev.occultism.api.common.data.OtherworldBlockTier;
 import com.github.klikli_dev.occultism.registry.OccultismEffects;
+import com.github.klikli_dev.occultism.util.CuriosUtil;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.block.BlockState;
@@ -48,8 +49,12 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.items.ItemHandlerHelper;
 import org.lwjgl.opengl.GL11;
+import top.theillusivec4.curios.api.CuriosApi;
+import top.theillusivec4.curios.api.SlotTypePreset;
+import top.theillusivec4.curios.api.type.inventory.IDynamicStackHandler;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 public class ThirdEyeEffectRenderer {
@@ -173,9 +178,7 @@ public class ThirdEyeEffectRenderer {
     }
 
     public void onThirdEyeTick(TickEvent.PlayerTickEvent event) {
-
-        ItemStack helmet = event.player.getItemStackFromSlot(EquipmentSlotType.HEAD);
-        boolean hasGoggles = helmet.getItem() instanceof OtherworldGogglesItem;
+        boolean hasGoggles = CuriosUtil.hasGoggles(event.player);
 
         EffectInstance effect = event.player.getActivePotionEffect(OccultismEffects.THIRD_EYE.get());
         int duration = effect == null ? 0 : effect.getDuration();
@@ -207,8 +210,7 @@ public class ThirdEyeEffectRenderer {
     }
 
     public void onGogglesTick(TickEvent.PlayerTickEvent event){
-        ItemStack helmet = event.player.getItemStackFromSlot(EquipmentSlotType.HEAD);
-        boolean hasGoggles = helmet.getItem() instanceof OtherworldGogglesItem;
+        boolean hasGoggles = CuriosUtil.hasGoggles(event.player);
         if(hasGoggles){
             if(!this.gogglesActiveLastTick){
                 this.gogglesActiveLastTick = true;
