@@ -7,7 +7,7 @@
   ],
   "key": {
     "t": {
-      "item": "occultism:tallow"
+      "tag": "forge:tallow"
     },
     "s": {
       "tag": "forge:string"
