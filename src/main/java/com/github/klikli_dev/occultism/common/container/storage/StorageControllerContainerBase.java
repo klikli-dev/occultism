@@ -41,7 +41,9 @@ import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.ICraftingRecipe;
 import net.minecraft.item.crafting.IRecipeType;
+import net.minecraft.network.play.server.SSetSlotPacket;
 import net.minecraft.util.NonNullList;
+import net.minecraft.world.World;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.wrapper.PlayerMainInvWrapper;
 
@@ -185,19 +187,31 @@ public abstract class StorageControllerContainerBase extends Container implement
 
     protected abstract void setupPlayerHotbar();
 
-    protected void findRecipeForMatrix() {
-        //TODO: if there are issues, set up a copy of this based on WorkBenchContainer func_217066_a
-        //      and call it onCraftingMatrixChanged(). Send slot packet!
-        this.currentRecipe = null;
-        Optional<ICraftingRecipe> optional = this.player.world.getRecipeManager()
-                                                     .getRecipe(IRecipeType.CRAFTING, this.matrix, this.player.world);
+    protected void findRecipeForMatrixClient() {
+        Optional<ICraftingRecipe> optional = this.player.world.getRecipeManager().getRecipe(IRecipeType.CRAFTING, this.matrix, this.player.world);
         if (optional.isPresent()) {
             this.currentRecipe = optional.get();
-            ItemStack itemstack = this.currentRecipe.getCraftingResult(this.matrix);
-            this.result.setInventorySlotContents(0, itemstack);
         }
-        else {
-            this.result.setInventorySlotContents(0, ItemStack.EMPTY);
+    }
+
+    protected void findRecipeForMatrix() {
+        //TODO: if there are issues, set up a copy of this based on WorkBenchContainer func_217066_a / updateCraftingResult
+        //      and call it onCraftingMatrixChanged(). Send slot packet!
+        if (!this.player.world.isRemote) {
+            this.currentRecipe = null;
+            ServerPlayerEntity serverplayerentity = (ServerPlayerEntity)player;
+            ItemStack itemstack = ItemStack.EMPTY;
+            Optional<ICraftingRecipe> optional = this.player.world.getServer().getRecipeManager().getRecipe(IRecipeType.CRAFTING, this.matrix, this.player.world);
+            if (optional.isPresent()) {
+                ICraftingRecipe icraftingrecipe = optional.get();
+                if (this.result.canUseRecipe(this.player.world, serverplayerentity, icraftingrecipe)) {
+                    itemstack = icraftingrecipe.getCraftingResult(this.matrix);
+                    this.currentRecipe = icraftingrecipe;
+                }
+            }
+
+            this.result.setInventorySlotContents(0, itemstack);
+            serverplayerentity.connection.sendPacket(new SSetSlotPacket(this.windowId, 0, itemstack));
         }
     }
 
@@ -206,7 +220,7 @@ public abstract class StorageControllerContainerBase extends Container implement
             return;
         }
 
-        this.findRecipeForMatrix();
+        this.findRecipeForMatrixClient();
         if (this.currentRecipe == null) {
             return;
         }
