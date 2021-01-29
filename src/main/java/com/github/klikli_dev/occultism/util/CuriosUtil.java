@@ -23,14 +23,19 @@
 package com.github.klikli_dev.occultism.util;
 
 import com.github.klikli_dev.occultism.common.item.armor.OtherworldGogglesItem;
+import com.github.klikli_dev.occultism.common.item.storage.SatchelItem;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.util.LazyOptional;
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.SlotTypePreset;
+import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
+import top.theillusivec4.curios.api.type.inventory.ICurioStacksHandler;
 import top.theillusivec4.curios.api.type.inventory.IDynamicStackHandler;
 
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class CuriosUtil {
     public static boolean hasGoggles(PlayerEntity player){
@@ -58,4 +63,21 @@ public class CuriosUtil {
         return hasGoggles.orElse(false);
     }
 
+    public static ItemStack getBackpack(PlayerEntity player)
+    {
+        Optional<ItemStack> hasBackpack = CuriosApi.getCuriosHelper().getCuriosHandler(player).map(curiosHandler -> {
+            Optional<ItemStack> hasBackpackStack = curiosHandler.getStacksHandler(SlotTypePreset.BACK.getIdentifier()).map(slotHandler -> {
+                IDynamicStackHandler stackHandler = slotHandler.getStacks();
+                for (int i = 0; i < stackHandler.getSlots(); i++) {
+                    ItemStack stack = stackHandler.getStackInSlot(i);
+                    if(stack.getItem() instanceof SatchelItem){
+                        return stack;
+                    }
+                }
+                return ItemStack.EMPTY;
+            });
+            return hasBackpackStack.orElse(ItemStack.EMPTY);
+        });
+        return hasBackpack.orElse(ItemStack.EMPTY);
+    }
 }

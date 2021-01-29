@@ -46,6 +46,7 @@ import net.minecraft.client.renderer.entity.EndermanRenderer;
 import net.minecraft.client.renderer.entity.EndermiteRenderer;
 import net.minecraft.client.renderer.entity.SkeletonRenderer;
 import net.minecraft.client.renderer.entity.WitherSkeletonRenderer;
+import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.item.ItemModelsProperties;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
@@ -55,28 +56,43 @@ import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import org.lwjgl.glfw.GLFW;
 
 @Mod.EventBusSubscriber(modid = Occultism.MODID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ClientSetupEventHandler {
 
-//region Static Methods
+    //region Fields
+    public static final KeyBinding KEY_BACKPACK =
+            new KeyBinding("key.occultism.backpack", GLFW.GLFW_KEY_B, "key.categories.inventory");
+    //endregion Fields
+
+    //region Static Methods
     @SubscribeEvent
-    public static void onClientSetup(FMLClientSetupEvent event){
+    public static void onClientSetup(FMLClientSetupEvent event) {
         //Register client side event handlers
         MinecraftForge.EVENT_BUS.register(Occultism.SELECTED_BLOCK_RENDERER);
         MinecraftForge.EVENT_BUS.register(Occultism.THIRD_EYE_EFFECT_RENDERER);
+
+        //keybindings
+        ClientRegistry.registerKeyBinding(KEY_BACKPACK);
 
         //Register Entity Renderers
         RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.FOLIOT.get(), FoliotRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.DJINNI.get(), DjinniRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.AFRIT.get(), AfritRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.AFRIT_WILD.get(), AfritRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.POSSESSED_ENDERMITE.get(), EndermiteRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.POSSESSED_SKELETON.get(), SkeletonRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.POSSESSED_ENDERMAN.get(), EndermanRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.WILD_HUNT_SKELETON.get(), SkeletonRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.WILD_HUNT_WITHER_SKELETON.get(), WitherSkeletonRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.OTHERWORLD_BIRD.get(), OtherworldBirdRenderer::new);
+        RenderingRegistry
+                .registerEntityRenderingHandler(OccultismEntities.POSSESSED_ENDERMITE.get(), EndermiteRenderer::new);
+        RenderingRegistry
+                .registerEntityRenderingHandler(OccultismEntities.POSSESSED_SKELETON.get(), SkeletonRenderer::new);
+        RenderingRegistry
+                .registerEntityRenderingHandler(OccultismEntities.POSSESSED_ENDERMAN.get(), EndermanRenderer::new);
+        RenderingRegistry
+                .registerEntityRenderingHandler(OccultismEntities.WILD_HUNT_SKELETON.get(), SkeletonRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.WILD_HUNT_WITHER_SKELETON.get(),
+                WitherSkeletonRenderer::new);
+        RenderingRegistry
+                .registerEntityRenderingHandler(OccultismEntities.OTHERWORLD_BIRD.get(), OtherworldBirdRenderer::new);
 
         //Register Tile Entity Renderers
         ClientRegistry.bindTileEntityRenderer(OccultismTiles.STORAGE_CONTROLLER.get(), StorageControllerRenderer::new);
@@ -99,7 +115,7 @@ public class ClientSetupEventHandler {
         RenderTypeLookup.setRenderLayer(OccultismBlocks.OTHERWORLD_LEAVES.get(), RenderType.getCutoutMipped());
         RenderTypeLookup.setRenderLayer(OccultismBlocks.OTHERWORLD_LEAVES_NATURAL.get(), RenderType.getCutoutMipped());
 
-       registerItemModelProperties(event);
+        registerItemModelProperties(event);
 
         //Not safe to call during parallel load, so register to run threadsafe.
         event.enqueueWork(() -> {
@@ -116,9 +132,8 @@ public class ClientSetupEventHandler {
 
         Occultism.LOGGER.info("Client setup complete.");
     }
-//endregion Static Methods
 
-    public static void registerItemModelProperties(FMLClientSetupEvent event){
+    public static void registerItemModelProperties(FMLClientSetupEvent event) {
 
         //Not safe to call during parallel load, so register to run threadsafe
         event.enqueueWork(() -> {
@@ -139,4 +154,5 @@ public class ClientSetupEventHandler {
             Occultism.LOGGER.debug("Registered Item Properties");
         });
     }
+    //endregion Static Methods
 }

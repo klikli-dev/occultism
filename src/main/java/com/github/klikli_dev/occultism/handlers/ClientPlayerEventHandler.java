@@ -23,13 +23,17 @@
 package com.github.klikli_dev.occultism.handlers;
 
 import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.client.gui.storage.SatchelScreen;
 import com.github.klikli_dev.occultism.network.MessageDoubleJump;
+import com.github.klikli_dev.occultism.network.MessageOpenSatchel;
 import com.github.klikli_dev.occultism.network.OccultismPackets;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
+import com.github.klikli_dev.occultism.util.CuriosUtil;
 import com.github.klikli_dev.occultism.util.Math3DUtil;
 import com.github.klikli_dev.occultism.util.MovementUtil;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.audio.SimpleSound;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
@@ -57,10 +61,20 @@ public class ClientPlayerEventHandler {
     @SubscribeEvent
     public static void onKeyInput(final InputEvent.KeyInputEvent evt) {
         Minecraft minecraft = Minecraft.getInstance();
-        if (!minecraft.isGameFocused() || evt.getAction() != GLFW_PRESS) {
-            return;
+
+        //close satchel
+        if(minecraft.currentScreen instanceof SatchelScreen && ClientSetupEventHandler.KEY_BACKPACK.isPressed()){
+            minecraft.player.closeScreen();
         }
-        if (minecraft.gameSettings.keyBindJump.isKeyDown()) {
+        //open satchel
+        else if(minecraft.player != null & minecraft.currentScreen == null && ClientSetupEventHandler.KEY_BACKPACK.isPressed()){
+            if(!CuriosUtil.getBackpack(minecraft.player).isEmpty()){
+                OccultismPackets.sendToServer(new MessageOpenSatchel());
+                minecraft.getSoundHandler().play(SimpleSound.master(SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0.75F, 1.0F));
+            }
+        }
+        //do double jump
+        else if (evt.getAction() == GLFW_PRESS && minecraft.gameSettings.keyBindJump.isKeyDown()) {
 
             if (minecraft.player != null && MovementUtil.doubleJump(minecraft.player)) {
                 OccultismPackets.sendToServer(new MessageDoubleJump());
