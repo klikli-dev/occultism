@@ -49,14 +49,6 @@ public class SummonFoliotPentacle extends Pentacle {
     //endregion Fields
 
     //region Overrides
-    @Override
-    protected void setupMapping() {
-        super.setupMapping();
-        this.mapping.addAll(Arrays.asList(
-                'C', this.api.predicateMatcher(OccultismBlocks.CANDLE_WHITE.get(),
-                        b -> b.getBlock() instanceof CandleBlock)
-        ));
-    }
 
     @Override
     protected IMultiblock setupMultiblock() {

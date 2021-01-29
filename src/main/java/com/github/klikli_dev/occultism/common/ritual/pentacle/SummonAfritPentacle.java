@@ -57,8 +57,7 @@ public class SummonAfritPentacle extends Pentacle {
         super.setupMapping();
         this.mapping.addAll(Arrays.asList(
                 'Z', this.api.looseBlockMatcher(Blocks.SKELETON_SKULL),
-                'N', this.api.looseBlockMatcher(Blocks.WITHER_SKELETON_SKULL),
-                'C', this.api.predicateMatcher(OccultismBlocks.CANDLE_WHITE.get(), b -> b.getBlock() instanceof CandleBlock)
+                'N', this.api.looseBlockMatcher(Blocks.WITHER_SKELETON_SKULL)
         ));
     }
 

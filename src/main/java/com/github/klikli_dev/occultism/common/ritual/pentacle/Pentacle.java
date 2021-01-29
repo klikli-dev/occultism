@@ -22,7 +22,9 @@
 
 package com.github.klikli_dev.occultism.common.ritual.pentacle;
 
+import com.github.klikli_dev.occultism.common.block.CandleBlock;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
+import com.github.klikli_dev.occultism.registry.OccultismTags;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 import vazkii.patchouli.api.IMultiblock;
@@ -74,6 +76,7 @@ public abstract class Pentacle extends ForgeRegistryEntry<Pentacle> {
                 'G', this.api.looseBlockMatcher(OccultismBlocks.CHALK_GLYPH_GOLD.get()),
                 'P', this.api.looseBlockMatcher(OccultismBlocks.CHALK_GLYPH_PURPLE.get()),
                 'R', this.api.looseBlockMatcher(OccultismBlocks.CHALK_GLYPH_RED.get()),
+                'C', this.api.predicateMatcher(OccultismBlocks.CANDLE_WHITE.get(), b -> OccultismTags.CANDLES.contains(b.getBlock())),
                 ' ', this.api.anyMatcher())
         );
     }

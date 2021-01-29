@@ -49,15 +49,6 @@ public class PossessFoliotPentacle extends Pentacle {
 
     //region Overrides
     @Override
-    protected void setupMapping() {
-        super.setupMapping();
-        this.mapping.addAll(Arrays.asList(
-                'C', this.api.predicateMatcher(OccultismBlocks.CANDLE_WHITE.get(),
-                        b -> b.getBlock() instanceof CandleBlock)
-        ));
-    }
-
-    @Override
     protected IMultiblock setupMultiblock() {
         return this.api.makeMultiblock(this.pattern, this.mapping.toArray()).setSymmetrical(true);
     }

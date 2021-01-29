@@ -56,8 +56,7 @@ public class SummonWildGreaterSpiritPentacle extends Pentacle {
     protected void setupMapping() {
         super.setupMapping();
         this.mapping.addAll(Arrays.asList(
-                'Z', this.api.looseBlockMatcher(Blocks.SKELETON_SKULL),
-                'C', this.api.predicateMatcher(OccultismBlocks.CANDLE_WHITE.get(), b -> b.getBlock() instanceof CandleBlock)
+                'Z', this.api.looseBlockMatcher(Blocks.SKELETON_SKULL)
         ));
     }
 
