@@ -12,6 +12,11 @@
       "type": "multiblock",
       "name": "",
       "multiblock_id": "occultism:pentacle.craft_afrit"
+    },
+    {
+      "type": "text",
+      "title": "Uses",
+      "text": "$(li)$(l:rituals/crafting/craft_stabilizer_tier3)Storage Stabilizer Tier 3$(/l)$()"
     }
   ]
 }
