@@ -23,6 +23,7 @@
 package com.github.klikli_dev.occultism.common.item.debug;
 
 import com.github.klikli_dev.occultism.registry.OccultismItems;
+import com.github.klikli_dev.occultism.util.TextUtil;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -31,6 +32,9 @@ import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
+import net.minecraft.util.Util;
+import net.minecraft.util.datafix.fixes.EntityUUID;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.items.ItemHandlerHelper;
 
@@ -47,11 +51,12 @@ public class DebugWandItem extends Item {
     public ActionResultType onItemUse(ItemUseContext context) {
 
         if (!context.getWorld().isRemote) {
-            PlayerEntity player = context.getPlayer();
-
-            ItemStack spirit = new ItemStack(OccultismItems.MINER_DEBUG_UNSPECIALIZED.get());
-            spirit.getItem().onCreated(spirit, context.getWorld(), context.getPlayer());
-            ItemHandlerHelper.giveItemToPlayer(player, spirit);
+//            PlayerEntity player = context.getPlayer();
+//
+//            ItemStack spirit = new ItemStack(OccultismItems.MINER_DEBUG_UNSPECIALIZED.get());
+//            spirit.getItem().onCreated(spirit, context.getWorld(), context.getPlayer());
+//            ItemHandlerHelper.giveItemToPlayer(player, spirit);
+            context.getPlayer().sendMessage(new StringTextComponent(TextUtil.generateName()), Util.DUMMY_UUID);
         }
         return ActionResultType.SUCCESS;
     }

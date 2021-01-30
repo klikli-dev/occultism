@@ -21,7 +21,7 @@
     {
       "type": "spotlight",
       "item": "occultism:candle_white",
-      "text": "Candles provide stability to rituals and are an important part of almost all pentacles. To make candles, kill large animals like pigs, cows or sheep with a Butcher Knife to harvest their fat in the form of tallow and use that to craft candles."
+      "text": "Candles provide stability to rituals and are an important part of almost all pentacles. To make candles, kill large animals like pigs, cows or sheep with a Butcher Knife to harvest their fat in the form of tallow and use that to craft candles. $(bold)Candles also act like bookshelves for enchantment purposes.$()"
     },
     {
       "type": "spotlight",

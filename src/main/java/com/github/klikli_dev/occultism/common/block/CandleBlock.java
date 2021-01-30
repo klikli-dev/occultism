@@ -92,6 +92,11 @@ public class CandleBlock extends Block {
     }
 
     @Override
+    public float getEnchantPowerBonus(BlockState state, IWorldReader world, BlockPos pos) {
+        return 1;
+    }
+
+    @Override
     public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
         BlockPos down = pos.down();
         BlockState downState = worldIn.getBlockState(down);

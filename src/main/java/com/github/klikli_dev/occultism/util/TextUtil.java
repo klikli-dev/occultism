@@ -26,7 +26,6 @@ import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.IFormattableTextComponent;
-import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.loading.moddiscovery.ModInfo;
@@ -46,6 +45,7 @@ public class TextUtil {
     private static boolean modNamesInitialized = false;
 
     private static final String[] SYLLABLE1 = {"Kr", "Ca", "Ra", "Mrok", "Cru", "Ray", "Bre", "Zed", "Drak", "Mor", "Jag", "Mer", "Jar", "Mjol", "Zork", "Mad", "Cry", "Zur", "Creo", "Azak", "Azur", "Rei", "Cro", "Mar", "Luk", "Bar"};
+    private static final String[] EASTER_EGGS = {"KliKli", "Najlitarvan", "TheBoo", "Ridanisaurus"};
     private static final String[] SYLLABLE2 = {"air", "ir", "mi", "sor", "mee", "clo", "red", "cra", "ark", "arc", "miri", "lori", "cres", "mur", "zer", "marac", "zoir", "slamar", "salmar", "urak", "tim"};
     private static final String[] SYLLABLE3 = {"d", "ed", "ark", "arc", "es", "er", "der", "tron", "med", "ure", "zur", "cred", "mur", "aeus"};
     private static Random random = new Random();
@@ -140,8 +140,9 @@ public class TextUtil {
      * @return a random name from the 3 syllable variations.
      */
     public static String generateName() {
-        return SYLLABLE1[random.nextInt(SYLLABLE1.length)] + SYLLABLE2[random.nextInt(SYLLABLE2.length)] +
-               SYLLABLE3[random.nextInt(SYLLABLE3.length)];
+        return random.nextInt(20) == 0 ? EASTER_EGGS[random.nextInt(
+                EASTER_EGGS.length)]  : SYLLABLE1[random.nextInt(SYLLABLE1.length)] + SYLLABLE2[random.nextInt(SYLLABLE2.length)] +
+                                        SYLLABLE3[random.nextInt(SYLLABLE3.length)];
     }
     //endregion Static Methods
 }
