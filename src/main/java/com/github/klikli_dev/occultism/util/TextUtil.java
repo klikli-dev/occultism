@@ -45,7 +45,12 @@ public class TextUtil {
     private static boolean modNamesInitialized = false;
 
     private static final String[] SYLLABLE1 = {"Kr", "Ca", "Ra", "Mrok", "Cru", "Ray", "Bre", "Zed", "Drak", "Mor", "Jag", "Mer", "Jar", "Mjol", "Zork", "Mad", "Cry", "Zur", "Creo", "Azak", "Azur", "Rei", "Cro", "Mar", "Luk", "Bar"};
-    private static final String[] EASTER_EGGS = {"KliKli", "Najlitarvan", "TheBoo", "Ridanisaurus"};
+    //KliKli: Obvious :)
+    //Ridanisaurus: Pretty things!
+    //Najlitarvan: Various contributions & came up with this idea
+    //TheBoo: Ambassador to E6 and many many contributions
+    //Legiaseth: Tried to overload the storage system with nbt. Genius contraption using create to auto-create as much nbt as possible. Love it.
+    private static final String[] EASTER_EGGS = {"KliKli", "Najlitarvan", "TheBoo", "Ridanisaurus", "Legiaseth"};
     private static final String[] SYLLABLE2 = {"air", "ir", "mi", "sor", "mee", "clo", "red", "cra", "ark", "arc", "miri", "lori", "cres", "mur", "zer", "marac", "zoir", "slamar", "salmar", "urak", "tim"};
     private static final String[] SYLLABLE3 = {"d", "ed", "ark", "arc", "es", "er", "der", "tron", "med", "ure", "zur", "cred", "mur", "aeus"};
     private static Random random = new Random();
