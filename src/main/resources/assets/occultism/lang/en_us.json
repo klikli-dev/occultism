@@ -367,6 +367,7 @@
     "advancements.occultism.summon_foliot_crusher.title" : "Ore Doubling",
     "advancements.occultism.summon_foliot_crusher.description" : "Crunch! Crunch! Crunch!",
     "_comment": "Keybinds",
+    "key.occultism.category": "Occultism",
     "key.occultism.backpack": "Open Satchel",
     "_comment": "JEI",
     "occultism.jei.spirit_fire": "Spiritfire",

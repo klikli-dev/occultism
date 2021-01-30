@@ -63,7 +63,7 @@ public class ClientSetupEventHandler {
 
     //region Fields
     public static final KeyBinding KEY_BACKPACK =
-            new KeyBinding("key.occultism.backpack", GLFW.GLFW_KEY_B, "key.categories.inventory");
+            new KeyBinding("key.occultism.backpack", GLFW.GLFW_KEY_B, "key.occultism.category");
     //endregion Fields
 
     //region Static Methods
