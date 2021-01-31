@@ -62,23 +62,30 @@ public class StorageControllerRenderer extends TileEntityRenderer<StorageControl
         if (this.stack == null)
             this.stack = new ItemStack(OccultismItems.DIMENSIONAL_MATRIX.get());
 
-        long time = tileEntity.getWorld().getGameTime();
         matrixStack.push();
 
-        double offset = Math.sin((time + partialTicks) / 8) / 16.0;
+        //use system time to become independent of game time
+        long systemTime = System.currentTimeMillis();
+
+        double systemTimeRadSin8 = Math.sin(Math.toRadians(systemTime / 8));
+        double systemTimeRadSin16 = Math.sin(Math.toRadians(systemTime / 16));
+
+        double offset = systemTimeRadSin16 / 16.0;
         matrixStack.translate(0.5, 1.75 + offset, 0.5);
+
         //rotate item slowly around y axis
-        float angle = (float) (time + partialTicks) / 16.0f;
-        matrixStack.rotate(new Quaternion(new Vector3f(0, 1, 0), angle, false));
+        //do not use system time rad, as rotationDegrees converts for us and we want to clamp it to 360° first
+        float angle = (systemTime / 16) % 360;
+        matrixStack.rotate(Vector3f.YP.rotationDegrees(angle));
 
         //Math.sin(time/frequency)*amplitude
-        float scale = (float) (1 + Math.sin((time + partialTicks) / 8) * 0.025f);
+        float scale = (float) (1 + systemTimeRadSin8 * 0.025f);
         matrixStack.scale(scale, scale, scale);
 
         //get colors from hue over time
-        long colorScale = 100L - Math.abs(time / 2 % 160L - 80L);
+        long colorScale = 100L - Math.abs(systemTime / 16 / 2 % 160L - 80L);
         //make saturation smoothly go from 0.0-1.0
-        float saturation = (float) Math.sin((time + partialTicks) / 8) * 0.5f + 0.5f;
+        float saturation = (float) systemTimeRadSin8 * 0.5f + 0.5f;
         int color = Color.getHSBColor(0.01F * (float) colorScale, saturation, 0.01F * (float) colorScale).getRGB();
 
         ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
@@ -86,8 +93,8 @@ public class StorageControllerRenderer extends TileEntityRenderer<StorageControl
 
         //from ItemRenderer#renderItem
         matrixStack.translate(-0.5D, -0.5D, -0.5D);
-        RenderType rendertype = RenderTypeLookup.func_239219_a_(stack, false); //getRenderType(itemstack, isBlock(??)) isBlock = false -> is item entity?
-        IVertexBuilder ivertexbuilder = ItemRenderer.getBuffer(buffer, rendertype, true, stack.hasEffect());
+        RenderType rendertype = RenderTypeLookup.func_239219_a_(this.stack, false); //getRenderType(itemstack, isBlock(??)) isBlock = false -> is item entity?
+        IVertexBuilder ivertexbuilder = ItemRenderer.getBuffer(buffer, rendertype, true, this.stack.hasEffect());
         //from  ItemRenderer#rendermodel
         Random random = new Random();
 
