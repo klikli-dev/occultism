@@ -277,12 +277,7 @@ public abstract class StorageControllerContainerBase extends Container implement
                 }
 
                 //handle container item refunding
-                if (stackInSlot.getItem().getContainerItem() != null) {
-                    stackInSlot = new ItemStack(stackInSlot.getItem().getContainerItem());
-                    this.matrix.setInventorySlotContents(i, stackInSlot);
-                }
-                //handle items that accept multiple containers
-                else if (!stackInSlot.getItem().getContainerItem(stackInSlot).isEmpty()) {
+               if (!stackInSlot.getItem().getContainerItem(stackInSlot).isEmpty()) {
                     stackInSlot = stackInSlot.getItem().getContainerItem(stackInSlot);
                     this.matrix.setInventorySlotContents(i, stackInSlot);
                 }

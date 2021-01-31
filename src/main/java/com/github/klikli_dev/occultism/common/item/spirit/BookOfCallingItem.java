@@ -29,7 +29,6 @@ import com.github.klikli_dev.occultism.api.common.data.MachineReference;
 import com.github.klikli_dev.occultism.api.common.data.WorkAreaSize;
 import com.github.klikli_dev.occultism.api.common.item.IHandleItemMode;
 import com.github.klikli_dev.occultism.api.common.item.IIngredientCopyNBT;
-import com.github.klikli_dev.occultism.api.common.item.IIngredientPreventCrafting;
 import com.github.klikli_dev.occultism.api.common.tile.IStorageController;
 import com.github.klikli_dev.occultism.client.gui.GuiHelper;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
@@ -42,7 +41,6 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.Item;
@@ -51,7 +49,6 @@ import net.minecraft.item.ItemUseContext;
 import net.minecraft.item.Rarity;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
@@ -60,14 +57,13 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.items.CapabilityItemHandler;
 
 import javax.annotation.Nullable;
 import java.util.*;
 import java.util.function.Predicate;
 
-public class BookOfCallingItem extends Item implements IIngredientPreventCrafting, IIngredientCopyNBT, IHandleItemMode {
+public class BookOfCallingItem extends Item implements IIngredientCopyNBT, IHandleItemMode {
 
     //region Fields
     public static Map<UUID, Long> spiritDeathRegister = new HashMap<>();
@@ -106,19 +102,6 @@ public class BookOfCallingItem extends Item implements IIngredientPreventCraftin
         if (nbt.contains(ItemNBTUtil.SPIRIT_NAME_TAG))
             result.putString(ItemNBTUtil.SPIRIT_NAME_TAG, nbt.getString(ItemNBTUtil.SPIRIT_NAME_TAG));
         return result;
-    }
-
-    @Override
-    public boolean shouldPreventCrafting(ItemStack itemStack, IRecipe recipe, CraftingInventory inventory,
-                                         World world) {
-        CompoundNBT entityNBT = ItemNBTUtil.getSpiritEntityData(itemStack);
-        if (entityNBT != null)
-            return true; //entity stored in the book.
-
-        UUID entityUUID = ItemNBTUtil.getSpiritEntityUUID(itemStack);
-        MinecraftServer server = world.getServer();
-        return entityUUID != null &&
-               EntityUtil.getEntityByUuiDGlobal(server, entityUUID).isPresent(); //entity exists still in the world.
     }
 
     @Override
@@ -169,11 +152,11 @@ public class BookOfCallingItem extends Item implements IIngredientPreventCraftin
                 world.addEntity(entity);
 
                 //old spawn code
-//                SpiritEntity entity = (SpiritEntity) type.spawn((ServerWorld)world, wrapper, customName, null, spawnPos,
-//                        SpawnReason.MOB_SUMMONED, true, !pos.equals(spawnPos) && facing == Direction.UP);
-//                if (entityData.contains("OwnerUUID") && !entityData.getString("OwnerUUID").isEmpty()) {
-//                    entity.setOwnerId(UUID.fromString(entityData.getString("OwnerUUID")));
-//                }
+                //                SpiritEntity entity = (SpiritEntity) type.spawn((ServerWorld)world, wrapper, customName, null, spawnPos,
+                //                        SpawnReason.MOB_SUMMONED, true, !pos.equals(spawnPos) && facing == Direction.UP);
+                //                if (entityData.contains("OwnerUUID") && !entityData.getString("OwnerUUID").isEmpty()) {
+                //                    entity.setOwnerId(UUID.fromString(entityData.getString("OwnerUUID")));
+                //                }
 
                 //refresh item nbt
                 ItemNBTUtil.updateItemNBTFromEntity(itemStack, entity);
@@ -202,7 +185,8 @@ public class BookOfCallingItem extends Item implements IIngredientPreventCraftin
     }
 
     @Override
-    public ActionResultType itemInteractionForEntity(ItemStack stack, PlayerEntity player, LivingEntity target, Hand hand) {
+    public ActionResultType itemInteractionForEntity(ItemStack stack, PlayerEntity player, LivingEntity target,
+                                                     Hand hand) {
         if (target.world.isRemote)
             return ActionResultType.PASS;
 
@@ -216,7 +200,7 @@ public class BookOfCallingItem extends Item implements IIngredientPreventCraftin
         if (!entitySpirit.getUniqueID().equals(ItemNBTUtil.getSpiritEntityUUID(stack))) {
             //re-link book
             if (player.isSneaking()) {
-                if(this.targetSpirit.test(entitySpirit)){
+                if (this.targetSpirit.test(entitySpirit)) {
                     ItemNBTUtil.setSpiritEntityUUID(stack, entitySpirit.getUniqueID());
                     ItemNBTUtil.setBoundSpiritName(stack, entitySpirit.getName().getString());
                     player.sendStatusMessage(
