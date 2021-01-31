@@ -106,6 +106,8 @@ public class SatchelContainer extends Container {
         if(this.selectedSlot == -1){
             return CuriosUtil.getBackpack(player).getItem() == OccultismItems.SATCHEL.get();
         }
+        if(this.selectedSlot < 0 || this.selectedSlot >= player.inventory.getSizeInventory())
+            return false;
         return player.inventory.getStackInSlot(this.selectedSlot).getItem() == OccultismItems.SATCHEL.get();
     }
     //endregion Overrides
