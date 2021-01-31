@@ -80,4 +80,13 @@ public class CuriosUtil {
         });
         return hasBackpack.orElse(ItemStack.EMPTY);
     }
+
+    public static int getFirstBackpackSlot(PlayerEntity player){
+        for(int slot = 0; slot < player.inventory.getSizeInventory(); slot++){
+            ItemStack stack = player.inventory.getStackInSlot(slot);
+            if(stack.getItem() instanceof SatchelItem)
+                return slot;
+        }
+        return -1;
+    }
 }

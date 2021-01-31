@@ -31,6 +31,7 @@ import com.github.klikli_dev.occultism.client.gui.storage.StableWormholeGui;
 import com.github.klikli_dev.occultism.client.gui.storage.StorageControllerGui;
 import com.github.klikli_dev.occultism.client.gui.storage.StorageRemoteGui;
 import com.github.klikli_dev.occultism.client.itemproperties.*;
+import com.github.klikli_dev.occultism.client.keybindings.BackpackKeyConflictContext;
 import com.github.klikli_dev.occultism.client.render.entity.AfritRenderer;
 import com.github.klikli_dev.occultism.client.render.entity.DjinniRenderer;
 import com.github.klikli_dev.occultism.client.render.entity.FoliotRenderer;
@@ -47,6 +48,7 @@ import net.minecraft.client.renderer.entity.EndermiteRenderer;
 import net.minecraft.client.renderer.entity.SkeletonRenderer;
 import net.minecraft.client.renderer.entity.WitherSkeletonRenderer;
 import net.minecraft.client.settings.KeyBinding;
+import net.minecraft.client.util.InputMappings;
 import net.minecraft.item.ItemModelsProperties;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
@@ -63,7 +65,8 @@ public class ClientSetupEventHandler {
 
     //region Fields
     public static final KeyBinding KEY_BACKPACK =
-            new KeyBinding("key.occultism.backpack", GLFW.GLFW_KEY_B, "key.occultism.category");
+            new KeyBinding("key.occultism.backpack", BackpackKeyConflictContext.INSTANCE,
+                    InputMappings.Type.KEYSYM.getOrMakeInput(GLFW.GLFW_KEY_B), "key.occultism.category");
     //endregion Fields
 
     //region Static Methods
@@ -74,7 +77,9 @@ public class ClientSetupEventHandler {
         MinecraftForge.EVENT_BUS.register(Occultism.THIRD_EYE_EFFECT_RENDERER);
 
         //keybindings
-        ClientRegistry.registerKeyBinding(KEY_BACKPACK);
+        event.enqueueWork(() -> {
+            ClientRegistry.registerKeyBinding(KEY_BACKPACK);
+        });
 
         //Register Entity Renderers
         RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.FOLIOT.get(), FoliotRenderer::new);

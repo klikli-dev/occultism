@@ -51,16 +51,27 @@ public class MessageOpenSatchel extends MessageBase {
     @Override
     public void onServerReceived(MinecraftServer minecraftServer, ServerPlayerEntity player,
                                  NetworkEvent.Context context) {
+
+        int selectedSlot = -1;
+        //first attempt to get backpack from curios slot
         ItemStack backpackStack = CuriosUtil.getBackpack(player);
+
+        //if not found, try to get from player inventory
+        if (!(backpackStack.getItem() instanceof SatchelItem)) {
+            selectedSlot = CuriosUtil.getFirstBackpackSlot(player);
+            backpackStack = selectedSlot > 0 ? player.inventory.getStackInSlot(selectedSlot) : ItemStack.EMPTY;
+        }
+        //now, if we have a satchel, proceed
         if (backpackStack.getItem() instanceof SatchelItem) {
-            int selectedSlot = -1;
-            NetworkHooks.openGui((ServerPlayerEntity) player,
+            ItemStack finalBackpackStack = backpackStack;
+            int finalSelectedSlot = selectedSlot;
+            NetworkHooks.openGui(player,
                     new SimpleNamedContainerProvider((id, playerInventory, unused) -> {
                         return new SatchelContainer(id, playerInventory,
-                                ((SatchelItem) backpackStack.getItem()).getInventory(player, backpackStack),
-                                selectedSlot);
+                                ((SatchelItem) finalBackpackStack.getItem()).getInventory(player, finalBackpackStack),
+                                finalSelectedSlot);
                     }, backpackStack.getDisplayName()), buffer -> {
-                        buffer.writeVarInt(selectedSlot);
+                        buffer.writeVarInt(finalSelectedSlot);
                     });
         }
     }
