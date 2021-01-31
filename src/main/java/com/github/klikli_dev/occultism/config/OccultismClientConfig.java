@@ -42,6 +42,7 @@ public class OccultismClientConfig extends ConfigBase {
 
     //region Fields
     public final VisualSettings visuals;
+    public final MiscSettings misc;
     public final ForgeConfigSpec spec;
     //endregion Fields
 
@@ -49,6 +50,7 @@ public class OccultismClientConfig extends ConfigBase {
     public OccultismClientConfig() {
         ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
         this.visuals = new VisualSettings(this, builder);
+        this.misc = new MiscSettings(this, builder);
         this.spec = builder.build();
     }
     //endregion Initialization
@@ -67,6 +69,25 @@ public class OccultismClientConfig extends ConfigBase {
                     builder.comment(
                             "Disables the headache- and possibly seizure-inducing visual effects of Demon's Dream.")
                             .define("disableDemonsDreamShaders", false));
+            builder.pop();
+        }
+        //endregion Initialization
+    }
+
+    public class MiscSettings extends ConfigCategoryBase {
+        //region Fields
+        public final CachedBoolean syncJeiSearch;
+        //endregion Fields
+
+        //region Initialization
+        public MiscSettings(IConfigCache parent, ForgeConfigSpec.Builder builder) {
+            super(parent, builder);
+            builder.comment("Misc Settings").push("misc");
+
+            this.syncJeiSearch = CachedBoolean.cache(this,
+                    builder.comment(
+                            "Sync JEI search in storage actuator.")
+                            .define("syncJeiSearch", false));
             builder.pop();
         }
         //endregion Initialization

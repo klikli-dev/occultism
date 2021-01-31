@@ -22,10 +22,11 @@
 
 package com.github.klikli_dev.occultism.integration.jei;
 
+import com.github.klikli_dev.occultism.Occultism;
+
 public class JeiSettings {
 
     protected static boolean jeiLoaded = false;
-    protected static boolean jeiSearchSync = true;
 
     public static boolean isJeiLoaded() {
         return jeiLoaded;
@@ -36,10 +37,10 @@ public class JeiSettings {
     }
 
     public static boolean isJeiSearchSynced() {
-        return jeiSearchSync;
+        return Occultism.CLIENT_CONFIG.misc.syncJeiSearch.get();
     }
 
     public static void setJeiSearchSync(boolean synced) {
-        jeiSearchSync = synced;
+        Occultism.CLIENT_CONFIG.misc.syncJeiSearch.set(synced);
     }
 }
