@@ -2,7 +2,7 @@
   "name": "Drikwing Familiar",
   "icon": "occultism:textures/gui/book/otherworld_bird.png",
   "category": "rituals/familiars",
-  "sortnum": 2,
+  "sortnum": 20,
   "pages": [
     {
       "type": "entity",
@@ -23,7 +23,7 @@
     },
     {
       "type": "text",
-      "text": ""
+      "text": "To obtain the parrot or parrot familiar for the sacrifice, consider summoning them using either the $(l:rituals/summoning/summon_wild_parrot)Wild Parrot Ritual$(/l) or $(l:rituals/familiars/familiar_parrot)Parrot Familiar Ritual$(/l). $(bold)Hint:$() If you use mods that protect pets from death, use the wild parrot ritual!"
     }
   ]
 }

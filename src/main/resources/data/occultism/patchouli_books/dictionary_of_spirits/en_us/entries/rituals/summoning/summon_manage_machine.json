@@ -2,7 +2,7 @@
   "name": "Djinni Machine Operator",
   "icon": "minecraft:lever",
   "category": "rituals/summoning",
-  "sortnum": 12,
+  "sortnum": 15,
   "pages": [
     {
       "type": "text",
