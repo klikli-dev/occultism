@@ -123,14 +123,13 @@ repositories {
         url = 'https://dvs1.progwml6.com/files/maven'
     }
     maven {
-        name = "ModMaven - JEI"
-        url = "https://modmaven.k-4u.nl"
-    }
-    maven {
         name = "Curios Maven"
         url = "https://maven.theillusivec4.top/"
     }
-
+    maven {
+        name = "ModMaven - JEI"
+        url = "https://modmaven.k-4u.nl"
+    }
     flatDir {
         dirs 'runtime-mods'
     }
