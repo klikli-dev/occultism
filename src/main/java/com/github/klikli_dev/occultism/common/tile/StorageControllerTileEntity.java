@@ -363,9 +363,9 @@ public class StorageControllerTileEntity extends NetworkedTileEntity implements 
     }
 
     @Override
-    public void remove() {
+    protected void invalidateCaps() {
+        super.invalidateCaps();
         this.itemStackHandler.invalidate();
-        super.remove();
     }
 
     @Nonnull

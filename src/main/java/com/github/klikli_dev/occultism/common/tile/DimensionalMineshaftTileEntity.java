@@ -271,5 +271,14 @@ public class DimensionalMineshaftTileEntity extends NetworkedTileEntity implemen
             input.setDamage(0);
         }
     }
+
+    @Override
+    protected void invalidateCaps() {
+        super.invalidateCaps();
+        this.inputHandler.invalidate();
+        this.outputHandler.invalidate();
+        this.combinedHandler.invalidate();
+    }
+
     //endregion Methods
 }
