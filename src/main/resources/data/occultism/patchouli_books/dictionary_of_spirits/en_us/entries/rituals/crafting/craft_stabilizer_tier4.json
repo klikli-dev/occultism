@@ -14,7 +14,7 @@
       "heading": "Infusion",
       "pentacle": "$(l:pentacles/craft_marid)Uphyxes Inverted Tower $(/l)",
       "activation_item": "occultism:book_of_binding_bound_marid",
-      "ingredients": "$(li)1x $(item)Otherstone Pedestal $()$(li)1x $(item)Iesnium Block $()$(li)1x $(item)Dragon Head $() $(li)2x $(item)Spirit Infused Crystal $()"
+      "ingredients": "$(li)1x $(item)Otherstone Pedestal $()$(li)1x $(item)Iesnium Block $()$(li)1x $(item)Dragon Head $() $(li)2x $(item)Spirit Attuned Crystal $()"
     }
   ]
 }

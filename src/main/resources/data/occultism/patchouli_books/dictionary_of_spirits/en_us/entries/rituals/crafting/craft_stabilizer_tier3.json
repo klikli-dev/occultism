@@ -14,7 +14,7 @@
       "heading": "Infusion",
       "pentacle": "$(l:pentacles/craft_afrit)Sevira's Permanent Confinement $(/l)",
       "activation_item": "occultism:book_of_binding_bound_afrit",
-      "ingredients": "$(li)1x $(item)Otherstone Pedestal $()$(li)1x $(item)Gold Block $()$(li)1x $(item)Nether Star $() $(li)1x $(item)Spirit Infused Crystal $()"
+      "ingredients": "$(li)1x $(item)Otherstone Pedestal $()$(li)1x $(item)Gold Block $()$(li)1x $(item)Nether Star $() $(li)1x $(item)Spirit Attuned Crystal $()"
     }
   ]
 }
