@@ -34,6 +34,7 @@ import com.github.klikli_dev.occultism.common.world.tree.OtherworldNaturalTree;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
+import net.minecraft.block.material.PushReaction;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.RegistryObject;
@@ -59,7 +60,11 @@ public class OccultismBlocks {
                             .sound(SoundType.CLOTH)), false,
             LootTableType.EMPTY);
 
-    public static final Block.Properties GLYPH_PROPERTIES = Block.Properties.create(Material.MISCELLANEOUS)
+    //can't use builder here because of random private builder methods ..
+    public static final Material GLYPH_MATERIAL = new Material(MaterialColor.AIR, false, false,
+            false, true, false, true, PushReaction.DESTROY);
+
+    public static final Block.Properties GLYPH_PROPERTIES = Block.Properties.create(GLYPH_MATERIAL)
                                                                     .sound(SoundType.CLOTH).doesNotBlockMovement()
                                                                     .hardnessAndResistance(5f, 30);
     public static final RegistryObject<ChalkGlyphBlock> CHALK_GLYPH_WHITE = register("chalk_glyph_white",

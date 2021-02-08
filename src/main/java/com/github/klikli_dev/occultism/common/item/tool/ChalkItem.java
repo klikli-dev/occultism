@@ -70,7 +70,7 @@ Supplier<ChalkGlyphBlock> glyphBlock;
             //only place if player clicked at a top face
             //only if the block can be placed or is replacing an existing block
             if ((context.getFace() == Direction.UP
-                 && this.glyphBlock.get().isValidPosition(state, world, pos.up())) || isReplacing) {
+                 && this.glyphBlock.get().isValidPosition(world.getBlockState(pos.up()), world, pos.up())) || isReplacing) {
                 ItemStack heldChalk = context.getItem();
                 BlockPos placeAt = isReplacing ? pos : pos.up();
 

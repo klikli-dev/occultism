@@ -120,7 +120,7 @@ public class ChalkGlyphBlock extends Block {
     public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
         BlockPos down = pos.down();
         BlockState downState = worldIn.getBlockState(down);
-        return downState.isSolidSide(worldIn, down, Direction.UP);
+        return downState.isSolidSide(worldIn, down, Direction.UP) && state.getMaterial().isReplaceable();
     }
 
     @Override
