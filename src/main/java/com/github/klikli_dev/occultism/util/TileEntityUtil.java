@@ -127,7 +127,10 @@ public class TileEntityUtil {
                                                 BlockState newState) {
         if (state.getBlock() != newState.getBlock()) {
             if (!world.isRemote) {
-                world.addEntity(TileEntityUtil.getDroppedItemWithNbt(new ItemStack(block), world.getTileEntity(pos)));
+                TileEntity tile = world.getTileEntity(pos);
+                if (tile != null) {
+                    world.addEntity(TileEntityUtil.getDroppedItemWithNbt(new ItemStack(block), tile));
+                }
             }
             world.updateComparatorOutputLevel(pos, block);
         }
