@@ -207,6 +207,9 @@ public class BookOfCallingItem extends Item implements IIngredientCopyNBT, IHand
                             new TranslationTextComponent(
                                     TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_target_linked"),
                             true);
+                    player.swingArm(hand);
+                    player.setHeldItem(hand, stack); //need to write the item back to hand, otherwise we only modify a copy
+                    player.container.detectAndSendChanges();
                     return ActionResultType.SUCCESS;
                 }
                 else {
