@@ -26,6 +26,7 @@ import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.client.gui.controls.SizedImageButton;
 import com.github.klikli_dev.occultism.common.container.spirit.SpiritTransporterContainer;
 import com.github.klikli_dev.occultism.network.MessageSetFilterMode;
+import com.github.klikli_dev.occultism.network.MessageSetTagFilterText;
 import com.github.klikli_dev.occultism.network.OccultismPackets;
 import com.github.klikli_dev.occultism.util.InputUtil;
 import com.mojang.blaze3d.matrix.MatrixStack;
@@ -214,7 +215,8 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
         super.onClose();
         this.tagFilterTextField.setFocused2(false);
         if (!StringUtils.isBlank(this.tagFilter)) {
-            //TODO: send tagfilter text to server
+            this.spirit.setTagFilter(this.tagFilter);
+            OccultismPackets.sendToServer(new MessageSetTagFilterText(this.tagFilter, this.spirit.getEntityId()));
         }
     }
 
