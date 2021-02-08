@@ -34,17 +34,17 @@ public class SummonAfritPentacle extends Pentacle {
     //region Fields
     private final String[][] pattern = new String[][]{
             {
-                    "     X     ",
+                    "           ",
                     "    PRP    ",
-                    "  XWCWCWX  ",
+                    "   WCWCW   ",
                     "  W WNW W  ",
                     " PCWP PWCP ",
-                    "XRWZ 0 ZWRX",
+                    " RWZ 0 ZWR ",
                     " PCWP PWCP ",
                     "  W WNW W  ",
-                    "  XWCWCWX  ",
+                    "   WCWCW   ",
                     "    PRP    ",
-                    "     X     "
+                    "           "
             }
     };
 

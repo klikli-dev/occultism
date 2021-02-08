@@ -53,6 +53,19 @@
       "text": "The ritual is described in $(l:rituals/summoning/summon_crusher)the section on rituals$(/l) but these pages will walk the gentle reader through the process step by step.$(br2)We start by placing the golden sacrificial bowl and drawing the appropriate pentacle, $(l:pentacles/summon_foliot)Aviar's Circle$(/l). $(br)Next, place four sacrificial bowls close to the pentacle and place copper, iron, silver and gold ore each in one bowl."
     },
     {
+      "_comment": "exact duplicate of this is in pentacles/overview.json",
+      "type": "image",
+      "border": "true",
+      "images": [
+        "occultism:textures/gui/book/bowl_placement.png"
+      ]
+    },
+    {
+      "_comment": "exact duplicate of this is in pentacles/overview.json",
+      "type": "text",
+      "text": "$(thing)Sacrifical Bowls$() must be placed $(bold)anywhere$() within 8 blocks of the central $(thing)Golden Sacrifical Bowl$(). The exact location does not matter."
+    },
+    {
       "type": "text",
       "text": "Finally, right-click the golden sacrificial bowl with the $(bold)bound$() book of binding you created and wait until the crusher spawns. $(br)Now all that remains is to drop appropriate ores near the crusher and wait for it to turn it into dust."
     }

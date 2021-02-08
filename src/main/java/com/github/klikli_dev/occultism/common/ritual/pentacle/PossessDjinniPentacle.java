@@ -35,13 +35,13 @@ public class PossessDjinniPentacle extends Pentacle {
     private final String[][] pattern = new String[][]{
             {
                     "   GPG   ",
-                    "  GCXCG  ",
+                    "  GC CG  ",
                     " GZW WZG ",
                     "GCWP PWCG",
-                    "PX  0  XP",
+                    "P   0   P",
                     "GCWP PWCG",
                     " GZW WZG ",
-                    "  GCXCG  ",
+                    "  GC CG  ",
                     "   GPG   "
             }
     };

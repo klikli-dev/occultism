@@ -34,13 +34,13 @@ public class PossessFoliotPentacle extends Pentacle {
     private final String[][] pattern = new String[][]{
             {
                     "   GGG   ",
-                    "  GCXCG  ",
+                    "  GC CG  ",
                     " GW   WG ",
                     "GC W W CG",
-                    "GX  0  XG",
+                    "G   0   G",
                     "GC W W CG",
                     " GW   WG ",
-                    "  GCXCG  ",
+                    "  GC CG  ",
                     "   GGG   "
             }
     };

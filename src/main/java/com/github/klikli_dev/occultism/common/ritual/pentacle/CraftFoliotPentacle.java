@@ -35,9 +35,9 @@ public class CraftFoliotPentacle extends Pentacle {
             {
                     "  WSW  ",
                     " G   G ",
-                    "W XWX W",
+                    "W  W  W",
                     "C W0W C",
-                    "W XWX W",
+                    "W  W  W",
                     " G   G ",
                     "  WSW  "
             }

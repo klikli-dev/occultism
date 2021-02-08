@@ -22,13 +22,13 @@
 
 package com.github.klikli_dev.occultism.common.ritual.pentacle;
 
-import com.github.klikli_dev.occultism.common.block.CandleBlock;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.registry.OccultismTags;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 import vazkii.patchouli.api.IMultiblock;
 import vazkii.patchouli.api.PatchouliAPI;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -71,12 +71,12 @@ public abstract class Pentacle extends ForgeRegistryEntry<Pentacle> {
     protected void setupMapping() {
         this.mapping.addAll(Arrays.asList(
                 '0', this.api.looseBlockMatcher(OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL.get()),
-                'X', this.api.displayOnlyMatcher(OccultismBlocks.SACRIFICIAL_BOWL.get()),
                 'W', this.api.looseBlockMatcher(OccultismBlocks.CHALK_GLYPH_WHITE.get()),
                 'G', this.api.looseBlockMatcher(OccultismBlocks.CHALK_GLYPH_GOLD.get()),
                 'P', this.api.looseBlockMatcher(OccultismBlocks.CHALK_GLYPH_PURPLE.get()),
                 'R', this.api.looseBlockMatcher(OccultismBlocks.CHALK_GLYPH_RED.get()),
-                'C', this.api.predicateMatcher(OccultismBlocks.CANDLE_WHITE.get(), b -> OccultismTags.CANDLES.contains(b.getBlock())),
+                'C', this.api.predicateMatcher(OccultismBlocks.CANDLE_WHITE.get(),
+                        b -> OccultismTags.CANDLES.contains(b.getBlock())),
                 ' ', this.api.anyMatcher())
         );
     }

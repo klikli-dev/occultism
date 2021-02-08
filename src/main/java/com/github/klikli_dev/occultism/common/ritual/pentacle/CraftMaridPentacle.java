@@ -34,21 +34,21 @@ public class CraftMaridPentacle extends Pentacle {
     //region Fields
     private final String[][] pattern = new String[][]{
             {
-                    "      XZX      ",
+                    "       Z       ",
                     "      RRR      ",
-                    "   X RCWCR X   ",
-                    "  X R  W  R X  ",
+                    "     RCWCR     ",
+                    "    R  W  R    ",
                     "   RGSWNWSGR   ",
                     "  R SGW WGS R  ",
-                    "XRC WW   WW CRX",
+                    " RC WW   WW CR ",
                     "ZRWWN  0  NWWRZ",
-                    "XRC WW   WW CRX",
+                    " RC WW   WW CR ",
                     "  R SGW WGS R  ",
                     "   RGSWNWSGR   ",
-                    "  X R  W  R X  ",
-                    "   X RCWCR X   ",
+                    "    R  W  R    ",
+                    "     RCWCR     ",
                     "      RRR      ",
-                    "      XZX      "
+                    "       Z       "
             }
     };
 

@@ -34,17 +34,17 @@ public class SummonWildGreaterSpiritPentacle extends Pentacle {
     //region Fields
     private final String[][] pattern = new String[][]{
             {
-                    "     X     ",
+                    "           ",
                     "    PPP    ",
-                    "  XW W WX  ",
+                    "   W W W   ",
                     "  W WZW W  ",
                     " P WP PW P ",
-                    "XPWZ 0 ZWPX",
+                    " PWZ 0 ZWP ",
                     " P WP PW P ",
                     "  W WZW W  ",
-                    "  XW W WX  ",
+                    "   W W W   ",
                     "    PPP    ",
-                    "     X     "
+                    "           "
             }
     };
 

@@ -34,15 +34,15 @@ public class SummonFoliotPentacle extends Pentacle {
     //region Fields
     private final String[][] pattern = new String[][]{
             {
-                    "    X    ",
+                    "         ",
                     "   WCW   ",
                     "  W W W  ",
                     " W  W  W ",
-                    "XCWW0WWCX",
+                    " CWW0WWC ",
                     " W  W  W ",
                     "  W W W  ",
                     "   WCW   ",
-                    "    X    "
+                    "         "
             }
     };
 

@@ -34,15 +34,15 @@ public class SummonDjinniPentacle extends Pentacle {
     //region Fields
     private final String[][] pattern = new String[][]{
             {
-                    "   CXC   ",
+                    "   C C   ",
                     "   PPP   ",
                     "  W Z W  ",
                     "CP W W PC",
-                    "XPZ 0 ZPX",
+                    " PZ 0 ZP ",
                     "CP W W PC",
                     "  W Z W  ",
                     "   PPP   ",
-                    "   CXC   "
+                    "   C C   "
             }
     };
 
