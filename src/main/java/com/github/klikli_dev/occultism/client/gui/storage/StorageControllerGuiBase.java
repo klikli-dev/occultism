@@ -556,8 +556,8 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     }
 
     protected boolean isPointInSearchbar(double mouseX, double mouseY) {
-        return this.isPointInRegion(this.searchBar.x - this.guiLeft + 14, this.searchBar.y - this.guiTop,
-                this.searchBar.getWidth(), this.font.FONT_HEIGHT + 6, mouseX, mouseY);
+        return this.isPointInRegion(this.searchBar.x - this.guiLeft, this.searchBar.y - this.guiTop,
+                this.searchBar.getWidth() - 5, this.font.FONT_HEIGHT + 6, mouseX, mouseY);
     }
 
     protected boolean isPointInItemArea(double mouseX, double mouseY) {
