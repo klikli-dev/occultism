@@ -83,7 +83,10 @@ public class DimensionalMineshaftBlock extends Block {
 
     public void onReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
         if (state.getBlock() != newState.getBlock()) {
-            StorageUtil.dropInventoryItems(worldIn.getTileEntity(pos));
+            TileEntity tile = worldIn.getTileEntity(pos);
+            if(tile != null) {
+                StorageUtil.dropInventoryItems(tile);
+            }
             super.onReplaced(state, worldIn, pos, newState, isMoving);
         }
     }
