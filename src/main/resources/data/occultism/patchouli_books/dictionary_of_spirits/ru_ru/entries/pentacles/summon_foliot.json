@@ -1,0 +1,17 @@
+{
+  "name": "Aviar's Circle",
+  "icon": "occultism:textures/gui/book/pentagram_rose.png",
+  "category": "pentacles",
+  "sortnum": 10,
+  "pages": [
+    {
+      "type": "text",
+      "text": "$(bold)Purpose:$() Призыв Foliot $(br2)Считается самым простым пентаклем, $(thing)Aviar's Circle$() прост в настройке, но обеспечивает лишь минимум связывающей силы и защиты для призывателя. $(br2)Только самого слабого и самого легко вызываемого $(thing)Foliot$()  в ритуалы с помощью этого пентакля."
+    },
+    {
+      "type": "multiblock",
+      "name": "",
+      "multiblock_id": "occultism:pentacle.summon_foliot"
+    }
+  ]
+}

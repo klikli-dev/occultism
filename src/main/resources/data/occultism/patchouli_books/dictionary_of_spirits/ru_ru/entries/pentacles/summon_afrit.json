@@ -1,0 +1,17 @@
+{
+  "name": "Abras' Conjure",
+  "icon": "occultism:textures/gui/book/pentagram_rose.png",
+  "category": "pentacles",
+  "sortnum": 30,
+  "pages": [
+    {
+      "type": "text",
+      "text": "$(bold)Purpose:$() Прызыв Afrit $(br2)$(thing)Abras' Conjure$() это один из немногих пентаклей, способных (в основном) безопасно вызывать Африта. В то время как необходимость в черепе скелета-иссушителя делает его сравнительно дорогим, для прызыва в этом ритуале требуется высокая спиритическая энергия (power spirit)."
+    },
+    {
+      "type": "multiblock",
+      "name": "",
+      "multiblock_id": "occultism:pentacle.summon_afrit"
+    }
+  ]
+}

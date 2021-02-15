@@ -1,0 +1,17 @@
+{
+  "name": "Sevira's Permanent Confinement",
+  "icon": "occultism:textures/gui/book/pentagram_rose.png",
+  "category": "pentacles",
+  "sortnum": 31,
+  "pages": [
+    {
+      "type": "text",
+      "text": "$(bold)Purpose:$() Связываный Afrit $(br2) Впервые обнаружена бабушкой Севирой из Эмбервудса., $(thing)Permanent Confinement$() (Постоянное заключение) используется для привязки $(thing)Afrit$() с объектом. Из-за силы задействованных духов это должно выполняться только опытными призывателями.."
+    },
+    {
+      "type": "multiblock",
+      "name": "",
+      "multiblock_id": "occultism:pentacle.craft_afrit"
+    }
+  ]
+}

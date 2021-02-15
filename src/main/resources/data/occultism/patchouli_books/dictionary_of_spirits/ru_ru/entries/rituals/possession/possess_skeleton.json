@@ -1,0 +1,30 @@
+{
+  "name": "Possessed Skeleton",
+  "icon": "minecraft:skeleton_skull",
+  "category": "rituals/possession",
+  "sortnum": 2,
+  "pages": [
+    {
+      "type": "entity",
+      "entity": "occultism:possessed_skeleton",
+      "text": "Drops: 1x $(item)Skeleton Skull$(), ..."
+    },
+    {
+      "type": "summoning_sacrifice",
+      "heading": "Summoning",
+      "pentacle": "$(l:pentacles/possess_foliot)Hedyrin's Lure$(/l)",
+      "activation_item": "occultism:book_of_binding_bound_foliot",
+      "sacrifice": "Chicken",
+      "ingredients": "$(li)4x $(item)Bone $()"
+    },
+    {
+      "type": "text",
+      "text": "в этом ритуале $(thing)Skeleton$() порождается с использованием жизненной энергии $(thing)chicken$() (курицы) и одержимого $(thing)Foliot$(). Этот $(thing)Possessed Skeleton$() будет невосприимчив к дневному свету и всегда дропнет хотя бы один $(item)Skeleton Skull$() (череп) после убийства."
+    },
+    {
+      "type": "text",
+      "text": ""
+    }
+  ]
+}
+
