@@ -45,7 +45,6 @@ import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.registry.OccultismTiles;
 import com.github.klikli_dev.occultism.util.EntityUtil;
 import com.github.klikli_dev.occultism.util.Math3DUtil;
-import com.github.klikli_dev.occultism.util.TileEntityUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.DirectionalBlock;
@@ -73,6 +72,7 @@ import net.minecraftforge.items.ItemStackHandler;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.*;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -94,9 +94,9 @@ public class StorageControllerTileEntity extends NetworkedTileEntity implements 
     protected LazyOptional<ItemStackHandler> itemStackHandler = LazyOptional
                                                                         .of(() -> new StorageControllerItemStackHandler(
                                                                                 this,
-                                                                                Occultism.CONFIG.storage.controllerBaseSlots
+                                                                                Occultism.SERVER_CONFIG.storage.controllerBaseSlots
                                                                                         .get(), DEFAULT_STACK_SIZE));
-    protected int maxSlots = Occultism.CONFIG.storage.controllerBaseSlots.get();
+    protected int maxSlots = Occultism.SERVER_CONFIG.storage.controllerBaseSlots.get();
     protected int usedSlots = 0;
     protected boolean stabilizersInitialized = false;
     protected GlobalBlockPos globalPos;
@@ -189,7 +189,7 @@ public class StorageControllerTileEntity extends NetworkedTileEntity implements 
     public MessageUpdateStacks getMessageUpdateStacks() {
         if (this.cachedMessageUpdateStacks == null) {
             List<ItemStack> stacks = this.getStacks();
-            this.cachedMessageUpdateStacks = new MessageUpdateStacks(stacks, this.getUsedSlots());
+            this.cachedMessageUpdateStacks = new MessageUpdateStacks(stacks, this.getUsedSlots(), this.getMaxSlots());
         }
         return this.cachedMessageUpdateStacks;
     }
@@ -287,7 +287,7 @@ public class StorageControllerTileEntity extends NetworkedTileEntity implements 
     }
 
     @Override
-    public ItemStack getItemStack(IItemStackComparator comparator, int requestedSize, boolean simulate) {
+    public ItemStack getItemStack(Predicate<ItemStack> comparator, int requestedSize, boolean simulate) {
         if (requestedSize <= 0 || comparator == null) {
             return ItemStack.EMPTY;
         }
@@ -305,7 +305,7 @@ public class StorageControllerTileEntity extends NetworkedTileEntity implements 
             //if we have not found anything yet we can just store the result or move on
             if (firstMatchedStack.isEmpty()) {
 
-                if (!comparator.matches(stack)) {
+                if (!comparator.test(stack)) {
                     //this slot does not match so we move on
                     continue;
                 }
@@ -363,9 +363,9 @@ public class StorageControllerTileEntity extends NetworkedTileEntity implements 
     }
 
     @Override
-    public void remove() {
+    protected void invalidateCaps() {
+        super.invalidateCaps();
         this.itemStackHandler.invalidate();
-        super.remove();
     }
 
     @Nonnull
@@ -490,7 +490,7 @@ public class StorageControllerTileEntity extends NetworkedTileEntity implements 
             additionalSlots += this.getSlotsForStabilizer(this.world.getBlockState(pos));
         }
 
-        this.setMaxSlots(Occultism.CONFIG.storage.controllerBaseSlots.get() + additionalSlots);
+        this.setMaxSlots(Occultism.SERVER_CONFIG.storage.controllerBaseSlots.get() + additionalSlots);
     }
 
     public List<BlockPos> findValidStabilizers() {
@@ -516,13 +516,13 @@ public class StorageControllerTileEntity extends NetworkedTileEntity implements 
     protected int getSlotsForStabilizer(BlockState state) {
         Block block = state.getBlock();
         if (block == OccultismBlocks.STORAGE_STABILIZER_TIER1.get())
-            return Occultism.CONFIG.storage.stabilizerTier1Slots.get();
+            return Occultism.SERVER_CONFIG.storage.stabilizerTier1Slots.get();
         if (block == OccultismBlocks.STORAGE_STABILIZER_TIER2.get())
-            return Occultism.CONFIG.storage.stabilizerTier2Slots.get();
+            return Occultism.SERVER_CONFIG.storage.stabilizerTier2Slots.get();
         if (block == OccultismBlocks.STORAGE_STABILIZER_TIER3.get())
-            return Occultism.CONFIG.storage.stabilizerTier3Slots.get();
+            return Occultism.SERVER_CONFIG.storage.stabilizerTier3Slots.get();
         if (block == OccultismBlocks.STORAGE_STABILIZER_TIER4.get())
-            return Occultism.CONFIG.storage.stabilizerTier4Slots.get();
+            return Occultism.SERVER_CONFIG.storage.stabilizerTier4Slots.get();
         return 0;
     }
 

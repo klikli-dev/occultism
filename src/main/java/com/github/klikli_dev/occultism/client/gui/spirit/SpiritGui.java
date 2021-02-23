@@ -96,15 +96,9 @@ public class SpiritGui<T extends SpiritContainer> extends ContainerScreen<T> {
     }
 
     @Override
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
-        this.renderBackground(matrixStack);
-        super.render(matrixStack, mouseX, mouseY, partialTicks);
-        this.renderHoveredTooltip(matrixStack, mouseX, mouseY);
-
-    }
-
-    @Override
     protected void drawGuiContainerBackgroundLayer(MatrixStack matrixStack, float partialTicks, int x, int y) {
+        this.renderBackground(matrixStack);
+
         RenderSystem.color4f(1, 1, 1, 1);
         this.minecraft.getTextureManager().bindTexture(TEXTURE);
 
@@ -115,6 +109,11 @@ public class SpiritGui<T extends SpiritContainer> extends ContainerScreen<T> {
         drawEntityToGui(this.guiLeft + 35, this.guiTop + 65, scale, this.guiLeft + 51 - x,
                 this.guiTop + 75 - 50 - y, this.spirit);
         RenderSystem.popMatrix();
+    }
+
+    @Override
+    protected void drawGuiContainerForegroundLayer(MatrixStack matrixStack, int x, int y) {
+        //don't call super to avoid drawing names of inventories
     }
     //endregion Overrides
 

@@ -81,7 +81,7 @@ public class SummonDjinniClearWeatherRitual extends SummonSpiritRitual {
 
     @Override
     public boolean identify(World world, BlockPos goldenBowlPosition, ItemStack activationItem) {
-        return Occultism.CONFIG.rituals.enableClearWeatherRitual.get() &&
+        return Occultism.SERVER_CONFIG.rituals.enableClearWeatherRitual.get() &&
                super.identify(world, goldenBowlPosition, activationItem);
     }
     //endregion Overrides

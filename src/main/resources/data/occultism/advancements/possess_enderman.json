@@ -1,0 +1,31 @@
+{
+  "parent": "occultism:root",
+  "display": {
+    "icon": {
+      "item": "occultism:spawn_egg/possessed_enderman"
+    },
+    "title": {
+      "translate": "advancements.occultism.possess_enderman.title"
+    },
+    "description": {
+      "translate": "advancements.occultism.possess_enderman.description"
+    },
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false,
+    "hidden": true
+  },
+  "criteria": {
+    "possess_enderman": {
+      "trigger": "occultism:ritual",
+      "conditions": {
+        "ritual_id": "occultism:possess_enderman"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "possess_enderman"
+    ]
+  ]
+}

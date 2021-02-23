@@ -1,5 +1,5 @@
 {
-  "type": "occultism:spirit_trade",
+  "type": "occultism:ritual_ingredient",
   "ingredients": [
     {
       "item": "occultism:otherstone"

@@ -1,5 +1,5 @@
 {
-  "type": "occultism:custom_shapeless",
+  "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
       "tag": "occultism:books/book_of_calling_foliot"

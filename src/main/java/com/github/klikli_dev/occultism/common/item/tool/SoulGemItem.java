@@ -95,17 +95,23 @@ public class SoulGemItem extends Item {
                 CompoundNBT wrapper = new CompoundNBT();
                 wrapper.put("EntityTag", entityData);
 
-                Entity entity = type.spawn((ServerWorld) world, wrapper, customName, null, spawnPos,
-                        SpawnReason.MOB_SUMMONED, true, !pos.equals(spawnPos) && facing == Direction.UP);
-                if (entity instanceof TameableEntity && entityData.contains("OwnerUUID") &&
-                    !entityData.getString("OwnerUUID").isEmpty()) {
-                    TameableEntity tameableEntity = (TameableEntity) entity;
-                    try {
-                        tameableEntity.setOwnerId(UUID.fromString(entityData.getString("OwnerUUID")));
-                    } catch (IllegalArgumentException e) {
-                        //catch invalid uuid exception
-                    }
-                }
+                Entity entity = type.create(world);
+                entity.read(entityData);
+                entity.setPositionAndRotation(spawnPos.getX() + 0.5, spawnPos.getY(), spawnPos.getZ() + 0.5, 0, 0);
+                world.addEntity(entity);
+
+                // old spawn cde:
+//                Entity entity = type.spawn((ServerWorld) world, wrapper, customName, null, spawnPos,
+//                        SpawnReason.MOB_SUMMONED, true, !pos.equals(spawnPos) && facing == Direction.UP);
+//                if (entity instanceof TameableEntity && entityData.contains("OwnerUUID") &&
+//                    !entityData.getString("OwnerUUID").isEmpty()) {
+//                    TameableEntity tameableEntity = (TameableEntity) entity;
+//                    try {
+//                        tameableEntity.setOwnerId(UUID.fromString(entityData.getString("OwnerUUID")));
+//                    } catch (IllegalArgumentException e) {
+//                        //catch invalid uuid exception
+//                    }
+//                }
 
                 player.swingArm(context.getHand());
                 player.container.detectAndSendChanges();

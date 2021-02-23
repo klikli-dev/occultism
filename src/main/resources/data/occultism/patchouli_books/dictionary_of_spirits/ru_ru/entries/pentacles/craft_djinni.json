@@ -1,0 +1,17 @@
+{
+  "name": "Strigeor's Higher Binding",
+  "icon": "occultism:textures/gui/book/pentagram_rose.png",
+  "category": "pentacles",
+  "sortnum": 21,
+  "pages": [
+    {
+      "type": "text",
+      "text": "$(bold)Purpose:$() Связывание Djinni $(br2)$(thing)Strigeor's Higher Binding$(), пентакль для связывания Djinn с объектами, начинающий призыватель не должен пытаться использовать его. Поддерживается настроенными на дух кристаллами и стабилизируется свечами, он очень хорошо подходит для постоянных инфузий предметов духом."
+    },
+    {
+      "type": "multiblock",
+      "name": "",
+      "multiblock_id": "occultism:pentacle.craft_djinni"
+    }
+  ]
+}

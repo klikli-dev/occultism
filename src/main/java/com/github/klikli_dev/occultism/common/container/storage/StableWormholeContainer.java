@@ -43,16 +43,16 @@ public class StableWormholeContainer extends StorageControllerContainerBase {
     //region Fields
     protected StorageControllerTileEntity storageController;
     protected StableWormholeTileEntity stableWormhole;
-    //endregion Fields
 
+    //endregion Fields
     //region Initialization
     public StableWormholeContainer(int id, PlayerInventory playerInventory,
                                    StableWormholeTileEntity stableWormhole) {
         super(OccultismContainers.STABLE_WORMHOLE.get(), id, playerInventory);
         this.stableWormhole = stableWormhole;
         this.storageController = (StorageControllerTileEntity) stableWormhole.getLinkedStorageController();
-        this.matrix = new StorageControllerCraftingInventory(this, this.storageController.getMatrix());
-        this.orderInventory.setInventorySlotContents(0, this.storageController.getOrderStack());
+        this.matrix = new StorageControllerCraftingInventory(this, stableWormhole.getMatrix());
+        this.orderInventory.setInventorySlotContents(0, this.stableWormhole.getOrderStack());
 
         this.setupCraftingOutput(); //output is slot 0
 
@@ -64,6 +64,12 @@ public class StableWormholeContainer extends StorageControllerContainerBase {
         this.onCraftMatrixChanged(this.matrix);
     }
     //endregion Initialization
+
+    //region Getter / Setter
+    public StableWormholeTileEntity getStableWormhole() {
+        return this.stableWormhole;
+    }
+    //endregion Getter / Setter
 
     //region Overrides
     @Override
@@ -87,17 +93,17 @@ public class StableWormholeContainer extends StorageControllerContainerBase {
     @Override
     public void updateCraftingSlots(boolean force) {
         for (int i = 0; i < 9; i++) {
-            this.storageController.getMatrix().put(i, this.matrix.getStackInSlot(i));
+            this.stableWormhole.getMatrix().put(i, this.matrix.getStackInSlot(i));
         }
         if (force)
-            this.storageController.markNetworkDirty();
+            this.stableWormhole.markNetworkDirty();
     }
 
     @Override
     public void updateOrderSlot(boolean force) {
-        this.storageController.setOrderStack(this.orderInventory.getStackInSlot(0));
+        this.stableWormhole.setOrderStack(this.orderInventory.getStackInSlot(0));
         if (force)
-            this.storageController.markNetworkDirty();
+            this.stableWormhole.markNetworkDirty();
     }
 
     @Override

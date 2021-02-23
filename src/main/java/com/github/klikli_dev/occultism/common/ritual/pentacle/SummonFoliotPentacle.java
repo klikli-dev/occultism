@@ -34,29 +34,21 @@ public class SummonFoliotPentacle extends Pentacle {
     //region Fields
     private final String[][] pattern = new String[][]{
             {
-                    "    X    ",
+                    "         ",
                     "   WCW   ",
                     "  W W W  ",
                     " W  W  W ",
-                    "XCWW0WWCX",
+                    " CWW0WWC ",
                     " W  W  W ",
                     "  W W W  ",
                     "   WCW   ",
-                    "    X    "
+                    "         "
             }
     };
 
     //endregion Fields
 
     //region Overrides
-    @Override
-    protected void setupMapping() {
-        super.setupMapping();
-        this.mapping.addAll(Arrays.asList(
-                'C', this.api.predicateMatcher(OccultismBlocks.CANDLE_WHITE.get(),
-                        b -> b.getBlock() instanceof CandleBlock)
-        ));
-    }
 
     @Override
     protected IMultiblock setupMultiblock() {

@@ -1,0 +1,31 @@
+{
+  "parent": "occultism:root",
+  "display": {
+    "icon": {
+      "item": "minecraft:iron_axe"
+    },
+    "title": {
+      "translate": "advancements.occultism.summon_foliot_lumberjack.title"
+    },
+    "description": {
+      "translate": "advancements.occultism.summon_foliot_lumberjack.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": true
+  },
+  "criteria": {
+    "summon_foliot_lumberjack": {
+      "trigger": "occultism:ritual",
+      "conditions": {
+        "ritual_id": "occultism:summon_foliot_lumberjack"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "summon_foliot_lumberjack"
+    ]
+  ]
+}

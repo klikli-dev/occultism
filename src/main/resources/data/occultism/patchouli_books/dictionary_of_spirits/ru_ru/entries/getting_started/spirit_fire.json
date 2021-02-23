@@ -1,0 +1,29 @@
+{
+  "name": "Spiritfire",
+  "icon": "occultism:spirit_fire",
+  "category": "getting_started",
+  "sortnum": 2,
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "occultism:spirit_fire",
+      "text": "Духовный огонь (Spiritfire) - это особый тип огня, который существует в основном в $(thing)The Other Place$() и не вредит живым существам. Его особые свойства позволяют использовать его для очистки и преобразования определенных материалов путем их сжигания, не потребляя их. Для создания Spiritfire требуется $(item)Demon's Dream Fruit$() и $(item)Flint and Steel$() (огниво)."
+    },
+    {
+      "type": "image",
+      "border": "true",
+      "images": [
+        "occultism:textures/gui/book/spiritfire_instructions.png"
+      ],
+      "text": "Бросьте $(item)Demon's Dream Fruit$() к земле и зажгите его огнем."
+    },
+    {
+      "type": "text",
+      "text": "Основное использование Spiritfire - преобразование $(item)Diamonds$() в $(item)Spirit Attuned Gems$(), и очистка нечистого мела."
+    },
+    {
+      "type": "empty",
+      "draw_filler": false
+    }
+  ]
+}

@@ -5,14 +5,21 @@
       "type": "simple_state_provider",
       "state": {
         "Name": "occultism:otherworld_log_natural",
-        "Properties": {}
+        "Properties": {
+          "uncovered": "false",
+          "axis": "y"
+        }
       }
     },
     "leaves_provider": {
       "type": "simple_state_provider",
       "state": {
         "Name": "occultism:otherworld_leaves_natural",
-        "Properties": {}
+        "Properties": {
+          "uncovered": "false",
+          "persistent": "false",
+          "distance": "7"
+        }
       }
     },
     "foliage_placer": {

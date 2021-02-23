@@ -61,6 +61,7 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
+import org.apache.commons.io.FilenameUtils;
 
 import javax.annotation.Nullable;
 import java.util.Optional;
@@ -113,6 +114,12 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
      */
     private static final DataParameter<CompoundNBT> FILTER_ITEMS = EntityDataManager
                                                                               .createKey(SpiritEntity.class, DataSerializers.COMPOUND_NBT);
+
+    /**
+     * The filter for tags
+     */
+    private static final DataParameter<String> TAG_FILTER = EntityDataManager
+                                                                           .createKey(SpiritEntity.class, DataSerializers.STRING);
 
     public LazyOptional<ItemStackHandler> itemStackHandler = LazyOptional.of(ItemStackHandler::new);
     public LazyOptional<ItemStackHandler> filterItemStackHandler = LazyOptional.of(() -> new ItemStackHandler(MAX_FILTER_SLOTS) {
@@ -275,6 +282,20 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
     }
 
     /**
+     * Gets the tag filter string
+     */
+    public String getTagFilter(){
+        return this.dataManager.get(TAG_FILTER);
+    }
+
+    /**
+     * Sets the tag filter string
+     */
+    public void setTagFilter(String tagFilter){
+        this.dataManager.set(TAG_FILTER, tagFilter);
+    }
+
+    /**
      * @return the filter mode
      */
     public LazyOptional<ItemStackHandler> getFilterItems() {
@@ -425,6 +446,7 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
         this.dataManager.register(JOB_ID, "");
         this.dataManager.register(IS_FILTER_BLACKLIST, false);
         this.dataManager.register(FILTER_ITEMS, new CompoundNBT());
+        this.dataManager.register(TAG_FILTER, "");
     }
 
 
@@ -457,6 +479,7 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
         compound.putBoolean("isFilterBlacklist", this.isFilterBlacklist());
         this.filterItemStackHandler.ifPresent(handler -> compound.put("filterItems", handler.serializeNBT()));
 
+        compound.putString("tagFilter", this.getTagFilter());
     }
 
     @Override
@@ -514,6 +537,10 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
 
         if(compound.contains("filterItems")){
             this.filterItemStackHandler.ifPresent(handler -> handler.deserializeNBT(compound.getCompound("filterItems")));
+        }
+
+        if(compound.contains("tagFilter")){
+            this.setTagFilter(compound.getString("tagFilter"));
         }
     }
 

@@ -1,0 +1,30 @@
+{
+  "name": "Drikwing Familiar",
+  "icon": "occultism:textures/gui/book/otherworld_bird.png",
+  "category": "rituals/familiars",
+  "sortnum": 2,
+  "pages": [
+    {
+      "type": "entity",
+      "entity": "occultism:otherworld_bird",
+      "text": "$(bold)Provides$(): $(thing)Multi-Jump$(), $(thing)Jump Boost$(), $(thing)Slow Falling$()"
+    },
+    {
+      "type": "summoning_sacrifice_noformat",
+      "heading": "Summoning",
+      "pentacle": "$(l:pentacles/summon_djinni)Ophyx' Calling$(/l)",
+      "activation_item": "occultism:book_of_binding_bound_djinni",
+      "sacrifice": "$(thing)Parrot$() or $(thing)Parrot Familiar$()",
+      "ingredients": "$(li)2x $(item)Feather $()$(li)1x $(item)Spider Web $()$(li)1x $(item)Any Leaves $()"
+    },
+    {
+      "type": "text",
+      "text": "$(thing)Drikwings$() являются подклассом $(thing)Djinni$() которые, как известно, дружелюбны по отношению к людям. Обычно они имеют форму темно-синего и фиолетового попугая. Drikwings предоставят своему владельцу ограниченные возможности полета, когда они будут поблизости.."
+    },
+    {
+      "type": "text",
+      "text": ""
+    }
+  ]
+}
+

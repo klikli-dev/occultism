@@ -81,7 +81,7 @@ public class SummonDjinniNightTimeRitual extends SummonSpiritRitual {
 
     @Override
     public boolean identify(World world, BlockPos goldenBowlPosition, ItemStack activationItem) {
-        return Occultism.CONFIG.rituals.enableNightTimeRitual.get() &&
+        return Occultism.SERVER_CONFIG.rituals.enableNightTimeRitual.get() &&
                super.identify(world, goldenBowlPosition, activationItem);
     }
     //endregion Overrides

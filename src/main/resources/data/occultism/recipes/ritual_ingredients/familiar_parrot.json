@@ -1,5 +1,5 @@
 {
-  "type": "occultism:spirit_trade",
+  "type": "occultism:ritual_ingredient",
   "ingredients": [
     {
       "tag": "forge:feathers"
@@ -15,6 +15,9 @@
     },
     {
       "tag": "forge:dyes/blue"
+    },
+    {
+      "tag": "forge:string"
     }
   ],
   "result": {

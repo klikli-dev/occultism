@@ -23,30 +23,19 @@
 package com.github.klikli_dev.occultism.handlers;
 
 import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.client.gui.storage.SatchelScreen;
 import com.github.klikli_dev.occultism.network.MessageDoubleJump;
+import com.github.klikli_dev.occultism.network.MessageOpenSatchel;
 import com.github.klikli_dev.occultism.network.OccultismPackets;
-import com.github.klikli_dev.occultism.registry.OccultismBlocks;
-import com.github.klikli_dev.occultism.registry.OccultismItems;
-import com.github.klikli_dev.occultism.util.Math3DUtil;
+import com.github.klikli_dev.occultism.util.CuriosUtil;
 import com.github.klikli_dev.occultism.util.MovementUtil;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.item.Items;
-import net.minecraft.util.Hand;
-import net.minecraft.util.SoundCategory;
+import net.minecraft.client.audio.SimpleSound;
 import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.InputEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-
-import java.util.List;
 
 import static org.lwjgl.glfw.GLFW.GLFW_PRESS;
 
@@ -55,19 +44,39 @@ public class ClientPlayerEventHandler {
     //region Static Methods
 
     @SubscribeEvent
-    public static void onKeyInput(final InputEvent.KeyInputEvent evt) {
+    public static void onKeyInput(final InputEvent.KeyInputEvent event) {
         Minecraft minecraft = Minecraft.getInstance();
-        if (!minecraft.isGameFocused() || evt.getAction() != GLFW_PRESS) {
-            return;
-        }
-
-        if (minecraft.gameSettings.keyBindJump.isKeyDown()) {
-
+        checkBackpackKey(event);
+        if (event.getAction() == GLFW_PRESS && minecraft.gameSettings.keyBindJump.isKeyDown()) {
             if (minecraft.player != null && MovementUtil.doubleJump(minecraft.player)) {
                 OccultismPackets.sendToServer(new MessageDoubleJump());
             }
         }
-
     }
+
+    @SubscribeEvent
+    public static void onMouseInput(final InputEvent.MouseInputEvent event) {
+        checkBackpackKey(event);
+    }
+
+    public static void checkBackpackKey(InputEvent event) {
+        Minecraft minecraft = Minecraft.getInstance();
+
+        //check backpack keydown here instead of on key input
+        //  because mouse buttons don't properly fire key inputs (
+        if (minecraft.currentScreen instanceof SatchelScreen && ClientSetupEventHandler.KEY_BACKPACK.isPressed()) {
+            minecraft.player.closeScreen();
+        }
+        //open satchel
+        else if (minecraft.player != null & minecraft.currentScreen == null &&
+                 ClientSetupEventHandler.KEY_BACKPACK.isPressed()) {
+            if (!CuriosUtil.getBackpack(minecraft.player).isEmpty() ||
+                CuriosUtil.getFirstBackpackSlot(minecraft.player) > 0) {
+                OccultismPackets.sendToServer(new MessageOpenSatchel());
+                minecraft.getSoundHandler().play(SimpleSound.master(SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0.75F, 1.0F));
+            }
+        }
+    }
+
     //endregion Static Methods
 }

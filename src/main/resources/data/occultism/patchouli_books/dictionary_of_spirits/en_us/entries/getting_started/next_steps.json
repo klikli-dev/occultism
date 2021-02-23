@@ -21,7 +21,7 @@
     {
       "type": "text",
       "title": "Infuse Pickaxe",
-      "text": "$(l:rituals/crafting/craft_infused_pickaxe)Infuse a pickaxe$(/l) to harvest Otherworld ores. The logical next step is to craft an $(item)Iesnium Pickaxe$() for the same effect, but with a higher durability."
+      "text": "$(l:rituals/crafting/craft_infused_pickaxe)Infuse a pickaxe$(/l) to harvest Otherworld ores. The logical next step is to craft an $(item)Iesnium Pickaxe$() for the same effect, but with a higher durability. See more on $(l:misc/iesnium)Iesnium$(/l)."
     },
     {
       "type": "text",

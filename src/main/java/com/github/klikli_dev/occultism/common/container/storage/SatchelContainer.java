@@ -24,6 +24,7 @@ package com.github.klikli_dev.occultism.common.container.storage;
 
 import com.github.klikli_dev.occultism.registry.OccultismContainers;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
+import com.github.klikli_dev.occultism.util.CuriosUtil;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.IInventory;
@@ -71,12 +72,20 @@ public class SatchelContainer extends Container {
         if (slot != null && slot.getHasStack()) {
             ItemStack itemstack1 = slot.getStack();
             itemstack = itemstack1.copy();
+
+            if(index >= this.satchelInventory.getSizeInventory()) {
+                //if putting into satchel, abort if it's another satchel
+                if(itemstack.getItem() == OccultismItems.SATCHEL.get())
+                    return ItemStack.EMPTY;
+            }
+            //take out of satchel
             if (index < this.satchelInventory.getSizeInventory()) {
                 if (!this.mergeItemStack(itemstack1, this.satchelInventory.getSizeInventory(),
                         this.inventorySlots.size(), true)) {
                     return ItemStack.EMPTY;
                 }
             }
+            //put into satchel
             else if (!this.mergeItemStack(itemstack1, 0, this.satchelInventory.getSizeInventory(), false)) {
                 return ItemStack.EMPTY;
             }
@@ -94,6 +103,11 @@ public class SatchelContainer extends Container {
 
     @Override
     public boolean canInteractWith(PlayerEntity player) {
+        if(this.selectedSlot == -1){
+            return CuriosUtil.getBackpack(player).getItem() == OccultismItems.SATCHEL.get();
+        }
+        if(this.selectedSlot < 0 || this.selectedSlot >= player.inventory.getSizeInventory())
+            return false;
         return player.inventory.getStackInSlot(this.selectedSlot).getItem() == OccultismItems.SATCHEL.get();
     }
     //endregion Overrides

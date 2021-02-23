@@ -35,13 +35,13 @@ public class PossessDjinniPentacle extends Pentacle {
     private final String[][] pattern = new String[][]{
             {
                     "   GPG   ",
-                    "  GCXCG  ",
+                    "  GC CG  ",
                     " GZW WZG ",
                     "GCWP PWCG",
-                    "PX  0  XP",
+                    "P   0   P",
                     "GCWP PWCG",
                     " GZW WZG ",
-                    "  GCXCG  ",
+                    "  GC CG  ",
                     "   GPG   "
             }
     };
@@ -53,9 +53,7 @@ public class PossessDjinniPentacle extends Pentacle {
     protected void setupMapping() {
         super.setupMapping();
         this.mapping.addAll(Arrays.asList(
-                'Z', this.api.looseBlockMatcher(Blocks.SKELETON_SKULL),
-                'C', this.api.predicateMatcher(OccultismBlocks.CANDLE_WHITE.get(),
-                        b -> b.getBlock() instanceof CandleBlock)
+                'Z', this.api.looseBlockMatcher(Blocks.SKELETON_SKULL)
         ));
     }
 

@@ -81,7 +81,10 @@ public class SummonSpiritRitual extends Ritual {
      */
     public ItemStack getBookOfCallingBound(ItemStack activationItem) {
         ItemStack result = new ItemStack(this.bookOfCalling);
-        result.setTag(activationItem.getTag().copy());
+        //should never happen, but apparently there is a scenario where it does (item cheated in with non jei?)
+        //https://github.com/klikli-dev/occultism/issues/183
+        if(activationItem.hasTag())
+            result.setTag(activationItem.getTag().copy());
         activationItem.shrink(1); //remove original activation item.
         return result;
     }

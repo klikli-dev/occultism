@@ -94,9 +94,10 @@ public class SacrificialBowlTileEntity extends NetworkedTileEntity {
     }
 
     @Override
-    public void remove() {
+    protected void invalidateCaps() {
+        super.invalidateCaps();
         this.itemStackHandler.invalidate();
-        super.remove();
     }
+
     //endregion Overrides
 }

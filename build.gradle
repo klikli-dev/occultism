@@ -123,8 +123,15 @@ repositories {
         url = 'https://dvs1.progwml6.com/files/maven'
     }
     maven {
+        name = "Curios Maven"
+        url = "https://maven.theillusivec4.top/"
+    }
+    maven {
         name = "ModMaven - JEI"
         url = "https://modmaven.k-4u.nl"
+    }
+    flatDir {
+        dirs 'runtime-mods'
     }
 }
 
@@ -132,12 +139,21 @@ dependencies {
     // Specify the version of Minecraft to use, If this is any group other then 'net.minecraft' it is assumed
     // that the dep is a ForgeGradle 'patcher' dependency. And it's patches will be applied.
     // The userdev artifact is a special name and will get all sorts of transformations applied to it.
-    minecraft 'net.minecraftforge:forge:1.16.4-35.1.13'
+    minecraft 'net.minecraftforge:forge:1.16.5-36.0.0'
 
-    compileOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}:api")
-    runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}")
+    //Jei
+    compileOnly fg.deobf("mezz.jei:jei-${jei_mc_version}:${jei_version}:api")
+    runtimeOnly fg.deobf("mezz.jei:jei-${jei_mc_version}:${jei_version}")
 
-    compile fg.deobf("vazkii.patchouli:Patchouli:${mc_version}-${patchouli_version}")
+    //curios
+    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}:api")
+    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}")
+
+    //patchouli bookss
+    compile fg.deobf("vazkii.patchouli:Patchouli:${patchouli_mc_version}-${patchouli_version}")
+
+    //runtime only helper mods for dev env, placed in ./runtime-mods, example: Hwyla-forge-1.10.11-B78_1.16.2.jar
+    //runtimeOnly fg.deobf("ignoredvalue:Hwyla:forge-1.10.11-B78_1.16.2")
 }
 
 // Example for how to get properties into the manifest for reading by the runtime..

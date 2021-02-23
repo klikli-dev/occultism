@@ -31,6 +31,7 @@ import net.minecraft.item.ItemStack;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.function.Predicate;
 
 public interface IStorageController {
     //region Getter / Setter
@@ -130,7 +131,7 @@ public interface IStorageController {
      * @param simulate      true for simulation
      * @return the matching item stack.
      */
-    ItemStack getItemStack(IItemStackComparator comparator, int requestedSize, boolean simulate);
+    ItemStack getItemStack(Predicate<ItemStack> comparator, int requestedSize, boolean simulate);
 
     /**
      * Gets the available amount of the matching item stack in the controller.

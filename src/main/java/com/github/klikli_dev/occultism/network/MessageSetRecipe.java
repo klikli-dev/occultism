@@ -77,7 +77,7 @@ public class MessageSetRecipe extends MessageBase {
         StorageUtil.clearOpenCraftingMatrix(player, false);
 
         CraftingInventory craftMatrix = container.getCraftMatrix();
-        String[] oreDictKeys;
+
         for (int slot = 0; slot < 9; slot++) {
             Map<Integer, ItemStack> map = new HashMap<Integer, ItemStack>();
 

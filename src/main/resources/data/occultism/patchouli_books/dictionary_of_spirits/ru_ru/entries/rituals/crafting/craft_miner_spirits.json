@@ -1,0 +1,40 @@
+{
+  "name": "Miner Spirits",
+  "icon": "occultism:miner_foliot_unspecialized",
+  "category": "rituals/crafting",
+  "sortnum": 27,
+  "pages": [
+    {
+      "type": "text",
+      "text": "Шахтерские духи используют $(thing)Dimensional Mineshafts$() (Межространственные шахты) для получения ресурсов из других измерений. Их вызывают и связывают с волшебными лампами, их можно выпустить только в межпространственную шахту. Волшебная лампа со временем деградирует, как только она разбивается, дух возвращается обратно в $(thing)The Other Place$()."
+    },
+    {
+      "type": "text",
+      "title": "Foliot Miner",
+      "text": "Фолиот-майнер без особой цели собирает блок и возвращает все, что находит. Процесс добычи идет довольно медленно, из-за этого фолиот расходует лишь незначительное количество энергии, постепенно повреждая лампу, в которой он находится."
+    },
+    {
+      "type": "summoning",
+      "heading": "Foliot Miner",
+      "pentacle": "$(l:pentacles/craft_foliot)Eziveus' Spectral Compulsion$(/l)",
+      "activation_item": "occultism:book_of_binding_bound_foliot",
+      "ingredients": "$(li)1x $(item)Empty Magic Lamp $()$(li)1x $(item)Iesnium Pickaxe $()$(li)1x $(item)Iron Ore $() $(li)1x $(item)Gravel $()"
+    },
+    {
+      "type": "text",
+      "title": "Djinni Ore Miner",
+      "text": "Шахтер-джинн может дабывать определенную руду. Чем сильнее джинн, тем быстрее он повреждает волшебную лампу."
+    },
+    {
+      "type": "summoning",
+      "heading": "Djinni Ore Miner",
+      "pentacle": "$(l:pentacles/craft_djinni)Strigeor's Higher Binding$(/l)",
+      "activation_item": "occultism:book_of_binding_bound_djinni",
+      "ingredients": "$(li)1x $(item)Empty Magic Lamp $()$(li)1x $(item)Iesnium Pickaxe $()$(li)1x $(item)Iesnium Block $()$(li)1x $(item)Spirit Attuned Crystal $()$(li)1x $(item)Gold Ore $()"
+    },
+    {
+      "type": "empty",
+      "draw_filler": false
+    }
+  ]
+}

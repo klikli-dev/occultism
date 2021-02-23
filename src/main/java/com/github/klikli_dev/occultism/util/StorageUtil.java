@@ -39,6 +39,10 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
+import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.io.IOCase;
+
+import java.util.function.Predicate;
 
 /**
  * Based on https://github.com/Lothrazar/Storage-Network
@@ -137,7 +141,7 @@ public class StorageUtil {
      * @param simulate    true to simulate.
      * @return the extracted stack.
      */
-    public static ItemStack extractItem(IItemHandler itemHandler, ItemStackComparator comparator, int amount,
+    public static ItemStack extractItem(IItemHandler itemHandler, Predicate<ItemStack> comparator, int amount,
                                         boolean simulate) {
         if (itemHandler == null || comparator == null) {
             return ItemStack.EMPTY;
@@ -147,7 +151,7 @@ public class StorageUtil {
         for (int i = 0; i < itemHandler.getSlots(); i++) {
             ItemStack slot = itemHandler.getStackInSlot(i);
             //check if current slot matches
-            if (comparator.matches(slot)) {
+            if (comparator.test(slot)) {
                 //take out of handler, one by one
                 ItemStack extractedStack = itemHandler.extractItem(i, 1, simulate);
                 if (!extractedStack.isEmpty()) {
@@ -178,35 +182,66 @@ public class StorageUtil {
         return -1;
     }
 
-    public static int getFirstMatchingSlot(IItemHandler handler, IItemHandler filter, boolean isBlacklist){
-        return getFirstMatchingSlotAfter(handler, -1, filter, isBlacklist);
+//    public static int getFirstMatchingSlot(IItemHandler handler, IItemHandler filter, String tagFilter, boolean isBlacklist){
+//        int itemMatchedSlot = getFirstMatchingSlot(handler, filter, isBlacklist);
+//        int tagMatchedSlot = getFirstMatchingSlot(handler, tagFilter, isBlacklist);
+//        //if item match is found (>1) but smaller than tag match (-> item found before tag match), return item match, otherwise tag
+//        return itemMatchedSlot > -1 && itemMatchedSlot < tagMatchedSlot ? itemMatchedSlot : tagMatchedSlot;
+//    }
+
+    public static int getFirstMatchingSlot(IItemHandler handler, IItemHandler filter, String tagFilter, boolean isBlacklist){
+        return getFirstMatchingSlotAfter(handler, -1, filter, tagFilter, isBlacklist);
     }
 
-    public static int getFirstMatchingSlotAfter(IItemHandler handler, int slot, IItemHandler filter, boolean isBlacklist) {
+    public static int getFirstMatchingSlotAfter(IItemHandler handler, int slot, IItemHandler filter, String tagFilter, boolean isBlacklist) {
         for (int i = slot+1; i < handler.getSlots(); i++) {
-            if (!handler.getStackInSlot(i).isEmpty() && matchesFilter(handler.getStackInSlot(i), filter, isBlacklist)){
-                return i;
+            if (!handler.getStackInSlot(i).isEmpty()){
+                boolean matches = matchesFilter(handler.getStackInSlot(i), filter) ||
+                                  matchesFilter(handler.getStackInSlot(i), tagFilter);
+
+                //if we're in blacklist mode, if the item matches either item or tag -> we continue into next iteration
+                //if we're in blacklist mode and none of the filters match -> we return
+                //if we're in whitelist mode, if the item matches either item or tag -> we return
+                //if we're in whitelist mode, if the item matches neither item nor tag -> we continue
+                if((!isBlacklist && matches) || (isBlacklist && !matches))
+                    return i;
             }
         }
         return -1;
     }
 
-    public static boolean matchesFilter(ItemStack stack, IItemHandler filter, boolean isBlacklist){
+    public static boolean matchesFilter(ItemStack stack, IItemHandler filter){
         for (int i = 0; i < filter.getSlots(); i++) {
             ItemStack filtered = filter.getStackInSlot(i);
 
             boolean equals = filtered.isItemEqual(stack);
 
             if (equals) {
-                //if it's a blacklist, we return false, because a match means the item is not allowed
-                //if it's a whitelist, we return true, because a match means the item is allowed
-                return !isBlacklist;
+                return true;
             }
         }
+        return false;
+    }
 
-        //if it's a blacklist, we return true, because no match means the item is allowed
-        //if it's a whitelist, w return false, because no match means the item is not allowed
-        return isBlacklist;
+
+    /**
+     * Checks if stack matches the given tag filter (wildcard match)
+     */
+    public static boolean matchesFilter(ItemStack stack, String tagFilter){
+        if(tagFilter.isEmpty())
+            return false;
+
+        String[] filters = tagFilter.split(";");
+        for(String filter : filters){
+            boolean equals = stack.getItem().getTags().stream().anyMatch(rl -> {
+                 return FilenameUtils.wildcardMatch(rl.toString(), filter, IOCase.INSENSITIVE);
+            });
+
+            if (equals) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

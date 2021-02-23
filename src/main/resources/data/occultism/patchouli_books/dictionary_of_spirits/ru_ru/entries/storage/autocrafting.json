@@ -1,0 +1,16 @@
+{
+  "name": "Machine Operators",
+  "icon": "occultism:textures/gui/book/autocrafting.png",
+  "category": "storage",
+  "sortnum": 4,
+  "pages": [
+    {
+      "type": "text",
+      "text": "$(l:rituals/summoning/summon_manage_machine)Machine Operators$(/l) духи, позволяющие автоматизировать печи и другие машины. Поместите стопку предметов в слот заказа графического интерфейса хранилища, и дух бросит его в машину, которой он назначен, и вернет результаты обработки в систему.."
+    },
+    {
+      "type": "empty",
+      "draw_filler": false
+    }
+  ]
+}

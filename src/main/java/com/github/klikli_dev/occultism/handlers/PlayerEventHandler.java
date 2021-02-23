@@ -30,10 +30,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.item.Items;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
+import net.minecraft.util.*;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -48,27 +45,47 @@ public class PlayerEventHandler {
     //region Static Methods
     @SubscribeEvent
     public static void onPlayerRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
-        if (event.getItemStack().getItem() == Items.FLINT_AND_STEEL) {
+        boolean isFlintAndSteel = event.getItemStack().getItem() == Items.FLINT_AND_STEEL;
+        boolean isFireCharge = event.getItemStack().getItem() == Items.FIRE_CHARGE;
+        if (isFlintAndSteel || isFireCharge) {
+            //find if there is any datura
             AxisAlignedBB box = new AxisAlignedBB(-1, -1, -1, 1, 1, 1)
                                         .offset(Math3DUtil.center(event.getPos()));
             List<ItemEntity> list = event.getWorld().getEntitiesWithinAABB(ItemEntity.class, box,
                     item -> item.getItem().getItem() == OccultismItems.DATURA.get());
             if (!list.isEmpty()) {
+                //if there is datura, check if we can edit the target face
                 BlockPos pos = event.getPos().offset(event.getFace());
                 if (!event.getPlayer().canPlayerEdit(pos, event.getFace(), event.getItemStack())) {
                     return;
                 }
 
+                //consume all datura
                 list.forEach(Entity::remove);
+
                 World world = event.getWorld();
+                //if there is air, place block and play sound
                 if (world.isAirBlock(pos)) {
-                    world.playSound(event.getPlayer(), pos, SoundEvents.ITEM_FLINTANDSTEEL_USE,
-                            SoundCategory.PLAYERS, 1.0F, world.rand.nextFloat() * 0.4F + 0.8F);
+                    //sound based on the item used
+                    SoundEvent soundEvent =
+                            isFlintAndSteel ? SoundEvents.ITEM_FLINTANDSTEEL_USE : SoundEvents.ITEM_FIRECHARGE_USE;
+                    world.playSound(event.getPlayer(), pos, soundEvent,
+                            SoundCategory.BLOCKS, 1.0F, world.rand.nextFloat() * 0.4F + 0.8F);
+
                     world.setBlockState(pos, OccultismBlocks.SPIRIT_FIRE.get().getDefaultState(), 11);
                 }
-                event.getItemStack().damageItem(1, event.getPlayer(), (player) -> {
-                    player.sendBreakAnimation(event.getHand());
-                });
+
+                //now handle used item
+                if (isFlintAndSteel) {
+                    event.getItemStack().damageItem(1, event.getPlayer(), (player) -> {
+                        player.sendBreakAnimation(event.getHand());
+                    });
+                }
+                else if (isFireCharge) {
+                    event.getItemStack().shrink(1);
+                }
+
+                //finally, cancel original event to prevent real action and show use animation
                 event.setCanceled(true);
                 event.getPlayer().swingArm(Hand.MAIN_HAND);
             }

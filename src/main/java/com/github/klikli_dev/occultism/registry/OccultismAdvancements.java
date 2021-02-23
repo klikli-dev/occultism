@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright 2020 klikli-dev
+ * Copyright 2021 klikli-dev
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the "Software"), to deal in the Software without restriction, including
@@ -20,28 +20,20 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.github.klikli_dev.occultism.api.common.item;
+package com.github.klikli_dev.occultism.registry;
 
-import net.minecraft.inventory.CraftingInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.world.World;
+import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.common.advancement.RitualTrigger;
+import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.util.ResourceLocation;
 
-/**
- * Implement if this item should be conditionally prevent crafting.
- */
-public interface IIngredientPreventCrafting {
-    //region Methods
+public class OccultismAdvancements {
+    //region Fields
+    public static RitualTrigger RITUAL;
+    //endregion Fields
 
-    /**
-     * Determines if this item should prevent crafting.
-     *
-     * @param itemStack the item stack to use in crafting.
-     * @param recipe    the recipe the item is used in.
-     * @param inventory the crafting inventory.
-     * @param world     the world.
-     * @return true to prevent crafting.
-     */
-    boolean shouldPreventCrafting(ItemStack itemStack, IRecipe recipe, CraftingInventory inventory, World world);
-    //endregion Methods
+    public static void register(){
+        RITUAL = CriteriaTriggers.register(
+                new RitualTrigger(new ResourceLocation(Occultism.MODID, "ritual")));
+    }
 }

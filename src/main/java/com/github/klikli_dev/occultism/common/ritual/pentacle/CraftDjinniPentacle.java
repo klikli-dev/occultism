@@ -33,15 +33,15 @@ public class CraftDjinniPentacle extends Pentacle {
     //region Fields
     private final String[][] pattern = new String[][]{
             {
-                    "    X    ",
+                    "         ",
                     " C WGW C ",
                     "  P W P  ",
                     " W SWS W ",
-                    "XGWW0WWGX",
+                    " GWW0WWG ",
                     " W SWS W ",
                     "  P W P  ",
                     " C WGW C ",
-                    "    X    "
+                    "         "
             }
     };
 

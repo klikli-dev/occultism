@@ -5,14 +5,19 @@
       "type": "simple_state_provider",
       "state": {
         "Name": "occultism:otherworld_log",
-        "Properties": {}
+        "Properties": {
+          "axis": "y"
+        }
       }
     },
     "leaves_provider": {
       "type": "simple_state_provider",
       "state": {
         "Name": "occultism:otherworld_leaves",
-        "Properties": {}
+        "Properties": {
+          "persistent": "false",
+          "distance": "7"
+        }
       }
     },
     "foliage_placer": {

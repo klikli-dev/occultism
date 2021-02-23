@@ -34,13 +34,13 @@ public class PossessFoliotPentacle extends Pentacle {
     private final String[][] pattern = new String[][]{
             {
                     "   GGG   ",
-                    "  GCXCG  ",
+                    "  GC CG  ",
                     " GW   WG ",
                     "GC W W CG",
-                    "GX  0  XG",
+                    "G   0   G",
                     "GC W W CG",
                     " GW   WG ",
-                    "  GCXCG  ",
+                    "  GC CG  ",
                     "   GGG   "
             }
     };
@@ -48,15 +48,6 @@ public class PossessFoliotPentacle extends Pentacle {
     //endregion Fields
 
     //region Overrides
-    @Override
-    protected void setupMapping() {
-        super.setupMapping();
-        this.mapping.addAll(Arrays.asList(
-                'C', this.api.predicateMatcher(OccultismBlocks.CANDLE_WHITE.get(),
-                        b -> b.getBlock() instanceof CandleBlock)
-        ));
-    }
-
     @Override
     protected IMultiblock setupMultiblock() {
         return this.api.makeMultiblock(this.pattern, this.mapping.toArray()).setSymmetrical(true);

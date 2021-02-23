@@ -27,10 +27,12 @@ import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.github.klikli_dev.occultism.common.ritual.pentacle.Pentacle;
 import com.github.klikli_dev.occultism.common.tile.GoldenSacrificialBowlTileEntity;
 import com.github.klikli_dev.occultism.common.tile.SacrificialBowlTileEntity;
+import com.github.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.github.klikli_dev.occultism.registry.OccultismSounds;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.Ingredient;
@@ -170,6 +172,7 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
             this.additionalIngredientsRecipeId = new ResourceLocation(Occultism.MODID,
                     "ritual_ingredients/" + additionalIngredientsRecipeName);
         this.additionalIngredients = new ArrayList<>();
+        this.additionalIngredientsLoaded = false;
         this.sacrificialBowlRange = sacrificialBowlRange;
         this.totalSeconds = totalSeconds;
         this.timePerIngredient = this.totalSeconds;
@@ -214,7 +217,9 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
      * These ingredients need to be placed within the ritual area.
      */
     public List<Ingredient> getAdditionalIngredients(World world) {
-        if (!this.additionalIngredientsLoaded) {
+        //rituals persist between world unload/reloads, so additionalIngredientsLoaded will be true
+        //therefore we also check for additional ingredients size
+        if (!this.additionalIngredientsLoaded || this.additionalIngredients.size() == 0) {
             //this is lazily loading the ingredients.
             this.registerAdditionalIngredients(world.getRecipeManager());
         }
@@ -225,7 +230,7 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
      * Gets the additional ingredients from the recipe registry.
      */
     public void registerAdditionalIngredients(RecipeManager recipeManager) {
-        this.additionalIngredientsLoaded = true;
+        this.additionalIngredientsLoaded = recipeManager != null;
         if (this.additionalIngredientsRecipeId != null && recipeManager != null) {
             Optional<? extends IRecipe<?>> recipe = recipeManager.getRecipe(this.additionalIngredientsRecipeId);
             if (recipe.isPresent()) {
@@ -288,6 +293,7 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
         world.playSound(null, goldenBowlPosition, OccultismSounds.POOF.get(), SoundCategory.BLOCKS, 0.7f,
                 0.7f);
         castingPlayer.sendStatusMessage(new TranslationTextComponent(this.getFinishedMessage()), true);
+        OccultismAdvancements.RITUAL.trigger((ServerPlayerEntity) castingPlayer, this);
     }
 
     /**
@@ -347,7 +353,8 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
      */
     public boolean identify(World world, BlockPos goldenBowlPosition, ItemStack activationItem) {
         return this.startingItem.test(activationItem) &&
-               this.areAdditionalIngredientsFulfilled(world, goldenBowlPosition, this.getAdditionalIngredients(world)) &&
+               this.areAdditionalIngredientsFulfilled(world, goldenBowlPosition,
+                       this.getAdditionalIngredients(world)) &&
                this.pentacle.getBlockMatcher().validate(world, goldenBowlPosition) != null;
     }
 
@@ -358,15 +365,17 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
      * @param goldenBowlPosition             the position of the golden bowl.
      * @param remainingAdditionalIngredients the remaining additional ingredients. Will be modified if something was consumed!
      * @param time                           the current ritual time.
+     * @param consumedIngredients            the list of already consumed ingredients, newly consumd ingredients will be appended
      * @return true if ingredients were consumed successfully, or none needed to be consumed.
      */
     public boolean consumeAdditionalIngredients(World world, BlockPos goldenBowlPosition,
-                                                List<Ingredient> remainingAdditionalIngredients, int time) {
+                                                List<Ingredient> remainingAdditionalIngredients, int time,
+                                                List<ItemStack> consumedIngredients) {
         if (remainingAdditionalIngredients.isEmpty())
             return true;
 
         int totalIngredientsToConsume = (int) Math.floor(time / this.timePerIngredient);
-        int ingredientsConsumed = this.getAdditionalIngredients(world).size() - remainingAdditionalIngredients.size();
+        int ingredientsConsumed = consumedIngredients.size();
 
         int ingredientsToConsume = totalIngredientsToConsume - ingredientsConsumed;
         if (ingredientsToConsume == 0)
@@ -377,7 +386,8 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
         for (Iterator<Ingredient> it = remainingAdditionalIngredients.iterator();
              it.hasNext() && consumed < ingredientsToConsume; consumed++) {
             Ingredient ingredient = it.next();
-            if (this.consumeAdditionalIngredient(world, goldenBowlPosition, sacrificialBowls, ingredient)) {
+            if (this.consumeAdditionalIngredient(world, goldenBowlPosition, sacrificialBowls, ingredient,
+                    consumedIngredients)) {
                 //remove from the remaining required ingredients
                 it.remove();
             }
@@ -392,23 +402,24 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
     /**
      * Consumes one ingredient from the first matching sacrificial bowl.
      *
-     * @param world              the world.
-     * @param goldenBowlPosition the position of the golden bowl.
-     * @param sacrificialBowls   the list of sacrificial bowls to check.
-     * @param ingredient         the ingredient to consume.
+     * @param world               the world.
+     * @param goldenBowlPosition  the position of the golden bowl.
+     * @param sacrificialBowls    the list of sacrificial bowls to check.
+     * @param ingredient          the ingredient to consume.
+     * @param consumedIngredients the list of already consumed ingredients, newly consumd ingredients will be appended
      * @return true if the ingredient was found and consumed.
      */
     public boolean consumeAdditionalIngredient(World world, BlockPos goldenBowlPosition,
                                                List<SacrificialBowlTileEntity> sacrificialBowls,
-                                               Ingredient ingredient) {
+                                               Ingredient ingredient, List<ItemStack> consumedIngredients) {
         for (SacrificialBowlTileEntity sacrificialBowl : sacrificialBowls) {
             //first simulate removal to check the ingredient
             if (sacrificialBowl.itemStackHandler.map(handler -> {
                 ItemStack stack = handler.extractItem(0, 1, true);
                 if (ingredient.test(stack)) {
                     //now take for real
-                    handler.extractItem(0, 1, false);
-
+                    ItemStack extracted = handler.extractItem(0, 1, false);
+                    consumedIngredients.add(extracted);
                     //Show effect in world
                     ((ServerWorld) world)
                             .spawnParticle(ParticleTypes.LARGE_SMOKE, sacrificialBowl.getPos().getX() + 0.5,
@@ -416,7 +427,8 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
                                     0.0, 0.0, 0.0,
                                     0.0);
 
-                    world.playSound(null, sacrificialBowl.getPos(), OccultismSounds.POOF.get(), SoundCategory.BLOCKS, 0.7f, 0.7f);
+                    world.playSound(null, sacrificialBowl.getPos(), OccultismSounds.POOF.get(), SoundCategory.BLOCKS,
+                            0.7f, 0.7f);
                     return true;
                 }
                 return false;
@@ -425,6 +437,30 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
 
         }
         return false;
+    }
+
+    /**
+     * Removes all matching consumed already consumed ingredients from the remaining additional ingredients.
+     * @param additionalIngredients the total additional ingredients required.
+     * @param consumedIngredients the already consumed ingredients.
+     * @return the remaining additional ingredients that still need to be consumed.
+     */
+    public static List<Ingredient> getRemainingAdditionalIngredients( List<Ingredient> additionalIngredients, List<ItemStack> consumedIngredients){
+        //copy the consumed ingredients to not modify the input
+        List<ItemStack> consumedIngredientsCopy = new ArrayList<>(consumedIngredients);
+        List<Ingredient> remainingAdditionalIngredients = new ArrayList<>();
+        for(Ingredient ingredient : additionalIngredients){
+            Optional<ItemStack> matchedStack = consumedIngredientsCopy.stream().filter(ingredient::test).findFirst();
+            if(matchedStack.isPresent()){
+                //if it is in the consumed ingredients, we do not need to add it to the remaining required ones
+                //but we remove it from our consumed ingredients copy so each provided ingredient an only be simulated consumed once
+                consumedIngredientsCopy.remove(matchedStack.get());
+            } else {
+                //if it is not already consumed, we add it to the remaining additional ingredients.
+                remainingAdditionalIngredients.add(ingredient);
+            }
+        }
+        return remainingAdditionalIngredients;
     }
 
     /**
@@ -448,7 +484,9 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
      */
     public boolean matchesAdditionalIngredients(List<Ingredient> additionalIngredients, List<ItemStack> items) {
 
-        if (additionalIngredients.size() != items.size())
+        //optional performance improvement to speed up matching at the cost of convenience
+        if (Occultism.SERVER_CONFIG.rituals.enableRemainingIngredientCountMatching.get() &&
+            additionalIngredients.size() != items.size())
             return false; //if we have different sizes, it cannot be right
 
         if (additionalIngredients.isEmpty())
@@ -474,7 +512,8 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
         }
 
         //more items need to cause failure, otherwise we cannot properly identify the type of ritual.
-        return remainingItems.size() == 0;
+        //return remainingItems.size() == 0;
+        return true;
     }
 
     /**
@@ -523,7 +562,11 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
     }
 
     /**
-     * Prepares the given spirit for spawning by initializing it, setting the taming player, preparing position and rotation, and setting the custom name.
+     * Prepares the given spirit for spawning by
+     *  - initializing it
+     *  - setting the taming player
+     *  - preparing position and rotation
+     *  - setting the custom name.
      *
      * @param spirit             the spirit to prepare.
      * @param world              the world to spawn in.
@@ -533,12 +576,34 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
      */
     public void prepareSpiritForSpawn(SpiritEntity spirit, World world, BlockPos goldenBowlPosition,
                                       PlayerEntity castingPlayer, String spiritName) {
-        spirit.onInitialSpawn((ServerWorld) world, world.getDifficultyForLocation(goldenBowlPosition), SpawnReason.MOB_SUMMONED, null,
-                null);
-        spirit.setTamedBy(castingPlayer);
+        this.prepareSpiritForSpawn(spirit, world, goldenBowlPosition, castingPlayer, spiritName, true);
+    }
+
+    /**
+     * Prepares the given spirit for spawning by
+     *  - initializing it
+     *  - optionally setting the taming player
+     *  - preparing position and rotation
+     *  - setting the custom name.
+     *
+     * @param spirit             the spirit to prepare.
+     * @param world              the world to spawn in.
+     * @param goldenBowlPosition the golden bowl position.
+     * @param castingPlayer      the ritual casting player.
+     * @param spiritName         the spirit name.
+     * @param setTamed           true to tame the spirit
+     */
+    public void prepareSpiritForSpawn(SpiritEntity spirit, World world, BlockPos goldenBowlPosition,
+                                      PlayerEntity castingPlayer, String spiritName, boolean setTamed) {
+        if(setTamed){
+            spirit.setTamedBy(castingPlayer);
+        }
         spirit.setPositionAndRotation(goldenBowlPosition.getX(), goldenBowlPosition.getY(), goldenBowlPosition.getZ(),
                 world.rand.nextInt(360), 0);
         spirit.setCustomName(new StringTextComponent(spiritName));
+        spirit.onInitialSpawn((ServerWorld) world, world.getDifficultyForLocation(goldenBowlPosition),
+                SpawnReason.MOB_SUMMONED, null,
+                null);
     }
 
     /**

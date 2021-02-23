@@ -1,11 +1,11 @@
 {
-  "type": "occultism:spirit_trade",
+  "type": "occultism:ritual_ingredient",
   "ingredients": [
     {
       "item": "minecraft:minecart"
     },
     {
-      "item": "minecraft:chest"
+      "tag": "forge:chests"
     },
     {
       "item": "minecraft:dispenser"

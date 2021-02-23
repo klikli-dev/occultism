@@ -1,0 +1,22 @@
+{
+  "name": "Storage Stabilizers",
+  "icon": "occultism:storage_stabilizer_tier1",
+  "category": "storage",
+  "sortnum": 3,
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "occultism:storage_stabilizer_tier1",
+      "title": "Storage Stabilizers",
+      "text": "$(l:rituals/crafting/craft_storage_stabilizer_tier1)Storage Stabilizers$(/l) увеличить место для хранения в измерении хранения. Есть четыре провода, каждый из которых добавляет больше разъемов, чем последний. Контроллеры хранилища должны указывать на $(item)Dimensional Matrix$() (на один блок выше исполнительного механизма хранения) и не может бытьо тдален более чем на 5 блоков."
+    },
+    {
+      "type": "image",
+      "border": "true",
+      "images": [
+        "occultism:textures/gui/book/storage_stabilizer.png"
+      ],
+      "text": "Красные линии обозначают линию прямой видимости, они не будут отображаться в игре.!"
+    }
+  ]
+}

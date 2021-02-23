@@ -30,7 +30,7 @@
       "heading": "Djinni Ore Miner",
       "pentacle": "$(l:pentacles/craft_djinni)Strigeor's Higher Binding$(/l)",
       "activation_item": "occultism:book_of_binding_bound_djinni",
-      "ingredients": "$(li)1x $(item)Empty Magic Lamp $()$(li)1x $(item)Iesnium Pickaxe $()$(li)2x $(item)Iesnium Block $()$(li)1x $(item)Spirit Attuned Crystal $()$(li)1x $(item)Gold Ore $()"
+      "ingredients": "$(li)1x $(item)Empty Magic Lamp $()$(li)1x $(item)Iesnium Pickaxe $()$(li)1x $(item)Iesnium Block $()$(li)1x $(item)Spirit Attuned Crystal $()$(li)1x $(item)Gold Ore $()"
     },
     {
       "type": "empty",

@@ -27,8 +27,9 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.common.util.INBTSerializable;
 
 import javax.annotation.Nonnull;
+import java.util.function.Predicate;
 
-public interface IItemStackComparator extends INBTSerializable<CompoundNBT> {
+public interface IItemStackComparator extends INBTSerializable<CompoundNBT>, Predicate<ItemStack> {
 
     //region Methods
 
@@ -39,5 +40,11 @@ public interface IItemStackComparator extends INBTSerializable<CompoundNBT> {
      * @return true if the stack matches.
      */
     boolean matches(@Nonnull ItemStack stack);
+
+    @Override
+    default boolean test(ItemStack stack){
+        return this.matches(stack);
+    }
+
     //endregion Methods
 }

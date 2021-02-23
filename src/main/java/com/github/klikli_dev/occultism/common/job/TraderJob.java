@@ -181,7 +181,7 @@ public class TraderJob extends SpiritJob {
 
     @Override
     public boolean canPickupItem(ItemStack stack) {
-        return !stack.isEmpty() && stack.getItem() == Item.getItemFromBlock(Blocks.STONE);
+        return !stack.isEmpty() && this.trade.isValid(stack);
     }
     //endregion Overrides
 

@@ -56,6 +56,8 @@ import net.minecraftforge.items.wrapper.RecipeWrapper;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.swing.border.CompoundBorder;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -219,12 +221,18 @@ public class DimensionalMineshaftTileEntity extends NetworkedTileEntity implemen
     }
 
     public static int getMaxMiningTime(ItemStack stack) {
-        int time = stack.getOrCreateTag().getInt(MAX_MINING_TIME_TAG);
+        CompoundNBT tag = stack.getTag();
+        if(tag == null)
+            return 0;
+        int time = tag.getInt(MAX_MINING_TIME_TAG);
         return time <= 0 ? DEFAULT_MAX_MINING_TIME : time;
     }
 
     public static int getRollsPerOperation(ItemStack stack) {
-        int rolls = stack.getOrCreateTag().getInt(ROLLS_PER_OPERATION_TAG);
+        CompoundNBT tag = stack.getTag();
+        if(tag == null)
+            return 0;
+        int rolls = tag.getInt(ROLLS_PER_OPERATION_TAG);
         return rolls <= 0 ? DEFAULT_ROLLS_PER_OPERATION : rolls;
     }
     //endregion Static Methods
@@ -238,8 +246,15 @@ public class DimensionalMineshaftTileEntity extends NetworkedTileEntity implemen
             List<MinerRecipe> recipes = this.world.getRecipeManager()
                                                 .getRecipes(OccultismRecipes.MINER_TYPE.get(),
                                                         new RecipeWrapper(inputHandler), this.world);
-            this.possibleResults = recipes.stream().map(r -> r.getWeightedOutput()).collect(Collectors.toList());
+            if(recipes == null ||recipes.size() == 0){
+                this.possibleResults = new ArrayList<>();
+            }else {
+                this.possibleResults = recipes.stream().map(r -> r.getWeightedOutput()).collect(Collectors.toList());
+            }
         }
+
+        if(this.possibleResults.size() == 0)
+            return;
 
         for (int i = 0; i < this.rollsPerOperation; i++) {
             WeightedIngredient result = WeightedRandom.getRandomItem(this.world.rand, this.possibleResults);
@@ -256,5 +271,14 @@ public class DimensionalMineshaftTileEntity extends NetworkedTileEntity implemen
             input.setDamage(0);
         }
     }
+
+    @Override
+    protected void invalidateCaps() {
+        super.invalidateCaps();
+        this.inputHandler.invalidate();
+        this.outputHandler.invalidate();
+        this.combinedHandler.invalidate();
+    }
+
     //endregion Methods
 }

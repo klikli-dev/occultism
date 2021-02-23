@@ -34,17 +34,17 @@ public class CraftAfritPentacle extends Pentacle {
     //region Fields
     private final String[][] pattern = new String[][]{
             {
-                    "    XNX    ",
+                    "     N     ",
                     "    GGG    ",
-                    "  XGCPCGX  ",
+                    "   GCPCG   ",
                     "  G WCW G  ",
-                    "XGCWW WWCGX",
+                    " GCWW WWCG ",
                     "ZGPC 0 CPGZ",
-                    "XGCWW WWCGX",
+                    " GCWW WWCG ",
                     "  G WCW G  ",
-                    "  XGCPCGX  ",
+                    "   GCPCG   ",
                     "    GGG    ",
-                    "    XZX    "
+                    "     Z     "
             }
     };
 

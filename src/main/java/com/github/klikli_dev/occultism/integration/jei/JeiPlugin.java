@@ -107,6 +107,13 @@ public class JeiPlugin implements IModPlugin {
         registration.addRecipes(ritualRecipes, OccultismRecipes.RITUAL.getId());
 
         this.registerIngredientInfo(registration, OccultismItems.TALLOW.get());
+        this.registerIngredientInfo(registration, OccultismBlocks.OTHERSTONE.get());
+        this.registerIngredientInfo(registration, OccultismBlocks.OTHERWORLD_LOG.get());
+        this.registerIngredientInfo(registration, OccultismBlocks.OTHERWORLD_LEAVES.get());
+        this.registerIngredientInfo(registration, OccultismBlocks.OTHERWORLD_SAPLING.get());
+        this.registerIngredientInfo(registration, OccultismBlocks.OTHERWORLD_SAPLING_NATURAL.get());
+        this.registerIngredientInfo(registration, OccultismBlocks.IESNIUM_ORE.get());
+        this.registerIngredientInfo(registration, OccultismBlocks.SPIRIT_FIRE.get());
     }
 
     public void registerIngredientInfo(IRecipeRegistration registration, IItemProvider ingredient){
@@ -116,11 +123,14 @@ public class JeiPlugin implements IModPlugin {
 
     @Override
     public void registerRecipeTransferHandlers(IRecipeTransferRegistration registration) {
-        registration.addRecipeTransferHandler(new StorageControllerRecipeTransferHandler<>(StorageControllerContainer.class),
+        registration.addRecipeTransferHandler(new StorageControllerRecipeTransferHandler<>(
+                StorageControllerContainer.class, registration.getTransferHelper()),
                 VanillaRecipeCategoryUid.CRAFTING);
-        registration.addRecipeTransferHandler(new StorageControllerRecipeTransferHandler<>(StorageRemoteContainer.class),
+        registration.addRecipeTransferHandler(new StorageControllerRecipeTransferHandler<>(
+                StorageRemoteContainer.class, registration.getTransferHelper()),
                 VanillaRecipeCategoryUid.CRAFTING);
-        registration.addRecipeTransferHandler(new StorageControllerRecipeTransferHandler<>(StableWormholeContainer.class),
+        registration.addRecipeTransferHandler(new StorageControllerRecipeTransferHandler<>(
+                StableWormholeContainer.class, registration.getTransferHelper()),
                 VanillaRecipeCategoryUid.CRAFTING);
     }
 

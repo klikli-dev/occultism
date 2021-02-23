@@ -35,9 +35,9 @@ public class CraftFoliotPentacle extends Pentacle {
             {
                     "  WSW  ",
                     " G   G ",
-                    "W XWX W",
+                    "W  W  W",
                     "C W0W C",
-                    "W XWX W",
+                    "W  W  W",
                     " G   G ",
                     "  WSW  "
             }
@@ -52,9 +52,7 @@ public class CraftFoliotPentacle extends Pentacle {
     protected void setupMapping() {
         super.setupMapping();
         this.mapping.addAll(Arrays.asList(
-                'S', this.api.looseBlockMatcher(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL.get()),
-                'C', this.api.predicateMatcher(OccultismBlocks.CANDLE_WHITE.get(),
-                        b -> b.getBlock() instanceof CandleBlock)
+                'S', this.api.looseBlockMatcher(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL.get())
         ));
     }
 

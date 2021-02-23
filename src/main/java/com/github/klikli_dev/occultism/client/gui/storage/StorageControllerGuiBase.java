@@ -80,6 +80,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     public List<MachineReference> linkedMachines;
     public IStorageControllerContainer storageControllerContainer;
     public int usedSlots;
+    public int maxSlots;
     public StorageControllerGuiMode guiMode = StorageControllerGuiMode.INVENTORY;
     protected ItemStack stackUnderMouse = ItemStack.EMPTY;
     protected TextFieldWidget searchBar;
@@ -191,7 +192,16 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     @Override
     public void setUsedSlots(int slots) {
         this.usedSlots = slots;
+    }
+
+    @Override
+    public void markDirty() {
         this.init();
+    }
+
+    @Override
+    public void setMaxSlots(int slots) {
+        this.maxSlots = slots;
     }
 
     @Override
@@ -233,17 +243,13 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
             this.searchBar.setText(JeiAccess.getFilterText());
         }
 
-        int maxSlots = this.storageControllerContainer.getStorageController() != null ? this.storageControllerContainer
-                                                                                                .getStorageController()
-                                                                                                .getMaxSlots() : 0;
-
         int storageSpaceInfoLabelLeft = 186;
         int storageSpaceInfoLabelTop = 115;
         this.storageSpaceLabel =
                 new LabelWidget(this.guiLeft + storageSpaceInfoLabelLeft, this.guiTop + storageSpaceInfoLabelTop, true,
                         -1, 2, 0x404040);
         this.storageSpaceLabel
-                .addLine(I18n.format(TRANSLATION_KEY_BASE + ".space_info_label", this.usedSlots, maxSlots), false);
+                .addLine(I18n.format(TRANSLATION_KEY_BASE + ".space_info_label", this.usedSlots, this.maxSlots), false);
         this.addButton(this.storageSpaceLabel);
         this.initButtons();
     }
@@ -550,8 +556,8 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     }
 
     protected boolean isPointInSearchbar(double mouseX, double mouseY) {
-        return this.isPointInRegion(this.searchBar.x - this.guiLeft + 14, this.searchBar.y - this.guiTop,
-                this.searchBar.getWidth(), this.font.FONT_HEIGHT + 6, mouseX, mouseY);
+        return this.isPointInRegion(this.searchBar.x - this.guiLeft, this.searchBar.y - this.guiTop,
+                this.searchBar.getWidth() - 5, this.font.FONT_HEIGHT + 6, mouseX, mouseY);
     }
 
     protected boolean isPointInItemArea(double mouseX, double mouseY) {

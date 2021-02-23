@@ -37,17 +37,17 @@ public class SummonWildAfritPentacle extends Pentacle {
     //region Fields
     private final String[][] pattern = new String[][]{
             {
-                    "     X     ",
+                    "           ",
                     "    PPP    ",
-                    "  XWCWCWX  ",
+                    "   WCWCW   ",
                     "  W WNW W  ",
                     " PCWP PWCP ",
-                    "XPWZ 0 ZWPX",
+                    " PWZ 0 ZWP ",
                     " PCWP PWCP ",
                     "  W WNW W  ",
-                    "  XWCWCWX  ",
+                    "   WCWCW   ",
                     "    PPP    ",
-                    "     X     "
+                    "           "
             }
     };
 
@@ -60,8 +60,7 @@ public class SummonWildAfritPentacle extends Pentacle {
         super.setupMapping();
         this.mapping.addAll(Arrays.asList(
                 'Z', this.api.looseBlockMatcher(Blocks.SKELETON_SKULL),
-                'N', this.api.looseBlockMatcher(Blocks.WITHER_SKELETON_SKULL),
-                'C', this.api.predicateMatcher(OccultismBlocks.CANDLE_WHITE.get(), b -> b.getBlock() instanceof CandleBlock)
+                'N', this.api.looseBlockMatcher(Blocks.WITHER_SKELETON_SKULL)
         ));
     }
 

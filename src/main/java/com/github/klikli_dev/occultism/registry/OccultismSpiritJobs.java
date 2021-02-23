@@ -52,13 +52,13 @@ public class OccultismSpiritJobs {
 
     //Crushing jobs
     public static final RegistryObject<SpiritJobFactory> CRUSH_TIER1 = JOBS.register("crush_tier1",
-            () -> new SpiritJobFactory((entity) -> new CrusherJob(entity, 2.0f)));
+            () -> new SpiritJobFactory((entity) -> new CrusherJob(entity, Occultism.SERVER_CONFIG.spiritJobs.tier1CrusherTimeMultiplier::get)));
     public static final RegistryObject<SpiritJobFactory> CRUSH_TIER2 = JOBS.register("crush_tier2",
-            () -> new SpiritJobFactory((entity) -> new CrusherJob(entity, 1.0f)));
+            () -> new SpiritJobFactory((entity) -> new CrusherJob(entity, Occultism.SERVER_CONFIG.spiritJobs.tier2CrusherTimeMultiplier::get)));
     public static final RegistryObject<SpiritJobFactory> CRUSH_TIER3 = JOBS.register("crush_tier3",
-            () -> new SpiritJobFactory((entity) -> new CrusherJob(entity, 0.5f)));
+            () -> new SpiritJobFactory((entity) -> new CrusherJob(entity, Occultism.SERVER_CONFIG.spiritJobs.tier3CrusherTimeMultiplier::get)));
     public static final RegistryObject<SpiritJobFactory> CRUSH_TIER4 = JOBS.register("crush_tier4",
-            () -> new SpiritJobFactory((entity) -> new CrusherJob(entity, 0.2f)));
+            () -> new SpiritJobFactory((entity) -> new CrusherJob(entity, Occultism.SERVER_CONFIG.spiritJobs.tier4CrusherTimeMultiplier::get)));
 
     //Weather Jobs
     public static final RegistryObject<SpiritJobFactory> CLEAR_WEATHER = JOBS.register("clear_weather",
