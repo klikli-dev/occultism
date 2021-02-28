@@ -52,7 +52,7 @@ public class CrushingRecipe extends ItemStackFakeInventoryRecipe {
 
     //region Getter / Setter
     public int getCrushingTime() {
-        return crushingTime;
+        return this.crushingTime;
     }
     //endregion Getter / Setter
 
