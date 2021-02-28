@@ -22,7 +22,6 @@
 
 package com.github.klikli_dev.occultism.common.ritual.pentacle;
 
-import com.github.klikli_dev.occultism.common.block.CandleBlock;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import vazkii.patchouli.api.IMultiblock;
 
@@ -54,9 +53,7 @@ public class CraftDjinniPentacle extends Pentacle {
     protected void setupMapping() {
         super.setupMapping();
         this.mapping.addAll(Arrays.asList(
-                'S', this.api.looseBlockMatcher(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL.get()),
-                'C', this.api.predicateMatcher(OccultismBlocks.CANDLE_WHITE.get(),
-                        b -> b.getBlock() instanceof CandleBlock)
+                'S', this.api.looseBlockMatcher(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL.get())
         ));
     }
 

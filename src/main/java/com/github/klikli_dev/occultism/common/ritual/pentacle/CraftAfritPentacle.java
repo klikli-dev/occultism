@@ -22,7 +22,6 @@
 
 package com.github.klikli_dev.occultism.common.ritual.pentacle;
 
-import com.github.klikli_dev.occultism.common.block.CandleBlock;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import net.minecraft.block.Blocks;
 import vazkii.patchouli.api.IMultiblock;
@@ -58,8 +57,7 @@ public class CraftAfritPentacle extends Pentacle {
         this.mapping.addAll(Arrays.asList(
                 'S', this.api.looseBlockMatcher(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL.get()),
                 'Z', this.api.looseBlockMatcher(Blocks.SKELETON_SKULL),
-                'N', this.api.looseBlockMatcher(Blocks.WITHER_SKELETON_SKULL),
-                'C', this.api.predicateMatcher(OccultismBlocks.CANDLE_WHITE.get(), b -> b.getBlock() instanceof CandleBlock)
+                'N', this.api.looseBlockMatcher(Blocks.WITHER_SKELETON_SKULL)
         ));
     }
 
