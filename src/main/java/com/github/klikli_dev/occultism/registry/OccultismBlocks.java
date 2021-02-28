@@ -127,7 +127,8 @@ public class OccultismBlocks {
     //Components
     public static final RegistryObject<SlabBlock> OTHERSTONE_SLAB = register("otherstone_slab", () -> new SlabBlock(Block.Properties.from(OTHERSTONE.get())));
     public static final RegistryObject<Block> OTHERSTONE_PEDESTAL = register("otherstone_pedestal", () -> new Block(Block.Properties.from(OTHERSTONE.get())));
-    public static final RegistryObject<Block> STORAGE_CONTROLLER_BASE = register("storage_controller_base", () -> new Block(Block.Properties.from(OTHERSTONE.get())));
+    public static final RegistryObject<Block> STORAGE_CONTROLLER_BASE = register("storage_controller_base",
+            () -> new Block(Block.Properties.from(OTHERSTONE.get()).notSolid()));
 
     public static final RegistryObject<Block> COPPER_BLOCK = register("copper_block", () -> new Block(Block.Properties.from(Blocks.IRON_BLOCK)));
     public static final RegistryObject<Block> SILVER_BLOCK = register("silver_block", () -> new Block(Block.Properties.from(Blocks.IRON_BLOCK)));
