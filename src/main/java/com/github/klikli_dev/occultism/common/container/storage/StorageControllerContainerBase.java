@@ -23,10 +23,11 @@
 package com.github.klikli_dev.occultism.common.container.storage;
 
 import com.github.klikli_dev.occultism.api.common.container.IStorageControllerContainer;
+import com.github.klikli_dev.occultism.api.common.data.GlobalBlockPos;
 import com.github.klikli_dev.occultism.api.common.tile.IStorageController;
 import com.github.klikli_dev.occultism.client.gui.storage.StorageControllerGuiBase;
-import com.github.klikli_dev.occultism.common.misc.StorageControllerCraftingInventory;
 import com.github.klikli_dev.occultism.common.misc.ItemStackComparator;
+import com.github.klikli_dev.occultism.common.misc.StorageControllerCraftingInventory;
 import com.github.klikli_dev.occultism.common.misc.StorageControllerSlot;
 import com.github.klikli_dev.occultism.network.OccultismPackets;
 import net.minecraft.entity.player.PlayerEntity;
@@ -42,8 +43,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.ICraftingRecipe;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.network.play.server.SSetSlotPacket;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.NonNullList;
-import net.minecraft.world.World;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.wrapper.PlayerMainInvWrapper;
 
@@ -70,7 +71,6 @@ public abstract class StorageControllerContainerBase extends Container implement
 
     //region Initialization
 
-
     protected StorageControllerContainerBase(@Nullable ContainerType<?> type, int id, PlayerInventory playerInventory) {
         super(type, id);
         this.playerInventory = playerInventory;
@@ -83,6 +83,13 @@ public abstract class StorageControllerContainerBase extends Container implement
     //endregion Initialization
 
     //region Overrides
+
+    @Override
+    public GlobalBlockPos getStorageControllerGlobalBlockPos() {
+        return GlobalBlockPos.from(
+                (TileEntity) this.getStorageController());
+    }
+
     @Override
     public CraftingInventory getCraftMatrix() {
         return this.matrix;
@@ -188,7 +195,8 @@ public abstract class StorageControllerContainerBase extends Container implement
     protected abstract void setupPlayerHotbar();
 
     protected void findRecipeForMatrixClient() {
-        Optional<ICraftingRecipe> optional = this.player.world.getRecipeManager().getRecipe(IRecipeType.CRAFTING, this.matrix, this.player.world);
+        Optional<ICraftingRecipe> optional =
+                this.player.world.getRecipeManager().getRecipe(IRecipeType.CRAFTING, this.matrix, this.player.world);
         if (optional.isPresent()) {
             this.currentRecipe = optional.get();
         }
@@ -199,9 +207,11 @@ public abstract class StorageControllerContainerBase extends Container implement
         //      and call it onCraftingMatrixChanged(). Send slot packet!
         if (!this.player.world.isRemote) {
             this.currentRecipe = null;
-            ServerPlayerEntity serverplayerentity = (ServerPlayerEntity)player;
+            ServerPlayerEntity serverplayerentity = (ServerPlayerEntity) player;
             ItemStack itemstack = ItemStack.EMPTY;
-            Optional<ICraftingRecipe> optional = this.player.world.getServer().getRecipeManager().getRecipe(IRecipeType.CRAFTING, this.matrix, this.player.world);
+            Optional<ICraftingRecipe> optional = this.player.world.getServer().getRecipeManager()
+                                                         .getRecipe(IRecipeType.CRAFTING, this.matrix,
+                                                                 this.player.world);
             if (optional.isPresent()) {
                 ICraftingRecipe icraftingrecipe = optional.get();
                 if (this.result.canUseRecipe(this.player.world, serverplayerentity, icraftingrecipe)) {
@@ -277,7 +287,7 @@ public abstract class StorageControllerContainerBase extends Container implement
                 }
 
                 //handle container item refunding
-               if (!stackInSlot.getItem().getContainerItem(stackInSlot).isEmpty()) {
+                if (!stackInSlot.getItem().getContainerItem(stackInSlot).isEmpty()) {
                     stackInSlot = stackInSlot.getItem().getContainerItem(stackInSlot);
                     this.matrix.setInventorySlotContents(i, stackInSlot);
                 }

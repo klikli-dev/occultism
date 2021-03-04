@@ -22,6 +22,7 @@
 
 package com.github.klikli_dev.occultism.common.container.storage;
 
+import com.github.klikli_dev.occultism.api.common.data.GlobalBlockPos;
 import com.github.klikli_dev.occultism.api.common.tile.IStorageController;
 import com.github.klikli_dev.occultism.client.gui.storage.StorageControllerGuiBase;
 import com.github.klikli_dev.occultism.common.item.storage.StorageRemoteItem;
@@ -35,7 +36,6 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
 import net.minecraft.util.Hand;
 import net.minecraftforge.common.util.Constants;
@@ -56,7 +56,8 @@ public class StorageRemoteContainer extends StorageControllerContainerBase {
         this.playerInventory = playerInventory;
         this.storageRemote = playerInventory.player.getHeldItem(Hand.MAIN_HAND);
 
-        this.matrix = new StorageControllerCraftingInventory(this, this.getCraftingMatrixFromItemStack(this.getStorageRemote()));
+        this.matrix = new StorageControllerCraftingInventory(this,
+                this.getCraftingMatrixFromItemStack(this.getStorageRemote()));
         this.orderInventory.setInventorySlotContents(0, this.getOrderStackFromItemStack(this.getStorageRemote()));
 
         this.setupCraftingOutput();
@@ -77,6 +78,44 @@ public class StorageRemoteContainer extends StorageControllerContainerBase {
 
 
     //region Overrides
+
+    @Override
+    public GlobalBlockPos getStorageControllerGlobalBlockPos() {
+        return GlobalBlockPos.from(this.storageRemote.getTag().getCompound("linkedStorageController"));
+    }
+
+    @Override
+    protected void setupPlayerHotbar() {
+        int hotbarTop = 232;
+        int hotbarLeft = 8 + StorageControllerGuiBase.ORDER_AREA_OFFSET;
+        for (int i = 0; i < 9; i++) {
+            if (i == this.playerInventory.currentItem) {
+                this.addSlot(new Slot(this.playerInventory, i, hotbarLeft + i * 18, hotbarTop) {
+                    //region Overrides
+                    @Override
+                    public boolean isItemValid(ItemStack stack) {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean getHasStack() {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean canTakeStack(PlayerEntity playerIn) {
+                        return false;
+                    }
+                    //endregion Overrides
+
+                });
+            }
+            else {
+                this.addSlot(new Slot(this.playerInventory, i, hotbarLeft + i * 18, hotbarTop));
+            }
+        }
+    }
+
     @Override
     public void onCraftMatrixChanged(IInventory inventoryIn) {
         this.findRecipeForMatrix();
@@ -126,38 +165,6 @@ public class StorageRemoteContainer extends StorageControllerContainerBase {
     @Override
     public void updateOrderSlot(boolean force) {
         storageRemote.getOrCreateTag().put("orderStack", this.orderInventory.getStackInSlot(0).serializeNBT());
-    }
-
-    @Override
-    protected void setupPlayerHotbar() {
-        int hotbarTop = 232;
-        int hotbarLeft = 8 + StorageControllerGuiBase.ORDER_AREA_OFFSET;
-        for (int i = 0; i < 9; i++) {
-            if (i == this.playerInventory.currentItem) {
-                this.addSlot(new Slot(this.playerInventory, i, hotbarLeft + i * 18, hotbarTop) {
-                    //region Overrides
-                    @Override
-                    public boolean isItemValid(ItemStack stack) {
-                        return false;
-                    }
-
-                    @Override
-                    public boolean getHasStack() {
-                        return false;
-                    }
-
-                    @Override
-                    public boolean canTakeStack(PlayerEntity playerIn) {
-                        return false;
-                    }
-                    //endregion Overrides
-
-                });
-            }
-            else {
-                this.addSlot(new Slot(this.playerInventory, i, hotbarLeft + i * 18, hotbarTop));
-            }
-        }
     }
     //endregion Overrides
 

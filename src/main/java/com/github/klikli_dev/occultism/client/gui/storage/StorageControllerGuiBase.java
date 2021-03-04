@@ -350,8 +350,8 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                         }
                         else if (!orderStack.isEmpty()) {
                             //this message both clears the order slot and creates the order
-                            OccultismPackets.sendToServer(new MessageRequestOrder(GlobalBlockPos.from(
-                                    (TileEntity) this.storageControllerContainer.getStorageController()),
+                            OccultismPackets.sendToServer(new MessageRequestOrder(
+                                    this.storageControllerContainer.getStorageControllerGlobalBlockPos(),
                                     slot.getMachine().globalPos, orderStack));
                             //now switch back gui mode.
                             this.guiMode = StorageControllerGuiMode.INVENTORY;
