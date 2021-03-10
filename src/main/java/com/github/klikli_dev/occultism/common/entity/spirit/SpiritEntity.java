@@ -348,8 +348,7 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
 
     @Nullable
     @Override
-    public AgeableEntity func_241840_a(ServerWorld serverWorld, AgeableEntity ageable) {
-        //createChild
+    public AgeableEntity createChild(ServerWorld serverWorld, AgeableEntity ageable) {
         return null;
     }
 

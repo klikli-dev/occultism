@@ -91,7 +91,7 @@ public class WorldGenHandler {
                                              oreGen.copperOre.bottomOffset.get(),
                                              oreGen.copperOre.topOffset.get(),
                                              oreGen.copperOre.maximum.get())))
-                             .square().func_242731_b(oreGen.copperOre.count.get()); // func_242731_b =count decorator
+                             .square().count(oreGen.copperOre.count.get());
         Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, modLoc("copper_ore"), COPPER_ORE);
 
         SILVER_ORE = Feature.ORE.withConfiguration(
@@ -103,7 +103,7 @@ public class WorldGenHandler {
                                              oreGen.silverOre.bottomOffset.get(),
                                              oreGen.silverOre.topOffset.get(),
                                              oreGen.silverOre.maximum.get())))
-                             .square().func_242731_b(oreGen.silverOre.count.get()); // func_242731_b =count decorator
+                             .square().count(oreGen.silverOre.count.get());
         Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, modLoc("silver_ore"), SILVER_ORE);
 
         IESNIUM_ORE = Feature.ORE.withConfiguration(
@@ -115,7 +115,7 @@ public class WorldGenHandler {
                                               oreGen.iesniumOre.bottomOffset.get(),
                                               oreGen.iesniumOre.topOffset.get(),
                                               oreGen.iesniumOre.maximum.get())))
-                              .square().func_242731_b(oreGen.iesniumOre.count.get()); // func_242731_b =count decorator
+                              .square().count(oreGen.iesniumOre.count.get());
         Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, modLoc("iesnium_ore"), IESNIUM_ORE);
 
         UNDERGROUND_GROVE =
@@ -136,7 +136,7 @@ public class WorldGenHandler {
                 new BaseTreeFeatureConfig.Builder(
                         new SimpleBlockStateProvider(OccultismBlocks.OTHERWORLD_LOG_NATURAL.get().getDefaultState()),
                         new SimpleBlockStateProvider(OccultismBlocks.OTHERWORLD_LEAVES_NATURAL.get().getDefaultState()),
-                        new BlobFoliagePlacer(FeatureSpread.func_242252_a(2), FeatureSpread.func_242252_a(0), 3),
+                        new BlobFoliagePlacer(FeatureSpread.create(2), FeatureSpread.create(0), 3),
                         new StraightTrunkPlacer(4, 2, 0),
                         new TwoLayerFeature(1, 0, 1))).setIgnoreVines().build());
         Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, modLoc("otherworld_tree_natural"),
@@ -146,7 +146,7 @@ public class WorldGenHandler {
                 new BaseTreeFeatureConfig.Builder(
                         new SimpleBlockStateProvider(OccultismBlocks.OTHERWORLD_LOG.get().getDefaultState()),
                         new SimpleBlockStateProvider(OccultismBlocks.OTHERWORLD_LEAVES.get().getDefaultState()),
-                        new BlobFoliagePlacer(FeatureSpread.func_242252_a(2), FeatureSpread.func_242252_a(0), 3),
+                        new BlobFoliagePlacer(FeatureSpread.create(2), FeatureSpread.create(0), 3),
                         new StraightTrunkPlacer(4, 2, 0),
                         new TwoLayerFeature(1, 0, 1))).setIgnoreVines().build());
         Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, modLoc("otherworld"), OTHERWORLD_TREE);

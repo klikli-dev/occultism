@@ -82,7 +82,7 @@ public class MatchBlockCondition implements ILootCondition
     }
 
     @Override
-    public LootConditionType func_230419_b_()
+    public LootConditionType getConditionType()
     {
         return BLOCK_TAG_CONDITION;
     }
