@@ -102,13 +102,13 @@ public class RegistryEventHandler {
         Occultism.LOGGER.info("Registered SpawnEggItems");
 
         //Register compostable items
-        ComposterBlock.CHANCES.put(OccultismItems.DATURA_SEEDS::get, 0.3f);
-        ComposterBlock.CHANCES.put(() -> OccultismBlocks.OTHERWORLD_LEAVES.get().asItem(), 0.3f);
-        ComposterBlock.CHANCES.put(() -> OccultismBlocks.OTHERWORLD_LEAVES_NATURAL.get().asItem(), 0.3f);
-        ComposterBlock.CHANCES.put(() -> OccultismBlocks.OTHERWORLD_SAPLING.get().asItem(), 0.3f);
-        ComposterBlock.CHANCES.put(() -> OccultismBlocks.OTHERWORLD_SAPLING_NATURAL.get().asItem(), 0.3f);
+        ComposterBlock.CHANCES.put(OccultismItems.DATURA_SEEDS.get(), 0.3f);
+        ComposterBlock.CHANCES.put(OccultismBlocks.OTHERWORLD_LEAVES.get().asItem(), 0.3f);
+        ComposterBlock.CHANCES.put(OccultismBlocks.OTHERWORLD_LEAVES_NATURAL.get().asItem(), 0.3f);
+        ComposterBlock.CHANCES.put(OccultismBlocks.OTHERWORLD_SAPLING.get().asItem(), 0.3f);
+        ComposterBlock.CHANCES.put(OccultismBlocks.OTHERWORLD_SAPLING_NATURAL.get().asItem(), 0.3f);
 
-        ComposterBlock.CHANCES.put(OccultismItems.DATURA::get, 0.65f);
+        ComposterBlock.CHANCES.put(OccultismItems.DATURA.get(), 0.65f);
         Occultism.LOGGER.info("Registered compostable Items");
     }
 
