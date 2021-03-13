@@ -551,21 +551,25 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
     }
 
     @Override
+    protected void dropInventory() {
+        super.dropInventory();
+        this.itemStackHandler.ifPresent((handle) -> {
+            for (int i = 0; i < handle.getSlots(); ++i) {
+                ItemStack itemstack = handle.getStackInSlot(i);
+                if (!itemstack.isEmpty()) {
+                    this.entityDropItem(itemstack, 0.0F);
+                }
+            }
+        });
+
+    }
+
+    @Override
     public void onDeath(DamageSource cause) {
         if (!this.world.isRemote) {
             if (this.isTamed()) {
                 BookOfCallingItem.spiritDeathRegister.put(this.entityUniqueID, this.world.getGameTime());
             }
-
-            //drop inventory on death
-            this.itemStackHandler.ifPresent((handle) -> {
-                for (int i = 0; i < handle.getSlots(); ++i) {
-                    ItemStack itemstack = handle.getStackInSlot(i);
-                    if (!itemstack.isEmpty()) {
-                        this.entityDropItem(itemstack, 0.0F);
-                    }
-                }
-            });
 
             this.removeJob();
 
