@@ -25,18 +25,7 @@ package com.github.klikli_dev.occultism.config;
 import com.github.klikli_dev.occultism.config.value.CachedBoolean;
 import com.github.klikli_dev.occultism.config.value.CachedFloat;
 import com.github.klikli_dev.occultism.config.value.CachedInt;
-import com.github.klikli_dev.occultism.config.value.CachedObject;
-import com.github.klikli_dev.occultism.registry.OccultismTags;
-import net.minecraft.block.Block;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.ITag;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.ForgeConfigSpec;
-
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class OccultismServerConfig extends ConfigBase {
 
@@ -196,6 +185,8 @@ public class OccultismServerConfig extends ConfigBase {
         public final CachedInt stabilizerTier3Slots;
         public final CachedInt stabilizerTier4Slots;
         public final CachedInt controllerBaseSlots;
+        public final CachedInt controllerStackSize;
+        public final CachedBoolean overrideItemStackSizes;
         //endregion Fields
 
         //region Initialization
@@ -217,6 +208,15 @@ public class OccultismServerConfig extends ConfigBase {
             this.controllerBaseSlots = CachedInt.cache(this,
                     builder.comment("The amount of slots the storage actuator provides.")
                             .define("controllerBaseSlots", 128));
+            this.controllerStackSize = CachedInt.cache(this,
+                    builder.comment("The stack size the storage actuator uses.")
+                            .define("controllerStackSize", 1024));
+            this.overrideItemStackSizes = CachedBoolean.cache(this,
+                    builder.comment(
+                            "True to use the configured controllerStackSize for all items, instead of the stack sizes provided by " +
+                            "item type (such as 16 for ender pearls, 64 for iron ingot). WARNING: Setting this to " +
+                            "false may have a negative impact on performance.")
+                            .define("overrideItemStackSizes", true));
             builder.pop();
         }
         //endregion Initialization

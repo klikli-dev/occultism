@@ -79,8 +79,6 @@ import java.util.stream.Stream;
 public class StorageControllerTileEntity extends NetworkedTileEntity implements ITickableTileEntity, INamedContainerProvider, IStorageController, IStorageAccessor, IStorageControllerProxy {
 
     //region Fields
-
-    public static final int DEFAULT_STACK_SIZE = 1024;
     public static final int MAX_STABILIZER_DISTANCE = 5;
 
     protected static final List<RegistryObject<? extends Block>> BLOCK_BLACKLIST = Stream.of(
@@ -91,11 +89,12 @@ public class StorageControllerTileEntity extends NetworkedTileEntity implements 
     public Map<GlobalBlockPos, UUID> depositOrderSpirits = new HashMap<>();
     protected SortDirection sortDirection = SortDirection.DOWN;
     protected SortType sortType = SortType.AMOUNT;
-    protected LazyOptional<ItemStackHandler> itemStackHandler = LazyOptional
-                                                                        .of(() -> new StorageControllerItemStackHandler(
-                                                                                this,
-                                                                                Occultism.SERVER_CONFIG.storage.controllerBaseSlots
-                                                                                        .get(), DEFAULT_STACK_SIZE));
+    protected LazyOptional<ItemStackHandler> itemStackHandler =
+            LazyOptional.of(() -> new StorageControllerItemStackHandler(this,
+                    Occultism.SERVER_CONFIG.storage.controllerBaseSlots.get(),
+                    Occultism.SERVER_CONFIG.storage.controllerStackSize.get(),
+                    Occultism.SERVER_CONFIG.storage.overrideItemStackSizes.get()
+            ));
     protected int maxSlots = Occultism.SERVER_CONFIG.storage.controllerBaseSlots.get();
     protected int usedSlots = 0;
     protected boolean stabilizersInitialized = false;

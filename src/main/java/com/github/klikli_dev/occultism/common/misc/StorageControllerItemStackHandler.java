@@ -38,16 +38,19 @@ public class StorageControllerItemStackHandler extends ItemStackHandler {
     //region Fields
     protected int maxStackSize;
     protected int maxSlots;
+    protected boolean overrideItemStackSizes;
     protected IStorageController storageController;
     //endregion Fields
 
     //region Initialization
-    public StorageControllerItemStackHandler(IStorageController storageController, int size, int maxStackSize) {
+    public StorageControllerItemStackHandler(IStorageController storageController, int size, int maxStackSize,
+                                             boolean overrideItemStackSizes) {
         super();
         this.stacks = NonNullArrayList.withSize(size, ItemStack.EMPTY);
         this.storageController = storageController;
         this.maxSlots = size;
         this.maxStackSize = maxStackSize;
+        this.overrideItemStackSizes = overrideItemStackSizes;
     }
     //endregion Initialization
 
@@ -99,7 +102,8 @@ public class StorageControllerItemStackHandler extends ItemStackHandler {
 
     @Override
     protected int getStackLimit(int slot, @Nonnull ItemStack stack) {
-        return this.getSlotLimit(slot);
+        return this.overrideItemStackSizes ? this.getSlotLimit(slot) : Math.min(this.getSlotLimit(slot),
+                stack.getMaxStackSize());
     }
 
     @Override
