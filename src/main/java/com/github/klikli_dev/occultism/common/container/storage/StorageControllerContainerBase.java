@@ -255,6 +255,12 @@ public abstract class StorageControllerContainerBase extends Container implement
 
         int crafted = 0;
         while (crafted + resultStackSize <= result.getMaxStackSize()) {
+            //AFAIK this should not happen unless an outside mod intervenes with the inventory during crafting
+            //but, in modpacks it definitely does happen, see https://github.com/klikli-dev/occultism/issues/212
+            //so we exit early here.
+            if(this.currentRecipe == null)
+                break;
+
             result = this.currentRecipe.getCraftingResult(this.matrix);
 
             //exit if we can no longer insert
@@ -344,6 +350,7 @@ public abstract class StorageControllerContainerBase extends Container implement
             }
             this.onCraftMatrixChanged(this.matrix);
         }
+
         this.detectAndSendChanges();
 
         //unlock crafting matrix
