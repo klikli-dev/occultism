@@ -288,8 +288,16 @@ public abstract class StorageControllerContainerBase extends Container implement
 
                 //handle container item refunding
                 if (!stackInSlot.getItem().getContainerItem(stackInSlot).isEmpty()) {
-                    stackInSlot = stackInSlot.getItem().getContainerItem(stackInSlot);
-                    this.matrix.setInventorySlotContents(i, stackInSlot);
+                    ItemStack container = stackInSlot.getItem().getContainerItem(stackInSlot);
+                    if(!stackInSlot.isStackable()){
+                        stackInSlot = container;
+                        this.matrix.setInventorySlotContents(i, stackInSlot);
+                    }
+                    else{
+                        //handle stackable container items
+                        stackInSlot.shrink(1);
+                        ItemHandlerHelper.giveItemToPlayer(player, container);
+                    }
                 }
                 else if (!currentCraftingItem.isEmpty()) {
                     //if the slot is empty now we just place the crafting item in it
