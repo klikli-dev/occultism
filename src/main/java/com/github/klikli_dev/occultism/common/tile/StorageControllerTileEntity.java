@@ -42,6 +42,7 @@ import com.github.klikli_dev.occultism.common.misc.StorageControllerItemStackHan
 import com.github.klikli_dev.occultism.exceptions.ItemHandlerMissingException;
 import com.github.klikli_dev.occultism.network.MessageUpdateStacks;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
+import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.github.klikli_dev.occultism.registry.OccultismTiles;
 import com.github.klikli_dev.occultism.util.EntityUtil;
 import com.github.klikli_dev.occultism.util.Math3DUtil;
@@ -269,6 +270,10 @@ public class StorageControllerTileEntity extends NetworkedTileEntity implements 
             BlockItem itemBlock = (BlockItem) stack.getItem();
             return BLOCK_BLACKLIST.stream().map(RegistryObject::get).anyMatch(block -> itemBlock.getBlock() == block);
         }
+        
+        if(stack.getItem() == OccultismItems.STORAGE_REMOTE.get())
+            return true;
+        
         return false;
     }
 
