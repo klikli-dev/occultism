@@ -45,45 +45,34 @@ public class RitualIngredientRecipe extends ShapelessRecipe {
     //region Fields
     public static Serializer SERIALIZER = new Serializer();
 
-    private ResourceLocation pentacleId;
+    private String pentacleTranslationKey;
     private ItemStack ritual;
     private Ingredient activationItem;
     //endregion Fields
 
     //region Initialization
-    public RitualIngredientRecipe(ResourceLocation id, String group, ResourceLocation pentacleId, ItemStack ritual,
+    public RitualIngredientRecipe(ResourceLocation id, String group, String pentacleTranslationKey, ItemStack ritual,
                                   ItemStack result, Ingredient activationItem, NonNullList<Ingredient> input) {
         super(id, group, result, input);
-        this.pentacleId = pentacleId;
+        this.pentacleTranslationKey = pentacleTranslationKey;
         this.ritual = ritual;
         this.activationItem = activationItem;
     }
     //endregion Initialization
 
     //region Getter / Setter
-    public ResourceLocation getPentacleId() {
-        return pentacleId;
-    }
-
-    public void setPentacleId(ResourceLocation pentacleId) {
-        this.pentacleId = pentacleId;
+    public String getPentacleTranslationKey() {
+        return pentacleTranslationKey;
     }
 
     public ItemStack getRitual() {
         return ritual;
     }
 
-    public void setRitual(ItemStack ritual) {
-        this.ritual = ritual;
-    }
-
     public Ingredient getActivationItem() {
         return activationItem;
     }
 
-    public void setActivationItem(Ingredient activationItem) {
-        this.activationItem = activationItem;
-    }
     //endregion Getter / Setter
 
     //region Overrides
@@ -124,7 +113,7 @@ public class RitualIngredientRecipe extends ShapelessRecipe {
                     JSONUtils.isJsonArray(json, "activation_item") ? JSONUtils.getJsonArray(json,
                             "activation_item") : JSONUtils.getJsonObject(json, "activation_item");
             Ingredient activationItem = Ingredient.deserialize(activationItemElement);
-            ResourceLocation pentacleId = new ResourceLocation(json.get("pentacle").getAsString());
+            String pentacleId = json.get("pentacle_translation_key").getAsString();
             ItemStack ritual = CraftingHelper.getItemStack(JSONUtils.getJsonObject(json, "ritual"), true);
             return new RitualIngredientRecipe(recipe.getId(), recipe.getGroup(), pentacleId, ritual,
                     recipe.getRecipeOutput(), activationItem,
@@ -134,7 +123,7 @@ public class RitualIngredientRecipe extends ShapelessRecipe {
         @Override
         public RitualIngredientRecipe read(ResourceLocation recipeId, PacketBuffer buffer) {
             ShapelessRecipe recipe = serializer.read(recipeId, buffer);
-            ResourceLocation pentacleId = buffer.readResourceLocation();
+            String pentacleId = buffer.readString();
             ItemStack ritual = buffer.readItemStack();
             Ingredient activationItem = Ingredient.read(buffer);
 
@@ -146,7 +135,7 @@ public class RitualIngredientRecipe extends ShapelessRecipe {
         @Override
         public void write(PacketBuffer buffer, RitualIngredientRecipe recipe) {
             serializer.write(buffer, recipe);
-            buffer.writeResourceLocation(recipe.pentacleId);
+            buffer.writeString(recipe.pentacleTranslationKey);
             buffer.writeItemStack(recipe.ritual);
             recipe.activationItem.write(buffer);
         }

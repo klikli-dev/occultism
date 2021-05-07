@@ -46,6 +46,7 @@ import mezz.jei.api.registration.IRecipeTransferRegistration;
 import mezz.jei.api.runtime.IJeiRuntime;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.world.ClientWorld;
+import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.RecipeManager;
@@ -102,9 +103,9 @@ public class JeiPlugin implements IModPlugin {
                 RecipeUtil.getRecipes(recipeManager, OccultismRecipes.MINER_TYPE.get()).values();
         registration.addRecipes(minerRecipes, OccultismRecipes.MINER.getId());
 
-        Collection<IRecipe<RecipeWrapper>> ritualRecipes =
-                RecipeUtil.getRecipes(recipeManager, OccultismRecipes.RITUAL_TYPE.get()).values();
-        registration.addRecipes(ritualRecipes, OccultismRecipes.RITUAL.getId());
+        Collection<IRecipe<CraftingInventory>> ritualRecipes =
+                RecipeUtil.getRecipes(recipeManager, OccultismRecipes.RITUAL_INGREDIENT_TYPE.get()).values();
+        registration.addRecipes(ritualRecipes, OccultismRecipes.RITUAL_INGREDIENT.getId());
 
         this.registerIngredientInfo(registration, OccultismItems.TALLOW.get());
         this.registerIngredientInfo(registration, OccultismBlocks.OTHERSTONE.get());

@@ -23,7 +23,7 @@
 package com.github.klikli_dev.occultism.integration.jei.recipes;
 
 import com.github.klikli_dev.occultism.Occultism;
-import com.github.klikli_dev.occultism.crafting.recipe.RitualFakeRecipe;
+import com.github.klikli_dev.occultism.crafting.recipe.RitualIngredientRecipe;
 import com.github.klikli_dev.occultism.registry.OccultismRecipes;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -36,20 +36,27 @@ import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
-public class RitualRecipeCategory implements IRecipeCategory<RitualFakeRecipe> {
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+public class RitualRecipeCategory implements IRecipeCategory<RitualIngredientRecipe> {
 
     //region Fields
     private final IDrawable background;
     private final String localizedName;
+    private final String pentacle;
     private final IDrawable overlay;
     //endregion Fields
 
     //region Initialization
     public RitualRecipeCategory(IGuiHelper guiHelper) {
-        this.background = guiHelper.createBlankDrawable(168, 46); //64
+        this.background = guiHelper.createBlankDrawable(168, 86); //64
         this.localizedName = I18n.format(Occultism.MODID + ".jei.ritual");
+        this.pentacle = I18n.format(Occultism.MODID + ".jei.pentacle");
         this.overlay = guiHelper.createDrawable(
                 new ResourceLocation(Occultism.MODID, "textures/gui/jei/arrow.png"), 0, 0, 64, 46);
     }
@@ -58,12 +65,12 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualFakeRecipe> {
     //region Overrides
     @Override
     public ResourceLocation getUid() {
-        return OccultismRecipes.RITUAL.getId();
+        return OccultismRecipes.RITUAL_INGREDIENT.getId();
     }
 
     @Override
-    public Class<? extends RitualFakeRecipe> getRecipeClass() {
-        return RitualFakeRecipe.class;
+    public Class<? extends RitualIngredientRecipe> getRecipeClass() {
+        return RitualIngredientRecipe.class;
     }
 
     @Override
@@ -82,27 +89,59 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualFakeRecipe> {
     }
 
     @Override
-    public void setIngredients(RitualFakeRecipe recipe, IIngredients ingredients) {
-        ingredients.setInputIngredients(recipe.getIngredients());
-        ingredients.setOutput(VanillaTypes.ITEM, recipe.getRecipeOutput());
+    public void setIngredients(RitualIngredientRecipe recipe, IIngredients ingredients) {
+        //0: activation item, 1...n: ingredients
+        ingredients.setInputIngredients(
+                Stream.concat(
+                        Stream.of(recipe.getActivationItem()),
+                        recipe.getIngredients().stream()
+                ).collect(Collectors.toList())
+        );
+        //0: recipe output, 1: ritual dummy item
+        ingredients.setOutputs(VanillaTypes.ITEM, Stream.of(recipe.getRecipeOutput(),
+                recipe.getRitual()).collect(Collectors.toList()));
     }
 
     @Override
-    public void setRecipe(IRecipeLayout recipeLayout, RitualFakeRecipe recipe, IIngredients ingredients) {
+    public void setRecipe(IRecipeLayout recipeLayout, RitualIngredientRecipe recipe, IIngredients ingredients) {
         int index = 0;
-        recipeLayout.getItemStacks().init(index, true, 56, 12);
-        recipeLayout.getItemStacks().set(index, ingredients.getInputs(VanillaTypes.ITEM).get(0));
-        index++;
+        int iconWidth = 16;
+        int x = this.background.getWidth() / 2 - iconWidth / 2;
+        int y = 12;
 
-        recipeLayout.getItemStacks().init(index, false, 94, 12);
+        //0: activation item, 1...n: ingredients
+        List<ItemStack> activationItem = ingredients.getInputs(VanillaTypes.ITEM).get(0);
+        List<List<ItemStack>> inputItems =
+                ingredients.getInputs(VanillaTypes.ITEM).stream().skip(0).collect(Collectors.toList());
+
+        recipeLayout.getItemStacks().init(index, true, 56, y);
+        recipeLayout.getItemStacks().set(index, activationItem);
+        index++;
+        y+= 10;
+
+        int inputItemSlotOffset = 10;
+        if (inputItems.size() > 1)
+            x = x - (inputItems.size() * (iconWidth + inputItemSlotOffset)) / 2 + (iconWidth + inputItemSlotOffset) / 2;
+        for (int i = 0; i < inputItems.size(); i++) {
+            recipeLayout.getItemStacks().init(index + i, false, x + i * (iconWidth + inputItemSlotOffset), y);
+            recipeLayout.getItemStacks().set(index + i, inputItems.get(i));
+        }
+
+        y+= 20;
+        //0: recipe output, 1: ritual dummy item
+        recipeLayout.getItemStacks().init(index, false, 94, y);
         recipeLayout.getItemStacks().set(index, ingredients.getOutputs(VanillaTypes.ITEM).get(0));
+        recipeLayout.getItemStacks().init(index, false, 112, y);
+        recipeLayout.getItemStacks().set(index, ingredients.getOutputs(VanillaTypes.ITEM).get(1));
     }
 
     @Override
-    public void draw(RitualFakeRecipe recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
+    public void draw(RitualIngredientRecipe recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
         RenderSystem.enableBlend();
-        this.overlay.draw(matrixStack,76, 14); //(center=84) - (width/16=8) = 76
+        this.overlay.draw(matrixStack, 76, 14); //(center=84) - (width/16=8) = 76
         this.drawStringCentered(matrixStack, Minecraft.getInstance().fontRenderer, this.getTitle(), 84, 0);
+        this.drawStringCentered(matrixStack, Minecraft.getInstance().fontRenderer,
+                I18n.format(this.pentacle) + ": " + I18n.format(recipe.getPentacleTranslationKey()), 70, 12);
     }
     //endregion Overrides
 
