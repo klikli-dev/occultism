@@ -22,6 +22,6 @@
     "item": "occultism:dimensional_matrix"
   },
   "ritual": {
-    "item": "occultism:ritual_craft_dimensional_matrix"
+    "item": "occultism:ritual_dummy/craft_dimensional_matrix"
   }
 }

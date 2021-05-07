@@ -25,6 +25,7 @@ package com.github.klikli_dev.occultism.registry;
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.TranslationKeys;
 import com.github.klikli_dev.occultism.api.common.misc.OccultismItemTier;
+import com.github.klikli_dev.occultism.common.item.RitualDummyItem;
 import com.github.klikli_dev.occultism.common.item.armor.OtherworldGogglesItem;
 import com.github.klikli_dev.occultism.common.item.debug.*;
 import com.github.klikli_dev.occultism.common.item.otherworld.OtherworldBlockItem;
@@ -255,6 +256,13 @@ public class OccultismItems {
                     , Occultism.SERVER_CONFIG.dimensionalMineshaft.minerDjinniOres.maxMiningTime::get,
                     Occultism.SERVER_CONFIG.dimensionalMineshaft.minerDjinniOres.rollsPerOperation::get,
                     Occultism.SERVER_CONFIG.dimensionalMineshaft.minerDjinniOres.durability::get));
+
+
+    //Ritual Dummy Items
+
+    public static final RegistryObject<RitualDummyItem> RITUAL_DUMMY_CRAFT_DIMENSIONAL_MATRIX = ITEMS.register(
+            "ritual_dummy/craft_dimensional_matrix", () -> new RitualDummyItem(defaultProperties()));
+
     //endregion Fields
 
     //region Static Methods
