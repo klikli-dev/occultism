@@ -24,6 +24,7 @@ package com.github.klikli_dev.occultism.integration.jei.recipes;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.crafting.recipe.RitualIngredientRecipe;
+import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.registry.OccultismRecipes;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -36,6 +37,7 @@ import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
@@ -49,7 +51,7 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualIngredientRec
     private final IDrawable background;
     private final String localizedName;
     private final String pentacle;
-    private final IDrawable overlay;
+    private final ItemStack goldenSacrificialBowl = new ItemStack(OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL.get());
     //endregion Fields
 
     //region Initialization
@@ -57,8 +59,7 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualIngredientRec
         this.background = guiHelper.createBlankDrawable(168, 86); //64
         this.localizedName = I18n.format(Occultism.MODID + ".jei.ritual");
         this.pentacle = I18n.format(Occultism.MODID + ".jei.pentacle");
-        this.overlay = guiHelper.createDrawable(
-                new ResourceLocation(Occultism.MODID, "textures/gui/jei/arrow.png"), 0, 0, 64, 46);
+        this.goldenSacrificialBowl.getOrCreateTag().putBoolean("RenderFull", true);
     }
     //endregion Initialization
 
@@ -114,11 +115,18 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualIngredientRec
         List<List<ItemStack>> inputItems =
                 ingredients.getInputs(VanillaTypes.ITEM).stream().skip(0).collect(Collectors.toList());
 
-        recipeLayout.getItemStacks().init(index, true, 56, y);
+        recipeLayout.getItemStacks().init(index, true, x, y);
         recipeLayout.getItemStacks().set(index, activationItem);
         index++;
         y+= 10;
 
+        //draw the sacrificial bowl slightly below the activation item, so it looks like its in the bowl
+        recipeLayout.getItemStacks().init(index, true, x, y);
+        recipeLayout.getItemStacks().set(index, this.goldenSacrificialBowl);
+        index++;
+        y += 20;
+
+        //TODO: split input items into groups of X that get a new line?
         int inputItemSlotOffset = 10;
         if (inputItems.size() > 1)
             x = x - (inputItems.size() * (iconWidth + inputItemSlotOffset)) / 2 + (iconWidth + inputItemSlotOffset) / 2;
@@ -129,19 +137,17 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualIngredientRec
 
         y+= 20;
         //0: recipe output, 1: ritual dummy item
-        recipeLayout.getItemStacks().init(index, false, 94, y);
+        recipeLayout.getItemStacks().init(index, false, x, y);
         recipeLayout.getItemStacks().set(index, ingredients.getOutputs(VanillaTypes.ITEM).get(0));
-        recipeLayout.getItemStacks().init(index, false, 112, y);
+
+        //draw ritual dummy item in upper left corner
+        recipeLayout.getItemStacks().init(index, false, 0, 0);
         recipeLayout.getItemStacks().set(index, ingredients.getOutputs(VanillaTypes.ITEM).get(1));
     }
 
     @Override
     public void draw(RitualIngredientRecipe recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
-        RenderSystem.enableBlend();
-        this.overlay.draw(matrixStack, 76, 14); //(center=84) - (width/16=8) = 76
-        this.drawStringCentered(matrixStack, Minecraft.getInstance().fontRenderer, this.getTitle(), 84, 0);
-        this.drawStringCentered(matrixStack, Minecraft.getInstance().fontRenderer,
-                I18n.format(this.pentacle) + ": " + I18n.format(recipe.getPentacleTranslationKey()), 70, 12);
+        this.drawStringCentered(matrixStack, Minecraft.getInstance().fontRenderer, I18n.format(recipe.getPentacleTranslationKey()), 84, 0);
     }
     //endregion Overrides
 
