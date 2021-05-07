@@ -23,6 +23,7 @@
 package com.github.klikli_dev.occultism.crafting.recipe;
 
 import com.github.klikli_dev.occultism.registry.OccultismRecipes;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.ItemStack;
@@ -31,25 +32,59 @@ import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.item.crafting.ShapelessRecipe;
 import net.minecraft.network.PacketBuffer;
+import net.minecraft.util.JSONUtils;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import javax.annotation.Nonnull;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class RitualIngredientRecipe extends ShapelessRecipe {
+    //region Fields
     public static Serializer SERIALIZER = new Serializer();
 
+    private ResourceLocation pentacleId;
+    private ItemStack ritual;
+    private Ingredient activationItem;
+    //endregion Fields
+
     //region Initialization
-    public RitualIngredientRecipe(ResourceLocation id, String group, ItemStack result, NonNullList<Ingredient> input) {
+    public RitualIngredientRecipe(ResourceLocation id, String group, ResourceLocation pentacleId, ItemStack ritual,
+                                  ItemStack result, Ingredient activationItem, NonNullList<Ingredient> input) {
         super(id, group, result, input);
+        this.pentacleId = pentacleId;
+        this.ritual = ritual;
+        this.activationItem = activationItem;
     }
     //endregion Initialization
+
+    //region Getter / Setter
+    public ResourceLocation getPentacleId() {
+        return pentacleId;
+    }
+
+    public void setPentacleId(ResourceLocation pentacleId) {
+        this.pentacleId = pentacleId;
+    }
+
+    public ItemStack getRitual() {
+        return ritual;
+    }
+
+    public void setRitual(ItemStack ritual) {
+        this.ritual = ritual;
+    }
+
+    public Ingredient getActivationItem() {
+        return activationItem;
+    }
+
+    public void setActivationItem(Ingredient activationItem) {
+        this.activationItem = activationItem;
+    }
+    //endregion Getter / Setter
 
     //region Overrides
     @Override
@@ -85,18 +120,35 @@ public class RitualIngredientRecipe extends ShapelessRecipe {
         @Override
         public RitualIngredientRecipe read(ResourceLocation recipeId, JsonObject json) {
             ShapelessRecipe recipe = serializer.read(recipeId, json);
-            return new RitualIngredientRecipe(recipe.getId(), recipe.getGroup(), recipe.getRecipeOutput(), recipe.getIngredients());
+            JsonElement activationItemElement =
+                    JSONUtils.isJsonArray(json, "activation_item") ? JSONUtils.getJsonArray(json,
+                            "activation_item") : JSONUtils.getJsonObject(json, "activation_item");
+            Ingredient activationItem = Ingredient.deserialize(activationItemElement);
+            ResourceLocation pentacleId = new ResourceLocation(json.get("pentacle").getAsString());
+            ItemStack ritual = CraftingHelper.getItemStack(JSONUtils.getJsonObject(json, "ritual"), true);
+            return new RitualIngredientRecipe(recipe.getId(), recipe.getGroup(), pentacleId, ritual,
+                    recipe.getRecipeOutput(), activationItem,
+                    recipe.getIngredients());
         }
 
         @Override
         public RitualIngredientRecipe read(ResourceLocation recipeId, PacketBuffer buffer) {
             ShapelessRecipe recipe = serializer.read(recipeId, buffer);
-            return new RitualIngredientRecipe(recipe.getId(), recipe.getGroup(), recipe.getRecipeOutput(), recipe.getIngredients());
+            ResourceLocation pentacleId = buffer.readResourceLocation();
+            ItemStack ritual = buffer.readItemStack();
+            Ingredient activationItem = Ingredient.read(buffer);
+
+            return new RitualIngredientRecipe(recipe.getId(), recipe.getGroup(), pentacleId, ritual,
+                    recipe.getRecipeOutput(), activationItem,
+                    recipe.getIngredients());
         }
 
         @Override
         public void write(PacketBuffer buffer, RitualIngredientRecipe recipe) {
             serializer.write(buffer, recipe);
+            buffer.writeResourceLocation(recipe.pentacleId);
+            buffer.writeItemStack(recipe.ritual);
+            recipe.activationItem.write(buffer);
         }
         //endregion Overrides
     }

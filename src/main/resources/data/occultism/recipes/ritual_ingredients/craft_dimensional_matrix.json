@@ -1,5 +1,9 @@
 {
   "type": "occultism:ritual_ingredient",
+  "activation_item": {
+    "item": "occultism:book_of_binding_bound_djinni"
+  },
+  "pentacle": "occultism:craft_djinni",
   "ingredients": [
     {
       "tag": "forge:storage_blocks/quartz"
@@ -15,7 +19,9 @@
     }
   ],
   "result": {
-    "_comment": "Unused",
-    "item": "occultism:pentacle"
+    "item": "occultism:dimensional_matrix"
+  },
+  "ritual": {
+    "item": "occultism:ritual_craft_dimensional_matrix"
   }
 }
