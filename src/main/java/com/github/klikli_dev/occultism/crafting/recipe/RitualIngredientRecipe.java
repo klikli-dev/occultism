@@ -40,7 +40,9 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.ForgeRegistryEntry;
+import net.minecraftforge.registries.RegistryManager;
 
 import javax.annotation.Nonnull;
 
@@ -62,7 +64,7 @@ public class RitualIngredientRecipe extends ShapelessRecipe {
                                   boolean requireSacrifice, boolean requireItemUse) {
         super(id, group, result, input);
         this.pentacleId = pentacleId;
-        this.pentacle = RegistryObject.of(pentacleId, OccultismRituals.PENTACLE_REGISTRY);
+        this.pentacle = RegistryObject.of(pentacleId, RegistryManager.ACTIVE.getRegistry(Pentacle.class));
         this.ritual = ritual;
         this.activationItem = activationItem;
         this.requireSacrifice = requireSacrifice;
