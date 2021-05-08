@@ -111,6 +111,10 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
     maven {
+        name = "KliKli Maven Mirror"
+        url = "https://klikli-dev.github.io/maven"
+    }
+    maven {
         name = "Hwyla/Waila Maven"
         url = "https://maven.tehnut.info"
     }
@@ -125,10 +129,6 @@ repositories {
     maven {
         name = "Curios Maven"
         url = "https://maven.theillusivec4.top/"
-    }
-    maven {
-        name = "ModMaven - JEI"
-        url = "https://modmaven.k-4u.nl"
     }
     flatDir {
         dirs 'runtime-mods'
