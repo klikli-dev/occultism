@@ -25,7 +25,7 @@ package com.github.klikli_dev.occultism.registry;
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.TranslationKeys;
 import com.github.klikli_dev.occultism.api.common.misc.OccultismItemTier;
-import com.github.klikli_dev.occultism.common.item.RitualDummyItem;
+import com.github.klikli_dev.occultism.common.item.DummyTooltipItem;
 import com.github.klikli_dev.occultism.common.item.armor.OtherworldGogglesItem;
 import com.github.klikli_dev.occultism.common.item.debug.*;
 import com.github.klikli_dev.occultism.common.item.otherworld.OtherworldBlockItem;
@@ -258,10 +258,15 @@ public class OccultismItems {
                     Occultism.SERVER_CONFIG.dimensionalMineshaft.minerDjinniOres.durability::get));
 
 
-    //Ritual Dummy Items
+    //JEI Dummy Items
+    public static final RegistryObject<DummyTooltipItem> JEI_DUMMY_REQUIRE_SACRIFICE = ITEMS.register(
+            "jei_dummy/require_sacrifice", () -> new DummyTooltipItem(defaultProperties()));
+    public static final RegistryObject<DummyTooltipItem> JEI_DUMMY_REQUIRE_ITEM_USE = ITEMS.register(
+            "jei_dummy/require_item_use", () -> new DummyTooltipItem(defaultProperties()));
 
-    public static final RegistryObject<RitualDummyItem> RITUAL_DUMMY_CRAFT_DIMENSIONAL_MATRIX = ITEMS.register(
-            "ritual_dummy/craft_dimensional_matrix", () -> new RitualDummyItem(defaultProperties()));
+    //Ritual Dummy Items
+    public static final RegistryObject<DummyTooltipItem> RITUAL_DUMMY_CRAFT_DIMENSIONAL_MATRIX = ITEMS.register(
+            "ritual_dummy/craft_dimensional_matrix", () -> new DummyTooltipItem(defaultProperties()));
 
     //endregion Fields
 

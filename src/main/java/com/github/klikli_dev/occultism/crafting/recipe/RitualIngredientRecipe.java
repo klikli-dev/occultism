@@ -39,7 +39,6 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.crafting.CraftingHelper;
-import net.minecraftforge.common.util.Lazy;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
@@ -53,34 +52,47 @@ public class RitualIngredientRecipe extends ShapelessRecipe {
     private ItemStack ritual;
     private Ingredient activationItem;
     private RegistryObject<Pentacle> pentacle;
+    private boolean requireSacrifice;
+    private boolean requireItemUse;
     //endregion Fields
 
     //region Initialization
     public RitualIngredientRecipe(ResourceLocation id, String group, ResourceLocation pentacleId, ItemStack ritual,
-                                  ItemStack result, Ingredient activationItem, NonNullList<Ingredient> input) {
+                                  ItemStack result, Ingredient activationItem, NonNullList<Ingredient> input,
+                                  boolean requireSacrifice, boolean requireItemUse) {
         super(id, group, result, input);
         this.pentacleId = pentacleId;
-        this.pentacle =  RegistryObject.of(pentacleId, OccultismRituals.PENTACLE_REGISTRY);
+        this.pentacle = RegistryObject.of(pentacleId, OccultismRituals.PENTACLE_REGISTRY);
         this.ritual = ritual;
         this.activationItem = activationItem;
+        this.requireSacrifice = requireSacrifice;
+        this.requireItemUse = requireItemUse;
     }
     //endregion Initialization
 
     //region Getter / Setter
     public ResourceLocation getPentacleId() {
-        return pentacleId;
+        return this.pentacleId;
     }
 
-    public RegistryObject<Pentacle> getPentacle(){
+    public RegistryObject<Pentacle> getPentacle() {
         return this.pentacle;
     }
 
     public ItemStack getRitual() {
-        return ritual;
+        return this.ritual;
     }
 
     public Ingredient getActivationItem() {
-        return activationItem;
+        return this.activationItem;
+    }
+
+    public boolean requireSacrifice() {
+        return this.requireSacrifice;
+    }
+
+    public boolean requireItemUse() {
+        return this.requireItemUse;
     }
 
     //endregion Getter / Setter
@@ -125,9 +137,11 @@ public class RitualIngredientRecipe extends ShapelessRecipe {
             Ingredient activationItem = Ingredient.deserialize(activationItemElement);
             ResourceLocation pentacleId = new ResourceLocation(json.get("pentacle_id").getAsString());
             ItemStack ritual = CraftingHelper.getItemStack(JSONUtils.getJsonObject(json, "ritual"), true);
+            boolean requireSacrifice = json.get("require_sacrifice").getAsBoolean();
+            boolean requireItemUse = json.get("require_item_use").getAsBoolean();
             return new RitualIngredientRecipe(recipe.getId(), recipe.getGroup(), pentacleId, ritual,
                     recipe.getRecipeOutput(), activationItem,
-                    recipe.getIngredients());
+                    recipe.getIngredients(), requireSacrifice, requireItemUse);
         }
 
         @Override
@@ -136,10 +150,12 @@ public class RitualIngredientRecipe extends ShapelessRecipe {
             ResourceLocation pentacleId = buffer.readResourceLocation();
             ItemStack ritual = buffer.readItemStack();
             Ingredient activationItem = Ingredient.read(buffer);
+            boolean requireSacrifice = buffer.readBoolean();
+            boolean requireItemUse = buffer.readBoolean();
 
             return new RitualIngredientRecipe(recipe.getId(), recipe.getGroup(), pentacleId, ritual,
                     recipe.getRecipeOutput(), activationItem,
-                    recipe.getIngredients());
+                    recipe.getIngredients(), requireSacrifice, requireItemUse);
         }
 
         @Override
@@ -148,6 +164,8 @@ public class RitualIngredientRecipe extends ShapelessRecipe {
             buffer.writeResourceLocation(recipe.pentacleId);
             buffer.writeItemStack(recipe.ritual);
             recipe.activationItem.write(buffer);
+            buffer.writeBoolean(recipe.requireSacrifice);
+            buffer.writeBoolean(recipe.requireItemUse);
         }
         //endregion Overrides
     }

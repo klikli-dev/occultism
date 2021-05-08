@@ -34,10 +34,10 @@ import java.util.List;
 /**
  * Item class to represent rituals as items with tooltip - enables JEI search for rituals
  */
-public class RitualDummyItem extends Item {
+public class DummyTooltipItem extends Item {
 
     //region Initialization
-    public RitualDummyItem(Properties properties) {
+    public DummyTooltipItem(Properties properties) {
         super(properties);
     }
     //endregion Initialization
