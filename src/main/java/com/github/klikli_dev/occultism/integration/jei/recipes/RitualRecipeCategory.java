@@ -25,6 +25,7 @@ package com.github.klikli_dev.occultism.integration.jei.recipes;
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.crafting.recipe.RitualIngredientRecipe;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
+import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.github.klikli_dev.occultism.registry.OccultismRecipes;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -37,9 +38,9 @@ import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.vector.Vector3i;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -49,17 +50,31 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualIngredientRec
 
     //region Fields
     private final IDrawable background;
+    private final IDrawable arrow;
     private final String localizedName;
     private final String pentacle;
     private final ItemStack goldenSacrificialBowl = new ItemStack(OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL.get());
+    private final ItemStack sacrificialBowl = new ItemStack(OccultismBlocks.SACRIFICIAL_BOWL.get());
+    private final ItemStack requireSacrifice = new ItemStack(OccultismItems.JEI_DUMMY_REQUIRE_SACRIFICE.get());
+    private final ItemStack requireItemUse = new ItemStack(OccultismItems.JEI_DUMMY_REQUIRE_ITEM_USE.get());
+
+    private int recipeOutputOffsetX = 50;
+    private int iconWidth = 16;
+    private int ritualCenterX;
+    private int ritualCenterY;
     //endregion Fields
 
     //region Initialization
     public RitualRecipeCategory(IGuiHelper guiHelper) {
-        this.background = guiHelper.createBlankDrawable(168, 86); //64
+        this.background = guiHelper.createBlankDrawable(168, 100); //64
+        this.ritualCenterX = this.background.getWidth() / 2 - this.iconWidth / 2 - 30;
+        this.ritualCenterY = this.background.getHeight() / 2 - this.iconWidth / 2 + 10;
         this.localizedName = I18n.format(Occultism.MODID + ".jei.ritual");
         this.pentacle = I18n.format(Occultism.MODID + ".jei.pentacle");
         this.goldenSacrificialBowl.getOrCreateTag().putBoolean("RenderFull", true);
+        this.sacrificialBowl.getOrCreateTag().putBoolean("RenderFull", true);
+        this.arrow = guiHelper.createDrawable(
+                new ResourceLocation(Occultism.MODID, "textures/gui/jei/arrow.png"), 0, 0, 64, 46);
     }
     //endregion Initialization
 
@@ -106,47 +121,122 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualIngredientRec
     @Override
     public void setRecipe(IRecipeLayout recipeLayout, RitualIngredientRecipe recipe, IIngredients ingredients) {
         int index = 0;
-        int iconWidth = 16;
-        int x = this.background.getWidth() / 2 - iconWidth / 2;
-        int y = 12;
+        this.recipeOutputOffsetX = 75;
 
         //0: activation item, 1...n: ingredients
         List<ItemStack> activationItem = ingredients.getInputs(VanillaTypes.ITEM).get(0);
         List<List<ItemStack>> inputItems =
-                ingredients.getInputs(VanillaTypes.ITEM).stream().skip(0).collect(Collectors.toList());
+                ingredients.getInputs(VanillaTypes.ITEM).stream().skip(1).collect(Collectors.toList());
 
-        recipeLayout.getItemStacks().init(index, true, x, y);
+        //draw activation item on top of bowl
+        recipeLayout.getItemStacks().init(index, true, this.ritualCenterX, this.ritualCenterY - 5);
         recipeLayout.getItemStacks().set(index, activationItem);
         index++;
-        y+= 10;
 
-        //draw the sacrificial bowl slightly below the activation item, so it looks like its in the bowl
-        recipeLayout.getItemStacks().init(index, true, x, y);
+        //draw the sacrificial bowl in the center
+        recipeLayout.getItemStacks().init(index, false, this.ritualCenterX, this.ritualCenterY);
         recipeLayout.getItemStacks().set(index, this.goldenSacrificialBowl);
         index++;
-        y += 20;
 
-        //TODO: split input items into groups of X that get a new line?
-        int inputItemSlotOffset = 10;
-        if (inputItems.size() > 1)
-            x = x - (inputItems.size() * (iconWidth + inputItemSlotOffset)) / 2 + (iconWidth + inputItemSlotOffset) / 2;
+        int sacrificialCircleRadius = 30;
+        int sacricialBowlPaddingVertical = 20;
+        int sacricialBowlPaddingHorizontal = 15;
+        List<Vector3i> sacrificialBowlPosition = Stream.of(
+                //first the 4 centers of each side
+                new Vector3i(this.ritualCenterX, this.ritualCenterY - sacrificialCircleRadius, 0),
+                new Vector3i(this.ritualCenterX + sacrificialCircleRadius, this.ritualCenterY, 0),
+                new Vector3i(this.ritualCenterX, this.ritualCenterY + sacrificialCircleRadius, 0),
+                new Vector3i(this.ritualCenterX - sacrificialCircleRadius, this.ritualCenterY, 0),
+
+                //then clockwise of the enter the next 4
+                new Vector3i(this.ritualCenterX + sacricialBowlPaddingHorizontal,
+                        this.ritualCenterY - sacrificialCircleRadius,
+                        0),
+                new Vector3i(this.ritualCenterX + sacrificialCircleRadius,
+                        this.ritualCenterY - sacricialBowlPaddingVertical, 0),
+                new Vector3i(this.ritualCenterX - sacricialBowlPaddingHorizontal,
+                        this.ritualCenterY + sacrificialCircleRadius,
+                        0),
+                new Vector3i(this.ritualCenterX - sacrificialCircleRadius,
+                        this.ritualCenterY + sacricialBowlPaddingVertical, 0),
+
+                //then counterclockwise of the center the last 4
+                new Vector3i(this.ritualCenterX - sacricialBowlPaddingHorizontal,
+                        this.ritualCenterY - sacrificialCircleRadius,
+                        0),
+                new Vector3i(this.ritualCenterX + sacrificialCircleRadius,
+                        this.ritualCenterY + sacricialBowlPaddingVertical, 0),
+                new Vector3i(this.ritualCenterX + sacricialBowlPaddingHorizontal,
+                        this.ritualCenterY + sacrificialCircleRadius,
+                        0),
+                new Vector3i(this.ritualCenterX - sacrificialCircleRadius,
+                        this.ritualCenterY - sacricialBowlPaddingVertical, 0)
+        ).collect(Collectors.toList());
+
         for (int i = 0; i < inputItems.size(); i++) {
-            recipeLayout.getItemStacks().init(index + i, false, x + i * (iconWidth + inputItemSlotOffset), y);
-            recipeLayout.getItemStacks().set(index + i, inputItems.get(i));
+            Vector3i pos = sacrificialBowlPosition.get(i);
+
+            recipeLayout.getItemStacks().init(index, true, pos.getX(), pos.getY() - 5);
+            recipeLayout.getItemStacks().set(index, inputItems.get(i));
+            index++;
+
+            recipeLayout.getItemStacks().init(index, false, pos.getX(), pos.getY());
+            recipeLayout.getItemStacks().set(index, this.sacrificialBowl);
+            index++;
+
         }
 
-        y+= 20;
-        //0: recipe output, 1: ritual dummy item
-        recipeLayout.getItemStacks().init(index, false, x, y);
-        recipeLayout.getItemStacks().set(index, ingredients.getOutputs(VanillaTypes.ITEM).get(0));
+        //ingredients: 0: recipe output, 1: ritual dummy item
+
+        //draw recipe output on the left
+        if(recipe.getRecipeOutput().getItem() != OccultismItems.JEI_DUMMY_NONE.get()){
+            //if we have an item output -> render it
+            recipeLayout.getItemStacks()
+                    .init(index, false, this.ritualCenterX + this.recipeOutputOffsetX, this.ritualCenterY - 5);
+            recipeLayout.getItemStacks().set(index, ingredients.getOutputs(VanillaTypes.ITEM).get(0));
+            index++;
+        }
+        else{
+            //if not, we instead render our ritual dummy item, just like in the corner
+            recipeLayout.getItemStacks()
+                    .init(index, false, this.ritualCenterX + this.recipeOutputOffsetX, this.ritualCenterY - 5);
+            recipeLayout.getItemStacks().set(index, ingredients.getOutputs(VanillaTypes.ITEM).get(1));
+            index++;
+        }
+            recipeLayout.getItemStacks()
+                    .init(index, false, this.ritualCenterX + this.recipeOutputOffsetX, this.ritualCenterY);
+            recipeLayout.getItemStacks().set(index, this.goldenSacrificialBowl);
+            index++;
+
 
         //draw ritual dummy item in upper left corner
+
         recipeLayout.getItemStacks().init(index, false, 0, 0);
         recipeLayout.getItemStacks().set(index, ingredients.getOutputs(VanillaTypes.ITEM).get(1));
+        index++;
+        int dummyY = 0;
+        int dummyX = this.background.getWidth() - this.iconWidth - 5;
+        //draw info dummy items below
+        if (recipe.requireSacrifice()) {
+            recipeLayout.getItemStacks().init(index, false, dummyX, dummyY);
+            recipeLayout.getItemStacks().set(index, this.requireSacrifice);
+            index++;
+            dummyY += 20;
+        }
+
+        if (recipe.requireItemUse()) {
+            recipeLayout.getItemStacks().init(index, false, dummyX, dummyY);
+            recipeLayout.getItemStacks().set(index, this.requireItemUse);
+            index++;
+            dummyY += 20;
+        }
     }
 
     @Override
     public void draw(RitualIngredientRecipe recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
+        RenderSystem.enableBlend();
+        this.arrow.draw(matrixStack, this.ritualCenterX + this.recipeOutputOffsetX - 20, this.ritualCenterY);
+        RenderSystem.disableBlend();
         this.drawStringCentered(matrixStack, Minecraft.getInstance().fontRenderer,
                 I18n.format(recipe.getPentacle().get().getTranslationKey()), 84, 0);
     }
