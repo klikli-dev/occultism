@@ -142,7 +142,7 @@ public class JeiPlugin implements IModPlugin {
         registration.addRecipeCatalyst(new ItemStack(OccultismBlocks.DIMENSIONAL_MINESHAFT.get()),
                 OccultismRecipes.MINER.getId());
         registration.addRecipeCatalyst(new ItemStack(OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL.get()),
-                OccultismRecipes.RITUAL.getId());
+                OccultismRecipes.RITUAL_INGREDIENT.getId());
     }
 
     @Override
