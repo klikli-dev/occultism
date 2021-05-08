@@ -1,5 +1,14 @@
 {
   "type": "occultism:ritual",
+  "activation_item": {
+    "item": "occultism:book_of_binding_bound_afrit"
+  },
+  "pentacle_id": "occultism:summon_wild_afrit",
+  "require_item_use": false,
+  "require_sacrifice": true,
+  "ritual": {
+    "item": "occultism:ritual_dummy/summon_wild_afrit"
+  },
   "ingredients": [
     {
       "tag": "forge:netherrack"
@@ -15,7 +24,6 @@
     }
   ],
   "result": {
-    "_comment": "Unused",
-    "item": "occultism:pentacle"
+    "item": "occultism:jei_dummy/none"
   }
 }

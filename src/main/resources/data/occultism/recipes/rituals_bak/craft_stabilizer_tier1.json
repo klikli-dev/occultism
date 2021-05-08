@@ -1,9 +1,0 @@
-{
-  "type": "occultism:ritual",
-  "ingredient": {
-    "item": "occultism:book_of_binding_bound_foliot"
-  },
-  "result":{
-    "item": "occultism:storage_stabilizer_tier1"
-  }
-}
