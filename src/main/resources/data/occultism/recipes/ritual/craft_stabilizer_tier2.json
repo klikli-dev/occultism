@@ -1,0 +1,24 @@
+{
+  "type": "occultism:ritual",
+  "ingredients": [
+    {
+      "item": "occultism:otherstone_pedestal"
+    },
+    {
+      "tag": "forge:storage_blocks/silver"
+    },
+    {
+      "item": "minecraft:ghast_tear"
+    },
+    {
+      "item": "occultism:spirit_attuned_gem"
+    },
+    {
+      "item": "occultism:spirit_attuned_gem"
+    }
+  ],
+  "result": {
+    "_comment": "Unused",
+    "item": "occultism:pentacle"
+  }
+}

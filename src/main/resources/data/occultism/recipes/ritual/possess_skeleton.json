@@ -1,0 +1,21 @@
+{
+  "type": "occultism:ritual",
+  "ingredients": [
+    {
+      "tag": "forge:bones"
+    },
+    {
+      "tag": "forge:bones"
+    },
+    {
+      "tag": "forge:bones"
+    },
+    {
+      "tag": "forge:bones"
+    }
+  ],
+  "result": {
+    "_comment": "Unused",
+    "item": "occultism:pentacle"
+  }
+}

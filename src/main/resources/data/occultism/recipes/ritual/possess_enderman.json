@@ -1,0 +1,21 @@
+{
+  "type": "occultism:ritual",
+  "ingredients": [
+    {
+      "tag": "forge:bones"
+    },
+    {
+      "tag": "forge:string"
+    },
+    {
+      "tag": "forge:end_stones"
+    },
+    {
+      "item": "minecraft:rotten_flesh"
+    }
+  ],
+  "result": {
+    "_comment": "Unused",
+    "item": "occultism:pentacle"
+  }
+}

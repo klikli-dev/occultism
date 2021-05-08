@@ -1,0 +1,24 @@
+{
+  "type": "occultism:ritual",
+  "ingredients": [
+    {
+      "item": "occultism:magic_lamp_empty"
+    },
+    {
+      "item": "occultism:iesnium_pickaxe"
+    },
+    {
+      "tag": "forge:ores/gold"
+    },
+    {
+      "tag": "forge:storage_blocks/iesnium"
+    },
+    {
+      "item": "occultism:spirit_attuned_crystal"
+    }
+  ],
+  "result": {
+    "_comment": "Unused",
+    "item": "occultism:pentacle"
+  }
+}

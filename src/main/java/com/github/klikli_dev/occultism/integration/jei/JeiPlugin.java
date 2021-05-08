@@ -35,7 +35,6 @@ import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.github.klikli_dev.occultism.registry.OccultismRecipes;
 import com.github.klikli_dev.occultism.util.RecipeUtil;
-import com.google.common.base.Strings;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.constants.VanillaRecipeCategoryUid;
 import mezz.jei.api.constants.VanillaTypes;
@@ -104,8 +103,8 @@ public class JeiPlugin implements IModPlugin {
         registration.addRecipes(minerRecipes, OccultismRecipes.MINER.getId());
 
         Collection<IRecipe<CraftingInventory>> ritualRecipes =
-                RecipeUtil.getRecipes(recipeManager, OccultismRecipes.RITUAL_INGREDIENT_TYPE.get()).values();
-        registration.addRecipes(ritualRecipes, OccultismRecipes.RITUAL_INGREDIENT.getId());
+                RecipeUtil.getRecipes(recipeManager, OccultismRecipes.RITUAL_TYPE.get()).values();
+        registration.addRecipes(ritualRecipes, OccultismRecipes.RITUAL.getId());
 
         this.registerIngredientInfo(registration, OccultismItems.TALLOW.get());
         this.registerIngredientInfo(registration, OccultismBlocks.OTHERSTONE.get());
@@ -142,7 +141,7 @@ public class JeiPlugin implements IModPlugin {
         registration.addRecipeCatalyst(new ItemStack(OccultismBlocks.DIMENSIONAL_MINESHAFT.get()),
                 OccultismRecipes.MINER.getId());
         registration.addRecipeCatalyst(new ItemStack(OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL.get()),
-                OccultismRecipes.RITUAL_INGREDIENT.getId());
+                OccultismRecipes.RITUAL.getId());
     }
 
     @Override

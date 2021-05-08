@@ -1,0 +1,21 @@
+{
+  "type": "occultism:ritual",
+  "ingredients": [
+    {
+      "item": "occultism:lenses"
+    },
+    {
+      "tag": "forge:ingots/silver"
+    },
+    {
+      "tag": "forge:ingots/silver"
+    },
+    {
+      "tag": "forge:ingots/gold"
+    }
+  ],
+  "result": {
+    "_comment": "Unused",
+    "item": "occultism:pentacle"
+  }
+}

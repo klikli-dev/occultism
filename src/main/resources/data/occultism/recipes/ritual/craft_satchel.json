@@ -1,0 +1,24 @@
+{
+  "type": "occultism:ritual",
+  "ingredients": [
+    {
+      "tag": "forge:chests/wooden"
+    },
+    {
+      "tag": "forge:leather"
+    },
+    {
+      "tag": "forge:leather"
+    },
+    {
+      "tag": "forge:string"
+    },
+    {
+      "tag": "forge:ingots/silver"
+    }
+  ],
+  "result": {
+    "_comment": "Unused",
+    "item": "occultism:pentacle"
+  }
+}

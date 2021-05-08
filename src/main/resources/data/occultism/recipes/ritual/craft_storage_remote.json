@@ -1,0 +1,21 @@
+{
+  "type": "occultism:ritual",
+  "ingredients": [
+    {
+      "item": "occultism:storage_remote_inert"
+    },
+    {
+      "tag": "forge:ender_pearls"
+    },
+    {
+      "tag": "forge:ender_pearls"
+    },
+    {
+      "tag": "forge:gems/quartz"
+    }
+  ],
+  "result": {
+    "_comment": "Unused",
+    "item": "occultism:pentacle"
+  }
+}

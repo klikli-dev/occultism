@@ -1,0 +1,21 @@
+{
+  "type": "occultism:ritual",
+  "ingredients": [
+    {
+      "item": "occultism:otherstone_pedestal"
+    },
+    {
+      "tag": "forge:storage_blocks/gold"
+    },
+    {
+      "item": "minecraft:nether_star"
+    },
+    {
+      "item": "occultism:spirit_attuned_crystal"
+    }
+  ],
+  "result": {
+    "_comment": "Unused",
+    "item": "occultism:pentacle"
+  }
+}

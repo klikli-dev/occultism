@@ -1,0 +1,21 @@
+{
+  "type": "occultism:ritual",
+  "ingredients": [
+    {
+      "tag": "forge:ores/iron"
+    },
+    {
+      "tag": "forge:ores/gold"
+    },
+    {
+      "tag": "forge:ores/copper"
+    },
+    {
+      "tag": "forge:ores/silver"
+    }
+  ],
+  "result": {
+    "_comment": "Unused",
+    "item": "occultism:pentacle"
+  }
+}

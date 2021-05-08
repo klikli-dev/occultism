@@ -1,0 +1,21 @@
+{
+  "type": "occultism:ritual",
+  "ingredients": [
+    {
+      "item": "occultism:magic_lamp_empty"
+    },
+    {
+      "item": "occultism:iesnium_pickaxe"
+    },
+    {
+      "tag": "forge:ores/iron"
+    },
+    {
+      "item": "minecraft:gravel"
+    }
+  ],
+  "result": {
+    "_comment": "Unused",
+    "item": "occultism:pentacle"
+  }
+}

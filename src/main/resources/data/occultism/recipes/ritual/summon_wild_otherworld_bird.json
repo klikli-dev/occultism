@@ -1,0 +1,24 @@
+{
+  "type": "occultism:ritual",
+  "ingredients": [
+    {
+      "tag": "forge:feathers"
+    },
+    {
+      "tag": "forge:feathers"
+    },
+    {
+      "item": "minecraft:cobweb"
+    },
+    {
+      "tag": "minecraft:leaves"
+    },
+    {
+      "tag": "forge:eggs"
+    }
+  ],
+  "result": {
+    "_comment": "Unused",
+    "item": "occultism:pentacle"
+  }
+}

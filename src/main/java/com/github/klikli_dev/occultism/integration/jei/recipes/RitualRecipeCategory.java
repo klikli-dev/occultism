@@ -23,7 +23,7 @@
 package com.github.klikli_dev.occultism.integration.jei.recipes;
 
 import com.github.klikli_dev.occultism.Occultism;
-import com.github.klikli_dev.occultism.crafting.recipe.RitualIngredientRecipe;
+import com.github.klikli_dev.occultism.crafting.recipe.RitualRecipe;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.github.klikli_dev.occultism.registry.OccultismRecipes;
@@ -46,7 +46,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class RitualRecipeCategory implements IRecipeCategory<RitualIngredientRecipe> {
+public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
 
     //region Fields
     private final IDrawable background;
@@ -81,12 +81,12 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualIngredientRec
     //region Overrides
     @Override
     public ResourceLocation getUid() {
-        return OccultismRecipes.RITUAL_INGREDIENT.getId();
+        return OccultismRecipes.RITUAL.getId();
     }
 
     @Override
-    public Class<? extends RitualIngredientRecipe> getRecipeClass() {
-        return RitualIngredientRecipe.class;
+    public Class<? extends RitualRecipe> getRecipeClass() {
+        return RitualRecipe.class;
     }
 
     @Override
@@ -105,7 +105,7 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualIngredientRec
     }
 
     @Override
-    public void setIngredients(RitualIngredientRecipe recipe, IIngredients ingredients) {
+    public void setIngredients(RitualRecipe recipe, IIngredients ingredients) {
         //0: activation item, 1...n: ingredients
         ingredients.setInputIngredients(
                 Stream.concat(
@@ -119,7 +119,7 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualIngredientRec
     }
 
     @Override
-    public void setRecipe(IRecipeLayout recipeLayout, RitualIngredientRecipe recipe, IIngredients ingredients) {
+    public void setRecipe(IRecipeLayout recipeLayout, RitualRecipe recipe, IIngredients ingredients) {
         int index = 0;
         this.recipeOutputOffsetX = 75;
 
@@ -233,7 +233,7 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualIngredientRec
     }
 
     @Override
-    public void draw(RitualIngredientRecipe recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
+    public void draw(RitualRecipe recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
         RenderSystem.enableBlend();
         this.arrow.draw(matrixStack, this.ritualCenterX + this.recipeOutputOffsetX - 20, this.ritualCenterY);
         RenderSystem.disableBlend();
