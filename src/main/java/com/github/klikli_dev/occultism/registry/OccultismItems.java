@@ -259,14 +259,89 @@ public class OccultismItems {
 
 
     //JEI Dummy Items
+    public static final RegistryObject<DummyTooltipItem> JEI_DUMMY_NONE = ITEMS.register(
+            "jei_dummy/none", () -> new DummyTooltipItem(defaultProperties()));
     public static final RegistryObject<DummyTooltipItem> JEI_DUMMY_REQUIRE_SACRIFICE = ITEMS.register(
             "jei_dummy/require_sacrifice", () -> new DummyTooltipItem(defaultProperties()));
     public static final RegistryObject<DummyTooltipItem> JEI_DUMMY_REQUIRE_ITEM_USE = ITEMS.register(
             "jei_dummy/require_item_use", () -> new DummyTooltipItem(defaultProperties()));
 
     //Ritual Dummy Items
-    public static final RegistryObject<DummyTooltipItem> RITUAL_DUMMY_CRAFT_DIMENSIONAL_MATRIX = ITEMS.register(
-            "ritual_dummy/craft_dimensional_matrix", () -> new DummyTooltipItem(defaultProperties()));
+    static{
+        ITEMS.register(
+                "ritual_dummy/craft_dimensional_matrix", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register(
+                "ritual_dummy/craft_dimensional_mineshaft", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register(
+                "ritual_dummy/craft_infused_lenses", () -> new DummyTooltipItem(defaultProperties()));
+
+        ITEMS.register(
+                "ritual_dummy/craft_infused_pickaxe", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register(
+                "ritual_dummy/craft_miner_djinni_ores", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register(
+                "ritual_dummy/craft_miner_foliot_unspecialized", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register(
+                "ritual_dummy/craft_satchel", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register(
+                "ritual_dummy/craft_soul_gem", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register(
+                "ritual_dummy/craft_stabilizer_tier1", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register(
+                "ritual_dummy/craft_stabilizer_tier2", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register(
+                "ritual_dummy/craft_stabilizer_tier3", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register(
+                "ritual_dummy/craft_stabilizer_tier4", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register(
+                "ritual_dummy/craft_stable_wormhole", () -> new DummyTooltipItem(defaultProperties()));
+
+        ITEMS.register(
+                "ritual_dummy/craft_storage_controller_base", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register(
+                "ritual_dummy/craft_storage_remote", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register(
+                "ritual_dummy/familiar_otherworld_bird", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register(
+                "ritual_dummy/familiar_parrot", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register(
+                "ritual_dummy/possess_enderman", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register(
+                "ritual_dummy/possess_endermite", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register(
+                "ritual_dummy/possess_skeleton", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register(
+                "ritual_dummy/summon_afrit_rain_weather", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register(
+                "ritual_dummy/summon_afrit_thunder_weather", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register(
+                "ritual_dummy/summon_djinni_clear_weather", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register(
+                "ritual_dummy/summon_djinni_day_time", () -> new DummyTooltipItem(defaultProperties()));
+
+        ITEMS.register(
+                "ritual_dummy/summon_djinni_manage_machine", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register(
+                "ritual_dummy/summon_djinni_night_time", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register(
+                "ritual_dummy/summon_foliot_crusher", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register(
+                "ritual_dummy/summon_foliot_lumberjack", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register(
+                "ritual_dummy/summon_foliot_otherstone_trader", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register(
+                "ritual_dummy/summon_foliot_sapling_trader", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register(
+                "ritual_dummy/summon_foliot_transport_items", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register(
+                "ritual_dummy/summon_wild_afrit", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register(
+                "ritual_dummy/summon_wild_hunt", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register(
+                "ritual_dummy/summon_wild_otherworld_bird", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register(
+                "ritual_dummy/summon_wild_parrot", () -> new DummyTooltipItem(defaultProperties()));
+    }
 
     //endregion Fields
 
