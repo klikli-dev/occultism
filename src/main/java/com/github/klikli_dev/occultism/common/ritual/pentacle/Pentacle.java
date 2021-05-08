@@ -23,8 +23,11 @@
 package com.github.klikli_dev.occultism.common.ritual.pentacle;
 
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
+import com.github.klikli_dev.occultism.registry.OccultismRituals;
 import com.github.klikli_dev.occultism.registry.OccultismTags;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Util;
+import net.minecraft.util.registry.Registry;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 import vazkii.patchouli.api.IMultiblock;
 import vazkii.patchouli.api.PatchouliAPI;
@@ -39,6 +42,7 @@ public abstract class Pentacle extends ForgeRegistryEntry<Pentacle> {
     protected PatchouliAPI.IPatchouliAPI api = PatchouliAPI.instance;
     protected IMultiblock blockMatcher;
     protected List<Object> mapping = new ArrayList<>();
+    protected String translationKey;
     //endregion Fields
 
     //region Initialization
@@ -59,6 +63,21 @@ public abstract class Pentacle extends ForgeRegistryEntry<Pentacle> {
     //endregion Getter / Setter
 
     //region Methods
+
+    protected String getDefaultTranslationKey() {
+        if (this.translationKey == null) {
+            this.translationKey = Util.makeTranslationKey("pentacle", OccultismRituals.PENTACLE_REGISTRY.getKey(this));
+        }
+
+        return this.translationKey;
+    }
+
+    /**
+     * Returns the unlocalized name of this item.
+     */
+    public String getTranslationKey() {
+        return this.getDefaultTranslationKey();
+    }
 
     /**
      * registers the multiblock with patchouli_books.

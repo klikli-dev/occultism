@@ -147,7 +147,8 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualIngredientRec
 
     @Override
     public void draw(RitualIngredientRecipe recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
-        this.drawStringCentered(matrixStack, Minecraft.getInstance().fontRenderer, I18n.format(recipe.getPentacleTranslationKey()), 84, 0);
+        this.drawStringCentered(matrixStack, Minecraft.getInstance().fontRenderer,
+                I18n.format(recipe.getPentacle().get().getTranslationKey()), 84, 0);
     }
     //endregion Overrides
 

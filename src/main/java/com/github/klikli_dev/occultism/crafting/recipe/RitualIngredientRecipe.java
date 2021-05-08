@@ -22,7 +22,9 @@
 
 package com.github.klikli_dev.occultism.crafting.recipe;
 
+import com.github.klikli_dev.occultism.common.ritual.pentacle.Pentacle;
 import com.github.klikli_dev.occultism.registry.OccultismRecipes;
+import com.github.klikli_dev.occultism.registry.OccultismRituals;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import net.minecraft.inventory.CraftingInventory;
@@ -37,6 +39,8 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.crafting.CraftingHelper;
+import net.minecraftforge.common.util.Lazy;
+import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import javax.annotation.Nonnull;
@@ -45,24 +49,30 @@ public class RitualIngredientRecipe extends ShapelessRecipe {
     //region Fields
     public static Serializer SERIALIZER = new Serializer();
 
-    private String pentacleTranslationKey;
+    private ResourceLocation pentacleId;
     private ItemStack ritual;
     private Ingredient activationItem;
+    private RegistryObject<Pentacle> pentacle;
     //endregion Fields
 
     //region Initialization
-    public RitualIngredientRecipe(ResourceLocation id, String group, String pentacleTranslationKey, ItemStack ritual,
+    public RitualIngredientRecipe(ResourceLocation id, String group, ResourceLocation pentacleId, ItemStack ritual,
                                   ItemStack result, Ingredient activationItem, NonNullList<Ingredient> input) {
         super(id, group, result, input);
-        this.pentacleTranslationKey = pentacleTranslationKey;
+        this.pentacleId = pentacleId;
+        this.pentacle =  RegistryObject.of(pentacleId, OccultismRituals.PENTACLE_REGISTRY);
         this.ritual = ritual;
         this.activationItem = activationItem;
     }
     //endregion Initialization
 
     //region Getter / Setter
-    public String getPentacleTranslationKey() {
-        return pentacleTranslationKey;
+    public ResourceLocation getPentacleId() {
+        return pentacleId;
+    }
+
+    public RegistryObject<Pentacle> getPentacle(){
+        return this.pentacle;
     }
 
     public ItemStack getRitual() {
@@ -113,7 +123,7 @@ public class RitualIngredientRecipe extends ShapelessRecipe {
                     JSONUtils.isJsonArray(json, "activation_item") ? JSONUtils.getJsonArray(json,
                             "activation_item") : JSONUtils.getJsonObject(json, "activation_item");
             Ingredient activationItem = Ingredient.deserialize(activationItemElement);
-            String pentacleId = json.get("pentacle_translation_key").getAsString();
+            ResourceLocation pentacleId = new ResourceLocation(json.get("pentacle_id").getAsString());
             ItemStack ritual = CraftingHelper.getItemStack(JSONUtils.getJsonObject(json, "ritual"), true);
             return new RitualIngredientRecipe(recipe.getId(), recipe.getGroup(), pentacleId, ritual,
                     recipe.getRecipeOutput(), activationItem,
@@ -123,7 +133,7 @@ public class RitualIngredientRecipe extends ShapelessRecipe {
         @Override
         public RitualIngredientRecipe read(ResourceLocation recipeId, PacketBuffer buffer) {
             ShapelessRecipe recipe = serializer.read(recipeId, buffer);
-            String pentacleId = buffer.readString();
+            ResourceLocation pentacleId = buffer.readResourceLocation();
             ItemStack ritual = buffer.readItemStack();
             Ingredient activationItem = Ingredient.read(buffer);
 
@@ -135,7 +145,7 @@ public class RitualIngredientRecipe extends ShapelessRecipe {
         @Override
         public void write(PacketBuffer buffer, RitualIngredientRecipe recipe) {
             serializer.write(buffer, recipe);
-            buffer.writeString(recipe.pentacleTranslationKey);
+            buffer.writeResourceLocation(recipe.pentacleId);
             buffer.writeItemStack(recipe.ritual);
             recipe.activationItem.write(buffer);
         }
