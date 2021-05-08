@@ -44,10 +44,8 @@ public class OccultismRecipes {
             NonNullLazy.of(() -> IRecipeType.register("occultism:crushing"));
     public static final NonNullLazy<IRecipeType<MinerRecipe>> MINER_TYPE =
             NonNullLazy.of(() -> IRecipeType.register("occultism:miner"));
-    public static final NonNullLazy<IRecipeType<RitualFakeRecipe>> RITUAL_TYPE =
+    public static final NonNullLazy<IRecipeType<RitualRecipe>> RITUAL_TYPE =
             NonNullLazy.of(() -> IRecipeType.register("occultism:ritual"));
-    public static final NonNullLazy<IRecipeType<RitualIngredientRecipe>> RITUAL_INGREDIENT_TYPE =
-            NonNullLazy.of(() -> IRecipeType.register("occultism:ritual_ingredient"));
 
     public static final RegistryObject<IRecipeSerializer<SpiritTradeRecipe>> SPIRIT_TRADE = RECIPES.register("spirit_trade",
             () -> SpiritTradeRecipe.SERIALIZER);
@@ -57,10 +55,9 @@ public class OccultismRecipes {
             () -> CrushingRecipe.SERIALIZER);
     public static final RegistryObject<IRecipeSerializer<MinerRecipe>> MINER = RECIPES.register("miner",
             () -> MinerRecipe.SERIALIZER);
-    public static final RegistryObject<IRecipeSerializer<RitualFakeRecipe>> RITUAL = RECIPES.register("ritual",
-            () -> RitualFakeRecipe.SERIALIZER);
-    public static final RegistryObject<IRecipeSerializer<RitualIngredientRecipe>> RITUAL_INGREDIENT = RECIPES.register("ritual_ingredient",
-            () -> RitualIngredientRecipe.SERIALIZER);
+
+    public static final RegistryObject<IRecipeSerializer<RitualRecipe>> RITUAL = RECIPES.register("ritual",
+            () -> RitualRecipe.SERIALIZER);
 
     //endregion Fields
 

@@ -147,7 +147,7 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
      *
      * @param pentacle                        the pentacle for the ritual.
      * @param startingItem                    the item required to start the ritual.
-     * @param additionalIngredientsRecipeName the name of the additional ingredients recipe id. Will be prefixed with MODID:ritual_ingredients/
+     * @param additionalIngredientsRecipeName the name of the additional ingredients recipe id. Will be prefixed with MODID:rituals/
      * @param totalSeconds                    the total time it takes to finish the ritual.
      */
     public Ritual(Pentacle pentacle, Ingredient startingItem, String additionalIngredientsRecipeName,
@@ -160,7 +160,7 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
      *
      * @param pentacle                        the pentacle for the ritual.
      * @param startingItem                    the item required to start the ritual.
-     * @param additionalIngredientsRecipeName the name of the additional ingredients recipe id. Will be prefixed with MODID:ritual_ingredients/
+     * @param additionalIngredientsRecipeName the name of the additional ingredients recipe id. Will be prefixed with MODID:rituals/
      * @param sacrificialBowlRange            the range to look for sacrificial bowls for additional ingredients.
      * @param totalSeconds                    the total time it takes to finish the ritual.
      */
@@ -170,7 +170,7 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
         this.startingItem = startingItem;
         if (additionalIngredientsRecipeName != null)
             this.additionalIngredientsRecipeId = new ResourceLocation(Occultism.MODID,
-                    "ritual_ingredients/" + additionalIngredientsRecipeName);
+                    "rituals/" + additionalIngredientsRecipeName);
         this.additionalIngredients = new ArrayList<>();
         this.additionalIngredientsLoaded = false;
         this.sacrificialBowlRange = sacrificialBowlRange;

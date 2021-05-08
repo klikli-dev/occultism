@@ -1,0 +1,35 @@
+{
+  "type": "occultism:ritual",
+  "activation_item": {
+    "item": "minecraft:skeleton_skull"
+  },
+  "pentacle_id": "occultism:summon_wild_greater_spirit",
+  "require_item_use": false,
+  "require_sacrifice": true,
+  "ritual": {
+    "item": "occultism:ritual_dummy/summon_wild_hunt"
+  },
+  "ingredients": [
+    {
+      "tag": "forge:storage_blocks/copper"
+    },
+    {
+      "tag": "forge:storage_blocks/silver"
+    },
+    {
+      "tag": "forge:storage_blocks/gold"
+    },
+    {
+      "tag": "forge:gems/diamond"
+    },
+    {
+      "tag": "forge:netherrack"
+    },
+    {
+      "item": "minecraft:soul_sand"
+    }
+  ],
+  "result": {
+    "item": "occultism:jei_dummy/none"
+  }
+}

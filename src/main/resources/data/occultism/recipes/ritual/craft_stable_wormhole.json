@@ -1,0 +1,29 @@
+{
+  "type": "occultism:ritual",
+  "activation_item": {
+    "item": "occultism:book_of_binding_bound_foliot"
+  },
+  "pentacle_id": "occultism:craft_foliot",
+  "require_item_use": false,
+  "require_sacrifice": false,
+  "ritual": {
+    "item": "occultism:ritual_dummy/craft_stable_wormhole"
+  },
+  "ingredients": [
+    {
+      "item": "occultism:wormhole_frame"
+    },
+    {
+      "tag": "forge:ender_pearls"
+    },
+    {
+      "tag": "forge:gems/quartz"
+    },
+    {
+      "tag": "forge:gems/quartz"
+    }
+  ],
+  "result": {
+    "item": "occultism:stable_wormhole"
+  }
+}

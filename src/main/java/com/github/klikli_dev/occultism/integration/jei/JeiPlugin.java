@@ -35,7 +35,6 @@ import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.github.klikli_dev.occultism.registry.OccultismRecipes;
 import com.github.klikli_dev.occultism.util.RecipeUtil;
-import com.google.common.base.Strings;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.constants.VanillaRecipeCategoryUid;
 import mezz.jei.api.constants.VanillaTypes;
@@ -46,6 +45,7 @@ import mezz.jei.api.registration.IRecipeTransferRegistration;
 import mezz.jei.api.runtime.IJeiRuntime;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.world.ClientWorld;
+import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.RecipeManager;
@@ -102,7 +102,7 @@ public class JeiPlugin implements IModPlugin {
                 RecipeUtil.getRecipes(recipeManager, OccultismRecipes.MINER_TYPE.get()).values();
         registration.addRecipes(minerRecipes, OccultismRecipes.MINER.getId());
 
-        Collection<IRecipe<RecipeWrapper>> ritualRecipes =
+        Collection<IRecipe<CraftingInventory>> ritualRecipes =
                 RecipeUtil.getRecipes(recipeManager, OccultismRecipes.RITUAL_TYPE.get()).values();
         registration.addRecipes(ritualRecipes, OccultismRecipes.RITUAL.getId());
 

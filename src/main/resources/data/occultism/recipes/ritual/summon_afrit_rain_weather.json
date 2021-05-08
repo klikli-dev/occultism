@@ -1,0 +1,29 @@
+{
+  "type": "occultism:ritual",
+  "activation_item": {
+    "item": "occultism:book_of_binding_bound_afrit"
+  },
+  "pentacle_id": "occultism:summon_afrit",
+  "require_item_use": false,
+  "require_sacrifice": true,
+  "ritual": {
+    "item": "occultism:ritual_dummy/summon_afrit_rain_weather"
+  },
+  "ingredients": [
+    {
+      "tag": "forge:sand"
+    },
+    {
+      "tag": "forge:gems/diamond"
+    },
+    {
+      "item": "minecraft:cactus"
+    },
+    {
+      "item": "minecraft:dead_bush"
+    }
+  ],
+  "result": {
+    "item": "occultism:jei_dummy/none"
+  }
+}

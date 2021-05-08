@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright 2020 klikli-dev, McJty
+ * Copyright 2021 klikli-dev
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the "Software"), to deal in the Software without restriction, including
@@ -20,30 +20,33 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.github.klikli_dev.occultism.datagen;
+package com.github.klikli_dev.occultism.common.item;
 
-import net.minecraft.data.DataGenerator;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
+import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.World;
+
+import java.util.List;
 
 /**
- * Based on https://github.com/McJty/YouTubeModding14
+ * Item class to represent rituals as items with tooltip - enables JEI search for rituals
  */
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
-public class DataGenerators {
+public class DummyTooltipItem extends Item {
 
-    //region Static Methods
-    @SubscribeEvent
-    public static void gatherData(GatherDataEvent event) {
-        DataGenerator generator = event.getGenerator();
-        if (event.includeServer()) {
-            generator.addProvider(new StandardLootTableProvider(generator));
-            generator.addProvider(new ItemModelsGenerator(generator, event.getExistingFileHelper()));
-        }
-        if (event.includeClient()) {
-            generator.addProvider(new StandardBlockStateProvider(generator, event.getExistingFileHelper()));
-        }
+    //region Initialization
+    public DummyTooltipItem(Properties properties) {
+        super(properties);
     }
-    //endregion Static Methods
+    //endregion Initialization
+
+    //region Overrides
+    @Override
+    public void addInformation(ItemStack stack, World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+        super.addInformation(stack, worldIn, tooltip, flagIn);
+        tooltip.add(new TranslationTextComponent(stack.getTranslationKey() + ".tooltip"));
+    }
+    //endregion Overrides
 }

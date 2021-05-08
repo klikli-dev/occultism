@@ -1,0 +1,32 @@
+{
+  "type": "occultism:ritual",
+  "activation_item": {
+    "item": "occultism:book_of_binding_bound_djinni"
+  },
+  "pentacle_id": "occultism:craft_djinni",
+  "require_item_use": false,
+  "require_sacrifice": false,
+  "ritual": {
+    "item": "occultism:ritual_dummy/craft_miner_djinni_ores"
+  },
+  "ingredients": [
+    {
+      "item": "occultism:magic_lamp_empty"
+    },
+    {
+      "item": "occultism:iesnium_pickaxe"
+    },
+    {
+      "tag": "forge:ores/gold"
+    },
+    {
+      "tag": "forge:storage_blocks/iesnium"
+    },
+    {
+      "item": "occultism:spirit_attuned_crystal"
+    }
+  ],
+  "result": {
+    "item": "occultism:miner_djinni_ores"
+  }
+}

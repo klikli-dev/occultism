@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright 2020 klikli-dev, McJty
+ * Copyright 2021 klikli-dev
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the "Software"), to deal in the Software without restriction, including
@@ -22,28 +22,31 @@
 
 package com.github.klikli_dev.occultism.datagen;
 
+import com.github.klikli_dev.occultism.Occultism;
 import net.minecraft.data.DataGenerator;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
+import net.minecraftforge.client.model.generators.ItemModelProvider;
+import net.minecraftforge.client.model.generators.ModelFile;
+import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.registries.ForgeRegistries;
 
-/**
- * Based on https://github.com/McJty/YouTubeModding14
- */
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
-public class DataGenerators {
-
-    //region Static Methods
-    @SubscribeEvent
-    public static void gatherData(GatherDataEvent event) {
-        DataGenerator generator = event.getGenerator();
-        if (event.includeServer()) {
-            generator.addProvider(new StandardLootTableProvider(generator));
-            generator.addProvider(new ItemModelsGenerator(generator, event.getExistingFileHelper()));
-        }
-        if (event.includeClient()) {
-            generator.addProvider(new StandardBlockStateProvider(generator, event.getExistingFileHelper()));
-        }
+public class ItemModelsGenerator extends ItemModelProvider {
+    public ItemModelsGenerator(DataGenerator generator,
+                               ExistingFileHelper existingFileHelper) {
+        super(generator, Occultism.MODID, existingFileHelper);
     }
-    //endregion Static Methods
+
+    @Override
+    protected void registerModels() {
+        ForgeRegistries.ITEMS.forEach(item -> {
+            if(item.getRegistryName().getPath().startsWith("ritual_dummy/")){
+                this.registerRitualDummy("item/" + item.getRegistryName().getPath());
+            }
+        });
+    }
+
+
+    private void registerRitualDummy(String name) {
+        this.getBuilder(name)
+                .parent(new ModelFile.UncheckedModelFile("occultism:item/pentacle"));
+    }
 }
