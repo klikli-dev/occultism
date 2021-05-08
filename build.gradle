@@ -189,39 +189,3 @@ publishing {
         }
     }
 }
-
-curseforge {
-    def curse_api_key = System.getenv('CURSEFORGE_API_KEY')
-    if (curse_api_key == null) {
-        println 'No API Key for Curseforge found.'
-        curse_api_key = ''
-        return
-    }
-
-    def release_type = System.getenv("RELEASE_TYPE")
-    if(release_type == null){
-        println "No release type, no upload to Curseforge."
-        return
-    }
-    if(release_type == "test"){
-        println "Release type test, no upload to Curseforge."
-        return
-    }
-    def env_mc_version = System.getenv("MC_VERSION")
-    if(env_mc_version == null){
-        println "No mc version found, assuming ${mc_version}"
-        env_mc_version = "${mc_version}"
-        return
-    }
-
-    project {
-        apiKey = curse_api_key
-        id = '361026'
-        changelog = '[Automated Build]\nFind changes at https://github.com/klikli-dev/occultism/releases'
-        releaseType = release_type
-        addGameVersion env_mc_version
-    }
-    options {
-        javaVersionAutoDetect = false
-    }
-}
