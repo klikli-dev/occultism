@@ -170,7 +170,7 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
         this.startingItem = startingItem;
         if (additionalIngredientsRecipeName != null)
             this.additionalIngredientsRecipeId = new ResourceLocation(Occultism.MODID,
-                    "rituals/" + additionalIngredientsRecipeName);
+                    "ritual/" + additionalIngredientsRecipeName);
         this.additionalIngredients = new ArrayList<>();
         this.additionalIngredientsLoaded = false;
         this.sacrificialBowlRange = sacrificialBowlRange;
