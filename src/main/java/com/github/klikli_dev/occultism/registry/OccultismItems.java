@@ -260,11 +260,11 @@ public class OccultismItems {
 
     //JEI Dummy Items
     public static final RegistryObject<DummyTooltipItem> JEI_DUMMY_NONE = ITEMS.register(
-            "jei_dummy/none", () -> new DummyTooltipItem(defaultProperties()));
+            "jei_dummy/none", () -> new DummyTooltipItem(new Item.Properties()));
     public static final RegistryObject<DummyTooltipItem> JEI_DUMMY_REQUIRE_SACRIFICE = ITEMS.register(
-            "jei_dummy/require_sacrifice", () -> new DummyTooltipItem(defaultProperties()));
+            "jei_dummy/require_sacrifice", () -> new DummyTooltipItem(new Item.Properties()));
     public static final RegistryObject<DummyTooltipItem> JEI_DUMMY_REQUIRE_ITEM_USE = ITEMS.register(
-            "jei_dummy/require_item_use", () -> new DummyTooltipItem(defaultProperties()));
+            "jei_dummy/require_item_use", () -> new DummyTooltipItem(new Item.Properties()));
 
     //Ritual Dummy Items
     static{

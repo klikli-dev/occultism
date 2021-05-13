@@ -23,10 +23,12 @@
 package com.github.klikli_dev.occultism.integration.jei.recipes;
 
 import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.common.ritual.pentacle.Pentacle;
 import com.github.klikli_dev.occultism.crafting.recipe.RitualRecipe;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.github.klikli_dev.occultism.registry.OccultismRecipes;
+import com.github.klikli_dev.occultism.registry.OccultismRituals;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import mezz.jei.api.constants.VanillaTypes;
@@ -39,8 +41,12 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.vector.Vector3i;
+import net.minecraft.util.registry.Registry;
+import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.registries.RegistryManager;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -237,8 +243,15 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
         RenderSystem.enableBlend();
         this.arrow.draw(matrixStack, this.ritualCenterX + this.recipeOutputOffsetX - 20, this.ritualCenterY);
         RenderSystem.disableBlend();
-        this.drawStringCentered(matrixStack, Minecraft.getInstance().fontRenderer,
-                I18n.format(recipe.getPentacle().get().getTranslationKey()), 84, 0);
+
+        Pentacle pentacle = OccultismRituals.PENTACLE_REGISTRY.getValue(recipe.getPentacleId());
+        if(pentacle != null){
+            this.drawStringCentered(matrixStack, Minecraft.getInstance().fontRenderer,
+                    I18n.format(pentacle.getTranslationKey()), 84, 0);
+        } else {
+            this.drawStringCentered(matrixStack, Minecraft.getInstance().fontRenderer,
+                    I18n.format("jei.occultism.error.pentacle_not_loaded"), 84, 0);
+        }
     }
     //endregion Overrides
 

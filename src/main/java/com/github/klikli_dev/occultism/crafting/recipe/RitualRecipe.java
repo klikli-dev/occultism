@@ -51,7 +51,6 @@ public class RitualRecipe extends ShapelessRecipe {
     private ResourceLocation pentacleId;
     private ItemStack ritual;
     private Ingredient activationItem;
-    private RegistryObject<Pentacle> pentacle;
     private boolean requireSacrifice;
     private boolean requireItemUse;
     //endregion Fields
@@ -62,7 +61,6 @@ public class RitualRecipe extends ShapelessRecipe {
                         boolean requireSacrifice, boolean requireItemUse) {
         super(id, group, result, input);
         this.pentacleId = pentacleId;
-        this.pentacle = RegistryObject.of(pentacleId, RegistryManager.ACTIVE.getRegistry(Pentacle.class));
         this.ritual = ritual;
         this.activationItem = activationItem;
         this.requireSacrifice = requireSacrifice;
@@ -73,10 +71,6 @@ public class RitualRecipe extends ShapelessRecipe {
     //region Getter / Setter
     public ResourceLocation getPentacleId() {
         return this.pentacleId;
-    }
-
-    public RegistryObject<Pentacle> getPentacle() {
-        return this.pentacle;
     }
 
     public ItemStack getRitual() {
