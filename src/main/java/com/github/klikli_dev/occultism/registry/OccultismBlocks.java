@@ -194,6 +194,12 @@ public class OccultismBlocks {
                             .hardnessAndResistance(0, 0), () -> OccultismItems.DATURA_SEEDS.get(),
                     () -> OccultismItems.DATURA.get()), false, LootTableType.REPLANTABLE_CROP);
 
+    //Dummy
+    public static final RegistryObject<Block> SKELETON_SKULL_DUMMY = register("skeleton_skull_dummy", () -> new Block(
+            Block.Properties.create(Material.MISCELLANEOUS).hardnessAndResistance(1.0F)), false);
+    public static final RegistryObject<Block> WITHER_SKELETON_SKULL_DUMMY = register("wither_skeleton_skull_dummy", () -> new Block(
+            Block.Properties.create(Material.MISCELLANEOUS).hardnessAndResistance(1.0F)), false);
+
     //endregion Fields
 
     //region Static Methods

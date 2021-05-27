@@ -22,6 +22,7 @@
 
 package com.github.klikli_dev.occultism.common.ritual.pentacle;
 
+import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import net.minecraft.block.Blocks;
 import vazkii.patchouli.api.IMultiblock;
 
@@ -51,7 +52,8 @@ public class SummonDjinniPentacle extends Pentacle {
     protected void setupMapping() {
         super.setupMapping();
         this.mapping.addAll(Arrays.asList(
-                'Z', this.api.looseBlockMatcher(Blocks.SKELETON_SKULL)
+                'Z', this.api.predicateMatcher(OccultismBlocks.SKELETON_SKULL_DUMMY.get(),
+                        (state) -> state.getBlock() == Blocks.SKELETON_SKULL)
         ));
     }
 

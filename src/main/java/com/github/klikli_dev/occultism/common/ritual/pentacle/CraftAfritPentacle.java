@@ -56,8 +56,10 @@ public class CraftAfritPentacle extends Pentacle {
         super.setupMapping();
         this.mapping.addAll(Arrays.asList(
                 'S', this.api.looseBlockMatcher(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL.get()),
-                'Z', this.api.looseBlockMatcher(Blocks.SKELETON_SKULL),
-                'N', this.api.looseBlockMatcher(Blocks.WITHER_SKELETON_SKULL)
+                'Z', this.api.predicateMatcher(OccultismBlocks.SKELETON_SKULL_DUMMY.get(),
+                        (state) -> state.getBlock() == Blocks.SKELETON_SKULL),
+                'N', this.api.predicateMatcher(OccultismBlocks.WITHER_SKELETON_SKULL_DUMMY.get(),
+                        (state) -> state.getBlock() == Blocks.WITHER_SKELETON_SKULL)
         ));
     }
 

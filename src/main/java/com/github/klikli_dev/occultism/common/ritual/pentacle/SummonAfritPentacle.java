@@ -22,6 +22,7 @@
 
 package com.github.klikli_dev.occultism.common.ritual.pentacle;
 
+import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import net.minecraft.block.Blocks;
 import vazkii.patchouli.api.IMultiblock;
 
@@ -54,8 +55,10 @@ public class SummonAfritPentacle extends Pentacle {
     protected void setupMapping() {
         super.setupMapping();
         this.mapping.addAll(Arrays.asList(
-                'Z', this.api.looseBlockMatcher(Blocks.SKELETON_SKULL),
-                'N', this.api.looseBlockMatcher(Blocks.WITHER_SKELETON_SKULL)
+                'Z', this.api.predicateMatcher(OccultismBlocks.SKELETON_SKULL_DUMMY.get(),
+                        (state) -> state.getBlock() == Blocks.SKELETON_SKULL),
+                'N', this.api.predicateMatcher(OccultismBlocks.WITHER_SKELETON_SKULL_DUMMY.get(),
+                        (state) -> state.getBlock() == Blocks.WITHER_SKELETON_SKULL)
         ));
     }
 
