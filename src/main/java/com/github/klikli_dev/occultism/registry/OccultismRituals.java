@@ -49,6 +49,8 @@ public class OccultismRituals {
             PENTACLES.register("summon_afrit", SummonAfritPentacle::new);
     public static final RegistryObject<SummonWildAfritPentacle> SUMMON_WILD_AFRIT_PENTACLE =
             PENTACLES.register("summon_wild_afrit", SummonWildAfritPentacle::new);
+    public static final RegistryObject<SummonMaridPentacle> SUMMON_MARID_PENTACLE =
+            PENTACLES.register("summon_marid", SummonMaridPentacle::new);
     public static final RegistryObject<SummonWildGreaterSpiritPentacle> SUMMON_WILD_GREATER_SPIRIT_PENTACLE =
             PENTACLES.register("summon_wild_greater_spirit", SummonWildGreaterSpiritPentacle::new);
     public static final RegistryObject<CraftFoliotPentacle> CRAFT_FOLIOT_PENTACLE =

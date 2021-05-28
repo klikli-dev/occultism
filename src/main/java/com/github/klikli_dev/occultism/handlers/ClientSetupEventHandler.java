@@ -32,10 +32,7 @@ import com.github.klikli_dev.occultism.client.gui.storage.StorageControllerGui;
 import com.github.klikli_dev.occultism.client.gui.storage.StorageRemoteGui;
 import com.github.klikli_dev.occultism.client.itemproperties.*;
 import com.github.klikli_dev.occultism.client.keybindings.BackpackKeyConflictContext;
-import com.github.klikli_dev.occultism.client.render.entity.AfritRenderer;
-import com.github.klikli_dev.occultism.client.render.entity.DjinniRenderer;
-import com.github.klikli_dev.occultism.client.render.entity.FoliotRenderer;
-import com.github.klikli_dev.occultism.client.render.entity.OtherworldBirdRenderer;
+import com.github.klikli_dev.occultism.client.render.entity.*;
 import com.github.klikli_dev.occultism.client.render.tile.SacrificialBowlRenderer;
 import com.github.klikli_dev.occultism.client.render.tile.StorageControllerRenderer;
 import com.github.klikli_dev.occultism.common.container.spirit.SpiritContainer;
@@ -86,6 +83,7 @@ public class ClientSetupEventHandler {
         RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.DJINNI.get(), DjinniRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.AFRIT.get(), AfritRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.AFRIT_WILD.get(), AfritRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.MARID.get(), MaridRenderer::new);
         RenderingRegistry
                 .registerEntityRenderingHandler(OccultismEntities.POSSESSED_ENDERMITE.get(), EndermiteRenderer::new);
         RenderingRegistry

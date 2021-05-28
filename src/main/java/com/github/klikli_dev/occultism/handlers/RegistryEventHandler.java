@@ -87,6 +87,7 @@ public class RegistryEventHandler {
         registerSpawnEgg(registry, OccultismEntities.DJINNI_TYPE.get(), "djinni", 0xaa728d, 0x37222c);
         registerSpawnEgg(registry, OccultismEntities.AFRIT_TYPE.get(), "afrit", 0xaa728d, 0x37222c);
         registerSpawnEgg(registry, OccultismEntities.AFRIT_WILD_TYPE.get(), "afrit_wild", 0xaa728d, 0x37222c);
+        registerSpawnEgg(registry, OccultismEntities.MARID_TYPE.get(), "marid", 0x4d4d4d, 0x1608d1);
         registerSpawnEgg(registry, OccultismEntities.POSSESSED_ENDERMITE_TYPE.get(), "possessed_endermite", 0x161616,
                 0x6E6E6E);
         registerSpawnEgg(registry, OccultismEntities.POSSESSED_SKELETON_TYPE.get(), "possessed_skeleton", 0xC1C1C1,
