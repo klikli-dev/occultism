@@ -68,16 +68,16 @@ public class DebugWandItem extends Item {
 
             //set up the foliot entity
             BlockPos target = context.getPos().up();
-            SpiritEntity spirit = OccultismEntities.FOLIOT.get().create(context.getWorld());
+            SpiritEntity spirit = OccultismEntities.MARID.get().create(context.getWorld());
             spirit.setPositionAndRotation(target.getX(), target.getY(), target.getZ(),
                     context.getWorld().rand.nextInt(360), 0);
             spirit.setCustomName(new StringTextComponent("Testguy"));
             spirit.onInitialSpawn((ServerWorld) context.getWorld(), context.getWorld().getDifficultyForLocation(target),
                     SpawnReason.MOB_SUMMONED, null,
                     null);
-
+            spirit.setTamedBy(context.getPlayer());
             //set up the job
-            SpiritJob job = OccultismSpiritJobs.CRUSH_TIER1.get().create(spirit);
+            SpiritJob job = OccultismSpiritJobs.CRUSH_TIER4.get().create(spirit);
             job.init();
             spirit.setJob(job);
 

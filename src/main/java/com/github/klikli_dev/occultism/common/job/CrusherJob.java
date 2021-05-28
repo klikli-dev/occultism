@@ -51,6 +51,7 @@ public class CrusherJob extends SpiritJob {
      */
     protected int crushingTimer;
     protected Supplier<Float> crushingTimeMultiplier;
+    protected Supplier<Float> outputMultiplier;
 
     protected Optional<CrushingRecipe> currentRecipe = Optional.empty();
     protected PickupItemsGoal pickupItemsGoal;
@@ -60,9 +61,10 @@ public class CrusherJob extends SpiritJob {
 
 
     //region Initialization
-    public CrusherJob(SpiritEntity entity, Supplier<Float> crushingTimeMultiplier) {
+    public CrusherJob(SpiritEntity entity, Supplier<Float> crushingTimeMultiplier, Supplier<Float> outputMultiplier) {
         super(entity);
         this.crushingTimeMultiplier = crushingTimeMultiplier;
+        this.outputMultiplier = outputMultiplier;
     }
     //endregion Initialization
 
@@ -123,6 +125,7 @@ public class CrusherJob extends SpiritJob {
                     this.crushingTimer = 0;
 
                     ItemStack result = this.currentRecipe.get().getCraftingResult(fakeInventory);
+                    result.setCount((int)(result.getCount() * this.outputMultiplier.get()));
                     ItemStack inputCopy = handHeld.copy();
                     inputCopy.setCount(1);
                     handHeld.shrink(1);

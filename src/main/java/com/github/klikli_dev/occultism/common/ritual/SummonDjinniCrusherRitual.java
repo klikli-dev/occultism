@@ -39,13 +39,13 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
-public class SummonFoliotCrusherRitual extends SummonSpiritRitual {
+public class SummonDjinniCrusherRitual extends SummonSpiritRitual {
 
     //region Initialization
-    public SummonFoliotCrusherRitual() {
-        super(null, OccultismRituals.SUMMON_FOLIOT_PENTACLE.get(),
-                Ingredient.fromItems(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()),
-                "summon_foliot_crusher", 60);
+    public SummonDjinniCrusherRitual() {
+        super(null, OccultismRituals.SUMMON_DJINNI_PENTACLE.get(),
+                Ingredient.fromItems(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()),
+                "summon_djinni_crusher", 90);
     }
     //endregion Initialization
 
@@ -63,17 +63,17 @@ public class SummonFoliotCrusherRitual extends SummonSpiritRitual {
         ((ServerWorld) world).spawnParticle(ParticleTypes.LARGE_SMOKE, goldenBowlPosition.getX() + 0.5,
                 goldenBowlPosition.getY() + 0.5, goldenBowlPosition.getZ() + 0.5, 1, 0, 0, 0, 0);
 
-        //set up the foliot entity
-        SpiritEntity spirit = OccultismEntities.FOLIOT.get().create(world);
+        //set up the entity
+        SpiritEntity spirit = OccultismEntities.DJINNI.get().create(world);
         this.prepareSpiritForSpawn(spirit, world, goldenBowlPosition, castingPlayer,
                 ItemNBTUtil.getBoundSpiritName(copy));
 
         //set up the job
-        SpiritJob job = OccultismSpiritJobs.CRUSH_TIER1.get().create(spirit);
+        SpiritJob job = OccultismSpiritJobs.CRUSH_TIER2.get().create(spirit);
         job.init();
         spirit.setJob(job);
 
-        spirit.setSpiritMaxAge(Occultism.SERVER_CONFIG.spiritJobs.tier1CrusherMaxAgeSeconds.get());
+        spirit.setSpiritMaxAge(Occultism.SERVER_CONFIG.spiritJobs.tier2CrusherMaxAgeSeconds.get());
 
         //notify players nearby and spawn
         this.spawnEntity(spirit, world);

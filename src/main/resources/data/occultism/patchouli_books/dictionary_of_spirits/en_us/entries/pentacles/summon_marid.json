@@ -16,7 +16,7 @@
     {
       "type": "text",
       "title": "Uses",
-      "text": ""
+      "text": "$(li)$(l:rituals/summoning/summon_crusher)Marid Crusher$(/l)$()"
     }
   ]
 }

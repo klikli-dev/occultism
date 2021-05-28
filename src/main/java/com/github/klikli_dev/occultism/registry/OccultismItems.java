@@ -330,8 +330,6 @@ public class OccultismItems {
         ITEMS.register(
                 "ritual_dummy/summon_djinni_night_time", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register(
-                "ritual_dummy/summon_foliot_crusher", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register(
                 "ritual_dummy/summon_foliot_lumberjack", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register(
                 "ritual_dummy/summon_foliot_otherstone_trader", () -> new DummyTooltipItem(defaultProperties()));
@@ -349,6 +347,15 @@ public class OccultismItems {
                 "ritual_dummy/summon_wild_otherworld_bird", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register(
                 "ritual_dummy/summon_wild_parrot", () -> new DummyTooltipItem(defaultProperties()));
+
+        ITEMS.register(
+                "ritual_dummy/summon_foliot_crusher", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register(
+                "ritual_dummy/summon_djinni_crusher", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register(
+                "ritual_dummy/summon_afrit_crusher", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register(
+                "ritual_dummy/summon_marid_crusher", () -> new DummyTooltipItem(defaultProperties()));
     }
 
     //endregion Fields

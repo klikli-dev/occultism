@@ -16,7 +16,7 @@
     {
       "type": "text",
       "title": "Uses",
-      "text": "$(li)$(l:rituals/summoning/weather_magic#thunderstorm)Thunderstorm$(/l)$()$(li)$(l:rituals/summoning/weather_magic#rain)Rainy Weather$(/l)$()"
+      "text": "$(li)$(l:rituals/summoning/weather_magic#thunderstorm)Thunderstorm$(/l)$()$(li)$(l:rituals/summoning/weather_magic#rain)Rainy Weather$(/l)$()$(li)$(l:rituals/summoning/summon_crusher)Afrit Crusher$(/l)$()"
     }
   ]
 }
