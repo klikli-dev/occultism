@@ -96,7 +96,7 @@ public class CrusherJob extends SpiritJob {
         }
         if (this.currentRecipe.isPresent()) {
             if (handHeld.isEmpty() || !this.currentRecipe.get().matches(fakeInventory, this.entity.world)) {
-                //Reset if recipe no longer matches
+                //Reset cached recipe if it no longer matches
                 this.currentRecipe = Optional.empty();
             }
             else {
@@ -129,8 +129,7 @@ public class CrusherJob extends SpiritJob {
 
                     this.onCrush(inputCopy, result);
                     this.entity.entityDropItem(result);
-
-                    this.currentRecipe = Optional.empty();
+                    //Don't reset recipe here, keep it cached
                 }
             }
         }
