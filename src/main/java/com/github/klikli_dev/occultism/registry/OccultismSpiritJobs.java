@@ -43,6 +43,8 @@ public class OccultismSpiritJobs {
             () -> new SpiritJobFactory(ManageMachineJob::new));
     public static final RegistryObject<SpiritJobFactory> TRANSPORT_ITEMS = JOBS.register("transport_items",
             () -> new SpiritJobFactory(TransportItemsJob::new));
+    public static final RegistryObject<SpiritJobFactory> CLEANER = JOBS.register("cleaner",
+            () -> new SpiritJobFactory(CleanerJob::new));
 
     //Trade jobs
     public static final RegistryObject<SpiritJobFactory> TRADE_OTHERSTONE = JOBS.register("trade_otherstone",

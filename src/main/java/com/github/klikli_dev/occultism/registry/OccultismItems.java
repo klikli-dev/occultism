@@ -56,6 +56,9 @@ public class OccultismItems {
     public static final RegistryObject<Item> DEBUG_FOLIOT_TRANSPORT_ITEMS =
             ITEMS.register("debug_foliot_transport_items",
                     () -> new SummonFoliotTransportItemsItem(defaultProperties().maxStackSize(1)));
+    public static final RegistryObject<Item> DEBUG_FOLIOT_CLEANER =
+            ITEMS.register("debug_foliot_cleaner",
+                    () -> new SummonFoliotCleanerItem(defaultProperties().maxStackSize(1)));
     public static final RegistryObject<Item> DEBUG_FOLIOT_TRADER_ITEM = ITEMS.register("debug_foliot_trader",
             () -> new SummonFoliotTraderItem(defaultProperties().maxStackSize(1)));
     public static final RegistryObject<Item> DEBUG_DJINNI_MANAGE_MACHINE = ITEMS.register("debug_djinni_manage_machine",
@@ -213,7 +216,10 @@ public class OccultismItems {
             ITEMS.register("book_of_calling_foliot_transport_items",
                     () -> new BookOfCallingTransportItems(defaultProperties().maxStackSize(1),
                             TranslationKeys.BOOK_OF_CALLING_GENERIC + "_foliot"));
-
+    public static final RegistryObject<BookOfCallingCleanerItem> BOOK_OF_CALLING_FOLIOT_CLEANER =
+            ITEMS.register("book_of_calling_foliot_cleaner",
+                    () -> new BookOfCallingCleanerItem(defaultProperties().maxStackSize(1),
+                            TranslationKeys.BOOK_OF_CALLING_GENERIC + "_foliot"));
     //Djinn
     public static final RegistryObject<BookOfCallingManageMachineItem> BOOK_OF_CALLING_DJINNI_MANAGE_MACHINE =
             ITEMS.register("book_of_calling_djinni_manage_machine",
@@ -333,6 +339,8 @@ public class OccultismItems {
                 "ritual_dummy/summon_foliot_sapling_trader", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register(
                 "ritual_dummy/summon_foliot_transport_items", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register(
+                "ritual_dummy/summon_foliot_cleaner", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register(
                 "ritual_dummy/summon_wild_afrit", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register(
