@@ -77,7 +77,7 @@ public class SummonFoliotSaplingTraderRitual extends SummonSpiritRitual {
         exchange.setTimeToConvert(20);
         exchange.setMaxTradesPerRound(1);
         spirit.setJob(exchange);
-        spirit.setSpiritMaxAge(60);
+        spirit.setSpiritMaxAge(Occultism.SERVER_CONFIG.spiritJobs.tier1SaplingTraderMaxAgeSeconds.get());
 
         //notify players nearby and spawn
         this.spawnEntity(spirit, world);

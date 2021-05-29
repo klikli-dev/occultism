@@ -76,7 +76,7 @@ public class SummonFoliotOtherstoneTraderRitual extends SummonSpiritRitual {
         exchange.setTimeToConvert(15);
         exchange.setMaxTradesPerRound(4);
         spirit.setJob(exchange);
-        spirit.setSpiritMaxAge(60);
+        spirit.setSpiritMaxAge(Occultism.SERVER_CONFIG.spiritJobs.tier1OtherstoneTraderMaxAgeSeconds.get());
 
         //notify players nearby and spawn
         this.spawnEntity(spirit, world);

@@ -63,6 +63,8 @@ public class OccultismServerConfig extends ConfigBase {
         public final CachedInt tier2CrusherMaxAgeSeconds;
         public final CachedInt tier3CrusherMaxAgeSeconds;
         public final CachedInt tier4CrusherMaxAgeSeconds;
+        public final CachedInt tier1SaplingTraderMaxAgeSeconds;
+        public final CachedInt tier1OtherstoneTraderMaxAgeSeconds;
         //endregion Fields
 
         //region Initialization
@@ -123,6 +125,17 @@ public class OccultismServerConfig extends ConfigBase {
                     builder.comment(
                             "The max seconds before a spirit despawns. -1 to disable despawn.")
                             .define("tier4CrusherMaxAgeSeconds", -1));
+
+
+            this.tier1SaplingTraderMaxAgeSeconds = CachedInt.cache(this,
+                    builder.comment(
+                            "The max seconds before a spirit despawns. -1 to disable despawn.")
+                            .define("tier1SaplingTraderMaxAgeSeconds", 60 * 60 * 1));
+            this.tier1OtherstoneTraderMaxAgeSeconds = CachedInt.cache(this,
+                    builder.comment(
+                            "The max seconds before a spirit despawns. -1 to disable despawn.")
+                            .define("tier1SaplingTraderMaxAgeSeconds", 60 * 60 * 1));
+
             builder.pop();
         }
         //endregion Initialization
