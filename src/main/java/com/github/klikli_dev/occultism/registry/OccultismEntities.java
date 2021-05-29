@@ -63,6 +63,11 @@ public class OccultismEntities {
                                          .size(1.2f, 1.8f)
                                          .trackingRange(8)
                                          .build(modLoc("afrit_wild").toString()));
+    public static final NonNullLazy<EntityType<MaridEntity>> MARID_TYPE =
+            NonNullLazy.of(() -> EntityType.Builder.create(MaridEntity::new, EntityClassification.CREATURE)
+                                         .size(1.2f, 1.8f)
+                                         .trackingRange(8)
+                                         .build(modLoc("marid").toString()));
 
     public static final NonNullLazy<EntityType<PossessedEndermiteEntity>> POSSESSED_ENDERMITE_TYPE =
             NonNullLazy.of(() -> EntityType.Builder.create(PossessedEndermiteEntity::new, EntityClassification.MONSTER)
@@ -99,6 +104,8 @@ public class OccultismEntities {
     public static final RegistryObject<EntityType<DjinniEntity>> DJINNI = ENTITIES.register("djinni", DJINNI_TYPE::get);
     public static final RegistryObject<EntityType<AfritEntity>> AFRIT = ENTITIES.register("afrit", AFRIT_TYPE::get);
     public static final RegistryObject<EntityType<AfritWildEntity>> AFRIT_WILD = ENTITIES.register("afrit_wild", AFRIT_WILD_TYPE::get);
+    public static final RegistryObject<EntityType<MaridEntity>> MARID = ENTITIES.register("marid", MARID_TYPE::get);
+
 
     public static final RegistryObject<EntityType<PossessedEndermiteEntity>> POSSESSED_ENDERMITE =
             ENTITIES.register("possessed_endermite", POSSESSED_ENDERMITE_TYPE::get);
@@ -119,6 +126,7 @@ public class OccultismEntities {
         GlobalEntityTypeAttributes.put(DJINNI_TYPE.get(), DjinniEntity.registerAttributes().create());
         GlobalEntityTypeAttributes.put(AFRIT_TYPE.get(), AfritEntity.registerAttributes().create());
         GlobalEntityTypeAttributes.put(AFRIT_WILD_TYPE.get(), AfritWildEntity.registerAttributes().create());
+        GlobalEntityTypeAttributes.put(MARID_TYPE.get(), MaridEntity.registerAttributes().create());
         GlobalEntityTypeAttributes.put(POSSESSED_ENDERMITE_TYPE.get(), PossessedEndermiteEntity.registerAttributes().create());
         GlobalEntityTypeAttributes.put(POSSESSED_SKELETON_TYPE.get(), PossessedSkeletonEntity.registerAttributes().create());
         GlobalEntityTypeAttributes.put(POSSESSED_ENDERMAN_TYPE.get(), PossessedEndermanEntity.registerAttributes().create());

@@ -49,6 +49,8 @@ public class OccultismRituals {
             PENTACLES.register("summon_afrit", SummonAfritPentacle::new);
     public static final RegistryObject<SummonWildAfritPentacle> SUMMON_WILD_AFRIT_PENTACLE =
             PENTACLES.register("summon_wild_afrit", SummonWildAfritPentacle::new);
+    public static final RegistryObject<SummonMaridPentacle> SUMMON_MARID_PENTACLE =
+            PENTACLES.register("summon_marid", SummonMaridPentacle::new);
     public static final RegistryObject<SummonWildGreaterSpiritPentacle> SUMMON_WILD_GREATER_SPIRIT_PENTACLE =
             PENTACLES.register("summon_wild_greater_spirit", SummonWildGreaterSpiritPentacle::new);
     public static final RegistryObject<CraftFoliotPentacle> CRAFT_FOLIOT_PENTACLE =
@@ -72,8 +74,8 @@ public class OccultismRituals {
             RITUALS.register("summon_foliot_lumberjack", SummonFoliotLumberjackRitual::new);
     public static final RegistryObject<SummonFoliotTransportItemsRitual> SUMMON_FOLIOT_TRANSPORT_ITEMS_RITUAL =
             RITUALS.register("summon_foliot_transport_items", SummonFoliotTransportItemsRitual::new);
-    public static final RegistryObject<SummonFoliotCrusherRitual> SUMMON_FOLIOT_CRUSHER_RITUAL =
-            RITUALS.register("summon_foliot_crusher", SummonFoliotCrusherRitual::new);
+    public static final RegistryObject<SummonFoliotCleanerRitual> SUMMON_FOLIOT_CLEANER_RITUAL =
+            RITUALS.register("summon_foliot_cleaner", SummonFoliotCleanerRitual::new);
     public static final RegistryObject<SummonFoliotOtherstoneTraderRitual> SUMMON_FOLIOT_OTHERSTONE_TRADER_RITUAL =
             RITUALS.register("summon_foliot_otherstone_trader", SummonFoliotOtherstoneTraderRitual::new);
     public static final RegistryObject<SummonFoliotSaplingTraderRitual> SUMMON_FOLIOT_SAPLING_TRADER_RITUAL =
@@ -94,6 +96,15 @@ public class OccultismRituals {
             RITUALS.register("summon_djinni_day_time", SummonDjinniDayTimeRitual::new);
     public static final RegistryObject<SummonDjinniNightTimeRitual> SUMMON_DJINNI_NIGHT_TIME_RITUAL =
             RITUALS.register("summon_djinni_night_time", SummonDjinniNightTimeRitual::new);
+
+    public static final RegistryObject<SummonFoliotCrusherRitual> SUMMON_FOLIOT_CRUSHER_RITUAL =
+            RITUALS.register("summon_foliot_crusher", SummonFoliotCrusherRitual::new);
+    public static final RegistryObject<SummonDjinniCrusherRitual> SUMMON_DJINNI_CRUSHER_RITUAL =
+            RITUALS.register("summon_djinni_crusher", SummonDjinniCrusherRitual::new);
+    public static final RegistryObject<SummonAfritCrusherRitual> SUMMON_AFRIT_CRUSHER_RITUAL =
+            RITUALS.register("summon_afrit_crusher", SummonAfritCrusherRitual::new);
+    public static final RegistryObject<SummonMaridCrusherRitual> SUMMON_MARID_CRUSHER_RITUAL =
+            RITUALS.register("summon_marid_crusher", SummonMaridCrusherRitual::new);
 
     //Crafting
     public static final RegistryObject<CraftStorageControllerBaseRitual> CRAFT_STORAGE_CONTROLLER_BASE_RITUAL =

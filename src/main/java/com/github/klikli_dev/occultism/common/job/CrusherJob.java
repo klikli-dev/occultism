@@ -51,6 +51,7 @@ public class CrusherJob extends SpiritJob {
      */
     protected int crushingTimer;
     protected Supplier<Float> crushingTimeMultiplier;
+    protected Supplier<Float> outputMultiplier;
 
     protected Optional<CrushingRecipe> currentRecipe = Optional.empty();
     protected PickupItemsGoal pickupItemsGoal;
@@ -60,9 +61,10 @@ public class CrusherJob extends SpiritJob {
 
 
     //region Initialization
-    public CrusherJob(SpiritEntity entity, Supplier<Float> crushingTimeMultiplier) {
+    public CrusherJob(SpiritEntity entity, Supplier<Float> crushingTimeMultiplier, Supplier<Float> outputMultiplier) {
         super(entity);
         this.crushingTimeMultiplier = crushingTimeMultiplier;
+        this.outputMultiplier = outputMultiplier;
     }
     //endregion Initialization
 
@@ -96,7 +98,7 @@ public class CrusherJob extends SpiritJob {
         }
         if (this.currentRecipe.isPresent()) {
             if (handHeld.isEmpty() || !this.currentRecipe.get().matches(fakeInventory, this.entity.world)) {
-                //Reset if recipe no longer matches
+                //Reset cached recipe if it no longer matches
                 this.currentRecipe = Optional.empty();
             }
             else {
@@ -123,14 +125,14 @@ public class CrusherJob extends SpiritJob {
                     this.crushingTimer = 0;
 
                     ItemStack result = this.currentRecipe.get().getCraftingResult(fakeInventory);
+                    result.setCount((int)(result.getCount() * this.outputMultiplier.get()));
                     ItemStack inputCopy = handHeld.copy();
                     inputCopy.setCount(1);
                     handHeld.shrink(1);
 
                     this.onCrush(inputCopy, result);
                     this.entity.entityDropItem(result);
-
-                    this.currentRecipe = Optional.empty();
+                    //Don't reset recipe here, keep it cached
                 }
             }
         }

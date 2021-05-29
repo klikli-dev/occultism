@@ -54,7 +54,17 @@ public class OccultismServerConfig extends ConfigBase {
         public final CachedFloat tier2CrusherTimeMultiplier;
         public final CachedFloat tier3CrusherTimeMultiplier;
         public final CachedFloat tier4CrusherTimeMultiplier;
+        public final CachedFloat tier1CrusherOutputMultiplier;
+        public final CachedFloat tier2CrusherOutputMultiplier;
+        public final CachedFloat tier3CrusherOutputMultiplier;
+        public final CachedFloat tier4CrusherOutputMultiplier;
         public final CachedInt drikwingFamiliarSlowFallingSeconds;
+        public final CachedInt tier1CrusherMaxAgeSeconds;
+        public final CachedInt tier2CrusherMaxAgeSeconds;
+        public final CachedInt tier3CrusherMaxAgeSeconds;
+        public final CachedInt tier4CrusherMaxAgeSeconds;
+        public final CachedInt tier1SaplingTraderMaxAgeSeconds;
+        public final CachedInt tier1OtherstoneTraderMaxAgeSeconds;
         //endregion Fields
 
         //region Initialization
@@ -67,20 +77,65 @@ public class OccultismServerConfig extends ConfigBase {
                             .define("drikwingFamiliarSlowFallingSeconds", 15));
             this.tier1CrusherTimeMultiplier = CachedFloat.cache(this,
                     builder.comment(
-                            "The multiplier to each crushing recipe's crushing_time for Tier 1 Crusher Spirits.")
+                            "The multiplier to each crushing recipe's crushing_time for Tier 1 (Foliot) Crusher Spirits.")
                             .define("tier1CrusherTimeMultiplier", 2.0));
             this.tier2CrusherTimeMultiplier = CachedFloat.cache(this,
                     builder.comment(
-                            "Currently unused. The multiplier to each crushing recipe's crushing_time for Tier 2 Crusher Spirits.")
+                            "The multiplier to each crushing recipe's crushing_time for Tier 2 (Djinni) Crusher Spirits.")
                             .define("tier2CrusherTimeMultiplier", 1.0));
             this.tier3CrusherTimeMultiplier = CachedFloat.cache(this,
                     builder.comment(
-                            "Currently unused. The multiplier to each crushing recipe's crushing_time for Tier 3 Crusher Spirits.")
+                            "Currently unused. The multiplier to each crushing recipe's crushing_time for Tier 3 (Afrit) Crusher Spirits.")
                             .define("tier3CrusherTimeMultiplier", 0.5));
             this.tier4CrusherTimeMultiplier = CachedFloat.cache(this,
                     builder.comment(
-                            "Currently unused. The multiplier to each crushing recipe's crushing_time for Tier 4 Crusher Spirits.")
+                            "Currently unused. The multiplier to each crushing recipe's crushing_time for Tier 4 (Marid) Crusher Spirits.")
                             .define("tier4CrusherTimeMultiplier", 0.2));
+
+            this.tier1CrusherOutputMultiplier = CachedFloat.cache(this,
+                    builder.comment(
+                            "The multiplier to each crushing recipe's output count for Tier 1 (Foliot) Crusher Spirits.")
+                            .define("tier1CrusherOutputMultiplier", 1.0));
+            this.tier2CrusherOutputMultiplier = CachedFloat.cache(this,
+                    builder.comment(
+                            "The multiplier to each crushing recipe's output count for Tier 2 (Djinni) Crusher Spirits.")
+                            .define("tier2CrusherOutputMultiplier", 1.5));
+            this.tier3CrusherOutputMultiplier = CachedFloat.cache(this,
+                    builder.comment(
+                            "The multiplier to each crushing recipe's output count for Tier 3 (Afrit) Crusher Spirits.")
+                            .define("tier3CrusherOutputMultiplier", 2.0));
+            this.tier4CrusherOutputMultiplier = CachedFloat.cache(this,
+                    builder.comment(
+                            "The multiplier to each crushing recipe's output count for Tier 4 (Marid) Crusher Spirits.")
+                            .define("tier4CrusherOutputMultiplier", 3.0));
+
+            this.tier1CrusherMaxAgeSeconds = CachedInt.cache(this,
+                    builder.comment(
+                            "The max seconds before a spirit despawns. -1 to disable despawn.")
+                            .define("tier1CrusherMaxAgeSeconds", 60 * 60 * 9));
+            this.tier2CrusherMaxAgeSeconds = CachedInt.cache(this,
+                    builder.comment(
+                            "The max seconds before a spirit despawns. -1 to disable despawn.")
+                            .define("tier2CrusherMaxAgeSeconds", -1));
+            this.tier3CrusherMaxAgeSeconds = CachedInt.cache(this,
+                    builder.comment(
+                            "The max seconds before a spirit despawns. -1 to disable despawn.")
+                            .define("tier3CrusherMaxAgeSeconds", -1));
+            this.tier4CrusherMaxAgeSeconds = CachedInt.cache(this,
+                    builder.comment(
+                            "The max seconds before a spirit despawns. -1 to disable despawn.")
+                            .define("tier4CrusherMaxAgeSeconds", -1));
+
+
+            this.tier1SaplingTraderMaxAgeSeconds = CachedInt.cache(this,
+                    builder.comment(
+                            "The max seconds before a spirit despawns. -1 to disable despawn.")
+                            .define("tier1SaplingTraderMaxAgeSeconds", 60 * 60 * 1));
+            this.tier1OtherstoneTraderMaxAgeSeconds = CachedInt.cache(this,
+                    builder.comment(
+                            "The max seconds before a spirit despawns. -1 to disable despawn.")
+                            .define("tier1SaplingTraderMaxAgeSeconds", 60 * 60 * 1));
+
             builder.pop();
         }
         //endregion Initialization

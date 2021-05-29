@@ -2,7 +2,7 @@
   "name": "Uphyxes Inverted Tower",
   "icon": "occultism:textures/gui/book/pentagram_rose.png",
   "category": "pentacles",
-  "sortnum": 40,
+  "sortnum": 51,
   "pages": [
     {
       "type": "text",

@@ -22,9 +22,8 @@
 
 package com.github.klikli_dev.occultism.common.ritual;
 
-import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
-import com.github.klikli_dev.occultism.common.job.TraderJob;
+import com.github.klikli_dev.occultism.common.job.SpiritJob;
 import com.github.klikli_dev.occultism.common.tile.GoldenSacrificialBowlTileEntity;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
@@ -35,18 +34,18 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.particles.ParticleTypes;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
-public class SummonFoliotSaplingTraderRitual extends SummonSpiritRitual {
+public class SummonFoliotCleanerRitual extends SummonSpiritRitual {
 
     //region Initialization
-    public SummonFoliotSaplingTraderRitual() {
-        super(null, OccultismRituals.SUMMON_FOLIOT_PENTACLE.get(),
-                Ingredient.fromItems(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()), "summon_foliot_sapling_trader",
-                30);
+    public SummonFoliotCleanerRitual() {
+        super(OccultismItems.BOOK_OF_CALLING_FOLIOT_CLEANER.get(),
+                OccultismRituals.SUMMON_FOLIOT_PENTACLE.get(),
+                Ingredient.fromItems(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()),
+                "summon_foliot_cleaner", 60);
     }
     //endregion Initialization
 
@@ -57,9 +56,8 @@ public class SummonFoliotSaplingTraderRitual extends SummonSpiritRitual {
                        PlayerEntity castingPlayer, ItemStack activationItem) {
         super.finish(world, goldenBowlPosition, tileEntity, castingPlayer, activationItem);
 
-        //consume activation item
-        ItemStack activationItemCopy = activationItem.copy();
-        activationItem.shrink(1); //remove original activation item.
+        //prepare active book of calling
+        ItemStack result = this.getBookOfCallingBound(activationItem);
 
         ((ServerWorld) world).spawnParticle(ParticleTypes.LARGE_SMOKE, goldenBowlPosition.getX() + 0.5,
                 goldenBowlPosition.getY() + 0.5, goldenBowlPosition.getZ() + 0.5, 1, 0, 0, 0, 0);
@@ -67,20 +65,18 @@ public class SummonFoliotSaplingTraderRitual extends SummonSpiritRitual {
         //set up the foliot entity
         SpiritEntity spirit = OccultismEntities.FOLIOT.get().create(world);
         this.prepareSpiritForSpawn(spirit, world, goldenBowlPosition, castingPlayer,
-                ItemNBTUtil.getBoundSpiritName(activationItemCopy));
-
+                ItemNBTUtil.getBoundSpiritName(result));
+        spirit.setSpiritMaxAge(-1); //cannot die from age
         //set up the job
-        TraderJob exchange = (TraderJob) OccultismSpiritJobs.TRADE_OTHERWORLD_SAPLINGS.get()
-                                                 .create(spirit);
-        exchange.setTradeRecipeId(new ResourceLocation(Occultism.MODID, "spirit_trade/otherworld_sapling"));
-        exchange.init();
-        exchange.setTimeToConvert(20);
-        exchange.setMaxTradesPerRound(1);
-        spirit.setJob(exchange);
-        spirit.setSpiritMaxAge(Occultism.SERVER_CONFIG.spiritJobs.tier1SaplingTraderMaxAgeSeconds.get());
+        SpiritJob job = OccultismSpiritJobs.CLEANER.get().create(spirit);
+        job.init();
+        spirit.setJob(job);
 
         //notify players nearby and spawn
         this.spawnEntity(spirit, world);
+
+        //set up the book of calling
+        this.finishBookOfCallingSetup(result, spirit, castingPlayer);
     }
     //endregion Overrides
 }

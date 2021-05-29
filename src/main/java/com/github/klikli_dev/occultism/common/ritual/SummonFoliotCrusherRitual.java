@@ -22,6 +22,7 @@
 
 package com.github.klikli_dev.occultism.common.ritual;
 
+import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.github.klikli_dev.occultism.common.job.SpiritJob;
 import com.github.klikli_dev.occultism.common.tile.GoldenSacrificialBowlTileEntity;
@@ -72,7 +73,7 @@ public class SummonFoliotCrusherRitual extends SummonSpiritRitual {
         job.init();
         spirit.setJob(job);
 
-        spirit.setSpiritMaxAge(60 * 60 * 3); //3 hours max age
+        spirit.setSpiritMaxAge(Occultism.SERVER_CONFIG.spiritJobs.tier1CrusherMaxAgeSeconds.get());
 
         //notify players nearby and spawn
         this.spawnEntity(spirit, world);
