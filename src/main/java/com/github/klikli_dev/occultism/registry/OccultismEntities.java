@@ -120,18 +120,4 @@ public class OccultismEntities {
     public static final RegistryObject<EntityType<OtherworldBirdEntity>> OTHERWORLD_BIRD =
             ENTITIES.register("otherworld_bird", OTHERWORLD_BIRD_TYPE::get);
     //endregion Fields
-
-    public static void registerEntityAttributes(){
-        GlobalEntityTypeAttributes.put(FOLIOT_TYPE.get(), FoliotEntity.registerAttributes().create());
-        GlobalEntityTypeAttributes.put(DJINNI_TYPE.get(), DjinniEntity.registerAttributes().create());
-        GlobalEntityTypeAttributes.put(AFRIT_TYPE.get(), AfritEntity.registerAttributes().create());
-        GlobalEntityTypeAttributes.put(AFRIT_WILD_TYPE.get(), AfritWildEntity.registerAttributes().create());
-        GlobalEntityTypeAttributes.put(MARID_TYPE.get(), MaridEntity.registerAttributes().create());
-        GlobalEntityTypeAttributes.put(POSSESSED_ENDERMITE_TYPE.get(), PossessedEndermiteEntity.registerAttributes().create());
-        GlobalEntityTypeAttributes.put(POSSESSED_SKELETON_TYPE.get(), PossessedSkeletonEntity.registerAttributes().create());
-        GlobalEntityTypeAttributes.put(POSSESSED_ENDERMAN_TYPE.get(), PossessedEndermanEntity.registerAttributes().create());
-        GlobalEntityTypeAttributes.put(WILD_HUNT_SKELETON_TYPE.get(), WildHuntSkeletonEntity.registerAttributes().create());
-        GlobalEntityTypeAttributes.put(WILD_HUNT_WITHER_SKELETON_TYPE.get(), WildHuntWitherSkeletonEntity.registerAttributes().create());
-        GlobalEntityTypeAttributes.put(OTHERWORLD_BIRD_TYPE.get(), OtherworldBirdEntity.registerAttributes().create());
-    }
 }

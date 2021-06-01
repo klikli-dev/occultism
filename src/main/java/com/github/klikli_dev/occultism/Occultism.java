@@ -27,15 +27,22 @@ import com.github.klikli_dev.occultism.client.render.SelectedBlockRenderer;
 import com.github.klikli_dev.occultism.client.render.ThirdEyeEffectRenderer;
 import com.github.klikli_dev.occultism.common.DebugHelper;
 import com.github.klikli_dev.occultism.common.OccultismItemGroup;
+import com.github.klikli_dev.occultism.common.entity.OtherworldBirdEntity;
+import com.github.klikli_dev.occultism.common.entity.possessed.PossessedEndermanEntity;
+import com.github.klikli_dev.occultism.common.entity.possessed.PossessedEndermiteEntity;
+import com.github.klikli_dev.occultism.common.entity.possessed.PossessedSkeletonEntity;
+import com.github.klikli_dev.occultism.common.entity.spirit.*;
 import com.github.klikli_dev.occultism.common.world.WorldGenHandler;
 import com.github.klikli_dev.occultism.config.OccultismClientConfig;
 import com.github.klikli_dev.occultism.config.OccultismCommonConfig;
 import com.github.klikli_dev.occultism.config.OccultismServerConfig;
 import com.github.klikli_dev.occultism.network.OccultismPackets;
 import com.github.klikli_dev.occultism.registry.*;
+import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -93,6 +100,7 @@ public class Occultism {
         //register event buses
         modEventBus.addListener(OccultismCapabilities::commonSetup);
         modEventBus.addListener(this::commonSetup);
+        modEventBus.addListener(this::onEntityAttributeCreation);
         modEventBus.addListener(this::serverSetup);
         modEventBus.addListener(this::onModConfigEvent);
         modEventBus.addListener(this::enqueueIMC);
@@ -128,9 +136,22 @@ public class Occultism {
         });
 
         //Register entity attributes on single thread
-        event.enqueueWork(OccultismEntities::registerEntityAttributes);
 
         LOGGER.info("Common setup complete.");
+    }
+
+    private void onEntityAttributeCreation(final EntityAttributeCreationEvent event){
+        event.put(OccultismEntities.FOLIOT_TYPE.get(), FoliotEntity.registerAttributes().create());
+        event.put(OccultismEntities.DJINNI_TYPE.get(), DjinniEntity.registerAttributes().create());
+        event.put(OccultismEntities.AFRIT_TYPE.get(), AfritEntity.registerAttributes().create());
+        event.put(OccultismEntities.AFRIT_WILD_TYPE.get(), AfritWildEntity.registerAttributes().create());
+        event.put(OccultismEntities.MARID_TYPE.get(), MaridEntity.registerAttributes().create());
+        event.put(OccultismEntities.POSSESSED_ENDERMITE_TYPE.get(), PossessedEndermiteEntity.registerAttributes().create());
+        event.put(OccultismEntities.POSSESSED_SKELETON_TYPE.get(), PossessedSkeletonEntity.registerAttributes().create());
+        event.put(OccultismEntities.POSSESSED_ENDERMAN_TYPE.get(), PossessedEndermanEntity.registerAttributes().create());
+        event.put(OccultismEntities.WILD_HUNT_SKELETON_TYPE.get(), WildHuntSkeletonEntity.registerAttributes().create());
+        event.put(OccultismEntities.WILD_HUNT_WITHER_SKELETON_TYPE.get(), WildHuntWitherSkeletonEntity.registerAttributes().create());
+        event.put(OccultismEntities.OTHERWORLD_BIRD_TYPE.get(), OtherworldBirdEntity.registerAttributes().create());
     }
 
     private void serverSetup(final FMLDedicatedServerSetupEvent event) {
