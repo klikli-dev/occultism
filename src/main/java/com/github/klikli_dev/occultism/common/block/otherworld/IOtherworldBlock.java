@@ -56,6 +56,9 @@ public interface IOtherworldBlock {
         if (tool.getItem() instanceof IOtherworldTool) {
             toolTier = ((IOtherworldTool) tool.getItem()).getHarvestTier(tool);
         }
+        if(tool.hasTag() && tool.getTag().contains("occultism:otherworldToolTier")){
+            toolTier = OtherworldBlockTier.get(tool.getTag().getInt("occultism:otherworldToolTier"));
+        }
         return OtherworldBlockTier.max(toolTier, effectTier);
     }
 
