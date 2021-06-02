@@ -22,16 +22,13 @@
 
 package com.github.klikli_dev.occultism.common.item.tool;
 
+import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.util.EntityUtil;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
@@ -39,17 +36,14 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
+import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nullable;
 import java.util.List;
-import java.util.UUID;
 
 public class SoulGemItem extends Item {
     //region Initialization
@@ -59,7 +53,6 @@ public class SoulGemItem extends Item {
     //endregion Initialization
 
     //region Overrides
-    //endregion Overrides
     @Override
     public ActionResultType onItemUse(ItemUseContext context) {
         PlayerEntity player = context.getPlayer();
@@ -101,17 +94,17 @@ public class SoulGemItem extends Item {
                 world.addEntity(entity);
 
                 // old spawn cde:
-//                Entity entity = type.spawn((ServerWorld) world, wrapper, customName, null, spawnPos,
-//                        SpawnReason.MOB_SUMMONED, true, !pos.equals(spawnPos) && facing == Direction.UP);
-//                if (entity instanceof TameableEntity && entityData.contains("OwnerUUID") &&
-//                    !entityData.getString("OwnerUUID").isEmpty()) {
-//                    TameableEntity tameableEntity = (TameableEntity) entity;
-//                    try {
-//                        tameableEntity.setOwnerId(UUID.fromString(entityData.getString("OwnerUUID")));
-//                    } catch (IllegalArgumentException e) {
-//                        //catch invalid uuid exception
-//                    }
-//                }
+                //                Entity entity = type.spawn((ServerWorld) world, wrapper, customName, null, spawnPos,
+                //                        SpawnReason.MOB_SUMMONED, true, !pos.equals(spawnPos) && facing == Direction.UP);
+                //                if (entity instanceof TameableEntity && entityData.contains("OwnerUUID") &&
+                //                    !entityData.getString("OwnerUUID").isEmpty()) {
+                //                    TameableEntity tameableEntity = (TameableEntity) entity;
+                //                    try {
+                //                        tameableEntity.setOwnerId(UUID.fromString(entityData.getString("OwnerUUID")));
+                //                    } catch (IllegalArgumentException e) {
+                //                        //catch invalid uuid exception
+                //                    }
+                //                }
 
                 player.swingArm(context.getHand());
                 player.container.detectAndSendChanges();
@@ -136,6 +129,14 @@ public class SoulGemItem extends Item {
         //Already got an entity in there.
         if (stack.getOrCreateTag().contains("entityData"))
             return ActionResultType.FAIL;
+
+        //do not capture entities on deny lists
+        if (Occultism.SERVER_CONFIG.itemSettings.soulgemEntityTypeDenyList.get().contains(target.getEntityString())) {
+            player.sendMessage(
+                    new TranslationTextComponent(this.getTranslationKey() + ".message.entity_type_denied"),
+                    Util.DUMMY_UUID);
+            return ActionResultType.FAIL;
+        }
 
         //serialize entity
         stack.getTag().put("entityData", target.serializeNBT());
@@ -166,4 +167,5 @@ public class SoulGemItem extends Item {
             tooltip.add(new TranslationTextComponent(this.getTranslationKey() + ".tooltip_empty"));
         }
     }
+    //endregion Overrides
 }

@@ -25,7 +25,13 @@ package com.github.klikli_dev.occultism.config;
 import com.github.klikli_dev.occultism.config.value.CachedBoolean;
 import com.github.klikli_dev.occultism.config.value.CachedFloat;
 import com.github.klikli_dev.occultism.config.value.CachedInt;
+import com.github.klikli_dev.occultism.config.value.CachedObject;
+import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.ForgeConfigSpec;
+
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class OccultismServerConfig extends ConfigBase {
 
@@ -34,6 +40,7 @@ public class OccultismServerConfig extends ConfigBase {
     public final SpiritJobSettings spiritJobs;
     public final RitualSettings rituals;
     public final DimensionalMineshaftSettings dimensionalMineshaft;
+    public final ItemSettings itemSettings;
     public final ForgeConfigSpec spec;
     //endregion Fields
 
@@ -44,9 +51,31 @@ public class OccultismServerConfig extends ConfigBase {
         this.spiritJobs = new SpiritJobSettings(this, builder);
         this.rituals = new RitualSettings(this, builder);
         this.dimensionalMineshaft = new DimensionalMineshaftSettings(this, builder);
+        this.itemSettings = new ItemSettings(this, builder);
         this.spec = builder.build();
     }
     //endregion Initialization
+
+    public class ItemSettings extends ConfigCategoryBase {
+        //region Fields
+        public final CachedObject<List<String>> soulgemEntityTypeDenyList;
+        //endregion Fields
+
+        //region Initialization
+        public ItemSettings(IConfigCache parent, ForgeConfigSpec.Builder builder) {
+            super(parent, builder);
+            builder.comment("Item Settings").push("items");
+
+            List<String> defaultSoulgemEntityDenyList =
+                    Stream.of("minecraft:wither")
+                            .collect(Collectors.toList());
+            this.soulgemEntityTypeDenyList = CachedObject.cache(this,
+                    builder.comment("Entity types that cannot be captured in a soul gem. Specify by their full id, e.g \"minecraft:zombie\"")
+                            .define("soulgemEntityDenyList", defaultSoulgemEntityDenyList));
+
+            builder.pop();
+        }
+    }
 
     public class SpiritJobSettings extends ConfigCategoryBase {
         //region Fields
