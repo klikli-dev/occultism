@@ -254,7 +254,7 @@ public class GoldenSacrificialBowlTileEntity extends SacrificialBowlTileEntity i
                 else {
                     player.sendStatusMessage(
                             new TranslationTextComponent(String.format("ritual.%s.does_not_exist", Occultism.MODID)),
-                            true);
+                            false);
                     return false;
                 }
             }
