@@ -23,9 +23,18 @@
 package com.github.klikli_dev.occultism.common.item.spirit;
 
 import com.github.klikli_dev.occultism.common.job.TransportItemsJob;
+import com.github.klikli_dev.occultism.util.ItemNBTUtil;
+import com.github.klikli_dev.occultism.util.TextUtil;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.World;
 
+import javax.annotation.Nullable;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class BookOfCallingTransportItems extends BookOfCallingItem {
@@ -40,6 +49,21 @@ public class BookOfCallingTransportItems extends BookOfCallingItem {
     public IItemModeSubset<?> getItemModeSubset(ItemStack stack) {
         ItemModeSubset subset = ItemModeSubset.get(ItemMode.get(this.getItemMode(stack)));
         return subset != null ? subset : ItemModeSubset.SET_DEPOSIT;
+    }
+
+    @Override
+    public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip,
+                               ITooltipFlag flagIn) {
+        super.addInformation(stack, worldIn, tooltip, flagIn);
+        BlockPos extract = ItemNBTUtil.getExtractPosition(stack);
+        if (extract != null) {
+            tooltip.add(new TranslationTextComponent(this.getTranslationKeyBase() + ".tooltip.extract", extract.toString()));
+        }
+
+        BlockPos deposit = ItemNBTUtil.getDepositPosition(stack);
+        if (deposit != null) {
+            tooltip.add(new TranslationTextComponent(this.getTranslationKeyBase() + ".tooltip.deposit", deposit.toString()));
+        }
     }
     //endregion Overrides
 
