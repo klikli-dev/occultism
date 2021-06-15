@@ -11,7 +11,7 @@
   },
   "ingredients": [
     {
-      "item": "occultism:otherstone_pedestal"
+      "item": "occultism:storage_stabilizer_tier1"
     },
     {
       "tag": "forge:storage_blocks/silver"
