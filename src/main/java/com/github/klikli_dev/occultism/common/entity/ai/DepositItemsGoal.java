@@ -139,10 +139,10 @@ public class DepositItemsGoal extends PausableGoal {
                     ItemStack toInsert = ItemHandlerHelper.insertItem(handler, duplicate, true);
                     //if anything was inserted go for real
                     if (toInsert.getCount() != duplicate.getCount()) {
-                        ItemHandlerHelper.insertItem(handler, duplicate, false);
+                        ItemStack leftover = ItemHandlerHelper.insertItem(handler, duplicate, false);
                         //if we insterted everything
+                        this.entity.setHeldItem(Hand.MAIN_HAND, leftover);
                         if (toInsert.isEmpty()) {
-                            this.entity.setHeldItem(Hand.MAIN_HAND, ItemStack.EMPTY);
                             this.targetBlock = null;
                             this.resetTask();
                         }
