@@ -14,7 +14,7 @@
       "heading": "注入",
       "pentacle": "$(l:pentacles/craft_afrit)赛维拉的永久监禁$(/l)",
       "activation_item": "occultism:book_of_binding_bound_afrit",
-      "ingredients": "$(li)1x $(item)彼岸石基座$()$(li)1x $(item)金块$()$(li)1x $(item)下界之星$() $(li)1x $(item)灵魂调谐宝石$()"
+      "ingredients": "$(li)1x $(item)阶段（2）维度存储稳定器$()$(li)1x $(item)金块$()$(li)1x $(item)下界之星$() $(li)1x $(item)灵魂调谐宝石$()"
     }
   ]
 }

@@ -14,7 +14,7 @@
       "heading": "注入",
       "pentacle": "$(l:pentacles/craft_djinni)斯崔格的高等绑定$(/l)",
       "activation_item": "occultism:book_of_binding_bound_djinni",
-      "ingredients": "$(li)1x $(item)彼岸石基座$()$(li)1x $(item)银块$()$(li)1x $(item)恶魂之泪$() $(li)2x $(item)灵魂调谐宝石$()"
+      "ingredients": "$(li)1x $(item)阶段（1）维度存储稳定器$()$(li)1x $(item)银块$()$(li)1x $(item)恶魂之泪$() $(li)2x $(item)灵魂调谐宝石$()"
     }
   ]
 }

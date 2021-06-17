@@ -279,16 +279,16 @@ public class OccultismServerConfig extends ConfigBase {
             builder.comment("Storage Settings").push("storage");
             this.stabilizerTier1Slots = CachedInt.cache(this,
                     builder.comment("The amount of slots the storage stabilizer tier 1 provides.")
-                            .define("stabilizerTier1Slots", 128));
+                            .define("stabilizerTier1Slots", 256));
             this.stabilizerTier2Slots = CachedInt.cache(this,
                     builder.comment("The amount of slots the storage stabilizer tier 2 provides.")
-                            .define("stabilizerTier2Slots", 256));
+                            .define("stabilizerTier2Slots", 512));
             this.stabilizerTier3Slots = CachedInt.cache(this,
                     builder.comment("The amount of slots the storage stabilizer tier 3 provides.")
-                            .define("stabilizerTier3Slots", 512));
+                            .define("stabilizerTier3Slots", 1024));
             this.stabilizerTier4Slots = CachedInt.cache(this,
                     builder.comment("The amount of slots the storage stabilizer tier 4 provides.")
-                            .define("stabilizerTier4Slots", 1024));
+                            .define("stabilizerTier4Slots", 2048));
             this.controllerBaseSlots = CachedInt.cache(this,
                     builder.comment("The amount of slots the storage actuator provides.")
                             .define("controllerBaseSlots", 128));

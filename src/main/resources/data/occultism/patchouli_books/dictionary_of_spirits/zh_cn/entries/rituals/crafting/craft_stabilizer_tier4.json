@@ -14,7 +14,7 @@
       "heading": "注入",
       "pentacle": "$(l:pentacles/craft_marid)尤菲克斯的倒塔$(/l)",
       "activation_item": "occultism:book_of_binding_bound_marid",
-      "ingredients": "$(li)1x $(item)彼岸石基座$()$(li)1x $(item)铱块$()$(li)1x $(item)龙蛋$() $(li)2x $(item)灵魂调谐宝石$()"
+      "ingredients": "$(li)1x $(item)阶段（3）维度存储稳定器$()$(li)1x $(item)铱块$()$(li)1x $(item)龙蛋$() $(li)2x $(item)灵魂调谐宝石$()"
     }
   ]
 }
