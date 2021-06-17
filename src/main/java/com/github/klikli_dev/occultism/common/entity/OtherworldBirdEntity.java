@@ -22,53 +22,65 @@
 
 package com.github.klikli_dev.occultism.common.entity;
 
+import java.util.UUID;
+
+import javax.annotation.Nullable;
+
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.registry.OccultismEffects;
+import com.github.klikli_dev.occultism.registry.OccultismItems;
+import com.google.common.collect.ImmutableList;
+
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
-import net.minecraft.entity.ai.goal.*;
+import net.minecraft.entity.ai.goal.FollowMobGoal;
+import net.minecraft.entity.ai.goal.FollowOwnerGoal;
+import net.minecraft.entity.ai.goal.LookAtGoal;
+import net.minecraft.entity.ai.goal.PanicGoal;
+import net.minecraft.entity.ai.goal.SitGoal;
+import net.minecraft.entity.ai.goal.SwimGoal;
+import net.minecraft.entity.ai.goal.WaterAvoidingRandomFlyingGoal;
 import net.minecraft.entity.passive.ParrotEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Hand;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 
-import javax.annotation.Nullable;
-import java.util.UUID;
+public class OtherworldBirdEntity extends ParrotEntity implements IFamiliar {
 
-public class OtherworldBirdEntity extends ParrotEntity {
-
-    //region Fields
+    // region Fields
     public static final float MAX_BOOST_DISTANCE = 8f;
     public LivingEntity ownerCached;
 
     public SitGoal sitGoal;
-    //endregion Fields
+    // endregion Fields
 
-
-    //region Initialization
-    public OtherworldBirdEntity(EntityType<? extends ParrotEntity> type,
-                                World worldIn) {
+    // region Initialization
+    public OtherworldBirdEntity(EntityType<? extends ParrotEntity> type, World worldIn) {
         super(type, worldIn);
     }
-    //endregion Initialization
+    // endregion Initialization
 
-    //region Getter / Setter
+    // region Getter / Setter
     public LivingEntity getOwnerCached() {
         if (this.ownerCached != null)
             return this.ownerCached;
         this.ownerCached = this.getOwner();
         return this.ownerCached;
     }
-    //endregion Getter / Setter
+    // endregion Getter / Setter
 
-    //region Overrides
-
+    // region Overrides
 
     @Override
     protected void registerGoals() {
-        //same as parrot, except we don't land on shoulders.
+        // same as parrot, except we don't land on shoulders.
         this.sitGoal = new SitGoal(this);
         this.goalSelector.addGoal(0, new PanicGoal(this, 1.25D));
         this.goalSelector.addGoal(0, new SwimGoal(this));
@@ -81,16 +93,13 @@ public class OtherworldBirdEntity extends ParrotEntity {
 
     @Override
     public void livingTick() {
-        //Every 10 ticks, attempt to refresh the owner buff
+        // Every 10 ticks, attempt to refresh the owner buff
         if (!this.world.isRemote && this.world.getGameTime() % 10 == 0 && this.isTamed()) {
             LivingEntity owner = this.getOwnerCached();
             if (owner != null && this.getDistance(owner) < MAX_BOOST_DISTANCE) {
-                //close enough to boost
-                owner.addPotionEffect(new EffectInstance(Effects.JUMP_BOOST, 60, 5, false, false));
-                owner.addPotionEffect(new EffectInstance(Effects.SLOW_FALLING,
-                        20 * Occultism.SERVER_CONFIG.spiritJobs.drikwingFamiliarSlowFallingSeconds.get(), 0, false,
-                        false));
-                owner.addPotionEffect(new EffectInstance(OccultismEffects.DOUBLE_JUMP.get(), 120, 4, false, false));
+                // close enough to boost
+                for (EffectInstance effect : getFamiliarEffects())
+                    owner.addPotionEffect(effect);
             }
         }
 
@@ -102,11 +111,39 @@ public class OtherworldBirdEntity extends ParrotEntity {
         this.ownerCached = null;
         super.setOwnerId(ownerId);
     }
-    //endregion Overrides
+
+    @Override
+    public LivingEntity getFamiliarOwner() {
+        return getOwnerCached();
+    }
+
+    @Override
+    public Entity getEntity() {
+        return this;
+    }
+
+    @Override
+    public Iterable<EffectInstance> getFamiliarEffects() {
+        return ImmutableList.of(new EffectInstance(Effects.JUMP_BOOST, 60, 5, false, false),
+                new EffectInstance(Effects.SLOW_FALLING,
+                        20 * Occultism.SERVER_CONFIG.spiritJobs.drikwingFamiliarSlowFallingSeconds.get(), 0, false,
+                        false),
+                new EffectInstance(OccultismEffects.DOUBLE_JUMP.get(), 120, 4, false, false));
+    }
+
+    @Override
+    public ActionResultType getEntityInteractionResult(PlayerEntity playerIn, Hand hand) {
+        ItemStack stack = playerIn.getHeldItem(hand);
+        if (stack.getItem() == OccultismItems.FAMILIAR_RING.get()) {
+            return stack.interactWithEntity(playerIn, this, hand);
+        }
+        return super.getEntityInteractionResult(playerIn, hand);
+    }
+    // endregion Overrides
 
 //region Static Methods
     public static AttributeModifierMap.MutableAttribute registerAttributes() {
-        return ParrotEntity.func_234213_eS_(); //=registerAttributes
+        return ParrotEntity.func_234213_eS_(); // =registerAttributes
     }
 //endregion Static Methods
 }
