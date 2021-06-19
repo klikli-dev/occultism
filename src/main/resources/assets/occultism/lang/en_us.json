@@ -77,6 +77,7 @@
     "item.occultism.soul_gem": "Soul Gem",
     "item.occultism.soul_gem_empty": "Empty Soul Gem",
     "item.occultism.satchel": "Surprisingly Substantial Satchel",
+    "item.occultism.familiar_ring": "Familiar Ring",
     "_comment": "# Spawn eggs",
     "item.occultism.spawn_egg.foliot": "Foliot Spawn Egg",
     "item.occultism.spawn_egg.djinni": "Djinni Spawn Egg",
@@ -125,6 +126,7 @@
     "item.occultism.book_of_calling_djinni.tooltip_dead": "%s has left this plane of existence.",
     "item.occultism.book_of_calling_djinni.tooltip.extract": "Extracts from: %s.",
     "item.occultism.book_of_calling_djinni.tooltip.deposit": "Deposits to: % s",
+    "item.occultism.familiar_ring.tooltip": "Occupied by the familiar %s",
     "_comment:": "block, because it's a block item.",
     "block.occultism.stable_wormhole.tooltip.unlinked": "Not linked to a storage actuator.",
     "block.occultism.stable_wormhole.tooltip.linked": "Linked to storage actuator at %s.",
@@ -360,6 +362,10 @@
     "ritual.occultism.craft_soul_gem.started": "Started binding djinni into soul gem.",
     "ritual.occultism.craft_soul_gem.finished": "Successfully bound djinni into soul goum.",
     "ritual.occultism.craft_soul_gem.interrupted": "Binding of djinni interrupted.",
+    "ritual.occultism.craft_familiar_ring.conditions": "Not all requirements for this ritual are met.",
+    "ritual.occultism.craft_familiar_ring.started": "Started binding djinni into familiar ring.",
+    "ritual.occultism.craft_familiar_ring.finished": "Successfully bound djinni into familiar ring.",
+    "ritual.occultism.craft_familiar_ring.interrupted": "Binding of djinni interrupted.",
 
     "ritual.occultism.possess_endermite.conditions": "Not all requirements for this ritual are met.",
     "ritual.occultism.possess_endermite.started": "Started summoning possessed endermite.",
@@ -506,6 +512,9 @@
 
     "item.occultism.ritual_dummy.craft_soul_gem": "Ritual: Craft Soul Gem",
     "item.occultism.ritual_dummy.craft_soul_gem.tooltip": "The soul gem allows the temporary storage of living beings. ",
+
+    "item.occultism.ritual_dummy.craft_familiar_ring": "Ritual: Craft Familiar Ring",
+    "item.occultism.ritual_dummy.craft_familiar_ring.tooltip": "The familiar ring allows to store familiars. The ring will apply the familiar effect to the wearer.",
 
     "item.occultism.ritual_dummy.craft_stabilizer_tier1": "Ritual: Craft Storage Stabilizer Tier 1",
     "item.occultism.ritual_dummy.craft_stabilizer_tier1.tooltip": "The storage stabilizer allows to store more items in the dimensional storage accessor.",

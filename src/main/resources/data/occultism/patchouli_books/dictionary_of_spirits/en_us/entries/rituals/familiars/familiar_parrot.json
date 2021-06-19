@@ -2,7 +2,7 @@
   "name": "Parrot Familiar",
   "icon": "occultism:textures/gui/book/parrot.png",
   "category": "rituals/familiars",
-  "sortnum": 10,
+  "sortnum": 20,
   "pages": [
     {
       "type": "entity",

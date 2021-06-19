@@ -26,7 +26,7 @@
     {
       "type": "text",
       "title": "Summon Familiars",
-      "text": "Become a pirate with a $(l:rituals/familiars/familiar_parrot)Parrot Familiar$(/l) or take to the skies aided by a $(l:rituals/familiars/familiar_otherworld_bird)Drikwing$(/l). Use $(l:rituals/crafting/craft_soul_gem)Soul Gems$(/l) to store them safely."
+      "text": "Become a pirate with a $(l:rituals/familiars/familiar_parrot)Parrot Familiar$(/l) or take to the skies aided by a $(l:rituals/familiars/familiar_otherworld_bird)Drikwing$(/l). Use $(l:rituals/crafting/craft_familiar_ring)Familiar Rings$(/l) to bind them into wearables."
     },
     {
       "type": "text",

@@ -188,6 +188,9 @@ public class OccultismItems {
 
     public static final RegistryObject<Item> SATCHEL = ITEMS.register("satchel",
             () -> new SatchelItem(defaultProperties().maxStackSize(1).rarity(Rarity.RARE)));
+    
+    public static final RegistryObject<Item> FAMILIAR_RING = ITEMS.register("familiar_ring",
+            () -> new FamiliarRingItem(defaultProperties().maxStackSize(1)));
 
     //Books of Binding
     public static final RegistryObject<BookOfBindingItem> BOOK_OF_BINDING_FOLIOT = ITEMS.register(
@@ -291,6 +294,8 @@ public class OccultismItems {
                 "ritual_dummy/craft_satchel", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register(
                 "ritual_dummy/craft_soul_gem", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register(
+                "ritual_dummy/craft_familiar_ring", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register(
                 "ritual_dummy/craft_stabilizer_tier1", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register(
