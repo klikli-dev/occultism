@@ -295,6 +295,8 @@ public class OccultismItems {
         ITEMS.register(
                 "ritual_dummy/craft_soul_gem", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register(
+                "ritual_dummy/craft_familiar_ring", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register(
                 "ritual_dummy/craft_stabilizer_tier1", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register(
                 "ritual_dummy/craft_stabilizer_tier2", () -> new DummyTooltipItem(defaultProperties()));

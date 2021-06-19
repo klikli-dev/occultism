@@ -39,9 +39,9 @@ public class DataGenerators {
         DataGenerator generator = event.getGenerator();
         if (event.includeServer()) {
             generator.addProvider(new StandardLootTableProvider(generator));
-            generator.addProvider(new ItemModelsGenerator(generator, event.getExistingFileHelper()));
         }
         if (event.includeClient()) {
+            generator.addProvider(new ItemModelsGenerator(generator, event.getExistingFileHelper()));
             generator.addProvider(new StandardBlockStateProvider(generator, event.getExistingFileHelper()));
         }
     }

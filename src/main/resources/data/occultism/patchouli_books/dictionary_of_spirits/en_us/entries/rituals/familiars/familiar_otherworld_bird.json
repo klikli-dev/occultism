@@ -2,7 +2,7 @@
   "name": "Drikwing Familiar",
   "icon": "occultism:textures/gui/book/otherworld_bird.png",
   "category": "rituals/familiars",
-  "sortnum": 20,
+  "sortnum": 30,
   "pages": [
     {
       "type": "entity",

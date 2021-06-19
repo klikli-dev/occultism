@@ -132,6 +132,8 @@ public class OccultismRituals {
 
     public static final RegistryObject<CraftSoulGemRitual> CRAFT_SOUL_GEM_RITUAL =
             RITUALS.register("craft_soul_gem", CraftSoulGemRitual::new);
+    public static final RegistryObject<CraftFamiliarRingRitual> CRAFT_FAMILIAR_RING =
+            RITUALS.register("craft_familiar_ring", CraftFamiliarRingRitual::new);
 
     public static final RegistryObject<CraftDimensionalMineshaftRitual> CRAFT_DIMENSIONAL_MINESHAFT_RITUAL =
             RITUALS.register("craft_dimensional_mineshaft", CraftDimensionalMineshaftRitual::new);

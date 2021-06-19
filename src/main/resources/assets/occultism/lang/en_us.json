@@ -362,6 +362,10 @@
     "ritual.occultism.craft_soul_gem.started": "Started binding djinni into soul gem.",
     "ritual.occultism.craft_soul_gem.finished": "Successfully bound djinni into soul goum.",
     "ritual.occultism.craft_soul_gem.interrupted": "Binding of djinni interrupted.",
+    "ritual.occultism.craft_familiar_ring.conditions": "Not all requirements for this ritual are met.",
+    "ritual.occultism.craft_familiar_ring.started": "Started binding djinni into familiar ring.",
+    "ritual.occultism.craft_familiar_ring.finished": "Successfully bound djinni into familiar ring.",
+    "ritual.occultism.craft_familiar_ring.interrupted": "Binding of djinni interrupted.",
 
     "ritual.occultism.possess_endermite.conditions": "Not all requirements for this ritual are met.",
     "ritual.occultism.possess_endermite.started": "Started summoning possessed endermite.",
@@ -508,6 +512,9 @@
 
     "item.occultism.ritual_dummy.craft_soul_gem": "Ritual: Craft Soul Gem",
     "item.occultism.ritual_dummy.craft_soul_gem.tooltip": "The soul gem allows the temporary storage of living beings. ",
+
+    "item.occultism.ritual_dummy.craft_familiar_ring": "Ritual: Craft Familiar Ring",
+    "item.occultism.ritual_dummy.craft_familiar_ring.tooltip": "The familiar ring allows to store familiars. The ring will apply the familiar effect to the wearer.",
 
     "item.occultism.ritual_dummy.craft_stabilizer_tier1": "Ritual: Craft Storage Stabilizer Tier 1",
     "item.occultism.ritual_dummy.craft_stabilizer_tier1.tooltip": "The storage stabilizer allows to store more items in the dimensional storage accessor.",
