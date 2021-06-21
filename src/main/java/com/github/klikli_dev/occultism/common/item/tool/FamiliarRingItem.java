@@ -115,12 +115,17 @@ public class FamiliarRingItem extends Item {
         @Override
         public void curioTick(String identifier, int index, LivingEntity entity) {
             World world = entity.world;
-            if (getFamiliar(world) == null)
+            IFamiliar familiar = getFamiliar(world);
+            if (familiar == null || familiar.getFamiliarOwner() != entity)
                 return;
-
-            if (!world.isRemote && entity.ticksExisted % 20 == 0 && getFamiliar(world).getFamiliarOwner() == entity)
-                for (EffectInstance effect : getFamiliar(world).getFamiliarEffects())
-                    getFamiliar(world).getFamiliarOwner().addPotionEffect(effect);
+            
+            // Apply effects
+            if (!world.isRemote && entity.ticksExisted % 20 == 0)
+                for (EffectInstance effect : familiar.getFamiliarEffects())
+                    familiar.getFamiliarOwner().addPotionEffect(effect);
+            
+            // Tick
+            familiar.curioTick(entity);
         }
 
         @Override

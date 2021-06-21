@@ -41,4 +41,14 @@ public interface IFamiliar {
      */
     @Nonnull
     Iterable<EffectInstance> getFamiliarEffects();
+
+    /***
+     * This method is called every tick when this familiar is captured in a
+     * {@link FamiliarRingItem}.
+     * 
+     * @param wearer The wearer of the curio
+     */
+    default void curioTick(LivingEntity wearer) {
+
+    }
 }
