@@ -22,21 +22,28 @@
 
 package com.github.klikli_dev.occultism.registry;
 
+import static com.github.klikli_dev.occultism.util.StaticUtil.modLoc;
+
 import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.common.entity.GreedyFamiliarEntity;
 import com.github.klikli_dev.occultism.common.entity.OtherworldBirdEntity;
-import com.github.klikli_dev.occultism.common.entity.possessed.*;
-import com.github.klikli_dev.occultism.common.entity.spirit.*;
+import com.github.klikli_dev.occultism.common.entity.possessed.PossessedEndermanEntity;
+import com.github.klikli_dev.occultism.common.entity.possessed.PossessedEndermiteEntity;
+import com.github.klikli_dev.occultism.common.entity.possessed.PossessedSkeletonEntity;
+import com.github.klikli_dev.occultism.common.entity.spirit.AfritEntity;
+import com.github.klikli_dev.occultism.common.entity.spirit.AfritWildEntity;
+import com.github.klikli_dev.occultism.common.entity.spirit.DjinniEntity;
+import com.github.klikli_dev.occultism.common.entity.spirit.FoliotEntity;
+import com.github.klikli_dev.occultism.common.entity.spirit.MaridEntity;
+import com.github.klikli_dev.occultism.common.entity.spirit.WildHuntSkeletonEntity;
+import com.github.klikli_dev.occultism.common.entity.spirit.WildHuntWitherSkeletonEntity;
+
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
-import net.minecraft.entity.passive.ParrotEntity;
 import net.minecraftforge.common.util.NonNullLazy;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
-
-import static com.github.klikli_dev.occultism.util.StaticUtil.modLoc;
 
 public class OccultismEntities {
     //region Fields
@@ -99,6 +106,11 @@ public class OccultismEntities {
                                          .size(0.5F, 0.9F)
                                          .trackingRange(8)
                                          .build(modLoc("otherworld_bird").toString()));
+    public static final NonNullLazy<EntityType<GreedyFamiliarEntity>> GREEDY_FAMILIAR_TYPE =
+            NonNullLazy.of(() -> EntityType.Builder.create(GreedyFamiliarEntity::new, EntityClassification.CREATURE)
+                                         .size(0.5F, 0.9F)
+                                         .trackingRange(8)
+                                         .build(modLoc("greedy_familiar").toString()));
 
     public static final RegistryObject<EntityType<FoliotEntity>> FOLIOT = ENTITIES.register("foliot", FOLIOT_TYPE::get);
     public static final RegistryObject<EntityType<DjinniEntity>> DJINNI = ENTITIES.register("djinni", DJINNI_TYPE::get);
@@ -119,5 +131,7 @@ public class OccultismEntities {
             ENTITIES.register("wild_hunt_wither_skeleton", WILD_HUNT_WITHER_SKELETON_TYPE::get);
     public static final RegistryObject<EntityType<OtherworldBirdEntity>> OTHERWORLD_BIRD =
             ENTITIES.register("otherworld_bird", OTHERWORLD_BIRD_TYPE::get);
+    public static final RegistryObject<EntityType<GreedyFamiliarEntity>> GREEDY_FAMILIAR =
+            ENTITIES.register("greedy_familiar", GREEDY_FAMILIAR_TYPE::get);
     //endregion Fields
 }
