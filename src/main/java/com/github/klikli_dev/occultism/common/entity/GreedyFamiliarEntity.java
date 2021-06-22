@@ -134,11 +134,10 @@ public class GreedyFamiliarEntity extends CreatureEntity implements IFamiliar {
     }
 
     private void setSitting(boolean b) {
-        System.out.println(b);
         dataManager.set(SITTING, b);
     }
 
-    private boolean isSitting() {
+    public boolean isSitting() {
         return dataManager.get(SITTING);
     }
 
