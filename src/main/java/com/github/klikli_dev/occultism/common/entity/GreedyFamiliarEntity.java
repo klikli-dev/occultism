@@ -165,7 +165,11 @@ public class GreedyFamiliarEntity extends CreatureEntity implements IFamiliar {
             return;
 
         for (ItemEntity e : this.world.getEntitiesWithinAABB(ItemEntity.class, wearer.getBoundingBox().grow(5))) {
-            e.onCollideWithPlayer((PlayerEntity) wearer);
+            ItemStack stack = e.getItem().getStack();
+            boolean isDemagnetized = stack.hasTag() && stack.getTag().getBoolean("PreventRemoteMovement");
+            if(!isDemagnetized){
+                e.onCollideWithPlayer((PlayerEntity) wearer);
+            }
         }
     }
 
@@ -312,7 +316,8 @@ public class GreedyFamiliarEntity extends CreatureEntity implements IFamiliar {
             for (ItemEntity item : this.entity.world.getEntitiesWithinAABB(ItemEntity.class,
                     this.entity.getBoundingBox().grow(RANGE))) {
                 ItemStack stack = item.getItem();
-                if (ItemHandlerHelper.insertItemStacked(inv, stack, true).getCount() != stack.getCount())
+                boolean isDemagnetized = stack.hasTag() && stack.getTag().getBoolean("PreventRemoteMovement");
+                if (!isDemagnetized && ItemHandlerHelper.insertItemStacked(inv, stack, true).getCount() != stack.getCount())
                     return item;
             }
             return null;
