@@ -24,7 +24,6 @@ package com.github.klikli_dev.occultism.common.world.cave;
 
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ISeedReader;
-import net.minecraft.world.IWorld;
 import net.minecraft.world.gen.ChunkGenerator;
 
 import java.util.Random;

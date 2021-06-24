@@ -67,7 +67,7 @@ public class TileEntityUtil {
      * Updates the tile entity at the given position (mark dirty & send updates)
      *
      * @param world the world to update
-     * @param pos
+     * @param pos the position to update
      */
     public static void updateTile(World world, BlockPos pos) {
         if (world == null || world.isRemote || !world.isBlockLoaded(pos)) {

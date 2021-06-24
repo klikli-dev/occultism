@@ -254,7 +254,7 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
      * @param tileEntity         the tile entity controlling the ritual.
      * @param castingPlayer      the player starting the ritual.
      * @param activationItem     the item used to start the ritual.
-     * @return
+     * @return true if a valid ritual is found.
      */
     public boolean isValid(World world, BlockPos goldenBowlPosition, GoldenSacrificialBowlTileEntity tileEntity,
                            PlayerEntity castingPlayer, ItemStack activationItem,

@@ -24,8 +24,6 @@ package com.github.klikli_dev.occultism.util;
 
 import net.minecraft.util.Direction;
 
-import java.util.EnumSet;
-
 public class EnumUtil {
 
     //region Static Methods

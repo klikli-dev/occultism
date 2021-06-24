@@ -23,21 +23,10 @@
 package com.github.klikli_dev.occultism.common.entity.ai;
 
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
-import com.github.klikli_dev.occultism.exceptions.ItemHandlerMissingException;
-import com.google.common.base.Predicate;
 import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.ai.goal.TargetGoal;
-import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
-import net.minecraftforge.items.ItemHandlerHelper;
-import net.minecraftforge.items.ItemStackHandler;
 
-import javax.annotation.Nullable;
 import java.util.EnumSet;
-import java.util.List;
 
 public class ReturnToWorkAreaGoal extends Goal {
 
@@ -86,7 +75,7 @@ public class ReturnToWorkAreaGoal extends Goal {
             this.entity.getNavigator().setPath(this.entity.getNavigator().getPathToPos(
                     this.entity.getWorkAreaPosition().orElse(this.entity.getPosition()), 0), 1.0f);
             double distance = this.entity.getPositionVec().distanceTo(
-                    Vector3d.copyCentered(entity.getWorkAreaPosition().orElse(this.entity.getPosition())));
+                    Vector3d.copyCentered(this.entity.getWorkAreaPosition().orElse(this.entity.getPosition())));
             if (distance < 1F) {
                 this.entity.setMotion(0, 0, 0);
                 this.entity.getNavigator().clearPath();

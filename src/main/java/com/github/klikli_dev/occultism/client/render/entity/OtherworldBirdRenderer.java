@@ -22,7 +22,6 @@
 
 package com.github.klikli_dev.occultism.client.render.entity;
 
-import com.github.klikli_dev.occultism.common.entity.OtherworldBirdEntity;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.model.ParrotModel;

@@ -88,7 +88,7 @@ public abstract class ChangeWeatherJob extends SpiritJob {
             this.changeWeather();
 
             LightningBoltEntity lightningboltentity = EntityType.LIGHTNING_BOLT.create(this.entity.world);
-            lightningboltentity.moveForced(Vector3d.copyCenteredHorizontally(entity.getPosition()));
+            lightningboltentity.moveForced(Vector3d.copyCenteredHorizontally(this.entity.getPosition()));
             lightningboltentity.setEffectOnly(true);
 
             this.entity.onDeath(DamageSource.LIGHTNING_BOLT);

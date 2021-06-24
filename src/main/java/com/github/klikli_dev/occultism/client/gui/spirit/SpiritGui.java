@@ -89,7 +89,7 @@ public class SpiritGui<T extends SpiritContainer> extends ContainerScreen<T> {
             String jobText = I18n.format(TRANSLATION_KEY_BASE + ".job", I18n.format("job." + jobID));
             String[] lines = WordUtils.wrap(jobText, 15, "\n", true).split("[\\r\\n]+", 2);
             for (String line : lines)
-                jobLabel.addLine(TextFormatting.ITALIC.toString() + line + TextFormatting.RESET.toString());
+                jobLabel.addLine(TextFormatting.ITALIC + line + TextFormatting.RESET);
             this.addButton(jobLabel);
 
         }

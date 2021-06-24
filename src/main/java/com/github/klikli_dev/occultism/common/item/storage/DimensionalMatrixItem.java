@@ -22,16 +22,11 @@
 
 package com.github.klikli_dev.occultism.common.item.storage;
 
-import com.github.klikli_dev.occultism.api.common.item.IIngredientCopyNBT;
-import com.github.klikli_dev.occultism.api.common.item.IIngredientModifyCraftingResult;
-import com.github.klikli_dev.occultism.common.item.spirit.BookOfCallingItem;
 import com.github.klikli_dev.occultism.util.ItemNBTUtil;
 import com.github.klikli_dev.occultism.util.TextUtil;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;

@@ -26,7 +26,6 @@ import com.github.klikli_dev.occultism.api.common.container.IItemStackComparator
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.ITag;
 import net.minecraft.util.ResourceLocation;

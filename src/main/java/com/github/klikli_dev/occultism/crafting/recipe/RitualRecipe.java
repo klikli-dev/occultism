@@ -22,7 +22,6 @@
 
 package com.github.klikli_dev.occultism.crafting.recipe;
 
-import com.github.klikli_dev.occultism.common.ritual.pentacle.Pentacle;
 import com.github.klikli_dev.occultism.registry.OccultismRecipes;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -38,9 +37,7 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.crafting.CraftingHelper;
-import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.ForgeRegistryEntry;
-import net.minecraftforge.registries.RegistryManager;
 
 import javax.annotation.Nonnull;
 

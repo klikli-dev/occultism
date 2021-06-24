@@ -25,7 +25,6 @@ package com.github.klikli_dev.occultism.common.entity.ai;
 import com.github.klikli_dev.occultism.api.common.tile.IStorageControllerProxy;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.github.klikli_dev.occultism.common.job.ManageMachineJob;
-import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
@@ -92,7 +91,7 @@ public class FallbackDepositToControllerGoal extends PausableGoal {
                 this.retries++;
 
             //wait before trying again.
-            this.pause(this.retries * 10000);
+            this.pause(this.retries * 10000L);
         }
 
     }

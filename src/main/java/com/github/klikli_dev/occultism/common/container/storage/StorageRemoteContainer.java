@@ -135,8 +135,8 @@ public class StorageRemoteContainer extends StorageControllerContainerBase {
         //stack updates every 40 ticks.
         if (storageController != null && !entityPlayer.world.isRemote &&
             entityPlayer.world.getGameTime() % 40 == 0) {
-            OccultismPackets.sendTo((ServerPlayerEntity) player, this.getStorageController().getMessageUpdateStacks());
-            OccultismPackets.sendTo((ServerPlayerEntity) player,
+            OccultismPackets.sendTo((ServerPlayerEntity) this.player, this.getStorageController().getMessageUpdateStacks());
+            OccultismPackets.sendTo((ServerPlayerEntity) this.player,
                     new MessageUpdateLinkedMachines(this.getStorageController().getLinkedMachines()));
         }
 
@@ -159,12 +159,12 @@ public class StorageRemoteContainer extends StorageControllerContainerBase {
         for (int i = 0; i < this.matrix.getSizeInventory(); i++) {
             nbtTagList.add(this.matrix.getStackInSlot(i).serializeNBT());
         }
-        storageRemote.getOrCreateTag().put("craftingMatrix", nbtTagList);
+        this.storageRemote.getOrCreateTag().put("craftingMatrix", nbtTagList);
     }
 
     @Override
     public void updateOrderSlot(boolean force) {
-        storageRemote.getOrCreateTag().put("orderStack", this.orderInventory.getStackInSlot(0).serializeNBT());
+        this.storageRemote.getOrCreateTag().put("orderStack", this.orderInventory.getStackInSlot(0).serializeNBT());
     }
     //endregion Overrides
 

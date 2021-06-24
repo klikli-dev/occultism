@@ -84,9 +84,9 @@ public abstract class ItemStackFakeInventoryRecipe implements IRecipe<ItemStackF
 
     //endregion Overrides
 
-    public static interface IItemStackFakeInventoryRecipeFactory<T extends ItemStackFakeInventoryRecipe> {
+    public interface IItemStackFakeInventoryRecipeFactory<T extends ItemStackFakeInventoryRecipe> {
         //region Methods
-        public T create(ResourceLocation id, Ingredient input, ItemStack output);
+        T create(ResourceLocation id, Ingredient input, ItemStack output);
         //endregion Methods
     }
 

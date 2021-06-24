@@ -59,14 +59,14 @@ public class AppendLootTable extends LootModifier {
     @Override
     public List<ItemStack> doApply(List<ItemStack> generatedLoot, LootContext context)
     {
-        if (reentryPrevention)
+        if (this.reentryPrevention)
             return generatedLoot;
 
-        reentryPrevention = true;
+        this.reentryPrevention = true;
         LootTable lootTable = context.getLootTable(this.lootTable);
         List<ItemStack> extras = lootTable.generate(context);
         generatedLoot.addAll(extras);
-        reentryPrevention = false;
+        this.reentryPrevention = false;
 
         return generatedLoot;
     }

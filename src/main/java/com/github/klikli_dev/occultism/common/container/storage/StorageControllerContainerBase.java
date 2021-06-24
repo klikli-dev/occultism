@@ -197,9 +197,7 @@ public abstract class StorageControllerContainerBase extends Container implement
     protected void findRecipeForMatrixClient() {
         Optional<ICraftingRecipe> optional =
                 this.player.world.getRecipeManager().getRecipe(IRecipeType.CRAFTING, this.matrix, this.player.world);
-        if (optional.isPresent()) {
-            this.currentRecipe = optional.get();
-        }
+        optional.ifPresent(iCraftingRecipe -> this.currentRecipe = iCraftingRecipe);
     }
 
     protected void findRecipeForMatrix() {
@@ -207,7 +205,7 @@ public abstract class StorageControllerContainerBase extends Container implement
         //      and call it onCraftingMatrixChanged(). Send slot packet!
         if (!this.player.world.isRemote) {
             this.currentRecipe = null;
-            ServerPlayerEntity serverplayerentity = (ServerPlayerEntity) player;
+            ServerPlayerEntity serverplayerentity = (ServerPlayerEntity) this.player;
             ItemStack itemstack = ItemStack.EMPTY;
             Optional<ICraftingRecipe> optional = this.player.world.getServer().getRecipeManager()
                                                          .getRecipe(IRecipeType.CRAFTING, this.matrix,

@@ -24,7 +24,6 @@ package com.github.klikli_dev.occultism.network;
 
 import com.github.klikli_dev.occultism.registry.OccultismCapabilities;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fml.network.NetworkEvent;

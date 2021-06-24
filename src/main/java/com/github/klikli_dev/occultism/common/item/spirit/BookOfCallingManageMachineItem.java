@@ -22,7 +22,6 @@
 
 package com.github.klikli_dev.occultism.common.item.spirit;
 
-import com.github.klikli_dev.occultism.common.job.LumberjackJob;
 import com.github.klikli_dev.occultism.common.job.ManageMachineJob;
 import net.minecraft.item.ItemStack;
 

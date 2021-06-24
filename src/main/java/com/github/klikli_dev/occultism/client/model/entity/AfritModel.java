@@ -23,7 +23,6 @@
 package com.github.klikli_dev.occultism.client.model.entity;
 
 import com.github.klikli_dev.occultism.common.entity.spirit.AfritEntity;
-import com.github.klikli_dev.occultism.common.entity.spirit.DjinniEntity;
 import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 

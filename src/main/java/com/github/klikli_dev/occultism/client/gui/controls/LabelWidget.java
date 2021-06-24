@@ -92,7 +92,7 @@ public class LabelWidget extends Widget {
                     this.drawCenteredLabelString(stack, fontrenderer, this.lines.get(i), this.x, top, color);
                 }
                 else if (this.rightAligned) {
-                    this.drawRightAlignedLabelString(stack, fontrenderer, lines.get(i), this.x, top, color);
+                    this.drawRightAlignedLabelString(stack, fontrenderer, this.lines.get(i), this.x, top, color);
                 }
                 else {
                     this.drawLabelString(stack, fontrenderer, this.lines.get(i), this.x, top, color);

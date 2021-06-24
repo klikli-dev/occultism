@@ -25,8 +25,6 @@ package com.github.klikli_dev.occultism.client.model.entity;
 import com.github.klikli_dev.occultism.common.entity.spirit.DjinniEntity;
 import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
-import net.minecraft.item.CrossbowItem;
-import net.minecraft.util.HandSide;
 import net.minecraft.util.math.MathHelper;
 
 

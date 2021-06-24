@@ -25,8 +25,6 @@ package com.github.klikli_dev.occultism.common.job;
 import com.github.klikli_dev.occultism.common.entity.ai.PickupItemsGoal;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.github.klikli_dev.occultism.crafting.recipe.SpiritTradeRecipe;
-import net.minecraft.block.Blocks;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.CompoundNBT;
@@ -37,6 +35,7 @@ import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.server.ServerWorld;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -129,7 +128,7 @@ public class TraderJob extends SpiritJob {
             if (this.conversionTimer >= this.getTimeToConvert()) {
                 this.conversionTimer = 0;
 
-                List<ItemStack> input = Arrays.asList(handHeld);
+                List<ItemStack> input = Collections.singletonList(handHeld);
                 int resultCount = 0;
                 while (this.trade.isValid(input) && resultCount < this.maxTradesPerRound) {
                     input = this.trade.consume(input);

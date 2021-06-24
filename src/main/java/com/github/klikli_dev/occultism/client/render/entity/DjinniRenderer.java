@@ -24,9 +24,7 @@ package com.github.klikli_dev.occultism.client.render.entity;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.client.model.entity.DjinniModel;
-import com.github.klikli_dev.occultism.client.model.entity.FoliotModel;
 import com.github.klikli_dev.occultism.common.entity.spirit.DjinniEntity;
-import com.github.klikli_dev.occultism.common.entity.spirit.FoliotEntity;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.util.ResourceLocation;

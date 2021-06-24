@@ -24,7 +24,6 @@ package com.github.klikli_dev.occultism.handlers;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.block.otherworld.IOtherworldBlock;
-import com.github.klikli_dev.occultism.common.block.otherworld.OtherworldLeavesNaturalBlock;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.renderer.color.BlockColors;

@@ -76,7 +76,7 @@ public class SpiritTransporterContainer extends SpiritContainer {
 
     @Override
     public ItemStack slotClick(int id, int dragType, ClickType clickType, PlayerEntity player) {
-        Slot slot = id >= 0 ? getSlot(id) : null;
+        Slot slot = id >= 0 ? this.getSlot(id) : null;
 
         ItemStack holding = player.inventory.getItemStack();
 

@@ -41,12 +41,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.vector.Vector3i;
-import net.minecraft.util.registry.Registry;
-import net.minecraftforge.fml.RegistryObject;
-import net.minecraftforge.registries.RegistryManager;
 
 import java.util.List;
 import java.util.stream.Collectors;

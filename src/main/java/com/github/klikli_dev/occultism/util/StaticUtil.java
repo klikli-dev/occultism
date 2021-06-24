@@ -23,11 +23,7 @@
 package com.github.klikli_dev.occultism.util;
 
 import com.github.klikli_dev.occultism.Occultism;
-import net.minecraft.client.Minecraft;
-import net.minecraft.item.crafting.RecipeManager;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.server.ServerLifecycleHooks;
 
 public class StaticUtil {
 

@@ -35,7 +35,6 @@ import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.vector.Vector3f;
-import net.minecraft.util.math.vector.Quaternion;
 
 import java.awt.*;
 import java.util.List;
@@ -67,15 +66,15 @@ public class StorageControllerRenderer extends TileEntityRenderer<StorageControl
         //use system time to become independent of game time
         long systemTime = System.currentTimeMillis();
 
-        double systemTimeRadSin8 = Math.sin(Math.toRadians(systemTime / 8));
-        double systemTimeRadSin16 = Math.sin(Math.toRadians(systemTime / 16));
+        double systemTimeRadSin8 = Math.sin(Math.toRadians((float)systemTime / 8));
+        double systemTimeRadSin16 = Math.sin(Math.toRadians((float)systemTime / 16));
 
         double offset = systemTimeRadSin16 / 16.0;
         matrixStack.translate(0.5, 1.75 + offset, 0.5);
 
         //rotate item slowly around y axis
         //do not use system time rad, as rotationDegrees converts for us and we want to clamp it to 360° first
-        float angle = (systemTime / 16) % 360;
+        float angle = ((float)systemTime / 16) % 360;
         matrixStack.rotate(Vector3f.YP.rotationDegrees(angle));
 
         //Math.sin(time/frequency)*amplitude

@@ -40,7 +40,6 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
 
-import javax.swing.plaf.basic.BasicComboBoxUI;
 import java.util.EnumSet;
 import java.util.Optional;
 

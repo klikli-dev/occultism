@@ -49,7 +49,6 @@ import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
-import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 
 public class OtherworldBirdEntity extends ParrotEntity implements IFamiliar {
@@ -98,7 +97,7 @@ public class OtherworldBirdEntity extends ParrotEntity implements IFamiliar {
             LivingEntity owner = this.getOwnerCached();
             if (owner != null && this.getDistance(owner) < MAX_BOOST_DISTANCE) {
                 // close enough to boost
-                for (EffectInstance effect : getFamiliarEffects())
+                for (EffectInstance effect : this.getFamiliarEffects())
                     owner.addPotionEffect(effect);
             }
         }
@@ -114,7 +113,7 @@ public class OtherworldBirdEntity extends ParrotEntity implements IFamiliar {
 
     @Override
     public LivingEntity getFamiliarOwner() {
-        return getOwnerCached();
+        return this.getOwnerCached();
     }
 
     @Override

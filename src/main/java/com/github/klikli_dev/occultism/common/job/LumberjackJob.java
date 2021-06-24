@@ -33,7 +33,6 @@ import com.github.klikli_dev.occultism.registry.OccultismTags;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.tags.ItemTags;
-import net.minecraftforge.common.Tags;
 
 import java.util.ArrayList;
 import java.util.List;

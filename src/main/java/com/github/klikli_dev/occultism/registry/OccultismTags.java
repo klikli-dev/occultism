@@ -32,8 +32,6 @@ import net.minecraft.tags.ITag;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.ResourceLocation;
 
-import static com.github.klikli_dev.occultism.util.StaticUtil.modLoc;
-
 public class OccultismTags {
     //region Fields
 

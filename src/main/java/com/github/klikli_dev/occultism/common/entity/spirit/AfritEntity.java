@@ -25,8 +25,6 @@ package com.github.klikli_dev.occultism.common.entity.spirit;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.monster.SkeletonEntity;
-import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.world.World;
 
 public class AfritEntity extends SpiritEntity {

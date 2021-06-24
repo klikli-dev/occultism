@@ -26,8 +26,6 @@ import com.github.klikli_dev.occultism.api.common.data.GlobalBlockPos;
 import com.github.klikli_dev.occultism.api.common.tile.IStorageController;
 import net.minecraft.block.Block;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.client.world.ClientWorld;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
 import net.minecraft.tileentity.TileEntity;
@@ -37,8 +35,6 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -90,8 +86,8 @@ public class StableWormholeBlockItem extends BlockItem {
             GlobalBlockPos globalPos = GlobalBlockPos.from(stack.getChildTag("BlockEntityTag")
                                                                    .getCompound("linkedStorageControllerPosition"));
             String formattedPosition =
-                    TextFormatting.GOLD.toString() + TextFormatting.BOLD.toString() + globalPos.getPos().toString() +
-                    TextFormatting.RESET.toString();
+                    TextFormatting.GOLD.toString() + TextFormatting.BOLD + globalPos.getPos().toString() +
+                            TextFormatting.RESET;
             tooltip.add(new TranslationTextComponent(this.getTranslationKey() + ".tooltip.linked", formattedPosition));
         }
         else {

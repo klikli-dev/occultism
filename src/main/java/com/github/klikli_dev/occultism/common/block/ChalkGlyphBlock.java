@@ -43,7 +43,6 @@ import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
@@ -72,7 +71,7 @@ public class ChalkGlyphBlock extends Block {
 
     //region Getter / Setter
     public int getColor() {
-        return color;
+        return this.color;
     }
 
     public void setColor(int color) {
@@ -80,7 +79,7 @@ public class ChalkGlyphBlock extends Block {
     }
 
     public Item getChalk() {
-        return chalk.get();
+        return this.chalk.get();
     }
 
     //endregion Getter / Setter

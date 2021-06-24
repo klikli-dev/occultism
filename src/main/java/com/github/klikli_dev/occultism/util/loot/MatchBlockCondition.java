@@ -74,10 +74,10 @@ public class MatchBlockCondition implements ILootCondition
         BlockState state = lootContext.get(LootParameters.BLOCK_STATE);
         if (state == null)
             return false;
-        if (blockTag != null)
-            return blockTag.contains(state.getBlock());
-        if (blockList != null)
-            return blockList.contains(state.getBlock());
+        if (this.blockTag != null)
+            return this.blockTag.contains(state.getBlock());
+        if (this.blockList != null)
+            return this.blockList.contains(state.getBlock());
         return false;
     }
 

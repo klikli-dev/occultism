@@ -67,7 +67,7 @@ public class GreedyFamiliarModel extends EntityModel<GreedyFamiliarEntity> {
         this.rightEar.mirror = true;
         this.rightEar.setRotationPoint(-2.0F, -4.5F, 0.0F);
         this.rightEar.addBox(-1.0F, -3.0F, 0.0F, 2.0F, 3.0F, 0.0F, 0.0F, 0.0F, 0.0F);
-        this.setRotateAngle(rightEar, 0.0F, 0.0F, -0.5235987755982988F);
+        this.setRotateAngle(this.rightEar, 0.0F, 0.0F, -0.5235987755982988F);
         this.head = new ModelRenderer(this, 0, 0);
         this.head.setRotationPoint(0.0F, -5.0F, 0.0F);
         this.head.addBox(-2.5F, -5.0F, -2.5F, 5.0F, 5.0F, 5.0F, 0.0F, 0.0F, 0.0F);
@@ -77,7 +77,7 @@ public class GreedyFamiliarModel extends EntityModel<GreedyFamiliarEntity> {
         this.leftEar = new ModelRenderer(this, 0, 0);
         this.leftEar.setRotationPoint(2.0F, -4.5F, 0.0F);
         this.leftEar.addBox(-1.0F, -3.0F, 0.0F, 2.0F, 3.0F, 0.0F, 0.0F, 0.0F, 0.0F);
-        this.setRotateAngle(leftEar, 0.0F, 0.0F, 0.5235987755982988F);
+        this.setRotateAngle(this.leftEar, 0.0F, 0.0F, 0.5235987755982988F);
         this.rightArm = new ModelRenderer(this, 16, 21);
         this.rightArm.mirror = true;
         this.rightArm.setRotationPoint(-2.5F, -5.0F, 0.0F);
@@ -85,7 +85,7 @@ public class GreedyFamiliarModel extends EntityModel<GreedyFamiliarEntity> {
         this.chest2 = new ModelRenderer(this, 0, 18);
         this.chest2.setRotationPoint(0.0F, -3.0F, 0.0F);
         this.chest2.addBox(-2.0F, -2.0F, 0.0F, 4.0F, 2.0F, 4.0F, 0.0F, 0.0F, 0.0F);
-        this.setRotateAngle(chest2, 0.23457224414434488F, 0.0F, 0.0F);
+        this.setRotateAngle(this.chest2, 0.23457224414434488F, 0.0F, 0.0F);
         this.leftArm = new ModelRenderer(this, 16, 21);
         this.leftArm.setRotationPoint(2.5F, -5.0F, 0.0F);
         this.leftArm.addBox(0.0F, 0.0F, -1.0F, 2.0F, 6.0F, 2.0F, 0.0F, 0.0F, 0.0F);
@@ -107,7 +107,7 @@ public class GreedyFamiliarModel extends EntityModel<GreedyFamiliarEntity> {
     @Override
     public void render(MatrixStack matrixStackIn, IVertexBuilder bufferIn, int packedLightIn, int packedOverlayIn,
             float red, float green, float blue, float alpha) {
-        ImmutableList.of(body).forEach((modelRenderer) -> {
+        ImmutableList.of(this.body).forEach((modelRenderer) -> {
             modelRenderer.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
         });
     }
@@ -124,19 +124,19 @@ public class GreedyFamiliarModel extends EntityModel<GreedyFamiliarEntity> {
     @Override
     public void setRotationAngles(GreedyFamiliarEntity entityIn, float limbSwing, float limbSwingAmount,
             float ageInTicks, float netHeadYaw, float headPitch) {
-        head.rotateAngleY = netHeadYaw * (PI / 180f);
-        head.rotateAngleX = headPitch * (PI / 180f);
+        this.head.rotateAngleY = netHeadYaw * (PI / 180f);
+        this.head.rotateAngleX = headPitch * (PI / 180f);
         if (entityIn.isSitting()) {
-            rightArm.rotateAngleX = 0;
-            leftArm.rotateAngleX = 0;
-            rightLeg.rotateAngleX = -PI / 2;
-            leftLeg.rotateAngleX = -PI / 2;
+            this.rightArm.rotateAngleX = 0;
+            this.leftArm.rotateAngleX = 0;
+            this.rightLeg.rotateAngleX = -PI / 2;
+            this.leftLeg.rotateAngleX = -PI / 2;
         } else {
-            rightArm.rotateAngleX = MathHelper.cos(limbSwing * 0.5f + PI) * limbSwingAmount;
-            leftArm.rotateAngleX = MathHelper.cos(limbSwing * 0.5f) * limbSwingAmount;
-            rightLeg.rotateAngleX = MathHelper.cos(limbSwing * 0.5f) * 1.4f * limbSwingAmount;
-            leftLeg.rotateAngleX = MathHelper.cos(limbSwing * 0.5f + PI) * 1.4f * limbSwingAmount;
+            this.rightArm.rotateAngleX = MathHelper.cos(limbSwing * 0.5f + PI) * limbSwingAmount;
+            this.leftArm.rotateAngleX = MathHelper.cos(limbSwing * 0.5f) * limbSwingAmount;
+            this.rightLeg.rotateAngleX = MathHelper.cos(limbSwing * 0.5f) * 1.4f * limbSwingAmount;
+            this.leftLeg.rotateAngleX = MathHelper.cos(limbSwing * 0.5f + PI) * 1.4f * limbSwingAmount;
         }
-        chest2.rotateAngleX = MathHelper.cos(limbSwing * 0.35f + PI) * 0.5f * limbSwingAmount + PI / 12;
+        this.chest2.rotateAngleX = MathHelper.cos(limbSwing * 0.35f + PI) * 0.5f * limbSwingAmount + PI / 12;
     }
 }

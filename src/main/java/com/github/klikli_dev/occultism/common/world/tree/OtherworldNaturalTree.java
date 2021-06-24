@@ -23,16 +23,9 @@
 package com.github.klikli_dev.occultism.common.world.tree;
 
 import com.github.klikli_dev.occultism.common.world.WorldGenHandler;
-import com.github.klikli_dev.occultism.registry.OccultismBlocks;
-import net.minecraft.block.BlockState;
 import net.minecraft.block.trees.Tree;
-import net.minecraft.world.gen.blockstateprovider.SimpleBlockStateProvider;
 import net.minecraft.world.gen.feature.BaseTreeFeatureConfig;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
-import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.FeatureSpread;
-import net.minecraft.world.gen.foliageplacer.BlobFoliagePlacer;
-import net.minecraftforge.common.util.NonNullLazy;
 
 import javax.annotation.Nullable;
 import java.util.Random;

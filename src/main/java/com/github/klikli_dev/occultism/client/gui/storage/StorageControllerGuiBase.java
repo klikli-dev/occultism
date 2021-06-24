@@ -53,7 +53,6 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.IInventoryChangedListener;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
@@ -179,7 +178,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
         if (this.minecraft.player.world.getDimensionKey() != machine.globalPos.getDimensionKey())
             tooltip.add(new TranslationTextComponent(TextFormatting.GRAY.toString() + TextFormatting.ITALIC +
-                                                     machine.globalPos.getDimensionKey().getLocation().toString() +
+                    machine.globalPos.getDimensionKey().getLocation() +
                                                      TextFormatting.RESET));
         this.func_243308_b(matrixStack, tooltip, x, y); //renderTooltip
     }

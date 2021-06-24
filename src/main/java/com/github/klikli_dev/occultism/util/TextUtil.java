@@ -106,7 +106,7 @@ public class TextUtil {
      * @return the formatted name.
      */
     public static String formatDemonName(String name) {
-        return TextFormatting.GOLD.toString() + TextFormatting.BOLD.toString() + name + TextFormatting.RESET.toString();
+        return TextFormatting.GOLD.toString() + TextFormatting.BOLD + name + TextFormatting.RESET;
     }
 
     /**

@@ -24,7 +24,6 @@ package com.github.klikli_dev.occultism.common.item.spirit;
 
 import com.github.klikli_dev.occultism.common.job.TransportItemsJob;
 import com.github.klikli_dev.occultism.util.ItemNBTUtil;
-import com.github.klikli_dev.occultism.util.TextUtil;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;

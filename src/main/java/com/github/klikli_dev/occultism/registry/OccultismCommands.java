@@ -29,7 +29,6 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.tree.LiteralCommandNode;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
-import net.minecraft.command.impl.DebugCommand;
 
 public class OccultismCommands {
     //region Static Methods

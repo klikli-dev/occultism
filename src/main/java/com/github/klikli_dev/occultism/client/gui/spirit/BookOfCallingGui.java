@@ -31,7 +31,6 @@ import com.github.klikli_dev.occultism.network.MessageSetWorkAreaSize;
 import com.github.klikli_dev.occultism.network.OccultismPackets;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.fml.client.gui.widget.ExtendedButton;

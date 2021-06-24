@@ -47,7 +47,7 @@ public interface IStorageController {
     /**
      * Gets a message to update stacks, re-uses cached messages whenever possible
      *
-     * @return
+     * @return the stack update message.
      */
     MessageUpdateStacks getMessageUpdateStacks();
 

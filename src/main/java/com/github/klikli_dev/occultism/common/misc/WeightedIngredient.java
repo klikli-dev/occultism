@@ -38,6 +38,6 @@ public class WeightedIngredient extends WeightedRandom.Item {
     }
 
     public Ingredient getIngredient() {
-        return ingredient;
+        return this.ingredient;
     }
 }

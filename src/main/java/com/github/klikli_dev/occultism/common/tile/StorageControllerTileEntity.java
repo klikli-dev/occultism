@@ -113,7 +113,7 @@ public class StorageControllerTileEntity extends NetworkedTileEntity implements 
     //region Overrides
     @Override
     public ITextComponent getDisplayName() {
-        return new StringTextComponent(getType().getRegistryName().getPath());
+        return new StringTextComponent(this.getType().getRegistryName().getPath());
     }
 
     @Override
