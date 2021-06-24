@@ -90,6 +90,7 @@
     "item.occultism.spawn_egg.wild_hunt_skeleton": "Wild Hunt Skeleton Spawn Egg",
     "item.occultism.spawn_egg.wild_hunt_wither_skeleton": "Wild Hunt Wither Skeleton Spawn Egg",
     "item.occultism.spawn_egg.otherworld_bird": "Drikwing Spawn Egg",
+    "item.occultism.spawn_egg.greedy_familiar": "Greedy Familiar Spawn Egg",
     "_comment": "# Item Messages",
     "_comment": "## Book of calling - also contains messages triggered in related network messages",
     "item.occultism.book_of_calling.message_target_uuid_no_match": "This spirit is not currently bound to this book. Shift-Click the spirit to bind it to this book.",
@@ -184,6 +185,7 @@
     "entity.occultism.wild_hunt_skeleton": "Wild Hunt Skeleton",
     "entity.occultism.wild_hunt_wither_skeleton": "Wild Hunt Wither Skeleton",
     "entity.occultism.otherworld_bird": "Drikwing",
+    "entity.occultism.greedy_familiar": "Greedy Familiar",
     "_comment": "# Spirit Jobs",
     "job.occultism.lumberjack": "Lumberjack",
     "job.occultism.crush_tier1": "Slow Crusher",
@@ -395,6 +397,10 @@
     "ritual.occultism.familiar_parrot.started": "Started summoning parrot familiar.",
     "ritual.occultism.familiar_parrot.finished": "Summoned parrot familiar successfully.",
     "ritual.occultism.familiar_parrot.interrupted": "Summoning of parrot familiar interrupted.",
+    "ritual.occultism.familiar_greedy.conditions": "Not all requirements for this ritual are met.",
+    "ritual.occultism.familiar_greedy.started": "Started summoning greedy familiar.",
+    "ritual.occultism.familiar_greedy.finished": "Summoned v familiar successfully.",
+    "ritual.occultism.familiar_greedy.interrupted": "Summoning of greedy familiar interrupted.",
     "_comment": "GUI Strings",
     "gui.occultism.book_of_calling.mode": "Mode",
     "gui.occultism.book_of_calling.work_area": "Work Area",
@@ -542,6 +548,9 @@
 
     "item.occultism.ritual_dummy.familiar_parrot": "Ritual: Summon Parrot Familiar",
     "item.occultism.ritual_dummy.familiar_parrot.tooltip": "Parrot familiars behave exactly like tamed parrots.",
+
+    "item.occultism.ritual_dummy.familiar_greedy": "Ritual: Summon Greedy Familiar",
+    "item.occultism.ritual_dummy.familiar_greedy.tooltip": "Greedy familiars pick up items for their master. When stored in a familiar ring, they increase the pickup range (like an item magnet).",
 
     "item.occultism.ritual_dummy.possess_enderman": "Ritual: Summon Possessed Enderman",
     "item.occultism.ritual_dummy.possess_enderman.tooltip": "The possessed Enderman will always drop at least one ender pearl when killed.",

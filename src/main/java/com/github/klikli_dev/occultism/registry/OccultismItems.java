@@ -316,6 +316,8 @@ public class OccultismItems {
         ITEMS.register(
                 "ritual_dummy/familiar_parrot", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register(
+                "ritual_dummy/familiar_greedy", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register(
                 "ritual_dummy/possess_enderman", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register(
                 "ritual_dummy/possess_endermite", () -> new DummyTooltipItem(defaultProperties()));

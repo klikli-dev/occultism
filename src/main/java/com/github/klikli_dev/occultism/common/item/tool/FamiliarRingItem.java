@@ -1,3 +1,25 @@
+/*
+ * MIT License
+ *
+ * Copyright 2021 vemerion
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
+ * associated documentation files (the "Software"), to deal in the Software without restriction, including
+ * without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+ * of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following
+ * conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all copies or substantial
+ * portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+ * INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
+ * PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+ * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ * OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+ * OTHER DEALINGS IN THE SOFTWARE.
+ */
+
 package com.github.klikli_dev.occultism.common.item.tool;
 
 import java.util.List;
@@ -52,7 +74,7 @@ public class FamiliarRingItem extends Item {
             Hand hand) {
         if (!playerIn.world.isRemote && target instanceof IFamiliar) {
             IFamiliar familiar = (IFamiliar) target;
-            if (familiar.getFamiliarOwner() == playerIn && getCurio(stack).captureFamiliar(playerIn.world, familiar)) {
+            if (familiar.getFamiliarOwner() == playerIn && this.getCurio(stack).captureFamiliar(playerIn.world, familiar)) {
                 CompoundNBT tag = stack.getOrCreateTag();
                 tag.putBoolean("occupied", true);
                 ItemNBTUtil.setBoundSpiritName(stack, familiar.getEntity().getDisplayName().getString());
@@ -66,7 +88,7 @@ public class FamiliarRingItem extends Item {
     @Override
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
         ItemStack stack = playerIn.getHeldItem(handIn);
-        if (!playerIn.world.isRemote && getCurio(stack).releaseFamiliar(playerIn, worldIn)) {
+        if (!playerIn.world.isRemote && this.getCurio(stack).releaseFamiliar(playerIn, worldIn)) {
             CompoundNBT tag = stack.getOrCreateTag();
             tag.putBoolean("occupied", false);
             return ActionResult.resultConsume(stack);
@@ -91,22 +113,24 @@ public class FamiliarRingItem extends Item {
         private CompoundNBT nbt;
 
         private boolean captureFamiliar(World world, IFamiliar familiar) {
-            if (getFamiliar(world) != null)
+            if (this.getFamiliar(world) != null)
                 return false;
-            setFamiliar(familiar);
-            getFamiliar(world).getEntity().remove();
+            this.setFamiliar(familiar);
+            this.getFamiliar(world).getEntity().remove();
             return true;
         }
 
         private boolean releaseFamiliar(PlayerEntity player, World world) {
-            if (getFamiliar(world) != null && getFamiliar(world).getFamiliarOwner() == player
-                    && !getFamiliar(world).getEntity().isAddedToWorld()) {
-                EntityType.loadEntityAndExecute(getFamiliar(world).getEntity().serializeNBT(), world, e -> {
+            if (this.getFamiliar(world) != null && this.getFamiliar(world).getFamiliarOwner() == player
+                    && !this.getFamiliar(world).getEntity().isAddedToWorld()) {
+                EntityType.loadEntityAndExecute(this.getFamiliar(world).getEntity().serializeNBT(), world, e -> {
                     e.setPosition(player.getPosX(), player.getPosY(), player.getPosZ());
+                    //on release overwrite owner -> familiar rings can be used to trade familiars.
+                    ((IFamiliar)e).setFamiliarOwner(player);
                     world.addEntity(e);
                     return e;
                 });
-                setFamiliar(null);
+                this.setFamiliar(null);
                 return true;
             }
             return false;
@@ -115,22 +139,27 @@ public class FamiliarRingItem extends Item {
         @Override
         public void curioTick(String identifier, int index, LivingEntity entity) {
             World world = entity.world;
-            if (getFamiliar(world) == null)
+            IFamiliar familiar = this.getFamiliar(world);
+            if (familiar == null || familiar.getFamiliarOwner() != entity)
                 return;
-
-            if (!world.isRemote && entity.ticksExisted % 20 == 0 && getFamiliar(world).getFamiliarOwner() == entity)
-                for (EffectInstance effect : getFamiliar(world).getFamiliarEffects())
-                    getFamiliar(world).getFamiliarOwner().addPotionEffect(effect);
+            
+            // Apply effects
+            if (!world.isRemote && entity.ticksExisted % 20 == 0)
+                for (EffectInstance effect : familiar.getFamiliarEffects())
+                    familiar.getFamiliarOwner().addPotionEffect(effect);
+            
+            // Tick
+            familiar.curioTick(entity);
         }
 
         @Override
         public CompoundNBT serializeNBT() {
             CompoundNBT compound = new CompoundNBT();
-            compound.putBoolean("hasFamiliar", familiar != null || nbt != null);
-            if (familiar != null)
-                compound.put("familiar", familiar.getEntity().serializeNBT());
-            else if (nbt != null)
-                compound.put("familiar", nbt);
+            compound.putBoolean("hasFamiliar", this.familiar != null || this.nbt != null);
+            if (this.familiar != null)
+                compound.put("familiar", this.familiar.getEntity().serializeNBT());
+            else if (this.nbt != null)
+                compound.put("familiar", this.nbt);
 
             return compound;
         }
@@ -138,25 +167,25 @@ public class FamiliarRingItem extends Item {
         @Override
         public void deserializeNBT(CompoundNBT compound) {
             if (compound.getBoolean("hasFamiliar"))
-                nbt = compound.getCompound("familiar");
+                this.nbt = compound.getCompound("familiar");
         }
 
         // Need this because we cannot deserialize the familiar in deserializeNBT()
         // because we have no world at that point
         private IFamiliar getFamiliar(World world) {
-            if (familiar != null)
-                return familiar;
-            if (nbt != null) {
-                familiar = (IFamiliar) EntityType.loadEntityAndExecute(nbt, world, Function.identity());
-                nbt = null;
+            if (this.familiar != null)
+                return this.familiar;
+            if (this.nbt != null) {
+                this.familiar = (IFamiliar) EntityType.loadEntityAndExecute(this.nbt, world, Function.identity());
+                this.nbt = null;
             }
 
-            return familiar;
+            return this.familiar;
         }
 
         private void setFamiliar(IFamiliar familiar) {
             this.familiar = familiar;
-            nbt = null;
+            this.nbt = null;
         }
 
     }
@@ -168,23 +197,23 @@ public class FamiliarRingItem extends Item {
 
         @Override
         public <T> LazyOptional<T> getCapability(Capability<T> cap, Direction side) {
-            return CuriosCapability.ITEM.orEmpty(cap, instance);
+            return CuriosCapability.ITEM.orEmpty(cap, this.instance);
         }
 
         @Override
         public CompoundNBT serializeNBT() {
-            return get().serializeNBT();
+            return this.get().serializeNBT();
         }
 
         @Override
         public void deserializeNBT(CompoundNBT nbt) {
-            get().deserializeNBT(nbt);
+            this.get().deserializeNBT(nbt);
         }
 
         private Curio get() {
-            if (curio == null)
-                curio = new Curio();
-            return curio;
+            if (this.curio == null)
+                this.curio = new Curio();
+            return this.curio;
         }
 
     }
