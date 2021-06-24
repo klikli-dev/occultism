@@ -23,6 +23,7 @@
 package com.github.klikli_dev.occultism.common.entity;
 
 import java.util.EnumSet;
+import java.util.Optional;
 import java.util.UUID;
 
 import com.github.klikli_dev.occultism.registry.OccultismItems;
@@ -42,6 +43,7 @@ import net.minecraft.entity.ai.goal.PanicGoal;
 import net.minecraft.entity.ai.goal.SwimGoal;
 import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
 import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
@@ -60,8 +62,9 @@ public class GreedyFamiliarEntity extends CreatureEntity implements IFamiliar {
 
     private static final DataParameter<Boolean> SITTING = EntityDataManager.createKey(GreedyFamiliarEntity.class,
             DataSerializers.BOOLEAN);
+    protected static final DataParameter<Optional<UUID>> OWNER_UNIQUE_ID = EntityDataManager.createKey(TameableEntity.class, DataSerializers.OPTIONAL_UNIQUE_ID);
 
-    private UUID owner;
+    public LivingEntity ownerCached;
 
     public GreedyFamiliarEntity(EntityType<? extends GreedyFamiliarEntity> type, World worldIn) {
         super(type, worldIn);
@@ -76,6 +79,7 @@ public class GreedyFamiliarEntity extends CreatureEntity implements IFamiliar {
     protected void registerData() {
         super.registerData();
         this.dataManager.register(SITTING, false);
+        this.dataManager.register(OWNER_UNIQUE_ID, Optional.empty());
     }
 
     @Override
@@ -95,26 +99,54 @@ public class GreedyFamiliarEntity extends CreatureEntity implements IFamiliar {
         return false;
     }
 
+    public LivingEntity getOwner() {
+        try {
+            UUID uuid = this.getOwnerId();
+            return uuid == null ? null : this.world.getPlayerByUuid(uuid);
+        } catch (IllegalArgumentException illegalargumentexception) {
+            return null;
+        }
+    }
+
+    @Override
+    public void setFamiliarOwner(LivingEntity owner) {
+        this.setOwnerId(owner.getUniqueID());
+    }
+
+    public LivingEntity getOwnerCached() {
+        if (this.ownerCached != null)
+            return this.ownerCached;
+        this.ownerCached = this.getOwner();
+        return this.ownerCached;
+    }
+
     @Override
     protected ActionResultType getEntityInteractionResult(PlayerEntity playerIn, Hand hand) {
         ItemStack stack = playerIn.getHeldItem(hand);
         if (stack.getItem() == OccultismItems.FAMILIAR_RING.get()) {
             return stack.interactWithEntity(playerIn, this, hand);
         } else if (stack.getItem() == OccultismItems.DEBUG_WAND.get()) {
-            owner = playerIn.getUniqueID();
-            return ActionResultType.func_233537_a_(world.isRemote);
+            this.setOwnerId(playerIn.getUniqueID());
+            return ActionResultType.func_233537_a_(this.world.isRemote);
         } else {
-            if (!world.isRemote && getFamiliarOwner() == playerIn)
-                setSitting(!isSitting());
-            return ActionResultType.func_233537_a_(world.isRemote);
+            if (!this.world.isRemote && this.getFamiliarOwner() == playerIn)
+                this.setSitting(!this.isSitting());
+            return ActionResultType.func_233537_a_(this.world.isRemote);
         }
     }
 
     @Override
     public LivingEntity getFamiliarOwner() {
-        if (owner == null)
-            return null;
-        return world.getPlayerByUuid(owner);
+        return this.getOwnerCached();
+    }
+
+    public UUID getOwnerId() {
+        return this.dataManager.get(OWNER_UNIQUE_ID).orElse(null);
+    }
+
+    public void setOwnerId(UUID id) {
+        this.ownerCached = null;
+        this.dataManager.set(OWNER_UNIQUE_ID, Optional.ofNullable(id));
     }
 
     @Override
@@ -132,7 +164,7 @@ public class GreedyFamiliarEntity extends CreatureEntity implements IFamiliar {
         if (!(wearer instanceof PlayerEntity))
             return;
 
-        for (ItemEntity e : world.getEntitiesWithinAABB(ItemEntity.class, wearer.getBoundingBox().grow(5))) {
+        for (ItemEntity e : this.world.getEntitiesWithinAABB(ItemEntity.class, wearer.getBoundingBox().grow(5))) {
             e.onCollideWithPlayer((PlayerEntity) wearer);
         }
     }
@@ -141,26 +173,27 @@ public class GreedyFamiliarEntity extends CreatureEntity implements IFamiliar {
     public void readAdditional(CompoundNBT compound) {
         super.readAdditional(compound);
         if (compound.hasUniqueId("owner"))
-            owner = compound.getUniqueId("owner");
+            this.setOwnerId(compound.getUniqueId("owner"));
         if (compound.contains("isSitting"))
-            setSitting(compound.getBoolean("isSitting"));
+            this.setSitting(compound.getBoolean("isSitting"));
     }
 
     @Override
     public void writeAdditional(CompoundNBT compound) {
         super.writeAdditional(compound);
-        if (owner != null)
-            compound.putUniqueId("owner", owner);
+        if (this.getOwnerId() != null) {
+            compound.putUniqueId("owner", this.getOwnerId());
+        }
 
-        compound.putBoolean("isSitting", isSitting());
+        compound.putBoolean("isSitting", this.isSitting());
     }
 
     private void setSitting(boolean b) {
-        dataManager.set(SITTING, b);
+        this.dataManager.set(SITTING, b);
     }
 
     public boolean isSitting() {
-        return dataManager.get(SITTING);
+        return this.dataManager.get(SITTING);
     }
 
     public class FollowOwnerGoal extends Goal {
@@ -180,33 +213,33 @@ public class GreedyFamiliarEntity extends CreatureEntity implements IFamiliar {
         }
 
         private boolean shouldFollow(double distance) {
-            return owner != null && !owner.isSpectator() && entity.getDistanceSq(owner) > distance;
+            return this.owner != null && !this.owner.isSpectator() && this.entity.getDistanceSq(this.owner) > distance;
         }
 
         public boolean shouldExecute() {
-            owner = entity.getFamiliarOwner();
-            return shouldFollow(minDist);
+            this.owner = this.entity.getFamiliarOwner();
+            return this.shouldFollow(this.minDist);
         }
 
         public boolean shouldContinueExecuting() {
-            return shouldFollow(maxDist);
+            return this.shouldFollow(this.maxDist);
         }
 
         public void startExecuting() {
-            cooldown = 0;
+            this.cooldown = 0;
         }
 
         public void resetTask() {
-            owner = null;
-            entity.getNavigator().clearPath();
+            this.owner = null;
+            this.entity.getNavigator().clearPath();
         }
 
         public void tick() {
-            entity.getLookController().setLookPositionWithEntity(owner, 10, entity.getVerticalFaceSpeed());
-            if (--cooldown < 0) {
-                cooldown = 10;
-                if (!entity.getLeashed() && !entity.isPassenger()) {
-                    entity.getNavigator().tryMoveToEntityLiving(owner, speed);
+            this.entity.getLookController().setLookPositionWithEntity(this.owner, 10, this.entity.getVerticalFaceSpeed());
+            if (--this.cooldown < 0) {
+                this.cooldown = 10;
+                if (!this.entity.getLeashed() && !this.entity.isPassenger()) {
+                    this.entity.getNavigator().tryMoveToEntityLiving(this.owner, this.speed);
                 }
             }
         }
@@ -221,16 +254,16 @@ public class GreedyFamiliarEntity extends CreatureEntity implements IFamiliar {
         }
 
         public boolean shouldExecute() {
-            return !entity.isInWaterOrBubbleColumn() && entity.isOnGround() && entity.getFamiliarOwner() != null
-                    && entity.isSitting();
+            return !this.entity.isInWaterOrBubbleColumn() && this.entity.isOnGround() && this.entity.getFamiliarOwner() != null
+                    && this.entity.isSitting();
         }
 
         public void startExecuting() {
-            entity.getNavigator().clearPath();
+            this.entity.getNavigator().clearPath();
         }
 
         public void resetTask() {
-            entity.setSitting(false);
+            this.entity.setSitting(false);
         }
     }
 
@@ -247,37 +280,37 @@ public class GreedyFamiliarEntity extends CreatureEntity implements IFamiliar {
 
         @Override
         public boolean shouldExecute() {
-            return getNearbyItem() != null && entity.getFamiliarOwner() instanceof PlayerEntity;
+            return this.getNearbyItem() != null && this.entity.getFamiliarOwner() instanceof PlayerEntity;
         }
 
         @Override
         public void startExecuting() {
-            ItemEntity item = getNearbyItem();
+            ItemEntity item = this.getNearbyItem();
             if (item != null)
-                entity.getNavigator().tryMoveToEntityLiving(item, 1.2);
+                this.entity.getNavigator().tryMoveToEntityLiving(item, 1.2);
         }
 
         @Override
         public void tick() {
-            ItemEntity item = getNearbyItem();
+            ItemEntity item = this.getNearbyItem();
             if (item != null) {
-                entity.getNavigator().tryMoveToEntityLiving(item, 1.2);
-                LivingEntity owner = entity.getFamiliarOwner();
-                if (item.getDistanceSq(entity) < 4 && owner instanceof PlayerEntity)
+                this.entity.getNavigator().tryMoveToEntityLiving(item, 1.2);
+                LivingEntity owner = this.entity.getFamiliarOwner();
+                if (item.getDistanceSq(this.entity) < 4 && owner instanceof PlayerEntity)
                     item.onCollideWithPlayer(((PlayerEntity) owner));
             }
         }
 
         private ItemEntity getNearbyItem() {
-            LivingEntity owner = entity.getFamiliarOwner();
+            LivingEntity owner = this.entity.getFamiliarOwner();
             if (!(owner instanceof PlayerEntity))
                 return null;
 
             PlayerEntity player = (PlayerEntity) owner;
             IItemHandler inv = new PlayerMainInvWrapper(player.inventory);
 
-            for (ItemEntity item : entity.world.getEntitiesWithinAABB(ItemEntity.class,
-                    entity.getBoundingBox().grow(RANGE))) {
+            for (ItemEntity item : this.entity.world.getEntitiesWithinAABB(ItemEntity.class,
+                    this.entity.getBoundingBox().grow(RANGE))) {
                 ItemStack stack = item.getItem();
                 if (ItemHandlerHelper.insertItemStacked(inv, stack, true).getCount() != stack.getCount())
                     return item;

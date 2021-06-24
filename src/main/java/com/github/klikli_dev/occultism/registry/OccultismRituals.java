@@ -154,6 +154,8 @@ public class OccultismRituals {
             RITUALS.register("possess_enderman", PossessEndermanRitual::new);
 
     //Familiars
+    public static final RegistryObject<FamiliarGreedyRitual> FAMILIAR_GREEDY_RITUAL =
+            RITUALS.register("familiar_greedy", FamiliarGreedyRitual::new);
     public static final RegistryObject<FamiliarParrotRitual> FAMILIAR_PARROT_RITUAL =
             RITUALS.register("familiar_parrot", FamiliarParrotRitual::new);
     public static final RegistryObject<SummonWildParrotRitual> SUMMON_WILD_PARROT_RITUAL =

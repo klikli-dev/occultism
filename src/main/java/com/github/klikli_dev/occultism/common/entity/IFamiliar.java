@@ -48,6 +48,12 @@ public interface IFamiliar {
     @Nullable
     LivingEntity getFamiliarOwner();
 
+    /**
+     * Sets the owner entity of this familiar.
+     * @param owner the new owner of this familiar
+     */
+     void setFamiliarOwner(LivingEntity owner);
+
     /***
      * Gets the actual familiar as an entity.
      * 

@@ -118,6 +118,11 @@ public class OtherworldBirdEntity extends ParrotEntity implements IFamiliar {
     }
 
     @Override
+    public void setFamiliarOwner(LivingEntity owner) {
+        this.setOwnerId(owner.getUniqueID());
+    }
+
+    @Override
     public Entity getEntity() {
         return this;
     }
