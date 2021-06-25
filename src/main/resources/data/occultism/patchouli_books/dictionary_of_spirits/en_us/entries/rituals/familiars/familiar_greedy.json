@@ -12,7 +12,7 @@
     {
       "type": "summoning_sacrifice_noformat",
       "heading": "Summoning",
-      "pentacle": "$(l:pentacles/summon_foliot)Aviar's Circle$(/l)",
+      "pentacle": "$(l:pentacles/possess_foliot)Heydrin's Lure$(/l)",
       "activation_item": "occultism:book_of_binding_bound_foliot",
       "sacrifice": "Any $(thing)Zombie$()",
       "ingredients": "$(li)1x $(item)Chest $()$(li)1x $(item)Block of Iron $()$(li)1x $(item)Dispenser $()$(li)1x $(item)Hopper $()"

@@ -16,7 +16,7 @@
     {
       "type": "text",
       "title": "Uses",
-      "text": "$(li)$(l:rituals/summoning/summon_crusher)Foliot Crusher$(/l)$()$(li)$(l:rituals/summoning/summon_lumberjack)Foliot Lumberjack$(/l)$()$(li)$(l:rituals/summoning/summon_transport_items)Foliot Transporter$(/l)$()$(li)$(l:rituals/summoning/summon_cleaner)Foliot Janitor$(/l)$()$(li)$$(li)$(l:rituals/familiars/familiar_greedy)Greedy Familiar$(/l)$()(l:rituals/summoning/summon_otherstone_trader)Otherstone Trader$(/l)$()$(li)$(l:rituals/summoning/summone_otherworld_sapling_trader)Otherworld Sapling Trader$(/l)$()"
+      "text": "$(li)$(l:rituals/summoning/summon_crusher)Foliot Crusher$(/l)$()$(li)$(l:rituals/summoning/summon_lumberjack)Foliot Lumberjack$(/l)$()$(li)$(l:rituals/summoning/summon_transport_items)Foliot Transporter$(/l)$()$(li)$(l:rituals/summoning/summon_cleaner)Foliot Janitor$(/l)$()$(li)$(l:rituals/summoning/summon_otherstone_trader)Otherstone Trader$(/l)$()$(li)$(l:rituals/summoning/summone_otherworld_sapling_trader)Otherworld Sapling Trader$(/l)$()"
     }
   ]
 }
