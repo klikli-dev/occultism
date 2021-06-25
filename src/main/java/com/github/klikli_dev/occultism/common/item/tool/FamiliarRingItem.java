@@ -74,7 +74,7 @@ public class FamiliarRingItem extends Item {
             Hand hand) {
         if (!playerIn.world.isRemote && target instanceof IFamiliar) {
             IFamiliar familiar = (IFamiliar) target;
-            if (familiar.getFamiliarOwner() == playerIn && this.getCurio(stack).captureFamiliar(playerIn.world, familiar)) {
+            if ((familiar.getFamiliarOwner() == playerIn || familiar.getFamiliarOwner() == null) && this.getCurio(stack).captureFamiliar(playerIn.world, familiar)) {
                 CompoundNBT tag = stack.getOrCreateTag();
                 tag.putBoolean("occupied", true);
                 ItemNBTUtil.setBoundSpiritName(stack, familiar.getEntity().getDisplayName().getString());
@@ -121,7 +121,7 @@ public class FamiliarRingItem extends Item {
         }
 
         private boolean releaseFamiliar(PlayerEntity player, World world) {
-            if (this.getFamiliar(world) != null && this.getFamiliar(world).getFamiliarOwner() == player
+            if (this.getFamiliar(world) != null
                     && !this.getFamiliar(world).getEntity().isAddedToWorld()) {
                 EntityType.loadEntityAndExecute(this.getFamiliar(world).getEntity().serializeNBT(), world, e -> {
                     e.setPosition(player.getPosX(), player.getPosY(), player.getPosZ());
