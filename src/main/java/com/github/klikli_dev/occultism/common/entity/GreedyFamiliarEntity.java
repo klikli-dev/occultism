@@ -62,7 +62,7 @@ public class GreedyFamiliarEntity extends CreatureEntity implements IFamiliar {
 
     private static final DataParameter<Boolean> SITTING = EntityDataManager.createKey(GreedyFamiliarEntity.class,
             DataSerializers.BOOLEAN);
-    protected static final DataParameter<Optional<UUID>> OWNER_UNIQUE_ID = EntityDataManager.createKey(TameableEntity.class, DataSerializers.OPTIONAL_UNIQUE_ID);
+    protected static final DataParameter<Optional<UUID>> OWNER_UNIQUE_ID = EntityDataManager.createKey(GreedyFamiliarEntity.class, DataSerializers.OPTIONAL_UNIQUE_ID);
 
     public LivingEntity ownerCached;
 
