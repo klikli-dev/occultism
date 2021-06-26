@@ -24,6 +24,7 @@ package com.github.klikli_dev.occultism.handlers;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.capability.DoubleJumpCapability;
+import com.github.klikli_dev.occultism.common.capability.FamiliarSettingsCapability;
 import com.github.klikli_dev.occultism.network.MessageSetJumps;
 import com.github.klikli_dev.occultism.network.OccultismPackets;
 import com.github.klikli_dev.occultism.registry.OccultismCapabilities;
@@ -65,6 +66,9 @@ public class CapabilityEventHandler {
         if (evt.getObject() instanceof PlayerEntity) {
             if (!evt.getObject().getCapability(OccultismCapabilities.DOUBLE_JUMP).isPresent()) {
                 evt.addCapability(OccultismCapabilities.DOUBLE_JUMP_ID, new DoubleJumpCapability.Dispatcher());
+            }
+            if (!evt.getObject().getCapability(OccultismCapabilities.FAMILIAR_SETTINGS).isPresent()) {
+                evt.addCapability(OccultismCapabilities.FAMILIAR_SETTINGS_ID, new FamiliarSettingsCapability.Dispatcher());
             }
         }
     }

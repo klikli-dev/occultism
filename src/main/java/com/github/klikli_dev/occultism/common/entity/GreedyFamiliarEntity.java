@@ -26,6 +26,7 @@ import java.util.EnumSet;
 import java.util.Optional;
 import java.util.UUID;
 
+import com.github.klikli_dev.occultism.registry.OccultismCapabilities;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.google.common.collect.ImmutableList;
 
@@ -164,13 +165,17 @@ public class GreedyFamiliarEntity extends CreatureEntity implements IFamiliar {
         if (!(wearer instanceof PlayerEntity))
             return;
 
-        for (ItemEntity e : this.world.getEntitiesWithinAABB(ItemEntity.class, wearer.getBoundingBox().grow(5))) {
-            ItemStack stack = e.getItem().getStack();
-            boolean isDemagnetized = stack.hasTag() && stack.getTag().getBoolean("PreventRemoteMovement");
-            if(!isDemagnetized){
-                e.onCollideWithPlayer((PlayerEntity) wearer);
+        wearer.getCapability(OccultismCapabilities.FAMILIAR_SETTINGS).ifPresent(cap -> {
+            if(cap.isGreedyEnabled()){
+                for (ItemEntity e : this.world.getEntitiesWithinAABB(ItemEntity.class, wearer.getBoundingBox().grow(5))) {
+                    ItemStack stack = e.getItem().getStack();
+                    boolean isDemagnetized = stack.hasTag() && stack.getTag().getBoolean("PreventRemoteMovement");
+                    if(!isDemagnetized){
+                        e.onCollideWithPlayer((PlayerEntity) wearer);
+                    }
+                }
             }
-        }
+        });
     }
 
     @Override

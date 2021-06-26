@@ -64,6 +64,14 @@ public class ClientSetupEventHandler {
     public static final KeyBinding KEY_BACKPACK =
             new KeyBinding("key.occultism.backpack", BackpackKeyConflictContext.INSTANCE,
                     InputMappings.Type.KEYSYM.getOrMakeInput(GLFW.GLFW_KEY_B), "key.occultism.category");
+
+    public static final KeyBinding KEY_FAMILIAR_OTHERWORLD_BIRD =
+            new KeyBinding("key.occultism.familiar.otherworld_bird", BackpackKeyConflictContext.INSTANCE,
+                    InputMappings.Type.KEYSYM.getOrMakeInput(-1), "key.occultism.category");
+
+    public static final KeyBinding KEY_FAMILIAR_GREEDY =
+            new KeyBinding("key.occultism.familiar.greedy", BackpackKeyConflictContext.INSTANCE,
+                    InputMappings.Type.KEYSYM.getOrMakeInput(GLFW.GLFW_KEY_M), "key.occultism.category");
     //endregion Fields
 
     //region Static Methods
@@ -76,6 +84,8 @@ public class ClientSetupEventHandler {
         //keybindings
         event.enqueueWork(() -> {
             ClientRegistry.registerKeyBinding(KEY_BACKPACK);
+            ClientRegistry.registerKeyBinding(KEY_FAMILIAR_OTHERWORLD_BIRD);
+            ClientRegistry.registerKeyBinding(KEY_FAMILIAR_GREEDY);
         });
 
         //Register Entity Renderers
