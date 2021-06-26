@@ -59,7 +59,7 @@ public class CraftStabilizerTier4Ritual extends Ritual {
                 goldenBowlPosition.getY() + 0.5, goldenBowlPosition.getZ() + 0.5, 1, 0, 0, 0, 0);
 
         ItemStack result = new ItemStack(OccultismBlocks.STORAGE_STABILIZER_TIER4.get());
-        ItemHandlerHelper.giveItemToPlayer(castingPlayer, result);
+       this.dropResult(world, goldenBowlPosition, tileEntity, castingPlayer, result);
     }
     //endregion Overrides
 }

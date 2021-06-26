@@ -65,7 +65,7 @@ public class CraftMinerDjinniOresRitual extends Ritual {
         //copy over spirit name
         ItemNBTUtil.setBoundSpiritName(result, ItemNBTUtil.getBoundSpiritName(copy));
 
-        ItemHandlerHelper.giveItemToPlayer(castingPlayer, result);
+       this.dropResult(world, goldenBowlPosition, tileEntity, castingPlayer, result);
     }
     //endregion Overrides
 }

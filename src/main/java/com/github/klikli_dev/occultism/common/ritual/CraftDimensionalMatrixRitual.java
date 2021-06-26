@@ -60,7 +60,7 @@ public class CraftDimensionalMatrixRitual extends Ritual {
 
         ItemStack result = new ItemStack(OccultismItems.DIMENSIONAL_MATRIX.get());
         ItemNBTUtil.setBoundSpiritName(result, ItemNBTUtil.getBoundSpiritName(copy));
-        ItemHandlerHelper.giveItemToPlayer(castingPlayer, result);
+        this.dropResult(world, goldenBowlPosition, tileEntity, castingPlayer, result);
     }
     //endregion Overrides
 }

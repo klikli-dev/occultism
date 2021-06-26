@@ -31,6 +31,7 @@ import com.github.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.github.klikli_dev.occultism.registry.OccultismSounds;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -648,6 +649,25 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
      */
     public boolean requiresItemUse() {
         return this.itemUsePredicate != null;
+    }
+
+    /**
+     * Drops the given result stack near the golden bowl.
+     *
+     * @param world              the world.
+     * @param goldenBowlPosition the position of the golden bowl.
+     * @param tileEntity         the tile entity controlling the ritual.
+     * @param castingPlayer      the player starting the ritual.
+     * @param stack              the result stack to drop.
+     */
+    public void dropResult(World world, BlockPos goldenBowlPosition, GoldenSacrificialBowlTileEntity tileEntity,
+                           PlayerEntity castingPlayer,  ItemStack stack){
+        double angle = world.rand.nextDouble() * Math.PI * 2;
+        ItemEntity entity = new ItemEntity(world, goldenBowlPosition.getX() + 0.5, goldenBowlPosition.getY() + 0.75,
+                goldenBowlPosition.getZ() + 0.5, stack);
+        entity.setMotion(Math.sin(angle) * 0.125, 0.25, Math.cos(angle) * 0.125);
+        entity.setPickupDelay(10);
+        world.addEntity(entity);
     }
     //endregion Methods
 }
