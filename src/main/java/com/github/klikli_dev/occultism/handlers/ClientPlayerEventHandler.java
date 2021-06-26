@@ -26,6 +26,7 @@ import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.client.gui.storage.SatchelScreen;
 import com.github.klikli_dev.occultism.network.MessageDoubleJump;
 import com.github.klikli_dev.occultism.network.MessageOpenSatchel;
+import com.github.klikli_dev.occultism.network.MessageToggleFamiliarSettings;
 import com.github.klikli_dev.occultism.network.OccultismPackets;
 import com.github.klikli_dev.occultism.util.CuriosUtil;
 import com.github.klikli_dev.occultism.util.MovementUtil;
@@ -47,6 +48,7 @@ public class ClientPlayerEventHandler {
     public static void onKeyInput(final InputEvent.KeyInputEvent event) {
         Minecraft minecraft = Minecraft.getInstance();
         checkBackpackKey(event);
+        checkFamiliarSettingsKeys(event);
         if (event.getAction() == GLFW_PRESS && minecraft.gameSettings.keyBindJump.isKeyDown()) {
             if (minecraft.player != null && MovementUtil.doubleJump(minecraft.player)) {
                 OccultismPackets.sendToServer(new MessageDoubleJump());
@@ -69,11 +71,22 @@ public class ClientPlayerEventHandler {
         }
         //open satchel
         else if (minecraft.player != null & minecraft.currentScreen == null &&
-                 ClientSetupEventHandler.KEY_BACKPACK.isPressed()) {
+                ClientSetupEventHandler.KEY_BACKPACK.isPressed()) {
             if (!CuriosUtil.getBackpack(minecraft.player).isEmpty() ||
-                CuriosUtil.getFirstBackpackSlot(minecraft.player) > 0) {
+                    CuriosUtil.getFirstBackpackSlot(minecraft.player) > 0) {
                 OccultismPackets.sendToServer(new MessageOpenSatchel());
                 minecraft.getSoundHandler().play(SimpleSound.master(SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0.75F, 1.0F));
+            }
+        }
+    }
+
+    public static void checkFamiliarSettingsKeys(InputEvent event) {
+        Minecraft minecraft = Minecraft.getInstance();
+        if (minecraft.player != null & minecraft.currentScreen == null) {
+            boolean familiarGreedy = ClientSetupEventHandler.KEY_FAMILIAR_GREEDY.isPressed();
+            boolean familiarOtherworldBird = ClientSetupEventHandler.KEY_FAMILIAR_OTHERWORLD_BIRD.isPressed();
+            if (familiarGreedy|| familiarOtherworldBird) {
+                OccultismPackets.sendToServer(new MessageToggleFamiliarSettings(familiarOtherworldBird, familiarGreedy));
             }
         }
     }

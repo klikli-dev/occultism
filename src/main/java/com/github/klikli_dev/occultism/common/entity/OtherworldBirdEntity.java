@@ -22,11 +22,14 @@
 
 package com.github.klikli_dev.occultism.common.entity;
 
+import java.util.Collections;
 import java.util.UUID;
 
 import javax.annotation.Nullable;
 
 import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.common.capability.FamiliarSettingsCapability;
+import com.github.klikli_dev.occultism.registry.OccultismCapabilities;
 import com.github.klikli_dev.occultism.registry.OccultismEffects;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.google.common.collect.ImmutableList;
@@ -42,6 +45,7 @@ import net.minecraft.entity.ai.goal.PanicGoal;
 import net.minecraft.entity.ai.goal.SitGoal;
 import net.minecraft.entity.ai.goal.SwimGoal;
 import net.minecraft.entity.ai.goal.WaterAvoidingRandomFlyingGoal;
+import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.passive.ParrotEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -128,11 +132,19 @@ public class OtherworldBirdEntity extends ParrotEntity implements IFamiliar {
 
     @Override
     public Iterable<EffectInstance> getFamiliarEffects() {
-        return ImmutableList.of(new EffectInstance(Effects.JUMP_BOOST, 60, 5, false, false),
-                new EffectInstance(Effects.SLOW_FALLING,
-                        20 * Occultism.SERVER_CONFIG.spiritJobs.drikwingFamiliarSlowFallingSeconds.get(), 0, false,
-                        false),
-                new EffectInstance(OccultismEffects.DOUBLE_JUMP.get(), 120, 4, false, false));
+
+        //only provide effect if enabled
+        if (this.getFamiliarOwner().getCapability(OccultismCapabilities.FAMILIAR_SETTINGS)
+                .map(FamiliarSettingsCapability::isOtherworldBirdEnabled).orElse(false)) {
+
+            return ImmutableList.of(new EffectInstance(Effects.JUMP_BOOST, 60, 5, false, false),
+                    new EffectInstance(Effects.SLOW_FALLING,
+                            20 * Occultism.SERVER_CONFIG.spiritJobs.drikwingFamiliarSlowFallingSeconds.get(), 0, false,
+                            false),
+                    new EffectInstance(OccultismEffects.DOUBLE_JUMP.get(), 120, 4, false, false));
+
+        }
+        return Collections.emptyList();
     }
 
     @Override
@@ -145,7 +157,7 @@ public class OtherworldBirdEntity extends ParrotEntity implements IFamiliar {
     }
     // endregion Overrides
 
-//region Static Methods
+    //region Static Methods
     public static AttributeModifierMap.MutableAttribute registerAttributes() {
         return ParrotEntity.func_234213_eS_(); // =registerAttributes
     }

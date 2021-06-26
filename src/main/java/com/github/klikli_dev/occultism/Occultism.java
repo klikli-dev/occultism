@@ -106,6 +106,7 @@ public class Occultism {
         modEventBus.addListener(this::enqueueIMC);
 
         MinecraftForge.EVENT_BUS.register(this);
+        MinecraftForge.EVENT_BUS.addListener(OccultismCapabilities::onPlayerClone);
     }
 
     //endregion Initialization
