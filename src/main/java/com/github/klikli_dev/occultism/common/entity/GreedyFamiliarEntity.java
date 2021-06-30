@@ -24,6 +24,7 @@ package com.github.klikli_dev.occultism.common.entity;
 
 import java.util.EnumSet;
 import java.util.Optional;
+import java.util.Random;
 import java.util.UUID;
 
 import com.github.klikli_dev.occultism.registry.OccultismCapabilities;
@@ -44,16 +45,19 @@ import net.minecraft.entity.ai.goal.PanicGoal;
 import net.minecraft.entity.ai.goal.SwimGoal;
 import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
 import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.pathfinding.PathNodeType;
+import net.minecraft.pathfinding.WalkNodeProcessor;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
@@ -73,7 +77,7 @@ public class GreedyFamiliarEntity extends CreatureEntity implements IFamiliar {
 
     public static AttributeModifierMap.MutableAttribute registerAttributes() {
         return MobEntity.func_233666_p_().createMutableAttribute(Attributes.MAX_HEALTH, 6)
-                .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.2);
+                .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.3);
     }
 
     @Override
@@ -206,6 +210,9 @@ public class GreedyFamiliarEntity extends CreatureEntity implements IFamiliar {
     }
 
     public class FollowOwnerGoal extends Goal {
+        
+        private static final int TELEPORT_ATTEMPTS = 10;
+        
         private GreedyFamiliarEntity entity;
         private double speed;
         private int cooldown;
@@ -248,9 +255,39 @@ public class GreedyFamiliarEntity extends CreatureEntity implements IFamiliar {
             if (--this.cooldown < 0) {
                 this.cooldown = 10;
                 if (!this.entity.getLeashed() && !this.entity.isPassenger()) {
-                    this.entity.getNavigator().tryMoveToEntityLiving(this.owner, this.speed);
+                    if (this.entity.getDistanceSq(this.owner) >= 150)
+                        this.tryTeleport();
+                    else
+                        this.entity.getNavigator().tryMoveToEntityLiving(this.owner, this.speed);
                 }
             }
+        }
+
+        private void tryTeleport() {
+            for (int i = 0; i < TELEPORT_ATTEMPTS; i++)
+                if (this.tryTeleport(this.randomNearby(this.owner.getPosition())))
+                    return;
+        }
+
+        private boolean tryTeleport(BlockPos pos) {
+            boolean walkable = PathNodeType.WALKABLE == WalkNodeProcessor.getFloorNodeType(this.entity.world,
+                    pos.toMutable());
+            boolean noCollision = this.entity.world.hasNoCollisions(this.entity,
+                    this.entity.getBoundingBox().offset(pos.subtract(this.entity.getPosition())));
+            if (walkable && noCollision) {
+                this.entity.setLocationAndAngles(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5,
+                        this.entity.rotationYaw, this.entity.rotationPitch);
+                this.entity.navigator.clearPath();
+                return true;
+            }
+
+            return false;
+        }
+
+        private BlockPos randomNearby(BlockPos pos) {
+            Random rand = this.entity.getRNG();
+            return pos.add(MathHelper.nextDouble(rand, -3, 3), MathHelper.nextDouble(rand, -1, 1),
+                    MathHelper.nextDouble(rand, -3, 3));
         }
     }
 
