@@ -22,6 +22,7 @@
 
 package com.github.klikli_dev.occultism.common.container.storage;
 
+import com.github.klikli_dev.occultism.api.common.data.GlobalBlockPos;
 import com.github.klikli_dev.occultism.client.gui.storage.StorageControllerGuiBase;
 import com.github.klikli_dev.occultism.common.misc.StorageControllerCraftingInventory;
 import com.github.klikli_dev.occultism.common.tile.StableWormholeTileEntity;
@@ -35,6 +36,7 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -83,6 +85,11 @@ public class StableWormholeContainer extends StorageControllerContainerBase {
     @Override
     public StorageControllerTileEntity getStorageController() {
         return this.storageController;
+    }
+
+    @Override
+    public GlobalBlockPos getStorageControllerGlobalBlockPos() {
+        return this.stableWormhole.getLinkedStorageControllerPosition();
     }
 
     @Override
