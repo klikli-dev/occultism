@@ -24,6 +24,7 @@ package com.github.klikli_dev.occultism.common.job;
 
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.github.klikli_dev.occultism.registry.OccultismSpiritJobs;
+import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
@@ -115,10 +116,10 @@ public abstract class SpiritJob implements INBTSerializable<CompoundNBT> {
     /**
      * Determines if the spirit can pick up the given item stack while on this job.
      *
-     * @param stack the stack to pick up
+     * @param entity the item entity to pick up
      * @return true to pick up.
      */
-    public boolean canPickupItem(ItemStack stack) {
+    public boolean canPickupItem(ItemEntity entity) {
         return false;
     }
     //endregion Methods

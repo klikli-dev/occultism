@@ -23,6 +23,7 @@
 package com.github.klikli_dev.occultism.common.job;
 
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
+import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.particles.ParticleTypes;
@@ -105,10 +106,6 @@ public abstract class ChangeTimeJob extends SpiritJob {
         this.requiredChangeTicks = compound.getInt("requiredChangeTicks");
     }
 
-    @Override
-    public boolean canPickupItem(ItemStack stack) {
-        return false;
-    }
     //endregion Overrides
 
     //region Methods

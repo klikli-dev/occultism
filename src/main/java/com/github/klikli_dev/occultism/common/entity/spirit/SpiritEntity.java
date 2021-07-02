@@ -33,6 +33,7 @@ import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.*;
+import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -628,8 +629,8 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
         this.job.ifPresent(SpiritJob::init);
     }
 
-    public boolean canPickupItem(ItemStack stack) {
-        return this.job.map(job -> job.canPickupItem(stack)).orElse(false);
+    public boolean canPickupItem(ItemEntity entity) {
+        return this.job.map(job -> job.canPickupItem(entity)).orElse(false);
     }
 
     public void openGUI(PlayerEntity playerEntity) {

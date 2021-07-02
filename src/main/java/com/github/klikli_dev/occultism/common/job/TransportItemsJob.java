@@ -78,11 +78,6 @@ public class TransportItemsJob extends SpiritJob implements INamedContainerProvi
         this.entity.goalSelector.removeGoal(this.openDoorGoal);
     }
 
-    @Override
-    public boolean canPickupItem(ItemStack stack) {
-        return false;
-    }
-
     @Nullable
     @Override
     public Container createMenu(int id, PlayerInventory playerInventory, PlayerEntity player) {

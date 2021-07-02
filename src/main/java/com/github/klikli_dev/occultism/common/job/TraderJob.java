@@ -25,6 +25,7 @@ package com.github.klikli_dev.occultism.common.job;
 import com.github.klikli_dev.occultism.common.entity.ai.PickupItemsGoal;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.github.klikli_dev.occultism.crafting.recipe.SpiritTradeRecipe;
+import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.CompoundNBT;
@@ -179,7 +180,8 @@ public class TraderJob extends SpiritJob {
     }
 
     @Override
-    public boolean canPickupItem(ItemStack stack) {
+    public boolean canPickupItem(ItemEntity entity) {
+        ItemStack stack = entity.getItem();
         return !stack.isEmpty() && this.trade.isValid(stack);
     }
     //endregion Overrides

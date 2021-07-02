@@ -93,6 +93,7 @@ public class OccultismServerConfig extends ConfigBase {
         public final CachedInt tier4CrusherMaxAgeSeconds;
         public final CachedInt tier1SaplingTraderMaxAgeSeconds;
         public final CachedInt tier1OtherstoneTraderMaxAgeSeconds;
+        public final CachedInt crusherResultPickupDelay;
         //endregion Fields
 
         //region Initialization
@@ -163,6 +164,11 @@ public class OccultismServerConfig extends ConfigBase {
                     builder.comment(
                             "The max seconds before a spirit despawns. -1 to disable despawn.")
                             .define("tier1SaplingTraderMaxAgeSeconds", 60 * 60 * 1));
+
+            this.crusherResultPickupDelay = CachedInt.cache(this,
+                    builder.comment(
+                            "The minimum ticks before a crusher can pick up an item it dropped. Default is 3 Seconds = 3 * 20 Ticks.")
+                            .define("crusherResultPickupDelay", 20 * 3));
 
             builder.pop();
         }

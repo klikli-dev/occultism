@@ -29,6 +29,7 @@ import com.github.klikli_dev.occultism.common.entity.ai.ReturnToWorkAreaGoal;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.github.klikli_dev.occultism.exceptions.ItemHandlerMissingException;
 import com.github.klikli_dev.occultism.util.StorageUtil;
+import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
@@ -74,7 +75,8 @@ public class CleanerJob extends SpiritJob implements INamedContainerProvider {
     }
 
     @Override
-    public boolean canPickupItem(ItemStack stack) {
+    public boolean canPickupItem(ItemEntity entity) {
+        ItemStack stack = entity.getItem();
         boolean matches = StorageUtil.matchesFilter(stack,
                 this.entity.getFilterItems().orElseThrow(ItemHandlerMissingException::new)) ||
                           StorageUtil.matchesFilter(stack, this.entity.getTagFilter());

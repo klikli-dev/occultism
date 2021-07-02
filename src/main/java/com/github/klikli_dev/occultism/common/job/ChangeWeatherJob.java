@@ -110,10 +110,6 @@ public abstract class ChangeWeatherJob extends SpiritJob {
         this.requiredChangeTicks = compound.getInt("requiredChangeTicks");
     }
 
-    @Override
-    public boolean canPickupItem(ItemStack stack) {
-        return false;
-    }
     //endregion Overrides
 
     //region Methods

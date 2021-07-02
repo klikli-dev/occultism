@@ -22,12 +22,14 @@
 
 package com.github.klikli_dev.occultism.common.job;
 
+import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.entity.ai.PickupItemsGoal;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.github.klikli_dev.occultism.crafting.recipe.CrushingRecipe;
 import com.github.klikli_dev.occultism.crafting.recipe.ItemStackFakeInventory;
 import com.github.klikli_dev.occultism.registry.OccultismRecipes;
 import com.github.klikli_dev.occultism.registry.OccultismSounds;
+import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.nbt.CompoundNBT;
@@ -46,6 +48,8 @@ import java.util.stream.Collectors;
 public class CrusherJob extends SpiritJob {
 
     //region Fields
+    public static final String DROPPED_BY_CRUSHER = "occultism:dropped_by_crusher";
+
     /**
      * The current ticks in the crushing, will crush once it reaches crushing_time * crushingTimeMultiplier
      */
@@ -131,7 +135,8 @@ public class CrusherJob extends SpiritJob {
                     handHeld.shrink(1);
 
                     this.onCrush(inputCopy, result);
-                    this.entity.entityDropItem(result);
+                    ItemEntity droppedItem = this.entity.entityDropItem(result);
+                    droppedItem.addTag(DROPPED_BY_CRUSHER);
                     //Don't reset recipe here, keep it cached
                 }
             }
@@ -152,7 +157,12 @@ public class CrusherJob extends SpiritJob {
     }
 
     @Override
-    public boolean canPickupItem(ItemStack stack) {
+    public boolean canPickupItem(ItemEntity entity) {
+        if(entity.getTags().contains(DROPPED_BY_CRUSHER) && entity.getAge() <
+                Occultism.SERVER_CONFIG.spiritJobs.crusherResultPickupDelay.get())
+            return false; //cannot pick up items a crusher (most likely *this* one) dropped util delay elapsed.
+
+        ItemStack stack = entity.getItem();
         return !stack.isEmpty() && this.itemsToPickUp.stream().anyMatch(i -> i.test(stack));
     }
     //endregion Overrides

@@ -62,7 +62,7 @@ public class PickupItemsGoal extends TargetGoal {
             @Override
             public boolean apply(@Nullable ItemEntity item) {
                 ItemStack stack = item.getItem();
-                return !stack.isEmpty() && entity.canPickupItem(stack) && ItemHandlerHelper.insertItemStacked(
+                return !stack.isEmpty() && entity.canPickupItem(item) && ItemHandlerHelper.insertItemStacked(
                         entity.itemStackHandler.orElseThrow(ItemHandlerMissingException::new), stack, true).getCount() <
                                                                           stack.getCount();
             }
