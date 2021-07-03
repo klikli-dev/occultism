@@ -349,9 +349,15 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                         }
                         else if (!orderStack.isEmpty()) {
                             //this message both clears the order slot and creates the order
-                            OccultismPackets.sendToServer(new MessageRequestOrder(
-                                    this.storageControllerContainer.getStorageControllerGlobalBlockPos(),
-                                    slot.getMachine().globalPos, orderStack));
+                            GlobalBlockPos storageControllerPos = this.storageControllerContainer.getStorageControllerGlobalBlockPos();
+                            if(storageControllerPos != null){
+                                OccultismPackets.sendToServer(new MessageRequestOrder(
+                                        storageControllerPos,
+                                        slot.getMachine().globalPos, orderStack));
+                            } else {
+                                Occultism.LOGGER.warn("Linked Storage Controller Position null.");
+                            }
+
                             //now switch back gui mode.
                             this.guiMode = StorageControllerGuiMode.INVENTORY;
                         }
