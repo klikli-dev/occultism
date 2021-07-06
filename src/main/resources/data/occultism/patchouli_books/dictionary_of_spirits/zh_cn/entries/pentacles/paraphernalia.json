@@ -1,27 +1,27 @@
 {
-  "name": "神秘用具",
+  "name": "Occult Paraphernalia",
   "icon": "occultism:candle_white",
   "category": "pentacles",
   "sortnum": 1,
   "pages": [
     {
       "type": "text",
-      "text": "除了符文，各种神秘用具被用来改善五芒星的效果。"
+      "text": "In addition to runes various occult paraphernalia are used to improve the intended effect of the pentacle."
     },
     {
       "type": "spotlight",
       "item": "occultism:candle_white",
-      "text": "蜡烛增加了五芒星的稳定性。使得被召唤灵魂的本质可以慢慢衰退，灵魂以及被附身物的存在时间可以更长。"
+      "text": "Candles increase the stability of the pentacle, thus allowing a slowed essence decay of the summoned spirit, leading to a longer lifetime of the spirit, or possessed object or being."
     },
     {
       "type": "spotlight",
       "item": "occultism:spirit_attuned_crystal",
-      "text": "水晶增加了五芒星的束缚力，使得灵魂可以永久的被束缚在一个物品或生命中。"
+      "text": "Crystals increase the binding power of the pentacle, allowing a permanent binding of the spirit into an item or living being."
     },
     {
       "type": "spotlight",
       "item": "minecraft:skeleton_skull",
-      "text": "头颅增加了五芒星的召唤力，使得更多更危险的灵魂可以被召唤出来。"
+      "text": "Skulls increase the calling power of the pentacle, allowing to summon more dangerous spirits."
     }
   ]
 }

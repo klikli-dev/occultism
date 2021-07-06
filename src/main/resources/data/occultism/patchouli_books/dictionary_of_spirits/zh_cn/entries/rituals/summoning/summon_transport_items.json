@@ -1,19 +1,19 @@
 {
-  "name": "搬运工佛利奥特",
+  "name": "Foliot Transporter",
   "icon": "minecraft:minecart",
   "category": "rituals/summoning",
   "sortnum": 13,
   "pages": [
     {
       "type": "text",
-      "text": "搬运工将其可以访问的所有物品从一个存储空间移动到另一个存储空间，包括机器。可以通过侧面设置提取和输入使得它们可以用于各种自动化的运输任务。"
+      "text": "The transporter will move all items it can access from one inventory to another, including machines. By setting the extract and insert side they can be used to automate various transport tasks."
     },
     {
       "type": "summoning",
-      "heading": "召唤",
-      "pentacle": "$(l:pentacles/summon_foliot)阿维亚之圈$(/l)",
+      "heading": "Summoning",
+      "pentacle": "$(l:pentacles/summon_foliot)Aviar's Circle$(/l)",
       "activation_item": "occultism:book_of_binding_bound_foliot",
-      "ingredients": "$(li)1x $(item)矿车$()$(li)1x $(item)箱子$()$(li)1x $(item)发射器$()$(li)1x $(item)漏斗$()"
+      "ingredients": "$(li)1x $(item)Minecart $()$(li)1x $(item)Chest $()$(li)1x $(item)Dispenser $()$(li)1x $(item)Hopper $()"
     }
   ]
 }

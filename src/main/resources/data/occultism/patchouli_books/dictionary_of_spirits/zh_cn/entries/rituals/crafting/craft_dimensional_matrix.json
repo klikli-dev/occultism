@@ -1,5 +1,5 @@
 {
-  "name": "维度矩阵",
+  "name": "Dimensional Matrix",
   "icon": "occultism:dimensional_matrix",
   "category": "rituals/crafting",
   "sortnum": 22,
@@ -7,14 +7,14 @@
     {
       "type": "spotlight",
       "item": "occultism:dimensional_matrix",
-      "text": "维度矩阵是存储维度的入口。被注入到维度矩阵中的$(thing)金妮$()保持了存储维度的稳定性。可以使用存储稳定器来扩充存储维度的容量"
+      "text": "The dimensional matrix is the entry point to a small dimension used for storing items. A $(thing)Djinni$() bound to the matrix keeps the dimension stable, often supported by additional spirits in storage stabilizers, to increase the dimension size."
     },
     {
       "type": "summoning",
-      "heading": "注入",
-      "pentacle": "$(l:pentacles/craft_djinni)斯崔格的高等绑定$(/l)",
+      "heading": "Infusion",
+      "pentacle": "$(l:pentacles/craft_djinni)Strigeor's Higher Binding$(/l)",
       "activation_item": "occultism:book_of_binding_bound_djinni",
-      "ingredients": "$(li)1x $(item)末影珍珠$()$(li)3x $(item)石英块$()"
+      "ingredients": "$(li)1x $(item)Ender Pearl $()$(li)3x $(item)Quartz Block $()"
     }
   ]
 }

@@ -1,35 +1,44 @@
 {
-  "name": "五芒星总览",
+  "name": "On Pentacles",
   "icon": "occultism:textures/gui/book/pentagram_rose.png",
   "category": "pentacles",
   "sortnum": 0,
   "pages": [
     {
       "type": "text",
-      "text": "$(thing)五芒星$()的名字表示了任何形式的仪式图，绝非仅仅是五芒星本身。五芒星用来召唤和绑定来自$(thing)彼岸$()的灵魂。他们既可以作为召唤灵魂的载体，也可以作为召唤者力量的放大器，还可以作为一个保护装置来防止灵魂攻击召唤者"
+      "text": "The name $(thing)Pentacle$() in this context refers to ritual drawings of any shape, not just five-pointed stars. Pentacles are used to summon and bind spirits from $(thing)The Other Place$(). They act both as a device to call on the entity, an amplifier for the summoner's commanding power and as a protecting circle preventing attacks from within against the summoner."
     },
     {
       "type": "text",
-      "text": "每个五芒星都由一个中央的金质祭祀碗，周围各种颜色的符文和隐秘的用具组成。可以通过各种方式提高仪式效果。所选符文和辅助物品的组合以及它们的相对位置决定了五芒星用途和效果$(bold)常规的$(thing)祭祀碗$()的位置取决于召唤者，本书仅作为示例。"
+      "text": "Each pentacle consists of a central golden sacrificial bowl, surrounding runes of various colors and occult paraphernalia that improve the intended effect in various ways. The combination of chosen runes and supporting items as well as their exact spatial positioning determines the use and effectiveness of the pentacle. Ingredients are placed in $(thing)Sacrifical Bowls$() near the pentacle."
+    },
+    {
+      "_comment": "exact duplicate of this is in first_ritual.json",
+      "type": "image",
+      "border": "true",
+      "images": [
+        "occultism:textures/gui/book/bowl_placement.png"
+      ]
+    },
+    {
+      "_comment": "exact duplicate of this is in first_ritual.json",
+      "type": "text",
+      "text": "$(thing)Sacrifical Bowls$() must be placed $(bold)anywhere$() within 8 blocks of the central $(thing)Golden Sacrifical Bowl$(). The exact location does not matter."
     },
     {
       "type": "text",
-      "title": "召唤五芒星",
-      "text": "召唤五芒星是为了召唤灵魂并使得他们以选择好的形式进入世界。因此被召唤的灵魂会遭受强烈的本质衰退，只有非常强大的灵魂才能长久存在。"
+      "title": "Summoning Pentacles",
+      "text": "The purpose of this type of pentacle is to summon spirits in their chosen form into the world. Spirits summoned thus suffer from strong essence decay, and only very powerful spirits can remain for extended periods of time."
     },
     {
       "type": "text",
-      "title": "注入五芒星",
-      "text": "注入五芒星使得灵魂和物品能得以结合。在某些情况下，通常可以通过正确的五芒星来避免灵魂受到本质衰退的折磨。仪式中通过在物体中嵌入水晶和金属来支撑灵魂的存在。"
+      "title": "Infusion Pentacles",
+      "text": "Infusion pentacles allow the binding of spirits into objects. While the spirits suffer from essence decay in some cases, this can often be averted with the right pentacle setup, and by embedding crystals and precious metals into the object to support the spirit."
     },
     {
       "type": "text",
-      "title": "附身五芒星",
-      "text": "附身五芒星强迫灵魂附身在生物上。根据仪式的不同，召唤者可以控制它的不同方面，从它的力量到它的掉落物。有的仪式甚至可以使得召唤者完全控制生物。"
-    },
-    {
-      "type": "empty",
-      "draw_filler": false
+      "title": "Possession Pentacles",
+      "text": "These pentacles force spirits to possess a living being, which, depending on the ritual context, gives the summoner control over various aspects of that being, ranging from it's strength to it what it drops when killed, and in some cases even allows total control."
     }
   ]
 }

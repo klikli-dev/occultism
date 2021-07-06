@@ -1,12 +1,12 @@
 {
-  "name": "物品使用",
+  "name": "Item Use",
   "icon": "minecraft:flint_and_steel",
   "category": "rituals",
   "sortnum": 1,
   "pages": [
     {
       "type": "text",
-      "text": "有些仪式需要使用某些物品来进行。将仪式页面上描述的物品放在16格以内的金质祭祀碗来进行仪式。$(br2)重要提示：在使用物品之前，请先开始仪式。当出现灰色粒子效果时表示已经准备好使用物品了。"
+      "text": "Some rituals require the use of certain items to be performed. Use the item described on the ritual's page within 16 blocks of the golden sacrificial bowl to proceed with the ritual.$(br2)Important: Before using the item, start the ritual. Grey particles indicate that the ritual is ready for the item use."
     },
     {
       "type": "empty",

@@ -13,7 +13,7 @@
     },
     {
       "type": "text",
-      "text": "五芒星：#pentacle#$(br)激活：$(item)#activation_item->iname#$()$(br)献祭：$(thing)#sacrifice#$()$(br)祭品：$(br)#ingredients#",
+      "text": "Pentacle: #pentacle#$(br)Activate: $(item)#activation_item->iname#$()$(br)Sacrifice: $(thing)#sacrifice#$()$(br)Ingredients: $(br)#ingredients#",
       "y": 30
     }
   ]

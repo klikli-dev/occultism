@@ -1,16 +1,22 @@
 {
-  "name": "艾滋威尔斯的初等迫使",
+  "name": "Eziveus' Spectral Compulsion",
   "icon": "occultism:textures/gui/book/pentagram_rose.png",
   "category": "pentacles",
   "sortnum": 11,
   "pages": [
     {
       "type": "text",
-      "text": "$(bold)目的：$()绑定佛利奥特$(br2)作为一种初等的五芒星， $(thing)艾滋威尔斯的初等迫使$()是低等灵魂物品注入的一个共同开始。仪式通过蜡烛和灵魂调谐水晶而达到永久稳定。"
+      "text": "$(bold)Purpose:$() Bind Foliot $(br2)As a simple binding pentacle, $(thing)Eziveus' Spectral Compulsion$(), is a common starting point for object infusion with lower spirits. The enchantment is made permanent by stabilizing candles and spirit attuned crystals."
     },
     {
       "type": "multiblock",
+      "name": "",
       "multiblock_id": "occultism:pentacle.craft_foliot"
+    },
+    {
+      "type": "text",
+      "title": "Uses",
+      "text": "$(li)$(l:rituals/crafting/craft_otherworld_goggles)Infused Lenses$(/l)$()$(li)$(l:rituals/crafting/craft_satchel)Surprisingsly Substantial Satchel$(/l)$()$(li)$(l:rituals/crafting/craft_storage_controller_base)Storage Actuator Base$(/l)$()$(li)$(l:rituals/crafting/craft_stable_wormhole)Stable Wormhole$(/l)$()$(li)$(l:rituals/crafting/craft_stabilizer_tier1)Storage Stabilizer Tier 1$(/l)$()$(li)$(l:rituals/crafting/craft_miner_spirits)Foliot Miner$(/l)$()"
     }
   ]
 }

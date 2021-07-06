@@ -1,5 +1,5 @@
 {
-  "name": "维度矿井",
+  "name": "Dimensional Mineshaft",
   "icon": "occultism:dimensional_mineshaft",
   "category": "rituals/crafting",
   "sortnum": 26,
@@ -7,19 +7,19 @@
     {
       "type": "spotlight",
       "item": "occultism:dimensional_mineshaft",
-      "text": "维度矿井中有一个被注入其中的$(thing)金妮$()，它打开了一个通往无人居住的采矿维度的稳定连接。虽然入口太小，无法转移玩家，但其他灵魂可以利用它进入采矿维度并带回资源。"
+      "text": "The dimensional mineshaft houses a $(thing)Djinni$() which opens up a stable connection into an uninhabited dimension, perfectly suited for mining. While the portal is too small to transfer humans, other spirits can use it to enter the mining dimension and bring back resources."
     },
     {
       "type": "summoning",
-      "heading": "注入",
-      "pentacle": "$(l:pentacles/craft_djinni)斯崔格的高等绑定$(/l)",
+      "heading": "Infusion",
+      "pentacle": "$(l:pentacles/craft_djinni)Strigeor's Higher Binding$(/l)",
       "activation_item": "occultism:book_of_binding_bound_djinni",
-      "ingredients": "$(li)4x $(item)彼岸石$()$(li)2x $(item)铱块$()$(li)1x $(item)灵魂调谐水晶$()$(li)1x $(item)金锭$()"
+      "ingredients": "$(li)4x $(item)Otherstone $()$(li)1x $(item)Iesnium Block $()$(li)1x $(item)Spirit Attuned Crystal $()$(li)1x $(item)Gold Ingot $()"
     },
     {
       "type": "text",
-      "title": "使用说明",
-      "text": "维度矿井会丢弃它不能储存的任何物品，所以定期清空维度矿井就显得十分重要，所以定期清空维度矿井就显得十分重要，可以是手动，漏斗或者使用矿车。魔法灯中的灵魂可以从顶部输入，所有其他侧面都可以用来提取物品。"
+      "title": "Operation",
+      "text": "The dimensional mineshaft will discard any items it cannot store, so it is important to regularly empty the mineshaft, either manually, with hoppers or using a transporter spirit. Spirits in lamps can be inserted from the top, all other sides can be used to extract items."
     },
     {
       "type": "empty",

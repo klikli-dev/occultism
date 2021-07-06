@@ -1,5 +1,5 @@
 {
-  "name": "阶段（3）维度存储稳定器",
+  "name": "Storage Stabilizer Tier 3",
   "icon": "occultism:storage_stabilizer_tier3",
   "category": "rituals/crafting",
   "sortnum": 25,
@@ -7,14 +7,14 @@
     {
       "type": "spotlight",
       "item": "occultism:storage_stabilizer_tier3",
-      "text": "这种进阶的稳定器注入了一个$(thing)埃弗里特$()。该灵魂支撑维度矩阵以保持存储维度稳定，从而允许存储更多物品。"
+      "text": "This advanced stabilizer is inhabited by an $(thing)Afrit$() that supports the dimensional matrix in keeping the storage dimension stable, thus allowing to store even more items."
     },
     {
       "type": "summoning",
-      "heading": "注入",
-      "pentacle": "$(l:pentacles/craft_afrit)赛维拉的永久监禁$(/l)",
+      "heading": "Infusion",
+      "pentacle": "$(l:pentacles/craft_afrit)Sevira's Permanent Confinement $(/l)",
       "activation_item": "occultism:book_of_binding_bound_afrit",
-      "ingredients": "$(li)1x $(item)阶段（2）维度存储稳定器$()$(li)1x $(item)金块$()$(li)1x $(item)下界之星$() $(li)1x $(item)灵魂调谐宝石$()"
+      "ingredients": "$(li)1x $(item)Storage Stabilizer Tier 2 $()$(li)1x $(item)Gold Block $()$(li)1x $(item)Nether Star $() $(li)1x $(item)Spirit Attuned Crystal $()"
     }
   ]
 }

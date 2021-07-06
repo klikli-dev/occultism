@@ -1,20 +1,20 @@
 {
-  "name": "精华",
+  "name": "Afrit Essence",
   "icon": "occultism:afrit_essence",
   "category": "rituals/summoning",
   "sortnum": 40,
   "pages": [
     {
       "type": "text",
-      "text": "精华的获取通常需要红色符文来安全地召唤更强大的灵魂。为了获得精华，一个埃弗里特需要被召唤至我们的位面并被杀死。请注意，这不是简单的事情，未被束缚的灵魂会对附近所有人构成极大危险。"
+      "text": "Afrit essence is required to safely call on the more powerful spirits, commonly used in the form of red chalk. To obtain the essence, an Afrit needs to be summoned unbound into this plane, and killed. Be warned that this is no simple endeavour, and unbound spirit presents great danger to all nearby."
     },
     {
       "type": "summoning_sacrifice",
-      "heading": "未被束缚的埃弗里特",
-      "pentacle": "$(l:pentacles/summon_wild_afrit)阿布拉斯的无限制传送门$(/l)",
+      "heading": "Unbound Afrit",
+      "pentacle": "$(l:pentacles/summon_wild_afrit)Abras' Open Conjure$(/l)",
       "activation_item": "occultism:book_of_binding_bound_afrit",
-      "sacrifice": "牛",
-      "ingredients": "$(li)1x $(item)地狱岩$()$(li)1x $(item)下界石英$()$(li)1x $(item)打火石$()$(li)1x $(item)火药$()"
+      "sacrifice": "Cow",
+      "ingredients": "$(li)1x $(item)Netherrack $()$(li)1x $(item)Netherquartz $()$(li)1x $(item)Flint and Steel $()$(li)1x $(item)Gunpowder $()"
     }
   ]
 }

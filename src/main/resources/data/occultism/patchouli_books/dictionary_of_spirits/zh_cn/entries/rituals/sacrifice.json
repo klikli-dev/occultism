@@ -1,16 +1,16 @@
 {
-  "name": "祭祀",
+  "name": "Sacrifices",
   "icon": "minecraft:iron_sword",
   "category": "rituals",
   "sortnum": 3,
   "pages": [
     {
       "type": "text",
-      "text": "有些仪式需要祭祀一个生物来提供必要的能量召唤灵魂。祭祀在仪式页面的\"祭祀\"页。为了进行祭祀，需要在金质祭祀碗的8格内杀死一只动物。注意：只有玩家亲自杀死的动物才被算作祭祀！"
+      "text": "Some rituals require the sacrifice of a living being to provide the necessary energy to summon the spirit. Sacrifices are described on the ritual's page under the \"Sacrifice\" subheading. To perform a sacrifice, kill an animal within 8 blocks of the golden sacrificial bowl. Only kills by players count as sacrifice!"
     },
     {
       "type": "text",
-      "text": "重要提示：在祭祀之前，请先开始仪式。若出现灰色粒子效果则表明仪式已经准备就绪。"
+      "text": "Important: Before sacrificing, start the ritual. Grey particles indicate that the ritual is ready for the sacrifice."
     }
   ]
 }

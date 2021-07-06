@@ -1,16 +1,16 @@
 {
-  "name": "野猎",
+  "name": "The Wild Hunt",
   "icon": "occultism:textures/gui/book/wild_hunt.png",
   "category": "spirits",
   "sortnum": 6,
   "pages": [
     {
       "type": "text",
-      "text": "野猎是传说级别的灵魂主宰，通常以凋零骷髅的形式出现。于此同时，他的仆从们将会以骷髅的形式保卫他们的主宰。灵魂主宰与他的仆从共享生命，所以直到他的仆从们被送回$(thing)彼岸$()之前，他几乎是无敌的。虽然召唤野猎是极其危险的，但一些召唤师为了获取快速的晋升，会铤而走险召唤野猎。"
+      "text": "A group of legendary Greater Spirits, usually appearing in the form of wither skeletons, with their minions as skeletons. The Greater Spirits are bound to their minions in such fashion that they are virtually invulnerable until their minions have been sent back to $(thing)The Other Place$(). While it is incredibly dangerous to call on the Wild Hint, some summoners have been known to do so for quick access"
     },
     {
       "type": "text",
-      "text": "它们会掉落的罕见的凋零骷髅头颅。召唤野猎在获得$(l:rituals/summoning/wither_skull)凋零骷髅头颅$(/l)的页面上有详细的描述"
+      "text": "to the rare wither skeleton skulls they are known to leave behind. Summoning the wild hunt is described in detail on the page on obtaining $(l:rituals/summoning/wither_skull)Wither Skeleton Skulls$(/l)"
     }
   ]
 }

@@ -1,44 +1,73 @@
 {
-  "name": "初试仪式",
+  "name": "First Ritual",
   "icon": "occultism:textures/gui/book/summoning.png",
   "category": "getting_started",
   "sortnum": 4,
   "pages": [
     {
       "type": "text",
-      "text": "在你的第一个仪式上，你将召唤一个名为$(thing)矿石粉碎者$()的灵魂，它可以将矿物变成矿粉来获得两倍的矿物。你需要准备祭祀碗，仪式粉笔，一本绑定之书，画出你的第一个五芒星，最后召唤灵魂"
+      "text": "For your first ritual you will summon a spirit known as the $(thing)Ore Crusher$(), which converts ores to dusts, effectively doubling them. You will prepare sacrificial bowls, ritual chalk, craft a book of binding, draw your first pentacle and finally summon the spirit"
     },
     {
       "type": "spotlight",
       "item": "occultism:chalk_white",
-      "text": "首先，在熔炉烧制彼岸石并在$(thing)灵魂火焰中$()烧制彼岸原木，然后将产生的灰烬合成为不纯净的白色粉笔。最终，在$(thing)灵魂火焰$()中再一次的净化它。现在，就可以用粉笔来绘制仪式符号，形成五芒星。可以在五芒星的章节中寻找更多关于五芒星的信息。"
+      "text": "First, burn Otherstone in a furnace and burn Otherworld Logs in $(thing)Spiritfire$(), then craft the resulting ashes into impure white chalk, and finally purify it once more in $(thing)Spiritfire$(). The chalk can now be used to draw ritual glyphs to form pentacles. View the chapter on pentacles for possible options. See $(l:pentacles/chalks)Chalk Types$(/l) for more info on chalk."
+    },
+    {
+      "type": "crafting",
+      "recipe": "occultism:crafting/brush",
+      "text": "The brush can be used to easily remove chalk signs fom the ground."
     },
     {
       "type": "spotlight",
       "item": "occultism:candle_white",
-      "text": "蜡烛为仪式提供了稳定性，几乎每个五芒星都需要蜡烛。要制作蜡烛，需要先用屠夫刀击杀大型动物（猪牛羊）以获取他们的脂肪。获取脂肪之后就可以使用脂肪来制造蜡烛。"
+      "text": "Candles provide stability to rituals and are an important part of almost all pentacles. To make candles, kill large animals like pigs, cows or sheep with a Butcher Knife to harvest their fat in the form of tallow and use that to craft candles. $(bold)Candles also act like bookshelves for enchantment purposes.$()"
     },
     {
       "type": "spotlight",
       "item": "occultism:golden_sacrificial_bowl",
-      "text": "将彼岸石像合成碗一样合成祭祀碗。作为仪式的一部分，这些碗是用来祭祀物品的，所以需要不止一个祭祀碗来完成仪式。最后可以用金锭与祭祀碗合成一个金质祭祀碗。"
+      "text": "Craft Otherstone into the shape of a bowl to create a sacrificial bowl. These bowls are used to sacrifice items as part of a ritual and you will need a handful of them. Then take one of the bowls and craft it into a golden sacrificial bowl by surrounding it with gold ingots."
     },
     {
       "type": "text",
-      "text": "金质祭祀碗是用来激活仪式的，使用特定物品右击激活仪式（通常是一本绑定之书），只要仪式的要求都符合，就可以开始仪式。"
+      "text": "This special sacrificial bowl is used to activate the ritual by right-clicking it with the activation item, usually a book of binding, once everything has been set up and you are ready to start."
+    },
+    {
+      "type": "spotlight",
+      "item": "occultism:purified_ink",
+      "text": "In order to craft Books of Binding to summon spirits, you need purified ink. Simply drop any black dye into $(thing)Spirit Fire$() to purify it."
+    },
+    {
+      "type": "crafting",
+      "recipe": "occultism:crafting/book_of_binding_foliot",
+      "text": "Craft a book of binding that will be used to call forth a foliot."
+    },
+    {
+      "type": "crafting",
+      "recipe": "occultism:crafting/book_of_binding_bound_foliot",
+      "text": "Add the name of the spirit to summon to your book of binding by crafting it with this guide. The guide will not be used up."
     },
     {
       "type": "text",
-      "title": "仪式",
-      "text": "有关仪式的描述可以在：$(l:rituals/summoning/summon_crusher)仪式部分$(/l)获取。词典会根据玩家进度，一步一步解锁更多的仪式。$(br2)我们先放上金色的祭祀碗，然后画出合适的五芒星$(l:pentacles/summon_foliot)阿维亚之圈$(/l)$(br)然后，将四个祭祀碗放在五角星附近。并把铜、铁、银和金矿放在四个祭祀碗中。"
+      "title": "The Ritual",
+      "text": "The ritual is described in $(l:rituals/summoning/summon_crusher)the section on rituals$(/l) but these pages will walk the gentle reader through the process step by step.$(br2)We start by placing the golden sacrificial bowl and drawing the appropriate pentacle, $(l:pentacles/summon_foliot)Aviar's Circle$(/l). $(br)Next, place four sacrificial bowls close to the pentacle and place copper, iron, silver and gold ore each in one bowl."
+    },
+    {
+      "_comment": "exact duplicate of this is in pentacles/overview.json",
+      "type": "image",
+      "border": "true",
+      "images": [
+        "occultism:textures/gui/book/bowl_placement.png"
+      ]
+    },
+    {
+      "_comment": "exact duplicate of this is in pentacles/overview.json",
+      "type": "text",
+      "text": "$(thing)Sacrifical Bowls$() must be placed $(bold)anywhere$() within 8 blocks of the central $(thing)Golden Sacrifical Bowl$(). The exact location does not matter."
     },
     {
       "type": "text",
-      "text": "现在，可以合成一个$(item)绑定之书：佛利奥特，$()并通过这本指南来指定一个灵魂的名字。$(br)最后，使用刚刚合成的书右键金质祭祀碗，等待直到矿物粉碎者生成。$(br)当生成了之后，我们需要做的，就只是把合适的矿石扔到矿物粉碎者附近，然后等它变成矿粉就行了。"
-    },
-    {
-      "type": "empty",
-      "draw_filler": false
+      "text": "Finally, right-click the golden sacrificial bowl with the $(bold)bound$() book of binding you created and wait until the crusher spawns. $(br)Now all that remains is to drop appropriate ores near the crusher and wait for it to turn it into dust."
     }
   ]
 }

@@ -1,22 +1,22 @@
 {
-  "name": "仪式介绍",
+  "name": "Introduction to Rituals",
   "icon": "occultism:textures/gui/book/robe.png",
   "category": "rituals",
   "sortnum": 1,
   "pages": [
     {
       "type": "text",
-      "text": "仪式使得我们可以召唤灵魂至我们存在的位面，并将它们绑定至物品或附身在生物上。每一个仪式都必须有$(thing)五芒星$()，通过祭祀碗提供的$(thing)祭品$()，$(thing)激活物品$()以及可选的$(thing)献祭生物$()。$(br2)紫色粒子效果表示仪式正在进行中。"
+      "text": "Rituals allow to summon spirits into our plane of existence, or bind them into objects or living beings. Every ritual consists of a $(thing)pentacle$(), $(thing)ritual ingredients$() provided via sacrificial bowls, a $(thing)starting item$() and optionally the $(thing)sacrifice$() of living beings.$(br2)A purple particle effect will show that the ritual is successful and in progress."
     },
     {
       "type": "text",
-      "title": "举行仪式",
-      "text": "仪式总是遵循同样的步骤：$(br)$(li)绘制五芒星$(li)放置金色祭祀碗$(li)放置祭祀碗$(li)将祭品放入祭祀碗$(li)使用可以激活仪式的物品右键单击金质祭祀碗。$(li)$(italic)可选项：在五芒星中心附近献祭生物。$()$(br2)"
+      "title": "Performing a ritual",
+      "text": "Rituals always follow the same steps: $(br)$(li)Draw the pentacle. $(li)Place a golden bowl. $(li)Place sacrificial bowls.$(li)Put ingredients in bowls.$(li)Right-click the golden bowl with the activation item.$(li)$(italic)Optional: Perform a sacrifice close to the center of the pentacle.$()$(br2)"
     },
     {
       "type": "text",
-      "title": "附加要求",
-      "text": "如果一个仪式在金制祭祀碗上方显示灰色粒子效果，代表着尚未满足仪式页面中描述的附加要求。一旦所有的要求都得到满足，将会有紫色粒子效果并开始逐渐消耗祭祀碗中的物品。"
+      "title": "Additional Requirements",
+      "text": "If a ritual shows grey particles above the golden sacrificial bowl, then additional requirements as described in the ritual's page need to be fulfilled. Once all requirements are fulfilled, the ritual will show purple particles and start to consume the items in the sacrificial bowls."
     },
     {
       "type": "empty",

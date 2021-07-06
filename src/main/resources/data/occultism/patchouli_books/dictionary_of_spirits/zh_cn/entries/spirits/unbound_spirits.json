@@ -1,16 +1,16 @@
 {
-  "name": "未被束缚的灵魂",
+  "name": "Unbound Spirits",
   "icon": "occultism:textures/gui/book/unbound_spirits.png",
   "category": "spirits",
   "sortnum": 5,
   "pages": [
     {
       "type": "text",
-      "text": "通常来说，我们召唤灵魂时都是$(thing)限制召唤$()，这意味着被召唤的灵魂一般都会受召唤者控制。绑定法术的副作用就在于此，被绑定的灵魂总会留有一部分在彼岸，而这会导致灵魂的绝大多力量都无法使用，但与此同时也保护了它们的本质不受我们的世界的侵害"
+      "text": "Generally spirits are summoned $(thing)bound$(), which refers to any condition that keeps them under control of the summoner. A side effect of binding spells is that part of the spirit remains in $(thing)The Other Place$(), robbing them of large portions of the power, but at the same time also protecting their essence from access in this world."
     },
     {
       "type": "text",
-      "text": "想要使得灵魂的本质能够来到我们的世界，亦或者打算释放出灵魂内的破坏性力量，你就必须进行无限制召唤。无限制召唤需要使用到不稳定的五芒星，这会使得被召唤的灵魂不被附加上任何的限制。这样的召唤仪式具有无法估量的危险性，而且通常没有什么好的解决方法可以抑制"
+      "text": "In order to access a spirit's essence, or unleash it's full destructive power, it needs to be summoned unbound. Unbound summonings use pentacles that are intentionally incomplete or unstable, allowing to call on the spirit, but not putting any constraints on it. As a result these summonings are incredibly dangerous, but often there is no way around them."
     }
   ]
 }

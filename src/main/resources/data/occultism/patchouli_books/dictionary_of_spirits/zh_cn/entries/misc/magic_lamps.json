@@ -1,13 +1,13 @@
 {
-  "name": "魔法灯",
+  "name": "Magic Lamps",
   "icon": "occultism:magic_lamp_empty",
   "category": "misc",
-  "sortnum": 11,
+  "sortnum": 30,
   "pages": [
     {
       "type": "spotlight",
       "item": "occultism:magic_lamp_empty",
-      "text": "魔法灯可以把灵魂囚禁在我们的世界里，并且不会让它们暴露在本质衰退的环境中。与召唤之书不同，魔法灯中的灵魂并没有回到$(thing)彼岸$()，这使得每个灵魂在魔法灯中工作时仍然处在召唤者的控制之下。"
+      "text": "Magic lamps can keep spirits imprisoned in our world, without exposing them to essence decay. Unlike books of calling the spirit does not return to $(thing)The Other Place$(), which makes magic lamps a requirement whenever a spirit should actively work on it's own, while still under a measure of control by the summoner."
     },
     {
       "type": "empty",

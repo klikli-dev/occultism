@@ -1,16 +1,16 @@
 {
-  "name": "本质衰退",
+  "name": "Essence Decay",
   "icon": "occultism:textures/gui/book/spirits.png",
   "category": "spirits",
   "sortnum": 1,
   "pages": [
     {
       "type": "text",
-      "text": "当存在于我们存在的位面时，灵魂将遭受$(thing)本质衰退$()，他们的\"身体\"将慢慢消散。越强大的灵魂本质衰退也会越慢，只有最强大的力量才能完全阻止本质衰退。一旦本质完全衰退，他们将返回$(thing)彼岸$()。并且只有当本质完全恢复后才能重新进行召唤。"
+      "text": "When residing in our plane of existence, spirits experience $(thing)Essence Decay$(), the slow rot of their\"body\". The more powerful the spirit, the slower the decay, but only the most powerful can stop it entirely. Once fully decayed they are returned to $(thing)The Other Place$() and can only be re-summoned once fully recovered."
     },
     {
       "type": "text",
-      "text": "召唤者可以通过将灵魂绑定在一个物体或者将他们附身在生物上来减缓甚至阻止本质衰退。此外，仪式所选用的五芒星可以在一定程度上影响本质衰退。"
+      "text": "The summoner can slow or even stop essence decay by binding the spirit into an object, or summoning it into a living being. Additionally the pentacle used can influence the effects of essence decay to a degree."
     }
   ]
 }

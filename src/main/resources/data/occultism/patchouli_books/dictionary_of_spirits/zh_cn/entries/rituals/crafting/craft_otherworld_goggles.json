@@ -1,5 +1,5 @@
 {
-  "name": "彼岸目镜",
+  "name": "Otherworld Goggles",
   "icon": "occultism:otherworld_goggles",
   "category": "rituals/crafting",
   "sortnum": 10,
@@ -7,19 +7,19 @@
     {
       "type": "spotlight",
       "item": "occultism:otherworld_goggles",
-      "text": "$(item)彼岸目镜$()给予使用者永久的$(thing)第三只眼$()装备彼岸目镜后可以看到食用$(thing)$(l:getting_started/datura)恶魔之梦$(/l)后也看不到的方块。但是他们无法使我们获得彼岸的材料。所以说，是使用这种特殊工具还是食用“恶魔之梦”，具体还是要取决于我们需要什么彼岸材料。"
+      "text": "The $(item)Otherworld Goggles$() give the wearer permanent $(thing)Third Eye$(), allowing to view even blocks hidden from those partaking of $(l:getting_started/datura)Demons's Dream$(/l). They will, however, not give the ability to harvest otherworld materials, for this special tools or the use of Demon's Dream is required, depending on the type of material."
     },
     {
       "type": "spotlight",
       "item": "occultism:infused_lenses",
-      "text": "彼岸目镜将使用注入在镜片上的佛利奥特。佛利奥特会与佩戴者共享看到彼岸的能力，从而使佩戴者能够看到彼岸的材料。由于所需的召唤相对简单，制作这些护目镜通常是普通学徒才会执行的召唤任务。"
+      "text": "Otherworld Goggles make use of a Foliot bound into the lenses. The Foliot shares it's ability to view higher planes with the wearer, thus allowing them to see otherworld materials. The required summoning is relatively simple, making crafting these goggles a common apprentice summoner task."
     },
     {
       "type": "summoning",
-      "heading": "注入",
-      "pentacle": "$(l:pentacles/craft_foliot)艾滋威尔斯的初等迫使$(/l)",
+      "heading": "Infusion",
+      "pentacle": "$(l:pentacles/craft_foliot)Eziveus' Spectral Compulsion$(/l)",
       "activation_item": "occultism:book_of_binding_bound_foliot",
-      "ingredients": "$(li)1x $(item)镜片$()$(li)2x $(item)银锭$()$(li)1x $(item)金锭$()"
+      "ingredients": "$(li)1x $(item)Lenses $()$(li)2x $(item)Silver Ingot $()$(li)1x $(item)Gold Ingot $()"
     },
     {
       "type": "empty",

@@ -1,26 +1,26 @@
 {
-  "name": "时间魔法",
+  "name": "Time Magic",
   "icon": "minecraft:clock",
   "category": "rituals/summoning",
   "sortnum": 31,
   "pages": [
     {
       "type": "text",
-      "text": "时间魔法不是万能的，它不能将你送回过去，但可以更改一天中的时间。这对于某些需要白天或黑夜的仪式或其他任务特别有用。"
+      "text": "Time magic is limited in scope, it cannot send the magician back or forth in time, but rather allows to change time time of day. This is especially useful for rituals or other tasks requiring day or nighttime specifically."
     },
     {
       "type": "summoning",
-      "heading": "黎明召唤",
-      "pentacle": "$(l:pentacles/summon_djinni)奥菲克斯的召唤$(/l)",
+      "heading": "Summoning of Dawn",
+      "pentacle": "$(l:pentacles/summon_djinni)Ophyx' Calling$(/l)",
       "activation_item": "occultism:book_of_binding_bound_djinni",
-      "ingredients": "$(li)1x $(item)火把$()$(li)1x $(item)任意树苗$()$(li)1x $(item)小麦$()$(li)1x $(item)黄色染料$()"
+      "ingredients": "$(li)1x $(item)Torch $()$(li)1x $(item)Any Sapling $()$(li)1x $(item)Wheat $()$(li)1x $(item)Any Yellow Dye $()"
     },
     {
       "type": "summoning",
-      "heading": "黄昏召唤",
-      "pentacle": "$(l:pentacles/summon_djinni)奥菲克斯的召唤$(/l)",
+      "heading": "Summoning of Dusk",
+      "pentacle": "$(l:pentacles/summon_djinni)Ophyx' Calling$(/l)",
       "activation_item": "occultism:book_of_binding_bound_djinni",
-      "ingredients": "$(li)1x $(item)任意床$()$(li)1x $(item)腐肉$()$(li)1x $(item)骨头$()$(li)1x $(item)黑色染料$()"
+      "ingredients": "$(li)1x $(item)Any Bed $()$(li)1x $(item)Rotten Flesh $()$(li)1x $(item)Bone $()$(li)1x $(item)Any Black Dye $()"
     },
     {
       "type": "empty",

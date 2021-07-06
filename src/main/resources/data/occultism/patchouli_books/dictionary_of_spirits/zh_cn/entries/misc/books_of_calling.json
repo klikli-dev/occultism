@@ -1,12 +1,12 @@
 {
-  "name": "召唤之书",
+  "name": "Books of Calling",
   "icon": "occultism:book_of_calling_foliot_lumberjack",
   "category": "misc",
   "sortnum": 10,
   "pages": [
     {
       "type": "text",
-      "text": "召唤之书可以控制被召唤出来的灵魂。此外，他们可以暂时让灵魂回到$(thing)彼岸$()，并且在收到命令后可以立马返回。只有当灵魂被释放或者本质完全衰退后，灵魂与书的联系才被打破。"
+      "text": "Books of calling can be used to control a summoned spirit. Additionally, they an temporarily allow the spirit to return to $(thing)Th e Other Place$(), and can be used to call it back at a moment's notice. The bond with the book is only broken once the spirit is freed or it's essence is fully decayed."
     },
     {
       "type": "empty",

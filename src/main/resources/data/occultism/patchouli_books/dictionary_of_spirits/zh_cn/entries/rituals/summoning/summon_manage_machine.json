@@ -1,19 +1,19 @@
 {
-  "name": "机器操纵者金妮",
+  "name": "Djinni Machine Operator",
   "icon": "minecraft:lever",
   "category": "rituals/summoning",
-  "sortnum": 12,
+  "sortnum": 15,
   "pages": [
     {
       "type": "text",
-      "text": "机器操纵者将维度存储执行器GUI中指定的物品传输到其对应机器，并将产物返回到存储系统。也可以用于自动将箱子中的物品转移到存储执行器中。"
+      "text": "The machine operator transfers items specified in the dimensional storage actuator GUI, to it's managed machine, and returns crafting results to the storage system. It can also be used to automatically empty a chest into the storage actuator."
     },
     {
       "type": "summoning",
-      "heading": "召唤",
-      "pentacle": "$(l:pentacles/summon_djinni)奥菲克斯的召唤$(/l)",
+      "heading": "Summoning",
+      "pentacle": "$(l:pentacles/summon_djinni)Ophyx' Calling$(/l)",
       "activation_item": "occultism:book_of_binding_bound_djinni",
-      "ingredients": "$(li)1x $(item)煤块$()$(li)1x $(item)金锭$()$(li)1x $(item)铁锭$()$(li)1x $(item)熔炉$()"
+      "ingredients": "$(li)1x $(item)Coal Block $()$(li)1x $(item)Gold Ingot $()$(li)1x $(item)Iron Ingot $()$(li)1x $(item)Furnace $()"
     }
   ]
 }
