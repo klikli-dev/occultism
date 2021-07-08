@@ -155,7 +155,7 @@ public class OccultismItems {
     public static final RegistryObject<GuideBookItem> GUIDE_BOOK = ITEMS.register("dictionary_of_spirits",
             () -> new GuideBookItem(defaultProperties().maxStackSize(1)));
 
-    public static final RegistryObject<Item> STORAGE_REMOTE = ITEMS.register("storage_remote",
+    public static final RegistryObject<StorageRemoteItem> STORAGE_REMOTE = ITEMS.register("storage_remote",
             () -> new StorageRemoteItem(defaultProperties().maxStackSize(1)));
 
     public static final RegistryObject<Item> CHALK_WHITE = ITEMS.register("chalk_white",

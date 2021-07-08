@@ -24,6 +24,7 @@ package com.github.klikli_dev.occultism.util;
 
 import com.github.klikli_dev.occultism.common.item.armor.OtherworldGogglesItem;
 import com.github.klikli_dev.occultism.common.item.storage.SatchelItem;
+import com.github.klikli_dev.occultism.common.item.storage.StorageRemoteItem;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
@@ -77,10 +78,37 @@ public class CuriosUtil {
         return hasBackpack.orElse(ItemStack.EMPTY);
     }
 
+    public static ItemStack getStorageRemote(PlayerEntity player)
+    {
+        Optional<ItemStack> hasStorageRemote = CuriosApi.getCuriosHelper().getCuriosHandler(player).map(curiosHandler -> {
+            Optional<ItemStack> hasStorageRemoteStack = curiosHandler.getStacksHandler(SlotTypePreset.HANDS.getIdentifier()).map(slotHandler -> {
+                IDynamicStackHandler stackHandler = slotHandler.getStacks();
+                for (int i = 0; i < stackHandler.getSlots(); i++) {
+                    ItemStack stack = stackHandler.getStackInSlot(i);
+                    if(stack.getItem() instanceof StorageRemoteItem){
+                        return stack;
+                    }
+                }
+                return ItemStack.EMPTY;
+            });
+            return hasStorageRemoteStack.orElse(ItemStack.EMPTY);
+        });
+        return hasStorageRemote.orElse(ItemStack.EMPTY);
+    }
+
     public static int getFirstBackpackSlot(PlayerEntity player){
         for(int slot = 0; slot < player.inventory.getSizeInventory(); slot++){
             ItemStack stack = player.inventory.getStackInSlot(slot);
             if(stack.getItem() instanceof SatchelItem)
+                return slot;
+        }
+        return -1;
+    }
+
+    public static int getFirstStorageRemoteSlot(PlayerEntity player){
+        for(int slot = 0; slot < player.inventory.getSizeInventory(); slot++){
+            ItemStack stack = player.inventory.getStackInSlot(slot);
+            if(stack.getItem() instanceof StorageRemoteItem)
                 return slot;
         }
         return -1;

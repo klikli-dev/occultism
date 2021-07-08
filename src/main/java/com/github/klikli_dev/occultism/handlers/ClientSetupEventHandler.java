@@ -32,6 +32,7 @@ import com.github.klikli_dev.occultism.client.gui.storage.StorageControllerGui;
 import com.github.klikli_dev.occultism.client.gui.storage.StorageRemoteGui;
 import com.github.klikli_dev.occultism.client.itemproperties.*;
 import com.github.klikli_dev.occultism.client.keybindings.BackpackKeyConflictContext;
+import com.github.klikli_dev.occultism.client.keybindings.StorageRemoteKeyConflictContext;
 import com.github.klikli_dev.occultism.client.render.entity.*;
 import com.github.klikli_dev.occultism.client.render.tile.SacrificialBowlRenderer;
 import com.github.klikli_dev.occultism.client.render.tile.StorageControllerRenderer;
@@ -49,6 +50,7 @@ import net.minecraft.client.util.InputMappings;
 import net.minecraft.item.ItemModelsProperties;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.settings.KeyConflictContext;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
@@ -65,12 +67,16 @@ public class ClientSetupEventHandler {
             new KeyBinding("key.occultism.backpack", BackpackKeyConflictContext.INSTANCE,
                     InputMappings.Type.KEYSYM.getOrMakeInput(GLFW.GLFW_KEY_B), "key.occultism.category");
 
+    public static final KeyBinding KEY_STORAGE_REMOTE =
+            new KeyBinding("key.occultism.storage_remote", StorageRemoteKeyConflictContext.INSTANCE,
+                    InputMappings.Type.KEYSYM.getOrMakeInput(GLFW.GLFW_KEY_N), "key.occultism.category");
+
     public static final KeyBinding KEY_FAMILIAR_OTHERWORLD_BIRD =
-            new KeyBinding("key.occultism.familiar.otherworld_bird", BackpackKeyConflictContext.INSTANCE,
+            new KeyBinding("key.occultism.familiar.otherworld_bird", KeyConflictContext.IN_GAME,
                     InputMappings.Type.KEYSYM.getOrMakeInput(-1), "key.occultism.category");
 
     public static final KeyBinding KEY_FAMILIAR_GREEDY =
-            new KeyBinding("key.occultism.familiar.greedy", BackpackKeyConflictContext.INSTANCE,
+            new KeyBinding("key.occultism.familiar.greedy", KeyConflictContext.IN_GAME,
                     InputMappings.Type.KEYSYM.getOrMakeInput(GLFW.GLFW_KEY_M), "key.occultism.category");
     //endregion Fields
 

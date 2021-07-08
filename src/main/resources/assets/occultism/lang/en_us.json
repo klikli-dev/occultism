@@ -455,6 +455,7 @@
   "_comment": "Keybinds",
   "key.occultism.category": "Occultism",
   "key.occultism.backpack": "Open Satchel",
+  "key.occultism.storage_remote": "Open Storage Accessor",
   "key.occultism.familiar.otherworld_bird": "Toggle Ring Effect: Drikwing",
   "key.occultism.familiar.greedy": "Toggle Ring Effect: Greedy",
   "_comment": "JEI",

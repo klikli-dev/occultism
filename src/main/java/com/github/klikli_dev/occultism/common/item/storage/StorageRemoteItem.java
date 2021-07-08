@@ -95,7 +95,7 @@ public class StorageRemoteItem extends Item implements INamedContainerProvider {
 
         //then access it and if it fits, open UI
         if (storageControllerWorld.getTileEntity(storageControllerPos.getPos()) instanceof IStorageController) {
-            NetworkHooks.openGui((ServerPlayerEntity) player, this);
+            NetworkHooks.openGui((ServerPlayerEntity) player, this, buffer -> buffer.writeVarInt(player.inventory.currentItem));
             return new ActionResult<>(ActionResultType.SUCCESS, stack);
         }
         return super.onItemRightClick(world, player, hand);
@@ -121,7 +121,7 @@ public class StorageRemoteItem extends Item implements INamedContainerProvider {
     @Nullable
     @Override
     public Container createMenu(int id, PlayerInventory playerInventory, PlayerEntity player) {
-        return new StorageRemoteContainer(id, playerInventory);
+        return new StorageRemoteContainer(id, playerInventory, playerInventory.currentItem);
     }
     //endregion Overrides
 
