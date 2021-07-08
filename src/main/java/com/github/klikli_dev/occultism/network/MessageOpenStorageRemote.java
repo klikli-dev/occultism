@@ -56,15 +56,15 @@ public class MessageOpenStorageRemote extends MessageBase {
 
         int selectedSlot = -1;
         //first attempt to get storage remote from curios slot
-        ItemStack backpackStack = CuriosUtil.getStorageRemote(player);
+        ItemStack storageRemoteStack = CuriosUtil.getStorageRemote(player);
 
         //if not found, try to get from player inventory
-        if (!(backpackStack.getItem() instanceof StorageRemoteItem)) {
+        if (!(storageRemoteStack.getItem() instanceof StorageRemoteItem)) {
             selectedSlot = CuriosUtil.getFirstStorageRemoteSlot(player);
-            backpackStack = selectedSlot > 0 ? player.inventory.getStackInSlot(selectedSlot) : ItemStack.EMPTY;
+            storageRemoteStack = selectedSlot > 0 ? player.inventory.getStackInSlot(selectedSlot) : ItemStack.EMPTY;
         }
         //now, if we have a storage remote, proceed
-        if (backpackStack.getItem() instanceof SatchelItem) {
+        if (storageRemoteStack.getItem() instanceof StorageRemoteItem) {
             int finalSelectedSlot = selectedSlot;
 
             NetworkHooks.openGui(player, OccultismItems.STORAGE_REMOTE.get(),
