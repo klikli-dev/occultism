@@ -46,6 +46,8 @@ public class ItemNBTUtil {
     public static final String WORK_AREA_SIZE_TAG = "workAreaSize";
     public static final String WORK_AREA_POSITION_TAG = "workAreaPosition";
     public static final String DEPOSIT_POSITION_TAG = "depositPosition";
+    public static final String DEPOSIT_ENTITY_UUID_TAG = "depositEntityUUID";
+    public static final String DEPOSIT_ENTITY_NAME_TAG = "depositEntityName";
     public static final String DEPOSIT_FACING_TAG = "depositFacing";
     public static final String EXTRACT_POSITION_TAG = "extractPosition";
     public static final String EXTRACT_FACING_TAG = "extractFacing";
@@ -59,7 +61,8 @@ public class ItemNBTUtil {
     public static void updateItemNBTFromEntity(ItemStack stack, SpiritEntity entity) {
         ItemNBTUtil.setWorkAreaPosition(stack, entity.getWorkAreaPosition());
         ItemNBTUtil.setDepositPosition(stack, entity.getDepositPosition());
-        ItemNBTUtil.setDepostFacing(stack, entity.getDepositFacing());
+        ItemNBTUtil.setDepositEntityUUID(stack, entity.getDepositEntityUUID());
+        ItemNBTUtil.setDepositFacing(stack, entity.getDepositFacing());
         ItemNBTUtil.setExtractPosition(stack, entity.getExtractPosition());
         ItemNBTUtil.setExtractFacing(stack, entity.getExtractFacing());
         ItemNBTUtil.setWorkAreaSize(stack, entity.getWorkAreaSize());
@@ -131,7 +134,37 @@ public class ItemNBTUtil {
     }
 
     public static void setDepositPosition(ItemStack stack, Optional<BlockPos> position) {
-        position.ifPresent(p -> stack.getOrCreateTag().putLong(DEPOSIT_POSITION_TAG, p.toLong()));
+        if(position.isPresent()){
+            stack.getOrCreateTag().putLong(DEPOSIT_POSITION_TAG, position.get().toLong());
+        } else if (stack.hasTag()){
+            stack.getTag().remove(DEPOSIT_POSITION_TAG);
+        }
+    }
+
+    public static UUID getDepositEntityUUID(ItemStack stack) {
+        if (!stack.getOrCreateTag().contains(DEPOSIT_ENTITY_UUID_TAG))
+            return null;
+
+        return stack.getTag().getUniqueId(DEPOSIT_ENTITY_UUID_TAG);
+    }
+
+    public static void setDepositEntityUUID(ItemStack stack, Optional<UUID> uuid) {
+        if(uuid.isPresent()){
+            stack.getOrCreateTag().putUniqueId(DEPOSIT_ENTITY_UUID_TAG, uuid.get());
+        } else if (stack.hasTag()){
+            stack.getTag().remove(DEPOSIT_ENTITY_UUID_TAG);
+        }
+    }
+
+    public static void setDepositEntityName(ItemStack stack, String string) {
+        stack.getOrCreateTag().putString(DEPOSIT_ENTITY_NAME_TAG, string);
+    }
+
+    public static String getDepositEntityName(ItemStack stack) {
+        if (!stack.getOrCreateTag().contains(DEPOSIT_ENTITY_NAME_TAG))
+            return null;
+
+        return stack.getTag().getString(DEPOSIT_ENTITY_NAME_TAG);
     }
 
     public static Direction getDepositFacing(ItemStack stack) {
@@ -140,7 +173,7 @@ public class ItemNBTUtil {
         return Direction.values()[stack.getTag().getInt(DEPOSIT_FACING_TAG)];
     }
 
-    public static void setDepostFacing(ItemStack stack, Direction facing) {
+    public static void setDepositFacing(ItemStack stack, Direction facing) {
         stack.getOrCreateTag().putInt(DEPOSIT_FACING_TAG, facing.ordinal());
     }
 

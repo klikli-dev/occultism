@@ -62,7 +62,9 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 
 import javax.annotation.Nullable;
+import javax.swing.text.html.Option;
 import java.util.Optional;
+import java.util.UUID;
 
 public abstract class SpiritEntity extends TameableEntity implements ISkinnedCreatureMixin, INamedContainerProvider {
     //region Fields
@@ -75,6 +77,8 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
     public static final int MAX_FILTER_SLOTS = 7;
     private static final DataParameter<Optional<BlockPos>> DEPOSIT_POSITION =
             EntityDataManager.createKey(SpiritEntity.class, DataSerializers.OPTIONAL_BLOCK_POS);
+    private static final DataParameter<Optional<UUID>> DEPOSIT_ENTITY_UUID =
+            EntityDataManager.createKey(SpiritEntity.class, DataSerializers.OPTIONAL_UNIQUE_ID);
     private static final DataParameter<Direction> DEPOSIT_FACING =
             EntityDataManager.createKey(SpiritEntity.class, DataSerializers.DIRECTION);
     private static final DataParameter<Optional<BlockPos>> EXTRACT_POSITION =
@@ -169,6 +173,18 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
 
     public void setDepositPosition(BlockPos position) {
         this.dataManager.set(DEPOSIT_POSITION, Optional.ofNullable(position));
+        if(position != null)
+            this.dataManager.set(DEPOSIT_ENTITY_UUID, Optional.empty());
+    }
+
+    public Optional<UUID> getDepositEntityUUID() {
+        return this.dataManager.get(DEPOSIT_ENTITY_UUID);
+    }
+
+    public void setDepositEntityUUID(UUID uuid) {
+        this.dataManager.set(DEPOSIT_ENTITY_UUID, Optional.ofNullable(uuid));
+        if(uuid != null)
+         this.dataManager.set(DEPOSIT_POSITION, Optional.empty());
     }
 
     public Optional<BlockPos> getExtractPosition() {
@@ -433,6 +449,7 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
         super.registerData();
         this.registerSkinDataParameter();
         this.dataManager.register(DEPOSIT_POSITION, Optional.empty());
+        this.dataManager.register(DEPOSIT_ENTITY_UUID, Optional.empty());
         this.dataManager.register(DEPOSIT_FACING, Direction.UP);
         this.dataManager.register(EXTRACT_POSITION, Optional.empty());
         this.dataManager.register(EXTRACT_FACING, Direction.DOWN);
@@ -461,6 +478,7 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
 
         //store deposit info
         this.getDepositPosition().ifPresent(pos -> compound.putLong("depositPosition", pos.toLong()));
+        this.getDepositEntityUUID().ifPresent(uuid -> compound.putUniqueId("depositEntityUUID", uuid));
         compound.putInt("depositFacing", this.getDepositFacing().ordinal());
 
         //store extract info
@@ -502,6 +520,9 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
         //read deposit information
         if (compound.contains("depositPosition")) {
             this.setDepositPosition(BlockPos.fromLong(compound.getLong("depositPosition")));
+        }
+        if (compound.contains("depositEntityUUID")) {
+            this.setDepositEntityUUID(compound.getUniqueId("depositEntityUUID"));
         }
         if (compound.contains("depositFacing")) {
             this.setDepositFacing(Direction.values()[compound.getInt("depositFacing")]);
@@ -590,7 +611,7 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
     @Override
     public ActionResultType applyPlayerInteraction(PlayerEntity player, Vector3d vec, Hand hand) {
         ItemStack itemStack = player.getHeldItem(hand);
-        boolean flag = !itemStack.isEmpty();
+
         if (itemStack.isEmpty()) {
             if (this.isTamed() && player.isSneaking()) {
                 this.openGUI(player);
