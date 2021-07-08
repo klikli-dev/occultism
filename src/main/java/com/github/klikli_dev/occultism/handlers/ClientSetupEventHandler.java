@@ -90,6 +90,7 @@ public class ClientSetupEventHandler {
         //keybindings
         event.enqueueWork(() -> {
             ClientRegistry.registerKeyBinding(KEY_BACKPACK);
+            ClientRegistry.registerKeyBinding(KEY_STORAGE_REMOTE);
             ClientRegistry.registerKeyBinding(KEY_FAMILIAR_OTHERWORLD_BIRD);
             ClientRegistry.registerKeyBinding(KEY_FAMILIAR_GREEDY);
         });
