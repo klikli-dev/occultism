@@ -62,7 +62,7 @@ public class OccultismContainers {
     public static final RegistryObject<ContainerType<StorageRemoteContainer>> STORAGE_REMOTE =
             CONTAINERS.register("storage_remote",
                     () -> IForgeContainerType
-                                  .create((windowId, inv, data) -> new StorageRemoteContainer(windowId, inv)));
+                                  .create((windowId, inv, data) -> new StorageRemoteContainer(windowId, inv, data.readVarInt())));
 
     public static final RegistryObject<ContainerType<SpiritContainer>> SPIRIT =
             CONTAINERS.register("spirit",
