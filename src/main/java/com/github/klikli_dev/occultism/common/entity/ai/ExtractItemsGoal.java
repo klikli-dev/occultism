@@ -212,7 +212,7 @@ public class ExtractItemsGoal extends PausableGoal {
                 //the extract tile is not valid for extracting, so we disable this to allow exiting this task.
                 this.entity.setExtractPosition(null);
             }
-        });
+            });
     }
     //endregion Methods
 }

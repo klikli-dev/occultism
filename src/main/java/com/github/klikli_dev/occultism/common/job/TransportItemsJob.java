@@ -66,7 +66,6 @@ public class TransportItemsJob extends SpiritJob implements INamedContainerProvi
         this.entity.goalSelector.addGoal(3, this.depositItemsGoal = new DepositItemsGoal(this.entity));
         this.entity.goalSelector.addGoal(4, this.extractItemsGoal = new ExtractItemsGoal(this.entity));
         this.entity.goalSelector.addGoal(5, this.openDoorGoal = new OpenDoorGoal(this.entity, true));
-        //TODO: register data
     }
 
     @Override
