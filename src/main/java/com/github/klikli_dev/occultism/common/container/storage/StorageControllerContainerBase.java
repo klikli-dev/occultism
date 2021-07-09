@@ -117,16 +117,15 @@ public abstract class StorageControllerContainerBase extends Container implement
             if (index == 0) {
                 this.craftShift(player, storageController);
                 return ItemStack.EMPTY;
-            }
-            else if (storageController != null) {
+            } else if (storageController != null) {
                 //insert item into controller
                 int remainingItems = storageController.insertStack(slotStack, false);
 
                 //get the stack of remaining items
                 ItemStack remainingItemStack = remainingItems == 0 ? ItemStack.EMPTY : ItemHandlerHelper
-                                                                                               .copyStackWithSize(
-                                                                                                       slotStack,
-                                                                                                       remainingItems);
+                        .copyStackWithSize(
+                                slotStack,
+                                remainingItems);
                 slot.putStack(remainingItemStack);
 
                 //sync slots
@@ -208,8 +207,8 @@ public abstract class StorageControllerContainerBase extends Container implement
             ServerPlayerEntity serverplayerentity = (ServerPlayerEntity) this.player;
             ItemStack itemstack = ItemStack.EMPTY;
             Optional<ICraftingRecipe> optional = this.player.world.getServer().getRecipeManager()
-                                                         .getRecipe(IRecipeType.CRAFTING, this.matrix,
-                                                                 this.player.world);
+                    .getRecipe(IRecipeType.CRAFTING, this.matrix,
+                            this.player.world);
             if (optional.isPresent()) {
                 ICraftingRecipe icraftingrecipe = optional.get();
                 if (this.result.canUseRecipe(this.player.world, serverplayerentity, icraftingrecipe)) {
@@ -250,20 +249,20 @@ public abstract class StorageControllerContainerBase extends Container implement
 
         //get the stack size of the result
         int resultStackSize = result.getCount();
-
+        List<ItemStack> resultList = new ArrayList<>();
         int crafted = 0;
         while (crafted + resultStackSize <= result.getMaxStackSize()) {
             //AFAIK this should not happen unless an outside mod intervenes with the inventory during crafting
             //but, in modpacks it definitely does happen, see https://github.com/klikli-dev/occultism/issues/212
             //so we exit early here.
-            if(this.currentRecipe == null)
+            if (this.currentRecipe == null)
                 break;
 
             result = this.currentRecipe.getCraftingResult(this.matrix);
 
             //exit if we can no longer insert
             if (!ItemHandlerHelper.insertItemStacked(new PlayerMainInvWrapper(this.playerInventory), result, true)
-                         .isEmpty()) {
+                    .isEmpty()) {
                 break;
             }
 
@@ -275,7 +274,9 @@ public abstract class StorageControllerContainerBase extends Container implement
             //region onTake replacement for crafting
 
             //give to the player
-            ItemHandlerHelper.giveItemToPlayer(player, result);
+            //historically we used ItemHandlerHelper.giveItemToPlayer(player, result); here
+            //now we instead pre-merge the stack -> might prevent intervention by other mods.
+            resultList.add(result);
 
             //get remaining items in the crafting matrix
             NonNullList<ItemStack> remainingCraftingItems = this.currentRecipe.getRemainingItems(this.matrix);
@@ -293,37 +294,33 @@ public abstract class StorageControllerContainerBase extends Container implement
                 //handle container item refunding
                 if (!stackInSlot.getItem().getContainerItem(stackInSlot).isEmpty()) {
                     ItemStack container = stackInSlot.getItem().getContainerItem(stackInSlot);
-                    if(!stackInSlot.isStackable()){
+                    if (!stackInSlot.isStackable()) {
                         stackInSlot = container;
                         this.matrix.setInventorySlotContents(i, stackInSlot);
-                    }
-                    else{
+                    } else {
                         //handle stackable container items
                         stackInSlot.shrink(1);
                         ItemHandlerHelper.giveItemToPlayer(player, container);
                     }
-                }
-                else if (!currentCraftingItem.isEmpty()) {
+                } else if (!currentCraftingItem.isEmpty()) {
                     //if the slot is empty now we just place the crafting item in it
                     if (stackInSlot.isEmpty()) {
                         this.matrix.setInventorySlotContents(i, currentCraftingItem);
                     }
                     //handle "normal items"
                     else if (ItemStack.areItemsEqual(stackInSlot, currentCraftingItem) &&
-                             ItemStack.areItemStackTagsEqual(stackInSlot, currentCraftingItem)) {
+                            ItemStack.areItemStackTagsEqual(stackInSlot, currentCraftingItem)) {
                         currentCraftingItem.grow(stackInSlot.getCount());
                         this.matrix.setInventorySlotContents(i, currentCraftingItem);
                     }
                     //handle items that consume durability on craft
                     else if (ItemStack.areItemsEqualIgnoreDurability(stackInSlot, currentCraftingItem)) {
                         this.matrix.setInventorySlotContents(i, currentCraftingItem);
-                    }
-                    else {
+                    } else {
                         //last resort, try to place in player inventory or if that fails, drop.
                         ItemHandlerHelper.giveItemToPlayer(player, result);
                     }
-                }
-                else if (!stackInSlot.isEmpty()) {
+                } else if (!stackInSlot.isEmpty()) {
                     //decrease the stack size in the matrix
                     this.matrix.decrStackSize(i, 1);
                     stackInSlot = this.matrix.getStackInSlot(i);
@@ -348,6 +345,13 @@ public abstract class StorageControllerContainerBase extends Container implement
             }
             this.onCraftMatrixChanged(this.matrix);
         }
+
+        //now actually give to the players
+        ItemStack finalResult = new ItemStack(result.getItem(), 0);
+        for (ItemStack intermediateResult : resultList) {
+            finalResult.setCount(finalResult.getCount() + intermediateResult.getCount());
+        }
+        ItemHandlerHelper.giveItemToPlayer(player, finalResult);
 
         this.detectAndSendChanges();
 
