@@ -74,7 +74,7 @@ public class StorageControllerRenderer extends TileEntityRenderer<StorageControl
 
         //rotate item slowly around y axis
         //do not use system time rad, as rotationDegrees converts for us and we want to clamp it to 360° first
-        float angle = ((float)systemTime / 16) % 360;
+        float angle = (systemTime / 16) % 360;
         matrixStack.rotate(Vector3f.YP.rotationDegrees(angle));
 
         //Math.sin(time/frequency)*amplitude
