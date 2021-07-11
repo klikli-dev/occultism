@@ -27,8 +27,7 @@ import com.github.klikli_dev.occultism.client.render.SelectedBlockRenderer;
 import com.github.klikli_dev.occultism.client.render.ThirdEyeEffectRenderer;
 import com.github.klikli_dev.occultism.common.DebugHelper;
 import com.github.klikli_dev.occultism.common.OccultismItemGroup;
-import com.github.klikli_dev.occultism.common.entity.BatFamiliarEntity;
-import com.github.klikli_dev.occultism.common.entity.GreedyFamiliarEntity;
+import com.github.klikli_dev.occultism.common.entity.FamiliarEntity;
 import com.github.klikli_dev.occultism.common.entity.OtherworldBirdEntity;
 import com.github.klikli_dev.occultism.common.entity.possessed.PossessedEndermanEntity;
 import com.github.klikli_dev.occultism.common.entity.possessed.PossessedEndermiteEntity;
@@ -154,8 +153,8 @@ public class Occultism {
         event.put(OccultismEntities.WILD_HUNT_SKELETON_TYPE.get(), WildHuntSkeletonEntity.registerAttributes().create());
         event.put(OccultismEntities.WILD_HUNT_WITHER_SKELETON_TYPE.get(), WildHuntWitherSkeletonEntity.registerAttributes().create());
         event.put(OccultismEntities.OTHERWORLD_BIRD_TYPE.get(), OtherworldBirdEntity.registerAttributes().create());
-        event.put(OccultismEntities.GREEDY_FAMILIAR_TYPE.get(), GreedyFamiliarEntity.registerAttributes().create());
-        event.put(OccultismEntities.BAT_FAMILIAR_TYPE.get(), BatFamiliarEntity.registerAttributes().create());
+        event.put(OccultismEntities.GREEDY_FAMILIAR_TYPE.get(), FamiliarEntity.registerAttributes().create());
+        event.put(OccultismEntities.BAT_FAMILIAR_TYPE.get(), FamiliarEntity.registerAttributes().create());
     }
 
     private void serverSetup(final FMLDedicatedServerSetupEvent event) {
