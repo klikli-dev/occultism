@@ -171,9 +171,10 @@ public class GreedyFamiliarEntity extends CreatureEntity implements IFamiliar {
 
         wearer.getCapability(OccultismCapabilities.FAMILIAR_SETTINGS).ifPresent(cap -> {
             if(cap.isGreedyEnabled()){
-                for (ItemEntity e : this.world.getEntitiesWithinAABB(ItemEntity.class, wearer.getBoundingBox().grow(5))) {
+                for (ItemEntity e : wearer.world.getEntitiesWithinAABB(ItemEntity.class, wearer.getBoundingBox().grow(5))) {
                     ItemStack stack = e.getItem().getStack();
                     boolean isDemagnetized = stack.hasTag() && stack.getTag().getBoolean("PreventRemoteMovement");
+
                     if(!isDemagnetized){
                         e.onCollideWithPlayer((PlayerEntity) wearer);
                     }
