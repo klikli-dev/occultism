@@ -95,7 +95,7 @@ public class StorageRemoteContainer extends StorageControllerContainerBase {
         int hotbarTop = 232;
         int hotbarLeft = 8 + StorageControllerGuiBase.ORDER_AREA_OFFSET;
         for (int i = 0; i < 9; i++) {
-            if (i == this.playerInventory.currentItem) {
+            if (i == this.selectedSlot) {
                 this.addSlot(new Slot(this.playerInventory, i, hotbarLeft + i * 18, hotbarTop) {
                     //region Overrides
                     @Override
