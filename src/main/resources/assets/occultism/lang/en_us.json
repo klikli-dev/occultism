@@ -228,6 +228,7 @@
   "debug.occultism.debug_wand.no_spirit_selected": "No spirit selected.",
   "_comment": "Ritual Messages",
   "ritual.occultism.does_not_exist": "§lUnknown ritual§r. Make sure the pentacle & ingredients are set up correctly. If you are still unsuccessful join our discord at https://invite.gg/klikli",
+  "ritual.occultism.book_not_bound": "§lUnbound Book of Calling§r. You must craft this book with Dictionary of Spirits to bind to a spirit before starting a ritual.",
   "ritual.occultism.debug.conditions": "Not all requirements for this ritual are met.",
   "ritual.occultism.debug.started": "Ritual started.",
   "ritual.occultism.debug.finished": "Ritual completed successfully.",
