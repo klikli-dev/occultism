@@ -169,7 +169,7 @@ public abstract class FamiliarEntity extends CreatureEntity implements IFamiliar
         compound.putBoolean("isSitting", this.isSitting());
     }
 
-    private void setSitting(boolean b) {
+    protected void setSitting(boolean b) {
         this.dataManager.set(SITTING, b);
     }
 
@@ -269,8 +269,8 @@ public abstract class FamiliarEntity extends CreatureEntity implements IFamiliar
         }
 
         public boolean shouldExecute() {
-            return !this.entity.isInWaterOrBubbleColumn() && this.entity.isOnGround()
-                    && this.entity.getFamiliarOwner() != null && this.entity.isSitting();
+            return !this.entity.isInWaterOrBubbleColumn() && this.entity.getFamiliarOwner() != null
+                    && this.entity.isSitting();
         }
 
         public void startExecuting() {
