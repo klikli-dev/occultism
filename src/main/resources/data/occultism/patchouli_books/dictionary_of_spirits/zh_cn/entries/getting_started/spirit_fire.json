@@ -1,5 +1,5 @@
 {
-  "name": "Spiritfire",
+  "name": "灵火",
   "icon": "occultism:spirit_fire",
   "category": "getting_started",
   "sortnum": 2,
@@ -7,7 +7,7 @@
     {
       "type": "spotlight",
       "item": "occultism:spirit_fire",
-      "text": "Spiritfire is a special type of fire that exists mostly in $(thing)The Other Place$() and does not harm living beings. It's special properties allow to use it to purify and convert certain materials by burning them, without consuming them. Making Spiritfire requires $(item)Demon's Dream Fruit$() and $(item)Flint and Steel$()."
+      "text": "灵火是一种主要存在于$(thing)异世界$()的特殊火焰，这种火并不会伤害生物。它的特殊特性使其能通过灼烧来净化和转化特定材料。制作灵火需要用到$(item)魔鬼之梦果$()和$(item)打火石$()。"
     },
     {
       "type": "image",
@@ -15,11 +15,11 @@
       "images": [
         "occultism:textures/gui/book/spiritfire_instructions.png"
       ],
-      "text": "Throw $(item)Demon's Dream Fruit$() to the ground and light it on fire."
+      "text": "将$(item)魔鬼之梦果$()扔到地上然后将其点燃。"
     },
     {
       "type": "text",
-      "text": "The main uses of Spiritfire are to convert $(item)Diamonds$() into $(item)Spirit Attuned Gems$(), and to purify impure chalk."
+      "text": "灵火的主要用途是将$(item)钻石$()转换成$(item)魔灵同调宝石$()，还有净化含杂质的粉笔。"
     },
     {
       "type": "empty",
