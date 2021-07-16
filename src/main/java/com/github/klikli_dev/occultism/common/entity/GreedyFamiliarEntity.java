@@ -24,6 +24,7 @@ package com.github.klikli_dev.occultism.common.entity;
 
 import java.util.EnumSet;
 
+import com.github.klikli_dev.occultism.registry.OccultismCapabilities;
 import com.google.common.collect.ImmutableList;
 
 import net.minecraft.entity.EntityType;
@@ -64,6 +65,28 @@ public class GreedyFamiliarEntity extends FamiliarEntity {
     @Override
     public Iterable<EffectInstance> getFamiliarEffects() {
         return ImmutableList.of();
+    }
+
+    @Override
+    public void curioTick(LivingEntity wearer) {
+        if (!(wearer instanceof PlayerEntity))
+            return;
+
+        wearer.getCapability(OccultismCapabilities.FAMILIAR_SETTINGS).ifPresent(cap -> {
+            if (cap.isGreedyEnabled()) {
+                for (ItemEntity e : wearer.world.getEntitiesWithinAABB(ItemEntity.class,
+                        wearer.getBoundingBox().grow(5))) {
+                    ItemStack stack = e.getItem();
+
+                    boolean isStackDemagnetized = stack.hasTag() && stack.getTag().getBoolean("PreventRemoteMovement");
+                    boolean isEntityDemagnetized = e.getPersistentData().getBoolean("PreventRemoteMovement");
+
+                    if (!isStackDemagnetized && !isEntityDemagnetized) {
+                        e.onCollideWithPlayer((PlayerEntity) wearer);
+                    }
+                }
+            }
+        });
     }
 
     private static class FindItemGoal extends Goal {
@@ -111,8 +134,11 @@ public class GreedyFamiliarEntity extends FamiliarEntity {
             for (ItemEntity item : this.entity.world.getEntitiesWithinAABB(ItemEntity.class,
                     this.entity.getBoundingBox().grow(RANGE))) {
                 ItemStack stack = item.getItem();
-                boolean isDemagnetized = stack.hasTag() && stack.getTag().getBoolean("PreventRemoteMovement");
-                if (!isDemagnetized
+
+                boolean isStackDemagnetized = stack.hasTag() && stack.getTag().getBoolean("PreventRemoteMovement");
+                boolean isEntityDemagnetized = item.getPersistentData().getBoolean("PreventRemoteMovement");
+
+                if ((!isStackDemagnetized && !isEntityDemagnetized)
                         && ItemHandlerHelper.insertItemStacked(inv, stack, true).getCount() != stack.getCount())
                     return item;
             }
