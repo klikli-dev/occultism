@@ -162,22 +162,42 @@ public class BatFamiliarModel extends EntityModel<BatFamiliarEntity> {
     }
 
     @Override
-    public void setRotationAngles(BatFamiliarEntity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks,
-            float netHeadYaw, float headPitch) {
+    public void setLivingAnimations(BatFamiliarEntity entityIn, float limbSwing, float limbSwingAmount,
+            float partialTick) {
         if (entityIn.isSitting()) {
-            leftWing1.rotateAngleY = toRads(70);
-            leftWing2.rotateAngleY = toRads(70);
-            rightWing1.rotateAngleY = -toRads(70);
-            rightWing2.rotateAngleY = -toRads(70);
+            leftWing1.rotateAngleY = toRads(60);
+            leftWing2.rotateAngleY = toRads(60);
+            rightWing1.rotateAngleY = -toRads(60);
+            rightWing2.rotateAngleY = -toRads(60);
             body.rotateAngleX = toRads(180);
             stick.showModel = true;
         } else {
-            leftWing1.rotateAngleY = 0;
-            leftWing2.rotateAngleY = 0;
-            rightWing1.rotateAngleY = 0;
-            rightWing2.rotateAngleY = 0;
+            float animationHeight = entityIn.getAnimationHeight(partialTick);
+            leftWing1.rotateAngleY = animationHeight * toRads(20);
+            leftWing2.rotateAngleY = animationHeight * toRads(20);
+            rightWing1.rotateAngleY = -animationHeight * toRads(20);
+            rightWing2.rotateAngleY = -animationHeight * toRads(20);
             body.rotateAngleX = toRads(0);
             stick.showModel = false;
+        }
+    }
+
+    @Override
+    public void setRotationAngles(BatFamiliarEntity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks,
+            float netHeadYaw, float headPitch) {
+
+        if (entityIn.isSitting()) {
+            head.rotateAngleX = 0.2f;
+            head.rotateAngleY = 0;
+            head.rotateAngleZ = 0;
+            body.rotateAngleX = (float) Math.toRadians(180);
+            body.rotateAngleY = (float) Math.toRadians(180);
+        } else {
+            head.rotateAngleY = toRads(netHeadYaw) * 0.35f;
+            head.rotateAngleZ = toRads(headPitch) * 0.35f;
+
+            body.rotateAngleX = toRads(20) + limbSwingAmount * toRads(70);
+            body.rotateAngleY = 0;
         }
     }
 

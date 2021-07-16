@@ -43,6 +43,7 @@ import net.minecraft.pathfinding.PathNavigator;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 
@@ -96,6 +97,10 @@ public class BatFamiliarEntity extends FamiliarEntity implements IFlyingAnimal {
         super.tick();
         if (this.isSitting())
             this.setMotion(Vector3d.ZERO);
+    }
+    
+    public float getAnimationHeight(float partialTicks) {
+        return MathHelper.cos((ticksExisted + partialTicks) / 5);
     }
 
     @Override
