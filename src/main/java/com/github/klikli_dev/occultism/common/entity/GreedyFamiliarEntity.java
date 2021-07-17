@@ -171,10 +171,13 @@ public class GreedyFamiliarEntity extends CreatureEntity implements IFamiliar {
 
         wearer.getCapability(OccultismCapabilities.FAMILIAR_SETTINGS).ifPresent(cap -> {
             if(cap.isGreedyEnabled()){
-                for (ItemEntity e : this.world.getEntitiesWithinAABB(ItemEntity.class, wearer.getBoundingBox().grow(5))) {
-                    ItemStack stack = e.getItem().getStack();
-                    boolean isDemagnetized = stack.hasTag() && stack.getTag().getBoolean("PreventRemoteMovement");
-                    if(!isDemagnetized){
+                for (ItemEntity e : wearer.world.getEntitiesWithinAABB(ItemEntity.class, wearer.getBoundingBox().grow(5))) {
+                    ItemStack stack = e.getItem();
+
+                    boolean isStackDemagnetized = stack.hasTag() && stack.getTag().getBoolean("PreventRemoteMovement");
+                    boolean isEntityDemagnetized = e.getPersistentData().getBoolean("PreventRemoteMovement");
+
+                    if(!isStackDemagnetized && !isEntityDemagnetized){
                         e.onCollideWithPlayer((PlayerEntity) wearer);
                     }
                 }
@@ -358,8 +361,11 @@ public class GreedyFamiliarEntity extends CreatureEntity implements IFamiliar {
             for (ItemEntity item : this.entity.world.getEntitiesWithinAABB(ItemEntity.class,
                     this.entity.getBoundingBox().grow(RANGE))) {
                 ItemStack stack = item.getItem();
-                boolean isDemagnetized = stack.hasTag() && stack.getTag().getBoolean("PreventRemoteMovement");
-                if (!isDemagnetized && ItemHandlerHelper.insertItemStacked(inv, stack, true).getCount() != stack.getCount())
+
+                boolean isStackDemagnetized = stack.hasTag() && stack.getTag().getBoolean("PreventRemoteMovement");
+                boolean isEntityDemagnetized = item.getPersistentData().getBoolean("PreventRemoteMovement");
+
+                if ((!isStackDemagnetized && !isEntityDemagnetized) && ItemHandlerHelper.insertItemStacked(inv, stack, true).getCount() != stack.getCount())
                     return item;
             }
             return null;

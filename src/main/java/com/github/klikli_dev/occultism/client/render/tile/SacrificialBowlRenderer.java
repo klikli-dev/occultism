@@ -62,7 +62,7 @@ public class SacrificialBowlRenderer extends TileEntityRenderer<SacrificialBowlT
             //use system time to become independent of game time
             long systemTime = System.currentTimeMillis();
             //rotate item slowly around y axis
-            float angle = (float) (systemTime / 16) % 360;
+            float angle = (systemTime / 16) % 360;
             matrixStack.rotate(Vector3f.YP.rotationDegrees(angle));
 
             //Fixed scale

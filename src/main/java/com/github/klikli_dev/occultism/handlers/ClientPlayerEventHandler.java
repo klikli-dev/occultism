@@ -24,10 +24,8 @@ package com.github.klikli_dev.occultism.handlers;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.client.gui.storage.SatchelScreen;
-import com.github.klikli_dev.occultism.network.MessageDoubleJump;
-import com.github.klikli_dev.occultism.network.MessageOpenSatchel;
-import com.github.klikli_dev.occultism.network.MessageToggleFamiliarSettings;
-import com.github.klikli_dev.occultism.network.OccultismPackets;
+import com.github.klikli_dev.occultism.client.gui.storage.StorageRemoteGui;
+import com.github.klikli_dev.occultism.network.*;
 import com.github.klikli_dev.occultism.util.CuriosUtil;
 import com.github.klikli_dev.occultism.util.MovementUtil;
 import net.minecraft.client.Minecraft;
@@ -48,6 +46,7 @@ public class ClientPlayerEventHandler {
     public static void onKeyInput(final InputEvent.KeyInputEvent event) {
         Minecraft minecraft = Minecraft.getInstance();
         checkBackpackKey(event);
+        checkStorageRemoteKey(event);
         checkFamiliarSettingsKeys(event);
         if (event.getAction() == GLFW_PRESS && minecraft.gameSettings.keyBindJump.isKeyDown()) {
             if (minecraft.player != null && MovementUtil.doubleJump(minecraft.player)) {
@@ -58,14 +57,14 @@ public class ClientPlayerEventHandler {
 
     @SubscribeEvent
     public static void onMouseInput(final InputEvent.MouseInputEvent event) {
+        //handle mouse button bindings for storage keys
         checkBackpackKey(event);
+        checkStorageRemoteKey(event);
     }
 
     public static void checkBackpackKey(InputEvent event) {
         Minecraft minecraft = Minecraft.getInstance();
 
-        //check backpack keydown here instead of on key input
-        //  because mouse buttons don't properly fire key inputs (
         if (minecraft.currentScreen instanceof SatchelScreen && ClientSetupEventHandler.KEY_BACKPACK.isPressed()) {
             minecraft.player.closeScreen();
         }
@@ -76,6 +75,24 @@ public class ClientPlayerEventHandler {
                     CuriosUtil.getFirstBackpackSlot(minecraft.player) > 0) {
                 OccultismPackets.sendToServer(new MessageOpenSatchel());
                 minecraft.getSoundHandler().play(SimpleSound.master(SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0.75F, 1.0F));
+            }
+        }
+    }
+
+    public static void checkStorageRemoteKey(InputEvent event) {
+        Minecraft minecraft = Minecraft.getInstance();
+
+        if (minecraft.currentScreen instanceof StorageRemoteGui && ClientSetupEventHandler.KEY_STORAGE_REMOTE.isPressed()) {
+            minecraft.player.closeScreen();
+        }
+        //open satchel
+        else if (minecraft.player != null & minecraft.currentScreen == null &&
+                ClientSetupEventHandler.KEY_STORAGE_REMOTE.isPressed()) {
+
+            if (!CuriosUtil.getStorageRemote(minecraft.player).isEmpty() ||
+                    CuriosUtil.getFirstStorageRemoteSlot(minecraft.player) > 0) {
+                OccultismPackets.sendToServer(new MessageOpenStorageRemote());
+                minecraft.getSoundHandler().play(SimpleSound.master(SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 0.75F, 1.0F));
             }
         }
     }

@@ -23,6 +23,7 @@
 package com.github.klikli_dev.occultism.common.tile;
 
 import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.common.item.spirit.BookOfBindingItem;
 import com.github.klikli_dev.occultism.common.ritual.Ritual;
 import com.github.klikli_dev.occultism.exceptions.ItemHandlerMissingException;
 import com.github.klikli_dev.occultism.registry.OccultismParticles;
@@ -252,9 +253,16 @@ public class GoldenSacrificialBowlTileEntity extends SacrificialBowlTileEntity i
                     }
                 }
                 else {
-                    player.sendStatusMessage(
-                            new TranslationTextComponent(String.format("ritual.%s.does_not_exist", Occultism.MODID)),
-                            false);
+                    if(activationItem.getItem() instanceof BookOfBindingItem){
+                        //common error: people use unbound book, so we send a special message for those
+                        player.sendStatusMessage(
+                                new TranslationTextComponent(String.format("ritual.%s.book_not_bound", Occultism.MODID)),
+                                false);
+                    } else {
+                        player.sendStatusMessage(
+                                new TranslationTextComponent(String.format("ritual.%s.does_not_exist", Occultism.MODID)),
+                                false);
+                    }
                     return false;
                 }
             }

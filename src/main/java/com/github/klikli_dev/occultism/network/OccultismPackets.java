@@ -182,6 +182,12 @@ public class OccultismPackets {
                 MessageToggleFamiliarSettings::encode,
                 MessageToggleFamiliarSettings::new,
                 OccultismPacketHandler::handle);
+
+        INSTANCE.registerMessage(nextID(),
+                MessageOpenStorageRemote.class,
+                MessageOpenStorageRemote::encode,
+                MessageOpenStorageRemote::new,
+                OccultismPacketHandler::handle);
     }
 
     public static <MSG> void sendTo(ServerPlayerEntity player, MSG message) {

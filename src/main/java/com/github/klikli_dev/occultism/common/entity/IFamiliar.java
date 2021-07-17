@@ -73,6 +73,13 @@ public interface IFamiliar {
     /***
      * This method is called every tick when this familiar is captured in a
      * {@link FamiliarRingItem}.
+     * <br><br>
+     * BEWARE: Extra caution has to be taken when using instance variables from the
+     * {@link IFamiliar#getEntity} in this method (such as {@link Entity#world}),
+     * since their values are no longer updated when the familiar is inside the ring
+     * and might be outdated. The same caution should be taken when implementing
+     * {@link IFamiliar#getFamiliarEffects} or any other method that is called while
+     * the familiar is inside the {@link FamiliarRingItem}.
      * 
      * @param wearer The wearer of the curio
      */

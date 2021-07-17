@@ -24,6 +24,7 @@ package com.github.klikli_dev.occultism.common.item.spirit;
 
 import com.github.klikli_dev.occultism.common.job.TransportItemsJob;
 import com.github.klikli_dev.occultism.util.ItemNBTUtil;
+import com.github.klikli_dev.occultism.util.TextUtil;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
@@ -35,6 +36,7 @@ import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 public class BookOfCallingTransportItems extends BookOfCallingItem {
     //region Initialization
@@ -60,8 +62,12 @@ public class BookOfCallingTransportItems extends BookOfCallingItem {
         }
 
         BlockPos deposit = ItemNBTUtil.getDepositPosition(stack);
+        String depositName = ItemNBTUtil.getDepositEntityName(stack);
+
         if (deposit != null) {
             tooltip.add(new TranslationTextComponent(this.getTranslationKeyBase() + ".tooltip.deposit", deposit.toString()));
+        } else if (depositName != null) {
+            tooltip.add(new TranslationTextComponent(this.getTranslationKeyBase() + ".tooltip.deposit_entity", TextUtil.formatDemonName(depositName)));
         }
     }
     //endregion Overrides

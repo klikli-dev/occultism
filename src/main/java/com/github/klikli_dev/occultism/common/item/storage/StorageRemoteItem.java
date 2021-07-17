@@ -25,6 +25,7 @@ package com.github.klikli_dev.occultism.common.item.storage;
 import com.github.klikli_dev.occultism.api.common.data.GlobalBlockPos;
 import com.github.klikli_dev.occultism.api.common.tile.IStorageController;
 import com.github.klikli_dev.occultism.common.container.storage.StorageRemoteContainer;
+import com.github.klikli_dev.occultism.util.CuriosUtil;
 import com.github.klikli_dev.occultism.util.TileEntityUtil;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
@@ -95,7 +96,7 @@ public class StorageRemoteItem extends Item implements INamedContainerProvider {
 
         //then access it and if it fits, open UI
         if (storageControllerWorld.getTileEntity(storageControllerPos.getPos()) instanceof IStorageController) {
-            NetworkHooks.openGui((ServerPlayerEntity) player, this);
+            NetworkHooks.openGui((ServerPlayerEntity) player, this, buffer -> buffer.writeVarInt(player.inventory.currentItem));
             return new ActionResult<>(ActionResultType.SUCCESS, stack);
         }
         return super.onItemRightClick(world, player, hand);
@@ -121,7 +122,21 @@ public class StorageRemoteItem extends Item implements INamedContainerProvider {
     @Nullable
     @Override
     public Container createMenu(int id, PlayerInventory playerInventory, PlayerEntity player) {
-        return new StorageRemoteContainer(id, playerInventory);
+
+        ItemStack storageRemoteStack = CuriosUtil.getStorageRemote(player);
+        int selectedSlot = -1;
+        //if not found, try to get from player inventory
+        if (!(storageRemoteStack.getItem() instanceof StorageRemoteItem)) {
+            selectedSlot = CuriosUtil.getFirstStorageRemoteSlot(player);
+            storageRemoteStack = selectedSlot > 0 ? player.inventory.getStackInSlot(selectedSlot) : ItemStack.EMPTY;
+        }
+        //now, if we have a storage remote, proceed
+        if (storageRemoteStack.getItem() instanceof StorageRemoteItem) {
+            return new StorageRemoteContainer(id, playerInventory, selectedSlot);
+
+        } else {
+            return null;
+        }
     }
     //endregion Overrides
 
