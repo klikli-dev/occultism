@@ -25,6 +25,7 @@ package com.github.klikli_dev.occultism.registry;
 import static com.github.klikli_dev.occultism.util.StaticUtil.modLoc;
 
 import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.common.entity.BatFamiliarEntity;
 import com.github.klikli_dev.occultism.common.entity.GreedyFamiliarEntity;
 import com.github.klikli_dev.occultism.common.entity.OtherworldBirdEntity;
 import com.github.klikli_dev.occultism.common.entity.possessed.PossessedEndermanEntity;
@@ -111,6 +112,11 @@ public class OccultismEntities {
                                          .size(0.5F, 0.9F)
                                          .trackingRange(8)
                                          .build(modLoc("greedy_familiar").toString()));
+    public static final NonNullLazy<EntityType<BatFamiliarEntity>> BAT_FAMILIAR_TYPE =
+            NonNullLazy.of(() -> EntityType.Builder.create(BatFamiliarEntity::new, EntityClassification.CREATURE)
+                                         .size(0.5F, 0.9F)
+                                         .trackingRange(8)
+                                         .build(modLoc("bat_familiar").toString()));
 
     public static final RegistryObject<EntityType<FoliotEntity>> FOLIOT = ENTITIES.register("foliot", FOLIOT_TYPE::get);
     public static final RegistryObject<EntityType<DjinniEntity>> DJINNI = ENTITIES.register("djinni", DJINNI_TYPE::get);
@@ -133,5 +139,7 @@ public class OccultismEntities {
             ENTITIES.register("otherworld_bird", OTHERWORLD_BIRD_TYPE::get);
     public static final RegistryObject<EntityType<GreedyFamiliarEntity>> GREEDY_FAMILIAR =
             ENTITIES.register("greedy_familiar", GREEDY_FAMILIAR_TYPE::get);
+    public static final RegistryObject<EntityType<BatFamiliarEntity>> BAT_FAMILIAR =
+            ENTITIES.register("bat_familiar", BAT_FAMILIAR_TYPE::get);
     //endregion Fields
 }
