@@ -73,9 +73,8 @@ public class GreedyFamiliarEntity extends FamiliarEntity {
             return;
 
         wearer.getCapability(OccultismCapabilities.FAMILIAR_SETTINGS).ifPresent(cap -> {
-            if (cap.isGreedyEnabled()) {
-                for (ItemEntity e : wearer.world.getEntitiesWithinAABB(ItemEntity.class,
-                        wearer.getBoundingBox().grow(5))) {
+            if(cap.isGreedyEnabled()){
+                for (ItemEntity e : wearer.world.getEntitiesWithinAABB(ItemEntity.class, wearer.getBoundingBox().grow(5), e -> e.isAlive())) {
                     ItemStack stack = e.getItem();
 
                     boolean isStackDemagnetized = stack.hasTag() && stack.getTag().getBoolean("PreventRemoteMovement");
@@ -132,7 +131,7 @@ public class GreedyFamiliarEntity extends FamiliarEntity {
             IItemHandler inv = new PlayerMainInvWrapper(player.inventory);
 
             for (ItemEntity item : this.entity.world.getEntitiesWithinAABB(ItemEntity.class,
-                    this.entity.getBoundingBox().grow(RANGE))) {
+                    this.entity.getBoundingBox().grow(RANGE), e -> e.isAlive())) {
                 ItemStack stack = item.getItem();
 
                 boolean isStackDemagnetized = stack.hasTag() && stack.getTag().getBoolean("PreventRemoteMovement");
