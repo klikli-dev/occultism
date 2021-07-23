@@ -54,6 +54,7 @@ public class OccultismTags {
     public static final ITag<EntityType<?>> COWS = makeEntityTypeTag(new ResourceLocation("forge","cows"));
     public static final ITag<EntityType<?>> VILLAGERS = makeEntityTypeTag(new ResourceLocation("forge","villagers"));
     public static final ITag<EntityType<?>> ZOMBIES = makeEntityTypeTag(new ResourceLocation("forge","zombies"));
+    public static final ITag<EntityType<?>> BATS = makeEntityTypeTag(new ResourceLocation("forge","bats"));
 
     //endregion Fields
 

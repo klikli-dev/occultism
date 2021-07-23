@@ -164,5 +164,7 @@ public class OccultismRituals {
             RITUALS.register("familiar_otherworld_bird", FamiliarOtherworldBirdRitual::new);
     public static final RegistryObject<SummonWildOtherworldBirdRitual> SUMMON_WILD_OTHERWORLD_BIRD_RITUAL =
             RITUALS.register("summon_wild_otherworld_bird", SummonWildOtherworldBirdRitual::new);
+    public static final RegistryObject<FamiliarBatRitual> FAMILIAR_BAT =
+            RITUALS.register("familiar_bat", FamiliarBatRitual::new);
     //endregion Fields
 }

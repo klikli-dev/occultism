@@ -22,8 +22,13 @@
 
 package com.github.klikli_dev.occultism.common.entity;
 
+import java.util.Collections;
 import java.util.EnumSet;
 
+import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.common.capability.FamiliarSettingsCapability;
+import com.github.klikli_dev.occultism.registry.OccultismCapabilities;
+import com.github.klikli_dev.occultism.registry.OccultismEffects;
 import com.google.common.collect.ImmutableList;
 
 import net.minecraft.block.BlockState;
@@ -105,6 +110,10 @@ public class BatFamiliarEntity extends FamiliarEntity implements IFlyingAnimal {
 
     @Override
     public Iterable<EffectInstance> getFamiliarEffects() {
-        return ImmutableList.of(new EffectInstance(Effects.NIGHT_VISION, 300, 1, false, false));
+        if (this.getFamiliarOwner().getCapability(OccultismCapabilities.FAMILIAR_SETTINGS)
+                .map(FamiliarSettingsCapability::isBatEnabled).orElse(false)) {
+            return ImmutableList.of(new EffectInstance(Effects.NIGHT_VISION, 300, 1, false, false));
+        }
+        return Collections.emptyList();
     }
 }
