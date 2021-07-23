@@ -1,11 +1,10 @@
 buildscript {
     repositories {
         maven { url = 'https://files.minecraftforge.net/maven' }
-        jcenter()
         mavenCentral()
     }
     dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
     }
 }
 
@@ -27,19 +26,24 @@ if (System.getenv('VERSION') != null) {
 group = "com.github.klikli_dev"
 archivesBaseName = "occultism"
 
-sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
+java.toolchain.languageVersion = JavaLanguageVersion.of(16)
 
 println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
 minecraft {
-    // The mappings can be changed at any time, and must be in the following format.
-    // snapshot_YYYYMMDD   Snapshot are built nightly.
-    // stable_#            Stables are built at the discretion of the MCP team.
-    // Use non-default mappings at your own risk. they may not always work.
+    // The mappings can be changed at any time and must be in the following format.
+    // Channel:   Version:
+    // snapshot   YYYYMMDD   Snapshot are built nightly.
+    // stable     #          Stables are built at the discretion of the MCP team.
+    // official   MCVersion  Official field/method names from Mojang mapping files
+    //
+    // You must be aware of the Mojang license when using the 'official' mappings.
+    // See more information here: https://github.com/MinecraftForge/MCPConfig/blob/master/Mojang.md
+    //
+    // Use non-default mappings at your own risk. They may not always work.
     // Simply re-run your setup task after changing the mappings to update your workspace.
     mappings channel: 'snapshot', version: '20210309-1.16.5'
-    // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
-    
-     accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
+
+    accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 
     // Default run configurations.
     // These can be tweaked, removed, or duplicated as needed.
@@ -139,18 +143,19 @@ dependencies {
     // Specify the version of Minecraft to use, If this is any group other then 'net.minecraft' it is assumed
     // that the dep is a ForgeGradle 'patcher' dependency. And it's patches will be applied.
     // The userdev artifact is a special name and will get all sorts of transformations applied to it.
-    minecraft 'net.minecraftforge:forge:1.16.5-36.0.48'
+    minecraft 'net.minecraftforge:forge:1.17.1-37.0.1'
 
-    //Jei
-    compileOnly fg.deobf("mezz.jei:jei-${jei_mc_version}:${jei_version}:api")
-    runtimeOnly fg.deobf("mezz.jei:jei-${jei_mc_version}:${jei_version}")
-
-    //curios
-    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}:api")
-    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}")
-
-    //patchouli bookss
-    compile fg.deobf("vazkii.patchouli:Patchouli:${patchouli_mc_version}-${patchouli_version}")
+    //TODO: link dependencies once updated
+//    //Jei
+//    compileOnly fg.deobf("mezz.jei:jei-${jei_mc_version}:${jei_version}:api")
+//    runtimeOnly fg.deobf("mezz.jei:jei-${jei_mc_version}:${jei_version}")
+//
+//    //curios
+//    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}:api")
+//    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}")
+//
+//    //patchouli bookss
+//    compile fg.deobf("vazkii.patchouli:Patchouli:${patchouli_mc_version}-${patchouli_version}")
 
     //runtime only helper mods for dev env, placed in ./runtime-mods, example: Hwyla-forge-1.10.11-B78_1.16.2.jar
     //runtimeOnly fg.deobf("ignoredvalue:Hwyla:forge-1.10.11-B78_1.16.2")
