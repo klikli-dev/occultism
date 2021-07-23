@@ -37,6 +37,7 @@ public class MessageToggleFamiliarSettings extends MessageBase {
     //region Fields
     public boolean toggleOtherworldBird;
     public boolean toggleGreedy;
+    public boolean toggleBat;
     //endregion Fields
 
     //region Initialization
@@ -44,9 +45,10 @@ public class MessageToggleFamiliarSettings extends MessageBase {
         this.decode(buf);
     }
 
-    public MessageToggleFamiliarSettings(boolean toggleOtherworldBird, boolean toggleGreedy) {
+    public MessageToggleFamiliarSettings(boolean toggleOtherworldBird, boolean toggleGreedy, boolean toggleBat) {
         this.toggleOtherworldBird = toggleOtherworldBird;
         this.toggleGreedy = toggleGreedy;
+        this.toggleBat = toggleBat;
     }
     //endregion Initialization
 
@@ -71,6 +73,13 @@ public class MessageToggleFamiliarSettings extends MessageBase {
                                 "message." + Occultism.MODID + ".familiar.otherworld_bird." +
                                         (cap.isOtherworldBirdEnabled() ? "enabled" : "disabled")), true);
             }
+            if (this.toggleBat) {
+                cap.setBatEnabled(!cap.isBatEnabled());
+                player.sendStatusMessage(
+                        new TranslationTextComponent(
+                                "message." + Occultism.MODID + ".familiar.bat." +
+                                        (cap.isBatEnabled() ? "enabled" : "disabled")), true);
+            }
         });
     }
 
@@ -78,12 +87,14 @@ public class MessageToggleFamiliarSettings extends MessageBase {
     public void encode(PacketBuffer buf) {
         buf.writeBoolean(this.toggleOtherworldBird);
         buf.writeBoolean(this.toggleGreedy);
+        buf.writeBoolean(this.toggleBat);
     }
 
     @Override
     public void decode(PacketBuffer buf) {
         this.toggleOtherworldBird = buf.readBoolean();
         this.toggleGreedy = buf.readBoolean();
+        this.toggleBat = buf.readBoolean();
     }
     //endregion Overrides
 }

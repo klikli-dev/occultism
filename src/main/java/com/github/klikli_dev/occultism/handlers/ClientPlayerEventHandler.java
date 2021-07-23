@@ -60,6 +60,7 @@ public class ClientPlayerEventHandler {
         //handle mouse button bindings for storage keys
         checkBackpackKey(event);
         checkStorageRemoteKey(event);
+        checkFamiliarSettingsKeys(event);
     }
 
     public static void checkBackpackKey(InputEvent event) {
@@ -102,8 +103,9 @@ public class ClientPlayerEventHandler {
         if (minecraft.player != null & minecraft.currentScreen == null) {
             boolean familiarGreedy = ClientSetupEventHandler.KEY_FAMILIAR_GREEDY.isPressed();
             boolean familiarOtherworldBird = ClientSetupEventHandler.KEY_FAMILIAR_OTHERWORLD_BIRD.isPressed();
-            if (familiarGreedy|| familiarOtherworldBird) {
-                OccultismPackets.sendToServer(new MessageToggleFamiliarSettings(familiarOtherworldBird, familiarGreedy));
+            boolean familiarBat = ClientSetupEventHandler.KEY_FAMILIAR_BAT.isPressed();
+            if (familiarGreedy|| familiarOtherworldBird || familiarBat) {
+                OccultismPackets.sendToServer(new MessageToggleFamiliarSettings(familiarOtherworldBird, familiarGreedy, familiarBat));
             }
         }
     }
