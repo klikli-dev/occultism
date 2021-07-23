@@ -6,5 +6,6 @@
   "result": {
     "item": "occultism:gold_dust"
   },
-  "crushing_time": 100
+  "crushing_time": 100,
+  "ignore_crushing_multiplier": true
 }

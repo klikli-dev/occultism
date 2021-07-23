@@ -6,5 +6,6 @@
   "result": {
     "item": "occultism:iesnium_dust"
   },
-  "crushing_time": 200
+  "crushing_time": 200,
+  "ignore_crushing_multiplier": true
 }

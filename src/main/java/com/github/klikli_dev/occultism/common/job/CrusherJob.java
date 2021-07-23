@@ -129,7 +129,12 @@ public class CrusherJob extends SpiritJob {
                     this.crushingTimer = 0;
 
                     ItemStack result = this.currentRecipe.get().getCraftingResult(fakeInventory);
-                    result.setCount((int)(result.getCount() * this.outputMultiplier.get()));
+                    //make sure to ignore output multiplier on recipes that set that flag.
+                    //prevents e.g. 1x ingot -> 3x dust -> 3x ingot -> 9x dust ...
+                    float outputMultiplier = this.outputMultiplier.get();
+                    if(this.currentRecipe.get().getIgnoreCrushingMultiplier())
+                        outputMultiplier = 1;
+                    result.setCount((int)(result.getCount() * outputMultiplier));
                     ItemStack inputCopy = handHeld.copy();
                     inputCopy.setCount(1);
                     handHeld.shrink(1);
