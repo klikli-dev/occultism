@@ -24,7 +24,7 @@ package com.github.klikli_dev.occultism.registry;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.job.*;
-import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.RegistryManager;
@@ -34,7 +34,7 @@ import static com.github.klikli_dev.occultism.util.StaticUtil.modLoc;
 public class OccultismSpiritJobs {
     //region Fields
     public static IForgeRegistry<SpiritJobFactory> REGISTRY = RegistryManager.ACTIVE
-                                                                      .getRegistry(SpiritJobFactory.class);
+            .getRegistry(SpiritJobFactory.class);
     public static DeferredRegister<SpiritJobFactory> JOBS = DeferredRegister.create(REGISTRY, Occultism.MODID);
 
     public static final RegistryObject<SpiritJobFactory> LUMBERJACK = JOBS.register("lumberjack",

@@ -28,10 +28,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
+import net.minecraft.level.Level;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
 public class SpiritFireRecipe extends ItemStackFakeInventoryRecipe {
@@ -47,13 +47,13 @@ public class SpiritFireRecipe extends ItemStackFakeInventoryRecipe {
 
     //region Overrides
     @Override
-    public boolean matches(ItemStackFakeInventory inv, World world) {
+    public boolean matches(ItemStackFakeInventory inv, Level level) {
         return this.input.test(inv.getStackInSlot(0));
     }
 
     @Override
     public ItemStack getCraftingResult(ItemStackFakeInventory inv) {
-        ItemStack result = this.getRecipeOutput().copy();
+        ItemStack result = this.getResultItem().copy();
         result.setCount(inv.input.getCount());
         return result;
     }
@@ -65,7 +65,7 @@ public class SpiritFireRecipe extends ItemStackFakeInventoryRecipe {
     }
 
     @Override
-    public ItemStack getRecipeOutput() {
+    public ItemStack getResultItem() {
         return this.output;
     }
 
@@ -99,12 +99,12 @@ public class SpiritFireRecipe extends ItemStackFakeInventoryRecipe {
         }
 
         @Override
-        public SpiritFireRecipe read(ResourceLocation recipeId, PacketBuffer buffer) {
+        public SpiritFireRecipe read(ResourceLocation recipeId, FriendlyByteBuf buffer) {
             return ItemStackFakeInventoryRecipe.SERIALIZER.read(SpiritFireRecipe::new, recipeId, buffer);
         }
 
         @Override
-        public void write(PacketBuffer buffer, SpiritFireRecipe recipe) {
+        public void write(FriendlyByteBuf buffer, SpiritFireRecipe recipe) {
             ItemStackFakeInventoryRecipe.SERIALIZER.write(buffer, recipe);
         }
         //endregion Overrides

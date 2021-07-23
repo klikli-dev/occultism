@@ -23,7 +23,7 @@
 package com.github.klikli_dev.occultism.api.client.gui;
 
 import com.github.klikli_dev.occultism.api.common.data.MachineReference;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 
 import java.util.List;
 

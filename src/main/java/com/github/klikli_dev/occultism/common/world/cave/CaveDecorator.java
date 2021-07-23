@@ -20,14 +20,14 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.github.klikli_dev.occultism.common.world.cave;
+package com.github.klikli_dev.occultism.common.level.cave;
 
 import com.github.klikli_dev.occultism.registry.OccultismTags;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.ISeedReader;
-import net.minecraft.world.gen.ChunkGenerator;
+import net.minecraft.level.ISeedReader;
+import net.minecraft.level.gen.ChunkGenerator;
 
 import java.util.Random;
 
@@ -105,7 +105,7 @@ public abstract class CaveDecorator implements ICaveDecorator {
 
     public void fillInside(ISeedReader seedReader, ChunkGenerator generator, Random rand,
                            BlockPos pos, BlockState state) {
-        //world.setBlockState(pos, Blocks.AIR.getDefaultState(), 2);
+        //level.setBlockState(pos, Blocks.AIR.getDefaultState(), 2);
     }
 
     public void finalFloorPass(ISeedReader seedReader, ChunkGenerator generator, Random rand,
@@ -137,7 +137,7 @@ public abstract class CaveDecorator implements ICaveDecorator {
             return false;
 
         BlockPos downPos = pos.down();
-        return seedReader.isAirBlock(downPos); // || world.getBlockState(downPos).getBlock().isReplaceable(world, downPos);
+        return seedReader.isAirBlock(downPos); // || level.getBlockState(downPos).getBlock().isReplaceable(level, downPos);
     }
 
     public boolean isWall(ISeedReader seedReader, BlockPos pos, BlockState state) {

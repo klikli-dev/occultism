@@ -58,7 +58,7 @@ public class OtherworldUtil {
         boolean thirdEye = Minecraft.getInstance() != null && Minecraft.getInstance().player != null
                            && Minecraft.getInstance().player.isPotionActive(OccultismEffects.THIRD_EYE.get());
         return stack.getOrCreateTag().getBoolean("isInventoryItem") ||
-               thirdEye ? item.getDefaultTranslationKey() : item.getTranslationKey();
+               thirdEye ? item.getDefaultTranslationKey() : item.getDescriptionId();
     }
     //endregion Static Methods
 }

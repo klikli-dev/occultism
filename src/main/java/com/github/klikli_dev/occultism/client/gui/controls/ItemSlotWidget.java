@@ -90,7 +90,7 @@ public class ItemSlotWidget {
         return this.parent.isPointInRegionController(this.x - this.guiLeft, this.y - this.guiTop, 16, 16, mouseX, mouseY);
     }
 
-    public void drawSlot(MatrixStack matrixStack, int mx, int my) {
+    public void drawSlot(MatrixStack poseStack, int mx, int my) {
         RenderSystem.pushMatrix();
         if (!this.getStack().isEmpty()) {
             //RenderHelper.enableGUIStandardItemLighting();
@@ -115,7 +115,7 @@ public class ItemSlotWidget {
 
             if (this.isMouseOverSlot(mx, my)) {
                 RenderSystem.colorMask(true, true, true, false);
-                this.parent.drawGradientRect(matrixStack, this.x, this.y, this.x + 16, this.y + 16, this.slotHighlightColor,
+                this.parent.drawGradientRect(poseStack, this.x, this.y, this.x + 16, this.y + 16, this.slotHighlightColor,
                         this.slotHighlightColor);
                 RenderSystem.colorMask(true, true, true, true);
             }
@@ -124,9 +124,9 @@ public class ItemSlotWidget {
         RenderSystem.popMatrix();
     }
 
-    public void drawTooltip(MatrixStack matrixStack, int mx, int my) {
+    public void drawTooltip(MatrixStack poseStack, int mx, int my) {
         if (this.isMouseOverSlot(mx, my) && !this.getStack().isEmpty()) {
-            this.parent.renderToolTip(matrixStack, this.getStack(), mx, my);
+            this.parent.renderToolTip(poseStack, this.getStack(), mx, my);
         }
     }
     //endregion Methods

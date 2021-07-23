@@ -35,9 +35,11 @@ import com.github.klikli_dev.occultism.common.item.storage.SatchelItem;
 import com.github.klikli_dev.occultism.common.item.storage.StableWormholeBlockItem;
 import com.github.klikli_dev.occultism.common.item.storage.StorageRemoteItem;
 import com.github.klikli_dev.occultism.common.item.tool.*;
-import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.inventory.EquipmentSlot;
 import net.minecraft.item.*;
+import net.minecraft.world.item.Item;
 import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -232,7 +234,7 @@ public class OccultismItems {
     //Armor
     public static final RegistryObject<OtherworldGogglesItem> OTHERWORLD_GOGGLES = ITEMS.register("otherworld_goggles",
             () -> new OtherworldGogglesItem(ArmorMaterial.IRON,
-                    EquipmentSlotType.HEAD, defaultProperties().maxStackSize(1)));
+                    EquipmentSlot.HEAD, defaultProperties().maxStackSize(1)));
 
     //Machines
     public static final RegistryObject<StableWormholeBlockItem> STABLE_WORMHOLE = ITEMS.register("stable_wormhole",

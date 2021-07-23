@@ -22,16 +22,16 @@
 
 package com.github.klikli_dev.occultism.common.ritual;
 
-import com.github.klikli_dev.occultism.common.tile.GoldenSacrificialBowlTileEntity;
+import com.github.klikli_dev.occultism.common.tile.GoldenSacrificialBowlBlockEntity;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.github.klikli_dev.occultism.registry.OccultismRituals;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.level.Level;
+import net.minecraft.level.server.ServerWorld;
 import net.minecraftforge.items.ItemHandlerHelper;
 
 public class CraftStorageRemoteRitual extends Ritual {
@@ -47,17 +47,17 @@ public class CraftStorageRemoteRitual extends Ritual {
     //region Overrides
 
     @Override
-    public void finish(World world, BlockPos goldenBowlPosition, GoldenSacrificialBowlTileEntity tileEntity,
-                       PlayerEntity castingPlayer, ItemStack activationItem) {
-        super.finish(world, goldenBowlPosition, tileEntity, castingPlayer, activationItem);
+    public void finish(Level level, BlockPos goldenBowlPosition, GoldenSacrificialBowlBlockEntity BlockEntity,
+                       Player castingPlayer, ItemStack activationItem) {
+        super.finish(level, goldenBowlPosition, BlockEntity, castingPlayer, activationItem);
 
         activationItem.shrink(1); //remove activation item.
 
-        ((ServerWorld) world).spawnParticle(ParticleTypes.LARGE_SMOKE, goldenBowlPosition.getX() + 0.5,
+        ((ServerWorld) level).sendParticles(ParticleTypes.LARGE_SMOKE, goldenBowlPosition.getX() + 0.5,
                 goldenBowlPosition.getY() + 0.5, goldenBowlPosition.getZ() + 0.5, 1, 0, 0, 0, 0);
 
         ItemStack result = new ItemStack(OccultismItems.STORAGE_REMOTE.get());
-       this.dropResult(world, goldenBowlPosition, tileEntity, castingPlayer, result);
+       this.dropResult(level, goldenBowlPosition, BlockEntity, castingPlayer, result);
     }
     //endregion Overrides
 }

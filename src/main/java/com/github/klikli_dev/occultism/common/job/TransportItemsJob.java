@@ -27,17 +27,17 @@ import com.github.klikli_dev.occultism.common.entity.ai.DepositItemsGoal;
 import com.github.klikli_dev.occultism.common.entity.ai.ExtractItemsGoal;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import net.minecraft.entity.ai.goal.OpenDoorGoal;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.INamedContainerProvider;
+import net.minecraft.entity.player.Player;
+import net.minecraft.entity.player.Inventory;
+import net.minecraft.inventory.container.AbstractContainerMenu;
+import net.minecraft.inventory.container.MenuProvider;
 import net.minecraft.item.ItemStack;
 import net.minecraft.pathfinding.GroundPathNavigator;
 import net.minecraft.util.text.ITextComponent;
 
 import javax.annotation.Nullable;
 
-public class TransportItemsJob extends SpiritJob implements INamedContainerProvider {
+public class TransportItemsJob extends SpiritJob implements MenuProvider {
     //region Fields
 
     protected DepositItemsGoal depositItemsGoal;
@@ -79,7 +79,7 @@ public class TransportItemsJob extends SpiritJob implements INamedContainerProvi
 
     @Nullable
     @Override
-    public Container createMenu(int id, PlayerInventory playerInventory, PlayerEntity player) {
+    public AbstractContainerMenu createMenu(int id, Inventory playerInventory, Player player) {
         return new SpiritTransporterContainer(id, playerInventory, this.entity);
     }
     //endregion Overrides

@@ -31,15 +31,15 @@ import com.github.klikli_dev.occultism.api.common.tile.IStorageControllerProxy;
 import com.github.klikli_dev.occultism.common.block.storage.StableWormholeBlock;
 import com.github.klikli_dev.occultism.common.container.storage.StableWormholeContainer;
 import com.github.klikli_dev.occultism.registry.OccultismTiles;
-import com.github.klikli_dev.occultism.util.TileEntityUtil;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.INamedContainerProvider;
+import com.github.klikli_dev.occultism.util.BlockEntityUtil;
+import net.minecraft.entity.player.Player;
+import net.minecraft.entity.player.Inventory;
+import net.minecraft.inventory.container.AbstractContainerMenu;
+import net.minecraft.inventory.container.MenuProvider;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListNBT;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.BlockEntity.BlockEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
@@ -52,7 +52,7 @@ import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class StableWormholeTileEntity extends NetworkedTileEntity implements IStorageControllerProxy, INamedContainerProvider, IStorageAccessor {
+public class StableWormholeBlockEntity extends NetworkedBlockEntity implements IStorageControllerProxy, MenuProvider, IStorageAccessor {
 
     //region Fields
     protected GlobalBlockPos linkedStorageControllerPosition;
@@ -63,7 +63,7 @@ public class StableWormholeTileEntity extends NetworkedTileEntity implements ISt
     //endregion Fields
 
     //region Initialization
-    public StableWormholeTileEntity() {
+    public StableWormholeBlockEntity() {
         super(OccultismTiles.STABLE_WORMHOLE.get());
     }
     //endregion Initialization
@@ -114,16 +114,16 @@ public class StableWormholeTileEntity extends NetworkedTileEntity implements ISt
     @Override
     public IStorageController getLinkedStorageController() {
         if (this.linkedStorageControllerPosition != null) {
-            TileEntity tileEntity = TileEntityUtil.get(this.world,
+            BlockEntity blockEntity = BlockEntityUtil.get(this.level,
                     this.linkedStorageControllerPosition);
-            if (tileEntity instanceof IStorageController)
-                return (IStorageController) tileEntity;
-            else if(!this.world.isRemote){
+            if (BlockEntity instanceof IStorageController)
+                return (IStorageController) BlockEntity;
+            else if(!this.level.isClientSide){
                 //only reset the storage controller position if we are on logical server -> that means the position is not accessible.
                 //if we are on logical client it simply means we are out of render range, so we do not reset the pos
                 //resetting it would cause issues with e.g. stable wormhole
                 this.linkedStorageControllerPosition = null;
-                this.world.setBlockState(this.pos, this.getBlockState().with(StableWormholeBlock.LINKED, false), 2);
+                this.level.setBlockState(this.pos, this.getBlockState().with(StableWormholeBlock.LINKED, false), 2);
             }
         }
         return null;
@@ -143,14 +143,14 @@ public class StableWormholeTileEntity extends NetworkedTileEntity implements ISt
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, Direction side) {
         if (this.getLinkedStorageController() != null) {
-            return ((TileEntity) this.getLinkedStorageController()).getCapability(cap, side);
+            return ((BlockEntity) this.getLinkedStorageController()).getCapability(cap, side);
         }
         return super.getCapability(cap, side);
     }
 
 
     @Override
-    public void readNetwork(CompoundNBT compound) {
+    public void readNetwork(CompoundTag compound) {
         if (compound.contains("linkedStorageControllerPosition"))
             this.linkedStorageControllerPosition = GlobalBlockPos.from(compound.getCompound(
                     "linkedStorageControllerPosition"));
@@ -162,7 +162,7 @@ public class StableWormholeTileEntity extends NetworkedTileEntity implements ISt
         if (compound.contains("matrix")) {
             ListNBT matrixNbt = compound.getList("matrix", Constants.NBT.TAG_COMPOUND);
             for (int i = 0; i < matrixNbt.size(); i++) {
-                CompoundNBT stackTag = matrixNbt.getCompound(i);
+                CompoundTag stackTag = matrixNbt.getCompound(i);
                 int slot = stackTag.getByte("slot");
                 ItemStack s = ItemStack.read(stackTag);
                 this.matrix.put(slot, s);
@@ -176,7 +176,7 @@ public class StableWormholeTileEntity extends NetworkedTileEntity implements ISt
     }
 
     @Override
-    public CompoundNBT writeNetwork(CompoundNBT compound) {
+    public CompoundTag writeNetwork(CompoundTag compound) {
         if (this.linkedStorageControllerPosition != null)
             compound.put("linkedStorageControllerPosition", this.linkedStorageControllerPosition.serializeNBT());
 
@@ -186,7 +186,7 @@ public class StableWormholeTileEntity extends NetworkedTileEntity implements ISt
         ListNBT matrixNbt = new ListNBT();
         for (int i = 0; i < 9; i++) {
             if (this.matrix.get(i) != null && !this.matrix.get(i).isEmpty()) {
-                CompoundNBT stackTag = new CompoundNBT();
+                CompoundTag stackTag = new CompoundTag();
                 stackTag.putByte("slot", (byte) i);
                 this.matrix.get(i).write(stackTag);
                 matrixNbt.add(stackTag);
@@ -195,14 +195,14 @@ public class StableWormholeTileEntity extends NetworkedTileEntity implements ISt
         compound.put("matrix", matrixNbt);
 
         if (!this.orderStack.isEmpty())
-            compound.put("orderStack", this.orderStack.write(new CompoundNBT()));
+            compound.put("orderStack", this.orderStack.write(new CompoundTag()));
 
         return super.writeNetwork(compound);
     }
 
     @Nullable
     @Override
-    public Container createMenu(int id, PlayerInventory playerInventory, PlayerEntity player) {
+    public AbstractContainerMenu createMenu(int id, Inventory playerInventory, Player player) {
         return new StableWormholeContainer(id, playerInventory, this);
     }
     //endregion Overrides

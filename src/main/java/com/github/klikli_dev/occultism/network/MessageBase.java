@@ -23,12 +23,12 @@
 package com.github.klikli_dev.occultism.network;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fml.network.NetworkEvent;
+import net.minecraftforge.fmllegacy.network.NetworkEvent;
 
 public abstract class MessageBase implements IMessage {
 
@@ -41,10 +41,10 @@ public abstract class MessageBase implements IMessage {
 
     //region Overrides
     @OnlyIn(Dist.CLIENT)
-    public void onClientReceived(Minecraft minecraft, PlayerEntity player, NetworkEvent.Context context) {
+    public void onClientReceived(Minecraft minecraft, Player player, NetworkEvent.Context context) {
     }
 
-    public void onServerReceived(MinecraftServer minecraftServer, ServerPlayerEntity player,
+    public void onServerReceived(MinecraftServer minecraftServer, ServerPlayer player,
                                  NetworkEvent.Context context) {
     }
     //endregion Overrides

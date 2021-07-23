@@ -25,20 +25,20 @@ package com.github.klikli_dev.occultism.common.entity.spirit;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.world.World;
+import net.minecraft.level.Level;
 
 public class DjinniEntity extends SpiritEntity {
 
     //region Initialization
-    public DjinniEntity(EntityType<? extends SpiritEntity> type, World world) {
-        super(type, world);
+    public DjinniEntity(EntityType<? extends SpiritEntity> type, Level level) {
+        super(type, level);
         this.setSpiritMaxAge(60 * 60 * 24); //1 day default for djinni.
     }
     //endregion Initialization
 
     //region Static Methods
     public static AttributeModifierMap.MutableAttribute registerAttributes() {
-        return SpiritEntity.registerAttributes()
+        return SpiritEntity.createLivingAttributes()
                        .createMutableAttribute(Attributes.ATTACK_DAMAGE, 3.0)
                        .createMutableAttribute(Attributes.MAX_HEALTH, 20.0)
                        .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.30000001192092896)

@@ -24,8 +24,8 @@ package com.github.klikli_dev.occultism.network;
 
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.entity.player.ServerPlayer;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.fml.network.NetworkEvent;
 
@@ -37,7 +37,7 @@ public class MessageSetTagFilterText extends MessageBase {
     //endregion Fields
 
     //region Initialization
-    public MessageSetTagFilterText(PacketBuffer buf) {
+    public MessageSetTagFilterText(FriendlyByteBuf buf) {
         this.decode(buf);
     }
 
@@ -50,10 +50,10 @@ public class MessageSetTagFilterText extends MessageBase {
     //region Overrides
 
     @Override
-    public void onServerReceived(MinecraftServer minecraftServer, ServerPlayerEntity player,
+    public void onServerReceived(MinecraftServer minecraftServer, ServerPlayer player,
                                  NetworkEvent.Context context) {
 
-        Entity e = player.world.getEntityByID(this.entityId);
+        Entity e = player.level.getEntityByID(this.entityId);
         if (e instanceof SpiritEntity) {
             SpiritEntity spirit = (SpiritEntity) e;
             spirit.setTagFilter(this.tagFilterText);
@@ -61,13 +61,13 @@ public class MessageSetTagFilterText extends MessageBase {
     }
 
     @Override
-    public void encode(PacketBuffer buf) {
+    public void encode(FriendlyByteBuf buf) {
         buf.writeString(this.tagFilterText);
         buf.writeInt(this.entityId);
     }
 
     @Override
-    public void decode(PacketBuffer buf) {
+    public void decode(FriendlyByteBuf buf) {
         this.tagFilterText = buf.readString(255);
         this.entityId = buf.readInt();
     }

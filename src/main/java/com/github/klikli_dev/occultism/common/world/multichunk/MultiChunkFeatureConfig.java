@@ -20,11 +20,11 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.github.klikli_dev.occultism.common.world.multichunk;
+package com.github.klikli_dev.occultism.common.level.multichunk;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.world.gen.feature.IFeatureConfig;
+import net.minecraft.level.gen.feature.IFeatureConfig;
 import net.minecraftforge.common.BiomeDictionary;
 
 import java.util.List;

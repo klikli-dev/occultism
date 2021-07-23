@@ -26,12 +26,12 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.monster.SkeletonEntity;
-import net.minecraft.world.World;
+import net.minecraft.level.Level;
 
 public class PossessedSkeletonEntity extends SkeletonEntity {
     //region Initialization
     public PossessedSkeletonEntity(EntityType<? extends SkeletonEntity> type,
-                                   World worldIn) {
+                                   Level worldIn) {
         super(type, worldIn);
     }
     //endregion Initialization

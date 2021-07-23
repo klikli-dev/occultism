@@ -22,7 +22,7 @@
 
 package com.github.klikli_dev.occultism.api.common.item;
 
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 
 public interface IHandleItemMode {
     //region Methods

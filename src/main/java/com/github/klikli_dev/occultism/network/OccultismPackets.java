@@ -24,10 +24,10 @@ package com.github.klikli_dev.occultism.network;
 
 import com.github.klikli_dev.occultism.Occultism;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.util.RegistryKey;
+import net.minecraft.entity.player.ServerPlayer;
+import net.minecraft.util.ResourceKey;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
+import net.minecraft.level.Level;
 import net.minecraftforge.fml.network.NetworkRegistry;
 import net.minecraftforge.fml.network.PacketDistributor;
 import net.minecraftforge.fml.network.simple.SimpleChannel;
@@ -190,7 +190,7 @@ public class OccultismPackets {
                 OccultismPacketHandler::handle);
     }
 
-    public static <MSG> void sendTo(ServerPlayerEntity player, MSG message) {
+    public static <MSG> void sendTo(ServerPlayer player, MSG message) {
         INSTANCE.send(PacketDistributor.PLAYER.with(() -> player), message);
     }
 
@@ -198,7 +198,7 @@ public class OccultismPackets {
         INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(() -> entity), message);
     }
 
-    public static <MSG> void sendToDimension(RegistryKey<World> dimensionKey, MSG message) {
+    public static <MSG> void sendToDimension(ResourceKey<Level> dimensionKey, MSG message) {
         INSTANCE.send(PacketDistributor.DIMENSION.with(() -> dimensionKey), message);
     }
 

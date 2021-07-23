@@ -25,15 +25,15 @@ package com.github.klikli_dev.occultism.util;
 import com.github.klikli_dev.occultism.api.common.container.IStorageControllerContainer;
 import com.github.klikli_dev.occultism.api.common.tile.IStorageController;
 import com.github.klikli_dev.occultism.network.OccultismPackets;
-import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.entity.player.ServerPlayer;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.InventoryHelper;
-import net.minecraft.inventory.container.Container;
+import net.minecraft.inventory.container.AbstractContainerMenu;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.BlockEntity.BlockEntity;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.level.Level;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
@@ -54,7 +54,7 @@ public class StorageUtil {
      * @param player          the player to clear the crafting matrix for.
      * @param sendStackUpdate true to resend the current stacks to the client.
      */
-    public static void clearOpenCraftingMatrix(ServerPlayerEntity player, boolean sendStackUpdate) {
+    public static void clearOpenCraftingMatrix(ServerPlayer player, boolean sendStackUpdate) {
         if (player.openContainer instanceof IStorageControllerContainer) {
             IStorageControllerContainer container = (IStorageControllerContainer) player.openContainer;
             CraftingInventory craftMatrix = container.getCraftMatrix();
@@ -87,7 +87,7 @@ public class StorageUtil {
             //finally if requested, send the updated storage controller contents to the player.
             if (sendStackUpdate) {
                 OccultismPackets.sendTo(player, storageController.getMessageUpdateStacks());
-                ((Container) container).detectAndSendChanges();
+                ((AbstractContainerMenu) container).detectAndSendChanges();
             }
         }
     }
@@ -98,7 +98,7 @@ public class StorageUtil {
      * @param player          the player to clear the crafting matrix for.
      * @param sendStackUpdate true to resend the current stacks to the client.
      */
-    public static void clearOpenOrderSlot(ServerPlayerEntity player, boolean sendStackUpdate) {
+    public static void clearOpenOrderSlot(ServerPlayer player, boolean sendStackUpdate) {
         if (player.openContainer instanceof IStorageControllerContainer) {
             IStorageControllerContainer container = (IStorageControllerContainer) player.openContainer;
             Inventory orderSlot = container.getOrderSlot();
@@ -125,7 +125,7 @@ public class StorageUtil {
             //finally if requested, send the updated storage controller contents to the player.
             if (sendStackUpdate) {
                 OccultismPackets.sendTo(player, storageController.getMessageUpdateStacks());
-                ((Container) container).detectAndSendChanges();
+                ((AbstractContainerMenu) container).detectAndSendChanges();
             }
         }
     }
@@ -246,15 +246,15 @@ public class StorageUtil {
      * Drops all items of the given tile entity.
      * Tile entity <bold>must</bold> return a combined item handler for direction null.
      *
-     * @param tileEntity the tile entity to drop contents for.
+     * @param BlockEntity the tile entity to drop contents for.
      */
-    public static void dropInventoryItems(TileEntity tileEntity) {
-        tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(handler -> {
-            dropInventoryItems(tileEntity.getWorld(), tileEntity.getPos(), handler);
+    public static void dropInventoryItems(BlockEntity blockEntity) {
+        blockEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(handler -> {
+            dropInventoryItems(blockEntity.getLevel(), blockEntity.getPos(), handler);
         });
     }
 
-    public static void dropInventoryItems(World worldIn, BlockPos pos, IItemHandler itemHandler) {
+    public static void dropInventoryItems(Level worldIn, BlockPos pos, IItemHandler itemHandler) {
         for (int i = 0; i < itemHandler.getSlots(); i++) {
             InventoryHelper.spawnItemStack(worldIn, pos.getX(), pos.getY(), pos.getZ(), itemHandler.getStackInSlot(i));
         }

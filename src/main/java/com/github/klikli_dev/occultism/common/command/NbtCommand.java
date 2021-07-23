@@ -29,9 +29,9 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
-import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.entity.player.ServerPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Hand;
+import net.minecraft.util.InteractionHand;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 
@@ -44,8 +44,8 @@ public class NbtCommand implements Command<CommandSource> {
     //region Overrides
     @Override
     public int run(CommandContext<CommandSource> context) throws CommandSyntaxException {
-        ServerPlayerEntity player = context.getSource().asPlayer();
-        ItemStack heldItem = player.getHeldItem(Hand.MAIN_HAND);
+        ServerPlayer player = context.getSource().asPlayer();
+        ItemStack heldItem = player.getHeldItem(InteractionHand.MAIN_HAND);
         ITextComponent nbtText = heldItem.isEmpty() ? new StringTextComponent("{}") : heldItem.getOrCreateTag().toFormattedComponent();
         context.getSource().sendFeedback(nbtText, false);
         return 0;

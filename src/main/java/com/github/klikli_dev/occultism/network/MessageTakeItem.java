@@ -26,9 +26,9 @@ import com.github.klikli_dev.occultism.api.common.container.IStorageControllerCo
 import com.github.klikli_dev.occultism.api.common.tile.IStorageController;
 import com.github.klikli_dev.occultism.common.misc.ItemStackComparator;
 import com.github.klikli_dev.occultism.util.InputUtil;
-import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.entity.player.ServerPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.fml.network.NetworkEvent;
 import net.minecraftforge.items.ItemHandlerHelper;
@@ -48,7 +48,7 @@ public class MessageTakeItem extends MessageBase {
 
     //region Initialization
 
-    public MessageTakeItem(PacketBuffer buf) {
+    public MessageTakeItem(FriendlyByteBuf buf) {
         this.decode(buf);
     }
 
@@ -63,7 +63,7 @@ public class MessageTakeItem extends MessageBase {
     //region Overrides
 
     @Override
-    public void onServerReceived(MinecraftServer minecraftServer, ServerPlayerEntity player,
+    public void onServerReceived(MinecraftServer minecraftServer, ServerPlayer player,
                                  NetworkEvent.Context context) {
         if (player.openContainer instanceof IStorageControllerContainer) {
             IStorageController storageController = ((IStorageControllerContainer) player.openContainer)
@@ -118,7 +118,7 @@ public class MessageTakeItem extends MessageBase {
     }
 
     @Override
-    public void encode(PacketBuffer buf) {
+    public void encode(FriendlyByteBuf buf) {
         ItemStack toWrite = this.stack.copy();
         toWrite.setCount(1);
         buf.writeItemStack(toWrite);
@@ -130,7 +130,7 @@ public class MessageTakeItem extends MessageBase {
     }
 
     @Override
-    public void decode(PacketBuffer buf) {
+    public void decode(FriendlyByteBuf buf) {
         this.stack = buf.readItemStack();
         this.stack.setCount(buf.readInt());
         this.mouseButton = buf.readByte();

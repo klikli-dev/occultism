@@ -27,12 +27,12 @@ import com.github.klikli_dev.occultism.api.common.item.IOtherworldTool;
 import com.github.klikli_dev.occultism.registry.OccultismEffects;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.Property;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.level.IBlockReader;
 
 public interface IOtherworldBlock {
     //region Fields
@@ -49,7 +49,7 @@ public interface IOtherworldBlock {
 
     //region Methods
 
-    default OtherworldBlockTier getPlayerHarvestTier(PlayerEntity player, ItemStack tool) {
+    default OtherworldBlockTier getPlayerHarvestTier(Player player, ItemStack tool) {
         OtherworldBlockTier toolTier = OtherworldBlockTier.NONE;
         OtherworldBlockTier effectTier = player.isPotionActive(OccultismEffects.THIRD_EYE.get()) ?
                                                  OtherworldBlockTier.ONE : OtherworldBlockTier.NONE;
@@ -62,7 +62,7 @@ public interface IOtherworldBlock {
         return OtherworldBlockTier.max(toolTier, effectTier);
     }
 
-    default BlockState getHarvestState(PlayerEntity player, BlockState state, ItemStack tool) {
+    default BlockState getHarvestState(Player player, BlockState state, ItemStack tool) {
         return this.getPlayerHarvestTier(player, tool).getLevel() >= this.getTier().getLevel() ? state.with(UNCOVERED,
                 true) : state;
     }

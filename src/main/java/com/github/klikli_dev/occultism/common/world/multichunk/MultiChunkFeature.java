@@ -20,20 +20,20 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.github.klikli_dev.occultism.common.world.multichunk;
+package com.github.klikli_dev.occultism.common.level.multichunk;
 
 import com.github.klikli_dev.occultism.util.BiomeUtil;
 import com.github.klikli_dev.occultism.util.Math3DUtil;
 import com.mojang.serialization.Codec;
-import net.minecraft.util.RegistryKey;
+import net.minecraft.util.ResourceKey;
 import net.minecraft.util.SharedSeedRandom;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.world.ISeedReader;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.gen.ChunkGenerator;
-import net.minecraft.world.gen.feature.Feature;
+import net.minecraft.level.ISeedReader;
+import net.minecraft.level.biome.Biome;
+import net.minecraft.level.gen.ChunkGenerator;
+import net.minecraft.level.gen.feature.Feature;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,7 +60,7 @@ public class MultiChunkFeature extends Feature<MultiChunkFeatureConfig> {
 
         //check biome type blacklist
         for(Biome biome : generator.getBiomeProvider().getBiomes(pos.getX(), pos.getY(), pos.getZ(), 1)){
-            RegistryKey<Biome> biomeKey = RegistryKey.getOrCreateKey(Registry.BIOME_KEY, biome.getRegistryName());
+            ResourceKey<Biome> biomeKey = ResourceKey.getOrCreateKey(Registry.BIOME_KEY, biome.getRegistryName());
             if(BiomeUtil.containsType(biomeKey, config.biomeTypeBlacklist)){
                 return false;
             }

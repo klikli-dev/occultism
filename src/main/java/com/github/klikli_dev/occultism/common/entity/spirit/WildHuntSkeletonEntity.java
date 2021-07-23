@@ -30,7 +30,7 @@ import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.monster.SkeletonEntity;
 import net.minecraft.tags.ITag;
 import net.minecraft.util.DamageSource;
-import net.minecraft.world.World;
+import net.minecraft.level.Level;
 
 import java.util.Optional;
 
@@ -41,7 +41,7 @@ public class WildHuntSkeletonEntity extends SkeletonEntity {
 
     //region Initialization
     public WildHuntSkeletonEntity(EntityType<? extends WildHuntSkeletonEntity> type,
-                                  World worldIn) {
+                                  Level worldIn) {
         super(type, worldIn);
     }
     //endregion Initialization

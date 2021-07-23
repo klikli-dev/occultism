@@ -27,7 +27,7 @@ import com.google.gson.JsonObject;
 import net.minecraft.advancements.criterion.AbstractCriterionTrigger;
 import net.minecraft.advancements.criterion.CriterionInstance;
 import net.minecraft.advancements.criterion.EntityPredicate;
-import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.entity.player.ServerPlayer;
 import net.minecraft.loot.ConditionArrayParser;
 import net.minecraft.loot.ConditionArraySerializer;
 import net.minecraft.util.JSONUtils;
@@ -56,7 +56,7 @@ public class RitualTrigger extends AbstractCriterionTrigger<RitualTrigger.Instan
     //endregion Overrides
 
     //region Methods
-    public void trigger(ServerPlayerEntity player, Ritual ritual) {
+    public void trigger(ServerPlayer player, Ritual ritual) {
         this.triggerListeners(player, (instance) -> instance.test(player, ritual));
     }
     //endregion Methods
@@ -83,7 +83,7 @@ public class RitualTrigger extends AbstractCriterionTrigger<RitualTrigger.Instan
         //endregion Overrides
 
         //region Methods
-        public boolean test(ServerPlayerEntity player, Ritual ritual) {
+        public boolean test(ServerPlayer player, Ritual ritual) {
             return this.ritualId.equals(ritual.getRegistryName());
         }
         //endregion Methods

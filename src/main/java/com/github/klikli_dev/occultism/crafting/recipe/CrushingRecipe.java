@@ -28,11 +28,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
+import net.minecraft.level.Level;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
 public class CrushingRecipe extends ItemStackFakeInventoryRecipe {
@@ -65,13 +65,13 @@ public class CrushingRecipe extends ItemStackFakeInventoryRecipe {
 
     //region Overrides
     @Override
-    public boolean matches(ItemStackFakeInventory inv, World world) {
+    public boolean matches(ItemStackFakeInventory inv, Level level) {
         return this.input.test(inv.getStackInSlot(0));
     }
 
     @Override
     public ItemStack getCraftingResult(ItemStackFakeInventory inv) {
-        return this.getRecipeOutput().copy();
+        return this.getResultItem().copy();
     }
 
     @Override
@@ -81,7 +81,7 @@ public class CrushingRecipe extends ItemStackFakeInventoryRecipe {
     }
 
     @Override
-    public ItemStack getRecipeOutput() {
+    public ItemStack getResultItem() {
         return this.output;
     }
 
@@ -120,7 +120,7 @@ public class CrushingRecipe extends ItemStackFakeInventoryRecipe {
         }
 
         @Override
-        public CrushingRecipe read(ResourceLocation recipeId, PacketBuffer buffer) {
+        public CrushingRecipe read(ResourceLocation recipeId, FriendlyByteBuf buffer) {
             int crushingTime = buffer.readInt();
             boolean ignoreCrushingMultiplier = buffer.readBoolean();
             return ItemStackFakeInventoryRecipe.SERIALIZER
@@ -129,7 +129,7 @@ public class CrushingRecipe extends ItemStackFakeInventoryRecipe {
         }
 
         @Override
-        public void write(PacketBuffer buffer, CrushingRecipe recipe) {
+        public void write(FriendlyByteBuf buffer, CrushingRecipe recipe) {
             buffer.writeInt(recipe.crushingTime);
             buffer.writeBoolean(recipe.ignoreCrushingMultiplier);
             ItemStackFakeInventoryRecipe.SERIALIZER.write(buffer, recipe);

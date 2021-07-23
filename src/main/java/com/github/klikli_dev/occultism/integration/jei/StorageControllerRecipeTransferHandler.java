@@ -33,13 +33,13 @@ import mezz.jei.api.recipe.transfer.IRecipeTransferError;
 import mezz.jei.api.recipe.transfer.IRecipeTransferHandler;
 import mezz.jei.api.recipe.transfer.IRecipeTransferHandlerHelper;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.inventory.CraftingInventory;
-import net.minecraft.inventory.container.Container;
+import net.minecraft.inventory.container.AbstractContainerMenu;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListNBT;
 
 import javax.annotation.Nullable;
@@ -49,7 +49,7 @@ import java.util.Map;
 /**
  * Based on https://github.com/Lothrazar/Storage-Network
  */
-public class StorageControllerRecipeTransferHandler<T extends Container & IStorageControllerContainer> implements IRecipeTransferHandler<T> {
+public class StorageControllerRecipeTransferHandler<T extends AbstractContainerMenu & IStorageControllerContainer> implements IRecipeTransferHandler<T> {
 
     //region Fields
     protected final Class<T> containerClass;
@@ -72,7 +72,7 @@ public class StorageControllerRecipeTransferHandler<T extends Container & IStora
     @Nullable
     @Override
     public IRecipeTransferError transferRecipe(T container, Object recipeObject, IRecipeLayout recipeLayout,
-                                               PlayerEntity player, boolean maxTransfer, boolean doTransfer) {
+                                               Player player, boolean maxTransfer, boolean doTransfer) {
 
 
         IRecipe<?> recipe = (IRecipe<?>) recipeObject;
@@ -107,11 +107,11 @@ public class StorageControllerRecipeTransferHandler<T extends Container & IStora
 
 
     //region Methods
-    public CompoundNBT recipeToTag(Container container, IRecipeLayout recipeLayout) {
-        CompoundNBT nbt = new CompoundNBT();
+    public CompoundTag recipeToTag(AbstractContainerMenu container, IRecipeLayout recipeLayout) {
+        CompoundTag nbt = new CompoundTag();
         Map<Integer, ? extends IGuiIngredient<ItemStack>> inputs = recipeLayout.getItemStacks().getGuiIngredients();
 
-        for (Slot slot : container.inventorySlots) {
+        for (Slot slot : container.slots) {
             if (slot.inventory instanceof CraftingInventory) {
 
                 //get ingredient from recipe layout

@@ -26,8 +26,8 @@ import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.github.klikli_dev.occultism.registry.OccultismCapabilities;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.entity.player.ServerPlayer;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.fml.network.NetworkEvent;
@@ -41,7 +41,7 @@ public class MessageToggleFamiliarSettings extends MessageBase {
     //endregion Fields
 
     //region Initialization
-    public MessageToggleFamiliarSettings(PacketBuffer buf) {
+    public MessageToggleFamiliarSettings(FriendlyByteBuf buf) {
         this.decode(buf);
     }
 
@@ -55,7 +55,7 @@ public class MessageToggleFamiliarSettings extends MessageBase {
     //region Overrides
 
     @Override
-    public void onServerReceived(MinecraftServer minecraftServer, ServerPlayerEntity player,
+    public void onServerReceived(MinecraftServer minecraftServer, ServerPlayer player,
                                  NetworkEvent.Context context) {
 
         player.getCapability(OccultismCapabilities.FAMILIAR_SETTINGS).ifPresent(cap -> {
@@ -84,14 +84,14 @@ public class MessageToggleFamiliarSettings extends MessageBase {
     }
 
     @Override
-    public void encode(PacketBuffer buf) {
+    public void encode(FriendlyByteBuf buf) {
         buf.writeBoolean(this.toggleOtherworldBird);
         buf.writeBoolean(this.toggleGreedy);
         buf.writeBoolean(this.toggleBat);
     }
 
     @Override
-    public void decode(PacketBuffer buf) {
+    public void decode(FriendlyByteBuf buf) {
         this.toggleOtherworldBird = buf.readBoolean();
         this.toggleGreedy = buf.readBoolean();
         this.toggleBat = buf.readBoolean();

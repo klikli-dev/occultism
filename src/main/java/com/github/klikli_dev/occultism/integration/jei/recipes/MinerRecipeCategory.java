@@ -39,7 +39,7 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.WeightedRandom;
-import net.minecraft.world.World;
+import net.minecraft.level.Level;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.wrapper.RecipeWrapper;
 
@@ -96,15 +96,15 @@ public class MinerRecipeCategory implements IRecipeCategory<MinerRecipe> {
     @Override
     public void setIngredients(MinerRecipe recipe, IIngredients ingredients) {
         ingredients.setInputIngredients(recipe.getIngredients());
-        ingredients.setOutput(VanillaTypes.ITEM, recipe.getRecipeOutput());
+        ingredients.setOutput(VanillaTypes.ITEM, recipe.getResultItem());
 
         //set up a simulated handler to get all possible results
-        World world = Minecraft.getInstance().world;
+        Level level = Minecraft.getInstance().level;
         ItemStackHandler simulatedHandler = new ItemStackHandler(1);
         simulatedHandler.setStackInSlot(0, recipe.getIngredients().get(0).getMatchingStacks()[0]);
-        List<MinerRecipe> recipes = world.getRecipeManager()
+        List<MinerRecipe> recipes = level.getRecipeManager()
                                             .getRecipes(OccultismRecipes.MINER_TYPE.get(),
-                                                    new RecipeWrapper(simulatedHandler), world);
+                                                    new RecipeWrapper(simulatedHandler), level);
         List<WeightedIngredient> possibleResults = recipes.stream().map(MinerRecipe::getWeightedOutput).collect(Collectors.toList());
         float chance = Math.round(recipe.getWeightedOutput().itemWeight / (float)WeightedRandom.getTotalWeight(possibleResults) * 10000.0F) / 100.0F;
         this.chances.put(recipe, chance);
@@ -122,16 +122,16 @@ public class MinerRecipeCategory implements IRecipeCategory<MinerRecipe> {
     }
 
     @Override
-    public void draw(MinerRecipe recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
+    public void draw(MinerRecipe recipe, MatrixStack poseStack, double mouseX, double mouseY) {
         RenderSystem.enableBlend();
-        this.overlay.draw(matrixStack, 76, 14); //(center=84) - (width/16=8) = 76
+        this.overlay.draw(poseStack, 76, 14); //(center=84) - (width/16=8) = 76
         String text = I18n.format(Occultism.MODID + ".jei.miner.chance", this.chances.get(recipe));
-        this.drawStringCentered(matrixStack, Minecraft.getInstance().fontRenderer, text, 84, 0);
+        this.drawStringCentered(poseStack, Minecraft.getInstance().fontRenderer, text, 84, 0);
 
     }
 
-    protected void drawStringCentered(MatrixStack matrixStack, FontRenderer fontRenderer, String text, int x, int y) {
-        fontRenderer.drawString(matrixStack, text, (x - fontRenderer.getStringWidth(text) / 2.0f), y, 0);
+    protected void drawStringCentered(MatrixStack poseStack, FontRenderer fontRenderer, String text, int x, int y) {
+        fontRenderer.drawString(poseStack, text, (x - fontRenderer.getStringWidth(text) / 2.0f), y, 0);
     }
     //endregion Overrides
 }

@@ -23,11 +23,11 @@
 package com.github.klikli_dev.occultism.network;
 
 import com.github.klikli_dev.occultism.common.item.tool.DivinationRodItem;
-import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.entity.player.ServerPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.Hand;
+import net.minecraft.util.InteractionHand;
 import net.minecraftforge.fml.network.NetworkEvent;
 
 public class MessageSetDivinationResult extends MessageBase {
@@ -38,7 +38,7 @@ public class MessageSetDivinationResult extends MessageBase {
 
     //region Initialization
 
-    public MessageSetDivinationResult(PacketBuffer buf) {
+    public MessageSetDivinationResult(FriendlyByteBuf buf) {
         this.decode(buf);
     }
 
@@ -50,9 +50,9 @@ public class MessageSetDivinationResult extends MessageBase {
     //region Overrides
 
     @Override
-    public void onServerReceived(MinecraftServer minecraftServer, ServerPlayerEntity player,
+    public void onServerReceived(MinecraftServer minecraftServer, ServerPlayer player,
                                  NetworkEvent.Context context) {
-        ItemStack stack = player.getHeldItem(Hand.MAIN_HAND);
+        ItemStack stack = player.getHeldItem(InteractionHand.MAIN_HAND);
         if (stack.getItem() instanceof DivinationRodItem) {
             stack.getOrCreateTag().putFloat("distance", this.result);
             player.container.detectAndSendChanges();
@@ -60,12 +60,12 @@ public class MessageSetDivinationResult extends MessageBase {
     }
 
     @Override
-    public void encode(PacketBuffer buf) {
+    public void encode(FriendlyByteBuf buf) {
         buf.writeByte(this.result);
     }
 
     @Override
-    public void decode(PacketBuffer buf) {
+    public void decode(FriendlyByteBuf buf) {
         this.result = buf.readByte();
     }
 

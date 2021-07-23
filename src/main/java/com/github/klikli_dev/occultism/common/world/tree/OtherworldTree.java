@@ -20,12 +20,12 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.github.klikli_dev.occultism.common.world.tree;
+package com.github.klikli_dev.occultism.common.level.tree;
 
-import com.github.klikli_dev.occultism.common.world.WorldGenHandler;
+import com.github.klikli_dev.occultism.common.level.WorldGenHandler;
 import net.minecraft.block.trees.Tree;
-import net.minecraft.world.gen.feature.BaseTreeFeatureConfig;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
+import net.minecraft.level.gen.feature.BaseTreeFeatureConfig;
+import net.minecraft.level.gen.feature.ConfiguredFeature;
 
 import javax.annotation.Nullable;
 import java.util.Random;

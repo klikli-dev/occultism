@@ -27,7 +27,7 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
+import net.minecraft.level.Level;
 
 /**
  * Allows to show different textures and translation keys for HWYLA and in the inventory
@@ -50,12 +50,12 @@ public class OtherworldBlockItem extends BlockItem {
     }
 
     @Override
-    public String getTranslationKey(ItemStack stack) {
+    public String getDescriptionId(ItemStack stack) {
         return OtherworldUtil.getTranslationKeyDistAware(this, stack);
     }
 
     @Override
-    public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
+    public void inventoryTick(ItemStack stack, Level worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
         super.inventoryTick(stack, worldIn, entityIn, itemSlot, isSelected);
         stack.getOrCreateTag().putBoolean("isInventoryItem", true);
     }

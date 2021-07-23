@@ -31,11 +31,11 @@ import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.item.crafting.ShapelessRecipe;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
+import net.minecraft.level.Level;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
@@ -86,7 +86,7 @@ public class RitualRecipe extends ShapelessRecipe {
     }
 
     @Override
-    public boolean matches(@Nonnull CraftingInventory inventory, @Nonnull World world) {
+    public boolean matches(@Nonnull CraftingInventory inventory, @Nonnull Level level) {
         return false;
     }
 
@@ -130,12 +130,12 @@ public class RitualRecipe extends ShapelessRecipe {
             boolean requireSacrifice = json.get("require_sacrifice").getAsBoolean();
             boolean requireItemUse = json.get("require_item_use").getAsBoolean();
             return new RitualRecipe(recipe.getId(), recipe.getGroup(), pentacleId, ritual,
-                    recipe.getRecipeOutput(), activationItem,
+                    recipe.getResultItem(), activationItem,
                     recipe.getIngredients(), requireSacrifice, requireItemUse);
         }
 
         @Override
-        public RitualRecipe read(ResourceLocation recipeId, PacketBuffer buffer) {
+        public RitualRecipe read(ResourceLocation recipeId, FriendlyByteBuf buffer) {
             ShapelessRecipe recipe = serializer.read(recipeId, buffer);
             ResourceLocation pentacleId = buffer.readResourceLocation();
             ItemStack ritual = buffer.readItemStack();
@@ -144,12 +144,12 @@ public class RitualRecipe extends ShapelessRecipe {
             boolean requireItemUse = buffer.readBoolean();
 
             return new RitualRecipe(recipe.getId(), recipe.getGroup(), pentacleId, ritual,
-                    recipe.getRecipeOutput(), activationItem,
+                    recipe.getResultItem(), activationItem,
                     recipe.getIngredients(), requireSacrifice, requireItemUse);
         }
 
         @Override
-        public void write(PacketBuffer buffer, RitualRecipe recipe) {
+        public void write(FriendlyByteBuf buffer, RitualRecipe recipe) {
             serializer.write(buffer, recipe);
             buffer.writeResourceLocation(recipe.pentacleId);
             buffer.writeItemStack(recipe.ritual);

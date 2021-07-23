@@ -25,19 +25,19 @@ package com.github.klikli_dev.occultism.client.gui.storage;
 import com.github.klikli_dev.occultism.api.common.data.SortDirection;
 import com.github.klikli_dev.occultism.api.common.data.SortType;
 import com.github.klikli_dev.occultism.common.container.storage.StorageControllerContainer;
-import com.github.klikli_dev.occultism.common.tile.StorageControllerTileEntity;
-import net.minecraft.entity.player.PlayerInventory;
+import com.github.klikli_dev.occultism.common.tile.StorageControllerBlockEntity;
+import net.minecraft.entity.player.Inventory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 
 public class StorageControllerGui extends StorageControllerGuiBase<StorageControllerContainer> {
 
     //region Fields
-    protected StorageControllerTileEntity storageController;
+    protected StorageControllerBlockEntity storageController;
     //endregion Fields
 
     //region Initialization
-    public StorageControllerGui(StorageControllerContainer container, PlayerInventory playerInventory,
+    public StorageControllerGui(StorageControllerContainer container, Inventory playerInventory,
                                 ITextComponent name) {
         super(container, playerInventory, name);
         this.storageController = container.getStorageController();

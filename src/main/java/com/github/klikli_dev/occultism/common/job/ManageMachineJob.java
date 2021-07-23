@@ -30,13 +30,13 @@ import com.github.klikli_dev.occultism.common.entity.ai.FallbackDepositToControl
 import com.github.klikli_dev.occultism.common.entity.ai.ManageMachineGoal;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.github.klikli_dev.occultism.common.misc.DepositOrder;
-import com.github.klikli_dev.occultism.util.TileEntityUtil;
+import com.github.klikli_dev.occultism.util.BlockEntityUtil;
 import net.minecraft.entity.ai.goal.OpenDoorGoal;
 import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListNBT;
 import net.minecraft.pathfinding.GroundPathNavigator;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.BlockEntity.BlockEntity;
 import net.minecraftforge.common.util.Constants;
 
 import java.util.ArrayDeque;
@@ -53,7 +53,7 @@ public class ManageMachineJob extends SpiritJob {
     protected DepositOrder currentDepositOrder;
     protected Queue<DepositOrder> depositOrderQueue = new ArrayDeque<>();
     protected IStorageController storageController;
-    protected TileEntity managedMachineTileEntity;
+    protected BlockEntity managedMachineBlockEntity;
 
     //endregion Fields
     //region Initialization
@@ -80,7 +80,7 @@ public class ManageMachineJob extends SpiritJob {
             this.unregisterFromStorageController();
 
         this.managedMachine = managedMachine;
-        this.managedMachineTileEntity = null; //reset, next call to get will refill it based on the new managed machine.
+        this.managedMachineBlockEntity = null; //reset, next call to get will refill it based on the new managed machine.
         this.clearAllOrders();
         this.registerWithStorageController();
     }
@@ -104,7 +104,7 @@ public class ManageMachineJob extends SpiritJob {
             return null;
 
         if (this.storageController == null) {
-            this.storageController = (IStorageController) TileEntityUtil.get(this.entity.world,
+            this.storageController = (IStorageController) BlockEntityUtil.get(this.entity.level,
                     this.storageControllerPosition);
         }
 
@@ -113,16 +113,16 @@ public class ManageMachineJob extends SpiritJob {
         return this.storageController;
     }
 
-    public TileEntity getManagedMachineTileEntity() {
+    public BlockEntity getManagedMachineBlockEntity() {
         if (this.managedMachine == null)
             return null;
 
-        if (this.managedMachineTileEntity == null) {
-            this.managedMachineTileEntity = TileEntityUtil.get(this.entity.world, this.managedMachine.globalPos);
+        if (this.managedMachineBlockEntity == null) {
+            this.managedMachineBlockEntity = BlockEntityUtil.get(this.entity.level, this.managedMachine.globalPos);
 
         }
 
-        return this.managedMachineTileEntity;
+        return this.managedMachineBlockEntity;
     }
     //endregion Getter / Setter
 
@@ -166,7 +166,7 @@ public class ManageMachineJob extends SpiritJob {
     }
 
     @Override
-    public CompoundNBT writeJobToNBT(CompoundNBT compound) {
+    public CompoundTag writeJobToNBT(CompoundTag compound) {
         if (this.storageControllerPosition != null)
             compound.put("storageControllerPosition", this.storageControllerPosition.serializeNBT());
 
@@ -174,18 +174,18 @@ public class ManageMachineJob extends SpiritJob {
             compound.put("managedMachine", this.managedMachine.serializeNBT());
 
         if (this.getCurrentDepositOrder() != null)
-            compound.put("currentDepositOrder", this.getCurrentDepositOrder().writeToNBT(new CompoundNBT()));
+            compound.put("currentDepositOrder", this.getCurrentDepositOrder().writeToNBT(new CompoundTag()));
 
         ListNBT nbtOrderList = new ListNBT();
         for (DepositOrder depositOrder : this.depositOrderQueue) {
-            nbtOrderList.add(depositOrder.writeToNBT(new CompoundNBT()));
+            nbtOrderList.add(depositOrder.writeToNBT(new CompoundTag()));
         }
         compound.put("depositOrders", nbtOrderList);
         return super.writeJobToNBT(compound);
     }
 
     @Override
-    public void readJobFromNBT(CompoundNBT compound) {
+    public void readJobFromNBT(CompoundTag compound) {
         if (compound.contains("storageControllerPosition"))
             this.storageControllerPosition = GlobalBlockPos.from(compound.getCompound("storageControllerPosition"));
 
@@ -223,7 +223,7 @@ public class ManageMachineJob extends SpiritJob {
         if (storageController != null && this.managedMachine != null) {
             storageController.addDepositOrderSpirit(this.managedMachine.globalPos, this.entity.getUniqueID());
             storageController.linkMachine(this.managedMachine);
-            TileEntityUtil.updateTile(this.entity.world, this.getStorageControllerPosition().getPos());
+            BlockEntityUtil.updateTile(this.entity.level, this.getStorageControllerPosition().getPos());
         }
     }
 

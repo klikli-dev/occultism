@@ -24,28 +24,28 @@ package com.github.klikli_dev.occultism.common.container.storage;
 
 import com.github.klikli_dev.occultism.client.gui.storage.StorageControllerGuiBase;
 import com.github.klikli_dev.occultism.common.misc.StorageControllerCraftingInventory;
-import com.github.klikli_dev.occultism.common.tile.StorageControllerTileEntity;
+import com.github.klikli_dev.occultism.common.tile.StorageControllerBlockEntity;
 import com.github.klikli_dev.occultism.network.MessageUpdateLinkedMachines;
 import com.github.klikli_dev.occultism.network.OccultismPackets;
 import com.github.klikli_dev.occultism.registry.OccultismContainers;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.entity.player.Player;
+import net.minecraft.entity.player.Inventory;
+import net.minecraft.entity.player.ServerPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.level.Level;
 
 
 public class StorageControllerContainer extends StorageControllerContainerBase {
     //region Fields
-    protected StorageControllerTileEntity storageController;
+    protected StorageControllerBlockEntity storageController;
     //endregion Fields
 
     //region Initialization
-    public StorageControllerContainer(int id, PlayerInventory playerInventory,
-                                      StorageControllerTileEntity storageController) {
+    public StorageControllerContainer(int id, Inventory playerInventory,
+                                      StorageControllerBlockEntity storageController) {
         super(OccultismContainers.STORAGE_CONTROLLER.get(), id, playerInventory);
         this.storageController = storageController;
 
@@ -73,7 +73,7 @@ public class StorageControllerContainer extends StorageControllerContainerBase {
     }
 
     @Override
-    public StorageControllerTileEntity getStorageController() {
+    public StorageControllerBlockEntity getStorageController() {
         return this.storageController;
     }
 
@@ -104,14 +104,14 @@ public class StorageControllerContainer extends StorageControllerContainerBase {
     }
 
     @Override
-    public boolean canInteractWith(PlayerEntity player) {
+    public boolean stillValid(Player player) {
         if (this.storageController == null)
             return false;
-        World world = this.storageController.getWorld();
+        Level level = this.storageController.getLevel();
         //send stack updates on a slow tick while interacting
-        if (!world.isRemote && world.getGameTime() % 40 == 0) {
-            OccultismPackets.sendTo((ServerPlayerEntity) player, this.storageController.getMessageUpdateStacks());
-            OccultismPackets.sendTo((ServerPlayerEntity) player,
+        if (!level.isClientSide && level.getGameTime() % 40 == 0) {
+            OccultismPackets.sendTo((ServerPlayer) player, this.storageController.getMessageUpdateStacks());
+            OccultismPackets.sendTo((ServerPlayer) player,
                     new MessageUpdateLinkedMachines(this.storageController.getLinkedMachines()));
         }
         BlockPos controllerPosition = this.storageController.getPos();

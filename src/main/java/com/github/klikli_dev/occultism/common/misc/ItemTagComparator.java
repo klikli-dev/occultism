@@ -25,7 +25,7 @@ package com.github.klikli_dev.occultism.common.misc;
 import com.github.klikli_dev.occultism.api.common.container.IItemStackComparator;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.ITag;
 import net.minecraft.util.ResourceLocation;
@@ -60,18 +60,18 @@ public class ItemTagComparator implements IItemStackComparator {
     }
 
     @Override
-    public CompoundNBT serializeNBT() {
-        return this.write(new CompoundNBT());
+    public CompoundTag serializeNBT() {
+        return this.write(new CompoundTag());
     }
 
     @Override
-    public void deserializeNBT(CompoundNBT nbt) {
+    public void deserializeNBT(CompoundTag nbt) {
         this.read(nbt);
     }
     //endregion Overrides
 
     //region Static Methods
-    public static ItemTagComparator from(CompoundNBT nbt) {
+    public static ItemTagComparator from(CompoundTag nbt) {
         ItemTagComparator comparator = new ItemTagComparator();
         comparator.deserializeNBT(nbt);
         return comparator;
@@ -79,11 +79,11 @@ public class ItemTagComparator implements IItemStackComparator {
     //endregion Static Methods
 
     //region Methods
-    public void read(CompoundNBT compound) {
+    public void read(CompoundTag compound) {
         compound.putString("tag", ItemTags.getCollection().getDirectIdFromTag(this.tag).toString());
     }
 
-    public CompoundNBT write(CompoundNBT compound) {
+    public CompoundTag write(CompoundTag compound) {
         this.tag = ItemTags.getCollection().get(new ResourceLocation(compound.getString("tag")));
         return compound;
     }

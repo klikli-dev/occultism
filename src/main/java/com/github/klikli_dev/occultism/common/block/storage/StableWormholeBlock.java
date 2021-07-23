@@ -22,34 +22,34 @@
 
 package com.github.klikli_dev.occultism.common.block.storage;
 
-import com.github.klikli_dev.occultism.common.tile.StableWormholeTileEntity;
+import com.github.klikli_dev.occultism.common.tile.StableWormholeBlockEntity;
 import com.github.klikli_dev.occultism.registry.OccultismTiles;
-import com.github.klikli_dev.occultism.util.TileEntityUtil;
+import com.github.klikli_dev.occultism.util.BlockEntityUtil;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.inventory.container.INamedContainerProvider;
+import net.minecraft.entity.player.Player;
+import net.minecraft.entity.player.ServerPlayer;
+import net.minecraft.inventory.container.MenuProvider;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.Property;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResultType;
+import net.minecraft.BlockEntity.BlockEntity;
+import net.minecraft.util.InteractionResult;
 import net.minecraft.util.Direction;
-import net.minecraft.util.Hand;
+import net.minecraft.util.InteractionHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.shapes.IBooleanFunction;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.World;
+import net.minecraft.level.IBlockReader;
+import net.minecraft.level.Level;
 import net.minecraftforge.fml.network.NetworkHooks;
 
 import javax.annotation.Nullable;
@@ -198,26 +198,26 @@ public class StableWormholeBlock extends Block {
     }
 
     @Override
-    public void onReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
-        TileEntityUtil.onBlockChangeDropWithNbt(this, state, worldIn, pos, newState);
+    public void onReplaced(BlockState state, Level worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
+        BlockEntityUtil.onBlockChangeDropWithNbt(this, state, worldIn, pos, newState);
         super.onReplaced(state, worldIn, pos, newState, isMoving);
     }
 
     @Override
-    public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player,
-                                             Hand handIn, BlockRayTraceResult rayTraceResult) {
-        if (!world.isRemote) {
-            TileEntity tileEntity = world.getTileEntity(pos);
-            if (tileEntity instanceof StableWormholeTileEntity) {
-                StableWormholeTileEntity wormhole = (StableWormholeTileEntity) tileEntity;
+    public InteractionResult onBlockActivated(BlockState state, Level level, BlockPos pos, Player player,
+                                             InteractionHand handIn, BlockRayTraceResult rayTraceResult) {
+        if (!level.isClientSide) {
+            BlockEntity blockEntity = level.getBlockEntity(pos);
+            if (BlockEntity instanceof StableWormholeBlockEntity) {
+                StableWormholeBlockEntity wormhole = (StableWormholeBlockEntity) BlockEntity;
                 if(wormhole.getLinkedStorageController() != null)
-                    NetworkHooks.openGui((ServerPlayerEntity) player, (INamedContainerProvider) tileEntity, pos);
+                    NetworkHooks.openGui((ServerPlayer) player, (MenuProvider) BlockEntity, pos);
                 else{
-                    world.setBlockState(pos, state.with(LINKED, false), 2);
+                    level.setBlockState(pos, state.with(LINKED, false), 2);
                 }
             }
         }
-        return ActionResultType.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 
     @Nullable
@@ -233,7 +233,7 @@ public class StableWormholeBlock extends Block {
 
     @Override
     public ItemStack getItem(IBlockReader worldIn, BlockPos pos, BlockState state) {
-        return TileEntityUtil.getItemWithNbt(this, worldIn, pos);
+        return BlockEntityUtil.getItemWithNbt(this, worldIn, pos);
     }
 
     @Override
@@ -243,13 +243,13 @@ public class StableWormholeBlock extends Block {
     }
 
     @Override
-    public boolean hasTileEntity(BlockState state) {
+    public boolean hasBlockEntity(BlockState state) {
         return true;
     }
 
     @Nullable
     @Override
-    public TileEntity createTileEntity(BlockState state, IBlockReader world) {
+    public BlockEntity createBlockEntity(BlockState state, IBlockReader level) {
         return OccultismTiles.STABLE_WORMHOLE.get().create();
     }
 

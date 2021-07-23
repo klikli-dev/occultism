@@ -22,29 +22,29 @@
 
 package com.github.klikli_dev.occultism.common.entity.spirit;
 
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ai.attributes.AttributeModifierMap;
-import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.level.Level;
 
 public class FoliotEntity extends SpiritEntity {
 
     //region Initialization
-    public FoliotEntity(EntityType<? extends SpiritEntity> type, World world) {
-        super(type, world);
+    public FoliotEntity(EntityType<? extends SpiritEntity> type, Level level) {
+        super(type, level);
         this.setSpiritMaxAge(60 * 60 * 24); //1 day default for foliot.
     }
     //endregion Initialization
 
     //region Static Methods
-    public static AttributeModifierMap.MutableAttribute registerAttributes() {
-        return SpiritEntity.registerAttributes()
-                       .createMutableAttribute(Attributes.ATTACK_DAMAGE, 1.0)
-                       .createMutableAttribute(Attributes.MAX_HEALTH, 8.0)
-                       .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.30000001192092896)
-                       .createMutableAttribute(Attributes.ARMOR, 2.0)
-                       .createMutableAttribute(Attributes.ARMOR_TOUGHNESS, 1.0)
-                       .createMutableAttribute(Attributes.FOLLOW_RANGE, 50.0);
+    public static AttributeSupplier.Builder createLivingAttributes() {
+        return SpiritEntity.createLivingAttributes()
+                .add(Attributes.ATTACK_DAMAGE, 1.0)
+                .add(Attributes.MAX_HEALTH, 8.0)
+                .add(Attributes.MOVEMENT_SPEED, 0.30000001192092896)
+                .add(Attributes.ARMOR, 2.0)
+                .add(Attributes.ARMOR_TOUGHNESS, 1.0)
+                .add(Attributes.FOLLOW_RANGE, 50.0);
     }
     //endregion Static Methods
 }

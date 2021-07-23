@@ -31,9 +31,9 @@ import com.github.klikli_dev.occultism.network.MessageUpdateLinkedMachines;
 import com.github.klikli_dev.occultism.network.OccultismPackets;
 import com.github.klikli_dev.occultism.registry.OccultismContainers;
 import com.github.klikli_dev.occultism.util.CuriosUtil;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.entity.player.Player;
+import net.minecraft.entity.player.Inventory;
+import net.minecraft.entity.player.ServerPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
@@ -50,7 +50,7 @@ public class StorageRemoteContainer extends StorageControllerContainerBase {
     //endregion Fields
 
     //region Initialization
-    public StorageRemoteContainer(int id, PlayerInventory playerInventory, int selectedSlot) {
+    public StorageRemoteContainer(int id, Inventory playerInventory, int selectedSlot) {
         super(OccultismContainers.STORAGE_REMOTE.get(), id, playerInventory);
 
         this.playerInventory = playerInventory;
@@ -99,17 +99,17 @@ public class StorageRemoteContainer extends StorageControllerContainerBase {
                 this.addSlot(new Slot(this.playerInventory, i, hotbarLeft + i * 18, hotbarTop) {
                     //region Overrides
                     @Override
-                    public boolean isItemValid(ItemStack stack) {
+                    public boolean mayPlace(ItemStack stack) {
                         return false;
                     }
 
                     @Override
-                    public boolean getHasStack() {
+                    public boolean hasItem() {
                         return false;
                     }
 
                     @Override
-                    public boolean canTakeStack(PlayerEntity playerIn) {
+                    public boolean canTakeStack(Player playerIn) {
                         return false;
                     }
                     //endregion Overrides
@@ -129,14 +129,14 @@ public class StorageRemoteContainer extends StorageControllerContainerBase {
     }
 
     @Override
-    public boolean canInteractWith(PlayerEntity entityPlayer) {
+    public boolean stillValid(Player entityPlayer) {
         IStorageController storageController = this.getStorageController();
-        //canInteractWith is constantly called, so we use it to send
+        //stillValid is constantly called, so we use it to send
         //stack updates every 40 ticks.
-        if (storageController != null && !entityPlayer.world.isRemote &&
-                entityPlayer.world.getGameTime() % 40 == 0) {
-            OccultismPackets.sendTo((ServerPlayerEntity) this.player, this.getStorageController().getMessageUpdateStacks());
-            OccultismPackets.sendTo((ServerPlayerEntity) this.player,
+        if (storageController != null && !entityPlayer.level.isClientSide &&
+                entityPlayer.level.getGameTime() % 40 == 0) {
+            OccultismPackets.sendTo((ServerPlayer) this.player, this.getStorageController().getMessageUpdateStacks());
+            OccultismPackets.sendTo((ServerPlayer) this.player,
                     new MessageUpdateLinkedMachines(this.getStorageController().getLinkedMachines()));
         }
 
@@ -145,7 +145,7 @@ public class StorageRemoteContainer extends StorageControllerContainerBase {
 
     @Override
     public IStorageController getStorageController() {
-        return StorageRemoteItem.getStorageController(this.getStorageRemote(), this.playerInventory.player.world);
+        return StorageRemoteItem.getStorageController(this.getStorageRemote(), this.playerInventory.player.level);
     }
 
     @Override

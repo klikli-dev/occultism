@@ -24,7 +24,7 @@ package com.github.klikli_dev.occultism.client.itemproperties;
 
 import com.github.klikli_dev.occultism.registry.OccultismEffects;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.world.ClientWorld;
+import net.minecraft.client.level.ClientWorld;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.ItemStack;

@@ -37,7 +37,7 @@ import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.entity.player.Inventory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
@@ -54,7 +54,7 @@ public class SpiritGui<T extends SpiritContainer> extends ContainerScreen<T> {
 //endregion Fields
 
     //region Initialization
-    public SpiritGui(T container, PlayerInventory playerInventory, ITextComponent titleIn) {
+    public SpiritGui(T container, Inventory playerInventory, ITextComponent titleIn) {
         super(container, playerInventory, titleIn);
         this.container = container;
         this.spirit = this.container.spirit;
@@ -96,13 +96,13 @@ public class SpiritGui<T extends SpiritContainer> extends ContainerScreen<T> {
     }
 
     @Override
-    protected void drawGuiContainerBackgroundLayer(MatrixStack matrixStack, float partialTicks, int x, int y) {
-        this.renderBackground(matrixStack);
+    protected void drawGuiContainerBackgroundLayer(MatrixStack poseStack, float partialTicks, int x, int y) {
+        this.renderBackground(poseStack);
 
         RenderSystem.color4f(1, 1, 1, 1);
         this.minecraft.getTextureManager().bindTexture(TEXTURE);
 
-        this.blit(matrixStack, this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
+        this.blit(poseStack, this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
 
         RenderSystem.pushMatrix();
         int scale = 30;
@@ -112,7 +112,7 @@ public class SpiritGui<T extends SpiritContainer> extends ContainerScreen<T> {
     }
 
     @Override
-    protected void drawGuiContainerForegroundLayer(MatrixStack matrixStack, int x, int y) {
+    protected void drawGuiContainerForegroundLayer(MatrixStack poseStack, int x, int y) {
         //don't call super to avoid drawing names of inventories
     }
     //endregion Overrides

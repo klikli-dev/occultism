@@ -22,42 +22,42 @@
 
 package com.github.klikli_dev.occultism.api.common.data;
 
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.RegistryKey;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Registry;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.util.INBTSerializable;
 
 import java.util.Objects;
 import java.util.StringJoiner;
 
-public class GlobalBlockPos implements INBTSerializable<CompoundNBT> {
+public class GlobalBlockPos implements INBTSerializable<CompoundTag> {
     //region Fields
     protected BlockPos pos;
-    protected RegistryKey<World> dimensionKey;
+    protected ResourceKey<Level> dimensionKey;
     //endregion Fields
 
     //region Initialization
     public GlobalBlockPos() {
     }
 
-    public GlobalBlockPos(BlockPos pos, RegistryKey<World> dimensionKey) {
+    public GlobalBlockPos(BlockPos pos, ResourceKey<Level> dimensionKey) {
         this.pos = pos;
         this.dimensionKey = dimensionKey;
     }
 
-    public GlobalBlockPos(BlockPos pos, World world) {
+    public GlobalBlockPos(BlockPos pos, Level level) {
         this.pos = pos;
-        this.dimensionKey = world.getDimensionKey();
+        this.dimensionKey = level.dimension();
     }
     //endregion Initialization
 
     //region Getter / Setter
-    public RegistryKey<World> getDimensionKey() {
+    public ResourceKey<Level> getDimensionKey() {
         return this.dimensionKey;
     }
 
@@ -88,61 +88,61 @@ public class GlobalBlockPos implements INBTSerializable<CompoundNBT> {
 
     @Override
     public String toString() {
-        return new StringJoiner(", ", "[", "]").add(this.dimensionKey.getLocation().toString())
-                       .add("x=" + this.pos.getX()).add("y=" + this.pos.getY())
-                       .add("z=" + this.pos.getZ()).toString();
+        return new StringJoiner(", ", "[", "]").add(this.dimensionKey.getRegistryName().toString())
+                .add("x=" + this.pos.getX()).add("y=" + this.pos.getY())
+                .add("z=" + this.pos.getZ()).toString();
     }
 
     @Override
-    public CompoundNBT serializeNBT() {
-        return this.write(new CompoundNBT());
+    public CompoundTag serializeNBT() {
+        return this.write(new CompoundTag());
     }
 
     @Override
-    public void deserializeNBT(CompoundNBT nbt) {
+    public void deserializeNBT(CompoundTag nbt) {
         this.read(nbt);
     }
     //endregion Overrides
 
     //region Static Methods
-    public static GlobalBlockPos from(CompoundNBT compound) {
+    public static GlobalBlockPos from(CompoundTag compound) {
         GlobalBlockPos globalBlockPos = new GlobalBlockPos();
         globalBlockPos.deserializeNBT(compound);
         return globalBlockPos;
     }
 
-    public static GlobalBlockPos from(PacketBuffer buf) {
+    public static GlobalBlockPos from(FriendlyByteBuf buf) {
         GlobalBlockPos globalBlockPos = new GlobalBlockPos();
         globalBlockPos.decode(buf);
         return globalBlockPos;
     }
 
-    public static GlobalBlockPos from(TileEntity tileEntity) {
-        return new GlobalBlockPos(tileEntity.getPos(), tileEntity.getWorld());
+    public static GlobalBlockPos from(BlockEntity blockEntity) {
+        return new GlobalBlockPos(blockEntity.getBlockPos(), blockEntity.getLevel());
     }
     //endregion Static Methods
 
     //region Methods
-    public CompoundNBT write(CompoundNBT compound) {
-        compound.putLong("pos", this.getPos().toLong());
-        compound.putString("dimension", this.dimensionKey.getLocation().toString());
+    public CompoundTag write(CompoundTag compound) {
+        compound.putLong("pos", this.getPos().asLong());
+        compound.putString("dimension", this.dimensionKey.getRegistryName().toString());
         return compound;
     }
 
-    public void read(CompoundNBT compound) {
-        this.pos = BlockPos.fromLong(compound.getLong("pos"));
+    public void read(CompoundTag compound) {
+        this.pos = BlockPos.of(compound.getLong("pos"));
         this.dimensionKey =
-                RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation(compound.getString("dimension")));
+                ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(compound.getString("dimension")));
     }
 
-    public void encode(PacketBuffer buf) {
+    public void encode(FriendlyByteBuf buf) {
         buf.writeBlockPos(this.pos);
-        buf.writeResourceLocation(this.dimensionKey.getLocation());
+        buf.writeResourceLocation(this.dimensionKey.location());
     }
 
-    public void decode(PacketBuffer buf) {
+    public void decode(FriendlyByteBuf buf) {
         this.pos = buf.readBlockPos();
-        this.dimensionKey = RegistryKey.getOrCreateKey(Registry.WORLD_KEY, buf.readResourceLocation());
+        this.dimensionKey = ResourceKey.create(Registry.DIMENSION_REGISTRY, buf.readResourceLocation());
     }
     //endregion Methods
 }

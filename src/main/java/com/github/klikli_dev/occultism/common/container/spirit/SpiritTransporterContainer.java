@@ -25,8 +25,8 @@ package com.github.klikli_dev.occultism.common.container.spirit;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.github.klikli_dev.occultism.exceptions.ItemHandlerMissingException;
 import com.github.klikli_dev.occultism.registry.OccultismContainers;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.entity.player.Player;
+import net.minecraft.entity.player.Inventory;
 import net.minecraft.inventory.container.ClickType;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
@@ -38,11 +38,11 @@ import javax.annotation.Nonnull;
 
 public class SpiritTransporterContainer extends SpiritContainer {
     //region Fields
-    protected final PlayerEntity player;
+    protected final Player player;
     //endregion Fields
 
     //region Initialization
-    public SpiritTransporterContainer(int id, PlayerInventory playerInventory,
+    public SpiritTransporterContainer(int id, Inventory playerInventory,
                                       SpiritEntity spirit) {
 
         super(OccultismContainers.SPIRIT_TRANSPORTER.get(), id, playerInventory, spirit);
@@ -56,7 +56,7 @@ public class SpiritTransporterContainer extends SpiritContainer {
     //region Overrides
 
     @Override
-    protected void setupPlayerInventorySlots(PlayerEntity player) {
+    protected void setupPlayerInventorySlots(Player player) {
         int playerInventoryTop = 120;
         int playerInventoryLeft = 8;
 
@@ -67,7 +67,7 @@ public class SpiritTransporterContainer extends SpiritContainer {
     }
 
     @Override
-    protected void setupPlayerHotbar(PlayerEntity player) {
+    protected void setupPlayerHotbar(Player player) {
         int hotbarTop = 178;
         int hotbarLeft = 8;
         for (int i = 0; i < 9; i++)
@@ -75,7 +75,7 @@ public class SpiritTransporterContainer extends SpiritContainer {
     }
 
     @Override
-    public ItemStack slotClick(int id, int dragType, ClickType clickType, PlayerEntity player) {
+    public ItemStack slotClick(int id, int dragType, ClickType clickType, Player player) {
         Slot slot = id >= 0 ? this.getSlot(id) : null;
 
         ItemStack holding = player.inventory.getItemStack();
@@ -84,7 +84,7 @@ public class SpiritTransporterContainer extends SpiritContainer {
             if (holding.isEmpty()) {
                 slot.putStack(ItemStack.EMPTY);
             }
-            else if (slot.isItemValid(holding)) {
+            else if (slot.mayPlace(holding)) {
                 slot.putStack(holding.copy());
             }
 

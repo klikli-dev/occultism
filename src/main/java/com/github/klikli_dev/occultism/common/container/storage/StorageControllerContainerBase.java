@@ -30,21 +30,21 @@ import com.github.klikli_dev.occultism.common.misc.ItemStackComparator;
 import com.github.klikli_dev.occultism.common.misc.StorageControllerCraftingInventory;
 import com.github.klikli_dev.occultism.common.misc.StorageControllerSlot;
 import com.github.klikli_dev.occultism.network.OccultismPackets;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.entity.player.Player;
+import net.minecraft.entity.player.Inventory;
+import net.minecraft.entity.player.ServerPlayer;
 import net.minecraft.inventory.CraftResultInventory;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.ContainerType;
+import net.minecraft.inventory.container.AbstractContainerMenu;
+import net.minecraft.inventory.container.MenuType;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.ICraftingRecipe;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.network.play.server.SSetSlotPacket;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.BlockEntity.BlockEntity;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.wrapper.PlayerMainInvWrapper;
@@ -54,11 +54,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public abstract class StorageControllerContainerBase extends Container implements IStorageControllerContainer {
+public abstract class StorageControllerContainerBase extends AbstractContainerMenu implements IStorageControllerContainer {
 
     //region Fields
-    public PlayerInventory playerInventory;
-    public PlayerEntity player;
+    public Inventory playerInventory;
+    public Player player;
     protected CraftResultInventory result;
     protected StorageControllerCraftingInventory matrix;
     protected Inventory orderInventory;
@@ -72,7 +72,7 @@ public abstract class StorageControllerContainerBase extends Container implement
 
     //region Initialization
 
-    protected StorageControllerContainerBase(@Nullable ContainerType<?> type, int id, PlayerInventory playerInventory) {
+    protected StorageControllerContainerBase(@Nullable MenuType<?> type, int id, Inventory playerInventory) {
         super(type, id);
         this.playerInventory = playerInventory;
         this.player = playerInventory.player;
@@ -88,11 +88,11 @@ public abstract class StorageControllerContainerBase extends Container implement
     @Override
     public GlobalBlockPos getStorageControllerGlobalBlockPos() {
         return GlobalBlockPos.from(
-                (TileEntity) this.getStorageController());
+                (BlockEntity) this.getStorageController());
     }
 
     @Override
-    public CraftingInventory getCraftMatrix() {
+    public CraftingContainer getCraftMatrix() {
         return this.matrix;
     }
 
@@ -111,13 +111,13 @@ public abstract class StorageControllerContainerBase extends Container implement
     }
 
     @Override
-    public ItemStack transferStackInSlot(PlayerEntity player, int index) {
-        if (player.world.isRemote)
+    public ItemStack quickMoveStack(Player player, int index) {
+        if (player.level.isClientSide)
             return ItemStack.EMPTY;
 
         ItemStack result = ItemStack.EMPTY;
-        Slot slot = this.inventorySlots.get(index);
-        if (slot != null && slot.getHasStack()) {
+        Slot slot = this.slots.get(index);
+        if (slot != null && slot.hasItem()) {
             ItemStack slotStack = slot.getStack();
             result = slotStack.copy();
 
@@ -142,7 +142,7 @@ public abstract class StorageControllerContainerBase extends Container implement
                 this.detectAndSendChanges();
 
                 //get updated stacks from storage controller and send to client
-                OccultismPackets.sendTo((ServerPlayerEntity) player, storageController.getMessageUpdateStacks());
+                OccultismPackets.sendTo((ServerPlayer) player, storageController.getMessageUpdateStacks());
 
                 if (!remainingItemStack.isEmpty()) {
                     slot.onTake(player, slotStack);
@@ -154,10 +154,10 @@ public abstract class StorageControllerContainerBase extends Container implement
     }
 
     @Override
-    public void onContainerClosed(PlayerEntity playerIn) {
+    public void removed(Player playerIn) {
         this.updateCraftingSlots(false);
         this.updateOrderSlot(true); //only send network update on second call
-        super.onContainerClosed(playerIn);
+        super.removed(playerIn);
     }
 
     //endregion Overrides
@@ -205,23 +205,23 @@ public abstract class StorageControllerContainerBase extends Container implement
 
     protected void findRecipeForMatrixClient() {
         Optional<ICraftingRecipe> optional =
-                this.player.world.getRecipeManager().getRecipe(IRecipeType.CRAFTING, this.matrix, this.player.world);
+                this.player.level.getRecipeManager().getRecipe(IRecipeType.CRAFTING, this.matrix, this.player.level);
         optional.ifPresent(iCraftingRecipe -> this.currentRecipe = iCraftingRecipe);
     }
 
     protected void findRecipeForMatrix() {
         //TODO: if there are issues, set up a copy of this based on WorkBenchContainer func_217066_a / updateCraftingResult
         //      and call it onCraftingMatrixChanged(). Send slot packet!
-        if (!this.player.world.isRemote) {
+        if (!this.player.level.isClientSide) {
             this.currentRecipe = null;
-            ServerPlayerEntity serverplayerentity = (ServerPlayerEntity) this.player;
+            ServerPlayer serverplayerentity = (ServerPlayer) this.player;
             ItemStack itemstack = ItemStack.EMPTY;
-            Optional<ICraftingRecipe> optional = this.player.world.getServer().getRecipeManager()
+            Optional<ICraftingRecipe> optional = this.player.level.getServer().getRecipeManager()
                     .getRecipe(IRecipeType.CRAFTING, this.matrix,
-                            this.player.world);
+                            this.player.level);
             if (optional.isPresent()) {
                 ICraftingRecipe icraftingrecipe = optional.get();
-                if (this.result.canUseRecipe(this.player.world, serverplayerentity, icraftingrecipe)) {
+                if (this.result.canUseRecipe(this.player.level, serverplayerentity, icraftingrecipe)) {
                     itemstack = icraftingrecipe.getCraftingResult(this.matrix);
                     this.currentRecipe = icraftingrecipe;
                 }
@@ -232,7 +232,7 @@ public abstract class StorageControllerContainerBase extends Container implement
         }
     }
 
-    protected void craftShift(PlayerEntity player, IStorageController storageController) {
+    protected void craftShift(Player player, IStorageController storageController) {
         if (this.matrix == null) {
             return;
         }
@@ -277,7 +277,7 @@ public abstract class StorageControllerContainerBase extends Container implement
             }
 
             //if recipe is no longer fulfilled, stop
-            if (!this.currentRecipe.matches(this.matrix, player.world)) {
+            if (!this.currentRecipe.matches(this.matrix, player.level)) {
                 break;
             }
 
@@ -370,7 +370,7 @@ public abstract class StorageControllerContainerBase extends Container implement
 
         //update crafting matrix to handle container items / items that survive crafting
         this.onCraftMatrixChanged(this.matrix);
-        OccultismPackets.sendTo((ServerPlayerEntity) player, this.getStorageController().getMessageUpdateStacks());
+        OccultismPackets.sendTo((ServerPlayer) player, this.getStorageController().getMessageUpdateStacks());
 
     }
     //endregion Methods

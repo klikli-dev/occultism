@@ -88,7 +88,7 @@ public class SpiritFireRecipeCategory implements IRecipeCategory<SpiritFireRecip
     @Override
     public void setIngredients(SpiritFireRecipe recipe, IIngredients ingredients) {
         ingredients.setInputIngredients(recipe.getIngredients());
-        ingredients.setOutput(VanillaTypes.ITEM, recipe.getRecipeOutput());
+        ingredients.setOutput(VanillaTypes.ITEM, recipe.getResultItem());
     }
 
     @Override
@@ -108,9 +108,9 @@ public class SpiritFireRecipeCategory implements IRecipeCategory<SpiritFireRecip
     }
 
     @Override
-    public void draw(SpiritFireRecipe recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
+    public void draw(SpiritFireRecipe recipe, MatrixStack poseStack, double mouseX, double mouseY) {
         RenderSystem.enableBlend();
-        this.overlay.draw(matrixStack,48, 0);
+        this.overlay.draw(poseStack,48, 0);
     }
     //endregion Overrides
 }

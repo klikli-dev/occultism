@@ -23,24 +23,24 @@
 package com.github.klikli_dev.occultism.network;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fml.network.NetworkEvent;
+import net.minecraftforge.fmllegacy.network.NetworkEvent;
 
 public interface IMessage {
     //region Methods
-    void encode(PacketBuffer buf);
+    void encode(FriendlyByteBuf buf);
 
-    void decode(PacketBuffer buf);
+    void decode(FriendlyByteBuf buf);
 
     @OnlyIn(Dist.CLIENT)
-    void onClientReceived(Minecraft minecraft, PlayerEntity player, NetworkEvent.Context context);
+    void onClientReceived(Minecraft minecraft, Player player, NetworkEvent.Context context);
 
-    void onServerReceived(MinecraftServer minecraftServer, ServerPlayerEntity player,
+    void onServerReceived(MinecraftServer minecraftServer, ServerPlayer player,
                           NetworkEvent.Context context);
     //endregion Methods
 }

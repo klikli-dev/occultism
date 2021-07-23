@@ -23,8 +23,8 @@
 package com.github.klikli_dev.occultism.common.tile;
 
 import com.github.klikli_dev.occultism.registry.OccultismTiles;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.BlockEntity.BlockEntityType;
 import net.minecraft.util.Direction;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
@@ -34,7 +34,7 @@ import net.minecraftforge.items.ItemStackHandler;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class SacrificialBowlTileEntity extends NetworkedTileEntity {
+public class SacrificialBowlBlockEntity extends NetworkedBlockEntity {
 
     //region Fields
     public long lastChangeTime;
@@ -49,10 +49,10 @@ public class SacrificialBowlTileEntity extends NetworkedTileEntity {
                 @Override
                 protected void onContentsChanged(
                         int slot) {
-                    if (!SacrificialBowlTileEntity.this.world.isRemote) {
-                        SacrificialBowlTileEntity.this.lastChangeTime = SacrificialBowlTileEntity.this.world
+                    if (!SacrificialBowlBlockEntity.this.level.isClientSide) {
+                        SacrificialBowlBlockEntity.this.lastChangeTime = SacrificialBowlBlockEntity.this.level
                                                                                 .getGameTime();
-                        SacrificialBowlTileEntity.this.markNetworkDirty();
+                        SacrificialBowlBlockEntity.this.markNetworkDirty();
                     }
                 }
                 //endregion Overrides
@@ -61,12 +61,12 @@ public class SacrificialBowlTileEntity extends NetworkedTileEntity {
     //endregion Fields
 
     //region Initialization
-    public SacrificialBowlTileEntity() {
+    public SacrificialBowlBlockEntity() {
         super(OccultismTiles.SACRIFICIAL_BOWL.get());
     }
 
-    public SacrificialBowlTileEntity(TileEntityType<?> tileEntityTypeIn) {
-        super(tileEntityTypeIn);
+    public SacrificialBowlBlockEntity(BlockEntityType<?> BlockEntityTypeIn) {
+        super(BlockEntityTypeIn);
     }
     //endregion Initialization
 
@@ -81,13 +81,13 @@ public class SacrificialBowlTileEntity extends NetworkedTileEntity {
     }
 
     @Override
-    public void readNetwork(CompoundNBT compound) {
+    public void readNetwork(CompoundTag compound) {
         this.itemStackHandler.ifPresent((handler) -> handler.deserializeNBT(compound.getCompound("inventory")));
         this.lastChangeTime = compound.getLong("lastChangeTime");
     }
 
     @Override
-    public CompoundNBT writeNetwork(CompoundNBT compound) {
+    public CompoundTag writeNetwork(CompoundTag compound) {
         this.itemStackHandler.ifPresent(handler -> compound.put("inventory", handler.serializeNBT()));
         compound.putLong("lastChangeTime", this.lastChangeTime);
         return compound;

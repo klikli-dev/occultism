@@ -23,22 +23,22 @@
 package com.github.klikli_dev.occultism.common.block;
 
 import com.github.klikli_dev.occultism.common.ritual.Ritual;
-import com.github.klikli_dev.occultism.common.tile.GoldenSacrificialBowlTileEntity;
+import com.github.klikli_dev.occultism.common.tile.GoldenSacrificialBowlBlockEntity;
 import com.github.klikli_dev.occultism.registry.OccultismTiles;
 import com.github.klikli_dev.occultism.util.StorageUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
+import net.minecraft.entity.player.Player;
+import net.minecraft.BlockEntity.BlockEntity;
+import net.minecraft.util.InteractionResult;
+import net.minecraft.util.InteractionHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.World;
+import net.minecraft.level.IBlockReader;
+import net.minecraft.level.Level;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -66,17 +66,17 @@ public class GoldenSacrificialBowlBlock extends Block {
     }
 
     @Override
-    public void neighborChanged(BlockState state, World world, BlockPos pos, Block blockIn, BlockPos fromPos,
+    public void neighborChanged(BlockState state, Level level, BlockPos pos, Block blockIn, BlockPos fromPos,
                                 boolean isMoving) {
-        super.neighborChanged(state, world, pos, blockIn, fromPos, isMoving);
-        world.getPendingBlockTicks().scheduleTick(pos, this, 0);
+        super.neighborChanged(state, level, pos, blockIn, fromPos, isMoving);
+        level.getPendingBlockTicks().scheduleTick(pos, this, 0);
     }
 
-    public void onReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
+    public void onReplaced(BlockState state, Level worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
         if (state.getBlock() != newState.getBlock()) {
-            TileEntity tile = worldIn.getTileEntity(pos);
+            BlockEntity tile = worldIn.getBlockEntity(pos);
             if(tile != null){
-                GoldenSacrificialBowlTileEntity bowl = (GoldenSacrificialBowlTileEntity)tile;
+                GoldenSacrificialBowlBlockEntity bowl = (GoldenSacrificialBowlBlockEntity)tile;
                 bowl.stopRitual(false); //if block changed/was destroyed, interrupt the ritual.
                 StorageUtil.dropInventoryItems(bowl);
             }
@@ -85,25 +85,25 @@ public class GoldenSacrificialBowlBlock extends Block {
     }
 
     @Override
-    public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player,
-                                             Hand hand, BlockRayTraceResult hit) {
-        TileEntity tileEntity = world.getTileEntity(pos);
-        if (tileEntity instanceof GoldenSacrificialBowlTileEntity) {
-            GoldenSacrificialBowlTileEntity goldenSacrificialBowlTileEntity = (GoldenSacrificialBowlTileEntity) tileEntity;
-            return goldenSacrificialBowlTileEntity.activate(world, pos, player, hand,
-                    hit.getFace()) ? ActionResultType.SUCCESS : ActionResultType.PASS;
+    public InteractionResult onBlockActivated(BlockState state, Level level, BlockPos pos, Player player,
+                                             InteractionHand hand, BlockRayTraceResult hit) {
+        BlockEntity blockEntity = level.getBlockEntity(pos);
+        if (BlockEntity instanceof GoldenSacrificialBowlBlockEntity) {
+            GoldenSacrificialBowlBlockEntity goldenSacrificialBowlBlockEntity = (GoldenSacrificialBowlBlockEntity) BlockEntity;
+            return goldenSacrificialBowlBlockEntity.activate(level, pos, player, hand,
+                    hit.getFace()) ? InteractionResult.SUCCESS : InteractionResult.PASS;
         }
-        return super.onBlockActivated(state, world, pos, player, hand, hit);
+        return super.onBlockActivated(state, level, pos, player, hand, hit);
     }
 
     @Override
-    public boolean hasTileEntity(BlockState state) {
+    public boolean hasBlockEntity(BlockState state) {
         return true;
     }
 
     @Nullable
     @Override
-    public TileEntity createTileEntity(BlockState state, IBlockReader world) {
+    public BlockEntity createBlockEntity(BlockState state, IBlockReader level) {
         return OccultismTiles.GOLDEN_SACRIFICIAL_BOWL.get().create();
     }
     //endregion Overrides
@@ -111,15 +111,15 @@ public class GoldenSacrificialBowlBlock extends Block {
     //region Methods
     @SubscribeEvent
     public void onPlayerRightClickItem(PlayerInteractEvent.RightClickItem event) {
-        PlayerEntity player = event.getPlayer();
-        if (!player.world.isRemote) {
+        Player player = event.getPlayer();
+        if (!player.level.isClientSide) {
             BlockPos pos = player.getPosition();
             int range = Ritual.ITEM_USE_DETECTION_RANGE;
             for (BlockPos positionToCheck : BlockPos.getAllInBoxMutable(pos.add(-range, -range, -range),
                     pos.add(range, range, range))) {
-                TileEntity tileEntity = player.world.getTileEntity(positionToCheck);
-                if (tileEntity instanceof GoldenSacrificialBowlTileEntity) {
-                    GoldenSacrificialBowlTileEntity bowl = (GoldenSacrificialBowlTileEntity) tileEntity;
+                BlockEntity blockEntity = player.level.getBlockEntity(positionToCheck);
+                if (BlockEntity instanceof GoldenSacrificialBowlBlockEntity) {
+                    GoldenSacrificialBowlBlockEntity bowl = (GoldenSacrificialBowlBlockEntity) BlockEntity;
                     if (bowl.currentRitual != null && bowl.currentRitual.isValidItemUse(event)) {
                         bowl.notifyItemUse(event);
                     }
@@ -131,16 +131,16 @@ public class GoldenSacrificialBowlBlock extends Block {
     @SubscribeEvent
     public void livingDeath(LivingDeathEvent event) {
         LivingEntity entityLivingBase = event.getEntityLiving();
-        if (!entityLivingBase.world.isRemote) {
+        if (!entityLivingBase.level.isClientSide) {
             //Limit to player kills
-            if(event.getSource().getTrueSource() instanceof PlayerEntity){
+            if(event.getSource().getTrueSource() instanceof Player){
                 BlockPos pos = entityLivingBase.getPosition();
                 int range = Ritual.SACRIFICE_DETECTION_RANGE;
                 for (BlockPos positionToCheck : BlockPos.getAllInBoxMutable(pos.add(-range, -range, -range),
                         pos.add(range, range, range))) {
-                    TileEntity tileEntity = entityLivingBase.world.getTileEntity(positionToCheck);
-                    if (tileEntity instanceof GoldenSacrificialBowlTileEntity) {
-                        GoldenSacrificialBowlTileEntity bowl = (GoldenSacrificialBowlTileEntity) tileEntity;
+                    BlockEntity blockEntity = entityLivingBase.level.getBlockEntity(positionToCheck);
+                    if (BlockEntity instanceof GoldenSacrificialBowlBlockEntity) {
+                        GoldenSacrificialBowlBlockEntity bowl = (GoldenSacrificialBowlBlockEntity) BlockEntity;
                         if (bowl.currentRitual != null && bowl.currentRitual.isValidSacrifice(entityLivingBase)) {
                             bowl.notifySacrifice(entityLivingBase);
                         }

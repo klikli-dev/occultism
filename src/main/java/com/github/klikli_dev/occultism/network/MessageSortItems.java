@@ -26,12 +26,13 @@ import com.github.klikli_dev.occultism.api.common.container.IStorageControllerCo
 import com.github.klikli_dev.occultism.api.common.data.SortDirection;
 import com.github.klikli_dev.occultism.api.common.data.SortType;
 import com.github.klikli_dev.occultism.api.common.tile.IStorageAccessor;
-import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.BlockEntity.BlockEntity;
+import net.minecraft.entity.player.ServerPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.fml.network.NetworkEvent;
 
 public class MessageSortItems extends MessageBase {
@@ -44,7 +45,7 @@ public class MessageSortItems extends MessageBase {
 
     //region Initialization
 
-    public MessageSortItems(PacketBuffer buf) {
+    public MessageSortItems(FriendlyByteBuf buf) {
         this.decode(buf);
     }
 
@@ -58,24 +59,23 @@ public class MessageSortItems extends MessageBase {
     //region Overrides
 
     @Override
-    public void onServerReceived(MinecraftServer minecraftServer, ServerPlayerEntity player,
+    public void onServerReceived(MinecraftServer minecraftServer, ServerPlayer player,
                                  NetworkEvent.Context context) {
         if (player.openContainer instanceof IStorageControllerContainer) {
             if (!((IStorageControllerContainer) player.openContainer).isContainerItem()) {
 
                 //ensure players cannot load arbitrary chunks
-                if (!player.world.isBlockLoaded(this.entityPosition))
+                if (!player.level.isBlockLoaded(this.entityPosition))
                     return;
 
-                TileEntity tileEntity = player.world.getTileEntity(this.entityPosition);
-                if (tileEntity instanceof IStorageAccessor) {
-                    IStorageAccessor storageAccessor = (IStorageAccessor) tileEntity;
+                BlockEntity blockEntity = player.level.getBlockEntity(this.entityPosition);
+                if (blockEntity instanceof IStorageAccessor) {
+                    IStorageAccessor storageAccessor = (IStorageAccessor) blockEntity;
                     storageAccessor.setSortType(this.sortType);
                     storageAccessor.setSortDirection(this.sortDirection);
-                    tileEntity.markDirty();
+                    blockEntity.dirt();
                 }
-            }
-            else {
+            } else {
                 //for item remotes, we just set the nbt.
                 ItemStack stack = player.inventory.getCurrentItem();
                 stack.getOrCreateTag().putInt("sortDirection", this.sortDirection.getValue());
@@ -85,14 +85,14 @@ public class MessageSortItems extends MessageBase {
     }
 
     @Override
-    public void encode(PacketBuffer byteBuf) {
+    public void encode(FriendlyByteBuf byteBuf) {
         byteBuf.writeBlockPos(this.entityPosition);
         byteBuf.writeByte(this.sortDirection.getValue());
         byteBuf.writeByte(this.sortType.getValue());
     }
 
     @Override
-    public void decode(PacketBuffer byteBuf) {
+    public void decode(FriendlyByteBuf byteBuf) {
         this.entityPosition = byteBuf.readBlockPos();
         this.sortDirection = SortDirection.get(byteBuf.readByte());
         this.sortType = SortType.get(byteBuf.readByte());

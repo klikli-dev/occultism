@@ -34,13 +34,13 @@ import com.github.klikli_dev.occultism.client.gui.controls.SizedImageButton;
 import com.github.klikli_dev.occultism.common.container.storage.StorageControllerContainerBase;
 import com.github.klikli_dev.occultism.integration.jei.JeiAccess;
 import com.github.klikli_dev.occultism.integration.jei.JeiSettings;
-import com.github.klikli_dev.occultism.network.*;
 import com.github.klikli_dev.occultism.util.InputUtil;
 import com.github.klikli_dev.occultism.util.TextUtil;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
@@ -49,18 +49,18 @@ import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.client.util.InputMappings;
-import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.entity.player.Inventory;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.IInventoryChangedListener;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.RegistryKey;
+import net.minecraft.util.ResourceKey;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
+import net.minecraft.level.Level;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -104,7 +104,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     //endregion Fields
 
     //region Initialization
-    public StorageControllerGuiBase(T container, PlayerInventory playerInventory, ITextComponent name) {
+    public StorageControllerGuiBase(T container, Inventory playerInventory, ITextComponent name) {
         super(container, playerInventory, name);
         this.storageControllerContainer = container;
         this.storageControllerContainer.getOrderSlot().addListener(this);
@@ -145,14 +145,14 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
     //region Overrides
     @Override
-    public FontRenderer getFontRenderer() {
+    public Font getFontRenderer() {
         return this.font;
     }
 
     @Override
-    public void drawGradientRect(MatrixStack matrixStack, int left, int top, int right, int bottom, int startColor,
+    public void drawGradientRect(PoseStack poseStack, int left, int top, int right, int bottom, int startColor,
                                  int endColor) {
-        super.fillGradient(matrixStack, left, top, right, bottom, startColor, endColor);
+        super.fillGradient(poseStack, left, top, right, bottom, startColor, endColor);
     }
 
     @Override
@@ -162,12 +162,12 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     }
 
     @Override
-    public void renderToolTip(MatrixStack matrixStack, ItemStack stack, int x, int y) {
-        super.renderTooltip(matrixStack, stack, x, y);
+    public void renderToolTip(MatrixStack poseStack, ItemStack stack, int x, int y) {
+        super.renderTooltip(poseStack, stack, x, y);
     }
 
     @Override
-    public void renderToolTip(MatrixStack matrixStack, MachineReference machine, int x, int y) {
+    public void renderToolTip(PoseStack poseStack, MachineReference machine, int x, int y) {
         List<ITextComponent> tooltip = new ArrayList<>();
         tooltip.add(machine.getItemStack().getDisplayName());
         if (machine.customName != null) {
@@ -176,11 +176,11 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                                                 TextFormatting.RESET));
         }
 
-        if (this.minecraft.player.world.getDimensionKey() != machine.globalPos.getDimensionKey())
+        if (this.minecraft.player.level.getDimensionKey() != machine.globalPos.getDimensionKey())
             tooltip.add(new TranslationTextComponent(TextFormatting.GRAY.toString() + TextFormatting.ITALIC +
                     machine.globalPos.getDimensionKey().getLocation() +
                                                      TextFormatting.RESET));
-        this.func_243308_b(matrixStack, tooltip, x, y); //renderTooltip
+        this.func_243308_b(poseStack, tooltip, x, y); //renderTooltip
     }
 
     @Override
@@ -254,17 +254,17 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     }
 
     @Override
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
-        this.renderBackground(matrixStack);
-        super.render(matrixStack, mouseX, mouseY, partialTicks);
+    public void render(MatrixStack poseStack, int mouseX, int mouseY, float partialTicks) {
+        this.renderBackground(poseStack);
+        super.render(poseStack, mouseX, mouseY, partialTicks);
 
-        this.renderHoveredTooltip(matrixStack, mouseX, mouseY);
+        this.renderHoveredTooltip(poseStack, mouseX, mouseY);
         if (!this.isGuiValid()) {
             this.minecraft.player.closeScreen();
             return;
         }
         try {
-            this.drawTooltips(matrixStack, mouseX, mouseY);
+            this.drawTooltips(poseStack, mouseX, mouseY);
         } catch (Throwable e) {
             Occultism.LOGGER.error("Error drawing tooltip.", e);
         }
@@ -272,8 +272,8 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
 
     @Override
-    public void drawGuiContainerForegroundLayer(MatrixStack matrixStack, int mouseX, int mouseY) {
-        //Note: Do not call super.drawGuiContainerForegroundLayer(matrixStack, mouseX, mouseY);
+    public void drawGuiContainerForegroundLayer(MatrixStack poseStack, int mouseX, int mouseY) {
+        //Note: Do not call super.drawGuiContainerForegroundLayer(poseStack, mouseX, mouseY);
         //      it renders inventory titles which no vanilla inventory does
 
         if (!this.isGuiValid()) {
@@ -288,24 +288,24 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     }
 
     @Override
-    protected void drawGuiContainerBackgroundLayer(MatrixStack matrixStack, float partialTicks, int mouseX,
+    protected void drawGuiContainerBackgroundLayer(MatrixStack poseStack, float partialTicks, int mouseX,
                                                    int mouseY) {
         if (!this.isGuiValid()) {
             return;
         }
 
-        this.renderBackground(matrixStack);
-        this.drawBackgroundTexture(matrixStack);
+        this.renderBackground(poseStack);
+        this.drawBackgroundTexture(poseStack);
 
         switch (this.guiMode) {
             case INVENTORY:
-                this.drawItems(matrixStack, partialTicks, mouseX, mouseY);
+                this.drawItems(poseStack, partialTicks, mouseX, mouseY);
                 break;
             case AUTOCRAFTING:
-                this.drawMachines(matrixStack, partialTicks, mouseX, mouseY);
+                this.drawMachines(poseStack, partialTicks, mouseX, mouseY);
                 break;
         }
-        this.searchBar.render(matrixStack, mouseX, mouseY, partialTicks);
+        this.searchBar.render(poseStack, mouseX, mouseY, partialTicks);
     }
 
     @Override
@@ -540,20 +540,20 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         this.addButton(this.autocraftingModeButton);
     }
 
-    protected void drawItems(MatrixStack matrixStack, float partialTicks, int mouseX, int mouseY) {
+    protected void drawItems(MatrixStack poseStack, float partialTicks, int mouseX, int mouseY) {
         List<ItemStack> stacksToDisplay = this.applySearchToItems();
         this.sortItemStacks(stacksToDisplay);
         this.buildPage(stacksToDisplay);
         this.buildItemSlots(stacksToDisplay);
-        this.drawItemSlots(matrixStack, mouseX, mouseY);
+        this.drawItemSlots(poseStack, mouseX, mouseY);
     }
 
-    protected void drawMachines(MatrixStack matrixStack, float partialTicks, int mouseX, int mouseY) {
+    protected void drawMachines(MatrixStack poseStack, float partialTicks, int mouseX, int mouseY) {
         List<MachineReference> machinesToDisplay = this.applySearchToMachines();
         this.sortMachines(machinesToDisplay);
         this.buildPage(machinesToDisplay);
         this.buildMachineSlots(machinesToDisplay);
-        this.drawMachineSlots(matrixStack, mouseX, mouseY);
+        this.drawMachineSlots(poseStack, mouseX, mouseY);
     }
 
     protected boolean canClick() {
@@ -574,19 +574,19 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                mouseY > (this.guiTop + itemAreaTop) && mouseY < (this.guiTop + itemAreaTop + itemAreaHeight);
     }
 
-    protected void drawTooltips(MatrixStack matrixStack, int mouseX, int mouseY) {
+    protected void drawTooltips(MatrixStack poseStack, int mouseX, int mouseY) {
         switch (this.guiMode) {
             case INVENTORY:
                 for (ItemSlotWidget s : this.itemSlots) {
                     if (s != null && s.isMouseOverSlot(mouseX, mouseY)) {
-                        s.drawTooltip(matrixStack, mouseX, mouseY);
+                        s.drawTooltip(poseStack, mouseX, mouseY);
                     }
                 }
                 break;
             case AUTOCRAFTING:
                 for (MachineSlotWidget s : this.machineSlots) {
                     if (s != null && s.isMouseOverSlot(mouseX, mouseY)) {
-                        s.drawTooltip(matrixStack, mouseX, mouseY);
+                        s.drawTooltip(poseStack, mouseX, mouseY);
                     }
                 }
                 break;
@@ -610,10 +610,10 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                 }
                 tooltip.add(new TranslationTextComponent(TRANSLATION_KEY_BASE + ".search.tooltip_rightclick"));
             }
-            this.func_243308_b(matrixStack, tooltip, mouseX, mouseY); //renderTooltip
+            this.func_243308_b(poseStack, tooltip, mouseX, mouseY); //renderTooltip
         }
         if (this.clearTextButton != null && this.clearTextButton.isMouseOver(mouseX, mouseY)) {
-            this.func_243308_b(matrixStack,
+            this.func_243308_b(poseStack,
                     Lists.newArrayList(new TranslationTextComponent(TRANSLATION_KEY_BASE + ".search.tooltip_clear")),
                     mouseX, mouseY); // renderTooltip
         }
@@ -622,41 +622,41 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
             switch (this.guiMode) {
                 case INVENTORY:
                     translationKey =
-                            TRANSLATION_KEY_BASE + ".search.tooltip_sort_type_" + this.getSortType().getString();
+                            TRANSLATION_KEY_BASE + ".search.tooltip_sort_type_" + this.getSortType().getSerializedName();
                     break;
                 case AUTOCRAFTING:
                     translationKey =
                             TRANSLATION_KEY_BASE + ".search.machines.tooltip_sort_type_" +
-                            this.getSortType().getString();
+                            this.getSortType().getSerializedName();
                     break;
             }
-            this.renderTooltip(matrixStack, new TranslationTextComponent(translationKey), mouseX, mouseY);
+            this.renderTooltip(poseStack, new TranslationTextComponent(translationKey), mouseX, mouseY);
         }
         if (this.sortDirectionButton != null && this.sortDirectionButton.isMouseOver(mouseX, mouseY)) {
-            this.renderTooltip(matrixStack, new TranslationTextComponent(
-                            TRANSLATION_KEY_BASE + ".search.tooltip_sort_direction_" + this.getSortDirection().getString()),
+            this.renderTooltip(poseStack, new TranslationTextComponent(
+                            TRANSLATION_KEY_BASE + ".search.tooltip_sort_direction_" + this.getSortDirection().getSerializedName()),
                     mouseX, mouseY);
         }
         if (this.jeiSyncButton != null && this.jeiSyncButton.isMouseOver(mouseX, mouseY)) {
-            this.renderTooltip(matrixStack, new TranslationTextComponent(
+            this.renderTooltip(poseStack, new TranslationTextComponent(
                             TRANSLATION_KEY_BASE + ".search.tooltip_jei_" +
                             (JeiSettings.isJeiSearchSynced() ? "on" : "off")),
                     mouseX, mouseY);
         }
     }
 
-    protected void drawBackgroundTexture(MatrixStack matrixStack) {
+    protected void drawBackgroundTexture(MatrixStack poseStack) {
         RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.minecraft.getTextureManager().bindTexture(BACKGROUND);
         int xCenter = (this.width - this.xSize) / 2;
         int yCenter = (this.height - this.ySize) / 2;
-        this.blit(matrixStack, this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
+        this.blit(poseStack, this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
     }
 
-    protected void drawItemSlots(MatrixStack matrixStack, int mouseX, int mouseY) {
+    protected void drawItemSlots(MatrixStack poseStack, int mouseX, int mouseY) {
         this.stackUnderMouse = ItemStack.EMPTY;
         for (ItemSlotWidget slot : this.itemSlots) {
-            slot.drawSlot(matrixStack, mouseX, mouseY);
+            slot.drawSlot(poseStack, mouseX, mouseY);
             if (slot.isMouseOverSlot(mouseX, mouseY)) {
                 this.stackUnderMouse = slot.getStack();
                 //        break;
@@ -807,7 +807,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
     protected void sortMachines(List<MachineReference> machinesToDisplay) {
         BlockPos entityPosition = this.getEntityPosition();
-        RegistryKey<World> dimensionKey = this.minecraft.player.world.getDimensionKey();
+        ResourceKey<Level> dimensionKey = this.minecraft.player.level.getDimensionKey();
         machinesToDisplay.sort(new Comparator<MachineReference>() {
 
             //region Fields
@@ -862,9 +862,9 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         }
     }
 
-    protected void drawMachineSlots(MatrixStack matrixStack, int mouseX, int mouseY) {
+    protected void drawMachineSlots(MatrixStack poseStack, int mouseX, int mouseY) {
         for (MachineSlotWidget slot : this.machineSlots) {
-            slot.drawSlot(matrixStack, mouseX, mouseY);
+            slot.drawSlot(poseStack, mouseX, mouseY);
         }
     }
 

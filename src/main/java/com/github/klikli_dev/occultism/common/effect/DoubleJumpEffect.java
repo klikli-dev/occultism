@@ -29,7 +29,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.client.gui.DisplayEffectsScreen;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.EffectType;
@@ -89,7 +89,7 @@ public class DoubleJumpEffect extends Effect {
      * @param player the player
      * @return the max amount of jumps.
      */
-    public static int getMaxJumps(PlayerEntity player) {
+    public static int getMaxJumps(Player player) {
         EffectInstance effect = player.getActivePotionEffect(OccultismEffects.DOUBLE_JUMP.get());
         if (effect != null) {
             return 1 + effect.getAmplifier();

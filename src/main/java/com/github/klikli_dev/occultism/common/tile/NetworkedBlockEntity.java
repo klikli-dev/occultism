@@ -23,48 +23,48 @@
 package com.github.klikli_dev.occultism.common.tile;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.server.SUpdateTileEntityPacket;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.network.play.server.SUpdateBlockEntityPacket;
+import net.minecraft.BlockEntity.BlockEntity;
+import net.minecraft.BlockEntity.BlockEntityType;
 
-public abstract class NetworkedTileEntity extends TileEntity {
+public abstract class NetworkedBlockEntity extends BlockEntity {
 
-    public NetworkedTileEntity(TileEntityType<?> tileEntityTypeIn) {
-        super(tileEntityTypeIn);
+    public NetworkedBlockEntity(BlockEntityType<?> BlockEntityTypeIn) {
+        super(BlockEntityTypeIn);
     }
 
     //region Overrides
     @Override
-    public void read(BlockState state, CompoundNBT compound) {
+    public void read(BlockState state, CompoundTag compound) {
         this.readNetwork(compound);
         super.read(state, compound);
     }
 
     @Override
-    public CompoundNBT write(CompoundNBT compound) {
+    public CompoundTag write(CompoundTag compound) {
         this.writeNetwork(compound);
         return super.write(compound);
     }
 
     @Override
-    public SUpdateTileEntityPacket getUpdatePacket() {
-        return new SUpdateTileEntityPacket(this.pos, 1, this.writeNetwork(new CompoundNBT()));
+    public SUpdateBlockEntityPacket getUpdatePacket() {
+        return new SUpdateBlockEntityPacket(this.pos, 1, this.writeNetwork(new CompoundTag()));
     }
 
     @Override
-    public CompoundNBT getUpdateTag() {
+    public CompoundTag getUpdateTag() {
         return this.writeNetwork(super.getUpdateTag());
     }
 
     @Override
-    public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket pkt) {
+    public void onDataPacket(NetworkManager net, SUpdateBlockEntityPacket pkt) {
         this.readNetwork(pkt.getNbtCompound());
     }
 
     @Override
-    public void handleUpdateTag(BlockState state, CompoundNBT tag) {
+    public void handleUpdateTag(BlockState state, CompoundTag tag) {
         super.read(state, tag);
         this.readNetwork(tag);
     }
@@ -78,7 +78,7 @@ public abstract class NetworkedTileEntity extends TileEntity {
      *
      * @param compound the compound to read from.
      */
-    public void readNetwork(CompoundNBT compound) {
+    public void readNetwork(CompoundTag compound) {
     }
 
     /**
@@ -87,13 +87,13 @@ public abstract class NetworkedTileEntity extends TileEntity {
      * @param compound the compound to write to.
      * @return the compound written to,
      */
-    public CompoundNBT writeNetwork(CompoundNBT compound) {
+    public CompoundTag writeNetwork(CompoundTag compound) {
         return compound;
     }
 
     public void markNetworkDirty(){
-        if (this.world != null) {
-            this.world.notifyBlockUpdate(this.pos, this.getBlockState(), this.getBlockState(), 2);
+        if (this.level != null) {
+            this.level.notifyBlockUpdate(this.pos, this.getBlockState(), this.getBlockState(), 2);
         }
     }
 }

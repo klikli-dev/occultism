@@ -33,7 +33,7 @@ import net.minecraft.item.Items;
 import net.minecraft.util.*;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.level.Level;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -51,7 +51,7 @@ public class PlayerEventHandler {
             //find if there is any datura
             AxisAlignedBB box = new AxisAlignedBB(-1, -1, -1, 1, 1, 1)
                                         .offset(Math3DUtil.center(event.getPos()));
-            List<ItemEntity> list = event.getWorld().getEntitiesWithinAABB(ItemEntity.class, box,
+            List<ItemEntity> list = event.getLevel().getEntitiesWithinAABB(ItemEntity.class, box,
                     item -> item.getItem().getItem() == OccultismItems.DATURA.get());
             if (!list.isEmpty()) {
                 //if there is datura, check if we can edit the target face
@@ -63,16 +63,16 @@ public class PlayerEventHandler {
                 //consume all datura
                 list.forEach(Entity::remove);
 
-                World world = event.getWorld();
+                Level level = event.getLevel();
                 //if there is air, place block and play sound
-                if (world.isAirBlock(pos)) {
+                if (level.isAirBlock(pos)) {
                     //sound based on the item used
                     SoundEvent soundEvent =
                             isFlintAndSteel ? SoundEvents.ITEM_FLINTANDSTEEL_USE : SoundEvents.ITEM_FIRECHARGE_USE;
-                    world.playSound(event.getPlayer(), pos, soundEvent,
-                            SoundCategory.BLOCKS, 1.0F, world.rand.nextFloat() * 0.4F + 0.8F);
+                    level.playSound(event.getPlayer(), pos, soundEvent,
+                            SoundSource.BLOCKS, 1.0F, level.rand.nextFloat() * 0.4F + 0.8F);
 
-                    world.setBlockState(pos, OccultismBlocks.SPIRIT_FIRE.get().getDefaultState(), 11);
+                    level.setBlockState(pos, OccultismBlocks.SPIRIT_FIRE.get().getDefaultState(), 11);
                 }
 
                 //now handle used item
@@ -87,7 +87,7 @@ public class PlayerEventHandler {
 
                 //finally, cancel original event to prevent real action and show use animation
                 event.setCanceled(true);
-                event.getPlayer().swingArm(Hand.MAIN_HAND);
+                event.getPlayer().swingArm(InteractionHand.MAIN_HAND);
             }
         }
     }
@@ -100,7 +100,7 @@ public class PlayerEventHandler {
             if (OccultismItems.SOUL_GEM_ITEM.get()
                         .itemInteractionForEntity(event.getItemStack(), event.getPlayer(),
                                 (LivingEntity) event.getTarget(),
-                                event.getHand()) == ActionResultType.SUCCESS) {
+                                event.getHand()) == InteractionResult.SUCCESS) {
                 event.setCanceled(true);
             }
         }

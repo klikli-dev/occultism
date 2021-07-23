@@ -30,7 +30,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
+import net.minecraft.level.Level;
 
 import javax.annotation.Nullable;
 import java.util.HashMap;
@@ -53,9 +53,9 @@ public class BookOfCallingTransportItems extends BookOfCallingItem {
     }
 
     @Override
-    public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip,
+    public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<ITextComponent> tooltip,
                                ITooltipFlag flagIn) {
-        super.addInformation(stack, worldIn, tooltip, flagIn);
+        super.appendHoverText(stack, worldIn, tooltip, flagIn);
         BlockPos extract = ItemNBTUtil.getExtractPosition(stack);
         if (extract != null) {
             tooltip.add(new TranslationTextComponent(this.getTranslationKeyBase() + ".tooltip.extract", extract.toString()));

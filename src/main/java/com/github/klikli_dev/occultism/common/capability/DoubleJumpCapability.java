@@ -23,7 +23,7 @@
 package com.github.klikli_dev.occultism.common.capability;
 
 import com.github.klikli_dev.occultism.registry.OccultismCapabilities;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.INBT;
 import net.minecraft.util.Direction;
 import net.minecraftforge.common.capabilities.Capability;
@@ -59,12 +59,12 @@ public class DoubleJumpCapability {
         this.jumps++;
     }
 
-    public CompoundNBT write(CompoundNBT compound) {
+    public CompoundTag write(CompoundTag compound) {
         compound.putInt("jumps", this.jumps);
         return compound;
     }
 
-    public CompoundNBT read(CompoundNBT compound) {
+    public CompoundTag read(CompoundTag compound) {
         this.jumps = compound.getInt("jumps");
         return compound;
     }
@@ -75,18 +75,18 @@ public class DoubleJumpCapability {
         @Override
         public INBT writeNBT(Capability<DoubleJumpCapability> capability, DoubleJumpCapability instance,
                              Direction facing) {
-            return instance.write(new CompoundNBT());
+            return instance.write(new CompoundTag());
         }
 
         @Override
         public void readNBT(Capability<DoubleJumpCapability> capability, DoubleJumpCapability instance, Direction side,
                             INBT nbt) {
-            instance.read((CompoundNBT) nbt);
+            instance.read((CompoundTag) nbt);
         }
         //endregion Overrides
     }
 
-    public static class Dispatcher implements ICapabilitySerializable<CompoundNBT> {
+    public static class Dispatcher implements ICapabilitySerializable<CompoundTag> {
 
         //region Fields
         private final LazyOptional<DoubleJumpCapability> doubleJumpCapability = LazyOptional.of(
@@ -104,8 +104,8 @@ public class DoubleJumpCapability {
         }
 
         @Override
-        public CompoundNBT serializeNBT() {
-            CompoundNBT nbt = new CompoundNBT();
+        public CompoundTag serializeNBT() {
+            CompoundTag nbt = new CompoundTag();
             this.doubleJumpCapability.ifPresent(capability -> {
                 capability.write(nbt);
             });
@@ -113,7 +113,7 @@ public class DoubleJumpCapability {
         }
 
         @Override
-        public void deserializeNBT(CompoundNBT nbt) {
+        public void deserializeNBT(CompoundTag nbt) {
             this.doubleJumpCapability.ifPresent(capability -> capability.read(nbt));
         }
         //endregion Overrides

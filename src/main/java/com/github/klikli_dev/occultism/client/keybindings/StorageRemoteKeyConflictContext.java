@@ -14,7 +14,7 @@ public class StorageRemoteKeyConflictContext implements IKeyConflictContext {
     //region Overrides
     @Override
     public boolean isActive() {
-        return !KeyConflictContext.GUI.isActive() || Minecraft.getInstance().currentScreen instanceof StorageControllerGuiBase;
+        return !KeyConflictContext.GUI.isActive() || Minecraft.getInstance().screen instanceof StorageControllerGuiBase;
     }
 
     @Override

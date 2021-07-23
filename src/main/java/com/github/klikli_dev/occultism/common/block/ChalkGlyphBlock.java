@@ -25,7 +25,7 @@ package com.github.klikli_dev.occultism.common.block;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.MobEntity;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.Item;
@@ -40,9 +40,9 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorldReader;
-import net.minecraft.world.World;
+import net.minecraft.level.IBlockReader;
+import net.minecraft.level.IWorldReader;
+import net.minecraft.level.Level;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
@@ -108,7 +108,7 @@ public class ChalkGlyphBlock extends Block {
     }
 
     @Override
-    public void neighborChanged(BlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos,
+    public void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block blockIn, BlockPos fromPos,
                                 boolean isMoving) {
         if (!this.isValidPosition(state, worldIn, pos)) {
             worldIn.removeBlock(pos, false);
@@ -138,8 +138,8 @@ public class ChalkGlyphBlock extends Block {
     }
 
     @Override
-    public ItemStack getPickBlock(BlockState state, RayTraceResult target, IBlockReader world, BlockPos pos,
-                                  PlayerEntity player) {
+    public ItemStack getPickBlock(BlockState state, RayTraceResult target, IBlockReader level, BlockPos pos,
+                                  Player player) {
         if (ForgeRegistries.ITEMS.containsKey(
                 this.getChalk().getRegistryName()))//fix for startup crash related to patchouli getting pick block too early
             return new ItemStack(this.getChalk());
@@ -148,7 +148,7 @@ public class ChalkGlyphBlock extends Block {
 
     @Nullable
     @Override
-    public PathNodeType getAiPathNodeType(BlockState state, IBlockReader world, BlockPos pos,
+    public PathNodeType getAiPathNodeType(BlockState state, IBlockReader level, BlockPos pos,
                                           @Nullable MobEntity entity) {
         return PathNodeType.OPEN;
     }

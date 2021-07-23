@@ -25,15 +25,15 @@ package com.github.klikli_dev.occultism.common.block.crops;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.CropsBlock;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
+import net.minecraft.util.InteractionResult;
+import net.minecraft.util.InteractionHand;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.level.Level;
+import net.minecraft.level.server.ServerWorld;
 
 import java.util.List;
 
@@ -52,30 +52,30 @@ public interface IReplantableCrops {
 
     //endregion Getter / Setter
     //region Methods
-    default ActionResultType onHarvest(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand) {
-        if (!world.isRemote) {
+    default InteractionResult onHarvest(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand) {
+        if (!level.isClientSide) {
             if (state.get(CropsBlock.AGE) >= 7) {
-                List<ItemStack> drops = Block.getDrops(state, (ServerWorld) world, pos, null, player,
+                List<ItemStack> drops = Block.getDrops(state, (ServerWorld) level, pos, null, player,
                         player.getHeldItem(hand));
 
                 // From 1.15 -> does not exist any more and I guess we don't need it.
                 //                ForgeEventFactory.fireBlockHarvesting(
-                //                        NonNullList.from(ItemStack.EMPTY, drops.toArray(new ItemStack[0])), world, pos, state,
+                //                        NonNullList.from(ItemStack.EMPTY, drops.toArray(new ItemStack[0])), level, pos, state,
                 //                        0, 1.0F, false, player);
 
                 //reset crop
-                world.setBlockState(pos, state.with(CropsBlock.AGE, 0));
+                level.setBlockState(pos, state.with(CropsBlock.AGE, 0));
                 for (ItemStack stack : drops) {
-                    InventoryHelper.spawnItemStack(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, stack);
+                    InventoryHelper.spawnItemStack(level, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, stack);
                 }
 
                 player.swingArm(hand);
                 player.addExhaustion(EXHAUSTION_PER_HARVEST);
 
-                return ActionResultType.SUCCESS;
+                return InteractionResult.SUCCESS;
             }
         }
-        return ActionResultType.PASS;
+        return InteractionResult.PASS;
     }
     //endregion Methods
 }

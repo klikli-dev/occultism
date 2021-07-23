@@ -26,7 +26,7 @@ import com.github.klikli_dev.occultism.api.OccultismAPI;
 import com.github.klikli_dev.occultism.client.render.SelectedBlockRenderer;
 import com.github.klikli_dev.occultism.client.render.ThirdEyeEffectRenderer;
 import com.github.klikli_dev.occultism.common.DebugHelper;
-import com.github.klikli_dev.occultism.common.OccultismItemGroup;
+import com.github.klikli_dev.occultism.common.OccultismCreativeModeTab;
 import com.github.klikli_dev.occultism.common.entity.BatFamiliarEntity;
 import com.github.klikli_dev.occultism.common.entity.FamiliarEntity;
 import com.github.klikli_dev.occultism.common.entity.OtherworldBirdEntity;
@@ -34,14 +34,16 @@ import com.github.klikli_dev.occultism.common.entity.possessed.PossessedEnderman
 import com.github.klikli_dev.occultism.common.entity.possessed.PossessedEndermiteEntity;
 import com.github.klikli_dev.occultism.common.entity.possessed.PossessedSkeletonEntity;
 import com.github.klikli_dev.occultism.common.entity.spirit.*;
-import com.github.klikli_dev.occultism.common.world.WorldGenHandler;
+import com.github.klikli_dev.occultism.common.level.WorldGenHandler;
 import com.github.klikli_dev.occultism.config.OccultismClientConfig;
 import com.github.klikli_dev.occultism.config.OccultismCommonConfig;
 import com.github.klikli_dev.occultism.config.OccultismServerConfig;
 import com.github.klikli_dev.occultism.network.OccultismPackets;
 import com.github.klikli_dev.occultism.registry.*;
 import net.minecraft.item.ItemGroup;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -49,6 +51,7 @@ import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.config.ModConfigEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLDedicatedServerSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
@@ -67,7 +70,7 @@ public class Occultism {
     //region Fields
     public static final String MODID = "occultism";
     public static final String NAME = "Occultism";
-    public static final ItemGroup ITEM_GROUP = new OccultismItemGroup();
+    public static final CreativeModeTab ITEM_GROUP = new OccultismCreativeModeTab();
     public static final Logger LOGGER = LogManager.getLogger(MODID);
     public static final OccultismServerConfig SERVER_CONFIG = new OccultismServerConfig();
     public static final OccultismCommonConfig COMMON_CONFIG = new OccultismCommonConfig();
@@ -112,7 +115,7 @@ public class Occultism {
 
     //endregion Initialization
     //region Methods
-    public void onModConfigEvent(final ModConfig.ModConfigEvent event) {
+    public void onModConfigEvent(final ModConfigEvent event) {
         if (event.getConfig().getSpec() == SERVER_CONFIG.spec) {
             //Clear the config cache on reload.
             SERVER_CONFIG.clear();
@@ -143,7 +146,7 @@ public class Occultism {
     }
 
     private void onEntityAttributeCreation(final EntityAttributeCreationEvent event){
-        event.put(OccultismEntities.FOLIOT_TYPE.get(), FoliotEntity.registerAttributes().create());
+        event.put(OccultismEntities.FOLIOT_TYPE.get(), FoliotEntity.createLivingAttributes().create());
         event.put(OccultismEntities.DJINNI_TYPE.get(), DjinniEntity.registerAttributes().create());
         event.put(OccultismEntities.AFRIT_TYPE.get(), AfritEntity.registerAttributes().create());
         event.put(OccultismEntities.AFRIT_WILD_TYPE.get(), AfritWildEntity.registerAttributes().create());

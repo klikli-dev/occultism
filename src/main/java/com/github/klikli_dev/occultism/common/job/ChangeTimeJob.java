@@ -25,13 +25,13 @@ package com.github.klikli_dev.occultism.common.job;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.Hand;
-import net.minecraft.util.SoundCategory;
+import net.minecraft.util.InteractionHand;
+import net.minecraft.util.SoundSource;
 import net.minecraft.util.SoundEvents;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.level.server.ServerWorld;
 
 public abstract class ChangeTimeJob extends SpiritJob {
 
@@ -59,9 +59,9 @@ public abstract class ChangeTimeJob extends SpiritJob {
     public void cleanup() {
         //in this case called on spirit death
         for(int i = 0; i < 5; i++){
-            ((ServerWorld) this.entity.world)
-                    .spawnParticle(ParticleTypes.PORTAL, this.entity.getPosX() + this.entity.world.getRandom().nextGaussian(),
-                            this.entity.getPosY() + 0.5 + this.entity.world.getRandom().nextGaussian(), this.entity.getPosZ()+ this.entity.world.getRandom().nextGaussian(), 5,
+            ((ServerWorld) this.entity.level)
+                    .sendParticles(ParticleTypes.PORTAL, this.entity.getPosX() + this.entity.level.getRandom().nextGaussian(),
+                            this.entity.getPosY() + 0.5 + this.entity.level.getRandom().nextGaussian(), this.entity.getPosZ()+ this.entity.level.getRandom().nextGaussian(), 5,
                             0.0, 0.0, 0.0,
                             0.0);
         }
@@ -74,11 +74,11 @@ public abstract class ChangeTimeJob extends SpiritJob {
 
         this.currentChangeTicks++;
         if(!this.entity.isSwingInProgress){
-            this.entity.swingArm(Hand.MAIN_HAND);
+            this.entity.swingArm(InteractionHand.MAIN_HAND);
         }
-        if(this.entity.world.getGameTime() % 2 == 0){
-            ((ServerWorld) this.entity.world)
-                    .spawnParticle(ParticleTypes.PORTAL, this.entity.getPosX(),
+        if(this.entity.level.getGameTime() % 2 == 0){
+            ((ServerWorld) this.entity.level)
+                    .sendParticles(ParticleTypes.PORTAL, this.entity.getPosX(),
                             this.entity.getPosY() + 0.5, this.entity.getPosZ(), 3,
                             0.5, 0.0, 0.0,
                             0.0);
@@ -86,21 +86,21 @@ public abstract class ChangeTimeJob extends SpiritJob {
 
         if (this.currentChangeTicks == this.requiredChangeTicks) {
             this.changeTime();
-            this.entity.world.playSound(null, this.entity.getPosition(), SoundEvents.BLOCK_BEACON_ACTIVATE, SoundCategory.NEUTRAL, 1, 1);
-            this.entity.onDeath(DamageSource.OUT_OF_WORLD);
+            this.entity.level.playSound(null, this.entity.getPosition(), SoundEvents.BLOCK_BEACON_ACTIVATE, SoundSource.NEUTRAL, 1, 1);
+            this.entity.die(DamageSource.OUT_OF_WORLD);
             this.entity.remove();
         }
     }
 
     @Override
-    public CompoundNBT writeJobToNBT(CompoundNBT compound) {
+    public CompoundTag writeJobToNBT(CompoundTag compound) {
         compound.putInt("currentChangeTicks", this.currentChangeTicks);
         compound.putInt("requiredChangeTicks", this.requiredChangeTicks);
         return super.writeJobToNBT(compound);
     }
 
     @Override
-    public void readJobFromNBT(CompoundNBT compound) {
+    public void readJobFromNBT(CompoundTag compound) {
         super.readJobFromNBT(compound);
         this.currentChangeTicks = compound.getInt("currentChangeTicks");
         this.requiredChangeTicks = compound.getInt("requiredChangeTicks");

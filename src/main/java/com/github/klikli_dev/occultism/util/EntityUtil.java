@@ -24,13 +24,15 @@ package com.github.klikli_dev.occultism.util;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.entity.player.ServerPlayer;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.level.Level;
+import net.minecraft.level.server.ServerWorld;
+import net.minecraft.world.entity.Entity;
 import net.minecraftforge.fml.server.ServerLifecycleHooks;
+import net.minecraftforge.fmllegacy.server.ServerLifecycleHooks;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.Optional;
@@ -47,9 +49,9 @@ public class EntityUtil {
      * @param uuid the uuid of the player
      * @return Optional containing the player.
      */
-    public static Optional<ServerPlayerEntity> getPlayerByUuiDGlobal(UUID uuid) {
-        for (ServerWorld world : ServerLifecycleHooks.getCurrentServer().getWorlds()) {
-            ServerPlayerEntity player = (ServerPlayerEntity) world.getPlayerByUuid(uuid);
+    public static Optional<ServerPlayer> getPlayerByUuiDGlobal(UUID uuid) {
+        for (ServerWorld level : ServerLifecycleHooks.getCurrentServer().getWorlds()) {
+            ServerPlayer player = (ServerPlayer) level.getPlayerByUuid(uuid);
             if (player != null)
                 return Optional.of(player);
         }
@@ -76,8 +78,8 @@ public class EntityUtil {
      */
     public static Optional<? extends Entity> getEntityByUuiDGlobal(MinecraftServer server, UUID uuid) {
         if (uuid != null && server!= null) {
-            for (ServerWorld world : server.getWorlds()) {
-                Entity entity = world.getEntityByUuid(uuid);
+            for (ServerWorld level : server.getWorlds()) {
+                Entity entity = level.getEntityByUuid(uuid);
                 if (entity != null)
                     return Optional.of(entity);
             }
@@ -88,14 +90,14 @@ public class EntityUtil {
     /**
      * Creates an entity from the given nbt tag
      *
-     * @param world          the world to create the entity in.
+     * @param level          the level to create the entity in.
      * @param nbtTagCompound the tag compound to create the entity from.
      * @return the entity if successful or null otherwise.
      */
-    public static Entity entityFromNBT(World world, CompoundNBT nbtTagCompound) {
+    public static Entity entityFromNBT(Level level, CompoundTag nbtTagCompound) {
         ResourceLocation typeId = new ResourceLocation(nbtTagCompound.getString("id"));
 
-        Entity entity = ForgeRegistries.ENTITIES.getValue(typeId).create(world);
+        Entity entity = ForgeRegistries.ENTITIES.getValue(typeId).create(level);
         entity.deserializeNBT(nbtTagCompound);
         return entity;
     }
@@ -106,7 +108,7 @@ public class EntityUtil {
      * @param nbtTagCompound the tag compound to create the entity from.
      * @return the entity type if successful or null otherwise.
      */
-    public static EntityType<?> entityTypeFromNbt(CompoundNBT nbtTagCompound) {
+    public static EntityType<?> entityTypeFromNbt(CompoundTag nbtTagCompound) {
         ResourceLocation typeId = new ResourceLocation(nbtTagCompound.getString("id"));
         return ForgeRegistries.ENTITIES.getValue(typeId);
     }

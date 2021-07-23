@@ -1,10 +1,14 @@
 buildscript {
     repositories {
+        //maven for forgegradle fork currently required for parchment
+        //TODO: remove forgegradle fork
+        maven { url = 'https://sizableshrimp.me/maven' }
         maven { url = 'https://files.minecraftforge.net/maven' }
         mavenCentral()
     }
     dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
+        //classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
+        classpath group: 'me.sizableshrimp.parchmenttest', name: 'ForgeGradle', version: '5.1.+', changing: true
     }
 }
 
@@ -41,7 +45,8 @@ minecraft {
     //
     // Use non-default mappings at your own risk. They may not always work.
     // Simply re-run your setup task after changing the mappings to update your workspace.
-    mappings channel: 'snapshot', version: '20210309-1.16.5'
+    mappings channel: 'parchment', version: '2021.07.21-1.17'
+    //Note: parchment is hardcoded not to work on snapshots -> use releases!
 
     accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 

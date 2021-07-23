@@ -58,7 +58,7 @@ public enum WorkAreaSize {
         return this.value;
     }
 
-    public String getTranslationKey() {
+    public String getDescriptionId() {
         return this.translationKey;
     }
     //endregion Getter / Setter

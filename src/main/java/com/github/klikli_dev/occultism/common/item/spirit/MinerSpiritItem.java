@@ -22,16 +22,16 @@
 
 package com.github.klikli_dev.occultism.common.item.spirit;
 
-import com.github.klikli_dev.occultism.common.tile.DimensionalMineshaftTileEntity;
+import com.github.klikli_dev.occultism.common.tile.DimensionalMineshaftBlockEntity;
 import com.github.klikli_dev.occultism.util.ItemNBTUtil;
 import com.github.klikli_dev.occultism.util.TextUtil;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
+import net.minecraft.level.Level;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 
 import javax.annotation.Nullable;
@@ -63,10 +63,10 @@ public class MinerSpiritItem extends Item {
 
     //region Overrides
     @Override
-    public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip,
+    public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<ITextComponent> tooltip,
                                ITooltipFlag flagIn) {
-        super.addInformation(stack, worldIn, tooltip, flagIn);
-        tooltip.add(new TranslationTextComponent(this.getTranslationKey() + ".tooltip",
+        super.appendHoverText(stack, worldIn, tooltip, flagIn);
+        tooltip.add(new TranslationTextComponent(this.getDescriptionId() + ".tooltip",
                 TextUtil.formatDemonName(ItemNBTUtil.getBoundSpiritName(stack))));
     }
 
@@ -84,7 +84,7 @@ public class MinerSpiritItem extends Item {
     }
 
     @Override
-    public void onCreated(ItemStack stack, World worldIn, PlayerEntity playerIn) {
+    public void onCreated(ItemStack stack, Level worldIn, Player playerIn) {
         super.onCreated(stack, worldIn, playerIn);
         if(!this.hasInitializedMaxDamage){
             this.hasInitializedMaxDamage = true;
@@ -94,8 +94,8 @@ public class MinerSpiritItem extends Item {
 
             }
         }
-        stack.getOrCreateTag().putInt(DimensionalMineshaftTileEntity.MAX_MINING_TIME_TAG, this.maxMiningTime.get());
-        stack.getOrCreateTag().putInt(DimensionalMineshaftTileEntity.ROLLS_PER_OPERATION_TAG, this.rollsPerOperation.get());
+        stack.getOrCreateTag().putInt(DimensionalMineshaftBlockEntity.MAX_MINING_TIME_TAG, this.maxMiningTime.get());
+        stack.getOrCreateTag().putInt(DimensionalMineshaftBlockEntity.ROLLS_PER_OPERATION_TAG, this.rollsPerOperation.get());
     }
     //endregion Overrides
 }

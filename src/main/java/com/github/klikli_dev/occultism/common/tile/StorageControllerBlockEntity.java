@@ -49,15 +49,15 @@ import com.github.klikli_dev.occultism.util.Math3DUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.DirectionalBlock;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.INamedContainerProvider;
+import net.minecraft.entity.player.Player;
+import net.minecraft.entity.player.Inventory;
+import net.minecraft.inventory.container.AbstractContainerMenu;
+import net.minecraft.inventory.container.MenuProvider;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListNBT;
-import net.minecraft.tileentity.ITickableTileEntity;
+import net.minecraft.BlockEntity.ITickableBlockEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
@@ -77,7 +77,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class StorageControllerTileEntity extends NetworkedTileEntity implements ITickableTileEntity, INamedContainerProvider, IStorageController, IStorageAccessor, IStorageControllerProxy {
+public class StorageControllerBlockEntity extends NetworkedBlockEntity implements ITickableBlockEntity, MenuProvider, IStorageController, IStorageAccessor, IStorageControllerProxy {
 
     //region Fields
     public static final int MAX_STABILIZER_DISTANCE = 5;
@@ -105,7 +105,7 @@ public class StorageControllerTileEntity extends NetworkedTileEntity implements 
     //endregion Fields
 
     //region Initialization
-    public StorageControllerTileEntity() {
+    public StorageControllerBlockEntity() {
         super(OccultismTiles.STORAGE_CONTROLLER.get());
     }
     //endregion Initialization
@@ -392,7 +392,7 @@ public class StorageControllerTileEntity extends NetworkedTileEntity implements 
     }
 
     @Override
-    public void read(BlockState state, CompoundNBT compound) {
+    public void read(BlockState state, CompoundTag compound) {
         compound.remove("linkedMachines"); //linked machines are not saved, they self-register.
         super.read(state, compound);
 
@@ -404,7 +404,7 @@ public class StorageControllerTileEntity extends NetworkedTileEntity implements 
     }
 
     @Override
-    public CompoundNBT write(CompoundNBT compound) {
+    public CompoundTag write(CompoundTag compound) {
         super.write(compound);
         compound.remove("linkedMachines"); //linked machines are not saved, they self-register.
         this.itemStackHandler.ifPresent(handler -> {
@@ -414,7 +414,7 @@ public class StorageControllerTileEntity extends NetworkedTileEntity implements 
     }
 
     @Override
-    public void readNetwork(CompoundNBT compound) {
+    public void readNetwork(CompoundTag compound) {
         this.setSortDirection(SortDirection.get(compound.getInt("sortDirection")));
         this.setSortType(SortType.get(compound.getInt("sortType")));
 
@@ -427,7 +427,7 @@ public class StorageControllerTileEntity extends NetworkedTileEntity implements 
         if (compound.contains("matrix")) {
             ListNBT matrixNbt = compound.getList("matrix", Constants.NBT.TAG_COMPOUND);
             for (int i = 0; i < matrixNbt.size(); i++) {
-                CompoundNBT stackTag = matrixNbt.getCompound(i);
+                CompoundTag stackTag = matrixNbt.getCompound(i);
                 int slot = stackTag.getByte("slot");
                 ItemStack s = ItemStack.read(stackTag);
                 this.matrix.put(slot, s);
@@ -449,7 +449,7 @@ public class StorageControllerTileEntity extends NetworkedTileEntity implements 
     }
 
     @Override
-    public CompoundNBT writeNetwork(CompoundNBT compound) {
+    public CompoundTag writeNetwork(CompoundTag compound) {
         compound.putInt("sortDirection", this.getSortDirection().getValue());
         compound.putInt("sortType", this.getSortType().getValue());
         compound.putInt("maxSlots", this.maxSlots);
@@ -458,7 +458,7 @@ public class StorageControllerTileEntity extends NetworkedTileEntity implements 
         ListNBT matrixNbt = new ListNBT();
         for (int i = 0; i < 9; i++) {
             if (this.matrix.get(i) != null && !this.matrix.get(i).isEmpty()) {
-                CompoundNBT stackTag = new CompoundNBT();
+                CompoundTag stackTag = new CompoundTag();
                 stackTag.putByte("slot", (byte) i);
                 this.matrix.get(i).write(stackTag);
                 matrixNbt.add(stackTag);
@@ -467,7 +467,7 @@ public class StorageControllerTileEntity extends NetworkedTileEntity implements 
         compound.put("matrix", matrixNbt);
 
         if (!this.orderStack.isEmpty())
-            compound.put("orderStack", this.orderStack.write(new CompoundNBT()));
+            compound.put("orderStack", this.orderStack.write(new CompoundTag()));
 
         //write linked machines
         ListNBT machinesNbt = new ListNBT();
@@ -481,7 +481,7 @@ public class StorageControllerTileEntity extends NetworkedTileEntity implements 
 
     @Nullable
     @Override
-    public Container createMenu(int id, PlayerInventory playerInventory, PlayerEntity playerEntity) {
+    public AbstractContainerMenu createMenu(int id, Inventory playerInventory, Player playerEntity) {
         return new StorageControllerContainer(id, playerInventory, this);
     }
     //endregion Overrides
@@ -547,7 +547,7 @@ public class StorageControllerTileEntity extends NetworkedTileEntity implements 
 
     protected void validateLinkedMachines() {
         // remove all entries that lead to invalid tile entities.
-        this.linkedMachines.entrySet().removeIf(entry -> entry.getValue().getTileEntity(this.world) == null);
+        this.linkedMachines.entrySet().removeIf(entry -> entry.getValue().getBlockEntity(this.world) == null);
     }
     //endregion Methods
 

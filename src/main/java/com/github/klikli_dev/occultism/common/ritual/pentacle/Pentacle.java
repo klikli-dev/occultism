@@ -74,7 +74,7 @@ public abstract class Pentacle extends ForgeRegistryEntry<Pentacle> {
     /**
      * Returns the unlocalized name of this item.
      */
-    public String getTranslationKey() {
+    public String getDescriptionId() {
         return this.getDefaultTranslationKey();
     }
 

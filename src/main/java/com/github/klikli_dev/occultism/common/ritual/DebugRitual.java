@@ -24,21 +24,21 @@ package com.github.klikli_dev.occultism.common.ritual;
 
 import com.github.klikli_dev.occultism.common.entity.spirit.FoliotEntity;
 import com.github.klikli_dev.occultism.common.job.TraderJob;
-import com.github.klikli_dev.occultism.common.tile.GoldenSacrificialBowlTileEntity;
+import com.github.klikli_dev.occultism.common.tile.GoldenSacrificialBowlBlockEntity;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.github.klikli_dev.occultism.registry.OccultismRituals;
 import com.github.klikli_dev.occultism.registry.OccultismSpiritJobs;
 import com.github.klikli_dev.occultism.util.ItemNBTUtil;
 import net.minecraft.advancements.CriteriaTriggers;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.entity.player.Player;
+import net.minecraft.entity.player.ServerPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.level.Level;
+import net.minecraft.level.server.ServerWorld;
 
 import static com.github.klikli_dev.occultism.util.StaticUtil.modLoc;
 
@@ -54,12 +54,12 @@ public class DebugRitual extends Ritual {
 
     //region Overrides
     @Override
-    public void finish(World world, BlockPos goldenBowlPosition, GoldenSacrificialBowlTileEntity tileEntity,
-                       PlayerEntity castingPlayer, ItemStack activationItem) {
+    public void finish(Level level, BlockPos goldenBowlPosition, GoldenSacrificialBowlBlockEntity BlockEntity,
+                       Player castingPlayer, ItemStack activationItem) {
 
         //set up the foliot entity
-        FoliotEntity foliot = OccultismEntities.FOLIOT.get().create(world);
-        this.prepareSpiritForSpawn(foliot, world, goldenBowlPosition, castingPlayer,
+        FoliotEntity foliot = OccultismEntities.FOLIOT.get().create(level);
+        this.prepareSpiritForSpawn(foliot, level, goldenBowlPosition, castingPlayer,
                 ItemNBTUtil.getBoundSpiritName(activationItem));
 
         activationItem.shrink(1); //remove original activation item from storage.
@@ -71,14 +71,14 @@ public class DebugRitual extends Ritual {
         foliot.setJob(trader);
 
         //notify players nearby and spawn
-        for (ServerPlayerEntity player : world.getEntitiesWithinAABB(ServerPlayerEntity.class,
+        for (ServerPlayer player : level.getEntitiesWithinAABB(ServerPlayer.class,
                 foliot.getBoundingBox().grow(50)))
             CriteriaTriggers.SUMMONED_ENTITY.trigger(player, foliot);
 
-        ((ServerWorld) world).spawnParticle(ParticleTypes.LARGE_SMOKE, goldenBowlPosition.getX() + 0.5,
+        ((ServerWorld) level).sendParticles(ParticleTypes.LARGE_SMOKE, goldenBowlPosition.getX() + 0.5,
                 goldenBowlPosition.getY() + 0.5, goldenBowlPosition.getZ() + 0.5, 1, 0, 0, 0, 0);
 
-        world.addEntity(foliot);
+        level.addEntity(foliot);
     }
     //endregion Overrides
 }

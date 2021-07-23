@@ -26,12 +26,12 @@ import com.github.klikli_dev.occultism.api.client.gui.IStorageControllerGui;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fml.network.NetworkEvent;
+import net.minecraftforge.fmllegacy.network.NetworkEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,7 +54,7 @@ public class MessageUpdateStacks extends MessageBase {
     //endregion Fields
 
     //region Initialization
-    public MessageUpdateStacks(PacketBuffer buf) {
+    public MessageUpdateStacks(FriendlyByteBuf buf) {
         this.decode(buf);
     }
 
@@ -70,10 +70,10 @@ public class MessageUpdateStacks extends MessageBase {
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public void onClientReceived(Minecraft minecraft, PlayerEntity player, NetworkEvent.Context context) {
+    public void onClientReceived(Minecraft minecraft, Player player, NetworkEvent.Context context) {
         this.uncompress();
-        if(minecraft.currentScreen instanceof IStorageControllerGui){
-            IStorageControllerGui gui = (IStorageControllerGui) minecraft.currentScreen;
+        if(minecraft.screen instanceof IStorageControllerGui){
+            IStorageControllerGui gui = (IStorageControllerGui) minecraft.screen;
             if (gui != null) {
                 gui.setStacks(this.stacks);
                 gui.setUsedSlots(this.usedSlots);
@@ -84,7 +84,7 @@ public class MessageUpdateStacks extends MessageBase {
     }
 
     @Override
-    public void encode(PacketBuffer buf) {
+    public void encode(FriendlyByteBuf buf) {
         buf.writeVarInt(this.usedSlots);
         buf.writeVarInt(this.maxSlots);
 
@@ -94,7 +94,7 @@ public class MessageUpdateStacks extends MessageBase {
     }
 
     @Override
-    public void decode(PacketBuffer buf) {
+    public void decode(FriendlyByteBuf buf) {
         this.usedSlots = buf.readVarInt();
         this.maxSlots = buf.readVarInt();
         //read compressed size, then compressed data.
@@ -110,7 +110,7 @@ public class MessageUpdateStacks extends MessageBase {
         decompressor.setInput(this.payload.array());
 
         // Create an expandable packet buffer to hold the decompressed data
-        PacketBuffer uncompressed = new PacketBuffer(Unpooled.buffer(this.payload.readableBytes() * 4));
+        FriendlyByteBuf uncompressed = new FriendlyByteBuf(Unpooled.buffer(this.payload.readableBytes() * 4));
 
         // Decompress the data
         byte[] buf = new byte[1024];
@@ -125,7 +125,7 @@ public class MessageUpdateStacks extends MessageBase {
         int stacksSize = uncompressed.readInt();
         this.stacks = new ArrayList<>(stacksSize);
         for (int i = 0; i < stacksSize; i++) {
-            ItemStack stack = uncompressed.readItemStack();
+            ItemStack stack = uncompressed.readItem();
             stack.setCount(uncompressed.readInt());
             this.stacks.add(stack);
         }
@@ -137,11 +137,11 @@ public class MessageUpdateStacks extends MessageBase {
 
         // Give the compressor the data to compress
         //create buffer with reasonable size (will increase automatically as needed
-        PacketBuffer uncompressed = new PacketBuffer(Unpooled.buffer(DEFAULT_BUFFER_SIZE * this.stacks.size()));
+        FriendlyByteBuf uncompressed = new FriendlyByteBuf(Unpooled.buffer(DEFAULT_BUFFER_SIZE * this.stacks.size()));
         uncompressed.writeInt(this.stacks.size());
 
         for (ItemStack stack : this.stacks) {
-            uncompressed.writeItemStack(stack);
+            uncompressed.writeItem(stack);
             uncompressed.writeInt(stack.getCount());
         }
 

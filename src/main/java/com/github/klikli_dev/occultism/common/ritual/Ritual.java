@@ -25,29 +25,29 @@ package com.github.klikli_dev.occultism.common.ritual;
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.github.klikli_dev.occultism.common.ritual.pentacle.Pentacle;
-import com.github.klikli_dev.occultism.common.tile.GoldenSacrificialBowlTileEntity;
-import com.github.klikli_dev.occultism.common.tile.SacrificialBowlTileEntity;
+import com.github.klikli_dev.occultism.common.tile.GoldenSacrificialBowlBlockEntity;
+import com.github.klikli_dev.occultism.common.tile.SacrificialBowlBlockEntity;
 import com.github.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.github.klikli_dev.occultism.registry.OccultismSounds;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.entity.player.Player;
+import net.minecraft.entity.player.ServerPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.item.crafting.RecipeManager;
 import net.minecraft.particles.ParticleTypes;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.BlockEntity.BlockEntity;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundSource;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.level.Level;
+import net.minecraft.level.server.ServerWorld;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
@@ -217,12 +217,12 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
      * The additional ingredients required to finish the ritual.
      * These ingredients need to be placed within the ritual area.
      */
-    public List<Ingredient> getAdditionalIngredients(World world) {
-        //rituals persist between world unload/reloads, so additionalIngredientsLoaded will be true
+    public List<Ingredient> getAdditionalIngredients(Level level) {
+        //rituals persist between level unload/reloads, so additionalIngredientsLoaded will be true
         //therefore we also check for additional ingredients size
         if (!this.additionalIngredientsLoaded || this.additionalIngredients.size() == 0) {
             //this is lazily loading the ingredients.
-            this.registerAdditionalIngredients(world.getRecipeManager());
+            this.registerAdditionalIngredients(level.getRecipeManager());
         }
         return this.additionalIngredients;
     }
@@ -250,126 +250,126 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
      * Checks whether the ritual is valid.
      * Validity is required to start and continue a ritual.
      *
-     * @param world              the world.
+     * @param level              the level.
      * @param goldenBowlPosition the position of the golden bowl.
-     * @param tileEntity         the tile entity controlling the ritual.
+     * @param BlockEntity         the tile entity controlling the ritual.
      * @param castingPlayer      the player starting the ritual.
      * @param activationItem     the item used to start the ritual.
      * @return true if a valid ritual is found.
      */
-    public boolean isValid(World world, BlockPos goldenBowlPosition, GoldenSacrificialBowlTileEntity tileEntity,
-                           PlayerEntity castingPlayer, ItemStack activationItem,
+    public boolean isValid(Level level, BlockPos goldenBowlPosition, GoldenSacrificialBowlBlockEntity BlockEntity,
+                           Player castingPlayer, ItemStack activationItem,
                            List<Ingredient> remainingAdditionalIngredients) {
         return this.startingItem.test(activationItem) &&
-               this.areAdditionalIngredientsFulfilled(world, goldenBowlPosition, remainingAdditionalIngredients) &&
-               this.pentacle.getBlockMatcher().validate(world, goldenBowlPosition) != null;
+               this.areAdditionalIngredientsFulfilled(level, goldenBowlPosition, remainingAdditionalIngredients) &&
+               this.pentacle.getBlockMatcher().validate(level, goldenBowlPosition) != null;
     }
 
     /**
      * Called when starting the ritual.
      *
-     * @param world              the world.
+     * @param level              the level.
      * @param goldenBowlPosition the position of the golden bowl.
-     * @param tileEntity         the tile entity controlling the ritual.
+     * @param BlockEntity         the tile entity controlling the ritual.
      * @param castingPlayer      the player starting the ritual.
      * @param activationItem     the item used to start the ritual.
      */
-    public void start(World world, BlockPos goldenBowlPosition, GoldenSacrificialBowlTileEntity tileEntity,
-                      PlayerEntity castingPlayer, ItemStack activationItem) {
-        world.playSound(null, goldenBowlPosition, OccultismSounds.START_RITUAL.get(), SoundCategory.BLOCKS, 1, 1);
+    public void start(Level level, BlockPos goldenBowlPosition, GoldenSacrificialBowlBlockEntity BlockEntity,
+                      Player castingPlayer, ItemStack activationItem) {
+        level.playSound(null, goldenBowlPosition, OccultismSounds.START_RITUAL.get(), SoundSource.BLOCKS, 1, 1);
         castingPlayer.sendStatusMessage(new TranslationTextComponent(this.getStartedMessage()), true);
     }
 
     /**
      * Called when finishing the ritual.
      *
-     * @param world              the world.
+     * @param level              the level.
      * @param goldenBowlPosition the position of the golden bowl.
-     * @param tileEntity         the tile entity controlling the ritual.
+     * @param BlockEntity         the tile entity controlling the ritual.
      * @param castingPlayer      the player starting the ritual.
      * @param activationItem     the item used to start the ritual.
      */
-    public void finish(World world, BlockPos goldenBowlPosition, GoldenSacrificialBowlTileEntity tileEntity,
-                       PlayerEntity castingPlayer, ItemStack activationItem) {
-        world.playSound(null, goldenBowlPosition, OccultismSounds.POOF.get(), SoundCategory.BLOCKS, 0.7f,
+    public void finish(Level level, BlockPos goldenBowlPosition, GoldenSacrificialBowlBlockEntity BlockEntity,
+                       Player castingPlayer, ItemStack activationItem) {
+        level.playSound(null, goldenBowlPosition, OccultismSounds.POOF.get(), SoundSource.BLOCKS, 0.7f,
                 0.7f);
         castingPlayer.sendStatusMessage(new TranslationTextComponent(this.getFinishedMessage()), true);
-        OccultismAdvancements.RITUAL.trigger((ServerPlayerEntity) castingPlayer, this);
+        OccultismAdvancements.RITUAL.trigger((ServerPlayer) castingPlayer, this);
     }
 
     /**
      * Called when interrupting the ritual.
      *
-     * @param world              the world.
+     * @param level              the level.
      * @param goldenBowlPosition the position of the golden bowl.
-     * @param tileEntity         the tile entity controlling the ritual.
+     * @param BlockEntity         the tile entity controlling the ritual.
      * @param castingPlayer      the player starting the ritual.
      * @param activationItem     the item used to start the ritual.
      */
-    public void interrupt(World world, BlockPos goldenBowlPosition, GoldenSacrificialBowlTileEntity tileEntity,
-                          PlayerEntity castingPlayer, ItemStack activationItem) {
-        world.playSound(null, goldenBowlPosition, SoundEvents.ENTITY_CHICKEN_EGG, SoundCategory.BLOCKS, 0.7f, 0.7f);
+    public void interrupt(Level level, BlockPos goldenBowlPosition, GoldenSacrificialBowlBlockEntity BlockEntity,
+                          Player castingPlayer, ItemStack activationItem) {
+        level.playSound(null, goldenBowlPosition, SoundEvents.ENTITY_CHICKEN_EGG, SoundSource.BLOCKS, 0.7f, 0.7f);
         castingPlayer.sendStatusMessage(new TranslationTextComponent(this.getInterruptedMessage()), true);
     }
 
     /**
      * Called when interrupting the ritual.
      *
-     * @param world                          the world.
+     * @param level                          the level.
      * @param goldenBowlPosition             the position of the golden bowl.
-     * @param tileEntity                     the tile entity controlling the ritual.
+     * @param BlockEntity                     the tile entity controlling the ritual.
      * @param castingPlayer                  the player starting the ritual.
      * @param activationItem                 the item used to start the ritual.
      * @param remainingAdditionalIngredients the additional ingredients not yet fulfilled.
      * @param time                           the current ritual time.
      */
-    public void update(World world, BlockPos goldenBowlPosition, GoldenSacrificialBowlTileEntity tileEntity,
-                       PlayerEntity castingPlayer, ItemStack activationItem,
+    public void update(Level level, BlockPos goldenBowlPosition, GoldenSacrificialBowlBlockEntity BlockEntity,
+                       Player castingPlayer, ItemStack activationItem,
                        List<Ingredient> remainingAdditionalIngredients, int time) {
     }
 
     /**
      * Called when interrupting the ritual.
      *
-     * @param world              the world.
+     * @param level              the level.
      * @param goldenBowlPosition the position of the golden bowl.
-     * @param tileEntity         the tile entity controlling the ritual.
+     * @param BlockEntity         the tile entity controlling the ritual.
      * @param castingPlayer      the player starting the ritual.
      * @param activationItem     the item used to start the ritual.
      * @param time               the current ritual time.
      */
-    public void update(World world, BlockPos goldenBowlPosition, GoldenSacrificialBowlTileEntity tileEntity,
-                       PlayerEntity castingPlayer, ItemStack activationItem, int time) {
-        this.update(world, goldenBowlPosition, tileEntity, castingPlayer, activationItem, new ArrayList<Ingredient>(),
+    public void update(Level level, BlockPos goldenBowlPosition, GoldenSacrificialBowlBlockEntity BlockEntity,
+                       Player castingPlayer, ItemStack activationItem, int time) {
+        this.update(level, goldenBowlPosition, BlockEntity, castingPlayer, activationItem, new ArrayList<Ingredient>(),
                 time);
     }
 
     /**
-     * Identifies the ritual by it's activation item and pentacle world shape.
+     * Identifies the ritual by it's activation item and pentacle level shape.
      *
-     * @param world              the world.
+     * @param level              the level.
      * @param goldenBowlPosition the position of the golden bowl.
      * @param activationItem     the item used to start the ritual.
      * @return true if the ritual matches, false otherwise.
      */
-    public boolean identify(World world, BlockPos goldenBowlPosition, ItemStack activationItem) {
+    public boolean identify(Level level, BlockPos goldenBowlPosition, ItemStack activationItem) {
         return this.startingItem.test(activationItem) &&
-               this.areAdditionalIngredientsFulfilled(world, goldenBowlPosition,
-                       this.getAdditionalIngredients(world)) &&
-               this.pentacle.getBlockMatcher().validate(world, goldenBowlPosition) != null;
+               this.areAdditionalIngredientsFulfilled(level, goldenBowlPosition,
+                       this.getAdditionalIngredients(level)) &&
+               this.pentacle.getBlockMatcher().validate(level, goldenBowlPosition) != null;
     }
 
     /**
      * Consumes additional ingredients from sacrificial bowls depending on the time passed.
      *
-     * @param world                          the world.
+     * @param level                          the level.
      * @param goldenBowlPosition             the position of the golden bowl.
      * @param remainingAdditionalIngredients the remaining additional ingredients. Will be modified if something was consumed!
      * @param time                           the current ritual time.
      * @param consumedIngredients            the list of already consumed ingredients, newly consumd ingredients will be appended
      * @return true if ingredients were consumed successfully, or none needed to be consumed.
      */
-    public boolean consumeAdditionalIngredients(World world, BlockPos goldenBowlPosition,
+    public boolean consumeAdditionalIngredients(Level level, BlockPos goldenBowlPosition,
                                                 List<Ingredient> remainingAdditionalIngredients, int time,
                                                 List<ItemStack> consumedIngredients) {
         if (remainingAdditionalIngredients.isEmpty())
@@ -382,12 +382,12 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
         if (ingredientsToConsume == 0)
             return true;
 
-        List<SacrificialBowlTileEntity> sacrificialBowls = this.getSacrificialBowls(world, goldenBowlPosition);
+        List<SacrificialBowlBlockEntity> sacrificialBowls = this.getSacrificialBowls(level, goldenBowlPosition);
         int consumed = 0;
         for (Iterator<Ingredient> it = remainingAdditionalIngredients.iterator();
              it.hasNext() && consumed < ingredientsToConsume; consumed++) {
             Ingredient ingredient = it.next();
-            if (this.consumeAdditionalIngredient(world, goldenBowlPosition, sacrificialBowls, ingredient,
+            if (this.consumeAdditionalIngredient(level, goldenBowlPosition, sacrificialBowls, ingredient,
                     consumedIngredients)) {
                 //remove from the remaining required ingredients
                 it.remove();
@@ -403,17 +403,17 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
     /**
      * Consumes one ingredient from the first matching sacrificial bowl.
      *
-     * @param world               the world.
+     * @param level               the level.
      * @param goldenBowlPosition  the position of the golden bowl.
      * @param sacrificialBowls    the list of sacrificial bowls to check.
      * @param ingredient          the ingredient to consume.
      * @param consumedIngredients the list of already consumed ingredients, newly consumd ingredients will be appended
      * @return true if the ingredient was found and consumed.
      */
-    public boolean consumeAdditionalIngredient(World world, BlockPos goldenBowlPosition,
-                                               List<SacrificialBowlTileEntity> sacrificialBowls,
+    public boolean consumeAdditionalIngredient(Level level, BlockPos goldenBowlPosition,
+                                               List<SacrificialBowlBlockEntity> sacrificialBowls,
                                                Ingredient ingredient, List<ItemStack> consumedIngredients) {
-        for (SacrificialBowlTileEntity sacrificialBowl : sacrificialBowls) {
+        for (SacrificialBowlBlockEntity sacrificialBowl : sacrificialBowls) {
             //first simulate removal to check the ingredient
             if (sacrificialBowl.itemStackHandler.map(handler -> {
                 ItemStack stack = handler.extractItem(0, 1, true);
@@ -421,14 +421,14 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
                     //now take for real
                     ItemStack extracted = handler.extractItem(0, 1, false);
                     consumedIngredients.add(extracted);
-                    //Show effect in world
-                    ((ServerWorld) world)
-                            .spawnParticle(ParticleTypes.LARGE_SMOKE, sacrificialBowl.getPos().getX() + 0.5,
+                    //Show effect in level
+                    ((ServerWorld) level)
+                            .sendParticles(ParticleTypes.LARGE_SMOKE, sacrificialBowl.getPos().getX() + 0.5,
                                     sacrificialBowl.getPos().getY() + 1.5, sacrificialBowl.getPos().getZ() + 0.5, 1,
                                     0.0, 0.0, 0.0,
                                     0.0);
 
-                    world.playSound(null, sacrificialBowl.getPos(), OccultismSounds.POOF.get(), SoundCategory.BLOCKS,
+                    level.playSound(null, sacrificialBowl.getPos(), OccultismSounds.POOF.get(), SoundSource.BLOCKS,
                             0.7f, 0.7f);
                     return true;
                 }
@@ -467,14 +467,14 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
     /**
      * Compares the items on sacrificial bowls in range to the additional ingredients.
      *
-     * @param world              the world.
+     * @param level              the level.
      * @param goldenBowlPosition the position of the golden bowl.
      * @return true if additional ingredients are fulfilled.
      */
-    public boolean areAdditionalIngredientsFulfilled(World world, BlockPos goldenBowlPosition,
+    public boolean areAdditionalIngredientsFulfilled(Level level, BlockPos goldenBowlPosition,
                                                      List<Ingredient> additionalIngredients) {
         return this.matchesAdditionalIngredients(additionalIngredients,
-                this.getItemsOnSacrificialBowls(world, goldenBowlPosition));
+                this.getItemsOnSacrificialBowls(level, goldenBowlPosition));
     }
 
     /**
@@ -520,15 +520,15 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
     /**
      * Gets all items on sacrificial bowls in range of the golden bowl.
      *
-     * @param world              the world.
+     * @param level              the level.
      * @param goldenBowlPosition the ritual golden bowl.
      * @return a list of items on sacrificial bowls in range.
      */
-    public List<ItemStack> getItemsOnSacrificialBowls(World world, BlockPos goldenBowlPosition) {
+    public List<ItemStack> getItemsOnSacrificialBowls(Level level, BlockPos goldenBowlPosition) {
         List<ItemStack> result = new ArrayList<>();
 
-        List<SacrificialBowlTileEntity> sacrificialBowls = this.getSacrificialBowls(world, goldenBowlPosition);
-        for (SacrificialBowlTileEntity sacrificialBowl : sacrificialBowls) {
+        List<SacrificialBowlBlockEntity> sacrificialBowls = this.getSacrificialBowls(level, goldenBowlPosition);
+        for (SacrificialBowlBlockEntity sacrificialBowl : sacrificialBowls) {
             sacrificialBowl.itemStackHandler.ifPresent(handler -> {
                 ItemStack stack = handler.getStackInSlot(0);
                 if (!stack.isEmpty()) {
@@ -543,20 +543,20 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
     /**
      * Gets all sacrificial bowls in range of this ritual's golden bowl.
      *
-     * @param world              the world.
+     * @param level              the level.
      * @param goldenBowlPosition the block position of the golden bowl.
      * @return a list of sacrificial bowls.
      */
-    public List<SacrificialBowlTileEntity> getSacrificialBowls(World world, BlockPos goldenBowlPosition) {
-        List<SacrificialBowlTileEntity> result = new ArrayList<>();
+    public List<SacrificialBowlBlockEntity> getSacrificialBowls(Level level, BlockPos goldenBowlPosition) {
+        List<SacrificialBowlBlockEntity> result = new ArrayList<>();
         Iterable<BlockPos> blocksToCheck = BlockPos.getAllInBoxMutable(
                 goldenBowlPosition.add(-this.sacrificialBowlRange, 0, -this.sacrificialBowlRange),
                 goldenBowlPosition.add(this.sacrificialBowlRange, 0, this.sacrificialBowlRange));
         for (BlockPos blockToCheck : blocksToCheck) {
-            TileEntity tileEntity = world.getTileEntity(blockToCheck);
-            if (tileEntity instanceof SacrificialBowlTileEntity &&
-                !(tileEntity instanceof GoldenSacrificialBowlTileEntity)) {
-                result.add((SacrificialBowlTileEntity) tileEntity);
+            BlockEntity blockEntity = level.getBlockEntity(blockToCheck);
+            if (BlockEntity instanceof SacrificialBowlBlockEntity &&
+                !(BlockEntity instanceof GoldenSacrificialBowlBlockEntity)) {
+                result.add((SacrificialBowlBlockEntity) BlockEntity);
             }
         }
         return result;
@@ -570,14 +570,14 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
      *  - setting the custom name.
      *
      * @param spirit             the spirit to prepare.
-     * @param world              the world to spawn in.
+     * @param level              the level to spawn in.
      * @param goldenBowlPosition the golden bowl position.
      * @param castingPlayer      the ritual casting player.
      * @param spiritName         the spirit name.
      */
-    public void prepareSpiritForSpawn(SpiritEntity spirit, World world, BlockPos goldenBowlPosition,
-                                      PlayerEntity castingPlayer, String spiritName) {
-        this.prepareSpiritForSpawn(spirit, world, goldenBowlPosition, castingPlayer, spiritName, true);
+    public void prepareSpiritForSpawn(SpiritEntity spirit, Level level, BlockPos goldenBowlPosition,
+                                      Player castingPlayer, String spiritName) {
+        this.prepareSpiritForSpawn(spirit, level, goldenBowlPosition, castingPlayer, spiritName, true);
     }
 
     /**
@@ -588,21 +588,21 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
      *  - setting the custom name.
      *
      * @param spirit             the spirit to prepare.
-     * @param world              the world to spawn in.
+     * @param level              the level to spawn in.
      * @param goldenBowlPosition the golden bowl position.
      * @param castingPlayer      the ritual casting player.
      * @param spiritName         the spirit name.
      * @param setTamed           true to tame the spirit
      */
-    public void prepareSpiritForSpawn(SpiritEntity spirit, World world, BlockPos goldenBowlPosition,
-                                      PlayerEntity castingPlayer, String spiritName, boolean setTamed) {
+    public void prepareSpiritForSpawn(SpiritEntity spirit, Level level, BlockPos goldenBowlPosition,
+                                      Player castingPlayer, String spiritName, boolean setTamed) {
         if(setTamed){
             spirit.setTamedBy(castingPlayer);
         }
         spirit.setPositionAndRotation(goldenBowlPosition.getX(), goldenBowlPosition.getY(), goldenBowlPosition.getZ(),
-                world.rand.nextInt(360), 0);
+                level.rand.nextInt(360), 0);
         spirit.setCustomName(new StringTextComponent(spiritName));
-        spirit.onInitialSpawn((ServerWorld) world, world.getDifficultyForLocation(goldenBowlPosition),
+        spirit.onInitialSpawn((ServerWorld) level, level.getDifficultyForLocation(goldenBowlPosition),
                 SpawnReason.MOB_SUMMONED, null,
                 null);
     }
@@ -654,20 +654,20 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
     /**
      * Drops the given result stack near the golden bowl.
      *
-     * @param world              the world.
+     * @param level              the level.
      * @param goldenBowlPosition the position of the golden bowl.
-     * @param tileEntity         the tile entity controlling the ritual.
+     * @param BlockEntity         the tile entity controlling the ritual.
      * @param castingPlayer      the player starting the ritual.
      * @param stack              the result stack to drop.
      */
-    public void dropResult(World world, BlockPos goldenBowlPosition, GoldenSacrificialBowlTileEntity tileEntity,
-                           PlayerEntity castingPlayer,  ItemStack stack){
-        double angle = world.rand.nextDouble() * Math.PI * 2;
-        ItemEntity entity = new ItemEntity(world, goldenBowlPosition.getX() + 0.5, goldenBowlPosition.getY() + 0.75,
+    public void dropResult(Level level, BlockPos goldenBowlPosition, GoldenSacrificialBowlBlockEntity BlockEntity,
+                           Player castingPlayer,  ItemStack stack){
+        double angle = level.rand.nextDouble() * Math.PI * 2;
+        ItemEntity entity = new ItemEntity(level, goldenBowlPosition.getX() + 0.5, goldenBowlPosition.getY() + 0.75,
                 goldenBowlPosition.getZ() + 0.5, stack);
         entity.setMotion(Math.sin(angle) * 0.125, 0.25, Math.cos(angle) * 0.125);
         entity.setPickupDelay(10);
-        world.addEntity(entity);
+        level.addEntity(entity);
     }
     //endregion Methods
 }

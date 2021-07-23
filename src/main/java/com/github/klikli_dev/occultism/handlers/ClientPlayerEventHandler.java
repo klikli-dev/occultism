@@ -66,11 +66,11 @@ public class ClientPlayerEventHandler {
     public static void checkBackpackKey(InputEvent event) {
         Minecraft minecraft = Minecraft.getInstance();
 
-        if (minecraft.currentScreen instanceof SatchelScreen && ClientSetupEventHandler.KEY_BACKPACK.isPressed()) {
+        if (minecraft.screen instanceof SatchelScreen && ClientSetupEventHandler.KEY_BACKPACK.isPressed()) {
             minecraft.player.closeScreen();
         }
         //open satchel
-        else if (minecraft.player != null & minecraft.currentScreen == null &&
+        else if (minecraft.player != null & minecraft.screen == null &&
                 ClientSetupEventHandler.KEY_BACKPACK.isPressed()) {
             if (!CuriosUtil.getBackpack(minecraft.player).isEmpty() ||
                     CuriosUtil.getFirstBackpackSlot(minecraft.player) > 0) {
@@ -83,11 +83,11 @@ public class ClientPlayerEventHandler {
     public static void checkStorageRemoteKey(InputEvent event) {
         Minecraft minecraft = Minecraft.getInstance();
 
-        if (minecraft.currentScreen instanceof StorageRemoteGui && ClientSetupEventHandler.KEY_STORAGE_REMOTE.isPressed()) {
+        if (minecraft.screen instanceof StorageRemoteGui && ClientSetupEventHandler.KEY_STORAGE_REMOTE.isPressed()) {
             minecraft.player.closeScreen();
         }
         //open satchel
-        else if (minecraft.player != null & minecraft.currentScreen == null &&
+        else if (minecraft.player != null & minecraft.screen == null &&
                 ClientSetupEventHandler.KEY_STORAGE_REMOTE.isPressed()) {
 
             if (!CuriosUtil.getStorageRemote(minecraft.player).isEmpty() ||
@@ -100,7 +100,7 @@ public class ClientPlayerEventHandler {
 
     public static void checkFamiliarSettingsKeys(InputEvent event) {
         Minecraft minecraft = Minecraft.getInstance();
-        if (minecraft.player != null & minecraft.currentScreen == null) {
+        if (minecraft.player != null & minecraft.screen == null) {
             boolean familiarGreedy = ClientSetupEventHandler.KEY_FAMILIAR_GREEDY.isPressed();
             boolean familiarOtherworldBird = ClientSetupEventHandler.KEY_FAMILIAR_OTHERWORLD_BIRD.isPressed();
             boolean familiarBat = ClientSetupEventHandler.KEY_FAMILIAR_BAT.isPressed();

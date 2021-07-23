@@ -44,7 +44,7 @@ import mezz.jei.api.registration.IRecipeRegistration;
 import mezz.jei.api.registration.IRecipeTransferRegistration;
 import mezz.jei.api.runtime.IJeiRuntime;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.world.ClientWorld;
+import net.minecraft.client.level.ClientWorld;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
@@ -87,8 +87,8 @@ public class JeiPlugin implements IModPlugin {
 
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
-        ClientWorld world = Minecraft.getInstance().world;
-        RecipeManager recipeManager = world.getRecipeManager();
+        ClientWorld level = Minecraft.getInstance().level;
+        RecipeManager recipeManager = level.getRecipeManager();
 
         Collection<IRecipe<ItemStackFakeInventory>> spiritFireRecipes =
                 RecipeUtil.getRecipes(recipeManager, OccultismRecipes.SPIRIT_FIRE_TYPE.get()).values();

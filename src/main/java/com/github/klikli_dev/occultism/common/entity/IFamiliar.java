@@ -75,7 +75,7 @@ public interface IFamiliar {
      * {@link FamiliarRingItem}.
      * <br><br>
      * BEWARE: Extra caution has to be taken when using instance variables from the
-     * {@link IFamiliar#getEntity} in this method (such as {@link Entity#world}),
+     * {@link IFamiliar#getEntity} in this method (such as {@link Entity#level}),
      * since their values are no longer updated when the familiar is inside the ring
      * and might be outdated. The same caution should be taken when implementing
      * {@link IFamiliar#getFamiliarEffects} or any other method that is called while

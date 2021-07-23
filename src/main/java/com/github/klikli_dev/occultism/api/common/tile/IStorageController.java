@@ -26,7 +26,7 @@ import com.github.klikli_dev.occultism.api.common.container.IItemStackComparator
 import com.github.klikli_dev.occultism.api.common.data.GlobalBlockPos;
 import com.github.klikli_dev.occultism.api.common.data.MachineReference;
 import com.github.klikli_dev.occultism.network.MessageUpdateStacks;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 
 import java.util.List;
 import java.util.Map;

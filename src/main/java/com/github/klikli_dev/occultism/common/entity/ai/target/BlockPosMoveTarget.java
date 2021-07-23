@@ -23,10 +23,10 @@
 package com.github.klikli_dev.occultism.common.entity.ai.target;
 
 import net.minecraft.inventory.IInventory;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.BlockEntity.BlockEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.level.Level;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 
@@ -35,11 +35,11 @@ import javax.annotation.Nullable;
 
 public class BlockPosMoveTarget implements IMoveTarget{
 
-    public World world;
+    public Level level;
     public BlockPos target;
 
-    public BlockPosMoveTarget(World world, BlockPos target){
-        this.world = world;
+    public BlockPosMoveTarget(Level level, BlockPos target){
+        this.level = level;
         this.target = target;
     }
 
@@ -50,20 +50,20 @@ public class BlockPosMoveTarget implements IMoveTarget{
 
     @Override
     public boolean isValid() {
-        return this.world.getTileEntity(this.target) != null;
+        return this.level.getBlockEntity(this.target) != null;
     }
 
     @Override
     public boolean isChest() {
-        return this.world.getTileEntity(this.target) instanceof IInventory;
+        return this.level.getBlockEntity(this.target) instanceof IInventory;
     }
 
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-        TileEntity tileEntity = this.world.getTileEntity(this.target);
-        if(tileEntity != null){
-            return tileEntity.getCapability(cap, side);
+        BlockEntity blockEntity = this.level.getBlockEntity(this.target);
+        if(BlockEntity != null){
+            return blockEntity.getCapability(cap, side);
         }
         return LazyOptional.empty();
     }

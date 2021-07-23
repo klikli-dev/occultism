@@ -78,7 +78,7 @@ public class PickupItemsGoal extends TargetGoal {
     public boolean shouldExecute() {
 
         //fire on a slow tick based on chance
-        long worldTime = this.goalOwner.world.getGameTime() % 10;
+        long worldTime = this.goalOwner.level.getGameTime() % 10;
         if (this.entity.getIdleTime() >= 100 && worldTime != 0) {
             return false;
         }
@@ -91,7 +91,7 @@ public class PickupItemsGoal extends TargetGoal {
         AxisAlignedBB targetBox = new AxisAlignedBB(-workAreaSize, -workAreaSize / 2.0, -workAreaSize, workAreaSize,
                 workAreaSize / 2.0, workAreaSize).offset(this.entity.getWorkAreaCenter());
 
-        List<ItemEntity> list = this.goalOwner.world
+        List<ItemEntity> list = this.goalOwner.level
                                         .getEntitiesWithinAABB(ItemEntity.class, targetBox, this.targetItemSelector);
         if (list.isEmpty()) {
             return false;

@@ -27,11 +27,11 @@ import com.google.gson.JsonObject;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
+import net.minecraft.level.Level;
 import net.minecraftforge.common.crafting.CraftingHelper;
 
 public abstract class ItemStackFakeInventoryRecipe implements IRecipe<ItemStackFakeInventory> {
@@ -52,13 +52,13 @@ public abstract class ItemStackFakeInventoryRecipe implements IRecipe<ItemStackF
 
     //region Overrides
     @Override
-    public boolean matches(ItemStackFakeInventory inv, World world) {
+    public boolean matches(ItemStackFakeInventory inv, Level level) {
         return this.input.test(inv.getStackInSlot(0));
     }
 
     @Override
     public ItemStack getCraftingResult(ItemStackFakeInventory inv) {
-        return this.getRecipeOutput().copy();
+        return this.getResultItem().copy();
     }
 
     @Override
@@ -68,7 +68,7 @@ public abstract class ItemStackFakeInventoryRecipe implements IRecipe<ItemStackF
     }
 
     @Override
-    public ItemStack getRecipeOutput() {
+    public ItemStack getResultItem() {
         return this.output;
     }
 
@@ -108,13 +108,13 @@ public abstract class ItemStackFakeInventoryRecipe implements IRecipe<ItemStackF
         }
 
         public <T extends ItemStackFakeInventoryRecipe> T read(IItemStackFakeInventoryRecipeFactory<T> factory,
-                                                               ResourceLocation recipeId, PacketBuffer buffer) {
+                                                               ResourceLocation recipeId, FriendlyByteBuf buffer) {
             Ingredient ingredient = Ingredient.read(buffer);
             ItemStack result = buffer.readItemStack();
             return factory.create(recipeId, ingredient, result);
         }
 
-        public <T extends ItemStackFakeInventoryRecipe> void write(PacketBuffer buffer, T recipe) {
+        public <T extends ItemStackFakeInventoryRecipe> void write(FriendlyByteBuf buffer, T recipe) {
             recipe.input.write(buffer);
             buffer.writeItemStack(recipe.output);
         }

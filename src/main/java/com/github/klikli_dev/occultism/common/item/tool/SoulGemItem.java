@@ -28,19 +28,19 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.ActionResultType;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.util.InteractionResult;
 import net.minecraft.util.Direction;
-import net.minecraft.util.Hand;
+import net.minecraft.util.InteractionHand;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
+import net.minecraft.level.Level;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -54,16 +54,16 @@ public class SoulGemItem extends Item {
 
     //region Overrides
     @Override
-    public ActionResultType onItemUse(ItemUseContext context) {
-        PlayerEntity player = context.getPlayer();
+    public InteractionResult onItemUse(ItemUseContext context) {
+        Player player = context.getPlayer();
         ItemStack itemStack = context.getItem();
-        World world = context.getWorld();
+        Level level = context.getLevel();
         Direction facing = context.getFace();
         BlockPos pos = context.getPos();
         if (itemStack.getOrCreateTag().contains("entityData")) {
             //whenever we have an entity stored we can do nothing but release it
-            if (!world.isRemote) {
-                CompoundNBT entityData = itemStack.getTag().getCompound("entityData");
+            if (!level.isClientSide) {
+                CompoundTag entityData = itemStack.getTag().getCompound("entityData");
                 itemStack.getTag()
                         .remove("entityData"); //delete entity from item right away to avoid duplicate in case of unexpected error
 
@@ -72,7 +72,7 @@ public class SoulGemItem extends Item {
                 facing = facing == null ? Direction.UP : facing;
 
                 BlockPos spawnPos = pos.toImmutable();
-                if (!world.getBlockState(spawnPos).getCollisionShape(world, spawnPos).isEmpty()) {
+                if (!level.getBlockState(spawnPos).getCollisionShape(level, spawnPos).isEmpty()) {
                     spawnPos = spawnPos.offset(facing);
                 }
 
@@ -85,20 +85,20 @@ public class SoulGemItem extends Item {
                 entityData.remove("Pos");
 
                 //type.spawn uses the sub-tag EntityTag
-                CompoundNBT wrapper = new CompoundNBT();
+                CompoundTag wrapper = new CompoundTag();
                 wrapper.put("EntityTag", entityData);
 
-                Entity entity = type.create(world);
+                Entity entity = type.create(level);
                 entity.read(entityData);
                 entity.setPositionAndRotation(spawnPos.getX() + 0.5, spawnPos.getY(), spawnPos.getZ() + 0.5, 0, 0);
-                world.addEntity(entity);
+                level.addEntity(entity);
 
                 // old spawn cde:
-                //                Entity entity = type.spawn((ServerWorld) world, wrapper, customName, null, spawnPos,
+                //                Entity entity = type.spawn((ServerWorld) level, wrapper, customName, null, spawnPos,
                 //                        SpawnReason.MOB_SUMMONED, true, !pos.equals(spawnPos) && facing == Direction.UP);
-                //                if (entity instanceof TameableEntity && entityData.contains("OwnerUUID") &&
+                //                if (entity instanceof TamableAnimal && entityData.contains("OwnerUUID") &&
                 //                    !entityData.getString("OwnerUUID").isEmpty()) {
-                //                    TameableEntity tameableEntity = (TameableEntity) entity;
+                //                    TamableAnimal tameableEntity = (TamableAnimal) entity;
                 //                    try {
                 //                        tameableEntity.setOwnerId(UUID.fromString(entityData.getString("OwnerUUID")));
                 //                    } catch (IllegalArgumentException e) {
@@ -109,33 +109,33 @@ public class SoulGemItem extends Item {
                 player.swingArm(context.getHand());
                 player.container.detectAndSendChanges();
             }
-            return ActionResultType.SUCCESS;
+            return InteractionResult.SUCCESS;
         }
-        return ActionResultType.PASS;
+        return InteractionResult.PASS;
     }
 
     @Override
-    public ActionResultType itemInteractionForEntity(ItemStack stack, PlayerEntity player, LivingEntity target,
-                                                     Hand hand) {
+    public InteractionResult itemInteractionForEntity(ItemStack stack, Player player, LivingEntity target,
+                                                     InteractionHand hand) {
         //This is called from PlayerEventHandler#onPlayerRightClickEntity, because we need to bypass sitting entities processInteraction
-        if (target.world.isRemote)
-            return ActionResultType.PASS;
+        if (target.level.isClientSide)
+            return InteractionResult.PASS;
 
         //Do not allow bosses or players.
         //canChangeDimension used to be isNonBoss
-        if (!target.canChangeDimension() || target instanceof PlayerEntity)
-            return ActionResultType.FAIL;
+        if (!target.canChangeDimension() || target instanceof Player)
+            return InteractionResult.FAIL;
 
         //Already got an entity in there.
         if (stack.getOrCreateTag().contains("entityData"))
-            return ActionResultType.FAIL;
+            return InteractionResult.FAIL;
 
         //do not capture entities on deny lists
         if (Occultism.SERVER_CONFIG.itemSettings.soulgemEntityTypeDenyList.get().contains(target.getEntityString())) {
             player.sendMessage(
-                    new TranslationTextComponent(this.getTranslationKey() + ".message.entity_type_denied"),
+                    new TranslationTextComponent(this.getDescriptionId() + ".message.entity_type_denied"),
                     Util.DUMMY_UUID);
-            return ActionResultType.FAIL;
+            return InteractionResult.FAIL;
         }
 
         //serialize entity
@@ -145,26 +145,26 @@ public class SoulGemItem extends Item {
         player.setHeldItem(hand, stack); //need to write the item back to hand, otherwise we only modify a copy
         target.remove(true);
         player.container.detectAndSendChanges();
-        return ActionResultType.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 
     @Override
-    public String getTranslationKey(ItemStack stack) {
-        return stack.getOrCreateTag().contains("entityData") ? this.getTranslationKey() :
-                       this.getTranslationKey() + "_empty";
+    public String getDescriptionId(ItemStack stack) {
+        return stack.getOrCreateTag().contains("entityData") ? this.getDescriptionId() :
+                       this.getDescriptionId() + "_empty";
     }
 
     @Override
-    public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip,
+    public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<ITextComponent> tooltip,
                                ITooltipFlag flagIn) {
-        super.addInformation(stack, worldIn, tooltip, flagIn);
+        super.appendHoverText(stack, worldIn, tooltip, flagIn);
 
         if (stack.getOrCreateTag().contains("entityData")) {
             EntityType<?> type = EntityUtil.entityTypeFromNbt(stack.getTag().getCompound("entityData"));
-            tooltip.add(new TranslationTextComponent(this.getTranslationKey() + ".tooltip_filled", type.getName()));
+            tooltip.add(new TranslationTextComponent(this.getDescriptionId() + ".tooltip_filled", type.getName()));
         }
         else {
-            tooltip.add(new TranslationTextComponent(this.getTranslationKey() + ".tooltip_empty"));
+            tooltip.add(new TranslationTextComponent(this.getDescriptionId() + ".tooltip_empty"));
         }
     }
     //endregion Overrides

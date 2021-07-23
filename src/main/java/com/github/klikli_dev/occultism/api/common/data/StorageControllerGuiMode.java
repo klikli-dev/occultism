@@ -23,12 +23,12 @@
 package com.github.klikli_dev.occultism.api.common.data;
 
 
-import net.minecraft.util.IStringSerializable;
+import net.minecraft.util.StringRepresentable;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public enum StorageControllerGuiMode implements IStringSerializable {
+public enum StorageControllerGuiMode implements StringRepresentable {
     INVENTORY(0),
     AUTOCRAFTING(1);
 
@@ -58,7 +58,7 @@ public enum StorageControllerGuiMode implements IStringSerializable {
 
     //region Overrides
     @Override
-    public String getString() {
+    public String getSerializedName() {
         return  this.name().toLowerCase();
     }
     //endregion Overrides

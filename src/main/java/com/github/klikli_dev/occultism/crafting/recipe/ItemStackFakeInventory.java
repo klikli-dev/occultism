@@ -22,7 +22,7 @@
 
 package com.github.klikli_dev.occultism.crafting.recipe;
 
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 
@@ -75,7 +75,7 @@ public class ItemStackFakeInventory implements IInventory {
     }
 
     @Override
-    public boolean isUsableByPlayer(PlayerEntity player) {
+    public boolean isUsableByPlayer(Player player) {
         return false;
     }
 

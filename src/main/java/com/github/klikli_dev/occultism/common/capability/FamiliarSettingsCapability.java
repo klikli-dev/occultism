@@ -23,7 +23,7 @@
 package com.github.klikli_dev.occultism.common.capability;
 
 import com.github.klikli_dev.occultism.registry.OccultismCapabilities;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.INBT;
 import net.minecraft.util.Direction;
 import net.minecraftforge.common.capabilities.Capability;
@@ -62,14 +62,14 @@ public class FamiliarSettingsCapability {
         this.batEnabled = settings.batEnabled;
     }
 
-    public CompoundNBT write(CompoundNBT compound) {
+    public CompoundTag write(CompoundTag compound) {
         compound.putBoolean("greedyEnabled", this.greedyEnabled);
         compound.putBoolean("otherworldBirdEnabled", this.otherworldBirdEnabled);
         compound.putBoolean("batEnabled", this.batEnabled);
         return compound;
     }
 
-    public CompoundNBT read(CompoundNBT compound) {
+    public CompoundTag read(CompoundTag compound) {
         this.greedyEnabled = compound.getBoolean("greedyEnabled");
         this.otherworldBirdEnabled = compound.getBoolean("otherworldBirdEnabled");
         this.batEnabled = compound.getBoolean("batEnabled");
@@ -106,18 +106,18 @@ public class FamiliarSettingsCapability {
         @Override
         public INBT writeNBT(Capability<FamiliarSettingsCapability> capability, FamiliarSettingsCapability instance,
                              Direction facing) {
-            return instance.write(new CompoundNBT());
+            return instance.write(new CompoundTag());
         }
 
         @Override
         public void readNBT(Capability<FamiliarSettingsCapability> capability, FamiliarSettingsCapability instance, Direction side,
                             INBT nbt) {
-            instance.read((CompoundNBT) nbt);
+            instance.read((CompoundTag) nbt);
         }
         //endregion Overrides
     }
 
-    public static class Dispatcher implements ICapabilitySerializable<CompoundNBT> {
+    public static class Dispatcher implements ICapabilitySerializable<CompoundTag> {
 
         //region Fields
         private final LazyOptional<FamiliarSettingsCapability> familiarSettingsCapability = LazyOptional.of(
@@ -135,8 +135,8 @@ public class FamiliarSettingsCapability {
         }
 
         @Override
-        public CompoundNBT serializeNBT() {
-            CompoundNBT nbt = new CompoundNBT();
+        public CompoundTag serializeNBT() {
+            CompoundTag nbt = new CompoundTag();
             this.familiarSettingsCapability.ifPresent(capability -> {
                 capability.write(nbt);
             });
@@ -144,7 +144,7 @@ public class FamiliarSettingsCapability {
         }
 
         @Override
-        public void deserializeNBT(CompoundNBT nbt) {
+        public void deserializeNBT(CompoundTag nbt) {
             this.familiarSettingsCapability.ifPresent(capability -> capability.read(nbt));
         }
         //endregion Overrides

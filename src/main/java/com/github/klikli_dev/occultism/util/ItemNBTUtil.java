@@ -27,10 +27,10 @@ import com.github.klikli_dev.occultism.api.common.data.MachineReference;
 import com.github.klikli_dev.occultism.api.common.data.WorkAreaSize;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.github.klikli_dev.occultism.common.job.ManageMachineJob;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.item.ItemStack;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -91,7 +91,7 @@ public class ItemNBTUtil {
     }
 
     public static int getItemMode(ItemStack stack) {
-        CompoundNBT compound = stack.getTag();
+        CompoundTag compound = stack.getTag();
         if (!stack.getOrCreateTag().contains(ITEM_MODE_TAG))
             setItemMode(stack, 0);
 
@@ -111,7 +111,7 @@ public class ItemNBTUtil {
 
     public static void setStorageControllerPosition(ItemStack stack, GlobalBlockPos position) {
         if (position != null)
-            stack.setTagInfo(STORAGE_CONTROLLER_POSITION_TAG, position.serializeNBT());
+            stack.addTagElement(STORAGE_CONTROLLER_POSITION_TAG, position.serializeNBT());
     }
 
     public static MachineReference getManagedMachine(ItemStack stack) {
@@ -123,20 +123,20 @@ public class ItemNBTUtil {
 
     public static void setManagedMachine(ItemStack stack, MachineReference position) {
         if (position != null)
-            stack.setTagInfo(MANAGED_MACHINE, position.serializeNBT());
+            stack.addTagElement(MANAGED_MACHINE, position.serializeNBT());
     }
 
     public static BlockPos getDepositPosition(ItemStack stack) {
         if (!stack.getOrCreateTag().contains(DEPOSIT_POSITION_TAG))
             return null;
 
-        return BlockPos.fromLong(stack.getTag().getLong(DEPOSIT_POSITION_TAG));
+        return BlockPos.of(stack.getTag().getLong(DEPOSIT_POSITION_TAG));
     }
 
     public static void setDepositPosition(ItemStack stack, Optional<BlockPos> position) {
-        if(position.isPresent()){
-            stack.getOrCreateTag().putLong(DEPOSIT_POSITION_TAG, position.get().toLong());
-        } else if (stack.hasTag()){
+        if (position.isPresent()) {
+            stack.getOrCreateTag().putLong(DEPOSIT_POSITION_TAG, position.get().asLong());
+        } else if (stack.hasTag()) {
             stack.getTag().remove(DEPOSIT_POSITION_TAG);
         }
     }
@@ -145,13 +145,13 @@ public class ItemNBTUtil {
         if (!stack.getOrCreateTag().contains(DEPOSIT_ENTITY_UUID_TAG))
             return null;
 
-        return stack.getTag().getUniqueId(DEPOSIT_ENTITY_UUID_TAG);
+        return stack.getTag().getUUID(DEPOSIT_ENTITY_UUID_TAG);
     }
 
     public static void setDepositEntityUUID(ItemStack stack, Optional<UUID> uuid) {
-        if(uuid.isPresent()){
-            stack.getOrCreateTag().putUniqueId(DEPOSIT_ENTITY_UUID_TAG, uuid.get());
-        } else if (stack.hasTag()){
+        if (uuid.isPresent()) {
+            stack.getOrCreateTag().putUUID(DEPOSIT_ENTITY_UUID_TAG, uuid.get());
+        } else if (stack.hasTag()) {
             stack.getTag().remove(DEPOSIT_ENTITY_UUID_TAG);
         }
     }
@@ -181,11 +181,11 @@ public class ItemNBTUtil {
         if (!stack.getOrCreateTag().contains(EXTRACT_POSITION_TAG))
             return null;
 
-        return BlockPos.fromLong(stack.getTag().getLong(EXTRACT_POSITION_TAG));
+        return BlockPos.of(stack.getTag().getLong(EXTRACT_POSITION_TAG));
     }
 
     public static void setExtractPosition(ItemStack stack, Optional<BlockPos> position) {
-        position.ifPresent(p -> stack.getOrCreateTag().putLong(EXTRACT_POSITION_TAG, p.toLong()));
+        position.ifPresent(p -> stack.getOrCreateTag().putLong(EXTRACT_POSITION_TAG, p.asLong()));
     }
 
     public static Direction getExtractFacing(ItemStack stack) {
@@ -202,11 +202,11 @@ public class ItemNBTUtil {
         if (!stack.getOrCreateTag().contains(WORK_AREA_POSITION_TAG))
             return null;
 
-        return BlockPos.fromLong(stack.getTag().getLong(WORK_AREA_POSITION_TAG));
+        return BlockPos.of(stack.getTag().getLong(WORK_AREA_POSITION_TAG));
     }
 
     public static void setWorkAreaPosition(ItemStack stack, Optional<BlockPos> position) {
-        position.ifPresent(p -> stack.getOrCreateTag().putLong(WORK_AREA_POSITION_TAG, p.toLong()));
+        position.ifPresent(p -> stack.getOrCreateTag().putLong(WORK_AREA_POSITION_TAG, p.asLong()));
     }
 
     public static WorkAreaSize getWorkAreaSize(ItemStack stack) {
@@ -222,26 +222,26 @@ public class ItemNBTUtil {
     public static UUID getSpiritEntityUUID(ItemStack stack) {
         if (!stack.getOrCreateTag().contains(SPIRIT_UUID_TAG))
             return null;
-        return stack.getTag().getCompound(SPIRIT_UUID_TAG).getUniqueId("");
+        return stack.getTag().getCompound(SPIRIT_UUID_TAG).getUUID("");
     }
 
     public static void setSpiritEntityUUID(ItemStack stack, UUID id) {
-        CompoundNBT uuidCompound = new CompoundNBT();
-        uuidCompound.putUniqueId("", id);
-        stack.setTagInfo(SPIRIT_UUID_TAG, uuidCompound);
+        CompoundTag uuidCompound = new CompoundTag();
+        uuidCompound.putUUID("", id);
+        stack.addTagElement(SPIRIT_UUID_TAG, uuidCompound);
     }
 
     public static boolean getSpiritDead(ItemStack stack) {
         return stack.getOrCreateTag().getBoolean(SPIRIT_DEAD_TAG);
     }
 
-    public static CompoundNBT getSpiritEntityData(ItemStack stack) {
+    public static CompoundTag getSpiritEntityData(ItemStack stack) {
         if (!stack.getOrCreateTag().contains(SPIRIT_DATA_TAG))
             return null;
         return stack.getTag().getCompound(SPIRIT_DATA_TAG);
     }
 
-    public static void setSpiritEntityData(ItemStack stack, CompoundNBT entityData) {
+    public static void setSpiritEntityData(ItemStack stack, CompoundTag entityData) {
         stack.getOrCreateTag().put(SPIRIT_DATA_TAG, entityData);
     }
 

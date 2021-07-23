@@ -32,10 +32,10 @@ import net.minecraft.block.LeavesBlock;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Direction;
-import net.minecraft.util.Hand;
+import net.minecraft.util.InteractionHand;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.level.Level;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -61,7 +61,7 @@ public class FellTreesGoal extends Goal {
     //region Overrides
     @Override
     public boolean shouldExecute() {
-        if (!this.entity.getHeldItem(Hand.MAIN_HAND).isEmpty()) {
+        if (!this.entity.getHeldItem(InteractionHand.MAIN_HAND).isEmpty()) {
             return false; //if already holding an item we need to first store it.
         }
         this.resetTarget();
@@ -71,7 +71,7 @@ public class FellTreesGoal extends Goal {
     @Override
     public boolean shouldContinueExecuting() {
         //only continue execution if a tree is available and entity is not carrying anything.
-        return this.targetBlock != null && this.entity.getHeldItem(Hand.MAIN_HAND).isEmpty();
+        return this.targetBlock != null && this.entity.getHeldItem(InteractionHand.MAIN_HAND).isEmpty();
     }
 
     public void resetTask() {
@@ -93,7 +93,7 @@ public class FellTreesGoal extends Goal {
                 OccultismPackets.sendToTracking(this.entity, new MessageSelectBlock(this.moveTarget, 5000, 0x00ff00));
             }
 
-            if (isLog(this.entity.world, this.targetBlock)) {
+            if (isLog(this.entity.level, this.targetBlock)) {
                 double distance = this.entity.getPositionVec().distanceTo(Math3DUtil.center(this.moveTarget));
                 if (distance < 2.5F) {
                     //start breaking when close
@@ -114,12 +114,12 @@ public class FellTreesGoal extends Goal {
     //endregion Overrides
 
     //region Static Methods
-    public static final boolean isLog(World world, BlockPos pos) {
-        return BlockTags.LOGS.contains(world.getBlockState(pos).getBlock());
+    public static final boolean isLog(Level level, BlockPos pos) {
+        return BlockTags.LOGS.contains(level.getBlockState(pos).getBlock());
     }
 
-    public static final boolean isLeaf(World world, BlockPos pos) {
-        Block block = world.getBlockState(pos).getBlock();
+    public static final boolean isLeaf(Level level, BlockPos pos) {
+        Block block = level.getBlockState(pos).getBlock();
         return block instanceof LeavesBlock || BlockTags.LEAVES.contains(block);
     }
     //endregion Static Methods
@@ -127,14 +127,14 @@ public class FellTreesGoal extends Goal {
     //region Methods
     public void updateBreakBlock() {
         this.breakingTime++;
-        this.entity.swingArm(Hand.MAIN_HAND);
+        this.entity.swingArm(InteractionHand.MAIN_HAND);
         int i = (int) ((float) this.breakingTime / 160.0F * 10.0F);
         if (this.breakingTime % 10 == 0) {
             this.entity.playSound(SoundEvents.BLOCK_WOOD_HIT, 1, 1);
             this.entity.playSound(SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP, 1, 0.5F);
         }
         if (i != this.previousBreakProgress) {
-            this.entity.world.sendBlockBreakProgress(this.entity.getEntityId(), this.targetBlock, i);
+            this.entity.level.sendBlockBreakProgress(this.entity.getEntityId(), this.targetBlock, i);
             this.previousBreakProgress = i;
         }
         if (this.breakingTime == 160) {
@@ -149,7 +149,7 @@ public class FellTreesGoal extends Goal {
     }
 
     private void resetTarget() {
-        World world = this.entity.world;
+        Level level = this.entity.level;
         List<BlockPos> allBlocks = new ArrayList<>();
         BlockPos workAreaCenter = this.entity.getWorkAreaCenter();
 
@@ -160,18 +160,18 @@ public class FellTreesGoal extends Goal {
                 workAreaCenter.add(workAreaSize, workAreaSize / 2, workAreaSize)).map(BlockPos::toImmutable).collect(
                 Collectors.toList());
         for (BlockPos pos : searchBlocks) {
-            if (isLog(world, pos)) {
+            if (isLog(level, pos)) {
 
                 //find top of tree
                 BlockPos topOfTree = new BlockPos(pos);
-                while (!world.isAirBlock(topOfTree.up()) && topOfTree.getY() < world.getHeight()) {
+                while (!level.isAirBlock(topOfTree.up()) && topOfTree.getY() < level.getHeight()) {
                     topOfTree = topOfTree.up();
                 }
 
                 //find the stump of the tree
-                if (isLeaf(world, topOfTree)) {
+                if (isLeaf(level, topOfTree)) {
                     BlockPos logPos = this.getStump(topOfTree);
-                    if (isLog(world, logPos))
+                    if (isLog(level, logPos))
                         allBlocks.add(logPos);
                 }
             }
@@ -185,7 +185,7 @@ public class FellTreesGoal extends Goal {
             this.moveTarget = null;
             for (Direction facing : Direction.Plane.HORIZONTAL) {
                 BlockPos pos = this.targetBlock.offset(facing);
-                if (this.entity.world.isAirBlock(pos)) {
+                if (this.entity.level.isAirBlock(pos)) {
                     this.moveTarget = pos;
                     break;
                 }
@@ -210,7 +210,7 @@ public class FellTreesGoal extends Goal {
             for (BlockPos pos : BlockPos.getAllInBox(log.add(-4, -4, -4), log.add(4, 0, 4)).map(BlockPos::toImmutable)
                                         .collect(
                                                 Collectors.toList())) {
-                if (isLog(this.entity.world, pos.down()) || isLeaf(this.entity.world, pos.down())) {
+                if (isLog(this.entity.level, pos.down()) || isLeaf(this.entity.level, pos.down())) {
                     return this.getStump(pos.down());
                 }
             }
@@ -219,7 +219,7 @@ public class FellTreesGoal extends Goal {
     }
 
     private void fellTree() {
-        World world = this.entity.world;
+        Level level = this.entity.level;
         BlockPos base = new BlockPos(this.targetBlock);
         Queue<BlockPos> blocks = new ArrayDeque<>();
         Set<BlockPos> visited = new HashSet<>();
@@ -232,7 +232,7 @@ public class FellTreesGoal extends Goal {
                 continue;
             }
 
-            if (!isLog(world, pos)) {
+            if (!isLog(level, pos)) {
                 continue;
             }
 
@@ -252,7 +252,7 @@ public class FellTreesGoal extends Goal {
                 }
             }
 
-            world.destroyBlock(pos, true);
+            level.destroyBlock(pos, true);
         }
 
     }

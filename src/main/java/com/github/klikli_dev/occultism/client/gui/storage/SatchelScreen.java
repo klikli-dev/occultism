@@ -27,7 +27,7 @@ import com.github.klikli_dev.occultism.common.container.storage.SatchelContainer
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
-import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.entity.player.Inventory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 
@@ -38,7 +38,7 @@ public class SatchelScreen extends ContainerScreen<SatchelContainer> {
     //endregion Fields
 
     //region Initialization
-    public SatchelScreen(SatchelContainer screenContainer, PlayerInventory inv,
+    public SatchelScreen(SatchelContainer screenContainer, Inventory inv,
                          ITextComponent titleIn) {
         super(screenContainer, inv, titleIn);
 
@@ -51,24 +51,24 @@ public class SatchelScreen extends ContainerScreen<SatchelContainer> {
 
     //region Overrides
     @Override
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
-        this.renderBackground(matrixStack);
-        super.render(matrixStack, mouseX, mouseY, partialTicks);
-        this.renderHoveredTooltip(matrixStack, mouseX, mouseY);
+    public void render(MatrixStack poseStack, int mouseX, int mouseY, float partialTicks) {
+        this.renderBackground(poseStack);
+        super.render(poseStack, mouseX, mouseY, partialTicks);
+        this.renderHoveredTooltip(poseStack, mouseX, mouseY);
     }
 
     @Override
-    public void drawGuiContainerForegroundLayer(MatrixStack matrixStack, int mouseX, int mouseY) {
-        //Note: Do not call super.drawGuiContainerForegroundLayer(matrixStack, mouseX, mouseY);
+    public void drawGuiContainerForegroundLayer(MatrixStack poseStack, int mouseX, int mouseY) {
+        //Note: Do not call super.drawGuiContainerForegroundLayer(poseStack, mouseX, mouseY);
         //      it renders inventory titles which no vanilla inventory does
     }
 
     @Override
-    protected void drawGuiContainerBackgroundLayer(MatrixStack matrixStack, float partialTicks, int mouseX,
+    protected void drawGuiContainerBackgroundLayer(MatrixStack poseStack, float partialTicks, int mouseX,
                                                    int mouseY) {
         RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.minecraft.getTextureManager().bindTexture(BACKGROUND);
-        this.blit(matrixStack, this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
+        this.blit(poseStack, this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
     }
     //endregion Overrides
 }

@@ -26,10 +26,10 @@ import com.github.klikli_dev.occultism.common.block.ChalkGlyphBlock;
 import com.github.klikli_dev.occultism.registry.OccultismSounds;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemUseContext;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.SoundCategory;
+import net.minecraft.util.InteractionResult;
+import net.minecraft.util.SoundSource;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.level.Level;
 
 public class BrushItem extends Item {
     //region Initialization
@@ -41,18 +41,18 @@ public class BrushItem extends Item {
     //region Overrides
 
     @Override
-    public ActionResultType onItemUse(ItemUseContext context) {
-        World world = context.getWorld();
+    public InteractionResult onItemUse(ItemUseContext context) {
+        Level level = context.getLevel();
         BlockPos pos = context.getPos();
-        if (!world.isRemote) {
+        if (!level.isClientSide) {
             //only remove chalks
-            if (world.getBlockState(pos).getBlock() instanceof ChalkGlyphBlock) {
-                world.removeBlock(pos, false);
-                world.playSound(null, pos, OccultismSounds.BRUSH.get(), SoundCategory.PLAYERS, 0.5f,
+            if (level.getBlockState(pos).getBlock() instanceof ChalkGlyphBlock) {
+                level.removeBlock(pos, false);
+                level.playSound(null, pos, OccultismSounds.BRUSH.get(), SoundSource.PLAYERS, 0.5f,
                         1 + 0.5f * context.getPlayer().getRNG().nextFloat());
             }
         }
-        return ActionResultType.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 
     //endregion Overrides

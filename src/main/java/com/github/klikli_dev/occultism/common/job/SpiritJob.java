@@ -25,12 +25,12 @@ package com.github.klikli_dev.occultism.common.job;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.github.klikli_dev.occultism.registry.OccultismSpiritJobs;
 import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraftforge.common.util.INBTSerializable;
 
-public abstract class SpiritJob implements INBTSerializable<CompoundNBT> {
+public abstract class SpiritJob implements INBTSerializable<CompoundTag> {
 
     //region Fields
     public SpiritEntity entity;
@@ -55,18 +55,18 @@ public abstract class SpiritJob implements INBTSerializable<CompoundNBT> {
 
     //region Overrides
     @Override
-    public CompoundNBT serializeNBT() {
-        return this.writeJobToNBT(new CompoundNBT());
+    public CompoundTag serializeNBT() {
+        return this.writeJobToNBT(new CompoundTag());
     }
 
     @Override
-    public void deserializeNBT(CompoundNBT nbt) {
+    public void deserializeNBT(CompoundTag nbt) {
         this.readJobFromNBT(nbt);
     }
     //endregion Overrides
 
     //region Static Methods
-    public static SpiritJob from(SpiritEntity entity, CompoundNBT nbt) {
+    public static SpiritJob from(SpiritEntity entity, CompoundTag nbt) {
         SpiritJobFactory factory = OccultismSpiritJobs.REGISTRY
                                            .getValue(new ResourceLocation(nbt.getString("factoryId")));
         SpiritJob job = factory.create(entity);
@@ -100,7 +100,7 @@ public abstract class SpiritJob implements INBTSerializable<CompoundNBT> {
      * @param compound the compound to write to.
      * @return the written to compound.
      */
-    public CompoundNBT writeJobToNBT(CompoundNBT compound) {
+    public CompoundTag writeJobToNBT(CompoundTag compound) {
         compound.putString("factoryId", this.getFactoryID().toString());
         return compound;
     }
@@ -110,7 +110,7 @@ public abstract class SpiritJob implements INBTSerializable<CompoundNBT> {
      *
      * @param compound the NBT to read from.
      */
-    public void readJobFromNBT(CompoundNBT compound) {
+    public void readJobFromNBT(CompoundTag compound) {
     }
 
     /**

@@ -26,14 +26,14 @@ import com.github.klikli_dev.occultism.common.capability.DoubleJumpCapability;
 import com.github.klikli_dev.occultism.common.effect.DoubleJumpEffect;
 import com.github.klikli_dev.occultism.registry.OccultismCapabilities;
 import com.github.klikli_dev.occultism.registry.OccultismTags;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.entity.player.Player;
+import net.minecraft.inventory.EquipmentSlot;
 import net.minecraft.item.ElytraItem;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.util.LazyOptional;
 
 public class MovementUtil {
-    public static boolean doubleJump(PlayerEntity player) {
+    public static boolean doubleJump(Player player) {
 
         if (!allowDoubleJump(player)) {
             return false;
@@ -49,7 +49,7 @@ public class MovementUtil {
         return false;
     }
 
-    public static boolean allowDoubleJump(PlayerEntity player) {
+    public static boolean allowDoubleJump(Player player) {
 
         //If swimming, flying, on the ground(= normal jump) or mounted, no double jump
         boolean swimming = player.isInWater() || player.isInLava();
@@ -57,7 +57,7 @@ public class MovementUtil {
             return false;
         }
 
-        ItemStack itemstack = player.getItemStackFromSlot(EquipmentSlotType.CHEST);
+        ItemStack itemstack = player.getItemBySlot(EquipmentSlot.CHEST);
         //If player
         if(OccultismTags.ELYTRA.contains(itemstack.getItem()) && (itemstack.getDamage() <= 0 || ElytraItem.isUsable(itemstack))){
             return false;

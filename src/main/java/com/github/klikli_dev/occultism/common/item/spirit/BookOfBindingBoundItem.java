@@ -26,14 +26,14 @@ import com.github.klikli_dev.occultism.api.common.item.IIngredientCopyNBT;
 import com.github.klikli_dev.occultism.api.common.item.IIngredientModifyCraftingResult;
 import com.github.klikli_dev.occultism.util.ItemNBTUtil;
 import com.github.klikli_dev.occultism.util.TextUtil;
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.inventory.CraftingInventory;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.inventory.CraftingContainer;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.level.Level;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -43,7 +43,7 @@ public class BookOfBindingBoundItem extends Item implements IIngredientCopyNBT, 
     //endregion Fields
 
     //region Initialization
-    public BookOfBindingBoundItem(Properties properties) {
+    public BookOfBindingBoundItem(Item.Properties properties) {
         super(properties);
     }
     //endregion Initialization
@@ -51,21 +51,21 @@ public class BookOfBindingBoundItem extends Item implements IIngredientCopyNBT, 
     //region Overrides
 
     @Override
-    public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip,
-                               ITooltipFlag flagIn) {
-        super.addInformation(stack, worldIn, tooltip, flagIn);
-        tooltip.add(new TranslationTextComponent(this.getTranslationKey() + ".tooltip",
+    public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip,
+                               TooltipFlag flagIn) {
+        super.appendHoverText(stack, worldIn, tooltip, flagIn);
+        tooltip.add(new TranslatableComponent(this.getDescriptionId() + ".tooltip",
                 TextUtil.formatDemonName(ItemNBTUtil.getBoundSpiritName(stack))));
     }
 
     @Override
-    public boolean shouldCopyNBT(ItemStack itemStack, IRecipe recipe, CraftingInventory inventory) {
+    public boolean shouldCopyNBT(ItemStack itemStack, Recipe recipe, CraftingContainer inventory) {
         //only copy over name to book of calling
-        return recipe.getRecipeOutput().getItem() instanceof BookOfCallingItem;
+        return recipe.getResultItem().getItem() instanceof BookOfCallingItem;
     }
 
     @Override
-    public void modifyResult(IRecipe recipe, CraftingInventory inventory, ItemStack result) {
+    public void modifyResult(Recipe recipe, CraftingContainer inventory, ItemStack result) {
         ItemNBTUtil.generateBoundSpiritName(result);
     }
     //endregion Overrides

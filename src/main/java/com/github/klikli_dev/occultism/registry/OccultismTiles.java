@@ -24,36 +24,36 @@ package com.github.klikli_dev.occultism.registry;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.tile.*;
-import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.BlockEntity.BlockEntityType;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class OccultismTiles {
     //region Fields
-    public static final DeferredRegister<TileEntityType<?>> TILES = DeferredRegister.create(
+    public static final DeferredRegister<BlockEntityType<?>> TILES = DeferredRegister.create(
             ForgeRegistries.TILE_ENTITIES, Occultism.MODID);
 
-    public static final RegistryObject<TileEntityType<StorageControllerTileEntity>> STORAGE_CONTROLLER = TILES.register(
-            "storage_controller", () -> TileEntityType.Builder.create(StorageControllerTileEntity::new,
+    public static final RegistryObject<BlockEntityType<StorageControllerBlockEntity>> STORAGE_CONTROLLER = TILES.register(
+            "storage_controller", () -> BlockEntityType.Builder.create(StorageControllerBlockEntity::new,
                     OccultismBlocks.STORAGE_CONTROLLER.get()).build(null));
 
-    public static final RegistryObject<TileEntityType<StableWormholeTileEntity>> STABLE_WORMHOLE = TILES.register(
-            "stable_wormhole", () -> TileEntityType.Builder.create(StableWormholeTileEntity::new,
+    public static final RegistryObject<BlockEntityType<StableWormholeBlockEntity>> STABLE_WORMHOLE = TILES.register(
+            "stable_wormhole", () -> BlockEntityType.Builder.create(StableWormholeBlockEntity::new,
                     OccultismBlocks.STABLE_WORMHOLE.get()).build(null));
 
-    public static final RegistryObject<TileEntityType<SacrificialBowlTileEntity>> SACRIFICIAL_BOWL = TILES.register(
-            "sacrificial_bowl", () -> TileEntityType.Builder.create(SacrificialBowlTileEntity::new,
+    public static final RegistryObject<BlockEntityType<SacrificialBowlBlockEntity>> SACRIFICIAL_BOWL = TILES.register(
+            "sacrificial_bowl", () -> BlockEntityType.Builder.create(SacrificialBowlBlockEntity::new,
                     OccultismBlocks.SACRIFICIAL_BOWL.get()).build(null));
 
-    public static final RegistryObject<TileEntityType<GoldenSacrificialBowlTileEntity>> GOLDEN_SACRIFICIAL_BOWL =
+    public static final RegistryObject<BlockEntityType<GoldenSacrificialBowlBlockEntity>> GOLDEN_SACRIFICIAL_BOWL =
             TILES.register(
-                    "golden_sacrificial_bowl", () -> TileEntityType.Builder.create(GoldenSacrificialBowlTileEntity::new,
+                    "golden_sacrificial_bowl", () -> BlockEntityType.Builder.create(GoldenSacrificialBowlBlockEntity::new,
                             OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL.get()).build(null));
 
-    public static final RegistryObject<TileEntityType<DimensionalMineshaftTileEntity>> DIMENSIONAL_MINESHAFT =
+    public static final RegistryObject<BlockEntityType<DimensionalMineshaftBlockEntity>> DIMENSIONAL_MINESHAFT =
             TILES.register(
-                    "dimensional_mineshaft", () -> TileEntityType.Builder.create(DimensionalMineshaftTileEntity::new,
+                    "dimensional_mineshaft", () -> BlockEntityType.Builder.create(DimensionalMineshaftBlockEntity::new,
                             OccultismBlocks.DIMENSIONAL_MINESHAFT.get()).build(null));
 
     //endregion Fields

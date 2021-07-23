@@ -22,14 +22,14 @@
 
 package com.github.klikli_dev.occultism.common.container;
 
-import com.github.klikli_dev.occultism.common.tile.DimensionalMineshaftTileEntity;
+import com.github.klikli_dev.occultism.common.tile.DimensionalMineshaftBlockEntity;
 import com.github.klikli_dev.occultism.exceptions.ItemHandlerMissingException;
 import com.github.klikli_dev.occultism.registry.OccultismContainers;
 import com.github.klikli_dev.occultism.registry.OccultismRecipes;
 import com.github.klikli_dev.occultism.util.RecipeUtil;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.container.Container;
+import net.minecraft.entity.player.Player;
+import net.minecraft.entity.player.Inventory;
+import net.minecraft.inventory.container.AbstractContainerMenu;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.RecipeManager;
@@ -37,18 +37,18 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.SlotItemHandler;
 
-public class DimensionalMineshaftContainer extends Container {
+public class DimensionalMineshaftContainer extends AbstractContainerMenu {
 
     //region Fields
     public ItemStackHandler inputHandler;
     public ItemStackHandler outputHandler;
-    public DimensionalMineshaftTileEntity otherworldMiner;
-    public PlayerInventory playerInventory;
+    public DimensionalMineshaftBlockEntity otherworldMiner;
+    public Inventory playerInventory;
     //endregion Fields
 
     //region Initialization
-    public DimensionalMineshaftContainer(int id, PlayerInventory playerInventory,
-                                         DimensionalMineshaftTileEntity otherworldMiner) {
+    public DimensionalMineshaftContainer(int id, Inventory playerInventory,
+                                         DimensionalMineshaftBlockEntity otherworldMiner) {
         super(OccultismContainers.OTHERWORLD_MINER.get(), id);
         this.playerInventory = playerInventory;
         this.otherworldMiner = otherworldMiner;
@@ -63,40 +63,40 @@ public class DimensionalMineshaftContainer extends Container {
 
     //region Overrides
     @Override
-    public boolean canInteractWith(PlayerEntity player) {
+    public boolean stillValid(Player player) {
         return player.getDistanceSq(this.otherworldMiner.getPos().getX() + 0.5D,
                 this.otherworldMiner.getPos().getY() + 0.5D,
                 this.otherworldMiner.getPos().getZ() + 0.5D) <= 64.0D;
     }
 
     @Override
-    public ItemStack transferStackInSlot(PlayerEntity playerIn, int index) {
+    public ItemStack quickMoveStack(Player playerIn, int index) {
         ItemStack itemstack = ItemStack.EMPTY;
-        Slot slot = this.inventorySlots.get(index);
-        if (slot != null && slot.getHasStack()) {
+        Slot slot = this.slots.get(index);
+        if (slot != null && slot.hasItem()) {
             ItemStack itemstack1 = slot.getStack();
             itemstack = itemstack1.copy();
             if (index < this.outputHandler.getSlots()) {
                 //+1 because we have the input handler slot after the output hander slots
-                if (!this.mergeItemStack(itemstack1, this.outputHandler.getSlots() + 1, this.inventorySlots.size(), true)) {
+                if (!this.moveItemStackTo(itemstack1, this.outputHandler.getSlots() + 1, this.slots.size(), true)) {
                     return ItemStack.EMPTY;
                 }
             }
             //input handler slot is exactly at last output handler slot + 1
             else if(index == this.outputHandler.getSlots()){
-                if (!this.mergeItemStack(itemstack1, this.outputHandler.getSlots() + 1, this.inventorySlots.size(), true)) {
+                if (!this.moveItemStackTo(itemstack1, this.outputHandler.getSlots() + 1, this.slots.size(), true)) {
                     return ItemStack.EMPTY;
                 }
             }
             //+1 because we are actually only interested in inserting in the input handler. Could even start at the end index instead of 0.
-            else if (!this.mergeItemStack(itemstack1,0, this.outputHandler.getSlots() + 1, false)) {
+            else if (!this.moveItemStackTo(itemstack1,0, this.outputHandler.getSlots() + 1, false)) {
                 return ItemStack.EMPTY;
             }
 
             if (itemstack1.isEmpty()) {
                 slot.putStack(ItemStack.EMPTY);
             } else {
-                slot.onSlotChanged();
+                slot.setChanged();
             }
         }
 
@@ -106,7 +106,7 @@ public class DimensionalMineshaftContainer extends Container {
     //endregion Overrides
 
     //region Methods
-    protected void setupPlayerInventorySlots(PlayerEntity player) {
+    protected void setupPlayerInventorySlots(Player player) {
         int playerInventoryTop = 84;
         int playerInventoryLeft = 8;
 
@@ -116,7 +116,7 @@ public class DimensionalMineshaftContainer extends Container {
                         playerInventoryTop + i * 18));
     }
 
-    protected void setupPlayerHotbar(PlayerEntity player) {
+    protected void setupPlayerHotbar(Player player) {
         int hotbarTop = 142;
         int hotbarLeft = 8;
         for (int i = 0; i < 9; i++)
@@ -151,8 +151,8 @@ public class DimensionalMineshaftContainer extends Container {
         //endregion Initialization
 
         //region Overrides
-        public boolean isItemValid(ItemStack stack) {
-            RecipeManager recipeManager = DimensionalMineshaftContainer.this.otherworldMiner.getWorld().getRecipeManager();
+        public boolean mayPlace(ItemStack stack) {
+            RecipeManager recipeManager = DimensionalMineshaftContainer.this.otherworldMiner.getLevel().getRecipeManager();
             return RecipeUtil.isValidIngredient(recipeManager, OccultismRecipes.MINER_TYPE.get(), stack);
         }
         //endregion Overrides
@@ -166,7 +166,7 @@ public class DimensionalMineshaftContainer extends Container {
         //endregion Initialization
 
         //region Overrides
-        public boolean isItemValid(ItemStack stack) {
+        public boolean mayPlace(ItemStack stack) {
             return false;
         }
         //endregion Overrides

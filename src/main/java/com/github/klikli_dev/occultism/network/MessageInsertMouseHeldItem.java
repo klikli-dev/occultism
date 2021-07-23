@@ -25,9 +25,9 @@ package com.github.klikli_dev.occultism.network;
 import com.github.klikli_dev.occultism.api.common.container.IStorageControllerContainer;
 import com.github.klikli_dev.occultism.api.common.tile.IStorageController;
 import com.github.klikli_dev.occultism.util.InputUtil;
-import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.entity.player.ServerPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.fml.network.NetworkEvent;
 import net.minecraftforge.items.ItemHandlerHelper;
@@ -43,7 +43,7 @@ public class MessageInsertMouseHeldItem extends MessageBase {
     //region Initialization
 
 
-    public MessageInsertMouseHeldItem(PacketBuffer buf) {
+    public MessageInsertMouseHeldItem(FriendlyByteBuf buf) {
         this.decode(buf);
     }
 
@@ -56,7 +56,7 @@ public class MessageInsertMouseHeldItem extends MessageBase {
 
 
     @Override
-    public void onServerReceived(MinecraftServer minecraftServer, ServerPlayerEntity player,
+    public void onServerReceived(MinecraftServer minecraftServer, ServerPlayer player,
                                  NetworkEvent.Context context) {
         if (player.openContainer instanceof IStorageControllerContainer) {
             IStorageController storageController = ((IStorageControllerContainer) player.openContainer)
@@ -97,12 +97,12 @@ public class MessageInsertMouseHeldItem extends MessageBase {
     }
 
     @Override
-    public void encode(PacketBuffer buf) {
+    public void encode(FriendlyByteBuf buf) {
         buf.writeInt(this.mouseButton);
     }
 
     @Override
-    public void decode(PacketBuffer buf) {
+    public void decode(FriendlyByteBuf buf) {
         this.mouseButton = buf.readInt();
     }
     //endregion Overrides

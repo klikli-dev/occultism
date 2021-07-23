@@ -25,8 +25,8 @@ package com.github.klikli_dev.occultism.network;
 
 import com.github.klikli_dev.occultism.api.common.container.IStorageControllerContainer;
 import com.github.klikli_dev.occultism.api.common.tile.IStorageController;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.entity.player.ServerPlayer;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.fml.network.NetworkEvent;
 
@@ -37,7 +37,7 @@ public class MessageRequestStacks extends MessageBase {
 
     }
 
-    public MessageRequestStacks(PacketBuffer buf) {
+    public MessageRequestStacks(FriendlyByteBuf buf) {
         this.decode(buf);
     }
     //endregion Initialization
@@ -46,7 +46,7 @@ public class MessageRequestStacks extends MessageBase {
     //region Overrides
 
     @Override
-    public void onServerReceived(MinecraftServer minecraftServer, ServerPlayerEntity player,
+    public void onServerReceived(MinecraftServer minecraftServer, ServerPlayer player,
                                  NetworkEvent.Context context) {
         if (player.openContainer instanceof IStorageControllerContainer) {
             IStorageController storageController = ((IStorageControllerContainer) player.openContainer)
@@ -61,12 +61,12 @@ public class MessageRequestStacks extends MessageBase {
     }
 
     @Override
-    public void encode(PacketBuffer buf) {
+    public void encode(FriendlyByteBuf buf) {
 
     }
 
     @Override
-    public void decode(PacketBuffer buf) {
+    public void decode(FriendlyByteBuf buf) {
 
     }
     //endregion Overrides

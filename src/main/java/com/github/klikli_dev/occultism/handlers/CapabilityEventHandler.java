@@ -29,8 +29,8 @@ import com.github.klikli_dev.occultism.network.MessageSetJumps;
 import com.github.klikli_dev.occultism.network.OccultismPackets;
 import com.github.klikli_dev.occultism.registry.OccultismCapabilities;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.entity.player.Player;
+import net.minecraft.entity.player.ServerPlayer;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
@@ -52,8 +52,8 @@ public class CapabilityEventHandler {
 
     @SubscribeEvent
     public static void onEntityJoinWorld(final EntityJoinWorldEvent evt) {
-        if (evt.getEntity() instanceof ServerPlayerEntity) {
-            ServerPlayerEntity player = (ServerPlayerEntity) evt.getEntity();
+        if (evt.getEntity() instanceof ServerPlayer) {
+            ServerPlayer player = (ServerPlayer) evt.getEntity();
             int jumps = player.getCapability(OccultismCapabilities.DOUBLE_JUMP).map(DoubleJumpCapability::getJumps).orElse(0);
             if (jumps > 0) {
                 OccultismPackets.sendTo(player, new MessageSetJumps(jumps));
@@ -63,7 +63,7 @@ public class CapabilityEventHandler {
 
     @SubscribeEvent
     public static void onEntityConstructing(final AttachCapabilitiesEvent<Entity> evt) {
-        if (evt.getObject() instanceof PlayerEntity) {
+        if (evt.getObject() instanceof Player) {
             if (!evt.getObject().getCapability(OccultismCapabilities.DOUBLE_JUMP).isPresent()) {
                 evt.addCapability(OccultismCapabilities.DOUBLE_JUMP_ID, new DoubleJumpCapability.Dispatcher());
             }

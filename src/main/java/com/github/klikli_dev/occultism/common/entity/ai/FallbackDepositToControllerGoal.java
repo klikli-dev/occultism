@@ -25,11 +25,11 @@ package com.github.klikli_dev.occultism.common.entity.ai;
 import com.github.klikli_dev.occultism.api.common.tile.IStorageControllerProxy;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.github.klikli_dev.occultism.common.job.ManageMachineJob;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.BlockEntity.BlockEntity;
 import net.minecraft.util.Direction;
-import net.minecraft.util.Hand;
+import net.minecraft.util.InteractionHand;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.level.Level;
 
 import java.util.ArrayList;
 import java.util.EnumSet;
@@ -69,7 +69,7 @@ public class FallbackDepositToControllerGoal extends PausableGoal {
             return false;
 
         //if we are holding something but have no deposit location we can execute this
-        return !this.isPaused() && !this.entity.getHeldItem(Hand.MAIN_HAND).isEmpty() &&
+        return !this.isPaused() && !this.entity.getHeldItem(InteractionHand.MAIN_HAND).isEmpty() &&
                !this.entity.getDepositPosition().isPresent();
     }
 
@@ -80,7 +80,7 @@ public class FallbackDepositToControllerGoal extends PausableGoal {
 
     @Override
     public void tick() {
-        TileEntity storageProxy = this.findClosestStorageProxy();
+        BlockEntity storageProxy = this.findClosestStorageProxy();
         if (storageProxy != null) {
             this.entity.setDepositPosition(storageProxy.getPos());
             this.entity.setDepositFacing(Direction.UP);
@@ -99,8 +99,8 @@ public class FallbackDepositToControllerGoal extends PausableGoal {
 
     //region Methods
 
-    protected TileEntity findClosestStorageProxy() {
-        World world = this.entity.world;
+    protected BlockEntity findClosestStorageProxy() {
+        Level level = this.entity.level;
         List<BlockPos> allBlocks = new ArrayList<>();
         BlockPos machinePosition = this.job.getManagedMachine().globalPos.getPos();
 
@@ -112,9 +112,9 @@ public class FallbackDepositToControllerGoal extends PausableGoal {
                                               .collect(Collectors.toList());
 
         for (BlockPos pos : searchBlocks) {
-            TileEntity tileEntity = world.getTileEntity(pos);
-            if (tileEntity instanceof IStorageControllerProxy) {
-                IStorageControllerProxy proxy = (IStorageControllerProxy) tileEntity;
+            BlockEntity blockEntity = level.getBlockEntity(pos);
+            if (BlockEntity instanceof IStorageControllerProxy) {
+                IStorageControllerProxy proxy = (IStorageControllerProxy) BlockEntity;
                 if (proxy.getLinkedStorageControllerPosition() != null &&
                     proxy.getLinkedStorageControllerPosition().equals(this.job.getStorageControllerPosition()))
                     allBlocks.add(pos);
@@ -124,7 +124,7 @@ public class FallbackDepositToControllerGoal extends PausableGoal {
         //set closest log as target
         if (!allBlocks.isEmpty()) {
             allBlocks.sort(this.targetSorter);
-            return world.getTileEntity(allBlocks.get(0));
+            return level.getBlockEntity(allBlocks.get(0));
         }
         return null;
     }

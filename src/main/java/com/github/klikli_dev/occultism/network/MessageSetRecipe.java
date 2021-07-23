@@ -25,12 +25,12 @@ import com.github.klikli_dev.occultism.api.common.container.IStorageControllerCo
 import com.github.klikli_dev.occultism.api.common.tile.IStorageController;
 import com.github.klikli_dev.occultism.common.misc.ItemStackComparator;
 import com.github.klikli_dev.occultism.util.StorageUtil;
-import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.entity.player.ServerPlayer;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListNBT;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.fml.network.NetworkEvent;
@@ -45,16 +45,16 @@ import java.util.Map;
 public class MessageSetRecipe extends MessageBase {
 
     //region Fields
-    private CompoundNBT nbt;
+    private CompoundTag nbt;
     private int index = 0;
     //endregion Fields
 
     //region Initialization
-    public MessageSetRecipe(PacketBuffer buf) {
+    public MessageSetRecipe(FriendlyByteBuf buf) {
         this.decode(buf);
     }
 
-    public MessageSetRecipe(CompoundNBT nbt) {
+    public MessageSetRecipe(CompoundTag nbt) {
         this.nbt = nbt;
     }
     //endregion Initialization
@@ -63,7 +63,7 @@ public class MessageSetRecipe extends MessageBase {
 
 
     @Override
-    public void onServerReceived(MinecraftServer minecraftServer, ServerPlayerEntity player,
+    public void onServerReceived(MinecraftServer minecraftServer, ServerPlayer player,
                                  NetworkEvent.Context context) {
         if (!(player.openContainer instanceof IStorageControllerContainer)) {
             return;
@@ -126,13 +126,13 @@ public class MessageSetRecipe extends MessageBase {
     }
 
     @Override
-    public void encode(PacketBuffer buf) {
+    public void encode(FriendlyByteBuf buf) {
         buf.writeCompoundTag(this.nbt);
         buf.writeInt(this.index);
     }
 
     @Override
-    public void decode(PacketBuffer buf) {
+    public void decode(FriendlyByteBuf buf) {
         this.nbt = buf.readCompoundTag();
         this.index = buf.readInt();
     }

@@ -26,20 +26,20 @@ import com.github.klikli_dev.occultism.registry.OccultismTiles;
 import com.github.klikli_dev.occultism.util.StorageUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.inventory.container.INamedContainerProvider;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
+import net.minecraft.entity.player.Player;
+import net.minecraft.entity.player.ServerPlayer;
+import net.minecraft.inventory.container.MenuProvider;
+import net.minecraft.BlockEntity.BlockEntity;
+import net.minecraft.util.InteractionResult;
+import net.minecraft.util.InteractionHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.shapes.IBooleanFunction;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.World;
+import net.minecraft.level.IBlockReader;
+import net.minecraft.level.Level;
 import net.minecraftforge.fml.network.NetworkHooks;
 
 import javax.annotation.Nullable;
@@ -80,9 +80,9 @@ public class DimensionalMineshaftBlock extends Block {
         return SHAPE;
     }
 
-    public void onReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
+    public void onReplaced(BlockState state, Level worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
         if (state.getBlock() != newState.getBlock()) {
-            TileEntity tile = worldIn.getTileEntity(pos);
+            BlockEntity tile = worldIn.getBlockEntity(pos);
             if(tile != null) {
                 StorageUtil.dropInventoryItems(tile);
             }
@@ -91,25 +91,25 @@ public class DimensionalMineshaftBlock extends Block {
     }
 
     @Override
-    public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player,
-                                             Hand hand, BlockRayTraceResult hit) {
-        if (!world.isRemote) {
-            TileEntity tileEntity = world.getTileEntity(pos);
-            if (tileEntity instanceof INamedContainerProvider) {
-                NetworkHooks.openGui((ServerPlayerEntity) player, (INamedContainerProvider) tileEntity, pos);
+    public InteractionResult onBlockActivated(BlockState state, Level level, BlockPos pos, Player player,
+                                             InteractionHand hand, BlockRayTraceResult hit) {
+        if (!level.isClientSide) {
+            BlockEntity blockEntity = level.getBlockEntity(pos);
+            if (BlockEntity instanceof MenuProvider) {
+                NetworkHooks.openGui((ServerPlayer) player, (MenuProvider) BlockEntity, pos);
             }
         }
-        return ActionResultType.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 
     @Override
-    public boolean hasTileEntity(BlockState state) {
+    public boolean hasBlockEntity(BlockState state) {
         return true;
     }
 
     @Nullable
     @Override
-    public TileEntity createTileEntity(BlockState state, IBlockReader world) {
+    public BlockEntity createBlockEntity(BlockState state, IBlockReader level) {
         return OccultismTiles.DIMENSIONAL_MINESHAFT.get().create();
     }
     //endregion Overrides

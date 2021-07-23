@@ -26,8 +26,8 @@ import com.github.klikli_dev.occultism.api.client.gui.IStorageControllerGui;
 import com.github.klikli_dev.occultism.api.common.data.GlobalBlockPos;
 import com.github.klikli_dev.occultism.api.common.data.MachineReference;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.entity.player.Player;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.network.NetworkEvent;
@@ -47,7 +47,7 @@ public class MessageUpdateLinkedMachines extends MessageBase {
 
     //region Initialization
 
-    public MessageUpdateLinkedMachines(PacketBuffer buf) {
+    public MessageUpdateLinkedMachines(FriendlyByteBuf buf) {
         this.decode(buf);
     }
 
@@ -64,9 +64,9 @@ public class MessageUpdateLinkedMachines extends MessageBase {
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public void onClientReceived(Minecraft minecraft, PlayerEntity player, NetworkEvent.Context context) {
-        if(minecraft.currentScreen instanceof IStorageControllerGui){
-            IStorageControllerGui gui = (IStorageControllerGui) minecraft.currentScreen;
+    public void onClientReceived(Minecraft minecraft, Player player, NetworkEvent.Context context) {
+        if(minecraft.screen instanceof IStorageControllerGui){
+            IStorageControllerGui gui = (IStorageControllerGui) minecraft.screen;
             if (gui != null) {
                 gui.setLinkedMachines(this.linkedMachines);
             }
@@ -74,7 +74,7 @@ public class MessageUpdateLinkedMachines extends MessageBase {
     }
 
     @Override
-    public void encode(PacketBuffer buf) {
+    public void encode(FriendlyByteBuf buf) {
         buf.writeInt(this.linkedMachines.size());
         for (MachineReference machineReference : this.linkedMachines) {
             machineReference.encode(buf);
@@ -82,7 +82,7 @@ public class MessageUpdateLinkedMachines extends MessageBase {
     }
 
     @Override
-    public void decode(PacketBuffer buf) {
+    public void decode(FriendlyByteBuf buf) {
         int linkedMachinesSize = buf.readInt();
         this.linkedMachines = new ArrayList<>(linkedMachinesSize);
 

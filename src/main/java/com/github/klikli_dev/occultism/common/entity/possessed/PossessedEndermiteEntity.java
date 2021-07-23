@@ -25,12 +25,12 @@ package com.github.klikli_dev.occultism.common.entity.possessed;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.monster.EndermiteEntity;
-import net.minecraft.world.World;
+import net.minecraft.level.Level;
 
 public class PossessedEndermiteEntity extends EndermiteEntity {
     //region Initialization
     public PossessedEndermiteEntity(EntityType<? extends EndermiteEntity> type,
-                                    World worldIn) {
+                                    Level worldIn) {
         super(type, worldIn);
     }
     //endregion Initialization

@@ -31,11 +31,11 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
+import net.minecraft.level.Level;
 import net.minecraftforge.items.wrapper.RecipeWrapper;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
@@ -63,13 +63,13 @@ public class MinerRecipe implements IRecipe<RecipeWrapper> {
 
     //region Overrides
     @Override
-    public boolean matches(RecipeWrapper inv, World world) {
+    public boolean matches(RecipeWrapper inv, Level level) {
         return this.input.test(inv.getStackInSlot(0));
     }
 
     @Override
     public ItemStack getCraftingResult(RecipeWrapper inv) {
-        return this.getRecipeOutput().copy();
+        return this.getResultItem().copy();
     }
 
     @Override
@@ -79,7 +79,7 @@ public class MinerRecipe implements IRecipe<RecipeWrapper> {
     }
 
     @Override
-    public ItemStack getRecipeOutput() {
+    public ItemStack getResultItem() {
         return this.output.getStack();
     }
 
@@ -121,7 +121,7 @@ public class MinerRecipe implements IRecipe<RecipeWrapper> {
         }
 
         @Override
-        public MinerRecipe read(ResourceLocation recipeId, PacketBuffer buffer) {
+        public MinerRecipe read(ResourceLocation recipeId, FriendlyByteBuf buffer) {
             Ingredient ingredient = Ingredient.read(buffer);
             Ingredient result = Ingredient.read(buffer);
             int weight = buffer.readInt();
@@ -130,7 +130,7 @@ public class MinerRecipe implements IRecipe<RecipeWrapper> {
         }
 
         @Override
-        public void write(PacketBuffer buffer, MinerRecipe recipe) {
+        public void write(FriendlyByteBuf buffer, MinerRecipe recipe) {
             recipe.input.write(buffer);
             recipe.output.getIngredient().write(buffer);
             buffer.writeInt(recipe.output.itemWeight);

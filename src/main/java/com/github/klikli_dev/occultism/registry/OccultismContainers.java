@@ -31,63 +31,63 @@ import com.github.klikli_dev.occultism.common.container.storage.StableWormholeCo
 import com.github.klikli_dev.occultism.common.container.storage.StorageControllerContainer;
 import com.github.klikli_dev.occultism.common.container.storage.StorageRemoteContainer;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
-import com.github.klikli_dev.occultism.common.tile.DimensionalMineshaftTileEntity;
-import com.github.klikli_dev.occultism.common.tile.StableWormholeTileEntity;
-import com.github.klikli_dev.occultism.common.tile.StorageControllerTileEntity;
-import net.minecraft.inventory.container.ContainerType;
+import com.github.klikli_dev.occultism.common.tile.DimensionalMineshaftBlockEntity;
+import com.github.klikli_dev.occultism.common.tile.StableWormholeBlockEntity;
+import com.github.klikli_dev.occultism.common.tile.StorageControllerBlockEntity;
+import net.minecraft.world.inventory.MenuType;
 import net.minecraftforge.common.extensions.IForgeContainerType;
-import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class OccultismContainers {
     //region Fields
-    public static final DeferredRegister<ContainerType<?>> CONTAINERS = DeferredRegister.create(
+    public static final DeferredRegister<MenuType<?>> CONTAINERS = DeferredRegister.create(
             ForgeRegistries.CONTAINERS, Occultism.MODID);
 
-    public static final RegistryObject<ContainerType<StorageControllerContainer>> STORAGE_CONTROLLER =
+    public static final RegistryObject<MenuType<StorageControllerContainer>> STORAGE_CONTROLLER =
             CONTAINERS.register("storage_controller",
                     () -> IForgeContainerType
-                                  .create((windowId, inv, data) -> new StorageControllerContainer(windowId, inv,
-                                          (StorageControllerTileEntity) inv.player.world
-                                                                                .getTileEntity(data.readBlockPos()))));
+                            .create((windowId, inv, data) -> new StorageControllerContainer(windowId, inv,
+                                    (StorageControllerBlockEntity) inv.player.level
+                                            .getBlockEntity(data.readBlockPos()))));
 
-    public static final RegistryObject<ContainerType<StableWormholeContainer>> STABLE_WORMHOLE =
+    public static final RegistryObject<MenuType<StableWormholeContainer>> STABLE_WORMHOLE =
             CONTAINERS.register("stable_wormhole",
                     () -> IForgeContainerType
-                                  .create((windowId, inv, data) -> new StableWormholeContainer(windowId, inv,
-                                          (StableWormholeTileEntity) inv.player.world
-                                                                             .getTileEntity(data.readBlockPos()))));
+                            .create((windowId, inv, data) -> new StableWormholeContainer(windowId, inv,
+                                    (StableWormholeBlockEntity) inv.player.level
+                                            .getBlockEntity(data.readBlockPos()))));
 
-    public static final RegistryObject<ContainerType<StorageRemoteContainer>> STORAGE_REMOTE =
+    public static final RegistryObject<MenuType<StorageRemoteContainer>> STORAGE_REMOTE =
             CONTAINERS.register("storage_remote",
                     () -> IForgeContainerType
-                                  .create((windowId, inv, data) -> new StorageRemoteContainer(windowId, inv, data.readVarInt())));
+                            .create((windowId, inv, data) -> new StorageRemoteContainer(windowId, inv, data.readVarInt())));
 
-    public static final RegistryObject<ContainerType<SpiritContainer>> SPIRIT =
+    public static final RegistryObject<MenuType<SpiritContainer>> SPIRIT =
             CONTAINERS.register("spirit",
                     () -> IForgeContainerType
-                                  .create((windowId, inv, data) -> {
-                                      return new SpiritContainer(windowId, inv,
-                                              (SpiritEntity) inv.player.world.getEntityByID(data.readInt()));
-                                  }));
+                            .create((windowId, inv, data) -> {
+                                return new SpiritContainer(windowId, inv,
+                                        (SpiritEntity) inv.player.level.getEntity(data.readInt()));
+                            }));
 
-    public static final RegistryObject<ContainerType<SpiritTransporterContainer>> SPIRIT_TRANSPORTER =
+    public static final RegistryObject<MenuType<SpiritTransporterContainer>> SPIRIT_TRANSPORTER =
             CONTAINERS.register("spirit_transporter",
                     () -> IForgeContainerType
-                                  .create((windowId, inv, data) -> {
-                                      return new SpiritTransporterContainer(windowId, inv,
-                                              (SpiritEntity) inv.player.world.getEntityByID(data.readInt()));
-                                  }));
+                            .create((windowId, inv, data) -> {
+                                return new SpiritTransporterContainer(windowId, inv,
+                                        (SpiritEntity) inv.player.level.getEntity(data.readInt()));
+                            }));
 
-    public static final RegistryObject<ContainerType<DimensionalMineshaftContainer>> OTHERWORLD_MINER =
+    public static final RegistryObject<MenuType<DimensionalMineshaftContainer>> OTHERWORLD_MINER =
             CONTAINERS.register("otherworld_miner",
                     () -> IForgeContainerType
-                                  .create((windowId, inv, data) -> new DimensionalMineshaftContainer(windowId, inv,
-                                          (DimensionalMineshaftTileEntity) inv.player.world.getTileEntity(
-                                                  data.readBlockPos()))));
+                            .create((windowId, inv, data) -> new DimensionalMineshaftContainer(windowId, inv,
+                                    (DimensionalMineshaftBlockEntity) inv.player.level.getBlockEntity(
+                                            data.readBlockPos()))));
 
-    public static final RegistryObject<ContainerType<SatchelContainer>> SATCHEL =
+    public static final RegistryObject<MenuType<SatchelContainer>> SATCHEL =
             CONTAINERS.register("satchel", () -> IForgeContainerType.create(SatchelContainer::createClientContainer));
 
     //endregion Fields

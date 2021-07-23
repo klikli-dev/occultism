@@ -27,11 +27,11 @@ import com.github.klikli_dev.occultism.api.common.data.WorkAreaSize;
 import com.github.klikli_dev.occultism.common.item.spirit.BookOfCallingItem;
 import com.github.klikli_dev.occultism.util.ItemNBTUtil;
 import com.github.klikli_dev.occultism.util.TextUtil;
-import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.entity.player.ServerPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.Hand;
+import net.minecraft.util.InteractionHand;
 import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.fml.network.NetworkEvent;
@@ -43,7 +43,7 @@ public class MessageSetWorkAreaSize extends MessageBase {
     //endregion Fields
 
     //region Initialization
-    public MessageSetWorkAreaSize(PacketBuffer buf) {
+    public MessageSetWorkAreaSize(FriendlyByteBuf buf) {
         this.decode(buf);
     }
 
@@ -55,9 +55,9 @@ public class MessageSetWorkAreaSize extends MessageBase {
     //region Overrides
 
     @Override
-    public void onServerReceived(MinecraftServer minecraftServer, ServerPlayerEntity player,
+    public void onServerReceived(MinecraftServer minecraftServer, ServerPlayer player,
                                  NetworkEvent.Context context) {
-        ItemStack stack = player.getHeldItem(Hand.MAIN_HAND);
+        ItemStack stack = player.getHeldItem(InteractionHand.MAIN_HAND);
         if (stack.getItem() instanceof BookOfCallingItem) {
             ItemNBTUtil.getSpiritEntity(stack).ifPresent(spirit -> {
                 WorkAreaSize workAreaSize = WorkAreaSize.get(this.workAreaSize);
@@ -71,18 +71,18 @@ public class MessageSetWorkAreaSize extends MessageBase {
                         TranslationKeys.BOOK_OF_CALLING_GENERIC +
                         ".message_set_work_area_size",
                         TextUtil.formatDemonName((IFormattableTextComponent) spirit.getName()),
-                        new TranslationTextComponent(workAreaSize.getTranslationKey())), true);
+                        new TranslationTextComponent(workAreaSize.getDescriptionId())), true);
             });
         }
     }
 
     @Override
-    public void encode(PacketBuffer buf) {
+    public void encode(FriendlyByteBuf buf) {
         buf.writeInt(this.workAreaSize);
     }
 
     @Override
-    public void decode(PacketBuffer buf) {
+    public void decode(FriendlyByteBuf buf) {
         this.workAreaSize = buf.readInt();
     }
     //endregion Overrides

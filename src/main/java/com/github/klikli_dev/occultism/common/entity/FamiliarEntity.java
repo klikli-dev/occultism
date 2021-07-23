@@ -37,33 +37,33 @@ import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.network.datasync.DataSerializers;
-import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.datasync.EntityDataAccessor;
+import net.minecraft.network.datasync.EntityDataSerializers;
+import net.minecraft.network.datasync.SynchedEntityData;
 import net.minecraft.pathfinding.PathNodeType;
 import net.minecraft.pathfinding.WalkNodeProcessor;
 import net.minecraft.potion.EffectInstance;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
+import net.minecraft.util.InteractionResult;
+import net.minecraft.util.InteractionHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.World;
+import net.minecraft.level.Level;
 
 public abstract class FamiliarEntity extends CreatureEntity implements IFamiliar {
 
     private static final float MAX_BOOST_DISTANCE = 8;
 
-    private static final DataParameter<Boolean> SITTING = EntityDataManager.createKey(FamiliarEntity.class,
-            DataSerializers.BOOLEAN);
-    private static final DataParameter<Optional<UUID>> OWNER_UNIQUE_ID = EntityDataManager
-            .createKey(FamiliarEntity.class, DataSerializers.OPTIONAL_UNIQUE_ID);
+    private static final EntityDataAccessor<Boolean> SITTING = SynchedEntityData.createKey(FamiliarEntity.class,
+            EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Optional<UUID>> OWNER_UNIQUE_ID = SynchedEntityData
+            .createKey(FamiliarEntity.class, EntityDataSerializers.OPTIONAL_UNIQUE_ID);
 
     private LivingEntity ownerCached;
 
-    public FamiliarEntity(EntityType<? extends FamiliarEntity> type, World worldIn) {
+    public FamiliarEntity(EntityType<? extends FamiliarEntity> type, Level worldIn) {
         super(type, worldIn);
     }
 
@@ -73,8 +73,8 @@ public abstract class FamiliarEntity extends CreatureEntity implements IFamiliar
     }
 
     @Override
-    protected void registerData() {
-        super.registerData();
+    protected void defineSynchedData() {
+        super.defineSynchedData();
         this.dataManager.register(SITTING, false);
         this.dataManager.register(OWNER_UNIQUE_ID, Optional.empty());
     }
@@ -85,20 +85,20 @@ public abstract class FamiliarEntity extends CreatureEntity implements IFamiliar
     }
 
     @Override
-    public void livingTick() {
+    public void aiStep() {
         LivingEntity owner;
-        if (!this.world.isRemote && this.world.getGameTime() % 10 == 0 && (owner = this.getFamiliarOwner()) != null
+        if (!this.level.isClientSide && this.level.getGameTime() % 10 == 0 && (owner = this.getFamiliarOwner()) != null
                 && this.getDistance(owner) < MAX_BOOST_DISTANCE)
             for (EffectInstance effect : this.getFamiliarEffects())
                 owner.addPotionEffect(effect);
 
-        super.livingTick();
+        super.aiStep();
     }
 
     public LivingEntity getOwner() {
         try {
             UUID uuid = this.getOwnerId();
-            return uuid == null ? null : this.world.getPlayerByUuid(uuid);
+            return uuid == null ? null : this.level.getPlayerByUuid(uuid);
         } catch (IllegalArgumentException illegalargumentexception) {
             return null;
         }
@@ -117,17 +117,17 @@ public abstract class FamiliarEntity extends CreatureEntity implements IFamiliar
     }
 
     @Override
-    protected ActionResultType getEntityInteractionResult(PlayerEntity playerIn, Hand hand) {
+    protected InteractionResult getEntityInteractionResult(Player playerIn, InteractionHand hand) {
         ItemStack stack = playerIn.getHeldItem(hand);
         if (stack.getItem() == OccultismItems.FAMILIAR_RING.get()) {
             return stack.interactWithEntity(playerIn, this, hand);
         } else if (stack.getItem() == OccultismItems.DEBUG_WAND.get()) {
             this.setOwnerId(playerIn.getUniqueID());
-            return ActionResultType.func_233537_a_(this.world.isRemote);
+            return InteractionResult.func_233537_a_(this.level.isClientSide);
         } else {
-            if (!this.world.isRemote && this.getFamiliarOwner() == playerIn)
+            if (!this.level.isClientSide && this.getFamiliarOwner() == playerIn)
                 this.setSitting(!this.isSitting());
-            return ActionResultType.func_233537_a_(this.world.isRemote);
+            return InteractionResult.func_233537_a_(this.level.isClientSide);
         }
     }
 
@@ -151,8 +151,8 @@ public abstract class FamiliarEntity extends CreatureEntity implements IFamiliar
     }
 
     @Override
-    public void readAdditional(CompoundNBT compound) {
-        super.readAdditional(compound);
+    public void addAdditionalSaveData(CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
         if (compound.hasUniqueId("owner"))
             this.setOwnerId(compound.getUniqueId("owner"));
         if (compound.contains("isSitting"))
@@ -160,10 +160,10 @@ public abstract class FamiliarEntity extends CreatureEntity implements IFamiliar
     }
 
     @Override
-    public void writeAdditional(CompoundNBT compound) {
-        super.writeAdditional(compound);
+    public void addAdditionalSaveData(CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
         if (this.getOwnerId() != null) {
-            compound.putUniqueId("owner", this.getOwnerId());
+            compound.putUUID("owner", this.getOwnerId());
         }
 
         compound.putBoolean("isSitting", this.isSitting());
@@ -239,9 +239,9 @@ public abstract class FamiliarEntity extends CreatureEntity implements IFamiliar
         }
 
         private boolean tryTeleport(BlockPos pos) {
-            boolean walkable = PathNodeType.WALKABLE == WalkNodeProcessor.getFloorNodeType(this.entity.world,
+            boolean walkable = PathNodeType.WALKABLE == WalkNodeProcessor.getFloorNodeType(this.entity.level,
                     pos.toMutable());
-            boolean noCollision = this.entity.world.hasNoCollisions(this.entity,
+            boolean noCollision = this.entity.level.hasNoCollisions(this.entity,
                     this.entity.getBoundingBox().offset(pos.subtract(this.entity.getPosition())));
             if (walkable && noCollision) {
                 this.entity.setLocationAndAngles(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5,

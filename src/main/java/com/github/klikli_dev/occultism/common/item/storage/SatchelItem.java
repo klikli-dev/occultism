@@ -27,18 +27,18 @@ import com.github.klikli_dev.occultism.common.container.storage.SatchelInventory
 import com.github.klikli_dev.occultism.util.ItemNBTUtil;
 import com.github.klikli_dev.occultism.util.TextUtil;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.entity.player.Player;
+import net.minecraft.entity.player.ServerPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.container.SimpleNamedContainerProvider;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
+import net.minecraft.util.InteractionResult;
+import net.minecraft.util.InteractionHand;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
+import net.minecraft.level.Level;
 import net.minecraftforge.fml.network.NetworkHooks;
 
 import javax.annotation.Nullable;
@@ -53,36 +53,36 @@ public class SatchelItem extends Item {
 
     //region Overrides
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, Hand hand) {
+    public ActionResult<ItemStack> onItemRightClick(Level level, Player player, InteractionHand hand) {
         final ItemStack stack = player.getHeldItem(hand);
 
-        if (!world.isRemote && player instanceof ServerPlayerEntity) {
+        if (!level.isClientSide && player instanceof ServerPlayer) {
             //here we use main hand item as selected slot
-            int selectedSlot = hand == Hand.MAIN_HAND ? player.inventory.currentItem : -1;
+            int selectedSlot = hand == InteractionHand.MAIN_HAND ? player.inventory.currentItem : -1;
 
-            NetworkHooks.openGui((ServerPlayerEntity) player,
+            NetworkHooks.openGui((ServerPlayer) player,
                     new SimpleNamedContainerProvider((id, playerInventory, unused) -> {
                         return new SatchelContainer(id, playerInventory,
-                                this.getInventory((ServerPlayerEntity) player, stack), selectedSlot);
+                                this.getInventory((ServerPlayer) player, stack), selectedSlot);
                     }, stack.getDisplayName()), buffer -> {
                         buffer.writeVarInt(selectedSlot);
                     });
         }
 
-        return new ActionResult<>(ActionResultType.SUCCESS, stack);
+        return new ActionResult<>(InteractionResult.SUCCESS, stack);
     }
     @Override
-    public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip,
+    public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<ITextComponent> tooltip,
                                ITooltipFlag flagIn) {
-        super.addInformation(stack, worldIn, tooltip, flagIn);
-        tooltip.add(new TranslationTextComponent(this.getTranslationKey() + ".tooltip",
+        super.appendHoverText(stack, worldIn, tooltip, flagIn);
+        tooltip.add(new TranslationTextComponent(this.getDescriptionId() + ".tooltip",
                 TextUtil.formatDemonName(ItemNBTUtil.getBoundSpiritName(stack))));
     }
 
     //endregion Overrides
 
     //region Methods
-    public IInventory getInventory(ServerPlayerEntity player, ItemStack stack) {
+    public IInventory getInventory(ServerPlayer player, ItemStack stack) {
         return new SatchelInventory(stack, SatchelContainer.SATCHEL_SIZE);
     }
     //endregion Methods

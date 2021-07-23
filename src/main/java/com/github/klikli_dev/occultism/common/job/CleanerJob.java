@@ -30,16 +30,16 @@ import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.github.klikli_dev.occultism.exceptions.ItemHandlerMissingException;
 import com.github.klikli_dev.occultism.util.StorageUtil;
 import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.INamedContainerProvider;
+import net.minecraft.entity.player.Player;
+import net.minecraft.entity.player.Inventory;
+import net.minecraft.inventory.container.AbstractContainerMenu;
+import net.minecraft.inventory.container.MenuProvider;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.ITextComponent;
 
 import javax.annotation.Nullable;
 
-public class CleanerJob extends SpiritJob implements INamedContainerProvider {
+public class CleanerJob extends SpiritJob implements MenuProvider {
 
     //region Fields
     protected PickupItemsGoal pickupItemsGoal;
@@ -87,7 +87,7 @@ public class CleanerJob extends SpiritJob implements INamedContainerProvider {
 
     @Nullable
     @Override
-    public Container createMenu(int id, PlayerInventory playerInventory, PlayerEntity player) {
+    public AbstractContainerMenu createMenu(int id, Inventory playerInventory, Player player) {
         return new SpiritTransporterContainer(id, playerInventory, this.entity);
     }
     //endregion Overrides

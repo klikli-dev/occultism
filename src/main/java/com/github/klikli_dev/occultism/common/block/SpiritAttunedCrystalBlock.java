@@ -30,9 +30,9 @@ import net.minecraft.util.math.shapes.IBooleanFunction;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorldReader;
-import net.minecraft.world.World;
+import net.minecraft.level.IBlockReader;
+import net.minecraft.level.IWorldReader;
+import net.minecraft.level.Level;
 
 import java.util.stream.Stream;
 
@@ -60,7 +60,7 @@ public class SpiritAttunedCrystalBlock extends Block {
         return SHAPE;
     }
     @Override
-    public void neighborChanged(BlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos,
+    public void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block blockIn, BlockPos fromPos,
                                 boolean isMoving) {
         if (!this.isValidPosition(state, worldIn, pos)) {
             spawnDrops(state, worldIn, pos);

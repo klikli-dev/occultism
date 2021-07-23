@@ -31,15 +31,15 @@ import com.github.klikli_dev.occultism.util.Math3DUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.ChestTileEntity;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.BlockEntity.ChestBlockEntity;
+import net.minecraft.BlockEntity.BlockEntity;
 import net.minecraft.util.Direction;
-import net.minecraft.util.Hand;
+import net.minecraft.util.InteractionHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.level.server.ServerLevel;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
@@ -83,7 +83,7 @@ public class DepositItemsGoal extends PausableGoal {
             return false;
         }
         //nothing to deposit in hand
-        if (this.entity.getHeldItem(Hand.MAIN_HAND).isEmpty()) {
+        if (this.entity.getHeldItem(InteractionHand.MAIN_HAND).isEmpty()) {
             return false;
         }
         this.resetTarget();
@@ -92,7 +92,7 @@ public class DepositItemsGoal extends PausableGoal {
 
     @Override
     public boolean shouldContinueExecuting() {
-        return !this.isPaused() && this.moveTarget != null && !this.entity.getHeldItem(Hand.MAIN_HAND).isEmpty();
+        return !this.isPaused() && this.moveTarget != null && !this.entity.getHeldItem(InteractionHand.MAIN_HAND).isEmpty();
     }
 
     public void resetTask() {
@@ -135,7 +135,7 @@ public class DepositItemsGoal extends PausableGoal {
                         return;
                     }
                     IItemHandler handler = handlerCapability.orElseThrow(ItemHandlerMissingException::new);
-                    ItemStack duplicate = this.entity.getHeldItem(Hand.MAIN_HAND).copy();
+                    ItemStack duplicate = this.entity.getHeldItem(InteractionHand.MAIN_HAND).copy();
 
                     //simulate insertion
                     ItemStack toInsert = ItemHandlerHelper.insertItem(handler, duplicate, true);
@@ -143,7 +143,7 @@ public class DepositItemsGoal extends PausableGoal {
                     if (toInsert.getCount() != duplicate.getCount()) {
                         ItemStack leftover = ItemHandlerHelper.insertItem(handler, duplicate, false);
                         //if we inserted everything
-                        this.entity.setHeldItem(Hand.MAIN_HAND, leftover);
+                        this.entity.setHeldItem(InteractionHand.MAIN_HAND, leftover);
                         if (toInsert.isEmpty()) {
                             this.moveTarget = null;
                             this.resetTask();
@@ -171,13 +171,13 @@ public class DepositItemsGoal extends PausableGoal {
         RayTraceContext context = new RayTraceContext(this.entity.getPositionVec(),
                 Math3DUtil.center(this.moveTarget.getBlockPos()), RayTraceContext.BlockMode.COLLIDER, RayTraceContext.FluidMode.NONE,
                 this.entity);
-        BlockRayTraceResult result = this.entity.world.rayTraceBlocks(context);
+        BlockRayTraceResult result = this.entity.level.rayTraceBlocks(context);
 
         if (result.getType() != BlockRayTraceResult.Type.MISS) {
             BlockPos sidePos = result.getPos();
             BlockPos pos = new BlockPos(result.getHitVec());
-            return this.entity.world.isAirBlock(sidePos) || this.entity.world.isAirBlock(pos) ||
-                    this.entity.world.getTileEntity(pos) == this.entity.world.getTileEntity(this.moveTarget.getBlockPos());
+            return this.entity.level.isAirBlock(sidePos) || this.entity.level.isAirBlock(pos) ||
+                    this.entity.level.getBlockEntity(pos) == this.entity.level.getBlockEntity(this.moveTarget.getBlockPos());
         }
 
         return true;
@@ -191,13 +191,13 @@ public class DepositItemsGoal extends PausableGoal {
      */
     public void toggleChest(IMoveTarget target, boolean open) {
         if (target instanceof BlockPosMoveTarget) {
-            TileEntity tile = this.entity.world.getTileEntity(target.getBlockPos());
-            if (tile instanceof ChestTileEntity) {
-                ChestTileEntity chest = (ChestTileEntity) tile;
+            BlockEntity tile = this.entity.level.getBlockEntity(target.getBlockPos());
+            if (tile instanceof ChestBlockEntity) {
+                ChestBlockEntity chest = (ChestBlockEntity) tile;
                 if (open) {
-                    this.entity.world.addBlockEvent(this.moveTarget.getBlockPos(), chest.getBlockState().getBlock(), 1, 1);
+                    this.entity.level.addBlockEvent(this.moveTarget.getBlockPos(), chest.getBlockState().getBlock(), 1, 1);
                 } else {
-                    this.entity.world.addBlockEvent(this.moveTarget.getBlockPos(), chest.getBlockState().getBlock(), 1, 0);
+                    this.entity.level.addBlockEvent(this.moveTarget.getBlockPos(), chest.getBlockState().getBlock(), 1, 0);
                 }
             }
         }
@@ -207,7 +207,7 @@ public class DepositItemsGoal extends PausableGoal {
         //check a target block
         Optional<BlockPos> targetPos = this.entity.getDepositPosition();
         targetPos.ifPresent((pos) -> {
-            this.moveTarget = new BlockPosMoveTarget(this.entity.world, pos);
+            this.moveTarget = new BlockPosMoveTarget(this.entity.level, pos);
             if (!this.moveTarget.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, this.entity.getDepositFacing())
                     .isPresent()) {
                 //the deposit tile is not valid for depositing, so we disable this to allow exiting this task.
@@ -217,7 +217,7 @@ public class DepositItemsGoal extends PausableGoal {
         //also check a target entity -> its mutually exclusive with block, ensured by spirit entity
         Optional<UUID> targetUUID = this.entity.getDepositEntityUUID();
         targetUUID.ifPresent((uuid) -> {
-            Entity targetEntity = ((ServerWorld) this.entity.world).getEntityByUuid(uuid);
+            Entity targetEntity = ((ServerLevel) this.entity.level).getEntityByUuid(uuid);
             if (targetEntity != null) {
                 this.moveTarget = new EntityMoveTarget(targetEntity);
             } else {

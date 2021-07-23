@@ -34,18 +34,18 @@ import com.github.klikli_dev.occultism.util.TextUtil;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.ActionResultType;
+import net.minecraft.util.InteractionResult;
 import net.minecraft.util.Direction;
-import net.minecraft.util.Hand;
+import net.minecraft.util.InteractionHand;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
+import net.minecraft.level.Level;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
@@ -61,24 +61,24 @@ public class FamiliarRingItem extends Item {
     }
 
     @Override
-    public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip,
+    public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<ITextComponent> tooltip,
             ITooltipFlag flagIn) {
-        super.addInformation(stack, worldIn, tooltip, flagIn);
+        super.appendHoverText(stack, worldIn, tooltip, flagIn);
         if (stack.getOrCreateTag().getBoolean("occupied"))
-            tooltip.add(new TranslationTextComponent(this.getTranslationKey() + ".tooltip",
+            tooltip.add(new TranslationTextComponent(this.getDescriptionId() + ".tooltip",
                     TextUtil.formatDemonName(ItemNBTUtil.getBoundSpiritName(stack))));
     }
 
     @Override
-    public ActionResultType itemInteractionForEntity(ItemStack stack, PlayerEntity playerIn, LivingEntity target,
-            Hand hand) {
-        if (!playerIn.world.isRemote && target instanceof IFamiliar) {
+    public InteractionResult itemInteractionForEntity(ItemStack stack, Player playerIn, LivingEntity target,
+            InteractionHand hand) {
+        if (!playerIn.level.isClientSide && target instanceof IFamiliar) {
             IFamiliar familiar = (IFamiliar) target;
-            if ((familiar.getFamiliarOwner() == playerIn || familiar.getFamiliarOwner() == null) && this.getCurio(stack).captureFamiliar(playerIn.world, familiar)) {
-                CompoundNBT tag = stack.getOrCreateTag();
+            if ((familiar.getFamiliarOwner() == playerIn || familiar.getFamiliarOwner() == null) && this.getCurio(stack).captureFamiliar(playerIn.level, familiar)) {
+                CompoundTag tag = stack.getOrCreateTag();
                 tag.putBoolean("occupied", true);
                 ItemNBTUtil.setBoundSpiritName(stack, familiar.getEntity().getDisplayName().getString());
-                return ActionResultType.CONSUME;
+                return InteractionResult.CONSUME;
             }
         }
         
@@ -86,10 +86,10 @@ public class FamiliarRingItem extends Item {
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
+    public ActionResult<ItemStack> onItemRightClick(Level worldIn, Player playerIn, InteractionHand handIn) {
         ItemStack stack = playerIn.getHeldItem(handIn);
-        if (!playerIn.world.isRemote && this.getCurio(stack).releaseFamiliar(playerIn, worldIn)) {
-            CompoundNBT tag = stack.getOrCreateTag();
+        if (!playerIn.level.isClientSide && this.getCurio(stack).releaseFamiliar(playerIn, worldIn)) {
+            CompoundTag tag = stack.getOrCreateTag();
             tag.putBoolean("occupied", false);
             return ActionResult.resultConsume(stack);
         }
@@ -104,30 +104,30 @@ public class FamiliarRingItem extends Item {
     }
 
     @Override
-    public ICapabilityProvider initCapabilities(ItemStack stack, CompoundNBT nbt) {
+    public ICapabilityProvider initCapabilities(ItemStack stack, CompoundTag nbt) {
         return new Provider();
     }
 
-    private static class Curio implements ICurio, INBTSerializable<CompoundNBT> {
+    private static class Curio implements ICurio, INBTSerializable<CompoundTag> {
         private IFamiliar familiar;
-        private CompoundNBT nbt;
+        private CompoundTag nbt;
 
-        private boolean captureFamiliar(World world, IFamiliar familiar) {
-            if (this.getFamiliar(world) != null)
+        private boolean captureFamiliar(Level level, IFamiliar familiar) {
+            if (this.getFamiliar(level) != null)
                 return false;
             this.setFamiliar(familiar);
-            this.getFamiliar(world).getEntity().remove();
+            this.getFamiliar(level).getEntity().remove();
             return true;
         }
 
-        private boolean releaseFamiliar(PlayerEntity player, World world) {
-            if (this.getFamiliar(world) != null
-                    && !this.getFamiliar(world).getEntity().isAddedToWorld()) {
-                EntityType.loadEntityAndExecute(this.getFamiliar(world).getEntity().serializeNBT(), world, e -> {
+        private boolean releaseFamiliar(Player player, Level level) {
+            if (this.getFamiliar(level) != null
+                    && !this.getFamiliar(level).getEntity().isAddedToWorld()) {
+                EntityType.loadEntityAndExecute(this.getFamiliar(level).getEntity().serializeNBT(), level, e -> {
                     e.setPosition(player.getPosX(), player.getPosY(), player.getPosZ());
                     //on release overwrite owner -> familiar rings can be used to trade familiars.
                     ((IFamiliar)e).setFamiliarOwner(player);
-                    world.addEntity(e);
+                    level.addEntity(e);
                     return e;
                 });
                 this.setFamiliar(null);
@@ -138,13 +138,13 @@ public class FamiliarRingItem extends Item {
 
         @Override
         public void curioTick(String identifier, int index, LivingEntity entity) {
-            World world = entity.world;
-            IFamiliar familiar = this.getFamiliar(world);
+            Level level = entity.level;
+            IFamiliar familiar = this.getFamiliar(level);
             if (familiar == null || familiar.getFamiliarOwner() != entity)
                 return;
             
             // Apply effects
-            if (!world.isRemote && entity.ticksExisted % 20 == 0)
+            if (!level.isClientSide && entity.ticksExisted % 20 == 0)
                 for (EffectInstance effect : familiar.getFamiliarEffects())
                     familiar.getFamiliarOwner().addPotionEffect(effect);
             
@@ -153,8 +153,8 @@ public class FamiliarRingItem extends Item {
         }
 
         @Override
-        public CompoundNBT serializeNBT() {
-            CompoundNBT compound = new CompoundNBT();
+        public CompoundTag serializeNBT() {
+            CompoundTag compound = new CompoundTag();
             compound.putBoolean("hasFamiliar", this.familiar != null || this.nbt != null);
             if (this.familiar != null)
                 compound.put("familiar", this.familiar.getEntity().serializeNBT());
@@ -165,18 +165,18 @@ public class FamiliarRingItem extends Item {
         }
 
         @Override
-        public void deserializeNBT(CompoundNBT compound) {
+        public void deserializeNBT(CompoundTag compound) {
             if (compound.getBoolean("hasFamiliar"))
                 this.nbt = compound.getCompound("familiar");
         }
 
         // Need this because we cannot deserialize the familiar in deserializeNBT()
-        // because we have no world at that point
-        private IFamiliar getFamiliar(World world) {
+        // because we have no level at that point
+        private IFamiliar getFamiliar(Level level) {
             if (this.familiar != null)
                 return this.familiar;
             if (this.nbt != null) {
-                this.familiar = (IFamiliar) EntityType.loadEntityAndExecute(this.nbt, world, Function.identity());
+                this.familiar = (IFamiliar) EntityType.loadEntityAndExecute(this.nbt, level, Function.identity());
                 this.nbt = null;
             }
 
@@ -190,7 +190,7 @@ public class FamiliarRingItem extends Item {
 
     }
 
-    private static class Provider implements ICapabilitySerializable<CompoundNBT> {
+    private static class Provider implements ICapabilitySerializable<CompoundTag> {
 
         private Curio curio;
         private LazyOptional<ICurio> instance = LazyOptional.of(this::get);
@@ -201,12 +201,12 @@ public class FamiliarRingItem extends Item {
         }
 
         @Override
-        public CompoundNBT serializeNBT() {
+        public CompoundTag serializeNBT() {
             return this.get().serializeNBT();
         }
 
         @Override
-        public void deserializeNBT(CompoundNBT nbt) {
+        public void deserializeNBT(CompoundTag nbt) {
             this.get().deserializeNBT(nbt);
         }
 

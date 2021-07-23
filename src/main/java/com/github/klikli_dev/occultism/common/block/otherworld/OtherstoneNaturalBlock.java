@@ -28,13 +28,13 @@ import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateContainer;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.BlockEntity.BlockEntity;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.World;
+import net.minecraft.level.IBlockReader;
+import net.minecraft.level.Level;
 
 import javax.annotation.Nullable;
 
@@ -63,14 +63,14 @@ public class OtherstoneNaturalBlock extends Block implements IOtherworldBlock {
     }
 
     @Override
-    public void harvestBlock(World worldIn, PlayerEntity player, BlockPos pos, BlockState state,
-                             @Nullable TileEntity te, ItemStack stack) {
+    public void harvestBlock(Level worldIn, Player player, BlockPos pos, BlockState state,
+                             @Nullable BlockEntity te, ItemStack stack) {
         super.harvestBlock(worldIn, player, pos, IOtherworldBlock.super.getHarvestState(player, state, stack), te,
                 stack);
     }
 
     @Override
-    public String getTranslationKey() {
+    public String getDescriptionId() {
         return "block.minecraft.andesite";
     }
 

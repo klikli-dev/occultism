@@ -20,10 +20,10 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.github.klikli_dev.occultism.common.world.cave;
+package com.github.klikli_dev.occultism.common.level.cave;
 
-import com.github.klikli_dev.occultism.common.world.multichunk.IMultiChunkSubFeature;
-import com.github.klikli_dev.occultism.common.world.multichunk.MultiChunkFeatureConfig;
+import com.github.klikli_dev.occultism.common.level.multichunk.IMultiChunkSubFeature;
+import com.github.klikli_dev.occultism.common.level.multichunk.MultiChunkFeatureConfig;
 import com.github.klikli_dev.occultism.util.Math3DUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -33,9 +33,9 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.ISeedReader;
-import net.minecraft.world.IWorld;
-import net.minecraft.world.gen.ChunkGenerator;
+import net.minecraft.level.ISeedReader;
+import net.minecraft.level.IWorld;
+import net.minecraft.level.gen.ChunkGenerator;
 
 import java.util.*;
 
@@ -113,7 +113,7 @@ public class SphericalCaveSubFeature implements IMultiChunkSubFeature {
     //endregion Overrides
 
     //region Methods
-    protected Sphere generateSphere(IWorld world, Random rand, BlockPos position, int radius, AxisAlignedBB bounds) {
+    protected Sphere generateSphere(IWorld level, Random rand, BlockPos position, int radius, AxisAlignedBB bounds) {
         return new Sphere(position, radius);
     }
 
@@ -128,7 +128,7 @@ public class SphericalCaveSubFeature implements IMultiChunkSubFeature {
         BlockPos.getAllInBox(min, max).forEach(blockPos -> {
             if (blockPos.distanceSq(center) <= (double) (f * f * MathHelper.clamp(rand.nextFloat(), 0.75F, 1.0F))) {
                 BlockState currentState = reader.getBlockState(blockPos);
-                if (!currentState.hasTileEntity() && currentState.getBlock() != Blocks.BEDROCK) {
+                if (!currentState.hasBlockEntity() && currentState.getBlock() != Blocks.BEDROCK) {
                     reader.setBlockState(blockPos, Blocks.CAVE_AIR.getDefaultState(), 2);
                 }
             }

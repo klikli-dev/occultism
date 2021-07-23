@@ -25,20 +25,20 @@ package com.github.klikli_dev.occultism.common.entity.spirit;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.world.World;
+import net.minecraft.level.Level;
 
 public class MaridEntity extends SpiritEntity {
 
     //region Initialization
-    public MaridEntity(EntityType<? extends SpiritEntity> type, World world) {
-        super(type, world);
+    public MaridEntity(EntityType<? extends SpiritEntity> type, Level level) {
+        super(type, level);
         this.setSpiritMaxAge(60 * 60 * 24 * 9); //9 day default for marid.
     }
     //endregion Initialization
 
     //region Static Methods
     public static AttributeModifierMap.MutableAttribute registerAttributes() {
-        return SpiritEntity.registerAttributes()
+        return SpiritEntity.createLivingAttributes()
                        .createMutableAttribute(Attributes.ATTACK_DAMAGE, 16.0)
                        .createMutableAttribute(Attributes.ATTACK_SPEED, 8.0)
                        .createMutableAttribute(Attributes.MAX_HEALTH, 300.0)

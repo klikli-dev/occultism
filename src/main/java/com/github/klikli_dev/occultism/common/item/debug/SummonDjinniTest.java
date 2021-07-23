@@ -28,12 +28,12 @@ import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.registry.OccultismSpiritJobs;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.entity.player.ServerPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemUseContext;
-import net.minecraft.util.ActionResultType;
+import net.minecraft.util.InteractionResult;
 import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.level.server.ServerWorld;
 
 public class SummonDjinniTest extends Item {
 
@@ -45,11 +45,11 @@ public class SummonDjinniTest extends Item {
 
     //region Overrides
     @Override
-    public ActionResultType onItemUse(ItemUseContext context) {
-        if (!context.getWorld().isRemote) {
+    public InteractionResult onItemUse(ItemUseContext context) {
+        if (!context.getLevel().isClientSide) {
 
-            DjinniEntity spirit = OccultismEntities.DJINNI.get().create(context.getWorld());
-            spirit.onInitialSpawn((ServerWorld) context.getWorld(), context.getWorld().getDifficultyForLocation(context.getPos()),
+            DjinniEntity spirit = OccultismEntities.DJINNI.get().create(context.getLevel());
+            spirit.onInitialSpawn((ServerWorld) context.getLevel(), context.getLevel().getDifficultyForLocation(context.getPos()),
                     SpawnReason.SPAWN_EGG, null, null);
             spirit.setTamedBy(context.getPlayer());
             spirit.setPosition(context.getPos().getX(), context.getPos().getY() + 1.0f, context.getPos().getZ());
@@ -62,12 +62,12 @@ public class SummonDjinniTest extends Item {
             spirit.setSpiritMaxAge(30);
 
             //notify players nearby and spawn
-            for (ServerPlayerEntity player : context.getWorld().getEntitiesWithinAABB(ServerPlayerEntity.class,
+            for (ServerPlayer player : context.getLevel().getEntitiesWithinAABB(ServerPlayer.class,
                     spirit.getBoundingBox().grow(50)))
                 CriteriaTriggers.SUMMONED_ENTITY.trigger(player, spirit);
-            context.getWorld().addEntity(spirit);
+            context.getLevel().addEntity(spirit);
         }
-        return ActionResultType.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 
     //endregion Overrides

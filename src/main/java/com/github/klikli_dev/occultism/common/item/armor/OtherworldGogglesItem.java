@@ -24,7 +24,7 @@ package com.github.klikli_dev.occultism.common.item.armor;
 
 import com.github.klikli_dev.occultism.Occultism;
 import net.minecraft.entity.Entity;
-import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.inventory.EquipmentSlot;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.IArmorMaterial;
 import net.minecraft.item.ItemStack;
@@ -36,7 +36,7 @@ public class OtherworldGogglesItem extends ArmorItem {
     public static final String TEXTURE = Occultism.MODID + ":textures/item/armor/otherworld_goggles_model.png";
 
     public OtherworldGogglesItem(IArmorMaterial materialIn,
-                                 EquipmentSlotType slot,
+                                 EquipmentSlot slot,
                                  Properties builder) {
         super(materialIn, slot, builder);
     }
@@ -48,7 +48,7 @@ public class OtherworldGogglesItem extends ArmorItem {
 
     @Nullable
     @Override
-    public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlotType slot, String type) {
+    public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
         return TEXTURE;
     }
 }

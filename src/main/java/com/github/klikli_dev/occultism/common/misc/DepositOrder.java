@@ -22,10 +22,10 @@
 
 package com.github.klikli_dev.occultism.common.misc;
 
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraftforge.common.util.INBTSerializable;
 
-public class DepositOrder implements INBTSerializable<CompoundNBT> {
+public class DepositOrder implements INBTSerializable<CompoundTag> {
 
     //region Fields
     public ItemStackComparator comparator;
@@ -43,7 +43,7 @@ public class DepositOrder implements INBTSerializable<CompoundNBT> {
     //endregion Initialization
 
     //region Static Methods
-    public static DepositOrder from(CompoundNBT compound) {
+    public static DepositOrder from(CompoundTag compound) {
         DepositOrder depositOrder = new DepositOrder();
         depositOrder.deserializeNBT(compound);
         return depositOrder;
@@ -51,24 +51,24 @@ public class DepositOrder implements INBTSerializable<CompoundNBT> {
     //endregion Static Methods
 
     //region Methods
-    public CompoundNBT writeToNBT(CompoundNBT compound) {
+    public CompoundTag writeToNBT(CompoundTag compound) {
         compound.put("comparator", this.comparator.serializeNBT());
         compound.putInt("amount", this.amount);
         return compound;
     }
 
-    public void readFromNBT(CompoundNBT compound) {
+    public void readFromNBT(CompoundTag compound) {
         this.comparator = ItemStackComparator.from(compound.getCompound("comparator"));
         this.amount = compound.getInt("amount");
     }
 
     @Override
-    public CompoundNBT serializeNBT() {
-        return this.writeToNBT(new CompoundNBT());
+    public CompoundTag serializeNBT() {
+        return this.writeToNBT(new CompoundTag());
     }
 
     @Override
-    public void deserializeNBT(CompoundNBT nbt) {
+    public void deserializeNBT(CompoundTag nbt) {
         this.readFromNBT(nbt);
     }
     //endregion Methods

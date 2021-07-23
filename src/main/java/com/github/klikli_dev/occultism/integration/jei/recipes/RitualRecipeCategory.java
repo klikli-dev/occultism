@@ -116,7 +116,7 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
                 ).collect(Collectors.toList())
         );
         //0: recipe output, 1: ritual dummy item
-        ingredients.setOutputs(VanillaTypes.ITEM, Stream.of(recipe.getRecipeOutput(),
+        ingredients.setOutputs(VanillaTypes.ITEM, Stream.of(recipe.getResultItem(),
                 recipe.getRitual()).collect(Collectors.toList()));
     }
 
@@ -191,7 +191,7 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
         //ingredients: 0: recipe output, 1: ritual dummy item
 
         //draw recipe output on the left
-        if(recipe.getRecipeOutput().getItem() != OccultismItems.JEI_DUMMY_NONE.get()){
+        if(recipe.getResultItem().getItem() != OccultismItems.JEI_DUMMY_NONE.get()){
             //if we have an item output -> render it
             recipeLayout.getItemStacks()
                     .init(index, false, this.ritualCenterX + this.recipeOutputOffsetX, this.ritualCenterY - 5);
@@ -235,25 +235,25 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
     }
 
     @Override
-    public void draw(RitualRecipe recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
+    public void draw(RitualRecipe recipe, MatrixStack poseStack, double mouseX, double mouseY) {
         RenderSystem.enableBlend();
-        this.arrow.draw(matrixStack, this.ritualCenterX + this.recipeOutputOffsetX - 20, this.ritualCenterY);
+        this.arrow.draw(poseStack, this.ritualCenterX + this.recipeOutputOffsetX - 20, this.ritualCenterY);
         RenderSystem.disableBlend();
 
         Pentacle pentacle = OccultismRituals.PENTACLE_REGISTRY.getValue(recipe.getPentacleId());
         if(pentacle != null){
-            this.drawStringCentered(matrixStack, Minecraft.getInstance().fontRenderer,
-                    I18n.format(pentacle.getTranslationKey()), 84, 0);
+            this.drawStringCentered(poseStack, Minecraft.getInstance().fontRenderer,
+                    I18n.format(pentacle.getDescriptionId()), 84, 0);
         } else {
-            this.drawStringCentered(matrixStack, Minecraft.getInstance().fontRenderer,
+            this.drawStringCentered(poseStack, Minecraft.getInstance().fontRenderer,
                     I18n.format("jei.occultism.error.pentacle_not_loaded"), 84, 0);
         }
     }
     //endregion Overrides
 
     //region Methods
-    protected void drawStringCentered(MatrixStack matrixStack, FontRenderer fontRenderer, String text, int x, int y) {
-        fontRenderer.drawString(matrixStack, text, (x - fontRenderer.getStringWidth(text) / 2.0f), y, 0);
+    protected void drawStringCentered(MatrixStack poseStack, FontRenderer fontRenderer, String text, int x, int y) {
+        fontRenderer.drawString(poseStack, text, (x - fontRenderer.getStringWidth(text) / 2.0f), y, 0);
     }
     //endregion Methods
 }

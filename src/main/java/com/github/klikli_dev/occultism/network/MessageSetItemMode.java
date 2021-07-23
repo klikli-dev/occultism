@@ -23,11 +23,11 @@
 package com.github.klikli_dev.occultism.network;
 
 import com.github.klikli_dev.occultism.api.common.item.IHandleItemMode;
-import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.entity.player.ServerPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.Hand;
+import net.minecraft.util.InteractionHand;
 import net.minecraftforge.fml.network.NetworkEvent;
 
 public class MessageSetItemMode extends MessageBase {
@@ -38,7 +38,7 @@ public class MessageSetItemMode extends MessageBase {
 
     //region Initialization
 
-    public MessageSetItemMode(PacketBuffer buf) {
+    public MessageSetItemMode(FriendlyByteBuf buf) {
         this.decode(buf);
     }
 
@@ -49,9 +49,9 @@ public class MessageSetItemMode extends MessageBase {
 
     //region Overrides
     @Override
-    public void onServerReceived(MinecraftServer minecraftServer, ServerPlayerEntity player,
+    public void onServerReceived(MinecraftServer minecraftServer, ServerPlayer player,
                                  NetworkEvent.Context context) {
-        ItemStack stack = player.getHeldItem(Hand.MAIN_HAND);
+        ItemStack stack = player.getHeldItem(InteractionHand.MAIN_HAND);
         if (stack.getItem() instanceof IHandleItemMode) {
             IHandleItemMode itemModeHandler = (IHandleItemMode) stack.getItem();
             itemModeHandler.setItemMode(stack, this.mode);
@@ -60,12 +60,12 @@ public class MessageSetItemMode extends MessageBase {
     }
 
     @Override
-    public void encode(PacketBuffer buf) {
+    public void encode(FriendlyByteBuf buf) {
         buf.writeInt(this.mode);
     }
 
     @Override
-    public void decode(PacketBuffer buf) {
+    public void decode(FriendlyByteBuf buf) {
         this.mode = buf.readInt();
     }
     //endregion Overrides

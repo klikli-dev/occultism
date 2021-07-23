@@ -20,7 +20,7 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.github.klikli_dev.occultism.common.world.cave;
+package com.github.klikli_dev.occultism.common.level.cave;
 
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;

@@ -24,11 +24,11 @@ package com.github.klikli_dev.occultism.client.gui;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.container.DimensionalMineshaftContainer;
-import com.github.klikli_dev.occultism.common.tile.DimensionalMineshaftTileEntity;
+import com.github.klikli_dev.occultism.common.tile.DimensionalMineshaftBlockEntity;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
-import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.entity.player.Inventory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 
@@ -37,11 +37,11 @@ public class DimensionalMineshaftScreen extends ContainerScreen<DimensionalMines
     public static final ResourceLocation TEXTURE =
             new ResourceLocation(Occultism.MODID, "textures/gui/otherworld_miner.png");
 
-    public DimensionalMineshaftTileEntity otherworldMiner;
+    public DimensionalMineshaftBlockEntity otherworldMiner;
     //endregion Fields
 
     //region Initialization
-    public DimensionalMineshaftScreen(DimensionalMineshaftContainer screenContainer, PlayerInventory inv,
+    public DimensionalMineshaftScreen(DimensionalMineshaftContainer screenContainer, Inventory inv,
                                       ITextComponent titleIn) {
         super(screenContainer, inv, titleIn);
         this.otherworldMiner = screenContainer.otherworldMiner;
@@ -56,7 +56,7 @@ public class DimensionalMineshaftScreen extends ContainerScreen<DimensionalMines
     }
 
     @Override
-    protected void drawGuiContainerForegroundLayer(MatrixStack matrixStack, int x, int y) {
+    protected void drawGuiContainerForegroundLayer(MatrixStack poseStack, int x, int y) {
         //do not call super as it renders the inventory name which we do not want
     }
 

@@ -24,8 +24,8 @@ package com.github.klikli_dev.occultism.api.common.container;
 
 import com.github.klikli_dev.occultism.api.common.data.GlobalBlockPos;
 import com.github.klikli_dev.occultism.api.common.tile.IStorageController;
-import net.minecraft.inventory.CraftingInventory;
-import net.minecraft.inventory.Inventory;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.CraftingContainer;
 
 public interface IStorageControllerContainer {
     //region Getter / Setter
@@ -33,7 +33,7 @@ public interface IStorageControllerContainer {
 
     GlobalBlockPos getStorageControllerGlobalBlockPos();
 
-    CraftingInventory getCraftMatrix();
+    CraftingContainer getCraftMatrix();
 
     Inventory getOrderSlot();
 

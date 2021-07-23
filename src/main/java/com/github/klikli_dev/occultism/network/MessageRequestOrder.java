@@ -27,13 +27,13 @@ import com.github.klikli_dev.occultism.api.common.data.GlobalBlockPos;
 import com.github.klikli_dev.occultism.api.common.tile.IStorageController;
 import com.github.klikli_dev.occultism.common.misc.ItemStackComparator;
 import com.github.klikli_dev.occultism.util.StorageUtil;
-import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.entity.player.ServerPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.BlockEntity.BlockEntity;
 import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
+import net.minecraft.level.Level;
 import net.minecraftforge.fml.network.NetworkEvent;
 
 /**
@@ -49,7 +49,7 @@ public class MessageRequestOrder extends MessageBase {
 
     //region Initialization
 
-    public MessageRequestOrder(PacketBuffer buf) {
+    public MessageRequestOrder(FriendlyByteBuf buf) {
         this.decode(buf);
     }
 
@@ -66,19 +66,19 @@ public class MessageRequestOrder extends MessageBase {
     //region Overrides
 
     @Override
-    public void onServerReceived(MinecraftServer minecraftServer, ServerPlayerEntity player,
+    public void onServerReceived(MinecraftServer minecraftServer, ServerPlayer player,
                                  NetworkEvent.Context context) {
 
-        World world = minecraftServer.getWorld(this.storageControllerPosition.getDimensionKey());
+        Level level = minecraftServer.getWorld(this.storageControllerPosition.getDimensionKey());
         //prevent block loading by message
-        if (!world.isBlockLoaded(this.storageControllerPosition.getPos()))
+        if (!level.isBlockLoaded(this.storageControllerPosition.getPos()))
             return;
 
-        TileEntity tileEntity = world.getTileEntity(this.storageControllerPosition.getPos());
-        if (!(tileEntity instanceof IStorageController))
+        BlockEntity blockEntity = level.getBlockEntity(this.storageControllerPosition.getPos());
+        if (!(BlockEntity instanceof IStorageController))
             return; //early exit because we did not find the storage controller.
 
-        IStorageController storageController = (IStorageController) tileEntity;
+        IStorageController storageController = (IStorageController) BlockEntity;
 
         //first dump the order slot back in.
         StorageUtil.clearOpenOrderSlot(player, true);
@@ -92,14 +92,14 @@ public class MessageRequestOrder extends MessageBase {
     }
 
     @Override
-    public void encode(PacketBuffer buf) {
+    public void encode(FriendlyByteBuf buf) {
         this.storageControllerPosition.encode(buf);
         this.targetMachinePosition.encode(buf);
         buf.writeItemStack(this.stack);
     }
 
     @Override
-    public void decode(PacketBuffer buf) {
+    public void decode(FriendlyByteBuf buf) {
         this.storageControllerPosition = GlobalBlockPos.from(buf);
         this.targetMachinePosition = GlobalBlockPos.from(buf);
         this.stack = buf.readItemStack();

@@ -25,12 +25,12 @@ import com.github.klikli_dev.occultism.api.common.container.IStorageControllerCo
 import com.github.klikli_dev.occultism.api.common.tile.IStorageController;
 import com.github.klikli_dev.occultism.util.StorageUtil;
 import com.google.common.base.Preconditions;
-import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.entity.player.ServerPlayer;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
@@ -48,7 +48,7 @@ public class MessageSetRecipeByID extends MessageBase {
     //endregion Fields
 
     //region Initialization
-    public MessageSetRecipeByID(PacketBuffer buf) {
+    public MessageSetRecipeByID(FriendlyByteBuf buf) {
         this.decode(buf);
     }
 
@@ -61,7 +61,7 @@ public class MessageSetRecipeByID extends MessageBase {
 
 
     @Override
-    public void onServerReceived(MinecraftServer minecraftServer, ServerPlayerEntity player,
+    public void onServerReceived(MinecraftServer minecraftServer, ServerPlayer player,
                                  NetworkEvent.Context context) {
         if (!(player.openContainer instanceof IStorageControllerContainer)) {
             return;
@@ -107,12 +107,12 @@ public class MessageSetRecipeByID extends MessageBase {
     }
 
     @Override
-    public void encode(PacketBuffer buf) {
+    public void encode(FriendlyByteBuf buf) {
         buf.writeResourceLocation(this.id);
     }
 
     @Override
-    public void decode(PacketBuffer buf) {
+    public void decode(FriendlyByteBuf buf) {
         this.id = buf.readResourceLocation();
     }
     //endregion Overrides

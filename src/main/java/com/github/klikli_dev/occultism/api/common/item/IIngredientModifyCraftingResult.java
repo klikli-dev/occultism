@@ -25,6 +25,9 @@ package com.github.klikli_dev.occultism.api.common.item;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.world.inventory.CraftingContainer;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Recipe;
 
 public interface IIngredientModifyCraftingResult {
     //region Methods
@@ -36,6 +39,6 @@ public interface IIngredientModifyCraftingResult {
      * @param inventory the crafting inventory.
      * @param result    the result.
      */
-    void modifyResult(IRecipe recipe, CraftingInventory inventory, ItemStack result);
+    void modifyResult(Recipe recipe, CraftingContainer inventory, ItemStack result);
     //endregion Methods
 }

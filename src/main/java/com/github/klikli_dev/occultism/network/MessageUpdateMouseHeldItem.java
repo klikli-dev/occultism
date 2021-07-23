@@ -23,9 +23,9 @@
 package com.github.klikli_dev.occultism.network;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.network.NetworkEvent;
@@ -41,7 +41,7 @@ public class MessageUpdateMouseHeldItem extends MessageBase {
 
     //region Initialization
 
-    public MessageUpdateMouseHeldItem(PacketBuffer buf) {
+    public MessageUpdateMouseHeldItem(FriendlyByteBuf buf) {
         this.decode(buf);
     }
 
@@ -54,17 +54,17 @@ public class MessageUpdateMouseHeldItem extends MessageBase {
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public void onClientReceived(Minecraft minecraft, PlayerEntity player, NetworkEvent.Context context) {
+    public void onClientReceived(Minecraft minecraft, Player player, NetworkEvent.Context context) {
         player.inventory.setItemStack(this.stack);
     }
 
     @Override
-    public void encode(PacketBuffer buf) {
+    public void encode(FriendlyByteBuf buf) {
         buf.writeItemStack(this.stack);
     }
 
     @Override
-    public void decode(PacketBuffer buf) {
+    public void decode(FriendlyByteBuf buf) {
         this.stack = buf.readItemStack();
     }
     //endregion Overrides

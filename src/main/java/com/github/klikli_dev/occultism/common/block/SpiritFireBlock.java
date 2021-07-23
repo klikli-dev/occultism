@@ -37,7 +37,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.state.StateContainer;
 import net.minecraft.util.Direction;
-import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundSource;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -45,11 +45,11 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorld;
-import net.minecraft.world.IWorldReader;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.level.IBlockReader;
+import net.minecraft.level.IWorld;
+import net.minecraft.level.IWorldReader;
+import net.minecraft.level.Level;
+import net.minecraft.level.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -75,7 +75,7 @@ public class SpiritFireBlock extends Block {
     }
 
     @Override
-    public void onBlockAdded(BlockState state, World worldIn, BlockPos pos, BlockState oldState, boolean isMoving) {
+    public void onBlockAdded(BlockState state, Level worldIn, BlockPos pos, BlockState oldState, boolean isMoving) {
         if (oldState.getBlock() != state.getBlock()) {
             if (!state.isValidPosition(worldIn, pos)) {
                 worldIn.removeBlock(pos, false);
@@ -111,7 +111,7 @@ public class SpiritFireBlock extends Block {
         }
 
         //Call conversion
-        if (!worldIn.isRemote) {
+        if (!worldIn.isClientSide) {
             this.convertItems(worldIn, pos, state);
         }
 
@@ -151,10 +151,10 @@ public class SpiritFireBlock extends Block {
     }
 
     @OnlyIn(Dist.CLIENT)
-    public void animateTick(BlockState stateIn, World worldIn, BlockPos pos, Random rand) {
+    public void animateTick(BlockState stateIn, Level worldIn, BlockPos pos, Random rand) {
         if (rand.nextInt(24) == 0) {
             worldIn.playSound((double) ((float) pos.getX() + 0.5F), (double) ((float) pos.getY() + 0.5F),
-                    (double) ((float) pos.getZ() + 0.5F), SoundEvents.BLOCK_FIRE_AMBIENT, SoundCategory.BLOCKS,
+                    (double) ((float) pos.getZ() + 0.5F), SoundEvents.BLOCK_FIRE_AMBIENT, SoundSource.BLOCKS,
                     1.0F + rand.nextFloat(), rand.nextFloat() * 0.7F + 0.3F, false);
         }
 
@@ -232,36 +232,36 @@ public class SpiritFireBlock extends Block {
 //endregion Static Methods
 
     //region Methods
-    public boolean canCatchFire(IBlockReader world, BlockPos pos, Direction face) {
-        return world.getBlockState(pos).isFlammable(world, pos, face);
+    public boolean canCatchFire(IBlockReader level, BlockPos pos, Direction face) {
+        return level.getBlockState(pos).isFlammable(level, pos, face);
     }
 
-    protected void convertItems(World world, BlockPos pos, BlockState state) {
+    protected void convertItems(Level level, BlockPos pos, BlockState state) {
         Vector3d center = Math3DUtil.center(pos);
         AxisAlignedBB box = new AxisAlignedBB(-0.5, -0.5, -0.5, 0.5, 0.5, 0.5).offset(center);
-        List<ItemEntity> list = world.getEntitiesWithinAABB(ItemEntity.class, box);
+        List<ItemEntity> list = level.getEntitiesWithinAABB(ItemEntity.class, box);
         ItemStackFakeInventory fakeInventory =
                 new ItemStackFakeInventory(ItemStack.EMPTY);
         boolean convertedAnyItem = false;
         for (ItemEntity item : list) {
             fakeInventory.setInventorySlotContents(0, item.getItem());
             Optional<SpiritFireRecipe> recipe =
-                    world.getRecipeManager().getRecipe(OccultismRecipes.SPIRIT_FIRE_TYPE.get(), fakeInventory, world);
+                    level.getRecipeManager().getRecipe(OccultismRecipes.SPIRIT_FIRE_TYPE.get(), fakeInventory, level);
 
             if (recipe.isPresent()) {
                 convertedAnyItem = true;
                 item.remove();
 
                 ItemStack result = recipe.get().getCraftingResult(fakeInventory);
-                InventoryHelper.spawnItemStack(world, center.x, center.y + 0.5, center.z, result);
+                InventoryHelper.spawnItemStack(level, center.x, center.y + 0.5, center.z, result);
             }
         }
         if (convertedAnyItem) {
-            world.playSound(null, pos, OccultismSounds.START_RITUAL.get(), SoundCategory.BLOCKS, 1, 1);
+            level.playSound(null, pos, OccultismSounds.START_RITUAL.get(), SoundSource.BLOCKS, 1, 1);
         }
     }
 
-    protected boolean canDie(World worldIn, BlockPos pos) {
+    protected boolean canDie(Level worldIn, BlockPos pos) {
         return worldIn.isRainingAt(pos) || worldIn.isRainingAt(pos.west()) || worldIn.isRainingAt(pos.east()) ||
                worldIn.isRainingAt(pos.north()) || worldIn.isRainingAt(pos.south());
     }

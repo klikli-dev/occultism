@@ -25,18 +25,18 @@ package com.github.klikli_dev.occultism.common.container.spirit;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.github.klikli_dev.occultism.exceptions.ItemHandlerMissingException;
 import com.github.klikli_dev.occultism.registry.OccultismContainers;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.ContainerType;
-import net.minecraft.inventory.container.Slot;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.SlotItemHandler;
 
 import javax.annotation.Nullable;
 
-public class SpiritContainer extends Container {
+public class SpiritContainer extends AbstractContainerMenu {
 
     //region Fields
     public ItemStackHandler inventory;
@@ -44,11 +44,11 @@ public class SpiritContainer extends Container {
     //endregion Fields
 
     //region Initialization
-    public SpiritContainer(int id, PlayerInventory playerInventory, SpiritEntity spirit) {
+    public SpiritContainer(int id, Inventory playerInventory, SpiritEntity spirit) {
         this(OccultismContainers.SPIRIT.get(), id, playerInventory, spirit);
     }
 
-    public SpiritContainer(@Nullable ContainerType<?> type, int id, PlayerInventory playerInventory, SpiritEntity spirit) {
+    public SpiritContainer(@Nullable MenuType<?> type, int id, Inventory playerInventory, SpiritEntity spirit) {
         super(type, id);
         this.inventory = spirit.itemStackHandler.orElseThrow(ItemHandlerMissingException::new);
         this.spirit = spirit;
@@ -59,26 +59,24 @@ public class SpiritContainer extends Container {
 
     //region Overrides
     @Override
-    public ItemStack transferStackInSlot(PlayerEntity playerIn, int index) {
+    public ItemStack quickMoveStack(Player playerIn, int index) {
         ItemStack itemstack = ItemStack.EMPTY;
-        Slot slot = this.inventorySlots.get(index);
-        if (slot != null && slot.getHasStack()) {
-            ItemStack itemstack1 = slot.getStack();
+        Slot slot = this.slots.get(index);
+        if (slot != null && slot.hasItem()) {
+            ItemStack itemstack1 = slot.getItem();
             itemstack = itemstack1.copy();
             if (index < this.inventory.getSlots()) {
-                if (!this.mergeItemStack(itemstack1, this.inventory.getSlots(), this.inventorySlots.size(), true)) {
+                if (!this.moveItemStackTo(itemstack1, this.inventory.getSlots(), this.slots.size(), true)) {
                     return ItemStack.EMPTY;
                 }
-            }
-            else if (!this.mergeItemStack(itemstack1, 0, this.inventory.getSlots(), false)) {
+            } else if (!this.moveItemStackTo(itemstack1, 0, this.inventory.getSlots(), false)) {
                 return ItemStack.EMPTY;
             }
 
             if (itemstack1.isEmpty()) {
-                slot.putStack(ItemStack.EMPTY);
-            }
-            else {
-                slot.onSlotChanged();
+                slot.set(ItemStack.EMPTY);
+            } else {
+                slot.setChanged();
             }
         }
 
@@ -86,50 +84,50 @@ public class SpiritContainer extends Container {
     }
 
     @Override
-    public void onContainerClosed(PlayerEntity playerIn) {
-        super.onContainerClosed(playerIn);
+    public void removed(Player playerIn) {
+        super.removed(playerIn);
     }
 
     @Override
-    public boolean canInteractWith(PlayerEntity entityPlayer) {
-        return this.spirit.isAlive() && this.spirit.getDistance(entityPlayer) < 8.0F;
+    public boolean stillValid(Player entityPlayer) {
+        return this.spirit.isAlive() && this.spirit.distanceTo(entityPlayer) < 8.0F;
     }
     //endregion Overrides
 
     //region Methods
-    public void setupSlots(PlayerInventory playerInventory) {
+    public void setupSlots(Inventory playerInventory) {
         this.setupPlayerInventorySlots(playerInventory.player);
         this.setupPlayerHotbar(playerInventory.player);
         this.setupEntityInventory();
     }
 
-    protected void setupPlayerInventorySlots(PlayerEntity player) {
+    protected void setupPlayerInventorySlots(Player player) {
         int playerInventoryTop = 84;
         int playerInventoryLeft = 8;
 
         for (int i = 0; i < 3; i++)
             for (int j = 0; j < 9; j++)
-                this.addSlot(new Slot(player.inventory, j + i * 9 + 9, playerInventoryLeft + j * 18,
+                this.addSlot(new Slot(player.getInventory(), j + i * 9 + 9, playerInventoryLeft + j * 18,
                         playerInventoryTop + i * 18));
     }
 
-    protected void setupPlayerHotbar(PlayerEntity player) {
+    protected void setupPlayerHotbar(Player player) {
         int hotbarTop = 142;
         int hotbarLeft = 8;
         for (int i = 0; i < 9; i++)
-            this.addSlot(new Slot(player.inventory, i, hotbarLeft + i * 18, hotbarTop));
+            this.addSlot(new Slot(player.getInventory(), i, hotbarLeft + i * 18, hotbarTop));
     }
 
     protected void setupEntityInventory() {
         this.addSlot(new SlotItemHandler(this.inventory, 0, 152, 54) {
             //region Overrides
             @Override
-            public boolean isItemValid(ItemStack stack) {
-                return super.isItemValid(stack);
+            public boolean mayPlace(ItemStack stack) {
+                return super.mayPlace(stack);
             }
 
-            public void onSlotChanged() {
-                this.inventory.markDirty();
+            public void setChanged() {
+                this.container.setChanged();
             }
             //endregion Overrides
         });

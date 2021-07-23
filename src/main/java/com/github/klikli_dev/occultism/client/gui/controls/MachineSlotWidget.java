@@ -77,7 +77,7 @@ public class MachineSlotWidget {
         return this.parent.isPointInRegionController(this.x - this.guiLeft, this.y - this.guiTop, 16, 16, mouseX, mouseY);
     }
 
-    public void drawSlot(MatrixStack matrixStack, int mx, int my) {
+    public void drawSlot(MatrixStack poseStack, int mx, int my) {
         RenderSystem.pushMatrix();
         //render item
         //RenderHelper.setupGuiFlatDiffuseLighting();
@@ -86,16 +86,16 @@ public class MachineSlotWidget {
 
         if (this.isMouseOverSlot(mx, my)) {
             RenderSystem.colorMask(true, true, true, false);
-            this.parent.drawGradientRect(matrixStack, this.x, this.y, this.x + 16, this.y + 16, this.slotHighlightColor,
+            this.parent.drawGradientRect(poseStack, this.x, this.y, this.x + 16, this.y + 16, this.slotHighlightColor,
                     this.slotHighlightColor);
             RenderSystem.colorMask(true, true, true, true);
         }
         RenderSystem.popMatrix();
     }
 
-    public void drawTooltip(MatrixStack matrixStack, int mx, int my) {
+    public void drawTooltip(MatrixStack poseStack, int mx, int my) {
         if (this.isMouseOverSlot(mx, my)) {
-            this.parent.renderToolTip(matrixStack, this.machine, mx, my);
+            this.parent.renderToolTip(poseStack, this.machine, mx, my);
         }
     }
     //endregion Methods

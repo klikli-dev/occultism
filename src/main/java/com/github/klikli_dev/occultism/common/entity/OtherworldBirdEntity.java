@@ -40,20 +40,20 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.goal.FollowMobGoal;
 import net.minecraft.entity.ai.goal.FollowOwnerGoal;
-import net.minecraft.entity.ai.goal.LookAtGoal;
+import net.minecraft.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.entity.ai.goal.PanicGoal;
 import net.minecraft.entity.ai.goal.SitGoal;
-import net.minecraft.entity.ai.goal.SwimGoal;
+import net.minecraft.entity.ai.goal.FloatGoal;
 import net.minecraft.entity.ai.goal.WaterAvoidingRandomFlyingGoal;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.passive.ParrotEntity;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.world.World;
+import net.minecraft.util.InteractionResult;
+import net.minecraft.util.InteractionHand;
+import net.minecraft.level.Level;
 
 public class OtherworldBirdEntity extends ParrotEntity implements IFamiliar {
 
@@ -65,7 +65,7 @@ public class OtherworldBirdEntity extends ParrotEntity implements IFamiliar {
     // endregion Fields
 
     // region Initialization
-    public OtherworldBirdEntity(EntityType<? extends ParrotEntity> type, World worldIn) {
+    public OtherworldBirdEntity(EntityType<? extends ParrotEntity> type, Level worldIn) {
         super(type, worldIn);
     }
     // endregion Initialization
@@ -86,8 +86,8 @@ public class OtherworldBirdEntity extends ParrotEntity implements IFamiliar {
         // same as parrot, except we don't land on shoulders.
         this.sitGoal = new SitGoal(this);
         this.goalSelector.addGoal(0, new PanicGoal(this, 1.25D));
-        this.goalSelector.addGoal(0, new SwimGoal(this));
-        this.goalSelector.addGoal(1, new LookAtGoal(this, PlayerEntity.class, 8.0F));
+        this.goalSelector.addGoal(0, new FloatGoal(this));
+        this.goalSelector.addGoal(1, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(2, this.sitGoal);
         this.goalSelector.addGoal(2, new FollowOwnerGoal(this, 1.0D, 5.0F, 1.0F, true));
         this.goalSelector.addGoal(2, new WaterAvoidingRandomFlyingGoal(this, 1.0D));
@@ -95,9 +95,9 @@ public class OtherworldBirdEntity extends ParrotEntity implements IFamiliar {
     }
 
     @Override
-    public void livingTick() {
+    public void aiStep() {
         // Every 10 ticks, attempt to refresh the owner buff
-        if (!this.world.isRemote && this.world.getGameTime() % 10 == 0 && this.isTamed()) {
+        if (!this.level.isClientSide && this.level.getGameTime() % 10 == 0 && this.isTamed()) {
             LivingEntity owner = this.getOwnerCached();
             if (owner != null && this.getDistance(owner) < MAX_BOOST_DISTANCE) {
                 // close enough to boost
@@ -106,7 +106,7 @@ public class OtherworldBirdEntity extends ParrotEntity implements IFamiliar {
             }
         }
 
-        super.livingTick();
+        super.aiStep();
     }
 
     @Override
@@ -148,7 +148,7 @@ public class OtherworldBirdEntity extends ParrotEntity implements IFamiliar {
     }
 
     @Override
-    public ActionResultType getEntityInteractionResult(PlayerEntity playerIn, Hand hand) {
+    public InteractionResult getEntityInteractionResult(Player playerIn, InteractionHand hand) {
         ItemStack stack = playerIn.getHeldItem(hand);
         if (stack.getItem() == OccultismItems.FAMILIAR_RING.get()) {
             return stack.interactWithEntity(playerIn, this, hand);

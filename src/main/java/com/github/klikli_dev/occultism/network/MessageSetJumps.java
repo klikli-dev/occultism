@@ -24,8 +24,8 @@ package com.github.klikli_dev.occultism.network;
 
 import com.github.klikli_dev.occultism.registry.OccultismCapabilities;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.entity.player.Player;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.fml.network.NetworkEvent;
 
 public class MessageSetJumps extends MessageBase {
@@ -36,7 +36,7 @@ public class MessageSetJumps extends MessageBase {
 
     //region Initialization
 
-    public MessageSetJumps(PacketBuffer buf) {
+    public MessageSetJumps(FriendlyByteBuf buf) {
         this.decode(buf);
     }
 
@@ -48,19 +48,19 @@ public class MessageSetJumps extends MessageBase {
     //region Overrides
 
     @Override
-    public void onClientReceived(Minecraft minecraft, PlayerEntity player, NetworkEvent.Context context) {
+    public void onClientReceived(Minecraft minecraft, Player player, NetworkEvent.Context context) {
         if(!player.isOnGround()) {
             player.getCapability(OccultismCapabilities.DOUBLE_JUMP).ifPresent(cap -> cap.setJumps(this.jumps));
         }
     }
 
     @Override
-    public void encode(PacketBuffer buf) {
+    public void encode(FriendlyByteBuf buf) {
         buf.writeInt(this.jumps);
     }
 
     @Override
-    public void decode(PacketBuffer buf) {
+    public void decode(FriendlyByteBuf buf) {
         this.jumps = buf.readInt();
     }
     //endregion Overrides

@@ -23,19 +23,19 @@
 package com.github.klikli_dev.occultism.common.ritual;
 
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
-import com.github.klikli_dev.occultism.common.tile.GoldenSacrificialBowlTileEntity;
+import com.github.klikli_dev.occultism.common.tile.GoldenSacrificialBowlBlockEntity;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.github.klikli_dev.occultism.registry.OccultismRituals;
 import com.github.klikli_dev.occultism.registry.OccultismTags;
 import com.github.klikli_dev.occultism.util.ItemNBTUtil;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.level.Level;
+import net.minecraft.level.server.ServerWorld;
 
 public class SummonWildAfritRitual extends SummonSpiritRitual {
 
@@ -52,27 +52,27 @@ public class SummonWildAfritRitual extends SummonSpiritRitual {
 
     //region Overrides
     @Override
-    public void finish(World world, BlockPos goldenBowlPosition, GoldenSacrificialBowlTileEntity tileEntity,
-                       PlayerEntity castingPlayer, ItemStack activationItem) {
+    public void finish(Level level, BlockPos goldenBowlPosition, GoldenSacrificialBowlBlockEntity BlockEntity,
+                       Player castingPlayer, ItemStack activationItem) {
 
-        super.finish(world, goldenBowlPosition, tileEntity, castingPlayer, activationItem);
+        super.finish(level, goldenBowlPosition, BlockEntity, castingPlayer, activationItem);
 
         //consume activation item
         ItemStack copy = activationItem.copy();
         activationItem.shrink(1);
 
-        ((ServerWorld) world).spawnParticle(ParticleTypes.LARGE_SMOKE, goldenBowlPosition.getX() + 0.5,
+        ((ServerWorld) level).sendParticles(ParticleTypes.LARGE_SMOKE, goldenBowlPosition.getX() + 0.5,
                 goldenBowlPosition.getY() + 0.5, goldenBowlPosition.getZ() + 0.5, 1, 0, 0, 0, 0);
 
         //set up the entity
-        SpiritEntity spirit = OccultismEntities.AFRIT_WILD.get().create(world);
-        this.prepareSpiritForSpawn(spirit, world, goldenBowlPosition, castingPlayer,
+        SpiritEntity spirit = OccultismEntities.AFRIT_WILD.get().create(level);
+        this.prepareSpiritForSpawn(spirit, level, goldenBowlPosition, castingPlayer,
                 ItemNBTUtil.getBoundSpiritName(copy), false);
 
         spirit.setSpiritMaxAge(60 * 60); //1h max time
 
         //notify players nearby and spawn
-        this.spawnEntity(spirit, world);
+        this.spawnEntity(spirit, level);
     }
     //endregion Overrides
 }

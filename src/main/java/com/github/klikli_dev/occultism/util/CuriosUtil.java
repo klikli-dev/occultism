@@ -25,8 +25,8 @@ package com.github.klikli_dev.occultism.util;
 import com.github.klikli_dev.occultism.common.item.armor.OtherworldGogglesItem;
 import com.github.klikli_dev.occultism.common.item.storage.SatchelItem;
 import com.github.klikli_dev.occultism.common.item.storage.StorageRemoteItem;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.entity.player.Player;
+import net.minecraft.inventory.EquipmentSlot;
 import net.minecraft.item.ItemStack;
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.SlotTypePreset;
@@ -35,8 +35,8 @@ import top.theillusivec4.curios.api.type.inventory.IDynamicStackHandler;
 import java.util.Optional;
 
 public class CuriosUtil {
-    public static boolean hasGoggles(PlayerEntity player){
-        ItemStack helmet = player.getItemStackFromSlot(EquipmentSlotType.HEAD);
+    public static boolean hasGoggles(Player player){
+        ItemStack helmet = player.getItemBySlot(EquipmentSlot.HEAD);
         if(helmet.getItem() instanceof OtherworldGogglesItem)
             return true;
 
@@ -60,7 +60,7 @@ public class CuriosUtil {
         return hasGoggles.orElse(false);
     }
 
-    public static ItemStack getBackpack(PlayerEntity player)
+    public static ItemStack getBackpack(Player player)
     {
         Optional<ItemStack> hasBackpack = CuriosApi.getCuriosHelper().getCuriosHandler(player).map(curiosHandler -> {
             Optional<ItemStack> hasBackpackStack = curiosHandler.getStacksHandler(SlotTypePreset.BELT.getIdentifier()).map(slotHandler -> {
@@ -78,7 +78,7 @@ public class CuriosUtil {
         return hasBackpack.orElse(ItemStack.EMPTY);
     }
 
-    public static ItemStack getStorageRemote(PlayerEntity player)
+    public static ItemStack getStorageRemote(Player player)
     {
         Optional<ItemStack> hasStorageRemote = CuriosApi.getCuriosHelper().getCuriosHandler(player).map(curiosHandler -> {
             Optional<ItemStack> hasStorageRemoteStack = curiosHandler.getStacksHandler(SlotTypePreset.HANDS.getIdentifier()).map(slotHandler -> {
@@ -96,7 +96,7 @@ public class CuriosUtil {
         return hasStorageRemote.orElse(ItemStack.EMPTY);
     }
 
-    public static int getFirstBackpackSlot(PlayerEntity player){
+    public static int getFirstBackpackSlot(Player player){
         for(int slot = 0; slot < player.inventory.getSizeInventory(); slot++){
             ItemStack stack = player.inventory.getStackInSlot(slot);
             if(stack.getItem() instanceof SatchelItem)
@@ -105,7 +105,7 @@ public class CuriosUtil {
         return -1;
     }
 
-    public static int getFirstStorageRemoteSlot(PlayerEntity player){
+    public static int getFirstStorageRemoteSlot(Player player){
         for(int slot = 0; slot < player.inventory.getSizeInventory(); slot++){
             ItemStack stack = player.inventory.getStackInSlot(slot);
             if(stack.getItem() instanceof StorageRemoteItem)

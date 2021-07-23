@@ -30,10 +30,10 @@ import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.item.crafting.ShapelessRecipe;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
+import net.minecraft.level.Level;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import javax.annotation.Nonnull;
@@ -58,7 +58,7 @@ public class SpiritTradeRecipe extends ShapelessRecipe {
     }
 
     @Override
-    public boolean matches(@Nonnull CraftingInventory inventory, @Nonnull World world) {
+    public boolean matches(@Nonnull CraftingInventory inventory, @Nonnull Level level) {
         return false;
     }
 
@@ -133,17 +133,17 @@ public class SpiritTradeRecipe extends ShapelessRecipe {
         @Override
         public SpiritTradeRecipe read(ResourceLocation recipeId, JsonObject json) {
             ShapelessRecipe recipe = serializer.read(recipeId, json);
-            return new SpiritTradeRecipe(recipe.getId(), recipe.getGroup(), recipe.getRecipeOutput(), recipe.getIngredients());
+            return new SpiritTradeRecipe(recipe.getId(), recipe.getGroup(), recipe.getResultItem(), recipe.getIngredients());
         }
 
         @Override
-        public SpiritTradeRecipe read(ResourceLocation recipeId, PacketBuffer buffer) {
+        public SpiritTradeRecipe read(ResourceLocation recipeId, FriendlyByteBuf buffer) {
             ShapelessRecipe recipe = serializer.read(recipeId, buffer);
-            return new SpiritTradeRecipe(recipe.getId(), recipe.getGroup(), recipe.getRecipeOutput(), recipe.getIngredients());
+            return new SpiritTradeRecipe(recipe.getId(), recipe.getGroup(), recipe.getResultItem(), recipe.getIngredients());
         }
 
         @Override
-        public void write(PacketBuffer buffer, SpiritTradeRecipe recipe) {
+        public void write(FriendlyByteBuf buffer, SpiritTradeRecipe recipe) {
             serializer.write(buffer, recipe);
         }
         //endregion Overrides

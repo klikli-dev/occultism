@@ -24,19 +24,19 @@ package com.github.klikli_dev.occultism.common;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
 
-public class OccultismItemGroup extends ItemGroup {
+public class OccultismCreativeModeTab extends CreativeModeTab {
     //region Initialization
-    public OccultismItemGroup() {
+    public OccultismCreativeModeTab() {
         super(Occultism.MODID);
     }
     //endregion Initialization
 
     //region Overrides
     @Override
-    public ItemStack createIcon() {
+    public ItemStack makeIcon() {
         return new ItemStack(OccultismItems.PENTACLE.get());
     }
     //endregion Overrides

@@ -23,22 +23,22 @@
 package com.github.klikli_dev.occultism.common.ritual;
 
 import com.github.klikli_dev.occultism.common.entity.spirit.WildHuntWitherSkeletonEntity;
-import com.github.klikli_dev.occultism.common.tile.GoldenSacrificialBowlTileEntity;
+import com.github.klikli_dev.occultism.common.tile.GoldenSacrificialBowlBlockEntity;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.registry.OccultismRituals;
 import com.github.klikli_dev.occultism.registry.OccultismTags;
 import com.github.klikli_dev.occultism.util.TextUtil;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.level.Level;
+import net.minecraft.level.server.ServerWorld;
 
 public class SummonWildHuntRitual extends SummonSpiritRitual {
     //region Fields
@@ -51,7 +51,7 @@ public class SummonWildHuntRitual extends SummonSpiritRitual {
                 OccultismRituals.SUMMON_WILD_GREATER_SPIRIT_PENTACLE.get(),
                 Ingredient.fromItems(Blocks.SKELETON_SKULL),
                 "summon_wild_hunt", 30);
-        this.sacrificePredicate = (entity) -> entity instanceof PlayerEntity ||
+        this.sacrificePredicate = (entity) -> entity instanceof Player ||
                                               OccultismTags.VILLAGERS.contains(entity.getType());
     }
     //endregion Initialization
@@ -59,31 +59,31 @@ public class SummonWildHuntRitual extends SummonSpiritRitual {
     //region Overrides
 
     @Override
-    public void finish(World world, BlockPos goldenBowlPosition, GoldenSacrificialBowlTileEntity tileEntity,
-                       PlayerEntity castingPlayer, ItemStack activationItem) {
-        super.finish(world, goldenBowlPosition, tileEntity, castingPlayer, activationItem);
+    public void finish(Level level, BlockPos goldenBowlPosition, GoldenSacrificialBowlBlockEntity BlockEntity,
+                       Player castingPlayer, ItemStack activationItem) {
+        super.finish(level, goldenBowlPosition, BlockEntity, castingPlayer, activationItem);
 
         activationItem.shrink(1); //remove original activation item.
 
-        ((ServerWorld) world).spawnParticle(ParticleTypes.LARGE_SMOKE, goldenBowlPosition.getX() + 0.5,
+        ((ServerWorld) level).sendParticles(ParticleTypes.LARGE_SMOKE, goldenBowlPosition.getX() + 0.5,
                 goldenBowlPosition.getY() + 0.5, goldenBowlPosition.getZ() + 0.5, 1, 0, 0, 0, 0);
 
         //Spawn the wither skeletons, who will spawn their minions
         for (int i = 0; i < 3; i++) {
-            WildHuntWitherSkeletonEntity skeleton = OccultismEntities.WILD_HUNT_WITHER_SKELETON.get().create(world);
+            WildHuntWitherSkeletonEntity skeleton = OccultismEntities.WILD_HUNT_WITHER_SKELETON.get().create(level);
 
-            double offsetX = (world.getRandom().nextGaussian() - 1.0) * (1 + world.getRandom().nextInt(4));
-            double offsetZ = (world.getRandom().nextGaussian() - 1.0) * (1 + world.getRandom().nextInt(4));
+            double offsetX = (level.getRandom().nextGaussian() - 1.0) * (1 + level.getRandom().nextInt(4));
+            double offsetZ = (level.getRandom().nextGaussian() - 1.0) * (1 + level.getRandom().nextInt(4));
 
             skeleton.setPositionAndRotation(goldenBowlPosition.getX() + offsetX, goldenBowlPosition.getY() + 1.5,
                     goldenBowlPosition.getZ() + offsetZ,
-                    world.getRandom().nextInt(360), 0);
+                    level.getRandom().nextInt(360), 0);
             skeleton.setCustomName(new StringTextComponent(TextUtil.generateName()));
 
-            skeleton.onInitialSpawn((ServerWorld) world, world.getDifficultyForLocation(goldenBowlPosition), SpawnReason.MOB_SUMMONED,
+            skeleton.onInitialSpawn((ServerWorld) level, level.getDifficultyForLocation(goldenBowlPosition), SpawnReason.MOB_SUMMONED,
                     null,
                     null);
-            this.spawnEntity(skeleton, world);
+            this.spawnEntity(skeleton, level);
         }
     }
     //endregion Overrides

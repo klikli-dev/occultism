@@ -23,11 +23,11 @@
 package com.github.klikli_dev.occultism.registry;
 
 import com.github.klikli_dev.occultism.Occultism;
-import com.github.klikli_dev.occultism.common.world.cave.SphericalCaveSubFeature;
-import com.github.klikli_dev.occultism.common.world.cave.UndergroundGroveDecorator;
-import com.github.klikli_dev.occultism.common.world.multichunk.MultiChunkFeature;
-import com.github.klikli_dev.occultism.common.world.multichunk.MultiChunkFeatureConfig;
-import net.minecraft.world.gen.feature.Feature;
+import com.github.klikli_dev.occultism.common.level.cave.SphericalCaveSubFeature;
+import com.github.klikli_dev.occultism.common.level.cave.UndergroundGroveDecorator;
+import com.github.klikli_dev.occultism.common.level.multichunk.MultiChunkFeature;
+import com.github.klikli_dev.occultism.common.level.multichunk.MultiChunkFeatureConfig;
+import net.minecraft.level.gen.feature.Feature;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;

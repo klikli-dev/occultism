@@ -24,8 +24,8 @@ package com.github.klikli_dev.occultism.network;
 
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.entity.player.ServerPlayer;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.fml.network.NetworkEvent;
 
@@ -37,7 +37,7 @@ public class MessageSetFilterMode extends MessageBase {
     //endregion Fields
 
     //region Initialization
-    public MessageSetFilterMode(PacketBuffer buf) {
+    public MessageSetFilterMode(FriendlyByteBuf buf) {
         this.decode(buf);
     }
 
@@ -50,10 +50,10 @@ public class MessageSetFilterMode extends MessageBase {
     //region Overrides
 
     @Override
-    public void onServerReceived(MinecraftServer minecraftServer, ServerPlayerEntity player,
+    public void onServerReceived(MinecraftServer minecraftServer, ServerPlayer player,
                                  NetworkEvent.Context context) {
 
-        Entity e = player.world.getEntityByID(this.entityId);
+        Entity e = player.level.getEntityByID(this.entityId);
         if (e instanceof SpiritEntity) {
             SpiritEntity spirit = (SpiritEntity) e;
             spirit.setFilterBlacklist(this.isBlacklistFilter);
@@ -61,13 +61,13 @@ public class MessageSetFilterMode extends MessageBase {
     }
 
     @Override
-    public void encode(PacketBuffer buf) {
+    public void encode(FriendlyByteBuf buf) {
         buf.writeBoolean(this.isBlacklistFilter);
         buf.writeInt(this.entityId);
     }
 
     @Override
-    public void decode(PacketBuffer buf) {
+    public void decode(FriendlyByteBuf buf) {
         this.isBlacklistFilter = buf.readBoolean();
         this.entityId = buf.readInt();
     }

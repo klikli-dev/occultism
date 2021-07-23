@@ -23,8 +23,8 @@
 package com.github.klikli_dev.occultism.network;
 
 import com.github.klikli_dev.occultism.util.MovementUtil;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.entity.player.ServerPlayer;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.fml.network.NetworkEvent;
@@ -36,7 +36,7 @@ public class MessageDoubleJump extends MessageBase {
 
     }
 
-    public MessageDoubleJump(PacketBuffer buf) {
+    public MessageDoubleJump(FriendlyByteBuf buf) {
         this.decode(buf);
     }
     //endregion Initialization
@@ -44,23 +44,23 @@ public class MessageDoubleJump extends MessageBase {
 
     //region Overrides
     @Override
-    public void onServerReceived(MinecraftServer minecraftServer, ServerPlayerEntity player,
+    public void onServerReceived(MinecraftServer minecraftServer, ServerPlayer player,
                                  NetworkEvent.Context context) {
         if (MovementUtil.doubleJump(player)) {
             //Show cloud on jump.
             player.getServerWorld()
-                    .spawnParticle(ParticleTypes.CLOUD, player.getPositionVec().x, player.getPositionVec().y,
+                    .sendParticles(ParticleTypes.CLOUD, player.getPositionVec().x, player.getPositionVec().y,
                             player.getPositionVec().z, 5, 0, 0, 0, 0.01F);
         }
     }
 
     @Override
-    public void encode(PacketBuffer buf) {
+    public void encode(FriendlyByteBuf buf) {
 
     }
 
     @Override
-    public void decode(PacketBuffer buf) {
+    public void decode(FriendlyByteBuf buf) {
 
     }
     //endregion Overrides

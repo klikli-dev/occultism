@@ -24,11 +24,11 @@ package com.github.klikli_dev.occultism.client.divination;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.world.World;
+import net.minecraft.level.Level;
 
 import java.util.function.Consumer;
 
@@ -39,7 +39,7 @@ public class Scanner {
     //region Fields
     protected Block target;
 
-    protected PlayerEntity player;
+    protected Player player;
     protected Vector3d center;
     protected float radius;
     //radius squared for faster comparison of distance
@@ -64,7 +64,7 @@ public class Scanner {
     //endregion Initialization
 
     //region Methods
-    public void initialize(PlayerEntity player, Vector3d center, float radius, int totalTicks) {
+    public void initialize(Player player, Vector3d center, float radius, int totalTicks) {
         this.player = player;
         this.center = center;
         this.radius = radius;
@@ -90,10 +90,10 @@ public class Scanner {
     }
 
     public void scan(Consumer<BlockPos> resultConsumer) {
-        World world = this.player.world;
+        Level level = this.player.level;
         for (int i = 0; i < this.blocksPerTick; i++) {
             //move to next block
-            if (!this.nextBlock(world)) {
+            if (!this.nextBlock(level)) {
                 return;
             }
 
@@ -103,7 +103,7 @@ public class Scanner {
             }
 
             BlockPos pos = new BlockPos(this.x, this.y, this.z);
-            BlockState state = world.getBlockState(pos);
+            BlockState state = level.getBlockState(pos);
 
             //if this is the block we search for, consume it.
             if (this.isValidBlock(state)) {
@@ -112,9 +112,9 @@ public class Scanner {
         }
     }
 
-    public boolean nextBlock(World world) {
+    public boolean nextBlock(Level level) {
         this.y++;
-        if (this.y > this.max.getY() || this.y >= world.getHeight()) {
+        if (this.y > this.max.getY() || this.y >= level.getHeight()) {
             this.y = this.min.getY();
             this.x++;
             if (this.x > this.max.getX()) {

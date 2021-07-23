@@ -25,25 +25,25 @@ package com.github.klikli_dev.occultism.common.container.storage;
 import com.github.klikli_dev.occultism.registry.OccultismContainers;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.github.klikli_dev.occultism.util.CuriosUtil;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.entity.player.Player;
+import net.minecraft.entity.player.Inventory;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.container.Container;
+import net.minecraft.inventory.container.AbstractContainerMenu;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.FriendlyByteBuf;
 
-public class SatchelContainer extends Container {
+public class SatchelContainer extends AbstractContainerMenu {
     //region Fields
     public static final int SATCHEL_SIZE = 13 * 9;
     protected IInventory satchelInventory;
-    protected PlayerInventory playerInventory;
+    protected Inventory playerInventory;
     protected int selectedSlot;
     //endregion Fields
 
     //region Initialization
-    public SatchelContainer(int id, PlayerInventory playerInventory, IInventory satchelInventory, int selectedSlot) {
+    public SatchelContainer(int id, Inventory playerInventory, IInventory satchelInventory, int selectedSlot) {
         super(OccultismContainers.SATCHEL.get(), id);
         this.satchelInventory = satchelInventory;
         this.playerInventory = playerInventory;
@@ -65,11 +65,11 @@ public class SatchelContainer extends Container {
     }
 
     @Override
-    public ItemStack transferStackInSlot(PlayerEntity player, int index) {
+    public ItemStack quickMoveStack(Player player, int index) {
         //Adapted from Chestcontainer
         ItemStack itemstack = ItemStack.EMPTY;
-        Slot slot = this.inventorySlots.get(index);
-        if (slot != null && slot.getHasStack()) {
+        Slot slot = this.slots.get(index);
+        if (slot != null && slot.hasItem()) {
             ItemStack itemstack1 = slot.getStack();
             itemstack = itemstack1.copy();
 
@@ -80,13 +80,13 @@ public class SatchelContainer extends Container {
             }
             //take out of satchel
             if (index < this.satchelInventory.getSizeInventory()) {
-                if (!this.mergeItemStack(itemstack1, this.satchelInventory.getSizeInventory(),
-                        this.inventorySlots.size(), true)) {
+                if (!this.moveItemStackTo(itemstack1, this.satchelInventory.getSizeInventory(),
+                        this.slots.size(), true)) {
                     return ItemStack.EMPTY;
                 }
             }
             //put into satchel
-            else if (!this.mergeItemStack(itemstack1, 0, this.satchelInventory.getSizeInventory(), false)) {
+            else if (!this.moveItemStackTo(itemstack1, 0, this.satchelInventory.getSizeInventory(), false)) {
                 return ItemStack.EMPTY;
             }
 
@@ -94,7 +94,7 @@ public class SatchelContainer extends Container {
                 slot.putStack(ItemStack.EMPTY);
             }
             else {
-                slot.onSlotChanged();
+                slot.setChanged();
             }
         }
 
@@ -102,7 +102,7 @@ public class SatchelContainer extends Container {
     }
 
     @Override
-    public boolean canInteractWith(PlayerEntity player) {
+    public boolean stillValid(Player player) {
         if(this.selectedSlot == -1){
             return CuriosUtil.getBackpack(player).getItem() == OccultismItems.SATCHEL.get();
         }
@@ -113,7 +113,7 @@ public class SatchelContainer extends Container {
     //endregion Overrides
 
     //region Static Methods
-    public static SatchelContainer createClientContainer(int id, PlayerInventory playerInventory, PacketBuffer buffer) {
+    public static SatchelContainer createClientContainer(int id, Inventory playerInventory, FriendlyByteBuf buffer) {
         final int selectedSlot = buffer.readVarInt();
         return new SatchelContainer(id, playerInventory, new Inventory(SATCHEL_SIZE), selectedSlot);
     }

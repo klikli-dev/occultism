@@ -20,20 +20,20 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.github.klikli_dev.occultism.common.world.cave;
+package com.github.klikli_dev.occultism.common.level.cave;
 
 import com.github.klikli_dev.occultism.Occultism;
-import com.github.klikli_dev.occultism.common.world.WorldGenHandler;
+import com.github.klikli_dev.occultism.common.level.WorldGenHandler;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.VineBlock;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.ISeedReader;
-import net.minecraft.world.gen.ChunkGenerator;
-import net.minecraft.world.gen.feature.BaseTreeFeatureConfig;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
+import net.minecraft.level.ISeedReader;
+import net.minecraft.level.gen.ChunkGenerator;
+import net.minecraft.level.gen.feature.BaseTreeFeatureConfig;
+import net.minecraft.level.gen.feature.ConfiguredFeature;
 
 import java.util.Random;
 

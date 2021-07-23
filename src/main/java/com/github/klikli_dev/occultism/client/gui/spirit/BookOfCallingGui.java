@@ -82,7 +82,7 @@ public class BookOfCallingGui extends Screen {
 
         //Item mode button
         this.addButton((new ExtendedButton(guiLeft - buttonWidth / 2, guiTop + 60, buttonWidth, 20,
-                new TranslationTextComponent(this.mode.getItemMode().getTranslationKey()), (b) -> {
+                new TranslationTextComponent(this.mode.getItemMode().getDescriptionId()), (b) -> {
             this.mode = this.mode.next();
             OccultismPackets.sendToServer(new MessageSetItemMode(this.mode.getItemMode().getValue()));
             this.init();
@@ -97,7 +97,7 @@ public class BookOfCallingGui extends Screen {
 
             //Work area size button
             this.addButton(new ExtendedButton(guiLeft - buttonWidth / 2, guiTop + 85, buttonWidth, 20,
-                    new TranslationTextComponent(this.workAreaSize.getTranslationKey()), (b) -> {
+                    new TranslationTextComponent(this.workAreaSize.getDescriptionId()), (b) -> {
                 this.workAreaSize = this.workAreaSize.next();
                 OccultismPackets.sendToServer(new MessageSetWorkAreaSize(this.workAreaSize.getValue()));
                 this.init();

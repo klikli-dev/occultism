@@ -31,32 +31,32 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.FollowMobGoal;
 import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.ai.goal.LookAtGoal;
+import net.minecraft.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.entity.ai.goal.PanicGoal;
-import net.minecraft.entity.ai.goal.SwimGoal;
+import net.minecraft.entity.ai.goal.FloatGoal;
 import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
 import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.EffectInstance;
-import net.minecraft.world.World;
+import net.minecraft.level.Level;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.wrapper.PlayerMainInvWrapper;
 
 public class GreedyFamiliarEntity extends FamiliarEntity {
 
-    public GreedyFamiliarEntity(EntityType<? extends GreedyFamiliarEntity> type, World worldIn) {
+    public GreedyFamiliarEntity(EntityType<? extends GreedyFamiliarEntity> type, Level worldIn) {
         super(type, worldIn);
     }
 
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new PanicGoal(this, 1.25));
-        this.goalSelector.addGoal(0, new SwimGoal(this));
+        this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new SitGoal(this));
         this.goalSelector.addGoal(2, new FindItemGoal(this));
-        this.goalSelector.addGoal(2, new LookAtGoal(this, PlayerEntity.class, 8));
+        this.goalSelector.addGoal(2, new LookAtPlayerGoal(this, Player.class, 8));
         this.goalSelector.addGoal(3, new FollowOwnerGoal(this, 1, 3, 1));
         this.goalSelector.addGoal(4, new WaterAvoidingRandomWalkingGoal(this, 1.0D));
         this.goalSelector.addGoal(5, new FollowMobGoal(this, 1, 3, 7));
@@ -69,19 +69,19 @@ public class GreedyFamiliarEntity extends FamiliarEntity {
 
     @Override
     public void curioTick(LivingEntity wearer) {
-        if (!(wearer instanceof PlayerEntity))
+        if (!(wearer instanceof Player))
             return;
 
         wearer.getCapability(OccultismCapabilities.FAMILIAR_SETTINGS).ifPresent(cap -> {
             if(cap.isGreedyEnabled()){
-                for (ItemEntity e : wearer.world.getEntitiesWithinAABB(ItemEntity.class, wearer.getBoundingBox().grow(5), e -> e.isAlive())) {
+                for (ItemEntity e : wearer.level.getEntitiesWithinAABB(ItemEntity.class, wearer.getBoundingBox().grow(5), e -> e.isAlive())) {
                     ItemStack stack = e.getItem();
 
                     boolean isStackDemagnetized = stack.hasTag() && stack.getTag().getBoolean("PreventRemoteMovement");
                     boolean isEntityDemagnetized = e.getPersistentData().getBoolean("PreventRemoteMovement");
 
                     if (!isStackDemagnetized && !isEntityDemagnetized) {
-                        e.onCollideWithPlayer((PlayerEntity) wearer);
+                        e.onCollideWithPlayer((Player) wearer);
                     }
                 }
             }
@@ -101,7 +101,7 @@ public class GreedyFamiliarEntity extends FamiliarEntity {
 
         @Override
         public boolean shouldExecute() {
-            return this.getNearbyItem() != null && this.entity.getFamiliarOwner() instanceof PlayerEntity;
+            return this.getNearbyItem() != null && this.entity.getFamiliarOwner() instanceof Player;
         }
 
         @Override
@@ -117,20 +117,20 @@ public class GreedyFamiliarEntity extends FamiliarEntity {
             if (item != null) {
                 this.entity.getNavigator().tryMoveToEntityLiving(item, 1.2);
                 LivingEntity owner = this.entity.getFamiliarOwner();
-                if (item.getDistanceSq(this.entity) < 4 && owner instanceof PlayerEntity)
-                    item.onCollideWithPlayer(((PlayerEntity) owner));
+                if (item.getDistanceSq(this.entity) < 4 && owner instanceof Player)
+                    item.onCollideWithPlayer(((Player) owner));
             }
         }
 
         private ItemEntity getNearbyItem() {
             LivingEntity owner = this.entity.getFamiliarOwner();
-            if (!(owner instanceof PlayerEntity))
+            if (!(owner instanceof Player))
                 return null;
 
-            PlayerEntity player = (PlayerEntity) owner;
+            Player player = (Player) owner;
             IItemHandler inv = new PlayerMainInvWrapper(player.inventory);
 
-            for (ItemEntity item : this.entity.world.getEntitiesWithinAABB(ItemEntity.class,
+            for (ItemEntity item : this.entity.level.getEntitiesWithinAABB(ItemEntity.class,
                     this.entity.getBoundingBox().grow(RANGE), e -> e.isAlive())) {
                 ItemStack stack = item.getItem();
 

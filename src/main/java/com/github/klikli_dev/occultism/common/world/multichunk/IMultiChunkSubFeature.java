@@ -20,12 +20,12 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.github.klikli_dev.occultism.common.world.multichunk;
+package com.github.klikli_dev.occultism.common.level.multichunk;
 
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.ISeedReader;
-import net.minecraft.world.gen.ChunkGenerator;
+import net.minecraft.level.ISeedReader;
+import net.minecraft.level.gen.ChunkGenerator;
 
 import java.util.Random;
 

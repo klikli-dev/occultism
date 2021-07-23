@@ -23,7 +23,7 @@
 package com.github.klikli_dev.occultism.common.misc;
 
 import net.minecraft.inventory.CraftingInventory;
-import net.minecraft.inventory.container.Container;
+import net.minecraft.inventory.container.AbstractContainerMenu;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
@@ -44,7 +44,7 @@ public class StorageControllerCraftingInventory extends CraftingInventory {
         stackListField = ObfuscationReflectionHelper.findField(CraftingInventory.class, "field_70466_a");
     }
 
-    protected final Container container;
+    protected final AbstractContainerMenu container;
     /**
      * set to true to disable sending events (usually temporarily to perform multiple actions)
      */
@@ -52,12 +52,12 @@ public class StorageControllerCraftingInventory extends CraftingInventory {
     //endregion Fields
 
     //region Initialization
-    public StorageControllerCraftingInventory(Container container, int width, int height) {
+    public StorageControllerCraftingInventory(AbstractContainerMenu container, int width, int height) {
         super(container, width, height);
         this.container = container;
     }
 
-    public StorageControllerCraftingInventory(Container container, Map<Integer, ItemStack> matrix) {
+    public StorageControllerCraftingInventory(AbstractContainerMenu container, Map<Integer, ItemStack> matrix) {
         this(container, 3, 3);
         this.disableEvents = true;
         for (int i = 0; i < this.getWidth() * this.getHeight(); i++) {
@@ -67,7 +67,7 @@ public class StorageControllerCraftingInventory extends CraftingInventory {
         this.disableEvents = false;
     }
 
-    public StorageControllerCraftingInventory(Container container, List<ItemStack> matrix) {
+    public StorageControllerCraftingInventory(AbstractContainerMenu container, List<ItemStack> matrix) {
         this(container, 3, 3);
         this.disableEvents = true;
         for (int i = 0; i < matrix.size(); i++) {

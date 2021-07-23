@@ -35,7 +35,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.util.InputMappings;
-import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.entity.player.Inventory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
@@ -64,7 +64,7 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
 
     //region Initialization
     public SpiritTransporterGui(SpiritTransporterContainer container,
-                                PlayerInventory playerInventory,
+                                Inventory playerInventory,
                                 ITextComponent titleIn) {
         super(container, playerInventory, titleIn);
 
@@ -134,11 +134,11 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
     }
 
     @Override
-    protected void drawGuiContainerBackgroundLayer(MatrixStack matrixStack, float partialTicks, int x, int y) {
+    protected void drawGuiContainerBackgroundLayer(MatrixStack poseStack, float partialTicks, int x, int y) {
         RenderSystem.color4f(1, 1, 1, 1);
         this.minecraft.getTextureManager().bindTexture(TEXTURE);
 
-        this.blit(matrixStack, this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
+        this.blit(poseStack, this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
 
         RenderSystem.pushMatrix();
         int scale = 30;
@@ -148,7 +148,7 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
     }
 
     @Override
-    protected void drawGuiContainerForegroundLayer(MatrixStack matrixStack, int mouseX, int mouseY) {
+    protected void drawGuiContainerForegroundLayer(MatrixStack poseStack, int mouseX, int mouseY) {
         this.tooltip.clear();
 
         if (this.filterModeButton.isHovered()) {
@@ -164,16 +164,16 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
         }
 
         if (!this.tooltip.isEmpty()) {
-            GuiUtils.drawHoveringText(matrixStack, this.tooltip, mouseX - this.guiLeft,
+            GuiUtils.drawHoveringText(poseStack, this.tooltip, mouseX - this.guiLeft,
                     mouseY - this.guiTop, this.width, this.height, -1,
                     Minecraft.getInstance().fontRenderer);
         }
     }
 
     @Override
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
-        super.render(matrixStack, mouseX, mouseY, partialTicks);
-        this.tagFilterTextField.render(matrixStack, mouseX, mouseY, partialTicks);
+    public void render(MatrixStack poseStack, int mouseX, int mouseY, float partialTicks) {
+        super.render(poseStack, mouseX, mouseY, partialTicks);
+        this.tagFilterTextField.render(poseStack, mouseX, mouseY, partialTicks);
     }
 
     @Override

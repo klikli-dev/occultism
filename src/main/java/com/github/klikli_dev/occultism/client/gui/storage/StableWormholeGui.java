@@ -25,20 +25,20 @@ package com.github.klikli_dev.occultism.client.gui.storage;
 import com.github.klikli_dev.occultism.api.common.data.SortDirection;
 import com.github.klikli_dev.occultism.api.common.data.SortType;
 import com.github.klikli_dev.occultism.common.container.storage.StableWormholeContainer;
-import com.github.klikli_dev.occultism.common.tile.StorageControllerTileEntity;
-import net.minecraft.entity.player.PlayerInventory;
+import com.github.klikli_dev.occultism.common.tile.StorageControllerBlockEntity;
+import net.minecraft.entity.player.Inventory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 
 public class StableWormholeGui extends StorageControllerGuiBase<StableWormholeContainer> {
 
     //region Fields
-    protected StorageControllerTileEntity storageController;
+    protected StorageControllerBlockEntity storageController;
     protected StableWormholeContainer container;
     //endregion Fields
 
     //region Initialization
-    public StableWormholeGui(StableWormholeContainer container, PlayerInventory playerInventory,
+    public StableWormholeGui(StableWormholeContainer container, Inventory playerInventory,
                              ITextComponent name) {
         super(container, playerInventory, name);
         this.container = container;

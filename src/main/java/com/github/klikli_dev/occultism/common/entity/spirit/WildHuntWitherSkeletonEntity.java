@@ -27,19 +27,19 @@ import com.github.klikli_dev.occultism.registry.OccultismTags;
 import com.github.klikli_dev.occultism.util.TextUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ILivingEntityData;
-import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.SpawnGroupData;
+import net.minecraft.entity.MobSpawnType;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.monster.SkeletonEntity;
 import net.minecraft.entity.monster.WitherSkeletonEntity;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.tags.ITag;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.IServerWorld;
-import net.minecraft.world.World;
+import net.minecraft.level.DifficultyInstance;
+import net.minecraft.level.ServerLevelAccessor;
+import net.minecraft.level.Level;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -52,31 +52,31 @@ public class WildHuntWitherSkeletonEntity extends WitherSkeletonEntity {
 
     //region Initialization
     public WildHuntWitherSkeletonEntity(EntityType<? extends WildHuntWitherSkeletonEntity> type,
-                                        World worldIn) {
+                                        Level worldIn) {
         super(type, worldIn);
     }
     //endregion Initialization
 
     //region Overrides
     @Override
-    public ILivingEntityData onInitialSpawn(IServerWorld world, DifficultyInstance difficultyIn, SpawnReason reason,
-                                            @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
-        int maxSkeletons = 3 + world.getRandom().nextInt(6);
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficultyIn, MobSpawnType reason,
+                                            @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
+        int maxSkeletons = 3 + level.getRandom().nextInt(6);
 
         for (int i = 0; i < maxSkeletons; i++) {
-            WildHuntSkeletonEntity entity = OccultismEntities.WILD_HUNT_SKELETON.get().create(this.world);
-            entity.onInitialSpawn(world, difficultyIn, reason, spawnDataIn, dataTag);
-            double offsetX = (world.getRandom().nextGaussian() - 1.0) * (1 + world.getRandom().nextInt(4));
-            double offsetZ = (world.getRandom().nextGaussian() - 1.0) * (1 + world.getRandom().nextInt(4));
+            WildHuntSkeletonEntity entity = OccultismEntities.WILD_HUNT_SKELETON.get().create(this.level);
+            entity.finalizeSpawn(level, difficultyIn, reason, spawnDataIn, dataTag);
+            double offsetX = (level.getRandom().nextGaussian() - 1.0) * (1 + level.getRandom().nextInt(4));
+            double offsetZ = (level.getRandom().nextGaussian() - 1.0) * (1 + level.getRandom().nextInt(4));
             entity.setPositionAndRotation(this.getPosX() + offsetX, this.getPosY() + 1.5, this.getPosZ() + offsetZ,
-                    world.getRandom().nextInt(360), 0);
+                    level.getRandom().nextInt(360), 0);
             entity.setCustomName(new StringTextComponent(TextUtil.generateName()));
-            world.addEntity(entity);
+            level.addEntity(entity);
             entity.setMaster(this);
             this.minions.add(entity);
         }
 
-        return super.onInitialSpawn(world, difficultyIn, reason, spawnDataIn, dataTag);
+        return super.finalizeSpawn(level, difficultyIn, reason, spawnDataIn, dataTag);
     }
 
     @Override

@@ -22,24 +22,24 @@
 
 package com.github.klikli_dev.occultism.api.common.data;
 
-import com.github.klikli_dev.occultism.util.TileEntityUtil;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Direction;
-import net.minecraft.util.RegistryKey;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import com.github.klikli_dev.occultism.util.BlockEntityUtil;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.commons.lang3.StringUtils;
 
-public class MachineReference implements INBTSerializable<CompoundNBT> {
+public class MachineReference implements INBTSerializable<CompoundTag> {
     //region Fields
     public GlobalBlockPos globalPos;
     public ResourceLocation registryName;
@@ -58,7 +58,7 @@ public class MachineReference implements INBTSerializable<CompoundNBT> {
 
     }
 
-    public MachineReference(BlockPos pos, RegistryKey<World> dimensionKey, ResourceLocation registryName,
+    public MachineReference(BlockPos pos, ResourceKey<Level> dimensionKey, ResourceLocation registryName,
                             boolean chunkLoaded) {
         this(new GlobalBlockPos(pos, dimensionKey), registryName, chunkLoaded);
     }
@@ -92,32 +92,32 @@ public class MachineReference implements INBTSerializable<CompoundNBT> {
 
     //region Overrides
     @Override
-    public CompoundNBT serializeNBT() {
-        return this.write(new CompoundNBT());
+    public CompoundTag serializeNBT() {
+        return this.write(new CompoundTag());
     }
 
     @Override
-    public void deserializeNBT(CompoundNBT nbt) {
+    public void deserializeNBT(CompoundTag nbt) {
         this.read(nbt);
     }
     //endregion Overrides
 
     //region Static Methods
-    public static MachineReference from(TileEntity tileEntity) {
-        GlobalBlockPos pos = GlobalBlockPos.from(tileEntity);
-        BlockState state = tileEntity.getWorld().getBlockState(pos.getPos());
-        ItemStack item = state.getBlock().getItem(tileEntity.getWorld(), pos.getPos(), state);
-        boolean isLoaded = tileEntity.getWorld().isBlockLoaded(pos.getPos());
+    public static MachineReference from(BlockEntity blockEntity) {
+        GlobalBlockPos pos = GlobalBlockPos.from(blockEntity);
+        BlockState state = blockEntity.getLevel().getBlockState(pos.getPos());
+        ItemStack item = state.getBlock().getCloneItemStack(blockEntity.getLevel(), pos.getPos(), state);
+        boolean isLoaded = blockEntity.getLevel().isLoaded(pos.getPos());
         return new MachineReference(pos, item.getItem().getRegistryName(), isLoaded);
     }
 
-    public static MachineReference from(CompoundNBT compound) {
+    public static MachineReference from(CompoundTag compound) {
         MachineReference reference = new MachineReference();
         reference.deserializeNBT(compound);
         return reference;
     }
 
-    public static MachineReference from(PacketBuffer buf) {
+    public static MachineReference from(FriendlyByteBuf buf) {
         MachineReference reference = new MachineReference();
         reference.decode(buf);
         return reference;
@@ -125,7 +125,7 @@ public class MachineReference implements INBTSerializable<CompoundNBT> {
     //endregion Static Methods
 
     //region Methods
-    public CompoundNBT write(CompoundNBT compound) {
+    public CompoundTag write(CompoundTag compound) {
         if (this.globalPos != null)
             compound.put("globalPos", this.globalPos.serializeNBT());
         if (this.registryName != null)
@@ -134,13 +134,13 @@ public class MachineReference implements INBTSerializable<CompoundNBT> {
             compound.putString("customName", this.customName);
 
         compound.putBoolean("isChunkLoaded", this.chunkLoaded);
-        compound.putByte("insertFacing", (byte) this.insertFacing.getIndex());
-        compound.putByte("extractFacing", (byte) this.extractFacing.getIndex());
+        compound.putByte("insertFacing", (byte) this.insertFacing.get3DDataValue());
+        compound.putByte("extractFacing", (byte) this.extractFacing.get3DDataValue());
 
         return compound;
     }
 
-    public void read(CompoundNBT compound) {
+    public void read(CompoundTag compound) {
         if (compound.contains("globalPos"))
             this.globalPos = GlobalBlockPos.from(compound.getCompound("globalPos"));
         if (compound.contains("registryName"))
@@ -149,20 +149,20 @@ public class MachineReference implements INBTSerializable<CompoundNBT> {
             this.customName = compound.getString("customName");
 
         this.chunkLoaded = compound.getBoolean("isChunkLoaded");
-        this.insertFacing = Direction.byIndex(compound.getInt("insertFacing"));
-        this.extractFacing = Direction.byIndex(compound.getInt("extractFacing"));
+        this.insertFacing = Direction.from3DDataValue(compound.getInt("insertFacing"));
+        this.extractFacing = Direction.from3DDataValue(compound.getInt("extractFacing"));
     }
 
-    public void encode(PacketBuffer buf) {
-        buf.writeCompoundTag(this.write(new CompoundNBT()));
+    public void encode(FriendlyByteBuf buf) {
+        buf.writeNbt(this.write(new CompoundTag()));
     }
 
-    public void decode(PacketBuffer buf) {
-        this.deserializeNBT(buf.readCompoundTag());
+    public void decode(FriendlyByteBuf buf) {
+        this.deserializeNBT(buf.readNbt());
     }
 
-    public TileEntity getTileEntity(World world) {
-        return TileEntityUtil.get(world, this.globalPos);
+    public BlockEntity getBlockEntity(Level level) {
+        return BlockEntityUtil.get(level, this.globalPos);
     }
     //endregion Methods
 

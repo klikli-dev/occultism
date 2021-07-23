@@ -22,7 +22,7 @@
 
 package com.github.klikli_dev.occultism.common.block.storage;
 
-import com.github.klikli_dev.occultism.common.tile.StorageControllerTileEntity;
+import com.github.klikli_dev.occultism.common.tile.StorageControllerBlockEntity;
 import com.github.klikli_dev.occultism.util.Math3DUtil;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
@@ -30,20 +30,20 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.DirectionalBlock;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.Player;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.BlockEntity.BlockEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.World;
+import net.minecraft.level.IBlockReader;
+import net.minecraft.level.Level;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -77,11 +77,11 @@ public class StorageStabilizerBlock extends Block {
     }
 
     @Override
-    public void onReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean isMoving) {
+    public void onReplaced(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
         if (state != newState) {
-            this.notifyStorageControllers(world, pos, state);
+            this.notifyStorageControllers(level, pos, state);
         }
-        super.onReplaced(state, world, pos, newState, isMoving);
+        super.onReplaced(state, level, pos, newState, isMoving);
     }
 
     @Nullable
@@ -91,17 +91,17 @@ public class StorageStabilizerBlock extends Block {
     }
 
     @Override
-    public void harvestBlock(World worldIn, PlayerEntity player, BlockPos pos, BlockState state,
-                             @Nullable TileEntity te, ItemStack stack) {
+    public void harvestBlock(Level worldIn, Player player, BlockPos pos, BlockState state,
+                             @Nullable BlockEntity te, ItemStack stack) {
         super.harvestBlock(worldIn, player, pos, state, te, stack);
     }
 
     @Override
-    public void onBlockPlacedBy(World world, BlockPos pos, BlockState state, LivingEntity placer,
+    public void onBlockPlacedBy(Level level, BlockPos pos, BlockState state, LivingEntity placer,
                                 ItemStack stack) {
-        this.notifyStorageControllers(world, pos, state);
+        this.notifyStorageControllers(level, pos, state);
 
-        super.onBlockPlacedBy(world, pos, state, placer, stack);
+        super.onBlockPlacedBy(level, pos, state, placer, stack);
     }
 
     @Override
@@ -112,22 +112,22 @@ public class StorageStabilizerBlock extends Block {
     //endregion Overrides
 
     //region Methods
-    public void notifyStorageControllers(World world, BlockPos pos, BlockState state) {
+    public void notifyStorageControllers(Level level, BlockPos pos, BlockState state) {
         Direction facing = state.get(DirectionalBlock.FACING);
 
         //storage controller actually wants stabilizers to point at one block above it, so unless we are on y axis we trace one below
         BlockPos min = facing != Direction.DOWN && facing != Direction.UP ? pos.down() : pos;
         //trace a straight line for the possible controller positions
         List<BlockPos> blocks = Math3DUtil.simpleTrace(min, facing,
-                StorageControllerTileEntity.MAX_STABILIZER_DISTANCE);
+                StorageControllerBlockEntity.MAX_STABILIZER_DISTANCE);
 
         //we are also using the fake trace here, because players may have placed a block on this trace line.
         //The trace line is actually below the line the controller uses to check for valid stabilizers.
         //This is due to the stabilizers aiming for one block above the controller.
         for (BlockPos block : blocks) {
-            TileEntity tileEntity = world.getTileEntity(block);
-            if (tileEntity instanceof StorageControllerTileEntity) {
-                StorageControllerTileEntity controller = (StorageControllerTileEntity) tileEntity;
+            BlockEntity blockEntity = level.getBlockEntity(block);
+            if (BlockEntity instanceof StorageControllerBlockEntity) {
+                StorageControllerBlockEntity controller = (StorageControllerBlockEntity) BlockEntity;
                 controller.updateStabilizers(); //force controller to re-check available stabilizers.
             }
         }

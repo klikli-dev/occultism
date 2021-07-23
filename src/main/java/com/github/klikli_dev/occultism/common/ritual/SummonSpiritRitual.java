@@ -27,12 +27,12 @@ import com.github.klikli_dev.occultism.common.ritual.pentacle.Pentacle;
 import com.github.klikli_dev.occultism.util.ItemNBTUtil;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.entity.player.Player;
+import net.minecraft.entity.player.ServerPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.world.World;
+import net.minecraft.level.Level;
 import net.minecraftforge.items.ItemHandlerHelper;
 
 public class SummonSpiritRitual extends Ritual {
@@ -93,7 +93,7 @@ public class SummonSpiritRitual extends Ritual {
      * @param spirit        the spirit to link to the book.
      * @param player        the player to give the book to.
      */
-    public void finishBookOfCallingSetup(ItemStack bookOfCalling, SpiritEntity spirit, PlayerEntity player) {
+    public void finishBookOfCallingSetup(ItemStack bookOfCalling, SpiritEntity spirit, Player player) {
         ItemNBTUtil.setSpiritEntityUUID(bookOfCalling, spirit.getUniqueID());
         ItemHandlerHelper.giveItemToPlayer(player, bookOfCalling);
     }
@@ -102,13 +102,13 @@ public class SummonSpiritRitual extends Ritual {
      * Spawns the given entity and notifies nearby players.
      *
      * @param entity the entity to spawn
-     * @param world  the world to spawn in.
+     * @param level  the level to spawn in.
      */
-    public void spawnEntity(Entity entity, World world) {
-        for (ServerPlayerEntity player : world.getEntitiesWithinAABB(ServerPlayerEntity.class,
+    public void spawnEntity(Entity entity, Level level) {
+        for (ServerPlayer player : level.getEntitiesWithinAABB(ServerPlayer.class,
                 entity.getBoundingBox().grow(50)))
             CriteriaTriggers.SUMMONED_ENTITY.trigger(player, entity);
-        world.addEntity(entity);
+        level.addEntity(entity);
     }
     //endregion Methods
 }

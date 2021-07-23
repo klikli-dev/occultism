@@ -24,7 +24,7 @@ package com.github.klikli_dev.occultism.common.misc;
 
 import com.github.klikli_dev.occultism.api.common.container.IItemStackComparator;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundTag;
 
 import javax.annotation.Nonnull;
 
@@ -81,18 +81,18 @@ public class ItemStackComparator implements IItemStackComparator {
     }
 
     @Override
-    public CompoundNBT serializeNBT() {
-        return this.write(new CompoundNBT());
+    public CompoundTag serializeNBT() {
+        return this.write(new CompoundTag());
     }
 
     @Override
-    public void deserializeNBT(CompoundNBT nbt) {
+    public void deserializeNBT(CompoundTag nbt) {
         this.read(nbt);
     }
     //endregion Overrides
 
     //region Static Methods
-    public static ItemStackComparator from(CompoundNBT nbt) {
+    public static ItemStackComparator from(CompoundTag nbt) {
         ItemStackComparator comparator = new ItemStackComparator();
         comparator.deserializeNBT(nbt);
         return !comparator.filterStack.isEmpty() ? comparator : null;
@@ -100,14 +100,14 @@ public class ItemStackComparator implements IItemStackComparator {
     //endregion Static Methods
 
     //region Methods
-    public void read(CompoundNBT compound) {
-        CompoundNBT nbt = compound.getCompound("stack");
+    public void read(CompoundTag compound) {
+        CompoundTag nbt = compound.getCompound("stack");
         this.filterStack = ItemStack.read(nbt);
         this.matchNbt = compound.getBoolean("matchNbt");
     }
 
-    public CompoundNBT write(CompoundNBT compound) {
-        compound.put("stack", this.filterStack.write(new CompoundNBT()));
+    public CompoundTag write(CompoundTag compound) {
+        compound.put("stack", this.filterStack.write(new CompoundTag()));
         compound.putBoolean("matchNbt", this.matchNbt);
         return compound;
     }

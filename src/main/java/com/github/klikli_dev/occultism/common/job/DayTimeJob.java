@@ -23,7 +23,7 @@
 package com.github.klikli_dev.occultism.common.job;
 
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.level.server.ServerWorld;
 
 public class DayTimeJob extends ChangeTimeJob {
 
@@ -36,8 +36,8 @@ public class DayTimeJob extends ChangeTimeJob {
     //region Overrides
     @Override
     public void changeTime() {
-        ServerWorld world = (ServerWorld) this.entity.world;
-        world.setDayTime(1000);
+        ServerWorld level = (ServerWorld) this.entity.level;
+        level.setDayTime(1000);
     }
     //endregion Overrides
 

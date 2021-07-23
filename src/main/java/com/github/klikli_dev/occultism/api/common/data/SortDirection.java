@@ -22,12 +22,12 @@
 
 package com.github.klikli_dev.occultism.api.common.data;
 
-import net.minecraft.util.IStringSerializable;
+import net.minecraft.util.StringRepresentable;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public enum SortDirection implements IStringSerializable {
+public enum SortDirection implements StringRepresentable {
     DOWN(0),
     UP(1);
 
@@ -61,7 +61,7 @@ public enum SortDirection implements IStringSerializable {
 
     //region Overrides
     @Override
-    public String getString() {
+    public String getSerializedName() {
         return this.name().toLowerCase();
     }
     //endregion Overrides

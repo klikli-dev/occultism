@@ -32,12 +32,12 @@ import com.github.klikli_dev.occultism.registry.OccultismSounds;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.particles.ParticleTypes;
-import net.minecraft.util.Hand;
-import net.minecraft.util.SoundCategory;
+import net.minecraft.util.InteractionHand;
+import net.minecraft.util.SoundSource;
 import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.level.server.ServerWorld;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,7 +76,7 @@ public class CrusherJob extends SpiritJob {
     @Override
     public void init() {
         this.entity.targetSelector.addGoal(1, this.pickupItemsGoal = new PickupItemsGoal(this.entity));
-        this.itemsToPickUp = this.entity.world.getRecipeManager().getRecipes().stream()
+        this.itemsToPickUp = this.entity.level.getRecipeManager().getRecipes().stream()
                                      .filter(recipe -> recipe.getType() == OccultismRecipes.CRUSHING_TYPE.get())
                                      .flatMap(recipe -> recipe.getIngredients().stream()).collect(Collectors.toList());
     }
@@ -88,20 +88,20 @@ public class CrusherJob extends SpiritJob {
 
     @Override
     public void update() {
-        ItemStack handHeld = this.entity.getHeldItem(Hand.MAIN_HAND);
+        ItemStack handHeld = this.entity.getHeldItem(InteractionHand.MAIN_HAND);
         ItemStackFakeInventory fakeInventory = new ItemStackFakeInventory(handHeld);
 
         if (!this.currentRecipe.isPresent() && !handHeld.isEmpty()) {
-            this.currentRecipe = this.entity.world.getRecipeManager().getRecipe(OccultismRecipes.CRUSHING_TYPE.get(),
-                    fakeInventory, this.entity.world);
+            this.currentRecipe = this.entity.level.getRecipeManager().getRecipe(OccultismRecipes.CRUSHING_TYPE.get(),
+                    fakeInventory, this.entity.level);
             this.crushingTimer = 0;
             //play crushing sound
-            this.entity.world
-                    .playSound(null, this.entity.getPosition(), OccultismSounds.CRUNCHING.get(), SoundCategory.NEUTRAL, 0.5f,
+            this.entity.level
+                    .playSound(null, this.entity.getPosition(), OccultismSounds.CRUNCHING.get(), SoundSource.NEUTRAL, 0.5f,
                             1 + 0.5f * this.entity.getRNG().nextFloat());
         }
         if (this.currentRecipe.isPresent()) {
-            if (handHeld.isEmpty() || !this.currentRecipe.get().matches(fakeInventory, this.entity.world)) {
+            if (handHeld.isEmpty() || !this.currentRecipe.get().matches(fakeInventory, this.entity.level)) {
                 //Reset cached recipe if it no longer matches
                 this.currentRecipe = Optional.empty();
             }
@@ -110,18 +110,18 @@ public class CrusherJob extends SpiritJob {
                 this.crushingTimer++;
 
                 //show particle effect while crushing
-                if (this.entity.world.getGameTime() % 10 == 0) {
+                if (this.entity.level.getGameTime() % 10 == 0) {
                     Vector3d pos = this.entity.getPositionVec();
-                    ((ServerWorld) this.entity.world)
-                            .spawnParticle(ParticleTypes.PORTAL, pos.x + this.entity.world.rand.nextGaussian() / 3,
-                                    pos.y + 0.5, pos.z + this.entity.world.rand.nextGaussian() / 3, 1, 0.0, 0.0, 0.0,
+                    ((ServerWorld) this.entity.level)
+                            .sendParticles(ParticleTypes.PORTAL, pos.x + this.entity.level.rand.nextGaussian() / 3,
+                                    pos.y + 0.5, pos.z + this.entity.level.rand.nextGaussian() / 3, 1, 0.0, 0.0, 0.0,
                                     0.0);
                 }
 
                 //every two seconds, play another crushing sound
                 if (this.crushingTimer % 40 == 0) {
-                    this.entity.world.playSound(null, this.entity.getPosition(), OccultismSounds.CRUNCHING.get(),
-                            SoundCategory.NEUTRAL, 0.5f,
+                    this.entity.level.playSound(null, this.entity.getPosition(), OccultismSounds.CRUNCHING.get(),
+                            SoundSource.NEUTRAL, 0.5f,
                             1 + 0.5f * this.entity.getRNG().nextFloat());
                 }
 
@@ -140,7 +140,7 @@ public class CrusherJob extends SpiritJob {
                     handHeld.shrink(1);
 
                     this.onCrush(inputCopy, result);
-                    ItemEntity droppedItem = this.entity.entityDropItem(result);
+                    ItemEntity droppedItem = this.entity.spawnAtLocation(result);
                     droppedItem.addTag(DROPPED_BY_CRUSHER);
                     //Don't reset recipe here, keep it cached
                 }
@@ -150,13 +150,13 @@ public class CrusherJob extends SpiritJob {
     }
 
     @Override
-    public CompoundNBT writeJobToNBT(CompoundNBT compound) {
+    public CompoundTag writeJobToNBT(CompoundTag compound) {
         compound.putInt("conversionTimer", this.crushingTimer);
         return super.writeJobToNBT(compound);
     }
 
     @Override
-    public void readJobFromNBT(CompoundNBT compound) {
+    public void readJobFromNBT(CompoundTag compound) {
         super.readJobFromNBT(compound);
         this.crushingTimer = compound.getInt("conversionTimer");
     }

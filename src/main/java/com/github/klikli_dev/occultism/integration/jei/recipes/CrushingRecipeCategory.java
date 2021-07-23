@@ -84,7 +84,7 @@ public class CrushingRecipeCategory implements IRecipeCategory<CrushingRecipe> {
     @Override
     public void setIngredients(CrushingRecipe recipe, IIngredients ingredients) {
         ingredients.setInputIngredients(recipe.getIngredients());
-        ingredients.setOutput(VanillaTypes.ITEM, recipe.getRecipeOutput());
+        ingredients.setOutput(VanillaTypes.ITEM, recipe.getResultItem());
     }
 
     @Override
@@ -99,14 +99,14 @@ public class CrushingRecipeCategory implements IRecipeCategory<CrushingRecipe> {
     }
 
     @Override
-    public void draw(CrushingRecipe recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
+    public void draw(CrushingRecipe recipe, MatrixStack poseStack, double mouseX, double mouseY) {
         RenderSystem.enableBlend();
-        this.overlay.draw(matrixStack, 76, 14); //(center=84) - (width/16=8) = 76
-        this.drawStringCentered(matrixStack, Minecraft.getInstance().fontRenderer, this.getTitle(), 84, 0);
+        this.overlay.draw(poseStack, 76, 14); //(center=84) - (width/16=8) = 76
+        this.drawStringCentered(poseStack, Minecraft.getInstance().fontRenderer, this.getTitle(), 84, 0);
     }
 
-    protected void drawStringCentered(MatrixStack matrixStack, FontRenderer fontRenderer, String text, int x, int y) {
-        fontRenderer.drawString(matrixStack, text, (x - fontRenderer.getStringWidth(text) / 2.0f), y, 0);
+    protected void drawStringCentered(MatrixStack poseStack, FontRenderer fontRenderer, String text, int x, int y) {
+        fontRenderer.drawString(poseStack, text, (x - fontRenderer.getStringWidth(text) / 2.0f), y, 0);
     }
     //endregion Overrides
 }

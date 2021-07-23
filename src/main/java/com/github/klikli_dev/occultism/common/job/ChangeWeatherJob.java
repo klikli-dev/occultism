@@ -26,12 +26,12 @@ import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.effect.LightningBoltEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.Hand;
+import net.minecraft.util.InteractionHand;
 import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.level.server.ServerWorld;
 
 public abstract class ChangeWeatherJob extends SpiritJob {
 
@@ -59,9 +59,9 @@ public abstract class ChangeWeatherJob extends SpiritJob {
     public void cleanup() {
         //in this case called on spirit death
         for(int i = 0; i < 5; i++){
-            ((ServerWorld) this.entity.world)
-                    .spawnParticle(ParticleTypes.LARGE_SMOKE, this.entity.getPosX() + this.entity.world.getRandom().nextGaussian(),
-                            this.entity.getPosY() + 0.5 + this.entity.world.getRandom().nextGaussian(), this.entity.getPosZ()+ this.entity.world.getRandom().nextGaussian(), 5,
+            ((ServerWorld) this.entity.level)
+                    .sendParticles(ParticleTypes.LARGE_SMOKE, this.entity.getPosX() + this.entity.level.getRandom().nextGaussian(),
+                            this.entity.getPosY() + 0.5 + this.entity.level.getRandom().nextGaussian(), this.entity.getPosZ()+ this.entity.level.getRandom().nextGaussian(), 5,
                             0.0, 0.0, 0.0,
                             0.0);
         }
@@ -74,11 +74,11 @@ public abstract class ChangeWeatherJob extends SpiritJob {
 
         this.currentChangeTicks++;
         if(!this.entity.isSwingInProgress){
-            this.entity.swingArm(Hand.MAIN_HAND);
+            this.entity.swingArm(InteractionHand.MAIN_HAND);
         }
-        if(this.entity.world.getGameTime() % 2 == 0){
-            ((ServerWorld) this.entity.world)
-                    .spawnParticle(ParticleTypes.SMOKE, this.entity.getPosX(),
+        if(this.entity.level.getGameTime() % 2 == 0){
+            ((ServerWorld) this.entity.level)
+                    .sendParticles(ParticleTypes.SMOKE, this.entity.getPosX(),
                             this.entity.getPosY() + 0.5, this.entity.getPosZ(), 3,
                             0.5, 0.0, 0.0,
                             0.0);
@@ -87,24 +87,24 @@ public abstract class ChangeWeatherJob extends SpiritJob {
         if (this.currentChangeTicks == this.requiredChangeTicks) {
             this.changeWeather();
 
-            LightningBoltEntity lightningboltentity = EntityType.LIGHTNING_BOLT.create(this.entity.world);
+            LightningBoltEntity lightningboltentity = EntityType.LIGHTNING_BOLT.create(this.entity.level);
             lightningboltentity.moveForced(Vector3d.copyCenteredHorizontally(this.entity.getPosition()));
             lightningboltentity.setEffectOnly(true);
 
-            this.entity.onDeath(DamageSource.LIGHTNING_BOLT);
+            this.entity.die(DamageSource.LIGHTNING_BOLT);
             this.entity.remove();
         }
     }
 
     @Override
-    public CompoundNBT writeJobToNBT(CompoundNBT compound) {
+    public CompoundTag writeJobToNBT(CompoundTag compound) {
         compound.putInt("currentChangeTicks", this.currentChangeTicks);
         compound.putInt("requiredChangeTicks", this.requiredChangeTicks);
         return super.writeJobToNBT(compound);
     }
 
     @Override
-    public void readJobFromNBT(CompoundNBT compound) {
+    public void readJobFromNBT(CompoundTag compound) {
         super.readJobFromNBT(compound);
         this.currentChangeTicks = compound.getInt("currentChangeTicks");
         this.requiredChangeTicks = compound.getInt("requiredChangeTicks");

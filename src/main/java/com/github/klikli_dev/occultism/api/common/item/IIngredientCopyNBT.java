@@ -22,10 +22,10 @@
 
 package com.github.klikli_dev.occultism.api.common.item;
 
-import net.minecraft.inventory.CraftingInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.inventory.CraftingContainer;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Recipe;
 
 /**
  * Implement this to copy item nbt to the crafting result.
@@ -41,7 +41,7 @@ public interface IIngredientCopyNBT {
      * @param inventory the crafting inventory.
      * @return true to copy nbt to result.
      */
-    default boolean shouldCopyNBT(ItemStack itemStack, IRecipe recipe, CraftingInventory inventory) {
+    default boolean shouldCopyNBT(ItemStack itemStack, Recipe recipe, CraftingContainer inventory) {
         return true;
     }
 
@@ -54,7 +54,7 @@ public interface IIngredientCopyNBT {
      * @param inventory the crafting inventory.
      * @return the tag to use on the resulting item.
      */
-    default CompoundNBT overrideNBT(ItemStack itemStack, CompoundNBT nbt, IRecipe recipe, CraftingInventory inventory) {
+    default CompoundTag overrideNBT(ItemStack itemStack, CompoundTag nbt, Recipe recipe, CraftingContainer inventory) {
         return nbt;
     }
     //endregion Methods
