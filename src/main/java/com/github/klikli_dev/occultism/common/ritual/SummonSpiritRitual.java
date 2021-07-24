@@ -27,12 +27,12 @@ import com.github.klikli_dev.occultism.common.ritual.pentacle.Pentacle;
 import com.github.klikli_dev.occultism.util.ItemNBTUtil;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.Player;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.entity.player.ServerPlayer;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.level.Level;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.items.ItemHandlerHelper;
 
 public class SummonSpiritRitual extends Ritual {

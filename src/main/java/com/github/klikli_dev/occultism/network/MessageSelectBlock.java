@@ -24,9 +24,9 @@ package com.github.klikli_dev.occultism.network;
 
 import com.github.klikli_dev.occultism.Occultism;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.Player;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
 import net.minecraftforge.fml.network.NetworkEvent;
 
 import java.awt.*;

@@ -22,8 +22,6 @@
 
 package com.github.klikli_dev.occultism.registry;
 
-import static com.github.klikli_dev.occultism.util.StaticUtil.modLoc;
-
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.entity.BatFamiliarEntity;
 import com.github.klikli_dev.occultism.common.entity.GreedyFamiliarEntity;
@@ -31,20 +29,15 @@ import com.github.klikli_dev.occultism.common.entity.OtherworldBirdEntity;
 import com.github.klikli_dev.occultism.common.entity.possessed.PossessedEndermanEntity;
 import com.github.klikli_dev.occultism.common.entity.possessed.PossessedEndermiteEntity;
 import com.github.klikli_dev.occultism.common.entity.possessed.PossessedSkeletonEntity;
-import com.github.klikli_dev.occultism.common.entity.spirit.AfritEntity;
-import com.github.klikli_dev.occultism.common.entity.spirit.AfritWildEntity;
-import com.github.klikli_dev.occultism.common.entity.spirit.DjinniEntity;
-import com.github.klikli_dev.occultism.common.entity.spirit.FoliotEntity;
-import com.github.klikli_dev.occultism.common.entity.spirit.MaridEntity;
-import com.github.klikli_dev.occultism.common.entity.spirit.WildHuntSkeletonEntity;
-import com.github.klikli_dev.occultism.common.entity.spirit.WildHuntWitherSkeletonEntity;
-
+import com.github.klikli_dev.occultism.common.entity.spirit.*;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraftforge.common.util.NonNullLazy;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+
+import static com.github.klikli_dev.occultism.util.StaticUtil.modLoc;
 
 public class OccultismEntities {
     //region Fields

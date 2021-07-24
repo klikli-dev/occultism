@@ -22,16 +22,14 @@
 
 package com.github.klikli_dev.occultism.util;
 
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.ServerPlayer;
+import net.minecraft.world.level.Level;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.level.Level;
-import net.minecraft.level.server.ServerWorld;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
-import net.minecraftforge.fml.server.ServerLifecycleHooks;
 import net.minecraftforge.fmllegacy.server.ServerLifecycleHooks;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -50,7 +48,7 @@ public class EntityUtil {
      * @return Optional containing the player.
      */
     public static Optional<ServerPlayer> getPlayerByUuiDGlobal(UUID uuid) {
-        for (ServerWorld level : ServerLifecycleHooks.getCurrentServer().getWorlds()) {
+        for (ServerLevel level : ServerLifecycleHooks.getCurrentServer().getWorlds()) {
             ServerPlayer player = (ServerPlayer) level.getPlayerByUuid(uuid);
             if (player != null)
                 return Optional.of(player);
@@ -78,7 +76,7 @@ public class EntityUtil {
      */
     public static Optional<? extends Entity> getEntityByUuiDGlobal(MinecraftServer server, UUID uuid) {
         if (uuid != null && server!= null) {
-            for (ServerWorld level : server.getWorlds()) {
+            for (ServerLevel level : server.getWorlds()) {
                 Entity entity = level.getEntityByUuid(uuid);
                 if (entity != null)
                     return Optional.of(entity);

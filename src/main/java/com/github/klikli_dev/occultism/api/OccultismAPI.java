@@ -24,13 +24,13 @@ package com.github.klikli_dev.occultism.api;
 
 import com.github.klikli_dev.occultism.api.common.misc.IButcherKnifeLoot;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.passive.CowEntity;
-import net.minecraft.entity.passive.PigEntity;
-import net.minecraft.entity.passive.SheepEntity;
-import net.minecraft.entity.passive.horse.HorseEntity;
-import net.minecraft.entity.passive.horse.LlamaEntity;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.animal.Cow;
+import net.minecraft.world.entity.animal.Pig;
+import net.minecraft.world.entity.animal.Sheep;
+import net.minecraft.world.entity.animal.horse.Horse;
+import net.minecraft.world.entity.animal.horse.Llama;
+import net.minecraft.world.item.ItemStack;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -49,19 +49,19 @@ public class OccultismAPI {
 
     public static void registerButcherKnifeLoot() {
         BUTCHER_KNIFE_LOOT
-                .put(e -> e instanceof PigEntity, (killedEntity, knife, trueDamageSource) -> Collections.singletonList(
+                .put(e -> e instanceof Pig, (killedEntity, knife, trueDamageSource) -> Collections.singletonList(
                         new ItemStack(OccultismItems.TALLOW.get(), 2)));
         BUTCHER_KNIFE_LOOT
-                .put(e -> e instanceof CowEntity, (killedEntity, knife, trueDamageSource) -> Collections.singletonList(
+                .put(e -> e instanceof Cow, (killedEntity, knife, trueDamageSource) -> Collections.singletonList(
                         new ItemStack(OccultismItems.TALLOW.get(), 4)));
         BUTCHER_KNIFE_LOOT
-                .put(e -> e instanceof SheepEntity, (killedEntity, knife, trueDamageSource) -> Collections.singletonList(
+                .put(e -> e instanceof Sheep, (killedEntity, knife, trueDamageSource) -> Collections.singletonList(
                         new ItemStack(OccultismItems.TALLOW.get(), 2)));
         BUTCHER_KNIFE_LOOT
-                .put(e -> e instanceof LlamaEntity, (killedEntity, knife, trueDamageSource) -> Collections.singletonList(
+                .put(e -> e instanceof Llama, (killedEntity, knife, trueDamageSource) -> Collections.singletonList(
                         new ItemStack(OccultismItems.TALLOW.get(), 3)));
         BUTCHER_KNIFE_LOOT
-                .put(e -> e instanceof HorseEntity, (killedEntity, knife, trueDamageSource) -> Collections.singletonList(
+                .put(e -> e instanceof Horse, (killedEntity, knife, trueDamageSource) -> Collections.singletonList(
                         new ItemStack(OccultismItems.TALLOW.get(), 3)));
     }
 }

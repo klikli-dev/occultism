@@ -22,7 +22,7 @@
 
 package com.github.klikli_dev.occultism.util;
 
-import net.minecraft.util.Direction;
+import net.minecraft.core.Direction;
 
 public class EnumUtil {
 

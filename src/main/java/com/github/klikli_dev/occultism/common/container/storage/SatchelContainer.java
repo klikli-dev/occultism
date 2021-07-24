@@ -25,13 +25,12 @@ package com.github.klikli_dev.occultism.common.container.storage;
 import com.github.klikli_dev.occultism.registry.OccultismContainers;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.github.klikli_dev.occultism.util.CuriosUtil;
-import net.minecraft.entity.player.Player;
-import net.minecraft.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.container.AbstractContainerMenu;
 import net.minecraft.inventory.container.Slot;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.network.FriendlyByteBuf;
 
 public class SatchelContainer extends AbstractContainerMenu {

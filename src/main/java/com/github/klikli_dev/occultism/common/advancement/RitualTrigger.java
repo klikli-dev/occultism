@@ -30,8 +30,8 @@ import net.minecraft.advancements.criterion.EntityPredicate;
 import net.minecraft.entity.player.ServerPlayer;
 import net.minecraft.loot.ConditionArrayParser;
 import net.minecraft.loot.ConditionArraySerializer;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.GsonHelper;
+import net.minecraft.resources.ResourceLocation;
 
 public class RitualTrigger extends AbstractCriterionTrigger<RitualTrigger.Instance> {
     //region Fields
@@ -51,7 +51,7 @@ public class RitualTrigger extends AbstractCriterionTrigger<RitualTrigger.Instan
 
     public RitualTrigger.Instance deserializeTrigger(JsonObject json, EntityPredicate.AndPredicate entityPredicate,
                                                      ConditionArrayParser conditionsParser) {
-        return new RitualTrigger.Instance(this.id, new ResourceLocation(JSONUtils.getString(json, "ritual_id")));
+        return new RitualTrigger.Instance(this.id, new ResourceLocation(GsonHelper.getString(json, "ritual_id")));
     }
     //endregion Overrides
 

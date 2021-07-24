@@ -24,7 +24,7 @@ package com.github.klikli_dev.occultism.network;
 
 import com.github.klikli_dev.occultism.api.common.item.IHandleItemMode;
 import net.minecraft.entity.player.ServerPlayer;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.InteractionHand;

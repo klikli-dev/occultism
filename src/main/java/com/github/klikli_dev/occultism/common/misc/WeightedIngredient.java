@@ -22,22 +22,29 @@
 
 package com.github.klikli_dev.occultism.common.misc;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.WeightedRandom;
+import net.minecraft.util.random.Weight;
+import net.minecraft.util.random.WeightedEntry;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 
-public class WeightedIngredient extends WeightedRandom.Item {
+public class WeightedIngredient extends WeightedEntry.IntrusiveBase {
     protected Ingredient ingredient;
+
     public WeightedIngredient(Ingredient ingredient, int itemWeightIn) {
         super(itemWeightIn);
         this.ingredient = ingredient;
     }
 
-    public ItemStack getStack(){
-        return this.ingredient.getMatchingStacks()[0];
+    public ItemStack getStack() {
+        return this.ingredient.getItems()[0];
     }
 
     public Ingredient getIngredient() {
         return this.ingredient;
+    }
+
+    @Override
+    public Weight getWeight() {
+        return null;
     }
 }

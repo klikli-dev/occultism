@@ -25,15 +25,17 @@ package com.github.klikli_dev.occultism.crafting.recipe;
 import com.github.klikli_dev.occultism.registry.OccultismRecipes;
 import com.google.gson.JsonObject;
 import net.minecraft.inventory.CraftingInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.item.crafting.ShapelessRecipe;
+import net.minecraft.world.level.Level;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.level.Level;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.ShapelessRecipe;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import javax.annotation.Nonnull;
@@ -53,7 +55,7 @@ public class SpiritTradeRecipe extends ShapelessRecipe {
 
     //region Overrides
     @Override
-    public IRecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<?> getSerializer() {
         return SERIALIZER;
     }
 
@@ -69,7 +71,7 @@ public class SpiritTradeRecipe extends ShapelessRecipe {
     }
 
     @Override
-    public IRecipeType<?> getType() {
+    public RecipeType<?> getType() {
         return OccultismRecipes.SPIRIT_TRADE_TYPE.get();
     }
 
@@ -124,7 +126,7 @@ public class SpiritTradeRecipe extends ShapelessRecipe {
     }
     //endregion Methods
 
-    public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<SpiritTradeRecipe> {
+    public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<SpiritTradeRecipe> {
         //region Fields
         private static final ShapelessRecipe.Serializer serializer = new ShapelessRecipe.Serializer();
         //endregion Fields

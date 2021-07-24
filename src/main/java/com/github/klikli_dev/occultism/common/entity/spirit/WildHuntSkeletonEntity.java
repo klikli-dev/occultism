@@ -28,9 +28,9 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.monster.SkeletonEntity;
+import net.minecraft.world.level.Level;
 import net.minecraft.tags.ITag;
 import net.minecraft.util.DamageSource;
-import net.minecraft.level.Level;
 
 import java.util.Optional;
 

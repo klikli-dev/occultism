@@ -26,17 +26,16 @@ import com.github.klikli_dev.occultism.common.job.TransportItemsJob;
 import com.github.klikli_dev.occultism.util.ItemNBTUtil;
 import com.github.klikli_dev.occultism.util.TextUtil;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.level.Level;
 
 import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 public class BookOfCallingTransportItems extends BookOfCallingItem {
     //region Initialization
@@ -53,7 +52,7 @@ public class BookOfCallingTransportItems extends BookOfCallingItem {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<ITextComponent> tooltip,
+    public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip,
                                ITooltipFlag flagIn) {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
         BlockPos extract = ItemNBTUtil.getExtractPosition(stack);

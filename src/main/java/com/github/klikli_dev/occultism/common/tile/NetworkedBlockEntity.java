@@ -22,51 +22,56 @@
 
 package com.github.klikli_dev.occultism.common.tile;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.server.SUpdateBlockEntityPacket;
 import net.minecraft.BlockEntity.BlockEntity;
 import net.minecraft.BlockEntity.BlockEntityType;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.Connection;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.play.server.ClientboundBlockEntityDataPacket;
 
 public abstract class NetworkedBlockEntity extends BlockEntity {
 
-    public NetworkedBlockEntity(BlockEntityType<?> BlockEntityTypeIn) {
-        super(BlockEntityTypeIn);
+    public NetworkedBlockEntity(BlockEntityType<?> BlockEntityTypeIn, BlockPos worldPos, BlockState state) {
+        super(BlockEntityTypeIn, worldPos, state);
     }
 
     //region Overrides
     @Override
-    public void read(BlockState state, CompoundTag compound) {
-        this.readNetwork(compound);
-        super.read(state, compound);
+    public void load(CompoundTag compound) {
+        this.loadNetwork(compound);
+        super.load(compound);
     }
 
     @Override
-    public CompoundTag write(CompoundTag compound) {
-        this.writeNetwork(compound);
-        return super.write(compound);
+    public CompoundTag save(CompoundTag compound) {
+        this.saveNetwork(compound);
+        return super.save(compound);
     }
 
     @Override
-    public SUpdateBlockEntityPacket getUpdatePacket() {
-        return new SUpdateBlockEntityPacket(this.pos, 1, this.writeNetwork(new CompoundTag()));
+    public ClientboundBlockEntityDataPacket getUpdatePacket() {
+        return new ClientboundBlockEntityDataPacket(this.worldPosition, 1, this.saveNetwork(new CompoundTag()));
     }
 
     @Override
     public CompoundTag getUpdateTag() {
-        return this.writeNetwork(super.getUpdateTag());
+        return this.saveNetwork(super.getUpdateTag());
     }
 
     @Override
-    public void onDataPacket(NetworkManager net, SUpdateBlockEntityPacket pkt) {
-        this.readNetwork(pkt.getNbtCompound());
+    public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt) {
+        this.loadNetwork(pkt.getTag());
     }
 
     @Override
-    public void handleUpdateTag(BlockState state, CompoundTag tag) {
-        super.read(state, tag);
-        this.readNetwork(tag);
+    public void handleUpdateTag(CompoundTag tag) {
+        super.load(tag);
+        this.loadNetwork(tag);
     }
 
     //endregion Overrides
@@ -78,7 +83,7 @@ public abstract class NetworkedBlockEntity extends BlockEntity {
      *
      * @param compound the compound to read from.
      */
-    public void readNetwork(CompoundTag compound) {
+    public void loadNetwork(CompoundTag compound) {
     }
 
     /**
@@ -87,13 +92,13 @@ public abstract class NetworkedBlockEntity extends BlockEntity {
      * @param compound the compound to write to.
      * @return the compound written to,
      */
-    public CompoundTag writeNetwork(CompoundTag compound) {
+    public CompoundTag saveNetwork(CompoundTag compound) {
         return compound;
     }
 
     public void markNetworkDirty(){
         if (this.level != null) {
-            this.level.notifyBlockUpdate(this.pos, this.getBlockState(), this.getBlockState(), 2);
+            this.level.sendBlockUpdated(this.worldPosition, this.getBlockState(), this.getBlockState(), 2);
         }
     }
 }

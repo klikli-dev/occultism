@@ -23,9 +23,12 @@
 package com.github.klikli_dev.occultism.common.tile;
 
 import com.github.klikli_dev.occultism.registry.OccultismTiles;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.BlockEntity.BlockEntityType;
-import net.minecraft.util.Direction;
+import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -61,12 +64,12 @@ public class SacrificialBowlBlockEntity extends NetworkedBlockEntity {
     //endregion Fields
 
     //region Initialization
-    public SacrificialBowlBlockEntity() {
-        super(OccultismTiles.SACRIFICIAL_BOWL.get());
+    public SacrificialBowlBlockEntity(BlockPos worldPos, BlockState state) {
+        super(OccultismTiles.SACRIFICIAL_BOWL.get(), worldPos, state);
     }
 
-    public SacrificialBowlBlockEntity(BlockEntityType<?> BlockEntityTypeIn) {
-        super(BlockEntityTypeIn);
+    public SacrificialBowlBlockEntity(BlockEntityType<?> BlockEntityTypeIn, BlockPos worldPos, BlockState state) {
+        super(BlockEntityTypeIn, worldPos, state);
     }
     //endregion Initialization
 
@@ -81,13 +84,13 @@ public class SacrificialBowlBlockEntity extends NetworkedBlockEntity {
     }
 
     @Override
-    public void readNetwork(CompoundTag compound) {
+    public void loadNetwork(CompoundTag compound) {
         this.itemStackHandler.ifPresent((handler) -> handler.deserializeNBT(compound.getCompound("inventory")));
         this.lastChangeTime = compound.getLong("lastChangeTime");
     }
 
     @Override
-    public CompoundTag writeNetwork(CompoundTag compound) {
+    public CompoundTag saveNetwork(CompoundTag compound) {
         this.itemStackHandler.ifPresent(handler -> compound.put("inventory", handler.serializeNBT()));
         compound.putLong("lastChangeTime", this.lastChangeTime);
         return compound;

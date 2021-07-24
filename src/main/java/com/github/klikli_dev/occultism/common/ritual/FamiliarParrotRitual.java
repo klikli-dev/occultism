@@ -31,14 +31,14 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.TamableAnimal;
-import net.minecraft.entity.player.Player;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.Level;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.particles.ParticleTypes;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.level.Level;
-import net.minecraft.level.server.ServerWorld;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.TextComponent;
 
 public class FamiliarParrotRitual extends SummonSpiritRitual {
 
@@ -63,19 +63,19 @@ public class FamiliarParrotRitual extends SummonSpiritRitual {
         String entityName = ItemNBTUtil.getBoundSpiritName(activationItem);
         activationItem.shrink(1); //remove original activation item.
 
-        ((ServerWorld) level).sendParticles(ParticleTypes.LARGE_SMOKE, goldenBowlPosition.getX() + 0.5,
+        ((ServerLevel) level).sendParticles(ParticleTypes.LARGE_SMOKE, goldenBowlPosition.getX() + 0.5,
                 goldenBowlPosition.getY() + 0.5, goldenBowlPosition.getZ() + 0.5, 1, 0, 0, 0, 0);
 
         //1/3 are a parrot, 2/3 are chickens.
         AnimalEntity parrot =
                 level.rand.nextInt(3) == 0 ? EntityType.PARROT.create(level) : EntityType.CHICKEN.create(level);
-        parrot.onInitialSpawn((ServerWorld) level, level.getDifficultyForLocation(goldenBowlPosition), SpawnReason.MOB_SUMMONED,
+        parrot.onInitialSpawn((ServerLevel) level, level.getDifficultyForLocation(goldenBowlPosition), SpawnReason.MOB_SUMMONED,
                 null,
                 null);
         parrot
                 .setPositionAndRotation(goldenBowlPosition.getX(), goldenBowlPosition.getY(), goldenBowlPosition.getZ(),
                         level.rand.nextInt(360), 0);
-        parrot.setCustomName(new StringTextComponent(entityName));
+        parrot.setCustomName(new TextComponent(entityName));
         if (parrot instanceof TamableAnimal) {
             ((TamableAnimal) parrot).setTamedBy(castingPlayer);
         }

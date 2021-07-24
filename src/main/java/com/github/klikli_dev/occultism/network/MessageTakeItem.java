@@ -27,7 +27,7 @@ import com.github.klikli_dev.occultism.api.common.tile.IStorageController;
 import com.github.klikli_dev.occultism.common.misc.ItemStackComparator;
 import com.github.klikli_dev.occultism.util.InputUtil;
 import net.minecraft.entity.player.ServerPlayer;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.fml.network.NetworkEvent;

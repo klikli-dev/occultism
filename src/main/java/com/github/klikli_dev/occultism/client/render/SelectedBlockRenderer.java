@@ -23,14 +23,14 @@
 package com.github.klikli_dev.occultism.client.render;
 
 import com.github.klikli_dev.occultism.util.RenderUtil;
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
 import net.minecraft.util.math.vector.Matrix4f;
-import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
@@ -90,11 +90,11 @@ public class SelectedBlockRenderer {
         if (!this.selectedBlocks.isEmpty()) {
             long time = System.currentTimeMillis();
 
-            MatrixStack poseStack = event.getMatrixStack();
+            PoseStack poseStack = event.getMatrixStack();
             IRenderTypeBuffer.Impl buffer = Minecraft.getInstance().getRenderTypeBuffers().getBufferSource();
             IVertexBuilder builder = buffer.getBuffer(OccultismRenderType.BLOCK_SELECTION);
             poseStack.push();
-            Vector3d projectedView = Minecraft.getInstance().gameRenderer.getActiveRenderInfo().getProjectedView();
+            Vec3 projectedView = Minecraft.getInstance().gameRenderer.getActiveRenderInfo().getProjectedView();
             poseStack.translate(-projectedView.x, -projectedView.y, -projectedView.z);
             Matrix4f transform = poseStack.getLast().getMatrix();
 

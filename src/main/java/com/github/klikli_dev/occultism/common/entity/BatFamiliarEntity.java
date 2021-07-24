@@ -22,35 +22,28 @@
 
 package com.github.klikli_dev.occultism.common.entity;
 
-import java.util.Collections;
-import java.util.EnumSet;
-
-import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.capability.FamiliarSettingsCapability;
 import com.github.klikli_dev.occultism.registry.OccultismCapabilities;
-import com.github.klikli_dev.occultism.registry.OccultismEffects;
 import com.google.common.collect.ImmutableList;
-
-import net.minecraft.block.BlockState;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.controller.FlyingMovementController;
-import net.minecraft.entity.ai.goal.FollowMobGoal;
-import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.ai.goal.LookAtPlayerGoal;
-import net.minecraft.entity.ai.goal.PanicGoal;
-import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
+import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.passive.IFlyingAnimal;
-import net.minecraft.entity.player.Player;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
 import net.minecraft.pathfinding.FlyingPathNavigator;
 import net.minecraft.pathfinding.PathNavigator;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.level.Level;
+import net.minecraft.core.BlockPos;
+import net.minecraft.util.math.Mth;
+import net.minecraft.world.phys.Vec3;
+
+import java.util.Collections;
+import java.util.EnumSet;
 
 public class BatFamiliarEntity extends FamiliarEntity implements IFlyingAnimal {
 
@@ -101,11 +94,11 @@ public class BatFamiliarEntity extends FamiliarEntity implements IFlyingAnimal {
     public void tick() {
         super.tick();
         if (this.isSitting())
-            this.setMotion(Vector3d.ZERO);
+            this.setMotion(Vec3.ZERO);
     }
     
     public float getAnimationHeight(float partialTicks) {
-        return MathHelper.cos((ticksExisted + partialTicks) / 5);
+        return Mth.cos((ticksExisted + partialTicks) / 5);
     }
 
     @Override

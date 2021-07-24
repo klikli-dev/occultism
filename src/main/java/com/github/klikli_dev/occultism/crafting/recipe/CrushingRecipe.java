@@ -24,15 +24,15 @@ package com.github.klikli_dev.occultism.crafting.recipe;
 
 import com.github.klikli_dev.occultism.registry.OccultismRecipes;
 import com.google.gson.JsonObject;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.Level;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.util.JSONUtils;
+import net.minecraft.util.GsonHelper;
 import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.level.Level;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
 public class CrushingRecipe extends ItemStackFakeInventoryRecipe {
@@ -96,24 +96,24 @@ public class CrushingRecipe extends ItemStackFakeInventoryRecipe {
     }
 
     @Override
-    public IRecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<?> getSerializer() {
         return SERIALIZER;
     }
 
     @Override
-    public IRecipeType<?> getType() {
+    public RecipeType<?> getType() {
         return OccultismRecipes.CRUSHING_TYPE.get();
     }
 
     //endregion Overrides
 
-    public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<CrushingRecipe> {
+    public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<CrushingRecipe> {
 
         //region Overrides
         @Override
         public CrushingRecipe read(ResourceLocation recipeId, JsonObject json) {
-            int crushingTime = JSONUtils.getInt(json, "crushing_time", DEFAULT_CRUSHING_TIME);
-            boolean ignoreCrushingMultiplier = JSONUtils.getBoolean(json, "ignore_crushing_multiplier", false);
+            int crushingTime = GsonHelper.getInt(json, "crushing_time", DEFAULT_CRUSHING_TIME);
+            boolean ignoreCrushingMultiplier = GsonHelper.getBoolean(json, "ignore_crushing_multiplier", false);
             return ItemStackFakeInventoryRecipe.SERIALIZER
                     .read((id, input, output) ->
                             new CrushingRecipe(id, input, output, crushingTime, ignoreCrushingMultiplier), recipeId, json);

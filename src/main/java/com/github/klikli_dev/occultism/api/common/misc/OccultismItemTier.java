@@ -22,62 +22,70 @@
 
 package com.github.klikli_dev.occultism.api.common.misc;
 
-import net.minecraft.item.IItemTier;
-import net.minecraft.item.Items;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.LazyValue;
+
+import net.minecraft.util.LazyLoadedValue;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.Tier;
+import net.minecraft.world.item.crafting.Ingredient;
 
 import java.util.function.Supplier;
 
-public enum OccultismItemTier implements IItemTier {
+public enum OccultismItemTier implements Tier {
     SPIRIT_ATTUNED_GEM(2, 60, 3.0F, 2.0F, 14, () -> {
-        return Ingredient.fromItems(Items.IRON_INGOT);
+        return Ingredient.of(Items.IRON_INGOT);
     });
 
     //region Fields
-    private final int harvestLevel;
-    private final int maxUses;
-    private final float efficiency;
-    private final float attackDamage;
-    private final int enchantability;
-    private final LazyValue<Ingredient> repairMaterial;
+    private final int level;
+    private final int uses;
+    private final float speed;
+    private final float attackDamageBonus;
+    private final int enchantmentValue;
+    private final LazyLoadedValue<Ingredient> repairIngredient;
     //endregion Fields
 
     //region Initialization
     OccultismItemTier(int harvestLevelIn, int maxUsesIn, float efficiencyIn, float attackDamageIn,
                               int enchantabilityIn, Supplier<Ingredient> repairMaterialIn) {
-        this.harvestLevel = harvestLevelIn;
-        this.maxUses = maxUsesIn;
-        this.efficiency = efficiencyIn;
-        this.attackDamage = attackDamageIn;
-        this.enchantability = enchantabilityIn;
-        this.repairMaterial = new LazyValue<>(repairMaterialIn);
+        this.level = harvestLevelIn;
+        this.uses = maxUsesIn;
+        this.speed = efficiencyIn;
+        this.attackDamageBonus = attackDamageIn;
+        this.enchantmentValue = enchantabilityIn;
+        this.repairIngredient = new LazyLoadedValue<>(repairMaterialIn);
     }
     //endregion Initialization
 
     //region Overrides
-    public int getMaxUses() {
-        return this.maxUses;
+    @Override
+    public int getUses() {
+        return this.uses;
     }
 
-    public float getEfficiency() {
-        return this.efficiency;
+    @Override
+    public float getSpeed() {
+        return this.speed;
     }
 
-    public float getAttackDamage() {
-        return this.attackDamage;
+    @Override
+    public float getAttackDamageBonus() {
+        return this.attackDamageBonus;
     }
 
-    public int getHarvestLevel() {
-        return this.harvestLevel;
+    @Override
+    public int getLevel() {
+        return this.level;
     }
 
-    public int getEnchantability() {
-        return this.enchantability;
+    @Override
+    public int getEnchantmentValue() {
+        return this.enchantmentValue;
     }
 
-    public Ingredient getRepairMaterial() {
-        return this.repairMaterial.getValue();
+    @Override
+    public Ingredient getRepairIngredient() {
+        return this.repairIngredient.get();
     }
+
     //endregion Overrides
 }

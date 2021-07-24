@@ -22,7 +22,7 @@
 
 package com.github.klikli_dev.occultism.common.entity.ai.target;
 
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 
 public interface IMoveTarget extends ICapabilityProvider {

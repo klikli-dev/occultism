@@ -24,18 +24,18 @@ package com.github.klikli_dev.occultism.common.item.tool;
 
 import com.github.klikli_dev.occultism.Occultism;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.player.Player;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.entity.player.ServerPlayer;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.InteractionResult;
 import net.minecraft.util.InteractionHand;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.InteractionResult;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.chat.Component;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
@@ -81,7 +81,7 @@ public class GuideBookItem extends Item {
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public void appendHoverText(ItemStack stack, Level worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+    public void appendHoverText(ItemStack stack, Level worldIn, List<Component> tooltip, ITooltipFlag flagIn) {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
         Book book = BookRegistry.INSTANCE.books.get(GUIDE);
         if (book != null && book.contents != null) {
@@ -91,7 +91,7 @@ public class GuideBookItem extends Item {
     }
 
     @Override
-    public ITextComponent getDisplayName(ItemStack stack) {
+    public Component getDisplayName(ItemStack stack) {
         Book book = BookRegistry.INSTANCE.books.get(GUIDE);
         return book != null ? new TranslationTextComponent(book.name, new Object[0]) : super.getDisplayName(stack);
     }

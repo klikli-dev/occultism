@@ -26,20 +26,20 @@ import com.github.klikli_dev.occultism.common.misc.WeightedIngredient;
 import com.github.klikli_dev.occultism.registry.OccultismRecipes;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.core.NonNullList;
+import net.minecraft.util.GsonHelper;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.level.Level;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.items.wrapper.RecipeWrapper;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
-public class MinerRecipe implements IRecipe<RecipeWrapper> {
+public class MinerRecipe implements Recipe<RecipeWrapper> {
     //region Fields
     public static Serializer SERIALIZER = new Serializer();
     protected final ResourceLocation id;
@@ -64,7 +64,7 @@ public class MinerRecipe implements IRecipe<RecipeWrapper> {
     //region Overrides
     @Override
     public boolean matches(RecipeWrapper inv, Level level) {
-        return this.input.test(inv.getStackInSlot(0));
+        return this.input.test(inv.getItem(0));
     }
 
     @Override
@@ -94,46 +94,46 @@ public class MinerRecipe implements IRecipe<RecipeWrapper> {
     }
 
     @Override
-    public IRecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<?> getSerializer() {
         return SERIALIZER;
     }
 
     @Override
-    public IRecipeType<?> getType() {
+    public RecipeType<?> getType() {
         return OccultismRecipes.MINER_TYPE.get();
     }
 
     //endregion Overrides
 
-    public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<MinerRecipe> {
+    public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<MinerRecipe> {
 
         //region Overrides
         @Override
-        public MinerRecipe read(ResourceLocation recipeId, JsonObject json) {
-            JsonElement ingredientElement = JSONUtils.isJsonArray(json, "ingredient") ? JSONUtils.getJsonArray(json,
-                    "ingredient") : JSONUtils.getJsonObject(json, "ingredient");
-            Ingredient ingredient = Ingredient.deserialize(ingredientElement);
-            JsonElement resultElement = JSONUtils.getJsonObject(json, "result");
-            Ingredient result = Ingredient.deserialize(resultElement);
-            int weight = JSONUtils.getInt(json, "weight");
+        public MinerRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
+            JsonElement ingredientElement = GsonHelper.isArrayNode(json, "ingredient") ? GsonHelper.getAsJsonArray(json,
+                    "ingredient") : GsonHelper.getAsJsonObject(json, "ingredient");
+            Ingredient ingredient = Ingredient.fromJson(ingredientElement);
+            JsonElement resultElement = GsonHelper.getAsJsonObject(json, "result");
+            Ingredient result = Ingredient.fromJson(resultElement);
+            int weight = GsonHelper.getAsInt(json, "weight");
 
             return new MinerRecipe(recipeId, ingredient, new WeightedIngredient(result, weight));
         }
 
         @Override
-        public MinerRecipe read(ResourceLocation recipeId, FriendlyByteBuf buffer) {
-            Ingredient ingredient = Ingredient.read(buffer);
-            Ingredient result = Ingredient.read(buffer);
+        public MinerRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
+            Ingredient ingredient = Ingredient.fromNetwork(buffer);
+            Ingredient result = Ingredient.fromNetwork(buffer);
             int weight = buffer.readInt();
 
             return new MinerRecipe(recipeId, ingredient, new WeightedIngredient(result, weight));
         }
 
         @Override
-        public void write(FriendlyByteBuf buffer, MinerRecipe recipe) {
-            recipe.input.write(buffer);
-            recipe.output.getIngredient().write(buffer);
-            buffer.writeInt(recipe.output.itemWeight);
+        public void toNetwork(FriendlyByteBuf buffer, MinerRecipe recipe) {
+            recipe.input.toNetwork(buffer);
+            recipe.output.getIngredient().toNetwork(buffer);
+            buffer.writeInt(recipe.output.getWeight().asInt());
         }
         //endregion Overrides
     }

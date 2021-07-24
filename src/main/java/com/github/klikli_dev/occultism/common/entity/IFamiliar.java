@@ -22,14 +22,13 @@
 
 package com.github.klikli_dev.occultism.common.entity;
 
+import com.github.klikli_dev.occultism.common.item.tool.FamiliarRingItem;
+import net.minecraft.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.potion.EffectInstance;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
-import com.github.klikli_dev.occultism.common.item.tool.FamiliarRingItem;
-
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.potion.EffectInstance;
 
 /***
  * An interface representing a familiar entity. See {@link OtherworldBirdEntity}

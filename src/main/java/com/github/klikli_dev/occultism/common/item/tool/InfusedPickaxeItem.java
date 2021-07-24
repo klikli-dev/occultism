@@ -28,11 +28,11 @@ import com.github.klikli_dev.occultism.util.ItemNBTUtil;
 import com.github.klikli_dev.occultism.util.TextUtil;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.IItemTier;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.item.PickaxeItem;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.world.level.Level;
+import net.minecraft.network.chat.Component;
 import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.level.Level;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -52,7 +52,7 @@ public class InfusedPickaxeItem extends PickaxeItem implements IOtherworldTool {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<ITextComponent> tooltip,
+    public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip,
                                ITooltipFlag flagIn) {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
         tooltip.add(new TranslationTextComponent(this.getDescriptionId() + ".tooltip",

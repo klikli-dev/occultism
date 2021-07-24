@@ -22,9 +22,12 @@
 
 package com.github.klikli_dev.occultism.util;
 
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.*;
-import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.util.Mth;
+import net.minecraft.world.level.ChunkPos;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 
 import java.util.Comparator;
 import java.util.List;
@@ -34,7 +37,7 @@ import java.util.stream.Collectors;
 public class Math3DUtil {
 
     //region Static Methods
-    public static double yaw(Vector3d a, Vector3d b) {
+    public static double yaw(Vec3 a, Vec3 b) {
         double dirx = a.x - b.x;
         double diry = a.y - b.y;
         double dirz = a.z - b.z;
@@ -57,20 +60,20 @@ public class Math3DUtil {
         return yaw;
     }
 
-    public static Vector3d center(BlockPos pos) {
-        return new Vector3d(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D);
+    public static Vec3 center(BlockPos pos) {
+        return new Vec3(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D);
     }
 
-    public static BlockPos clamp(BlockPos pos, AxisAlignedBB bounds) {
+    public static BlockPos clamp(BlockPos pos, AABB bounds) {
         return new BlockPos(
-                MathHelper.clamp(pos.getX(), bounds.minX, bounds.maxX),
-                MathHelper.clamp(pos.getY(), bounds.minY, bounds.maxY),
-                MathHelper.clamp(pos.getZ(), bounds.minZ, bounds.maxZ)
+                Mth.clamp(pos.getX(), bounds.minX, bounds.maxX),
+                Mth.clamp(pos.getY(), bounds.minY, bounds.maxY),
+                Mth.clamp(pos.getZ(), bounds.minZ, bounds.maxZ)
                 );
     }
 
-    public static AxisAlignedBB bounds(ChunkPos pos, int maxHeight){
-        return new AxisAlignedBB(pos.getXStart(), 0, pos.getZStart(), pos.getXEnd(), maxHeight, pos.getZEnd());
+    public static AABB bounds(ChunkPos pos, int maxHeight){
+        return new AABB(pos.getMinBlockX(), 0, pos.getMinBlockZ(), pos.getMaxBlockX(), maxHeight, pos.getMaxBlockZ());
     }
 
     /**
@@ -85,8 +88,8 @@ public class Math3DUtil {
     public static List<BlockPos> simpleTrace(BlockPos start, Direction direction, int distance) {
         //map to a new block pos because getAllInBox uses a mutable blockpos internally for iteration,
         // leading to the same block being collected 6x when not mapping it to an immutable blockpos
-        return BlockPos.getAllInBox(start, start.offset(direction, distance)).map(BlockPos::toImmutable)
-                       .sorted(Comparator.comparingDouble(start::distanceSq)).collect(Collectors.toList());
+        return BlockPos.betweenClosedStream(start, start.relative(direction, distance)).map(BlockPos::immutable)
+                       .sorted(Comparator.comparingDouble(start::distSqr)).collect(Collectors.toList());
     }
 
     /**

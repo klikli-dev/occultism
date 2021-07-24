@@ -25,7 +25,7 @@ package com.github.klikli_dev.occultism.common.entity.spirit;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.level.Level;
+import net.minecraft.world.level.Level;
 
 public class AfritEntity extends SpiritEntity {
 

@@ -26,7 +26,7 @@ import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.crafting.recipe.SpiritFireRecipe;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.github.klikli_dev.occultism.registry.OccultismRecipes;
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
@@ -35,8 +35,8 @@ import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.resources.ResourceLocation;
 
 public class SpiritFireRecipeCategory implements IRecipeCategory<SpiritFireRecipe> {
 
@@ -108,7 +108,7 @@ public class SpiritFireRecipeCategory implements IRecipeCategory<SpiritFireRecip
     }
 
     @Override
-    public void draw(SpiritFireRecipe recipe, MatrixStack poseStack, double mouseX, double mouseY) {
+    public void draw(SpiritFireRecipe recipe, PoseStack poseStack, double mouseX, double mouseY) {
         RenderSystem.enableBlend();
         this.overlay.draw(poseStack,48, 0);
     }

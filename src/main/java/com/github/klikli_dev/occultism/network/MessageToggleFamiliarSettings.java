@@ -23,9 +23,7 @@
 package com.github.klikli_dev.occultism.network;
 
 import com.github.klikli_dev.occultism.Occultism;
-import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.github.klikli_dev.occultism.registry.OccultismCapabilities;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.ServerPlayer;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.MinecraftServer;

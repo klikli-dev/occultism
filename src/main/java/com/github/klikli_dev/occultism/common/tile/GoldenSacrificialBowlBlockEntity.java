@@ -30,23 +30,24 @@ import com.github.klikli_dev.occultism.registry.OccultismParticles;
 import com.github.klikli_dev.occultism.registry.OccultismRituals;
 import com.github.klikli_dev.occultism.registry.OccultismTiles;
 import com.github.klikli_dev.occultism.util.EntityUtil;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.Player;
+import net.minecraft.BlockEntity.TickingBlockEntity;
+import net.minecraft.world.level.block.entity.TickingBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.inventory.InventoryHelper;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.Level;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListNBT;
 import net.minecraft.particles.ParticleTypes;
-import net.minecraft.BlockEntity.ITickableBlockEntity;
-import net.minecraft.util.Direction;
+import net.minecraft.core.Direction;
 import net.minecraft.util.InteractionHand;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.BlockPos;
 import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.level.Level;
-import net.minecraft.level.server.ServerWorld;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.items.IItemHandler;
@@ -55,7 +56,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity implements ITickableBlockEntity {
+public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity implements TickingBlockEntity {
 
     //region Fields
     public Ritual currentRitual;
@@ -70,15 +71,15 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
     //endregion Fields
 
     //region Initialization
-    public GoldenSacrificialBowlBlockEntity() {
-        super(OccultismTiles.GOLDEN_SACRIFICIAL_BOWL.get());
+    public GoldenSacrificialBowlBlockEntity(BlockPos worldPos, BlockState state) {
+        super(OccultismTiles.GOLDEN_SACRIFICIAL_BOWL.get(), worldPos, state);
     }
     //endregion Initialization
 
     //region Overrides
     @Override
-    public void read(BlockState state, CompoundTag compound) {
-        super.read(state, compound);
+    public void load(BlockState state, CompoundTag compound) {
+        super.load(state, compound);
 
         this.consumedIngredients.clear();
         if (this.currentRitual != null) {
@@ -100,7 +101,7 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
     }
 
     @Override
-    public CompoundTag write(CompoundTag compound) {
+    public CompoundTag save(CompoundTag compound) {
         if (this.currentRitual != null) {
             if (this.consumedIngredients.size() > 0) {
                 ListNBT list = new ListNBT();
@@ -112,12 +113,12 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
             compound.putBoolean("sacrificeProvided", this.sacrificeProvided);
             compound.putBoolean("requiredItemUsed", this.itemUseProvided);
         }
-        return super.write(compound);
+        return super.save(compound);
     }
 
     @Override
-    public void readNetwork(CompoundTag compound) {
-        super.readNetwork(compound);
+    public void loadNetwork(CompoundTag compound) {
+        super.loadNetwork(compound);
         if (compound.contains("currentRitual")) {
             this.currentRitual = OccultismRituals.RITUAL_REGISTRY
                                          .getValue(new ResourceLocation(compound.getString("currentRitual")));
@@ -131,7 +132,7 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
     }
 
     @Override
-    public CompoundTag writeNetwork(CompoundTag compound) {
+    public CompoundTag saveNetwork(CompoundTag compound) {
         if (this.currentRitual != null) {
             compound.putString("currentRitual", this.currentRitual.getRegistryName().toString());
         }
@@ -139,7 +140,7 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
             compound.putUUID("castingPlayerId", this.castingPlayerId);
         }
         compound.putInt("currentTime", this.currentTime);
-        return super.writeNetwork(compound);
+        return super.saveNetwork(compound);
     }
 
     @Override
@@ -168,14 +169,14 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
             //no casting player or if we do not have a sacrifice yet, we cannot advance time
             if (this.castingPlayer == null || !this.sacrificeFulfilled() || !this.itemUseFulfilled()) {
                 if (this.level.rand.nextInt(16) == 0) {
-                    ((ServerWorld) this.level)
+                    ((ServerLevel) this.level)
                             .sendParticles(OccultismParticles.RITUAL_WAITING.get(),
                                     this.pos.getX() + this.level.rand.nextGaussian(),
                                     this.pos.getY() + 0.5, this.pos.getZ() + this.level.rand.nextGaussian(),
                                     3,
                                     0.0, 0.0, 0.0,
                                     0.0);
-                    ((ServerWorld) this.level)
+                    ((ServerLevel) this.level)
                             .sendParticles(OccultismParticles.RITUAL_WAITING.get(),
                                     this.pos.getX() + this.level.rand.nextGaussian(),
                                     this.pos.getY() + 0.5, this.pos.getZ() + this.level.rand.nextGaussian(),
@@ -188,7 +189,7 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
 
             //spawn particles in random intervals
             if (this.level.rand.nextInt(16) == 0) {
-                ((ServerWorld) this.level)
+                ((ServerLevel) this.level)
                         .sendParticles(ParticleTypes.PORTAL, this.pos.getX() + 0.5 + this.level.rand.nextGaussian() / 3,
                                 this.pos.getY() + 0.5, this.pos.getZ() + 0.5 + this.level.rand.nextGaussian() / 3, 5,
                                 0.0, 0.0, 0.0,

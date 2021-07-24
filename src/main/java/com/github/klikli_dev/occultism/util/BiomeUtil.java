@@ -22,8 +22,8 @@
 
 package com.github.klikli_dev.occultism.util;
 
-import net.minecraft.util.ResourceKey;
 import net.minecraft.level.biome.Biome;
+import net.minecraft.util.ResourceKey;
 import net.minecraftforge.common.BiomeDictionary;
 
 import java.util.List;

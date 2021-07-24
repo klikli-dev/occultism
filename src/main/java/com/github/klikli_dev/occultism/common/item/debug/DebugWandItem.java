@@ -26,19 +26,19 @@ import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.github.klikli_dev.occultism.common.job.SpiritJob;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.registry.OccultismSpiritJobs;
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.player.Player;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.InteractionResult;
 import net.minecraft.util.InteractionHand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.level.Level;
-import net.minecraft.level.server.ServerWorld;
+import net.minecraft.util.InteractionResult;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.TextComponent;
 
 public class DebugWandItem extends Item {
 
@@ -58,15 +58,15 @@ public class DebugWandItem extends Item {
 //            ItemStack spirit = new ItemStack(OccultismItems.MINER_DEBUG_UNSPECIALIZED.get());
 //            spirit.getItem().onCreated(spirit, context.getLevel(), context.getPlayer());
 //            ItemHandlerHelper.giveItemToPlayer(player, spirit);
-            //context.getPlayer().sendMessage(new StringTextComponent(TextUtil.generateName()), Util.DUMMY_UUID);
+            //context.getPlayer().sendMessage(new TextComponent(TextUtil.generateName()), Util.DUMMY_UUID);
 
             //set up the foliot entity
             BlockPos target = context.getPos().up();
             SpiritEntity spirit = OccultismEntities.MARID.get().create(context.getLevel());
             spirit.setPositionAndRotation(target.getX(), target.getY(), target.getZ(),
                     context.getLevel().rand.nextInt(360), 0);
-            spirit.setCustomName(new StringTextComponent("Testguy"));
-            spirit.onInitialSpawn((ServerWorld) context.getLevel(), context.getLevel().getDifficultyForLocation(target),
+            spirit.setCustomName(new TextComponent("Testguy"));
+            spirit.onInitialSpawn((ServerLevel) context.getLevel(), context.getLevel().getDifficultyForLocation(target),
                     SpawnReason.MOB_SUMMONED, null,
                     null);
             spirit.setTamedBy(context.getPlayer());

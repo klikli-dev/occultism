@@ -29,16 +29,15 @@ import com.github.klikli_dev.occultism.network.MessageSetFilterMode;
 import com.github.klikli_dev.occultism.network.MessageSetTagFilterText;
 import com.github.klikli_dev.occultism.network.OccultismPackets;
 import com.github.klikli_dev.occultism.util.InputUtil;
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.widget.TextFieldWidget;
-import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.util.InputMappings;
-import net.minecraft.entity.player.Inventory;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.fml.client.gui.GuiUtils;
@@ -53,7 +52,7 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
     protected static final ResourceLocation TEXTURE = new ResourceLocation(Occultism.MODID,
             "textures/gui/inventory_spirit_transporter_tagfilter.png");
     protected static final String TRANSLATION_KEY_BASE = "gui." + Occultism.MODID + ".spirit.transporter";
-    protected final List<ITextComponent> tooltip = new ArrayList<>();
+    protected final List<Component> tooltip = new ArrayList<>();
     protected SpiritTransporterContainer container;
 
     protected Button filterModeButton;
@@ -65,7 +64,7 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
     //region Initialization
     public SpiritTransporterGui(SpiritTransporterContainer container,
                                 Inventory playerInventory,
-                                ITextComponent titleIn) {
+                                Component titleIn) {
         super(container, playerInventory, titleIn);
 
         this.container = container;
@@ -120,7 +119,7 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
         int tagFilterWidth = 124;
         this.tagFilterTextField = new TextFieldWidget(this.font, this.guiLeft + tagFilterLeft,
                 this.guiTop + tagFilterTop, tagFilterWidth, this.font.FONT_HEIGHT,
-                new StringTextComponent("forge:ores;*logs*"));
+                new TextComponent("forge:ores;*logs*"));
         this.tagFilterTextField.setMaxStringLength(90);
 
         this.tagFilterTextField.setEnableBackgroundDrawing(false);
@@ -134,7 +133,7 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
     }
 
     @Override
-    protected void drawGuiContainerBackgroundLayer(MatrixStack poseStack, float partialTicks, int x, int y) {
+    protected void drawGuiContainerBackgroundLayer(PoseStack poseStack, float partialTicks, int x, int y) {
         RenderSystem.color4f(1, 1, 1, 1);
         this.minecraft.getTextureManager().bindTexture(TEXTURE);
 
@@ -148,7 +147,7 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
     }
 
     @Override
-    protected void drawGuiContainerForegroundLayer(MatrixStack poseStack, int mouseX, int mouseY) {
+    protected void drawGuiContainerForegroundLayer(PoseStack poseStack, int mouseX, int mouseY) {
         this.tooltip.clear();
 
         if (this.filterModeButton.isHovered()) {
@@ -171,7 +170,7 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
     }
 
     @Override
-    public void render(MatrixStack poseStack, int mouseX, int mouseY, float partialTicks) {
+    public void render(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
         super.render(poseStack, mouseX, mouseY, partialTicks);
         this.tagFilterTextField.render(poseStack, mouseX, mouseY, partialTicks);
     }

@@ -24,7 +24,7 @@ package com.github.klikli_dev.occultism.common.entity.ai;
 
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.world.phys.Vec3;
 
 import java.util.EnumSet;
 
@@ -75,7 +75,7 @@ public class ReturnToWorkAreaGoal extends Goal {
             this.entity.getNavigator().setPath(this.entity.getNavigator().getPathToPos(
                     this.entity.getWorkAreaPosition().orElse(this.entity.getPosition()), 0), 1.0f);
             double distance = this.entity.getPositionVec().distanceTo(
-                    Vector3d.copyCentered(this.entity.getWorkAreaPosition().orElse(this.entity.getPosition())));
+                    Vec3.copyCentered(this.entity.getWorkAreaPosition().orElse(this.entity.getPosition())));
             if (distance < 1F) {
                 this.entity.setMotion(0, 0, 0);
                 this.entity.getNavigator().clearPath();

@@ -24,16 +24,16 @@ package com.github.klikli_dev.occultism.client.render.tile;
 
 import com.github.klikli_dev.occultism.common.tile.StorageControllerBlockEntity;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.*;
-import net.minecraft.client.renderer.model.BakedQuad;
-import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.BlockEntity.BlockEntityRenderer;
 import net.minecraft.client.renderer.BlockEntity.BlockEntityRendererDispatcher;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Direction;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.model.BakedQuad;
+import net.minecraft.client.renderer.model.IBakedModel;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.core.Direction;
 import net.minecraft.util.math.vector.Vector3f;
 
 import java.awt.*;
@@ -56,7 +56,7 @@ public class StorageControllerRenderer extends BlockEntityRenderer<StorageContro
 
     //region Overrides
     @Override
-    public void render(StorageControllerBlockEntity blockEntity, float partialTicks, MatrixStack poseStack,
+    public void render(StorageControllerBlockEntity blockEntity, float partialTicks, PoseStack poseStack,
                        IRenderTypeBuffer buffer, int combinedLight, int combinedOverlay) {
         if (this.stack == null)
             this.stack = new ItemStack(OccultismItems.DIMENSIONAL_MATRIX.get());
@@ -113,10 +113,10 @@ public class StorageControllerRenderer extends BlockEntityRenderer<StorageContro
     //endregion Overrides
 
     //region Methods
-    public void renderQuads(MatrixStack matrixStackIn, IVertexBuilder bufferIn, List<BakedQuad> quadsIn, int colorIn,
+    public void renderQuads(PoseStack matrixStackIn, IVertexBuilder bufferIn, List<BakedQuad> quadsIn, int colorIn,
                             int combinedLightIn, int combinedOverlayIn) {
         //from  ItemRenderer#renderQuad
-        MatrixStack.Entry matrixstack$entry = matrixStackIn.getLast();
+        PoseStack.Entry matrixstack$entry = matrixStackIn.getLast();
 
         for (BakedQuad bakedquad : quadsIn) {
             int i = colorIn;

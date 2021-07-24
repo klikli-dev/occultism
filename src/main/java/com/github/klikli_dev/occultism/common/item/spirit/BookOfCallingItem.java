@@ -41,19 +41,19 @@ import net.minecraft.BlockEntity.BlockEntity;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.CraftingInventory;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.item.Rarity;
-import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.util.Direction;
+import net.minecraft.core.Direction;
 import net.minecraft.util.InteractionHand;
 import net.minecraft.util.InteractionResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.item.Item;
@@ -134,9 +134,9 @@ public class BookOfCallingItem extends Item implements IIngredientCopyNBT, IHand
                     spawnPos = spawnPos.offset(facing);
                 }
 
-                ITextComponent customName = null;
+                Component customName = null;
                 if (entityData.contains("CustomName")) {
-                    customName = ITextComponent.Serializer.getComponentFromJson(entityData.getString("CustomName"));
+                    customName = Component.Serializer.getComponentFromJson(entityData.getString("CustomName"));
                 }
 
                 //remove position from tag to allow the entity to spawn where it should be
@@ -152,7 +152,7 @@ public class BookOfCallingItem extends Item implements IIngredientCopyNBT, IHand
                 world.addEntity(entity);
 
                 //old spawn code
-                //                SpiritEntity entity = (SpiritEntity) type.spawn((ServerWorld)world, wrapper, customName, null, spawnPos,
+                //                SpiritEntity entity = (SpiritEntity) type.spawn((ServerLevel)world, wrapper, customName, null, spawnPos,
                 //                        SpawnReason.MOB_SUMMONED, true, !pos.equals(spawnPos) && facing == Direction.UP);
                 //                if (entityData.contains("OwnerUUID") && !entityData.getString("OwnerUUID").isEmpty()) {
                 //                    entity.setOwnerId(UUID.fromString(entityData.getString("OwnerUUID")));
@@ -304,7 +304,7 @@ public class BookOfCallingItem extends Item implements IIngredientCopyNBT, IHand
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip,
+    public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<Component> tooltip,
                                ITooltipFlag flagIn) {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
         tooltip.add(new TranslationTextComponent(this.getTranslationKeyBase() +

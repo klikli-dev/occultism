@@ -29,7 +29,7 @@ import com.github.klikli_dev.occultism.network.MessageSetJumps;
 import com.github.klikli_dev.occultism.network.OccultismPackets;
 import com.github.klikli_dev.occultism.registry.OccultismCapabilities;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.Player;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.entity.player.ServerPlayer;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.TickEvent;

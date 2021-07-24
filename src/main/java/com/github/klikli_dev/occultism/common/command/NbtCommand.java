@@ -30,10 +30,10 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.entity.player.ServerPlayer;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.util.InteractionHand;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
 
 public class NbtCommand implements Command<CommandSource> {
 
@@ -46,7 +46,7 @@ public class NbtCommand implements Command<CommandSource> {
     public int run(CommandContext<CommandSource> context) throws CommandSyntaxException {
         ServerPlayer player = context.getSource().asPlayer();
         ItemStack heldItem = player.getHeldItem(InteractionHand.MAIN_HAND);
-        ITextComponent nbtText = heldItem.isEmpty() ? new StringTextComponent("{}") : heldItem.getOrCreateTag().toFormattedComponent();
+        Component nbtText = heldItem.isEmpty() ? new TextComponent("{}") : heldItem.getOrCreateTag().toFormattedComponent();
         context.getSource().sendFeedback(nbtText, false);
         return 0;
     }

@@ -25,9 +25,9 @@ package com.github.klikli_dev.occultism.client.gui.storage;
 import com.github.klikli_dev.occultism.api.common.data.SortDirection;
 import com.github.klikli_dev.occultism.api.common.data.SortType;
 import com.github.klikli_dev.occultism.common.container.storage.StorageRemoteContainer;
-import net.minecraft.entity.player.Inventory;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 
 public class StorageRemoteGui extends StorageControllerGuiBase<StorageRemoteContainer> {
 
@@ -37,7 +37,7 @@ public class StorageRemoteGui extends StorageControllerGuiBase<StorageRemoteCont
 
     //region Initialization
     public StorageRemoteGui(StorageRemoteContainer container, Inventory playerInventory,
-                            ITextComponent name) {
+                            Component name) {
         super(container, playerInventory, name);
         this.container = container;
     }

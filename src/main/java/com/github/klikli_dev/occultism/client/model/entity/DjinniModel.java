@@ -25,7 +25,7 @@ package com.github.klikli_dev.occultism.client.model.entity;
 import com.github.klikli_dev.occultism.common.entity.spirit.DjinniEntity;
 import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Mth;
 
 
 public class DjinniModel extends BipedModel<DjinniEntity> {
@@ -166,8 +166,8 @@ public class DjinniModel extends BipedModel<DjinniEntity> {
 
         if (this.swingProgress > 0.0F) {
             //original x needs to be used as the multiplier here
-            this.bipedRightArm.rotationPointX = -MathHelper.cos(this.bipedBody.rotateAngleY) * 6.0F;
-            this.bipedLeftArm.rotationPointX = MathHelper.cos(this.bipedBody.rotateAngleY) * 6.0F;
+            this.bipedRightArm.rotationPointX = -Mth.cos(this.bipedBody.rotateAngleY) * 6.0F;
+            this.bipedLeftArm.rotationPointX = Mth.cos(this.bipedBody.rotateAngleY) * 6.0F;
         }
     }
 

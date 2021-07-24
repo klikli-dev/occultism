@@ -22,8 +22,8 @@
 
 package com.github.klikli_dev.occultism.client.particle;
 
-import net.minecraft.client.particle.*;
 import net.minecraft.client.level.ClientWorld;
+import net.minecraft.client.particle.Particle;
 import net.minecraft.particles.BasicParticleType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;

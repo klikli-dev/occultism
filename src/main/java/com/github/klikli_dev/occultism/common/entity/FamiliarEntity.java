@@ -22,23 +22,14 @@
 
 package com.github.klikli_dev.occultism.common.entity;
 
-import java.util.EnumSet;
-import java.util.Optional;
-import java.util.Random;
-import java.util.UUID;
-
 import com.github.klikli_dev.occultism.registry.OccultismItems;
-
-import net.minecraft.entity.CreatureEntity;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.MobEntity;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.player.Player;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.datasync.EntityDataAccessor;
 import net.minecraft.network.datasync.EntityDataSerializers;
@@ -46,11 +37,15 @@ import net.minecraft.network.datasync.SynchedEntityData;
 import net.minecraft.pathfinding.PathNodeType;
 import net.minecraft.pathfinding.WalkNodeProcessor;
 import net.minecraft.potion.EffectInstance;
-import net.minecraft.util.InteractionResult;
 import net.minecraft.util.InteractionHand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.level.Level;
+import net.minecraft.util.InteractionResult;
+import net.minecraft.core.BlockPos;
+import net.minecraft.util.math.Mth;
+
+import java.util.EnumSet;
+import java.util.Optional;
+import java.util.Random;
+import java.util.UUID;
 
 public abstract class FamiliarEntity extends CreatureEntity implements IFamiliar {
 
@@ -255,8 +250,8 @@ public abstract class FamiliarEntity extends CreatureEntity implements IFamiliar
 
         private BlockPos randomNearby(BlockPos pos) {
             Random rand = this.entity.getRNG();
-            return pos.add(MathHelper.nextDouble(rand, -3, 3), MathHelper.nextDouble(rand, -1, 1),
-                    MathHelper.nextDouble(rand, -3, 3));
+            return pos.add(Mth.nextDouble(rand, -3, 3), Mth.nextDouble(rand, -1, 1),
+                    Mth.nextDouble(rand, -3, 3));
         }
     }
 

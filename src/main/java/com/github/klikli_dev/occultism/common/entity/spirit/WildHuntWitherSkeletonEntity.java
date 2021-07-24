@@ -27,19 +27,19 @@ import com.github.klikli_dev.occultism.registry.OccultismTags;
 import com.github.klikli_dev.occultism.util.TextUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SpawnGroupData;
 import net.minecraft.entity.MobSpawnType;
+import net.minecraft.entity.SpawnGroupData;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.monster.SkeletonEntity;
 import net.minecraft.entity.monster.WitherSkeletonEntity;
+import net.minecraft.level.DifficultyInstance;
+import net.minecraft.world.level.Level;
+import net.minecraft.level.ServerLevelAccessor;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.tags.ITag;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.level.DifficultyInstance;
-import net.minecraft.level.ServerLevelAccessor;
-import net.minecraft.level.Level;
+import net.minecraft.network.chat.TextComponent;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -70,7 +70,7 @@ public class WildHuntWitherSkeletonEntity extends WitherSkeletonEntity {
             double offsetZ = (level.getRandom().nextGaussian() - 1.0) * (1 + level.getRandom().nextInt(4));
             entity.setPositionAndRotation(this.getPosX() + offsetX, this.getPosY() + 1.5, this.getPosZ() + offsetZ,
                     level.getRandom().nextInt(360), 0);
-            entity.setCustomName(new StringTextComponent(TextUtil.generateName()));
+            entity.setCustomName(new TextComponent(TextUtil.generateName()));
             level.addEntity(entity);
             entity.setMaster(this);
             this.minions.add(entity);

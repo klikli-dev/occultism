@@ -26,10 +26,10 @@ import com.github.klikli_dev.occultism.common.capability.DoubleJumpCapability;
 import com.github.klikli_dev.occultism.common.effect.DoubleJumpEffect;
 import com.github.klikli_dev.occultism.registry.OccultismCapabilities;
 import com.github.klikli_dev.occultism.registry.OccultismTags;
-import net.minecraft.entity.player.Player;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.inventory.EquipmentSlot;
 import net.minecraft.item.ElytraItem;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.util.LazyOptional;
 
 public class MovementUtil {

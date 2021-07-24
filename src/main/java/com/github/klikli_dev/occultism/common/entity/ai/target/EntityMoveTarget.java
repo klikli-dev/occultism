@@ -23,10 +23,8 @@
 package com.github.klikli_dev.occultism.common.entity.ai.target;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.BlockEntity.BlockEntity;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.level.Level;
+import net.minecraft.core.Direction;
+import net.minecraft.core.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 

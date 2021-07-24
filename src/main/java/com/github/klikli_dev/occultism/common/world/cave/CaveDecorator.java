@@ -23,11 +23,11 @@
 package com.github.klikli_dev.occultism.common.level.cave;
 
 import com.github.klikli_dev.occultism.registry.OccultismTags;
-import net.minecraft.block.BlockState;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.level.ISeedReader;
 import net.minecraft.level.gen.ChunkGenerator;
+import net.minecraft.core.Direction;
+import net.minecraft.core.BlockPos;
 
 import java.util.Random;
 

@@ -23,11 +23,11 @@
 package com.github.klikli_dev.occultism.common.item.otherworld;
 
 import com.github.klikli_dev.occultism.util.OtherworldUtil;
-import net.minecraft.block.Block;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.BlockItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.level.Level;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
 /**
  * Allows to show different textures and translation keys for HWYLA and in the inventory

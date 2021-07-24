@@ -29,11 +29,11 @@ import com.github.klikli_dev.occultism.registry.OccultismSpiritJobs;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.player.ServerPlayer;
-import net.minecraft.item.Item;
+import net.minecraft.world.item.Item;
 import net.minecraft.item.ItemUseContext;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.InteractionResult;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.level.server.ServerWorld;
+import net.minecraft.network.chat.TextComponent;
 
 public class SummonFoliotTransportItemsItem extends Item {
 
@@ -48,11 +48,11 @@ public class SummonFoliotTransportItemsItem extends Item {
     public InteractionResult onItemUse(ItemUseContext context) {
         if(!context.getLevel().isClientSide){
             FoliotEntity spirit = OccultismEntities.FOLIOT.get().create(context.getLevel());
-            spirit.onInitialSpawn((ServerWorld) context.getLevel(), context.getLevel().getDifficultyForLocation(context.getPos()),
+            spirit.onInitialSpawn((ServerLevel) context.getLevel(), context.getLevel().getDifficultyForLocation(context.getPos()),
                     SpawnReason.SPAWN_EGG, null, null);
             spirit.setTamedBy(context.getPlayer());
             spirit.setPosition(context.getPos().getX(), context.getPos().getY() + 1.0f, context.getPos().getZ());
-            spirit.setCustomName(new StringTextComponent("Testspirit Transporter"));
+            spirit.setCustomName(new TextComponent("Testspirit Transporter"));
             spirit.setSpiritMaxAge(-1); //cannot die from age
             //set up the job
             SpiritJob job = OccultismSpiritJobs.TRANSPORT_ITEMS.get().create(spirit);

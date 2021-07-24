@@ -22,18 +22,18 @@
 
 package com.github.klikli_dev.occultism.common.block.crops;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.block.CropsBlock;
-import net.minecraft.entity.player.Player;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.inventory.InventoryHelper;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.InteractionResult;
-import net.minecraft.util.InteractionHand;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.IItemProvider;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.level.Level;
-import net.minecraft.level.server.ServerWorld;
+import net.minecraft.util.InteractionHand;
+import net.minecraft.util.InteractionResult;
+import net.minecraft.core.BlockPos;
 
 import java.util.List;
 
@@ -55,7 +55,7 @@ public interface IReplantableCrops {
     default InteractionResult onHarvest(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand) {
         if (!level.isClientSide) {
             if (state.get(CropsBlock.AGE) >= 7) {
-                List<ItemStack> drops = Block.getDrops(state, (ServerWorld) level, pos, null, player,
+                List<ItemStack> drops = Block.getDrops(state, (ServerLevel) level, pos, null, player,
                         player.getHeldItem(hand));
 
                 // From 1.15 -> does not exist any more and I guess we don't need it.

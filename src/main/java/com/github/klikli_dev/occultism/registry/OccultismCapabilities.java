@@ -24,15 +24,11 @@ package com.github.klikli_dev.occultism.registry;
 
 import com.github.klikli_dev.occultism.common.capability.DoubleJumpCapability;
 import com.github.klikli_dev.occultism.common.capability.FamiliarSettingsCapability;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.util.InteractionResult;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 
 import static com.github.klikli_dev.occultism.util.StaticUtil.modLoc;

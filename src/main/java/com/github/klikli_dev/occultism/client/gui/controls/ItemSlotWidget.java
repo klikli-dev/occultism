@@ -25,12 +25,12 @@ package com.github.klikli_dev.occultism.client.gui.controls;
 
 import com.github.klikli_dev.occultism.api.client.gui.IStorageControllerGuiContainer;
 import com.github.klikli_dev.occultism.util.TextUtil;
-import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.item.ItemStack;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.world.item.ItemStack;
 
 import javax.annotation.Nonnull;
 import java.awt.*;
@@ -46,7 +46,7 @@ public class ItemSlotWidget {
     protected Minecraft minecraft;
     protected IStorageControllerGuiContainer parent;
     protected ItemStack stack;
-    protected FontRenderer fontRenderer;
+    protected Font fontRenderer;
     protected int slotHighlightColor;
     //endregion Fields
 
@@ -90,8 +90,8 @@ public class ItemSlotWidget {
         return this.parent.isPointInRegionController(this.x - this.guiLeft, this.y - this.guiTop, 16, 16, mouseX, mouseY);
     }
 
-    public void drawSlot(MatrixStack poseStack, int mx, int my) {
-        RenderSystem.pushMatrix();
+    public void drawSlot(PoseStack poseStack, int mx, int my) {
+        poseStack.pushPose();
         if (!this.getStack().isEmpty()) {
             //RenderHelper.enableGUIStandardItemLighting();
 
@@ -101,17 +101,17 @@ public class ItemSlotWidget {
                         this.stackSize);
 
                 //render item overlay
-                RenderSystem.pushMatrix();
-                RenderSystem.scalef(.5f, .5f, .5f);
-                this.minecraft.getItemRenderer().zLevel = -0.1F;
+                poseStack.pushPose();
+                poseStack.scale(.5f, .5f, .5f);
+                this.minecraft.getItemRenderer().blitOffset = -0.1F;
                 this.minecraft.getItemRenderer()
-                        .renderItemOverlayIntoGUI(this.fontRenderer, this.stack, this.x * 2 + 16, this.y * 2 + 16,
+                        .renderGuiItemDecorations(this.fontRenderer, this.stack, this.x * 2 + 16, this.y * 2 + 16,
                                 amount);
-                RenderSystem.popMatrix();
+                poseStack.popPose();
             }
 
-            this.minecraft.getItemRenderer().zLevel = -100F;
-            this.minecraft.getItemRenderer().renderItemAndEffectIntoGUI(this.getStack(), this.x, this.y);
+            this.minecraft.getItemRenderer().blitOffset = -100F;
+            this.minecraft.getItemRenderer().renderAndDecorateItem(this.getStack(), this.x, this.y);
 
             if (this.isMouseOverSlot(mx, my)) {
                 RenderSystem.colorMask(true, true, true, false);
@@ -121,10 +121,10 @@ public class ItemSlotWidget {
             }
         }
 
-        RenderSystem.popMatrix();
+        poseStack.popPose();
     }
 
-    public void drawTooltip(MatrixStack poseStack, int mx, int my) {
+    public void drawTooltip(PoseStack poseStack, int mx, int my) {
         if (this.isMouseOverSlot(mx, my) && !this.getStack().isEmpty()) {
             this.parent.renderToolTip(poseStack, this.getStack(), mx, my);
         }

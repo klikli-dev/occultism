@@ -27,13 +27,13 @@ import com.github.klikli_dev.occultism.api.common.data.GlobalBlockPos;
 import com.github.klikli_dev.occultism.api.common.tile.IStorageController;
 import com.github.klikli_dev.occultism.common.misc.ItemStackComparator;
 import com.github.klikli_dev.occultism.util.StorageUtil;
+import net.minecraft.BlockEntity.BlockEntity;
 import net.minecraft.entity.player.ServerPlayer;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.BlockEntity.BlockEntity;
 import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.level.Level;
 import net.minecraftforge.fml.network.NetworkEvent;
 
 /**

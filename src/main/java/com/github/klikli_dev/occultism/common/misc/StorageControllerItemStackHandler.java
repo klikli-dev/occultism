@@ -24,7 +24,7 @@ package com.github.klikli_dev.occultism.common.misc;
 
 import com.github.klikli_dev.occultism.api.common.tile.IStorageController;
 import com.github.klikli_dev.occultism.common.data.NonNullArrayList;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListNBT;
 import net.minecraftforge.common.util.Constants;

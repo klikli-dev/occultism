@@ -27,8 +27,6 @@ import com.github.klikli_dev.occultism.common.level.multichunk.MultiChunkFeature
 import com.github.klikli_dev.occultism.config.OccultismCommonConfig;
 import com.github.klikli_dev.occultism.registry.OccultismBiomeFeatures;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.WorldGenRegistries;
 import net.minecraft.level.gen.GenerationStage;
 import net.minecraft.level.gen.blockstateprovider.SimpleBlockStateProvider;
 import net.minecraft.level.gen.feature.*;
@@ -38,6 +36,8 @@ import net.minecraft.level.gen.placement.NoPlacementConfig;
 import net.minecraft.level.gen.placement.Placement;
 import net.minecraft.level.gen.placement.TopSolidRangeConfig;
 import net.minecraft.level.gen.trunkplacer.StraightTrunkPlacer;
+import net.minecraft.util.registry.Registry;
+import net.minecraft.util.registry.WorldGenRegistries;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.event.level.BiomeLoadingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;

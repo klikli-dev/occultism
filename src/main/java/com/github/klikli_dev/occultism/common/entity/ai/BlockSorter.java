@@ -23,7 +23,7 @@
 package com.github.klikli_dev.occultism.common.entity.ai;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
 
 import java.util.Comparator;
 

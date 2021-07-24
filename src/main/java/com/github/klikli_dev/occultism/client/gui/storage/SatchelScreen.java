@@ -24,12 +24,12 @@ package com.github.klikli_dev.occultism.client.gui.storage;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.container.storage.SatchelContainer;
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.client.gui.screen.inventory.ContainerScreen;
-import net.minecraft.entity.player.Inventory;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.client.gui.screens.inventory.ContainerScreen;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.chat.Component;
 
 public class SatchelScreen extends ContainerScreen<SatchelContainer> {
     //region Fields
@@ -39,7 +39,7 @@ public class SatchelScreen extends ContainerScreen<SatchelContainer> {
 
     //region Initialization
     public SatchelScreen(SatchelContainer screenContainer, Inventory inv,
-                         ITextComponent titleIn) {
+                         Component titleIn) {
         super(screenContainer, inv, titleIn);
 
         this.xSize = 247;
@@ -51,20 +51,20 @@ public class SatchelScreen extends ContainerScreen<SatchelContainer> {
 
     //region Overrides
     @Override
-    public void render(MatrixStack poseStack, int mouseX, int mouseY, float partialTicks) {
+    public void render(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
         this.renderBackground(poseStack);
         super.render(poseStack, mouseX, mouseY, partialTicks);
         this.renderHoveredTooltip(poseStack, mouseX, mouseY);
     }
 
     @Override
-    public void drawGuiContainerForegroundLayer(MatrixStack poseStack, int mouseX, int mouseY) {
+    public void drawGuiContainerForegroundLayer(PoseStack poseStack, int mouseX, int mouseY) {
         //Note: Do not call super.drawGuiContainerForegroundLayer(poseStack, mouseX, mouseY);
         //      it renders inventory titles which no vanilla inventory does
     }
 
     @Override
-    protected void drawGuiContainerBackgroundLayer(MatrixStack poseStack, float partialTicks, int mouseX,
+    protected void drawGuiContainerBackgroundLayer(PoseStack poseStack, float partialTicks, int mouseX,
                                                    int mouseY) {
         RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.minecraft.getTextureManager().bindTexture(BACKGROUND);

@@ -26,11 +26,11 @@ import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.item.tool.ButcherKnifeItem;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.github.klikli_dev.occultism.util.Math3DUtil;
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.util.InteractionHand;
-import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -56,7 +56,7 @@ public class LootEventHandler {
                     for (ItemStack stack : loot) {
                         ItemStack copy = stack.copy();
                         copy.setCount(rand.nextInt(stack.getCount() + 1) + rand.nextInt(event.getLootingLevel() + 1));
-                        Vector3d center = Math3DUtil.center(event.getEntityLiving().getPosition());
+                        Vec3 center = Math3DUtil.center(event.getEntityLiving().getPosition());
                         event.getDrops()
                                 .add(new ItemEntity(event.getEntityLiving().level, center.x, center.y, center.z, copy));
                     }

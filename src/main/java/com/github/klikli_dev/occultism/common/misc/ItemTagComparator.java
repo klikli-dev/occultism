@@ -23,12 +23,12 @@
 package com.github.klikli_dev.occultism.common.misc;
 
 import com.github.klikli_dev.occultism.api.common.container.IItemStackComparator;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.ITag;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.resources.ResourceLocation;
 
 import javax.annotation.Nonnull;
 

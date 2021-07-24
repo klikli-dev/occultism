@@ -24,39 +24,39 @@ package com.github.klikli_dev.occultism.registry;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.crafting.recipe.*;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.IRecipeType;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraftforge.common.util.NonNullLazy;
-import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class OccultismRecipes {
     //region Fields
-    public static final DeferredRegister<IRecipeSerializer<?>> RECIPES = DeferredRegister.create(
+    public static final DeferredRegister<RecipeSerializer<?>> RECIPES = DeferredRegister.create(
             ForgeRegistries.RECIPE_SERIALIZERS, Occultism.MODID);
 
-    public static final NonNullLazy<IRecipeType<SpiritTradeRecipe>> SPIRIT_TRADE_TYPE =
-            NonNullLazy.of(() -> IRecipeType.register("occultism:spirit_trade"));
-    public static final NonNullLazy<IRecipeType<SpiritFireRecipe>> SPIRIT_FIRE_TYPE =
-            NonNullLazy.of(() -> IRecipeType.register("occultism:spirit_fire"));
-    public static final NonNullLazy<IRecipeType<CrushingRecipe>> CRUSHING_TYPE =
-            NonNullLazy.of(() -> IRecipeType.register("occultism:crushing"));
-    public static final NonNullLazy<IRecipeType<MinerRecipe>> MINER_TYPE =
-            NonNullLazy.of(() -> IRecipeType.register("occultism:miner"));
-    public static final NonNullLazy<IRecipeType<RitualRecipe>> RITUAL_TYPE =
-            NonNullLazy.of(() -> IRecipeType.register("occultism:ritual"));
+    public static final NonNullLazy<RecipeType<SpiritTradeRecipe>> SPIRIT_TRADE_TYPE =
+            NonNullLazy.of(() -> RecipeType.register("occultism:spirit_trade"));
+    public static final NonNullLazy<RecipeType<SpiritFireRecipe>> SPIRIT_FIRE_TYPE =
+            NonNullLazy.of(() -> RecipeType.register("occultism:spirit_fire"));
+    public static final NonNullLazy<RecipeType<CrushingRecipe>> CRUSHING_TYPE =
+            NonNullLazy.of(() -> RecipeType.register("occultism:crushing"));
+    public static final NonNullLazy<RecipeType<MinerRecipe>> MINER_TYPE =
+            NonNullLazy.of(() -> RecipeType.register("occultism:miner"));
+    public static final NonNullLazy<RecipeType<RitualRecipe>> RITUAL_TYPE =
+            NonNullLazy.of(() -> RecipeType.register("occultism:ritual"));
 
-    public static final RegistryObject<IRecipeSerializer<SpiritTradeRecipe>> SPIRIT_TRADE = RECIPES.register("spirit_trade",
+    public static final RegistryObject<RecipeSerializer<SpiritTradeRecipe>> SPIRIT_TRADE = RECIPES.register("spirit_trade",
             () -> SpiritTradeRecipe.SERIALIZER);
-    public static final RegistryObject<IRecipeSerializer<SpiritFireRecipe>> SPIRIT_FIRE = RECIPES.register("spirit_fire",
+    public static final RegistryObject<RecipeSerializer<SpiritFireRecipe>> SPIRIT_FIRE = RECIPES.register("spirit_fire",
             () -> SpiritFireRecipe.SERIALIZER);
-    public static final RegistryObject<IRecipeSerializer<CrushingRecipe>> CRUSHING = RECIPES.register("crushing",
+    public static final RegistryObject<RecipeSerializer<CrushingRecipe>> CRUSHING = RECIPES.register("crushing",
             () -> CrushingRecipe.SERIALIZER);
-    public static final RegistryObject<IRecipeSerializer<MinerRecipe>> MINER = RECIPES.register("miner",
+    public static final RegistryObject<RecipeSerializer<MinerRecipe>> MINER = RECIPES.register("miner",
             () -> MinerRecipe.SERIALIZER);
 
-    public static final RegistryObject<IRecipeSerializer<RitualRecipe>> RITUAL = RECIPES.register("ritual",
+    public static final RegistryObject<RecipeSerializer<RitualRecipe>> RITUAL = RECIPES.register("ritual",
             () -> RitualRecipe.SERIALIZER);
 
     //endregion Fields

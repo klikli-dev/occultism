@@ -29,15 +29,19 @@ import com.github.klikli_dev.occultism.common.block.otherworld.*;
 import com.github.klikli_dev.occultism.common.block.storage.StableWormholeBlock;
 import com.github.klikli_dev.occultism.common.block.storage.StorageControllerBlock;
 import com.github.klikli_dev.occultism.common.block.storage.StorageStabilizerBlock;
-import com.github.klikli_dev.occultism.common.level.tree.OtherworldTree;
 import com.github.klikli_dev.occultism.common.level.tree.OtherworldNaturalTree;
+import com.github.klikli_dev.occultism.common.level.tree.OtherworldTree;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.block.material.PushReaction;
-import net.minecraft.util.Direction;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.material.Material;
 import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -55,7 +59,7 @@ public class OccultismBlocks {
     //Blocks without item
     public static final RegistryObject<SpiritFireBlock> SPIRIT_FIRE = register("spirit_fire",
             () -> new SpiritFireBlock(
-                    Block.Properties.create(Material.FIRE, MaterialColor.TNT).doesNotBlockMovement().tickRandomly()
+                    Block.Properties.of(Material.FIRE, MaterialColor.TNT).doesNotBlockMovement().tickRandomly()
                             .hardnessAndResistance(0, 0).setLightLevel((state) -> 12)
                             .sound(SoundType.CLOTH)), false,
             LootTableType.EMPTY);
@@ -64,7 +68,7 @@ public class OccultismBlocks {
     public static final Material GLYPH_MATERIAL = new Material(MaterialColor.AIR, false, false,
             false, true, false, true, PushReaction.DESTROY);
 
-    public static final Block.Properties GLYPH_PROPERTIES = Block.Properties.create(GLYPH_MATERIAL)
+    public static final Block.Properties GLYPH_PROPERTIES = Block.Properties.of(GLYPH_MATERIAL)
                                                                     .sound(SoundType.CLOTH).doesNotBlockMovement()
                                                                     .hardnessAndResistance(5f, 30);
     public static final RegistryObject<ChalkGlyphBlock> CHALK_GLYPH_WHITE = register("chalk_glyph_white",
@@ -82,39 +86,39 @@ public class OccultismBlocks {
 
     //Resources
     public static final RegistryObject<Block> OTHERSTONE = register("otherstone", () -> new Block(
-            Block.Properties.create(Material.ROCK).sound(SoundType.STONE).hardnessAndResistance(1.5f, 30)));
+            Block.Properties.of(Material.STONE).sound(SoundType.STONE).hardnessAndResistance(1.5f, 30)));
 
     public static final RegistryObject<OtherstoneNaturalBlock> OTHERSTONE_NATURAL =
             register("otherstone_natural", () -> new OtherstoneNaturalBlock(
-                            Block.Properties.create(Material.ROCK).sound(SoundType.STONE).hardnessAndResistance(1.5f, 30)),
+                            Block.Properties.of(Material.STONE).sound(SoundType.STONE).hardnessAndResistance(1.5f, 30)),
                     true, LootTableType.OTHERWORLD_BLOCK);
 
     public static final RegistryObject<Block> OTHERWORLD_LOG =
-            register("otherworld_log", () ->   new RotatedPillarBlock(Block.Properties.create(Material.WOOD, (state) -> {
+            register("otherworld_log", () ->   new RotatedPillarBlock(Block.Properties.of(Material.WOOD, (state) -> {
                 return state.get(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? MaterialColor.WOOD : MaterialColor.OBSIDIAN;
             }).hardnessAndResistance(2.0F).sound(SoundType.WOOD).hardnessAndResistance(2.0f)));
 
     public static final RegistryObject<Block> OTHERWORLD_LOG_NATURAL =
-            register("otherworld_log_natural", () -> new OtherworldLogNaturalBlock(Block.Properties.create(Material.WOOD, (state) -> {
+            register("otherworld_log_natural", () -> new OtherworldLogNaturalBlock(Block.Properties.of(Material.WOOD, (state) -> {
                 return state.get(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? MaterialColor.WOOD : MaterialColor.OBSIDIAN;
             }).hardnessAndResistance(2.0f)), true, LootTableType.OTHERWORLD_BLOCK);
 
     public static final RegistryObject<LeavesBlock> OTHERWORLD_LEAVES =
             register("otherworld_leaves", () -> new LeavesBlock(
-                    Block.Properties.create(Material.LEAVES).sound(SoundType.PLANT)
+                    Block.Properties.of(Material.LEAVES).sound(SoundType.PLANT)
                             .hardnessAndResistance(0.2f).tickRandomly().notSolid()), true, LootTableType.CUSTOM);
     public static final RegistryObject<OtherworldLeavesNaturalBlock> OTHERWORLD_LEAVES_NATURAL =
             register("otherworld_leaves_natural", () -> new OtherworldLeavesNaturalBlock(
-                    Block.Properties.create(Material.LEAVES).sound(SoundType.PLANT)
+                    Block.Properties.of(Material.LEAVES).sound(SoundType.PLANT)
                             .hardnessAndResistance(0.2f).tickRandomly().notSolid()), true, LootTableType.CUSTOM);
 
     public static final RegistryObject<OtherworldSaplingBlock> OTHERWORLD_SAPLING =
             register("otherworld_sapling", () -> new OtherworldSaplingBlock(new OtherworldTree(),
-                    Block.Properties.create(Material.PLANTS).sound(SoundType.PLANT)
+                    Block.Properties.of(Material.PLANTS).sound(SoundType.PLANT)
                             .hardnessAndResistance(0.0f).tickRandomly().doesNotBlockMovement()));
     public static final RegistryObject<OtherworldSaplingNaturalBlock> OTHERWORLD_SAPLING_NATURAL =
             register("otherworld_sapling_natural", () -> new OtherworldSaplingNaturalBlock(new OtherworldNaturalTree(),
-                    Block.Properties.create(Material.PLANTS).sound(SoundType.PLANT)
+                    Block.Properties.of(Material.PLANTS).sound(SoundType.PLANT)
                             .hardnessAndResistance(0.0f).tickRandomly().doesNotBlockMovement()), false, LootTableType.OTHERWORLD_BLOCK);
 
     public static final RegistryObject<Block> COPPER_ORE = register("copper_ore", () -> new Block(Block.Properties.from(Blocks.IRON_ORE)));
@@ -136,52 +140,52 @@ public class OccultismBlocks {
 
     //Decorative and Ritual Blocks
     public static final RegistryObject<CandleBlock> CANDLE_WHITE = register("candle_white", () -> new CandleBlock(
-            Block.Properties.create(Material.MISCELLANEOUS).sound(SoundType.CLOTH).doesNotBlockMovement()
+            Block.Properties.of(Material.MISCELLANEOUS).sound(SoundType.CLOTH).doesNotBlockMovement()
                     .hardnessAndResistance(0.1f, 0).setLightLevel((state) -> 12)));
     public static final RegistryObject<SpiritAttunedCrystalBlock> SPIRIT_ATTUNED_CRYSTAL =
             register("spirit_attuned_crystal", () -> new SpiritAttunedCrystalBlock(
-                    Block.Properties.create(Material.ROCK).sound(SoundType.STONE).notSolid()
+                    Block.Properties.of(Material.STONE).sound(SoundType.STONE).notSolid()
                             .hardnessAndResistance(1.5f, 30).setLightLevel((state) -> 8)));
 
     //Machines
     public static final RegistryObject<SacrificialBowlBlock> SACRIFICIAL_BOWL =
             register("sacrificial_bowl", () -> new SacrificialBowlBlock(
-                    Block.Properties.create(Material.ROCK).sound(SoundType.STONE).hardnessAndResistance(1.5f, 30)
+                    Block.Properties.of(Material.STONE).sound(SoundType.STONE).hardnessAndResistance(1.5f, 30)
                             .notSolid()));
     public static final RegistryObject<GoldenSacrificialBowlBlock> GOLDEN_SACRIFICIAL_BOWL =
             register("golden_sacrificial_bowl", () -> new GoldenSacrificialBowlBlock(
-                    Block.Properties.create(Material.ROCK).sound(SoundType.STONE).hardnessAndResistance(1.5f, 30)
+                    Block.Properties.of(Material.STONE).sound(SoundType.STONE).hardnessAndResistance(1.5f, 30)
                             .notSolid()));
 
     public static final RegistryObject<StorageControllerBlock> STORAGE_CONTROLLER = register("storage_controller",
             () -> new StorageControllerBlock(
-                    Block.Properties.create(Material.ROCK).sound(SoundType.STONE)
+                    Block.Properties.of(Material.STONE).sound(SoundType.STONE)
                             .hardnessAndResistance(5f, 100).notSolid()), true, LootTableType.EMPTY);
     public static final RegistryObject<StorageStabilizerBlock> STORAGE_STABILIZER_TIER1 = register(
             "storage_stabilizer_tier1", () -> new StorageStabilizerBlock(
-                    Block.Properties.create(Material.ROCK).sound(SoundType.STONE).hardnessAndResistance(1.5f, 30)
+                    Block.Properties.of(Material.STONE).sound(SoundType.STONE).hardnessAndResistance(1.5f, 30)
                             .notSolid()));
     public static final RegistryObject<StorageStabilizerBlock> STORAGE_STABILIZER_TIER2 = register(
             "storage_stabilizer_tier2", () -> new StorageStabilizerBlock(
-                    Block.Properties.create(Material.ROCK).sound(SoundType.STONE).hardnessAndResistance(1.5f, 30)
+                    Block.Properties.of(Material.STONE).sound(SoundType.STONE).hardnessAndResistance(1.5f, 30)
                             .notSolid()));
     public static final RegistryObject<StorageStabilizerBlock> STORAGE_STABILIZER_TIER3 = register(
             "storage_stabilizer_tier3", () -> new StorageStabilizerBlock(
-                    Block.Properties.create(Material.ROCK).sound(SoundType.STONE).hardnessAndResistance(1.5f, 30)
+                    Block.Properties.of(Material.STONE).sound(SoundType.STONE).hardnessAndResistance(1.5f, 30)
                             .notSolid()));
     public static final RegistryObject<StorageStabilizerBlock> STORAGE_STABILIZER_TIER4 = register(
             "storage_stabilizer_tier4", () -> new StorageStabilizerBlock(
-                    Block.Properties.create(Material.ROCK).sound(SoundType.STONE).hardnessAndResistance(1.5f, 30)
+                    Block.Properties.of(Material.STONE).sound(SoundType.STONE).hardnessAndResistance(1.5f, 30)
                             .notSolid()));
 
     public static final RegistryObject<StableWormholeBlock> STABLE_WORMHOLE = register("stable_wormhole",
             () -> new StableWormholeBlock(
-                    Block.Properties.create(Material.ROCK).sound(SoundType.STONE).doesNotBlockMovement()
+                    Block.Properties.of(Material.STONE).sound(SoundType.STONE).doesNotBlockMovement()
                             .hardnessAndResistance(2f, 2).notSolid()), false, LootTableType.EMPTY);
 
     public static final RegistryObject<DimensionalMineshaftBlock> DIMENSIONAL_MINESHAFT =
             register("dimensional_mineshaft", () -> new DimensionalMineshaftBlock(
-                    Block.Properties.create(Material.ROCK).sound(SoundType.STONE)
+                    Block.Properties.of(Material.STONE).sound(SoundType.STONE)
                             .hardnessAndResistance(1.5f, 30)
                     .notSolid()
             ));
@@ -189,16 +193,16 @@ public class OccultismBlocks {
     //Crops
     public static final RegistryObject<ReplantableCropsBlock> DATURA = register("datura",
             () -> new ReplantableCropsBlock(
-                    Block.Properties.create(Material.PLANTS).sound(SoundType.CROP).doesNotBlockMovement().tickRandomly()
+                    Block.Properties.of(Material.PLANTS).sound(SoundType.CROP).doesNotBlockMovement().tickRandomly()
                             //registry object is wrapped in lambda to account for load order and circular dependencies
                             .hardnessAndResistance(0, 0), () -> OccultismItems.DATURA_SEEDS.get(),
                     () -> OccultismItems.DATURA.get()), false, LootTableType.REPLANTABLE_CROP);
 
     //Dummy
     public static final RegistryObject<Block> SKELETON_SKULL_DUMMY = register("skeleton_skull_dummy", () -> new Block(
-            Block.Properties.create(Material.MISCELLANEOUS).hardnessAndResistance(1.0F)), false);
+            Block.Properties.of(Material.MISCELLANEOUS).hardnessAndResistance(1.0F)), false);
     public static final RegistryObject<Block> WITHER_SKELETON_SKULL_DUMMY = register("wither_skeleton_skull_dummy", () -> new Block(
-            Block.Properties.create(Material.MISCELLANEOUS).hardnessAndResistance(1.0F)), false);
+            Block.Properties.of(Material.MISCELLANEOUS).hardnessAndResistance(1.0F)), false);
 
     //endregion Fields
 

@@ -22,10 +22,10 @@
 
 package com.github.klikli_dev.occultism.common.level.multichunk;
 
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.level.ISeedReader;
 import net.minecraft.level.gen.ChunkGenerator;
+import net.minecraft.util.math.AABB;
+import net.minecraft.core.BlockPos;
 
 import java.util.Random;
 
@@ -34,7 +34,7 @@ public interface IMultiChunkSubFeature {
     //region Methods
 
     boolean generate(ISeedReader reader, ChunkGenerator generator, Random rand, BlockPos rootPosition,
-                     AxisAlignedBB bounds,
+                     AABB bounds,
                      MultiChunkFeatureConfig config);
     //endregion Methods
 }

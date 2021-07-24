@@ -28,11 +28,11 @@ import com.github.klikli_dev.occultism.client.gui.controls.LabelWidget;
 import com.github.klikli_dev.occultism.network.MessageSetManagedMachine;
 import com.github.klikli_dev.occultism.network.OccultismPackets;
 import com.github.klikli_dev.occultism.util.EnumUtil;
-import com.mojang.blaze3d.matrix.MatrixStack;
-import net.minecraft.client.gui.screen.Screen;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.widget.TextFieldWidget;
-import net.minecraft.util.Direction;
-import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.core.Direction;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.fml.client.gui.widget.ExtendedButton;
 import org.apache.commons.lang3.StringUtils;
@@ -52,7 +52,7 @@ public class BookOfCallingManagedMachineGui extends Screen {
 
     //region Initialization
     public BookOfCallingManagedMachineGui(Direction insertFacing, Direction extractFacing, String customName) {
-        super(new StringTextComponent(""));
+        super(new TextComponent(""));
 
         this.insertFacing = insertFacing;
         this.extractFacing = extractFacing;
@@ -65,7 +65,7 @@ public class BookOfCallingManagedMachineGui extends Screen {
 
     //region Overrides
     @Override
-    public void render(MatrixStack stack, int mouseX, int mouseY, float partialTicks) {
+    public void render(PoseStack stack, int mouseX, int mouseY, float partialTicks) {
         this.renderBackground(stack);
         this.text.render(stack, mouseX, mouseY, partialTicks);
         super.render(stack, mouseX, mouseY, partialTicks);
@@ -118,7 +118,7 @@ public class BookOfCallingManagedMachineGui extends Screen {
 
         int textWidth = buttonWidth - 4;
         this.text = new TextFieldWidget(this.font, guiLeft - textWidth / 2,
-                guiTop + buttonTop + buttonHeight * 2 + buttonMargin * 2, textWidth, buttonHeight, new StringTextComponent(""));
+                guiTop + buttonTop + buttonHeight * 2 + buttonMargin * 2, textWidth, buttonHeight, new TextComponent(""));
         this.text.setMaxStringLength(30);
         this.text.setVisible(true);
         this.text.setTextColor(Color.WHITE.getRGB());
@@ -129,7 +129,7 @@ public class BookOfCallingManagedMachineGui extends Screen {
         //Exit button
         int exitButtonSize = 20;
         this.addButton(new ExtendedButton(guiLeft - exitButtonSize / 2,
-                guiTop + buttonTop + buttonHeight * 3 + buttonMargin * 3, exitButtonSize, exitButtonSize, new StringTextComponent("X"), (b) -> {
+                guiTop + buttonTop + buttonHeight * 3 + buttonMargin * 3, exitButtonSize, exitButtonSize, new TextComponent("X"), (b) -> {
             this.minecraft.displayGuiScreen(null);
         }));
 

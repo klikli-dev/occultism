@@ -22,9 +22,9 @@
 
 package com.github.klikli_dev.occultism.crafting.recipe;
 
-import net.minecraft.entity.player.Player;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 
 public class ItemStackFakeInventory implements IInventory {
     //region Fields

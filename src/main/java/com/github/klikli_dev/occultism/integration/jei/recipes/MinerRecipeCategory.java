@@ -26,7 +26,7 @@ import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.misc.WeightedIngredient;
 import com.github.klikli_dev.occultism.crafting.recipe.MinerRecipe;
 import com.github.klikli_dev.occultism.registry.OccultismRecipes;
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
@@ -35,11 +35,11 @@ import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.level.Level;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.WeightedRandom;
-import net.minecraft.level.Level;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.wrapper.RecipeWrapper;
 
@@ -122,7 +122,7 @@ public class MinerRecipeCategory implements IRecipeCategory<MinerRecipe> {
     }
 
     @Override
-    public void draw(MinerRecipe recipe, MatrixStack poseStack, double mouseX, double mouseY) {
+    public void draw(MinerRecipe recipe, PoseStack poseStack, double mouseX, double mouseY) {
         RenderSystem.enableBlend();
         this.overlay.draw(poseStack, 76, 14); //(center=84) - (width/16=8) = 76
         String text = I18n.format(Occultism.MODID + ".jei.miner.chance", this.chances.get(recipe));
@@ -130,7 +130,7 @@ public class MinerRecipeCategory implements IRecipeCategory<MinerRecipe> {
 
     }
 
-    protected void drawStringCentered(MatrixStack poseStack, FontRenderer fontRenderer, String text, int x, int y) {
+    protected void drawStringCentered(PoseStack poseStack, Font fontRenderer, String text, int x, int y) {
         fontRenderer.drawString(poseStack, text, (x - fontRenderer.getStringWidth(text) / 2.0f), y, 0);
     }
     //endregion Overrides

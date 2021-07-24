@@ -26,12 +26,12 @@ import com.github.klikli_dev.occultism.common.tile.DimensionalMineshaftBlockEnti
 import com.github.klikli_dev.occultism.util.ItemNBTUtil;
 import com.github.klikli_dev.occultism.util.TextUtil;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.player.Player;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.network.chat.Component;
 import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.level.Level;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 
 import javax.annotation.Nullable;
@@ -63,7 +63,7 @@ public class MinerSpiritItem extends Item {
 
     //region Overrides
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<ITextComponent> tooltip,
+    public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip,
                                ITooltipFlag flagIn) {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
         tooltip.add(new TranslationTextComponent(this.getDescriptionId() + ".tooltip",

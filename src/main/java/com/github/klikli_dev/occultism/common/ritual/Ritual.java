@@ -29,25 +29,25 @@ import com.github.klikli_dev.occultism.common.tile.GoldenSacrificialBowlBlockEnt
 import com.github.klikli_dev.occultism.common.tile.SacrificialBowlBlockEntity;
 import com.github.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.github.klikli_dev.occultism.registry.OccultismSounds;
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.BlockEntity.BlockEntity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.entity.player.Player;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.entity.player.ServerPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.item.crafting.RecipeManager;
+import net.minecraft.world.level.Level;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.particles.ParticleTypes;
-import net.minecraft.BlockEntity.BlockEntity;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundSource;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.SoundSource;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.level.Level;
-import net.minecraft.level.server.ServerWorld;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
@@ -422,7 +422,7 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
                     ItemStack extracted = handler.extractItem(0, 1, false);
                     consumedIngredients.add(extracted);
                     //Show effect in level
-                    ((ServerWorld) level)
+                    ((ServerLevel) level)
                             .sendParticles(ParticleTypes.LARGE_SMOKE, sacrificialBowl.getPos().getX() + 0.5,
                                     sacrificialBowl.getPos().getY() + 1.5, sacrificialBowl.getPos().getZ() + 0.5, 1,
                                     0.0, 0.0, 0.0,
@@ -601,8 +601,8 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
         }
         spirit.setPositionAndRotation(goldenBowlPosition.getX(), goldenBowlPosition.getY(), goldenBowlPosition.getZ(),
                 level.rand.nextInt(360), 0);
-        spirit.setCustomName(new StringTextComponent(spiritName));
-        spirit.onInitialSpawn((ServerWorld) level, level.getDifficultyForLocation(goldenBowlPosition),
+        spirit.setCustomName(new TextComponent(spiritName));
+        spirit.onInitialSpawn((ServerLevel) level, level.getDifficultyForLocation(goldenBowlPosition),
                 SpawnReason.MOB_SUMMONED, null,
                 null);
     }

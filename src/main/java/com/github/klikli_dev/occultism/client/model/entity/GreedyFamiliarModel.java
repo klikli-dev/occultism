@@ -24,12 +24,11 @@ package com.github.klikli_dev.occultism.client.model.entity;
 
 import com.github.klikli_dev.occultism.common.entity.GreedyFamiliarEntity;
 import com.google.common.collect.ImmutableList;
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
-
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Mth;
 
 /**
  * Created using Tabula 8.0.0
@@ -105,7 +104,7 @@ public class GreedyFamiliarModel extends EntityModel<GreedyFamiliarEntity> {
     }
 
     @Override
-    public void render(MatrixStack matrixStackIn, IVertexBuilder bufferIn, int packedLightIn, int packedOverlayIn,
+    public void render(PoseStack matrixStackIn, IVertexBuilder bufferIn, int packedLightIn, int packedOverlayIn,
             float red, float green, float blue, float alpha) {
         ImmutableList.of(this.body).forEach((modelRenderer) -> {
             modelRenderer.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
@@ -132,11 +131,11 @@ public class GreedyFamiliarModel extends EntityModel<GreedyFamiliarEntity> {
             this.rightLeg.rotateAngleX = -PI / 2;
             this.leftLeg.rotateAngleX = -PI / 2;
         } else {
-            this.rightArm.rotateAngleX = MathHelper.cos(limbSwing * 0.5f + PI) * limbSwingAmount;
-            this.leftArm.rotateAngleX = MathHelper.cos(limbSwing * 0.5f) * limbSwingAmount;
-            this.rightLeg.rotateAngleX = MathHelper.cos(limbSwing * 0.5f) * 1.4f * limbSwingAmount;
-            this.leftLeg.rotateAngleX = MathHelper.cos(limbSwing * 0.5f + PI) * 1.4f * limbSwingAmount;
+            this.rightArm.rotateAngleX = Mth.cos(limbSwing * 0.5f + PI) * limbSwingAmount;
+            this.leftArm.rotateAngleX = Mth.cos(limbSwing * 0.5f) * limbSwingAmount;
+            this.rightLeg.rotateAngleX = Mth.cos(limbSwing * 0.5f) * 1.4f * limbSwingAmount;
+            this.leftLeg.rotateAngleX = Mth.cos(limbSwing * 0.5f + PI) * 1.4f * limbSwingAmount;
         }
-        this.chest2.rotateAngleX = MathHelper.cos(limbSwing * 0.35f + PI) * 0.5f * limbSwingAmount + PI / 12;
+        this.chest2.rotateAngleX = Mth.cos(limbSwing * 0.35f + PI) * 0.5f * limbSwingAmount + PI / 12;
     }
 }

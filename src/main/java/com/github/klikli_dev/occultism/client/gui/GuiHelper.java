@@ -27,7 +27,7 @@ import com.github.klikli_dev.occultism.client.gui.spirit.BookOfCallingGui;
 import com.github.klikli_dev.occultism.client.gui.spirit.BookOfCallingManagedMachineGui;
 import com.github.klikli_dev.occultism.common.item.spirit.BookOfCallingItem;
 import net.minecraft.client.Minecraft;
-import net.minecraft.util.Direction;
+import net.minecraft.core.Direction;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 

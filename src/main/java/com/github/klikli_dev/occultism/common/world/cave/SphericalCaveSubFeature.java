@@ -25,17 +25,17 @@ package com.github.klikli_dev.occultism.common.level.cave;
 import com.github.klikli_dev.occultism.common.level.multichunk.IMultiChunkSubFeature;
 import com.github.klikli_dev.occultism.common.level.multichunk.MultiChunkFeatureConfig;
 import com.github.klikli_dev.occultism.util.Math3DUtil;
-import net.minecraft.block.BlockState;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.util.Direction;
-import net.minecraft.util.SharedSeedRandom;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.level.ISeedReader;
 import net.minecraft.level.IWorld;
 import net.minecraft.level.gen.ChunkGenerator;
+import net.minecraft.core.Direction;
+import net.minecraft.util.SharedSeedRandom;
+import net.minecraft.util.math.AABB;
+import net.minecraft.core.BlockPos;
+import net.minecraft.util.math.ChunkPos;
+import net.minecraft.util.math.Mth;
 
 import java.util.*;
 
@@ -81,7 +81,7 @@ public class SphericalCaveSubFeature implements IMultiChunkSubFeature {
     //region Overrides
     @Override
     public boolean generate(ISeedReader reader, ChunkGenerator generator, Random rand, BlockPos rootPosition,
-                            AxisAlignedBB bounds, MultiChunkFeatureConfig config) {
+                            AABB bounds, MultiChunkFeatureConfig config) {
         //can never generate in daylight
         if (reader.canBlockSeeSky(rootPosition))
             return false;
@@ -113,11 +113,11 @@ public class SphericalCaveSubFeature implements IMultiChunkSubFeature {
     //endregion Overrides
 
     //region Methods
-    protected Sphere generateSphere(IWorld level, Random rand, BlockPos position, int radius, AxisAlignedBB bounds) {
+    protected Sphere generateSphere(IWorld level, Random rand, BlockPos position, int radius, AABB bounds) {
         return new Sphere(position, radius);
     }
 
-    protected void hollowOutSphere(ISeedReader reader, Random rand, BlockPos center, int radius, AxisAlignedBB bounds) {
+    protected void hollowOutSphere(ISeedReader reader, Random rand, BlockPos center, int radius, AABB bounds) {
         int j = radius;
         int k = radius / 2;
         int l = radius;
@@ -126,7 +126,7 @@ public class SphericalCaveSubFeature implements IMultiChunkSubFeature {
         BlockPos max = Math3DUtil.clamp(center.add(j, k, l), bounds);
 
         BlockPos.getAllInBox(min, max).forEach(blockPos -> {
-            if (blockPos.distanceSq(center) <= (double) (f * f * MathHelper.clamp(rand.nextFloat(), 0.75F, 1.0F))) {
+            if (blockPos.distanceSq(center) <= (double) (f * f * Mth.clamp(rand.nextFloat(), 0.75F, 1.0F))) {
                 BlockState currentState = reader.getBlockState(blockPos);
                 if (!currentState.hasBlockEntity() && currentState.getBlock() != Blocks.BEDROCK) {
                     reader.setBlockState(blockPos, Blocks.CAVE_AIR.getDefaultState(), 2);
@@ -136,7 +136,7 @@ public class SphericalCaveSubFeature implements IMultiChunkSubFeature {
     }
 
     protected void decorateSphere(ISeedReader reader, ChunkGenerator generator, Random rand,
-                                  BlockPos center, int radius, AxisAlignedBB bounds) {
+                                  BlockPos center, int radius, AABB bounds) {
         int j = radius;
         //int k = radius / 2;
         int k = radius / 2;

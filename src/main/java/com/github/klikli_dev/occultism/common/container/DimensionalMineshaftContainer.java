@@ -27,12 +27,12 @@ import com.github.klikli_dev.occultism.exceptions.ItemHandlerMissingException;
 import com.github.klikli_dev.occultism.registry.OccultismContainers;
 import com.github.klikli_dev.occultism.registry.OccultismRecipes;
 import com.github.klikli_dev.occultism.util.RecipeUtil;
-import net.minecraft.entity.player.Player;
-import net.minecraft.entity.player.Inventory;
-import net.minecraft.inventory.container.AbstractContainerMenu;
-import net.minecraft.inventory.container.Slot;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.RecipeManager;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.SlotItemHandler;
@@ -64,9 +64,9 @@ public class DimensionalMineshaftContainer extends AbstractContainerMenu {
     //region Overrides
     @Override
     public boolean stillValid(Player player) {
-        return player.getDistanceSq(this.otherworldMiner.getPos().getX() + 0.5D,
-                this.otherworldMiner.getPos().getY() + 0.5D,
-                this.otherworldMiner.getPos().getZ() + 0.5D) <= 64.0D;
+        return player.distanceToSqr(this.otherworldMiner.getBlockPos().getX() + 0.5D,
+                this.otherworldMiner.getBlockPos().getY() + 0.5D,
+                this.otherworldMiner.getBlockPos().getZ() + 0.5D) <= 64.0D;
     }
 
     @Override
@@ -74,7 +74,7 @@ public class DimensionalMineshaftContainer extends AbstractContainerMenu {
         ItemStack itemstack = ItemStack.EMPTY;
         Slot slot = this.slots.get(index);
         if (slot != null && slot.hasItem()) {
-            ItemStack itemstack1 = slot.getStack();
+            ItemStack itemstack1 = slot.getItem();
             itemstack = itemstack1.copy();
             if (index < this.outputHandler.getSlots()) {
                 //+1 because we have the input handler slot after the output hander slots
@@ -83,18 +83,18 @@ public class DimensionalMineshaftContainer extends AbstractContainerMenu {
                 }
             }
             //input handler slot is exactly at last output handler slot + 1
-            else if(index == this.outputHandler.getSlots()){
+            else if (index == this.outputHandler.getSlots()) {
                 if (!this.moveItemStackTo(itemstack1, this.outputHandler.getSlots() + 1, this.slots.size(), true)) {
                     return ItemStack.EMPTY;
                 }
             }
             //+1 because we are actually only interested in inserting in the input handler. Could even start at the end index instead of 0.
-            else if (!this.moveItemStackTo(itemstack1,0, this.outputHandler.getSlots() + 1, false)) {
+            else if (!this.moveItemStackTo(itemstack1, 0, this.outputHandler.getSlots() + 1, false)) {
                 return ItemStack.EMPTY;
             }
 
             if (itemstack1.isEmpty()) {
-                slot.putStack(ItemStack.EMPTY);
+                slot.set(ItemStack.EMPTY);
             } else {
                 slot.setChanged();
             }
@@ -112,7 +112,7 @@ public class DimensionalMineshaftContainer extends AbstractContainerMenu {
 
         for (int i = 0; i < 3; i++)
             for (int j = 0; j < 9; j++)
-                this.addSlot(new Slot(player.inventory, j + i * 9 + 9, playerInventoryLeft + j * 18,
+                this.addSlot(new Slot(player.getInventory(), j + i * 9 + 9, playerInventoryLeft + j * 18,
                         playerInventoryTop + i * 18));
     }
 
@@ -120,7 +120,7 @@ public class DimensionalMineshaftContainer extends AbstractContainerMenu {
         int hotbarTop = 142;
         int hotbarLeft = 8;
         for (int i = 0; i < 9; i++)
-            this.addSlot(new Slot(player.inventory, i, hotbarLeft + i * 18, hotbarTop));
+            this.addSlot(new Slot(player.getInventory(), i, hotbarLeft + i * 18, hotbarTop));
     }
 
     protected void setupMinerInventory() {

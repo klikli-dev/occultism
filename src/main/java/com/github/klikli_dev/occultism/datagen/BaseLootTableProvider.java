@@ -25,16 +25,16 @@ package com.github.klikli_dev.occultism.datagen;
 import com.github.klikli_dev.occultism.Occultism;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import net.minecraft.block.Block;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DirectoryCache;
 import net.minecraft.data.IDataProvider;
 import net.minecraft.data.LootTableProvider;
 import net.minecraft.entity.EntityType;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.loot.LootParameterSets;
 import net.minecraft.loot.LootTable;
 import net.minecraft.loot.LootTableManager;
+import net.minecraft.resources.ResourceLocation;
 
 import java.io.IOException;
 import java.nio.file.Path;

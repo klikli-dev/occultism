@@ -24,9 +24,9 @@ package com.github.klikli_dev.occultism.client.itemproperties;
 
 import com.github.klikli_dev.occultism.common.item.tool.DivinationRodItem;
 import net.minecraft.client.level.ClientWorld;
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.item.IItemPropertyGetter;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 

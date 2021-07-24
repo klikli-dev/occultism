@@ -22,9 +22,10 @@
 
 package com.github.klikli_dev.occultism.api.common.item;
 
-import net.minecraft.inventory.CraftingInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
+
+import net.minecraft.world.inventory.CraftingContainer;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Recipe;
 
 /**
  * Implement if this item should be preserved (like a container) when used as an ingredient.
@@ -40,6 +41,6 @@ public interface IIngredientPreserve {
      * @param inventory the crafting inventory.
      * @return true to preserve.
      */
-    boolean shouldPreserve(ItemStack itemStack, IRecipe<?> recipe, CraftingInventory inventory);
+    boolean shouldPreserve(ItemStack itemStack, Recipe<?> recipe, CraftingContainer inventory);
     //endregion Methods
 }

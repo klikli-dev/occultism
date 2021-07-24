@@ -30,21 +30,19 @@ import com.github.klikli_dev.occultism.common.misc.ItemStackComparator;
 import com.github.klikli_dev.occultism.common.misc.StorageControllerCraftingInventory;
 import com.github.klikli_dev.occultism.common.misc.StorageControllerSlot;
 import com.github.klikli_dev.occultism.network.OccultismPackets;
-import net.minecraft.entity.player.Player;
-import net.minecraft.entity.player.Inventory;
+import net.minecraft.BlockEntity.BlockEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.entity.player.ServerPlayer;
 import net.minecraft.inventory.CraftResultInventory;
-import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.container.AbstractContainerMenu;
 import net.minecraft.inventory.container.MenuType;
 import net.minecraft.inventory.container.Slot;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.item.crafting.ICraftingRecipe;
-import net.minecraft.item.crafting.IRecipeType;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.network.play.server.SSetSlotPacket;
-import net.minecraft.BlockEntity.BlockEntity;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.wrapper.PlayerMainInvWrapper;
@@ -205,7 +203,7 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
 
     protected void findRecipeForMatrixClient() {
         Optional<ICraftingRecipe> optional =
-                this.player.level.getRecipeManager().getRecipe(IRecipeType.CRAFTING, this.matrix, this.player.level);
+                this.player.level.getRecipeManager().getRecipe(RecipeType.CRAFTING, this.matrix, this.player.level);
         optional.ifPresent(iCraftingRecipe -> this.currentRecipe = iCraftingRecipe);
     }
 
@@ -217,7 +215,7 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
             ServerPlayer serverplayerentity = (ServerPlayer) this.player;
             ItemStack itemstack = ItemStack.EMPTY;
             Optional<ICraftingRecipe> optional = this.player.level.getServer().getRecipeManager()
-                    .getRecipe(IRecipeType.CRAFTING, this.matrix,
+                    .getRecipe(RecipeType.CRAFTING, this.matrix,
                             this.player.level);
             if (optional.isPresent()) {
                 ICraftingRecipe icraftingrecipe = optional.get();

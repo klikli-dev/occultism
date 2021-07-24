@@ -26,10 +26,10 @@ import com.github.klikli_dev.occultism.api.common.tile.IStorageControllerProxy;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.github.klikli_dev.occultism.common.job.ManageMachineJob;
 import net.minecraft.BlockEntity.BlockEntity;
-import net.minecraft.util.Direction;
+import net.minecraft.world.level.Level;
+import net.minecraft.core.Direction;
 import net.minecraft.util.InteractionHand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.level.Level;
+import net.minecraft.core.BlockPos;
 
 import java.util.ArrayList;
 import java.util.EnumSet;

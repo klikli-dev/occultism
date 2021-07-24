@@ -36,8 +36,8 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.loot.ILootSerializer;
 import net.minecraft.loot.LootConditionType;
 import net.minecraft.loot.LootContext;
@@ -45,8 +45,8 @@ import net.minecraft.loot.LootParameters;
 import net.minecraft.loot.conditions.ILootCondition;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ITag;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.GsonHelper;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
@@ -101,13 +101,13 @@ public class MatchBlockCondition implements ILootCondition
         {
             if (json.has("tag"))
             {
-                ResourceLocation tagName = new ResourceLocation(JSONUtils.getString(json, "tag"));
+                ResourceLocation tagName = new ResourceLocation(GsonHelper.getString(json, "tag"));
                 return new MatchBlockCondition(null, BlockTags.createOptional(tagName));
             }
             else if(json.has("blocks"))
             {
                 List<Block> blockNames = Lists.newArrayList();
-                for(JsonElement e : JSONUtils.getJsonArray(json, "blocks"))
+                for(JsonElement e : GsonHelper.getAsJsonArray(json, "blocks"))
                 {
                     ResourceLocation blockName = new ResourceLocation(e.getAsString());
                     blockNames.add(ForgeRegistries.BLOCKS.getValue(blockName));
@@ -116,7 +116,7 @@ public class MatchBlockCondition implements ILootCondition
             }
             else if(json.has("block"))
             {
-                ResourceLocation blockName = new ResourceLocation(JSONUtils.getString(json, "block"));
+                ResourceLocation blockName = new ResourceLocation(GsonHelper.getString(json, "block"));
                 return new MatchBlockCondition(Collections.singletonList(ForgeRegistries.BLOCKS.getValue(blockName)), null);
             }
             throw new RuntimeException("match_block must have one of 'tag', 'block' or 'blocks' key");

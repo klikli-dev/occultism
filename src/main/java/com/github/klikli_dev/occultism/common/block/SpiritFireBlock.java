@@ -27,29 +27,29 @@ import com.github.klikli_dev.occultism.crafting.recipe.SpiritFireRecipe;
 import com.github.klikli_dev.occultism.registry.OccultismRecipes;
 import com.github.klikli_dev.occultism.registry.OccultismSounds;
 import com.github.klikli_dev.occultism.util.Math3DUtil;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.FireBlock;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.inventory.InventoryHelper;
-import net.minecraft.item.ItemStack;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.state.StateContainer;
-import net.minecraft.util.Direction;
-import net.minecraft.util.SoundSource;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.shapes.VoxelShapes;
-import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.level.IBlockReader;
 import net.minecraft.level.IWorld;
 import net.minecraft.level.IWorldReader;
-import net.minecraft.level.Level;
-import net.minecraft.level.server.ServerWorld;
+import net.minecraft.world.level.Level;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.particles.ParticleTypes;
+import net.minecraft.state.StateContainer;
+import net.minecraft.core.Direction;
+import net.minecraft.util.SoundEvents;
+import net.minecraft.util.SoundSource;
+import net.minecraft.util.math.AABB;
+import net.minecraft.core.BlockPos;
+import net.minecraft.util.math.shapes.ISelectionContext;
+import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.util.math.shapes.VoxelShapes;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -99,7 +99,7 @@ public class SpiritFireBlock extends Block {
     }
 
     @Override
-    public void tick(BlockState state, ServerWorld worldIn, BlockPos pos, Random rand) {
+    public void tick(BlockState state, ServerLevel worldIn, BlockPos pos, Random rand) {
         worldIn.getPendingBlockTicks().scheduleTick(pos, this, getTickCooldown(worldIn.rand));
         //TODO: Test if spiritfire works, if there are issues, update tick based on vanilla FireBlock
         if (!worldIn.isAreaLoaded(pos, 2)) {
@@ -237,8 +237,8 @@ public class SpiritFireBlock extends Block {
     }
 
     protected void convertItems(Level level, BlockPos pos, BlockState state) {
-        Vector3d center = Math3DUtil.center(pos);
-        AxisAlignedBB box = new AxisAlignedBB(-0.5, -0.5, -0.5, 0.5, 0.5, 0.5).offset(center);
+        Vec3 center = Math3DUtil.center(pos);
+        AABB box = new AABB(-0.5, -0.5, -0.5, 0.5, 0.5, 0.5).offset(center);
         List<ItemEntity> list = level.getEntitiesWithinAABB(ItemEntity.class, box);
         ItemStackFakeInventory fakeInventory =
                 new ItemStackFakeInventory(ItemStack.EMPTY);

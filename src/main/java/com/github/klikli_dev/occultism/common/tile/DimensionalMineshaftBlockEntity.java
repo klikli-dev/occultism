@@ -28,21 +28,21 @@ import com.github.klikli_dev.occultism.crafting.recipe.MinerRecipe;
 import com.github.klikli_dev.occultism.exceptions.ItemHandlerMissingException;
 import com.github.klikli_dev.occultism.registry.OccultismRecipes;
 import com.github.klikli_dev.occultism.registry.OccultismTiles;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.Player;
-import net.minecraft.entity.player.Inventory;
-import net.minecraft.inventory.container.AbstractContainerMenu;
-import net.minecraft.inventory.container.MenuProvider;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.BlockEntity.ITickableBlockEntity;
-import net.minecraft.util.Direction;
-import net.minecraft.util.WeightedRandom;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.level.server.ServerWorld;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.TickingBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.FakePlayerFactory;
 import net.minecraftforge.common.util.LazyOptional;
@@ -59,7 +59,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implements ITickableBlockEntity, MenuProvider {
+public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implements TickingBlockEntity, MenuProvider {
 
     //region Fields
     public static final String MAX_MINING_TIME_TAG = "maxMiningTime";
@@ -70,7 +70,7 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
         //region Overrides
         @Override
         protected void onContentsChanged(int slot) {
-            DimensionalMineshaftBlockEntity.this.markDirty();
+            DimensionalMineshaftBlockEntity.this.setChanged();
         }
         //endregion Overrides
     });
@@ -78,7 +78,7 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
         //region Overrides
         @Override
         protected void onContentsChanged(int slot) {
-            DimensionalMineshaftBlockEntity.this.markDirty();
+            DimensionalMineshaftBlockEntity.this.setChanged();
         }
         //endregion Overrides
     });
@@ -94,15 +94,15 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
 
     //endregion Fields
     //region Initialization
-    public DimensionalMineshaftBlockEntity() {
-        super(OccultismTiles.DIMENSIONAL_MINESHAFT.get());
+    public DimensionalMineshaftBlockEntity(BlockPos worldPos, BlockState state) {
+        super(OccultismTiles.DIMENSIONAL_MINESHAFT.get(), worldPos, state);
     }
     //endregion Initialization
 
     //region Overrides
     @Override
-    public ITextComponent getDisplayName() {
-        return new StringTextComponent(this.getType().getRegistryName().getPath());
+    public Component getDisplayName() {
+        return new TextComponent(this.getType().getRegistryName().getPath());
     }
 
     @Nonnull
@@ -112,11 +112,9 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
             if (direction == null) {
                 //null is full access for machines or similar.
                 return this.combinedHandler.cast();
-            }
-            else if (direction == Direction.UP) {
+            } else if (direction == Direction.UP) {
                 return this.inputHandler.cast();
-            }
-            else {
+            } else {
                 return this.outputHandler.cast();
             }
         }
@@ -124,38 +122,38 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
     }
 
     @Override
-    public void read(BlockState state, CompoundTag compound) {
-        super.read(state, compound);
+    public void load(CompoundTag compound) {
+        super.load(compound);
         this.inputHandler.ifPresent((handler) -> handler.deserializeNBT(compound.getCompound("inputHandler")));
         this.outputHandler.ifPresent((handler) -> handler.deserializeNBT(compound.getCompound("outputHandler")));
     }
 
     @Override
-    public CompoundTag write(CompoundTag compound) {
+    public CompoundTag save(CompoundTag compound) {
         this.inputHandler.ifPresent(handler -> compound.put("inputHandler", handler.serializeNBT()));
         this.outputHandler.ifPresent(handler -> compound.put("outputHandler", handler.serializeNBT()));
-        return super.write(compound);
+        return super.save(compound);
     }
 
     @Override
-    public void readNetwork(CompoundTag compound) {
-        super.readNetwork(compound);
+    public void loadNetwork(CompoundTag compound) {
+        super.loadNetwork(compound);
         this.miningTime = compound.getInt("miningTime");
         this.maxMiningTime = compound.getInt("maxMiningTime");
     }
 
     @Override
-    public CompoundTag writeNetwork(CompoundTag compound) {
+    public CompoundTag saveNetwork(CompoundTag compound) {
         compound.putInt("miningTime", this.miningTime);
         compound.putInt("maxMiningTime", this.maxMiningTime);
-        return super.writeNetwork(compound);
+        return super.saveNetwork(compound);
     }
 
     @Override
-    public void remove() {
+        public void setRemoved() {
         this.inputHandler.invalidate();
         this.outputHandler.invalidate();
-        super.remove();
+        super.setRemoved();
     }
 
     @Override
@@ -182,12 +180,11 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
                 }
                 if (this.miningTime % 10 == 0)
                     dirty = true;
-            }
-            else if (!input.isEmpty()) {
+            } else if (!input.isEmpty()) {
                 //if we're done with the last mining job, and we have valid input, start the next one.
                 this.currentInputType = input.getItem();
                 //ensure nbt is initialized, fixes issues with spawned miner spirits
-                forceInitStackNBT(input, (ServerWorld) this.level);
+                forceInitStackNBT(input, (ServerLevel) this.level);
                 this.maxMiningTime = getMaxMiningTime(input);
                 this.rollsPerOperation = getRollsPerOperation(input);
                 this.miningTime = this.maxMiningTime;
@@ -197,11 +194,10 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
             if (dirty) {
                 this.markNetworkDirty();
             }
-        }
-        else {
+        } else {
             if (this.miningTime > 0 && this.level.getGameTime() % 10 == 0) {
-                this.level.addParticle(ParticleTypes.PORTAL, this.pos.getX() + 0.5f,
-                        this.pos.getY() + 0.5, this.pos.getZ() + 0.5f, 0.0D, 0.0D, 0.0D);
+                this.level.addParticle(ParticleTypes.PORTAL, this.worldPosition.getX() + 0.5f,
+                        this.worldPosition.getY() + 0.5, this.worldPosition.getZ() + 0.5f, 0.0D, 0.0D, 0.0D);
             }
         }
     }
@@ -214,13 +210,13 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
     //endregion Overrides
 
     //region Static Methods
-    public static void forceInitStackNBT(ItemStack stack, ServerWorld level){
-        stack.getItem().onCreated(stack, level, FakePlayerFactory.getMinecraft(level));
+    public static void forceInitStackNBT(ItemStack stack, ServerLevel level) {
+        stack.getItem().onCraftedBy(stack, level, FakePlayerFactory.getMinecraft(level));
     }
 
     public static int getMaxMiningTime(ItemStack stack) {
         CompoundTag tag = stack.getTag();
-        if(tag == null)
+        if (tag == null)
             return 0;
         int time = tag.getInt(MAX_MINING_TIME_TAG);
         return time <= 0 ? DEFAULT_MAX_MINING_TIME : time;
@@ -228,7 +224,7 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
 
     public static int getRollsPerOperation(ItemStack stack) {
         CompoundTag tag = stack.getTag();
-        if(tag == null)
+        if (tag == null)
             return 0;
         int rolls = tag.getInt(ROLLS_PER_OPERATION_TAG);
         return rolls <= 0 ? DEFAULT_ROLLS_PER_OPERATION : rolls;
@@ -242,16 +238,16 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
 
         if (this.possibleResults == null) {
             List<MinerRecipe> recipes = this.level.getRecipeManager()
-                                                .getRecipes(OccultismRecipes.MINER_TYPE.get(),
-                                                        new RecipeWrapper(inputHandler), this.level);
-            if(recipes == null ||recipes.size() == 0){
+                    .getRecipes(OccultismRecipes.MINER_TYPE.get(),
+                            new RecipeWrapper(inputHandler), this.level);
+            if (recipes == null || recipes.size() == 0) {
                 this.possibleResults = new ArrayList<>();
-            }else {
+            } else {
                 this.possibleResults = recipes.stream().map(r -> r.getWeightedOutput()).collect(Collectors.toList());
             }
         }
 
-        if(this.possibleResults.size() == 0)
+        if (this.possibleResults.size() == 0)
             return;
 
         for (int i = 0; i < this.rollsPerOperation; i++) {

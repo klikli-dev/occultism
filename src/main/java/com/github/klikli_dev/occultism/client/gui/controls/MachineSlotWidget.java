@@ -25,10 +25,10 @@ package com.github.klikli_dev.occultism.client.gui.controls;
 
 import com.github.klikli_dev.occultism.api.client.gui.IStorageControllerGuiContainer;
 import com.github.klikli_dev.occultism.api.common.data.MachineReference;
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.Font;
 
 import javax.annotation.Nonnull;
 import java.awt.*;
@@ -42,7 +42,7 @@ public class MachineSlotWidget {
     protected Minecraft minecraft;
     protected IStorageControllerGuiContainer parent;
     protected MachineReference machine;
-    protected FontRenderer fontRenderer;
+    protected Font fontRenderer;
     protected int slotHighlightColor;
     //endregion Fields
 
@@ -77,12 +77,12 @@ public class MachineSlotWidget {
         return this.parent.isPointInRegionController(this.x - this.guiLeft, this.y - this.guiTop, 16, 16, mouseX, mouseY);
     }
 
-    public void drawSlot(MatrixStack poseStack, int mx, int my) {
-        RenderSystem.pushMatrix();
+    public void drawSlot(PoseStack poseStack, int mx, int my) {
+        poseStack.pushPose();
         //render item
         //RenderHelper.setupGuiFlatDiffuseLighting();
 
-        this.minecraft.getItemRenderer().renderItemAndEffectIntoGUI(this.machine.getItemStack(), this.x, this.y);
+        this.minecraft.getItemRenderer().renderAndDecorateItem(this.machine.getItemStack(), this.x, this.y);
 
         if (this.isMouseOverSlot(mx, my)) {
             RenderSystem.colorMask(true, true, true, false);
@@ -90,10 +90,10 @@ public class MachineSlotWidget {
                     this.slotHighlightColor);
             RenderSystem.colorMask(true, true, true, true);
         }
-        RenderSystem.popMatrix();
+        poseStack.popPose();
     }
 
-    public void drawTooltip(MatrixStack poseStack, int mx, int my) {
+    public void drawTooltip(PoseStack poseStack, int mx, int my) {
         if (this.isMouseOverSlot(mx, my)) {
             this.parent.renderToolTip(poseStack, this.machine, mx, my);
         }

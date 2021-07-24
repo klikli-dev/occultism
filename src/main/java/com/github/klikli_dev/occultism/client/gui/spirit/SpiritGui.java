@@ -27,19 +27,19 @@ import com.github.klikli_dev.occultism.client.gui.controls.LabelWidget;
 import com.github.klikli_dev.occultism.common.container.spirit.SpiritContainer;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.github.klikli_dev.occultism.util.TextUtil;
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screen.inventory.ContainerScreen;
+import net.minecraft.client.gui.screens.inventory.ContainerScreen;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.util.math.vector.Quaternion;
-import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.Inventory;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.math.vector.Quaternion;
+import net.minecraft.util.math.vector.Vector3f;
+import net.minecraft.network.chat.Component;
 import net.minecraft.util.text.TextFormatting;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.WordUtils;
@@ -54,7 +54,7 @@ public class SpiritGui<T extends SpiritContainer> extends ContainerScreen<T> {
 //endregion Fields
 
     //region Initialization
-    public SpiritGui(T container, Inventory playerInventory, ITextComponent titleIn) {
+    public SpiritGui(T container, Inventory playerInventory, Component titleIn) {
         super(container, playerInventory, titleIn);
         this.container = container;
         this.spirit = this.container.spirit;
@@ -96,7 +96,7 @@ public class SpiritGui<T extends SpiritContainer> extends ContainerScreen<T> {
     }
 
     @Override
-    protected void drawGuiContainerBackgroundLayer(MatrixStack poseStack, float partialTicks, int x, int y) {
+    protected void drawGuiContainerBackgroundLayer(PoseStack poseStack, float partialTicks, int x, int y) {
         this.renderBackground(poseStack);
 
         RenderSystem.color4f(1, 1, 1, 1);
@@ -112,7 +112,7 @@ public class SpiritGui<T extends SpiritContainer> extends ContainerScreen<T> {
     }
 
     @Override
-    protected void drawGuiContainerForegroundLayer(MatrixStack poseStack, int x, int y) {
+    protected void drawGuiContainerForegroundLayer(PoseStack poseStack, int x, int y) {
         //don't call super to avoid drawing names of inventories
     }
     //endregion Overrides
@@ -125,7 +125,7 @@ public class SpiritGui<T extends SpiritContainer> extends ContainerScreen<T> {
         RenderSystem.pushMatrix();
         RenderSystem.translatef((float)posX, (float)posY, 1050.0F);
         RenderSystem.scalef(1.0F, 1.0F, -1.0F);
-        MatrixStack matrixstack = new MatrixStack();
+        PoseStack matrixstack = new PoseStack();
         matrixstack.translate(0.0D, 0.0D, 1000.0D);
         matrixstack.scale((float)scale, (float)scale, (float)scale);
         Quaternion quaternion = Vector3f.ZP.rotationDegrees(180.0F);

@@ -31,14 +31,14 @@ import com.github.klikli_dev.occultism.registry.OccultismRituals;
 import com.github.klikli_dev.occultism.registry.OccultismSpiritJobs;
 import com.github.klikli_dev.occultism.util.ItemNBTUtil;
 import net.minecraft.advancements.CriteriaTriggers;
-import net.minecraft.entity.player.Player;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.entity.player.ServerPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.Level;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.particles.ParticleTypes;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.level.Level;
-import net.minecraft.level.server.ServerWorld;
+import net.minecraft.core.BlockPos;
 
 import static com.github.klikli_dev.occultism.util.StaticUtil.modLoc;
 
@@ -75,7 +75,7 @@ public class DebugRitual extends Ritual {
                 foliot.getBoundingBox().grow(50)))
             CriteriaTriggers.SUMMONED_ENTITY.trigger(player, foliot);
 
-        ((ServerWorld) level).sendParticles(ParticleTypes.LARGE_SMOKE, goldenBowlPosition.getX() + 0.5,
+        ((ServerLevel) level).sendParticles(ParticleTypes.LARGE_SMOKE, goldenBowlPosition.getX() + 0.5,
                 goldenBowlPosition.getY() + 0.5, goldenBowlPosition.getZ() + 0.5, 1, 0, 0, 0, 0);
 
         level.addEntity(foliot);

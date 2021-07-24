@@ -29,7 +29,7 @@ import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.github.klikli_dev.occultism.registry.OccultismRecipes;
 import com.github.klikli_dev.occultism.registry.OccultismRituals;
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
@@ -38,10 +38,10 @@ import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.math.vector.Vector3i;
 
 import java.util.List;
@@ -235,7 +235,7 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
     }
 
     @Override
-    public void draw(RitualRecipe recipe, MatrixStack poseStack, double mouseX, double mouseY) {
+    public void draw(RitualRecipe recipe, PoseStack poseStack, double mouseX, double mouseY) {
         RenderSystem.enableBlend();
         this.arrow.draw(poseStack, this.ritualCenterX + this.recipeOutputOffsetX - 20, this.ritualCenterY);
         RenderSystem.disableBlend();
@@ -252,7 +252,7 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
     //endregion Overrides
 
     //region Methods
-    protected void drawStringCentered(MatrixStack poseStack, FontRenderer fontRenderer, String text, int x, int y) {
+    protected void drawStringCentered(PoseStack poseStack, Font fontRenderer, String text, int x, int y) {
         fontRenderer.drawString(poseStack, text, (x - fontRenderer.getStringWidth(text) / 2.0f), y, 0);
     }
     //endregion Methods

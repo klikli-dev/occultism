@@ -27,10 +27,10 @@ import com.github.klikli_dev.occultism.config.value.CachedFloat;
 import com.github.klikli_dev.occultism.config.value.CachedInt;
 import com.github.klikli_dev.occultism.config.value.CachedObject;
 import com.github.klikli_dev.occultism.registry.OccultismTags;
-import net.minecraft.block.Block;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ITag;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.ForgeConfigSpec;
 

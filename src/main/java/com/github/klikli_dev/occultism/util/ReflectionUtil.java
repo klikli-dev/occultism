@@ -22,12 +22,12 @@
 
 package com.github.klikli_dev.occultism.util;
 
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.item.crafting.RecipeManager;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.Container;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeManager;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
 
 import java.lang.reflect.Method;
 import java.util.Collections;
@@ -38,14 +38,14 @@ public class ReflectionUtil {
     public static class RecipeManagerReflection {
         //region Fields
         protected static Method getRecipesByType =
-                ObfuscationReflectionHelper.findMethod(RecipeManager.class, "func_215366_a", IRecipeType.class);
+                ObfuscationReflectionHelper.findMethod(RecipeManager.class, "func_215366_a", RecipeType.class);
         //endregion Fields
 
         //region Static Methods
-        public static <C extends IInventory, T extends IRecipe<C>> Map<ResourceLocation, IRecipe<C>> getRecipes(
-                RecipeManager recipeManager, IRecipeType<T> recipeType) {
+        public static <C extends Container, T extends Recipe<C>> Map<ResourceLocation, Recipe<C>> getRecipes(
+                RecipeManager recipeManager, RecipeType<T> recipeType) {
             try {
-                return (Map<ResourceLocation, IRecipe<C>>) getRecipesByType.invoke(recipeManager, recipeType);
+                return (Map<ResourceLocation, Recipe<C>>) getRecipesByType.invoke(recipeManager, recipeType);
             } catch (Exception ignored) {
                 return Collections.emptyMap();
             }

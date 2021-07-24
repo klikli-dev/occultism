@@ -23,10 +23,10 @@
 package com.github.klikli_dev.occultism.client.divination;
 
 import com.github.klikli_dev.occultism.util.Math3DUtil;
-import net.minecraft.block.Block;
-import net.minecraft.entity.player.Player;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.phys.Vec3;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -50,7 +50,7 @@ public class ScanManager {
         this.cancelScan();
 
         this.scanner = new Scanner(target);
-        this.scanner.initialize(player, player.getPositionVec(), SCAN_RADIUS_BLOCKS, SCAN_DURATION_TICKS);
+        this.scanner.initialize(player, player.position(), SCAN_RADIUS_BLOCKS, SCAN_DURATION_TICKS);
     }
 
     public void updateScan(Player player, boolean forceFinish) {
@@ -77,9 +77,9 @@ public class ScanManager {
     public BlockPos finishScan(Player player) {
         this.updateScan(player, true);
 
-        Vector3d scanCenter = player.getPositionVec();
+        Vec3 scanCenter = player.position();
         this.results
-                .sort(Comparator.comparing(result -> scanCenter.squareDistanceTo(Math3DUtil.center(result))));
+                .sort(Comparator.comparing(result -> scanCenter.distanceToSqr(Math3DUtil.center(result))));
         BlockPos result = !this.results.isEmpty() ? this.results.get(0) : null;
         this.cancelScan();
         return result;

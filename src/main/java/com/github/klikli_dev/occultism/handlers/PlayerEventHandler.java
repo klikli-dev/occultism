@@ -27,13 +27,12 @@ import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.github.klikli_dev.occultism.util.Math3DUtil;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.item.Items;
-import net.minecraft.util.*;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.level.Level;
+import net.minecraft.world.level.Level;
+import net.minecraft.util.math.AABB;
+import net.minecraft.core.BlockPos;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -49,7 +48,7 @@ public class PlayerEventHandler {
         boolean isFireCharge = event.getItemStack().getItem() == Items.FIRE_CHARGE;
         if (isFlintAndSteel || isFireCharge) {
             //find if there is any datura
-            AxisAlignedBB box = new AxisAlignedBB(-1, -1, -1, 1, 1, 1)
+            AABB box = new AABB(-1, -1, -1, 1, 1, 1)
                                         .offset(Math3DUtil.center(event.getPos()));
             List<ItemEntity> list = event.getLevel().getEntitiesWithinAABB(ItemEntity.class, box,
                     item -> item.getItem().getItem() == OccultismItems.DATURA.get());

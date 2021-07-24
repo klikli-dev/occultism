@@ -25,7 +25,7 @@ package com.github.klikli_dev.occultism.common.item.tool;
 import com.github.klikli_dev.occultism.api.common.data.OtherworldBlockTier;
 import com.github.klikli_dev.occultism.api.common.item.IOtherworldTool;
 import net.minecraft.item.IItemTier;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.item.PickaxeItem;
 
 public class OtherworldPickaxeItem extends PickaxeItem implements IOtherworldTool {

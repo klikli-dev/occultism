@@ -26,16 +26,17 @@ import com.github.klikli_dev.occultism.registry.OccultismRecipes;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import net.minecraft.inventory.CraftingInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.item.crafting.ShapelessRecipe;
+import net.minecraft.world.level.Level;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.util.JSONUtils;
+import net.minecraft.util.GsonHelper;
 import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.level.Level;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.ShapelessRecipe;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
@@ -81,7 +82,7 @@ public class RitualRecipe extends ShapelessRecipe {
 
     //region Overrides
     @Override
-    public IRecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<?> getSerializer() {
         return SERIALIZER;
     }
 
@@ -97,7 +98,7 @@ public class RitualRecipe extends ShapelessRecipe {
     }
 
     @Override
-    public IRecipeType<?> getType() {
+    public RecipeType<?> getType() {
         return OccultismRecipes.RITUAL_TYPE.get();
     }
     //endregion Overrides
@@ -112,7 +113,7 @@ public class RitualRecipe extends ShapelessRecipe {
     }
 //endregion Methods
 
-    public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<RitualRecipe> {
+    public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<RitualRecipe> {
         //region Fields
         private static final ShapelessRecipe.Serializer serializer = new ShapelessRecipe.Serializer();
         //endregion Fields
@@ -122,11 +123,11 @@ public class RitualRecipe extends ShapelessRecipe {
         public RitualRecipe read(ResourceLocation recipeId, JsonObject json) {
             ShapelessRecipe recipe = serializer.read(recipeId, json);
             JsonElement activationItemElement =
-                    JSONUtils.isJsonArray(json, "activation_item") ? JSONUtils.getJsonArray(json,
-                            "activation_item") : JSONUtils.getJsonObject(json, "activation_item");
+                    GsonHelper.isArrayNode(json, "activation_item") ? GsonHelper.getAsJsonArray(json,
+                            "activation_item") : GsonHelper.getAsJsonObject(json, "activation_item");
             Ingredient activationItem = Ingredient.deserialize(activationItemElement);
             ResourceLocation pentacleId = new ResourceLocation(json.get("pentacle_id").getAsString());
-            ItemStack ritual = CraftingHelper.getItemStack(JSONUtils.getJsonObject(json, "ritual"), true);
+            ItemStack ritual = CraftingHelper.getItemStack(GsonHelper.getAsJsonObject(json, "ritual"), true);
             boolean requireSacrifice = json.get("require_sacrifice").getAsBoolean();
             boolean requireItemUse = json.get("require_item_use").getAsBoolean();
             return new RitualRecipe(recipe.getId(), recipe.getGroup(), pentacleId, ritual,

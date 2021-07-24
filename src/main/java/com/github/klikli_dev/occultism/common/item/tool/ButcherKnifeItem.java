@@ -23,9 +23,9 @@
 package com.github.klikli_dev.occultism.common.item.tool;
 
 import com.github.klikli_dev.occultism.api.OccultismAPI;
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.item.IItemTier;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.item.SwordItem;
 
 import java.util.ArrayList;

@@ -25,23 +25,23 @@ package com.github.klikli_dev.occultism.common.item.storage;
 import com.github.klikli_dev.occultism.api.common.data.GlobalBlockPos;
 import com.github.klikli_dev.occultism.api.common.tile.IStorageController;
 import com.github.klikli_dev.occultism.common.container.storage.StorageRemoteContainer;
-import com.github.klikli_dev.occultism.util.CuriosUtil;
 import com.github.klikli_dev.occultism.util.BlockEntityUtil;
+import com.github.klikli_dev.occultism.util.CuriosUtil;
+import net.minecraft.BlockEntity.BlockEntity;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.player.Player;
 import net.minecraft.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.entity.player.ServerPlayer;
 import net.minecraft.inventory.container.AbstractContainerMenu;
 import net.minecraft.inventory.container.MenuProvider;
 import net.minecraft.item.*;
-import net.minecraft.BlockEntity.BlockEntity;
+import net.minecraft.world.level.Level;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.InteractionResult;
 import net.minecraft.util.InteractionHand;
+import net.minecraft.util.InteractionResult;
 import net.minecraft.util.Util;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.level.Level;
 import net.minecraftforge.fml.network.NetworkHooks;
 
 import javax.annotation.Nullable;
@@ -57,7 +57,7 @@ public class StorageRemoteItem extends Item implements MenuProvider {
 
     //region Overrides
     @Override
-    public ITextComponent getDisplayName() {
+    public Component getDisplayName() {
         return new TranslationTextComponent(this.getDescriptionId());
     }
 
@@ -103,7 +103,7 @@ public class StorageRemoteItem extends Item implements MenuProvider {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<ITextComponent> tooltip,
+    public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip,
                                ITooltipFlag flagIn) {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
 

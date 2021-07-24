@@ -22,31 +22,31 @@
 
 package com.github.klikli_dev.occultism.util;
 
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.item.crafting.RecipeManager;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.Container;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeManager;
+import net.minecraft.world.item.crafting.RecipeType;
 
 import java.util.Map;
 
 public class RecipeUtil {
 
     //region Static Methods
-    public static <C extends IInventory, T extends IRecipe<C>> Map<ResourceLocation, IRecipe<C>> getRecipes(
-            RecipeManager recipeManager, IRecipeType<T> recipeType) {
+    public static <C extends Container, T extends Recipe<C>> Map<ResourceLocation, Recipe<C>> getRecipes(
+            RecipeManager recipeManager, RecipeType<T> recipeType) {
         return ReflectionUtil.RecipeManagerReflection.getRecipes(recipeManager, recipeType);
     }
 
-    public static <C extends IInventory, T extends IRecipe<C>> boolean isValidIngredient(RecipeManager recipeManager,
-                                                                                         IRecipeType<T> recipeType,
-                                                                                         ItemStack stack) {
+    public static <C extends Container, T extends Recipe<C>> boolean isValidIngredient(RecipeManager recipeManager,
+                                                                                       RecipeType<T> recipeType,
+                                                                                       ItemStack stack) {
         if (stack.isEmpty())
             return false;
 
-        Map<ResourceLocation, IRecipe<C>> recipes = getRecipes(recipeManager, recipeType);
-        for (IRecipe<C> recipe : recipes.values()) {
+        Map<ResourceLocation, Recipe<C>> recipes = getRecipes(recipeManager, recipeType);
+        for (Recipe<C> recipe : recipes.values()) {
             if (recipe.getIngredients().stream().anyMatch(i -> i.test(stack))) {
                 return true;
             }

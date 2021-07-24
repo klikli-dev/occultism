@@ -22,30 +22,24 @@
 
 package com.github.klikli_dev.occultism.common.item.tool;
 
-import java.util.List;
-import java.util.function.Function;
-
-import javax.annotation.Nullable;
-
 import com.github.klikli_dev.occultism.common.entity.IFamiliar;
 import com.github.klikli_dev.occultism.util.ItemNBTUtil;
 import com.github.klikli_dev.occultism.util.TextUtil;
-
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.Player;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.InteractionResult;
-import net.minecraft.util.Direction;
+import net.minecraft.core.Direction;
 import net.minecraft.util.InteractionHand;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.InteractionResult;
+import net.minecraft.network.chat.Component;
 import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.level.Level;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
@@ -54,6 +48,10 @@ import net.minecraftforge.common.util.LazyOptional;
 import top.theillusivec4.curios.api.CuriosCapability;
 import top.theillusivec4.curios.api.type.capability.ICurio;
 
+import javax.annotation.Nullable;
+import java.util.List;
+import java.util.function.Function;
+
 public class FamiliarRingItem extends Item {
 
     public FamiliarRingItem(Properties properties) {
@@ -61,7 +59,7 @@ public class FamiliarRingItem extends Item {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<ITextComponent> tooltip,
+    public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip,
             ITooltipFlag flagIn) {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
         if (stack.getOrCreateTag().getBoolean("occupied"))

@@ -26,24 +26,24 @@ import com.github.klikli_dev.occultism.common.tile.StorageControllerBlockEntity;
 import com.github.klikli_dev.occultism.util.Math3DUtil;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
+import net.minecraft.BlockEntity.BlockEntity;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.block.DirectionalBlock;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.Player;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.level.IBlockReader;
+import net.minecraft.world.level.Level;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.BlockEntity.BlockEntity;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.util.math.AABB;
+import net.minecraft.core.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
-import net.minecraft.level.IBlockReader;
-import net.minecraft.level.Level;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -54,12 +54,12 @@ public class StorageStabilizerBlock extends Block {
     //region Fields
     private static final Map<Direction, VoxelShape> SHAPES = Maps.newEnumMap(
             ImmutableMap.<Direction, VoxelShape>builder()
-                    .put(Direction.EAST, VoxelShapes.create(new AxisAlignedBB(0, 0, 0, 0.3, 1, 1)))
-                    .put(Direction.WEST, VoxelShapes.create(new AxisAlignedBB(0.7, 0, 0, 1, 1, 1)))
-                    .put(Direction.NORTH, VoxelShapes.create(new AxisAlignedBB(0, 0, 0.7, 1, 1, 1)))
-                    .put(Direction.SOUTH, VoxelShapes.create(new AxisAlignedBB(0, 0, 0, 1, 1, 0.3)))
-                    .put(Direction.UP, VoxelShapes.create(new AxisAlignedBB(0, 0, 0, 1, 0.3, 1)))
-                    .put(Direction.DOWN, VoxelShapes.create(new AxisAlignedBB(0, 0.7, 0, 1, 1, 1))).build());
+                    .put(Direction.EAST, VoxelShapes.create(new AABB(0, 0, 0, 0.3, 1, 1)))
+                    .put(Direction.WEST, VoxelShapes.create(new AABB(0.7, 0, 0, 1, 1, 1)))
+                    .put(Direction.NORTH, VoxelShapes.create(new AABB(0, 0, 0.7, 1, 1, 1)))
+                    .put(Direction.SOUTH, VoxelShapes.create(new AABB(0, 0, 0, 1, 1, 0.3)))
+                    .put(Direction.UP, VoxelShapes.create(new AABB(0, 0, 0, 1, 0.3, 1)))
+                    .put(Direction.DOWN, VoxelShapes.create(new AABB(0, 0.7, 0, 1, 1, 1))).build());
 
     //endregion Fields
 

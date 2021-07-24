@@ -32,17 +32,19 @@ import com.github.klikli_dev.occultism.common.block.storage.StableWormholeBlock;
 import com.github.klikli_dev.occultism.common.container.storage.StableWormholeContainer;
 import com.github.klikli_dev.occultism.registry.OccultismTiles;
 import com.github.klikli_dev.occultism.util.BlockEntityUtil;
-import net.minecraft.entity.player.Player;
+import net.minecraft.BlockEntity.BlockEntity;
+import net.minecraft.core.BlockPos;
 import net.minecraft.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.inventory.container.AbstractContainerMenu;
 import net.minecraft.inventory.container.MenuProvider;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListNBT;
-import net.minecraft.BlockEntity.BlockEntity;
-import net.minecraft.util.Direction;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.util.LazyOptional;
@@ -63,8 +65,8 @@ public class StableWormholeBlockEntity extends NetworkedBlockEntity implements I
     //endregion Fields
 
     //region Initialization
-    public StableWormholeBlockEntity() {
-        super(OccultismTiles.STABLE_WORMHOLE.get());
+    public StableWormholeBlockEntity(BlockPos worldPos, BlockState state) {
+        super(OccultismTiles.STABLE_WORMHOLE.get(), worldPos, state);
     }
     //endregion Initialization
 
@@ -107,8 +109,8 @@ public class StableWormholeBlockEntity extends NetworkedBlockEntity implements I
 
     //region Overrides
     @Override
-    public ITextComponent getDisplayName() {
-        return new StringTextComponent(this.getType().getRegistryName().getPath());
+    public Component getDisplayName() {
+        return new TextComponent(this.getType().getRegistryName().getPath());
     }
 
     @Override
@@ -150,7 +152,7 @@ public class StableWormholeBlockEntity extends NetworkedBlockEntity implements I
 
 
     @Override
-    public void readNetwork(CompoundTag compound) {
+    public void loadNetwork(CompoundTag compound) {
         if (compound.contains("linkedStorageControllerPosition"))
             this.linkedStorageControllerPosition = GlobalBlockPos.from(compound.getCompound(
                     "linkedStorageControllerPosition"));
@@ -172,11 +174,11 @@ public class StableWormholeBlockEntity extends NetworkedBlockEntity implements I
         if (compound.contains("orderStack"))
             this.orderStack = ItemStack.read(compound.getCompound("orderStack"));
 
-        super.readNetwork(compound);
+        super.loadNetwork(compound);
     }
 
     @Override
-    public CompoundTag writeNetwork(CompoundTag compound) {
+    public CompoundTag saveNetwork(CompoundTag compound) {
         if (this.linkedStorageControllerPosition != null)
             compound.put("linkedStorageControllerPosition", this.linkedStorageControllerPosition.serializeNBT());
 
@@ -197,7 +199,7 @@ public class StableWormholeBlockEntity extends NetworkedBlockEntity implements I
         if (!this.orderStack.isEmpty())
             compound.put("orderStack", this.orderStack.write(new CompoundTag()));
 
-        return super.writeNetwork(compound);
+        return super.saveNetwork(compound);
     }
 
     @Nullable

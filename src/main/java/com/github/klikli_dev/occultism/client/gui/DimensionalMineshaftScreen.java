@@ -25,14 +25,14 @@ package com.github.klikli_dev.occultism.client.gui;
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.container.DimensionalMineshaftContainer;
 import com.github.klikli_dev.occultism.common.tile.DimensionalMineshaftBlockEntity;
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.client.gui.screen.inventory.ContainerScreen;
-import net.minecraft.entity.player.Inventory;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.player.Inventory;
 
-public class DimensionalMineshaftScreen extends ContainerScreen<DimensionalMineshaftContainer> {
+public class DimensionalMineshaftScreen extends AbstractContainerScreen<DimensionalMineshaftContainer> {
     //region Fields
     public static final ResourceLocation TEXTURE =
             new ResourceLocation(Occultism.MODID, "textures/gui/otherworld_miner.png");
@@ -42,33 +42,28 @@ public class DimensionalMineshaftScreen extends ContainerScreen<DimensionalMines
 
     //region Initialization
     public DimensionalMineshaftScreen(DimensionalMineshaftContainer screenContainer, Inventory inv,
-                                      ITextComponent titleIn) {
+                                      Component titleIn) {
         super(screenContainer, inv, titleIn);
         this.otherworldMiner = screenContainer.otherworldMiner;
     }
     //endregion Initialization
 
     //region Overrides
-    public void render(MatrixStack stack, int mouseX, int mouseY, float partialTicks) {
+    public void render(PoseStack stack, int mouseX, int mouseY, float partialTicks) {
         this.renderBackground(stack);
         super.render(stack, mouseX, mouseY, partialTicks);
-        this.renderHoveredTooltip(stack, mouseX, mouseY);
+        this.renderTooltip(stack, mouseX, mouseY);
     }
 
     @Override
-    protected void drawGuiContainerForegroundLayer(MatrixStack poseStack, int x, int y) {
-        //do not call super as it renders the inventory name which we do not want
-    }
-
-    @Override
-    protected void drawGuiContainerBackgroundLayer(MatrixStack stack, float partialTicks, int mouseX, int mouseY) {
-        RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-        this.minecraft.getTextureManager().bindTexture(TEXTURE);
-        this.blit(stack, this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
+    protected void renderBg(PoseStack stack, float partialTicks, int mouseX, int mouseY) {
+        RenderSystem.clearColor(1.0F, 1.0F, 1.0F, 1.0F);
+        this.minecraft.getTextureManager().bindForSetup(TEXTURE);
+        this.blit(stack, this.leftPos, this.topPos, 0, 0, this.width, this.height);
         int miningTime = this.otherworldMiner.miningTime;
         int progress = (int) (18 * (1.0F - (float) miningTime / this.otherworldMiner.maxMiningTime));
         if (progress > 0 && miningTime > 0) {
-            this.blit(stack, this.guiLeft + 61, this.guiTop + 41, 176, 0, progress+1, 4);
+            this.blit(stack, this.leftPos + 61, this.topPos + 41, 176, 0, progress+1, 4);
         }
     }
     //endregion Overrides

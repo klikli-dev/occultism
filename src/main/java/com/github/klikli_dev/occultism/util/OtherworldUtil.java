@@ -25,7 +25,7 @@ package com.github.klikli_dev.occultism.util;
 import com.github.klikli_dev.occultism.common.item.otherworld.OtherworldBlockItem;
 import com.github.klikli_dev.occultism.registry.OccultismEffects;
 import net.minecraft.client.Minecraft;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.common.thread.SidedThreadGroups;

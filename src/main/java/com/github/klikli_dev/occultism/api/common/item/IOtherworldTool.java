@@ -23,7 +23,7 @@
 package com.github.klikli_dev.occultism.api.common.item;
 
 import com.github.klikli_dev.occultism.api.common.data.OtherworldBlockTier;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 
 public interface IOtherworldTool {
     //region Methods

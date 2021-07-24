@@ -22,13 +22,13 @@
 
 package com.github.klikli_dev.occultism.client.divination;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.Player;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.level.Level;
+import net.minecraft.core.BlockPos;
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 
 import java.util.function.Consumer;
 
@@ -40,7 +40,7 @@ public class Scanner {
     protected Block target;
 
     protected Player player;
-    protected Vector3d center;
+    protected Vec3 center;
     protected float radius;
     //radius squared for faster comparison of distance
     protected float radiusSquared;
@@ -64,20 +64,20 @@ public class Scanner {
     //endregion Initialization
 
     //region Methods
-    public void initialize(Player player, Vector3d center, float radius, int totalTicks) {
+    public void initialize(Player player, Vec3 center, float radius, int totalTicks) {
         this.player = player;
         this.center = center;
         this.radius = radius;
         this.radiusSquared = this.radius * this.radius;
-        this.min = new BlockPos(center).add(-this.radius, -this.radius, -this.radius);
-        this.max = new BlockPos(center).add(this.radius, this.radius, this.radius);
+        this.min = new BlockPos(center).offset(-this.radius, -this.radius, -this.radius);
+        this.max = new BlockPos(center).offset(this.radius, this.radius, this.radius);
         this.x = this.min.getX();
         this.y = this.min.getY() - 1;//first move next increments this to min.getY();
         this.z = this.min.getZ();
 
         BlockPos size = this.max.subtract(this.min);
         int blockCount = (size.getX() + 1) * (size.getY() + 1) * (size.getZ() + 1);
-        this.blocksPerTick = MathHelper.ceil(blockCount / (float) totalTicks);
+        this.blocksPerTick = Mth.ceil(blockCount / (float) totalTicks);
     }
 
     public void reset() {
@@ -98,7 +98,7 @@ public class Scanner {
             }
 
             //check if block is within radius
-            if (this.center.squareDistanceTo(this.x + 0.5, this.y + 0.5, this.z + 0.5) > this.radiusSquared) {
+            if (this.center.distanceToSqr(this.x + 0.5, this.y + 0.5, this.z + 0.5) > this.radiusSquared) {
                 continue;
             }
 

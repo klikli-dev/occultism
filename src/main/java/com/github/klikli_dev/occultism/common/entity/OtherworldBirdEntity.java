@@ -22,38 +22,29 @@
 
 package com.github.klikli_dev.occultism.common.entity;
 
-import java.util.Collections;
-import java.util.UUID;
-
-import javax.annotation.Nullable;
-
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.capability.FamiliarSettingsCapability;
 import com.github.klikli_dev.occultism.registry.OccultismCapabilities;
 import com.github.klikli_dev.occultism.registry.OccultismEffects;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.google.common.collect.ImmutableList;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
-import net.minecraft.entity.ai.goal.FollowMobGoal;
-import net.minecraft.entity.ai.goal.FollowOwnerGoal;
-import net.minecraft.entity.ai.goal.LookAtPlayerGoal;
-import net.minecraft.entity.ai.goal.PanicGoal;
-import net.minecraft.entity.ai.goal.SitGoal;
-import net.minecraft.entity.ai.goal.FloatGoal;
-import net.minecraft.entity.ai.goal.WaterAvoidingRandomFlyingGoal;
-import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.passive.ParrotEntity;
-import net.minecraft.entity.player.Player;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
-import net.minecraft.util.InteractionResult;
 import net.minecraft.util.InteractionHand;
-import net.minecraft.level.Level;
+import net.minecraft.util.InteractionResult;
+
+import javax.annotation.Nullable;
+import java.util.Collections;
+import java.util.UUID;
 
 public class OtherworldBirdEntity extends ParrotEntity implements IFamiliar {
 

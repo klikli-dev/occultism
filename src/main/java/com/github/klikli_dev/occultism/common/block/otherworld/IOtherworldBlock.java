@@ -25,14 +25,14 @@ package com.github.klikli_dev.occultism.common.block.otherworld;
 import com.github.klikli_dev.occultism.api.common.data.OtherworldBlockTier;
 import com.github.klikli_dev.occultism.api.common.item.IOtherworldTool;
 import com.github.klikli_dev.occultism.registry.OccultismEffects;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.Player;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.level.IBlockReader;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.Property;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.level.IBlockReader;
+import net.minecraft.core.BlockPos;
 
 public interface IOtherworldBlock {
     //region Fields

@@ -27,20 +27,20 @@ import com.github.klikli_dev.occultism.util.EntityUtil;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.Player;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
+import net.minecraft.world.level.Level;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.util.InteractionResult;
-import net.minecraft.util.Direction;
+import net.minecraft.core.Direction;
 import net.minecraft.util.InteractionHand;
+import net.minecraft.util.InteractionResult;
 import net.minecraft.util.Util;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.level.Level;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -76,9 +76,9 @@ public class SoulGemItem extends Item {
                     spawnPos = spawnPos.offset(facing);
                 }
 
-                ITextComponent customName = null;
+                Component customName = null;
                 if (entityData.contains("CustomName")) {
-                    customName = ITextComponent.Serializer.getComponentFromJson(entityData.getString("CustomName"));
+                    customName = Component.Serializer.getComponentFromJson(entityData.getString("CustomName"));
                 }
 
                 //remove position from tag to allow the entity to spawn where it should be
@@ -94,7 +94,7 @@ public class SoulGemItem extends Item {
                 level.addEntity(entity);
 
                 // old spawn cde:
-                //                Entity entity = type.spawn((ServerWorld) level, wrapper, customName, null, spawnPos,
+                //                Entity entity = type.spawn((ServerLevel) level, wrapper, customName, null, spawnPos,
                 //                        SpawnReason.MOB_SUMMONED, true, !pos.equals(spawnPos) && facing == Direction.UP);
                 //                if (entity instanceof TamableAnimal && entityData.contains("OwnerUUID") &&
                 //                    !entityData.getString("OwnerUUID").isEmpty()) {
@@ -155,7 +155,7 @@ public class SoulGemItem extends Item {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<ITextComponent> tooltip,
+    public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip,
                                ITooltipFlag flagIn) {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
 

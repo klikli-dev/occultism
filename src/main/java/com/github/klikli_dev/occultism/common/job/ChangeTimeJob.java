@@ -23,15 +23,13 @@
 package com.github.klikli_dev.occultism.common.job;
 
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
-import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.item.ItemStack;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.InteractionHand;
-import net.minecraft.util.SoundSource;
 import net.minecraft.util.SoundEvents;
-import net.minecraft.level.server.ServerWorld;
+import net.minecraft.util.SoundSource;
 
 public abstract class ChangeTimeJob extends SpiritJob {
 
@@ -59,7 +57,7 @@ public abstract class ChangeTimeJob extends SpiritJob {
     public void cleanup() {
         //in this case called on spirit death
         for(int i = 0; i < 5; i++){
-            ((ServerWorld) this.entity.level)
+            ((ServerLevel) this.entity.level)
                     .sendParticles(ParticleTypes.PORTAL, this.entity.getPosX() + this.entity.level.getRandom().nextGaussian(),
                             this.entity.getPosY() + 0.5 + this.entity.level.getRandom().nextGaussian(), this.entity.getPosZ()+ this.entity.level.getRandom().nextGaussian(), 5,
                             0.0, 0.0, 0.0,
@@ -77,7 +75,7 @@ public abstract class ChangeTimeJob extends SpiritJob {
             this.entity.swingArm(InteractionHand.MAIN_HAND);
         }
         if(this.entity.level.getGameTime() % 2 == 0){
-            ((ServerWorld) this.entity.level)
+            ((ServerLevel) this.entity.level)
                     .sendParticles(ParticleTypes.PORTAL, this.entity.getPosX(),
                             this.entity.getPosY() + 0.5, this.entity.getPosZ(), 3,
                             0.5, 0.0, 0.0,

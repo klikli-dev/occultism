@@ -22,11 +22,13 @@
 
 package com.github.klikli_dev.occultism.client.gui.controls;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.widget.button.ImageButton;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.ImageButton;
+import net.minecraft.resources.ResourceLocation;
+
 
 public class SizedImageButton extends ImageButton {
     //region Fields
@@ -60,7 +62,7 @@ public class SizedImageButton extends ImageButton {
     public SizedImageButton(int xIn, int yIn, int widthIn, int heightIn, int textureOffsetX,
                             int textureOffsetY, int hoverOffsetX, int textureWidth, int textureHeight,
                             int textureMapWidth, int textureMapHeight, ResourceLocation resourceLocation,
-                            IPressable handler) {
+                            Button.OnPress handler) {
         super(xIn, yIn, widthIn, heightIn, textureOffsetX, textureOffsetY, 0, resourceLocation, handler);
         this.xTexStart = textureOffsetX;
         this.yTexStart = textureOffsetY;
@@ -82,9 +84,9 @@ public class SizedImageButton extends ImageButton {
 
 //region Methods
     @Override
-    public void renderWidget(MatrixStack stack, int mouseX, int mouseY, float partialTicks) {
+    public void renderButton(PoseStack stack, int mouseX, int mouseY, float partialTicks) {
         if (this.visible) {
-            Minecraft.getInstance().getTextureManager().bindTexture(this.resourceLocation);
+            Minecraft.getInstance().getTextureManager().bindForSetup(this.resourceLocation);
             RenderSystem.disableDepthTest();
             int i = this.xTexStart;
             int j = this.yTexStart;

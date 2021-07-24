@@ -24,12 +24,12 @@ package com.github.klikli_dev.occultism.common.item.tool;
 
 import com.github.klikli_dev.occultism.common.block.ChalkGlyphBlock;
 import com.github.klikli_dev.occultism.registry.OccultismSounds;
-import net.minecraft.item.Item;
+import net.minecraft.world.item.Item;
 import net.minecraft.item.ItemUseContext;
+import net.minecraft.world.level.Level;
 import net.minecraft.util.InteractionResult;
 import net.minecraft.util.SoundSource;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.level.Level;
+import net.minecraft.core.BlockPos;
 
 public class BrushItem extends Item {
     //region Initialization

@@ -24,7 +24,7 @@ package com.github.klikli_dev.occultism.common.misc;
 
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.inventory.container.AbstractContainerMenu;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 

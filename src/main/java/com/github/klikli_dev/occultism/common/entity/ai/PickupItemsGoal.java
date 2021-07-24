@@ -27,8 +27,8 @@ import com.github.klikli_dev.occultism.exceptions.ItemHandlerMissingException;
 import com.google.common.base.Predicate;
 import net.minecraft.entity.ai.goal.TargetGoal;
 import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.util.math.AABB;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
 
@@ -88,7 +88,7 @@ public class PickupItemsGoal extends TargetGoal {
 
         //get work area, but only half height, we don't need full.
         int workAreaSize = this.entity.getWorkAreaSize().getValue();
-        AxisAlignedBB targetBox = new AxisAlignedBB(-workAreaSize, -workAreaSize / 2.0, -workAreaSize, workAreaSize,
+        AABB targetBox = new AABB(-workAreaSize, -workAreaSize / 2.0, -workAreaSize, workAreaSize,
                 workAreaSize / 2.0, workAreaSize).offset(this.entity.getWorkAreaCenter());
 
         List<ItemEntity> list = this.goalOwner.level

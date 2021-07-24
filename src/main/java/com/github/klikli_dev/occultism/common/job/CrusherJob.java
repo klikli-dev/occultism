@@ -30,14 +30,14 @@ import com.github.klikli_dev.occultism.crafting.recipe.ItemStackFakeInventory;
 import com.github.klikli_dev.occultism.registry.OccultismRecipes;
 import com.github.klikli_dev.occultism.registry.OccultismSounds;
 import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.InteractionHand;
 import net.minecraft.util.SoundSource;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.level.server.ServerWorld;
+import net.minecraft.world.phys.Vec3;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -111,8 +111,8 @@ public class CrusherJob extends SpiritJob {
 
                 //show particle effect while crushing
                 if (this.entity.level.getGameTime() % 10 == 0) {
-                    Vector3d pos = this.entity.getPositionVec();
-                    ((ServerWorld) this.entity.level)
+                    Vec3 pos = this.entity.getPositionVec();
+                    ((ServerLevel) this.entity.level)
                             .sendParticles(ParticleTypes.PORTAL, pos.x + this.entity.level.rand.nextGaussian() / 3,
                                     pos.y + 0.5, pos.z + this.entity.level.rand.nextGaussian() / 3, 1, 0.0, 0.0, 0.0,
                                     0.0);

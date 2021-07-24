@@ -23,7 +23,7 @@
 package com.github.klikli_dev.occultism.common.item.spirit;
 
 import com.github.klikli_dev.occultism.common.job.CleanerJob;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 
 import java.util.HashMap;
 import java.util.Map;

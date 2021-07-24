@@ -25,7 +25,7 @@ package com.github.klikli_dev.occultism.common.capability;
 import com.github.klikli_dev.occultism.registry.OccultismCapabilities;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.INBT;
-import net.minecraft.util.Direction;
+import net.minecraft.core.Direction;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.common.util.LazyOptional;

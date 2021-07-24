@@ -29,11 +29,11 @@ import com.github.klikli_dev.occultism.registry.OccultismSpiritJobs;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.player.ServerPlayer;
-import net.minecraft.item.Item;
+import net.minecraft.world.item.Item;
 import net.minecraft.item.ItemUseContext;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.InteractionResult;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.level.server.ServerWorld;
+import net.minecraft.network.chat.TextComponent;
 
 public class SummonDjinniManageMachineItem extends Item {
 
@@ -49,12 +49,12 @@ public class SummonDjinniManageMachineItem extends Item {
         if (!context.getLevel().isClientSide) {
 
             DjinniEntity spirit = OccultismEntities.DJINNI.get().create(context.getLevel());
-            spirit.onInitialSpawn((ServerWorld) context.getLevel(),
+            spirit.onInitialSpawn((ServerLevel) context.getLevel(),
                     context.getLevel().getDifficultyForLocation(context.getPos()),
                     SpawnReason.SPAWN_EGG, null, null);
             spirit.setTamedBy(context.getPlayer());
             spirit.setPosition(context.getPos().getX(), context.getPos().getY() + 1.0f, context.getPos().getZ());
-            spirit.setCustomName(new StringTextComponent("Testspirit Manage Machine"));
+            spirit.setCustomName(new TextComponent("Testspirit Manage Machine"));
             spirit.setSpiritMaxAge(-1); //cannot die from age
             //set up the job
             SpiritJob manageMachine = OccultismSpiritJobs.MANAGE_MACHINE.get().create(spirit);

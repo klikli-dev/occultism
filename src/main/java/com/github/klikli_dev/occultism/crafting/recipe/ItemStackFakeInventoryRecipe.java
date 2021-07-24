@@ -24,17 +24,18 @@ package com.github.klikli_dev.occultism.crafting.recipe;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.Level;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.util.JSONUtils;
+import net.minecraft.util.GsonHelper;
 import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.level.Level;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraftforge.common.crafting.CraftingHelper;
 
-public abstract class ItemStackFakeInventoryRecipe implements IRecipe<ItemStackFakeInventory> {
+public abstract class ItemStackFakeInventoryRecipe implements Recipe<ItemStackFakeInventory> {
     //region Fields
     public static Serializer SERIALIZER = new Serializer();
     protected final ResourceLocation id;
@@ -99,10 +100,10 @@ public abstract class ItemStackFakeInventoryRecipe implements IRecipe<ItemStackF
         public <T extends ItemStackFakeInventoryRecipe> T read(IItemStackFakeInventoryRecipeFactory<T> factory,
                                                                ResourceLocation recipeId, JsonObject json) {
             //we also allow arrays, but only one ingredient will be used.
-            JsonElement ingredientElement = JSONUtils.isJsonArray(json, "ingredient") ? JSONUtils.getJsonArray(json,
-                    "ingredient") : JSONUtils.getJsonObject(json, "ingredient");
+            JsonElement ingredientElement = GsonHelper.isArrayNode(json, "ingredient") ? GsonHelper.getAsJsonArray(json,
+                    "ingredient") : GsonHelper.getAsJsonObject(json, "ingredient");
             Ingredient ingredient = Ingredient.deserialize(ingredientElement);
-            ItemStack result = CraftingHelper.getItemStack(JSONUtils.getJsonObject(json, "result"), true);
+            ItemStack result = CraftingHelper.getItemStack(GsonHelper.getAsJsonObject(json, "result"), true);
 
             return factory.create(recipeId, ingredient, result);
         }

@@ -46,22 +46,22 @@ import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.github.klikli_dev.occultism.registry.OccultismTiles;
 import com.github.klikli_dev.occultism.util.EntityUtil;
 import com.github.klikli_dev.occultism.util.Math3DUtil;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
+import net.minecraft.BlockEntity.TickingBlockEntity;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.block.DirectionalBlock;
-import net.minecraft.entity.player.Player;
 import net.minecraft.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.inventory.container.AbstractContainerMenu;
 import net.minecraft.inventory.container.MenuProvider;
 import net.minecraft.item.BlockItem;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListNBT;
-import net.minecraft.BlockEntity.ITickableBlockEntity;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.core.Direction;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.util.LazyOptional;
@@ -77,7 +77,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class StorageControllerBlockEntity extends NetworkedBlockEntity implements ITickableBlockEntity, MenuProvider, IStorageController, IStorageAccessor, IStorageControllerProxy {
+public class StorageControllerBlockEntity extends NetworkedBlockEntity implements TickingBlockEntity, MenuProvider, IStorageController, IStorageAccessor, IStorageControllerProxy {
 
     //region Fields
     public static final int MAX_STABILIZER_DISTANCE = 5;
@@ -105,15 +105,15 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
     //endregion Fields
 
     //region Initialization
-    public StorageControllerBlockEntity() {
-        super(OccultismTiles.STORAGE_CONTROLLER.get());
+    public StorageControllerBlockEntity(BlockPos worldPos, BlockState state) {
+        super(OccultismTiles.STORAGE_CONTROLLER.get(), worldPos, state);
     }
     //endregion Initialization
 
     //region Overrides
     @Override
-    public ITextComponent getDisplayName() {
-        return new StringTextComponent(this.getType().getRegistryName().getPath());
+    public Component getDisplayName() {
+        return new TextComponent(this.getType().getRegistryName().getPath());
     }
 
     @Override
@@ -392,9 +392,9 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
     }
 
     @Override
-    public void read(BlockState state, CompoundTag compound) {
+    public void load(BlockState state, CompoundTag compound) {
         compound.remove("linkedMachines"); //linked machines are not saved, they self-register.
-        super.read(state, compound);
+        super.load(state, compound);
 
         //read stored items
         if (compound.contains("items")) {
@@ -404,8 +404,8 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
     }
 
     @Override
-    public CompoundTag write(CompoundTag compound) {
-        super.write(compound);
+    public CompoundTag save(CompoundTag compound) {
+        super.save(compound);
         compound.remove("linkedMachines"); //linked machines are not saved, they self-register.
         this.itemStackHandler.ifPresent(handler -> {
             compound.put("items", handler.serializeNBT());
@@ -414,7 +414,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
     }
 
     @Override
-    public void readNetwork(CompoundTag compound) {
+    public void loadNetwork(CompoundTag compound) {
         this.setSortDirection(SortDirection.get(compound.getInt("sortDirection")));
         this.setSortType(SortType.get(compound.getInt("sortType")));
 
@@ -449,7 +449,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
     }
 
     @Override
-    public CompoundTag writeNetwork(CompoundTag compound) {
+    public CompoundTag saveNetwork(CompoundTag compound) {
         compound.putInt("sortDirection", this.getSortDirection().getValue());
         compound.putInt("sortType", this.getSortType().getValue());
         compound.putInt("maxSlots", this.maxSlots);

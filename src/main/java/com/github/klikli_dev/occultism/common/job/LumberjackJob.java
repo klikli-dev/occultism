@@ -23,15 +23,15 @@
 package com.github.klikli_dev.occultism.common.job;
 
 import com.github.klikli_dev.occultism.api.common.container.IItemStackComparator;
+import com.github.klikli_dev.occultism.common.entity.ai.DepositItemsGoal;
 import com.github.klikli_dev.occultism.common.entity.ai.FellTreesGoal;
 import com.github.klikli_dev.occultism.common.entity.ai.PickupItemsGoal;
-import com.github.klikli_dev.occultism.common.entity.ai.DepositItemsGoal;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.github.klikli_dev.occultism.common.misc.ItemStackComparator;
 import com.github.klikli_dev.occultism.common.misc.ItemTagComparator;
 import com.github.klikli_dev.occultism.registry.OccultismTags;
 import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.tags.ItemTags;
 

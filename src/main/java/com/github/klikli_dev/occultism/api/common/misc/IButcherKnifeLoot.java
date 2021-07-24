@@ -22,8 +22,9 @@
 
 package com.github.klikli_dev.occultism.api.common.misc;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.ItemStack;
+
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 
 import java.util.List;
 

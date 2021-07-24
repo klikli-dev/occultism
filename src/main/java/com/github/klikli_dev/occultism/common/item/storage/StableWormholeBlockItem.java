@@ -24,17 +24,17 @@ package com.github.klikli_dev.occultism.common.item.storage;
 
 import com.github.klikli_dev.occultism.api.common.data.GlobalBlockPos;
 import com.github.klikli_dev.occultism.api.common.tile.IStorageController;
-import net.minecraft.block.Block;
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.player.Player;
-import net.minecraft.item.*;
 import net.minecraft.BlockEntity.BlockEntity;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.item.*;
+import net.minecraft.world.level.Level;
 import net.minecraft.util.InteractionResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.level.Level;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -78,7 +78,7 @@ public class StableWormholeBlockItem extends BlockItem {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<ITextComponent> tooltip,
+    public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip,
                                ITooltipFlag flagIn) {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
         if (stack.getOrCreateTag().getCompound("BlockEntityTag")

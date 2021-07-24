@@ -27,7 +27,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.inventory.EquipmentSlot;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.IArmorMaterial;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 
 import javax.annotation.Nullable;
 

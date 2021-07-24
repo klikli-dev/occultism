@@ -25,7 +25,7 @@ package com.github.klikli_dev.occultism.common.entity.possessed;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.monster.EndermanEntity;
-import net.minecraft.level.Level;
+import net.minecraft.world.level.Level;
 
 public class PossessedEndermanEntity extends EndermanEntity {
     //region Initialization

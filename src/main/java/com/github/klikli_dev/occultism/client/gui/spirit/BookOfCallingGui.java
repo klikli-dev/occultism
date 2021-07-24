@@ -29,9 +29,9 @@ import com.github.klikli_dev.occultism.common.item.spirit.BookOfCallingItem;
 import com.github.klikli_dev.occultism.network.MessageSetItemMode;
 import com.github.klikli_dev.occultism.network.MessageSetWorkAreaSize;
 import com.github.klikli_dev.occultism.network.OccultismPackets;
-import com.mojang.blaze3d.matrix.MatrixStack;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.util.text.StringTextComponent;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.fml.client.gui.widget.ExtendedButton;
 
@@ -46,7 +46,7 @@ public class BookOfCallingGui extends Screen {
 
     //region Initialization
     public BookOfCallingGui(BookOfCallingItem.IItemModeSubset<?> mode, WorkAreaSize workAreaSize) {
-        super(new StringTextComponent(""));
+        super(new TextComponent(""));
 
         this.mode = mode;
         this.workAreaSize = workAreaSize;
@@ -56,7 +56,7 @@ public class BookOfCallingGui extends Screen {
 
     //region Overrides
     @Override
-    public void render(MatrixStack stack, int mouseX, int mouseY, float partialTicks) {
+    public void render(PoseStack stack, int mouseX, int mouseY, float partialTicks) {
         this.renderBackground(stack);
         super.render(stack, mouseX, mouseY, partialTicks);
     }
@@ -109,7 +109,7 @@ public class BookOfCallingGui extends Screen {
         int exitButtonWidth = 20;
         this.addButton(
                 new ExtendedButton(guiLeft - exitButtonWidth / 2, guiTop + (showSize ? 110 : 85), exitButtonWidth, 20,
-                        new StringTextComponent("X"), (b) -> {
+                        new TextComponent("X"), (b) -> {
                     this.minecraft.displayGuiScreen(null);
                     this.init();
                 }));

@@ -30,15 +30,15 @@ import com.github.klikli_dev.occultism.registry.OccultismTags;
 import com.github.klikli_dev.occultism.util.TextUtil;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.player.Player;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.Level;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.particles.ParticleTypes;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.level.Level;
-import net.minecraft.level.server.ServerWorld;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.TextComponent;
 
 public class SummonWildHuntRitual extends SummonSpiritRitual {
     //region Fields
@@ -65,7 +65,7 @@ public class SummonWildHuntRitual extends SummonSpiritRitual {
 
         activationItem.shrink(1); //remove original activation item.
 
-        ((ServerWorld) level).sendParticles(ParticleTypes.LARGE_SMOKE, goldenBowlPosition.getX() + 0.5,
+        ((ServerLevel) level).sendParticles(ParticleTypes.LARGE_SMOKE, goldenBowlPosition.getX() + 0.5,
                 goldenBowlPosition.getY() + 0.5, goldenBowlPosition.getZ() + 0.5, 1, 0, 0, 0, 0);
 
         //Spawn the wither skeletons, who will spawn their minions
@@ -78,9 +78,9 @@ public class SummonWildHuntRitual extends SummonSpiritRitual {
             skeleton.setPositionAndRotation(goldenBowlPosition.getX() + offsetX, goldenBowlPosition.getY() + 1.5,
                     goldenBowlPosition.getZ() + offsetZ,
                     level.getRandom().nextInt(360), 0);
-            skeleton.setCustomName(new StringTextComponent(TextUtil.generateName()));
+            skeleton.setCustomName(new TextComponent(TextUtil.generateName()));
 
-            skeleton.onInitialSpawn((ServerWorld) level, level.getDifficultyForLocation(goldenBowlPosition), SpawnReason.MOB_SUMMONED,
+            skeleton.onInitialSpawn((ServerLevel) level, level.getDifficultyForLocation(goldenBowlPosition), SpawnReason.MOB_SUMMONED,
                     null,
                     null);
             this.spawnEntity(skeleton, level);

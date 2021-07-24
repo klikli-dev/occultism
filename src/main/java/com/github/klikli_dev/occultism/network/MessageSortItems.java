@@ -26,12 +26,11 @@ import com.github.klikli_dev.occultism.api.common.container.IStorageControllerCo
 import com.github.klikli_dev.occultism.api.common.data.SortDirection;
 import com.github.klikli_dev.occultism.api.common.data.SortType;
 import com.github.klikli_dev.occultism.api.common.tile.IStorageAccessor;
-import net.minecraft.BlockEntity.BlockEntity;
 import net.minecraft.entity.player.ServerPlayer;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.fml.network.NetworkEvent;
 

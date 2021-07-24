@@ -32,12 +32,12 @@
 package com.github.klikli_dev.occultism.util.loot;
 
 import com.google.gson.JsonObject;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.loot.LootContext;
 import net.minecraft.loot.LootTable;
 import net.minecraft.loot.conditions.ILootCondition;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.GsonHelper;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.common.loot.LootModifier;
 
@@ -76,7 +76,7 @@ public class AppendLootTable extends LootModifier {
         @Override
         public AppendLootTable read(ResourceLocation location, JsonObject object, ILootCondition[] ailootcondition)
         {
-            ResourceLocation lootTable = new ResourceLocation(JSONUtils.getString(object, "add_loot"));
+            ResourceLocation lootTable = new ResourceLocation(GsonHelper.getString(object, "add_loot"));
             return new AppendLootTable(ailootcondition, lootTable);
         }
 

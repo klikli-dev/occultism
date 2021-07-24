@@ -30,22 +30,21 @@ import com.github.klikli_dev.occultism.network.OccultismPackets;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.registry.OccultismSounds;
 import com.github.klikli_dev.occultism.util.Math3DUtil;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.Player;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
-import net.minecraft.util.*;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.world.level.Level;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.network.chat.Component;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.level.Level;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
@@ -173,7 +172,7 @@ public class DivinationRodItem extends Item {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<ITextComponent> tooltip,
+    public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip,
                                ITooltipFlag flagIn) {
         if (stack.getOrCreateTag().contains("linkedBlockId")) {
             ResourceLocation id = new ResourceLocation(stack.getTag().getString("linkedBlockId"));
@@ -225,13 +224,13 @@ public class DivinationRodItem extends Item {
      * @param result         the result position to get the distance to.
      * @return the distance parameter as used in the distance property, not the actual distance.
      */
-    public float getDistance(Vector3d playerPosition, BlockPos result) {
+    public float getDistance(Vec3 playerPosition, BlockPos result) {
         if (result == null)
             return NOT_FOUND;
 
-        Vector3d resultCenter = Math3DUtil.center(result);
-        Vector3d playerPosition2d = new Vector3d(playerPosition.x, 0, playerPosition.z);
-        Vector3d resultCenter2d = new Vector3d(resultCenter.x, 0, resultCenter.z);
+        Vec3 resultCenter = Math3DUtil.center(result);
+        Vec3 playerPosition2d = new Vec3(playerPosition.x, 0, playerPosition.z);
+        Vec3 resultCenter2d = new Vec3(resultCenter.x, 0, resultCenter.z);
         double distance = playerPosition2d.distanceTo(resultCenter2d);
 
         if (distance < 6.0)

@@ -38,7 +38,6 @@ import com.github.klikli_dev.occultism.common.item.tool.*;
 import net.minecraft.inventory.EquipmentSlot;
 import net.minecraft.item.*;
 import net.minecraft.world.item.Item;
-import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;

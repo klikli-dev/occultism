@@ -23,7 +23,6 @@
 package com.github.klikli_dev.occultism.common.ritual;
 
 import com.github.klikli_dev.occultism.common.entity.BatFamiliarEntity;
-import com.github.klikli_dev.occultism.common.entity.GreedyFamiliarEntity;
 import com.github.klikli_dev.occultism.common.tile.GoldenSacrificialBowlBlockEntity;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
@@ -31,14 +30,14 @@ import com.github.klikli_dev.occultism.registry.OccultismRituals;
 import com.github.klikli_dev.occultism.registry.OccultismTags;
 import com.github.klikli_dev.occultism.util.ItemNBTUtil;
 import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.player.Player;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.Level;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.particles.ParticleTypes;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.level.Level;
-import net.minecraft.level.server.ServerWorld;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.TextComponent;
 
 public class FamiliarBatRitual extends SummonSpiritRitual {
 
@@ -63,15 +62,15 @@ public class FamiliarBatRitual extends SummonSpiritRitual {
         String entityName = ItemNBTUtil.getBoundSpiritName(activationItem);
         activationItem.shrink(1); //remove original activation item.
 
-        ((ServerWorld) level).sendParticles(ParticleTypes.LARGE_SMOKE, goldenBowlPosition.getX() + 0.5,
+        ((ServerLevel) level).sendParticles(ParticleTypes.LARGE_SMOKE, goldenBowlPosition.getX() + 0.5,
                 goldenBowlPosition.getY() + 0.5, goldenBowlPosition.getZ() + 0.5, 1, 0, 0, 0, 0);
 
         BatFamiliarEntity familiar = OccultismEntities.BAT_FAMILIAR.get().create(level);
-        familiar.onInitialSpawn((ServerWorld) level, level.getDifficultyForLocation(goldenBowlPosition), SpawnReason.MOB_SUMMONED,
+        familiar.onInitialSpawn((ServerLevel) level, level.getDifficultyForLocation(goldenBowlPosition), SpawnReason.MOB_SUMMONED,
                 null, null);
         familiar.setPositionAndRotation(goldenBowlPosition.getX(), goldenBowlPosition.getY(), goldenBowlPosition.getZ(),
                 level.rand.nextInt(360), 0);
-        familiar.setCustomName(new StringTextComponent(entityName));
+        familiar.setCustomName(new TextComponent(entityName));
         familiar.setOwnerId(castingPlayer.getUniqueID());
 
         //notify players nearby and spawn

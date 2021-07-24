@@ -24,16 +24,16 @@ package com.github.klikli_dev.occultism.client.render.tile;
 
 import com.github.klikli_dev.occultism.common.block.SpiritAttunedCrystalBlock;
 import com.github.klikli_dev.occultism.common.tile.SacrificialBowlBlockEntity;
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.BlockEntity.BlockEntityRenderer;
+import net.minecraft.client.renderer.BlockEntity.BlockEntityRendererDispatcher;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
-import net.minecraft.client.renderer.BlockEntity.BlockEntityRenderer;
-import net.minecraft.client.renderer.BlockEntity.BlockEntityRendererDispatcher;
 import net.minecraft.item.BlockItem;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.util.math.vector.Vector3f;
 
 public class SacrificialBowlRenderer extends BlockEntityRenderer<SacrificialBowlBlockEntity> {
@@ -47,7 +47,7 @@ public class SacrificialBowlRenderer extends BlockEntityRenderer<SacrificialBowl
     //region Overrides
 
     @Override
-    public void render(SacrificialBowlBlockEntity blockEntity, float partialTicks, MatrixStack poseStack,
+    public void render(SacrificialBowlBlockEntity blockEntity, float partialTicks, PoseStack poseStack,
                        IRenderTypeBuffer buffer, int combinedLight, int combinedOverlay) {
         blockEntity.itemStackHandler.ifPresent(handler -> {
             ItemStack stack = handler.getStackInSlot(0);

@@ -26,7 +26,7 @@ import com.github.klikli_dev.occultism.api.client.gui.IStorageControllerGui;
 import com.github.klikli_dev.occultism.api.common.data.GlobalBlockPos;
 import com.github.klikli_dev.occultism.api.common.data.MachineReference;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.Player;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;

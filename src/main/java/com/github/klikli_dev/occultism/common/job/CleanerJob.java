@@ -30,12 +30,12 @@ import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.github.klikli_dev.occultism.exceptions.ItemHandlerMissingException;
 import com.github.klikli_dev.occultism.util.StorageUtil;
 import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.entity.player.Player;
 import net.minecraft.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.inventory.container.AbstractContainerMenu;
 import net.minecraft.inventory.container.MenuProvider;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.network.chat.Component;
 
 import javax.annotation.Nullable;
 
@@ -56,7 +56,7 @@ public class CleanerJob extends SpiritJob implements MenuProvider {
 
     //region Overrides
     @Override
-    public ITextComponent getDisplayName() {
+    public Component getDisplayName() {
         return this.entity.getDisplayName();
     }
 

@@ -24,7 +24,7 @@ package com.github.klikli_dev.occultism.common.container.storage;
 
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.ItemStackHelper;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.NonNullList;
 

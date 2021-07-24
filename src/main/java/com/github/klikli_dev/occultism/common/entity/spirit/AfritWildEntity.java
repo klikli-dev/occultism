@@ -25,18 +25,18 @@ package com.github.klikli_dev.occultism.common.entity.spirit;
 import com.github.klikli_dev.occultism.registry.OccultismTags;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SpawnGroupData;
 import net.minecraft.entity.MobSpawnType;
+import net.minecraft.entity.SpawnGroupData;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.monster.BlazeEntity;
-import net.minecraft.entity.player.Player;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.level.DifficultyInstance;
+import net.minecraft.world.level.Level;
+import net.minecraft.level.ServerLevelAccessor;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.tags.ITag;
 import net.minecraft.util.DamageSource;
-import net.minecraft.level.DifficultyInstance;
-import net.minecraft.level.ServerLevelAccessor;
-import net.minecraft.level.Level;
 
 import javax.annotation.Nullable;
 

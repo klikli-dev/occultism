@@ -29,11 +29,11 @@ import com.github.klikli_dev.occultism.registry.OccultismSpiritJobs;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.player.ServerPlayer;
-import net.minecraft.item.Item;
+import net.minecraft.world.item.Item;
 import net.minecraft.item.ItemUseContext;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.InteractionResult;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.level.server.ServerWorld;
+import net.minecraft.network.chat.TextComponent;
 
 public class SummonDjinniTest extends Item {
 
@@ -49,11 +49,11 @@ public class SummonDjinniTest extends Item {
         if (!context.getLevel().isClientSide) {
 
             DjinniEntity spirit = OccultismEntities.DJINNI.get().create(context.getLevel());
-            spirit.onInitialSpawn((ServerWorld) context.getLevel(), context.getLevel().getDifficultyForLocation(context.getPos()),
+            spirit.onInitialSpawn((ServerLevel) context.getLevel(), context.getLevel().getDifficultyForLocation(context.getPos()),
                     SpawnReason.SPAWN_EGG, null, null);
             spirit.setTamedBy(context.getPlayer());
             spirit.setPosition(context.getPos().getX(), context.getPos().getY() + 1.0f, context.getPos().getZ());
-            spirit.setCustomName(new StringTextComponent("Djinni Test"));
+            spirit.setCustomName(new TextComponent("Djinni Test"));
 
             //Test code
             SpiritJob weather = OccultismSpiritJobs.CLEAR_WEATHER.get().create(spirit);

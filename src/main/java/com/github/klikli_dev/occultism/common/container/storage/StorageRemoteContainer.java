@@ -31,12 +31,11 @@ import com.github.klikli_dev.occultism.network.MessageUpdateLinkedMachines;
 import com.github.klikli_dev.occultism.network.OccultismPackets;
 import com.github.klikli_dev.occultism.registry.OccultismContainers;
 import com.github.klikli_dev.occultism.util.CuriosUtil;
-import net.minecraft.entity.player.Player;
 import net.minecraft.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.entity.player.ServerPlayer;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.container.Slot;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.nbt.ListNBT;
 import net.minecraftforge.common.util.Constants;
 
