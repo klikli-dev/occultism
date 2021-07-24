@@ -30,11 +30,11 @@ import com.github.klikli_dev.occultism.common.misc.ItemStackComparator;
 import com.github.klikli_dev.occultism.common.misc.StorageControllerCraftingInventory;
 import com.github.klikli_dev.occultism.common.misc.StorageControllerSlot;
 import com.github.klikli_dev.occultism.network.OccultismPackets;
-import net.minecraft.BlockEntity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.entity.player.ServerPlayer;
+import net.minecraft.world.entity.player.ServerPlayer;
 import net.minecraft.inventory.CraftResultInventory;
-import net.minecraft.inventory.IInventory;
+import net.minecraft.world.Container;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.container.AbstractContainerMenu;
 import net.minecraft.inventory.container.MenuType;
@@ -43,7 +43,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.item.crafting.ICraftingRecipe;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.network.play.server.SSetSlotPacket;
-import net.minecraft.util.NonNullList;
+import net.minecraft.core.NonNullList;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.wrapper.PlayerMainInvWrapper;
 
@@ -95,7 +95,7 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
     }
 
     @Override
-    public void onCraftMatrixChanged(IInventory inventoryIn) {
+    public void onCraftMatrixChanged(Container inventoryIn) {
         if (this.recipeLocked) {
             //only allow matrix changes while we are not crafting
             return;
@@ -137,7 +137,7 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
                 slot.putStack(remainingItemStack);
 
                 //sync slots
-                this.detectAndSendChanges();
+                this.broadcastChanges();
 
                 //get updated stacks from storage controller and send to client
                 OccultismPackets.sendTo((ServerPlayer) player, storageController.getMessageUpdateStacks());
@@ -220,7 +220,7 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
             if (optional.isPresent()) {
                 ICraftingRecipe icraftingrecipe = optional.get();
                 if (this.result.canUseRecipe(this.player.level, serverplayerentity, icraftingrecipe)) {
-                    itemstack = icraftingrecipe.getCraftingResult(this.matrix);
+                    itemstack = icraftingrecipe.assemble(this.matrix);
                     this.currentRecipe = icraftingrecipe;
                 }
             }
@@ -246,11 +246,11 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
         //copy the recipe stacks
         List<ItemStack> recipeCopy = new ArrayList<>(this.matrix.getSizeInventory());
         for (int i = 0; i < this.matrix.getSizeInventory(); i++) {
-            recipeCopy.add(this.matrix.getStackInSlot(i).copy());
+            recipeCopy.add(this.matrix.getItem(i).copy());
         }
 
         //Get the crafting result and abort if none
-        ItemStack result = this.currentRecipe.getCraftingResult(this.matrix);
+        ItemStack result = this.currentRecipe.assemble(this.matrix);
         if (result.isEmpty()) {
             return;
         }
@@ -266,7 +266,7 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
             if (this.currentRecipe == null)
                 break;
 
-            result = this.currentRecipe.getCraftingResult(this.matrix);
+            result = this.currentRecipe.assemble(this.matrix);
 
             //exit if we can no longer insert
             if (!ItemHandlerHelper.insertItemStacked(new PlayerMainInvWrapper(this.playerInventory), result, true)
@@ -291,11 +291,11 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
             for (int i = 0; i < remainingCraftingItems.size(); ++i) {
 
                 ItemStack currentCraftingItem = remainingCraftingItems.get(i);
-                ItemStack stackInSlot = this.matrix.getStackInSlot(i);
+                ItemStack stackInSlot = this.matrix.getItem(i);
 
                 //if we find an empty stack, shrink it to remove it.
                 if (currentCraftingItem.isEmpty()) {
-                    this.matrix.getStackInSlot(i).shrink(1);
+                    this.matrix.getItem(i).shrink(1);
                     continue;
                 }
 
@@ -331,7 +331,7 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
                 } else if (!stackInSlot.isEmpty()) {
                     //decrease the stack size in the matrix
                     this.matrix.decrStackSize(i, 1);
-                    stackInSlot = this.matrix.getStackInSlot(i);
+                    stackInSlot = this.matrix.getItem(i);
                 }
             }
             //endregion onTake replacement for crafting
@@ -339,7 +339,7 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
 
             crafted += resultStackSize;
             for (int i = 0; i < this.matrix.getSizeInventory(); i++) {
-                ItemStack stackInSlot = this.matrix.getStackInSlot(i);
+                ItemStack stackInSlot = this.matrix.getItem(i);
                 //if the stack is empty, refill from storage and then continue looping
                 if (stackInSlot.isEmpty()) {
                     ItemStack recipeStack = recipeCopy.get(i);
@@ -361,7 +361,7 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
         }
         ItemHandlerHelper.giveItemToPlayer(player, finalResult);
 
-        this.detectAndSendChanges();
+        this.broadcastChanges();
 
         //unlock crafting matrix
         this.recipeLocked = false;

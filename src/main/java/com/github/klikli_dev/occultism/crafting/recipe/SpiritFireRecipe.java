@@ -24,14 +24,14 @@ package com.github.klikli_dev.occultism.crafting.recipe;
 
 import com.github.klikli_dev.occultism.registry.OccultismRecipes;
 import com.google.gson.JsonObject;
+import net.minecraft.core.NonNullList;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.util.NonNullList;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
 public class SpiritFireRecipe extends ItemStackFakeInventoryRecipe {
@@ -48,18 +48,18 @@ public class SpiritFireRecipe extends ItemStackFakeInventoryRecipe {
     //region Overrides
     @Override
     public boolean matches(ItemStackFakeInventory inv, Level level) {
-        return this.input.test(inv.getStackInSlot(0));
+        return this.input.test(inv.getItem(0));
     }
 
     @Override
-    public ItemStack getCraftingResult(ItemStackFakeInventory inv) {
+    public ItemStack assemble(ItemStackFakeInventory inv) {
         ItemStack result = this.getResultItem().copy();
         result.setCount(inv.input.getCount());
         return result;
     }
 
     @Override
-    public boolean canFit(int width, int height) {
+    public boolean canCraftInDimensions(int width, int height) {
         //as we don't have a real inventory so this is ignored.
         return true;
     }
@@ -71,7 +71,7 @@ public class SpiritFireRecipe extends ItemStackFakeInventoryRecipe {
 
     @Override
     public NonNullList<Ingredient> getIngredients() {
-        return NonNullList.from(Ingredient.EMPTY, this.input);
+        return NonNullList.of(Ingredient.EMPTY, this.input);
     }
 
     @Override
@@ -94,17 +94,17 @@ public class SpiritFireRecipe extends ItemStackFakeInventoryRecipe {
 
         //region Overrides
         @Override
-        public SpiritFireRecipe read(ResourceLocation recipeId, JsonObject json) {
+        public SpiritFireRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
             return ItemStackFakeInventoryRecipe.SERIALIZER.read(SpiritFireRecipe::new, recipeId, json);
         }
 
         @Override
-        public SpiritFireRecipe read(ResourceLocation recipeId, FriendlyByteBuf buffer) {
+        public SpiritFireRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
             return ItemStackFakeInventoryRecipe.SERIALIZER.read(SpiritFireRecipe::new, recipeId, buffer);
         }
 
         @Override
-        public void write(FriendlyByteBuf buffer, SpiritFireRecipe recipe) {
+        public void toNetwork(FriendlyByteBuf buffer, SpiritFireRecipe recipe) {
             ItemStackFakeInventoryRecipe.SERIALIZER.write(buffer, recipe);
         }
         //endregion Overrides

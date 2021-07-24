@@ -24,15 +24,14 @@ package com.github.klikli_dev.occultism.crafting.recipe;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.level.Level;
+import net.minecraft.core.NonNullList;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.util.GsonHelper;
-import net.minecraft.util.NonNullList;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.GsonHelper;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.common.crafting.CraftingHelper;
 
 public abstract class ItemStackFakeInventoryRecipe implements Recipe<ItemStackFakeInventory> {
@@ -54,16 +53,16 @@ public abstract class ItemStackFakeInventoryRecipe implements Recipe<ItemStackFa
     //region Overrides
     @Override
     public boolean matches(ItemStackFakeInventory inv, Level level) {
-        return this.input.test(inv.getStackInSlot(0));
+        return this.input.test(inv.getItem(0));
     }
 
     @Override
-    public ItemStack getCraftingResult(ItemStackFakeInventory inv) {
+    public ItemStack assemble(ItemStackFakeInventory inv) {
         return this.getResultItem().copy();
     }
 
     @Override
-    public boolean canFit(int width, int height) {
+    public boolean canCraftInDimensions(int width, int height) {
         //as we don't have a real inventory so this is ignored.
         return true;
     }
@@ -75,7 +74,7 @@ public abstract class ItemStackFakeInventoryRecipe implements Recipe<ItemStackFa
 
     @Override
     public NonNullList<Ingredient> getIngredients() {
-        return NonNullList.from(Ingredient.EMPTY, this.input);
+        return NonNullList.of(Ingredient.EMPTY, this.input);
     }
 
     @Override
@@ -102,7 +101,7 @@ public abstract class ItemStackFakeInventoryRecipe implements Recipe<ItemStackFa
             //we also allow arrays, but only one ingredient will be used.
             JsonElement ingredientElement = GsonHelper.isArrayNode(json, "ingredient") ? GsonHelper.getAsJsonArray(json,
                     "ingredient") : GsonHelper.getAsJsonObject(json, "ingredient");
-            Ingredient ingredient = Ingredient.deserialize(ingredientElement);
+            Ingredient ingredient = Ingredient.fromJson(ingredientElement);
             ItemStack result = CraftingHelper.getItemStack(GsonHelper.getAsJsonObject(json, "result"), true);
 
             return factory.create(recipeId, ingredient, result);
@@ -110,14 +109,14 @@ public abstract class ItemStackFakeInventoryRecipe implements Recipe<ItemStackFa
 
         public <T extends ItemStackFakeInventoryRecipe> T read(IItemStackFakeInventoryRecipeFactory<T> factory,
                                                                ResourceLocation recipeId, FriendlyByteBuf buffer) {
-            Ingredient ingredient = Ingredient.read(buffer);
-            ItemStack result = buffer.readItemStack();
+            Ingredient ingredient = Ingredient.fromNetwork(buffer);
+            ItemStack result = buffer.readItem();
             return factory.create(recipeId, ingredient, result);
         }
 
         public <T extends ItemStackFakeInventoryRecipe> void write(FriendlyByteBuf buffer, T recipe) {
-            recipe.input.write(buffer);
-            buffer.writeItemStack(recipe.output);
+            recipe.input.toNetwork(buffer);
+            buffer.writeItem(recipe.output);
         }
         //endregion Methods
     }

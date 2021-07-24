@@ -23,13 +23,13 @@
 package com.github.klikli_dev.occultism.common.entity.spirit;
 
 import com.github.klikli_dev.occultism.registry.OccultismTags;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ai.attributes.AttributeModifierMap;
-import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.monster.SkeletonEntity;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.ai.attributes.AttributeModifierMap;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.monster.SkeletonEntity;
 import net.minecraft.world.level.Level;
-import net.minecraft.tags.ITag;
+import net.minecraft.tags.Tag;
 import net.minecraft.util.DamageSource;
 
 import java.util.Optional;
@@ -73,7 +73,7 @@ public class WildHuntSkeletonEntity extends SkeletonEntity {
 
     @Override
     public boolean isInvulnerableTo(DamageSource source) {
-        ITag<EntityType<?>> wildHuntTag = OccultismTags.WILD_HUNT;
+        Tag<EntityType<?>> wildHuntTag = OccultismTags.WILD_HUNT;
 
         Entity trueSource = source.getTrueSource();
         if (trueSource != null && wildHuntTag.contains(trueSource.getType()))
@@ -88,10 +88,10 @@ public class WildHuntSkeletonEntity extends SkeletonEntity {
     //endregion Overrides
 
     //region Static Methods
-    public static AttributeModifierMap.MutableAttribute registerAttributes() {
+    public static AttributeSupplier.Builder createLivingAttributes() {
         return SkeletonEntity.registerAttributes()
-                       .createMutableAttribute(Attributes.ATTACK_DAMAGE, 4.0)
-                       .createMutableAttribute(Attributes.MAX_HEALTH, 20.0);
+                       .add(Attributes.ATTACK_DAMAGE, 4.0)
+                       .add(Attributes.MAX_HEALTH, 20.0);
     }
     //endregion Static Methods
 }

@@ -25,20 +25,20 @@ package com.github.klikli_dev.occultism.common.block;
 import com.github.klikli_dev.occultism.common.tile.SacrificialBowlBlockEntity;
 import com.github.klikli_dev.occultism.registry.OccultismTiles;
 import com.github.klikli_dev.occultism.util.StorageUtil;
-import net.minecraft.BlockEntity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.level.IBlockReader;
+import net.minecraft.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.util.InteractionHand;
-import net.minecraft.util.InteractionResult;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.SoundSource;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.shapes.ISelectionContext;
+import net.minecraft.util.math.shapes.CollisionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
@@ -58,7 +58,7 @@ public class SacrificialBowlBlock extends Block {
 
     //region Overrides
     @Override
-    public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+    public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
         return SHAPE;
     }
 
@@ -76,21 +76,21 @@ public class SacrificialBowlBlock extends Block {
     public InteractionResult onBlockActivated(BlockState state, Level level, BlockPos pos, Player player,
                                              InteractionHand hand, BlockRayTraceResult hit) {
         if (!level.isClientSide) {
-            ItemStack heldItem = player.getHeldItem(hand);
+            ItemStack heldItem = player.getItemInHand(hand);
             SacrificialBowlBlockEntity bowl = (SacrificialBowlBlockEntity) level.getBlockEntity(pos);
             bowl.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, hit.getFace()).ifPresent(handler -> {
                 if (!player.isShiftKeyDown()) {
-                    ItemStack itemStack = handler.getStackInSlot(0);
+                    ItemStack itemStack = handler.getItem(0);
                     if (itemStack.isEmpty()) {
                         //if there is nothing in the bowl, put the hand held item in
-                        player.setHeldItem(hand, handler.insertItem(0, heldItem, false));
+                        player.setItemInHand(hand, handler.insertItem(0, heldItem, false));
                         level.playSound(null, pos, SoundEvents.ENTITY_ITEM_FRAME_ADD_ITEM, SoundSource.BLOCKS, 1, 1);
                     }
                     else {
                         //otherwise take out the item.
                         if (heldItem.isEmpty()) {
                             //place it in the hand if possible
-                            player.setHeldItem(hand, handler.extractItem(0, 64, false));
+                            player.setItemInHand(hand, handler.extractItem(0, 64, false));
                         }
                         else {
                             //and if not, just put it in the inventory
@@ -112,7 +112,7 @@ public class SacrificialBowlBlock extends Block {
 
     @Nullable
     @Override
-    public BlockEntity createBlockEntity(BlockState state, IBlockReader level) {
+    public BlockEntity createBlockEntity(BlockState state, BlockGetter level) {
         return OccultismTiles.SACRIFICIAL_BOWL.get().create();
     }
     //endregion Overrides

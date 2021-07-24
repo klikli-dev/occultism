@@ -33,7 +33,7 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.TextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraftforge.fml.client.gui.widget.ExtendedButton;
 import org.apache.commons.lang3.StringUtils;
 
@@ -98,7 +98,7 @@ public class BookOfCallingManagedMachineGui extends Screen {
         int buttonTop = 60;
         //the insert facing button
         this.addButton(new ExtendedButton(guiLeft - buttonWidth / 2, guiTop + buttonTop, buttonWidth,
-                buttonHeight, new TranslationTextComponent("enum." + Occultism.MODID + ".facing." + this.insertFacing.getName2()),
+                buttonHeight, new TranslatableComponent("enum." + Occultism.MODID + ".facing." + this.insertFacing.getName2()),
                 (b) -> {
                     MachineReference reference = this.makeMachineReference();
                     this.insertFacing = reference.insertFacing = EnumUtil.nextFacing(this.insertFacing);
@@ -109,7 +109,7 @@ public class BookOfCallingManagedMachineGui extends Screen {
         //the extract facing button
         this.addButton(new ExtendedButton(guiLeft - buttonWidth / 2,
                 guiTop + buttonTop + buttonHeight + buttonMargin, buttonWidth, buttonHeight,
-                new TranslationTextComponent("enum." + Occultism.MODID + ".facing." + this.extractFacing.getName2()), (b) -> {
+                new TranslatableComponent("enum." + Occultism.MODID + ".facing." + this.extractFacing.getName2()), (b) -> {
             MachineReference reference = this.makeMachineReference();
             this.extractFacing = reference.extractFacing = EnumUtil.nextFacing(this.extractFacing);
             OccultismPackets.sendToServer(new MessageSetManagedMachine(reference));

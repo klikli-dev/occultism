@@ -29,13 +29,13 @@ import com.github.klikli_dev.occultism.crafting.recipe.CrushingRecipe;
 import com.github.klikli_dev.occultism.crafting.recipe.ItemStackFakeInventory;
 import com.github.klikli_dev.occultism.registry.OccultismRecipes;
 import com.github.klikli_dev.occultism.registry.OccultismSounds;
-import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.particles.ParticleTypes;
-import net.minecraft.util.InteractionHand;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.util.SoundSource;
 import net.minecraft.world.phys.Vec3;
 
@@ -88,7 +88,7 @@ public class CrusherJob extends SpiritJob {
 
     @Override
     public void update() {
-        ItemStack handHeld = this.entity.getHeldItem(InteractionHand.MAIN_HAND);
+        ItemStack handHeld = this.entity.getItemInHand(InteractionHand.MAIN_HAND);
         ItemStackFakeInventory fakeInventory = new ItemStackFakeInventory(handHeld);
 
         if (!this.currentRecipe.isPresent() && !handHeld.isEmpty()) {
@@ -128,7 +128,7 @@ public class CrusherJob extends SpiritJob {
                 if (this.crushingTimer >= this.currentRecipe.get().getCrushingTime() * this.crushingTimeMultiplier.get()) {
                     this.crushingTimer = 0;
 
-                    ItemStack result = this.currentRecipe.get().getCraftingResult(fakeInventory);
+                    ItemStack result = this.currentRecipe.get().assemble(fakeInventory);
                     //make sure to ignore output multiplier on recipes that set that flag.
                     //prevents e.g. 1x ingot -> 3x dust -> 3x ingot -> 9x dust ...
                     float outputMultiplier = this.outputMultiplier.get();

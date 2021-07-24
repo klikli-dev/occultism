@@ -24,14 +24,14 @@ package com.github.klikli_dev.occultism.common.entity;
 
 import com.github.klikli_dev.occultism.registry.OccultismCapabilities;
 import com.google.common.collect.ImmutableList;
-import net.minecraft.entity.EntityType;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.entity.ai.goal.*;
-import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.potion.EffectInstance;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.wrapper.PlayerMainInvWrapper;
@@ -57,7 +57,7 @@ public class GreedyFamiliarEntity extends FamiliarEntity {
     }
 
     @Override
-    public Iterable<EffectInstance> getFamiliarEffects() {
+    public Iterable<MobEffectInstance> getFamiliarEffects() {
         return ImmutableList.of();
     }
 
@@ -90,16 +90,16 @@ public class GreedyFamiliarEntity extends FamiliarEntity {
 
         public FindItemGoal(GreedyFamiliarEntity raptor) {
             this.entity = raptor;
-            this.setMutexFlags(EnumSet.of(Goal.Flag.MOVE));
+            this.setFlags(EnumSet.of(Goal.Flag.MOVE));
         }
 
         @Override
-        public boolean shouldExecute() {
+        public boolean canUse() {
             return this.getNearbyItem() != null && this.entity.getFamiliarOwner() instanceof Player;
         }
 
         @Override
-        public void startExecuting() {
+        public void start() {
             ItemEntity item = this.getNearbyItem();
             if (item != null)
                 this.entity.getNavigator().tryMoveToEntityLiving(item, 1.2);

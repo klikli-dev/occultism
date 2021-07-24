@@ -68,12 +68,12 @@ public class MinerRecipe implements Recipe<RecipeWrapper> {
     }
 
     @Override
-    public ItemStack getCraftingResult(RecipeWrapper inv) {
+    public ItemStack assemble(RecipeWrapper inv) {
         return this.getResultItem().copy();
     }
 
     @Override
-    public boolean canFit(int width, int height) {
+    public boolean canCraftInDimensions(int width, int height) {
         //we only ever use one slot, and we only support miners, so return true.
         return true;
     }
@@ -85,7 +85,7 @@ public class MinerRecipe implements Recipe<RecipeWrapper> {
 
     @Override
     public NonNullList<Ingredient> getIngredients() {
-        return NonNullList.from(Ingredient.EMPTY, this.input);
+        return NonNullList.of(Ingredient.EMPTY, this.input);
     }
 
     @Override

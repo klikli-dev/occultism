@@ -23,9 +23,9 @@
 package com.github.klikli_dev.occultism.common.entity;
 
 import com.github.klikli_dev.occultism.common.item.tool.FamiliarRingItem;
-import net.minecraft.entity.Entity;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.potion.EffectInstance;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -41,7 +41,7 @@ public interface IFamiliar {
     /***
      * Gets the entity that is the owner of this familiar, i.e. the player that
      * summoned the familiar via a ritual.
-     * 
+     *
      * @return The owner of this familiar
      */
     @Nullable
@@ -49,13 +49,14 @@ public interface IFamiliar {
 
     /**
      * Sets the owner entity of this familiar.
+     *
      * @param owner the new owner of this familiar
      */
-     void setFamiliarOwner(LivingEntity owner);
+    void setFamiliarOwner(LivingEntity owner);
 
     /***
      * Gets the actual familiar as an entity.
-     * 
+     *
      * @return The familiar.
      */
     @Nonnull
@@ -63,11 +64,11 @@ public interface IFamiliar {
 
     /***
      * Gets fresh instances of effects that this familiar should apply to the owner.
-     * 
+     *
      * @return The effects to apply to the owner.
      */
     @Nonnull
-    Iterable<EffectInstance> getFamiliarEffects();
+    Iterable<MobEffectInstance> getFamiliarEffects();
 
     /***
      * This method is called every tick when this familiar is captured in a
@@ -79,7 +80,7 @@ public interface IFamiliar {
      * and might be outdated. The same caution should be taken when implementing
      * {@link IFamiliar#getFamiliarEffects} or any other method that is called while
      * the familiar is inside the {@link FamiliarRingItem}.
-     * 
+     *
      * @param wearer The wearer of the curio
      */
     default void curioTick(LivingEntity wearer) {

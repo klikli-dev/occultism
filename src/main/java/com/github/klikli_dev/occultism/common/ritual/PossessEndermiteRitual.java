@@ -28,7 +28,7 @@ import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.github.klikli_dev.occultism.registry.OccultismRituals;
 import com.github.klikli_dev.occultism.util.ItemNBTUtil;
-import net.minecraft.entity.SpawnReason;
+import net.minecraft.world.entity.SpawnReason;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.item.Items;
@@ -70,7 +70,7 @@ public class PossessEndermiteRitual extends SummonSpiritRitual {
                 null,
                 null);
         endermite
-                .setPositionAndRotation(goldenBowlPosition.getX(), goldenBowlPosition.getY(), goldenBowlPosition.getZ(),
+                .absMoveTo(goldenBowlPosition.getX(), goldenBowlPosition.getY(), goldenBowlPosition.getZ(),
                         level.rand.nextInt(360), 0);
         endermite.setCustomName(new TextComponent(entityName));
 

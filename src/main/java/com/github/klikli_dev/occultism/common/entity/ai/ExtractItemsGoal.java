@@ -26,12 +26,12 @@ import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.github.klikli_dev.occultism.exceptions.ItemHandlerMissingException;
 import com.github.klikli_dev.occultism.util.Math3DUtil;
 import com.github.klikli_dev.occultism.util.StorageUtil;
-import net.minecraft.BlockEntity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.BlockEntity.ChestBlockEntity;
-import net.minecraft.inventory.IInventory;
+import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.core.Direction;
-import net.minecraft.util.InteractionHand;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceContext;
@@ -54,7 +54,7 @@ public class ExtractItemsGoal extends PausableGoal {
     public ExtractItemsGoal(SpiritEntity entity) {
         this.entity = entity;
         this.targetSorter = new BlockSorter(entity);
-        this.setMutexFlags(EnumSet.of(Flag.TARGET));
+        this.setFlags(EnumSet.of(Flag.TARGET));
     }
     //endregion Initialization
 
@@ -71,14 +71,14 @@ public class ExtractItemsGoal extends PausableGoal {
 
     //region Overrides
     @Override
-    public boolean shouldExecute() {
+    public boolean canUse() {
         //do not use if there is a target to attack
         if (this.entity.getAttackTarget() != null) {
             return false;
         }
 
         //hand already full, cannot pick up anythings
-        if (!this.entity.getHeldItem(InteractionHand.MAIN_HAND).isEmpty()) {
+        if (!this.entity.getItemInHand(InteractionHand.MAIN_HAND).isEmpty()) {
             return false;
         }
         this.resetTarget();
@@ -86,12 +86,12 @@ public class ExtractItemsGoal extends PausableGoal {
     }
 
     @Override
-    public boolean shouldContinueExecuting() {
-        return !this.isPaused() && this.targetBlock != null && !this.entity.getHeldItem(InteractionHand.MAIN_HAND).isEmpty();
+    public boolean canContinueToUse() {
+        return !this.isPaused() && this.targetBlock != null && !this.entity.getItemInHand(InteractionHand.MAIN_HAND).isEmpty();
     }
 
-    public void resetTask() {
-        this.entity.getNavigator().clearPath();
+    public void stop() {
+        this.entity.getNavigator().stop();
         this.resetTarget();
     }
 
@@ -108,13 +108,13 @@ public class ExtractItemsGoal extends PausableGoal {
 
                 //briefly before reaching the target, open chest, if it is one.
                 if (distance < 2.5 && distance >= accessDistance && this.canSeeTarget() &&
-                    BlockEntity instanceof IInventory) {
-                    this.toggleChest((IInventory) BlockEntity, true);
+                    BlockEntity instanceof Container) {
+                    this.toggleChest((Container) BlockEntity, true);
                 }
 
                 if (distance < accessDistance) {
                     //stop moving while taking out
-                    this.entity.getNavigator().clearPath();
+                    this.entity.getNavigator().stop();
                 }
                 else {
                     //continue moving
@@ -153,8 +153,8 @@ public class ExtractItemsGoal extends PausableGoal {
                     }
 
                     //after extracting, close chest
-                    if (BlockEntity instanceof IInventory) {
-                        this.toggleChest((IInventory) BlockEntity, false);
+                    if (BlockEntity instanceof Container) {
+                        this.toggleChest((Container) BlockEntity, false);
                     }
                 }
             }
@@ -189,7 +189,7 @@ public class ExtractItemsGoal extends PausableGoal {
      * @param BlockEntity the chest tile entity
      * @param open       true to open the chest, false to close it.
      */
-    public void toggleChest(IInventory BlockEntity, boolean open) {
+    public void toggleChest(Container BlockEntity, boolean open) {
         if (BlockEntity instanceof ChestBlockEntity) {
             ChestBlockEntity chest = (ChestBlockEntity) BlockEntity;
             if (open) {

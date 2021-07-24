@@ -22,17 +22,13 @@
 
 package com.github.klikli_dev.occultism.common.tile;
 
-import net.minecraft.BlockEntity.BlockEntity;
-import net.minecraft.BlockEntity.BlockEntityType;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.server.ClientboundBlockEntityDataPacket;
 
 public abstract class NetworkedBlockEntity extends BlockEntity {
 
@@ -96,7 +92,7 @@ public abstract class NetworkedBlockEntity extends BlockEntity {
         return compound;
     }
 
-    public void markNetworkDirty(){
+    public void markNetworkDirty() {
         if (this.level != null) {
             this.level.sendBlockUpdated(this.worldPosition, this.getBlockState(), this.getBlockState(), 2);
         }

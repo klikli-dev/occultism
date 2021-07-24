@@ -425,7 +425,7 @@
     "_comment": "Network",
     "_comment": "# Messages",
     "network.messages.occultism.request_order.order_received": "Заказ получен!",
-    "_comment": "Effects",
+    "_comment": "MobEffects",
     "effect.occultism.third_eye": "Третий глаз",
     "effect.occultism.double_jump": "Мульти прыжок",
     "_comment": "Звуки",

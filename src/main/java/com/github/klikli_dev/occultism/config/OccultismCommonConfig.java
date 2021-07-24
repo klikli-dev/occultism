@@ -29,7 +29,7 @@ import com.github.klikli_dev.occultism.config.value.CachedObject;
 import com.github.klikli_dev.occultism.registry.OccultismTags;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.ITag;
+import net.minecraft.tags.Tag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.ForgeConfigSpec;
@@ -110,7 +110,7 @@ public class OccultismCommonConfig extends ConfigBase {
                 //endregion Fields
 
                 //region Initialization
-                public OreSettings(String oreName, ITag<Block> fillerBlockTag,
+                public OreSettings(String oreName, Tag<Block> fillerBlockTag,
                                    int size, int count, int bottomOffset, int topOffset, int maximum,
                                    IConfigCache parent, ForgeConfigSpec.Builder builder) {
                     super(parent, builder);
@@ -144,7 +144,7 @@ public class OccultismCommonConfig extends ConfigBase {
                 //endregion Initialization
 
                 //region Getter / Setter
-                public ITag<Block> getFillerBlockTag() {
+                public Tag<Block> getFillerBlockTag() {
                     return BlockTags.createOptional(new ResourceLocation(this.fillerBlockTag.get()));
                 }
                 //endregion Getter / Setter

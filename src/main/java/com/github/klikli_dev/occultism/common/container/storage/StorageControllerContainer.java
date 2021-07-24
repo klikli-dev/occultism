@@ -28,9 +28,9 @@ import com.github.klikli_dev.occultism.common.tile.StorageControllerBlockEntity;
 import com.github.klikli_dev.occultism.network.MessageUpdateLinkedMachines;
 import com.github.klikli_dev.occultism.network.OccultismPackets;
 import com.github.klikli_dev.occultism.registry.OccultismContainers;
-import net.minecraft.entity.player.Inventory;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.entity.player.ServerPlayer;
+import net.minecraft.world.entity.player.ServerPlayer;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -84,7 +84,7 @@ public class StorageControllerContainer extends StorageControllerContainerBase {
     @Override
     public void updateCraftingSlots(boolean force) {
         for (int i = 0; i < 9; i++) {
-            this.storageController.getMatrix().put(i, this.matrix.getStackInSlot(i));
+            this.storageController.getMatrix().put(i, this.matrix.getItem(i));
         }
         if (force)
             this.storageController.markNetworkDirty();
@@ -92,7 +92,7 @@ public class StorageControllerContainer extends StorageControllerContainerBase {
 
     @Override
     public void updateOrderSlot(boolean force) {
-        this.storageController.setOrderStack(this.orderInventory.getStackInSlot(0));
+        this.storageController.setOrderStack(this.orderInventory.getItem(0));
         if (force)
             this.storageController.markNetworkDirty();
     }

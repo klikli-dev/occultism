@@ -32,8 +32,8 @@ import com.github.klikli_dev.occultism.network.OccultismPackets;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.TextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraftforge.fml.client.gui.widget.ExtendedButton;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraftforge.fmlclient.gui.widget.ExtendedButton;
 
 import java.awt.*;
 
@@ -69,7 +69,7 @@ public class BookOfCallingGui extends Screen {
     @Override
     protected void init() {
         super.init();
-        this.buttons.clear();
+        this.renderables.clear();
         int guiLeft = (this.width) / 2;
         int guiTop = (this.height - 166) / 2;
         int buttonWidth = 150;
@@ -78,11 +78,11 @@ public class BookOfCallingGui extends Screen {
         LabelWidget modeLabel = new LabelWidget(guiLeft - 80,
                 guiTop + 66, false, -1, 2, Color.WHITE.getRGB()).alignRight(true);
         modeLabel.addLine("gui." + Occultism.MODID + ".book_of_calling.mode", true);
-        this.addButton(modeLabel);
+        this.addRenderableWidget(modeLabel);
 
         //Item mode button
-        this.addButton((new ExtendedButton(guiLeft - buttonWidth / 2, guiTop + 60, buttonWidth, 20,
-                new TranslationTextComponent(this.mode.getItemMode().getDescriptionId()), (b) -> {
+        this.addRenderableWidget((new ExtendedButton(guiLeft - buttonWidth / 2, guiTop + 60, buttonWidth, 20,
+                new TranslatableComponent(this.mode.getItemMode().getDescriptionId()), (b) -> {
             this.mode = this.mode.next();
             OccultismPackets.sendToServer(new MessageSetItemMode(this.mode.getItemMode().getValue()));
             this.init();
@@ -93,11 +93,11 @@ public class BookOfCallingGui extends Screen {
             LabelWidget workAreaLabel = new LabelWidget(
                     guiLeft - 80, guiTop + 91, true, -1, 2, Color.WHITE.getRGB()).alignRight(true);
             workAreaLabel.addLine("gui." + Occultism.MODID + ".book_of_calling.work_area", true);
-            this.addButton(workAreaLabel);
+            this.addRenderableWidget(workAreaLabel);
 
             //Work area size button
-            this.addButton(new ExtendedButton(guiLeft - buttonWidth / 2, guiTop + 85, buttonWidth, 20,
-                    new TranslationTextComponent(this.workAreaSize.getDescriptionId()), (b) -> {
+            this.addRenderableWidget(new ExtendedButton(guiLeft - buttonWidth / 2, guiTop + 85, buttonWidth, 20,
+                    new TranslatableComponent(this.workAreaSize.getDescriptionId()), (b) -> {
                 this.workAreaSize = this.workAreaSize.next();
                 OccultismPackets.sendToServer(new MessageSetWorkAreaSize(this.workAreaSize.getValue()));
                 this.init();
@@ -107,10 +107,10 @@ public class BookOfCallingGui extends Screen {
 
         //Exit button
         int exitButtonWidth = 20;
-        this.addButton(
+        this.addRenderableWidget(
                 new ExtendedButton(guiLeft - exitButtonWidth / 2, guiTop + (showSize ? 110 : 85), exitButtonWidth, 20,
                         new TextComponent("X"), (b) -> {
-                    this.minecraft.displayGuiScreen(null);
+                    this.minecraft.setScreen(null);
                     this.init();
                 }));
     }

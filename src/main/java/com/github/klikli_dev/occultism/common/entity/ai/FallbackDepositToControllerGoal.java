@@ -25,10 +25,10 @@ package com.github.klikli_dev.occultism.common.entity.ai;
 import com.github.klikli_dev.occultism.api.common.tile.IStorageControllerProxy;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.github.klikli_dev.occultism.common.job.ManageMachineJob;
-import net.minecraft.BlockEntity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.core.Direction;
-import net.minecraft.util.InteractionHand;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.core.BlockPos;
 
 import java.util.ArrayList;
@@ -52,14 +52,14 @@ public class FallbackDepositToControllerGoal extends PausableGoal {
         this.entity = entity;
         this.job = job;
         this.targetSorter = new BlockSorter(entity);
-        this.setMutexFlags(EnumSet.of(Flag.MOVE));
+        this.setFlags(EnumSet.of(Flag.MOVE));
     }
     //endregion Initialization
 
 
     //region Overrides
     @Override
-    public boolean shouldExecute() {
+    public boolean canUse() {
         //do not use if there is a target to attack
         if (this.entity.getAttackTarget() != null) {
             return false;
@@ -69,13 +69,13 @@ public class FallbackDepositToControllerGoal extends PausableGoal {
             return false;
 
         //if we are holding something but have no deposit location we can execute this
-        return !this.isPaused() && !this.entity.getHeldItem(InteractionHand.MAIN_HAND).isEmpty() &&
+        return !this.isPaused() && !this.entity.getItemInHand(InteractionHand.MAIN_HAND).isEmpty() &&
                !this.entity.getDepositPosition().isPresent();
     }
 
     @Override
-    public boolean shouldContinueExecuting() {
-        return this.shouldExecute();
+    public boolean canContinueToUse() {
+        return this.canUse();
     }
 
     @Override

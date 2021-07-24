@@ -31,9 +31,9 @@ import com.github.klikli_dev.occultism.network.MessageUpdateLinkedMachines;
 import com.github.klikli_dev.occultism.network.OccultismPackets;
 import com.github.klikli_dev.occultism.registry.OccultismContainers;
 import com.github.klikli_dev.occultism.util.CuriosUtil;
-import net.minecraft.entity.player.Inventory;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.entity.player.ServerPlayer;
+import net.minecraft.world.entity.player.ServerPlayer;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.nbt.ListNBT;
@@ -76,7 +76,7 @@ public class StorageRemoteContainer extends StorageControllerContainerBase {
         }
         if (this.selectedSlot < 0 || this.selectedSlot >= this.player.inventory.getSizeInventory())
             return ItemStack.EMPTY;
-        return this.player.inventory.getStackInSlot(this.selectedSlot);
+        return this.player.inventory.getItem(this.selectedSlot);
     }
     //endregion Getter / Setter
 
@@ -156,7 +156,7 @@ public class StorageRemoteContainer extends StorageControllerContainerBase {
     public void updateCraftingSlots(boolean force) {
         ListNBT nbtTagList = new ListNBT();
         for (int i = 0; i < this.matrix.getSizeInventory(); i++) {
-            nbtTagList.add(this.matrix.getStackInSlot(i).serializeNBT());
+            nbtTagList.add(this.matrix.getItem(i).serializeNBT());
         }
         ItemStack storageRemote = this.getStorageRemote();
         if (storageRemote != ItemStack.EMPTY)
@@ -167,7 +167,7 @@ public class StorageRemoteContainer extends StorageControllerContainerBase {
     public void updateOrderSlot(boolean force) {
         ItemStack storageRemote = this.getStorageRemote();
         if (storageRemote != ItemStack.EMPTY)
-            storageRemote.getOrCreateTag().put("orderStack", this.orderInventory.getStackInSlot(0).serializeNBT());
+            storageRemote.getOrCreateTag().put("orderStack", this.orderInventory.getItem(0).serializeNBT());
     }
     //endregion Overrides
 

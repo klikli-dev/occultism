@@ -45,7 +45,7 @@ import mezz.jei.api.registration.IRecipeTransferRegistration;
 import mezz.jei.api.runtime.IJeiRuntime;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.level.ClientWorld;
-import net.minecraft.inventory.CraftingInventory;
+import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.item.crafting.RecipeManager;
@@ -90,19 +90,19 @@ public class JeiPlugin implements IModPlugin {
         ClientWorld level = Minecraft.getInstance().level;
         RecipeManager recipeManager = level.getRecipeManager();
 
-        Collection<IRecipe<ItemStackFakeInventory>> spiritFireRecipes =
+        Collection<Recipe<ItemStackFakeInventory>> spiritFireRecipes =
                 RecipeUtil.getRecipes(recipeManager, OccultismRecipes.SPIRIT_FIRE_TYPE.get()).values();
         registration.addRecipes(spiritFireRecipes, OccultismRecipes.SPIRIT_FIRE.getId());
 
-        Collection<IRecipe<ItemStackFakeInventory>> crushingRecipes =
+        Collection<Recipe<ItemStackFakeInventory>> crushingRecipes =
                 RecipeUtil.getRecipes(recipeManager, OccultismRecipes.CRUSHING_TYPE.get()).values();
         registration.addRecipes(crushingRecipes, OccultismRecipes.CRUSHING.getId());
 
-        Collection<IRecipe<RecipeWrapper>> minerRecipes =
+        Collection<Recipe<RecipeWrapper>> minerRecipes =
                 RecipeUtil.getRecipes(recipeManager, OccultismRecipes.MINER_TYPE.get()).values();
         registration.addRecipes(minerRecipes, OccultismRecipes.MINER.getId());
 
-        Collection<IRecipe<CraftingInventory>> ritualRecipes =
+        Collection<Recipe<CraftingContainer>> ritualRecipes =
                 RecipeUtil.getRecipes(recipeManager, OccultismRecipes.RITUAL_TYPE.get()).values();
         registration.addRecipes(ritualRecipes, OccultismRecipes.RITUAL.getId());
 

@@ -35,7 +35,7 @@ import net.minecraft.util.SharedSeedRandom;
 import net.minecraft.util.math.AABB;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.math.ChunkPos;
-import net.minecraft.util.math.Mth;
+import net.minecraft.util.Mth;
 
 import java.util.*;
 

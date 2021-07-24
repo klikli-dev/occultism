@@ -26,9 +26,9 @@ import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.github.klikli_dev.occultism.util.Math3DUtil;
-import net.minecraft.entity.Entity;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.util.math.AABB;
@@ -86,7 +86,7 @@ public class PlayerEventHandler {
 
                 //finally, cancel original event to prevent real action and show use animation
                 event.setCanceled(true);
-                event.getPlayer().swingArm(InteractionHand.MAIN_HAND);
+                event.getPlayer().swing(InteractionHand.MAIN_HAND);
             }
         }
     }
@@ -97,7 +97,7 @@ public class PlayerEventHandler {
             event.getTarget() instanceof LivingEntity) {
             //called from here to bypass sitting entity's sit command.
             if (OccultismItems.SOUL_GEM_ITEM.get()
-                        .itemInteractionForEntity(event.getItemStack(), event.getPlayer(),
+                        .interactLivingEntity(event.getItemStack(), event.getPlayer(),
                                 (LivingEntity) event.getTarget(),
                                 event.getHand()) == InteractionResult.SUCCESS) {
                 event.setCanceled(true);

@@ -25,8 +25,8 @@ import com.github.klikli_dev.occultism.api.common.container.IStorageControllerCo
 import com.github.klikli_dev.occultism.api.common.tile.IStorageController;
 import com.github.klikli_dev.occultism.common.misc.ItemStackComparator;
 import com.github.klikli_dev.occultism.util.StorageUtil;
-import net.minecraft.entity.player.ServerPlayer;
-import net.minecraft.inventory.CraftingInventory;
+import net.minecraft.world.entity.player.ServerPlayer;
+import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListNBT;
@@ -76,7 +76,7 @@ public class MessageSetRecipe extends MessageBase {
         //clear the current crafting matrix
         StorageUtil.clearOpenCraftingMatrix(player, false);
 
-        CraftingInventory craftMatrix = container.getCraftMatrix();
+        CraftingContainer craftMatrix = container.getCraftMatrix();
 
         for (int slot = 0; slot < 9; slot++) {
             Map<Integer, ItemStack> map = new HashMap<Integer, ItemStack>();
@@ -102,7 +102,7 @@ public class MessageSetRecipe extends MessageBase {
                 ItemStack extractedStack = StorageUtil
                                                    .extractItem(new PlayerMainInvWrapper(player.inventory), comparator,
                                                            1, true);
-                if (extractedStack != null && !extractedStack.isEmpty() && craftMatrix.getStackInSlot(slot).isEmpty()) {
+                if (extractedStack != null && !extractedStack.isEmpty() && craftMatrix.getItem(slot).isEmpty()) {
                     //if we found the desired stack, extract it for real and place it in the matrix
                     StorageUtil.extractItem(new PlayerMainInvWrapper(player.inventory), comparator, 1, false);
                     craftMatrix.setInventorySlotContents(slot, extractedStack);
@@ -111,7 +111,7 @@ public class MessageSetRecipe extends MessageBase {
 
                 //if we did not find anything in the player inventory, get it from the network now
                 stack = storageController.getItemStack(!stack.isEmpty() ? comparator : null, 1, false);
-                if (!stack.isEmpty() && craftMatrix.getStackInSlot(slot).isEmpty()) {
+                if (!stack.isEmpty() && craftMatrix.getItem(slot).isEmpty()) {
                     //if extraction was successful, place it in the matrix
                     craftMatrix.setInventorySlotContents(slot, stack);
                     break;

@@ -39,7 +39,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraftforge.fml.client.gui.GuiUtils;
 import org.apache.commons.lang3.StringUtils;
 
@@ -151,15 +151,15 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
         this.tooltip.clear();
 
         if (this.filterModeButton.isHovered()) {
-            this.tooltip.add(new TranslationTextComponent(TRANSLATION_KEY_BASE + ".filter_mode"));
-            this.tooltip.add(new TranslationTextComponent(TRANSLATION_KEY_BASE + ".filter_mode."
+            this.tooltip.add(new TranslatableComponent(TRANSLATION_KEY_BASE + ".filter_mode"));
+            this.tooltip.add(new TranslatableComponent(TRANSLATION_KEY_BASE + ".filter_mode."
                                                           + (this.isBlacklist() ? "blacklist" : "whitelist"))
                                      .mergeStyle(TextFormatting.GRAY));
         }
 
         //can't use isHovered here, as it also checks for focus
         if (this.isPointInSearchbar(mouseX, mouseY)) {
-            this.tooltip.add(new TranslationTextComponent(TRANSLATION_KEY_BASE + ".tag_filter"));
+            this.tooltip.add(new TranslatableComponent(TRANSLATION_KEY_BASE + ".tag_filter"));
         }
 
         if (!this.tooltip.isEmpty()) {

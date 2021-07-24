@@ -25,16 +25,15 @@ package com.github.klikli_dev.occultism.crafting.recipe;
 import com.github.klikli_dev.occultism.registry.OccultismRecipes;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import net.minecraft.inventory.CraftingInventory;
+import net.minecraft.core.NonNullList;
+import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.item.crafting.ShapelessRecipe;
 import net.minecraft.world.level.Level;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.GsonHelper;
-import net.minecraft.util.NonNullList;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.ShapelessRecipe;
 import net.minecraftforge.common.crafting.CraftingHelper;
@@ -87,12 +86,12 @@ public class RitualRecipe extends ShapelessRecipe {
     }
 
     @Override
-    public boolean matches(@Nonnull CraftingInventory inventory, @Nonnull Level level) {
+    public boolean matches(@Nonnull CraftingContainer inventory, @Nonnull Level level) {
         return false;
     }
 
     @Override
-    public ItemStack getCraftingResult(CraftingInventory inventoryCrafting) {
+    public ItemStack assemble(CraftingContainer inventoryCrafting) {
         //as we don't have an inventory this is ignored.
         return null;
     }
@@ -120,12 +119,12 @@ public class RitualRecipe extends ShapelessRecipe {
 
         //region Overrides
         @Override
-        public RitualRecipe read(ResourceLocation recipeId, JsonObject json) {
-            ShapelessRecipe recipe = serializer.read(recipeId, json);
+        public RitualRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
+            ShapelessRecipe recipe = serializer.fromJson(recipeId, json);
             JsonElement activationItemElement =
                     GsonHelper.isArrayNode(json, "activation_item") ? GsonHelper.getAsJsonArray(json,
                             "activation_item") : GsonHelper.getAsJsonObject(json, "activation_item");
-            Ingredient activationItem = Ingredient.deserialize(activationItemElement);
+            Ingredient activationItem = Ingredient.fromJson(activationItemElement);
             ResourceLocation pentacleId = new ResourceLocation(json.get("pentacle_id").getAsString());
             ItemStack ritual = CraftingHelper.getItemStack(GsonHelper.getAsJsonObject(json, "ritual"), true);
             boolean requireSacrifice = json.get("require_sacrifice").getAsBoolean();
@@ -136,11 +135,11 @@ public class RitualRecipe extends ShapelessRecipe {
         }
 
         @Override
-        public RitualRecipe read(ResourceLocation recipeId, FriendlyByteBuf buffer) {
-            ShapelessRecipe recipe = serializer.read(recipeId, buffer);
+        public RitualRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
+            ShapelessRecipe recipe = serializer.fromNetwork(recipeId, buffer);
             ResourceLocation pentacleId = buffer.readResourceLocation();
-            ItemStack ritual = buffer.readItemStack();
-            Ingredient activationItem = Ingredient.read(buffer);
+            ItemStack ritual = buffer.readItem();
+            Ingredient activationItem = Ingredient.fromNetwork(buffer);
             boolean requireSacrifice = buffer.readBoolean();
             boolean requireItemUse = buffer.readBoolean();
 
@@ -150,11 +149,11 @@ public class RitualRecipe extends ShapelessRecipe {
         }
 
         @Override
-        public void write(FriendlyByteBuf buffer, RitualRecipe recipe) {
-            serializer.write(buffer, recipe);
+        public void toNetwork(FriendlyByteBuf buffer, RitualRecipe recipe) {
+            serializer.toNetwork(buffer, recipe);
             buffer.writeResourceLocation(recipe.pentacleId);
-            buffer.writeItemStack(recipe.ritual);
-            recipe.activationItem.write(buffer);
+            buffer.writeItem(recipe.ritual);
+            recipe.activationItem.toNetwork(buffer);
             buffer.writeBoolean(recipe.requireSacrifice);
             buffer.writeBoolean(recipe.requireItemUse);
         }

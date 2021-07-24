@@ -23,12 +23,12 @@
 package com.github.klikli_dev.occultism.common.container.storage;
 
 import com.github.klikli_dev.occultism.registry.OccultismItems;
-import net.minecraft.inventory.IInventory;
+import net.minecraft.world.Container;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.world.item.ItemStack;
 
 public class SatchelSlot extends Slot {
-    public SatchelSlot(IInventory inventoryIn, int index, int xPosition, int yPosition) {
+    public SatchelSlot(Container inventoryIn, int index, int xPosition, int yPosition) {
         super(inventoryIn, index, xPosition, yPosition);
     }
 

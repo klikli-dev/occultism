@@ -325,7 +325,7 @@
     "_comment": "Network",
     "_comment": "# Messages",
     "network.messages.occultism.request_order.order_received": "收到指令！",
-    "_comment": "Effects",
+    "_comment": "MobEffects",
     "effect.occultism.third_eye": "第三只眼",
     "effect.occultism.double_jump": "多段跳",
     "_comment": "Sounds",

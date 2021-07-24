@@ -24,10 +24,10 @@ package com.github.klikli_dev.occultism.network;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.registry.OccultismCapabilities;
-import net.minecraft.entity.player.ServerPlayer;
+import net.minecraft.world.entity.player.ServerPlayer;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraftforge.fml.network.NetworkEvent;
 
 public class MessageToggleFamiliarSettings extends MessageBase {
@@ -59,22 +59,22 @@ public class MessageToggleFamiliarSettings extends MessageBase {
         player.getCapability(OccultismCapabilities.FAMILIAR_SETTINGS).ifPresent(cap -> {
             if (this.toggleGreedy) {
                 cap.setGreedyEnabled(!cap.isGreedyEnabled());
-                player.sendStatusMessage(
-                        new TranslationTextComponent(
+                player.displayClientMessage(
+                        new TranslatableComponent(
                                 "message." + Occultism.MODID + ".familiar.greedy." +
                                         (cap.isGreedyEnabled() ? "enabled" : "disabled")), true);
             }
             if (this.toggleOtherworldBird) {
                 cap.setOtherworldBirdEnabled(!cap.isOtherworldBirdEnabled());
-                player.sendStatusMessage(
-                        new TranslationTextComponent(
+                player.displayClientMessage(
+                        new TranslatableComponent(
                                 "message." + Occultism.MODID + ".familiar.otherworld_bird." +
                                         (cap.isOtherworldBirdEnabled() ? "enabled" : "disabled")), true);
             }
             if (this.toggleBat) {
                 cap.setBatEnabled(!cap.isBatEnabled());
-                player.sendStatusMessage(
-                        new TranslationTextComponent(
+                player.displayClientMessage(
+                        new TranslatableComponent(
                                 "message." + Occultism.MODID + ".familiar.bat." +
                                         (cap.isBatEnabled() ? "enabled" : "disabled")), true);
             }

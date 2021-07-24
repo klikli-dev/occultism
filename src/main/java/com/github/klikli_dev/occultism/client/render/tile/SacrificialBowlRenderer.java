@@ -50,7 +50,7 @@ public class SacrificialBowlRenderer extends BlockEntityRenderer<SacrificialBowl
     public void render(SacrificialBowlBlockEntity blockEntity, float partialTicks, PoseStack poseStack,
                        IRenderTypeBuffer buffer, int combinedLight, int combinedOverlay) {
         blockEntity.itemStackHandler.ifPresent(handler -> {
-            ItemStack stack = handler.getStackInSlot(0);
+            ItemStack stack = handler.getItem(0);
             long time = blockEntity.getLevel().getGameTime();
             poseStack.push();
 

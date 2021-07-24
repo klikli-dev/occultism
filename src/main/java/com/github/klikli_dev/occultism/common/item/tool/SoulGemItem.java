@@ -25,22 +25,22 @@ package com.github.klikli_dev.occultism.common.item.tool;
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.util.EntityUtil;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.item.ItemUseContext;
+import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.core.Direction;
-import net.minecraft.util.InteractionHand;
-import net.minecraft.util.InteractionResult;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.util.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -54,12 +54,12 @@ public class SoulGemItem extends Item {
 
     //region Overrides
     @Override
-    public InteractionResult onItemUse(ItemUseContext context) {
+    public InteractionResult useOn(UseOnContext context) {
         Player player = context.getPlayer();
         ItemStack itemStack = context.getItem();
         Level level = context.getLevel();
-        Direction facing = context.getFace();
-        BlockPos pos = context.getPos();
+        Direction facing = context.getClickedFace();
+        BlockPos pos = context.getClickedPos();
         if (itemStack.getOrCreateTag().contains("entityData")) {
             //whenever we have an entity stored we can do nothing but release it
             if (!level.isClientSide) {
@@ -90,7 +90,7 @@ public class SoulGemItem extends Item {
 
                 Entity entity = type.create(level);
                 entity.read(entityData);
-                entity.setPositionAndRotation(spawnPos.getX() + 0.5, spawnPos.getY(), spawnPos.getZ() + 0.5, 0, 0);
+                entity.absMoveTo(spawnPos.getX() + 0.5, spawnPos.getY(), spawnPos.getZ() + 0.5, 0, 0);
                 level.addEntity(entity);
 
                 // old spawn cde:
@@ -106,8 +106,8 @@ public class SoulGemItem extends Item {
                 //                    }
                 //                }
 
-                player.swingArm(context.getHand());
-                player.container.detectAndSendChanges();
+                player.swing(context.getHand());
+                player.inventoryMenu.broadcastChanges();
             }
             return InteractionResult.SUCCESS;
         }
@@ -115,7 +115,7 @@ public class SoulGemItem extends Item {
     }
 
     @Override
-    public InteractionResult itemInteractionForEntity(ItemStack stack, Player player, LivingEntity target,
+    public InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity target,
                                                      InteractionHand hand) {
         //This is called from PlayerEventHandler#onPlayerRightClickEntity, because we need to bypass sitting entities processInteraction
         if (target.level.isClientSide)
@@ -133,7 +133,7 @@ public class SoulGemItem extends Item {
         //do not capture entities on deny lists
         if (Occultism.SERVER_CONFIG.itemSettings.soulgemEntityTypeDenyList.get().contains(target.getEntityString())) {
             player.sendMessage(
-                    new TranslationTextComponent(this.getDescriptionId() + ".message.entity_type_denied"),
+                    new TranslatableComponent(this.getDescriptionId() + ".message.entity_type_denied"),
                     Util.DUMMY_UUID);
             return InteractionResult.FAIL;
         }
@@ -141,10 +141,10 @@ public class SoulGemItem extends Item {
         //serialize entity
         stack.getTag().put("entityData", target.serializeNBT());
         //show player swing anim
-        player.swingArm(hand);
-        player.setHeldItem(hand, stack); //need to write the item back to hand, otherwise we only modify a copy
+        player.swing(hand);
+        player.setItemInHand(hand, stack); //need to write the item back to hand, otherwise we only modify a copy
         target.remove(true);
-        player.container.detectAndSendChanges();
+        player.inventoryMenu.broadcastChanges();
         return InteractionResult.SUCCESS;
     }
 
@@ -161,10 +161,10 @@ public class SoulGemItem extends Item {
 
         if (stack.getOrCreateTag().contains("entityData")) {
             EntityType<?> type = EntityUtil.entityTypeFromNbt(stack.getTag().getCompound("entityData"));
-            tooltip.add(new TranslationTextComponent(this.getDescriptionId() + ".tooltip_filled", type.getName()));
+            tooltip.add(new TranslatableComponent(this.getDescriptionId() + ".tooltip_filled", type.getName()));
         }
         else {
-            tooltip.add(new TranslationTextComponent(this.getDescriptionId() + ".tooltip_empty"));
+            tooltip.add(new TranslatableComponent(this.getDescriptionId() + ".tooltip_empty"));
         }
     }
     //endregion Overrides

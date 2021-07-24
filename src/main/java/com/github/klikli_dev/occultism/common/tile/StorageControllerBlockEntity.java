@@ -50,7 +50,7 @@ import net.minecraft.BlockEntity.TickingBlockEntity;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.block.DirectionalBlock;
-import net.minecraft.entity.player.Inventory;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.inventory.container.AbstractContainerMenu;
 import net.minecraft.inventory.container.MenuProvider;
@@ -175,7 +175,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
         int usedSlots = 0;
         List<ItemStack> result = new ArrayList<>(size);
         for (int slot = 0; slot < size; slot++) {
-            ItemStack stack = handler.getStackInSlot(slot);
+            ItemStack stack = handler.getItem(slot);
             if (!stack.isEmpty()) {
                 usedSlots++;
                 this.mergeIntoList(result, stack.copy());
@@ -353,7 +353,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
         ItemStackHandler handler = this.itemStackHandler.orElseThrow(ItemHandlerMissingException::new);
         int size = handler.getSlots();
         for (int slot = 0; slot < size; slot++) {
-            ItemStack stack = handler.getStackInSlot(slot);
+            ItemStack stack = handler.getItem(slot);
             if (comparator.matches(stack))
                 totalCount += stack.getCount();
         }
@@ -383,7 +383,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
 
     @Override
     public void tick() {
-        if (!this.world.isRemote) {
+        if (!this.world.isClientSide) {
             if (!this.stabilizersInitialized) {
                 this.stabilizersInitialized = true;
                 this.updateStabilizers();
@@ -500,7 +500,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
     public List<BlockPos> findValidStabilizers() {
         ArrayList<BlockPos> validStabilizers = new ArrayList<>();
 
-        BlockPos up = this.pos.up();
+        BlockPos up = this.pos.above();
         for (Direction face : Direction.values()) {
             BlockPos hit = Math3DUtil.simpleTrace(up, face, MAX_STABILIZER_DISTANCE, (pos) -> {
                 BlockState state = this.world.getBlockState(pos);

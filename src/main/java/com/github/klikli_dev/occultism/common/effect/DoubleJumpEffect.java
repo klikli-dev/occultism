@@ -31,7 +31,7 @@ import net.minecraft.client.gui.DisplayEffectsScreen;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.potion.Effect;
-import net.minecraft.potion.EffectInstance;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.potion.EffectType;
 import net.minecraft.resources.ResourceLocation;
 
@@ -65,14 +65,14 @@ public class DoubleJumpEffect extends Effect {
     }
 
     @Override
-    public void renderInventoryEffect(EffectInstance effect, DisplayEffectsScreen<?> gui, PoseStack mStack, int x,
+    public void renderInventoryEffect(MobEffectInstance effect, DisplayEffectsScreen<?> gui, PoseStack mStack, int x,
                                       int y, float z) {
         gui.getMinecraft().getTextureManager().bindTexture(ICON);
         AbstractGui.blit(mStack, x + 6, y + 7, 18, 18, 0, 0, 255, 255, 256, 256);
     }
 
     @Override
-    public void renderHUDEffect(EffectInstance effect, AbstractGui gui, PoseStack mStack, int x, int y, float z,
+    public void renderHUDEffect(MobEffectInstance effect, AbstractGui gui, PoseStack mStack, int x, int y, float z,
                                 float alpha) {
         Minecraft.getInstance().getTextureManager().bindTexture(ICON);
         AbstractGui.blit(mStack,x + 3, y + 3, 18, 18, 0, 0, 255, 255, 256, 256);
@@ -90,7 +90,7 @@ public class DoubleJumpEffect extends Effect {
      * @return the max amount of jumps.
      */
     public static int getMaxJumps(Player player) {
-        EffectInstance effect = player.getActivePotionEffect(OccultismEffects.DOUBLE_JUMP.get());
+        MobEffectInstance effect = player.getActivePotionEffect(OccultismEffects.DOUBLE_JUMP.get());
         if (effect != null) {
             return 1 + effect.getAmplifier();
         }

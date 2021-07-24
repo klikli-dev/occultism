@@ -22,27 +22,27 @@
 
 package com.github.klikli_dev.occultism.common.block;
 
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.entity.MobEntity;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.level.IBlockReader;
-import net.minecraft.level.IWorldReader;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.pathfinding.PathNodeType;
-import net.minecraft.state.IntegerProperty;
-import net.minecraft.state.StateContainer;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.core.Direction;
-import net.minecraft.core.BlockPos;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.shapes.VoxelShapes;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
@@ -55,14 +55,14 @@ public class ChalkGlyphBlock extends Block {
      */
     public static final IntegerProperty SIGN = IntegerProperty.create("sign", 0, 12);
 
-    private static final VoxelShape SHAPE = Block.makeCuboidShape(0, 0, 0, 15, 0.04, 15);
+    private static final VoxelShape SHAPE = Block.box(0, 0, 0, 15, 0.04, 15);
 
     protected Supplier<Item> chalk;
     protected int color;
     //endregion Fields
 
     //region Initialization
-    public ChalkGlyphBlock(Properties properties, int color, Supplier<Item>chalk) {
+    public ChalkGlyphBlock(Properties properties, int color, Supplier<Item> chalk) {
         super(properties);
         this.color = color;
         this.chalk = chalk;
@@ -86,60 +86,61 @@ public class ChalkGlyphBlock extends Block {
 
     //region Overrides
 
+
     @Override
-    public boolean isReplaceable(BlockState state, BlockItemUseContext useContext) {
+    public boolean canBeReplaced(BlockState state, BlockPlaceContext context) {
         return true;
     }
 
     @Override
-    public boolean isReplaceable(BlockState state, Fluid fluid) {
+    public boolean canBeReplaced(BlockState state, Fluid fluid) {
         return true;
     }
 
+
     @Override
-    public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+    public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
         return SHAPE;
     }
 
     @Override
-    public VoxelShape getCollisionShape(BlockState state, IBlockReader worldIn, BlockPos pos,
-                                        ISelectionContext context) {
-        return VoxelShapes.empty();
+    public VoxelShape getCollisionShape(BlockState state, BlockGetter worldIn, BlockPos pos,
+                                        CollisionContext context) {
+        return Shapes.empty();
     }
 
     @Override
     public void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block blockIn, BlockPos fromPos,
                                 boolean isMoving) {
-        if (!this.isValidPosition(state, worldIn, pos)) {
+        if (!this.canSurvive(state, worldIn, pos)) {
             worldIn.removeBlock(pos, false);
         }
     }
 
     @Override
-    public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
-        BlockPos down = pos.down();
+    public boolean canSurvive(BlockState state, LevelReader worldIn, BlockPos pos) {
+        BlockPos down = pos.below();
         BlockState downState = worldIn.getBlockState(down);
-        return downState.isSolidSide(worldIn, down, Direction.UP) && state.getMaterial().isReplaceable();
+        return downState.isFaceSturdy(worldIn, down, Direction.UP) && state.getMaterial().isReplaceable();
     }
 
     @Override
-    public BlockState getStateForPlacement(BlockItemUseContext context) {
-        BlockPos pos = context.getPos();
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
+        BlockPos pos = context.getClickedPos();
         int sign = Math.abs(pos.getX() + pos.getZ() * 2) % 13;
-        return this.getDefaultState().with(SIGN, sign)
-                       .with(BlockStateProperties.HORIZONTAL_FACING,
-                               context.getPlacementHorizontalFacing().getOpposite());
+        return this.defaultBlockState().setValue(SIGN, sign)
+                .setValue(BlockStateProperties.HORIZONTAL_FACING,
+                        context.getHorizontalDirection().getOpposite());
     }
 
-    @Override
-    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(SIGN, BlockStateProperties.HORIZONTAL_FACING);
-        super.fillStateContainer(builder);
+        super.createBlockStateDefinition(builder);
     }
 
+
     @Override
-    public ItemStack getPickBlock(BlockState state, RayTraceResult target, IBlockReader level, BlockPos pos,
-                                  Player player) {
+    public ItemStack getPickBlock(BlockState state, HitResult target, BlockGetter world, BlockPos pos, Player player) {
         if (ForgeRegistries.ITEMS.containsKey(
                 this.getChalk().getRegistryName()))//fix for startup crash related to patchouli getting pick block too early
             return new ItemStack(this.getChalk());
@@ -148,9 +149,9 @@ public class ChalkGlyphBlock extends Block {
 
     @Nullable
     @Override
-    public PathNodeType getAiPathNodeType(BlockState state, IBlockReader level, BlockPos pos,
-                                          @Nullable MobEntity entity) {
-        return PathNodeType.OPEN;
+    public BlockPathTypes getAiPathNodeType(BlockState state, BlockGetter world, BlockPos pos, @Nullable Mob entity) {
+        return BlockPathTypes.OPEN;
     }
+    
     //endregion Overrides
 }

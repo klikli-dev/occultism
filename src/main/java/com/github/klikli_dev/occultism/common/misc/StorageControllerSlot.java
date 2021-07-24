@@ -25,8 +25,8 @@ package com.github.klikli_dev.occultism.common.misc;
 import com.github.klikli_dev.occultism.api.common.container.IStorageControllerContainer;
 import com.github.klikli_dev.occultism.api.common.tile.IStorageController;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.inventory.CraftingInventory;
-import net.minecraft.inventory.IInventory;
+import net.minecraft.world.inventory.CraftingContainer;
+import net.minecraft.world.Container;
 import net.minecraft.inventory.container.AbstractContainerMenu;
 import net.minecraft.inventory.container.CraftingResultSlot;
 import net.minecraft.world.item.ItemStack;
@@ -41,11 +41,11 @@ import java.util.List;
 public class StorageControllerSlot extends CraftingResultSlot {
     //region Fields
     IStorageControllerContainer storageControllerContainer;
-    CraftingInventory matrix;
+    CraftingContainer matrix;
     //endregion Fields
 
     //region Initialization
-    public StorageControllerSlot(Player player, CraftingInventory matrix, IInventory inventory,
+    public StorageControllerSlot(Player player, CraftingContainer matrix, Container inventory,
                                  IStorageControllerContainer storageControllerContainer, int slotIndex, int xPosition,
                                  int yPosition) {
         super(player, matrix, inventory, slotIndex, xPosition, yPosition);
@@ -64,13 +64,13 @@ public class StorageControllerSlot extends CraftingResultSlot {
 
         List<ItemStack> craftingStacks = new ArrayList();
         for (int i = 0; i < this.matrix.getSizeInventory(); i++) {
-            craftingStacks.add(this.matrix.getStackInSlot(i).copy());
+            craftingStacks.add(this.matrix.getItem(i).copy());
         }
         super.onTake(player, stack);
-        ((AbstractContainerMenu)this.storageControllerContainer).detectAndSendChanges();
+        ((AbstractContainerMenu)this.storageControllerContainer).broadcastChanges();
         for (int i = 0; i < this.matrix.getSizeInventory(); i++) {
             IStorageController storageController = this.storageControllerContainer.getStorageController();
-            if (this.matrix.getStackInSlot(i).isEmpty() && storageController != null) {
+            if (this.matrix.getItem(i).isEmpty() && storageController != null) {
                 ItemStack req = storageController.getItemStack(
                         !craftingStacks.get(i).isEmpty() ? new ItemStackComparator(craftingStacks.get(i)) : null, 1,
                         false);
@@ -79,7 +79,7 @@ public class StorageControllerSlot extends CraftingResultSlot {
                 }
             }
         }
-        ((AbstractContainerMenu)this.storageControllerContainer).detectAndSendChanges();
+        ((AbstractContainerMenu)this.storageControllerContainer).broadcastChanges();
         return stack;
     }
     //endregion Overrides

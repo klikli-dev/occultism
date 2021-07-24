@@ -26,11 +26,11 @@ import com.github.klikli_dev.occultism.api.common.data.MachineReference;
 import com.github.klikli_dev.occultism.common.item.spirit.BookOfCallingItem;
 import com.github.klikli_dev.occultism.common.job.ManageMachineJob;
 import com.github.klikli_dev.occultism.util.ItemNBTUtil;
-import net.minecraft.entity.player.ServerPlayer;
+import net.minecraft.world.entity.player.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.InteractionHand;
+import net.minecraft.world.InteractionHand;
 import net.minecraftforge.fml.network.NetworkEvent;
 
 public class MessageSetManagedMachine extends MessageBase {
@@ -54,7 +54,7 @@ public class MessageSetManagedMachine extends MessageBase {
     @Override
     public void onServerReceived(MinecraftServer minecraftServer, ServerPlayer player,
                                  NetworkEvent.Context context) {
-        ItemStack stack = player.getHeldItem(InteractionHand.MAIN_HAND);
+        ItemStack stack = player.getItemInHand(InteractionHand.MAIN_HAND);
         if (stack.getItem() instanceof BookOfCallingItem) {
             ItemNBTUtil.getSpiritEntity(stack).ifPresent(spirit -> {
                 spirit.getJob().filter(ManageMachineJob.class::isInstance).map(ManageMachineJob.class::cast)
@@ -66,7 +66,7 @@ public class MessageSetManagedMachine extends MessageBase {
                                 job.getManagedMachine().extractFacing = this.managedMachine.extractFacing;
                                 job.getManagedMachine().insertFacing = this.managedMachine.insertFacing;
                                 ItemNBTUtil.updateItemNBTFromEntity(stack, spirit);
-                                player.container.detectAndSendChanges();
+                                player.inventoryMenu.broadcastChanges();
                             }
                         });
             });

@@ -26,7 +26,7 @@ import com.github.klikli_dev.occultism.registry.OccultismContainers;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.github.klikli_dev.occultism.util.CuriosUtil;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.inventory.IInventory;
+import net.minecraft.world.Container;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.container.AbstractContainerMenu;
 import net.minecraft.inventory.container.Slot;
@@ -36,13 +36,13 @@ import net.minecraft.network.FriendlyByteBuf;
 public class SatchelContainer extends AbstractContainerMenu {
     //region Fields
     public static final int SATCHEL_SIZE = 13 * 9;
-    protected IInventory satchelInventory;
+    protected Container satchelInventory;
     protected Inventory playerInventory;
     protected int selectedSlot;
     //endregion Fields
 
     //region Initialization
-    public SatchelContainer(int id, Inventory playerInventory, IInventory satchelInventory, int selectedSlot) {
+    public SatchelContainer(int id, Inventory playerInventory, Container satchelInventory, int selectedSlot) {
         super(OccultismContainers.SATCHEL.get(), id);
         this.satchelInventory = satchelInventory;
         this.playerInventory = playerInventory;
@@ -56,11 +56,11 @@ public class SatchelContainer extends AbstractContainerMenu {
 
     //region Overrides
     @Override
-    public void detectAndSendChanges() {
+    public void broadcastChanges() {
         if (this.satchelInventory instanceof SatchelInventory) {
             ((SatchelInventory) this.satchelInventory).writeItemStack();
         }
-        super.detectAndSendChanges();
+        super.broadcastChanges();
     }
 
     @Override
@@ -107,7 +107,7 @@ public class SatchelContainer extends AbstractContainerMenu {
         }
         if(this.selectedSlot < 0 || this.selectedSlot >= player.inventory.getSizeInventory())
             return false;
-        return player.inventory.getStackInSlot(this.selectedSlot).getItem() == OccultismItems.SATCHEL.get();
+        return player.inventory.getItem(this.selectedSlot).getItem() == OccultismItems.SATCHEL.get();
     }
     //endregion Overrides
 

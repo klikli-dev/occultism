@@ -27,13 +27,13 @@ import com.github.klikli_dev.occultism.api.common.data.GlobalBlockPos;
 import com.github.klikli_dev.occultism.api.common.tile.IStorageController;
 import com.github.klikli_dev.occultism.common.misc.ItemStackComparator;
 import com.github.klikli_dev.occultism.util.StorageUtil;
-import net.minecraft.BlockEntity.BlockEntity;
-import net.minecraft.entity.player.ServerPlayer;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.entity.player.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraftforge.fml.network.NetworkEvent;
 
 /**
@@ -69,7 +69,7 @@ public class MessageRequestOrder extends MessageBase {
     public void onServerReceived(MinecraftServer minecraftServer, ServerPlayer player,
                                  NetworkEvent.Context context) {
 
-        Level level = minecraftServer.getWorld(this.storageControllerPosition.getDimensionKey());
+        Level level = minecraftServer.getLevel(this.storageControllerPosition.getDimensionKey());
         //prevent block loading by message
         if (!level.isBlockLoaded(this.storageControllerPosition.getPos()))
             return;
@@ -86,8 +86,8 @@ public class MessageRequestOrder extends MessageBase {
         //then place the order.
         ItemStackComparator comparator = new ItemStackComparator(this.stack, true);
         storageController.addDepositOrder(this.targetMachinePosition, comparator, this.stack.getCount());
-        player.sendStatusMessage(
-                new TranslationTextComponent("network.messages." + Occultism.MODID + ".request_order.order_received"),
+        player.displayClientMessage(
+                new TranslatableComponent("network.messages." + Occultism.MODID + ".request_order.order_received"),
                 true);
     }
 

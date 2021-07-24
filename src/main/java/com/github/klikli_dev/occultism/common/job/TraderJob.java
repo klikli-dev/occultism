@@ -25,13 +25,13 @@ package com.github.klikli_dev.occultism.common.job;
 import com.github.klikli_dev.occultism.common.entity.ai.PickupItemsGoal;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.github.klikli_dev.occultism.crafting.recipe.SpiritTradeRecipe;
-import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.particles.ParticleTypes;
-import net.minecraft.util.InteractionHand;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.phys.Vec3;
 
@@ -82,7 +82,7 @@ public class TraderJob extends SpiritJob {
      */
     public void setTradeRecipeId(ResourceLocation recipeId) {
         this.trade = null;
-        Optional<? extends IRecipe<?>> recipe = this.entity.level.getRecipeManager().getRecipe(recipeId);
+        Optional<? extends Recipe<?>> recipe = this.entity.level.getRecipeManager().getRecipe(recipeId);
         recipe.ifPresent(r -> {
             if (r instanceof SpiritTradeRecipe)
                 this.trade = (SpiritTradeRecipe) r;
@@ -112,7 +112,7 @@ public class TraderJob extends SpiritJob {
 
     @Override
     public void update() {
-        ItemStack handHeld = this.entity.getHeldItem(InteractionHand.MAIN_HAND);
+        ItemStack handHeld = this.entity.getItemInHand(InteractionHand.MAIN_HAND);
         if (this.trade != null && this.trade.isValid(handHeld)) {
             if (this.entity.level.getGameTime() % 10 == 0) {
                 //show particle effect while converting
@@ -136,10 +136,10 @@ public class TraderJob extends SpiritJob {
                 }
 
                 if (input.isEmpty()) {
-                    this.entity.setHeldItem(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+                    this.entity.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
                 }
                 else {
-                    this.entity.setHeldItem(InteractionHand.MAIN_HAND, input.get(0));
+                    this.entity.setItemInHand(InteractionHand.MAIN_HAND, input.get(0));
                 }
 
                 ItemStack converted = this.trade.getResultItem().copy();

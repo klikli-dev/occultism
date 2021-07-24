@@ -25,7 +25,7 @@ package com.github.klikli_dev.occultism.network;
 import com.github.klikli_dev.occultism.api.common.container.IStorageControllerContainer;
 import com.github.klikli_dev.occultism.api.common.tile.IStorageController;
 import com.github.klikli_dev.occultism.util.InputUtil;
-import net.minecraft.entity.player.ServerPlayer;
+import net.minecraft.world.entity.player.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.MinecraftServer;
@@ -92,7 +92,7 @@ public class MessageInsertMouseHeldItem extends MessageBase {
 
             //update the storage controller
             OccultismPackets.sendTo(player, storageController.getMessageUpdateStacks());
-            player.openContainer.detectAndSendChanges();
+            player.openContainer.broadcastChanges();
         }
     }
 

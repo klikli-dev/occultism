@@ -160,7 +160,7 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
     public void tick() {
         if (!this.level.isClientSide) {
             IItemHandler inputHandler = this.inputHandler.orElseThrow(ItemHandlerMissingException::new);
-            ItemStack input = inputHandler.getStackInSlot(0);
+            ItemStack input = inputHandler.getItem(0);
 
             boolean dirty = false;
             if (this.miningTime > 0) {
@@ -259,7 +259,7 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
         }
 
         //damage and eventually consume item.
-        ItemStack input = inputHandler.getStackInSlot(0);
+        ItemStack input = inputHandler.getItem(0);
         if (input.attemptDamageItem(1, this.level.rand, null)) {
             input.shrink(1);
             input.setDamage(0);

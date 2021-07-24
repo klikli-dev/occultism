@@ -27,29 +27,29 @@ import com.github.klikli_dev.occultism.registry.OccultismTiles;
 import com.github.klikli_dev.occultism.util.BlockEntityUtil;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
-import net.minecraft.BlockEntity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.entity.player.ServerPlayer;
+import net.minecraft.world.entity.player.ServerPlayer;
 import net.minecraft.inventory.container.MenuProvider;
-import net.minecraft.item.BlockItemUseContext;
+import net.minecraft.item.BlockPlaceContext;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.level.IBlockReader;
+import net.minecraft.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.Property;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.core.Direction;
-import net.minecraft.util.InteractionHand;
-import net.minecraft.util.InteractionResult;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.shapes.IBooleanFunction;
-import net.minecraft.util.math.shapes.ISelectionContext;
+import net.minecraft.util.math.shapes.CollisionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.shapes.VoxelShapes;
+import net.minecraft.util.math.shapes.Shapes;
 import net.minecraftforge.fml.network.NetworkHooks;
 
 import javax.annotation.Nullable;
@@ -80,7 +80,7 @@ public class StableWormholeBlock extends Block {
                             Block.makeCuboidShape(0, 12, 4, 1, 15, 12),
                             Block.makeCuboidShape(0, 0, 6, 1, 1, 10),
                             Block.makeCuboidShape(0, 15, 6, 1, 16, 10)
-                    ).reduce((v1, v2) -> {return VoxelShapes.combineAndSimplify(v1, v2, IBooleanFunction.OR);}).get())
+                    ).reduce((v1, v2) -> {return Shapes.combineAndSimplify(v1, v2, IBooleanFunction.OR);}).get())
                     .put(Direction.WEST, Stream.of(
                             Block.makeCuboidShape(15, 4, 4, 16, 12, 12),
                             Block.makeCuboidShape(15, 4, 1, 16, 12, 4),
@@ -99,7 +99,7 @@ public class StableWormholeBlock extends Block {
                             Block.makeCuboidShape(15, 12, 4, 16, 15, 12),
                             Block.makeCuboidShape(15, 0, 6, 16, 1, 10),
                             Block.makeCuboidShape(15, 15, 6, 16, 16, 10)
-                    ).reduce((v1, v2) -> {return VoxelShapes.combineAndSimplify(v1, v2, IBooleanFunction.OR);}).get())
+                    ).reduce((v1, v2) -> {return Shapes.combineAndSimplify(v1, v2, IBooleanFunction.OR);}).get())
                     .put(Direction.NORTH, Stream.of(
                             Block.makeCuboidShape(4, 4, 15, 12, 12, 16),
                             Block.makeCuboidShape(1, 4, 15, 4, 12, 16),
@@ -118,7 +118,7 @@ public class StableWormholeBlock extends Block {
                             Block.makeCuboidShape(4, 12, 15, 12, 15, 16),
                             Block.makeCuboidShape(6, 0, 15, 10, 1, 16),
                             Block.makeCuboidShape(6, 15, 15, 10, 16, 16)
-                    ).reduce((v1, v2) -> {return VoxelShapes.combineAndSimplify(v1, v2, IBooleanFunction.OR);}).get())
+                    ).reduce((v1, v2) -> {return Shapes.combineAndSimplify(v1, v2, IBooleanFunction.OR);}).get())
                     .put(Direction.SOUTH, Stream.of(
                             Block.makeCuboidShape(4, 4, 0, 12, 12, 1),
                             Block.makeCuboidShape(1, 4, 0, 4, 12, 1),
@@ -137,7 +137,7 @@ public class StableWormholeBlock extends Block {
                             Block.makeCuboidShape(4, 12, 0, 12, 15, 1),
                             Block.makeCuboidShape(6, 0, 0, 10, 1, 1),
                             Block.makeCuboidShape(6, 15, 0, 10, 16, 1)
-                    ).reduce((v1, v2) -> {return VoxelShapes.combineAndSimplify(v1, v2, IBooleanFunction.OR);}).get())
+                    ).reduce((v1, v2) -> {return Shapes.combineAndSimplify(v1, v2, IBooleanFunction.OR);}).get())
                     .put(Direction.UP, Stream.of(
                             Block.makeCuboidShape(4, 0, 4, 12, 1, 12),
                             Block.makeCuboidShape(1, 0, 4, 4, 1, 12),
@@ -156,7 +156,7 @@ public class StableWormholeBlock extends Block {
                             Block.makeCuboidShape(4, 0, 1, 12, 1, 4),
                             Block.makeCuboidShape(6, 0, 15, 10, 1, 16),
                             Block.makeCuboidShape(6, 0, 0, 10, 1, 1)
-                    ).reduce((v1, v2) -> {return VoxelShapes.combineAndSimplify(v1, v2, IBooleanFunction.OR);}).get())
+                    ).reduce((v1, v2) -> {return Shapes.combineAndSimplify(v1, v2, IBooleanFunction.OR);}).get())
                     .put(Direction.DOWN, Stream.of(
                             Block.makeCuboidShape(4, 15, 4, 12, 16, 12),
                             Block.makeCuboidShape(1, 15, 4, 4, 16, 12),
@@ -175,7 +175,7 @@ public class StableWormholeBlock extends Block {
                             Block.makeCuboidShape(4, 15, 1, 12, 16, 4),
                             Block.makeCuboidShape(6, 15, 15, 10, 16, 16),
                             Block.makeCuboidShape(6, 15, 0, 10, 16, 1)
-                    ).reduce((v1, v2) -> {return VoxelShapes.combineAndSimplify(v1, v2, IBooleanFunction.OR);}).get()).build());
+                    ).reduce((v1, v2) -> {return Shapes.combineAndSimplify(v1, v2, IBooleanFunction.OR);}).get()).build());
 
     //endregion Fields
     //region Initialization
@@ -187,14 +187,14 @@ public class StableWormholeBlock extends Block {
 
     //region Overrides
     @Override
-    public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+    public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
         return SHAPES.get(state.get(BlockStateProperties.FACING));
     }
 
     @Override
-    public VoxelShape getCollisionShape(BlockState state, IBlockReader worldIn, BlockPos pos,
-                                        ISelectionContext context) {
-        return VoxelShapes.empty();
+    public VoxelShape getCollisionShape(BlockState state, BlockGetter worldIn, BlockPos pos,
+                                        CollisionContext context) {
+        return Shapes.empty();
     }
 
     @Override
@@ -222,8 +222,8 @@ public class StableWormholeBlock extends Block {
 
     @Nullable
     @Override
-    public BlockState getStateForPlacement(BlockItemUseContext context) {
-        BlockState state = this.getDefaultState().with(BlockStateProperties.FACING, context.getFace());
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
+        BlockState state = this.getDefaultState().with(BlockStateProperties.FACING, context.getClickedFace());
         if (context.getItem().getOrCreateTag().getCompound("BlockEntityTag")
                     .contains("linkedStorageControllerPosition")) {
             state = state.with(LINKED, true);
@@ -232,7 +232,7 @@ public class StableWormholeBlock extends Block {
     }
 
     @Override
-    public ItemStack getItem(IBlockReader worldIn, BlockPos pos, BlockState state) {
+    public ItemStack getItem(BlockGetter worldIn, BlockPos pos, BlockState state) {
         return BlockEntityUtil.getItemWithNbt(this, worldIn, pos);
     }
 
@@ -249,7 +249,7 @@ public class StableWormholeBlock extends Block {
 
     @Nullable
     @Override
-    public BlockEntity createBlockEntity(BlockState state, IBlockReader level) {
+    public BlockEntity createBlockEntity(BlockState state, BlockGetter level) {
         return OccultismTiles.STABLE_WORMHOLE.get().create();
     }
 

@@ -24,18 +24,16 @@ package com.github.klikli_dev.occultism.crafting.recipe;
 
 import com.github.klikli_dev.occultism.registry.OccultismRecipes;
 import com.google.gson.JsonObject;
-import net.minecraft.inventory.CraftingInventory;
+import net.minecraft.core.NonNullList;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.item.crafting.ShapelessRecipe;
-import net.minecraft.world.level.Level;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.util.NonNullList;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.ShapelessRecipe;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import javax.annotation.Nonnull;
@@ -60,12 +58,12 @@ public class SpiritTradeRecipe extends ShapelessRecipe {
     }
 
     @Override
-    public boolean matches(@Nonnull CraftingInventory inventory, @Nonnull Level level) {
+    public boolean matches(@Nonnull CraftingContainer inventory, @Nonnull Level level) {
         return false;
     }
 
     @Override
-    public ItemStack getCraftingResult(CraftingInventory inventoryCrafting) {
+    public ItemStack assemble(CraftingContainer inventoryCrafting) {
         //as we don't have an inventory this is ignored.
         return null;
     }
@@ -133,20 +131,20 @@ public class SpiritTradeRecipe extends ShapelessRecipe {
 
         //region Overrides
         @Override
-        public SpiritTradeRecipe read(ResourceLocation recipeId, JsonObject json) {
-            ShapelessRecipe recipe = serializer.read(recipeId, json);
+        public SpiritTradeRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
+            ShapelessRecipe recipe = serializer.fromJson(recipeId, json);
             return new SpiritTradeRecipe(recipe.getId(), recipe.getGroup(), recipe.getResultItem(), recipe.getIngredients());
         }
 
         @Override
-        public SpiritTradeRecipe read(ResourceLocation recipeId, FriendlyByteBuf buffer) {
-            ShapelessRecipe recipe = serializer.read(recipeId, buffer);
+        public SpiritTradeRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
+            ShapelessRecipe recipe = serializer.fromNetwork(recipeId, buffer);
             return new SpiritTradeRecipe(recipe.getId(), recipe.getGroup(), recipe.getResultItem(), recipe.getIngredients());
         }
 
         @Override
-        public void write(FriendlyByteBuf buffer, SpiritTradeRecipe recipe) {
-            serializer.write(buffer, recipe);
+        public void toNetwork(FriendlyByteBuf buffer, SpiritTradeRecipe recipe) {
+            serializer.toNetwork(buffer, recipe);
         }
         //endregion Overrides
     }

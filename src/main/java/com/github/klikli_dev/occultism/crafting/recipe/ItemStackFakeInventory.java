@@ -22,11 +22,11 @@
 
 package com.github.klikli_dev.occultism.crafting.recipe;
 
+import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.world.item.ItemStack;
 
-public class ItemStackFakeInventory implements IInventory {
+public class ItemStackFakeInventory implements Container {
     //region Fields
     protected ItemStack input;
     //endregion Fields
@@ -38,8 +38,9 @@ public class ItemStackFakeInventory implements IInventory {
     //endregion Initialization
 
     //region Overrides
+
     @Override
-    public int getSizeInventory() {
+    public int getContainerSize() {
         return 1;
     }
 
@@ -49,39 +50,41 @@ public class ItemStackFakeInventory implements IInventory {
     }
 
     @Override
-    public ItemStack getStackInSlot(int index) {
+    public ItemStack getItem(int index) {
         return this.input;
     }
 
+
     @Override
-    public ItemStack decrStackSize(int index, int count) {
+    public void setChanged() {
+
+    }
+
+    @Override
+    public boolean stillValid(Player player) {
+        return false;
+    }
+
+    @Override
+    public ItemStack removeItem(int index, int count) {
         this.input.shrink(count);
         return this.input;
     }
 
     @Override
-    public ItemStack removeStackFromSlot(int index) {
+    public ItemStack removeItemNoUpdate(int index) {
         return this.input = ItemStack.EMPTY;
     }
 
     @Override
-    public void setInventorySlotContents(int index, ItemStack stack) {
+    public void setItem(int index, ItemStack stack) {
         this.input = stack;
     }
 
     @Override
-    public void markDirty() {
-
-    }
-
-    @Override
-    public boolean isUsableByPlayer(Player player) {
-        return false;
-    }
-
-    @Override
-    public void clear() {
+    public void clearContent() {
         this.input = ItemStack.EMPTY;
     }
+
     //endregion Overrides
 }

@@ -27,9 +27,9 @@ import com.github.klikli_dev.occultism.common.item.tool.ButcherKnifeItem;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.github.klikli_dev.occultism.util.Math3DUtil;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.util.InteractionHand;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -47,7 +47,7 @@ public class LootEventHandler {
         //TODO: Consider doing a global loot table for that
         if (event.isRecentlyHit() && event.getSource().getTrueSource() instanceof LivingEntity) {
             LivingEntity trueSource = (LivingEntity) event.getSource().getTrueSource();
-            ItemStack knifeItem = trueSource.getHeldItem(InteractionHand.MAIN_HAND);
+            ItemStack knifeItem = trueSource.getItemInHand(InteractionHand.MAIN_HAND);
             if ( knifeItem.getItem() == OccultismItems.BUTCHER_KNIFE.get()) {
                 List<ItemStack> loot = ButcherKnifeItem.getLoot(event.getEntityLiving(), knifeItem, trueSource);
                 Random rand = event.getEntityLiving().getRNG();

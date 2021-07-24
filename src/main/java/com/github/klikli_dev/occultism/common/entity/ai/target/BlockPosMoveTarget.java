@@ -22,8 +22,8 @@
 
 package com.github.klikli_dev.occultism.common.entity.ai.target;
 
-import net.minecraft.BlockEntity.BlockEntity;
-import net.minecraft.inventory.IInventory;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.Container;
 import net.minecraft.world.level.Level;
 import net.minecraft.core.Direction;
 import net.minecraft.core.BlockPos;
@@ -55,7 +55,7 @@ public class BlockPosMoveTarget implements IMoveTarget{
 
     @Override
     public boolean isChest() {
-        return this.level.getBlockEntity(this.target) instanceof IInventory;
+        return this.level.getBlockEntity(this.target) instanceof Container;
     }
 
     @Nonnull

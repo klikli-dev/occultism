@@ -25,14 +25,14 @@ import com.github.klikli_dev.occultism.api.common.container.IStorageControllerCo
 import com.github.klikli_dev.occultism.api.common.tile.IStorageController;
 import com.github.klikli_dev.occultism.util.StorageUtil;
 import com.google.common.base.Preconditions;
-import net.minecraft.entity.player.ServerPlayer;
-import net.minecraft.inventory.CraftingInventory;
+import net.minecraft.world.entity.player.ServerPlayer;
+import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.NonNullList;
+import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.crafting.IShapedRecipe;
 import net.minecraftforge.fml.network.NetworkEvent;
@@ -72,11 +72,11 @@ public class MessageSetRecipeByID extends MessageBase {
             return;
         }
 
-        IRecipe<?> recipe = player.getEntityWorld().getRecipeManager().getRecipe(this.id).orElse(null);
+        Recipe<?> recipe = player.getEntityWorld().getRecipeManager().getRecipe(this.id).orElse(null);
         Preconditions.checkArgument(recipe != null); //should not happen
 
         StorageUtil.clearOpenCraftingMatrix(player, false);
-        CraftingInventory craftMatrix = container.getCraftMatrix();
+        CraftingContainer craftMatrix = container.getCraftMatrix();
         NonNullList<Ingredient> ingredients = this.getIngredientsForRecipe(recipe);
 
         for (int slot = 0; slot < 9; slot++) {
@@ -84,7 +84,7 @@ public class MessageSetRecipeByID extends MessageBase {
             ItemStack extractedStack = StorageUtil.extractItem(new PlayerMainInvWrapper(player.inventory), ingredient,
                     1, true);
 
-            if (extractedStack != null && !extractedStack.isEmpty() && craftMatrix.getStackInSlot(slot).isEmpty()) {
+            if (extractedStack != null && !extractedStack.isEmpty() && craftMatrix.getItem(slot).isEmpty()) {
                 //if we found the desired stack, extract it for real and place it in the matrix
                 StorageUtil.extractItem(new PlayerMainInvWrapper(player.inventory), ingredient, 1, false);
                 craftMatrix.setInventorySlotContents(slot, extractedStack);
@@ -93,7 +93,7 @@ public class MessageSetRecipeByID extends MessageBase {
 
             //if we did not find anything in the player inventory, get it from the network now
             extractedStack = storageController.getItemStack(ingredient, 1, false);
-            if (!extractedStack.isEmpty() && craftMatrix.getStackInSlot(slot).isEmpty()) {
+            if (!extractedStack.isEmpty() && craftMatrix.getItem(slot).isEmpty()) {
                 //if extraction was successful, place it in the matrix
                 craftMatrix.setInventorySlotContents(slot, extractedStack);
                 continue;
@@ -118,7 +118,7 @@ public class MessageSetRecipeByID extends MessageBase {
     //endregion Overrides
 
     //region Methods
-    private NonNullList<Ingredient> getIngredientsForRecipe(IRecipe<?> recipe) {
+    private NonNullList<Ingredient> getIngredientsForRecipe(Recipe<?> recipe) {
         NonNullList<Ingredient> ingredients = recipe.getIngredients();
         NonNullList<Ingredient> ingredientsMatrixGrid = NonNullList.withSize(9, Ingredient.EMPTY);
 

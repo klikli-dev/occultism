@@ -25,7 +25,7 @@ package com.github.klikli_dev.occultism.network;
 import com.github.klikli_dev.occultism.common.container.storage.SatchelContainer;
 import com.github.klikli_dev.occultism.common.item.storage.SatchelItem;
 import com.github.klikli_dev.occultism.util.CuriosUtil;
-import net.minecraft.entity.player.ServerPlayer;
+import net.minecraft.world.entity.player.ServerPlayer;
 import net.minecraft.inventory.container.SimpleNamedContainerProvider;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.network.FriendlyByteBuf;
@@ -59,7 +59,7 @@ public class MessageOpenSatchel extends MessageBase {
         //if not found, try to get from player inventory
         if (!(backpackStack.getItem() instanceof SatchelItem)) {
             selectedSlot = CuriosUtil.getFirstBackpackSlot(player);
-            backpackStack = selectedSlot > 0 ? player.inventory.getStackInSlot(selectedSlot) : ItemStack.EMPTY;
+            backpackStack = selectedSlot > 0 ? player.inventory.getItem(selectedSlot) : ItemStack.EMPTY;
         }
         //now, if we have a satchel, proceed
         if (backpackStack.getItem() instanceof SatchelItem) {

@@ -26,7 +26,7 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.util.NonNullList;
+import net.minecraft.core.NonNullList;
 
 public class SatchelInventory extends Inventory {
 
@@ -75,7 +75,7 @@ public class SatchelInventory extends Inventory {
     private void writeNBT(CompoundTag compound) {
         final NonNullList<ItemStack> list = NonNullList.withSize(this.getSizeInventory(), ItemStack.EMPTY);
         for (int index = 0; index < list.size(); index++) {
-            list.set(index, this.getStackInSlot(index));
+            list.set(index, this.getItem(index));
         }
         ItemStackHelper.saveAllItems(compound, list, false);
     }

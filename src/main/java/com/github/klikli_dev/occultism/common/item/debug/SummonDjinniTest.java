@@ -27,12 +27,12 @@ import com.github.klikli_dev.occultism.common.job.SpiritJob;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.registry.OccultismSpiritJobs;
 import net.minecraft.advancements.CriteriaTriggers;
-import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.player.ServerPlayer;
+import net.minecraft.world.entity.SpawnReason;
+import net.minecraft.world.entity.player.ServerPlayer;
 import net.minecraft.world.item.Item;
-import net.minecraft.item.ItemUseContext;
+import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.InteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.network.chat.TextComponent;
 
 public class SummonDjinniTest extends Item {
@@ -45,14 +45,14 @@ public class SummonDjinniTest extends Item {
 
     //region Overrides
     @Override
-    public InteractionResult onItemUse(ItemUseContext context) {
+    public InteractionResult useOn(UseOnContext context) {
         if (!context.getLevel().isClientSide) {
 
             DjinniEntity spirit = OccultismEntities.DJINNI.get().create(context.getLevel());
-            spirit.onInitialSpawn((ServerLevel) context.getLevel(), context.getLevel().getDifficultyForLocation(context.getPos()),
+            spirit.onInitialSpawn((ServerLevel) context.getLevel(), context.getLevel().getDifficultyForLocation(context.getClickedPos()),
                     SpawnReason.SPAWN_EGG, null, null);
             spirit.setTamedBy(context.getPlayer());
-            spirit.setPosition(context.getPos().getX(), context.getPos().getY() + 1.0f, context.getPos().getZ());
+            spirit.setPosition(context.getClickedPos().getX(), context.getClickedPos().getY() + 1.0f, context.getClickedPos().getZ());
             spirit.setCustomName(new TextComponent("Djinni Test"));
 
             //Test code

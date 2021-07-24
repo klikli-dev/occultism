@@ -28,17 +28,17 @@ import com.github.klikli_dev.occultism.util.ItemNBTUtil;
 import com.github.klikli_dev.occultism.util.TextUtil;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.entity.player.ServerPlayer;
-import net.minecraft.inventory.IInventory;
+import net.minecraft.world.entity.player.ServerPlayer;
+import net.minecraft.world.Container;
 import net.minecraft.inventory.container.SimpleNamedContainerProvider;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.InteractionHand;
-import net.minecraft.util.InteractionResult;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.network.chat.Component;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraftforge.fml.network.NetworkHooks;
 
 import javax.annotation.Nullable;
@@ -54,7 +54,7 @@ public class SatchelItem extends Item {
     //region Overrides
     @Override
     public ActionResult<ItemStack> onItemRightClick(Level level, Player player, InteractionHand hand) {
-        final ItemStack stack = player.getHeldItem(hand);
+        final ItemStack stack = player.getItemInHand(hand);
 
         if (!level.isClientSide && player instanceof ServerPlayer) {
             //here we use main hand item as selected slot
@@ -75,14 +75,14 @@ public class SatchelItem extends Item {
     public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip,
                                ITooltipFlag flagIn) {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
-        tooltip.add(new TranslationTextComponent(this.getDescriptionId() + ".tooltip",
+        tooltip.add(new TranslatableComponent(this.getDescriptionId() + ".tooltip",
                 TextUtil.formatDemonName(ItemNBTUtil.getBoundSpiritName(stack))));
     }
 
     //endregion Overrides
 
     //region Methods
-    public IInventory getInventory(ServerPlayer player, ItemStack stack) {
+    public Container getInventory(ServerPlayer player, ItemStack stack) {
         return new SatchelInventory(stack, SatchelContainer.SATCHEL_SIZE);
     }
     //endregion Methods

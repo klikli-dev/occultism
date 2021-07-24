@@ -23,7 +23,7 @@
 package com.github.klikli_dev.occultism.common.block.otherworld;
 
 import com.github.klikli_dev.occultism.api.common.data.OtherworldBlockTier;
-import net.minecraft.BlockEntity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.block.Blocks;
@@ -31,7 +31,7 @@ import net.minecraft.block.SaplingBlock;
 import net.minecraft.block.trees.Tree;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.level.IBlockReader;
+import net.minecraft.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.state.StateContainer;
 import net.minecraft.core.BlockPos;
@@ -76,7 +76,7 @@ public class OtherworldSaplingNaturalBlock extends SaplingBlock implements IOthe
     }
 
     @Override
-    public ItemStack getItem(IBlockReader worldIn, BlockPos pos, BlockState state) {
+    public ItemStack getItem(BlockGetter worldIn, BlockPos pos, BlockState state) {
         return IOtherworldBlock.super.getItem(worldIn, pos, state);
     }
 

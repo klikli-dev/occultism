@@ -93,7 +93,7 @@ public class StorageControllerRenderer extends BlockEntityRenderer<StorageContro
         //from ItemRenderer#renderItem
         poseStack.translate(-0.5D, -0.5D, -0.5D);
         RenderType rendertype = RenderTypeLookup.func_239219_a_(this.stack, false); //getRenderType(itemstack, isBlock(??)) isBlock = false -> is item entity?
-        IVertexBuilder ivertexbuilder = ItemRenderer.getBuffer(buffer, rendertype, true, this.stack.hasEffect());
+        IVertexBuilder ivertexbuilder = ItemRenderer.getBuffer(buffer, rendertype, true, this.stack.isFoil());
         //from  ItemRenderer#rendermodel
         Random random = new Random();
 

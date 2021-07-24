@@ -31,8 +31,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.IItemProvider;
-import net.minecraft.util.InteractionHand;
-import net.minecraft.util.InteractionResult;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.core.BlockPos;
 
 import java.util.List;
@@ -56,7 +56,7 @@ public interface IReplantableCrops {
         if (!level.isClientSide) {
             if (state.get(CropsBlock.AGE) >= 7) {
                 List<ItemStack> drops = Block.getDrops(state, (ServerLevel) level, pos, null, player,
-                        player.getHeldItem(hand));
+                        player.getItemInHand(hand));
 
                 // From 1.15 -> does not exist any more and I guess we don't need it.
                 //                ForgeEventFactory.fireBlockHarvesting(
@@ -69,7 +69,7 @@ public interface IReplantableCrops {
                     InventoryHelper.spawnItemStack(level, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, stack);
                 }
 
-                player.swingArm(hand);
+                player.swing(hand);
                 player.addExhaustion(EXHAUSTION_PER_HARVEST);
 
                 return InteractionResult.SUCCESS;

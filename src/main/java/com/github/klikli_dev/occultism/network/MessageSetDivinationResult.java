@@ -23,11 +23,11 @@
 package com.github.klikli_dev.occultism.network;
 
 import com.github.klikli_dev.occultism.common.item.tool.DivinationRodItem;
-import net.minecraft.entity.player.ServerPlayer;
+import net.minecraft.world.entity.player.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.InteractionHand;
+import net.minecraft.world.InteractionHand;
 import net.minecraftforge.fml.network.NetworkEvent;
 
 public class MessageSetDivinationResult extends MessageBase {
@@ -52,10 +52,10 @@ public class MessageSetDivinationResult extends MessageBase {
     @Override
     public void onServerReceived(MinecraftServer minecraftServer, ServerPlayer player,
                                  NetworkEvent.Context context) {
-        ItemStack stack = player.getHeldItem(InteractionHand.MAIN_HAND);
+        ItemStack stack = player.getItemInHand(InteractionHand.MAIN_HAND);
         if (stack.getItem() instanceof DivinationRodItem) {
             stack.getOrCreateTag().putFloat("distance", this.result);
-            player.container.detectAndSendChanges();
+            player.inventoryMenu.broadcastChanges();
         }
     }
 

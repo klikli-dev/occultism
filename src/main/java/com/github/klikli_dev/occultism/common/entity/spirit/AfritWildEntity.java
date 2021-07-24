@@ -23,20 +23,22 @@
 package com.github.klikli_dev.occultism.common.entity.spirit;
 
 import com.github.klikli_dev.occultism.registry.OccultismTags;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.MobSpawnType;
-import net.minecraft.entity.SpawnGroupData;
-import net.minecraft.entity.ai.attributes.AttributeModifierMap;
-import net.minecraft.entity.ai.goal.*;
-import net.minecraft.entity.monster.BlazeEntity;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.level.DifficultyInstance;
-import net.minecraft.world.level.Level;
-import net.minecraft.level.ServerLevelAccessor;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.tags.ITag;
-import net.minecraft.util.DamageSource;
+import net.minecraft.tags.Tag;
+import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.monster.Blaze;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
 
 import javax.annotation.Nullable;
 
@@ -52,17 +54,17 @@ public class AfritWildEntity extends AfritEntity {
     //region Overrides
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficultyIn, MobSpawnType reason,
-                                            @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
+                                        @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
         int maxBlazes = 3 + level.getRandom().nextInt(6);
 
         for (int i = 0; i < maxBlazes; i++) {
-            BlazeEntity entity = EntityType.BLAZE.create(this.level);
+            Blaze entity = EntityType.BLAZE.create(this.level);
             entity.finalizeSpawn(level, difficultyIn, reason, spawnDataIn, dataTag);
             double offsetX = (level.getRandom().nextGaussian() - 1.0) * (1 + level.getRandom().nextInt(4));
             double offsetZ = (level.getRandom().nextGaussian() - 1.0) * (1 + level.getRandom().nextInt(4));
-            entity.setPositionAndRotation(this.getPosX() + offsetX, this.getPosY() + 1.5, this.getPosZ() + offsetZ,
+            entity.absMoveTo(this.getBlockX() + offsetX, this.getBlockY() + 1.5, this.getBlockZ() + offsetZ,
                     level.getRandom().nextInt(360), 0);
-            level.addEntity(entity);
+            level.addFreshEntity(entity);
         }
 
         return super.finalizeSpawn(level, difficultyIn, reason, spawnDataIn, dataTag);
@@ -76,30 +78,30 @@ public class AfritWildEntity extends AfritEntity {
         this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.0D, false));
-        this.goalSelector.addGoal(7, new WaterAvoidingRandomWalkingGoal(this, 1.0D));
-        this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setCallsForHelp(BlazeEntity.class));
+        this.goalSelector.addGoal(7, new WaterAvoidingRandomStrollGoal(this, 1.0D));
+        this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers(Blaze.class));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
     }
 
     @Override
     public boolean isInvulnerableTo(DamageSource source) {
-        if (source.isFireDamage())
+        if (source.isFire())
             return true;
-        ITag<EntityType<?>> alliesTags = OccultismTags.AFRIT_ALLIES;
+        Tag<EntityType<?>> alliesTags = OccultismTags.AFRIT_ALLIES;
 
-        Entity trueSource = source.getTrueSource();
+        Entity trueSource = source.getEntity();
         if (trueSource != null && alliesTags.contains(trueSource.getType()))
             return true;
 
-        Entity immediateSource = source.getImmediateSource();
+        Entity immediateSource = source.getDirectEntity();
         if (immediateSource != null && alliesTags.contains(immediateSource.getType()))
             return true;
 
         return super.isInvulnerableTo(source);
     }
 
-    public static AttributeModifierMap.MutableAttribute registerAttributes() {
-        return AfritEntity.registerAttributes();
+    public static AttributeSupplier.Builder registerAttributes() {
+        return AfritEntity.createLivingAttributes();
     }
     //endregion Overrides
 }

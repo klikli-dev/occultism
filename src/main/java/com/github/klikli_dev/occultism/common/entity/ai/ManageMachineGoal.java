@@ -30,13 +30,13 @@ import com.github.klikli_dev.occultism.common.job.ManageMachineJob;
 import com.github.klikli_dev.occultism.common.misc.DepositOrder;
 import com.github.klikli_dev.occultism.exceptions.ItemHandlerMissingException;
 import com.github.klikli_dev.occultism.util.Math3DUtil;
-import net.minecraft.BlockEntity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.core.Direction;
-import net.minecraft.util.InteractionHand;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceContext;
@@ -65,7 +65,7 @@ public class ManageMachineGoal extends Goal {
         this.entity = entity;
         this.job = job;
         this.targetSorter = new BlockSorter(entity);
-        this.setMutexFlags(EnumSet.of(Flag.MOVE));
+        this.setFlags(EnumSet.of(Flag.MOVE));
     }
     //endregion Initialization
 
@@ -82,13 +82,13 @@ public class ManageMachineGoal extends Goal {
 
     //region Overrides
     @Override
-    public boolean shouldExecute() {
+    public boolean canUse() {
         //do not use if there is a target to attack
         if (this.entity.getAttackTarget() != null) {
             return false;
         }
         //if we have something in hand, we can
-        if (!this.entity.getHeldItem(InteractionHand.MAIN_HAND).isEmpty()) {
+        if (!this.entity.getItemInHand(InteractionHand.MAIN_HAND).isEmpty()) {
             return false;
         }
         this.resetTarget();
@@ -96,12 +96,12 @@ public class ManageMachineGoal extends Goal {
     }
 
     @Override
-    public boolean shouldContinueExecuting() {
-        return this.targetBlock != null && this.entity.getHeldItem(InteractionHand.MAIN_HAND).isEmpty();
+    public boolean canContinueToUse() {
+        return this.targetBlock != null && this.entity.getItemInHand(InteractionHand.MAIN_HAND).isEmpty();
     }
 
-    public void resetTask() {
-        this.entity.getNavigator().clearPath();
+    public void stop() {
+        this.entity.getNavigator().stop();
         this.resetTarget();
     }
 
@@ -117,7 +117,7 @@ public class ManageMachineGoal extends Goal {
                 float accessDistance = 1.86f;
                 if (distance < accessDistance) {
                     //stop moving while taking out
-                    this.entity.getNavigator().clearPath();
+                    this.entity.getNavigator().stop();
                 }
                 else {
                     //continue moving
@@ -193,12 +193,12 @@ public class ManageMachineGoal extends Goal {
                             }
                         });
                     }
-                    this.resetTask();
+                    this.stop();
                 }
             }
             else {
                 //if we have a target block but no tile there we need to reset
-                this.resetTask();
+                this.stop();
             }
         }
     }
@@ -288,7 +288,7 @@ public class ManageMachineGoal extends Goal {
         return machine.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, machineReference.extractFacing)
                        .map(machineItemHandler -> {
                            for (int i = 0; i < machineItemHandler.getSlots(); i++) {
-                               if (!machineItemHandler.getStackInSlot(i).isEmpty()) {
+                               if (!machineItemHandler.getItem(i).isEmpty()) {
                                    this.targetBlock = machine.getPos();
                                    return true;
                                }

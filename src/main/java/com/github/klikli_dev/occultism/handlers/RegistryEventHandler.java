@@ -30,7 +30,7 @@ import com.github.klikli_dev.occultism.registry.*;
 import com.github.klikli_dev.occultism.util.loot.AppendLootTable;
 import com.github.klikli_dev.occultism.util.loot.MatchBlockCondition;
 import net.minecraft.block.ComposterBlock;
-import net.minecraft.entity.EntityType;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.item.SpawnEggItem;

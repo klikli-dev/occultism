@@ -23,8 +23,8 @@
 package com.github.klikli_dev.occultism.network;
 
 import com.github.klikli_dev.occultism.Occultism;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.ServerPlayer;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.ServerPlayer;
 import net.minecraft.world.level.Level;
 import net.minecraft.util.ResourceKey;
 import net.minecraft.resources.ResourceLocation;

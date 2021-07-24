@@ -27,10 +27,10 @@ import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.github.klikli_dev.occultism.registry.OccultismRituals;
 import com.github.klikli_dev.occultism.registry.OccultismTags;
 import com.github.klikli_dev.occultism.util.ItemNBTUtil;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.entity.passive.TamableAnimal;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.SpawnReason;
+import net.minecraft.world.entity.passive.AnimalEntity;
+import net.minecraft.world.entity.passive.TamableAnimal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -73,7 +73,7 @@ public class FamiliarParrotRitual extends SummonSpiritRitual {
                 null,
                 null);
         parrot
-                .setPositionAndRotation(goldenBowlPosition.getX(), goldenBowlPosition.getY(), goldenBowlPosition.getZ(),
+                .absMoveTo(goldenBowlPosition.getX(), goldenBowlPosition.getY(), goldenBowlPosition.getZ(),
                         level.rand.nextInt(360), 0);
         parrot.setCustomName(new TextComponent(entityName));
         if (parrot instanceof TamableAnimal) {

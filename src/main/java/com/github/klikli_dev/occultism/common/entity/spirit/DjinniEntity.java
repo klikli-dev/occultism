@@ -22,9 +22,9 @@
 
 package com.github.klikli_dev.occultism.common.entity.spirit;
 
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ai.attributes.AttributeModifierMap;
-import net.minecraft.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.ai.attributes.AttributeModifierMap;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.level.Level;
 
 public class DjinniEntity extends SpiritEntity {
@@ -37,14 +37,14 @@ public class DjinniEntity extends SpiritEntity {
     //endregion Initialization
 
     //region Static Methods
-    public static AttributeModifierMap.MutableAttribute registerAttributes() {
+    public static AttributeSupplier.Builder createLivingAttributes() {
         return SpiritEntity.createLivingAttributes()
-                       .createMutableAttribute(Attributes.ATTACK_DAMAGE, 3.0)
-                       .createMutableAttribute(Attributes.MAX_HEALTH, 20.0)
-                       .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.30000001192092896)
-                       .createMutableAttribute(Attributes.ARMOR, 4.0)
-                       .createMutableAttribute(Attributes.ARMOR_TOUGHNESS, 5.0)
-                       .createMutableAttribute(Attributes.FOLLOW_RANGE, 50.0);
+                       .add(Attributes.ATTACK_DAMAGE, 3.0)
+                       .add(Attributes.MAX_HEALTH, 20.0)
+                       .add(Attributes.MOVEMENT_SPEED, 0.30000001192092896)
+                       .add(Attributes.ARMOR, 4.0)
+                       .add(Attributes.ARMOR_TOUGHNESS, 5.0)
+                       .add(Attributes.FOLLOW_RANGE, 50.0);
     }
     //endregion Static Methods
 }

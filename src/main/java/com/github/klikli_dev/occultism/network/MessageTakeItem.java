@@ -26,7 +26,7 @@ import com.github.klikli_dev.occultism.api.common.container.IStorageControllerCo
 import com.github.klikli_dev.occultism.api.common.tile.IStorageController;
 import com.github.klikli_dev.occultism.common.misc.ItemStackComparator;
 import com.github.klikli_dev.occultism.util.InputUtil;
-import net.minecraft.entity.player.ServerPlayer;
+import net.minecraft.world.entity.player.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.MinecraftServer;
@@ -113,7 +113,7 @@ public class MessageTakeItem extends MessageBase {
 
             //finally, update the storage controller stacks
             OccultismPackets.sendTo(player, storageController.getMessageUpdateStacks());
-            player.openContainer.detectAndSendChanges();
+            player.openContainer.broadcastChanges();
         }
     }
 

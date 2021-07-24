@@ -25,9 +25,9 @@ package com.github.klikli_dev.occultism.util;
 import com.github.klikli_dev.occultism.api.common.container.IStorageControllerContainer;
 import com.github.klikli_dev.occultism.api.common.tile.IStorageController;
 import com.github.klikli_dev.occultism.network.OccultismPackets;
-import net.minecraft.BlockEntity.BlockEntity;
-import net.minecraft.entity.player.ServerPlayer;
-import net.minecraft.inventory.CraftingInventory;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.entity.player.ServerPlayer;
+import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.inventory.container.AbstractContainerMenu;
@@ -57,7 +57,7 @@ public class StorageUtil {
     public static void clearOpenCraftingMatrix(ServerPlayer player, boolean sendStackUpdate) {
         if (player.openContainer instanceof IStorageControllerContainer) {
             IStorageControllerContainer container = (IStorageControllerContainer) player.openContainer;
-            CraftingInventory craftMatrix = container.getCraftMatrix();
+            CraftingContainer craftMatrix = container.getCraftMatrix();
             IStorageController storageController = container.getStorageController();
 
             if (storageController == null) {
@@ -65,7 +65,7 @@ public class StorageUtil {
             }
 
             for (int i = 0; i < 9; i++) {
-                ItemStack stackInSlot = craftMatrix.getStackInSlot(i);
+                ItemStack stackInSlot = craftMatrix.getItem(i);
                 //ignore already cleared slots
                 if (stackInSlot.isEmpty()) {
                     continue;
@@ -87,7 +87,7 @@ public class StorageUtil {
             //finally if requested, send the updated storage controller contents to the player.
             if (sendStackUpdate) {
                 OccultismPackets.sendTo(player, storageController.getMessageUpdateStacks());
-                ((AbstractContainerMenu) container).detectAndSendChanges();
+                ((AbstractContainerMenu) container).broadcastChanges();
             }
         }
     }
@@ -108,7 +108,7 @@ public class StorageUtil {
                 return;
             }
 
-            ItemStack stackInSlot = orderSlot.getStackInSlot(0);
+            ItemStack stackInSlot = orderSlot.getItem(0);
             if (!stackInSlot.isEmpty()) {
                 //move items into storage, and if storage is full, keep remainder in crafting matrix
                 int amountBeforeInsert = stackInSlot.getCount();
@@ -125,7 +125,7 @@ public class StorageUtil {
             //finally if requested, send the updated storage controller contents to the player.
             if (sendStackUpdate) {
                 OccultismPackets.sendTo(player, storageController.getMessageUpdateStacks());
-                ((AbstractContainerMenu) container).detectAndSendChanges();
+                ((AbstractContainerMenu) container).broadcastChanges();
             }
         }
     }
@@ -147,7 +147,7 @@ public class StorageUtil {
         int amountExtracted = 0;
         //go through all slots in the handler
         for (int i = 0; i < itemHandler.getSlots(); i++) {
-            ItemStack slot = itemHandler.getStackInSlot(i);
+            ItemStack slot = itemHandler.getItem(i);
             //check if current slot matches
             if (comparator.test(slot)) {
                 //take out of handler, one by one
@@ -174,7 +174,7 @@ public class StorageUtil {
 
     public static int getFirstFilledSlotAfter(IItemHandler handler, int slot) {
         for (int i = slot+1; i < handler.getSlots(); i++) {
-            if (!handler.getStackInSlot(i).isEmpty())
+            if (!handler.getItem(i).isEmpty())
                 return i;
         }
         return -1;
@@ -193,9 +193,9 @@ public class StorageUtil {
 
     public static int getFirstMatchingSlotAfter(IItemHandler handler, int slot, IItemHandler filter, String tagFilter, boolean isBlacklist) {
         for (int i = slot+1; i < handler.getSlots(); i++) {
-            if (!handler.getStackInSlot(i).isEmpty()){
-                boolean matches = matchesFilter(handler.getStackInSlot(i), filter) ||
-                                  matchesFilter(handler.getStackInSlot(i), tagFilter);
+            if (!handler.getItem(i).isEmpty()){
+                boolean matches = matchesFilter(handler.getItem(i), filter) ||
+                                  matchesFilter(handler.getItem(i), tagFilter);
 
                 //if we're in blacklist mode, if the item matches either item or tag -> we continue into next iteration
                 //if we're in blacklist mode and none of the filters match -> we return
@@ -210,7 +210,7 @@ public class StorageUtil {
 
     public static boolean matchesFilter(ItemStack stack, IItemHandler filter){
         for (int i = 0; i < filter.getSlots(); i++) {
-            ItemStack filtered = filter.getStackInSlot(i);
+            ItemStack filtered = filter.getItem(i);
 
             boolean equals = filtered.isItemEqual(stack);
 
@@ -256,7 +256,7 @@ public class StorageUtil {
 
     public static void dropInventoryItems(Level worldIn, BlockPos pos, IItemHandler itemHandler) {
         for (int i = 0; i < itemHandler.getSlots(); i++) {
-            InventoryHelper.spawnItemStack(worldIn, pos.getX(), pos.getY(), pos.getZ(), itemHandler.getStackInSlot(i));
+            InventoryHelper.spawnItemStack(worldIn, pos.getX(), pos.getY(), pos.getZ(), itemHandler.getItem(i));
         }
     }
     //endregion Static Methods

@@ -25,68 +25,73 @@ package com.github.klikli_dev.occultism.common.entity;
 import com.github.klikli_dev.occultism.common.capability.FamiliarSettingsCapability;
 import com.github.klikli_dev.occultism.registry.OccultismCapabilities;
 import com.google.common.collect.ImmutableList;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ai.attributes.AttributeModifierMap;
-import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.ai.controller.FlyingMovementController;
-import net.minecraft.entity.ai.goal.*;
-import net.minecraft.entity.passive.IFlyingAnimal;
+import net.minecraft.core.BlockPos;
+import net.minecraft.util.Mth;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.control.FlyingMoveControl;
+import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
+import net.minecraft.world.entity.animal.FlyingAnimal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.minecraft.pathfinding.FlyingPathNavigator;
-import net.minecraft.pathfinding.PathNavigator;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Effects;
-import net.minecraft.core.BlockPos;
-import net.minecraft.util.math.Mth;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.Collections;
 import java.util.EnumSet;
 
-public class BatFamiliarEntity extends FamiliarEntity implements IFlyingAnimal {
+public class BatFamiliarEntity extends FamiliarEntity implements FlyingAnimal {
 
     public BatFamiliarEntity(EntityType<? extends BatFamiliarEntity> type, Level worldIn) {
         super(type, worldIn);
-        this.moveController = new FlyingMovementController(this, 20, true);
+        this.moveControl = new FlyingMoveControl(this, 20, true);
     }
 
-    public static AttributeModifierMap.MutableAttribute registerAttributes() {
-        return FamiliarEntity.registerAttributes().createMutableAttribute(Attributes.FLYING_SPEED, 0.4);
+    public static AttributeSupplier.Builder createLivingAttributes() {
+        return FamiliarEntity.createLivingAttributes().add(Attributes.FLYING_SPEED, 0.4);
     }
 
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new PanicGoal(this, 1.25));
         SitGoal sitGoal = new SitGoal(this);
-        sitGoal.setMutexFlags(EnumSet.of(Goal.Flag.JUMP, Goal.Flag.MOVE, Goal.Flag.LOOK));
+        sitGoal.setFlags(EnumSet.of(Goal.Flag.JUMP, Goal.Flag.MOVE, Goal.Flag.LOOK));
         this.goalSelector.addGoal(2, sitGoal);
         this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 8));
         this.goalSelector.addGoal(4, new FollowOwnerGoal(this, 1, 4, 1));
-        this.goalSelector.addGoal(5, new WaterAvoidingRandomWalkingGoal(this, 1));
+        this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 1));
         this.goalSelector.addGoal(6, new FollowMobGoal(this, 1, 3, 7));
     }
 
     @Override
-    protected PathNavigator createNavigator(Level level) {
-        FlyingPathNavigator navigator = new FlyingPathNavigator(this, level) {
+    protected PathNavigation createNavigation(Level level) {
+        FlyingPathNavigation navigation = new FlyingPathNavigation(this, level) {
             @Override
-            public boolean canEntityStandOnPos(BlockPos pos) {
+            public boolean isStableDestination(BlockPos pos) {
                 BlockState state = this.level.getBlockState(pos);
-                return state.getBlock().isAir(state, this.level, pos) || !state.getMaterial().blocksMovement();
+                return state.isAir() || !state.getMaterial().blocksMotion();
             }
         };
-        return navigator;
+        return navigation;
     }
 
     @Override
-    public boolean onLivingFall(float fallDistance, float damageMultiplier) {
+    public boolean causeFallDamage(float fallDistance, float damageMultiplier, DamageSource source) {
         return false;
     }
 
     @Override
-    public boolean hasNoGravity() {
+    protected void checkFallDamage(double pY, boolean pOnGround, BlockState pState, BlockPos pPos) {
+    }
+
+    @Override
+    public boolean isNoGravity() {
         return true;
     }
 
@@ -94,19 +99,24 @@ public class BatFamiliarEntity extends FamiliarEntity implements IFlyingAnimal {
     public void tick() {
         super.tick();
         if (this.isSitting())
-            this.setMotion(Vec3.ZERO);
+            this.setDeltaMovement(Vec3.ZERO);
     }
-    
+
     public float getAnimationHeight(float partialTicks) {
-        return Mth.cos((ticksExisted + partialTicks) / 5);
+        return Mth.cos((this.tickCount + partialTicks) / 5);
     }
 
     @Override
-    public Iterable<EffectInstance> getFamiliarEffects() {
+    public Iterable<MobEffectInstance> getFamiliarEffects() {
         if (this.getFamiliarOwner().getCapability(OccultismCapabilities.FAMILIAR_SETTINGS)
                 .map(FamiliarSettingsCapability::isBatEnabled).orElse(false)) {
-            return ImmutableList.of(new EffectInstance(Effects.NIGHT_VISION, 300, 1, false, false));
+            return ImmutableList.of(new MobEffectInstance(MobEffects.NIGHT_VISION, 300, 1, false, false));
         }
         return Collections.emptyList();
+    }
+
+    @Override
+    public boolean isFlying() {
+        return !this.onGround;
     }
 }

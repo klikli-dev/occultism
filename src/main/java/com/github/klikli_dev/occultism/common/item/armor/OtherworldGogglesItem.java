@@ -23,7 +23,7 @@
 package com.github.klikli_dev.occultism.common.item.armor;
 
 import com.github.klikli_dev.occultism.Occultism;
-import net.minecraft.entity.Entity;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.inventory.EquipmentSlot;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.IArmorMaterial;

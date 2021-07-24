@@ -46,7 +46,7 @@ public class CuriosUtil {
                     SlotTypePreset.HEAD.getIdentifier()).map(slotHandler -> {
                 IDynamicStackHandler stackHandler = slotHandler.getStacks();
                 for (int i = 0; i < stackHandler.getSlots(); i++) {
-                    ItemStack stack = stackHandler.getStackInSlot(i);
+                    ItemStack stack = stackHandler.getItem(i);
                     if(stack.getItem() instanceof OtherworldGogglesItem){
                         return true;
 
@@ -66,7 +66,7 @@ public class CuriosUtil {
             Optional<ItemStack> hasBackpackStack = curiosHandler.getStacksHandler(SlotTypePreset.BELT.getIdentifier()).map(slotHandler -> {
                 IDynamicStackHandler stackHandler = slotHandler.getStacks();
                 for (int i = 0; i < stackHandler.getSlots(); i++) {
-                    ItemStack stack = stackHandler.getStackInSlot(i);
+                    ItemStack stack = stackHandler.getItem(i);
                     if(stack.getItem() instanceof SatchelItem){
                         return stack;
                     }
@@ -84,7 +84,7 @@ public class CuriosUtil {
             Optional<ItemStack> hasStorageRemoteStack = curiosHandler.getStacksHandler(SlotTypePreset.HANDS.getIdentifier()).map(slotHandler -> {
                 IDynamicStackHandler stackHandler = slotHandler.getStacks();
                 for (int i = 0; i < stackHandler.getSlots(); i++) {
-                    ItemStack stack = stackHandler.getStackInSlot(i);
+                    ItemStack stack = stackHandler.getItem(i);
                     if(stack.getItem() instanceof StorageRemoteItem){
                         return stack;
                     }
@@ -98,7 +98,7 @@ public class CuriosUtil {
 
     public static int getFirstBackpackSlot(Player player){
         for(int slot = 0; slot < player.inventory.getSizeInventory(); slot++){
-            ItemStack stack = player.inventory.getStackInSlot(slot);
+            ItemStack stack = player.inventory.getItem(slot);
             if(stack.getItem() instanceof SatchelItem)
                 return slot;
         }
@@ -107,7 +107,7 @@ public class CuriosUtil {
 
     public static int getFirstStorageRemoteSlot(Player player){
         for(int slot = 0; slot < player.inventory.getSizeInventory(); slot++){
-            ItemStack stack = player.inventory.getStackInSlot(slot);
+            ItemStack stack = player.inventory.getItem(slot);
             if(stack.getItem() instanceof StorageRemoteItem)
                 return slot;
         }

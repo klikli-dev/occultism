@@ -29,7 +29,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.level.IBlockReader;
+import net.minecraft.level.BlockGetter;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.Property;
 import net.minecraft.core.BlockPos;
@@ -67,7 +67,7 @@ public interface IOtherworldBlock {
                 true) : state;
     }
 
-    default ItemStack getItem(IBlockReader worldIn, BlockPos pos, BlockState state) {
+    default ItemStack getItem(BlockGetter worldIn, BlockPos pos, BlockState state) {
         return new ItemStack(state.get(UNCOVERED) ? this.getUncoveredBlock() : this.getCoveredBlock(), 1);
     }
 

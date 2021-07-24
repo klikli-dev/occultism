@@ -22,9 +22,9 @@
 
 package com.github.klikli_dev.occultism.common.entity.possessed;
 
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ai.attributes.AttributeModifierMap;
-import net.minecraft.entity.monster.EndermanEntity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.ai.attributes.AttributeModifierMap;
+import net.minecraft.world.entity.monster.EndermanEntity;
 import net.minecraft.world.level.Level;
 
 public class PossessedEndermanEntity extends EndermanEntity {
@@ -43,7 +43,7 @@ public class PossessedEndermanEntity extends EndermanEntity {
     //endregion Overrides
 
     //region Static Methods
-    public static AttributeModifierMap.MutableAttribute registerAttributes() {
+    public static AttributeSupplier.Builder createLivingAttributes() {
         return EndermanEntity.func_234287_m_(); //=registerAttributes
     }
     //endregion Static Methods

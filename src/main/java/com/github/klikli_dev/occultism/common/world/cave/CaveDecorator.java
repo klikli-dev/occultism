@@ -128,7 +128,7 @@ public abstract class CaveDecorator implements ICaveDecorator {
         if (!state.isOpaqueCube(seedReader, pos))
             return false;
 
-        BlockPos upPos = pos.up();
+        BlockPos upPos = pos.above();
         return seedReader.isAirBlock(upPos) || seedReader.getBlockState(upPos).getMaterial().isReplaceable();
     }
 

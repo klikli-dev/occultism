@@ -146,7 +146,7 @@ public class Occultism {
     private void onEntityAttributeCreation(final EntityAttributeCreationEvent event){
         event.put(OccultismEntities.FOLIOT_TYPE.get(), FoliotEntity.createLivingAttributes().create());
         event.put(OccultismEntities.DJINNI_TYPE.get(), DjinniEntity.registerAttributes().create());
-        event.put(OccultismEntities.AFRIT_TYPE.get(), AfritEntity.registerAttributes().create());
+        event.put(OccultismEntities.AFRIT_TYPE.get(), AfritEntity.createLivingAttributes().create());
         event.put(OccultismEntities.AFRIT_WILD_TYPE.get(), AfritWildEntity.registerAttributes().create());
         event.put(OccultismEntities.MARID_TYPE.get(), MaridEntity.registerAttributes().create());
         event.put(OccultismEntities.POSSESSED_ENDERMITE_TYPE.get(), PossessedEndermiteEntity.registerAttributes().create());

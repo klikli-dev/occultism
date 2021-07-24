@@ -24,16 +24,16 @@ package com.github.klikli_dev.occultism.common.block;
 
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.level.IBlockReader;
-import net.minecraft.level.IWorldReader;
+import net.minecraft.level.BlockGetter;
+import net.minecraft.level.LevelReader;
 import net.minecraft.world.level.Level;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.core.Direction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.math.shapes.IBooleanFunction;
-import net.minecraft.util.math.shapes.ISelectionContext;
+import net.minecraft.util.math.shapes.CollisionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.shapes.VoxelShapes;
+import net.minecraft.util.math.shapes.Shapes;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -57,7 +57,7 @@ public class CandleBlock extends Block {
             Block.makeCuboidShape(5, 0, 7, 6, 3, 9),
             Block.makeCuboidShape(6, 0, 6, 10, 9, 10),
             Block.makeCuboidShape(7.75, 8, 7.75, 8.25, 10, 8.25)
-    ).reduce((v1, v2) -> {return VoxelShapes.combineAndSimplify(v1, v2, IBooleanFunction.OR);}).get();
+    ).reduce((v1, v2) -> {return Shapes.combineAndSimplify(v1, v2, IBooleanFunction.OR);}).get();
     //endregion Fields
 
     //region Initialization
@@ -69,7 +69,7 @@ public class CandleBlock extends Block {
     //region Overrides
 
     @Override
-    public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+    public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
         return SHAPE;
     }
 
@@ -92,12 +92,12 @@ public class CandleBlock extends Block {
     }
 
     @Override
-    public float getEnchantPowerBonus(BlockState state, IWorldReader level, BlockPos pos) {
+    public float getEnchantPowerBonus(BlockState state, LevelReader level, BlockPos pos) {
         return 1;
     }
 
     @Override
-    public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
+    public boolean isValidPosition(BlockState state, LevelReader worldIn, BlockPos pos) {
         BlockPos down = pos.down();
         BlockState downState = worldIn.getBlockState(down);
         return downState.isSolidSide(worldIn, down, Direction.UP);

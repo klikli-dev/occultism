@@ -44,10 +44,10 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListNBT;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.core.Direction;
-import net.minecraft.util.InteractionHand;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.core.BlockPos;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.items.IItemHandler;
@@ -160,7 +160,7 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
             //to involve casting player id with some good pre-check
             IItemHandler handler = this.itemStackHandler.orElseThrow(ItemHandlerMissingException::new);
             if (!this.currentRitual.isValid(this.level, this.pos, this, this.castingPlayer,
-                    handler.getStackInSlot(0), this.remainingAdditionalIngredients)) {
+                    handler.getItem(0), this.remainingAdditionalIngredients)) {
                 //ritual is no longer valid, so interrupt
                 this.stopRitual(false);
                 return;
@@ -202,7 +202,7 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
 
 
             this.currentRitual
-                    .update(this.level, this.pos, this, this.castingPlayer, handler.getStackInSlot(0),
+                    .update(this.level, this.pos, this, this.castingPlayer, handler.getItem(0),
                             this.currentTime);
 
             if (!this.currentRitual
@@ -232,7 +232,7 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
 
     public boolean activate(Level level, BlockPos pos, Player player, InteractionHand hand, Direction face) {
         if (!level.isClientSide) {
-            ItemStack activationItem = player.getHeldItem(hand);
+            ItemStack activationItem = player.getItemInHand(hand);
             if (activationItem == ItemStack.EMPTY)
                 return false;
 
@@ -249,19 +249,19 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
                     }
                     else {
                         //if ritual is not valid, inform player.
-                        player.sendStatusMessage(new TranslationTextComponent(ritual.getConditionsMessage()), true);
+                        player.displayClientMessage(new TranslatableComponent(ritual.getConditionsMessage()), true);
                         return false;
                     }
                 }
                 else {
                     if(activationItem.getItem() instanceof BookOfBindingItem){
                         //common error: people use unbound book, so we send a special message for those
-                        player.sendStatusMessage(
-                                new TranslationTextComponent(String.format("ritual.%s.book_not_bound", Occultism.MODID)),
+                        player.displayClientMessage(
+                                new TranslatableComponent(String.format("ritual.%s.book_not_bound", Occultism.MODID)),
                                 false);
                     } else {
-                        player.sendStatusMessage(
-                                new TranslationTextComponent(String.format("ritual.%s.does_not_exist", Occultism.MODID)),
+                        player.displayClientMessage(
+                                new TranslatableComponent(String.format("ritual.%s.does_not_exist", Occultism.MODID)),
                                 false);
                     }
                     return false;
@@ -287,7 +287,7 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
             //place activation item in handler
             IItemHandler handler = this.itemStackHandler.orElseThrow(ItemHandlerMissingException::new);
             handler.insertItem(0, activationItem.split(1), false);
-            this.currentRitual.start(this.level, this.pos, this, player, handler.getStackInSlot(0));
+            this.currentRitual.start(this.level, this.pos, this, player, handler.getItem(0));
             this.markDirty();
             this.markNetworkDirty();
         }
@@ -298,12 +298,12 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
             if (this.currentRitual != null && this.castingPlayer != null) {
                 IItemHandler handler = this.itemStackHandler.orElseThrow(ItemHandlerMissingException::new);
                 if (finished) {
-                    ItemStack activationItem = handler.getStackInSlot(0);
+                    ItemStack activationItem = handler.getItem(0);
                     this.currentRitual.finish(this.level, this.pos, this, this.castingPlayer, activationItem);
                 }
                 else {
                     this.currentRitual.interrupt(this.level, this.pos, this, this.castingPlayer,
-                            handler.getStackInSlot(0));
+                            handler.getItem(0));
                     //Pop activation item back into level
                     InventoryHelper.spawnItemStack(this.level, this.pos.getX(), this.pos.getY(), this.pos.getZ(),
                             handler.extractItem(0, 1, false));

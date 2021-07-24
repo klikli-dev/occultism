@@ -22,7 +22,7 @@
 
 package com.github.klikli_dev.occultism.common.entity.ai.target;
 
-import net.minecraft.entity.Entity;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.core.Direction;
 import net.minecraft.core.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;

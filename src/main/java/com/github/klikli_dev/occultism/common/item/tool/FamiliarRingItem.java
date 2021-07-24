@@ -26,20 +26,20 @@ import com.github.klikli_dev.occultism.common.entity.IFamiliar;
 import com.github.klikli_dev.occultism.util.ItemNBTUtil;
 import com.github.klikli_dev.occultism.util.TextUtil;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.EntityType;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.potion.EffectInstance;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.util.ActionResult;
 import net.minecraft.core.Direction;
-import net.minecraft.util.InteractionHand;
-import net.minecraft.util.InteractionResult;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.network.chat.Component;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
@@ -63,12 +63,12 @@ public class FamiliarRingItem extends Item {
             ITooltipFlag flagIn) {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
         if (stack.getOrCreateTag().getBoolean("occupied"))
-            tooltip.add(new TranslationTextComponent(this.getDescriptionId() + ".tooltip",
+            tooltip.add(new TranslatableComponent(this.getDescriptionId() + ".tooltip",
                     TextUtil.formatDemonName(ItemNBTUtil.getBoundSpiritName(stack))));
     }
 
     @Override
-    public InteractionResult itemInteractionForEntity(ItemStack stack, Player playerIn, LivingEntity target,
+    public InteractionResult interactLivingEntity(ItemStack stack, Player playerIn, LivingEntity target,
             InteractionHand hand) {
         if (!playerIn.level.isClientSide && target instanceof IFamiliar) {
             IFamiliar familiar = (IFamiliar) target;
@@ -80,12 +80,12 @@ public class FamiliarRingItem extends Item {
             }
         }
         
-        return super.itemInteractionForEntity(stack, playerIn, target, hand);
+        return super.interactLivingEntity(stack, playerIn, target, hand);
     }
 
     @Override
     public ActionResult<ItemStack> onItemRightClick(Level worldIn, Player playerIn, InteractionHand handIn) {
-        ItemStack stack = playerIn.getHeldItem(handIn);
+        ItemStack stack = playerIn.getItemInHand(handIn);
         if (!playerIn.level.isClientSide && this.getCurio(stack).releaseFamiliar(playerIn, worldIn)) {
             CompoundTag tag = stack.getOrCreateTag();
             tag.putBoolean("occupied", false);
@@ -142,8 +142,8 @@ public class FamiliarRingItem extends Item {
                 return;
             
             // Apply effects
-            if (!level.isClientSide && entity.ticksExisted % 20 == 0)
-                for (EffectInstance effect : familiar.getFamiliarEffects())
+            if (!level.isClientSide && entity.this.tickCount % 20 == 0)
+                for (MobEffectInstance effect : familiar.getFamiliarEffects())
                     familiar.getFamiliarOwner().addPotionEffect(effect);
             
             // Tick

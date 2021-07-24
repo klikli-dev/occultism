@@ -38,13 +38,13 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.item.ItemUseContext;
+import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
@@ -72,10 +72,10 @@ public class DivinationRodItem extends Item {
     }
 
     @Override
-    public InteractionResult onItemUse(ItemUseContext context) {
+    public InteractionResult useOn(UseOnContext context) {
         Level level = context.getLevel();
         Player player = context.getPlayer();
-        BlockPos pos = context.getPos();
+        BlockPos pos = context.getClickedPos();
         ItemStack stack = context.getItem();
 
         if (player.isShiftKeyDown()) {
@@ -89,8 +89,8 @@ public class DivinationRodItem extends Item {
                                                                             .getDescriptionId() : block.getDescriptionId();
                         stack.getOrCreateTag().putString("linkedBlockId", block.getRegistryName().toString());
                         player.sendMessage(
-                                new TranslationTextComponent(this.getDescriptionId() + ".message.linked_block",
-                                        new TranslationTextComponent(translationKey)), Util.DUMMY_UUID);
+                                new TranslatableComponent(this.getDescriptionId() + ".message.linked_block",
+                                        new TranslatableComponent(translationKey)), Util.DUMMY_UUID);
                     }
 
                     level.playSound(player, player.getPosition(), OccultismSounds.TUNING_FORK.get(),
@@ -100,7 +100,7 @@ public class DivinationRodItem extends Item {
                 else {
                     if (!level.isClientSide) {
                         player.sendMessage(
-                                new TranslationTextComponent(this.getDescriptionId() + ".message.no_link_found"), Util.DUMMY_UUID);
+                                new TranslatableComponent(this.getDescriptionId() + ".message.no_link_found"), Util.DUMMY_UUID);
                     }
                 }
                 return InteractionResult.SUCCESS;
@@ -111,7 +111,7 @@ public class DivinationRodItem extends Item {
 
     @Override
     public ActionResult<ItemStack> onItemRightClick(Level level, Player player, InteractionHand hand) {
-        ItemStack stack = player.getHeldItem(hand);
+        ItemStack stack = player.getItemInHand(hand);
 
         if (!player.isShiftKeyDown()) {
             if (stack.getOrCreateTag().contains("linkedBlockId")) {
@@ -126,7 +126,7 @@ public class DivinationRodItem extends Item {
                 }
             }
             else if (!level.isClientSide) {
-                player.sendMessage(new TranslationTextComponent(this.getDescriptionId() + ".message.no_linked_block"), Util.DUMMY_UUID);
+                player.sendMessage(new TranslatableComponent(this.getDescriptionId() + ".message.no_linked_block"), Util.DUMMY_UUID);
             }
         }
 
@@ -180,12 +180,12 @@ public class DivinationRodItem extends Item {
             Block block = ForgeRegistries.BLOCKS.getValue(id);
             String translationKey = block instanceof IOtherworldBlock ? ((IOtherworldBlock) block).getUncoveredBlock()
                                                                                 .getDescriptionId() : block.getDescriptionId();
-            tooltip.add(new TranslationTextComponent(this.getDescriptionId() + ".tooltip.linked_block",
-                    new TranslationTextComponent(translationKey)
+            tooltip.add(new TranslatableComponent(this.getDescriptionId() + ".tooltip.linked_block",
+                    new TranslatableComponent(translationKey)
                             .mergeStyle(TextFormatting.BOLD, TextFormatting.ITALIC)));
         }
         else {
-            tooltip.add(new TranslationTextComponent(this.getDescriptionId() + ".tooltip.no_linked_block"));
+            tooltip.add(new TranslatableComponent(this.getDescriptionId() + ".tooltip.no_linked_block"));
         }
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
     }

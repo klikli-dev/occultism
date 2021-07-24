@@ -34,7 +34,7 @@ import mezz.jei.api.recipe.transfer.IRecipeTransferHandler;
 import mezz.jei.api.recipe.transfer.IRecipeTransferHandlerHelper;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.inventory.CraftingInventory;
+import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.inventory.container.AbstractContainerMenu;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.world.item.ItemStack;
@@ -75,14 +75,14 @@ public class StorageControllerRecipeTransferHandler<T extends AbstractContainerM
                                                Player player, boolean maxTransfer, boolean doTransfer) {
 
 
-        IRecipe<?> recipe = (IRecipe<?>) recipeObject;
+        Recipe<?> recipe = (Recipe<?>) recipeObject;
 
         if (recipe.getId() == null) {
             return this.helper.createUserErrorWithTooltip(I18n.format("jei." + Occultism.MODID + "error.missing_id"));
         }
 
         //sort out any modded recipes that don't fit 3x3
-        if (!recipe.canFit(3, 3)) {
+        if (!recipe.canCraftInDimensions(3, 3)) {
             return this.helper.createUserErrorWithTooltip(I18n.format("jei." + Occultism.MODID + "error.recipe_too_large"));
         }
 
@@ -112,7 +112,7 @@ public class StorageControllerRecipeTransferHandler<T extends AbstractContainerM
         Map<Integer, ? extends IGuiIngredient<ItemStack>> inputs = recipeLayout.getItemStacks().getGuiIngredients();
 
         for (Slot slot : container.slots) {
-            if (slot.inventory instanceof CraftingInventory) {
+            if (slot.inventory instanceof CraftingContainer) {
 
                 //get ingredient from recipe layout
                 IGuiIngredient<ItemStack> ingredient = inputs.get(slot.getSlotIndex() + 1);

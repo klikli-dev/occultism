@@ -31,12 +31,12 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.FireBlock;
-import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.level.IBlockReader;
+import net.minecraft.level.BlockGetter;
 import net.minecraft.level.IWorld;
-import net.minecraft.level.IWorldReader;
+import net.minecraft.level.LevelReader;
 import net.minecraft.world.level.Level;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.particles.ParticleTypes;
@@ -46,9 +46,9 @@ import net.minecraft.util.SoundEvents;
 import net.minecraft.util.SoundSource;
 import net.minecraft.util.math.AABB;
 import net.minecraft.core.BlockPos;
-import net.minecraft.util.math.shapes.ISelectionContext;
+import net.minecraft.util.math.shapes.CollisionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.shapes.VoxelShapes;
+import net.minecraft.util.math.shapes.Shapes;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -87,15 +87,15 @@ public class SpiritFireBlock extends Block {
     }
 
     @Override
-    public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
+    public boolean isValidPosition(BlockState state, LevelReader worldIn, BlockPos pos) {
         BlockPos blockpos = pos.down();
         return worldIn.getBlockState(blockpos).isSolidSide(worldIn, blockpos, Direction.UP) ||
                this.areNeighborsFlammable(worldIn, pos);
     }
 
     @Override
-    public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-        return VoxelShapes.empty();
+    public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
+        return Shapes.empty();
     }
 
     @Override
@@ -198,7 +198,7 @@ public class SpiritFireBlock extends Block {
                 }
             }
 
-            if (this.canCatchFire(worldIn, pos.up(), Direction.DOWN)) {
+            if (this.canCatchFire(worldIn, pos.above(), Direction.DOWN)) {
                 for (int j1 = 0; j1 < 2; ++j1) {
                     double d7 = (double) pos.getX() + rand.nextDouble();
                     double d12 = (double) (pos.getY() + 1) - rand.nextDouble() * (double) 0.1F;
@@ -232,7 +232,7 @@ public class SpiritFireBlock extends Block {
 //endregion Static Methods
 
     //region Methods
-    public boolean canCatchFire(IBlockReader level, BlockPos pos, Direction face) {
+    public boolean canCatchFire(BlockGetter level, BlockPos pos, Direction face) {
         return level.getBlockState(pos).isFlammable(level, pos, face);
     }
 
@@ -252,7 +252,7 @@ public class SpiritFireBlock extends Block {
                 convertedAnyItem = true;
                 item.remove();
 
-                ItemStack result = recipe.get().getCraftingResult(fakeInventory);
+                ItemStack result = recipe.get().assemble(fakeInventory);
                 InventoryHelper.spawnItemStack(level, center.x, center.y + 0.5, center.z, result);
             }
         }
@@ -266,7 +266,7 @@ public class SpiritFireBlock extends Block {
                worldIn.isRainingAt(pos.north()) || worldIn.isRainingAt(pos.south());
     }
 
-    private int getNeighborEncouragement(IWorldReader worldIn, BlockPos pos) {
+    private int getNeighborEncouragement(LevelReader worldIn, BlockPos pos) {
         if (!worldIn.isAirBlock(pos)) {
             return 0;
         }
@@ -282,7 +282,7 @@ public class SpiritFireBlock extends Block {
         }
     }
 
-    private boolean areNeighborsFlammable(IBlockReader worldIn, BlockPos pos) {
+    private boolean areNeighborsFlammable(BlockGetter worldIn, BlockPos pos) {
         for (Direction direction : Direction.values()) {
             if (this.canCatchFire(worldIn, pos.offset(direction), direction.getOpposite())) {
                 return true;

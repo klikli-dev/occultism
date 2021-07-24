@@ -30,9 +30,9 @@ import com.github.klikli_dev.occultism.common.tile.StorageControllerBlockEntity;
 import com.github.klikli_dev.occultism.network.MessageUpdateLinkedMachines;
 import com.github.klikli_dev.occultism.network.OccultismPackets;
 import com.github.klikli_dev.occultism.registry.OccultismContainers;
-import net.minecraft.entity.player.Inventory;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.entity.player.ServerPlayer;
+import net.minecraft.world.entity.player.ServerPlayer;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -98,7 +98,7 @@ public class StableWormholeContainer extends StorageControllerContainerBase {
     @Override
     public void updateCraftingSlots(boolean force) {
         for (int i = 0; i < 9; i++) {
-            this.stableWormhole.getMatrix().put(i, this.matrix.getStackInSlot(i));
+            this.stableWormhole.getMatrix().put(i, this.matrix.getItem(i));
         }
         if (force)
             this.stableWormhole.markNetworkDirty();
@@ -106,7 +106,7 @@ public class StableWormholeContainer extends StorageControllerContainerBase {
 
     @Override
     public void updateOrderSlot(boolean force) {
-        this.stableWormhole.setOrderStack(this.orderInventory.getStackInSlot(0));
+        this.stableWormhole.setOrderStack(this.orderInventory.getItem(0));
         if (force)
             this.stableWormhole.markNetworkDirty();
     }

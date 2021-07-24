@@ -27,13 +27,13 @@ import com.github.klikli_dev.occultism.api.common.data.WorkAreaSize;
 import com.github.klikli_dev.occultism.common.item.spirit.BookOfCallingItem;
 import com.github.klikli_dev.occultism.util.ItemNBTUtil;
 import com.github.klikli_dev.occultism.util.TextUtil;
-import net.minecraft.entity.player.ServerPlayer;
+import net.minecraft.world.entity.player.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.InteractionHand;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.util.text.IFormattableTextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraftforge.fml.network.NetworkEvent;
 
 public class MessageSetWorkAreaSize extends MessageBase {
@@ -57,7 +57,7 @@ public class MessageSetWorkAreaSize extends MessageBase {
     @Override
     public void onServerReceived(MinecraftServer minecraftServer, ServerPlayer player,
                                  NetworkEvent.Context context) {
-        ItemStack stack = player.getHeldItem(InteractionHand.MAIN_HAND);
+        ItemStack stack = player.getItemInHand(InteractionHand.MAIN_HAND);
         if (stack.getItem() instanceof BookOfCallingItem) {
             ItemNBTUtil.getSpiritEntity(stack).ifPresent(spirit -> {
                 WorkAreaSize workAreaSize = WorkAreaSize.get(this.workAreaSize);
@@ -65,13 +65,13 @@ public class MessageSetWorkAreaSize extends MessageBase {
 
                 //also update control item with latest data
                 ItemNBTUtil.updateItemNBTFromEntity(stack, spirit);
-                player.container.detectAndSendChanges();
+                player.inventoryMenu.broadcastChanges();
 
-                player.sendStatusMessage(new TranslationTextComponent(
+                player.displayClientMessage(new TranslatableComponent(
                         TranslationKeys.BOOK_OF_CALLING_GENERIC +
                         ".message_set_work_area_size",
                         TextUtil.formatDemonName((IFormattableTextComponent) spirit.getName()),
-                        new TranslationTextComponent(workAreaSize.getDescriptionId())), true);
+                        new TranslatableComponent(workAreaSize.getDescriptionId())), true);
             });
         }
     }

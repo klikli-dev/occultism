@@ -29,7 +29,7 @@ import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.github.klikli_dev.occultism.registry.OccultismRituals;
 import com.github.klikli_dev.occultism.registry.OccultismTags;
 import com.github.klikli_dev.occultism.util.ItemNBTUtil;
-import net.minecraft.entity.SpawnReason;
+import net.minecraft.world.entity.SpawnReason;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -68,7 +68,7 @@ public class FamiliarOtherworldBirdRitual extends SummonSpiritRitual {
         OtherworldBirdEntity bird = OccultismEntities.OTHERWORLD_BIRD.get().create(level);
         bird.onInitialSpawn((ServerLevel) level, level.getDifficultyForLocation(goldenBowlPosition), SpawnReason.MOB_SUMMONED,
                 null, null);
-        bird.setPositionAndRotation(goldenBowlPosition.getX(), goldenBowlPosition.getY(), goldenBowlPosition.getZ(),
+        bird.absMoveTo(goldenBowlPosition.getX(), goldenBowlPosition.getY(), goldenBowlPosition.getZ(),
                 level.rand.nextInt(360), 0);
         bird.setCustomName(new TextComponent(entityName));
         bird.setTamedBy(castingPlayer);

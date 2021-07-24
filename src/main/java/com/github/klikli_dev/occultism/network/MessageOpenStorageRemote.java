@@ -25,7 +25,7 @@ package com.github.klikli_dev.occultism.network;
 import com.github.klikli_dev.occultism.common.item.storage.StorageRemoteItem;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.github.klikli_dev.occultism.util.CuriosUtil;
-import net.minecraft.entity.player.ServerPlayer;
+import net.minecraft.world.entity.player.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.MinecraftServer;
@@ -58,7 +58,7 @@ public class MessageOpenStorageRemote extends MessageBase {
         //if not found, try to get from player inventory
         if (!(storageRemoteStack.getItem() instanceof StorageRemoteItem)) {
             selectedSlot = CuriosUtil.getFirstStorageRemoteSlot(player);
-            storageRemoteStack = selectedSlot > 0 ? player.inventory.getStackInSlot(selectedSlot) : ItemStack.EMPTY;
+            storageRemoteStack = selectedSlot > 0 ? player.inventory.getItem(selectedSlot) : ItemStack.EMPTY;
         }
         //now, if we have a storage remote, proceed
         if (storageRemoteStack.getItem() instanceof StorageRemoteItem) {

@@ -53,7 +53,7 @@ public class UndergroundGroveDecorator extends CaveDecorator {
                                BlockPos pos) {
         if (seedReader.getBlockState(pos).getBlock() == Blocks.GRASS_BLOCK &&
             rand.nextFloat() < Occultism.COMMON_CONFIG.worldGen.undergroundGroveGen.grassChance.get())
-            seedReader.setBlockState(pos.up(), Blocks.GRASS.getDefaultState(), 2);
+            seedReader.setBlockState(pos.above(), Blocks.GRASS.getDefaultState(), 2);
 
         if (rand.nextFloat() < Occultism.COMMON_CONFIG.worldGen.undergroundGroveGen.treeChance.get()) {
             ConfiguredFeature<BaseTreeFeatureConfig, ?> treeFeature = WorldGenHandler.OTHERWORLD_TREE_NATURAL;

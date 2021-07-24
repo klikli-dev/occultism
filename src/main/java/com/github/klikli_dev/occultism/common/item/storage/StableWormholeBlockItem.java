@@ -24,17 +24,17 @@ package com.github.klikli_dev.occultism.common.item.storage;
 
 import com.github.klikli_dev.occultism.api.common.data.GlobalBlockPos;
 import com.github.klikli_dev.occultism.api.common.tile.IStorageController;
-import net.minecraft.BlockEntity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.item.*;
 import net.minecraft.world.level.Level;
-import net.minecraft.util.InteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -55,11 +55,11 @@ public class StableWormholeBlockItem extends BlockItem {
     }
 
     @Override
-    public InteractionResult onItemUse(ItemUseContext context) {
+    public InteractionResult useOn(UseOnContext context) {
         ItemStack stack = context.getItem();
         Player player = context.getPlayer();
         Level level = context.getLevel();
-        BlockPos pos = context.getPos();
+        BlockPos pos = context.getClickedPos();
         if (!level.isClientSide) {
             if (player.isShiftKeyDown()) {
                 BlockEntity blockEntity = level.getBlockEntity(pos);
@@ -67,14 +67,14 @@ public class StableWormholeBlockItem extends BlockItem {
                     //if this is a storage controller, write the position into the block entity tag that will be used to spawn the tile entity.
                     stack.getOrCreateChildTag("BlockEntityTag")
                             .put("linkedStorageControllerPosition", GlobalBlockPos.from(BlockEntity).serializeNBT());
-                    player.sendStatusMessage(
-                            new TranslationTextComponent(this.getDescriptionId() + ".message.set_storage_controller"),
+                    player.displayClientMessage(
+                            new TranslatableComponent(this.getDescriptionId() + ".message.set_storage_controller"),
                             true);
                     return InteractionResult.SUCCESS;
                 }
             }
         }
-        return super.onItemUse(context);
+        return super.useOn(context);
     }
 
     @Override
@@ -88,10 +88,10 @@ public class StableWormholeBlockItem extends BlockItem {
             String formattedPosition =
                     TextFormatting.GOLD.toString() + TextFormatting.BOLD + globalPos.getPos().toString() +
                             TextFormatting.RESET;
-            tooltip.add(new TranslationTextComponent(this.getDescriptionId() + ".tooltip.linked", formattedPosition));
+            tooltip.add(new TranslatableComponent(this.getDescriptionId() + ".tooltip.linked", formattedPosition));
         }
         else {
-            tooltip.add(new TranslationTextComponent(this.getDescriptionId() + ".tooltip.unlinked"));
+            tooltip.add(new TranslatableComponent(this.getDescriptionId() + ".tooltip.unlinked"));
         }
     }
     //endregion Overrides

@@ -48,7 +48,7 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.client.util.InputMappings;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.inventory.IInventory;
+import net.minecraft.world.Container;
 import net.minecraft.inventory.IInventoryChangedListener;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -58,7 +58,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -175,7 +175,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         }
 
         if (this.minecraft.player.level.getDimensionKey() != machine.globalPos.getDimensionKey())
-            tooltip.add(new TranslationTextComponent(TextFormatting.GRAY.toString() + TextFormatting.ITALIC +
+            tooltip.add(new TranslatableComponent(TextFormatting.GRAY.toString() + TextFormatting.ITALIC +
                     machine.globalPos.getDimensionKey().getLocation() +
                                                      TextFormatting.RESET));
         this.func_243308_b(poseStack, tooltip, x, y); //renderTooltip
@@ -340,7 +340,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
             for (MachineSlotWidget slot : this.machineSlots) {
                 if (slot.isMouseOverSlot(mouseX, mouseY)) {
                     if (mouseButton == InputUtil.MOUSE_BUTTON_LEFT) {
-                        ItemStack orderStack = this.storageControllerContainer.getOrderSlot().getStackInSlot(0);
+                        ItemStack orderStack = this.storageControllerContainer.getOrderSlot().getItem(0);
                         if (Screen.hasShiftDown()) {
                             long time = System.currentTimeMillis() + 5000;
                             Occultism.SELECTED_BLOCK_RENDERER.selectBlock(slot.getMachine().globalPos.getPos(), time);
@@ -393,8 +393,8 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     }
 
     @Override
-    public void onInventoryChanged(IInventory inventory) {
-        if (inventory == this.storageControllerContainer.getOrderSlot() && !inventory.getStackInSlot(0).isEmpty()) {
+    public void onInventoryChanged(Container inventory) {
+        if (inventory == this.storageControllerContainer.getOrderSlot() && !inventory.getItem(0).isEmpty()) {
             this.guiMode = StorageControllerGuiMode.AUTOCRAFTING;
             this.init();
         }
@@ -593,26 +593,26 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         if (this.isPointInSearchbar(mouseX, mouseY)) {
             List<Component> tooltip = new ArrayList<>();
             if (!Screen.hasShiftDown()) {
-                tooltip.add(new TranslationTextComponent(TRANSLATION_KEY_BASE + ".shift"));
+                tooltip.add(new TranslatableComponent(TRANSLATION_KEY_BASE + ".shift"));
             }
             else {
                 switch (this.guiMode) {
                     case INVENTORY:
-                        tooltip.add(new TranslationTextComponent(TRANSLATION_KEY_BASE + ".search.tooltip@"));
-                        tooltip.add(new TranslationTextComponent(TRANSLATION_KEY_BASE + ".search.tooltip#"));
-                        tooltip.add(new TranslationTextComponent(TRANSLATION_KEY_BASE + ".search.tooltip$"));
+                        tooltip.add(new TranslatableComponent(TRANSLATION_KEY_BASE + ".search.tooltip@"));
+                        tooltip.add(new TranslatableComponent(TRANSLATION_KEY_BASE + ".search.tooltip#"));
+                        tooltip.add(new TranslatableComponent(TRANSLATION_KEY_BASE + ".search.tooltip$"));
                         break;
                     case AUTOCRAFTING:
-                        tooltip.add(new TranslationTextComponent(TRANSLATION_KEY_BASE + ".search.machines.tooltip@"));
+                        tooltip.add(new TranslatableComponent(TRANSLATION_KEY_BASE + ".search.machines.tooltip@"));
                         break;
                 }
-                tooltip.add(new TranslationTextComponent(TRANSLATION_KEY_BASE + ".search.tooltip_rightclick"));
+                tooltip.add(new TranslatableComponent(TRANSLATION_KEY_BASE + ".search.tooltip_rightclick"));
             }
             this.func_243308_b(poseStack, tooltip, mouseX, mouseY); //renderTooltip
         }
         if (this.clearTextButton != null && this.clearTextButton.isMouseOver(mouseX, mouseY)) {
             this.func_243308_b(poseStack,
-                    Lists.newArrayList(new TranslationTextComponent(TRANSLATION_KEY_BASE + ".search.tooltip_clear")),
+                    Lists.newArrayList(new TranslatableComponent(TRANSLATION_KEY_BASE + ".search.tooltip_clear")),
                     mouseX, mouseY); // renderTooltip
         }
         if (this.sortTypeButton != null && this.sortTypeButton.isMouseOver(mouseX, mouseY)) {
@@ -628,15 +628,15 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                             this.getSortType().getSerializedName();
                     break;
             }
-            this.renderTooltip(poseStack, new TranslationTextComponent(translationKey), mouseX, mouseY);
+            this.renderTooltip(poseStack, new TranslatableComponent(translationKey), mouseX, mouseY);
         }
         if (this.sortDirectionButton != null && this.sortDirectionButton.isMouseOver(mouseX, mouseY)) {
-            this.renderTooltip(poseStack, new TranslationTextComponent(
+            this.renderTooltip(poseStack, new TranslatableComponent(
                             TRANSLATION_KEY_BASE + ".search.tooltip_sort_direction_" + this.getSortDirection().getSerializedName()),
                     mouseX, mouseY);
         }
         if (this.jeiSyncButton != null && this.jeiSyncButton.isMouseOver(mouseX, mouseY)) {
-            this.renderTooltip(poseStack, new TranslationTextComponent(
+            this.renderTooltip(poseStack, new TranslatableComponent(
                             TRANSLATION_KEY_BASE + ".search.tooltip_jei_" +
                             (JeiSettings.isJeiSearchSynced() ? "on" : "off")),
                     mouseX, mouseY);

@@ -22,7 +22,7 @@
 
 package com.github.klikli_dev.occultism.common.entity.ai;
 
-import net.minecraft.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.goal.Goal;
 
 public abstract class PausableGoal extends Goal {
 
@@ -41,13 +41,13 @@ public abstract class PausableGoal extends Goal {
 
     //region Overrides
     @Override
-    public boolean shouldExecute() {
+    public boolean canUse() {
         return !this.isPaused();
     }
 
     @Override
-    public boolean shouldContinueExecuting() {
-        return super.shouldContinueExecuting() && !this.isPaused();
+    public boolean canContinueToUse() {
+        return super.canContinueToUse() && !this.isPaused();
     }
     //endregion Overrides
 

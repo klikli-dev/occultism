@@ -22,7 +22,7 @@
 
 package com.github.klikli_dev.occultism.common.data;
 
-import net.minecraft.util.NonNullList;
+import net.minecraft.core.NonNullList;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;

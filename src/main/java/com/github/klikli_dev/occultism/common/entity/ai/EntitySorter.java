@@ -22,7 +22,7 @@
 
 package com.github.klikli_dev.occultism.common.entity.ai;
 
-import net.minecraft.entity.Entity;
+import net.minecraft.world.entity.Entity;
 
 import java.util.Comparator;
 

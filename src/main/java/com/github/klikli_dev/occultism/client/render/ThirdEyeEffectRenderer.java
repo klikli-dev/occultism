@@ -37,7 +37,7 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.minecraft.potion.EffectInstance;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.core.BlockPos;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
@@ -171,7 +171,7 @@ public class ThirdEyeEffectRenderer {
     public void onThirdEyeTick(TickEvent.PlayerTickEvent event) {
         boolean hasGoggles = CuriosUtil.hasGoggles(event.player);
 
-        EffectInstance effect = event.player.getActivePotionEffect(OccultismEffects.THIRD_EYE.get());
+        MobEffectInstance effect = event.player.getActivePotionEffect(OccultismEffects.THIRD_EYE.get());
         int duration = effect == null ? 0 : effect.getDuration();
         if (duration > 1) {
             if (!this.thirdEyeActiveLastTick) {

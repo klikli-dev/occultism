@@ -24,15 +24,15 @@ package com.github.klikli_dev.occultism.crafting.recipe;
 
 import com.github.klikli_dev.occultism.registry.OccultismRecipes;
 import com.google.gson.JsonObject;
+import net.minecraft.core.NonNullList;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.util.GsonHelper;
-import net.minecraft.util.NonNullList;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
 public class CrushingRecipe extends ItemStackFakeInventoryRecipe {
@@ -66,16 +66,16 @@ public class CrushingRecipe extends ItemStackFakeInventoryRecipe {
     //region Overrides
     @Override
     public boolean matches(ItemStackFakeInventory inv, Level level) {
-        return this.input.test(inv.getStackInSlot(0));
+        return this.input.test(inv.getItem(0));
     }
 
     @Override
-    public ItemStack getCraftingResult(ItemStackFakeInventory inv) {
+    public ItemStack assemble(ItemStackFakeInventory inv) {
         return this.getResultItem().copy();
     }
 
     @Override
-    public boolean canFit(int width, int height) {
+    public boolean canCraftInDimensions(int width, int height) {
         //as we don't have a real inventory so this is ignored.
         return true;
     }
@@ -87,7 +87,7 @@ public class CrushingRecipe extends ItemStackFakeInventoryRecipe {
 
     @Override
     public NonNullList<Ingredient> getIngredients() {
-        return NonNullList.from(Ingredient.EMPTY, this.input);
+        return NonNullList.of(Ingredient.EMPTY, this.input);
     }
 
     @Override
@@ -111,16 +111,16 @@ public class CrushingRecipe extends ItemStackFakeInventoryRecipe {
 
         //region Overrides
         @Override
-        public CrushingRecipe read(ResourceLocation recipeId, JsonObject json) {
-            int crushingTime = GsonHelper.getInt(json, "crushing_time", DEFAULT_CRUSHING_TIME);
-            boolean ignoreCrushingMultiplier = GsonHelper.getBoolean(json, "ignore_crushing_multiplier", false);
+        public CrushingRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
+            int crushingTime = GsonHelper.getAsInt(json, "crushing_time", DEFAULT_CRUSHING_TIME);
+            boolean ignoreCrushingMultiplier = GsonHelper.getAsBoolean(json, "ignore_crushing_multiplier", false);
             return ItemStackFakeInventoryRecipe.SERIALIZER
                     .read((id, input, output) ->
                             new CrushingRecipe(id, input, output, crushingTime, ignoreCrushingMultiplier), recipeId, json);
         }
 
         @Override
-        public CrushingRecipe read(ResourceLocation recipeId, FriendlyByteBuf buffer) {
+        public CrushingRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
             int crushingTime = buffer.readInt();
             boolean ignoreCrushingMultiplier = buffer.readBoolean();
             return ItemStackFakeInventoryRecipe.SERIALIZER
@@ -129,7 +129,7 @@ public class CrushingRecipe extends ItemStackFakeInventoryRecipe {
         }
 
         @Override
-        public void write(FriendlyByteBuf buffer, CrushingRecipe recipe) {
+        public void toNetwork(FriendlyByteBuf buffer, CrushingRecipe recipe) {
             buffer.writeInt(recipe.crushingTime);
             buffer.writeBoolean(recipe.ignoreCrushingMultiplier);
             ItemStackFakeInventoryRecipe.SERIALIZER.write(buffer, recipe);

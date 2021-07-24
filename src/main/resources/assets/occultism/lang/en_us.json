@@ -447,7 +447,7 @@
   "_comment": "Network",
   "_comment": "# Messages",
   "network.messages.occultism.request_order.order_received": "Order received!",
-  "_comment": "Effects",
+  "_comment": "MobEffects",
   "effect.occultism.third_eye": "Third Eye",
   "effect.occultism.double_jump": "Multi Jump",
   "_comment": "Sounds",

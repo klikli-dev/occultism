@@ -42,9 +42,9 @@ import net.minecraft.loot.ILootSerializer;
 import net.minecraft.loot.LootConditionType;
 import net.minecraft.loot.LootContext;
 import net.minecraft.loot.LootParameters;
-import net.minecraft.loot.conditions.ILootCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.ITag;
+import net.minecraft.tags.Tag;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -60,9 +60,9 @@ public class MatchBlockCondition implements ILootCondition
     @Nullable
     final List<Block> blockList;
     @Nullable
-    final ITag.INamedTag<Block> blockTag;
+    final Tag.INamedTag<Block> blockTag;
 
-    public MatchBlockCondition(@Nullable List<Block> blockList, @Nullable ITag.INamedTag<Block> blockTag)
+    public MatchBlockCondition(@Nullable List<Block> blockList, @Nullable Tag.INamedTag<Block> blockTag)
     {
         this.blockList = blockList;
         this.blockTag = blockTag;

@@ -27,16 +27,16 @@ import com.github.klikli_dev.occultism.common.job.SpiritJob;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.registry.OccultismSpiritJobs;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.entity.SpawnReason;
+import net.minecraft.world.entity.SpawnReason;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.item.ItemUseContext;
+import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.InteractionHand;
-import net.minecraft.util.InteractionResult;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.TextComponent;
 
@@ -50,7 +50,7 @@ public class DebugWandItem extends Item {
 
     //region Overrides
     @Override
-    public InteractionResult onItemUse(ItemUseContext context) {
+    public InteractionResult useOn(UseOnContext context) {
 
         if (!context.getLevel().isClientSide) {
 //            Player player = context.getPlayer();
@@ -61,9 +61,9 @@ public class DebugWandItem extends Item {
             //context.getPlayer().sendMessage(new TextComponent(TextUtil.generateName()), Util.DUMMY_UUID);
 
             //set up the foliot entity
-            BlockPos target = context.getPos().up();
+            BlockPos target = context.getClickedPos().up();
             SpiritEntity spirit = OccultismEntities.MARID.get().create(context.getLevel());
-            spirit.setPositionAndRotation(target.getX(), target.getY(), target.getZ(),
+            spirit.absMoveTo(target.getX(), target.getY(), target.getZ(),
                     context.getLevel().rand.nextInt(360), 0);
             spirit.setCustomName(new TextComponent("Testguy"));
             spirit.onInitialSpawn((ServerLevel) context.getLevel(), context.getLevel().getDifficultyForLocation(target),
@@ -89,7 +89,7 @@ public class DebugWandItem extends Item {
     }
 
     @Override
-    public InteractionResult itemInteractionForEntity(ItemStack stack, Player player, LivingEntity target,
+    public InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity target,
                                             InteractionHand hand) {
 
 

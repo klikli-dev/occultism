@@ -22,10 +22,10 @@
 
 package com.github.klikli_dev.occultism.common.misc;
 
-import net.minecraft.inventory.CraftingInventory;
+import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.inventory.container.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.util.NonNullList;
+import net.minecraft.core.NonNullList;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 
 import java.lang.reflect.Field;
@@ -35,13 +35,13 @@ import java.util.Map;
 /**
  * A cached version of InventoryCrafting. Allows to control when events are sent with the disableEvents field.
  */
-public class StorageControllerCraftingInventory extends CraftingInventory {
+public class StorageControllerCraftingInventory extends CraftingContainer {
 
     //region Fields
     protected static Field stackListField;
 
     static {
-        stackListField = ObfuscationReflectionHelper.findField(CraftingInventory.class, "field_70466_a");
+        stackListField = ObfuscationReflectionHelper.findField(CraftingContainer.class, "field_70466_a");
     }
 
     protected final AbstractContainerMenu container;

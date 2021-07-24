@@ -24,23 +24,23 @@ package com.github.klikli_dev.occultism.common.item.tool;
 
 import com.github.klikli_dev.occultism.common.block.ChalkGlyphBlock;
 import com.github.klikli_dev.occultism.registry.OccultismSounds;
-import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.item.ItemUseContext;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.core.Direction;
-import net.minecraft.util.InteractionResult;
-import net.minecraft.util.SoundSource;
-import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.function.Supplier;
 
 public class ChalkItem extends Item {
-//region Fields
-Supplier<ChalkGlyphBlock> glyphBlock;
+    //region Fields
+    Supplier<ChalkGlyphBlock> glyphBlock;
 //endregion Fields
 
     //region Initialization
@@ -55,30 +55,29 @@ Supplier<ChalkGlyphBlock> glyphBlock;
 
 
     @Override
-    public InteractionResult onItemUse(ItemUseContext context) {
+    public InteractionResult useOn(UseOnContext context) {
         Level level = context.getLevel();
-        BlockPos pos = context.getPos();
+        BlockPos pos = context.getClickedPos();
         BlockState state = level.getBlockState(pos);
         Player player = context.getPlayer();
-        boolean isReplacing = level.getBlockState(pos).getBlock()
-                                      .isReplaceable(state, new BlockItemUseContext(context));
+        boolean isReplacing = level.getBlockState(pos).canBeReplaced(new BlockPlaceContext(context));
 
         if (!level.isClientSide) {
             //only place if player clicked at a top face
             //only if the block can be placed or is replacing an existing block
-            if ((context.getFace() == Direction.UP
-                 && this.glyphBlock.get().isValidPosition(level.getBlockState(pos.up()), level, pos.up())) || isReplacing) {
-                ItemStack heldChalk = context.getItem();
-                BlockPos placeAt = isReplacing ? pos : pos.up();
+            if ((context.getClickedFace() == Direction.UP
+                    && this.glyphBlock.get().isValidPosition(level.getBlockState(pos.above()), level, pos.above())) || isReplacing) {
+                ItemStack heldChalk = context.getItemInHand();
+                BlockPos placeAt = isReplacing ? pos : pos.above();
 
-                level.setBlockState(placeAt,
-                        this.glyphBlock.get().getStateForPlacement(new BlockItemUseContext(context)));
+                level.setBlock(placeAt,
+                        this.glyphBlock.get().getStateForPlacement(new BlockPlaceContext(context)), 1 | 2);
 
                 level.playSound(null, pos, OccultismSounds.CHALK.get(), SoundSource.PLAYERS, 0.5f,
-                        1 + 0.5f * player.getRNG().nextFloat());
+                        1 + 0.5f * player.getRandom().nextFloat());
 
                 if (!player.isCreative())
-                    heldChalk.damageItem(1, player, t -> {
+                    heldChalk.hurtAndBreak(1, player, t -> {
                     });
             }
         }

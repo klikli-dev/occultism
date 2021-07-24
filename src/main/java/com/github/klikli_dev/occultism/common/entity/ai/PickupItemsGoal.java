@@ -25,8 +25,8 @@ package com.github.klikli_dev.occultism.common.entity.ai;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.github.klikli_dev.occultism.exceptions.ItemHandlerMissingException;
 import com.google.common.base.Predicate;
-import net.minecraft.entity.ai.goal.TargetGoal;
-import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.world.entity.ai.goal.TargetGoal;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.util.math.AABB;
 import net.minecraftforge.items.ItemHandlerHelper;
@@ -69,13 +69,13 @@ public class PickupItemsGoal extends TargetGoal {
             //endregion Overrides
         };
         this.entitySorter = new EntitySorter(entity);
-        this.setMutexFlags(EnumSet.of(Flag.MOVE));
+        this.setFlags(EnumSet.of(Flag.MOVE));
     }
     //endregion Initialization
 
     //region Overrides
     @Override
-    public boolean shouldExecute() {
+    public boolean canUse() {
 
         //fire on a slow tick based on chance
         long worldTime = this.goalOwner.level.getGameTime() % 10;
@@ -106,15 +106,15 @@ public class PickupItemsGoal extends TargetGoal {
     @Override
     public void tick() {
         if (this.targetItem == null || !this.targetItem.isAlive()) {
-            this.resetTask();
-            this.goalOwner.getNavigator().clearPath();
+            this.stop();
+            this.goalOwner.getNavigator().stop();
         }
         else {
             this.goalOwner.getNavigator().setPath(this.goalOwner.getNavigator().pathfind(this.targetItem, 0), 1.0f);
             double distance = this.entity.getPositionVec().distanceTo(this.targetItem.getPositionVec());
             if (distance < 1F) {
-                this.entity.setMotion(0, 0, 0);
-                this.entity.getNavigator().clearPath();
+                this.entity.setDeltaMovement(0, 0, 0);
+                this.entity.getNavigator().stop();
 
                 ItemStack duplicate = this.targetItem.getItem().copy();
                 ItemStackHandler handler = this.entity.itemStackHandler.orElseThrow(ItemHandlerMissingException::new);
@@ -127,14 +127,14 @@ public class PickupItemsGoal extends TargetGoal {
     }
 
     @Override
-    public boolean shouldContinueExecuting() {
+    public boolean canContinueToUse() {
         return !this.goalOwner.getNavigator().noPath();
     }
 
     @Override
-    public void startExecuting() {
+    public void start() {
         this.goalOwner.getNavigator().setPath(this.goalOwner.getNavigator().pathfind(this.targetItem, 0), 1.0f);
-        super.startExecuting();
+        super.start();
     }
     //endregion Overrides
 

@@ -33,11 +33,12 @@ package com.github.klikli_dev.occultism.util.loot;
 
 import com.google.gson.JsonObject;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.loot.LootContext;
-import net.minecraft.loot.LootTable;
-import net.minecraft.loot.conditions.ILootCondition;
+
 import net.minecraft.util.GsonHelper;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.common.loot.LootModifier;
 
@@ -47,7 +48,7 @@ import java.util.List;
 public class AppendLootTable extends LootModifier {
     private final ResourceLocation lootTable;
 
-    public AppendLootTable(ILootCondition[] lootConditions, ResourceLocation lootTable)
+    public AppendLootTable(LootItemCondition[] lootConditions, ResourceLocation lootTable)
     {
         super(lootConditions);
         this.lootTable = lootTable;
@@ -64,7 +65,7 @@ public class AppendLootTable extends LootModifier {
 
         this.reentryPrevention = true;
         LootTable lootTable = context.getLootTable(this.lootTable);
-        List<ItemStack> extras = lootTable.generate(context);
+        List<ItemStack> extras = lootTable.getRandomItems(context);
         generatedLoot.addAll(extras);
         this.reentryPrevention = false;
 
@@ -74,9 +75,9 @@ public class AppendLootTable extends LootModifier {
     public static class Serializer extends GlobalLootModifierSerializer<AppendLootTable>
     {
         @Override
-        public AppendLootTable read(ResourceLocation location, JsonObject object, ILootCondition[] ailootcondition)
+        public AppendLootTable read(ResourceLocation location, JsonObject object, LootItemCondition[] ailootcondition)
         {
-            ResourceLocation lootTable = new ResourceLocation(GsonHelper.getString(object, "add_loot"));
+            ResourceLocation lootTable = new ResourceLocation(GsonHelper.getAsString(object, "add_loot"));
             return new AppendLootTable(ailootcondition, lootTable);
         }
 

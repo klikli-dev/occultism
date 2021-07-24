@@ -25,9 +25,9 @@ package com.github.klikli_dev.occultism.client.render.entity;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.model.ParrotModel;
-import net.minecraft.entity.passive.ParrotEntity;
+import net.minecraft.world.entity.passive.ParrotEntity;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.math.Mth;
+import net.minecraft.util.Mth;
 
 import static com.github.klikli_dev.occultism.util.StaticUtil.modLoc;
 

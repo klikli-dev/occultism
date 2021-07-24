@@ -29,7 +29,7 @@ import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.github.klikli_dev.occultism.registry.OccultismRituals;
 import com.github.klikli_dev.occultism.registry.OccultismTags;
 import com.github.klikli_dev.occultism.util.ItemNBTUtil;
-import net.minecraft.entity.SpawnReason;
+import net.minecraft.world.entity.SpawnReason;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -68,7 +68,7 @@ public class FamiliarGreedyRitual extends SummonSpiritRitual {
         GreedyFamiliarEntity familiar = OccultismEntities.GREEDY_FAMILIAR.get().create(level);
         familiar.onInitialSpawn((ServerLevel) level, level.getDifficultyForLocation(goldenBowlPosition), SpawnReason.MOB_SUMMONED,
                 null, null);
-        familiar.setPositionAndRotation(goldenBowlPosition.getX(), goldenBowlPosition.getY(), goldenBowlPosition.getZ(),
+        familiar.absMoveTo(goldenBowlPosition.getX(), goldenBowlPosition.getY(), goldenBowlPosition.getZ(),
                 level.rand.nextInt(360), 0);
         familiar.setCustomName(new TextComponent(entityName));
         familiar.setOwnerId(castingPlayer.getUniqueID());

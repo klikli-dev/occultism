@@ -25,19 +25,19 @@ package com.github.klikli_dev.occultism.common.entity.spirit;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.registry.OccultismTags;
 import com.github.klikli_dev.occultism.util.TextUtil;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.MobSpawnType;
-import net.minecraft.entity.SpawnGroupData;
-import net.minecraft.entity.ai.attributes.AttributeModifierMap;
-import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.monster.SkeletonEntity;
-import net.minecraft.entity.monster.WitherSkeletonEntity;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.ai.attributes.AttributeModifierMap;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.monster.SkeletonEntity;
+import net.minecraft.world.entity.monster.WitherSkeletonEntity;
 import net.minecraft.level.DifficultyInstance;
 import net.minecraft.world.level.Level;
 import net.minecraft.level.ServerLevelAccessor;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.tags.ITag;
+import net.minecraft.tags.Tag;
 import net.minecraft.util.DamageSource;
 import net.minecraft.network.chat.TextComponent;
 
@@ -68,7 +68,7 @@ public class WildHuntWitherSkeletonEntity extends WitherSkeletonEntity {
             entity.finalizeSpawn(level, difficultyIn, reason, spawnDataIn, dataTag);
             double offsetX = (level.getRandom().nextGaussian() - 1.0) * (1 + level.getRandom().nextInt(4));
             double offsetZ = (level.getRandom().nextGaussian() - 1.0) * (1 + level.getRandom().nextInt(4));
-            entity.setPositionAndRotation(this.getPosX() + offsetX, this.getPosY() + 1.5, this.getPosZ() + offsetZ,
+            entity.absMoveTo(this.getPosX() + offsetX, this.getPosY() + 1.5, this.getPosZ() + offsetZ,
                     level.getRandom().nextInt(360), 0);
             entity.setCustomName(new TextComponent(TextUtil.generateName()));
             level.addEntity(entity);
@@ -91,7 +91,7 @@ public class WildHuntWitherSkeletonEntity extends WitherSkeletonEntity {
 
     @Override
     public boolean isInvulnerableTo(DamageSource source) {
-        ITag<EntityType<?>> wildHuntTag = OccultismTags.WILD_HUNT;
+        Tag<EntityType<?>> wildHuntTag = OccultismTags.WILD_HUNT;
 
         Entity trueSource = source.getTrueSource();
         if (trueSource != null && wildHuntTag.contains(trueSource.getType()))
@@ -111,10 +111,10 @@ public class WildHuntWitherSkeletonEntity extends WitherSkeletonEntity {
     //endregion Overrides
 
     //region Static Methods
-    public static AttributeModifierMap.MutableAttribute registerAttributes() {
+    public static AttributeSupplier.Builder createLivingAttributes() {
         return SkeletonEntity.registerAttributes()
-                       .createMutableAttribute(Attributes.ATTACK_DAMAGE, 6.0)
-                       .createMutableAttribute(Attributes.MAX_HEALTH, 60.0);
+                       .add(Attributes.ATTACK_DAMAGE, 6.0)
+                       .add(Attributes.MAX_HEALTH, 60.0);
     }
     //endregion Static Methods
 

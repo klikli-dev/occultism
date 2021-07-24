@@ -23,7 +23,7 @@
 package com.github.klikli_dev.occultism.common.entity.ai;
 
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
-import net.minecraft.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.EnumSet;
@@ -45,13 +45,13 @@ public class ReturnToWorkAreaGoal extends Goal {
     public ReturnToWorkAreaGoal(SpiritEntity entity, int executionChance) {
         this.entity = entity;
         this.executionChance = executionChance;
-        this.setMutexFlags(EnumSet.of(Flag.TARGET));
+        this.setFlags(EnumSet.of(Flag.TARGET));
     }
     //endregion Initialization
 
     //region Overrides
     @Override
-    public boolean shouldExecute() {
+    public boolean canUse() {
 
         //fire on a slow tick based on chance
         long worldTime = this.entity.level.getGameTime() % 10;
@@ -68,8 +68,8 @@ public class ReturnToWorkAreaGoal extends Goal {
     @Override
     public void tick() {
         if (!this.entity.getWorkAreaPosition().isPresent()) {
-            this.resetTask();
-            this.entity.getNavigator().clearPath();
+            this.stop();
+            this.entity.getNavigator().stop();
         }
         else {
             this.entity.getNavigator().setPath(this.entity.getNavigator().getPathToPos(
@@ -77,22 +77,22 @@ public class ReturnToWorkAreaGoal extends Goal {
             double distance = this.entity.getPositionVec().distanceTo(
                     Vec3.copyCentered(this.entity.getWorkAreaPosition().orElse(this.entity.getPosition())));
             if (distance < 1F) {
-                this.entity.setMotion(0, 0, 0);
-                this.entity.getNavigator().clearPath();
+                this.entity.setDeltaMovement(0, 0, 0);
+                this.entity.getNavigator().stop();
             }
         }
     }
 
     @Override
-    public boolean shouldContinueExecuting() {
+    public boolean canContinueToUse() {
         return !this.entity.getNavigator().noPath();
     }
 
     @Override
-    public void startExecuting() {
+    public void start() {
         this.entity.getNavigator().setPath(this.entity.getNavigator().getPathToPos(
                 this.entity.getWorkAreaPosition().orElse(this.entity.getPosition()), 0), 1.0f);
-        super.startExecuting();
+        super.start();
     }
     //endregion Overrides
 

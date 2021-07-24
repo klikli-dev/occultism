@@ -25,17 +25,17 @@ package com.github.klikli_dev.occultism.common.item.tool;
 import com.github.klikli_dev.occultism.Occultism;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.entity.player.ServerPlayer;
+import net.minecraft.world.entity.player.ServerPlayer;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.InteractionHand;
-import net.minecraft.util.InteractionResult;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
@@ -76,7 +76,7 @@ public class GuideBookItem extends Item {
         if (!worldIn.isClientSide) {
             PatchouliAPI.instance.openBookGUI((ServerPlayer) playerIn, GUIDE);
         }
-        return new ActionResult<>(InteractionResult.SUCCESS, playerIn.getHeldItem(handIn));
+        return new ActionResult<>(InteractionResult.SUCCESS, playerIn.getItemInHand(handIn));
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -93,6 +93,6 @@ public class GuideBookItem extends Item {
     @Override
     public Component getDisplayName(ItemStack stack) {
         Book book = BookRegistry.INSTANCE.books.get(GUIDE);
-        return book != null ? new TranslationTextComponent(book.name, new Object[0]) : super.getDisplayName(stack);
+        return book != null ? new TranslatableComponent(book.name, new Object[0]) : super.getDisplayName(stack);
     }
 }

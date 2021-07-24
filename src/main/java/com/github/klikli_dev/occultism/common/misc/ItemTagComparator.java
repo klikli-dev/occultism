@@ -26,7 +26,7 @@ import com.github.klikli_dev.occultism.api.common.container.IItemStackComparator
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.tags.ITag;
+import net.minecraft.tags.Tag;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.resources.ResourceLocation;
 
@@ -37,11 +37,11 @@ import javax.annotation.Nonnull;
  */
 public class ItemTagComparator implements IItemStackComparator {
     //region Fields
-    protected ITag<Item> tag;
+    protected Tag<Item> tag;
     //endregion Fields
 
     //region Initialization
-    public ItemTagComparator(ITag<Item> tag) {
+    public ItemTagComparator(Tag<Item> tag) {
         this.tag = tag;
     }
 

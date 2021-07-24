@@ -24,15 +24,15 @@ package com.github.klikli_dev.occultism.common.block;
 
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.level.IBlockReader;
-import net.minecraft.level.IWorldReader;
+import net.minecraft.level.BlockGetter;
+import net.minecraft.level.LevelReader;
 import net.minecraft.world.level.Level;
 import net.minecraft.core.Direction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.math.shapes.IBooleanFunction;
-import net.minecraft.util.math.shapes.ISelectionContext;
+import net.minecraft.util.math.shapes.CollisionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.shapes.VoxelShapes;
+import net.minecraft.util.math.shapes.Shapes;
 
 import java.util.stream.Stream;
 
@@ -44,7 +44,7 @@ public class SpiritAttunedCrystalBlock extends Block {
             Block.makeCuboidShape(8, 0, 4, 11, 2, 7),
             Block.makeCuboidShape(4, 0, 5, 7, 6, 8),
             Block.makeCuboidShape(6, 0, 6, 10, 12, 10)
-    ).reduce((v1, v2) -> {return VoxelShapes.combineAndSimplify(v1, v2, IBooleanFunction.OR);}).get();
+    ).reduce((v1, v2) -> {return Shapes.combineAndSimplify(v1, v2, IBooleanFunction.OR);}).get();
     //endregion Fields
 
     //region Initialization
@@ -56,7 +56,7 @@ public class SpiritAttunedCrystalBlock extends Block {
     //region Overrides
 
     @Override
-    public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+    public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
         return SHAPE;
     }
     @Override
@@ -69,7 +69,7 @@ public class SpiritAttunedCrystalBlock extends Block {
     }
 
     @Override
-    public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
+    public boolean isValidPosition(BlockState state, LevelReader worldIn, BlockPos pos) {
         BlockPos down = pos.down();
         BlockState downState = worldIn.getBlockState(down);
         return downState.isSolidSide(worldIn, down, Direction.UP);

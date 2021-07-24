@@ -26,8 +26,8 @@ import com.github.klikli_dev.occultism.common.container.spirit.SpiritTransporter
 import com.github.klikli_dev.occultism.common.entity.ai.DepositItemsGoal;
 import com.github.klikli_dev.occultism.common.entity.ai.ExtractItemsGoal;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
-import net.minecraft.entity.ai.goal.OpenDoorGoal;
-import net.minecraft.entity.player.Inventory;
+import net.minecraft.world.entity.ai.goal.OpenDoorGoal;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.inventory.container.AbstractContainerMenu;
 import net.minecraft.inventory.container.MenuProvider;

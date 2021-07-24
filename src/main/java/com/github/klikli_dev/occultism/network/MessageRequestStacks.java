@@ -25,7 +25,7 @@ package com.github.klikli_dev.occultism.network;
 
 import com.github.klikli_dev.occultism.api.common.container.IStorageControllerContainer;
 import com.github.klikli_dev.occultism.api.common.tile.IStorageController;
-import net.minecraft.entity.player.ServerPlayer;
+import net.minecraft.world.entity.player.ServerPlayer;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.fml.network.NetworkEvent;
@@ -55,7 +55,7 @@ public class MessageRequestStacks extends MessageBase {
                 OccultismPackets.sendTo(player, storageController.getMessageUpdateStacks());
                 OccultismPackets
                         .sendTo(player, new MessageUpdateLinkedMachines(storageController.getLinkedMachines()));
-                player.openContainer.detectAndSendChanges();
+                player.openContainer.broadcastChanges();
             }
         }
     }

@@ -361,7 +361,7 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
 
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason,
-                                            @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
+                                        @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
         this.selectRandomSkin();
         return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
     }
@@ -423,7 +423,7 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
     public ItemStack getItemBySlot(EquipmentSlot slotIn) {
         switch (slotIn) {
             case MAINHAND:
-                return this.itemStackHandler.orElseThrow(ItemHandlerMissingException::new).getStackInSlot(0);
+                return this.itemStackHandler.orElseThrow(ItemHandlerMissingException::new).getItem(0);
             default:
                 return ItemStack.EMPTY;
         }

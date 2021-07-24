@@ -29,11 +29,11 @@ import com.github.klikli_dev.occultism.network.OccultismPackets;
 import com.github.klikli_dev.occultism.util.Math3DUtil;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.block.LeavesBlock;
-import net.minecraft.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.level.Level;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.core.Direction;
-import net.minecraft.util.InteractionHand;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.core.BlockPos;
 
@@ -54,14 +54,14 @@ public class FellTreesGoal extends Goal {
     public FellTreesGoal(SpiritEntity entity) {
         this.entity = entity;
         this.targetSorter = new BlockSorter(entity);
-        this.setMutexFlags(EnumSet.of(Flag.MOVE));
+        this.setFlags(EnumSet.of(Flag.MOVE));
     }
     //endregion Initialization
 
     //region Overrides
     @Override
-    public boolean shouldExecute() {
-        if (!this.entity.getHeldItem(InteractionHand.MAIN_HAND).isEmpty()) {
+    public boolean canUse() {
+        if (!this.entity.getItemInHand(InteractionHand.MAIN_HAND).isEmpty()) {
             return false; //if already holding an item we need to first store it.
         }
         this.resetTarget();
@@ -69,13 +69,13 @@ public class FellTreesGoal extends Goal {
     }
 
     @Override
-    public boolean shouldContinueExecuting() {
+    public boolean canContinueToUse() {
         //only continue execution if a tree is available and entity is not carrying anything.
-        return this.targetBlock != null && this.entity.getHeldItem(InteractionHand.MAIN_HAND).isEmpty();
+        return this.targetBlock != null && this.entity.getItemInHand(InteractionHand.MAIN_HAND).isEmpty();
     }
 
-    public void resetTask() {
-        this.entity.getNavigator().clearPath();
+    public void stop() {
+        this.entity.getNavigator().stop();
         this.targetBlock = null;
         this.moveTarget = null;
         this.resetTarget();
@@ -99,15 +99,15 @@ public class FellTreesGoal extends Goal {
                     //start breaking when close
                     if (distance < 1F) {
                         //Stop moving if very close
-                        this.entity.setMotion(0, 0, 0);
-                        this.entity.getNavigator().clearPath();
+                        this.entity.setDeltaMovement(0, 0, 0);
+                        this.entity.getNavigator().stop();
                     }
 
                     this.updateBreakBlock();
                 }
             }
             else {
-                this.resetTask();
+                this.stop();
             }
         }
     }
@@ -127,7 +127,7 @@ public class FellTreesGoal extends Goal {
     //region Methods
     public void updateBreakBlock() {
         this.breakingTime++;
-        this.entity.swingArm(InteractionHand.MAIN_HAND);
+        this.entity.swing(InteractionHand.MAIN_HAND);
         int i = (int) ((float) this.breakingTime / 160.0F * 10.0F);
         if (this.breakingTime % 10 == 0) {
             this.entity.playSound(SoundEvents.BLOCK_WOOD_HIT, 1, 1);
@@ -143,7 +143,7 @@ public class FellTreesGoal extends Goal {
             this.previousBreakProgress = -1;
             this.fellTree();
             this.targetBlock = null;
-            this.resetTask();
+            this.stop();
         }
 
     }

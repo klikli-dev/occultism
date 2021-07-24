@@ -23,13 +23,13 @@
 package com.github.klikli_dev.occultism.common.job;
 
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.effect.LightningBoltEntity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.effect.LightningBoltEntity;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.InteractionHand;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.phys.Vec3;
 
 public abstract class ChangeWeatherJob extends SpiritJob {
@@ -73,7 +73,7 @@ public abstract class ChangeWeatherJob extends SpiritJob {
 
         this.currentChangeTicks++;
         if(!this.entity.isSwingInProgress){
-            this.entity.swingArm(InteractionHand.MAIN_HAND);
+            this.entity.swing(InteractionHand.MAIN_HAND);
         }
         if(this.entity.level.getGameTime() % 2 == 0){
             ((ServerLevel) this.entity.level)

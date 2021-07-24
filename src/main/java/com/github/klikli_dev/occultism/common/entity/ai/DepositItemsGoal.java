@@ -28,13 +28,13 @@ import com.github.klikli_dev.occultism.common.entity.ai.target.IMoveTarget;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.github.klikli_dev.occultism.exceptions.ItemHandlerMissingException;
 import com.github.klikli_dev.occultism.util.Math3DUtil;
-import net.minecraft.BlockEntity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.BlockEntity.ChestBlockEntity;
-import net.minecraft.entity.Entity;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.core.Direction;
-import net.minecraft.util.InteractionHand;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceContext;
@@ -58,7 +58,7 @@ public class DepositItemsGoal extends PausableGoal {
     public DepositItemsGoal(SpiritEntity entity) {
         this.entity = entity;
         this.targetSorter = new BlockSorter(entity);
-        this.setMutexFlags(EnumSet.of(Flag.TARGET));
+        this.setFlags(EnumSet.of(Flag.TARGET));
     }
     //endregion Initialization
 
@@ -75,13 +75,13 @@ public class DepositItemsGoal extends PausableGoal {
 
     //region Overrides
     @Override
-    public boolean shouldExecute() {
+    public boolean canUse() {
         //do not use if there is a target to attack
         if (this.entity.getAttackTarget() != null) {
             return false;
         }
         //nothing to deposit in hand
-        if (this.entity.getHeldItem(InteractionHand.MAIN_HAND).isEmpty()) {
+        if (this.entity.getItemInHand(InteractionHand.MAIN_HAND).isEmpty()) {
             return false;
         }
         this.resetTarget();
@@ -89,12 +89,12 @@ public class DepositItemsGoal extends PausableGoal {
     }
 
     @Override
-    public boolean shouldContinueExecuting() {
-        return !this.isPaused() && this.moveTarget != null && !this.entity.getHeldItem(InteractionHand.MAIN_HAND).isEmpty();
+    public boolean canContinueToUse() {
+        return !this.isPaused() && this.moveTarget != null && !this.entity.getItemInHand(InteractionHand.MAIN_HAND).isEmpty();
     }
 
-    public void resetTask() {
-        this.entity.getNavigator().clearPath();
+    public void stop() {
+        this.entity.getNavigator().stop();
         this.resetTarget();
     }
 
@@ -115,7 +115,7 @@ public class DepositItemsGoal extends PausableGoal {
 
                 if (distance < accessDistance) {
                     //stop moving while taking out
-                    this.entity.getNavigator().clearPath();
+                    this.entity.getNavigator().stop();
                 } else {
                     //continue moving
                     BlockPos moveTarget = this.getMoveTarget();
@@ -133,7 +133,7 @@ public class DepositItemsGoal extends PausableGoal {
                         return;
                     }
                     IItemHandler handler = handlerCapability.orElseThrow(ItemHandlerMissingException::new);
-                    ItemStack duplicate = this.entity.getHeldItem(InteractionHand.MAIN_HAND).copy();
+                    ItemStack duplicate = this.entity.getItemInHand(InteractionHand.MAIN_HAND).copy();
 
                     //simulate insertion
                     ItemStack toInsert = ItemHandlerHelper.insertItem(handler, duplicate, true);
@@ -141,10 +141,10 @@ public class DepositItemsGoal extends PausableGoal {
                     if (toInsert.getCount() != duplicate.getCount()) {
                         ItemStack leftover = ItemHandlerHelper.insertItem(handler, duplicate, false);
                         //if we inserted everything
-                        this.entity.setHeldItem(InteractionHand.MAIN_HAND, leftover);
+                        this.entity.setItemInHand(InteractionHand.MAIN_HAND, leftover);
                         if (toInsert.isEmpty()) {
                             this.moveTarget = null;
-                            this.resetTask();
+                            this.stop();
                         } else {
                             //pause ai to retry again in a little while.
                             this.pause(2000);
