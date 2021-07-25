@@ -23,18 +23,18 @@
 package com.github.klikli_dev.occultism.common.entity.spirit;
 
 import com.github.klikli_dev.occultism.registry.OccultismTags;
+import net.minecraft.tags.Tag;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.ai.attributes.AttributeModifierMap;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.monster.SkeletonEntity;
+import net.minecraft.world.entity.monster.Skeleton;
 import net.minecraft.world.level.Level;
-import net.minecraft.tags.Tag;
-import net.minecraft.util.DamageSource;
 
 import java.util.Optional;
 
-public class WildHuntSkeletonEntity extends SkeletonEntity {
+public class WildHuntSkeletonEntity extends Skeleton {
     //region Fields
     protected Optional<WildHuntWitherSkeletonEntity> master = Optional.empty();
     //endregion Fields
@@ -54,12 +54,12 @@ public class WildHuntSkeletonEntity extends SkeletonEntity {
 
     //region Overrides
     @Override
-    protected boolean isDespawnPeaceful() {
+    protected boolean shouldDespawnInPeaceful() {
         return false;
     }
 
     @Override
-    protected boolean isInDaylight() {
+    protected boolean isSunBurnTick() {
         return false;
     }
 
@@ -75,11 +75,11 @@ public class WildHuntSkeletonEntity extends SkeletonEntity {
     public boolean isInvulnerableTo(DamageSource source) {
         Tag<EntityType<?>> wildHuntTag = OccultismTags.WILD_HUNT;
 
-        Entity trueSource = source.getTrueSource();
+        Entity trueSource = source.getEntity();
         if (trueSource != null && wildHuntTag.contains(trueSource.getType()))
             return true;
 
-        Entity immediateSource = source.getImmediateSource();
+        Entity immediateSource = source.getDirectEntity();
         if (immediateSource != null && wildHuntTag.contains(immediateSource.getType()))
             return true;
 
@@ -88,10 +88,10 @@ public class WildHuntSkeletonEntity extends SkeletonEntity {
     //endregion Overrides
 
     //region Static Methods
-    public static AttributeSupplier.Builder createLivingAttributes() {
-        return SkeletonEntity.registerAttributes()
-                       .add(Attributes.ATTACK_DAMAGE, 4.0)
-                       .add(Attributes.MAX_HEALTH, 20.0);
+    public static AttributeSupplier.Builder createAttributes() {
+        return Skeleton.createAttributes()
+                .add(Attributes.ATTACK_DAMAGE, 4.0)
+                .add(Attributes.MAX_HEALTH, 20.0);
     }
     //endregion Static Methods
 }

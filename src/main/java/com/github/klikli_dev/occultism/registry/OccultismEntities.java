@@ -30,10 +30,10 @@ import com.github.klikli_dev.occultism.common.entity.possessed.PossessedEnderman
 import com.github.klikli_dev.occultism.common.entity.possessed.PossessedEndermiteEntity;
 import com.github.klikli_dev.occultism.common.entity.possessed.PossessedSkeletonEntity;
 import com.github.klikli_dev.occultism.common.entity.spirit.*;
-import net.minecraft.world.entity.EntityClassification;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobCategory;
 import net.minecraftforge.common.util.NonNullLazy;
-import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -45,71 +45,71 @@ public class OccultismEntities {
             Occultism.MODID);
 
     public static final NonNullLazy<EntityType<FoliotEntity>> FOLIOT_TYPE =
-            NonNullLazy.of(() -> EntityType.Builder.create(FoliotEntity::new, EntityClassification.CREATURE)
-                                         .size(0.6f, 0.9f)
-                                         .trackingRange(8)
-                                         .build(modLoc("foliot").toString()));
+            NonNullLazy.of(() -> EntityType.Builder.of(FoliotEntity::new, MobCategory.CREATURE)
+                    .sized(0.6f, 0.9f)
+                    .clientTrackingRange(8)
+                    .build(modLoc("foliot").toString()));
     public static final NonNullLazy<EntityType<DjinniEntity>> DJINNI_TYPE =
-            NonNullLazy.of(() -> EntityType.Builder.create(DjinniEntity::new, EntityClassification.CREATURE)
-                                         .size(0.6f, 0.9f)
-                                         .trackingRange(8)
-                                         .build(modLoc("djinni").toString()));
+            NonNullLazy.of(() -> EntityType.Builder.of(DjinniEntity::new, MobCategory.CREATURE)
+                    .sized(0.6f, 0.9f)
+                    .clientTrackingRange(8)
+                    .build(modLoc("djinni").toString()));
     public static final NonNullLazy<EntityType<AfritEntity>> AFRIT_TYPE =
-            NonNullLazy.of(() -> EntityType.Builder.create(AfritEntity::new, EntityClassification.CREATURE)
-                                         .size(1.2f, 1.8f)
-                                         .trackingRange(8)
-                                         .build(modLoc("afrit").toString()));
+            NonNullLazy.of(() -> EntityType.Builder.of(AfritEntity::new, MobCategory.CREATURE)
+                    .sized(1.2f, 1.8f)
+                    .clientTrackingRange(8)
+                    .build(modLoc("afrit").toString()));
     public static final NonNullLazy<EntityType<AfritWildEntity>> AFRIT_WILD_TYPE =
-            NonNullLazy.of(() -> EntityType.Builder.create(AfritWildEntity::new, EntityClassification.CREATURE)
-                                         .size(1.2f, 1.8f)
-                                         .trackingRange(8)
-                                         .build(modLoc("afrit_wild").toString()));
+            NonNullLazy.of(() -> EntityType.Builder.of(AfritWildEntity::new, MobCategory.CREATURE)
+                    .sized(1.2f, 1.8f)
+                    .clientTrackingRange(8)
+                    .build(modLoc("afrit_wild").toString()));
     public static final NonNullLazy<EntityType<MaridEntity>> MARID_TYPE =
-            NonNullLazy.of(() -> EntityType.Builder.create(MaridEntity::new, EntityClassification.CREATURE)
-                                         .size(1.2f, 1.8f)
-                                         .trackingRange(8)
-                                         .build(modLoc("marid").toString()));
+            NonNullLazy.of(() -> EntityType.Builder.of(MaridEntity::new, MobCategory.CREATURE)
+                    .sized(1.2f, 1.8f)
+                    .clientTrackingRange(8)
+                    .build(modLoc("marid").toString()));
 
     public static final NonNullLazy<EntityType<PossessedEndermiteEntity>> POSSESSED_ENDERMITE_TYPE =
-            NonNullLazy.of(() -> EntityType.Builder.create(PossessedEndermiteEntity::new, EntityClassification.MONSTER)
-                                         .size(0.4F, 0.3F)
-                                         .trackingRange(8)
-                                         .build(modLoc("possessed_endermite").toString()));
+            NonNullLazy.of(() -> EntityType.Builder.of(PossessedEndermiteEntity::new, MobCategory.MONSTER)
+                    .sized(0.4F, 0.3F)
+                    .clientTrackingRange(8)
+                    .build(modLoc("possessed_endermite").toString()));
     public static final NonNullLazy<EntityType<PossessedSkeletonEntity>> POSSESSED_SKELETON_TYPE =
-            NonNullLazy.of(() -> EntityType.Builder.create(PossessedSkeletonEntity::new, EntityClassification.MONSTER)
-                                         .size(0.6F, 1.99F)
-                                         .trackingRange(8)
-                                         .build(modLoc("possessed_skeleton").toString()));
+            NonNullLazy.of(() -> EntityType.Builder.of(PossessedSkeletonEntity::new, MobCategory.MONSTER)
+                    .sized(0.6F, 1.99F)
+                    .clientTrackingRange(8)
+                    .build(modLoc("possessed_skeleton").toString()));
     public static final NonNullLazy<EntityType<PossessedEndermanEntity>> POSSESSED_ENDERMAN_TYPE =
-            NonNullLazy.of(() -> EntityType.Builder.create(PossessedEndermanEntity::new, EntityClassification.MONSTER)
-                                         .size(0.6F, 2.9F)
-                                         .trackingRange(8)
-                                         .build(modLoc("possessed_endermite").toString()));
+            NonNullLazy.of(() -> EntityType.Builder.of(PossessedEndermanEntity::new, MobCategory.MONSTER)
+                    .sized(0.6F, 2.9F)
+                    .clientTrackingRange(8)
+                    .build(modLoc("possessed_endermite").toString()));
     public static final NonNullLazy<EntityType<WildHuntSkeletonEntity>> WILD_HUNT_SKELETON_TYPE =
-            NonNullLazy.of(() -> EntityType.Builder.create(WildHuntSkeletonEntity::new, EntityClassification.MONSTER)
-                                         .size(0.6F, 2.9F)
-                                         .trackingRange(8)
-                                         .build(modLoc("wild_hunt_skeleton").toString()));
+            NonNullLazy.of(() -> EntityType.Builder.of(WildHuntSkeletonEntity::new, MobCategory.MONSTER)
+                    .sized(0.6F, 2.9F)
+                    .clientTrackingRange(8)
+                    .build(modLoc("wild_hunt_skeleton").toString()));
     public static final NonNullLazy<EntityType<WildHuntWitherSkeletonEntity>> WILD_HUNT_WITHER_SKELETON_TYPE =
-            NonNullLazy.of(() -> EntityType.Builder.create(WildHuntWitherSkeletonEntity::new, EntityClassification.MONSTER)
-                                         .size(0.6F, 2.9F)
-                                         .trackingRange(8)
-                                         .build(modLoc("wild_hunt_wither_skeleton").toString()));
+            NonNullLazy.of(() -> EntityType.Builder.of(WildHuntWitherSkeletonEntity::new, MobCategory.MONSTER)
+                    .sized(0.6F, 2.9F)
+                    .clientTrackingRange(8)
+                    .build(modLoc("wild_hunt_wither_skeleton").toString()));
     public static final NonNullLazy<EntityType<OtherworldBirdEntity>> OTHERWORLD_BIRD_TYPE =
-            NonNullLazy.of(() -> EntityType.Builder.create(OtherworldBirdEntity::new, EntityClassification.CREATURE)
-                                         .size(0.5F, 0.9F)
-                                         .trackingRange(8)
-                                         .build(modLoc("otherworld_bird").toString()));
+            NonNullLazy.of(() -> EntityType.Builder.of(OtherworldBirdEntity::new, MobCategory.CREATURE)
+                    .sized(0.5F, 0.9F)
+                    .clientTrackingRange(8)
+                    .build(modLoc("otherworld_bird").toString()));
     public static final NonNullLazy<EntityType<GreedyFamiliarEntity>> GREEDY_FAMILIAR_TYPE =
-            NonNullLazy.of(() -> EntityType.Builder.create(GreedyFamiliarEntity::new, EntityClassification.CREATURE)
-                                         .size(0.5F, 0.9F)
-                                         .trackingRange(8)
-                                         .build(modLoc("greedy_familiar").toString()));
+            NonNullLazy.of(() -> EntityType.Builder.of(GreedyFamiliarEntity::new, MobCategory.CREATURE)
+                    .sized(0.5F, 0.9F)
+                    .clientTrackingRange(8)
+                    .build(modLoc("greedy_familiar").toString()));
     public static final NonNullLazy<EntityType<BatFamiliarEntity>> BAT_FAMILIAR_TYPE =
-            NonNullLazy.of(() -> EntityType.Builder.create(BatFamiliarEntity::new, EntityClassification.CREATURE)
-                                         .size(0.5F, 0.9F)
-                                         .trackingRange(8)
-                                         .build(modLoc("bat_familiar").toString()));
+            NonNullLazy.of(() -> EntityType.Builder.of(BatFamiliarEntity::new, MobCategory.CREATURE)
+                    .sized(0.5F, 0.9F)
+                    .clientTrackingRange(8)
+                    .build(modLoc("bat_familiar").toString()));
 
     public static final RegistryObject<EntityType<FoliotEntity>> FOLIOT = ENTITIES.register("foliot", FOLIOT_TYPE::get);
     public static final RegistryObject<EntityType<DjinniEntity>> DJINNI = ENTITIES.register("djinni", DJINNI_TYPE::get);

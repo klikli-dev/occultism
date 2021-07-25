@@ -23,13 +23,13 @@
 package com.github.klikli_dev.occultism.common.entity.possessed;
 
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.ai.attributes.AttributeModifierMap;
-import net.minecraft.world.entity.monster.EndermanEntity;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.level.Level;
 
-public class PossessedEndermanEntity extends EndermanEntity {
+public class PossessedEndermanEntity extends EnderMan {
     //region Initialization
-    public PossessedEndermanEntity(EntityType<? extends EndermanEntity> type,
+    public PossessedEndermanEntity(EntityType<? extends EnderMan> type,
                                    Level worldIn) {
         super(type, worldIn);
     }
@@ -37,14 +37,14 @@ public class PossessedEndermanEntity extends EndermanEntity {
 
     //region Overrides
     @Override
-    protected boolean isDespawnPeaceful() {
+    protected boolean shouldDespawnInPeaceful() {
         return false;
     }
     //endregion Overrides
 
     //region Static Methods
-    public static AttributeSupplier.Builder createLivingAttributes() {
-        return EndermanEntity.func_234287_m_(); //=registerAttributes
+    public static AttributeSupplier.Builder createAttributes() {
+        return EnderMan.createAttributes();
     }
     //endregion Static Methods
 }

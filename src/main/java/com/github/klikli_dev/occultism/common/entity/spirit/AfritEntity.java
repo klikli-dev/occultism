@@ -37,8 +37,8 @@ public class AfritEntity extends SpiritEntity {
     //endregion Initialization
 
     //region Static Methods
-    public static AttributeSupplier.Builder createLivingAttributes() {
-        return SpiritEntity.createLivingAttributes()
+    public static AttributeSupplier.Builder createAttributes() {
+        return SpiritEntity.createAttributes()
                 .add(Attributes.ATTACK_DAMAGE, 8.0)
                 .add(Attributes.ATTACK_SPEED, 8.0)
                 .add(Attributes.MAX_HEALTH, 100.0)

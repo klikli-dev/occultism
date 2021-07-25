@@ -29,7 +29,11 @@ import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockEntity.BlockEntityRenderer;
 import net.minecraft.client.renderer.BlockEntity.BlockEntityRendererDispatcher;
+import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.block.model.BakedQuad;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.model.BakedQuad;
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.world.item.ItemStack;
@@ -40,7 +44,7 @@ import java.awt.*;
 import java.util.List;
 import java.util.Random;
 
-public class StorageControllerRenderer extends BlockEntityRenderer<StorageControllerBlockEntity> {
+public class StorageControllerRenderer implements BlockEntityRenderer<StorageControllerBlockEntity> {
 
     //region Fields
     protected Minecraft minecraft;
@@ -48,7 +52,7 @@ public class StorageControllerRenderer extends BlockEntityRenderer<StorageContro
     //endregion Fields
 
     //region Initialization
-    public StorageControllerRenderer(BlockEntityRendererDispatcher dispatcher) {
+    public StorageControllerRenderer(BlockEntityRenderDispatcher dispatcher) {
         super(dispatcher);
         this.minecraft = Minecraft.getInstance();
     }
@@ -92,7 +96,7 @@ public class StorageControllerRenderer extends BlockEntityRenderer<StorageContro
 
         //from ItemRenderer#renderItem
         poseStack.translate(-0.5D, -0.5D, -0.5D);
-        RenderType rendertype = RenderTypeLookup.func_239219_a_(this.stack, false); //getRenderType(itemstack, isBlock(??)) isBlock = false -> is item entity?
+        RenderType rendertype = ItemBlockRenderTypes.func_239219_a_(this.stack, false); //getRenderType(itemstack, isBlock(??)) isBlock = false -> is item entity?
         IVertexBuilder ivertexbuilder = ItemRenderer.getBuffer(buffer, rendertype, true, this.stack.isFoil());
         //from  ItemRenderer#rendermodel
         Random random = new Random();

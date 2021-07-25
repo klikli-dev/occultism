@@ -100,8 +100,8 @@ public class AfritWildEntity extends AfritEntity {
         return super.isInvulnerableTo(source);
     }
 
-    public static AttributeSupplier.Builder registerAttributes() {
-        return AfritEntity.createLivingAttributes();
+    public static AttributeSupplier.Builder createAttributes() {
+        return AfritEntity.createAttributes();
     }
     //endregion Overrides
 }

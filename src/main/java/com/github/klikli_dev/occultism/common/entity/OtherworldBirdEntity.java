@@ -28,35 +28,35 @@ import com.github.klikli_dev.occultism.registry.OccultismCapabilities;
 import com.github.klikli_dev.occultism.registry.OccultismEffects;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.google.common.collect.ImmutableList;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.AttributeModifierMap;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.goal.*;
-import net.minecraft.world.entity.passive.ParrotEntity;
+import net.minecraft.world.entity.animal.Parrot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 
 import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.UUID;
 
-public class OtherworldBirdEntity extends ParrotEntity implements IFamiliar {
+public class OtherworldBirdEntity extends Parrot implements IFamiliar {
 
     // region Fields
     public static final float MAX_BOOST_DISTANCE = 8f;
     public LivingEntity ownerCached;
 
-    public SitGoal sitGoal;
+    public SitWhenOrderedToGoal sitGoal;
     // endregion Fields
 
     // region Initialization
-    public OtherworldBirdEntity(EntityType<? extends ParrotEntity> type, Level worldIn) {
+    public OtherworldBirdEntity(EntityType<? extends Parrot> type, Level worldIn) {
         super(type, worldIn);
     }
     // endregion Initialization
@@ -75,7 +75,7 @@ public class OtherworldBirdEntity extends ParrotEntity implements IFamiliar {
     @Override
     protected void registerGoals() {
         // same as parrot, except we don't land on shoulders.
-        this.sitGoal = new SitGoal(this);
+        this.sitGoal = new SitWhenOrderedToGoal(this);
         this.goalSelector.addGoal(0, new PanicGoal(this, 1.25D));
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new LookAtPlayerGoal(this, Player.class, 8.0F));
@@ -88,22 +88,23 @@ public class OtherworldBirdEntity extends ParrotEntity implements IFamiliar {
     @Override
     public void aiStep() {
         // Every 10 ticks, attempt to refresh the owner buff
-        if (!this.level.isClientSide && this.level.getGameTime() % 10 == 0 && this.isTamed()) {
+        if (!this.level.isClientSide && this.level.getGameTime() % 10 == 0 && this.isTame()) {
             LivingEntity owner = this.getOwnerCached();
-            if (owner != null && this.getDistance(owner) < MAX_BOOST_DISTANCE) {
+            if (owner != null && this.distanceTo(owner) < MAX_BOOST_DISTANCE) {
                 // close enough to boost
                 for (MobEffectInstance effect : this.getFamiliarEffects())
-                    owner.addPotionEffect(effect);
+                    owner.addEffect(effect);
             }
         }
 
         super.aiStep();
     }
 
+
     @Override
-    public void setOwnerId(@Nullable UUID ownerId) {
+    public void setOwnerUUID(@Nullable UUID ownerId) {
         this.ownerCached = null;
-        super.setOwnerId(ownerId);
+        super.setOwnerUUID(ownerId);
     }
 
     @Override
@@ -113,7 +114,7 @@ public class OtherworldBirdEntity extends ParrotEntity implements IFamiliar {
 
     @Override
     public void setFamiliarOwner(LivingEntity owner) {
-        this.setOwnerId(owner.getUniqueID());
+        this.setOwnerUUID(owner.getUUID());
     }
 
     @Override
@@ -128,7 +129,7 @@ public class OtherworldBirdEntity extends ParrotEntity implements IFamiliar {
         if (this.getFamiliarOwner().getCapability(OccultismCapabilities.FAMILIAR_SETTINGS)
                 .map(FamiliarSettingsCapability::isOtherworldBirdEnabled).orElse(false)) {
 
-            return ImmutableList.of(new MobEffectInstance(MobEffects.JUMP_BOOST, 60, 5, false, false),
+            return ImmutableList.of(new MobEffectInstance(MobEffects.JUMP, 60, 5, false, false),
                     new MobEffectInstance(MobEffects.SLOW_FALLING,
                             20 * Occultism.SERVER_CONFIG.spiritJobs.drikwingFamiliarSlowFallingSeconds.get(), 0, false,
                             false),
@@ -142,15 +143,15 @@ public class OtherworldBirdEntity extends ParrotEntity implements IFamiliar {
     public InteractionResult mobInteract(Player playerIn, InteractionHand hand) {
         ItemStack stack = playerIn.getItemInHand(hand);
         if (stack.getItem() == OccultismItems.FAMILIAR_RING.get()) {
-            return stack.interactWithEntity(playerIn, this, hand);
+            return stack.interactLivingEntity(playerIn, this, hand);
         }
         return super.mobInteract(playerIn, hand);
     }
     // endregion Overrides
 
     //region Static Methods
-    public static AttributeSupplier.Builder createLivingAttributes() {
-        return ParrotEntity.func_234213_eS_(); // =registerAttributes
+    public static AttributeSupplier.Builder createAttributes() {
+        return Parrot.createAttributes();
     }
 //endregion Static Methods
 }

@@ -53,8 +53,8 @@ public class BatFamiliarEntity extends FamiliarEntity implements FlyingAnimal {
         this.moveControl = new FlyingMoveControl(this, 20, true);
     }
 
-    public static AttributeSupplier.Builder createLivingAttributes() {
-        return FamiliarEntity.createLivingAttributes().add(Attributes.FLYING_SPEED, 0.4);
+    public static AttributeSupplier.Builder createAttributes() {
+        return FamiliarEntity.createAttributes().add(Attributes.FLYING_SPEED, 0.4);
     }
 
     @Override

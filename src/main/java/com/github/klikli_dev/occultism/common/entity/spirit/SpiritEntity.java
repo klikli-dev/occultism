@@ -423,7 +423,7 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
     public ItemStack getItemBySlot(EquipmentSlot slotIn) {
         switch (slotIn) {
             case MAINHAND:
-                return this.itemStackHandler.orElseThrow(ItemHandlerMissingException::new).getItem(0);
+                return this.itemStackHandler.orElseThrow(ItemHandlerMissingException::new).getStackInSlot(0);
             default:
                 return ItemStack.EMPTY;
         }
@@ -628,7 +628,7 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
     //endregion Overrides
 
     //region Static Methods
-    public static AttributeSupplier.Builder createLivingAttributes() {
+    public static AttributeSupplier.Builder createAttributes() {
         return TamableAnimal.createLivingAttributes()
                 .add(Attributes.ATTACK_DAMAGE, 1.0)
                 .add(Attributes.ATTACK_SPEED, 4.0)

@@ -33,19 +33,23 @@ import com.github.klikli_dev.occultism.client.gui.storage.StorageRemoteGui;
 import com.github.klikli_dev.occultism.client.itemproperties.*;
 import com.github.klikli_dev.occultism.client.keybindings.BackpackKeyConflictContext;
 import com.github.klikli_dev.occultism.client.keybindings.StorageRemoteKeyConflictContext;
+import com.github.klikli_dev.occultism.client.model.entity.AfritModel;
 import com.github.klikli_dev.occultism.client.render.entity.*;
 import com.github.klikli_dev.occultism.client.render.tile.SacrificialBowlRenderer;
 import com.github.klikli_dev.occultism.client.render.tile.StorageControllerRenderer;
 import com.github.klikli_dev.occultism.common.container.spirit.SpiritContainer;
 import com.github.klikli_dev.occultism.registry.*;
-import net.minecraft.client.gui.ScreenManager;
+import net.minecraft.client.KeyMapping;
+import net.minecraft.client.gui.MenuScreens;
+import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.RenderTypeLookup;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.entity.EndermanRenderer;
 import net.minecraft.client.renderer.entity.EndermiteRenderer;
 import net.minecraft.client.renderer.entity.SkeletonRenderer;
 import net.minecraft.client.renderer.entity.WitherSkeletonRenderer;
-import net.minecraft.client.settings.KeyBinding;
+import net.minecraft.client.settings.KeyMapping;
 import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.item.ItemModelsProperties;
 import net.minecraft.resources.ResourceLocation;
@@ -57,31 +61,33 @@ import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.fmlclient.registry.ClientRegistry;
+import net.minecraftforge.fmlclient.registry.RenderingRegistry;
 import org.lwjgl.glfw.GLFW;
 
 @Mod.EventBusSubscriber(modid = Occultism.MODID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ClientSetupEventHandler {
 
     //region Fields
-    public static final KeyBinding KEY_BACKPACK =
-            new KeyBinding("key.occultism.backpack", BackpackKeyConflictContext.INSTANCE,
-                    InputConstants.Type.KEYSYM.getOrMakeInput(GLFW.GLFW_KEY_B), "key.occultism.category");
+    public static final KeyMapping KEY_BACKPACK =
+            new KeyMapping("key.occultism.backpack", BackpackKeyConflictContext.INSTANCE,
+                    InputConstants.Type.KEYSYM.getOrCreate(GLFW.GLFW_KEY_B), "key.occultism.category");
 
-    public static final KeyBinding KEY_STORAGE_REMOTE =
-            new KeyBinding("key.occultism.storage_remote", StorageRemoteKeyConflictContext.INSTANCE,
-                    InputConstants.Type.KEYSYM.getOrMakeInput(GLFW.GLFW_KEY_N), "key.occultism.category");
+    public static final KeyMapping KEY_STORAGE_REMOTE =
+            new KeyMapping("key.occultism.storage_remote", StorageRemoteKeyConflictContext.INSTANCE,
+                    InputConstants.Type.KEYSYM.getOrCreate(GLFW.GLFW_KEY_N), "key.occultism.category");
 
-    public static final KeyBinding KEY_FAMILIAR_OTHERWORLD_BIRD =
-            new KeyBinding("key.occultism.familiar.otherworld_bird", KeyConflictContext.IN_GAME,
-                    InputConstants.Type.KEYSYM.getOrMakeInput(-1), "key.occultism.category");
+    public static final KeyMapping KEY_FAMILIAR_OTHERWORLD_BIRD =
+            new KeyMapping("key.occultism.familiar.otherworld_bird", KeyConflictContext.IN_GAME,
+                    InputConstants.Type.KEYSYM.getOrCreate(-1), "key.occultism.category");
 
-    public static final KeyBinding KEY_FAMILIAR_GREEDY =
-            new KeyBinding("key.occultism.familiar.greedy", KeyConflictContext.IN_GAME,
-                    InputConstants.Type.KEYSYM.getOrMakeInput(GLFW.GLFW_KEY_M), "key.occultism.category");
+    public static final KeyMapping KEY_FAMILIAR_GREEDY =
+            new KeyMapping("key.occultism.familiar.greedy", KeyConflictContext.IN_GAME,
+                    InputConstants.Type.KEYSYM.getOrCreate(GLFW.GLFW_KEY_M), "key.occultism.category");
 
-    public static final KeyBinding KEY_FAMILIAR_BAT =
-            new KeyBinding("key.occultism.familiar.bat", KeyConflictContext.IN_GAME,
-                    InputConstants.Type.KEYSYM.getOrMakeInput(-1), "key.occultism.category");
+    public static final KeyMapping KEY_FAMILIAR_BAT =
+            new KeyMapping("key.occultism.familiar.bat", KeyConflictContext.IN_GAME,
+                    InputConstants.Type.KEYSYM.getOrCreate(-1), "key.occultism.category");
     //endregion Fields
 
     //region Static Methods
@@ -99,6 +105,9 @@ public class ClientSetupEventHandler {
             ClientRegistry.registerKeyBinding(KEY_FAMILIAR_GREEDY);
             ClientRegistry.registerKeyBinding(KEY_FAMILIAR_BAT);
         });
+
+        //Register Entity Layers
+        RenderingRegistry.registerLayerDefinition(AfritModel.AFRIT_LAYER, AfritModel::createBodyLayer);
 
         //Register Entity Renderers
         RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.FOLIOT.get(), FoliotRenderer::new);
@@ -122,38 +131,37 @@ public class ClientSetupEventHandler {
                 .registerEntityRenderingHandler(OccultismEntities.OTHERWORLD_BIRD.get(), OtherworldBirdRenderer::new);
 
         //Register Tile Entity Renderers
-        ClientRegistry.bindBlockEntityRenderer(OccultismTiles.STORAGE_CONTROLLER.get(), StorageControllerRenderer::new);
-        ClientRegistry.bindBlockEntityRenderer(OccultismTiles.SACRIFICIAL_BOWL.get(), SacrificialBowlRenderer::new);
-        ClientRegistry
-                .bindBlockEntityRenderer(OccultismTiles.GOLDEN_SACRIFICIAL_BOWL.get(), SacrificialBowlRenderer::new);
+        BlockEntityRenderers.register(OccultismTiles.STORAGE_CONTROLLER.get(), StorageControllerRenderer::new);
+        BlockEntityRenderers.register(OccultismTiles.SACRIFICIAL_BOWL.get(), SacrificialBowlRenderer::new);
+        BlockEntityRenderers.register(OccultismTiles.GOLDEN_SACRIFICIAL_BOWL.get(), SacrificialBowlRenderer::new);
 
         //Setup block render layers
-        RenderTypeLookup.setRenderLayer(OccultismBlocks.CHALK_GLYPH_WHITE.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(OccultismBlocks.CHALK_GLYPH_GOLD.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(OccultismBlocks.CHALK_GLYPH_PURPLE.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(OccultismBlocks.CHALK_GLYPH_RED.get(), RenderType.getCutout());
+        ItemBlockRenderTypes.setRenderLayer(OccultismBlocks.CHALK_GLYPH_WHITE.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(OccultismBlocks.CHALK_GLYPH_GOLD.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(OccultismBlocks.CHALK_GLYPH_PURPLE.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(OccultismBlocks.CHALK_GLYPH_RED.get(), RenderType.cutout());
 
-        RenderTypeLookup.setRenderLayer(OccultismBlocks.STABLE_WORMHOLE.get(), RenderType.getTranslucent());
-        RenderTypeLookup.setRenderLayer(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL.get(), RenderType.getTranslucent());
-        RenderTypeLookup.setRenderLayer(OccultismBlocks.DATURA.get(), RenderType.getCutoutMipped());
-        RenderTypeLookup.setRenderLayer(OccultismBlocks.SPIRIT_FIRE.get(), RenderType.getCutoutMipped());
-        RenderTypeLookup.setRenderLayer(OccultismBlocks.OTHERWORLD_SAPLING.get(), RenderType.getCutoutMipped());
-        RenderTypeLookup.setRenderLayer(OccultismBlocks.OTHERWORLD_SAPLING_NATURAL.get(), RenderType.getCutoutMipped());
-        RenderTypeLookup.setRenderLayer(OccultismBlocks.OTHERWORLD_LEAVES.get(), RenderType.getCutoutMipped());
-        RenderTypeLookup.setRenderLayer(OccultismBlocks.OTHERWORLD_LEAVES_NATURAL.get(), RenderType.getCutoutMipped());
+        ItemBlockRenderTypes.setRenderLayer(OccultismBlocks.STABLE_WORMHOLE.get(), RenderType.translucent());
+        ItemBlockRenderTypes.setRenderLayer(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL.get(), RenderType.translucent());
+        ItemBlockRenderTypes.setRenderLayer(OccultismBlocks.DATURA.get(), RenderType.cutoutMipped());
+        ItemBlockRenderTypes.setRenderLayer(OccultismBlocks.SPIRIT_FIRE.get(), RenderType.cutoutMipped());
+        ItemBlockRenderTypes.setRenderLayer(OccultismBlocks.OTHERWORLD_SAPLING.get(), RenderType.cutoutMipped());
+        ItemBlockRenderTypes.setRenderLayer(OccultismBlocks.OTHERWORLD_SAPLING_NATURAL.get(), RenderType.cutoutMipped());
+        ItemBlockRenderTypes.setRenderLayer(OccultismBlocks.OTHERWORLD_LEAVES.get(), RenderType.cutoutMipped());
+        ItemBlockRenderTypes.setRenderLayer(OccultismBlocks.OTHERWORLD_LEAVES_NATURAL.get(), RenderType.cutoutMipped());
 
         registerItemModelProperties(event);
 
         //Not safe to call during parallel load, so register to run threadsafe.
         event.enqueueWork(() -> {
             //Register screen factories
-            ScreenManager.registerFactory(OccultismContainers.STORAGE_CONTROLLER.get(), StorageControllerGui::new);
-            ScreenManager.registerFactory(OccultismContainers.STABLE_WORMHOLE.get(), StableWormholeGui::new);
-            ScreenManager.registerFactory(OccultismContainers.STORAGE_REMOTE.get(), StorageRemoteGui::new);
-            ScreenManager.registerFactory(OccultismContainers.SPIRIT.get(), SpiritGui<SpiritContainer>::new);
-            ScreenManager.registerFactory(OccultismContainers.SPIRIT_TRANSPORTER.get(), SpiritTransporterGui::new);
-            ScreenManager.registerFactory(OccultismContainers.OTHERWORLD_MINER.get(), DimensionalMineshaftScreen::new);
-            ScreenManager.registerFactory(OccultismContainers.SATCHEL.get(), SatchelScreen::new);
+            MenuScreens.register(OccultismContainers.STORAGE_CONTROLLER.get(), StorageControllerGui::new);
+            MenuScreens.register(OccultismContainers.STABLE_WORMHOLE.get(), StableWormholeGui::new);
+            MenuScreens.register(OccultismContainers.STORAGE_REMOTE.get(), StorageRemoteGui::new);
+            MenuScreens.register(OccultismContainers.SPIRIT.get(), SpiritGui<SpiritContainer>::new);
+            MenuScreens.register(OccultismContainers.SPIRIT_TRANSPORTER.get(), SpiritTransporterGui::new);
+            MenuScreens.register(OccultismContainers.OTHERWORLD_MINER.get(), DimensionalMineshaftScreen::new);
+            MenuScreens.register(OccultismContainers.SATCHEL.get(), SatchelScreen::new);
             Occultism.LOGGER.debug("Registered Screen Containers");
         });
 

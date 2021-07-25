@@ -24,10 +24,23 @@ package com.github.klikli_dev.occultism.client.model.entity;
 
 import com.github.klikli_dev.occultism.common.entity.spirit.AfritEntity;
 import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.client.model.VillagerModel;
+import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.model.geom.PartPose;
+import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.resources.ResourceLocation;
 
 
 public class AfritModel extends HumanoidModel<AfritEntity> {
+
+    public static final String NOSE = "nose";
+    public static final String EAR_LEFT = "earLeft";
+    public static final String EAR_RIGHT = "earRight";
+    public static final String WINGED_WINGS = "wingedWings";
+    public static final String WINGED_WINGS_LEFT = "wingedWingsLeft";
+    public static final String WINGED_WINGS_RIGHT = "wingedWingsRight";
+    public static ModelLayerLocation AFRIT_LAYER = new ModelLayerLocation(new ResourceLocation("occultism:afrit"), "afrit");
     //region Fields
     public ModelPart nose;
     public ModelPart earLeft;
@@ -40,20 +53,21 @@ public class AfritModel extends HumanoidModel<AfritEntity> {
 
     //region Initialization
     public AfritModel(ModelPart modelPart) {
-        super(modelPart); //1.0 was used here
+        super(modelPart); //modelsize 1.0 was used here
         this.leftArmPose = ArmPose.EMPTY;
         this.rightArmPose = ArmPose.EMPTY;
+
+        this.nose = this.head.getChild(NOSE);
+        this.earLeft = this.head.getChild(EAR_LEFT);
+        this.earRight = this.head.getChild(EAR_RIGHT);
+        this.wingedWings = this.body.getChild(WINGED_WINGS);
+        this.wingedWingsLeft = this.wingedWings.getChild(WINGED_WINGS_LEFT);
+        this.wingedWingsRight = this.wingedWings.getChild(WINGED_WINGS_RIGHT);
+
         //This no longer works!
         //TODO: Update model construction to 1.17 way
         //      search for "addbox" in 117 channel
         //      or just open https://discordapp.com/channels/313125603924639766/867851603468615740/868187284661469184
-        this.head = new ModelPart(this, 0, 0);
-        this.head.setPos(0.0F, 0.0F, 0.0F);
-        this.head.addBox(-4.0F, -10.0F, -4.0F, 8, 10, 8, 0.0F);
-
-        this.hat = new ModelPart(this, 1, 45);
-        this.hat.setPos(0.0F, -3.0F, 0.0F);
-        this.hat.addBox(-4.0F, -8.0F, -4.0F, 8, 10, 8, 0.5F);
 
         this.earLeft = new ModelPart(this, 0, 0);
         this.earLeft.setPos(4.0F, -11.3F, 3.5F);
@@ -65,10 +79,7 @@ public class AfritModel extends HumanoidModel<AfritEntity> {
         this.earRight.addBox(-0.5F, 0.0F, 0.0F, 1, 3, 1, 0.0F);
         this.setRotateAngle(this.earRight, -0.5009094953223726F, 0.0F, 0.0F);
 
-        this.nose = new ModelPart(this, 24, 0);
-        this.nose.setPos(0.0F, -5.0F, -4.4F);
-        this.nose.addBox(-1.0F, 0.0F, 0.0F, 2, 4, 2, 0.0F);
-        this.setRotateAngle(this.nose, -0.4553564018453205F, 0.0F, 0.0F);
+
 
         this.bipedLeftArm = new ModelPart(this, 44, 22);
         this.bipedLeftArm.setPos(5.0F, 3.0F, -1.0F);
@@ -124,9 +135,31 @@ public class AfritModel extends HumanoidModel<AfritEntity> {
 
     //region Methods
     public void setRotateAngle(ModelPart modelRenderer, float x, float y, float z) {
-        modelRenderer.rotateAngleX = x;
-        modelRenderer.rotateAngleY = y;
-        modelRenderer.rotateAngleZ = z;
+        modelRenderer.xRot = x;
+        modelRenderer.yRot = y;
+        modelRenderer.zRot = z;
+    }
+
+    public static LayerDefinition createBodyLayer() {
+        MeshDefinition meshdefinition = new MeshDefinition();
+        PartDefinition partdefinition = meshdefinition.getRoot();
+
+        // new ModelPart(this, texOffsX, texOffsY) -> texOffs()
+        // setPos -> PartPose.offset
+        // addBox -> addBox
+        // addBox(..., delta) -> addBox(..., CubeDeformation)
+        //      delta is also weirdly used as model size in vanilla (+ part delta)
+        // x.addChild -> partDefintion.addorReplaceChild()
+        //      also needs setup in constructor:    this.nose = this.head.getChild("nose");
+        PartDefinition head = partdefinition.addOrReplaceChild("head",
+                CubeListBuilder.create().texOffs(0, 0)
+                        .addBox(-4.0F, -10.0F, -4.0F, 8.0F, 10.0F, 8.0F, CubeDeformation.NONE), PartPose.ZERO);
+        partdefinition.addOrReplaceChild("hat",
+                CubeListBuilder.create().texOffs(1, 45)
+                        .addBox(-4.0F, -10.0F, -4.0F, 8.0F, 10.0F, 8.0F, new CubeDeformation(0.5f)), PartPose.offset(0, -3, 0));
+
+
+        return LayerDefinition.create(meshdefinition, 64, 64);;
     }
     //endregion Methods
 }

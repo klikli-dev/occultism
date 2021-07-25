@@ -37,8 +37,8 @@ public class FoliotEntity extends SpiritEntity {
     //endregion Initialization
 
     //region Static Methods
-    public static AttributeSupplier.Builder createLivingAttributes() {
-        return SpiritEntity.createLivingAttributes()
+    public static AttributeSupplier.Builder createAttributes() {
+        return SpiritEntity.createAttributes()
                 .add(Attributes.ATTACK_DAMAGE, 1.0)
                 .add(Attributes.MAX_HEALTH, 8.0)
                 .add(Attributes.MOVEMENT_SPEED, 0.30000001192092896)

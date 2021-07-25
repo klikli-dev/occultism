@@ -24,6 +24,7 @@ package com.github.klikli_dev.occultism.common.entity;
 
 import com.github.klikli_dev.occultism.registry.OccultismCapabilities;
 import com.google.common.collect.ImmutableList;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.*;
@@ -52,7 +53,7 @@ public class GreedyFamiliarEntity extends FamiliarEntity {
         this.goalSelector.addGoal(2, new FindItemGoal(this));
         this.goalSelector.addGoal(2, new LookAtPlayerGoal(this, Player.class, 8));
         this.goalSelector.addGoal(3, new FollowOwnerGoal(this, 1, 3, 1));
-        this.goalSelector.addGoal(4, new WaterAvoidingRandomWalkingGoal(this, 1.0D));
+        this.goalSelector.addGoal(4, new WaterAvoidingRandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(5, new FollowMobGoal(this, 1, 3, 7));
     }
 
@@ -68,14 +69,14 @@ public class GreedyFamiliarEntity extends FamiliarEntity {
 
         wearer.getCapability(OccultismCapabilities.FAMILIAR_SETTINGS).ifPresent(cap -> {
             if(cap.isGreedyEnabled()){
-                for (ItemEntity e : wearer.level.getEntitiesWithinAABB(ItemEntity.class, wearer.getBoundingBox().grow(5), e -> e.isAlive())) {
+                for (ItemEntity e : wearer.level.getEntitiesOfClass(ItemEntity.class, wearer.getBoundingBox().inflate(5), Entity::isAlive)) {
                     ItemStack stack = e.getItem();
 
                     boolean isStackDemagnetized = stack.hasTag() && stack.getTag().getBoolean("PreventRemoteMovement");
                     boolean isEntityDemagnetized = e.getPersistentData().getBoolean("PreventRemoteMovement");
 
                     if (!isStackDemagnetized && !isEntityDemagnetized) {
-                        e.onCollideWithPlayer((Player) wearer);
+                        e.playerTouch((Player) wearer);
                     }
                 }
             }
@@ -102,17 +103,17 @@ public class GreedyFamiliarEntity extends FamiliarEntity {
         public void start() {
             ItemEntity item = this.getNearbyItem();
             if (item != null)
-                this.entity.getNavigator().tryMoveToEntityLiving(item, 1.2);
+                this.entity.getNavigation().moveTo(item, 1.2);
         }
 
         @Override
         public void tick() {
             ItemEntity item = this.getNearbyItem();
             if (item != null) {
-                this.entity.getNavigator().tryMoveToEntityLiving(item, 1.2);
+                this.entity.getNavigation().moveTo(item, 1.2);
                 LivingEntity owner = this.entity.getFamiliarOwner();
-                if (item.getDistanceSq(this.entity) < 4 && owner instanceof Player)
-                    item.onCollideWithPlayer(((Player) owner));
+                if (item.distanceToSqr(this.entity) < 4 && owner instanceof Player)
+                    item.playerTouch(((Player) owner));
             }
         }
 
@@ -122,10 +123,10 @@ public class GreedyFamiliarEntity extends FamiliarEntity {
                 return null;
 
             Player player = (Player) owner;
-            IItemHandler inv = new PlayerMainInvWrapper(player.inventory);
+            IItemHandler inv = new PlayerMainInvWrapper(player.getInventory());
 
-            for (ItemEntity item : this.entity.level.getEntitiesWithinAABB(ItemEntity.class,
-                    this.entity.getBoundingBox().grow(RANGE), e -> e.isAlive())) {
+            for (ItemEntity item : this.entity.level.getEntitiesOfClass(ItemEntity.class,
+                    this.entity.getBoundingBox().inflate(RANGE), e -> e.isAlive())) {
                 ItemStack stack = item.getItem();
 
                 boolean isStackDemagnetized = stack.hasTag() && stack.getTag().getBoolean("PreventRemoteMovement");

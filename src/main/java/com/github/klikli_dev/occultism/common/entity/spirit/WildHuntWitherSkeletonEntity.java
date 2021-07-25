@@ -25,27 +25,26 @@ package com.github.klikli_dev.occultism.common.entity.spirit;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.registry.OccultismTags;
 import com.github.klikli_dev.occultism.util.TextUtil;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.tags.Tag;
+import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
-import net.minecraft.world.entity.ai.attributes.AttributeModifierMap;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.monster.SkeletonEntity;
-import net.minecraft.world.entity.monster.WitherSkeletonEntity;
-import net.minecraft.level.DifficultyInstance;
+import net.minecraft.world.entity.monster.WitherSkeleton;
 import net.minecraft.world.level.Level;
-import net.minecraft.level.ServerLevelAccessor;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.tags.Tag;
-import net.minecraft.util.DamageSource;
-import net.minecraft.network.chat.TextComponent;
+import net.minecraft.world.level.ServerLevelAccessor;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WildHuntWitherSkeletonEntity extends WitherSkeletonEntity {
+public class WildHuntWitherSkeletonEntity extends WitherSkeleton {
     //region Fields
     List<WildHuntSkeletonEntity> minions = new ArrayList<>();
     //endregion Fields
@@ -60,7 +59,7 @@ public class WildHuntWitherSkeletonEntity extends WitherSkeletonEntity {
     //region Overrides
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficultyIn, MobSpawnType reason,
-                                            @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
+                                        @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
         int maxSkeletons = 3 + level.getRandom().nextInt(6);
 
         for (int i = 0; i < maxSkeletons; i++) {
@@ -68,10 +67,10 @@ public class WildHuntWitherSkeletonEntity extends WitherSkeletonEntity {
             entity.finalizeSpawn(level, difficultyIn, reason, spawnDataIn, dataTag);
             double offsetX = (level.getRandom().nextGaussian() - 1.0) * (1 + level.getRandom().nextInt(4));
             double offsetZ = (level.getRandom().nextGaussian() - 1.0) * (1 + level.getRandom().nextInt(4));
-            entity.absMoveTo(this.getPosX() + offsetX, this.getPosY() + 1.5, this.getPosZ() + offsetZ,
+            entity.absMoveTo(this.getBlockX() + offsetX, this.getBlockY() + 1.5, this.getBlockZ() + offsetZ,
                     level.getRandom().nextInt(360), 0);
             entity.setCustomName(new TextComponent(TextUtil.generateName()));
-            level.addEntity(entity);
+            level.addFreshEntity(entity);
             entity.setMaster(this);
             this.minions.add(entity);
         }
@@ -80,12 +79,12 @@ public class WildHuntWitherSkeletonEntity extends WitherSkeletonEntity {
     }
 
     @Override
-    protected boolean isDespawnPeaceful() {
+    protected boolean shouldDespawnInPeaceful() {
         return false;
     }
 
     @Override
-    protected boolean isInDaylight() {
+    protected boolean isSunBurnTick() {
         return false;
     }
 
@@ -93,11 +92,11 @@ public class WildHuntWitherSkeletonEntity extends WitherSkeletonEntity {
     public boolean isInvulnerableTo(DamageSource source) {
         Tag<EntityType<?>> wildHuntTag = OccultismTags.WILD_HUNT;
 
-        Entity trueSource = source.getTrueSource();
+        Entity trueSource = source.getEntity();
         if (trueSource != null && wildHuntTag.contains(trueSource.getType()))
             return true;
 
-        Entity immediateSource = source.getImmediateSource();
+        Entity immediateSource = source.getDirectEntity();
         if (immediateSource != null && wildHuntTag.contains(immediateSource.getType()))
             return true;
 
@@ -111,10 +110,10 @@ public class WildHuntWitherSkeletonEntity extends WitherSkeletonEntity {
     //endregion Overrides
 
     //region Static Methods
-    public static AttributeSupplier.Builder createLivingAttributes() {
-        return SkeletonEntity.registerAttributes()
-                       .add(Attributes.ATTACK_DAMAGE, 6.0)
-                       .add(Attributes.MAX_HEALTH, 60.0);
+    public static AttributeSupplier.Builder createAttributes() {
+        return WitherSkeleton.createAttributes()
+                .add(Attributes.ATTACK_DAMAGE, 6.0)
+                .add(Attributes.MAX_HEALTH, 60.0);
     }
     //endregion Static Methods
 

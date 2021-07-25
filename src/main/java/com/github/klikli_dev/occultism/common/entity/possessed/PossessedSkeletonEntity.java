@@ -23,14 +23,14 @@
 package com.github.klikli_dev.occultism.common.entity.possessed;
 
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.ai.attributes.AttributeModifierMap;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.monster.SkeletonEntity;
+import net.minecraft.world.entity.monster.Skeleton;
 import net.minecraft.world.level.Level;
 
-public class PossessedSkeletonEntity extends SkeletonEntity {
+public class PossessedSkeletonEntity extends Skeleton {
     //region Initialization
-    public PossessedSkeletonEntity(EntityType<? extends SkeletonEntity> type,
+    public PossessedSkeletonEntity(EntityType<? extends Skeleton> type,
                                    Level worldIn) {
         super(type, worldIn);
     }
@@ -38,21 +38,21 @@ public class PossessedSkeletonEntity extends SkeletonEntity {
 
     //region Overrides
     @Override
-    protected boolean isDespawnPeaceful() {
+    protected boolean shouldDespawnInPeaceful() {
         return false;
     }
 
     @Override
-    protected boolean isInDaylight() {
+    protected boolean isSunBurnTick() {
         return false;
     }
     //endregion Overrides
 
     //region Static Methods
-    public static AttributeSupplier.Builder createLivingAttributes() {
-        return SkeletonEntity.registerAttributes()
-                       .add(Attributes.ATTACK_DAMAGE, 4.0)
-                       .add(Attributes.MAX_HEALTH, 30.0);
+    public static AttributeSupplier.Builder createAttributes() {
+        return Skeleton.createAttributes()
+                .add(Attributes.ATTACK_DAMAGE, 4.0)
+                .add(Attributes.MAX_HEALTH, 30.0);
     }
     //endregion Static Methods
 }
