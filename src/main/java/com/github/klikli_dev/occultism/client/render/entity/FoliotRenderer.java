@@ -26,7 +26,7 @@ import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.client.model.entity.FoliotModel;
 import com.github.klikli_dev.occultism.common.entity.spirit.FoliotEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.renderer.entity.EntityRendererManager;
+import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.resources.ResourceLocation;
 
 public class FoliotRenderer extends BipedSpiritRenderer<FoliotEntity, FoliotModel> {
@@ -37,7 +37,7 @@ public class FoliotRenderer extends BipedSpiritRenderer<FoliotEntity, FoliotMode
 
 
     //region Initialization
-    public FoliotRenderer(EntityRendererManager renderManager) {
+    public FoliotRenderer(EntityRenderDispatcher renderManager) {
         super(renderManager, new FoliotModel(), 0.25f);
     }
     //endregion Initialization

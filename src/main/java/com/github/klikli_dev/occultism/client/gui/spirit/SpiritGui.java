@@ -27,25 +27,25 @@ import com.github.klikli_dev.occultism.client.gui.controls.LabelWidget;
 import com.github.klikli_dev.occultism.common.container.spirit.SpiritContainer;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.github.klikli_dev.occultism.util.TextUtil;
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Quaternion;
+import com.mojang.math.Vector3f;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screens.inventory.ContainerScreen;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.entity.EntityRendererManager;
-import net.minecraft.client.resources.I18n;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.resources.language.I18n;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.math.vector.Quaternion;
-import net.minecraft.util.math.vector.Vector3f;
-import net.minecraft.network.chat.Component;
-import net.minecraft.util.text.TextFormatting;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.WordUtils;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 
-public class SpiritGui<T extends SpiritContainer> extends ContainerScreen<T> {
-//region Fields
+public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScreen<T> {
+    //region Fields
     protected static final ResourceLocation TEXTURE = new ResourceLocation(Occultism.MODID,
             "textures/gui/inventory_spirit.png");
     protected static final String TRANSLATION_KEY_BASE = "gui." + Occultism.MODID + ".spirit";
@@ -58,9 +58,8 @@ public class SpiritGui<T extends SpiritContainer> extends ContainerScreen<T> {
         super(container, playerInventory, titleIn);
         this.container = container;
         this.spirit = this.container.spirit;
-
-        this.xSize = 175;
-        this.ySize = 165;
+        this.imageWidth = 175;
+        this.imageHeight = 165;
     }
     //endregion Initialization
 
@@ -68,94 +67,90 @@ public class SpiritGui<T extends SpiritContainer> extends ContainerScreen<T> {
     @Override
     public void init() {
         super.init();
-        this.buttons.clear();
+        this.clearWidgets();
 
         int labelHeight = 9;
-        LabelWidget nameLabel = new LabelWidget(this.guiLeft + 65, this.guiTop + 17, false, -1, 2, 0x404040);
+        LabelWidget nameLabel = new LabelWidget(this.leftPos + 65, this.topPos + 17, false, -1, 2, 0x404040);
         nameLabel.addLine(TextUtil.formatDemonName(this.spirit.getName().getString()));
-        this.addButton(nameLabel);
+        this.addRenderableWidget(nameLabel);
 
         int agePercent = (int) Math.floor(this.spirit.getSpiritAge() / (float) this.spirit.getSpiritMaxAge() * 100);
-        LabelWidget ageLabel = new LabelWidget(this.guiLeft + 65, this.guiTop + 17 + labelHeight + 5, false, -1, 2, 0x404040);
-        ageLabel.addLine(I18n.format(TRANSLATION_KEY_BASE + ".age", agePercent));
-        this.addButton(ageLabel);
+        LabelWidget ageLabel = new LabelWidget(this.leftPos + 65, this.topPos + 17 + labelHeight + 5, false, -1, 2, 0x404040);
+        ageLabel.addLine(I18n.get(TRANSLATION_KEY_BASE + ".age", agePercent));
+        this.addRenderableWidget(ageLabel);
 
         String jobID = this.spirit.getJobID();
         if (!StringUtils.isBlank(jobID)) {
             jobID = jobID.replace(":", ".");
-            LabelWidget jobLabel = new LabelWidget(this.guiLeft + 65,
-                    this.guiTop + 17 + labelHeight + 5 + labelHeight + 5 + 5, false, -1, 2, 0x404040);
+            LabelWidget jobLabel = new LabelWidget(this.leftPos + 65,
+                    this.topPos + 17 + labelHeight + 5 + labelHeight + 5 + 5, false, -1, 2, 0x404040);
 
-            String jobText = I18n.format(TRANSLATION_KEY_BASE + ".job", I18n.format("job." + jobID));
+            String jobText = I18n.get(TRANSLATION_KEY_BASE + ".job", I18n.get("job." + jobID));
             String[] lines = WordUtils.wrap(jobText, 15, "\n", true).split("[\\r\\n]+", 2);
             for (String line : lines)
-                jobLabel.addLine(TextFormatting.ITALIC + line + TextFormatting.RESET);
-            this.addButton(jobLabel);
+                jobLabel.addLine(ChatFormatting.ITALIC + line + ChatFormatting.RESET);
+            this.addRenderableWidget(jobLabel);
 
         }
     }
 
+
     @Override
-    protected void drawGuiContainerBackgroundLayer(PoseStack poseStack, float partialTicks, int x, int y) {
+    protected void renderBg(PoseStack poseStack, float partialTicks, int x, int y) {
         this.renderBackground(poseStack);
 
-        RenderSystem.color4f(1, 1, 1, 1);
-        this.minecraft.getTextureManager().bindTexture(TEXTURE);
+        RenderSystem.clearColor(1, 1, 1, 1);
+        this.minecraft.getTextureManager().bindForSetup(TEXTURE);
 
-        this.blit(poseStack, this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
+        this.blit(poseStack, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight);
 
-        RenderSystem.pushMatrix();
+        poseStack.pushPose();
         int scale = 30;
-        drawEntityToGui(this.guiLeft + 35, this.guiTop + 65, scale, this.guiLeft + 51 - x,
-                this.guiTop + 75 - 50 - y, this.spirit);
-        RenderSystem.popMatrix();
+        drawEntityToGui(poseStack,this.leftPos + 35, this.topPos + 65, scale, this.leftPos + 51 - x,
+                this.topPos + 75 - 50 - y, this.spirit);
+        poseStack.popPose();
     }
 
-    @Override
-    protected void drawGuiContainerForegroundLayer(PoseStack poseStack, int x, int y) {
-        //don't call super to avoid drawing names of inventories
-    }
     //endregion Overrides
 
-//region Static Methods
-    public static void drawEntityToGui(int posX, int posY, int scale, float mouseX, float mouseY, LivingEntity entity) {
+    //region Static Methods
+    public static void drawEntityToGui(PoseStack poseStack, int posX, int posY, int scale, float mouseX, float mouseY, LivingEntity entity) {
         //From inventory screen
-        float f = (float)Math.atan((double)(mouseX / 40.0F));
-        float f1 = (float)Math.atan((double)(mouseY / 40.0F));
-        RenderSystem.pushMatrix();
-        RenderSystem.translatef((float)posX, (float)posY, 1050.0F);
-        RenderSystem.scalef(1.0F, 1.0F, -1.0F);
-        PoseStack matrixstack = new PoseStack();
-        matrixstack.translate(0.0D, 0.0D, 1000.0D);
-        matrixstack.scale((float)scale, (float)scale, (float)scale);
+        float f = (float) Math.atan((double) (mouseX / 40.0F));
+        float f1 = (float) Math.atan((double) (mouseY / 40.0F));
+        poseStack.pushPose();
+        poseStack.translate((float) posX, (float) posY, 1050.0F);
+        poseStack.scale(1.0F, 1.0F, -1.0F);
+        poseStack.translate(0.0D, 0.0D, 1000.0D);
+        poseStack.scale((float) scale, (float) scale, (float) scale);
         Quaternion quaternion = Vector3f.ZP.rotationDegrees(180.0F);
         Quaternion quaternion1 = Vector3f.XP.rotationDegrees(f1 * 20.0F);
-        quaternion.multiply(quaternion1);
-        matrixstack.rotate(quaternion);
-        float f2 = entity.renderYawOffset;
-        float f3 = entity.rotationYaw;
-        float f4 = entity.rotationPitch;
-        float f5 = entity.prevRotationYawHead;
-        float f6 = entity.rotationYawHead;
-        entity.renderYawOffset = 180.0F + f * 20.0F;
-        entity.rotationYaw = 180.0F + f * 40.0F;
-        entity.rotationPitch = -f1 * 20.0F;
-        entity.rotationYawHead = entity.rotationYaw;
-        entity.prevRotationYawHead = entity.rotationYaw;
-        EntityRendererManager entityrenderermanager = Minecraft.getInstance().getRenderManager();
-        quaternion1.conjugate();
-        entityrenderermanager.setCameraOrientation(quaternion1);
+        quaternion.mul(quaternion1);
+        poseStack.mulPose(quaternion);
+        float f2 = entity.yBodyRot;
+        float f3 = entity.yRotO;
+        float f4 = entity.xRotO;
+        float f5 = entity.yHeadRotO;
+        float f6 = entity.yHeadRot;
+        entity.yBodyRot = 180.0F + f * 20.0F;
+        entity.yRotO = 180.0F + f * 40.0F;
+        entity.xRotO = -f1 * 20.0F;
+        entity.yHeadRot = entity.yRotO;
+        entity.yHeadRotO = entity.yRotO;
+        EntityRenderDispatcher entityrenderermanager = Minecraft.getInstance().getEntityRenderDispatcher();
+        quaternion1.conj();
+        entityrenderermanager.overrideCameraOrientation(quaternion1);
         entityrenderermanager.setRenderShadow(false);
-        IRenderTypeBuffer.Impl irendertypebuffer$impl = Minecraft.getInstance().getRenderTypeBuffers().getBufferSource();
-        entityrenderermanager.renderEntityStatic(entity, 0.0D, 0.0D, 0.0D, 0.0F, 1.0F, matrixstack, irendertypebuffer$impl, 15728880);
-        irendertypebuffer$impl.finish();
+        MultiBufferSource.BufferSource bufferSource = Minecraft.getInstance().renderBuffers().bufferSource();
+        entityrenderermanager.render(entity, 0.0D, 0.0D, 0.0D, 0.0F, 1.0F, poseStack, bufferSource, 15728880);
+        bufferSource.endBatch();
         entityrenderermanager.setRenderShadow(true);
-        entity.renderYawOffset = f2;
-        entity.rotationYaw = f3;
-        entity.rotationPitch = f4;
-        entity.prevRotationYawHead = f5;
-        entity.rotationYawHead = f6;
-        RenderSystem.popMatrix();
+        entity.yBodyRot = f2;
+        entity.yRotO = f3;
+        entity.xRotO = f4;
+        entity.yHeadRotO = f5;
+        entity.yHeadRot = f6;
+        poseStack.popPose();
     }
 //endregion Static Methods
 }

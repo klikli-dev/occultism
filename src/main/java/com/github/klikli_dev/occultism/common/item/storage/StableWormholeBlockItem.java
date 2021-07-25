@@ -33,7 +33,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.TranslatableComponent;
 
 import javax.annotation.Nullable;
@@ -86,8 +86,8 @@ public class StableWormholeBlockItem extends BlockItem {
             GlobalBlockPos globalPos = GlobalBlockPos.from(stack.getChildTag("BlockEntityTag")
                                                                    .getCompound("linkedStorageControllerPosition"));
             String formattedPosition =
-                    TextFormatting.GOLD.toString() + TextFormatting.BOLD + globalPos.getPos().toString() +
-                            TextFormatting.RESET;
+                    ChatFormatting.GOLD.toString() + ChatFormatting.BOLD + globalPos.getPos().toString() +
+                            ChatFormatting.RESET;
             tooltip.add(new TranslatableComponent(this.getDescriptionId() + ".tooltip.linked", formattedPosition));
         }
         else {

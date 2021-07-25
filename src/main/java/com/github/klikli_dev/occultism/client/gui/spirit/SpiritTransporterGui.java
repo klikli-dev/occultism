@@ -29,18 +29,18 @@ import com.github.klikli_dev.occultism.network.MessageSetFilterMode;
 import com.github.klikli_dev.occultism.network.MessageSetTagFilterText;
 import com.github.klikli_dev.occultism.network.OccultismPackets;
 import com.github.klikli_dev.occultism.util.InputUtil;
+import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.widget.TextFieldWidget;
-import net.minecraft.client.util.InputMappings;
+import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.TranslatableComponent;
-import net.minecraftforge.fml.client.gui.GuiUtils;
+import net.minecraftforge.fmlclient.gui.GuiUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.awt.*;
@@ -55,8 +55,8 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
     protected final List<Component> tooltip = new ArrayList<>();
     protected SpiritTransporterContainer container;
 
-    protected Button filterModeButton;
-    protected TextFieldWidget tagFilterTextField;
+    protected SizedImageButton filterModeButton;
+    protected EditBox tagFilterTextField;
 
     protected String tagFilter;
     //endregion Fields
@@ -69,8 +69,8 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
 
         this.container = container;
 
-        this.xSize = 176; //photoshop says 176
-        this.ySize = 202; //photoshop says 188
+        this.imageWidth = 176; //photoshop says 176
+        this.imageHeight = 202; //photoshop says 188
     }
     //endregion Initialization
 
@@ -89,7 +89,7 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
 
     public void setIsBlacklist(boolean isBlacklist) {
         this.spirit.setFilterBlacklist(isBlacklist);
-        OccultismPackets.sendToServer(new MessageSetFilterMode(isBlacklist, this.spirit.getEntityId()));
+        OccultismPackets.sendToServer(new MessageSetFilterMode(isBlacklist, this.spirit.getId()));
     }
     //endregion Getter / Setter
 
@@ -105,56 +105,55 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
         int buttonSize = 18;
 
         int isBlacklistOffset = (this.isBlacklist() ? 0 : 1) * 20;
-        this.filterModeButton = new SizedImageButton(this.guiLeft + isBlacklistButtonLeft,
-                this.guiTop + isBlacklistButtonTop, buttonSize, buttonSize, 177, isBlacklistOffset,
+        this.filterModeButton = new SizedImageButton(this.leftPos + isBlacklistButtonLeft,
+                this.topPos + isBlacklistButtonTop, buttonSize, buttonSize, 177, isBlacklistOffset,
                 20, 20, 20, 256, 256, TEXTURE,
                 (button) -> {
                     this.setIsBlacklist(!this.isBlacklist());
                     this.init();
                 });
-        this.addButton(this.filterModeButton);
+        this.addRenderableWidget(this.filterModeButton);
 
         int tagFilterLeft = 8;
         int tagFilterTop = 105;
         int tagFilterWidth = 124;
-        this.tagFilterTextField = new TextFieldWidget(this.font, this.guiLeft + tagFilterLeft,
-                this.guiTop + tagFilterTop, tagFilterWidth, this.font.FONT_HEIGHT,
+        this.tagFilterTextField = new EditBox(this.font, this.leftPos + tagFilterLeft,
+                this.topPos + tagFilterTop, tagFilterWidth, this.font.lineHeight,
                 new TextComponent("forge:ores;*logs*"));
-        this.tagFilterTextField.setMaxStringLength(90);
+        this.tagFilterTextField.setMaxLength(90);
 
-        this.tagFilterTextField.setEnableBackgroundDrawing(false);
+        this.tagFilterTextField.setBordered(false);
         this.tagFilterTextField.setVisible(true);
         this.tagFilterTextField.setTextColor(Color.WHITE.getRGB());
-        this.tagFilterTextField.setFocused2(false);
+        this.tagFilterTextField.setFocus(false);
 
         if (!StringUtils.isBlank(this.getTagFilterText())){
-            this.tagFilterTextField.setText(this.getTagFilterText());
+            this.tagFilterTextField.setValue(this.getTagFilterText());
         }
     }
 
     @Override
-    protected void drawGuiContainerBackgroundLayer(PoseStack poseStack, float partialTicks, int x, int y) {
-        RenderSystem.color4f(1, 1, 1, 1);
-        this.minecraft.getTextureManager().bindTexture(TEXTURE);
+    protected void renderBg(PoseStack poseStack, float partialTicks, int x, int y) {
+        RenderSystem.clearColor(1, 1, 1, 1);
+        this.minecraft.getTextureManager().bindForSetup(TEXTURE);
 
-        this.blit(poseStack, this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
+        this.blit(poseStack, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight);
 
-        RenderSystem.pushMatrix();
+        poseStack.pushPose();
         int scale = 30;
-        drawEntityToGui(this.guiLeft + 35, this.guiTop + 65, scale, this.guiLeft + 51 - x,
-                this.guiTop + 75 - 50 - y, this.spirit);
-        RenderSystem.popMatrix();
+        drawEntityToGui(poseStack,this.leftPos + 35, this.topPos + 65, scale, this.leftPos + 51 - x,
+                this.topPos + 75 - 50 - y, this.spirit);
+        poseStack.popPose();
     }
 
-    @Override
-    protected void drawGuiContainerForegroundLayer(PoseStack poseStack, int mouseX, int mouseY) {
+    protected void renderFg(PoseStack poseStack, int mouseX, int mouseY) {
         this.tooltip.clear();
 
         if (this.filterModeButton.isHovered()) {
             this.tooltip.add(new TranslatableComponent(TRANSLATION_KEY_BASE + ".filter_mode"));
             this.tooltip.add(new TranslatableComponent(TRANSLATION_KEY_BASE + ".filter_mode."
                                                           + (this.isBlacklist() ? "blacklist" : "whitelist"))
-                                     .mergeStyle(TextFormatting.GRAY));
+                                     .withStyle(ChatFormatting.GRAY));
         }
 
         //can't use isHovered here, as it also checks for focus
@@ -163,9 +162,9 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
         }
 
         if (!this.tooltip.isEmpty()) {
-            GuiUtils.drawHoveringText(poseStack, this.tooltip, mouseX - this.guiLeft,
-                    mouseY - this.guiTop, this.width, this.height, -1,
-                    Minecraft.getInstance().fontRenderer);
+            GuiUtils.drawHoveringText(poseStack, this.tooltip, mouseX - this.leftPos,
+                    mouseY - this.topPos, this.width, this.height, -1,
+                    Minecraft.getInstance().font);
         }
     }
 
@@ -173,6 +172,7 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
     public void render(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
         super.render(poseStack, mouseX, mouseY, partialTicks);
         this.tagFilterTextField.render(poseStack, mouseX, mouseY, partialTicks);
+        this.renderFg(poseStack, mouseX, mouseY);
     }
 
     @Override
@@ -180,7 +180,7 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
 
         if (this.isPointInSearchbar(mouseX, mouseY)) {
             if (mouseButton == InputUtil.MOUSE_BUTTON_RIGHT) {
-                this.tagFilterTextField.setText("");
+                this.tagFilterTextField.setValue("");
                 this.setTagFilterText("");
             }
         }
@@ -200,8 +200,8 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
 
         //Handle inventory key down in search bar:
         if (this.tagFilterTextField.isFocused()) {
-            InputMappings.Input mouseKey = InputMappings.getInputByCode(keyCode, scanCode);
-            if (this.minecraft.gameSettings.keyBindInventory.isActiveAndMatches(mouseKey)) {
+            InputConstants.Key mouseKey = InputConstants.getKey(keyCode, scanCode);
+            if (this.minecraft.options.keyInventory.isActiveAndMatches(mouseKey)) {
                 return true;
             }
         }
@@ -212,23 +212,26 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
     @Override
     public void onClose() {
         super.onClose();
-        this.tagFilterTextField.setFocused2(false);
+        this.tagFilterTextField.setFocus(false);
         if (!StringUtils.isBlank(this.tagFilter)) {
             this.spirit.setTagFilter(this.tagFilter);
-            OccultismPackets.sendToServer(new MessageSetTagFilterText(this.tagFilter, this.spirit.getEntityId()));
+            OccultismPackets.sendToServer(new MessageSetTagFilterText(this.tagFilter, this.spirit.getId()));
         }
     }
 
+    /**
+     * Tick is final in abstract container, but calls this method
+     */
     @Override
-    public void tick() {
+    public void m_181908_() {
         this.tagFilterTextField.tick();
-        super.tick();
+        super.m_181908_();
     }
 
     @Override
     public boolean charTyped(char codePoint, int modifiers) {
         if (this.tagFilterTextField.isFocused() && this.tagFilterTextField.charTyped(codePoint, modifiers)) {
-            this.setTagFilterText(this.tagFilterTextField.getText());
+            this.setTagFilterText(this.tagFilterTextField.getValue());
         }
 
         return false;
@@ -237,8 +240,8 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
 
     //region Methods
     protected boolean isPointInSearchbar(double mouseX, double mouseY) {
-        return this.isPointInRegion(this.tagFilterTextField.x - this.guiLeft, this.tagFilterTextField.y - this.guiTop,
-                this.tagFilterTextField.getWidth() - 5, this.font.FONT_HEIGHT + 6, mouseX, mouseY);
+        return this.isHovering(this.tagFilterTextField.x - this.leftPos, this.tagFilterTextField.y - this.topPos,
+                this.tagFilterTextField.getWidth() - 5, this.font.lineHeight + 6, mouseX, mouseY);
     }
     //endregion Methods
 }

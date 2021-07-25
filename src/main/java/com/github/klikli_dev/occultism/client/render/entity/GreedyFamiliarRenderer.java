@@ -26,8 +26,8 @@ import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.client.model.entity.GreedyFamiliarModel;
 import com.github.klikli_dev.occultism.common.entity.GreedyFamiliarEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.entity.EntityRendererManager;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 
@@ -36,7 +36,7 @@ public class GreedyFamiliarRenderer extends MobRenderer<GreedyFamiliarEntity, Gr
     private static final ResourceLocation TEXTURES = new ResourceLocation(Occultism.MODID,
             "textures/entity/greedy_familiar.png");
 
-    public GreedyFamiliarRenderer(EntityRendererManager renderManagerIn) {
+    public GreedyFamiliarRenderer(EntityRenderDispatcher renderManagerIn) {
         super(renderManagerIn, new GreedyFamiliarModel(), 0.3f);
     }
 
@@ -47,7 +47,7 @@ public class GreedyFamiliarRenderer extends MobRenderer<GreedyFamiliarEntity, Gr
 
     @Override
     public void render(GreedyFamiliarEntity entityIn, float entityYaw, float partialTicks, PoseStack matrixStackIn,
-            IRenderTypeBuffer bufferIn, int packedLightIn) {
+            MultiBufferSource bufferIn, int packedLightIn) {
         matrixStackIn.push();
         if (entityIn.isSitting())
             matrixStackIn.translate(0, -0.25, 0);

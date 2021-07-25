@@ -27,7 +27,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.effect.LightningBoltEntity;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.particles.ParticleTypes;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.phys.Vec3;

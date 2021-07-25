@@ -28,13 +28,13 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockEntity.BlockEntityRenderer;
 import net.minecraft.client.renderer.BlockEntity.BlockEntityRendererDispatcher;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.util.math.vector.Vector3f;
+import com.mojang.math.Vector3f;
 
 public class SacrificialBowlRenderer extends BlockEntityRenderer<SacrificialBowlBlockEntity> {
 
@@ -48,7 +48,7 @@ public class SacrificialBowlRenderer extends BlockEntityRenderer<SacrificialBowl
 
     @Override
     public void render(SacrificialBowlBlockEntity blockEntity, float partialTicks, PoseStack poseStack,
-                       IRenderTypeBuffer buffer, int combinedLight, int combinedOverlay) {
+                       MultiBufferSource buffer, int combinedLight, int combinedOverlay) {
         blockEntity.itemStackHandler.ifPresent(handler -> {
             ItemStack stack = handler.getItem(0);
             long time = blockEntity.getLevel().getGameTime();

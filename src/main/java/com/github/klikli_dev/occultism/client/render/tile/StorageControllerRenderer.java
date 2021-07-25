@@ -34,7 +34,7 @@ import net.minecraft.client.renderer.model.BakedQuad;
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.core.Direction;
-import net.minecraft.util.math.vector.Vector3f;
+import com.mojang.math.Vector3f;
 
 import java.awt.*;
 import java.util.List;
@@ -57,7 +57,7 @@ public class StorageControllerRenderer extends BlockEntityRenderer<StorageContro
     //region Overrides
     @Override
     public void render(StorageControllerBlockEntity blockEntity, float partialTicks, PoseStack poseStack,
-                       IRenderTypeBuffer buffer, int combinedLight, int combinedOverlay) {
+                       MultiBufferSource buffer, int combinedLight, int combinedOverlay) {
         if (this.stack == null)
             this.stack = new ItemStack(OccultismItems.DIMENSIONAL_MATRIX.get());
 

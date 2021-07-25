@@ -34,7 +34,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.network.chat.Component;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -85,7 +85,7 @@ public class GuideBookItem extends Item {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
         Book book = BookRegistry.INSTANCE.books.get(GUIDE);
         if (book != null && book.contents != null) {
-            tooltip.add(book.contents.book.getSubtitle().mergeStyle(TextFormatting.GRAY));
+            tooltip.add(book.contents.book.getSubtitle().mergeStyle(ChatFormatting.GRAY));
         }
 
     }

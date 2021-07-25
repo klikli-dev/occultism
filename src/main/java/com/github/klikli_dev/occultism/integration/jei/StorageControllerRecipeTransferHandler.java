@@ -32,7 +32,7 @@ import mezz.jei.api.gui.ingredient.IGuiIngredient;
 import mezz.jei.api.recipe.transfer.IRecipeTransferError;
 import mezz.jei.api.recipe.transfer.IRecipeTransferHandler;
 import mezz.jei.api.recipe.transfer.IRecipeTransferHandlerHelper;
-import net.minecraft.client.resources.I18n;
+import net.minecraft.client.resources.language.I18n;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.inventory.container.AbstractContainerMenu;
@@ -78,19 +78,19 @@ public class StorageControllerRecipeTransferHandler<T extends AbstractContainerM
         Recipe<?> recipe = (Recipe<?>) recipeObject;
 
         if (recipe.getId() == null) {
-            return this.helper.createUserErrorWithTooltip(I18n.format("jei." + Occultism.MODID + "error.missing_id"));
+            return this.helper.createUserErrorWithTooltip(I18n.get("jei." + Occultism.MODID + "error.missing_id"));
         }
 
         //sort out any modded recipes that don't fit 3x3
         if (!recipe.canCraftInDimensions(3, 3)) {
-            return this.helper.createUserErrorWithTooltip(I18n.format("jei." + Occultism.MODID + "error.recipe_too_large"));
+            return this.helper.createUserErrorWithTooltip(I18n.get("jei." + Occultism.MODID + "error.recipe_too_large"));
         }
 
         // can only send shaped/shapeless recipes to storage controller
         //  disabled this -> not a good idea for custom recipes that fit in 3x3 such as botania
         //  not needed either -> the 3x3 check handles anything that is invalid and still registers as crafting.
 //        if (!(recipe instanceof ShapedRecipe) && !(recipe instanceof ShapelessRecipe)) {
-//            return this.helper.createUserErrorWithTooltip(I18n.format("jei." + Occultism.MODID + "error.invalid_type"));
+//            return this.helper.createUserErrorWithTooltip(I18n.get("jei." + Occultism.MODID + "error.invalid_type"));
 //        }
 
         //if recipe is in recipe manager send by id, otherwise fallback to ingredient list

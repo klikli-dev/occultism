@@ -22,83 +22,81 @@
 
 package com.github.klikli_dev.occultism.client.particle;
 
-import net.minecraft.client.level.ClientWorld;
-import net.minecraft.client.particle.Particle;
-import net.minecraft.particles.BasicParticleType;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.particle.*;
+import net.minecraft.core.particles.SimpleParticleType;
 
 import javax.annotation.Nullable;
 
-public class RitualWaitingParticle extends SpriteTexturedParticle {
-//region Fields
+public class RitualWaitingParticle extends TextureSheetParticle {
+
     private final double portalPosX;
     private final double portalPosY;
     private final double portalPosZ;
-//endregion Fields
 
-//region Initialization
-    private RitualWaitingParticle(ClientWorld worldIn, double xCoordIn, double yCoordIn, double zCoordIn,
+    private RitualWaitingParticle(ClientLevel worldIn, double xCoordIn, double yCoordIn, double zCoordIn,
                                   double xSpeedIn, double ySpeedIn, double zSpeedIn) {
         super(worldIn, xCoordIn, yCoordIn, zCoordIn);
-        this.motionX = xSpeedIn;
-        this.motionY = ySpeedIn;
-        this.motionZ = zSpeedIn;
-        this.posX = xCoordIn;
-        this.posY = yCoordIn;
-        this.posZ = zCoordIn;
-        this.portalPosX = this.posX;
-        this.portalPosY = this.posY;
-        this.portalPosZ = this.posZ;
-        this.particleScale = 0.1F * (this.rand.nextFloat() * 0.2F + 0.5F);
+        this.xd = xSpeedIn;
+        this.yd = ySpeedIn;
+        this.zd = zSpeedIn;
+        this.x = xCoordIn;
+        this.y = yCoordIn;
+        this.z = zCoordIn;
+        this.portalPosX = this.x;
+        this.portalPosY = this.y;
+        this.portalPosZ = this.z;
+        this.quadSize = 0.1F * (this.random.nextFloat() * 0.2F + 0.5F);
         //Make particle a random shade of gray, the rest is the same as the portal
-        float f = this.rand.nextFloat() * 0.6f + 0.4f;
-        this.particleRed = f * 0.3f;
-        this.particleGreen = f * 0.3f;
-        this.particleBlue = f * 0.3f;
+        float f = this.random.nextFloat() * 0.6f + 0.4f;
+        this.rCol = f * 0.3f;
+        this.gCol = f * 0.3f;
+        this.bCol = f * 0.3f;
 
-        this.maxAge = (int) (Math.random() * 10.0D) + 40;
+        this.lifetime = (int) (Math.random() * 10.0D) + 40;
     }
-//endregion Initialization
 
-//region Overrides
-    public float getScale(float p_217561_1_) {
-        float f = ((float) this.age + p_217561_1_) / (float) this.maxAge;
+    @Override
+    public float getQuadSize(float p_217561_1_) {
+        float f = ((float) this.age + p_217561_1_) / (float) this.lifetime;
         f = 1.0F - f;
         f = f * f;
         f = 1.0F - f;
-        return this.particleScale * f;
+        return this.quadSize * f;
     }
 
+    @Override
     public void tick() {
-        this.prevPosX = this.posX;
-        this.prevPosY = this.posY;
-        this.prevPosZ = this.posZ;
-        if (this.age++ >= this.maxAge) {
-            this.setExpired();
-        }
-        else {
-            float f = (float) this.age / (float) this.maxAge;
+        this.xo = this.x;
+        this.yo = this.y;
+        this.zo = this.z;
+        if (this.age++ >= this.lifetime) {
+            this.remove();
+        } else {
+            float f = (float) this.age / (float) this.lifetime;
             float f1 = -f + f * f * 2.0F;
             float f2 = 1.0F - f1;
-            this.posX = this.portalPosX + this.motionX * (double) f2;
-            this.posY = this.portalPosY + this.motionY * (double) f2 + (double) (1.0F - f);
-            this.posZ = this.portalPosZ + this.motionZ * (double) f2;
+            this.x = this.portalPosX + this.xd * (double) f2;
+            this.y = this.portalPosY + this.yd * (double) f2 + (double) (1.0F - f);
+            this.z = this.portalPosZ + this.zd * (double) f2;
         }
     }
 
-    public IParticleRenderType getRenderType() {
-        return IParticleRenderType.PARTICLE_SHEET_OPAQUE;
+    @Override
+    public ParticleRenderType getRenderType() {
+        return ParticleRenderType.PARTICLE_SHEET_OPAQUE;
     }
 
+    @Override
     public void move(double x, double y, double z) {
-        this.setBoundingBox(this.getBoundingBox().offset(x, y, z));
-        this.resetPositionToBB();
+        this.setBoundingBox(this.getBoundingBox().move(x, y, z));
+        this.setLocationFromBoundingbox();
     }
 
-    public int getBrightnessForRender(float partialTick) {
-        int i = super.getBrightnessForRender(partialTick);
-        float f = (float) this.age / (float) this.maxAge;
+    @Override
+    public int getLightColor(float partialTick) {
+        int i = super.getLightColor(partialTick);
+        float f = (float) this.age / (float) this.lifetime;
         f = f * f;
         f = f * f;
         int j = i & 255;
@@ -110,29 +108,23 @@ public class RitualWaitingParticle extends SpriteTexturedParticle {
 
         return j | k << 16;
     }
-//endregion Overrides
 
-    @OnlyIn(Dist.CLIENT)
-    public static class Factory implements IParticleFactory<BasicParticleType> {
-//region Fields
-        private final IAnimatedSprite spriteSet;
-//endregion Fields
 
-//region Initialization
-        public Factory(IAnimatedSprite p_i50607_1_) {
+    public static class Factory implements ParticleProvider<SimpleParticleType> {
+
+        private final SpriteSet spriteSet;
+
+        public Factory(SpriteSet p_i50607_1_) {
             this.spriteSet = p_i50607_1_;
         }
-//endregion Initialization
 
-//region Overrides
         @Nullable
         @Override
-        public Particle makeParticle(BasicParticleType typeIn, ClientWorld worldIn, double x, double y, double z,
-                                     double xSpeed, double ySpeed, double zSpeed) {
+        public Particle createParticle(SimpleParticleType typeIn, ClientLevel worldIn, double x, double y, double z,
+                                       double xSpeed, double ySpeed, double zSpeed) {
             RitualWaitingParticle particle = new RitualWaitingParticle(worldIn, x, y, z, xSpeed, ySpeed, zSpeed);
-            particle.selectSpriteRandomly(this.spriteSet);
+            particle.pickSprite(this.spriteSet);
             return particle;
         }
-//endregion Overrides
     }
 }

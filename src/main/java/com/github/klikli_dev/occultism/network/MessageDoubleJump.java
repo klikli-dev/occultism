@@ -25,7 +25,7 @@ package com.github.klikli_dev.occultism.network;
 import com.github.klikli_dev.occultism.util.MovementUtil;
 import net.minecraft.world.entity.player.ServerPlayer;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.particles.ParticleTypes;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.fml.network.NetworkEvent;
 

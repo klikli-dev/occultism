@@ -25,7 +25,7 @@ package com.github.klikli_dev.occultism.common.job;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.particles.ParticleTypes;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.util.SoundEvents;

@@ -24,9 +24,9 @@ package com.github.klikli_dev.occultism.client.itemproperties;
 
 import com.github.klikli_dev.occultism.registry.OccultismEffects;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.level.ClientWorld;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.renderer.item.ItemPropertyFunction;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -34,12 +34,11 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import javax.annotation.Nullable;
 
 @OnlyIn(Dist.CLIENT)
-public class OtherworldBlockItemPropertyGetter implements IItemPropertyGetter {
-    //region Overrides
-    @OnlyIn(Dist.CLIENT)
+public class OtherworldBlockItemPropertyGetter implements ItemPropertyFunction {
+
     @Override
-    public float call(ItemStack stack, @Nullable ClientWorld worldIn, @Nullable LivingEntity entityIn) {
-        boolean thirdEye = Minecraft.getInstance().player.isPotionActive(OccultismEffects.THIRD_EYE.get());
-        return stack.getOrCreateTag().getBoolean("isInventoryItem") || thirdEye ? 1.0f : 0.0f;
+    public float call(ItemStack itemStack, @Nullable ClientLevel clientLevel, @Nullable LivingEntity livingEntity, int i) {
+        boolean thirdEye = Minecraft.getInstance().player.hasEffect(OccultismEffects.THIRD_EYE.get());
+        return itemStack.getOrCreateTag().getBoolean("isInventoryItem") || thirdEye ? 1.0f : 0.0f;
     }
 }

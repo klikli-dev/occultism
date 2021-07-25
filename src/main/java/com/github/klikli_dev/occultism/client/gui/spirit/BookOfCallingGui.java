@@ -69,7 +69,7 @@ public class BookOfCallingGui extends Screen {
     @Override
     protected void init() {
         super.init();
-        this.renderables.clear();
+        this.clearWidgets();
         int guiLeft = (this.width) / 2;
         int guiTop = (this.height - 166) / 2;
         int buttonWidth = 150;

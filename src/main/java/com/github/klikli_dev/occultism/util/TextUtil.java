@@ -26,7 +26,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.item.Item;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.text.IFormattableTextComponent;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.ChatFormatting;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.loading.moddiscovery.ModInfo;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -106,7 +106,7 @@ public class TextUtil {
      * @return the formatted name.
      */
     public static String formatDemonName(String name) {
-        return TextFormatting.GOLD.toString() + TextFormatting.BOLD + name + TextFormatting.RESET;
+        return ChatFormatting.GOLD.toString() + ChatFormatting.BOLD + name + ChatFormatting.RESET;
     }
 
     /**
@@ -116,7 +116,7 @@ public class TextUtil {
      * @return the formatted name.
      */
     public static IFormattableTextComponent formatDemonName(IFormattableTextComponent name) {
-        return name.mergeStyle(TextFormatting.GOLD, TextFormatting.BOLD);
+        return name.mergeStyle(ChatFormatting.GOLD, ChatFormatting.BOLD);
     }
 
     /**

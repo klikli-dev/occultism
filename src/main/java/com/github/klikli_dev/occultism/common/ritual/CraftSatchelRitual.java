@@ -26,12 +26,12 @@ import com.github.klikli_dev.occultism.common.tile.GoldenSacrificialBowlBlockEnt
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.github.klikli_dev.occultism.registry.OccultismRituals;
 import com.github.klikli_dev.occultism.util.ItemNBTUtil;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.particles.ParticleTypes;
 import net.minecraft.core.BlockPos;
 
 public class CraftSatchelRitual extends Ritual {
@@ -39,7 +39,7 @@ public class CraftSatchelRitual extends Ritual {
     //region Initialization
     public CraftSatchelRitual() {
         super(OccultismRituals.CRAFT_FOLIOT_PENTACLE.get(),
-                Ingredient.fromItems(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()), "craft_satchel",
+                Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()), "craft_satchel",
                 240);
     }
     //endregion Initialization

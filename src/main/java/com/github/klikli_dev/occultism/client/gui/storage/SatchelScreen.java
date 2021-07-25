@@ -42,8 +42,8 @@ public class SatchelScreen extends ContainerScreen<SatchelContainer> {
                          Component titleIn) {
         super(screenContainer, inv, titleIn);
 
-        this.xSize = 247;
-        this.ySize = 256;
+        this.imageWidth = 247;
+        this.imageHeight = 256;
 
     }
     //endregion Initialization
@@ -66,9 +66,9 @@ public class SatchelScreen extends ContainerScreen<SatchelContainer> {
     @Override
     protected void drawGuiContainerBackgroundLayer(PoseStack poseStack, float partialTicks, int mouseX,
                                                    int mouseY) {
-        RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-        this.minecraft.getTextureManager().bindTexture(BACKGROUND);
-        this.blit(poseStack, this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
+        RenderSystem.clearColor(1.0F, 1.0F, 1.0F, 1.0F);
+        this.minecraft.getTextureManager().bindForSetup(BACKGROUND);
+        this.blit(poseStack, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight);
     }
     //endregion Overrides
 }

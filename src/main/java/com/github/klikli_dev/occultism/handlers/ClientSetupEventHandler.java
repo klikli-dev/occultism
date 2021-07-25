@@ -46,7 +46,7 @@ import net.minecraft.client.renderer.entity.EndermiteRenderer;
 import net.minecraft.client.renderer.entity.SkeletonRenderer;
 import net.minecraft.client.renderer.entity.WitherSkeletonRenderer;
 import net.minecraft.client.settings.KeyBinding;
-import net.minecraft.client.util.InputMappings;
+import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.item.ItemModelsProperties;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
@@ -65,23 +65,23 @@ public class ClientSetupEventHandler {
     //region Fields
     public static final KeyBinding KEY_BACKPACK =
             new KeyBinding("key.occultism.backpack", BackpackKeyConflictContext.INSTANCE,
-                    InputMappings.Type.KEYSYM.getOrMakeInput(GLFW.GLFW_KEY_B), "key.occultism.category");
+                    InputConstants.Type.KEYSYM.getOrMakeInput(GLFW.GLFW_KEY_B), "key.occultism.category");
 
     public static final KeyBinding KEY_STORAGE_REMOTE =
             new KeyBinding("key.occultism.storage_remote", StorageRemoteKeyConflictContext.INSTANCE,
-                    InputMappings.Type.KEYSYM.getOrMakeInput(GLFW.GLFW_KEY_N), "key.occultism.category");
+                    InputConstants.Type.KEYSYM.getOrMakeInput(GLFW.GLFW_KEY_N), "key.occultism.category");
 
     public static final KeyBinding KEY_FAMILIAR_OTHERWORLD_BIRD =
             new KeyBinding("key.occultism.familiar.otherworld_bird", KeyConflictContext.IN_GAME,
-                    InputMappings.Type.KEYSYM.getOrMakeInput(-1), "key.occultism.category");
+                    InputConstants.Type.KEYSYM.getOrMakeInput(-1), "key.occultism.category");
 
     public static final KeyBinding KEY_FAMILIAR_GREEDY =
             new KeyBinding("key.occultism.familiar.greedy", KeyConflictContext.IN_GAME,
-                    InputMappings.Type.KEYSYM.getOrMakeInput(GLFW.GLFW_KEY_M), "key.occultism.category");
+                    InputConstants.Type.KEYSYM.getOrMakeInput(GLFW.GLFW_KEY_M), "key.occultism.category");
 
     public static final KeyBinding KEY_FAMILIAR_BAT =
             new KeyBinding("key.occultism.familiar.bat", KeyConflictContext.IN_GAME,
-                    InputMappings.Type.KEYSYM.getOrMakeInput(-1), "key.occultism.category");
+                    InputConstants.Type.KEYSYM.getOrMakeInput(-1), "key.occultism.category");
     //endregion Fields
 
     //region Static Methods

@@ -22,9 +22,9 @@
 
 package com.github.klikli_dev.occultism.client.itemproperties;
 
-import net.minecraft.client.level.ClientWorld;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.item.IItemPropertyGetter;
+import net.minecraft.client.renderer.item.ItemPropertyFunction;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -32,11 +32,11 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import javax.annotation.Nullable;
 
 @OnlyIn(Dist.CLIENT)
-public class StorageRemoteItemPropertyGetter implements IItemPropertyGetter {
+public class StorageRemoteItemPropertyGetter implements ItemPropertyFunction {
     //region Overrides
     @OnlyIn(Dist.CLIENT)
     @Override
-    public float call(ItemStack stack, @Nullable ClientWorld worldIn, @Nullable LivingEntity entityIn) {
+    public float call(ItemStack stack, @Nullable ClientLevel worldIn, @Nullable LivingEntity entityIn) {
         return stack.getOrCreateTag()
                        .contains("linkedStorageController") ? 1.0f : 0.0f;
     }

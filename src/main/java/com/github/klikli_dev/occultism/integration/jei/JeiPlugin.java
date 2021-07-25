@@ -44,7 +44,7 @@ import mezz.jei.api.registration.IRecipeRegistration;
 import mezz.jei.api.registration.IRecipeTransferRegistration;
 import mezz.jei.api.runtime.IJeiRuntime;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.level.ClientWorld;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
@@ -87,7 +87,7 @@ public class JeiPlugin implements IModPlugin {
 
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
-        ClientWorld level = Minecraft.getInstance().level;
+        ClientLevel level = Minecraft.getInstance().level;
         RecipeManager recipeManager = level.getRecipeManager();
 
         Collection<Recipe<ItemStackFakeInventory>> spiritFireRecipes =

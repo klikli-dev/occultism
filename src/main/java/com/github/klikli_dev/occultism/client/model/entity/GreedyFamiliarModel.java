@@ -27,7 +27,7 @@ import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.renderer.entity.model.EntityModel;
-import net.minecraft.client.renderer.model.ModelRenderer;
+import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.util.Mth;
 
 /**
@@ -37,59 +37,59 @@ public class GreedyFamiliarModel extends EntityModel<GreedyFamiliarEntity> {
 
     private static final float PI = (float) Math.PI;
 
-    public ModelRenderer body;
-    public ModelRenderer rightArm;
-    public ModelRenderer chest1;
-    public ModelRenderer leftArm;
-    public ModelRenderer rightLeg;
-    public ModelRenderer leftLeg;
-    public ModelRenderer head;
-    public ModelRenderer chest2;
-    public ModelRenderer leftEar;
-    public ModelRenderer rightEar;
-    public ModelRenderer nose;
+    public ModelPart body;
+    public ModelPart rightArm;
+    public ModelPart chest1;
+    public ModelPart leftArm;
+    public ModelPart rightLeg;
+    public ModelPart leftLeg;
+    public ModelPart head;
+    public ModelPart chest2;
+    public ModelPart leftEar;
+    public ModelPart rightEar;
+    public ModelPart nose;
 
     public GreedyFamiliarModel() {
         this.textureWidth = 32;
         this.textureHeight = 32;
-        this.body = new ModelRenderer(this, 0, 10);
-        this.body.setRotationPoint(0.0F, 19.0F, 0.6F);
+        this.body = new ModelPart(this, 0, 10);
+        this.body.setPos(0.0F, 19.0F, 0.6F);
         this.body.addBox(-2.5F, -5.0F, -1.5F, 5.0F, 5.0F, 3.0F, 0.0F, 0.0F, 0.0F);
-        this.rightLeg = new ModelRenderer(this, 8, 24);
+        this.rightLeg = new ModelPart(this, 8, 24);
         this.rightLeg.mirror = true;
-        this.rightLeg.setRotationPoint(-1.5F, 0.0F, 0.0F);
+        this.rightLeg.setPos(-1.5F, 0.0F, 0.0F);
         this.rightLeg.addBox(-1.0F, 0.0F, -1.0F, 2.0F, 5.0F, 2.0F, 0.0F, 0.0F, 0.0F);
-        this.leftLeg = new ModelRenderer(this, 8, 24);
-        this.leftLeg.setRotationPoint(1.5F, 0.0F, 0.0F);
+        this.leftLeg = new ModelPart(this, 8, 24);
+        this.leftLeg.setPos(1.5F, 0.0F, 0.0F);
         this.leftLeg.addBox(-1.0F, 0.0F, -1.0F, 2.0F, 5.0F, 2.0F, 0.0F, 0.0F, 0.0F);
-        this.rightEar = new ModelRenderer(this, 0, 0);
+        this.rightEar = new ModelPart(this, 0, 0);
         this.rightEar.mirror = true;
-        this.rightEar.setRotationPoint(-2.0F, -4.5F, 0.0F);
+        this.rightEar.setPos(-2.0F, -4.5F, 0.0F);
         this.rightEar.addBox(-1.0F, -3.0F, 0.0F, 2.0F, 3.0F, 0.0F, 0.0F, 0.0F, 0.0F);
         this.setRotateAngle(this.rightEar, 0.0F, 0.0F, -0.5235987755982988F);
-        this.head = new ModelRenderer(this, 0, 0);
-        this.head.setRotationPoint(0.0F, -5.0F, 0.0F);
+        this.head = new ModelPart(this, 0, 0);
+        this.head.setPos(0.0F, -5.0F, 0.0F);
         this.head.addBox(-2.5F, -5.0F, -2.5F, 5.0F, 5.0F, 5.0F, 0.0F, 0.0F, 0.0F);
-        this.chest1 = new ModelRenderer(this, 12, 14);
-        this.chest1.setRotationPoint(0.0F, 0.5F, 1.5F);
+        this.chest1 = new ModelPart(this, 12, 14);
+        this.chest1.setPos(0.0F, 0.5F, 1.5F);
         this.chest1.addBox(-2.0F, -3.0F, 0.0F, 4.0F, 3.0F, 4.0F, 0.0F, 0.0F, 0.0F);
-        this.leftEar = new ModelRenderer(this, 0, 0);
-        this.leftEar.setRotationPoint(2.0F, -4.5F, 0.0F);
+        this.leftEar = new ModelPart(this, 0, 0);
+        this.leftEar.setPos(2.0F, -4.5F, 0.0F);
         this.leftEar.addBox(-1.0F, -3.0F, 0.0F, 2.0F, 3.0F, 0.0F, 0.0F, 0.0F, 0.0F);
         this.setRotateAngle(this.leftEar, 0.0F, 0.0F, 0.5235987755982988F);
-        this.rightArm = new ModelRenderer(this, 16, 21);
+        this.rightArm = new ModelPart(this, 16, 21);
         this.rightArm.mirror = true;
-        this.rightArm.setRotationPoint(-2.5F, -5.0F, 0.0F);
+        this.rightArm.setPos(-2.5F, -5.0F, 0.0F);
         this.rightArm.addBox(-2.0F, 0.0F, -1.0F, 2.0F, 6.0F, 2.0F, 0.0F, 0.0F, 0.0F);
-        this.chest2 = new ModelRenderer(this, 0, 18);
-        this.chest2.setRotationPoint(0.0F, -3.0F, 0.0F);
+        this.chest2 = new ModelPart(this, 0, 18);
+        this.chest2.setPos(0.0F, -3.0F, 0.0F);
         this.chest2.addBox(-2.0F, -2.0F, 0.0F, 4.0F, 2.0F, 4.0F, 0.0F, 0.0F, 0.0F);
         this.setRotateAngle(this.chest2, 0.23457224414434488F, 0.0F, 0.0F);
-        this.leftArm = new ModelRenderer(this, 16, 21);
-        this.leftArm.setRotationPoint(2.5F, -5.0F, 0.0F);
+        this.leftArm = new ModelPart(this, 16, 21);
+        this.leftArm.setPos(2.5F, -5.0F, 0.0F);
         this.leftArm.addBox(0.0F, 0.0F, -1.0F, 2.0F, 6.0F, 2.0F, 0.0F, 0.0F, 0.0F);
-        this.nose = new ModelRenderer(this, 18, 8);
-        this.nose.setRotationPoint(0.0F, -3.0F, -2.5F);
+        this.nose = new ModelPart(this, 18, 8);
+        this.nose.setPos(0.0F, -3.0F, -2.5F);
         this.nose.addBox(-1.0F, 0.0F, -2.0F, 2.0F, 2.0F, 2.0F, 0.0F, 0.0F, 0.0F);
         this.body.addChild(this.rightLeg);
         this.body.addChild(this.leftLeg);
@@ -114,7 +114,7 @@ public class GreedyFamiliarModel extends EntityModel<GreedyFamiliarEntity> {
     /**
      * This is a helper function from Tabula to set the rotation of model parts
      */
-    public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z) {
+    public void setRotateAngle(ModelPart modelRenderer, float x, float y, float z) {
         modelRenderer.rotateAngleX = x;
         modelRenderer.rotateAngleY = y;
         modelRenderer.rotateAngleZ = z;

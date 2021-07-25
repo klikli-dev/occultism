@@ -51,7 +51,7 @@ public interface IOtherworldBlock {
 
     default OtherworldBlockTier getPlayerHarvestTier(Player player, ItemStack tool) {
         OtherworldBlockTier toolTier = OtherworldBlockTier.NONE;
-        OtherworldBlockTier effectTier = player.isPotionActive(OccultismEffects.THIRD_EYE.get()) ?
+        OtherworldBlockTier effectTier = player.hasEffect(OccultismEffects.THIRD_EYE.get()) ?
                                                  OtherworldBlockTier.ONE : OtherworldBlockTier.NONE;
         if (tool.getItem() instanceof IOtherworldTool) {
             toolTier = ((IOtherworldTool) tool.getItem()).getHarvestTier(tool);

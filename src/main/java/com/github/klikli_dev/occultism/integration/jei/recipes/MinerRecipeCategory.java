@@ -36,7 +36,7 @@ import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.resources.I18n;
+import net.minecraft.client.resources.language.I18n;
 import net.minecraft.world.level.Level;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.WeightedRandom;
@@ -61,7 +61,7 @@ public class MinerRecipeCategory implements IRecipeCategory<MinerRecipe> {
     //region Initialization
     public MinerRecipeCategory(IGuiHelper guiHelper) {
         this.background = guiHelper.createBlankDrawable(168, 46); //64
-        this.localizedName = I18n.format(Occultism.MODID + ".jei.miner");
+        this.localizedName = I18n.get(Occultism.MODID + ".jei.miner");
         this.overlay = guiHelper.createDrawable(
                 new ResourceLocation(Occultism.MODID, "textures/gui/jei/arrow.png"), 0, 0, 64, 46);
     }
@@ -125,8 +125,8 @@ public class MinerRecipeCategory implements IRecipeCategory<MinerRecipe> {
     public void draw(MinerRecipe recipe, PoseStack poseStack, double mouseX, double mouseY) {
         RenderSystem.enableBlend();
         this.overlay.draw(poseStack, 76, 14); //(center=84) - (width/16=8) = 76
-        String text = I18n.format(Occultism.MODID + ".jei.miner.chance", this.chances.get(recipe));
-        this.drawStringCentered(poseStack, Minecraft.getInstance().fontRenderer, text, 84, 0);
+        String text = I18n.get(Occultism.MODID + ".jei.miner.chance", this.chances.get(recipe));
+        this.drawStringCentered(poseStack, Minecraft.getInstance().font, text, 84, 0);
 
     }
 

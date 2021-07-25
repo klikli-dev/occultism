@@ -73,7 +73,7 @@ public class ThirdEyeEffectRenderer {
         RenderSystem.disableDepthTest();
         RenderSystem.depthMask(false);
 
-        Minecraft.getInstance().getTextureManager().bindTexture(texture);
+        Minecraft.getInstance().getTextureManager().bindForSetup(texture);
 
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder buffer = tessellator.getBuffer();
@@ -120,11 +120,11 @@ public class ThirdEyeEffectRenderer {
                         GlStateManager.SourceFactor.ONE,
                         GlStateManager.DestFactor.ZERO);
 
-                RenderSystem.color4f(1, 1, 1, 1);
+                RenderSystem.clearColor(1, 1, 1, 1);
 
                 renderOverlay(event, THIRD_EYE_OVERLAY);
 
-                RenderSystem.color4f(1, 1, 1, 1);
+                RenderSystem.clearColor(1, 1, 1, 1);
                 RenderSystem.disableBlend();
             }
         }

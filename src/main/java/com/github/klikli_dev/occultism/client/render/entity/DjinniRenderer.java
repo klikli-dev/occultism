@@ -26,7 +26,7 @@ import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.client.model.entity.DjinniModel;
 import com.github.klikli_dev.occultism.common.entity.spirit.DjinniEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.renderer.entity.EntityRendererManager;
+import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.resources.ResourceLocation;
 
 public class DjinniRenderer extends BipedSpiritRenderer<DjinniEntity, DjinniModel> {
@@ -37,7 +37,7 @@ public class DjinniRenderer extends BipedSpiritRenderer<DjinniEntity, DjinniMode
 
 
     //region Initialization
-    public DjinniRenderer(EntityRendererManager renderManager) {
+    public DjinniRenderer(EntityRenderDispatcher renderManager) {
         super(renderManager, new DjinniModel(), 0.25f);
     }
     //endregion Initialization

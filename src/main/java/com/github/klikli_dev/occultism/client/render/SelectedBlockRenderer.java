@@ -27,7 +27,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.math.vector.Matrix4f;
 import net.minecraft.world.phys.Vec3;
@@ -91,7 +91,7 @@ public class SelectedBlockRenderer {
             long time = System.currentTimeMillis();
 
             PoseStack poseStack = event.getMatrixStack();
-            IRenderTypeBuffer.Impl buffer = Minecraft.getInstance().getRenderTypeBuffers().getBufferSource();
+            MultiBufferSource.Impl buffer = Minecraft.getInstance().getRenderTypeBuffers().getBufferSource();
             IVertexBuilder builder = buffer.getBuffer(OccultismRenderType.BLOCK_SELECTION);
             poseStack.push();
             Vec3 projectedView = Minecraft.getInstance().gameRenderer.getActiveRenderInfo().getProjectedView();

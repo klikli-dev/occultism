@@ -39,7 +39,7 @@ import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.resources.I18n;
+import net.minecraft.client.resources.language.I18n;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.math.vector.Vector3i;
@@ -71,8 +71,8 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
         this.background = guiHelper.createBlankDrawable(168, 100); //64
         this.ritualCenterX = this.background.getWidth() / 2 - this.iconWidth / 2 - 30;
         this.ritualCenterY = this.background.getHeight() / 2 - this.iconWidth / 2 + 10;
-        this.localizedName = I18n.format(Occultism.MODID + ".jei.ritual");
-        this.pentacle = I18n.format(Occultism.MODID + ".jei.pentacle");
+        this.localizedName = I18n.get(Occultism.MODID + ".jei.ritual");
+        this.pentacle = I18n.get(Occultism.MODID + ".jei.pentacle");
         this.goldenSacrificialBowl.getOrCreateTag().putBoolean("RenderFull", true);
         this.sacrificialBowl.getOrCreateTag().putBoolean("RenderFull", true);
         this.arrow = guiHelper.createDrawable(
@@ -242,11 +242,11 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
 
         Pentacle pentacle = OccultismRituals.PENTACLE_REGISTRY.getValue(recipe.getPentacleId());
         if(pentacle != null){
-            this.drawStringCentered(poseStack, Minecraft.getInstance().fontRenderer,
-                    I18n.format(pentacle.getDescriptionId()), 84, 0);
+            this.drawStringCentered(poseStack, Minecraft.getInstance().font,
+                    I18n.get(pentacle.getDescriptionId()), 84, 0);
         } else {
-            this.drawStringCentered(poseStack, Minecraft.getInstance().fontRenderer,
-                    I18n.format("jei.occultism.error.pentacle_not_loaded"), 84, 0);
+            this.drawStringCentered(poseStack, Minecraft.getInstance().font,
+                    I18n.get("jei.occultism.error.pentacle_not_loaded"), 84, 0);
         }
     }
     //endregion Overrides

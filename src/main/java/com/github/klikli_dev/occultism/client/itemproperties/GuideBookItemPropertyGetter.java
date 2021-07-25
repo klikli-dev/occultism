@@ -23,9 +23,9 @@
 package com.github.klikli_dev.occultism.client.itemproperties;
 
 import com.github.klikli_dev.occultism.common.item.tool.GuideBookItem;
-import net.minecraft.client.level.ClientWorld;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.item.IItemPropertyGetter;
+import net.minecraft.client.renderer.item.ItemPropertyFunction;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -37,11 +37,11 @@ import javax.annotation.Nullable;
 import java.util.Iterator;
 
 @OnlyIn(Dist.CLIENT)
-public class GuideBookItemPropertyGetter implements IItemPropertyGetter {
+public class GuideBookItemPropertyGetter implements ItemPropertyFunction {
     //region Overrides
     @OnlyIn(Dist.CLIENT)
     @Override
-    public float call(ItemStack stack, @Nullable ClientWorld worldIn, @Nullable LivingEntity entityIn) {
+    public float call(ItemStack stack, @Nullable ClientLevel worldIn, @Nullable LivingEntity entityIn) {
         Book book = BookRegistry.INSTANCE.books.get(GuideBookItem.GUIDE);
         float progression = 0.0F;
         if (book != null) {

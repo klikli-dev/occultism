@@ -23,7 +23,7 @@
 package com.github.klikli_dev.occultism.registry;
 
 import com.github.klikli_dev.occultism.Occultism;
-import net.minecraft.particles.BasicParticleType;
+import net.minecraft.particles.SimpleParticleType;
 import net.minecraft.particles.ParticleType;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
@@ -34,7 +34,7 @@ public class OccultismParticles {
     public static final DeferredRegister<ParticleType<?>> PARTICLES = DeferredRegister.create(
             ForgeRegistries.PARTICLE_TYPES, Occultism.MODID);
 
-    public static final RegistryObject<BasicParticleType> RITUAL_WAITING = PARTICLES.register(
-            "ritual_waiting", () -> new BasicParticleType(false));
+    public static final RegistryObject<SimpleParticleType> RITUAL_WAITING = PARTICLES.register(
+            "ritual_waiting", () -> new SimpleParticleType(false));
 //endregion Fields
 }

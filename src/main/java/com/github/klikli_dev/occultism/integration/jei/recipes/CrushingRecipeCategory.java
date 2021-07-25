@@ -35,7 +35,7 @@ import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.resources.I18n;
+import net.minecraft.client.resources.language.I18n;
 import net.minecraft.resources.ResourceLocation;
 
 public class CrushingRecipeCategory implements IRecipeCategory<CrushingRecipe> {
@@ -49,7 +49,7 @@ public class CrushingRecipeCategory implements IRecipeCategory<CrushingRecipe> {
     //region Initialization
     public CrushingRecipeCategory(IGuiHelper guiHelper) {
         this.background = guiHelper.createBlankDrawable(168, 46); //64
-        this.localizedName = I18n.format(Occultism.MODID + ".jei.crushing");
+        this.localizedName = I18n.get(Occultism.MODID + ".jei.crushing");
         this.overlay = guiHelper.createDrawable(
                 new ResourceLocation(Occultism.MODID, "textures/gui/jei/arrow.png"), 0, 0, 64, 46);
     }
@@ -102,7 +102,7 @@ public class CrushingRecipeCategory implements IRecipeCategory<CrushingRecipe> {
     public void draw(CrushingRecipe recipe, PoseStack poseStack, double mouseX, double mouseY) {
         RenderSystem.enableBlend();
         this.overlay.draw(poseStack, 76, 14); //(center=84) - (width/16=8) = 76
-        this.drawStringCentered(poseStack, Minecraft.getInstance().fontRenderer, this.getTitle(), 84, 0);
+        this.drawStringCentered(poseStack, Minecraft.getInstance().font, this.getTitle(), 84, 0);
     }
 
     protected void drawStringCentered(PoseStack poseStack, Font fontRenderer, String text, int x, int y) {

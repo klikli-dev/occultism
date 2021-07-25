@@ -29,12 +29,12 @@ import com.github.klikli_dev.occultism.network.MessageSetManagedMachine;
 import com.github.klikli_dev.occultism.network.OccultismPackets;
 import com.github.klikli_dev.occultism.util.EnumUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
-import net.minecraftforge.fml.client.gui.widget.ExtendedButton;
+import net.minecraftforge.fmlclient.gui.widget.ExtendedButton;
 import org.apache.commons.lang3.StringUtils;
 
 import java.awt.*;
@@ -47,7 +47,7 @@ public class BookOfCallingManagedMachineGui extends Screen {
     protected Direction insertFacing = Direction.UP;
     protected Direction extractFacing = Direction.DOWN;
 
-    protected TextFieldWidget text;
+    protected EditBox text;
     //endregion Fields
 
     //region Initialization
@@ -79,7 +79,7 @@ public class BookOfCallingManagedMachineGui extends Screen {
     @Override
     public void onClose() {
         super.onClose();
-        this.text.setFocused2(false);
+        this.text.setFocus(false);
         if (!StringUtils.isBlank(this.customName) && !this.customName.equals(this.originalCustomName)) {
             OccultismPackets.sendToServer(new MessageSetManagedMachine(this.makeMachineReference()));
         }
@@ -88,7 +88,7 @@ public class BookOfCallingManagedMachineGui extends Screen {
     @Override
     public void init() {
         super.init();
-        this.buttons.clear();
+        this.clearWidgets();
         int guiLeft = (this.width) / 2;
         int guiTop = (this.height - 166) / 2;
         int buttonWidth = 150;
@@ -97,8 +97,8 @@ public class BookOfCallingManagedMachineGui extends Screen {
 
         int buttonTop = 60;
         //the insert facing button
-        this.addButton(new ExtendedButton(guiLeft - buttonWidth / 2, guiTop + buttonTop, buttonWidth,
-                buttonHeight, new TranslatableComponent("enum." + Occultism.MODID + ".facing." + this.insertFacing.getName2()),
+        this.addRenderableWidget(new ExtendedButton(guiLeft - buttonWidth / 2, guiTop + buttonTop, buttonWidth,
+                buttonHeight, new TranslatableComponent("enum." + Occultism.MODID + ".facing." + this.insertFacing.getSerializedName()),
                 (b) -> {
                     MachineReference reference = this.makeMachineReference();
                     this.insertFacing = reference.insertFacing = EnumUtil.nextFacing(this.insertFacing);
@@ -107,9 +107,9 @@ public class BookOfCallingManagedMachineGui extends Screen {
                 }));
 
         //the extract facing button
-        this.addButton(new ExtendedButton(guiLeft - buttonWidth / 2,
+        this.addRenderableWidget(new ExtendedButton(guiLeft - buttonWidth / 2,
                 guiTop + buttonTop + buttonHeight + buttonMargin, buttonWidth, buttonHeight,
-                new TranslatableComponent("enum." + Occultism.MODID + ".facing." + this.extractFacing.getName2()), (b) -> {
+                new TranslatableComponent("enum." + Occultism.MODID + ".facing." + this.extractFacing.getSerializedName()), (b) -> {
             MachineReference reference = this.makeMachineReference();
             this.extractFacing = reference.extractFacing = EnumUtil.nextFacing(this.extractFacing);
             OccultismPackets.sendToServer(new MessageSetManagedMachine(reference));
@@ -117,37 +117,37 @@ public class BookOfCallingManagedMachineGui extends Screen {
         }));
 
         int textWidth = buttonWidth - 4;
-        this.text = new TextFieldWidget(this.font, guiLeft - textWidth / 2,
+        this.text = new EditBox(this.font, guiLeft - textWidth / 2,
                 guiTop + buttonTop + buttonHeight * 2 + buttonMargin * 2, textWidth, buttonHeight, new TextComponent(""));
-        this.text.setMaxStringLength(30);
+        this.text.setMaxLength(30);
         this.text.setVisible(true);
         this.text.setTextColor(Color.WHITE.getRGB());
-        this.text.setFocused2(true);
+        this.text.setFocus(true);
 
-        this.text.setText(this.customName);
+        this.text.setValue(this.customName);
 
         //Exit button
         int exitButtonSize = 20;
-        this.addButton(new ExtendedButton(guiLeft - exitButtonSize / 2,
+        this.addRenderableWidget(new ExtendedButton(guiLeft - exitButtonSize / 2,
                 guiTop + buttonTop + buttonHeight * 3 + buttonMargin * 3, exitButtonSize, exitButtonSize, new TextComponent("X"), (b) -> {
-            this.minecraft.displayGuiScreen(null);
+            this.minecraft.setScreen(null);
         }));
 
         buttonTop += 5;
         LabelWidget insertFacingLabel = new LabelWidget(guiLeft - 80, guiTop + buttonTop, false, -1, 2,
                 Color.WHITE.getRGB()).alignRight(true);
         insertFacingLabel.addLine("gui." + Occultism.MODID + ".book_of_calling.manage_machine.insert", true);
-        this.addButton(insertFacingLabel);
+        this.addRenderableWidget(insertFacingLabel);
 
         LabelWidget extractFacingLabel = new LabelWidget(guiLeft - 80, guiTop + buttonTop + buttonHeight + buttonMargin,
                 false, -1, 2, Color.WHITE.getRGB()).alignRight(true);
         extractFacingLabel.addLine("gui." + Occultism.MODID + ".book_of_calling.manage_machine.extract", true);
-        this.addButton(extractFacingLabel);
+        this.addRenderableWidget(extractFacingLabel);
 
         LabelWidget customNameLabel = new LabelWidget(guiLeft - 80,
                 guiTop + buttonTop + buttonHeight * 2 + buttonMargin * 2+ 1, false, -1, 2, Color.WHITE.getRGB()).alignRight(true);
         customNameLabel.addLine("gui." + Occultism.MODID + ".book_of_calling.manage_machine.custom_name", true);
-        this.addButton(customNameLabel);
+        this.addRenderableWidget(customNameLabel);
     }
 
     @Override
@@ -178,7 +178,7 @@ public class BookOfCallingManagedMachineGui extends Screen {
     @Override
     public boolean charTyped(char typedChar, int keyCode) {
         if (this.text.charTyped(typedChar, keyCode)) {
-            this.customName = this.text.getText();
+            this.customName = this.text.getValue();
             return true;
         }
         else {

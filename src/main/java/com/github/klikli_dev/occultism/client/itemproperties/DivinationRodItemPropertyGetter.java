@@ -23,9 +23,9 @@
 package com.github.klikli_dev.occultism.client.itemproperties;
 
 import com.github.klikli_dev.occultism.common.item.tool.DivinationRodItem;
-import net.minecraft.client.level.ClientWorld;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.renderer.item.ItemPropertyFunction;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -33,13 +33,12 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import javax.annotation.Nullable;
 
 @OnlyIn(Dist.CLIENT)
-public class DivinationRodItemPropertyGetter implements IItemPropertyGetter {
-    //region Overrides
-    @OnlyIn(Dist.CLIENT)
+public class DivinationRodItemPropertyGetter implements ItemPropertyFunction {
+
     @Override
-    public float call(ItemStack stack, @Nullable ClientWorld worldIn, @Nullable LivingEntity entityIn) {
-        if (!stack.getOrCreateTag().contains("distance") || stack.getTag().getFloat("distance") < 0)
+    public float call(ItemStack itemStack, @Nullable ClientLevel clientLevel, @Nullable LivingEntity livingEntity, int i) {
+        if (!itemStack.getOrCreateTag().contains("distance") || itemStack.getTag().getFloat("distance") < 0)
             return DivinationRodItem.NOT_FOUND;
-        return stack.getTag().getFloat("distance");
+        return itemStack.getTag().getFloat("distance");
     }
 }

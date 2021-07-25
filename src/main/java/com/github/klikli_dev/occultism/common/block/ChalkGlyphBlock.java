@@ -152,6 +152,6 @@ public class ChalkGlyphBlock extends Block {
     public BlockPathTypes getAiPathNodeType(BlockState state, BlockGetter world, BlockPos pos, @Nullable Mob entity) {
         return BlockPathTypes.OPEN;
     }
-    
+
     //endregion Overrides
 }

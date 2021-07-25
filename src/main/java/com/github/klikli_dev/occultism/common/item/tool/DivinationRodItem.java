@@ -43,7 +43,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.network.chat.Component;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -182,7 +182,7 @@ public class DivinationRodItem extends Item {
                                                                                 .getDescriptionId() : block.getDescriptionId();
             tooltip.add(new TranslatableComponent(this.getDescriptionId() + ".tooltip.linked_block",
                     new TranslatableComponent(translationKey)
-                            .mergeStyle(TextFormatting.BOLD, TextFormatting.ITALIC)));
+                            .mergeStyle(ChatFormatting.BOLD, ChatFormatting.ITALIC)));
         }
         else {
             tooltip.add(new TranslatableComponent(this.getDescriptionId() + ".tooltip.no_linked_block"));
