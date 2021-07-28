@@ -2,13 +2,13 @@
   "parent": "occultism:root",
   "display": {
     "icon": {
-      "item": "occultism:spawn_egg/greedy_familiar"
+      "item": "occultism:spawn_egg/familiar_greedy"
     },
     "title": {
-      "translate": "advancements.occultism.greedy_familiar.title"
+      "translate": "advancements.occultism.familiar_greedy.title"
     },
     "description": {
-      "translate": "advancements.occultism.greedy_familiar.description"
+      "translate": "advancements.occultism.familiar_greedy.description"
     },
     "frame": "task",
     "show_toast": false,
@@ -16,16 +16,16 @@
     "hidden": true
   },
   "criteria": {
-    "greedy_familiar": {
+    "familiar_greedy": {
       "trigger": "occultism:ritual",
       "conditions": {
-        "ritual_id": "occultism:greedy_familiar"
+        "ritual_id": "occultism:familiar_greedy"
       }
     }
   },
   "requirements": [
     [
-      "greedy_familiar"
+      "familiar_greedy"
     ]
   ]
 }
