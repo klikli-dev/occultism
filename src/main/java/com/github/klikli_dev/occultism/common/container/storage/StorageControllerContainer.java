@@ -31,7 +31,7 @@ import com.github.klikli_dev.occultism.registry.OccultismContainers;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.player.ServerPlayer;
-import net.minecraft.inventory.container.Slot;
+import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.core.BlockPos;
@@ -98,8 +98,8 @@ public class StorageControllerContainer extends StorageControllerContainerBase {
     }
 
     @Override
-    public boolean canMergeSlot(ItemStack stack, Slot slot) {
-        return slot.inventory != this.result && super.canMergeSlot(stack, slot);
+    public boolean canTakeItemForPickAll(ItemStack stack, Slot slot) {
+        return slot.inventory != this.result && super.canTakeItemForPickAll(stack, slot);
     }
 
     @Override

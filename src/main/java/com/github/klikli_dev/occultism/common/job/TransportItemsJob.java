@@ -29,7 +29,7 @@ import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import net.minecraft.world.entity.ai.goal.OpenDoorGoal;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.inventory.container.AbstractContainerMenu;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.inventory.container.MenuProvider;
 import net.minecraft.pathfinding.GroundPathNavigator;
 import net.minecraft.network.chat.Component;

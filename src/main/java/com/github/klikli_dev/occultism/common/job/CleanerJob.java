@@ -32,7 +32,7 @@ import com.github.klikli_dev.occultism.util.StorageUtil;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.inventory.container.AbstractContainerMenu;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.inventory.container.MenuProvider;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.network.chat.Component;

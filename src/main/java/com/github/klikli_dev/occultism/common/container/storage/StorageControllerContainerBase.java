@@ -35,10 +35,10 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.player.ServerPlayer;
 import net.minecraft.inventory.CraftResultInventory;
 import net.minecraft.world.Container;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.container.AbstractContainerMenu;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.inventory.container.MenuType;
-import net.minecraft.inventory.container.Slot;
+import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.item.crafting.ICraftingRecipe;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -244,8 +244,8 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
         this.recipeLocked = true;
 
         //copy the recipe stacks
-        List<ItemStack> recipeCopy = new ArrayList<>(this.matrix.getSizeInventory());
-        for (int i = 0; i < this.matrix.getSizeInventory(); i++) {
+        List<ItemStack> recipeCopy = new ArrayList<>(this.matrix.getContainerSize());
+        for (int i = 0; i < this.matrix.getContainerSize(); i++) {
             recipeCopy.add(this.matrix.getItem(i).copy());
         }
 
@@ -338,7 +338,7 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
 
 
             crafted += resultStackSize;
-            for (int i = 0; i < this.matrix.getSizeInventory(); i++) {
+            for (int i = 0; i < this.matrix.getContainerSize(); i++) {
                 ItemStack stackInSlot = this.matrix.getItem(i);
                 //if the stack is empty, refill from storage and then continue looping
                 if (stackInSlot.isEmpty()) {

@@ -32,7 +32,7 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.player.ServerPlayer;
-import net.minecraft.inventory.container.AbstractContainerMenu;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.inventory.container.MenuProvider;
 import net.minecraft.item.*;
 import net.minecraft.world.level.Level;
@@ -96,7 +96,7 @@ public class StorageRemoteItem extends Item implements MenuProvider {
 
         //then access it and if it fits, open UI
         if (storageControllerWorld.getBlockEntity(storageControllerPos.getPos()) instanceof IStorageController) {
-            NetworkHooks.openGui((ServerPlayer) player, this, buffer -> buffer.writeVarInt(player.inventory.currentItem));
+            NetworkHooks.openGui((ServerPlayer) player, this, buffer -> buffer.writeVarInt(player.getInventory().currentItem));
             return new ActionResult<>(InteractionResult.SUCCESS, stack);
         }
         return super.onItemRightClick(level, player, hand);
@@ -128,7 +128,7 @@ public class StorageRemoteItem extends Item implements MenuProvider {
         //if not found, try to get from player inventory
         if (!(storageRemoteStack.getItem() instanceof StorageRemoteItem)) {
             selectedSlot = CuriosUtil.getFirstStorageRemoteSlot(player);
-            storageRemoteStack = selectedSlot > 0 ? player.inventory.getItem(selectedSlot) : ItemStack.EMPTY;
+            storageRemoteStack = selectedSlot > 0 ? player.getInventory().getItem(selectedSlot) : ItemStack.EMPTY;
         }
         //now, if we have a storage remote, proceed
         if (storageRemoteStack.getItem() instanceof StorageRemoteItem) {

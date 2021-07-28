@@ -23,7 +23,7 @@
 package com.github.klikli_dev.occultism.common.misc;
 
 import net.minecraft.world.inventory.CraftingContainer;
-import net.minecraft.inventory.container.AbstractContainerMenu;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.core.NonNullList;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;

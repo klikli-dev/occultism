@@ -76,7 +76,7 @@ public class MessageSortItems extends MessageBase {
                 }
             } else {
                 //for item remotes, we just set the nbt.
-                ItemStack stack = player.inventory.getCurrentItem();
+                ItemStack stack = player.getInventory().getCurrentItem();
                 stack.getOrCreateTag().putInt("sortDirection", this.sortDirection.getValue());
                 stack.getTag().putInt("sortType", this.sortType.getValue());
             }

@@ -27,7 +27,7 @@ import com.github.klikli_dev.occultism.api.common.tile.IStorageController;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.Container;
-import net.minecraft.inventory.container.AbstractContainerMenu;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.inventory.container.CraftingResultSlot;
 import net.minecraft.world.item.ItemStack;
 
@@ -63,12 +63,12 @@ public class StorageControllerSlot extends CraftingResultSlot {
         }
 
         List<ItemStack> craftingStacks = new ArrayList();
-        for (int i = 0; i < this.matrix.getSizeInventory(); i++) {
+        for (int i = 0; i < this.matrix.getContainerSize(); i++) {
             craftingStacks.add(this.matrix.getItem(i).copy());
         }
         super.onTake(player, stack);
         ((AbstractContainerMenu)this.storageControllerContainer).broadcastChanges();
-        for (int i = 0; i < this.matrix.getSizeInventory(); i++) {
+        for (int i = 0; i < this.matrix.getContainerSize(); i++) {
             IStorageController storageController = this.storageControllerContainer.getStorageController();
             if (this.matrix.getItem(i).isEmpty() && storageController != null) {
                 ItemStack req = storageController.getItemStack(

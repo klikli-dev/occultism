@@ -26,12 +26,13 @@ import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.container.storage.SatchelContainer;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.systems.RenderSystem;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.ContainerScreen;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.network.chat.Component;
 
-public class SatchelScreen extends ContainerScreen<SatchelContainer> {
+public class SatchelScreen extends AbstractContainerScreen<SatchelContainer> {
     //region Fields
     protected static final ResourceLocation BACKGROUND = new ResourceLocation(Occultism.MODID,
             "textures/gui/inventory_satchel.png");
@@ -54,17 +55,11 @@ public class SatchelScreen extends ContainerScreen<SatchelContainer> {
     public void render(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
         this.renderBackground(poseStack);
         super.render(poseStack, mouseX, mouseY, partialTicks);
-        this.renderHoveredTooltip(poseStack, mouseX, mouseY);
+        this.renderTooltip(poseStack, mouseX, mouseY);
     }
 
     @Override
-    public void drawGuiContainerForegroundLayer(PoseStack poseStack, int mouseX, int mouseY) {
-        //Note: Do not call super.drawGuiContainerForegroundLayer(poseStack, mouseX, mouseY);
-        //      it renders inventory titles which no vanilla inventory does
-    }
-
-    @Override
-    protected void drawGuiContainerBackgroundLayer(PoseStack poseStack, float partialTicks, int mouseX,
+    protected void renderBg(PoseStack poseStack, float partialTicks, int mouseX,
                                                    int mouseY) {
         RenderSystem.clearColor(1.0F, 1.0F, 1.0F, 1.0F);
         this.minecraft.getTextureManager().bindForSetup(BACKGROUND);

@@ -34,6 +34,8 @@ import com.github.klikli_dev.occultism.client.gui.controls.SizedImageButton;
 import com.github.klikli_dev.occultism.common.container.storage.StorageControllerContainerBase;
 import com.github.klikli_dev.occultism.integration.jei.JeiAccess;
 import com.github.klikli_dev.occultism.integration.jei.JeiSettings;
+import com.github.klikli_dev.occultism.network.MessageRequestStacks;
+import com.github.klikli_dev.occultism.network.OccultismPackets;
 import com.github.klikli_dev.occultism.util.InputUtil;
 import com.github.klikli_dev.occultism.util.TextUtil;
 import com.google.common.base.Joiner;
@@ -41,7 +43,9 @@ import com.google.common.collect.Lists;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.ContainerScreen;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.resources.language.I18n;
@@ -49,7 +53,7 @@ import net.minecraft.client.util.ITooltipFlag;
 import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.Container;
-import net.minecraft.inventory.IInventoryChangedListener;
+import net.minecraft.world.inventory.ContainerListener;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.util.ResourceKey;
@@ -60,13 +64,12 @@ import net.minecraft.network.chat.TextComponent;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.TranslatableComponent;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public abstract class StorageControllerGuiBase<T extends StorageControllerContainerBase> extends ContainerScreen<T> implements IStorageControllerGui, IStorageControllerGuiContainer, IInventoryChangedListener {
+public abstract class StorageControllerGuiBase<T extends StorageControllerContainerBase> extends AbstractContainerScreen<T> implements IStorageControllerGui, IStorageControllerGuiContainer, ContainerListener {
     //region Fields
     public static final int ORDER_AREA_OFFSET = 48;
     protected static final ResourceLocation BACKGROUND = new ResourceLocation(Occultism.MODID,
@@ -320,7 +323,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
             }
         }
         else if (this.guiMode == StorageControllerGuiMode.INVENTORY) {
-            ItemStack stackCarriedByMouse = this.minecraft.player.inventory.getItemStack();
+            ItemStack stackCarriedByMouse = this.minecraft.player.getInventory().getItemStack();
             if (!this.stackUnderMouse.isEmpty() &&
                 (mouseButton == InputUtil.MOUSE_BUTTON_LEFT || mouseButton == InputUtil.MOUSE_BUTTON_RIGHT) &&
                 stackCarriedByMouse.isEmpty() && this.canClick()) {

@@ -27,8 +27,8 @@ import com.github.klikli_dev.occultism.exceptions.ItemHandlerMissingException;
 import com.github.klikli_dev.occultism.registry.OccultismContainers;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.inventory.container.ClickType;
-import net.minecraft.inventory.container.Slot;
+import net.minecraft.world.inventory.ClickType;
+import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
@@ -62,7 +62,7 @@ public class SpiritTransporterContainer extends SpiritContainer {
 
         for (int i = 0; i < 3; i++)
             for (int j = 0; j < 9; j++)
-                this.addSlot(new Slot(player.inventory, j + i * 9 + 9, playerInventoryLeft + j * 18,
+                this.addSlot(new Slot(player.getInventory(), j + i * 9 + 9, playerInventoryLeft + j * 18,
                         playerInventoryTop + i * 18));
     }
 
@@ -71,36 +71,36 @@ public class SpiritTransporterContainer extends SpiritContainer {
         int hotbarTop = 178;
         int hotbarLeft = 8;
         for (int i = 0; i < 9; i++)
-            this.addSlot(new Slot(player.inventory, i, hotbarLeft + i * 18, hotbarTop));
+            this.addSlot(new Slot(player.getInventory(), i, hotbarLeft + i * 18, hotbarTop));
     }
 
     @Override
-    public ItemStack slotClick(int id, int dragType, ClickType clickType, Player player) {
+    public void clicked(int id, int dragType, ClickType clickType, Player player) {
         Slot slot = id >= 0 ? this.getSlot(id) : null;
 
-        ItemStack holding = player.inventory.getItemStack();
+        ItemStack holding = player.getInventory().getSelected();
 
         if (slot instanceof FilterSlot) {
             if (holding.isEmpty()) {
-                slot.putStack(ItemStack.EMPTY);
-            }
-            else if (slot.mayPlace(holding)) {
-                slot.putStack(holding.copy());
+                slot.set(ItemStack.EMPTY);
+            } else if (slot.mayPlace(holding)) {
+                slot.set(holding.copy());
             }
 
-            return holding;
+            //Used to be "return holding;" in 1.16 (back then method was named slotClick on MCP names
+            return;
         }
 
-        return super.slotClick(id, dragType, clickType, player);
+        super.clicked(id, dragType, clickType, player);
     }
 
     @Override
-    public boolean canMergeSlot(ItemStack stack, Slot slot) {
+    public boolean canTakeItemForPickAll(ItemStack stack, Slot slot) {
         if (slot instanceof FilterSlot) {
             return false;
         }
 
-        return super.canMergeSlot(stack, slot);
+        return super.canTakeItemForPickAll(stack, slot);
     }
     //endregion Overrides
 
@@ -126,12 +126,12 @@ public class SpiritTransporterContainer extends SpiritContainer {
 
         //region Overrides
         @Override
-        public void putStack(@Nonnull ItemStack stack) {
+        public void set(@Nonnull ItemStack stack) {
             if (!stack.isEmpty()) {
                 stack.setCount(1);
             }
 
-            super.putStack(stack);
+            super.set(stack);
         }
         //endregion Overrides
     }

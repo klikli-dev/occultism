@@ -58,7 +58,7 @@ public class SatchelItem extends Item {
 
         if (!level.isClientSide && player instanceof ServerPlayer) {
             //here we use main hand item as selected slot
-            int selectedSlot = hand == InteractionHand.MAIN_HAND ? player.inventory.currentItem : -1;
+            int selectedSlot = hand == InteractionHand.MAIN_HAND ? player.getInventory().currentItem : -1;
 
             NetworkHooks.openGui((ServerPlayer) player,
                     new SimpleNamedContainerProvider((id, playerInventory, unused) -> {

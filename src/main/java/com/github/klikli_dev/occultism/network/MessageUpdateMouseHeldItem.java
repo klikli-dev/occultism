@@ -55,7 +55,7 @@ public class MessageUpdateMouseHeldItem extends MessageBase {
     @Override
     @OnlyIn(Dist.CLIENT)
     public void onClientReceived(Minecraft minecraft, Player player, NetworkEvent.Context context) {
-        player.inventory.setItemStack(this.stack);
+        player.getInventory().setItemStack(this.stack);
     }
 
     @Override

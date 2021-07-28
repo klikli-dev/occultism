@@ -97,8 +97,8 @@ public class CuriosUtil {
     }
 
     public static int getFirstBackpackSlot(Player player){
-        for(int slot = 0; slot < player.inventory.getSizeInventory(); slot++){
-            ItemStack stack = player.inventory.getItem(slot);
+        for(int slot = 0; slot < player.getInventory().getContainerSize(); slot++){
+            ItemStack stack = player.getInventory().getItem(slot);
             if(stack.getItem() instanceof SatchelItem)
                 return slot;
         }
@@ -106,8 +106,8 @@ public class CuriosUtil {
     }
 
     public static int getFirstStorageRemoteSlot(Player player){
-        for(int slot = 0; slot < player.inventory.getSizeInventory(); slot++){
-            ItemStack stack = player.inventory.getItem(slot);
+        for(int slot = 0; slot < player.getInventory().getContainerSize(); slot++){
+            ItemStack stack = player.getInventory().getItem(slot);
             if(stack.getItem() instanceof StorageRemoteItem)
                 return slot;
         }

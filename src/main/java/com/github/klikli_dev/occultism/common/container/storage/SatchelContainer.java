@@ -25,11 +25,11 @@ package com.github.klikli_dev.occultism.common.container.storage;
 import com.github.klikli_dev.occultism.registry.OccultismContainers;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.github.klikli_dev.occultism.util.CuriosUtil;
+import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.Container;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.container.AbstractContainerMenu;
-import net.minecraft.inventory.container.Slot;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.network.FriendlyByteBuf;
 
@@ -37,12 +37,12 @@ public class SatchelContainer extends AbstractContainerMenu {
     //region Fields
     public static final int SATCHEL_SIZE = 13 * 9;
     protected Container satchelInventory;
-    protected Inventory playerInventory;
+    protected SimpleContainer playerInventory;
     protected int selectedSlot;
     //endregion Fields
 
     //region Initialization
-    public SatchelContainer(int id, Inventory playerInventory, Container satchelInventory, int selectedSlot) {
+    public SatchelContainer(int id, SimpleContainer playerInventory, Container satchelInventory, int selectedSlot) {
         super(OccultismContainers.SATCHEL.get(), id);
         this.satchelInventory = satchelInventory;
         this.playerInventory = playerInventory;
@@ -69,28 +69,28 @@ public class SatchelContainer extends AbstractContainerMenu {
         ItemStack itemstack = ItemStack.EMPTY;
         Slot slot = this.slots.get(index);
         if (slot != null && slot.hasItem()) {
-            ItemStack itemstack1 = slot.getStack();
+            ItemStack itemstack1 = slot.getItem();
             itemstack = itemstack1.copy();
 
-            if(index >= this.satchelInventory.getSizeInventory()) {
+            if(index >= this.satchelInventory.getContainerSize()) {
                 //if putting into satchel, abort if it's another satchel
                 if(itemstack.getItem() == OccultismItems.SATCHEL.get())
                     return ItemStack.EMPTY;
             }
             //take out of satchel
-            if (index < this.satchelInventory.getSizeInventory()) {
-                if (!this.moveItemStackTo(itemstack1, this.satchelInventory.getSizeInventory(),
+            if (index < this.satchelInventory.getContainerSize()) {
+                if (!this.moveItemStackTo(itemstack1, this.satchelInventory.getContainerSize(),
                         this.slots.size(), true)) {
                     return ItemStack.EMPTY;
                 }
             }
             //put into satchel
-            else if (!this.moveItemStackTo(itemstack1, 0, this.satchelInventory.getSizeInventory(), false)) {
+            else if (!this.moveItemStackTo(itemstack1, 0, this.satchelInventory.getContainerSize(), false)) {
                 return ItemStack.EMPTY;
             }
 
             if (itemstack1.isEmpty()) {
-                slot.putStack(ItemStack.EMPTY);
+                slot.set(ItemStack.EMPTY);
             }
             else {
                 slot.setChanged();
@@ -105,16 +105,16 @@ public class SatchelContainer extends AbstractContainerMenu {
         if(this.selectedSlot == -1){
             return CuriosUtil.getBackpack(player).getItem() == OccultismItems.SATCHEL.get();
         }
-        if(this.selectedSlot < 0 || this.selectedSlot >= player.inventory.getSizeInventory())
+        if(this.selectedSlot < 0 || this.selectedSlot >= player.getInventory().getContainerSize())
             return false;
-        return player.inventory.getItem(this.selectedSlot).getItem() == OccultismItems.SATCHEL.get();
+        return player.getInventory().getItem(this.selectedSlot).getItem() == OccultismItems.SATCHEL.get();
     }
     //endregion Overrides
 
     //region Static Methods
-    public static SatchelContainer createClientContainer(int id, Inventory playerInventory, FriendlyByteBuf buffer) {
+    public static SatchelContainer createClientContainer(int id, SimpleContainer playerInventory, FriendlyByteBuf buffer) {
         final int selectedSlot = buffer.readVarInt();
-        return new SatchelContainer(id, playerInventory, new Inventory(SATCHEL_SIZE), selectedSlot);
+        return new SatchelContainer(id, playerInventory, new SimpleContainer(SATCHEL_SIZE), selectedSlot);
     }
     //endregion Static Methods
 

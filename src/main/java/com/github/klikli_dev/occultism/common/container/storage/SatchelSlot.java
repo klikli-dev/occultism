@@ -24,7 +24,7 @@ package com.github.klikli_dev.occultism.common.container.storage;
 
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import net.minecraft.world.Container;
-import net.minecraft.inventory.container.Slot;
+import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 
 public class SatchelSlot extends Slot {

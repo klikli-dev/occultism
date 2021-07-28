@@ -22,7 +22,7 @@
 
 package com.github.klikli_dev.occultism.common.container.storage;
 
-import net.minecraft.inventory.Inventory;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
@@ -63,7 +63,7 @@ public class SatchelInventory extends Inventory {
     }
 
     private void readNBT(CompoundTag compound) {
-        final NonNullList<ItemStack> list = NonNullList.withSize(this.getSizeInventory(), ItemStack.EMPTY);
+        final NonNullList<ItemStack> list = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
         if (compound.contains("Items")) {
             ItemStackHelper.loadAllItems(compound, list);
             for (int index = 0; index < list.size(); index++) {
@@ -73,7 +73,7 @@ public class SatchelInventory extends Inventory {
     }
 
     private void writeNBT(CompoundTag compound) {
-        final NonNullList<ItemStack> list = NonNullList.withSize(this.getSizeInventory(), ItemStack.EMPTY);
+        final NonNullList<ItemStack> list = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
         for (int index = 0; index < list.size(); index++) {
             list.set(index, this.getItem(index));
         }

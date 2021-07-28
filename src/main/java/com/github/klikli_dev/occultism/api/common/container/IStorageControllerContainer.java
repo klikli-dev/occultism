@@ -24,6 +24,7 @@ package com.github.klikli_dev.occultism.api.common.container;
 
 import com.github.klikli_dev.occultism.api.common.data.GlobalBlockPos;
 import com.github.klikli_dev.occultism.api.common.tile.IStorageController;
+import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.CraftingContainer;
 
@@ -35,7 +36,7 @@ public interface IStorageControllerContainer {
 
     CraftingContainer getCraftMatrix();
 
-    Inventory getOrderSlot();
+    SimpleContainer getOrderSlot();
 
     /**
      * @return true if this is an item based access to the controller, false if it is a block.

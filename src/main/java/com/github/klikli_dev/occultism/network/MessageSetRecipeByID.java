@@ -81,12 +81,12 @@ public class MessageSetRecipeByID extends MessageBase {
 
         for (int slot = 0; slot < 9; slot++) {
             Ingredient ingredient = ingredients.get(slot);
-            ItemStack extractedStack = StorageUtil.extractItem(new PlayerMainInvWrapper(player.inventory), ingredient,
+            ItemStack extractedStack = StorageUtil.extractItem(new PlayerMainInvWrapper(player.getInventory()), ingredient,
                     1, true);
 
             if (extractedStack != null && !extractedStack.isEmpty() && craftMatrix.getItem(slot).isEmpty()) {
                 //if we found the desired stack, extract it for real and place it in the matrix
-                StorageUtil.extractItem(new PlayerMainInvWrapper(player.inventory), ingredient, 1, false);
+                StorageUtil.extractItem(new PlayerMainInvWrapper(player.getInventory()), ingredient, 1, false);
                 craftMatrix.setInventorySlotContents(slot, extractedStack);
                 continue;
             }

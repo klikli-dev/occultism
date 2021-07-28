@@ -34,7 +34,7 @@ import com.github.klikli_dev.occultism.util.CuriosUtil;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.player.ServerPlayer;
-import net.minecraft.inventory.container.Slot;
+import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.nbt.ListNBT;
 import net.minecraftforge.common.util.Constants;
@@ -74,9 +74,9 @@ public class StorageRemoteContainer extends StorageControllerContainerBase {
         if (this.selectedSlot == -1) {
             return CuriosUtil.getStorageRemote(this.player);
         }
-        if (this.selectedSlot < 0 || this.selectedSlot >= this.player.inventory.getSizeInventory())
+        if (this.selectedSlot < 0 || this.selectedSlot >= this.player.getInventory().getContainerSize())
             return ItemStack.EMPTY;
-        return this.player.inventory.getItem(this.selectedSlot);
+        return this.player.getInventory().getItem(this.selectedSlot);
     }
     //endregion Getter / Setter
 
@@ -155,7 +155,7 @@ public class StorageRemoteContainer extends StorageControllerContainerBase {
     @Override
     public void updateCraftingSlots(boolean force) {
         ListNBT nbtTagList = new ListNBT();
-        for (int i = 0; i < this.matrix.getSizeInventory(); i++) {
+        for (int i = 0; i < this.matrix.getContainerSize(); i++) {
             nbtTagList.add(this.matrix.getItem(i).serializeNBT());
         }
         ItemStack storageRemote = this.getStorageRemote();
