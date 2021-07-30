@@ -118,14 +118,6 @@ public class StableWormholeContainer extends StorageControllerContainerBase {
         return slot.inventory != this.result && super.canMergeSlot(stack, slot);
     }
 
-    @Override
-    public void onCraftMatrixChanged(IInventory inventoryIn) {
-        if (this.recipeLocked) {
-            //only allow matrix changes while we are not crafting
-            return;
-        }
-        this.findRecipeForMatrix();
-    }
 
     @Override
     public boolean canInteractWith(PlayerEntity player) {

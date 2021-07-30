@@ -35,6 +35,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.CraftResultInventory;
 import net.minecraft.inventory.CraftingInventory;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.ContainerType;
@@ -93,6 +94,15 @@ public abstract class StorageControllerContainerBase extends Container implement
     @Override
     public CraftingInventory getCraftMatrix() {
         return this.matrix;
+    }
+
+    @Override
+    public void onCraftMatrixChanged(IInventory inventoryIn) {
+        if (this.recipeLocked) {
+            //only allow matrix changes while we are not crafting
+            return;
+        }
+        this.findRecipeForMatrix();
     }
 
     @Override

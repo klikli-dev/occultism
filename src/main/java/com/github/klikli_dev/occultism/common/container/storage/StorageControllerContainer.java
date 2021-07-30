@@ -104,15 +104,6 @@ public class StorageControllerContainer extends StorageControllerContainerBase {
     }
 
     @Override
-    public void onCraftMatrixChanged(IInventory inventoryIn) {
-        if (this.recipeLocked) {
-            //only allow matrix changes while we are not crafting
-            return;
-        }
-        this.findRecipeForMatrix();
-    }
-
-    @Override
     public boolean canInteractWith(PlayerEntity player) {
         if (this.storageController == null)
             return false;

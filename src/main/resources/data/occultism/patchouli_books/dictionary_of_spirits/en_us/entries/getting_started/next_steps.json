@@ -35,6 +35,11 @@
     },
     {
       "type": "text",
+      "title": "Summon even more Familiars",
+      "text": "Summon a  $(l:rituals/familiars/familiar_bat)Bat Familiar$(/l) to obtain night vision."
+    },
+    {
+      "type": "text",
       "title": "Summon Possessed Mobs",
       "text": "Possessed mobs are controlled by spirits, allowing the summoner to determine some of their properties. They usually have high drop rates for rare drops, but are generally harder to kill. Start by summoning a $(thing)Possessed Endermite$() to obtain endstone to craft purple chalk."
     },

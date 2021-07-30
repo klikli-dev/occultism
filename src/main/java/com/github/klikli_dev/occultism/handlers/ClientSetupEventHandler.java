@@ -78,6 +78,10 @@ public class ClientSetupEventHandler {
     public static final KeyBinding KEY_FAMILIAR_GREEDY =
             new KeyBinding("key.occultism.familiar.greedy", KeyConflictContext.IN_GAME,
                     InputMappings.Type.KEYSYM.getOrMakeInput(GLFW.GLFW_KEY_M), "key.occultism.category");
+
+    public static final KeyBinding KEY_FAMILIAR_BAT =
+            new KeyBinding("key.occultism.familiar.bat", KeyConflictContext.IN_GAME,
+                    InputMappings.Type.KEYSYM.getOrMakeInput(-1), "key.occultism.category");
     //endregion Fields
 
     //region Static Methods
@@ -93,6 +97,7 @@ public class ClientSetupEventHandler {
             ClientRegistry.registerKeyBinding(KEY_STORAGE_REMOTE);
             ClientRegistry.registerKeyBinding(KEY_FAMILIAR_OTHERWORLD_BIRD);
             ClientRegistry.registerKeyBinding(KEY_FAMILIAR_GREEDY);
+            ClientRegistry.registerKeyBinding(KEY_FAMILIAR_BAT);
         });
 
         //Register Entity Renderers
@@ -102,6 +107,7 @@ public class ClientSetupEventHandler {
         RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.AFRIT_WILD.get(), AfritRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.MARID.get(), MaridRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.GREEDY_FAMILIAR.get(), GreedyFamiliarRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.BAT_FAMILIAR.get(), BatFamiliarRenderer::new);
         RenderingRegistry
                 .registerEntityRenderingHandler(OccultismEntities.POSSESSED_ENDERMITE.get(), EndermiteRenderer::new);
         RenderingRegistry

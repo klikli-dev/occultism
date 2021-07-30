@@ -190,7 +190,7 @@ public class OccultismServerConfig extends ConfigBase {
                     new MinerSpiritSettings("miner_foliot_unspecialized", parent, builder, 400, 1, 1000);
 
             this.minerDjinniOres =
-                    new MinerSpiritSettings("miner_djinni_ores", parent, builder, 400, 1, 100);
+                    new MinerSpiritSettings("miner_djinni_ores", parent, builder, 300, 1, 400);
 
             builder.pop();
         }

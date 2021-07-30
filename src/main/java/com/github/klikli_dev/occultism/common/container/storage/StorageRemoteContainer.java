@@ -122,11 +122,6 @@ public class StorageRemoteContainer extends StorageControllerContainerBase {
     }
 
     @Override
-    public void onCraftMatrixChanged(IInventory inventoryIn) {
-        this.findRecipeForMatrix();
-    }
-
-    @Override
     public void setAll(List<ItemStack> stacks) {
         this.matrix.disableEvents = true;
         super.setAll(stacks);

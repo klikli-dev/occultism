@@ -41,12 +41,14 @@ public class CrushingRecipe extends ItemStackFakeInventoryRecipe {
     public static int DEFAULT_CRUSHING_TIME = 200;
 
     protected final int crushingTime;
+    protected final boolean ignoreCrushingMultiplier;
     //endregion Fields
 
     //region Initialization
-    public CrushingRecipe(ResourceLocation id, Ingredient input, ItemStack output, int crushingTime) {
+    public CrushingRecipe(ResourceLocation id, Ingredient input, ItemStack output, int crushingTime, boolean ignoreCrushingMultiplier) {
         super(id, input, output);
         this.crushingTime = crushingTime;
+        this.ignoreCrushingMultiplier = ignoreCrushingMultiplier;
     }
     //endregion Initialization
 
@@ -54,6 +56,11 @@ public class CrushingRecipe extends ItemStackFakeInventoryRecipe {
     public int getCrushingTime() {
         return this.crushingTime;
     }
+
+    public boolean getIgnoreCrushingMultiplier() {
+        return this.ignoreCrushingMultiplier;
+    }
+
     //endregion Getter / Setter
 
     //region Overrides
@@ -97,6 +104,7 @@ public class CrushingRecipe extends ItemStackFakeInventoryRecipe {
     public IRecipeType<?> getType() {
         return OccultismRecipes.CRUSHING_TYPE.get();
     }
+
     //endregion Overrides
 
     public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<CrushingRecipe> {
@@ -105,22 +113,25 @@ public class CrushingRecipe extends ItemStackFakeInventoryRecipe {
         @Override
         public CrushingRecipe read(ResourceLocation recipeId, JsonObject json) {
             int crushingTime = JSONUtils.getInt(json, "crushing_time", DEFAULT_CRUSHING_TIME);
+            boolean ignoreCrushingMultiplier = JSONUtils.getBoolean(json, "ignore_crushing_multiplier", false);
             return ItemStackFakeInventoryRecipe.SERIALIZER
-                           .read((id, input, output) ->
-                                         new CrushingRecipe(id, input, output, crushingTime), recipeId, json);
+                    .read((id, input, output) ->
+                            new CrushingRecipe(id, input, output, crushingTime, ignoreCrushingMultiplier), recipeId, json);
         }
 
         @Override
         public CrushingRecipe read(ResourceLocation recipeId, PacketBuffer buffer) {
             int crushingTime = buffer.readInt();
+            boolean ignoreCrushingMultiplier = buffer.readBoolean();
             return ItemStackFakeInventoryRecipe.SERIALIZER
-                           .read((id, input, output) ->
-                                         new CrushingRecipe(id, input, output, crushingTime), recipeId, buffer);
+                    .read((id, input, output) ->
+                            new CrushingRecipe(id, input, output, crushingTime, ignoreCrushingMultiplier), recipeId, buffer);
         }
 
         @Override
         public void write(PacketBuffer buffer, CrushingRecipe recipe) {
             buffer.writeInt(recipe.crushingTime);
+            buffer.writeBoolean(recipe.ignoreCrushingMultiplier);
             ItemStackFakeInventoryRecipe.SERIALIZER.write(buffer, recipe);
         }
         //endregion Overrides
