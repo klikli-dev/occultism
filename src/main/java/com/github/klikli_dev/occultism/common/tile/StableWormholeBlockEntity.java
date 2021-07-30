@@ -41,7 +41,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.inventory.container.MenuProvider;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListNBT;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
@@ -163,7 +163,7 @@ public class StableWormholeBlockEntity extends NetworkedBlockEntity implements I
 
         this.matrix = new HashMap<>();
         if (compound.contains("matrix")) {
-            ListNBT matrixNbt = compound.getList("matrix", Constants.NBT.TAG_COMPOUND);
+            ListTag matrixNbt = compound.getList("matrix", Constants.NBT.TAG_COMPOUND);
             for (int i = 0; i < matrixNbt.size(); i++) {
                 CompoundTag stackTag = matrixNbt.getCompound(i);
                 int slot = stackTag.getByte("slot");
@@ -186,7 +186,7 @@ public class StableWormholeBlockEntity extends NetworkedBlockEntity implements I
         compound.putInt("sortDirection", this.getSortDirection().getValue());
         compound.putInt("sortType", this.getSortType().getValue());
 
-        ListNBT matrixNbt = new ListNBT();
+        ListTag matrixNbt = new ListTag();
         for (int i = 0; i < 9; i++) {
             if (this.matrix.get(i) != null && !this.matrix.get(i).isEmpty()) {
                 CompoundTag stackTag = new CompoundTag();

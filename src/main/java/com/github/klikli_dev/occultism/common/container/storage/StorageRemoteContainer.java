@@ -33,10 +33,10 @@ import com.github.klikli_dev.occultism.registry.OccultismContainers;
 import com.github.klikli_dev.occultism.util.CuriosUtil;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.player.ServerPlayer;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.nbt.ListNBT;
+import net.minecraft.nbt.ListTag;
 import net.minecraftforge.common.util.Constants;
 
 import java.util.ArrayList;
@@ -65,7 +65,7 @@ public class StorageRemoteContainer extends StorageControllerContainerBase {
         this.setupPlayerInventorySlots();
         this.setupPlayerHotbar();
 
-        this.onCraftMatrixChanged(this.matrix);
+        this.slotsChanged(this.matrix);
     }
     //endregion Initialization
 
@@ -154,7 +154,7 @@ public class StorageRemoteContainer extends StorageControllerContainerBase {
 
     @Override
     public void updateCraftingSlots(boolean force) {
-        ListNBT nbtTagList = new ListNBT();
+        ListTag nbtTagList = new ListTag();
         for (int i = 0; i < this.matrix.getContainerSize(); i++) {
             nbtTagList.add(this.matrix.getItem(i).serializeNBT());
         }
@@ -177,7 +177,7 @@ public class StorageRemoteContainer extends StorageControllerContainerBase {
         if (!stack.getOrCreateTag().contains("craftingMatrix"))
             return craftingMatrix;
 
-        ListNBT nbtTagList = stack.getTag().getList("craftingMatrix", Constants.NBT.TAG_COMPOUND);
+        ListTag nbtTagList = stack.getTag().getList("craftingMatrix", Constants.NBT.TAG_COMPOUND);
 
         for (int i = 0; i < nbtTagList.size(); i++) {
             craftingMatrix.set(i, ItemStack.read(nbtTagList.getCompound(i)));

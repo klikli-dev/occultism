@@ -27,7 +27,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.LogicalSide;
-import net.minecraftforge.fml.network.NetworkEvent;
+import net.minecraftforge.fmllegacy.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
@@ -38,8 +38,7 @@ public class OccultismPacketHandler {
             ctx.get().enqueueWork(() -> {
                 handleServer(message, ctx);
             });
-        }
-        else {
+        } else {
             ctx.get().enqueueWork(() -> {
                 handleClient(message, ctx);
             });

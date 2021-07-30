@@ -23,14 +23,14 @@
 package com.github.klikli_dev.occultism.registry;
 
 import com.github.klikli_dev.occultism.Occultism;
-import net.minecraft.particles.SimpleParticleType;
-import net.minecraft.particles.ParticleType;
-import net.minecraftforge.fml.RegistryObject;
+import net.minecraft.core.particles.ParticleType;
+import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class OccultismParticles {
-//region Fields
+    //region Fields
     public static final DeferredRegister<ParticleType<?>> PARTICLES = DeferredRegister.create(
             ForgeRegistries.PARTICLE_TYPES, Occultism.MODID);
 

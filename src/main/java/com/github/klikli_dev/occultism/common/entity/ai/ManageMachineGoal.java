@@ -38,7 +38,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.core.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -210,7 +210,7 @@ public class ManageMachineGoal extends Goal {
         RayTraceContext context = new RayTraceContext(this.entity.getEyePosition(0),
                 Math3DUtil.center(this.targetBlock), RayTraceContext.BlockMode.COLLIDER, RayTraceContext.FluidMode.NONE,
                 this.entity);
-        BlockRayTraceResult rayTrace = this.entity.level.rayTraceBlocks(context);
+        BlockHitResult rayTrace = this.entity.level.rayTraceBlocks(context);
 
         if (rayTrace.getType() != RayTraceResult.Type.MISS) {
             BlockPos sidePos = rayTrace.getPos();

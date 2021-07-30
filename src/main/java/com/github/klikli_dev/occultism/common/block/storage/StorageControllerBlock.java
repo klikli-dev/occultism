@@ -28,19 +28,19 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.player.ServerPlayer;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.inventory.container.MenuProvider;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.level.BlockGetter;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.core.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.shapes.IBooleanFunction;
-import net.minecraft.util.math.shapes.CollisionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.shapes.Shapes;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.BooleanOp;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraftforge.fml.network.NetworkHooks;
 
 import java.util.stream.Stream;
@@ -48,10 +48,10 @@ import java.util.stream.Stream;
 public class StorageControllerBlock extends Block {
 
     private static final VoxelShape SHAPE = Stream.of(
-            Block.makeCuboidShape(0, 0, 0, 16, 4, 16),
-            Block.makeCuboidShape(4, 4, 4, 12, 12, 12),
-            Block.makeCuboidShape(2, 12, 2, 14, 16, 14)
-    ).reduce((v1, v2) -> {return Shapes.combineAndSimplify(v1, v2, IBooleanFunction.OR);}).get();
+            Block.box(0, 0, 0, 16, 4, 16),
+            Block.box(4, 4, 4, 12, 12, 12),
+            Block.box(2, 12, 2, 14, 16, 14)
+    ).reduce((v1, v2) -> {return Shapes.join(v1, v2, BooleanOp.OR);}).get();
 
     //region Initialization
     public StorageControllerBlock(Properties properties) {
@@ -67,14 +67,14 @@ public class StorageControllerBlock extends Block {
     }
 
     @Override
-    public void onReplaced(BlockState state, Level worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
+    public void onRemove(BlockState state, Level worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
         BlockEntityUtil.onBlockChangeDropWithNbt(this, state, worldIn, pos, newState);
-        super.onReplaced(state, worldIn, pos, newState, isMoving);
+        super.onRemove(state, worldIn, pos, newState, isMoving);
     }
 
     @Override
-    public InteractionResult onBlockActivated(BlockState state, Level level, BlockPos pos, Player player,
-                                             InteractionHand handIn, BlockRayTraceResult rayTraceResult) {
+    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player,
+                                             InteractionHand handIn, BlockHitResult rayTraceResult) {
         if (!level.isClientSide) {
             BlockEntity blockEntity = level.getBlockEntity(pos);
             if (BlockEntity instanceof MenuProvider) {

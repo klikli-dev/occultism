@@ -24,48 +24,51 @@ package com.github.klikli_dev.occultism.common.block;
 
 import com.github.klikli_dev.occultism.registry.OccultismTiles;
 import com.github.klikli_dev.occultism.util.StorageUtil;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.player.ServerPlayer;
-import net.minecraft.inventory.container.MenuProvider;
-import net.minecraft.level.BlockGetter;
-import net.minecraft.world.level.Level;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.core.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.shapes.IBooleanFunction;
-import net.minecraft.util.math.shapes.CollisionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.shapes.Shapes;
-import net.minecraftforge.fml.network.NetworkHooks;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.BooleanOp;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraftforge.fmllegacy.network.NetworkHooks;
 
 import javax.annotation.Nullable;
 import java.util.stream.Stream;
 
-public class DimensionalMineshaftBlock extends Block {
+public class DimensionalMineshaftBlock extends Block implements EntityBlock {
     //region Fields
     private static final VoxelShape SHAPE = Stream.of(
-            Block.makeCuboidShape(10, 0, 6, 16, 1, 10),
-            Block.makeCuboidShape(0, 0, 6, 6, 1, 10),
-            Block.makeCuboidShape(0, 0, 10, 16, 1, 16),
-            Block.makeCuboidShape(0, 0, 0, 16, 1, 6),
-            Block.makeCuboidShape(10, 1, 6, 15, 2, 10),
-            Block.makeCuboidShape(2, 2, 6, 6, 3, 10),
-            Block.makeCuboidShape(1, 1, 6, 6, 2, 10),
-            Block.makeCuboidShape(10, 2, 6, 14, 3, 10),
-            Block.makeCuboidShape(10, 3, 6, 13, 4, 10),
-            Block.makeCuboidShape(1, 1, 10, 15, 2, 15),
-            Block.makeCuboidShape(1, 1, 1, 15, 2, 6),
-            Block.makeCuboidShape(2, 2, 10, 14, 3, 14),
-            Block.makeCuboidShape(3, 3, 10, 13, 4, 13),
-            Block.makeCuboidShape(3, 3, 3, 13, 4, 6),
-            Block.makeCuboidShape(2, 2, 2, 14, 3, 6),
-            Block.makeCuboidShape(3, 3, 6, 6, 4, 10),
-            Block.makeCuboidShape(6, 0, 6, 10, 3, 10)
-    ).reduce((v1, v2) -> {return Shapes.combineAndSimplify(v1, v2, IBooleanFunction.OR);}).get();
+            Block.box(10, 0, 6, 16, 1, 10),
+            Block.box(0, 0, 6, 6, 1, 10),
+            Block.box(0, 0, 10, 16, 1, 16),
+            Block.box(0, 0, 0, 16, 1, 6),
+            Block.box(10, 1, 6, 15, 2, 10),
+            Block.box(2, 2, 6, 6, 3, 10),
+            Block.box(1, 1, 6, 6, 2, 10),
+            Block.box(10, 2, 6, 14, 3, 10),
+            Block.box(10, 3, 6, 13, 4, 10),
+            Block.box(1, 1, 10, 15, 2, 15),
+            Block.box(1, 1, 1, 15, 2, 6),
+            Block.box(2, 2, 10, 14, 3, 14),
+            Block.box(3, 3, 10, 13, 4, 13),
+            Block.box(3, 3, 3, 13, 4, 6),
+            Block.box(2, 2, 2, 14, 3, 6),
+            Block.box(3, 3, 6, 6, 4, 10),
+            Block.box(6, 0, 6, 10, 3, 10)
+    ).reduce((v1, v2) -> {
+        return Shapes.join(v1, v2, BooleanOp.OR);
+    }).get();
     //endregion Fields
 
     //region Initialization
@@ -80,37 +83,34 @@ public class DimensionalMineshaftBlock extends Block {
         return SHAPE;
     }
 
-    public void onReplaced(BlockState state, Level worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
+    @Override
+    public void onRemove(BlockState state, Level worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
         if (state.getBlock() != newState.getBlock()) {
             BlockEntity tile = worldIn.getBlockEntity(pos);
-            if(tile != null) {
+            if (tile != null) {
                 StorageUtil.dropInventoryItems(tile);
             }
-            super.onReplaced(state, worldIn, pos, newState, isMoving);
+            super.onRemove(state, worldIn, pos, newState, isMoving);
         }
     }
 
     @Override
-    public InteractionResult onBlockActivated(BlockState state, Level level, BlockPos pos, Player player,
-                                             InteractionHand hand, BlockRayTraceResult hit) {
+    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player,
+                                 InteractionHand hand, BlockHitResult hit) {
         if (!level.isClientSide) {
             BlockEntity blockEntity = level.getBlockEntity(pos);
-            if (BlockEntity instanceof MenuProvider) {
-                NetworkHooks.openGui((ServerPlayer) player, (MenuProvider) BlockEntity, pos);
+            if (blockEntity instanceof MenuProvider) {
+                NetworkHooks.openGui((ServerPlayer) player, (MenuProvider) blockEntity, pos);
             }
         }
         return InteractionResult.SUCCESS;
     }
 
-    @Override
-    public boolean hasBlockEntity(BlockState state) {
-        return true;
-    }
-
     @Nullable
     @Override
-    public BlockEntity createBlockEntity(BlockState state, BlockGetter level) {
-        return OccultismTiles.DIMENSIONAL_MINESHAFT.get().create();
+    public BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
+        return OccultismTiles.DIMENSIONAL_MINESHAFT.get().create(blockPos, blockState);
+
     }
     //endregion Overrides
 }

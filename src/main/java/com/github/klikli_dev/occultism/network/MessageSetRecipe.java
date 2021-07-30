@@ -25,11 +25,11 @@ import com.github.klikli_dev.occultism.api.common.container.IStorageControllerCo
 import com.github.klikli_dev.occultism.api.common.tile.IStorageController;
 import com.github.klikli_dev.occultism.common.misc.ItemStackComparator;
 import com.github.klikli_dev.occultism.util.StorageUtil;
-import net.minecraft.world.entity.player.ServerPlayer;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListNBT;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.common.util.Constants;
@@ -82,7 +82,7 @@ public class MessageSetRecipe extends MessageBase {
             Map<Integer, ItemStack> map = new HashMap<Integer, ItemStack>();
 
             //parse the slots
-            ListNBT invList = this.nbt.getList("s" + slot, Constants.NBT.TAG_COMPOUND);
+            ListTag invList = this.nbt.getList("s" + slot, Constants.NBT.TAG_COMPOUND);
             for (int i = 0; i < invList.size(); i++) {
                 ItemStack s = ItemStack.read(invList.getCompound(i));
                 map.put(i, s);

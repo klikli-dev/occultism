@@ -34,16 +34,16 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.item.BlockPlaceContext;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.level.BlockGetter;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.core.Direction;
 import net.minecraft.util.math.AABB;
 import net.minecraft.core.BlockPos;
-import net.minecraft.util.math.shapes.CollisionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.shapes.Shapes;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraft.world.phys.shapes.Shapes;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -77,11 +77,11 @@ public class StorageStabilizerBlock extends Block {
     }
 
     @Override
-    public void onReplaced(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
+    public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
         if (state != newState) {
             this.notifyStorageControllers(level, pos, state);
         }
-        super.onReplaced(state, level, pos, newState, isMoving);
+        super.onRemove(state, level, pos, newState, isMoving);
     }
 
     @Nullable

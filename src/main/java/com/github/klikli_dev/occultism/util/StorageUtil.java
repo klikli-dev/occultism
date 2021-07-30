@@ -26,7 +26,7 @@ import com.github.klikli_dev.occultism.api.common.container.IStorageControllerCo
 import com.github.klikli_dev.occultism.api.common.tile.IStorageController;
 import com.github.klikli_dev.occultism.network.OccultismPackets;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.entity.player.ServerPlayer;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.inventory.InventoryHelper;

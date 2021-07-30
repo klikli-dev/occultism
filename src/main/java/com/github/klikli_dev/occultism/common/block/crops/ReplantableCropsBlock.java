@@ -31,7 +31,7 @@ import net.minecraft.util.IItemProvider;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.core.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.world.phys.BlockHitResult;
 
 import java.util.function.Supplier;
 
@@ -62,8 +62,8 @@ public class ReplantableCropsBlock extends CropsBlock implements IReplantableCro
     }
 
     @Override
-    public InteractionResult onBlockActivated(BlockState state, Level worldIn, BlockPos pos, Player player,
-                                             InteractionHand handIn, BlockRayTraceResult hit) {
+    public InteractionResult use(BlockState state, Level worldIn, BlockPos pos, Player player,
+                                             InteractionHand handIn, BlockHitResult hit) {
         return IReplantableCrops.super.onHarvest(state, worldIn, pos, player, handIn);
     }
 

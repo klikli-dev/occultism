@@ -66,7 +66,7 @@ public class ChalkItem extends Item {
             //only place if player clicked at a top face
             //only if the block can be placed or is replacing an existing block
             if ((context.getClickedFace() == Direction.UP
-                    && this.glyphBlock.get().isValidPosition(level.getBlockState(pos.above()), level, pos.above())) || isReplacing) {
+                    && this.glyphBlock.get().canSurvive(level.getBlockState(pos.above()), level, pos.above())) || isReplacing) {
                 ItemStack heldChalk = context.getItemInHand();
                 BlockPos placeAt = isReplacing ? pos : pos.above();
 

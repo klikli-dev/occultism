@@ -87,7 +87,7 @@ public class StorageControllerCraftingInventory extends CraftingContainer {
             ((NonNullList<ItemStack>) stackListField.get(this)).set(index, stack);
             //only notify if events are enabled
             if (!this.disableEvents) {
-                this.container.onCraftMatrixChanged(this);
+                this.container.slotsChanged(this);
             }
         } catch (IllegalAccessException ignored) {
         }

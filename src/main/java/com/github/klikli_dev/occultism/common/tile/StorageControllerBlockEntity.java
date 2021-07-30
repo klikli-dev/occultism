@@ -57,7 +57,7 @@ import net.minecraft.inventory.container.MenuProvider;
 import net.minecraft.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListNBT;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.core.Direction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -425,7 +425,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
         //read stored crafting matrix
         this.matrix = new HashMap<Integer, ItemStack>();
         if (compound.contains("matrix")) {
-            ListNBT matrixNbt = compound.getList("matrix", Constants.NBT.TAG_COMPOUND);
+            ListTag matrixNbt = compound.getList("matrix", Constants.NBT.TAG_COMPOUND);
             for (int i = 0; i < matrixNbt.size(); i++) {
                 CompoundTag stackTag = matrixNbt.getCompound(i);
                 int slot = stackTag.getByte("slot");
@@ -440,7 +440,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
         //read the linked machines
         this.linkedMachines = new HashMap<>();
         if (compound.contains("linkedMachines")) {
-            ListNBT machinesNbt = compound.getList("linkedMachines", Constants.NBT.TAG_COMPOUND);
+            ListTag machinesNbt = compound.getList("linkedMachines", Constants.NBT.TAG_COMPOUND);
             for (int i = 0; i < machinesNbt.size(); i++) {
                 MachineReference reference = MachineReference.from(machinesNbt.getCompound(i));
                 this.linkedMachines.put(reference.globalPos, reference);
@@ -455,7 +455,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
         compound.putInt("maxSlots", this.maxSlots);
 
         //write stored crafting matrix
-        ListNBT matrixNbt = new ListNBT();
+        ListTag matrixNbt = new ListTag();
         for (int i = 0; i < 9; i++) {
             if (this.matrix.get(i) != null && !this.matrix.get(i).isEmpty()) {
                 CompoundTag stackTag = new CompoundTag();
@@ -470,7 +470,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
             compound.put("orderStack", this.orderStack.write(new CompoundTag()));
 
         //write linked machines
-        ListNBT machinesNbt = new ListNBT();
+        ListTag machinesNbt = new ListTag();
         for (Map.Entry<GlobalBlockPos, MachineReference> entry : this.linkedMachines.entrySet()) {
             machinesNbt.add(entry.getValue().serializeNBT());
         }

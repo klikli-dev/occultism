@@ -30,13 +30,13 @@ import com.github.klikli_dev.occultism.common.tile.StorageControllerBlockEntity;
 import com.github.klikli_dev.occultism.network.MessageUpdateLinkedMachines;
 import com.github.klikli_dev.occultism.network.OccultismPackets;
 import com.github.klikli_dev.occultism.registry.OccultismContainers;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.player.ServerPlayer;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.core.BlockPos;
 
 
 public class StableWormholeContainer extends StorageControllerContainerBase {
@@ -52,7 +52,7 @@ public class StableWormholeContainer extends StorageControllerContainerBase {
         this.stableWormhole = stableWormhole;
         this.storageController = (StorageControllerBlockEntity) stableWormhole.getLinkedStorageController();
         this.matrix = new StorageControllerCraftingInventory(this, stableWormhole.getMatrix());
-        this.orderInventory.setInventorySlotContents(0, this.stableWormhole.getOrderStack());
+        this.orderInventory.setItem(0, this.stableWormhole.getOrderStack());
 
         this.setupCraftingOutput(); //output is slot 0
 
@@ -61,7 +61,7 @@ public class StableWormholeContainer extends StorageControllerContainerBase {
         this.setupPlayerInventorySlots();
         this.setupPlayerHotbar();
 
-        this.onCraftMatrixChanged(this.matrix);
+        this.slotsChanged(this.matrix);
     }
     //endregion Initialization
 
@@ -113,7 +113,7 @@ public class StableWormholeContainer extends StorageControllerContainerBase {
 
     @Override
     public boolean canTakeItemForPickAll(ItemStack stack, Slot slot) {
-        return slot.inventory != this.result && super.canTakeItemForPickAll(stack, slot);
+        return slot.container != this.result && super.canTakeItemForPickAll(stack, slot);
     }
 
 
@@ -128,8 +128,8 @@ public class StableWormholeContainer extends StorageControllerContainerBase {
             OccultismPackets.sendTo((ServerPlayer) player,
                     new MessageUpdateLinkedMachines(this.storageController.getLinkedMachines()));
         }
-        BlockPos wormholePosition = this.stableWormhole.getPos();
-        return player.getDistanceSq(wormholePosition.getX() + 0.5D, wormholePosition.getY() + 0.5D,
+        BlockPos wormholePosition = this.stableWormhole.getBlockPos();
+        return player.distanceToSqr(wormholePosition.getX() + 0.5D, wormholePosition.getY() + 0.5D,
                 wormholePosition.getZ() + 0.5D) <= 64.0D;
     }
     //endregion Overrides

@@ -34,7 +34,7 @@ import com.github.klikli_dev.occultism.util.BlockEntityUtil;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.entity.ai.goal.OpenDoorGoal;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListNBT;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.pathfinding.GroundPathNavigator;
 import net.minecraftforge.common.util.Constants;
 
@@ -175,7 +175,7 @@ public class ManageMachineJob extends SpiritJob {
         if (this.getCurrentDepositOrder() != null)
             compound.put("currentDepositOrder", this.getCurrentDepositOrder().writeToNBT(new CompoundTag()));
 
-        ListNBT nbtOrderList = new ListNBT();
+        ListTag nbtOrderList = new ListTag();
         for (DepositOrder depositOrder : this.depositOrderQueue) {
             nbtOrderList.add(depositOrder.writeToNBT(new CompoundTag()));
         }
@@ -196,7 +196,7 @@ public class ManageMachineJob extends SpiritJob {
 
         this.depositOrderQueue = new ArrayDeque<>();
         if (compound.contains("depositOrders")) {
-            ListNBT nbtOrderList = compound.getList("depositOrders", Constants.NBT.TAG_COMPOUND);
+            ListTag nbtOrderList = compound.getList("depositOrders", Constants.NBT.TAG_COMPOUND);
             for (int i = 0; i < nbtOrderList.size(); i++) {
                 DepositOrder depositOrder = DepositOrder.from(nbtOrderList.getCompound(i));
                 this.depositOrderQueue.add(depositOrder);

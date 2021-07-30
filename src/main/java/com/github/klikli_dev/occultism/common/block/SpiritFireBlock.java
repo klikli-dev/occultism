@@ -34,9 +34,9 @@ import net.minecraft.block.FireBlock;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.level.BlockGetter;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.level.IWorld;
-import net.minecraft.level.LevelReader;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.Level;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.core.particles.ParticleTypes;
@@ -46,9 +46,9 @@ import net.minecraft.util.SoundEvents;
 import net.minecraft.util.SoundSource;
 import net.minecraft.util.math.AABB;
 import net.minecraft.core.BlockPos;
-import net.minecraft.util.math.shapes.CollisionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.shapes.Shapes;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -69,7 +69,7 @@ public class SpiritFireBlock extends Block {
     @Override
     public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn,
                                           BlockPos currentPos, BlockPos facingPos) {
-        return this.isValidPosition(stateIn, worldIn, currentPos) ?
+        return this.canSurvive(stateIn, worldIn, currentPos) ?
                        this.getDefaultState().with(FireBlock.AGE, stateIn.get(FireBlock.AGE)) :
                        Blocks.AIR.getDefaultState();
     }
@@ -77,7 +77,7 @@ public class SpiritFireBlock extends Block {
     @Override
     public void onBlockAdded(BlockState state, Level worldIn, BlockPos pos, BlockState oldState, boolean isMoving) {
         if (oldState.getBlock() != state.getBlock()) {
-            if (!state.isValidPosition(worldIn, pos)) {
+            if (!state.canSurvive(worldIn, pos)) {
                 worldIn.removeBlock(pos, false);
             }
             else {
@@ -87,9 +87,9 @@ public class SpiritFireBlock extends Block {
     }
 
     @Override
-    public boolean isValidPosition(BlockState state, LevelReader worldIn, BlockPos pos) {
+    public boolean canSurvive(BlockState state, LevelReader worldIn, BlockPos pos) {
         BlockPos blockpos = pos.down();
-        return worldIn.getBlockState(blockpos).isSolidSide(worldIn, blockpos, Direction.UP) ||
+        return worldIn.getBlockState(blockpos).isFaceSturdy(worldIn, blockpos, Direction.UP) ||
                this.areNeighborsFlammable(worldIn, pos);
     }
 
@@ -106,7 +106,7 @@ public class SpiritFireBlock extends Block {
             return;
         }
 
-        if (!state.isValidPosition(worldIn, pos)) {
+        if (!state.canSurvive(worldIn, pos)) {
             worldIn.removeBlock(pos, false);
         }
 
@@ -135,7 +135,7 @@ public class SpiritFireBlock extends Block {
                 worldIn.getPendingBlockTicks().scheduleTick(pos, this, getTickCooldown(worldIn.rand));
                 if (!this.areNeighborsFlammable(worldIn, pos)) {
                     BlockPos blockpos = pos.down();
-                    if (!worldIn.getBlockState(blockpos).isSolidSide(worldIn, blockpos, Direction.UP) || i > 3) {
+                    if (!worldIn.getBlockState(blockpos).isFaceSturdy(worldIn, blockpos, Direction.UP) || i > 3) {
                         worldIn.removeBlock(pos, false);
                     }
 

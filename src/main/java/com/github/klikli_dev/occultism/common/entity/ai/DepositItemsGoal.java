@@ -36,7 +36,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.core.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.util.math.RayTraceContext;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -169,9 +169,9 @@ public class DepositItemsGoal extends PausableGoal {
         RayTraceContext context = new RayTraceContext(this.entity.getPositionVec(),
                 Math3DUtil.center(this.moveTarget.getBlockPos()), RayTraceContext.BlockMode.COLLIDER, RayTraceContext.FluidMode.NONE,
                 this.entity);
-        BlockRayTraceResult result = this.entity.level.rayTraceBlocks(context);
+        BlockHitResult result = this.entity.level.rayTraceBlocks(context);
 
-        if (result.getType() != BlockRayTraceResult.Type.MISS) {
+        if (result.getType() != BlockHitResult.Type.MISS) {
             BlockPos sidePos = result.getPos();
             BlockPos pos = new BlockPos(result.getHitVec());
             return this.entity.level.isAirBlock(sidePos) || this.entity.level.isAirBlock(pos) ||

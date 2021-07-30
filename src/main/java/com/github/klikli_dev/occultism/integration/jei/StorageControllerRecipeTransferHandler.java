@@ -40,7 +40,7 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListNBT;
+import net.minecraft.nbt.ListTag;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -126,7 +126,7 @@ public class StorageControllerRecipeTransferHandler<T extends AbstractContainerM
                     continue;
                 }
 
-                ListNBT invList = new ListNBT();
+                ListTag invList = new ListTag();
                 for (int i = 0; i < possibleItems.size(); i++) {
                     if (i >= 5) {
                         break; //cap possible items at 5 to avoid mega-messages that hit network cap

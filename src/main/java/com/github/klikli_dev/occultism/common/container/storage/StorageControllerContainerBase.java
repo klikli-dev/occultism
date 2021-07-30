@@ -30,20 +30,18 @@ import com.github.klikli_dev.occultism.common.misc.ItemStackComparator;
 import com.github.klikli_dev.occultism.common.misc.StorageControllerCraftingInventory;
 import com.github.klikli_dev.occultism.common.misc.StorageControllerSlot;
 import com.github.klikli_dev.occultism.network.OccultismPackets;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.player.ServerPlayer;
-import net.minecraft.inventory.CraftResultInventory;
-import net.minecraft.world.Container;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.inventory.container.MenuType;
-import net.minecraft.world.inventory.Slot;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.item.crafting.ICraftingRecipe;
-import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.network.play.server.SSetSlotPacket;
 import net.minecraft.core.NonNullList;
+import net.minecraft.network.protocol.game.ClientboundContainerSetSlotPacket;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.Container;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.*;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.CraftingRecipe;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.wrapper.PlayerMainInvWrapper;
 
@@ -57,10 +55,10 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
     //region Fields
     public Inventory playerInventory;
     public Player player;
-    protected CraftResultInventory result;
+    protected ResultContainer result;
     protected StorageControllerCraftingInventory matrix;
-    protected Inventory orderInventory;
-    protected ICraftingRecipe currentRecipe;
+    protected SimpleContainer orderInventory;
+    protected CraftingRecipe currentRecipe;
 
     /**
      * used to lock recipe while crafting
@@ -75,8 +73,8 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
         this.playerInventory = playerInventory;
         this.player = playerInventory.player;
 
-        this.result = new CraftResultInventory();
-        this.orderInventory = new Inventory(1);
+        this.result = new ResultContainer();
+        this.orderInventory = new SimpleContainer(1);
     }
 
     //endregion Initialization
@@ -95,7 +93,7 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
     }
 
     @Override
-    public void onCraftMatrixChanged(Container inventoryIn) {
+    public void slotsChanged(Container inventoryIn) {
         if (this.recipeLocked) {
             //only allow matrix changes while we are not crafting
             return;
@@ -104,7 +102,7 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
     }
 
     @Override
-    public Inventory getOrderSlot() {
+    public SimpleContainer getOrderSlot() {
         return this.orderInventory;
     }
 
@@ -116,7 +114,7 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
         ItemStack result = ItemStack.EMPTY;
         Slot slot = this.slots.get(index);
         if (slot != null && slot.hasItem()) {
-            ItemStack slotStack = slot.getStack();
+            ItemStack slotStack = slot.getItem();
             result = slotStack.copy();
 
             IStorageController storageController = this.getStorageController();
@@ -134,7 +132,7 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
                         .copyStackWithSize(
                                 slotStack,
                                 remainingItems);
-                slot.putStack(remainingItemStack);
+                slot.set(remainingItemStack);
 
                 //sync slots
                 this.broadcastChanges();
@@ -202,8 +200,8 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
     protected abstract void setupPlayerHotbar();
 
     protected void findRecipeForMatrixClient() {
-        Optional<ICraftingRecipe> optional =
-                this.player.level.getRecipeManager().getRecipe(RecipeType.CRAFTING, this.matrix, this.player.level);
+        Optional<CraftingRecipe> optional =
+                this.player.level.getRecipeManager().getRecipeFor(RecipeType.CRAFTING, this.matrix, this.player.level);
         optional.ifPresent(iCraftingRecipe -> this.currentRecipe = iCraftingRecipe);
     }
 
@@ -214,19 +212,19 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
             this.currentRecipe = null;
             ServerPlayer serverplayerentity = (ServerPlayer) this.player;
             ItemStack itemstack = ItemStack.EMPTY;
-            Optional<ICraftingRecipe> optional = this.player.level.getServer().getRecipeManager()
-                    .getRecipe(RecipeType.CRAFTING, this.matrix,
+            Optional<CraftingRecipe> optional = this.player.level.getServer().getRecipeManager()
+                    .getRecipeFor(RecipeType.CRAFTING, this.matrix,
                             this.player.level);
             if (optional.isPresent()) {
-                ICraftingRecipe icraftingrecipe = optional.get();
-                if (this.result.canUseRecipe(this.player.level, serverplayerentity, icraftingrecipe)) {
+                CraftingRecipe icraftingrecipe = optional.get();
+                if (this.result.setRecipeUsed(this.player.level, serverplayerentity, icraftingrecipe)) {
                     itemstack = icraftingrecipe.assemble(this.matrix);
                     this.currentRecipe = icraftingrecipe;
                 }
             }
 
-            this.result.setInventorySlotContents(0, itemstack);
-            serverplayerentity.connection.sendPacket(new SSetSlotPacket(this.windowId, 0, itemstack));
+            this.result.setItem(0, itemstack);
+            serverplayerentity.connection.send(new ClientboundContainerSetSlotPacket(this.containerId, 0, 0, itemstack));
         }
     }
 
@@ -316,13 +314,13 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
                         this.matrix.setInventorySlotContents(i, currentCraftingItem);
                     }
                     //handle "normal items"
-                    else if (ItemStack.areItemsEqual(stackInSlot, currentCraftingItem) &&
-                            ItemStack.areItemStackTagsEqual(stackInSlot, currentCraftingItem)) {
+                    else if (ItemStack.matches(stackInSlot, currentCraftingItem) &&
+                            ItemStack.tagMatches(stackInSlot, currentCraftingItem)) {
                         currentCraftingItem.grow(stackInSlot.getCount());
                         this.matrix.setInventorySlotContents(i, currentCraftingItem);
                     }
                     //handle items that consume durability on craft
-                    else if (ItemStack.areItemsEqualIgnoreDurability(stackInSlot, currentCraftingItem)) {
+                    else if (ItemStack.isSameIgnoreDurability(stackInSlot, currentCraftingItem)) {
                         this.matrix.setInventorySlotContents(i, currentCraftingItem);
                     } else {
                         //last resort, try to place in player inventory or if that fails, drop.
@@ -330,7 +328,7 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
                     }
                 } else if (!stackInSlot.isEmpty()) {
                     //decrease the stack size in the matrix
-                    this.matrix.decrStackSize(i, 1);
+                    this.matrix.removeItem(i, 1);
                     stackInSlot = this.matrix.getItem(i);
                 }
             }
@@ -351,7 +349,7 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
                     this.matrix.setInventorySlotContents(i, requestedItem);
                 }
             }
-            this.onCraftMatrixChanged(this.matrix);
+            this.slotsChanged(this.matrix);
         }
 
         //now actually give to the players
@@ -367,7 +365,7 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
         this.recipeLocked = false;
 
         //update crafting matrix to handle container items / items that survive crafting
-        this.onCraftMatrixChanged(this.matrix);
+        this.slotsChanged(this.matrix);
         OccultismPackets.sendTo((ServerPlayer) player, this.getStorageController().getMessageUpdateStacks());
 
     }

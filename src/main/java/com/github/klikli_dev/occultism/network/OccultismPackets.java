@@ -23,14 +23,14 @@
 package com.github.klikli_dev.occultism.network;
 
 import com.github.klikli_dev.occultism.Occultism;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.player.ServerPlayer;
-import net.minecraft.world.level.Level;
-import net.minecraft.util.ResourceKey;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.fml.network.NetworkRegistry;
-import net.minecraftforge.fml.network.PacketDistributor;
-import net.minecraftforge.fml.network.simple.SimpleChannel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.level.Level;
+import net.minecraftforge.fmllegacy.network.NetworkRegistry;
+import net.minecraftforge.fmllegacy.network.PacketDistributor;
+import net.minecraftforge.fmllegacy.network.simple.SimpleChannel;
 
 public class OccultismPackets {
     //region Fields

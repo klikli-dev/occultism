@@ -31,7 +31,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.player.ServerPlayer;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.inventory.container.MenuProvider;
 import net.minecraft.item.*;

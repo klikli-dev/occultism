@@ -22,18 +22,18 @@
 
 package com.github.klikli_dev.occultism.common.block;
 
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.level.BlockGetter;
-import net.minecraft.level.LevelReader;
-import net.minecraft.world.level.Level;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.core.Direction;
-import net.minecraft.core.BlockPos;
-import net.minecraft.util.math.shapes.IBooleanFunction;
-import net.minecraft.util.math.shapes.CollisionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.shapes.Shapes;
+import net.minecraft.world.phys.shapes.BooleanOp;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -43,21 +43,23 @@ import java.util.stream.Stream;
 public class CandleBlock extends Block {
     //region Fields
     private static final VoxelShape SHAPE = Stream.of(
-            Block.makeCuboidShape(7, 0, 10, 9, 4, 11),
-            Block.makeCuboidShape(10, 0, 8, 11, 3, 9),
-            Block.makeCuboidShape(10, 0, 6, 11, 1, 7),
-            Block.makeCuboidShape(11, 0, 7, 12, 1, 8),
-            Block.makeCuboidShape(7, 0, 11, 8, 1, 12),
-            Block.makeCuboidShape(6, 0, 10, 7, 1, 11),
-            Block.makeCuboidShape(4, 0, 7, 5, 1, 8),
-            Block.makeCuboidShape(5, 0, 6, 6, 1, 7),
-            Block.makeCuboidShape(7, 0, 5, 8, 2, 6),
-            Block.makeCuboidShape(10, 0, 7, 11, 5, 8),
-            Block.makeCuboidShape(8, 0, 5, 9, 6, 6),
-            Block.makeCuboidShape(5, 0, 7, 6, 3, 9),
-            Block.makeCuboidShape(6, 0, 6, 10, 9, 10),
-            Block.makeCuboidShape(7.75, 8, 7.75, 8.25, 10, 8.25)
-    ).reduce((v1, v2) -> {return Shapes.combineAndSimplify(v1, v2, IBooleanFunction.OR);}).get();
+            Block.box(7, 0, 10, 9, 4, 11),
+            Block.box(10, 0, 8, 11, 3, 9),
+            Block.box(10, 0, 6, 11, 1, 7),
+            Block.box(11, 0, 7, 12, 1, 8),
+            Block.box(7, 0, 11, 8, 1, 12),
+            Block.box(6, 0, 10, 7, 1, 11),
+            Block.box(4, 0, 7, 5, 1, 8),
+            Block.box(5, 0, 6, 6, 1, 7),
+            Block.box(7, 0, 5, 8, 2, 6),
+            Block.box(10, 0, 7, 11, 5, 8),
+            Block.box(8, 0, 5, 9, 6, 6),
+            Block.box(5, 0, 7, 6, 3, 9),
+            Block.box(6, 0, 6, 10, 9, 10),
+            Block.box(7.75, 8, 7.75, 8.25, 10, 8.25)
+    ).reduce((v1, v2) -> {
+        return Shapes.join(v1, v2, BooleanOp.OR);
+    }).get();
     //endregion Fields
 
     //region Initialization
@@ -85,8 +87,8 @@ public class CandleBlock extends Block {
     @Override
     public void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block blockIn, BlockPos fromPos,
                                 boolean isMoving) {
-        if (!this.isValidPosition(state, worldIn, pos)) {
-            spawnDrops(state, worldIn, pos);
+        if (!this.canSurvive(state, worldIn, pos)) {
+            dropResources(state, worldIn, pos);
             worldIn.removeBlock(pos, false);
         }
     }
@@ -97,10 +99,10 @@ public class CandleBlock extends Block {
     }
 
     @Override
-    public boolean isValidPosition(BlockState state, LevelReader worldIn, BlockPos pos) {
-        BlockPos down = pos.down();
+    public boolean canSurvive(BlockState state, LevelReader worldIn, BlockPos pos) {
+        BlockPos down = pos.below();
         BlockState downState = worldIn.getBlockState(down);
-        return downState.isSolidSide(worldIn, down, Direction.UP);
+        return downState.isFaceSturdy(worldIn, down, Direction.UP);
     }
     //endregion Overrides
 }

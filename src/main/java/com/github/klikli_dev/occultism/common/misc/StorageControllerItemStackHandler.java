@@ -26,7 +26,7 @@ import com.github.klikli_dev.occultism.api.common.tile.IStorageController;
 import com.github.klikli_dev.occultism.common.data.NonNullArrayList;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListNBT;
+import net.minecraft.nbt.ListTag;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.items.ItemStackHandler;
 
@@ -108,7 +108,7 @@ public class StorageControllerItemStackHandler extends ItemStackHandler {
 
     @Override
     public CompoundTag serializeNBT() {
-        ListNBT nbtTagList = new ListNBT();
+        ListTag nbtTagList = new ListTag();
         for (int i = 0; i < this.stacks.size(); i++) {
             if (!this.stacks.get(i).isEmpty()) {
                 CompoundTag itemTag = new CompoundTag();
@@ -128,7 +128,7 @@ public class StorageControllerItemStackHandler extends ItemStackHandler {
     @Override
     public void deserializeNBT(CompoundTag nbt) {
         this.setSize(nbt.contains("Size", Constants.NBT.TAG_INT) ? nbt.getInt("Size") : this.stacks.size());
-        ListNBT tagList = nbt.getList("Items", Constants.NBT.TAG_COMPOUND);
+        ListTag tagList = nbt.getList("Items", Constants.NBT.TAG_COMPOUND);
         for (int i = 0; i < tagList.size(); i++) {
             CompoundTag itemTags = tagList.getCompound(i);
             int slot = itemTags.getInt("Slot");

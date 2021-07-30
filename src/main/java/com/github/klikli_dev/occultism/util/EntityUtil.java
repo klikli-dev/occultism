@@ -23,7 +23,7 @@
 package com.github.klikli_dev.occultism.util;
 
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.player.ServerPlayer;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.Level;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.nbt.CompoundTag;
