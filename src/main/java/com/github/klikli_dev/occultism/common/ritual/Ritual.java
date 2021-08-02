@@ -29,25 +29,25 @@ import com.github.klikli_dev.occultism.common.tile.GoldenSacrificialBowlBlockEnt
 import com.github.klikli_dev.occultism.common.tile.SacrificialBowlBlockEntity;
 import com.github.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.github.klikli_dev.occultism.registry.OccultismSounds;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.SpawnReason;
-import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.item.crafting.RecipeManager;
-import net.minecraft.world.level.Level;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.SoundSource;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeManager;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
@@ -233,13 +233,12 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
     public void registerAdditionalIngredients(RecipeManager recipeManager) {
         this.additionalIngredientsLoaded = recipeManager != null;
         if (this.additionalIngredientsRecipeId != null && recipeManager != null) {
-            Optional<? extends Recipe<?>> recipe = recipeManager.getRecipe(this.additionalIngredientsRecipeId);
+            Optional<? extends Recipe<?>> recipe = recipeManager.byKey(this.additionalIngredientsRecipeId);
             if (recipe.isPresent()) {
                 this.additionalIngredients = recipe.get().getIngredients();
                 //if we have multiple ingredients, make sure
                 this.timePerIngredient = this.totalSeconds / (float) (this.additionalIngredients.size() + 1);
-            }
-            else {
+            } else {
                 Occultism.LOGGER.warn("Additional Ingredients Recipe {} not found for Ritual {}",
                         this.additionalIngredientsRecipeId, this.getRegistryName());
             }
@@ -252,7 +251,7 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
      *
      * @param level              the level.
      * @param goldenBowlPosition the position of the golden bowl.
-     * @param BlockEntity         the tile entity controlling the ritual.
+     * @param BlockEntity        the tile entity controlling the ritual.
      * @param castingPlayer      the player starting the ritual.
      * @param activationItem     the item used to start the ritual.
      * @return true if a valid ritual is found.
@@ -261,8 +260,8 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
                            Player castingPlayer, ItemStack activationItem,
                            List<Ingredient> remainingAdditionalIngredients) {
         return this.startingItem.test(activationItem) &&
-               this.areAdditionalIngredientsFulfilled(level, goldenBowlPosition, remainingAdditionalIngredients) &&
-               this.pentacle.getBlockMatcher().validate(level, goldenBowlPosition) != null;
+                this.areAdditionalIngredientsFulfilled(level, goldenBowlPosition, remainingAdditionalIngredients) &&
+                this.pentacle.getBlockMatcher().validate(level, goldenBowlPosition) != null;
     }
 
     /**
@@ -270,7 +269,7 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
      *
      * @param level              the level.
      * @param goldenBowlPosition the position of the golden bowl.
-     * @param BlockEntity         the tile entity controlling the ritual.
+     * @param BlockEntity        the tile entity controlling the ritual.
      * @param castingPlayer      the player starting the ritual.
      * @param activationItem     the item used to start the ritual.
      */
@@ -285,7 +284,7 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
      *
      * @param level              the level.
      * @param goldenBowlPosition the position of the golden bowl.
-     * @param BlockEntity         the tile entity controlling the ritual.
+     * @param BlockEntity        the tile entity controlling the ritual.
      * @param castingPlayer      the player starting the ritual.
      * @param activationItem     the item used to start the ritual.
      */
@@ -302,13 +301,13 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
      *
      * @param level              the level.
      * @param goldenBowlPosition the position of the golden bowl.
-     * @param BlockEntity         the tile entity controlling the ritual.
+     * @param BlockEntity        the tile entity controlling the ritual.
      * @param castingPlayer      the player starting the ritual.
      * @param activationItem     the item used to start the ritual.
      */
     public void interrupt(Level level, BlockPos goldenBowlPosition, GoldenSacrificialBowlBlockEntity BlockEntity,
                           Player castingPlayer, ItemStack activationItem) {
-        level.playSound(null, goldenBowlPosition, SoundEvents.ENTITY_CHICKEN_EGG, SoundSource.BLOCKS, 0.7f, 0.7f);
+        level.playSound(null, goldenBowlPosition, SoundEvents.CHICKEN_EGG, SoundSource.BLOCKS, 0.7f, 0.7f);
         castingPlayer.displayClientMessage(new TranslatableComponent(this.getInterruptedMessage()), true);
     }
 
@@ -317,7 +316,7 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
      *
      * @param level                          the level.
      * @param goldenBowlPosition             the position of the golden bowl.
-     * @param BlockEntity                     the tile entity controlling the ritual.
+     * @param BlockEntity                    the tile entity controlling the ritual.
      * @param castingPlayer                  the player starting the ritual.
      * @param activationItem                 the item used to start the ritual.
      * @param remainingAdditionalIngredients the additional ingredients not yet fulfilled.
@@ -333,7 +332,7 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
      *
      * @param level              the level.
      * @param goldenBowlPosition the position of the golden bowl.
-     * @param BlockEntity         the tile entity controlling the ritual.
+     * @param BlockEntity        the tile entity controlling the ritual.
      * @param castingPlayer      the player starting the ritual.
      * @param activationItem     the item used to start the ritual.
      * @param time               the current ritual time.
@@ -354,9 +353,9 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
      */
     public boolean identify(Level level, BlockPos goldenBowlPosition, ItemStack activationItem) {
         return this.startingItem.test(activationItem) &&
-               this.areAdditionalIngredientsFulfilled(level, goldenBowlPosition,
-                       this.getAdditionalIngredients(level)) &&
-               this.pentacle.getBlockMatcher().validate(level, goldenBowlPosition) != null;
+                this.areAdditionalIngredientsFulfilled(level, goldenBowlPosition,
+                        this.getAdditionalIngredients(level)) &&
+                this.pentacle.getBlockMatcher().validate(level, goldenBowlPosition) != null;
     }
 
     /**
@@ -391,8 +390,7 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
                     consumedIngredients)) {
                 //remove from the remaining required ingredients
                 it.remove();
-            }
-            else {
+            } else {
                 //if ingredient not found, return false to enable interrupting the ritual.
                 return false;
             }
@@ -423,12 +421,12 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
                     consumedIngredients.add(extracted);
                     //Show effect in level
                     ((ServerLevel) level)
-                            .sendParticles(ParticleTypes.LARGE_SMOKE, sacrificialBowl.getPos().getX() + 0.5,
-                                    sacrificialBowl.getPos().getY() + 1.5, sacrificialBowl.getPos().getZ() + 0.5, 1,
+                            .sendParticles(ParticleTypes.LARGE_SMOKE, sacrificialBowl.getBlockPos().getX() + 0.5,
+                                    sacrificialBowl.getBlockPos().getY() + 1.5, sacrificialBowl.getBlockPos().getZ() + 0.5, 1,
                                     0.0, 0.0, 0.0,
                                     0.0);
 
-                    level.playSound(null, sacrificialBowl.getPos(), OccultismSounds.POOF.get(), SoundSource.BLOCKS,
+                    level.playSound(null, sacrificialBowl.getBlockPos(), OccultismSounds.POOF.get(), SoundSource.BLOCKS,
                             0.7f, 0.7f);
                     return true;
                 }
@@ -442,17 +440,18 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
 
     /**
      * Removes all matching consumed already consumed ingredients from the remaining additional ingredients.
+     *
      * @param additionalIngredients the total additional ingredients required.
-     * @param consumedIngredients the already consumed ingredients.
+     * @param consumedIngredients   the already consumed ingredients.
      * @return the remaining additional ingredients that still need to be consumed.
      */
-    public static List<Ingredient> getRemainingAdditionalIngredients( List<Ingredient> additionalIngredients, List<ItemStack> consumedIngredients){
+    public static List<Ingredient> getRemainingAdditionalIngredients(List<Ingredient> additionalIngredients, List<ItemStack> consumedIngredients) {
         //copy the consumed ingredients to not modify the input
         List<ItemStack> consumedIngredientsCopy = new ArrayList<>(consumedIngredients);
         List<Ingredient> remainingAdditionalIngredients = new ArrayList<>();
-        for(Ingredient ingredient : additionalIngredients){
+        for (Ingredient ingredient : additionalIngredients) {
             Optional<ItemStack> matchedStack = consumedIngredientsCopy.stream().filter(ingredient::test).findFirst();
-            if(matchedStack.isPresent()){
+            if (matchedStack.isPresent()) {
                 //if it is in the consumed ingredients, we do not need to add it to the remaining required ones
                 //but we remove it from our consumed ingredients copy so each provided ingredient an only be simulated consumed once
                 consumedIngredientsCopy.remove(matchedStack.get());
@@ -487,7 +486,7 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
 
         //optional performance improvement to speed up matching at the cost of convenience
         if (Occultism.SERVER_CONFIG.rituals.enableRemainingIngredientCountMatching.get() &&
-            additionalIngredients.size() != items.size())
+                additionalIngredients.size() != items.size())
             return false; //if we have different sizes, it cannot be right
 
         if (additionalIngredients.isEmpty())
@@ -530,7 +529,7 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
         List<SacrificialBowlBlockEntity> sacrificialBowls = this.getSacrificialBowls(level, goldenBowlPosition);
         for (SacrificialBowlBlockEntity sacrificialBowl : sacrificialBowls) {
             sacrificialBowl.itemStackHandler.ifPresent(handler -> {
-                ItemStack stack = handler.getItem(0);
+                ItemStack stack = handler.getStackInSlot(0);
                 if (!stack.isEmpty()) {
                     result.add(stack);
                 }
@@ -549,14 +548,15 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
      */
     public List<SacrificialBowlBlockEntity> getSacrificialBowls(Level level, BlockPos goldenBowlPosition) {
         List<SacrificialBowlBlockEntity> result = new ArrayList<>();
-        Iterable<BlockPos> blocksToCheck = BlockPos.getAllInBoxMutable(
-                goldenBowlPosition.add(-this.sacrificialBowlRange, 0, -this.sacrificialBowlRange),
-                goldenBowlPosition.add(this.sacrificialBowlRange, 0, this.sacrificialBowlRange));
+        Iterable<BlockPos> blocksToCheck = BlockPos.betweenClosed(
+
+                goldenBowlPosition.offset(-this.sacrificialBowlRange, 0, -this.sacrificialBowlRange),
+                goldenBowlPosition.offset(this.sacrificialBowlRange, 0, this.sacrificialBowlRange));
         for (BlockPos blockToCheck : blocksToCheck) {
             BlockEntity blockEntity = level.getBlockEntity(blockToCheck);
-            if (BlockEntity instanceof SacrificialBowlBlockEntity &&
-                !(BlockEntity instanceof GoldenSacrificialBowlBlockEntity)) {
-                result.add((SacrificialBowlBlockEntity) BlockEntity);
+            if (blockEntity instanceof SacrificialBowlBlockEntity bowl &&
+                    !(blockEntity instanceof GoldenSacrificialBowlBlockEntity)) {
+                result.add(bowl);
             }
         }
         return result;
@@ -564,10 +564,10 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
 
     /**
      * Prepares the given spirit for spawning by
-     *  - initializing it
-     *  - setting the taming player
-     *  - preparing position and rotation
-     *  - setting the custom name.
+     * - initializing it
+     * - setting the taming player
+     * - preparing position and rotation
+     * - setting the custom name.
      *
      * @param spirit             the spirit to prepare.
      * @param level              the level to spawn in.
@@ -582,10 +582,10 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
 
     /**
      * Prepares the given spirit for spawning by
-     *  - initializing it
-     *  - optionally setting the taming player
-     *  - preparing position and rotation
-     *  - setting the custom name.
+     * - initializing it
+     * - optionally setting the taming player
+     * - preparing position and rotation
+     * - setting the custom name.
      *
      * @param spirit             the spirit to prepare.
      * @param level              the level to spawn in.
@@ -596,14 +596,14 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
      */
     public void prepareSpiritForSpawn(SpiritEntity spirit, Level level, BlockPos goldenBowlPosition,
                                       Player castingPlayer, String spiritName, boolean setTamed) {
-        if(setTamed){
-            spirit.setTamedBy(castingPlayer);
+        if (setTamed) {
+            spirit.tame(castingPlayer);
         }
         spirit.absMoveTo(goldenBowlPosition.getX(), goldenBowlPosition.getY(), goldenBowlPosition.getZ(),
-                level.rand.nextInt(360), 0);
+                level.random.nextInt(360), 0);
         spirit.setCustomName(new TextComponent(spiritName));
-        spirit.onInitialSpawn((ServerLevel) level, level.getDifficultyForLocation(goldenBowlPosition),
-                SpawnReason.MOB_SUMMONED, null,
+        spirit.finalizeSpawn((ServerLevel) level, level.getCurrentDifficultyAt(goldenBowlPosition),
+                MobSpawnType.MOB_SUMMONED, null,
                 null);
     }
 
@@ -656,18 +656,18 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
      *
      * @param level              the level.
      * @param goldenBowlPosition the position of the golden bowl.
-     * @param BlockEntity         the tile entity controlling the ritual.
+     * @param BlockEntity        the tile entity controlling the ritual.
      * @param castingPlayer      the player starting the ritual.
      * @param stack              the result stack to drop.
      */
     public void dropResult(Level level, BlockPos goldenBowlPosition, GoldenSacrificialBowlBlockEntity BlockEntity,
-                           Player castingPlayer,  ItemStack stack){
-        double angle = level.rand.nextDouble() * Math.PI * 2;
+                           Player castingPlayer, ItemStack stack) {
+        double angle = level.random.nextDouble() * Math.PI * 2;
         ItemEntity entity = new ItemEntity(level, goldenBowlPosition.getX() + 0.5, goldenBowlPosition.getY() + 0.75,
                 goldenBowlPosition.getZ() + 0.5, stack);
         entity.setDeltaMovement(Math.sin(angle) * 0.125, 0.25, Math.cos(angle) * 0.125);
-        entity.setPickupDelay(10);
-        level.addEntity(entity);
+        entity.setPickUpDelay(10);
+        level.addFreshEntity(entity);
     }
     //endregion Methods
 }

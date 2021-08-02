@@ -54,7 +54,7 @@ public interface IReplantableCrops {
     //region Methods
     default InteractionResult onHarvest(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand) {
         if (!level.isClientSide) {
-            if (state.get(CropsBlock.AGE) >= 7) {
+            if (state.getValue(CropsBlock.AGE) >= 7) {
                 List<ItemStack> drops = Block.getDrops(state, (ServerLevel) level, pos, null, player,
                         player.getItemInHand(hand));
 
@@ -64,7 +64,7 @@ public interface IReplantableCrops {
                 //                        0, 1.0F, false, player);
 
                 //reset crop
-                level.setBlockState(pos, state.with(CropsBlock.AGE, 0));
+                level.setBlockState(pos, state.setValue(CropsBlock.AGE, 0));
                 for (ItemStack stack : drops) {
                     InventoryHelper.spawnItemStack(level, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, stack);
                 }

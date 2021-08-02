@@ -27,7 +27,7 @@ import com.github.klikli_dev.occultism.common.block.otherworld.IOtherworldBlock;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.client.renderer.color.BlockColors;
-import net.minecraft.item.BlockItem;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.level.FoliageColors;
 import net.minecraft.level.biome.BiomeColors;
 import net.minecraftforge.api.distmarker.Dist;
@@ -58,7 +58,7 @@ public class ColorEventHandler {
         //but while covered the oak leaves need their vanilla tint
         event.getBlockColors()
                 .register((state, light, pos, tintIndex) ->
-                                  state.get(IOtherworldBlock.UNCOVERED) ?
+                                  state.getValue(IOtherworldBlock.UNCOVERED) ?
                                           0xFFFFFF : (light != null && pos != null ?
                                                               BiomeColors.getFoliageColor(light, pos) :
                                                               FoliageColors.getDefault()),
@@ -74,7 +74,7 @@ public class ColorEventHandler {
         //but while covered the oak leaves need their vanilla tint
         event.getItemColors()
                 .register((stack, tintIndex) -> {
-                            BlockState blockstate = ((BlockItem) stack.getItem()).getBlock().getDefaultState();
+                            BlockState blockstate = ((BlockItem) stack.getItem()).getBlock().defaultBlockState();
                             return blockColors.getColor(blockstate, null, null, tintIndex);
                         }, //oak leaves color
                         OccultismBlocks.OTHERWORLD_LEAVES_NATURAL.get());

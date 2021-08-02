@@ -140,7 +140,7 @@ public class ThirdEyeEffectRenderer {
         for(BlockPos pos : this.uncoveredBlocks) {
             BlockState state = level.getBlockState(pos);
             if(state.getBlock() instanceof IOtherworldBlock) //handle replaced or removed blocks gracefully
-                level.setBlockState(pos, state.with(IOtherworldBlock.UNCOVERED, false), 1);
+                level.setBlockState(pos, state.setValue(IOtherworldBlock.UNCOVERED, false), 1);
         }
         if(clear)
             this.uncoveredBlocks.clear();
@@ -159,8 +159,8 @@ public class ThirdEyeEffectRenderer {
             if(state.getBlock() instanceof IOtherworldBlock){
                 IOtherworldBlock block = (IOtherworldBlock) state.getBlock();
                 if(block.getTier().getLevel()  <= level.getLevel()){
-                    if(!state.get(IOtherworldBlock.UNCOVERED)){
-                        level.setBlockState(pos, state.with(IOtherworldBlock.UNCOVERED, true), 1);
+                    if(!state.getValue(IOtherworldBlock.UNCOVERED)){
+                        level.setBlockState(pos, state.setValue(IOtherworldBlock.UNCOVERED, true), 1);
                     }
                     this.uncoveredBlocks.add(pos.toImmutable());
                 }

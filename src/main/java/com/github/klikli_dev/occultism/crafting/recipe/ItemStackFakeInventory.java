@@ -50,7 +50,7 @@ public class ItemStackFakeInventory implements Container {
     }
 
     @Override
-    public ItemStack getItem(int index) {
+    public ItemStack getCloneItemStack(int index) {
         return this.input;
     }
 

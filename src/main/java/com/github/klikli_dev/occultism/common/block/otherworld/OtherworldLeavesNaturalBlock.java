@@ -33,7 +33,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.state.StateContainer;
+import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.core.BlockPos;
 
 import javax.annotation.Nullable;
@@ -47,7 +47,7 @@ public class OtherworldLeavesNaturalBlock extends LeavesBlock implements IOtherw
     //region Initialization
     public OtherworldLeavesNaturalBlock(Properties properties) {
         super(properties);
-        this.setDefaultState(this.getDefaultState().with(UNCOVERED, false));
+        this.createBlockStateDefinition(this.defaultBlockState().setValue(UNCOVERED, false));
     }
     //endregion Initialization
 
@@ -68,9 +68,9 @@ public class OtherworldLeavesNaturalBlock extends LeavesBlock implements IOtherw
     }
 
     @Override
-    public void harvestBlock(Level worldIn, Player player, BlockPos pos, BlockState state,
+    public void playerDestroy(Level worldIn, Player player, BlockPos pos, BlockState state,
                              @Nullable BlockEntity te, ItemStack stack) {
-        super.harvestBlock(worldIn, player, pos, IOtherworldBlock.super.getHarvestState(player, state, stack), te,
+        super.playerDestroy(worldIn, player, pos, IOtherworldBlock.super.getHarvestState(player, state, stack), te,
                 stack);
     }
 
@@ -80,14 +80,14 @@ public class OtherworldLeavesNaturalBlock extends LeavesBlock implements IOtherw
     }
 
     @Override
-    public ItemStack getItem(BlockGetter worldIn, BlockPos pos, BlockState state) {
+    public ItemStack getCloneItemStack(BlockGetter worldIn, BlockPos pos, BlockState state) {
         return IOtherworldBlock.super.getItem(worldIn, pos, state);
     }
 
     @Override
-    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(UNCOVERED);
-        super.fillStateContainer(builder);
+        super.createBlockStateDefinition(builder);
     }
     //endregion Overrides
 }

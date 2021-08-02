@@ -46,26 +46,25 @@ import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.github.klikli_dev.occultism.registry.OccultismTiles;
 import com.github.klikli_dev.occultism.util.EntityUtil;
 import com.github.klikli_dev.occultism.util.Math3DUtil;
-import net.minecraft.BlockEntity.TickingBlockEntity;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.block.DirectionalBlock;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.inventory.container.MenuProvider;
-import net.minecraft.item.BlockItem;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.core.Direction;
-import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.DirectionalBlock;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
@@ -77,7 +76,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class StorageControllerBlockEntity extends NetworkedBlockEntity implements TickingBlockEntity, MenuProvider, IStorageController, IStorageAccessor, IStorageControllerProxy {
+public class StorageControllerBlockEntity extends NetworkedBlockEntity implements MenuProvider, IStorageController, IStorageAccessor, IStorageControllerProxy {
 
     //region Fields
     public static final int MAX_STABILIZER_DISTANCE = 5;
@@ -124,7 +123,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
     @Override
     public GlobalBlockPos getLinkedStorageControllerPosition() {
         if (this.globalPos == null)
-            this.globalPos = new GlobalBlockPos(this.getPos(), this.world);
+            this.globalPos = new GlobalBlockPos(this.getBlockPos(), this.level);
         return this.globalPos;
     }
 
@@ -175,7 +174,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
         int usedSlots = 0;
         List<ItemStack> result = new ArrayList<>(size);
         for (int slot = 0; slot < size; slot++) {
-            ItemStack stack = handler.getItem(slot);
+            ItemStack stack = handler.getStackInSlot(slot);
             if (!stack.isEmpty()) {
                 usedSlots++;
                 this.mergeIntoList(result, stack.copy());
@@ -233,20 +232,18 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
         if (!stack.isEmpty()) {
             UUID spiritUUID = this.depositOrderSpirits.get(linkedMachinePosition);
             if (spiritUUID != null) {
-                EntityUtil.getEntityByUuiDGlobal(this.world.getServer(),
+                EntityUtil.getEntityByUuiDGlobal(this.level.getServer(),
                         spiritUUID).filter(SpiritEntity.class::isInstance).map(SpiritEntity.class::cast)
                         .ifPresent(spirit -> {
                             Optional<ManageMachineJob> job = spirit.getJob().filter(ManageMachineJob.class::isInstance)
-                                                                     .map(ManageMachineJob.class::cast);
+                                    .map(ManageMachineJob.class::cast);
                             if (job.isPresent()) {
                                 job.get().addDepsitOrder(new DepositOrder((ItemStackComparator) comparator, amount));
-                            }
-                            else {
+                            } else {
                                 this.removeDepositOrderSpirit(linkedMachinePosition);
                             }
                         });
-            }
-            else {
+            } else {
                 //if the entity cannot be found, remove it from the list for now. it will re-register itself on spawn
                 this.removeDepositOrderSpirit(linkedMachinePosition);
             }
@@ -270,10 +267,10 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
             BlockItem itemBlock = (BlockItem) stack.getItem();
             return BLOCK_BLACKLIST.stream().map(RegistryObject::get).anyMatch(block -> itemBlock.getBlock() == block);
         }
-        
-        if(stack.getItem() == OccultismItems.STORAGE_REMOTE.get())
+
+        if (stack.getItem() == OccultismItems.STORAGE_REMOTE.get())
             return true;
-        
+
         return false;
     }
 
@@ -315,8 +312,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
                 }
                 //just take entire stack -> we're in sim mode
                 firstMatchedStack = stack.copy();
-            }
-            else {
+            } else {
                 //we already found something, so we need to make sure the stacks match up, if not we move on.
                 if (!ItemHandlerHelper.canItemStacksStack(firstMatchedStack, stack)) {
                     continue;
@@ -353,7 +349,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
         ItemStackHandler handler = this.itemStackHandler.orElseThrow(ItemHandlerMissingException::new);
         int size = handler.getSlots();
         for (int slot = 0; slot < size; slot++) {
-            ItemStack stack = handler.getItem(slot);
+            ItemStack stack = handler.getStackInSlot(slot);
             if (comparator.matches(stack))
                 totalCount += stack.getCount();
         }
@@ -363,7 +359,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
     @Override
     public void onContentsChanged() {
         this.cachedMessageUpdateStacks = null;
-        this.markDirty();
+        this.setChanged();
     }
 
     @Override
@@ -381,9 +377,8 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
         return super.getCapability(cap, direction);
     }
 
-    @Override
     public void tick() {
-        if (!this.world.isClientSide) {
+        if (!this.level.isClientSide) {
             if (!this.stabilizersInitialized) {
                 this.stabilizersInitialized = true;
                 this.updateStabilizers();
@@ -392,9 +387,9 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
     }
 
     @Override
-    public void load(BlockState state, CompoundTag compound) {
+    public void load(CompoundTag compound) {
         compound.remove("linkedMachines"); //linked machines are not saved, they self-register.
-        super.load(state, compound);
+        super.load(compound);
 
         //read stored items
         if (compound.contains("items")) {
@@ -429,13 +424,13 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
             for (int i = 0; i < matrixNbt.size(); i++) {
                 CompoundTag stackTag = matrixNbt.getCompound(i);
                 int slot = stackTag.getByte("slot");
-                ItemStack s = ItemStack.read(stackTag);
+                ItemStack s = ItemStack.of(stackTag);
                 this.matrix.put(slot, s);
             }
         }
 
         if (compound.contains("orderStack"))
-            this.orderStack = ItemStack.read(compound.getCompound("orderStack"));
+            this.orderStack = ItemStack.of(compound.getCompound("orderStack"));
 
         //read the linked machines
         this.linkedMachines = new HashMap<>();
@@ -460,14 +455,14 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
             if (this.matrix.get(i) != null && !this.matrix.get(i).isEmpty()) {
                 CompoundTag stackTag = new CompoundTag();
                 stackTag.putByte("slot", (byte) i);
-                this.matrix.get(i).write(stackTag);
+                this.matrix.get(i).save(stackTag);
                 matrixNbt.add(stackTag);
             }
         }
         compound.put("matrix", matrixNbt);
 
         if (!this.orderStack.isEmpty())
-            compound.put("orderStack", this.orderStack.write(new CompoundTag()));
+            compound.put("orderStack", this.orderStack.save(new CompoundTag()));
 
         //write linked machines
         ListTag machinesNbt = new ListTag();
@@ -491,7 +486,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
         int additionalSlots = 0;
         List<BlockPos> stabilizerLocations = this.findValidStabilizers();
         for (BlockPos pos : stabilizerLocations) {
-            additionalSlots += this.getSlotsForStabilizer(this.world.getBlockState(pos));
+            additionalSlots += this.getSlotsForStabilizer(this.level.getBlockState(pos));
         }
 
         this.setMaxSlots(Occultism.SERVER_CONFIG.storage.controllerBaseSlots.get() + additionalSlots);
@@ -500,16 +495,16 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
     public List<BlockPos> findValidStabilizers() {
         ArrayList<BlockPos> validStabilizers = new ArrayList<>();
 
-        BlockPos up = this.pos.above();
+        BlockPos up = this.getBlockPos().above();
         for (Direction face : Direction.values()) {
             BlockPos hit = Math3DUtil.simpleTrace(up, face, MAX_STABILIZER_DISTANCE, (pos) -> {
-                BlockState state = this.world.getBlockState(pos);
+                BlockState state = this.level.getBlockState(pos);
                 return state.getBlock() instanceof StorageStabilizerBlock;
             });
 
             if (hit != null) {
-                BlockState state = this.world.getBlockState(hit);
-                if (state.get(DirectionalBlock.FACING) == face.getOpposite()) {
+                BlockState state = this.level.getBlockState(hit);
+                if (state.getValue(DirectionalBlock.FACING) == face.getOpposite()) {
                     validStabilizers.add(hit);
                 }
             }
@@ -547,7 +542,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
 
     protected void validateLinkedMachines() {
         // remove all entries that lead to invalid tile entities.
-        this.linkedMachines.entrySet().removeIf(entry -> entry.getValue().getBlockEntity(this.world) == null);
+        this.linkedMachines.entrySet().removeIf(entry -> entry.getValue().getBlockEntity(this.level) == null);
     }
     //endregion Methods
 

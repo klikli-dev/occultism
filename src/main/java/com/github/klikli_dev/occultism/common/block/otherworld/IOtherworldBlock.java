@@ -25,14 +25,14 @@ package com.github.klikli_dev.occultism.common.block.otherworld;
 import com.github.klikli_dev.occultism.api.common.data.OtherworldBlockTier;
 import com.github.klikli_dev.occultism.api.common.item.IOtherworldTool;
 import com.github.klikli_dev.occultism.registry.OccultismEffects;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraft.state.BooleanProperty;
-import net.minecraft.state.Property;
-import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.Property;
 
 public interface IOtherworldBlock {
     //region Fields
@@ -52,23 +52,23 @@ public interface IOtherworldBlock {
     default OtherworldBlockTier getPlayerHarvestTier(Player player, ItemStack tool) {
         OtherworldBlockTier toolTier = OtherworldBlockTier.NONE;
         OtherworldBlockTier effectTier = player.hasEffect(OccultismEffects.THIRD_EYE.get()) ?
-                                                 OtherworldBlockTier.ONE : OtherworldBlockTier.NONE;
+                OtherworldBlockTier.ONE : OtherworldBlockTier.NONE;
         if (tool.getItem() instanceof IOtherworldTool) {
             toolTier = ((IOtherworldTool) tool.getItem()).getHarvestTier(tool);
         }
-        if(tool.hasTag() && tool.getTag().contains("occultism:otherworldToolTier")){
+        if (tool.hasTag() && tool.getTag().contains("occultism:otherworldToolTier")) {
             toolTier = OtherworldBlockTier.get(tool.getTag().getInt("occultism:otherworldToolTier"));
         }
         return OtherworldBlockTier.max(toolTier, effectTier);
     }
 
     default BlockState getHarvestState(Player player, BlockState state, ItemStack tool) {
-        return this.getPlayerHarvestTier(player, tool).getLevel() >= this.getTier().getLevel() ? state.with(UNCOVERED,
+        return this.getPlayerHarvestTier(player, tool).getLevel() >= this.getTier().getLevel() ? state.setValue(UNCOVERED,
                 true) : state;
     }
 
     default ItemStack getItem(BlockGetter worldIn, BlockPos pos, BlockState state) {
-        return new ItemStack(state.get(UNCOVERED) ? this.getUncoveredBlock() : this.getCoveredBlock(), 1);
+        return new ItemStack(state.getValue(UNCOVERED) ? this.getUncoveredBlock() : this.getCoveredBlock(), 1);
     }
 
     //endregion Methods

@@ -68,7 +68,7 @@ public class SummonWildParrotRitual extends SummonSpiritRitual {
         //1/3 are a parrot, 2/3 are chickens.
         AnimalEntity parrot =
                 level.rand.nextInt(3) == 0 ? EntityType.PARROT.create(level) : EntityType.CHICKEN.create(level);
-        parrot.onInitialSpawn((ServerLevel) level, level.getDifficultyForLocation(goldenBowlPosition), SpawnReason.MOB_SUMMONED,
+        parrot.finalizeSpawn((ServerLevel) level, level.getDifficultyForLocation(goldenBowlPosition), SpawnReason.MOB_SUMMONED,
                 null,
                 null);
         parrot

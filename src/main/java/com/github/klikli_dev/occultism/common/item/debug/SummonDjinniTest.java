@@ -49,7 +49,7 @@ public class SummonDjinniTest extends Item {
         if (!context.getLevel().isClientSide) {
 
             DjinniEntity spirit = OccultismEntities.DJINNI.get().create(context.getLevel());
-            spirit.onInitialSpawn((ServerLevel) context.getLevel(), context.getLevel().getDifficultyForLocation(context.getClickedPos()),
+            spirit.finalizeSpawn((ServerLevel) context.getLevel(), context.getLevel().getDifficultyForLocation(context.getClickedPos()),
                     SpawnReason.SPAWN_EGG, null, null);
             spirit.setTamedBy(context.getPlayer());
             spirit.setPosition(context.getClickedPos().getX(), context.getClickedPos().getY() + 1.0f, context.getClickedPos().getZ());

@@ -64,7 +64,7 @@ public class MessageSortItems extends MessageBase {
             if (!((IStorageControllerContainer) player.openContainer).isContainerItem()) {
 
                 //ensure players cannot load arbitrary chunks
-                if (!player.level.isBlockLoaded(this.entityPosition))
+                if (!player.level.hasChunkAt(this.entityPosition))
                     return;
 
                 BlockEntity blockEntity = player.level.getBlockEntity(this.entityPosition);

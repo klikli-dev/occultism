@@ -48,7 +48,7 @@ public class SummonFoliotLumberjackItem extends Item {
     public InteractionResult useOn(UseOnContext context) {
         if(!context.getLevel().isClientSide){
             FoliotEntity spirit = OccultismEntities.FOLIOT.get().create(context.getLevel());
-            spirit.onInitialSpawn((ServerLevel) context.getLevel(), context.getLevel().getDifficultyForLocation(context.getClickedPos()),
+            spirit.finalizeSpawn((ServerLevel) context.getLevel(), context.getLevel().getDifficultyForLocation(context.getClickedPos()),
                     SpawnReason.SPAWN_EGG, null, null);
             spirit.setTamedBy(context.getPlayer());
             spirit.setPosition(context.getClickedPos().getX(), context.getClickedPos().getY() + 1.0f, context.getClickedPos().getZ());

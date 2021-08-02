@@ -67,7 +67,7 @@ public class PossessEndermanRitual extends SummonSpiritRitual {
 
         //set up the foliot entity
         PossessedEndermanEntity enderman = OccultismEntities.POSSESSED_ENDERMAN.get().create(level);
-        enderman.onInitialSpawn((ServerLevel) level, level.getDifficultyForLocation(goldenBowlPosition), SpawnReason.MOB_SUMMONED,
+        enderman.finalizeSpawn((ServerLevel) level, level.getDifficultyForLocation(goldenBowlPosition), SpawnReason.MOB_SUMMONED,
                 null,
                 null);
         enderman.absMoveTo(goldenBowlPosition.getX(), goldenBowlPosition.getY(), goldenBowlPosition.getZ(),

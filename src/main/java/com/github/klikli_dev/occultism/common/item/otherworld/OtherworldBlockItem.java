@@ -25,7 +25,7 @@ package com.github.klikli_dev.occultism.common.item.otherworld;
 import com.github.klikli_dev.occultism.util.OtherworldUtil;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.item.BlockItem;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 

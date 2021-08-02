@@ -90,7 +90,7 @@ public class DivinationRodItem extends Item {
                         stack.getOrCreateTag().putString("linkedBlockId", block.getRegistryName().toString());
                         player.sendMessage(
                                 new TranslatableComponent(this.getDescriptionId() + ".message.linked_block",
-                                        new TranslatableComponent(translationKey)), Util.DUMMY_UUID);
+                                        new TranslatableComponent(translationKey)), Util.NIL_UUID);
                     }
 
                     level.playSound(player, player.getPosition(), OccultismSounds.TUNING_FORK.get(),
@@ -100,7 +100,7 @@ public class DivinationRodItem extends Item {
                 else {
                     if (!level.isClientSide) {
                         player.sendMessage(
-                                new TranslatableComponent(this.getDescriptionId() + ".message.no_link_found"), Util.DUMMY_UUID);
+                                new TranslatableComponent(this.getDescriptionId() + ".message.no_link_found"), Util.NIL_UUID);
                     }
                 }
                 return InteractionResult.SUCCESS;
@@ -110,7 +110,7 @@ public class DivinationRodItem extends Item {
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(Level level, Player player, InteractionHand hand) {
+    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
 
         if (!player.isShiftKeyDown()) {
@@ -126,11 +126,11 @@ public class DivinationRodItem extends Item {
                 }
             }
             else if (!level.isClientSide) {
-                player.sendMessage(new TranslatableComponent(this.getDescriptionId() + ".message.no_linked_block"), Util.DUMMY_UUID);
+                player.sendMessage(new TranslatableComponent(this.getDescriptionId() + ".message.no_linked_block"), Util.NIL_UUID);
             }
         }
 
-        return new ActionResult<>(InteractionResult.SUCCESS, stack);
+        return new InteractionResultHolder<>(InteractionResult.SUCCESS, stack);
     }
 
     @Override

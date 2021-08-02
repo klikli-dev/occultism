@@ -218,7 +218,7 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
                 this.stopRitual(true);
         }
     }
-    
+
     //endregion Overrides
 
     //region Methods

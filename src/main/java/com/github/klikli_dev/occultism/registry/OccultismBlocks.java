@@ -40,7 +40,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.material.Material;
-import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -95,12 +95,12 @@ public class OccultismBlocks {
 
     public static final RegistryObject<Block> OTHERWORLD_LOG =
             register("otherworld_log", () ->   new RotatedPillarBlock(Block.Properties.of(Material.WOOD, (state) -> {
-                return state.get(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? MaterialColor.WOOD : MaterialColor.OBSIDIAN;
+                return state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? MaterialColor.WOOD : MaterialColor.OBSIDIAN;
             }).hardnessAndResistance(2.0F).sound(SoundType.WOOD).hardnessAndResistance(2.0f)));
 
     public static final RegistryObject<Block> OTHERWORLD_LOG_NATURAL =
             register("otherworld_log_natural", () -> new OtherworldLogNaturalBlock(Block.Properties.of(Material.WOOD, (state) -> {
-                return state.get(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? MaterialColor.WOOD : MaterialColor.OBSIDIAN;
+                return state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? MaterialColor.WOOD : MaterialColor.OBSIDIAN;
             }).hardnessAndResistance(2.0f)), true, LootTableType.OTHERWORLD_BLOCK);
 
     public static final RegistryObject<LeavesBlock> OTHERWORLD_LEAVES =

@@ -25,18 +25,19 @@ package com.github.klikli_dev.occultism.common.block;
 import com.github.klikli_dev.occultism.common.tile.SacrificialBowlBlockEntity;
 import com.github.klikli_dev.occultism.registry.OccultismTiles;
 import com.github.klikli_dev.occultism.util.StorageUtil;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.core.BlockPos;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.SoundSource;
-import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -45,7 +46,7 @@ import net.minecraftforge.items.ItemHandlerHelper;
 
 import javax.annotation.Nullable;
 
-public class SacrificialBowlBlock extends Block {
+public class SacrificialBowlBlock extends Block implements EntityBlock {
     //region Fields
     private static final VoxelShape SHAPE = Block.box(4, 0, 4, 12, 2.3, 12);
     //endregion Fields
@@ -65,7 +66,7 @@ public class SacrificialBowlBlock extends Block {
     public void onRemove(BlockState state, Level worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
         if (state.getBlock() != newState.getBlock()) {
             BlockEntity tile = worldIn.getBlockEntity(pos);
-            if(tile != null){
+            if (tile != null) {
                 StorageUtil.dropInventoryItems(tile);
             }
             super.onRemove(state, worldIn, pos, newState, isMoving);
@@ -74,46 +75,39 @@ public class SacrificialBowlBlock extends Block {
 
     @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player,
-                                             InteractionHand hand, BlockHitResult hit) {
+                                 InteractionHand hand, BlockHitResult hit) {
         if (!level.isClientSide) {
             ItemStack heldItem = player.getItemInHand(hand);
             SacrificialBowlBlockEntity bowl = (SacrificialBowlBlockEntity) level.getBlockEntity(pos);
-            bowl.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, hit.getFace()).ifPresent(handler -> {
+            bowl.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, hit.getDirection()).ifPresent(handler -> {
                 if (!player.isShiftKeyDown()) {
-                    ItemStack itemStack = handler.getItem(0);
+                    ItemStack itemStack = handler.getStackInSlot(0);
                     if (itemStack.isEmpty()) {
                         //if there is nothing in the bowl, put the hand held item in
                         player.setItemInHand(hand, handler.insertItem(0, heldItem, false));
-                        level.playSound(null, pos, SoundEvents.ENTITY_ITEM_FRAME_ADD_ITEM, SoundSource.BLOCKS, 1, 1);
-                    }
-                    else {
+                        level.playSound(null, pos, SoundEvents.ITEM_FRAME_ADD_ITEM, SoundSource.BLOCKS, 1, 1);
+                    } else {
                         //otherwise take out the item.
                         if (heldItem.isEmpty()) {
                             //place it in the hand if possible
                             player.setItemInHand(hand, handler.extractItem(0, 64, false));
-                        }
-                        else {
+                        } else {
                             //and if not, just put it in the inventory
                             ItemHandlerHelper.giveItemToPlayer(player, handler.extractItem(0, 64, false));
                         }
-                        level.playSound(null, pos, SoundEvents.ENTITY_ITEM_FRAME_REMOVE_ITEM, SoundSource.BLOCKS, 1, 1);
+                        level.playSound(null, pos, SoundEvents.ITEM_FRAME_REMOVE_ITEM, SoundSource.BLOCKS, 1, 1);
                     }
-                    bowl.markDirty();
+                    bowl.setChanged();
                 }
             });
         }
         return InteractionResult.SUCCESS;
     }
 
-    @Override
-    public boolean hasBlockEntity(BlockState state) {
-        return true;
-    }
-
     @Nullable
     @Override
-    public BlockEntity createBlockEntity(BlockState state, BlockGetter level) {
-        return OccultismTiles.SACRIFICIAL_BOWL.get().create();
+    public BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
+        return OccultismTiles.SACRIFICIAL_BOWL.get().create(blockPos, blockState);
     }
     //endregion Overrides
 }

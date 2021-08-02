@@ -71,7 +71,7 @@ public class MessageRequestOrder extends MessageBase {
 
         Level level = minecraftServer.getLevel(this.storageControllerPosition.getDimensionKey());
         //prevent block loading by message
-        if (!level.isBlockLoaded(this.storageControllerPosition.getPos()))
+        if (!level.hasChunkAt(this.storageControllerPosition.getPos()))
             return;
 
         BlockEntity blockEntity = level.getBlockEntity(this.storageControllerPosition.getPos());

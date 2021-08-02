@@ -80,7 +80,7 @@ public class SummonWildHuntRitual extends SummonSpiritRitual {
                     level.getRandom().nextInt(360), 0);
             skeleton.setCustomName(new TextComponent(TextUtil.generateName()));
 
-            skeleton.onInitialSpawn((ServerLevel) level, level.getDifficultyForLocation(goldenBowlPosition), SpawnReason.MOB_SUMMONED,
+            skeleton.finalizeSpawn((ServerLevel) level, level.getDifficultyForLocation(goldenBowlPosition), SpawnReason.MOB_SUMMONED,
                     null,
                     null);
             this.spawnEntity(skeleton, level);

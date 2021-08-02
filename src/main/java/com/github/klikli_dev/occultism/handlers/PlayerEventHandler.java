@@ -71,7 +71,7 @@ public class PlayerEventHandler {
                     level.playSound(event.getPlayer(), pos, soundEvent,
                             SoundSource.BLOCKS, 1.0F, level.rand.nextFloat() * 0.4F + 0.8F);
 
-                    level.setBlockState(pos, OccultismBlocks.SPIRIT_FIRE.get().getDefaultState(), 11);
+                    level.setBlockState(pos, OccultismBlocks.SPIRIT_FIRE.get().defaultBlockState(), 11);
                 }
 
                 //now handle used item

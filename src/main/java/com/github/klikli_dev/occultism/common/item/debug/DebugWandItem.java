@@ -34,7 +34,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.ActionResult;
+import net.minecraft.util.InteractionResultHolder;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.core.BlockPos;
@@ -58,7 +58,7 @@ public class DebugWandItem extends Item {
 //            ItemStack spirit = new ItemStack(OccultismItems.MINER_DEBUG_UNSPECIALIZED.get());
 //            spirit.getItem().onCreated(spirit, context.getLevel(), context.getPlayer());
 //            ItemHandlerHelper.giveItemToPlayer(player, spirit);
-            //context.getPlayer().sendMessage(new TextComponent(TextUtil.generateName()), Util.DUMMY_UUID);
+            //context.getPlayer().sendMessage(new TextComponent(TextUtil.generateName()), Util.NIL_UUID);
 
             //set up the foliot entity
             BlockPos target = context.getClickedPos().up();
@@ -66,7 +66,7 @@ public class DebugWandItem extends Item {
             spirit.absMoveTo(target.getX(), target.getY(), target.getZ(),
                     context.getLevel().rand.nextInt(360), 0);
             spirit.setCustomName(new TextComponent("Testguy"));
-            spirit.onInitialSpawn((ServerLevel) context.getLevel(), context.getLevel().getDifficultyForLocation(target),
+            spirit.finalizeSpawn((ServerLevel) context.getLevel(), context.getLevel().getDifficultyForLocation(target),
                     SpawnReason.MOB_SUMMONED, null,
                     null);
             spirit.setTamedBy(context.getPlayer());
@@ -83,9 +83,9 @@ public class DebugWandItem extends Item {
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(Level worldIn, Player playerIn, InteractionHand handIn) {
+    public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {
 
-        return super.onItemRightClick(worldIn, playerIn, handIn);
+        return super.use(worldIn, playerIn, handIn);
     }
 
     @Override

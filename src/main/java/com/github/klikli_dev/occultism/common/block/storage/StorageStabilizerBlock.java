@@ -36,8 +36,8 @@ import net.minecraft.item.BlockPlaceContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.state.StateContainer;
-import net.minecraft.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.core.Direction;
 import net.minecraft.util.math.AABB;
 import net.minecraft.core.BlockPos;
@@ -73,7 +73,7 @@ public class StorageStabilizerBlock extends Block {
     //region Overrides
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
-        return SHAPES.get(state.get(BlockStateProperties.FACING));
+        return SHAPES.get(state.getValue(BlockStateProperties.FACING));
     }
 
     @Override
@@ -87,13 +87,13 @@ public class StorageStabilizerBlock extends Block {
     @Nullable
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
-        return this.getDefaultState().with(BlockStateProperties.FACING, context.getClickedFace());
+        return this.defaultBlockState().setValue(BlockStateProperties.FACING, context.getClickedFace());
     }
 
     @Override
-    public void harvestBlock(Level worldIn, Player player, BlockPos pos, BlockState state,
+    public void playerDestroy(Level worldIn, Player player, BlockPos pos, BlockState state,
                              @Nullable BlockEntity te, ItemStack stack) {
-        super.harvestBlock(worldIn, player, pos, state, te, stack);
+        super.playerDestroy(worldIn, player, pos, state, te, stack);
     }
 
     @Override
@@ -105,15 +105,15 @@ public class StorageStabilizerBlock extends Block {
     }
 
     @Override
-    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(BlockStateProperties.FACING);
-        super.fillStateContainer(builder);
+        super.createBlockStateDefinition(builder);
     }
     //endregion Overrides
 
     //region Methods
     public void notifyStorageControllers(Level level, BlockPos pos, BlockState state) {
-        Direction facing = state.get(DirectionalBlock.FACING);
+        Direction facing = state.getValue(DirectionalBlock.FACING);
 
         //storage controller actually wants stabilizers to point at one block above it, so unless we are on y axis we trace one below
         BlockPos min = facing != Direction.DOWN && facing != Direction.UP ? pos.down() : pos;

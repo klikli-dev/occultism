@@ -105,7 +105,7 @@ public abstract class CaveDecorator implements ICaveDecorator {
 
     public void fillInside(ISeedReader seedReader, ChunkGenerator generator, Random rand,
                            BlockPos pos, BlockState state) {
-        //level.setBlockState(pos, Blocks.AIR.getDefaultState(), 2);
+        //level.setBlockState(pos, Blocks.AIR.defaultBlockState(), 2);
     }
 
     public void finalFloorPass(ISeedReader seedReader, ChunkGenerator generator, Random rand,

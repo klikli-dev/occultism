@@ -25,22 +25,22 @@ package com.github.klikli_dev.occultism.client.render.tile;
 import com.github.klikli_dev.occultism.common.block.SpiritAttunedCrystalBlock;
 import com.github.klikli_dev.occultism.common.tile.SacrificialBowlBlockEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.BlockEntity.BlockEntityRenderer;
-import net.minecraft.client.renderer.BlockEntity.BlockEntityRendererDispatcher;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.ItemRenderer;
-import net.minecraft.client.renderer.model.IBakedModel;
-import net.minecraft.client.renderer.model.ItemCameraTransforms;
-import net.minecraft.item.BlockItem;
-import net.minecraft.world.item.ItemStack;
 import com.mojang.math.Vector3f;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.block.model.ItemTransforms;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.client.renderer.entity.ItemRenderer;
+import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.ItemStack;
 
-public class SacrificialBowlRenderer extends BlockEntityRenderer<SacrificialBowlBlockEntity> {
+public class SacrificialBowlRenderer implements BlockEntityRenderer<SacrificialBowlBlockEntity> {
 
     //region Initialization
-    public SacrificialBowlRenderer(BlockEntityRendererDispatcher dispatcher) {
-        super(dispatcher);
+    public SacrificialBowlRenderer(BlockEntityRendererProvider.Context context) {
+
     }
     //endregion Initialization
 
@@ -50,9 +50,9 @@ public class SacrificialBowlRenderer extends BlockEntityRenderer<SacrificialBowl
     public void render(SacrificialBowlBlockEntity blockEntity, float partialTicks, PoseStack poseStack,
                        MultiBufferSource buffer, int combinedLight, int combinedOverlay) {
         blockEntity.itemStackHandler.ifPresent(handler -> {
-            ItemStack stack = handler.getItem(0);
+            ItemStack stack = handler.getStackInSlot(0);
             long time = blockEntity.getLevel().getGameTime();
-            poseStack.push();
+            poseStack.pushPose();
 
             //slowly bob up and down following a sine
             double offset = Math.sin((time - blockEntity.lastChangeTime + partialTicks) / 16) * 0.5f + 0.5f; // * 0.5f + 0.5f;  move sine between 0.0-1.0
@@ -63,26 +63,25 @@ public class SacrificialBowlRenderer extends BlockEntityRenderer<SacrificialBowl
             long systemTime = System.currentTimeMillis();
             //rotate item slowly around y axis
             float angle = (systemTime / 16) % 360;
-            poseStack.rotate(Vector3f.YP.rotationDegrees(angle));
+            poseStack.mulPose(Vector3f.YP.rotationDegrees(angle));
 
             //Fixed scale
             float scale = getScale(stack) * 0.5f;
             poseStack.scale(scale, scale, scale);
 
             ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
-            IBakedModel model = itemRenderer.getItemModelWithOverrides(stack, blockEntity.getLevel(), null);
-            itemRenderer.renderItem(stack, ItemCameraTransforms.TransformType.FIXED, true, poseStack, buffer,
+            BakedModel model = itemRenderer.getModel(stack, blockEntity.getLevel(), null, 0);
+            itemRenderer.render(stack, ItemTransforms.TransformType.FIXED, true, poseStack, buffer,
                     combinedLight, combinedOverlay, model);
 
-            poseStack.pop();
+            poseStack.popPose();
         });
     }
     //endregion Overrides
 
     //region Static Methods
     public static float getScale(ItemStack stack) {
-        if (stack.getItem() instanceof BlockItem) {
-            BlockItem itemBlock = (BlockItem) stack.getItem();
+        if (stack.getItem() instanceof BlockItem itemBlock) {
             if (itemBlock.getBlock() instanceof SpiritAttunedCrystalBlock)
                 return 3.0f;
         }

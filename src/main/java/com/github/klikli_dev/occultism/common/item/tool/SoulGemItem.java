@@ -134,7 +134,7 @@ public class SoulGemItem extends Item {
         if (Occultism.SERVER_CONFIG.itemSettings.soulgemEntityTypeDenyList.get().contains(target.getEntityString())) {
             player.sendMessage(
                     new TranslatableComponent(this.getDescriptionId() + ".message.entity_type_denied"),
-                    Util.DUMMY_UUID);
+                    Util.NIL_UUID);
             return InteractionResult.FAIL;
         }
 

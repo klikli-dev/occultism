@@ -84,7 +84,7 @@ public class WorldGenHandler {
         COPPER_ORE = Feature.ORE.withConfiguration(
                 new OreFeatureConfig(
                         new TagMatchRuleTest(oreGen.copperOre.getFillerBlockTag()),
-                        OccultismBlocks.COPPER_ORE.get().getDefaultState(), oreGen.copperOre.size.get()))
+                        OccultismBlocks.COPPER_ORE.get().defaultBlockState(), oreGen.copperOre.size.get()))
                              .withPlacement(Placement.RANGE.configure(
                                      new TopSolidRangeConfig(
                                              oreGen.copperOre.bottomOffset.get(),
@@ -96,7 +96,7 @@ public class WorldGenHandler {
         SILVER_ORE = Feature.ORE.withConfiguration(
                 new OreFeatureConfig(
                         new TagMatchRuleTest(oreGen.silverOre.getFillerBlockTag()),
-                        OccultismBlocks.SILVER_ORE.get().getDefaultState(), oreGen.silverOre.size.get()))
+                        OccultismBlocks.SILVER_ORE.get().defaultBlockState(), oreGen.silverOre.size.get()))
                              .withPlacement(Placement.RANGE.configure(
                                      new TopSolidRangeConfig(
                                              oreGen.silverOre.bottomOffset.get(),
@@ -108,7 +108,7 @@ public class WorldGenHandler {
         IESNIUM_ORE = Feature.ORE.withConfiguration(
                 new OreFeatureConfig(
                         new TagMatchRuleTest(oreGen.iesniumOre.getFillerBlockTag()),
-                        OccultismBlocks.IESNIUM_ORE_NATURAL.get().getDefaultState(), oreGen.iesniumOre.size.get()))
+                        OccultismBlocks.IESNIUM_ORE_NATURAL.get().defaultBlockState(), oreGen.iesniumOre.size.get()))
                               .withPlacement(Placement.RANGE.configure(
                                       new TopSolidRangeConfig(
                                               oreGen.iesniumOre.bottomOffset.get(),
@@ -133,8 +133,8 @@ public class WorldGenHandler {
 
         OTHERWORLD_TREE_NATURAL = Feature.TREE.withConfiguration((
                 new BaseTreeFeatureConfig.Builder(
-                        new SimpleBlockStateProvider(OccultismBlocks.OTHERWORLD_LOG_NATURAL.get().getDefaultState()),
-                        new SimpleBlockStateProvider(OccultismBlocks.OTHERWORLD_LEAVES_NATURAL.get().getDefaultState()),
+                        new SimpleBlockStateProvider(OccultismBlocks.OTHERWORLD_LOG_NATURAL.get().defaultBlockState()),
+                        new SimpleBlockStateProvider(OccultismBlocks.OTHERWORLD_LEAVES_NATURAL.get().defaultBlockState()),
                         new BlobFoliagePlacer(FeatureSpread.create(2), FeatureSpread.create(0), 3),
                         new StraightTrunkPlacer(4, 2, 0),
                         new TwoLayerFeature(1, 0, 1))).setIgnoreVines().build());
@@ -143,8 +143,8 @@ public class WorldGenHandler {
 
         OTHERWORLD_TREE = Feature.TREE.withConfiguration((
                 new BaseTreeFeatureConfig.Builder(
-                        new SimpleBlockStateProvider(OccultismBlocks.OTHERWORLD_LOG.get().getDefaultState()),
-                        new SimpleBlockStateProvider(OccultismBlocks.OTHERWORLD_LEAVES.get().getDefaultState()),
+                        new SimpleBlockStateProvider(OccultismBlocks.OTHERWORLD_LOG.get().defaultBlockState()),
+                        new SimpleBlockStateProvider(OccultismBlocks.OTHERWORLD_LEAVES.get().defaultBlockState()),
                         new BlobFoliagePlacer(FeatureSpread.create(2), FeatureSpread.create(0), 3),
                         new StraightTrunkPlacer(4, 2, 0),
                         new TwoLayerFeature(1, 0, 1))).setIgnoreVines().build());

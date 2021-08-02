@@ -24,16 +24,12 @@ package com.github.klikli_dev.occultism.common.advancement;
 
 import com.github.klikli_dev.occultism.common.ritual.Ritual;
 import com.google.gson.JsonObject;
-import net.minecraft.advancements.criterion.AbstractCriterionTrigger;
-import net.minecraft.advancements.criterion.CriterionInstance;
-import net.minecraft.advancements.criterion.EntityPredicate;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.loot.ConditionArrayParser;
-import net.minecraft.loot.ConditionArraySerializer;
-import net.minecraft.util.GsonHelper;
+import net.minecraft.advancements.critereon.*;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.GsonHelper;
 
-public class RitualTrigger extends AbstractCriterionTrigger<RitualTrigger.Instance> {
+public class RitualTrigger extends SimpleCriterionTrigger<RitualTrigger.Instance> {
     //region Fields
     private final ResourceLocation id;
     //endregion Fields
@@ -49,19 +45,20 @@ public class RitualTrigger extends AbstractCriterionTrigger<RitualTrigger.Instan
         return this.id;
     }
 
-    public RitualTrigger.Instance deserializeTrigger(JsonObject json, EntityPredicate.AndPredicate entityPredicate,
-                                                     ConditionArrayParser conditionsParser) {
-        return new RitualTrigger.Instance(this.id, new ResourceLocation(GsonHelper.getString(json, "ritual_id")));
+    @Override
+    protected Instance createInstance(JsonObject json, EntityPredicate.Composite composite, DeserializationContext deserializationContext) {
+        return new RitualTrigger.Instance(this.id, new ResourceLocation(GsonHelper.getAsString(json, "ritual_id")));
     }
     //endregion Overrides
 
     //region Methods
     public void trigger(ServerPlayer player, Ritual ritual) {
-        this.triggerListeners(player, (instance) -> instance.test(player, ritual));
+        this.trigger(player, (instance) -> instance.test(player, ritual));
     }
+
     //endregion Methods
 
-    public static class Instance extends CriterionInstance {
+    public static class Instance extends AbstractCriterionTriggerInstance {
 
         //region Fields
         private final ResourceLocation ritualId;
@@ -69,22 +66,27 @@ public class RitualTrigger extends AbstractCriterionTrigger<RitualTrigger.Instan
 
         //region Initialization
         public Instance(ResourceLocation criterion, ResourceLocation ritualId) {
-            super(criterion, EntityPredicate.AndPredicate.ANY_AND);
+            super(ritualId, EntityPredicate.Composite.ANY);
             this.ritualId = ritualId;
         }
         //endregion Initialization
 
-        //region Overrides
-        public JsonObject serialize(ConditionArraySerializer conditions) {
-            JsonObject jsonobject = super.serialize(conditions);
-            jsonobject.addProperty("ritual_id", this.ritualId.toString());
-            return jsonobject;
-        }
-        //endregion Overrides
 
         //region Methods
         public boolean test(ServerPlayer player, Ritual ritual) {
             return this.ritualId.equals(ritual.getRegistryName());
+        }
+
+        @Override
+        public ResourceLocation getCriterion() {
+            return ritualId;
+        }
+
+        @Override
+        public JsonObject serializeToJson(SerializationContext serializationContext) {
+            JsonObject jsonobject = super.serializeToJson(serializationContext);
+            jsonobject.addProperty("ritual_id", this.ritualId.toString());
+            return jsonobject;
         }
         //endregion Methods
     }

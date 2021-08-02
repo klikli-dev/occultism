@@ -27,22 +27,25 @@ import com.github.klikli_dev.occultism.api.common.tile.IStorageController;
 import com.github.klikli_dev.occultism.common.container.storage.StorageRemoteContainer;
 import com.github.klikli_dev.occultism.util.BlockEntityUtil;
 import com.github.klikli_dev.occultism.util.CuriosUtil;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.inventory.container.MenuProvider;
-import net.minecraft.item.*;
-import net.minecraft.world.level.Level;
-import net.minecraft.util.ActionResult;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.util.Util;
+import net.minecraft.Util;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
-import net.minecraftforge.fml.network.NetworkHooks;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraftforge.fmllegacy.network.NetworkHooks;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -64,13 +67,13 @@ public class StorageRemoteItem extends Item implements MenuProvider {
     @Override
     public InteractionResult useOn(UseOnContext context) {
         if (!context.getLevel().isClientSide) {
-            ItemStack stack = context.getItem();
+            ItemStack stack = context.getItemInHand();
             BlockEntity blockEntity = context.getLevel().getBlockEntity(context.getClickedPos());
-            if (BlockEntity instanceof IStorageController) {
-                stack.setTagInfo("linkedStorageController", GlobalBlockPos.from(BlockEntity).serializeNBT());
+            if (blockEntity instanceof IStorageController) {
+                stack.addTagElement("linkedStorageController", GlobalBlockPos.from(blockEntity).serializeNBT());
                 context.getPlayer()
                         .sendMessage(new TranslatableComponent(this.getDescriptionId() + ".message.linked"),
-                                Util.DUMMY_UUID);
+                                Util.NIL_UUID);
             }
         }
 
@@ -78,33 +81,33 @@ public class StorageRemoteItem extends Item implements MenuProvider {
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(Level level, Player player, InteractionHand hand) {
+    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
 
         if (level.isClientSide || !stack.getOrCreateTag().contains("linkedStorageController"))
-            return super.onItemRightClick(level, player, hand);
+            return super.use(level, player, hand);
 
         GlobalBlockPos storageControllerPos = GlobalBlockPos.from(
                 stack.getTag().getCompound("linkedStorageController"));
         Level storageControllerWorld = level.getServer().getLevel(storageControllerPos.getDimensionKey());
 
         //ensure TE is available
-        if (!storageControllerWorld.isBlockLoaded(storageControllerPos.getPos())) {
-            player.sendMessage(new TranslatableComponent(this.getDescriptionId() + ".message.not_loaded"), Util.DUMMY_UUID);
-            return super.onItemRightClick(level, player, hand);
+        if (!storageControllerWorld.hasChunkAt(storageControllerPos.getPos())) {
+            player.sendMessage(new TranslatableComponent(this.getDescriptionId() + ".message.not_loaded"), Util.NIL_UUID);
+            return super.use(level, player, hand);
         }
 
         //then access it and if it fits, open UI
         if (storageControllerWorld.getBlockEntity(storageControllerPos.getPos()) instanceof IStorageController) {
-            NetworkHooks.openGui((ServerPlayer) player, this, buffer -> buffer.writeVarInt(player.getInventory().currentItem));
-            return new ActionResult<>(InteractionResult.SUCCESS, stack);
+            NetworkHooks.openGui((ServerPlayer) player, this, buffer -> buffer.writeVarInt(player.getInventory().selected));
+            return new InteractionResultHolder<>(InteractionResult.SUCCESS, stack);
         }
-        return super.onItemRightClick(level, player, hand);
+        return super.use(level, player, hand);
     }
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip,
-                               ITooltipFlag flagIn) {
+                                TooltipFlag flagIn) {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
 
         tooltip.add(new TranslatableComponent(this.getDescriptionId() + ".tooltip"));
@@ -154,7 +157,7 @@ public class StorageRemoteItem extends Item implements MenuProvider {
         GlobalBlockPos globalPos = GlobalBlockPos.from(stack.getTag().getCompound("linkedStorageController"));
         BlockEntity blockEntity = BlockEntityUtil.get(level, globalPos);
 
-        return BlockEntity instanceof IStorageController ? (IStorageController) BlockEntity : null;
+        return blockEntity instanceof IStorageController ? (IStorageController) blockEntity : null;
     }
     //endregion Static Methods
 }

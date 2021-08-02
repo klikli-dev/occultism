@@ -129,7 +129,7 @@ public class SphericalCaveSubFeature implements IMultiChunkSubFeature {
             if (blockPos.distanceSq(center) <= (double) (f * f * Mth.clamp(rand.nextFloat(), 0.75F, 1.0F))) {
                 BlockState currentState = reader.getBlockState(blockPos);
                 if (!currentState.hasBlockEntity() && currentState.getBlock() != Blocks.BEDROCK) {
-                    reader.setBlockState(blockPos, Blocks.CAVE_AIR.getDefaultState(), 2);
+                    reader.setBlockState(blockPos, Blocks.CAVE_AIR.defaultBlockState(), 2);
                 }
             }
         });
