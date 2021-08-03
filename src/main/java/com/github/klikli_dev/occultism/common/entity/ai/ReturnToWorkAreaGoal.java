@@ -69,28 +69,28 @@ public class ReturnToWorkAreaGoal extends Goal {
     public void tick() {
         if (!this.entity.getWorkAreaPosition().isPresent()) {
             this.stop();
-            this.entity.getNavigator().stop();
+            this.entity.getNavigation().stop();
         }
         else {
-            this.entity.getNavigator().setPath(this.entity.getNavigator().getPathToPos(
+            this.entity.getNavigation().setPath(this.entity.getNavigation().getPathToPos(
                     this.entity.getWorkAreaPosition().orElse(this.entity.getPosition()), 0), 1.0f);
             double distance = this.entity.getPositionVec().distanceTo(
                     Vec3.copyCentered(this.entity.getWorkAreaPosition().orElse(this.entity.getPosition())));
             if (distance < 1F) {
                 this.entity.setDeltaMovement(0, 0, 0);
-                this.entity.getNavigator().stop();
+                this.entity.getNavigation().stop();
             }
         }
     }
 
     @Override
     public boolean canContinueToUse() {
-        return !this.entity.getNavigator().noPath();
+        return !this.entity.getNavigation().noPath();
     }
 
     @Override
     public void start() {
-        this.entity.getNavigator().setPath(this.entity.getNavigator().getPathToPos(
+        this.entity.getNavigation().setPath(this.entity.getNavigation().getPathToPos(
                 this.entity.getWorkAreaPosition().orElse(this.entity.getPosition()), 0), 1.0f);
         super.start();
     }

@@ -25,9 +25,9 @@ package com.github.klikli_dev.occultism.common.level.multichunk;
 import com.github.klikli_dev.occultism.util.BiomeUtil;
 import com.github.klikli_dev.occultism.util.Math3DUtil;
 import com.mojang.serialization.Codec;
-import net.minecraft.level.ISeedReader;
+import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.level.biome.Biome;
-import net.minecraft.level.gen.ChunkGenerator;
+import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.level.gen.feature.Feature;
 import net.minecraft.util.ResourceKey;
 import net.minecraft.util.SharedSeedRandom;
@@ -55,7 +55,7 @@ public class MultiChunkFeature extends Feature<MultiChunkFeatureConfig> {
 
     //region Overrides
     @Override
-    public boolean generate(ISeedReader reader, ChunkGenerator generator, Random rand, BlockPos pos,
+    public boolean generate(WorldGenLevel reader, ChunkGenerator generator, Random rand, BlockPos pos,
                             MultiChunkFeatureConfig config) {
 
         //check biome type blacklist
@@ -84,7 +84,7 @@ public class MultiChunkFeature extends Feature<MultiChunkFeatureConfig> {
     //endregion Overrides
 
     //region Methods
-    protected List<BlockPos> getRootPositions(ISeedReader reader, ChunkGenerator generator, SharedSeedRandom random,
+    protected List<BlockPos> getRootPositions(WorldGenLevel reader, ChunkGenerator generator, SharedSeedRandom random,
                                               ChunkPos generatingChunk,
                                               MultiChunkFeatureConfig config) {
         ArrayList<BlockPos> result = new ArrayList<>(1);

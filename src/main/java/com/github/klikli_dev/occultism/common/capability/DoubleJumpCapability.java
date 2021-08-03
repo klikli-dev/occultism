@@ -23,17 +23,17 @@
 package com.github.klikli_dev.occultism.common.capability;
 
 import com.github.klikli_dev.occultism.registry.OccultismCapabilities;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.INBT;
 import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
+import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.common.util.LazyOptional;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class DoubleJumpCapability {
+public class DoubleJumpCapability implements INBTSerializable<CompoundTag> {
 
     //region Fields
     private int jumps = 0;
@@ -59,32 +59,18 @@ public class DoubleJumpCapability {
         this.jumps++;
     }
 
-    public CompoundTag write(CompoundTag compound) {
+    @Override
+    public CompoundTag serializeNBT() {
+        CompoundTag compound = new CompoundTag();
         compound.putInt("jumps", this.jumps);
         return compound;
     }
 
-    public CompoundTag read(CompoundTag compound) {
-        this.jumps = compound.getInt("jumps");
-        return compound;
+    @Override
+    public void deserializeNBT(CompoundTag nbt) {
+        this.jumps = nbt.getInt("jumps");
     }
     //endregion Methods
-
-    public static class Storage implements Capability.IStorage<DoubleJumpCapability> {
-        //region Overrides
-        @Override
-        public INBT writeNBT(Capability<DoubleJumpCapability> capability, DoubleJumpCapability instance,
-                             Direction facing) {
-            return instance.write(new CompoundTag());
-        }
-
-        @Override
-        public void readNBT(Capability<DoubleJumpCapability> capability, DoubleJumpCapability instance, Direction side,
-                            INBT nbt) {
-            instance.read((CompoundTag) nbt);
-        }
-        //endregion Overrides
-    }
 
     public static class Dispatcher implements ICapabilitySerializable<CompoundTag> {
 
@@ -105,17 +91,14 @@ public class DoubleJumpCapability {
 
         @Override
         public CompoundTag serializeNBT() {
-            CompoundTag nbt = new CompoundTag();
-            this.doubleJumpCapability.ifPresent(capability -> {
-                capability.write(nbt);
-            });
-            return nbt;
+            return this.doubleJumpCapability.map(DoubleJumpCapability::serializeNBT).orElse(new CompoundTag());
         }
 
         @Override
         public void deserializeNBT(CompoundTag nbt) {
-            this.doubleJumpCapability.ifPresent(capability -> capability.read(nbt));
+            this.doubleJumpCapability.ifPresent(capability -> capability.deserializeNBT(nbt));
         }
+
         //endregion Overrides
 
     }

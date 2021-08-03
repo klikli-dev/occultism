@@ -38,7 +38,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.inventory.container.MenuProvider;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -119,14 +118,14 @@ public class StableWormholeBlockEntity extends NetworkedBlockEntity implements I
         if (this.linkedStorageControllerPosition != null) {
             BlockEntity blockEntity = BlockEntityUtil.get(this.level,
                     this.linkedStorageControllerPosition);
-            if (BlockEntity instanceof IStorageController)
-                return (IStorageController) BlockEntity;
+            if (blockEntity instanceof IStorageController controller)
+                return controller;
             else if(!this.level.isClientSide){
                 //only reset the storage controller position if we are on logical server -> that means the position is not accessible.
                 //if we are on logical client it simply means we are out of render range, so we do not reset the pos
                 //resetting it would cause issues with e.g. stable wormhole
                 this.linkedStorageControllerPosition = null;
-                this.level.setBlockState(this.pos, this.getBlockState().with(StableWormholeBlock.LINKED, false), 2);
+                this.level.setBlock(this.getBlockPos(), this.getBlockState().setValue(StableWormholeBlock.LINKED, false), 2);
             }
         }
         return null;
@@ -167,13 +166,13 @@ public class StableWormholeBlockEntity extends NetworkedBlockEntity implements I
             for (int i = 0; i < matrixNbt.size(); i++) {
                 CompoundTag stackTag = matrixNbt.getCompound(i);
                 int slot = stackTag.getByte("slot");
-                ItemStack s = ItemStack.read(stackTag);
+                ItemStack s = ItemStack.of(stackTag);
                 this.matrix.put(slot, s);
             }
         }
 
         if (compound.contains("orderStack"))
-            this.orderStack = ItemStack.read(compound.getCompound("orderStack"));
+            this.orderStack = ItemStack.of(compound.getCompound("orderStack"));
 
         super.loadNetwork(compound);
     }
@@ -191,14 +190,14 @@ public class StableWormholeBlockEntity extends NetworkedBlockEntity implements I
             if (this.matrix.get(i) != null && !this.matrix.get(i).isEmpty()) {
                 CompoundTag stackTag = new CompoundTag();
                 stackTag.putByte("slot", (byte) i);
-                this.matrix.get(i).write(stackTag);
+                this.matrix.get(i).save(stackTag);
                 matrixNbt.add(stackTag);
             }
         }
         compound.put("matrix", matrixNbt);
 
         if (!this.orderStack.isEmpty())
-            compound.put("orderStack", this.orderStack.write(new CompoundTag()));
+            compound.put("orderStack", this.orderStack.save(new CompoundTag()));
 
         return super.saveNetwork(compound);
     }

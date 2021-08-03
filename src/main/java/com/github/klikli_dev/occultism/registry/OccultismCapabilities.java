@@ -49,9 +49,9 @@ public class OccultismCapabilities {
     //region Static Methods
     public static void commonSetup(final FMLCommonSetupEvent event) {
         CapabilityManager.INSTANCE
-                .register(DoubleJumpCapability.class, new DoubleJumpCapability.Storage(), DoubleJumpCapability::new);
+                .register(DoubleJumpCapability.class);
         CapabilityManager.INSTANCE
-                .register(FamiliarSettingsCapability.class, new FamiliarSettingsCapability.Storage(), FamiliarSettingsCapability::new);
+                .register(FamiliarSettingsCapability.class);
     }
 
     public static void onPlayerClone(final PlayerEvent.Clone event) {

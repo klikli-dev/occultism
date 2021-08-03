@@ -27,15 +27,16 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.ArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import net.minecraft.command.CommandSource;
-import net.minecraft.command.Commands;
+import net.minecraft.commands.CommandSource;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.commands.Commands;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 
-public class NbtCommand implements Command<CommandSource> {
+public class NbtCommand implements Command<CommandSourceStack> {
 
     //region Fields
     private static final NbtCommand CMD = new NbtCommand();
@@ -43,19 +44,22 @@ public class NbtCommand implements Command<CommandSource> {
 
     //region Overrides
     @Override
-    public int run(CommandContext<CommandSource> context) throws CommandSyntaxException {
-        ServerPlayer player = context.getSource().asPlayer();
+    public int run(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
+        ServerPlayer player = context.getSource().getPlayerOrException();
         ItemStack heldItem = player.getItemInHand(InteractionHand.MAIN_HAND);
-        Component nbtText = heldItem.isEmpty() ? new TextComponent("{}") : heldItem.getOrCreateTag().toFormattedComponent();
-        context.getSource().sendFeedback(nbtText, false);
+
+        //TODO: Verify if the new code is an appropriate replacement of the old
+        // Component nbtText = heldItem.isEmpty() ? new TextComponent("{}") : heldItem.getOrCreateTag().getPrettyDisplay();
+        Component nbtText = heldItem.isEmpty() ? new TextComponent("{}") : new TextComponent(heldItem.getOrCreateTag().getAsString());
+        context.getSource().sendSuccess(nbtText, false);
         return 0;
     }
     //endregion Overrides
 
     //region Static Methods
-    public static ArgumentBuilder<CommandSource, ?> register(CommandDispatcher<CommandSource> dispatcher) {
+    public static ArgumentBuilder<CommandSourceStack, ?> register(CommandDispatcher<CommandSourceStack> dispatcher) {
         return Commands.literal("nbt")
-                       .requires(cs -> cs.hasPermissionLevel(0))
+                       .requires(cs -> cs.hasPermission(0))
                        .executes(CMD);
     }
     //endregion Static Methods

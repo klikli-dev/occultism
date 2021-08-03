@@ -38,8 +38,11 @@ import net.minecraft.level.gen.placement.TopSolidRangeConfig;
 import net.minecraft.level.gen.trunkplacer.StraightTrunkPlacer;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.WorldGenRegistries;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.event.level.BiomeLoadingEvent;
+import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -57,8 +60,8 @@ public class WorldGenHandler {
 
     public static ConfiguredFeature<?, ?> UNDERGROUND_GROVE;
 
-    public static ConfiguredFeature<BaseTreeFeatureConfig, ?> OTHERWORLD_TREE_NATURAL;
-    public static ConfiguredFeature<BaseTreeFeatureConfig, ?> OTHERWORLD_TREE;
+    public static ConfiguredFeature<TreeConfiguration, ?> OTHERWORLD_TREE_NATURAL;
+    public static ConfiguredFeature<TreeConfiguration, ?> OTHERWORLD_TREE;
     //endregion Fields
 
     //region Static Methods

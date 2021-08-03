@@ -26,13 +26,13 @@ import com.github.klikli_dev.occultism.common.level.multichunk.IMultiChunkSubFea
 import com.github.klikli_dev.occultism.common.level.multichunk.MultiChunkFeatureConfig;
 import com.github.klikli_dev.occultism.util.Math3DUtil;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.level.ISeedReader;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.level.IWorld;
-import net.minecraft.level.gen.ChunkGenerator;
+import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.core.Direction;
 import net.minecraft.util.SharedSeedRandom;
-import net.minecraft.util.math.AABB;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.Mth;
@@ -80,7 +80,7 @@ public class SphericalCaveSubFeature implements IMultiChunkSubFeature {
 
     //region Overrides
     @Override
-    public boolean generate(ISeedReader reader, ChunkGenerator generator, Random rand, BlockPos rootPosition,
+    public boolean generate(WorldGenLevel reader, ChunkGenerator generator, Random rand, BlockPos rootPosition,
                             AABB bounds, MultiChunkFeatureConfig config) {
         //can never generate in daylight
         if (reader.canBlockSeeSky(rootPosition))
@@ -117,7 +117,7 @@ public class SphericalCaveSubFeature implements IMultiChunkSubFeature {
         return new Sphere(position, radius);
     }
 
-    protected void hollowOutSphere(ISeedReader reader, Random rand, BlockPos center, int radius, AABB bounds) {
+    protected void hollowOutSphere(WorldGenLevel reader, Random rand, BlockPos center, int radius, AABB bounds) {
         int j = radius;
         int k = radius / 2;
         int l = radius;
@@ -135,7 +135,7 @@ public class SphericalCaveSubFeature implements IMultiChunkSubFeature {
         });
     }
 
-    protected void decorateSphere(ISeedReader reader, ChunkGenerator generator, Random rand,
+    protected void decorateSphere(WorldGenLevel reader, ChunkGenerator generator, Random rand,
                                   BlockPos center, int radius, AABB bounds) {
         int j = radius;
         //int k = radius / 2;

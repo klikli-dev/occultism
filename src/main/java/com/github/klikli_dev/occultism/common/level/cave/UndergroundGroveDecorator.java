@@ -25,15 +25,15 @@ package com.github.klikli_dev.occultism.common.level.cave;
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.level.WorldGenHandler;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.VineBlock;
-import net.minecraft.level.ISeedReader;
-import net.minecraft.level.gen.ChunkGenerator;
-import net.minecraft.level.gen.feature.BaseTreeFeatureConfig;
-import net.minecraft.level.gen.feature.ConfiguredFeature;
-import net.minecraft.core.Direction;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.VineBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.chunk.ChunkGenerator;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 
 import java.util.Random;
 
@@ -49,43 +49,44 @@ public class UndergroundGroveDecorator extends CaveDecorator {
     //region Overrides
 
     @Override
-    public void finalFloorPass(ISeedReader seedReader, ChunkGenerator generator, Random rand,
+    public void finalFloorPass(WorldGenLevel seedReader, ChunkGenerator generator, Random rand,
                                BlockPos pos) {
         if (seedReader.getBlockState(pos).getBlock() == Blocks.GRASS_BLOCK &&
-            rand.nextFloat() < Occultism.COMMON_CONFIG.worldGen.undergroundGroveGen.grassChance.get())
-            seedReader.setBlockState(pos.above(), Blocks.GRASS.defaultBlockState(), 2);
+                rand.nextFloat() < Occultism.COMMON_CONFIG.worldGen.undergroundGroveGen.grassChance.get())
+            seedReader.setBlock(pos.above(), Blocks.GRASS.defaultBlockState(), 2);
 
         if (rand.nextFloat() < Occultism.COMMON_CONFIG.worldGen.undergroundGroveGen.treeChance.get()) {
-            ConfiguredFeature<BaseTreeFeatureConfig, ?> treeFeature = WorldGenHandler.OTHERWORLD_TREE_NATURAL;
-            treeFeature.config.forcePlacement();
-            treeFeature.generate(seedReader, generator, rand, pos.up());
+            ConfiguredFeature<TreeConfiguration, ?> treeFeature = WorldGenHandler.OTHERWORLD_TREE_NATURAL;
+            //TODO: check if trees grow in caves
+            //  treeFeature.config.forcePlacement();
+            treeFeature.place(seedReader, generator, rand, pos.above());
         }
     }
 
     @Override
-    public void finalCeilingPass(ISeedReader seedReader, ChunkGenerator generator, Random rand,
+    public void finalCeilingPass(WorldGenLevel seedReader, ChunkGenerator generator, Random rand,
                                  BlockPos pos) {
         if (rand.nextFloat() < Occultism.COMMON_CONFIG.worldGen.undergroundGroveGen.ceilingLightChance.get()) {
-            seedReader.setBlockState(pos, Blocks.GLOWSTONE.defaultBlockState(), 2);
+            seedReader.setBlock(pos, Blocks.GLOWSTONE.defaultBlockState(), 2);
         }
         super.finalCeilingPass(seedReader, generator, rand, pos);
     }
 
     @Override
-    public void finalWallPass(ISeedReader seedReader, ChunkGenerator generator, Random rand,
+    public void finalWallPass(WorldGenLevel seedReader, ChunkGenerator generator, Random rand,
                               BlockPos pos) {
         for (Direction facing : Direction.Plane.HORIZONTAL) {
-            BlockPos offset = pos.offset(facing);
-            BlockPos up = offset.up();
+            BlockPos offset = pos.relative(facing);
+            BlockPos up = offset.above();
             if (this.isCeiling(seedReader, up, seedReader.getBlockState(up)) &&
-                rand.nextFloat() < Occultism.COMMON_CONFIG.worldGen.undergroundGroveGen.vineChance.get()) {
+                    rand.nextFloat() < Occultism.COMMON_CONFIG.worldGen.undergroundGroveGen.vineChance.get()) {
                 BlockState stateAt = seedReader.getBlockState(offset);
                 boolean spawnedVine = false;
-                while (stateAt.getBlock().isAir(stateAt, seedReader, offset) && offset.getY() > 0) {
-                    seedReader.setBlockState(offset,
-                            Blocks.VINE.defaultBlockState().with(VineBlock.getPropertyFor(facing.getOpposite()), true),
+                while (stateAt.isAir() && offset.getY() > 0) {
+                    seedReader.setBlock(offset,
+                            Blocks.VINE.defaultBlockState().setValue(VineBlock.getPropertyForFace(facing.getOpposite()), true),
                             2);
-                    offset = offset.down();
+                    offset = offset.below();
                     stateAt = seedReader.getBlockState(offset);
                     spawnedVine = true;
                 }

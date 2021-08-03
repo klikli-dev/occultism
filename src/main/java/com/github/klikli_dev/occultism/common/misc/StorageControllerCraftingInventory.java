@@ -26,7 +26,7 @@ import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.core.NonNullList;
-import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
+import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
 
 import java.lang.reflect.Field;
 import java.util.List;
@@ -62,7 +62,7 @@ public class StorageControllerCraftingInventory extends CraftingContainer {
         this.disableEvents = true;
         for (int i = 0; i < this.getWidth() * this.getHeight(); i++) {
             if (matrix.get(i) != null && !matrix.get(i).isEmpty())
-                this.setInventorySlotContents(i, matrix.get(i));
+                this.setItem(i, matrix.get(i));
         }
         this.disableEvents = false;
     }
@@ -72,7 +72,7 @@ public class StorageControllerCraftingInventory extends CraftingContainer {
         this.disableEvents = true;
         for (int i = 0; i < matrix.size(); i++) {
             if (matrix.get(i) != null && !matrix.get(i).isEmpty())
-                this.setInventorySlotContents(i, matrix.get(i));
+                this.setItem(i, matrix.get(i));
         }
         this.disableEvents = false;
     }
@@ -82,7 +82,7 @@ public class StorageControllerCraftingInventory extends CraftingContainer {
 
     @SuppressWarnings("unchecked")
     @Override
-    public void setInventorySlotContents(int index, ItemStack stack) {
+    public void setItem(int index, ItemStack stack) {
         try {
             ((NonNullList<ItemStack>) stackListField.get(this)).set(index, stack);
             //only notify if events are enabled

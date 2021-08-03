@@ -128,7 +128,7 @@ public class ManageMachineJob extends SpiritJob {
     //region Overrides
     @Override
     public void init() {
-        this.entity.getNavigator().getNodeProcessor().setCanEnterDoors(true);
+        this.entity.getNavigation().getNodeProcessor().setCanEnterDoors(true);
         ((GroundPathNavigator) this.entity.getNavigator()).setBreakDoors(true);
         this.entity.goalSelector.addGoal(3, this.manageMachineGoal = new ManageMachineGoal(this.entity, this));
         this.entity.goalSelector.addGoal(4,
@@ -140,7 +140,7 @@ public class ManageMachineJob extends SpiritJob {
 
     @Override
     public void cleanup() {
-        this.entity.getNavigator().getNodeProcessor().setCanEnterDoors(false);
+        this.entity.getNavigation().getNodeProcessor().setCanEnterDoors(false);
         ((GroundPathNavigator) this.entity.getNavigator()).setBreakDoors(false);
         this.entity.goalSelector.removeGoal(this.depositItemsGoal);
         this.entity.goalSelector.removeGoal(this.manageMachineGoal);

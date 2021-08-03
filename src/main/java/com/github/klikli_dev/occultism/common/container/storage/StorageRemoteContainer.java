@@ -180,7 +180,7 @@ public class StorageRemoteContainer extends StorageControllerContainerBase {
         ListTag nbtTagList = stack.getTag().getList("craftingMatrix", Constants.NBT.TAG_COMPOUND);
 
         for (int i = 0; i < nbtTagList.size(); i++) {
-            craftingMatrix.set(i, ItemStack.read(nbtTagList.getCompound(i)));
+            craftingMatrix.set(i, ItemStack.of(nbtTagList.getCompound(i)));
         }
 
         return craftingMatrix;
@@ -190,7 +190,7 @@ public class StorageRemoteContainer extends StorageControllerContainerBase {
         if (!stack.getOrCreateTag().contains("orderStack"))
             return ItemStack.EMPTY;
 
-        return ItemStack.read(stack.getTag().getCompound("orderStack"));
+        return ItemStack.of(stack.getTag().getCompound("orderStack"));
     }
     //endregion Methods
 }

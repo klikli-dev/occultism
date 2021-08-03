@@ -94,7 +94,7 @@ public class DepositItemsGoal extends PausableGoal {
     }
 
     public void stop() {
-        this.entity.getNavigator().stop();
+        this.entity.getNavigation().stop();
         this.resetTarget();
     }
 
@@ -115,11 +115,11 @@ public class DepositItemsGoal extends PausableGoal {
 
                 if (distance < accessDistance) {
                     //stop moving while taking out
-                    this.entity.getNavigator().stop();
+                    this.entity.getNavigation().stop();
                 } else {
                     //continue moving
                     BlockPos moveTarget = this.getMoveTarget();
-                    this.entity.getNavigator().setPath(this.entity.getNavigator().getPathToPos(moveTarget, 0), 1.0f);
+                    this.entity.getNavigation().setPath(this.entity.getNavigation().getPathToPos(moveTarget, 0), 1.0f);
                 }
 
                 //when close enough insert item

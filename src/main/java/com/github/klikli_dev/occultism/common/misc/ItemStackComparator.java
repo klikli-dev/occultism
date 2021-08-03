@@ -102,7 +102,7 @@ public class ItemStackComparator implements IItemStackComparator {
     //region Methods
     public void read(CompoundTag compound) {
         CompoundTag nbt = compound.getCompound("stack");
-        this.filterStack = ItemStack.read(nbt);
+        this.filterStack = ItemStack.of(nbt);
         this.matchNbt = compound.getBoolean("matchNbt");
     }
 

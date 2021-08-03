@@ -27,8 +27,8 @@ import com.github.klikli_dev.occultism.common.command.DebugAICommand;
 import com.github.klikli_dev.occultism.common.command.NbtCommand;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.tree.LiteralCommandNode;
-import net.minecraft.command.CommandSource;
-import net.minecraft.command.Commands;
+import net.minecraft.commands.CommandSource;
+import net.minecraft.commands.Commands;
 
 public class OccultismCommands {
     //region Static Methods

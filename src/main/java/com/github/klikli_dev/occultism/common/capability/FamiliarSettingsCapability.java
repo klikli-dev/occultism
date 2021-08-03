@@ -23,17 +23,17 @@
 package com.github.klikli_dev.occultism.common.capability;
 
 import com.github.klikli_dev.occultism.registry.OccultismCapabilities;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.INBT;
 import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
+import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.common.util.LazyOptional;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class FamiliarSettingsCapability {
+public class FamiliarSettingsCapability implements INBTSerializable<CompoundTag> {
 
     //region Fields
     private boolean greedyEnabled = true;
@@ -54,26 +54,13 @@ public class FamiliarSettingsCapability {
 
     /**
      * Clones the settings from an existing settings instance into this instance
+     *
      * @param settings the existing settings instance.
      */
     public void clone(FamiliarSettingsCapability settings) {
         this.greedyEnabled = settings.greedyEnabled;
         this.otherworldBirdEnabled = settings.otherworldBirdEnabled;
         this.batEnabled = settings.batEnabled;
-    }
-
-    public CompoundTag write(CompoundTag compound) {
-        compound.putBoolean("greedyEnabled", this.greedyEnabled);
-        compound.putBoolean("otherworldBirdEnabled", this.otherworldBirdEnabled);
-        compound.putBoolean("batEnabled", this.batEnabled);
-        return compound;
-    }
-
-    public CompoundTag read(CompoundTag compound) {
-        this.greedyEnabled = compound.getBoolean("greedyEnabled");
-        this.otherworldBirdEnabled = compound.getBoolean("otherworldBirdEnabled");
-        this.batEnabled = compound.getBoolean("batEnabled");
-        return compound;
     }
 
     public boolean isGreedyEnabled() {
@@ -99,23 +86,24 @@ public class FamiliarSettingsCapability {
     public void setBatEnabled(boolean batEnabled) {
         this.batEnabled = batEnabled;
     }
+
+    @Override
+    public CompoundTag serializeNBT() {
+        CompoundTag compound = new CompoundTag();
+        compound.putBoolean("greedyEnabled", this.greedyEnabled);
+        compound.putBoolean("otherworldBirdEnabled", this.otherworldBirdEnabled);
+        compound.putBoolean("batEnabled", this.batEnabled);
+        return compound;
+    }
+
+    @Override
+    public void deserializeNBT(CompoundTag nbt) {
+        this.greedyEnabled = nbt.getBoolean("greedyEnabled");
+        this.otherworldBirdEnabled = nbt.getBoolean("otherworldBirdEnabled");
+        this.batEnabled = nbt.getBoolean("batEnabled");
+    }
     //endregion Methods
 
-    public static class Storage implements Capability.IStorage<FamiliarSettingsCapability> {
-        //region Overrides
-        @Override
-        public INBT writeNBT(Capability<FamiliarSettingsCapability> capability, FamiliarSettingsCapability instance,
-                             Direction facing) {
-            return instance.write(new CompoundTag());
-        }
-
-        @Override
-        public void readNBT(Capability<FamiliarSettingsCapability> capability, FamiliarSettingsCapability instance, Direction side,
-                            INBT nbt) {
-            instance.read((CompoundTag) nbt);
-        }
-        //endregion Overrides
-    }
 
     public static class Dispatcher implements ICapabilitySerializable<CompoundTag> {
 
@@ -136,16 +124,12 @@ public class FamiliarSettingsCapability {
 
         @Override
         public CompoundTag serializeNBT() {
-            CompoundTag nbt = new CompoundTag();
-            this.familiarSettingsCapability.ifPresent(capability -> {
-                capability.write(nbt);
-            });
-            return nbt;
+            return this.familiarSettingsCapability.map(FamiliarSettingsCapability::serializeNBT).orElse(new CompoundTag());
         }
 
         @Override
         public void deserializeNBT(CompoundTag nbt) {
-            this.familiarSettingsCapability.ifPresent(capability -> capability.read(nbt));
+            this.familiarSettingsCapability.ifPresent(capability -> capability.deserializeNBT(nbt));
         }
         //endregion Overrides
 

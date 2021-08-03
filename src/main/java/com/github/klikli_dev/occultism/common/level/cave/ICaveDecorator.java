@@ -20,21 +20,19 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.github.klikli_dev.occultism.common.level.multichunk;
+package com.github.klikli_dev.occultism.common.level.cave;
 
-import net.minecraft.level.ISeedReader;
-import net.minecraft.level.gen.ChunkGenerator;
-import net.minecraft.util.math.AABB;
+import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.core.BlockPos;
 
 import java.util.Random;
 
-public interface IMultiChunkSubFeature {
-
+public interface ICaveDecorator {
     //region Methods
+    void finalPass(WorldGenLevel seedReader, ChunkGenerator generator, Random rand,
+                   CaveDecoratordata data);
 
-    boolean generate(ISeedReader reader, ChunkGenerator generator, Random rand, BlockPos rootPosition,
-                     AABB bounds,
-                     MultiChunkFeatureConfig config);
-    //endregion Methods
+    void fill(WorldGenLevel seedReader, ChunkGenerator generator, Random rand,
+              BlockPos pos, CaveDecoratordata data);
 }

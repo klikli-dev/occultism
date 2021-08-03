@@ -28,11 +28,11 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.ArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import net.minecraft.command.CommandSource;
-import net.minecraft.command.Commands;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.TextComponent;
 
-public class DebugAICommand implements Command<CommandSource> {
+public class DebugAICommand implements Command<CommandSourceStack> {
 
     //region Fields
     private static final DebugAICommand CMD = new DebugAICommand();
@@ -41,18 +41,18 @@ public class DebugAICommand implements Command<CommandSource> {
 
     //region Overrides
     @Override
-    public int run(CommandContext<CommandSource> context) throws CommandSyntaxException {
+    public int run(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
         Occultism.DEBUG.debugAI = !Occultism.DEBUG.debugAI;
-        context.getSource().sendFeedback(new TextComponent("AI Debugging enabled: " + Occultism.DEBUG.debugAI), false);
+        context.getSource().sendSuccess(new TextComponent("AI Debugging enabled: " + Occultism.DEBUG.debugAI), false);
         return 0;
     }
     //endregion Overrides
 
     //region Static Methods
-    public static ArgumentBuilder<CommandSource, ?> register(CommandDispatcher<CommandSource> dispatcher) {
+    public static ArgumentBuilder<CommandSourceStack, ?> register(CommandDispatcher<CommandSourceStack> dispatcher) {
         return Commands.literal("ai")
-                       .requires(cs -> cs.hasPermissionLevel(1))
-                       .executes(CMD);
+                .requires(cs -> cs.hasPermission(1))
+                .executes(CMD);
     }
     //endregion Static Methods
 }

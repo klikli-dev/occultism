@@ -84,7 +84,7 @@ public class MessageSetRecipe extends MessageBase {
             //parse the slots
             ListTag invList = this.nbt.getList("s" + slot, Constants.NBT.TAG_COMPOUND);
             for (int i = 0; i < invList.size(); i++) {
-                ItemStack s = ItemStack.read(invList.getCompound(i));
+                ItemStack s = ItemStack.of(invList.getCompound(i));
                 map.put(i, s);
             }
 

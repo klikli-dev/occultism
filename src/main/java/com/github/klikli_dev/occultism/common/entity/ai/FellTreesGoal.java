@@ -75,7 +75,7 @@ public class FellTreesGoal extends Goal {
     }
 
     public void stop() {
-        this.entity.getNavigator().stop();
+        this.entity.getNavigation().stop();
         this.targetBlock = null;
         this.moveTarget = null;
         this.resetTarget();
@@ -85,8 +85,8 @@ public class FellTreesGoal extends Goal {
     public void tick() {
         if (this.targetBlock != null) {
 
-            this.entity.getNavigator().setPath(
-                    this.entity.getNavigator().getPathToPos(this.moveTarget, 0), 1.0f);
+            this.entity.getNavigation().setPath(
+                    this.entity.getNavigation().getPathToPos(this.moveTarget, 0), 1.0f);
 
             if (Occultism.DEBUG.debugAI) {
                 OccultismPackets.sendToTracking(this.entity, new MessageSelectBlock(this.targetBlock, 5000, 0xffffff));
@@ -100,7 +100,7 @@ public class FellTreesGoal extends Goal {
                     if (distance < 1F) {
                         //Stop moving if very close
                         this.entity.setDeltaMovement(0, 0, 0);
-                        this.entity.getNavigator().stop();
+                        this.entity.getNavigation().stop();
                     }
 
                     this.updateBreakBlock();

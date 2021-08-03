@@ -22,12 +22,12 @@
 
 package com.github.klikli_dev.occultism.common.data;
 
-import net.minecraft.util.IStringSerializable;
+import net.minecraft.util.StringRepresentable;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public enum ChalkGlyphType implements IStringSerializable {
+public enum ChalkGlyphType implements StringRepresentable {
 
     /**
      * The white chalk.
@@ -70,16 +70,15 @@ public enum ChalkGlyphType implements IStringSerializable {
     }
     //endregion Getter / Setter
 
-    //region Overrides
     @Override
-    public String getString() {
+    public String getSerializedName() {
         return this.name().toLowerCase();
     }
-    //endregion Overrides
 
     //region Static Methods
     public static ChalkGlyphType get(int value) {
         return lookup.get(value);
     }
+
     //endregion Static Methods
 }

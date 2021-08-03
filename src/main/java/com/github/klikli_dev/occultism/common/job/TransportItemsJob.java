@@ -30,7 +30,7 @@ import net.minecraft.world.entity.ai.goal.OpenDoorGoal;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.inventory.container.MenuProvider;
+import net.minecraft.world.MenuProvider;
 import net.minecraft.pathfinding.GroundPathNavigator;
 import net.minecraft.network.chat.Component;
 
@@ -60,7 +60,7 @@ public class TransportItemsJob extends SpiritJob implements MenuProvider {
 
     @Override
     public void init() {
-        this.entity.getNavigator().getNodeProcessor().setCanEnterDoors(true);
+        this.entity.getNavigation().getNodeProcessor().setCanEnterDoors(true);
         ((GroundPathNavigator) this.entity.getNavigator()).setBreakDoors(true);
         this.entity.goalSelector.addGoal(3, this.depositItemsGoal = new DepositItemsGoal(this.entity));
         this.entity.goalSelector.addGoal(4, this.extractItemsGoal = new ExtractItemsGoal(this.entity));
@@ -69,7 +69,7 @@ public class TransportItemsJob extends SpiritJob implements MenuProvider {
 
     @Override
     public void cleanup() {
-        this.entity.getNavigator().getNodeProcessor().setCanEnterDoors(false);
+        this.entity.getNavigation().getNodeProcessor().setCanEnterDoors(false);
         ((GroundPathNavigator) this.entity.getNavigator()).setBreakDoors(false);
         this.entity.goalSelector.removeGoal(this.depositItemsGoal);
         this.entity.goalSelector.removeGoal(this.extractItemsGoal);

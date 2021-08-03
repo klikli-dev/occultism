@@ -134,7 +134,7 @@ public class StorageControllerItemStackHandler extends ItemStackHandler {
             int slot = itemTags.getInt("Slot");
 
             if (slot >= 0 && slot < this.stacks.size()) {
-                ItemStack stack = ItemStack.read(itemTags);
+                ItemStack stack = ItemStack.of(itemTags);
                 stack.setCount(itemTags.getInt("RealSize"));
                 this.stacks.set(slot, stack);
             }

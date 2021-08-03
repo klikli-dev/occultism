@@ -23,7 +23,7 @@
 package com.github.klikli_dev.occultism.common.ritual.pentacle;
 
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
-import net.minecraft.block.Blocks;
+import net.minecraft.world.level.block.Blocks;
 import vazkii.patchouli.api.IMultiblock;
 
 import java.util.Arrays;

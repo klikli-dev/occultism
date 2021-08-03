@@ -25,10 +25,10 @@ package com.github.klikli_dev.occultism.common.entity.ai;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.github.klikli_dev.occultism.exceptions.ItemHandlerMissingException;
 import com.google.common.base.Predicate;
-import net.minecraft.world.entity.ai.goal.TargetGoal;
+import net.minecraft.world.entity.ai.goal.target.TargetGoal;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.util.math.AABB;
+import net.minecraft.world.phys.AABB;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
 
@@ -64,7 +64,7 @@ public class PickupItemsGoal extends TargetGoal {
                 ItemStack stack = item.getItem();
                 return !stack.isEmpty() && entity.canPickupItem(item) && ItemHandlerHelper.insertItemStacked(
                         entity.itemStackHandler.orElseThrow(ItemHandlerMissingException::new), stack, true).getCount() <
-                                                                          stack.getCount();
+                        stack.getCount();
             }
             //endregion Overrides
         };
@@ -78,25 +78,24 @@ public class PickupItemsGoal extends TargetGoal {
     public boolean canUse() {
 
         //fire on a slow tick based on chance
-        long worldTime = this.goalOwner.level.getGameTime() % 10;
-        if (this.entity.getIdleTime() >= 100 && worldTime != 0) {
+        long worldTime = this.mob.level.getGameTime() % 10;
+        if (this.entity.getNoActionTime() >= 100 && worldTime != 0) {
             return false;
         }
-        if (this.entity.getRNG().nextInt(this.executionChance) != 0 && worldTime != 0) {
+        if (this.entity.getRandom().nextInt(this.executionChance) != 0 && worldTime != 0) {
             return false;
         }
 
         //get work area, but only half height, we don't need full.
         int workAreaSize = this.entity.getWorkAreaSize().getValue();
         AABB targetBox = new AABB(-workAreaSize, -workAreaSize / 2.0, -workAreaSize, workAreaSize,
-                workAreaSize / 2.0, workAreaSize).offset(this.entity.getWorkAreaCenter());
+                workAreaSize / 2.0, workAreaSize).move(this.entity.getWorkAreaCenter());
 
-        List<ItemEntity> list = this.goalOwner.level
-                                        .getEntitiesWithinAABB(ItemEntity.class, targetBox, this.targetItemSelector);
+        List<ItemEntity> list = this.mob.level
+                .getEntitiesOfClass(ItemEntity.class, targetBox, this.targetItemSelector);
         if (list.isEmpty()) {
             return false;
-        }
-        else {
+        } else {
             list.sort(this.entitySorter);
             this.targetItem = list.get(0);
             return true;
@@ -107,14 +106,13 @@ public class PickupItemsGoal extends TargetGoal {
     public void tick() {
         if (this.targetItem == null || !this.targetItem.isAlive()) {
             this.stop();
-            this.goalOwner.getNavigator().stop();
-        }
-        else {
-            this.goalOwner.getNavigator().setPath(this.goalOwner.getNavigator().pathfind(this.targetItem, 0), 1.0f);
-            double distance = this.entity.getPositionVec().distanceTo(this.targetItem.getPositionVec());
+            this.mob.getNavigation().stop();
+        } else {
+            this.mob.getNavigation().moveTo(this.mob.getNavigation().createPath(this.targetItem, 0), 1.0f);
+            double distance = this.entity.position().distanceTo(this.targetItem.position());
             if (distance < 1F) {
                 this.entity.setDeltaMovement(0, 0, 0);
-                this.entity.getNavigator().stop();
+                this.entity.getNavigation().stop();
 
                 ItemStack duplicate = this.targetItem.getItem().copy();
                 ItemStackHandler handler = this.entity.itemStackHandler.orElseThrow(ItemHandlerMissingException::new);
@@ -128,12 +126,12 @@ public class PickupItemsGoal extends TargetGoal {
 
     @Override
     public boolean canContinueToUse() {
-        return !this.goalOwner.getNavigator().noPath();
+        return !this.mob.getNavigation().isDone();
     }
 
     @Override
     public void start() {
-        this.goalOwner.getNavigator().setPath(this.goalOwner.getNavigator().pathfind(this.targetItem, 0), 1.0f);
+        this.mob.getNavigation().moveTo(this.mob.getNavigation().createPath(this.targetItem, 0), 1.0f);
         super.start();
     }
     //endregion Overrides
