@@ -2,10 +2,11 @@
   "type": "occultism:spirit_trade",
   "ingredients": [
     {
-      "item": "minecraft:diamond"
+      "item": "minecraft:stone"
     }
   ],
   "result": {
-    "item": "minecraft:emerald"
+    "item": "occultism:otherstone",
+    "count": 2
   }
 }
