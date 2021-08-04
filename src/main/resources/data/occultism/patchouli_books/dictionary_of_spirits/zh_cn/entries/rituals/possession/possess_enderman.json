@@ -1,5 +1,5 @@
 {
-  "name": "Possessed Enderman",
+  "name": "被附身的末影人",
   "icon": "minecraft:ender_pearl",
   "category": "rituals/possession",
   "sortnum": 3,
@@ -7,19 +7,19 @@
     {
       "type": "entity",
       "entity": "occultism:possessed_enderman",
-      "text": "Drops: 1-3x $(item)Ender Pearl$()"
+      "text": "掉落：1-3x $(item)末影珍珠$()"
     },
     {
       "type": "summoning_sacrifice",
-      "heading": "Summoning",
-      "pentacle": "$(l:pentacles/possess_djinni)Ihagan's Enthrallment$(/l)",
+      "heading": "召唤",
+      "pentacle": "$(l:pentacles/possess_djinni)伊哈根奴役术$(/l)",
       "activation_item": "occultism:book_of_binding_bound_djinni",
-      "sacrifice": "Pig",
-      "ingredients": "$(li)1x $(item)Bone $()$(li)1x $(item)String  $()$(li)1x $(item)End Stone  $()$(li)1x $(item)Rotten Flesh  $()"
+      "sacrifice": "猪",
+      "ingredients": "$(li)1x $(item)骨头$()$(li)1x $(item)线$()$(li)1x $(item)末地石$()$(li)1x $(item)腐肉$()"
     },
     {
       "type": "text",
-      "text": "In this ritual an $(thing)Enderman$() is spawned using the life energy of a $(thing)pig$() and immediately possessed by the summoned $(thing)Djinni$(). The $(thing)Possessed Enderman$() will always drop at least one $(item)Ender Pearl$() when killed."
+      "text": "仪式中一只$(thing)末影人$()被利用$(thing)猪$()的生命能量生成，然后立即被召唤出的$(thing)巨灵$()附身。被杀死时，$(thing)被附身的末影人$()会至少掉落一颗$(item)末影珍珠$()。"
     },
     {
       "type": "text",

@@ -1,5 +1,5 @@
 {
-  "name": "Magic Lamps",
+  "name": "神灯",
   "icon": "occultism:magic_lamp_empty",
   "category": "misc",
   "sortnum": 30,
@@ -7,7 +7,7 @@
     {
       "type": "spotlight",
       "item": "occultism:magic_lamp_empty",
-      "text": "Magic lamps can keep spirits imprisoned in our world, without exposing them to essence decay. Unlike books of calling the spirit does not return to $(thing)The Other Place$(), which makes magic lamps a requirement whenever a spirit should actively work on it's own, while still under a measure of control by the summoner."
+      "text": "神灯能将魔灵禁锢在我们的世界，同时防止其灵髓衰退。与召唤之书不同，魔灵不会返回$(thing)异世界$()，因而适用于需要魔灵主动工作，但又想保留一定控制的情况。"
     },
     {
       "type": "empty",

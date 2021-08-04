@@ -1,5 +1,5 @@
 {
-  "name": "Storage Accessor",
+  "name": "存储访问器",
   "icon": "occultism:storage_remote",
   "category": "rituals/crafting",
   "sortnum": 24,
@@ -7,14 +7,14 @@
     {
       "type": "spotlight",
       "item": "occultism:storage_remote",
-      "text": "The $(item)Storage Accessor() can be linked to a $(item)Storage Actuator$(). The $(thing)Djinni$() bound to the accessor will then be able to access items from the actuator even from across dimensions."
+      "text": "$(item)存储访问器()可以与$(item)存储促动器$()链接。束缚于访问器中的$(thing)巨灵$()便能从任何地方访问促动器中的物品，甚至能跨维度。"
     },
     {
       "type": "summoning",
-      "heading": "Infusion",
-      "pentacle": "$(l:pentacles/craft_djinni)Strigeor's Higher Binding$(/l)",
+      "heading": "灌注",
+      "pentacle": "$(l:pentacles/craft_djinni)斯特里格高等束缚$(/l)",
       "activation_item": "occultism:book_of_binding_bound_djinni",
-      "ingredients": "$(li)1x $(item)Inert Storage Remote $()$(li)2x $(item)Ender Pearl $()$(li)1x $(item)Nether Quartz $()"
+      "ingredients": "$(li)1x $(item)惰性存储访问器$()$(li)2x $(item)末影珍珠$()$(li)1x $(item)下界石英$()"
     }
   ]
 }

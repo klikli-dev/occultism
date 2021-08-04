@@ -1,5 +1,5 @@
 {
-  "name": "Otherworld Goggles",
+  "name": "异界眼镜",
   "icon": "occultism:otherworld_goggles",
   "category": "rituals/crafting",
   "sortnum": 10,
@@ -7,19 +7,19 @@
     {
       "type": "spotlight",
       "item": "occultism:otherworld_goggles",
-      "text": "The $(item)Otherworld Goggles$() give the wearer permanent $(thing)Third Eye$(), allowing to view even blocks hidden from those partaking of $(l:getting_started/datura)Demons's Dream$(/l). They will, however, not give the ability to harvest otherworld materials, for this special tools or the use of Demon's Dream is required, depending on the type of material."
+      "text": "$(item)异界眼镜$()能持续给予穿戴者$(thing)第三只眼$()状态，甚至能使穿戴者看到$(l:getting_started/datura)魔鬼之梦$(/l)所不能及的方块。不过，眼镜不会给予穿戴者挖掘异界物质的能力，这种情况下，取决于物质的种类不同，要么需要使用特殊工具，要么需要魔鬼之梦。"
     },
     {
       "type": "spotlight",
       "item": "occultism:infused_lenses",
-      "text": "Otherworld Goggles make use of a Foliot bound into the lenses. The Foliot shares it's ability to view higher planes with the wearer, thus allowing them to see otherworld materials. The required summoning is relatively simple, making crafting these goggles a common apprentice summoner task."
+      "text": "异界眼镜利用的是束缚在镜片中的魔精。魔精会向穿戴者分享看见更高位面的能力，因而能让人看见异界物质。制作眼镜所需的召唤仪式较为简单，常常被作为新手入门时的召唤任务。"
     },
     {
       "type": "summoning",
-      "heading": "Infusion",
-      "pentacle": "$(l:pentacles/craft_foliot)Eziveus' Spectral Compulsion$(/l)",
+      "heading": "灌注",
+      "pentacle": "$(l:pentacles/craft_foliot)埃兹维斯灵体强迫$(/l)",
       "activation_item": "occultism:book_of_binding_bound_foliot",
-      "ingredients": "$(li)1x $(item)Lenses $()$(li)2x $(item)Silver Ingot $()$(li)1x $(item)Gold Ingot $()"
+      "ingredients": "$(li)1x $(item)镜片$()$(li)2x $(item)银锭$()$(li)1x $(item)金锭$()"
     },
     {
       "type": "empty",

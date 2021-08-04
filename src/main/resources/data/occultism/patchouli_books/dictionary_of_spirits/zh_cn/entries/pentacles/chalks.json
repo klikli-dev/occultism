@@ -1,52 +1,52 @@
 {
-  "name": "Chalk Types",
+  "name": "粉笔类型",
   "icon": "occultism:chalk_white",
   "category": "pentacles",
   "sortnum": 1,
   "pages": [
     {
       "type": "text",
-      "text": "Chalk is used to draw pentacle runes and define the pentacle shape. Different types of chalk are used for different purposes, as outlined on the next pages. Using a $(item)Brush$() is the easiest way to $(bold)remove$() chalk runes that have been incorrectly placed."
+      "text": "粉笔主要用于画出五芒星符文以及定义五芒星形状。不同类型的粉笔有不同作用，详细请见后面几页。$(bold)移除$()画错位置符文的最简单办法是使用$(item)粉笔擦$()。"
     },
     {
       "type": "spotlight",
       "item": "occultism:chalk_white",
-      "text": "White chalk is the most basic type of ritual chalk and is found in most pentacles. It has no special power beyond defining the shape of the pentacle."
+      "text": "白色粉笔是最基础的仪式粉笔，被用于大多数五芒星。这种粉笔除了定义五芒星形状外没有特殊功能。"
     },
     {
       "type": "text",
-      "title": "Uses of White Chalk",
-      "text": "$(li)$(l:pentacles/summon_foliot)Aviar's Circle $(/l)$()$(li)$(l:pentacles/craft_foliot)Eziveus' Spectral Compulsion$(/l)$()$(li)$(l:pentacles/possess_foliot)Hedyrin's Lure $(/l)$()$(li)$(l:pentacles/summon_djinni)Ophyx' Calling $(/l)$()$(li)$(l:pentacles/craft_djinni)Strigeor's Higher Binding $(/l)$()$(li)$(l:pentacles/possess_djinni)Ihagan's Enthrallment $(/l)$()$(li)$(l:pentacles/summon_afrit)Abras' Conjure $(/l)$()$(li)$(l:pentacles/craft_afrit)Sevira's Permanent Confinement $(/l)$()$(li)$(l:pentacles/summon_wiild_afrit)Abras' Open Conjure $(/l)$()$(li)$(l:pentacles/craft_marid)Uphyxes Inverted Tower $(/l)$()$(li)$(l:pentacles/summon_wild_greater_spirit)Osorin' Unbound Calling $(/l)$()"
+      "title": "使用白色粉笔的五芒星",
+      "text": "$(li)$(l:pentacles/summon_foliot)阿维亚之环$(/l)$()$(li)$(l:pentacles/craft_foliot)埃兹维斯灵体强迫$(/l)$()$(li)$(l:pentacles/possess_foliot)海德林诱惑术$(/l)$()$(li)$(l:pentacles/summon_djinni)欧菲克斯的呼唤$(/l)$()$(li)$(l:pentacles/craft_djinni)斯特里格高等束缚$(/l)$()$(li)$(l:pentacles/possess_djinni)伊哈根奴役术$(/l)$()$(li)$(l:pentacles/summon_afrit)阿巴拉斯召唤术$(/l)$()$(li)$(l:pentacles/craft_afrit)塞维拉永囚咒$(/l)$()$(li)$(l:pentacles/summon_wiild_afrit)阿巴拉斯开环召唤术$(/l)$()$(li)$(l:pentacles/craft_marid)修菲斯倒转之塔$(/l)$()$(li)$(l:pentacles/summon_wild_greater_spirit)奥索林的无约束呼唤$(/l)$()"
     },
     {
       "type": "spotlight",
       "item": "occultism:chalk_gold",
-      "text": "Golden chalk is used for binding runes, which allow to infuse a spirit into an item, or make it possess a living being."
+      "text": "金色粉笔用于绑定符文，从而使灵体灌注到物品或附身于生物。"
     },
     {
       "type": "text",
-      "title": "Uses of Golden Chalk",
-      "text": "$(li)$(l:pentacles/craft_foliot)Eziveus' Spectral Compulsion$(/l)$()$(li)$(l:pentacles/possess_foliot)Hedyrin's Lure $(/l)$()$(li)$(l:pentacles/craft_djinni)Strigeor's Higher Binding $(/l)$()$(li)$(l:pentacles/possess_djinni)Ihagan's Enthrallment $(/l)$()$(li)$(l:pentacles/craft_afrit)Sevira's Permanent Confinement $(/l)$()$(li)$(l:pentacles/craft_marid)Uphyxes Inverted Tower $(/l)$()"
+      "title": "使用金色粉笔的五芒星",
+      "text": "$(li)$(l:pentacles/craft_foliot)埃兹维斯灵体强迫$(/l)$()$(li)$(l:pentacles/possess_foliot)海德林诱惑术$(/l)$()$(li)$(l:pentacles/craft_djinni)斯特里格高等束缚$(/l)$()$(li)$(l:pentacles/possess_djinni)伊哈根奴役术$(/l)$()$(li)$(l:pentacles/craft_afrit)塞维拉永囚咒$(/l)$()$(li)$(l:pentacles/craft_marid)修菲斯倒转之塔$(/l)$()"
     },
     {
       "type": "spotlight",
       "item": "occultism:chalk_purple",
-      "text": "Purple chalk is generally used to call on higher beings such as $(thing)Djinn$() or $(thing)Afrit$(), but also slows essence decay of summoned spirits."
+      "text": "紫色粉笔主要用于召唤更高等的存在，比如$(thing)巨灵$()或者$(thing)火灵$()。另外，紫色粉笔还能减慢被召魔灵的灵髓衰退。"
     },
     {
       "type": "text",
       "title": "Uses of Purple Chalk",
-      "text": "$(li)$(l:pentacles/summon_djinni)Ophyx' Calling $(/l)$()$(li)$(l:pentacles/craft_djinni)Strigeor's Higher Binding $(/l)$()$(li)$(l:pentacles/possess_djinni)Ihagan's Enthrallment $(/l)$()$(li)$(l:pentacles/summon_afrit)Abras' Conjure $(/l)$()$(li)$(l:pentacles/craft_afrit)Sevira's Permanent Confinement $(/l)$()$(li)$(l:pentacles/summon_wiild_afrit)Abras' Open Conjure $(/l)$()$(li)$(l:pentacles/summon_wild_greater_spirit)Osorin' Unbound Calling $(/l)$()"
+      "text": "$(li)$(l:pentacles/summon_djinni)欧菲克斯的呼唤$(/l)$()$(li)$(l:pentacles/craft_djinni)斯特里格高等束缚$(/l)$()$(li)$(l:pentacles/possess_djinni)伊哈根奴役术$(/l)$()$(li)$(l:pentacles/summon_afrit)阿巴拉斯召唤术$(/l)$()$(li)$(l:pentacles/craft_afrit)塞维拉永囚咒$(/l)$()$(li)$(l:pentacles/summon_wiild_afrit)阿巴拉斯开环召唤术$(/l)$()$(li)$(l:pentacles/summon_wild_greater_spirit)奥索林的无约束呼唤$(/l)$()"
     },
     {
       "type": "spotlight",
       "item": "occultism:chalk_red",
-      "text": "Red chalk is used to call on the most powerful and dangerous beings, such as $(thing)Marid$(). $(l:rituals/summoning/afrit_essence)Afrit Essence$(/l) is required to craft red chalk."
+      "text": "红色粉笔用于召唤最强大和危险的存在，比如$(thing)魔王$()。红色粉笔的合成需要用到$(l:rituals/summoning/afrit_essence)火灵灵髓$(/l)。"
     },
     {
       "type": "text",
       "title": "Uses of Red Chalk",
-      "text": "$(li)$(l:pentacles/summon_afrit)Abras' Conjure $(/l)$()$(li)$(l:pentacles/craft_marid)Uphyxes Inverted Tower $(/l)$()"
+      "text": "$(li)$(l:pentacles/summon_afrit)阿巴拉斯召唤术$(/l)$()$(li)$(l:pentacles/craft_marid)修菲斯倒转之塔$(/l)$()"
     }
   ]
 }

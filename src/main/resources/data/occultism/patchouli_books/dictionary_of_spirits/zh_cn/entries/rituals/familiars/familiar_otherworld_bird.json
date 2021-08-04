@@ -1,5 +1,5 @@
 {
-  "name": "Drikwing Familiar",
+  "name": "具翼使魔",
   "icon": "occultism:textures/gui/book/otherworld_bird.png",
   "category": "rituals/familiars",
   "sortnum": 30,
@@ -7,23 +7,23 @@
     {
       "type": "entity",
       "entity": "occultism:otherworld_bird",
-      "text": "$(bold)Provides$(): $(thing)Multi-Jump$(), $(thing)Jump Boost$(), $(thing)Slow Falling$()"
+      "text": "$(bold)提供$()：$(thing)多段跳$()、$(thing)跳跃提升$()、$(thing)缓降$()"
     },
     {
       "type": "summoning_sacrifice_noformat",
-      "heading": "Summoning",
-      "pentacle": "$(l:pentacles/summon_djinni)Ophyx' Calling$(/l)",
+      "heading": "召唤",
+      "pentacle": "$(l:pentacles/summon_djinni)欧菲克斯的呼唤$(/l)",
       "activation_item": "occultism:book_of_binding_bound_djinni",
-      "sacrifice": "$(thing)Parrot$() or $(thing)Parrot Familiar$()",
-      "ingredients": "$(li)2x $(item)Feather $()$(li)1x $(item)Spider Web $()$(li)1x $(item)Any Leaves $()$(li)1x $(item)String$()"
+      "sacrifice": "$(thing)鹦鹉$()或$(thing)鹦鹉使魔$()",
+      "ingredients": "$(li)2x $(item)羽毛$()$(li)1x $(item)蜘蛛网$()$(li)1x $(item)任意树叶$()$(li)1x $(item)线$()"
     },
     {
       "type": "text",
-      "text": "$(thing)Drikwings$() are a subclass of $(thing)Djinni$() that are known to be amicable towards humans. They usually take the shape of a dark blue and purple parrot. Drikwings will provide their owner with limited flight abilities when nearby."
+      "text": "$(thing)具翼$()是$(thing)巨灵$()的亚种，以对人类友好闻名。它们通常以深蓝色和紫色鹦鹉的形象出现。具翼在附近时会为主人提供有限的飞行能力。"
     },
     {
       "type": "text",
-      "text": "To obtain the parrot or parrot familiar for the sacrifice, consider summoning them using either the $(l:rituals/summoning/summon_wild_parrot)Wild Parrot Ritual$(/l) or $(l:rituals/familiars/familiar_parrot)Parrot Familiar Ritual$(/l). $(bold)Hint:$() If you use mods that protect pets from death, use the wild parrot ritual!"
+      "text": "要获取献祭用的鹦鹉或鹦鹉使魔，请考虑使用$(l:rituals/summoning/summon_wild_parrot)野生鹦鹉仪式$(/l)或者$(l:rituals/familiars/familiar_parrot)鹦鹉使魔仪式$(/l)召唤它们。$(bold)提醒：$()如果你用了含宠物死亡保护的模组，请使用野生鹦鹉仪式！"
     }
   ]
 }

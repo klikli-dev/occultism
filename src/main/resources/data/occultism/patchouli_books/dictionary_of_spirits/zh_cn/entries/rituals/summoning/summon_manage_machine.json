@@ -1,19 +1,19 @@
 {
-  "name": "Djinni Machine Operator",
+  "name": "巨灵机器操作员",
   "icon": "minecraft:lever",
   "category": "rituals/summoning",
   "sortnum": 15,
   "pages": [
     {
       "type": "text",
-      "text": "The machine operator transfers items specified in the dimensional storage actuator GUI, to it's managed machine, and returns crafting results to the storage system. It can also be used to automatically empty a chest into the storage actuator."
+      "text": "机器操作员能将在维度存储促动器 GUI 里选定的物品传输到其管理的机器，并将合成结果返回到存储系统。它们也能用来将箱子里的物品自动搬到存储促动器。"
     },
     {
       "type": "summoning",
-      "heading": "Summoning",
-      "pentacle": "$(l:pentacles/summon_djinni)Ophyx' Calling$(/l)",
+      "heading": "召唤",
+      "pentacle": "$(l:pentacles/summon_djinni)欧菲克斯的呼唤$(/l)",
       "activation_item": "occultism:book_of_binding_bound_djinni",
-      "ingredients": "$(li)1x $(item)Coal Block $()$(li)1x $(item)Gold Ingot $()$(li)1x $(item)Iron Ingot $()$(li)1x $(item)Furnace $()"
+      "ingredients": "$(li)1x $(item)煤块$()$(li)1x $(item)金锭$()$(li)1x $(item)铁锭$()$(li)1x $(item)熔炉$()"
     }
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "name": "Storage Stabilizer Tier 4",
+  "name": "等级 4 存储稳定器",
   "icon": "occultism:storage_stabilizer_tier4",
   "category": "rituals/crafting",
   "sortnum": 25,
@@ -7,14 +7,14 @@
     {
       "type": "spotlight",
       "item": "occultism:storage_stabilizer_tier4",
-      "text": "This highly advanced stabilizer is inhabited by a $(thing)Marid$() that supports the dimensional matrix in keeping the storage dimension stable, thus allowing to store even more items."
+      "text": "这种极高等存储稳定器里栖息着一只$(thing)魔王$()，它支撑住维度矩阵并维持存储维度的稳定性，从而使存储维度能存放更多物品。"
     },
     {
       "type": "summoning",
-      "heading": "Infusion",
-      "pentacle": "$(l:pentacles/craft_marid)Uphyxes Inverted Tower $(/l)",
+      "heading": "灌注",
+      "pentacle": "$(l:pentacles/craft_marid)修菲斯倒转之塔$(/l)",
       "activation_item": "occultism:book_of_binding_bound_marid",
-      "ingredients": "$(li)1x $(item)Storage Stabilizer Tier 3 $()$(li)1x $(item)Iesnium Block $()$(li)1x $(item)Dragon Head $() $(li)2x $(item)Spirit Attuned Crystal $()"
+      "ingredients": "$(li)1x $(item)等级 3 存储稳定器$()$(li)1x $(item)艾瑟金属块$()$(li)1x $(item)龙首$() $(li)2x $(item)魔灵同调水晶$()"
     }
   ]
 }

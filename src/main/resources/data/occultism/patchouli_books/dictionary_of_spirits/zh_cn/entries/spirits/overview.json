@@ -1,41 +1,41 @@
 {
-  "name": "On Spirits",
+  "name": "魔灵概论",
   "icon": "occultism:textures/gui/book/spirits.png",
   "category": "spirits",
   "sortnum": 0,
   "pages": [
     {
       "type": "text",
-      "text": "Spirit, commonly known as demon, is a general term for a variety of supernatural entities usually residing in $(thing)The Other Place$(), a plane of existence entirely separate from our own. When in our world they can take a variety of forms, ranging from arbitrary shapes referred to as the $(thing)Chosen Form$() to the inhabiting of objects or living beings."
+      "text": "魔灵，常被称为魔鬼，是对通常栖息于$(thing)异世界$()的多种超自然实体的概括性称呼。$(thing)异世界$()则是一个与我们的位面完全分离的存在位面。处于我们世界时，魔灵可以选择多种形态，可以是被称为$(thing)自选形态$()的任意形状，也能是栖身其中的物体或生物。"
     },
     {
       "type": "text",
-      "text": "There are four major \"ranks\" of spirits identified by summoners, but there are a myriad spirits below and in between these ranks, and some great entities of terrible power, referred to only as $(thing)Greater Spirits$(), that are beyond classification."
+      "text": "魔灵有四个被召唤师识别划分的“等级”，不过在这些等级间和最下级之下仍充满着无数魔灵。一些高等实体有着可怕的力量，只能被称为$(thing)高等魔灵$()，这些魔灵是超出分类体系能力的。"
     },
     {
       "type": "text",
-      "title": "Foliot",
-      "text": "The lowest identified class of spirit. Equipped with some intelligence and a modicum of power they are most often used for manual labor or minor artifacts."
+      "title": "魔精",
+      "text": "最低等级的魔灵。有着一些智力和少许能力，常用于人力劳动和次要魔法物品制造。"
     },
     {
       "type": "text",
-      "title": "Djinni",
-      "text": "The most commonly summoned class. There is a great variety of Djinni, differing both in intelligence and power. Djinni can be used for a variety of task, ranging from higher artifacts over possession of living beings to carrying out tasks in their Chosen Form."
+      "title": "巨灵",
+      "text": "最常被召唤的等级。巨灵种类极多，不同巨灵的智力和能力都有不同。巨灵可用于多种任务中，包括更高级的魔法物品制造、附身生物和以自选形态执行任务等等。"
     },
     {
       "type": "text",
-      "title": "Afrit",
-      "text": "Even more powerful than Djinni, Afrit are used for the creation of major artifacts and the possession of powerful beings."
+      "title": "火灵",
+      "text": "比巨灵更加强大，火灵可用于高等魔法物品制造以及附身强大的生物。"
     },
     {
       "type": "text",
-      "title": "Marid",
-      "text": "The strongest identified class of spirits. Due to their power and vast intellect attempting a summoning is extremely dangerous and usually only carried out by the most experienced summoners, and even then usually in groups."
+      "title": "魔王",
+      "text": "已划分的魔灵等级中最强的一级。由于它们的强大力量和可怕的智力，召唤魔王是极其危险的，通常由最富经验的召唤师进行，有时甚至需要多人合作召唤。"
     },
     {
       "type": "text",
-      "title": "Greater Spirit",
-      "text": "Spirits of power so great it is beyond measure. No summons have been attempted in living memory, and records of summonings in ancient times are mostly considered apocryphal."
+      "title": "高等魔灵",
+      "text": "这种魔灵的力量如此之强大，以致于超出了通常的衡量体系。还活着的人中没有对这类魔灵成功召唤的记忆，而古代记录中的这种召唤大部分被认为是伪造的。"
     },
     {
       "type": "empty",

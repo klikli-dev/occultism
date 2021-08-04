@@ -1,5 +1,5 @@
 {
-  "name": "Greedy Familiar",
+  "name": "贪婪使魔",
   "icon": "occultism:textures/gui/book/familiar_greedy.png",
   "category": "rituals/familiars",
   "sortnum": 15,
@@ -7,19 +7,19 @@
     {
       "type": "entity",
       "entity": "occultism:greedy_familiar",
-      "text": "$(bold)Provides$(): $(thing)Increased Pick-up Range$()"
+      "text": "$(bold)提供$()：$(thing)增加掉落物拾取范围$()"
     },
     {
       "type": "summoning_sacrifice_noformat",
-      "heading": "Summoning",
-      "pentacle": "$(l:pentacles/possess_foliot)Heydrin's Lure$(/l)",
+      "heading": "召唤",
+      "pentacle": "$(l:pentacles/possess_foliot)海德林诱惑术$(/l)",
       "activation_item": "occultism:book_of_binding_bound_foliot",
-      "sacrifice": "Any $(thing)Zombie$()",
-      "ingredients": "$(li)1x $(item)Chest $()$(li)1x $(item)Block of Iron $()$(li)1x $(item)Dispenser $()$(li)1x $(item)Hopper $()"
+      "sacrifice": "任意$(thing)僵尸$()",
+      "ingredients": "$(li)1x $(item)箱子$()$(li)1x $(item)铁块$()$(li)1x $(item)发射器$()$(li)1x $(item)漏斗$()"
     },
     {
       "type": "text",
-      "text": "The greedy familiar is a Foliot that will pick up nearby items for it's master. When captured in a familiar ring it increased the pick-up range of the wearer."
+      "text": "贪婪使魔是一种会为主人拾起附近物品的魔精。被束缚在使魔之戒中时，则会为穿戴者提升拾取范围。"
     }
   ]
 }

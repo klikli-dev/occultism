@@ -1,5 +1,5 @@
 {
-  "name": "Storage Stabilizer Tier 1",
+  "name": "等级 1 存储稳定器",
   "icon": "occultism:storage_stabilizer_tier1",
   "category": "rituals/crafting",
   "sortnum": 24,
@@ -7,14 +7,14 @@
     {
       "type": "spotlight",
       "item": "occultism:storage_stabilizer_tier1",
-      "text": "This simple storage stabilizer is inhabited by a $(thing)Foliot$() that supports the dimensional matrix in keeping the storage dimension stable, thus allowing to store more items."
+      "text": "这种简单的存储稳定器里栖息着一只$(thing)魔精$()，它支撑住维度矩阵并维持存储维度的稳定性，从而使存储维度能存放更多物品。"
     },
     {
       "type": "summoning",
-      "heading": "Infusion",
-      "pentacle": "$(l:pentacles/craft_foliot)Eziveus' Spectral Compulsion$(/l)",
+      "heading": "灌注",
+      "pentacle": "$(l:pentacles/craft_foliot)埃兹维斯灵体强迫$(/l)",
       "activation_item": "occultism:book_of_binding_bound_foliot",
-      "ingredients": "$(li)1x $(item)Otherstone Pedestal $()$(li)1x $(item)Copper Block $()$(li)1x $(item)Blaze Powder$() $(li)1x $(item)Spirit Attuned Gem $()"
+      "ingredients": "$(li)1x $(item)异界石基座$()$(li)1x $(item)铜块$()$(li)1x $(item)烈焰粉$() $(li)1x $(item)魔灵同调宝石$()"
     }
   ]
 }

@@ -1,12 +1,12 @@
 {
-  "name": "Hedyrin's Lure",
+  "name": "海德林诱惑术",
   "icon": "occultism:textures/gui/book/pentagram_rose.png",
   "category": "pentacles",
   "sortnum": 12,
   "pages": [
     {
       "type": "text",
-      "text": "$(bold)Purpose:$() Foliot Possession $(br2)$(thing)Hedyrin's Lure$() attracts $(thing)Foliot$() and forces them to possess a nearby creature. This pentacle does not lead to permanent imprisonment, the spirit and possessed creature will perish within a short period of time."
+      "text": "$(bold)目标：$()魔精附身$(br2)$(thing)海德林诱惑术$()能引来$(thing)魔精$()并强迫它们附身于邻接生物。该五芒星不会导致永久禁锢，魔灵和被附身的生物都会在短时间内死亡。"
     },
     {
       "type": "multiblock",
@@ -16,7 +16,7 @@
     {
       "type": "text",
       "title": "Uses",
-      "text": "$(li)$(l:rituals/possession/possess_endermite)Possessed Endermite$(/l)$()$(li)$(l:rituals/possession/possess_skeleton)Possessed Skeleton$(/l)$()$(li)$(l:rituals/familiars/familiar_parrot)Parrot Familiar$(/l)$()$(li)$(l:rituals/summoning/summon_wild_parrot)Summon Wild Parrot$(/l)$()$(li)$(l:rituals/familiars/familiar_greedy)Greedy Familiar$(/l)$()"
+      "text": "$(li)$(l:rituals/possession/possess_endermite)被附身的末影螨$(/l)$()$(li)$(l:rituals/possession/possess_skeleton)被附身的骷髅$(/l)$()$(li)$(l:rituals/familiars/familiar_parrot)鹦鹉使魔$(/l)$()$(li)$(l:rituals/summoning/summon_wild_parrot)召唤野生鹦鹉$(/l)$()$(li)$(l:rituals/familiars/familiar_greedy)贪婪使魔$(/l)$()"
     }
   ]
 }

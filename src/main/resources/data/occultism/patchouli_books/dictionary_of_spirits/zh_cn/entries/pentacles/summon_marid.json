@@ -1,12 +1,12 @@
 {
-  "name": "Fatma's Incentivized Attraction",
+  "name": "法特玛极效引诱",
   "icon": "occultism:textures/gui/book/pentagram_rose.png",
   "category": "pentacles",
   "sortnum": 40,
   "pages": [
     {
       "type": "text",
-      "text": "$(bold)Purpose:$() Summon Marid $(br2)$(thing)Fatma's Incentivized Attraction$() is a powerful pentacle, allowing to summon Marid and bind them to the summoner's will."
+      "text": "$(bold)目标：$()召唤魔王$(br2)$(thing)法特玛极效引诱$()是一种强大的五芒星，能够按照召唤师的意愿召唤并约束魔王。"
     },
     {
       "type": "multiblock",
@@ -16,7 +16,7 @@
     {
       "type": "text",
       "title": "Uses",
-      "text": "$(li)$(l:rituals/summoning/summon_crusher)Marid Crusher$(/l)$()"
+      "text": "$(li)$(l:rituals/summoning/summon_crusher)魔王碎矿者$(/l)$()"
     }
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "name": "Wild Parrot",
+  "name": "野生鹦鹉",
   "icon": "occultism:textures/gui/book/parrot.png",
   "category": "rituals/summoning",
   "sortnum": 12,
@@ -7,19 +7,19 @@
     {
       "type": "entity",
       "entity": "minecraft:parrot",
-      "text": "$(bold)Provides$(): A Parrot"
+      "text": "$(bold)提供$()：一只鹦鹉"
     },
     {
       "type": "summoning_sacrifice",
-      "heading": "Summoning",
-      "pentacle": "$(l:pentacles/possess_foliot)Hedyrin's Lure$(/l)",
+      "heading": "召唤",
+      "pentacle": "$(l:pentacles/possess_foliot)海德林诱惑术$(/l)",
       "activation_item": "occultism:book_of_binding_bound_foliot",
-      "sacrifice": "Chicken",
-      "ingredients": "$(li)1x $(item)Feather $()$(li)1x $(item)Green Dye  $()$(li)1x $(item)Yellow Dye  $()$(li)1x $(item)Red Dye  $()$()$(li)1x $(item)Blue Dye$()$(li)1x $(item)Egg$()"
+      "sacrifice": "鸡",
+      "ingredients": "$(li)1x $(item)羽毛$()$(li)1x $(item)绿色染料$()$(li)1x $(item)黄色染料$()$(li)1x $(item)红色染料$()$()$(li)1x $(item)蓝色染料$()$(li)1x $(item)鸡蛋$()"
     },
     {
       "type": "text",
-      "text": "In this ritual a $(thing)Foliot$() is summoned $(bold)as an untamed spirit$(), the slaughter of a $(thing)chicken$() and the offering of dyes are intended to entice the Foliot to take the shape of a parrot. As $(thing)Foliot$() are not among the smartest spirits, they sometimes misunderstand the instructions ..."
+      "text": "仪式中，一只$(thing)魔精$()会被$(bold)作为未驯服魔灵$()召唤，而对$(thing)鸡$()的屠宰和供奉的染料能诱使魔精选用鹦鹉的形态。不过，由于$(thing)魔精$()并不属于最聪明的魔灵之列，它们有时会误解这一指示……"
     }
   ]
 }

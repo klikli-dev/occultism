@@ -1,16 +1,16 @@
 {
-  "name": "The Wild Hunt",
+  "name": "狂猎",
   "icon": "occultism:textures/gui/book/wild_hunt.png",
   "category": "spirits",
   "sortnum": 6,
   "pages": [
     {
       "type": "text",
-      "text": "A group of legendary Greater Spirits, usually appearing in the form of wither skeletons, with their minions as skeletons. The Greater Spirits are bound to their minions in such fashion that they are virtually invulnerable until their minions have been sent back to $(thing)The Other Place$(). While it is incredibly dangerous to call on the Wild Hint, some summoners have been known to do so for quick access"
+      "text": "一组传奇高等魔灵，通常以凋灵骷髅的形态出现，带着它们以骷髅显形的喽啰。高等魔灵与其喽啰的连结方式比较特殊，使得它们在喽啰都被送回$(thing)异世界$()前无法被伤害。虽然召唤狂猎极其危险，一些召唤师为了快速获取"
     },
     {
       "type": "text",
-      "text": "to the rare wither skeleton skulls they are known to leave behind. Summoning the wild hunt is described in detail on the page on obtaining $(l:rituals/summoning/wither_skull)Wither Skeleton Skulls$(/l)"
+      "text": "它们掉落的凋灵骷髅头颅还是铤而走险。召唤狂猎的方法在讲解如何获得$(l:rituals/summoning/wither_skull)凋灵骷髅头颅$(/l)的页面中有详细描述。"
     }
   ]
 }

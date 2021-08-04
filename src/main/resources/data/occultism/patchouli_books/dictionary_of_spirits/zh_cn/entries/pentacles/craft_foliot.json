@@ -1,12 +1,12 @@
 {
-  "name": "Eziveus' Spectral Compulsion",
+  "name": "埃兹维斯灵体强迫",
   "icon": "occultism:textures/gui/book/pentagram_rose.png",
   "category": "pentacles",
   "sortnum": 11,
   "pages": [
     {
       "type": "text",
-      "text": "$(bold)Purpose:$() Bind Foliot $(br2)As a simple binding pentacle, $(thing)Eziveus' Spectral Compulsion$(), is a common starting point for object infusion with lower spirits. The enchantment is made permanent by stabilizing candles and spirit attuned crystals."
+      "text": "$(bold)目标：$()束缚魔精$(br2)作为一种简单的束缚五芒星，$(thing)埃兹维斯灵体强迫$()常用于初次进行低阶魔灵的物品灌注。这一附魔过程会通过稳定蜡烛和魔灵同调宝石固定下来。"
     },
     {
       "type": "multiblock",
@@ -16,7 +16,7 @@
     {
       "type": "text",
       "title": "Uses",
-      "text": "$(li)$(l:rituals/crafting/craft_otherworld_goggles)Infused Lenses$(/l)$()$(li)$(l:rituals/crafting/craft_satchel)Surprisingsly Substantial Satchel$(/l)$()$(li)$(l:rituals/crafting/craft_storage_controller_base)Storage Actuator Base$(/l)$()$(li)$(l:rituals/crafting/craft_stable_wormhole)Stable Wormhole$(/l)$()$(li)$(l:rituals/crafting/craft_stabilizer_tier1)Storage Stabilizer Tier 1$(/l)$()$(li)$(l:rituals/crafting/craft_miner_spirits)Foliot Miner$(/l)$()"
+      "text": "$(li)$(l:rituals/crafting/craft_otherworld_goggles)灌注镜片$(/l)$()$(li)$(l:rituals/crafting/craft_satchel)意外结实的背包$(/l)$()$(li)$(l:rituals/crafting/craft_storage_controller_base)存储促动器基座$(/l)$()$(li)$(l:rituals/crafting/craft_stable_wormhole)稳定虫洞$(/l)$()$(li)$(l:rituals/crafting/craft_stabilizer_tier1)等级 1 存储稳定器$(/l)$()$(li)$(l:rituals/crafting/craft_miner_spirits)魔精矿工$(/l)$()"
     }
   ]
 }

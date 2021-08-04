@@ -1,19 +1,19 @@
 {
-  "name": "Foliot Lumberjack",
+  "name": "魔精伐木工",
   "icon": "minecraft:iron_axe",
   "category": "rituals/summoning",
   "sortnum": 11,
   "pages": [
     {
       "type": "text",
-      "text": "The lumberjack will harvest trees in it's working area and deposit the dropped items into the specified chest."
+      "text": "伐木工会收获工作区域内的树，并将掉落物存放至指定箱子里。"
     },
     {
       "type": "summoning",
-      "heading": "Summoning",
-      "pentacle": "$(l:pentacles/summon_foliot)Aviar's Circle$(/l)",
+      "heading": "召唤",
+      "pentacle": "$(l:pentacles/summon_foliot)阿维亚之环$(/l)",
       "activation_item": "occultism:book_of_binding_bound_foliot",
-      "ingredients": "$(li)1x $(item)(Unstable) Otherworld Sapling $()$(li)1x $(item)Oak Sapling $()$(li)1x $(item)Birch Sapling $()$(li)1x $(item)Spruce Sapling $()$(li)1x $(item)Any Metal Axe $()"
+      "ingredients": "$(li)1x $(item)(Unstable)异界树苗$()$(li)1x $(item)橡树树苗$()$(li)1x $(item)白桦树苗$()$(li)1x $(item)云杉树苗$()$(li)1x $(item)任意金属斧$()"
     }
   ]
 }

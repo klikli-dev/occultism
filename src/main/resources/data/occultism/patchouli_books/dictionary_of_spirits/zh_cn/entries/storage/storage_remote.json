@@ -1,5 +1,5 @@
 {
-  "name": "Storage Accessor",
+  "name": "存储访问器",
   "icon": "occultism:storage_remote",
   "category": "storage",
   "sortnum": 2,
@@ -7,7 +7,7 @@
     {
       "type": "spotlight",
       "item": "occultism:storage_remote",
-      "text": "The $(l:rituals/crafting/craft_storage_remote)Storage Accessors$(/l) are similar to the stable wormhole, but allow mobile access to the storage for players."
+      "text": "$(l:rituals/crafting/craft_storage_remote)存储访问器$(/l)与稳定虫洞类似，但能让玩家便携使用。"
     },
     {
       "type": "empty",

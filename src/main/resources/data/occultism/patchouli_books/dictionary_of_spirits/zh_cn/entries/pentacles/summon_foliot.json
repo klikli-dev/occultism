@@ -1,12 +1,12 @@
 {
-  "name": "Aviar's Circle",
+  "name": "阿维亚之环",
   "icon": "occultism:textures/gui/book/pentagram_rose.png",
   "category": "pentacles",
   "sortnum": 10,
   "pages": [
     {
       "type": "text",
-      "text": "$(bold)Purpose:$() Summon Foliot $(br2)Considered by most to be the simplest pentacle, $(thing)Aviar's Circle$() is easy to set up, but provides only a minimum of binding power and protection for the summoner.$(br2)Only the weakest and most easily bound $(thing)Foliot$() can be summoned in rituals using this pentacle."
+      "text": "$(bold)目标：$()召唤魔精$(br2)被大多数人认为是最简单的五芒星，$(thing)阿维亚之环$()虽然易于设置，但也只提供了最基础的束缚力和对召唤师的保护。$(br2)只有最弱也最容易束缚的$(thing)魔精$()能用这个五芒星的仪式召唤。"
     },
     {
       "type": "multiblock",
@@ -16,7 +16,7 @@
     {
       "type": "text",
       "title": "Uses",
-      "text": "$(li)$(l:rituals/summoning/summon_crusher)Foliot Crusher$(/l)$()$(li)$(l:rituals/summoning/summon_lumberjack)Foliot Lumberjack$(/l)$()$(li)$(l:rituals/summoning/summon_transport_items)Foliot Transporter$(/l)$()$(li)$(l:rituals/summoning/summon_cleaner)Foliot Janitor$(/l)$()$(li)$(l:rituals/summoning/summon_otherstone_trader)Otherstone Trader$(/l)$()$(li)$(l:rituals/summoning/summon_otherworld_sapling_trader)Otherworld Sapling Trader$(/l)$()"
+      "text": "$(li)$(l:rituals/summoning/summon_crusher)魔精碎矿者$(/l)$()$(li)$(l:rituals/summoning/summon_lumberjack)魔精伐木工$(/l)$()$(li)$(l:rituals/summoning/summon_transport_items)魔精搬运工$(/l)$()$(li)$(l:rituals/summoning/summon_cleaner)魔精清洁工$(/l)$()$(li)$(l:rituals/summoning/summon_otherstone_trader)异界石交易者$(/l)$()$(li)$(l:rituals/summoning/summon_otherworld_sapling_trader)异界树苗交易者$(/l)$()"
     }
   ]
 }

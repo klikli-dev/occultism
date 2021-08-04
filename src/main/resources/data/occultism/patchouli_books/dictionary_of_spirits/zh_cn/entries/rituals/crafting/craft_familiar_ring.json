@@ -1,5 +1,5 @@
 {
-  "name": "Familiar Ring",
+  "name": "使魔之戒",
   "icon": "occultism:familiar_ring",
   "category": "rituals/crafting",
   "sortnum": 13,
@@ -7,19 +7,19 @@
     {
       "type": "spotlight",
       "item": "occultism:familiar_ring",
-      "text": "Familiar Rings consist of a soul gem mounted on a ring that contains a djinni. The djinni in the ring allows the familiar captured in the soul gem to apply effects to the wearer."
+      "text": "使魔之戒包含戒指和固定在戒指上的一颗灵魂宝石，而戒指里束缚着一只巨灵。这只巨灵使得灵魂宝石里的使魔能为穿戴者带来增益状态。"
     },
     {
       "type": "text",
       "title": "Usage",
-      "text": "To use a Familiar Ring, simply capture a summoned (and tamed) familiar and then wear the ring as Curio to make use of the effects the familiar provides. When released from a familiar ring, the spirit will recognize the person releasing them as their new master."
+      "text": "使魔之戒的用法很简单，只需捕获一只被召唤的（而且已驯服的）使魔，然后将戒指作为饰品穿戴，就能享受使魔带来的增益。当被从戒指中释放后，魔灵会将释放者视作它们的主人。"
     },
     {
       "type": "summoning",
-      "heading": "Infusion",
+      "heading": "灌注",
       "pentacle": "$(l:pentacles/craft_djinni)Strigeor's Higher Binding$(/l)",
       "activation_item": "occultism:book_of_binding_bound_djinni",
-      "ingredients": "$(li)1x $(item)Soul Gem $()$(li)2x $(item)Gold Ingot $()$(li)2x $(item)Silver Ingot $()"
+      "ingredients": "$(li)1x $(item)灵魂宝石$()$(li)2x $(item)金锭$()$(li)2x $(item)银锭$()"
     }
   ]
 }

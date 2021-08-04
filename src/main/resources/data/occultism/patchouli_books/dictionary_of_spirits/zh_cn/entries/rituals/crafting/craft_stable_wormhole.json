@@ -1,5 +1,5 @@
 {
-  "name": "Stable Wormhole",
+  "name": "稳定虫洞",
   "icon": "occultism:stable_wormhole",
   "category": "rituals/crafting",
   "sortnum": 23,
@@ -7,14 +7,14 @@
     {
       "type": "spotlight",
       "item": "occultism:stable_wormhole",
-      "text": "The stable wormhole allows access to a dimensional matrix from a remote destination."
+      "text": "维度虫洞能实现维度矩阵的远程访问。"
     },
     {
       "type": "summoning",
-      "heading": "Infusion",
-      "pentacle": "$(l:pentacles/craft_foliot)Eziveus' Spectral Compulsion$(/l)",
+      "heading": "灌注",
+      "pentacle": "$(l:pentacles/craft_foliot)埃兹维斯灵体强迫$(/l)",
       "activation_item": "occultism:book_of_binding_bound_foliot",
-      "ingredients": "$(li)1x $(item)Wormhole Frame $()$(li)1x $(item)Ender Pearl $()$(li)2x $(item)Netherquartz $()"
+      "ingredients": "$(li)1x $(item)虫洞框架$()$(li)1x $(item)末影珍珠$()$(li)2x $(item)下界石英$()"
     }
   ]
 }

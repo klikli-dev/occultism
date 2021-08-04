@@ -1,22 +1,22 @@
 {
-  "name": "Otherworld Sapling Trader",
+  "name": "异界树苗交易者",
   "icon": "occultism:otherworld_sapling",
   "category": "rituals/summoning",
   "sortnum": 22,
   "pages": [
     {
       "type": "trade_description",
-      "heading": "Otherworld Sapling Trader",
-      "content": "The otherworld sapling trader trades natural otherworld saplings for stable ones, that can be harvested without the $(thing)third eye$().",
+      "heading": "异界树苗交易者",
+      "content": "异界树苗交易者能帮你把自然生成的不稳定异界树苗换成稳定的树苗，使得收获时无需$(thing)第三只眼$()。",
       "input_item": "occultism:otherworld_sapling_natural",
       "output_item": "occultism:otherworld_sapling"
     },
     {
       "type": "summoning",
-      "heading": "Summoning",
-      "pentacle": "$(l:pentacles/summon_foliot)Aviar's Circle$(/l)",
+      "heading": "召唤",
+      "pentacle": "$(l:pentacles/summon_foliot)阿维亚之环$(/l)",
       "activation_item": "occultism:book_of_binding_bound_foliot",
-      "ingredients": "$(li)1x $(item)Oak Sapling $()$(li)1x $(item)Birch Sapling $()$(li)1x $(item)Spruce Sapling $()$(li)1x $(item)Jungle Sapling $()"
+      "ingredients": "$(li)1x $(item)橡树树苗$()$(li)1x $(item)白桦树苗$()$(li)1x $(item)云杉树苗$()$(li)1x $(item)丛林树苗$()"
     }
   ]
 }

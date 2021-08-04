@@ -1,5 +1,5 @@
 {
-  "name": "Possessed Skeleton",
+  "name": "被附身的骷髅",
   "icon": "minecraft:skeleton_skull",
   "category": "rituals/possession",
   "sortnum": 2,
@@ -7,19 +7,19 @@
     {
       "type": "entity",
       "entity": "occultism:possessed_skeleton",
-      "text": "Drops: 1x $(item)Skeleton Skull$(), ..."
+      "text": "掉落：1x $(item)骷髅头颅$(), ..."
     },
     {
       "type": "summoning_sacrifice",
-      "heading": "Summoning",
-      "pentacle": "$(l:pentacles/possess_foliot)Hedyrin's Lure$(/l)",
+      "heading": "召唤",
+      "pentacle": "$(l:pentacles/possess_foliot)海德林诱惑术$(/l)",
       "activation_item": "occultism:book_of_binding_bound_foliot",
-      "sacrifice": "Chicken",
-      "ingredients": "$(li)4x $(item)Bone $()"
+      "sacrifice": "鸡",
+      "ingredients": "$(li)4x $(item)骨头$()"
     },
     {
       "type": "text",
-      "text": "In this ritual an $(thing)Skeleton$() is spawned using the life energy of a $(thing)chicken$() and possessed by a $(thing)Foliot$(). The $(thing)Possessed Skeleton$() will be immune to daylight and always drop at least one $(item)Skeleton Skull$() when killed."
+      "text": "本仪式中一只$(thing)骷髅$()被利用$(thing)鸡$()的生命能量生成，并被一只$(thing)魔精$()附身。$(thing)被附身的骷髅$()免疫阳光照射，被杀死时至少掉落一个$(item)骷髅头颅$()。"
     },
     {
       "type": "text",

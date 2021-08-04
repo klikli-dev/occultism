@@ -1,12 +1,12 @@
 {
-  "name": "Osorin's Unbound Calling",
+  "name": "奥索林的无约束呼唤",
   "icon": "occultism:textures/gui/book/pentagram_rose.png",
   "category": "pentacles",
   "sortnum": 32,
   "pages": [
     {
       "type": "text",
-      "text": "$(bold)Purpose:$() Summon Unbound Greater Spirit $(br2)$(thing)Osorin' Unbound Calling$() is based on $(thing)Abras' Open Conjure$(), but features none of the stabilizing paraphernalia. The pentacle offers no protection whatsoever to the summoner, but acts as an irresistible call to Greater Spirits."
+      "text": "$(bold)目标：$()召唤未约束的高等魔灵$(br2)$(thing)奥索林的无约束呼唤$()基于$(thing)阿巴拉斯开环召唤术$()修改而来，但没有任何稳定装置。五芒星没有对召唤师的任何保护，但能对高等魔灵进行无法抵抗的召唤。"
     },
     {
       "type": "multiblock",
@@ -15,8 +15,8 @@
     },
     {
       "type": "text",
-      "title": "Uses",
-      "text": "$(li)$(l:rituals/summoning/wither_skull)Wither Skeleton Skull$(/l)$()"
+      "title": "用途",
+      "text": "$(li)$(l:rituals/summoning/wither_skull)凋灵骷髅头颅$(/l)$()"
     }
   ]
 }
