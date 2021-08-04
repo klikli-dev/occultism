@@ -7,5 +7,6 @@
     "item": "occultism:obsidian_dust",
     "count": 1
   },
-  "crushing_time": 400
+  "crushing_time": 400,
+  "ignore_crushing_multiplier": true
 }

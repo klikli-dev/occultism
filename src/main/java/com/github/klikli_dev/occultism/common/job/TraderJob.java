@@ -144,7 +144,7 @@ public class TraderJob extends SpiritJob {
                 }
 
                 ItemStack converted = this.trade.getRecipeOutput().copy();
-                converted.setCount(resultCount);
+                converted.setCount(converted.getCount() * resultCount);
 
                 if (resultCount > 0) {
                     this.entity.entityDropItem(converted, 0.0f);
