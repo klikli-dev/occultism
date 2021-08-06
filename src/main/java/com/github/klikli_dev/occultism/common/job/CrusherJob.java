@@ -111,7 +111,7 @@ public class CrusherJob extends SpiritJob {
 
                 //show particle effect while crushing
                 if (this.entity.level.getGameTime() % 10 == 0) {
-                    Vec3 pos = this.entity.getPositionVec();
+                    Vec3 pos = this.entity.position();
                     ((ServerLevel) this.entity.level)
                             .sendParticles(ParticleTypes.PORTAL, pos.x + this.entity.level.rand.nextGaussian() / 3,
                                     pos.y + 0.5, pos.z + this.entity.level.rand.nextGaussian() / 3, 1, 0.0, 0.0, 0.0,

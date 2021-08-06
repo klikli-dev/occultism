@@ -66,7 +66,7 @@ public class SummonWildOtherworldBirdRitual extends SummonSpiritRitual {
                 goldenBowlPosition.getY() + 0.5, goldenBowlPosition.getZ() + 0.5, 1, 0, 0, 0, 0);
 
         OtherworldBirdEntity bird = OccultismEntities.OTHERWORLD_BIRD.get().create(level);
-        bird.finalizeSpawn((ServerLevel) level, level.getDifficultyForLocation(goldenBowlPosition), SpawnReason.MOB_SUMMONED,
+        bird.finalizeSpawn((ServerLevel) level, level.getCurrentDifficultyAt(goldenBowlPosition), SpawnReason.MOB_SUMMONED,
                 null, null);
         bird.absMoveTo(goldenBowlPosition.getX(), goldenBowlPosition.getY(), goldenBowlPosition.getZ(),
                 level.rand.nextInt(360), 0);

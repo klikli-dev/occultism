@@ -116,7 +116,7 @@ public class StorageStabilizerBlock extends Block {
         Direction facing = state.getValue(DirectionalBlock.FACING);
 
         //storage controller actually wants stabilizers to point at one block above it, so unless we are on y axis we trace one below
-        BlockPos min = facing != Direction.DOWN && facing != Direction.UP ? pos.down() : pos;
+        BlockPos min = facing != Direction.DOWN && facing != Direction.UP ? pos.below() : pos;
         //trace a straight line for the possible controller positions
         List<BlockPos> blocks = Math3DUtil.simpleTrace(min, facing,
                 StorageControllerBlockEntity.MAX_STABILIZER_DISTANCE);

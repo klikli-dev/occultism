@@ -143,7 +143,7 @@ public class DivinationRodItem extends Item {
         stack.getOrCreateTag().putFloat("distance", NOT_FOUND);
         if (level.isClientSide) {
             BlockPos result = ScanManager.instance.finishScan(player);
-            float distance = this.getDistance(player.getPositionVec(), result);
+            float distance = this.getDistance(player.position(), result);
             stack.getTag().putFloat("distance", distance);
             OccultismPackets.sendToServer(new MessageSetDivinationResult(distance));
 

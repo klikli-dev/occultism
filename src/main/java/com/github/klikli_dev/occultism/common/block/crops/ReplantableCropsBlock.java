@@ -27,7 +27,7 @@ import net.minecraft.block.CropsBlock;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
-import net.minecraft.util.IItemProvider;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.core.BlockPos;
@@ -50,14 +50,14 @@ public class ReplantableCropsBlock extends CropsBlock implements IReplantableCro
     //endregion Initialization
 
     //region Getter / Setter
-    public IItemProvider getCropsItem() {
+    public ItemLike getCropsItem() {
         return this.crops.get();
     }
     //endregion Getter / Setter
 
     //region Overrides
     @Override
-    public IItemProvider getSeedsItem() {
+    public ItemLike getSeedsItem() {
         return this.seed.get();
     }
 

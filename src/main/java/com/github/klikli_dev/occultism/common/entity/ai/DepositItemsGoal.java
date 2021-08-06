@@ -28,16 +28,16 @@ import com.github.klikli_dev.occultism.common.entity.ai.target.IMoveTarget;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.github.klikli_dev.occultism.exceptions.ItemHandlerMissingException;
 import com.github.klikli_dev.occultism.util.Math3DUtil;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.BlockEntity.ChestBlockEntity;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.core.Direction;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.ClipContext;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.util.math.RayTraceContext;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
@@ -68,8 +68,8 @@ public class DepositItemsGoal extends PausableGoal {
      * @return the position to move to to deposit the target block.
      */
     private BlockPos getMoveTarget() {
-        double angle = Math3DUtil.yaw(this.entity.getPositionVec(), Math3DUtil.center(this.moveTarget.getBlockPos()));
-        return this.moveTarget.getBlockPos().offset(Direction.fromAngle(angle).getOpposite());
+        double angle = Math3DUtil.yaw(this.entity.position(), Math3DUtil.center(this.moveTarget.getBlockPos()));
+        return this.moveTarget.getBlockPos().relative(Direction.fromYRot(angle).getOpposite());
     }
     //endregion Getter / Setter
 
@@ -77,7 +77,7 @@ public class DepositItemsGoal extends PausableGoal {
     @Override
     public boolean canUse() {
         //do not use if there is a target to attack
-        if (this.entity.getAttackTarget() != null) {
+        if (this.entity.getTarget() != null) {
             return false;
         }
         //nothing to deposit in hand
@@ -105,7 +105,7 @@ public class DepositItemsGoal extends PausableGoal {
                 float accessDistance = 1.86f;
 
                 //when approaching a chest, open it visually
-                double distance = this.entity.getPositionVec().distanceTo(Math3DUtil.center(this.moveTarget.getBlockPos()));
+                double distance = this.entity.position().distanceTo(Math3DUtil.center(this.moveTarget.getBlockPos()));
 
                 //briefly before reaching the target, open chest, if it is one.
                 if (distance < 2.5 && distance >= accessDistance && this.canSeeTarget() &&
@@ -119,7 +119,7 @@ public class DepositItemsGoal extends PausableGoal {
                 } else {
                     //continue moving
                     BlockPos moveTarget = this.getMoveTarget();
-                    this.entity.getNavigation().setPath(this.entity.getNavigation().getPathToPos(moveTarget, 0), 1.0f);
+                    this.entity.getNavigation().moveTo(this.entity.getNavigation().createPath(moveTarget, 0), 1.0f);
                 }
 
                 //when close enough insert item
@@ -166,15 +166,15 @@ public class DepositItemsGoal extends PausableGoal {
     //region Methods
     public boolean canSeeTarget() {
 
-        RayTraceContext context = new RayTraceContext(this.entity.getPositionVec(),
-                Math3DUtil.center(this.moveTarget.getBlockPos()), RayTraceContext.BlockMode.COLLIDER, RayTraceContext.FluidMode.NONE,
+        ClipContext context = new ClipContext(this.entity.position(),
+                Math3DUtil.center(this.moveTarget.getBlockPos()), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE,
                 this.entity);
-        BlockHitResult result = this.entity.level.rayTraceBlocks(context);
+        BlockHitResult result = this.entity.level.clip(context);
 
         if (result.getType() != BlockHitResult.Type.MISS) {
-            BlockPos sidePos = result.getPos();
-            BlockPos pos = new BlockPos(result.getHitVec());
-            return this.entity.level.isAirBlock(sidePos) || this.entity.level.isAirBlock(pos) ||
+            BlockPos sidePos = result.getBlockPos();
+            BlockPos pos = new BlockPos(result.getLocation());
+            return this.entity.level.isEmptyBlock(sidePos) || this.entity.level.isEmptyBlock(pos) ||
                     this.entity.level.getBlockEntity(pos) == this.entity.level.getBlockEntity(this.moveTarget.getBlockPos());
         }
 
@@ -190,12 +190,11 @@ public class DepositItemsGoal extends PausableGoal {
     public void toggleChest(IMoveTarget target, boolean open) {
         if (target instanceof BlockPosMoveTarget) {
             BlockEntity tile = this.entity.level.getBlockEntity(target.getBlockPos());
-            if (tile instanceof ChestBlockEntity) {
-                ChestBlockEntity chest = (ChestBlockEntity) tile;
+            if (tile instanceof ChestBlockEntity chest) {
                 if (open) {
-                    this.entity.level.addBlockEvent(this.moveTarget.getBlockPos(), chest.getBlockState().getBlock(), 1, 1);
+                    this.entity.level.blockEvent(this.moveTarget.getBlockPos(), chest.getBlockState().getBlock(), 1, 1);
                 } else {
-                    this.entity.level.addBlockEvent(this.moveTarget.getBlockPos(), chest.getBlockState().getBlock(), 1, 0);
+                    this.entity.level.blockEvent(this.moveTarget.getBlockPos(), chest.getBlockState().getBlock(), 1, 0);
                 }
             }
         }
@@ -215,7 +214,7 @@ public class DepositItemsGoal extends PausableGoal {
         //also check a target entity -> its mutually exclusive with block, ensured by spirit entity
         Optional<UUID> targetUUID = this.entity.getDepositEntityUUID();
         targetUUID.ifPresent((uuid) -> {
-            Entity targetEntity = ((ServerLevel) this.entity.level).getEntityByUuid(uuid);
+            Entity targetEntity = ((ServerLevel) this.entity.level).getEntity(uuid);
             if (targetEntity != null) {
                 this.moveTarget = new EntityMoveTarget(targetEntity);
             } else {

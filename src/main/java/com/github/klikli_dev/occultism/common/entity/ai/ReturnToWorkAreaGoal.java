@@ -72,9 +72,9 @@ public class ReturnToWorkAreaGoal extends Goal {
             this.entity.getNavigation().stop();
         }
         else {
-            this.entity.getNavigation().setPath(this.entity.getNavigation().getPathToPos(
+            this.entity.getNavigation().moveTo(this.entity.getNavigation().createPath(
                     this.entity.getWorkAreaPosition().orElse(this.entity.getPosition()), 0), 1.0f);
-            double distance = this.entity.getPositionVec().distanceTo(
+            double distance = this.entity.position().distanceTo(
                     Vec3.copyCentered(this.entity.getWorkAreaPosition().orElse(this.entity.getPosition())));
             if (distance < 1F) {
                 this.entity.setDeltaMovement(0, 0, 0);
@@ -90,7 +90,7 @@ public class ReturnToWorkAreaGoal extends Goal {
 
     @Override
     public void start() {
-        this.entity.getNavigation().setPath(this.entity.getNavigation().getPathToPos(
+        this.entity.getNavigation().moveTo(this.entity.getNavigation().createPath(
                 this.entity.getWorkAreaPosition().orElse(this.entity.getPosition()), 0), 1.0f);
         super.start();
     }

@@ -42,7 +42,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.core.Direction;
-import net.minecraft.util.SoundEvents;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.SoundSource;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.core.BlockPos;
@@ -88,7 +88,7 @@ public class SpiritFireBlock extends Block {
 
     @Override
     public boolean canSurvive(BlockState state, LevelReader worldIn, BlockPos pos) {
-        BlockPos blockpos = pos.down();
+        BlockPos blockpos = pos.below();
         return worldIn.getBlockState(blockpos).isFaceSturdy(worldIn, blockpos, Direction.UP) ||
                this.areNeighborsFlammable(worldIn, pos);
     }
@@ -116,9 +116,9 @@ public class SpiritFireBlock extends Block {
         }
 
         //copied from fire, minus spreading logic
-        Block block = worldIn.getBlockState(pos.down()).getBlock();
-        BlockState other = worldIn.getBlockState(pos.down());
-        boolean isOnFireSource = other.isFireSource(worldIn, pos.down(), Direction.UP);
+        Block block = worldIn.getBlockState(pos.below()).getBlock();
+        BlockState other = worldIn.getBlockState(pos.below());
+        boolean isOnFireSource = other.isFireSource(worldIn, pos.below(), Direction.UP);
         int i = state.getValue(FireBlock.AGE);
         if (!isOnFireSource && worldIn.isRaining() && this.canDie(worldIn, pos) &&
             rand.nextFloat() < 0.2F + (float) i * 0.03F) {
@@ -134,7 +134,7 @@ public class SpiritFireBlock extends Block {
             if (!isOnFireSource) {
                 worldIn.getPendingBlockTicks().scheduleTick(pos, this, getTickCooldown(worldIn.rand));
                 if (!this.areNeighborsFlammable(worldIn, pos)) {
-                    BlockPos blockpos = pos.down();
+                    BlockPos blockpos = pos.below();
                     if (!worldIn.getBlockState(blockpos).isFaceSturdy(worldIn, blockpos, Direction.UP) || i > 3) {
                         worldIn.removeBlock(pos, false);
                     }
@@ -142,7 +142,7 @@ public class SpiritFireBlock extends Block {
                     return;
                 }
 
-                if (i == 15 && rand.nextInt(4) == 0 && !this.canCatchFire(worldIn, pos.down(), Direction.UP)) {
+                if (i == 15 && rand.nextInt(4) == 0 && !this.canCatchFire(worldIn, pos.below(), Direction.UP)) {
                     worldIn.removeBlock(pos, false);
                     return;
                 }
@@ -158,7 +158,7 @@ public class SpiritFireBlock extends Block {
                     1.0F + rand.nextFloat(), rand.nextFloat() * 0.7F + 0.3F, false);
         }
 
-        BlockPos blockpos = pos.down();
+        BlockPos blockpos = pos.below();
         BlockState blockstate = worldIn.getBlockState(blockpos);
         if (!this.canCatchFire(worldIn, blockpos, Direction.UP) &&
             !Block.hasSolidSideOnTop(worldIn, blockpos)) {
@@ -267,7 +267,7 @@ public class SpiritFireBlock extends Block {
     }
 
     private int getNeighborEncouragement(LevelReader worldIn, BlockPos pos) {
-        if (!worldIn.isAirBlock(pos)) {
+        if (!worldIn.isEmptyBlock(pos)) {
             return 0;
         }
         else {

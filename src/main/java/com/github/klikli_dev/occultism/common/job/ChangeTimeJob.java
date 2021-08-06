@@ -28,7 +28,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.util.SoundEvents;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.SoundSource;
 
 public abstract class ChangeTimeJob extends SpiritJob {

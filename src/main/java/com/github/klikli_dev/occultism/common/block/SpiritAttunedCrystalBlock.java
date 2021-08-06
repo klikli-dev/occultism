@@ -70,7 +70,7 @@ public class SpiritAttunedCrystalBlock extends Block {
 
     @Override
     public boolean canSurvive(BlockState state, LevelReader worldIn, BlockPos pos) {
-        BlockPos down = pos.down();
+        BlockPos down = pos.below();
         BlockState downState = worldIn.getBlockState(down);
         return downState.isFaceSturdy(worldIn, down, Direction.UP);
     }

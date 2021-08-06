@@ -49,8 +49,8 @@ public class MessageDoubleJump extends MessageBase {
         if (MovementUtil.doubleJump(player)) {
             //Show cloud on jump.
             player.getServerWorld()
-                    .sendParticles(ParticleTypes.CLOUD, player.getPositionVec().x, player.getPositionVec().y,
-                            player.getPositionVec().z, 5, 0, 0, 0, 0.01F);
+                    .sendParticles(ParticleTypes.CLOUD, player.position().x, player.position().y,
+                            player.position().z, 5, 0, 0, 0, 0.01F);
         }
     }
 

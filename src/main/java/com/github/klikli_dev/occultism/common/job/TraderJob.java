@@ -116,7 +116,7 @@ public class TraderJob extends SpiritJob {
         if (this.trade != null && this.trade.isValid(handHeld)) {
             if (this.entity.level.getGameTime() % 10 == 0) {
                 //show particle effect while converting
-                Vec3 pos = this.entity.getPositionVec();
+                Vec3 pos = this.entity.position();
                 ((ServerLevel) this.entity.level)
                         .sendParticles(ParticleTypes.PORTAL, pos.x + this.entity.level.rand.nextGaussian() / 3,
                                 pos.y + 0.5, pos.z + this.entity.level.rand.nextGaussian() / 3, 1, 0.0, 0.0, 0.0,

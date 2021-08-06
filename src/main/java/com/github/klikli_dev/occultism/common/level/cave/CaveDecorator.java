@@ -129,15 +129,15 @@ public abstract class CaveDecorator implements ICaveDecorator {
             return false;
 
         BlockPos upPos = pos.above();
-        return seedReader.isAirBlock(upPos) || seedReader.getBlockState(upPos).getMaterial().isReplaceable();
+        return seedReader.isEmptyBlock(upPos) || seedReader.getBlockState(upPos).getMaterial().isReplaceable();
     }
 
     public boolean isCeiling(WorldGenLevel seedReader, BlockPos pos, BlockState state) {
         if (!state.isOpaqueCube(seedReader, pos))
             return false;
 
-        BlockPos downPos = pos.down();
-        return seedReader.isAirBlock(downPos); // || level.getBlockState(downPos).getBlock().isReplaceable(level, downPos);
+        BlockPos downPos = pos.below();
+        return seedReader.isEmptyBlock(downPos); // || level.getBlockState(downPos).getBlock().isReplaceable(level, downPos);
     }
 
     public boolean isWall(WorldGenLevel seedReader, BlockPos pos, BlockState state) {
@@ -153,7 +153,7 @@ public abstract class CaveDecorator implements ICaveDecorator {
             BlockPos offsetPos = pos.offset(facing);
             BlockState stateAt = seedReader.getBlockState(offsetPos);
 
-            if (state != stateAt && seedReader.isAirBlock(offsetPos) || stateAt.getMaterial().isReplaceable())
+            if (state != stateAt && seedReader.isEmptyBlock(offsetPos) || stateAt.getMaterial().isReplaceable())
                 return facing;
         }
 

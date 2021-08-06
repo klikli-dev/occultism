@@ -64,7 +64,7 @@ public class PlayerEventHandler {
 
                 Level level = event.getLevel();
                 //if there is air, place block and play sound
-                if (level.isAirBlock(pos)) {
+                if (level.isEmptyBlock(pos)) {
                     //sound based on the item used
                     SoundEvent soundEvent =
                             isFlintAndSteel ? SoundEvents.ITEM_FLINTANDSTEEL_USE : SoundEvents.ITEM_FIRECHARGE_USE;

@@ -49,7 +49,7 @@ import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.item.crafting.RecipeManager;
-import net.minecraft.util.IItemProvider;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.items.wrapper.RecipeWrapper;
 
@@ -116,7 +116,7 @@ public class JeiPlugin implements IModPlugin {
         this.registerIngredientInfo(registration, OccultismBlocks.SPIRIT_FIRE.get());
     }
 
-    public void registerIngredientInfo(IRecipeRegistration registration, IItemProvider ingredient){
+    public void registerIngredientInfo(IRecipeRegistration registration, ItemLike ingredient){
         registration.addIngredientInfo(new ItemStack(ingredient.asItem()), VanillaTypes.ITEM,
                 "jei."+ Occultism.MODID + ".ingredient."+ingredient.asItem().getRegistryName().getPath()+".description");
     }

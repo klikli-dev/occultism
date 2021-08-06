@@ -39,7 +39,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.util.math.RayTraceContext;
+import net.minecraft.world.level.ClipContext;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
@@ -75,7 +75,7 @@ public class ManageMachineGoal extends Goal {
      * @return the position to move to to deposit the target block.
      */
     private BlockPos getMoveTarget() {
-        double angle = Math3DUtil.yaw(this.entity.getPositionVec(), Math3DUtil.center(this.targetBlock));
+        double angle = Math3DUtil.yaw(this.entity.position(), Math3DUtil.center(this.targetBlock));
         return this.targetBlock.offset(Direction.fromAngle(angle).getOpposite());
     }
     //endregion Getter / Setter
@@ -113,7 +113,7 @@ public class ManageMachineGoal extends Goal {
                 BlockEntity blockEntity = this.entity.level.getBlockEntity(this.targetBlock);
 
                 //when approaching a chest, open it visually
-                double distance = this.entity.getPositionVec().distanceTo(Math3DUtil.center(this.targetBlock));
+                double distance = this.entity.position().distanceTo(Math3DUtil.center(this.targetBlock));
                 float accessDistance = 1.86f;
                 if (distance < accessDistance) {
                     //stop moving while taking out
@@ -122,7 +122,7 @@ public class ManageMachineGoal extends Goal {
                 else {
                     //continue moving
                     BlockPos moveTarget = this.getMoveTarget();
-                    this.entity.getNavigation().setPath(this.entity.getNavigation().getPathToPos(moveTarget, 0), 1.0f);
+                    this.entity.getNavigation().moveTo(this.entity.getNavigation().createPath(moveTarget, 0), 1.0f);
                 }
 
                 //when close enough, interact
@@ -207,15 +207,15 @@ public class ManageMachineGoal extends Goal {
     //region Methods
     public boolean canSeeTarget() {
         BlockState targetBlockState = this.entity.level.getBlockState(this.targetBlock);
-        RayTraceContext context = new RayTraceContext(this.entity.getEyePosition(0),
-                Math3DUtil.center(this.targetBlock), RayTraceContext.BlockMode.COLLIDER, RayTraceContext.FluidMode.NONE,
+        ClipContext context = new ClipContext(this.entity.getEyePosition(0),
+                Math3DUtil.center(this.targetBlock), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE,
                 this.entity);
-        BlockHitResult rayTrace = this.entity.level.rayTraceBlocks(context);
+        BlockHitResult rayTrace = this.entity.level.clip(context);
 
         if (rayTrace.getType() != RayTraceResult.Type.MISS) {
             BlockPos sidePos = rayTrace.getPos();
             BlockPos pos = new BlockPos(rayTrace.getHitVec());
-            return this.entity.level.isAirBlock(sidePos) || this.entity.level.isAirBlock(pos) ||
+            return this.entity.level.isEmptyBlock(sidePos) || this.entity.level.isEmptyBlock(pos) ||
                    this.entity.level.getBlockEntity(pos) == this.entity.level.getBlockEntity(this.targetBlock);
         }
 
