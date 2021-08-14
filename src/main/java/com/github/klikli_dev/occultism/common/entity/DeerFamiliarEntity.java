@@ -22,12 +22,18 @@
 
 package com.github.klikli_dev.occultism.common.entity;
 
+import java.util.UUID;
+
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.google.common.collect.ImmutableList;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.ai.attributes.AttributeModifier.Operation;
+import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.EatGrassGoal;
 import net.minecraft.entity.ai.goal.FollowMobGoal;
 import net.minecraft.entity.ai.goal.LookAtGoal;
@@ -41,6 +47,7 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
@@ -49,6 +56,12 @@ public class DeerFamiliarEntity extends FamiliarEntity {
 
     private static final DataParameter<Boolean> RED_NOSE = EntityDataManager.createKey(DeerFamiliarEntity.class,
             DataSerializers.BOOLEAN);
+
+    private static final UUID SPEED_UUID = UUID.fromString("5ebf190f-3c59-41e7-9085-d14b37dfc863");
+
+    private static final byte START_EATING = 10;
+
+    private int eatTimer, neckRotTimer, oNeckRotTimer;
 
     public DeerFamiliarEntity(EntityType<? extends DeerFamiliarEntity> type, World worldIn) {
         super(type, worldIn);
@@ -65,12 +78,37 @@ public class DeerFamiliarEntity extends FamiliarEntity {
         this.goalSelector.addGoal(5, new WaterAvoidingRandomWalkingGoal(this, 1.0D));
         this.goalSelector.addGoal(6, new FollowMobGoal(this, 1, 3, 7));
     }
-    
+
     @Override
     public void tick() {
         super.tick();
         if (!world.isRemote && !this.isGlowing() && hasRedNose())
             this.setGlowing(true);
+
+        if (this.world.isRemote) {
+            this.eatTimer--;
+            this.oNeckRotTimer = this.neckRotTimer;
+            if (isEating())
+                this.neckRotTimer = Math.min(this.neckRotTimer + 1, 10);
+            else
+                this.neckRotTimer = Math.max(this.neckRotTimer - 1, 0);
+        }
+
+        if (!this.world.isRemote) {
+            Entity owner = this.getFamiliarOwner();
+            if (owner != null && this.getDistanceSq(owner) > 50) {
+                if (this.getAttribute(Attributes.MOVEMENT_SPEED).getModifier(SPEED_UUID) == null)
+                    this.getAttribute(Attributes.MOVEMENT_SPEED).applyNonPersistentModifier(
+                            new AttributeModifier(SPEED_UUID, "deer_speedup", 0.15, Operation.ADDITION));
+            } else if (this.getAttribute(Attributes.MOVEMENT_SPEED).getModifier(SPEED_UUID) != null) {
+                this.getAttribute(Attributes.MOVEMENT_SPEED).removeModifier(SPEED_UUID);
+            }
+        }
+    }
+
+    public float getNeckRot(float partialTick) {
+        return 0.4f
+                + MathHelper.lerp(MathHelper.lerp(partialTick, this.oNeckRotTimer, this.neckRotTimer) / 10, 0, 1.5f);
     }
 
     @Override
@@ -115,5 +153,22 @@ public class DeerFamiliarEntity extends FamiliarEntity {
 
     private void setRedNose(boolean b) {
         this.dataManager.set(RED_NOSE, b);
+    }
+
+    public boolean isEating() {
+        return eatTimer > 0;
+    }
+
+    private void startEating() {
+        this.eatTimer = 40;
+        this.neckRotTimer = 0;
+    }
+
+    @Override
+    public void handleStatusUpdate(byte id) {
+        if (id == START_EATING)
+            startEating();
+        else
+            super.handleStatusUpdate(id);
     }
 }
