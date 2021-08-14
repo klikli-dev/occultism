@@ -40,6 +40,7 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Effects;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
@@ -64,16 +65,23 @@ public class DeerFamiliarEntity extends FamiliarEntity {
         this.goalSelector.addGoal(5, new WaterAvoidingRandomWalkingGoal(this, 1.0D));
         this.goalSelector.addGoal(6, new FollowMobGoal(this, 1, 3, 7));
     }
+    
+    @Override
+    public void tick() {
+        super.tick();
+        if (!world.isRemote && !this.isGlowing() && hasRedNose())
+            this.setGlowing(true);
+    }
 
     @Override
     public void eatGrassBonus() {
         if (this.getRNG().nextDouble() < 0.25)
-            entityDropItem(OccultismItems.DATURA_SEEDS.get(), 0);
+            this.entityDropItem(OccultismItems.DATURA_SEEDS.get(), 0);
     }
 
     @Override
     public Iterable<EffectInstance> getFamiliarEffects() {
-        return ImmutableList.of();
+        return ImmutableList.of(new EffectInstance(Effects.JUMP_BOOST, 300, 0, false, false));
     }
 
     @Override

@@ -42,18 +42,15 @@ public class DeerFamiliarRenderer extends MobRenderer<DeerFamiliarEntity, DeerFa
     private static final ResourceLocation TEXTURES = new ResourceLocation(Occultism.MODID,
             "textures/entity/deer_familiar.png");
 
-    private static final int MAX_LIGHT = 15728880;
-
     public DeerFamiliarRenderer(EntityRendererManager renderManagerIn) {
         super(renderManagerIn, new DeerFamiliarModel(), 0.3f);
-        layerRenderers.add(new RedNoseLayer(this));
+        this.layerRenderers.add(new RedNoseLayer(this));
     }
 
     @Override
     public void render(DeerFamiliarEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn,
             IRenderTypeBuffer bufferIn, int packedLightIn) {
-        super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn,
-                entityIn.hasRedNose() ? MAX_LIGHT : packedLightIn);
+        super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
     }
 
     @Override
@@ -79,8 +76,8 @@ public class DeerFamiliarRenderer extends MobRenderer<DeerFamiliarEntity, DeerFa
 
             DeerFamiliarModel model = this.getEntityModel();
             IVertexBuilder ivertexbuilder = bufferIn.getBuffer(RenderType.getEntityCutout(RED_NOSE));
-            model.render(matrixStackIn, ivertexbuilder, MAX_LIGHT, LivingRenderer.getPackedOverlay(deer, 0), 1, 1, 1,
-                    1);
+            model.render(matrixStackIn, ivertexbuilder, packedLightIn, LivingRenderer.getPackedOverlay(deer, 0), 1, 1,
+                    1, 1);
         }
     }
 }
