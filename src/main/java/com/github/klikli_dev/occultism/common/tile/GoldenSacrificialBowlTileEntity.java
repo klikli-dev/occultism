@@ -22,7 +22,12 @@
 
 package com.github.klikli_dev.occultism.common.tile;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
 import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.common.item.DummyTooltipItem;
 import com.github.klikli_dev.occultism.common.item.spirit.BookOfBindingItem;
 import com.github.klikli_dev.occultism.common.ritual.Ritual;
 import com.github.klikli_dev.occultism.exceptions.ItemHandlerMissingException;
@@ -30,6 +35,7 @@ import com.github.klikli_dev.occultism.registry.OccultismParticles;
 import com.github.klikli_dev.occultism.registry.OccultismRituals;
 import com.github.klikli_dev.occultism.registry.OccultismTiles;
 import com.github.klikli_dev.occultism.util.EntityUtil;
+
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -50,10 +56,6 @@ import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.items.IItemHandler;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
 
 public class GoldenSacrificialBowlTileEntity extends SacrificialBowlTileEntity implements ITickableTileEntity {
 
@@ -234,6 +236,12 @@ public class GoldenSacrificialBowlTileEntity extends SacrificialBowlTileEntity i
             ItemStack activationItem = player.getHeldItem(hand);
             if (activationItem == ItemStack.EMPTY)
                 return false;
+            
+            if (activationItem.getItem() instanceof DummyTooltipItem) {
+                ((DummyTooltipItem) activationItem.getItem()).performRitual(world, pos, this,
+                        player, activationItem);
+                return true;
+            }
 
             if (this.currentRitual == null) {
                 //Identify the ritual in the ritual registry.
