@@ -770,11 +770,10 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
             return name.toLowerCase().contains(searchText.toLowerCase().substring(1));
         }
         else if (searchText.startsWith("#")) {
-            String tooltipString;
             List<String> tooltip = stack.getTooltip(this.minecraft.player, ITooltipFlag.TooltipFlags.NORMAL).stream()
-                                           .map(ITextComponent::getUnformattedComponentText).collect(
+                    .map(ITextComponent::getString).collect(
                             Collectors.toList());
-            tooltipString = Joiner.on(' ').join(tooltip).toLowerCase();
+            String tooltipString = Joiner.on(' ').join(tooltip).toLowerCase().trim();
             return tooltipString.toLowerCase().contains(searchText.toLowerCase().substring(1));
         }
         else if (searchText.startsWith("$")) {
