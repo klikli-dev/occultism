@@ -85,9 +85,13 @@ public class ClientSetupEventHandler {
             new KeyMapping("key.occultism.familiar.greedy", KeyConflictContext.IN_GAME,
                     InputConstants.Type.KEYSYM.getOrCreate(GLFW.GLFW_KEY_M), "key.occultism.category");
 
-    public static final KeyMapping KEY_FAMILIAR_BAT =
-            new KeyMapping("key.occultism.familiar.bat", KeyConflictContext.IN_GAME,
-                    InputConstants.Type.KEYSYM.getOrCreate(-1), "key.occultism.category");
+    public static final KeyBinding KEY_FAMILIAR_BAT =
+            new KeyBinding("key.occultism.familiar.bat", KeyConflictContext.IN_GAME,
+                    InputMappings.Type.KEYSYM.getOrMakeInput(-1), "key.occultism.category");
+
+    public static final KeyBinding KEY_FAMILIAR_DEER =
+            new KeyBinding("key.occultism.familiar.deer", KeyConflictContext.IN_GAME,
+                    InputMappings.Type.KEYSYM.getOrMakeInput(-1), "key.occultism.category");
     //endregion Fields
 
     //region Static Methods
@@ -104,6 +108,7 @@ public class ClientSetupEventHandler {
             ClientRegistry.registerKeyBinding(KEY_FAMILIAR_OTHERWORLD_BIRD);
             ClientRegistry.registerKeyBinding(KEY_FAMILIAR_GREEDY);
             ClientRegistry.registerKeyBinding(KEY_FAMILIAR_BAT);
+            ClientRegistry.registerKeyBinding(KEY_FAMILIAR_DEER);
         });
 
         //Register Entity Layers
@@ -117,6 +122,7 @@ public class ClientSetupEventHandler {
         RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.MARID.get(), MaridRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.GREEDY_FAMILIAR.get(), GreedyFamiliarRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.BAT_FAMILIAR.get(), BatFamiliarRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.DEER_FAMILIAR.get(), DeerFamiliarRenderer::new);
         RenderingRegistry
                 .registerEntityRenderingHandler(OccultismEntities.POSSESSED_ENDERMITE.get(), EndermiteRenderer::new);
         RenderingRegistry

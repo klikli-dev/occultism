@@ -278,94 +278,96 @@ public class OccultismItems {
 
     //Ritual Dummy Items
     static{
-        ITEMS.register(
-                "ritual_dummy/craft_dimensional_matrix", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register(
-                "ritual_dummy/craft_dimensional_mineshaft", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register(
-                "ritual_dummy/craft_infused_lenses", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/craft_dimensional_matrix", () -> new DummyTooltipItem(defaultProperties(),
+                LazyOptional.of(OccultismRituals.CRAFT_DIMENSIONAL_MATRIX_RITUAL::get)));
+        ITEMS.register("ritual_dummy/craft_dimensional_mineshaft", () -> new DummyTooltipItem(defaultProperties(),
+                LazyOptional.of(OccultismRituals.CRAFT_DIMENSIONAL_MINESHAFT_RITUAL::get)));
+        ITEMS.register("ritual_dummy/craft_infused_lenses", () -> new DummyTooltipItem(defaultProperties(),
+                LazyOptional.of(OccultismRituals.CRAFT_INFUSED_LENSES_RITUAL::get)));
 
-        ITEMS.register(
-                "ritual_dummy/craft_infused_pickaxe", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register(
-                "ritual_dummy/craft_miner_djinni_ores", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register(
-                "ritual_dummy/craft_miner_foliot_unspecialized", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register(
-                "ritual_dummy/craft_satchel", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register(
-                "ritual_dummy/craft_soul_gem", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register(
-                "ritual_dummy/craft_familiar_ring", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register(
-                "ritual_dummy/craft_stabilizer_tier1", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register(
-                "ritual_dummy/craft_stabilizer_tier2", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register(
-                "ritual_dummy/craft_stabilizer_tier3", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register(
-                "ritual_dummy/craft_stabilizer_tier4", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register(
-                "ritual_dummy/craft_stable_wormhole", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/craft_infused_pickaxe", () -> new DummyTooltipItem(defaultProperties(),
+                LazyOptional.of(OccultismRituals.CRAFT_INFUSED_PICKAXE_RITUAL::get)));
+        ITEMS.register("ritual_dummy/craft_miner_djinni_ores", () -> new DummyTooltipItem(defaultProperties(),
+                LazyOptional.of(OccultismRituals.CRAFT_MINER_DJINNI_ORES_RITUAL::get)));
+        ITEMS.register("ritual_dummy/craft_miner_foliot_unspecialized", () -> new DummyTooltipItem(defaultProperties(),
+                LazyOptional.of(OccultismRituals.CRAFT_MINER_FOLIOT_UNSPECIALIZED_RITUAL::get)));
+        ITEMS.register("ritual_dummy/craft_satchel", () -> new DummyTooltipItem(defaultProperties(),
+                LazyOptional.of(OccultismRituals.CRAFT_SATCHEL_RITUAL::get)));
+        ITEMS.register("ritual_dummy/craft_soul_gem", () -> new DummyTooltipItem(defaultProperties(),
+                LazyOptional.of(OccultismRituals.CRAFT_SOUL_GEM_RITUAL::get)));
+        ITEMS.register("ritual_dummy/craft_familiar_ring", () -> new DummyTooltipItem(defaultProperties(),
+                LazyOptional.of(OccultismRituals.CRAFT_FAMILIAR_RING::get)));
+        ITEMS.register("ritual_dummy/craft_stabilizer_tier1", () -> new DummyTooltipItem(defaultProperties(),
+                LazyOptional.of(OccultismRituals.CRAFT_STABILIZER_TIER1_RITUAL::get)));
+        ITEMS.register("ritual_dummy/craft_stabilizer_tier2", () -> new DummyTooltipItem(defaultProperties(),
+                LazyOptional.of(OccultismRituals.CRAFT_STABILIZER_TIER2_RITUAL::get)));
+        ITEMS.register("ritual_dummy/craft_stabilizer_tier3", () -> new DummyTooltipItem(defaultProperties(),
+                LazyOptional.of(OccultismRituals.CRAFT_STABILIZER_TIER3_RITUAL::get)));
+        ITEMS.register("ritual_dummy/craft_stabilizer_tier4", () -> new DummyTooltipItem(defaultProperties(),
+                LazyOptional.of(OccultismRituals.CRAFT_STABILIZER_TIER4_RITUAL::get)));
+        ITEMS.register("ritual_dummy/craft_stable_wormhole", () -> new DummyTooltipItem(defaultProperties(),
+                LazyOptional.of(OccultismRituals.CRAFT_STABLE_WORMHOLE_RITUAL::get)));
 
-        ITEMS.register(
-                "ritual_dummy/craft_storage_controller_base", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register(
-                "ritual_dummy/craft_storage_remote", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register(
-                "ritual_dummy/familiar_otherworld_bird", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register(
-                "ritual_dummy/familiar_parrot", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register(
-                "ritual_dummy/familiar_greedy", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register(
-                "ritual_dummy/familiar_bat", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register(
-                "ritual_dummy/possess_enderman", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register(
-                "ritual_dummy/possess_endermite", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register(
-                "ritual_dummy/possess_skeleton", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register(
-                "ritual_dummy/summon_afrit_rain_weather", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register(
-                "ritual_dummy/summon_afrit_thunder_weather", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register(
-                "ritual_dummy/summon_djinni_clear_weather", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register(
-                "ritual_dummy/summon_djinni_day_time", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/craft_storage_controller_base", () -> new DummyTooltipItem(defaultProperties(),
+                LazyOptional.of(OccultismRituals.CRAFT_STORAGE_CONTROLLER_BASE_RITUAL::get)));
+        ITEMS.register("ritual_dummy/craft_storage_remote", () -> new DummyTooltipItem(defaultProperties(),
+                LazyOptional.of(OccultismRituals.CRAFT_STORAGE_REMOTE_RITUAL::get)));
+        ITEMS.register("ritual_dummy/familiar_otherworld_bird", () -> new DummyTooltipItem(defaultProperties(),
+                LazyOptional.of(OccultismRituals.FAMILIAR_OTHERWORLD_BIRD::get)));
+        ITEMS.register("ritual_dummy/familiar_parrot", () -> new DummyTooltipItem(defaultProperties(),
+                LazyOptional.of(OccultismRituals.FAMILIAR_PARROT_RITUAL::get)));
+        ITEMS.register("ritual_dummy/familiar_greedy", () -> new DummyTooltipItem(defaultProperties(),
+                LazyOptional.of(OccultismRituals.FAMILIAR_GREEDY_RITUAL::get)));
+        ITEMS.register("ritual_dummy/familiar_bat",
+                () -> new DummyTooltipItem(defaultProperties(), LazyOptional.of(OccultismRituals.FAMILIAR_BAT::get)));
+        ITEMS.register("ritual_dummy/familiar_deer",
+                () -> new DummyTooltipItem(defaultProperties(), LazyOptional.of(OccultismRituals.FAMILIAR_DEER::get)));
+        ITEMS.register("ritual_dummy/possess_enderman", () -> new DummyTooltipItem(defaultProperties(),
+                LazyOptional.of(OccultismRituals.POSSESS_ENDERMAN_RITUAL::get)));
+        ITEMS.register("ritual_dummy/possess_endermite", () -> new DummyTooltipItem(defaultProperties(),
+                LazyOptional.of(OccultismRituals.POSSESS_ENDERMITE_RITUAL::get)));
+        ITEMS.register("ritual_dummy/possess_skeleton", () -> new DummyTooltipItem(defaultProperties(),
+                LazyOptional.of(OccultismRituals.POSSESS_SKELETON_RITUAL::get)));
+        ITEMS.register("ritual_dummy/summon_afrit_rain_weather", () -> new DummyTooltipItem(defaultProperties(),
+                LazyOptional.of(OccultismRituals.SUMMON_AFRIT_RAIN_WEATHER_RITUAL::get)));
+        ITEMS.register("ritual_dummy/summon_afrit_thunder_weather", () -> new DummyTooltipItem(defaultProperties(),
+                LazyOptional.of(OccultismRituals.SUMMON_AFRIT_THUNDER_WEATHER_RITUAL::get)));
+        ITEMS.register("ritual_dummy/summon_djinni_clear_weather", () -> new DummyTooltipItem(defaultProperties(),
+                LazyOptional.of(OccultismRituals.SUMMON_DJINNI_CLEAR_WEATHER_RITUAL::get)));
+        ITEMS.register("ritual_dummy/summon_djinni_day_time", () -> new DummyTooltipItem(defaultProperties(),
+                LazyOptional.of(OccultismRituals.SUMMON_DJINNI_DAY_TIME_RITUAL::get)));
 
-        ITEMS.register(
-                "ritual_dummy/summon_djinni_manage_machine", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register(
-                "ritual_dummy/summon_djinni_night_time", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register(
-                "ritual_dummy/summon_foliot_lumberjack", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register(
-                "ritual_dummy/summon_foliot_otherstone_trader", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register(
-                "ritual_dummy/summon_foliot_sapling_trader", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register(
-                "ritual_dummy/summon_foliot_transport_items", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register(
-                "ritual_dummy/summon_foliot_cleaner", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register(
-                "ritual_dummy/summon_wild_afrit", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register(
-                "ritual_dummy/summon_wild_hunt", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register(
-                "ritual_dummy/summon_wild_otherworld_bird", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register(
-                "ritual_dummy/summon_wild_parrot", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/summon_djinni_manage_machine", () -> new DummyTooltipItem(defaultProperties(),
+                LazyOptional.of(OccultismRituals.SUMMON_DJINNI_MANAGE_MACHINE_RITUAL::get)));
+        ITEMS.register("ritual_dummy/summon_djinni_night_time", () -> new DummyTooltipItem(defaultProperties(),
+                LazyOptional.of(OccultismRituals.SUMMON_DJINNI_NIGHT_TIME_RITUAL::get)));
+        ITEMS.register("ritual_dummy/summon_foliot_lumberjack", () -> new DummyTooltipItem(defaultProperties(),
+                LazyOptional.of(OccultismRituals.SUMMON_FOLIOT_LUMBERJACK_RITUAL::get)));
+        ITEMS.register("ritual_dummy/summon_foliot_otherstone_trader", () -> new DummyTooltipItem(defaultProperties(),
+                LazyOptional.of(OccultismRituals.SUMMON_FOLIOT_OTHERSTONE_TRADER_RITUAL::get)));
+        ITEMS.register("ritual_dummy/summon_foliot_sapling_trader", () -> new DummyTooltipItem(defaultProperties(),
+                LazyOptional.of(OccultismRituals.SUMMON_FOLIOT_SAPLING_TRADER_RITUAL::get)));
+        ITEMS.register("ritual_dummy/summon_foliot_transport_items", () -> new DummyTooltipItem(defaultProperties(),
+                LazyOptional.of(OccultismRituals.SUMMON_FOLIOT_TRANSPORT_ITEMS_RITUAL::get)));
+        ITEMS.register("ritual_dummy/summon_foliot_cleaner", () -> new DummyTooltipItem(defaultProperties(),
+                LazyOptional.of(OccultismRituals.SUMMON_FOLIOT_CLEANER_RITUAL::get)));
+        ITEMS.register("ritual_dummy/summon_wild_afrit", () -> new DummyTooltipItem(defaultProperties(),
+                LazyOptional.of(OccultismRituals.SUMMON_WILD_AFRIT_RITUAL::get)));
+        ITEMS.register("ritual_dummy/summon_wild_hunt", () -> new DummyTooltipItem(defaultProperties(),
+                LazyOptional.of(OccultismRituals.SUMMON_WILD_HUNT_RITUAL::get)));
+        ITEMS.register("ritual_dummy/summon_wild_otherworld_bird", () -> new DummyTooltipItem(defaultProperties(),
+                LazyOptional.of(OccultismRituals.SUMMON_WILD_OTHERWORLD_BIRD_RITUAL::get)));
+        ITEMS.register("ritual_dummy/summon_wild_parrot", () -> new DummyTooltipItem(defaultProperties(),
+                LazyOptional.of(OccultismRituals.SUMMON_WILD_PARROT_RITUAL::get)));
 
-        ITEMS.register(
-                "ritual_dummy/summon_foliot_crusher", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register(
-                "ritual_dummy/summon_djinni_crusher", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register(
-                "ritual_dummy/summon_afrit_crusher", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register(
-                "ritual_dummy/summon_marid_crusher", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/summon_foliot_crusher", () -> new DummyTooltipItem(defaultProperties(),
+                LazyOptional.of(OccultismRituals.SUMMON_FOLIOT_CRUSHER_RITUAL::get)));
+        ITEMS.register("ritual_dummy/summon_djinni_crusher", () -> new DummyTooltipItem(defaultProperties(),
+                LazyOptional.of(OccultismRituals.SUMMON_DJINNI_CRUSHER_RITUAL::get)));
+        ITEMS.register("ritual_dummy/summon_afrit_crusher", () -> new DummyTooltipItem(defaultProperties(),
+                LazyOptional.of(OccultismRituals.SUMMON_AFRIT_CRUSHER_RITUAL::get)));
+        ITEMS.register("ritual_dummy/summon_marid_crusher", () -> new DummyTooltipItem(defaultProperties(), LazyOptional.of(OccultismRituals.SUMMON_MARID_CRUSHER_RITUAL::get)));
+
     }
 
     //endregion Fields

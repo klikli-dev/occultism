@@ -157,6 +157,7 @@ public class Occultism {
         event.put(OccultismEntities.OTHERWORLD_BIRD_TYPE.get(), OtherworldBirdEntity.registerAttributes().create());
         event.put(OccultismEntities.GREEDY_FAMILIAR_TYPE.get(), FamiliarEntity.registerAttributes().create());
         event.put(OccultismEntities.BAT_FAMILIAR_TYPE.get(), BatFamiliarEntity.registerAttributes().create());
+        event.put(OccultismEntities.DEER_FAMILIAR_TYPE.get(), FamiliarEntity.registerAttributes().create());
     }
 
     private void serverSetup(final FMLDedicatedServerSetupEvent event) {

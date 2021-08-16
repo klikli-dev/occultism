@@ -24,6 +24,7 @@ package com.github.klikli_dev.occultism.registry;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.entity.BatFamiliarEntity;
+import com.github.klikli_dev.occultism.common.entity.DeerFamiliarEntity;
 import com.github.klikli_dev.occultism.common.entity.GreedyFamiliarEntity;
 import com.github.klikli_dev.occultism.common.entity.OtherworldBirdEntity;
 import com.github.klikli_dev.occultism.common.entity.possessed.PossessedEndermanEntity;
@@ -106,10 +107,15 @@ public class OccultismEntities {
                     .clientTrackingRange(8)
                     .build(modLoc("greedy_familiar").toString()));
     public static final NonNullLazy<EntityType<BatFamiliarEntity>> BAT_FAMILIAR_TYPE =
-            NonNullLazy.of(() -> EntityType.Builder.of(BatFamiliarEntity::new, MobCategory.CREATURE)
-                    .sized(0.5F, 0.9F)
-                    .clientTrackingRange(8)
-                    .build(modLoc("bat_familiar").toString()));
+            NonNullLazy.of(() -> EntityType.Builder.create(BatFamiliarEntity::new, EntityClassification.CREATURE)
+                                         .size(0.5F, 0.9F)
+                                         .trackingRange(8)
+                                         .build(modLoc("bat_familiar").toString()));
+    public static final NonNullLazy<EntityType<DeerFamiliarEntity>> DEER_FAMILIAR_TYPE =
+            NonNullLazy.of(() -> EntityType.Builder.create(DeerFamiliarEntity::new, EntityClassification.CREATURE)
+                                         .size(0.6F, 1.0F)
+                                         .trackingRange(8)
+                                         .build(modLoc("deer_familiar").toString()));
 
     public static final RegistryObject<EntityType<FoliotEntity>> FOLIOT = ENTITIES.register("foliot", FOLIOT_TYPE::get);
     public static final RegistryObject<EntityType<DjinniEntity>> DJINNI = ENTITIES.register("djinni", DJINNI_TYPE::get);
@@ -134,5 +140,7 @@ public class OccultismEntities {
             ENTITIES.register("greedy_familiar", GREEDY_FAMILIAR_TYPE::get);
     public static final RegistryObject<EntityType<BatFamiliarEntity>> BAT_FAMILIAR =
             ENTITIES.register("bat_familiar", BAT_FAMILIAR_TYPE::get);
+    public static final RegistryObject<EntityType<DeerFamiliarEntity>> DEER_FAMILIAR =
+            ENTITIES.register("deer_familiar", DEER_FAMILIAR_TYPE::get);
     //endregion Fields
 }

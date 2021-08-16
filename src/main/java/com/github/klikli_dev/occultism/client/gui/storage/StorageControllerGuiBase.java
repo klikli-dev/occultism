@@ -762,7 +762,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
             List<String> tooltip = stack.getTooltipLines(this.minecraft.player, TooltipFlag.Default.NORMAL).stream()
                     .map(Component::getContents).collect(
                             Collectors.toList());
-            tooltipString = Joiner.on(' ').join(tooltip).toLowerCase();
+            String tooltipString = Joiner.on(' ').join(tooltip).toLowerCase().trim();
             return tooltipString.toLowerCase().contains(searchText.toLowerCase().substring(1));
         } else if (searchText.startsWith("$")) {
             StringBuilder tagStringBuilder = new StringBuilder();

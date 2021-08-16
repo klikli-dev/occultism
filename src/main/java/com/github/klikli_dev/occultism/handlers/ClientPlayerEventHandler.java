@@ -104,8 +104,9 @@ public class ClientPlayerEventHandler {
             boolean familiarGreedy = ClientSetupEventHandler.KEY_FAMILIAR_GREEDY.isPressed();
             boolean familiarOtherworldBird = ClientSetupEventHandler.KEY_FAMILIAR_OTHERWORLD_BIRD.isPressed();
             boolean familiarBat = ClientSetupEventHandler.KEY_FAMILIAR_BAT.isPressed();
-            if (familiarGreedy|| familiarOtherworldBird || familiarBat) {
-                OccultismPackets.sendToServer(new MessageToggleFamiliarSettings(familiarOtherworldBird, familiarGreedy, familiarBat));
+            boolean familiarDeer = ClientSetupEventHandler.KEY_FAMILIAR_DEER.isPressed();
+            if (familiarGreedy|| familiarOtherworldBird || familiarBat || familiarDeer) {
+                OccultismPackets.sendToServer(new MessageToggleFamiliarSettings(familiarOtherworldBird, familiarGreedy, familiarBat, familiarDeer));
             }
         }
     }
