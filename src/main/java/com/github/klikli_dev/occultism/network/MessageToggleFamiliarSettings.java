@@ -38,6 +38,7 @@ public class MessageToggleFamiliarSettings extends MessageBase {
     public boolean toggleOtherworldBird;
     public boolean toggleGreedy;
     public boolean toggleBat;
+    public boolean toggleDeer;
     //endregion Fields
 
     //region Initialization
@@ -45,10 +46,11 @@ public class MessageToggleFamiliarSettings extends MessageBase {
         this.decode(buf);
     }
 
-    public MessageToggleFamiliarSettings(boolean toggleOtherworldBird, boolean toggleGreedy, boolean toggleBat) {
+    public MessageToggleFamiliarSettings(boolean toggleOtherworldBird, boolean toggleGreedy, boolean toggleBat, boolean toggleDeer) {
         this.toggleOtherworldBird = toggleOtherworldBird;
         this.toggleGreedy = toggleGreedy;
         this.toggleBat = toggleBat;
+        this.toggleDeer = toggleDeer;
     }
     //endregion Initialization
 
@@ -80,6 +82,13 @@ public class MessageToggleFamiliarSettings extends MessageBase {
                                 "message." + Occultism.MODID + ".familiar.bat." +
                                         (cap.isBatEnabled() ? "enabled" : "disabled")), true);
             }
+            if (this.toggleDeer) {
+                cap.setDeerEnabled(!cap.isDeerEnabled());
+                player.sendStatusMessage(
+                        new TranslationTextComponent(
+                                "message." + Occultism.MODID + ".familiar.deer." +
+                                        (cap.isDeerEnabled() ? "enabled" : "disabled")), true);
+            }
         });
     }
 
@@ -88,6 +97,7 @@ public class MessageToggleFamiliarSettings extends MessageBase {
         buf.writeBoolean(this.toggleOtherworldBird);
         buf.writeBoolean(this.toggleGreedy);
         buf.writeBoolean(this.toggleBat);
+        buf.writeBoolean(this.toggleDeer);
     }
 
     @Override
@@ -95,6 +105,7 @@ public class MessageToggleFamiliarSettings extends MessageBase {
         this.toggleOtherworldBird = buf.readBoolean();
         this.toggleGreedy = buf.readBoolean();
         this.toggleBat = buf.readBoolean();
+        this.toggleDeer = buf.readBoolean();
     }
     //endregion Overrides
 }
