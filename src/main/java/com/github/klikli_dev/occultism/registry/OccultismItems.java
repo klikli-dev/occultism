@@ -320,6 +320,8 @@ public class OccultismItems {
                 LazyOptional.of(OccultismRituals.FAMILIAR_GREEDY_RITUAL::get)));
         ITEMS.register("ritual_dummy/familiar_bat",
                 () -> new DummyTooltipItem(defaultProperties(), LazyOptional.of(OccultismRituals.FAMILIAR_BAT::get)));
+        ITEMS.register("ritual_dummy/familiar_deer",
+                () -> new DummyTooltipItem(defaultProperties(), LazyOptional.of(OccultismRituals.FAMILIAR_DEER::get)));
         ITEMS.register("ritual_dummy/possess_enderman", () -> new DummyTooltipItem(defaultProperties(),
                 LazyOptional.of(OccultismRituals.POSSESS_ENDERMAN_RITUAL::get)));
         ITEMS.register("ritual_dummy/possess_endermite", () -> new DummyTooltipItem(defaultProperties(),
