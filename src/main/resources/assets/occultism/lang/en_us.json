@@ -413,6 +413,10 @@
   "ritual.occultism.familiar_bat.started": "Started summoning bat familiar.",
   "ritual.occultism.familiar_bat.finished": "Summoned bat familiar successfully.",
   "ritual.occultism.familiar_bat.interrupted": "Summoning of bat familiar interrupted.",
+  "ritual.occultism.familiar_deer.conditions": "Not all requirements for this ritual are met.",
+  "ritual.occultism.familiar_deer.started": "Started summoning deer familiar.",
+  "ritual.occultism.familiar_deer.finished": "Summoned deer familiar successfully.",
+  "ritual.occultism.familiar_deer.interrupted": "Summoning of deer familiar interrupted.",
   "_comment": "GUI Strings",
   "gui.occultism.book_of_calling.mode": "Mode",
   "gui.occultism.book_of_calling.work_area": "Work Area",
@@ -471,6 +475,7 @@
   "key.occultism.familiar.otherworld_bird": "Toggle Ring Effect: Drikwing",
   "key.occultism.familiar.greedy": "Toggle Ring Effect: Greedy",
   "key.occultism.familiar.bat": "Toggle Ring Effect: Bat",
+  "key.occultism.familiar.deer": "Toggle Ring Effect: Deer",
   "_comment": "JEI",
   "occultism.jei.spirit_fire": "Spiritfire",
   "occultism.jei.crushing": "Crusher Spirit",
@@ -504,6 +509,8 @@
   "message.occultism.familiar.greedy.disabled": "Ring Effect - Greedy: Disabled",
   "message.occultism.familiar.bat.enabled": "Ring Effect - Bat: Enabled",
   "message.occultism.familiar.bat.disabled": "Ring Effect - Bat: Disabled",
+  "message.occultism.familiar.deer.enabled": "Ring Effect - Deer: Enabled",
+  "message.occultism.familiar.deer.disabled": "Ring Effect - Deer: Disabled",
   "_comment": "Pentacles",
   "pentacle.occultism.craft_afrit": "Sevira's Permanent Confinement",
   "pentacle.occultism.craft_djinni": "Strigeor's Higher Binding",
@@ -577,6 +584,9 @@
 
   "item.occultism.ritual_dummy.familiar_bat": "Ritual: Summon Bat Familiar",
   "item.occultism.ritual_dummy.familiar_bat.tooltip": "Bat familiars provide night vision to their master.",
+
+  "item.occultism.ritual_dummy.familiar_deer": "Ritual: Summon Deer Familiar",
+  "item.occultism.ritual_dummy.familiar_deer.tooltip": "Bat familiars provides jump boost to their master.",
 
   "item.occultism.ritual_dummy.possess_enderman": "Ritual: Summon Possessed Enderman",
   "item.occultism.ritual_dummy.possess_enderman.tooltip": "The possessed Enderman will always drop at least one ender pearl when killed.",
