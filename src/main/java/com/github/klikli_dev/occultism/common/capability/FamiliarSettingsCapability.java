@@ -39,6 +39,7 @@ public class FamiliarSettingsCapability {
     private boolean greedyEnabled = true;
     private boolean otherworldBirdEnabled = true;
     private boolean batEnabled = true;
+    private boolean deerEnabled = true;
     //endregion Fields
 
     //region Initialization
@@ -60,12 +61,14 @@ public class FamiliarSettingsCapability {
         this.greedyEnabled = settings.greedyEnabled;
         this.otherworldBirdEnabled = settings.otherworldBirdEnabled;
         this.batEnabled = settings.batEnabled;
+        this.deerEnabled = settings.deerEnabled;
     }
 
     public CompoundNBT write(CompoundNBT compound) {
         compound.putBoolean("greedyEnabled", this.greedyEnabled);
         compound.putBoolean("otherworldBirdEnabled", this.otherworldBirdEnabled);
         compound.putBoolean("batEnabled", this.batEnabled);
+        compound.putBoolean("deerEnabled", this.deerEnabled);
         return compound;
     }
 
@@ -73,6 +76,7 @@ public class FamiliarSettingsCapability {
         this.greedyEnabled = compound.getBoolean("greedyEnabled");
         this.otherworldBirdEnabled = compound.getBoolean("otherworldBirdEnabled");
         this.batEnabled = compound.getBoolean("batEnabled");
+        this.deerEnabled = compound.getBoolean("deerEnabled");
         return compound;
     }
 
@@ -98,6 +102,14 @@ public class FamiliarSettingsCapability {
 
     public void setBatEnabled(boolean batEnabled) {
         this.batEnabled = batEnabled;
+    }
+
+    public boolean isDeerEnabled() {
+        return this.deerEnabled;
+    }
+
+    public void setDeerEnabled(boolean deerEnabled) {
+        this.deerEnabled = deerEnabled;
     }
     //endregion Methods
 
