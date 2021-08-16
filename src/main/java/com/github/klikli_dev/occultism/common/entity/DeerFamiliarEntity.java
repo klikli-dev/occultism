@@ -85,13 +85,13 @@ public class DeerFamiliarEntity extends FamiliarEntity {
     @Override
     public void tick() {
         super.tick();
-        if (!world.isRemote && !this.isGlowing() && hasRedNose())
+        if (!this.world.isRemote && !this.isGlowing() && this.hasRedNose())
             this.setGlowing(true);
 
         if (this.world.isRemote) {
             this.eatTimer--;
             this.oNeckRotTimer = this.neckRotTimer;
-            if (isEating())
+            if (this.isEating())
                 this.neckRotTimer = Math.min(this.neckRotTimer + 1, 10);
             else
                 this.neckRotTimer = Math.max(this.neckRotTimer - 1, 0);
@@ -163,7 +163,7 @@ public class DeerFamiliarEntity extends FamiliarEntity {
     }
 
     public boolean isEating() {
-        return eatTimer > 0;
+        return this.eatTimer > 0;
     }
 
     private void startEating() {
@@ -174,7 +174,7 @@ public class DeerFamiliarEntity extends FamiliarEntity {
     @Override
     public void handleStatusUpdate(byte id) {
         if (id == START_EATING)
-            startEating();
+            this.startEating();
         else
             super.handleStatusUpdate(id);
     }
