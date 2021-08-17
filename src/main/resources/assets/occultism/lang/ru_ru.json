@@ -5,12 +5,12 @@
     "_comment": "Предметы",
     "item.occultism.pentacle": "Пентакль",
 
-    "item.occultism.debug_foliot_lumberjack": "Призвыв Отладчика Лесоруба Филиота",
-    "item.occultism.debug_djinni_manage_machine": "Призыв Отладчика Менеджера механизмаов Джинни",
-    "item.occultism.debug_foliot_transport_items": "Призыв Отладчика Филиота транспортера",
-    "item.occultism.debug_foliot_cleaner": "Призыв Отладчика Филиота дворника",
-    "item.occultism.debug_foliot_trader": "Призыв Отладчика Филиота торговца",
-    "item.occultism.debug_djinni_test": "Призыв Отладчика Тестового Джинни",
+    "item.occultism.debug_foliot_lumberjack": "Призвыв Отладчика Лесоруба Фолиот",
+    "item.occultism.debug_djinni_manage_machine": "Призыв Отладчика Оператора механизмов Джинни",
+    "item.occultism.debug_foliot_transport_items": "Призыв Отладчика Транспортера Фолиот",
+    "item.occultism.debug_foliot_cleaner": "Призыв Отладчика Дворника Фолиот",
+    "item.occultism.debug_foliot_trader": "Призыв Отладчика Торговца Фолиот",
+    "item.occultism.debug_djinni_test": "Призыв Отладчика Тестов Джинни",
 
     "item.occultism.chalk_gold": "Золотой мел",
     "item.occultism.chalk_purple": "Фиолетовый мел",
@@ -37,11 +37,11 @@
     "item.occultism.book_of_binding_bound_afrit": "Книга переплёта: Африт (Привязанная)",
     "item.occultism.book_of_binding_marid": "Книга переплёта: Матрид",
     "item.occultism.book_of_binding_bound_marid": "Книга переплёта: Марид (Привязанная)",
-    "item.occultism.book_of_calling_foliot_lumberjack": "Книга призыва: Филиот лесоруб",
-    "item.occultism.book_of_calling_foliot_transport_items": "Книга призыва: Филиот транспортер",
-    "item.occultism.book_of_calling_foliot_cleaner": "Книга призыва: Филиота дворника",
-    "item.occultism.book_of_calling_foliot_crusher": "Книга призыва: Филиота измельчителя руд",
-    "item.occultism.book_of_calling_djinni_manage_machine": "Книга призыва: Оператора машин Джинни",
+    "item.occultism.book_of_calling_foliot_lumberjack": "Книга призыва: Лесоруба Фолиот",
+    "item.occultism.book_of_calling_foliot_transport_items": "Книга призыва: Транспортера Фолиот",
+    "item.occultism.book_of_calling_foliot_cleaner": "Книга призыва: Дворника Фолиот",
+    "item.occultism.book_of_calling_foliot_crusher": "Книга призыва: Измельчителя руд Фолиот",
+    "item.occultism.book_of_calling_djinni_manage_machine": "Книга призыва: Оператора механизмов Джинни",
 
     "item.occultism.storage_remote": "Беспроводное Хранилище",
     "item.occultism.storage_remote_inert": "Беспроводное Инертное Хранилище",
@@ -176,7 +176,7 @@
     "item.occultism.divination_rod.tooltip.no_linked_block": "Не настроен ни на какой материал..",
     "item.occultism.divination_rod.tooltip.linked_block": "Настроен на %s.",
    
-    "item.occultism.dimensional_matrix.tooltip": "%s привязан к этой матрице измерений.",
+    "item.occultism.dimensional_matrix.tooltip": "%s привязан к этой кристальной матрице.",
    
     "item.occultism.infused_pickaxe.tooltip": "%s привязан к этой кирке.",
    
@@ -201,14 +201,14 @@
     "block.occultism.chalk_glyph": "Мел Глиф",
     
     "block.occultism.storage_controller": "Контроллер хранилища",
-    "block.occultism.storage_controller_base": "База хранилища",
+    "block.occultism.storage_controller_base": "Активатор хранилища",
 
     "block.occultism.storage_stabilizer_tier1": "Уровень 1 Стабилизатор Хранилища",
     "block.occultism.storage_stabilizer_tier2": "Уровень 2 Стабилизатор Хранилища",
     "block.occultism.storage_stabilizer_tier3": "Уровень 3 Стабилизатор Хранилища",
     "block.occultism.storage_stabilizer_tier4": "Уровень 4 Стабилизатор Хранилища",
     
-    "block.occultism.stable_wormhole": "Стабилизированная черная дыра",
+    "block.occultism.stable_wormhole": "Стабилизированная Червоточина",
     
     "block.occultism.datura": "Мечта демона",
 
@@ -394,9 +394,9 @@
     "ritual.occultism.summon_wild_hunt.interrupted": "Дикая Охота прервана.",
 
     "ritual.occultism.craft_dimensional_matrix.conditions": "Не все требования для этого ритуала соблюдены.",
-    "ritual.occultism.craft_dimensional_matrix.started": "Начато привезание Джинни к Матрице Измерений.",
-    "ritual.occultism.craft_dimensional_matrix.finished": "Привезание Джинни к Матрице Измерений успешно.",
-    "ritual.occultism.craft_dimensional_matrix.interrupted": "Привезание Джинни к Матрице Измерений прервано.",
+    "ritual.occultism.craft_dimensional_matrix.started": "Начато привезание Джинни к Кристальной Матрице.",
+    "ritual.occultism.craft_dimensional_matrix.finished": "Привезание Джинни к Кристальной Матрице успешно.",
+    "ritual.occultism.craft_dimensional_matrix.interrupted": "Привезание Джинни к Кристальной Матрице прервано.",
     
     "ritual.occultism.craft_dimensional_mineshaft.conditions": "Не все требования для этого ритуала соблюдены.",
     "ritual.occultism.craft_dimensional_mineshaft.started": "Начато привезание Джинни к Пространственной Вагонетке.",
@@ -614,8 +614,8 @@
     "pentacle.occultism.summon_wild_greater_spirit": "Дикий Вызов Осорина",
     
     "_comment": "Ritual Dummy Items",
-    "item.occultism.ritual_dummy.craft_dimensional_matrix": "Ритуал: Создать Матрицу Измерений",
-    "item.occultism.ritual_dummy.craft_dimensional_matrix.tooltip": "Матрица Измерений это входная точка к маленькуму измерению для хранения предметов.",
+    "item.occultism.ritual_dummy.craft_dimensional_matrix": "Ритуал: Создать Кристальную Матрице",
+    "item.occultism.ritual_dummy.craft_dimensional_matrix.tooltip": "Кристальная Матрице это входная точка к маленькуму измерению для хранения предметов.",
 
     "item.occultism.ritual_dummy.craft_dimensional_mineshaft": "Ритуал: Создать Пространственную Вагонетку",
     "item.occultism.ritual_dummy.craft_dimensional_mineshaft.tooltip": "Позволяет духам шахтёрам зайти в рудное измерение и приносить ресурсы.",
@@ -650,67 +650,67 @@
     "item.occultism.ritual_dummy.craft_stabilizer_tier4": "Ритуал: Создать Стабилизатор Хранилища 4 Уровня",
     "item.occultism.ritual_dummy.craft_stabilizer_tier4.tooltip": "Стабилизатор Хранилища позволяет хранения большего количества вещей в Беспроводном Хранилище.",
 
-    "item.occultism.ritual_dummy.craft_stable_wormhole": "Ritual: Craft Stable Wormhole",
-    "item.occultism.ritual_dummy.craft_stable_wormhole.tooltip": "The stable wormhole allows access to a dimensional matrix from a remote destination.",
+    "item.occultism.ritual_dummy.craft_stable_wormhole": "Ритуал: Создать Стабилизированную Червоточина",
+    "item.occultism.ritual_dummy.craft_stable_wormhole.tooltip": "Стабилизированная Червоточина позволяет доступ к Кристальной Матрице с удалённого доступа.",
 
-    "item.occultism.ritual_dummy.craft_storage_controller_base": "Ritual: Craft Storage Actuator Base",
-    "item.occultism.ritual_dummy.craft_storage_controller_base.tooltip": "The storage actuator base imprisons a Foliot responsible for interacting with items in a dimensional storage matrix.",
+    "item.occultism.ritual_dummy.craft_storage_controller_base": "Ритуал: Создать Активатор Хранилища",
+    "item.occultism.ritual_dummy.craft_storage_controller_base.tooltip": "Активатор Хранилища обязывает Фолиота взаимодействать с предметами в Матрице Беспроводного Хранилища.",
 
-    "item.occultism.ritual_dummy.craft_storage_remote": "Ritual: Craft Storage Accessor",
-    "item.occultism.ritual_dummy.craft_storage_remote.tooltip": "The Storage Accessor can be linked to a Storage Actuator to remotely access items.",
+    "item.occultism.ritual_dummy.craft_storage_remote": "Ритуал: Создать Беспроводное Хранилище",
+    "item.occultism.ritual_dummy.craft_storage_remote.tooltip": "Беспроводное Хранилище может быть подключен к Активатору Хранилища для удалённого доступа к вещям.",
 
-    "item.occultism.ritual_dummy.familiar_otherworld_bird": "Ritual: Summon Drikwing Familiar",
-    "item.occultism.ritual_dummy.familiar_otherworld_bird.tooltip": "Drikwings will provide their owner with limited flight abilities when nearby.",
+    "item.occultism.ritual_dummy.familiar_otherworld_bird": "Ритуал: Призыв Водокрыл-Обычный",
+    "item.occultism.ritual_dummy.familiar_otherworld_bird.tooltip": "Водокрыл-Обычный позволяет хозяину временно летать когда рядом.",
 
-    "item.occultism.ritual_dummy.familiar_parrot": "Ritual: Summon Parrot Familiar",
-    "item.occultism.ritual_dummy.familiar_parrot.tooltip": "Parrot familiars behave exactly like tamed parrots.",
+    "item.occultism.ritual_dummy.familiar_parrot": "Ритуал: Призыв Попугай-Обычный",
+    "item.occultism.ritual_dummy.familiar_parrot.tooltip": "Попугай-Обычный ведут себя так же как и прирученые попугаи.",
 
-    "item.occultism.ritual_dummy.possess_enderman": "Ritual: Summon Possessed Enderman",
-    "item.occultism.ritual_dummy.possess_enderman.tooltip": "The possessed Enderman will always drop at least one ender pearl when killed.",
+    "item.occultism.ritual_dummy.possess_enderman": "Ритуал: Призыв Одержимого Эндермена",
+    "item.occultism.ritual_dummy.possess_enderman.tooltip": "Одержимый Эндермен всегда даёт как минимум одну Жемчужу Эндера когда убит.",
 
-    "item.occultism.ritual_dummy.possess_endermite": "Ritual: Summon Possessed Endermite",
-    "item.occultism.ritual_dummy.possess_endermite.tooltip": "The possessed Endermite drops End Stone.",
+    "item.occultism.ritual_dummy.possess_endermite": "Ритуал: Призыв Одержимого Эндермита",
+    "item.occultism.ritual_dummy.possess_endermite.tooltip": "Одержимый Эндермит даёт Камень Края когда убит.",
 
-    "item.occultism.ritual_dummy.possess_skeleton": "Ritual: Summon Possessed Skeleton",
-    "item.occultism.ritual_dummy.possess_skeleton.tooltip": " The possessed Skeleton is immune to daylight and always drop at least one Skeleton Skull when killed.",
+    "item.occultism.ritual_dummy.possess_skeleton": "Ритуал: Призыв Одержимого Скелета",
+    "item.occultism.ritual_dummy.possess_skeleton.tooltip": "Одержимый Скелет иммунный к солнечнуму свету и всегда даёт как минимум одну Голову Скелета когда убит.",
 
-    "item.occultism.ritual_dummy.summon_afrit_rain_weather": "Ritual: Rainy Weather",
-    "item.occultism.ritual_dummy.summon_afrit_rain_weather.tooltip": "Summons an bound Afrit that creates rain.",
+    "item.occultism.ritual_dummy.summon_afrit_rain_weather": "Ритуал: Дождь",
+    "item.occultism.ritual_dummy.summon_afrit_rain_weather.tooltip": "Вызвать дождь.",
 
-    "item.occultism.ritual_dummy.summon_afrit_thunder_weather": "Ritual: Thunderstorm",
-    "item.occultism.ritual_dummy.summon_afrit_thunder_weather.tooltip": "Summons an bound Afrit that creates a thunderstorm.",
+    "item.occultism.ritual_dummy.summon_afrit_thunder_weather": "Ритуал: Гроза",
+    "item.occultism.ritual_dummy.summon_afrit_thunder_weather.tooltip": "Вызвать грозу.",
 
-    "item.occultism.ritual_dummy.summon_djinni_clear_weather": "Ritual: Clear Weather",
-    "item.occultism.ritual_dummy.summon_djinni_clear_weather.tooltip": "Summons a Djinni that clears the weather.",
+    "item.occultism.ritual_dummy.summon_djinni_clear_weather": "Ритуал: Ясная погода",
+    "item.occultism.ritual_dummy.summon_djinni_clear_weather.tooltip": "Очистить погоду от непогоды.",
 
-    "item.occultism.ritual_dummy.summon_djinni_day_time": "Ritual: Summoning of Dawn",
-    "item.occultism.ritual_dummy.summon_djinni_day_time.tooltip": "Summons a Djinni that sets the time to high noon.",
+    "item.occultism.ritual_dummy.summon_djinni_day_time": "Ритуал: Полдень",
+    "item.occultism.ritual_dummy.summon_djinni_day_time.tooltip": "Вызвать Полдень.",
 
-    "item.occultism.ritual_dummy.summon_djinni_manage_machine": "Ritual: Summon Djinni Machine Operator",
-    "item.occultism.ritual_dummy.summon_djinni_manage_machine.tooltip": "The machine operator automatically transfers items between Dimensional Storage Systems and connected Inventories and Machines.",
+    "item.occultism.ritual_dummy.summon_djinni_manage_machine": "Ритуал: Призыв Оператора механизмов Джинни",
+    "item.occultism.ritual_dummy.summon_djinni_manage_machine.tooltip": "Оператора механизмов автоматически переводит предметы между Контроллером Хранилища и соединённые инвентари и механизмы.",
 
-    "item.occultism.ritual_dummy.summon_djinni_night_time": "Ritual: Summoning of Dusk",
-    "item.occultism.ritual_dummy.summon_djinni_night_time.tooltip": "Summons a Djinni that sets the time to midnight.",
+    "item.occultism.ritual_dummy.summon_djinni_night_time": "Ритуал: Полночь",
+    "item.occultism.ritual_dummy.summon_djinni_night_time.tooltip": "Вызвать Полночь.",
 
-    "item.occultism.ritual_dummy.summon_foliot_crusher": "Ritual: Summon Foliot Crusher",
+    "item.occultism.ritual_dummy.summon_foliot_crusher": "Ритуал: Summon Foliot Crusher",
     "item.occultism.ritual_dummy.summon_foliot_crusher.tooltip": "The crusher is a spirit summoned to crush ores into dusts, effectively doubling the metal output.",
-    "item.occultism.ritual_dummy.summon_djinni_crusher": "Ritual: Summon Djinni Crusher",
+    "item.occultism.ritual_dummy.summon_djinni_crusher": "Ритуал: Summon Djinni Crusher",
     "item.occultism.ritual_dummy.summon_djinni_crusher.tooltip": "The crusher is a spirit summoned to crush ores into dusts, effectively (more than) doubling the metal output. This crusher decays (much) slower than lower tier crushers.",
-    "item.occultism.ritual_dummy.summon_afrit_crusher": "Ritual: Summon Afrit Crusher",
+    "item.occultism.ritual_dummy.summon_afrit_crusher": "Ритуал: Summon Afrit Crusher",
     "item.occultism.ritual_dummy.summon_afrit_crusher.tooltip": "The crusher is a spirit summoned to crush ores into dusts, effectively (more than) doubling the metal output. This crusher decays (much) slower than lower tier crushers.",
-    "item.occultism.ritual_dummy.summon_marid_crusher": "Ritual: Summon Marid Crusher",
+    "item.occultism.ritual_dummy.summon_marid_crusher": "Ритуал: Summon Marid Crusher",
     "item.occultism.ritual_dummy.summon_marid_crusher.tooltip": "The crusher is a spirit summoned to crush ores into dusts, effectively (more than) doubling the metal output. This crusher decays (much) slower than lower tier crushers.",
 
-    "item.occultism.ritual_dummy.summon_foliot_lumberjack": "Ritual: Summon Foliot Lumberjack",
+    "item.occultism.ritual_dummy.summon_foliot_lumberjack": "Ритуал: Summon Foliot Lumberjack",
     "item.occultism.ritual_dummy.summon_foliot_lumberjack.tooltip": "The lumberjack will harvest trees in it's working area and deposit the dropped items into the specified chest.",
 
-    "item.occultism.ritual_dummy.summon_foliot_otherstone_trader": "Ritual: Summon Otherstone Trader",
+    "item.occultism.ritual_dummy.summon_foliot_otherstone_trader": "Ритуал: Summon Otherstone Trader",
     "item.occultism.ritual_dummy.summon_foliot_otherstone_trader.tooltip": "The otherstone trader trades normal stone for otherstone.",
 
-    "item.occultism.ritual_dummy.summon_foliot_sapling_trader": "Ritual: Summon Otherworld Sapling Trader",
+    "item.occultism.ritual_dummy.summon_foliot_sapling_trader": "Ритуал: Summon Otherworld Sapling Trader",
     "item.occultism.ritual_dummy.summon_foliot_sapling_trader.tooltip": "he otherworld sapling trader trades natural otherworld saplings for stable ones, that can be harvested without the third eye.",
 
-    "item.occultism.ritual_dummy.summon_foliot_transport_items": "Ritual: Summon Foliot Transporter",
+    "item.occultism.ritual_dummy.summon_foliot_transport_items": "Ритуал: Summon Foliot Transporter",
     "item.occultism.ritual_dummy.summon_foliot_transport_items.tooltip": "The transporter will move all items it can access from one inventory to another, including machines.",
 
     "item.occultism.ritual_dummy.summon_foliot_cleaner": "Ритуал: Summon Foliot Janitor",
@@ -725,6 +725,6 @@
     "item.occultism.ritual_dummy.summon_wild_otherworld_bird": "Ритуал: Summon Wild Drikwing",
     "item.occultism.ritual_dummy.summon_wild_otherworld_bird.tooltip": "Summons a Drikwing Familiar that can be tamed by anyone, not just the summoner.",
 
-    "item.occultism.ritual_dummy.summon_wild_parrot": "Ритуал: Призыв Великого Попугая",
+    "item.occultism.ritual_dummy.summon_wild_parrot": "Ритуал: Призыв Дикого Попугая",
     "item.occultism.ritual_dummy.summon_wild_parrot.tooltip": "Summons a Parrot that can be tamed by anyone, not just the summoner."
 }
