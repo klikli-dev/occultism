@@ -98,7 +98,7 @@
     
     "item.occultism.magic_lamp_empty": "Пустая магическая лампа",
     
-    "item.occultism.miner_foliot_unspecialized": "Шахтер Джинни",
+    "item.occultism.miner_foliot_unspecialized": "Шахтер Фолиот",
     "item.occultism.miner_djinni_ores": "Шахтер руд Джинни",
     "item.occultism.miner_debug_unspecialized": "Отладочный шахтер",
     
@@ -203,12 +203,12 @@
     "block.occultism.storage_controller": "Контроллер хранилища",
     "block.occultism.storage_controller_base": "База хранилища",
 
-    "block.occultism.storage_stabilizer_tier1": "Уровень 1 Стабилизатора Объемной Памяти",
-    "block.occultism.storage_stabilizer_tier2": "Уровень 2 Стабилизатора Объемной Памяти",
-    "block.occultism.storage_stabilizer_tier3": "Уровень 3 Стабилизатора Объемной Памяти",
-    "block.occultism.storage_stabilizer_tier4": "Уровень 4 Стабилизатора Объемной Памяти",
+    "block.occultism.storage_stabilizer_tier1": "Уровень 1 Стабилизатор Хранилища",
+    "block.occultism.storage_stabilizer_tier2": "Уровень 2 Стабилизатор Хранилища",
+    "block.occultism.storage_stabilizer_tier3": "Уровень 3 Стабилизатор Хранилища",
+    "block.occultism.storage_stabilizer_tier4": "Уровень 4 Стабилизатор Хранилища",
     
-    "block.occultism.stable_wormhole": "Стабилизированная чернная дыра",
+    "block.occultism.stable_wormhole": "Стабилизированная черная дыра",
     
     "block.occultism.datura": "Мечта демона",
 
@@ -394,39 +394,39 @@
     "ritual.occultism.summon_wild_hunt.interrupted": "Дикая Охота прервана.",
 
     "ritual.occultism.craft_dimensional_matrix.conditions": "Не все требования для этого ритуала соблюдены.",
-    "ritual.occultism.craft_dimensional_matrix.started": "Начато Привезание Джинни к Матрице Измерений.",
+    "ritual.occultism.craft_dimensional_matrix.started": "Начато привезание Джинни к Матрице Измерений.",
     "ritual.occultism.craft_dimensional_matrix.finished": "Привезание Джинни к Матрице Измерений успешно.",
     "ritual.occultism.craft_dimensional_matrix.interrupted": "Привезание Джинни к Матрице Измерений прервано.",
     
     "ritual.occultism.craft_dimensional_mineshaft.conditions": "Не все требования для этого ритуала соблюдены.",
-    "ritual.occultism.craft_dimensional_mineshaft.started": "Начато Привезание Джинни к Пространственной Вагонетке.",
+    "ritual.occultism.craft_dimensional_mineshaft.started": "Начато привезание Джинни к Пространственной Вагонетке.",
     "ritual.occultism.craft_dimensional_mineshaft.finished": "Привезание Джинни к Пространственной Вагонетке успешно.",
     "ritual.occultism.craft_dimensional_mineshaft.interrupted": "Привезание Джинни к Пространственной Вагонетке прервано.",
     
     "ritual.occultism.craft_storage_controller_base.conditions": "Не все требования для этого ритуала соблюдены.",
-    "ritual.occultism.craft_storage_controller_base.started": "Started binding foliot into storage actuator base.",
-    "ritual.occultism.craft_storage_controller_base.finished": "Successfully bound foliot into storage actuator base.",
-    "ritual.occultism.craft_storage_controller_base.interrupted": "Binding of foliot interrupted.",
+    "ritual.occultism.craft_storage_controller_base.started": "Начато привезание Фолиота к Активатору Хранилища.",
+    "ritual.occultism.craft_storage_controller_base.finished": "Привезание Фолиота к Активатору Хранилища успешно.",
+    "ritual.occultism.craft_storage_controller_base.interrupted": "Привезание Фолиота к Активатору Хранилища прервано.",
 
     "ritual.occultism.craft_stabilizer_tier1.conditions": "Не все требования для этого ритуала соблюдены.",
-    "ritual.occultism.craft_stabilizer_tier1.started": "Started binding foliot into storage stabilizer.",
-    "ritual.occultism.craft_stabilizer_tier1.finished": "Successfully bound foliot into storage stabilizer.",
-    "ritual.occultism.craft_stabilizer_tier1.interrupted": "Binding of foliot interrupted.",
+    "ritual.occultism.craft_stabilizer_tier1.started": "Начато привезание Фолиота к Стабилизатору Хранилища.",
+    "ritual.occultism.craft_stabilizer_tier1.finished": "Привезание Фолиота к Стабилизатору Хранилища успешно.",
+    "ritual.occultism.craft_stabilizer_tier1.interrupted": "Привезание Фолиота к Стабилизатору Хранилища прервано.",
 
     "ritual.occultism.craft_stabilizer_tier2.conditions": "Не все требования для этого ритуала соблюдены.",
-    "ritual.occultism.craft_stabilizer_tier2.started": "Started binding djinni into storage stabilizer.",
-    "ritual.occultism.craft_stabilizer_tier2.finished": "Successfully bound djinni into storage stabilizer.",
-    "ritual.occultism.craft_stabilizer_tier2.interrupted": "Binding of djinni interrupted.",
+    "ritual.occultism.craft_stabilizer_tier2.started": "Начато привезание Джинни к Стабилизатору Хранилища.",
+    "ritual.occultism.craft_stabilizer_tier2.finished": "Привезание Джинни к Стабилизатору Хранилища успешно.",
+    "ritual.occultism.craft_stabilizer_tier2.interrupted": "Привезание Джинни к Стабилизатору Хранилища прервано.",
 
     "ritual.occultism.craft_stabilizer_tier3.conditions": "Не все требования для этого ритуала соблюдены.",
-    "ritual.occultism.craft_stabilizer_tier3.started": "Started binding afrit into storage stabilizer.",
-    "ritual.occultism.craft_stabilizer_tier3.finished": "Successfully bound afrit into storage stabilizer.",
-    "ritual.occultism.craft_stabilizer_tier3.interrupted": "Binding of afrit interrupted.",
+    "ritual.occultism.craft_stabilizer_tier3.started": "Начато привезание Африты к Стабилизатору Хранилища.",
+    "ritual.occultism.craft_stabilizer_tier3.finished": "Привезание Африты к Стабилизатору Хранилища успешно.",
+    "ritual.occultism.craft_stabilizer_tier3.interrupted": "Привезание Африты к Стабилизатору Хранилища прервано.",
 
     "ritual.occultism.craft_stabilizer_tier4.conditions": "Не все требования для этого ритуала соблюдены.",
-    "ritual.occultism.craft_stabilizer_tier4.started": "Started binding marid into storage stabilizer.",
-    "ritual.occultism.craft_stabilizer_tier4.finished": "Successfully bound marid into storage stabilizer.",
-    "ritual.occultism.craft_stabilizer_tier4.interrupted": "Binding of marid interrupted.",
+    "ritual.occultism.craft_stabilizer_tier4.started": "Начато привезание Мариды к Стабилизатору Хранилища.",
+    "ritual.occultism.craft_stabilizer_tier4.finished": "Привезание Мариды к Стабилизатору Хранилища успешно.",
+    "ritual.occultism.craft_stabilizer_tier4.interrupted": "Привезание Мариды к Стабилизатору Хранилища прервано.",
 
     "ritual.occultism.craft_stable_wormhole.conditions": "Не все требования для этого ритуала соблюдены.",
     "ritual.occultism.craft_stable_wormhole.started": "Started binding foliot into wormhole frame.",
@@ -618,37 +618,37 @@
     "item.occultism.ritual_dummy.craft_dimensional_matrix.tooltip": "Матрица Измерений это входная точка к маленькуму измерению для хранения предметов.",
 
     "item.occultism.ritual_dummy.craft_dimensional_mineshaft": "Ритуал: Создать Пространственную Вагонетку",
-    "item.occultism.ritual_dummy.craft_dimensional_mineshaft.tooltip": "Allows miner spirits to enter the mining dimension and bring back resources.",
+    "item.occultism.ritual_dummy.craft_dimensional_mineshaft.tooltip": "Позволяет духам шахтёрам зайти в рудное измерение и приносить ресурсы.",
 
-    "item.occultism.ritual_dummy.craft_infused_lenses": "Ritual: Craft Infused Lenses",
-    "item.occultism.ritual_dummy.craft_infused_lenses.tooltip": "These lenses are used to craft spectacles that give thee ability to see beyond the physical world.",
+    "item.occultism.ritual_dummy.craft_infused_lenses": "Ритуал: Создать Влитые Линзы",
+    "item.occultism.ritual_dummy.craft_infused_lenses.tooltip": "Эти линзы нужны для создания очков которые позволяют видеть дальше физического мира.",
 
-    "item.occultism.ritual_dummy.craft_infused_pickaxe": "Ritual: Craft Infused Pickaxe",
-    "item.occultism.ritual_dummy.craft_infused_pickaxe.tooltip": "Infuse a Pickaxe.",
+    "item.occultism.ritual_dummy.craft_infused_pickaxe": "Ритуал: Создать Влитую кирка",
+    "item.occultism.ritual_dummy.craft_infused_pickaxe.tooltip": "Влить Кирку.",
 
-    "item.occultism.ritual_dummy.craft_miner_djinni_ores": "Ritual: Summon Djinni Ore Miner",
-    "item.occultism.ritual_dummy.craft_miner_djinni_ores.tooltip": "Summon Djinni Ore Miner into a magic lamp.",
+    "item.occultism.ritual_dummy.craft_miner_djinni_ores": "Ритуал: Призвать Шахтера руд Джинни",
+    "item.occultism.ritual_dummy.craft_miner_djinni_ores.tooltip": "Призвать Шахтера руд Джинни в Магическую Лампу.",
 
-    "item.occultism.ritual_dummy.craft_miner_foliot_unspecialized": "Ritual: Summon Foliot Miner",
-    "item.occultism.ritual_dummy.craft_miner_foliot_unspecialized.tooltip": "Summon Foliot Miner into a magic lamp.",
+    "item.occultism.ritual_dummy.craft_miner_foliot_unspecialized": "Ритуал: Призвать Шахтера Фолиот",
+    "item.occultism.ritual_dummy.craft_miner_foliot_unspecialized.tooltip": "Призвать Шахтера Фолиот в Магическую Лампу.",
 
-    "item.occultism.ritual_dummy.craft_satchel": "Ritual: Craft Surprisingly Substantial Satchel",
-    "item.occultism.ritual_dummy.craft_satchel.tooltip": "This satchels allows to store more items than it's size would indicate, making it a practical traveller's companion.",
+    "item.occultism.ritual_dummy.craft_satchel": "Ритуал: Создать Удивительно Крупную Сумку",
+    "item.occultism.ritual_dummy.craft_satchel.tooltip": "Эта сумка позволяет хранить больше вещей чем указанно, делая её очень практичный компаньон для путешествий.",
 
-    "item.occultism.ritual_dummy.craft_soul_gem": "Ritual: Craft Soul Gem",
-    "item.occultism.ritual_dummy.craft_soul_gem.tooltip": "The soul gem allows the temporary storage of living beings. ",
+    "item.occultism.ritual_dummy.craft_soul_gem": "Ритуал: Создать Камень Души",
+    "item.occultism.ritual_dummy.craft_soul_gem.tooltip": "Камень Души позволяет временное хранение живих существ.",
 
-    "item.occultism.ritual_dummy.craft_stabilizer_tier1": "Ritual: Craft Storage Stabilizer Tier 1",
-    "item.occultism.ritual_dummy.craft_stabilizer_tier1.tooltip": "The storage stabilizer allows to store more items in the dimensional storage accessor.",
+    "item.occultism.ritual_dummy.craft_stabilizer_tier1": "Ритуал: Создать Стабилизатор Хранилища 1 Уровня",
+    "item.occultism.ritual_dummy.craft_stabilizer_tier1.tooltip": "Стабилизатор Хранилища позволяет хранения большего количества вещей в Беспроводном Хранилище.",
 
-    "item.occultism.ritual_dummy.craft_stabilizer_tier2": "Ritual: Craft Storage Stabilizer Tier 2",
-    "item.occultism.ritual_dummy.craft_stabilizer_tier2.tooltip": "The storage stabilizer allows to store more items in the dimensional storage accessor.",
+    "item.occultism.ritual_dummy.craft_stabilizer_tier2": "Ритуал: Создать Стабилизатор Хранилища 2 Уровня",
+    "item.occultism.ritual_dummy.craft_stabilizer_tier2.tooltip": "Стабилизатор Хранилища позволяет хранения большего количества вещей в Беспроводном Хранилище.",
 
-    "item.occultism.ritual_dummy.craft_stabilizer_tier3":"Ritual: Craft Storage Stabilizer Tier 3",
-    "item.occultism.ritual_dummy.craft_stabilizer_tier3.tooltip": "The storage stabilizer allows to store more items in the dimensional storage accessor.",
+    "item.occultism.ritual_dummy.craft_stabilizer_tier3": "Ритуал: Создать Стабилизатор Хранилища 3 Уровня",
+    "item.occultism.ritual_dummy.craft_stabilizer_tier3.tooltip": "Стабилизатор Хранилища позволяет хранения большего количества вещей в Беспроводном Хранилище.",
 
-    "item.occultism.ritual_dummy.craft_stabilizer_tier4":"Ritual: Craft Storage Stabilizer Tier 4",
-    "item.occultism.ritual_dummy.craft_stabilizer_tier5.tooltip": "The storage stabilizer allows to store more items in the dimensional storage accessor.",
+    "item.occultism.ritual_dummy.craft_stabilizer_tier4": "Ритуал: Создать Стабилизатор Хранилища 4 Уровня",
+    "item.occultism.ritual_dummy.craft_stabilizer_tier5.tooltip": "Стабилизатор Хранилища позволяет хранения большего количества вещей в Беспроводном Хранилище.",
 
     "item.occultism.ritual_dummy.craft_stable_wormhole": "Ritual: Craft Stable Wormhole",
     "item.occultism.ritual_dummy.craft_stable_wormhole.tooltip": "The stable wormhole allows access to a dimensional matrix from a remote destination.",
