@@ -301,6 +301,8 @@
     "_comment": "Ritual Messages",
     "ritual.occultism.does_not_exist": "§lНеизвестный ритуал§r. Убедитесь, что пентакли и ингредиенты настроены правильно. Если у вас все равно не получается, то присоединяйтесь к нашему Дискорд серверу https://invite.gg/klikli",
     
+    "ritual.occultism.book_not_bound": "§lНепривязанная Книга Вызова§r. Вы должны создать эту книгу при помощью Духовного Словаря для привязки к духу чтобы начать ритуал.",
+    
     "ritual.occultism.debug.conditions": "Не все требования к этому ритуалу соблюдены.",
     "ritual.occultism.debug.started": "Ритуал начат.",
     "ritual.occultism.debug.finished": "Ритуал успешно завершён.",
