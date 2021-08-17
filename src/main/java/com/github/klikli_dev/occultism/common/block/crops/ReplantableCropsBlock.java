@@ -22,20 +22,20 @@
 
 package com.github.klikli_dev.occultism.common.block.crops;
 
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.block.CropsBlock;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.ItemLike;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.CropBlock;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 
 import java.util.function.Supplier;
 
-public class ReplantableCropsBlock extends CropsBlock implements IReplantableCrops {
+public class ReplantableCropsBlock extends CropBlock implements IReplantableCrops {
     //region Fields
     protected Supplier<Item> seed;
     protected Supplier<Item> crops;
@@ -63,7 +63,7 @@ public class ReplantableCropsBlock extends CropsBlock implements IReplantableCro
 
     @Override
     public InteractionResult use(BlockState state, Level worldIn, BlockPos pos, Player player,
-                                             InteractionHand handIn, BlockHitResult hit) {
+                                 InteractionHand handIn, BlockHitResult hit) {
         return IReplantableCrops.super.onHarvest(state, worldIn, pos, player, handIn);
     }
 

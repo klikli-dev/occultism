@@ -22,43 +22,37 @@
 
 package com.github.klikli_dev.occultism.common.entity;
 
-import java.util.Collections;
-import java.util.UUID;
-
 import com.github.klikli_dev.occultism.common.capability.FamiliarSettingsCapability;
 import com.github.klikli_dev.occultism.registry.OccultismCapabilities;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.google.common.collect.ImmutableList;
-
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ILivingEntityData;
-import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.entity.ai.attributes.AttributeModifier.Operation;
-import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.ai.goal.EatGrassGoal;
-import net.minecraft.entity.ai.goal.FollowMobGoal;
-import net.minecraft.entity.ai.goal.LookAtGoal;
-import net.minecraft.entity.ai.goal.PanicGoal;
-import net.minecraft.entity.ai.goal.SwimGoal;
-import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.network.datasync.DataSerializers;
-import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Effects;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.IServerWorld;
-import net.minecraft.world.World;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
+
+import javax.annotation.Nullable;
+import java.util.Collections;
+import java.util.UUID;
 
 public class DeerFamiliarEntity extends FamiliarEntity {
 
-    private static final DataParameter<Boolean> RED_NOSE = EntityDataManager.createKey(DeerFamiliarEntity.class,
-            DataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> RED_NOSE = SynchedEntityData.defineId(DeerFamiliarEntity.class,
+            EntityDataSerializers.BOOLEAN);
 
     private static final UUID SPEED_UUID = UUID.fromString("5ebf190f-3c59-41e7-9085-d14b37dfc863");
 
@@ -66,29 +60,29 @@ public class DeerFamiliarEntity extends FamiliarEntity {
 
     private int eatTimer, neckRotTimer, oNeckRotTimer;
 
-    public DeerFamiliarEntity(EntityType<? extends DeerFamiliarEntity> type, World worldIn) {
+    public DeerFamiliarEntity(EntityType<? extends DeerFamiliarEntity> type, Level worldIn) {
         super(type, worldIn);
     }
 
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new PanicGoal(this, 1.25));
-        this.goalSelector.addGoal(0, new SwimGoal(this));
+        this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new SitGoal(this));
-        this.goalSelector.addGoal(2, new LookAtGoal(this, PlayerEntity.class, 8));
+        this.goalSelector.addGoal(2, new LookAtPlayerGoal(this, Player.class, 8));
         this.goalSelector.addGoal(3, new FollowOwnerGoal(this, 1, 3, 1));
-        this.goalSelector.addGoal(4, new EatGrassGoal(this));
-        this.goalSelector.addGoal(5, new WaterAvoidingRandomWalkingGoal(this, 1.0D));
+        this.goalSelector.addGoal(4, new EatBlockGoal(this));
+        this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(6, new FollowMobGoal(this, 1, 3, 7));
     }
 
     @Override
     public void tick() {
         super.tick();
-        if (!this.world.isRemote && !this.isGlowing() && this.hasRedNose())
-            this.setGlowing(true);
+        if (!this.level.isClientSide && !this.hasGlowingTag() && this.hasRedNose())
+            this.setGlowingTag(true);
 
-        if (this.world.isRemote) {
+        if (this.level.isClientSide) {
             this.eatTimer--;
             this.oNeckRotTimer = this.neckRotTimer;
             if (this.isEating())
@@ -97,12 +91,12 @@ public class DeerFamiliarEntity extends FamiliarEntity {
                 this.neckRotTimer = Math.max(this.neckRotTimer - 1, 0);
         }
 
-        if (!this.world.isRemote) {
+        if (!this.level.isClientSide) {
             Entity owner = this.getFamiliarOwner();
-            if (owner != null && this.getDistanceSq(owner) > 50) {
+            if (owner != null && this.distanceToSqr(owner) > 50) {
                 if (this.getAttribute(Attributes.MOVEMENT_SPEED).getModifier(SPEED_UUID) == null)
-                    this.getAttribute(Attributes.MOVEMENT_SPEED).applyNonPersistentModifier(
-                            new AttributeModifier(SPEED_UUID, "deer_speedup", 0.15, Operation.ADDITION));
+                    this.getAttribute(Attributes.MOVEMENT_SPEED).addTransientModifier(
+                            new AttributeModifier(SPEED_UUID, "deer_speedup", 0.15, AttributeModifier.Operation.ADDITION));
             } else if (this.getAttribute(Attributes.MOVEMENT_SPEED).getModifier(SPEED_UUID) != null) {
                 this.getAttribute(Attributes.MOVEMENT_SPEED).removeModifier(SPEED_UUID);
             }
@@ -111,55 +105,55 @@ public class DeerFamiliarEntity extends FamiliarEntity {
 
     public float getNeckRot(float partialTick) {
         return 0.4f
-                + MathHelper.lerp(MathHelper.lerp(partialTick, this.oNeckRotTimer, this.neckRotTimer) / 10, 0, 1.5f);
+                + Mth.lerp(Mth.lerp(partialTick, this.oNeckRotTimer, this.neckRotTimer) / 10, 0, 1.5f);
     }
 
     @Override
-    public void eatGrassBonus() {
-        if (this.getRNG().nextDouble() < 0.25)
-            this.entityDropItem(OccultismItems.DATURA_SEEDS.get(), 0);
+    public void ate() {
+        if (this.getRandom().nextDouble() < 0.25)
+            this.spawnAtLocation(OccultismItems.DATURA_SEEDS.get(), 0);
     }
 
     @Override
-    public Iterable<EffectInstance> getFamiliarEffects() {
+    public Iterable<MobEffectInstance> getFamiliarEffects() {
         if (this.getFamiliarOwner().getCapability(OccultismCapabilities.FAMILIAR_SETTINGS)
                 .map(FamiliarSettingsCapability::isDeerEnabled).orElse(false)) {
-            return ImmutableList.of(new EffectInstance(Effects.JUMP_BOOST, 300, 0, false, false));
+            return ImmutableList.of(new MobEffectInstance(MobEffects.JUMP, 300, 0, false, false));
         }
         return Collections.emptyList();
     }
 
     @Override
-    protected void registerData() {
-        super.registerData();
-        this.dataManager.register(RED_NOSE, false);
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(RED_NOSE, false);
     }
 
     @Override
-    public ILivingEntityData onInitialSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason,
-            ILivingEntityData spawnDataIn, CompoundNBT dataTag) {
-        this.setRedNose(this.getRNG().nextDouble() < 0.1);
-        return super.onInitialSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficultyIn, MobSpawnType reason,
+                                        @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
+        this.setRedNose(this.getRandom().nextDouble() < 0.1);
+        return super.finalizeSpawn(level, difficultyIn, reason, spawnDataIn, dataTag);
     }
 
     @Override
-    public void readAdditional(CompoundNBT compound) {
-        super.readAdditional(compound);
+    public void readAdditionalSaveData(CompoundTag compound) {
+        super.readAdditionalSaveData(compound);
         this.setRedNose(compound.getBoolean("hasRedNose"));
     }
 
     @Override
-    public void writeAdditional(CompoundNBT compound) {
-        super.writeAdditional(compound);
+    public void addAdditionalSaveData(CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
         compound.putBoolean("hasRedNose", this.hasRedNose());
     }
 
     public boolean hasRedNose() {
-        return this.dataManager.get(RED_NOSE);
+        return this.entityData.get(RED_NOSE);
     }
 
     private void setRedNose(boolean b) {
-        this.dataManager.set(RED_NOSE, b);
+        this.entityData.set(RED_NOSE, b);
     }
 
     public boolean isEating() {
@@ -172,10 +166,10 @@ public class DeerFamiliarEntity extends FamiliarEntity {
     }
 
     @Override
-    public void handleStatusUpdate(byte id) {
+    public void handleEntityEvent(byte id) {
         if (id == START_EATING)
             this.startEating();
         else
-            super.handleStatusUpdate(id);
+            super.handleEntityEvent(id);
     }
 }

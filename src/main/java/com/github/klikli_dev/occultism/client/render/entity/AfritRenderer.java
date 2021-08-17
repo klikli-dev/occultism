@@ -27,6 +27,7 @@ import com.github.klikli_dev.occultism.client.model.entity.AfritModel;
 import com.github.klikli_dev.occultism.common.entity.spirit.AfritEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 
 public class AfritRenderer extends BipedSpiritRenderer<AfritEntity, AfritModel> {
@@ -37,8 +38,8 @@ public class AfritRenderer extends BipedSpiritRenderer<AfritEntity, AfritModel> 
 
 
     //region Initialization
-    public AfritRenderer(EntityRenderDispatcher renderManager) {
-        super(renderManager, new AfritModel(), 0.5f);
+    public AfritRenderer(EntityRendererProvider.Context context) {
+        super(context, new AfritModel(), 0.5f);
     }
     //endregion Initialization
 
@@ -46,7 +47,7 @@ public class AfritRenderer extends BipedSpiritRenderer<AfritEntity, AfritModel> 
 
     @Override
     public ResourceLocation getEntityTexture(AfritEntity entity) {
-        return TEXTURES[entity.getDataManager().get(entity.getDataParameterSkin())];
+        return TEXTURES[entity.getEntityData().get(entity.getDataParameterSkin())];
     }
 
     @Override

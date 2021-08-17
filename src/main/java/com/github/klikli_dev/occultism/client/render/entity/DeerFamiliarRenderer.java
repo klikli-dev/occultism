@@ -28,13 +28,18 @@ import com.github.klikli_dev.occultism.common.entity.DeerFamiliarEntity;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.IEntityRenderer;
 import net.minecraft.client.renderer.entity.LivingRenderer;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.ResourceLocation;
 
 public class DeerFamiliarRenderer extends MobRenderer<DeerFamiliarEntity, DeerFamiliarModel> {
@@ -42,19 +47,19 @@ public class DeerFamiliarRenderer extends MobRenderer<DeerFamiliarEntity, DeerFa
     private static final ResourceLocation TEXTURES = new ResourceLocation(Occultism.MODID,
             "textures/entity/deer_familiar.png");
 
-    public DeerFamiliarRenderer(EntityRendererManager renderManagerIn) {
-        super(renderManagerIn, new DeerFamiliarModel(), 0.3f);
+    public DeerFamiliarRenderer(EntityRendererProvider.Context context) {
+        super(context, new DeerFamiliarModel(), 0.3f);
         this.layerRenderers.add(new RedNoseLayer(this));
     }
 
     @Override
-    public void render(DeerFamiliarEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn,
-            IRenderTypeBuffer bufferIn, int packedLightIn) {
-        matrixStackIn.push();
+    public void render(DeerFamiliarEntity entityIn, float entityYaw, float partialTicks, PoseStack matrixStackIn,
+                       MultiBufferSource bufferIn, int packedLightIn) {
+        matrixStackIn.pushPose();
         if (entityIn.isSitting())
             matrixStackIn.translate(0, -0.38, 0);
         super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
-        matrixStackIn.pop();
+        matrixStackIn.popPose();
     }
 
     @Override

@@ -25,17 +25,17 @@ package com.github.klikli_dev.occultism.client.render.tile;
 import com.github.klikli_dev.occultism.common.tile.StorageControllerBlockEntity;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.IVertexBuilder;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.BlockEntity.BlockEntityRenderer;
-import net.minecraft.client.renderer.BlockEntity.BlockEntityRendererDispatcher;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
-import net.minecraft.client.renderer.model.BakedQuad;
-import net.minecraft.client.renderer.model.IBakedModel;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.client.renderer.entity.ItemRenderer;
+import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.core.Direction;
 import com.mojang.math.Vector3f;
@@ -52,8 +52,7 @@ public class StorageControllerRenderer implements BlockEntityRenderer<StorageCon
     //endregion Fields
 
     //region Initialization
-    public StorageControllerRenderer(BlockEntityRenderDispatcher dispatcher) {
-        super(dispatcher);
+    public StorageControllerRenderer(BlockEntityRendererProvider.Context context) {
         this.minecraft = Minecraft.getInstance();
     }
     //endregion Initialization
@@ -65,7 +64,7 @@ public class StorageControllerRenderer implements BlockEntityRenderer<StorageCon
         if (this.stack == null)
             this.stack = new ItemStack(OccultismItems.DIMENSIONAL_MATRIX.get());
 
-        poseStack.push();
+        poseStack.pushPose();
 
         //use system time to become independent of game time
         long systemTime = System.currentTimeMillis();
@@ -79,7 +78,7 @@ public class StorageControllerRenderer implements BlockEntityRenderer<StorageCon
         //rotate item slowly around y axis
         //do not use system time rad, as rotationDegrees converts for us and we want to clamp it to 360° first
         float angle = (systemTime / 16) % 360;
-        poseStack.rotate(Vector3f.YP.rotationDegrees(angle));
+        poseStack.mulPose(Vector3f.YP.rotationDegrees(angle));
 
         //Math.sin(time/frequency)*amplitude
         float scale = (float) (1 + systemTimeRadSin8 * 0.025f);
@@ -92,12 +91,12 @@ public class StorageControllerRenderer implements BlockEntityRenderer<StorageCon
         int color = Color.getHSBColor(0.01F * (float) colorScale, saturation, 0.01F * (float) colorScale).getRGB();
 
         ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
-        IBakedModel model = itemRenderer.getItemModelWithOverrides(this.stack, blockEntity.getLevel(), null);
+        BakedModel model = itemRenderer.getModel(this.stack, blockEntity.getLevel(), null,0);
 
         //from ItemRenderer#renderItem
         poseStack.translate(-0.5D, -0.5D, -0.5D);
-        RenderType rendertype = ItemBlockRenderTypes.func_239219_a_(this.stack, false); //getRenderType(itemstack, isBlock(??)) isBlock = false -> is item entity?
-        IVertexBuilder ivertexbuilder = ItemRenderer.getBuffer(buffer, rendertype, true, this.stack.isFoil());
+        RenderType rendertype = ItemBlockRenderTypes.getRenderType(this.stack, false); //getRenderType(itemstack, isBlock(??)) isBlock = false -> is item entity?
+        VertexConsumer ivertexbuilder = ItemRenderer.getFoilBuffer(buffer, rendertype, true, this.stack.hasFoil());
         //from  ItemRenderer#rendermodel
         Random random = new Random();
 
@@ -112,15 +111,15 @@ public class StorageControllerRenderer implements BlockEntityRenderer<StorageCon
                 combinedOverlay);
 
 
-        poseStack.pop();
+        poseStack.popPose();
     }
     //endregion Overrides
 
     //region Methods
-    public void renderQuads(PoseStack matrixStackIn, IVertexBuilder bufferIn, List<BakedQuad> quadsIn, int colorIn,
+    public void renderQuads(PoseStack matrixStackIn, VertexConsumer bufferIn, List<BakedQuad> quadsIn, int colorIn,
                             int combinedLightIn, int combinedOverlayIn) {
-        //from  ItemRenderer#renderQuad
-        PoseStack.Entry matrixstack$entry = matrixStackIn.getLast();
+        //from  ItemRenderer#renderQuadList
+        PoseStack.Pose pose = matrixStackIn.last();
 
         for (BakedQuad bakedquad : quadsIn) {
             int i = colorIn;
@@ -128,9 +127,10 @@ public class StorageControllerRenderer implements BlockEntityRenderer<StorageCon
             float f = (float) (i >> 16 & 255) / 255.0F;
             float f1 = (float) (i >> 8 & 255) / 255.0F;
             float f2 = (float) (i & 255) / 255.0F;
-            bufferIn.addVertexData(matrixstack$entry, bakedquad, f, f1, f2, combinedLightIn, combinedOverlayIn, true);
+            bufferIn.putBulkData(pose, bakedquad, f, f1, f2, combinedLightIn, combinedOverlayIn, true);
         }
 
     }
+
     //endregion Methods
 }

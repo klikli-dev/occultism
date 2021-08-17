@@ -27,6 +27,7 @@ import com.github.klikli_dev.occultism.client.model.entity.MaridModel;
 import com.github.klikli_dev.occultism.common.entity.spirit.MaridEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 
 public class MaridRenderer extends BipedSpiritRenderer<MaridEntity, MaridModel> {
@@ -37,8 +38,8 @@ public class MaridRenderer extends BipedSpiritRenderer<MaridEntity, MaridModel> 
 
 
     //region Initialization
-    public MaridRenderer(EntityRenderDispatcher renderManager) {
-        super(renderManager, new MaridModel(), 0.5f);
+    public MaridRenderer(EntityRendererProvider.Context context) {
+        super(context, new MaridModel(), 0.5f);
     }
     //endregion Initialization
 

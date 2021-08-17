@@ -22,11 +22,11 @@
 
 package com.github.klikli_dev.occultism.common.block.otherworld;
 
-import net.minecraft.block.SaplingBlock;
-import net.minecraft.block.trees.Tree;
+import net.minecraft.world.level.block.SaplingBlock;
+import net.minecraft.world.level.block.grower.AbstractTreeGrower;
 
 public class OtherworldSaplingBlock extends SaplingBlock {
-    public OtherworldSaplingBlock(Tree tree, Properties properties) {
+    public OtherworldSaplingBlock(AbstractTreeGrower tree, Properties properties) {
         super(tree, properties);
     }
 }

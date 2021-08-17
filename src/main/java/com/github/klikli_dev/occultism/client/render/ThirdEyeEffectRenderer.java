@@ -28,13 +28,14 @@ import com.github.klikli_dev.occultism.common.block.otherworld.IOtherworldBlock;
 import com.github.klikli_dev.occultism.registry.OccultismEffects;
 import com.github.klikli_dev.occultism.util.CuriosUtil;
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.platform.Window;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.BufferBuilder;
+import com.mojang.blaze3d.vertex.DefaultVertexFormat;
+import com.mojang.blaze3d.vertex.Tesselator;
+import com.mojang.blaze3d.vertex.VertexFormat;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.client.MainWindow;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -67,29 +68,29 @@ public class ThirdEyeEffectRenderer {
     //region Static Methods
     private static void renderOverlay(RenderGameOverlayEvent.Post event, ResourceLocation texture) {
 
-        MainWindow window = Minecraft.getInstance().getMainWindow();
-        RenderSystem.pushMatrix();
+        Window window = Minecraft.getInstance().getWindow();
+        event.getMatrixStack().pushPose();
 
         RenderSystem.disableDepthTest();
         RenderSystem.depthMask(false);
 
         Minecraft.getInstance().getTextureManager().bindForSetup(texture);
 
-        Tessellator tessellator = Tessellator.getInstance();
-        BufferBuilder buffer = tessellator.getBuffer();
+        Tesselator tessellator = Tesselator.getInstance();
+        BufferBuilder buffer = tessellator.getBuilder();
 
-        buffer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
-        buffer.pos(0.0D, window.getScaledHeight(), -90.0D).tex(0.0f, 1.0f).endVertex();
-        buffer.pos(window.getScaledWidth(), window.getScaledHeight(), -90.0D)
-                .tex(1.0f, 1.0f).endVertex();
-        buffer.pos(window.getScaledWidth(), 0.0D, -90.0D).tex(1.0f, 0.0f).endVertex();
-        buffer.pos(0.0D, 0.0D, -90.0D).tex(0.0f, 0.0f).endVertex();
-        tessellator.draw();
+        buffer.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
+        buffer.vertex(0.0D, window.getGuiScaledHeight(), -90.0D).uv(0.0f, 1.0f).endVertex();
+        buffer.vertex(window.getGuiScaledWidth(), window.getGuiScaledHeight(), -90.0D)
+                .uv(1.0f, 1.0f).endVertex();
+        buffer.vertex(window.getGuiScaledWidth(), 0.0D, -90.0D).uv(1.0f, 0.0f).endVertex();
+        buffer.vertex(0.0D, 0.0D, -90.0D).uv(0.0f, 0.0f).endVertex();
+        tessellator.end();
 
         RenderSystem.depthMask(true);
         RenderSystem.enableDepthTest();
 
-        RenderSystem.popMatrix();
+        event.getMatrixStack().popPose();
     }
     //endregion Static Methods
 
@@ -111,7 +112,8 @@ public class ThirdEyeEffectRenderer {
 
     @SubscribeEvent
     public void onRenderOverlay(RenderGameOverlayEvent.Post event) {
-        if (event.getType() == RenderGameOverlayEvent.ElementType.HELMET) {
+        //Elementtype was HELMET in 1.16
+        if (event.getType() == RenderGameOverlayEvent.ElementType.BOSSINFO) {
             if (this.thirdEyeActiveLastTick || this.gogglesActiveLastTick) {
                 RenderSystem.enableBlend();
                 RenderSystem.blendFuncSeparate(
@@ -140,7 +142,7 @@ public class ThirdEyeEffectRenderer {
         for(BlockPos pos : this.uncoveredBlocks) {
             BlockState state = level.getBlockState(pos);
             if(state.getBlock() instanceof IOtherworldBlock) //handle replaced or removed blocks gracefully
-                level.setBlockState(pos, state.setValue(IOtherworldBlock.UNCOVERED, false), 1);
+                level.setBlock(pos, state.setValue(IOtherworldBlock.UNCOVERED, false), 1);
         }
         if(clear)
             this.uncoveredBlocks.clear();
@@ -151,18 +153,18 @@ public class ThirdEyeEffectRenderer {
      * @param player the player.
      * @param level the level.
      */
-    public void uncoverBlocks(Player player, Level level, OtherworldBlockTier level){
-        BlockPos origin = player.getPosition();
-        BlockPos.getAllInBoxMutable(origin.add(-MAX_THIRD_EYE_DISTANCE, -MAX_THIRD_EYE_DISTANCE, -MAX_THIRD_EYE_DISTANCE),
-                origin.add(MAX_THIRD_EYE_DISTANCE,MAX_THIRD_EYE_DISTANCE,MAX_THIRD_EYE_DISTANCE)).forEach(pos -> {
+    public void uncoverBlocks(Player player, Level level, OtherworldBlockTier tier){
+        BlockPos origin = player.blockPosition();
+        BlockPos.betweenClosed(origin.offset(-MAX_THIRD_EYE_DISTANCE, -MAX_THIRD_EYE_DISTANCE, -MAX_THIRD_EYE_DISTANCE),
+                origin.offset(MAX_THIRD_EYE_DISTANCE,MAX_THIRD_EYE_DISTANCE,MAX_THIRD_EYE_DISTANCE)).forEach(pos -> {
             BlockState state = level.getBlockState(pos);
             if(state.getBlock() instanceof IOtherworldBlock){
                 IOtherworldBlock block = (IOtherworldBlock) state.getBlock();
-                if(block.getTier().getLevel()  <= level.getLevel()){
+                if(block.getTier().getLevel()  <= tier.getLevel()){
                     if(!state.getValue(IOtherworldBlock.UNCOVERED)){
-                        level.setBlockState(pos, state.setValue(IOtherworldBlock.UNCOVERED, true), 1);
+                        level.setBlock(pos, state.setValue(IOtherworldBlock.UNCOVERED, true), 1);
                     }
-                    this.uncoveredBlocks.add(pos.toImmutable());
+                    this.uncoveredBlocks.add(pos.immutable());
                 }
             }
         });
@@ -171,7 +173,7 @@ public class ThirdEyeEffectRenderer {
     public void onThirdEyeTick(TickEvent.PlayerTickEvent event) {
         boolean hasGoggles = CuriosUtil.hasGoggles(event.player);
 
-        MobEffectInstance effect = event.player.getActivePotionEffect(OccultismEffects.THIRD_EYE.get());
+        MobEffectInstance effect = event.player.getEffect(OccultismEffects.THIRD_EYE.get());
         int duration = effect == null ? 0 : effect.getDuration();
         if (duration > 1) {
             if (!this.thirdEyeActiveLastTick) {
@@ -179,7 +181,7 @@ public class ThirdEyeEffectRenderer {
 
                 //load shader, but only if we are on the natural effects
                 if(!hasGoggles && !Occultism.CLIENT_CONFIG.visuals.disableDemonsDreamShaders.get()){
-                    Minecraft.getInstance().enqueue(() -> Minecraft.getInstance().gameRenderer.loadShader(THIRD_EYE_SHADER));
+                    Minecraft.getInstance().tell(() -> Minecraft.getInstance().gameRenderer.loadEffect(THIRD_EYE_SHADER));
                 }
             }
             //also handle goggles in one if we have them
@@ -195,7 +197,7 @@ public class ThirdEyeEffectRenderer {
             if (this.thirdEyeActiveLastTick) {
                 this.thirdEyeActiveLastTick = false;
                 //unload shader
-                Minecraft.getInstance().enqueue(() -> Minecraft.getInstance().gameRenderer.stopUseShader());
+                Minecraft.getInstance().tell(() -> Minecraft.getInstance().gameRenderer.shutdownEffect());
             }
         }
     }

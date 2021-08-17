@@ -24,11 +24,11 @@ package com.github.klikli_dev.occultism.common.block.otherworld;
 
 import com.github.klikli_dev.occultism.api.common.data.OtherworldBlockTier;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
+import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.block.RotatedPillarBlock;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
@@ -43,7 +43,7 @@ public class OtherworldLogNaturalBlock extends RotatedPillarBlock implements IOt
     //region Initialization
     public OtherworldLogNaturalBlock(Properties properties) {
         super(properties);
-        this.createBlockStateDefinition(this.defaultBlockState().setValue(UNCOVERED, false));
+        this.registerDefaultState(this.defaultBlockState().setValue(UNCOVERED, false));
     }
     //endregion Initialization
 

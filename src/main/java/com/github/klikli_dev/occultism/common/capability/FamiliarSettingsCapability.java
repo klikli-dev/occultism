@@ -64,23 +64,7 @@ public class FamiliarSettingsCapability implements INBTSerializable<CompoundTag>
         this.batEnabled = settings.batEnabled;
         this.deerEnabled = settings.deerEnabled;
     }
-
-    public CompoundNBT write(CompoundNBT compound) {
-        compound.putBoolean("greedyEnabled", this.greedyEnabled);
-        compound.putBoolean("otherworldBirdEnabled", this.otherworldBirdEnabled);
-        compound.putBoolean("batEnabled", this.batEnabled);
-        compound.putBoolean("deerEnabled", this.deerEnabled);
-        return compound;
-    }
-
-    public CompoundNBT read(CompoundNBT compound) {
-        this.greedyEnabled = compound.getBoolean("greedyEnabled");
-        this.otherworldBirdEnabled = compound.getBoolean("otherworldBirdEnabled");
-        this.batEnabled = compound.getBoolean("batEnabled");
-        this.deerEnabled = compound.getBoolean("deerEnabled");
-        return compound;
-    }
-
+    
     public boolean isGreedyEnabled() {
         return this.greedyEnabled;
     }
@@ -120,6 +104,7 @@ public class FamiliarSettingsCapability implements INBTSerializable<CompoundTag>
         compound.putBoolean("greedyEnabled", this.greedyEnabled);
         compound.putBoolean("otherworldBirdEnabled", this.otherworldBirdEnabled);
         compound.putBoolean("batEnabled", this.batEnabled);
+        compound.putBoolean("deerEnabled", this.deerEnabled);
         return compound;
     }
 
@@ -128,6 +113,7 @@ public class FamiliarSettingsCapability implements INBTSerializable<CompoundTag>
         this.greedyEnabled = nbt.getBoolean("greedyEnabled");
         this.otherworldBirdEnabled = nbt.getBoolean("otherworldBirdEnabled");
         this.batEnabled = nbt.getBoolean("batEnabled");
+        this.deerEnabled = nbt.getBoolean("deerEnabled");
     }
     //endregion Methods
 

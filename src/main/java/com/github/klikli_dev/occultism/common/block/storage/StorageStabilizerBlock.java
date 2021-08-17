@@ -26,13 +26,13 @@ import com.github.klikli_dev.occultism.common.tile.StorageControllerBlockEntity;
 import com.github.klikli_dev.occultism.util.Math3DUtil;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.block.DirectionalBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.block.DirectionalBlock;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.item.BlockPlaceContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -97,11 +97,11 @@ public class StorageStabilizerBlock extends Block {
     }
 
     @Override
-    public void onBlockPlacedBy(Level level, BlockPos pos, BlockState state, LivingEntity placer,
+    public void setPlacedBy(Level level, BlockPos pos, BlockState state, LivingEntity placer,
                                 ItemStack stack) {
         this.notifyStorageControllers(level, pos, state);
 
-        super.onBlockPlacedBy(level, pos, state, placer, stack);
+        super.setPlacedBy(level, pos, state, placer, stack);
     }
 
     @Override
@@ -126,8 +126,7 @@ public class StorageStabilizerBlock extends Block {
         //This is due to the stabilizers aiming for one block above the controller.
         for (BlockPos block : blocks) {
             BlockEntity blockEntity = level.getBlockEntity(block);
-            if (BlockEntity instanceof StorageControllerBlockEntity) {
-                StorageControllerBlockEntity controller = (StorageControllerBlockEntity) BlockEntity;
+            if (blockEntity instanceof StorageControllerBlockEntity controller) {
                 controller.updateStabilizers(); //force controller to re-check available stabilizers.
             }
         }

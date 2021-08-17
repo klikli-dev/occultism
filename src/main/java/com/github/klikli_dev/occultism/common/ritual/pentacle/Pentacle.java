@@ -25,8 +25,8 @@ package com.github.klikli_dev.occultism.common.ritual.pentacle;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.registry.OccultismRituals;
 import com.github.klikli_dev.occultism.registry.OccultismTags;
+import net.minecraft.Util;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Util;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 import vazkii.patchouli.api.IMultiblock;
 import vazkii.patchouli.api.PatchouliAPI;
@@ -65,7 +65,7 @@ public abstract class Pentacle extends ForgeRegistryEntry<Pentacle> {
 
     protected String getDefaultTranslationKey() {
         if (this.translationKey == null) {
-            this.translationKey = Util.makeTranslationKey("pentacle", OccultismRituals.PENTACLE_REGISTRY.getKey(this));
+            this.translationKey = Util.makeDescriptionId("pentacle", OccultismRituals.PENTACLE_REGISTRY.getKey(this));
         }
 
         return this.translationKey;

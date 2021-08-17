@@ -23,13 +23,13 @@
 package com.github.klikli_dev.occultism.client.render;
 
 import com.github.klikli_dev.occultism.util.RenderUtil;
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.IVertexBuilder;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.math.Matrix4f;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.core.BlockPos;
-import net.minecraft.util.math.vector.Matrix4f;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -91,12 +91,12 @@ public class SelectedBlockRenderer {
             long time = System.currentTimeMillis();
 
             PoseStack poseStack = event.getMatrixStack();
-            MultiBufferSource.Impl buffer = Minecraft.getInstance().getRenderTypeBuffers().getBufferSource();
-            IVertexBuilder builder = buffer.getBuffer(OccultismRenderType.BLOCK_SELECTION);
-            poseStack.push();
-            Vec3 projectedView = Minecraft.getInstance().gameRenderer.getActiveRenderInfo().getProjectedView();
+            MultiBufferSource.BufferSource buffer = Minecraft.getInstance().renderBuffers().bufferSource();
+            VertexConsumer builder = buffer.getBuffer(OccultismRenderType.BLOCK_SELECTION);
+            poseStack.pushPose();
+            Vec3 projectedView = Minecraft.getInstance().gameRenderer.getMainCamera().getPosition();
             poseStack.translate(-projectedView.x, -projectedView.y, -projectedView.z);
-            Matrix4f transform = poseStack.getLast().getMatrix();
+            Matrix4f transform = poseStack.last().pose();
 
             for (Iterator<SelectionInfo> it = this.selectedBlocks.iterator(); it.hasNext(); ) {
                 SelectionInfo info = it.next();
@@ -115,10 +115,10 @@ public class SelectedBlockRenderer {
                 }
             }
 
-            poseStack.pop();
+            poseStack.popPose();
             RenderSystem.enableTexture();
             RenderSystem.disableDepthTest();
-            buffer.finish(OccultismRenderType.BLOCK_SELECTION);
+            buffer.endBatch(OccultismRenderType.BLOCK_SELECTION);
             RenderSystem.enableDepthTest();
         }
     }
