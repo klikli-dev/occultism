@@ -136,7 +136,7 @@
     "item.occultism.book_of_calling.message_set_work_area_size": "%s теперь будет контролировать рабочую область %s",
     "item.occultism.book_of_calling.message_set_managed_machine": "Обновленные настройки машины для %s",
     
-    "block.occultism.stable_wormhole.message.set_storage_controller": "Связал стабильную червоточину с этим приводом хранилища.",
+    "block.occultism.stable_wormhole.message.set_storage_controller": "Связал Стабилизированную Червоточину с этим приводом хранилища.",
     
     "item.occultism.storage_remote.message.not_loaded": "Чанк для накопителя привода не загружен! ",
     "item.occultism.storage_remote.message.linked": "Связано дистанционное хранилище с приводом.",
@@ -429,9 +429,9 @@
     "ritual.occultism.craft_stabilizer_tier4.interrupted": "Привезание Мариды к Стабилизатору Хранилища прервано.",
 
     "ritual.occultism.craft_stable_wormhole.conditions": "Не все требования для этого ритуала соблюдены.",
-    "ritual.occultism.craft_stable_wormhole.started": "Started binding foliot into wormhole frame.",
-    "ritual.occultism.craft_stable_wormhole.finished": "Successfully bound foliot into wormhole frame.",
-    "ritual.occultism.craft_stable_wormhole.interrupted": "Binding of foliot interrupted.",
+    "ritual.occultism.craft_stable_wormhole.started": "Начато привезание Фолиота к Стабилизированной Червоточине.",
+    "ritual.occultism.craft_stable_wormhole.finished": "Привезание Фолиота к Стабилизированной Червоточине успешно.",
+    "ritual.occultism.craft_stable_wormhole.interrupted": "Привезание Фолиота к Стабилизированной Червоточине прервано.",
     
     "ritual.occultism.craft_storage_remote.conditions": "Не все требования для этого ритуала соблюдены.",
     "ritual.occultism.craft_storage_remote.started": "Started binding djinni into storage remote.",
@@ -650,7 +650,7 @@
     "item.occultism.ritual_dummy.craft_stabilizer_tier4": "Ритуал: Создать Стабилизатор Хранилища 4 Уровня",
     "item.occultism.ritual_dummy.craft_stabilizer_tier4.tooltip": "Стабилизатор Хранилища позволяет хранения большего количества вещей в Беспроводном Хранилище.",
 
-    "item.occultism.ritual_dummy.craft_stable_wormhole": "Ритуал: Создать Стабилизированную Червоточина",
+    "item.occultism.ritual_dummy.craft_stable_wormhole": "Ритуал: Создать Стабилизированную Червоточину",
     "item.occultism.ritual_dummy.craft_stable_wormhole.tooltip": "Стабилизированная Червоточина позволяет доступ к Кристальной Матрице с удалённого доступа.",
 
     "item.occultism.ritual_dummy.craft_storage_controller_base": "Ритуал: Создать Активатор Хранилища",
