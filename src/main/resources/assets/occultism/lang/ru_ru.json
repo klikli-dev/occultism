@@ -8,7 +8,7 @@
     "item.occultism.debug_foliot_lumberjack": "Призвыв Отладчика Лесоруба Фолиот",
     "item.occultism.debug_djinni_manage_machine": "Призыв Отладчика Оператора механизмов Джинни",
     "item.occultism.debug_foliot_transport_items": "Призыв Отладчика Транспортера Фолиот",
-    "item.occultism.debug_foliot_cleaner": "Призыв Отладчика Дворника Фолиот",
+    "item.occultism.debug_foliot_cleaner": "Призыв Отладчика Уборщика Фолиот",
     "item.occultism.debug_foliot_trader": "Призыв Отладчика Торговца Фолиот",
     "item.occultism.debug_djinni_test": "Призыв Отладчика Тестов Джинни",
 
@@ -39,8 +39,8 @@
     "item.occultism.book_of_binding_bound_marid": "Книга переплёта: Марид (Привязанная)",
     "item.occultism.book_of_calling_foliot_lumberjack": "Книга призыва: Лесоруба Фолиот",
     "item.occultism.book_of_calling_foliot_transport_items": "Книга призыва: Транспортера Фолиот",
-    "item.occultism.book_of_calling_foliot_cleaner": "Книга призыва: Дворника Фолиот",
-    "item.occultism.book_of_calling_foliot_crusher": "Книга призыва: Измельчителя руд Фолиот",
+    "item.occultism.book_of_calling_foliot_cleaner": "Книга призыва: Уборщика Фолиот",
+    "item.occultism.book_of_calling_foliot_crusher": "Книга призыва: Измельчителя Руд Фолиот",
     "item.occultism.book_of_calling_djinni_manage_machine": "Книга призыва: Оператора механизмов Джинни",
 
     "item.occultism.storage_remote": "Беспроводное Хранилище",
@@ -245,31 +245,31 @@
     "entity.occultism.possessed_skeleton": "Одердимый Скелет",
     "entity.occultism.possessed_enderman": "Одержимый Эндермен",
     
-    "entity.occultism.wild_hunt_skeleton": "Великий охотник Скелет",
-    "entity.occultism.wild_hunt_wither_skeleton": "Великий охотник Визер-скелет",
+    "entity.occultism.wild_hunt_skeleton": "Великий Охотник Скелет",
+    "entity.occultism.wild_hunt_wither_skeleton": "Великий Охотник Скелет Иссушитель",
     
     "entity.occultism.otherworld_bird": "Дриквинг",
     
     "_comment": "# Spirit Jobs",
     "job.occultism.lumberjack": "Лесоруб",
     
-    "job.occultism.crush_tier1": "Медленная дробилка",
+    "job.occultism.crush_tier1": "Медленная Дробилка",
     "job.occultism.crush_tier2": "Дробилка",
-    "job.occultism.crush_tier3": "Быстрая дробилка",
-    "job.occultism.crush_tier4": "Очень быстрая дробилка",
+    "job.occultism.crush_tier3": "Быстрая Дробилка",
+    "job.occultism.crush_tier4": "Очень Быстрая Дробилка",
     
-    "job.occultism.manage_machine": "Оператор механизмов",
+    "job.occultism.manage_machine": "Оператор Механизмов",
     
     "job.occultism.transport_items": "Транспортер",
     
     "job.occultism.cleaner": "Дворник",
     
-    "job.occultism.trade_otherstone": "Торговец потустороннего камня",
-    "job.occultism.trade_otherworld_saplings": "Торговец потустороннего сажанца",
+    "job.occultism.trade_otherstone": "Торговец Потустороннего Камня",
+    "job.occultism.trade_otherworld_saplings": "Торговец Потустороннего Сажанца",
     
-    "job.occultism.clear_weather": "Душа Солнечной погоды",
-    "job.occultism.rain_weather": "Душа дождливой погоды",
-    "job.occultism.rain_thunder": "Душа Грозавой погоды",
+    "job.occultism.clear_weather": "Душа Солнечной Погоды",
+    "job.occultism.rain_weather": "Душа Дождливой Погоды",
+    "job.occultism.rain_thunder": "Душа Грозавой Погоды",
     
     "_comment": "Enums",
     "enum.occultism.facing.up": "Вверх",
@@ -545,7 +545,7 @@
     "network.messages.occultism.request_order.order_received": "Заказ получен!",
     
     "_comment": "Effects",
-    "effect.occultism.third_eye": "Третий глаз",
+    "effect.occultism.third_eye": "Третье Око",
     "effect.occultism.double_jump": "Мульти прыжок",
     
     "_comment": "Звуки",
@@ -576,12 +576,12 @@
     "occultism.jei.pentacle": "Пентакль",
     
     "jei.occultism.ingredient.tallow.description": "Убивайте животных, таких как §2Свиней§r, §2Коров§r, §2Овец§r, §2Лошадей§r и §2Лам§r Мясницким ножом, чтобы получить жир.",
-    "jei.occultism.ingredient.otherstone.description": "В основном встречается в Рощах Потустороннего мира. Отображается только при активном эффекте §6Третий глаз§r. См. Дополнительную информацию в §6Духовный Славарь§r.",
-    "jei.occultism.ingredient.otherworld_log.description": "В основном встречается в Рощах Потустороннего мира. Отображается только при активном эффекте §6Третий глаз§r. См. Дополнительную информацию в §6Духовный Славарь§r.",
-    "jei.occultism.ingredient.otherworld_sapling.description": "В основном встречается в рощах потустороннего мира. Отображается только при активном эффекте §6Третий глаз§r. См. Дополнительную информацию в §6Духовный Славарь§r.",
-    "jei.occultism.ingredient.otherworld_sapling_natural.description": "В основном встречается в рощах потустороннего мира. Отображается только при активном эффекте §6Третий глаз§r. См. Дополнительную информацию в §6Духовный Славарь§r.",
-    "jei.occultism.ingredient.otherworld_leaves.description": "В основном встречается в Потусторонней Роще. Отображается только при активном эффекте §6Третий глаз§r. См. Дополнительную информацию в §6Духовный Славарь§r.",
-    "jei.occultism.ingredient.iesnium_ore.description": "Встречается в аду. Отображается только при активном эффекте §6Третий глаз§r. См. Дополнительную информацию в §6Духовный Славарь§r.",
+    "jei.occultism.ingredient.otherstone.description": "В основном встречается в Рощах Потустороннего мира. Отображается только при активном эффекте §6Третье Око§r. См. Дополнительную информацию в §6Духовный Славарь§r.",
+    "jei.occultism.ingredient.otherworld_log.description": "В основном встречается в Рощах Потустороннего мира. Отображается только при активном эффекте §6Третье Око§r. См. Дополнительную информацию в §6Духовный Славарь§r.",
+    "jei.occultism.ingredient.otherworld_sapling.description": "В основном встречается в рощах потустороннего мира. Отображается только при активном эффекте §6Третье Око§r. См. Дополнительную информацию в §6Духовный Славарь§r.",
+    "jei.occultism.ingredient.otherworld_sapling_natural.description": "В основном встречается в рощах потустороннего мира. Отображается только при активном эффекте §6Третье Око§r. См. Дополнительную информацию в §6Духовный Славарь§r.",
+    "jei.occultism.ingredient.otherworld_leaves.description": "В основном встречается в Потусторонней Роще. Отображается только при активном эффекте §6Третье Око§r. См. Дополнительную информацию в §6Духовный Славарь§r.",
+    "jei.occultism.ingredient.iesnium_ore.description": "Встречается в аду. Отображается только при активном эффекте §6Третье Око§r. См. Дополнительную информацию в §6Духовный Славарь§r.",
     "jei.occultism.ingredient.spirit_fire.description": "Бросьте §6§r на землю и подожгите его. См. Дополнительную информацию в §6Духовный Славарь§r.",
     
     "jei.occultism.error.missing_id": "Нет ингредиентов для данного рецепта.",
@@ -692,39 +692,42 @@
     "item.occultism.ritual_dummy.summon_djinni_night_time": "Ритуал: Полночь",
     "item.occultism.ritual_dummy.summon_djinni_night_time.tooltip": "Вызвать Полночь.",
 
-    "item.occultism.ritual_dummy.summon_foliot_crusher": "Ритуал: Summon Foliot Crusher",
-    "item.occultism.ritual_dummy.summon_foliot_crusher.tooltip": "The crusher is a spirit summoned to crush ores into dusts, effectively doubling the metal output.",
-    "item.occultism.ritual_dummy.summon_djinni_crusher": "Ритуал: Summon Djinni Crusher",
-    "item.occultism.ritual_dummy.summon_djinni_crusher.tooltip": "The crusher is a spirit summoned to crush ores into dusts, effectively (more than) doubling the metal output. This crusher decays (much) slower than lower tier crushers.",
-    "item.occultism.ritual_dummy.summon_afrit_crusher": "Ритуал: Summon Afrit Crusher",
-    "item.occultism.ritual_dummy.summon_afrit_crusher.tooltip": "The crusher is a spirit summoned to crush ores into dusts, effectively (more than) doubling the metal output. This crusher decays (much) slower than lower tier crushers.",
-    "item.occultism.ritual_dummy.summon_marid_crusher": "Ритуал: Summon Marid Crusher",
-    "item.occultism.ritual_dummy.summon_marid_crusher.tooltip": "The crusher is a spirit summoned to crush ores into dusts, effectively (more than) doubling the metal output. This crusher decays (much) slower than lower tier crushers.",
+    "item.occultism.ritual_dummy.summon_foliot_crusher": "Ритуал: Призыв Измельчителя Руд Фолиот",
+    "item.occultism.ritual_dummy.summon_foliot_crusher.tooltip": "Измельчителя Руд Фолиот дробит руду в пыль что удваивает количество слитков получено с одной руды.",
+    
+    "item.occultism.ritual_dummy.summon_djinni_crusher": "Ритуал: Призыв Измельчителя Руд Джинни",
+    "item.occultism.ritual_dummy.summon_djinni_crusher.tooltip": "Измельчителя Руд Джинни дробит руду в пыль что увеличивает количество слитков (больше двух) получено с одной руды. Процесс медленнее чем предыдущий уровень.",
+    
+    "item.occultism.ritual_dummy.summon_afrit_crusher": "Ритуал: Призыв Измельчителя Руд Африт",
+    "item.occultism.ritual_dummy.summon_afrit_crusher.tooltip": "Измельчителя Руд Африт дробит руду в пыль что увеличивает количество слитков (больше двух) получено с одной руды. Процесс медленнее чем предыдущий уровень.",
+    
+    "item.occultism.ritual_dummy.summon_marid_crusher": "Ритуал: Призыв Измельчителя Руд Марид",
+    "item.occultism.ritual_dummy.summon_marid_crusher.tooltip": "Измельчителя Руд Марид дробит руду в пыль что увеличивает количество слитков (больше двух) получено с одной руды. Процесс медленнее чем предыдущий уровень.",
 
-    "item.occultism.ritual_dummy.summon_foliot_lumberjack": "Ритуал: Summon Foliot Lumberjack",
-    "item.occultism.ritual_dummy.summon_foliot_lumberjack.tooltip": "The lumberjack will harvest trees in it's working area and deposit the dropped items into the specified chest.",
+    "item.occultism.ritual_dummy.summon_foliot_lumberjack": "Ритуал: Призыв Лесоруба Фолиот",
+    "item.occultism.ritual_dummy.summon_foliot_lumberjack.tooltip": "Лесоруб Фолиот рубит деревья в его рабочей зоне и складывает в указанном инветаре.",
 
-    "item.occultism.ritual_dummy.summon_foliot_otherstone_trader": "Ритуал: Summon Otherstone Trader",
-    "item.occultism.ritual_dummy.summon_foliot_otherstone_trader.tooltip": "The otherstone trader trades normal stone for otherstone.",
+    "item.occultism.ritual_dummy.summon_foliot_otherstone_trader": "Ритуал: Призыв Торговца Потустороннего Камня",
+    "item.occultism.ritual_dummy.summon_foliot_otherstone_trader.tooltip": "Торговец Потустороннего Камня обменивает обычный камень на потусторонный. Волшебник",
 
-    "item.occultism.ritual_dummy.summon_foliot_sapling_trader": "Ритуал: Summon Otherworld Sapling Trader",
-    "item.occultism.ritual_dummy.summon_foliot_sapling_trader.tooltip": "he otherworld sapling trader trades natural otherworld saplings for stable ones, that can be harvested without the third eye.",
+    "item.occultism.ritual_dummy.summon_foliot_sapling_trader": "Ритуал: Призыв Торговца Потустороннего Сажанца",
+    "item.occultism.ritual_dummy.summon_foliot_sapling_trader.tooltip": "Торговец Потустороннего Сажанца обменивает потусторонние сажанцы на стабильные, которые могут быть собраны без Третьего Ока.",
 
-    "item.occultism.ritual_dummy.summon_foliot_transport_items": "Ритуал: Summon Foliot Transporter",
-    "item.occultism.ritual_dummy.summon_foliot_transport_items.tooltip": "The transporter will move all items it can access from one inventory to another, including machines.",
+    "item.occultism.ritual_dummy.summon_foliot_transport_items": "Ритуал: Призыв Транспортера Фолиот",
+    "item.occultism.ritual_dummy.summon_foliot_transport_items.tooltip": "Транспортер Фолиот переместит все вещи с одного инвентаря к другому, включая механизмы.",
 
-    "item.occultism.ritual_dummy.summon_foliot_cleaner": "Ритуал: Summon Foliot Janitor",
-    "item.occultism.ritual_dummy.summon_foliot_cleaner.tooltip": "The janitor will pick up dropped items and deposit them into a target inventory.",
+    "item.occultism.ritual_dummy.summon_foliot_cleaner": "Ритуал: Призыв Уборщика Фолиот",
+    "item.occultism.ritual_dummy.summon_foliot_cleaner.tooltip": "Уборщик Фолиот будет подметать выпавшие предметь в указанный инвентарь.",
 
-    "item.occultism.ritual_dummy.summon_wild_afrit": "Ритуал: Summon Unbound Afrit",
-    "item.occultism.ritual_dummy.summon_wild_afrit.tooltip": "Summons an unbound Afrit that can be killed to obtain Afrit Essence",
+    "item.occultism.ritual_dummy.summon_wild_afrit": "Ритуал: Призыв Непривязанного Африта",
+    "item.occultism.ritual_dummy.summon_wild_afrit.tooltip": "Призывает Непривязанного Африта с которого можно получить Эссенцию Африта.",
 
-    "item.occultism.ritual_dummy.summon_wild_hunt": "Ритуал: Summon The Wild Hunt",
-    "item.occultism.ritual_dummy.summon_wild_hunt.tooltip": "The Wild Hunt consists of Wither Skeletons that are guaranteed to drop Wither Skeleton Skulls, and their minions.",
+    "item.occultism.ritual_dummy.summon_wild_hunt": "Ритуал: Дикая Охота",
+    "item.occultism.ritual_dummy.summon_wild_hunt.tooltip": "Дикая Охота состоит из Скелетов Иссушителей и их миньоны с которых гарантированно выпадает Голова Скелетов Иссушителей.",
 
-    "item.occultism.ritual_dummy.summon_wild_otherworld_bird": "Ритуал: Summon Wild Drikwing",
-    "item.occultism.ritual_dummy.summon_wild_otherworld_bird.tooltip": "Summons a Drikwing Familiar that can be tamed by anyone, not just the summoner.",
+    "item.occultism.ritual_dummy.summon_wild_otherworld_bird": "Ритуал: Призыв Дикого Крыла",
+    "item.occultism.ritual_dummy.summon_wild_otherworld_bird.tooltip": "Призывает Дикого Крыла которого может приручить любой, а не только вызыватель.",
 
     "item.occultism.ritual_dummy.summon_wild_parrot": "Ритуал: Призыв Дикого Попугая",
-    "item.occultism.ritual_dummy.summon_wild_parrot.tooltip": "Summons a Parrot that can be tamed by anyone, not just the summoner."
+    "item.occultism.ritual_dummy.summon_wild_parrot.tooltip": "Призывает Попугая которого может приручить любой, а не только вызыватель."
 }
