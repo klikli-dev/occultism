@@ -1,14 +1,17 @@
 {
     "_comment": "Группы предметов",
     "itemGroup.occultism": "Оккультизм",
+
     "_comment": "Предметы",
     "item.occultism.pentacle": "Пентакль",
+
     "item.occultism.debug_foliot_lumberjack": "Призвыв Отладчика Лесоруба Филиота",
     "item.occultism.debug_djinni_manage_machine": "Призыв Отладчика Менеджера механизмаов Джинни",
     "item.occultism.debug_foliot_transport_items": "Призыв Отладчика Филиота транспортера",
     "item.occultism.debug_foliot_cleaner": "Призыв Отладчика Филиота дворника",
     "item.occultism.debug_foliot_trader": "Призыв Отладчика Филиота торговца",
     "item.occultism.debug_djinni_test": "Призыв Отладчика Тестового Джинни",
+
     "item.occultism.chalk_gold": "Золотой мел",
     "item.occultism.chalk_purple": "Фиолетовый мел",
     "item.occultism.chalk_red": "Красный мел",
@@ -17,10 +20,15 @@
     "item.occultism.chalk_purple_impure": "Сырой Фиолетовый мел",
     "item.occultism.chalk_red_impure": "Сырой Красный мел",
     "item.occultism.chalk_white_impure": "Сырой Белый мел",
+
     "item.occultism.brush": "Кисть для мела",
+
     "item.occultism.afrit_essence": "Эссенция Африта",
+
     "item.occultism.purified_ink": "Очищенные Чернила",
+
     "item.occultism.debug_wand": "Палочка отладки",
+
     "item.occultism.book_of_binding_foliot": "Книга переплёта: Филиот",
     "item.occultism.book_of_binding_bound_foliot": "Книга переплёта: Филиот (Привязанная)",
     "item.occultism.book_of_binding_djinni": "Книга переплёта: Джинни",
@@ -34,61 +42,87 @@
     "item.occultism.book_of_calling_foliot_cleaner": "Книга призыва: Филиота дворника",
     "item.occultism.book_of_calling_foliot_crusher": "Книга призыва: Филиота измельчителя руд",
     "item.occultism.book_of_calling_djinni_manage_machine": "Книга призыва: Оператора машин Джинни",
+
     "item.occultism.storage_remote": "Беспроводное Хранилище",
     "item.occultism.storage_remote_inert": "Беспроводное Инертное Хранилище",
     "item.occultism.dimensional_matrix": "Кристальная матрица ",
+
     "item.occultism.divination_rod": "Гадательный жезл",
+    
     "item.occultism.datura_seeds": "Демонические семена",
     "item.occultism.datura": "Демонической фрукт",
+    
     "item.occultism.spirit_attuned_gem": "Гем духов",
+    
     "item.occultism.otherworld_sapling": "Потусторонний сажанец",
     "item.occultism.otherworld_sapling_natural": "НЕСТАБИЛЬНЫЙ потусторонний сажанец",
     "item.occultism.otherworld_ashes": "Потусторонний пепел",
+    
     "item.occultism.burnt_otherstone": "Обоженный Потусторонний Камень",
+    
     "item.occultism.spirit_fire_item": "Огонь душ",
+    
     "item.occultism.butcher_knife": "Нож Мясника",
+    
     "item.occultism.tallow": "Сало",
+
     "item.occultism.otherstone_frame": "Рамка из Потустороннего Камня",
-    "item.occultism.wormhole_frame": "Рамка Червоточины",
-    "item.occultism.iron_dust": "Железная пыль",
-    "item.occultism.obsidian_dust": "Обсидианновая пыль",
+    "item.occultism.wormhole_frame": "Рамка Червоточины",    
+
     "item.occultism.crushed_end_stone": "Измельчёный камень края",
+
+    "item.occultism.obsidian_dust": "Обсидианновая пыль",
+    "item.occultism.iron_dust": "Железная пыль",
     "item.occultism.gold_dust": "Золотая пыль",
     "item.occultism.copper_dust": "Медная пыль",
     "item.occultism.silver_dust": "Серебрянная пыль",
     "item.occultism.iesnium_dust": "Иеснивая пыль",
+
     "item.occultism.copper_ingot": "Медный Слиток",
     "item.occultism.silver_ingot": "Серебрянный Слиток",
     "item.occultism.iesnium_ingot": "Иеснивый Слиток",
+    
     "item.occultism.copper_nugget": "Медный Самородок",
     "item.occultism.silver_nugget": "Серебрянный Самородок",
     "item.occultism.iesnium_nugget": "Иеснивый Самородок",
+    
     "item.occultism.lenses": "Стенлянные Линзы",
     "item.occultism.infused_lenses": "Влитые Линзы",
     "item.occultism.lens_frame": "Рамка объектива",
+    
     "item.occultism.otherworld_goggles": "Потусторонние очки",
+    
     "item.occultism.infused_pickaxe": "Влитая кирка",
     "item.occultism.spirit_attuned_pickaxe_head": "Духовная головка кирки",
     "item.occultism.iesnium_pickaxe": "Иеснивая Кирка",
+    
     "item.occultism.magic_lamp_empty": "Пустая магическая лампа",
+    
     "item.occultism.miner_foliot_unspecialized": "Шахтер Джинни",
     "item.occultism.miner_djinni_ores": "Шахтер руд Джинни",
     "item.occultism.miner_debug_unspecialized": "Отладочный шахтер",
+    
     "item.occultism.soul_gem": "Душевный кристал",
     "item.occultism.soul_gem_empty": "Пустой душевный кристал",
+    
     "item.occultism.satchel": "Крупная Сумка",
+
     "_comment": "# Spawn eggs",
     "item.occultism.spawn_egg.foliot": "Яйцо призыва Филиота",
     "item.occultism.spawn_egg.djinni": "Яйцо призыва Джинни",
     "item.occultism.spawn_egg.afrit": "Яйцо призыва Африта",
     "item.occultism.spawn_egg.afrit_wild": "Яйцо призыва Непривязанного Африта",
     "item.occultism.spawn_egg.marid": "Яйцо призыва Марида",
+    
     "item.occultism.spawn_egg.possessed_endermite": "Яйцо призыва Одержимого Эндермита",
     "item.occultism.spawn_egg.possessed_skeleton": "Яйцо призыва Одержимого Скелета",
     "item.occultism.spawn_egg.possessed_enderman": "Яйцо призыва Одержимого Эндермена",
+    
     "item.occultism.spawn_egg.wild_hunt_skeleton": "Яйцо призыва Великого охотника Скелета",
     "item.occultism.spawn_egg.wild_hunt_wither_skeleton": "Яйцо призыва Великого охотника Визер-скелета",
+    
     "item.occultism.spawn_egg.otherworld_bird": "Яйцо призыва Дриквинг",
+
     "_comment": "# Предметные сообщения",
     "_comment": "## Книга призыва - также содержит сообщения, запускаемые в связанных сетевых сообщенияхs",
     "item.occultism.book_of_calling.message_target_uuid_no_match": "Этот дух в настоящее время не связан с этой книгой. Щелкните правой кнопкой мыши по духу, чтобы привязать его к этой книге.",
@@ -101,13 +135,18 @@
     "item.occultism.book_of_calling.message_set_storage_controller": "%s теперь будет принимать заказы на работу от %s",
     "item.occultism.book_of_calling.message_set_work_area_size": "%s теперь будет контролировать рабочую область %s",
     "item.occultism.book_of_calling.message_set_managed_machine": "Обновленные настройки машины для %s",
+    
     "block.occultism.stable_wormhole.message.set_storage_controller": "Связал стабильную червоточину с этим приводом хранилища.",
+    
     "item.occultism.storage_remote.message.not_loaded": "Чанк для накопителя привода не загружен! ",
     "item.occultism.storage_remote.message.linked": "Связано дистанционное хранилище с приводом.",
+    
     "item.occultism.divination_rod.message.no_linked_block": "Жезл прорицания не настроен ни на какой материал.",
     "item.occultism.divination_rod.message.linked_block": "Жезл прорицания теперь настроен на %s.",
     "item.occultism.divination_rod.message.no_link_found": "С этим блоком нет никакого резонанса.",
+    
     "item.occultism.soul_gem.message.entity_type_denied": "Камень души не может содержать этот тип существа.",
+    
     "_comment": "# Item Tooltips",
     "item.occultism.book_of_binding_foliot.tooltip": "Эта книга еще не была привязана к foliot.",
     "item.occultism.book_of_binding_bound_foliot.tooltip": "Может быть использован для вызова foliot %s",
@@ -117,6 +156,7 @@
     "item.occultism.book_of_binding_bound_afrit.tooltip": "Может быть использован для вызова afrit %s",
     "item.occultism.book_of_binding_marid.tooltip": "Эта книга еще не была привязана к marid.",
     "item.occultism.book_of_binding_bound_marid.tooltip": "Может быть использован для вызова marid %s",
+    
     "item.occultism.book_of_calling_foliot.tooltip": "Foliot %s",
     "item.occultism.book_of_calling_foliot.tooltip_dead": "%s покинул этот план существования.",
     "item.occultism.book_of_calling_foliot.tooltip.extract": "Извлечение из: %s.",
@@ -125,77 +165,111 @@
     "item.occultism.book_of_calling_djinni.tooltip_dead": "%s покинул этот план существования.",
     "item.occultism.book_of_calling_djinni.tooltip.extract": "Извлечение из %s.",
     "item.occultism.book_of_calling_djinni.tooltip.deposit": "Депозит в: % s",
+    
     "_comment:": "block, because it's a block item.",
     "block.occultism.stable_wormhole.tooltip.unlinked": "Не привязан к хранилищу.",
     "block.occultism.stable_wormhole.tooltip.linked": "Привязкан к хранилищу на %s.",
+   
     "item.occultism.storage_remote.tooltip": "Удаленный доступ к сети хранения данных.",
     "item.occultism.storage_remote.tooltip.linked": "Привязан к %s.",
+   
     "item.occultism.divination_rod.tooltip.no_linked_block": "Не настроена ни на какой материал..",
     "item.occultism.divination_rod.tooltip.linked_block": "Настроен на %s.",
+   
     "item.occultism.dimensional_matrix.tooltip": "%s привязан к этой матрице измерений.",
+   
     "item.occultism.infused_pickaxe.tooltip": "%s привязан к этой кирке.",
+   
     "item.occultism.miner_foliot_unspecialized.tooltip": "%s будет добывать случайные блоки в измерении майнинга.",
     "item.occultism.miner_djinni_ores.tooltip": "%s будет добывать случайные руды в измерении добычи.",
     "item.occultism.miner_debug_unspecialized.tooltip": "Отладочный шахтер будет добывать случайные блоки в измерении добычи.",
+   
     "item.occultism.soul_gem.tooltip_filled": "Содержит захвачиный %s.",
     "item.occultism.soul_gem.tooltip_empty": "Используйте на существе, чтобы поймать существо.",
+   
     "item.occultism.satchel.tooltip": "%s привязан к этой сумке.",
+    
     "_comment": "Blocks",
     "block.occultism.otherstone": "Потусторонний камень",
     "block.occultism.otherstone_slab": "Плита из потустороннего камня",
     "block.occultism.otherstone_pedestal": "Пьедистал из потустороннего каменя",
+    
     "block.occultism.sacrificial_bowl": "Жертвенная чаша",
+    
     "block.occultism.golden_sacrificial_bowl": "Золотая Жертвенная чаша",
+    
     "block.occultism.chalk_glyph": "Мел Глиф",
+    
     "block.occultism.storage_controller": "Контроллер хранилища",
     "block.occultism.storage_controller_base": "База хранилища",
     "block.occultism.storage_stabilizer_tier1": "Уровень 1 Стабилизатора Объемной Памяти",
     "block.occultism.storage_stabilizer_tier2": "Уровень 2 Стабилизатора Объемной Памяти",
     "block.occultism.storage_stabilizer_tier3": "Уровень 3 Стабилизатора Объемной Памяти",
     "block.occultism.storage_stabilizer_tier4": "Уровень 4 Стабилизатора Объемной Памяти",
+    
     "block.occultism.stable_wormhole": "Стабилизированная чернная дыра",
+    
     "block.occultism.datura": "Мечта демона",
     "block.occultism.otherworld_log": "Потустороннее дерево",
     "block.occultism.otherworld_sapling": "Потусторонний сажанец",
     "block.occultism.otherworld_leaves": "Потусторонняя листва",
+    
     "block.occultism.spirit_fire": "Огонь душ",
     "block.occultism.spirit_attuned_crystal": "Настроенный на душу кристалл",
+    
     "block.occultism.candle_white": "Белая свеча",
+    
     "block.occultism.copper_ore": "Медная руда",
     "block.occultism.silver_ore": "Серебрянная руда",
     "block.occultism.iesnium_ore": "Иеснивая руда",
+    
     "block.occultism.copper_block": "Медный блок",
     "block.occultism.silver_block": "Серебрянный блок блок",
     "block.occultism.iesnium_block": "Иеснивый блок",
+    
     "block.occultism.dimensional_mineshaft": "Пространственная вагонетка",
+    
     "block.occultism.skeleton_skull_dummy": "Череп скелета",
     "block.occultism.wither_skeleton_skull_dummy": "Череп Визер-скелета",
+    
     "_comment": "Сущности",
     "entity.occultism.foliot": "Филиот",
     "entity.occultism.djinni": "Джинни",
     "entity.occultism.afrit": "Африт",
     "entity.occultism.afrit_wild": "Непривязанный Африт",
     "entity.occultism.marid": "Марид",
+    
     "entity.occultism.possessed_endermite": "Одержимый Эндермит",
     "entity.occultism.possessed_skeleton": "Одердимый Скелет",
     "entity.occultism.possessed_enderman": "Одержимый Эндермен",
+    
     "entity.occultism.wild_hunt_skeleton": "Великий охотник Скелет",
     "entity.occultism.wild_hunt_wither_skeleton": "Великий охотник Визер-скелет",
+    
     "entity.occultism.otherworld_bird": "Дриквинг",
+    
     "_comment": "# Spirit Jobs",
     "job.occultism.lumberjack": "Лесоруб",
+    
     "job.occultism.crush_tier1": "Медленная дробилка",
     "job.occultism.crush_tier2": "Дробилка",
     "job.occultism.crush_tier3": "Быстрая дробилка",
     "job.occultism.crush_tier4": "Очень быстрая дробилка",
+    
     "job.occultism.manage_machine": "Оператор механизмов",
+    
     "job.occultism.transport_items": "Транспортер",
+    
     "job.occultism.cleaner": "Дворник",
+    
     "job.occultism.trade_otherstone": "Торговщик потустороннего камня",
     "job.occultism.trade_otherworld_saplings": "Торговщик потустороннего сажанца",
+    
     "job.occultism.clear_weather": "Душа Солнечной погоды",
+    
     "job.occultism.rain_weather": "Душа дождливой погоды",
     "job.occultism.rain_thunder": "Душа Грозавой погоды",
+    
     "_comment": "Enums",
     "enum.occultism.facing.up": "Вверх",
     "enum.occultism.facing.down": "Вниз",
@@ -203,14 +277,17 @@
     "enum.occultism.facing.south": "Юг",
     "enum.occultism.facing.west": "Запад",
     "enum.occultism.facing.east": "Восток",
+    
     "enum.occultism.book_of_calling.item_mode.set_deposit": "Точка Депозит",
     "enum.occultism.book_of_calling.item_mode.set_extract": "Точка Извлечения",
     "enum.occultism.book_of_calling.item_mode.set_base": "Точка Базовой локации",
     "enum.occultism.book_of_calling.item_mode.set_storage_controller": "Точка Активатора хранилища",
     "enum.occultism.book_of_calling.item_mode.set_managed_machine": "Точка Управления механизмов",
+    
     "enum.occultism.work_area_size.small": "16 на 16",
     "enum.occultism.work_area_size.medium": "32 на 32",
     "enum.occultism.work_area_size.large": "64 на 64",
+    
     "_comment": "Debug Messages",
     "debug.occultism.debug_wand.printed_glyphs": "Напечатанные glyphs",
     "debug.occultism.debug_wand.glyphs_verified": "Глифы Подтверждены",
@@ -219,77 +296,95 @@
     "debug.occultism.debug_wand.spirit_tamed": "Дух приручен с id %s",
     "debug.occultism.debug_wand.deposit_selected": "Установить блок депозита  %s, обшивки %s",
     "debug.occultism.debug_wand.no_spirit_selected": "Дух не выбран.",
+    
     "_comment": "Ritual Messages",
-    "ritual.occultism.does_not_exist": "§lНе известный ритуал§r. Убедитесь, что пентакли и ингредиенты настроены правильно. Если у вас все равно не получается, то присоединяйтесь к нашему Дискорд серверу https://invite.gg/klikli",
+    "ritual.occultism.does_not_exist": "§lНеизвестный ритуал§r. Убедитесь, что пентакли и ингредиенты настроены правильно. Если у вас все равно не получается, то присоединяйтесь к нашему Дискорд серверу https://invite.gg/klikli",
+    
     "ritual.occultism.debug.conditions": "Не все требования к этому ритуалу соблюдены.",
     "ritual.occultism.debug.started": "Ритуал Начат.",
     "ritual.occultism.debug.finished": "Ритуал успешно завершён.",
     "ritual.occultism.debug.interrupted": "Ритуал прерван.",
 
     "ritual.occultism.summon_foliot_lumberjack.conditions": "Не все требования для этого ритуала соблюдены.",
-    "ritual.occultism.summon_foliot_lumberjack.started": "Начат призыв Филиота лесоруба.",
-    "ritual.occultism.summon_foliot_lumberjack.finished": "Призыв Филиота лесоруба успешен.",
-    "ritual.occultism.summon_foliot_lumberjack.interrupted": "Призв Филиота лесоруба прерван.",
+    "ritual.occultism.summon_foliot_lumberjack.started": "Начат призыв Филиота Лесоруба.",
+    "ritual.occultism.summon_foliot_lumberjack.finished": "Призыв Филиота Лесоруба успешен.",
+    "ritual.occultism.summon_foliot_lumberjack.interrupted": "Призыв Филиота Лесоруба был прерван.",
+    
     "ritual.occultism.summon_foliot_transport_items.conditions": "Не все требования для этого ритуала соблюдены.",
-    "ritual.occultism.summon_foliot_transport_items.started": "Начат призыв филота-транспортера.",
-    "ritual.occultism.summon_foliot_transport_items.finished": "Призыв foliot transporter успешен.",
-    "ritual.occultism.summon_foliot_transport_items.interrupted": "Summoning of foliot transporter interrupted.",
+    "ritual.occultism.summon_foliot_transport_items.started": "Начат призыв Филиота Транспортера.",
+    "ritual.occultism.summon_foliot_transport_items.finished": "Призыв Филиота Транспортера успешен.",
+    "ritual.occultism.summon_foliot_transport_items.interrupted": "Призыв Филиота Транспортера был прерван.",
+    
     "ritual.occultism.summon_foliot_cleaner.conditions": "Не все требования для этого ритуала соблюдены.",
-    "ritual.occultism.summon_foliot_cleaner.started": "Started summoning foliot janitor.",
-    "ritual.occultism.summon_foliot_cleaner.finished": "Summoned foliot janitor successfully.",
-    "ritual.occultism.summon_foliot_cleaner.interrupted": "Summoning of janitor transporter interrupted.",
+    "ritual.occultism.summon_foliot_cleaner.started": "Начат призыв Филиота Уборщика.",
+    "ritual.occultism.summon_foliot_cleaner.finished": "Призыв Филиота Уборщика успешен.",
+    "ritual.occultism.summon_foliot_cleaner.interrupted": "Призыв Филиота Уборщика был прерван.",
+    
     "ritual.occultism.summon_foliot_crusher.conditions": "Не все требования для этого ритуала соблюдены.",
-    "ritual.occultism.summon_foliot_crusher.started": "Начат призыв foliot ore crusher.",
-    "ritual.occultism.summon_foliot_crusher.finished": "Summoned foliot ore crusher successfully.",
-    "ritual.occultism.summon_foliot_crusher.interrupted": "Summoning of foliot ore crusher interrupted.",
+    "ritual.occultism.summon_foliot_crusher.started": "Начат призыв Фолиота Дробителя руд.",
+    "ritual.occultism.summon_foliot_crusher.finished": "Призыв Фолиота Дробителя руд успешен.",
+    "ritual.occultism.summon_foliot_crusher.interrupted": "Призыв Фолиота Дробителя руд был прерван.",
+    
     "ritual.occultism.summon_djinni_crusher.conditions": "Не все требования для этого ритуала соблюдены.",
     "ritual.occultism.summon_djinni_crusher.started": "Начат призыв djinni ore crusher.",
     "ritual.occultism.summon_djinni_crusher.finished": "Summoned djinni ore crusher successfully.",
     "ritual.occultism.summon_djinni_crusher.interrupted": "Summoning of djinni ore crusher interrupted.",
+    
     "ritual.occultism.summon_afrit_crusher.conditions": "Не все требования для этого ритуала соблюдены.",
     "ritual.occultism.summon_afrit_crusher.started": "Started summoning afrit ore crusher.",
     "ritual.occultism.summon_afrit_crusher.finished": "Summoned afrit ore crusher successfully.",
     "ritual.occultism.summon_afrit_crusher.interrupted": "Summoning of afrit ore crusher interrupted.",
+    
     "ritual.occultism.summon_marid_crusher.conditions": "Не все требования для этого ритуала соблюдены.",
     "ritual.occultism.summon_marid_crusher.started": "Начат призыв marid ore crusher.",
     "ritual.occultism.summon_marid_crusher.finished": "Summoned marid ore crusher successfully.",
     "ritual.occultism.summon_marid_crusher.interrupted": "Summoning of marid ore crusher interrupted.",
+    
     "ritual.occultism.summon_foliot_sapling_trader.conditions": "Не все требования для этого ритуала соблюдены.",
     "ritual.occultism.summon_foliot_sapling_trader.started": "Начат призыв foliot otherworld sapling trader.",
     "ritual.occultism.summon_foliot_sapling_trader.finished": "Summoned foliot otherworld sapling successfully.",
     "ritual.occultism.summon_foliot_sapling_trader.interrupted": "Summoning of foliot otherworld sapling trader interrupted.",
+    
     "ritual.occultism.summon_foliot_otherstone_trader.conditions": "Не все требования для этого ритуала соблюдены.",
     "ritual.occultism.summon_foliot_otherstone_trader.started": "Начат призыв foliot otherstone trader.",
     "ritual.occultism.summon_foliot_otherstone_trader.finished": "Summoned foliot otherstone trader successfully.",
     "ritual.occultism.summon_foliot_otherstone_trader.interrupted": "Summoning of foliot otherstone trader interrupted.",
+    
     "ritual.occultism.summon_djinni_manage_machine.conditions": "Не все требования для этого ритуала соблюдены.",
     "ritual.occultism.summon_djinni_manage_machine.started": "Started summoning djinni machine operator.",
     "ritual.occultism.summon_djinni_manage_machine.finished": "Summoned djinni machine operator successfully.",
     "ritual.occultism.summon_djinni_manage_machine.interrupted": "Summoning of djinni machine operator interrupted.",
+    
     "ritual.occultism.summon_djinni_clear_weather.conditions": "Не все требования для этого ритуала соблюдены.",
     "ritual.occultism.summon_djinni_clear_weather.started": "Started summoning djinni to clear weather.",
     "ritual.occultism.summon_djinni_clear_weather.finished": "Summoned djinni successfully.",
     "ritual.occultism.summon_djinni_clear_weather.interrupted": "Summoning of djinni interrupted.",
+    
     "ritual.occultism.summon_djinni_day_time.conditions": "Не все требования для этого ритуала соблюдены.",
     "ritual.occultism.summon_djinni_day_time.started": "Started summoning djinni to set time to day.",
     "ritual.occultism.summon_djinni_day_time.finished": "Summoned djinni successfully.",
     "ritual.occultism.summon_djinni_day_time.interrupted": "Summoning of djinni interrupted.",
+    
     "ritual.occultism.summon_djinni_night_time.conditions": "Не все требования для этого ритуала соблюдены.",
     "ritual.occultism.summon_djinni_night_time.started": "Started summoning djinni to set time to night.",
     "ritual.occultism.summon_djinni_night_time.finished": "Summoned djinni successfully.",
     "ritual.occultism.summon_djinni_night_time.interrupted": "Summoning of djinni interrupted.",
+    
     "ritual.occultism.summon_afrit_rain_weather.conditions": "Не все требования для этого ритуала соблюдены.",
     "ritual.occultism.summon_afrit_rain_weather.started": "Started summoning afrit for rainy weather.",
     "ritual.occultism.summon_afrit_rain_weather.finished": "Summoned afrit successfully.",
     "ritual.occultism.summon_afrit_rain_weather.interrupted": "Summoning of afrit interrupted.",
+    
     "ritual.occultism.summon_afrit_thunder_weather.conditions": "Не все требования для этого ритуала соблюдены.",
     "ritual.occultism.summon_afrit_thunder_weather.started": "Started summoning afrit for a thunderstorm.",
     "ritual.occultism.summon_afrit_thunder_weather.finished": "Summoned afrit successfully.",
     "ritual.occultism.summon_afrit_thunder_weather.interrupted": "Summoning of afrit interrupted.",
+    
     "ritual.occultism.summon_wild_afrit.conditions": "Not all requirements for this ritual are met.",
     "ritual.occultism.summon_wild_afrit.started": "Started summoning unbound afrit.",
     "ritual.occultism.summon_wild_afrit.finished": "Summoned unbound afrit successfully.",
     "ritual.occultism.summon_wild_afrit.interrupted": "Summoning of unbound afrit interrupted.",
+    
     "ritual.occultism.summon_wild_hunt.conditions": "Not all requirements for this ritual are met.",
     "ritual.occultism.summon_wild_hunt.started": "Started summoning the wild hunt.",
     "ritual.occultism.summon_wild_hunt.finished": "Summoned the wild hunt successfully.",
@@ -299,10 +394,12 @@
     "ritual.occultism.craft_dimensional_matrix.started": "Started binding djinni into dimensional matrix.",
     "ritual.occultism.craft_dimensional_matrix.finished": "Successfully bound djinni into dimensional matrix.",
     "ritual.occultism.craft_dimensional_matrix.interrupted": "Binding of djinni interrupted.",
+    
     "ritual.occultism.craft_dimensional_mineshaft.conditions": "Not all requirements for this ritual are met.",
     "ritual.occultism.craft_dimensional_mineshaft.started": "Started binding djinni into dimensional mineshaft.",
     "ritual.occultism.craft_dimensional_mineshaft.finished": "Successfully bound djinni into dimensional mineshaft.",
     "ritual.occultism.craft_dimensional_mineshaft.interrupted": "Binding of djinni interrupted.",
+    
     "ritual.occultism.craft_storage_controller_base.conditions": "Not all requirements for this ritual are met.",
     "ritual.occultism.craft_storage_controller_base.started": "Started binding foliot into storage actuator base.",
     "ritual.occultism.craft_storage_controller_base.finished": "Successfully bound foliot into storage actuator base.",
@@ -332,30 +429,37 @@
     "ritual.occultism.craft_stable_wormhole.started": "Started binding foliot into wormhole frame.",
     "ritual.occultism.craft_stable_wormhole.finished": "Successfully bound foliot into wormhole frame.",
     "ritual.occultism.craft_stable_wormhole.interrupted": "Binding of foliot interrupted.",
+    
     "ritual.occultism.craft_storage_remote.conditions": "Not all requirements for this ritual are met.",
     "ritual.occultism.craft_storage_remote.started": "Started binding djinni into storage remote.",
     "ritual.occultism.craft_storage_remote.finished": "Successfully bound djinni into storage remote.",
     "ritual.occultism.craft_storage_remote.interrupted": "Binding of djinni interrupted.",
+    
     "ritual.occultism.craft_infused_lenses.conditions": "Not all requirements for this ritual are met.",
     "ritual.occultism.craft_infused_lenses.started": "Started binding foliot into lenses.",
     "ritual.occultism.craft_infused_lenses.finished": "Successfully bound foliot into lenses.",
     "ritual.occultism.craft_infused_lenses.interrupted": "Binding of foliot interrupted.",
+    
     "ritual.occultism.craft_infused_pickaxe.conditions": "Not all requirements for this ritual are met.",
     "ritual.occultism.craft_infused_pickaxe.started": "Started binding djinni into pickaxe.",
     "ritual.occultism.craft_infused_pickaxe.finished": "Successfully bound djinni into pickaxe.",
     "ritual.occultism.craft_infused_pickaxe.interrupted": "Binding of djinni interrupted.",
+    
     "ritual.occultism.craft_miner_foliot_unspecialized.conditions": "Not all requirements for this ritual are met.",
     "ritual.occultism.craft_miner_foliot_unspecialized.started": "Started summoning foliot into magic lamp.",
     "ritual.occultism.craft_miner_foliot_unspecialized.finished": "Successfully summoned foliot into magic lamp.",
     "ritual.occultism.craft_miner_foliot_unspecialized.interrupted": "Summoning of foliot interrupted.",
+    
     "ritual.occultism.craft_miner_djinni_ores.conditions": "Not all requirements for this ritual are met.",
     "ritual.occultism.craft_miner_djinni_ores.started": "Started summoning djinni into magic lamp.",
     "ritual.occultism.craft_miner_djinni_ores.finished": "Successfully summoned djinni into magic lamp.",
     "ritual.occultism.craft_miner_djinni_ores.interrupted": "Summoning of djinni interrupted.",
+    
     "ritual.occultism.craft_satchel.conditions": "Not all requirements for this ritual are met.",
     "ritual.occultism.craft_satchel.started": "Started binding foliot into satchel.",
     "ritual.occultism.craft_satchel.finished": "Successfully bound foliot into satchel.",
     "ritual.occultism.craft_satchel.interrupted": "Binding of foliot interrupted.",
+    
     "ritual.occultism.craft_soul_gem.conditions": "Not all requirements for this ritual are met.",
     "ritual.occultism.craft_soul_gem.started": "Started binding djinni into soul gem.",
     "ritual.occultism.craft_soul_gem.finished": "Successfully bound djinni into soul goum.",
@@ -365,44 +469,54 @@
     "ritual.occultism.possess_endermite.started": "Started summoning possessed endermite.",
     "ritual.occultism.possess_endermite.finished": "Summoned possessed endermite successfully.",
     "ritual.occultism.possess_endermite.interrupted": "Summoning of possessed endermite interrupted.",
+    
     "ritual.occultism.possess_skeleton.conditions": "Not all requirements for this ritual are met.",
     "ritual.occultism.possess_skeleton.started": "Started summoning possessed skeleton.",
     "ritual.occultism.possess_skeleton.finished": "Summoned possessed skeleton successfully.",
     "ritual.occultism.possess_skeleton.interrupted": "Summoning of possessed skeleton interrupted.",
+    
     "ritual.occultism.possess_enderman.conditions": "Not all requirements for this ritual are met.",
     "ritual.occultism.possess_enderman.started": "Started summoning possessed enderman.",
     "ritual.occultism.possess_enderman.finished": "Summoned possessed enderman successfully.",
     "ritual.occultism.possess_enderman.interrupted": "Summoning of possessed enderman interrupted.",
+    
     "ritual.occultism.familiar_otherworld_bird.conditions": "Not all requirements for this ritual are met.",
     "ritual.occultism.familiar_otherworld_bird.started": "Started summoning drikwing familiar.",
     "ritual.occultism.familiar_otherworld_bird.finished": "Summoned drikwing familiar successfully.",
     "ritual.occultism.familiar_otherworld_bird.interrupted": "Summoning of drikwing familiar interrupted.",
+    
     "ritual.occultism.summon_wild_otherworld_bird.conditions": "Not all requirements for this ritual are met.",
     "ritual.occultism.summon_wild_otherworld_bird.started": "Started summoning wild drikwing.",
     "ritual.occultism.summon_wild_otherworld_bird.finished": "Summoned wild drikwing successfully.",
     "ritual.occultism.summon_wild_otherworld_bird.interrupted": "Summoning of wild drikwing interrupted.",
+    
     "ritual.occultism.summon_wild_parrot.conditions": "Not all requirements for this ritual are met.",
     "ritual.occultism.summon_wild_parrot.started": "Started summoning wild parrot.",
     "ritual.occultism.summon_wild_parrot.finished": "Summoned wild parrot successfully.",
     "ritual.occultism.summon_wild_parrot.interrupted": "Summoning of wild parrot interrupted.",
+    
     "ritual.occultism.familiar_parrot.conditions": "Not all requirements for this ritual are met.",
     "ritual.occultism.familiar_parrot.started": "Started summoning parrot familiar.",
     "ritual.occultism.familiar_parrot.finished": "Summoned parrot familiar successfully.",
     "ritual.occultism.familiar_parrot.interrupted": "Summoning of parrot familiar interrupted.",
+    
     "_comment": "GUI Strings",
     "gui.occultism.book_of_calling.mode": "Режим",
     "gui.occultism.book_of_calling.work_area": "Зона работы",
     "gui.occultism.book_of_calling.manage_machine.insert": "Insert Facing",
     "gui.occultism.book_of_calling.manage_machine.extract": "Extract Facing",
     "gui.occultism.book_of_calling.manage_machine.custom_name": "Пользовательское имя",
+    
     "_comment": "# Spirit Gui",
     "gui.occultism.spirit.age": "Essence Decay: %d%%",
     "gui.occultism.spirit.job": "%s",
+    
     "_comment": "# Spirit Transporter Gui",
     "gui.occultism.spirit.transporter.filter_mode": "Режим фильтрования",
     "gui.occultism.spirit.transporter.filter_mode.blacklist": "Чёрный список",
     "gui.occultism.spirit.transporter.filter_mode.whitelist": "Белый список",
     "gui.occultism.spirit.transporter.tag_filter": "Введите теги для фильтрации, разделенные \";\".\nE.g.: \"forge:ores;*logs*\".\nUse \"*\" чтобы соответствовать любому символу, например \"*ore*\" чтобы соответствовать тегам руды из любого мода.",
+    
     "_comment": "# Storage Controller",
     "gui.occultism.storage_controller.space_info_label": "%d/%d",
     "gui.occultism.storage_controller.shift": "Зажмите Shift чтобы увидеть подробную информацию.",
@@ -422,12 +536,15 @@
     "gui.occultism.storage_controller.search.machines.tooltip_sort_type_amount": "Sort by distance.",
     "gui.occultism.storage_controller.search.machines.tooltip_sort_type_name": "Sort by machine name.",
     "gui.occultism.storage_controller.search.machines.tooltip_sort_type_mod": "Sort by mod name.",
+    
     "_comment": "Network",
     "_comment": "# Messages",
     "network.messages.occultism.request_order.order_received": "Заказ получен!",
+    
     "_comment": "Effects",
     "effect.occultism.third_eye": "Третий глаз",
     "effect.occultism.double_jump": "Мульти прыжок",
+    
     "_comment": "Звуки",
     "occultism.subtitle.chalk": "Мел",
     "occultism.subtitle.brush": "Brush",
@@ -435,14 +552,18 @@
     "occultism.subtitle.tuning_fork": "Камертон",
     "occultism.subtitle.crunching": "Хруст",
     "occultism.subtitle.poof": "Пуф!",
+    
     "_comment": "Достижения",
     "advancements.occultism.root.title" :  "Оккультизм",
     "advancements.occultism.root.description" : "Get Spiritual!",
+    
     "advancements.occultism.summon_foliot_crusher.title" : "Удвоение руд",
     "advancements.occultism.summon_foliot_crusher.description" : "Хруст! Хруст! Хруст!",
+    
     "_comment": "Keybinds",
     "key.occultism.category": "Оккультизм",
     "key.occultism.backpack": "Открыть ранец",
+    
     "_comment": "JEI",
     "occultism.jei.spirit_fire": "Огонь душ",
     "occultism.jei.crushing": "Хрустящая душа",
@@ -450,6 +571,7 @@
     "occultism.jei.miner.chance": "Шанс: %d%%",
     "occultism.jei.ritual": "Оккультный ритуал",
     "occultism.jei.pentacle": "Пентакль",
+    
     "jei.occultism.ingredient.tallow.description": "Убивайте животных, таких как §2Свиней§r, §2Коров§r, §2Овец§r, §2Лошадей§r и §2Лам§r Мясницким ножом, чтобы получить жир.",
     "jei.occultism.ingredient.otherstone.description": "В основном встречается в Рощах Потустороннего мира. Отображается только при активном эффекте §6Третий глаз§r. См. Дополнительную информацию в §6Dictionary of Spirits§r.",
     "jei.occultism.ingredient.otherworld_log.description": "В основном встречается в Рощах Потустороннего мира. Отображается только при активном эффекте §6Третий глаз§r. См. Дополнительную информацию в §6Dictionary of Spirits§r.",
@@ -458,10 +580,12 @@
     "jei.occultism.ingredient.otherworld_leaves.description": "Primarily found in Otherworld Groves. Отображается только при активном эффекте §6Третий глаз§r. См. Дополнительную информацию в §6Dictionary of Spirits§r.",
     "jei.occultism.ingredient.iesnium_ore.description": "Found in the nether. Отображается только при активном эффекте §6Третий глаз§r. См. Дополнительную информацию в §6Dictionary of Spirits§r.",
     "jei.occultism.ingredient.spirit_fire.description": "Бросьте §6§r на землю и подожгите его. . См. Дополнительную информацию в §6Dictionary of Spirits§r.",
+    
     "jei.occultism.error.missing_id": "Нет ингредиентов для данного рецепта.",
     "jei.occultism.error.invalid_type": "Некорректный тип рецепта.",
     "jei.occultism.error.recipe_too_large": "Рецепт больше чем 3x3.",
     "jei.occultism.error.pentacle_not_loaded": "Пентакль не может быть загружена.",
+    
     "_comment": "JEI Dummy Items",
     "item.occultism.jei_dummy.require_sacrifice":"Requires Sacrifice!",
     "item.occultism.jei_dummy.require_sacrifice.tooltip":"This ritual requires a sacrifice to start. Пожалуйста, обратитесь к Dictionary of Spirits для получения подробных инструкций.",
@@ -469,19 +593,23 @@
     "item.occultism.jei_dummy.require_item_use.tooltip":"This ritual requires to use a specific item to start. Пожалуйста, обратитесь к Dictionary of Spirits для получения подробных инструкций.",
     "item.occultism.jei_dummy.none":"Non-Item Ritual Result",
     "item.occultism.jei_dummy.none.tooltip":"This ritual does not create any items.",
+    
     "_comment": "Pentacles",
     "pentacle.occultism.craft_afrit": "Sevira's Permanent Confinement",
     "pentacle.occultism.craft_djinni": "Strigeor's Higher Binding",
     "pentacle.occultism.craft_foliot": "Eziveus' Spectral Compulsion",
     "pentacle.occultism.craft_marid": "Uphyxes Inverted Tower",
+    
     "pentacle.occultism.possess_djinni": "Ihagan's Enthrallment",
     "pentacle.occultism.possess_foliot": "Hedyrin's Lure",
+    
     "pentacle.occultism.summon_afrit": "Abras' Conjure",
     "pentacle.occultism.summon_djinni": "Ophyx' Calling",
     "pentacle.occultism.summon_foliot": "Aviar's Circle",
     "pentacle.occultism.summon_wild_afrit": "Abras' Open Conjure",
     "pentacle.occultism.summon_marid": "Fatma's Incentivized Attraction",
     "pentacle.occultism.summon_wild_greater_spirit": "Osorin's Unbound Calling",
+    
     "_comment": "Ritual Dummy Items",
     "item.occultism.ritual_dummy.craft_dimensional_matrix": "Ritual: Craft Dimensional Matrix",
     "item.occultism.ritual_dummy.craft_dimensional_matrix.tooltip": "The dimensional matrix is the entry point to a small dimension used for storing items.",
