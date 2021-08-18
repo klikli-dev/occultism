@@ -1,16 +1,22 @@
 {
-  "name": "艾布拉斯的无限制传送门",
+  "name": "阿巴拉斯开环召唤术",
   "icon": "occultism:textures/gui/book/pentagram_rose.png",
   "category": "pentacles",
   "sortnum": 31,
   "pages": [
     {
       "type": "text",
-      "text": "$(bold)目的：$()召唤未被束缚的埃弗里特$(br2)$(thing)艾布拉斯的无限制传送门$()是$(thing)阿巴拉的戏法$()的简化版本，使得召唤师可以在没有红色粉笔的情况下召唤埃弗里特。由于五芒星的能量大大降低，它不能用来控制埃弗里特，只能与埃弗里特战斗并杀死他。"
+      "text": "$(bold)目标：$()召唤未约束火灵$(br2)$(thing)阿巴拉斯开环召唤术$()是简化版本的$(thing)阿巴拉斯召唤术$()，能召唤火灵而无需红色粉笔。由于五芒星的力量大幅减少，它无法用于控制火灵，因此只能导致战斗并杀死火灵。"
     },
     {
       "type": "multiblock",
+      "name": "",
       "multiblock_id": "occultism:pentacle.summon_wild_afrit"
+    },
+    {
+      "type": "text",
+      "title": "用途",
+      "text": "$(li)$(l:rituals/summoning/afrit_essence)火灵灵髓$(/l)$()"
     }
   ]
 }

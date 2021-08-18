@@ -1,5 +1,5 @@
 {
-  "name": "存储执行器底座",
+  "name": "存储促动器基座",
   "icon": "occultism:storage_controller_base",
   "category": "rituals/crafting",
   "sortnum": 21,
@@ -7,14 +7,14 @@
     {
       "type": "spotlight",
       "item": "occultism:storage_controller_base",
-      "text": "存储执行器基座被注入佛利奥特，从而使得我们可以与存储矩阵中的物品进行交互。"
+      "text": "存储促动器基座囚禁着一只魔精，它负责与维度存储矩阵内的物品互动。"
     },
     {
       "type": "summoning",
-      "heading": "注入",
-      "pentacle": "$(l:pentacles/craft_foliot)艾滋威尔斯的初等迫使$(/l)",
+      "heading": "灌注",
+      "pentacle": "$(l:pentacles/craft_foliot)埃兹维斯灵体强迫$(/l)",
       "activation_item": "occultism:book_of_binding_bound_foliot",
-      "ingredients": "$(li)1x $(item)彼岸石基座$()$(li)3x $(item)金锭$()"
+      "ingredients": "$(li)1x $(item)异界石基座$()$(li)3x $(item)金锭$()"
     }
   ]
 }

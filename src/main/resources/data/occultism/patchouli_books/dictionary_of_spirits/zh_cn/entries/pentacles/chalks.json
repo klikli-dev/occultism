@@ -1,32 +1,52 @@
 {
-  "name": "粉笔种类",
+  "name": "粉笔类型",
   "icon": "occultism:chalk_white",
   "category": "pentacles",
   "sortnum": 1,
   "pages": [
     {
       "type": "text",
-      "text": "粉笔用来画五芒星以及定义五芒星形状。不同类型的粉笔有着不同的作用，具体作用如下文所示。注：使用一个$(item)粉板擦$()是$(bold)移除$()错误放置的粉笔符文的最简单方法。"
+      "text": "粉笔主要用于画出五芒星符文以及定义五芒星形状。不同类型的粉笔有不同作用，详细请见后面几页。$(bold)移除$()画错位置符文的最简单办法是使用$(item)粉笔擦$()。"
     },
     {
       "type": "spotlight",
       "item": "occultism:chalk_white",
-      "text": "白色粉笔是粉笔的最基本类型，在大多数五芒星中都能找到。除了定义五芒星的形状外，没有什么特别的能力。"
+      "text": "白色粉笔是最基础的仪式粉笔，被用于大多数五芒星。这种粉笔除了定义五芒星形状外没有特殊功能。"
+    },
+    {
+      "type": "text",
+      "title": "使用白色粉笔的五芒星",
+      "text": "$(li)$(l:pentacles/summon_foliot)阿维亚之环$(/l)$()$(li)$(l:pentacles/craft_foliot)埃兹维斯灵体强迫$(/l)$()$(li)$(l:pentacles/possess_foliot)海德林诱惑术$(/l)$()$(li)$(l:pentacles/summon_djinni)欧菲克斯的呼唤$(/l)$()$(li)$(l:pentacles/craft_djinni)斯特里格高等束缚$(/l)$()$(li)$(l:pentacles/possess_djinni)伊哈根奴役术$(/l)$()$(li)$(l:pentacles/summon_afrit)阿巴拉斯召唤术$(/l)$()$(li)$(l:pentacles/craft_afrit)塞维拉永囚咒$(/l)$()$(li)$(l:pentacles/summon_wiild_afrit)阿巴拉斯开环召唤术$(/l)$()$(li)$(l:pentacles/craft_marid)修菲斯倒转之塔$(/l)$()$(li)$(l:pentacles/summon_wild_greater_spirit)奥索林的无约束呼唤$(/l)$()"
     },
     {
       "type": "spotlight",
       "item": "occultism:chalk_gold",
-      "text": "金色粉笔是用来绑定符文的，它可以给物品注入灵魂，或者使它附身在一个生物身上。"
+      "text": "金色粉笔用于束缚类符文，能使灵体灌注到物品或附身于生物。"
+    },
+    {
+      "type": "text",
+      "title": "使用金色粉笔的五芒星",
+      "text": "$(li)$(l:pentacles/craft_foliot)埃兹维斯灵体强迫$(/l)$()$(li)$(l:pentacles/possess_foliot)海德林诱惑术$(/l)$()$(li)$(l:pentacles/craft_djinni)斯特里格高等束缚$(/l)$()$(li)$(l:pentacles/possess_djinni)伊哈根奴役术$(/l)$()$(li)$(l:pentacles/craft_afrit)塞维拉永囚咒$(/l)$()$(li)$(l:pentacles/craft_marid)修菲斯倒转之塔$(/l)$()"
     },
     {
       "type": "spotlight",
       "item": "occultism:chalk_purple",
-      "text": "紫色粉笔一般用来召唤更高级的生物，如$(thing)金妮$() 或者 $(thing)埃弗里特$()，同时也可以减缓灵魂的本质衰退"
+      "text": "紫色粉笔主要用于召唤更高等的存在，比如$(thing)巨灵$()或者$(thing)火灵$()。另外，紫色粉笔还能减慢被召魔灵的灵髓衰退。"
+    },
+    {
+      "type": "text",
+      "title": "使用紫色粉笔的五芒星",
+      "text": "$(li)$(l:pentacles/summon_djinni)欧菲克斯的呼唤$(/l)$()$(li)$(l:pentacles/craft_djinni)斯特里格高等束缚$(/l)$()$(li)$(l:pentacles/possess_djinni)伊哈根奴役术$(/l)$()$(li)$(l:pentacles/summon_afrit)阿巴拉斯召唤术$(/l)$()$(li)$(l:pentacles/craft_afrit)塞维拉永囚咒$(/l)$()$(li)$(l:pentacles/summon_wiild_afrit)阿巴拉斯开环召唤术$(/l)$()$(li)$(l:pentacles/summon_wild_greater_spirit)奥索林的无约束呼唤$(/l)$()"
     },
     {
       "type": "spotlight",
       "item": "occultism:chalk_red",
-      "text": "红色粉笔用来召唤最强大也是最危险的生物，如$(thing)马里德$()。制作红色粉笔需要$(l:rituals/summoning/afrit_essence)精华$(/l)"
+      "text": "红色粉笔用于召唤最强大和危险的存在，比如$(thing)魔王$()。红色粉笔的合成需要用到$(l:rituals/summoning/afrit_essence)火灵灵髓$(/l)。"
+    },
+    {
+      "type": "text",
+      "title": "使用红色粉笔的五芒星",
+      "text": "$(li)$(l:pentacles/summon_afrit)阿巴拉斯召唤术$(/l)$()$(li)$(l:pentacles/craft_marid)修菲斯倒转之塔$(/l)$()"
     }
   ]
 }

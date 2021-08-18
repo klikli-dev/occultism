@@ -7,12 +7,12 @@
     {
       "type": "spotlight",
       "item": "occultism:soul_gem",
-      "text": "灵魂宝石是镶嵌在金属中的钻石，然后再向其中注入$(thing)金妮$()。被注入其中的金妮创造了一个很小的空间，使得灵魂宝石可以暂时存储生物。但是无法储存灵魂主宰。"
+      "text": "被置于贵金属中的钻石再被$(thing)巨灵$()灌注，这就是灵魂宝石。其中的魔灵创造了一个小型维度，能用于暂时容纳生物。不过，拥有强大力量或巨大尺寸的生物无法被存储。"
     },
     {
       "type": "summoning",
-      "heading": "注入",
-      "pentacle": "$(l:pentacles/craft_djinni)斯崔格的高等绑定$(/l)",
+      "heading": "灌注",
+      "pentacle": "$(l:pentacles/craft_djinni)斯特里格高等束缚$(/l)",
       "activation_item": "occultism:book_of_binding_bound_djinni",
       "ingredients": "$(li)1x $(item)钻石$()$(li)1x $(item)铜锭$()$(li)1x $(item)银锭$()$(li)1x $(item)金锭$()$(li)4x $(item)灵魂沙$()"
     }

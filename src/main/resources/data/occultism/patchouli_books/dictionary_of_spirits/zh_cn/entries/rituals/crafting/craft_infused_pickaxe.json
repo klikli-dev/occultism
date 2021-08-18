@@ -1,5 +1,5 @@
 {
-  "name": "注魔镐",
+  "name": "灌注镐",
   "icon": "occultism:infused_pickaxe",
   "category": "rituals/crafting",
   "sortnum": 11,
@@ -7,14 +7,14 @@
     {
       "type": "spotlight",
       "item": "occultism:infused_pickaxe",
-      "text": "彼岸的矿石通常只能用彼岸的金属工具开采。$(item)注魔镐$()是解决“先有鸡，还是先有蛋”问题的临时解决方案。注魔镐中脆弱的灵魂谐振宝石被注入了$(thing)金妮$()，这使得注魔镐可以挖掘彼岸的矿石，但耐久度极低。"
+      "text": "异界矿石通常只能被异界金属工具采掘。$(item)灌注镐$()就是这个鸡生蛋蛋生鸡问题的过渡解决方法。易碎的魔灵同调宝石束缚着一只$(thing)巨灵$()，使得挖掘异界石成为可能，不过镐的耐久非常低。"
     },
     {
       "type": "summoning",
-      "heading": "注入",
-      "pentacle": "$(l:pentacles/craft_djinni)斯崔格的高等绑定$(/l)",
+      "heading": "灌注",
+      "pentacle": "$(l:pentacles/craft_djinni)斯特里格高等束缚$(/l)",
       "activation_item": "occultism:book_of_binding_bound_djinni",
-      "ingredients": "$(li)1x $(item)灵魂调谐镐头$()$(li)2x $(item)银矿$()$(li)2x $(item)木棍$()"
+      "ingredients": "$(li)1x $(item)魔灵同调镐头$()$(li)2x $(item)银锭$()$(li)2x $(item)木棍$()"
     }
   ]
 }

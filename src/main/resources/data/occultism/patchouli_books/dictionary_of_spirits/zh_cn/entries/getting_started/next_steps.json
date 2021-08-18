@@ -1,52 +1,62 @@
 {
-  "name": "更进一步",
+  "name": "下一步",
   "icon": "occultism:chalk_purple",
   "category": "getting_started",
   "sortnum": 5,
   "pages": [
     {
       "type": "text",
-      "text": "现在你已经成功地召唤了你的第一个灵魂。是时候看看你作为一个召唤者下一步该做些什么，并想想以后的路该怎么走"
+      "text": "现在你成功召唤出了你的第一个魔灵，是时候进行魔法师之路的下一步，并且开始为未来作打算了。"
     },
     {
       "type": "text",
-      "title": "制作金粉笔",
-      "text": "获得金粉和萤石粉，制作金粉笔。为绑定和附身仪式做准备。"
+      "title": "合成金色粉笔",
+      "text": "获得金粉和荧石粉，并合成用于灌注和附身仪式的金色粉笔。"
     },
     {
       "type": "text",
-      "title": "制作彼岸护目镜",
-      "text": "可以通过使用$(l:rituals/crafting/craft_otherworld_goggles)彼岸目镜$(/l)$()获得第三只眼效果，这可以有效防止恶魔之梦成瘾。额外的好处：你可以看到更高阶的彼岸材料，比如说矿物"
+      "title": "合成异界眼镜",
+      "text": "要获得第三只眼视觉，但又要防止魔鬼之梦上瘾，只需换上$(l:rituals/crafting/craft_otherworld_goggles)异界眼镜$(/l)。它还有其他好处：你现在能看见矿石之类的更高级的异界材料。"
     },
     {
       "type": "text",
-      "title": "注魔镐",
-      "text": "使用$(l:rituals/crafting/craft_infused_pickaxe)注魔镐$(/l)来挖掘彼岸矿物。如果想要更进一步，可以制造一个有着相同效果不过拥有更高耐久的$(item)铱镐$()来替代注魔镐"
+      "title": "灌注镐",
+      "text": "收集异界矿石需要先$(l:rituals/crafting/craft_infused_pickaxe)灌注一把镐$(/l)。顺水推舟，下一步便是合成具有同样效果，但耐久更高的$(item)艾瑟金属镐$()。详情请参阅$(l:misc/iesnium)艾瑟金属$(/l)一节。"
     },
     {
       "type": "text",
-      "title": "召唤伙伴",
-      "text": "召唤一只$(l:rituals/familiars/familiar_parrot)鹦鹉伙伴$(/l)来变成海盗！或者召唤一只$(l:rituals/familiars/familiar_otherworld_bird)彼岸鸟$(/l)在空中遨游。可以使用$(l:rituals/crafting/craft_soul_gem)灵魂宝石$(/l)来安全地储存这些能力。"
+      "title": "召唤使魔",
+      "text": "让一只$(l:rituals/familiars/familiar_parrot)鹦鹉使魔$(/l)帮你变成海盗，或者通过$(l:rituals/familiars/familiar_otherworld_bird)具翼$(/l)的帮助让你飞向天空。使用$(l:rituals/crafting/craft_familiar_ring)使魔之戒$(/l)还能将它们束缚到可穿戴物中。"
     },
     {
       "type": "text",
-      "title": "召唤被附身的怪物",
-      "text": "被附身的怪物被灵魂所控制，使得召唤者可以决定怪物的一些属性。被附身的怪物通常有着更高的稀有物品的掉率，与此同时他们也更难被杀死。召唤一个$(thing)被附身的末影螨$()来获取末地石以制造紫色粉笔。"
+      "title": "召唤更多使魔",
+      "text": "召唤一只$(l:rituals/familiars/familiar_greedy)贪婪使魔$(/l)，你就再也不需要自己捡起垃圾了。它会帮你拾取物品，在使魔之戒里还能帮你提升拾取范围。"
     },
     {
       "type": "text",
-      "title": "维度储存",
-      "text": "在灵魂的高级用途中，有维度的创造以及与维度的互动，这使得我们可以存储大量的物品。通过注入一个维度矩阵开始使用维度存储。现在天空是极限 - 使用稳定的虫洞作为额外的访问点，使用存储访问器远程访问存储执行器，创建存储稳定器以最大限度地利用空间。"
+      "title": "召唤更多更多使魔",
+      "text": "召唤一只$(l:rituals/familiars/familiar_bat)蝙蝠使魔$(/l)来获取夜视状态，或者召唤一只$(l:rituals/familiars/familiar_deer)小鹿使魔$(/l)来获取跳跃提升。"
     },
     {
       "type": "text",
-      "title": "自动化",
-      "text": "最后一步，为了解放生产力，你需要召唤机器操纵者金妮来管理熔炉以及你其他的机器。金妮的召唤之书可以对他们管理的机器以及家中的库存进行设置，然后你就可以通过存储系统的GUI下达指令来实现自动化。"
+      "title": "召唤被附身的生物",
+      "text": "被魔灵附身的生物会被魔灵控制，使得召唤者能决定该生物的一些属性。这些生物的稀有物品掉落率通常会提高，但也常常更难杀死。作为开头，你可以召唤$(thing)被附身的末影螨$()来获得合成紫色粉笔所需的末地石。"
     },
     {
       "type": "text",
-      "title": "自动化采矿",
-      "text": "$(l:rituals/crafting/craft_dimensional_mineshaft)维度矿井$(/l)可以在采矿维度中挖矿。灵魂的种类以及其属性决定了挖掘速度、产量以及产物。理论上灵魂可以在采矿维度获得一切存在的矿物。"
+      "title": "维度存储",
+      "text": "魔灵的高等应用之一就是受控的维度创造与交互。这种技术能用来存储数量庞大的物品。一开始需要灌注一个维度矩阵，之后便天高任鸟飞——使用稳定虫洞作为额外接入点，存储访问器能远程访问你的物品，使用存储稳定器还能再扩大你的可用空间。"
+    },
+    {
+      "type": "text",
+      "title": "自动合成",
+      "text": "通往终极偷懒的最后一步，是召唤机器操作员巨灵来帮你管理熔炉和其他机器。它们的召唤之书能用来设定目标机器和主存储系统，然后你就能通过存储系统的 UI 来下命令。"
+    },
+    {
+      "type": "text",
+      "title": "自动挖矿",
+      "text": "$(l:rituals/crafting/craft_dimensional_mineshaft)维度矿井$(/l)能在虚空维度中进行矿物开采。魔灵的种类和具体指令决定了挖矿的速度、产量和产物。不过，至少从理论上来说，在挖矿维度里能获得真实世界存在的任何方块和物品。"
     },
     {
       "type": "empty",
