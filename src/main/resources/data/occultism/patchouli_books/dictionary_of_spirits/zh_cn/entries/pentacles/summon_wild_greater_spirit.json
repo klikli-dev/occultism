@@ -1,16 +1,22 @@
 {
-  "name": "奥索林无拘无束的呼唤",
+  "name": "奥索林的无约束呼唤",
   "icon": "occultism:textures/gui/book/pentagram_rose.png",
   "category": "pentacles",
   "sortnum": 32,
   "pages": [
     {
       "type": "text",
-      "text": "$(bold)目的：$()召唤灵魂主宰$(br2)$(thing)奥索林无拘无束的呼唤$()以$(thing)艾布拉斯的无限制传送门$()为基础。由于没有任何稳定装置，五芒星并未对召唤者进行保护。注：这个五芒星只适用于召唤灵魂主宰。"
+      "text": "$(bold)目标：$()召唤未约束的高等魔灵$(br2)$(thing)奥索林的无约束呼唤$()基于$(thing)阿巴拉斯开环召唤术$()修改而来，但没有任何稳定装置。五芒星没有对魔法师的任何保护，但能对高等魔灵进行无法抵抗的召唤。"
     },
     {
       "type": "multiblock",
+      "name": "",
       "multiblock_id": "occultism:pentacle.summon_wild_greater_spirit"
+    },
+    {
+      "type": "text",
+      "title": "用途",
+      "text": "$(li)$(l:rituals/summoning/wither_skull)凋灵骷髅头颅$(/l)$()"
     }
   ]
 }

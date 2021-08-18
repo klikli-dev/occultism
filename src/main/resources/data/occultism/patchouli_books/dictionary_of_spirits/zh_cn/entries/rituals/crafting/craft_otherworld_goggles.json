@@ -1,5 +1,5 @@
 {
-  "name": "彼岸目镜",
+  "name": "异界眼镜",
   "icon": "occultism:otherworld_goggles",
   "category": "rituals/crafting",
   "sortnum": 10,
@@ -7,17 +7,17 @@
     {
       "type": "spotlight",
       "item": "occultism:otherworld_goggles",
-      "text": "$(item)彼岸目镜$()给予使用者永久的$(thing)第三只眼$()装备彼岸目镜后可以看到食用$(thing)$(l:getting_started/datura)恶魔之梦$(/l)后也看不到的方块。但是他们无法使我们获得彼岸的材料。所以说，是使用这种特殊工具还是食用“恶魔之梦”，具体还是要取决于我们需要什么彼岸材料。"
+      "text": "$(item)异界眼镜$()能持续给予穿戴者$(thing)第三只眼$()状态，甚至能使穿戴者看到$(l:getting_started/datura)魔鬼之梦$(/l)所不能及的方块。不过，眼镜不会给予穿戴者挖掘异界物质的能力，这种情况下，取决于物质的种类不同，要么需要使用特殊工具，要么需要魔鬼之梦。"
     },
     {
       "type": "spotlight",
       "item": "occultism:infused_lenses",
-      "text": "彼岸目镜将使用注入在镜片上的佛利奥特。佛利奥特会与佩戴者共享看到彼岸的能力，从而使佩戴者能够看到彼岸的材料。由于所需的召唤相对简单，制作这些护目镜通常是普通学徒才会执行的召唤任务。"
+      "text": "异界眼镜利用的是束缚在镜片中的魔精。魔精会向穿戴者分享看见更高位面的能力，因而能让人看见异界物质。制作眼镜所需的召唤仪式较为简单，常常被作为新手入门时的召唤任务。"
     },
     {
       "type": "summoning",
-      "heading": "注入",
-      "pentacle": "$(l:pentacles/craft_foliot)艾滋威尔斯的初等迫使$(/l)",
+      "heading": "灌注",
+      "pentacle": "$(l:pentacles/craft_foliot)埃兹维斯灵体强迫$(/l)",
       "activation_item": "occultism:book_of_binding_bound_foliot",
       "ingredients": "$(li)1x $(item)镜片$()$(li)2x $(item)银锭$()$(li)1x $(item)金锭$()"
     },

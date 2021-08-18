@@ -1,16 +1,22 @@
 {
-  "name": "伊哈根的迷恋",
+  "name": "伊哈根奴役术",
   "icon": "occultism:textures/gui/book/pentagram_rose.png",
   "category": "pentacles",
   "sortnum": 22,
   "pages": [
     {
       "type": "text",
-      "text": "$(bold)目的：$()附身金妮$(br2)$(thing)伊哈根的迷恋$()强迫$(thing)金妮$()附身附近的一个生物。这个五芒星的效果持续时间不长，被附身的生物将会在短时间内死亡，灵魂的本质也会快速衰退。"
+      "text": "$(bold)目标：$()巨灵附身$(br2)$(thing)伊哈根奴役术$()会强迫$(thing)巨灵$()附身于一个邻接生物。该五芒星不会导致永久禁锢，魔灵和被附身的生物都会在短时间内死亡。"
     },
     {
       "type": "multiblock",
+      "name": "",
       "multiblock_id": "occultism:pentacle.possess_djinni"
+    },
+    {
+      "type": "text",
+      "title": "用途",
+      "text": "$(li)$(l:rituals/possession/possess_enderman)被附身的末影人$(/l)$()"
     }
   ]
 }
