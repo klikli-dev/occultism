@@ -24,11 +24,14 @@ package com.github.klikli_dev.occultism.common.item.storage;
 
 import com.github.klikli_dev.occultism.api.common.data.GlobalBlockPos;
 import com.github.klikli_dev.occultism.api.common.tile.IStorageController;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.core.BlockPos;
@@ -56,17 +59,17 @@ public class StableWormholeBlockItem extends BlockItem {
 
     @Override
     public InteractionResult useOn(UseOnContext context) {
-        ItemStack stack = context.getItem();
+        ItemStack stack = context.getItemInHand();
         Player player = context.getPlayer();
         Level level = context.getLevel();
         BlockPos pos = context.getClickedPos();
         if (!level.isClientSide) {
             if (player.isShiftKeyDown()) {
                 BlockEntity blockEntity = level.getBlockEntity(pos);
-                if (BlockEntity instanceof IStorageController) {
+                if (blockEntity instanceof IStorageController) {
                     //if this is a storage controller, write the position into the block entity tag that will be used to spawn the tile entity.
-                    stack.getOrCreateChildTag("BlockEntityTag")
-                            .put("linkedStorageControllerPosition", GlobalBlockPos.from(BlockEntity).serializeNBT());
+                    stack.getOrCreateTagElement("BlockEntityTag")
+                            .put("linkedStorageControllerPosition", GlobalBlockPos.from(blockEntity).serializeNBT());
                     player.displayClientMessage(
                             new TranslatableComponent(this.getDescriptionId() + ".message.set_storage_controller"),
                             true);
@@ -79,11 +82,11 @@ public class StableWormholeBlockItem extends BlockItem {
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip,
-                               ITooltipFlag flagIn) {
+                               TooltipFlag flagIn) {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
         if (stack.getOrCreateTag().getCompound("BlockEntityTag")
                     .contains("linkedStorageControllerPosition")) {
-            GlobalBlockPos globalPos = GlobalBlockPos.from(stack.getChildTag("BlockEntityTag")
+            GlobalBlockPos globalPos = GlobalBlockPos.from(stack.getTagElement("BlockEntityTag")
                                                                    .getCompound("linkedStorageControllerPosition"));
             String formattedPosition =
                     ChatFormatting.GOLD.toString() + ChatFormatting.BOLD + globalPos.getPos().toString() +

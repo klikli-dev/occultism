@@ -23,13 +23,13 @@
 package com.github.klikli_dev.occultism.common.job;
 
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.util.DamageSource;
-import net.minecraft.world.InteractionHand;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.SoundSource;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.damagesource.DamageSource;
 
 public abstract class ChangeTimeJob extends SpiritJob {
 
@@ -56,10 +56,10 @@ public abstract class ChangeTimeJob extends SpiritJob {
     @Override
     public void cleanup() {
         //in this case called on spirit death
-        for(int i = 0; i < 5; i++){
+        for (int i = 0; i < 5; i++) {
             ((ServerLevel) this.entity.level)
-                    .sendParticles(ParticleTypes.PORTAL, this.entity.getPosX() + this.entity.level.getRandom().nextGaussian(),
-                            this.entity.getPosY() + 0.5 + this.entity.level.getRandom().nextGaussian(), this.entity.getPosZ()+ this.entity.level.getRandom().nextGaussian(), 5,
+                    .sendParticles(ParticleTypes.PORTAL, this.entity.getX() + this.entity.level.getRandom().nextGaussian(),
+                            this.entity.getY() + 0.5 + this.entity.level.getRandom().nextGaussian(), this.entity.getZ() + this.entity.level.getRandom().nextGaussian(), 5,
                             0.0, 0.0, 0.0,
                             0.0);
         }
@@ -71,22 +71,22 @@ public abstract class ChangeTimeJob extends SpiritJob {
         super.update();
 
         this.currentChangeTicks++;
-        if(!this.entity.isSwingInProgress){
+        if (!this.entity.swinging) {
             this.entity.swing(InteractionHand.MAIN_HAND);
         }
-        if(this.entity.level.getGameTime() % 2 == 0){
+        if (this.entity.level.getGameTime() % 2 == 0) {
             ((ServerLevel) this.entity.level)
-                    .sendParticles(ParticleTypes.PORTAL, this.entity.getPosX(),
-                            this.entity.getPosY() + 0.5, this.entity.getPosZ(), 3,
+                    .sendParticles(ParticleTypes.PORTAL, this.entity.getX(),
+                            this.entity.getY() + 0.5, this.entity.getZ(), 3,
                             0.5, 0.0, 0.0,
                             0.0);
         }
 
         if (this.currentChangeTicks == this.requiredChangeTicks) {
             this.changeTime();
-            this.entity.level.playSound(null, this.entity.getPosition(), SoundEvents.BLOCK_BEACON_ACTIVATE, SoundSource.NEUTRAL, 1, 1);
+            this.entity.level.playSound(null, this.entity.blockPosition(), SoundEvents.BEACON_ACTIVATE, SoundSource.NEUTRAL, 1, 1);
             this.entity.die(DamageSource.OUT_OF_WORLD);
-            this.entity.remove();
+            this.entity.remove(false);
         }
     }
 

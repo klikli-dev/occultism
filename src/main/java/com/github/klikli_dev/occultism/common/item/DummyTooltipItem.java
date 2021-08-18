@@ -22,26 +22,25 @@
 
 package com.github.klikli_dev.occultism.common.item;
 
-import java.util.List;
-
 import com.github.klikli_dev.occultism.common.ritual.Ritual;
-import com.github.klikli_dev.occultism.common.tile.GoldenSacrificialBowlTileEntity;
-
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
+import com.github.klikli_dev.occultism.common.tile.GoldenSacrificialBowlBlockEntity;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.common.util.LazyOptional;
+
+import java.util.List;
 
 /**
  * Item class to represent rituals as items with tooltip - enables JEI search for rituals
  */
 public class DummyTooltipItem extends Item {
-    
+
     private final LazyOptional<Ritual> ritual;
 
     //region Initialization
@@ -49,20 +48,20 @@ public class DummyTooltipItem extends Item {
         super(properties);
         this.ritual = ritual;
     }
-    
+
     public DummyTooltipItem(Properties properties) {
         this(properties, LazyOptional.empty());
     }
     //endregion Initialization
-    
-    public void performRitual(World world, BlockPos pos, GoldenSacrificialBowlTileEntity tileEntity,
-            PlayerEntity player, ItemStack activationItem) {
-        this.ritual.ifPresent(r -> r.finish(world, pos, tileEntity, player, activationItem));
+
+    public void performRitual(Level level, BlockPos pos, GoldenSacrificialBowlBlockEntity blockEntity,
+                              Player player, ItemStack activationItem) {
+        this.ritual.ifPresent(r -> r.finish(level, pos, blockEntity, player, activationItem));
     }
 
     //region Overrides
     @Override
-    public void appendHoverText(ItemStack stack, Level worldIn, List<Component> tooltip, ITooltipFlag flagIn) {
+    public void appendHoverText(ItemStack stack, Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
         tooltip.add(new TranslatableComponent(stack.getDescriptionId() + ".tooltip"));
     }

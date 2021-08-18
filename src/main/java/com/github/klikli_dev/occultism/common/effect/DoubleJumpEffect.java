@@ -44,7 +44,7 @@ public class DoubleJumpEffect extends MobEffect {
     public static final ResourceLocation ICON = new ResourceLocation(Occultism.MODID,
             "textures/mob_effect/double_jump.png");
 
-    public static final EffectRenderer DUMMY = new EffectRenderer() {
+    public static final EffectRenderer EFFECT_RENDERER = new EffectRenderer() {
         @Override
         public void renderInventoryEffect(MobEffectInstance effect, EffectRenderingInventoryScreen<?> gui, PoseStack mStack, int x, int y, float z) {
             gui.getMinecraft().getTextureManager().bindForSetup(ICON);
@@ -84,7 +84,7 @@ public class DoubleJumpEffect extends MobEffect {
 
     @Override
     public void initializeClient(Consumer<EffectRenderer> consumer) {
-        super.initializeClient(consumer);
+        consumer.accept(EFFECT_RENDERER);
     }
 
 

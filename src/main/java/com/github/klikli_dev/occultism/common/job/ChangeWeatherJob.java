@@ -23,13 +23,13 @@
 package com.github.klikli_dev.occultism.common.job;
 
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.effect.LightningBoltEntity;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.util.DamageSource;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.phys.Vec3;
 
 public abstract class ChangeWeatherJob extends SpiritJob {
@@ -57,10 +57,10 @@ public abstract class ChangeWeatherJob extends SpiritJob {
     @Override
     public void cleanup() {
         //in this case called on spirit death
-        for(int i = 0; i < 5; i++){
+        for (int i = 0; i < 5; i++) {
             ((ServerLevel) this.entity.level)
-                    .sendParticles(ParticleTypes.LARGE_SMOKE, this.entity.getPosX() + this.entity.level.getRandom().nextGaussian(),
-                            this.entity.getPosY() + 0.5 + this.entity.level.getRandom().nextGaussian(), this.entity.getPosZ()+ this.entity.level.getRandom().nextGaussian(), 5,
+                    .sendParticles(ParticleTypes.LARGE_SMOKE, this.entity.getX() + this.entity.level.getRandom().nextGaussian(),
+                            this.entity.getY() + 0.5 + this.entity.level.getRandom().nextGaussian(), this.entity.getZ() + this.entity.level.getRandom().nextGaussian(), 5,
                             0.0, 0.0, 0.0,
                             0.0);
         }
@@ -72,13 +72,13 @@ public abstract class ChangeWeatherJob extends SpiritJob {
         super.update();
 
         this.currentChangeTicks++;
-        if(!this.entity.isSwingInProgress){
+        if (!this.entity.swinging) {
             this.entity.swing(InteractionHand.MAIN_HAND);
         }
-        if(this.entity.level.getGameTime() % 2 == 0){
+        if (this.entity.level.getGameTime() % 2 == 0) {
             ((ServerLevel) this.entity.level)
-                    .sendParticles(ParticleTypes.SMOKE, this.entity.getPosX(),
-                            this.entity.getPosY() + 0.5, this.entity.getPosZ(), 3,
+                    .sendParticles(ParticleTypes.SMOKE, this.entity.getX(),
+                            this.entity.getY() + 0.5, this.entity.getZ(), 3,
                             0.5, 0.0, 0.0,
                             0.0);
         }
@@ -86,12 +86,12 @@ public abstract class ChangeWeatherJob extends SpiritJob {
         if (this.currentChangeTicks == this.requiredChangeTicks) {
             this.changeWeather();
 
-            LightningBoltEntity lightningboltentity = EntityType.LIGHTNING_BOLT.create(this.entity.level);
-            lightningboltentity.moveForced(Vec3.copyCenteredHorizontally(this.entity.getPosition()));
-            lightningboltentity.setEffectOnly(true);
+            LightningBolt lightningboltentity = EntityType.LIGHTNING_BOLT.create(this.entity.level);
+            lightningboltentity.moveTo(Vec3.atBottomCenterOf(this.entity.blockPosition()));
+            lightningboltentity.setVisualOnly(true);
 
             this.entity.die(DamageSource.LIGHTNING_BOLT);
-            this.entity.remove();
+            this.entity.remove(false);
         }
     }
 

@@ -56,9 +56,9 @@ public class BlockSorter implements Comparator<BlockPos> {
      * @return the distance at eye level.
      */
     private double getDistance(BlockPos pos) {
-        double deltaX = this.entity.getPosX() - (pos.getX() + 0.5);
-        double deltaY = this.entity.getPosY() + this.entity.getEyeHeight() - (pos.getY() + 0.5);
-        double deltaZ = this.entity.getPosZ() - (pos.getZ() + 0.5);
+        double deltaX = this.entity.getX() - (pos.getX() + 0.5);
+        double deltaY = this.entity.getY() + this.entity.getEyeHeight() - (pos.getY() + 0.5);
+        double deltaZ = this.entity.getZ() - (pos.getZ() + 0.5);
         return deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ;
     }
     //endregion Methods

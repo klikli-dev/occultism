@@ -30,10 +30,10 @@ import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.github.klikli_dev.occultism.common.misc.ItemStackComparator;
 import com.github.klikli_dev.occultism.common.misc.ItemTagComparator;
 import com.github.klikli_dev.occultism.registry.OccultismTags;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.Items;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,7 +76,7 @@ public class LumberjackJob extends SpiritJob {
     }
 
     @Override
-    public boolean canPickupItem(ItemEntity entity){
+    public boolean canPickupItem(ItemEntity entity) {
 
         ItemStack stack = entity.getItem();
         for (IItemStackComparator comparator : this.itemsToPickUp) {

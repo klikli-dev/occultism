@@ -25,15 +25,14 @@ package com.github.klikli_dev.occultism.common.effect;
 import com.github.klikli_dev.occultism.Occultism;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.AbstractGui;
-import net.minecraft.client.gui.DisplayEffectsScreen;
+import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.gui.screens.inventory.EffectRenderingInventoryScreen;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.potion.Effect;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.potion.MobEffectCategory;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraftforge.client.EffectRenderer;
 
 public class ThirdEyeEffect extends MobEffect {
 
@@ -41,6 +40,20 @@ public class ThirdEyeEffect extends MobEffect {
     public static final ResourceLocation ICON = new ResourceLocation(Occultism.MODID,
             "textures/mob_effect/third_eye.png");
     //endregion Fields
+
+    public static final EffectRenderer EFFECT_RENDERER = new EffectRenderer() {
+        @Override
+        public void renderInventoryEffect(MobEffectInstance effect, EffectRenderingInventoryScreen<?> gui, PoseStack mStack, int x, int y, float z) {
+            gui.getMinecraft().getTextureManager().bindForSetup(ICON);
+            GuiComponent.blit(mStack, x + 6, y + 7, 18, 18, 0, 0, 255, 255, 256, 256);
+        }
+
+        @Override
+        public void renderHUDEffect(MobEffectInstance effect, GuiComponent gui, PoseStack mStack, int x, int y, float z, float alpha) {
+            Minecraft.getInstance().getTextureManager().bindForSetup(ICON);
+            GuiComponent.blit(mStack, x + 3, y + 3, 18, 18, 0, 0, 255, 255, 256, 256);
+        }
+    };
 
     //region Initialization
     public ThirdEyeEffect() {
@@ -63,20 +76,6 @@ public class ThirdEyeEffect extends MobEffect {
         return false;
     }
 
-    @Override
-    public void renderInventoryEffect(MobEffectInstance effect, DisplayEffectsScreen<?> gui, PoseStack mStack, int x,
-                                      int y, float z) {
-        gui.getMinecraft().getTextureManager().bindForSetup(ICON);
-        AbstractGui.blit(mStack, x + 6, y + 7, 18, 18, 0, 0, 255, 255, 256, 256);
-
-    }
-
-    @Override
-    public void renderHUDEffect(MobEffectInstance effect, AbstractGui gui, PoseStack mStack, int x, int y, float z,
-                                float alpha) {
-        Minecraft.getInstance().getTextureManager().bindForSetup(ICON);
-        AbstractGui.blit(mStack, x + 3, y + 3, 18, 18, 0, 0, 255, 255, 256, 256);
-    }
 
     //endregion Overrides
 }

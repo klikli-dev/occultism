@@ -82,7 +82,7 @@ public class TraderJob extends SpiritJob {
      */
     public void setTradeRecipeId(ResourceLocation recipeId) {
         this.trade = null;
-        Optional<? extends Recipe<?>> recipe = this.entity.level.getRecipeManager().getRecipe(recipeId);
+        Optional<? extends Recipe<?>> recipe = this.entity.level.getRecipeManager().byKey(recipeId);
         recipe.ifPresent(r -> {
             if (r instanceof SpiritTradeRecipe)
                 this.trade = (SpiritTradeRecipe) r;
@@ -118,8 +118,8 @@ public class TraderJob extends SpiritJob {
                 //show particle effect while converting
                 Vec3 pos = this.entity.position();
                 ((ServerLevel) this.entity.level)
-                        .sendParticles(ParticleTypes.PORTAL, pos.x + this.entity.level.rand.nextGaussian() / 3,
-                                pos.y + 0.5, pos.z + this.entity.level.rand.nextGaussian() / 3, 1, 0.0, 0.0, 0.0,
+                        .sendParticles(ParticleTypes.PORTAL, pos.x + this.entity.level.random.nextGaussian() / 3,
+                                pos.y + 0.5, pos.z + this.entity.level.random.nextGaussian() / 3, 1, 0.0, 0.0, 0.0,
                                 0.0);
             }
             if (this.entity.level.getGameTime() % 20 == 0) {

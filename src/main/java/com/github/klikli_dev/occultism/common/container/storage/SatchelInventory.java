@@ -22,13 +22,14 @@
 
 package com.github.klikli_dev.occultism.common.container.storage;
 
+import net.minecraft.world.ContainerHelper;
+import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.core.NonNullList;
 
-public class SatchelInventory extends Inventory {
+public class SatchelInventory extends SimpleContainer {
 
     //region Fields
     private final ItemStack itemStack;
@@ -55,7 +56,7 @@ public class SatchelInventory extends Inventory {
 
     public void writeItemStack() {
         if (this.isEmpty()) {
-            this.itemStack.removeChildTag("Items");
+            this.itemStack.removeTagKey("Items");
         }
         else {
             this.writeNBT(this.itemStack.getOrCreateTag());
@@ -65,9 +66,9 @@ public class SatchelInventory extends Inventory {
     private void readNBT(CompoundTag compound) {
         final NonNullList<ItemStack> list = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
         if (compound.contains("Items")) {
-            ItemStackHelper.loadAllItems(compound, list);
+            ContainerHelper.loadAllItems(compound, list);
             for (int index = 0; index < list.size(); index++) {
-                this.setInventorySlotContents(index, list.get(index));
+                this.setItem(index, list.get(index));
             }
         }
     }
@@ -77,7 +78,7 @@ public class SatchelInventory extends Inventory {
         for (int index = 0; index < list.size(); index++) {
             list.set(index, this.getItem(index));
         }
-        ItemStackHelper.saveAllItems(compound, list, false);
+        ContainerHelper.saveAllItems(compound, list, false);
     }
     //endregion Methods
 }

@@ -30,17 +30,16 @@ import com.github.klikli_dev.occultism.common.job.ManageMachineJob;
 import com.github.klikli_dev.occultism.common.misc.DepositOrder;
 import com.github.klikli_dev.occultism.exceptions.ItemHandlerMissingException;
 import com.github.klikli_dev.occultism.util.Math3DUtil;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ClipContext;
-import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
@@ -76,7 +75,7 @@ public class ManageMachineGoal extends Goal {
      */
     private BlockPos getMoveTarget() {
         double angle = Math3DUtil.yaw(this.entity.position(), Math3DUtil.center(this.targetBlock));
-        return this.targetBlock.offset(Direction.fromAngle(angle).getOpposite());
+        return this.targetBlock.relative(Direction.fromYRot(angle).getOpposite());
     }
     //endregion Getter / Setter
 
@@ -84,7 +83,7 @@ public class ManageMachineGoal extends Goal {
     @Override
     public boolean canUse() {
         //do not use if there is a target to attack
-        if (this.entity.getAttackTarget() != null) {
+        if (this.entity.getTarget() != null) {
             return false;
         }
         //if we have something in hand, we can
@@ -118,8 +117,7 @@ public class ManageMachineGoal extends Goal {
                 if (distance < accessDistance) {
                     //stop moving while taking out
                     this.entity.getNavigation().stop();
-                }
-                else {
+                } else {
                     //continue moving
                     BlockPos moveTarget = this.getMoveTarget();
                     this.entity.getNavigation().moveTo(this.entity.getNavigation().createPath(moveTarget, 0), 1.0f);
@@ -129,19 +127,19 @@ public class ManageMachineGoal extends Goal {
                 if (distance < accessDistance && this.canSeeTarget()) {
                     DepositOrder currentOrder = this.job.getCurrentDepositOrder();
                     MachineReference machineReference = this.job.getManagedMachine();
-                    if (BlockEntity instanceof IStorageControllerProxy && currentOrder != null) {
+                    if (blockEntity instanceof IStorageControllerProxy && currentOrder != null) {
                         //if we reached the storage controller proxy, we take out items as per our order
                         ItemStack itemToExtract = this.job.getStorageController()
-                                                          .getItemStack(currentOrder.comparator, currentOrder.amount,
-                                                                  true);
+                                .getItemStack(currentOrder.comparator, currentOrder.amount,
+                                        true);
                         IItemHandler handler = this.entity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY,
                                 Direction.UP).orElseThrow(ItemHandlerMissingException::new);
                         if (!itemToExtract.isEmpty() &&
-                            ItemHandlerHelper.insertItem(handler, itemToExtract, true).isEmpty()) {
+                                ItemHandlerHelper.insertItem(handler, itemToExtract, true).isEmpty()) {
                             //we can insert all, so we can perform for real now
                             ItemStack extracted = this.job.getStorageController()
-                                                          .getItemStack(currentOrder.comparator, currentOrder.amount,
-                                                                  false);
+                                    .getItemStack(currentOrder.comparator, currentOrder.amount,
+                                            false);
                             ItemHandlerHelper.insertItem(handler, extracted, false);
 
                             //job fulfilled, deposit ai will take over
@@ -150,8 +148,7 @@ public class ManageMachineGoal extends Goal {
                             this.job.setCurrentDepositOrder(null);
                             this.targetBlock = null;
                         }
-                    }
-                    else if (this.targetBlock.equals(machineReference.globalPos.getPos())) {
+                    } else if (this.targetBlock.equals(machineReference.globalPos.getPos())) {
                         //if we reached the machine, we take out the result
 
 
@@ -160,13 +157,13 @@ public class ManageMachineGoal extends Goal {
 
                             IItemHandler entityHandler = this.entity.getCapability(
                                     CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, Direction.UP)
-                                                                 .orElseThrow(ItemHandlerMissingException::new);
+                                    .orElseThrow(ItemHandlerMissingException::new);
 
                             boolean movedAnyItems = false;
                             for (int i = 0; i < machineHandler.getSlots(); i++) {
                                 //first simulate if we can put anything into the entity
                                 ItemStack itemToExtract = machineHandler
-                                                                  .extractItem(i, machineHandler.getSlotLimit(i), true);
+                                        .extractItem(i, machineHandler.getSlotLimit(i), true);
                                 ItemStack remaining = ItemHandlerHelper.insertItem(entityHandler, itemToExtract, true);
                                 //if anything was taken and inserted, perform for real
                                 if (!itemToExtract.isEmpty() && remaining.getCount() != itemToExtract.getCount()) {
@@ -186,7 +183,7 @@ public class ManageMachineGoal extends Goal {
                             if (movedAnyItems) {
                                 BlockEntity storageControllerProxy = this.findClosestStorageProxy();
 
-                                this.entity.setDepositPosition(storageControllerProxy.getPos());
+                                this.entity.setDepositPosition(storageControllerProxy.getBlockPos());
                                 this.entity.setDepositFacing(Direction.UP);
                                 this.targetBlock = null;
 
@@ -195,8 +192,7 @@ public class ManageMachineGoal extends Goal {
                     }
                     this.stop();
                 }
-            }
-            else {
+            } else {
                 //if we have a target block but no tile there we need to reset
                 this.stop();
             }
@@ -212,11 +208,11 @@ public class ManageMachineGoal extends Goal {
                 this.entity);
         BlockHitResult rayTrace = this.entity.level.clip(context);
 
-        if (rayTrace.getType() != RayTraceResult.Type.MISS) {
-            BlockPos sidePos = rayTrace.getPos();
-            BlockPos pos = new BlockPos(rayTrace.getHitVec());
+        if (rayTrace.getType() != BlockHitResult.Type.MISS) {
+            BlockPos sidePos = rayTrace.getBlockPos();
+            BlockPos pos = new BlockPos(rayTrace.getLocation());
             return this.entity.level.isEmptyBlock(sidePos) || this.entity.level.isEmptyBlock(pos) ||
-                   this.entity.level.getBlockEntity(pos) == this.entity.level.getBlockEntity(this.targetBlock);
+                    this.entity.level.getBlockEntity(pos) == this.entity.level.getBlockEntity(this.targetBlock);
         }
 
         return true;
@@ -232,16 +228,15 @@ public class ManageMachineGoal extends Goal {
 
         //get work area, but only half height, we don't need full.
         int workAreaSize = this.entity.getWorkAreaSize().getValue();
-        Stream<BlockPos> searchBlocks = BlockPos.getAllInBox(
-                machinePosition.add(-workAreaSize, -workAreaSize / 2, -workAreaSize),
-                machinePosition.add(workAreaSize, workAreaSize / 2, workAreaSize));
+        Stream<BlockPos> searchBlocks = BlockPos.betweenClosedStream(
+                machinePosition.offset(-workAreaSize, -workAreaSize / 2, -workAreaSize),
+                machinePosition.offset(workAreaSize, workAreaSize / 2, workAreaSize));
         searchBlocks.forEachOrdered(pos -> {
             BlockEntity blockEntity = level.getBlockEntity(pos);
-            if (BlockEntity instanceof IStorageControllerProxy) {
-                IStorageControllerProxy proxy = (IStorageControllerProxy) BlockEntity;
+            if (blockEntity instanceof IStorageControllerProxy proxy) {
                 if (proxy.getLinkedStorageControllerPosition() != null &&
-                    proxy.getLinkedStorageControllerPosition().equals(this.job.getStorageControllerPosition()))
-                    allBlocks.add(pos.toImmutable());
+                        proxy.getLinkedStorageControllerPosition().equals(this.job.getStorageControllerPosition()))
+                    allBlocks.add(pos.immutable());
             }
         });
 
@@ -258,44 +253,43 @@ public class ManageMachineGoal extends Goal {
     private boolean startTargetingStorageController(DepositOrder depositOrder, MachineReference machineReference,
                                                     BlockEntity machine, IStorageController storageController) {
         return machine.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, machineReference.insertFacing)
-                       .map(machineItemHandler -> {
-                           //simulate taking and inserting items to ensure we have space
-                           ItemStack orderStack = storageController
-                                                          .getItemStack(depositOrder.comparator, depositOrder.amount,
-                                                                  true);
-                           if (!orderStack.isEmpty() &&
-                               ItemHandlerHelper.insertItem(machineItemHandler, orderStack, true).isEmpty()) {
-                               //if we can insert everything we can get for this order, perform it.
-                               BlockEntity storageControllerProxy = this.findClosestStorageProxy();
-                               if (storageControllerProxy != null) {
-                                   this.targetBlock = storageControllerProxy.getPos();
-                                   return true;
-                               }
-                               //no proxy in range, so we just skip this task which will lead to idle.
-                               this.targetBlock = null;
-                               return true;
-                           }
-                           else if (!orderStack.isEmpty()) {
-                               //returning false leads to a call to startTargetingMachine
-                               return false;
-                           }
-                           return false;
-                       }).orElse(false);
+                .map(machineItemHandler -> {
+                    //simulate taking and inserting items to ensure we have space
+                    ItemStack orderStack = storageController
+                            .getItemStack(depositOrder.comparator, depositOrder.amount,
+                                    true);
+                    if (!orderStack.isEmpty() &&
+                            ItemHandlerHelper.insertItem(machineItemHandler, orderStack, true).isEmpty()) {
+                        //if we can insert everything we can get for this order, perform it.
+                        BlockEntity storageControllerProxy = this.findClosestStorageProxy();
+                        if (storageControllerProxy != null) {
+                            this.targetBlock = storageControllerProxy.getBlockPos();
+                            return true;
+                        }
+                        //no proxy in range, so we just skip this task which will lead to idle.
+                        this.targetBlock = null;
+                        return true;
+                    } else if (!orderStack.isEmpty()) {
+                        //returning false leads to a call to startTargetingMachine
+                        return false;
+                    }
+                    return false;
+                }).orElse(false);
     }
 
     private boolean startTargetingMachine(DepositOrder depositOrder, MachineReference machineReference,
                                           BlockEntity machine, IStorageController storageController) {
         return machine.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, machineReference.extractFacing)
-                       .map(machineItemHandler -> {
-                           for (int i = 0; i < machineItemHandler.getSlots(); i++) {
-                               if (!machineItemHandler.getItem(i).isEmpty()) {
-                                   this.targetBlock = machine.getPos();
-                                   return true;
-                               }
-                           }
-                           this.targetBlock = null;
-                           return false;
-                       }).orElse(false);
+                .map(machineItemHandler -> {
+                    for (int i = 0; i < machineItemHandler.getSlots(); i++) {
+                        if (!machineItemHandler.getStackInSlot(i).isEmpty()) {
+                            this.targetBlock = machine.getBlockPos();
+                            return true;
+                        }
+                    }
+                    this.targetBlock = null;
+                    return false;
+                }).orElse(false);
     }
 
     private void resetTarget() {
@@ -308,9 +302,9 @@ public class ManageMachineGoal extends Goal {
 
             //machine was replaced or no longer supports inventories, so we unlink it and abort
             if (!machine.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, machineReference.insertFacing)
-                         .isPresent() ||
-                !machine.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, machineReference.extractFacing)
-                         .isPresent()) {
+                    .isPresent() ||
+                    !machine.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, machineReference.extractFacing)
+                            .isPresent()) {
                 this.job.setManagedMachine(null);
                 this.targetBlock = null;
                 return;
@@ -318,7 +312,7 @@ public class ManageMachineGoal extends Goal {
 
             //if we have an order, we move to the controller to get resources for the machine
             if (currentOrder == null ||
-                !this.startTargetingStorageController(currentOrder, machineReference, machine, storageController)) {
+                    !this.startTargetingStorageController(currentOrder, machineReference, machine, storageController)) {
                 //we either have no order, or no space in the machine, so we extract from  the machine first
                 this.startTargetingMachine(currentOrder, machineReference, machine, storageController);
             }

@@ -26,13 +26,13 @@ import com.github.klikli_dev.occultism.common.container.spirit.SpiritTransporter
 import com.github.klikli_dev.occultism.common.entity.ai.DepositItemsGoal;
 import com.github.klikli_dev.occultism.common.entity.ai.ExtractItemsGoal;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.ai.goal.OpenDoorGoal;
+import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.MenuProvider;
-import net.minecraft.pathfinding.GroundPathNavigator;
-import net.minecraft.network.chat.Component;
 
 import javax.annotation.Nullable;
 
@@ -60,8 +60,8 @@ public class TransportItemsJob extends SpiritJob implements MenuProvider {
 
     @Override
     public void init() {
-        this.entity.getNavigation().getNodeProcessor().setCanEnterDoors(true);
-        ((GroundPathNavigator) this.entity.getNavigator()).setBreakDoors(true);
+        this.entity.getNavigation().getNodeEvaluator().setCanPassDoors(true);
+        ((GroundPathNavigation) this.entity.getNavigation()).setCanOpenDoors(true);
         this.entity.goalSelector.addGoal(3, this.depositItemsGoal = new DepositItemsGoal(this.entity));
         this.entity.goalSelector.addGoal(4, this.extractItemsGoal = new ExtractItemsGoal(this.entity));
         this.entity.goalSelector.addGoal(5, this.openDoorGoal = new OpenDoorGoal(this.entity, true));
@@ -69,8 +69,8 @@ public class TransportItemsJob extends SpiritJob implements MenuProvider {
 
     @Override
     public void cleanup() {
-        this.entity.getNavigation().getNodeProcessor().setCanEnterDoors(false);
-        ((GroundPathNavigator) this.entity.getNavigator()).setBreakDoors(false);
+        this.entity.getNavigation().getNodeEvaluator().setCanPassDoors(false);
+        ((GroundPathNavigation) this.entity.getNavigation()).setCanOpenDoors(false);
         this.entity.goalSelector.removeGoal(this.depositItemsGoal);
         this.entity.goalSelector.removeGoal(this.extractItemsGoal);
         this.entity.goalSelector.removeGoal(this.openDoorGoal);

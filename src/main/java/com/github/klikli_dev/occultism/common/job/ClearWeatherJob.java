@@ -23,7 +23,8 @@
 package com.github.klikli_dev.occultism.common.job;
 
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
-import net.minecraft.level.storage.ServerWorldInfo;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.storage.PrimaryLevelData;
 
 public class ClearWeatherJob extends ChangeWeatherJob {
 
@@ -35,13 +36,9 @@ public class ClearWeatherJob extends ChangeWeatherJob {
 
     //region Overrides
     public void changeWeather() {
-        ServerWorldInfo info = (ServerWorldInfo) this.entity.level.getWorldInfo();
+        PrimaryLevelData info = (PrimaryLevelData) this.entity.level.getLevelData();
         //taken from weathercommand#clear
-        info.setClearWeatherTime(6000);
-        info.setRainTime(0);
-        info.setThunderTime(0);
-        info.setRaining(false);
-        info.setThundering(false);
+        ((ServerLevel) this.entity.level).setWeatherParameters(6000, 0, false, false);
     }
     //endregion Overrides
 }
