@@ -154,7 +154,7 @@ public class DepositItemsGoal extends PausableGoal {
                     }
 
                     //after inserting, close chest
-                    if (this.moveTarget.isChest()) {
+                    if (this.moveTarget != null && this.moveTarget.isChest()) {
                         this.toggleChest(this.moveTarget, false);
                     }
                 }
