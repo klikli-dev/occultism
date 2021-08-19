@@ -33,8 +33,8 @@ public interface IMultiChunkSubFeature {
 
     //region Methods
 
-    boolean generate(WorldGenLevel reader, ChunkGenerator generator, Random rand, BlockPos rootPosition,
-                     AABB bounds,
-                     MultiChunkFeatureConfig config);
+    boolean place(WorldGenLevel reader, ChunkGenerator generator, Random rand, BlockPos rootPosition,
+                  AABB bounds,
+                  MultiChunkFeatureConfig config);
     //endregion Methods
 }

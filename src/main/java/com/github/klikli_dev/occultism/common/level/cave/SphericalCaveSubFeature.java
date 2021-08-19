@@ -25,17 +25,16 @@ package com.github.klikli_dev.occultism.common.level.cave;
 import com.github.klikli_dev.occultism.common.level.multichunk.IMultiChunkSubFeature;
 import com.github.klikli_dev.occultism.common.level.multichunk.MultiChunkFeatureConfig;
 import com.github.klikli_dev.occultism.util.Math3DUtil;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.WorldGenLevel;
-import net.minecraft.level.IWorld;
-import net.minecraft.world.level.chunk.ChunkGenerator;
-import net.minecraft.core.Direction;
-import net.minecraft.util.SharedSeedRandom;
-import net.minecraft.world.phys.AABB;
 import net.minecraft.core.BlockPos;
-import net.minecraft.util.math.ChunkPos;
+import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
+import net.minecraft.world.level.ChunkPos;
+import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.chunk.ChunkGenerator;
+import net.minecraft.world.level.levelgen.WorldgenRandom;
+import net.minecraft.world.phys.AABB;
 
 import java.util.*;
 
@@ -80,10 +79,10 @@ public class SphericalCaveSubFeature implements IMultiChunkSubFeature {
 
     //region Overrides
     @Override
-    public boolean generate(WorldGenLevel reader, ChunkGenerator generator, Random rand, BlockPos rootPosition,
-                            AABB bounds, MultiChunkFeatureConfig config) {
+    public boolean place(WorldGenLevel reader, ChunkGenerator generator, Random rand, BlockPos rootPosition,
+                         AABB bounds, MultiChunkFeatureConfig config) {
         //can never generate in daylight
-        if (reader.canBlockSeeSky(rootPosition))
+        if (reader.canSeeSkyFromBelowWater(rootPosition))
             return false;
 
         //Store a list of spherical caves for easy access during development, or future command access.
@@ -91,16 +90,16 @@ public class SphericalCaveSubFeature implements IMultiChunkSubFeature {
 
         ChunkPos rootChunk = new ChunkPos(rootPosition);
         //Seed with root chunk position
-        ((SharedSeedRandom) rand)
-                .setLargeFeatureSeedWithSalt(reader.getSeed(), rootChunk.x, rootChunk.z, config.featureSeedSalt);
+        ((WorldgenRandom) rand)
+                .setLargeFeatureWithSalt(reader.getSeed(), rootChunk.x, rootChunk.z, config.featureSeedSalt);
 
         List<Sphere> spheres = new ArrayList<>();
         int radiusBase = this.radius + rand.nextInt(this.maxRandomRadiusOffset);
         int radius = (int) (radiusBase * 0.2F) + rand.nextInt(8);
         spheres.add(this.generateSphere(reader, rand, rootPosition, radius, bounds));
         for (int i = 0; i < this.additionalSpheres + rand.nextInt(this.maxRandomAdditionalSpheres); i++) {
-            Direction direction = Direction.Plane.HORIZONTAL.random(rand);
-            spheres.add(this.generateSphere(reader, rand, rootPosition.offset(direction, radius - 2),
+            Direction direction = Direction.Plane.HORIZONTAL.getRandomDirection(rand);
+            spheres.add(this.generateSphere(reader, rand, rootPosition.relative(direction, radius - 2),
                     2 * (int) (radius / 3F) + rand.nextInt(8), bounds));
         }
         for (Sphere sphere : spheres) {
@@ -113,7 +112,7 @@ public class SphericalCaveSubFeature implements IMultiChunkSubFeature {
     //endregion Overrides
 
     //region Methods
-    protected Sphere generateSphere(IWorld level, Random rand, BlockPos position, int radius, AABB bounds) {
+    protected Sphere generateSphere(WorldGenLevel level, Random rand, BlockPos position, int radius, AABB bounds) {
         return new Sphere(position, radius);
     }
 
@@ -122,14 +121,14 @@ public class SphericalCaveSubFeature implements IMultiChunkSubFeature {
         int k = radius / 2;
         int l = radius;
         float f = (float) (j + k + l) * 0.333F + 0.5F;
-        BlockPos min = Math3DUtil.clamp(center.add(-j, -k, -l), bounds);
-        BlockPos max = Math3DUtil.clamp(center.add(j, k, l), bounds);
+        BlockPos min = Math3DUtil.clamp(center.offset(-j, -k, -l), bounds);
+        BlockPos max = Math3DUtil.clamp(center.offset(j, k, l), bounds);
 
-        BlockPos.getAllInBox(min, max).forEach(blockPos -> {
-            if (blockPos.distanceSq(center) <= (double) (f * f * Mth.clamp(rand.nextFloat(), 0.75F, 1.0F))) {
+        BlockPos.betweenClosed(min, max).forEach(blockPos -> {
+            if (blockPos.distSqr(center) <= (double) (f * f * Mth.clamp(rand.nextFloat(), 0.75F, 1.0F))) {
                 BlockState currentState = reader.getBlockState(blockPos);
                 if (!currentState.hasBlockEntity() && currentState.getBlock() != Blocks.BEDROCK) {
-                    reader.setBlockState(blockPos, Blocks.CAVE_AIR.defaultBlockState(), 2);
+                    reader.setBlock(blockPos, Blocks.CAVE_AIR.defaultBlockState(), 2);
                 }
             }
         });
@@ -143,11 +142,11 @@ public class SphericalCaveSubFeature implements IMultiChunkSubFeature {
         int l = radius;
         CaveDecoratordata data = new CaveDecoratordata();
         float f = (float) (j + k + l) * 0.333F + 0.5F;
-        BlockPos min = Math3DUtil.clamp(center.add(-j, -k, -l), bounds);
-        BlockPos max = Math3DUtil.clamp(center.add(j, k, l), bounds);
-        BlockPos.getAllInBox(min, max).forEach(blockPos -> {
-            if (blockPos.distanceSq(center) <= (double) (f * f)) {
-                this.caveDecorator.fill(reader, generator, rand, blockPos.toImmutable(), data);
+        BlockPos min = Math3DUtil.clamp(center.offset(-j, -k, -l), bounds);
+        BlockPos max = Math3DUtil.clamp(center.offset(j, k, l), bounds);
+        BlockPos.betweenClosed(min, max).forEach(blockPos -> {
+            if (blockPos.distSqr(center) <= (double) (f * f)) {
+                this.caveDecorator.fill(reader, generator, rand, blockPos.immutable(), data);
             }
         });
 

@@ -24,12 +24,12 @@ package com.github.klikli_dev.occultism.common.level.multichunk;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.level.gen.feature.IFeatureConfig;
+import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraftforge.common.BiomeDictionary;
 
 import java.util.List;
 
-public class MultiChunkFeatureConfig implements IFeatureConfig {
+public class MultiChunkFeatureConfig implements FeatureConfiguration {
 
     //region Fields
     public static final Codec<BiomeDictionary.Type> BIOME_TYPE_CODEC = RecordCodecBuilder.create((kind1) -> {

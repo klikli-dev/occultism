@@ -23,24 +23,24 @@
 package com.github.klikli_dev.occultism.common.level.tree;
 
 import com.github.klikli_dev.occultism.common.level.WorldGenHandler;
-import net.minecraft.block.trees.Tree;
-import net.minecraft.level.gen.feature.BaseTreeFeatureConfig;
-import net.minecraft.level.gen.feature.ConfiguredFeature;
+import net.minecraft.world.level.block.grower.AbstractTreeGrower;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 
-import javax.annotation.Nullable;
 import java.util.Random;
 
-public class OtherworldNaturalTree extends Tree {
+public class OtherworldTreeGrower extends AbstractTreeGrower {
 
     //region Initialization
-    public OtherworldNaturalTree() {
+    public OtherworldTreeGrower() {
     }
     //endregion Initialization
 
     //region Overrides
-    @Nullable
-    protected ConfiguredFeature<BaseTreeFeatureConfig, ?> getTreeFeature(Random rand, boolean moreBeehives) {
-        return WorldGenHandler.OTHERWORLD_TREE_NATURAL;
+
+    @Override
+    protected ConfiguredFeature<TreeConfiguration, ?> getConfiguredFeature(Random pRandom, boolean pLargeHive) {
+        return WorldGenHandler.OTHERWORLD_TREE;
     }
     //endregion Overrides
 }

@@ -29,8 +29,8 @@ import com.github.klikli_dev.occultism.common.block.otherworld.*;
 import com.github.klikli_dev.occultism.common.block.storage.StableWormholeBlock;
 import com.github.klikli_dev.occultism.common.block.storage.StorageControllerBlock;
 import com.github.klikli_dev.occultism.common.block.storage.StorageStabilizerBlock;
-import com.github.klikli_dev.occultism.common.level.tree.OtherworldNaturalTree;
-import com.github.klikli_dev.occultism.common.level.tree.OtherworldTree;
+import com.github.klikli_dev.occultism.common.level.tree.OtherworldNaturalTreeGrower;
+import com.github.klikli_dev.occultism.common.level.tree.OtherworldTreeGrower;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
@@ -43,7 +43,6 @@ import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
-import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -116,11 +115,11 @@ public class OccultismBlocks {
                             .hardnessAndResistance(0.2f).tickRandomly().notSolid()), true, LootTableType.CUSTOM);
 
     public static final RegistryObject<OtherworldSaplingBlock> OTHERWORLD_SAPLING =
-            register("otherworld_sapling", () -> new OtherworldSaplingBlock(new OtherworldTree(),
+            register("otherworld_sapling", () -> new OtherworldSaplingBlock(new OtherworldTreeGrower(),
                     Block.Properties.of(Material.PLANTS).sound(SoundType.PLANT)
                             .hardnessAndResistance(0.0f).tickRandomly().doesNotBlockMovement()));
     public static final RegistryObject<OtherworldSaplingNaturalBlock> OTHERWORLD_SAPLING_NATURAL =
-            register("otherworld_sapling_natural", () -> new OtherworldSaplingNaturalBlock(new OtherworldNaturalTree(),
+            register("otherworld_sapling_natural", () -> new OtherworldSaplingNaturalBlock(new OtherworldNaturalTreeGrower(),
                     Block.Properties.of(Material.PLANTS).sound(SoundType.PLANT)
                             .hardnessAndResistance(0.0f).tickRandomly().doesNotBlockMovement()), false, LootTableType.OTHERWORLD_BLOCK);
 

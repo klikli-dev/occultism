@@ -61,7 +61,7 @@ public abstract class CaveDecorator implements ICaveDecorator {
     public void fill(WorldGenLevel seedReader, ChunkGenerator generator, Random rand,
                      BlockPos pos, CaveDecoratordata data) {
         BlockState state = seedReader.getBlockState(pos);
-        if (state.getBlockHardness(seedReader, pos) == -1 || seedReader.canBlockSeeSky(pos))
+        if (state.getDestroySpeed(seedReader, pos) == -1 || seedReader.canSeeSkyFromBelowWater(pos))
             return;
 
         if (this.isFloor(seedReader, pos, state)) {
@@ -87,20 +87,20 @@ public abstract class CaveDecorator implements ICaveDecorator {
     public void fillFloor(WorldGenLevel seedReader, ChunkGenerator generator, Random rand,
                           BlockPos pos, BlockState state) {
         if (this.floorState != null) {
-            seedReader.setBlockState(pos, this.floorState, 2);
+            seedReader.setBlock(pos, this.floorState, 2);
         }
     }
 
     public void fillCeiling(WorldGenLevel seedReader, ChunkGenerator generator, Random rand,
                             BlockPos pos, BlockState state) {
         if (this.ceilingState != null)
-            seedReader.setBlockState(pos, this.ceilingState, 2);
+            seedReader.setBlock(pos, this.ceilingState, 2);
     }
 
     public void fillWall(WorldGenLevel seedReader, ChunkGenerator generator, Random rand,
                          BlockPos pos, BlockState state) {
         if (this.wallState != null)
-            seedReader.setBlockState(pos, this.wallState, 2);
+            seedReader.setBlock(pos, this.wallState, 2);
     }
 
     public void fillInside(WorldGenLevel seedReader, ChunkGenerator generator, Random rand,
@@ -125,7 +125,7 @@ public abstract class CaveDecorator implements ICaveDecorator {
     }
 
     public boolean isFloor(WorldGenLevel seedReader, BlockPos pos, BlockState state) {
-        if (!state.isOpaqueCube(seedReader, pos))
+        if (!state.isSolidRender(seedReader, pos))
             return false;
 
         BlockPos upPos = pos.above();
@@ -133,7 +133,7 @@ public abstract class CaveDecorator implements ICaveDecorator {
     }
 
     public boolean isCeiling(WorldGenLevel seedReader, BlockPos pos, BlockState state) {
-        if (!state.isOpaqueCube(seedReader, pos))
+        if (!state.isSolidRender(seedReader, pos))
             return false;
 
         BlockPos downPos = pos.below();
@@ -141,7 +141,7 @@ public abstract class CaveDecorator implements ICaveDecorator {
     }
 
     public boolean isWall(WorldGenLevel seedReader, BlockPos pos, BlockState state) {
-        if (!state.isOpaqueCube(seedReader, pos) || !this.isStone(state))
+        if (!state.isSolidRender(seedReader, pos) || !this.isStone(state))
             return false;
 
         return this.isBorder(seedReader, pos);
@@ -150,7 +150,7 @@ public abstract class CaveDecorator implements ICaveDecorator {
     public Direction getBorderDirection(WorldGenLevel seedReader, BlockPos pos) {
         BlockState state = seedReader.getBlockState(pos);
         for (Direction facing : Direction.Plane.HORIZONTAL) {
-            BlockPos offsetPos = pos.offset(facing);
+            BlockPos offsetPos = pos.relative(facing);
             BlockState stateAt = seedReader.getBlockState(offsetPos);
 
             if (state != stateAt && seedReader.isEmptyBlock(offsetPos) || stateAt.getMaterial().isReplaceable())
@@ -170,7 +170,7 @@ public abstract class CaveDecorator implements ICaveDecorator {
 
     public boolean isStone(BlockState state) {
         if (state != null) {
-            return state.getBlock().isIn(OccultismTags.CAVE_WALL_BLOCKS);
+            return OccultismTags.CAVE_WALL_BLOCKS.contains(state.getBlock());
         }
         return false;
     }
