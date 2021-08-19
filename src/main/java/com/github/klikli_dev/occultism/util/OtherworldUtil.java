@@ -28,8 +28,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fml.common.thread.SidedThreadGroups;
 import net.minecraftforge.fml.loading.FMLEnvironment;
+import net.minecraftforge.fml.util.thread.SidedThreadGroups;
 
 public class OtherworldUtil {
 
@@ -56,9 +56,9 @@ public class OtherworldUtil {
         if (Thread.currentThread().getThreadGroup() == SidedThreadGroups.SERVER)
             return item.getDefaultTranslationKey();
         boolean thirdEye = Minecraft.getInstance() != null && Minecraft.getInstance().player != null
-                           && Minecraft.getInstance().player.hasEffect(OccultismEffects.THIRD_EYE.get());
+                && Minecraft.getInstance().player.hasEffect(OccultismEffects.THIRD_EYE.get());
         return stack.getOrCreateTag().getBoolean("isInventoryItem") ||
-               thirdEye ? item.getDefaultTranslationKey() : item.getDescriptionId();
+                thirdEye ? item.getDefaultTranslationKey() : item.getDescriptionId();
     }
     //endregion Static Methods
 }

@@ -75,10 +75,10 @@ public class AppendLootTable extends LootModifier {
     public static class Serializer extends GlobalLootModifierSerializer<AppendLootTable>
     {
         @Override
-        public AppendLootTable read(ResourceLocation location, JsonObject object, LootItemCondition[] ailootcondition)
+        public AppendLootTable read(ResourceLocation location, JsonObject object, LootItemCondition[] aLootItemCondition)
         {
             ResourceLocation lootTable = new ResourceLocation(GsonHelper.getAsString(object, "add_loot"));
-            return new AppendLootTable(ailootcondition, lootTable);
+            return new AppendLootTable(aLootItemCondition, lootTable);
         }
 
         @Override

@@ -51,7 +51,7 @@ public class StorageRemoteGui extends StorageControllerGuiBase<StorageRemoteCont
 
     @Override
     protected BlockPos getEntityPosition() {
-        return this.container.playerInventory.player.getPosition();
+        return this.container.playerInventory.player.blockPosition();
     }
 
     @Override

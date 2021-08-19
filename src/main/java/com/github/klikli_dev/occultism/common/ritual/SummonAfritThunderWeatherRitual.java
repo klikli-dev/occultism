@@ -42,7 +42,7 @@ public class SummonAfritThunderWeatherRitual extends SummonSpiritRitual {
     public SummonAfritThunderWeatherRitual() {
         super(null,
                 OccultismRituals.SUMMON_AFRIT_PENTACLE.get(),
-                Ingredient.fromItems(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()),
+                Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()),
                 "summon_afrit_thunder_weather", 60);
         this.sacrificePredicate =
                 (entity) -> OccultismTags.COWS.contains(entity.getType());

@@ -122,8 +122,8 @@ public class OccultismCommonConfig extends ConfigBase {
                     this.fillerBlockTag = CachedObject.cache(this,
                             builder.comment("The tag for the blocks this ore will spawn in.")
                                     .define("fillerBlockTag",
-                                            BlockTags.getCollection()
-                                                    .getDirectIdFromTag(fillerBlockTag).toString()));
+                                            BlockTags.getAllTags()
+                                                    .getId(fillerBlockTag).toString()));
                     this.size = CachedInt.cache(this,
                             builder.comment("The size of veins for this ore.")
                                     .defineInRange("size", size, 0, Byte.MAX_VALUE));

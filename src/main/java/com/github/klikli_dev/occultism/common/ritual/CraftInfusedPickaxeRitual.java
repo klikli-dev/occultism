@@ -39,7 +39,7 @@ public class CraftInfusedPickaxeRitual extends Ritual {
     //region Initialization
     public CraftInfusedPickaxeRitual() {
         super(OccultismRituals.CRAFT_DJINNI_PENTACLE.get(),
-                Ingredient.fromItems(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()), "craft_infused_pickaxe",
+                Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()), "craft_infused_pickaxe",
                 60);
     }
     //endregion Initialization

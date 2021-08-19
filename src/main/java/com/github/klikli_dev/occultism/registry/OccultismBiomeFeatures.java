@@ -27,7 +27,7 @@ import com.github.klikli_dev.occultism.common.level.cave.SphericalCaveSubFeature
 import com.github.klikli_dev.occultism.common.level.cave.UndergroundGroveDecorator;
 import com.github.klikli_dev.occultism.common.level.multichunk.MultiChunkFeature;
 import com.github.klikli_dev.occultism.common.level.multichunk.MultiChunkFeatureConfig;
-import net.minecraft.level.gen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;

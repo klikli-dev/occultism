@@ -302,7 +302,7 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
                     ItemStack container = stackInSlot.getItem().getContainerItem(stackInSlot);
                     if (!stackInSlot.isStackable()) {
                         stackInSlot = container;
-                        this.matrix.setInventorySlotContents(i, stackInSlot);
+                        this.matrix.setItem(i, stackInSlot);
                     } else {
                         //handle stackable container items
                         stackInSlot.shrink(1);
@@ -311,17 +311,17 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
                 } else if (!currentCraftingItem.isEmpty()) {
                     //if the slot is empty now we just place the crafting item in it
                     if (stackInSlot.isEmpty()) {
-                        this.matrix.setInventorySlotContents(i, currentCraftingItem);
+                        this.matrix.setItem(i, currentCraftingItem);
                     }
                     //handle "normal items"
                     else if (ItemStack.matches(stackInSlot, currentCraftingItem) &&
                             ItemStack.tagMatches(stackInSlot, currentCraftingItem)) {
                         currentCraftingItem.grow(stackInSlot.getCount());
-                        this.matrix.setInventorySlotContents(i, currentCraftingItem);
+                        this.matrix.setItem(i, currentCraftingItem);
                     }
                     //handle items that consume durability on craft
                     else if (ItemStack.isSameIgnoreDurability(stackInSlot, currentCraftingItem)) {
-                        this.matrix.setInventorySlotContents(i, currentCraftingItem);
+                        this.matrix.setItem(i, currentCraftingItem);
                     } else {
                         //last resort, try to place in player inventory or if that fails, drop.
                         ItemHandlerHelper.giveItemToPlayer(player, result);
@@ -346,7 +346,7 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
                             recipeStack) : null;
 
                     ItemStack requestedItem = this.getStorageController().getItemStack(comparator, 1, false);
-                    this.matrix.setInventorySlotContents(i, requestedItem);
+                    this.matrix.setItem(i, requestedItem);
                 }
             }
             this.slotsChanged(this.matrix);
@@ -355,7 +355,7 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
         //now actually give to the players
         ItemStack finalResult = new ItemStack(result.getItem(), 0);
         for (ItemStack intermediateResult : resultList) {
-            finalResult.setCount(finalResult.getCount() + intermediateResult.getCount());
+            finalResult.SetItemCountFunction(finalResult.getCount() + intermediateResult.getCount());
         }
         ItemHandlerHelper.giveItemToPlayer(player, finalResult);
 

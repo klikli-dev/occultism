@@ -45,7 +45,7 @@ public class SummonWildOtherworldBirdRitual extends SummonSpiritRitual {
     public SummonWildOtherworldBirdRitual() {
         super(null,
                 OccultismRituals.SUMMON_DJINNI_PENTACLE.get(),
-                Ingredient.fromItems(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()),
+                Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()),
                 "summon_wild_otherworld_bird", 30);
         this.sacrificePredicate =
                 (entity) -> OccultismTags.PARROTS.contains(entity.getType());
@@ -66,10 +66,10 @@ public class SummonWildOtherworldBirdRitual extends SummonSpiritRitual {
                 goldenBowlPosition.getY() + 0.5, goldenBowlPosition.getZ() + 0.5, 1, 0, 0, 0, 0);
 
         OtherworldBirdEntity bird = OccultismEntities.OTHERWORLD_BIRD.get().create(level);
-        bird.finalizeSpawn((ServerLevel) level, level.getCurrentDifficultyAt(goldenBowlPosition), SpawnReason.MOB_SUMMONED,
+        bird.finalizeSpawn((ServerLevel) level, level.getCurrentDifficultyAt(goldenBowlPosition), MobSpawnType.MOB_SUMMONED,
                 null, null);
         bird.absMoveTo(goldenBowlPosition.getX(), goldenBowlPosition.getY(), goldenBowlPosition.getZ(),
-                level.rand.nextInt(360), 0);
+                level.random.nextInt(360), 0);
         bird.setCustomName(new TextComponent(entityName));
         //notify players nearby and spawn
         this.spawnEntity(bird, level);

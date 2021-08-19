@@ -26,10 +26,15 @@ import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.github.klikli_dev.occultism.util.Math3DUtil;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.item.Items;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.core.BlockPos;
@@ -49,35 +54,35 @@ public class PlayerEventHandler {
         if (isFlintAndSteel || isFireCharge) {
             //find if there is any datura
             AABB box = new AABB(-1, -1, -1, 1, 1, 1)
-                                        .offset(Math3DUtil.center(event.getPos()));
-            List<ItemEntity> list = event.getLevel().getEntitiesWithinAABB(ItemEntity.class, box,
+                                        .move(Math3DUtil.center(event.getPos()));
+            List<ItemEntity> list = event.getWorld().getEntitiesOfClass(ItemEntity.class, box,
                     item -> item.getItem().getItem() == OccultismItems.DATURA.get());
             if (!list.isEmpty()) {
                 //if there is datura, check if we can edit the target face
-                BlockPos pos = event.getPos().offset(event.getFace());
-                if (!event.getPlayer().canPlayerEdit(pos, event.getFace(), event.getItemStack())) {
+                BlockPos pos = event.getPos().relative(event.getFace());
+                if (!event.getPlayer().mayUseItemAt(pos, event.getFace(), event.getItemStack())) {
                     return;
                 }
 
                 //consume all datura
-                list.forEach(Entity::remove);
+                list.forEach(e -> e.remove(false));
 
-                Level level = event.getLevel();
+                Level level = event.getWorld();
                 //if there is air, place block and play sound
                 if (level.isEmptyBlock(pos)) {
                     //sound based on the item used
                     SoundEvent soundEvent =
-                            isFlintAndSteel ? SoundEvents.ITEM_FLINTANDSTEEL_USE : SoundEvents.ITEM_FIRECHARGE_USE;
+                            isFlintAndSteel ? SoundEvents.FLINTANDSTEEL_USE : SoundEvents.FIRECHARGE_USE;
                     level.playSound(event.getPlayer(), pos, soundEvent,
-                            SoundSource.BLOCKS, 1.0F, level.rand.nextFloat() * 0.4F + 0.8F);
+                            SoundSource.BLOCKS, 1.0F, level.random.nextFloat() * 0.4F + 0.8F);
 
-                    level.setBlockState(pos, OccultismBlocks.SPIRIT_FIRE.get().defaultBlockState(), 11);
+                    level.setBlock(pos, OccultismBlocks.SPIRIT_FIRE.get().defaultBlockState(), 11);
                 }
 
                 //now handle used item
                 if (isFlintAndSteel) {
-                    event.getItemStack().damageItem(1, event.getPlayer(), (player) -> {
-                        player.sendBreakAnimation(event.getHand());
+                    event.getItemStack().hurtAndBreak(1, event.getPlayer(), (player) -> {
+                        player.broadcastBreakEvent(event.getHand());
                     });
                 }
                 else if (isFireCharge) {

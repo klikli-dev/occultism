@@ -29,15 +29,15 @@ import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.github.klikli_dev.occultism.registry.OccultismRituals;
 import com.github.klikli_dev.occultism.registry.OccultismTags;
 import com.github.klikli_dev.occultism.util.ItemNBTUtil;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.TextComponent;
 
 public class FamiliarGreedyRitual extends SummonSpiritRitual {
 
@@ -45,7 +45,7 @@ public class FamiliarGreedyRitual extends SummonSpiritRitual {
     public FamiliarGreedyRitual() {
         super(null,
                 OccultismRituals.POSSESS_FOLIOT_PENTACLE.get(),
-                Ingredient.fromItems(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()),
+                Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()),
                 "familiar_greedy", 30);
         this.sacrificePredicate =
                 (entity) -> OccultismTags.ZOMBIES.contains(entity.getType());
@@ -66,12 +66,12 @@ public class FamiliarGreedyRitual extends SummonSpiritRitual {
                 goldenBowlPosition.getY() + 0.5, goldenBowlPosition.getZ() + 0.5, 1, 0, 0, 0, 0);
 
         GreedyFamiliarEntity familiar = OccultismEntities.GREEDY_FAMILIAR.get().create(level);
-        familiar.finalizeSpawn((ServerLevel) level, level.getCurrentDifficultyAt(goldenBowlPosition), SpawnReason.MOB_SUMMONED,
+        familiar.finalizeSpawn((ServerLevel) level, level.getCurrentDifficultyAt(goldenBowlPosition), MobSpawnType.MOB_SUMMONED,
                 null, null);
         familiar.absMoveTo(goldenBowlPosition.getX(), goldenBowlPosition.getY(), goldenBowlPosition.getZ(),
-                level.rand.nextInt(360), 0);
+                level.random.nextInt(360), 0);
         familiar.setCustomName(new TextComponent(entityName));
-        familiar.setOwnerId(castingPlayer.getUniqueID());
+        familiar.setOwnerId(castingPlayer.getUUID());
 
         //notify players nearby and spawn
         this.spawnEntity(familiar, level);

@@ -26,20 +26,16 @@ import com.github.klikli_dev.occultism.common.container.storage.SatchelContainer
 import com.github.klikli_dev.occultism.common.container.storage.SatchelInventory;
 import com.github.klikli_dev.occultism.util.ItemNBTUtil;
 import com.github.klikli_dev.occultism.util.TextUtil;
-import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.world.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.Container;
-import net.minecraft.inventory.container.SimpleNamedContainerProvider;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import net.minecraft.util.InteractionResultHolder;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
-import net.minecraftforge.fml.network.NetworkHooks;
+import net.minecraftforge.fmllegacy.network.NetworkHooks;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -58,10 +54,10 @@ public class SatchelItem extends Item {
 
         if (!level.isClientSide && player instanceof ServerPlayer) {
             //here we use main hand item as selected slot
-            int selectedSlot = hand == InteractionHand.MAIN_HAND ? player.getInventory().currentItem : -1;
+            int selectedSlot = hand == InteractionHand.MAIN_HAND ? player.getInventory().selected : -1;
 
             NetworkHooks.openGui((ServerPlayer) player,
-                    new SimpleNamedContainerProvider((id, playerInventory, unused) -> {
+                    new SimpleMenuProvider((id, playerInventory, unused) -> {
                         return new SatchelContainer(id, playerInventory,
                                 this.getInventory((ServerPlayer) player, stack), selectedSlot);
                     }, stack.getDisplayName()), buffer -> {
@@ -73,7 +69,7 @@ public class SatchelItem extends Item {
     }
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip,
-                               ITooltipFlag flagIn) {
+                               TooltipFlag flagIn) {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
         tooltip.add(new TranslatableComponent(this.getDescriptionId() + ".tooltip",
                 TextUtil.formatDemonName(ItemNBTUtil.getBoundSpiritName(stack))));

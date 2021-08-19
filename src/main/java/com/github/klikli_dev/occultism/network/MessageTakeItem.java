@@ -65,8 +65,8 @@ public class MessageTakeItem extends MessageBase {
     @Override
     public void onServerReceived(MinecraftServer minecraftServer, ServerPlayer player,
                                  NetworkEvent.Context context) {
-        if (player.openContainer instanceof IStorageControllerContainer) {
-            IStorageController storageController = ((IStorageControllerContainer) player.openContainer)
+        if (player.containerMenu instanceof IStorageControllerContainer) {
+            IStorageController storageController = ((IStorageControllerContainer) player.containerMenu)
                                                            .getStorageController();
             if (storageController == null)
                 return;
@@ -113,14 +113,14 @@ public class MessageTakeItem extends MessageBase {
 
             //finally, update the storage controller stacks
             OccultismPackets.sendTo(player, storageController.getMessageUpdateStacks());
-            player.openContainer.broadcastChanges();
+            player.containerMenu.broadcastChanges();
         }
     }
 
     @Override
     public void encode(FriendlyByteBuf buf) {
         ItemStack toWrite = this.stack.copy();
-        toWrite.setCount(1);
+        toWrite.SetItemCountFunction(1);
         buf.writeItemStack(toWrite);
         buf.writeInt(this.stack.getCount());
         buf.writeByte(this.mouseButton);
@@ -132,7 +132,7 @@ public class MessageTakeItem extends MessageBase {
     @Override
     public void decode(FriendlyByteBuf buf) {
         this.stack = buf.readItemStack();
-        this.stack.setCount(buf.readInt());
+        this.stack.SetItemCountFunction(buf.readInt());
         this.mouseButton = buf.readByte();
         this.isShiftDown = buf.readBoolean();
         this.isCtrlDown = buf.readBoolean();

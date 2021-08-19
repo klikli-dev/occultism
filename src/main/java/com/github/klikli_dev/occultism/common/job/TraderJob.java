@@ -143,7 +143,7 @@ public class TraderJob extends SpiritJob {
                 }
 
                 ItemStack converted = this.trade.getResultItem().copy();
-                converted.setCount(converted.getCount() * resultCount);
+                converted.SetItemCountFunction(converted.getCount() * resultCount);
 
                 if (resultCount > 0) {
                     this.entity.spawnAtLocation(converted, 0.0f);

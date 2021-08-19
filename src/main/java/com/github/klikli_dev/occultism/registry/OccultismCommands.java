@@ -28,20 +28,21 @@ import com.github.klikli_dev.occultism.common.command.NbtCommand;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.tree.LiteralCommandNode;
 import net.minecraft.commands.CommandSource;
+import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 
 public class OccultismCommands {
     //region Static Methods
-    public static void register(CommandDispatcher<CommandSource> dispatcher) {
+    public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
 
         //register dispatcher for subcommands of /occultism debug
-        LiteralCommandNode<CommandSource> debugCommand = dispatcher.register(
+        LiteralCommandNode<CommandSourceStack> debugCommand = dispatcher.register(
                 Commands.literal("debug")
                         .then(DebugAICommand.register(dispatcher))
         );
 
         //register dispatcher for subcommands of /occultism
-        LiteralCommandNode<CommandSource> occultismCommand = dispatcher.register(
+        LiteralCommandNode<CommandSourceStack> occultismCommand = dispatcher.register(
                 Commands.literal(Occultism.MODID)
                         .then(NbtCommand.register(dispatcher))
                         .then(debugCommand)

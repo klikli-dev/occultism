@@ -39,7 +39,7 @@ public class CraftMinerDjinniOresRitual extends Ritual {
     //region Initialization
     public CraftMinerDjinniOresRitual() {
         super(OccultismRituals.CRAFT_DJINNI_PENTACLE.get(),
-                Ingredient.fromItems(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()),
+                Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()),
                 "craft_miner_djinni_ores", 60);
     }
     //endregion Initialization

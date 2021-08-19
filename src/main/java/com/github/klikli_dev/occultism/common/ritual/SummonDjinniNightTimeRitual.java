@@ -45,7 +45,7 @@ public class SummonDjinniNightTimeRitual extends SummonSpiritRitual {
     public SummonDjinniNightTimeRitual() {
         super(null,
                 OccultismRituals.SUMMON_DJINNI_PENTACLE.get(),
-                Ingredient.fromItems(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()),
+                Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()),
                 "summon_djinni_night_time", 60);
     }
     //endregion Initialization

@@ -29,21 +29,22 @@ import com.github.klikli_dev.occultism.common.ritual.pentacle.Pentacle;
 import com.github.klikli_dev.occultism.registry.*;
 import com.github.klikli_dev.occultism.util.loot.AppendLootTable;
 import com.github.klikli_dev.occultism.util.loot.MatchBlockCondition;
-import net.minecraft.block.ComposterBlock;
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
-import net.minecraft.item.SpawnEggItem;
-import net.minecraft.loot.LootConditionType;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.world.item.SpawnEggItem;
+import net.minecraft.world.level.block.ComposterBlock;
+import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.RegistryBuilder;
 
@@ -75,8 +76,8 @@ public class RegistryEventHandler {
         // Register BlockItems for blocks without custom items
         OccultismBlocks.BLOCKS.getEntries().stream().map(RegistryObject::get)
                 .filter(block -> OccultismBlocks.BLOCK_DATA_GEN_SETTINGS
-                                         .get(block.getRegistryName()).generateDefaultBlockItem).forEach(block -> {
-            BlockItem blockItem = new BlockItem(block, new Item.Properties().group(Occultism.ITEM_GROUP));
+                        .get(block.getRegistryName()).generateDefaultBlockItem).forEach(block -> {
+            BlockItem blockItem = new BlockItem(block, new Item.Properties().tab(Occultism.ITEM_GROUP));
             blockItem.setRegistryName(block.getRegistryName());
             registry.register(blockItem);
         });
@@ -105,20 +106,20 @@ public class RegistryEventHandler {
         Occultism.LOGGER.info("Registered SpawnEggItems");
 
         //Register compostable items
-        ComposterBlock.CHANCES.put(OccultismItems.DATURA_SEEDS.get(), 0.3f);
-        ComposterBlock.CHANCES.put(OccultismBlocks.OTHERWORLD_LEAVES.get().asItem(), 0.3f);
-        ComposterBlock.CHANCES.put(OccultismBlocks.OTHERWORLD_LEAVES_NATURAL.get().asItem(), 0.3f);
-        ComposterBlock.CHANCES.put(OccultismBlocks.OTHERWORLD_SAPLING.get().asItem(), 0.3f);
-        ComposterBlock.CHANCES.put(OccultismBlocks.OTHERWORLD_SAPLING_NATURAL.get().asItem(), 0.3f);
+        ComposterBlock.COMPOSTABLES.put(OccultismItems.DATURA_SEEDS.get(), 0.3f);
+        ComposterBlock.COMPOSTABLES.put(OccultismBlocks.OTHERWORLD_LEAVES.get().asItem(), 0.3f);
+        ComposterBlock.COMPOSTABLES.put(OccultismBlocks.OTHERWORLD_LEAVES_NATURAL.get().asItem(), 0.3f);
+        ComposterBlock.COMPOSTABLES.put(OccultismBlocks.OTHERWORLD_SAPLING.get().asItem(), 0.3f);
+        ComposterBlock.COMPOSTABLES.put(OccultismBlocks.OTHERWORLD_SAPLING_NATURAL.get().asItem(), 0.3f);
 
-        ComposterBlock.CHANCES.put(OccultismItems.DATURA.get(), 0.65f);
+        ComposterBlock.COMPOSTABLES.put(OccultismItems.DATURA.get(), 0.65f);
         Occultism.LOGGER.info("Registered compostable Items");
     }
 
-    public static void registerSpawnEgg(IForgeRegistry<Item> registry, EntityType<?> entityType,
+    public static void registerSpawnEgg(IForgeRegistry<Item> registry, EntityType<? extends Mob> entityType,
                                         String name, int primaryColor, int secondaryColor) {
         SpawnEggItem spawnEggItem = new SpawnEggItem(entityType, primaryColor, secondaryColor,
-                new Item.Properties().group(Occultism.ITEM_GROUP));
+                new Item.Properties().tab(Occultism.ITEM_GROUP));
         spawnEggItem.setRegistryName(modLoc("spawn_egg/" + name));
         registry.register(spawnEggItem);
     }
@@ -131,7 +132,7 @@ public class RegistryEventHandler {
         MatchBlockCondition.BLOCK_TAG_CONDITION = Registry.register(
                 Registry.LOOT_CONDITION_TYPE,
                 modLoc("match_block"),
-                new LootConditionType(new MatchBlockCondition.Serializer()));
+                new LootItemConditionType(new MatchBlockCondition.LootSerializer()));
         event.getRegistry().register(new AppendLootTable.Serializer().setRegistryName(modLoc("append_loot")));
     }
     //endregion Static Methods

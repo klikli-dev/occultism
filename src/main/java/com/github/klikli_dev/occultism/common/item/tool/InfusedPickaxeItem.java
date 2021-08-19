@@ -26,20 +26,20 @@ import com.github.klikli_dev.occultism.api.common.data.OtherworldBlockTier;
 import com.github.klikli_dev.occultism.api.common.item.IOtherworldTool;
 import com.github.klikli_dev.occultism.util.ItemNBTUtil;
 import com.github.klikli_dev.occultism.util.TextUtil;
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.item.IItemTier;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.item.PickaxeItem;
-import net.minecraft.world.level.Level;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.PickaxeItem;
+import net.minecraft.world.item.Tier;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.Level;
 
 import javax.annotation.Nullable;
 import java.util.List;
 
 public class InfusedPickaxeItem extends PickaxeItem implements IOtherworldTool {
     //region Initialization
-    public InfusedPickaxeItem(IItemTier tier, int attackDamageIn, float attackSpeedIn,
+    public InfusedPickaxeItem(Tier tier, int attackDamageIn, float attackSpeedIn,
                               Properties builder) {
         super(tier, attackDamageIn, attackSpeedIn, builder);
     }
@@ -53,7 +53,7 @@ public class InfusedPickaxeItem extends PickaxeItem implements IOtherworldTool {
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip,
-                               ITooltipFlag flagIn) {
+                                TooltipFlag flagIn) {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
         tooltip.add(new TranslatableComponent(this.getDescriptionId() + ".tooltip",
                 TextUtil.formatDemonName(ItemNBTUtil.getBoundSpiritName(stack))));

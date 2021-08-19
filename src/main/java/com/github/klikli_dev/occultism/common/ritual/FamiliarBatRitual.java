@@ -45,7 +45,7 @@ public class FamiliarBatRitual extends SummonSpiritRitual {
     public FamiliarBatRitual() {
         super(null,
                 OccultismRituals.POSSESS_DJINNI_PENTACLE.get(),
-                Ingredient.fromItems(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()),
+                Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()),
                 "familiar_bat", 60);
         this.sacrificePredicate =
                 (entity) -> OccultismTags.BATS.contains(entity.getType());
@@ -66,10 +66,10 @@ public class FamiliarBatRitual extends SummonSpiritRitual {
                 goldenBowlPosition.getY() + 0.5, goldenBowlPosition.getZ() + 0.5, 1, 0, 0, 0, 0);
 
         BatFamiliarEntity familiar = OccultismEntities.BAT_FAMILIAR.get().create(level);
-        familiar.finalizeSpawn((ServerLevel) level, level.getCurrentDifficultyAt(goldenBowlPosition), SpawnReason.MOB_SUMMONED,
+        familiar.finalizeSpawn((ServerLevel) level, level.getCurrentDifficultyAt(goldenBowlPosition), MobSpawnType.MOB_SUMMONED,
                 null, null);
         familiar.absMoveTo(goldenBowlPosition.getX(), goldenBowlPosition.getY(), goldenBowlPosition.getZ(),
-                level.rand.nextInt(360), 0);
+                level.random.nextInt(360), 0);
         familiar.setCustomName(new TextComponent(entityName));
         familiar.setOwnerId(castingPlayer.getUniqueID());
 

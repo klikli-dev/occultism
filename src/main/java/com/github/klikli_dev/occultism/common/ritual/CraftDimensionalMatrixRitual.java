@@ -39,7 +39,7 @@ public class CraftDimensionalMatrixRitual extends Ritual {
     //region Initialization
     public CraftDimensionalMatrixRitual() {
         super(OccultismRituals.CRAFT_DJINNI_PENTACLE.get(),
-                Ingredient.fromItems(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()), "craft_dimensional_matrix",
+                Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()), "craft_dimensional_matrix",
                 240);
     }
     //endregion Initialization

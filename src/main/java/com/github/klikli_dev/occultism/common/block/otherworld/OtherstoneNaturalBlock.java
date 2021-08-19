@@ -42,7 +42,7 @@ public class OtherstoneNaturalBlock extends Block implements IOtherworldBlock {
     //region Initialization
     public OtherstoneNaturalBlock(Properties properties) {
         super(properties);
-        this.createBlockStateDefinition(this.getStateContainer().getBaseState().with(UNCOVERED, false));
+        this.registerDefaultState(this.defaultBlockState().setValue(UNCOVERED, false));
     }
     //endregion Initialization
 

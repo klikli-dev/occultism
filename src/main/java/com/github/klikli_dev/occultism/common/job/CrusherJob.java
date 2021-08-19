@@ -133,9 +133,9 @@ public class CrusherJob extends SpiritJob {
                     float outputMultiplier = this.outputMultiplier.get();
                     if (this.currentRecipe.get().getIgnoreCrushingMultiplier())
                         outputMultiplier = 1;
-                    result.setCount((int) (result.getCount() * outputMultiplier));
+                    result.SetItemCountFunction((int) (result.getCount() * outputMultiplier));
                     ItemStack inputCopy = handHeld.copy();
-                    inputCopy.setCount(1);
+                    inputCopy.SetItemCountFunction(1);
                     handHeld.shrink(1);
 
                     this.onCrush(inputCopy, result);

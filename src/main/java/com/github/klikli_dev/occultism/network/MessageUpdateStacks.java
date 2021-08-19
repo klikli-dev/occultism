@@ -126,7 +126,7 @@ public class MessageUpdateStacks extends MessageBase {
         this.stacks = new ArrayList<>(stacksSize);
         for (int i = 0; i < stacksSize; i++) {
             ItemStack stack = uncompressed.readItem();
-            stack.setCount(uncompressed.readInt());
+            stack.SetItemCountFunction(uncompressed.readInt());
             this.stacks.add(stack);
         }
     }

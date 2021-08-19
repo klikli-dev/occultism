@@ -118,7 +118,7 @@ public class PickupItemsGoal extends TargetGoal {
                 ItemStackHandler handler = this.entity.itemStackHandler.orElseThrow(ItemHandlerMissingException::new);
                 if (ItemHandlerHelper.insertItemStacked(handler, duplicate, true).getCount() < duplicate.getCount()) {
                     ItemStack remaining = ItemHandlerHelper.insertItemStacked(handler, duplicate, false);
-                    this.targetItem.getItem().setCount(remaining.getCount());
+                    this.targetItem.getItem().SetItemCountFunction(remaining.getCount());
                 }
             }
         }

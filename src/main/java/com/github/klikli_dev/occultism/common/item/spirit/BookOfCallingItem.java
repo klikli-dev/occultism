@@ -153,7 +153,7 @@ public class BookOfCallingItem extends Item implements IIngredientCopyNBT, IHand
 
                 //old spawn code
                 //                SpiritEntity entity = (SpiritEntity) type.spawn((ServerLevel)world, wrapper, customName, null, spawnPos,
-                //                        SpawnReason.MOB_SUMMONED, true, !pos.equals(spawnPos) && facing == Direction.UP);
+                //                        MobSpawnType.MOB_SUMMONED, true, !pos.equals(spawnPos) && facing == Direction.UP);
                 //                if (entityData.contains("OwnerUUID") && !entityData.getString("OwnerUUID").isEmpty()) {
                 //                    entity.setOwnerId(UUID.fromString(entityData.getString("OwnerUUID")));
                 //                }

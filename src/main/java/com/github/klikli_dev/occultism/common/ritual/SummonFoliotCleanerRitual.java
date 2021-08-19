@@ -44,7 +44,7 @@ public class SummonFoliotCleanerRitual extends SummonSpiritRitual {
     public SummonFoliotCleanerRitual() {
         super(OccultismItems.BOOK_OF_CALLING_FOLIOT_CLEANER.get(),
                 OccultismRituals.SUMMON_FOLIOT_PENTACLE.get(),
-                Ingredient.fromItems(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()),
+                Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()),
                 "summon_foliot_cleaner", 60);
     }
     //endregion Initialization

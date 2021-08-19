@@ -58,8 +58,8 @@ public class MessageInsertMouseHeldItem extends MessageBase {
     @Override
     public void onServerReceived(MinecraftServer minecraftServer, ServerPlayer player,
                                  NetworkEvent.Context context) {
-        if (player.openContainer instanceof IStorageControllerContainer) {
-            IStorageController storageController = ((IStorageControllerContainer) player.openContainer)
+        if (player.containerMenu instanceof IStorageControllerContainer) {
+            IStorageController storageController = ((IStorageControllerContainer) player.containerMenu)
                                                            .getStorageController();
 
             ItemStack result = ItemStack.EMPTY;
@@ -76,7 +76,7 @@ public class MessageInsertMouseHeldItem extends MessageBase {
                 //right mouse button means insert one
 
                 ItemStack toInsert = carriedByMouse.copy();
-                toInsert.setCount(1);
+                toInsert.SetItemCountFunction(1);
                 carriedByMouse.shrink(1);
 
                 //handle correct result depending on if the stack was inserted or not
@@ -92,7 +92,7 @@ public class MessageInsertMouseHeldItem extends MessageBase {
 
             //update the storage controller
             OccultismPackets.sendTo(player, storageController.getMessageUpdateStacks());
-            player.openContainer.broadcastChanges();
+            player.containerMenu.broadcastChanges();
         }
     }
 

@@ -84,7 +84,7 @@ public class StandardBlockStateProvider extends BlockStateProvider {
                                    .modelFile(state.getValue(StableWormholeBlock.LINKED) ? linkedModel : unlinkedModel)
                                    .rotationX(dir == Direction.DOWN ? 180 : dir.getAxis().isHorizontal() ? 90 : 0)
                                    .rotationY(dir.getAxis().isVertical() ? 0 :
-                                                      (((int) dir.getHorizontalAngle()) + 180) % 360)
+                                                      (((int) dir.toYRot()) + 180) % 360)
                                    .build();
                 });
     }
@@ -105,7 +105,7 @@ public class StandardBlockStateProvider extends BlockStateProvider {
                                    .modelFile(subModel)
                                    //
                                    .rotationY((int) state.getValue(BlockStateProperties.HORIZONTAL_FACING)
-                                                            .getHorizontalAngle())
+                                                            .toYRot())
                                    .build();
                 });
     }

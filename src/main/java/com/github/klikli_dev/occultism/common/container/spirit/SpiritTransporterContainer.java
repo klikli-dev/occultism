@@ -128,7 +128,7 @@ public class SpiritTransporterContainer extends SpiritContainer {
         @Override
         public void set(@Nonnull ItemStack stack) {
             if (!stack.isEmpty()) {
-                stack.setCount(1);
+                stack.SetItemCountFunction(1);
             }
 
             super.set(stack);

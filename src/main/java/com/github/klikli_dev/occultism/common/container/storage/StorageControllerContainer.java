@@ -28,13 +28,13 @@ import com.github.klikli_dev.occultism.common.tile.StorageControllerBlockEntity;
 import com.github.klikli_dev.occultism.network.MessageUpdateLinkedMachines;
 import com.github.klikli_dev.occultism.network.OccultismPackets;
 import com.github.klikli_dev.occultism.registry.OccultismContainers;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.core.BlockPos;
 
 
 public class StorageControllerContainer extends StorageControllerContainerBase {
@@ -49,7 +49,7 @@ public class StorageControllerContainer extends StorageControllerContainerBase {
         this.storageController = storageController;
 
         this.matrix = new StorageControllerCraftingInventory(this, storageController.getMatrix());
-        this.orderInventory.setInventorySlotContents(0, storageController.getOrderStack());
+        this.orderInventory.setItem(0, storageController.getOrderStack());
 
         this.setupCraftingOutput(); //output is slot 0
 
@@ -99,7 +99,7 @@ public class StorageControllerContainer extends StorageControllerContainerBase {
 
     @Override
     public boolean canTakeItemForPickAll(ItemStack stack, Slot slot) {
-        return slot.inventory != this.result && super.canTakeItemForPickAll(stack, slot);
+        return slot.container != this.result && super.canTakeItemForPickAll(stack, slot);
     }
 
     @Override
@@ -113,8 +113,8 @@ public class StorageControllerContainer extends StorageControllerContainerBase {
             OccultismPackets.sendTo((ServerPlayer) player,
                     new MessageUpdateLinkedMachines(this.storageController.getLinkedMachines()));
         }
-        BlockPos controllerPosition = this.storageController.getPos();
-        return player.getDistanceSq(controllerPosition.getX() + 0.5D, controllerPosition.getY() + 0.5D,
+        BlockPos controllerPosition = this.storageController.getBlockPos();
+        return player.distanceToSqr(controllerPosition.getX() + 0.5D, controllerPosition.getY() + 0.5D,
                 controllerPosition.getZ() + 0.5D) <= 64.0D;
     }
     //endregion Overrides

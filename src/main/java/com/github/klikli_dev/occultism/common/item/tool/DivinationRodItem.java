@@ -30,21 +30,27 @@ import com.github.klikli_dev.occultism.network.OccultismPackets;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.registry.OccultismSounds;
 import com.github.klikli_dev.occultism.util.Math3DUtil;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.ChatFormatting;
+import net.minecraft.Util;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.minecraft.network.chat.Component;
-import net.minecraft.ChatFormatting;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
@@ -76,28 +82,27 @@ public class DivinationRodItem extends Item {
         Level level = context.getLevel();
         Player player = context.getPlayer();
         BlockPos pos = context.getClickedPos();
-        ItemStack stack = context.getItem();
+        ItemStack stack = context.getItemInHand();
 
         if (player.isShiftKeyDown()) {
             BlockState state = level.getBlockState(pos);
-            if (!state.getBlock().isAir(state, level, pos)) {
+            if (!state.isAir()) {
                 Block block = this.getOtherBlock(state, player.isCreative());
                 if (block != null) {
                     if (!level.isClientSide) {
                         String translationKey =
                                 block instanceof IOtherworldBlock ? ((IOtherworldBlock) block).getUncoveredBlock()
-                                                                            .getDescriptionId() : block.getDescriptionId();
+                                        .getDescriptionId() : block.getDescriptionId();
                         stack.getOrCreateTag().putString("linkedBlockId", block.getRegistryName().toString());
                         player.sendMessage(
                                 new TranslatableComponent(this.getDescriptionId() + ".message.linked_block",
                                         new TranslatableComponent(translationKey)), Util.NIL_UUID);
                     }
 
-                    level.playSound(player, player.getPosition(), OccultismSounds.TUNING_FORK.get(),
+                    level.playSound(player, player.blockPosition(), OccultismSounds.TUNING_FORK.get(),
                             SoundSource.PLAYERS,
                             1, 1);
-                }
-                else {
+                } else {
                     if (!level.isClientSide) {
                         player.sendMessage(
                                 new TranslatableComponent(this.getDescriptionId() + ".message.no_link_found"), Util.NIL_UUID);
@@ -116,16 +121,15 @@ public class DivinationRodItem extends Item {
         if (!player.isShiftKeyDown()) {
             if (stack.getOrCreateTag().contains("linkedBlockId")) {
                 stack.getTag().putFloat("distance", SEARCHING);
-                player.setActiveHand(hand);
-                level.playSound(player, player.getPosition(), OccultismSounds.TUNING_FORK.get(), SoundSource.PLAYERS,
+                player.startUsingItem(hand);
+                level.playSound(player, player.blockPosition(), OccultismSounds.TUNING_FORK.get(), SoundSource.PLAYERS,
                         1, 1);
 
                 if (level.isClientSide) {
                     ResourceLocation id = new ResourceLocation(stack.getTag().getString("linkedBlockId"));
                     ScanManager.instance.beginScan(player, ForgeRegistries.BLOCKS.getValue(id));
                 }
-            }
-            else if (!level.isClientSide) {
+            } else if (!level.isClientSide) {
                 player.sendMessage(new TranslatableComponent(this.getDescriptionId() + ".message.no_linked_block"), Util.NIL_UUID);
             }
         }
@@ -134,12 +138,12 @@ public class DivinationRodItem extends Item {
     }
 
     @Override
-    public ItemStack onItemUseFinish(ItemStack stack, Level level, LivingEntity entityLiving) {
+    public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity entityLiving) {
         if (!(entityLiving instanceof Player))
             return stack;
 
         Player player = (Player) entityLiving;
-        player.getCooldownTracker().setCooldown(this, 40);
+        player.getCooldowns().addCooldown(this, 40);
         stack.getOrCreateTag().putFloat("distance", NOT_FOUND);
         if (level.isClientSide) {
             BlockPos result = ScanManager.instance.finishScan(player);
@@ -160,31 +164,31 @@ public class DivinationRodItem extends Item {
         return ScanManager.SCAN_DURATION_TICKS;
     }
 
+
     @Override
-    public void onPlayerStoppedUsing(ItemStack stack, Level level, LivingEntity entityLiving, int timeLeft) {
+    public void releaseUsing(ItemStack stack, Level level, LivingEntity pLivingEntity, int pTimeCharged) {
         //player interrupted, so we can safely set not found on server
         stack.getOrCreateTag().putFloat("distance", NOT_FOUND);
 
         if (level.isClientSide) {
             ScanManager.instance.cancelScan();
         }
-        super.onPlayerStoppedUsing(stack, level, entityLiving, timeLeft);
+        super.releaseUsing(stack, level, pLivingEntity, pTimeCharged);
     }
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip,
-                               ITooltipFlag flagIn) {
+                                TooltipFlag flagIn) {
         if (stack.getOrCreateTag().contains("linkedBlockId")) {
             ResourceLocation id = new ResourceLocation(stack.getTag().getString("linkedBlockId"));
 
             Block block = ForgeRegistries.BLOCKS.getValue(id);
             String translationKey = block instanceof IOtherworldBlock ? ((IOtherworldBlock) block).getUncoveredBlock()
-                                                                                .getDescriptionId() : block.getDescriptionId();
+                    .getDescriptionId() : block.getDescriptionId();
             tooltip.add(new TranslatableComponent(this.getDescriptionId() + ".tooltip.linked_block",
                     new TranslatableComponent(translationKey)
-                            .mergeStyle(ChatFormatting.BOLD, ChatFormatting.ITALIC)));
-        }
-        else {
+                            .withStyle(ChatFormatting.BOLD, ChatFormatting.ITALIC)));
+        } else {
             tooltip.add(new TranslatableComponent(this.getDescriptionId() + ".tooltip.no_linked_block"));
         }
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
@@ -195,22 +199,22 @@ public class DivinationRodItem extends Item {
     public Block getOtherBlock(BlockState state, boolean isCreative) {
         //otherstone ore is linked to andesite.
         if (state.getBlock() == Blocks.ANDESITE || state.getBlock() == OccultismBlocks.OTHERSTONE_NATURAL.get()
-            || state.getBlock() == OccultismBlocks.OTHERSTONE.get()) {
+                || state.getBlock() == OccultismBlocks.OTHERSTONE.get()) {
             return OccultismBlocks.OTHERSTONE_NATURAL.get();
         }
         //Otherworld logs are linked to oak leaves.
         if (state.getBlock() == Blocks.OAK_LOG || state.getBlock() == OccultismBlocks.OTHERWORLD_LOG_NATURAL.get()
-            || state.getBlock() == OccultismBlocks.OTHERWORLD_LOG.get()) {
+                || state.getBlock() == OccultismBlocks.OTHERWORLD_LOG.get()) {
             return OccultismBlocks.OTHERWORLD_LOG_NATURAL.get();
         }
         //Otherworld leaves are linked to oak leaves.
         if (state.getBlock() == Blocks.OAK_LEAVES || state.getBlock() == OccultismBlocks.OTHERWORLD_LEAVES_NATURAL.get()
-            || state.getBlock() == OccultismBlocks.OTHERWORLD_LEAVES.get()) {
+                || state.getBlock() == OccultismBlocks.OTHERWORLD_LEAVES.get()) {
             return OccultismBlocks.OTHERWORLD_LEAVES_NATURAL.get();
         }
         //iesnium ore is linked to netherrack.
         if (state.getBlock() == Blocks.NETHERRACK || state.getBlock() == OccultismBlocks.IESNIUM_ORE_NATURAL.get()
-            || state.getBlock() == OccultismBlocks.IESNIUM_ORE.get()) {
+                || state.getBlock() == OccultismBlocks.IESNIUM_ORE.get()) {
             return OccultismBlocks.IESNIUM_ORE_NATURAL.get();
         }
         //In creative allow to find the clicked block

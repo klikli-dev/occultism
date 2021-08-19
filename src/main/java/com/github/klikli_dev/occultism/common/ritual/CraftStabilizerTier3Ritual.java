@@ -39,7 +39,7 @@ public class CraftStabilizerTier3Ritual extends Ritual {
     //region Initialization
     public CraftStabilizerTier3Ritual() {
         super(OccultismRituals.CRAFT_AFRIT_PENTACLE.get(),
-                Ingredient.fromItems(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()), "craft_stabilizer_tier3",
+                Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()), "craft_stabilizer_tier3",
                 240);
     }
     //endregion Initialization

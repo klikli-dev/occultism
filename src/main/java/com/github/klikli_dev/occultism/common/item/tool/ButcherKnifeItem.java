@@ -24,9 +24,9 @@ package com.github.klikli_dev.occultism.common.item.tool;
 
 import com.github.klikli_dev.occultism.api.OccultismAPI;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.item.IItemTier;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.item.SwordItem;
+import net.minecraft.world.item.SwordItem;
+import net.minecraft.world.item.Tier;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +35,7 @@ import java.util.function.Predicate;
 public class ButcherKnifeItem extends SwordItem {
     //region Initialization
 
-    public ButcherKnifeItem(IItemTier tier, int attackDamageIn, float attackSpeedIn, Properties builder) {
+    public ButcherKnifeItem(Tier tier, int attackDamageIn, float attackSpeedIn, Properties builder) {
         super(tier, attackDamageIn, attackSpeedIn, builder);
     }
     //endregion Initialization

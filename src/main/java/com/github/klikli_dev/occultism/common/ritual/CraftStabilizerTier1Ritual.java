@@ -39,7 +39,7 @@ public class CraftStabilizerTier1Ritual extends Ritual {
     //region Initialization
     public CraftStabilizerTier1Ritual() {
         super(OccultismRituals.CRAFT_FOLIOT_PENTACLE.get(),
-                Ingredient.fromItems(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()), "craft_stabilizer_tier1",
+                Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()), "craft_stabilizer_tier1",
                 120);
     }
     //endregion Initialization

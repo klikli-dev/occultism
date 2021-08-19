@@ -44,7 +44,7 @@ public class SummonAfritCrusherRitual extends SummonSpiritRitual {
     //region Initialization
     public SummonAfritCrusherRitual() {
         super(null, OccultismRituals.SUMMON_AFRIT_PENTACLE.get(),
-                Ingredient.fromItems(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()),
+                Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()),
                 "summon_afrit_crusher", 120);
     }
     //endregion Initialization

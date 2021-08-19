@@ -45,8 +45,8 @@ public class OtherworldBlockItem extends BlockItem {
      * Make getDefaultTranslationKey public for use in OtherworldUtil
      */
     @Override
-    public String getDefaultTranslationKey() {
-        return super.getDefaultTranslationKey();
+    public String getOrCreateDescriptionId() {
+        return super.getOrCreateDescriptionId();
     }
 
     @Override

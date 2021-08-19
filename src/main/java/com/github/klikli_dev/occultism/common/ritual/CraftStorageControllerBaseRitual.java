@@ -39,7 +39,7 @@ public class CraftStorageControllerBaseRitual extends Ritual {
     //region Initialization
     public CraftStorageControllerBaseRitual() {
         super(OccultismRituals.CRAFT_FOLIOT_PENTACLE.get(),
-                Ingredient.fromItems(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()), "craft_storage_controller_base",
+                Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()), "craft_storage_controller_base",
                 60);
     }
     //endregion Initialization

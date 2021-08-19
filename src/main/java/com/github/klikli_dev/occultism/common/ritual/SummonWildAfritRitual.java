@@ -43,7 +43,7 @@ public class SummonWildAfritRitual extends SummonSpiritRitual {
     public SummonWildAfritRitual() {
         super(null,
                 OccultismRituals.SUMMON_WILD_AFRIT_PENTACLE.get(),
-                Ingredient.fromItems(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()),
+                Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()),
                 "summon_wild_afrit", 60);
         this.sacrificePredicate =
                 (entity) -> OccultismTags.COWS.contains(entity.getType());

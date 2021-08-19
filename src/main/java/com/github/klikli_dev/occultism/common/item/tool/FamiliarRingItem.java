@@ -25,7 +25,8 @@ package com.github.klikli_dev.occultism.common.item.tool;
 import com.github.klikli_dev.occultism.common.entity.IFamiliar;
 import com.github.klikli_dev.occultism.util.ItemNBTUtil;
 import com.github.klikli_dev.occultism.util.TextUtil;
-import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -34,7 +35,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.util.InteractionResultHolder;
+import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -47,6 +48,7 @@ import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.common.util.LazyOptional;
 import top.theillusivec4.curios.api.CuriosCapability;
 import top.theillusivec4.curios.api.type.capability.ICurio;
+import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -60,7 +62,7 @@ public class FamiliarRingItem extends Item {
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip,
-            ITooltipFlag flagIn) {
+            TooltipFlag flagIn) {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
         if (stack.getOrCreateTag().getBoolean("occupied"))
             tooltip.add(new TranslatableComponent(this.getDescriptionId() + ".tooltip",
@@ -89,7 +91,7 @@ public class FamiliarRingItem extends Item {
         if (!playerIn.level.isClientSide && this.getCurio(stack).releaseFamiliar(playerIn, worldIn)) {
             CompoundTag tag = stack.getOrCreateTag();
             tag.putBoolean("occupied", false);
-            return InteractionResultHolder.resultConsume(stack);
+            return InteractionResultHolder.consume(stack);
         }
         return super.use(worldIn, playerIn, handIn);
     }
@@ -103,29 +105,34 @@ public class FamiliarRingItem extends Item {
 
     @Override
     public ICapabilityProvider initCapabilities(ItemStack stack, CompoundTag nbt) {
-        return new Provider();
+        return new Provider(stack);
     }
 
     private static class Curio implements ICurio, INBTSerializable<CompoundTag> {
         private IFamiliar familiar;
         private CompoundTag nbt;
+        private ItemStack stack;
+
+        private Curio(ItemStack stack){
+            this.stack = stack;
+        }
 
         private boolean captureFamiliar(Level level, IFamiliar familiar) {
             if (this.getFamiliar(level) != null)
                 return false;
             this.setFamiliar(familiar);
-            this.getFamiliar(level).getEntity().remove();
+            this.getFamiliar(level).getEntity().remove(false);
             return true;
         }
 
         private boolean releaseFamiliar(Player player, Level level) {
             if (this.getFamiliar(level) != null
                     && !this.getFamiliar(level).getEntity().isAddedToWorld()) {
-                EntityType.loadEntityAndExecute(this.getFamiliar(level).getEntity().serializeNBT(), level, e -> {
-                    e.setPosition(player.getPosX(), player.getPosY(), player.getPosZ());
+                EntityType.loadEntityRecursive(this.getFamiliar(level).getEntity().serializeNBT(), level, e -> {
+                    e.setPos(player.getX(), player.getY(), player.getZ());
                     //on release overwrite owner -> familiar rings can be used to trade familiars.
                     ((IFamiliar)e).setFamiliarOwner(player);
-                    level.addEntity(e);
+                    level.addFreshEntity(e);
                     return e;
                 });
                 this.setFamiliar(null);
@@ -135,16 +142,20 @@ public class FamiliarRingItem extends Item {
         }
 
         @Override
+        public ItemStack getStack() {
+            return this.stack;
+        }
+
+        @Override
         public void curioTick(String identifier, int index, LivingEntity entity) {
             Level level = entity.level;
             IFamiliar familiar = this.getFamiliar(level);
             if (familiar == null || familiar.getFamiliarOwner() != entity)
                 return;
-            
             // Apply effects
-            if (!level.isClientSide && entity.this.tickCount % 20 == 0)
+            if (!level.isClientSide && entity.tickCount % 20 == 0)
                 for (MobEffectInstance effect : familiar.getFamiliarEffects())
-                    familiar.getFamiliarOwner().addPotionEffect(effect);
+                    familiar.getFamiliarOwner().addEffect(effect);
             
             // Tick
             familiar.curioTick(entity);
@@ -174,7 +185,7 @@ public class FamiliarRingItem extends Item {
             if (this.familiar != null)
                 return this.familiar;
             if (this.nbt != null) {
-                this.familiar = (IFamiliar) EntityType.loadEntityAndExecute(this.nbt, level, Function.identity());
+                this.familiar = (IFamiliar) EntityType.loadEntityRecursive(this.nbt, level, Function.identity());
                 this.nbt = null;
             }
 
@@ -191,7 +202,12 @@ public class FamiliarRingItem extends Item {
     private static class Provider implements ICapabilitySerializable<CompoundTag> {
 
         private Curio curio;
+        private ItemStack stack;
         private LazyOptional<ICurio> instance = LazyOptional.of(this::get);
+
+        public Provider(ItemStack stack){
+            this.stack = stack;
+        }
 
         @Override
         public <T> LazyOptional<T> getCapability(Capability<T> cap, Direction side) {
@@ -210,7 +226,7 @@ public class FamiliarRingItem extends Item {
 
         private Curio get() {
             if (this.curio == null)
-                this.curio = new Curio();
+                this.curio = new Curio(this.stack);
             return this.curio;
         }
 

@@ -26,6 +26,7 @@ import com.github.klikli_dev.occultism.registry.OccultismContainers;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.github.klikli_dev.occultism.util.CuriosUtil;
 import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.Container;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -37,12 +38,12 @@ public class SatchelContainer extends AbstractContainerMenu {
     //region Fields
     public static final int SATCHEL_SIZE = 13 * 9;
     protected Container satchelInventory;
-    protected SimpleContainer playerInventory;
+    protected Inventory playerInventory;
     protected int selectedSlot;
     //endregion Fields
 
     //region Initialization
-    public SatchelContainer(int id, SimpleContainer playerInventory, Container satchelInventory, int selectedSlot) {
+    public SatchelContainer(int id, Inventory playerInventory, Container satchelInventory, int selectedSlot) {
         super(OccultismContainers.SATCHEL.get(), id);
         this.satchelInventory = satchelInventory;
         this.playerInventory = playerInventory;
@@ -112,7 +113,7 @@ public class SatchelContainer extends AbstractContainerMenu {
     //endregion Overrides
 
     //region Static Methods
-    public static SatchelContainer createClientContainer(int id, SimpleContainer playerInventory, FriendlyByteBuf buffer) {
+    public static SatchelContainer createClientContainer(int id, Inventory playerInventory, FriendlyByteBuf buffer) {
         final int selectedSlot = buffer.readVarInt();
         return new SatchelContainer(id, playerInventory, new SimpleContainer(SATCHEL_SIZE), selectedSlot);
     }

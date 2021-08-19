@@ -47,7 +47,7 @@ public class DebugRitual extends Ritual {
     //region Initialization
     public DebugRitual() {
         super(OccultismRituals.DEBUG_PENTACLE.get(),
-                Ingredient.fromItems(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()),
+                Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()),
                 5);
     }
     //endregion Initialization

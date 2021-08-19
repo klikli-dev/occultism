@@ -38,7 +38,7 @@ public class CraftInfusedLensesRitual extends Ritual {
     //region Initialization
     public CraftInfusedLensesRitual() {
         super(OccultismRituals.CRAFT_FOLIOT_PENTACLE.get(),
-                Ingredient.fromItems(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()), "craft_infused_lenses",
+                Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()), "craft_infused_lenses",
                 60);
     }
     //endregion Initialization

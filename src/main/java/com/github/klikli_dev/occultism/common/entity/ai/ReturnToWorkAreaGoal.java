@@ -55,10 +55,10 @@ public class ReturnToWorkAreaGoal extends Goal {
 
         //fire on a slow tick based on chance
         long worldTime = this.entity.level.getGameTime() % 10;
-        if (this.entity.getIdleTime() >= 100 && worldTime != 0) {
+        if (this.entity.getNoActionTime() >= 100 && worldTime != 0) {
             return false;
         }
-        if (this.entity.getRNG().nextInt(this.executionChance) != 0 && worldTime != 0) {
+        if (this.entity.getRandom().nextInt(this.executionChance) != 0 && worldTime != 0) {
             return false;
         }
 
@@ -73,9 +73,9 @@ public class ReturnToWorkAreaGoal extends Goal {
         }
         else {
             this.entity.getNavigation().moveTo(this.entity.getNavigation().createPath(
-                    this.entity.getWorkAreaPosition().orElse(this.entity.getPosition()), 0), 1.0f);
+                    this.entity.getWorkAreaPosition().orElse(this.entity.blockPosition()), 0), 1.0f);
             double distance = this.entity.position().distanceTo(
-                    Vec3.copyCentered(this.entity.getWorkAreaPosition().orElse(this.entity.getPosition())));
+                    Vec3.atCenterOf(this.entity.getWorkAreaPosition().orElse(this.entity.blockPosition())));
             if (distance < 1F) {
                 this.entity.setDeltaMovement(0, 0, 0);
                 this.entity.getNavigation().stop();
@@ -85,13 +85,13 @@ public class ReturnToWorkAreaGoal extends Goal {
 
     @Override
     public boolean canContinueToUse() {
-        return !this.entity.getNavigation().noPath();
+        return !this.entity.getNavigation().isDone();
     }
 
     @Override
     public void start() {
         this.entity.getNavigation().moveTo(this.entity.getNavigation().createPath(
-                this.entity.getWorkAreaPosition().orElse(this.entity.getPosition()), 0), 1.0f);
+                this.entity.getWorkAreaPosition().orElse(this.entity.blockPosition()), 0), 1.0f);
         super.start();
     }
     //endregion Overrides

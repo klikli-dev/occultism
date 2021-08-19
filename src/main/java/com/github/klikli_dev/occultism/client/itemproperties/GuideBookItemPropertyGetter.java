@@ -41,7 +41,7 @@ public class GuideBookItemPropertyGetter implements ItemPropertyFunction {
     //region Overrides
     @OnlyIn(Dist.CLIENT)
     @Override
-    public float call(ItemStack stack, @Nullable ClientLevel worldIn, @Nullable LivingEntity entityIn) {
+    public float call(ItemStack stack, @Nullable ClientLevel worldIn, @Nullable LivingEntity entityIn, int i) {
         Book book = BookRegistry.INSTANCE.books.get(GuideBookItem.GUIDE);
         float progression = 0.0F;
         if (book != null) {

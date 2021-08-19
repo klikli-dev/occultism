@@ -49,7 +49,7 @@ public class SummonWildHuntRitual extends SummonSpiritRitual {
     public SummonWildHuntRitual() {
         super(null,
                 OccultismRituals.SUMMON_WILD_GREATER_SPIRIT_PENTACLE.get(),
-                Ingredient.fromItems(Blocks.SKELETON_SKULL),
+                Ingredient.of(Blocks.SKELETON_SKULL),
                 "summon_wild_hunt", 30);
         this.sacrificePredicate = (entity) -> entity instanceof Player ||
                                               OccultismTags.VILLAGERS.contains(entity.getType());
@@ -80,7 +80,7 @@ public class SummonWildHuntRitual extends SummonSpiritRitual {
                     level.getRandom().nextInt(360), 0);
             skeleton.setCustomName(new TextComponent(TextUtil.generateName()));
 
-            skeleton.finalizeSpawn((ServerLevel) level, level.getCurrentDifficultyAt(goldenBowlPosition), SpawnReason.MOB_SUMMONED,
+            skeleton.finalizeSpawn((ServerLevel) level, level.getCurrentDifficultyAt(goldenBowlPosition), MobSpawnType.MOB_SUMMONED,
                     null,
                     null);
             this.spawnEntity(skeleton, level);

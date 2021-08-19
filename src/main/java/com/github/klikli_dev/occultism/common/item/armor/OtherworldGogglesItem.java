@@ -24,9 +24,9 @@ package com.github.klikli_dev.occultism.common.item.armor;
 
 import com.github.klikli_dev.occultism.Occultism;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.inventory.EquipmentSlot;
-import net.minecraft.item.ArmorItem;
-import net.minecraft.item.IArmorMaterial;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
 
 import javax.annotation.Nullable;
@@ -35,14 +35,14 @@ public class OtherworldGogglesItem extends ArmorItem {
 
     public static final String TEXTURE = Occultism.MODID + ":textures/item/armor/otherworld_goggles_model.png";
 
-    public OtherworldGogglesItem(IArmorMaterial materialIn,
+    public OtherworldGogglesItem(ArmorMaterial materialIn,
                                  EquipmentSlot slot,
                                  Properties builder) {
         super(materialIn, slot, builder);
     }
 
     @Override
-    public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
+    public boolean isValidRepairItem(ItemStack pToRepair, ItemStack pRepair) {
         return false;
     }
 

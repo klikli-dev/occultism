@@ -44,7 +44,7 @@ public class SummonDjinniManageMachineRitual extends SummonSpiritRitual {
     public SummonDjinniManageMachineRitual() {
         super(OccultismItems.BOOK_OF_CALLING_DJINNI_MANAGE_MACHINE.get(),
                 OccultismRituals.SUMMON_DJINNI_PENTACLE.get(),
-                Ingredient.fromItems(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()),
+                Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()),
                 "summon_djinni_manage_machine", 60);
     }
     //endregion Initialization

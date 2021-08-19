@@ -107,15 +107,15 @@ public class OccultismEntities {
                     .clientTrackingRange(8)
                     .build(modLoc("greedy_familiar").toString()));
     public static final NonNullLazy<EntityType<BatFamiliarEntity>> BAT_FAMILIAR_TYPE =
-            NonNullLazy.of(() -> EntityType.Builder.create(BatFamiliarEntity::new, EntityClassification.CREATURE)
-                                         .size(0.5F, 0.9F)
-                                         .trackingRange(8)
-                                         .build(modLoc("bat_familiar").toString()));
+            NonNullLazy.of(() -> EntityType.Builder.of(BatFamiliarEntity::new, MobCategory.CREATURE)
+                    .sized(0.5F, 0.9F)
+                    .clientTrackingRange(8)
+                    .build(modLoc("bat_familiar").toString()));
     public static final NonNullLazy<EntityType<DeerFamiliarEntity>> DEER_FAMILIAR_TYPE =
-            NonNullLazy.of(() -> EntityType.Builder.create(DeerFamiliarEntity::new, EntityClassification.CREATURE)
-                                         .size(0.6F, 1.0F)
-                                         .trackingRange(8)
-                                         .build(modLoc("deer_familiar").toString()));
+            NonNullLazy.of(() -> EntityType.Builder.of(DeerFamiliarEntity::new, MobCategory.CREATURE)
+                    .sized(0.6F, 1.0F)
+                    .clientTrackingRange(8)
+                    .build(modLoc("deer_familiar").toString()));
 
     public static final RegistryObject<EntityType<FoliotEntity>> FOLIOT = ENTITIES.register("foliot", FOLIOT_TYPE::get);
     public static final RegistryObject<EntityType<DjinniEntity>> DJINNI = ENTITIES.register("djinni", DJINNI_TYPE::get);

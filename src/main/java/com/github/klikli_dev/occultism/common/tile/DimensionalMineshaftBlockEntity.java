@@ -251,7 +251,7 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
             return;
 
         for (int i = 0; i < this.rollsPerOperation; i++) {
-            WeightedIngredient result = WeightedRandom.getRandomItem(this.level.rand, this.possibleResults);
+            WeightedIngredient result = WeightedRandom.getRandomItem(this.level.random, this.possibleResults);
             //Important: copy the result, don't use it raw!
             ItemHandlerHelper.insertItemStacked(outputHandler, result.getStack().copy(), false);
             //If there is no space, we simply continue. The otherworld miner spirit keeps working,
@@ -260,7 +260,7 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
 
         //damage and eventually consume item.
         ItemStack input = inputHandler.getItem(0);
-        if (input.attemptDamageItem(1, this.level.rand, null)) {
+        if (input.attemptDamageItem(1, this.level.random, null)) {
             input.shrink(1);
             input.setDamage(0);
         }

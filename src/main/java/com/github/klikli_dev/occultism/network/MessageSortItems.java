@@ -60,8 +60,8 @@ public class MessageSortItems extends MessageBase {
     @Override
     public void onServerReceived(MinecraftServer minecraftServer, ServerPlayer player,
                                  NetworkEvent.Context context) {
-        if (player.openContainer instanceof IStorageControllerContainer) {
-            if (!((IStorageControllerContainer) player.openContainer).isContainerItem()) {
+        if (player.containerMenu instanceof IStorageControllerContainer) {
+            if (!((IStorageControllerContainer) player.containerMenu).isContainerItem()) {
 
                 //ensure players cannot load arbitrary chunks
                 if (!player.level.hasChunkAt(this.entityPosition))

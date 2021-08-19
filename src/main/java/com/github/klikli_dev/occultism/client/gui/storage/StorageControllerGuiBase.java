@@ -758,7 +758,6 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
             String name = TextUtil.getModNameForGameObject(stack.getItem());
             return name.toLowerCase().contains(searchText.toLowerCase().substring(1));
         } else if (searchText.startsWith("#")) {
-            String tooltipString;
             List<String> tooltip = stack.getTooltipLines(this.minecraft.player, TooltipFlag.Default.NORMAL).stream()
                     .map(Component::getContents).collect(
                             Collectors.toList());

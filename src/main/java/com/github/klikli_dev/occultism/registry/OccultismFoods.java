@@ -22,15 +22,15 @@
 
 package com.github.klikli_dev.occultism.registry;
 
-import net.minecraft.item.Food;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraftforge.common.util.NonNullLazy;
 
 public class OccultismFoods {
-    public static final NonNullLazy<Food> DATURA = NonNullLazy.of(
-            () -> new Food.Builder().hunger(0).saturation(0).setAlwaysEdible()
-                          .effect(() -> new MobEffectInstance(OccultismEffects.THIRD_EYE.get(), 15*20, 1), 0.7f)
-                          .effect(() -> new MobEffectInstance(MobEffects.HUNGER, 15*20, 1), 1.0f)
-                          .build());
+    public static final NonNullLazy<FoodProperties> DATURA = NonNullLazy.of(
+            () -> new FoodProperties.Builder().nutrition(0).saturationMod(0).alwaysEat()
+                    .effect(() -> new MobEffectInstance(OccultismEffects.THIRD_EYE.get(), 15 * 20, 1), 0.7f)
+                    .effect(() -> new MobEffectInstance(MobEffects.HUNGER, 15 * 20, 1), 1.0f)
+                    .build());
 }

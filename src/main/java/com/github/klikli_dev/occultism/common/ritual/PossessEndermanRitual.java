@@ -45,7 +45,7 @@ public class PossessEndermanRitual extends SummonSpiritRitual {
     public PossessEndermanRitual() {
         super(null,
                 OccultismRituals.POSSESS_DJINNI_PENTACLE.get(),
-                Ingredient.fromItems(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()),
+                Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()),
                 "possess_enderman", 60);
         this.sacrificePredicate =
                 (entity) -> OccultismTags.PIGS.contains(entity.getType());
@@ -67,11 +67,11 @@ public class PossessEndermanRitual extends SummonSpiritRitual {
 
         //set up the foliot entity
         PossessedEndermanEntity enderman = OccultismEntities.POSSESSED_ENDERMAN.get().create(level);
-        enderman.finalizeSpawn((ServerLevel) level, level.getCurrentDifficultyAt(goldenBowlPosition), SpawnReason.MOB_SUMMONED,
+        enderman.finalizeSpawn((ServerLevel) level, level.getCurrentDifficultyAt(goldenBowlPosition), MobSpawnType.MOB_SUMMONED,
                 null,
                 null);
         enderman.absMoveTo(goldenBowlPosition.getX(), goldenBowlPosition.getY(), goldenBowlPosition.getZ(),
-                level.rand.nextInt(360), 0);
+                level.random.nextInt(360), 0);
         enderman.setCustomName(new TextComponent(entityName));
 
         //notify players nearby and spawn

@@ -44,7 +44,7 @@ public class PossessSkeletonRitual extends SummonSpiritRitual {
     public PossessSkeletonRitual() {
         super(null,
                 OccultismRituals.POSSESS_FOLIOT_PENTACLE.get(),
-                Ingredient.fromItems(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()),
+                Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()),
                 "possess_skeleton", 30);
         this.sacrificePredicate =
                 (entity) -> OccultismTags.CHICKEN.contains(entity.getType());
@@ -66,11 +66,11 @@ public class PossessSkeletonRitual extends SummonSpiritRitual {
 
         //set up the foliot entity
         PossessedSkeletonEntity skeleton = OccultismEntities.POSSESSED_SKELETON_TYPE.get().create(level);
-        skeleton.finalizeSpawn((ServerLevel) level, level.getCurrentDifficultyAt(goldenBowlPosition), SpawnReason.MOB_SUMMONED,
+        skeleton.finalizeSpawn((ServerLevel) level, level.getCurrentDifficultyAt(goldenBowlPosition), MobSpawnType.MOB_SUMMONED,
                 null,
                 null);
         skeleton.absMoveTo(goldenBowlPosition.getX(), goldenBowlPosition.getY(), goldenBowlPosition.getZ(),
-                level.rand.nextInt(360), 0);
+                level.random.nextInt(360), 0);
         skeleton.setCustomName(new TextComponent(entityName));
 
         //notify players nearby and spawn

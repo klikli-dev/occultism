@@ -31,12 +31,12 @@ import com.github.klikli_dev.occultism.network.MessageUpdateLinkedMachines;
 import com.github.klikli_dev.occultism.network.OccultismPackets;
 import com.github.klikli_dev.occultism.registry.OccultismContainers;
 import com.github.klikli_dev.occultism.util.CuriosUtil;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.nbt.ListTag;
 import net.minecraftforge.common.util.Constants;
 
 import java.util.ArrayList;
@@ -57,7 +57,7 @@ public class StorageRemoteContainer extends StorageControllerContainerBase {
 
         this.matrix = new StorageControllerCraftingInventory(this,
                 this.getCraftingMatrixFromItemStack(this.getStorageRemote()));
-        this.orderInventory.setInventorySlotContents(0, this.getOrderStackFromItemStack(this.getStorageRemote()));
+        this.orderInventory.setItem(0, this.getOrderStackFromItemStack(this.getStorageRemote()));
 
         this.setupCraftingOutput();
         this.setupCraftingGrid();
@@ -108,7 +108,7 @@ public class StorageRemoteContainer extends StorageControllerContainerBase {
                     }
 
                     @Override
-                    public boolean canTakeStack(Player playerIn) {
+                    public boolean mayPickup(Player playerIn) {
                         return false;
                     }
                     //endregion Overrides
@@ -118,13 +118,6 @@ public class StorageRemoteContainer extends StorageControllerContainerBase {
                 this.addSlot(new Slot(this.playerInventory, i, hotbarLeft + i * 18, hotbarTop));
             }
         }
-    }
-
-    @Override
-    public void setAll(List<ItemStack> stacks) {
-        this.matrix.disableEvents = true;
-        super.setAll(stacks);
-        this.matrix.disableEvents = false;
     }
 
     @Override

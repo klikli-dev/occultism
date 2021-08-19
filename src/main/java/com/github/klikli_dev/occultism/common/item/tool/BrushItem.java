@@ -24,12 +24,12 @@ package com.github.klikli_dev.occultism.common.item.tool;
 
 import com.github.klikli_dev.occultism.common.block.ChalkGlyphBlock;
 import com.github.klikli_dev.occultism.registry.OccultismSounds;
+import net.minecraft.core.BlockPos;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.util.SoundSource;
-import net.minecraft.core.BlockPos;
 
 public class BrushItem extends Item {
     //region Initialization
@@ -49,7 +49,7 @@ public class BrushItem extends Item {
             if (level.getBlockState(pos).getBlock() instanceof ChalkGlyphBlock) {
                 level.removeBlock(pos, false);
                 level.playSound(null, pos, OccultismSounds.BRUSH.get(), SoundSource.PLAYERS, 0.5f,
-                        1 + 0.5f * context.getPlayer().getRNG().nextFloat());
+                        1 + 0.5f * context.getPlayer().getRandom().nextFloat());
             }
         }
         return InteractionResult.SUCCESS;

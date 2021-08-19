@@ -25,15 +25,15 @@ package com.github.klikli_dev.occultism.util;
 import com.github.klikli_dev.occultism.api.common.container.IStorageControllerContainer;
 import com.github.klikli_dev.occultism.api.common.tile.IStorageController;
 import com.github.klikli_dev.occultism.network.OccultismPackets;
-import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.inventory.CraftingContainer;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.inventory.InventoryHelper;
+import net.minecraft.world.Containers;
+import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
@@ -55,8 +55,8 @@ public class StorageUtil {
      * @param sendStackUpdate true to resend the current stacks to the client.
      */
     public static void clearOpenCraftingMatrix(ServerPlayer player, boolean sendStackUpdate) {
-        if (player.openContainer instanceof IStorageControllerContainer) {
-            IStorageControllerContainer container = (IStorageControllerContainer) player.openContainer;
+        if (player.containerMenu instanceof IStorageControllerContainer) {
+            IStorageControllerContainer container = (IStorageControllerContainer) player.containerMenu;
             CraftingContainer craftMatrix = container.getCraftMatrix();
             IStorageController storageController = container.getStorageController();
 
@@ -78,9 +78,9 @@ public class StorageUtil {
                     continue;
                 }
                 if (remainingAfterInsert == 0)
-                    craftMatrix.setInventorySlotContents(i, ItemStack.EMPTY);
+                    craftMatrix.setItem(i, ItemStack.EMPTY);
                 else
-                    craftMatrix.setInventorySlotContents(i,
+                    craftMatrix.setItem(i,
                             ItemHandlerHelper.copyStackWithSize(stackInSlot, remainingAfterInsert));
             }
 
@@ -99,9 +99,9 @@ public class StorageUtil {
      * @param sendStackUpdate true to resend the current stacks to the client.
      */
     public static void clearOpenOrderSlot(ServerPlayer player, boolean sendStackUpdate) {
-        if (player.openContainer instanceof IStorageControllerContainer) {
-            IStorageControllerContainer container = (IStorageControllerContainer) player.openContainer;
-            Inventory orderSlot = container.getOrderSlot();
+        if (player.containerMenu instanceof IStorageControllerContainer) {
+            IStorageControllerContainer container = (IStorageControllerContainer) player.containerMenu;
+            SimpleContainer orderSlot = container.getOrderSlot();
             IStorageController storageController = container.getStorageController();
 
             if (storageController == null) {
@@ -115,9 +115,9 @@ public class StorageUtil {
                 int remainingAfterInsert = storageController.insertStack(stackInSlot.copy(), false);
                 if (amountBeforeInsert != remainingAfterInsert) {
                     if (remainingAfterInsert == 0)
-                        orderSlot.setInventorySlotContents(0, ItemStack.EMPTY);
+                        orderSlot.setItem(0, ItemStack.EMPTY);
                     else
-                        orderSlot.setInventorySlotContents(0,
+                        orderSlot.setItem(0,
                                 ItemHandlerHelper.copyStackWithSize(stackInSlot, remainingAfterInsert));
                 }
             }
@@ -147,7 +147,7 @@ public class StorageUtil {
         int amountExtracted = 0;
         //go through all slots in the handler
         for (int i = 0; i < itemHandler.getSlots(); i++) {
-            ItemStack slot = itemHandler.getItem(i);
+            ItemStack slot = itemHandler.getStackInSlot(i);
             //check if current slot matches
             if (comparator.test(slot)) {
                 //take out of handler, one by one
@@ -173,8 +173,8 @@ public class StorageUtil {
     }
 
     public static int getFirstFilledSlotAfter(IItemHandler handler, int slot) {
-        for (int i = slot+1; i < handler.getSlots(); i++) {
-            if (!handler.getItem(i).isEmpty())
+        for (int i = slot + 1; i < handler.getSlots(); i++) {
+            if (!handler.getStackInSlot(i).isEmpty())
                 return i;
         }
         return -1;
@@ -187,32 +187,32 @@ public class StorageUtil {
 //        return itemMatchedSlot > -1 && itemMatchedSlot < tagMatchedSlot ? itemMatchedSlot : tagMatchedSlot;
 //    }
 
-    public static int getFirstMatchingSlot(IItemHandler handler, IItemHandler filter, String tagFilter, boolean isBlacklist){
+    public static int getFirstMatchingSlot(IItemHandler handler, IItemHandler filter, String tagFilter, boolean isBlacklist) {
         return getFirstMatchingSlotAfter(handler, -1, filter, tagFilter, isBlacklist);
     }
 
     public static int getFirstMatchingSlotAfter(IItemHandler handler, int slot, IItemHandler filter, String tagFilter, boolean isBlacklist) {
-        for (int i = slot+1; i < handler.getSlots(); i++) {
-            if (!handler.getItem(i).isEmpty()){
-                boolean matches = matchesFilter(handler.getItem(i), filter) ||
-                                  matchesFilter(handler.getItem(i), tagFilter);
+        for (int i = slot + 1; i < handler.getSlots(); i++) {
+            if (!handler.getStackInSlot(i).isEmpty()) {
+                boolean matches = matchesFilter(handler.getStackInSlot(i), filter) ||
+                        matchesFilter(handler.getStackInSlot(i), tagFilter);
 
                 //if we're in blacklist mode, if the item matches either item or tag -> we continue into next iteration
                 //if we're in blacklist mode and none of the filters match -> we return
                 //if we're in whitelist mode, if the item matches either item or tag -> we return
                 //if we're in whitelist mode, if the item matches neither item nor tag -> we continue
-                if((!isBlacklist && matches) || (isBlacklist && !matches))
+                if ((!isBlacklist && matches) || (isBlacklist && !matches))
                     return i;
             }
         }
         return -1;
     }
 
-    public static boolean matchesFilter(ItemStack stack, IItemHandler filter){
+    public static boolean matchesFilter(ItemStack stack, IItemHandler filter) {
         for (int i = 0; i < filter.getSlots(); i++) {
-            ItemStack filtered = filter.getItem(i);
+            ItemStack filtered = filter.getStackInSlot(i);
 
-            boolean equals = filtered.isItemEqual(stack);
+            boolean equals = filtered.sameItem(stack);
 
             if (equals) {
                 return true;
@@ -225,14 +225,14 @@ public class StorageUtil {
     /**
      * Checks if stack matches the given tag filter (wildcard match)
      */
-    public static boolean matchesFilter(ItemStack stack, String tagFilter){
-        if(tagFilter.isEmpty())
+    public static boolean matchesFilter(ItemStack stack, String tagFilter) {
+        if (tagFilter.isEmpty())
             return false;
 
         String[] filters = tagFilter.split(";");
-        for(String filter : filters){
+        for (String filter : filters) {
             boolean equals = stack.getItem().getTags().stream().anyMatch(rl -> {
-                 return FilenameUtils.wildcardMatch(rl.toString(), filter, IOCase.INSENSITIVE);
+                return FilenameUtils.wildcardMatch(rl.toString(), filter, IOCase.INSENSITIVE);
             });
 
             if (equals) {
@@ -246,17 +246,17 @@ public class StorageUtil {
      * Drops all items of the given tile entity.
      * Tile entity <bold>must</bold> return a combined item handler for direction null.
      *
-     * @param BlockEntity the tile entity to drop contents for.
+     * @param blockEntity the tile entity to drop contents for.
      */
     public static void dropInventoryItems(BlockEntity blockEntity) {
         blockEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(handler -> {
-            dropInventoryItems(blockEntity.getLevel(), blockEntity.getPos(), handler);
+            dropInventoryItems(blockEntity.getLevel(), blockEntity.getBlockPos(), handler);
         });
     }
 
     public static void dropInventoryItems(Level worldIn, BlockPos pos, IItemHandler itemHandler) {
         for (int i = 0; i < itemHandler.getSlots(); i++) {
-            InventoryHelper.spawnItemStack(worldIn, pos.getX(), pos.getY(), pos.getZ(), itemHandler.getItem(i));
+            Containers.dropItemStack(worldIn, pos.getX(), pos.getY(), pos.getZ(), itemHandler.getStackInSlot(i));
         }
     }
     //endregion Static Methods

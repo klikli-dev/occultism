@@ -38,7 +38,7 @@ public class CraftSoulGemRitual extends Ritual {
     //region Initialization
     public CraftSoulGemRitual() {
         super(OccultismRituals.CRAFT_DJINNI_PENTACLE.get(),
-                Ingredient.fromItems(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()),
+                Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()),
                 "craft_soul_gem", 60);
     }
     //endregion Initialization

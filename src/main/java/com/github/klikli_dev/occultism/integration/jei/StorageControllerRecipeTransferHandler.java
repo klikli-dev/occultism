@@ -94,7 +94,7 @@ public class StorageControllerRecipeTransferHandler<T extends AbstractContainerM
 //        }
 
         //if recipe is in recipe manager send by id, otherwise fallback to ingredient list
-        if (player.getEntityWorld().getRecipeManager().getRecipe(recipe.getId()).isPresent()) {
+        if (player.getCommandSenderWorld().getRecipeManager().byKey(recipe.getId()).isPresent()) {
             OccultismPackets.sendToServer(new MessageSetRecipeByID(recipe.getId()));
         }
         else {
@@ -112,7 +112,7 @@ public class StorageControllerRecipeTransferHandler<T extends AbstractContainerM
         Map<Integer, ? extends IGuiIngredient<ItemStack>> inputs = recipeLayout.getItemStacks().getGuiIngredients();
 
         for (Slot slot : container.slots) {
-            if (slot.inventory instanceof CraftingContainer) {
+            if (slot.container instanceof CraftingContainer) {
 
                 //get ingredient from recipe layout
                 IGuiIngredient<ItemStack> ingredient = inputs.get(slot.getSlotIndex() + 1);

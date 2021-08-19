@@ -54,7 +54,7 @@ public class StableWormholeGui extends StorageControllerGuiBase<StableWormholeCo
 
     @Override
     protected BlockPos getEntityPosition() {
-        return this.container.getStableWormhole().getPos();
+        return this.container.getStableWormhole().getBlockPos();
     }
 
     @Override

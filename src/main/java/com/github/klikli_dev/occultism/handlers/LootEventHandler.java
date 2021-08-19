@@ -50,12 +50,12 @@ public class LootEventHandler {
             ItemStack knifeItem = trueSource.getItemInHand(InteractionHand.MAIN_HAND);
             if ( knifeItem.getItem() == OccultismItems.BUTCHER_KNIFE.get()) {
                 List<ItemStack> loot = ButcherKnifeItem.getLoot(event.getEntityLiving(), knifeItem, trueSource);
-                Random rand = event.getEntityLiving().getRNG();
+                Random rand = event.getEntityLiving().getRandom();
 
                 if (!loot.isEmpty()) {
                     for (ItemStack stack : loot) {
                         ItemStack copy = stack.copy();
-                        copy.setCount(rand.nextInt(stack.getCount() + 1) + rand.nextInt(event.getLootingLevel() + 1));
+                        copy.SetItemCountFunction(rand.nextInt(stack.getCount() + 1) + rand.nextInt(event.getLootingLevel() + 1));
                         Vec3 center = Math3DUtil.center(event.getEntityLiving().getPosition());
                         event.getDrops()
                                 .add(new ItemEntity(event.getEntityLiving().level, center.x, center.y, center.z, copy));

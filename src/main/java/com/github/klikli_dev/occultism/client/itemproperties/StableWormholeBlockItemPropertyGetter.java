@@ -36,7 +36,7 @@ public class StableWormholeBlockItemPropertyGetter implements ItemPropertyFuncti
     //region Overrides
     @OnlyIn(Dist.CLIENT)
     @Override
-    public float call(ItemStack stack, @Nullable ClientLevel worldIn, @Nullable LivingEntity entityIn) {
+    public float call(ItemStack stack, @Nullable ClientLevel worldIn, @Nullable LivingEntity entityIn, int i) {
         return stack.getOrCreateTag().getCompound("BlockEntityTag")
                        .contains("linkedStorageControllerPosition") ? 1.0f : 0.0f;
     }

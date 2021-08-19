@@ -27,18 +27,18 @@ import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.github.klikli_dev.occultism.registry.OccultismRituals;
 import com.github.klikli_dev.occultism.registry.OccultismTags;
 import com.github.klikli_dev.occultism.util.ItemNBTUtil;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.passive.AnimalEntity;
-import net.minecraft.world.entity.passive.TamableAnimal;
+import net.minecraft.world.entity.TamableAnimal;
+import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.TextComponent;
 
 public class FamiliarParrotRitual extends SummonSpiritRitual {
 
@@ -46,7 +46,7 @@ public class FamiliarParrotRitual extends SummonSpiritRitual {
     public FamiliarParrotRitual() {
         super(null,
                 OccultismRituals.POSSESS_FOLIOT_PENTACLE.get(),
-                Ingredient.fromItems(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()),
+                Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()),
                 "familiar_parrot", 30);
         this.sacrificePredicate =
                 (entity) -> OccultismTags.CHICKEN.contains(entity.getType());
@@ -67,17 +67,17 @@ public class FamiliarParrotRitual extends SummonSpiritRitual {
                 goldenBowlPosition.getY() + 0.5, goldenBowlPosition.getZ() + 0.5, 1, 0, 0, 0, 0);
 
         //1/3 are a parrot, 2/3 are chickens.
-        AnimalEntity parrot =
-                level.rand.nextInt(3) == 0 ? EntityType.PARROT.create(level) : EntityType.CHICKEN.create(level);
-        parrot.finalizeSpawn((ServerLevel) level, level.getCurrentDifficultyAt(goldenBowlPosition), SpawnReason.MOB_SUMMONED,
+        Animal parrot =
+                level.random.nextInt(3) == 0 ? EntityType.PARROT.create(level) : EntityType.CHICKEN.create(level);
+        parrot.finalizeSpawn((ServerLevel) level, level.getCurrentDifficultyAt(goldenBowlPosition), MobSpawnType.MOB_SUMMONED,
                 null,
                 null);
         parrot
                 .absMoveTo(goldenBowlPosition.getX(), goldenBowlPosition.getY(), goldenBowlPosition.getZ(),
-                        level.rand.nextInt(360), 0);
+                        level.random.nextInt(360), 0);
         parrot.setCustomName(new TextComponent(entityName));
-        if (parrot instanceof TamableAnimal) {
-            ((TamableAnimal) parrot).setTamedBy(castingPlayer);
+        if (parrot instanceof TamableAnimal tameable) {
+            tameable.tame(castingPlayer);
         }
 
         //notify players nearby and spawn

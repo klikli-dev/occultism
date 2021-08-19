@@ -39,7 +39,7 @@ public class CraftMinerFoliotUnspecialized extends Ritual {
     //region Initialization
     public CraftMinerFoliotUnspecialized() {
         super(OccultismRituals.CRAFT_FOLIOT_PENTACLE.get(),
-                Ingredient.fromItems(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()),
+                Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()),
                 "craft_miner_foliot_unspecialized", 60);
     }
     //endregion Initialization

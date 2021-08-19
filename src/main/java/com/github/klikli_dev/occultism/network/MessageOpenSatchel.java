@@ -26,12 +26,12 @@ import com.github.klikli_dev.occultism.common.container.storage.SatchelContainer
 import com.github.klikli_dev.occultism.common.item.storage.SatchelItem;
 import com.github.klikli_dev.occultism.util.CuriosUtil;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.inventory.container.SimpleNamedContainerProvider;
+import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.fml.network.NetworkEvent;
-import net.minecraftforge.fml.network.NetworkHooks;
+import net.minecraftforge.fmllegacy.network.NetworkHooks;
 
 public class MessageOpenSatchel extends MessageBase {
 
@@ -66,7 +66,7 @@ public class MessageOpenSatchel extends MessageBase {
             ItemStack finalBackpackStack = backpackStack;
             int finalSelectedSlot = selectedSlot;
             NetworkHooks.openGui(player,
-                    new SimpleNamedContainerProvider((id, playerInventory, unused) -> {
+                    new SimpleMenuProvider((id, playerInventory, unused) -> {
                         return new SatchelContainer(id, playerInventory,
                                 ((SatchelItem) finalBackpackStack.getItem()).getInventory(player, finalBackpackStack),
                                 finalSelectedSlot);

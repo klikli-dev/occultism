@@ -39,7 +39,7 @@ public class CraftDimensionalMineshaftRitual extends Ritual {
     //region Initialization
     public CraftDimensionalMineshaftRitual() {
         super(OccultismRituals.CRAFT_DJINNI_PENTACLE.get(),
-                Ingredient.fromItems(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()), "craft_dimensional_mineshaft",
+                Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()), "craft_dimensional_mineshaft",
                 240);
     }
     //endregion Initialization

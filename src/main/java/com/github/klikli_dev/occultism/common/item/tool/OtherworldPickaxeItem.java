@@ -24,13 +24,13 @@ package com.github.klikli_dev.occultism.common.item.tool;
 
 import com.github.klikli_dev.occultism.api.common.data.OtherworldBlockTier;
 import com.github.klikli_dev.occultism.api.common.item.IOtherworldTool;
-import net.minecraft.item.IItemTier;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.item.PickaxeItem;
+import net.minecraft.world.item.PickaxeItem;
+import net.minecraft.world.item.Tier;
 
 public class OtherworldPickaxeItem extends PickaxeItem implements IOtherworldTool {
     //region Initialization
-    public OtherworldPickaxeItem(IItemTier tier, int attackDamageIn, float attackSpeedIn,
+    public OtherworldPickaxeItem(Tier tier, int attackDamageIn, float attackSpeedIn,
                                  Properties builder) {
         super(tier, attackDamageIn, attackSpeedIn, builder);
     }

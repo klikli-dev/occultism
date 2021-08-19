@@ -44,7 +44,7 @@ public class SummonMaridCrusherRitual extends SummonSpiritRitual {
     //region Initialization
     public SummonMaridCrusherRitual() {
         super(null, OccultismRituals.SUMMON_MARID_PENTACLE.get(),
-                Ingredient.fromItems(OccultismItems.BOOK_OF_BINDING_BOUND_MARID.get()),
+                Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_MARID.get()),
                 "summon_marid_crusher", 150);
     }
     //endregion Initialization

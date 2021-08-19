@@ -28,16 +28,16 @@ import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.github.klikli_dev.occultism.registry.OccultismRituals;
 import com.github.klikli_dev.occultism.util.ItemNBTUtil;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.item.Items;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.TextComponent;
 
 public class PossessEndermiteRitual extends SummonSpiritRitual {
 
@@ -45,7 +45,7 @@ public class PossessEndermiteRitual extends SummonSpiritRitual {
     public PossessEndermiteRitual() {
         super(null,
                 OccultismRituals.POSSESS_FOLIOT_PENTACLE.get(),
-                Ingredient.fromItems(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()),
+                Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()),
                 "possess_endermite", 30);
         this.itemUsePredicate = (event) -> event.getItemStack().getItem() == Items.EGG;
     }
@@ -66,12 +66,12 @@ public class PossessEndermiteRitual extends SummonSpiritRitual {
 
         //set up the foliot entity
         PossessedEndermiteEntity endermite = OccultismEntities.POSSESSED_ENDERMITE.get().create(level);
-        endermite.finalizeSpawn((ServerLevel) level, level.getCurrentDifficultyAt(goldenBowlPosition), SpawnReason.MOB_SUMMONED,
+        endermite.finalizeSpawn((ServerLevel) level, level.getCurrentDifficultyAt(goldenBowlPosition), MobSpawnType.MOB_SUMMONED,
                 null,
                 null);
         endermite
                 .absMoveTo(goldenBowlPosition.getX(), goldenBowlPosition.getY(), goldenBowlPosition.getZ(),
-                        level.rand.nextInt(360), 0);
+                        level.random.nextInt(360), 0);
         endermite.setCustomName(new TextComponent(entityName));
 
         //notify players nearby and spawn

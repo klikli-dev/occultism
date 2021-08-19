@@ -223,9 +223,9 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
      * Tick is final in abstract container, but calls this method
      */
     @Override
-    public void m_181908_() {
+    public void containerTick() {
         this.tagFilterTextField.tick();
-        super.m_181908_();
+        super.containerTick();
     }
 
     @Override

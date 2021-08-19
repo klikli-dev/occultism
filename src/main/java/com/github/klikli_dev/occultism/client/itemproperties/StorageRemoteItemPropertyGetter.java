@@ -36,7 +36,7 @@ public class StorageRemoteItemPropertyGetter implements ItemPropertyFunction {
     //region Overrides
     @OnlyIn(Dist.CLIENT)
     @Override
-    public float call(ItemStack stack, @Nullable ClientLevel worldIn, @Nullable LivingEntity entityIn) {
+    public float call(ItemStack stack, @Nullable ClientLevel worldIn, @Nullable LivingEntity entityIn, int i) {
         return stack.getOrCreateTag()
                        .contains("linkedStorageController") ? 1.0f : 0.0f;
     }

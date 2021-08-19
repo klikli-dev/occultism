@@ -39,7 +39,7 @@ public class CraftStabilizerTier4Ritual extends Ritual {
     //region Initialization
     public CraftStabilizerTier4Ritual() {
         super(OccultismRituals.CRAFT_MARID_PENTACLE.get(),
-                Ingredient.fromItems(OccultismItems.BOOK_OF_BINDING_BOUND_MARID.get()), "craft_stabilizer_tier4",
+                Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_MARID.get()), "craft_stabilizer_tier4",
                 240);
     }
     //endregion Initialization

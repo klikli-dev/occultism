@@ -52,7 +52,7 @@ public class StorageControllerGui extends StorageControllerGuiBase<StorageContro
 
     @Override
     protected BlockPos getEntityPosition() {
-        return this.storageController.getPos();
+        return this.storageController.getBlockPos();
     }
 
     @Override

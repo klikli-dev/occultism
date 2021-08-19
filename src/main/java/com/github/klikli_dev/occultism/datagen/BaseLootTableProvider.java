@@ -25,16 +25,16 @@ package com.github.klikli_dev.occultism.datagen;
 import com.github.klikli_dev.occultism.Occultism;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.DirectoryCache;
-import net.minecraft.data.IDataProvider;
-import net.minecraft.data.LootTableProvider;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.loot.LootParameterSets;
-import net.minecraft.loot.LootTable;
-import net.minecraft.loot.LootTableManager;
+import net.minecraft.data.DataProvider;
+import net.minecraft.data.HashCache;
+import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.LootTables;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -64,21 +64,23 @@ public abstract class BaseLootTableProvider extends LootTableProvider {
     //endregion Initialization
 
     //region Overrides
+
+
     @Override
-    // Entry point
-    public void act(DirectoryCache cache) {
+    public void run(HashCache cache) {
         this.addTables();
         Map<ResourceLocation, LootTable> tables = new HashMap<>();
         for (Map.Entry<Block, LootTable.Builder> entry : this.blockLootTable.entrySet()) {
             tables.put(entry.getKey().getLootTable(),
-                    entry.getValue().setParameterSet(LootParameterSets.BLOCK).build());
+                    entry.getValue().setParamSet(LootContextParamSets.BLOCK).build());
         }
         for (Map.Entry<EntityType<?>, LootTable.Builder> entry : this.entityLootTable.entrySet()) {
-            tables.put(entry.getKey().getLootTable(),
-                    entry.getValue().setParameterSet(LootParameterSets.ENTITY).build());
+            tables.put(entry.getKey().getDefaultLootTable(),
+                    entry.getValue().setParamSet(LootContextParamSets.ENTITY).build());
         }
         this.writeTables(cache, tables);
     }
+
 
     @Override
     public String getName() {
@@ -91,12 +93,12 @@ public abstract class BaseLootTableProvider extends LootTableProvider {
     protected abstract void addTables();
 
     // Actually write out the tables in the output folder
-    private void writeTables(DirectoryCache cache, Map<ResourceLocation, LootTable> tables) {
+    private void writeTables(HashCache cache, Map<ResourceLocation, LootTable> tables) {
         Path outputFolder = this.generator.getOutputFolder();
         tables.forEach((key, lootTable) -> {
             Path path = outputFolder.resolve("data/" + key.getNamespace() + "/loot_tables/" + key.getPath() + ".json");
             try {
-                IDataProvider.save(GSON, cache, LootTableManager.toJson(lootTable), path);
+                DataProvider.save(GSON, cache, LootTables.serialize(lootTable), path);
             } catch (IOException e) {
                 Occultism.LOGGER.error("Couldn't write loot table {}", path, e);
             }

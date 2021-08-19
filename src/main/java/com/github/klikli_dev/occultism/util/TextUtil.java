@@ -22,13 +22,13 @@
 
 package com.github.klikli_dev.occultism.util;
 
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.item.Item;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
 import net.minecraftforge.fml.ModList;
-import net.minecraftforge.fml.loading.moddiscovery.ModInfo;
+import net.minecraftforge.forgespi.language.IModInfo;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.commons.lang3.text.WordUtils;
 
@@ -63,7 +63,7 @@ public class TextUtil {
     //region Static Methods
     public static void initializeModNames() {
         modNamesInitialized = true;
-        for (ModInfo info : ModList.get().getMods()) {
+        for (IModInfo info : ModList.get().getMods()) {
             MOD_NAME_TO_ID.put(info.getModId(), info.getDisplayName());
         }
     }
@@ -82,11 +82,9 @@ public class TextUtil {
         ResourceLocation key;
         if (object instanceof Item) {
             key = ForgeRegistries.ITEMS.getKey((Item) object);
-        }
-        else if (object instanceof Block) {
+        } else if (object instanceof Block) {
             key = ForgeRegistries.BLOCKS.getKey((Block) object);
-        }
-        else {
+        } else {
             return null;
         }
         String modId = key.getNamespace();
@@ -115,8 +113,8 @@ public class TextUtil {
      * @param name the name to format.
      * @return the formatted name.
      */
-    public static IFormattableTextComponent formatDemonName(IFormattableTextComponent name) {
-        return name.mergeStyle(ChatFormatting.GOLD, ChatFormatting.BOLD);
+    public static MutableComponent formatDemonName(MutableComponent name) {
+        return name.withStyle(ChatFormatting.GOLD, ChatFormatting.BOLD);
     }
 
     /**
@@ -129,16 +127,13 @@ public class TextUtil {
     public static String formatLargeNumber(int number) {
         if (number < Math.pow(10, 3)) {
             return number + "";
-        }
-        else if (number < Math.pow(10, 6)) {
+        } else if (number < Math.pow(10, 6)) {
             int rounded = Math.round(number / 1000.0F);
             return rounded + "K";
-        }
-        else if (number < Math.pow(10, 9)) {
+        } else if (number < Math.pow(10, 9)) {
             int rounded = Math.round(number / (float) Math.pow(10, 6));
             return rounded + "M";
-        }
-        else if (number < Math.pow(10, 12)) {
+        } else if (number < Math.pow(10, 12)) {
             int rounded = Math.round(number / (float) Math.pow(10, 9));
             return rounded + "B";
         }
@@ -150,8 +145,8 @@ public class TextUtil {
      */
     public static String generateName() {
         return random.nextInt(20) == 0 ? EASTER_EGGS[random.nextInt(
-                EASTER_EGGS.length)]  : SYLLABLE1[random.nextInt(SYLLABLE1.length)] + SYLLABLE2[random.nextInt(SYLLABLE2.length)] +
-                                        SYLLABLE3[random.nextInt(SYLLABLE3.length)];
+                EASTER_EGGS.length)] : SYLLABLE1[random.nextInt(SYLLABLE1.length)] + SYLLABLE2[random.nextInt(SYLLABLE2.length)] +
+                SYLLABLE3[random.nextInt(SYLLABLE3.length)];
     }
     //endregion Static Methods
 }
