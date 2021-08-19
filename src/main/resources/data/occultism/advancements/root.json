@@ -1,4 +1,19 @@
 {
+  "display": {
+    "icon": {
+      "item": "occultism:pentacle"
+    },
+    "title": {
+      "translate": "advancements.occultism.root.title"
+    },
+    "description": {
+      "translate": "advancements.occultism.root.description"
+    },
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false,
+    "hidden": true
+  },
   "criteria": {
     "occultism_present": {
       "trigger": "minecraft:tick"
