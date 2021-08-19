@@ -76,7 +76,7 @@ public class BlockEntityUtil {
 
         BlockState state = level.getBlockState(pos);
         level.sendBlockUpdated(pos, state, state, 2);
-        level.blockEntityChanged(pos, level.getBlockEntity(pos));
+        level.blockEntityChanged(pos);
     }
 
     /**

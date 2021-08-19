@@ -25,11 +25,11 @@ package com.github.klikli_dev.occultism.network;
 import com.github.klikli_dev.occultism.api.common.container.IStorageControllerContainer;
 import com.github.klikli_dev.occultism.api.common.tile.IStorageController;
 import com.github.klikli_dev.occultism.util.InputUtil;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.MinecraftServer;
-import net.minecraftforge.fml.network.NetworkEvent;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.fmllegacy.network.NetworkEvent;
 import net.minecraftforge.items.ItemHandlerHelper;
 
 /**
@@ -60,10 +60,11 @@ public class MessageInsertMouseHeldItem extends MessageBase {
                                  NetworkEvent.Context context) {
         if (player.containerMenu instanceof IStorageControllerContainer) {
             IStorageController storageController = ((IStorageControllerContainer) player.containerMenu)
-                                                           .getStorageController();
+                    .getStorageController();
 
             ItemStack result = ItemStack.EMPTY;
-            ItemStack carriedByMouse = player.getInventory().getItemStack();
+            //TODO: Check if MouseHeldItem works
+            ItemStack carriedByMouse = player.getInventory().getSelected();
 
             if (this.mouseButton == InputUtil.MOUSE_BUTTON_LEFT) {
                 //Left mouse button means try to insert entire stack
@@ -71,12 +72,11 @@ public class MessageInsertMouseHeldItem extends MessageBase {
                 //if not everything could be inserted, leave the rest in hand
                 if (remainder != 0)
                     result = ItemHandlerHelper.copyStackWithSize(carriedByMouse, remainder);
-            }
-            else if (this.mouseButton == InputUtil.MOUSE_BUTTON_RIGHT) {
+            } else if (this.mouseButton == InputUtil.MOUSE_BUTTON_RIGHT) {
                 //right mouse button means insert one
 
                 ItemStack toInsert = carriedByMouse.copy();
-                toInsert.SetItemCountFunction(1);
+                toInsert.setCount(1);
                 carriedByMouse.shrink(1);
 
                 //handle correct result depending on if the stack was inserted or not
@@ -86,7 +86,7 @@ public class MessageInsertMouseHeldItem extends MessageBase {
             }
 
             //store result mouse held item
-            player.getInventory().setItemStack(result);
+            player.getInventory().setPickedItem(result);
             //send new mouse held item to client
             OccultismPackets.sendTo(player, new MessageUpdateMouseHeldItem(result));
 

@@ -50,10 +50,9 @@ public class ItemStackFakeInventory implements Container {
     }
 
     @Override
-    public ItemStack getCloneItemStack(int index) {
+    public ItemStack getItem(int pIndex) {
         return this.input;
     }
-
 
     @Override
     public void setChanged() {

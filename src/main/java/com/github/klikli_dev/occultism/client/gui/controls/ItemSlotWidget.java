@@ -56,8 +56,8 @@ public class ItemSlotWidget {
         this.x = x;
         this.y = y;
         this.stackSize = stackSize;
-        this.leftPos = guiLeft;
-        this.topPos = guiTop;
+        this.guiLeft = guiLeft;
+        this.guiTop = guiTop;
         this.showStackSize = showStackSize;
         this.parent = parent;
         this.minecraft = Minecraft.getInstance();
@@ -87,7 +87,7 @@ public class ItemSlotWidget {
 
     //region Methods
     public boolean isMouseOverSlot(int mouseX, int mouseY) {
-        return this.parent.isPointInRegionController(this.x - this.leftPos, this.y - this.topPos, 16, 16, mouseX, mouseY);
+        return this.parent.isPointInRegionController(this.x - this.guiLeft, this.y - this.guiTop, 16, 16, mouseX, mouseY);
     }
 
     public void drawSlot(PoseStack poseStack, int mx, int my) {

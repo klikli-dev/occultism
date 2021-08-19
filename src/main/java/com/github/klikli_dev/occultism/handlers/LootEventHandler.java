@@ -45,8 +45,8 @@ public class LootEventHandler {
     public static void onLivingDrops(LivingDropsEvent event) {
         //Add butcher knife drops dynamically.
         //TODO: Consider doing a global loot table for that
-        if (event.isRecentlyHit() && event.getSource().getTrueSource() instanceof LivingEntity) {
-            LivingEntity trueSource = (LivingEntity) event.getSource().getTrueSource();
+        if (event.isRecentlyHit() && event.getSource().getDirectEntity() instanceof LivingEntity) {
+            LivingEntity trueSource = (LivingEntity) event.getSource().getDirectEntity();
             ItemStack knifeItem = trueSource.getItemInHand(InteractionHand.MAIN_HAND);
             if ( knifeItem.getItem() == OccultismItems.BUTCHER_KNIFE.get()) {
                 List<ItemStack> loot = ButcherKnifeItem.getLoot(event.getEntityLiving(), knifeItem, trueSource);
@@ -55,8 +55,8 @@ public class LootEventHandler {
                 if (!loot.isEmpty()) {
                     for (ItemStack stack : loot) {
                         ItemStack copy = stack.copy();
-                        copy.SetItemCountFunction(rand.nextInt(stack.getCount() + 1) + rand.nextInt(event.getLootingLevel() + 1));
-                        Vec3 center = Math3DUtil.center(event.getEntityLiving().getPosition());
+                        copy.setCount(rand.nextInt(stack.getCount() + 1) + rand.nextInt(event.getLootingLevel() + 1));
+                        Vec3 center = Math3DUtil.center(event.getEntityLiving().blockPosition());
                         event.getDrops()
                                 .add(new ItemEntity(event.getEntityLiving().level, center.x, center.y, center.z, copy));
                     }

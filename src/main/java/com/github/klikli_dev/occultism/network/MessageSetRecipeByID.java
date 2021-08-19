@@ -35,7 +35,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.crafting.IShapedRecipe;
-import net.minecraftforge.fml.network.NetworkEvent;
+import net.minecraftforge.fmllegacy.network.NetworkEvent;
 import net.minecraftforge.items.wrapper.PlayerMainInvWrapper;
 
 /**
@@ -72,7 +72,7 @@ public class MessageSetRecipeByID extends MessageBase {
             return;
         }
 
-        Recipe<?> recipe = player.getEntityWorld().getRecipeManager().getRecipe(this.id).orElse(null);
+        Recipe<?> recipe = player.getLevel().getRecipeManager().byKey(this.id).orElse(null);
         Preconditions.checkArgument(recipe != null); //should not happen
 
         StorageUtil.clearOpenCraftingMatrix(player, false);
@@ -87,7 +87,7 @@ public class MessageSetRecipeByID extends MessageBase {
             if (extractedStack != null && !extractedStack.isEmpty() && craftMatrix.getItem(slot).isEmpty()) {
                 //if we found the desired stack, extract it for real and place it in the matrix
                 StorageUtil.extractItem(new PlayerMainInvWrapper(player.getInventory()), ingredient, 1, false);
-                craftMatrix.setInventorySlotContents(slot, extractedStack);
+                craftMatrix.setItem(slot, extractedStack);
                 continue;
             }
 
@@ -95,7 +95,7 @@ public class MessageSetRecipeByID extends MessageBase {
             extractedStack = storageController.getItemStack(ingredient, 1, false);
             if (!extractedStack.isEmpty() && craftMatrix.getItem(slot).isEmpty()) {
                 //if extraction was successful, place it in the matrix
-                craftMatrix.setInventorySlotContents(slot, extractedStack);
+                craftMatrix.setItem(slot, extractedStack);
                 continue;
             }
             //endregion fill in recipe

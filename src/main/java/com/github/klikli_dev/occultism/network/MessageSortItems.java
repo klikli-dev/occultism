@@ -32,7 +32,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.fml.network.NetworkEvent;
+import net.minecraftforge.fmllegacy.network.NetworkEvent;
 
 public class MessageSortItems extends MessageBase {
 
@@ -72,11 +72,11 @@ public class MessageSortItems extends MessageBase {
                     IStorageAccessor storageAccessor = (IStorageAccessor) blockEntity;
                     storageAccessor.setSortType(this.sortType);
                     storageAccessor.setSortDirection(this.sortDirection);
-                    blockEntity.dirt();
+                    blockEntity.setChanged();
                 }
             } else {
                 //for item remotes, we just set the nbt.
-                ItemStack stack = player.getInventory().getCurrentItem();
+                ItemStack stack = player.getInventory().getSelected();
                 stack.getOrCreateTag().putInt("sortDirection", this.sortDirection.getValue());
                 stack.getTag().putInt("sortType", this.sortType.getValue());
             }

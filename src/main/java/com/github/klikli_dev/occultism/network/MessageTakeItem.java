@@ -30,7 +30,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.MinecraftServer;
-import net.minecraftforge.fml.network.NetworkEvent;
+import net.minecraftforge.fmllegacy.network.NetworkEvent;
 import net.minecraftforge.items.ItemHandlerHelper;
 
 /**
@@ -106,7 +106,7 @@ public class MessageTakeItem extends MessageBase {
                 }
                 else {
                     //otherwise put it on the players mouse
-                    player.getInventory().setItemStack(stack);
+                    player.getInventory().setPickedItem(stack);
                     OccultismPackets.sendTo(player, new MessageUpdateMouseHeldItem(stack));
                 }
             }
@@ -120,8 +120,8 @@ public class MessageTakeItem extends MessageBase {
     @Override
     public void encode(FriendlyByteBuf buf) {
         ItemStack toWrite = this.stack.copy();
-        toWrite.SetItemCountFunction(1);
-        buf.writeItemStack(toWrite);
+        toWrite.setCount(1);
+        buf.writeItem(toWrite);
         buf.writeInt(this.stack.getCount());
         buf.writeByte(this.mouseButton);
 
@@ -131,8 +131,8 @@ public class MessageTakeItem extends MessageBase {
 
     @Override
     public void decode(FriendlyByteBuf buf) {
-        this.stack = buf.readItemStack();
-        this.stack.SetItemCountFunction(buf.readInt());
+        this.stack = buf.readItem();
+        this.stack.setCount(buf.readInt());
         this.mouseButton = buf.readByte();
         this.isShiftDown = buf.readBoolean();
         this.isCtrlDown = buf.readBoolean();

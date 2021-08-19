@@ -27,7 +27,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.MinecraftServer;
-import net.minecraftforge.fml.network.NetworkEvent;
+import net.minecraftforge.fmllegacy.network.NetworkEvent;
 
 public class MessageSetTagFilterText extends MessageBase {
 
@@ -53,7 +53,7 @@ public class MessageSetTagFilterText extends MessageBase {
     public void onServerReceived(MinecraftServer minecraftServer, ServerPlayer player,
                                  NetworkEvent.Context context) {
 
-        Entity e = player.level.getEntityByID(this.entityId);
+        Entity e = player.level.getEntity(this.entityId);
         if (e instanceof SpiritEntity) {
             SpiritEntity spirit = (SpiritEntity) e;
             spirit.setTagFilter(this.tagFilterText);
@@ -62,13 +62,13 @@ public class MessageSetTagFilterText extends MessageBase {
 
     @Override
     public void encode(FriendlyByteBuf buf) {
-        buf.writeString(this.tagFilterText);
+        buf.writeUtf(this.tagFilterText);
         buf.writeInt(this.entityId);
     }
 
     @Override
     public void decode(FriendlyByteBuf buf) {
-        this.tagFilterText = buf.readString(255);
+        this.tagFilterText = buf.readUtf(255);
         this.entityId = buf.readInt();
     }
     //endregion Overrides

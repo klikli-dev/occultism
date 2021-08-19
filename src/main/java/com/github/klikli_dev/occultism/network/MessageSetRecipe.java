@@ -33,7 +33,7 @@ import net.minecraft.nbt.ListTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.common.util.Constants;
-import net.minecraftforge.fml.network.NetworkEvent;
+import net.minecraftforge.fmllegacy.network.NetworkEvent;
 import net.minecraftforge.items.wrapper.PlayerMainInvWrapper;
 
 import java.util.HashMap;
@@ -105,7 +105,7 @@ public class MessageSetRecipe extends MessageBase {
                 if (extractedStack != null && !extractedStack.isEmpty() && craftMatrix.getItem(slot).isEmpty()) {
                     //if we found the desired stack, extract it for real and place it in the matrix
                     StorageUtil.extractItem(new PlayerMainInvWrapper(player.getInventory()), comparator, 1, false);
-                    craftMatrix.setInventorySlotContents(slot, extractedStack);
+                    craftMatrix.setItem(slot, extractedStack);
                     break;
                 }
 
@@ -113,7 +113,7 @@ public class MessageSetRecipe extends MessageBase {
                 stack = storageController.getItemStack(!stack.isEmpty() ? comparator : null, 1, false);
                 if (!stack.isEmpty() && craftMatrix.getItem(slot).isEmpty()) {
                     //if extraction was successful, place it in the matrix
-                    craftMatrix.setInventorySlotContents(slot, stack);
+                    craftMatrix.setItem(slot, stack);
                     break;
                 }
             }
@@ -127,13 +127,13 @@ public class MessageSetRecipe extends MessageBase {
 
     @Override
     public void encode(FriendlyByteBuf buf) {
-        buf.writeCompoundTag(this.nbt);
+        buf.writeNbt(this.nbt);
         buf.writeInt(this.index);
     }
 
     @Override
     public void decode(FriendlyByteBuf buf) {
-        this.nbt = buf.readCompoundTag();
+        this.nbt = buf.readNbt();
         this.index = buf.readInt();
     }
     //endregion Overrides

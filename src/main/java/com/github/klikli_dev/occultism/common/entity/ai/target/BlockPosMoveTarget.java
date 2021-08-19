@@ -62,7 +62,7 @@ public class BlockPosMoveTarget implements IMoveTarget{
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
         BlockEntity blockEntity = this.level.getBlockEntity(this.target);
-        if(BlockEntity != null){
+        if(blockEntity != null){
             return blockEntity.getCapability(cap, side);
         }
         return LazyOptional.empty();

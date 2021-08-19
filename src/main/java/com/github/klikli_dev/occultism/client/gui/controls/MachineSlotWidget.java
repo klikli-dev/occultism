@@ -51,8 +51,8 @@ public class MachineSlotWidget {
                              int guiLeft, int guiTop) {
         this.x = x;
         this.y = y;
-        this.leftPos = guiLeft;
-        this.topPos = guiTop;
+        this.guiLeft = guiLeft;
+        this.guiTop = guiTop;
         this.parent = parent;
         this.minecraft = Minecraft.getInstance();
         this.machine = machine;
@@ -74,7 +74,7 @@ public class MachineSlotWidget {
 
     //region Methods
     public boolean isMouseOverSlot(double mouseX, double mouseY) {
-        return this.parent.isPointInRegionController(this.x - this.leftPos, this.y - this.topPos, 16, 16, mouseX, mouseY);
+        return this.parent.isPointInRegionController(this.x - this.guiLeft, this.y - this.guiTop, 16, 16, mouseX, mouseY);
     }
 
     public void drawSlot(PoseStack poseStack, int mx, int my) {

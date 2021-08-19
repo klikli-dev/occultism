@@ -37,13 +37,13 @@ public class GuiHelper {
     @OnlyIn(Dist.CLIENT)
     public static void openBookOfCallingManagedMachineGui(Direction insertFacing, Direction extractFacing,
                                                           String customName) {
-        Minecraft.getInstance().displayGuiScreen(
+        Minecraft.getInstance().setScreen(
                 new BookOfCallingManagedMachineGui(insertFacing, extractFacing, customName));
     }
 
     @OnlyIn(Dist.CLIENT)
     public static void openBookOfCallingGui(BookOfCallingItem.IItemModeSubset<?> itemMode, WorkAreaSize workAreaSize) {
-        Minecraft.getInstance().displayGuiScreen(new BookOfCallingGui(itemMode, workAreaSize));
+        Minecraft.getInstance().setScreen(new BookOfCallingGui(itemMode, workAreaSize));
     }
     //endregion Static Methods
 }

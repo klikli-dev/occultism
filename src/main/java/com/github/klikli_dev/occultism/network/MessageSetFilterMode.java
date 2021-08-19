@@ -27,7 +27,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.MinecraftServer;
-import net.minecraftforge.fml.network.NetworkEvent;
+import net.minecraftforge.fmllegacy.network.NetworkEvent;
 
 public class MessageSetFilterMode extends MessageBase {
 
@@ -53,7 +53,7 @@ public class MessageSetFilterMode extends MessageBase {
     public void onServerReceived(MinecraftServer minecraftServer, ServerPlayer player,
                                  NetworkEvent.Context context) {
 
-        Entity e = player.level.getEntityByID(this.entityId);
+        Entity e = player.level.getEntity(this.entityId);
         if (e instanceof SpiritEntity) {
             SpiritEntity spirit = (SpiritEntity) e;
             spirit.setFilterBlacklist(this.isBlacklistFilter);

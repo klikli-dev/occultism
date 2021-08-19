@@ -84,8 +84,8 @@ public class MinerSpiritItem extends Item {
     }
 
     @Override
-    public void onCreated(ItemStack stack, Level worldIn, Player playerIn) {
-        super.onCreated(stack, worldIn, playerIn);
+    public void onCraftedBy(ItemStack stack, Level worldIn, Player playerIn) {
+        super.onCraftedBy(stack, worldIn, playerIn);
         if(!this.hasInitializedMaxDamage){
             this.hasInitializedMaxDamage = true;
             try {

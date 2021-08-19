@@ -34,7 +34,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.network.chat.TranslatableComponent;
-import net.minecraftforge.fml.network.NetworkEvent;
+import net.minecraftforge.fmllegacy.network.NetworkEvent;
 
 /**
  * This message requests a work order to be executed on a storage controller
@@ -75,10 +75,8 @@ public class MessageRequestOrder extends MessageBase {
             return;
 
         BlockEntity blockEntity = level.getBlockEntity(this.storageControllerPosition.getPos());
-        if (!(BlockEntity instanceof IStorageController))
+        if (!(blockEntity instanceof IStorageController storageController))
             return; //early exit because we did not find the storage controller.
-
-        IStorageController storageController = (IStorageController) BlockEntity;
 
         //first dump the order slot back in.
         StorageUtil.clearOpenOrderSlot(player, true);
@@ -95,14 +93,14 @@ public class MessageRequestOrder extends MessageBase {
     public void encode(FriendlyByteBuf buf) {
         this.storageControllerPosition.encode(buf);
         this.targetMachinePosition.encode(buf);
-        buf.writeItemStack(this.stack);
+        buf.writeItem(this.stack);
     }
 
     @Override
     public void decode(FriendlyByteBuf buf) {
         this.storageControllerPosition = GlobalBlockPos.from(buf);
         this.targetMachinePosition = GlobalBlockPos.from(buf);
-        this.stack = buf.readItemStack();
+        this.stack = buf.readItem();
     }
     //endregion Overrides
 }

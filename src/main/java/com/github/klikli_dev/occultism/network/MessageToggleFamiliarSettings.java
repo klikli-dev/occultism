@@ -28,7 +28,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.network.chat.TranslatableComponent;
-import net.minecraftforge.fml.network.NetworkEvent;
+import net.minecraftforge.fmllegacy.network.NetworkEvent;
 
 public class MessageToggleFamiliarSettings extends MessageBase {
 
@@ -82,8 +82,8 @@ public class MessageToggleFamiliarSettings extends MessageBase {
             }
             if (this.toggleDeer) {
                 cap.setDeerEnabled(!cap.isDeerEnabled());
-                player.sendStatusMessage(
-                        new TranslationTextComponent(
+                player.displayClientMessage(
+                        new TranslatableComponent(
                                 "message." + Occultism.MODID + ".familiar.deer." +
                                         (cap.isDeerEnabled() ? "enabled" : "disabled")), true);
             }

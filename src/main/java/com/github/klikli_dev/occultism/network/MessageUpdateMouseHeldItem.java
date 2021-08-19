@@ -28,7 +28,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fml.network.NetworkEvent;
+import net.minecraftforge.fmllegacy.network.NetworkEvent;
 
 /**
  * Updates the item currently held by the mouse
@@ -55,17 +55,18 @@ public class MessageUpdateMouseHeldItem extends MessageBase {
     @Override
     @OnlyIn(Dist.CLIENT)
     public void onClientReceived(Minecraft minecraft, Player player, NetworkEvent.Context context) {
-        player.getInventory().setItemStack(this.stack);
+        //TODO: Check if MouseHeldItem works
+        player.getInventory().setPickedItem(this.stack);
     }
 
     @Override
     public void encode(FriendlyByteBuf buf) {
-        buf.writeItemStack(this.stack);
+        buf.writeItem(this.stack);
     }
 
     @Override
     public void decode(FriendlyByteBuf buf) {
-        this.stack = buf.readItemStack();
+        this.stack = buf.readItem();
     }
     //endregion Overrides
 }
