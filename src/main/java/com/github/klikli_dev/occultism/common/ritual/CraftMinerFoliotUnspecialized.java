@@ -59,7 +59,7 @@ public class CraftMinerFoliotUnspecialized extends Ritual {
         ItemStack result = new ItemStack(OccultismItems.MINER_FOLIOT_UNSPECIALIZED.get());
 
         //sets up nbt configuration for miner
-        result.getItem().onCreated(result, level, castingPlayer);
+        result.getItem().onCraftedBy(result, level, castingPlayer);
 
         //copy over spirit name
         ItemNBTUtil.setBoundSpiritName(result, ItemNBTUtil.getBoundSpiritName(copy));

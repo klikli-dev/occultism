@@ -25,11 +25,11 @@ package com.github.klikli_dev.occultism.handlers;
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.block.otherworld.IOtherworldBlock;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.client.renderer.color.BlockColors;
+import net.minecraft.client.color.block.BlockColors;
+import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.world.item.BlockItem;
-import net.minecraft.level.FoliageColors;
-import net.minecraft.level.biome.BiomeColors;
+import net.minecraft.world.level.FoliageColor;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -58,10 +58,10 @@ public class ColorEventHandler {
         //but while covered the oak leaves need their vanilla tint
         event.getBlockColors()
                 .register((state, light, pos, tintIndex) ->
-                                  state.getValue(IOtherworldBlock.UNCOVERED) ?
-                                          0xFFFFFF : (light != null && pos != null ?
-                                                              BiomeColors.getFoliageColor(light, pos) :
-                                                              FoliageColors.getDefault()),
+                                state.getValue(IOtherworldBlock.UNCOVERED) ?
+                                        0xFFFFFF : (light != null && pos != null ?
+                                        BiomeColors.getAverageFoliageColor(light, pos) :
+                                        FoliageColor.getDefaultColor()),
                         OccultismBlocks.OTHERWORLD_LEAVES_NATURAL.get());
 
         Occultism.LOGGER.info("Block color registration complete.");

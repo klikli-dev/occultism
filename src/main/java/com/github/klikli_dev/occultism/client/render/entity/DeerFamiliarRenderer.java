@@ -25,6 +25,7 @@ package com.github.klikli_dev.occultism.client.render.entity;
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.client.model.entity.DeerFamiliarModel;
 import com.github.klikli_dev.occultism.common.entity.DeerFamiliarEntity;
+import com.github.klikli_dev.occultism.registry.OccultismModelLayers;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 
@@ -48,7 +49,7 @@ public class DeerFamiliarRenderer extends MobRenderer<DeerFamiliarEntity, DeerFa
             "textures/entity/deer_familiar.png");
 
     public DeerFamiliarRenderer(EntityRendererProvider.Context context) {
-        super(context, new DeerFamiliarModel(), 0.3f);
+        super(context, new DeerFamiliarModel(context.bakeLayer(OccultismModelLayers.FAMILIAR_DEER)), 0.3f);
         this.layerRenderers.add(new RedNoseLayer(this));
     }
 

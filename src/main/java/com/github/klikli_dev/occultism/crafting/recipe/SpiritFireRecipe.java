@@ -54,7 +54,7 @@ public class SpiritFireRecipe extends ItemStackFakeInventoryRecipe {
     @Override
     public ItemStack assemble(ItemStackFakeInventory inv) {
         ItemStack result = this.getResultItem().copy();
-        result.SetItemCountFunction(inv.input.getCount());
+        result.setCount(inv.input.getCount());
         return result;
     }
 

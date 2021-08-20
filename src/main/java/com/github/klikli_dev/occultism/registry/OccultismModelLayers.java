@@ -20,43 +20,17 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.github.klikli_dev.occultism.common.entity.ai.target;
+package com.github.klikli_dev.occultism.registry;
 
-import net.minecraft.world.entity.Entity;
-import net.minecraft.core.Direction;
-import net.minecraft.core.BlockPos;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.util.LazyOptional;
+import net.minecraft.client.model.geom.ModelLayerLocation;
+import net.minecraft.resources.ResourceLocation;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-public class EntityMoveTarget implements IMoveTarget{
-
-    public Entity target;
-
-    public EntityMoveTarget(Entity target){
-        this.target = target;
-    }
-
-    @Override
-    public BlockPos getBlockPos() {
-        return this.target.blockPosition();
-    }
-
-    @Override
-    public boolean isValid() {
-        return this.target != null && this.target.isAlive();
-    }
-
-    @Override
-    public boolean isChest() {
-        return false;
-    }
-
-    @Nonnull
-    @Override
-    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-        return this.target.getCapability(cap, side);
-    }
+public class OccultismModelLayers {
+    public static ModelLayerLocation FOLIOT = new ModelLayerLocation(new ResourceLocation("occultism:folit"), "main");
+    public static ModelLayerLocation DJINNI = new ModelLayerLocation(new ResourceLocation("occultism:djinni"), "main");
+    public static ModelLayerLocation AFRIT = new ModelLayerLocation(new ResourceLocation("occultism:afrit"), "main");
+    public static ModelLayerLocation MARID = new ModelLayerLocation(new ResourceLocation("occultism:marid"), "main");
+    public static ModelLayerLocation FAMILIAR_BAT = new ModelLayerLocation(new ResourceLocation("occultism:familiar_bat"), "main");
+    public static ModelLayerLocation FAMILIAR_GREEDY = new ModelLayerLocation(new ResourceLocation("occultism:familiar_greedy"), "main");
+    public static ModelLayerLocation FAMILIAR_DEER = new ModelLayerLocation(new ResourceLocation("occultism:familiar_deer"), "main");
 }

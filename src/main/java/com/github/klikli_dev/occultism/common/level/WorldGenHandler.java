@@ -29,33 +29,24 @@ import com.github.klikli_dev.occultism.registry.OccultismBiomeFeatures;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import net.minecraft.core.Registry;
 import net.minecraft.data.BuiltinRegistries;
-import net.minecraft.level.gen.GenerationStage;
-import net.minecraft.level.gen.blockstateprovider.SimpleBlockStateProvider;
-import net.minecraft.level.gen.feature.*;
-import net.minecraft.level.gen.feature.template.TagMatchTest;
-import net.minecraft.level.gen.foliageplacer.BlobFoliagePlacer;
-import net.minecraft.level.gen.placement.NoPlacementConfig;
-import net.minecraft.level.gen.placement.Placement;
-import net.minecraft.level.gen.placement.RangeDecoratorConfiguration;
-import net.minecraft.level.gen.trunkplacer.StraightTrunkPlacer;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.BuiltinRegistries;
+import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.world.level.levelgen.GenerationStep;
+import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneDecoratorConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.RangeDecoratorConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
+import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize;
+import net.minecraft.world.level.levelgen.feature.foliageplacers.BlobFoliagePlacer;
+import net.minecraft.world.level.levelgen.feature.stateproviders.SimpleStateProvider;
+import net.minecraft.world.level.levelgen.feature.trunkplacers.StraightTrunkPlacer;
 import net.minecraft.world.level.levelgen.placement.FeatureDecorator;
-import net.minecraft.world.level.levelgen.placement.RangeDecorator;
 import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
 import net.minecraftforge.common.BiomeDictionary;
-import net.minecraftforge.event.level.BiomeLoadingEvent;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import org.w3c.dom.ranges.Range;
 
 import java.util.stream.Collectors;
 
@@ -95,45 +86,37 @@ public class WorldGenHandler {
         OccultismCommonConfig.WorldGenSettings.UndergroundGroveGenSettings groveGen =
                 Occultism.COMMON_CONFIG.worldGen.undergroundGroveGen;
 
-        //   public static final ConfiguredFeature<?, ?> ORE_IRON
-        //   = register("ore_iron", Feature.ORE.configured(
-        //      new OreConfiguration(ORE_IRON_TARGET_LIST, 9))
-        //          .rangeUniform(VerticalAnchor.bottom(), VerticalAnchor.absolute(63))
-        //          .squared().count(20));
+        VerticalAnchor copperMaxAnchor = oreGen.copperOre.maximum.get() > 0 ?
+                VerticalAnchor.absolute(oreGen.copperOre.maximum.get()) :
+                VerticalAnchor.belowTop(-oreGen.copperOre.maximum.get());
         COPPER_ORE = Feature.ORE.configured(
                 new OreConfiguration(
                         new TagMatchTest(oreGen.copperOre.getFillerBlockTag()),
                         OccultismBlocks.COPPER_ORE.get().defaultBlockState(), oreGen.copperOre.size.get()))
-                             .decorated(FeatureDecorator.RANGE.configured(
-                                     new RangeDecoratorConfiguration(
-                                             oreGen.copperOre.bottomOffset.get(),
-                                             oreGen.copperOre.topOffset.get(),
-                                             oreGen.copperOre.maximum.get())))
-                             .square().count(oreGen.copperOre.count.get());
+                .rangeUniform(VerticalAnchor.aboveBottom(oreGen.copperOre.bottomOffset.get()), copperMaxAnchor)
+                .squared().count(oreGen.copperOre.count.get());
         Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, modLoc("copper_ore"), COPPER_ORE);
 
+        VerticalAnchor silverMaxAnchor = oreGen.copperOre.maximum.get() > 0 ?
+                VerticalAnchor.absolute(oreGen.copperOre.maximum.get()) :
+                VerticalAnchor.belowTop(-oreGen.copperOre.maximum.get());
         SILVER_ORE = Feature.ORE.configured(
                 new OreConfiguration(
                         new TagMatchTest(oreGen.silverOre.getFillerBlockTag()),
                         OccultismBlocks.SILVER_ORE.get().defaultBlockState(), oreGen.silverOre.size.get()))
-                             .decorated(FeatureDecorator.RANGE.configured(
-                                     new RangeDecoratorConfiguration(
-                                             oreGen.silverOre.bottomOffset.get(),
-                                             oreGen.silverOre.topOffset.get(),
-                                             oreGen.silverOre.maximum.get())))
-                             .square().count(oreGen.silverOre.count.get());
+                .rangeUniform(VerticalAnchor.aboveBottom(oreGen.silverOre.bottomOffset.get()), silverMaxAnchor)
+                .squared().count(oreGen.silverOre.count.get());
         Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, modLoc("silver_ore"), SILVER_ORE);
 
+        VerticalAnchor iesniumMaxAnchor = oreGen.copperOre.maximum.get() > 0 ?
+                VerticalAnchor.absolute(oreGen.copperOre.maximum.get()) :
+                VerticalAnchor.belowTop(-oreGen.copperOre.maximum.get());
         IESNIUM_ORE = Feature.ORE.configured(
                 new OreConfiguration(
                         new TagMatchTest(oreGen.iesniumOre.getFillerBlockTag()),
-                        OccultismBlocks.IESNIUM_ORE_NATURAL.get().defaultBlockState(), oreGen.iesniumOre.size.get()))
-                              .decorated(FeatureDecorator.RANGE.configured(
-                                      new RangeDecoratorConfiguration(
-                                              oreGen.iesniumOre.bottomOffset.get(),
-                                              oreGen.iesniumOre.topOffset.get(),
-                                              oreGen.iesniumOre.maximum.get())))
-                              .square().count(oreGen.iesniumOre.count.get());
+                        OccultismBlocks.IESNIUM_ORE.get().defaultBlockState(), oreGen.iesniumOre.size.get()))
+                .rangeUniform(VerticalAnchor.aboveBottom(oreGen.iesniumOre.bottomOffset.get()), iesniumMaxAnchor)
+                .squared().count(oreGen.iesniumOre.count.get());
         Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, modLoc("iesnium_ore"), IESNIUM_ORE);
 
         UNDERGROUND_GROVE =
@@ -151,22 +134,24 @@ public class WorldGenHandler {
         Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, modLoc("underground_grove"), UNDERGROUND_GROVE);
 
         OTHERWORLD_TREE_NATURAL = Feature.TREE.configured((
-                new BaseTreeFeatureConfig.Builder(
-                        new SimpleBlockStateProvider(OccultismBlocks.OTHERWORLD_LOG_NATURAL.get().defaultBlockState()),
-                        new SimpleBlockStateProvider(OccultismBlocks.OTHERWORLD_LEAVES_NATURAL.get().defaultBlockState()),
-                        new BlobFoliagePlacer(FeatureSpread.create(2), FeatureSpread.create(0), 3),
+                new TreeConfiguration.TreeConfigurationBuilder(
+                        new SimpleStateProvider(OccultismBlocks.OTHERWORLD_LOG_NATURAL.get().defaultBlockState()),
                         new StraightTrunkPlacer(4, 2, 0),
-                        new TwoLayerFeature(1, 0, 1))).setIgnoreVines().build());
+                        new SimpleStateProvider(OccultismBlocks.OTHERWORLD_LEAVES_NATURAL.get().defaultBlockState()),
+                        new SimpleStateProvider(OccultismBlocks.OTHERWORLD_SAPLING_NATURAL.get().defaultBlockState()),
+                        new BlobFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0), 3),
+                        new TwoLayersFeatureSize(1, 0, 1))).ignoreVines().build());
         Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, modLoc("otherworld_tree_natural"),
                 OTHERWORLD_TREE_NATURAL);
 
         OTHERWORLD_TREE = Feature.TREE.configured((
-                new BaseTreeFeatureConfig.Builder(
-                        new SimpleBlockStateProvider(OccultismBlocks.OTHERWORLD_LOG.get().defaultBlockState()),
-                        new SimpleBlockStateProvider(OccultismBlocks.OTHERWORLD_LEAVES.get().defaultBlockState()),
-                        new BlobFoliagePlacer(FeatureSpread.create(2), FeatureSpread.create(0), 3),
+                new TreeConfiguration.TreeConfigurationBuilder(
+                        new SimpleStateProvider(OccultismBlocks.OTHERWORLD_LOG.get().defaultBlockState()),
                         new StraightTrunkPlacer(4, 2, 0),
-                        new TwoLayerFeature(1, 0, 1))).setIgnoreVines().build());
+                        new SimpleStateProvider(OccultismBlocks.OTHERWORLD_LEAVES.get().defaultBlockState()),
+                        new SimpleStateProvider(OccultismBlocks.OTHERWORLD_SAPLING.get().defaultBlockState()),
+                        new BlobFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0), 3),
+                        new TwoLayersFeatureSize(1, 0, 1))).ignoreVines().build());
         Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, modLoc("otherworld"), OTHERWORLD_TREE);
     }
     //endregion Static Methods

@@ -71,7 +71,7 @@ public class FamiliarBatRitual extends SummonSpiritRitual {
         familiar.absMoveTo(goldenBowlPosition.getX(), goldenBowlPosition.getY(), goldenBowlPosition.getZ(),
                 level.random.nextInt(360), 0);
         familiar.setCustomName(new TextComponent(entityName));
-        familiar.setOwnerId(castingPlayer.getUniqueID());
+        familiar.setOwnerId(castingPlayer.getUUID());
 
         //notify players nearby and spawn
         this.spawnEntity(familiar, level);

@@ -26,6 +26,7 @@ import com.github.klikli_dev.occultism.common.entity.BatFamiliarEntity;
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
+import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
@@ -56,8 +57,8 @@ public class BatFamiliarModel extends EntityModel<BatFamiliarEntity> {
     public ModelPart rightChain2;
     public ModelPart rightChain3;
 
-    public BatFamiliarModel() {
-        super(RenderType::getEntityTranslucent);
+    public BatFamiliarModel(ModelPart part) {
+        super(RenderType::entityTranslucent);
         this.textureWidth = 64;
         this.textureHeight = 32;
         this.leftChain1 = new ModelPart(this, 26, 2);

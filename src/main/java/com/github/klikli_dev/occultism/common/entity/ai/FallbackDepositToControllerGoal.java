@@ -25,11 +25,11 @@ package com.github.klikli_dev.occultism.common.entity.ai;
 import com.github.klikli_dev.occultism.api.common.tile.IStorageControllerProxy;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.github.klikli_dev.occultism.common.job.ManageMachineJob;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.Level;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
 
 import java.util.ArrayList;
 import java.util.EnumSet;
@@ -61,7 +61,7 @@ public class FallbackDepositToControllerGoal extends PausableGoal {
     @Override
     public boolean canUse() {
         //do not use if there is a target to attack
-        if (this.entity.getAttackTarget() != null) {
+        if (this.entity.getTarget() != null) {
             return false;
         }
 
@@ -70,7 +70,7 @@ public class FallbackDepositToControllerGoal extends PausableGoal {
 
         //if we are holding something but have no deposit location we can execute this
         return !this.isPaused() && !this.entity.getItemInHand(InteractionHand.MAIN_HAND).isEmpty() &&
-               !this.entity.getDepositPosition().isPresent();
+                !this.entity.getDepositPosition().isPresent();
     }
 
     @Override
@@ -82,10 +82,9 @@ public class FallbackDepositToControllerGoal extends PausableGoal {
     public void tick() {
         BlockEntity storageProxy = this.findClosestStorageProxy();
         if (storageProxy != null) {
-            this.entity.setDepositPosition(storageProxy.getPos());
+            this.entity.setDepositPosition(storageProxy.getBlockPos());
             this.entity.setDepositFacing(Direction.UP);
-        }
-        else {
+        } else {
             //keep track of retries to wait increasing amounts of time up to 5 min
             if (this.retries <= 60)
                 this.retries++;
@@ -106,17 +105,16 @@ public class FallbackDepositToControllerGoal extends PausableGoal {
 
         //get work area, but only half height, we don't need full.
         int workAreaSize = this.entity.getWorkAreaSize().getValue();
-        List<BlockPos> searchBlocks = BlockPos.getAllInBox(
-                machinePosition.add(-workAreaSize, -workAreaSize / 2, -workAreaSize),
-                machinePosition.add(workAreaSize, workAreaSize / 2, workAreaSize)).map(BlockPos::toImmutable)
-                                              .collect(Collectors.toList());
+        List<BlockPos> searchBlocks = BlockPos.betweenClosedStream(
+                machinePosition.offset(-workAreaSize, -workAreaSize / 2, -workAreaSize),
+                machinePosition.offset(workAreaSize, workAreaSize / 2, workAreaSize)).map(BlockPos::immutable)
+                .collect(Collectors.toList());
 
         for (BlockPos pos : searchBlocks) {
             BlockEntity blockEntity = level.getBlockEntity(pos);
-            if (BlockEntity instanceof IStorageControllerProxy) {
-                IStorageControllerProxy proxy = (IStorageControllerProxy) BlockEntity;
+            if (blockEntity instanceof IStorageControllerProxy proxy) {
                 if (proxy.getLinkedStorageControllerPosition() != null &&
-                    proxy.getLinkedStorageControllerPosition().equals(this.job.getStorageControllerPosition()))
+                        proxy.getLinkedStorageControllerPosition().equals(this.job.getStorageControllerPosition()))
                     allBlocks.add(pos);
             }
         }

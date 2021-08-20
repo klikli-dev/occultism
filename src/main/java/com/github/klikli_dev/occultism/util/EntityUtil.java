@@ -22,14 +22,14 @@
 
 package com.github.klikli_dev.occultism.util;
 
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.level.Level;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.fmllegacy.server.ServerLifecycleHooks;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -48,8 +48,8 @@ public class EntityUtil {
      * @return Optional containing the player.
      */
     public static Optional<ServerPlayer> getPlayerByUuiDGlobal(UUID uuid) {
-        for (ServerLevel level : ServerLifecycleHooks.getCurrentServer().getWorlds()) {
-            ServerPlayer player = (ServerPlayer) level.getPlayerByUuid(uuid);
+        for (ServerLevel level : ServerLifecycleHooks.getCurrentServer().getAllLevels()) {
+            ServerPlayer player = (ServerPlayer) level.getPlayerByUUID(uuid);
             if (player != null)
                 return Optional.of(player);
         }
@@ -75,9 +75,9 @@ public class EntityUtil {
      * @return Optional containing the entity.
      */
     public static Optional<? extends Entity> getEntityByUuiDGlobal(MinecraftServer server, UUID uuid) {
-        if (uuid != null && server!= null) {
-            for (ServerLevel level : server.getWorlds()) {
-                Entity entity = level.getEntityByUuid(uuid);
+        if (uuid != null && server != null) {
+            for (ServerLevel level : server.getAllLevels()) {
+                Entity entity = level.getEntity(uuid);
                 if (entity != null)
                     return Optional.of(entity);
             }

@@ -40,7 +40,7 @@ public class AfritModel extends HumanoidModel<AfritEntity> {
     public static final String WINGED_WINGS = "wingedWings";
     public static final String WINGED_WINGS_LEFT = "wingedWingsLeft";
     public static final String WINGED_WINGS_RIGHT = "wingedWingsRight";
-    public static ModelLayerLocation AFRIT_LAYER = new ModelLayerLocation(new ResourceLocation("occultism:afrit"), "afrit");
+
     //region Fields
     public ModelPart nose;
     public ModelPart earLeft;
@@ -68,6 +68,8 @@ public class AfritModel extends HumanoidModel<AfritEntity> {
         //TODO: Update model construction to 1.17 way
         //      search for "addbox" in 117 channel
         //      or just open https://discordapp.com/channels/313125603924639766/867851603468615740/868187284661469184
+        //      or browse https://gist.github.com/gigaherz/7115024820f55717bc40a6e2247c6aca
+        //      also look at e.g. parrot: ParrotModel, ParrotOnShoulderLayer, Modellayers -> yes we need modellayers for the entity themselves too!
 
         this.earLeft = new ModelPart(this, 0, 0);
         this.earLeft.setPos(4.0F, -11.3F, 3.5F);

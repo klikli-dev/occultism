@@ -29,7 +29,7 @@ import com.github.klikli_dev.occultism.network.*;
 import com.github.klikli_dev.occultism.util.CuriosUtil;
 import com.github.klikli_dev.occultism.util.MovementUtil;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.audio.SimpleSound;
+import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.InputEvent;
@@ -48,7 +48,7 @@ public class ClientPlayerEventHandler {
         checkBackpackKey(event);
         checkStorageRemoteKey(event);
         checkFamiliarSettingsKeys(event);
-        if (event.getAction() == GLFW_PRESS && minecraft.gameSettings.keyBindJump.isKeyDown()) {
+        if (event.getAction() == GLFW_PRESS && minecraft.options.keyJump.isDown()) {
             if (minecraft.player != null && MovementUtil.doubleJump(minecraft.player)) {
                 OccultismPackets.sendToServer(new MessageDoubleJump());
             }
@@ -66,16 +66,16 @@ public class ClientPlayerEventHandler {
     public static void checkBackpackKey(InputEvent event) {
         Minecraft minecraft = Minecraft.getInstance();
 
-        if (minecraft.screen instanceof SatchelScreen && ClientSetupEventHandler.KEY_BACKPACK.isPressed()) {
-            minecraft.player.closeScreen();
+        if (minecraft.screen instanceof SatchelScreen && ClientSetupEventHandler.KEY_BACKPACK.consumeClick()) {
+            minecraft.player.closeContainer();
         }
         //open satchel
         else if (minecraft.player != null & minecraft.screen == null &&
-                ClientSetupEventHandler.KEY_BACKPACK.isPressed()) {
+                ClientSetupEventHandler.KEY_BACKPACK.consumeClick()) {
             if (!CuriosUtil.getBackpack(minecraft.player).isEmpty() ||
                     CuriosUtil.getFirstBackpackSlot(minecraft.player) > 0) {
                 OccultismPackets.sendToServer(new MessageOpenSatchel());
-                minecraft.getSoundHandler().play(SimpleSound.master(SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0.75F, 1.0F));
+                minecraft.getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.ARMOR_EQUIP_LEATHER, 0.75F, 1.0F));
             }
         }
     }
@@ -83,17 +83,17 @@ public class ClientPlayerEventHandler {
     public static void checkStorageRemoteKey(InputEvent event) {
         Minecraft minecraft = Minecraft.getInstance();
 
-        if (minecraft.screen instanceof StorageRemoteGui && ClientSetupEventHandler.KEY_STORAGE_REMOTE.isPressed()) {
-            minecraft.player.closeScreen();
+        if (minecraft.screen instanceof StorageRemoteGui && ClientSetupEventHandler.KEY_STORAGE_REMOTE.consumeClick()) {
+            minecraft.player.closeContainer();
         }
         //open satchel
         else if (minecraft.player != null & minecraft.screen == null &&
-                ClientSetupEventHandler.KEY_STORAGE_REMOTE.isPressed()) {
+                ClientSetupEventHandler.KEY_STORAGE_REMOTE.consumeClick()) {
 
             if (!CuriosUtil.getStorageRemote(minecraft.player).isEmpty() ||
                     CuriosUtil.getFirstStorageRemoteSlot(minecraft.player) > 0) {
                 OccultismPackets.sendToServer(new MessageOpenStorageRemote());
-                minecraft.getSoundHandler().play(SimpleSound.master(SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 0.75F, 1.0F));
+                minecraft.getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.ARMOR_EQUIP_DIAMOND, 0.75F, 1.0F));
             }
         }
     }
@@ -101,11 +101,11 @@ public class ClientPlayerEventHandler {
     public static void checkFamiliarSettingsKeys(InputEvent event) {
         Minecraft minecraft = Minecraft.getInstance();
         if (minecraft.player != null & minecraft.screen == null) {
-            boolean familiarGreedy = ClientSetupEventHandler.KEY_FAMILIAR_GREEDY.isPressed();
-            boolean familiarOtherworldBird = ClientSetupEventHandler.KEY_FAMILIAR_OTHERWORLD_BIRD.isPressed();
-            boolean familiarBat = ClientSetupEventHandler.KEY_FAMILIAR_BAT.isPressed();
-            boolean familiarDeer = ClientSetupEventHandler.KEY_FAMILIAR_DEER.isPressed();
-            if (familiarGreedy|| familiarOtherworldBird || familiarBat || familiarDeer) {
+            boolean familiarGreedy = ClientSetupEventHandler.KEY_FAMILIAR_GREEDY.consumeClick();
+            boolean familiarOtherworldBird = ClientSetupEventHandler.KEY_FAMILIAR_OTHERWORLD_BIRD.consumeClick();
+            boolean familiarBat = ClientSetupEventHandler.KEY_FAMILIAR_BAT.consumeClick();
+            boolean familiarDeer = ClientSetupEventHandler.KEY_FAMILIAR_DEER.consumeClick();
+            if (familiarGreedy || familiarOtherworldBird || familiarBat || familiarDeer) {
                 OccultismPackets.sendToServer(new MessageToggleFamiliarSettings(familiarOtherworldBird, familiarGreedy, familiarBat, familiarDeer));
             }
         }

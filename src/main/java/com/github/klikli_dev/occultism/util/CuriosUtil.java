@@ -25,8 +25,8 @@ package com.github.klikli_dev.occultism.util;
 import com.github.klikli_dev.occultism.common.item.armor.OtherworldGogglesItem;
 import com.github.klikli_dev.occultism.common.item.storage.SatchelItem;
 import com.github.klikli_dev.occultism.common.item.storage.StorageRemoteItem;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.inventory.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.SlotTypePreset;
@@ -35,9 +35,9 @@ import top.theillusivec4.curios.api.type.inventory.IDynamicStackHandler;
 import java.util.Optional;
 
 public class CuriosUtil {
-    public static boolean hasGoggles(Player player){
+    public static boolean hasGoggles(Player player) {
         ItemStack helmet = player.getItemBySlot(EquipmentSlot.HEAD);
-        if(helmet.getItem() instanceof OtherworldGogglesItem)
+        if (helmet.getItem() instanceof OtherworldGogglesItem)
             return true;
 
         Optional<Boolean> hasGoggles = CuriosApi.getCuriosHelper().getCuriosHandler(player).map(curiosHandler -> {
@@ -46,8 +46,8 @@ public class CuriosUtil {
                     SlotTypePreset.HEAD.getIdentifier()).map(slotHandler -> {
                 IDynamicStackHandler stackHandler = slotHandler.getStacks();
                 for (int i = 0; i < stackHandler.getSlots(); i++) {
-                    ItemStack stack = stackHandler.getItem(i);
-                    if(stack.getItem() instanceof OtherworldGogglesItem){
+                    ItemStack stack = stackHandler.getStackInSlot(i);
+                    if (stack.getItem() instanceof OtherworldGogglesItem) {
                         return true;
 
                     }
@@ -60,14 +60,13 @@ public class CuriosUtil {
         return hasGoggles.orElse(false);
     }
 
-    public static ItemStack getBackpack(Player player)
-    {
+    public static ItemStack getBackpack(Player player) {
         Optional<ItemStack> hasBackpack = CuriosApi.getCuriosHelper().getCuriosHandler(player).map(curiosHandler -> {
             Optional<ItemStack> hasBackpackStack = curiosHandler.getStacksHandler(SlotTypePreset.BELT.getIdentifier()).map(slotHandler -> {
                 IDynamicStackHandler stackHandler = slotHandler.getStacks();
                 for (int i = 0; i < stackHandler.getSlots(); i++) {
-                    ItemStack stack = stackHandler.getItem(i);
-                    if(stack.getItem() instanceof SatchelItem){
+                    ItemStack stack = stackHandler.getStackInSlot(i);
+                    if (stack.getItem() instanceof SatchelItem) {
                         return stack;
                     }
                 }
@@ -78,14 +77,13 @@ public class CuriosUtil {
         return hasBackpack.orElse(ItemStack.EMPTY);
     }
 
-    public static ItemStack getStorageRemote(Player player)
-    {
+    public static ItemStack getStorageRemote(Player player) {
         Optional<ItemStack> hasStorageRemote = CuriosApi.getCuriosHelper().getCuriosHandler(player).map(curiosHandler -> {
             Optional<ItemStack> hasStorageRemoteStack = curiosHandler.getStacksHandler(SlotTypePreset.HANDS.getIdentifier()).map(slotHandler -> {
                 IDynamicStackHandler stackHandler = slotHandler.getStacks();
                 for (int i = 0; i < stackHandler.getSlots(); i++) {
-                    ItemStack stack = stackHandler.getItem(i);
-                    if(stack.getItem() instanceof StorageRemoteItem){
+                    ItemStack stack = stackHandler.getStackInSlot(i);
+                    if (stack.getItem() instanceof StorageRemoteItem) {
                         return stack;
                     }
                 }
@@ -96,19 +94,19 @@ public class CuriosUtil {
         return hasStorageRemote.orElse(ItemStack.EMPTY);
     }
 
-    public static int getFirstBackpackSlot(Player player){
-        for(int slot = 0; slot < player.getInventory().getContainerSize(); slot++){
+    public static int getFirstBackpackSlot(Player player) {
+        for (int slot = 0; slot < player.getInventory().getContainerSize(); slot++) {
             ItemStack stack = player.getInventory().getItem(slot);
-            if(stack.getItem() instanceof SatchelItem)
+            if (stack.getItem() instanceof SatchelItem)
                 return slot;
         }
         return -1;
     }
 
-    public static int getFirstStorageRemoteSlot(Player player){
-        for(int slot = 0; slot < player.getInventory().getContainerSize(); slot++){
+    public static int getFirstStorageRemoteSlot(Player player) {
+        for (int slot = 0; slot < player.getInventory().getContainerSize(); slot++) {
             ItemStack stack = player.getInventory().getItem(slot);
-            if(stack.getItem() instanceof StorageRemoteItem)
+            if (stack.getItem() instanceof StorageRemoteItem)
                 return slot;
         }
         return -1;

@@ -27,6 +27,8 @@ import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 
+import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.entity.ai.attributes.Attributes;
@@ -61,7 +63,7 @@ public class DeerFamiliarModel extends EntityModel<DeerFamiliarEntity> {
     public ModelRenderer leftBackLeg2;
     public ModelRenderer rightBackLeg2;
 
-    public DeerFamiliarModel() {
+    public DeerFamiliarModel(ModelPart part) {
         this.textureWidth = 64;
         this.textureHeight = 16;
         this.neck = new ModelRenderer(this, 30, 0);

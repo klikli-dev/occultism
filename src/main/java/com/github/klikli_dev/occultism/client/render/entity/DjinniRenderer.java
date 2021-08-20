@@ -25,8 +25,11 @@ package com.github.klikli_dev.occultism.client.render.entity;
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.client.model.entity.DjinniModel;
 import com.github.klikli_dev.occultism.common.entity.spirit.DjinniEntity;
+import com.github.klikli_dev.occultism.registry.OccultismModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 
 public class DjinniRenderer extends BipedSpiritRenderer<DjinniEntity, DjinniModel> {
@@ -37,21 +40,21 @@ public class DjinniRenderer extends BipedSpiritRenderer<DjinniEntity, DjinniMode
 
 
     //region Initialization
-    public DjinniRenderer(EntityRenderDispatcher renderManager) {
-        super(renderManager, new DjinniModel(), 0.25f);
+    public DjinniRenderer(EntityRendererProvider.Context context) {
+        super(context, new DjinniModel(context.bakeLayer(OccultismModelLayers.DJINNI)), 0.25f);
     }
     //endregion Initialization
 
     //region Overrides
 
     @Override
-    public ResourceLocation getEntityTexture(DjinniEntity entity) {
-        return TEXTURES[entity.getDataManager().get(entity.getDataParameterSkin())];
+    public ResourceLocation getTextureLocation(DjinniEntity entity) {
+        return TEXTURES[entity.getEntityData().get(entity.getDataParameterSkin())];
     }
 
     @Override
-    protected void preRenderCallback(DjinniEntity entity, PoseStack matrixStackIn, float partialTickTime) {
-        super.preRenderCallback(entity, matrixStackIn, partialTickTime);
+    protected void scale(DjinniEntity entity, PoseStack matrixStackIn, float partialTickTime) {
+        super.scale(entity, matrixStackIn, partialTickTime);
         matrixStackIn.scale(0.6f, 0.6f, 0.6f);
     }
     //endregion Overrides

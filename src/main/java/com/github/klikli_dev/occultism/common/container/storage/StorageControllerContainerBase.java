@@ -355,7 +355,7 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
         //now actually give to the players
         ItemStack finalResult = new ItemStack(result.getItem(), 0);
         for (ItemStack intermediateResult : resultList) {
-            finalResult.SetItemCountFunction(finalResult.getCount() + intermediateResult.getCount());
+            finalResult.setCount(finalResult.getCount() + intermediateResult.getCount());
         }
         ItemHandlerHelper.giveItemToPlayer(player, finalResult);
 

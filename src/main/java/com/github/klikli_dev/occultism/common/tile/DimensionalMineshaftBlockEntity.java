@@ -35,13 +35,13 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.random.WeightedRandom;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.entity.TickingBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.FakePlayerFactory;
@@ -57,9 +57,10 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
-public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implements TickingBlockEntity, MenuProvider {
+public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implements MenuProvider {
 
     //region Fields
     public static final String MAX_MINING_TIME_TAG = "maxMiningTime";
@@ -150,17 +151,16 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
     }
 
     @Override
-        public void setRemoved() {
+    public void setRemoved() {
         this.inputHandler.invalidate();
         this.outputHandler.invalidate();
         super.setRemoved();
     }
 
-    @Override
     public void tick() {
         if (!this.level.isClientSide) {
             IItemHandler inputHandler = this.inputHandler.orElseThrow(ItemHandlerMissingException::new);
-            ItemStack input = inputHandler.getItem(0);
+            ItemStack input = inputHandler.getStackInSlot(0);
 
             boolean dirty = false;
             if (this.miningTime > 0) {
@@ -238,7 +238,7 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
 
         if (this.possibleResults == null) {
             List<MinerRecipe> recipes = this.level.getRecipeManager()
-                    .getRecipes(OccultismRecipes.MINER_TYPE.get(),
+                    .getRecipesFor(OccultismRecipes.MINER_TYPE.get(),
                             new RecipeWrapper(inputHandler), this.level);
             if (recipes == null || recipes.size() == 0) {
                 this.possibleResults = new ArrayList<>();
@@ -251,18 +251,20 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
             return;
 
         for (int i = 0; i < this.rollsPerOperation; i++) {
-            WeightedIngredient result = WeightedRandom.getRandomItem(this.level.random, this.possibleResults);
+            Optional<WeightedIngredient> result = WeightedRandom.getRandomItem(this.level.random, this.possibleResults);
             //Important: copy the result, don't use it raw!
-            ItemHandlerHelper.insertItemStacked(outputHandler, result.getStack().copy(), false);
+            result.ifPresent(r -> {
+                ItemHandlerHelper.insertItemStacked(outputHandler, r.getStack().copy(), false);
+            });
             //If there is no space, we simply continue. The otherworld miner spirit keeps working,
             // but the miner tile entity simply discards the results
         }
 
         //damage and eventually consume item.
-        ItemStack input = inputHandler.getItem(0);
-        if (input.attemptDamageItem(1, this.level.random, null)) {
+        ItemStack input = inputHandler.getStackInSlot(0);
+        if (input.hurt(1, this.level.random, null)) {
             input.shrink(1);
-            input.setDamage(0);
+            input.setDamageValue(0);
         }
     }
 

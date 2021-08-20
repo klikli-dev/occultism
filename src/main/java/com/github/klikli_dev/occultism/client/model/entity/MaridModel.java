@@ -36,8 +36,8 @@ public class MaridModel extends HumanoidModel<MaridEntity> {
     //endregion Fields
 
     //region Initialization
-    public MaridModel() {
-        super(1.0f);
+    public MaridModel(ModelPart part) {
+        super(part);
         this.leftArmPose = ArmPose.EMPTY;
         this.rightArmPose = ArmPose.EMPTY;
         this.textureWidth = 64;

@@ -44,8 +44,8 @@ public class DjinniModel extends HumanoidModel<DjinniEntity> {
     //endregion Fields
 
     //region Initialization
-    public DjinniModel() {
-        super(1.0f);
+    public DjinniModel(ModelPart part) {
+        super(part);
         this.leftArmPose = ArmPose.EMPTY;
         this.rightArmPose = ArmPose.EMPTY;
         this.textureWidth = 64;

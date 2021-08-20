@@ -105,7 +105,6 @@ public class OccultismCommonConfig extends ConfigBase {
                 public final CachedInt size;
                 public final CachedInt count;
                 public final CachedInt bottomOffset;
-                public final CachedInt topOffset;
                 public final CachedInt maximum;
                 //endregion Fields
 
@@ -131,13 +130,10 @@ public class OccultismCommonConfig extends ConfigBase {
                             builder.comment("The count value for the decorator for this ore.")
                                     .defineInRange("count", count, 0, Byte.MAX_VALUE));
                     this.bottomOffset = CachedInt.cache(this,
-                            builder.comment("Range configuration bottom offset.")
+                            builder.comment("Range configuration min height.")
                                     .define("bottomOffset", bottomOffset));
-                    this.topOffset = CachedInt.cache(this,
-                            builder.comment("Range configuration top offset.")
-                                    .define("topOffset", topOffset));
                     this.maximum = CachedInt.cache(this,
-                            builder.comment("Range configuration maximum.")
+                            builder.comment("Range configuration max height. A negative max height is interpreted as offset from the top of the world (relevant for nether)")
                                     .define("maximum", maximum));
                     builder.pop();
                 }

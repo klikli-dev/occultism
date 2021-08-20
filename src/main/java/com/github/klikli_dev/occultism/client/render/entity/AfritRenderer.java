@@ -25,6 +25,7 @@ package com.github.klikli_dev.occultism.client.render.entity;
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.client.model.entity.AfritModel;
 import com.github.klikli_dev.occultism.common.entity.spirit.AfritEntity;
+import com.github.klikli_dev.occultism.registry.OccultismModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -39,20 +40,20 @@ public class AfritRenderer extends BipedSpiritRenderer<AfritEntity, AfritModel> 
 
     //region Initialization
     public AfritRenderer(EntityRendererProvider.Context context) {
-        super(context, new AfritModel(), 0.5f);
+        super(context, new AfritModel(context.bakeLayer(OccultismModelLayers.AFRIT)), 0.5f);
     }
     //endregion Initialization
 
     //region Overrides
 
     @Override
-    public ResourceLocation getEntityTexture(AfritEntity entity) {
+    public ResourceLocation getTextureLocation(AfritEntity entity) {
         return TEXTURES[entity.getEntityData().get(entity.getDataParameterSkin())];
     }
 
     @Override
-    protected void preRenderCallback(AfritEntity entity, PoseStack matrixStackIn, float partialTickTime) {
-        super.preRenderCallback(entity, matrixStackIn, partialTickTime);
+    protected void scale(AfritEntity entity, PoseStack matrixStackIn, float partialTickTime) {
+        super.scale(entity, matrixStackIn, partialTickTime);
         matrixStackIn.scale(1.2f, 1.2f, 1.2f);
     }
     //endregion Overrides

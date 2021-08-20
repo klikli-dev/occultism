@@ -335,7 +335,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
         //set the exact output count and return.
         int extractCount = requestedSize - remaining;
         if (!firstMatchedStack.isEmpty() && extractCount > 0) {
-            firstMatchedStack.SetItemCountFunction(extractCount);
+            firstMatchedStack.setCount(extractCount);
         }
 
         return firstMatchedStack;
@@ -530,7 +530,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
         boolean merged = false;
         for (ItemStack stack : list) {
             if (ItemHandlerHelper.canItemStacksStack(stackToAdd, stack)) {
-                stack.SetItemCountFunction(stack.getCount() + stackToAdd.getCount());
+                stack.setCount(stack.getCount() + stackToAdd.getCount());
                 merged = true;
                 break;
             }

@@ -26,6 +26,7 @@ import com.github.klikli_dev.occultism.common.entity.GreedyFamiliarEntity;
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
+import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.util.Mth;
@@ -49,7 +50,7 @@ public class GreedyFamiliarModel extends EntityModel<GreedyFamiliarEntity> {
     public ModelPart rightEar;
     public ModelPart nose;
 
-    public GreedyFamiliarModel() {
+    public GreedyFamiliarModel(ModelPart part) {
         this.textureWidth = 32;
         this.textureHeight = 32;
         this.body = new ModelPart(this, 0, 10);

@@ -26,7 +26,7 @@ import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.client.particle.RitualWaitingParticle;
 import com.github.klikli_dev.occultism.registry.OccultismParticles;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.particle.ParticleManager;
+import net.minecraft.client.particle.ParticleEngine;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -37,8 +37,8 @@ public class ClientRegistryEventHandler {
     //region Static Methods
     @SubscribeEvent()
     public static void onRegisterParticleFactories(ParticleFactoryRegisterEvent event) {
-        ParticleManager manager = Minecraft.getInstance().particles;
-        manager.registerFactory(OccultismParticles.RITUAL_WAITING.get(), RitualWaitingParticle.Factory::new);
+        ParticleEngine manager = Minecraft.getInstance().particleEngine;
+        manager.register(OccultismParticles.RITUAL_WAITING.get(), RitualWaitingParticle.Factory::new);
 
         Occultism.LOGGER.info("Registered Particle Factories");
     }

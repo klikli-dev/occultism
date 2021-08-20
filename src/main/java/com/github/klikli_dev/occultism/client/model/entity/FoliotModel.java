@@ -34,8 +34,8 @@ public class FoliotModel extends HumanoidModel<FoliotEntity> {
     //endregion Fields
 
     //region Initialization
-    public FoliotModel() {
-        super(1.0f);
+    public FoliotModel(ModelPart part) {
+        super(part);
         this.leftArmPose = ArmPose.EMPTY;
         this.rightArmPose = ArmPose.EMPTY;
         this.textureWidth = 64;

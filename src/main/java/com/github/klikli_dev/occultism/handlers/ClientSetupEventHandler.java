@@ -39,30 +39,26 @@ import com.github.klikli_dev.occultism.client.render.tile.SacrificialBowlRendere
 import com.github.klikli_dev.occultism.client.render.tile.StorageControllerRenderer;
 import com.github.klikli_dev.occultism.common.container.spirit.SpiritContainer;
 import com.github.klikli_dev.occultism.registry.*;
+import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.KeyMapping;
-import net.minecraft.client.gui.MenuScreens;
 import net.minecraft.client.gui.screens.MenuScreens;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.entity.EndermanRenderer;
 import net.minecraft.client.renderer.entity.EndermiteRenderer;
 import net.minecraft.client.renderer.entity.SkeletonRenderer;
 import net.minecraft.client.renderer.entity.WitherSkeletonRenderer;
-import net.minecraft.client.settings.KeyMapping;
-import com.mojang.blaze3d.platform.InputConstants;
-import net.minecraft.item.ItemModelsProperties;
+import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.settings.KeyConflictContext;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.client.registry.ClientRegistry;
-import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fmlclient.registry.ClientRegistry;
-import net.minecraftforge.fmlclient.registry.RenderingRegistry;
 import org.lwjgl.glfw.GLFW;
 
 @Mod.EventBusSubscriber(modid = Occultism.MODID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -85,16 +81,43 @@ public class ClientSetupEventHandler {
             new KeyMapping("key.occultism.familiar.greedy", KeyConflictContext.IN_GAME,
                     InputConstants.Type.KEYSYM.getOrCreate(GLFW.GLFW_KEY_M), "key.occultism.category");
 
-    public static final KeyBinding KEY_FAMILIAR_BAT =
-            new KeyBinding("key.occultism.familiar.bat", KeyConflictContext.IN_GAME,
-                    InputMappings.Type.KEYSYM.getOrMakeInput(-1), "key.occultism.category");
+    public static final KeyMapping KEY_FAMILIAR_BAT =
+            new KeyMapping("key.occultism.familiar.bat", KeyConflictContext.IN_GAME,
+                    InputConstants.Type.KEYSYM.getOrCreate(-1), "key.occultism.category");
 
-    public static final KeyBinding KEY_FAMILIAR_DEER =
-            new KeyBinding("key.occultism.familiar.deer", KeyConflictContext.IN_GAME,
-                    InputMappings.Type.KEYSYM.getOrMakeInput(-1), "key.occultism.category");
+    public static final KeyMapping KEY_FAMILIAR_DEER =
+            new KeyMapping("key.occultism.familiar.deer", KeyConflictContext.IN_GAME,
+                    InputConstants.Type.KEYSYM.getOrCreate(-1), "key.occultism.category");
     //endregion Fields
 
     //region Static Methods
+
+    @SubscribeEvent
+    public static void onRegisterEntityRendererLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
+        //Register Entity Layers
+        event.registerLayerDefinition(OccultismModelLayers.AFRIT, AfritModel::createBodyLayer);
+    }
+
+    @SubscribeEvent
+    public static void onRegisterEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
+        //Register Entity Renderers
+        event.registerEntityRenderer(OccultismEntities.FOLIOT.get(), FoliotRenderer::new);
+        event.registerEntityRenderer(OccultismEntities.DJINNI.get(), DjinniRenderer::new);
+        event.registerEntityRenderer(OccultismEntities.AFRIT.get(), AfritRenderer::new);
+        event.registerEntityRenderer(OccultismEntities.AFRIT_WILD.get(), AfritRenderer::new);
+        event.registerEntityRenderer(OccultismEntities.MARID.get(), MaridRenderer::new);
+        event.registerEntityRenderer(OccultismEntities.GREEDY_FAMILIAR.get(), GreedyFamiliarRenderer::new);
+        event.registerEntityRenderer(OccultismEntities.BAT_FAMILIAR.get(), BatFamiliarRenderer::new);
+        event.registerEntityRenderer(OccultismEntities.DEER_FAMILIAR.get(), DeerFamiliarRenderer::new);
+        event.registerEntityRenderer(OccultismEntities.POSSESSED_ENDERMITE.get(), EndermiteRenderer::new);
+        event.registerEntityRenderer(OccultismEntities.POSSESSED_SKELETON.get(), SkeletonRenderer::new);
+        event.registerEntityRenderer(OccultismEntities.POSSESSED_ENDERMAN.get(), EndermanRenderer::new);
+        event.registerEntityRenderer(OccultismEntities.WILD_HUNT_SKELETON.get(), SkeletonRenderer::new);
+        event.registerEntityRenderer(OccultismEntities.WILD_HUNT_WITHER_SKELETON.get(),
+                WitherSkeletonRenderer::new);
+        event.registerEntityRenderer(OccultismEntities.OTHERWORLD_BIRD.get(), OtherworldBirdRenderer::new);
+    }
+
     @SubscribeEvent
     public static void onClientSetup(FMLClientSetupEvent event) {
         //Register client side event handlers
@@ -110,31 +133,6 @@ public class ClientSetupEventHandler {
             ClientRegistry.registerKeyBinding(KEY_FAMILIAR_BAT);
             ClientRegistry.registerKeyBinding(KEY_FAMILIAR_DEER);
         });
-
-        //Register Entity Layers
-        RenderingRegistry.registerLayerDefinition(AfritModel.AFRIT_LAYER, AfritModel::createBodyLayer);
-
-        //Register Entity Renderers
-        RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.FOLIOT.get(), FoliotRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.DJINNI.get(), DjinniRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.AFRIT.get(), AfritRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.AFRIT_WILD.get(), AfritRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.MARID.get(), MaridRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.GREEDY_FAMILIAR.get(), GreedyFamiliarRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.BAT_FAMILIAR.get(), BatFamiliarRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.DEER_FAMILIAR.get(), DeerFamiliarRenderer::new);
-        RenderingRegistry
-                .registerEntityRenderingHandler(OccultismEntities.POSSESSED_ENDERMITE.get(), EndermiteRenderer::new);
-        RenderingRegistry
-                .registerEntityRenderingHandler(OccultismEntities.POSSESSED_SKELETON.get(), SkeletonRenderer::new);
-        RenderingRegistry
-                .registerEntityRenderingHandler(OccultismEntities.POSSESSED_ENDERMAN.get(), EndermanRenderer::new);
-        RenderingRegistry
-                .registerEntityRenderingHandler(OccultismEntities.WILD_HUNT_SKELETON.get(), SkeletonRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.WILD_HUNT_WITHER_SKELETON.get(),
-                WitherSkeletonRenderer::new);
-        RenderingRegistry
-                .registerEntityRenderingHandler(OccultismEntities.OTHERWORLD_BIRD.get(), OtherworldBirdRenderer::new);
 
         //Register Tile Entity Renderers
         BlockEntityRenderers.register(OccultismTiles.STORAGE_CONTROLLER.get(), StorageControllerRenderer::new);
@@ -179,17 +177,17 @@ public class ClientSetupEventHandler {
         //Not safe to call during parallel load, so register to run threadsafe
         event.enqueueWork(() -> {
             //Register item model properties
-            ItemModelsProperties.registerProperty(OccultismItems.GUIDE_BOOK.get(),
+            ItemProperties.register(OccultismItems.GUIDE_BOOK.get(),
                     new ResourceLocation("completion"), new GuideBookItemPropertyGetter());
-            ItemModelsProperties.registerProperty(OccultismItems.SOUL_GEM_ITEM.get(),
+            ItemProperties.register(OccultismItems.SOUL_GEM_ITEM.get(),
                     new ResourceLocation(Occultism.MODID, "has_entity"), new SoulGemItemPropertyGetter());
-            ItemModelsProperties.registerProperty(OccultismItems.DIVINATION_ROD.get(),
+            ItemProperties.register(OccultismItems.DIVINATION_ROD.get(),
                     new ResourceLocation(Occultism.MODID, "distance"), new DivinationRodItemPropertyGetter());
-            ItemModelsProperties.registerProperty(OccultismItems.OTHERWORLD_SAPLING_NATURAL.get(),
+            ItemProperties.register(OccultismItems.OTHERWORLD_SAPLING_NATURAL.get(),
                     new ResourceLocation(Occultism.MODID, "simulated"), new OtherworldBlockItemPropertyGetter());
-            ItemModelsProperties.registerProperty(OccultismItems.STORAGE_REMOTE.get(),
+            ItemProperties.register(OccultismItems.STORAGE_REMOTE.get(),
                     new ResourceLocation(Occultism.MODID, "linked"), new StorageRemoteItemPropertyGetter());
-            ItemModelsProperties.registerProperty(OccultismItems.STABLE_WORMHOLE.get(),
+            ItemProperties.register(OccultismItems.STABLE_WORMHOLE.get(),
                     new ResourceLocation(Occultism.MODID, "linked"), new StableWormholeBlockItemPropertyGetter());
 
             Occultism.LOGGER.debug("Registered Item Properties");

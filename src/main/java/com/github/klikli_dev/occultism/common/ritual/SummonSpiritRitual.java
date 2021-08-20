@@ -94,7 +94,7 @@ public class SummonSpiritRitual extends Ritual {
      * @param player        the player to give the book to.
      */
     public void finishBookOfCallingSetup(ItemStack bookOfCalling, SpiritEntity spirit, Player player) {
-        ItemNBTUtil.setSpiritEntityUUID(bookOfCalling, spirit.getUniqueID());
+        ItemNBTUtil.setSpiritEntityUUID(bookOfCalling, spirit.getUUID());
         ItemHandlerHelper.giveItemToPlayer(player, bookOfCalling);
     }
 
@@ -105,10 +105,10 @@ public class SummonSpiritRitual extends Ritual {
      * @param level  the level to spawn in.
      */
     public void spawnEntity(Entity entity, Level level) {
-        for (ServerPlayer player : level.getEntitiesWithinAABB(ServerPlayer.class,
-                entity.getBoundingBox().grow(50)))
+        for (ServerPlayer player : level.getEntitiesOfClass(ServerPlayer.class,
+                entity.getBoundingBox().inflate(50)))
             CriteriaTriggers.SUMMONED_ENTITY.trigger(player, entity);
-        level.addEntity(entity);
+        level.addFreshEntity(entity);
     }
     //endregion Methods
 }
