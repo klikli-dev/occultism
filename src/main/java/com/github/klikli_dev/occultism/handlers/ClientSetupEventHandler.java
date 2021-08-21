@@ -33,7 +33,7 @@ import com.github.klikli_dev.occultism.client.gui.storage.StorageRemoteGui;
 import com.github.klikli_dev.occultism.client.itemproperties.*;
 import com.github.klikli_dev.occultism.client.keybindings.BackpackKeyConflictContext;
 import com.github.klikli_dev.occultism.client.keybindings.StorageRemoteKeyConflictContext;
-import com.github.klikli_dev.occultism.client.model.entity.AfritModel;
+import com.github.klikli_dev.occultism.client.model.entity.*;
 import com.github.klikli_dev.occultism.client.render.entity.*;
 import com.github.klikli_dev.occultism.client.render.tile.SacrificialBowlRenderer;
 import com.github.klikli_dev.occultism.client.render.tile.StorageControllerRenderer;
@@ -42,6 +42,7 @@ import com.github.klikli_dev.occultism.registry.*;
 import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
@@ -96,6 +97,12 @@ public class ClientSetupEventHandler {
     public static void onRegisterEntityRendererLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
         //Register Entity Layers
         event.registerLayerDefinition(OccultismModelLayers.AFRIT, AfritModel::createBodyLayer);
+        event.registerLayerDefinition(OccultismModelLayers.FAMILIAR_BAT, BatFamiliarModel::createBodyLayer);
+        event.registerLayerDefinition(OccultismModelLayers.FAMILIAR_DEER, DeerFamiliarModel::createBodyLayer);
+        event.registerLayerDefinition(OccultismModelLayers.FAMILIAR_GREEDY, GreedyFamiliarModel::createBodyLayer);
+        event.registerLayerDefinition(OccultismModelLayers.DJINNI, DjinniModel::createBodyLayer);
+        event.registerLayerDefinition(OccultismModelLayers.FOLIOT, FoliotModel::createBodyLayer);
+        event.registerLayerDefinition(OccultismModelLayers.MARID, MaridModel::createBodyLayer);
     }
 
     @SubscribeEvent
