@@ -26,22 +26,35 @@ import com.google.common.collect.ImmutableList;
 
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ILivingEntityData;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.ai.RandomPositionGenerator;
+import net.minecraft.entity.ai.goal.FollowMobGoal;
+import net.minecraft.entity.ai.goal.LookAtGoal;
+import net.minecraft.entity.ai.goal.RandomWalkingGoal;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Effects;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
 
 public class CthulhuFamiliarEntity extends FamiliarEntity {
+    
+    // TODO: Proper underwater navigation
 
     private static final DataParameter<Boolean> HAT = EntityDataManager.createKey(CthulhuFamiliarEntity.class,
             DataSerializers.BOOLEAN);
     private static final DataParameter<Boolean> TRUNK = EntityDataManager.createKey(CthulhuFamiliarEntity.class,
             DataSerializers.BOOLEAN);
+
+    private int angryTimer;
 
     public CthulhuFamiliarEntity(EntityType<? extends CthulhuFamiliarEntity> type, World worldIn) {
         super(type, worldIn);
@@ -56,13 +69,59 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
     }
 
     @Override
+    protected void registerGoals() {
+        this.goalSelector.addGoal(1, new SitGoal(this));
+        this.goalSelector.addGoal(2, new LookAtGoal(this, PlayerEntity.class, 8));
+        this.goalSelector.addGoal(3, new FollowOwnerGoal(this, 1, 3, 1));
+        this.goalSelector.addGoal(4, new RandomWalkingGoal(this, 1.0D));
+        this.goalSelector.addGoal(5, new FollowMobGoal(this, 1, 3, 7));
+    }
+
+    @Override
+    public boolean attackEntityFrom(DamageSource source, float amount) {
+        if (super.attackEntityFrom(source, amount)) {
+            if (source.getTrueSource() == getFamiliarOwner()) {
+                angryTimer = 20 * 60 * 5;
+            } else if (source.getTrueSource() != null) {
+                Vector3d tp = RandomPositionGenerator.findRandomTarget(this, 8, 4);
+                this.setLocationAndAngles(tp.getX() + 0.5, tp.getY(), tp.getZ() + 0.5, this.rotationYaw,
+                        this.rotationPitch);
+                this.navigator.clearPath();
+            }
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        if (angryTimer > 0)
+            angryTimer--;
+    }
+
+    @Override
+    public void curioTick(LivingEntity wearer) {
+        if (angryTimer > 0)
+            angryTimer--;
+    }
+
+    @Override
     public boolean onLivingFall(float fallDistance, float damageMultiplier) {
         return false;
     }
 
     @Override
+    public boolean canBreatheUnderwater() {
+        return true;
+    }
+
+    @Override
     public Iterable<EffectInstance> getFamiliarEffects() {
-        return ImmutableList.of();
+        if (angryTimer <= 0)
+            return ImmutableList.of(new EffectInstance(Effects.WATER_BREATHING, 300, 0, false, false));
+        else
+            return ImmutableList.of();
     }
 
     @Override
@@ -93,11 +152,13 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
         super.readAdditional(compound);
         this.setHat(compound.getBoolean("hasHat"));
         this.setTrunk(compound.getBoolean("hasTrunk"));
+        this.angryTimer = compound.getInt("angryTimer");
     }
 
     @Override
     public void writeAdditional(CompoundNBT compound) {
         super.writeAdditional(compound);
         compound.putBoolean("hasTrunk", this.hasTrunk());
+        compound.putInt("angryTimer", angryTimer);
     }
 }
