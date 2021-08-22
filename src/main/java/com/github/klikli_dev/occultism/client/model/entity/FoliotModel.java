@@ -26,10 +26,7 @@ import com.github.klikli_dev.occultism.common.entity.spirit.FoliotEntity;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
-import net.minecraft.client.model.geom.builders.CubeListBuilder;
-import net.minecraft.client.model.geom.builders.LayerDefinition;
-import net.minecraft.client.model.geom.builders.MeshDefinition;
-import net.minecraft.client.model.geom.builders.PartDefinition;
+import net.minecraft.client.model.geom.builders.*;
 
 
 public class FoliotModel extends HumanoidModel<FoliotEntity> {
@@ -43,19 +40,61 @@ public class FoliotModel extends HumanoidModel<FoliotEntity> {
         this.rightHorn = head.getChild("rightHorn");
     }
 
-    public static LayerDefinition createLayer() {
-        //TODO: Manually add missing cubes -> script only does one cube per part
+    public static LayerDefinition createBodyLayer() {
         MeshDefinition mesh = new MeshDefinition();
         PartDefinition parts = mesh.getRoot();
-        PartDefinition head = parts.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 0).addBox("head", -4.0F, -8.0F, -4.0F, 8, 8, false), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0, 0, 0));
-        PartDefinition hat = parts.addOrReplaceChild("hat", CubeListBuilder.create().texOffs(0, 0).addBox("hat", -5.0F, -10.0F, -5.0F, 10, 10, false), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0, 0, 0));
-        PartDefinition body = parts.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 0).addBox("body", -4.0F, 0.0F, -3.0F, 8, 12, false), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0, 0, 0));
-        PartDefinition rightArm = parts.addOrReplaceChild("rightArm", CubeListBuilder.create().texOffs(0, 0).addBox("rightArm", -1.0F, -1.6816F, -1.2683F, 3, 11, false), PartPose.offsetAndRotation(5.0F, 3.0F, -1.0F, -0.75F, 0.0F, 0.0F));
-        PartDefinition leftArm = parts.addOrReplaceChild("leftArm", CubeListBuilder.create().texOffs(0, 0).addBox("leftArm", -2.0F, -2.0F, -2.0F, 3, 11, false), PartPose.offsetAndRotation(-5.0F, 3.0F, -1.0F, -0.75F, 0.0F, 0.0F));
-        PartDefinition rightLeg = parts.addOrReplaceChild("rightLeg", CubeListBuilder.create().texOffs(0, 0).addBox("rightLeg", -2.0F, 0.0F, -2.0F, 4, 12, false), PartPose.offsetAndRotation(2.0F, 12.0F, 0.0F, 0, 0, 0));
-        PartDefinition leftLeg = parts.addOrReplaceChild("leftLeg", CubeListBuilder.create().texOffs(0, 0).addBox("leftLeg", -2.0F, 0.0F, -2.0F, 4, 12, false), PartPose.offsetAndRotation(-2.0F, 12.0F, 0.0F, 0, 0, 0));
-        PartDefinition leftHorn = head.addOrReplaceChild("leftHorn", CubeListBuilder.create().texOffs(0, 0).addBox("leftHorn", 0.5F, 1.5F, -2.5F, 1, 1, false), PartPose.offsetAndRotation(3.5F, -8.5F, -1.5F, 0, 0, 0));
-        PartDefinition rightHorn = head.addOrReplaceChild("rightHorn", CubeListBuilder.create().texOffs(0, 0).addBox("rightHorn", 0.5F, 1.5F, -2.5F, 1, 1, false), PartPose.offsetAndRotation(-5.5F, -8.5F, -1.5F, 0, 0, 0));
+        PartDefinition head = parts.addOrReplaceChild("head", CubeListBuilder.create()
+                        .addBox(-4.0F, -8.0F, -4.0F, 8, 8, 8, CubeDeformation.NONE, 0, 0),
+                PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0, 0, 0));
+
+        PartDefinition hat = parts.addOrReplaceChild("hat", CubeListBuilder.create()
+                        .addBox(-5.0F, -10.0F, -5.0F, 10, 10, 10, CubeDeformation.NONE, 24, 44),
+                PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0, 0, 0));
+
+        PartDefinition body = parts.addOrReplaceChild("body", CubeListBuilder.create()
+                        .addBox(-4.0F, 0.0F, -3.0F, 8, 12, 6, CubeDeformation.NONE, 0, 16),
+                PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0, 0, 0));
+
+        PartDefinition rightArm = parts.addOrReplaceChild("rightArm", CubeListBuilder.create()
+                        .addBox(-1.0F, -1.6816F, -1.2683F, 3, 11, 3, CubeDeformation.NONE, 12, 34),
+                PartPose.offsetAndRotation(5.0F, 3.0F, -1.0F, -0.75F, 0.0F, 0.0F));
+        PartDefinition leftArm = parts.addOrReplaceChild("leftArm", CubeListBuilder.create().
+                        addBox(-2.0F, -2.0F, -2.0F, 3, 11, 3, CubeDeformation.NONE, 0, 34),
+                PartPose.offsetAndRotation(-5.0F, 3.0F, -1.0F, -0.75F, 0.0F, 0.0F));
+        PartDefinition rightLeg = parts.addOrReplaceChild("rightLeg", CubeListBuilder.create()
+                        .addBox(-2.0F, 0.0F, -2.0F, 4, 12, 4, CubeDeformation.NONE, 28, 28),
+                PartPose.offsetAndRotation(2.0F, 12.0F, 0.0F, 0, 0, 0));
+        PartDefinition leftLeg = parts.addOrReplaceChild("leftLeg", CubeListBuilder.create().
+                        addBox(-2.0F, 0.0F, -2.0F, 4, 12, 4, CubeDeformation.NONE, 28, 12),
+                PartPose.offsetAndRotation(-2.0F, 12.0F, 0.0F, 0, 0, 0));
+
+        PartDefinition leftHorn = head.addOrReplaceChild("leftHorn", CubeListBuilder.create()
+                        .addBox(0.5F, -0.5F, -2.5F, 1, 1, 6, CubeDeformation.NONE, 24, 0)
+                        .addBox(0.5F, 4.5F, -1.5F, 1, 1, 5, CubeDeformation.NONE, 32, 0)
+                        .addBox(0.5F, 5.5F, -0.5F, 1, 1, 3, CubeDeformation.NONE, 0, 0)
+                        .addBox(0.5F, 0.5F, 1.5F, 1, 1, 3, CubeDeformation.NONE, 39, 0)
+                        .addBox(0.5F, 1.5F, 2.5F, 1, 1, 3, CubeDeformation.NONE, 37, 6)
+                        .addBox(0.5F, 2.5F, 2.5F, 1, 1, 3, CubeDeformation.NONE, 32, 7)
+                        .addBox(0.5F, 3.5F, 1.5F, 1, 1, 3, CubeDeformation.NONE, 0, 4)
+                        .addBox(0.5F, 0.5F, -2.5F, 1, 1, 2, CubeDeformation.NONE, 0, 16)
+                        .addBox(0.5F, 3.5F, -1.5F, 1, 1, 1, CubeDeformation.NONE, 22, 20)
+                        .addBox(0.5F, 1.5F, -2.5F, 1, 1, 1, CubeDeformation.NONE, 0, 19),
+                PartPose.offsetAndRotation(3.5F, -8.5F, -1.5F, 0, 0, 0));
+
+        PartDefinition rightHorn = head.addOrReplaceChild("rightHorn", CubeListBuilder.create()
+                        .addBox(0.5F, -0.5F, -2.5F, 1, 1, 6, CubeDeformation.NONE, 24, 0)
+                        .addBox(0.5F, 4.5F, -1.5F, 1, 1, 5, CubeDeformation.NONE, 32, 0)
+                        .addBox(0.5F, 5.5F, -0.5F, 1, 1, 3, CubeDeformation.NONE, 0, 0)
+                        .addBox(0.5F, 0.5F, 1.5F, 1, 1, 3, CubeDeformation.NONE, 39, 0)
+                        .addBox(0.5F, 1.5F, 2.5F, 1, 1, 3, CubeDeformation.NONE, 37, 6)
+                        .addBox(0.5F, 2.5F, 2.5F, 1, 1, 3, CubeDeformation.NONE, 32, 7)
+                        .addBox(0.5F, 3.5F, 1.5F, 1, 1, 3, CubeDeformation.NONE, 0, 4)
+                        .addBox(0.5F, 0.5F, -2.5F, 1, 1, 2, CubeDeformation.NONE, 0, 16)
+                        .addBox(0.5F, 3.5F, -1.5F, 1, 1, 1, CubeDeformation.NONE, 22, 20)
+                        .addBox(0.5F, 1.5F, -2.5F, 1, 1, 1, CubeDeformation.NONE, 0, 19),
+                PartPose.offsetAndRotation(-5.5F, -8.5F, -1.5F, 0, 0, 0));
+
+
         return LayerDefinition.create(mesh, 64, 64);
     }
 
