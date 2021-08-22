@@ -225,13 +225,4 @@ public class BatFamiliarModel extends EntityModel<BatFamiliarEntity> {
     private float toRads(float deg) {
         return PI / 180f * deg;
     }
-
-    /**
-     * This is a helper function from Tabula to set the rotation of model parts
-     */
-    public void setRotateAngle(ModelPart modelRenderer, float x, float y, float z) {
-        modelRenderer.xRot = x;
-        modelRenderer.yRot = y;
-        modelRenderer.zRot = z;
-    }
 }

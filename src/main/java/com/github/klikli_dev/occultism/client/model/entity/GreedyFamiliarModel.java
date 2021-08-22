@@ -23,12 +23,15 @@
 package com.github.klikli_dev.occultism.client.model.entity;
 
 import com.github.klikli_dev.occultism.common.entity.GreedyFamiliarEntity;
-import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.IVertexBuilder;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.EntityModel;
-import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.model.geom.PartPose;
+import net.minecraft.client.model.geom.builders.CubeListBuilder;
+import net.minecraft.client.model.geom.builders.LayerDefinition;
+import net.minecraft.client.model.geom.builders.MeshDefinition;
+import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.util.Mth;
 
 /**
@@ -51,92 +54,57 @@ public class GreedyFamiliarModel extends EntityModel<GreedyFamiliarEntity> {
     public ModelPart nose;
 
     public GreedyFamiliarModel(ModelPart part) {
-        this.textureWidth = 32;
-        this.textureHeight = 32;
-        this.body = new ModelPart(this, 0, 10);
-        this.body.setPos(0.0F, 19.0F, 0.6F);
-        this.body.addBox(-2.5F, -5.0F, -1.5F, 5.0F, 5.0F, 3.0F, 0.0F, 0.0F, 0.0F);
-        this.rightLeg = new ModelPart(this, 8, 24);
-        this.rightLeg.mirror = true;
-        this.rightLeg.setPos(-1.5F, 0.0F, 0.0F);
-        this.rightLeg.addBox(-1.0F, 0.0F, -1.0F, 2.0F, 5.0F, 2.0F, 0.0F, 0.0F, 0.0F);
-        this.leftLeg = new ModelPart(this, 8, 24);
-        this.leftLeg.setPos(1.5F, 0.0F, 0.0F);
-        this.leftLeg.addBox(-1.0F, 0.0F, -1.0F, 2.0F, 5.0F, 2.0F, 0.0F, 0.0F, 0.0F);
-        this.rightEar = new ModelPart(this, 0, 0);
-        this.rightEar.mirror = true;
-        this.rightEar.setPos(-2.0F, -4.5F, 0.0F);
-        this.rightEar.addBox(-1.0F, -3.0F, 0.0F, 2.0F, 3.0F, 0.0F, 0.0F, 0.0F, 0.0F);
-        this.setRotateAngle(this.rightEar, 0.0F, 0.0F, -0.5235987755982988F);
-        this.head = new ModelPart(this, 0, 0);
-        this.head.setPos(0.0F, -5.0F, 0.0F);
-        this.head.addBox(-2.5F, -5.0F, -2.5F, 5.0F, 5.0F, 5.0F, 0.0F, 0.0F, 0.0F);
-        this.chest1 = new ModelPart(this, 12, 14);
-        this.chest1.setPos(0.0F, 0.5F, 1.5F);
-        this.chest1.addBox(-2.0F, -3.0F, 0.0F, 4.0F, 3.0F, 4.0F, 0.0F, 0.0F, 0.0F);
-        this.leftEar = new ModelPart(this, 0, 0);
-        this.leftEar.setPos(2.0F, -4.5F, 0.0F);
-        this.leftEar.addBox(-1.0F, -3.0F, 0.0F, 2.0F, 3.0F, 0.0F, 0.0F, 0.0F, 0.0F);
-        this.setRotateAngle(this.leftEar, 0.0F, 0.0F, 0.5235987755982988F);
-        this.rightArm = new ModelPart(this, 16, 21);
-        this.rightArm.mirror = true;
-        this.rightArm.setPos(-2.5F, -5.0F, 0.0F);
-        this.rightArm.addBox(-2.0F, 0.0F, -1.0F, 2.0F, 6.0F, 2.0F, 0.0F, 0.0F, 0.0F);
-        this.chest2 = new ModelPart(this, 0, 18);
-        this.chest2.setPos(0.0F, -3.0F, 0.0F);
-        this.chest2.addBox(-2.0F, -2.0F, 0.0F, 4.0F, 2.0F, 4.0F, 0.0F, 0.0F, 0.0F);
-        this.setRotateAngle(this.chest2, 0.23457224414434488F, 0.0F, 0.0F);
-        this.leftArm = new ModelPart(this, 16, 21);
-        this.leftArm.setPos(2.5F, -5.0F, 0.0F);
-        this.leftArm.addBox(0.0F, 0.0F, -1.0F, 2.0F, 6.0F, 2.0F, 0.0F, 0.0F, 0.0F);
-        this.nose = new ModelPart(this, 18, 8);
-        this.nose.setPos(0.0F, -3.0F, -2.5F);
-        this.nose.addBox(-1.0F, 0.0F, -2.0F, 2.0F, 2.0F, 2.0F, 0.0F, 0.0F, 0.0F);
-        this.body.addChild(this.rightLeg);
-        this.body.addChild(this.leftLeg);
-        this.head.addChild(this.rightEar);
-        this.body.addChild(this.head);
-        this.body.addChild(this.chest1);
-        this.head.addChild(this.leftEar);
-        this.body.addChild(this.rightArm);
-        this.chest1.addChild(this.chest2);
-        this.body.addChild(this.leftArm);
-        this.head.addChild(this.nose);
+        this.body = part.getChild("body");
+        this.rightArm = body.getChild("rightArm");
+        this.chest1 = body.getChild("chest1");
+        this.leftArm = body.getChild("leftArm");
+        this.rightLeg = body.getChild("rightLeg");
+        this.leftLeg = body.getChild("leftLeg");
+        this.head = body.getChild("head");
+        this.chest2 = chest1.getChild("chest2");
+        this.leftEar = head.getChild("leftEar");
+        this.rightEar = head.getChild("rightEar");
+        this.nose = head.getChild("nose");
     }
 
     @Override
-    public void render(PoseStack matrixStackIn, IVertexBuilder bufferIn, int packedLightIn, int packedOverlayIn,
-            float red, float green, float blue, float alpha) {
-        ImmutableList.of(this.body).forEach((modelRenderer) -> {
-            modelRenderer.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
-        });
+    public void renderToBuffer(PoseStack pPoseStack, VertexConsumer pBuffer, int pPackedLight, int pPackedOverlay, float red, float green, float blue, float alpha) {
+        this.body.render(pPoseStack, pBuffer, pPackedLight, pPackedOverlay, red, green, blue, alpha);
     }
 
-    /**
-     * This is a helper function from Tabula to set the rotation of model parts
-     */
-    public void setRotateAngle(ModelPart modelRenderer, float x, float y, float z) {
-        modelRenderer.rotateAngleX = x;
-        modelRenderer.rotateAngleY = y;
-        modelRenderer.rotateAngleZ = z;
+    public static LayerDefinition createBodyLayer() {
+        MeshDefinition mesh = new MeshDefinition();
+        PartDefinition parts = mesh.getRoot();
+        PartDefinition body = parts.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 10).addBox(-2.5F, -5.0F, -1.5F, 5.0F, 5.0F, 3.0F, false), PartPose.offsetAndRotation(0.0F, 19.0F, 0.6F, 0, 0, 0));
+        PartDefinition rightArm = body.addOrReplaceChild("rightArm", CubeListBuilder.create().texOffs(16, 21).addBox(-2.0F, 0.0F, -1.0F, 2.0F, 6.0F, 2.0F, true), PartPose.offsetAndRotation(-2.5F, -5.0F, 0.0F, 0, 0, 0));
+        PartDefinition chest1 = body.addOrReplaceChild("chest1", CubeListBuilder.create().texOffs(12, 14).addBox(-2.0F, -3.0F, 0.0F, 4.0F, 3.0F, 4.0F, false), PartPose.offsetAndRotation(0.0F, 0.5F, 1.5F, 0, 0, 0));
+        PartDefinition leftArm = body.addOrReplaceChild("leftArm", CubeListBuilder.create().texOffs(16, 21).addBox(0.0F, 0.0F, -1.0F, 2.0F, 6.0F, 2.0F, false), PartPose.offsetAndRotation(2.5F, -5.0F, 0.0F, 0, 0, 0));
+        PartDefinition rightLeg = body.addOrReplaceChild("rightLeg", CubeListBuilder.create().texOffs(8, 24).addBox(-1.0F, 0.0F, -1.0F, 2.0F, 5.0F, 2.0F, true), PartPose.offsetAndRotation(-1.5F, 0.0F, 0.0F, 0, 0, 0));
+        PartDefinition leftLeg = body.addOrReplaceChild("leftLeg", CubeListBuilder.create().texOffs(8, 24).addBox(-1.0F, 0.0F, -1.0F, 2.0F, 5.0F, 2.0F, false), PartPose.offsetAndRotation(1.5F, 0.0F, 0.0F, 0, 0, 0));
+        PartDefinition head = body.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 0).addBox(-2.5F, -5.0F, -2.5F, 5.0F, 5.0F, 5.0F, false), PartPose.offsetAndRotation(0.0F, -5.0F, 0.0F, 0, 0, 0));
+        PartDefinition chest2 = chest1.addOrReplaceChild("chest2", CubeListBuilder.create().texOffs(0, 18).addBox(-2.0F, -2.0F, 0.0F, 4.0F, 2.0F, 4.0F, false), PartPose.offsetAndRotation(0.0F, -3.0F, 0.0F, 0.23457224414434488F, 0.0F, 0.0F));
+        PartDefinition leftEar = head.addOrReplaceChild("leftEar", CubeListBuilder.create().texOffs(0, 0).addBox(-1.0F, -3.0F, 0.0F, 2.0F, 3.0F, 0.0F, false), PartPose.offsetAndRotation(2.0F, -4.5F, 0.0F, 0.0F, 0.0F, 0.5235987755982988F));
+        PartDefinition rightEar = head.addOrReplaceChild("rightEar", CubeListBuilder.create().texOffs(0, 0).addBox(-1.0F, -3.0F, 0.0F, 2.0F, 3.0F, 0.0F, true), PartPose.offsetAndRotation(-2.0F, -4.5F, 0.0F, 0.0F, 0.0F, -0.5235987755982988F));
+        PartDefinition nose = head.addOrReplaceChild("nose", CubeListBuilder.create().texOffs(18, 8).addBox(-1.0F, 0.0F, -2.0F, 2.0F, 2.0F, 2.0F, false), PartPose.offsetAndRotation(0.0F, -3.0F, -2.5F, 0, 0, 0));
+        return LayerDefinition.create(mesh, 32, 32);
     }
 
     @Override
-    public void setRotationAngles(GreedyFamiliarEntity entityIn, float limbSwing, float limbSwingAmount,
-            float ageInTicks, float netHeadYaw, float headPitch) {
-        this.head.rotateAngleY = netHeadYaw * (PI / 180f);
-        this.head.rotateAngleX = headPitch * (PI / 180f);
+    public void setupAnim(GreedyFamiliarEntity entityIn, float limbSwing, float limbSwingAmount,
+                          float ageInTicks, float netHeadYaw, float headPitch) {
+        this.head.yRot = netHeadYaw * (PI / 180f);
+        this.head.xRot = headPitch * (PI / 180f);
         if (entityIn.isSitting()) {
-            this.rightArm.rotateAngleX = 0;
-            this.leftArm.rotateAngleX = 0;
-            this.rightLeg.rotateAngleX = -PI / 2;
-            this.leftLeg.rotateAngleX = -PI / 2;
+            this.rightArm.xRot = 0;
+            this.leftArm.xRot = 0;
+            this.rightLeg.xRot = -PI / 2;
+            this.leftLeg.xRot = -PI / 2;
         } else {
-            this.rightArm.rotateAngleX = Mth.cos(limbSwing * 0.5f + PI) * limbSwingAmount;
-            this.leftArm.rotateAngleX = Mth.cos(limbSwing * 0.5f) * limbSwingAmount;
-            this.rightLeg.rotateAngleX = Mth.cos(limbSwing * 0.5f) * 1.4f * limbSwingAmount;
-            this.leftLeg.rotateAngleX = Mth.cos(limbSwing * 0.5f + PI) * 1.4f * limbSwingAmount;
+            this.rightArm.xRot = Mth.cos(limbSwing * 0.5f + PI) * limbSwingAmount;
+            this.leftArm.xRot = Mth.cos(limbSwing * 0.5f) * limbSwingAmount;
+            this.rightLeg.xRot = Mth.cos(limbSwing * 0.5f) * 1.4f * limbSwingAmount;
+            this.leftLeg.xRot = Mth.cos(limbSwing * 0.5f + PI) * 1.4f * limbSwingAmount;
         }
-        this.chest2.rotateAngleX = Mth.cos(limbSwing * 0.35f + PI) * 0.5f * limbSwingAmount + PI / 12;
+        this.chest2.xRot = Mth.cos(limbSwing * 0.35f + PI) * 0.5f * limbSwingAmount + PI / 12;
     }
 }

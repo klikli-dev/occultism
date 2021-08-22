@@ -64,14 +64,9 @@ public class AfritModel extends HumanoidModel<AfritEntity> {
     //endregion Initialization
 
     //region Methods
-    public void setRotateAngle(ModelPart modelRenderer, float x, float y, float z) {
-        modelRenderer.xRot = x;
-        modelRenderer.yRot = y;
-        modelRenderer.zRot = z;
-    }
 
     public static LayerDefinition createBodyLayer() {
-        MeshDefinition meshdefinition = new MeshDefinition();
+        MeshDefinition meshdefinition = HumanoidModel.createMesh(CubeDeformation.NONE, 0);
         PartDefinition mesh = meshdefinition.getRoot();
 
         PartDefinition head = mesh.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -10.0F, -4.0F, 8.0F, 10.0F, 8.0F, CubeDeformation.NONE), PartPose.ZERO);
