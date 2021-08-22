@@ -40,6 +40,8 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
 
     private static final DataParameter<Boolean> HAT = EntityDataManager.createKey(CthulhuFamiliarEntity.class,
             DataSerializers.BOOLEAN);
+    private static final DataParameter<Boolean> TRUNK = EntityDataManager.createKey(CthulhuFamiliarEntity.class,
+            DataSerializers.BOOLEAN);
 
     public CthulhuFamiliarEntity(EntityType<? extends CthulhuFamiliarEntity> type, World worldIn) {
         super(type, worldIn);
@@ -49,6 +51,7 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
     public ILivingEntityData onInitialSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason,
             ILivingEntityData spawnDataIn, CompoundNBT dataTag) {
         this.setHat(this.getRNG().nextDouble() < 0.1);
+        this.setTrunk(this.getRNG().nextDouble() < 0.5);
         return super.onInitialSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
     }
 
@@ -66,6 +69,7 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
     protected void registerData() {
         super.registerData();
         this.dataManager.register(HAT, false);
+        this.dataManager.register(TRUNK, false);
     }
 
     public boolean hasHat() {
@@ -76,15 +80,24 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
         this.dataManager.set(HAT, b);
     }
 
+    public boolean hasTrunk() {
+        return this.dataManager.get(TRUNK);
+    }
+
+    private void setTrunk(boolean b) {
+        this.dataManager.set(TRUNK, b);
+    }
+
     @Override
     public void readAdditional(CompoundNBT compound) {
         super.readAdditional(compound);
         this.setHat(compound.getBoolean("hasHat"));
+        this.setTrunk(compound.getBoolean("hasTrunk"));
     }
 
     @Override
     public void writeAdditional(CompoundNBT compound) {
         super.writeAdditional(compound);
-        compound.putBoolean("hasHat", this.hasHat());
+        compound.putBoolean("hasTrunk", this.hasTrunk());
     }
 }
