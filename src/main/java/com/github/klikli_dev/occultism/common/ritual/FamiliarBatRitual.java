@@ -45,7 +45,7 @@ public class FamiliarBatRitual extends SummonSpiritRitual {
     //region Initialization
     public FamiliarBatRitual() {
         super(null,
-                OccultismRituals.POSSESS_DJINNI_PENTACLE.get(),
+                OccultismRituals.SUMMON_DJINNI_PENTACLE.get(),
                 Ingredient.fromItems(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()),
                 "familiar_bat", 60);
         this.sacrificePredicate =
