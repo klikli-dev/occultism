@@ -22,6 +22,8 @@
 
 package com.github.klikli_dev.occultism.common.ritual;
 
+import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.common.ritual.pentacle.PentacleManager;
 import com.github.klikli_dev.occultism.common.tile.GoldenSacrificialBowlTileEntity;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
@@ -39,7 +41,7 @@ public class CraftStabilizerTier4Ritual extends Ritual {
 
     //region Initialization
     public CraftStabilizerTier4Ritual() {
-        super(OccultismRituals.CRAFT_MARID_PENTACLE.get(),
+        super(() -> PentacleManager.get(Occultism.MODID, "craft_marid"),
                 Ingredient.fromItems(OccultismItems.BOOK_OF_BINDING_BOUND_MARID.get()), "craft_stabilizer_tier4",
                 240);
     }

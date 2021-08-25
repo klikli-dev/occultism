@@ -1,0 +1,18 @@
+{
+  "pattern": [
+    "  GCG  ",
+    " G P G ",
+    "G  P  G",
+    "CPP0PPC",
+    "G  P  G",
+    " G P G ",
+    "  GCG  "
+    ],
+    "mapping": {
+      "0": "occultism:golden_sacrificial_bowl",
+      "G": "occultism:chalk_glyph_gold",
+      "P": "occultism:chalk_glyph_purple",
+      "C": "occultism:candle_white",
+      "Z": "skeleton_skull"
+    }
+}

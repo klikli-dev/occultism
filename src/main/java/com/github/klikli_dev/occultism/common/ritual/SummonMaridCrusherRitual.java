@@ -25,6 +25,7 @@ package com.github.klikli_dev.occultism.common.ritual;
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.github.klikli_dev.occultism.common.job.SpiritJob;
+import com.github.klikli_dev.occultism.common.ritual.pentacle.PentacleManager;
 import com.github.klikli_dev.occultism.common.tile.GoldenSacrificialBowlTileEntity;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
@@ -43,7 +44,7 @@ public class SummonMaridCrusherRitual extends SummonSpiritRitual {
 
     //region Initialization
     public SummonMaridCrusherRitual() {
-        super(null, OccultismRituals.SUMMON_MARID_PENTACLE.get(),
+        super(null, () -> PentacleManager.get(Occultism.MODID, "summon_marid"),
                 Ingredient.fromItems(OccultismItems.BOOK_OF_BINDING_BOUND_MARID.get()),
                 "summon_marid_crusher", 150);
     }

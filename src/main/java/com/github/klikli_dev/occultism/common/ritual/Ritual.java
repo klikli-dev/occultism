@@ -56,6 +56,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 
 public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
 
@@ -79,7 +80,7 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
     /**
      * The pentacle required to perform this ritual.
      */
-    public final Pentacle pentacle;
+    public final Supplier<Pentacle> pentacle;
 
     /**
      * The item required to start the ritual.
@@ -127,7 +128,7 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
      * @param pentacle     the pentacle for the ritual.
      * @param startingItem the item required to start the ritual.
      */
-    public Ritual(Pentacle pentacle, Ingredient startingItem) {
+    public Ritual(Supplier<Pentacle> pentacle, Ingredient startingItem) {
         this(pentacle, startingItem, 10);
     }
 
@@ -139,7 +140,7 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
      * @param startingItem the item required to start the ritual.
      * @param totalSeconds the total time it takes to finish the ritual.
      */
-    public Ritual(Pentacle pentacle, Ingredient startingItem, int totalSeconds) {
+    public Ritual(Supplier<Pentacle> pentacle, Ingredient startingItem, int totalSeconds) {
         this(pentacle, startingItem, (String) null, totalSeconds);
     }
 
@@ -151,7 +152,7 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
      * @param additionalIngredientsRecipeName the name of the additional ingredients recipe id. Will be prefixed with MODID:rituals/
      * @param totalSeconds                    the total time it takes to finish the ritual.
      */
-    public Ritual(Pentacle pentacle, Ingredient startingItem, String additionalIngredientsRecipeName,
+    public Ritual(Supplier<Pentacle> pentacle, Ingredient startingItem, String additionalIngredientsRecipeName,
                   int totalSeconds) {
         this(pentacle, startingItem, additionalIngredientsRecipeName, SACRIFICIAL_BOWL_RANGE, totalSeconds);
     }
@@ -165,7 +166,7 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
      * @param sacrificialBowlRange            the range to look for sacrificial bowls for additional ingredients.
      * @param totalSeconds                    the total time it takes to finish the ritual.
      */
-    public Ritual(Pentacle pentacle, Ingredient startingItem, String additionalIngredientsRecipeName,
+    public Ritual(Supplier<Pentacle> pentacle, Ingredient startingItem, String additionalIngredientsRecipeName,
                   int sacrificialBowlRange, int totalSeconds) {
         this.pentacle = pentacle;
         this.startingItem = startingItem;
@@ -262,7 +263,7 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
                            List<Ingredient> remainingAdditionalIngredients) {
         return this.startingItem.test(activationItem) &&
                this.areAdditionalIngredientsFulfilled(world, goldenBowlPosition, remainingAdditionalIngredients) &&
-               this.pentacle.getBlockMatcher().validate(world, goldenBowlPosition) != null;
+               this.pentacle.get().validate(world, goldenBowlPosition);
     }
 
     /**
@@ -356,7 +357,7 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
         return this.startingItem.test(activationItem) &&
                this.areAdditionalIngredientsFulfilled(world, goldenBowlPosition,
                        this.getAdditionalIngredients(world)) &&
-               this.pentacle.getBlockMatcher().validate(world, goldenBowlPosition) != null;
+               this.pentacle.get().validate(world, goldenBowlPosition);
     }
 
     /**

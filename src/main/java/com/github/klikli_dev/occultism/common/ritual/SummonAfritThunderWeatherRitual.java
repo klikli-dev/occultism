@@ -25,6 +25,7 @@ package com.github.klikli_dev.occultism.common.ritual;
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.github.klikli_dev.occultism.common.job.SpiritJob;
+import com.github.klikli_dev.occultism.common.ritual.pentacle.PentacleManager;
 import com.github.klikli_dev.occultism.common.tile.GoldenSacrificialBowlTileEntity;
 import com.github.klikli_dev.occultism.registry.*;
 import com.github.klikli_dev.occultism.util.ItemNBTUtil;
@@ -41,7 +42,7 @@ public class SummonAfritThunderWeatherRitual extends SummonSpiritRitual {
     //region Initialization
     public SummonAfritThunderWeatherRitual() {
         super(null,
-                OccultismRituals.SUMMON_AFRIT_PENTACLE.get(),
+                () -> PentacleManager.get(Occultism.MODID, "summon_afrit"),
                 Ingredient.fromItems(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()),
                 "summon_afrit_thunder_weather", 60);
         this.sacrificePredicate =

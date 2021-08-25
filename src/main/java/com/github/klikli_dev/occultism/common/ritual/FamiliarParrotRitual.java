@@ -22,6 +22,8 @@
 
 package com.github.klikli_dev.occultism.common.ritual;
 
+import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.common.ritual.pentacle.PentacleManager;
 import com.github.klikli_dev.occultism.common.tile.GoldenSacrificialBowlTileEntity;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.github.klikli_dev.occultism.registry.OccultismRituals;
@@ -45,7 +47,7 @@ public class FamiliarParrotRitual extends SummonSpiritRitual {
     //region Initialization
     public FamiliarParrotRitual() {
         super(null,
-                OccultismRituals.POSSESS_FOLIOT_PENTACLE.get(),
+                () -> PentacleManager.get(Occultism.MODID, "possess_foliot"),
                 Ingredient.fromItems(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()),
                 "familiar_parrot", 30);
         this.sacrificePredicate =

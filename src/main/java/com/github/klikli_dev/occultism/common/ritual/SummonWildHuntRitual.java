@@ -22,7 +22,9 @@
 
 package com.github.klikli_dev.occultism.common.ritual;
 
+import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.entity.spirit.WildHuntWitherSkeletonEntity;
+import com.github.klikli_dev.occultism.common.ritual.pentacle.PentacleManager;
 import com.github.klikli_dev.occultism.common.tile.GoldenSacrificialBowlTileEntity;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.registry.OccultismRituals;
@@ -48,7 +50,7 @@ public class SummonWildHuntRitual extends SummonSpiritRitual {
     //region Initialization
     public SummonWildHuntRitual() {
         super(null,
-                OccultismRituals.SUMMON_WILD_GREATER_SPIRIT_PENTACLE.get(),
+                () -> PentacleManager.get(Occultism.MODID, "summon_wild_greater_spirit"),
                 Ingredient.fromItems(Blocks.SKELETON_SKULL),
                 "summon_wild_hunt", 30);
         this.sacrificePredicate = (entity) -> entity instanceof PlayerEntity ||

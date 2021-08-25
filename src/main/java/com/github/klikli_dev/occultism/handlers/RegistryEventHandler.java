@@ -57,14 +57,11 @@ public class RegistryEventHandler {
     @SubscribeEvent
     public static void registerRegistries(RegistryEvent.NewRegistry event) {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-        new RegistryBuilder<Pentacle>().setName(new ResourceLocation(Occultism.MODID, "pentacle"))
-                .setType(Pentacle.class).create();
         new RegistryBuilder<Ritual>().setName(new ResourceLocation(Occultism.MODID, "ritual"))
                 .setType(Ritual.class).create();
         new RegistryBuilder<SpiritJobFactory>().setName(new ResourceLocation(Occultism.MODID, "spirit_job_factory"))
                 .setType(SpiritJobFactory.class).create();
 
-        OccultismRituals.PENTACLES.register(modEventBus);
         OccultismRituals.RITUALS.register(modEventBus);
         OccultismSpiritJobs.JOBS.register(modEventBus);
     }
