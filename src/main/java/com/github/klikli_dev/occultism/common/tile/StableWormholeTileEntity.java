@@ -142,8 +142,9 @@ public class StableWormholeTileEntity extends NetworkedTileEntity implements ISt
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, Direction side) {
-        if (this.getLinkedStorageController() != null) {
-            return ((TileEntity) this.getLinkedStorageController()).getCapability(cap, side);
+        IStorageController controller = this.getLinkedStorageController();
+        if (controller != null) {
+            return ((TileEntity) controller).getCapability(cap, side);
         }
         return super.getCapability(cap, side);
     }

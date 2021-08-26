@@ -33,8 +33,11 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fml.server.ServerLifecycleHooks;
+
+import javax.annotation.Nullable;
 
 public class TileEntityUtil {
     //region Static Methods
@@ -51,17 +54,45 @@ public class TileEntityUtil {
             return null;
 
         if (world.getDimensionKey() == pos.getDimensionKey()) {
-            return world.getTileEntity(pos.getPos());
+            return getWorldTileEntityUnchecked(world, pos.getPos());
         }
         if (world.isRemote) //can only access other dimensions on the server.
             return null;
 
         World dimensionWorld = ServerLifecycleHooks.getCurrentServer().getWorld(pos.getDimensionKey());
         if (dimensionWorld != null)
-            return dimensionWorld.getTileEntity(pos.getPos());
+            return getWorldTileEntityUnchecked(dimensionWorld, pos.getPos());
 
         return null;
     }
+
+    @Nullable
+    /**
+     * Copied from org.cyclops.cyclopscore.helper.TileHelpers
+     * Allows IntegratedDynamics and addons to safely interact with Occultism
+     * @author rubensworks
+     */
+    public static TileEntity getWorldTileEntityUnchecked(World world, BlockPos pos) {
+        if (World.isOutsideBuildHeight(pos)) {
+            return null;
+        } else {
+            TileEntity tileentity = null;
+            if (world.processingLoadedTiles) {
+                tileentity = world.getPendingTileEntityAt(pos);
+            }
+
+            if (tileentity == null) {
+                tileentity = world.getChunkAt(pos).getTileEntity(pos, Chunk.CreateEntityType.IMMEDIATE);
+            }
+
+            if (tileentity == null) {
+                tileentity = world.getPendingTileEntityAt(pos);
+            }
+
+            return tileentity;
+        }
+    }
+
 
     /**
      * Updates the tile entity at the given position (mark dirty & send updates)
