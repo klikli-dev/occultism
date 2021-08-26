@@ -35,6 +35,8 @@ import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.resources.language.I18n;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.resources.ResourceLocation;
 
@@ -42,7 +44,7 @@ public class SpiritFireRecipeCategory implements IRecipeCategory<SpiritFireRecip
 
     //region Fields
     private final IDrawable background;
-    private final String localizedName;
+    private final Component localizedName;
     private final IDrawable overlay;
     private final IDrawable icon;
     private final ItemStack renderStack = new ItemStack(OccultismItems.SPIRIT_FIRE.get());
@@ -51,7 +53,7 @@ public class SpiritFireRecipeCategory implements IRecipeCategory<SpiritFireRecip
     //region Initialization
     public SpiritFireRecipeCategory(IGuiHelper guiHelper) {
         this.background = guiHelper.createBlankDrawable(168, 46); //64
-        this.localizedName = I18n.get(Occultism.MODID + ".jei.spirit_fire");
+        this.localizedName = new TranslatableComponent(Occultism.MODID + ".jei.spirit_fire");
         this.overlay = guiHelper.createDrawable(
                 new ResourceLocation(Occultism.MODID, "textures/gui/jei/spirit_fire.png"), 0, 0, 64, 46);
         this.icon = guiHelper.createDrawableIngredient(this.renderStack);
@@ -71,7 +73,7 @@ public class SpiritFireRecipeCategory implements IRecipeCategory<SpiritFireRecip
     }
 
     @Override
-    public String getTitle() {
+    public Component getTitle() {
         return this.localizedName;
     }
 

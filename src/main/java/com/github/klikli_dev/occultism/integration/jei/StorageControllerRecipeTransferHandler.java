@@ -33,6 +33,7 @@ import mezz.jei.api.recipe.transfer.IRecipeTransferError;
 import mezz.jei.api.recipe.transfer.IRecipeTransferHandler;
 import mezz.jei.api.recipe.transfer.IRecipeTransferHandlerHelper;
 import net.minecraft.client.resources.language.I18n;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -49,16 +50,18 @@ import java.util.Map;
 /**
  * Based on https://github.com/Lothrazar/Storage-Network
  */
-public class StorageControllerRecipeTransferHandler<T extends AbstractContainerMenu & IStorageControllerContainer> implements IRecipeTransferHandler<T> {
+public class StorageControllerRecipeTransferHandler<T extends AbstractContainerMenu & IStorageControllerContainer, R extends Recipe<?>> implements IRecipeTransferHandler<T, R> {
 
     //region Fields
     protected final Class<T> containerClass;
+    protected final Class<R> recipeClass;
     protected final IRecipeTransferHandlerHelper helper;
     //endregion Fields
 
     //region Initialization
-    public StorageControllerRecipeTransferHandler(Class<T> containerClass, IRecipeTransferHandlerHelper helper) {
+    public StorageControllerRecipeTransferHandler(Class<T> containerClass, Class<R> recipeClass, IRecipeTransferHandlerHelper helper) {
         this.containerClass = containerClass;
+        this.recipeClass = recipeClass;
         this.helper = helper;
     }
     //endregion Initialization
@@ -69,21 +72,23 @@ public class StorageControllerRecipeTransferHandler<T extends AbstractContainerM
         return this.containerClass;
     }
 
+    @Override
+    public Class<R> getRecipeClass() {
+        return this.recipeClass;
+    }
+
     @Nullable
     @Override
-    public IRecipeTransferError transferRecipe(T container, Object recipeObject, IRecipeLayout recipeLayout,
+    public IRecipeTransferError transferRecipe(T container, R recipe, IRecipeLayout recipeLayout,
                                                Player player, boolean maxTransfer, boolean doTransfer) {
 
-
-        Recipe<?> recipe = (Recipe<?>) recipeObject;
-
         if (recipe.getId() == null) {
-            return this.helper.createUserErrorWithTooltip(I18n.get("jei." + Occultism.MODID + "error.missing_id"));
+            return this.helper.createUserErrorWithTooltip(new TranslatableComponent("jei." + Occultism.MODID + "error.missing_id"));
         }
 
         //sort out any modded recipes that don't fit 3x3
         if (!recipe.canCraftInDimensions(3, 3)) {
-            return this.helper.createUserErrorWithTooltip(I18n.get("jei." + Occultism.MODID + "error.recipe_too_large"));
+            return this.helper.createUserErrorWithTooltip(new TranslatableComponent("jei." + Occultism.MODID + "error.recipe_too_large"));
         }
 
         // can only send shaped/shapeless recipes to storage controller

@@ -29,8 +29,8 @@ import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.github.klikli_dev.occultism.registry.OccultismRecipes;
 import com.github.klikli_dev.occultism.registry.OccultismRituals;
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -40,9 +40,11 @@ import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.resources.language.I18n;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.core.Vec3i;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.math.vector.Vector3i;
+import net.minecraft.world.item.ItemStack;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -53,7 +55,7 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
     //region Fields
     private final IDrawable background;
     private final IDrawable arrow;
-    private final String localizedName;
+    private final Component localizedName;
     private final String pentacle;
     private final ItemStack goldenSacrificialBowl = new ItemStack(OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL.get());
     private final ItemStack sacrificialBowl = new ItemStack(OccultismBlocks.SACRIFICIAL_BOWL.get());
@@ -71,7 +73,7 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
         this.background = guiHelper.createBlankDrawable(168, 100); //64
         this.ritualCenterX = this.background.getWidth() / 2 - this.iconWidth / 2 - 30;
         this.ritualCenterY = this.background.getHeight() / 2 - this.iconWidth / 2 + 10;
-        this.localizedName = I18n.get(Occultism.MODID + ".jei.ritual");
+        this.localizedName = new TranslatableComponent(Occultism.MODID + ".jei.ritual");
         this.pentacle = I18n.get(Occultism.MODID + ".jei.pentacle");
         this.goldenSacrificialBowl.getOrCreateTag().putBoolean("RenderFull", true);
         this.sacrificialBowl.getOrCreateTag().putBoolean("RenderFull", true);
@@ -92,7 +94,7 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
     }
 
     @Override
-    public String getTitle() {
+    public Component getTitle() {
         return this.localizedName;
     }
 
@@ -143,40 +145,40 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
         int sacrificialCircleRadius = 30;
         int sacricialBowlPaddingVertical = 20;
         int sacricialBowlPaddingHorizontal = 15;
-        List<Vector3i> sacrificialBowlPosition = Stream.of(
+        List<Vec3i> sacrificialBowlPosition = Stream.of(
                 //first the 4 centers of each side
-                new Vector3i(this.ritualCenterX, this.ritualCenterY - sacrificialCircleRadius, 0),
-                new Vector3i(this.ritualCenterX + sacrificialCircleRadius, this.ritualCenterY, 0),
-                new Vector3i(this.ritualCenterX, this.ritualCenterY + sacrificialCircleRadius, 0),
-                new Vector3i(this.ritualCenterX - sacrificialCircleRadius, this.ritualCenterY, 0),
+                new Vec3i(this.ritualCenterX, this.ritualCenterY - sacrificialCircleRadius, 0),
+                new Vec3i(this.ritualCenterX + sacrificialCircleRadius, this.ritualCenterY, 0),
+                new Vec3i(this.ritualCenterX, this.ritualCenterY + sacrificialCircleRadius, 0),
+                new Vec3i(this.ritualCenterX - sacrificialCircleRadius, this.ritualCenterY, 0),
 
                 //then clockwise of the enter the next 4
-                new Vector3i(this.ritualCenterX + sacricialBowlPaddingHorizontal,
+                new Vec3i(this.ritualCenterX + sacricialBowlPaddingHorizontal,
                         this.ritualCenterY - sacrificialCircleRadius,
                         0),
-                new Vector3i(this.ritualCenterX + sacrificialCircleRadius,
+                new Vec3i(this.ritualCenterX + sacrificialCircleRadius,
                         this.ritualCenterY - sacricialBowlPaddingVertical, 0),
-                new Vector3i(this.ritualCenterX - sacricialBowlPaddingHorizontal,
+                new Vec3i(this.ritualCenterX - sacricialBowlPaddingHorizontal,
                         this.ritualCenterY + sacrificialCircleRadius,
                         0),
-                new Vector3i(this.ritualCenterX - sacrificialCircleRadius,
+                new Vec3i(this.ritualCenterX - sacrificialCircleRadius,
                         this.ritualCenterY + sacricialBowlPaddingVertical, 0),
 
                 //then counterclockwise of the center the last 4
-                new Vector3i(this.ritualCenterX - sacricialBowlPaddingHorizontal,
+                new Vec3i(this.ritualCenterX - sacricialBowlPaddingHorizontal,
                         this.ritualCenterY - sacrificialCircleRadius,
                         0),
-                new Vector3i(this.ritualCenterX + sacrificialCircleRadius,
+                new Vec3i(this.ritualCenterX + sacrificialCircleRadius,
                         this.ritualCenterY + sacricialBowlPaddingVertical, 0),
-                new Vector3i(this.ritualCenterX + sacricialBowlPaddingHorizontal,
+                new Vec3i(this.ritualCenterX + sacricialBowlPaddingHorizontal,
                         this.ritualCenterY + sacrificialCircleRadius,
                         0),
-                new Vector3i(this.ritualCenterX - sacrificialCircleRadius,
+                new Vec3i(this.ritualCenterX - sacrificialCircleRadius,
                         this.ritualCenterY - sacricialBowlPaddingVertical, 0)
         ).collect(Collectors.toList());
 
         for (int i = 0; i < inputItems.size(); i++) {
-            Vector3i pos = sacrificialBowlPosition.get(i);
+            Vec3i pos = sacrificialBowlPosition.get(i);
 
             recipeLayout.getItemStacks().init(index, true, pos.getX(), pos.getY() - 5);
             recipeLayout.getItemStacks().set(index, inputItems.get(i));
@@ -191,24 +193,23 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
         //ingredients: 0: recipe output, 1: ritual dummy item
 
         //draw recipe output on the left
-        if(recipe.getResultItem().getItem() != OccultismItems.JEI_DUMMY_NONE.get()){
+        if (recipe.getResultItem().getItem() != OccultismItems.JEI_DUMMY_NONE.get()) {
             //if we have an item output -> render it
             recipeLayout.getItemStacks()
                     .init(index, false, this.ritualCenterX + this.recipeOutputOffsetX, this.ritualCenterY - 5);
             recipeLayout.getItemStacks().set(index, ingredients.getOutputs(VanillaTypes.ITEM).get(0));
             index++;
-        }
-        else{
+        } else {
             //if not, we instead render our ritual dummy item, just like in the corner
             recipeLayout.getItemStacks()
                     .init(index, false, this.ritualCenterX + this.recipeOutputOffsetX, this.ritualCenterY - 5);
             recipeLayout.getItemStacks().set(index, ingredients.getOutputs(VanillaTypes.ITEM).get(1));
             index++;
         }
-            recipeLayout.getItemStacks()
-                    .init(index, false, this.ritualCenterX + this.recipeOutputOffsetX, this.ritualCenterY);
-            recipeLayout.getItemStacks().set(index, this.goldenSacrificialBowl);
-            index++;
+        recipeLayout.getItemStacks()
+                .init(index, false, this.ritualCenterX + this.recipeOutputOffsetX, this.ritualCenterY);
+        recipeLayout.getItemStacks().set(index, this.goldenSacrificialBowl);
+        index++;
 
 
         //draw ritual dummy item in upper left corner
@@ -241,19 +242,19 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
         RenderSystem.disableBlend();
 
         Pentacle pentacle = OccultismRituals.PENTACLE_REGISTRY.getValue(recipe.getPentacleId());
-        if(pentacle != null){
+        if (pentacle != null) {
             this.drawStringCentered(poseStack, Minecraft.getInstance().font,
-                    I18n.get(pentacle.getDescriptionId()), 84, 0);
+                    new TranslatableComponent(pentacle.getDescriptionId()), 84, 0);
         } else {
             this.drawStringCentered(poseStack, Minecraft.getInstance().font,
-                    I18n.get("jei.occultism.error.pentacle_not_loaded"), 84, 0);
+                    new TranslatableComponent("jei.occultism.error.pentacle_not_loaded"), 84, 0);
         }
     }
     //endregion Overrides
 
     //region Methods
-    protected void drawStringCentered(PoseStack poseStack, Font fontRenderer, String text, int x, int y) {
-        fontRenderer.drawString(poseStack, text, (x - fontRenderer.getStringWidth(text) / 2.0f), y, 0);
+    protected void drawStringCentered(PoseStack poseStack, Font fontRenderer, Component text, int x, int y) {
+        fontRenderer.draw(poseStack, text, (x - fontRenderer.width(text) / 2.0f), y, 0);
     }
     //endregion Methods
 }

@@ -45,12 +45,13 @@ import mezz.jei.api.registration.IRecipeTransferRegistration;
 import mezz.jei.api.runtime.IJeiRuntime;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.item.crafting.RecipeManager;
+import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.ItemLike;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.items.wrapper.RecipeWrapper;
 
 import java.util.Collection;
@@ -116,21 +117,21 @@ public class JeiPlugin implements IModPlugin {
         this.registerIngredientInfo(registration, OccultismBlocks.SPIRIT_FIRE.get());
     }
 
-    public void registerIngredientInfo(IRecipeRegistration registration, ItemLike ingredient){
+    public void registerIngredientInfo(IRecipeRegistration registration, ItemLike ingredient) {
         registration.addIngredientInfo(new ItemStack(ingredient.asItem()), VanillaTypes.ITEM,
-                "jei."+ Occultism.MODID + ".ingredient."+ingredient.asItem().getRegistryName().getPath()+".description");
+                new TranslatableComponent("jei." + Occultism.MODID + ".ingredient." + ingredient.asItem().getRegistryName().getPath() + ".description"));
     }
 
     @Override
     public void registerRecipeTransferHandlers(IRecipeTransferRegistration registration) {
         registration.addRecipeTransferHandler(new StorageControllerRecipeTransferHandler<>(
-                StorageControllerContainer.class, registration.getTransferHelper()),
+                        StorageControllerContainer.class, registration.getTransferHelper()),
                 VanillaRecipeCategoryUid.CRAFTING);
         registration.addRecipeTransferHandler(new StorageControllerRecipeTransferHandler<>(
-                StorageRemoteContainer.class, registration.getTransferHelper()),
+                        StorageRemoteContainer.class, registration.getTransferHelper()),
                 VanillaRecipeCategoryUid.CRAFTING);
         registration.addRecipeTransferHandler(new StorageControllerRecipeTransferHandler<>(
-                StableWormholeContainer.class, registration.getTransferHelper()),
+                        StableWormholeContainer.class, registration.getTransferHelper()),
                 VanillaRecipeCategoryUid.CRAFTING);
     }
 
