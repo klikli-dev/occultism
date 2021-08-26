@@ -33,8 +33,11 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fmllegacy.server.ServerLifecycleHooks;
+
+import javax.annotation.Nullable;
 
 public class BlockEntityUtil {
     //region Static Methods
@@ -51,17 +54,27 @@ public class BlockEntityUtil {
             return null;
 
         if (level.dimension() == pos.getDimensionKey()) {
-            return level.getBlockEntity(pos.getPos());
+            return getWorldTileEntityUnchecked(level, pos.getPos());
         }
         if (level.isClientSide) //can only access other dimensions on the server.
             return null;
 
         Level dimensionWorld = ServerLifecycleHooks.getCurrentServer().getLevel(pos.getDimensionKey());
         if (dimensionWorld != null)
-            return dimensionWorld.getBlockEntity(pos.getPos());
+            return getWorldTileEntityUnchecked(dimensionWorld, pos.getPos());
 
         return null;
     }
+
+    static BlockEntity getWorldTileEntityUnchecked(Level level, BlockPos pos) {
+        if (level.isOutsideBuildHeight(pos)) {
+            return null;
+        } else {
+            //Note: this should handle the pending entities that we manually did via world in 1.16
+            return level.getChunkAt(pos).getBlockEntity(pos, LevelChunk.EntityCreationType.IMMEDIATE);
+        }
+    }
+
 
     /**
      * Updates the tile entity at the given position (mark dirty & send updates)

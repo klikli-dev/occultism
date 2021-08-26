@@ -3,7 +3,7 @@
   "activation_item": {
     "item": "occultism:book_of_binding_bound_djinni"
   },
-  "pentacle_id": "occultism:summon_djinni",
+  "pentacle_id": "occultism:possess_foliot",
   "require_item_use": false,
   "require_sacrifice": true,
   "ritual": {

@@ -44,7 +44,7 @@ public class SummonWildOtherworldBirdRitual extends SummonSpiritRitual {
     //region Initialization
     public SummonWildOtherworldBirdRitual() {
         super(null,
-                OccultismRituals.SUMMON_DJINNI_PENTACLE.get(),
+                OccultismRituals.POSSESS_DJINNI_PENTACLE.get(),
                 Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()),
                 "summon_wild_otherworld_bird", 30);
         this.sacrificePredicate =
