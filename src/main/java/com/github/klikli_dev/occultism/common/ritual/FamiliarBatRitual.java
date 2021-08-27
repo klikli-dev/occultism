@@ -22,8 +22,10 @@
 
 package com.github.klikli_dev.occultism.common.ritual;
 
+import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.entity.BatFamiliarEntity;
 import com.github.klikli_dev.occultism.common.entity.GreedyFamiliarEntity;
+import com.github.klikli_dev.occultism.common.ritual.pentacle.PentacleManager;
 import com.github.klikli_dev.occultism.common.tile.GoldenSacrificialBowlTileEntity;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
@@ -45,7 +47,7 @@ public class FamiliarBatRitual extends SummonSpiritRitual {
     //region Initialization
     public FamiliarBatRitual() {
         super(null,
-                OccultismRituals.POSSESS_DJINNI_PENTACLE.get(),
+                () -> PentacleManager.get(Occultism.MODID, "possess_djinni"),
                 Ingredient.fromItems(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()),
                 "familiar_bat", 60);
         this.sacrificePredicate =

@@ -1,0 +1,28 @@
+{
+  "pattern": [
+    "       Z       ",
+    "      RRR      ",
+    "     RCWCR     ",
+    "    R  W  R    ",
+    "   RG WNW GR   ",
+    "  R  GW WG  R  ",
+    " RC WW   WW CR ",
+    "ZRWWN  0  NWWRZ",
+    " RC WW   WW CR ",
+    "  R  GW WG  R  ",
+    "   RG WNW GR   ",
+    "    R  W  R    ",
+    "     RCWCR     ",
+    "      RRR      ",
+    "       Z       "
+    ],
+    "mapping": {
+      "0": "occultism:golden_sacrificial_bowl",
+      "W": "occultism:chalk_glyph_white",
+      "G": "occultism:chalk_glyph_gold",
+      "R": "occultism:chalk_glyph_red",
+      "C": "occultism:candle_white",
+      "Z": "skeleton_skull",
+      "N": "wither_skeleton_skull"
+    }
+}

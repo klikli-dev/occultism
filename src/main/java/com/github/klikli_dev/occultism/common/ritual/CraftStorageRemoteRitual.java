@@ -22,6 +22,8 @@
 
 package com.github.klikli_dev.occultism.common.ritual;
 
+import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.common.ritual.pentacle.PentacleManager;
 import com.github.klikli_dev.occultism.common.tile.GoldenSacrificialBowlTileEntity;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.github.klikli_dev.occultism.registry.OccultismRituals;
@@ -38,7 +40,7 @@ public class CraftStorageRemoteRitual extends Ritual {
 
     //region Initialization
     public CraftStorageRemoteRitual() {
-        super(OccultismRituals.CRAFT_DJINNI_PENTACLE.get(),
+        super(() -> PentacleManager.get(Occultism.MODID, "craft_djinni"),
                 Ingredient.fromItems(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()), "craft_storage_remote",
                 120);
     }

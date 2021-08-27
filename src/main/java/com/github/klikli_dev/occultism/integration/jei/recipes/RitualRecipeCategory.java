@@ -24,6 +24,7 @@ package com.github.klikli_dev.occultism.integration.jei.recipes;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.ritual.pentacle.Pentacle;
+import com.github.klikli_dev.occultism.common.ritual.pentacle.PentacleManager;
 import com.github.klikli_dev.occultism.crafting.recipe.RitualRecipe;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
@@ -240,7 +241,7 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
         this.arrow.draw(matrixStack, this.ritualCenterX + this.recipeOutputOffsetX - 20, this.ritualCenterY);
         RenderSystem.disableBlend();
 
-        Pentacle pentacle = OccultismRituals.PENTACLE_REGISTRY.getValue(recipe.getPentacleId());
+        Pentacle pentacle = PentacleManager.get(recipe.getPentacleId());
         if(pentacle != null){
             this.drawStringCentered(matrixStack, Minecraft.getInstance().fontRenderer,
                     I18n.format(pentacle.getTranslationKey()), 84, 0);

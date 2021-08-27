@@ -25,6 +25,7 @@ package com.github.klikli_dev.occultism.common.ritual;
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.github.klikli_dev.occultism.common.job.TraderJob;
+import com.github.klikli_dev.occultism.common.ritual.pentacle.PentacleManager;
 import com.github.klikli_dev.occultism.common.tile.GoldenSacrificialBowlTileEntity;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
@@ -44,7 +45,7 @@ public class SummonFoliotSaplingTraderRitual extends SummonSpiritRitual {
 
     //region Initialization
     public SummonFoliotSaplingTraderRitual() {
-        super(null, OccultismRituals.SUMMON_FOLIOT_PENTACLE.get(),
+        super(null, () -> PentacleManager.get(Occultism.MODID, "summon_foliot"),
                 Ingredient.fromItems(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()), "summon_foliot_sapling_trader",
                 30);
     }

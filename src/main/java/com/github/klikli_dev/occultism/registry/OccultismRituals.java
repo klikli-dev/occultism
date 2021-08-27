@@ -32,39 +32,9 @@ import net.minecraftforge.registries.RegistryManager;
 
 public class OccultismRituals {
     //region Fields
-    public static final IForgeRegistry<Pentacle> PENTACLE_REGISTRY = RegistryManager.ACTIVE.getRegistry(Pentacle.class);
-    public static final DeferredRegister<Pentacle> PENTACLES = DeferredRegister.create(PENTACLE_REGISTRY,
-            Occultism.MODID);
     public static final IForgeRegistry<Ritual> RITUAL_REGISTRY = RegistryManager.ACTIVE.getRegistry(Ritual.class);
     public static final DeferredRegister<Ritual> RITUALS = DeferredRegister.create(RITUAL_REGISTRY, Occultism.MODID);
 
-    //Pentacles
-    public static final RegistryObject<DebugPentacle> DEBUG_PENTACLE =
-            PENTACLES.register("debug", DebugPentacle::new);
-    public static final RegistryObject<SummonFoliotPentacle> SUMMON_FOLIOT_PENTACLE =
-            PENTACLES.register("summon_foliot", SummonFoliotPentacle::new);
-    public static final RegistryObject<SummonDjinniPentacle> SUMMON_DJINNI_PENTACLE =
-            PENTACLES.register("summon_djinni", SummonDjinniPentacle::new);
-    public static final RegistryObject<SummonAfritPentacle> SUMMON_AFRIT_PENTACLE =
-            PENTACLES.register("summon_afrit", SummonAfritPentacle::new);
-    public static final RegistryObject<SummonWildAfritPentacle> SUMMON_WILD_AFRIT_PENTACLE =
-            PENTACLES.register("summon_wild_afrit", SummonWildAfritPentacle::new);
-    public static final RegistryObject<SummonMaridPentacle> SUMMON_MARID_PENTACLE =
-            PENTACLES.register("summon_marid", SummonMaridPentacle::new);
-    public static final RegistryObject<SummonWildGreaterSpiritPentacle> SUMMON_WILD_GREATER_SPIRIT_PENTACLE =
-            PENTACLES.register("summon_wild_greater_spirit", SummonWildGreaterSpiritPentacle::new);
-    public static final RegistryObject<CraftFoliotPentacle> CRAFT_FOLIOT_PENTACLE =
-            PENTACLES.register("craft_foliot", CraftFoliotPentacle::new);
-    public static final RegistryObject<CraftDjinniPentacle> CRAFT_DJINNI_PENTACLE =
-            PENTACLES.register("craft_djinni", CraftDjinniPentacle::new);
-    public static final RegistryObject<CraftAfritPentacle> CRAFT_AFRIT_PENTACLE =
-            PENTACLES.register("craft_afrit", CraftAfritPentacle::new);
-    public static final RegistryObject<CraftMaridPentacle> CRAFT_MARID_PENTACLE =
-            PENTACLES.register("craft_marid", CraftMaridPentacle::new);
-    public static final RegistryObject<PossessFoliotPentacle> POSSESS_FOLIOT_PENTACLE =
-            PENTACLES.register("possess_foliot", PossessFoliotPentacle::new);
-    public static final RegistryObject<PossessDjinniPentacle> POSSESS_DJINNI_PENTACLE =
-            PENTACLES.register("possess_djinni", PossessDjinniPentacle::new);
 
     //Rituals
     public static final RegistryObject<DebugRitual> DEBUG_RITUAL = RITUALS.register("debug", DebugRitual::new);

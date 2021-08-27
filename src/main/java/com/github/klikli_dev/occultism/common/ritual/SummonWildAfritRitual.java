@@ -22,7 +22,9 @@
 
 package com.github.klikli_dev.occultism.common.ritual;
 
+import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
+import com.github.klikli_dev.occultism.common.ritual.pentacle.PentacleManager;
 import com.github.klikli_dev.occultism.common.tile.GoldenSacrificialBowlTileEntity;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
@@ -42,7 +44,7 @@ public class SummonWildAfritRitual extends SummonSpiritRitual {
     //region Initialization
     public SummonWildAfritRitual() {
         super(null,
-                OccultismRituals.SUMMON_WILD_AFRIT_PENTACLE.get(),
+                () -> PentacleManager.get(Occultism.MODID, "summon_wild_afrit"),
                 Ingredient.fromItems(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()),
                 "summon_wild_afrit", 60);
         this.sacrificePredicate =

@@ -1,0 +1,21 @@
+{
+  "pattern": [
+    "           ",
+    "    PPP    ",
+    "   W W W   ",
+    "  W WZW W  ",
+    " P WP PW P ",
+    " PWZ 0 ZWP ",
+    " P WP PW P ",
+    "  W WZW W  ",
+    "   W W W   ",
+    "    PPP    ",
+    "           "
+    ],
+    "mapping": {
+      "0": "occultism:golden_sacrificial_bowl",
+      "W": "occultism:chalk_glyph_white",
+      "P": "occultism:chalk_glyph_purple",
+      "Z": "skeleton_skull"
+    }
+}

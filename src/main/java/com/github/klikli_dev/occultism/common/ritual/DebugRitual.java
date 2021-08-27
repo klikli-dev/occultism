@@ -24,6 +24,7 @@ package com.github.klikli_dev.occultism.common.ritual;
 
 import com.github.klikli_dev.occultism.common.entity.spirit.FoliotEntity;
 import com.github.klikli_dev.occultism.common.job.TraderJob;
+import com.github.klikli_dev.occultism.common.ritual.pentacle.PentacleManager;
 import com.github.klikli_dev.occultism.common.tile.GoldenSacrificialBowlTileEntity;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
@@ -42,11 +43,13 @@ import net.minecraft.world.server.ServerWorld;
 
 import static com.github.klikli_dev.occultism.util.StaticUtil.modLoc;
 
+import com.github.klikli_dev.occultism.Occultism;
+
 public class DebugRitual extends Ritual {
 
     //region Initialization
     public DebugRitual() {
-        super(OccultismRituals.DEBUG_PENTACLE.get(),
+        super(() -> PentacleManager.get(Occultism.MODID, "debug"),
                 Ingredient.fromItems(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()),
                 5);
     }

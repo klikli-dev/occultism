@@ -25,6 +25,7 @@ package com.github.klikli_dev.occultism.common.ritual;
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.github.klikli_dev.occultism.common.job.SpiritJob;
+import com.github.klikli_dev.occultism.common.ritual.pentacle.PentacleManager;
 import com.github.klikli_dev.occultism.common.tile.GoldenSacrificialBowlTileEntity;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
@@ -44,7 +45,7 @@ public class SummonDjinniDayTimeRitual extends SummonSpiritRitual {
     //region Initialization
     public SummonDjinniDayTimeRitual() {
         super(null,
-                OccultismRituals.SUMMON_DJINNI_PENTACLE.get(),
+                () -> PentacleManager.get(Occultism.MODID, "summon_djinni"),
                 Ingredient.fromItems(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()),
                 "summon_djinni_day_time", 60);
     }

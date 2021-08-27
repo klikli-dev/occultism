@@ -22,6 +22,8 @@
 
 package com.github.klikli_dev.occultism.common.ritual;
 
+import java.util.function.Supplier;
+
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.github.klikli_dev.occultism.common.ritual.pentacle.Pentacle;
 import com.github.klikli_dev.occultism.util.ItemNBTUtil;
@@ -43,20 +45,20 @@ public class SummonSpiritRitual extends Ritual {
 
     //region Initialization
 
-    public SummonSpiritRitual(Item bookOfCalling, Pentacle pentacle, Ingredient startingItem,
+    public SummonSpiritRitual(Item bookOfCalling, Supplier<Pentacle> pentacle, Ingredient startingItem,
                               int totalTime) {
         super(pentacle, startingItem, totalTime);
         this.bookOfCalling = bookOfCalling;
     }
 
-    public SummonSpiritRitual(Item bookOfCalling, Pentacle pentacle, Ingredient startingItem,
+    public SummonSpiritRitual(Item bookOfCalling, Supplier<Pentacle> pentacle, Ingredient startingItem,
                               String additionalIngredientsRecipeName,
                               int totalTime) {
         super(pentacle, startingItem, additionalIngredientsRecipeName, totalTime);
         this.bookOfCalling = bookOfCalling;
     }
 
-    public SummonSpiritRitual(Item bookOfCalling, Pentacle pentacle, Ingredient startingItem,
+    public SummonSpiritRitual(Item bookOfCalling, Supplier<Pentacle> pentacle, Ingredient startingItem,
                               String additionalIngredientsRecipeName, int sacrificialBowlRange, int totalTime) {
         super(pentacle, startingItem, additionalIngredientsRecipeName, sacrificialBowlRange,
                 totalTime);

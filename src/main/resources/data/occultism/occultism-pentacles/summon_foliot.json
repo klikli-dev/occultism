@@ -1,0 +1,18 @@
+{
+  "pattern": [
+    "         ",
+    "   WCW   ",
+    "  W W W  ",
+    " W  W  W ",
+    " CWW0WWC ",
+    " W  W  W ",
+    "  W W W  ",
+    "   WCW   ",
+    "         "
+    ],
+    "mapping": {
+      "0": "occultism:golden_sacrificial_bowl",
+      "W": "occultism:chalk_glyph_white",
+      "C": "occultism:candle_white"
+    }
+}

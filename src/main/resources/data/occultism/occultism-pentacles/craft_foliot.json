@@ -1,0 +1,18 @@
+{
+  "pattern": [
+    "  WSW  ",
+    " G   G ",
+    "W  W  W",
+    "C W0W C",
+    "W  W  W",
+    " G   G ",
+    "  WSW  "
+    ],
+    "mapping": {
+      "0": "occultism:golden_sacrificial_bowl",
+      "W": "occultism:chalk_glyph_white",
+      "G": "occultism:chalk_glyph_gold",
+      "C": "occultism:candle_white",
+      "S": "occultism:spirit_attuned_crystal"
+    }
+}
