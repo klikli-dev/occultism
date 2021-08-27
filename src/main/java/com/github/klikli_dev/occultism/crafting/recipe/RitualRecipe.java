@@ -22,9 +22,14 @@
 
 package com.github.klikli_dev.occultism.crafting.recipe;
 
+import com.github.klikli_dev.occultism.common.ritual.Ritual;
+import com.github.klikli_dev.occultism.common.ritual.pentacle.Pentacle;
+import com.github.klikli_dev.occultism.common.ritual.pentacle.PentacleManager;
 import com.github.klikli_dev.occultism.registry.OccultismRecipes;
+import com.github.klikli_dev.occultism.registry.OccultismRituals;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import net.minecraft.entity.EntityType;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
@@ -32,58 +37,99 @@ import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.item.crafting.ShapelessRecipe;
 import net.minecraft.network.PacketBuffer;
+import net.minecraft.tags.ITag;
+import net.minecraft.tags.TagCollectionManager;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.crafting.CraftingHelper;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Resource;
+import java.util.Optional;
 
 public class RitualRecipe extends ShapelessRecipe {
-    //region Fields
     public static Serializer SERIALIZER = new Serializer();
 
     private ResourceLocation pentacleId;
-    private ItemStack ritual;
+    private ResourceLocation ritualType;
+    private ResourceLocation spiritJobType;
+    private Ritual ritual;
+    private ItemStack ritualDummy;
     private Ingredient activationItem;
-    private boolean requireSacrifice;
-    private boolean requireItemUse;
-    //endregion Fields
+    private ITag<EntityType<?>> entityToSacrifice;
+    private EntityType entityToSummon;
+    private Ingredient itemToUse;
+    private int duration;
+    private int spiritMaxAge;
+    private float durationPerIngredient;
+    private String entityToSacrificeDisplayName;
 
-    //region Initialization
-    public RitualRecipe(ResourceLocation id, String group, ResourceLocation pentacleId, ItemStack ritual,
-                        ItemStack result, Ingredient activationItem, NonNullList<Ingredient> input,
-                        boolean requireSacrifice, boolean requireItemUse) {
+
+    public RitualRecipe(ResourceLocation id, String group, ResourceLocation pentacleId, ResourceLocation ritualType, ItemStack ritualDummy,
+                        ItemStack result, EntityType entityToSummon, Ingredient activationItem, NonNullList<Ingredient> input, int duration, int spiritMaxAge, ResourceLocation spiritJobType,
+                        ITag<EntityType<?>> entityToSacrifice, String entityToSacrificeDisplayName, Ingredient itemToUse) {
         super(id, group, result, input);
+        this.entityToSummon = entityToSummon;
         this.pentacleId = pentacleId;
-        this.ritual = ritual;
+        this.ritualType = ritualType;
+        this.ritual = OccultismRituals.RITUAL_FACTORY_REGISTRY.getValue(this.ritualType).create(this);
+        this.ritualDummy = ritualDummy;
         this.activationItem = activationItem;
-        this.requireSacrifice = requireSacrifice;
-        this.requireItemUse = requireItemUse;
+        this.duration = duration;
+        this.spiritMaxAge = spiritMaxAge;
+        this.spiritJobType = spiritJobType;
+        this.durationPerIngredient = this.duration / (float) (this.getIngredients().size() + 1);
+        this.entityToSacrifice = entityToSacrifice;
+        this.entityToSacrificeDisplayName = entityToSacrificeDisplayName;
+        this.itemToUse = itemToUse;
     }
-    //endregion Initialization
 
-    //region Getter / Setter
     public ResourceLocation getPentacleId() {
         return this.pentacleId;
     }
 
-    public ItemStack getRitual() {
-        return this.ritual;
+    public Pentacle getPentacle() {
+        return PentacleManager.get(this.pentacleId);
+    }
+
+    public ItemStack getRitualDummy() {
+        return this.ritualDummy;
     }
 
     public Ingredient getActivationItem() {
         return this.activationItem;
     }
-    //endregion Getter / Setter
 
-    //region Overrides
+    public int getDuration() {
+        return this.duration;
+    }
+
+    public float getDurationPerIngredient() {
+        return this.durationPerIngredient;
+    }
+
     @Override
     public IRecipeSerializer<?> getSerializer() {
         return SERIALIZER;
     }
+
+    /**
+     * Custom matches method for ritual recipes
+     *
+     * @param world              the world.
+     * @param goldenBowlPosition the position of the golden bowl.
+     * @param activationItem     the item used to start the ritual.
+     * @return true if the ritual matches, false otherwise.
+     */
+    public boolean matches(World world, BlockPos goldenBowlPosition, ItemStack activationItem) {
+        return this.ritual.identify(world, goldenBowlPosition, activationItem);
+    }
+
 
     @Override
     public boolean matches(@Nonnull CraftingInventory inventory, @Nonnull World world) {
@@ -100,17 +146,46 @@ public class RitualRecipe extends ShapelessRecipe {
     public IRecipeType<?> getType() {
         return OccultismRecipes.RITUAL_TYPE.get();
     }
-    //endregion Overrides
 
-//region Methods
-    public boolean requireSacrifice() {
-        return this.requireSacrifice;
+    public ITag<EntityType<?>> getEntityToSacrifice() {
+        return this.entityToSacrifice;
     }
 
-    public boolean requireItemUse() {
-        return this.requireItemUse;
+    public boolean requiresSacrifice() {
+        return this.entityToSacrifice != null;
     }
-//endregion Methods
+
+    public Ingredient getItemToUse() {
+        return this.itemToUse;
+    }
+
+    public boolean requiresItemUse() {
+        return this.itemToUse != null;
+    }
+
+    public EntityType<?> getEntityToSummon() {
+        return this.getEntityToSummon();
+    }
+
+    public ResourceLocation getRitualType() {
+        return ritualType;
+    }
+
+    public Ritual getRitual() {
+        return ritual;
+    }
+
+    public String getEntityToSacrificeDisplayName() {
+        return entityToSacrificeDisplayName;
+    }
+
+    public ResourceLocation getSpiritJobType() {
+        return spiritJobType;
+    }
+
+    public int getSpiritMaxAge() {
+        return spiritMaxAge;
+    }
 
     public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<RitualRecipe> {
         //region Fields
@@ -121,41 +196,118 @@ public class RitualRecipe extends ShapelessRecipe {
         @Override
         public RitualRecipe read(ResourceLocation recipeId, JsonObject json) {
             ShapelessRecipe recipe = serializer.read(recipeId, json);
+
+            ResourceLocation ritualType = new ResourceLocation(json.get("ritual_type").getAsString());
+
+            EntityType<?> entityToSummon = null;
+            if (json.has("entity_to_summon")) {
+                entityToSummon = ForgeRegistries.ENTITIES.getValue(new ResourceLocation(JSONUtils.getString(json, "entity_to_summon")));
+            }
+
             JsonElement activationItemElement =
                     JSONUtils.isJsonArray(json, "activation_item") ? JSONUtils.getJsonArray(json,
                             "activation_item") : JSONUtils.getJsonObject(json, "activation_item");
             Ingredient activationItem = Ingredient.deserialize(activationItemElement);
+
             ResourceLocation pentacleId = new ResourceLocation(json.get("pentacle_id").getAsString());
-            ItemStack ritual = CraftingHelper.getItemStack(JSONUtils.getJsonObject(json, "ritual"), true);
-            boolean requireSacrifice = json.get("require_sacrifice").getAsBoolean();
-            boolean requireItemUse = json.get("require_item_use").getAsBoolean();
-            return new RitualRecipe(recipe.getId(), recipe.getGroup(), pentacleId, ritual,
-                    recipe.getRecipeOutput(), activationItem,
-                    recipe.getIngredients(), requireSacrifice, requireItemUse);
+
+            int duration = JSONUtils.getInt(json, "duration", 30);
+            int spiritMaxAge = JSONUtils.getInt(json, "spirit_max_age", -1);
+
+            ResourceLocation spiritJobType = null;
+            if (json.has("spirit_job_type")) {
+                spiritJobType = new ResourceLocation(json.get("spirit_job_type").getAsString());
+            }
+
+            ItemStack ritualDummy = CraftingHelper.getItemStack(JSONUtils.getJsonObject(json, "ritual_dummy"), true);
+
+            ITag<EntityType<?>> entityToSacrifice = null;
+            String entityToSacrificeDisplayName = "";
+            if (json.has("entity_to_sacrifice")) {
+                entityToSacrifice = TagCollectionManager.getManager().getEntityTypeTags()
+                        .getTagByID(new ResourceLocation(JSONUtils.getString(json.getAsJsonObject("entity_to_sacrifice"), "tag")));
+                entityToSacrificeDisplayName = json.getAsJsonObject("entity_to_sacrifice").get("display_name").getAsString();
+            }
+
+            Ingredient itemToUse = null;
+            if (json.has("item_to_use")) {
+                JsonElement itemToUseElement =
+                        JSONUtils.isJsonArray(json, "item_to_use") ? JSONUtils.getJsonArray(json,
+                                "item_to_use") : JSONUtils.getJsonObject(json, "item_to_use");
+                itemToUse = Ingredient.deserialize(itemToUseElement);
+
+            }
+
+            return new RitualRecipe(recipe.getId(), recipe.getGroup(), pentacleId, ritualType, ritualDummy,
+                    recipe.getRecipeOutput(), entityToSummon, activationItem, recipe.getIngredients(), duration,
+                    spiritMaxAge, spiritJobType, entityToSacrifice, entityToSacrificeDisplayName, itemToUse);
         }
 
         @Override
         public RitualRecipe read(ResourceLocation recipeId, PacketBuffer buffer) {
             ShapelessRecipe recipe = serializer.read(recipeId, buffer);
+
+            ResourceLocation ritualType = buffer.readResourceLocation();
+
+            EntityType<?> entityToSummon = null;
+            if (buffer.readBoolean()) {
+                entityToSummon = ForgeRegistries.ENTITIES.getValue(buffer.readResourceLocation());
+            }
+
             ResourceLocation pentacleId = buffer.readResourceLocation();
+            int duration = buffer.readVarInt();
+            int spiritMaxAge = buffer.readVarInt();
+
+            ResourceLocation spiritJobType = null;
+            if (buffer.readBoolean()) {
+                spiritJobType = buffer.readResourceLocation();
+            }
+
             ItemStack ritual = buffer.readItemStack();
             Ingredient activationItem = Ingredient.read(buffer);
-            boolean requireSacrifice = buffer.readBoolean();
-            boolean requireItemUse = buffer.readBoolean();
 
-            return new RitualRecipe(recipe.getId(), recipe.getGroup(), pentacleId, ritual,
-                    recipe.getRecipeOutput(), activationItem,
-                    recipe.getIngredients(), requireSacrifice, requireItemUse);
+            ITag<EntityType<?>> entityToSacrifice = null;
+            String entityToSacrificeDisplayName = "";
+            if (buffer.readBoolean()) {
+                entityToSacrifice = TagCollectionManager.getManager().getEntityTypeTags().getTagByID(buffer.readResourceLocation());
+                entityToSacrificeDisplayName = buffer.readString();
+            }
+
+            Ingredient itemToUse = null;
+            if (buffer.readBoolean()) {
+                itemToUse = Ingredient.read(buffer);
+            }
+
+            return new RitualRecipe(recipe.getId(), recipe.getGroup(), pentacleId, ritualType, ritual, recipe.getRecipeOutput(), entityToSummon,
+                    activationItem, recipe.getIngredients(), duration, spiritMaxAge, spiritJobType, entityToSacrifice, entityToSacrificeDisplayName, itemToUse);
         }
 
         @Override
         public void write(PacketBuffer buffer, RitualRecipe recipe) {
             serializer.write(buffer, recipe);
+
+            buffer.writeResourceLocation(recipe.ritualType);
+
+            buffer.writeBoolean(recipe.entityToSummon != null);
+            if (recipe.entityToSummon != null)
+                buffer.writeResourceLocation(recipe.entityToSummon.getRegistryName());
+
             buffer.writeResourceLocation(recipe.pentacleId);
-            buffer.writeItemStack(recipe.ritual);
+            buffer.writeVarInt(recipe.duration);
+            buffer.writeVarInt(recipe.spiritMaxAge);
+            if(recipe.spiritJobType != null){
+                buffer.writeResourceLocation(recipe.spiritJobType);
+            }
+            buffer.writeItemStack(recipe.ritualDummy);
             recipe.activationItem.write(buffer);
-            buffer.writeBoolean(recipe.requireSacrifice);
-            buffer.writeBoolean(recipe.requireItemUse);
+            buffer.writeBoolean(recipe.entityToSacrifice != null);
+            if (recipe.entityToSacrifice != null){
+                buffer.writeResourceLocation(TagCollectionManager.getManager().getEntityTypeTags().getDirectIdFromTag(recipe.entityToSacrifice));
+                buffer.writeString(recipe.entityToSacrificeDisplayName);
+            }
+            buffer.writeBoolean(recipe.itemToUse != null);
+            if (recipe.itemToUse != null)
+                recipe.itemToUse.write(buffer);
         }
         //endregion Overrides
     }

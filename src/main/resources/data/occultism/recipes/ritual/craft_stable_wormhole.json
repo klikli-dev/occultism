@@ -6,7 +6,7 @@
   "pentacle_id": "occultism:craft_foliot",
   "require_item_use": false,
   "require_sacrifice": false,
-  "ritual": {
+  "ritual_dummy": {
     "item": "occultism:ritual_dummy/craft_stable_wormhole"
   },
   "ingredients": [

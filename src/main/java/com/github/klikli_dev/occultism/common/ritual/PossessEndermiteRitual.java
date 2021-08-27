@@ -43,18 +43,6 @@ import net.minecraft.world.server.ServerWorld;
 
 public class PossessEndermiteRitual extends SummonSpiritRitual {
 
-    //region Initialization
-    public PossessEndermiteRitual() {
-        super(null,
-                () -> PentacleManager.get(Occultism.MODID, "possess_foliot"),
-                Ingredient.fromItems(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()),
-                "possess_endermite", 30);
-        this.itemUsePredicate = (event) -> event.getItemStack().getItem() == Items.EGG;
-    }
-    //endregion Initialization
-
-    //region Overrides
-
     @Override
     public void finish(World world, BlockPos goldenBowlPosition, GoldenSacrificialBowlTileEntity tileEntity,
                        PlayerEntity castingPlayer, ItemStack activationItem) {
@@ -79,5 +67,4 @@ public class PossessEndermiteRitual extends SummonSpiritRitual {
         //notify players nearby and spawn
         this.spawnEntity(endermite, world);
     }
-    //endregion Overrides
 }

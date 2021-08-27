@@ -25,6 +25,7 @@ package com.github.klikli_dev.occultism.common.ritual;
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.ritual.pentacle.PentacleManager;
 import com.github.klikli_dev.occultism.common.tile.GoldenSacrificialBowlTileEntity;
+import com.github.klikli_dev.occultism.crafting.recipe.RitualRecipe;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.github.klikli_dev.occultism.util.ItemNBTUtil;
 import net.minecraft.entity.player.PlayerEntity;
@@ -35,13 +36,11 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
-public class CraftDimensionalMatrixRitual extends Ritual {
+public class CraftWithSpiritNameRitual extends Ritual {
 
     //region Initialization
-    public CraftDimensionalMatrixRitual() {
-        super(() -> PentacleManager.get(Occultism.MODID, "craft_djinni"),
-                Ingredient.fromItems(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()), "craft_dimensional_matrix",
-                240);
+    public CraftWithSpiritNameRitual(RitualRecipe recipe) {
+        super(recipe);
     }
     //endregion Initialization
 
@@ -58,7 +57,7 @@ public class CraftDimensionalMatrixRitual extends Ritual {
         ((ServerWorld) world).spawnParticle(ParticleTypes.LARGE_SMOKE, goldenBowlPosition.getX() + 0.5,
                 goldenBowlPosition.getY() + 0.5, goldenBowlPosition.getZ() + 0.5, 1, 0, 0, 0, 0);
 
-        ItemStack result = new ItemStack(OccultismItems.DIMENSIONAL_MATRIX.get());
+        ItemStack result = this.recipe.getRecipeOutput().copy();
         ItemNBTUtil.setBoundSpiritName(result, ItemNBTUtil.getBoundSpiritName(copy));
         this.dropResult(world, goldenBowlPosition, tileEntity, castingPlayer, result);
     }

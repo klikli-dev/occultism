@@ -25,13 +25,16 @@ package com.github.klikli_dev.occultism.common.ritual;
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.github.klikli_dev.occultism.common.job.SpiritJob;
+import com.github.klikli_dev.occultism.common.job.SpiritJobFactory;
 import com.github.klikli_dev.occultism.common.ritual.pentacle.PentacleManager;
 import com.github.klikli_dev.occultism.common.tile.GoldenSacrificialBowlTileEntity;
+import com.github.klikli_dev.occultism.crafting.recipe.RitualRecipe;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
-import com.github.klikli_dev.occultism.registry.OccultismRituals;
 import com.github.klikli_dev.occultism.registry.OccultismSpiritJobs;
 import com.github.klikli_dev.occultism.util.ItemNBTUtil;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
@@ -40,13 +43,13 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
-public class SummonFoliotCrusherRitual extends SummonSpiritRitual {
+import java.util.function.Supplier;
+
+public class SummonSpiritWithJobRitual extends SummonSpiritRitual {
 
     //region Initialization
-    public SummonFoliotCrusherRitual() {
-        super(null, () -> PentacleManager.get(Occultism.MODID, "summon_foliot"),
-                Ingredient.fromItems(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()),
-                "summon_foliot_crusher", 60);
+    public SummonSpiritWithJobRitual(RitualRecipe recipe) {
+        super(recipe);
     }
     //endregion Initialization
 
@@ -57,27 +60,33 @@ public class SummonFoliotCrusherRitual extends SummonSpiritRitual {
                        PlayerEntity castingPlayer, ItemStack activationItem) {
         super.finish(world, goldenBowlPosition, tileEntity, castingPlayer, activationItem);
 
-        //consume activation item
-        ItemStack copy = activationItem.copy();
-        activationItem.shrink(1);
+        //prepare active book of calling
+        ItemStack result = this.getBookOfCallingBound(activationItem);
 
         ((ServerWorld) world).spawnParticle(ParticleTypes.LARGE_SMOKE, goldenBowlPosition.getX() + 0.5,
                 goldenBowlPosition.getY() + 0.5, goldenBowlPosition.getZ() + 0.5, 1, 0, 0, 0, 0);
 
-        //set up the foliot entity
-        SpiritEntity spirit = OccultismEntities.FOLIOT.get().create(world);
-        this.prepareSpiritForSpawn(spirit, world, goldenBowlPosition, castingPlayer,
-                ItemNBTUtil.getBoundSpiritName(copy));
+        EntityType<?> entityType = this.recipe.getEntityToSummon();
+        if(entityType != null){
+            Entity entity = entityType.create(world);
+            if(entity instanceof SpiritEntity){
+                SpiritEntity spirit = (SpiritEntity) entity;
+                this.prepareSpiritForSpawn(spirit, world, goldenBowlPosition, castingPlayer,
+                        ItemNBTUtil.getBoundSpiritName(result));
 
-        //set up the job
-        SpiritJob job = OccultismSpiritJobs.CRUSH_TIER1.get().create(spirit);
-        job.init();
-        spirit.setJob(job);
+                //set up the job
+                SpiritJob job = OccultismSpiritJobs.REGISTRY.getValue(this.recipe.getSpiritJobType()).create(spirit);
+                job.init();
+                spirit.setJob(job);
+                spirit.setSpiritMaxAge(this.recipe.getSpiritMaxAge());
 
-        spirit.setSpiritMaxAge(Occultism.SERVER_CONFIG.spiritJobs.tier1CrusherMaxAgeSeconds.get());
+                //notify players nearby and spawn
+                this.spawnEntity(spirit, world);
 
-        //notify players nearby and spawn
-        this.spawnEntity(spirit, world);
+                //set up the book of calling
+                this.finishBookOfCallingSetup(result, spirit, castingPlayer);
+            }
+        }
     }
     //endregion Overrides
 }

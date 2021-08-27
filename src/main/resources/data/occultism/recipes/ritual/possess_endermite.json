@@ -3,10 +3,12 @@
   "activation_item": {
     "item": "occultism:book_of_binding_bound_foliot"
   },
+  "duration": 30,
   "pentacle_id": "occultism:possess_foliot",
-  "require_item_use": true,
-  "require_sacrifice": false,
-  "ritual": {
+  "item_to_use": {
+    "item": "minecraft:egg"
+  },
+  "ritual_dummy": {
     "item": "occultism:ritual_dummy/possess_endermite"
   },
   "ingredients": [

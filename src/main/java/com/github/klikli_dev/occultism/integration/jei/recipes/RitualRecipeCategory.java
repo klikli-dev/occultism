@@ -29,7 +29,6 @@ import com.github.klikli_dev.occultism.crafting.recipe.RitualRecipe;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.github.klikli_dev.occultism.registry.OccultismRecipes;
-import com.github.klikli_dev.occultism.registry.OccultismRituals;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import mezz.jei.api.constants.VanillaTypes;
@@ -118,7 +117,7 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
         );
         //0: recipe output, 1: ritual dummy item
         ingredients.setOutputs(VanillaTypes.ITEM, Stream.of(recipe.getRecipeOutput(),
-                recipe.getRitual()).collect(Collectors.toList()));
+                recipe.getRitualDummy()).collect(Collectors.toList()));
     }
 
     @Override
@@ -220,14 +219,14 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
         int dummyY = 0;
         int dummyX = this.background.getWidth() - this.iconWidth - 5;
         //draw info dummy items below
-        if (recipe.requireSacrifice()) {
+        if (recipe.requiresSacrifice()) {
             recipeLayout.getItemStacks().init(index, false, dummyX, dummyY);
             recipeLayout.getItemStacks().set(index, this.requireSacrifice);
             index++;
             dummyY += 20;
         }
 
-        if (recipe.requireItemUse()) {
+        if (recipe.requiresItemUse()) {
             recipeLayout.getItemStacks().init(index, false, dummyX, dummyY);
             recipeLayout.getItemStacks().set(index, this.requireItemUse);
             index++;

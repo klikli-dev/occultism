@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright 2020 klikli-dev
+ * Copyright 2021 klikli-dev
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the "Software"), to deal in the Software without restriction, including
@@ -20,30 +20,30 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.github.klikli_dev.occultism.common.entity.spirit;
+package com.github.klikli_dev.occultism.common.ritual;
 
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ai.attributes.AttributeModifierMap;
-import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.world.World;
+import com.github.klikli_dev.occultism.crafting.recipe.RitualRecipe;
+import net.minecraftforge.registries.ForgeRegistryEntry;
 
-public class MaridEntity extends SpiritEntity {
+import java.util.function.Function;
+
+public class RitualFactory extends ForgeRegistryEntry<RitualFactory> {
+
+    //region Fields
+    Function<RitualRecipe, ? extends Ritual> constructor;
+    //endregion Fields
 
     //region Initialization
-    public MaridEntity(EntityType<? extends SpiritEntity> type, World world) {
-        super(type, world);
+    public RitualFactory(Function<RitualRecipe, ? extends Ritual> constructor) {
+        this.constructor = constructor;
     }
     //endregion Initialization
 
-    //region Static Methods
-    public static AttributeModifierMap.MutableAttribute registerAttributes() {
-        return SpiritEntity.registerAttributes()
-                       .createMutableAttribute(Attributes.ATTACK_DAMAGE, 16.0)
-                       .createMutableAttribute(Attributes.ATTACK_SPEED, 8.0)
-                       .createMutableAttribute(Attributes.MAX_HEALTH, 300.0)
-                       .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.40000001192092896)
-                       .createMutableAttribute(Attributes.ARMOR, 16.0)
-                       .createMutableAttribute(Attributes.ARMOR_TOUGHNESS, 100.0);
+    //region Methods
+    public Ritual create(RitualRecipe recipe) {
+        Ritual ritual = this.constructor.apply(recipe);
+        ritual.setFactoryId(this.getRegistryName());
+        return ritual;
     }
-    //endregion Static Methods
+    //endregion Methods
 }

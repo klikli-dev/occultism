@@ -1,12 +1,11 @@
 {
   "type": "occultism:ritual",
+  "ritual_type": "occultism:craft_with_spirit_name",
   "activation_item": {
     "item": "occultism:book_of_binding_bound_djinni"
   },
   "pentacle_id": "occultism:craft_djinni",
-  "require_item_use": false,
-  "require_sacrifice": false,
-  "ritual": {
+  "ritual_dummy": {
     "item": "occultism:ritual_dummy/craft_dimensional_matrix"
   },
   "ingredients": [

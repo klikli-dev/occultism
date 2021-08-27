@@ -32,7 +32,6 @@ public class DjinniEntity extends SpiritEntity {
     //region Initialization
     public DjinniEntity(EntityType<? extends SpiritEntity> type, World world) {
         super(type, world);
-        this.setSpiritMaxAge(60 * 60 * 24); //1 day default for djinni.
     }
     //endregion Initialization
 

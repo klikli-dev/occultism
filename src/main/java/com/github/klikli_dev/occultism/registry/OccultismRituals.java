@@ -31,10 +31,28 @@ import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.RegistryManager;
 
 public class OccultismRituals {
-    //region Fields
+
+    public static final IForgeRegistry<RitualFactory> RITUAL_FACTORY_REGISTRY = RegistryManager.ACTIVE.getRegistry(RitualFactory.class);
+    public static final DeferredRegister<RitualFactory> RITUAL_FACTORIES = DeferredRegister.create(RITUAL_FACTORY_REGISTRY, Occultism.MODID);
+
+    //Summoning
+    public static final RegistryObject<RitualFactory> SUMMON_SPIRIT_WITH_JOB_RITUAL =
+            RITUAL_FACTORIES.register("summon_spirit_with_job",
+                    () -> new RitualFactory(SummonSpiritWithJobRitual::new));
+
+
+    //Crafting
+    public static final RegistryObject<RitualFactory> CRAFT_RITUAL =
+            RITUAL_FACTORIES.register("craft",
+                    () -> new RitualFactory(CraftRitual::new));
+    public static final RegistryObject<RitualFactory> CRAFT_WITH_SPIRIT_NAME_RITUAL =
+            RITUAL_FACTORIES.register("craft_with_spirit_name",
+                    () -> new RitualFactory(CraftWithSpiritNameRitual::new));
+
+
+
     public static final IForgeRegistry<Ritual> RITUAL_REGISTRY = RegistryManager.ACTIVE.getRegistry(Ritual.class);
     public static final DeferredRegister<Ritual> RITUALS = DeferredRegister.create(RITUAL_REGISTRY, Occultism.MODID);
-
 
     //Rituals
     public static final RegistryObject<DebugRitual> DEBUG_RITUAL = RITUALS.register("debug", DebugRitual::new);
@@ -67,8 +85,6 @@ public class OccultismRituals {
     public static final RegistryObject<SummonDjinniNightTimeRitual> SUMMON_DJINNI_NIGHT_TIME_RITUAL =
             RITUALS.register("summon_djinni_night_time", SummonDjinniNightTimeRitual::new);
 
-    public static final RegistryObject<SummonFoliotCrusherRitual> SUMMON_FOLIOT_CRUSHER_RITUAL =
-            RITUALS.register("summon_foliot_crusher", SummonFoliotCrusherRitual::new);
     public static final RegistryObject<SummonDjinniCrusherRitual> SUMMON_DJINNI_CRUSHER_RITUAL =
             RITUALS.register("summon_djinni_crusher", SummonDjinniCrusherRitual::new);
     public static final RegistryObject<SummonAfritCrusherRitual> SUMMON_AFRIT_CRUSHER_RITUAL =
@@ -79,8 +95,6 @@ public class OccultismRituals {
     //Crafting
     public static final RegistryObject<CraftStorageControllerBaseRitual> CRAFT_STORAGE_CONTROLLER_BASE_RITUAL =
             RITUALS.register("craft_storage_controller_base", CraftStorageControllerBaseRitual::new);
-    public static final RegistryObject<CraftDimensionalMatrixRitual> CRAFT_DIMENSIONAL_MATRIX_RITUAL =
-            RITUALS.register("craft_dimensional_matrix", CraftDimensionalMatrixRitual::new);
     public static final RegistryObject<CraftStableWormholeRitual> CRAFT_STABLE_WORMHOLE_RITUAL =
             RITUALS.register("craft_stable_wormhole", CraftStableWormholeRitual::new);
     public static final RegistryObject<CraftStorageRemoteRitual> CRAFT_STORAGE_REMOTE_RITUAL =
@@ -102,8 +116,6 @@ public class OccultismRituals {
 
     public static final RegistryObject<CraftSoulGemRitual> CRAFT_SOUL_GEM_RITUAL =
             RITUALS.register("craft_soul_gem", CraftSoulGemRitual::new);
-    public static final RegistryObject<CraftFamiliarRingRitual> CRAFT_FAMILIAR_RING =
-            RITUALS.register("craft_familiar_ring", CraftFamiliarRingRitual::new);
 
     public static final RegistryObject<CraftDimensionalMineshaftRitual> CRAFT_DIMENSIONAL_MINESHAFT_RITUAL =
             RITUALS.register("craft_dimensional_mineshaft", CraftDimensionalMineshaftRitual::new);
@@ -138,5 +150,4 @@ public class OccultismRituals {
             RITUALS.register("familiar_bat", FamiliarBatRitual::new);
     public static final RegistryObject<FamiliarDeerRitual> FAMILIAR_DEER =
             RITUALS.register("familiar_deer", FamiliarDeerRitual::new);
-    //endregion Fields
 }

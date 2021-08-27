@@ -25,52 +25,33 @@ package com.github.klikli_dev.occultism.common.ritual;
 import java.util.function.Supplier;
 
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
+import com.github.klikli_dev.occultism.common.job.SpiritJob;
 import com.github.klikli_dev.occultism.common.ritual.pentacle.Pentacle;
+import com.github.klikli_dev.occultism.common.tile.GoldenSacrificialBowlTileEntity;
+import com.github.klikli_dev.occultism.crafting.recipe.RitualRecipe;
+import com.github.klikli_dev.occultism.registry.OccultismEntities;
+import com.github.klikli_dev.occultism.registry.OccultismItems;
+import com.github.klikli_dev.occultism.registry.OccultismSpiritJobs;
 import com.github.klikli_dev.occultism.util.ItemNBTUtil;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.particles.ParticleTypes;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.items.ItemHandlerHelper;
 
 public class SummonSpiritRitual extends Ritual {
 
-    //region Fields
-    public Item bookOfCalling;
-    //endregion Fields
-
-    //region Initialization
-
-    public SummonSpiritRitual(Item bookOfCalling, Supplier<Pentacle> pentacle, Ingredient startingItem,
-                              int totalTime) {
-        super(pentacle, startingItem, totalTime);
-        this.bookOfCalling = bookOfCalling;
+    public SummonSpiritRitual(RitualRecipe recipe){
+        super(recipe);
     }
-
-    public SummonSpiritRitual(Item bookOfCalling, Supplier<Pentacle> pentacle, Ingredient startingItem,
-                              String additionalIngredientsRecipeName,
-                              int totalTime) {
-        super(pentacle, startingItem, additionalIngredientsRecipeName, totalTime);
-        this.bookOfCalling = bookOfCalling;
-    }
-
-    public SummonSpiritRitual(Item bookOfCalling, Supplier<Pentacle> pentacle, Ingredient startingItem,
-                              String additionalIngredientsRecipeName, int sacrificialBowlRange, int totalTime) {
-        super(pentacle, startingItem, additionalIngredientsRecipeName, sacrificialBowlRange,
-                totalTime);
-        this.bookOfCalling = bookOfCalling;
-    }
-
-    //endregion Initialization
-
-    //region Overrides
-    //endregion Overrides
-
-    //region Methods
 
     /**
      * Consumes the activation item and copies over the NBT:
@@ -79,7 +60,10 @@ public class SummonSpiritRitual extends Ritual {
      * @return return the bound book of calling with the nbt from the activation item.
      */
     public ItemStack getBookOfCallingBound(ItemStack activationItem) {
-        ItemStack result = new ItemStack(this.bookOfCalling);
+        ItemStack result = this.recipe.getRecipeOutput().copy();
+        if(result.getItem() == OccultismItems.JEI_DUMMY_NONE.get())
+            return ItemStack.EMPTY;
+
         //should never happen, but apparently there is a scenario where it does (item cheated in with non jei?)
         //https://github.com/klikli-dev/occultism/issues/183
         if(activationItem.hasTag())
@@ -112,5 +96,32 @@ public class SummonSpiritRitual extends Ritual {
             CriteriaTriggers.SUMMONED_ENTITY.trigger(player, entity);
         world.addEntity(entity);
     }
-    //endregion Methods
+
+    @Override
+    public void finish(World world, BlockPos goldenBowlPosition, GoldenSacrificialBowlTileEntity tileEntity,
+                       PlayerEntity castingPlayer, ItemStack activationItem) {
+        super.finish(world, goldenBowlPosition, tileEntity, castingPlayer, activationItem);
+
+        //prepare active book of calling
+        ItemStack result = this.getBookOfCallingBound(activationItem);
+
+        ((ServerWorld) world).spawnParticle(ParticleTypes.LARGE_SMOKE, goldenBowlPosition.getX() + 0.5,
+                goldenBowlPosition.getY() + 0.5, goldenBowlPosition.getZ() + 0.5, 1, 0, 0, 0, 0);
+
+        EntityType<?> entityType = this.recipe.getEntityToSummon();
+        if(entityType != null){
+            Entity entity = entityType.create(world);
+            if(entity instanceof SpiritEntity){
+                SpiritEntity spirit = (SpiritEntity) entity;
+                this.prepareSpiritForSpawn(spirit, world, goldenBowlPosition, castingPlayer,
+                        ItemNBTUtil.getBoundSpiritName(result));
+
+                //notify players nearby and spawn
+                this.spawnEntity(spirit, world);
+
+                //set up the book of calling
+                this.finishBookOfCallingSetup(result, spirit, castingPlayer);
+            }
+        }
+    }
 }

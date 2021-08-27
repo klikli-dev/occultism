@@ -24,9 +24,9 @@ package com.github.klikli_dev.occultism.common.ritual;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
-import com.github.klikli_dev.occultism.common.ritual.pentacle.Pentacle;
 import com.github.klikli_dev.occultism.common.tile.GoldenSacrificialBowlTileEntity;
 import com.github.klikli_dev.occultism.common.tile.SacrificialBowlTileEntity;
+import com.github.klikli_dev.occultism.crafting.recipe.RitualRecipe;
 import com.github.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.github.klikli_dev.occultism.registry.OccultismSounds;
 import net.minecraft.entity.LivingEntity;
@@ -35,9 +35,7 @@ import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.item.crafting.RecipeManager;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
@@ -55,8 +53,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Predicate;
-import java.util.function.Supplier;
 
 public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
 
@@ -77,46 +73,10 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
      */
     public static final int ITEM_USE_DETECTION_RANGE = 16;
 
-    /**
-     * The pentacle required to perform this ritual.
-     */
-    public final Supplier<Pentacle> pentacle;
+    public RitualRecipe recipe;
 
-    /**
-     * The item required to start the ritual.
-     */
-    public final Ingredient startingItem;
+    public ResourceLocation factoryId;
 
-    /**
-     * The SpiritTrade recipe id representing the additional ingredients for this ritual.
-     */
-    public ResourceLocation additionalIngredientsRecipeId;
-    /**
-     * The predicate to check sacrifices against.
-     */
-    public Predicate<LivingEntity> sacrificePredicate;
-    /**
-     * The predicate to check sacrifices against.
-     */
-    public Predicate<PlayerInteractEvent.RightClickItem> itemUsePredicate;
-    /**
-     * The range to look for sacrificial bowls for additional ingredients.
-     */
-    public int sacrificialBowlRange;
-    /**
-     * The total time in seconds it takes to finish the ritual.
-     */
-    public int totalSeconds;
-    /**
-     * The ritual time to pass per ingredient.
-     */
-    public float timePerIngredient;
-    /**
-     * The additional ingredients required to finish the ritual.
-     * These ingredients need to be placed within the ritual area.
-     */
-    protected List<Ingredient> additionalIngredients;
-    protected boolean additionalIngredientsLoaded;
     //endregion Fields
 
 
@@ -124,64 +84,25 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
 
     /**
      * Constructs a ritual.
-     *
-     * @param pentacle     the pentacle for the ritual.
-     * @param startingItem the item required to start the ritual.
      */
-    public Ritual(Supplier<Pentacle> pentacle, Ingredient startingItem) {
-        this(pentacle, startingItem, 10);
-    }
-
-
-    /**
-     * Constructs a ritual.
-     *
-     * @param pentacle     the pentacle for the ritual.
-     * @param startingItem the item required to start the ritual.
-     * @param totalSeconds the total time it takes to finish the ritual.
-     */
-    public Ritual(Supplier<Pentacle> pentacle, Ingredient startingItem, int totalSeconds) {
-        this(pentacle, startingItem, (String) null, totalSeconds);
-    }
-
-    /**
-     * Constructs a ritual.
-     *
-     * @param pentacle                        the pentacle for the ritual.
-     * @param startingItem                    the item required to start the ritual.
-     * @param additionalIngredientsRecipeName the name of the additional ingredients recipe id. Will be prefixed with MODID:rituals/
-     * @param totalSeconds                    the total time it takes to finish the ritual.
-     */
-    public Ritual(Supplier<Pentacle> pentacle, Ingredient startingItem, String additionalIngredientsRecipeName,
-                  int totalSeconds) {
-        this(pentacle, startingItem, additionalIngredientsRecipeName, SACRIFICIAL_BOWL_RANGE, totalSeconds);
-    }
-
-    /**
-     * Constructs a ritual.
-     *
-     * @param pentacle                        the pentacle for the ritual.
-     * @param startingItem                    the item required to start the ritual.
-     * @param additionalIngredientsRecipeName the name of the additional ingredients recipe id. Will be prefixed with MODID:rituals/
-     * @param sacrificialBowlRange            the range to look for sacrificial bowls for additional ingredients.
-     * @param totalSeconds                    the total time it takes to finish the ritual.
-     */
-    public Ritual(Supplier<Pentacle> pentacle, Ingredient startingItem, String additionalIngredientsRecipeName,
-                  int sacrificialBowlRange, int totalSeconds) {
-        this.pentacle = pentacle;
-        this.startingItem = startingItem;
-        if (additionalIngredientsRecipeName != null)
-            this.additionalIngredientsRecipeId = new ResourceLocation(Occultism.MODID,
-                    "ritual/" + additionalIngredientsRecipeName);
-        this.additionalIngredients = new ArrayList<>();
-        this.additionalIngredientsLoaded = false;
-        this.sacrificialBowlRange = sacrificialBowlRange;
-        this.totalSeconds = totalSeconds;
-        this.timePerIngredient = this.totalSeconds;
+    public Ritual(RitualRecipe recipe) {
+        this.recipe = recipe;
     }
     //endregion Initialization
 
     //region Getter / Setter
+
+    public ResourceLocation getFactoryID() {
+        return this.factoryId;
+    }
+
+    public void setFactoryId(ResourceLocation factoryId) {
+        this.factoryId = factoryId;
+    }
+
+    public RitualRecipe getRecipe() {
+        return this.recipe;
+    }
 
     /**
      * @return the conditions message translation key for this ritual.
@@ -215,39 +136,6 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
     //region Methods
 
     /**
-     * The additional ingredients required to finish the ritual.
-     * These ingredients need to be placed within the ritual area.
-     */
-    public List<Ingredient> getAdditionalIngredients(World world) {
-        //rituals persist between world unload/reloads, so additionalIngredientsLoaded will be true
-        //therefore we also check for additional ingredients size
-        if (!this.additionalIngredientsLoaded || this.additionalIngredients.size() == 0) {
-            //this is lazily loading the ingredients.
-            this.registerAdditionalIngredients(world.getRecipeManager());
-        }
-        return this.additionalIngredients;
-    }
-
-    /**
-     * Gets the additional ingredients from the recipe registry.
-     */
-    public void registerAdditionalIngredients(RecipeManager recipeManager) {
-        this.additionalIngredientsLoaded = recipeManager != null;
-        if (this.additionalIngredientsRecipeId != null && recipeManager != null) {
-            Optional<? extends IRecipe<?>> recipe = recipeManager.getRecipe(this.additionalIngredientsRecipeId);
-            if (recipe.isPresent()) {
-                this.additionalIngredients = recipe.get().getIngredients();
-                //if we have multiple ingredients, make sure
-                this.timePerIngredient = this.totalSeconds / (float) (this.additionalIngredients.size() + 1);
-            }
-            else {
-                Occultism.LOGGER.warn("Additional Ingredients Recipe {} not found for Ritual {}",
-                        this.additionalIngredientsRecipeId, this.getRegistryName());
-            }
-        }
-    }
-
-    /**
      * Checks whether the ritual is valid.
      * Validity is required to start and continue a ritual.
      *
@@ -261,9 +149,9 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
     public boolean isValid(World world, BlockPos goldenBowlPosition, GoldenSacrificialBowlTileEntity tileEntity,
                            PlayerEntity castingPlayer, ItemStack activationItem,
                            List<Ingredient> remainingAdditionalIngredients) {
-        return this.startingItem.test(activationItem) &&
-               this.areAdditionalIngredientsFulfilled(world, goldenBowlPosition, remainingAdditionalIngredients) &&
-               this.pentacle.get().validate(world, goldenBowlPosition);
+        return this.recipe.getActivationItem().test(activationItem) &&
+                this.areAdditionalIngredientsFulfilled(world, goldenBowlPosition, remainingAdditionalIngredients) &&
+                this.recipe.getPentacle().validate(world, goldenBowlPosition);
     }
 
     /**
@@ -354,10 +242,9 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
      * @return true if the ritual matches, false otherwise.
      */
     public boolean identify(World world, BlockPos goldenBowlPosition, ItemStack activationItem) {
-        return this.startingItem.test(activationItem) &&
-               this.areAdditionalIngredientsFulfilled(world, goldenBowlPosition,
-                       this.getAdditionalIngredients(world)) &&
-               this.pentacle.get().validate(world, goldenBowlPosition);
+        return this.recipe.getActivationItem().test(activationItem) &&
+                this.areAdditionalIngredientsFulfilled(world, goldenBowlPosition, this.recipe.getIngredients()) &&
+                this.recipe.getPentacle().validate(world, goldenBowlPosition);
     }
 
     /**
@@ -376,7 +263,7 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
         if (remainingAdditionalIngredients.isEmpty())
             return true;
 
-        int totalIngredientsToConsume = (int) Math.floor(time / this.timePerIngredient);
+        int totalIngredientsToConsume = (int) Math.floor(time / this.recipe.getDurationPerIngredient());
         int ingredientsConsumed = consumedIngredients.size();
 
         int ingredientsToConsume = totalIngredientsToConsume - ingredientsConsumed;
@@ -392,8 +279,7 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
                     consumedIngredients)) {
                 //remove from the remaining required ingredients
                 it.remove();
-            }
-            else {
+            } else {
                 //if ingredient not found, return false to enable interrupting the ritual.
                 return false;
             }
@@ -443,17 +329,18 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
 
     /**
      * Removes all matching consumed already consumed ingredients from the remaining additional ingredients.
+     *
      * @param additionalIngredients the total additional ingredients required.
-     * @param consumedIngredients the already consumed ingredients.
+     * @param consumedIngredients   the already consumed ingredients.
      * @return the remaining additional ingredients that still need to be consumed.
      */
-    public static List<Ingredient> getRemainingAdditionalIngredients( List<Ingredient> additionalIngredients, List<ItemStack> consumedIngredients){
+    public static List<Ingredient> getRemainingAdditionalIngredients(List<Ingredient> additionalIngredients, List<ItemStack> consumedIngredients) {
         //copy the consumed ingredients to not modify the input
         List<ItemStack> consumedIngredientsCopy = new ArrayList<>(consumedIngredients);
         List<Ingredient> remainingAdditionalIngredients = new ArrayList<>();
-        for(Ingredient ingredient : additionalIngredients){
+        for (Ingredient ingredient : additionalIngredients) {
             Optional<ItemStack> matchedStack = consumedIngredientsCopy.stream().filter(ingredient::test).findFirst();
-            if(matchedStack.isPresent()){
+            if (matchedStack.isPresent()) {
                 //if it is in the consumed ingredients, we do not need to add it to the remaining required ones
                 //but we remove it from our consumed ingredients copy so each provided ingredient an only be simulated consumed once
                 consumedIngredientsCopy.remove(matchedStack.get());
@@ -488,7 +375,7 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
 
         //optional performance improvement to speed up matching at the cost of convenience
         if (Occultism.SERVER_CONFIG.rituals.enableRemainingIngredientCountMatching.get() &&
-            additionalIngredients.size() != items.size())
+                additionalIngredients.size() != items.size())
             return false; //if we have different sizes, it cannot be right
 
         if (additionalIngredients.isEmpty())
@@ -551,12 +438,12 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
     public List<SacrificialBowlTileEntity> getSacrificialBowls(World world, BlockPos goldenBowlPosition) {
         List<SacrificialBowlTileEntity> result = new ArrayList<>();
         Iterable<BlockPos> blocksToCheck = BlockPos.getAllInBoxMutable(
-                goldenBowlPosition.add(-this.sacrificialBowlRange, 0, -this.sacrificialBowlRange),
-                goldenBowlPosition.add(this.sacrificialBowlRange, 0, this.sacrificialBowlRange));
+                goldenBowlPosition.add(-SACRIFICIAL_BOWL_RANGE, 0, -SACRIFICIAL_BOWL_RANGE),
+                goldenBowlPosition.add(SACRIFICIAL_BOWL_RANGE, 0, SACRIFICIAL_BOWL_RANGE));
         for (BlockPos blockToCheck : blocksToCheck) {
             TileEntity tileEntity = world.getTileEntity(blockToCheck);
             if (tileEntity instanceof SacrificialBowlTileEntity &&
-                !(tileEntity instanceof GoldenSacrificialBowlTileEntity)) {
+                    !(tileEntity instanceof GoldenSacrificialBowlTileEntity)) {
                 result.add((SacrificialBowlTileEntity) tileEntity);
             }
         }
@@ -565,10 +452,10 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
 
     /**
      * Prepares the given spirit for spawning by
-     *  - initializing it
-     *  - setting the taming player
-     *  - preparing position and rotation
-     *  - setting the custom name.
+     * - initializing it
+     * - setting the taming player
+     * - preparing position and rotation
+     * - setting the custom name.
      *
      * @param spirit             the spirit to prepare.
      * @param world              the world to spawn in.
@@ -583,10 +470,10 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
 
     /**
      * Prepares the given spirit for spawning by
-     *  - initializing it
-     *  - optionally setting the taming player
-     *  - preparing position and rotation
-     *  - setting the custom name.
+     * - initializing it
+     * - optionally setting the taming player
+     * - preparing position and rotation
+     * - setting the custom name.
      *
      * @param spirit             the spirit to prepare.
      * @param world              the world to spawn in.
@@ -597,7 +484,7 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
      */
     public void prepareSpiritForSpawn(SpiritEntity spirit, World world, BlockPos goldenBowlPosition,
                                       PlayerEntity castingPlayer, String spiritName, boolean setTamed) {
-        if(setTamed){
+        if (setTamed) {
             spirit.setTamedBy(castingPlayer);
         }
         spirit.setPositionAndRotation(goldenBowlPosition.getX(), goldenBowlPosition.getY(), goldenBowlPosition.getZ(),
@@ -615,10 +502,7 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
      * @return true if the entity is a valid sacrifice.
      */
     public boolean isValidSacrifice(LivingEntity entity) {
-        if (this.sacrificePredicate == null)
-            return false;
-
-        return this.sacrificePredicate.test(entity);
+        return this.recipe.getEntityToSacrifice().contains(entity.getType());
     }
 
     /**
@@ -628,10 +512,7 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
      * @return true if the event represents a valid item use.
      */
     public boolean isValidItemUse(PlayerInteractEvent.RightClickItem event) {
-        if (this.itemUsePredicate == null)
-            return false;
-
-        return this.itemUsePredicate.test(event);
+        return this.recipe.getItemToUse().test(event.getItemStack());
     }
 
     /**
@@ -640,7 +521,7 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
      * @return true if a sacrifice is required.
      */
     public boolean requiresSacrifice() {
-        return this.sacrificePredicate != null;
+        return this.recipe.requiresSacrifice();
     }
 
     /**
@@ -648,8 +529,8 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
      *
      * @return true if an item use is required.
      */
-    public boolean requiresItemUse() {
-        return this.itemUsePredicate != null;
+    public boolean require() {
+        return this.recipe.requiresItemUse();
     }
 
     /**
@@ -662,7 +543,7 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
      * @param stack              the result stack to drop.
      */
     public void dropResult(World world, BlockPos goldenBowlPosition, GoldenSacrificialBowlTileEntity tileEntity,
-                           PlayerEntity castingPlayer,  ItemStack stack){
+                           PlayerEntity castingPlayer, ItemStack stack) {
         double angle = world.rand.nextDouble() * Math.PI * 2;
         ItemEntity entity = new ItemEntity(world, goldenBowlPosition.getX() + 0.5, goldenBowlPosition.getY() + 0.75,
                 goldenBowlPosition.getZ() + 0.5, stack);

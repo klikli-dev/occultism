@@ -32,7 +32,6 @@ public class AfritEntity extends SpiritEntity {
     //region Initialization
     public AfritEntity(EntityType<? extends SpiritEntity> type, World world) {
         super(type, world);
-        this.setSpiritMaxAge(60 * 60 * 24 * 3); //3 day default for afrit.
     }
     //endregion Initialization
 

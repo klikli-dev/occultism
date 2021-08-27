@@ -6,7 +6,7 @@
   "pentacle_id": "occultism:possess_djinni",
   "require_item_use": false,
   "require_sacrifice": true,
-  "ritual": {
+  "ritual_dummy": {
     "item": "occultism:ritual_dummy/familiar_bat"
   },
   "ingredients": [
