@@ -113,6 +113,10 @@
     "item.occultism.spawn_egg.afrit": "Яйцо призыва Африта",
     "item.occultism.spawn_egg.afrit_wild": "Яйцо призыва Непривязанного Африта",
     "item.occultism.spawn_egg.marid": "Яйцо призыва Марида",
+
+    // "item.occultism.spawn_egg.bat_familiar": "Bat Familiar Spawn Egg",
+    // "item.occultism.spawn_egg.deer_familiar": "Deer Familiar Spawn Egg",
+    // "item.occultism.spawn_egg.greedy_familiar": "Greedy Familiar Spawn Egg",
     
     "item.occultism.spawn_egg.possessed_endermite": "Яйцо призыва Одержимого Эндермита",
     "item.occultism.spawn_egg.possessed_skeleton": "Яйцо призыва Одержимого Скелета",
@@ -128,8 +132,10 @@
     "item.occultism.book_of_calling.message_target_uuid_no_match": "Этот дух в настоящее время не связан с этой книгой. Щелкните правой кнопкой мыши по духу, чтобы привязать его к этой книге.",
     "item.occultism.book_of_calling.message_target_linked": "Этот дух теперь связан с этой книгой.",
     "item.occultism.book_of_calling.message_target_cannot_link": "Этот дух не может быть связан с этой книгой - книга призвания должна соответствовать требованию духа!",
+    // "item.occultism.book_of_calling.message_target_entity_no_inventory": "This entity has no inventory, it cannot be set as deposit location.",
     "item.occultism.book_of_calling.message_spirit_not_found": "Дух, связанный с этой книгой, не обитает здесь.",
     "item.occultism.book_of_calling.message_set_deposit": "%s теперь внесет вклад в %s со стороны: %s",
+    // "item.occultism.book_of_calling.message_set_deposit_entity": "%s will now hand over items to: %s",
     "item.occultism.book_of_calling.message_set_extract": "%s теперь будет извлекать из %s со стороны: %s",
     "item.occultism.book_of_calling.message_set_base": "Установите базу для %s в %s",
     "item.occultism.book_of_calling.message_set_storage_controller": "%s теперь будет принимать заказы на работу от %s",
@@ -145,6 +151,9 @@
     "item.occultism.divination_rod.message.linked_block": "Жезл прорицания теперь настроен на %s.",
     "item.occultism.divination_rod.message.no_link_found": "С этим блоком нет никакого резонанса.",
     
+    // "item.occultism.familiar_ring": "Familiar Ring",
+    // "item.occultism.familiar_ring.tooltip": "Occupied by the familiar %s",
+
     "item.occultism.soul_gem.message.entity_type_denied": "Камень души не может содержать этот тип существа.",
     
     "_comment": "# Item Tooltips",
@@ -161,6 +170,8 @@
     "item.occultism.book_of_calling_foliot.tooltip_dead": "%s покинул этот план существования.",
     "item.occultism.book_of_calling_foliot.tooltip.extract": "Извлечение из: %s.",
     "item.occultism.book_of_calling_foliot.tooltip.deposit": "Вклад в: %s.",
+    //"item.occultism.book_of_calling_foliot.tooltip.deposit_entity": "Hands items over to: %s.",
+
     "item.occultism.book_of_calling_djinni.tooltip": "Джинни %s",
     "item.occultism.book_of_calling_djinni.tooltip_dead": "%s покинул этот план существования.",
     "item.occultism.book_of_calling_djinni.tooltip.extract": "Извлечение из %s.",
@@ -234,6 +245,9 @@
     "block.occultism.skeleton_skull_dummy": "Череп скелета",
     "block.occultism.wither_skeleton_skull_dummy": "Череп Визер-скелета",
     
+    "book.occultism.landing_text": "This book aims to introduce the novice reader to the most common summoning rituals and equip them with a list of spirits and their names. The authors advise caution in the summoning of the listed entities. $(br2)For help or to give feedback please join us in Discord $(l:https://invite.gg/klikli)https://invite.gg/klikli$().",
+    "book.occultism.name": "Dictionary of Spirits",
+
     "_comment": "Сущности",
     "entity.occultism.foliot": "Филиот",
     "entity.occultism.djinni": "Джинни",
@@ -249,6 +263,12 @@
     "entity.occultism.wild_hunt_wither_skeleton": "Великий Охотник Скелет Иссушитель",
     
     "entity.occultism.otherworld_bird": "Дриквинг",
+
+    // "entity.occultism.bat_familiar": "Bat Familiar",
+
+    // "entity.occultism.deer_familiar": "Deer Familiar",
+    
+    // "entity.occultism.greedy_familiar": "Greedy Familiar",
     
     "_comment": "# Spirit Jobs",
     "job.occultism.lumberjack": "Лесоруб",
@@ -398,11 +418,19 @@
     "ritual.occultism.craft_dimensional_matrix.finished": "Привезание Джинни к Кристальной Матрице успешно.",
     "ritual.occultism.craft_dimensional_matrix.interrupted": "Привезание Джинни к Кристальной Матрице прервано.",
     
+    // "item.occultism.ritual_dummy.craft_familiar_ring": "Ritual: Craft Familiar Ring",
+    // "item.occultism.ritual_dummy.craft_familiar_ring.tooltip": "The familiar ring allows to store familiars. The ring will apply the familiar effect to the wearer.",
+
     "ritual.occultism.craft_dimensional_mineshaft.conditions": "Не все требования для этого ритуала соблюдены.",
     "ritual.occultism.craft_dimensional_mineshaft.started": "Начато привезание Джинни к Пространственной Вагонетке.",
     "ritual.occultism.craft_dimensional_mineshaft.finished": "Привезание Джинни к Пространственной Вагонетке успешно.",
     "ritual.occultism.craft_dimensional_mineshaft.interrupted": "Привезание Джинни к Пространственной Вагонетке прервано.",
     
+    // "ritual.occultism.craft_familiar_ring.conditions": "Not all requirements for this ritual are met.",
+    // "ritual.occultism.craft_familiar_ring.finished": "Successfully bound djinni into familiar ring.",
+    // "ritual.occultism.craft_familiar_ring.interrupted": "Binding of djinni interrupted.",
+    // "ritual.occultism.craft_familiar_ring.started": "Started binding djinni into familiar ring.",
+
     "ritual.occultism.craft_storage_controller_base.conditions": "Не все требования для этого ритуала соблюдены.",
     "ritual.occultism.craft_storage_controller_base.started": "Начато привезание Фолиота к Активатору Хранилища.",
     "ritual.occultism.craft_storage_controller_base.finished": "Привезание Фолиота к Активатору Хранилища успешно.",
@@ -502,6 +530,22 @@
     "ritual.occultism.familiar_parrot.started": "Начат призыв Попугай-Обычный.",
     "ritual.occultism.familiar_parrot.finished": "Призыв Попугай-Обычный успешен.",
     "ritual.occultism.familiar_parrot.interrupted": "Призыв Попугай-Обычный прерван.",
+
+    // "ritual.occultism.familiar_bat.conditions": "Not all requirements for this ritual are met.",
+    // "ritual.occultism.familiar_bat.finished": "Summoned bat familiar successfully.",
+    // "ritual.occultism.familiar_bat.interrupted": "Summoning of bat familiar interrupted.",
+    // "ritual.occultism.familiar_bat.started": "Started summoning bat familiar.",
+    
+    // "ritual.occultism.familiar_deer.conditions": "Not all requirements for this ritual are met.",
+    // "ritual.occultism.familiar_deer.finished": "Summoned deer familiar successfully.",
+    // "ritual.occultism.familiar_deer.interrupted": "Summoning of deer familiar interrupted.",
+    // "ritual.occultism.familiar_deer.started": "Started summoning deer familiar.",
+    
+    // "ritual.occultism.familiar_greedy.conditions": "Not all requirements for this ritual are met.",
+    // "ritual.occultism.familiar_greedy.finished": "Summoned v familiar successfully.",
+    // "ritual.occultism.familiar_greedy.interrupted": "Summoning of greedy familiar interrupted.",
+    // "ritual.occultism.familiar_greedy.started": "Started summoning greedy familiar.",
+
     
     "_comment": "GUI Strings",
     "gui.occultism.book_of_calling.mode": "Режим",
@@ -566,6 +610,21 @@
     "_comment": "Keybinds",
     "key.occultism.category": "Оккультизм",
     "key.occultism.backpack": "Открыть ранец",
+    // "key.occultism.familiar.bat": "Toggle Ring Effect: Bat",
+    // "key.occultism.familiar.deer": "Toggle Ring Effect: Deer",
+    // "key.occultism.familiar.greedy": "Toggle Ring Effect: Greedy",
+    // "key.occultism.familiar.otherworld_bird": "Toggle Ring Effect: Drikwing",
+    // "key.occultism.storage_remote": "Open Storage Accessor",
+
+    // "_comment": "Familiar Settings Messages",
+    // "message.occultism.familiar.bat.disabled": "Ring Effect - Bat: Disabled",
+    // "message.occultism.familiar.bat.enabled": "Ring Effect - Bat: Enabled",
+    // "message.occultism.familiar.deer.disabled": "Ring Effect - Deer: Disabled",
+    // "message.occultism.familiar.deer.enabled": "Ring Effect - Deer: Enabled",
+    // "message.occultism.familiar.greedy.disabled": "Ring Effect - Greedy: Disabled",
+    // "message.occultism.familiar.greedy.enabled": "Ring Effect - Greedy: Enabled",
+    // "message.occultism.familiar.otherworld_bird.disabled": "Ring Effect - Drikwing: Disabled",
+    // "message.occultism.familiar.otherworld_bird.enabled": "Ring Effect - Drikwing: Enabled",
     
     "_comment": "JEI",
     "occultism.jei.spirit_fire": "Огонь душ",
@@ -658,6 +717,13 @@
 
     "item.occultism.ritual_dummy.craft_storage_remote": "Ритуал: Создать Беспроводное Хранилище",
     "item.occultism.ritual_dummy.craft_storage_remote.tooltip": "Беспроводное Хранилище может быть подключен к Активатору Хранилища для удалённого доступа к вещям.",
+
+    // "item.occultism.ritual_dummy.familiar_bat": "Ritual: Summon Bat Familiar",
+    // "item.occultism.ritual_dummy.familiar_bat.tooltip": "Bat familiars provide night vision to their master.",
+    // "item.occultism.ritual_dummy.familiar_deer": "Ritual: Summon Deer Familiar",
+    // "item.occultism.ritual_dummy.familiar_deer.tooltip": "Deer familiars provides jump boost to their master.",
+    // "item.occultism.ritual_dummy.familiar_greedy": "Ritual: Summon Greedy Familiar",
+    // "item.occultism.ritual_dummy.familiar_greedy.tooltip": "Greedy familiars pick up items for their master. When stored in a familiar ring, they increase the pickup range (like an item magnet).",
 
     "item.occultism.ritual_dummy.familiar_otherworld_bird": "Ритуал: Призыв Водокрыл-Обычный",
     "item.occultism.ritual_dummy.familiar_otherworld_bird.tooltip": "Водокрыл-Обычный позволяет хозяину временно летать когда рядом.",
