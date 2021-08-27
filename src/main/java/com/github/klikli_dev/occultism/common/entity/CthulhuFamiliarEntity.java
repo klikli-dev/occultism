@@ -29,6 +29,9 @@ import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.RandomPositionGenerator;
+import net.minecraft.entity.ai.attributes.AttributeModifierMap;
+import net.minecraft.entity.ai.attributes.Attributes;
+import net.minecraft.entity.ai.controller.MovementController;
 import net.minecraft.entity.ai.goal.FollowMobGoal;
 import net.minecraft.entity.ai.goal.LookAtGoal;
 import net.minecraft.entity.ai.goal.RandomWalkingGoal;
@@ -37,17 +40,20 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.pathfinding.GroundPathNavigator;
+import net.minecraft.pathfinding.PathNodeType;
+import net.minecraft.pathfinding.SwimmerPathNavigator;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ForgeMod;
 
 public class CthulhuFamiliarEntity extends FamiliarEntity {
-    
-    // TODO: Proper underwater navigation
 
     private static final DataParameter<Boolean> HAT = EntityDataManager.createKey(CthulhuFamiliarEntity.class,
             DataSerializers.BOOLEAN);
@@ -55,9 +61,19 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
             DataSerializers.BOOLEAN);
 
     private int angryTimer;
+    private SwimmerPathNavigator waterNavigator;
+    private GroundPathNavigator groundNavigator;
 
     public CthulhuFamiliarEntity(EntityType<? extends CthulhuFamiliarEntity> type, World worldIn) {
         super(type, worldIn);
+        this.setPathPriority(PathNodeType.WATER, 0);
+        this.waterNavigator = new SwimmerPathNavigator(this, worldIn);
+        this.groundNavigator = new GroundPathNavigator(this, worldIn);
+        this.moveController = new MoveController(this);
+    }
+
+    public static AttributeModifierMap.MutableAttribute registerAttributes() {
+        return FamiliarEntity.registerAttributes().createMutableAttribute(ForgeMod.SWIM_SPEED.get(), 1f);
     }
 
     @Override
@@ -72,9 +88,22 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new SitGoal(this));
         this.goalSelector.addGoal(2, new LookAtGoal(this, PlayerEntity.class, 8));
-        this.goalSelector.addGoal(3, new FollowOwnerGoal(this, 1, 3, 1));
+        this.goalSelector.addGoal(3, new FollowOwnerWaterGoal(this, 1, 3, 1));
         this.goalSelector.addGoal(4, new RandomWalkingGoal(this, 1.0D));
         this.goalSelector.addGoal(5, new FollowMobGoal(this, 1, 3, 7));
+    }
+
+    @Override
+    public void updateSwimming() {
+        if (!this.world.isRemote) {
+            if (this.isInWater()) {
+                this.navigator = this.waterNavigator;
+                this.setSwimming(true);
+            } else {
+                this.navigator = this.groundNavigator;
+                this.setSwimming(false);
+            }
+        }
     }
 
     @Override
@@ -160,5 +189,63 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
         super.writeAdditional(compound);
         compound.putBoolean("hasTrunk", this.hasTrunk());
         compound.putInt("angryTimer", angryTimer);
+    }
+
+    private static class MoveController extends MovementController {
+        private final CthulhuFamiliarEntity cthulhu;
+
+        MoveController(CthulhuFamiliarEntity cthulhu) {
+            super(cthulhu);
+            this.cthulhu = cthulhu;
+        }
+
+        @Override
+        public void tick() {
+            if (cthulhu.isInWater()) {
+                cthulhu.setMotion(cthulhu.getMotion().add(0, 0.005, 0));
+                if (action == MovementController.Action.MOVE_TO) {
+                    float maxSpeed = (float) (speed * cthulhu.getAttributeValue(Attributes.MOVEMENT_SPEED)) * 3;
+                    cthulhu.setAIMoveSpeed(MathHelper.lerp(0.125f, cthulhu.getAIMoveSpeed(), maxSpeed));
+                    double dx = posX - cthulhu.getPosX();
+                    double dy = posY - cthulhu.getPosY();
+                    double dz = posZ - cthulhu.getPosZ();
+                    double distance = MathHelper.sqrt(dx * dx + dy * dy + dz * dz);
+
+                    if (distance < 0.1) {
+                        cthulhu.setMoveForward(0);
+                        return;
+                    }
+
+                    if (Math.abs(dy) > 0.0001) {
+                        cthulhu.setMotion(
+                                cthulhu.getMotion().add(0, cthulhu.getAIMoveSpeed() * (dy / distance) * 0.1, 0));
+                    }
+
+                    if (Math.abs(dx) > 0.0001 || Math.abs(dz) > 0.0001) {
+                        float rotate = (float) (MathHelper.atan2(dz, dx) * (double) (180 / Math.PI)) - 90f;
+                        cthulhu.rotationYaw = limitAngle(cthulhu.rotationYaw, rotate, 8);
+                        cthulhu.renderYawOffset = cthulhu.rotationYaw;
+                    }
+
+                } else {
+                    cthulhu.setAIMoveSpeed(0);
+                }
+            } else {
+                super.tick();
+            }
+        }
+    }
+
+    private static class FollowOwnerWaterGoal extends FollowOwnerGoal {
+
+        public FollowOwnerWaterGoal(FamiliarEntity entity, double speed, float minDist, float maxDist) {
+            super(entity, speed, minDist, maxDist);
+        }
+        
+        @Override
+        protected boolean shouldTeleport(LivingEntity owner) {
+            return !entity.world.hasWater(owner.getPosition()) && entity.isInWater();
+        }
+
     }
 }
