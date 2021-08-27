@@ -27,26 +27,35 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.function.Supplier;
 
+import com.github.klikli_dev.occultism.api.client.gui.IStorageControllerGui;
 import com.github.klikli_dev.occultism.common.ritual.pentacle.Pentacle;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.DistExecutor.SafeRunnable;
 import net.minecraftforge.fml.network.NetworkEvent;
 import vazkii.patchouli.api.PatchouliAPI;
 
-public class MessageUpdatePentacles {
+public class MessageUpdatePentacles extends MessageBase {
 
 	private Map<ResourceLocation, Pentacle> pentacles;
+
+	public MessageUpdatePentacles(PacketBuffer buf) {
+		this.decode(buf);
+	}
 
 	public MessageUpdatePentacles(Map<ResourceLocation, Pentacle> pentacles) {
 		this.pentacles = pentacles;
 	}
 
+	@Override
 	public void encode(PacketBuffer buffer) {
-		buffer.writeInt(pentacles.size());
+		buffer.writeInt(this.pentacles.size());
 		for (Entry<ResourceLocation, Pentacle> entry : pentacles.entrySet()) {
 		    Pentacle pentacle = entry.getValue();
 			buffer.writeResourceLocation(entry.getKey());
@@ -54,21 +63,20 @@ public class MessageUpdatePentacles {
 		}
 	}
 
-	public static MessageUpdatePentacles decode(final PacketBuffer buffer) {
-		Map<ResourceLocation, Pentacle> pentacles = new HashMap<>();
+	@Override
+	public void decode(final PacketBuffer buffer) {
+		this.pentacles = new HashMap<>();
 		int size = buffer.readInt();
 		for (int i = 0; i < size; i++) {
 			ResourceLocation key = buffer.readResourceLocation();
 			Pentacle pentacle = Pentacle.decode(key, buffer);
-			pentacles.put(key, pentacle);
+			this.pentacles.put(key, pentacle);
 		}
-		return new MessageUpdatePentacles(pentacles);
 	}
 
-	public void handle(final Supplier<NetworkEvent.Context> supplier) {
-		final NetworkEvent.Context context = supplier.get();
-		context.setPacketHandled(true);
-		context.enqueueWork(() -> DistExecutor.safeRunWhenOn(Dist.CLIENT, () -> UpdatePentacles.update(pentacles)));
+	@Override
+	public void onClientReceived(Minecraft minecraft, PlayerEntity player, NetworkEvent.Context context) {
+		UpdatePentacles.update(this.pentacles).run();
 	}
 
 	private static class UpdatePentacles {
