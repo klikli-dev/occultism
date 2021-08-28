@@ -11,14 +11,23 @@
     "   WCWCW   ",
     "    PRP    ",
     "           "
-    ],
-    "mapping": {
-      "0": "occultism:golden_sacrificial_bowl",
-      "W": "occultism:chalk_glyph_white",
-      "P": "occultism:chalk_glyph_purple",
-      "R": "occultism:chalk_glyph_red",
-      "C": "occultism:candle_white",
-      "Z": "skeleton_skull",
-      "N": "wither_skeleton_skull"
+  ],
+  "mapping": {
+    "0": "occultism:golden_sacrificial_bowl",
+    "W": "occultism:chalk_glyph_white",
+    "P": "occultism:chalk_glyph_purple",
+    "R": "occultism:chalk_glyph_red",
+    "C": {
+      "tag": "forge:candles",
+      "display": "occultism:candle_white"
+    },
+    "Z": {
+      "block": "minecraft:skeleton_skull",
+      "display": "occultism:skeleton_skull_dummy"
+    },
+    "N": {
+      "block": "minecraft:wither_skeleton_skull",
+      "display": "occultism:wither_skeleton_skull_dummy"
     }
+  }
 }

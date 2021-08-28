@@ -11,11 +11,14 @@
     "   W W W   ",
     "    PPP    ",
     "           "
-    ],
-    "mapping": {
-      "0": "occultism:golden_sacrificial_bowl",
-      "W": "occultism:chalk_glyph_white",
-      "P": "occultism:chalk_glyph_purple",
-      "Z": "skeleton_skull"
+  ],
+  "mapping": {
+    "0": "occultism:golden_sacrificial_bowl",
+    "W": "occultism:chalk_glyph_white",
+    "P": "occultism:chalk_glyph_purple",
+    "Z": {
+      "block": "minecraft:skeleton_skull",
+      "display": "occultism:skeleton_skull_dummy"
     }
+  }
 }

@@ -7,12 +7,18 @@
     "G  P  G",
     " G P G ",
     "  GCG  "
-    ],
-    "mapping": {
-      "0": "occultism:golden_sacrificial_bowl",
-      "G": "occultism:chalk_glyph_gold",
-      "P": "occultism:chalk_glyph_purple",
-      "C": "occultism:candle_white",
-      "Z": "skeleton_skull"
+  ],
+  "mapping": {
+    "0": "occultism:golden_sacrificial_bowl",
+    "G": "occultism:chalk_glyph_gold",
+    "P": "occultism:chalk_glyph_purple",
+    "C": {
+      "tag": "forge:candles",
+      "display": "occultism:candle_white"
+    },
+    "Z": {
+      "block": "minecraft:skeleton_skull",
+      "display": "occultism:skeleton_skull_dummy"
     }
+  }
 }
