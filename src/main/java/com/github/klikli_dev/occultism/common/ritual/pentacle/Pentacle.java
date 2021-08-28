@@ -74,7 +74,6 @@ public class Pentacle {
         List<Object> multiMappings = new ArrayList<>();
         for (Entry<Character, JsonElement> entry : mappings.entrySet()) {
             multiMappings.add(entry.getKey());
-            multiMappings.add(entry.getValue());
             multiMappings.add(parseStateMatcher(entry.getValue()));
         }
         // Space == whatever
