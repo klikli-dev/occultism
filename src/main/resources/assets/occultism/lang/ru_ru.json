@@ -114,9 +114,9 @@
     "item.occultism.spawn_egg.afrit_wild": "Яйцо призыва Непривязанного Африта",
     "item.occultism.spawn_egg.marid": "Яйцо призыва Марида",
 
-    // "item.occultism.spawn_egg.bat_familiar": "Bat Familiar Spawn Egg",
-    // "item.occultism.spawn_egg.deer_familiar": "Deer Familiar Spawn Egg",
-    // "item.occultism.spawn_egg.greedy_familiar": "Greedy Familiar Spawn Egg",
+    "item.occultism.spawn_egg.bat_familiar": "Яйцо призыва Летучая Мышь Обычная",
+    "item.occultism.spawn_egg.deer_familiar": "Яйцо призыва Олень Обычный",
+    "item.occultism.spawn_egg.greedy_familiar": "Яйцо призыва Прожорливый Обычный",
     
     "item.occultism.spawn_egg.possessed_endermite": "Яйцо призыва Одержимого Эндермита",
     "item.occultism.spawn_egg.possessed_skeleton": "Яйцо призыва Одержимого Скелета",
@@ -132,10 +132,10 @@
     "item.occultism.book_of_calling.message_target_uuid_no_match": "Этот дух в настоящее время не связан с этой книгой. Щелкните правой кнопкой мыши по духу, чтобы привязать его к этой книге.",
     "item.occultism.book_of_calling.message_target_linked": "Этот дух теперь связан с этой книгой.",
     "item.occultism.book_of_calling.message_target_cannot_link": "Этот дух не может быть связан с этой книгой - книга призвания должна соответствовать требованию духа!",
-    // "item.occultism.book_of_calling.message_target_entity_no_inventory": "This entity has no inventory, it cannot be set as deposit location.",
+    "item.occultism.book_of_calling.message_target_entity_no_inventory": "У этого предмета нету инвентаря, невозможно сделать его по умолчанию.",
     "item.occultism.book_of_calling.message_spirit_not_found": "Дух, связанный с этой книгой, не обитает здесь.",
     "item.occultism.book_of_calling.message_set_deposit": "%s теперь внесет вклад в %s со стороны: %s",
-    // "item.occultism.book_of_calling.message_set_deposit_entity": "%s will now hand over items to: %s",
+    "item.occultism.book_of_calling.message_set_deposit_entity": "%s теперь отдаст вещи к: %s",
     "item.occultism.book_of_calling.message_set_extract": "%s теперь будет извлекать из %s со стороны: %s",
     "item.occultism.book_of_calling.message_set_base": "Установите базу для %s в %s",
     "item.occultism.book_of_calling.message_set_storage_controller": "%s теперь будет принимать заказы на работу от %s",
@@ -151,8 +151,8 @@
     "item.occultism.divination_rod.message.linked_block": "Жезл прорицания теперь настроен на %s.",
     "item.occultism.divination_rod.message.no_link_found": "С этим блоком нет никакого резонанса.",
     
-    // "item.occultism.familiar_ring": "Familiar Ring",
-    // "item.occultism.familiar_ring.tooltip": "Occupied by the familiar %s",
+    "item.occultism.familiar_ring": "Обычное кольцо",
+    "item.occultism.familiar_ring.tooltip": "Занято обычным %s",
 
     "item.occultism.soul_gem.message.entity_type_denied": "Камень души не может содержать этот тип существа.",
     
@@ -170,7 +170,7 @@
     "item.occultism.book_of_calling_foliot.tooltip_dead": "%s покинул этот план существования.",
     "item.occultism.book_of_calling_foliot.tooltip.extract": "Извлечение из: %s.",
     "item.occultism.book_of_calling_foliot.tooltip.deposit": "Вклад в: %s.",
-    //"item.occultism.book_of_calling_foliot.tooltip.deposit_entity": "Hands items over to: %s.",
+    "item.occultism.book_of_calling_foliot.tooltip.deposit_entity": "Отдать предметы к: %s.",
 
     "item.occultism.book_of_calling_djinni.tooltip": "Джинни %s",
     "item.occultism.book_of_calling_djinni.tooltip_dead": "%s покинул этот план существования.",
@@ -264,11 +264,11 @@
     
     "entity.occultism.otherworld_bird": "Дриквинг",
 
-    // "entity.occultism.bat_familiar": "Bat Familiar",
+    "entity.occultism.bat_familiar": "Обычная Летучая Мышь",
 
-    // "entity.occultism.deer_familiar": "Deer Familiar",
+    "entity.occultism.deer_familiar": "Обычный Олень",
     
-    // "entity.occultism.greedy_familiar": "Greedy Familiar",
+    "entity.occultism.greedy_familiar": "Обычный Прожорливый",
     
     "_comment": "# Spirit Jobs",
     "job.occultism.lumberjack": "Лесоруб",
@@ -418,18 +418,15 @@
     "ritual.occultism.craft_dimensional_matrix.finished": "Привезание Джинни к Кристальной Матрице успешно.",
     "ritual.occultism.craft_dimensional_matrix.interrupted": "Привезание Джинни к Кристальной Матрице прервано.",
     
-    // "item.occultism.ritual_dummy.craft_familiar_ring": "Ritual: Craft Familiar Ring",
-    // "item.occultism.ritual_dummy.craft_familiar_ring.tooltip": "The familiar ring allows to store familiars. The ring will apply the familiar effect to the wearer.",
-
     "ritual.occultism.craft_dimensional_mineshaft.conditions": "Не все требования для этого ритуала соблюдены.",
     "ritual.occultism.craft_dimensional_mineshaft.started": "Начато привезание Джинни к Пространственной Вагонетке.",
     "ritual.occultism.craft_dimensional_mineshaft.finished": "Привезание Джинни к Пространственной Вагонетке успешно.",
     "ritual.occultism.craft_dimensional_mineshaft.interrupted": "Привезание Джинни к Пространственной Вагонетке прервано.",
     
-    // "ritual.occultism.craft_familiar_ring.conditions": "Not all requirements for this ritual are met.",
-    // "ritual.occultism.craft_familiar_ring.finished": "Successfully bound djinni into familiar ring.",
-    // "ritual.occultism.craft_familiar_ring.interrupted": "Binding of djinni interrupted.",
-    // "ritual.occultism.craft_familiar_ring.started": "Started binding djinni into familiar ring.",
+    "ritual.occultism.craft_familiar_ring.conditions": "Не все требования для этого ритуала соблюдены.",
+    "ritual.occultism.craft_familiar_ring.started": "Начато привезание Джинни к Обычному Кольцу.",
+    "ritual.occultism.craft_familiar_ring.finished": "Привезание Джинни к Обычному Кольцу успешно.",
+    "ritual.occultism.craft_familiar_ring.interrupted": "Привезание Джинни к Обычному Кольцу прервано.",
 
     "ritual.occultism.craft_storage_controller_base.conditions": "Не все требования для этого ритуала соблюдены.",
     "ritual.occultism.craft_storage_controller_base.started": "Начато привезание Фолиота к Активатору Хранилища.",
@@ -531,21 +528,20 @@
     "ritual.occultism.familiar_parrot.finished": "Призыв Попугай-Обычный успешен.",
     "ritual.occultism.familiar_parrot.interrupted": "Призыв Попугай-Обычный прерван.",
 
-    // "ritual.occultism.familiar_bat.conditions": "Not all requirements for this ritual are met.",
-    // "ritual.occultism.familiar_bat.finished": "Summoned bat familiar successfully.",
-    // "ritual.occultism.familiar_bat.interrupted": "Summoning of bat familiar interrupted.",
-    // "ritual.occultism.familiar_bat.started": "Started summoning bat familiar.",
+    "ritual.occultism.familiar_bat.conditions": "Не все требования для этого ритуала соблюдены.",
+    "ritual.occultism.familiar_bat.started": "Начат призыв Обычной Летучей Мыши.",
+    "ritual.occultism.familiar_bat.finished": "Призыв Обычной Летучей Мыши успешен.",
+    "ritual.occultism.familiar_bat.interrupted": "Призыв Обычной Летучей Мыши прерван.",
     
-    // "ritual.occultism.familiar_deer.conditions": "Not all requirements for this ritual are met.",
-    // "ritual.occultism.familiar_deer.finished": "Summoned deer familiar successfully.",
-    // "ritual.occultism.familiar_deer.interrupted": "Summoning of deer familiar interrupted.",
-    // "ritual.occultism.familiar_deer.started": "Started summoning deer familiar.",
+    "ritual.occultism.familiar_deer.conditions": "Не все требования для этого ритуала соблюдены.",
+    "ritual.occultism.familiar_deer.started": "Начат призыв Обычного Оленя.",
+    "ritual.occultism.familiar_deer.finished": "Призыв Обычного Оленя успешен.",
+    "ritual.occultism.familiar_deer.interrupted": "Призыв Обычного Оленя прерван.",
     
-    // "ritual.occultism.familiar_greedy.conditions": "Not all requirements for this ritual are met.",
-    // "ritual.occultism.familiar_greedy.finished": "Summoned v familiar successfully.",
-    // "ritual.occultism.familiar_greedy.interrupted": "Summoning of greedy familiar interrupted.",
-    // "ritual.occultism.familiar_greedy.started": "Started summoning greedy familiar.",
-
+    "ritual.occultism.familiar_greedy.conditions": "Не все требования для этого ритуала соблюдены.",
+    "ritual.occultism.familiar_greedy.started": "Начат призыв Прожорливый-Обычный.",
+    "ritual.occultism.familiar_greedy.finished": "Призыв Прожорливый-Обычный успешен.",
+    "ritual.occultism.familiar_greedy.interrupted": "Призыв Прожорливый-Обычный прерван.",
     
     "_comment": "GUI Strings",
     "gui.occultism.book_of_calling.mode": "Режим",
@@ -568,7 +564,7 @@
     "gui.occultism.storage_controller.space_info_label": "%d/%d",
     "gui.occultism.storage_controller.shift": "Зажмите Shift чтобы увидеть подробную информацию.",
     "gui.occultism.storage_controller.search.tooltip@": "Префикс @: Для поиска по мод id.",
-    "gui.occultism.storage_controller.search.tooltip#": "Префикс #: Search in item tooltip.",
+    "gui.occultism.storage_controller.search.tooltip#": "Префикс #: Поиск в описании предмета.",
     "gui.occultism.storage_controller.search.tooltip$": "Префикс $: Для поиска по тегам.",
     "gui.occultism.storage_controller.search.tooltip_rightclick": "Для очистки текста нажмите правую кнопку мыши.",
     "gui.occultism.storage_controller.search.tooltip_clear": "Очистить поиск.",
@@ -610,21 +606,26 @@
     "_comment": "Keybinds",
     "key.occultism.category": "Оккультизм",
     "key.occultism.backpack": "Открыть ранец",
-    // "key.occultism.familiar.bat": "Toggle Ring Effect: Bat",
-    // "key.occultism.familiar.deer": "Toggle Ring Effect: Deer",
-    // "key.occultism.familiar.greedy": "Toggle Ring Effect: Greedy",
-    // "key.occultism.familiar.otherworld_bird": "Toggle Ring Effect: Drikwing",
-    // "key.occultism.storage_remote": "Open Storage Accessor",
+    
+    "key.occultism.familiar.bat": "Активировать эффект кольца: Летучая Мышь",
+    "key.occultism.familiar.deer": "Активировать эффект кольца: Олень",
+    "key.occultism.familiar.greedy": "Активировать эффект кольца: Прожорливый",
+    "key.occultism.familiar.otherworld_bird": "Активировать эффект кольца: Дриквинг",
+    
+    "key.occultism.storage_remote": "Открыйть Беспроводное Хранилище",
 
-    // "_comment": "Familiar Settings Messages",
-    // "message.occultism.familiar.bat.disabled": "Ring Effect - Bat: Disabled",
-    // "message.occultism.familiar.bat.enabled": "Ring Effect - Bat: Enabled",
-    // "message.occultism.familiar.deer.disabled": "Ring Effect - Deer: Disabled",
-    // "message.occultism.familiar.deer.enabled": "Ring Effect - Deer: Enabled",
-    // "message.occultism.familiar.greedy.disabled": "Ring Effect - Greedy: Disabled",
-    // "message.occultism.familiar.greedy.enabled": "Ring Effect - Greedy: Enabled",
-    // "message.occultism.familiar.otherworld_bird.disabled": "Ring Effect - Drikwing: Disabled",
-    // "message.occultism.familiar.otherworld_bird.enabled": "Ring Effect - Drikwing: Enabled",
+    "_comment": "Familiar Settings Messages",
+    "message.occultism.familiar.bat.disabled": "Эффект кольца - Летучая мышь: Выключен",
+    "message.occultism.familiar.bat.enabled": "Эффект кольца - Летучая мышь: Включен",
+    
+    "message.occultism.familiar.deer.disabled": "Эффект кольца - Олень: Выключен",
+    "message.occultism.familiar.deer.enabled": "Эффект кольца - Олень: Включен",
+    
+    "message.occultism.familiar.greedy.disabled": "Эффект кольца - Прожорливый: Выключен",
+    "message.occultism.familiar.greedy.enabled": "Эффект кольца - Прожорливый: Включен",
+    
+    "message.occultism.familiar.otherworld_bird.disabled": "Эффект кольца - Дриквинг: Выключен",
+    "message.occultism.familiar.otherworld_bird.enabled": "Эффект кольца - Дриквинг: Включен",
     
     "_comment": "JEI",
     "occultism.jei.spirit_fire": "Огонь душ",
@@ -673,6 +674,9 @@
     "pentacle.occultism.summon_wild_greater_spirit": "Дикий Вызов Осорина",
     
     "_comment": "Ritual Dummy Items",
+    "item.occultism.ritual_dummy.craft_familiar_ring": "Ритуал: Создать Обычное Кольцо",
+    "item.occultism.ritual_dummy.craft_familiar_ring.tooltip": "Обычное Кольцо позволяет хранить обычных, а так же наложит Эффект Обычных к носящему.",
+
     "item.occultism.ritual_dummy.craft_dimensional_matrix": "Ритуал: Создать Кристальную Матрице",
     "item.occultism.ritual_dummy.craft_dimensional_matrix.tooltip": "Кристальная Матрице это входная точка к маленькуму измерению для хранения предметов.",
 
@@ -718,12 +722,14 @@
     "item.occultism.ritual_dummy.craft_storage_remote": "Ритуал: Создать Беспроводное Хранилище",
     "item.occultism.ritual_dummy.craft_storage_remote.tooltip": "Беспроводное Хранилище может быть подключен к Активатору Хранилища для удалённого доступа к вещям.",
 
-    // "item.occultism.ritual_dummy.familiar_bat": "Ritual: Summon Bat Familiar",
-    // "item.occultism.ritual_dummy.familiar_bat.tooltip": "Bat familiars provide night vision to their master.",
-    // "item.occultism.ritual_dummy.familiar_deer": "Ritual: Summon Deer Familiar",
-    // "item.occultism.ritual_dummy.familiar_deer.tooltip": "Deer familiars provides jump boost to their master.",
-    // "item.occultism.ritual_dummy.familiar_greedy": "Ritual: Summon Greedy Familiar",
-    // "item.occultism.ritual_dummy.familiar_greedy.tooltip": "Greedy familiars pick up items for their master. When stored in a familiar ring, they increase the pickup range (like an item magnet).",
+    "item.occultism.ritual_dummy.familiar_bat": "Ритуал: Призыв Летучая-Мышь-Обычный",
+    "item.occultism.ritual_dummy.familiar_bat.tooltip": "Летучии Мыши предоставляют хозяину ночное зрение.",
+    
+    "item.occultism.ritual_dummy.familiar_deer": "Ритуал: Призыв Олень-Обычный",
+    "item.occultism.ritual_dummy.familiar_deer.tooltip": "Олени Deer предоставляют хозяину эффект прыгучести.",
+    
+    "item.occultism.ritual_dummy.familiar_greedy": "Ритуал: Призыв Прожорливый-Обычный",
+    "item.occultism.ritual_dummy.familiar_greedy.tooltip": "Прожорливые поднимают предметы для хозяйна. Если помещён в Обычное Кольцо, увеличивается радиюс поднятью предметов (работает как магнит).",
 
     "item.occultism.ritual_dummy.familiar_otherworld_bird": "Ритуал: Призыв Водокрыл-Обычный",
     "item.occultism.ritual_dummy.familiar_otherworld_bird.tooltip": "Водокрыл-Обычный позволяет хозяину временно летать когда рядом.",
