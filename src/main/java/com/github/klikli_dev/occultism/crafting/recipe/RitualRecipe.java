@@ -164,7 +164,7 @@ public class RitualRecipe extends ShapelessRecipe {
     }
 
     public EntityType<?> getEntityToSummon() {
-        return this.getEntityToSummon();
+        return this.entityToSummon;
     }
 
     public ResourceLocation getRitualType() {
