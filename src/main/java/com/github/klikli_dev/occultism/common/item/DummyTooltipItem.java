@@ -23,14 +23,20 @@
 package com.github.klikli_dev.occultism.common.item;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 import com.github.klikli_dev.occultism.common.ritual.Ritual;
 import com.github.klikli_dev.occultism.common.tile.GoldenSacrificialBowlTileEntity;
 
+import com.github.klikli_dev.occultism.crafting.recipe.RitualRecipe;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -42,22 +48,19 @@ import net.minecraftforge.common.util.LazyOptional;
  */
 public class DummyTooltipItem extends Item {
     
-    private final LazyOptional<Ritual> ritual;
-
     //region Initialization
-    public DummyTooltipItem(Properties properties, LazyOptional<Ritual> ritual) {
-        super(properties);
-        this.ritual = ritual;
-    }
-    
     public DummyTooltipItem(Properties properties) {
-        this(properties, LazyOptional.empty());
+        super(properties);
     }
+
     //endregion Initialization
     
     public void performRitual(World world, BlockPos pos, GoldenSacrificialBowlTileEntity tileEntity,
             PlayerEntity player, ItemStack activationItem) {
-        this.ritual.ifPresent(r -> r.finish(world, pos, tileEntity, player, activationItem));
+        String path = this.getRegistryName().getPath();
+        String recipePath = path.contains("/") ? path.substring(path.indexOf("/")) : path;
+        Optional<? extends IRecipe<?>> recipe = world.getRecipeManager().getRecipe(new ResourceLocation(this.getRegistryName().getNamespace(), recipePath));
+        recipe.map(r -> (RitualRecipe) r).ifPresent(r -> r.getRitual().finish(world, pos, tileEntity, player, activationItem));
     }
 
     //region Overrides

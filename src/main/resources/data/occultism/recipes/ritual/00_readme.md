@@ -40,7 +40,7 @@ Fully configurable recipes are something I'd like to do, but due to the complex 
   },
   "entity_to_summon": "minecraft:sheep",
   "ritual_dummy": {
-    "item": "occultism:ritual_dummy/summon_foliot_crusher"
+    "item": "occultism:ritual_dummy/custom_ritual"
   },
   "ingredients": [
     {
