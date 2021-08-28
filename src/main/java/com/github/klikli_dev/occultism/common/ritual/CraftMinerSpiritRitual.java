@@ -22,59 +22,40 @@
 
 package com.github.klikli_dev.occultism.common.ritual;
 
-import com.github.klikli_dev.occultism.Occultism;
-import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
-import com.github.klikli_dev.occultism.common.ritual.pentacle.PentacleManager;
 import com.github.klikli_dev.occultism.common.tile.GoldenSacrificialBowlTileEntity;
-import com.github.klikli_dev.occultism.registry.OccultismEntities;
-import com.github.klikli_dev.occultism.registry.OccultismItems;
-import com.github.klikli_dev.occultism.registry.OccultismRituals;
-import com.github.klikli_dev.occultism.registry.OccultismTags;
+import com.github.klikli_dev.occultism.crafting.recipe.RitualRecipe;
 import com.github.klikli_dev.occultism.util.ItemNBTUtil;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
-public class SummonWildAfritRitual extends SummonSpiritRitual {
+public class CraftMinerSpiritRitual extends Ritual {
 
-    //region Initialization
-    public SummonWildAfritRitual() {
-        super(null,
-                () -> PentacleManager.get(Occultism.MODID, "summon_wild_afrit"),
-                Ingredient.fromItems(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()),
-                "summon_wild_afrit", 60);
-        this.sacrificePredicate =
-                (entity) -> OccultismTags.COWS.contains(entity.getType());
+    public CraftMinerSpiritRitual(RitualRecipe recipe) {
+        super(recipe);
     }
-    //endregion Initialization
 
-    //region Overrides
     @Override
     public void finish(World world, BlockPos goldenBowlPosition, GoldenSacrificialBowlTileEntity tileEntity,
                        PlayerEntity castingPlayer, ItemStack activationItem) {
-
         super.finish(world, goldenBowlPosition, tileEntity, castingPlayer, activationItem);
-
-        //consume activation item
         ItemStack copy = activationItem.copy();
-        activationItem.shrink(1);
+        activationItem.shrink(1); //remove activation item.
 
         ((ServerWorld) world).spawnParticle(ParticleTypes.LARGE_SMOKE, goldenBowlPosition.getX() + 0.5,
                 goldenBowlPosition.getY() + 0.5, goldenBowlPosition.getZ() + 0.5, 1, 0, 0, 0, 0);
 
-        //set up the entity
-        SpiritEntity spirit = OccultismEntities.AFRIT_WILD.get().create(world);
-        this.prepareSpiritForSpawn(spirit, world, goldenBowlPosition, castingPlayer,
-                ItemNBTUtil.getBoundSpiritName(copy), false);
+        ItemStack result = this.recipe.getRecipeOutput().copy();
 
-        spirit.setSpiritMaxAge(60 * 60); //1h max time
+        //sets up nbt configuration for miner
+        result.getItem().onCreated(result, world, castingPlayer);
 
-        //notify players nearby and spawn
-        this.spawnEntity(spirit, world);
+        //copy over spirit name
+        ItemNBTUtil.setBoundSpiritName(result, ItemNBTUtil.getBoundSpiritName(copy));
+
+        this.dropResult(world, goldenBowlPosition, tileEntity, castingPlayer, result);
     }
-    //endregion Overrides
 }

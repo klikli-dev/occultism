@@ -34,13 +34,9 @@ import net.minecraft.world.server.ServerWorld;
 
 public class CraftRitual extends Ritual {
 
-    //region Initialization
     public CraftRitual(RitualRecipe recipe) {
         super(recipe);
     }
-    //endregion Initialization
-
-    //region Overrides
 
     @Override
     public void finish(World world, BlockPos goldenBowlPosition, GoldenSacrificialBowlTileEntity tileEntity,
@@ -55,5 +51,4 @@ public class CraftRitual extends Ritual {
         ItemStack result = this.recipe.getRecipeOutput().copy();
         this.dropResult(world, goldenBowlPosition, tileEntity, castingPlayer, result);
     }
-    //endregion Overrides
 }

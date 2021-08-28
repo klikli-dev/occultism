@@ -24,18 +24,15 @@ package com.github.klikli_dev.occultism.common.ritual;
 
 import com.github.klikli_dev.occultism.common.entity.spirit.FoliotEntity;
 import com.github.klikli_dev.occultism.common.job.TraderJob;
-import com.github.klikli_dev.occultism.common.ritual.pentacle.PentacleManager;
 import com.github.klikli_dev.occultism.common.tile.GoldenSacrificialBowlTileEntity;
+import com.github.klikli_dev.occultism.crafting.recipe.RitualRecipe;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
-import com.github.klikli_dev.occultism.registry.OccultismItems;
-import com.github.klikli_dev.occultism.registry.OccultismRituals;
 import com.github.klikli_dev.occultism.registry.OccultismSpiritJobs;
 import com.github.klikli_dev.occultism.util.ItemNBTUtil;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -43,15 +40,11 @@ import net.minecraft.world.server.ServerWorld;
 
 import static com.github.klikli_dev.occultism.util.StaticUtil.modLoc;
 
-import com.github.klikli_dev.occultism.Occultism;
-
 public class DebugRitual extends Ritual {
 
     //region Initialization
-    public DebugRitual() {
-        super(() -> PentacleManager.get(Occultism.MODID, "debug"),
-                Ingredient.fromItems(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()),
-                5);
+    public DebugRitual(RitualRecipe ritual) {
+        super(ritual);
     }
     //endregion Initialization
 
@@ -62,7 +55,7 @@ public class DebugRitual extends Ritual {
 
         //set up the foliot entity
         FoliotEntity foliot = OccultismEntities.FOLIOT.get().create(world);
-        this.prepareSpiritForSpawn(foliot, world, goldenBowlPosition, castingPlayer,
+        this.prepareLivingEntityForSpawn(foliot, world, goldenBowlPosition, castingPlayer,
                 ItemNBTUtil.getBoundSpiritName(activationItem));
 
         activationItem.shrink(1); //remove original activation item from storage.

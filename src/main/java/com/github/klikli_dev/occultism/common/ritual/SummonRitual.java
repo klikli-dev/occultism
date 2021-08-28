@@ -22,35 +22,31 @@
 
 package com.github.klikli_dev.occultism.common.ritual;
 
-import java.util.function.Supplier;
-
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
-import com.github.klikli_dev.occultism.common.job.SpiritJob;
-import com.github.klikli_dev.occultism.common.ritual.pentacle.Pentacle;
 import com.github.klikli_dev.occultism.common.tile.GoldenSacrificialBowlTileEntity;
 import com.github.klikli_dev.occultism.crafting.recipe.RitualRecipe;
-import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
-import com.github.klikli_dev.occultism.registry.OccultismSpiritJobs;
 import com.github.klikli_dev.occultism.util.ItemNBTUtil;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.items.ItemHandlerHelper;
 
-public class SummonSpiritRitual extends Ritual {
+public class SummonRitual extends Ritual {
 
-    public SummonSpiritRitual(RitualRecipe recipe){
+    private boolean tame;
+
+    public SummonRitual(RitualRecipe recipe, boolean tame){
         super(recipe);
+        this.tame = tame;
     }
 
     /**
@@ -102,6 +98,7 @@ public class SummonSpiritRitual extends Ritual {
                        PlayerEntity castingPlayer, ItemStack activationItem) {
         super.finish(world, goldenBowlPosition, tileEntity, castingPlayer, activationItem);
 
+        ItemStack copy = activationItem.copy();
         //prepare active book of calling
         ItemStack result = this.getBookOfCallingBound(activationItem);
 
@@ -110,18 +107,34 @@ public class SummonSpiritRitual extends Ritual {
 
         EntityType<?> entityType = this.recipe.getEntityToSummon();
         if(entityType != null){
-            Entity entity = entityType.create(world);
-            if(entity instanceof SpiritEntity){
-                SpiritEntity spirit = (SpiritEntity) entity;
-                this.prepareSpiritForSpawn(spirit, world, goldenBowlPosition, castingPlayer,
-                        ItemNBTUtil.getBoundSpiritName(result));
+            Entity entity = this.createSummonedEntity(entityType,  world, goldenBowlPosition, tileEntity, castingPlayer);
+            if(entity instanceof LivingEntity){
+                LivingEntity living = (LivingEntity) entity;
+                this.prepareLivingEntityForSpawn(living, world, goldenBowlPosition, tileEntity, castingPlayer,
+                        ItemNBTUtil.getBoundSpiritName(copy), tame);
+
+                this.initSummoned(living, world, goldenBowlPosition, tileEntity, castingPlayer);
 
                 //notify players nearby and spawn
-                this.spawnEntity(spirit, world);
+                this.spawnEntity(living, world);
 
                 //set up the book of calling
-                this.finishBookOfCallingSetup(result, spirit, castingPlayer);
+                if(result != ItemStack.EMPTY && living instanceof SpiritEntity)
+                    this.finishBookOfCallingSetup(result, (SpiritEntity) living, castingPlayer);
             }
+        }
+    }
+
+    public Entity createSummonedEntity(EntityType<?> entityType, World world, BlockPos goldenBowlPosition, GoldenSacrificialBowlTileEntity tileEntity,
+                                       PlayerEntity castingPlayer){
+        return entityType.create(world);
+    }
+
+    public void initSummoned(LivingEntity living, World world, BlockPos goldenBowlPosition, GoldenSacrificialBowlTileEntity tileEntity,
+                             PlayerEntity castingPlayer){
+        if(living instanceof SpiritEntity) {
+            SpiritEntity spirit = (SpiritEntity) living;
+            spirit.setSpiritMaxAge(this.recipe.getSpiritMaxAge());
         }
     }
 }

@@ -5,6 +5,7 @@
     "item": "occultism:book_of_binding_bound_djinni"
   },
   "pentacle_id": "occultism:craft_djinni",
+  "duration": 240,
   "ritual_dummy": {
     "item": "occultism:ritual_dummy/craft_dimensional_matrix"
   },

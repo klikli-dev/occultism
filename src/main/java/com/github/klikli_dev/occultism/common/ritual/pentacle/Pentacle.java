@@ -152,7 +152,7 @@ public class Pentacle {
                 return PatchouliAPI.get().displayOnlyMatcher(display);
             }
         }
-        
+
         //if it's a primitive we assume it's a block
         ResourceLocation blockRL = new ResourceLocation(matcher.getAsString());
         Block block = ForgeRegistries.BLOCKS.getValue(blockRL);

@@ -23,7 +23,14 @@ Fully configurable recipes are something I'd like to do, but due to the complex 
 ```json
 {
   "type": "occultism:ritual",
-  "ritual_type": "occultism:summon_with_job",
+  "ritual_type": "occultism:summon",
+  "ritual_type": "occultism:summon_tamed",
+  "ritual_type": "occultism:summon_spirit_with_job",
+  "ritual_type": "occultism:summon_wild_hunt",
+  "ritual_type": "occultism:familiar",
+  "ritual_type": "occultism:craft",
+  "ritual_type": "occultism:craft_with_spirit_name",
+  "ritual_type": "occultism:craft_miner_spirit",
   "activation_item": {
     "item": "occultism:book_of_binding_bound_foliot"
   },
@@ -36,7 +43,7 @@ Fully configurable recipes are something I'd like to do, but due to the complex 
   },
   "entity_to_sacrifice": {
     "tag": "forge:cows",
-    "display_name": "occultism.ritual.sacrifice.cows"
+    "display_name": "ritual.occultism.sacrifice.cows"
   },
   "entity_to_summon": "minecraft:sheep",
   "ritual_dummy": {

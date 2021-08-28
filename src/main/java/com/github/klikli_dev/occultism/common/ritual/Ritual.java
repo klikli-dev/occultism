@@ -30,8 +30,10 @@ import com.github.klikli_dev.occultism.crafting.recipe.RitualRecipe;
 import com.github.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.github.klikli_dev.occultism.registry.OccultismSounds;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -451,48 +453,51 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
     }
 
     /**
-     * Prepares the given spirit for spawning by
+     * Prepares the given living entity for spawning by
      * - initializing it
      * - setting the taming player
      * - preparing position and rotation
      * - setting the custom name.
      *
-     * @param spirit             the spirit to prepare.
+     * @param livingEntity       the living entity to prepare.
      * @param world              the world to spawn in.
      * @param goldenBowlPosition the golden bowl position.
      * @param castingPlayer      the ritual casting player.
      * @param spiritName         the spirit name.
      */
-    public void prepareSpiritForSpawn(SpiritEntity spirit, World world, BlockPos goldenBowlPosition,
-                                      PlayerEntity castingPlayer, String spiritName) {
-        this.prepareSpiritForSpawn(spirit, world, goldenBowlPosition, castingPlayer, spiritName, true);
+    public void prepareLivingEntityForSpawn(LivingEntity livingEntity, World world, BlockPos goldenBowlPosition,
+                                            GoldenSacrificialBowlTileEntity tileEntity, PlayerEntity castingPlayer, String spiritName) {
+        this.prepareLivingEntityForSpawn(livingEntity, world, goldenBowlPosition, tileEntity, castingPlayer, spiritName, true);
     }
 
     /**
-     * Prepares the given spirit for spawning by
+     * Prepares the given living entity for spawning by
      * - initializing it
      * - optionally setting the taming player
      * - preparing position and rotation
      * - setting the custom name.
      *
-     * @param spirit             the spirit to prepare.
+     * @param livingEntity       the living entity to prepare.
      * @param world              the world to spawn in.
      * @param goldenBowlPosition the golden bowl position.
      * @param castingPlayer      the ritual casting player.
      * @param spiritName         the spirit name.
      * @param setTamed           true to tame the spirit
      */
-    public void prepareSpiritForSpawn(SpiritEntity spirit, World world, BlockPos goldenBowlPosition,
-                                      PlayerEntity castingPlayer, String spiritName, boolean setTamed) {
-        if (setTamed) {
-            spirit.setTamedBy(castingPlayer);
+    public void prepareLivingEntityForSpawn(LivingEntity livingEntity, World world, BlockPos goldenBowlPosition, GoldenSacrificialBowlTileEntity tileEntity,
+                                            PlayerEntity castingPlayer, String spiritName, boolean setTamed) {
+        if (setTamed && livingEntity instanceof TameableEntity) {
+
+            ((TameableEntity)livingEntity).setTamedBy(castingPlayer);
         }
-        spirit.setPositionAndRotation(goldenBowlPosition.getX(), goldenBowlPosition.getY(), goldenBowlPosition.getZ(),
+        livingEntity.setPositionAndRotation(goldenBowlPosition.getX(), goldenBowlPosition.getY(), goldenBowlPosition.getZ(),
                 world.rand.nextInt(360), 0);
-        spirit.setCustomName(new StringTextComponent(spiritName));
-        spirit.onInitialSpawn((ServerWorld) world, world.getDifficultyForLocation(goldenBowlPosition),
-                SpawnReason.MOB_SUMMONED, null,
-                null);
+        if(spiritName.length() > 0)
+            livingEntity.setCustomName(new StringTextComponent(spiritName));
+        if(livingEntity instanceof MobEntity)
+            ((MobEntity)livingEntity).onInitialSpawn((ServerWorld) world, world.getDifficultyForLocation(goldenBowlPosition),
+                    SpawnReason.MOB_SUMMONED, null,
+                    null);
     }
 
     /**

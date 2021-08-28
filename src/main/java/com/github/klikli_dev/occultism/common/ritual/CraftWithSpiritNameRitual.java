@@ -38,13 +38,9 @@ import net.minecraft.world.server.ServerWorld;
 
 public class CraftWithSpiritNameRitual extends Ritual {
 
-    //region Initialization
     public CraftWithSpiritNameRitual(RitualRecipe recipe) {
         super(recipe);
     }
-    //endregion Initialization
-
-    //region Overrides
 
     @Override
     public void finish(World world, BlockPos goldenBowlPosition, GoldenSacrificialBowlTileEntity tileEntity,
@@ -61,5 +57,4 @@ public class CraftWithSpiritNameRitual extends Ritual {
         ItemNBTUtil.setBoundSpiritName(result, ItemNBTUtil.getBoundSpiritName(copy));
         this.dropResult(world, goldenBowlPosition, tileEntity, castingPlayer, result);
     }
-    //endregion Overrides
 }

@@ -47,10 +47,20 @@ public class OccultismSpiritJobs {
             () -> new SpiritJobFactory(CleanerJob::new));
 
     //Trade jobs
-    public static final RegistryObject<SpiritJobFactory> TRADE_OTHERSTONE = JOBS.register("trade_otherstone",
-            () -> new SpiritJobFactory((entity) -> new TraderJob(entity, modLoc("spirit_trade/test"))));
-    public static final RegistryObject<SpiritJobFactory> TRADE_OTHERWORLD_SAPLINGS = JOBS.register("trade_otherworld_saplings",
-            () -> new SpiritJobFactory((entity) -> new TraderJob(entity, modLoc("spirit_trade/test"))));
+    public static final RegistryObject<SpiritJobFactory> TRADE_OTHERSTONE_T1 = JOBS.register("trade_otherstone_t1",
+            () -> new SpiritJobFactory((entity) -> {
+                TraderJob job = new TraderJob(entity, modLoc("spirit_trade/stone_to_otherstone"));
+                job.setTimeToConvert(15);
+                job.setMaxTradesPerRound(4);
+                return job;
+            } ));
+    public static final RegistryObject<SpiritJobFactory> TRADE_OTHERWORLD_SAPLINGS_T2 = JOBS.register("trade_otherworld_saplings_t1",
+            () -> new SpiritJobFactory((entity) ->  {
+                TraderJob job = new TraderJob(entity, modLoc("spirit_trade/otherworld_sapling"));
+                job.setTimeToConvert(20);
+                job.setMaxTradesPerRound(1);
+                return job;
+            }));
 
     //Crushing jobs
     public static final RegistryObject<SpiritJobFactory> CRUSH_TIER1 = JOBS.register("crush_tier1",

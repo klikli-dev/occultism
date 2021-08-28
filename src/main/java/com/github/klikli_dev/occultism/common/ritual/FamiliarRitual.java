@@ -22,63 +22,54 @@
 
 package com.github.klikli_dev.occultism.common.ritual;
 
-import com.github.klikli_dev.occultism.Occultism;
-import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
-import com.github.klikli_dev.occultism.common.job.SpiritJob;
-import com.github.klikli_dev.occultism.common.ritual.pentacle.PentacleManager;
+import com.github.klikli_dev.occultism.common.entity.FamiliarEntity;
 import com.github.klikli_dev.occultism.common.tile.GoldenSacrificialBowlTileEntity;
-import com.github.klikli_dev.occultism.registry.OccultismEntities;
-import com.github.klikli_dev.occultism.registry.OccultismItems;
-import com.github.klikli_dev.occultism.registry.OccultismRituals;
-import com.github.klikli_dev.occultism.registry.OccultismSpiritJobs;
+import com.github.klikli_dev.occultism.crafting.recipe.RitualRecipe;
 import com.github.klikli_dev.occultism.util.ItemNBTUtil;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
-public class SummonFoliotLumberjackRitual extends SummonSpiritRitual {
+public class FamiliarRitual extends SummonRitual {
 
-    //region Initialization
-    public SummonFoliotLumberjackRitual() {
-        super(OccultismItems.BOOK_OF_CALLING_FOLIOT_LUMBERJACK.get(),
-                () -> PentacleManager.get(Occultism.MODID, "summon_foliot"),
-                Ingredient.fromItems(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()),
-                "summon_foliot_lumberjack", 60);
+    public FamiliarRitual(RitualRecipe recipe) {
+        super(recipe, true);
     }
-    //endregion Initialization
-
-    //region Overrides
 
     @Override
     public void finish(World world, BlockPos goldenBowlPosition, GoldenSacrificialBowlTileEntity tileEntity,
                        PlayerEntity castingPlayer, ItemStack activationItem) {
         super.finish(world, goldenBowlPosition, tileEntity, castingPlayer, activationItem);
 
-        //prepare active book of calling
-        ItemStack result = this.getBookOfCallingBound(activationItem);
+        String entityName = ItemNBTUtil.getBoundSpiritName(activationItem);
+        activationItem.shrink(1); //remove original activation item.
 
         ((ServerWorld) world).spawnParticle(ParticleTypes.LARGE_SMOKE, goldenBowlPosition.getX() + 0.5,
                 goldenBowlPosition.getY() + 0.5, goldenBowlPosition.getZ() + 0.5, 1, 0, 0, 0, 0);
 
-        //set up the foliot entity
-        SpiritEntity spirit = OccultismEntities.FOLIOT.get().create(world);
-        this.prepareSpiritForSpawn(spirit, world, goldenBowlPosition, castingPlayer,
-                ItemNBTUtil.getBoundSpiritName(result));
+        EntityType<?> entityType = this.recipe.getEntityToSummon();
+        if (entityType != null) {
+            Entity entity = entityType.create(world);
+            if (entity instanceof FamiliarEntity) {
+                FamiliarEntity familiar = (FamiliarEntity) entity;
+                familiar.onInitialSpawn((ServerWorld) world, world.getDifficultyForLocation(goldenBowlPosition), SpawnReason.MOB_SUMMONED,
+                        null, null);
+                familiar.setPositionAndRotation(goldenBowlPosition.getX(), goldenBowlPosition.getY(), goldenBowlPosition.getZ(),
+                        world.rand.nextInt(360), 0);
+                familiar.setCustomName(new StringTextComponent(entityName));
+                familiar.setOwnerId(castingPlayer.getUniqueID());
 
-        //set up the job
-        SpiritJob lumberjack = OccultismSpiritJobs.LUMBERJACK.get().create(spirit);
-        lumberjack.init();
-        spirit.setJob(lumberjack);
 
-        //notify players nearby and spawn
-        this.spawnEntity(spirit, world);
-
-        //set up the book of calling
-        this.finishBookOfCallingSetup(result, spirit, castingPlayer);
+                //notify players nearby and spawn
+                this.spawnEntity(familiar, world);
+            }
+        }
     }
-    //endregion Overrides
 }

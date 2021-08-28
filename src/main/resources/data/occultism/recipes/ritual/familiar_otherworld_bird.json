@@ -1,11 +1,16 @@
 {
   "type": "occultism:ritual",
+  "ritual_type": "occultism:summon_tamed",
   "activation_item": {
     "item": "occultism:book_of_binding_bound_djinni"
   },
   "pentacle_id": "occultism:possess_djinni",
-  "require_item_use": false,
-  "require_sacrifice": true,
+  "duration": 30,
+  "entity_to_sacrifice": {
+    "tag": "forge:parrots",
+    "display_name": "ritual.occultism.sacrifice.parrots"
+  },
+  "entity_to_summon": "occultism:otherworld_bird",
   "ritual_dummy": {
     "item": "occultism:ritual_dummy/familiar_otherworld_bird"
   },

@@ -22,43 +22,23 @@
 
 package com.github.klikli_dev.occultism.common.ritual;
 
-import com.github.klikli_dev.occultism.Occultism;
-import com.github.klikli_dev.occultism.common.entity.spirit.WildHuntWitherSkeletonEntity;
-import com.github.klikli_dev.occultism.common.ritual.pentacle.PentacleManager;
 import com.github.klikli_dev.occultism.common.tile.GoldenSacrificialBowlTileEntity;
-import com.github.klikli_dev.occultism.registry.OccultismEntities;
-import com.github.klikli_dev.occultism.registry.OccultismRituals;
-import com.github.klikli_dev.occultism.registry.OccultismTags;
+import com.github.klikli_dev.occultism.crafting.recipe.RitualRecipe;
 import com.github.klikli_dev.occultism.util.TextUtil;
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.particles.ParticleTypes;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
-public class SummonWildHuntRitual extends SummonSpiritRitual {
-    //region Fields
-    public static final ResourceLocation villagerTag = new ResourceLocation("forge", "villagers");
-    //endregion Fields
+public class SummonWildHuntRitual extends SummonRitual {
 
-    //region Initialization
-    public SummonWildHuntRitual() {
-        super(null,
-                () -> PentacleManager.get(Occultism.MODID, "summon_wild_greater_spirit"),
-                Ingredient.fromItems(Blocks.SKELETON_SKULL),
-                "summon_wild_hunt", 30);
-        this.sacrificePredicate = (entity) -> entity instanceof PlayerEntity ||
-                                              OccultismTags.VILLAGERS.contains(entity.getType());
+    public SummonWildHuntRitual(RitualRecipe recipe) {
+        super(recipe, false);
     }
-    //endregion Initialization
-
-    //region Overrides
 
     @Override
     public void finish(World world, BlockPos goldenBowlPosition, GoldenSacrificialBowlTileEntity tileEntity,
@@ -71,21 +51,31 @@ public class SummonWildHuntRitual extends SummonSpiritRitual {
                 goldenBowlPosition.getY() + 0.5, goldenBowlPosition.getZ() + 0.5, 1, 0, 0, 0, 0);
 
         //Spawn the wither skeletons, who will spawn their minions
-        for (int i = 0; i < 3; i++) {
-            WildHuntWitherSkeletonEntity skeleton = OccultismEntities.WILD_HUNT_WITHER_SKELETON.get().create(world);
+        EntityType<?> entityType = this.recipe.getEntityToSummon();
+        if (entityType != null) {
 
-            double offsetX = (world.getRandom().nextGaussian() - 1.0) * (1 + world.getRandom().nextInt(4));
-            double offsetZ = (world.getRandom().nextGaussian() - 1.0) * (1 + world.getRandom().nextInt(4));
+            for (int i = 0; i < 3; i++) {
+                Entity entity = this.createSummonedEntity(entityType, world, goldenBowlPosition, tileEntity, castingPlayer);
 
-            skeleton.setPositionAndRotation(goldenBowlPosition.getX() + offsetX, goldenBowlPosition.getY() + 1.5,
-                    goldenBowlPosition.getZ() + offsetZ,
-                    world.getRandom().nextInt(360), 0);
-            skeleton.setCustomName(new StringTextComponent(TextUtil.generateName()));
+                if (entity instanceof LivingEntity) {
+                    LivingEntity living = (LivingEntity) entity;
+                    double offsetX = (world.getRandom().nextGaussian() - 1.0) * (1 + world.getRandom().nextInt(4));
+                    double offsetZ = (world.getRandom().nextGaussian() - 1.0) * (1 + world.getRandom().nextInt(4));
 
-            skeleton.onInitialSpawn((ServerWorld) world, world.getDifficultyForLocation(goldenBowlPosition), SpawnReason.MOB_SUMMONED,
-                    null,
-                    null);
-            this.spawnEntity(skeleton, world);
+                    living.setPositionAndRotation(goldenBowlPosition.getX() + offsetX, goldenBowlPosition.getY() + 1.5,
+                            goldenBowlPosition.getZ() + offsetZ,
+                            world.getRandom().nextInt(360), 0);
+                    living.setCustomName(new StringTextComponent(TextUtil.generateName()));
+
+                    if (living instanceof MobEntity) {
+                        ((MobEntity) living).onInitialSpawn((ServerWorld) world, world.getDifficultyForLocation(goldenBowlPosition), SpawnReason.MOB_SUMMONED,
+                                null,
+                                null);
+                    }
+
+                    this.spawnEntity(living, world);
+                }
+            }
         }
     }
     //endregion Overrides

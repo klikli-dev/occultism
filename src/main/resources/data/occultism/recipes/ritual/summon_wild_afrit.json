@@ -1,11 +1,15 @@
 {
   "type": "occultism:ritual",
+  "ritual_type": "occultism:summon",
   "activation_item": {
     "item": "occultism:book_of_binding_bound_afrit"
   },
   "pentacle_id": "occultism:summon_wild_afrit",
-  "require_item_use": false,
-  "require_sacrifice": true,
+  "duration": 60,
+  "entity_to_sacrifice": {
+    "tag": "forge:cows",
+    "display_name": "ritual.occultism.sacrifice.cows"
+  },
   "ritual_dummy": {
     "item": "occultism:ritual_dummy/summon_wild_afrit"
   },

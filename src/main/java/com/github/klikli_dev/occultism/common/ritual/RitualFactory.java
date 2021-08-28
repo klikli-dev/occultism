@@ -29,21 +29,15 @@ import java.util.function.Function;
 
 public class RitualFactory extends ForgeRegistryEntry<RitualFactory> {
 
-    //region Fields
     Function<RitualRecipe, ? extends Ritual> constructor;
-    //endregion Fields
 
-    //region Initialization
     public RitualFactory(Function<RitualRecipe, ? extends Ritual> constructor) {
         this.constructor = constructor;
     }
-    //endregion Initialization
 
-    //region Methods
     public Ritual create(RitualRecipe recipe) {
         Ritual ritual = this.constructor.apply(recipe);
         ritual.setFactoryId(this.getRegistryName());
         return ritual;
     }
-    //endregion Methods
 }

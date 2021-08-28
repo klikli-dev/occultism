@@ -55,19 +55,19 @@ import java.util.Optional;
 public class RitualRecipe extends ShapelessRecipe {
     public static Serializer SERIALIZER = new Serializer();
 
-    private ResourceLocation pentacleId;
-    private ResourceLocation ritualType;
-    private ResourceLocation spiritJobType;
-    private Ritual ritual;
-    private ItemStack ritualDummy;
-    private Ingredient activationItem;
-    private ITag<EntityType<?>> entityToSacrifice;
-    private EntityType entityToSummon;
-    private Ingredient itemToUse;
-    private int duration;
-    private int spiritMaxAge;
-    private float durationPerIngredient;
-    private String entityToSacrificeDisplayName;
+    private final ResourceLocation pentacleId;
+    private final ResourceLocation ritualType;
+    private final ResourceLocation spiritJobType;
+    private final Ritual ritual;
+    private final ItemStack ritualDummy;
+    private final Ingredient activationItem;
+    private final ITag<EntityType<?>> entityToSacrifice;
+    private final EntityType entityToSummon;
+    private final Ingredient itemToUse;
+    private final int duration;
+    private final int spiritMaxAge;
+    private final float durationPerIngredient;
+    private final String entityToSacrificeDisplayName;
 
 
     public RitualRecipe(ResourceLocation id, String group, ResourceLocation pentacleId, ResourceLocation ritualType, ItemStack ritualDummy,
@@ -168,23 +168,23 @@ public class RitualRecipe extends ShapelessRecipe {
     }
 
     public ResourceLocation getRitualType() {
-        return ritualType;
+        return this.ritualType;
     }
 
     public Ritual getRitual() {
-        return ritual;
+        return this.ritual;
     }
 
     public String getEntityToSacrificeDisplayName() {
-        return entityToSacrificeDisplayName;
+        return this.entityToSacrificeDisplayName;
     }
 
     public ResourceLocation getSpiritJobType() {
-        return spiritJobType;
+        return this.spiritJobType;
     }
 
     public int getSpiritMaxAge() {
-        return spiritMaxAge;
+        return this.spiritMaxAge;
     }
 
     public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<RitualRecipe> {
