@@ -64,7 +64,6 @@ public class SummonRitual extends Ritual {
         //https://github.com/klikli-dev/occultism/issues/183
         if(activationItem.hasTag())
             result.setTag(activationItem.getTag().copy());
-        activationItem.shrink(1); //remove original activation item.
         return result;
     }
 
@@ -101,6 +100,7 @@ public class SummonRitual extends Ritual {
         ItemStack copy = activationItem.copy();
         //prepare active book of calling
         ItemStack result = this.getBookOfCallingBound(activationItem);
+        activationItem.shrink(1); //remove original activation item.
 
         ((ServerWorld) world).spawnParticle(ParticleTypes.LARGE_SMOKE, goldenBowlPosition.getX() + 0.5,
                 goldenBowlPosition.getY() + 0.5, goldenBowlPosition.getZ() + 0.5, 1, 0, 0, 0, 0);
