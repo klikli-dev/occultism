@@ -116,17 +116,17 @@ public class Pentacle {
 
     public static IStateMatcher parseStateMatcher(JsonElement matcher){
         if(matcher.isJsonObject()){
-            JsonObject entryJson = matcher.getAsJsonObject();
+            JsonObject jsonObject = matcher.getAsJsonObject();
             Block display = null;
-            if(entryJson.has("display"))
+            if(jsonObject.has("display"))
             {
-                ResourceLocation displayRL = new ResourceLocation(JSONUtils.getString(matcher, "block"));
+                ResourceLocation displayRL = new ResourceLocation(JSONUtils.getString(jsonObject, "display"));
                 display = ForgeRegistries.BLOCKS.getValue(displayRL);
                 if (display == null)
                     throw new JsonSyntaxException("Invalid display" + displayRL);
             }
-            if(entryJson.has("block")){
-                ResourceLocation blockRL = new ResourceLocation(JSONUtils.getString(matcher, "block"));
+            if(jsonObject.has("block")){
+                ResourceLocation blockRL = new ResourceLocation(JSONUtils.getString(jsonObject, "block"));
                 Block block = ForgeRegistries.BLOCKS.getValue(blockRL);
                 if (block == null)
                     throw new JsonSyntaxException("Invalid block " + blockRL);
@@ -138,8 +138,8 @@ public class Pentacle {
                     return PatchouliAPI.get().looseBlockMatcher(block);
                 }
             }
-            else if(entryJson.has("tag")){
-                ResourceLocation tagRL= new ResourceLocation(JSONUtils.getString(matcher, "tag"));
+            else if(jsonObject.has("tag")){
+                ResourceLocation tagRL= new ResourceLocation(JSONUtils.getString(jsonObject, "tag"));
                 ITag<Block> tag = TagCollectionManager.getManager().getBlockTags().get(tagRL);
                 if(tag == null)
                     throw new JsonSyntaxException("Invalid tag " + tagRL);
