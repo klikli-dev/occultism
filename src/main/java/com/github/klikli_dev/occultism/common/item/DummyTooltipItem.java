@@ -31,6 +31,7 @@ import com.github.klikli_dev.occultism.common.ritual.Ritual;
 import com.github.klikli_dev.occultism.common.tile.GoldenSacrificialBowlTileEntity;
 
 import com.github.klikli_dev.occultism.crafting.recipe.RitualRecipe;
+import com.github.klikli_dev.occultism.registry.OccultismRecipes;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -57,10 +58,11 @@ public class DummyTooltipItem extends Item {
     
     public void performRitual(World world, BlockPos pos, GoldenSacrificialBowlTileEntity tileEntity,
             PlayerEntity player, ItemStack activationItem) {
-        String path = this.getRegistryName().getPath();
-        String recipePath = path.contains("/") ? path.substring(path.indexOf("/")) : path;
-        Optional<? extends IRecipe<?>> recipe = world.getRecipeManager().getRecipe(new ResourceLocation(this.getRegistryName().getNamespace(), recipePath));
-        recipe.map(r -> (RitualRecipe) r).ifPresent(r -> r.getRitual().finish(world, pos, tileEntity, player, activationItem));
+
+        Optional<RitualRecipe> ritualRecipe = world.getRecipeManager().getRecipesForType(OccultismRecipes.RITUAL_TYPE.get())
+                .stream().filter(r -> r.getRitualDummy().getItem() == this).findFirst();
+
+        ritualRecipe.ifPresent(r -> r.getRitual().finish(world, pos, tileEntity, player, activationItem));
     }
 
     //region Overrides
