@@ -47,7 +47,6 @@ public class OccultismTags {
     //Entity Tags
     public static final ITag<EntityType<?>> AFRIT_ALLIES = makeEntityTypeTag(new ResourceLocation(Occultism.MODID,"afrit_allies"));
     public static final ITag<EntityType<?>> WILD_HUNT = makeEntityTypeTag(new ResourceLocation(Occultism.MODID,"wild_hunt"));
-    public static final ITag<EntityType<?>> ENTITIES_NONE = makeEntityTypeTag(new ResourceLocation(Occultism.MODID,"none"));
 
     public static final ITag<EntityType<?>> CHICKEN = makeEntityTypeTag(new ResourceLocation("forge","chicken"));
     public static final ITag<EntityType<?>> PARROTS = makeEntityTypeTag(new ResourceLocation("forge","parrots"));
