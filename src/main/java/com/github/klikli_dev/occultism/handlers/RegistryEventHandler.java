@@ -25,6 +25,7 @@ package com.github.klikli_dev.occultism.handlers;
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.job.SpiritJobFactory;
 import com.github.klikli_dev.occultism.common.ritual.Ritual;
+import com.github.klikli_dev.occultism.common.ritual.RitualFactory;
 import com.github.klikli_dev.occultism.common.ritual.pentacle.Pentacle;
 import com.github.klikli_dev.occultism.registry.*;
 import com.github.klikli_dev.occultism.util.loot.AppendLootTable;
@@ -57,13 +58,13 @@ public class RegistryEventHandler {
     @SubscribeEvent
     public static void registerRegistries(RegistryEvent.NewRegistry event) {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-        new RegistryBuilder<Ritual>().setName(new ResourceLocation(Occultism.MODID, "ritual"))
-                .setType(Ritual.class).create();
+        new RegistryBuilder<RitualFactory>().setName(new ResourceLocation(Occultism.MODID, "ritual_factory"))
+                .setType(RitualFactory.class).create();
         new RegistryBuilder<SpiritJobFactory>().setName(new ResourceLocation(Occultism.MODID, "spirit_job_factory"))
                 .setType(SpiritJobFactory.class).create();
 
-        OccultismRituals.RITUALS.register(modEventBus);
         OccultismSpiritJobs.JOBS.register(modEventBus);
+        OccultismRituals.RITUAL_FACTORIES.register(modEventBus);
     }
 
     @SubscribeEvent
