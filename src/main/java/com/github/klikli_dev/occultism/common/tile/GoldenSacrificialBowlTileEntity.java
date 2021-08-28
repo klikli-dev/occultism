@@ -256,8 +256,8 @@ public class GoldenSacrificialBowlTileEntity extends SacrificialBowlTileEntity i
 
                 if (ritualRecipe != null) {
                     if (ritualRecipe.getRitual().isValid(world, pos, this, player, activationItem,
-                            this.currentRitualRecipe.getIngredients())) {
-                        this.startRitual(player, activationItem, this.currentRitualRecipe);
+                            ritualRecipe.getIngredients())) {
+                        this.startRitual(player, activationItem, ritualRecipe);
                     }
                     else {
                         //if ritual is not valid, inform player.
