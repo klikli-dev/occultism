@@ -62,7 +62,7 @@ public class RitualRecipe extends ShapelessRecipe {
     private final ItemStack ritualDummy;
     private final Ingredient activationItem;
     private final ITag<EntityType<?>> entityToSacrifice;
-    private final EntityType entityToSummon;
+    private final EntityType<?> entityToSummon;
     private final Ingredient itemToUse;
     private final int duration;
     private final int spiritMaxAge;
@@ -251,7 +251,7 @@ public class RitualRecipe extends ShapelessRecipe {
 
             EntityType<?> entityToSummon = null;
             if (buffer.readBoolean()) {
-                entityToSummon = ForgeRegistries.ENTITIES.getValue(buffer.readResourceLocation());
+                entityToSummon = buffer.readRegistryId();
             }
 
             ResourceLocation pentacleId = buffer.readResourceLocation();
@@ -263,7 +263,7 @@ public class RitualRecipe extends ShapelessRecipe {
                 spiritJobType = buffer.readResourceLocation();
             }
 
-            ItemStack ritual = buffer.readItemStack();
+            ItemStack ritualDummy = buffer.readItemStack();
             Ingredient activationItem = Ingredient.read(buffer);
 
             ITag<EntityType<?>> entityToSacrifice = null;
@@ -278,7 +278,7 @@ public class RitualRecipe extends ShapelessRecipe {
                 itemToUse = Ingredient.read(buffer);
             }
 
-            return new RitualRecipe(recipe.getId(), recipe.getGroup(), pentacleId, ritualType, ritual, recipe.getRecipeOutput(), entityToSummon,
+            return new RitualRecipe(recipe.getId(), recipe.getGroup(), pentacleId, ritualType, ritualDummy, recipe.getRecipeOutput(), entityToSummon,
                     activationItem, recipe.getIngredients(), duration, spiritMaxAge, spiritJobType, entityToSacrifice, entityToSacrificeDisplayName, itemToUse);
         }
 
@@ -290,11 +290,12 @@ public class RitualRecipe extends ShapelessRecipe {
 
             buffer.writeBoolean(recipe.entityToSummon != null);
             if (recipe.entityToSummon != null)
-                buffer.writeResourceLocation(recipe.entityToSummon.getRegistryName());
+                buffer.writeRegistryId(recipe.entityToSummon);
 
             buffer.writeResourceLocation(recipe.pentacleId);
             buffer.writeVarInt(recipe.duration);
             buffer.writeVarInt(recipe.spiritMaxAge);
+            buffer.writeBoolean(recipe.spiritJobType != null);
             if(recipe.spiritJobType != null){
                 buffer.writeResourceLocation(recipe.spiritJobType);
             }
