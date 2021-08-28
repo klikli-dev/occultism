@@ -84,7 +84,7 @@ public class RitualTrigger extends AbstractCriterionTrigger<RitualTrigger.Instan
 
         //region Methods
         public boolean test(ServerPlayerEntity player, Ritual ritual) {
-            return this.ritualId.equals(ritual.getRegistryName());
+            return this.ritualId.equals(ritual.getRitualID());
         }
         //endregion Methods
     }

@@ -51,12 +51,13 @@ import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
-public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
+public abstract class Ritual {
 
     //region Fields
 
@@ -106,32 +107,41 @@ public abstract class Ritual extends ForgeRegistryEntry<Ritual> {
         return this.recipe;
     }
 
+    public String getRitualID(){
+        ResourceLocation recipeId = this.getRecipe().getId();
+        String path = recipeId.getPath();
+        if(path.contains("/"))
+            path = path.substring(path.indexOf("/") + 1);
+
+        return recipeId.getNamespace() + "." + path;
+    }
+
     /**
      * @return the conditions message translation key for this ritual.
      */
     public String getConditionsMessage() {
-        return String.format("ritual.%s.conditions", this.getRegistryName().toString().replace(":", "."));
+        return String.format("ritual.%s.conditions", this.getRitualID());
     }
 
     /**
      * @return the started message translation key for this ritual.
      */
     public String getStartedMessage() {
-        return String.format("ritual.%s.started", this.getRegistryName().toString().replace(":", "."));
+        return String.format("ritual.%s.started", this.getRitualID());
     }
 
     /**
      * @return the interrupted message translation key for this ritual.
      */
     public String getInterruptedMessage() {
-        return String.format("ritual.%s.interrupted", this.getRegistryName().toString().replace(":", "."));
+        return String.format("ritual.%s.interrupted", this.getRitualID());
     }
 
     /**
      * @return the finished message translation key for this ritual.
      */
     public String getFinishedMessage() {
-        return String.format("ritual.%s.finished", this.getRegistryName().toString().replace(":", "."));
+        return String.format("ritual.%s.finished", this.getRitualID());
     }
     //endregion Getter / Setter
 
