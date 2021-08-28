@@ -69,9 +69,9 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
 
     //region Initialization
     public RitualRecipeCategory(IGuiHelper guiHelper) {
-        this.background = guiHelper.createBlankDrawable(168, 100); //64
+        this.background = guiHelper.createBlankDrawable(168, 120); //64
         this.ritualCenterX = this.background.getWidth() / 2 - this.iconWidth / 2 - 30;
-        this.ritualCenterY = this.background.getHeight() / 2 - this.iconWidth / 2 + 10;
+        this.ritualCenterY = this.background.getHeight() / 2 - this.iconWidth / 2 + 20;
         this.localizedName = I18n.format(Occultism.MODID + ".jei.ritual");
         this.pentacle = I18n.format(Occultism.MODID + ".jei.pentacle");
         this.goldenSacrificialBowl.getOrCreateTag().putBoolean("RenderFull", true);
@@ -259,22 +259,27 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
                     I18n.format("jei.occultism.error.pentacle_not_loaded"), 84, 0);
         }
 
+        int infotextY = 0;
         if(recipe.requiresSacrifice()){
+            infotextY += 10;
             this.drawStringCentered(matrixStack, Minecraft.getInstance().fontRenderer,
-                    I18n.format("jei.occultism.sacrifice", I18n.format(recipe.getEntityToSacrificeDisplayName())), 84, 20);
+                    I18n.format("jei.occultism.sacrifice", I18n.format(recipe.getEntityToSacrificeDisplayName())), 84, infotextY);
         }
 
 
         if(recipe.getEntityToSummon() != null){
+            infotextY += 10;
             this.drawStringCentered(matrixStack, Minecraft.getInstance().fontRenderer,
-                    I18n.format("jei.occultism.summon", I18n.format(recipe.getEntityToSummon().getTranslationKey())), 84, 20);
+                    I18n.format("jei.occultism.summon", I18n.format(recipe.getEntityToSummon().getTranslationKey())),
+                    84, infotextY);
         }
 
         if(recipe.getSpiritJobType() != null){
+            infotextY += 10;
             this.drawStringCentered(matrixStack, Minecraft.getInstance().fontRenderer,
                     I18n.format("jei.occultism.job",
-                            I18n.format("job.%s",recipe.getSpiritJobType().toString().replace(":", "."))),
-                    84, 30);
+                            I18n.format("job." + recipe.getSpiritJobType().toString().replace(":", "."))),
+                    84, infotextY);
         }
     }
     //endregion Overrides
