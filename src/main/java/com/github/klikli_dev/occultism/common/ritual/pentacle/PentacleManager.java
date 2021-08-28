@@ -50,14 +50,14 @@ import net.minecraftforge.fml.server.ServerLifecycleHooks;
 @EventBusSubscriber(modid = Occultism.MODID, bus = Bus.FORGE)
 public class PentacleManager extends JsonReloadListener {
     private static final Gson GSON = (new GsonBuilder()).setPrettyPrinting().disableHtmlEscaping().create();
-    public static final String FOLDER_NAME = Occultism.MODID + "-pentacles";
+    public static final String FOLDER_NAME = "pentacles";
 
-    private Map<ResourceLocation, Pentacle> pentacles;
+    private final Map<ResourceLocation, Pentacle> pentacles;
     private static PentacleManager instance;
 
     public PentacleManager() {
         super(GSON, FOLDER_NAME);
-        pentacles = new HashMap<>();
+        this.pentacles = new HashMap<>();
     }
 
     public static PentacleManager getInstance() {
@@ -72,19 +72,19 @@ public class PentacleManager extends JsonReloadListener {
         for (Entry<ResourceLocation, JsonElement> entry : objectIn.entrySet()) {
             ResourceLocation key = entry.getKey();
             Pentacle pentacle = Pentacle.fromJson(key, JSONUtils.getJsonObject(entry.getValue(), "top element"));
-            pentacles.put(key, pentacle);
+            this.pentacles.put(key, pentacle);
         }
 
         if (ServerLifecycleHooks.getCurrentServer() != null)
-            sendPentacleMessage();
+            this.sendPentacleMessage();
     }
 
     private void sendPentacleMessage() {
-        OccultismPackets.INSTANCE.send(PacketDistributor.ALL.noArg(), new MessageUpdatePentacles(pentacles));
+        OccultismPackets.INSTANCE.send(PacketDistributor.ALL.noArg(), new MessageUpdatePentacles(this.pentacles));
     }
     
     private void sendPentacleMessage(ServerPlayerEntity player) {
-        OccultismPackets.INSTANCE.send(PacketDistributor.PLAYER.with(() -> player), new MessageUpdatePentacles(pentacles));
+        OccultismPackets.INSTANCE.send(PacketDistributor.PLAYER.with(() -> player), new MessageUpdatePentacles(this.pentacles));
     }
 
     public static Pentacle get(ResourceLocation id) {
