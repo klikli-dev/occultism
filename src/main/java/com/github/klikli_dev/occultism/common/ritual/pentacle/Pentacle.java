@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright 2020 klikli-dev
+ * Copyright 2021 vemerion
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the "Software"), to deal in the Software without restriction, including
@@ -22,90 +22,165 @@
 
 package com.github.klikli_dev.occultism.common.ritual.pentacle;
 
-import com.github.klikli_dev.occultism.registry.OccultismBlocks;
-import com.github.klikli_dev.occultism.registry.OccultismRituals;
-import com.github.klikli_dev.occultism.registry.OccultismTags;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+
+import com.google.gson.*;
+
+import net.minecraft.block.Block;
+import net.minecraft.network.PacketBuffer;
+import net.minecraft.tags.ITag;
+import net.minecraft.tags.TagCollectionManager;
+import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Util;
-import net.minecraftforge.registries.ForgeRegistryEntry;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import net.minecraftforge.registries.ForgeRegistries;
 import vazkii.patchouli.api.IMultiblock;
+import vazkii.patchouli.api.IStateMatcher;
 import vazkii.patchouli.api.PatchouliAPI;
+import vazkii.patchouli.api.PatchouliAPI.IPatchouliAPI;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+public class Pentacle {
+    private ResourceLocation rl;
+    private List<String> pattern;
+    private Map<Character, JsonElement> mappings;
+    private IMultiblock matcher;
 
-public abstract class Pentacle extends ForgeRegistryEntry<Pentacle> {
-    //region Fields
+    public Pentacle(ResourceLocation rl, List<String> pattern, Map<Character, JsonElement> mappings) {
+        this.rl = rl;
+        this.pattern = pattern;
+        this.mappings = mappings;
+        for (String r1 : pattern) {
+            for (String r2 : pattern) {
+                if (r1.length() != r2.length())
+                    throw new IllegalArgumentException("Pentacle pattern can not have rows with different lengths");
+            }
+        }
+        for (String row : pattern) {
+            for (char c : row.toCharArray()) {
+                if (c != ' ' && !mappings.containsKey(c))
+                    throw new IllegalArgumentException("Pentacle mappings is missing " + c);
+            }
+        }
+        IPatchouliAPI api = PatchouliAPI.get();
+        String[][] multiPattern = new String[1][pattern.size()];
+        for (int i = 0; i < pattern.size(); i++)
+            multiPattern[0][i] = pattern.get(pattern.size() - 1 - i);
+        List<Object> multiMappings = new ArrayList<>();
+        for (Entry<Character, JsonElement> entry : mappings.entrySet()) {
+            multiMappings.add(entry.getKey());
+            multiMappings.add(parseStateMatcher(entry.getValue()));
+        }
+        // Space == whatever
+        multiMappings.add(' ');
+        multiMappings.add(api.anyMatcher());
 
-    protected PatchouliAPI.IPatchouliAPI api = PatchouliAPI.instance;
-    protected IMultiblock blockMatcher;
-    protected List<Object> mapping = new ArrayList<>();
-    protected String translationKey;
-    //endregion Fields
-
-    //region Initialization
-    public Pentacle() {
+        ResourceLocation multiRL = new ResourceLocation(rl.getNamespace(), "pentacle." + rl.getPath());
+        matcher = api.makeMultiblock(multiPattern, multiMappings.toArray());
+        matcher.setId(multiRL);
+        try {
+            PatchouliAPI.get().registerMultiblock(multiRL, matcher);
+        } catch (IllegalArgumentException e) { // Patchouli weirdness
+        }
     }
-    //endregion Initialization
 
-    //region Getter / Setter
-
-    /**
-     * Gets the multiblock block matcher for the pentacle.
-     *
-     * @return the multiblack.
-     */
-    public IMultiblock getBlockMatcher() {
-        return this.blockMatcher;
+    public String getTranslationKey() {
+        return Util.makeTranslationKey("pentacle", rl);
     }
-    //endregion Getter / Setter
 
-    //region Methods
+    public boolean validate(World world, BlockPos pos) {
+        return matcher.validate(world, pos) != null;
+    }
 
-    protected String getDefaultTranslationKey() {
-        if (this.translationKey == null) {
-            this.translationKey = Util.makeTranslationKey("pentacle", OccultismRituals.PENTACLE_REGISTRY.getKey(this));
+    public static Pentacle fromJson(ResourceLocation rl, JsonObject json) {
+        JsonArray jsonPattern = JSONUtils.getJsonArray(json, "pattern");
+        JsonObject jsonMapping = JSONUtils.getJsonObject(json, "mapping");
+        List<String> pattern = new ArrayList<>();
+        Map<Character, JsonElement> mappings = new HashMap<>();
+        for (int i = 0; i < jsonPattern.size(); i++)
+            pattern.add(JSONUtils.getString(jsonPattern.get(i), "row"));
+
+        for (Entry<String, JsonElement> entry : jsonMapping.entrySet()) {
+            if (entry.getKey().length() != 1)
+                throw new JsonSyntaxException("Mapping key needs to be only 1 character");
+            char key = entry.getKey().charAt(0);
+            mappings.put(key, entry.getValue());
+        }
+        return new Pentacle(rl, pattern, mappings);
+    }
+
+    public static IStateMatcher parseStateMatcher(JsonElement matcher){
+        if(matcher.isJsonObject()){
+            JsonObject jsonObject = matcher.getAsJsonObject();
+            Block display = null;
+            if(jsonObject.has("display"))
+            {
+                ResourceLocation displayRL = new ResourceLocation(JSONUtils.getString(jsonObject, "display"));
+                display = ForgeRegistries.BLOCKS.getValue(displayRL);
+                if (display == null)
+                    throw new JsonSyntaxException("Invalid display" + displayRL);
+            }
+            if(jsonObject.has("block")){
+                ResourceLocation blockRL = new ResourceLocation(JSONUtils.getString(jsonObject, "block"));
+                Block block = ForgeRegistries.BLOCKS.getValue(blockRL);
+                if (block == null)
+                    throw new JsonSyntaxException("Invalid block " + blockRL);
+
+                if(display != null){
+                    return PatchouliAPI.get().predicateMatcher(display, s -> s.getBlock() == block);
+                }
+                else {
+                    return PatchouliAPI.get().looseBlockMatcher(block);
+                }
+            }
+            else if(jsonObject.has("tag")){
+                ResourceLocation tagRL= new ResourceLocation(JSONUtils.getString(jsonObject, "tag"));
+                ITag<Block> tag = TagCollectionManager.getManager().getBlockTags().get(tagRL);
+                if(tag == null)
+                    throw new JsonSyntaxException("Invalid tag " + tagRL);
+                if(display == null)
+                    throw new JsonSyntaxException("No display set for tag " + tagRL);
+                return PatchouliAPI.get().predicateMatcher(display, s -> tag.contains(s.getBlock()));
+            }
+            else if(display != null){
+                return PatchouliAPI.get().displayOnlyMatcher(display);
+            }
         }
 
-        return this.translationKey;
+        //if it's a primitive we assume it's a block
+        ResourceLocation blockRL = new ResourceLocation(matcher.getAsString());
+        Block block = ForgeRegistries.BLOCKS.getValue(blockRL);
+        if (block == null)
+            throw new JsonSyntaxException("Invalid block " + blockRL);
+        return PatchouliAPI.get().looseBlockMatcher(block);
+    }
+    
+    public void encode(PacketBuffer buffer) {
+        buffer.writeInt(pattern.size());
+        for (String row : pattern)
+            buffer.writeString(row);
+        buffer.writeInt(mappings.size());
+        for (Entry<Character, JsonElement> entry : mappings.entrySet()) {
+            buffer.writeChar(entry.getKey());
+            buffer.writeString(entry.getValue().toString());
+        }
     }
 
-    /**
-     * Returns the unlocalized name of this item.
-     */
-    public String getTranslationKey() {
-        return this.getDefaultTranslationKey();
+    public static Pentacle decode(ResourceLocation key, PacketBuffer buffer) {
+        List<String> pattern = new ArrayList<>();
+        Map<Character, JsonElement> mappings = new HashMap<>();
+        int size = buffer.readInt();
+        for (int i = 0; i < size; i++)
+            pattern.add(buffer.readString());
+        size = buffer.readInt();
+        JsonParser parser = new JsonParser();
+        for (int i = 0; i < size; i++)
+            mappings.put(buffer.readChar(), parser.parse(buffer.readString()));
+        return new Pentacle(key, pattern, mappings);
     }
-
-    /**
-     * registers the multiblock with patchouli_books.
-     */
-    public void registerMultiblock(ResourceLocation id) {
-        this.setupMapping();
-        this.blockMatcher = this.api.registerMultiblock(id, this.setupMultiblock());
-    }
-
-    protected void setupMapping() {
-        this.mapping.addAll(Arrays.asList(
-                '0', this.api.looseBlockMatcher(OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL.get()),
-                'W', this.api.looseBlockMatcher(OccultismBlocks.CHALK_GLYPH_WHITE.get()),
-                'G', this.api.looseBlockMatcher(OccultismBlocks.CHALK_GLYPH_GOLD.get()),
-                'P', this.api.looseBlockMatcher(OccultismBlocks.CHALK_GLYPH_PURPLE.get()),
-                'R', this.api.looseBlockMatcher(OccultismBlocks.CHALK_GLYPH_RED.get()),
-                'C', this.api.predicateMatcher(OccultismBlocks.CANDLE_WHITE.get(),
-                        b -> OccultismTags.CANDLES.contains(b.getBlock())),
-                ' ', this.api.anyMatcher())
-        );
-    }
-
-    /**
-     * set up the multi block in this method.
-     * Example at
-     * https://github.com/Vazkii/Patchouli/blob/1.14-final/src/main/java/vazkii/patchouli/common/multiblock/MultiblockRegistry.java
-     *
-     * @return the finished multiblock.
-     */
-    protected abstract IMultiblock setupMultiblock();
-    //endregion Methods
 }

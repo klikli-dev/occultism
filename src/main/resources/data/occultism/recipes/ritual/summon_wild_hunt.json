@@ -1,12 +1,16 @@
 {
   "type": "occultism:ritual",
+  "ritual_type": "occultism:summon_wild_hunt",
   "activation_item": {
     "item": "minecraft:skeleton_skull"
   },
   "pentacle_id": "occultism:summon_wild_greater_spirit",
-  "require_item_use": false,
-  "require_sacrifice": true,
-  "ritual": {
+  "duration": 30,
+  "entity_to_sacrifice": {
+    "tag": "occultism:wild_hunt_sacrifices",
+    "display_name": "ritual.occultism.sacrifice.villagers_or_players"
+  },
+  "ritual_dummy": {
     "item": "occultism:ritual_dummy/summon_wild_hunt"
   },
   "ingredients": [

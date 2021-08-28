@@ -130,13 +130,6 @@ public class Occultism {
 
         OccultismAPI.commonSetup();
 
-        //Register multiblocks
-        OccultismRituals.PENTACLE_REGISTRY.getValues().forEach(pentacle -> {
-            ResourceLocation multiBlockId = modLoc("pentacle." + pentacle.getRegistryName().getPath());
-            if (PatchouliAPI.instance.getMultiblock(multiBlockId) == null)
-                pentacle.registerMultiblock(multiBlockId);
-        });
-
         //Register entity attributes on single thread
 
         LOGGER.info("Common setup complete.");

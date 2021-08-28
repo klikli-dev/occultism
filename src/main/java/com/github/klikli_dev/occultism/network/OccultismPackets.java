@@ -188,6 +188,12 @@ public class OccultismPackets {
                 MessageOpenStorageRemote::encode,
                 MessageOpenStorageRemote::new,
                 OccultismPacketHandler::handle);
+
+        INSTANCE.registerMessage(nextID(),
+                MessageUpdatePentacles.class,
+                MessageUpdatePentacles::encode,
+                MessageUpdatePentacles::new,
+                OccultismPacketHandler::handle);
     }
 
     public static <MSG> void sendTo(ServerPlayerEntity player, MSG message) {

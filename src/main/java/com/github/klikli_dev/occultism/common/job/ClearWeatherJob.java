@@ -22,7 +22,10 @@
 
 package com.github.klikli_dev.occultism.common.job;
 
+import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
+import net.minecraft.util.Util;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.storage.ServerWorldInfo;
 
 public class ClearWeatherJob extends ChangeWeatherJob {
@@ -35,13 +38,18 @@ public class ClearWeatherJob extends ChangeWeatherJob {
 
     //region Overrides
     public void changeWeather() {
-        ServerWorldInfo info = (ServerWorldInfo) this.entity.world.getWorldInfo();
-        //taken from weathercommand#clear
-        info.setClearWeatherTime(6000);
-        info.setRainTime(0);
-        info.setThunderTime(0);
-        info.setRaining(false);
-        info.setThundering(false);
+        if(Occultism.SERVER_CONFIG.rituals.enableClearWeatherRitual.get()){
+            ServerWorldInfo info = (ServerWorldInfo) this.entity.world.getWorldInfo();
+            //taken from weathercommand#clear
+            info.setClearWeatherTime(6000);
+            info.setRainTime(0);
+            info.setThunderTime(0);
+            info.setRaining(false);
+            info.setThundering(false);
+        }
+        else {
+            this.entity.getOwner().sendMessage(new TranslationTextComponent("ritual.occultism.disabled"), Util.DUMMY_UUID);
+        }
     }
     //endregion Overrides
 }

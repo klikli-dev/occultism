@@ -32,7 +32,6 @@ public class FoliotEntity extends SpiritEntity {
     //region Initialization
     public FoliotEntity(EntityType<? extends SpiritEntity> type, World world) {
         super(type, world);
-        this.setSpiritMaxAge(60 * 60 * 24); //1 day default for foliot.
     }
     //endregion Initialization
 

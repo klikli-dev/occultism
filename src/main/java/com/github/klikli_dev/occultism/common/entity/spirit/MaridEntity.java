@@ -32,7 +32,6 @@ public class MaridEntity extends SpiritEntity {
     //region Initialization
     public MaridEntity(EntityType<? extends SpiritEntity> type, World world) {
         super(type, world);
-        this.setSpiritMaxAge(60 * 60 * 24 * 9); //9 day default for marid.
     }
     //endregion Initialization
 
