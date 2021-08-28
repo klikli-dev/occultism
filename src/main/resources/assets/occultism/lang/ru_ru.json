@@ -509,14 +509,14 @@
     "ritual.occultism.possess_enderman.interrupted": "Призыв Одержимого Эндермена прерван.",
     
     "ritual.occultism.familiar_otherworld_bird.conditions": "Не все требования для этого ритуала соблюдены.",
-    "ritual.occultism.familiar_otherworld_bird.started": "Начат призыв Водокрыл-Обычный.",
-    "ritual.occultism.familiar_otherworld_bird.finished": "Призыв Водокрыл-Обычный успешен.",
-    "ritual.occultism.familiar_otherworld_bird.interrupted": "Призыв of Водокрыл-Обычный прерван.",
+    "ritual.occultism.familiar_otherworld_bird.started": "Начат призыв Дриквинга.",
+    "ritual.occultism.familiar_otherworld_bird.finished": "Призыв Дриквинга успешен.",
+    "ritual.occultism.familiar_otherworld_bird.interrupted": "Призыв of Дриквинга прерван.",
     
     "ritual.occultism.summon_wild_otherworld_bird.conditions": "Не все требования для этого ритуала соблюдены.",
-    "ritual.occultism.summon_wild_otherworld_bird.started":"Начат призыв Дикий Водокрыл-Обычный.",
-    "ritual.occultism.summon_wild_otherworld_bird.finished": "Призыв Дикий Водокрыл-Обычный успешен.",
-    "ritual.occultism.summon_wild_otherworld_bird.interrupted": "Призыв Дикий Водокрыл-Обычный прерван.",
+    "ritual.occultism.summon_wild_otherworld_bird.started":"Начат призыв Дикого Дриквинга.",
+    "ritual.occultism.summon_wild_otherworld_bird.finished": "Призыв Дикого Дриквинга успешен.",
+    "ritual.occultism.summon_wild_otherworld_bird.interrupted": "Призыв Дикого Дриквинга прерван.",
     
     "ritual.occultism.summon_wild_parrot.conditions": "Не все требования для этого ритуала соблюдены.",
     "ritual.occultism.summon_wild_parrot.started": "Начат призыв Дикий Попугай.",
@@ -731,8 +731,8 @@
     "item.occultism.ritual_dummy.familiar_greedy": "Ритуал: Призыв Прожорливый-Обычный",
     "item.occultism.ritual_dummy.familiar_greedy.tooltip": "Прожорливые поднимают предметы для хозяйна. Если помещён в Обычное Кольцо, увеличивается радиюс поднятью предметов (работает как магнит).",
 
-    "item.occultism.ritual_dummy.familiar_otherworld_bird": "Ритуал: Призыв Водокрыл-Обычный",
-    "item.occultism.ritual_dummy.familiar_otherworld_bird.tooltip": "Водокрыл-Обычный позволяет хозяину временно летать когда рядом.",
+    "item.occultism.ritual_dummy.familiar_otherworld_bird": "Ритуал: Призыв Дриквинг",
+    "item.occultism.ritual_dummy.familiar_otherworld_bird.tooltip": "Дриквинг позволяет хозяину временно летать когда рядом.",
 
     "item.occultism.ritual_dummy.familiar_parrot": "Ритуал: Призыв Попугай-Обычный",
     "item.occultism.ritual_dummy.familiar_parrot.tooltip": "Попугай-Обычный ведут себя так же как и прирученые попугаи.",
@@ -797,8 +797,8 @@
     "item.occultism.ritual_dummy.summon_wild_hunt": "Ритуал: Дикая Охота",
     "item.occultism.ritual_dummy.summon_wild_hunt.tooltip": "Дикая Охота состоит из Скелетов Иссушителей и их миньоны с которых гарантированно выпадает Голова Скелетов Иссушителей.",
 
-    "item.occultism.ritual_dummy.summon_wild_otherworld_bird": "Ритуал: Призыв Дикого Крыла",
-    "item.occultism.ritual_dummy.summon_wild_otherworld_bird.tooltip": "Призывает Дикого Крыла которого может приручить любой, а не только вызыватель.",
+    "item.occultism.ritual_dummy.summon_wild_otherworld_bird": "Ритуал: Призыв Дриквинг",
+    "item.occultism.ritual_dummy.summon_wild_otherworld_bird.tooltip": "Призывает Дриквинга который может приручить любой, а не только вызыватель.",
 
     "item.occultism.ritual_dummy.summon_wild_parrot": "Ритуал: Призыв Дикого Попугая",
     "item.occultism.ritual_dummy.summon_wild_parrot.tooltip": "Призывает Попугая которого может приручить любой, а не только вызыватель."
