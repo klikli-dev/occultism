@@ -41,9 +41,11 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.vector.Vector3i;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -58,7 +60,6 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
     private final ItemStack goldenSacrificialBowl = new ItemStack(OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL.get());
     private final ItemStack sacrificialBowl = new ItemStack(OccultismBlocks.SACRIFICIAL_BOWL.get());
     private final ItemStack requireSacrifice = new ItemStack(OccultismItems.JEI_DUMMY_REQUIRE_SACRIFICE.get());
-    private final ItemStack requireItemUse = new ItemStack(OccultismItems.JEI_DUMMY_REQUIRE_ITEM_USE.get());
 
     private int recipeOutputOffsetX = 50;
     private int iconWidth = 16;
@@ -109,11 +110,15 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
     @Override
     public void setIngredients(RitualRecipe recipe, IIngredients ingredients) {
         //0: activation item, 1...n: ingredients
+        Stream<Ingredient> ingredientStream = Stream.concat(
+                Stream.of(recipe.getActivationItem()),
+                recipe.getIngredients().stream()
+        );
+        if(recipe.requiresItemUse()){
+            ingredientStream = Stream.concat(Stream.of(recipe.getItemToUse()), ingredientStream);
+        }
         ingredients.setInputIngredients(
-                Stream.concat(
-                        Stream.of(recipe.getActivationItem()),
-                        recipe.getIngredients().stream()
-                ).collect(Collectors.toList())
+                ingredientStream.collect(Collectors.toList())
         );
         //0: recipe output, 1: ritual dummy item
         ingredients.setOutputs(VanillaTypes.ITEM, Stream.of(recipe.getRecipeOutput(),
@@ -125,10 +130,15 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
         int index = 0;
         this.recipeOutputOffsetX = 75;
 
+        int currentIngredient = 0;
+        List<ItemStack> itemToUse = new ArrayList<>();
+        if(recipe.requiresItemUse()){
+           itemToUse = ingredients.getInputs(VanillaTypes.ITEM).get(currentIngredient++);
+        }
         //0: activation item, 1...n: ingredients
-        List<ItemStack> activationItem = ingredients.getInputs(VanillaTypes.ITEM).get(0);
+        List<ItemStack> activationItem = ingredients.getInputs(VanillaTypes.ITEM).get(currentIngredient++);
         List<List<ItemStack>> inputItems =
-                ingredients.getInputs(VanillaTypes.ITEM).stream().skip(1).collect(Collectors.toList());
+                ingredients.getInputs(VanillaTypes.ITEM).stream().skip(currentIngredient).collect(Collectors.toList());
 
         //draw activation item on top of bowl
         recipeLayout.getItemStacks().init(index, true, this.ritualCenterX, this.ritualCenterY - 5);
@@ -228,7 +238,7 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
 
         if (recipe.requiresItemUse()) {
             recipeLayout.getItemStacks().init(index, false, dummyX, dummyY);
-            recipeLayout.getItemStacks().set(index, this.requireItemUse);
+            recipeLayout.getItemStacks().set(index, itemToUse);
             index++;
             dummyY += 20;
         }
@@ -247,6 +257,24 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
         } else {
             this.drawStringCentered(matrixStack, Minecraft.getInstance().fontRenderer,
                     I18n.format("jei.occultism.error.pentacle_not_loaded"), 84, 0);
+        }
+
+        if(recipe.requiresSacrifice()){
+            this.drawStringCentered(matrixStack, Minecraft.getInstance().fontRenderer,
+                    I18n.format("jei.occultism.sacrifice", I18n.format(recipe.getEntityToSacrificeDisplayName())), 84, 20);
+        }
+
+
+        if(recipe.getEntityToSummon() != null){
+            this.drawStringCentered(matrixStack, Minecraft.getInstance().fontRenderer,
+                    I18n.format("jei.occultism.summon", I18n.format(recipe.getEntityToSummon().getTranslationKey())), 84, 20);
+        }
+
+        if(recipe.getSpiritJobType() != null){
+            this.drawStringCentered(matrixStack, Minecraft.getInstance().fontRenderer,
+                    I18n.format("jei.occultism.job",
+                            I18n.format("job.%s",recipe.getSpiritJobType().toString().replace(":", "."))),
+                    84, 30);
         }
     }
     //endregion Overrides
