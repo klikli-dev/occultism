@@ -55,13 +55,13 @@ public class DebugRitual extends Ritual {
 
         //set up the foliot entity
         FoliotEntity foliot = OccultismEntities.FOLIOT.get().create(world);
-        this.prepareLivingEntityForSpawn(foliot, world, goldenBowlPosition, castingPlayer,
+        this.prepareLivingEntityForSpawn(foliot, world, goldenBowlPosition, tileEntity, castingPlayer,
                 ItemNBTUtil.getBoundSpiritName(activationItem));
 
         activationItem.shrink(1); //remove original activation item from storage.
 
         foliot.setSpiritMaxAge(60);
-        TraderJob trader = (TraderJob) OccultismSpiritJobs.TRADE_OTHERSTONE.get().create(foliot);
+        TraderJob trader = (TraderJob) OccultismSpiritJobs.TRADE_OTHERSTONE_T1.get().create(foliot);
         trader.init();
         trader.setTradeRecipeId(modLoc("spirit_trade/test"));
         foliot.setJob(trader);
