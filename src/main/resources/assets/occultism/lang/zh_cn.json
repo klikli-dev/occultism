@@ -206,7 +206,7 @@
     "job.occultism.trade_otherworld_saplings": "异界树苗交易者",
     "job.occultism.clear_weather": "晴天魔灵",
     "job.occultism.rain_weather": "降雨魔灵",
-    "job.occultism.rain_thunder": "雷暴魔灵",
+    "job.occultism.thunder_weather": "雷暴魔灵",
     "job.occultism.day_time": "破晓魔灵",
     "job.occultism.night_time": "黄昏魔灵",
     "_comment": "Enums",
@@ -526,7 +526,6 @@
     "message.occultism.familiar.bat.disabled": "戒指效果 - 蝙蝠：禁用",
     "message.occultism.familiar.deer.enabled": "戒指效果 - 小鹿：启用",
     "message.occultism.familiar.deer.disabled": "戒指效果 - 小鹿：禁用",
-
     "_comment": "Pentacles",
     "pentacle.occultism.craft_afrit": "塞维拉永囚咒",
     "pentacle.occultism.craft_djinni": "斯特里格高等束缚",
