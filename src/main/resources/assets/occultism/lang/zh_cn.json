@@ -206,7 +206,7 @@
     "job.occultism.trade_otherworld_saplings": "异界树苗交易者",
     "job.occultism.clear_weather": "晴天魔灵",
     "job.occultism.rain_weather": "降雨魔灵",
-    "job.occultism.rain_thunder": "雷暴魔灵",
+    "job.occultism.thunder_weather": "雷暴魔灵",
     "_comment": "Enums",
     "enum.occultism.facing.up": "顶面",
     "enum.occultism.facing.down": "底面",

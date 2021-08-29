@@ -174,7 +174,7 @@
     "job.occultism.trade_otherworld_saplings": "내세나무 묘목 거래기",
     "job.occultism.clear_weather": "맑음 정신",
     "job.occultism.rain_weather": "우천 정신",
-    "job.occultism.rain_thunder": "폭풍 정신",
+    "job.occultism.thunder_weather": "폭풍 정신",
     "_comment": "Enums",
     "enum.occultism.facing.up": "상",
     "enum.occultism.facing.down": "하",

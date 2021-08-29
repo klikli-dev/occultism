@@ -206,7 +206,7 @@
   "job.occultism.trade_otherworld_saplings": "Otherworld Sapling Trader",
   "job.occultism.clear_weather": "Sunshine Spirit",
   "job.occultism.rain_weather": "Rainy Weather Spirit",
-  "job.occultism.rain_thunder": "Thunderstorm Spirit",
+  "job.occultism.thunder_weather": "Thunderstorm Spirit",
   "job.occultism.day_time": "Dawn Spirit",
   "job.occultism.night_time": "Dusk Spirit",
   "_comment": "Enums",
