@@ -59,8 +59,9 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
             DataSerializers.BOOLEAN);
     private static final DataParameter<Boolean> TRUNK = EntityDataManager.createKey(CthulhuFamiliarEntity.class,
             DataSerializers.BOOLEAN);
+    private static final DataParameter<Boolean> ANGRY = EntityDataManager.createKey(CthulhuFamiliarEntity.class,
+            DataSerializers.BOOLEAN);
 
-    private int angryTimer;
     private SwimmerPathNavigator waterNavigator;
     private GroundPathNavigator groundNavigator;
 
@@ -105,12 +106,17 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
             }
         }
     }
+    
+    public float getAnimationHeight(float partialTicks) {
+        return MathHelper.cos((ticksExisted + partialTicks) / 5);
+    }
 
     @Override
     public boolean attackEntityFrom(DamageSource source, float amount) {
         if (super.attackEntityFrom(source, amount)) {
             if (source.getTrueSource() == getFamiliarOwner()) {
-                angryTimer = 20 * 60 * 5;
+                setAngry(true);
+                setSitting(true);
             } else if (source.getTrueSource() != null) {
                 Vector3d tp = RandomPositionGenerator.findRandomTarget(this, 8, 4);
                 this.setLocationAndAngles(tp.getX() + 0.5, tp.getY(), tp.getZ() + 0.5, this.rotationYaw,
@@ -125,14 +131,8 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
     @Override
     public void tick() {
         super.tick();
-        if (angryTimer > 0)
-            angryTimer--;
-    }
-
-    @Override
-    public void curioTick(LivingEntity wearer) {
-        if (angryTimer > 0)
-            angryTimer--;
+        if (isAngry() && getRNG().nextDouble() < 0.0007)
+            setAngry(false);
     }
 
     @Override
@@ -147,7 +147,7 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
 
     @Override
     public Iterable<EffectInstance> getFamiliarEffects() {
-        if (angryTimer <= 0)
+        if (isAngry())
             return ImmutableList.of(new EffectInstance(Effects.WATER_BREATHING, 300, 0, false, false));
         else
             return ImmutableList.of();
@@ -158,6 +158,7 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
         super.registerData();
         this.dataManager.register(HAT, false);
         this.dataManager.register(TRUNK, false);
+        this.dataManager.register(ANGRY, false);
     }
 
     public boolean hasHat() {
@@ -175,20 +176,29 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
     private void setTrunk(boolean b) {
         this.dataManager.set(TRUNK, b);
     }
+    
+    public boolean isAngry() {
+        return this.dataManager.get(ANGRY);
+    }
+
+    private void setAngry(boolean b) {
+        this.dataManager.set(ANGRY, b);
+    }
 
     @Override
     public void readAdditional(CompoundNBT compound) {
         super.readAdditional(compound);
         this.setHat(compound.getBoolean("hasHat"));
         this.setTrunk(compound.getBoolean("hasTrunk"));
-        this.angryTimer = compound.getInt("angryTimer");
+        this.setAngry(compound.getBoolean("isAngry"));
     }
 
     @Override
     public void writeAdditional(CompoundNBT compound) {
         super.writeAdditional(compound);
+        compound.putBoolean("hasHat", this.hasHat());
         compound.putBoolean("hasTrunk", this.hasTrunk());
-        compound.putInt("angryTimer", angryTimer);
+        compound.putBoolean("isAngry", this.isAngry());
     }
 
     private static class MoveController extends MovementController {
