@@ -505,6 +505,7 @@
   "jei.occultism.sacrifice": "Sacrifice: %s",
   "jei.occultism.summon": "Summon: %s",
   "jei.occultism.job": "Job: %s",
+  "jei.occultism.item_to_use": "Item to use:",
   "jei.occultism.error.missing_id": "Cannot identify recipe.",
   "jei.occultism.error.invalid_type": "Invalid recipe type.",
   "jei.occultism.error.recipe_too_large": "Recipe larger than 3x3.",

@@ -222,25 +222,26 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
 
 
         //draw ritual dummy item in upper left corner
-
         recipeLayout.getItemStacks().init(index, false, 0, 0);
         recipeLayout.getItemStacks().set(index, ingredients.getOutputs(VanillaTypes.ITEM).get(1));
         index++;
-        int dummyY = 0;
-        int dummyX = this.background.getWidth() - this.iconWidth - 5;
-        //draw info dummy items below
-        if (recipe.requiresSacrifice()) {
-            recipeLayout.getItemStacks().init(index, false, dummyX, dummyY);
-            recipeLayout.getItemStacks().set(index, this.requireSacrifice);
-            index++;
-            dummyY += 20;
-        }
 
+        //draw item to use
         if (recipe.requiresItemUse()) {
-            recipeLayout.getItemStacks().init(index, false, dummyX, dummyY);
+            //first simulate the info rendering to get the right render position
+            int infotextY = 0;
+            if(recipe.requiresSacrifice()){
+                infotextY += 10;
+            }
+
+            infotextY += 10;
+            String text = I18n.format("jei.occultism.item_to_use");
+            int itemToUseY = infotextY - 5;
+            int itemToUseX = this.getStringCenteredMaxX(Minecraft.getInstance().fontRenderer, text, 84, infotextY);
+
+            recipeLayout.getItemStacks().init(index, false, itemToUseX, itemToUseY);
             recipeLayout.getItemStacks().set(index, itemToUse);
             index++;
-            dummyY += 20;
         }
     }
 
@@ -266,6 +267,11 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
                     I18n.format("jei.occultism.sacrifice", I18n.format(recipe.getEntityToSacrificeDisplayName())), 84, infotextY);
         }
 
+        if(recipe.requiresItemUse()){
+            infotextY += 10;
+            String text = I18n.format("jei.occultism.item_to_use");
+            this.drawStringCentered(matrixStack, Minecraft.getInstance().fontRenderer, text, 84, infotextY);
+        }
 
         if(recipe.getEntityToSummon() != null){
             infotextY += 10;
@@ -285,6 +291,13 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
     //endregion Overrides
 
     //region Methods
+
+    protected int getStringCenteredMaxX(FontRenderer fontRenderer, String text, int x, int y){
+        int width = fontRenderer.getStringWidth(text);
+        int actualX = (int)(x - width / 2.0f);
+        return actualX + width;
+    }
+
     protected void drawStringCentered(MatrixStack matrixStack, FontRenderer fontRenderer, String text, int x, int y) {
         fontRenderer.drawString(matrixStack, text, (x - fontRenderer.getStringWidth(text) / 2.0f), y, 0);
     }
