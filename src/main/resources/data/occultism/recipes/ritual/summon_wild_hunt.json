@@ -10,6 +10,7 @@
     "tag": "occultism:wild_hunt_sacrifices",
     "display_name": "ritual.occultism.sacrifice.villagers_or_players"
   },
+  "entity_to_summon": "occultism:wild_hunt_wither_skeleton",
   "ritual_dummy": {
     "item": "occultism:ritual_dummy/summon_wild_hunt"
   },
