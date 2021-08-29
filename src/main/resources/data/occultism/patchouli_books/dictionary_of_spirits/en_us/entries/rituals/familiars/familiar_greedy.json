@@ -11,7 +11,7 @@
     },
     {
       "type": "occultism:ritual",
-      "recipe": "occultism:ritual/familiar_greed"
+      "recipe": "occultism:ritual/familiar_greedy"
     },
     {
       "type": "text",
