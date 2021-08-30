@@ -177,11 +177,11 @@ public abstract class FamiliarEntity extends CreatureEntity implements IFamiliar
         return this.dataManager.get(SITTING);
     }
 
-    protected class FollowOwnerGoal extends Goal {
+    protected static class FollowOwnerGoal extends Goal {
 
         private static final int TELEPORT_ATTEMPTS = 10;
 
-        private FamiliarEntity entity;
+        protected FamiliarEntity entity;
         private double speed;
         private int cooldown;
         private float maxDist;
@@ -224,12 +224,16 @@ public abstract class FamiliarEntity extends CreatureEntity implements IFamiliar
             if (--this.cooldown < 0) {
                 this.cooldown = 10;
                 if (!this.entity.getLeashed() && !this.entity.isPassenger()) {
-                    if (this.entity.getDistanceSq(this.owner) >= 150)
+                    if (this.entity.getDistanceSq(this.owner) >= 150 || shouldTeleport(owner))
                         this.tryTeleport();
                     else
                         this.entity.getNavigator().tryMoveToEntityLiving(this.owner, this.speed);
                 }
             }
+        }
+
+        protected boolean shouldTeleport(LivingEntity owner) {
+            return false;
         }
 
         private void tryTeleport() {
