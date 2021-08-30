@@ -28,6 +28,7 @@ import com.github.klikli_dev.occultism.client.render.ThirdEyeEffectRenderer;
 import com.github.klikli_dev.occultism.common.DebugHelper;
 import com.github.klikli_dev.occultism.common.OccultismItemGroup;
 import com.github.klikli_dev.occultism.common.entity.BatFamiliarEntity;
+import com.github.klikli_dev.occultism.common.entity.CthulhuFamiliarEntity;
 import com.github.klikli_dev.occultism.common.entity.FamiliarEntity;
 import com.github.klikli_dev.occultism.common.entity.OtherworldBirdEntity;
 import com.github.klikli_dev.occultism.common.entity.possessed.PossessedEndermanEntity;
@@ -150,6 +151,7 @@ public class Occultism {
         event.put(OccultismEntities.GREEDY_FAMILIAR_TYPE.get(), FamiliarEntity.registerAttributes().create());
         event.put(OccultismEntities.BAT_FAMILIAR_TYPE.get(), BatFamiliarEntity.registerAttributes().create());
         event.put(OccultismEntities.DEER_FAMILIAR_TYPE.get(), FamiliarEntity.registerAttributes().create());
+        event.put(OccultismEntities.CTHULHU_FAMILIAR_TYPE.get(), CthulhuFamiliarEntity.registerAttributes().create());
     }
 
     private void serverSetup(final FMLDedicatedServerSetupEvent event) {
