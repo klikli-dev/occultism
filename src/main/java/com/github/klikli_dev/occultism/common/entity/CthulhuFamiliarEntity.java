@@ -22,8 +22,11 @@
 
 package com.github.klikli_dev.occultism.common.entity;
 
+import com.github.klikli_dev.occultism.common.capability.FamiliarSettingsCapability;
+import com.github.klikli_dev.occultism.registry.OccultismCapabilities;
 import com.google.common.collect.ImmutableList;
 
+import jdk.nashorn.internal.ir.annotations.Immutable;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.LivingEntity;
@@ -53,6 +56,8 @@ import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeMod;
 
+import java.util.Collections;
+
 public class CthulhuFamiliarEntity extends FamiliarEntity {
 
     private static final DataParameter<Boolean> HAT = EntityDataManager.createKey(CthulhuFamiliarEntity.class,
@@ -62,8 +67,8 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
     private static final DataParameter<Boolean> ANGRY = EntityDataManager.createKey(CthulhuFamiliarEntity.class,
             DataSerializers.BOOLEAN);
 
-    private SwimmerPathNavigator waterNavigator;
-    private GroundPathNavigator groundNavigator;
+    private final SwimmerPathNavigator waterNavigator;
+    private final GroundPathNavigator groundNavigator;
 
     public CthulhuFamiliarEntity(EntityType<? extends CthulhuFamiliarEntity> type, World worldIn) {
         super(type, worldIn);
@@ -108,15 +113,15 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
     }
     
     public float getAnimationHeight(float partialTicks) {
-        return MathHelper.cos((ticksExisted + partialTicks) / 5);
+        return MathHelper.cos((this.ticksExisted + partialTicks) / 5);
     }
 
     @Override
     public boolean attackEntityFrom(DamageSource source, float amount) {
         if (super.attackEntityFrom(source, amount)) {
-            if (source.getTrueSource() == getFamiliarOwner()) {
-                setAngry(true);
-                setSitting(true);
+            if (source.getTrueSource() == this.getFamiliarOwner()) {
+                this.setAngry(true);
+                this.setSitting(true);
             } else if (source.getTrueSource() != null) {
                 Vector3d tp = RandomPositionGenerator.findRandomTarget(this, 8, 4);
                 this.setLocationAndAngles(tp.getX() + 0.5, tp.getY(), tp.getZ() + 0.5, this.rotationYaw,
@@ -131,8 +136,8 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
     @Override
     public void tick() {
         super.tick();
-        if (isAngry() && getRNG().nextDouble() < 0.0007)
-            setAngry(false);
+        if (this.isAngry() && this.getRNG().nextDouble() < 0.0007)
+            this.setAngry(false);
     }
 
     @Override
@@ -147,10 +152,12 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
 
     @Override
     public Iterable<EffectInstance> getFamiliarEffects() {
-        if (isAngry())
-            return ImmutableList.of(new EffectInstance(Effects.WATER_BREATHING, 300, 0, false, false));
-        else
-            return ImmutableList.of();
+        if (this.getFamiliarOwner().getCapability(OccultismCapabilities.FAMILIAR_SETTINGS)
+                .map(FamiliarSettingsCapability::isCthulhuEnabled).orElse(false)) {
+            if (this.isAngry())
+                return ImmutableList.of(new EffectInstance(Effects.WATER_BREATHING, 300, 0, false, false));
+        }
+        return Collections.emptyList();
     }
 
     @Override
@@ -211,34 +218,34 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
 
         @Override
         public void tick() {
-            if (cthulhu.isInWater()) {
-                cthulhu.setMotion(cthulhu.getMotion().add(0, 0.005, 0));
-                if (action == MovementController.Action.MOVE_TO) {
-                    float maxSpeed = (float) (speed * cthulhu.getAttributeValue(Attributes.MOVEMENT_SPEED)) * 3;
-                    cthulhu.setAIMoveSpeed(MathHelper.lerp(0.125f, cthulhu.getAIMoveSpeed(), maxSpeed));
-                    double dx = posX - cthulhu.getPosX();
-                    double dy = posY - cthulhu.getPosY();
-                    double dz = posZ - cthulhu.getPosZ();
+            if (this.cthulhu.isInWater()) {
+                this.cthulhu.setMotion(this.cthulhu.getMotion().add(0, 0.005, 0));
+                if (this.action == MovementController.Action.MOVE_TO) {
+                    float maxSpeed = (float) (this.speed * this.cthulhu.getAttributeValue(Attributes.MOVEMENT_SPEED)) * 3;
+                    this.cthulhu.setAIMoveSpeed(MathHelper.lerp(0.125f, this.cthulhu.getAIMoveSpeed(), maxSpeed));
+                    double dx = this.posX - this.cthulhu.getPosX();
+                    double dy = this.posY - this.cthulhu.getPosY();
+                    double dz = this.posZ - this.cthulhu.getPosZ();
                     double distance = MathHelper.sqrt(dx * dx + dy * dy + dz * dz);
 
                     if (distance < 0.1) {
-                        cthulhu.setMoveForward(0);
+                        this.cthulhu.setMoveForward(0);
                         return;
                     }
 
                     if (Math.abs(dy) > 0.0001) {
-                        cthulhu.setMotion(
-                                cthulhu.getMotion().add(0, cthulhu.getAIMoveSpeed() * (dy / distance) * 0.1, 0));
+                        this.cthulhu.setMotion(
+                                this.cthulhu.getMotion().add(0, this.cthulhu.getAIMoveSpeed() * (dy / distance) * 0.1, 0));
                     }
 
                     if (Math.abs(dx) > 0.0001 || Math.abs(dz) > 0.0001) {
-                        float rotate = (float) (MathHelper.atan2(dz, dx) * (double) (180 / Math.PI)) - 90f;
-                        cthulhu.rotationYaw = limitAngle(cthulhu.rotationYaw, rotate, 8);
-                        cthulhu.renderYawOffset = cthulhu.rotationYaw;
+                        float rotate = (float) (MathHelper.atan2(dz, dx) * (180 / Math.PI)) - 90f;
+                        this.cthulhu.rotationYaw = this.limitAngle(this.cthulhu.rotationYaw, rotate, 8);
+                        this.cthulhu.renderYawOffset = this.cthulhu.rotationYaw;
                     }
 
                 } else {
-                    cthulhu.setAIMoveSpeed(0);
+                    this.cthulhu.setAIMoveSpeed(0);
                 }
             } else {
                 super.tick();
@@ -254,7 +261,7 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
         
         @Override
         protected boolean shouldTeleport(LivingEntity owner) {
-            return !entity.world.hasWater(owner.getPosition()) && entity.isInWater();
+            return !this.entity.world.hasWater(owner.getPosition()) && this.entity.isInWater();
         }
 
     }

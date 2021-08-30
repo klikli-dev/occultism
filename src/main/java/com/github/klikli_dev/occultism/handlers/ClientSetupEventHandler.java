@@ -86,6 +86,10 @@ public class ClientSetupEventHandler {
     public static final KeyBinding KEY_FAMILIAR_DEER =
             new KeyBinding("key.occultism.familiar.deer", KeyConflictContext.IN_GAME,
                     InputMappings.Type.KEYSYM.getOrMakeInput(-1), "key.occultism.category");
+
+    public static final KeyBinding KEY_FAMILIAR_CTHULHU =
+            new KeyBinding("key.occultism.familiar.cthulhu", KeyConflictContext.IN_GAME,
+                    InputMappings.Type.KEYSYM.getOrMakeInput(-1), "key.occultism.category");
     //endregion Fields
 
     //region Static Methods
@@ -103,6 +107,7 @@ public class ClientSetupEventHandler {
             ClientRegistry.registerKeyBinding(KEY_FAMILIAR_GREEDY);
             ClientRegistry.registerKeyBinding(KEY_FAMILIAR_BAT);
             ClientRegistry.registerKeyBinding(KEY_FAMILIAR_DEER);
+            ClientRegistry.registerKeyBinding(KEY_FAMILIAR_CTHULHU);
         });
 
         //Register Entity Renderers
