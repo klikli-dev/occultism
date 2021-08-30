@@ -50,7 +50,7 @@ import net.minecraftforge.fml.server.ServerLifecycleHooks;
 @EventBusSubscriber(modid = Occultism.MODID, bus = Bus.FORGE)
 public class PentacleManager extends JsonReloadListener {
     private static final Gson GSON = (new GsonBuilder()).setPrettyPrinting().disableHtmlEscaping().create();
-    public static final String FOLDER_NAME = "pentacles";
+    public static final String FOLDER_NAME = "occultism_pentacles";
 
     private final Map<ResourceLocation, Pentacle> pentacles;
     private static PentacleManager instance;
