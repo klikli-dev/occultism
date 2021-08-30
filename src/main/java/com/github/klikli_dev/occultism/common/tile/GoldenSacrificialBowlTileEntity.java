@@ -295,7 +295,7 @@ public class GoldenSacrificialBowlTileEntity extends SacrificialBowlTileEntity i
             this.sacrificeProvided = false;
             this.itemUseProvided = false;
             this.consumedIngredients.clear();
-            this.remainingAdditionalIngredients = this.currentRitualRecipe.getIngredients();
+            this.remainingAdditionalIngredients = new ArrayList<>(this.currentRitualRecipe.getIngredients());
             //place activation item in handler
             IItemHandler handler = this.itemStackHandler.orElseThrow(ItemHandlerMissingException::new);
             handler.insertItem(0, activationItem.split(1), false);
