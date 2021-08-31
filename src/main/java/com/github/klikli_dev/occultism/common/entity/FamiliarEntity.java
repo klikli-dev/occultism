@@ -57,8 +57,8 @@ public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar 
 
     private LivingEntity ownerCached;
 
-    public FamiliarEntity(EntityType<? extends FamiliarEntity> type, Level worldIn) {
-        super(type, worldIn);
+    public FamiliarEntity(EntityType<? extends FamiliarEntity> type, Level level) {
+        super(type, level);
     }
 
     public static AttributeSupplier.Builder createAttributes() {

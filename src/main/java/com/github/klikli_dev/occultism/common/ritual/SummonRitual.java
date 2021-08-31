@@ -23,17 +23,20 @@
 package com.github.klikli_dev.occultism.common.ritual;
 
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
-import com.github.klikli_dev.occultism.common.tile.GoldenSacrificialBowlTileEntity;
+import com.github.klikli_dev.occultism.common.tile.GoldenSacrificialBowlBlockEntity;
 import com.github.klikli_dev.occultism.crafting.recipe.RitualRecipe;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.github.klikli_dev.occultism.util.ItemNBTUtil;
 import net.minecraft.advancements.CriteriaTriggers;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.item.Item;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.items.ItemHandlerHelper;
 
@@ -41,7 +44,7 @@ public class SummonRitual extends Ritual {
 
     private boolean tame;
 
-    public SummonRitual(RitualRecipe recipe, boolean tame){
+    public SummonRitual(RitualRecipe recipe, boolean tame) {
         super(recipe);
         this.tame = tame;
     }
@@ -53,13 +56,13 @@ public class SummonRitual extends Ritual {
      * @return return the bound book of calling with the nbt from the activation item.
      */
     public ItemStack getBookOfCallingBound(ItemStack activationItem) {
-        ItemStack result = this.recipe.getRecipeOutput().copy();
-        if(result.getItem() == OccultismItems.JEI_DUMMY_NONE.get())
+        ItemStack result = this.recipe.getResultItem().copy();
+        if (result.getItem() == OccultismItems.JEI_DUMMY_NONE.get())
             return ItemStack.EMPTY;
 
         //should never happen, but apparently there is a scenario where it does (item cheated in with non jei?)
         //https://github.com/klikli-dev/occultism/issues/183
-        if(activationItem.hasTag())
+        if (activationItem.hasTag())
             result.setTag(activationItem.getTag().copy());
         return result;
     }
@@ -90,46 +93,45 @@ public class SummonRitual extends Ritual {
     }
 
     @Override
-    public void finish(World world, BlockPos goldenBowlPosition, GoldenSacrificialBowlTileEntity tileEntity,
-                       PlayerEntity castingPlayer, ItemStack activationItem) {
-        super.finish(world, goldenBowlPosition, tileEntity, castingPlayer, activationItem);
+    public void finish(Level level, BlockPos goldenBowlPosition, GoldenSacrificialBowlBlockEntity blockEntity,
+                       Player castingPlayer, ItemStack activationItem) {
+        super.finish(level, goldenBowlPosition, blockEntity, castingPlayer, activationItem);
 
         ItemStack copy = activationItem.copy();
         //prepare active book of calling
         ItemStack result = this.getBookOfCallingBound(activationItem);
         activationItem.shrink(1); //remove original activation item.
 
-        ((ServerWorld) world).spawnParticle(ParticleTypes.LARGE_SMOKE, goldenBowlPosition.getX() + 0.5,
+        ((ServerLevel) level).sendParticles(ParticleTypes.LARGE_SMOKE, goldenBowlPosition.getX() + 0.5,
                 goldenBowlPosition.getY() + 0.5, goldenBowlPosition.getZ() + 0.5, 1, 0, 0, 0, 0);
 
         EntityType<?> entityType = this.recipe.getEntityToSummon();
-        if(entityType != null){
-            Entity entity = this.createSummonedEntity(entityType,  world, goldenBowlPosition, tileEntity, castingPlayer);
-            if(entity instanceof LivingEntity){
-                LivingEntity living = (LivingEntity) entity;
-                this.prepareLivingEntityForSpawn(living, world, goldenBowlPosition, tileEntity, castingPlayer,
+        if (entityType != null) {
+            Entity entity = this.createSummonedEntity(entityType, level, goldenBowlPosition, blockEntity, castingPlayer);
+            if (entity instanceof LivingEntity living) {
+                this.prepareLivingEntityForSpawn(living, level, goldenBowlPosition, blockEntity, castingPlayer,
                         ItemNBTUtil.getBoundSpiritName(copy), tame);
 
-                this.initSummoned(living, world, goldenBowlPosition, tileEntity, castingPlayer);
+                this.initSummoned(living, level, goldenBowlPosition, blockEntity, castingPlayer);
 
                 //notify players nearby and spawn
-                this.spawnEntity(living, world);
+                this.spawnEntity(living, level);
 
                 //set up the book of calling
-                if(result != ItemStack.EMPTY && living instanceof SpiritEntity)
+                if (result != ItemStack.EMPTY && living instanceof SpiritEntity)
                     this.finishBookOfCallingSetup(result, (SpiritEntity) living, castingPlayer);
             }
         }
     }
 
-    public Entity createSummonedEntity(EntityType<?> entityType, World world, BlockPos goldenBowlPosition, GoldenSacrificialBowlTileEntity tileEntity,
-                                       PlayerEntity castingPlayer){
-        return entityType.create(world);
+    public Entity createSummonedEntity(EntityType<?> entityType, Level level, BlockPos goldenBowlPosition, GoldenSacrificialBowlBlockEntity tileEntity,
+                                       Player castingPlayer) {
+        return entityType.create(level);
     }
 
-    public void initSummoned(LivingEntity living, World world, BlockPos goldenBowlPosition, GoldenSacrificialBowlTileEntity tileEntity,
-                             PlayerEntity castingPlayer){
-        if(living instanceof SpiritEntity) {
+    public void initSummoned(LivingEntity living, Level level, BlockPos goldenBowlPosition, GoldenSacrificialBowlBlockEntity tileEntity,
+                             Player castingPlayer) {
+        if (living instanceof SpiritEntity) {
             SpiritEntity spirit = (SpiritEntity) living;
             spirit.setSpiritMaxAge(this.recipe.getSpiritMaxAge());
         }

@@ -22,9 +22,14 @@
 
 package com.github.klikli_dev.occultism.common.ritual;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.util.math.BlockPos;
+import com.github.klikli_dev.occultism.common.tile.GoldenSacrificialBowlBlockEntity;
+import com.github.klikli_dev.occultism.crafting.recipe.RitualRecipe;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
 public class CraftRitual extends Ritual {
 
@@ -33,16 +38,16 @@ public class CraftRitual extends Ritual {
     }
 
     @Override
-    public void finish(Level level, BlockPos goldenBowlPosition, GoldenSacrificialBowlBlockEntity BlockEntity,
-                       Player castingPlayer, ItemStack activationItem) {
-        super.finish(level, goldenBowlPosition, BlockEntity, castingPlayer, activationItem);
+    public void finish(Level level, BlockPos goldenBowlPosition, GoldenSacrificialBowlBlockEntity blockEntity, Player castingPlayer, ItemStack activationItem) {
+        super.finish(level, goldenBowlPosition, blockEntity, castingPlayer, activationItem);
+
 
         activationItem.shrink(1); //remove activation item.
 
         ((ServerLevel) level).sendParticles(ParticleTypes.LARGE_SMOKE, goldenBowlPosition.getX() + 0.5,
                 goldenBowlPosition.getY() + 0.5, goldenBowlPosition.getZ() + 0.5, 1, 0, 0, 0, 0);
 
-        ItemStack result = this.recipe.getRecipeOutput().copy();
-        this.dropResult(level, goldenBowlPosition, BlockEntity, castingPlayer, result);
+        ItemStack result = this.recipe.getResultItem().copy();
+        this.dropResult(level, goldenBowlPosition, blockEntity, castingPlayer, result);
     }
 }

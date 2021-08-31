@@ -22,18 +22,15 @@
 
 package com.github.klikli_dev.occultism.common.ritual;
 
-import com.github.klikli_dev.occultism.common.tile.GoldenSacrificialBowlTileEntity;
-import com.github.klikli_dev.occultism.registry.OccultismItems;
-import com.github.klikli_dev.occultism.registry.OccultismRituals;
+import com.github.klikli_dev.occultism.common.tile.GoldenSacrificialBowlBlockEntity;
+import com.github.klikli_dev.occultism.crafting.recipe.RitualRecipe;
 import com.github.klikli_dev.occultism.util.ItemNBTUtil;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
-import net.minecraftforge.items.ItemHandlerHelper;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
 public class CraftWithSpiritNameRitual extends Ritual {
 
@@ -42,9 +39,8 @@ public class CraftWithSpiritNameRitual extends Ritual {
     }
 
     @Override
-    public void finish(Level level, BlockPos goldenBowlPosition, GoldenSacrificialBowlBlockEntity BlockEntity,
-                       Player castingPlayer, ItemStack activationItem) {
-        super.finish(level, goldenBowlPosition, BlockEntity, castingPlayer, activationItem);
+    public void finish(Level level, BlockPos goldenBowlPosition, GoldenSacrificialBowlBlockEntity blockEntity, Player castingPlayer, ItemStack activationItem) {
+        super.finish(level, goldenBowlPosition, blockEntity, castingPlayer, activationItem);
 
         ItemStack copy = activationItem.copy();
         activationItem.shrink(1); //remove activation item.
@@ -54,6 +50,6 @@ public class CraftWithSpiritNameRitual extends Ritual {
 
         ItemStack result = this.recipe.getResultItem().copy();
         ItemNBTUtil.setBoundSpiritName(result, ItemNBTUtil.getBoundSpiritName(copy));
-        this.dropResult(level, goldenBowlPosition, BlockEntity, castingPlayer, result);
+        this.dropResult(level, goldenBowlPosition, blockEntity, castingPlayer, result);
     }
 }

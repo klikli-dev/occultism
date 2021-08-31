@@ -22,23 +22,17 @@
 
 package com.github.klikli_dev.occultism.common.ritual;
 
-import com.github.klikli_dev.occultism.common.entity.spirit.WildHuntWitherSkeletonEntity;
 import com.github.klikli_dev.occultism.common.tile.GoldenSacrificialBowlBlockEntity;
-import com.github.klikli_dev.occultism.registry.OccultismEntities;
-import com.github.klikli_dev.occultism.registry.OccultismRituals;
-import com.github.klikli_dev.occultism.registry.OccultismTags;
+import com.github.klikli_dev.occultism.crafting.recipe.RitualRecipe;
 import com.github.klikli_dev.occultism.util.TextUtil;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.TextComponent;
 
 public class SummonWildHuntRitual extends SummonRitual {
 
@@ -47,9 +41,9 @@ public class SummonWildHuntRitual extends SummonRitual {
     }
 
     @Override
-    public void finish(Level level, BlockPos goldenBowlPosition, GoldenSacrificialBowlBlockEntity BlockEntity,
+    public void finish(Level level, BlockPos goldenBowlPosition, GoldenSacrificialBowlBlockEntity blockEntity,
                        Player castingPlayer, ItemStack activationItem) {
-        super.finish(level, goldenBowlPosition, BlockEntity, castingPlayer, activationItem);
+        super.finish(level, goldenBowlPosition, blockEntity, castingPlayer, activationItem);
 
         activationItem.shrink(1); //remove original activation item.
 
@@ -57,48 +51,29 @@ public class SummonWildHuntRitual extends SummonRitual {
                 goldenBowlPosition.getY() + 0.5, goldenBowlPosition.getZ() + 0.5, 1, 0, 0, 0, 0);
 
         //Spawn the wither skeletons, who will spawn their minions
-        for (int i = 0; i < 3; i++) {
-            WildHuntWitherSkeletonEntity skeleton = OccultismEntities.WILD_HUNT_WITHER_SKELETON.get().create(level);
-
-            double offsetX = (level.getRandom().nextGaussian() - 1.0) * (1 + level.getRandom().nextInt(4));
-            double offsetZ = (level.getRandom().nextGaussian() - 1.0) * (1 + level.getRandom().nextInt(4));
-
-            skeleton.absMoveTo(goldenBowlPosition.getX() + offsetX, goldenBowlPosition.getY() + 1.5,
-                    goldenBowlPosition.getZ() + offsetZ,
-                    level.getRandom().nextInt(360), 0);
-            skeleton.setCustomName(new TextComponent(TextUtil.generateName()));
-
-            skeleton.finalizeSpawn((ServerLevel) level, level.getCurrentDifficultyAt(goldenBowlPosition), MobSpawnType.MOB_SUMMONED,
-                    null,
-                    null);
-            this.spawnEntity(skeleton, level);
-        }
-
         EntityType<?> entityType = this.recipe.getEntityToSummon();
         if (entityType != null) {
 
             for (int i = 0; i < 3; i++) {
-                Entity entity = this.createSummonedEntity(entityType, world, goldenBowlPosition, tileEntity, castingPlayer);
+                Entity entity = this.createSummonedEntity(entityType, level, goldenBowlPosition, blockEntity, castingPlayer);
 
-                if (entity instanceof LivingEntity) {
-                    LivingEntity living = (LivingEntity) entity;
-                    double offsetX = (world.getRandom().nextGaussian() - 1.0) * (1 + world.getRandom().nextInt(4));
-                    double offsetZ = (world.getRandom().nextGaussian() - 1.0) * (1 + world.getRandom().nextInt(4));
+                if (entity instanceof LivingEntity living) {
+                    double offsetX = (level.getRandom().nextGaussian() - 1.0) * (1 + level.getRandom().nextInt(4));
+                    double offsetZ = (level.getRandom().nextGaussian() - 1.0) * (1 + level.getRandom().nextInt(4));
 
-                    living.setPositionAndRotation(goldenBowlPosition.getX() + offsetX, goldenBowlPosition.getY() + 1.5,
+                    living.absMoveTo(goldenBowlPosition.getX() + offsetX, goldenBowlPosition.getY() + 1.5,
                             goldenBowlPosition.getZ() + offsetZ,
-                            world.getRandom().nextInt(360), 0);
-                    living.setCustomName(new StringTextComponent(TextUtil.generateName()));
+                            level.getRandom().nextInt(360), 0);
+                    living.setCustomName(new TextComponent(TextUtil.generateName()));
 
-                    if (living instanceof MobEntity) {
-                        ((MobEntity) living).onInitialSpawn((ServerWorld) world, world.getDifficultyForLocation(goldenBowlPosition), SpawnReason.MOB_SUMMONED,
-                                null,
-                                null);
+                    if (living instanceof Mob mob) {
+                        mob.finalizeSpawn((ServerLevel) level, level.getCurrentDifficultyAt(goldenBowlPosition), MobSpawnType.MOB_SUMMONED, null, null);
                     }
 
-                    this.spawnEntity(living, world);
+                    this.spawnEntity(living, level);
                 }
             }
+        }
+        //endregion Overrides
     }
-    //endregion Overrides
 }

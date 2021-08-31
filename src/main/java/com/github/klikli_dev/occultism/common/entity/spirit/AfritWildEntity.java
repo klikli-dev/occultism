@@ -47,7 +47,6 @@ public class AfritWildEntity extends AfritEntity {
     //region Initialization
     public AfritWildEntity(EntityType<? extends SpiritEntity> type, Level level) {
         super(type, level);
-        this.setSpiritMaxAge(60 * 603); //1h default for wild afrit
     }
     //endregion Initialization
 
@@ -58,7 +57,7 @@ public class AfritWildEntity extends AfritEntity {
         int maxBlazes = 3 + level.getRandom().nextInt(6);
 
         for (int i = 0; i < maxBlazes; i++) {
-            Blaze entity = EntityType.BLAZE.create(this.level);
+            Blaze entity = EntityType.BLAZE.create(level.getLevel());
             entity.finalizeSpawn(level, difficultyIn, reason, spawnDataIn, dataTag);
             double offsetX = (level.getRandom().nextGaussian() - 1.0) * (1 + level.getRandom().nextInt(4));
             double offsetZ = (level.getRandom().nextGaussian() - 1.0) * (1 + level.getRandom().nextInt(4));

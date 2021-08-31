@@ -119,9 +119,9 @@ public class OccultismEntities {
                     .build(modLoc("deer_familiar").toString()));
 
     public static final NonNullLazy<EntityType<CthulhuFamiliarEntity>> CTHULHU_FAMILIAR_TYPE =
-            NonNullLazy.of(() -> EntityType.Builder.create(CthulhuFamiliarEntity::new, EntityClassification.CREATURE)
-                    .size(0.6F, 1.0F)
-                    .trackingRange(8)
+            NonNullLazy.of(() -> EntityType.Builder.of(CthulhuFamiliarEntity::new, MobCategory.CREATURE)
+                    .sized(0.6F, 1.0F)
+                    .clientTrackingRange(8)
                     .build(modLoc("cthulhu_familiar").toString()));
 
     public static final RegistryObject<EntityType<FoliotEntity>> FOLIOT = ENTITIES.register("foliot", FOLIOT_TYPE::get);

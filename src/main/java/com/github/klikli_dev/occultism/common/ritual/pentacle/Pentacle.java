@@ -87,7 +87,7 @@ public class Pentacle {
 //        }
     }
 
-    public String getTranslationKey() {
+    public String getDescriptionId() {
         return Util.makeDescriptionId("pentacle", this.rl);
     }
 

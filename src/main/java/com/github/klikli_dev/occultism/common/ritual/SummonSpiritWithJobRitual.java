@@ -22,9 +22,14 @@
 
 package com.github.klikli_dev.occultism.common.ritual;
 
+import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
+import com.github.klikli_dev.occultism.common.job.SpiritJob;
 import com.github.klikli_dev.occultism.common.tile.GoldenSacrificialBowlBlockEntity;
+import com.github.klikli_dev.occultism.crafting.recipe.RitualRecipe;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.github.klikli_dev.occultism.registry.OccultismRituals;
+import com.github.klikli_dev.occultism.registry.OccultismSpiritJobs;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -40,12 +45,11 @@ public class SummonSpiritWithJobRitual extends SummonRitual {
     }
 
     @Override
-    public void initSummoned(LivingEntity living, World world, BlockPos goldenBowlPosition, GoldenSacrificialBowlTileEntity tileEntity,
-                             PlayerEntity castingPlayer) {
-        super.initSummoned(living, world, goldenBowlPosition, tileEntity, castingPlayer);
+    public void initSummoned(LivingEntity living, Level level, BlockPos goldenBowlPosition, GoldenSacrificialBowlBlockEntity blockEntity,
+                             Player castingPlayer) {
+        super.initSummoned(living, level, goldenBowlPosition, blockEntity, castingPlayer);
 
-        if(living instanceof SpiritEntity) {
-            SpiritEntity spirit = (SpiritEntity) living;
+        if(living instanceof SpiritEntity spirit) {
             SpiritJob job = OccultismSpiritJobs.REGISTRY.getValue(this.recipe.getSpiritJobType()).create(spirit);
             job.init();
             spirit.setJob(job);

@@ -23,15 +23,12 @@
 package com.github.klikli_dev.occultism.common.ritual;
 
 import com.github.klikli_dev.occultism.common.tile.GoldenSacrificialBowlBlockEntity;
-import com.github.klikli_dev.occultism.registry.OccultismItems;
-import com.github.klikli_dev.occultism.registry.OccultismRituals;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.level.Level;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.core.particles.ParticleTypes;
+import com.github.klikli_dev.occultism.crafting.recipe.RitualRecipe;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
 
 public class SummonWithChanceOfChickenRitual extends SummonRitual {
 
@@ -40,8 +37,8 @@ public class SummonWithChanceOfChickenRitual extends SummonRitual {
     }
 
     @Override
-    public Entity createSummonedEntity(EntityType<?> entityType, World world, BlockPos goldenBowlPosition, GoldenSacrificialBowlTileEntity tileEntity, PlayerEntity castingPlayer) {
-        return world.rand.nextInt(3) == 0 ? entityType.create(world) : EntityType.CHICKEN.create(world);
+    public Entity createSummonedEntity(EntityType<?> entityType, Level level, BlockPos goldenBowlPosition, GoldenSacrificialBowlBlockEntity blockEntity, Player castingPlayer) {
+        return level.random.nextInt(3) == 0 ? entityType.create(level) : EntityType.CHICKEN.create(level);
     }
 
 }

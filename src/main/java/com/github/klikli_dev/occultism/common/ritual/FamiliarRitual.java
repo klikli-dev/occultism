@@ -22,7 +22,9 @@
 
 package com.github.klikli_dev.occultism.common.ritual;
 
+import com.github.klikli_dev.occultism.common.entity.FamiliarEntity;
 import com.github.klikli_dev.occultism.common.tile.GoldenSacrificialBowlBlockEntity;
+import com.github.klikli_dev.occultism.crafting.recipe.RitualRecipe;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.github.klikli_dev.occultism.registry.OccultismRituals;
 import com.github.klikli_dev.occultism.registry.OccultismTags;
@@ -31,6 +33,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.animal.Animal;
@@ -46,9 +49,9 @@ public class FamiliarRitual extends SummonRitual {
     }
 
     @Override
-    public void finish(Level level, BlockPos goldenBowlPosition, GoldenSacrificialBowlBlockEntity BlockEntity,
+    public void finish(Level level, BlockPos goldenBowlPosition, GoldenSacrificialBowlBlockEntity blockEntity,
                        Player castingPlayer, ItemStack activationItem) {
-        super.finish(level, goldenBowlPosition, BlockEntity, castingPlayer, activationItem);
+        super.finish(level, goldenBowlPosition, blockEntity, castingPlayer, activationItem);
 
         String entityName = ItemNBTUtil.getBoundSpiritName(activationItem);
         activationItem.shrink(1); //remove original activation item.
@@ -56,36 +59,20 @@ public class FamiliarRitual extends SummonRitual {
         ((ServerLevel) level).sendParticles(ParticleTypes.LARGE_SMOKE, goldenBowlPosition.getX() + 0.5,
                 goldenBowlPosition.getY() + 0.5, goldenBowlPosition.getZ() + 0.5, 1, 0, 0, 0, 0);
 
-        //1/3 are a parrot, 2/3 are chickens.
-        Animal parrot =
-                level.random.nextInt(3) == 0 ? EntityType.PARROT.create(level) : EntityType.CHICKEN.create(level);
-        parrot.finalizeSpawn((ServerLevel) level, level.getCurrentDifficultyAt(goldenBowlPosition), MobSpawnType.MOB_SUMMONED,
-                null,
-                null);
-        parrot
-                .absMoveTo(goldenBowlPosition.getX(), goldenBowlPosition.getY(), goldenBowlPosition.getZ(),
-                        level.random.nextInt(360), 0);
-        parrot.setCustomName(new TextComponent(entityName));
-
         EntityType<?> entityType = this.recipe.getEntityToSummon();
         if (entityType != null) {
-            Entity entity = entityType.create(world);
-            if (entity instanceof FamiliarEntity) {
-                FamiliarEntity familiar = (FamiliarEntity) entity;
-                familiar.onInitialSpawn((ServerWorld) world, world.getDifficultyForLocation(goldenBowlPosition), SpawnReason.MOB_SUMMONED,
+            Entity entity = entityType.create(level);
+            if (entity instanceof FamiliarEntity familiar) {
+                familiar.finalizeSpawn((ServerLevel) level, level.getCurrentDifficultyAt(goldenBowlPosition), MobSpawnType.MOB_SUMMONED,
                         null, null);
-                familiar.setPositionAndRotation(goldenBowlPosition.getX(), goldenBowlPosition.getY(), goldenBowlPosition.getZ(),
-                        world.rand.nextInt(360), 0);
-                familiar.setCustomName(new StringTextComponent(entityName));
-                familiar.setOwnerId(castingPlayer.getUniqueID());
-
+                familiar.absMoveTo(goldenBowlPosition.getX(), goldenBowlPosition.getY(), goldenBowlPosition.getZ(),
+                        level.random.nextInt(360), 0);
+                familiar.setCustomName(new TextComponent(entityName));
+                familiar.setOwnerId(castingPlayer.getUUID());
 
                 //notify players nearby and spawn
-                this.spawnEntity(familiar, world);
+                this.spawnEntity(familiar, level);
             }
         }
-
-        //notify players nearby and spawn
-        this.spawnEntity(parrot, level);
     }
 }

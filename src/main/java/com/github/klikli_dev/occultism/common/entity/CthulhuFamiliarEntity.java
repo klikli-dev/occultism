@@ -25,108 +25,108 @@ package com.github.klikli_dev.occultism.common.entity;
 import com.github.klikli_dev.occultism.common.capability.FamiliarSettingsCapability;
 import com.github.klikli_dev.occultism.registry.OccultismCapabilities;
 import com.google.common.collect.ImmutableList;
-
-import jdk.nashorn.internal.ir.annotations.Immutable;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ILivingEntityData;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.ai.RandomPositionGenerator;
-import net.minecraft.entity.ai.attributes.AttributeModifierMap;
-import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.ai.controller.MovementController;
-import net.minecraft.entity.ai.goal.FollowMobGoal;
-import net.minecraft.entity.ai.goal.LookAtGoal;
-import net.minecraft.entity.ai.goal.RandomWalkingGoal;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.network.datasync.DataSerializers;
-import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.pathfinding.GroundPathNavigator;
-import net.minecraft.pathfinding.PathNodeType;
-import net.minecraft.pathfinding.SwimmerPathNavigator;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Effects;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.IServerWorld;
-import net.minecraft.world.World;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.control.MoveControl;
+import net.minecraft.world.entity.ai.goal.FollowMobGoal;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
+import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
+import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
+import net.minecraft.world.entity.ai.util.DefaultRandomPos;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeMod;
 
+import javax.annotation.Nullable;
 import java.util.Collections;
 
 public class CthulhuFamiliarEntity extends FamiliarEntity {
 
-    private static final DataParameter<Boolean> HAT = EntityDataManager.createKey(CthulhuFamiliarEntity.class,
-            DataSerializers.BOOLEAN);
-    private static final DataParameter<Boolean> TRUNK = EntityDataManager.createKey(CthulhuFamiliarEntity.class,
-            DataSerializers.BOOLEAN);
-    private static final DataParameter<Boolean> ANGRY = EntityDataManager.createKey(CthulhuFamiliarEntity.class,
-            DataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> HAT = SynchedEntityData.defineId(CthulhuFamiliarEntity.class,
+            EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> TRUNK = SynchedEntityData.defineId(CthulhuFamiliarEntity.class,
+            EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> ANGRY = SynchedEntityData.defineId(CthulhuFamiliarEntity.class,
+            EntityDataSerializers.BOOLEAN);
 
-    private final SwimmerPathNavigator waterNavigator;
-    private final GroundPathNavigator groundNavigator;
+    private final WaterBoundPathNavigation waterNavigator;
+    private final GroundPathNavigation groundNavigator;
 
-    public CthulhuFamiliarEntity(EntityType<? extends CthulhuFamiliarEntity> type, World worldIn) {
-        super(type, worldIn);
-        this.setPathPriority(PathNodeType.WATER, 0);
-        this.waterNavigator = new SwimmerPathNavigator(this, worldIn);
-        this.groundNavigator = new GroundPathNavigator(this, worldIn);
-        this.moveController = new MoveController(this);
+    public CthulhuFamiliarEntity(EntityType<? extends CthulhuFamiliarEntity> type, Level level) {
+        super(type, level);
+        this.setPathfindingMalus(BlockPathTypes.WATER, 0);
+        this.waterNavigator = new WaterBoundPathNavigation(this, level);
+        this.groundNavigator = new GroundPathNavigation(this, level);
+        this.moveControl = new CthulhuMoveController(this);
     }
 
-    public static AttributeModifierMap.MutableAttribute registerAttributes() {
-        return FamiliarEntity.registerAttributes().createMutableAttribute(ForgeMod.SWIM_SPEED.get(), 1f);
+    public static AttributeSupplier.Builder createAttributes() {
+        return FamiliarEntity.createMobAttributes().add(ForgeMod.SWIM_SPEED.get(), 1f);
     }
 
+    @Nullable
     @Override
-    public ILivingEntityData onInitialSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason,
-            ILivingEntityData spawnDataIn, CompoundNBT dataTag) {
-        this.setHat(this.getRNG().nextDouble() < 0.1);
-        this.setTrunk(this.getRNG().nextDouble() < 0.5);
-        return super.onInitialSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {
+        this.setHat(this.getRandom().nextDouble() < 0.1);
+        this.setTrunk(this.getRandom().nextDouble() < 0.5);
+        return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
     }
+
 
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new SitGoal(this));
-        this.goalSelector.addGoal(2, new LookAtGoal(this, PlayerEntity.class, 8));
+        this.goalSelector.addGoal(2, new LookAtPlayerGoal(this, Player.class, 8));
         this.goalSelector.addGoal(3, new FollowOwnerWaterGoal(this, 1, 3, 1));
-        this.goalSelector.addGoal(4, new RandomWalkingGoal(this, 1.0D));
+        this.goalSelector.addGoal(4, new RandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(5, new FollowMobGoal(this, 1, 3, 7));
     }
 
     @Override
     public void updateSwimming() {
-        if (!this.world.isRemote) {
+        if (!this.level.isClientSide) {
             if (this.isInWater()) {
-                this.navigator = this.waterNavigator;
+                this.navigation = this.waterNavigator;
                 this.setSwimming(true);
             } else {
-                this.navigator = this.groundNavigator;
+                this.navigation = this.groundNavigator;
                 this.setSwimming(false);
             }
         }
     }
-    
+
     public float getAnimationHeight(float partialTicks) {
-        return MathHelper.cos((this.ticksExisted + partialTicks) / 5);
+        return Mth.cos((this.tickCount + partialTicks) / 5);
     }
 
     @Override
-    public boolean attackEntityFrom(DamageSource source, float amount) {
-        if (super.attackEntityFrom(source, amount)) {
-            if (source.getTrueSource() == this.getFamiliarOwner()) {
+    public boolean hurt(DamageSource source, float amount) {
+        if (super.hurt(source, amount)) {
+            if (source.getEntity() == this.getFamiliarOwner()) {
                 this.setAngry(true);
                 this.setSitting(true);
-            } else if (source.getTrueSource() != null) {
-                Vector3d tp = RandomPositionGenerator.findRandomTarget(this, 8, 4);
-                this.setLocationAndAngles(tp.getX() + 0.5, tp.getY(), tp.getZ() + 0.5, this.rotationYaw,
-                        this.rotationPitch);
-                this.navigator.clearPath();
+            } else if (source.getEntity() != null) {
+                Vec3 tp = DefaultRandomPos.getPos(this, 8, 4);
+                this.absMoveTo(tp.x() + 0.5, tp.y(), tp.z() + 0.5, this.yRotO,
+                        this.xRotO);
+                this.navigation.stop();
             }
             return true;
         }
@@ -136,12 +136,12 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
     @Override
     public void tick() {
         super.tick();
-        if (this.isAngry() && this.getRNG().nextDouble() < 0.0007)
+        if (this.isAngry() && this.getRandom().nextDouble() < 0.0007)
             this.setAngry(false);
     }
 
     @Override
-    public boolean onLivingFall(float fallDistance, float damageMultiplier) {
+    public boolean causeFallDamage(float fallDistance, float damageMultiplier, DamageSource damageSource) {
         return false;
     }
 
@@ -151,67 +151,67 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
     }
 
     @Override
-    public Iterable<EffectInstance> getFamiliarEffects() {
+    public Iterable<MobEffectInstance> getFamiliarEffects() {
         if (this.getFamiliarOwner().getCapability(OccultismCapabilities.FAMILIAR_SETTINGS)
                 .map(FamiliarSettingsCapability::isCthulhuEnabled).orElse(false)) {
             if (this.isAngry())
-                return ImmutableList.of(new EffectInstance(Effects.WATER_BREATHING, 300, 0, false, false));
+                return ImmutableList.of(new MobEffectInstance(MobEffects.WATER_BREATHING, 300, 0, false, false));
         }
         return Collections.emptyList();
     }
 
     @Override
-    protected void registerData() {
-        super.registerData();
-        this.dataManager.register(HAT, false);
-        this.dataManager.register(TRUNK, false);
-        this.dataManager.register(ANGRY, false);
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(HAT, false);
+        this.entityData.define(TRUNK, false);
+        this.entityData.define(ANGRY, false);
     }
 
     public boolean hasHat() {
-        return this.dataManager.get(HAT);
+        return this.entityData.get(HAT);
     }
 
     private void setHat(boolean b) {
-        this.dataManager.set(HAT, b);
+        this.entityData.set(HAT, b);
     }
 
     public boolean hasTrunk() {
-        return this.dataManager.get(TRUNK);
+        return this.entityData.get(TRUNK);
     }
 
     private void setTrunk(boolean b) {
-        this.dataManager.set(TRUNK, b);
+        this.entityData.set(TRUNK, b);
     }
-    
+
     public boolean isAngry() {
-        return this.dataManager.get(ANGRY);
+        return this.entityData.get(ANGRY);
     }
 
     private void setAngry(boolean b) {
-        this.dataManager.set(ANGRY, b);
+        this.entityData.set(ANGRY, b);
     }
 
     @Override
-    public void readAdditional(CompoundNBT compound) {
-        super.readAdditional(compound);
+    public void readAdditionalSaveData(CompoundTag compound) {
+        super.readAdditionalSaveData(compound);
         this.setHat(compound.getBoolean("hasHat"));
         this.setTrunk(compound.getBoolean("hasTrunk"));
         this.setAngry(compound.getBoolean("isAngry"));
     }
 
     @Override
-    public void writeAdditional(CompoundNBT compound) {
-        super.writeAdditional(compound);
+    public void addAdditionalSaveData(CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
         compound.putBoolean("hasHat", this.hasHat());
         compound.putBoolean("hasTrunk", this.hasTrunk());
         compound.putBoolean("isAngry", this.isAngry());
     }
 
-    private static class MoveController extends MovementController {
+    private static class CthulhuMoveController extends MoveControl {
         private final CthulhuFamiliarEntity cthulhu;
 
-        MoveController(CthulhuFamiliarEntity cthulhu) {
+        CthulhuMoveController(CthulhuFamiliarEntity cthulhu) {
             super(cthulhu);
             this.cthulhu = cthulhu;
         }
@@ -219,33 +219,33 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
         @Override
         public void tick() {
             if (this.cthulhu.isInWater()) {
-                this.cthulhu.setMotion(this.cthulhu.getMotion().add(0, 0.005, 0));
-                if (this.action == MovementController.Action.MOVE_TO) {
-                    float maxSpeed = (float) (this.speed * this.cthulhu.getAttributeValue(Attributes.MOVEMENT_SPEED)) * 3;
-                    this.cthulhu.setAIMoveSpeed(MathHelper.lerp(0.125f, this.cthulhu.getAIMoveSpeed(), maxSpeed));
-                    double dx = this.posX - this.cthulhu.getPosX();
-                    double dy = this.posY - this.cthulhu.getPosY();
-                    double dz = this.posZ - this.cthulhu.getPosZ();
-                    double distance = MathHelper.sqrt(dx * dx + dy * dy + dz * dz);
+                this.cthulhu.setDeltaMovement(this.cthulhu.getDeltaMovement().add(0, 0.005, 0));
+                if (this.operation == MoveControl.Operation.MOVE_TO) {
+                    float maxSpeed = (float) (this.speedModifier * this.cthulhu.getAttributeValue(Attributes.MOVEMENT_SPEED)) * 3;
+                    this.cthulhu.setSpeed(Mth.lerp(0.125f, this.cthulhu.getSpeed(), maxSpeed));
+                    double dx = this.wantedX - this.cthulhu.getX();
+                    double dy = this.wantedY - this.cthulhu.getY();
+                    double dz = this.wantedZ - this.cthulhu.getZ();
+                    double distance = Math.sqrt(dx * dx + dy * dy + dz * dz);
 
                     if (distance < 0.1) {
-                        this.cthulhu.setMoveForward(0);
+                        this.cthulhu.setZza(0);
                         return;
                     }
 
                     if (Math.abs(dy) > 0.0001) {
-                        this.cthulhu.setMotion(
-                                this.cthulhu.getMotion().add(0, this.cthulhu.getAIMoveSpeed() * (dy / distance) * 0.1, 0));
+                        this.cthulhu.setDeltaMovement(
+                                this.cthulhu.getDeltaMovement().add(0, this.cthulhu.getSpeed() * (dy / distance) * 0.1, 0));
                     }
 
                     if (Math.abs(dx) > 0.0001 || Math.abs(dz) > 0.0001) {
-                        float rotate = (float) (MathHelper.atan2(dz, dx) * (180 / Math.PI)) - 90f;
-                        this.cthulhu.rotationYaw = this.limitAngle(this.cthulhu.rotationYaw, rotate, 8);
-                        this.cthulhu.renderYawOffset = this.cthulhu.rotationYaw;
+                        float rotate = (float) (Mth.atan2(dz, dx) * (180 / Math.PI)) - 90f;
+                        this.cthulhu.yRotO = this.rotlerp(this.cthulhu.yRotO, rotate, 8);
+                        this.cthulhu.yBodyRot = this.cthulhu.yRotO;
                     }
 
                 } else {
-                    this.cthulhu.setAIMoveSpeed(0);
+                    this.cthulhu.setSpeed(0);
                 }
             } else {
                 super.tick();
@@ -258,10 +258,10 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
         public FollowOwnerWaterGoal(FamiliarEntity entity, double speed, float minDist, float maxDist) {
             super(entity, speed, minDist, maxDist);
         }
-        
+
         @Override
         protected boolean shouldTeleport(LivingEntity owner) {
-            return !this.entity.world.hasWater(owner.getPosition()) && this.entity.isInWater();
+            return !this.entity.level.isWaterAt(owner.blockPosition()) && this.entity.isInWater();
         }
 
     }
