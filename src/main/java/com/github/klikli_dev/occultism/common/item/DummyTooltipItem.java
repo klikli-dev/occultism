@@ -22,8 +22,9 @@
 
 package com.github.klikli_dev.occultism.common.item;
 
-import com.github.klikli_dev.occultism.common.ritual.Ritual;
 import com.github.klikli_dev.occultism.common.tile.GoldenSacrificialBowlBlockEntity;
+import com.github.klikli_dev.occultism.crafting.recipe.RitualRecipe;
+import com.github.klikli_dev.occultism.registry.OccultismRecipes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
@@ -32,31 +33,29 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.common.util.LazyOptional;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Item class to represent rituals as items with tooltip - enables JEI search for rituals
  */
 public class DummyTooltipItem extends Item {
 
-    private final LazyOptional<Ritual> ritual;
-
     //region Initialization
-    public DummyTooltipItem(Properties properties, LazyOptional<Ritual> ritual) {
-        super(properties);
-        this.ritual = ritual;
-    }
 
     public DummyTooltipItem(Properties properties) {
-        this(properties, LazyOptional.empty());
+        super(properties);
     }
+
     //endregion Initialization
 
     public void performRitual(Level level, BlockPos pos, GoldenSacrificialBowlBlockEntity blockEntity,
                               Player player, ItemStack activationItem) {
-        this.ritual.ifPresent(r -> r.finish(level, pos, blockEntity, player, activationItem));
+        Optional<RitualRecipe> ritualRecipe = level.getRecipeManager().getAllRecipesFor(OccultismRecipes.RITUAL_TYPE.get())
+                .stream().filter(r -> r.getRitualDummy().getItem() == this).findFirst();
+
+        ritualRecipe.ifPresent(r -> r.getRitual().finish(level, pos, blockEntity, player, activationItem));
     }
 
     //region Overrides

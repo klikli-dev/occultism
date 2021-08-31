@@ -89,6 +89,10 @@ public class ClientSetupEventHandler {
     public static final KeyMapping KEY_FAMILIAR_DEER =
             new KeyMapping("key.occultism.familiar.deer", KeyConflictContext.IN_GAME,
                     InputConstants.Type.KEYSYM.getOrCreate(-1), "key.occultism.category");
+
+    public static final KeyMapping KEY_FAMILIAR_CTHULHU =
+            new KeyMapping("key.occultism.familiar.cthulhu", KeyConflictContext.IN_GAME,
+                    InputConstants.Type.KEYSYM.getOrCreate(-1), "key.occultism.category");
     //endregion Fields
 
     //region Static Methods
@@ -116,6 +120,7 @@ public class ClientSetupEventHandler {
         event.registerEntityRenderer(OccultismEntities.GREEDY_FAMILIAR.get(), GreedyFamiliarRenderer::new);
         event.registerEntityRenderer(OccultismEntities.BAT_FAMILIAR.get(), BatFamiliarRenderer::new);
         event.registerEntityRenderer(OccultismEntities.DEER_FAMILIAR.get(), DeerFamiliarRenderer::new);
+        event.registerEntityRenderer(OccultismEntities.CTHULHU_FAMILIAR.get(), CthulhuFamiliarRenderer::new);
         event.registerEntityRenderer(OccultismEntities.POSSESSED_ENDERMITE.get(), EndermiteRenderer::new);
         event.registerEntityRenderer(OccultismEntities.POSSESSED_SKELETON.get(), SkeletonRenderer::new);
         event.registerEntityRenderer(OccultismEntities.POSSESSED_ENDERMAN.get(), EndermanRenderer::new);
@@ -139,6 +144,7 @@ public class ClientSetupEventHandler {
             ClientRegistry.registerKeyBinding(KEY_FAMILIAR_GREEDY);
             ClientRegistry.registerKeyBinding(KEY_FAMILIAR_BAT);
             ClientRegistry.registerKeyBinding(KEY_FAMILIAR_DEER);
+            ClientRegistry.registerKeyBinding(KEY_FAMILIAR_CTHULHU);
         });
 
         //Register Tile Entity Renderers

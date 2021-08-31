@@ -1,12 +1,12 @@
 {
   "type": "occultism:ritual",
+  "ritual_type": "occultism:craft",
   "activation_item": {
     "item": "occultism:book_of_binding_bound_afrit"
   },
   "pentacle_id": "occultism:craft_afrit",
-  "require_item_use": false,
-  "require_sacrifice": false,
-  "ritual": {
+  "duration": 240,
+  "ritual_dummy": {
     "item": "occultism:ritual_dummy/craft_stabilizer_tier3"
   },
   "ingredients": [

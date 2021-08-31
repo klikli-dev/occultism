@@ -22,7 +22,10 @@
 
 package com.github.klikli_dev.occultism.common.job;
 
+import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
+import net.minecraft.Util;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.storage.PrimaryLevelData;
 
@@ -36,9 +39,14 @@ public class ClearWeatherJob extends ChangeWeatherJob {
 
     //region Overrides
     public void changeWeather() {
-        PrimaryLevelData info = (PrimaryLevelData) this.entity.level.getLevelData();
-        //taken from weathercommand#clear
-        ((ServerLevel) this.entity.level).setWeatherParameters(6000, 0, false, false);
+        if(Occultism.SERVER_CONFIG.rituals.enableClearWeatherRitual.get()){
+            PrimaryLevelData info = (PrimaryLevelData) this.entity.level.getLevelData();
+            //taken from weathercommand#clear
+            ((ServerLevel) this.entity.level).setWeatherParameters(6000, 0, false, false);
+        }
+        else {
+            this.entity.getOwner().sendMessage(new TranslatableComponent("ritual.occultism.disabled"), Util.NIL_UUID);
+        }
     }
     //endregion Overrides
 }

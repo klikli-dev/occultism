@@ -24,149 +24,47 @@ package com.github.klikli_dev.occultism.registry;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.ritual.*;
-import com.github.klikli_dev.occultism.common.ritual.pentacle.*;
 import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.RegistryManager;
 
 public class OccultismRituals {
-    //region Fields
-    public static final IForgeRegistry<Pentacle> PENTACLE_REGISTRY = RegistryManager.ACTIVE.getRegistry(Pentacle.class);
-    public static final DeferredRegister<Pentacle> PENTACLES = DeferredRegister.create(PENTACLE_REGISTRY,
-            Occultism.MODID);
-    public static final IForgeRegistry<Ritual> RITUAL_REGISTRY = RegistryManager.ACTIVE.getRegistry(Ritual.class);
-    public static final DeferredRegister<Ritual> RITUALS = DeferredRegister.create(RITUAL_REGISTRY, Occultism.MODID);
 
-    //Pentacles
-    public static final RegistryObject<DebugPentacle> DEBUG_PENTACLE =
-            PENTACLES.register("debug", DebugPentacle::new);
-    public static final RegistryObject<SummonFoliotPentacle> SUMMON_FOLIOT_PENTACLE =
-            PENTACLES.register("summon_foliot", SummonFoliotPentacle::new);
-    public static final RegistryObject<SummonDjinniPentacle> SUMMON_DJINNI_PENTACLE =
-            PENTACLES.register("summon_djinni", SummonDjinniPentacle::new);
-    public static final RegistryObject<SummonAfritPentacle> SUMMON_AFRIT_PENTACLE =
-            PENTACLES.register("summon_afrit", SummonAfritPentacle::new);
-    public static final RegistryObject<SummonWildAfritPentacle> SUMMON_WILD_AFRIT_PENTACLE =
-            PENTACLES.register("summon_wild_afrit", SummonWildAfritPentacle::new);
-    public static final RegistryObject<SummonMaridPentacle> SUMMON_MARID_PENTACLE =
-            PENTACLES.register("summon_marid", SummonMaridPentacle::new);
-    public static final RegistryObject<SummonWildGreaterSpiritPentacle> SUMMON_WILD_GREATER_SPIRIT_PENTACLE =
-            PENTACLES.register("summon_wild_greater_spirit", SummonWildGreaterSpiritPentacle::new);
-    public static final RegistryObject<CraftFoliotPentacle> CRAFT_FOLIOT_PENTACLE =
-            PENTACLES.register("craft_foliot", CraftFoliotPentacle::new);
-    public static final RegistryObject<CraftDjinniPentacle> CRAFT_DJINNI_PENTACLE =
-            PENTACLES.register("craft_djinni", CraftDjinniPentacle::new);
-    public static final RegistryObject<CraftAfritPentacle> CRAFT_AFRIT_PENTACLE =
-            PENTACLES.register("craft_afrit", CraftAfritPentacle::new);
-    public static final RegistryObject<CraftMaridPentacle> CRAFT_MARID_PENTACLE =
-            PENTACLES.register("craft_marid", CraftMaridPentacle::new);
-    public static final RegistryObject<PossessFoliotPentacle> POSSESS_FOLIOT_PENTACLE =
-            PENTACLES.register("possess_foliot", PossessFoliotPentacle::new);
-    public static final RegistryObject<PossessDjinniPentacle> POSSESS_DJINNI_PENTACLE =
-            PENTACLES.register("possess_djinni", PossessDjinniPentacle::new);
+    public static final IForgeRegistry<RitualFactory> RITUAL_FACTORY_REGISTRY = RegistryManager.ACTIVE.getRegistry(RitualFactory.class);
+    public static final DeferredRegister<RitualFactory> RITUAL_FACTORIES = DeferredRegister.create(RITUAL_FACTORY_REGISTRY, Occultism.MODID);
 
-    //Rituals
-    public static final RegistryObject<DebugRitual> DEBUG_RITUAL = RITUALS.register("debug", DebugRitual::new);
-
-    //Summonig
-    public static final RegistryObject<SummonFoliotLumberjackRitual> SUMMON_FOLIOT_LUMBERJACK_RITUAL =
-            RITUALS.register("summon_foliot_lumberjack", SummonFoliotLumberjackRitual::new);
-    public static final RegistryObject<SummonFoliotTransportItemsRitual> SUMMON_FOLIOT_TRANSPORT_ITEMS_RITUAL =
-            RITUALS.register("summon_foliot_transport_items", SummonFoliotTransportItemsRitual::new);
-    public static final RegistryObject<SummonFoliotCleanerRitual> SUMMON_FOLIOT_CLEANER_RITUAL =
-            RITUALS.register("summon_foliot_cleaner", SummonFoliotCleanerRitual::new);
-    public static final RegistryObject<SummonFoliotOtherstoneTraderRitual> SUMMON_FOLIOT_OTHERSTONE_TRADER_RITUAL =
-            RITUALS.register("summon_foliot_otherstone_trader", SummonFoliotOtherstoneTraderRitual::new);
-    public static final RegistryObject<SummonFoliotSaplingTraderRitual> SUMMON_FOLIOT_SAPLING_TRADER_RITUAL =
-            RITUALS.register("summon_foliot_sapling_trader", SummonFoliotSaplingTraderRitual::new);
-    public static final RegistryObject<SummonDjinniManageMachineRitual> SUMMON_DJINNI_MANAGE_MACHINE_RITUAL =
-            RITUALS.register("summon_djinni_manage_machine", SummonDjinniManageMachineRitual::new);
-    public static final RegistryObject<SummonDjinniClearWeatherRitual> SUMMON_DJINNI_CLEAR_WEATHER_RITUAL =
-            RITUALS.register("summon_djinni_clear_weather", SummonDjinniClearWeatherRitual::new);
-    public static final RegistryObject<SummonAfritRainWeatherRitual> SUMMON_AFRIT_RAIN_WEATHER_RITUAL =
-            RITUALS.register("summon_afrit_rain_weather", SummonAfritRainWeatherRitual::new);
-    public static final RegistryObject<SummonAfritThunderWeatherRitual> SUMMON_AFRIT_THUNDER_WEATHER_RITUAL =
-            RITUALS.register("summon_afrit_thunder_weather", SummonAfritThunderWeatherRitual::new);
-    public static final RegistryObject<SummonWildAfritRitual> SUMMON_WILD_AFRIT_RITUAL =
-            RITUALS.register("summon_wild_afrit", SummonWildAfritRitual::new);
-    public static final RegistryObject<SummonWildHuntRitual> SUMMON_WILD_HUNT_RITUAL =
-            RITUALS.register("summon_wild_hunt", SummonWildHuntRitual::new);
-    public static final RegistryObject<SummonDjinniDayTimeRitual> SUMMON_DJINNI_DAY_TIME_RITUAL =
-            RITUALS.register("summon_djinni_day_time", SummonDjinniDayTimeRitual::new);
-    public static final RegistryObject<SummonDjinniNightTimeRitual> SUMMON_DJINNI_NIGHT_TIME_RITUAL =
-            RITUALS.register("summon_djinni_night_time", SummonDjinniNightTimeRitual::new);
-
-    public static final RegistryObject<SummonFoliotCrusherRitual> SUMMON_FOLIOT_CRUSHER_RITUAL =
-            RITUALS.register("summon_foliot_crusher", SummonFoliotCrusherRitual::new);
-    public static final RegistryObject<SummonDjinniCrusherRitual> SUMMON_DJINNI_CRUSHER_RITUAL =
-            RITUALS.register("summon_djinni_crusher", SummonDjinniCrusherRitual::new);
-    public static final RegistryObject<SummonAfritCrusherRitual> SUMMON_AFRIT_CRUSHER_RITUAL =
-            RITUALS.register("summon_afrit_crusher", SummonAfritCrusherRitual::new);
-    public static final RegistryObject<SummonMaridCrusherRitual> SUMMON_MARID_CRUSHER_RITUAL =
-            RITUALS.register("summon_marid_crusher", SummonMaridCrusherRitual::new);
+    //Summoning
+    public static final RegistryObject<RitualFactory> SUMMON_RITUAL =
+            RITUAL_FACTORIES.register("summon",
+                    () -> new RitualFactory((r) -> new SummonRitual(r, false)));
+    public static final RegistryObject<RitualFactory> SUMMON_TAMED_RITUAL =
+            RITUAL_FACTORIES.register("summon_tamed",
+                    () -> new RitualFactory((r) -> new SummonRitual(r, true)));
+    public static final RegistryObject<RitualFactory> SUMMON_WITH_CHANCE_OF_CHICKEN_RITUAL =
+            RITUAL_FACTORIES.register("summon_with_chance_of_chicken",
+                    () -> new RitualFactory((r) -> new SummonWithChanceOfChickenRitual(r, false)));
+    public static final RegistryObject<RitualFactory> SUMMON_WITH_CHANCE_OF_CHICKEN_TAMED_RITUAL =
+            RITUAL_FACTORIES.register("summon_with_chance_of_chicken_tamed",
+                    () -> new RitualFactory((r) -> new SummonWithChanceOfChickenRitual(r, false)));
+    public static final RegistryObject<RitualFactory> SUMMON_SPIRIT_WITH_JOB_RITUAL =
+            RITUAL_FACTORIES.register("summon_spirit_with_job",
+                    () -> new RitualFactory(SummonSpiritWithJobRitual::new));
+    public static final RegistryObject<RitualFactory> SUMMON_WILD_HUNT =
+            RITUAL_FACTORIES.register("summon_wild_hunt",
+                    () -> new RitualFactory(SummonWildHuntRitual::new));
+    public static final RegistryObject<RitualFactory> FAMILIAR_RITUAL =
+            RITUAL_FACTORIES.register("familiar",
+                    () -> new RitualFactory(FamiliarRitual::new));
 
     //Crafting
-    public static final RegistryObject<CraftStorageControllerBaseRitual> CRAFT_STORAGE_CONTROLLER_BASE_RITUAL =
-            RITUALS.register("craft_storage_controller_base", CraftStorageControllerBaseRitual::new);
-    public static final RegistryObject<CraftDimensionalMatrixRitual> CRAFT_DIMENSIONAL_MATRIX_RITUAL =
-            RITUALS.register("craft_dimensional_matrix", CraftDimensionalMatrixRitual::new);
-    public static final RegistryObject<CraftStableWormholeRitual> CRAFT_STABLE_WORMHOLE_RITUAL =
-            RITUALS.register("craft_stable_wormhole", CraftStableWormholeRitual::new);
-    public static final RegistryObject<CraftStorageRemoteRitual> CRAFT_STORAGE_REMOTE_RITUAL =
-            RITUALS.register("craft_storage_remote", CraftStorageRemoteRitual::new);
-
-    public static final RegistryObject<CraftStabilizerTier1Ritual> CRAFT_STABILIZER_TIER1_RITUAL =
-            RITUALS.register("craft_stabilizer_tier1", CraftStabilizerTier1Ritual::new);
-    public static final RegistryObject<CraftStabilizerTier2Ritual> CRAFT_STABILIZER_TIER2_RITUAL =
-            RITUALS.register("craft_stabilizer_tier2", CraftStabilizerTier2Ritual::new);
-    public static final RegistryObject<CraftStabilizerTier3Ritual> CRAFT_STABILIZER_TIER3_RITUAL =
-            RITUALS.register("craft_stabilizer_tier3", CraftStabilizerTier3Ritual::new);
-    public static final RegistryObject<CraftStabilizerTier4Ritual> CRAFT_STABILIZER_TIER4_RITUAL =
-            RITUALS.register("craft_stabilizer_tier4", CraftStabilizerTier4Ritual::new);
-
-    public static final RegistryObject<CraftInfusedLensesRitual> CRAFT_INFUSED_LENSES_RITUAL =
-            RITUALS.register("craft_infused_lenses", CraftInfusedLensesRitual::new);
-    public static final RegistryObject<CraftInfusedPickaxeRitual> CRAFT_INFUSED_PICKAXE_RITUAL =
-            RITUALS.register("craft_infused_pickaxe", CraftInfusedPickaxeRitual::new);
-
-    public static final RegistryObject<CraftSoulGemRitual> CRAFT_SOUL_GEM_RITUAL =
-            RITUALS.register("craft_soul_gem", CraftSoulGemRitual::new);
-    public static final RegistryObject<CraftFamiliarRingRitual> CRAFT_FAMILIAR_RING =
-            RITUALS.register("craft_familiar_ring", CraftFamiliarRingRitual::new);
-
-    public static final RegistryObject<CraftDimensionalMineshaftRitual> CRAFT_DIMENSIONAL_MINESHAFT_RITUAL =
-            RITUALS.register("craft_dimensional_mineshaft", CraftDimensionalMineshaftRitual::new);
-    public static final RegistryObject<CraftMinerFoliotUnspecialized> CRAFT_MINER_FOLIOT_UNSPECIALIZED_RITUAL =
-            RITUALS.register("craft_miner_foliot_unspecialized", CraftMinerFoliotUnspecialized::new);
-    public static final RegistryObject<CraftMinerDjinniOresRitual> CRAFT_MINER_DJINNI_ORES_RITUAL =
-            RITUALS.register("craft_miner_djinni_ores", CraftMinerDjinniOresRitual::new);
-
-    public static final RegistryObject<CraftSatchelRitual> CRAFT_SATCHEL_RITUAL =
-            RITUALS.register("craft_satchel", CraftSatchelRitual::new);
-
-    //Possession
-    public static final RegistryObject<PossessEndermiteRitual> POSSESS_ENDERMITE_RITUAL =
-            RITUALS.register("possess_endermite", PossessEndermiteRitual::new);
-    public static final RegistryObject<PossessSkeletonRitual> POSSESS_SKELETON_RITUAL =
-            RITUALS.register("possess_skeleton", PossessSkeletonRitual::new);
-    public static final RegistryObject<PossessEndermanRitual> POSSESS_ENDERMAN_RITUAL =
-            RITUALS.register("possess_enderman", PossessEndermanRitual::new);
-
-    //Familiars
-    public static final RegistryObject<FamiliarGreedyRitual> FAMILIAR_GREEDY_RITUAL =
-            RITUALS.register("familiar_greedy", FamiliarGreedyRitual::new);
-    public static final RegistryObject<FamiliarParrotRitual> FAMILIAR_PARROT_RITUAL =
-            RITUALS.register("familiar_parrot", FamiliarParrotRitual::new);
-    public static final RegistryObject<SummonWildParrotRitual> SUMMON_WILD_PARROT_RITUAL =
-            RITUALS.register("summon_wild_parrot", SummonWildParrotRitual::new);
-    public static final RegistryObject<FamiliarOtherworldBirdRitual> FAMILIAR_OTHERWORLD_BIRD =
-            RITUALS.register("familiar_otherworld_bird", FamiliarOtherworldBirdRitual::new);
-    public static final RegistryObject<SummonWildOtherworldBirdRitual> SUMMON_WILD_OTHERWORLD_BIRD_RITUAL =
-            RITUALS.register("summon_wild_otherworld_bird", SummonWildOtherworldBirdRitual::new);
-    public static final RegistryObject<FamiliarBatRitual> FAMILIAR_BAT =
-            RITUALS.register("familiar_bat", FamiliarBatRitual::new);
-    public static final RegistryObject<FamiliarDeerRitual> FAMILIAR_DEER =
-            RITUALS.register("familiar_deer", FamiliarDeerRitual::new);
-    //endregion Fields
+    public static final RegistryObject<RitualFactory> CRAFT_RITUAL =
+            RITUAL_FACTORIES.register("craft",
+                    () -> new RitualFactory(CraftRitual::new));
+    public static final RegistryObject<RitualFactory> CRAFT_WITH_SPIRIT_NAME_RITUAL =
+            RITUAL_FACTORIES.register("craft_with_spirit_name",
+                    () -> new RitualFactory(CraftWithSpiritNameRitual::new));
+    public static final RegistryObject<RitualFactory> CRAFT_MINER_SPIRIT_RITUAL =
+            RITUAL_FACTORIES.register("craft_miner_spirit",
+                    () -> new RitualFactory(CraftMinerSpiritRitual::new));
 }

@@ -1,0 +1,22 @@
+{
+  "pattern": [
+    "   GGG   ",
+    "  GC CG  ",
+    " GW   WG ",
+    "GC W W CG",
+    "G   0   G",
+    "GC W W CG",
+    " GW   WG ",
+    "  GC CG  ",
+    "   GGG   "
+  ],
+  "mapping": {
+    "0": "occultism:golden_sacrificial_bowl",
+    "W": "occultism:chalk_glyph_white",
+    "G": "occultism:chalk_glyph_gold",
+    "C": {
+      "tag": "forge:candles",
+      "display": "occultism:candle_white"
+    }
+  }
+}

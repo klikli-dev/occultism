@@ -70,9 +70,9 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
 
     //region Initialization
     public RitualRecipeCategory(IGuiHelper guiHelper) {
-        this.background = guiHelper.createBlankDrawable(168, 100); //64
+        this.background = guiHelper.createBlankDrawable(168, 120); //64
         this.ritualCenterX = this.background.getWidth() / 2 - this.iconWidth / 2 - 30;
-        this.ritualCenterY = this.background.getHeight() / 2 - this.iconWidth / 2 + 10;
+        this.ritualCenterY = this.background.getHeight() / 2 - this.iconWidth / 2 + 20;
         this.localizedName = new TranslatableComponent(Occultism.MODID + ".jei.ritual");
         this.pentacle = I18n.get(Occultism.MODID + ".jei.pentacle");
         this.goldenSacrificialBowl.getOrCreateTag().putBoolean("RenderFull", true);
@@ -111,15 +111,19 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
     @Override
     public void setIngredients(RitualRecipe recipe, IIngredients ingredients) {
         //0: activation item, 1...n: ingredients
+        Stream<Ingredient> ingredientStream = Stream.concat(
+                Stream.of(recipe.getActivationItem()),
+                recipe.getIngredients().stream()
+        );
+        if(recipe.requiresItemUse()){
+            ingredientStream = Stream.concat(Stream.of(recipe.getItemToUse()), ingredientStream);
+        }
         ingredients.setInputIngredients(
-                Stream.concat(
-                        Stream.of(recipe.getActivationItem()),
-                        recipe.getIngredients().stream()
-                ).collect(Collectors.toList())
+                ingredientStream.collect(Collectors.toList())
         );
         //0: recipe output, 1: ritual dummy item
-        ingredients.setOutputs(VanillaTypes.ITEM, Stream.of(recipe.getResultItem(),
-                recipe.getRitual()).collect(Collectors.toList()));
+        ingredients.setOutputs(VanillaTypes.ITEM, Stream.of(recipe.getRecipeOutput(),
+                recipe.getRitualDummy()).collect(Collectors.toList()));
     }
 
     @Override
@@ -127,10 +131,15 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
         int index = 0;
         this.recipeOutputOffsetX = 75;
 
+        int currentIngredient = 0;
+        List<ItemStack> itemToUse = new ArrayList<>();
+        if(recipe.requiresItemUse()){
+           itemToUse = ingredients.getInputs(VanillaTypes.ITEM).get(currentIngredient++);
+        }
         //0: activation item, 1...n: ingredients
-        List<ItemStack> activationItem = ingredients.getInputs(VanillaTypes.ITEM).get(0);
+        List<ItemStack> activationItem = ingredients.getInputs(VanillaTypes.ITEM).get(currentIngredient++);
         List<List<ItemStack>> inputItems =
-                ingredients.getInputs(VanillaTypes.ITEM).stream().skip(1).collect(Collectors.toList());
+                ingredients.getInputs(VanillaTypes.ITEM).stream().skip(currentIngredient).collect(Collectors.toList());
 
         //draw activation item on top of bowl
         recipeLayout.getItemStacks().init(index, true, this.ritualCenterX, this.ritualCenterY - 5);
@@ -213,25 +222,26 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
 
 
         //draw ritual dummy item in upper left corner
-
         recipeLayout.getItemStacks().init(index, false, 0, 0);
         recipeLayout.getItemStacks().set(index, ingredients.getOutputs(VanillaTypes.ITEM).get(1));
         index++;
-        int dummyY = 0;
-        int dummyX = this.background.getWidth() - this.iconWidth - 5;
-        //draw info dummy items below
-        if (recipe.requireSacrifice()) {
-            recipeLayout.getItemStacks().init(index, false, dummyX, dummyY);
-            recipeLayout.getItemStacks().set(index, this.requireSacrifice);
-            index++;
-            dummyY += 20;
-        }
 
-        if (recipe.requireItemUse()) {
-            recipeLayout.getItemStacks().init(index, false, dummyX, dummyY);
-            recipeLayout.getItemStacks().set(index, this.requireItemUse);
+        //draw item to use
+        if (recipe.requiresItemUse()) {
+            //first simulate the info rendering to get the right render position
+            int infotextY = 0;
+            if(recipe.requiresSacrifice()){
+                infotextY += 10;
+            }
+
+            infotextY += 10;
+            String text = I18n.format("jei.occultism.item_to_use");
+            int itemToUseY = infotextY - 5;
+            int itemToUseX = this.getStringCenteredMaxX(Minecraft.getInstance().fontRenderer, text, 84, infotextY);
+
+            recipeLayout.getItemStacks().init(index, false, itemToUseX, itemToUseY);
+            recipeLayout.getItemStacks().set(index, itemToUse);
             index++;
-            dummyY += 20;
         }
     }
 
@@ -241,18 +251,53 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
         this.arrow.draw(poseStack, this.ritualCenterX + this.recipeOutputOffsetX - 20, this.ritualCenterY);
         RenderSystem.disableBlend();
 
-        Pentacle pentacle = OccultismRituals.PENTACLE_REGISTRY.getValue(recipe.getPentacleId());
-        if (pentacle != null) {
+        Pentacle pentacle = PentacleManager.get(recipe.getPentacleId());
+        if(pentacle != null){
             this.drawStringCentered(poseStack, Minecraft.getInstance().font,
                     new TranslatableComponent(pentacle.getDescriptionId()), 84, 0);
         } else {
             this.drawStringCentered(poseStack, Minecraft.getInstance().font,
                     new TranslatableComponent("jei.occultism.error.pentacle_not_loaded"), 84, 0);
         }
+
+        int infotextY = 0;
+        if(recipe.requiresSacrifice()){
+            infotextY += 10;
+            this.drawStringCentered(matrixStack, Minecraft.getInstance().fontRenderer,
+                    I18n.format("jei.occultism.sacrifice", I18n.format(recipe.getEntityToSacrificeDisplayName())), 84, infotextY);
+        }
+
+        if(recipe.requiresItemUse()){
+            infotextY += 10;
+            String text = I18n.format("jei.occultism.item_to_use");
+            this.drawStringCentered(matrixStack, Minecraft.getInstance().fontRenderer, text, 84, infotextY);
+        }
+
+        if(recipe.getEntityToSummon() != null){
+            infotextY += 10;
+            this.drawStringCentered(matrixStack, Minecraft.getInstance().fontRenderer,
+                    I18n.format("jei.occultism.summon", I18n.format(recipe.getEntityToSummon().getTranslationKey())),
+                    84, infotextY);
+        }
+
+        if(recipe.getSpiritJobType() != null){
+            infotextY += 10;
+            this.drawStringCentered(matrixStack, Minecraft.getInstance().fontRenderer,
+                    I18n.format("jei.occultism.job",
+                            I18n.format("job." + recipe.getSpiritJobType().toString().replace(":", "."))),
+                    84, infotextY);
+        }
     }
     //endregion Overrides
 
     //region Methods
+
+    protected int getStringCenteredMaxX(FontRenderer fontRenderer, String text, int x, int y){
+        int width = fontRenderer.getStringWidth(text);
+        int actualX = (int)(x - width / 2.0f);
+        return actualX + width;
+    }
+
     protected void drawStringCentered(PoseStack poseStack, Font fontRenderer, Component text, int x, int y) {
         fontRenderer.draw(poseStack, text, (x - fontRenderer.width(text) / 2.0f), y, 0);
     }

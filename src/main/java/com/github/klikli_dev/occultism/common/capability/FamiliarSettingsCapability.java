@@ -40,6 +40,7 @@ public class FamiliarSettingsCapability implements INBTSerializable<CompoundTag>
     private boolean otherworldBirdEnabled = true;
     private boolean batEnabled = true;
     private boolean deerEnabled = true;
+    private boolean cthulhuEnabled = true;
     //endregion Fields
 
     //region Initialization
@@ -64,7 +65,7 @@ public class FamiliarSettingsCapability implements INBTSerializable<CompoundTag>
         this.batEnabled = settings.batEnabled;
         this.deerEnabled = settings.deerEnabled;
     }
-    
+
     public boolean isGreedyEnabled() {
         return this.greedyEnabled;
     }
@@ -96,6 +97,14 @@ public class FamiliarSettingsCapability implements INBTSerializable<CompoundTag>
     public void setDeerEnabled(boolean deerEnabled) {
         this.deerEnabled = deerEnabled;
     }
+
+    public boolean isCthulhuEnabled(){
+        return this.cthulhuEnabled;
+    }
+
+    public void setCthulhuEnabled(boolean cthulhuEnabled){
+        this.cthulhuEnabled = cthulhuEnabled;
+    }
     //endregion Methods
 
     @Override
@@ -105,6 +114,7 @@ public class FamiliarSettingsCapability implements INBTSerializable<CompoundTag>
         compound.putBoolean("otherworldBirdEnabled", this.otherworldBirdEnabled);
         compound.putBoolean("batEnabled", this.batEnabled);
         compound.putBoolean("deerEnabled", this.deerEnabled);
+        compound.putBoolean("cthulhuEnabled", this.cthulhuEnabled);
         return compound;
     }
 
@@ -114,6 +124,7 @@ public class FamiliarSettingsCapability implements INBTSerializable<CompoundTag>
         this.otherworldBirdEnabled = nbt.getBoolean("otherworldBirdEnabled");
         this.batEnabled = nbt.getBoolean("batEnabled");
         this.deerEnabled = nbt.getBoolean("deerEnabled");
+        this.cthulhuEnabled = nbt.getBoolean("cthulhuEnabled");
     }
     //endregion Methods
 

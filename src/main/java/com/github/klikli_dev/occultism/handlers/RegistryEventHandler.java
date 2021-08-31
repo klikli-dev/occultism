@@ -25,6 +25,7 @@ package com.github.klikli_dev.occultism.handlers;
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.job.SpiritJobFactory;
 import com.github.klikli_dev.occultism.common.ritual.Ritual;
+import com.github.klikli_dev.occultism.common.ritual.RitualFactory;
 import com.github.klikli_dev.occultism.common.ritual.pentacle.Pentacle;
 import com.github.klikli_dev.occultism.registry.*;
 import com.github.klikli_dev.occultism.util.loot.AppendLootTable;
@@ -58,16 +59,13 @@ public class RegistryEventHandler {
     @SubscribeEvent
     public static void registerRegistries(RegistryEvent.NewRegistry event) {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-        new RegistryBuilder<Pentacle>().setName(new ResourceLocation(Occultism.MODID, "pentacle"))
-                .setType(Pentacle.class).create();
-        new RegistryBuilder<Ritual>().setName(new ResourceLocation(Occultism.MODID, "ritual"))
-                .setType(Ritual.class).create();
+        new RegistryBuilder<RitualFactory>().setName(new ResourceLocation(Occultism.MODID, "ritual_factory"))
+                .setType(RitualFactory.class).create();
         new RegistryBuilder<SpiritJobFactory>().setName(new ResourceLocation(Occultism.MODID, "spirit_job_factory"))
                 .setType(SpiritJobFactory.class).create();
 
-        OccultismRituals.PENTACLES.register(modEventBus);
-        OccultismRituals.RITUALS.register(modEventBus);
         OccultismSpiritJobs.JOBS.register(modEventBus);
+        OccultismRituals.RITUAL_FACTORIES.register(modEventBus);
     }
 
     @SubscribeEvent
@@ -102,6 +100,7 @@ public class RegistryEventHandler {
         registerSpawnEgg(registry, OccultismEntities.GREEDY_FAMILIAR_TYPE.get(), "familiar_greedy", 0x54990f, 0x725025);
         registerSpawnEgg(registry, OccultismEntities.BAT_FAMILIAR_TYPE.get(), "familiar_bat", 0x434343, 0xd1865f);
         registerSpawnEgg(registry, OccultismEntities.DEER_FAMILIAR_TYPE.get(), "familiar_deer", 0xc9833e, 0xfffdf2);
+        registerSpawnEgg(registry, OccultismEntities.CTHULHU_FAMILIAR_TYPE.get(), "familiar_cthulhu", 0x00cdc2, 0x4ae7c0);
 
         Occultism.LOGGER.info("Registered SpawnEggItems");
 

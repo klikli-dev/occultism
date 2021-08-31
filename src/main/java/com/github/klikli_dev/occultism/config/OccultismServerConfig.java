@@ -55,7 +55,7 @@ public class OccultismServerConfig extends ConfigBase {
     }
     //endregion Initialization
 
-    public class ItemSettings extends ConfigCategoryBase {
+    public static class ItemSettings extends ConfigCategoryBase {
         //region Fields
         public final CachedObject<List<String>> soulgemEntityTypeDenyList;
         //endregion Fields
@@ -76,7 +76,7 @@ public class OccultismServerConfig extends ConfigBase {
         }
     }
 
-    public class SpiritJobSettings extends ConfigCategoryBase {
+    public static class SpiritJobSettings extends ConfigCategoryBase {
         //region Fields
         public final CachedFloat tier1CrusherTimeMultiplier;
         public final CachedFloat tier2CrusherTimeMultiplier;
@@ -87,12 +87,6 @@ public class OccultismServerConfig extends ConfigBase {
         public final CachedFloat tier3CrusherOutputMultiplier;
         public final CachedFloat tier4CrusherOutputMultiplier;
         public final CachedInt drikwingFamiliarSlowFallingSeconds;
-        public final CachedInt tier1CrusherMaxAgeSeconds;
-        public final CachedInt tier2CrusherMaxAgeSeconds;
-        public final CachedInt tier3CrusherMaxAgeSeconds;
-        public final CachedInt tier4CrusherMaxAgeSeconds;
-        public final CachedInt tier1SaplingTraderMaxAgeSeconds;
-        public final CachedInt tier1OtherstoneTraderMaxAgeSeconds;
         public final CachedInt crusherResultPickupDelay;
         //endregion Fields
 
@@ -138,33 +132,6 @@ public class OccultismServerConfig extends ConfigBase {
                             "The multiplier to each crushing recipe's output count for Tier 4 (Marid) Crusher Spirits.")
                             .define("tier4CrusherOutputMultiplier", 3.0));
 
-            this.tier1CrusherMaxAgeSeconds = CachedInt.cache(this,
-                    builder.comment(
-                            "The max seconds before a spirit despawns. -1 to disable despawn.")
-                            .define("tier1CrusherMaxAgeSeconds", 60 * 60 * 9));
-            this.tier2CrusherMaxAgeSeconds = CachedInt.cache(this,
-                    builder.comment(
-                            "The max seconds before a spirit despawns. -1 to disable despawn.")
-                            .define("tier2CrusherMaxAgeSeconds", -1));
-            this.tier3CrusherMaxAgeSeconds = CachedInt.cache(this,
-                    builder.comment(
-                            "The max seconds before a spirit despawns. -1 to disable despawn.")
-                            .define("tier3CrusherMaxAgeSeconds", -1));
-            this.tier4CrusherMaxAgeSeconds = CachedInt.cache(this,
-                    builder.comment(
-                            "The max seconds before a spirit despawns. -1 to disable despawn.")
-                            .define("tier4CrusherMaxAgeSeconds", -1));
-
-
-            this.tier1SaplingTraderMaxAgeSeconds = CachedInt.cache(this,
-                    builder.comment(
-                            "The max seconds before a spirit despawns. -1 to disable despawn.")
-                            .define("tier1SaplingTraderMaxAgeSeconds", 60 * 60 * 1));
-            this.tier1OtherstoneTraderMaxAgeSeconds = CachedInt.cache(this,
-                    builder.comment(
-                            "The max seconds before a spirit despawns. -1 to disable despawn.")
-                            .define("tier1SaplingTraderMaxAgeSeconds", 60 * 60 * 1));
-
             this.crusherResultPickupDelay = CachedInt.cache(this,
                     builder.comment(
                             "The minimum ticks before a crusher can pick up an item it dropped. Default is 3 Seconds = 3 * 20 Ticks.")
@@ -175,7 +142,7 @@ public class OccultismServerConfig extends ConfigBase {
         //endregion Initialization
     }
 
-    public class DimensionalMineshaftSettings extends ConfigCategoryBase {
+    public static class DimensionalMineshaftSettings extends ConfigCategoryBase {
         //region Fields
         public final MinerSpiritSettings minerFoliotUnspecialized;
         public final MinerSpiritSettings minerDjinniOres;
@@ -196,7 +163,7 @@ public class OccultismServerConfig extends ConfigBase {
         }
 
         //endregion Initialization
-        public class MinerSpiritSettings extends ConfigCategoryBase {
+        public static class MinerSpiritSettings extends ConfigCategoryBase {
             //region Fields
             public final CachedInt maxMiningTime;
             public final CachedInt rollsPerOperation;
@@ -226,7 +193,7 @@ public class OccultismServerConfig extends ConfigBase {
 
     }
 
-    public class RitualSettings extends ConfigCategoryBase {
+    public static class RitualSettings extends ConfigCategoryBase {
         //region Fields
         public final CachedBoolean enableClearWeatherRitual;
         public final CachedBoolean enableRainWeatherRitual;
@@ -267,7 +234,7 @@ public class OccultismServerConfig extends ConfigBase {
         //endregion Initialization
     }
 
-    public class StorageSettings extends ConfigCategoryBase {
+    public static class StorageSettings extends ConfigCategoryBase {
         //region Fields
         public final CachedInt stabilizerTier1Slots;
         public final CachedInt stabilizerTier2Slots;

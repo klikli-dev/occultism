@@ -52,7 +52,7 @@ public class OccultismCommonConfig extends ConfigBase {
     }
     //endregion Initialization
 
-    public class WorldGenSettings extends ConfigCategoryBase {
+    public static class WorldGenSettings extends ConfigCategoryBase {
         //region Fields
         public final OreGenSettings oreGen;
         public final UndergroundGroveGenSettings undergroundGroveGen;
@@ -68,7 +68,7 @@ public class OccultismCommonConfig extends ConfigBase {
         }
         //endregion Initialization
 
-        public class OreGenSettings extends ConfigCategoryBase {
+        public static class OreGenSettings extends ConfigCategoryBase {
             //region Fields
 
             public final OreSettings copperOre;
@@ -98,7 +98,7 @@ public class OccultismCommonConfig extends ConfigBase {
             }
             //endregion Initialization
 
-            public class OreSettings extends ConfigCategoryBase {
+            public static class OreSettings extends ConfigCategoryBase {
                 //region Fields
                 public final CachedBoolean generateOre;
                 public final CachedObject<String> fillerBlockTag;
@@ -148,7 +148,7 @@ public class OccultismCommonConfig extends ConfigBase {
         }
 
 
-        public class UndergroundGroveGenSettings extends ConfigCategoryBase {
+        public static class UndergroundGroveGenSettings extends ConfigCategoryBase {
             //region Fields
             public final CachedBoolean generateUndergroundGroves;
             public final CachedInt groveSpawnChance;

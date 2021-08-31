@@ -40,23 +40,11 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.TextComponent;
 
-public class SummonWildHuntRitual extends SummonSpiritRitual {
-    //region Fields
-    public static final ResourceLocation villagerTag = new ResourceLocation("forge", "villagers");
-    //endregion Fields
+public class SummonWildHuntRitual extends SummonRitual {
 
-    //region Initialization
-    public SummonWildHuntRitual() {
-        super(null,
-                OccultismRituals.SUMMON_WILD_GREATER_SPIRIT_PENTACLE.get(),
-                Ingredient.of(Blocks.SKELETON_SKULL),
-                "summon_wild_hunt", 30);
-        this.sacrificePredicate = (entity) -> entity instanceof Player ||
-                                              OccultismTags.VILLAGERS.contains(entity.getType());
+    public SummonWildHuntRitual(RitualRecipe recipe) {
+        super(recipe, false);
     }
-    //endregion Initialization
-
-    //region Overrides
 
     @Override
     public void finish(Level level, BlockPos goldenBowlPosition, GoldenSacrificialBowlBlockEntity BlockEntity,
@@ -85,6 +73,32 @@ public class SummonWildHuntRitual extends SummonSpiritRitual {
                     null);
             this.spawnEntity(skeleton, level);
         }
+
+        EntityType<?> entityType = this.recipe.getEntityToSummon();
+        if (entityType != null) {
+
+            for (int i = 0; i < 3; i++) {
+                Entity entity = this.createSummonedEntity(entityType, world, goldenBowlPosition, tileEntity, castingPlayer);
+
+                if (entity instanceof LivingEntity) {
+                    LivingEntity living = (LivingEntity) entity;
+                    double offsetX = (world.getRandom().nextGaussian() - 1.0) * (1 + world.getRandom().nextInt(4));
+                    double offsetZ = (world.getRandom().nextGaussian() - 1.0) * (1 + world.getRandom().nextInt(4));
+
+                    living.setPositionAndRotation(goldenBowlPosition.getX() + offsetX, goldenBowlPosition.getY() + 1.5,
+                            goldenBowlPosition.getZ() + offsetZ,
+                            world.getRandom().nextInt(360), 0);
+                    living.setCustomName(new StringTextComponent(TextUtil.generateName()));
+
+                    if (living instanceof MobEntity) {
+                        ((MobEntity) living).onInitialSpawn((ServerWorld) world, world.getDifficultyForLocation(goldenBowlPosition), SpawnReason.MOB_SUMMONED,
+                                null,
+                                null);
+                    }
+
+                    this.spawnEntity(living, world);
+                }
+            }
     }
     //endregion Overrides
 }

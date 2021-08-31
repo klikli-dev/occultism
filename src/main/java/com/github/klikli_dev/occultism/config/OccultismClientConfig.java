@@ -42,7 +42,7 @@ public class OccultismClientConfig extends ConfigBase {
     }
     //endregion Initialization
 
-    public class VisualSettings extends ConfigCategoryBase {
+    public static class VisualSettings extends ConfigCategoryBase {
         //region Fields
         public final CachedBoolean disableDemonsDreamShaders;
         //endregion Fields
@@ -61,7 +61,7 @@ public class OccultismClientConfig extends ConfigBase {
         //endregion Initialization
     }
 
-    public class MiscSettings extends ConfigCategoryBase {
+    public static class MiscSettings extends ConfigCategoryBase {
         //region Fields
         public final CachedBoolean syncJeiSearch;
         //endregion Fields

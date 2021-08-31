@@ -74,12 +74,12 @@ public class RitualTrigger extends SimpleCriterionTrigger<RitualTrigger.Instance
 
         //region Methods
         public boolean test(ServerPlayer player, Ritual ritual) {
-            return this.ritualId.equals(ritual.getRegistryName());
+            return this.ritualId.equals(ritual.getRitualID());
         }
 
         @Override
         public ResourceLocation getCriterion() {
-            return ritualId;
+            return this.ritualId;
         }
 
         @Override

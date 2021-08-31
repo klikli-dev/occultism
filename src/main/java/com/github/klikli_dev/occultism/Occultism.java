@@ -36,7 +36,6 @@ import com.github.klikli_dev.occultism.common.level.WorldGenHandler;
 import com.github.klikli_dev.occultism.config.OccultismClientConfig;
 import com.github.klikli_dev.occultism.config.OccultismCommonConfig;
 import com.github.klikli_dev.occultism.config.OccultismServerConfig;
-import com.github.klikli_dev.occultism.network.OccultismPackets;
 import com.github.klikli_dev.occultism.registry.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
@@ -57,7 +56,6 @@ import org.apache.logging.log4j.Logger;
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.SlotTypeMessage;
 import top.theillusivec4.curios.api.SlotTypePreset;
-import vazkii.patchouli.api.PatchouliAPI;
 
 import static com.github.klikli_dev.occultism.util.StaticUtil.modLoc;
 
@@ -129,13 +127,6 @@ public class Occultism {
 
         OccultismAPI.commonSetup();
 
-        //Register multiblocks
-        OccultismRituals.PENTACLE_REGISTRY.getValues().forEach(pentacle -> {
-            ResourceLocation multiBlockId = modLoc("pentacle." + pentacle.getRegistryName().getPath());
-            if (PatchouliAPI.instance.getMultiblock(multiBlockId) == null)
-                pentacle.registerMultiblock(multiBlockId);
-        });
-
         //Register entity attributes on single thread
 
         LOGGER.info("Common setup complete.");
@@ -156,6 +147,7 @@ public class Occultism {
         event.put(OccultismEntities.GREEDY_FAMILIAR_TYPE.get(), GreedyFamiliarEntity.createAttributes().build());
         event.put(OccultismEntities.BAT_FAMILIAR_TYPE.get(), BatFamiliarEntity.createAttributes().build());
         event.put(OccultismEntities.DEER_FAMILIAR_TYPE.get(), DeerFamiliarEntity.createAttributes().build());
+        event.put(OccultismEntities.CTHULHU_FAMILIAR_TYPE.get(), CthulhuFamiliarEntity.createAttributes().build());
     }
 
     private void serverSetup(final FMLDedicatedServerSetupEvent event) {
