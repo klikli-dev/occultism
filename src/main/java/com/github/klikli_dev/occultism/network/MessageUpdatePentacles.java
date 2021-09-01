@@ -30,6 +30,7 @@ import java.util.function.Supplier;
 import com.github.klikli_dev.occultism.api.client.gui.IStorageControllerGui;
 import com.github.klikli_dev.occultism.common.ritual.pentacle.Pentacle;
 
+import com.github.klikli_dev.occultism.common.ritual.pentacle.PentacleManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketBuffer;
@@ -86,6 +87,7 @@ public class MessageUpdatePentacles extends MessageBase {
 
 				@Override
 				public void run() {
+					PentacleManager.getInstance().setPentacles(pentacles);
 				    PatchouliAPI.get().reloadBookContents();
 				}
 			};
