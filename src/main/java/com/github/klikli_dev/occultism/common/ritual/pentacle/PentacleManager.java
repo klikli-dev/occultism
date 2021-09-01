@@ -85,6 +85,10 @@ public class PentacleManager extends SimpleJsonResourceReloadListener {
         OccultismPackets.INSTANCE.send(PacketDistributor.PLAYER.with(() -> player), new MessageUpdatePentacles(this.pentacles));
     }
 
+    public void setPentacles(Map<ResourceLocation, Pentacle> pentacles){
+        this.pentacles.putAll(pentacles);
+    }
+
     public static Pentacle get(ResourceLocation id) {
         return getInstance().pentacles.get(id);
     }

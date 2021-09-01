@@ -23,6 +23,8 @@
 package com.github.klikli_dev.occultism.network;
 
 import com.github.klikli_dev.occultism.common.ritual.pentacle.Pentacle;
+
+import com.github.klikli_dev.occultism.common.ritual.pentacle.PentacleManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -79,6 +81,7 @@ public class MessageUpdatePentacles extends MessageBase {
 
                 @Override
                 public void run() {
+                    PentacleManager.getInstance().setPentacles(pentacles);
                     //TODO: Patchouli
                     //PatchouliAPI.get().reloadBookContents();
                 }
