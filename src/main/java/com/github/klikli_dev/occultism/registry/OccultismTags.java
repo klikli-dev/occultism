@@ -38,7 +38,7 @@ public class OccultismTags {
     // Block Tags
     public static final ITag<Block> CAVE_WALL_BLOCKS = makeBlockTag(new ResourceLocation(Occultism.MODID,"cave_wall_blocks"));
     public static final ITag<Block> NETHERRACK = makeBlockTag(new ResourceLocation(Occultism.MODID,"netherrack"));
-    public static final ITag<Block> CANDLES = makeBlockTag(new ResourceLocation("forge","candles"));
+    public static final ITag.INamedTag<Block> CANDLES = makeBlockTag(new ResourceLocation("forge","candles"));
 
     //Item Tags
     public static final ITag<Item> ELYTRA = makeItemTag(new ResourceLocation(Occultism.MODID,"elytra"));
