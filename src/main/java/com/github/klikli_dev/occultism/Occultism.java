@@ -36,6 +36,7 @@ import com.github.klikli_dev.occultism.common.level.WorldGenHandler;
 import com.github.klikli_dev.occultism.config.OccultismClientConfig;
 import com.github.klikli_dev.occultism.config.OccultismCommonConfig;
 import com.github.klikli_dev.occultism.config.OccultismServerConfig;
+import com.github.klikli_dev.occultism.network.OccultismPackets;
 import com.github.klikli_dev.occultism.registry.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
