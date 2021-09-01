@@ -59,8 +59,8 @@ public class SummonWildHuntRitual extends SummonRitual {
 
                 if (entity instanceof LivingEntity) {
                     LivingEntity living = (LivingEntity) entity;
-                    double offsetX = (world.getRandom().nextGaussian() - 1.0) * (1 + world.getRandom().nextInt(4));
-                    double offsetZ = (world.getRandom().nextGaussian() - 1.0) * (1 + world.getRandom().nextInt(4));
+                    double offsetX = (world.getRandom().nextGaussian()) * (1 + world.getRandom().nextInt(4));
+                    double offsetZ = (world.getRandom().nextGaussian()) * (1 + world.getRandom().nextInt(4));
 
                     living.setPositionAndRotation(goldenBowlPosition.getX() + offsetX, goldenBowlPosition.getY() + 1.5,
                             goldenBowlPosition.getZ() + offsetZ,
