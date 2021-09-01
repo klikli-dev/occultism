@@ -26,22 +26,16 @@ import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.client.model.entity.DeerFamiliarModel;
 import com.github.klikli_dev.occultism.common.entity.DeerFamiliarEntity;
 import com.github.klikli_dev.occultism.registry.OccultismModelLayers;
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.vertex.IVertexBuilder;
-
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
-import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.entity.IEntityRenderer;
-import net.minecraft.client.renderer.entity.LivingRenderer;
+import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.client.renderer.entity.layers.LayerRenderer;
+import net.minecraft.client.renderer.entity.RenderLayerParent;
+import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.ResourceLocation;
 
 public class DeerFamiliarRenderer extends MobRenderer<DeerFamiliarEntity, DeerFamiliarModel> {
 
@@ -50,7 +44,7 @@ public class DeerFamiliarRenderer extends MobRenderer<DeerFamiliarEntity, DeerFa
 
     public DeerFamiliarRenderer(EntityRendererProvider.Context context) {
         super(context, new DeerFamiliarModel(context.bakeLayer(OccultismModelLayers.FAMILIAR_DEER)), 0.3f);
-        this.layerRenderers.add(new RedNoseLayer(this));
+        this.addLayer(new RedNoseLayer(this));
     }
 
     @Override
@@ -64,30 +58,27 @@ public class DeerFamiliarRenderer extends MobRenderer<DeerFamiliarEntity, DeerFa
     }
 
     @Override
-    public ResourceLocation getEntityTexture(DeerFamiliarEntity entity) {
+    public ResourceLocation getTextureLocation(DeerFamiliarEntity entity) {
         return TEXTURES;
     }
 
-    private static class RedNoseLayer extends LayerRenderer<DeerFamiliarEntity, DeerFamiliarModel> {
+    private static class RedNoseLayer extends RenderLayer<DeerFamiliarEntity, DeerFamiliarModel> {
 
         private static final ResourceLocation RED_NOSE = new ResourceLocation(Occultism.MODID,
                 "textures/entity/deer_familiar_red_nose.png");
 
-        public RedNoseLayer(IEntityRenderer<DeerFamiliarEntity, DeerFamiliarModel> entityRendererIn) {
-            super(entityRendererIn);
+        public RedNoseLayer(RenderLayerParent<DeerFamiliarEntity, DeerFamiliarModel> parent) {
+            super(parent);
         }
 
         @Override
-        public void render(MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn,
-                DeerFamiliarEntity deer, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks,
-                float netHeadYaw, float headPitch) {
+        public void render(PoseStack pMatrixStack, MultiBufferSource pBuffer, int pPackedLight, DeerFamiliarEntity deer, float pLimbSwing, float pLimbSwingAmount, float pPartialTicks, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch) {
             if (deer.isInvisible() || !deer.hasRedNose())
                 return;
 
-            DeerFamiliarModel model = this.getEntityModel();
-            IVertexBuilder ivertexbuilder = bufferIn.getBuffer(RenderType.getEntityCutout(RED_NOSE));
-            model.render(matrixStackIn, ivertexbuilder, packedLightIn, LivingRenderer.getPackedOverlay(deer, 0), 1, 1,
-                    1, 1);
+            DeerFamiliarModel model = this.getParentModel();
+            VertexConsumer ivertexbuilder = pBuffer.getBuffer(RenderType.entityCutout(RED_NOSE));
+            model.renderToBuffer(pMatrixStack, ivertexbuilder, pPackedLight, LivingEntityRenderer.getOverlayCoords(deer, 0), 1, 1, 1, 1);
         }
     }
 }
