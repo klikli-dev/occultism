@@ -33,4 +33,5 @@ public class OccultismModelLayers {
     public static ModelLayerLocation FAMILIAR_BAT = new ModelLayerLocation(new ResourceLocation("occultism:familiar_bat"), "main");
     public static ModelLayerLocation FAMILIAR_GREEDY = new ModelLayerLocation(new ResourceLocation("occultism:familiar_greedy"), "main");
     public static ModelLayerLocation FAMILIAR_DEER = new ModelLayerLocation(new ResourceLocation("occultism:familiar_deer"), "main");
+    public static ModelLayerLocation FAMILIAR_CTHULHU = new ModelLayerLocation(new ResourceLocation("occultism:familiar_cthulhu"), "main");
 }

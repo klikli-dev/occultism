@@ -104,6 +104,7 @@ public class ClientSetupEventHandler {
         event.registerLayerDefinition(OccultismModelLayers.FAMILIAR_BAT, BatFamiliarModel::createBodyLayer);
         event.registerLayerDefinition(OccultismModelLayers.FAMILIAR_DEER, DeerFamiliarModel::createBodyLayer);
         event.registerLayerDefinition(OccultismModelLayers.FAMILIAR_GREEDY, GreedyFamiliarModel::createBodyLayer);
+        event.registerLayerDefinition(OccultismModelLayers.FAMILIAR_CTHULHU, CthulhuFamiliarModel::createBodyLayer);
         event.registerLayerDefinition(OccultismModelLayers.DJINNI, DjinniModel::createBodyLayer);
         event.registerLayerDefinition(OccultismModelLayers.FOLIOT, FoliotModel::createBodyLayer);
         event.registerLayerDefinition(OccultismModelLayers.MARID, MaridModel::createBodyLayer);
