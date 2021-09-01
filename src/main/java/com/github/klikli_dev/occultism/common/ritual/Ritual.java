@@ -158,7 +158,7 @@ public abstract class Ritual {
     public boolean isValid(Level level, BlockPos goldenBowlPosition, GoldenSacrificialBowlBlockEntity blockEntity,
                            Player castingPlayer, ItemStack activationItem,
                            List<Ingredient> remainingAdditionalIngredients) {
-        return this.recipe.getActivationItem().test(activationItem) &&
+        return this.recipe.getPentacle() != null && this.recipe.getActivationItem().test(activationItem) &&
                 this.areAdditionalIngredientsFulfilled(level, goldenBowlPosition, remainingAdditionalIngredients) &&
                 this.recipe.getPentacle().validate(level, goldenBowlPosition);
     }
@@ -251,7 +251,7 @@ public abstract class Ritual {
      * @return true if the ritual matches, false otherwise.
      */
     public boolean identify(Level level, BlockPos goldenBowlPosition, ItemStack activationItem) {
-        return this.recipe.getActivationItem().test(activationItem) &&
+        return this.recipe.getPentacle() != null && this.recipe.getActivationItem().test(activationItem) &&
                 this.areAdditionalIngredientsFulfilled(level, goldenBowlPosition, this.recipe.getIngredients()) &&
                 this.recipe.getPentacle().validate(level, goldenBowlPosition);
     }

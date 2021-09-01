@@ -60,7 +60,7 @@ public class RitualRecipeProcessor implements IComponentProcessor {
             return IVariable.from(this.recipe.getActivationItem().getMatchingStacks());
         }
 
-        if(key.startsWith("pentacle")){
+        if(key.startsWith("pentacle") && this.recipe.getPentacle() != null){
             //$(l:pentacles/summon_foliot)Aviar's Circle$(/l)
             String pentacleName = I18n.format(this.recipe.getPentacle().getDescriptionId());
             String pentacleLink = "pentacles/" + this.recipe.getPentacleId().getPath();
