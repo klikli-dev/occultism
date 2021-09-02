@@ -58,8 +58,8 @@ public class SummonWildHuntRitual extends SummonRitual {
                 Entity entity = this.createSummonedEntity(entityType, level, goldenBowlPosition, blockEntity, castingPlayer);
 
                 if (entity instanceof LivingEntity living) {
-                    double offsetX = (level.getRandom().nextGaussian()) * (1 + level.getRandom().nextInt(4));
-                    double offsetZ = (level.getRandom().nextGaussian()) * (1 + level.getRandom().nextInt(4));
+                    double offsetX = level.getRandom().nextGaussian() * (1 + level.getRandom().nextInt(4));
+                    double offsetZ = level.getRandom().nextGaussian() * (1 + level.getRandom().nextInt(4));
 
                     living.absMoveTo(goldenBowlPosition.getX() + offsetX, goldenBowlPosition.getY() + 1.5,
                             goldenBowlPosition.getZ() + offsetZ,

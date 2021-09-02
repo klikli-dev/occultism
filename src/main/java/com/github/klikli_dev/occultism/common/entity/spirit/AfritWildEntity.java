@@ -59,8 +59,8 @@ public class AfritWildEntity extends AfritEntity {
         for (int i = 0; i < maxBlazes; i++) {
             Blaze entity = EntityType.BLAZE.create(level.getLevel());
             entity.finalizeSpawn(level, difficultyIn, reason, spawnDataIn, dataTag);
-            double offsetX = (level.getRandom().nextGaussian() - 1.0) * (1 + level.getRandom().nextInt(4));
-            double offsetZ = (level.getRandom().nextGaussian() - 1.0) * (1 + level.getRandom().nextInt(4));
+            double offsetX = level.getRandom().nextGaussian() * (1 + level.getRandom().nextInt(4));
+            double offsetZ = level.getRandom().nextGaussian() * (1 + level.getRandom().nextInt(4));
             entity.absMoveTo(this.getBlockX() + offsetX, this.getBlockY() + 1.5, this.getBlockZ() + offsetZ,
                     level.getRandom().nextInt(360), 0);
             level.addFreshEntity(entity);

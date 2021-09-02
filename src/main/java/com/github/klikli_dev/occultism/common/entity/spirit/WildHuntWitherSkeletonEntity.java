@@ -65,8 +65,8 @@ public class WildHuntWitherSkeletonEntity extends WitherSkeleton {
         for (int i = 0; i < maxSkeletons; i++) {
             WildHuntSkeletonEntity entity = OccultismEntities.WILD_HUNT_SKELETON.get().create(this.level);
             entity.finalizeSpawn(level, difficultyIn, reason, spawnDataIn, dataTag);
-            double offsetX = (level.getRandom().nextGaussian() - 1.0) * (1 + level.getRandom().nextInt(4));
-            double offsetZ = (level.getRandom().nextGaussian() - 1.0) * (1 + level.getRandom().nextInt(4));
+            double offsetX = level.getRandom().nextGaussian() * (1 + level.getRandom().nextInt(4));
+            double offsetZ = level.getRandom().nextGaussian() * (1 + level.getRandom().nextInt(4));
             entity.absMoveTo(this.getBlockX() + offsetX, this.getBlockY() + 1.5, this.getBlockZ() + offsetZ,
                     level.getRandom().nextInt(360), 0);
             entity.setCustomName(new TextComponent(TextUtil.generateName()));
