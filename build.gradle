@@ -201,3 +201,5 @@ afterEvaluate {
         options.compilerArgs << "-Xmaxerrs" << "2000"
     }
 }
+
+processResources.setDuplicatesStrategy(DuplicatesStrategy.WARN)
