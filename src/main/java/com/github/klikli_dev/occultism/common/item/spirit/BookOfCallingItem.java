@@ -281,7 +281,7 @@ public class BookOfCallingItem extends Item implements IIngredientCopyNBT, IHand
         //show player swing anim
         player.swing(hand);
         player.setItemInHand(hand, stack); //need to write the item back to hand, otherwise we only modify a copy
-        targetSpirit.remove(true);
+        targetSpirit.remove(Entity.RemovalReason.DISCARDED);
         player.inventoryMenu.broadcastChanges();
         return InteractionResult.SUCCESS;
     }

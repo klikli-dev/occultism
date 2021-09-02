@@ -143,7 +143,7 @@ public class SoulGemItem extends Item {
         //show player swing anim
         player.swing(hand);
         player.setItemInHand(hand, stack); //need to write the item back to hand, otherwise we only modify a copy
-        target.remove(true);
+        target.remove(Entity.RemovalReason.DISCARDED);
         player.inventoryMenu.broadcastChanges();
         return InteractionResult.SUCCESS;
     }

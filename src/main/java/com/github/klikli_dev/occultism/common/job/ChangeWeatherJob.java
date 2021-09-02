@@ -28,6 +28,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.phys.Vec3;
@@ -91,7 +92,7 @@ public abstract class ChangeWeatherJob extends SpiritJob {
             lightningboltentity.setVisualOnly(true);
 
             this.entity.die(DamageSource.LIGHTNING_BOLT);
-            this.entity.remove(false);
+            this.entity.remove(Entity.RemovalReason.DISCARDED);
         }
     }
 

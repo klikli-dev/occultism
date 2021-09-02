@@ -30,6 +30,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
 
 public abstract class ChangeTimeJob extends SpiritJob {
 
@@ -86,7 +87,7 @@ public abstract class ChangeTimeJob extends SpiritJob {
             this.changeTime();
             this.entity.level.playSound(null, this.entity.blockPosition(), SoundEvents.BEACON_ACTIVATE, SoundSource.NEUTRAL, 1, 1);
             this.entity.die(DamageSource.OUT_OF_WORLD);
-            this.entity.remove(false);
+            this.entity.remove(Entity.RemovalReason.DISCARDED);
         }
     }
 

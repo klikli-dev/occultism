@@ -97,7 +97,7 @@ public class SacrificialBowlBlockEntity extends NetworkedBlockEntity {
     }
 
     @Override
-    protected void invalidateCaps() {
+    public void invalidateCaps() {
         super.invalidateCaps();
         this.itemStackHandler.invalidate();
     }

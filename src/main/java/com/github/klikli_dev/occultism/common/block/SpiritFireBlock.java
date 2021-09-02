@@ -34,6 +34,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Containers;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
@@ -244,7 +245,7 @@ public class SpiritFireBlock extends Block {
 
             if (recipe.isPresent()) {
                 convertedAnyItem = true;
-                item.remove(false);
+                item.remove(Entity.RemovalReason.DISCARDED);
 
                 ItemStack result = recipe.get().assemble(fakeInventory);
                 Containers.dropItemStack(level, center.x, center.y + 0.5, center.z, result);

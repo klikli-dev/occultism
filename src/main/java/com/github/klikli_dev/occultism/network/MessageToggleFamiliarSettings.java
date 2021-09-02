@@ -91,8 +91,8 @@ public class MessageToggleFamiliarSettings extends MessageBase {
             }
             if (this.toggleCthulhu) {
                 cap.setCthulhuEnabled(!cap.isCthulhuEnabled());
-                player.sendStatusMessage(
-                        new TranslationTextComponent(
+                player.displayClientMessage(
+                        new TranslatableComponent(
                                 "message." + Occultism.MODID + ".familiar.cthulhu." +
                                         (cap.isCthulhuEnabled() ? "enabled" : "disabled")), true);
             }

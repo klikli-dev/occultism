@@ -38,6 +38,8 @@ import com.github.klikli_dev.occultism.util.RecipeUtil;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.constants.VanillaRecipeCategoryUid;
 import mezz.jei.api.constants.VanillaTypes;
+import mezz.jei.api.helpers.IStackHelper;
+import mezz.jei.api.recipe.transfer.IRecipeTransferHandlerHelper;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
@@ -49,8 +51,10 @@ import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeManager;
+import net.minecraft.world.item.crafting.ShapelessRecipe;
 import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.items.wrapper.RecipeWrapper;
 
@@ -124,14 +128,14 @@ public class JeiPlugin implements IModPlugin {
 
     @Override
     public void registerRecipeTransferHandlers(IRecipeTransferRegistration registration) {
-        registration.addRecipeTransferHandler(new StorageControllerRecipeTransferHandler<>(
-                        StorageControllerContainer.class, registration.getTransferHelper()),
+        //region Fields
+        IStackHelper stackHelper = registration.getJeiHelpers().getStackHelper();
+        IRecipeTransferHandlerHelper handlerHelper = registration.getTransferHelper();
+        registration.addRecipeTransferHandler(new StorageControllerRecipeTransferHandler<>(stackHelper, handlerHelper),
                 VanillaRecipeCategoryUid.CRAFTING);
-        registration.addRecipeTransferHandler(new StorageControllerRecipeTransferHandler<>(
-                        StorageRemoteContainer.class, registration.getTransferHelper()),
+        registration.addRecipeTransferHandler(new StorageControllerRecipeTransferHandler<>(stackHelper, handlerHelper),
                 VanillaRecipeCategoryUid.CRAFTING);
-        registration.addRecipeTransferHandler(new StorageControllerRecipeTransferHandler<>(
-                        StableWormholeContainer.class, registration.getTransferHelper()),
+        registration.addRecipeTransferHandler(new StorageControllerRecipeTransferHandler<>(stackHelper, handlerHelper),
                 VanillaRecipeCategoryUid.CRAFTING);
     }
 

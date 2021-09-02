@@ -64,11 +64,11 @@ public class WildHuntSkeletonEntity extends Skeleton {
     }
 
     @Override
-    public void remove(boolean keepData) {
+    public void remove(RemovalReason reason) {
         this.master.ifPresent(boss -> {
             boss.notifyMinionDeath(this);
         });
-        super.remove(keepData);
+        super.remove(reason);
     }
 
     @Override

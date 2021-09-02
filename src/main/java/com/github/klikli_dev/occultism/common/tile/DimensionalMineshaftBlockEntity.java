@@ -269,7 +269,7 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
     }
 
     @Override
-    protected void invalidateCaps() {
+    public void invalidateCaps() {
         super.invalidateCaps();
         this.inputHandler.invalidate();
         this.outputHandler.invalidate();

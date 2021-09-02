@@ -385,7 +385,7 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
                 this.setSpiritAge(this.getSpiritAge() + 1);
                 if (this.getSpiritAge() > this.getSpiritMaxAge()) {
                     this.die(DamageSource.GENERIC);
-                    this.remove(false);
+                    this.remove(RemovalReason.DISCARDED);
                 }
             }
             if (!this.dead)
@@ -608,9 +608,10 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
         super.die(cause);
     }
 
-    public void remove(boolean keepData) {
+    @Override
+    public void remove(RemovalReason reason) {
         this.removeJob();
-        super.remove(keepData);
+        super.remove(reason);
     }
 
     @Override

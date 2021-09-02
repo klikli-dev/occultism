@@ -24,6 +24,7 @@ package com.github.klikli_dev.occultism.common.ritual.pentacle;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.network.MessageUpdatePentacles;
+import com.github.klikli_dev.occultism.network.OccultismPackets;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
@@ -69,7 +70,7 @@ public class PentacleManager extends SimpleJsonResourceReloadListener {
                          ProfilerFiller profilerIn) {
         for (Entry<ResourceLocation, JsonElement> entry : objectIn.entrySet()) {
             ResourceLocation key = entry.getKey();
-            Pentacle pentacle = Pentacle.fromJson(key, GsonHelper.getAsJsonObject(entry.getValue(), "top element"));
+            Pentacle pentacle = Pentacle.fromJson(key, GsonHelper.convertToJsonObject(entry.getValue(), "top element"));
             this.pentacles.put(key, pentacle);
         }
 

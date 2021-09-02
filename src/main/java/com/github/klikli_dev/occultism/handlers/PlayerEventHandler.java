@@ -65,7 +65,7 @@ public class PlayerEventHandler {
                 }
 
                 //consume all datura
-                list.forEach(e -> e.remove(false));
+                list.forEach(e -> e.remove(Entity.RemovalReason.DISCARDED));
 
                 Level level = event.getWorld();
                 //if there is air, place block and play sound

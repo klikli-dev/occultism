@@ -121,7 +121,7 @@ public class FamiliarRingItem extends Item {
             if (this.getFamiliar(level) != null)
                 return false;
             this.setFamiliar(familiar);
-            this.getFamiliar(level).getEntity().remove(false);
+            this.getFamiliar(level).getEntity().remove(Entity.RemovalReason.DISCARDED);
             return true;
         }
 
