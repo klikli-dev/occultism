@@ -66,27 +66,27 @@ public class CthulhuFamiliarModel extends EntityModel<CthulhuFamiliarEntity> {
 
     public CthulhuFamiliarModel(ModelPart part) {
         this.body = part.getChild("body");
-        this.head = body.getChild("head");
-        this.leftLeg = body.getChild("leftLeg");
-        this.leftArm = body.getChild("leftArm");
-        this.tail = body.getChild("tail");
-        this.leftWing = body.getChild("leftWing");
-        this.rightLeg = body.getChild("rightLeg");
-        this.rightArm = body.getChild("rightArm");
-        this.rightWing = body.getChild("rightWing");
-        this.hair = head.getChild("hair");
-        this.leftEye = head.getChild("leftEye");
-        this.rightEye = head.getChild("rightEye");
-        this.leftEar = head.getChild("leftEar");
-        this.tentacle1 = head.getChild("tentacle1");
-        this.tentacle2 = head.getChild("tentacle2");
-        this.tentacle3 = head.getChild("tentacle3");
-        this.rightEar = head.getChild("rightEar");
-        this.hat1 = head.getChild("hat1");
-        this.trunk1 = head.getChild("trunk1");
-        this.hat2 = hat1.getChild("hat2");
-        this.trunk2 = trunk1.getChild("trunk2");
-        this.trunk3 = trunk2.getChild("trunk3");
+        this.head = this.body.getChild("head");
+        this.leftLeg = this.body.getChild("leftLeg");
+        this.leftArm = this.body.getChild("leftArm");
+        this.tail = this.body.getChild("tail");
+        this.leftWing = this.body.getChild("leftWing");
+        this.rightLeg = this.body.getChild("rightLeg");
+        this.rightArm = this.body.getChild("rightArm");
+        this.rightWing = this.body.getChild("rightWing");
+        this.hair = this.head.getChild("hair");
+        this.leftEye = this.head.getChild("leftEye");
+        this.rightEye = this.head.getChild("rightEye");
+        this.leftEar = this.head.getChild("leftEar");
+        this.tentacle1 = this.head.getChild("tentacle1");
+        this.tentacle2 = this.head.getChild("tentacle2");
+        this.tentacle3 = this.head.getChild("tentacle3");
+        this.rightEar = this.head.getChild("rightEar");
+        this.hat1 = this.head.getChild("hat1");
+        this.trunk1 = this.head.getChild("trunk1");
+        this.hat2 = this.hat1.getChild("hat2");
+        this.trunk2 = this.trunk1.getChild("trunk2");
+        this.trunk3 = this.trunk2.getChild("trunk3");
     }
 
     public static LayerDefinition createBodyLayer() {
@@ -171,12 +171,12 @@ public class CthulhuFamiliarModel extends EntityModel<CthulhuFamiliarEntity> {
     public void prepareMobModel(CthulhuFamiliarEntity entityIn, float limbSwing, float limbSwingAmount,
                                 float partialTick) {
         if (entityIn.isSitting()) {
-            leftWing.yRot = -0.43f;
-            rightWing.yRot = 0.43f;
+            this.leftWing.yRot = -0.43f;
+            this.rightWing.yRot = 0.43f;
         } else {
             float animationHeight = entityIn.getAnimationHeight(partialTick);
-            leftWing.yRot = animationHeight * toRads(20) - 0.43f;
-            rightWing.yRot = -animationHeight * toRads(20) + 0.43f;
+            this.leftWing.yRot = animationHeight * this.toRads(20) - 0.43f;
+            this.rightWing.yRot = -animationHeight * this.toRads(20) + 0.43f;
         }
     }
 
