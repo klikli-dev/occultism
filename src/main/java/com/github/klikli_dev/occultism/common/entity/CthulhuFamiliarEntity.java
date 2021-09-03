@@ -26,7 +26,6 @@ import com.github.klikli_dev.occultism.common.capability.FamiliarSettingsCapabil
 import com.github.klikli_dev.occultism.registry.OccultismCapabilities;
 import com.google.common.collect.ImmutableList;
 
-import jdk.nashorn.internal.ir.annotations.Immutable;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.LivingEntity;

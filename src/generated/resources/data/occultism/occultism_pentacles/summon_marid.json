@@ -1,26 +1,30 @@
 {
   "pattern": [
-    "           ",
-    "    PRP    ",
-    "   WCWCW   ",
-    "  W WNW W  ",
-    " PCWP PWCP ",
-    " RWZ 0 ZWR ",
-    " PCWP PWCP ",
-    "  W WNW W  ",
-    "   WCWCW   ",
-    "    PRP    ",
-    "           "
+    "       Z       ",
+    "      RRR      ",
+    "     RCWCR     ",
+    "    R  W  R    ",
+    "   RG WNW GR   ",
+    "  R  GW WG  R  ",
+    " RC WW   WW CR ",
+    "ZRWWN  0  NWWRZ",
+    " RC WW   WW CR ",
+    "  R  GW WG  R  ",
+    "   RG WNW GR   ",
+    "    R  W  R    ",
+    "     RCWCR     ",
+    "      RRR      ",
+    "       Z       "
   ],
   "mapping": {
     "0": "occultism:golden_sacrificial_bowl",
-    "W": "occultism:chalk_glyph_white",
-    "P": "occultism:chalk_glyph_purple",
     "R": "occultism:chalk_glyph_red",
     "C": {
       "tag": "forge:candles",
       "display": "occultism:candle_white"
     },
+    "W": "occultism:chalk_glyph_white",
+    "G": "occultism:chalk_glyph_gold",
     "Z": {
       "block": "minecraft:skeleton_skull",
       "display": "occultism:skeleton_skull_dummy"
