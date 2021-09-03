@@ -1,23 +1,21 @@
 {
   "pattern": [
-    "   C C   ",
-    "   PPP   ",
-    "  W Z W  ",
-    "CP W W PC",
-    " PZ 0 ZP ",
-    "CP W W PC",
-    "  W Z W  ",
-    "   PPP   ",
-    "   C C   "
+    "  GCG  ",
+    " G P G ",
+    "G  P  G",
+    "CPP0PPC",
+    "G  P  G",
+    " G P G ",
+    "  GCG  "
   ],
   "mapping": {
     "0": "occultism:golden_sacrificial_bowl",
-    "W": "occultism:chalk_glyph_white",
     "P": "occultism:chalk_glyph_purple",
     "C": {
       "tag": "forge:candles",
       "display": "occultism:candle_white"
     },
+    "G": "occultism:chalk_glyph_gold",
     "Z": {
       "block": "minecraft:skeleton_skull",
       "display": "occultism:skeleton_skull_dummy"

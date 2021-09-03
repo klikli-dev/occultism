@@ -158,6 +158,19 @@ public class Pentacle {
 //            throw new JsonSyntaxException("Invalid block " + blockRL);
 //        return PatchouliAPI.get().looseBlockMatcher(block);
 //    }
+    
+    public JsonObject toJson() {
+        JsonObject json = new JsonObject();
+        JsonArray jsonPattern = new JsonArray();
+        for (String row : pattern)
+            jsonPattern.add(row);
+        json.add("pattern", jsonPattern);
+        JsonObject jsonMapping = new JsonObject();
+        for (Entry<Character, JsonElement> entry : mappings.entrySet())
+            jsonMapping.add(String.valueOf(entry.getKey()), entry.getValue());
+        json.add("mapping", jsonMapping);
+        return json;
+    }
 
     public void toNetwork(FriendlyByteBuf buffer) {
         buffer.writeInt(this.pattern.size());
