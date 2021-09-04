@@ -23,11 +23,8 @@
 package com.github.klikli_dev.occultism.common.item.tool;
 
 import com.github.klikli_dev.occultism.Occultism;
-import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
@@ -47,15 +44,15 @@ public class GuideBookItem extends Item {
 
     //region Fields
     public static final ResourceLocation GUIDE = new ResourceLocation(Occultism.MODID, "dictionary_of_spirits");
-    protected static Field containerItemField =
-            ObfuscationReflectionHelper.findField(Item.class, "field_77700_c");
+    protected static Field craftingRemainingItemField =
+            ObfuscationReflectionHelper.findField(Item.class, "f_41378_");
     //endregion Fields
 
     //region Initialization
     public GuideBookItem(Properties properties) {
         super(properties);
         try {
-            containerItemField.set(this, this);
+            craftingRemainingItemField.set(this, this);
         } catch (IllegalAccessException e) {
         }
     }

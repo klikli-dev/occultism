@@ -23,10 +23,10 @@
 package com.github.klikli_dev.occultism.integration.jei;
 
 import com.github.klikli_dev.occultism.Occultism;
-import com.github.klikli_dev.occultism.common.container.storage.StableWormholeContainer;
-import com.github.klikli_dev.occultism.common.container.storage.StorageControllerContainer;
-import com.github.klikli_dev.occultism.common.container.storage.StorageRemoteContainer;
-import com.github.klikli_dev.occultism.crafting.recipe.ItemStackFakeInventory;
+import com.github.klikli_dev.occultism.crafting.recipe.CrushingRecipe;
+import com.github.klikli_dev.occultism.crafting.recipe.MinerRecipe;
+import com.github.klikli_dev.occultism.crafting.recipe.RitualRecipe;
+import com.github.klikli_dev.occultism.crafting.recipe.SpiritFireRecipe;
 import com.github.klikli_dev.occultism.integration.jei.recipes.CrushingRecipeCategory;
 import com.github.klikli_dev.occultism.integration.jei.recipes.MinerRecipeCategory;
 import com.github.klikli_dev.occultism.integration.jei.recipes.RitualRecipeCategory;
@@ -34,7 +34,6 @@ import com.github.klikli_dev.occultism.integration.jei.recipes.SpiritFireRecipeC
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.github.klikli_dev.occultism.registry.OccultismRecipes;
-import com.github.klikli_dev.occultism.util.RecipeUtil;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.constants.VanillaRecipeCategoryUid;
 import mezz.jei.api.constants.VanillaTypes;
@@ -49,16 +48,11 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.CraftingRecipe;
-import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeManager;
-import net.minecraft.world.item.crafting.ShapelessRecipe;
 import net.minecraft.world.level.ItemLike;
-import net.minecraftforge.items.wrapper.RecipeWrapper;
 
-import java.util.Collection;
+import java.util.List;
 
 @mezz.jei.api.JeiPlugin
 public class JeiPlugin implements IModPlugin {
@@ -95,20 +89,17 @@ public class JeiPlugin implements IModPlugin {
         ClientLevel level = Minecraft.getInstance().level;
         RecipeManager recipeManager = level.getRecipeManager();
 
-        Collection<Recipe<ItemStackFakeInventory>> spiritFireRecipes =
-                RecipeUtil.getRecipes(recipeManager, OccultismRecipes.SPIRIT_FIRE_TYPE.get()).values();
+
+        List<SpiritFireRecipe> spiritFireRecipes = recipeManager.getAllRecipesFor(OccultismRecipes.SPIRIT_FIRE_TYPE.get());
         registration.addRecipes(spiritFireRecipes, OccultismRecipes.SPIRIT_FIRE.getId());
 
-        Collection<Recipe<ItemStackFakeInventory>> crushingRecipes =
-                RecipeUtil.getRecipes(recipeManager, OccultismRecipes.CRUSHING_TYPE.get()).values();
+        List<CrushingRecipe> crushingRecipes = recipeManager.getAllRecipesFor(OccultismRecipes.CRUSHING_TYPE.get());
         registration.addRecipes(crushingRecipes, OccultismRecipes.CRUSHING.getId());
 
-        Collection<Recipe<RecipeWrapper>> minerRecipes =
-                RecipeUtil.getRecipes(recipeManager, OccultismRecipes.MINER_TYPE.get()).values();
+        List<MinerRecipe> minerRecipes = recipeManager.getAllRecipesFor(OccultismRecipes.MINER_TYPE.get());
         registration.addRecipes(minerRecipes, OccultismRecipes.MINER.getId());
 
-        Collection<Recipe<CraftingContainer>> ritualRecipes =
-                RecipeUtil.getRecipes(recipeManager, OccultismRecipes.RITUAL_TYPE.get()).values();
+        List<RitualRecipe> ritualRecipes = recipeManager.getAllRecipesFor(OccultismRecipes.RITUAL_TYPE.get());
         registration.addRecipes(ritualRecipes, OccultismRecipes.RITUAL.getId());
 
         this.registerIngredientInfo(registration, OccultismItems.TALLOW.get());

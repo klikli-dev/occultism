@@ -29,24 +29,20 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
 
+import java.util.List;
 import java.util.Map;
 
 public class RecipeUtil {
 
     //region Static Methods
-    public static <C extends Container, T extends Recipe<C>> Map<ResourceLocation, Recipe<C>> getRecipes(
-            RecipeManager recipeManager, RecipeType<T> recipeType) {
-        return ReflectionUtil.RecipeManagerReflection.getRecipes(recipeManager, recipeType);
-    }
-
     public static <C extends Container, T extends Recipe<C>> boolean isValidIngredient(RecipeManager recipeManager,
                                                                                        RecipeType<T> recipeType,
                                                                                        ItemStack stack) {
         if (stack.isEmpty())
             return false;
 
-        Map<ResourceLocation, Recipe<C>> recipes = getRecipes(recipeManager, recipeType);
-        for (Recipe<C> recipe : recipes.values()) {
+        List<T> recipes = recipeManager.getAllRecipesFor(recipeType);
+        for (T recipe : recipes) {
             if (recipe.getIngredients().stream().anyMatch(i -> i.test(stack))) {
                 return true;
             }

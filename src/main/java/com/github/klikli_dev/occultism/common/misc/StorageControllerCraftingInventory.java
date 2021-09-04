@@ -38,10 +38,10 @@ import java.util.Map;
 public class StorageControllerCraftingInventory extends CraftingContainer {
 
     //region Fields
-    protected static Field stackListField;
+    protected static Field itemsField;
 
     static {
-        stackListField = ObfuscationReflectionHelper.findField(CraftingContainer.class, "field_70466_a");
+        itemsField = ObfuscationReflectionHelper.findField(CraftingContainer.class, "f_39320_");
     }
 
     protected final AbstractContainerMenu container;
@@ -84,7 +84,7 @@ public class StorageControllerCraftingInventory extends CraftingContainer {
     @Override
     public void setItem(int index, ItemStack stack) {
         try {
-            ((NonNullList<ItemStack>) stackListField.get(this)).set(index, stack);
+            ((NonNullList<ItemStack>) itemsField.get(this)).set(index, stack);
             //only notify if events are enabled
             if (!this.disableEvents) {
                 this.container.slotsChanged(this);

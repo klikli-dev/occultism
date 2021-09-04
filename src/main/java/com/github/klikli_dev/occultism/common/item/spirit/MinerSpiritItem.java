@@ -42,7 +42,7 @@ import java.util.function.Supplier;
 public class MinerSpiritItem extends Item {
 
     protected static Field maxDamageField =
-            ObfuscationReflectionHelper.findField(Item.class, "field_77699_b");
+            ObfuscationReflectionHelper.findField(Item.class, "f_41371_");
 
     //region Fields
     private final Supplier<Integer>  maxMiningTime;
