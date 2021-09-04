@@ -125,25 +125,14 @@ public class StorageRemoteItem extends Item implements MenuProvider {
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory playerInventory, Player player) {
-
-        ItemStack storageRemoteStack = CuriosUtil.getStorageRemote(player);
-        int selectedSlot = -1;
-        //if not found, try to get from player inventory
-        if (!(storageRemoteStack.getItem() instanceof StorageRemoteItem)) {
-            selectedSlot = CuriosUtil.getFirstStorageRemoteSlot(player);
-            storageRemoteStack = selectedSlot > 0 ? player.getInventory().getItem(selectedSlot) : ItemStack.EMPTY;
-        }
-        //now, if we have a storage remote, proceed
-        if (storageRemoteStack.getItem() instanceof StorageRemoteItem) {
-            return new StorageRemoteContainer(id, playerInventory, selectedSlot);
-
+        CuriosUtil.SelectedCurio selectedCurio = CuriosUtil.getStorageRemote(player);
+        if (selectedCurio != null) {
+            return new StorageRemoteContainer(id, playerInventory, selectedCurio.selectedSlot);
         } else {
             return null;
         }
     }
-    //endregion Overrides
 
-    //region Static Methods
     public static IStorageController getStorageController(ItemStack stack, Level level) {
         //Invalid item or cannot not get hold of server instance
 
@@ -159,6 +148,5 @@ public class StorageRemoteItem extends Item implements MenuProvider {
 
         return blockEntity instanceof IStorageController ? (IStorageController) blockEntity : null;
     }
-    //endregion Static Methods
 }
 

@@ -22,19 +22,15 @@
 
 package com.github.klikli_dev.occultism.network;
 
-import com.github.klikli_dev.occultism.common.item.storage.StorageRemoteItem;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.github.klikli_dev.occultism.util.CuriosUtil;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.fmllegacy.network.NetworkEvent;
 import net.minecraftforge.fmllegacy.network.NetworkHooks;
 
 public class MessageOpenStorageRemote extends MessageBase {
-
-    //region Initialization
 
     public MessageOpenStorageRemote(FriendlyByteBuf buf) {
         this.decode(buf);
@@ -43,29 +39,14 @@ public class MessageOpenStorageRemote extends MessageBase {
     public MessageOpenStorageRemote() {
 
     }
-    //endregion Initialization
-
-    //region Overrides
 
     @Override
     public void onServerReceived(MinecraftServer minecraftServer, ServerPlayer player,
                                  NetworkEvent.Context context) {
-
-        int selectedSlot = -1;
-        //first attempt to get storage remote from curios slot
-        ItemStack storageRemoteStack = CuriosUtil.getStorageRemote(player);
-
-        //if not found, try to get from player inventory
-        if (!(storageRemoteStack.getItem() instanceof StorageRemoteItem)) {
-            selectedSlot = CuriosUtil.getFirstStorageRemoteSlot(player);
-            storageRemoteStack = selectedSlot > 0 ? player.getInventory().getItem(selectedSlot) : ItemStack.EMPTY;
-        }
-        //now, if we have a storage remote, proceed
-        if (storageRemoteStack.getItem() instanceof StorageRemoteItem) {
-            int finalSelectedSlot = selectedSlot;
-
+        CuriosUtil.SelectedCurio selectedCurio = CuriosUtil.getStorageRemote(player);
+        if (selectedCurio != null) {
             NetworkHooks.openGui(player, OccultismItems.STORAGE_REMOTE.get(),
-                    buffer -> buffer.writeVarInt(finalSelectedSlot));
+                    buffer -> buffer.writeVarInt(selectedCurio.selectedSlot));
         }
     }
 
@@ -78,5 +59,4 @@ public class MessageOpenStorageRemote extends MessageBase {
     public void decode(FriendlyByteBuf buf) {
 
     }
-    //endregion Overrides
 }

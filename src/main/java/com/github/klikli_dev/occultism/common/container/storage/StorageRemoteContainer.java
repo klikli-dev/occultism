@@ -72,7 +72,7 @@ public class StorageRemoteContainer extends StorageControllerContainerBase {
     //region Getter / Setter
     public ItemStack getStorageRemote() {
         if (this.selectedSlot == -1) {
-            return CuriosUtil.getStorageRemote(this.player);
+            return CuriosUtil.getStorageRemoteCurio(this.player);
         }
         if (this.selectedSlot < 0 || this.selectedSlot >= this.player.getInventory().getContainerSize())
             return ItemStack.EMPTY;

@@ -77,7 +77,30 @@ public class CuriosUtil {
         return hasBackpack.orElse(ItemStack.EMPTY);
     }
 
-    public static ItemStack getStorageRemote(Player player) {
+    public static SelectedCurio getStorageRemote(Player player) {
+        int selectedSlot = player.getInventory().selected;
+        ItemStack storageRemoteStack = player.getInventory().getSelected();
+        //if that is not a storage remote, get from curio
+        if (!(storageRemoteStack.getItem() instanceof StorageRemoteItem)) {
+            selectedSlot = -1;
+            storageRemoteStack = CuriosUtil.getStorageRemoteCurio(player);
+        }
+
+        //if not found, try to get from player inventory
+        if (!(storageRemoteStack.getItem() instanceof StorageRemoteItem)) {
+            selectedSlot = CuriosUtil.getFirstStorageRemoteSlot(player);
+            storageRemoteStack = selectedSlot > 0 ? player.getInventory().getItem(selectedSlot) : ItemStack.EMPTY;
+        }
+        //now, if we have a storage remote, proceed
+        if (storageRemoteStack.getItem() instanceof StorageRemoteItem) {
+            return new SelectedCurio(storageRemoteStack, selectedSlot);
+
+        } else {
+            return null;
+        }
+    }
+
+    public static ItemStack getStorageRemoteCurio(Player player) {
         Optional<ItemStack> hasStorageRemote = CuriosApi.getCuriosHelper().getCuriosHandler(player).map(curiosHandler -> {
             Optional<ItemStack> hasStorageRemoteStack = curiosHandler.getStacksHandler(SlotTypePreset.HANDS.getIdentifier()).map(slotHandler -> {
                 IDynamicStackHandler stackHandler = slotHandler.getStacks();
@@ -110,5 +133,15 @@ public class CuriosUtil {
                 return slot;
         }
         return -1;
+    }
+
+    public static class SelectedCurio {
+        public ItemStack itemStack;
+        public int selectedSlot;
+
+        public SelectedCurio(ItemStack itemStack, int selectedSlot) {
+            this.itemStack = itemStack;
+            this.selectedSlot = selectedSlot;
+        }
     }
 }
