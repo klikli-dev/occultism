@@ -28,6 +28,7 @@ import net.minecraft.Util;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.storage.PrimaryLevelData;
+import net.minecraft.world.level.storage.ServerLevelData;
 
 public class ClearWeatherJob extends ChangeWeatherJob {
 
@@ -40,7 +41,6 @@ public class ClearWeatherJob extends ChangeWeatherJob {
     //region Overrides
     public void changeWeather() {
         if(Occultism.SERVER_CONFIG.rituals.enableClearWeatherRitual.get()){
-            PrimaryLevelData info = (PrimaryLevelData) this.entity.level.getLevelData();
             //taken from weathercommand#clear
             ((ServerLevel) this.entity.level).setWeatherParameters(6000, 0, false, false);
         }
