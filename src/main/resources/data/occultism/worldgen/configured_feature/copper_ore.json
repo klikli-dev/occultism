@@ -6,22 +6,33 @@
           "config": {
             "feature": {
               "config": {
-                "target": {
-                  "tag": "minecraft:base_stone_overworld",
-                  "predicate_type": "minecraft:tag_match"
-                },
-                "state": {
-                  "Name": "occultism:copper_ore"
-                },
-                "size": 7
+                "targets": [
+                  {
+                    "target": {
+                      "tag": "minecraft:base_stone_overworld",
+                      "predicate_type": "minecraft:tag_match"
+                    },
+                    "state": {
+                      "Name": "occultism:copper_ore"
+                    }
+                  }
+                ],
+                "size": 7,
+                "discard_chance_on_air_exposure": 0.0
               },
               "type": "minecraft:ore"
             },
             "decorator": {
               "config": {
-                "bottom_offset": 10,
-                "top_offset": 0,
-                "maximum": 64
+                "height": {
+                  "min_inclusive": {
+                    "above_bottom": 10
+                  },
+                  "max_inclusive": {
+                    "absolute": 64
+                  },
+                  "type": "minecraft:uniform"
+                }
               },
               "type": "minecraft:range"
             }

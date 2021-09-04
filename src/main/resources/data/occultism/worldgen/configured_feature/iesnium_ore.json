@@ -6,25 +6,36 @@
           "config": {
             "feature": {
               "config": {
-                "target": {
-                  "tag": "minecraft:base_stone_nether",
-                  "predicate_type": "minecraft:tag_match"
-                },
-                "state": {
-                  "Name": "occultism:iesnium_ore_natural",
-                  "Properties": {
-                    "uncovered": "false"
+                "targets": [
+                  {
+                    "target": {
+                      "tag": "minecraft:base_stone_nether",
+                      "predicate_type": "minecraft:tag_match"
+                    },
+                    "state": {
+                      "Name": "occultism:iesnium_ore_natural",
+                      "Properties": {
+                        "uncovered": "false"
+                      }
+                    }
                   }
-                },
-                "size": 7
+                ],
+                "size": 7,
+                "discard_chance_on_air_exposure": 0.0
               },
               "type": "minecraft:ore"
             },
             "decorator": {
               "config": {
-                "bottom_offset": 10,
-                "top_offset": 20,
-                "maximum": 128
+                "height": {
+                  "min_inclusive": {
+                    "above_bottom": 10
+                  },
+                  "max_inclusive": {
+                    "below_top": 20
+                  },
+                  "type": "minecraft:uniform"
+                }
               },
               "type": "minecraft:range"
             }
