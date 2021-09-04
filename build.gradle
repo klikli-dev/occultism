@@ -126,10 +126,6 @@ repositories {
     maven {
         name = "KliKli Maven Mirror"
         url = "https://klikli-dev.github.io/maven"
-        content {
-            includeGroup "vazkii.patchouli"
-            includeGroup "mezz.jei"
-        }
     }
     maven {
         name = "Patchouli Maven"
