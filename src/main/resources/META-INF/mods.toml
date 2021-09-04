@@ -44,6 +44,12 @@ description='''A magic mod inspired by the world of Jonathan Stroud's Bartimaeus
 #     side="BOTH"
 
 [[dependencies.occultism]]
+    modId="curios"
+    mandatory=true
+    versionRange="[1.17.1-5.0.0.1,)"
+    side="BOTH"
+
+[[dependencies.occultism]]
     modId="jei"
     mandatory=false
     versionRange="[1.17.1-8.0.0.14,)"
