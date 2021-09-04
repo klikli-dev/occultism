@@ -90,7 +90,7 @@ public class ClientPlayerEventHandler {
         else if (minecraft.player != null & minecraft.currentScreen == null &&
                 ClientSetupEventHandler.KEY_STORAGE_REMOTE.isPressed()) {
 
-            if (!CuriosUtil.getStorageRemote(minecraft.player).isEmpty() ||
+            if (!CuriosUtil.getStorageRemoteCurio(minecraft.player).isEmpty() ||
                     CuriosUtil.getFirstStorageRemoteSlot(minecraft.player) > 0) {
                 OccultismPackets.sendToServer(new MessageOpenStorageRemote());
                 minecraft.getSoundHandler().play(SimpleSound.master(SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 0.75F, 1.0F));

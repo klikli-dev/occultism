@@ -22,6 +22,7 @@
 
 package com.github.klikli_dev.occultism.util;
 
+import com.github.klikli_dev.occultism.common.container.storage.StorageRemoteContainer;
 import com.github.klikli_dev.occultism.common.item.armor.OtherworldGogglesItem;
 import com.github.klikli_dev.occultism.common.item.storage.SatchelItem;
 import com.github.klikli_dev.occultism.common.item.storage.StorageRemoteItem;
@@ -78,7 +79,30 @@ public class CuriosUtil {
         return hasBackpack.orElse(ItemStack.EMPTY);
     }
 
-    public static ItemStack getStorageRemote(PlayerEntity player)
+    public static SelectedCurio getStorageRemote(PlayerEntity player) {
+        int selectedSlot = player.inventory.currentItem;
+        ItemStack storageRemoteStack = player.inventory.getCurrentItem();
+        //if that is not a storage remote, get from curio
+        if (!(storageRemoteStack.getItem() instanceof StorageRemoteItem)) {
+            selectedSlot = -1;
+            storageRemoteStack = CuriosUtil.getStorageRemoteCurio(player);
+        }
+
+        //if not found, try to get from player inventory
+        if (!(storageRemoteStack.getItem() instanceof StorageRemoteItem)) {
+            selectedSlot = CuriosUtil.getFirstStorageRemoteSlot(player);
+            storageRemoteStack = selectedSlot > 0 ? player.inventory.getStackInSlot(selectedSlot) : ItemStack.EMPTY;
+        }
+        //now, if we have a storage remote, proceed
+        if (storageRemoteStack.getItem() instanceof StorageRemoteItem) {
+            return new SelectedCurio(storageRemoteStack, selectedSlot);
+
+        } else {
+            return null;
+        }
+    }
+
+    public static ItemStack getStorageRemoteCurio(PlayerEntity player)
     {
         Optional<ItemStack> hasStorageRemote = CuriosApi.getCuriosHelper().getCuriosHandler(player).map(curiosHandler -> {
             Optional<ItemStack> hasStorageRemoteStack = curiosHandler.getStacksHandler(SlotTypePreset.HANDS.getIdentifier()).map(slotHandler -> {
@@ -112,5 +136,15 @@ public class CuriosUtil {
                 return slot;
         }
         return -1;
+    }
+
+    public static class SelectedCurio{
+        public ItemStack itemStack;
+        public int selectedSlot;
+
+        public SelectedCurio(ItemStack itemStack, int selectedSlot){
+            this.itemStack = itemStack;
+            this.selectedSlot = selectedSlot;
+        }
     }
 }

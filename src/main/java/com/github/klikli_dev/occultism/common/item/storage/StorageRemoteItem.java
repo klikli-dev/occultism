@@ -122,18 +122,9 @@ public class StorageRemoteItem extends Item implements INamedContainerProvider {
     @Nullable
     @Override
     public Container createMenu(int id, PlayerInventory playerInventory, PlayerEntity player) {
-
-        ItemStack storageRemoteStack = CuriosUtil.getStorageRemote(player);
-        int selectedSlot = -1;
-        //if not found, try to get from player inventory
-        if (!(storageRemoteStack.getItem() instanceof StorageRemoteItem)) {
-            selectedSlot = CuriosUtil.getFirstStorageRemoteSlot(player);
-            storageRemoteStack = selectedSlot > 0 ? player.inventory.getStackInSlot(selectedSlot) : ItemStack.EMPTY;
-        }
-        //now, if we have a storage remote, proceed
-        if (storageRemoteStack.getItem() instanceof StorageRemoteItem) {
-            return new StorageRemoteContainer(id, playerInventory, selectedSlot);
-
+        CuriosUtil.SelectedCurio selectedCurio = CuriosUtil.getStorageRemote(player);
+        if(selectedCurio != null){
+            return new StorageRemoteContainer(id, playerInventory, selectedCurio.selectedSlot);
         } else {
             return null;
         }

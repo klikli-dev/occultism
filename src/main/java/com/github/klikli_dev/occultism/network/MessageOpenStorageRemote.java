@@ -22,13 +22,11 @@
 
 package com.github.klikli_dev.occultism.network;
 
-import com.github.klikli_dev.occultism.common.container.storage.SatchelContainer;
-import com.github.klikli_dev.occultism.common.item.storage.SatchelItem;
+import com.github.klikli_dev.occultism.common.container.storage.StorageRemoteContainer;
 import com.github.klikli_dev.occultism.common.item.storage.StorageRemoteItem;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.github.klikli_dev.occultism.util.CuriosUtil;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.inventory.container.SimpleNamedContainerProvider;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.server.MinecraftServer;
@@ -54,21 +52,10 @@ public class MessageOpenStorageRemote extends MessageBase {
     public void onServerReceived(MinecraftServer minecraftServer, ServerPlayerEntity player,
                                  NetworkEvent.Context context) {
 
-        int selectedSlot = -1;
-        //first attempt to get storage remote from curios slot
-        ItemStack storageRemoteStack = CuriosUtil.getStorageRemote(player);
-
-        //if not found, try to get from player inventory
-        if (!(storageRemoteStack.getItem() instanceof StorageRemoteItem)) {
-            selectedSlot = CuriosUtil.getFirstStorageRemoteSlot(player);
-            storageRemoteStack = selectedSlot > 0 ? player.inventory.getStackInSlot(selectedSlot) : ItemStack.EMPTY;
-        }
-        //now, if we have a storage remote, proceed
-        if (storageRemoteStack.getItem() instanceof StorageRemoteItem) {
-            int finalSelectedSlot = selectedSlot;
-
+        CuriosUtil.SelectedCurio selectedCurio = CuriosUtil.getStorageRemote(player);
+        if(selectedCurio != null){
             NetworkHooks.openGui(player, OccultismItems.STORAGE_REMOTE.get(),
-                    buffer -> buffer.writeVarInt(finalSelectedSlot));
+                    buffer -> buffer.writeVarInt(selectedCurio.selectedSlot));
         }
     }
 

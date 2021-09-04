@@ -34,7 +34,6 @@ import com.github.klikli_dev.occultism.util.CuriosUtil;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.ListNBT;
@@ -73,7 +72,7 @@ public class StorageRemoteContainer extends StorageControllerContainerBase {
     //region Getter / Setter
     public ItemStack getStorageRemote() {
         if (this.selectedSlot == -1) {
-            return CuriosUtil.getStorageRemote(this.player);
+            return CuriosUtil.getStorageRemoteCurio(this.player);
         }
         if (this.selectedSlot < 0 || this.selectedSlot >= this.player.inventory.getSizeInventory())
             return ItemStack.EMPTY;
