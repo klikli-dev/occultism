@@ -22,6 +22,22 @@
 
 package com.github.klikli_dev.occultism.datagen;
 
+import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.common.ritual.pentacle.Pentacle;
+import com.github.klikli_dev.occultism.common.ritual.pentacle.PentacleManager;
+import com.github.klikli_dev.occultism.registry.OccultismBlocks;
+import com.github.klikli_dev.occultism.registry.OccultismTags;
+import com.google.gson.*;
+import net.minecraft.data.DataGenerator;
+import net.minecraft.data.DataProvider;
+import net.minecraft.data.HashCache;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.Tag;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -30,49 +46,27 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import com.github.klikli_dev.occultism.Occultism;
-import com.github.klikli_dev.occultism.common.ritual.pentacle.Pentacle;
-import com.github.klikli_dev.occultism.common.ritual.pentacle.PentacleManager;
-import com.github.klikli_dev.occultism.registry.OccultismBlocks;
-import com.github.klikli_dev.occultism.registry.OccultismTags;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonPrimitive;
-
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.data.DirectoryCache;
-import net.minecraft.data.IDataProvider;
-import net.minecraft.tags.ITag.INamedTag;
-import net.minecraft.util.ResourceLocation;
-
-public class PentacleProvider implements IDataProvider {
+public class PentacleProvider implements DataProvider {
 
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     private static final Logger LOGGER = LogManager.getLogger();
 
-    private Map<String, JsonElement> toSerialize = new HashMap<>();
-    private DataGenerator generator;
+    private final Map<String, JsonElement> toSerialize = new HashMap<>();
+    private final DataGenerator generator;
 
     public PentacleProvider(DataGenerator generator) {
         this.generator = generator;
     }
 
     @Override
-    public void act(DirectoryCache cache) throws IOException {
-        Path folder = generator.getOutputFolder();
-        start();
+    public void run(HashCache cache) throws IOException {
+        Path folder = this.generator.getOutputFolder();
+        this.start();
 
-        toSerialize.forEach((name, json) -> {
+        this.toSerialize.forEach((name, json) -> {
             Path path = folder.resolve("data/" + Occultism.MODID + "/" + PentacleManager.FOLDER_NAME + "/" + name + ".json");
             try {
-                IDataProvider.save(GSON, cache, json, path);
+                DataProvider.save(GSON, cache, json, path);
             } catch (IOException e) {
                 LOGGER.error("Couldn't save pentacle {}", path, e);
             }
@@ -80,8 +74,8 @@ public class PentacleProvider implements IDataProvider {
     }
 
     private void start() {
-        addPentacle("craft_afrit",
-                createPattern(
+        this.addPentacle("craft_afrit",
+                this.createPattern(
                         "     N     ",
                         "    GGG    ",
                         "   GCPCG   ",
@@ -92,10 +86,10 @@ public class PentacleProvider implements IDataProvider {
                         "  G WCW G  ",
                         "   GCPCG   ",
                         "    GGG    ",
-                        "     Z     " ),
+                        "     Z     "),
                 new MappingBuilder().bowl().whiteChalk().goldChalk().purpleChalk().redChalk().candle().crystal().skeleton().wither().build());
-        addPentacle("craft_djinni",
-                createPattern(
+        this.addPentacle("craft_djinni",
+                this.createPattern(
                         "         ",
                         " C WGW C ",
                         "  P W P  ",
@@ -106,8 +100,8 @@ public class PentacleProvider implements IDataProvider {
                         " C WGW C ",
                         "         "),
                 new MappingBuilder().bowl().whiteChalk().goldChalk().purpleChalk().candle().crystal().build());
-        addPentacle("craft_foliot",
-                createPattern(
+        this.addPentacle("craft_foliot",
+                this.createPattern(
                         "  WSW  ",
                         " G   G ",
                         "W  W  W",
@@ -116,8 +110,8 @@ public class PentacleProvider implements IDataProvider {
                         " G   G ",
                         "  WSW  "),
                 new MappingBuilder().bowl().whiteChalk().goldChalk().candle().crystal().build());
-        addPentacle("craft_marid",
-                createPattern(
+        this.addPentacle("craft_marid",
+                this.createPattern(
                         "       Z       ",
                         "      RRR      ",
                         "     RCWCR     ",
@@ -134,8 +128,8 @@ public class PentacleProvider implements IDataProvider {
                         "      RRR      ",
                         "       Z       "),
                 new MappingBuilder().bowl().whiteChalk().goldChalk().redChalk().candle().crystal().skeleton().wither().build());
-        addPentacle("debug",
-                createPattern(
+        this.addPentacle("debug",
+                this.createPattern(
                         "  GCG  ",
                         " G P G ",
                         "G  P  G",
@@ -144,8 +138,8 @@ public class PentacleProvider implements IDataProvider {
                         " G P G ",
                         "  GCG  "),
                 new MappingBuilder().bowl().goldChalk().purpleChalk().candle().skeleton().build());
-        addPentacle("possess_djinni",
-                createPattern(
+        this.addPentacle("possess_djinni",
+                this.createPattern(
                         "   GPG   ",
                         "  GC CG  ",
                         " GZW WZG ",
@@ -156,8 +150,8 @@ public class PentacleProvider implements IDataProvider {
                         "  GC CG  ",
                         "   GPG   "),
                 new MappingBuilder().bowl().whiteChalk().goldChalk().purpleChalk().candle().skeleton().build());
-        addPentacle("possess_foliot",
-                createPattern(
+        this.addPentacle("possess_foliot",
+                this.createPattern(
                         "   GGG   ",
                         "  GC CG  ",
                         " GW   WG ",
@@ -168,8 +162,8 @@ public class PentacleProvider implements IDataProvider {
                         "  GC CG  ",
                         "   GGG   "),
                 new MappingBuilder().bowl().whiteChalk().goldChalk().candle().build());
-        addPentacle("summon_afrit",
-                createPattern(
+        this.addPentacle("summon_afrit",
+                this.createPattern(
                         "           ",
                         "    PRP    ",
                         "   WCWCW   ",
@@ -182,8 +176,8 @@ public class PentacleProvider implements IDataProvider {
                         "    PRP    ",
                         "           "),
                 new MappingBuilder().bowl().whiteChalk().purpleChalk().redChalk().candle().skeleton().wither().build());
-        addPentacle("summon_djinni",
-                createPattern(
+        this.addPentacle("summon_djinni",
+                this.createPattern(
                         "   C C   ",
                         "   PPP   ",
                         "  W Z W  ",
@@ -194,8 +188,8 @@ public class PentacleProvider implements IDataProvider {
                         "   PPP   ",
                         "   C C   "),
                 new MappingBuilder().bowl().whiteChalk().purpleChalk().candle().skeleton().build());
-        addPentacle("summon_marid",
-                createPattern(
+        this.addPentacle("summon_marid",
+                this.createPattern(
                         "       Z       ",
                         "      RRR      ",
                         "     RCWCR     ",
@@ -212,8 +206,8 @@ public class PentacleProvider implements IDataProvider {
                         "      RRR      ",
                         "       Z       "),
                 new MappingBuilder().bowl().whiteChalk().goldChalk().redChalk().candle().skeleton().wither().build());
-        addPentacle("summon_foliot",
-                createPattern(
+        this.addPentacle("summon_foliot",
+                this.createPattern(
                         "         ",
                         "   WCW   ",
                         "  W W W  ",
@@ -224,8 +218,8 @@ public class PentacleProvider implements IDataProvider {
                         "   WCW   ",
                         "         "),
                 new MappingBuilder().bowl().whiteChalk().candle().build());
-        addPentacle("summon_wild_afrit",
-                createPattern(
+        this.addPentacle("summon_wild_afrit",
+                this.createPattern(
                         "           ",
                         "    PPP    ",
                         "   WCWCW   ",
@@ -238,8 +232,8 @@ public class PentacleProvider implements IDataProvider {
                         "    PPP    ",
                         "           "),
                 new MappingBuilder().bowl().whiteChalk().purpleChalk().candle().skeleton().wither().build());
-        addPentacle("summon_wild_greater_spirit",
-                createPattern(
+        this.addPentacle("summon_wild_greater_spirit",
+                this.createPattern(
                         "           ",
                         "    PPP    ",
                         "   W W W   ",
@@ -261,14 +255,14 @@ public class PentacleProvider implements IDataProvider {
         }
         return pattern;
     }
-    
+
     private void addPentacle(String name, List<String> pattern, Map<Character, JsonElement> mappings) {
-        addPentacle(new ResourceLocation(Occultism.MODID, name), pattern, mappings);
+        this.addPentacle(new ResourceLocation(Occultism.MODID, name), pattern, mappings);
     }
 
     private void addPentacle(ResourceLocation rl, List<String> pattern, Map<Character, JsonElement> mappings) {
         JsonObject json = new Pentacle(rl, pattern, mappings).toJson();
-        toSerialize.put(rl.getPath(), json);
+        this.toSerialize.put(rl.getPath(), json);
     }
 
     @Override
@@ -277,69 +271,69 @@ public class PentacleProvider implements IDataProvider {
     }
 
     private static class MappingBuilder {
-        private Map<Character, JsonElement> mappings = new HashMap<>();
+        private final Map<Character, JsonElement> mappings = new HashMap<>();
 
         private MappingBuilder element(char c, JsonElement e) {
-            mappings.put(c, e);
+            this.mappings.put(c, e);
             return this;
         }
-        
+
         private Map<Character, JsonElement> build() {
-            return mappings;
+            return this.mappings;
         }
 
         private MappingBuilder block(char c, Supplier<? extends Block> b) {
-            return element(c, new JsonPrimitive(b.get().getRegistryName().toString()));
+            return this.element(c, new JsonPrimitive(b.get().getRegistryName().toString()));
         }
 
         private MappingBuilder blockDisplay(char c, Supplier<? extends Block> b, Supplier<? extends Block> display) {
             JsonObject json = new JsonObject();
             json.add("block", new JsonPrimitive(b.get().getRegistryName().toString()));
             json.add("display", new JsonPrimitive(display.get().getRegistryName().toString()));
-            return element(c, json);
+            return this.element(c, json);
         }
 
-        private MappingBuilder tag(char c, INamedTag<Block> tag, Supplier<? extends Block> display) {
+        private MappingBuilder tag(char c, Tag.Named<Block> tag, Supplier<? extends Block> display) {
             JsonObject json = new JsonObject();
             json.add("tag", new JsonPrimitive(tag.getName().toString()));
             json.add("display", new JsonPrimitive(display.get().getRegistryName().toString()));
-            return element(c, json);
+            return this.element(c, json);
         }
 
         private MappingBuilder bowl() {
-            return block('0', OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL);
+            return this.block('0', OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL);
         }
 
         private MappingBuilder candle() {
-            return tag('C', OccultismTags.CANDLES, OccultismBlocks.CANDLE_WHITE);
+            return this.tag('C', OccultismTags.CANDLES, OccultismBlocks.CANDLE_WHITE);
         }
 
         private MappingBuilder whiteChalk() {
-            return block('W', OccultismBlocks.CHALK_GLYPH_WHITE);
+            return this.block('W', OccultismBlocks.CHALK_GLYPH_WHITE);
         }
 
         private MappingBuilder goldChalk() {
-            return block('G', OccultismBlocks.CHALK_GLYPH_GOLD);
+            return this.block('G', OccultismBlocks.CHALK_GLYPH_GOLD);
         }
 
         private MappingBuilder purpleChalk() {
-            return block('P', OccultismBlocks.CHALK_GLYPH_PURPLE);
+            return this.block('P', OccultismBlocks.CHALK_GLYPH_PURPLE);
         }
 
         private MappingBuilder redChalk() {
-            return block('R', OccultismBlocks.CHALK_GLYPH_RED);
+            return this.block('R', OccultismBlocks.CHALK_GLYPH_RED);
         }
 
         private MappingBuilder crystal() {
-            return block('S', OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL);
+            return this.block('S', OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL);
         }
 
         private MappingBuilder skeleton() {
-            return blockDisplay('Z', () -> Blocks.SKELETON_SKULL, OccultismBlocks.SKELETON_SKULL_DUMMY);
+            return this.blockDisplay('Z', () -> Blocks.SKELETON_SKULL, OccultismBlocks.SKELETON_SKULL_DUMMY);
         }
 
         private MappingBuilder wither() {
-            return blockDisplay('N', () -> Blocks.WITHER_SKELETON_SKULL, OccultismBlocks.WITHER_SKELETON_SKULL_DUMMY);
+            return this.blockDisplay('N', () -> Blocks.WITHER_SKELETON_SKULL, OccultismBlocks.WITHER_SKELETON_SKULL_DUMMY);
         }
     }
 
