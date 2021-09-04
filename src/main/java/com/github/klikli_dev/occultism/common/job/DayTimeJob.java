@@ -27,6 +27,7 @@ import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import net.minecraft.util.Util;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraft.world.storage.IServerWorldInfo;
 import net.minecraft.world.storage.ServerWorldInfo;
 
 public class DayTimeJob extends ChangeTimeJob {
@@ -41,7 +42,7 @@ public class DayTimeJob extends ChangeTimeJob {
     @Override
     public void changeTime() {
         if(Occultism.SERVER_CONFIG.rituals.enableDayTimeRitual.get()){
-            ServerWorld world = (ServerWorld) this.entity.world;
+            IServerWorldInfo world = (IServerWorldInfo) this.entity.world;
             world.setDayTime(1000);
         }
         else {
