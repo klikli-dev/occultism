@@ -126,18 +126,31 @@ repositories {
     maven {
         name = "KliKli Maven Mirror"
         url = "https://klikli-dev.github.io/maven"
+        content {
+            includeGroup "vazkii.patchouli"
+            includeGroup "mezz.jei"
+        }
     }
     maven {
         name = "Patchouli Maven"
         url = 'https://maven.blamejared.com'
+        content {
+            includeGroup "vazkii.patchouli"
+        }
     }
     maven {
         name = "Progwm16 maven - JEI"
         url = 'https://dvs1.progwml6.com/files/maven'
+        content {
+            includeGroup "mezz.jei"
+        }
     }
     maven {
         name = "Curios Maven"
         url = "https://maven.theillusivec4.top/"
+        content {
+            includeGroup "top.theillusivec4"
+        }
     }
     flatDir {
         dirs 'runtime-mods'
