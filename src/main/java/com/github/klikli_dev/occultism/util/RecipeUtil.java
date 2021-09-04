@@ -29,15 +29,12 @@ import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.RecipeManager;
 import net.minecraft.util.ResourceLocation;
 
+import java.util.List;
 import java.util.Map;
 
 public class RecipeUtil {
 
     //region Static Methods
-    public static <C extends IInventory, T extends IRecipe<C>> Map<ResourceLocation, IRecipe<C>> getRecipes(
-            RecipeManager recipeManager, IRecipeType<T> recipeType) {
-        return ReflectionUtil.RecipeManagerReflection.getRecipes(recipeManager, recipeType);
-    }
 
     public static <C extends IInventory, T extends IRecipe<C>> boolean isValidIngredient(RecipeManager recipeManager,
                                                                                          IRecipeType<T> recipeType,
@@ -45,8 +42,8 @@ public class RecipeUtil {
         if (stack.isEmpty())
             return false;
 
-        Map<ResourceLocation, IRecipe<C>> recipes = getRecipes(recipeManager, recipeType);
-        for (IRecipe<C> recipe : recipes.values()) {
+        List<T> recipes = recipeManager.getRecipesForType(recipeType);
+        for (T recipe : recipes) {
             if (recipe.getIngredients().stream().anyMatch(i -> i.test(stack))) {
                 return true;
             }

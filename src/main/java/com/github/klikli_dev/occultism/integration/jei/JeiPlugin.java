@@ -26,7 +26,7 @@ import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.container.storage.StableWormholeContainer;
 import com.github.klikli_dev.occultism.common.container.storage.StorageControllerContainer;
 import com.github.klikli_dev.occultism.common.container.storage.StorageRemoteContainer;
-import com.github.klikli_dev.occultism.crafting.recipe.ItemStackFakeInventory;
+import com.github.klikli_dev.occultism.crafting.recipe.*;
 import com.github.klikli_dev.occultism.integration.jei.recipes.CrushingRecipeCategory;
 import com.github.klikli_dev.occultism.integration.jei.recipes.MinerRecipeCategory;
 import com.github.klikli_dev.occultism.integration.jei.recipes.RitualRecipeCategory;
@@ -54,6 +54,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.items.wrapper.RecipeWrapper;
 
 import java.util.Collection;
+import java.util.List;
 
 @mezz.jei.api.JeiPlugin
 public class JeiPlugin implements IModPlugin {
@@ -90,20 +91,16 @@ public class JeiPlugin implements IModPlugin {
         ClientWorld world = Minecraft.getInstance().world;
         RecipeManager recipeManager = world.getRecipeManager();
 
-        Collection<IRecipe<ItemStackFakeInventory>> spiritFireRecipes =
-                RecipeUtil.getRecipes(recipeManager, OccultismRecipes.SPIRIT_FIRE_TYPE.get()).values();
+        List<SpiritFireRecipe> spiritFireRecipes = recipeManager.getRecipesForType(OccultismRecipes.SPIRIT_FIRE_TYPE.get());
         registration.addRecipes(spiritFireRecipes, OccultismRecipes.SPIRIT_FIRE.getId());
 
-        Collection<IRecipe<ItemStackFakeInventory>> crushingRecipes =
-                RecipeUtil.getRecipes(recipeManager, OccultismRecipes.CRUSHING_TYPE.get()).values();
+        List<CrushingRecipe> crushingRecipes = recipeManager.getRecipesForType(OccultismRecipes.CRUSHING_TYPE.get());
         registration.addRecipes(crushingRecipes, OccultismRecipes.CRUSHING.getId());
 
-        Collection<IRecipe<RecipeWrapper>> minerRecipes =
-                RecipeUtil.getRecipes(recipeManager, OccultismRecipes.MINER_TYPE.get()).values();
+        List<MinerRecipe> minerRecipes = recipeManager.getRecipesForType(OccultismRecipes.MINER_TYPE.get());
         registration.addRecipes(minerRecipes, OccultismRecipes.MINER.getId());
 
-        Collection<IRecipe<CraftingInventory>> ritualRecipes =
-                RecipeUtil.getRecipes(recipeManager, OccultismRecipes.RITUAL_TYPE.get()).values();
+        List<RitualRecipe> ritualRecipes = recipeManager.getRecipesForType(OccultismRecipes.RITUAL_TYPE.get());
         registration.addRecipes(ritualRecipes, OccultismRecipes.RITUAL.getId());
 
         this.registerIngredientInfo(registration, OccultismItems.TALLOW.get());
