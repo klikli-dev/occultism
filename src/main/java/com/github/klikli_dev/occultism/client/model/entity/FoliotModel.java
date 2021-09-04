@@ -36,8 +36,8 @@ public class FoliotModel extends HumanoidModel<FoliotEntity> {
 
     public FoliotModel(ModelPart part) {
         super(part);
-        this.leftHorn = head.getChild("leftHorn");
-        this.rightHorn = head.getChild("rightHorn");
+        this.leftHorn = head.getChild("left_horn");
+        this.rightHorn = head.getChild("right_horn");
     }
 
     public static LayerDefinition createBodyLayer() {
@@ -55,20 +55,20 @@ public class FoliotModel extends HumanoidModel<FoliotEntity> {
                         .addBox(-4.0F, 0.0F, -3.0F, 8, 12, 6, CubeDeformation.NONE, 0, 16),
                 PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0, 0, 0));
 
-        PartDefinition rightArm = parts.addOrReplaceChild("rightArm", CubeListBuilder.create()
+        PartDefinition rightArm = parts.addOrReplaceChild("right_arm", CubeListBuilder.create()
                         .addBox(-1.0F, -1.6816F, -1.2683F, 3, 11, 3, CubeDeformation.NONE, 12, 34),
                 PartPose.offsetAndRotation(5.0F, 3.0F, -1.0F, -0.75F, 0.0F, 0.0F));
-        PartDefinition leftArm = parts.addOrReplaceChild("leftArm", CubeListBuilder.create().
+        PartDefinition leftArm = parts.addOrReplaceChild("left_arm", CubeListBuilder.create().
                         addBox(-2.0F, -2.0F, -2.0F, 3, 11, 3, CubeDeformation.NONE, 0, 34),
                 PartPose.offsetAndRotation(-5.0F, 3.0F, -1.0F, -0.75F, 0.0F, 0.0F));
-        PartDefinition rightLeg = parts.addOrReplaceChild("rightLeg", CubeListBuilder.create()
+        PartDefinition rightLeg = parts.addOrReplaceChild("right_leg", CubeListBuilder.create()
                         .addBox(-2.0F, 0.0F, -2.0F, 4, 12, 4, CubeDeformation.NONE, 28, 28),
                 PartPose.offsetAndRotation(2.0F, 12.0F, 0.0F, 0, 0, 0));
-        PartDefinition leftLeg = parts.addOrReplaceChild("leftLeg", CubeListBuilder.create().
+        PartDefinition leftLeg = parts.addOrReplaceChild("left_leg", CubeListBuilder.create().
                         addBox(-2.0F, 0.0F, -2.0F, 4, 12, 4, CubeDeformation.NONE, 28, 12),
                 PartPose.offsetAndRotation(-2.0F, 12.0F, 0.0F, 0, 0, 0));
 
-        PartDefinition leftHorn = head.addOrReplaceChild("leftHorn", CubeListBuilder.create()
+        PartDefinition leftHorn = head.addOrReplaceChild("left_horn", CubeListBuilder.create()
                         .addBox(0.5F, -0.5F, -2.5F, 1, 1, 6, CubeDeformation.NONE, 24, 0)
                         .addBox(0.5F, 4.5F, -1.5F, 1, 1, 5, CubeDeformation.NONE, 32, 0)
                         .addBox(0.5F, 5.5F, -0.5F, 1, 1, 3, CubeDeformation.NONE, 0, 0)
@@ -81,7 +81,7 @@ public class FoliotModel extends HumanoidModel<FoliotEntity> {
                         .addBox(0.5F, 1.5F, -2.5F, 1, 1, 1, CubeDeformation.NONE, 0, 19),
                 PartPose.offsetAndRotation(3.5F, -8.5F, -1.5F, 0, 0, 0));
 
-        PartDefinition rightHorn = head.addOrReplaceChild("rightHorn", CubeListBuilder.create()
+        PartDefinition rightHorn = head.addOrReplaceChild("right_horn", CubeListBuilder.create()
                         .addBox(0.5F, -0.5F, -2.5F, 1, 1, 6, CubeDeformation.NONE, 24, 0)
                         .addBox(0.5F, 4.5F, -1.5F, 1, 1, 5, CubeDeformation.NONE, 32, 0)
                         .addBox(0.5F, 5.5F, -0.5F, 1, 1, 3, CubeDeformation.NONE, 0, 0)
