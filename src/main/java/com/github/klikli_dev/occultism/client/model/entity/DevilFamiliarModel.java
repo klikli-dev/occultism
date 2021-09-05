@@ -227,6 +227,23 @@ public class DevilFamiliarModel extends EntityModel<DevilFamiliarEntity> {
     @Override
     public void setRotationAngles(DevilFamiliarEntity entityIn, float limbSwing, float limbSwingAmount,
             float ageInTicks, float netHeadYaw, float headPitch) {
+        showModels(entityIn);
+    }
+    
+
+    private void showModels(DevilFamiliarEntity entityIn) {
+        boolean hasNose = entityIn.hasNose();
+        boolean hasEars = entityIn.hasEars();
+        
+        this.lollipop.showModel = entityIn.hasLollipop();
+        this.nose.showModel = hasNose;
+        this.jawHorn1.showModel = !hasNose;
+        this.leftEar.showModel = hasEars;
+        this.rightEar.showModel = hasEars;
+        this.leftHorn.showModel = hasEars;
+        this.rightHorn.showModel = hasEars;
+        this.leftHornBig1.showModel = !hasEars;
+        this.rightHornBig1.showModel = !hasEars;
     }
 
     /**
