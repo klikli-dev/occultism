@@ -96,6 +96,7 @@ public class ItemSlotWidget {
             //RenderHelper.enableGUIStandardItemLighting();
 
             if (this.showStackSize) {
+
                 //get amount to show
                 String amount = Screen.hasShiftDown() ? Integer.toString(this.stackSize) : TextUtil.formatLargeNumber(
                         this.stackSize);
@@ -103,7 +104,7 @@ public class ItemSlotWidget {
                 //render item overlay
                 poseStack.pushPose();
                 poseStack.scale(.5f, .5f, .5f);
-                this.minecraft.getItemRenderer().blitOffset = -0.1F;
+                this.minecraft.getItemRenderer().blitOffset = 100;
                 this.minecraft.getItemRenderer()
                         .renderGuiItemDecorations(this.fontRenderer, this.stack, this.x * 2 + 16, this.y * 2 + 16,
                                 amount);

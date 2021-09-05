@@ -22,16 +22,15 @@
 
 package com.github.klikli_dev.occultism.client.gui.controls;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.client.Minecraft;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.ImageButton;
+import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.resources.ResourceLocation;
 
 
 public class SizedImageButton extends ImageButton {
-    //region Fields
     public final ResourceLocation resourceLocation;
     public final int xTexStart;
     public final int yTexStart;
@@ -40,7 +39,6 @@ public class SizedImageButton extends ImageButton {
     public final int textureHeight;
     public final int textureMapWidth;
     public final int textureMapHeight;
-    //endregion Fields
 
     /**
      * A button that supports texture size, as well as a foreground texture
@@ -58,7 +56,6 @@ public class SizedImageButton extends ImageButton {
      * @param textureMapHeight the y size of the texture map.
      * @param resourceLocation the resource location for the textures
      */
-    //region Initialization
     public SizedImageButton(int xIn, int yIn, int widthIn, int heightIn, int textureOffsetX,
                             int textureOffsetY, int hoverOffsetX, int textureWidth, int textureHeight,
                             int textureMapWidth, int textureMapHeight, ResourceLocation resourceLocation,
@@ -73,30 +70,29 @@ public class SizedImageButton extends ImageButton {
         this.textureMapHeight = textureMapHeight;
         this.resourceLocation = resourceLocation;
     }
-    //endregion Initialization
 
-    //region Overrides
     public void setPosition(int x, int y) {
         this.x = x;
         this.y = y;
     }
-    //endregion Overrides
 
-//region Methods
     @Override
     public void renderButton(PoseStack stack, int mouseX, int mouseY, float partialTicks) {
         if (this.visible) {
-            Minecraft.getInstance().getTextureManager().bindForSetup(this.resourceLocation);
-            RenderSystem.disableDepthTest();
+            RenderSystem.setShader(GameRenderer::getPositionTexShader);
+            RenderSystem.setShaderTexture(0, this.resourceLocation);
             int i = this.xTexStart;
             int j = this.yTexStart;
             if (this.isHovered()) {
                 i += this.xDiffOffset;
             }
-            blit(stack, this.x, this.y, this.width, this.height, i, j, this.textureWidth, this.textureHeight, this.textureMapWidth, this.textureMapHeight);
             RenderSystem.enableDepthTest();
+            blit(stack, this.x, this.y, this.width, this.height, i, j, this.textureWidth, this.textureHeight, this.textureMapWidth, this.textureMapHeight);
+
+            if (this.isHovered()) {
+                this.renderToolTip(stack, mouseX, mouseY);
+            }
         }
 
     }
-//endregion Methods
 }

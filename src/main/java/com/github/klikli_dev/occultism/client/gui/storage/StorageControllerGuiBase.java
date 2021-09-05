@@ -48,6 +48,7 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -288,7 +289,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
             return;
         }
 
-        this.renderBackground(poseStack);
+        //this.renderBackground(poseStack);
         this.drawBackgroundTexture(poseStack);
 
         switch (this.guiMode) {
@@ -635,16 +636,18 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     }
 
     protected void drawBackgroundTexture(PoseStack poseStack) {
-        RenderSystem.clearColor(1.0F, 1.0F, 1.0F, 1.0F);
-        this.minecraft.getTextureManager().bindForSetup(BACKGROUND);
-        int xCenter = (this.width - this.imageWidth) / 2;
-        int yCenter = (this.height - this.imageHeight) / 2;
+        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+        RenderSystem.setShaderTexture(0, BACKGROUND);
+        int i = (this.width - this.imageWidth) / 2;
+        int j = (this.height - this.imageHeight) / 2;
         this.blit(poseStack, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight);
     }
 
     protected void drawItemSlots(PoseStack poseStack, int mouseX, int mouseY) {
         this.stackUnderMouse = ItemStack.EMPTY;
         for (ItemSlotWidget slot : this.itemSlots) {
+            RenderSystem.setShader(GameRenderer::getPositionTexShader);
             slot.drawSlot(poseStack, mouseX, mouseY);
             if (slot.isMouseOverSlot(mouseX, mouseY)) {
                 this.stackUnderMouse = slot.getStack();
