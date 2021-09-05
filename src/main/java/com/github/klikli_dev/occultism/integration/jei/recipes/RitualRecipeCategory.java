@@ -61,8 +61,6 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
     private final String pentacle;
     private final ItemStack goldenSacrificialBowl = new ItemStack(OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL.get());
     private final ItemStack sacrificialBowl = new ItemStack(OccultismBlocks.SACRIFICIAL_BOWL.get());
-    private final ItemStack requireSacrifice = new ItemStack(OccultismItems.JEI_DUMMY_REQUIRE_SACRIFICE.get());
-    private final ItemStack requireItemUse = new ItemStack(OccultismItems.JEI_DUMMY_REQUIRE_ITEM_USE.get());
 
     private int recipeOutputOffsetX = 50;
     private int iconWidth = 16;
