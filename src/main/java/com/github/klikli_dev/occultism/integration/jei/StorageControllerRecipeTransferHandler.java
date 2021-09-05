@@ -33,8 +33,10 @@ import mezz.jei.api.helpers.IStackHelper;
 import mezz.jei.api.recipe.transfer.IRecipeTransferError;
 import mezz.jei.api.recipe.transfer.IRecipeTransferHandler;
 import mezz.jei.api.recipe.transfer.IRecipeTransferHandlerHelper;
+import mezz.jei.api.recipe.transfer.IRecipeTransferInfo;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -54,26 +56,28 @@ import java.util.Map;
 public class StorageControllerRecipeTransferHandler<T extends AbstractContainerMenu & IStorageControllerContainer, R extends Recipe<?>> implements IRecipeTransferHandler<T, R> {
 
     //region Fields
-    protected final IStackHelper stackHelper;
+    protected final Class<T> containerClass;
+    protected final Class<R> recipeClass;
     protected final IRecipeTransferHandlerHelper handlerHelper;
     //endregion Fields
 
     //region Initialization
-    public StorageControllerRecipeTransferHandler(IStackHelper stackHelper, IRecipeTransferHandlerHelper handlerHelper) {
-        this.stackHelper = stackHelper;
+    public StorageControllerRecipeTransferHandler(Class<T> containerClass, Class<R> recipeClass, IRecipeTransferHandlerHelper handlerHelper) {
         this.handlerHelper = handlerHelper;
+        this.containerClass = containerClass;
+        this.recipeClass =  recipeClass;
     }
     //endregion Initialization
 
     //region Overrides
     @Override
     public Class<T> getContainerClass() {
-        return this.getContainerClass();
+        return this.containerClass;
     }
 
     @Override
     public Class<R> getRecipeClass() {
-        return this.getRecipeClass();
+        return this.recipeClass;
     }
 
     @Nullable
