@@ -152,6 +152,7 @@ public class Occultism {
         event.put(OccultismEntities.BAT_FAMILIAR_TYPE.get(), BatFamiliarEntity.registerAttributes().create());
         event.put(OccultismEntities.DEER_FAMILIAR_TYPE.get(), FamiliarEntity.registerAttributes().create());
         event.put(OccultismEntities.CTHULHU_FAMILIAR_TYPE.get(), CthulhuFamiliarEntity.registerAttributes().create());
+        event.put(OccultismEntities.DEVIL_FAMILIAR_TYPE.get(), FamiliarEntity.registerAttributes().create());
     }
 
     private void serverSetup(final FMLDedicatedServerSetupEvent event) {
