@@ -107,6 +107,7 @@ public class MinerRecipeCategory implements IRecipeCategory<MinerRecipe> {
                 .getRecipesFor(OccultismRecipes.MINER_TYPE.get(),
                         new RecipeWrapper(simulatedHandler), level);
         List<WeightedIngredient> possibleResults = recipes.stream().map(MinerRecipe::getWeightedOutput).collect(Collectors.toList());
+
         float chance = (float) recipe.getWeightedOutput().getWeight().asInt() / (float) WeightedRandom.getTotalWeight(possibleResults) * 100.0F;
         //reduce to two decimals
         chance = Math.round(chance * 10) / 10.0f;

@@ -22,7 +22,6 @@
 
 package com.github.klikli_dev.occultism.common.misc;
 
-import net.minecraft.util.random.Weight;
 import net.minecraft.util.random.WeightedEntry;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -41,10 +40,5 @@ public class WeightedIngredient extends WeightedEntry.IntrusiveBase {
 
     public Ingredient getIngredient() {
         return this.ingredient;
-    }
-
-    @Override
-    public Weight getWeight() {
-        return null;
     }
 }
