@@ -41,10 +41,10 @@ public class OccultismCapabilities {
     public static final ResourceLocation FAMILIAR_SETTINGS_ID = modLoc("familiar_settings");
 
     @CapabilityInject(DoubleJumpCapability.class)
-    public static Capability<DoubleJumpCapability> DOUBLE_JUMP;
+    public static Capability<DoubleJumpCapability> DOUBLE_JUMP = null;
 
     @CapabilityInject(FamiliarSettingsCapability.class)
-    public static Capability<FamiliarSettingsCapability> FAMILIAR_SETTINGS;
+    public static Capability<FamiliarSettingsCapability> FAMILIAR_SETTINGS = null;
     //endregion Fields
 
     //region Static Methods
