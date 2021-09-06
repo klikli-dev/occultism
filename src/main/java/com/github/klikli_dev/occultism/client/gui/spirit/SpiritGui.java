@@ -94,6 +94,10 @@ public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScree
         }
     }
 
+    @Override
+    protected void renderLabels(PoseStack pPoseStack, int pMouseX, int pMouseY) {
+        //prevent default labels being rendered
+    }
 
     @Override
     protected void renderBg(PoseStack poseStack, float partialTicks, int x, int y) {

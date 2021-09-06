@@ -283,13 +283,17 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     }
 
     @Override
+    protected void renderLabels(PoseStack pPoseStack, int pMouseX, int pMouseY) {
+        //prevent default labels being rendered
+    }
+
+    @Override
     protected void renderBg(PoseStack poseStack, float partialTicks, int mouseX,
                             int mouseY) {
         if (!this.isGuiValid()) {
             return;
         }
 
-        //this.renderBackground(poseStack);
         this.drawBackgroundTexture(poseStack);
 
         switch (this.guiMode) {
