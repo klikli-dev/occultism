@@ -28,6 +28,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.CapabilityManager;
+import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 
@@ -47,11 +48,10 @@ public class OccultismCapabilities {
     //endregion Fields
 
     //region Static Methods
-    public static void commonSetup(final FMLCommonSetupEvent event) {
-        CapabilityManager.INSTANCE
-                .register(DoubleJumpCapability.class);
-        CapabilityManager.INSTANCE
-                .register(FamiliarSettingsCapability.class);
+
+    public static void onRegisterCapabilities(final RegisterCapabilitiesEvent event){
+        event.register(DoubleJumpCapability.class);
+        event.register(FamiliarSettingsCapability.class);
     }
 
     public static void onPlayerClone(final PlayerEvent.Clone event) {

@@ -97,7 +97,6 @@ public class Occultism {
         OccultismAdvancements.register();
 
         //register event buses
-        modEventBus.addListener(OccultismCapabilities::commonSetup);
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::onEntityAttributeCreation);
         modEventBus.addListener(this::serverSetup);
