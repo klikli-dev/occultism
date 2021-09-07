@@ -22,6 +22,10 @@
 
 package com.github.klikli_dev.occultism.common.entity;
 
+import java.util.Collections;
+import java.util.EnumSet;
+import java.util.List;
+
 import com.github.klikli_dev.occultism.common.capability.FamiliarSettingsCapability;
 import com.github.klikli_dev.occultism.registry.OccultismCapabilities;
 import com.google.common.collect.ImmutableList;
@@ -35,6 +39,7 @@ import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.controller.MovementController;
 import net.minecraft.entity.ai.goal.FollowMobGoal;
+import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.ai.goal.LookAtGoal;
 import net.minecraft.entity.ai.goal.RandomWalkingGoal;
 import net.minecraft.entity.player.PlayerEntity;
@@ -42,6 +47,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.pathfinding.GroundPathNavigator;
 import net.minecraft.pathfinding.PathNodeType;
 import net.minecraft.pathfinding.SwimmerPathNavigator;
@@ -53,9 +59,8 @@ import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.ForgeMod;
-
-import java.util.Collections;
 
 public class CthulhuFamiliarEntity extends FamiliarEntity {
 
@@ -64,6 +69,8 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
     private static final DataParameter<Boolean> TRUNK = EntityDataManager.createKey(CthulhuFamiliarEntity.class,
             DataSerializers.BOOLEAN);
     private static final DataParameter<Boolean> ANGRY = EntityDataManager.createKey(CthulhuFamiliarEntity.class,
+            DataSerializers.BOOLEAN);
+    private static final DataParameter<Boolean> GIVING = EntityDataManager.createKey(CthulhuFamiliarEntity.class,
             DataSerializers.BOOLEAN);
 
     private final SwimmerPathNavigator waterNavigator;
@@ -94,8 +101,9 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
         this.goalSelector.addGoal(1, new SitGoal(this));
         this.goalSelector.addGoal(2, new LookAtGoal(this, PlayerEntity.class, 8));
         this.goalSelector.addGoal(3, new FollowOwnerWaterGoal(this, 1, 3, 1));
-        this.goalSelector.addGoal(4, new RandomWalkingGoal(this, 1.0D));
-        this.goalSelector.addGoal(5, new FollowMobGoal(this, 1, 3, 7));
+        this.goalSelector.addGoal(4, new GiveFlowerGoal(this));
+        this.goalSelector.addGoal(5, new RandomWalkingGoal(this, 1.0D));
+        this.goalSelector.addGoal(6, new FollowMobGoal(this, 1, 3, 7));
     }
 
     @Override
@@ -110,7 +118,7 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
             }
         }
     }
-    
+
     public float getAnimationHeight(float partialTicks) {
         return MathHelper.cos((this.ticksExisted + partialTicks) / 5);
     }
@@ -165,6 +173,7 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
         this.dataManager.register(HAT, false);
         this.dataManager.register(TRUNK, false);
         this.dataManager.register(ANGRY, false);
+        this.dataManager.register(GIVING, false);
     }
 
     public boolean hasHat() {
@@ -182,13 +191,21 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
     private void setTrunk(boolean b) {
         this.dataManager.set(TRUNK, b);
     }
-    
+
     public boolean isAngry() {
         return this.dataManager.get(ANGRY);
     }
 
     private void setAngry(boolean b) {
         this.dataManager.set(ANGRY, b);
+    }
+
+    public boolean isGiving() {
+        return this.dataManager.get(GIVING);
+    }
+
+    private void setGiving(boolean b) {
+        this.dataManager.set(GIVING, b);
     }
 
     @Override
@@ -220,7 +237,8 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
             if (this.cthulhu.isInWater()) {
                 this.cthulhu.setMotion(this.cthulhu.getMotion().add(0, 0.005, 0));
                 if (this.action == MovementController.Action.MOVE_TO) {
-                    float maxSpeed = (float) (this.speed * this.cthulhu.getAttributeValue(Attributes.MOVEMENT_SPEED)) * 3;
+                    float maxSpeed = (float) (this.speed * this.cthulhu.getAttributeValue(Attributes.MOVEMENT_SPEED))
+                            * 3;
                     this.cthulhu.setAIMoveSpeed(MathHelper.lerp(0.125f, this.cthulhu.getAIMoveSpeed(), maxSpeed));
                     double dx = this.posX - this.cthulhu.getPosX();
                     double dy = this.posY - this.cthulhu.getPosY();
@@ -233,8 +251,8 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
                     }
 
                     if (Math.abs(dy) > 0.0001) {
-                        this.cthulhu.setMotion(
-                                this.cthulhu.getMotion().add(0, this.cthulhu.getAIMoveSpeed() * (dy / distance) * 0.1, 0));
+                        this.cthulhu.setMotion(this.cthulhu.getMotion().add(0,
+                                this.cthulhu.getAIMoveSpeed() * (dy / distance) * 0.1, 0));
                     }
 
                     if (Math.abs(dx) > 0.0001 || Math.abs(dz) > 0.0001) {
@@ -257,10 +275,63 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
         public FollowOwnerWaterGoal(FamiliarEntity entity, double speed, float minDist, float maxDist) {
             super(entity, speed, minDist, maxDist);
         }
-        
+
         @Override
         protected boolean shouldTeleport(LivingEntity owner) {
             return !this.entity.world.hasWater(owner.getPosition()) && this.entity.isInWater();
+        }
+
+    }
+
+    private static class GiveFlowerGoal extends Goal {
+        
+        private static final int MAX_COOLDOWN = 20 * 60 * 5;
+
+        private CthulhuFamiliarEntity cthulhu;
+        private DevilFamiliarEntity devil;
+        private int cooldown = MAX_COOLDOWN;
+
+        public GiveFlowerGoal(CthulhuFamiliarEntity cthulhu) {
+            this.cthulhu = cthulhu;
+            this.setMutexFlags(EnumSet.of(Goal.Flag.JUMP, Goal.Flag.MOVE));
+        }
+
+        @Override
+        public boolean shouldExecute() {
+            devil = findDevil();
+            return devil != null && cooldown-- < 0 && cthulhu.getDistanceSq(devil) > 3;
+        }
+
+        @Override
+        public boolean shouldContinueExecuting() {
+            return devil != null && cthulhu.hasPath();
+        }
+
+        public void startExecuting() {
+            cthulhu.getNavigator().tryMoveToEntityLiving(devil, 0.3);
+            cthulhu.setGiving(true);
+        }
+
+        public void resetTask() {
+            cthulhu.setGiving(false);
+            cthulhu.getNavigator().clearPath();
+            cooldown = MAX_COOLDOWN;
+            devil = null;
+        }
+
+        @Override
+        public void tick() {
+            if (cthulhu.getDistanceSq(devil) < 2) {
+                ((ServerWorld) cthulhu.world).spawnParticle(ParticleTypes.HEART, devil.getPosX(), devil.getPosY() + 1,
+                        devil.getPosZ(), 1, 0, 0, 0, 1);
+                devil = null;
+            }
+        }
+
+        private DevilFamiliarEntity findDevil() {
+            List<DevilFamiliarEntity> devils = cthulhu.world.getEntitiesWithinAABB(DevilFamiliarEntity.class,
+                    cthulhu.getBoundingBox().grow(4));
+            return devils.isEmpty() ? null : devils.get(0);
         }
 
     }

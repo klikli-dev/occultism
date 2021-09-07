@@ -86,6 +86,8 @@ public abstract class FamiliarEntity extends CreatureEntity implements IFamiliar
 
     @Override
     public void livingTick() {
+        updateArmSwingProgress();
+        
         LivingEntity owner;
         if (!this.world.isRemote && this.world.getGameTime() % 10 == 0 && (owner = this.getFamiliarOwner()) != null
                 && this.getDistance(owner) < MAX_BOOST_DISTANCE)
