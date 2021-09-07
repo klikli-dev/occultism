@@ -25,6 +25,8 @@ package com.github.klikli_dev.occultism.common.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.github.klikli_dev.occultism.common.capability.FamiliarSettingsCapability;
+import com.github.klikli_dev.occultism.registry.OccultismCapabilities;
 import com.google.common.collect.ImmutableList;
 
 import net.minecraft.entity.Entity;
@@ -45,6 +47,7 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Effects;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.MathHelper;
@@ -62,11 +65,11 @@ public class DevilFamiliarEntity extends FamiliarEntity {
     private static final DataParameter<Boolean> EARS = EntityDataManager.createKey(DevilFamiliarEntity.class,
             DataSerializers.BOOLEAN);
 
-    private float heightOffset;
+    private final float heightOffset;
 
     public DevilFamiliarEntity(EntityType<? extends DevilFamiliarEntity> type, World worldIn) {
         super(type, worldIn);
-        heightOffset = getRNG().nextFloat() * 5;
+        this.heightOffset = this.getRNG().nextFloat() * 5;
     }
 
     public static AttributeModifierMap.MutableAttribute registerAttributes() {
@@ -95,13 +98,13 @@ public class DevilFamiliarEntity extends FamiliarEntity {
     @Override
     public void tick() {
         super.tick();
-        if (!isServerWorld() && isSwingInProgress) {
+        if (!this.isServerWorld() && this.isSwingInProgress) {
             Vector3d direction = Vector3d.fromPitchYaw(this.getPitchYaw()).scale(0.6);
 
             for (int i = 0; i < 5; i++) {
-                Vector3d pos = getPositionVec().add(direction.x + (getRNG().nextFloat() - 0.5f) * 0.7,
-                        1.5 + (getRNG().nextFloat() - 0.5f) * 0.7, direction.z + (getRNG().nextFloat() - 0.5f) * 0.7);
-                world.addParticle(ParticleTypes.FLAME, pos.x, pos.y, pos.z, direction.x * 0.25, 0, direction.z * 0.25);
+                Vector3d pos = this.getPositionVec().add(direction.x + (this.getRNG().nextFloat() - 0.5f) * 0.7,
+                        1.5 + (this.getRNG().nextFloat() - 0.5f) * 0.7, direction.z + (this.getRNG().nextFloat() - 0.5f) * 0.7);
+                this.world.addParticle(ParticleTypes.FLAME, pos.x, pos.y, pos.z, direction.x * 0.25, 0, direction.z * 0.25);
             }
         }
     }
@@ -115,7 +118,7 @@ public class DevilFamiliarEntity extends FamiliarEntity {
     }
 
     public float getAnimationHeight(float partialTicks) {
-        return MathHelper.cos((this.ticksExisted + heightOffset + partialTicks) / 3.5f);
+        return MathHelper.cos((this.ticksExisted + this.heightOffset + partialTicks) / 3.5f);
     }
 
     public boolean hasLollipop() {
@@ -160,6 +163,10 @@ public class DevilFamiliarEntity extends FamiliarEntity {
 
     @Override
     public Iterable<EffectInstance> getFamiliarEffects() {
+        if (this.getFamiliarOwner().getCapability(OccultismCapabilities.FAMILIAR_SETTINGS)
+                .map(FamiliarSettingsCapability::isDevilEnabled).orElse(false)) {
+                return ImmutableList.of(new EffectInstance(Effects.FIRE_RESISTANCE, 300, 0, false, false));
+        }
         return ImmutableList.of();
     }
 
@@ -167,7 +174,7 @@ public class DevilFamiliarEntity extends FamiliarEntity {
 
         private static final int MAX_COOLDOWN = 20 * 5;
 
-        private DevilFamiliarEntity devil;
+        private final DevilFamiliarEntity devil;
         private int cooldown = MAX_COOLDOWN;
 
         public FireBreathGoal(DevilFamiliarEntity devil) {
@@ -176,35 +183,35 @@ public class DevilFamiliarEntity extends FamiliarEntity {
 
         @Override
         public boolean shouldExecute() {
-            return cooldown-- < 0 && devil.getFamiliarOwner() instanceof PlayerEntity && !getNearbyEnemies().isEmpty();
+            return this.cooldown-- < 0 && this.devil.getFamiliarOwner() instanceof PlayerEntity && !this.getNearbyEnemies().isEmpty();
         }
 
         private List<Entity> getNearbyEnemies() {
-            LivingEntity owner = devil.getFamiliarOwner();
+            LivingEntity owner = this.devil.getFamiliarOwner();
             LivingEntity revenge = owner.getRevengeTarget();
             LivingEntity target = owner.getLastAttackedEntity();
             List<Entity> enemies = new ArrayList<>();
-            if (isClose(revenge))
+            if (this.isClose(revenge))
                 enemies.add(revenge);
-            if (isClose(target))
+            if (this.isClose(target))
                 enemies.add(target);
             return enemies;
         }
 
         private boolean isClose(LivingEntity e) {
-            return e != null && e.getDistanceSq(devil) < 5;
+            return e != null && e.getDistanceSq(this.devil) < 5;
         }
 
         public void startExecuting() {
-            for (Entity e : getNearbyEnemies()) {
-                e.attackEntityFrom(DamageSource.causePlayerDamage((PlayerEntity) devil.getFamiliarOwner()), 4);
+            for (Entity e : this.getNearbyEnemies()) {
+                e.attackEntityFrom(DamageSource.causePlayerDamage((PlayerEntity) this.devil.getFamiliarOwner()), 4);
             }
-            cooldown = MAX_COOLDOWN;
-            devil.swingArm(Hand.MAIN_HAND);
+            this.cooldown = MAX_COOLDOWN;
+            this.devil.swingArm(Hand.MAIN_HAND);
         }
 
         public void resetTask() {
-            cooldown = MAX_COOLDOWN;
+            this.cooldown = MAX_COOLDOWN;
         }
     }
 }
