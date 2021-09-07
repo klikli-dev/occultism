@@ -29,11 +29,15 @@ import com.mojang.blaze3d.vertex.IVertexBuilder;
 
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
+import net.minecraft.util.math.MathHelper;
 
 /**
  * Created using Tabula 8.0.0
  */
 public class DevilFamiliarModel extends EntityModel<DevilFamiliarEntity> {
+    
+    private static final float PI = (float) Math.PI;
+    
     public ModelRenderer egg;
     public ModelRenderer body;
     public ModelRenderer leftLeg;
@@ -227,14 +231,50 @@ public class DevilFamiliarModel extends EntityModel<DevilFamiliarEntity> {
     @Override
     public void setRotationAngles(DevilFamiliarEntity entityIn, float limbSwing, float limbSwingAmount,
             float ageInTicks, float netHeadYaw, float headPitch) {
-        showModels(entityIn);
+        this.showModels(entityIn);
+        this.head.rotateAngleY = netHeadYaw * (PI / 180f) * 0.7f;
+        this.head.rotateAngleX = 0.03f + headPitch * (PI / 180f) * 0.7f;
+        
+        if (entityIn.isSitting()) {
+            this.leftLeg.rotateAngleX = 0;
+            this.rightLeg.rotateAngleX = 0;
+        } else {
+            this.leftLeg.rotateAngleX = toRads(30) + MathHelper.cos(limbSwing * 0.5f + PI) * limbSwingAmount * 0.4f;
+            this.rightLeg.rotateAngleX = toRads(30) + MathHelper.cos(limbSwing * 0.5f) * limbSwingAmount * 0.4f;
+        }
+        
+        if (ageInTicks % 300 < 60) {
+            float progress = ageInTicks % 300 % 60;
+            float armHeight = MathHelper.sin(progress * PI / 60) * 0.4f;
+            this.leftArm.rotateAngleX = 0.35f - armHeight + MathHelper.sin(progress * PI / 10) * 0.45f;
+            this.rightArm.rotateAngleX = 0.35f - armHeight + MathHelper.sin(progress * PI / 10 + PI) * 0.45f;
+        } else {
+            this.leftArm.rotateAngleX = 0.35f;
+            this.rightArm.rotateAngleX = 0.35f;
+        }
+    }
+
+    @Override
+    public void setLivingAnimations(DevilFamiliarEntity entityIn, float limbSwing, float limbSwingAmount,
+            float partialTick) {
+        if (entityIn.isSitting()) {
+            leftWing.rotateAngleY = -0.43f;
+            rightWing.rotateAngleY = 0.43f;
+        } else {
+            float animationHeight = entityIn.getAnimationHeight(partialTick);
+            leftWing.rotateAngleY = animationHeight * toRads(20) - 0.43f;
+            rightWing.rotateAngleY = -animationHeight * toRads(20) + 0.43f;
+        }
     }
     
+    private float toRads(float deg) {
+        return PI / 180f * deg;
+    }
 
     private void showModels(DevilFamiliarEntity entityIn) {
         boolean hasNose = entityIn.hasNose();
         boolean hasEars = entityIn.hasEars();
-        
+
         this.lollipop.showModel = entityIn.hasLollipop();
         this.nose.showModel = hasNose;
         this.jawHorn1.showModel = !hasNose;

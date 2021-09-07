@@ -27,11 +27,18 @@ import com.google.common.collect.ImmutableList;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.ai.attributes.AttributeModifierMap;
+import net.minecraft.entity.ai.attributes.Attributes;
+import net.minecraft.entity.ai.goal.FollowMobGoal;
+import net.minecraft.entity.ai.goal.LookAtGoal;
+import net.minecraft.entity.ai.goal.RandomWalkingGoal;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.EffectInstance;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
@@ -44,9 +51,16 @@ public class DevilFamiliarEntity extends FamiliarEntity {
             DataSerializers.BOOLEAN);
     private static final DataParameter<Boolean> EARS = EntityDataManager.createKey(DevilFamiliarEntity.class,
             DataSerializers.BOOLEAN);
+    
+    private float heightOffset;
 
     public DevilFamiliarEntity(EntityType<? extends DevilFamiliarEntity> type, World worldIn) {
         super(type, worldIn);
+        heightOffset = getRNG().nextFloat() * 5;
+    }
+    
+    public static AttributeModifierMap.MutableAttribute registerAttributes() {
+        return FamiliarEntity.registerAttributes().createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.2);
     }
     
     @Override
@@ -59,11 +73,24 @@ public class DevilFamiliarEntity extends FamiliarEntity {
     }
     
     @Override
+    protected void registerGoals() {
+        this.goalSelector.addGoal(1, new SitGoal(this));
+        this.goalSelector.addGoal(2, new LookAtGoal(this, PlayerEntity.class, 8));
+        this.goalSelector.addGoal(3, new FollowOwnerGoal(this, 1, 3, 1));
+        this.goalSelector.addGoal(5, new RandomWalkingGoal(this, 1.0D));
+        this.goalSelector.addGoal(6, new FollowMobGoal(this, 1, 3, 7));
+    }
+    
+    @Override
     protected void registerData() {
         super.registerData();
         this.dataManager.register(LOLLIPOP, false);
         this.dataManager.register(NOSE, false);
         this.dataManager.register(EARS, false);
+    }
+    
+    public float getAnimationHeight(float partialTicks) {
+        return MathHelper.cos((this.ticksExisted + heightOffset + partialTicks) / 3.5f);
     }
 
     public boolean hasLollipop() {

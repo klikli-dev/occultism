@@ -132,7 +132,7 @@ public class OccultismEntities {
                                          .build(modLoc("cthulhu_familiar").toString()));
     public static final NonNullLazy<EntityType<DevilFamiliarEntity>> DEVIL_FAMILIAR_TYPE =
             NonNullLazy.of(() -> EntityType.Builder.create(DevilFamiliarEntity::new, EntityClassification.CREATURE)
-                                         .size(0.8F, 1.4F)
+                                         .size(0.8F, 1.7F)
                                          .trackingRange(8)
                                          .build(modLoc("devil_familiar").toString()));
 
