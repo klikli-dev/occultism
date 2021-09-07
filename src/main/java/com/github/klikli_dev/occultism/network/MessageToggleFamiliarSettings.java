@@ -40,6 +40,7 @@ public class MessageToggleFamiliarSettings extends MessageBase {
     public boolean toggleBat;
     public boolean toggleDeer;
     public boolean toggleCthulhu;
+    public boolean toggleDevil;
     //endregion Fields
 
     //region Initialization
@@ -47,12 +48,14 @@ public class MessageToggleFamiliarSettings extends MessageBase {
         this.decode(buf);
     }
 
-    public MessageToggleFamiliarSettings(boolean toggleOtherworldBird, boolean toggleGreedy, boolean toggleBat, boolean toggleDeer, boolean toggleCthulhu) {
+    public MessageToggleFamiliarSettings(boolean toggleOtherworldBird, boolean toggleGreedy, boolean toggleBat,
+                                         boolean toggleDeer, boolean toggleCthulhu, boolean toggleDevil) {
         this.toggleOtherworldBird = toggleOtherworldBird;
         this.toggleGreedy = toggleGreedy;
         this.toggleBat = toggleBat;
         this.toggleDeer = toggleDeer;
         this.toggleCthulhu = toggleCthulhu;
+        this.toggleDevil = toggleDevil;
     }
     //endregion Initialization
 
@@ -98,6 +101,13 @@ public class MessageToggleFamiliarSettings extends MessageBase {
                                 "message." + Occultism.MODID + ".familiar.cthulhu." +
                                         (cap.isCthulhuEnabled() ? "enabled" : "disabled")), true);
             }
+            if (this.toggleDevil) {
+                cap.setDevilEnabled(!cap.isDevilEnabled());
+                player.sendStatusMessage(
+                        new TranslationTextComponent(
+                                "message." + Occultism.MODID + ".familiar.devil." +
+                                        (cap.isDevilEnabled() ? "enabled" : "disabled")), true);
+            }
         });
     }
 
@@ -108,6 +118,7 @@ public class MessageToggleFamiliarSettings extends MessageBase {
         buf.writeBoolean(this.toggleBat);
         buf.writeBoolean(this.toggleDeer);
         buf.writeBoolean(this.toggleCthulhu);
+        buf.writeBoolean(this.toggleDevil);
     }
 
     @Override
@@ -117,6 +128,7 @@ public class MessageToggleFamiliarSettings extends MessageBase {
         this.toggleBat = buf.readBoolean();
         this.toggleDeer = buf.readBoolean();
         this.toggleCthulhu = buf.readBoolean();
+        this.toggleDevil = buf.readBoolean();
     }
     //endregion Overrides
 }

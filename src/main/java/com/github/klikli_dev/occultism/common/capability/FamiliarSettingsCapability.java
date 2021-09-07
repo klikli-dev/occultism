@@ -41,6 +41,7 @@ public class FamiliarSettingsCapability {
     private boolean batEnabled = true;
     private boolean deerEnabled = true;
     private boolean cthulhuEnabled = true;
+    private boolean devilEnabled = true;
     //endregion Fields
 
     //region Initialization
@@ -63,6 +64,8 @@ public class FamiliarSettingsCapability {
         this.otherworldBirdEnabled = settings.otherworldBirdEnabled;
         this.batEnabled = settings.batEnabled;
         this.deerEnabled = settings.deerEnabled;
+        this.cthulhuEnabled = settings.cthulhuEnabled;
+        this.devilEnabled = settings.devilEnabled;
     }
 
     public CompoundNBT write(CompoundNBT compound) {
@@ -71,6 +74,7 @@ public class FamiliarSettingsCapability {
         compound.putBoolean("batEnabled", this.batEnabled);
         compound.putBoolean("deerEnabled", this.deerEnabled);
         compound.putBoolean("cthulhuEnabled", this.cthulhuEnabled);
+        compound.putBoolean("devilEnabled", this.devilEnabled);
         return compound;
     }
 
@@ -80,6 +84,7 @@ public class FamiliarSettingsCapability {
         this.batEnabled = compound.getBoolean("batEnabled");
         this.deerEnabled = compound.getBoolean("deerEnabled");
         this.cthulhuEnabled = compound.getBoolean("cthulhuEnabled");
+        this.devilEnabled = compound.getBoolean("devilEnabled");
         return compound;
     }
 
@@ -121,6 +126,14 @@ public class FamiliarSettingsCapability {
 
     public void setCthulhuEnabled(boolean cthulhuEnabled){
         this.cthulhuEnabled = cthulhuEnabled;
+    }
+
+    public boolean isDevilEnabled(){
+        return this.devilEnabled;
+    }
+
+    public void setDevilEnabled(boolean devilEnabled){
+        this.devilEnabled = devilEnabled;
     }
     //endregion Methods
 
