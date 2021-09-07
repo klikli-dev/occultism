@@ -29,14 +29,18 @@ import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.potion.EffectInstance;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
 
 public class DragonFamiliarEntity extends FamiliarEntity {
 
+    private float colorOffset;
+
     public DragonFamiliarEntity(EntityType<? extends DragonFamiliarEntity> type, World worldIn) {
         super(type, worldIn);
+        colorOffset = this.getRNG().nextFloat() * 2;
     }
 
     @Override
@@ -48,5 +52,17 @@ public class DragonFamiliarEntity extends FamiliarEntity {
     @Override
     public Iterable<EffectInstance> getFamiliarEffects() {
         return ImmutableList.of();
+    }
+
+    public float getEyeColorR(float partialTicks) {
+        return Math.abs(MathHelper.sin((ticksExisted + partialTicks + 5) / 20 + colorOffset)) * 0.8f + 0.2f;
+    }
+
+    public float getEyeColorG(float partialTicks) {
+        return Math.abs(MathHelper.sin((ticksExisted + partialTicks + 10) / 30 + colorOffset)) * 0.8f + 0.2f;
+    }
+
+    public float getEyeColorB(float partialTicks) {
+        return Math.abs(MathHelper.sin((ticksExisted + partialTicks) / 40 + colorOffset)) * 0.8f + 0.2f;
     }
 }

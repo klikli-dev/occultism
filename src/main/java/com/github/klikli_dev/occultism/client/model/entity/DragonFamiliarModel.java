@@ -6,6 +6,7 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 
 import net.minecraft.client.renderer.entity.model.EntityModel;
+import net.minecraft.client.renderer.model.Model;
 import net.minecraft.client.renderer.model.ModelRenderer;
 
 /**
@@ -24,8 +25,8 @@ public class DragonFamiliarModel extends EntityModel<DragonFamiliarEntity> {
     public ModelRenderer neck2;
     public ModelRenderer head;
     public ModelRenderer jaw;
-    public ModelRenderer leftEye;
-    public ModelRenderer rightEye;
+    public ColorModelRenderer leftEye;
+    public ColorModelRenderer rightEye;
     public ModelRenderer fez1;
     public ModelRenderer leftHorn1;
     public ModelRenderer leftEar;
@@ -96,7 +97,7 @@ public class DragonFamiliarModel extends EntityModel<DragonFamiliarEntity> {
         this.head.setRotationPoint(0.0F, -0.4F, -2.4F);
         this.head.addBox(-2.0F, -1.5F, -4.0F, 4.0F, 3.0F, 4.0F, 0.0F, 0.0F, 0.0F);
         this.setRotateAngle(head, 0.8213519699569813F, 0.0F, 0.0F);
-        this.leftEye = new ModelRenderer(this, 56, 3);
+        this.leftEye = new ColorModelRenderer(this, 56, 3);
         this.leftEye.setRotationPoint(1.5F, -0.1F, -2.4F);
         this.leftEye.addBox(0.0F, -1.0F, -1.0F, 1.0F, 2.0F, 2.0F, 0.0F, 0.0F, 0.0F);
         this.body = new ModelRenderer(this, 0, 0);
@@ -194,7 +195,7 @@ public class DragonFamiliarModel extends EntityModel<DragonFamiliarEntity> {
         this.tail3_1 = new ModelRenderer(this, 8, 26);
         this.tail3_1.setRotationPoint(0.01F, -3.5F, 0.0F);
         this.tail3_1.addBox(0.0F, 0.0F, 0.0F, 0.0F, 3.0F, 3.0F, 0.0F, 0.0F, 0.0F);
-        this.rightEye = new ModelRenderer(this, 56, 3);
+        this.rightEye = new ColorModelRenderer(this, 56, 3);
         this.rightEye.mirror = true;
         this.rightEye.setRotationPoint(-2.5F, -0.1F, -2.4F);
         this.rightEye.addBox(0.0F, -1.0F, -1.0F, 1.0F, 2.0F, 2.0F, 0.0F, 0.0F, 0.0F);
@@ -276,6 +277,18 @@ public class DragonFamiliarModel extends EntityModel<DragonFamiliarEntity> {
             float ageInTicks, float netHeadYaw, float headPitch) {
     }
 
+    @Override
+    public void setLivingAnimations(DragonFamiliarEntity entityIn, float limbSwing, float limbSwingAmount,
+            float partialTick) {
+        setEyeColor(entityIn.getEyeColorR(partialTick), entityIn.getEyeColorG(partialTick),
+                entityIn.getEyeColorB(partialTick));
+    }
+
+    private void setEyeColor(float r, float g, float b) {
+        this.leftEye.setColor(r, g, b);
+        this.rightEye.setColor(r, g, b);
+    }
+
     /**
      * This is a helper function from Tabula to set the rotation of model parts
      */
@@ -283,5 +296,27 @@ public class DragonFamiliarModel extends EntityModel<DragonFamiliarEntity> {
         modelRenderer.rotateAngleX = x;
         modelRenderer.rotateAngleY = y;
         modelRenderer.rotateAngleZ = z;
+    }
+
+    private static class ColorModelRenderer extends ModelRenderer {
+
+        float r, g, b;
+
+        public ColorModelRenderer(Model model, int texOffX, int texOffY) {
+            super(model, texOffX, texOffY);
+        }
+
+        private void setColor(float r, float g, float b) {
+            this.r = r;
+            this.g = g;
+            this.b = b;
+        }
+
+        @Override
+        public void render(MatrixStack matrixStackIn, IVertexBuilder bufferIn, int packedLightIn, int packedOverlayIn,
+                float red, float green, float blue, float alpha) {
+            super.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, r, g, b, alpha);
+        }
+
     }
 }
