@@ -230,7 +230,7 @@ public class RitualRecipe extends ShapelessRecipe {
                 entityToSacrificeDisplayName = json.getAsJsonObject("entity_to_sacrifice").get("display_name").getAsString();
             }
 
-            Ingredient itemToUse = null;
+            Ingredient itemToUse = Ingredient.EMPTY;
             if (json.has("item_to_use")) {
                 JsonElement itemToUseElement =
                         GsonHelper.isArrayNode(json, "item_to_use") ? GsonHelper.getAsJsonArray(json,
@@ -275,7 +275,7 @@ public class RitualRecipe extends ShapelessRecipe {
                 });
             }
 
-            Ingredient itemToUse = null;
+            Ingredient itemToUse = Ingredient.EMPTY;
             if (buffer.readBoolean()) {
                 itemToUse = Ingredient.fromNetwork(buffer);
             }
@@ -310,7 +310,7 @@ public class RitualRecipe extends ShapelessRecipe {
                 }));
                 buffer.writeUtf(recipe.entityToSacrificeDisplayName);
             }
-            buffer.writeBoolean(recipe.itemToUse != null);
+            buffer.writeBoolean(recipe.itemToUse != Ingredient.EMPTY);
             if (recipe.itemToUse != null)
                 recipe.itemToUse.toNetwork(buffer);
         }
