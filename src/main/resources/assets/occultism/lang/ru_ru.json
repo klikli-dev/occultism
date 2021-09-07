@@ -246,7 +246,7 @@
     "block.occultism.wither_skeleton_skull_dummy": "Череп Визер-скелета",
     
     "book.occultism.landing_text": "This book aims to introduce the novice reader to the most common summoning rituals and equip them with a list of spirits and their names. The authors advise caution in the summoning of the listed entities. $(br2)For help or to give feedback please join us in Discord $(l:https://invite.gg/klikli)https://invite.gg/klikli$().",
-    "book.occultism.name": "Dictionary of Spirits",
+    "book.occultism.name": "Словарь Душ",
 
     "_comment": "Сущности",
     "entity.occultism.foliot": "Филиот",
@@ -289,7 +289,7 @@
     
     "job.occultism.clear_weather": "Душа Солнечной Погоды",
     "job.occultism.rain_weather": "Душа Дождливой Погоды",
-    "job.occultism.thunder_weather": "Душа Грозавой Погоды",
+    "job.occultism.thunder_weather": "Душа Грозовой Погоды",
     
     "_comment": "Enums",
     "enum.occultism.facing.up": "Вверх",
