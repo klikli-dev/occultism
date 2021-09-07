@@ -90,6 +90,10 @@ public class ClientSetupEventHandler {
     public static final KeyBinding KEY_FAMILIAR_CTHULHU =
             new KeyBinding("key.occultism.familiar.cthulhu", KeyConflictContext.IN_GAME,
                     InputMappings.Type.KEYSYM.getOrMakeInput(-1), "key.occultism.category");
+
+    public static final KeyBinding KEY_FAMILIAR_DEVIL =
+            new KeyBinding("key.occultism.familiar.devil", KeyConflictContext.IN_GAME,
+                    InputMappings.Type.KEYSYM.getOrMakeInput(-1), "key.occultism.category");
     //endregion Fields
 
     //region Static Methods
@@ -108,6 +112,7 @@ public class ClientSetupEventHandler {
             ClientRegistry.registerKeyBinding(KEY_FAMILIAR_BAT);
             ClientRegistry.registerKeyBinding(KEY_FAMILIAR_DEER);
             ClientRegistry.registerKeyBinding(KEY_FAMILIAR_CTHULHU);
+            ClientRegistry.registerKeyBinding(KEY_FAMILIAR_DEVIL);
         });
 
         //Register Entity Renderers
@@ -120,6 +125,7 @@ public class ClientSetupEventHandler {
         RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.BAT_FAMILIAR.get(), BatFamiliarRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.DEER_FAMILIAR.get(), DeerFamiliarRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.CTHULHU_FAMILIAR.get(), CthulhuFamiliarRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.DEVIL_FAMILIAR.get(), DevilFamiliarRenderer::new);
         RenderingRegistry
                 .registerEntityRenderingHandler(OccultismEntities.POSSESSED_ENDERMITE.get(), EndermiteRenderer::new);
         RenderingRegistry

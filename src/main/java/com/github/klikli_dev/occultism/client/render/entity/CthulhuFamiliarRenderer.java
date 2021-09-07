@@ -27,10 +27,17 @@ import com.github.klikli_dev.occultism.client.model.entity.CthulhuFamiliarModel;
 import com.github.klikli_dev.occultism.common.entity.CthulhuFamiliarEntity;
 import com.mojang.blaze3d.matrix.MatrixStack;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
+import net.minecraft.client.renderer.entity.IEntityRenderer;
 import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.client.renderer.entity.layers.LayerRenderer;
+import net.minecraft.client.renderer.model.ItemCameraTransforms;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.vector.Quaternion;
 
 public class CthulhuFamiliarRenderer extends MobRenderer<CthulhuFamiliarEntity, CthulhuFamiliarModel> {
 
@@ -39,7 +46,7 @@ public class CthulhuFamiliarRenderer extends MobRenderer<CthulhuFamiliarEntity, 
 
     public CthulhuFamiliarRenderer(EntityRendererManager renderManagerIn) {
         super(renderManagerIn, new CthulhuFamiliarModel(), 0.3f);
-
+        this.addLayer(new HeldItemLayer(this));
     }
 
     @Override
@@ -55,4 +62,28 @@ public class CthulhuFamiliarRenderer extends MobRenderer<CthulhuFamiliarEntity, 
     public ResourceLocation getEntityTexture(CthulhuFamiliarEntity entity) {
         return TEXTURES;
     }
+
+    public class HeldItemLayer extends LayerRenderer<CthulhuFamiliarEntity, CthulhuFamiliarModel> {
+        public HeldItemLayer(IEntityRenderer<CthulhuFamiliarEntity, CthulhuFamiliarModel> renderer) {
+            super(renderer);
+        }
+
+        @Override
+        public void render(MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn,
+                CthulhuFamiliarEntity entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks,
+                float ageInTicks, float netHeadYaw, float headPitch) {
+            if (entitylivingbaseIn.isGiving()) {
+                matrixStackIn.push();
+                matrixStackIn.scale(1.25f, -1.25f, 1.25f);
+                matrixStackIn.translate(0, -0.75, -0.35);
+                matrixStackIn.rotate(new Quaternion(-65, 0, 0, true));
+                Minecraft.getInstance().getFirstPersonRenderer().renderItemSide(entitylivingbaseIn, new ItemStack(Items.POPPY),
+                        ItemCameraTransforms.TransformType.GROUND, false, matrixStackIn, bufferIn,
+                        packedLightIn);
+                matrixStackIn.pop();
+            }
+
+        }
+    }
+
 }
