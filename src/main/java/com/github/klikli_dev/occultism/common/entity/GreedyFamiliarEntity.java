@@ -23,6 +23,7 @@
 package com.github.klikli_dev.occultism.common.entity;
 
 import java.util.EnumSet;
+import java.util.List;
 
 import com.github.klikli_dev.occultism.common.advancement.FamiliarTrigger;
 import com.github.klikli_dev.occultism.registry.OccultismAdvancements;
@@ -56,11 +57,12 @@ public class GreedyFamiliarEntity extends FamiliarEntity {
         this.goalSelector.addGoal(0, new PanicGoal(this, 1.25));
         this.goalSelector.addGoal(0, new SwimGoal(this));
         this.goalSelector.addGoal(1, new SitGoal(this));
-        this.goalSelector.addGoal(2, new FindItemGoal(this));
-        this.goalSelector.addGoal(2, new LookAtGoal(this, PlayerEntity.class, 8));
-        this.goalSelector.addGoal(3, new FollowOwnerGoal(this, 1, 3, 1));
-        this.goalSelector.addGoal(4, new WaterAvoidingRandomWalkingGoal(this, 1.0D));
-        this.goalSelector.addGoal(5, new FollowMobGoal(this, 1, 3, 7));
+        this.goalSelector.addGoal(2, new RideDragonGoal(this));
+        this.goalSelector.addGoal(3, new FindItemGoal(this));
+        this.goalSelector.addGoal(3, new LookAtGoal(this, PlayerEntity.class, 8));
+        this.goalSelector.addGoal(4, new FollowOwnerGoal(this, 1, 3, 1));
+        this.goalSelector.addGoal(5, new WaterAvoidingRandomWalkingGoal(this, 1.0D));
+        this.goalSelector.addGoal(6, new FollowMobGoal(this, 1, 3, 7));
     }
 
     @Override
@@ -74,7 +76,8 @@ public class GreedyFamiliarEntity extends FamiliarEntity {
             return;
 
         if (this.isEffectEnabled())
-            for (ItemEntity e : wearer.world.getEntitiesWithinAABB(ItemEntity.class, wearer.getBoundingBox().grow(5), e -> e.isAlive())) {
+            for (ItemEntity e : wearer.world.getEntitiesWithinAABB(ItemEntity.class, wearer.getBoundingBox().grow(5),
+                    e -> e.isAlive())) {
                 ItemStack stack = e.getItem();
 
                 boolean isStackDemagnetized = stack.hasTag() && stack.getTag().getBoolean("PreventRemoteMovement");
@@ -86,14 +89,14 @@ public class GreedyFamiliarEntity extends FamiliarEntity {
             }
     }
 
-    private static class FindItemGoal extends Goal {
+    public static class FindItemGoal extends Goal {
 
         private static final double RANGE = 12;
 
-        private GreedyFamiliarEntity entity;
+        private FamiliarEntity entity;
 
-        public FindItemGoal(GreedyFamiliarEntity raptor) {
-            this.entity = raptor;
+        public FindItemGoal(FamiliarEntity entity) {
+            this.entity = entity;
             this.setMutexFlags(EnumSet.of(Goal.Flag.MOVE));
         }
 
@@ -145,4 +148,59 @@ public class GreedyFamiliarEntity extends FamiliarEntity {
         }
 
     }
+
+    private static class RideDragonGoal extends Goal {
+
+        private GreedyFamiliarEntity greedy;
+        private DragonFamiliarEntity dragon;
+
+        private RideDragonGoal(GreedyFamiliarEntity greedy) {
+            this.greedy = greedy;
+            this.setMutexFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.JUMP));
+        }
+
+        @Override
+        public boolean shouldExecute() {
+            if (greedy.getRidingEntity() instanceof DragonFamiliarEntity)
+                return true;
+
+            DragonFamiliarEntity dragon = findDragon();
+            if (dragon != null) {
+                this.dragon = dragon;
+                this.greedy.getNavigator().tryMoveToEntityLiving(dragon, 1);
+                return true;
+            }
+            return false;
+        }
+        
+        @Override
+        public boolean shouldContinueExecuting() {
+            return this.greedy.getRidingEntity() instanceof DragonFamiliarEntity || (this.greedy.hasPath() && this.dragon != null);
+        }
+        
+        @Override
+        public void resetTask() {
+            dragon = null;
+        }
+        
+        @Override
+        public void tick() {
+            if (this.dragon != null && this.greedy.getDistanceSq(this.dragon) < 5) {
+                this.greedy.startRiding(this.dragon);
+            }
+        }
+
+        private DragonFamiliarEntity findDragon() {
+            LivingEntity owner = this.greedy.getOwner();
+            if (owner == null)
+                return null;
+
+            List<DragonFamiliarEntity> dragons = this.greedy.world.getEntitiesWithinAABB(DragonFamiliarEntity.class,
+                    this.greedy.getBoundingBox().grow(5), e -> e.getFamiliarOwner() == owner && !e.isBeingRidden() && !e.isSitting());
+            if (dragons.isEmpty())
+                return null;
+            return dragons.get(0);
+        }
+    }
+
 }

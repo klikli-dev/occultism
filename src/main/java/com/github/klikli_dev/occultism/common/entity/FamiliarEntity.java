@@ -301,6 +301,8 @@ public abstract class FamiliarEntity extends CreatureEntity implements IFamiliar
 
         public void startExecuting() {
             this.entity.getNavigator().clearPath();
+            this.entity.stopRiding();
+            entity.removePassengers();
         }
 
         public void resetTask() {

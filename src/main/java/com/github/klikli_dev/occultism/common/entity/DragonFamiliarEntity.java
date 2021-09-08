@@ -63,6 +63,18 @@ public class DragonFamiliarEntity extends FamiliarEntity {
     }
 
     @Override
+    protected void registerGoals() {
+        this.goalSelector.addGoal(1, new SitGoal(this));
+        this.goalSelector.addGoal(3, new GreedyFamiliarEntity.FindItemGoal(this) {
+            @Override
+            public boolean shouldExecute() {
+                return super.shouldExecute()
+                        && getPassengers().stream().anyMatch(e -> e instanceof GreedyFamiliarEntity);
+            }
+        });
+    }
+
+    @Override
     protected void registerData() {
         super.registerData();
         this.dataManager.register(FEZ, false);
@@ -92,6 +104,11 @@ public class DragonFamiliarEntity extends FamiliarEntity {
 
     private void setArms(boolean b) {
         this.dataManager.set(ARMS, b);
+    }
+
+    @Override
+    public double getMountedYOffset() {
+        return super.getMountedYOffset() * 0.4f;
     }
 
     @Override
