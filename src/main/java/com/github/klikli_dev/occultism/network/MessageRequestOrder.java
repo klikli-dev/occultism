@@ -24,7 +24,7 @@ package com.github.klikli_dev.occultism.network;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.api.common.data.GlobalBlockPos;
-import com.github.klikli_dev.occultism.api.common.tile.IStorageController;
+import com.github.klikli_dev.occultism.api.common.blockentity.IStorageController;
 import com.github.klikli_dev.occultism.common.misc.ItemStackComparator;
 import com.github.klikli_dev.occultism.util.StorageUtil;
 import net.minecraft.world.level.block.entity.BlockEntity;

@@ -20,20 +20,32 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.github.klikli_dev.occultism.api.common.tile;
+package com.github.klikli_dev.occultism.api.common.blockentity;
 
-import com.github.klikli_dev.occultism.api.common.data.GlobalBlockPos;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import com.github.klikli_dev.occultism.api.common.data.SortDirection;
+import com.github.klikli_dev.occultism.api.common.data.SortType;
+import net.minecraft.world.item.ItemStack;
+
+import javax.annotation.Nonnull;
+import java.util.Map;
 
 /**
- * Interface for storage
+ * Interface for storage gui access.
  */
-public interface IStorageControllerProxy extends ICapabilityProvider {
+public interface IStorageAccessor {
     //region Getter / Setter
-    IStorageController getLinkedStorageController();
+    Map<Integer, ItemStack> getMatrix();
 
-    GlobalBlockPos getLinkedStorageControllerPosition();
+    ItemStack getOrderStack();
 
-    void setLinkedStorageControllerPosition(GlobalBlockPos blockPos);
+    void setOrderStack(@Nonnull ItemStack stack);
+
+    SortDirection getSortDirection();
+
+    void setSortDirection(SortDirection sortDirection);
+
+    SortType getSortType();
+
+    void setSortType(SortType sortType);
     //endregion Getter / Setter
 }

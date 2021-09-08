@@ -25,7 +25,7 @@ package com.github.klikli_dev.occultism.network;
 import com.github.klikli_dev.occultism.api.common.container.IStorageControllerContainer;
 import com.github.klikli_dev.occultism.api.common.data.SortDirection;
 import com.github.klikli_dev.occultism.api.common.data.SortType;
-import com.github.klikli_dev.occultism.api.common.tile.IStorageAccessor;
+import com.github.klikli_dev.occultism.api.common.blockentity.IStorageAccessor;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.network.FriendlyByteBuf;

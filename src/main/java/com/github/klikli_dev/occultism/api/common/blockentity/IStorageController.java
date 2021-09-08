@@ -20,7 +20,7 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.github.klikli_dev.occultism.api.common.tile;
+package com.github.klikli_dev.occultism.api.common.blockentity;
 
 import com.github.klikli_dev.occultism.api.common.container.IItemStackComparator;
 import com.github.klikli_dev.occultism.api.common.data.GlobalBlockPos;

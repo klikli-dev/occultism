@@ -23,7 +23,7 @@
 package com.github.klikli_dev.occultism.common.item.storage;
 
 import com.github.klikli_dev.occultism.api.common.data.GlobalBlockPos;
-import com.github.klikli_dev.occultism.api.common.tile.IStorageController;
+import com.github.klikli_dev.occultism.api.common.blockentity.IStorageController;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;

@@ -23,7 +23,7 @@
 package com.github.klikli_dev.occultism.common.item.storage;
 
 import com.github.klikli_dev.occultism.api.common.data.GlobalBlockPos;
-import com.github.klikli_dev.occultism.api.common.tile.IStorageController;
+import com.github.klikli_dev.occultism.api.common.blockentity.IStorageController;
 import com.github.klikli_dev.occultism.common.container.storage.StorageRemoteContainer;
 import com.github.klikli_dev.occultism.util.BlockEntityUtil;
 import com.github.klikli_dev.occultism.util.CuriosUtil;
