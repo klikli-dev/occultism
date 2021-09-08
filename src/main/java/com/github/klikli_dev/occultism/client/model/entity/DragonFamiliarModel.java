@@ -282,8 +282,22 @@ public class DragonFamiliarModel extends EntityModel<DragonFamiliarEntity> {
             float partialTick) {
         setEyeColor(entityIn.getEyeColorR(partialTick), entityIn.getEyeColorG(partialTick),
                 entityIn.getEyeColorB(partialTick));
+        showModels(entityIn);
     }
-
+    
+    private void showModels(DragonFamiliarEntity entityIn) {
+        boolean hasEars = entityIn.hasEars();
+        boolean hasArms = entityIn.hasArms();
+        
+        this.fez1.showModel = entityIn.hasFez();
+        this.leftEar.showModel = hasEars;
+        this.rightEar.showModel = hasEars;
+        this.leftHorn1.showModel = !hasEars;
+        this.rightHorn1.showModel = !hasEars;
+        this.leftArm1.showModel = hasArms;
+        this.rightArm1.showModel = hasArms;
+    }
+    
     private void setEyeColor(float r, float g, float b) {
         this.leftEye.setColor(r, g, b);
         this.rightEye.setColor(r, g, b);

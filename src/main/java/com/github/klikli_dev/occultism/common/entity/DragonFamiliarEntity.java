@@ -28,6 +28,9 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
@@ -35,6 +38,13 @@ import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
 
 public class DragonFamiliarEntity extends FamiliarEntity {
+
+    private static final DataParameter<Boolean> FEZ = EntityDataManager.createKey(DragonFamiliarEntity.class,
+            DataSerializers.BOOLEAN);
+    private static final DataParameter<Boolean> EARS = EntityDataManager.createKey(DragonFamiliarEntity.class,
+            DataSerializers.BOOLEAN);
+    private static final DataParameter<Boolean> ARMS = EntityDataManager.createKey(DragonFamiliarEntity.class,
+            DataSerializers.BOOLEAN);
 
     private float colorOffset;
 
@@ -46,7 +56,58 @@ public class DragonFamiliarEntity extends FamiliarEntity {
     @Override
     public ILivingEntityData onInitialSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason,
             ILivingEntityData spawnDataIn, CompoundNBT dataTag) {
+        this.setFez(this.getRNG().nextDouble() < 0.1);
+        this.setEars(this.getRNG().nextDouble() < 0.5);
+        this.setArms(this.getRNG().nextDouble() < 0.5);
         return super.onInitialSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
+    }
+
+    @Override
+    protected void registerData() {
+        super.registerData();
+        this.dataManager.register(FEZ, false);
+        this.dataManager.register(EARS, false);
+        this.dataManager.register(ARMS, false);
+    }
+
+    public boolean hasFez() {
+        return this.dataManager.get(FEZ);
+    }
+
+    private void setFez(boolean b) {
+        this.dataManager.set(FEZ, b);
+    }
+
+    public boolean hasEars() {
+        return this.dataManager.get(EARS);
+    }
+
+    private void setEars(boolean b) {
+        this.dataManager.set(EARS, b);
+    }
+
+    public boolean hasArms() {
+        return this.dataManager.get(ARMS);
+    }
+
+    private void setArms(boolean b) {
+        this.dataManager.set(ARMS, b);
+    }
+
+    @Override
+    public void writeAdditional(CompoundNBT compound) {
+        super.writeAdditional(compound);
+        compound.putBoolean("hasFez", this.hasFez());
+        compound.putBoolean("hasEars", this.hasEars());
+        compound.putBoolean("hasArms", this.hasArms());
+    }
+
+    @Override
+    public void readAdditional(CompoundNBT compound) {
+        super.readAdditional(compound);
+        this.setFez(compound.getBoolean("hasFez"));
+        this.setEars(compound.getBoolean("hasEars"));
+        this.setArms(compound.getBoolean("hasArms"));
     }
 
     @Override
