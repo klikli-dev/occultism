@@ -62,7 +62,7 @@ public class StorageControllerSlot extends CraftingResultSlot {
             return stack;
         }
 
-        List<ItemStack> craftingStacks = new ArrayList();
+        List<ItemStack> craftingStacks = new ArrayList<>();
         for (int i = 0; i < this.matrix.getSizeInventory(); i++) {
             craftingStacks.add(this.matrix.getStackInSlot(i).copy());
         }
