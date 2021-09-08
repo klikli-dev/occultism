@@ -124,12 +124,12 @@ public class SummonRitual extends Ritual {
         }
     }
 
-    public Entity createSummonedEntity(EntityType<?> entityType, Level level, BlockPos goldenBowlPosition, GoldenSacrificialBowlBlockEntity tileEntity,
+    public Entity createSummonedEntity(EntityType<?> entityType, Level level, BlockPos goldenBowlPosition, GoldenSacrificialBowlBlockEntity blockEntity,
                                        Player castingPlayer) {
         return entityType.create(level);
     }
 
-    public void initSummoned(LivingEntity living, Level level, BlockPos goldenBowlPosition, GoldenSacrificialBowlBlockEntity tileEntity,
+    public void initSummoned(LivingEntity living, Level level, BlockPos goldenBowlPosition, GoldenSacrificialBowlBlockEntity blockEntity,
                              Player castingPlayer) {
         if (living instanceof SpiritEntity) {
             SpiritEntity spirit = (SpiritEntity) living;
