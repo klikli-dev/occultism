@@ -43,11 +43,11 @@ public class BlockEntityUtil {
     //region Static Methods
 
     /**
-     * Gets the tile entity from the given global position.
+     * Gets the block entity from the given global position.
      *
      * @param level the level. Returns null if the dimension is unloaded.
      * @param pos   the global position.
-     * @return the tile entity or null.
+     * @return the block entity or null.
      */
     public static BlockEntity get(Level level, GlobalBlockPos pos) {
         if (pos == null)
@@ -77,7 +77,7 @@ public class BlockEntityUtil {
 
 
     /**
-     * Updates the tile entity at the given position (mark dirty & send updates)
+     * Updates the block entity at the given position (mark dirty & send updates)
      *
      * @param level the level to update
      * @param pos   the position to update
@@ -93,9 +93,9 @@ public class BlockEntityUtil {
     }
 
     /**
-     * Checks all faces of a tile entity for the given capability.
+     * Checks all faces of a block entity for the given capability.
      *
-     * @param blockEntity the tile entity to check.
+     * @param blockEntity the block entity to check.
      * @param capability  the capability to check for.
      * @return true if the capability is found on any face.
      */
@@ -108,11 +108,11 @@ public class BlockEntityUtil {
     }
 
     /**
-     * Creates the item entity with nbt from the tile entity.
+     * Creates the item entity with nbt from the block entity.
      * Default pickup delay is set.
      *
      * @param itemStack   the stack to drop.
-     * @param blockEntity the tile entity to get nbt from.
+     * @param blockEntity the block entity to get nbt from.
      * @return the item entity.
      */
     public static ItemEntity getDroppedItemWithNbt(ItemStack itemStack, BlockEntity blockEntity) {
@@ -128,7 +128,7 @@ public class BlockEntityUtil {
     }
 
     /**
-     * Handles the common use case of dropping self with tile entity nbt on block change during replace.
+     * Handles the common use case of dropping self with block entity nbt on block change during replace.
      *
      * @param block    the current block.
      * @param state    the old state.
@@ -140,9 +140,9 @@ public class BlockEntityUtil {
                                                 BlockState newState) {
         if (state.getBlock() != newState.getBlock()) {
             if (!level.isClientSide) {
-                BlockEntity tile = level.getBlockEntity(pos);
-                if (tile != null) {
-                    level.addFreshEntity(BlockEntityUtil.getDroppedItemWithNbt(new ItemStack(block), tile));
+                BlockEntity blockEntity = level.getBlockEntity(pos);
+                if (blockEntity != null) {
+                    level.addFreshEntity(BlockEntityUtil.getDroppedItemWithNbt(new ItemStack(block), blockEntity));
                 }
             }
             level.updateNeighbourForOutputSignal(pos, block);
@@ -150,7 +150,7 @@ public class BlockEntityUtil {
     }
 
     /**
-     * Handles the common use case of giving self as item with tile entity nbt.
+     * Handles the common use case of giving self as item with block entity nbt.
      *
      * @param block the current block.
      * @param level the level

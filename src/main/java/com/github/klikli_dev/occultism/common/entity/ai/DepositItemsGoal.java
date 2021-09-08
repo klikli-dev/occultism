@@ -128,7 +128,7 @@ public class DepositItemsGoal extends PausableGoal {
                     LazyOptional<IItemHandler> handlerCapability = this.moveTarget.getCapability(
                             CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, this.entity.getDepositFacing());
                     if (!handlerCapability
-                            .isPresent()) { //worst case scenario if tile entity or entity changes since last target reset.
+                            .isPresent()) { //worst case scenario if block entity or entity changes since last target reset.
                         this.resetTarget();
                         return;
                     }
@@ -157,7 +157,7 @@ public class DepositItemsGoal extends PausableGoal {
                     }
                 }
             } else {
-                this.resetTarget(); //if there is no tile entity, recheck
+                this.resetTarget(); //if there is no block entity, recheck
             }
         }
     }
@@ -189,8 +189,8 @@ public class DepositItemsGoal extends PausableGoal {
      */
     public void toggleChest(IMoveTarget target, boolean open) {
         if (target instanceof BlockPosMoveTarget) {
-            BlockEntity tile = this.entity.level.getBlockEntity(target.getBlockPos());
-            if (tile instanceof ChestBlockEntity chest) {
+            BlockEntity blockEntity = this.entity.level.getBlockEntity(target.getBlockPos());
+            if (blockEntity instanceof ChestBlockEntity chest) {
                 if (open) {
                     this.entity.level.blockEvent(this.moveTarget.getBlockPos(), chest.getBlockState().getBlock(), 1, 1);
                 } else {
@@ -207,7 +207,7 @@ public class DepositItemsGoal extends PausableGoal {
             this.moveTarget = new BlockPosMoveTarget(this.entity.level, pos);
             if (!this.moveTarget.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, this.entity.getDepositFacing())
                     .isPresent()) {
-                //the deposit tile is not valid for depositing, so we disable this to allow exiting this task.
+                //the deposit block is not valid for depositing, so we disable this to allow exiting this task.
                 this.entity.setDepositPosition(null);
             }
         });

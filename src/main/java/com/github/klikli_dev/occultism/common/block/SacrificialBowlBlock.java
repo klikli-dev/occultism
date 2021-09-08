@@ -65,9 +65,9 @@ public class SacrificialBowlBlock extends Block implements EntityBlock {
 
     public void onRemove(BlockState state, Level worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
         if (state.getBlock() != newState.getBlock()) {
-            BlockEntity tile = worldIn.getBlockEntity(pos);
-            if (tile != null) {
-                StorageUtil.dropInventoryItems(tile);
+            BlockEntity blockEntity = worldIn.getBlockEntity(pos);
+            if (blockEntity != null) {
+                StorageUtil.dropInventoryItems(blockEntity);
             }
             super.onRemove(state, worldIn, pos, newState, isMoving);
         }

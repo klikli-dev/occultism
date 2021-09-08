@@ -127,25 +127,25 @@ public class ExtractItemsGoal extends PausableGoal {
                     LazyOptional<IItemHandler> handlerCapability = blockEntity.getCapability(
                             CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, this.entity.getExtractFacing());
                     if (!handlerCapability
-                            .isPresent()) { //worst case scenario if tile entity changes since last target reset.
+                            .isPresent()) { //worst case scenario if block entity changes since last target reset.
                         this.resetTarget();
                         return;
                     }
-                    IItemHandler tileHandler = handlerCapability.orElseThrow(ItemHandlerMissingException::new);
+                    IItemHandler blockEntityHandler = handlerCapability.orElseThrow(ItemHandlerMissingException::new);
                     IItemHandler entityHandler =
                             this.entity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, Direction.DOWN)
                                     .orElseThrow(ItemHandlerMissingException::new);
 
-                    int slot = StorageUtil.getFirstMatchingSlot(tileHandler,
+                    int slot = StorageUtil.getFirstMatchingSlot(blockEntityHandler,
                             this.entity.getFilterItems().orElseThrow(ItemHandlerMissingException::new), this.entity.getTagFilter(), this.entity.isFilterBlacklist());
                     if (slot >= 0) {
                         //simulate extraction
-                        ItemStack toExtract = tileHandler.extractItem(slot, Integer.MAX_VALUE, true).copy();
+                        ItemStack toExtract = blockEntityHandler.extractItem(slot, Integer.MAX_VALUE, true).copy();
                         if (!toExtract.isEmpty()) {
                             ItemStack remaining = ItemHandlerHelper.insertItem(entityHandler, toExtract, true);
                             if (remaining.getCount() < toExtract.getCount()) {
                                 //if simulation went well, do for real
-                                ItemStack extracted = tileHandler.extractItem(slot, toExtract.getCount() - remaining.getCount(), false);
+                                ItemStack extracted = blockEntityHandler.extractItem(slot, toExtract.getCount() - remaining.getCount(), false);
                                 ItemHandlerHelper.insertItem(entityHandler, extracted, false);
                             }
                         }
@@ -157,7 +157,7 @@ public class ExtractItemsGoal extends PausableGoal {
                     }
                 }
             } else {
-                this.resetTarget(); //if there is no tile entity, recheck
+                this.resetTarget(); //if there is no block entity, recheck
             }
         }
     }
@@ -184,7 +184,7 @@ public class ExtractItemsGoal extends PausableGoal {
     /**
      * Opens or closes a chest
      *
-     * @param BlockEntity the chest tile entity
+     * @param BlockEntity the chest block entity
      * @param open        true to open the chest, false to close it.
      */
     public void toggleChest(Container blockEntity, boolean open) {
@@ -205,7 +205,7 @@ public class ExtractItemsGoal extends PausableGoal {
             if (blockEntity == null ||
                     !blockEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, this.entity.getExtractFacing())
                             .isPresent()) {
-                //the extract tile is not valid for extracting, so we disable this to allow exiting this task.
+                //the extract block is not valid for extracting, so we disable this to allow exiting this task.
                 this.entity.setExtractPosition(null);
             }
         });

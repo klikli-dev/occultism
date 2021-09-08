@@ -150,7 +150,7 @@ public abstract class Ritual {
      *
      * @param level              the level.
      * @param goldenBowlPosition the position of the golden bowl.
-     * @param blockEntity        the tile entity controlling the ritual.
+     * @param blockEntity        the block entity controlling the ritual.
      * @param castingPlayer      the player starting the ritual.
      * @param activationItem     the item used to start the ritual.
      * @return true if a valid ritual is found.
@@ -168,7 +168,7 @@ public abstract class Ritual {
      *
      * @param level              the level.
      * @param goldenBowlPosition the position of the golden bowl.
-     * @param blockEntity        the tile entity controlling the ritual.
+     * @param blockEntity        the block entity controlling the ritual.
      * @param castingPlayer      the player starting the ritual.
      * @param activationItem     the item used to start the ritual.
      */
@@ -183,7 +183,7 @@ public abstract class Ritual {
      *
      * @param level              the level.
      * @param goldenBowlPosition the position of the golden bowl.
-     * @param blockEntity        the tile entity controlling the ritual.
+     * @param blockEntity        the block entity controlling the ritual.
      * @param castingPlayer      the player starting the ritual.
      * @param activationItem     the item used to start the ritual.
      */
@@ -200,7 +200,7 @@ public abstract class Ritual {
      *
      * @param level              the level.
      * @param goldenBowlPosition the position of the golden bowl.
-     * @param blockEntity        the tile entity controlling the ritual.
+     * @param blockEntity        the block entity controlling the ritual.
      * @param castingPlayer      the player starting the ritual.
      * @param activationItem     the item used to start the ritual.
      */
@@ -215,7 +215,7 @@ public abstract class Ritual {
      *
      * @param level                          the level.
      * @param goldenBowlPosition             the position of the golden bowl.
-     * @param blockEntity                    the tile entity controlling the ritual.
+     * @param blockEntity                    the block entity controlling the ritual.
      * @param castingPlayer                  the player starting the ritual.
      * @param activationItem                 the item used to start the ritual.
      * @param remainingAdditionalIngredients the additional ingredients not yet fulfilled.
@@ -231,7 +231,7 @@ public abstract class Ritual {
      *
      * @param level              the level.
      * @param goldenBowlPosition the position of the golden bowl.
-     * @param blockEntity        the tile entity controlling the ritual.
+     * @param blockEntity        the block entity controlling the ritual.
      * @param castingPlayer      the player starting the ritual.
      * @param activationItem     the item used to start the ritual.
      * @param time               the current ritual time.
@@ -549,7 +549,7 @@ public abstract class Ritual {
      *
      * @param level              the level.
      * @param goldenBowlPosition the position of the golden bowl.
-     * @param blockEntity        the tile entity controlling the ritual.
+     * @param blockEntity        the block entity controlling the ritual.
      * @param castingPlayer      the player starting the ritual.
      * @param stack              the result stack to drop.
      */

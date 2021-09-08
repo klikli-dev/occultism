@@ -79,9 +79,9 @@ public class GoldenSacrificialBowlBlock extends Block implements EntityBlock {
     @Override
     public void onRemove(BlockState state, Level worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
         if (state.getBlock() != newState.getBlock()) {
-            BlockEntity tile = worldIn.getBlockEntity(pos);
-            if (tile != null) {
-                GoldenSacrificialBowlBlockEntity bowl = (GoldenSacrificialBowlBlockEntity) tile;
+            BlockEntity blockEntity = worldIn.getBlockEntity(pos);
+            if (blockEntity != null) {
+                GoldenSacrificialBowlBlockEntity bowl = (GoldenSacrificialBowlBlockEntity) blockEntity;
                 bowl.stopRitual(false); //if block changed/was destroyed, interrupt the ritual.
                 StorageUtil.dropInventoryItems(bowl);
             }

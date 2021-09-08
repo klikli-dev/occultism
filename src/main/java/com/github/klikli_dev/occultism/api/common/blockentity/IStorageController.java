@@ -67,12 +67,12 @@ public interface IStorageController {
     int getUsedSlots();
 
     /**
-     * @return a list of tile entity references for the machines liked for autocrafting
+     * @return a list of block entity references for the machines liked for autocrafting
      */
     Map<GlobalBlockPos, MachineReference> getLinkedMachines();
 
     /**
-     * @param machines @return a list of tile entity references for the machines liked for autocrafting
+     * @param machines @return a list of block entity references for the machines liked for autocrafting
      */
     void setLinkedMachines(Map<GlobalBlockPos, MachineReference> machines);
     //endregion Getter / Setter

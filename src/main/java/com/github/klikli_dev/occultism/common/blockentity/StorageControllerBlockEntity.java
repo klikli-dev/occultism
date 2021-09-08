@@ -129,7 +129,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
 
     @Override
     public void setLinkedStorageControllerPosition(GlobalBlockPos blockPos) {
-        //Do nothing, tile entity cannot move.
+        //Do nothing, block entity cannot move.
     }
 
     @Override
@@ -541,7 +541,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
     }
 
     protected void validateLinkedMachines() {
-        // remove all entries that lead to invalid tile entities.
+        // remove all entries that lead to invalid block entities.
         this.linkedMachines.entrySet().removeIf(entry -> entry.getValue().getBlockEntity(this.level) == null);
     }
     //endregion Methods

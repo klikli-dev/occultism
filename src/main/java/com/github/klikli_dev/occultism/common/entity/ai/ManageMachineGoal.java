@@ -193,7 +193,7 @@ public class ManageMachineGoal extends Goal {
                     this.stop();
                 }
             } else {
-                //if we have a target block but no tile there we need to reset
+                //if we have a target block but no block there we need to reset
                 this.stop();
             }
         }

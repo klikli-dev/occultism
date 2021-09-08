@@ -257,7 +257,7 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
                 ItemHandlerHelper.insertItemStacked(outputHandler, r.getStack().copy(), false);
             });
             //If there is no space, we simply continue. The otherworld miner spirit keeps working,
-            // but the miner tile entity simply discards the results
+            // but the miner block entity simply discards the results
         }
 
         //damage and eventually consume item.

@@ -243,10 +243,10 @@ public class StorageUtil {
     }
 
     /**
-     * Drops all items of the given tile entity.
+     * Drops all items of the given block entity.
      * Tile entity <bold>must</bold> return a combined item handler for direction null.
      *
-     * @param blockEntity the tile entity to drop contents for.
+     * @param blockEntity the block entity to drop contents for.
      */
     public static void dropInventoryItems(BlockEntity blockEntity) {
         blockEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(handler -> {

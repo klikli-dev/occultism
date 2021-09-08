@@ -67,7 +67,7 @@ public class StableWormholeBlockItem extends BlockItem {
             if (player.isShiftKeyDown()) {
                 BlockEntity blockEntity = level.getBlockEntity(pos);
                 if (blockEntity instanceof IStorageController) {
-                    //if this is a storage controller, write the position into the block entity tag that will be used to spawn the tile entity.
+                    //if this is a storage controller, write the position into the block entity tag that will be used to spawn the block entity.
                     stack.getOrCreateTagElement("BlockEntityTag")
                             .put("linkedStorageControllerPosition", GlobalBlockPos.from(blockEntity).serializeNBT());
                     player.displayClientMessage(
