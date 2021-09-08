@@ -25,8 +25,6 @@ package com.github.klikli_dev.occultism.common.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.github.klikli_dev.occultism.common.capability.FamiliarSettingsCapability;
-import com.github.klikli_dev.occultism.registry.OccultismCapabilities;
 import com.google.common.collect.ImmutableList;
 
 import net.minecraft.entity.Entity;
@@ -163,8 +161,7 @@ public class DevilFamiliarEntity extends FamiliarEntity {
 
     @Override
     public Iterable<EffectInstance> getFamiliarEffects() {
-        if (this.getFamiliarOwner().getCapability(OccultismCapabilities.FAMILIAR_SETTINGS)
-                .map(FamiliarSettingsCapability::isDevilEnabled).orElse(false)) {
+        if (this.isEffectEnabled()) {
                 return ImmutableList.of(new EffectInstance(Effects.FIRE_RESISTANCE, 300, 0, false, false));
         }
         return ImmutableList.of();

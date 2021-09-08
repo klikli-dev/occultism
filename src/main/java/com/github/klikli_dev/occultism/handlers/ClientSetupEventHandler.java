@@ -36,6 +36,7 @@ import com.github.klikli_dev.occultism.client.keybindings.StorageRemoteKeyConfli
 import com.github.klikli_dev.occultism.client.render.entity.*;
 import com.github.klikli_dev.occultism.client.render.tile.SacrificialBowlRenderer;
 import com.github.klikli_dev.occultism.client.render.tile.StorageControllerRenderer;
+import com.github.klikli_dev.occultism.common.capability.FamiliarSettingsCapability;
 import com.github.klikli_dev.occultism.common.container.spirit.SpiritContainer;
 import com.github.klikli_dev.occultism.registry.*;
 import net.minecraft.client.gui.ScreenManager;
@@ -47,6 +48,7 @@ import net.minecraft.client.renderer.entity.SkeletonRenderer;
 import net.minecraft.client.renderer.entity.WitherSkeletonRenderer;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.client.util.InputMappings;
+import net.minecraft.entity.EntityType;
 import net.minecraft.item.ItemModelsProperties;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
@@ -57,6 +59,10 @@ import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import org.lwjgl.glfw.GLFW;
 
 @Mod.EventBusSubscriber(modid = Occultism.MODID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -70,30 +76,9 @@ public class ClientSetupEventHandler {
     public static final KeyBinding KEY_STORAGE_REMOTE =
             new KeyBinding("key.occultism.storage_remote", StorageRemoteKeyConflictContext.INSTANCE,
                     InputMappings.Type.KEYSYM.getOrMakeInput(GLFW.GLFW_KEY_N), "key.occultism.category");
+    
+    public static Map<EntityType<?>, KeyBinding> keysFamiliars;
 
-    public static final KeyBinding KEY_FAMILIAR_OTHERWORLD_BIRD =
-            new KeyBinding("key.occultism.familiar.otherworld_bird", KeyConflictContext.IN_GAME,
-                    InputMappings.Type.KEYSYM.getOrMakeInput(-1), "key.occultism.category");
-
-    public static final KeyBinding KEY_FAMILIAR_GREEDY =
-            new KeyBinding("key.occultism.familiar.greedy", KeyConflictContext.IN_GAME,
-                    InputMappings.Type.KEYSYM.getOrMakeInput(GLFW.GLFW_KEY_M), "key.occultism.category");
-
-    public static final KeyBinding KEY_FAMILIAR_BAT =
-            new KeyBinding("key.occultism.familiar.bat", KeyConflictContext.IN_GAME,
-                    InputMappings.Type.KEYSYM.getOrMakeInput(-1), "key.occultism.category");
-
-    public static final KeyBinding KEY_FAMILIAR_DEER =
-            new KeyBinding("key.occultism.familiar.deer", KeyConflictContext.IN_GAME,
-                    InputMappings.Type.KEYSYM.getOrMakeInput(-1), "key.occultism.category");
-
-    public static final KeyBinding KEY_FAMILIAR_CTHULHU =
-            new KeyBinding("key.occultism.familiar.cthulhu", KeyConflictContext.IN_GAME,
-                    InputMappings.Type.KEYSYM.getOrMakeInput(-1), "key.occultism.category");
-
-    public static final KeyBinding KEY_FAMILIAR_DEVIL =
-            new KeyBinding("key.occultism.familiar.devil", KeyConflictContext.IN_GAME,
-                    InputMappings.Type.KEYSYM.getOrMakeInput(-1), "key.occultism.category");
     //endregion Fields
 
     //region Static Methods
@@ -107,12 +92,14 @@ public class ClientSetupEventHandler {
         event.enqueueWork(() -> {
             ClientRegistry.registerKeyBinding(KEY_BACKPACK);
             ClientRegistry.registerKeyBinding(KEY_STORAGE_REMOTE);
-            ClientRegistry.registerKeyBinding(KEY_FAMILIAR_OTHERWORLD_BIRD);
-            ClientRegistry.registerKeyBinding(KEY_FAMILIAR_GREEDY);
-            ClientRegistry.registerKeyBinding(KEY_FAMILIAR_BAT);
-            ClientRegistry.registerKeyBinding(KEY_FAMILIAR_DEER);
-            ClientRegistry.registerKeyBinding(KEY_FAMILIAR_CTHULHU);
-            ClientRegistry.registerKeyBinding(KEY_FAMILIAR_DEVIL);
+            
+            keysFamiliars = new HashMap<>();
+            for (EntityType<?> familiar : FamiliarSettingsCapability.getFamiliars()) {
+                KeyBinding kb = new KeyBinding("key.occultism.familiar." + familiar.getRegistryName().getPath(), KeyConflictContext.IN_GAME,
+                        InputMappings.Type.KEYSYM.getOrMakeInput(-1), "key.occultism.category");
+                keysFamiliars.put(familiar, kb);
+                ClientRegistry.registerKeyBinding(kb);
+            }
         });
 
         //Register Entity Renderers

@@ -24,7 +24,6 @@ package com.github.klikli_dev.occultism.common.entity;
 
 import java.util.EnumSet;
 
-import com.github.klikli_dev.occultism.registry.OccultismCapabilities;
 import com.google.common.collect.ImmutableList;
 
 import net.minecraft.entity.EntityType;
@@ -72,20 +71,17 @@ public class GreedyFamiliarEntity extends FamiliarEntity {
         if (!(wearer instanceof PlayerEntity))
             return;
 
-        wearer.getCapability(OccultismCapabilities.FAMILIAR_SETTINGS).ifPresent(cap -> {
-            if(cap.isGreedyEnabled()){
-                for (ItemEntity e : wearer.world.getEntitiesWithinAABB(ItemEntity.class, wearer.getBoundingBox().grow(5), e -> e.isAlive())) {
-                    ItemStack stack = e.getItem();
+        if (this.isEffectEnabled())
+            for (ItemEntity e : wearer.world.getEntitiesWithinAABB(ItemEntity.class, wearer.getBoundingBox().grow(5), e -> e.isAlive())) {
+                ItemStack stack = e.getItem();
 
-                    boolean isStackDemagnetized = stack.hasTag() && stack.getTag().getBoolean("PreventRemoteMovement");
-                    boolean isEntityDemagnetized = e.getPersistentData().getBoolean("PreventRemoteMovement");
+                boolean isStackDemagnetized = stack.hasTag() && stack.getTag().getBoolean("PreventRemoteMovement");
+                boolean isEntityDemagnetized = e.getPersistentData().getBoolean("PreventRemoteMovement");
 
-                    if (!isStackDemagnetized && !isEntityDemagnetized) {
-                        e.onCollideWithPlayer((PlayerEntity) wearer);
-                    }
+                if (!isStackDemagnetized && !isEntityDemagnetized) {
+                    e.onCollideWithPlayer((PlayerEntity) wearer);
                 }
             }
-        });
     }
 
     private static class FindItemGoal extends Goal {

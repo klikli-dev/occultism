@@ -25,8 +25,6 @@ package com.github.klikli_dev.occultism.common.entity;
 import java.util.Collections;
 import java.util.UUID;
 
-import com.github.klikli_dev.occultism.common.capability.FamiliarSettingsCapability;
-import com.github.klikli_dev.occultism.registry.OccultismCapabilities;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.google.common.collect.ImmutableList;
 
@@ -122,8 +120,7 @@ public class DeerFamiliarEntity extends FamiliarEntity {
 
     @Override
     public Iterable<EffectInstance> getFamiliarEffects() {
-        if (this.getFamiliarOwner().getCapability(OccultismCapabilities.FAMILIAR_SETTINGS)
-                .map(FamiliarSettingsCapability::isDeerEnabled).orElse(false)) {
+        if (this.isEffectEnabled()) {
             return ImmutableList.of(new EffectInstance(Effects.JUMP_BOOST, 300, 0, false, false));
         }
         return Collections.emptyList();

@@ -30,6 +30,8 @@ import com.github.klikli_dev.occultism.util.CuriosUtil;
 import com.github.klikli_dev.occultism.util.MovementUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.SimpleSound;
+import net.minecraft.client.settings.KeyBinding;
+import net.minecraft.entity.EntityType;
 import net.minecraft.util.SoundEvents;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.InputEvent;
@@ -37,6 +39,10 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 import static org.lwjgl.glfw.GLFW.GLFW_PRESS;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 
 @Mod.EventBusSubscriber(modid = Occultism.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
 public class ClientPlayerEventHandler {
@@ -101,14 +107,17 @@ public class ClientPlayerEventHandler {
     public static void checkFamiliarSettingsKeys(InputEvent event) {
         Minecraft minecraft = Minecraft.getInstance();
         if (minecraft.player != null & minecraft.currentScreen == null) {
-            boolean familiarGreedy = ClientSetupEventHandler.KEY_FAMILIAR_GREEDY.isPressed();
-            boolean familiarOtherworldBird = ClientSetupEventHandler.KEY_FAMILIAR_OTHERWORLD_BIRD.isPressed();
-            boolean familiarBat = ClientSetupEventHandler.KEY_FAMILIAR_BAT.isPressed();
-            boolean familiarDeer = ClientSetupEventHandler.KEY_FAMILIAR_DEER.isPressed();
-            boolean familiarCthulhu = ClientSetupEventHandler.KEY_FAMILIAR_CTHULHU.isPressed();
-            boolean familiarDevil = ClientSetupEventHandler.KEY_FAMILIAR_DEVIL.isPressed();
-            if (familiarGreedy|| familiarOtherworldBird || familiarBat || familiarDeer || familiarCthulhu || familiarDevil) {
-                OccultismPackets.sendToServer(new MessageToggleFamiliarSettings(familiarOtherworldBird, familiarGreedy, familiarBat, familiarDeer, familiarCthulhu, familiarDevil));
+            boolean familiarKeyPressed = false;
+            Map<EntityType<?>, Boolean> familiarsPressed = new HashMap<>();
+            
+            for (Entry<EntityType<?>, KeyBinding> entry : ClientSetupEventHandler.keysFamiliars.entrySet()) {
+                boolean isPressed = entry.getValue().isPressed();
+                if (isPressed)
+                    familiarKeyPressed = true;
+                familiarsPressed.put(entry.getKey(), isPressed);
+            }
+            if (familiarKeyPressed) {
+                OccultismPackets.sendToServer(new MessageToggleFamiliarSettings(familiarsPressed));
             }
         }
     }

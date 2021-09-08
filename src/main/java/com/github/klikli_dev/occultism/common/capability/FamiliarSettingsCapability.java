@@ -22,7 +22,12 @@
 
 package com.github.klikli_dev.occultism.common.capability;
 
+import com.github.klikli_dev.occultism.common.entity.IFamiliar;
 import com.github.klikli_dev.occultism.registry.OccultismCapabilities;
+import com.github.klikli_dev.occultism.registry.OccultismEntities;
+import com.google.common.collect.ImmutableList;
+
+import net.minecraft.entity.EntityType;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
 import net.minecraft.util.Direction;
@@ -30,22 +35,27 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.common.util.LazyOptional;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class FamiliarSettingsCapability {
 
     //region Fields
-    private boolean greedyEnabled = true;
-    private boolean otherworldBirdEnabled = true;
-    private boolean batEnabled = true;
-    private boolean deerEnabled = true;
-    private boolean cthulhuEnabled = true;
-    private boolean devilEnabled = true;
+    private static ImmutableList<EntityType<? extends IFamiliar>> familiars = null;
+    
+    private final Map<EntityType<?>, Boolean> familiarEnabled;
     //endregion Fields
 
     //region Initialization
     public FamiliarSettingsCapability() {
+        familiarEnabled = new HashMap<>();
+        for (EntityType<?> familiar : getFamiliars())
+            familiarEnabled.put(familiar, true);
     }
     //endregion Initialization
 
@@ -54,87 +64,43 @@ public class FamiliarSettingsCapability {
     //endregion Getter / Setter
 
     //region Methods
+    
+    public static List<EntityType<? extends IFamiliar>> getFamiliars() {
+        if (familiars == null)
+            familiars = ImmutableList.of(OccultismEntities.GREEDY_FAMILIAR_TYPE.get(), OccultismEntities.OTHERWORLD_BIRD_TYPE.get(), OccultismEntities.BAT_FAMILIAR_TYPE.get(), OccultismEntities.DEER_FAMILIAR_TYPE.get(), OccultismEntities.CTHULHU_FAMILIAR_TYPE.get(), OccultismEntities.DEVIL_FAMILIAR_TYPE.get());
+        return familiars;
+    }
 
     /**
      * Clones the settings from an existing settings instance into this instance
      * @param settings the existing settings instance.
      */
     public void clone(FamiliarSettingsCapability settings) {
-        this.greedyEnabled = settings.greedyEnabled;
-        this.otherworldBirdEnabled = settings.otherworldBirdEnabled;
-        this.batEnabled = settings.batEnabled;
-        this.deerEnabled = settings.deerEnabled;
-        this.cthulhuEnabled = settings.cthulhuEnabled;
-        this.devilEnabled = settings.devilEnabled;
+        for (Entry<EntityType<?>, Boolean> entry : settings.familiarEnabled.entrySet())
+            familiarEnabled.put(entry.getKey(), entry.getValue());
     }
 
     public CompoundNBT write(CompoundNBT compound) {
-        compound.putBoolean("greedyEnabled", this.greedyEnabled);
-        compound.putBoolean("otherworldBirdEnabled", this.otherworldBirdEnabled);
-        compound.putBoolean("batEnabled", this.batEnabled);
-        compound.putBoolean("deerEnabled", this.deerEnabled);
-        compound.putBoolean("cthulhuEnabled", this.cthulhuEnabled);
-        compound.putBoolean("devilEnabled", this.devilEnabled);
+        for (Entry<EntityType<?>, Boolean> entry : familiarEnabled.entrySet())
+            compound.putBoolean(entry.getKey().getRegistryName().getPath(), entry.getValue());
         return compound;
     }
 
     public CompoundNBT read(CompoundNBT compound) {
-        this.greedyEnabled = compound.getBoolean("greedyEnabled");
-        this.otherworldBirdEnabled = compound.getBoolean("otherworldBirdEnabled");
-        this.batEnabled = compound.getBoolean("batEnabled");
-        this.deerEnabled = compound.getBoolean("deerEnabled");
-        this.cthulhuEnabled = compound.getBoolean("cthulhuEnabled");
-        this.devilEnabled = compound.getBoolean("devilEnabled");
+        for (EntityType<?> familiar : getFamiliars())
+            if (compound.contains(familiar.getRegistryName().getPath()))
+                familiarEnabled.put(familiar, compound.getBoolean(familiar.getRegistryName().getPath()));
         return compound;
     }
-
-    public boolean isGreedyEnabled() {
-        return this.greedyEnabled;
+    
+    public void setFamiliarEnabled(EntityType<?> familiar, boolean b) {
+        familiarEnabled.put(familiar, b);
+    }
+    
+    public boolean isFamiliarEnabled(EntityType<?> familiar) {
+        return familiarEnabled.get(familiar);
     }
 
-    public void setGreedyEnabled(boolean greedyEnabled) {
-        this.greedyEnabled = greedyEnabled;
-    }
-
-    public boolean isOtherworldBirdEnabled() {
-        return this.otherworldBirdEnabled;
-    }
-
-    public void setOtherworldBirdEnabled(boolean otherworldBirdEnabled) {
-        this.otherworldBirdEnabled = otherworldBirdEnabled;
-    }
-
-    public boolean isBatEnabled() {
-        return this.batEnabled;
-    }
-
-    public void setBatEnabled(boolean batEnabled) {
-        this.batEnabled = batEnabled;
-    }
-
-    public boolean isDeerEnabled() {
-        return this.deerEnabled;
-    }
-
-    public void setDeerEnabled(boolean deerEnabled) {
-        this.deerEnabled = deerEnabled;
-    }
-
-    public boolean isCthulhuEnabled(){
-        return this.cthulhuEnabled;
-    }
-
-    public void setCthulhuEnabled(boolean cthulhuEnabled){
-        this.cthulhuEnabled = cthulhuEnabled;
-    }
-
-    public boolean isDevilEnabled(){
-        return this.devilEnabled;
-    }
-
-    public void setDevilEnabled(boolean devilEnabled){
-        this.devilEnabled = devilEnabled;
-    }
     //endregion Methods
 
     public static class Storage implements Capability.IStorage<FamiliarSettingsCapability> {
