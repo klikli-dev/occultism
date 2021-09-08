@@ -22,7 +22,7 @@
 
 package com.github.klikli_dev.occultism.common.block;
 
-import com.github.klikli_dev.occultism.common.tile.SacrificialBowlBlockEntity;
+import com.github.klikli_dev.occultism.common.blockentity.SacrificialBowlBlockEntity;
 import com.github.klikli_dev.occultism.registry.OccultismTiles;
 import com.github.klikli_dev.occultism.util.StorageUtil;
 import net.minecraft.core.BlockPos;

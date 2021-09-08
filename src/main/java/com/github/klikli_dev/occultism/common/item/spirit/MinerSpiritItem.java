@@ -22,7 +22,7 @@
 
 package com.github.klikli_dev.occultism.common.item.spirit;
 
-import com.github.klikli_dev.occultism.common.tile.DimensionalMineshaftBlockEntity;
+import com.github.klikli_dev.occultism.common.blockentity.DimensionalMineshaftBlockEntity;
 import com.github.klikli_dev.occultism.util.ItemNBTUtil;
 import com.github.klikli_dev.occultism.util.TextUtil;
 import net.minecraft.world.item.TooltipFlag;

@@ -22,7 +22,7 @@
 
 package com.github.klikli_dev.occultism.common.container;
 
-import com.github.klikli_dev.occultism.common.tile.DimensionalMineshaftBlockEntity;
+import com.github.klikli_dev.occultism.common.blockentity.DimensionalMineshaftBlockEntity;
 import com.github.klikli_dev.occultism.exceptions.ItemHandlerMissingException;
 import com.github.klikli_dev.occultism.registry.OccultismContainers;
 import com.github.klikli_dev.occultism.registry.OccultismRecipes;

@@ -22,7 +22,7 @@
 
 package com.github.klikli_dev.occultism.client.render.tile;
 
-import com.github.klikli_dev.occultism.common.tile.StorageControllerBlockEntity;
+import com.github.klikli_dev.occultism.common.blockentity.StorageControllerBlockEntity;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -31,7 +31,6 @@ import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.model.BakedQuad;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.entity.ItemRenderer;

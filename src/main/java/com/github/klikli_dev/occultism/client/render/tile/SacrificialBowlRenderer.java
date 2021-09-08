@@ -23,7 +23,7 @@
 package com.github.klikli_dev.occultism.client.render.tile;
 
 import com.github.klikli_dev.occultism.common.block.SpiritAttunedCrystalBlock;
-import com.github.klikli_dev.occultism.common.tile.SacrificialBowlBlockEntity;
+import com.github.klikli_dev.occultism.common.blockentity.SacrificialBowlBlockEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
 import net.minecraft.client.Minecraft;

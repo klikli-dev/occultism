@@ -23,8 +23,8 @@
 package com.github.klikli_dev.occultism.common.ritual;
 
 import com.github.klikli_dev.occultism.Occultism;
-import com.github.klikli_dev.occultism.common.tile.GoldenSacrificialBowlBlockEntity;
-import com.github.klikli_dev.occultism.common.tile.SacrificialBowlBlockEntity;
+import com.github.klikli_dev.occultism.common.blockentity.GoldenSacrificialBowlBlockEntity;
+import com.github.klikli_dev.occultism.common.blockentity.SacrificialBowlBlockEntity;
 import com.github.klikli_dev.occultism.crafting.recipe.RitualRecipe;
 import com.github.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.github.klikli_dev.occultism.registry.OccultismSounds;

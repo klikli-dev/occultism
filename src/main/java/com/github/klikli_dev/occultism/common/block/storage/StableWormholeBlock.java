@@ -22,7 +22,7 @@
 
 package com.github.klikli_dev.occultism.common.block.storage;
 
-import com.github.klikli_dev.occultism.common.tile.StableWormholeBlockEntity;
+import com.github.klikli_dev.occultism.common.blockentity.StableWormholeBlockEntity;
 import com.github.klikli_dev.occultism.registry.OccultismTiles;
 import com.github.klikli_dev.occultism.util.BlockEntityUtil;
 import com.google.common.collect.ImmutableMap;

@@ -22,7 +22,7 @@
 
 package com.github.klikli_dev.occultism.common.item;
 
-import com.github.klikli_dev.occultism.common.tile.GoldenSacrificialBowlBlockEntity;
+import com.github.klikli_dev.occultism.common.blockentity.GoldenSacrificialBowlBlockEntity;
 import com.github.klikli_dev.occultism.crafting.recipe.RitualRecipe;
 import com.github.klikli_dev.occultism.registry.OccultismRecipes;
 import net.minecraft.core.BlockPos;

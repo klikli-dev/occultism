@@ -22,7 +22,7 @@
 
 package com.github.klikli_dev.occultism.common.block.storage;
 
-import com.github.klikli_dev.occultism.common.tile.StorageControllerBlockEntity;
+import com.github.klikli_dev.occultism.common.blockentity.StorageControllerBlockEntity;
 import com.github.klikli_dev.occultism.registry.OccultismTiles;
 import com.github.klikli_dev.occultism.util.BlockEntityUtil;
 import net.minecraft.core.BlockPos;

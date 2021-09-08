@@ -24,7 +24,7 @@ package com.github.klikli_dev.occultism.client.gui;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.container.DimensionalMineshaftContainer;
-import com.github.klikli_dev.occultism.common.tile.DimensionalMineshaftBlockEntity;
+import com.github.klikli_dev.occultism.common.blockentity.DimensionalMineshaftBlockEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;

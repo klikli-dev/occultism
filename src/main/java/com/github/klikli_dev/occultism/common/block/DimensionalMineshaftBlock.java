@@ -22,8 +22,7 @@
 
 package com.github.klikli_dev.occultism.common.block;
 
-import com.github.klikli_dev.occultism.common.tile.DimensionalMineshaftBlockEntity;
-import com.github.klikli_dev.occultism.common.tile.GoldenSacrificialBowlBlockEntity;
+import com.github.klikli_dev.occultism.common.blockentity.DimensionalMineshaftBlockEntity;
 import com.github.klikli_dev.occultism.registry.OccultismTiles;
 import com.github.klikli_dev.occultism.util.StorageUtil;
 import net.minecraft.core.BlockPos;

@@ -24,7 +24,7 @@ package com.github.klikli_dev.occultism.common.container.storage;
 
 import com.github.klikli_dev.occultism.client.gui.storage.StorageControllerGuiBase;
 import com.github.klikli_dev.occultism.common.misc.StorageControllerCraftingInventory;
-import com.github.klikli_dev.occultism.common.tile.StorageControllerBlockEntity;
+import com.github.klikli_dev.occultism.common.blockentity.StorageControllerBlockEntity;
 import com.github.klikli_dev.occultism.network.MessageUpdateLinkedMachines;
 import com.github.klikli_dev.occultism.network.OccultismPackets;
 import com.github.klikli_dev.occultism.registry.OccultismContainers;

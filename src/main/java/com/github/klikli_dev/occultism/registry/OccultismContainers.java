@@ -31,9 +31,9 @@ import com.github.klikli_dev.occultism.common.container.storage.StableWormholeCo
 import com.github.klikli_dev.occultism.common.container.storage.StorageControllerContainer;
 import com.github.klikli_dev.occultism.common.container.storage.StorageRemoteContainer;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
-import com.github.klikli_dev.occultism.common.tile.DimensionalMineshaftBlockEntity;
-import com.github.klikli_dev.occultism.common.tile.StableWormholeBlockEntity;
-import com.github.klikli_dev.occultism.common.tile.StorageControllerBlockEntity;
+import com.github.klikli_dev.occultism.common.blockentity.DimensionalMineshaftBlockEntity;
+import com.github.klikli_dev.occultism.common.blockentity.StableWormholeBlockEntity;
+import com.github.klikli_dev.occultism.common.blockentity.StorageControllerBlockEntity;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraftforge.common.extensions.IForgeContainerType;
 import net.minecraftforge.fmllegacy.RegistryObject;
