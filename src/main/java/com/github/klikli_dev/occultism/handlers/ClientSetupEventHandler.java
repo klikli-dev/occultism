@@ -35,14 +35,13 @@ import com.github.klikli_dev.occultism.client.keybindings.BackpackKeyConflictCon
 import com.github.klikli_dev.occultism.client.keybindings.StorageRemoteKeyConflictContext;
 import com.github.klikli_dev.occultism.client.model.entity.*;
 import com.github.klikli_dev.occultism.client.render.entity.*;
-import com.github.klikli_dev.occultism.client.render.tile.SacrificialBowlRenderer;
-import com.github.klikli_dev.occultism.client.render.tile.StorageControllerRenderer;
+import com.github.klikli_dev.occultism.client.render.blockentity.SacrificialBowlRenderer;
+import com.github.klikli_dev.occultism.client.render.blockentity.StorageControllerRenderer;
 import com.github.klikli_dev.occultism.common.container.spirit.SpiritContainer;
 import com.github.klikli_dev.occultism.registry.*;
 import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.gui.screens.MenuScreens;
-import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;

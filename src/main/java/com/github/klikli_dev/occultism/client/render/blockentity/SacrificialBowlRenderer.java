@@ -20,7 +20,7 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.github.klikli_dev.occultism.client.render.tile;
+package com.github.klikli_dev.occultism.client.render.blockentity;
 
 import com.github.klikli_dev.occultism.common.block.SpiritAttunedCrystalBlock;
 import com.github.klikli_dev.occultism.common.blockentity.SacrificialBowlBlockEntity;
