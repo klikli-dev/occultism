@@ -22,10 +22,14 @@
 
 package com.github.klikli_dev.occultism.network;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+
 import com.github.klikli_dev.occultism.Occultism;
-import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
+import com.github.klikli_dev.occultism.common.capability.FamiliarSettingsCapability;
 import com.github.klikli_dev.occultism.registry.OccultismCapabilities;
-import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.server.MinecraftServer;
@@ -35,12 +39,7 @@ import net.minecraftforge.fml.network.NetworkEvent;
 public class MessageToggleFamiliarSettings extends MessageBase {
 
     //region Fields
-    public boolean toggleOtherworldBird;
-    public boolean toggleGreedy;
-    public boolean toggleBat;
-    public boolean toggleDeer;
-    public boolean toggleCthulhu;
-    public boolean toggleDevil;
+    public Map<EntityType<?>, Boolean> familiarsPressed;
     //endregion Fields
 
     //region Initialization
@@ -48,14 +47,8 @@ public class MessageToggleFamiliarSettings extends MessageBase {
         this.decode(buf);
     }
 
-    public MessageToggleFamiliarSettings(boolean toggleOtherworldBird, boolean toggleGreedy, boolean toggleBat,
-                                         boolean toggleDeer, boolean toggleCthulhu, boolean toggleDevil) {
-        this.toggleOtherworldBird = toggleOtherworldBird;
-        this.toggleGreedy = toggleGreedy;
-        this.toggleBat = toggleBat;
-        this.toggleDeer = toggleDeer;
-        this.toggleCthulhu = toggleCthulhu;
-        this.toggleDevil = toggleDevil;
+    public MessageToggleFamiliarSettings(Map<EntityType<?>, Boolean> familiarsPressed) {
+        this.familiarsPressed = familiarsPressed;
     }
     //endregion Initialization
 
@@ -66,69 +59,29 @@ public class MessageToggleFamiliarSettings extends MessageBase {
                                  NetworkEvent.Context context) {
 
         player.getCapability(OccultismCapabilities.FAMILIAR_SETTINGS).ifPresent(cap -> {
-            if (this.toggleGreedy) {
-                cap.setGreedyEnabled(!cap.isGreedyEnabled());
-                player.sendStatusMessage(
-                        new TranslationTextComponent(
-                                "message." + Occultism.MODID + ".familiar.greedy." +
-                                        (cap.isGreedyEnabled() ? "enabled" : "disabled")), true);
-            }
-            if (this.toggleOtherworldBird) {
-                cap.setOtherworldBirdEnabled(!cap.isOtherworldBirdEnabled());
-                player.sendStatusMessage(
-                        new TranslationTextComponent(
-                                "message." + Occultism.MODID + ".familiar.otherworld_bird." +
-                                        (cap.isOtherworldBirdEnabled() ? "enabled" : "disabled")), true);
-            }
-            if (this.toggleBat) {
-                cap.setBatEnabled(!cap.isBatEnabled());
-                player.sendStatusMessage(
-                        new TranslationTextComponent(
-                                "message." + Occultism.MODID + ".familiar.bat." +
-                                        (cap.isBatEnabled() ? "enabled" : "disabled")), true);
-            }
-            if (this.toggleDeer) {
-                cap.setDeerEnabled(!cap.isDeerEnabled());
-                player.sendStatusMessage(
-                        new TranslationTextComponent(
-                                "message." + Occultism.MODID + ".familiar.deer." +
-                                        (cap.isDeerEnabled() ? "enabled" : "disabled")), true);
-            }
-            if (this.toggleCthulhu) {
-                cap.setCthulhuEnabled(!cap.isCthulhuEnabled());
-                player.sendStatusMessage(
-                        new TranslationTextComponent(
-                                "message." + Occultism.MODID + ".familiar.cthulhu." +
-                                        (cap.isCthulhuEnabled() ? "enabled" : "disabled")), true);
-            }
-            if (this.toggleDevil) {
-                cap.setDevilEnabled(!cap.isDevilEnabled());
-                player.sendStatusMessage(
-                        new TranslationTextComponent(
-                                "message." + Occultism.MODID + ".familiar.devil." +
-                                        (cap.isDevilEnabled() ? "enabled" : "disabled")), true);
+            for (Entry<EntityType<?>, Boolean> toggle : familiarsPressed.entrySet()) {
+                if (toggle.getValue()) {
+                    cap.setFamiliarEnabled(toggle.getKey(), !cap.isFamiliarEnabled(toggle.getKey()));
+                    player.sendStatusMessage(
+                            new TranslationTextComponent(
+                                    "message." + Occultism.MODID + ".familiar." + toggle.getKey().getRegistryName().getPath() +
+                                            (cap.isFamiliarEnabled(toggle.getKey()) ? ".enabled" : ".disabled")), true);
+                }
             }
         });
     }
 
     @Override
     public void encode(PacketBuffer buf) {
-        buf.writeBoolean(this.toggleOtherworldBird);
-        buf.writeBoolean(this.toggleGreedy);
-        buf.writeBoolean(this.toggleBat);
-        buf.writeBoolean(this.toggleDeer);
-        buf.writeBoolean(this.toggleCthulhu);
-        buf.writeBoolean(this.toggleDevil);
+        for (EntityType<?> familiar : FamiliarSettingsCapability.getFamiliars())
+            buf.writeBoolean(this.familiarsPressed.get(familiar));
     }
 
     @Override
     public void decode(PacketBuffer buf) {
-        this.toggleOtherworldBird = buf.readBoolean();
-        this.toggleGreedy = buf.readBoolean();
-        this.toggleBat = buf.readBoolean();
-        this.toggleDeer = buf.readBoolean();
-        this.toggleCthulhu = buf.readBoolean();
-        this.toggleDevil = buf.readBoolean();
+        this.familiarsPressed = new HashMap<>();
+        for (EntityType<?> familiar : FamiliarSettingsCapability.getFamiliars())
+            this.familiarsPressed.put(familiar, buf.readBoolean());
     }
     //endregion Overrides
 }

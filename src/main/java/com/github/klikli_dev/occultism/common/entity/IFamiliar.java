@@ -26,6 +26,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.github.klikli_dev.occultism.common.item.tool.FamiliarRingItem;
+import com.github.klikli_dev.occultism.registry.OccultismCapabilities;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -85,5 +86,19 @@ public interface IFamiliar {
      */
     default void curioTick(LivingEntity wearer) {
 
+    }
+    
+    /***
+     * This method determines based on the familiar settings, if the familiar effect
+     * should be enabled.
+     * 
+     * @return True of the familiar effect is enabled, false otherwise.
+     */
+    default boolean isEffectEnabled() {
+        LivingEntity owner = getFamiliarOwner();
+        if (owner == null)
+            return false;
+        return owner.getCapability(OccultismCapabilities.FAMILIAR_SETTINGS)
+                .map(cap -> cap.isFamiliarEnabled(getEntity().getType())).orElse(false);
     }
 }

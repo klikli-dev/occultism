@@ -26,8 +26,6 @@ import java.util.Collections;
 import java.util.EnumSet;
 import java.util.List;
 
-import com.github.klikli_dev.occultism.common.capability.FamiliarSettingsCapability;
-import com.github.klikli_dev.occultism.registry.OccultismCapabilities;
 import com.google.common.collect.ImmutableList;
 
 import net.minecraft.entity.EntityType;
@@ -159,8 +157,7 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
 
     @Override
     public Iterable<EffectInstance> getFamiliarEffects() {
-        if (this.getFamiliarOwner().getCapability(OccultismCapabilities.FAMILIAR_SETTINGS)
-                .map(FamiliarSettingsCapability::isCthulhuEnabled).orElse(false)) {
+        if (this.isEffectEnabled()) {
             if (this.isAngry())
                 return ImmutableList.of(new EffectInstance(Effects.WATER_BREATHING, 300, 0, false, false));
         }
