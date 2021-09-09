@@ -307,7 +307,7 @@ public class RitualRecipe extends ShapelessRecipe {
                 buffer.writeString(recipe.entityToSacrificeDisplayName);
             }
             buffer.writeBoolean(recipe.itemToUse != Ingredient.EMPTY);
-            if (recipe.itemToUse != null)
+            if (recipe.itemToUse != Ingredient.EMPTY)
                 recipe.itemToUse.write(buffer);
         }
         //endregion Overrides
