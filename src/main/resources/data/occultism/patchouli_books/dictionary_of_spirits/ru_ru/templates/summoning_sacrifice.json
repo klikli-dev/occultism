@@ -13,7 +13,7 @@
     },
     {
       "type": "text",
-      "text": "Pentacle: #pentacle#$(br)Activate: $(item)#activation_item->iname#$()$(br)Sacrifice: $(thing)#sacrifice#$()$(br)Ingredients: $(br)#ingredients#",
+      "text": "Пентакль: #pentacle#$(br)Активатор: $(item)#activation_item->iname#$()$(br)Жертва: $(thing)#sacrifice#$()$(br)Ингредиенты: $(br)#ingredients#",
       "y": 30
     }
   ]
