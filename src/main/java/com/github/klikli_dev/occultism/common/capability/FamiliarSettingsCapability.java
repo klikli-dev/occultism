@@ -22,9 +22,13 @@
 
 package com.github.klikli_dev.occultism.common.capability;
 
+import com.github.klikli_dev.occultism.common.entity.IFamiliar;
 import com.github.klikli_dev.occultism.registry.OccultismCapabilities;
+import com.github.klikli_dev.occultism.registry.OccultismEntities;
+import com.google.common.collect.ImmutableList;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.entity.EntityType;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.common.util.INBTSerializable;
@@ -32,27 +36,34 @@ import net.minecraftforge.common.util.LazyOptional;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 public class FamiliarSettingsCapability implements INBTSerializable<CompoundTag> {
 
-    //region Fields
-    private boolean greedyEnabled = true;
-    private boolean otherworldBirdEnabled = true;
-    private boolean batEnabled = true;
-    private boolean deerEnabled = true;
-    private boolean cthulhuEnabled = true;
-    //endregion Fields
+    private static ImmutableList<EntityType<? extends IFamiliar>> familiars = null;
 
-    //region Initialization
+    private final Map<EntityType<?>, Boolean> familiarEnabled;
+
     public FamiliarSettingsCapability() {
+        this.familiarEnabled = new HashMap<>();
+        for (EntityType<?> familiar : getFamiliars())
+            this.familiarEnabled.put(familiar, true);
     }
-    //endregion Initialization
 
-    //region Getter / Setter
-
-    //endregion Getter / Setter
-
-    //region Methods
+    public static List<EntityType<? extends IFamiliar>> getFamiliars() {
+        if (familiars == null)
+            familiars = ImmutableList.of(
+                    OccultismEntities.GREEDY_FAMILIAR_TYPE.get(),
+                    OccultismEntities.OTHERWORLD_BIRD_TYPE.get(),
+                    OccultismEntities.BAT_FAMILIAR_TYPE.get(),
+                    OccultismEntities.DEER_FAMILIAR_TYPE.get(),
+                    OccultismEntities.CTHULHU_FAMILIAR_TYPE.get(),
+                    OccultismEntities.DEVIL_FAMILIAR_TYPE.get());
+        return familiars;
+    }
 
     /**
      * Clones the settings from an existing settings instance into this instance
@@ -60,83 +71,38 @@ public class FamiliarSettingsCapability implements INBTSerializable<CompoundTag>
      * @param settings the existing settings instance.
      */
     public void clone(FamiliarSettingsCapability settings) {
-        this.greedyEnabled = settings.greedyEnabled;
-        this.otherworldBirdEnabled = settings.otherworldBirdEnabled;
-        this.batEnabled = settings.batEnabled;
-        this.deerEnabled = settings.deerEnabled;
+        for (Entry<EntityType<?>, Boolean> entry : settings.familiarEnabled.entrySet())
+            this.familiarEnabled.put(entry.getKey(), entry.getValue());
     }
 
-    public boolean isGreedyEnabled() {
-        return this.greedyEnabled;
+    public void setFamiliarEnabled(EntityType<?> familiar, boolean b) {
+        this.familiarEnabled.put(familiar, b);
     }
 
-    public void setGreedyEnabled(boolean greedyEnabled) {
-        this.greedyEnabled = greedyEnabled;
+    public boolean isFamiliarEnabled(EntityType<?> familiar) {
+        return this.familiarEnabled.get(familiar);
     }
-
-    public boolean isOtherworldBirdEnabled() {
-        return this.otherworldBirdEnabled;
-    }
-
-    public void setOtherworldBirdEnabled(boolean otherworldBirdEnabled) {
-        this.otherworldBirdEnabled = otherworldBirdEnabled;
-    }
-
-    public boolean isBatEnabled() {
-        return this.batEnabled;
-    }
-
-    public void setBatEnabled(boolean batEnabled) {
-        this.batEnabled = batEnabled;
-    }
-
-    public boolean isDeerEnabled() {
-        return this.deerEnabled;
-    }
-
-    public void setDeerEnabled(boolean deerEnabled) {
-        this.deerEnabled = deerEnabled;
-    }
-
-    public boolean isCthulhuEnabled(){
-        return this.cthulhuEnabled;
-    }
-
-    public void setCthulhuEnabled(boolean cthulhuEnabled){
-        this.cthulhuEnabled = cthulhuEnabled;
-    }
-    //endregion Methods
 
     @Override
     public CompoundTag serializeNBT() {
         CompoundTag compound = new CompoundTag();
-        compound.putBoolean("greedyEnabled", this.greedyEnabled);
-        compound.putBoolean("otherworldBirdEnabled", this.otherworldBirdEnabled);
-        compound.putBoolean("batEnabled", this.batEnabled);
-        compound.putBoolean("deerEnabled", this.deerEnabled);
-        compound.putBoolean("cthulhuEnabled", this.cthulhuEnabled);
+        for (Entry<EntityType<?>, Boolean> entry : this.familiarEnabled.entrySet())
+            compound.putBoolean(entry.getKey().getRegistryName().getPath(), entry.getValue());
         return compound;
     }
 
     @Override
     public void deserializeNBT(CompoundTag nbt) {
-        this.greedyEnabled = nbt.getBoolean("greedyEnabled");
-        this.otherworldBirdEnabled = nbt.getBoolean("otherworldBirdEnabled");
-        this.batEnabled = nbt.getBoolean("batEnabled");
-        this.deerEnabled = nbt.getBoolean("deerEnabled");
-        this.cthulhuEnabled = nbt.getBoolean("cthulhuEnabled");
+        for (EntityType<?> familiar : getFamiliars())
+            if (nbt.contains(familiar.getRegistryName().getPath()))
+                this.familiarEnabled.put(familiar, nbt.getBoolean(familiar.getRegistryName().getPath()));
     }
-    //endregion Methods
-
 
     public static class Dispatcher implements ICapabilitySerializable<CompoundTag> {
 
-        //region Fields
         private final LazyOptional<FamiliarSettingsCapability> familiarSettingsCapability = LazyOptional.of(
                 FamiliarSettingsCapability::new);
-        //endregion Fields
 
-        //region Overrides
         @Nonnull
         @Override
         public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
@@ -155,7 +121,5 @@ public class FamiliarSettingsCapability implements INBTSerializable<CompoundTag>
         public void deserializeNBT(CompoundTag nbt) {
             this.familiarSettingsCapability.ifPresent(capability -> capability.deserializeNBT(nbt));
         }
-        //endregion Overrides
-
     }
 }

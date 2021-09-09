@@ -27,10 +27,17 @@ import com.github.klikli_dev.occultism.client.model.entity.CthulhuFamiliarModel;
 import com.github.klikli_dev.occultism.common.entity.CthulhuFamiliarEntity;
 import com.github.klikli_dev.occultism.registry.OccultismModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Quaternion;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.client.renderer.entity.RenderLayerParent;
+import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 
 public class CthulhuFamiliarRenderer extends MobRenderer<CthulhuFamiliarEntity, CthulhuFamiliarModel> {
 
@@ -39,7 +46,7 @@ public class CthulhuFamiliarRenderer extends MobRenderer<CthulhuFamiliarEntity, 
 
     public CthulhuFamiliarRenderer(EntityRendererProvider.Context context) {
         super(context, new CthulhuFamiliarModel(context.bakeLayer(OccultismModelLayers.FAMILIAR_CTHULHU)), 0.3f);
-
+        this.addLayer(new HeldItemLayer(this));
     }
 
     @Override
@@ -55,4 +62,26 @@ public class CthulhuFamiliarRenderer extends MobRenderer<CthulhuFamiliarEntity, 
     public ResourceLocation getTextureLocation(CthulhuFamiliarEntity entity) {
         return TEXTURES;
     }
+
+    public class HeldItemLayer extends RenderLayer<CthulhuFamiliarEntity, CthulhuFamiliarModel> {
+        public HeldItemLayer(RenderLayerParent<CthulhuFamiliarEntity, CthulhuFamiliarModel> parent) {
+            super(parent);
+        }
+
+        @Override
+        public void render(PoseStack matrixStack, MultiBufferSource pBuffer, int pPackedLight, CthulhuFamiliarEntity pLivingEntity, float pLimbSwing, float pLimbSwingAmount, float pPartialTicks, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch) {
+            if (pLivingEntity.isGiving()) {
+                matrixStack.pushPose();
+                matrixStack.scale(1.25f, -1.25f, 1.25f);
+                matrixStack.translate(0, -0.75, -0.35);
+                matrixStack.mulPose(new Quaternion(-65, 0, 0, true));
+                Minecraft.getInstance().getItemInHandRenderer().renderItem(pLivingEntity, new ItemStack(Items.POPPY),
+                        ItemTransforms.TransformType.GROUND, false, matrixStack, pBuffer,
+                        pPackedLight);
+                matrixStack.popPose();
+            }
+
+        }
+    }
+
 }

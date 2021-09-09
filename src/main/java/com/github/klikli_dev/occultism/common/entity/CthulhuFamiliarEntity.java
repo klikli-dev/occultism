@@ -25,10 +25,12 @@ package com.github.klikli_dev.occultism.common.entity;
 import com.github.klikli_dev.occultism.common.capability.FamiliarSettingsCapability;
 import com.github.klikli_dev.occultism.registry.OccultismCapabilities;
 import com.google.common.collect.ImmutableList;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
@@ -42,6 +44,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.goal.FollowMobGoal;
+import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
@@ -56,6 +59,8 @@ import net.minecraftforge.common.ForgeMod;
 
 import javax.annotation.Nullable;
 import java.util.Collections;
+import java.util.EnumSet;
+import java.util.List;
 
 public class CthulhuFamiliarEntity extends FamiliarEntity {
 
@@ -64,6 +69,8 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
     private static final EntityDataAccessor<Boolean> TRUNK = SynchedEntityData.defineId(CthulhuFamiliarEntity.class,
             EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> ANGRY = SynchedEntityData.defineId(CthulhuFamiliarEntity.class,
+            EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> GIVING = SynchedEntityData.defineId(CthulhuFamiliarEntity.class,
             EntityDataSerializers.BOOLEAN);
 
     private final WaterBoundPathNavigation waterNavigator;
@@ -95,8 +102,9 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
         this.goalSelector.addGoal(1, new SitGoal(this));
         this.goalSelector.addGoal(2, new LookAtPlayerGoal(this, Player.class, 8));
         this.goalSelector.addGoal(3, new FollowOwnerWaterGoal(this, 1, 3, 1));
-        this.goalSelector.addGoal(4, new RandomStrollGoal(this, 1.0D));
-        this.goalSelector.addGoal(5, new FollowMobGoal(this, 1, 3, 7));
+        this.goalSelector.addGoal(4, new GiveFlowerGoal(this));
+        this.goalSelector.addGoal(5, new RandomStrollGoal(this, 1.0D));
+        this.goalSelector.addGoal(6, new FollowMobGoal(this, 1, 3, 7));
     }
 
     @Override
@@ -152,8 +160,7 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
 
     @Override
     public Iterable<MobEffectInstance> getFamiliarEffects() {
-        if (this.getFamiliarOwner().getCapability(OccultismCapabilities.FAMILIAR_SETTINGS)
-                .map(FamiliarSettingsCapability::isCthulhuEnabled).orElse(false)) {
+        if (this.isEffectEnabled()) {
             if (this.isAngry())
                 return ImmutableList.of(new MobEffectInstance(MobEffects.WATER_BREATHING, 300, 0, false, false));
         }
@@ -166,6 +173,7 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
         this.entityData.define(HAT, false);
         this.entityData.define(TRUNK, false);
         this.entityData.define(ANGRY, false);
+        this.entityData.define(GIVING, false);
     }
 
     public boolean hasHat() {
@@ -190,6 +198,14 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
 
     private void setAngry(boolean b) {
         this.entityData.set(ANGRY, b);
+    }
+
+    public boolean isGiving() {
+        return this.entityData.get(GIVING);
+    }
+
+    private void setGiving(boolean b) {
+        this.entityData.set(GIVING, b);
     }
 
     @Override
@@ -262,6 +278,59 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
         @Override
         protected boolean shouldTeleport(LivingEntity owner) {
             return !this.entity.level.isWaterAt(owner.blockPosition()) && this.entity.isInWater();
+        }
+
+    }
+
+    private static class GiveFlowerGoal extends Goal {
+
+        private static final int MAX_COOLDOWN = 20 * 60 * 5;
+
+        private final CthulhuFamiliarEntity cthulhu;
+        private DevilFamiliarEntity devil;
+        private int cooldown = MAX_COOLDOWN;
+
+        public GiveFlowerGoal(CthulhuFamiliarEntity cthulhu) {
+            this.cthulhu = cthulhu;
+            this.setFlags(EnumSet.of(Goal.Flag.JUMP, Goal.Flag.MOVE));
+        }
+
+        @Override
+        public boolean canUse() {
+            this.devil = this.findDevil();
+            return this.devil != null && this.cooldown-- < 0 && this.cthulhu.distanceToSqr(this.devil) > 3;
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            return this.devil != null && this.cthulhu.isPathFinding();
+        }
+
+        public void startExecuting() {
+            this.cthulhu.getNavigation().moveTo(this.devil, 0.3);
+            this.cthulhu.setGiving(true);
+        }
+
+        public void resetTask() {
+            this.cthulhu.setGiving(false);
+            this.cthulhu.getNavigation().stop();
+            this.cooldown = MAX_COOLDOWN;
+            this.devil = null;
+        }
+
+        @Override
+        public void tick() {
+            if (this.cthulhu.distanceToSqr(this.devil) < 2) {
+                ((ServerLevel) this.cthulhu.level).sendParticles(ParticleTypes.HEART, this.devil.getBlockX(), this.devil.getBlockY() + 1,
+                        this.devil.getBlockZ(), 1, 0, 0, 0, 1);
+                this.devil = null;
+            }
+        }
+
+        private DevilFamiliarEntity findDevil() {
+            List<DevilFamiliarEntity> devils = this.cthulhu.level.getEntities(DevilFamiliarEntity.class,
+                    this.cthulhu.getBoundingBox().inflate(4));
+            return devils.isEmpty() ? null : devils.get(0);
         }
 
     }

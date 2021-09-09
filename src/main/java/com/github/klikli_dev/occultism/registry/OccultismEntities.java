@@ -23,11 +23,7 @@
 package com.github.klikli_dev.occultism.registry;
 
 import com.github.klikli_dev.occultism.Occultism;
-import com.github.klikli_dev.occultism.common.entity.BatFamiliarEntity;
-import com.github.klikli_dev.occultism.common.entity.CthulhuFamiliarEntity;
-import com.github.klikli_dev.occultism.common.entity.DeerFamiliarEntity;
-import com.github.klikli_dev.occultism.common.entity.GreedyFamiliarEntity;
-import com.github.klikli_dev.occultism.common.entity.OtherworldBirdEntity;
+import com.github.klikli_dev.occultism.common.entity.*;
 import com.github.klikli_dev.occultism.common.entity.possessed.PossessedEndermanEntity;
 import com.github.klikli_dev.occultism.common.entity.possessed.PossessedEndermiteEntity;
 import com.github.klikli_dev.occultism.common.entity.possessed.PossessedSkeletonEntity;
@@ -124,6 +120,13 @@ public class OccultismEntities {
                     .clientTrackingRange(8)
                     .build(modLoc("cthulhu_familiar").toString()));
 
+    public static final NonNullLazy<EntityType<DevilFamiliarEntity>> DEVIL_FAMILIAR_TYPE =
+            NonNullLazy.of(() -> EntityType.Builder.of(DevilFamiliarEntity::new, MobCategory.CREATURE)
+                    .sized(0.8F, 1.0F)
+                    .clientTrackingRange(8)
+                    .build(modLoc("devil_familiar").toString()));
+
+
     public static final RegistryObject<EntityType<FoliotEntity>> FOLIOT = ENTITIES.register("foliot", FOLIOT_TYPE::get);
     public static final RegistryObject<EntityType<DjinniEntity>> DJINNI = ENTITIES.register("djinni", DJINNI_TYPE::get);
     public static final RegistryObject<EntityType<AfritEntity>> AFRIT = ENTITIES.register("afrit", AFRIT_TYPE::get);
@@ -151,5 +154,7 @@ public class OccultismEntities {
             ENTITIES.register("deer_familiar", DEER_FAMILIAR_TYPE::get);
     public static final RegistryObject<EntityType<CthulhuFamiliarEntity>> CTHULHU_FAMILIAR =
             ENTITIES.register("cthulhu_familiar", CTHULHU_FAMILIAR_TYPE::get);
+    public static final RegistryObject<EntityType<DevilFamiliarEntity>> DEVIL_FAMILIAR =
+            ENTITIES.register("devil_familiar", DEVIL_FAMILIAR_TYPE::get);
     //endregion Fields
 }

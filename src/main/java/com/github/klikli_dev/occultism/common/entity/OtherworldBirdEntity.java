@@ -126,9 +126,7 @@ public class OtherworldBirdEntity extends Parrot implements IFamiliar {
     public Iterable<MobEffectInstance> getFamiliarEffects() {
 
         //only provide effect if enabled
-        if (this.getFamiliarOwner().getCapability(OccultismCapabilities.FAMILIAR_SETTINGS)
-                .map(FamiliarSettingsCapability::isOtherworldBirdEnabled).orElse(false)) {
-
+        if (this.isEffectEnabled()) {
             return ImmutableList.of(new MobEffectInstance(MobEffects.JUMP, 60, 5, false, false),
                     new MobEffectInstance(MobEffects.SLOW_FALLING,
                             20 * Occultism.SERVER_CONFIG.spiritJobs.drikwingFamiliarSlowFallingSeconds.get(), 0, false,

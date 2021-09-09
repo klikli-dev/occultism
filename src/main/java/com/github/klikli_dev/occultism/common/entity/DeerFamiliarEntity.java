@@ -116,8 +116,7 @@ public class DeerFamiliarEntity extends FamiliarEntity {
 
     @Override
     public Iterable<MobEffectInstance> getFamiliarEffects() {
-        if (this.getFamiliarOwner().getCapability(OccultismCapabilities.FAMILIAR_SETTINGS)
-                .map(FamiliarSettingsCapability::isDeerEnabled).orElse(false)) {
+        if (this.isEffectEnabled()) {
             return ImmutableList.of(new MobEffectInstance(MobEffects.JUMP, 300, 0, false, false));
         }
         return Collections.emptyList();

@@ -38,6 +38,10 @@ import net.minecraftforge.fml.common.Mod;
 
 import static org.lwjgl.glfw.GLFW.GLFW_PRESS;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+
 @Mod.EventBusSubscriber(modid = Occultism.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
 public class ClientPlayerEventHandler {
     //region Static Methods
@@ -108,6 +112,22 @@ public class ClientPlayerEventHandler {
             boolean familiarCthulhu = ClientSetupEventHandler.KEY_FAMILIAR_CTHULHU.consumeClick();
             if (familiarGreedy || familiarOtherworldBird || familiarBat || familiarDeer) {
                 OccultismPackets.sendToServer(new MessageToggleFamiliarSettings(familiarOtherworldBird, familiarGreedy, familiarBat, familiarDeer, familiarCthulhu));
+            }
+        }
+
+        //TODO: update new code
+        if (minecraft.player != null & minecraft.currentScreen == null) {
+            boolean familiarKeyPressed = false;
+            Map<EntityType<?>, Boolean> familiarsPressed = new HashMap<>();
+
+            for (Entry<EntityType<?>, KeyBinding> entry : ClientSetupEventHandler.keysFamiliars.entrySet()) {
+                boolean isPressed = entry.getValue().isPressed();
+                if (isPressed)
+                    familiarKeyPressed = true;
+                familiarsPressed.put(entry.getKey(), isPressed);
+            }
+            if (familiarKeyPressed) {
+                OccultismPackets.sendToServer(new MessageToggleFamiliarSettings(familiarsPressed));
             }
         }
     }

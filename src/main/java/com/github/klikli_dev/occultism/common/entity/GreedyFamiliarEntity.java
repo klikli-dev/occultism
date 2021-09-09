@@ -22,8 +22,8 @@
 
 package com.github.klikli_dev.occultism.common.entity;
 
-import com.github.klikli_dev.occultism.registry.OccultismCapabilities;
 import com.google.common.collect.ImmutableList;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -32,7 +32,6 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.wrapper.PlayerMainInvWrapper;
@@ -67,20 +66,17 @@ public class GreedyFamiliarEntity extends FamiliarEntity {
         if (!(wearer instanceof Player))
             return;
 
-        wearer.getCapability(OccultismCapabilities.FAMILIAR_SETTINGS).ifPresent(cap -> {
-            if(cap.isGreedyEnabled()){
-                for (ItemEntity e : wearer.level.getEntitiesOfClass(ItemEntity.class, wearer.getBoundingBox().inflate(5), Entity::isAlive)) {
-                    ItemStack stack = e.getItem();
+        if (this.isEffectEnabled())
+            for (ItemEntity e : wearer.level.getEntitiesOfClass(ItemEntity.class, wearer.getBoundingBox().inflate(5), Entity::isAlive)) {
+                ItemStack stack = e.getItem();
 
-                    boolean isStackDemagnetized = stack.hasTag() && stack.getTag().getBoolean("PreventRemoteMovement");
-                    boolean isEntityDemagnetized = e.getPersistentData().getBoolean("PreventRemoteMovement");
+                boolean isStackDemagnetized = stack.hasTag() && stack.getTag().getBoolean("PreventRemoteMovement");
+                boolean isEntityDemagnetized = e.getPersistentData().getBoolean("PreventRemoteMovement");
 
-                    if (!isStackDemagnetized && !isEntityDemagnetized) {
-                        e.playerTouch((Player) wearer);
-                    }
+                if (!isStackDemagnetized && !isEntityDemagnetized) {
+                    e.playerTouch((Player) wearer);
                 }
             }
-        });
     }
 
     private static class FindItemGoal extends Goal {

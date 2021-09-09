@@ -159,6 +159,16 @@ public class CthulhuFamiliarModel extends EntityModel<CthulhuFamiliarEntity> {
             this.leftEar.zRot = 0;
             this.rightEar.zRot = 0;
         }
+        
+        if (entityIn.isGiving()) {
+            this.leftArm.yRot = this.toRads(40);
+            this.rightArm.yRot = -this.toRads(40);
+            this.leftArm.xRot -= this.toRads(40);
+            this.rightArm.xRot -= this.toRads(40);
+        } else {
+            this.leftArm.yRot = 0;
+            this.rightArm.yRot = 0;
+        }
 
         this.trunk1.xRot = -0.86f + Mth.cos(ageInTicks / 10) * 0.15f;
         this.trunk2.xRot = -0.47f + Mth.cos(ageInTicks / 10) * 0.15f;

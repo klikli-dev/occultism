@@ -80,6 +80,8 @@ public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar 
 
     @Override
     public void aiStep() {
+        this.updateSwingTime();
+
         LivingEntity owner;
         if (!this.level.isClientSide && this.level.getGameTime() % 10 == 0 && (owner = this.getFamiliarOwner()) != null
                 && this.distanceTo(owner) < MAX_BOOST_DISTANCE)

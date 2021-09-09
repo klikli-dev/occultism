@@ -23,98 +23,58 @@
 package com.github.klikli_dev.occultism.network;
 
 import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.common.capability.FamiliarSettingsCapability;
 import com.github.klikli_dev.occultism.registry.OccultismCapabilities;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.EntityType;
 import net.minecraftforge.fmllegacy.network.NetworkEvent;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 
 public class MessageToggleFamiliarSettings extends MessageBase {
 
-    //region Fields
-    public boolean toggleOtherworldBird;
-    public boolean toggleGreedy;
-    public boolean toggleBat;
-    public boolean toggleDeer;
-    public boolean toggleCthulhu;
-    //endregion Fields
+    public Map<EntityType<?>, Boolean> familiarsPressed;
 
-    //region Initialization
     public MessageToggleFamiliarSettings(FriendlyByteBuf buf) {
         this.decode(buf);
     }
 
-    public MessageToggleFamiliarSettings(boolean toggleOtherworldBird, boolean toggleGreedy, boolean toggleBat, boolean toggleDeer, boolean toggleCthulhu) {
-        this.toggleOtherworldBird = toggleOtherworldBird;
-        this.toggleGreedy = toggleGreedy;
-        this.toggleBat = toggleBat;
-        this.toggleDeer = toggleDeer;
-        this.toggleCthulhu = toggleCthulhu;
+    public MessageToggleFamiliarSettings(Map<EntityType<?>, Boolean> familiarsPressed) {
+        this.familiarsPressed = familiarsPressed;
     }
-    //endregion Initialization
-
-    //region Overrides
 
     @Override
     public void onServerReceived(MinecraftServer minecraftServer, ServerPlayer player,
                                  NetworkEvent.Context context) {
 
         player.getCapability(OccultismCapabilities.FAMILIAR_SETTINGS).ifPresent(cap -> {
-            if (this.toggleGreedy) {
-                cap.setGreedyEnabled(!cap.isGreedyEnabled());
-                player.displayClientMessage(
-                        new TranslatableComponent(
-                                "message." + Occultism.MODID + ".familiar.greedy." +
-                                        (cap.isGreedyEnabled() ? "enabled" : "disabled")), true);
-            }
-            if (this.toggleOtherworldBird) {
-                cap.setOtherworldBirdEnabled(!cap.isOtherworldBirdEnabled());
-                player.displayClientMessage(
-                        new TranslatableComponent(
-                                "message." + Occultism.MODID + ".familiar.otherworld_bird." +
-                                        (cap.isOtherworldBirdEnabled() ? "enabled" : "disabled")), true);
-            }
-            if (this.toggleBat) {
-                cap.setBatEnabled(!cap.isBatEnabled());
-                player.displayClientMessage(
-                        new TranslatableComponent(
-                                "message." + Occultism.MODID + ".familiar.bat." +
-                                        (cap.isBatEnabled() ? "enabled" : "disabled")), true);
-            }
-            if (this.toggleDeer) {
-                cap.setDeerEnabled(!cap.isDeerEnabled());
-                player.displayClientMessage(
-                        new TranslatableComponent(
-                                "message." + Occultism.MODID + ".familiar.deer." +
-                                        (cap.isDeerEnabled() ? "enabled" : "disabled")), true);
-            }
-            if (this.toggleCthulhu) {
-                cap.setCthulhuEnabled(!cap.isCthulhuEnabled());
-                player.displayClientMessage(
-                        new TranslatableComponent(
-                                "message." + Occultism.MODID + ".familiar.cthulhu." +
-                                        (cap.isCthulhuEnabled() ? "enabled" : "disabled")), true);
+            for (Entry<EntityType<?>, Boolean> toggle : familiarsPressed.entrySet()) {
+                if (toggle.getValue()) {
+                    cap.setFamiliarEnabled(toggle.getKey(), !cap.isFamiliarEnabled(toggle.getKey()));
+                    player.displayClientMessage(
+                            new TranslatableComponent(
+                                    "message." + Occultism.MODID + ".familiar." + toggle.getKey().getRegistryName().getPath() +
+                                            (cap.isFamiliarEnabled(toggle.getKey()) ? ".enabled" : ".disabled")), true);
+                }
             }
         });
     }
 
     @Override
     public void encode(FriendlyByteBuf buf) {
-        buf.writeBoolean(this.toggleOtherworldBird);
-        buf.writeBoolean(this.toggleGreedy);
-        buf.writeBoolean(this.toggleBat);
-        buf.writeBoolean(this.toggleDeer);
-        buf.writeBoolean(this.toggleCthulhu);
+        for (EntityType<?> familiar : FamiliarSettingsCapability.getFamiliars())
+            buf.writeBoolean(this.familiarsPressed.get(familiar));
     }
 
     @Override
     public void decode(FriendlyByteBuf buf) {
-        this.toggleOtherworldBird = buf.readBoolean();
-        this.toggleGreedy = buf.readBoolean();
-        this.toggleBat = buf.readBoolean();
-        this.toggleDeer = buf.readBoolean();
-        this.toggleCthulhu = buf.readBoolean();
+        this.familiarsPressed = new HashMap<>();
+        for (EntityType<?> familiar : FamiliarSettingsCapability.getFamiliars())
+            this.familiarsPressed.put(familiar, buf.readBoolean());
     }
-    //endregion Overrides
 }

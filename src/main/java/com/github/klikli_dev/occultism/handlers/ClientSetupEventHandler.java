@@ -37,6 +37,7 @@ import com.github.klikli_dev.occultism.client.model.entity.*;
 import com.github.klikli_dev.occultism.client.render.entity.*;
 import com.github.klikli_dev.occultism.client.render.blockentity.SacrificialBowlRenderer;
 import com.github.klikli_dev.occultism.client.render.blockentity.StorageControllerRenderer;
+import com.github.klikli_dev.occultism.common.capability.FamiliarSettingsCapability;
 import com.github.klikli_dev.occultism.common.container.spirit.SpiritContainer;
 import com.github.klikli_dev.occultism.registry.*;
 import com.mojang.blaze3d.platform.InputConstants;
@@ -51,6 +52,7 @@ import net.minecraft.client.renderer.entity.SkeletonRenderer;
 import net.minecraft.client.renderer.entity.WitherSkeletonRenderer;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EntityType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.settings.KeyConflictContext;
@@ -60,6 +62,9 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fmlclient.registry.ClientRegistry;
 import org.lwjgl.glfw.GLFW;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Mod.EventBusSubscriber(modid = Occultism.MODID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ClientSetupEventHandler {
@@ -73,25 +78,8 @@ public class ClientSetupEventHandler {
             new KeyMapping("key.occultism.storage_remote", StorageRemoteKeyConflictContext.INSTANCE,
                     InputConstants.Type.KEYSYM.getOrCreate(GLFW.GLFW_KEY_N), "key.occultism.category");
 
-    public static final KeyMapping KEY_FAMILIAR_OTHERWORLD_BIRD =
-            new KeyMapping("key.occultism.familiar.otherworld_bird", KeyConflictContext.IN_GAME,
-                    InputConstants.Type.KEYSYM.getOrCreate(-1), "key.occultism.category");
+    public static Map<EntityType<?>, KeyMapping> keysFamiliars;
 
-    public static final KeyMapping KEY_FAMILIAR_GREEDY =
-            new KeyMapping("key.occultism.familiar.greedy", KeyConflictContext.IN_GAME,
-                    InputConstants.Type.KEYSYM.getOrCreate(GLFW.GLFW_KEY_M), "key.occultism.category");
-
-    public static final KeyMapping KEY_FAMILIAR_BAT =
-            new KeyMapping("key.occultism.familiar.bat", KeyConflictContext.IN_GAME,
-                    InputConstants.Type.KEYSYM.getOrCreate(-1), "key.occultism.category");
-
-    public static final KeyMapping KEY_FAMILIAR_DEER =
-            new KeyMapping("key.occultism.familiar.deer", KeyConflictContext.IN_GAME,
-                    InputConstants.Type.KEYSYM.getOrCreate(-1), "key.occultism.category");
-
-    public static final KeyMapping KEY_FAMILIAR_CTHULHU =
-            new KeyMapping("key.occultism.familiar.cthulhu", KeyConflictContext.IN_GAME,
-                    InputConstants.Type.KEYSYM.getOrCreate(-1), "key.occultism.category");
     //endregion Fields
 
     //region Static Methods
@@ -121,6 +109,7 @@ public class ClientSetupEventHandler {
         event.registerEntityRenderer(OccultismEntities.BAT_FAMILIAR.get(), BatFamiliarRenderer::new);
         event.registerEntityRenderer(OccultismEntities.DEER_FAMILIAR.get(), DeerFamiliarRenderer::new);
         event.registerEntityRenderer(OccultismEntities.CTHULHU_FAMILIAR.get(), CthulhuFamiliarRenderer::new);
+        event.registerEntityRenderer(OccultismEntities.DEVIL_FAMILIAR.get(), DevilFamiliarRenderer::new);
         event.registerEntityRenderer(OccultismEntities.POSSESSED_ENDERMITE.get(), EndermiteRenderer::new);
         event.registerEntityRenderer(OccultismEntities.POSSESSED_SKELETON.get(), SkeletonRenderer::new);
         event.registerEntityRenderer(OccultismEntities.POSSESSED_ENDERMAN.get(), EndermanRenderer::new);
@@ -140,11 +129,14 @@ public class ClientSetupEventHandler {
         event.enqueueWork(() -> {
             ClientRegistry.registerKeyBinding(KEY_BACKPACK);
             ClientRegistry.registerKeyBinding(KEY_STORAGE_REMOTE);
-            ClientRegistry.registerKeyBinding(KEY_FAMILIAR_OTHERWORLD_BIRD);
-            ClientRegistry.registerKeyBinding(KEY_FAMILIAR_GREEDY);
-            ClientRegistry.registerKeyBinding(KEY_FAMILIAR_BAT);
-            ClientRegistry.registerKeyBinding(KEY_FAMILIAR_DEER);
-            ClientRegistry.registerKeyBinding(KEY_FAMILIAR_CTHULHU);
+
+            keysFamiliars = new HashMap<>();
+            for (EntityType<?> familiar : FamiliarSettingsCapability.getFamiliars()) {
+                KeyMapping kb = new KeyMapping("key.occultism.familiar." + familiar.getRegistryName().getPath(), KeyConflictContext.IN_GAME,
+                        InputConstants.Type.KEYSYM.getOrCreate(-1), "key.occultism.category");
+                keysFamiliars.put(familiar, kb);
+                ClientRegistry.registerKeyBinding(kb);
+            }
         });
 
         //Register Tile Entity Renderers

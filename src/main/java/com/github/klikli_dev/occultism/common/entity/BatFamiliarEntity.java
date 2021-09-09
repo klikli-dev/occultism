@@ -108,8 +108,7 @@ public class BatFamiliarEntity extends FamiliarEntity implements FlyingAnimal {
 
     @Override
     public Iterable<MobEffectInstance> getFamiliarEffects() {
-        if (this.getFamiliarOwner().getCapability(OccultismCapabilities.FAMILIAR_SETTINGS)
-                .map(FamiliarSettingsCapability::isBatEnabled).orElse(false)) {
+        if (this.isEffectEnabled()) {
             return ImmutableList.of(new MobEffectInstance(MobEffects.NIGHT_VISION, 300, 1, false, false));
         }
         return Collections.emptyList();
