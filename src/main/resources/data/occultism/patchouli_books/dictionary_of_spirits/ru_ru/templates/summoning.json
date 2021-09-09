@@ -13,7 +13,7 @@
     },
     {
       "type": "text",
-      "text": "Pentacle: #pentacle#$(br)Activate: $(item)#activation_item->iname#$()$(br)Ingredients: $(br)#ingredients#",
+      "text": "Пентакль: #pentacle#$(brАктиватор: $(item)#activation_item->iname#$()$(br)Ингредиенты: $(br)#ingredients#",
       "y": 30
     }
   ]
