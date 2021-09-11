@@ -46,7 +46,7 @@ public class BatFamiliarRenderer extends MobRenderer<BatFamiliarEntity, BatFamil
     public void render(BatFamiliarEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn,
             IRenderTypeBuffer bufferIn, int packedLightIn) {
         matrixStackIn.push();
-        if (!entityIn.isSitting())
+        if (!entityIn.isSitting() || entityIn.isPartying())
             matrixStackIn.translate(0, entityIn.getAnimationHeight(partialTicks) * 0.1, 0);
         super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
         matrixStackIn.pop();

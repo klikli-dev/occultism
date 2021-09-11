@@ -188,7 +188,14 @@ public class CthulhuFamiliarModel extends EntityModel<CthulhuFamiliarEntity> {
 
         this.head.rotateAngleY = netHeadYaw * (PI / 180f) * 0.7f;
         this.head.rotateAngleX = headPitch * (PI / 180f) * 0.7f - 0.26f;
-        if (entityIn.isSitting()) {
+
+        if (entityIn.isPartying()) {
+            this.body.rotateAngleX = -toRads(90);
+            this.rightLeg.rotateAngleX = toRads(15);
+            this.leftLeg.rotateAngleX = toRads(15);
+            this.head.rotateAngleY = 0;
+            this.head.rotateAngleX = 0;
+        } else if (entityIn.isSitting()) {
             this.rightArm.rotateAngleX = 0;
             this.leftArm.rotateAngleX = 0;
             this.rightLeg.rotateAngleX = -PI / 2;
@@ -213,7 +220,7 @@ public class CthulhuFamiliarModel extends EntityModel<CthulhuFamiliarEntity> {
             this.leftEar.rotateAngleZ = 0;
             this.rightEar.rotateAngleZ = 0;
         }
-        
+
         if (entityIn.isGiving()) {
             this.leftArm.rotateAngleY = toRads(40);
             this.rightArm.rotateAngleY = -toRads(40);
@@ -234,7 +241,7 @@ public class CthulhuFamiliarModel extends EntityModel<CthulhuFamiliarEntity> {
     @Override
     public void setLivingAnimations(CthulhuFamiliarEntity entityIn, float limbSwing, float limbSwingAmount,
             float partialTick) {
-        if (entityIn.isSitting()) {
+        if (entityIn.isSitting() && !entityIn.isPartying()) {
             leftWing.rotateAngleY = -0.43f;
             rightWing.rotateAngleY = 0.43f;
         } else {

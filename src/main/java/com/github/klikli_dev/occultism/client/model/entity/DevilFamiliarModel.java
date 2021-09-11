@@ -234,14 +234,8 @@ public class DevilFamiliarModel extends EntityModel<DevilFamiliarEntity> {
         this.showModels(entityIn);
         this.head.rotateAngleY = netHeadYaw * (PI / 180f) * 0.7f;
         this.head.rotateAngleX = 0.03f + headPitch * (PI / 180f) * 0.7f;
-        
-        if (entityIn.isSitting()) {
-            this.leftLeg.rotateAngleX = 0;
-            this.rightLeg.rotateAngleX = 0;
-        } else {
-            this.leftLeg.rotateAngleX = toRads(30) + MathHelper.cos(limbSwing * 0.5f + PI) * limbSwingAmount * 0.4f;
-            this.rightLeg.rotateAngleX = toRads(30) + MathHelper.cos(limbSwing * 0.5f) * limbSwingAmount * 0.4f;
-        }
+        this.egg.rotateAngleY = 0;
+        this.egg.rotateAngleZ = 0;
         
         if (ageInTicks % 300 < 60) {
             float progress = ageInTicks % 300 % 60;
@@ -252,18 +246,33 @@ public class DevilFamiliarModel extends EntityModel<DevilFamiliarEntity> {
             this.leftArm.rotateAngleX = 0.35f;
             this.rightArm.rotateAngleX = 0.35f;
         }
+        
+        if (entityIn.isPartying()) {
+            this.egg.rotateAngleY = ageInTicks / 4;
+            this.egg.rotateAngleZ = MathHelper.cos(ageInTicks / 4) * toRads(10);
+            this.leftLeg.rotateAngleX = toRads(30) + MathHelper.cos(limbSwing * 0.5f + PI) * limbSwingAmount * 0.4f;
+            this.rightLeg.rotateAngleX = toRads(30) + MathHelper.cos(limbSwing * 0.5f) * limbSwingAmount * 0.4f;
+            this.leftArm.rotateAngleX = MathHelper.cos(ageInTicks / 4) * toRads(10);
+            this.rightArm.rotateAngleX = MathHelper.cos(ageInTicks / 4 + PI) * toRads(10);
+        } else if (entityIn.isSitting()) {
+            this.leftLeg.rotateAngleX = 0;
+            this.rightLeg.rotateAngleX = 0;
+        } else {
+            this.leftLeg.rotateAngleX = toRads(30) + MathHelper.cos(limbSwing * 0.5f + PI) * limbSwingAmount * 0.4f;
+            this.rightLeg.rotateAngleX = toRads(30) + MathHelper.cos(limbSwing * 0.5f) * limbSwingAmount * 0.4f;
+        }
     }
 
     @Override
     public void setLivingAnimations(DevilFamiliarEntity entityIn, float limbSwing, float limbSwingAmount,
             float partialTick) {
-        if (entityIn.isSitting()) {
+        float animationHeight = entityIn.getAnimationHeight(partialTick);
+        leftWing.rotateAngleY = animationHeight * toRads(20) - 0.43f;
+        rightWing.rotateAngleY = -animationHeight * toRads(20) + 0.43f;
+
+        if (entityIn.isSitting() && !entityIn.isPartying()) {
             leftWing.rotateAngleY = -0.43f;
             rightWing.rotateAngleY = 0.43f;
-        } else {
-            float animationHeight = entityIn.getAnimationHeight(partialTick);
-            leftWing.rotateAngleY = animationHeight * toRads(20) - 0.43f;
-            rightWing.rotateAngleY = -animationHeight * toRads(20) + 0.43f;
         }
     }
     

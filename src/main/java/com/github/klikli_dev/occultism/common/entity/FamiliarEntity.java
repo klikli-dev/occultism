@@ -29,6 +29,7 @@ import java.util.UUID;
 
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -62,6 +63,8 @@ public abstract class FamiliarEntity extends CreatureEntity implements IFamiliar
             .createKey(FamiliarEntity.class, DataSerializers.OPTIONAL_UNIQUE_ID);
 
     private LivingEntity ownerCached;
+    private boolean partying;
+    private BlockPos jukeboxPos;
 
     public FamiliarEntity(EntityType<? extends FamiliarEntity> type, World worldIn) {
         super(type, worldIn);
@@ -71,6 +74,17 @@ public abstract class FamiliarEntity extends CreatureEntity implements IFamiliar
         return MobEntity.func_233666_p_().createMutableAttribute(Attributes.MAX_HEALTH, 6)
                 .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.3);
     }
+    
+    @Override
+    public void setPartying(BlockPos jukeboxPos, boolean partying) {
+        this.jukeboxPos = jukeboxPos;
+        this.partying = partying;
+     }
+
+     
+     public boolean isPartying() {
+        return this.partying;
+     }
 
     @Override
     protected void registerData() {
@@ -87,6 +101,12 @@ public abstract class FamiliarEntity extends CreatureEntity implements IFamiliar
     @Override
     public void livingTick() {
         updateArmSwingProgress();
+        
+        if (this.jukeboxPos == null || !this.jukeboxPos.withinDistance(this.getPositionVec(), 3.5)
+                || !this.world.getBlockState(this.jukeboxPos).matchesBlock(Blocks.JUKEBOX)) {
+            this.partying = false;
+            this.jukeboxPos = null;
+        }
         
         LivingEntity owner;
         if (!this.world.isRemote && this.world.getGameTime() % 10 == 0 && (owner = this.getFamiliarOwner()) != null
