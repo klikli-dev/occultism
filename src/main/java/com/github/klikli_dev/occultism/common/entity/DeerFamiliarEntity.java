@@ -60,8 +60,8 @@ public class DeerFamiliarEntity extends FamiliarEntity {
 
     private int eatTimer, neckRotTimer, oNeckRotTimer;
 
-    public DeerFamiliarEntity(EntityType<? extends DeerFamiliarEntity> type, Level worldIn) {
-        super(type, worldIn);
+    public DeerFamiliarEntity(EntityType<? extends DeerFamiliarEntity> type, Level level) {
+        super(type, level);
     }
 
     @Override

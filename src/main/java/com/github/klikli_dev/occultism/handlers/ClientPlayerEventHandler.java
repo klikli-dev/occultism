@@ -28,13 +28,17 @@ import com.github.klikli_dev.occultism.client.gui.storage.StorageRemoteGui;
 import com.github.klikli_dev.occultism.network.*;
 import com.github.klikli_dev.occultism.util.CuriosUtil;
 import com.github.klikli_dev.occultism.util.MovementUtil;
+import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.entity.EntityType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+
+import javax.swing.text.JTextComponent;
 
 import static org.lwjgl.glfw.GLFW.GLFW_PRESS;
 
@@ -105,23 +109,11 @@ public class ClientPlayerEventHandler {
     public static void checkFamiliarSettingsKeys(InputEvent event) {
         Minecraft minecraft = Minecraft.getInstance();
         if (minecraft.player != null & minecraft.screen == null) {
-            boolean familiarGreedy = ClientSetupEventHandler.KEY_FAMILIAR_GREEDY.consumeClick();
-            boolean familiarOtherworldBird = ClientSetupEventHandler.KEY_FAMILIAR_OTHERWORLD_BIRD.consumeClick();
-            boolean familiarBat = ClientSetupEventHandler.KEY_FAMILIAR_BAT.consumeClick();
-            boolean familiarDeer = ClientSetupEventHandler.KEY_FAMILIAR_DEER.consumeClick();
-            boolean familiarCthulhu = ClientSetupEventHandler.KEY_FAMILIAR_CTHULHU.consumeClick();
-            if (familiarGreedy || familiarOtherworldBird || familiarBat || familiarDeer) {
-                OccultismPackets.sendToServer(new MessageToggleFamiliarSettings(familiarOtherworldBird, familiarGreedy, familiarBat, familiarDeer, familiarCthulhu));
-            }
-        }
-
-        //TODO: update new code
-        if (minecraft.player != null & minecraft.currentScreen == null) {
             boolean familiarKeyPressed = false;
             Map<EntityType<?>, Boolean> familiarsPressed = new HashMap<>();
 
-            for (Entry<EntityType<?>, KeyBinding> entry : ClientSetupEventHandler.keysFamiliars.entrySet()) {
-                boolean isPressed = entry.getValue().isPressed();
+            for (Entry<EntityType<?>, KeyMapping> entry : ClientSetupEventHandler.keysFamiliars.entrySet()) {
+                boolean isPressed = entry.getValue().consumeClick();
                 if (isPressed)
                     familiarKeyPressed = true;
                 familiarsPressed.put(entry.getKey(), isPressed);

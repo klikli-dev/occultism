@@ -23,6 +23,7 @@
 package com.github.klikli_dev.occultism.common.entity;
 
 import com.github.klikli_dev.occultism.common.item.tool.FamiliarRingItem;
+import com.github.klikli_dev.occultism.registry.OccultismCapabilities;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;

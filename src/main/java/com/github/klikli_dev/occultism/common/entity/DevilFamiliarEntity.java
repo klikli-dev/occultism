@@ -22,147 +22,143 @@
 
 package com.github.klikli_dev.occultism.common.entity;
 
+import com.google.common.collect.ImmutableList;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.util.Mth;
+import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.FollowMobGoal;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.phys.Vec3;
+
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.common.collect.ImmutableList;
-
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ILivingEntityData;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.ai.attributes.AttributeModifierMap;
-import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.ai.goal.FollowMobGoal;
-import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.ai.goal.LookAtGoal;
-import net.minecraft.entity.ai.goal.RandomWalkingGoal;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.network.datasync.DataSerializers;
-import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Effects;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.IServerWorld;
-import net.minecraft.world.World;
-
 public class DevilFamiliarEntity extends FamiliarEntity {
 
-    private static final DataParameter<Boolean> LOLLIPOP = EntityDataManager.createKey(DevilFamiliarEntity.class,
-            DataSerializers.BOOLEAN);
-    private static final DataParameter<Boolean> NOSE = EntityDataManager.createKey(DevilFamiliarEntity.class,
-            DataSerializers.BOOLEAN);
-    private static final DataParameter<Boolean> EARS = EntityDataManager.createKey(DevilFamiliarEntity.class,
-            DataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> LOLLIPOP = SynchedEntityData.defineId(DevilFamiliarEntity.class,
+            EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> NOSE = SynchedEntityData.defineId(DevilFamiliarEntity.class,
+            EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> EARS = SynchedEntityData.defineId(DevilFamiliarEntity.class,
+            EntityDataSerializers.BOOLEAN);
 
     private final float heightOffset;
 
-    public DevilFamiliarEntity(EntityType<? extends DevilFamiliarEntity> type, World worldIn) {
-        super(type, worldIn);
-        this.heightOffset = this.getRNG().nextFloat() * 5;
+    public DevilFamiliarEntity(EntityType<? extends DevilFamiliarEntity> type, Level level) {
+        super(type, level);
+        this.heightOffset = this.getRandom().nextFloat() * 5;
     }
 
-    public static AttributeModifierMap.MutableAttribute registerAttributes() {
-        return FamiliarEntity.registerAttributes().createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.2);
+    public static AttributeSupplier.Builder createAttributes() {
+        return FamiliarEntity.createMobAttributes().add(Attributes.MOVEMENT_SPEED, 1f);
     }
 
+    @Nullable
     @Override
-    public ILivingEntityData onInitialSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason,
-            ILivingEntityData spawnDataIn, CompoundNBT dataTag) {
-        this.setLollipop(this.getRNG().nextDouble() < 0.1);
-        this.setNose(this.getRNG().nextDouble() < 0.5);
-        this.setEars(this.getRNG().nextDouble() < 0.5);
-        return super.onInitialSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {
+        this.setLollipop(this.getRandom().nextDouble() < 0.1);
+        this.setNose(this.getRandom().nextDouble() < 0.5);
+        this.setEars(this.getRandom().nextDouble() < 0.5);
+        return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
     }
 
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new SitGoal(this));
-        this.goalSelector.addGoal(2, new LookAtGoal(this, PlayerEntity.class, 8));
+        this.goalSelector.addGoal(2, new LookAtPlayerGoal(this, Player.class, 8));
         this.goalSelector.addGoal(3, new FollowOwnerGoal(this, 1, 3, 1));
         this.goalSelector.addGoal(4, new FireBreathGoal(this));
-        this.goalSelector.addGoal(5, new RandomWalkingGoal(this, 1.0D));
+        this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(6, new FollowMobGoal(this, 1, 3, 7));
     }
 
     @Override
-    public void tick() {
-        super.tick();
-        if (!this.isServerWorld() && this.isSwingInProgress) {
-            Vector3d direction = Vector3d.fromPitchYaw(this.getPitchYaw()).scale(0.6);
-
+    public void aiStep() {
+        super.aiStep();
+        if (this.level.isClientSide && this.swinging) {
+            Vec3 direction = Vec3.directionFromRotation(this.getRotationVector()).scale(0.6);
             for (int i = 0; i < 5; i++) {
-                Vector3d pos = this.getPositionVec().add(direction.x + (this.getRNG().nextFloat() - 0.5f) * 0.7,
-                        1.5 + (this.getRNG().nextFloat() - 0.5f) * 0.7, direction.z + (this.getRNG().nextFloat() - 0.5f) * 0.7);
-                this.world.addParticle(ParticleTypes.FLAME, pos.x, pos.y, pos.z, direction.x * 0.25, 0, direction.z * 0.25);
+                Vec3 pos = this.position().add(direction.x + (this.getRandom().nextFloat() - 0.5f) * 0.7,
+                        1.5 + (this.getRandom().nextFloat() - 0.5f) * 0.7, direction.z + (this.getRandom().nextFloat() - 0.5f) * 0.7);
+                this.level.addParticle(ParticleTypes.FLAME, pos.x, pos.y, pos.z, direction.x * 0.25, 0, direction.z * 0.25);
             }
         }
     }
 
     @Override
-    protected void registerData() {
-        super.registerData();
-        this.dataManager.register(LOLLIPOP, false);
-        this.dataManager.register(NOSE, false);
-        this.dataManager.register(EARS, false);
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(LOLLIPOP, false);
+        this.entityData.define(NOSE, false);
+        this.entityData.define(EARS, false);
     }
 
     public float getAnimationHeight(float partialTicks) {
-        return MathHelper.cos((this.ticksExisted + this.heightOffset + partialTicks) / 3.5f);
+        return Mth.cos((this.tickCount + this.heightOffset + partialTicks) / 3.5f);
     }
 
     public boolean hasLollipop() {
-        return this.dataManager.get(LOLLIPOP);
+        return this.entityData.get(LOLLIPOP);
     }
 
     private void setLollipop(boolean b) {
-        this.dataManager.set(LOLLIPOP, b);
+        this.entityData.set(LOLLIPOP, b);
     }
 
     public boolean hasNose() {
-        return this.dataManager.get(NOSE);
+        return this.entityData.get(NOSE);
     }
 
     private void setNose(boolean b) {
-        this.dataManager.set(NOSE, b);
+        this.entityData.set(NOSE, b);
     }
 
     public boolean hasEars() {
-        return this.dataManager.get(EARS);
+        return this.entityData.get(EARS);
     }
 
     private void setEars(boolean b) {
-        this.dataManager.set(EARS, b);
+        this.entityData.set(EARS, b);
     }
 
+
     @Override
-    public void readAdditional(CompoundNBT compound) {
-        super.readAdditional(compound);
+    public void readAdditionalSaveData(CompoundTag compound) {
+        super.readAdditionalSaveData(compound);
         this.setLollipop(compound.getBoolean("hasLollipop"));
         this.setNose(compound.getBoolean("hasNose"));
         this.setEars(compound.getBoolean("hasEars"));
     }
 
     @Override
-    public void writeAdditional(CompoundNBT compound) {
-        super.writeAdditional(compound);
+    public void addAdditionalSaveData(CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
         compound.putBoolean("hasLollipop", this.hasLollipop());
         compound.putBoolean("hasNose", this.hasNose());
         compound.putBoolean("hasEars", this.hasEars());
     }
 
     @Override
-    public Iterable<EffectInstance> getFamiliarEffects() {
+    public Iterable<MobEffectInstance> getFamiliarEffects() {
         if (this.isEffectEnabled()) {
-                return ImmutableList.of(new EffectInstance(Effects.FIRE_RESISTANCE, 300, 0, false, false));
+            return ImmutableList.of(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 300, 0, false, false));
         }
         return ImmutableList.of();
     }
@@ -179,14 +175,14 @@ public class DevilFamiliarEntity extends FamiliarEntity {
         }
 
         @Override
-        public boolean shouldExecute() {
-            return this.cooldown-- < 0 && this.devil.getFamiliarOwner() instanceof PlayerEntity && !this.getNearbyEnemies().isEmpty();
+        public boolean canUse() {
+            return this.cooldown-- < 0 && this.devil.getFamiliarOwner() instanceof Player && !this.getNearbyEnemies().isEmpty();
         }
 
         private List<Entity> getNearbyEnemies() {
             LivingEntity owner = this.devil.getFamiliarOwner();
-            LivingEntity revenge = owner.getRevengeTarget();
-            LivingEntity target = owner.getLastAttackedEntity();
+            LivingEntity revenge = owner.getLastHurtByMob();
+            LivingEntity target = owner.getLastHurtMob();
             List<Entity> enemies = new ArrayList<>();
             if (this.isClose(revenge))
                 enemies.add(revenge);
@@ -196,18 +192,20 @@ public class DevilFamiliarEntity extends FamiliarEntity {
         }
 
         private boolean isClose(LivingEntity e) {
-            return e != null && e.getDistanceSq(this.devil) < 5;
+            return e != null && e.distanceToSqr(this.devil) < 5;
         }
 
-        public void startExecuting() {
+        @Override
+        public void start() {
             for (Entity e : this.getNearbyEnemies()) {
-                e.attackEntityFrom(DamageSource.causePlayerDamage((PlayerEntity) this.devil.getFamiliarOwner()), 4);
+                e.hurt(DamageSource.playerAttack((Player) this.devil.getFamiliarOwner()), 4);
             }
             this.cooldown = MAX_COOLDOWN;
-            this.devil.swingArm(Hand.MAIN_HAND);
+            this.devil.swing(InteractionHand.MAIN_HAND.MAIN_HAND);
         }
 
-        public void resetTask() {
+        @Override
+        public void stop() {
             this.cooldown = MAX_COOLDOWN;
         }
     }

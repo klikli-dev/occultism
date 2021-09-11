@@ -22,8 +22,6 @@
 
 package com.github.klikli_dev.occultism.common.entity;
 
-import com.github.klikli_dev.occultism.common.capability.FamiliarSettingsCapability;
-import com.github.klikli_dev.occultism.registry.OccultismCapabilities;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -328,7 +326,7 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
         }
 
         private DevilFamiliarEntity findDevil() {
-            List<DevilFamiliarEntity> devils = this.cthulhu.level.getEntities(DevilFamiliarEntity.class,
+            List<DevilFamiliarEntity> devils = this.cthulhu.level.getEntitiesOfClass(DevilFamiliarEntity.class,
                     this.cthulhu.getBoundingBox().inflate(4));
             return devils.isEmpty() ? null : devils.get(0);
         }
