@@ -55,16 +55,16 @@ public class GreedyFamiliarModel extends EntityModel<GreedyFamiliarEntity> {
 
     public GreedyFamiliarModel(ModelPart part) {
         this.body = part.getChild("body");
-        this.rightArm = body.getChild("rightArm");
-        this.chest1 = body.getChild("chest1");
-        this.leftArm = body.getChild("leftArm");
-        this.rightLeg = body.getChild("rightLeg");
-        this.leftLeg = body.getChild("leftLeg");
-        this.head = body.getChild("head");
-        this.chest2 = chest1.getChild("chest2");
-        this.leftEar = head.getChild("leftEar");
-        this.rightEar = head.getChild("rightEar");
-        this.nose = head.getChild("nose");
+        this.rightArm = this.body.getChild("rightArm");
+        this.chest1 = this.body.getChild("chest1");
+        this.leftArm = this.body.getChild("leftArm");
+        this.rightLeg = this.body.getChild("rightLeg");
+        this.leftLeg = this.body.getChild("leftLeg");
+        this.head = this.body.getChild("head");
+        this.chest2 = this.chest1.getChild("chest2");
+        this.leftEar = this.head.getChild("leftEar");
+        this.rightEar = this.head.getChild("rightEar");
+        this.nose = this.head.getChild("nose");
     }
 
     @Override
@@ -89,12 +89,27 @@ public class GreedyFamiliarModel extends EntityModel<GreedyFamiliarEntity> {
         return LayerDefinition.create(mesh, 32, 32);
     }
 
+    private float toRad(float deg) {
+        return (float) Math.toRadians(deg);
+    }
+
     @Override
     public void setupAnim(GreedyFamiliarEntity entityIn, float limbSwing, float limbSwingAmount,
                           float ageInTicks, float netHeadYaw, float headPitch) {
         this.head.yRot = netHeadYaw * (PI / 180f);
         this.head.xRot = headPitch * (PI / 180f);
-        if (entityIn.isSitting()) {
+        this.head.zRot = 0;
+        this.rightArm.zRot = 0;
+        this.leftArm.zRot = 0;
+        if (entityIn.isPartying()) {
+            this.rightArm.xRot = Mth.cos(ageInTicks + PI) * this.toRad(20) + this.toRad(180);
+            this.leftArm.xRot = Mth.cos(ageInTicks) * this.toRad(20) + this.toRad(180);
+            this.rightArm.zRot = -this.toRad(20);
+            this.leftArm.zRot = this.toRad(20);
+            this.head.zRot = Mth.sin(ageInTicks) * this.toRad(20);
+            this.rightLeg.xRot = Mth.cos(limbSwing * 0.5f) * 1.4f * limbSwingAmount;
+            this.leftLeg.xRot = Mth.cos(limbSwing * 0.5f + PI) * 1.4f * limbSwingAmount;
+        } else if (entityIn.isSitting()) {
             this.rightArm.xRot = 0;
             this.leftArm.xRot = 0;
             this.rightLeg.xRot = -PI / 2;

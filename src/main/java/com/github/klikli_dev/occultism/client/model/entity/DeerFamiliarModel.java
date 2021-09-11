@@ -220,8 +220,25 @@ public class DeerFamiliarModel extends EntityModel<DeerFamiliarEntity> {
         }
 
         this.tail.xRot = Mth.cos(limbSwing * 0.7f) * 0.4f * limbSwingAmount - 0.3f;
+        this.body.xRot = 0;
 
-        if (entityIn.isSitting()) {
+        if (entityIn.isPartying()) {
+            this.body.xRot = this.toRad(-20);
+            this.setRotateAngle(this.rightBackLeg1, Mth.cos(ageInTicks / 2 + PI) * this.toRad(5) + this.toRad(20), 0, 0);
+            this.setRotateAngle(this.leftBackLeg1, Mth.cos(ageInTicks / 2) * this.toRad(5) + this.toRad(20), 0, 0);
+            this.setRotateAngle(this.rightFrontLeg1, Mth.cos(ageInTicks / 2) * this.toRad(30) - this.toRad(40), 0, 0);
+            this.setRotateAngle(this.leftFrontLeg1, Mth.cos(ageInTicks / 2 + PI) * this.toRad(30) - this.toRad(40), 0, 0);
+
+            this.rightBackLeg2.z = 0;
+            this.leftBackLeg2.z = 0;
+            this.rightFrontLeg2.z = 0;
+            this.leftFrontLeg2.z = 0;
+
+            this.rightBackLeg2.xRot = -0.1f;
+            this.leftBackLeg2.xRot = -0.1f;
+            this.rightFrontLeg2.xRot = 0.1f;
+            this.leftFrontLeg2.xRot = 0.1f;
+        } else if (entityIn.isSitting()) {
             this.setRotateAngle(this.rightBackLeg1, this.toRad(80), this.toRad(10), -this.toRad(40));
             this.setRotateAngle(this.leftBackLeg1, this.toRad(80), this.toRad(10), -this.toRad(40));
             this.setRotateAngle(this.rightFrontLeg1, -this.toRad(80), -this.toRad(10), -this.toRad(40));

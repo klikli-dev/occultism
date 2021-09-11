@@ -53,7 +53,17 @@ public class CthulhuFamiliarRenderer extends MobRenderer<CthulhuFamiliarEntity, 
     public void render(CthulhuFamiliarEntity pEntity, float pEntityYaw, float pPartialTicks, PoseStack pMatrixStack, MultiBufferSource pBuffer, int pPackedLight) {
 
         pMatrixStack.pushPose();
-        pMatrixStack.translate(0, pEntity.isSitting() ? -0.35 : pEntity.getAnimationHeight(pPartialTicks) * 0.08, 0);
+
+        if (pEntity.isPartying()) {
+            float ageInTicks = pEntity.tickCount + pPartialTicks;
+            pMatrixStack.translate(0, 1.55, 0);
+            pMatrixStack.mulPose(new Quaternion(ageInTicks * 3, 0, 0, true));
+            pMatrixStack.translate(0, 0.5, 0);
+            pEntity.yBodyRotO = -180;
+            pEntity.yBodyRot = -180;
+        } else
+            pMatrixStack.translate(0, pEntity.isSitting() ? -0.35 : pEntity.getAnimationHeight(pPartialTicks) * 0.08, 0);
+
         super.render(pEntity, pEntityYaw, pPartialTicks, pMatrixStack, pBuffer, pPackedLight);
         pMatrixStack.popPose();
     }

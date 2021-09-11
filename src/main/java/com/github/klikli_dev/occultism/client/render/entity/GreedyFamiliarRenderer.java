@@ -51,7 +51,7 @@ public class GreedyFamiliarRenderer extends MobRenderer<GreedyFamiliarEntity, Gr
     public void render(GreedyFamiliarEntity entityIn, float entityYaw, float partialTicks, PoseStack matrixStackIn,
             MultiBufferSource bufferIn, int packedLightIn) {
         matrixStackIn.pushPose();
-        if (entityIn.isSitting())
+        if (entityIn.isSitting() && !entityIn.isPartying())
             matrixStackIn.translate(0, -0.25, 0);
         super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
         matrixStackIn.popPose();

@@ -31,6 +31,7 @@ import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.util.Mth;
 
 /**
  * Created using Tabula 8.0.0
@@ -185,7 +186,10 @@ public class BatFamiliarModel extends EntityModel<BatFamiliarEntity> {
     @Override
     public void prepareMobModel(BatFamiliarEntity entityIn, float limbSwing, float limbSwingAmount,
                                 float partialTick) {
-        if (entityIn.isSitting()) {
+        if (entityIn.isPartying()) {
+            this.stick.visible = false;
+            this.body.xRot = this.toRads(0);
+        } else if (entityIn.isSitting()) {
             this.leftWing1.yRot = this.toRads(60);
             this.leftWing2.yRot = this.toRads(60);
             this.rightWing1.yRot = -this.toRads(60);
@@ -207,13 +211,24 @@ public class BatFamiliarModel extends EntityModel<BatFamiliarEntity> {
     public void setupAnim(BatFamiliarEntity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks,
                           float netHeadYaw, float headPitch) {
 
-        if (entityIn.isSitting()) {
+        if (entityIn.isPartying()) {
+            this.head.xRot = Mth.sin(ageInTicks / 3) * this.toRads(10);
+            this.head.yRot = Mth.cos(ageInTicks / 3) * this.toRads(10);
+            this.head.zRot = Mth.sin(ageInTicks / 3) * this.toRads(10);
+            this.leftWing1.yRot = Mth.sin(ageInTicks / 3) * this.toRads(60);
+            this.leftWing2.yRot = Mth.sin(ageInTicks / 3) * this.toRads(60);
+            this.rightWing1.yRot = Mth.sin(ageInTicks / 3) * this.toRads(60);
+            this.rightWing2.yRot = Mth.sin(ageInTicks / 3) * this.toRads(60);
+            this.body.xRot = this.toRads(20) + limbSwingAmount * this.toRads(70);
+            this.body.yRot = 0;
+        } else if (entityIn.isSitting()) {
             this.head.xRot = 0.2f;
             this.head.yRot = 0;
             this.head.zRot = 0;
             this.body.xRot = (float) Math.toRadians(180);
             this.body.yRot = (float) Math.toRadians(180);
         } else {
+            this.head.xRot = 0;
             this.head.yRot = this.toRads(netHeadYaw) * 0.35f;
             this.head.zRot = this.toRads(headPitch) * 0.35f;
 

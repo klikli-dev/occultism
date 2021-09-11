@@ -134,7 +134,14 @@ public class CthulhuFamiliarModel extends EntityModel<CthulhuFamiliarEntity> {
 
         this.head.yRot = netHeadYaw * (PI / 180f) * 0.7f;
         this.head.xRot = headPitch * (PI / 180f) * 0.7f - 0.26f;
-        if (entityIn.isSitting()) {
+
+        if (entityIn.isPartying()) {
+            this.body.xRot = -toRads(90);
+            this.rightLeg.xRot = toRads(15);
+            this.leftLeg.xRot = toRads(15);
+            this.head.yRot = 0;
+            this.head.xRot = 0;
+        } else if (entityIn.isSitting()) {
             this.rightArm.xRot = 0;
             this.leftArm.xRot = 0;
             this.rightLeg.xRot = -PI / 2;
@@ -159,7 +166,7 @@ public class CthulhuFamiliarModel extends EntityModel<CthulhuFamiliarEntity> {
             this.leftEar.zRot = 0;
             this.rightEar.zRot = 0;
         }
-        
+
         if (entityIn.isGiving()) {
             this.leftArm.yRot = this.toRads(40);
             this.rightArm.yRot = -this.toRads(40);
@@ -180,7 +187,7 @@ public class CthulhuFamiliarModel extends EntityModel<CthulhuFamiliarEntity> {
     @Override
     public void prepareMobModel(CthulhuFamiliarEntity entityIn, float limbSwing, float limbSwingAmount,
                                 float partialTick) {
-        if (entityIn.isSitting()) {
+        if (entityIn.isSitting() && !entityIn.isPartying()) {
             this.leftWing.yRot = -0.43f;
             this.rightWing.yRot = 0.43f;
         } else {

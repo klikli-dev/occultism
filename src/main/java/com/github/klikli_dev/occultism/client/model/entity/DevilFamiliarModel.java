@@ -154,13 +154,22 @@ public class DevilFamiliarModel extends EntityModel<DevilFamiliarEntity> {
         this.showModels(entityIn);
         this.head.yRot = netHeadYaw * (PI / 180f) * 0.7f;
         this.head.xRot = 0.03f + headPitch * (PI / 180f) * 0.7f;
+        this.egg.yRot = 0;
+        this.egg.zRot = 0;
 
-        if (entityIn.isSitting()) {
+
+        if (entityIn.isPartying()) {
+            this.egg.yRot = ageInTicks / 4;
+            this.egg.zRot = Mth.cos(ageInTicks / 4) * this.toRads(10);
+            this.leftLeg.xRot = this.toRads(30) + Mth.cos(limbSwing * 0.5f + PI) * limbSwingAmount * 0.4f;
+            this.rightLeg.xRot = this.toRads(30) + Mth.cos(limbSwing * 0.5f) * limbSwingAmount * 0.4f;
+            this.leftArm.xRot = Mth.cos(ageInTicks / 4) * this.toRads(10);
+            this.rightArm.xRot = Mth.cos(ageInTicks / 4 + PI) * this.toRads(10);
+        } else if (entityIn.isSitting()) {
             this.leftLeg.xRot = 0;
             this.rightLeg.xRot = 0;
         } else {
-            this.leftLeg.xRot = this.toRads(30) + Mth.cos(limbSwing * 0.5f + PI) * limbSwingAmount * 0.4f;
-            this.rightLeg.xRot = this.toRads(30) + Mth.cos(limbSwing * 0.5f) * limbSwingAmount * 0.4f;
+            this.leftLeg.xRot = this.toRads(30) + Mth.cos(limbSwing * 0.5f) * limbSwingAmount * 0.4f;
         }
 
         if (ageInTicks % 300 < 60) {
@@ -177,13 +186,13 @@ public class DevilFamiliarModel extends EntityModel<DevilFamiliarEntity> {
     @Override
     public void prepareMobModel(DevilFamiliarEntity entityIn, float limbSwing, float limbSwingAmount,
                                 float partialTick) {
-        if (entityIn.isSitting()) {
+        float animationHeight = entityIn.getAnimationHeight(partialTick);
+        this.leftWing.yRot = animationHeight * this.toRads(20) - 0.43f;
+        this.rightWing.yRot = -animationHeight * this.toRads(20) + 0.43f;
+
+        if (entityIn.isSitting() && !entityIn.isPartying()) {
             this.leftWing.yRot = -0.43f;
             this.rightWing.yRot = 0.43f;
-        } else {
-            float animationHeight = entityIn.getAnimationHeight(partialTick);
-            this.leftWing.yRot = animationHeight * this.toRads(20) - 0.43f;
-            this.rightWing.yRot = -animationHeight * this.toRads(20) + 0.43f;
         }
     }
 
