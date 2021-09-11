@@ -160,7 +160,7 @@ public class RitualRecipe extends ShapelessRecipe {
     }
 
     public boolean requiresItemUse() {
-        return this.itemToUse != null;
+        return this.itemToUse != Ingredient.EMPTY;
     }
 
     public EntityType<?> getEntityToSummon() {
