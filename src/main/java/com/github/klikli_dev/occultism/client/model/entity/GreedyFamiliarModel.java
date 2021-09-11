@@ -120,13 +120,28 @@ public class GreedyFamiliarModel extends EntityModel<GreedyFamiliarEntity> {
         modelRenderer.rotateAngleY = y;
         modelRenderer.rotateAngleZ = z;
     }
+    
+    private float toRad(float deg) {
+        return (float) Math.toRadians(deg);
+    }
 
     @Override
     public void setRotationAngles(GreedyFamiliarEntity entityIn, float limbSwing, float limbSwingAmount,
             float ageInTicks, float netHeadYaw, float headPitch) {
         this.head.rotateAngleY = netHeadYaw * (PI / 180f);
         this.head.rotateAngleX = headPitch * (PI / 180f);
-        if (entityIn.isSitting()) {
+        this.head.rotateAngleZ = 0;
+        this.rightArm.rotateAngleZ = 0;
+        this.leftArm.rotateAngleZ = 0;
+        if (entityIn.isPartying()) {
+            this.rightArm.rotateAngleX = MathHelper.cos(ageInTicks + PI) * toRad(20) + toRad(180);
+            this.leftArm.rotateAngleX = MathHelper.cos(ageInTicks) * toRad(20) + toRad(180);
+            this.rightArm.rotateAngleZ = -toRad(20);
+            this.leftArm.rotateAngleZ = toRad(20);
+            this.head.rotateAngleZ = MathHelper.sin(ageInTicks) * toRad(20);
+            this.rightLeg.rotateAngleX = MathHelper.cos(limbSwing * 0.5f) * 1.4f * limbSwingAmount;
+            this.leftLeg.rotateAngleX = MathHelper.cos(limbSwing * 0.5f + PI) * 1.4f * limbSwingAmount;
+        } else if (entityIn.isSitting()) {
             this.rightArm.rotateAngleX = 0;
             this.leftArm.rotateAngleX = 0;
             this.rightLeg.rotateAngleX = -PI / 2;
@@ -138,5 +153,6 @@ public class GreedyFamiliarModel extends EntityModel<GreedyFamiliarEntity> {
             this.leftLeg.rotateAngleX = MathHelper.cos(limbSwing * 0.5f + PI) * 1.4f * limbSwingAmount;
         }
         this.chest2.rotateAngleX = MathHelper.cos(limbSwing * 0.35f + PI) * 0.5f * limbSwingAmount + PI / 12;
+        
     }
 }

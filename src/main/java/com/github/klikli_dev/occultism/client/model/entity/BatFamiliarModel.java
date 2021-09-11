@@ -30,6 +30,7 @@ import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
+import net.minecraft.util.math.MathHelper;
 
 /**
  * Created using Tabula 8.0.0
@@ -164,7 +165,11 @@ public class BatFamiliarModel extends EntityModel<BatFamiliarEntity> {
     @Override
     public void setLivingAnimations(BatFamiliarEntity entityIn, float limbSwing, float limbSwingAmount,
             float partialTick) {
-        if (entityIn.isSitting()) {
+
+        if (entityIn.isPartying()) {
+            stick.showModel = false;
+            body.rotateAngleX = toRads(0);
+        } else if (entityIn.isSitting()) {
             leftWing1.rotateAngleY = toRads(60);
             leftWing2.rotateAngleY = toRads(60);
             rightWing1.rotateAngleY = -toRads(60);
@@ -186,13 +191,24 @@ public class BatFamiliarModel extends EntityModel<BatFamiliarEntity> {
     public void setRotationAngles(BatFamiliarEntity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks,
             float netHeadYaw, float headPitch) {
 
-        if (entityIn.isSitting()) {
+        if (entityIn.isPartying()) {
+            head.rotateAngleX = MathHelper.sin(ageInTicks / 3) * toRads(10);
+            head.rotateAngleY = MathHelper.cos(ageInTicks / 3) * toRads(10);
+            head.rotateAngleZ = MathHelper.sin(ageInTicks / 3) * toRads(10);
+            leftWing1.rotateAngleY = MathHelper.sin(ageInTicks / 3) * toRads(60);
+            leftWing2.rotateAngleY = MathHelper.sin(ageInTicks / 3) * toRads(60);
+            rightWing1.rotateAngleY = MathHelper.sin(ageInTicks / 3) * toRads(60);
+            rightWing2.rotateAngleY = MathHelper.sin(ageInTicks / 3) * toRads(60);
+            body.rotateAngleX = toRads(20) + limbSwingAmount * toRads(70);
+            body.rotateAngleY = 0;
+        } else if (entityIn.isSitting()) {
             head.rotateAngleX = 0.2f;
             head.rotateAngleY = 0;
             head.rotateAngleZ = 0;
             body.rotateAngleX = (float) Math.toRadians(180);
             body.rotateAngleY = (float) Math.toRadians(180);
         } else {
+            head.rotateAngleX = 0;
             head.rotateAngleY = toRads(netHeadYaw) * 0.35f;
             head.rotateAngleZ = toRads(headPitch) * 0.35f;
 

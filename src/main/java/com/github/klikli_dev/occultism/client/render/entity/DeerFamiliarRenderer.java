@@ -51,7 +51,9 @@ public class DeerFamiliarRenderer extends MobRenderer<DeerFamiliarEntity, DeerFa
     public void render(DeerFamiliarEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn,
             IRenderTypeBuffer bufferIn, int packedLightIn) {
         matrixStackIn.push();
-        if (entityIn.isSitting())
+        if (entityIn.isPartying())
+            matrixStackIn.translate(0, 0.08, 0);
+        else if (entityIn.isSitting())
             matrixStackIn.translate(0, -0.38, 0);
         super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
         matrixStackIn.pop();
