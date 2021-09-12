@@ -32,6 +32,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -47,6 +48,7 @@ import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.common.util.LazyOptional;
 import top.theillusivec4.curios.api.CuriosCapability;
+import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.type.capability.ICurio;
 import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
@@ -78,7 +80,7 @@ public class FamiliarRingItem extends Item {
                 CompoundTag tag = stack.getOrCreateTag();
                 tag.putBoolean("occupied", true);
                 ItemNBTUtil.setBoundSpiritName(stack, familiar.getEntity().getDisplayName().getString());
-                return InteractionResult.CONSUME;
+                return InteractionResult.SUCCESS;
             }
         }
         
@@ -86,14 +88,16 @@ public class FamiliarRingItem extends Item {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {
-        ItemStack stack = playerIn.getItemInHand(handIn);
-        if (!playerIn.level.isClientSide && this.getCurio(stack).releaseFamiliar(playerIn, worldIn)) {
+    public InteractionResult useOn(UseOnContext pContext) {
+
+        ItemStack stack = pContext.getPlayer().getItemInHand(pContext.getHand());
+        if (!pContext.getPlayer().level.isClientSide && this.getCurio(stack).releaseFamiliar(pContext.getPlayer(), pContext.getLevel())) {
             CompoundTag tag = stack.getOrCreateTag();
             tag.putBoolean("occupied", false);
-            return InteractionResultHolder.consume(stack);
+            return InteractionResult.SUCCESS;
         }
-        return super.use(worldIn, playerIn, handIn);
+
+        return super.useOn(pContext);
     }
 
     private Curio getCurio(ItemStack stack) {
@@ -147,18 +151,18 @@ public class FamiliarRingItem extends Item {
         }
 
         @Override
-        public void curioTick(String identifier, int index, LivingEntity entity) {
-            Level level = entity.level;
+        public void curioTick(SlotContext slotContext) {
+            Level level = slotContext.entity().level;
             IFamiliar familiar = this.getFamiliar(level);
-            if (familiar == null || familiar.getFamiliarOwner() != entity)
+            if (familiar == null || familiar.getFamiliarOwner() != slotContext.entity())
                 return;
             // Apply effects
-            if (!level.isClientSide && entity.tickCount % 20 == 0)
+            if (!level.isClientSide && slotContext.entity().tickCount % 20 == 0)
                 for (MobEffectInstance effect : familiar.getFamiliarEffects())
                     familiar.getFamiliarOwner().addEffect(effect);
-            
+
             // Tick
-            familiar.curioTick(entity);
+            familiar.curioTick(slotContext.entity());
         }
 
         @Override
