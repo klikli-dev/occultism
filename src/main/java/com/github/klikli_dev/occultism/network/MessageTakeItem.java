@@ -106,7 +106,7 @@ public class MessageTakeItem extends MessageBase {
                 }
                 else {
                     //otherwise put it on the players mouse
-                    player.getInventory().setPickedItem(stack);
+                    player.containerMenu.setCarried(stack);
                     OccultismPackets.sendTo(player, new MessageUpdateMouseHeldItem(stack));
                 }
             }

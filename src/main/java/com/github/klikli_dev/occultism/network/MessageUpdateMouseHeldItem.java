@@ -55,8 +55,7 @@ public class MessageUpdateMouseHeldItem extends MessageBase {
     @Override
     @OnlyIn(Dist.CLIENT)
     public void onClientReceived(Minecraft minecraft, Player player, NetworkEvent.Context context) {
-        //TODO: Check if MouseHeldItem works
-        player.getInventory().setPickedItem(this.stack);
+        player.containerMenu.setCarried(this.stack);
     }
 
     @Override

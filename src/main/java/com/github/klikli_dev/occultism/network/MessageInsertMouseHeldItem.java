@@ -63,8 +63,7 @@ public class MessageInsertMouseHeldItem extends MessageBase {
                     .getStorageController();
 
             ItemStack result = ItemStack.EMPTY;
-            //TODO: Check if MouseHeldItem works
-            ItemStack carriedByMouse = player.getInventory().getSelected();
+            ItemStack carriedByMouse = player.containerMenu.getCarried();
 
             if (this.mouseButton == InputUtil.MOUSE_BUTTON_LEFT) {
                 //Left mouse button means try to insert entire stack
@@ -86,7 +85,7 @@ public class MessageInsertMouseHeldItem extends MessageBase {
             }
 
             //store result mouse held item
-            player.getInventory().setPickedItem(result);
+            player.containerMenu.setCarried(result);
             //send new mouse held item to client
             OccultismPackets.sendTo(player, new MessageUpdateMouseHeldItem(result));
 

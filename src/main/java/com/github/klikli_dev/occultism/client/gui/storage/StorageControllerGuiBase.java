@@ -320,7 +320,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                 this.clearSearch();
             }
         } else if (this.guiMode == StorageControllerGuiMode.INVENTORY) {
-            ItemStack stackCarriedByMouse = this.minecraft.player.getInventory().getSelected();
+            ItemStack stackCarriedByMouse = this.minecraft.player.containerMenu.getCarried();
             if (!this.stackUnderMouse.isEmpty() &&
                     (mouseButton == InputUtil.MOUSE_BUTTON_LEFT || mouseButton == InputUtil.MOUSE_BUTTON_RIGHT) &&
                     stackCarriedByMouse.isEmpty() && this.canClick()) {
