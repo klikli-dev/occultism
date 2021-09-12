@@ -57,8 +57,6 @@ public class UndergroundGroveDecorator extends CaveDecorator {
 
         if (rand.nextFloat() < Occultism.COMMON_CONFIG.worldGen.undergroundGroveGen.treeChance.get()) {
             ConfiguredFeature<TreeConfiguration, ?> treeFeature = WorldGenHandler.OTHERWORLD_TREE_NATURAL;
-            //TODO: check if trees grow in caves
-            //  treeFeature.config.forcePlacement();
             treeFeature.place(seedReader, generator, rand, pos.above());
         }
     }
