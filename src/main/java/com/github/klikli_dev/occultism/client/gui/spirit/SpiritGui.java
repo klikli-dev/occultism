@@ -34,6 +34,7 @@ import com.mojang.math.Vector3f;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -103,8 +104,9 @@ public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScree
     protected void renderBg(PoseStack poseStack, float partialTicks, int x, int y) {
         this.renderBackground(poseStack);
 
-        RenderSystem.clearColor(1, 1, 1, 1);
-        this.minecraft.getTextureManager().bindForSetup(TEXTURE);
+        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+        RenderSystem.setShaderTexture(0, TEXTURE);
 
         this.blit(poseStack, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight);
 
