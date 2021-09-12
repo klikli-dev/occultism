@@ -98,7 +98,7 @@ public class SpiritFireBlock extends Block {
     @Override
     public void tick(BlockState state, ServerLevel worldIn, BlockPos pos, Random rand) {
         worldIn.getBlockTicks().scheduleTick(pos, this, getTickCooldown(worldIn.random));
-        //TODO: Test if spiritfire works, if there are issues, update tick based on vanilla FireBlock
+
         if (!worldIn.isAreaLoaded(pos, 2)) {
             return;
         }
