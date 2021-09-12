@@ -125,7 +125,7 @@ public class GlobalBlockPos implements INBTSerializable<CompoundTag> {
     //region Methods
     public CompoundTag write(CompoundTag compound) {
         compound.putLong("pos", this.getPos().asLong());
-        compound.putString("dimension", this.dimensionKey.getRegistryName().toString());
+        compound.putString("dimension", this.dimensionKey.location().toString());
         return compound;
     }
 
