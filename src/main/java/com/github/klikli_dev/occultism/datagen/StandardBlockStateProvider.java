@@ -59,6 +59,9 @@ public class StandardBlockStateProvider extends BlockStateProvider {
         this.simpleBlock(OccultismBlocks.STORAGE_CONTROLLER.get(),
                 this.models().getExistingFile(this.modLoc("block/storage_controller")));
         this.models().withExistingParent("item/storage_controller", this.modLoc("block/storage_controller"));
+        this.simpleBlock(OccultismBlocks.STORAGE_CONTROLLER_BASE.get(),
+                this.models().getExistingFile(this.modLoc("block/storage_controller_base")));
+        this.models().withExistingParent("item/storage_controller_base", this.modLoc("block/storage_controller_base"));
         this.generateStableWormholeState(OccultismBlocks.STABLE_WORMHOLE.get());
         this.directionalBlock(OccultismBlocks.STORAGE_STABILIZER_TIER1.get(),
                 this.models().getExistingFile(this.modLoc("block/storage_stabilizer_tier1")));
