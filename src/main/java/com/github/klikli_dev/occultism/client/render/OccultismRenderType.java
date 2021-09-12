@@ -22,8 +22,10 @@
 
 package com.github.klikli_dev.occultism.client.render;
 
+import com.ibm.icu.util.Output;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.VertexFormat;
+import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.RenderStateShard;
 import net.minecraft.client.renderer.RenderType;
 
@@ -32,10 +34,15 @@ import java.util.OptionalDouble;
 public class OccultismRenderType extends RenderType {
     private static final LineStateShard BLOCK_SELECTION_LINE_STATE = new LineStateShard(OptionalDouble.of(4.0D));
     public static final RenderType BLOCK_SELECTION = create("overlay_lines", DefaultVertexFormat.POSITION_COLOR, VertexFormat.Mode.LINES,
-            256, false, false, RenderType.CompositeState.builder().setLineState(BLOCK_SELECTION_LINE_STATE).setLayeringState(RenderStateShard.POLYGON_OFFSET_LAYERING)
+            256, false, false, RenderType.CompositeState.builder()
+                    .setShaderState(RENDERTYPE_LINES_SHADER)
+                    .setLineState(BLOCK_SELECTION_LINE_STATE)
+                    .setLayeringState(RenderStateShard.VIEW_OFFSET_Z_LAYERING)
                     //TODO: Figure out if this is the right replacement for PROJECTION_LAYERING
                     .setTransparencyState(TRANSLUCENT_TRANSPARENCY).setTextureState(NO_TEXTURE).setDepthTestState(NO_DEPTH_TEST)
+                    .setOutputState(OutputStateShard.ITEM_ENTITY_TARGET)
                     .setCullState(NO_CULL).setLightmapState(NO_LIGHTMAP).setWriteMaskState(COLOR_WRITE).createCompositeState(false));
+
 
     public OccultismRenderType(String name, VertexFormat vertexFormat, VertexFormat.Mode drawMode, int bufferSize,
                                boolean useDelegate, boolean needsSorting, Runnable setupTaskIn,
