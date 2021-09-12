@@ -495,21 +495,21 @@ public class BookOfCallingItem extends Item implements IIngredientCopyNBT, IHand
     public InteractionResult handleItemMode(Player player, Level world, BlockPos pos, ItemStack stack,
                                             Direction facing) {
         ItemMode itemMode = ItemMode.get(this.getItemMode(stack));
-        BlockEntity BlockEntity = world.getBlockEntity(pos);
+        BlockEntity blockEntity = world.getBlockEntity(pos);
 
         //handle the serverside item modes
         if (!world.isClientSide) {
             switch (itemMode) {
                 case SET_DEPOSIT:
-                    if (BlockEntity != null &&
-                            BlockEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, facing).isPresent()) {
+                    if (blockEntity != null &&
+                            blockEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, facing).isPresent()) {
                         return this.setSpiritDepositLocation(player, world, pos, stack,
                                 facing) ? InteractionResult.SUCCESS : InteractionResult.PASS;
                     }
                     break;
                 case SET_EXTRACT:
-                    if (BlockEntity != null &&
-                            BlockEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, facing).isPresent()) {
+                    if (blockEntity != null &&
+                            blockEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, facing).isPresent()) {
                         return this.setSpiritExtractLocation(player, world, pos, stack,
                                 facing) ? InteractionResult.SUCCESS : InteractionResult.PASS;
                     }
@@ -518,12 +518,13 @@ public class BookOfCallingItem extends Item implements IIngredientCopyNBT, IHand
                     return this.setSpiritBaseLocation(player, world, pos, stack,
                             facing) ? InteractionResult.SUCCESS : InteractionResult.PASS;
                 case SET_STORAGE_CONTROLLER:
-                    if (BlockEntity instanceof IStorageController) {
+                    if (blockEntity instanceof IStorageController) {
                         return this.setSpiritStorageController(player, world, pos, stack,
                                 facing) ? InteractionResult.SUCCESS : InteractionResult.PASS;
                     }
+                    break;
                 case SET_MANAGED_MACHINE:
-                    if (BlockEntity != null && BlockEntityUtil.hasCapabilityOnAnySide(BlockEntity,
+                    if (blockEntity != null && BlockEntityUtil.hasCapabilityOnAnySide(blockEntity,
                             CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)) {
                         this.setSpiritManagedMachine(player, world, pos, stack, facing);
                         return InteractionResult.SUCCESS;
@@ -533,7 +534,7 @@ public class BookOfCallingItem extends Item implements IIngredientCopyNBT, IHand
         } else {
             switch (itemMode) {
                 case SET_MANAGED_MACHINE:
-                    if (BlockEntity != null && BlockEntityUtil.hasCapabilityOnAnySide(BlockEntity,
+                    if (blockEntity != null && BlockEntityUtil.hasCapabilityOnAnySide(blockEntity,
                             CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)) {
                         MachineReference machine = ItemNBTUtil.getManagedMachine(stack);
                         if (machine != null) {
