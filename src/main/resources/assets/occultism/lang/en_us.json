@@ -245,6 +245,7 @@
   "ritual.occultism.sacrifice.pigs": "Pigs",
   "ritual.occultism.sacrifice.villagers_or_players": "Villager or Player",
   "ritual.occultism.sacrifice.squid": "Squid",
+  "ritual.occultism.sacrifice.horses": "Horse",
   "_comment": "Ritual Messages",
   "ritual.occultism.disabled":  "This ritual is disabled on this server.",
   "ritual.occultism.does_not_exist": "§lUnknown ritual§r. Make sure the pentacle & ingredients are set up correctly. If you are still unsuccessful join our discord at https://invite.gg/klikli",
