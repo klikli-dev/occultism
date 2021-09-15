@@ -24,6 +24,8 @@ package com.github.klikli_dev.occultism.common.entity;
 
 import java.util.EnumSet;
 
+import com.github.klikli_dev.occultism.common.advancement.FamiliarTrigger;
+import com.github.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.google.common.collect.ImmutableList;
 
 import net.minecraft.entity.EntityType;
@@ -113,8 +115,10 @@ public class GreedyFamiliarEntity extends FamiliarEntity {
             if (item != null) {
                 this.entity.getNavigator().tryMoveToEntityLiving(item, 1.2);
                 LivingEntity owner = this.entity.getFamiliarOwner();
-                if (item.getDistanceSq(this.entity) < 4 && owner instanceof PlayerEntity)
+                if (item.getDistanceSq(this.entity) < 4 && owner instanceof PlayerEntity) {
                     item.onCollideWithPlayer(((PlayerEntity) owner));
+                    OccultismAdvancements.FAMILIAR.trigger(owner, FamiliarTrigger.Type.GREEDY_ITEM);
+                }
             }
         }
 

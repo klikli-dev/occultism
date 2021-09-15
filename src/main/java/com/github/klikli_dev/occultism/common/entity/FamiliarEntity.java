@@ -162,7 +162,7 @@ public abstract class FamiliarEntity extends CreatureEntity implements IFamiliar
         return this.dataManager.get(OWNER_UNIQUE_ID).orElse(null);
     }
 
-    public void setOwnerId(UUID id) {
+    private void setOwnerId(UUID id) {
         this.ownerCached = null;
         this.dataManager.set(OWNER_UNIQUE_ID, Optional.ofNullable(id));
     }

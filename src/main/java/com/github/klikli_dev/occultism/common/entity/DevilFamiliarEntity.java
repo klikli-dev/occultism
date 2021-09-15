@@ -25,6 +25,8 @@ package com.github.klikli_dev.occultism.common.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.github.klikli_dev.occultism.common.advancement.FamiliarTrigger;
+import com.github.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.google.common.collect.ImmutableList;
 
 import net.minecraft.entity.Entity;
@@ -91,6 +93,13 @@ public class DevilFamiliarEntity extends FamiliarEntity {
         this.goalSelector.addGoal(4, new FireBreathGoal(this));
         this.goalSelector.addGoal(5, new RandomWalkingGoal(this, 1.0D));
         this.goalSelector.addGoal(6, new FollowMobGoal(this, 1, 3, 7));
+    }
+    
+    @Override
+    public void setFamiliarOwner(LivingEntity owner) {
+        if (hasLollipop())
+            OccultismAdvancements.FAMILIAR.trigger(owner, FamiliarTrigger.Type.RARE_VARIANT);
+        super.setFamiliarOwner(owner);
     }
 
     @Override
@@ -200,7 +209,10 @@ public class DevilFamiliarEntity extends FamiliarEntity {
         }
 
         public void startExecuting() {
-            for (Entity e : this.getNearbyEnemies()) {
+            List<Entity> enemies = this.getNearbyEnemies();
+            if (!enemies.isEmpty())
+                OccultismAdvancements.FAMILIAR.trigger(devil.getFamiliarOwner(), FamiliarTrigger.Type.DEVIL_FIRE);
+            for (Entity e : enemies) {
                 e.attackEntityFrom(DamageSource.causePlayerDamage((PlayerEntity) this.devil.getFamiliarOwner()), 4);
             }
             this.cooldown = MAX_COOLDOWN;

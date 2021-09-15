@@ -25,12 +25,15 @@ package com.github.klikli_dev.occultism.common.entity;
 import java.util.Collections;
 import java.util.UUID;
 
+import com.github.klikli_dev.occultism.common.advancement.FamiliarTrigger;
+import com.github.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.google.common.collect.ImmutableList;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ILivingEntityData;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.AttributeModifier.Operation;
@@ -42,6 +45,7 @@ import net.minecraft.entity.ai.goal.PanicGoal;
 import net.minecraft.entity.ai.goal.SwimGoal;
 import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
@@ -79,6 +83,13 @@ public class DeerFamiliarEntity extends FamiliarEntity {
         this.goalSelector.addGoal(5, new WaterAvoidingRandomWalkingGoal(this, 1.0D));
         this.goalSelector.addGoal(6, new FollowMobGoal(this, 1, 3, 7));
     }
+    
+    @Override
+    public void setFamiliarOwner(LivingEntity owner) {
+        if (hasRedNose())
+            OccultismAdvancements.FAMILIAR.trigger(owner, FamiliarTrigger.Type.RARE_VARIANT);
+        super.setFamiliarOwner(owner);
+    }
 
     @Override
     public void tick() {
@@ -114,8 +125,12 @@ public class DeerFamiliarEntity extends FamiliarEntity {
 
     @Override
     public void eatGrassBonus() {
-        if (this.getRNG().nextDouble() < 0.25)
+        if (this.getRNG().nextDouble() < 0.25) {
             this.entityDropItem(OccultismItems.DATURA_SEEDS.get(), 0);
+            LivingEntity owner = getOwner();
+            if (owner instanceof ServerPlayerEntity)
+                OccultismAdvancements.FAMILIAR.trigger((ServerPlayerEntity) owner, FamiliarTrigger.Type.DEER_POOP);
+        }
     }
 
     @Override

@@ -26,6 +26,8 @@ import java.util.Collections;
 import java.util.EnumSet;
 import java.util.List;
 
+import com.github.klikli_dev.occultism.common.advancement.FamiliarTrigger;
+import com.github.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.google.common.collect.ImmutableList;
 
 import net.minecraft.entity.EntityType;
@@ -105,6 +107,13 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
     }
 
     @Override
+    public void setFamiliarOwner(LivingEntity owner) {
+        if (hasHat())
+            OccultismAdvancements.FAMILIAR.trigger(owner, FamiliarTrigger.Type.RARE_VARIANT);
+        super.setFamiliarOwner(owner);
+    }
+
+    @Override
     public void updateSwimming() {
         if (!this.world.isRemote) {
             if (this.isInWater()) {
@@ -127,6 +136,7 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
             if (source.getTrueSource() == this.getFamiliarOwner()) {
                 this.setAngry(true);
                 this.setSitting(true);
+                OccultismAdvancements.FAMILIAR.trigger(this.getFamiliarOwner(), FamiliarTrigger.Type.CTHULHU_SAD);
             } else if (source.getTrueSource() != null) {
                 Vector3d tp = RandomPositionGenerator.findRandomTarget(this, 8, 4);
                 this.setLocationAndAngles(tp.getX() + 0.5, tp.getY(), tp.getZ() + 0.5, this.rotationYaw,
@@ -281,7 +291,7 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
     }
 
     private static class GiveFlowerGoal extends Goal {
-        
+
         private static final int MAX_COOLDOWN = 20 * 60 * 5;
 
         private CthulhuFamiliarEntity cthulhu;

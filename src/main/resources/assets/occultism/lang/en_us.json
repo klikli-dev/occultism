@@ -695,5 +695,24 @@
   "item.occultism.ritual_dummy.summon_wild_otherworld_bird.tooltip": "Summons a Drikwing Familiar that can be tamed by anyone, not just the summoner.",
 
   "item.occultism.ritual_dummy.summon_wild_parrot": "Ritual: Summon Wilid Parrot",
-  "item.occultism.ritual_dummy.summon_wild_parrot.tooltip": "Summons a Parrot that can be tamed by anyone, not just the summoner."
+  "item.occultism.ritual_dummy.summon_wild_parrot.tooltip": "Summons a Parrot that can be tamed by anyone, not just the summoner.",
+
+  "advancements.occultism.familiar.bat.description": "Lure a normal bat near your bat familiar",
+  "advancements.occultism.familiar.bat.title": "Cannibalism",
+  "advancements.occultism.familiar.capture.description": "Trap your familiar in a familiar ring",
+  "advancements.occultism.familiar.capture.title": "Catch them all!",
+  "advancements.occultism.familiar.cthulhu.description": "Make your cthulhu familiar sad",
+  "advancements.occultism.familiar.cthulhu.title": "You Monster!",
+  "advancements.occultism.familiar.deer.description": "Observe when your deer familiar poops demon seed",
+  "advancements.occultism.familiar.deer.title": "Demonic Poop",
+  "advancements.occultism.familiar.devil.description": "Command your devil familiar to breath fire",
+  "advancements.occultism.familiar.devil.title": "Hellfire",
+  "advancements.occultism.familiar.greedy.description": "Let your greedy familiar pick something up for you",
+  "advancements.occultism.familiar.greedy.title": "Errand Boy",
+  "advancements.occultism.familiar.party.description": "Get your familiar to dance",
+  "advancements.occultism.familiar.party.title": "Dance!",
+  "advancements.occultism.familiar.rare.description": "Obtain a rare familiar variant",
+  "advancements.occultism.familiar.rare.title": "Rare Friend",
+  "advancements.occultism.familiar.root.description": "Use a ritual to summon a familiar",
+  "advancements.occultism.familiar.root.title": "Occultism: Friends"    
 }

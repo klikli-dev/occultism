@@ -1,0 +1,41 @@
+{
+  "parent": "minecraft:item/generated",
+  "overrides": [
+    {
+      "predicate": {
+        "minecraft:custom_model_data": 0.0
+      },
+      "model": "occultism:item/advancement/cthulhu_icon"
+    },
+    {
+      "predicate": {
+        "minecraft:custom_model_data": 1.0
+      },
+      "model": "occultism:item/advancement/bat_icon"
+    },
+    {
+      "predicate": {
+        "minecraft:custom_model_data": 2.0
+      },
+      "model": "occultism:item/advancement/deer_icon"
+    },
+    {
+      "predicate": {
+        "minecraft:custom_model_data": 3.0
+      },
+      "model": "occultism:item/advancement/devil_icon"
+    },
+    {
+      "predicate": {
+        "minecraft:custom_model_data": 4.0
+      },
+      "model": "occultism:item/advancement/greedy_icon"
+    },
+    {
+      "predicate": {
+        "minecraft:custom_model_data": 5.0
+      },
+      "model": "occultism:item/advancement/hat_icon"
+    }
+  ]
+}
