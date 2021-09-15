@@ -9,12 +9,9 @@
       "item": "occultism:dimensional_matrix",
       "text": "Межпространственная матрица - это точка входа в небольшое измерение, используемое для хранения предметов. $(thing)Djinni$() привязанный к матрице сохраняет размер стабильным,позднее можно снабдить дополнительными духами в стабилизаторах хранения, чтобы увеличить размерный размер хранилища."
     },
-    {
-      "type": "summoning",
-      "heading": "Infusion",
-      "pentacle": "$(l:pentacles/craft_djinni)Strigeor's Higher Binding$(/l)",
-      "activation_item": "occultism:book_of_binding_bound_djinni",
-      "ingredients": "$(li)1x $(item)Ender Pearl $()$(li)3x $(item)Quartz Block $()"
+     {
+      "type": "occultism:ritual",
+      "recipe": "occultism:ritual/craft_dimensional_matrix"
     }
   ]
 }
