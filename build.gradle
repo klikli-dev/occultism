@@ -115,10 +115,6 @@ repositories {
         url = "https://klikli-dev.github.io/maven"
     }
     maven {
-        name = "Hwyla/Waila Maven"
-        url = "https://maven.tehnut.info"
-    }
-    maven {
         name = "Patchouli Maven"
         url = 'https://maven.blamejared.com'
     }
