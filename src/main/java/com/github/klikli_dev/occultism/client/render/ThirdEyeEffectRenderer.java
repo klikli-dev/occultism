@@ -194,8 +194,11 @@ public class ThirdEyeEffectRenderer {
 
             if (this.thirdEyeActiveLastTick) {
                 this.thirdEyeActiveLastTick = false;
-                //unload shader
-                Minecraft.getInstance().enqueue(() -> Minecraft.getInstance().gameRenderer.stopUseShader());
+
+                if(!Occultism.CLIENT_CONFIG.visuals.disableDemonsDreamShaders.get()){
+                    //unload shader
+                    Minecraft.getInstance().enqueue(() -> Minecraft.getInstance().gameRenderer.stopUseShader());
+                }
             }
         }
     }
