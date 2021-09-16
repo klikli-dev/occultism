@@ -24,7 +24,10 @@ package com.github.klikli_dev.occultism.common.entity;
 
 import java.util.Collections;
 import java.util.EnumSet;
+import java.util.List;
 
+import com.github.klikli_dev.occultism.common.advancement.FamiliarTrigger;
+import com.github.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.google.common.collect.ImmutableList;
 
 import net.minecraft.block.BlockState;
@@ -37,12 +40,14 @@ import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.ai.goal.LookAtGoal;
 import net.minecraft.entity.ai.goal.PanicGoal;
 import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
+import net.minecraft.entity.passive.BatEntity;
 import net.minecraft.entity.passive.IFlyingAnimal;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.pathfinding.FlyingPathNavigator;
 import net.minecraft.pathfinding.PathNavigator;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
@@ -65,10 +70,11 @@ public class BatFamiliarEntity extends FamiliarEntity implements IFlyingAnimal {
         SitGoal sitGoal = new SitGoal(this);
         sitGoal.setMutexFlags(EnumSet.of(Goal.Flag.JUMP, Goal.Flag.MOVE, Goal.Flag.LOOK));
         this.goalSelector.addGoal(2, sitGoal);
-        this.goalSelector.addGoal(3, new LookAtGoal(this, PlayerEntity.class, 8));
-        this.goalSelector.addGoal(4, new FollowOwnerGoal(this, 1, 4, 1));
-        this.goalSelector.addGoal(5, new WaterAvoidingRandomWalkingGoal(this, 1));
-        this.goalSelector.addGoal(6, new FollowMobGoal(this, 1, 3, 7));
+        this.goalSelector.addGoal(3, new CannibalismGoal(this));
+        this.goalSelector.addGoal(4, new LookAtGoal(this, PlayerEntity.class, 8));
+        this.goalSelector.addGoal(5, new FollowOwnerGoal(this, 1, 4, 1));
+        this.goalSelector.addGoal(6, new WaterAvoidingRandomWalkingGoal(this, 1));
+        this.goalSelector.addGoal(7, new FollowMobGoal(this, 1, 3, 7));
     }
 
     @Override
@@ -99,7 +105,7 @@ public class BatFamiliarEntity extends FamiliarEntity implements IFlyingAnimal {
         if (this.isSitting())
             this.setMotion(Vector3d.ZERO);
     }
-    
+
     public float getAnimationHeight(float partialTicks) {
         return MathHelper.cos((ticksExisted + partialTicks) / 5);
     }
@@ -110,5 +116,38 @@ public class BatFamiliarEntity extends FamiliarEntity implements IFlyingAnimal {
             return ImmutableList.of(new EffectInstance(Effects.NIGHT_VISION, 300, 1, false, false));
         }
         return Collections.emptyList();
+    }
+
+    private static class CannibalismGoal extends Goal {
+
+        BatFamiliarEntity bat;
+        BatEntity nearby;
+
+        private CannibalismGoal(BatFamiliarEntity bat) {
+            this.bat = bat;
+        }
+
+        @Override
+        public boolean shouldExecute() {
+            nearby = nearbyBat();
+            return nearby != null;
+        }
+
+        @Override
+        public void startExecuting() {
+            if (nearby != null) {
+                nearby.attackEntityFrom(DamageSource.causeMobDamage(bat), 10);
+                OccultismAdvancements.FAMILIAR.trigger(bat.getFamiliarOwner(), FamiliarTrigger.Type.BAT_EAT);
+            }
+        }
+
+        private BatEntity nearbyBat() {
+            BatEntity nearby = null;
+            List<BatEntity> bats = bat.world.getEntitiesWithinAABB(BatEntity.class, bat.getBoundingBox().grow(2));
+            if (!bats.isEmpty())
+                nearby = bats.get(0);
+            return nearby;
+        }
+
     }
 }

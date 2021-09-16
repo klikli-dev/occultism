@@ -40,10 +40,12 @@ public class DataGenerators {
         if (event.includeServer()) {
             generator.addProvider(new StandardLootTableProvider(generator));
             generator.addProvider(new PentacleProvider(generator));
+            generator.addProvider(new OccultismAdvancementProvider(generator));
         }
         if (event.includeClient()) {
             generator.addProvider(new ItemModelsGenerator(generator, event.getExistingFileHelper()));
             generator.addProvider(new StandardBlockStateProvider(generator, event.getExistingFileHelper()));
+            //generator.addProvider(new ENUSProvider(generator));
         }
     }
     //endregion Static Methods

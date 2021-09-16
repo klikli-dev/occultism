@@ -23,13 +23,20 @@
 package com.github.klikli_dev.occultism.handlers;
 
 import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.common.advancement.FamiliarTrigger;
+import com.github.klikli_dev.occultism.common.entity.IFamiliar;
+import com.github.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.github.klikli_dev.occultism.util.Math3DUtil;
+
+import net.minecraft.block.BlockState;
+import net.minecraft.block.JukeboxBlock;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.item.Items;
+import net.minecraft.item.MusicDiscItem;
 import net.minecraft.util.*;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -45,6 +52,7 @@ public class PlayerEventHandler {
     //region Static Methods
     @SubscribeEvent
     public static void onPlayerRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
+        dancingFamiliars(event);
         boolean isFlintAndSteel = event.getItemStack().getItem() == Items.FLINT_AND_STEEL;
         boolean isFireCharge = event.getItemStack().getItem() == Items.FIRE_CHARGE;
         if (isFlintAndSteel || isFireCharge) {
@@ -90,6 +98,19 @@ public class PlayerEventHandler {
                 event.getPlayer().swingArm(Hand.MAIN_HAND);
             }
         }
+    }
+    
+    private static void dancingFamiliars(PlayerInteractEvent.RightClickBlock event) {
+        BlockState state = event.getWorld().getBlockState(event.getPos());
+        if (!state.hasProperty(JukeboxBlock.HAS_RECORD) || state.get(JukeboxBlock.HAS_RECORD)
+                || !(event.getItemStack().getItem() instanceof MusicDiscItem))
+            return;
+        if (event.getWorld()
+                .getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(event.getPos()).grow(3),
+                        e -> e instanceof IFamiliar && ((IFamiliar) e).getFamiliarOwner() == event.getPlayer())
+                .isEmpty())
+            return;
+        OccultismAdvancements.FAMILIAR.trigger(event.getPlayer(), FamiliarTrigger.Type.PARTY);
     }
 
     @SubscribeEvent

@@ -68,6 +68,9 @@ public class OccultismItems {
 
     public static final RegistryObject<BlockItem> SPIRIT_FIRE =
             ITEMS.register("spirit_fire", () -> new BlockItem(OccultismBlocks.SPIRIT_FIRE.get(), defaultProperties()));
+    
+    public static final RegistryObject<Item> ADVANCEMENT_ICON =
+            ITEMS.register("advancement_icon", () -> new Item(new Item.Properties()));
 
     //Resources
     public static final RegistryObject<OtherworldBlockItem> OTHERWORLD_SAPLING_NATURAL =

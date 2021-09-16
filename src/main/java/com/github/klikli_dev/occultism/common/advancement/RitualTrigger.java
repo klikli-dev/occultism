@@ -22,8 +22,12 @@
 
 package com.github.klikli_dev.occultism.common.advancement;
 
+import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.ritual.Ritual;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonNull;
 import com.google.gson.JsonObject;
+
 import net.minecraft.advancements.criterion.AbstractCriterionTrigger;
 import net.minecraft.advancements.criterion.CriterionInstance;
 import net.minecraft.advancements.criterion.EntityPredicate;
@@ -34,59 +38,112 @@ import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
 
 public class RitualTrigger extends AbstractCriterionTrigger<RitualTrigger.Instance> {
-    //region Fields
-    private final ResourceLocation id;
-    //endregion Fields
+    // region Fields
+    private static final ResourceLocation ID = new ResourceLocation(Occultism.MODID, "ritual");
+    // endregion Fields
 
-    //region Initialization
-    public RitualTrigger(ResourceLocation id) {
-        this.id = id;
+    // region Initialization
+    public RitualTrigger() {
     }
-    //endregion Initialization
+    // endregion Initialization
 
-    //region Overrides
+    // region Overrides
     public ResourceLocation getId() {
-        return this.id;
+        return ID;
     }
 
     public RitualTrigger.Instance deserializeTrigger(JsonObject json, EntityPredicate.AndPredicate entityPredicate,
-                                                     ConditionArrayParser conditionsParser) {
-        return new RitualTrigger.Instance(this.id, new ResourceLocation(JSONUtils.getString(json, "ritual_id")));
+            ConditionArrayParser conditionsParser) {
+        return new RitualTrigger.Instance(deserializeRitualPredicate(json));
     }
-    //endregion Overrides
 
-    //region Methods
+    private RitualPredicate deserializeRitualPredicate(JsonObject json) {
+        if (json.has("ritual_id"))
+            return new RitualPredicate(new ResourceLocation(JSONUtils.getString(json, "ritual_id")), null);
+        return RitualPredicate.deserialize(json.get("ritual_predicate"));
+    }
+    // endregion Overrides
+
+    // region Methods
     public void trigger(ServerPlayerEntity player, Ritual ritual) {
         this.triggerListeners(player, (instance) -> instance.test(player, ritual));
     }
-    //endregion Methods
+    // endregion Methods
 
     public static class Instance extends CriterionInstance {
 
-        //region Fields
-        private final ResourceLocation ritualId;
-        //endregion Fields
+        // region Fields
+        RitualPredicate ritualPredicate;
+        // endregion Fields
 
-        //region Initialization
-        public Instance(ResourceLocation criterion, ResourceLocation ritualId) {
-            super(criterion, EntityPredicate.AndPredicate.ANY_AND);
-            this.ritualId = ritualId;
+        // region Initialization
+        public Instance(RitualPredicate ritualPredicate) {
+            super(RitualTrigger.ID, EntityPredicate.AndPredicate.ANY_AND);
+            this.ritualPredicate = ritualPredicate;
         }
-        //endregion Initialization
+        // endregion Initialization
 
-        //region Overrides
+        // region Overrides
         public JsonObject serialize(ConditionArraySerializer conditions) {
             JsonObject jsonobject = super.serialize(conditions);
-            jsonobject.addProperty("ritual_id", this.ritualId.toString());
+            jsonobject.add("ritual_predicate", this.ritualPredicate.serialize());
             return jsonobject;
         }
-        //endregion Overrides
+        // endregion Overrides
 
-        //region Methods
+        // region Methods
         public boolean test(ServerPlayerEntity player, Ritual ritual) {
-            return this.ritualId.equals(ritual.getRitualID());
+            return this.ritualPredicate.test(ritual);
         }
-        //endregion Methods
+        // endregion Methods
+    }
+
+    public static class RitualPredicate {
+
+        public static final RitualPredicate ANY = new RitualPredicate(null, null);
+
+        private ResourceLocation ritualId;
+        private ResourceLocation ritualFactoryId;
+
+        public RitualPredicate(ResourceLocation ritualId, ResourceLocation ritualFactoryId) {
+            this.ritualId = ritualId;
+            this.ritualFactoryId = ritualFactoryId;
+        }
+
+        public boolean test(Ritual ritual) {
+            if (this == ANY)
+                return true;
+            else if (ritualId != null && !ritualId.equals(ritual.getRecipe().getId()))
+                return false;
+            else if (ritualFactoryId != null && !ritualFactoryId.equals(ritual.getFactoryID()))
+                return false;
+            return true;
+        }
+
+        public static RitualPredicate deserialize(JsonElement element) {
+            if (element == null || element.isJsonNull())
+                return ANY;
+
+            ResourceLocation ritualId = null;
+            ResourceLocation ritualFactoryId = null;
+            JsonObject json = JSONUtils.getJsonObject(element, "ritual_predicate");
+            if (json.has("ritual_id"))
+                ritualId = new ResourceLocation(JSONUtils.getString(json, "ritual_id"));
+            if (json.has("ritual_factory_id"))
+                ritualFactoryId = new ResourceLocation(JSONUtils.getString(json, "ritual_factory_id"));
+            return new RitualPredicate(ritualId, ritualFactoryId);
+        }
+
+        public JsonElement serialize() {
+            if (this == ANY)
+                return JsonNull.INSTANCE;
+            JsonObject json = new JsonObject();
+            if (ritualId != null)
+                json.addProperty("ritual_id", ritualId.toString());
+            if (ritualFactoryId != null)
+                json.addProperty("ritual_factory_id", ritualFactoryId.toString());
+            return json;
+        }
     }
 
 }
