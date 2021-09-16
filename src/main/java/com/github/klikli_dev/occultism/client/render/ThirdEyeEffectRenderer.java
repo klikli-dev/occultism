@@ -23,8 +23,8 @@
 package com.github.klikli_dev.occultism.client.render;
 
 import com.github.klikli_dev.occultism.Occultism;
-import com.github.klikli_dev.occultism.common.block.otherworld.IOtherworldBlock;
 import com.github.klikli_dev.occultism.api.common.data.OtherworldBlockTier;
+import com.github.klikli_dev.occultism.common.block.otherworld.IOtherworldBlock;
 import com.github.klikli_dev.occultism.registry.OccultismEffects;
 import com.github.klikli_dev.occultism.util.CuriosUtil;
 import com.mojang.blaze3d.platform.GlStateManager;
@@ -96,7 +96,7 @@ public class ThirdEyeEffectRenderer {
     //region Methods
     @SubscribeEvent
     public void onPlayerTick(TickEvent.PlayerTickEvent event) {
-        if(event.player.world.isRemote && event.player == Minecraft.getInstance().player){
+        if (event.player.world.isRemote && event.player == Minecraft.getInstance().player) {
             this.onThirdEyeTick(event);
             this.onGogglesTick(event);
         }
@@ -133,33 +133,35 @@ public class ThirdEyeEffectRenderer {
 
     /**
      * Resets the currently uncovered blocks
+     *
      * @param world the world.
      * @param clear true to delete the list of uncovered blocks.
      */
-    public void resetUncoveredBlocks(World world, boolean clear){
-        for(BlockPos pos : this.uncoveredBlocks) {
+    public void resetUncoveredBlocks(World world, boolean clear) {
+        for (BlockPos pos : this.uncoveredBlocks) {
             BlockState state = world.getBlockState(pos);
-            if(state.getBlock() instanceof IOtherworldBlock) //handle replaced or removed blocks gracefully
+            if (state.getBlock() instanceof IOtherworldBlock) //handle replaced or removed blocks gracefully
                 world.setBlockState(pos, state.with(IOtherworldBlock.UNCOVERED, false), 1);
         }
-        if(clear)
+        if (clear)
             this.uncoveredBlocks.clear();
     }
 
     /**
      * Uncovers the otherworld blocks within MAX_THIRD_EYE_DISTANCE of the player.
+     *
      * @param player the player.
-     * @param world the world.
+     * @param world  the world.
      */
-    public void uncoverBlocks(PlayerEntity player, World world, OtherworldBlockTier level){
+    public void uncoverBlocks(PlayerEntity player, World world, OtherworldBlockTier level) {
         BlockPos origin = player.getPosition();
         BlockPos.getAllInBoxMutable(origin.add(-MAX_THIRD_EYE_DISTANCE, -MAX_THIRD_EYE_DISTANCE, -MAX_THIRD_EYE_DISTANCE),
-                origin.add(MAX_THIRD_EYE_DISTANCE,MAX_THIRD_EYE_DISTANCE,MAX_THIRD_EYE_DISTANCE)).forEach(pos -> {
+                origin.add(MAX_THIRD_EYE_DISTANCE, MAX_THIRD_EYE_DISTANCE, MAX_THIRD_EYE_DISTANCE)).forEach(pos -> {
             BlockState state = world.getBlockState(pos);
-            if(state.getBlock() instanceof IOtherworldBlock){
+            if (state.getBlock() instanceof IOtherworldBlock) {
                 IOtherworldBlock block = (IOtherworldBlock) state.getBlock();
-                if(block.getTier().getLevel()  <= level.getLevel()){
-                    if(!state.get(IOtherworldBlock.UNCOVERED)){
+                if (block.getTier().getLevel() <= level.getLevel()) {
+                    if (!state.get(IOtherworldBlock.UNCOVERED)) {
                         world.setBlockState(pos, state.with(IOtherworldBlock.UNCOVERED, true), 1);
                     }
                     this.uncoveredBlocks.add(pos.toImmutable());
@@ -170,6 +172,8 @@ public class ThirdEyeEffectRenderer {
 
     public void onThirdEyeTick(TickEvent.PlayerTickEvent event) {
         boolean hasGoggles = CuriosUtil.hasGoggles(event.player);
+        if (hasGoggles)
+            return;
 
         EffectInstance effect = event.player.getActivePotionEffect(OccultismEffects.THIRD_EYE.get());
         int duration = effect == null ? 0 : effect.getDuration();
@@ -178,24 +182,21 @@ public class ThirdEyeEffectRenderer {
                 this.thirdEyeActiveLastTick = true;
 
                 //load shader, but only if we are on the natural effects
-                if(!hasGoggles && !Occultism.CLIENT_CONFIG.visuals.disableDemonsDreamShaders.get()){
+                if (!Occultism.CLIENT_CONFIG.visuals.disableDemonsDreamShaders.get()) {
                     Minecraft.getInstance().enqueue(() -> Minecraft.getInstance().gameRenderer.loadShader(THIRD_EYE_SHADER));
                 }
             }
             //also handle goggles in one if we have them
-            this.uncoverBlocks(event.player, event.player.world, hasGoggles ? OtherworldBlockTier.TWO: OtherworldBlockTier.ONE);
-        }
-        else {
+            this.uncoverBlocks(event.player, event.player.world, OtherworldBlockTier.ONE);
+        } else {
             //if we don't have goggles, cover blocks
-            if(!hasGoggles){
-                //Try twice, but on the last effect tick, clear the list.
-                this.resetUncoveredBlocks(event.player.world, duration == 0);
-            }
+            //Try twice, but on the last effect tick, clear the list.
+            this.resetUncoveredBlocks(event.player.world, duration == 0);
 
             if (this.thirdEyeActiveLastTick) {
                 this.thirdEyeActiveLastTick = false;
 
-                if(!Occultism.CLIENT_CONFIG.visuals.disableDemonsDreamShaders.get()){
+                if (!Occultism.CLIENT_CONFIG.visuals.disableDemonsDreamShaders.get()) {
                     //unload shader
                     Minecraft.getInstance().enqueue(() -> Minecraft.getInstance().gameRenderer.stopUseShader());
                 }
@@ -203,28 +204,25 @@ public class ThirdEyeEffectRenderer {
         }
     }
 
-    public void onGogglesTick(TickEvent.PlayerTickEvent event){
+    public void onGogglesTick(TickEvent.PlayerTickEvent event) {
         boolean hasGoggles = CuriosUtil.hasGoggles(event.player);
-        if(hasGoggles){
-            if(!this.gogglesActiveLastTick){
+        if (hasGoggles) {
+            if (!this.gogglesActiveLastTick) {
                 this.gogglesActiveLastTick = true;
             }
 
-            //only uncover if the third eye tick did not already do that
-            if(!this.thirdEyeActiveLastTick){
-                this.uncoverBlocks(event.player, event.player.world, OtherworldBlockTier.TWO);
-            }
-        }
-        else {
+            this.uncoverBlocks(event.player, event.player.world, OtherworldBlockTier.TWO);
+        } else {
             if (this.gogglesActiveLastTick) {
                 this.gogglesActiveLastTick = false;
-            }
 
-            //only cover blocks if third eye is not active and still needs them visible.
-            this.resetUncoveredBlocks(event.player.world, true);
-            if(this.thirdEyeActiveLastTick){
-                //this uncovers tier 1 blocks that we still can see under normal third eye
-                this.uncoverBlocks(event.player, event.player.world, OtherworldBlockTier.ONE);
+                //only cover blocks if third eye is not active and still needs them visible.
+                this.resetUncoveredBlocks(event.player.world, true);
+                //causes double-uncovering during third eye
+                if (this.thirdEyeActiveLastTick) {
+                    //this uncovers tier 1 blocks that we still can see under normal third eye
+                    this.uncoverBlocks(event.player, event.player.world, OtherworldBlockTier.ONE);
+                }
             }
         }
     }
