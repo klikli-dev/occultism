@@ -139,8 +139,10 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
                 OccultismAdvancements.FAMILIAR.trigger(this.getFamiliarOwner(), FamiliarTrigger.Type.CTHULHU_SAD);
             } else if (source.getTrueSource() != null) {
                 Vector3d tp = RandomPositionGenerator.findRandomTarget(this, 8, 4);
-                this.setLocationAndAngles(tp.getX() + 0.5, tp.getY(), tp.getZ() + 0.5, this.rotationYaw,
-                        this.rotationPitch);
+                if(tp != null){
+                    this.setLocationAndAngles(tp.getX() + 0.5, tp.getY(), tp.getZ() + 0.5, this.rotationYaw,
+                            this.rotationPitch);
+                }
                 this.navigator.clearPath();
             }
             return true;
