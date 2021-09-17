@@ -10,20 +10,12 @@
       "text": "Дроп: 1-2 $(item)End Stone$() (Эндерняка)"
     },
     {
-      "type": "summoning_item_use",
-      "heading": "Summoning",
-      "pentacle": "$(l:pentacles/possess_foliot)Hedyrin's Lure$(/l)",
-      "activation_item": "occultism:book_of_binding_bound_foliot",
-      "used_item": "minecraft:egg",
-      "ingredients": "$(li)2x $(item)Stone $()$(li)2x $(item)Dirt $()"
+      "type": "occultism:ritual",
+      "recipe": "occultism:ritual/possess_endermite"
     },
     {
       "type": "text",
       "text": "В этом ритуале $(thing)Endermite$() (эндермит) обманом вызывается. Камень и земля представляют окружающую среду, затем бросается яйцо, чтобы имитировать использование жемчужины края. Когда появляется эндермит, призванный $(thing)Foliot$() сразу овладевает им, посетит $(thing)The End$(), и вернется. При убйстве $(thing)Possessed Endermite$() (одержимого эндермита) может упасть $(item)End Stone$() (Эндерняк)."
-    },
-    {
-      "type": "text",
-      "text": ""
     }
   ]
 }

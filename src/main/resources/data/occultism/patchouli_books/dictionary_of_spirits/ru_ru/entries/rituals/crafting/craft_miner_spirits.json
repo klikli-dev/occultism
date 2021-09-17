@@ -14,10 +14,6 @@
       "text": "Фолиот-майнер без особой цели собирает блок и возвращает все, что находит. Процесс добычи идет довольно медленно, из-за этого фолиот расходует лишь незначительное количество энергии, постепенно повреждая лампу, в которой он находится."
     },
     {
-      "type": "summoning",
-      "heading": "Foliot Miner",
-      "pentacle": "$(l:pentacles/craft_foliot)Eziveus' Spectral Compulsion$(/l)",
-    {
       "type": "occultism:ritual",
       "recipe": "occultism:ritual/craft_miner_foliot_unspecialized"
     },
@@ -29,10 +25,6 @@
     {
       "type": "occultism:ritual",
       "recipe": "occultism:ritual/craft_miner_djinni_ores"
-    },
-    {
-      "type": "empty",
-      "draw_filler": false
     }
   ]
 }

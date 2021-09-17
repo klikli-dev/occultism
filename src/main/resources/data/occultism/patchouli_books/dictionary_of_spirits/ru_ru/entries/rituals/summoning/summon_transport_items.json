@@ -9,11 +9,8 @@
       "text": "Транспортер будет перемещать все предметы, к которым он может получить доступ, из одного инвентаря в другой, включая машины. Установив стороны извлечения и вставки, их можно использовать для автоматизации различных транспортных задач."
     },
     {
-      "type": "summoning",
-      "heading": "Summoning",
-      "pentacle": "$(l:pentacles/summon_foliot)Aviar's Circle$(/l)",
-      "activation_item": "occultism:book_of_binding_bound_foliot",
-      "ingredients": "$(li)1x $(item)Minecart $()$(li)1x $(item)Chest $()$(li)1x $(item)Dispenser $()$(li)1x $(item)Hopper $()"
+      "type": "occultism:ritual",
+      "recipe": "occultism:ritual/summon_foliot_transport_items"
     }
   ]
 }
