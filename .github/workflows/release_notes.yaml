@@ -5,7 +5,7 @@ name: Release Notes
 jobs:
   create-release-notes:
     runs-on: ubuntu-latest
-    steps:s
+    steps:
       - name: Checkout
         uses: actions/checkout@master
       - name: Create Release Notes
