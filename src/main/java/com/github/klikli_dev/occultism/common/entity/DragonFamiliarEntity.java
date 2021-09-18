@@ -22,11 +22,14 @@
 
 package com.github.klikli_dev.occultism.common.entity;
 
+import com.github.klikli_dev.occultism.common.advancement.FamiliarTrigger;
+import com.github.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.github.klikli_dev.occultism.registry.OccultismEffects;
 import com.google.common.collect.ImmutableList;
 
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ILivingEntityData;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.goal.FollowMobGoal;
 import net.minecraft.entity.ai.goal.LookAtGoal;
@@ -68,6 +71,13 @@ public class DragonFamiliarEntity extends FamiliarEntity {
     public DragonFamiliarEntity(EntityType<? extends DragonFamiliarEntity> type, World worldIn) {
         super(type, worldIn);
         colorOffset = this.getRNG().nextFloat() * 2;
+    }
+
+    @Override
+    public void setFamiliarOwner(LivingEntity owner) {
+        if (hasFez())
+            OccultismAdvancements.FAMILIAR.trigger(owner, FamiliarTrigger.Type.RARE_VARIANT);
+        super.setFamiliarOwner(owner);
     }
 
     @Override
@@ -155,6 +165,7 @@ public class DragonFamiliarEntity extends FamiliarEntity {
     protected ActionResultType getEntityInteractionResult(PlayerEntity playerIn, Hand hand) {
         ItemStack stack = playerIn.getHeldItem(hand);
         if (stack.getItem().isIn(Tags.Items.NUGGETS_GOLD)) {
+            OccultismAdvancements.FAMILIAR.trigger(getFamiliarOwner(), FamiliarTrigger.Type.DRAGON_NUGGET);
             greedyTimer += GREEDY_INCREMENT;
             if (isServerWorld())
                 stack.shrink(1);

@@ -710,6 +710,10 @@
   "advancements.occultism.familiar.deer.title": "Demonic Poop",
   "advancements.occultism.familiar.devil.description": "Command your devil familiar to breath fire",
   "advancements.occultism.familiar.devil.title": "Hellfire",
+  "advancements.occultism.familiar.dragon_nugget.description": "Give a gold nugget to your dragon familiar",
+  "advancements.occultism.familiar.dragon_nugget.title": "Deal!",
+  "advancements.occultism.familiar.dragon_ride.description": "Let your greedy familiar pick something up while riding a dragon familiar",
+  "advancements.occultism.familiar.dragon_ride.title": "Working together",
   "advancements.occultism.familiar.greedy.description": "Let your greedy familiar pick something up for you",
   "advancements.occultism.familiar.greedy.title": "Errand Boy",
   "advancements.occultism.familiar.party.description": "Get your familiar to dance",
@@ -717,5 +721,5 @@
   "advancements.occultism.familiar.rare.description": "Obtain a rare familiar variant",
   "advancements.occultism.familiar.rare.title": "Rare Friend",
   "advancements.occultism.familiar.root.description": "Use a ritual to summon a familiar",
-  "advancements.occultism.familiar.root.title": "Occultism: Friends"    
+  "advancements.occultism.familiar.root.title": "Occultism: Friends"  
 }

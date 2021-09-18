@@ -120,7 +120,10 @@ public class GreedyFamiliarEntity extends FamiliarEntity {
                 LivingEntity owner = this.entity.getFamiliarOwner();
                 if (item.getDistanceSq(this.entity) < 4 && owner instanceof PlayerEntity) {
                     item.onCollideWithPlayer(((PlayerEntity) owner));
-                    OccultismAdvancements.FAMILIAR.trigger(owner, FamiliarTrigger.Type.GREEDY_ITEM);
+                    if (this.entity instanceof GreedyFamiliarEntity)
+                        OccultismAdvancements.FAMILIAR.trigger(owner, FamiliarTrigger.Type.GREEDY_ITEM);
+                    else if (this.entity instanceof DragonFamiliarEntity)
+                        OccultismAdvancements.FAMILIAR.trigger(owner, FamiliarTrigger.Type.DRAGON_RIDE);
                 }
             }
         }
@@ -172,17 +175,18 @@ public class GreedyFamiliarEntity extends FamiliarEntity {
             }
             return false;
         }
-        
+
         @Override
         public boolean shouldContinueExecuting() {
-            return this.greedy.getRidingEntity() instanceof DragonFamiliarEntity || (this.greedy.hasPath() && this.dragon != null);
+            return this.greedy.getRidingEntity() instanceof DragonFamiliarEntity
+                    || (this.greedy.hasPath() && this.dragon != null);
         }
-        
+
         @Override
         public void resetTask() {
             dragon = null;
         }
-        
+
         @Override
         public void tick() {
             if (this.dragon != null && this.greedy.getDistanceSq(this.dragon) < 5) {
@@ -196,7 +200,8 @@ public class GreedyFamiliarEntity extends FamiliarEntity {
                 return null;
 
             List<DragonFamiliarEntity> dragons = this.greedy.world.getEntitiesWithinAABB(DragonFamiliarEntity.class,
-                    this.greedy.getBoundingBox().grow(5), e -> e.getFamiliarOwner() == owner && !e.isBeingRidden() && !e.isSitting());
+                    this.greedy.getBoundingBox().grow(5),
+                    e -> e.getFamiliarOwner() == owner && !e.isBeingRidden() && !e.isSitting());
             if (dragons.isEmpty())
                 return null;
             return dragons.get(0);
