@@ -28,6 +28,11 @@ import com.google.common.collect.ImmutableList;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.ai.goal.FollowMobGoal;
+import net.minecraft.entity.ai.goal.LookAtGoal;
+import net.minecraft.entity.ai.goal.PanicGoal;
+import net.minecraft.entity.ai.goal.RandomWalkingGoal;
+import net.minecraft.entity.ai.goal.SwimGoal;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
@@ -39,6 +44,7 @@ import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
@@ -57,6 +63,7 @@ public class DragonFamiliarEntity extends FamiliarEntity {
 
     private float colorOffset;
     private int greedyTimer;
+    private int flyingTimer, flyingTimer0, wingspan, wingspan0;
 
     public DragonFamiliarEntity(EntityType<? extends DragonFamiliarEntity> type, World worldIn) {
         super(type, worldIn);
@@ -74,8 +81,10 @@ public class DragonFamiliarEntity extends FamiliarEntity {
 
     @Override
     protected void registerGoals() {
+        this.goalSelector.addGoal(0, new PanicGoal(this, 1.25));
+        this.goalSelector.addGoal(0, new SwimGoal(this));
         this.goalSelector.addGoal(1, new SitGoal(this));
-        this.goalSelector.addGoal(2, new DevilFamiliarEntity.AttackGoal(this));
+        this.goalSelector.addGoal(2, new LookAtGoal(this, PlayerEntity.class, 8));
         this.goalSelector.addGoal(3, new GreedyFamiliarEntity.FindItemGoal(this) {
             @Override
             public boolean shouldExecute() {
@@ -83,14 +92,23 @@ public class DragonFamiliarEntity extends FamiliarEntity {
                         && getPassengers().stream().anyMatch(e -> e instanceof GreedyFamiliarEntity);
             }
         });
+        this.goalSelector.addGoal(4, new FollowOwnerGoal(this, 1, 3, 1));
+        this.goalSelector.addGoal(5, new DevilFamiliarEntity.AttackGoal(this));
+        this.goalSelector.addGoal(6, new RandomWalkingGoal(this, 1));
+        this.goalSelector.addGoal(7, new FollowMobGoal(this, 1, 3, 7));
     }
-    
+
     @Override
     public void swing(Hand handIn, boolean updateSelf) {
         super.swing(handIn, updateSelf);
         this.swingProgressInt = -20 + 6;
     }
-    
+
+    @Override
+    public boolean onLivingFall(float fallDistance, float damageMultiplier) {
+        return false;
+    }
+
     public float getAttackProgress(float partialTicks) {
         return MathHelper.lerp((this.swingProgressInt + (20 - 6) + partialTicks) / 20, 0, 1);
     }
@@ -100,6 +118,37 @@ public class DragonFamiliarEntity extends FamiliarEntity {
         super.tick();
         if (greedyTimer > 0)
             greedyTimer--;
+
+        if (!this.isOnGround()) {
+            Vector3d motion = this.getMotion();
+            if (motion.y < 0) {
+                motion = motion.mul(1, 0.5, 1);
+                this.setMotion(motion);
+            }
+        }
+
+        flyingTimer0 = flyingTimer;
+        wingspan0 = wingspan;
+        if (!isServerWorld())
+            if (isOnGround()) {
+                wingspan -= 5;
+                if (wingspan < 0)
+                    wingspan = 0;
+
+            } else {
+                flyingTimer++;
+                wingspan += 5;
+                if (wingspan > 30)
+                    wingspan = 30;
+            }
+    }
+
+    public float getFlyingTimer(float partialTicks) {
+        return MathHelper.lerp(partialTicks, flyingTimer0, flyingTimer);
+    }
+
+    public float getWingspan(float partialTicks) {
+        return MathHelper.lerp(partialTicks, wingspan0, wingspan);
     }
 
     @Override

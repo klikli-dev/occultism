@@ -8,17 +8,15 @@ import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.Model;
 import net.minecraft.client.renderer.model.ModelRenderer;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.math.MathHelper;
-import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 
 /**
  * Created using Tabula 8.0.0
  */
 public class DragonFamiliarModel extends EntityModel<DragonFamiliarEntity> {
-    
+
     private static final float PI = (float) Math.PI;
-    
+
     public ModelRenderer body;
     public ModelRenderer neck1;
     public ModelRenderer leftLeg1;
@@ -47,16 +45,16 @@ public class DragonFamiliarModel extends EntityModel<DragonFamiliarEntity> {
     public ModelRenderer leftHorn2;
     public ModelRenderer rightHorn2;
     public ModelRenderer leftLeg2;
-    public ModelRenderer leftLeg4;
+    public ModelRenderer leftLeg3;
     public ModelRenderer tail2;
     public ModelRenderer spike1;
     public ModelRenderer tail3;
     public ModelRenderer spike2;
-    public ModelRenderer tail3_1;
+    public ModelRenderer spike3;
     public ModelRenderer leftWing2;
     public ModelRenderer rightWing2;
     public ModelRenderer rightLeg2;
-    public ModelRenderer rightLeg4;
+    public ModelRenderer rightLeg3;
     public ModelRenderer leftArm2;
     public ModelRenderer leftArm3;
     public ModelRenderer rightArm2;
@@ -79,10 +77,10 @@ public class DragonFamiliarModel extends EntityModel<DragonFamiliarEntity> {
         this.rightNose = new ModelRenderer(this, 45, 1);
         this.rightNose.setRotationPoint(0.8F, -1.4F, -2.6F);
         this.rightNose.addBox(-0.5F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F, 0.0F, 0.0F, 0.0F);
-        this.leftLeg4 = new ModelRenderer(this, 28, 7);
-        this.leftLeg4.setRotationPoint(0.0F, 2.2F, 0.8F);
-        this.leftLeg4.addBox(-1.0F, 0.0F, -4.0F, 2.0F, 1.0F, 4.0F, 0.0F, 0.0F, 0.0F);
-        this.setRotateAngle(leftLeg4, 0.3909537457888271F, 0.0F, 0.0F);
+        this.leftLeg3 = new ModelRenderer(this, 28, 7);
+        this.leftLeg3.setRotationPoint(0.0F, 2.2F, 0.8F);
+        this.leftLeg3.addBox(-1.0F, 0.0F, -4.0F, 2.0F, 1.0F, 4.0F, 0.0F, 0.0F, 0.0F);
+        this.setRotateAngle(leftLeg3, 0.3909537457888271F, 0.0F, 0.0F);
         this.leftLeg1 = new ModelRenderer(this, 44, 5);
         this.leftLeg1.setRotationPoint(1.8F, 0.5F, 2.0F);
         this.leftLeg1.addBox(-0.5F, 0.0F, -1.0F, 1.0F, 3.0F, 2.0F, 0.0F, 0.0F, 0.0F);
@@ -185,11 +183,11 @@ public class DragonFamiliarModel extends EntityModel<DragonFamiliarEntity> {
         this.tail1.setRotationPoint(0.0F, 0.0F, 4.5F);
         this.tail1.addBox(-1.5F, -1.5F, 0.0F, 3.0F, 3.0F, 4.0F, 0.0F, 0.0F, 0.0F);
         this.setRotateAngle(tail1, -0.23457224414434488F, 0.0F, 0.0F);
-        this.rightLeg4 = new ModelRenderer(this, 28, 7);
-        this.rightLeg4.mirror = true;
-        this.rightLeg4.setRotationPoint(0.0F, 2.2F, 0.8F);
-        this.rightLeg4.addBox(-1.0F, 0.0F, -4.0F, 2.0F, 1.0F, 4.0F, 0.0F, 0.0F, 0.0F);
-        this.setRotateAngle(rightLeg4, 0.3909537457888271F, 0.0F, 0.0F);
+        this.rightLeg3 = new ModelRenderer(this, 28, 7);
+        this.rightLeg3.mirror = true;
+        this.rightLeg3.setRotationPoint(0.0F, 2.2F, 0.8F);
+        this.rightLeg3.addBox(-1.0F, 0.0F, -4.0F, 2.0F, 1.0F, 4.0F, 0.0F, 0.0F, 0.0F);
+        this.setRotateAngle(rightLeg3, 0.3909537457888271F, 0.0F, 0.0F);
         this.rightLeg1 = new ModelRenderer(this, 44, 5);
         this.rightLeg1.mirror = true;
         this.rightLeg1.setRotationPoint(-1.8F, 0.5F, 2.0F);
@@ -198,9 +196,9 @@ public class DragonFamiliarModel extends EntityModel<DragonFamiliarEntity> {
         this.leftNose = new ModelRenderer(this, 45, 1);
         this.leftNose.setRotationPoint(-0.8F, -1.4F, -2.6F);
         this.leftNose.addBox(-0.5F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F, 0.0F, 0.0F, 0.0F);
-        this.tail3_1 = new ModelRenderer(this, 8, 26);
-        this.tail3_1.setRotationPoint(0.01F, -3.5F, 0.0F);
-        this.tail3_1.addBox(0.0F, 0.0F, 0.0F, 0.0F, 3.0F, 3.0F, 0.0F, 0.0F, 0.0F);
+        this.spike3 = new ModelRenderer(this, 8, 26);
+        this.spike3.setRotationPoint(0.01F, -3.5F, 0.0F);
+        this.spike3.addBox(0.0F, 0.0F, 0.0F, 0.0F, 3.0F, 3.0F, 0.0F, 0.0F, 0.0F);
         this.rightEye = new ColorModelRenderer(this, 56, 3);
         this.rightEye.mirror = true;
         this.rightEye.setRotationPoint(-2.5F, -0.1F, -2.4F);
@@ -231,7 +229,7 @@ public class DragonFamiliarModel extends EntityModel<DragonFamiliarEntity> {
         this.fez1.addChild(this.fez2);
         this.rightArm1.addChild(this.rightArm3);
         this.jaw.addChild(this.rightNose);
-        this.leftLeg2.addChild(this.leftLeg4);
+        this.leftLeg2.addChild(this.leftLeg3);
         this.body.addChild(this.leftLeg1);
         this.rightArm1.addChild(this.rightArm2);
         this.head.addChild(this.rightEar);
@@ -257,10 +255,10 @@ public class DragonFamiliarModel extends EntityModel<DragonFamiliarEntity> {
         this.body.addChild(this.rightWing1);
         this.rightWing1.addChild(this.rightWing2);
         this.body.addChild(this.tail1);
-        this.rightLeg2.addChild(this.rightLeg4);
+        this.rightLeg2.addChild(this.rightLeg3);
         this.body.addChild(this.rightLeg1);
         this.jaw.addChild(this.leftNose);
-        this.tail3.addChild(this.tail3_1);
+        this.tail3.addChild(this.spike3);
         this.head.addChild(this.rightEye);
         this.jaw.addChild(this.tooth4);
         this.jaw.addChild(this.tooth2);
@@ -281,6 +279,17 @@ public class DragonFamiliarModel extends EntityModel<DragonFamiliarEntity> {
     @Override
     public void setRotationAngles(DragonFamiliarEntity entityIn, float limbSwing, float limbSwingAmount,
             float ageInTicks, float netHeadYaw, float headPitch) {
+        if (entityIn.isPartying()) {
+            this.head.rotateAngleX = toRads(50) + MathHelper.sin(ageInTicks) * toRads(20);
+            this.head.rotateAngleY = MathHelper.sin(ageInTicks) * toRads(5);
+            this.head.rotateAngleZ = MathHelper.sin(ageInTicks) * toRads(5);
+
+        } else {
+            this.head.rotateAngleX = toRads(50) + 0.03f + headPitch * (PI / 180f) * 0.7f;
+            this.head.rotateAngleY = netHeadYaw * (PI / 180f) * 0.5f;
+            this.head.rotateAngleZ = netHeadYaw * (PI / 180f) * 0.5f;
+        }
+
     }
 
     @Override
@@ -289,7 +298,27 @@ public class DragonFamiliarModel extends EntityModel<DragonFamiliarEntity> {
         setEyeColor(entityIn.getEyeColorR(partialTick), entityIn.getEyeColorG(partialTick),
                 entityIn.getEyeColorB(partialTick));
         showModels(entityIn);
-        
+
+        float ageInTicks = entityIn.ticksExisted + partialTick;
+
+        if (entityIn.isPartying()) {
+            this.body.rotateAngleZ = 0;
+            this.tail1.rotateAngleZ = MathHelper.sin(ageInTicks) * toRads(30);
+            this.tail2.rotateAngleZ = -MathHelper.sin(ageInTicks) * toRads(60);
+            this.tail3.rotateAngleZ = MathHelper.sin(ageInTicks) * toRads(90);
+
+            this.leftWing1.rotateAngleY = MathHelper.sin(ageInTicks) * toRads(20);
+            this.rightWing1.rotateAngleY = -MathHelper.sin(ageInTicks) * toRads(20);
+        } else {
+            this.body.rotateAngleZ = 0;
+            this.tail1.rotateAngleZ = 0;
+            this.tail2.rotateAngleZ = 0;
+            this.tail3.rotateAngleZ = 0;
+
+            this.leftWing1.rotateAngleY = 0;
+            this.rightWing1.rotateAngleY = 0;
+        }
+
         if (entityIn.isSwingInProgress) {
             float attackProgress = entityIn.getAttackProgress(partialTick);
             this.tail1.rotateAngleY = MathHelper.sin(attackProgress * PI * 4) * toRads(30);
@@ -300,16 +329,61 @@ public class DragonFamiliarModel extends EntityModel<DragonFamiliarEntity> {
             this.tail2.rotateAngleY = 0;
             this.tail3.rotateAngleY = 0;
         }
+
+        if (!entityIn.isSitting()) {
+            this.leftLeg1.rotateAngleX = toRads(25) + MathHelper.cos(limbSwing * 0.7f + PI) * limbSwingAmount * 0.5f;
+            this.rightLeg1.rotateAngleX = toRads(25) + MathHelper.cos(limbSwing * 0.7f) * limbSwingAmount * 0.5f;
+            this.leftLeg3.rotateAngleX = toRads(23);
+            this.rightLeg3.rotateAngleX = toRads(23);
+
+            float flyingTimer = entityIn.getFlyingTimer(partialTick);
+            float wingspan = entityIn.getWingspan(partialTick);
+            float flyingWingRot = flyingTimer * 1.15f;
+            this.leftWing1.rotateAngleZ = toRads(65)
+                    + MathHelper.cos(limbSwing * 0.7f + flyingWingRot) * (limbSwingAmount * 0.2f + toRads(wingspan));
+            this.leftWing2.rotateAngleZ = toRads(50) + MathHelper.cos(limbSwing * 0.7f + flyingWingRot)
+                    * (limbSwingAmount * 0.2f + toRads(wingspan) * 0.5f);
+            this.rightWing1.rotateAngleZ = -toRads(65)
+                    - MathHelper.cos(limbSwing * 0.7f + flyingWingRot) * (limbSwingAmount * 0.2f + toRads(wingspan));
+            this.rightWing2.rotateAngleZ = -toRads(50) - MathHelper.cos(limbSwing * 0.7f + flyingWingRot)
+                    * (limbSwingAmount * 0.2f + toRads(wingspan) * 0.5f);
+
+            this.tail1.rotateAngleX = MathHelper.cos(ageInTicks / 20) * toRads(10);
+            this.tail2.rotateAngleX = MathHelper.cos(ageInTicks / 20) * toRads(10);
+            this.tail3.rotateAngleX = MathHelper.cos(ageInTicks / 20) * toRads(10);
+
+            this.body.rotateAngleX = toRads(-4);
+            this.neck1.rotateAngleX = toRads(-30);
+            this.neck2.rotateAngleX = toRads(-9);
+        } else {
+            this.leftLeg1.rotateAngleX = toRads(15);
+            this.rightLeg1.rotateAngleX = toRads(15);
+            this.leftLeg3.rotateAngleX = toRads(26);
+            this.rightLeg3.rotateAngleX = toRads(26);
+
+            this.leftWing1.rotateAngleZ = toRads(150);
+            this.leftWing2.rotateAngleZ = toRads(20);
+            this.rightWing1.rotateAngleZ = -toRads(150);
+            this.rightWing2.rotateAngleZ = -toRads(20);
+
+            this.tail1.rotateAngleX = toRads(30);
+            this.tail2.rotateAngleX = toRads(30);
+            this.tail3.rotateAngleX = toRads(30);
+
+            this.body.rotateAngleX = toRads(-50);
+            this.neck1.rotateAngleX = toRads(10);
+            this.neck2.rotateAngleX = toRads(5);
+        }
     }
-    
+
     private float toRads(float deg) {
         return PI / 180f * deg;
     }
-    
+
     private void showModels(DragonFamiliarEntity entityIn) {
         boolean hasEars = entityIn.hasEars();
         boolean hasArms = entityIn.hasArms();
-        
+
         this.fez1.showModel = entityIn.hasFez();
         this.leftEar.showModel = hasEars;
         this.rightEar.showModel = hasEars;
@@ -318,7 +392,7 @@ public class DragonFamiliarModel extends EntityModel<DragonFamiliarEntity> {
         this.leftArm1.showModel = hasArms;
         this.rightArm1.showModel = hasArms;
     }
-    
+
     private void setEyeColor(float r, float g, float b) {
         this.leftEye.setColor(r, g, b);
         this.rightEye.setColor(r, g, b);
