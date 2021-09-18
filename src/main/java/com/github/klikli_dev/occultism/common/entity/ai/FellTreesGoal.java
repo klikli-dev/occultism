@@ -133,15 +133,15 @@ public class FellTreesGoal extends Goal {
 
     //region Static Methods
 
-    public static final boolean isTreeSoil(World world, BlockPos pos) {
+    public static boolean isTreeSoil(World world, BlockPos pos) {
         return OccultismTags.TREE_SOIL.contains(world.getBlockState(pos).getBlock());
     }
 
-    public static final boolean isLog(World world, BlockPos pos) {
+    public static boolean isLog(World world, BlockPos pos) {
         return BlockTags.LOGS.contains(world.getBlockState(pos).getBlock());
     }
 
-    public static final boolean isLeaf(World world, BlockPos pos) {
+    public static boolean isLeaf(World world, BlockPos pos) {
         Block block = world.getBlockState(pos).getBlock();
         return block instanceof LeavesBlock || BlockTags.LEAVES.contains(block);
     }
@@ -165,6 +165,7 @@ public class FellTreesGoal extends Goal {
             this.breakingTime = 0;
             this.previousBreakProgress = -1;
             this.fellTree();
+            this.entity.getJob().map(j -> (LumberjackJob) j).ifPresent(j -> j.setLastFelledTree(this.targetBlock));
             this.targetBlock = null;
             this.resetTask();
         }

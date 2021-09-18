@@ -26,6 +26,7 @@ import com.github.klikli_dev.occultism.api.common.container.IItemStackComparator
 import com.github.klikli_dev.occultism.common.entity.ai.FellTreesGoal;
 import com.github.klikli_dev.occultism.common.entity.ai.PickupItemsGoal;
 import com.github.klikli_dev.occultism.common.entity.ai.DepositItemsGoal;
+import com.github.klikli_dev.occultism.common.entity.ai.ReplantSaplingGoal;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.github.klikli_dev.occultism.common.misc.ItemStackComparator;
 import com.github.klikli_dev.occultism.common.misc.ItemTagComparator;
@@ -49,11 +50,13 @@ import java.util.Set;
 public class LumberjackJob extends SpiritJob {
 
     //region Fields
+    protected ReplantSaplingGoal replantSaplingGoal;
     protected PickupItemsGoal pickupItemsGoal;
     protected FellTreesGoal fellTreesGoal;
     protected DepositItemsGoal depositItemsGoal;
     protected List<IItemStackComparator> itemsToPickUp = new ArrayList<>();
     private Set<BlockPos> ignoredTrees = new HashSet<>();
+    private BlockPos lastFelledTree = null;
     //endregion Fields
 
 
@@ -66,9 +69,9 @@ public class LumberjackJob extends SpiritJob {
     //region Overrides
     @Override
     public void init() {
-        //this.entity.targetSelector.addGoal(0, this.pickupItemsGoal = new PickupItemsGoal(this.entity, 0));
-        this.entity.goalSelector.addGoal(0, this.pickupItemsGoal = new PickupItemsGoal(this.entity, 0));
-        this.entity.goalSelector.addGoal(3, this.fellTreesGoal = new FellTreesGoal(this.entity));
+        this.entity.goalSelector.addGoal(0, this.pickupItemsGoal = new PickupItemsGoal(this.entity));
+        this.entity.goalSelector.addGoal(2, this.fellTreesGoal = new FellTreesGoal(this.entity));
+        this.entity.goalSelector.addGoal(3, this.replantSaplingGoal = new ReplantSaplingGoal(this.entity));
         this.entity.goalSelector.addGoal(4, this.depositItemsGoal = new DepositItemsGoal(this.entity));
 
         this.itemsToPickUp.add(new ItemTagComparator(ItemTags.LOGS));
@@ -80,6 +83,7 @@ public class LumberjackJob extends SpiritJob {
 
     @Override
     public void cleanup() {
+        this.entity.targetSelector.removeGoal(this.replantSaplingGoal);
         this.entity.targetSelector.removeGoal(this.pickupItemsGoal);
         this.entity.goalSelector.removeGoal(this.fellTreesGoal);
         this.entity.goalSelector.removeGoal(this.depositItemsGoal);
@@ -126,6 +130,14 @@ public class LumberjackJob extends SpiritJob {
 
     public void setIgnoredTrees(Set<BlockPos> ignoredTrees) {
         this.ignoredTrees = ignoredTrees;
+    }
+
+    public BlockPos getLastFelledTree() {
+        return this.lastFelledTree;
+    }
+
+    public void setLastFelledTree(BlockPos lastFelledTree) {
+        this.lastFelledTree = lastFelledTree;
     }
 
     //endregion Overrides
