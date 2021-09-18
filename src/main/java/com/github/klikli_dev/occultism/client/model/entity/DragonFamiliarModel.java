@@ -8,11 +8,17 @@ import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.Model;
 import net.minecraft.client.renderer.model.ModelRenderer;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.util.math.MathHelper;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 
 /**
  * Created using Tabula 8.0.0
  */
 public class DragonFamiliarModel extends EntityModel<DragonFamiliarEntity> {
+    
+    private static final float PI = (float) Math.PI;
+    
     public ModelRenderer body;
     public ModelRenderer neck1;
     public ModelRenderer leftLeg1;
@@ -283,6 +289,21 @@ public class DragonFamiliarModel extends EntityModel<DragonFamiliarEntity> {
         setEyeColor(entityIn.getEyeColorR(partialTick), entityIn.getEyeColorG(partialTick),
                 entityIn.getEyeColorB(partialTick));
         showModels(entityIn);
+        
+        if (entityIn.isSwingInProgress) {
+            float attackProgress = entityIn.getAttackProgress(partialTick);
+            this.tail1.rotateAngleY = MathHelper.sin(attackProgress * PI * 4) * toRads(30);
+            this.tail2.rotateAngleY = MathHelper.sin(attackProgress * PI * 4) * toRads(30);
+            this.tail3.rotateAngleY = MathHelper.sin(attackProgress * PI * 4) * toRads(30);
+        } else {
+            this.tail1.rotateAngleY = 0;
+            this.tail2.rotateAngleY = 0;
+            this.tail3.rotateAngleY = 0;
+        }
+    }
+    
+    private float toRads(float deg) {
+        return PI / 180f * deg;
     }
     
     private void showModels(DragonFamiliarEntity entityIn) {

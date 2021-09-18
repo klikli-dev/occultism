@@ -75,6 +75,7 @@ public class DragonFamiliarEntity extends FamiliarEntity {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new SitGoal(this));
+        this.goalSelector.addGoal(2, new DevilFamiliarEntity.AttackGoal(this));
         this.goalSelector.addGoal(3, new GreedyFamiliarEntity.FindItemGoal(this) {
             @Override
             public boolean shouldExecute() {
@@ -82,6 +83,16 @@ public class DragonFamiliarEntity extends FamiliarEntity {
                         && getPassengers().stream().anyMatch(e -> e instanceof GreedyFamiliarEntity);
             }
         });
+    }
+    
+    @Override
+    public void swing(Hand handIn, boolean updateSelf) {
+        super.swing(handIn, updateSelf);
+        this.swingProgressInt = -20 + 6;
+    }
+    
+    public float getAttackProgress(float partialTicks) {
+        return MathHelper.lerp((this.swingProgressInt + (20 - 6) + partialTicks) / 20, 0, 1);
     }
 
     @Override

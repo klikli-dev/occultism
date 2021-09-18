@@ -90,7 +90,7 @@ public class DevilFamiliarEntity extends FamiliarEntity {
         this.goalSelector.addGoal(1, new SitGoal(this));
         this.goalSelector.addGoal(2, new LookAtGoal(this, PlayerEntity.class, 8));
         this.goalSelector.addGoal(3, new FollowOwnerGoal(this, 1, 3, 1));
-        this.goalSelector.addGoal(4, new FireBreathGoal(this));
+        this.goalSelector.addGoal(4, new AttackGoal(this));
         this.goalSelector.addGoal(5, new RandomWalkingGoal(this, 1.0D));
         this.goalSelector.addGoal(6, new FollowMobGoal(this, 1, 3, 7));
     }
@@ -176,24 +176,24 @@ public class DevilFamiliarEntity extends FamiliarEntity {
         return ImmutableList.of();
     }
 
-    private static class FireBreathGoal extends Goal {
+    public static class AttackGoal extends Goal {
 
         private static final int MAX_COOLDOWN = 20 * 5;
 
-        private final DevilFamiliarEntity devil;
+        private final FamiliarEntity entity;
         private int cooldown = MAX_COOLDOWN;
 
-        public FireBreathGoal(DevilFamiliarEntity devil) {
-            this.devil = devil;
+        public AttackGoal(FamiliarEntity entity) {
+            this.entity = entity;
         }
 
         @Override
         public boolean shouldExecute() {
-            return this.cooldown-- < 0 && this.devil.getFamiliarOwner() instanceof PlayerEntity && !this.getNearbyEnemies().isEmpty();
+            return this.cooldown-- < 0 && this.entity.getFamiliarOwner() instanceof PlayerEntity && !this.getNearbyEnemies().isEmpty();
         }
 
         private List<Entity> getNearbyEnemies() {
-            LivingEntity owner = this.devil.getFamiliarOwner();
+            LivingEntity owner = this.entity.getFamiliarOwner();
             LivingEntity revenge = owner.getRevengeTarget();
             LivingEntity target = owner.getLastAttackedEntity();
             List<Entity> enemies = new ArrayList<>();
@@ -205,18 +205,18 @@ public class DevilFamiliarEntity extends FamiliarEntity {
         }
 
         private boolean isClose(LivingEntity e) {
-            return e != null && e.getDistanceSq(this.devil) < 5;
+            return e != null && e.getDistanceSq(this.entity) < 5;
         }
 
         public void startExecuting() {
             List<Entity> enemies = this.getNearbyEnemies();
             if (!enemies.isEmpty())
-                OccultismAdvancements.FAMILIAR.trigger(devil.getFamiliarOwner(), FamiliarTrigger.Type.DEVIL_FIRE);
+                OccultismAdvancements.FAMILIAR.trigger(this.entity.getFamiliarOwner(), FamiliarTrigger.Type.DEVIL_FIRE);
             for (Entity e : enemies) {
-                e.attackEntityFrom(DamageSource.causePlayerDamage((PlayerEntity) this.devil.getFamiliarOwner()), 4);
+                e.attackEntityFrom(DamageSource.causePlayerDamage((PlayerEntity) this.entity.getFamiliarOwner()), 4);
             }
             this.cooldown = MAX_COOLDOWN;
-            this.devil.swingArm(Hand.MAIN_HAND);
+            this.entity.swingArm(Hand.MAIN_HAND);
         }
 
         public void resetTask() {
