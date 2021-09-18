@@ -24,8 +24,10 @@ package com.github.klikli_dev.occultism.common.entity.ai;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
+import com.github.klikli_dev.occultism.common.job.LumberjackJob;
 import com.github.klikli_dev.occultism.network.MessageSelectBlock;
 import com.github.klikli_dev.occultism.network.OccultismPackets;
+import com.github.klikli_dev.occultism.registry.OccultismTags;
 import com.github.klikli_dev.occultism.util.Math3DUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.LeavesBlock;
@@ -39,15 +41,21 @@ import net.minecraft.world.World;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class FellTreesGoal extends Goal {
     //region Fields
+    public static final int WORKAREA_EMPTY_REFRESH_TIME = 20 * 15;
+
     protected final SpiritEntity entity;
     protected final BlockSorter targetSorter;
     protected BlockPos targetBlock = null;
     protected BlockPos moveTarget = null;
     protected int breakingTime;
     protected int previousBreakProgress;
+    protected boolean isTargetTree;
+    protected long lastWorkareaEmptyTime;
+
     //endregion Fields
 
     //region Initialization
@@ -78,7 +86,6 @@ public class FellTreesGoal extends Goal {
         this.entity.getNavigator().clearPath();
         this.targetBlock = null;
         this.moveTarget = null;
-        this.resetTarget();
     }
 
     @Override
@@ -103,10 +110,21 @@ public class FellTreesGoal extends Goal {
                         this.entity.getNavigator().clearPath();
                     }
 
-                    this.updateBreakBlock();
+                    //only when spirit gets to target do we check if it really is a tree
+                    //this way spirit moves around a bit more, but we space out the intensive tree-identification
+                    if (this.isTargetTree || this.isTree(this.targetBlock)) {
+                        //cache isTargetTree until we broke it
+                        this.isTargetTree = true;
+                        this.updateBreakBlock();
+                    } else {
+                        this.isTargetTree = false;
+                        this.entity.getJob().map(j -> (LumberjackJob) j).ifPresent(j -> {
+                            j.getIgnoredTrees().add(this.targetBlock);
+                        });
+                        this.resetTarget();
+                    }
                 }
-            }
-            else {
+            } else {
                 this.resetTask();
             }
         }
@@ -114,6 +132,11 @@ public class FellTreesGoal extends Goal {
     //endregion Overrides
 
     //region Static Methods
+
+    public static final boolean isTreeSoil(World world, BlockPos pos) {
+        return OccultismTags.TREE_SOIL.contains(world.getBlockState(pos).getBlock());
+    }
+
     public static final boolean isLog(World world, BlockPos pos) {
         return BlockTags.LOGS.contains(world.getBlockState(pos).getBlock());
     }
@@ -149,37 +172,31 @@ public class FellTreesGoal extends Goal {
     }
 
     private void resetTarget() {
+        this.isTargetTree = false;
         World world = this.entity.world;
-        List<BlockPos> allBlocks = new ArrayList<>();
-        BlockPos workAreaCenter = this.entity.getWorkAreaCenter();
 
+        //if work area was recently empty, wait until refresh time has elapsed
+        if (world.getGameTime() - this.lastWorkareaEmptyTime < WORKAREA_EMPTY_REFRESH_TIME)
+            return;
+
+        Set<BlockPos> ignoredTrees = this.entity.getJob().map(j -> (LumberjackJob) j).map(LumberjackJob::getIgnoredTrees).orElse(new HashSet<>());
+
+        BlockPos workAreaCenter = this.entity.getWorkAreaCenter();
         //get work area, but only half height, we don't need full.
         int workAreaSize = this.entity.getWorkAreaSize().getValue();
-        List<BlockPos> searchBlocks = BlockPos.getAllInBox(
-                workAreaCenter.add(-workAreaSize, -workAreaSize / 2, -workAreaSize),
-                workAreaCenter.add(workAreaSize, workAreaSize / 2, workAreaSize)).map(BlockPos::toImmutable).collect(
-                Collectors.toList());
-        for (BlockPos pos : searchBlocks) {
-            if (isLog(world, pos)) {
+        Stream<BlockPos> stream = BlockPos.getAllInBox(
+                        workAreaCenter.add(-workAreaSize, -workAreaSize / 2, -workAreaSize),
+                        workAreaCenter.add(workAreaSize, workAreaSize / 2, workAreaSize))
+                .map(BlockPos::toImmutable);
 
-                //find top of tree
-                BlockPos topOfTree = new BlockPos(pos);
-                while (!world.isAirBlock(topOfTree.up()) && topOfTree.getY() < world.getHeight()) {
-                    topOfTree = topOfTree.up();
-                }
+        //filter potential stumps
+        List<BlockPos> potentialStumps = stream.filter(pos ->
+                isLog(world, pos) && isTreeSoil(world, pos.down()) && !ignoredTrees.contains(pos)
+        ).collect(Collectors.toList());
 
-                //find the stump of the tree
-                if (isLeaf(world, topOfTree)) {
-                    BlockPos logPos = this.getStump(topOfTree);
-                    if (isLog(world, logPos))
-                        allBlocks.add(logPos);
-                }
-            }
-        }
-        //set closest log as target
-        if (!allBlocks.isEmpty()) {
-            allBlocks.sort(this.targetSorter);
-            this.targetBlock = allBlocks.get(0);
+        if (!potentialStumps.isEmpty()) {
+            potentialStumps.sort(this.targetSorter);
+            this.targetBlock = potentialStumps.get(0);
 
             //Find a nearby empty block to move to
             this.moveTarget = null;
@@ -195,7 +212,31 @@ public class FellTreesGoal extends Goal {
             if (this.moveTarget == null) {
                 this.targetBlock = null;
             }
+        } else {
+            //if we found nothing in our work area, go on a slow tick;
+            this.lastWorkareaEmptyTime = world.getGameTime();
+            this.moveTarget = null;
+            this.targetBlock = null;
         }
+    }
+
+    private boolean isTree(BlockPos potentialStump) {
+        if (isLog(this.entity.world, potentialStump)) {
+
+            //find top of tree
+            BlockPos topOfTree = new BlockPos(potentialStump);
+            while (!this.entity.world.isAirBlock(topOfTree.up()) && topOfTree.getY() < this.entity.world.getHeight()) {
+                topOfTree = topOfTree.up();
+            }
+
+            //find the stump of the tree
+            if (isLeaf(this.entity.world, topOfTree)) {
+                BlockPos logPos = this.getStump(topOfTree);
+                if (isLog(this.entity.world, logPos))
+                    return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -208,8 +249,8 @@ public class FellTreesGoal extends Goal {
         if (log.getY() > 0) {
             //for all nearby logs and leaves, move one block down and recurse.
             for (BlockPos pos : BlockPos.getAllInBox(log.add(-4, -4, -4), log.add(4, 0, 4)).map(BlockPos::toImmutable)
-                                        .collect(
-                                                Collectors.toList())) {
+                    .collect(
+                            Collectors.toList())) {
                 if (isLog(this.entity.world, pos.down()) || isLeaf(this.entity.world, pos.down())) {
                     return this.getStump(pos.down());
                 }

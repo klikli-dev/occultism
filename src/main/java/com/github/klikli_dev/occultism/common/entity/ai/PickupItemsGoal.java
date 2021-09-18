@@ -51,6 +51,7 @@ public class PickupItemsGoal extends TargetGoal {
 
     public PickupItemsGoal(SpiritEntity entity) {
         this(entity, 10);
+        this.setMutexFlags(EnumSet.of(Flag.MOVE));
     }
 
     public PickupItemsGoal(SpiritEntity entity, int executionChance) {
@@ -82,7 +83,7 @@ public class PickupItemsGoal extends TargetGoal {
         if (this.entity.getIdleTime() >= 100 && worldTime != 0) {
             return false;
         }
-        if (this.entity.getRNG().nextInt(this.executionChance) != 0 && worldTime != 0) {
+        if (this.executionChance > 0 && this.entity.getRNG().nextInt(this.executionChance) != 0 && worldTime != 0) {
             return false;
         }
 

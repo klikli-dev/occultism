@@ -26,6 +26,7 @@ import com.github.klikli_dev.occultism.api.common.data.WorkAreaSize;
 import com.github.klikli_dev.occultism.common.container.spirit.SpiritContainer;
 import com.github.klikli_dev.occultism.common.entity.ISkinnedCreatureMixin;
 import com.github.klikli_dev.occultism.common.item.spirit.BookOfCallingItem;
+import com.github.klikli_dev.occultism.common.job.LumberjackJob;
 import com.github.klikli_dev.occultism.common.job.SpiritJob;
 import com.github.klikli_dev.occultism.exceptions.ItemHandlerMissingException;
 import com.github.klikli_dev.occultism.registry.OccultismSounds;
@@ -153,6 +154,16 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
                     CompoundNBT compound = this.dataManager.get(FILTER_ITEMS);
                     if(!compound.isEmpty())
                         handler.deserializeNBT(compound);
+                });
+            }
+        }
+        //if work area changes we clear the cached ignore list for trees
+        //this allows players to manually reset that list if e.g. they tore down a wooden building and real trees grow there now.
+
+        if(key.getId() == WORK_AREA_POSITION.getId() || key.getId() == WORK_AREA_SIZE.getId()){
+            if(!this.world.isRemote){
+                this.job.map(j -> (LumberjackJob) j).ifPresent(j -> {
+                    j.getIgnoredTrees().clear();
                 });
             }
         }

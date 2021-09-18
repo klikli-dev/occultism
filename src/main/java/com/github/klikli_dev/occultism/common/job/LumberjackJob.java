@@ -33,10 +33,18 @@ import com.github.klikli_dev.occultism.registry.OccultismTags;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.ListNBT;
+import net.minecraft.nbt.LongArrayNBT;
+import net.minecraft.nbt.LongNBT;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.common.util.Constants;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class LumberjackJob extends SpiritJob {
 
@@ -45,6 +53,7 @@ public class LumberjackJob extends SpiritJob {
     protected FellTreesGoal fellTreesGoal;
     protected DepositItemsGoal depositItemsGoal;
     protected List<IItemStackComparator> itemsToPickUp = new ArrayList<>();
+    private Set<BlockPos> ignoredTrees = new HashSet<>();
     //endregion Fields
 
 
@@ -57,7 +66,8 @@ public class LumberjackJob extends SpiritJob {
     //region Overrides
     @Override
     public void init() {
-        this.entity.targetSelector.addGoal(0, this.pickupItemsGoal = new PickupItemsGoal(this.entity));
+        //this.entity.targetSelector.addGoal(0, this.pickupItemsGoal = new PickupItemsGoal(this.entity, 0));
+        this.entity.goalSelector.addGoal(0, this.pickupItemsGoal = new PickupItemsGoal(this.entity, 0));
         this.entity.goalSelector.addGoal(3, this.fellTreesGoal = new FellTreesGoal(this.entity));
         this.entity.goalSelector.addGoal(4, this.depositItemsGoal = new DepositItemsGoal(this.entity));
 
@@ -85,5 +95,38 @@ public class LumberjackJob extends SpiritJob {
         }
         return false;
     }
+
+    @Override
+    public CompoundNBT serializeNBT() {
+        CompoundNBT compound = super.serializeNBT();
+        ListNBT list = new ListNBT();
+        for(BlockPos ignoredTree : this.ignoredTrees){
+            list.add(LongNBT.valueOf(ignoredTree.toLong()));
+        }
+        compound.put("ignoredTrees", list);
+        return compound;
+    }
+
+    @Override
+    public void deserializeNBT(CompoundNBT nbt) {
+        super.deserializeNBT(nbt);
+
+        this.ignoredTrees = new HashSet<>();
+        if(nbt.contains("ignoredTrees")){
+            ListNBT list = nbt.getList("ignoredTrees", Constants.NBT.TAG_LIST);
+            for(int i = 0; i < list.size(); i++){
+                this.ignoredTrees.add(BlockPos.fromLong(((LongNBT)list.get(i)).getLong()));
+            }
+        }
+    }
+
+    public Set<BlockPos> getIgnoredTrees() {
+        return this.ignoredTrees;
+    }
+
+    public void setIgnoredTrees(Set<BlockPos> ignoredTrees) {
+        this.ignoredTrees = ignoredTrees;
+    }
+
     //endregion Overrides
 }
