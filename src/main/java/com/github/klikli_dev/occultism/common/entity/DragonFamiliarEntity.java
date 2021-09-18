@@ -22,22 +22,31 @@
 
 package com.github.klikli_dev.occultism.common.entity;
 
+import com.github.klikli_dev.occultism.registry.OccultismEffects;
 import com.google.common.collect.ImmutableList;
 
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.potion.EffectInstance;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
+import net.minecraftforge.common.Tags;
 
 public class DragonFamiliarEntity extends FamiliarEntity {
+
+    private static final int GREEDY_INCREMENT = 20 * 60 * 5;
 
     private static final DataParameter<Boolean> FEZ = EntityDataManager.createKey(DragonFamiliarEntity.class,
             DataSerializers.BOOLEAN);
@@ -47,6 +56,7 @@ public class DragonFamiliarEntity extends FamiliarEntity {
             DataSerializers.BOOLEAN);
 
     private float colorOffset;
+    private int greedyTimer;
 
     public DragonFamiliarEntity(EntityType<? extends DragonFamiliarEntity> type, World worldIn) {
         super(type, worldIn);
@@ -72,6 +82,27 @@ public class DragonFamiliarEntity extends FamiliarEntity {
                         && getPassengers().stream().anyMatch(e -> e instanceof GreedyFamiliarEntity);
             }
         });
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        if (greedyTimer > 0)
+            greedyTimer--;
+    }
+
+    @Override
+    protected ActionResultType getEntityInteractionResult(PlayerEntity playerIn, Hand hand) {
+        ItemStack stack = playerIn.getHeldItem(hand);
+        if (stack.getItem().isIn(Tags.Items.NUGGETS_GOLD)) {
+            greedyTimer += GREEDY_INCREMENT;
+            if (isServerWorld())
+                stack.shrink(1);
+            else
+                world.addParticle(ParticleTypes.HEART, this.getPosX(), this.getPosY() + 1, this.getPosZ(), 0, 0, 0);
+            return ActionResultType.func_233537_a_(!isServerWorld());
+        }
+        return super.getEntityInteractionResult(playerIn, hand);
     }
 
     @Override
@@ -117,6 +148,7 @@ public class DragonFamiliarEntity extends FamiliarEntity {
         compound.putBoolean("hasFez", this.hasFez());
         compound.putBoolean("hasEars", this.hasEars());
         compound.putBoolean("hasArms", this.hasArms());
+        compound.putInt("greedyTimer", this.greedyTimer);
     }
 
     @Override
@@ -125,11 +157,13 @@ public class DragonFamiliarEntity extends FamiliarEntity {
         this.setFez(compound.getBoolean("hasFez"));
         this.setEars(compound.getBoolean("hasEars"));
         this.setArms(compound.getBoolean("hasArms"));
+        this.greedyTimer = compound.getInt("greedyTimer");
     }
 
     @Override
     public Iterable<EffectInstance> getFamiliarEffects() {
-        return ImmutableList.of();
+        return ImmutableList.of(new EffectInstance(OccultismEffects.DRAGON_GREED.get(), 300,
+                this.greedyTimer > 0 ? 1 : 0, false, false));
     }
 
     public float getEyeColorR(float partialTicks) {

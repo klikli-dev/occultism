@@ -25,7 +25,9 @@ package com.github.klikli_dev.occultism.registry;
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.effect.DoubleJumpEffect;
 import com.github.klikli_dev.occultism.common.effect.ThirdEyeEffect;
+
 import net.minecraft.potion.Effect;
+import net.minecraft.potion.EffectType;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -35,4 +37,13 @@ public class OccultismEffects {
 
     public static final RegistryObject<ThirdEyeEffect> THIRD_EYE = EFFECTS.register("third_eye", ThirdEyeEffect::new);
     public static final RegistryObject<DoubleJumpEffect> DOUBLE_JUMP = EFFECTS.register("double_jump", DoubleJumpEffect::new);
+    public static final RegistryObject<ModEffect> DRAGON_GREED = EFFECTS.register("dragon_greed", () -> new ModEffect(EffectType.BENEFICIAL, 0xFFD700));
+    
+    private static class ModEffect extends Effect {
+
+        private ModEffect(EffectType type, int color) {
+            super(type, color);
+        }
+        
+    }
 }
