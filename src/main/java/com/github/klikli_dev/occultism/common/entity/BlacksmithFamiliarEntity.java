@@ -37,6 +37,7 @@ import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
@@ -51,12 +52,18 @@ import net.minecraftforge.common.Tags;
 
 public class BlacksmithFamiliarEntity extends FamiliarEntity {
 
+    private static final int UPGRADE_COST = 18;
+    private static final int MAX_IRON = UPGRADE_COST * 10;
+
     private static final DataParameter<Boolean> EARRING = EntityDataManager.createKey(BlacksmithFamiliarEntity.class,
             DataSerializers.BOOLEAN);
     private static final DataParameter<Boolean> MARIO_MOUSTACHE = EntityDataManager
             .createKey(BlacksmithFamiliarEntity.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Boolean> SQUARE_HAIR = EntityDataManager
             .createKey(BlacksmithFamiliarEntity.class, DataSerializers.BOOLEAN);
+
+    private static final DataParameter<Byte> BARS = EntityDataManager.createKey(BlacksmithFamiliarEntity.class,
+            DataSerializers.BYTE);
 
     private int ironCount;
 
@@ -82,10 +89,11 @@ public class BlacksmithFamiliarEntity extends FamiliarEntity {
     protected ActionResultType getEntityInteractionResult(PlayerEntity playerIn, Hand hand) {
         ItemStack stack = playerIn.getHeldItem(hand);
         Item item = stack.getItem();
-        if (item.isIn(Tags.Items.INGOTS_IRON) || item.isIn((Tags.Items.STORAGE_BLOCKS_IRON))) {
+        if (playerIn == getFamiliarOwner() && ironCount < MAX_IRON
+                && (item.isIn(Tags.Items.INGOTS_IRON) || item.isIn((Tags.Items.STORAGE_BLOCKS_IRON)))) {
             if (this.isServerWorld()) {
                 stack.shrink(1);
-                this.ironCount += item.isIn(Tags.Items.INGOTS_IRON) ? 1 : 9;
+                this.changeIronCount(item.isIn(Tags.Items.INGOTS_IRON) ? 1 : 9);
             }
             return ActionResultType.func_233537_a_(!this.isServerWorld());
         }
@@ -105,6 +113,7 @@ public class BlacksmithFamiliarEntity extends FamiliarEntity {
         this.dataManager.register(EARRING, false);
         this.dataManager.register(MARIO_MOUSTACHE, false);
         this.dataManager.register(SQUARE_HAIR, false);
+        this.dataManager.register(BARS, (byte) 0);
     }
 
     public boolean hasEarring() {
@@ -131,9 +140,30 @@ public class BlacksmithFamiliarEntity extends FamiliarEntity {
         this.dataManager.set(SQUARE_HAIR, b);
     }
 
+    private void setIronCount(int count) {
+        this.ironCount = count;
+        this.dataManager.set(BARS, (byte) Math.min(10, (this.ironCount / UPGRADE_COST)));
+    }
+
+    private void changeIronCount(int delta) {
+        this.setIronCount(ironCount + delta);
+    }
+
+    public byte getBars() {
+        return this.dataManager.get(BARS);
+    }
+
     @Override
     public Iterable<EffectInstance> getFamiliarEffects() {
         return ImmutableList.of();
+    }
+
+    @Override
+    protected void dropInventory() {
+        int blockCount = ironCount / 9;
+        int barCount = ironCount % 9;
+        this.entityDropItem(new ItemStack(Items.IRON_INGOT, barCount));
+        this.entityDropItem(new ItemStack(Items.IRON_BLOCK, blockCount));
     }
 
     @Override
@@ -151,13 +181,12 @@ public class BlacksmithFamiliarEntity extends FamiliarEntity {
         this.setEarring(compound.getBoolean("hasEarring"));
         this.setMarioMoustache(compound.getBoolean("hasMarioMoustache"));
         this.setSquareHair(compound.getBoolean("hasSquareHair"));
-        this.ironCount = compound.getInt("ironCount");
+        this.setIronCount(compound.getInt("ironCount"));
     }
 
     private static class UpgradeGoal extends Goal {
 
         private static final int MAX_COOLDOWN = 20 * 20;
-        private static final int COST = 19;
 
         private BlacksmithFamiliarEntity blacksmith;
         private IFamiliar target;
@@ -171,7 +200,7 @@ public class BlacksmithFamiliarEntity extends FamiliarEntity {
         @Override
         public boolean shouldExecute() {
             target = findTarget();
-            return blacksmith.ironCount >= COST && target != null && cooldown-- < 0;
+            return blacksmith.ironCount >= UPGRADE_COST && target != null && cooldown-- < 0;
         }
 
         @Override
@@ -200,7 +229,7 @@ public class BlacksmithFamiliarEntity extends FamiliarEntity {
             if (blacksmith.getDistanceSq(target.getEntity()) < 3) {
                 if (target.canBlacksmithUpgrade()) {
                     target.blacksmithUpgrade();
-                    blacksmith.ironCount -= COST;
+                    blacksmith.changeIronCount(-UPGRADE_COST);
                 }
                 target = null;
             }

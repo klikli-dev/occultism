@@ -27,10 +27,17 @@ import com.github.klikli_dev.occultism.client.model.entity.BlacksmithFamiliarMod
 import com.github.klikli_dev.occultism.common.entity.BlacksmithFamiliarEntity;
 import com.mojang.blaze3d.matrix.MatrixStack;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
+import net.minecraft.client.renderer.entity.IEntityRenderer;
 import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.client.renderer.entity.layers.LayerRenderer;
+import net.minecraft.client.renderer.model.ItemCameraTransforms;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.vector.Quaternion;
 
 public class BlacksmithFamiliarRenderer extends MobRenderer<BlacksmithFamiliarEntity, BlacksmithFamiliarModel> {
 
@@ -39,7 +46,7 @@ public class BlacksmithFamiliarRenderer extends MobRenderer<BlacksmithFamiliarEn
 
     public BlacksmithFamiliarRenderer(EntityRendererManager renderManagerIn) {
         super(renderManagerIn, new BlacksmithFamiliarModel(), 0.3f);
-
+        this.addLayer(new IngotsLayer(this));
     }
 
     @Override
@@ -51,5 +58,31 @@ public class BlacksmithFamiliarRenderer extends MobRenderer<BlacksmithFamiliarEn
     @Override
     public ResourceLocation getEntityTexture(BlacksmithFamiliarEntity entity) {
         return TEXTURES;
+    }
+
+    private class IngotsLayer extends LayerRenderer<BlacksmithFamiliarEntity, BlacksmithFamiliarModel> {
+        public IngotsLayer(IEntityRenderer<BlacksmithFamiliarEntity, BlacksmithFamiliarModel> renderer) {
+            super(renderer);
+        }
+
+        @Override
+        public void render(MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn,
+                BlacksmithFamiliarEntity entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks,
+                float ageInTicks, float netHeadYaw, float headPitch) {
+            matrixStackIn.push();
+            float scale = 0.5f;
+            matrixStackIn.scale(scale, scale, scale);
+            for (int i = 0; i < entitylivingbaseIn.getBars(); i++) {
+                matrixStackIn.push();
+                matrixStackIn.translate(i % 2 == 0 ? -0.3 : 0.3, 2.03 - i / 2 * 0.03, -0.15);
+                matrixStackIn.rotate(new Quaternion(-90, 0, i, true));
+                Minecraft.getInstance().getFirstPersonRenderer().renderItemSide(entitylivingbaseIn,
+                        new ItemStack(Items.IRON_INGOT), ItemCameraTransforms.TransformType.GROUND, false,
+                        matrixStackIn, bufferIn, packedLightIn);
+                matrixStackIn.pop();
+            }
+            matrixStackIn.pop();
+
+        }
     }
 }
