@@ -120,7 +120,7 @@ public class GreedyFamiliarModel extends EntityModel<GreedyFamiliarEntity> {
         modelRenderer.rotateAngleY = y;
         modelRenderer.rotateAngleZ = z;
     }
-    
+
     private float toRad(float deg) {
         return (float) Math.toRadians(deg);
     }
@@ -139,9 +139,14 @@ public class GreedyFamiliarModel extends EntityModel<GreedyFamiliarEntity> {
             this.rightArm.rotateAngleZ = -toRad(20);
             this.leftArm.rotateAngleZ = toRad(20);
             this.head.rotateAngleZ = MathHelper.sin(ageInTicks) * toRad(20);
-            this.rightLeg.rotateAngleX = MathHelper.cos(limbSwing * 0.5f) * 1.4f * limbSwingAmount;
-            this.leftLeg.rotateAngleX = MathHelper.cos(limbSwing * 0.5f + PI) * 1.4f * limbSwingAmount;
-        } else if (entityIn.isSitting()) {
+            if (entityIn.getRidingEntity() == null) {
+                this.rightLeg.rotateAngleX = MathHelper.cos(limbSwing * 0.5f) * 1.4f * limbSwingAmount;
+                this.leftLeg.rotateAngleX = MathHelper.cos(limbSwing * 0.5f + PI) * 1.4f * limbSwingAmount;
+            } else {
+                this.rightLeg.rotateAngleX = -PI / 2;
+                this.leftLeg.rotateAngleX = -PI / 2;
+            }
+        } else if (entityIn.isSitting() || entityIn.getRidingEntity() != null) {
             this.rightArm.rotateAngleX = 0;
             this.leftArm.rotateAngleX = 0;
             this.rightLeg.rotateAngleX = -PI / 2;
@@ -153,6 +158,6 @@ public class GreedyFamiliarModel extends EntityModel<GreedyFamiliarEntity> {
             this.leftLeg.rotateAngleX = MathHelper.cos(limbSwing * 0.5f + PI) * 1.4f * limbSwingAmount;
         }
         this.chest2.rotateAngleX = MathHelper.cos(limbSwing * 0.35f + PI) * 0.5f * limbSwingAmount + PI / 12;
-        
+
     }
 }

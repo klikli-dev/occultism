@@ -96,6 +96,7 @@
   "item.occultism.spawn_egg.familiar_deer": "Deer Familiar Spawn Egg",
   "item.occultism.spawn_egg.familiar_cthulhu": "Cthulhu Familiar Spawn Egg",
   "item.occultism.spawn_egg.familiar_devil": "Devil Familiar Spawn Egg",
+  "item.occultism.spawn_egg.familiar_dragon": "Dragon Familiar Spawn Egg",
   "_comment": "# Item Messages",
   "_comment": "## Book of calling - also contains messages triggered in related network messages",
   "item.occultism.book_of_calling.message_target_uuid_no_match": "This spirit is not currently bound to this book. Shift-Click the spirit to bind it to this book.",
@@ -199,6 +200,7 @@
   "entity.occultism.deer_familiar": "Deer Familiar",
   "entity.occultism.cthulhu_familiar": "Cthulhu Familiar",
   "entity.occultism.devil_familiar": "Devil Familiar",
+  "entity.occultism.dragon_familiar": "Dragon Familiar",
   "_comment": "# Spirit Jobs",
   "job.occultism.lumberjack": "Lumberjack",
   "job.occultism.crush_tier1": "Slow Crusher",
@@ -483,6 +485,7 @@
   "_comment": "Effects",
   "effect.occultism.third_eye": "Third Eye",
   "effect.occultism.double_jump": "Multi Jump",
+  "effect.occultism.dragon_greed": "Dragon's Greed",
   "_comment": "Sounds",
   "occultism.subtitle.chalk": "Chalk",
   "occultism.subtitle.brush": "Brush",
@@ -707,6 +710,10 @@
   "advancements.occultism.familiar.deer.title": "Demonic Poop",
   "advancements.occultism.familiar.devil.description": "Command your devil familiar to breath fire",
   "advancements.occultism.familiar.devil.title": "Hellfire",
+  "advancements.occultism.familiar.dragon_nugget.description": "Give a gold nugget to your dragon familiar",
+  "advancements.occultism.familiar.dragon_nugget.title": "Deal!",
+  "advancements.occultism.familiar.dragon_ride.description": "Let your greedy familiar pick something up while riding a dragon familiar",
+  "advancements.occultism.familiar.dragon_ride.title": "Working together",
   "advancements.occultism.familiar.greedy.description": "Let your greedy familiar pick something up for you",
   "advancements.occultism.familiar.greedy.title": "Errand Boy",
   "advancements.occultism.familiar.party.description": "Get your familiar to dance",
@@ -714,5 +721,5 @@
   "advancements.occultism.familiar.rare.description": "Obtain a rare familiar variant",
   "advancements.occultism.familiar.rare.title": "Rare Friend",
   "advancements.occultism.familiar.root.description": "Use a ritual to summon a familiar",
-  "advancements.occultism.familiar.root.title": "Occultism: Friends"    
+  "advancements.occultism.familiar.root.title": "Occultism: Friends"  
 }

@@ -67,6 +67,12 @@ public class ENUSProvider extends LanguageProvider {
         
         advancementTitle("capture", "Catch them all!");
         advancementDescr("capture", "Trap your familiar in a familiar ring");
+        
+        advancementTitle("dragon_nugget", "Deal!");
+        advancementDescr("dragon_nugget", "Give a gold nugget to your dragon familiar");
+        
+        advancementTitle("dragon_ride", "Working together");
+        advancementDescr("dragon_ride", "Let your greedy familiar pick something up while riding a dragon familiar");
     }
 
     private void advancementTitle(String name, String s) {

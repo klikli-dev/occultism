@@ -24,14 +24,17 @@ package com.github.klikli_dev.occultism.handlers;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.item.tool.ButcherKnifeItem;
+import com.github.klikli_dev.occultism.registry.OccultismEffects;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.github.klikli_dev.occultism.util.Math3DUtil;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
+import net.minecraftforge.event.entity.living.LivingExperienceDropEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -63,5 +66,16 @@ public class LootEventHandler {
                 }
             }
         }
+    }
+    
+    @SubscribeEvent
+    public static void onExpDrop(LivingExperienceDropEvent event) {
+        if (event.getDroppedExperience() == 0)
+            return;
+        
+        EffectInstance greed = event.getAttackingPlayer().getActivePotionEffect(OccultismEffects.DRAGON_GREED.get());
+        if (greed == null)
+            return;
+        event.setDroppedExperience(event.getDroppedExperience() + greed.getAmplifier() + 1);
     }
 }

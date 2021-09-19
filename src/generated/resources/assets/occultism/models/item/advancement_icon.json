@@ -36,6 +36,12 @@
         "minecraft:custom_model_data": 5.0
       },
       "model": "occultism:item/advancement/hat_icon"
+    },
+    {
+      "predicate": {
+        "minecraft:custom_model_data": 6.0
+      },
+      "model": "occultism:item/advancement/dragon_icon"
     }
   ]
 }
