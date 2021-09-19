@@ -70,8 +70,9 @@ public class DeerFamiliarEntity extends FamiliarEntity {
         this.goalSelector.addGoal(2, new LookAtGoal(this, PlayerEntity.class, 8));
         this.goalSelector.addGoal(3, new FollowOwnerGoal(this, 1, 3, 1));
         this.goalSelector.addGoal(4, new EatGrassGoal(this));
-        this.goalSelector.addGoal(5, new WaterAvoidingRandomWalkingGoal(this, 1.0D));
-        this.goalSelector.addGoal(6, new FollowMobGoal(this, 1, 3, 7));
+        this.goalSelector.addGoal(5, new DevilFamiliarEntity.AttackGoal(this));
+        this.goalSelector.addGoal(6, new WaterAvoidingRandomWalkingGoal(this, 1.0D));
+        this.goalSelector.addGoal(7, new FollowMobGoal(this, 1, 3, 7));
     }
 
     @Override
