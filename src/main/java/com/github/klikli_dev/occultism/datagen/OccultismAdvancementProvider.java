@@ -118,6 +118,16 @@ public class OccultismAdvancementProvider implements IDataProvider {
                         FrameType.TASK, true, true, false)
                 .withCriterion("capture", FamiliarTrigger.of(FamiliarTrigger.Type.CAPTURE))
                 .build(new ResourceLocation(Occultism.MODID, "occultism/familiar/capture")));
+        add(Advancement.Builder.builder().withParent(root)
+                .withDisplay(Items.GOLD_NUGGET, title("dragon_nugget"), descr("dragon_nugget"), null, FrameType.TASK,
+                        true, true, false)
+                .withCriterion("dragon_nugget", FamiliarTrigger.of(FamiliarTrigger.Type.DRAGON_NUGGET))
+                .build(new ResourceLocation(Occultism.MODID, "occultism/familiar/dragon_nugget")));
+        add(Advancement.Builder.builder().withParent(root)
+                .withDisplay(icon(6), title("dragon_ride"), descr("dragon_ride"), null, FrameType.TASK, true, true,
+                        false)
+                .withCriterion("dragon_ride", FamiliarTrigger.of(FamiliarTrigger.Type.DRAGON_RIDE))
+                .build(new ResourceLocation(Occultism.MODID, "occultism/familiar/dragon_ride")));
     }
 
     private static TranslationTextComponent text(String name, String type) {

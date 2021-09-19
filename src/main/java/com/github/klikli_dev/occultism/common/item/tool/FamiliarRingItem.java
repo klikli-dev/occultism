@@ -119,6 +119,8 @@ public class FamiliarRingItem extends Item {
             if (this.getFamiliar(world) != null)
                 return false;
             this.setFamiliar(familiar);
+            this.getFamiliar(world).getEntity().stopRiding();
+            this.getFamiliar(world).getEntity().removePassengers();
             this.getFamiliar(world).getEntity().remove();
             return true;
         }

@@ -10,34 +10,34 @@
     "tag": "forge:horses",
     "display_name": "ritual.occultism.sacrifice.horses"
   },
-  "entity_to_summon": "occultism:devil_familiar",
+  "entity_to_summon": "occultism:dragon_familiar",
   "ritual_dummy": {
-    "item": "occultism:ritual_dummy/familiar_devil"
+    "item": "occultism:ritual_dummy/dragon_familiar"
   },
   "ingredients": [
     {
       "item": "minecraft:lava_bucket"
     },
     {
-      "item": "minecraft:lava_bucket"
+      "item": "minecraft:flint_and_steel"
     },
     {
-      "item": "minecraft:lava_bucket"
+      "tag": "forge:storage_blocks/coal"
     },
     {
-      "item": "minecraft:lava_bucket"
+      "tag": "forge:storage_blocks/quartz"
     },
     {
-      "tag": "forge:bones"
+      "tag": "forge:storage_blocks/gold"
     },
     {
-      "tag": "forge:bones"
+      "tag": "forge:gunpowder"
     },
     {
-      "tag": "forge:bones"
+      "tag": "forge:obsidian"
     },
     {
-      "tag": "forge:bones"
+      "tag": "forge:obsidian"
     }
   ],
   "result": {
