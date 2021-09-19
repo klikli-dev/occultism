@@ -44,6 +44,7 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Effects;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.MathHelper;
@@ -52,6 +53,8 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
 import net.minecraftforge.common.Tags;
+
+import java.util.Collections;
 
 public class DragonFamiliarEntity extends FamiliarEntity {
 
@@ -64,18 +67,18 @@ public class DragonFamiliarEntity extends FamiliarEntity {
     private static final DataParameter<Boolean> ARMS = EntityDataManager.createKey(DragonFamiliarEntity.class,
             DataSerializers.BOOLEAN);
 
-    private float colorOffset;
+    private final float colorOffset;
     private int greedyTimer;
     private int flyingTimer, flyingTimer0, wingspan, wingspan0;
 
     public DragonFamiliarEntity(EntityType<? extends DragonFamiliarEntity> type, World worldIn) {
         super(type, worldIn);
-        colorOffset = this.getRNG().nextFloat() * 2;
+        this.colorOffset = this.getRNG().nextFloat() * 2;
     }
 
     @Override
     public void setFamiliarOwner(LivingEntity owner) {
-        if (hasFez())
+        if (this.hasFez())
             OccultismAdvancements.FAMILIAR.trigger(owner, FamiliarTrigger.Type.RARE_VARIANT);
         super.setFamiliarOwner(owner);
     }
@@ -99,7 +102,7 @@ public class DragonFamiliarEntity extends FamiliarEntity {
             @Override
             public boolean shouldExecute() {
                 return super.shouldExecute()
-                        && getPassengers().stream().anyMatch(e -> e instanceof GreedyFamiliarEntity);
+                        && DragonFamiliarEntity.this.getPassengers().stream().anyMatch(e -> e instanceof GreedyFamiliarEntity);
             }
         });
         this.goalSelector.addGoal(4, new FollowOwnerGoal(this, 1, 3, 1));
@@ -126,8 +129,8 @@ public class DragonFamiliarEntity extends FamiliarEntity {
     @Override
     public void tick() {
         super.tick();
-        if (greedyTimer > 0)
-            greedyTimer--;
+        if (this.greedyTimer > 0)
+            this.greedyTimer--;
 
         if (!this.isOnGround()) {
             Vector3d motion = this.getMotion();
@@ -137,41 +140,41 @@ public class DragonFamiliarEntity extends FamiliarEntity {
             }
         }
 
-        flyingTimer0 = flyingTimer;
-        wingspan0 = wingspan;
-        if (!isServerWorld())
-            if (isOnGround()) {
-                wingspan -= 5;
-                if (wingspan < 0)
-                    wingspan = 0;
+        this.flyingTimer0 = this.flyingTimer;
+        this.wingspan0 = this.wingspan;
+        if (!this.isServerWorld())
+            if (this.isOnGround()) {
+                this.wingspan -= 5;
+                if (this.wingspan < 0)
+                    this.wingspan = 0;
 
             } else {
-                flyingTimer++;
-                wingspan += 5;
-                if (wingspan > 30)
-                    wingspan = 30;
+                this.flyingTimer++;
+                this.wingspan += 5;
+                if (this.wingspan > 30)
+                    this.wingspan = 30;
             }
     }
 
     public float getFlyingTimer(float partialTicks) {
-        return MathHelper.lerp(partialTicks, flyingTimer0, flyingTimer);
+        return MathHelper.lerp(partialTicks, this.flyingTimer0, this.flyingTimer);
     }
 
     public float getWingspan(float partialTicks) {
-        return MathHelper.lerp(partialTicks, wingspan0, wingspan);
+        return MathHelper.lerp(partialTicks, this.wingspan0, this.wingspan);
     }
 
     @Override
     protected ActionResultType getEntityInteractionResult(PlayerEntity playerIn, Hand hand) {
         ItemStack stack = playerIn.getHeldItem(hand);
         if (stack.getItem().isIn(Tags.Items.NUGGETS_GOLD)) {
-            OccultismAdvancements.FAMILIAR.trigger(getFamiliarOwner(), FamiliarTrigger.Type.DRAGON_NUGGET);
-            greedyTimer += GREEDY_INCREMENT;
-            if (isServerWorld())
+            OccultismAdvancements.FAMILIAR.trigger(this.getFamiliarOwner(), FamiliarTrigger.Type.DRAGON_NUGGET);
+            this.greedyTimer += GREEDY_INCREMENT;
+            if (this.isServerWorld())
                 stack.shrink(1);
             else
-                world.addParticle(ParticleTypes.HEART, this.getPosX(), this.getPosY() + 1, this.getPosZ(), 0, 0, 0);
-            return ActionResultType.func_233537_a_(!isServerWorld());
+                this.world.addParticle(ParticleTypes.HEART, this.getPosX(), this.getPosY() + 1, this.getPosZ(), 0, 0, 0);
+            return ActionResultType.func_233537_a_(!this.isServerWorld());
         }
         return super.getEntityInteractionResult(playerIn, hand);
     }
@@ -233,19 +236,22 @@ public class DragonFamiliarEntity extends FamiliarEntity {
 
     @Override
     public Iterable<EffectInstance> getFamiliarEffects() {
-        return ImmutableList.of(new EffectInstance(OccultismEffects.DRAGON_GREED.get(), 300,
-                this.greedyTimer > 0 ? 1 : 0, false, false));
+        if (this.isEffectEnabled()) {
+            return ImmutableList.of(new EffectInstance(OccultismEffects.DRAGON_GREED.get(), 300,
+                    this.greedyTimer > 0 ? 1 : 0, false, false));
+        }
+        return Collections.emptyList();
     }
 
     public float getEyeColorR(float partialTicks) {
-        return Math.abs(MathHelper.sin((ticksExisted + partialTicks + 5) / 20 + colorOffset)) * 0.8f + 0.2f;
+        return Math.abs(MathHelper.sin((this.ticksExisted + partialTicks + 5) / 20 + this.colorOffset)) * 0.8f + 0.2f;
     }
 
     public float getEyeColorG(float partialTicks) {
-        return Math.abs(MathHelper.sin((ticksExisted + partialTicks + 10) / 30 + colorOffset)) * 0.8f + 0.2f;
+        return Math.abs(MathHelper.sin((this.ticksExisted + partialTicks + 10) / 30 + this.colorOffset)) * 0.8f + 0.2f;
     }
 
     public float getEyeColorB(float partialTicks) {
-        return Math.abs(MathHelper.sin((ticksExisted + partialTicks) / 40 + colorOffset)) * 0.8f + 0.2f;
+        return Math.abs(MathHelper.sin((this.ticksExisted + partialTicks) / 40 + this.colorOffset)) * 0.8f + 0.2f;
     }
 }

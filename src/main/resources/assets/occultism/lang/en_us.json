@@ -422,6 +422,10 @@
   "ritual.occultism.familiar_devil.started": "Started summoning devil familiar.",
   "ritual.occultism.familiar_devil.finished": "Summoned devil familiar successfully.",
   "ritual.occultism.familiar_devil.interrupted": "Summoning of devil familiar interrupted.",
+  "ritual.occultism.familiar_dragon.conditions": "Not all requirements for this ritual are met.",
+  "ritual.occultism.familiar_dragon.started": "Started summoning dragon familiar.",
+  "ritual.occultism.familiar_dragon.finished": "Summoned dragon familiar successfully.",
+  "ritual.occultism.familiar_dragon.interrupted": "Summoning of dragon familiar interrupted.",
   "ritual.occultism.summon_wild_otherworld_bird.conditions": "Not all requirements for this ritual are met.",
   "ritual.occultism.summon_wild_otherworld_bird.started": "Started summoning wild drikwing.",
   "ritual.occultism.summon_wild_otherworld_bird.finished": "Summoned wild drikwing successfully.",
@@ -508,6 +512,7 @@
   "key.occultism.familiar.deer_familiar": "Toggle Ring Effect: Deer",
   "key.occultism.familiar.cthulhu_familiar": "Toggle Ring Effect: Cthulhu",
   "key.occultism.familiar.devil_familiar": "Toggle Ring Effect: Devil",
+  "key.occultism.familiar.dragon_familiar": "Toggle Ring Effect: Dragon",
   "_comment": "JEI",
   "occultism.jei.spirit_fire": "Spiritfire",
   "occultism.jei.crushing": "Crusher Spirit",
@@ -551,6 +556,8 @@
   "message.occultism.familiar.cthulhu_familiar.disabled": "Ring Effect - Cthulhu: Disabled",
   "message.occultism.familiar.devil_familiar.enabled": "Ring Effect - Devil: Enabled",
   "message.occultism.familiar.devil_familiar.disabled": "Ring Effect - Devil: Disabled",
+  "message.occultism.familiar.dragon_familiar.enabled": "Ring Effect - Dragon: Enabled",
+  "message.occultism.familiar.dragon_familiar.disabled": "Ring Effect - Dragon: Disabled",
   "_comment": "Pentacles",
   "pentacle.occultism.craft_afrit": "Sevira's Permanent Confinement",
   "pentacle.occultism.craft_djinni": "Strigeor's Higher Binding",
@@ -629,13 +636,16 @@
   "item.occultism.ritual_dummy.familiar_bat.tooltip": "Bat familiars provide night vision to their master.",
 
   "item.occultism.ritual_dummy.familiar_deer": "Ritual: Summon Deer Familiar",
-  "item.occultism.ritual_dummy.familiar_deer.tooltip": "Deer familiars provides jump boost to their master.",
+  "item.occultism.ritual_dummy.familiar_deer.tooltip": "Deer familiars provide jump boost to their master.",
 
   "item.occultism.ritual_dummy.familiar_cthulhu": "Ritual: Summon Cthulhu Familiar",
-  "item.occultism.ritual_dummy.familiar_cthulhu.tooltip": "The cthulhu familiars provides water breathing to their master.",
+  "item.occultism.ritual_dummy.familiar_cthulhu.tooltip": "The cthulhu familiars provide water breathing to their master.",
 
   "item.occultism.ritual_dummy.familiar_devil": "Ritual: Summon Devil Familiar",
-  "item.occultism.ritual_dummy.familiar_devil.tooltip": "The devil familiars provides fire resistance to their master.",
+  "item.occultism.ritual_dummy.familiar_devil.tooltip": "The devil familiars provide fire resistance to their master.",
+
+  "item.occultism.ritual_dummy.familiar_dragon": "Ritual: Summon Dragon Familiar",
+  "item.occultism.ritual_dummy.familiar_dragon.tooltip": "The dragon familiars provide increased experience gain to their master.",
 
   "item.occultism.ritual_dummy.possess_enderman": "Ritual: Summon Possessed Enderman",
   "item.occultism.ritual_dummy.possess_enderman.tooltip": "The possessed Enderman will always drop at least one ender pearl when killed.",
