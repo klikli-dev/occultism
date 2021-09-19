@@ -243,9 +243,11 @@ public class DeerFamiliarModel extends EntityModel<DeerFamiliarEntity> {
     }
 
     @Override
-    public void prepareMobModel(DeerFamiliarEntity entityIn, float limbSwing, float limbSwingAmount,
-                                float partialTick) {
-        this.neck.xRot = entityIn.getNeckRot(partialTick);
+    public void setLivingAnimations(DeerFamiliarEntity entityIn, float limbSwing, float limbSwingAmount,
+            float partialTick) {
+        this.neck.rotateAngleX = entityIn.getNeckRot(partialTick);
+        
+        this.hammerHandle.showModel = entityIn.hasBlacksmithUpgrade();
     }
 
     @Override

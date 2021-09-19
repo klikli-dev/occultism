@@ -22,22 +22,32 @@
 
 package com.github.klikli_dev.occultism.common.entity;
 
+import java.util.EnumSet;
+
 import com.github.klikli_dev.occultism.common.advancement.FamiliarTrigger;
 import com.github.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.google.common.collect.ImmutableList;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.ai.goal.Goal;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.EffectInstance;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Hand;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
+import net.minecraftforge.common.Tags;
 
 public class BlacksmithFamiliarEntity extends FamiliarEntity {
 
@@ -47,6 +57,8 @@ public class BlacksmithFamiliarEntity extends FamiliarEntity {
             .createKey(BlacksmithFamiliarEntity.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Boolean> SQUARE_HAIR = EntityDataManager
             .createKey(BlacksmithFamiliarEntity.class, DataSerializers.BOOLEAN);
+
+    private int ironCount;
 
     public BlacksmithFamiliarEntity(EntityType<? extends BlacksmithFamiliarEntity> type, World worldIn) {
         super(type, worldIn);
@@ -59,6 +71,25 @@ public class BlacksmithFamiliarEntity extends FamiliarEntity {
         this.setMarioMoustache(this.getRNG().nextDouble() < 0.5);
         this.setSquareHair(this.getRNG().nextDouble() < 0.5);
         return super.onInitialSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
+    }
+
+    @Override
+    protected void registerGoals() {
+        this.goalSelector.addGoal(1, new UpgradeGoal(this));
+    }
+
+    @Override
+    protected ActionResultType getEntityInteractionResult(PlayerEntity playerIn, Hand hand) {
+        ItemStack stack = playerIn.getHeldItem(hand);
+        Item item = stack.getItem();
+        if (item.isIn(Tags.Items.INGOTS_IRON) || item.isIn((Tags.Items.STORAGE_BLOCKS_IRON))) {
+            if (this.isServerWorld()) {
+                stack.shrink(1);
+                this.ironCount += item.isIn(Tags.Items.INGOTS_IRON) ? 1 : 9;
+            }
+            return ActionResultType.func_233537_a_(!this.isServerWorld());
+        }
+        return super.getEntityInteractionResult(playerIn, hand);
     }
 
     @Override
@@ -111,6 +142,7 @@ public class BlacksmithFamiliarEntity extends FamiliarEntity {
         compound.putBoolean("hasEarring", this.hasEarring());
         compound.putBoolean("hasMarioMoustache", this.hasMarioMoustache());
         compound.putBoolean("hasSquareHair", this.hasSquareHair());
+        compound.putInt("ironCount", this.ironCount);
     }
 
     @Override
@@ -119,5 +151,76 @@ public class BlacksmithFamiliarEntity extends FamiliarEntity {
         this.setEarring(compound.getBoolean("hasEarring"));
         this.setMarioMoustache(compound.getBoolean("hasMarioMoustache"));
         this.setSquareHair(compound.getBoolean("hasSquareHair"));
+        this.ironCount = compound.getInt("ironCount");
+    }
+
+    private static class UpgradeGoal extends Goal {
+
+        private static final int MAX_COOLDOWN = 20 * 20;
+        private static final int COST = 19;
+
+        private BlacksmithFamiliarEntity blacksmith;
+        private IFamiliar target;
+        private int cooldown = MAX_COOLDOWN;
+
+        public UpgradeGoal(BlacksmithFamiliarEntity blacksmith) {
+            this.blacksmith = blacksmith;
+            this.setMutexFlags(EnumSet.of(Goal.Flag.JUMP, Goal.Flag.MOVE));
+        }
+
+        @Override
+        public boolean shouldExecute() {
+            target = findTarget();
+            return blacksmith.ironCount >= COST && target != null && cooldown-- < 0;
+        }
+
+        @Override
+        public boolean shouldContinueExecuting() {
+            return target != null;
+        }
+
+        public void startExecuting() {
+            blacksmith.getNavigator().tryMoveToEntityLiving(target.getEntity(), 0.7);
+        }
+
+        public void resetTask() {
+            blacksmith.getNavigator().clearPath();
+            cooldown = MAX_COOLDOWN;
+            target = null;
+        }
+
+        @Override
+        public void tick() {
+            if (target == null)
+                return;
+
+            if (!blacksmith.hasPath())
+                blacksmith.getNavigator().tryMoveToEntityLiving(target.getEntity(), 0.7);
+
+            if (blacksmith.getDistanceSq(target.getEntity()) < 3) {
+                if (target.canBlacksmithUpgrade()) {
+                    target.blacksmithUpgrade();
+                    blacksmith.ironCount -= COST;
+                }
+                target = null;
+            }
+        }
+
+        private IFamiliar findTarget() {
+            for (LivingEntity e : blacksmith.world.getEntitiesWithinAABB(LivingEntity.class,
+                    blacksmith.getBoundingBox().grow(4), e -> familiarPred(e))) {
+                return (IFamiliar) e;
+            }
+            return null;
+        }
+
+        private boolean familiarPred(Entity e) {
+            if (!(e instanceof IFamiliar))
+                return false;
+            IFamiliar familiar = (IFamiliar) e;
+            LivingEntity owner = familiar.getFamiliarOwner();
+            return familiar.canBlacksmithUpgrade() && owner != null && owner == blacksmith.getFamiliarOwner();
+        }
+
     }
 }
