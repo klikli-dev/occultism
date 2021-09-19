@@ -10,11 +10,8 @@
       "text": "Руды Потустороннего мира обычно можно добыть только с помощью металлических инструментов Потустороннего мира. $(item)Infused Pickaxe$() это временное решение проблемы с курицей и яйцом. Можно настроить кристалл и наполнить его $(thing)Djinni$() что позволит собрать руды, но эти инструменты будут ОЧЕНЬ непрочными."
     },
     {
-      "type": "summoning",
-      "heading": "Infusion",
-      "pentacle": "$(l:pentacles/craft_djinni)Strigeor's Higher Binding$(/l)",
-      "activation_item": "occultism:book_of_binding_bound_djinni",
-      "ingredients": "$(li)1x $(item)Spirit Attuned Pickaxe Head $()$(li)2x $(item)Silver Ingot $()$(li)2x $(item)Stick $()"
+      "type": "occultism:ritual",
+      "recipe": "occultism:ritual/craft_infused_pickaxe"
     }
   ]
 }

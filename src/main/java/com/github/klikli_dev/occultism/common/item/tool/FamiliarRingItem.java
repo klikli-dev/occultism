@@ -22,7 +22,9 @@
 
 package com.github.klikli_dev.occultism.common.item.tool;
 
+import com.github.klikli_dev.occultism.common.advancement.FamiliarTrigger;
 import com.github.klikli_dev.occultism.common.entity.IFamiliar;
+import com.github.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.github.klikli_dev.occultism.util.ItemNBTUtil;
 import com.github.klikli_dev.occultism.util.TextUtil;
 import net.minecraft.world.entity.Entity;
@@ -77,6 +79,7 @@ public class FamiliarRingItem extends Item {
         if (!playerIn.level.isClientSide && target instanceof IFamiliar) {
             IFamiliar familiar = (IFamiliar) target;
             if ((familiar.getFamiliarOwner() == playerIn || familiar.getFamiliarOwner() == null) && this.getCurio(stack).captureFamiliar(playerIn.level, familiar)) {
+                OccultismAdvancements.FAMILIAR.trigger(playerIn, FamiliarTrigger.Type.CAPTURE);
                 CompoundTag tag = stack.getOrCreateTag();
                 tag.putBoolean("occupied", true);
                 ItemNBTUtil.setBoundSpiritName(stack, familiar.getEntity().getDisplayName().getString());

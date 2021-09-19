@@ -150,6 +150,7 @@ public class ThirdEyeEffectRenderer {
 
     /**
      * Uncovers the otherworld blocks within MAX_THIRD_EYE_DISTANCE of the player.
+     *
      * @param player the player.
      * @param level the level.
      */
@@ -172,6 +173,8 @@ public class ThirdEyeEffectRenderer {
 
     public void onThirdEyeTick(TickEvent.PlayerTickEvent event) {
         boolean hasGoggles = CuriosUtil.hasGoggles(event.player);
+        if (hasGoggles)
+            return;
 
         MobEffectInstance effect = event.player.getEffect(OccultismEffects.THIRD_EYE.get());
         int duration = effect == null ? 0 : effect.getDuration();
@@ -180,24 +183,25 @@ public class ThirdEyeEffectRenderer {
                 this.thirdEyeActiveLastTick = true;
 
                 //load shader, but only if we are on the natural effects
-                if(!hasGoggles && !Occultism.CLIENT_CONFIG.visuals.disableDemonsDreamShaders.get()){
+                if(!Occultism.CLIENT_CONFIG.visuals.disableDemonsDreamShaders.get()){
                     Minecraft.getInstance().tell(() -> Minecraft.getInstance().gameRenderer.loadEffect(THIRD_EYE_SHADER));
                 }
             }
             //also handle goggles in one if we have them
-            this.uncoverBlocks(event.player, event.player.level, hasGoggles ? OtherworldBlockTier.TWO: OtherworldBlockTier.ONE);
+            this.uncoverBlocks(event.player, event.player.level, OtherworldBlockTier.ONE);
         }
         else {
             //if we don't have goggles, cover blocks
-            if(!hasGoggles){
-                //Try twice, but on the last effect tick, clear the list.
-                this.resetUncoveredBlocks(event.player.level, duration == 0);
-            }
+            //Try twice, but on the last effect tick, clear the list.
+            this.resetUncoveredBlocks(event.player.level, duration == 0);
 
             if (this.thirdEyeActiveLastTick) {
                 this.thirdEyeActiveLastTick = false;
-                //unload shader
-                Minecraft.getInstance().tell(() -> Minecraft.getInstance().gameRenderer.shutdownEffect());
+
+                if (!Occultism.CLIENT_CONFIG.visuals.disableDemonsDreamShaders.get()) {
+                    //unload shader
+                    Minecraft.getInstance().tell(() -> Minecraft.getInstance().gameRenderer.shutdownEffect());
+                }
             }
         }
     }
@@ -208,22 +212,18 @@ public class ThirdEyeEffectRenderer {
             if(!this.gogglesActiveLastTick){
                 this.gogglesActiveLastTick = true;
             }
-
-            //only uncover if the third eye tick did not already do that
-            if(!this.thirdEyeActiveLastTick){
-                this.uncoverBlocks(event.player, event.player.level, OtherworldBlockTier.TWO);
-            }
+            this.uncoverBlocks(event.player, event.player.level, OtherworldBlockTier.TWO);
         }
         else {
             if (this.gogglesActiveLastTick) {
                 this.gogglesActiveLastTick = false;
-            }
 
-            //only cover blocks if third eye is not active and still needs them visible.
-            this.resetUncoveredBlocks(event.player.level, true);
-            if(this.thirdEyeActiveLastTick){
-                //this uncovers tier 1 blocks that we still can see under normal third eye
-                this.uncoverBlocks(event.player, event.player.level, OtherworldBlockTier.ONE);
+                //only cover blocks if third eye is not active and still needs them visible.
+                this.resetUncoveredBlocks(event.player.level, true);
+                if (this.thirdEyeActiveLastTick) {
+                    //this uncovers tier 1 blocks that we still can see under normal third eye
+                    this.uncoverBlocks(event.player, event.player.level, OtherworldBlockTier.ONE);
+                }
             }
         }
     }

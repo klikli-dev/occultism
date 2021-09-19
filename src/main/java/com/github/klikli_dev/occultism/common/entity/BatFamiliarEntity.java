@@ -37,6 +37,7 @@ import net.minecraft.world.entity.ai.control.FlyingMoveControl;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
+import net.minecraft.world.entity.ambient.Bat;
 import net.minecraft.world.entity.animal.FlyingAnimal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -45,6 +46,7 @@ import net.minecraft.world.phys.Vec3;
 
 import java.util.Collections;
 import java.util.EnumSet;
+import java.util.List;
 
 public class BatFamiliarEntity extends FamiliarEntity implements FlyingAnimal {
 
@@ -63,6 +65,7 @@ public class BatFamiliarEntity extends FamiliarEntity implements FlyingAnimal {
         SitGoal sitGoal = new SitGoal(this);
         sitGoal.setFlags(EnumSet.of(Goal.Flag.JUMP, Goal.Flag.MOVE, Goal.Flag.LOOK));
         this.goalSelector.addGoal(2, sitGoal);
+        this.goalSelector.addGoal(3, new CannibalismGoal(this));
         this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 8));
         this.goalSelector.addGoal(4, new FollowOwnerGoal(this, 1, 4, 1));
         this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 1));
@@ -117,5 +120,38 @@ public class BatFamiliarEntity extends FamiliarEntity implements FlyingAnimal {
     @Override
     public boolean isFlying() {
         return !this.onGround;
+    }
+
+    private static class CannibalismGoal extends Goal {
+
+        BatFamiliarEntity bat;
+        Bat nearby;
+
+        private CannibalismGoal(BatFamiliarEntity bat) {
+            this.bat = bat;
+        }
+
+        @Override
+        public boolean shouldExecute() {
+            nearby = nearbyBat();
+            return nearby != null;
+        }
+
+        @Override
+        public void startExecuting() {
+            if (nearby != null) {
+                nearby.attackEntityFrom(DamageSource.causeMobDamage(bat), 10);
+                OccultismAdvancements.FAMILIAR.trigger(bat.getFamiliarOwner(), FamiliarTrigger.Type.BAT_EAT);
+            }
+        }
+
+        private Bat nearbyBat() {
+            Bat nearby = null;
+            List<Bat> bats = bat.level.getEntitiesOfClass(Bat.class, bat.getBoundingBox().inflate(2));
+            if (!bats.isEmpty())
+                nearby = bats.get(0);
+            return nearby;
+        }
+
     }
 }

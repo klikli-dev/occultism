@@ -22,6 +22,8 @@
 
 package com.github.klikli_dev.occultism.common.entity;
 
+import com.github.klikli_dev.occultism.common.advancement.FamiliarTrigger;
+import com.github.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -106,6 +108,13 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
     }
 
     @Override
+    public void setFamiliarOwner(LivingEntity owner) {
+        if (hasHat())
+            OccultismAdvancements.FAMILIAR.trigger(owner, FamiliarTrigger.Type.RARE_VARIANT);
+        super.setFamiliarOwner(owner);
+    }
+
+    @Override
     public void updateSwimming() {
         if (!this.level.isClientSide) {
             if (this.isInWater()) {
@@ -128,6 +137,7 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
             if (source.getEntity() == this.getFamiliarOwner()) {
                 this.setAngry(true);
                 this.setSitting(true);
+                OccultismAdvancements.FAMILIAR.trigger(this.getFamiliarOwner(), FamiliarTrigger.Type.CTHULHU_SAD);
             } else if (source.getEntity() != null) {
                 Vec3 tp = DefaultRandomPos.getPos(this, 8, 4);
                 this.absMoveTo(tp.x() + 0.5, tp.y(), tp.z() + 0.5, this.yRotO,

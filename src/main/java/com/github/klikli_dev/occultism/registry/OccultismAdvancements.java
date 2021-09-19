@@ -22,18 +22,19 @@
 
 package com.github.klikli_dev.occultism.registry;
 
-import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.common.advancement.FamiliarTrigger;
 import com.github.klikli_dev.occultism.common.advancement.RitualTrigger;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.resources.ResourceLocation;
 
 public class OccultismAdvancements {
-    //region Fields
+    // region Fields
     public static RitualTrigger RITUAL;
-    //endregion Fields
+    public static FamiliarTrigger FAMILIAR;
+    // endregion Fields
 
-    public static void register(){
-        RITUAL = CriteriaTriggers.register(
-                new RitualTrigger(new ResourceLocation(Occultism.MODID, "ritual")));
+    public static void register() {
+        RITUAL = CriteriaTriggers.register(new RitualTrigger());
+        FAMILIAR = CriteriaTriggers.register(new FamiliarTrigger());
     }
 }

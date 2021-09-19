@@ -51,7 +51,7 @@ jobs:
           CURSEFORGE_API_KEY: ${{ secrets.CURSEFORGE_API_KEY }}
         with:
           arguments: build --max-workers 1
-          wrapper-cache-enabled: true
+          distributions-cache-enabled: true
           dependencies-cache-enabled: true
           configuration-cache-enabled: true
       - name: Create Release

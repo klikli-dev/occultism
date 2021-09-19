@@ -63,7 +63,7 @@ public class FamiliarRitual extends SummonRitual {
                 familiar.absMoveTo(goldenBowlPosition.getX(), goldenBowlPosition.getY(), goldenBowlPosition.getZ(),
                         level.random.nextInt(360), 0);
                 familiar.setCustomName(new TextComponent(entityName));
-                familiar.setOwnerId(castingPlayer.getUUID());
+                familiar.setFamiliarOwner(castingPlayer);
 
                 //notify players nearby and spawn
                 this.spawnEntity(familiar, level);

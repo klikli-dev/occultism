@@ -17,8 +17,9 @@
       "type": "summoning",
       "heading": "Foliot Miner",
       "pentacle": "$(l:pentacles/craft_foliot)Eziveus' Spectral Compulsion$(/l)",
-      "activation_item": "occultism:book_of_binding_bound_foliot",
-      "ingredients": "$(li)1x $(item)Empty Magic Lamp $()$(li)1x $(item)Iesnium Pickaxe $()$(li)1x $(item)Iron Ore $() $(li)1x $(item)Gravel $()"
+    {
+      "type": "occultism:ritual",
+      "recipe": "occultism:ritual/craft_miner_foliot_unspecialized"
     },
     {
       "type": "text",
@@ -26,11 +27,8 @@
       "text": "Шахтер-джинн может дабывать определенную руду. Чем сильнее джинн, тем быстрее он повреждает волшебную лампу."
     },
     {
-      "type": "summoning",
-      "heading": "Djinni Ore Miner",
-      "pentacle": "$(l:pentacles/craft_djinni)Strigeor's Higher Binding$(/l)",
-      "activation_item": "occultism:book_of_binding_bound_djinni",
-      "ingredients": "$(li)1x $(item)Empty Magic Lamp $()$(li)1x $(item)Iesnium Pickaxe $()$(li)1x $(item)Iesnium Block $()$(li)1x $(item)Spirit Attuned Crystal $()$(li)1x $(item)Gold Ore $()"
+      "type": "occultism:ritual",
+      "recipe": "occultism:ritual/craft_miner_djinni_ores"
     },
     {
       "type": "empty",

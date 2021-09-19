@@ -155,7 +155,7 @@ public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar 
         return this.entityData.get(OWNER_UNIQUE_ID).orElse(null);
     }
 
-    public void setOwnerId(UUID id) {
+    private void setOwnerId(UUID id) {
         this.ownerCached = null;
         this.entityData.set(OWNER_UNIQUE_ID, Optional.ofNullable(id));
     }

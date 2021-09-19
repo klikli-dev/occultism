@@ -49,6 +49,7 @@ public class PlayerEventHandler {
     //region Static Methods
     @SubscribeEvent
     public static void onPlayerRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
+        dancingFamiliars(event);
         boolean isFlintAndSteel = event.getItemStack().getItem() == Items.FLINT_AND_STEEL;
         boolean isFireCharge = event.getItemStack().getItem() == Items.FIRE_CHARGE;
         if (isFlintAndSteel || isFireCharge) {
@@ -94,6 +95,19 @@ public class PlayerEventHandler {
                 event.getPlayer().swing(InteractionHand.MAIN_HAND);
             }
         }
+    }
+
+    private static void dancingFamiliars(PlayerInteractEvent.RightClickBlock event) {
+        BlockState state = event.getWorld().getBlockState(event.getPos());
+        if (!state.hasProperty(JukeboxBlock.HAS_RECORD) || state.get(JukeboxBlock.HAS_RECORD)
+                || !(event.getItemStack().getItem() instanceof MusicDiscItem))
+            return;
+        if (event.getWorld()
+                .getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(event.getPos()).grow(3),
+                        e -> e instanceof IFamiliar && ((IFamiliar) e).getFamiliarOwner() == event.getPlayer())
+                .isEmpty())
+            return;
+        OccultismAdvancements.FAMILIAR.trigger(event.getPlayer(), FamiliarTrigger.Type.PARTY);
     }
 
     @SubscribeEvent
