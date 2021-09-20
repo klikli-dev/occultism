@@ -32,14 +32,12 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
@@ -122,8 +120,8 @@ public class DeerFamiliarEntity extends FamiliarEntity {
         if (this.getRandom().nextDouble() < 0.25){
             this.spawnAtLocation(OccultismItems.DATURA_SEEDS.get(), 0);
             LivingEntity owner = getOwner();
-            if (owner instanceof ServerPlayerEntity)
-                OccultismAdvancements.FAMILIAR.trigger((ServerPlayerEntity) owner, FamiliarTrigger.Type.DEER_POOP);
+            if (owner instanceof ServerPlayer serverPlayer)
+                OccultismAdvancements.FAMILIAR.trigger(serverPlayer, FamiliarTrigger.Type.DEER_POOP);
         }
     }
 

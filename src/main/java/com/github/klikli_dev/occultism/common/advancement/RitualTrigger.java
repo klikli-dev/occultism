@@ -24,8 +24,13 @@ package com.github.klikli_dev.occultism.common.advancement;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.ritual.Ritual;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonNull;
 import com.google.gson.JsonObject;
-import net.minecraft.advancements.critereon.*;
+import net.minecraft.advancements.critereon.AbstractCriterionTriggerInstance;
+import net.minecraft.advancements.critereon.DeserializationContext;
+import net.minecraft.advancements.critereon.EntityPredicate;
+import net.minecraft.advancements.critereon.SimpleCriterionTrigger;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.GsonHelper;
@@ -43,12 +48,12 @@ public class RitualTrigger extends SimpleCriterionTrigger<RitualTrigger.Instance
 
     @Override
     protected Instance createInstance(JsonObject json, EntityPredicate.Composite composite, DeserializationContext deserializationContext) {
-        return new RitualTrigger.Instance(deserializeRitualPredicate(json));
+        return new RitualTrigger.Instance(this.deserializeRitualPredicate(json));
     }
 
     private RitualPredicate deserializeRitualPredicate(JsonObject json) {
         if (json.has("ritual_id"))
-            return new RitualPredicate(new ResourceLocation(JSONUtils.getString(json, "ritual_id")), null);
+            return new RitualPredicate(new ResourceLocation(GsonHelper.getAsString(json, "ritual_id")), null);
         return RitualPredicate.deserialize(json.get("ritual_predicate"));
     }
 
@@ -65,26 +70,14 @@ public class RitualTrigger extends SimpleCriterionTrigger<RitualTrigger.Instance
 
         // region Initialization
         public Instance(RitualPredicate ritualPredicate) {
-            super(RitualTrigger.ID,  EntityPredicate.Composite.ANY);
+            super(RitualTrigger.ID, EntityPredicate.Composite.ANY);
             this.ritualPredicate = ritualPredicate;
         }
 
-
         public boolean test(ServerPlayer player, Ritual ritual) {
-            return this.ritualId.equals(ritual.getRitualID());
+            return this.ritualPredicate.test(ritual);
         }
 
-        @Override
-        public ResourceLocation getCriterion() {
-            return this.ritualId;
-        }
-
-        @Override
-        public JsonObject serializeToJson(SerializationContext serializationContext) {
-            JsonObject jsonobject = super.serializeToJson(serializationContext);
-            jsonobject.addProperty("ritual_id", this.ritualId.toString());
-            return jsonobject;
-        }
         //endregion Methods
     }
 
@@ -92,8 +85,8 @@ public class RitualTrigger extends SimpleCriterionTrigger<RitualTrigger.Instance
 
         public static final RitualPredicate ANY = new RitualPredicate(null, null);
 
-        private ResourceLocation ritualId;
-        private ResourceLocation ritualFactoryId;
+        private final ResourceLocation ritualId;
+        private final ResourceLocation ritualFactoryId;
 
         public RitualPredicate(ResourceLocation ritualId, ResourceLocation ritualFactoryId) {
             this.ritualId = ritualId;
@@ -103,11 +96,9 @@ public class RitualTrigger extends SimpleCriterionTrigger<RitualTrigger.Instance
         public boolean test(Ritual ritual) {
             if (this == ANY)
                 return true;
-            else if (ritualId != null && !ritualId.equals(ritual.getRecipe().getId()))
+            else if (this.ritualId != null && !this.ritualId.equals(ritual.getRecipe().getId()))
                 return false;
-            else if (ritualFactoryId != null && !ritualFactoryId.equals(ritual.getFactoryID()))
-                return false;
-            return true;
+            else return this.ritualFactoryId == null || this.ritualFactoryId.equals(ritual.getFactoryID());
         }
 
         public static RitualPredicate deserialize(JsonElement element) {
@@ -116,11 +107,11 @@ public class RitualTrigger extends SimpleCriterionTrigger<RitualTrigger.Instance
 
             ResourceLocation ritualId = null;
             ResourceLocation ritualFactoryId = null;
-            JsonObject json = JSONUtils.getJsonObject(element, "ritual_predicate");
+            JsonObject json = GsonHelper.convertToJsonObject(element, "ritual_predicate");
             if (json.has("ritual_id"))
-                ritualId = new ResourceLocation(JSONUtils.getString(json, "ritual_id"));
+                ritualId = new ResourceLocation(GsonHelper.getAsString(json, "ritual_id"));
             if (json.has("ritual_factory_id"))
-                ritualFactoryId = new ResourceLocation(JSONUtils.getString(json, "ritual_factory_id"));
+                ritualFactoryId = new ResourceLocation(GsonHelper.getAsString(json, "ritual_factory_id"));
             return new RitualPredicate(ritualId, ritualFactoryId);
         }
 
@@ -128,10 +119,10 @@ public class RitualTrigger extends SimpleCriterionTrigger<RitualTrigger.Instance
             if (this == ANY)
                 return JsonNull.INSTANCE;
             JsonObject json = new JsonObject();
-            if (ritualId != null)
-                json.addProperty("ritual_id", ritualId.toString());
-            if (ritualFactoryId != null)
-                json.addProperty("ritual_factory_id", ritualFactoryId.toString());
+            if (this.ritualId != null)
+                json.addProperty("ritual_id", this.ritualId.toString());
+            if (this.ritualFactoryId != null)
+                json.addProperty("ritual_factory_id", this.ritualFactoryId.toString());
             return json;
         }
     }

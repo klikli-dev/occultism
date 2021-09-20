@@ -22,8 +22,8 @@
 
 package com.github.klikli_dev.occultism.common.entity;
 
-import com.github.klikli_dev.occultism.common.capability.FamiliarSettingsCapability;
-import com.github.klikli_dev.occultism.registry.OccultismCapabilities;
+import com.github.klikli_dev.occultism.common.advancement.FamiliarTrigger;
+import com.github.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
@@ -132,22 +132,22 @@ public class BatFamiliarEntity extends FamiliarEntity implements FlyingAnimal {
         }
 
         @Override
-        public boolean shouldExecute() {
-            nearby = nearbyBat();
-            return nearby != null;
+        public boolean canUse() {
+            this.nearby = this.nearbyBat();
+            return this.nearby != null;
         }
 
         @Override
-        public void startExecuting() {
-            if (nearby != null) {
-                nearby.attackEntityFrom(DamageSource.causeMobDamage(bat), 10);
-                OccultismAdvancements.FAMILIAR.trigger(bat.getFamiliarOwner(), FamiliarTrigger.Type.BAT_EAT);
+        public void start() {
+            if (this.nearby != null) {
+                this.nearby.hurt(DamageSource.mobAttack(this.bat), 10);
+                OccultismAdvancements.FAMILIAR.trigger(this.bat.getFamiliarOwner(), FamiliarTrigger.Type.BAT_EAT);
             }
         }
 
         private Bat nearbyBat() {
             Bat nearby = null;
-            List<Bat> bats = bat.level.getEntitiesOfClass(Bat.class, bat.getBoundingBox().inflate(2));
+            List<Bat> bats = this.bat.level.getEntitiesOfClass(Bat.class, this.bat.getBoundingBox().inflate(2));
             if (!bats.isEmpty())
                 nearby = bats.get(0);
             return nearby;

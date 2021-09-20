@@ -23,6 +23,9 @@
 package com.github.klikli_dev.occultism.handlers;
 
 import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.common.advancement.FamiliarTrigger;
+import com.github.klikli_dev.occultism.common.entity.IFamiliar;
+import com.github.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.github.klikli_dev.occultism.util.Math3DUtil;
@@ -35,7 +38,10 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.RecordItem;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.JukeboxBlock;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.core.BlockPos;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -99,11 +105,11 @@ public class PlayerEventHandler {
 
     private static void dancingFamiliars(PlayerInteractEvent.RightClickBlock event) {
         BlockState state = event.getWorld().getBlockState(event.getPos());
-        if (!state.hasProperty(JukeboxBlock.HAS_RECORD) || state.get(JukeboxBlock.HAS_RECORD)
-                || !(event.getItemStack().getItem() instanceof MusicDiscItem))
+        if (!state.hasProperty(JukeboxBlock.HAS_RECORD) || state.getValue(JukeboxBlock.HAS_RECORD)
+                || !(event.getItemStack().getItem() instanceof RecordItem))
             return;
         if (event.getWorld()
-                .getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(event.getPos()).grow(3),
+                .getEntitiesOfClass(Entity.class, new AABB(event.getPos()).inflate(3),
                         e -> e instanceof IFamiliar && ((IFamiliar) e).getFamiliarOwner() == event.getPlayer())
                 .isEmpty())
             return;
