@@ -29,6 +29,7 @@ import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.github.klikli_dev.occultism.util.Math3DUtil;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.Hand;
@@ -72,10 +73,13 @@ public class LootEventHandler {
     public static void onExpDrop(LivingExperienceDropEvent event) {
         if (event.getDroppedExperience() == 0)
             return;
-        
-        EffectInstance greed = event.getAttackingPlayer().getActivePotionEffect(OccultismEffects.DRAGON_GREED.get());
-        if (greed == null)
-            return;
-        event.setDroppedExperience(event.getDroppedExperience() + greed.getAmplifier() + 1);
+
+        PlayerEntity attackingPlayer = event.getAttackingPlayer();
+        if(attackingPlayer != null){
+            EffectInstance greed = attackingPlayer.getActivePotionEffect(OccultismEffects.DRAGON_GREED.get());
+            if (greed == null)
+                return;
+            event.setDroppedExperience(event.getDroppedExperience() + greed.getAmplifier() + 1);
+        }
     }
 }
