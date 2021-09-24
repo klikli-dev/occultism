@@ -301,8 +301,12 @@ public class DragonFamiliarModel extends EntityModel<DragonFamiliarEntity> {
 
         float ageInTicks = entityIn.ticksExisted + partialTick;
 
+        this.tail1.rotateAngleZ = 0;
+        this.tail2.rotateAngleZ = 0;
+        this.tail3.rotateAngleZ = 0;
+        this.jaw.rotateAngleZ = 0;
+
         if (entityIn.isPartying()) {
-            this.body.rotateAngleZ = 0;
             this.tail1.rotateAngleZ = MathHelper.sin(ageInTicks) * toRads(30);
             this.tail2.rotateAngleZ = -MathHelper.sin(ageInTicks) * toRads(60);
             this.tail3.rotateAngleZ = MathHelper.sin(ageInTicks) * toRads(90);
@@ -310,13 +314,17 @@ public class DragonFamiliarModel extends EntityModel<DragonFamiliarEntity> {
             this.leftWing1.rotateAngleY = MathHelper.sin(ageInTicks) * toRads(20);
             this.rightWing1.rotateAngleY = -MathHelper.sin(ageInTicks) * toRads(20);
         } else {
-            this.body.rotateAngleZ = 0;
-            this.tail1.rotateAngleZ = 0;
-            this.tail2.rotateAngleZ = 0;
-            this.tail3.rotateAngleZ = 0;
-
             this.leftWing1.rotateAngleY = 0;
             this.rightWing1.rotateAngleY = 0;
+        }
+
+        float petTimer = entityIn.getPetTimer() + partialTick;
+        float petDuration = DragonFamiliarEntity.MAX_PET_TIMER / 2;
+        if (petTimer < petDuration) {
+            this.tail1.rotateAngleZ = MathHelper.sin(petTimer / petDuration * PI * 6) * toRads(20);
+            this.tail2.rotateAngleZ = MathHelper.sin(petTimer / petDuration * PI * 6) * toRads(20);
+            this.tail3.rotateAngleZ = MathHelper.sin(petTimer / petDuration * PI * 6) * toRads(20);
+            this.jaw.rotateAngleZ = -MathHelper.sin(petTimer / petDuration * PI * 6) * toRads(10);
         }
 
         if (entityIn.isSwingInProgress) {
