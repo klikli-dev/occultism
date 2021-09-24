@@ -268,10 +268,12 @@ public abstract class StorageControllerContainerBase extends Container implement
             if (this.currentRecipe == null)
                 break;
 
-            result = this.currentRecipe.getCraftingResult(this.matrix);
+            ItemStack newResult = this.currentRecipe.getCraftingResult(this.matrix).copy();
+            if(newResult.getItem() != result.getItem())
+                break;
 
             //exit if we can no longer insert
-            if (!ItemHandlerHelper.insertItemStacked(new PlayerMainInvWrapper(this.playerInventory), result, true)
+            if (!ItemHandlerHelper.insertItemStacked(new PlayerMainInvWrapper(this.playerInventory), newResult, true)
                     .isEmpty()) {
                 break;
             }
@@ -286,13 +288,13 @@ public abstract class StorageControllerContainerBase extends Container implement
             //give to the player
             //historically we used ItemHandlerHelper.giveItemToPlayer(player, result); here
             //now we instead pre-merge the stack -> might prevent intervention by other mods.
-            resultList.add(result);
+            resultList.add(newResult);
 
             //get remaining items in the crafting matrix
             NonNullList<ItemStack> remainingCraftingItems = this.currentRecipe.getRemainingItems(this.matrix);
             for (int i = 0; i < remainingCraftingItems.size(); ++i) {
 
-                ItemStack currentCraftingItem = remainingCraftingItems.get(i);
+                ItemStack currentCraftingItem = remainingCraftingItems.get(i).copy();
                 ItemStack stackInSlot = this.matrix.getStackInSlot(i);
 
                 //if we find an empty stack, shrink it to remove it.
@@ -318,9 +320,12 @@ public abstract class StorageControllerContainerBase extends Container implement
                         this.matrix.setInventorySlotContents(i, currentCraftingItem);
                     }
                     //handle "normal items"
-                    else if (ItemStack.areItemsEqual(stackInSlot, currentCraftingItem) &&
+                    //Note: Doe not use item stack isdamagable -> it also takes into account unbreakable items which would then dupe
+                    else if (!stackInSlot.getItem().isDamageable() && ItemStack.areItemsEqual(stackInSlot, currentCraftingItem) &&
                             ItemStack.areItemStackTagsEqual(stackInSlot, currentCraftingItem)) {
-                        currentCraftingItem.grow(stackInSlot.getCount());
+                        //hacky workaround for aquaculture unbreakable fillet knife being mis-interpreted and duped
+                        if(!stackInSlot.getItem().getRegistryName().toString().equals("aquaculture:neptunium_fillet_knife"))
+                            currentCraftingItem.grow(stackInSlot.getCount());
                         this.matrix.setInventorySlotContents(i, currentCraftingItem);
                     }
                     //handle items that consume durability on craft
@@ -328,7 +333,7 @@ public abstract class StorageControllerContainerBase extends Container implement
                         this.matrix.setInventorySlotContents(i, currentCraftingItem);
                     } else {
                         //last resort, try to place in player inventory or if that fails, drop.
-                        ItemHandlerHelper.giveItemToPlayer(player, result);
+                        ItemHandlerHelper.giveItemToPlayer(player, newResult);
                     }
                 } else if (!stackInSlot.isEmpty()) {
                     //decrease the stack size in the matrix
