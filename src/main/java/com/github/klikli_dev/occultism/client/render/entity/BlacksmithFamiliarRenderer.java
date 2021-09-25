@@ -56,7 +56,7 @@ public class BlacksmithFamiliarRenderer extends MobRenderer<BlacksmithFamiliarEn
     }
 
     @Override
-    public ResourceLocation getEntityTexture(BlacksmithFamiliarEntity entity) {
+    public ResourceLocation getTextureLocation(BlacksmithFamiliarEntity entity) {
         return TEXTURES;
     }
 
@@ -69,19 +69,19 @@ public class BlacksmithFamiliarRenderer extends MobRenderer<BlacksmithFamiliarEn
         public void render(MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn,
                 BlacksmithFamiliarEntity entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks,
                 float ageInTicks, float netHeadYaw, float headPitch) {
-            matrixStackIn.push();
+            matrixStackIn.pushPose();
             float scale = 0.5f;
             matrixStackIn.scale(scale, scale, scale);
             for (int i = 0; i < entitylivingbaseIn.getBars(); i++) {
-                matrixStackIn.push();
+                matrixStackIn.pushPose();
                 matrixStackIn.translate(i % 2 == 0 ? -0.3 : 0.3, 2.03 - i / 2 * 0.03, -0.15);
-                matrixStackIn.rotate(new Quaternion(-90, 0, i, true));
-                Minecraft.getInstance().getFirstPersonRenderer().renderItemSide(entitylivingbaseIn,
+                matrixStackIn.mulPose(new Quaternion(-90, 0, i, true));
+                Minecraft.getInstance().getItemInHandRenderer().renderItem(entitylivingbaseIn,
                         new ItemStack(Items.IRON_INGOT), ItemCameraTransforms.TransformType.GROUND, false,
                         matrixStackIn, bufferIn, packedLightIn);
-                matrixStackIn.pop();
+                matrixStackIn.popPose();
             }
-            matrixStackIn.pop();
+            matrixStackIn.popPose();
 
         }
     }

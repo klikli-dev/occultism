@@ -57,8 +57,8 @@ public class LootEventHandler {
 
     @SubscribeEvent
     public static void onLivingDrops(LivingDropsEvent event) {
-        //Add butcher knife drops dynamically.
-        //TODO: Consider doing a global loot table for that
+        // Add butcher knife drops dynamically.
+        // TODO: Consider doing a global loot table for that
         if (event.isRecentlyHit() && event.getSource().getEntity() instanceof LivingEntity) {
             LivingEntity trueSource = (LivingEntity) event.getSource().getEntity();
             ItemStack knifeItem = trueSource.getItemInHand(Hand.MAIN_HAND);
@@ -99,7 +99,7 @@ public class LootEventHandler {
         ItemStack stack = entity.getItem();
         Item item = stack.getItem();
 
-        if (!(item.isIn(Tags.Items.COBBLESTONE) || item.isIn(Tags.Items.STONE)))
+        if (!(item.is(Tags.Items.COBBLESTONE) || item.is(Tags.Items.STONE)))
             return;
 
         PlayerEntity player = event.getPlayer();
@@ -107,7 +107,7 @@ public class LootEventHandler {
         if (!isBlacksmithEnabled(player) || !hasBlacksmith(player))
             return;
 
-        if (player.getRNG().nextDouble() < 0.01 * stack.getCount())
+        if (player.getRandom().nextDouble() < 0.01 * stack.getCount())
             repairEquipment(player);
 
         event.setCanceled(true);
@@ -115,10 +115,10 @@ public class LootEventHandler {
     }
 
     private static void repairEquipment(PlayerEntity player) {
-        for (ItemStack stack : player.getEquipmentAndArmor()) {
+        for (ItemStack stack : player.getAllSlots()) {
             if (!stack.isDamaged())
                 continue;
-            stack.setDamage(stack.getDamage() - 2);
+            stack.setDamageValue(stack.getDamageValue() - 2);
             return;
         }
     }
@@ -133,14 +133,14 @@ public class LootEventHandler {
     }
 
     private static boolean hasNearbyBlacksmith(PlayerEntity player) {
-        return !player.world.getEntitiesWithinAABB(BlacksmithFamiliarEntity.class, player.getBoundingBox().grow(10),
-                e -> e.getOwner() == player).isEmpty();
+        return !player.level.getEntitiesOfClass(BlacksmithFamiliarEntity.class, player.getBoundingBox().inflate(10),
+                e -> e.getFamiliarOwner() == player).isEmpty();
     }
 
     private static boolean hasEquippedBlacksmith(PlayerEntity player) {
         return CuriosApi.getCuriosHelper().getEquippedCurios(player).map(handler -> {
             for (int i = 0; i < handler.getSlots(); i++) {
-                IFamiliar familiar = FamiliarRingItem.getFamiliar(handler.getStackInSlot(i), player.world);
+                IFamiliar familiar = FamiliarRingItem.getFamiliar(handler.getStackInSlot(i), player.level);
                 if (familiar instanceof BlacksmithFamiliarEntity)
                     return true;
             }

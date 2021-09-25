@@ -72,8 +72,8 @@ public class DeerFamiliarEntity extends FamiliarEntity {
         this.goalSelector.addGoal(4, new EatGrassGoal(this));
         this.goalSelector.addGoal(5, new DevilFamiliarEntity.AttackGoal(this) {
             @Override
-            public boolean shouldExecute() {
-                return super.shouldExecute() && hasBlacksmithUpgrade();
+            public boolean canUse() {
+                return super.canUse() && hasBlacksmithUpgrade();
             }
         });
         this.goalSelector.addGoal(6, new WaterAvoidingRandomWalkingGoal(this, 1.0D));

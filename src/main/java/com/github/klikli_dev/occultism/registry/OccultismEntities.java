@@ -23,9 +23,6 @@
 package com.github.klikli_dev.occultism.registry;
 
 import com.github.klikli_dev.occultism.Occultism;
-<<<<<<< HEAD
-import com.github.klikli_dev.occultism.common.entity.*;
-=======
 import com.github.klikli_dev.occultism.common.entity.BatFamiliarEntity;
 import com.github.klikli_dev.occultism.common.entity.BlacksmithFamiliarEntity;
 import com.github.klikli_dev.occultism.common.entity.CthulhuFamiliarEntity;
@@ -34,7 +31,6 @@ import com.github.klikli_dev.occultism.common.entity.DevilFamiliarEntity;
 import com.github.klikli_dev.occultism.common.entity.DragonFamiliarEntity;
 import com.github.klikli_dev.occultism.common.entity.GreedyFamiliarEntity;
 import com.github.klikli_dev.occultism.common.entity.OtherworldBirdEntity;
->>>>>>> 21c7b24c (Add blacksmith familiar)
 import com.github.klikli_dev.occultism.common.entity.possessed.PossessedEndermanEntity;
 import com.github.klikli_dev.occultism.common.entity.possessed.PossessedEndermiteEntity;
 import com.github.klikli_dev.occultism.common.entity.possessed.PossessedSkeletonEntity;
@@ -140,9 +136,9 @@ public class OccultismEntities {
                     .clientTrackingRange(8)
                     .build(modLoc("dragon_familiar").toString()));
     public static final NonNullLazy<EntityType<BlacksmithFamiliarEntity>> BLACKSMITH_FAMILIAR_TYPE =
-            NonNullLazy.of(() -> EntityType.Builder.create(BlacksmithFamiliarEntity::new, EntityClassification.CREATURE)
-                                         .size(0.65F, 1F)
-                                         .trackingRange(8)
+            NonNullLazy.of(() -> EntityType.Builder.of(BlacksmithFamiliarEntity::new, EntityClassification.CREATURE)
+                                         .sized(0.65F, 1F)
+                                         .clientTrackingRange(8)
                                          .build(modLoc("blacksmith_familiar").toString()));
 
     public static final RegistryObject<EntityType<FoliotEntity>> FOLIOT = ENTITIES.register("foliot", FOLIOT_TYPE::get);

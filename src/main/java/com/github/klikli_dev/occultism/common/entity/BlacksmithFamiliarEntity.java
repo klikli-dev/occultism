@@ -55,14 +55,14 @@ public class BlacksmithFamiliarEntity extends FamiliarEntity {
     private static final int UPGRADE_COST = 18;
     private static final int MAX_IRON = UPGRADE_COST * 10;
 
-    private static final DataParameter<Boolean> EARRING = EntityDataManager.createKey(BlacksmithFamiliarEntity.class,
+    private static final DataParameter<Boolean> EARRING = EntityDataManager.defineId(BlacksmithFamiliarEntity.class,
             DataSerializers.BOOLEAN);
     private static final DataParameter<Boolean> MARIO_MOUSTACHE = EntityDataManager
-            .createKey(BlacksmithFamiliarEntity.class, DataSerializers.BOOLEAN);
+            .defineId(BlacksmithFamiliarEntity.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Boolean> SQUARE_HAIR = EntityDataManager
-            .createKey(BlacksmithFamiliarEntity.class, DataSerializers.BOOLEAN);
+            .defineId(BlacksmithFamiliarEntity.class, DataSerializers.BOOLEAN);
 
-    private static final DataParameter<Byte> BARS = EntityDataManager.createKey(BlacksmithFamiliarEntity.class,
+    private static final DataParameter<Byte> BARS = EntityDataManager.defineId(BlacksmithFamiliarEntity.class,
             DataSerializers.BYTE);
 
     private int ironCount;
@@ -72,12 +72,12 @@ public class BlacksmithFamiliarEntity extends FamiliarEntity {
     }
 
     @Override
-    public ILivingEntityData onInitialSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason,
+    public ILivingEntityData finalizeSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason,
             ILivingEntityData spawnDataIn, CompoundNBT dataTag) {
-        this.setEarring(this.getRNG().nextDouble() < 0.1);
-        this.setMarioMoustache(this.getRNG().nextDouble() < 0.5);
-        this.setSquareHair(this.getRNG().nextDouble() < 0.5);
-        return super.onInitialSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
+        this.setEarring(this.getRandom().nextDouble() < 0.1);
+        this.setMarioMoustache(this.getRandom().nextDouble() < 0.5);
+        this.setSquareHair(this.getRandom().nextDouble() < 0.5);
+        return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
     }
 
     @Override
@@ -86,18 +86,18 @@ public class BlacksmithFamiliarEntity extends FamiliarEntity {
     }
 
     @Override
-    protected ActionResultType getEntityInteractionResult(PlayerEntity playerIn, Hand hand) {
-        ItemStack stack = playerIn.getHeldItem(hand);
+    protected ActionResultType mobInteract(PlayerEntity playerIn, Hand hand) {
+        ItemStack stack = playerIn.getItemInHand(hand);
         Item item = stack.getItem();
         if (playerIn == getFamiliarOwner() && ironCount < MAX_IRON
-                && (item.isIn(Tags.Items.INGOTS_IRON) || item.isIn((Tags.Items.STORAGE_BLOCKS_IRON)))) {
-            if (this.isServerWorld()) {
+                && (item.is(Tags.Items.INGOTS_IRON) || item.is((Tags.Items.STORAGE_BLOCKS_IRON)))) {
+            if (!this.level.isClientSide) {
                 stack.shrink(1);
-                this.changeIronCount(item.isIn(Tags.Items.INGOTS_IRON) ? 1 : 9);
+                this.changeIronCount(item.is(Tags.Items.INGOTS_IRON) ? 1 : 9);
             }
-            return ActionResultType.func_233537_a_(!this.isServerWorld());
+            return ActionResultType.sidedSuccess(!this.level.isClientSide);
         }
-        return super.getEntityInteractionResult(playerIn, hand);
+        return super.mobInteract(playerIn, hand);
     }
 
     @Override
@@ -108,41 +108,41 @@ public class BlacksmithFamiliarEntity extends FamiliarEntity {
     }
 
     @Override
-    protected void registerData() {
-        super.registerData();
-        this.dataManager.register(EARRING, false);
-        this.dataManager.register(MARIO_MOUSTACHE, false);
-        this.dataManager.register(SQUARE_HAIR, false);
-        this.dataManager.register(BARS, (byte) 0);
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(EARRING, false);
+        this.entityData.define(MARIO_MOUSTACHE, false);
+        this.entityData.define(SQUARE_HAIR, false);
+        this.entityData.define(BARS, (byte) 0);
     }
 
     public boolean hasEarring() {
-        return this.dataManager.get(EARRING);
+        return this.entityData.get(EARRING);
     }
 
     public boolean hasMarioMoustache() {
-        return this.dataManager.get(MARIO_MOUSTACHE);
+        return this.entityData.get(MARIO_MOUSTACHE);
     }
 
     public boolean hasSquareHair() {
-        return this.dataManager.get(SQUARE_HAIR);
+        return this.entityData.get(SQUARE_HAIR);
     }
 
     private void setEarring(boolean b) {
-        this.dataManager.set(EARRING, b);
+        this.entityData.set(EARRING, b);
     }
 
     private void setMarioMoustache(boolean b) {
-        this.dataManager.set(MARIO_MOUSTACHE, b);
+        this.entityData.set(MARIO_MOUSTACHE, b);
     }
 
     private void setSquareHair(boolean b) {
-        this.dataManager.set(SQUARE_HAIR, b);
+        this.entityData.set(SQUARE_HAIR, b);
     }
 
     private void setIronCount(int count) {
         this.ironCount = count;
-        this.dataManager.set(BARS, (byte) Math.min(10, (this.ironCount / UPGRADE_COST)));
+        this.entityData.set(BARS, (byte) Math.min(10, (this.ironCount / UPGRADE_COST)));
     }
 
     private void changeIronCount(int delta) {
@@ -150,7 +150,7 @@ public class BlacksmithFamiliarEntity extends FamiliarEntity {
     }
 
     public byte getBars() {
-        return this.dataManager.get(BARS);
+        return this.entityData.get(BARS);
     }
 
     @Override
@@ -159,16 +159,16 @@ public class BlacksmithFamiliarEntity extends FamiliarEntity {
     }
 
     @Override
-    protected void dropInventory() {
+    protected void dropEquipment() {
         int blockCount = ironCount / 9;
         int barCount = ironCount % 9;
-        this.entityDropItem(new ItemStack(Items.IRON_INGOT, barCount));
-        this.entityDropItem(new ItemStack(Items.IRON_BLOCK, blockCount));
+        this.spawnAtLocation(new ItemStack(Items.IRON_INGOT, barCount));
+        this.spawnAtLocation(new ItemStack(Items.IRON_BLOCK, blockCount));
     }
 
     @Override
-    public void writeAdditional(CompoundNBT compound) {
-        super.writeAdditional(compound);
+    public void addAdditionalSaveData(CompoundNBT compound) {
+        super.addAdditionalSaveData(compound);
         compound.putBoolean("hasEarring", this.hasEarring());
         compound.putBoolean("hasMarioMoustache", this.hasMarioMoustache());
         compound.putBoolean("hasSquareHair", this.hasSquareHair());
@@ -176,8 +176,8 @@ public class BlacksmithFamiliarEntity extends FamiliarEntity {
     }
 
     @Override
-    public void readAdditional(CompoundNBT compound) {
-        super.readAdditional(compound);
+    public void readAdditionalSaveData(CompoundNBT compound) {
+        super.readAdditionalSaveData(compound);
         this.setEarring(compound.getBoolean("hasEarring"));
         this.setMarioMoustache(compound.getBoolean("hasMarioMoustache"));
         this.setSquareHair(compound.getBoolean("hasSquareHair"));
@@ -194,26 +194,26 @@ public class BlacksmithFamiliarEntity extends FamiliarEntity {
 
         public UpgradeGoal(BlacksmithFamiliarEntity blacksmith) {
             this.blacksmith = blacksmith;
-            this.setMutexFlags(EnumSet.of(Goal.Flag.JUMP, Goal.Flag.MOVE));
+            this.setFlags(EnumSet.of(Goal.Flag.JUMP, Goal.Flag.MOVE));
         }
 
         @Override
-        public boolean shouldExecute() {
+        public boolean canUse() {
             target = findTarget();
             return blacksmith.ironCount >= UPGRADE_COST && target != null && cooldown-- < 0;
         }
 
         @Override
-        public boolean shouldContinueExecuting() {
+        public boolean canContinueToUse() {
             return target != null;
         }
 
-        public void startExecuting() {
-            blacksmith.getNavigator().tryMoveToEntityLiving(target.getEntity(), 0.7);
+        public void start() {
+            blacksmith.getNavigation().moveTo(target.getEntity(), 0.7);
         }
 
-        public void resetTask() {
-            blacksmith.getNavigator().clearPath();
+        public void stop() {
+            blacksmith.getNavigation().stop();
             cooldown = MAX_COOLDOWN;
             target = null;
         }
@@ -223,10 +223,10 @@ public class BlacksmithFamiliarEntity extends FamiliarEntity {
             if (target == null)
                 return;
 
-            if (!blacksmith.hasPath())
-                blacksmith.getNavigator().tryMoveToEntityLiving(target.getEntity(), 0.7);
+            if (!blacksmith.isPathFinding())
+                blacksmith.getNavigation().moveTo(target.getEntity(), 0.7);
 
-            if (blacksmith.getDistanceSq(target.getEntity()) < 3) {
+            if (blacksmith.distanceToSqr(target.getEntity()) < 3) {
                 if (target.canBlacksmithUpgrade()) {
                     target.blacksmithUpgrade();
                     blacksmith.changeIronCount(-UPGRADE_COST);
@@ -236,8 +236,8 @@ public class BlacksmithFamiliarEntity extends FamiliarEntity {
         }
 
         private IFamiliar findTarget() {
-            for (LivingEntity e : blacksmith.world.getEntitiesWithinAABB(LivingEntity.class,
-                    blacksmith.getBoundingBox().grow(4), e -> familiarPred(e))) {
+            for (LivingEntity e : blacksmith.level.getEntitiesOfClass(LivingEntity.class,
+                    blacksmith.getBoundingBox().inflate(4), e -> familiarPred(e))) {
                 return (IFamiliar) e;
             }
             return null;
@@ -250,6 +250,5 @@ public class BlacksmithFamiliarEntity extends FamiliarEntity {
             LivingEntity owner = familiar.getFamiliarOwner();
             return familiar.canBlacksmithUpgrade() && owner != null && owner == blacksmith.getFamiliarOwner();
         }
-
     }
 }
