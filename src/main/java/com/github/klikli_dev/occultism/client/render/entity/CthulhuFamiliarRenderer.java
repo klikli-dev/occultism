@@ -26,7 +26,6 @@ import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.client.model.entity.CthulhuFamiliarModel;
 import com.github.klikli_dev.occultism.common.entity.CthulhuFamiliarEntity;
 import com.mojang.blaze3d.matrix.MatrixStack;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
@@ -51,9 +50,9 @@ public class CthulhuFamiliarRenderer extends MobRenderer<CthulhuFamiliarEntity, 
 
     @Override
     public void render(CthulhuFamiliarEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn,
-            IRenderTypeBuffer bufferIn, int packedLightIn) {
+                       IRenderTypeBuffer bufferIn, int packedLightIn) {
         matrixStackIn.pushPose();
-        
+
         if (entityIn.isPartying()) {
             float ageInTicks = entityIn.tickCount + partialTicks;
             matrixStackIn.translate(0, 1.55, 0);
@@ -63,7 +62,7 @@ public class CthulhuFamiliarRenderer extends MobRenderer<CthulhuFamiliarEntity, 
             entityIn.yBodyRot = -180;
         } else
             matrixStackIn.translate(0, entityIn.isSitting() ? -0.35 : entityIn.getAnimationHeight(partialTicks) * 0.08, 0);
-        
+
         super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
         matrixStackIn.popPose();
     }
@@ -80,8 +79,8 @@ public class CthulhuFamiliarRenderer extends MobRenderer<CthulhuFamiliarEntity, 
 
         @Override
         public void render(MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn,
-                CthulhuFamiliarEntity entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks,
-                float ageInTicks, float netHeadYaw, float headPitch) {
+                           CthulhuFamiliarEntity entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks,
+                           float ageInTicks, float netHeadYaw, float headPitch) {
             if (entitylivingbaseIn.isGiving()) {
                 matrixStackIn.pushPose();
                 matrixStackIn.scale(1.25f, -1.25f, 1.25f);

@@ -60,11 +60,10 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
     private final ItemStack goldenSacrificialBowl = new ItemStack(OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL.get());
     private final ItemStack sacrificialBowl = new ItemStack(OccultismBlocks.SACRIFICIAL_BOWL.get());
     private final ItemStack requireSacrifice = new ItemStack(OccultismItems.JEI_DUMMY_REQUIRE_SACRIFICE.get());
-
-    private int recipeOutputOffsetX = 50;
     private final int iconWidth = 16;
     private final int ritualCenterX;
     private final int ritualCenterY;
+    private int recipeOutputOffsetX = 50;
     //endregion Fields
 
     //region Initialization
@@ -114,7 +113,7 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
                 Stream.of(recipe.getActivationItem()),
                 recipe.getIngredients().stream()
         );
-        if(recipe.requiresItemUse()){
+        if (recipe.requiresItemUse()) {
             ingredientStream = Stream.concat(Stream.of(recipe.getItemToUse()), ingredientStream);
         }
         ingredients.setInputIngredients(
@@ -132,8 +131,8 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
 
         int currentIngredient = 0;
         List<ItemStack> itemToUse = new ArrayList<>();
-        if(recipe.requiresItemUse()){
-           itemToUse = ingredients.getInputs(VanillaTypes.ITEM).get(currentIngredient++);
+        if (recipe.requiresItemUse()) {
+            itemToUse = ingredients.getInputs(VanillaTypes.ITEM).get(currentIngredient++);
         }
         //0: activation item, 1...n: ingredients
         List<ItemStack> activationItem = ingredients.getInputs(VanillaTypes.ITEM).get(currentIngredient++);
@@ -201,24 +200,23 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
         //ingredients: 0: recipe output, 1: ritual dummy item
 
         //draw recipe output on the left
-        if(recipe.getResultItem().getItem() != OccultismItems.JEI_DUMMY_NONE.get()){
+        if (recipe.getResultItem().getItem() != OccultismItems.JEI_DUMMY_NONE.get()) {
             //if we have an item output -> render it
             recipeLayout.getItemStacks()
                     .init(index, false, this.ritualCenterX + this.recipeOutputOffsetX, this.ritualCenterY - 5);
             recipeLayout.getItemStacks().set(index, ingredients.getOutputs(VanillaTypes.ITEM).get(0));
             index++;
-        }
-        else{
+        } else {
             //if not, we instead render our ritual dummy item, just like in the corner
             recipeLayout.getItemStacks()
                     .init(index, false, this.ritualCenterX + this.recipeOutputOffsetX, this.ritualCenterY - 5);
             recipeLayout.getItemStacks().set(index, ingredients.getOutputs(VanillaTypes.ITEM).get(1));
             index++;
         }
-            recipeLayout.getItemStacks()
-                    .init(index, false, this.ritualCenterX + this.recipeOutputOffsetX, this.ritualCenterY);
-            recipeLayout.getItemStacks().set(index, this.goldenSacrificialBowl);
-            index++;
+        recipeLayout.getItemStacks()
+                .init(index, false, this.ritualCenterX + this.recipeOutputOffsetX, this.ritualCenterY);
+        recipeLayout.getItemStacks().set(index, this.goldenSacrificialBowl);
+        index++;
 
 
         //draw ritual dummy item in upper left corner
@@ -230,7 +228,7 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
         if (recipe.requiresItemUse()) {
             //first simulate the info rendering to get the right render position
             int infotextY = 0;
-            if(recipe.requiresSacrifice()){
+            if (recipe.requiresSacrifice()) {
                 infotextY += 10;
             }
 
@@ -252,7 +250,7 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
         RenderSystem.disableBlend();
 
         Pentacle pentacle = PentacleManager.get(recipe.getPentacleId());
-        if(pentacle != null){
+        if (pentacle != null) {
             this.drawStringCentered(matrixStack, Minecraft.getInstance().font,
                     I18n.get(pentacle.getTranslationKey()), 84, 0);
         } else {
@@ -261,26 +259,26 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
         }
 
         int infotextY = 0;
-        if(recipe.requiresSacrifice()){
+        if (recipe.requiresSacrifice()) {
             infotextY += 10;
             this.drawStringCentered(matrixStack, Minecraft.getInstance().font,
                     I18n.get("jei.occultism.sacrifice", I18n.get(recipe.getEntityToSacrificeDisplayName())), 84, infotextY);
         }
 
-        if(recipe.requiresItemUse()){
+        if (recipe.requiresItemUse()) {
             infotextY += 10;
             String text = I18n.get("jei.occultism.item_to_use");
             this.drawStringCentered(matrixStack, Minecraft.getInstance().font, text, 84, infotextY);
         }
 
-        if(recipe.getEntityToSummon() != null){
+        if (recipe.getEntityToSummon() != null) {
             infotextY += 10;
             this.drawStringCentered(matrixStack, Minecraft.getInstance().font,
                     I18n.get("jei.occultism.summon", I18n.get(recipe.getEntityToSummon().getDescriptionId())),
                     84, infotextY);
         }
 
-        if(recipe.getSpiritJobType() != null){
+        if (recipe.getSpiritJobType() != null) {
             infotextY += 10;
             this.drawStringCentered(matrixStack, Minecraft.getInstance().font,
                     I18n.get("jei.occultism.job",
@@ -292,9 +290,9 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
 
     //region Methods
 
-    protected int getStringCenteredMaxX(FontRenderer fontRenderer, String text, int x, int y){
+    protected int getStringCenteredMaxX(FontRenderer fontRenderer, String text, int x, int y) {
         int width = fontRenderer.width(text);
-        int actualX = (int)(x - width / 2.0f);
+        int actualX = (int) (x - width / 2.0f);
         return actualX + width;
     }
 

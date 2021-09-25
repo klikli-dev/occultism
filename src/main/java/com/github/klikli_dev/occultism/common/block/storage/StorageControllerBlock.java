@@ -45,15 +45,15 @@ import net.minecraftforge.fml.network.NetworkHooks;
 
 import java.util.stream.Stream;
 
-import net.minecraft.block.AbstractBlock.Properties;
-
 public class StorageControllerBlock extends Block {
 
     private static final VoxelShape SHAPE = Stream.of(
             Block.box(0, 0, 0, 16, 4, 16),
             Block.box(4, 4, 4, 12, 12, 12),
             Block.box(2, 12, 2, 14, 16, 14)
-    ).reduce((v1, v2) -> {return VoxelShapes.join(v1, v2, IBooleanFunction.OR);}).get();
+    ).reduce((v1, v2) -> {
+        return VoxelShapes.join(v1, v2, IBooleanFunction.OR);
+    }).get();
 
     //region Initialization
     public StorageControllerBlock(Properties properties) {
@@ -76,7 +76,7 @@ public class StorageControllerBlock extends Block {
 
     @Override
     public ActionResultType use(BlockState state, World world, BlockPos pos, PlayerEntity player,
-                                             Hand handIn, BlockRayTraceResult rayTraceResult) {
+                                Hand handIn, BlockRayTraceResult rayTraceResult) {
         if (!world.isClientSide) {
             TileEntity tileEntity = world.getBlockEntity(pos);
             if (tileEntity instanceof INamedContainerProvider) {

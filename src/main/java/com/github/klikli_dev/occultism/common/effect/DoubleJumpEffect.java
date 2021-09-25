@@ -48,6 +48,19 @@ public class DoubleJumpEffect extends Effect {
     }
     //endregion Initialization
 
+    /**
+     * Gets the amount of jumps provided by the double jump effect on the player, or 0 if there is no double jump effect present.
+     *
+     * @param player the player
+     * @return the max amount of jumps.
+     */
+    public static int getMaxJumps(PlayerEntity player) {
+        EffectInstance effect = player.getEffect(OccultismEffects.DOUBLE_JUMP.get());
+        if (effect != null) {
+            return 1 + effect.getAmplifier();
+        }
+        return 0;
+    }
 
     //region Overrides
     @Override
@@ -71,30 +84,16 @@ public class DoubleJumpEffect extends Effect {
         AbstractGui.blit(mStack, x + 6, y + 7, 18, 18, 0, 0, 255, 255, 256, 256);
     }
 
-    @Override
-    public void renderHUDEffect(EffectInstance effect, AbstractGui gui, MatrixStack mStack, int x, int y, float z,
-                                float alpha) {
-        Minecraft.getInstance().getTextureManager().bind(ICON);
-        AbstractGui.blit(mStack,x + 3, y + 3, 18, 18, 0, 0, 255, 255, 256, 256);
-
-    }
-
     //endregion Overrides
 
     //region Static Methods
 
-    /**
-     * Gets the amount of jumps provided by the double jump effect on the player, or 0 if there is no double jump effect present.
-     *
-     * @param player the player
-     * @return the max amount of jumps.
-     */
-    public static int getMaxJumps(PlayerEntity player) {
-        EffectInstance effect = player.getEffect(OccultismEffects.DOUBLE_JUMP.get());
-        if (effect != null) {
-            return 1 + effect.getAmplifier();
-        }
-        return 0;
+    @Override
+    public void renderHUDEffect(EffectInstance effect, AbstractGui gui, MatrixStack mStack, int x, int y, float z,
+                                float alpha) {
+        Minecraft.getInstance().getTextureManager().bind(ICON);
+        AbstractGui.blit(mStack, x + 3, y + 3, 18, 18, 0, 0, 255, 255, 256, 256);
+
     }
     //endregion Static Methods
 }

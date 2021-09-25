@@ -38,12 +38,12 @@ public class AfritEntity extends SpiritEntity {
     //region Static Methods
     public static AttributeModifierMap.MutableAttribute registerAttributes() {
         return SpiritEntity.registerAttributes()
-                       .add(Attributes.ATTACK_DAMAGE, 8.0)
-                       .add(Attributes.ATTACK_SPEED, 8.0)
-                       .add(Attributes.MAX_HEALTH, 100.0)
-                       .add(Attributes.MOVEMENT_SPEED, 0.40000001192092896)
-                       .add(Attributes.ARMOR, 8.0)
-                       .add(Attributes.ARMOR_TOUGHNESS, 50.0);
+                .add(Attributes.ATTACK_DAMAGE, 8.0)
+                .add(Attributes.ATTACK_SPEED, 8.0)
+                .add(Attributes.MAX_HEALTH, 100.0)
+                .add(Attributes.MOVEMENT_SPEED, 0.40000001192092896)
+                .add(Attributes.ARMOR, 8.0)
+                .add(Attributes.ARMOR_TOUGHNESS, 50.0);
     }
     //endregion Static Methods
 }

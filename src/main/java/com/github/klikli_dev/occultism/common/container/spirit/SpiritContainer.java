@@ -69,15 +69,13 @@ public class SpiritContainer extends Container {
                 if (!this.moveItemStackTo(itemstack1, this.inventory.getSlots(), this.slots.size(), true)) {
                     return ItemStack.EMPTY;
                 }
-            }
-            else if (!this.moveItemStackTo(itemstack1, 0, this.inventory.getSlots(), false)) {
+            } else if (!this.moveItemStackTo(itemstack1, 0, this.inventory.getSlots(), false)) {
                 return ItemStack.EMPTY;
             }
 
             if (itemstack1.isEmpty()) {
                 slot.set(ItemStack.EMPTY);
-            }
-            else {
+            } else {
                 slot.setChanged();
             }
         }

@@ -173,7 +173,7 @@ public class StorageUtil {
     }
 
     public static int getFirstFilledSlotAfter(IItemHandler handler, int slot) {
-        for (int i = slot+1; i < handler.getSlots(); i++) {
+        for (int i = slot + 1; i < handler.getSlots(); i++) {
             if (!handler.getStackInSlot(i).isEmpty())
                 return i;
         }
@@ -187,28 +187,28 @@ public class StorageUtil {
 //        return itemMatchedSlot > -1 && itemMatchedSlot < tagMatchedSlot ? itemMatchedSlot : tagMatchedSlot;
 //    }
 
-    public static int getFirstMatchingSlot(IItemHandler handler, IItemHandler filter, String tagFilter, boolean isBlacklist){
+    public static int getFirstMatchingSlot(IItemHandler handler, IItemHandler filter, String tagFilter, boolean isBlacklist) {
         return getFirstMatchingSlotAfter(handler, -1, filter, tagFilter, isBlacklist);
     }
 
     public static int getFirstMatchingSlotAfter(IItemHandler handler, int slot, IItemHandler filter, String tagFilter, boolean isBlacklist) {
-        for (int i = slot+1; i < handler.getSlots(); i++) {
-            if (!handler.getStackInSlot(i).isEmpty()){
+        for (int i = slot + 1; i < handler.getSlots(); i++) {
+            if (!handler.getStackInSlot(i).isEmpty()) {
                 boolean matches = matchesFilter(handler.getStackInSlot(i), filter) ||
-                                  matchesFilter(handler.getStackInSlot(i), tagFilter);
+                        matchesFilter(handler.getStackInSlot(i), tagFilter);
 
                 //if we're in blacklist mode, if the item matches either item or tag -> we continue into next iteration
                 //if we're in blacklist mode and none of the filters match -> we return
                 //if we're in whitelist mode, if the item matches either item or tag -> we return
                 //if we're in whitelist mode, if the item matches neither item nor tag -> we continue
-                if((!isBlacklist && matches) || (isBlacklist && !matches))
+                if ((!isBlacklist && matches) || (isBlacklist && !matches))
                     return i;
             }
         }
         return -1;
     }
 
-    public static boolean matchesFilter(ItemStack stack, IItemHandler filter){
+    public static boolean matchesFilter(ItemStack stack, IItemHandler filter) {
         for (int i = 0; i < filter.getSlots(); i++) {
             ItemStack filtered = filter.getStackInSlot(i);
 
@@ -225,14 +225,14 @@ public class StorageUtil {
     /**
      * Checks if stack matches the given tag filter (wildcard match)
      */
-    public static boolean matchesFilter(ItemStack stack, String tagFilter){
-        if(tagFilter.isEmpty())
+    public static boolean matchesFilter(ItemStack stack, String tagFilter) {
+        if (tagFilter.isEmpty())
             return false;
 
         String[] filters = tagFilter.split(";");
-        for(String filter : filters){
+        for (String filter : filters) {
             boolean equals = stack.getItem().getTags().stream().anyMatch(rl -> {
-                 return FilenameUtils.wildcardMatch(rl.toString(), filter, IOCase.INSENSITIVE);
+                return FilenameUtils.wildcardMatch(rl.toString(), filter, IOCase.INSENSITIVE);
             });
 
             if (equals) {

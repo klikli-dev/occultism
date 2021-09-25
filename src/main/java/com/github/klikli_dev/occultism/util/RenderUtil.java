@@ -32,15 +32,15 @@ public class RenderUtil {
     /**
      * Builds a block outline into the given tesselator buffer.
      *
-     * @param buffer the buffer to write into.
+     * @param buffer    the buffer to write into.
      * @param transform the transform matrix.
-     * @param x      the block x position.
-     * @param y      the block y position.
-     * @param z      the block z position.
-     * @param r      the color r.
-     * @param g      the color g.
-     * @param b      the color b.
-     * @param a      the color a.
+     * @param x         the block x position.
+     * @param y         the block y position.
+     * @param z         the block z position.
+     * @param r         the color r.
+     * @param g         the color g.
+     * @param b         the color b.
+     * @param a         the color a.
      */
     public static void buildBlockOutline(IVertexBuilder buffer, Matrix4f transform, float x, float y, float z, float r, float g, float b, float a) {
         buffer.vertex(transform, x, y, z).color(r, g, b, a).endVertex();

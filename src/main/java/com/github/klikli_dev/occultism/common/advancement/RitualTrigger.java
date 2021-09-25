@@ -27,7 +27,6 @@ import com.github.klikli_dev.occultism.common.ritual.Ritual;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonNull;
 import com.google.gson.JsonObject;
-
 import net.minecraft.advancements.criterion.AbstractCriterionTrigger;
 import net.minecraft.advancements.criterion.CriterionInstance;
 import net.minecraft.advancements.criterion.EntityPredicate;
@@ -53,7 +52,7 @@ public class RitualTrigger extends AbstractCriterionTrigger<RitualTrigger.Instan
     }
 
     public RitualTrigger.Instance createInstance(JsonObject json, EntityPredicate.AndPredicate entityPredicate,
-            ConditionArrayParser conditionsParser) {
+                                                 ConditionArrayParser conditionsParser) {
         return new RitualTrigger.Instance(this.deserializeRitualPredicate(json));
     }
 
@@ -110,14 +109,6 @@ public class RitualTrigger extends AbstractCriterionTrigger<RitualTrigger.Instan
             this.ritualFactoryId = ritualFactoryId;
         }
 
-        public boolean test(Ritual ritual) {
-            if (this == ANY)
-                return true;
-            else if (this.ritualId != null && !this.ritualId.equals(ritual.getRecipe().getId()))
-                return false;
-            else return this.ritualFactoryId == null || this.ritualFactoryId.equals(ritual.getFactoryID());
-        }
-
         public static RitualPredicate deserialize(JsonElement element) {
             if (element == null || element.isJsonNull())
                 return ANY;
@@ -130,6 +121,14 @@ public class RitualTrigger extends AbstractCriterionTrigger<RitualTrigger.Instan
             if (json.has("ritual_factory_id"))
                 ritualFactoryId = new ResourceLocation(JSONUtils.getAsString(json, "ritual_factory_id"));
             return new RitualPredicate(ritualId, ritualFactoryId);
+        }
+
+        public boolean test(Ritual ritual) {
+            if (this == ANY)
+                return true;
+            else if (this.ritualId != null && !this.ritualId.equals(ritual.getRecipe().getId()))
+                return false;
+            else return this.ritualFactoryId == null || this.ritualFactoryId.equals(ritual.getFactoryID());
         }
 
         public JsonElement serialize() {

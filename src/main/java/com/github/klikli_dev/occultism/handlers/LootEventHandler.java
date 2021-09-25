@@ -52,7 +52,7 @@ public class LootEventHandler {
         if (event.isRecentlyHit() && event.getSource().getEntity() instanceof LivingEntity) {
             LivingEntity trueSource = (LivingEntity) event.getSource().getEntity();
             ItemStack knifeItem = trueSource.getItemInHand(Hand.MAIN_HAND);
-            if ( knifeItem.getItem() == OccultismItems.BUTCHER_KNIFE.get()) {
+            if (knifeItem.getItem() == OccultismItems.BUTCHER_KNIFE.get()) {
                 List<ItemStack> loot = ButcherKnifeItem.getLoot(event.getEntityLiving(), knifeItem, trueSource);
                 Random rand = event.getEntityLiving().getRandom();
 
@@ -68,14 +68,14 @@ public class LootEventHandler {
             }
         }
     }
-    
+
     @SubscribeEvent
     public static void onExpDrop(LivingExperienceDropEvent event) {
         if (event.getDroppedExperience() == 0)
             return;
 
         PlayerEntity attackingPlayer = event.getAttackingPlayer();
-        if(attackingPlayer != null){
+        if (attackingPlayer != null) {
             EffectInstance greed = attackingPlayer.getEffect(OccultismEffects.DRAGON_GREED.get());
             if (greed == null)
                 return;

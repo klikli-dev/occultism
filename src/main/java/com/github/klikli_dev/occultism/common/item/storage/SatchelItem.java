@@ -44,8 +44,6 @@ import net.minecraftforge.fml.network.NetworkHooks;
 import javax.annotation.Nullable;
 import java.util.List;
 
-import net.minecraft.item.Item.Properties;
-
 public class SatchelItem extends Item {
     //region Initialization
     public SatchelItem(Properties properties) {
@@ -73,9 +71,10 @@ public class SatchelItem extends Item {
 
         return new ActionResult<>(ActionResultType.SUCCESS, stack);
     }
+
     @Override
     public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip,
-                               ITooltipFlag flagIn) {
+                                ITooltipFlag flagIn) {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
         tooltip.add(new TranslationTextComponent(this.getDescriptionId() + ".tooltip",
                 TextUtil.formatDemonName(ItemNBTUtil.getBoundSpiritName(stack))));

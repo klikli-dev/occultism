@@ -55,6 +55,12 @@ public class SatchelContainer extends Container {
     }
     //endregion Initialization
 
+    //region Static Methods
+    public static SatchelContainer createClientContainer(int id, PlayerInventory playerInventory, PacketBuffer buffer) {
+        final int selectedSlot = buffer.readVarInt();
+        return new SatchelContainer(id, playerInventory, new Inventory(SATCHEL_SIZE), selectedSlot);
+    }
+
     //region Overrides
     @Override
     public void broadcastChanges() {
@@ -73,9 +79,9 @@ public class SatchelContainer extends Container {
             ItemStack itemstack1 = slot.getItem();
             itemstack = itemstack1.copy();
 
-            if(index >= this.satchelInventory.getContainerSize()) {
+            if (index >= this.satchelInventory.getContainerSize()) {
                 //if putting into satchel, abort if it's another satchel
-                if(itemstack.getItem() == OccultismItems.SATCHEL.get())
+                if (itemstack.getItem() == OccultismItems.SATCHEL.get())
                     return ItemStack.EMPTY;
             }
             //take out of satchel
@@ -92,30 +98,23 @@ public class SatchelContainer extends Container {
 
             if (itemstack1.isEmpty()) {
                 slot.set(ItemStack.EMPTY);
-            }
-            else {
+            } else {
                 slot.setChanged();
             }
         }
 
         return itemstack;
     }
+    //endregion Overrides
 
     @Override
     public boolean stillValid(PlayerEntity player) {
-        if(this.selectedSlot == -1){
+        if (this.selectedSlot == -1) {
             return CuriosUtil.getBackpack(player).getItem() == OccultismItems.SATCHEL.get();
         }
-        if(this.selectedSlot < 0 || this.selectedSlot >= player.inventory.getContainerSize())
+        if (this.selectedSlot < 0 || this.selectedSlot >= player.inventory.getContainerSize())
             return false;
         return player.inventory.getItem(this.selectedSlot).getItem() == OccultismItems.SATCHEL.get();
-    }
-    //endregion Overrides
-
-    //region Static Methods
-    public static SatchelContainer createClientContainer(int id, PlayerInventory playerInventory, PacketBuffer buffer) {
-        final int selectedSlot = buffer.readVarInt();
-        return new SatchelContainer(id, playerInventory, new Inventory(SATCHEL_SIZE), selectedSlot);
     }
     //endregion Static Methods
 

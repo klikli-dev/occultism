@@ -22,27 +22,15 @@
 
 package com.github.klikli_dev.occultism.common.entity;
 
-import java.util.Collections;
-import java.util.UUID;
-
-import javax.annotation.Nullable;
-
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.registry.OccultismEffects;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.google.common.collect.ImmutableList;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
-import net.minecraft.entity.ai.goal.FollowMobGoal;
-import net.minecraft.entity.ai.goal.FollowOwnerGoal;
-import net.minecraft.entity.ai.goal.LookAtGoal;
-import net.minecraft.entity.ai.goal.PanicGoal;
-import net.minecraft.entity.ai.goal.SitGoal;
-import net.minecraft.entity.ai.goal.SwimGoal;
-import net.minecraft.entity.ai.goal.WaterAvoidingRandomFlyingGoal;
+import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.passive.ParrotEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -51,6 +39,10 @@ import net.minecraft.potion.Effects;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
+
+import javax.annotation.Nullable;
+import java.util.Collections;
+import java.util.UUID;
 
 public class OtherworldBirdEntity extends ParrotEntity implements IFamiliar {
 
@@ -67,6 +59,14 @@ public class OtherworldBirdEntity extends ParrotEntity implements IFamiliar {
     }
     // endregion Initialization
 
+    //region Static Methods
+    public static AttributeModifierMap.MutableAttribute registerAttributes() {
+        return ParrotEntity.createAttributes(); // =registerAttributes
+    }
+    // endregion Getter / Setter
+
+    // region Overrides
+
     // region Getter / Setter
     public LivingEntity getOwnerCached() {
         if (this.ownerCached != null)
@@ -74,9 +74,6 @@ public class OtherworldBirdEntity extends ParrotEntity implements IFamiliar {
         this.ownerCached = this.getOwner();
         return this.ownerCached;
     }
-    // endregion Getter / Setter
-
-    // region Overrides
 
     @Override
     protected void registerGoals() {
@@ -141,6 +138,7 @@ public class OtherworldBirdEntity extends ParrotEntity implements IFamiliar {
         }
         return Collections.emptyList();
     }
+    // endregion Overrides
 
     @Override
     public ActionResultType mobInteract(PlayerEntity playerIn, Hand hand) {
@@ -149,12 +147,6 @@ public class OtherworldBirdEntity extends ParrotEntity implements IFamiliar {
             return stack.interactLivingEntity(playerIn, this, hand);
         }
         return super.mobInteract(playerIn, hand);
-    }
-    // endregion Overrides
-
-    //region Static Methods
-    public static AttributeModifierMap.MutableAttribute registerAttributes() {
-        return ParrotEntity.createAttributes(); // =registerAttributes
     }
 //endregion Static Methods
 }

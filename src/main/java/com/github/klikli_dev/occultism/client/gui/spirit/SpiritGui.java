@@ -32,20 +32,20 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.util.math.vector.Quaternion;
-import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.vector.Quaternion;
+import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.WordUtils;
 
 public class SpiritGui<T extends SpiritContainer> extends ContainerScreen<T> {
-//region Fields
+    //region Fields
     protected static final ResourceLocation TEXTURE = new ResourceLocation(Occultism.MODID,
             "textures/gui/inventory_spirit.png");
     protected static final String TRANSLATION_KEY_BASE = "gui." + Occultism.MODID + ".spirit";
@@ -63,6 +63,47 @@ public class SpiritGui<T extends SpiritContainer> extends ContainerScreen<T> {
         this.imageHeight = 165;
     }
     //endregion Initialization
+
+    //region Static Methods
+    public static void drawEntityToGui(int posX, int posY, int scale, float mouseX, float mouseY, LivingEntity entity) {
+        //From inventory screen
+        float f = (float) Math.atan(mouseX / 40.0F);
+        float f1 = (float) Math.atan(mouseY / 40.0F);
+        RenderSystem.pushMatrix();
+        RenderSystem.translatef((float) posX, (float) posY, 1050.0F);
+        RenderSystem.scalef(1.0F, 1.0F, -1.0F);
+        MatrixStack matrixstack = new MatrixStack();
+        matrixstack.translate(0.0D, 0.0D, 1000.0D);
+        matrixstack.scale((float) scale, (float) scale, (float) scale);
+        Quaternion quaternion = Vector3f.ZP.rotationDegrees(180.0F);
+        Quaternion quaternion1 = Vector3f.XP.rotationDegrees(f1 * 20.0F);
+        quaternion.mul(quaternion1);
+        matrixstack.mulPose(quaternion);
+        float f2 = entity.yBodyRot;
+        float f3 = entity.yRot;
+        float f4 = entity.xRot;
+        float f5 = entity.yHeadRotO;
+        float f6 = entity.yHeadRot;
+        entity.yBodyRot = 180.0F + f * 20.0F;
+        entity.yRot = 180.0F + f * 40.0F;
+        entity.xRot = -f1 * 20.0F;
+        entity.yHeadRot = entity.yRot;
+        entity.yHeadRotO = entity.yRot;
+        EntityRendererManager entityrenderermanager = Minecraft.getInstance().getEntityRenderDispatcher();
+        quaternion1.conj();
+        entityrenderermanager.overrideCameraOrientation(quaternion1);
+        entityrenderermanager.setRenderShadow(false);
+        IRenderTypeBuffer.Impl irendertypebuffer$impl = Minecraft.getInstance().renderBuffers().bufferSource();
+        entityrenderermanager.render(entity, 0.0D, 0.0D, 0.0D, 0.0F, 1.0F, matrixstack, irendertypebuffer$impl, 15728880);
+        irendertypebuffer$impl.endBatch();
+        entityrenderermanager.setRenderShadow(true);
+        entity.yBodyRot = f2;
+        entity.yRot = f3;
+        entity.xRot = f4;
+        entity.yHeadRotO = f5;
+        entity.yHeadRot = f6;
+        RenderSystem.popMatrix();
+    }
 
     //region Overrides
     @Override
@@ -110,52 +151,11 @@ public class SpiritGui<T extends SpiritContainer> extends ContainerScreen<T> {
                 this.topPos + 75 - 50 - y, this.spirit);
         RenderSystem.popMatrix();
     }
+    //endregion Overrides
 
     @Override
     protected void renderLabels(MatrixStack matrixStack, int x, int y) {
         //don't call super to avoid drawing names of inventories
-    }
-    //endregion Overrides
-
-//region Static Methods
-    public static void drawEntityToGui(int posX, int posY, int scale, float mouseX, float mouseY, LivingEntity entity) {
-        //From inventory screen
-        float f = (float)Math.atan(mouseX / 40.0F);
-        float f1 = (float)Math.atan(mouseY / 40.0F);
-        RenderSystem.pushMatrix();
-        RenderSystem.translatef((float)posX, (float)posY, 1050.0F);
-        RenderSystem.scalef(1.0F, 1.0F, -1.0F);
-        MatrixStack matrixstack = new MatrixStack();
-        matrixstack.translate(0.0D, 0.0D, 1000.0D);
-        matrixstack.scale((float)scale, (float)scale, (float)scale);
-        Quaternion quaternion = Vector3f.ZP.rotationDegrees(180.0F);
-        Quaternion quaternion1 = Vector3f.XP.rotationDegrees(f1 * 20.0F);
-        quaternion.mul(quaternion1);
-        matrixstack.mulPose(quaternion);
-        float f2 = entity.yBodyRot;
-        float f3 = entity.yRot;
-        float f4 = entity.xRot;
-        float f5 = entity.yHeadRotO;
-        float f6 = entity.yHeadRot;
-        entity.yBodyRot = 180.0F + f * 20.0F;
-        entity.yRot = 180.0F + f * 40.0F;
-        entity.xRot = -f1 * 20.0F;
-        entity.yHeadRot = entity.yRot;
-        entity.yHeadRotO = entity.yRot;
-        EntityRendererManager entityrenderermanager = Minecraft.getInstance().getEntityRenderDispatcher();
-        quaternion1.conj();
-        entityrenderermanager.overrideCameraOrientation(quaternion1);
-        entityrenderermanager.setRenderShadow(false);
-        IRenderTypeBuffer.Impl irendertypebuffer$impl = Minecraft.getInstance().renderBuffers().bufferSource();
-        entityrenderermanager.render(entity, 0.0D, 0.0D, 0.0D, 0.0F, 1.0F, matrixstack, irendertypebuffer$impl, 15728880);
-        irendertypebuffer$impl.endBatch();
-        entityrenderermanager.setRenderShadow(true);
-        entity.yBodyRot = f2;
-        entity.yRot = f3;
-        entity.xRot = f4;
-        entity.yHeadRotO = f5;
-        entity.yHeadRot = f6;
-        RenderSystem.popMatrix();
     }
 //endregion Static Methods
 }

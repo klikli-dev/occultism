@@ -49,8 +49,6 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Map;
 
-import net.minecraft.block.AbstractBlock.Properties;
-
 public class StorageStabilizerBlock extends Block {
 
     //region Fields
@@ -94,13 +92,13 @@ public class StorageStabilizerBlock extends Block {
 
     @Override
     public void playerDestroy(World worldIn, PlayerEntity player, BlockPos pos, BlockState state,
-                             @Nullable TileEntity te, ItemStack stack) {
+                              @Nullable TileEntity te, ItemStack stack) {
         super.playerDestroy(worldIn, player, pos, state, te, stack);
     }
 
     @Override
     public void setPlacedBy(World world, BlockPos pos, BlockState state, LivingEntity placer,
-                                ItemStack stack) {
+                            ItemStack stack) {
         this.notifyStorageControllers(world, pos, state);
 
         super.setPlacedBy(world, pos, state, placer, stack);

@@ -103,8 +103,7 @@ public class SelectedBlockRenderer {
                     //remove expired or invalid selections
                     it.remove();
                     return;
-                }
-                else {
+                } else {
                     RenderUtil
                             .buildBlockOutline(builder, transform, info.selectedBlock.getX(), info.selectedBlock.getY(),
                                     info.selectedBlock.getZ(), info.color.getRed() / 255.0f,

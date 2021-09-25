@@ -50,22 +50,22 @@ public enum StorageControllerGuiMode implements IStringSerializable {
     }
     //endregion Initialization
 
+    //region Static Methods
+    public static StorageControllerGuiMode get(int value) {
+        return lookup.get(value);
+    }
+    //endregion Getter / Setter
+
     //region Getter / Setter
     public int getValue() {
         return this.value;
     }
-    //endregion Getter / Setter
+    //endregion Overrides
 
     //region Overrides
     @Override
     public String getSerializedName() {
-        return  this.name().toLowerCase();
-    }
-    //endregion Overrides
-
-    //region Static Methods
-    public static StorageControllerGuiMode get(int value) {
-        return lookup.get(value);
+        return this.name().toLowerCase();
     }
     //endregion Static Methods
 

@@ -22,12 +22,9 @@
 
 package com.github.klikli_dev.occultism.network;
 
-import com.github.klikli_dev.occultism.common.container.storage.StorageRemoteContainer;
-import com.github.klikli_dev.occultism.common.item.storage.StorageRemoteItem;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.github.klikli_dev.occultism.util.CuriosUtil;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.fml.network.NetworkEvent;
@@ -53,7 +50,7 @@ public class MessageOpenStorageRemote extends MessageBase {
                                  NetworkEvent.Context context) {
 
         CuriosUtil.SelectedCurio selectedCurio = CuriosUtil.getStorageRemote(player);
-        if(selectedCurio != null){
+        if (selectedCurio != null) {
             NetworkHooks.openGui(player, OccultismItems.STORAGE_REMOTE.get(),
                     buffer -> buffer.writeVarInt(selectedCurio.selectedSlot));
         }

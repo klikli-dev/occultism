@@ -31,13 +31,13 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import javax.annotation.Nullable;
 
 public class RitualWaitingParticle extends SpriteTexturedParticle {
-//region Fields
+    //region Fields
     private final double portalPosX;
     private final double portalPosY;
     private final double portalPosZ;
 //endregion Fields
 
-//region Initialization
+    //region Initialization
     private RitualWaitingParticle(ClientWorld worldIn, double xCoordIn, double yCoordIn, double zCoordIn,
                                   double xSpeedIn, double ySpeedIn, double zSpeedIn) {
         super(worldIn, xCoordIn, yCoordIn, zCoordIn);
@@ -61,7 +61,7 @@ public class RitualWaitingParticle extends SpriteTexturedParticle {
     }
 //endregion Initialization
 
-//region Overrides
+    //region Overrides
     public float getQuadSize(float p_217561_1_) {
         float f = ((float) this.age + p_217561_1_) / (float) this.lifetime;
         f = 1.0F - f;
@@ -76,8 +76,7 @@ public class RitualWaitingParticle extends SpriteTexturedParticle {
         this.zo = this.z;
         if (this.age++ >= this.lifetime) {
             this.remove();
-        }
-        else {
+        } else {
             float f = (float) this.age / (float) this.lifetime;
             float f1 = -f + f * f * 2.0F;
             float f2 = 1.0F - f1;
@@ -114,21 +113,21 @@ public class RitualWaitingParticle extends SpriteTexturedParticle {
 
     @OnlyIn(Dist.CLIENT)
     public static class Factory implements IParticleFactory<BasicParticleType> {
-//region Fields
+        //region Fields
         private final IAnimatedSprite spriteSet;
 //endregion Fields
 
-//region Initialization
+        //region Initialization
         public Factory(IAnimatedSprite p_i50607_1_) {
             this.spriteSet = p_i50607_1_;
         }
 //endregion Initialization
 
-//region Overrides
+        //region Overrides
         @Nullable
         @Override
         public Particle createParticle(BasicParticleType typeIn, ClientWorld worldIn, double x, double y, double z,
-                                     double xSpeed, double ySpeed, double zSpeed) {
+                                       double xSpeed, double ySpeed, double zSpeed) {
             RitualWaitingParticle particle = new RitualWaitingParticle(worldIn, x, y, z, xSpeed, ySpeed, zSpeed);
             particle.pickSprite(this.spriteSet);
             return particle;

@@ -28,8 +28,6 @@ import net.minecraft.item.ItemStack;
 import java.util.HashMap;
 import java.util.Map;
 
-import net.minecraft.item.Item.Properties;
-
 public class BookOfCallingCleanerItem extends BookOfCallingItem {
     //region Initialization
     public BookOfCallingCleanerItem(Properties properties, String translationKeyBase) {
@@ -67,21 +65,21 @@ public class BookOfCallingCleanerItem extends BookOfCallingItem {
         }
         //endregion Initialization
 
+        //region Static Methods
+        public static ItemModeSubset get(ItemMode value) {
+            return lookup.get(value);
+        }
+
         //region Overrides
         @Override
         public ItemMode getItemMode() {
             return this.itemMode;
         }
+        //endregion Overrides
 
         @Override
         public ItemModeSubset next() {
             return values()[(this.ordinal() + 1) % values().length];
-        }
-        //endregion Overrides
-
-        //region Static Methods
-        public static ItemModeSubset get(ItemMode value) {
-            return lookup.get(value);
         }
         //endregion Static Methods
     }

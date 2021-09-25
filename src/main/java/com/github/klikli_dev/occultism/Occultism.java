@@ -27,11 +27,7 @@ import com.github.klikli_dev.occultism.client.render.SelectedBlockRenderer;
 import com.github.klikli_dev.occultism.client.render.ThirdEyeEffectRenderer;
 import com.github.klikli_dev.occultism.common.DebugHelper;
 import com.github.klikli_dev.occultism.common.OccultismItemGroup;
-import com.github.klikli_dev.occultism.common.entity.BatFamiliarEntity;
-import com.github.klikli_dev.occultism.common.entity.CthulhuFamiliarEntity;
-import com.github.klikli_dev.occultism.common.entity.DevilFamiliarEntity;
-import com.github.klikli_dev.occultism.common.entity.FamiliarEntity;
-import com.github.klikli_dev.occultism.common.entity.OtherworldBirdEntity;
+import com.github.klikli_dev.occultism.common.entity.*;
 import com.github.klikli_dev.occultism.common.entity.possessed.PossessedEndermanEntity;
 import com.github.klikli_dev.occultism.common.entity.possessed.PossessedEndermiteEntity;
 import com.github.klikli_dev.occultism.common.entity.possessed.PossessedSkeletonEntity;
@@ -43,7 +39,6 @@ import com.github.klikli_dev.occultism.config.OccultismServerConfig;
 import com.github.klikli_dev.occultism.network.OccultismPackets;
 import com.github.klikli_dev.occultism.registry.*;
 import net.minecraft.item.ItemGroup;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -60,9 +55,6 @@ import org.apache.logging.log4j.Logger;
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.SlotTypeMessage;
 import top.theillusivec4.curios.api.SlotTypePreset;
-import vazkii.patchouli.api.PatchouliAPI;
-
-import static com.github.klikli_dev.occultism.util.StaticUtil.modLoc;
 
 @Mod(Occultism.MODID)
 public class Occultism {
@@ -137,7 +129,7 @@ public class Occultism {
         LOGGER.info("Common setup complete.");
     }
 
-    private void onEntityAttributeCreation(final EntityAttributeCreationEvent event){
+    private void onEntityAttributeCreation(final EntityAttributeCreationEvent event) {
         event.put(OccultismEntities.FOLIOT_TYPE.get(), FoliotEntity.registerAttributes().build());
         event.put(OccultismEntities.DJINNI_TYPE.get(), DjinniEntity.registerAttributes().build());
         event.put(OccultismEntities.AFRIT_TYPE.get(), AfritEntity.registerAttributes().build());
@@ -161,7 +153,7 @@ public class Occultism {
         LOGGER.info("Dedicated server setup complete.");
     }
 
-    private void enqueueIMC(final InterModEnqueueEvent event){
+    private void enqueueIMC(final InterModEnqueueEvent event) {
         InterModComms.sendTo(CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE, () -> SlotTypePreset.BELT.getMessageBuilder().build());
         InterModComms.sendTo(CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE, () -> SlotTypePreset.HEAD.getMessageBuilder().build());
         InterModComms.sendTo(CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE, () -> SlotTypePreset.RING.getMessageBuilder().build());

@@ -27,7 +27,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class StaticUtil {
 
-    public static ResourceLocation modLoc(String path){
+    public static ResourceLocation modLoc(String path) {
         return new ResourceLocation(Occultism.MODID, path);
     }
 }

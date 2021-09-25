@@ -43,8 +43,6 @@ import net.minecraftforge.items.ItemHandlerHelper;
 import java.util.EnumSet;
 import java.util.Optional;
 
-import net.minecraft.entity.ai.goal.Goal.Flag;
-
 public class ExtractItemsGoal extends PausableGoal {
     //region Fields
     protected final SpiritEntity entity;
@@ -110,15 +108,14 @@ public class ExtractItemsGoal extends PausableGoal {
 
                 //briefly before reaching the target, open chest, if it is one.
                 if (distance < 2.5 && distance >= accessDistance && this.canSeeTarget() &&
-                    tileEntity instanceof IInventory) {
+                        tileEntity instanceof IInventory) {
                     this.toggleChest((IInventory) tileEntity, true);
                 }
 
                 if (distance < accessDistance) {
                     //stop moving while taking out
                     this.entity.getNavigation().stop();
-                }
-                else {
+                } else {
                     //continue moving
                     BlockPos moveTarget = this.getMoveTarget();
                     this.entity.getNavigation().moveTo(this.entity.getNavigation().createPath(moveTarget, 0), 1.0f);
@@ -130,7 +127,7 @@ public class ExtractItemsGoal extends PausableGoal {
                     LazyOptional<IItemHandler> handlerCapability = tileEntity.getCapability(
                             CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, this.entity.getExtractFacing());
                     if (!handlerCapability
-                                 .isPresent()) { //worst case scenario if tile entity changes since last target reset.
+                            .isPresent()) { //worst case scenario if tile entity changes since last target reset.
                         this.resetTarget();
                         return;
                     }
@@ -159,8 +156,7 @@ public class ExtractItemsGoal extends PausableGoal {
                         this.toggleChest((IInventory) tileEntity, false);
                     }
                 }
-            }
-            else {
+            } else {
                 this.resetTarget(); //if there is no tile entity, recheck
             }
         }
@@ -179,7 +175,7 @@ public class ExtractItemsGoal extends PausableGoal {
             BlockPos sidePos = result.getBlockPos();
             BlockPos pos = new BlockPos(result.getLocation());
             return this.entity.level.isEmptyBlock(sidePos) || this.entity.level.isEmptyBlock(pos) ||
-                   this.entity.level.getBlockEntity(pos) == this.entity.level.getBlockEntity(this.targetBlock);
+                    this.entity.level.getBlockEntity(pos) == this.entity.level.getBlockEntity(this.targetBlock);
         }
 
         return true;
@@ -196,8 +192,7 @@ public class ExtractItemsGoal extends PausableGoal {
             ChestTileEntity chest = (ChestTileEntity) tileEntity;
             if (open) {
                 this.entity.level.blockEvent(this.targetBlock, chest.getBlockState().getBlock(), 1, 1);
-            }
-            else {
+            } else {
                 this.entity.level.blockEvent(this.targetBlock, chest.getBlockState().getBlock(), 1, 0);
             }
         }
@@ -209,12 +204,12 @@ public class ExtractItemsGoal extends PausableGoal {
             this.targetBlock = pos;
             TileEntity tileEntity = this.entity.level.getBlockEntity(this.targetBlock);
             if (tileEntity == null ||
-                !tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, this.entity.getExtractFacing())
-                         .isPresent()) {
+                    !tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, this.entity.getExtractFacing())
+                            .isPresent()) {
                 //the extract tile is not valid for extracting, so we disable this to allow exiting this task.
                 this.entity.setExtractPosition(null);
             }
-            });
+        });
     }
     //endregion Methods
 }

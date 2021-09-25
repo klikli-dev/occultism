@@ -26,9 +26,6 @@ import com.github.klikli_dev.occultism.common.entity.spirit.AfritEntity;
 import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 
-
-import net.minecraft.client.renderer.entity.model.BipedModel.ArmPose;
-
 public class AfritModel extends BipedModel<AfritEntity> {
     //region Fields
     public ModelRenderer nose;
@@ -116,7 +113,7 @@ public class AfritModel extends BipedModel<AfritEntity> {
         this.setRotateAngle(this.wingedWingsRight, 0.4363F, -0.8727F, 0.0F);
         this.wingedWings.addChild(this.wingedWingsRight);
         this.wingedWingsRight.texOffs(40, 38);
-        this.wingedWingsRight.addBox( -1.0F, -1.0F, 0.0F, 1, 1, 11);
+        this.wingedWingsRight.addBox(-1.0F, -1.0F, 0.0F, 1, 1, 11);
         this.wingedWingsRight.texOffs(32, 0);
         this.wingedWingsRight.addBox(-0.1F, 0.0F, -0.4226F, 0, 9, 11);
 

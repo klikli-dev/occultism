@@ -22,28 +22,15 @@
 
 package com.github.klikli_dev.occultism.common.entity;
 
-import java.util.Collections;
-import java.util.UUID;
-
 import com.github.klikli_dev.occultism.common.advancement.FamiliarTrigger;
 import com.github.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.google.common.collect.ImmutableList;
-
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ILivingEntityData;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.AttributeModifier.Operation;
 import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.ai.goal.EatGrassGoal;
-import net.minecraft.entity.ai.goal.FollowMobGoal;
-import net.minecraft.entity.ai.goal.LookAtGoal;
-import net.minecraft.entity.ai.goal.PanicGoal;
-import net.minecraft.entity.ai.goal.SwimGoal;
-import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
+import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
@@ -56,6 +43,9 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
+
+import java.util.Collections;
+import java.util.UUID;
 
 public class DeerFamiliarEntity extends FamiliarEntity {
 
@@ -83,7 +73,7 @@ public class DeerFamiliarEntity extends FamiliarEntity {
         this.goalSelector.addGoal(5, new WaterAvoidingRandomWalkingGoal(this, 1.0D));
         this.goalSelector.addGoal(6, new FollowMobGoal(this, 1, 3, 7));
     }
-    
+
     @Override
     public void setFamiliarOwner(LivingEntity owner) {
         if (this.hasRedNose())
@@ -149,7 +139,7 @@ public class DeerFamiliarEntity extends FamiliarEntity {
 
     @Override
     public ILivingEntityData finalizeSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason,
-            ILivingEntityData spawnDataIn, CompoundNBT dataTag) {
+                                           ILivingEntityData spawnDataIn, CompoundNBT dataTag) {
         this.setRedNose(this.getRandom().nextDouble() < 0.1);
         return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
     }

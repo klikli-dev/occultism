@@ -23,7 +23,10 @@
 package com.github.klikli_dev.occultism.util;
 
 import net.minecraft.util.Direction;
-import net.minecraft.util.math.*;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ChunkPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
 
 import java.util.Comparator;
@@ -66,10 +69,10 @@ public class Math3DUtil {
                 MathHelper.clamp(pos.getX(), bounds.minX, bounds.maxX),
                 MathHelper.clamp(pos.getY(), bounds.minY, bounds.maxY),
                 MathHelper.clamp(pos.getZ(), bounds.minZ, bounds.maxZ)
-                );
+        );
     }
 
-    public static AxisAlignedBB bounds(ChunkPos pos, int maxHeight){
+    public static AxisAlignedBB bounds(ChunkPos pos, int maxHeight) {
         return new AxisAlignedBB(pos.getMinBlockX(), 0, pos.getMinBlockZ(), pos.getMaxBlockX(), maxHeight, pos.getMaxBlockZ());
     }
 
@@ -86,7 +89,7 @@ public class Math3DUtil {
         //map to a new block pos because getAllInBox uses a mutable blockpos internally for iteration,
         // leading to the same block being collected 6x when not mapping it to an immutable blockpos
         return BlockPos.betweenClosedStream(start, start.relative(direction, distance)).map(BlockPos::immutable)
-                       .sorted(Comparator.comparingDouble(start::distSqr)).collect(Collectors.toList());
+                .sorted(Comparator.comparingDouble(start::distSqr)).collect(Collectors.toList());
     }
 
     /**

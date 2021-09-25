@@ -26,7 +26,6 @@ import com.github.klikli_dev.occultism.common.entity.DeerFamiliarEntity;
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
-
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.entity.ai.attributes.Attributes;
@@ -174,7 +173,7 @@ public class DeerFamiliarModel extends EntityModel<DeerFamiliarEntity> {
 
     @Override
     public void renderToBuffer(MatrixStack matrixStackIn, IVertexBuilder bufferIn, int packedLightIn, int packedOverlayIn,
-            float red, float green, float blue, float alpha) {
+                               float red, float green, float blue, float alpha) {
         ImmutableList.of(this.body).forEach((modelRenderer) -> {
             modelRenderer.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
         });
@@ -186,13 +185,13 @@ public class DeerFamiliarModel extends EntityModel<DeerFamiliarEntity> {
 
     @Override
     public void prepareMobModel(DeerFamiliarEntity entityIn, float limbSwing, float limbSwingAmount,
-            float partialTick) {
+                                float partialTick) {
         this.neck.xRot = entityIn.getNeckRot(partialTick);
     }
 
     @Override
     public void setupAnim(DeerFamiliarEntity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks,
-            float netHeadYaw, float headPitch) {
+                          float netHeadYaw, float headPitch) {
         if (entityIn.isEating()) {
             this.head.xRot = MathHelper.cos(ageInTicks * 0.8f) * 0.2f;
             this.head.yRot = 0;

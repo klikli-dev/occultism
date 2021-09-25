@@ -42,8 +42,6 @@ public class TextUtil {
 
     //region Fields
     private static final Map<String, String> MOD_NAME_TO_ID = new HashMap<String, String>();
-    private static boolean modNamesInitialized = false;
-
     private static final String[] SYLLABLE1 = {"Kr", "Ca", "Ra", "Mrok", "Cru", "Ray", "Bre", "Zed", "Drak", "Mor", "Jag", "Mer", "Jar", "Mjol", "Zork", "Mad", "Cry", "Zur", "Creo", "Azak", "Azur", "Rei", "Cro", "Mar", "Luk", "Bar"};
     //KliKli: Obvious :)
     //Xalmas: You know why!
@@ -58,6 +56,7 @@ public class TextUtil {
     private static final String[] SYLLABLE2 = {"air", "ir", "mi", "sor", "mee", "clo", "red", "cra", "ark", "arc", "miri", "lori", "cres", "mur", "zer", "marac", "zoir", "slamar", "salmar", "urak", "tim"};
     private static final String[] SYLLABLE3 = {"d", "ed", "ark", "arc", "es", "er", "der", "tron", "med", "ure", "zur", "cred", "mur", "aeus"};
     private static final Random random = new Random();
+    private static boolean modNamesInitialized = false;
     //endregion Fields
 
     //region Static Methods
@@ -82,11 +81,9 @@ public class TextUtil {
         ResourceLocation key;
         if (object instanceof Item) {
             key = ForgeRegistries.ITEMS.getKey((Item) object);
-        }
-        else if (object instanceof Block) {
+        } else if (object instanceof Block) {
             key = ForgeRegistries.BLOCKS.getKey((Block) object);
-        }
-        else {
+        } else {
             return null;
         }
         String modId = key.getNamespace();
@@ -129,16 +126,13 @@ public class TextUtil {
     public static String formatLargeNumber(int number) {
         if (number < Math.pow(10, 3)) {
             return number + "";
-        }
-        else if (number < Math.pow(10, 6)) {
+        } else if (number < Math.pow(10, 6)) {
             int rounded = Math.round(number / 1000.0F);
             return rounded + "K";
-        }
-        else if (number < Math.pow(10, 9)) {
+        } else if (number < Math.pow(10, 9)) {
             int rounded = Math.round(number / (float) Math.pow(10, 6));
             return rounded + "M";
-        }
-        else if (number < Math.pow(10, 12)) {
+        } else if (number < Math.pow(10, 12)) {
             int rounded = Math.round(number / (float) Math.pow(10, 9));
             return rounded + "B";
         }
@@ -150,8 +144,8 @@ public class TextUtil {
      */
     public static String generateName() {
         return random.nextInt(20) == 0 ? EASTER_EGGS[random.nextInt(
-                EASTER_EGGS.length)]  : SYLLABLE1[random.nextInt(SYLLABLE1.length)] + SYLLABLE2[random.nextInt(SYLLABLE2.length)] +
-                                        SYLLABLE3[random.nextInt(SYLLABLE3.length)];
+                EASTER_EGGS.length)] : SYLLABLE1[random.nextInt(SYLLABLE1.length)] + SYLLABLE2[random.nextInt(SYLLABLE2.length)] +
+                SYLLABLE3[random.nextInt(SYLLABLE3.length)];
     }
     //endregion Static Methods
 }

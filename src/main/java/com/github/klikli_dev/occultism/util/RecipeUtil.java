@@ -27,10 +27,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.RecipeManager;
-import net.minecraft.util.ResourceLocation;
 
 import java.util.List;
-import java.util.Map;
 
 public class RecipeUtil {
 

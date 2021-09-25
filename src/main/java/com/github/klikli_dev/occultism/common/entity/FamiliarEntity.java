@@ -22,19 +22,9 @@
 
 package com.github.klikli_dev.occultism.common.entity;
 
-import java.util.EnumSet;
-import java.util.Optional;
-import java.util.Random;
-import java.util.UUID;
-
 import com.github.klikli_dev.occultism.registry.OccultismItems;
-
 import net.minecraft.block.Blocks;
-import net.minecraft.entity.CreatureEntity;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.MobEntity;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.Goal;
@@ -52,6 +42,11 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
+
+import java.util.EnumSet;
+import java.util.Optional;
+import java.util.Random;
+import java.util.UUID;
 
 public abstract class FamiliarEntity extends CreatureEntity implements IFamiliar {
 
@@ -74,17 +69,17 @@ public abstract class FamiliarEntity extends CreatureEntity implements IFamiliar
         return MobEntity.createMobAttributes().add(Attributes.MAX_HEALTH, 6)
                 .add(Attributes.MOVEMENT_SPEED, 0.3);
     }
-    
+
     @Override
     public void setRecordPlayingNearby(BlockPos jukeboxPos, boolean partying) {
         this.jukeboxPos = jukeboxPos;
         this.partying = partying;
-     }
+    }
 
-     
-     public boolean isPartying() {
+
+    public boolean isPartying() {
         return this.partying;
-     }
+    }
 
     @Override
     protected void defineSynchedData() {
@@ -101,13 +96,13 @@ public abstract class FamiliarEntity extends CreatureEntity implements IFamiliar
     @Override
     public void aiStep() {
         this.updateSwingTime();
-        
+
         if (this.jukeboxPos == null || !this.jukeboxPos.closerThan(this.position(), 3.5)
                 || !this.level.getBlockState(this.jukeboxPos).is(Blocks.JUKEBOX)) {
             this.partying = false;
             this.jukeboxPos = null;
         }
-        
+
         LivingEntity owner;
         if (!this.level.isClientSide && this.level.getGameTime() % 10 == 0 && (owner = this.getFamiliarOwner()) != null
                 && this.distanceTo(owner) < MAX_BOOST_DISTANCE)
@@ -124,11 +119,6 @@ public abstract class FamiliarEntity extends CreatureEntity implements IFamiliar
         } catch (IllegalArgumentException illegalargumentexception) {
             return null;
         }
-    }
-
-    @Override
-    public void setFamiliarOwner(LivingEntity owner) {
-        this.setOwnerId(owner.getUUID());
     }
 
     public LivingEntity getOwnerCached() {
@@ -156,6 +146,11 @@ public abstract class FamiliarEntity extends CreatureEntity implements IFamiliar
     @Override
     public LivingEntity getFamiliarOwner() {
         return this.getOwnerCached();
+    }
+
+    @Override
+    public void setFamiliarOwner(LivingEntity owner) {
+        this.setOwnerId(owner.getUUID());
     }
 
     public UUID getOwnerId() {
@@ -191,23 +186,22 @@ public abstract class FamiliarEntity extends CreatureEntity implements IFamiliar
         compound.putBoolean("isSitting", this.isSitting());
     }
 
-    protected void setSitting(boolean b) {
-        this.entityData.set(SITTING, b);
-    }
-
     public boolean isSitting() {
         return this.entityData.get(SITTING);
+    }
+
+    protected void setSitting(boolean b) {
+        this.entityData.set(SITTING, b);
     }
 
     protected static class FollowOwnerGoal extends Goal {
 
         private static final int TELEPORT_ATTEMPTS = 10;
-
-        protected FamiliarEntity entity;
         private final double speed;
-        private int cooldown;
         private final float maxDist;
         private final float minDist;
+        protected FamiliarEntity entity;
+        private int cooldown;
         private LivingEntity owner;
 
         public FollowOwnerGoal(FamiliarEntity entity, double speed, float minDist, float maxDist) {

@@ -22,14 +22,6 @@
 
 package com.github.klikli_dev.occultism.datagen;
 
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.HashMap;
-import java.util.Map;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.advancement.FamiliarTrigger;
 import com.github.klikli_dev.occultism.common.advancement.RitualTrigger;
@@ -38,7 +30,6 @@ import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.github.klikli_dev.occultism.registry.OccultismRituals;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.FrameType;
 import net.minecraft.data.DataGenerator;
@@ -49,6 +40,13 @@ import net.minecraft.item.Items;
 import net.minecraft.nbt.IntNBT;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TranslationTextComponent;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.HashMap;
+import java.util.Map;
 
 public class OccultismAdvancementProvider implements IDataProvider {
     private static final Logger LOGGER = LogManager.getLogger();
@@ -60,6 +58,23 @@ public class OccultismAdvancementProvider implements IDataProvider {
     public OccultismAdvancementProvider(DataGenerator generator) {
         this.generator = generator;
         this.advancements = new HashMap<>();
+    }
+
+    private static TranslationTextComponent text(String name, String type) {
+        return new TranslationTextComponent("advancements." + Occultism.MODID + ".familiar." + name + "." + type);
+    }
+
+    public static TranslationTextComponent title(String name) {
+        return text(name, "title");
+    }
+
+    public static TranslationTextComponent descr(String name) {
+        return text(name, "description");
+    }
+
+    private static Path getPath(Path path, Advancement advancement) {
+        ResourceLocation id = advancement.getId();
+        return path.resolve("data/" + id.getNamespace() + "/advancements/" + id.getPath() + ".json");
     }
 
     @Override
@@ -136,18 +151,6 @@ public class OccultismAdvancementProvider implements IDataProvider {
                 .build(new ResourceLocation(Occultism.MODID, "occultism/familiar/mans_best_friend")));
     }
 
-    private static TranslationTextComponent text(String name, String type) {
-        return new TranslationTextComponent("advancements." + Occultism.MODID + ".familiar." + name + "." + type);
-    }
-
-    public static TranslationTextComponent title(String name) {
-        return text(name, "title");
-    }
-
-    public static TranslationTextComponent descr(String name) {
-        return text(name, "description");
-    }
-
     private ItemStack icon(int data) {
         ItemStack icon = OccultismItems.ADVANCEMENT_ICON.get().getDefaultInstance();
         icon.addTagElement("CustomModelData", IntNBT.valueOf(data));
@@ -159,11 +162,6 @@ public class OccultismAdvancementProvider implements IDataProvider {
             throw new IllegalStateException("Duplicate advancement " + advancement.getId());
         this.advancements.put(advancement.getId(), advancement);
         return advancement;
-    }
-
-    private static Path getPath(Path path, Advancement advancement) {
-        ResourceLocation id = advancement.getId();
-        return path.resolve("data/" + id.getNamespace() + "/advancements/" + id.getPath() + ".json");
     }
 
     @Override

@@ -50,6 +50,22 @@ public class NonNullArrayList<E> extends NonNullList<E> {
 
     //region Overrides
 
+    //region Static Methods
+    public static <E> NonNullArrayList<E> create() {
+        return new NonNullArrayList<>();
+    }
+
+    public static <E> NonNullArrayList<E> withSize(int size, E fill) {
+        return new NonNullArrayList<E>(new ArrayList<E>(Collections.nCopies(size, fill)), fill);
+    }
+    //endregion Overrides
+
+    public static <E> NonNullList<E> from(E defaultElementIn, E... elements) {
+
+        return new NonNullArrayList<E>(Stream.of(elements).collect(Collectors.toCollection(ArrayList::new)),
+                defaultElementIn);
+    }
+
     /**
      * Warning! No null check here, you need to ensure that on your end!
      */
@@ -64,22 +80,6 @@ public class NonNullArrayList<E> extends NonNullList<E> {
     @Override
     public boolean addAll(Collection<? extends E> c) {
         return this.delegate.addAll(c);
-    }
-    //endregion Overrides
-
-    //region Static Methods
-    public static <E> NonNullArrayList<E> create() {
-        return new NonNullArrayList<>();
-    }
-
-    public static <E> NonNullArrayList<E> withSize(int size, E fill) {
-        return new NonNullArrayList<E>(new ArrayList<E>(Collections.nCopies(size, fill)), fill);
-    }
-
-    public static <E> NonNullList<E> from(E defaultElementIn, E... elements) {
-
-        return new NonNullArrayList<E>(Stream.of(elements).collect(Collectors.toCollection(ArrayList::new)),
-                defaultElementIn);
     }
     //endregion Static Methods
 }

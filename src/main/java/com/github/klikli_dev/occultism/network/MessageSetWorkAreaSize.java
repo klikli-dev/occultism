@@ -69,7 +69,7 @@ public class MessageSetWorkAreaSize extends MessageBase {
 
                 player.displayClientMessage(new TranslationTextComponent(
                         TranslationKeys.BOOK_OF_CALLING_GENERIC +
-                        ".message_set_work_area_size",
+                                ".message_set_work_area_size",
                         TextUtil.formatDemonName((IFormattableTextComponent) spirit.getName()),
                         new TranslationTextComponent(workAreaSize.getTranslationKey())), true);
             });

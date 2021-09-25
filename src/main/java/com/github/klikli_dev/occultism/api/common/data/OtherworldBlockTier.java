@@ -48,21 +48,21 @@ public enum OtherworldBlockTier {
     }
     //endregion Initialization
 
-    //region Getter / Setter
-    public int getLevel() {
-        return this.level;
-    }
-    //endregion Getter / Setter
-
     //region Static Methods
     public static OtherworldBlockTier get(int level) {
         return lookup.get(level);
     }
+    //endregion Getter / Setter
 
-    public static OtherworldBlockTier max(OtherworldBlockTier a, OtherworldBlockTier b){
-        if(a.getLevel() > b.getLevel())
+    public static OtherworldBlockTier max(OtherworldBlockTier a, OtherworldBlockTier b) {
+        if (a.getLevel() > b.getLevel())
             return a;
         return b;
+    }
+
+    //region Getter / Setter
+    public int getLevel() {
+        return this.level;
     }
     //endregion Static Methods
 }

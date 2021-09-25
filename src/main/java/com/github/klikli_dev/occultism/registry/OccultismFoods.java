@@ -30,7 +30,7 @@ import net.minecraftforge.common.util.NonNullLazy;
 public class OccultismFoods {
     public static final NonNullLazy<Food> DATURA = NonNullLazy.of(
             () -> new Food.Builder().nutrition(0).saturationMod(0).alwaysEat()
-                          .effect(() -> new EffectInstance(OccultismEffects.THIRD_EYE.get(), 15*20, 1), 0.7f)
-                          .effect(() -> new EffectInstance(Effects.HUNGER, 15*20, 1), 1.0f)
-                          .build());
+                    .effect(() -> new EffectInstance(OccultismEffects.THIRD_EYE.get(), 15 * 20, 1), 0.7f)
+                    .effect(() -> new EffectInstance(Effects.HUNGER, 15 * 20, 1), 1.0f)
+                    .build());
 }

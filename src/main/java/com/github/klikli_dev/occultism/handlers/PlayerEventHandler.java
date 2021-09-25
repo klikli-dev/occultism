@@ -29,7 +29,6 @@ import com.github.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.github.klikli_dev.occultism.util.Math3DUtil;
-
 import net.minecraft.block.BlockState;
 import net.minecraft.block.JukeboxBlock;
 import net.minecraft.entity.Entity;
@@ -58,7 +57,7 @@ public class PlayerEventHandler {
         if (isFlintAndSteel || isFireCharge) {
             //find if there is any datura
             AxisAlignedBB box = new AxisAlignedBB(-1, -1, -1, 1, 1, 1)
-                                        .move(Math3DUtil.center(event.getPos()));
+                    .move(Math3DUtil.center(event.getPos()));
             List<ItemEntity> list = event.getWorld().getEntitiesOfClass(ItemEntity.class, box,
                     item -> item.getItem().getItem() == OccultismItems.DATURA.get());
             if (!list.isEmpty()) {
@@ -88,8 +87,7 @@ public class PlayerEventHandler {
                     event.getItemStack().hurtAndBreak(1, event.getPlayer(), (player) -> {
                         player.broadcastBreakEvent(event.getHand());
                     });
-                }
-                else if (isFireCharge) {
+                } else if (isFireCharge) {
                     event.getItemStack().shrink(1);
                 }
 
@@ -99,7 +97,7 @@ public class PlayerEventHandler {
             }
         }
     }
-    
+
     private static void dancingFamiliars(PlayerInteractEvent.RightClickBlock event) {
         BlockState state = event.getWorld().getBlockState(event.getPos());
         if (!state.hasProperty(JukeboxBlock.HAS_RECORD) || state.getValue(JukeboxBlock.HAS_RECORD)
@@ -116,12 +114,12 @@ public class PlayerEventHandler {
     @SubscribeEvent
     public static void onPlayerRightClickEntity(PlayerInteractEvent.EntityInteract event) {
         if (event.getItemStack().getItem() == OccultismItems.SOUL_GEM_ITEM.get() &&
-            event.getTarget() instanceof LivingEntity) {
+                event.getTarget() instanceof LivingEntity) {
             //called from here to bypass sitting entity's sit command.
             if (OccultismItems.SOUL_GEM_ITEM.get()
-                        .interactLivingEntity(event.getItemStack(), event.getPlayer(),
-                                (LivingEntity) event.getTarget(),
-                                event.getHand()) == ActionResultType.SUCCESS) {
+                    .interactLivingEntity(event.getItemStack(), event.getPlayer(),
+                            (LivingEntity) event.getTarget(),
+                            event.getHand()) == ActionResultType.SUCCESS) {
                 event.setCanceled(true);
             }
         }

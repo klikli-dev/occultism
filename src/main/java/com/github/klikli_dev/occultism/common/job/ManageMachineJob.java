@@ -32,7 +32,6 @@ import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.github.klikli_dev.occultism.common.misc.DepositOrder;
 import com.github.klikli_dev.occultism.util.TileEntityUtil;
 import net.minecraft.entity.ai.goal.OpenDoorGoal;
-import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
 import net.minecraft.pathfinding.GroundPathNavigator;

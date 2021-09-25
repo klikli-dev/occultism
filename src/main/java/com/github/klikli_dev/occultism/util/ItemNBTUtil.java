@@ -134,9 +134,9 @@ public class ItemNBTUtil {
     }
 
     public static void setDepositPosition(ItemStack stack, Optional<BlockPos> position) {
-        if(position.isPresent()){
+        if (position.isPresent()) {
             stack.getOrCreateTag().putLong(DEPOSIT_POSITION_TAG, position.get().asLong());
-        } else if (stack.hasTag()){
+        } else if (stack.hasTag()) {
             stack.getTag().remove(DEPOSIT_POSITION_TAG);
         }
     }
@@ -149,9 +149,9 @@ public class ItemNBTUtil {
     }
 
     public static void setDepositEntityUUID(ItemStack stack, Optional<UUID> uuid) {
-        if(uuid.isPresent()){
+        if (uuid.isPresent()) {
             stack.getOrCreateTag().putUUID(DEPOSIT_ENTITY_UUID_TAG, uuid.get());
-        } else if (stack.hasTag()){
+        } else if (stack.hasTag()) {
             stack.getTag().remove(DEPOSIT_ENTITY_UUID_TAG);
         }
     }

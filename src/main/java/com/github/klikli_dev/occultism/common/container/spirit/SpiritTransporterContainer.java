@@ -83,8 +83,7 @@ public class SpiritTransporterContainer extends SpiritContainer {
         if (slot instanceof FilterSlot) {
             if (holding.isEmpty()) {
                 slot.set(ItemStack.EMPTY);
-            }
-            else if (slot.mayPlace(holding)) {
+            } else if (slot.mayPlace(holding)) {
                 slot.set(holding.copy());
             }
 

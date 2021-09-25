@@ -54,7 +54,7 @@ public class OccultismClientConfig extends ConfigBase {
 
             this.disableDemonsDreamShaders = CachedBoolean.cache(this,
                     builder.comment(
-                            "Disables the headache- and possibly seizure-inducing visual effects of Demon's Dream.")
+                                    "Disables the headache- and possibly seizure-inducing visual effects of Demon's Dream.")
                             .define("disableDemonsDreamShaders", false));
             builder.pop();
         }
@@ -73,7 +73,7 @@ public class OccultismClientConfig extends ConfigBase {
 
             this.syncJeiSearch = CachedBoolean.cache(this,
                     builder.comment(
-                            "Sync JEI search in storage actuator.")
+                                    "Sync JEI search in storage actuator.")
                             .define("syncJeiSearch", false));
             builder.pop();
         }

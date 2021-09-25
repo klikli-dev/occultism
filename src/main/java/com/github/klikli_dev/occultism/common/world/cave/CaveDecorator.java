@@ -67,16 +67,13 @@ public abstract class CaveDecorator implements ICaveDecorator {
         if (this.isFloor(seedReader, pos, state)) {
             data.floorBlocks.add(pos);
             this.fillFloor(seedReader, generator, rand, pos, state);
-        }
-        else if (this.isCeiling(seedReader, pos, state)) {
+        } else if (this.isCeiling(seedReader, pos, state)) {
             data.ceilingBlocks.add(pos);
             this.fillCeiling(seedReader, generator, rand, pos, state);
-        }
-        else if (this.isWall(seedReader, pos, state)) {
+        } else if (this.isWall(seedReader, pos, state)) {
             data.wallBlocks.put(pos, this.getBorderDirection(seedReader, pos));
             this.fillWall(seedReader, generator, rand, pos, state);
-        }
-        else if (this.isInside(state)) {
+        } else if (this.isInside(state)) {
             data.insideBlocks.add(pos);
             this.fillInside(seedReader, generator, rand, pos, state);
         }

@@ -36,8 +36,6 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import net.minecraft.entity.ai.goal.Goal.Flag;
-
 /**
  * If there is a handheld item and no deposit location, it will try to deposit in a storage controller.
  */
@@ -72,7 +70,7 @@ public class FallbackDepositToControllerGoal extends PausableGoal {
 
         //if we are holding something but have no deposit location we can execute this
         return !this.isPaused() && !this.entity.getItemInHand(Hand.MAIN_HAND).isEmpty() &&
-               !this.entity.getDepositPosition().isPresent();
+                !this.entity.getDepositPosition().isPresent();
     }
 
     @Override
@@ -86,8 +84,7 @@ public class FallbackDepositToControllerGoal extends PausableGoal {
         if (storageProxy != null) {
             this.entity.setDepositPosition(storageProxy.getBlockPos());
             this.entity.setDepositFacing(Direction.UP);
-        }
-        else {
+        } else {
             //keep track of retries to wait increasing amounts of time up to 5 min
             if (this.retries <= 60)
                 this.retries++;
@@ -109,16 +106,16 @@ public class FallbackDepositToControllerGoal extends PausableGoal {
         //get work area, but only half height, we don't need full.
         int workAreaSize = this.entity.getWorkAreaSize().getValue();
         List<BlockPos> searchBlocks = BlockPos.betweenClosedStream(
-                machinePosition.offset(-workAreaSize, -workAreaSize / 2, -workAreaSize),
-                machinePosition.offset(workAreaSize, workAreaSize / 2, workAreaSize)).map(BlockPos::immutable)
-                                              .collect(Collectors.toList());
+                        machinePosition.offset(-workAreaSize, -workAreaSize / 2, -workAreaSize),
+                        machinePosition.offset(workAreaSize, workAreaSize / 2, workAreaSize)).map(BlockPos::immutable)
+                .collect(Collectors.toList());
 
         for (BlockPos pos : searchBlocks) {
             TileEntity tileEntity = world.getBlockEntity(pos);
             if (tileEntity instanceof IStorageControllerProxy) {
                 IStorageControllerProxy proxy = (IStorageControllerProxy) tileEntity;
                 if (proxy.getLinkedStorageControllerPosition() != null &&
-                    proxy.getLinkedStorageControllerPosition().equals(this.job.getStorageControllerPosition()))
+                        proxy.getLinkedStorageControllerPosition().equals(this.job.getStorageControllerPosition()))
                     allBlocks.add(pos);
             }
         }

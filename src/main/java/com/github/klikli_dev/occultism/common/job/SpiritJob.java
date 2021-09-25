@@ -25,7 +25,6 @@ package com.github.klikli_dev.occultism.common.job;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.github.klikli_dev.occultism.registry.OccultismSpiritJobs;
 import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.util.INBTSerializable;
@@ -43,35 +42,35 @@ public abstract class SpiritJob implements INBTSerializable<CompoundNBT> {
     }
     //endregion Initialization
 
+    //region Static Methods
+    public static SpiritJob from(SpiritEntity entity, CompoundNBT nbt) {
+        SpiritJobFactory factory = OccultismSpiritJobs.REGISTRY
+                .getValue(new ResourceLocation(nbt.getString("factoryId")));
+        SpiritJob job = factory.create(entity);
+        job.deserializeNBT(nbt);
+        return job;
+    }
+
     //region Getter / Setter
     public ResourceLocation getFactoryID() {
         return this.factoryId;
     }
+    //endregion Getter / Setter
 
     public void setFactoryId(ResourceLocation factoryId) {
         this.factoryId = factoryId;
     }
-    //endregion Getter / Setter
 
     //region Overrides
     @Override
     public CompoundNBT serializeNBT() {
         return this.writeJobToNBT(new CompoundNBT());
     }
+    //endregion Overrides
 
     @Override
     public void deserializeNBT(CompoundNBT nbt) {
         this.readJobFromNBT(nbt);
-    }
-    //endregion Overrides
-
-    //region Static Methods
-    public static SpiritJob from(SpiritEntity entity, CompoundNBT nbt) {
-        SpiritJobFactory factory = OccultismSpiritJobs.REGISTRY
-                                           .getValue(new ResourceLocation(nbt.getString("factoryId")));
-        SpiritJob job = factory.create(entity);
-        job.deserializeNBT(nbt);
-        return job;
     }
     //endregion Static Methods
 

@@ -99,6 +99,27 @@ public class DimensionalMineshaftTileEntity extends NetworkedTileEntity implemen
     }
     //endregion Initialization
 
+    //region Static Methods
+    public static void forceInitStackNBT(ItemStack stack, ServerWorld world) {
+        stack.getItem().onCraftedBy(stack, world, FakePlayerFactory.getMinecraft(world));
+    }
+
+    public static int getMaxMiningTime(ItemStack stack) {
+        CompoundNBT tag = stack.getTag();
+        if (tag == null)
+            return 0;
+        int time = tag.getInt(MAX_MINING_TIME_TAG);
+        return time <= 0 ? DEFAULT_MAX_MINING_TIME : time;
+    }
+
+    public static int getRollsPerOperation(ItemStack stack) {
+        CompoundNBT tag = stack.getTag();
+        if (tag == null)
+            return 0;
+        int rolls = tag.getInt(ROLLS_PER_OPERATION_TAG);
+        return rolls <= 0 ? DEFAULT_ROLLS_PER_OPERATION : rolls;
+    }
+
     //region Overrides
     @Override
     public ITextComponent getDisplayName() {
@@ -112,11 +133,9 @@ public class DimensionalMineshaftTileEntity extends NetworkedTileEntity implemen
             if (direction == null) {
                 //null is full access for machines or similar.
                 return this.combinedHandler.cast();
-            }
-            else if (direction == Direction.UP) {
+            } else if (direction == Direction.UP) {
                 return this.inputHandler.cast();
-            }
-            else {
+            } else {
                 return this.outputHandler.cast();
             }
         }
@@ -150,6 +169,7 @@ public class DimensionalMineshaftTileEntity extends NetworkedTileEntity implemen
         compound.putInt("maxMiningTime", this.maxMiningTime);
         return super.writeNetwork(compound);
     }
+    //endregion Overrides
 
     @Override
     public void setRemoved() {
@@ -182,8 +202,7 @@ public class DimensionalMineshaftTileEntity extends NetworkedTileEntity implemen
                 }
                 if (this.miningTime % 10 == 0)
                     dirty = true;
-            }
-            else if (!input.isEmpty()) {
+            } else if (!input.isEmpty()) {
                 //if we're done with the last mining job, and we have valid input, start the next one.
                 this.currentInputType = input.getItem();
                 //ensure nbt is initialized, fixes issues with spawned miner spirits
@@ -197,8 +216,7 @@ public class DimensionalMineshaftTileEntity extends NetworkedTileEntity implemen
             if (dirty) {
                 this.markNetworkDirty();
             }
-        }
-        else {
+        } else {
             if (this.miningTime > 0 && this.level.getGameTime() % 10 == 0) {
                 this.level.addParticle(ParticleTypes.PORTAL, this.worldPosition.getX() + 0.5f,
                         this.worldPosition.getY() + 0.5, this.worldPosition.getZ() + 0.5f, 0.0D, 0.0D, 0.0D);
@@ -211,28 +229,6 @@ public class DimensionalMineshaftTileEntity extends NetworkedTileEntity implemen
     public Container createMenu(int id, PlayerInventory playerInventory, PlayerEntity player) {
         return new DimensionalMineshaftContainer(id, playerInventory, this);
     }
-    //endregion Overrides
-
-    //region Static Methods
-    public static void forceInitStackNBT(ItemStack stack, ServerWorld world){
-        stack.getItem().onCraftedBy(stack, world, FakePlayerFactory.getMinecraft(world));
-    }
-
-    public static int getMaxMiningTime(ItemStack stack) {
-        CompoundNBT tag = stack.getTag();
-        if(tag == null)
-            return 0;
-        int time = tag.getInt(MAX_MINING_TIME_TAG);
-        return time <= 0 ? DEFAULT_MAX_MINING_TIME : time;
-    }
-
-    public static int getRollsPerOperation(ItemStack stack) {
-        CompoundNBT tag = stack.getTag();
-        if(tag == null)
-            return 0;
-        int rolls = tag.getInt(ROLLS_PER_OPERATION_TAG);
-        return rolls <= 0 ? DEFAULT_ROLLS_PER_OPERATION : rolls;
-    }
     //endregion Static Methods
 
     //region Methods
@@ -242,16 +238,16 @@ public class DimensionalMineshaftTileEntity extends NetworkedTileEntity implemen
 
         if (this.possibleResults == null) {
             List<MinerRecipe> recipes = this.level.getRecipeManager()
-                                                .getRecipesFor(OccultismRecipes.MINER_TYPE.get(),
-                                                        new RecipeWrapper(inputHandler), this.level);
-            if(recipes == null ||recipes.size() == 0){
+                    .getRecipesFor(OccultismRecipes.MINER_TYPE.get(),
+                            new RecipeWrapper(inputHandler), this.level);
+            if (recipes == null || recipes.size() == 0) {
                 this.possibleResults = new ArrayList<>();
-            }else {
+            } else {
                 this.possibleResults = recipes.stream().map(r -> r.getWeightedOutput()).collect(Collectors.toList());
             }
         }
 
-        if(this.possibleResults.size() == 0)
+        if (this.possibleResults.size() == 0)
             return;
 
         for (int i = 0; i < this.rollsPerOperation; i++) {

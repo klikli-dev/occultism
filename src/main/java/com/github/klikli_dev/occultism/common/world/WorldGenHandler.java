@@ -82,52 +82,52 @@ public class WorldGenHandler {
                 Occultism.COMMON_CONFIG.worldGen.undergroundGroveGen;
 
         COPPER_ORE = Feature.ORE.configured(
-                new OreFeatureConfig(
-                        new TagMatchRuleTest(oreGen.copperOre.getFillerBlockTag()),
-                        OccultismBlocks.COPPER_ORE.get().defaultBlockState(), oreGen.copperOre.size.get()))
-                             .decorated(Placement.RANGE.configured(
-                                     new TopSolidRangeConfig(
-                                             oreGen.copperOre.bottomOffset.get(),
-                                             oreGen.copperOre.topOffset.get(),
-                                             oreGen.copperOre.maximum.get())))
-                             .squared().count(oreGen.copperOre.count.get());
+                        new OreFeatureConfig(
+                                new TagMatchRuleTest(oreGen.copperOre.getFillerBlockTag()),
+                                OccultismBlocks.COPPER_ORE.get().defaultBlockState(), oreGen.copperOre.size.get()))
+                .decorated(Placement.RANGE.configured(
+                        new TopSolidRangeConfig(
+                                oreGen.copperOre.bottomOffset.get(),
+                                oreGen.copperOre.topOffset.get(),
+                                oreGen.copperOre.maximum.get())))
+                .squared().count(oreGen.copperOre.count.get());
         Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, modLoc("copper_ore"), COPPER_ORE);
 
         SILVER_ORE = Feature.ORE.configured(
-                new OreFeatureConfig(
-                        new TagMatchRuleTest(oreGen.silverOre.getFillerBlockTag()),
-                        OccultismBlocks.SILVER_ORE.get().defaultBlockState(), oreGen.silverOre.size.get()))
-                             .decorated(Placement.RANGE.configured(
-                                     new TopSolidRangeConfig(
-                                             oreGen.silverOre.bottomOffset.get(),
-                                             oreGen.silverOre.topOffset.get(),
-                                             oreGen.silverOre.maximum.get())))
-                             .squared().count(oreGen.silverOre.count.get());
+                        new OreFeatureConfig(
+                                new TagMatchRuleTest(oreGen.silverOre.getFillerBlockTag()),
+                                OccultismBlocks.SILVER_ORE.get().defaultBlockState(), oreGen.silverOre.size.get()))
+                .decorated(Placement.RANGE.configured(
+                        new TopSolidRangeConfig(
+                                oreGen.silverOre.bottomOffset.get(),
+                                oreGen.silverOre.topOffset.get(),
+                                oreGen.silverOre.maximum.get())))
+                .squared().count(oreGen.silverOre.count.get());
         Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, modLoc("silver_ore"), SILVER_ORE);
 
         IESNIUM_ORE = Feature.ORE.configured(
-                new OreFeatureConfig(
-                        new TagMatchRuleTest(oreGen.iesniumOre.getFillerBlockTag()),
-                        OccultismBlocks.IESNIUM_ORE_NATURAL.get().defaultBlockState(), oreGen.iesniumOre.size.get()))
-                              .decorated(Placement.RANGE.configured(
-                                      new TopSolidRangeConfig(
-                                              oreGen.iesniumOre.bottomOffset.get(),
-                                              oreGen.iesniumOre.topOffset.get(),
-                                              oreGen.iesniumOre.maximum.get())))
-                              .squared().count(oreGen.iesniumOre.count.get());
+                        new OreFeatureConfig(
+                                new TagMatchRuleTest(oreGen.iesniumOre.getFillerBlockTag()),
+                                OccultismBlocks.IESNIUM_ORE_NATURAL.get().defaultBlockState(), oreGen.iesniumOre.size.get()))
+                .decorated(Placement.RANGE.configured(
+                        new TopSolidRangeConfig(
+                                oreGen.iesniumOre.bottomOffset.get(),
+                                oreGen.iesniumOre.topOffset.get(),
+                                oreGen.iesniumOre.maximum.get())))
+                .squared().count(oreGen.iesniumOre.count.get());
         Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, modLoc("iesnium_ore"), IESNIUM_ORE);
 
         UNDERGROUND_GROVE =
                 OccultismBiomeFeatures.UNDERGROUND_GROVE_FEATURE.get().configured(
-                        new MultiChunkFeatureConfig(
-                                7,
-                                groveGen.groveSpawnChance.get(),
-                                groveGen.groveSpawnMin.get(),
-                                groveGen.groveSpawnMax.get(),
-                                14653667,
-                                Occultism.COMMON_CONFIG.worldGen.undergroundGroveGen.biomeTypeBlacklist.get().stream()
-                                        .map(BiomeDictionary.Type::getType)
-                                        .collect(Collectors.toList())))
+                                new MultiChunkFeatureConfig(
+                                        7,
+                                        groveGen.groveSpawnChance.get(),
+                                        groveGen.groveSpawnMin.get(),
+                                        groveGen.groveSpawnMax.get(),
+                                        14653667,
+                                        Occultism.COMMON_CONFIG.worldGen.undergroundGroveGen.biomeTypeBlacklist.get().stream()
+                                                .map(BiomeDictionary.Type::getType)
+                                                .collect(Collectors.toList())))
                         .decorated(Placement.NOPE.configured(new NoPlacementConfig()));
         Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, modLoc("underground_grove"), UNDERGROUND_GROVE);
 

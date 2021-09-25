@@ -269,7 +269,7 @@ public abstract class StorageControllerContainerBase extends Container implement
                 break;
 
             ItemStack newResult = this.currentRecipe.assemble(this.matrix).copy();
-            if(newResult.getItem() != result.getItem())
+            if (newResult.getItem() != result.getItem())
                 break;
 
             //exit if we can no longer insert
@@ -324,7 +324,7 @@ public abstract class StorageControllerContainerBase extends Container implement
                     else if (!stackInSlot.getItem().canBeDepleted() && ItemStack.isSame(stackInSlot, currentCraftingItem) &&
                             ItemStack.tagMatches(stackInSlot, currentCraftingItem)) {
                         //hacky workaround for aquaculture unbreakable fillet knife being mis-interpreted and duped
-                        if(!stackInSlot.getItem().getRegistryName().toString().equals("aquaculture:neptunium_fillet_knife"))
+                        if (!stackInSlot.getItem().getRegistryName().toString().equals("aquaculture:neptunium_fillet_knife"))
                             currentCraftingItem.grow(stackInSlot.getCount());
                         this.matrix.setItem(i, currentCraftingItem);
                     }

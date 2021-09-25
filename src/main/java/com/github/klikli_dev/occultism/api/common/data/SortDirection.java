@@ -49,26 +49,26 @@ public enum SortDirection implements IStringSerializable {
     }
     //endregion Initialization
 
+    //region Static Methods
+    public static SortDirection get(int value) {
+        return lookup.get(value);
+    }
+
     //region Getter / Setter
     public int getValue() {
         return this.value;
     }
+    //endregion Getter / Setter
 
     public boolean isDown() {
         return this == DOWN;
     }
-    //endregion Getter / Setter
+    //endregion Overrides
 
     //region Overrides
     @Override
     public String getSerializedName() {
         return this.name().toLowerCase();
-    }
-    //endregion Overrides
-
-    //region Static Methods
-    public static SortDirection get(int value) {
-        return lookup.get(value);
     }
     //endregion Static Methods
 

@@ -45,7 +45,7 @@ public enum OccultismItemTier implements IItemTier {
 
     //region Initialization
     OccultismItemTier(int harvestLevelIn, int maxUsesIn, float efficiencyIn, float attackDamageIn,
-                              int enchantabilityIn, Supplier<Ingredient> repairMaterialIn) {
+                      int enchantabilityIn, Supplier<Ingredient> repairMaterialIn) {
         this.harvestLevel = harvestLevelIn;
         this.maxUses = maxUsesIn;
         this.efficiency = efficiencyIn;

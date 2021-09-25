@@ -22,25 +22,15 @@
 
 package com.github.klikli_dev.occultism.common.entity;
 
-import java.util.Collections;
-import java.util.EnumSet;
-import java.util.List;
-
 import com.github.klikli_dev.occultism.common.advancement.FamiliarTrigger;
 import com.github.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.github.klikli_dev.occultism.registry.OccultismEffects;
 import com.google.common.collect.ImmutableList;
-
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.ai.goal.FollowMobGoal;
-import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.ai.goal.LookAtGoal;
-import net.minecraft.entity.ai.goal.PanicGoal;
-import net.minecraft.entity.ai.goal.RandomWalkingGoal;
-import net.minecraft.entity.ai.goal.SwimGoal;
+import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -61,12 +51,14 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.items.ItemHandlerHelper;
 
+import java.util.Collections;
+import java.util.EnumSet;
+import java.util.List;
+
 public class DragonFamiliarEntity extends FamiliarEntity {
 
-    private static final int GREEDY_INCREMENT = 20 * 60 * 5;
-
     public static final int MAX_PET_TIMER = 20 * 2;
-
+    private static final int GREEDY_INCREMENT = 20 * 60 * 5;
     private static final DataParameter<Boolean> FEZ = EntityDataManager.defineId(DragonFamiliarEntity.class,
             DataSerializers.BOOLEAN);
     private static final DataParameter<Boolean> EARS = EntityDataManager.defineId(DragonFamiliarEntity.class,
@@ -96,7 +88,7 @@ public class DragonFamiliarEntity extends FamiliarEntity {
 
     @Override
     public ILivingEntityData finalizeSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason,
-            ILivingEntityData spawnDataIn, CompoundNBT dataTag) {
+                                           ILivingEntityData spawnDataIn, CompoundNBT dataTag) {
         this.setFez(this.getRandom().nextDouble() < 0.1);
         this.setEars(this.getRandom().nextDouble() < 0.5);
         this.setArms(this.getRandom().nextDouble() < 0.5);

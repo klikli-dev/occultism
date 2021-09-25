@@ -68,7 +68,7 @@ public class DimensionalMineshaftScreen extends ContainerScreen<DimensionalMines
         int miningTime = this.otherworldMiner.miningTime;
         int progress = (int) (18 * (1.0F - (float) miningTime / this.otherworldMiner.maxMiningTime));
         if (progress > 0 && miningTime > 0) {
-            this.blit(stack, this.leftPos + 61, this.topPos + 41, 176, 0, progress+1, 4);
+            this.blit(stack, this.leftPos + 61, this.topPos + 41, 176, 0, progress + 1, 4);
         }
     }
     //endregion Overrides

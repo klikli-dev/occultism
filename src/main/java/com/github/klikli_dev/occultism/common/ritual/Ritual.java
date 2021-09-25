@@ -23,7 +23,6 @@
 package com.github.klikli_dev.occultism.common.ritual;
 
 import com.github.klikli_dev.occultism.Occultism;
-import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.github.klikli_dev.occultism.common.tile.GoldenSacrificialBowlTileEntity;
 import com.github.klikli_dev.occultism.common.tile.SacrificialBowlTileEntity;
 import com.github.klikli_dev.occultism.crafting.recipe.RitualRecipe;
@@ -49,9 +48,7 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.registries.ForgeRegistryEntry;
 
-import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -95,6 +92,31 @@ public abstract class Ritual {
 
     //region Getter / Setter
 
+    /**
+     * Removes all matching consumed already consumed ingredients from the remaining additional ingredients.
+     *
+     * @param additionalIngredients the total additional ingredients required.
+     * @param consumedIngredients   the already consumed ingredients.
+     * @return the remaining additional ingredients that still need to be consumed.
+     */
+    public static List<Ingredient> getRemainingAdditionalIngredients(List<Ingredient> additionalIngredients, List<ItemStack> consumedIngredients) {
+        //copy the consumed ingredients to not modify the input
+        List<ItemStack> consumedIngredientsCopy = new ArrayList<>(consumedIngredients);
+        List<Ingredient> remainingAdditionalIngredients = new ArrayList<>();
+        for (Ingredient ingredient : additionalIngredients) {
+            Optional<ItemStack> matchedStack = consumedIngredientsCopy.stream().filter(ingredient::test).findFirst();
+            if (matchedStack.isPresent()) {
+                //if it is in the consumed ingredients, we do not need to add it to the remaining required ones
+                //but we remove it from our consumed ingredients copy so each provided ingredient an only be simulated consumed once
+                consumedIngredientsCopy.remove(matchedStack.get());
+            } else {
+                //if it is not already consumed, we add it to the remaining additional ingredients.
+                remainingAdditionalIngredients.add(ingredient);
+            }
+        }
+        return remainingAdditionalIngredients;
+    }
+
     public ResourceLocation getFactoryID() {
         return this.factoryId;
     }
@@ -107,10 +129,10 @@ public abstract class Ritual {
         return this.recipe;
     }
 
-    public String getRitualID(){
+    public String getRitualID() {
         ResourceLocation recipeId = this.getRecipe().getId();
         String path = recipeId.getPath();
-        if(path.contains("/"))
+        if (path.contains("/"))
             path = path.substring(path.indexOf("/") + 1);
 
         return recipeId.getNamespace() + "." + path;
@@ -136,6 +158,9 @@ public abstract class Ritual {
     public String getInterruptedMessage() {
         return String.format("ritual.%s.interrupted", this.getRitualID());
     }
+    //endregion Getter / Setter
+
+    //region Methods
 
     /**
      * @return the finished message translation key for this ritual.
@@ -143,9 +168,6 @@ public abstract class Ritual {
     public String getFinishedMessage() {
         return String.format("ritual.%s.finished", this.getRitualID());
     }
-    //endregion Getter / Setter
-
-    //region Methods
 
     /**
      * Checks whether the ritual is valid.
@@ -340,31 +362,6 @@ public abstract class Ritual {
     }
 
     /**
-     * Removes all matching consumed already consumed ingredients from the remaining additional ingredients.
-     *
-     * @param additionalIngredients the total additional ingredients required.
-     * @param consumedIngredients   the already consumed ingredients.
-     * @return the remaining additional ingredients that still need to be consumed.
-     */
-    public static List<Ingredient> getRemainingAdditionalIngredients(List<Ingredient> additionalIngredients, List<ItemStack> consumedIngredients) {
-        //copy the consumed ingredients to not modify the input
-        List<ItemStack> consumedIngredientsCopy = new ArrayList<>(consumedIngredients);
-        List<Ingredient> remainingAdditionalIngredients = new ArrayList<>();
-        for (Ingredient ingredient : additionalIngredients) {
-            Optional<ItemStack> matchedStack = consumedIngredientsCopy.stream().filter(ingredient::test).findFirst();
-            if (matchedStack.isPresent()) {
-                //if it is in the consumed ingredients, we do not need to add it to the remaining required ones
-                //but we remove it from our consumed ingredients copy so each provided ingredient an only be simulated consumed once
-                consumedIngredientsCopy.remove(matchedStack.get());
-            } else {
-                //if it is not already consumed, we add it to the remaining additional ingredients.
-                remainingAdditionalIngredients.add(ingredient);
-            }
-        }
-        return remainingAdditionalIngredients;
-    }
-
-    /**
      * Compares the items on sacrificial bowls in range to the additional ingredients.
      *
      * @param world              the world.
@@ -498,14 +495,14 @@ public abstract class Ritual {
                                             PlayerEntity castingPlayer, String spiritName, boolean setTamed) {
         if (setTamed && livingEntity instanceof TameableEntity) {
 
-            ((TameableEntity)livingEntity).tame(castingPlayer);
+            ((TameableEntity) livingEntity).tame(castingPlayer);
         }
         livingEntity.absMoveTo(goldenBowlPosition.getX(), goldenBowlPosition.getY(), goldenBowlPosition.getZ(),
                 world.random.nextInt(360), 0);
-        if(spiritName.length() > 0)
+        if (spiritName.length() > 0)
             livingEntity.setCustomName(new StringTextComponent(spiritName));
-        if(livingEntity instanceof MobEntity)
-            ((MobEntity)livingEntity).finalizeSpawn((ServerWorld) world, world.getCurrentDifficultyAt(goldenBowlPosition),
+        if (livingEntity instanceof MobEntity)
+            ((MobEntity) livingEntity).finalizeSpawn((ServerWorld) world, world.getCurrentDifficultyAt(goldenBowlPosition),
                     SpawnReason.MOB_SUMMONED, null,
                     null);
     }

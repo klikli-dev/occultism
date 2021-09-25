@@ -26,7 +26,10 @@ import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.container.storage.StableWormholeContainer;
 import com.github.klikli_dev.occultism.common.container.storage.StorageControllerContainer;
 import com.github.klikli_dev.occultism.common.container.storage.StorageRemoteContainer;
-import com.github.klikli_dev.occultism.crafting.recipe.*;
+import com.github.klikli_dev.occultism.crafting.recipe.CrushingRecipe;
+import com.github.klikli_dev.occultism.crafting.recipe.MinerRecipe;
+import com.github.klikli_dev.occultism.crafting.recipe.RitualRecipe;
+import com.github.klikli_dev.occultism.crafting.recipe.SpiritFireRecipe;
 import com.github.klikli_dev.occultism.integration.jei.recipes.CrushingRecipeCategory;
 import com.github.klikli_dev.occultism.integration.jei.recipes.MinerRecipeCategory;
 import com.github.klikli_dev.occultism.integration.jei.recipes.RitualRecipeCategory;
@@ -34,7 +37,6 @@ import com.github.klikli_dev.occultism.integration.jei.recipes.SpiritFireRecipeC
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.github.klikli_dev.occultism.registry.OccultismRecipes;
-import com.github.klikli_dev.occultism.util.RecipeUtil;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.constants.VanillaRecipeCategoryUid;
 import mezz.jei.api.constants.VanillaTypes;
@@ -45,15 +47,11 @@ import mezz.jei.api.registration.IRecipeTransferRegistration;
 import mezz.jei.api.runtime.IJeiRuntime;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.world.ClientWorld;
-import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.RecipeManager;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.items.wrapper.RecipeWrapper;
 
-import java.util.Collection;
 import java.util.List;
 
 @mezz.jei.api.JeiPlugin
@@ -113,21 +111,21 @@ public class JeiPlugin implements IModPlugin {
         this.registerIngredientInfo(registration, OccultismBlocks.SPIRIT_FIRE.get());
     }
 
-    public void registerIngredientInfo(IRecipeRegistration registration, IItemProvider ingredient){
+    public void registerIngredientInfo(IRecipeRegistration registration, IItemProvider ingredient) {
         registration.addIngredientInfo(new ItemStack(ingredient.asItem()), VanillaTypes.ITEM,
-                "jei."+ Occultism.MODID + ".ingredient."+ingredient.asItem().getRegistryName().getPath()+".description");
+                "jei." + Occultism.MODID + ".ingredient." + ingredient.asItem().getRegistryName().getPath() + ".description");
     }
 
     @Override
     public void registerRecipeTransferHandlers(IRecipeTransferRegistration registration) {
         registration.addRecipeTransferHandler(new StorageControllerRecipeTransferHandler<>(
-                StorageControllerContainer.class, registration.getTransferHelper()),
+                        StorageControllerContainer.class, registration.getTransferHelper()),
                 VanillaRecipeCategoryUid.CRAFTING);
         registration.addRecipeTransferHandler(new StorageControllerRecipeTransferHandler<>(
-                StorageRemoteContainer.class, registration.getTransferHelper()),
+                        StorageRemoteContainer.class, registration.getTransferHelper()),
                 VanillaRecipeCategoryUid.CRAFTING);
         registration.addRecipeTransferHandler(new StorageControllerRecipeTransferHandler<>(
-                StableWormholeContainer.class, registration.getTransferHelper()),
+                        StableWormholeContainer.class, registration.getTransferHelper()),
                 VanillaRecipeCategoryUid.CRAFTING);
     }
 

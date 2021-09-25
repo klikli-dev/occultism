@@ -4,7 +4,6 @@ import com.github.klikli_dev.occultism.common.entity.DragonFamiliarEntity;
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
-
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.Model;
 import net.minecraft.client.renderer.model.ModelRenderer;
@@ -270,7 +269,7 @@ public class DragonFamiliarModel extends EntityModel<DragonFamiliarEntity> {
 
     @Override
     public void renderToBuffer(MatrixStack matrixStackIn, IVertexBuilder bufferIn, int packedLightIn, int packedOverlayIn,
-            float red, float green, float blue, float alpha) {
+                               float red, float green, float blue, float alpha) {
         ImmutableList.of(this.body).forEach((modelRenderer) -> {
             modelRenderer.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
         });
@@ -278,7 +277,7 @@ public class DragonFamiliarModel extends EntityModel<DragonFamiliarEntity> {
 
     @Override
     public void setupAnim(DragonFamiliarEntity entityIn, float limbSwing, float limbSwingAmount,
-            float ageInTicks, float netHeadYaw, float headPitch) {
+                          float ageInTicks, float netHeadYaw, float headPitch) {
         if (entityIn.isPartying()) {
             this.head.xRot = this.toRads(50) + MathHelper.sin(ageInTicks) * this.toRads(20);
             this.head.yRot = MathHelper.sin(ageInTicks) * this.toRads(5);
@@ -294,7 +293,7 @@ public class DragonFamiliarModel extends EntityModel<DragonFamiliarEntity> {
 
     @Override
     public void prepareMobModel(DragonFamiliarEntity entityIn, float limbSwing, float limbSwingAmount,
-            float partialTick) {
+                                float partialTick) {
         this.setEyeColor(entityIn.getEyeColorR(partialTick), entityIn.getEyeColorG(partialTick),
                 entityIn.getEyeColorB(partialTick));
         this.showModels(entityIn);
@@ -431,7 +430,7 @@ public class DragonFamiliarModel extends EntityModel<DragonFamiliarEntity> {
 
         @Override
         public void render(MatrixStack matrixStackIn, IVertexBuilder bufferIn, int packedLightIn, int packedOverlayIn,
-                float red, float green, float blue, float alpha) {
+                           float red, float green, float blue, float alpha) {
             super.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, this.r, this.g, this.b, alpha);
         }
 

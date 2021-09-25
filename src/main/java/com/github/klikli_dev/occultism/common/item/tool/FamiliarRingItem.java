@@ -22,17 +22,11 @@
 
 package com.github.klikli_dev.occultism.common.item.tool;
 
-import java.util.List;
-import java.util.function.Function;
-
-import javax.annotation.Nullable;
-
 import com.github.klikli_dev.occultism.common.advancement.FamiliarTrigger;
 import com.github.klikli_dev.occultism.common.entity.IFamiliar;
 import com.github.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.github.klikli_dev.occultism.util.ItemNBTUtil;
 import com.github.klikli_dev.occultism.util.TextUtil;
-
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -56,7 +50,9 @@ import net.minecraftforge.common.util.LazyOptional;
 import top.theillusivec4.curios.api.CuriosCapability;
 import top.theillusivec4.curios.api.type.capability.ICurio;
 
-import net.minecraft.item.Item.Properties;
+import javax.annotation.Nullable;
+import java.util.List;
+import java.util.function.Function;
 
 public class FamiliarRingItem extends Item {
 
@@ -66,7 +62,7 @@ public class FamiliarRingItem extends Item {
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip,
-            ITooltipFlag flagIn) {
+                                ITooltipFlag flagIn) {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
         if (stack.getOrCreateTag().getBoolean("occupied"))
             tooltip.add(new TranslationTextComponent(this.getDescriptionId() + ".tooltip",
@@ -75,7 +71,7 @@ public class FamiliarRingItem extends Item {
 
     @Override
     public ActionResultType interactLivingEntity(ItemStack stack, PlayerEntity playerIn, LivingEntity target,
-            Hand hand) {
+                                                 Hand hand) {
         if (!playerIn.level.isClientSide && target instanceof IFamiliar) {
             IFamiliar familiar = (IFamiliar) target;
             if ((familiar.getFamiliarOwner() == playerIn || familiar.getFamiliarOwner() == null) && this.getCurio(stack).captureFamiliar(playerIn.level, familiar)) {
@@ -86,7 +82,7 @@ public class FamiliarRingItem extends Item {
                 return ActionResultType.CONSUME;
             }
         }
-        
+
         return super.interactLivingEntity(stack, playerIn, target, hand);
     }
 
@@ -133,7 +129,7 @@ public class FamiliarRingItem extends Item {
                 EntityType.loadEntityRecursive(this.getFamiliar(world).getEntity().serializeNBT(), world, e -> {
                     e.setPos(player.getX(), player.getY(), player.getZ());
                     //on release overwrite owner -> familiar rings can be used to trade familiars.
-                    ((IFamiliar)e).setFamiliarOwner(player);
+                    ((IFamiliar) e).setFamiliarOwner(player);
                     world.addFreshEntity(e);
                     return e;
                 });
@@ -149,12 +145,12 @@ public class FamiliarRingItem extends Item {
             IFamiliar familiar = this.getFamiliar(world);
             if (familiar == null || familiar.getFamiliarOwner() != entity)
                 return;
-            
+
             // Apply effects
             if (!world.isClientSide && entity.tickCount % 20 == 0)
                 for (EffectInstance effect : familiar.getFamiliarEffects())
                     familiar.getFamiliarOwner().addEffect(effect);
-            
+
             // Tick
             familiar.curioTick(entity);
         }

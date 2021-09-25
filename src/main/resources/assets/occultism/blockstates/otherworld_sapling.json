@@ -1,5 +1,7 @@
 {
   "variants": {
-    "": { "model": "occultism:block/otherworld_sapling" }
+    "": {
+      "model": "occultism:block/otherworld_sapling"
+    }
   }
 }

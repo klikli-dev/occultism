@@ -38,8 +38,7 @@ public class OccultismPacketHandler {
             ctx.get().enqueueWork(() -> {
                 handleServer(message, ctx);
             });
-        }
-        else {
+        } else {
             ctx.get().enqueueWork(() -> {
                 handleClient(message, ctx);
             });

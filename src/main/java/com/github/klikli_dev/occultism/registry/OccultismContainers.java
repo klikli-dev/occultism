@@ -48,44 +48,44 @@ public class OccultismContainers {
     public static final RegistryObject<ContainerType<StorageControllerContainer>> STORAGE_CONTROLLER =
             CONTAINERS.register("storage_controller",
                     () -> IForgeContainerType
-                                  .create((windowId, inv, data) -> new StorageControllerContainer(windowId, inv,
-                                          (StorageControllerTileEntity) inv.player.level
-                                                                                .getBlockEntity(data.readBlockPos()))));
+                            .create((windowId, inv, data) -> new StorageControllerContainer(windowId, inv,
+                                    (StorageControllerTileEntity) inv.player.level
+                                            .getBlockEntity(data.readBlockPos()))));
 
     public static final RegistryObject<ContainerType<StableWormholeContainer>> STABLE_WORMHOLE =
             CONTAINERS.register("stable_wormhole",
                     () -> IForgeContainerType
-                                  .create((windowId, inv, data) -> new StableWormholeContainer(windowId, inv,
-                                          (StableWormholeTileEntity) inv.player.level
-                                                                             .getBlockEntity(data.readBlockPos()))));
+                            .create((windowId, inv, data) -> new StableWormholeContainer(windowId, inv,
+                                    (StableWormholeTileEntity) inv.player.level
+                                            .getBlockEntity(data.readBlockPos()))));
 
     public static final RegistryObject<ContainerType<StorageRemoteContainer>> STORAGE_REMOTE =
             CONTAINERS.register("storage_remote",
                     () -> IForgeContainerType
-                                  .create((windowId, inv, data) -> new StorageRemoteContainer(windowId, inv, data.readVarInt())));
+                            .create((windowId, inv, data) -> new StorageRemoteContainer(windowId, inv, data.readVarInt())));
 
     public static final RegistryObject<ContainerType<SpiritContainer>> SPIRIT =
             CONTAINERS.register("spirit",
                     () -> IForgeContainerType
-                                  .create((windowId, inv, data) -> {
-                                      return new SpiritContainer(windowId, inv,
-                                              (SpiritEntity) inv.player.level.getEntity(data.readInt()));
-                                  }));
+                            .create((windowId, inv, data) -> {
+                                return new SpiritContainer(windowId, inv,
+                                        (SpiritEntity) inv.player.level.getEntity(data.readInt()));
+                            }));
 
     public static final RegistryObject<ContainerType<SpiritTransporterContainer>> SPIRIT_TRANSPORTER =
             CONTAINERS.register("spirit_transporter",
                     () -> IForgeContainerType
-                                  .create((windowId, inv, data) -> {
-                                      return new SpiritTransporterContainer(windowId, inv,
-                                              (SpiritEntity) inv.player.level.getEntity(data.readInt()));
-                                  }));
+                            .create((windowId, inv, data) -> {
+                                return new SpiritTransporterContainer(windowId, inv,
+                                        (SpiritEntity) inv.player.level.getEntity(data.readInt()));
+                            }));
 
     public static final RegistryObject<ContainerType<DimensionalMineshaftContainer>> OTHERWORLD_MINER =
             CONTAINERS.register("otherworld_miner",
                     () -> IForgeContainerType
-                                  .create((windowId, inv, data) -> new DimensionalMineshaftContainer(windowId, inv,
-                                          (DimensionalMineshaftTileEntity) inv.player.level.getBlockEntity(
-                                                  data.readBlockPos()))));
+                            .create((windowId, inv, data) -> new DimensionalMineshaftContainer(windowId, inv,
+                                    (DimensionalMineshaftTileEntity) inv.player.level.getBlockEntity(
+                                            data.readBlockPos()))));
 
     public static final RegistryObject<ContainerType<SatchelContainer>> SATCHEL =
             CONTAINERS.register("satchel", () -> IForgeContainerType.create(SatchelContainer::createClientContainer));

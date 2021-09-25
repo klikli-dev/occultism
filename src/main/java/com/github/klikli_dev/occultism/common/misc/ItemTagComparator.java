@@ -26,8 +26,8 @@ import com.github.klikli_dev.occultism.api.common.container.IItemStackComparator
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.ITag;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.util.ResourceLocation;
 
 import javax.annotation.Nonnull;
@@ -51,6 +51,13 @@ public class ItemTagComparator implements IItemStackComparator {
 
     //region Overrides
 
+    //region Static Methods
+    public static ItemTagComparator from(CompoundNBT nbt) {
+        ItemTagComparator comparator = new ItemTagComparator();
+        comparator.deserializeNBT(nbt);
+        return comparator;
+    }
+
     @Override
     public boolean matches(@Nonnull ItemStack stack) {
         if (stack.isEmpty())
@@ -63,18 +70,11 @@ public class ItemTagComparator implements IItemStackComparator {
     public CompoundNBT serializeNBT() {
         return this.write(new CompoundNBT());
     }
+    //endregion Overrides
 
     @Override
     public void deserializeNBT(CompoundNBT nbt) {
         this.read(nbt);
-    }
-    //endregion Overrides
-
-    //region Static Methods
-    public static ItemTagComparator from(CompoundNBT nbt) {
-        ItemTagComparator comparator = new ItemTagComparator();
-        comparator.deserializeNBT(nbt);
-        return comparator;
     }
     //endregion Static Methods
 

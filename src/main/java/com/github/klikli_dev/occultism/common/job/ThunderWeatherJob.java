@@ -26,9 +26,7 @@ import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import net.minecraft.util.Util;
 import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.server.ServerWorld;
 import net.minecraft.world.storage.IServerWorldInfo;
-import net.minecraft.world.storage.ServerWorldInfo;
 
 public class ThunderWeatherJob extends ChangeWeatherJob {
 
@@ -40,7 +38,7 @@ public class ThunderWeatherJob extends ChangeWeatherJob {
 
     //region Overrides
     public void changeWeather() {
-        if(Occultism.SERVER_CONFIG.rituals.enableThunderWeatherRitual.get()){
+        if (Occultism.SERVER_CONFIG.rituals.enableThunderWeatherRitual.get()) {
             IServerWorldInfo info = (IServerWorldInfo) this.entity.level.getLevelData();
             //taken from weathercommand#thunder
             info.setClearWeatherTime(0);
@@ -48,8 +46,7 @@ public class ThunderWeatherJob extends ChangeWeatherJob {
             info.setThunderTime(6000);
             info.setRaining(true);
             info.setThundering(true);
-        }
-        else {
+        } else {
             this.entity.getOwner().sendMessage(new TranslationTextComponent("ritual.occultism.disabled"), Util.NIL_UUID);
         }
     }

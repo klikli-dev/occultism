@@ -56,8 +56,6 @@ import javax.annotation.Nullable;
 import java.util.Map;
 import java.util.stream.Stream;
 
-import net.minecraft.block.AbstractBlock.Properties;
-
 public class StableWormholeBlock extends Block {
 
     //region Fields
@@ -82,7 +80,9 @@ public class StableWormholeBlock extends Block {
                             Block.box(0, 12, 4, 1, 15, 12),
                             Block.box(0, 0, 6, 1, 1, 10),
                             Block.box(0, 15, 6, 1, 16, 10)
-                    ).reduce((v1, v2) -> {return VoxelShapes.join(v1, v2, IBooleanFunction.OR);}).get())
+                    ).reduce((v1, v2) -> {
+                        return VoxelShapes.join(v1, v2, IBooleanFunction.OR);
+                    }).get())
                     .put(Direction.WEST, Stream.of(
                             Block.box(15, 4, 4, 16, 12, 12),
                             Block.box(15, 4, 1, 16, 12, 4),
@@ -101,7 +101,9 @@ public class StableWormholeBlock extends Block {
                             Block.box(15, 12, 4, 16, 15, 12),
                             Block.box(15, 0, 6, 16, 1, 10),
                             Block.box(15, 15, 6, 16, 16, 10)
-                    ).reduce((v1, v2) -> {return VoxelShapes.join(v1, v2, IBooleanFunction.OR);}).get())
+                    ).reduce((v1, v2) -> {
+                        return VoxelShapes.join(v1, v2, IBooleanFunction.OR);
+                    }).get())
                     .put(Direction.NORTH, Stream.of(
                             Block.box(4, 4, 15, 12, 12, 16),
                             Block.box(1, 4, 15, 4, 12, 16),
@@ -120,7 +122,9 @@ public class StableWormholeBlock extends Block {
                             Block.box(4, 12, 15, 12, 15, 16),
                             Block.box(6, 0, 15, 10, 1, 16),
                             Block.box(6, 15, 15, 10, 16, 16)
-                    ).reduce((v1, v2) -> {return VoxelShapes.join(v1, v2, IBooleanFunction.OR);}).get())
+                    ).reduce((v1, v2) -> {
+                        return VoxelShapes.join(v1, v2, IBooleanFunction.OR);
+                    }).get())
                     .put(Direction.SOUTH, Stream.of(
                             Block.box(4, 4, 0, 12, 12, 1),
                             Block.box(1, 4, 0, 4, 12, 1),
@@ -139,7 +143,9 @@ public class StableWormholeBlock extends Block {
                             Block.box(4, 12, 0, 12, 15, 1),
                             Block.box(6, 0, 0, 10, 1, 1),
                             Block.box(6, 15, 0, 10, 16, 1)
-                    ).reduce((v1, v2) -> {return VoxelShapes.join(v1, v2, IBooleanFunction.OR);}).get())
+                    ).reduce((v1, v2) -> {
+                        return VoxelShapes.join(v1, v2, IBooleanFunction.OR);
+                    }).get())
                     .put(Direction.UP, Stream.of(
                             Block.box(4, 0, 4, 12, 1, 12),
                             Block.box(1, 0, 4, 4, 1, 12),
@@ -158,7 +164,9 @@ public class StableWormholeBlock extends Block {
                             Block.box(4, 0, 1, 12, 1, 4),
                             Block.box(6, 0, 15, 10, 1, 16),
                             Block.box(6, 0, 0, 10, 1, 1)
-                    ).reduce((v1, v2) -> {return VoxelShapes.join(v1, v2, IBooleanFunction.OR);}).get())
+                    ).reduce((v1, v2) -> {
+                        return VoxelShapes.join(v1, v2, IBooleanFunction.OR);
+                    }).get())
                     .put(Direction.DOWN, Stream.of(
                             Block.box(4, 15, 4, 12, 16, 12),
                             Block.box(1, 15, 4, 4, 16, 12),
@@ -177,7 +185,9 @@ public class StableWormholeBlock extends Block {
                             Block.box(4, 15, 1, 12, 16, 4),
                             Block.box(6, 15, 15, 10, 16, 16),
                             Block.box(6, 15, 0, 10, 16, 1)
-                    ).reduce((v1, v2) -> {return VoxelShapes.join(v1, v2, IBooleanFunction.OR);}).get()).build());
+                    ).reduce((v1, v2) -> {
+                        return VoxelShapes.join(v1, v2, IBooleanFunction.OR);
+                    }).get()).build());
 
     //endregion Fields
     //region Initialization
@@ -207,14 +217,14 @@ public class StableWormholeBlock extends Block {
 
     @Override
     public ActionResultType use(BlockState state, World world, BlockPos pos, PlayerEntity player,
-                                             Hand handIn, BlockRayTraceResult rayTraceResult) {
+                                Hand handIn, BlockRayTraceResult rayTraceResult) {
         if (!world.isClientSide) {
             TileEntity tileEntity = world.getBlockEntity(pos);
             if (tileEntity instanceof StableWormholeTileEntity) {
                 StableWormholeTileEntity wormhole = (StableWormholeTileEntity) tileEntity;
-                if(wormhole.getLinkedStorageController() != null)
+                if (wormhole.getLinkedStorageController() != null)
                     NetworkHooks.openGui((ServerPlayerEntity) player, (INamedContainerProvider) tileEntity, pos);
-                else{
+                else {
                     world.setBlock(pos, state.setValue(LINKED, false), 2);
                 }
             }
@@ -227,7 +237,7 @@ public class StableWormholeBlock extends Block {
     public BlockState getStateForPlacement(BlockItemUseContext context) {
         BlockState state = this.defaultBlockState().setValue(BlockStateProperties.FACING, context.getClickedFace());
         if (context.getItemInHand().getOrCreateTag().getCompound("BlockEntityTag")
-                    .contains("linkedStorageControllerPosition")) {
+                .contains("linkedStorageControllerPosition")) {
             state = state.setValue(LINKED, true);
         }
         return state;

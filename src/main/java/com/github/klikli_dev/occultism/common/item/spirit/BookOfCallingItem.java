@@ -63,8 +63,6 @@ import javax.annotation.Nullable;
 import java.util.*;
 import java.util.function.Predicate;
 
-import net.minecraft.item.Item.Properties;
-
 public class BookOfCallingItem extends Item implements IIngredientCopyNBT, IHandleItemMode {
 
     //region Fields
@@ -186,7 +184,7 @@ public class BookOfCallingItem extends Item implements IIngredientCopyNBT, IHand
 
     @Override
     public ActionResultType interactLivingEntity(ItemStack stack, PlayerEntity player, LivingEntity target,
-                                                     Hand hand) {
+                                                 Hand hand) {
         if (target.level.isClientSide)
             return ActionResultType.PASS;
 
@@ -232,7 +230,7 @@ public class BookOfCallingItem extends Item implements IIngredientCopyNBT, IHand
                                     player.displayClientMessage(
                                             new TranslationTextComponent(TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_set_deposit_entity",
                                                     TextUtil.formatDemonName(boundSpirit.get().getName().getString()),
-                                            TextUtil.formatDemonName(targetSpirit.getName().getString())), true);
+                                                    TextUtil.formatDemonName(targetSpirit.getName().getString())), true);
                                     player.swing(hand);
                                     player.setItemInHand(hand, stack); //need to write the item back to hand, otherwise we only modify a copy
                                     player.inventoryMenu.broadcastChanges();
@@ -244,7 +242,7 @@ public class BookOfCallingItem extends Item implements IIngredientCopyNBT, IHand
                                             true);
                                     return ActionResultType.FAIL;
                                 }
-                            } else{
+                            } else {
                                 //if spirit id is null then this was a (failed) link attempt -> and we fail
                                 player.displayClientMessage(
                                         new TranslationTextComponent(
@@ -307,7 +305,7 @@ public class BookOfCallingItem extends Item implements IIngredientCopyNBT, IHand
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip,
-                               ITooltipFlag flagIn) {
+                                ITooltipFlag flagIn) {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
         tooltip.add(new TranslationTextComponent(this.getTranslationKeyBase() +
                 (ItemNBTUtil.getSpiritDead(stack) ? ".tooltip_dead" : ".tooltip"),
@@ -583,30 +581,30 @@ public class BookOfCallingItem extends Item implements IIngredientCopyNBT, IHand
         }
         //endregion Initialization
 
+        //region Static Methods
+        public static ItemMode get(int value) {
+            return lookup.get(value);
+        }
+
         //region Getter / Setter
         public int getValue() {
             return this.value;
         }
+        //endregion Getter / Setter
 
         public String getTranslationKey() {
             return this.translationKey;
         }
-        //endregion Getter / Setter
 
         //region Overrides
         @Override
         public ItemMode getItemMode() {
             return this;
         }
+        //endregion Overrides
 
         public ItemMode next() {
             return values()[(this.ordinal() + 1) % values().length];
-        }
-        //endregion Overrides
-
-        //region Static Methods
-        public static ItemMode get(int value) {
-            return lookup.get(value);
         }
         //endregion Static Methods
 

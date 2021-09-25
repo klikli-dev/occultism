@@ -22,10 +22,6 @@
 
 package com.github.klikli_dev.occultism.network;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Map.Entry;
-
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.capability.FamiliarSettingsCapability;
 import com.github.klikli_dev.occultism.registry.OccultismCapabilities;
@@ -35,6 +31,10 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.fml.network.NetworkEvent;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 
 public class MessageToggleFamiliarSettings extends MessageBase {
 

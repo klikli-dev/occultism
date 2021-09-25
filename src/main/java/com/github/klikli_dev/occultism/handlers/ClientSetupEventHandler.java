@@ -59,11 +59,10 @@ import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import org.lwjgl.glfw.GLFW;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import org.lwjgl.glfw.GLFW;
 
 @Mod.EventBusSubscriber(modid = Occultism.MODID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ClientSetupEventHandler {
@@ -76,7 +75,7 @@ public class ClientSetupEventHandler {
     public static final KeyBinding KEY_STORAGE_REMOTE =
             new KeyBinding("key.occultism.storage_remote", StorageRemoteKeyConflictContext.INSTANCE,
                     InputMappings.Type.KEYSYM.getOrCreate(GLFW.GLFW_KEY_N), "key.occultism.category");
-    
+
     public static Map<EntityType<?>, KeyBinding> keysFamiliars;
 
     //endregion Fields
@@ -92,7 +91,7 @@ public class ClientSetupEventHandler {
         event.enqueueWork(() -> {
             ClientRegistry.registerKeyBinding(KEY_BACKPACK);
             ClientRegistry.registerKeyBinding(KEY_STORAGE_REMOTE);
-            
+
             keysFamiliars = new HashMap<>();
             for (EntityType<?> familiar : FamiliarSettingsCapability.getFamiliars()) {
                 KeyBinding kb = new KeyBinding("key.occultism.familiar." + familiar.getRegistryName().getPath(), KeyConflictContext.IN_GAME,

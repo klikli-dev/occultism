@@ -38,8 +38,6 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
-import net.minecraft.block.AbstractBlock.Properties;
-
 public class OtherworldLeavesNaturalBlock extends LeavesBlock implements IOtherworldBlock {
 
     //region Fields
@@ -71,7 +69,7 @@ public class OtherworldLeavesNaturalBlock extends LeavesBlock implements IOtherw
 
     @Override
     public void playerDestroy(World worldIn, PlayerEntity player, BlockPos pos, BlockState state,
-                             @Nullable TileEntity te, ItemStack stack) {
+                              @Nullable TileEntity te, ItemStack stack) {
         super.playerDestroy(worldIn, player, pos, IOtherworldBlock.super.getHarvestState(player, state, stack), te,
                 stack);
     }

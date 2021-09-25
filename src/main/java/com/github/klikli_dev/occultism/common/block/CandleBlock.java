@@ -40,8 +40,6 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import java.util.Random;
 import java.util.stream.Stream;
 
-import net.minecraft.block.AbstractBlock.Properties;
-
 public class CandleBlock extends Block {
     //region Fields
     private static final VoxelShape SHAPE = Stream.of(
@@ -59,7 +57,9 @@ public class CandleBlock extends Block {
             Block.box(5, 0, 7, 6, 3, 9),
             Block.box(6, 0, 6, 10, 9, 10),
             Block.box(7.75, 8, 7.75, 8.25, 10, 8.25)
-    ).reduce((v1, v2) -> {return VoxelShapes.join(v1, v2, IBooleanFunction.OR);}).get();
+    ).reduce((v1, v2) -> {
+        return VoxelShapes.join(v1, v2, IBooleanFunction.OR);
+    }).get();
     //endregion Fields
 
     //region Initialization

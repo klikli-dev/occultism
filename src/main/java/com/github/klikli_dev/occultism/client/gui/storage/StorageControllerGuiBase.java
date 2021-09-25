@@ -172,14 +172,14 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         tooltip.add(machine.getItemStack().getHoverName());
         if (machine.customName != null) {
             tooltip.add(new StringTextComponent(TextFormatting.GRAY.toString() +
-                                                TextFormatting.BOLD + machine.customName +
-                                                TextFormatting.RESET));
+                    TextFormatting.BOLD + machine.customName +
+                    TextFormatting.RESET));
         }
 
         if (this.minecraft.player.level.dimension() != machine.globalPos.getDimensionKey())
             tooltip.add(new TranslationTextComponent(TextFormatting.GRAY.toString() + TextFormatting.ITALIC +
                     machine.globalPos.getDimensionKey().location() +
-                                                     TextFormatting.RESET));
+                    TextFormatting.RESET));
         this.renderComponentTooltip(matrixStack, tooltip, x, y); //renderTooltip
     }
 
@@ -289,7 +289,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
     @Override
     protected void renderBg(MatrixStack matrixStack, float partialTicks, int mouseX,
-                                                   int mouseY) {
+                            int mouseY) {
         if (!this.isGuiValid()) {
             return;
         }
@@ -320,25 +320,22 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
             if (mouseButton == InputUtil.MOUSE_BUTTON_RIGHT) {
                 this.clearSearch();
             }
-        }
-        else if (this.guiMode == StorageControllerGuiMode.INVENTORY) {
+        } else if (this.guiMode == StorageControllerGuiMode.INVENTORY) {
             ItemStack stackCarriedByMouse = this.minecraft.player.inventory.getCarried();
             if (!this.stackUnderMouse.isEmpty() &&
-                (mouseButton == InputUtil.MOUSE_BUTTON_LEFT || mouseButton == InputUtil.MOUSE_BUTTON_RIGHT) &&
-                stackCarriedByMouse.isEmpty() && this.canClick()) {
+                    (mouseButton == InputUtil.MOUSE_BUTTON_LEFT || mouseButton == InputUtil.MOUSE_BUTTON_RIGHT) &&
+                    stackCarriedByMouse.isEmpty() && this.canClick()) {
                 //take item out of storage
                 OccultismPackets.sendToServer(
                         new MessageTakeItem(this.stackUnderMouse, mouseButton, Screen.hasShiftDown(),
                                 Screen.hasControlDown()));
                 this.lastClick = System.currentTimeMillis();
-            }
-            else if (!stackCarriedByMouse.isEmpty() && this.isPointInItemArea(mouseX, mouseY) && this.canClick()) {
+            } else if (!stackCarriedByMouse.isEmpty() && this.isPointInItemArea(mouseX, mouseY) && this.canClick()) {
                 //put item into storage
                 OccultismPackets.sendToServer(new MessageInsertMouseHeldItem(mouseButton));
                 this.lastClick = System.currentTimeMillis();
             }
-        }
-        else if (this.guiMode == StorageControllerGuiMode.AUTOCRAFTING) {
+        } else if (this.guiMode == StorageControllerGuiMode.AUTOCRAFTING) {
             for (MachineSlotWidget slot : this.machineSlots) {
                 if (slot.isMouseOverSlot(mouseX, mouseY)) {
                     if (mouseButton == InputUtil.MOUSE_BUTTON_LEFT) {
@@ -346,11 +343,10 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                         if (Screen.hasShiftDown()) {
                             long time = System.currentTimeMillis() + 5000;
                             Occultism.SELECTED_BLOCK_RENDERER.selectBlock(slot.getMachine().globalPos.getPos(), time);
-                        }
-                        else if (!orderStack.isEmpty()) {
+                        } else if (!orderStack.isEmpty()) {
                             //this message both clears the order slot and creates the order
                             GlobalBlockPos storageControllerPos = this.storageControllerContainer.getStorageControllerGlobalBlockPos();
-                            if(storageControllerPos != null){
+                            if (storageControllerPos != null) {
                                 OccultismPackets.sendToServer(new MessageRequestOrder(
                                         storageControllerPos,
                                         slot.getMachine().globalPos, orderStack));
@@ -485,7 +481,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         int jeiSyncOffset = 140 + (JeiSettings.isJeiSearchSynced() ? 0 : 1) * 28;
         this.jeiSyncButton = new SizedImageButton(
                 this.leftPos + clearTextButtonLeft + controlButtonSize + 3 + controlButtonSize + 3 + controlButtonSize +
-                3, this.topPos + controlButtonTop, controlButtonSize, controlButtonSize, 0, jeiSyncOffset, 28, 28, 28,
+                        3, this.topPos + controlButtonTop, controlButtonSize, controlButtonSize, 0, jeiSyncOffset, 28, 28, 28,
                 256, 256, BUTTONS, (button) -> {
             JeiSettings.setJeiSearchSync(!JeiSettings.isJeiSearchSynced());
             this.init();
@@ -571,7 +567,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         int itemAreaTop = 24;
         int itemAreaLeft = 8 + ORDER_AREA_OFFSET;
         return mouseX > (this.leftPos + itemAreaLeft) && mouseX < (this.leftPos + itemAreaWidth + itemAreaLeft) &&
-               mouseY > (this.topPos + itemAreaTop) && mouseY < (this.topPos + itemAreaTop + itemAreaHeight);
+                mouseY > (this.topPos + itemAreaTop) && mouseY < (this.topPos + itemAreaTop + itemAreaHeight);
     }
 
     protected void drawTooltips(MatrixStack matrixStack, int mouseX, int mouseY) {
@@ -596,8 +592,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
             List<ITextComponent> tooltip = new ArrayList<>();
             if (!Screen.hasShiftDown()) {
                 tooltip.add(new TranslationTextComponent(TRANSLATION_KEY_BASE + ".shift"));
-            }
-            else {
+            } else {
                 switch (this.guiMode) {
                     case INVENTORY:
                         tooltip.add(new TranslationTextComponent(TRANSLATION_KEY_BASE + ".search.tooltip@"));
@@ -627,7 +622,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                 case AUTOCRAFTING:
                     translationKey =
                             TRANSLATION_KEY_BASE + ".search.machines.tooltip_sort_type_" +
-                            this.getSortType().getSerializedName();
+                                    this.getSortType().getSerializedName();
                     break;
             }
             this.renderTooltip(matrixStack, new TranslationTextComponent(translationKey), mouseX, mouseY);
@@ -640,7 +635,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         if (this.jeiSyncButton != null && this.jeiSyncButton.isMouseOver(mouseX, mouseY)) {
             this.renderTooltip(matrixStack, new TranslationTextComponent(
                             TRANSLATION_KEY_BASE + ".search.tooltip_jei_" +
-                            (JeiSettings.isJeiSearchSynced() ? "on" : "off")),
+                                    (JeiSettings.isJeiSearchSynced() ? "on" : "off")),
                     mouseX, mouseY);
         }
     }
@@ -721,12 +716,12 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                         return Integer.compare(b.getCount(), a.getCount()) * this.direction;
                     case NAME:
                         return a.getHoverName().getContents()
-                                       .compareToIgnoreCase(b.getHoverName().getContents()) *
-                               this.direction;
+                                .compareToIgnoreCase(b.getHoverName().getContents()) *
+                                this.direction;
                     case MOD:
                         return TextUtil.getModNameForGameObject(a.getItem())
-                                       .compareToIgnoreCase(TextUtil.getModNameForGameObject(b.getItem())) *
-                               this.direction;
+                                .compareToIgnoreCase(TextUtil.getModNameForGameObject(b.getItem())) *
+                                this.direction;
                 }
                 return 0;
             }
@@ -768,25 +763,22 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         if (searchText.startsWith("@")) {
             String name = TextUtil.getModNameForGameObject(stack.getItem());
             return name.toLowerCase().contains(searchText.toLowerCase().substring(1));
-        }
-        else if (searchText.startsWith("#")) {
+        } else if (searchText.startsWith("#")) {
             List<String> tooltip = stack.getTooltipLines(this.minecraft.player, ITooltipFlag.TooltipFlags.NORMAL).stream()
                     .map(ITextComponent::getString).collect(
                             Collectors.toList());
             String tooltipString = Joiner.on(' ').join(tooltip).toLowerCase().trim();
             return tooltipString.toLowerCase().contains(searchText.toLowerCase().substring(1));
-        }
-        else if (searchText.startsWith("$")) {
+        } else if (searchText.startsWith("$")) {
             StringBuilder tagStringBuilder = new StringBuilder();
             for (ResourceLocation tag : stack.getItem().getTags()) {
                 tagStringBuilder.append(tag.toString()).append(' ');
             }
             return tagStringBuilder.toString().toLowerCase().contains(searchText.toLowerCase().substring(1));
-        }
-        else {
+        } else {
             //Note: If search stops working, forge may have re-implemented .getUnformattedComponentText() for translated text components
             return stack.getHoverName().getString().toLowerCase()
-                           .contains(searchText.toLowerCase());
+                    .contains(searchText.toLowerCase());
         }
     }
 
@@ -795,12 +787,11 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         if (searchText.startsWith("@")) {
             String name = TextUtil.getModNameForGameObject(machine.getItem());
             return name.toLowerCase().contains(searchText.toLowerCase().substring(1));
-        }
-        else {
+        } else {
             String customName = machine.customName == null ? "" : machine.customName.toLowerCase();
             return machine.getItemStack().getHoverName().getContents().toLowerCase()
-                           .contains(searchText.toLowerCase()) ||
-                   customName.contains(searchText.toLowerCase().substring(1));
+                    .contains(searchText.toLowerCase()) ||
+                    customName.contains(searchText.toLowerCase().substring(1));
         }
     }
 
@@ -827,13 +818,13 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                         return Double.compare(distanceB, distanceA) * this.direction;
                     case NAME:
                         return a.getItemStack().getHoverName().getContents()
-                                       .compareToIgnoreCase(
-                                               b.getItemStack().getHoverName().getContents()) *
-                               this.direction;
+                                .compareToIgnoreCase(
+                                        b.getItemStack().getHoverName().getContents()) *
+                                this.direction;
                     case MOD:
                         return TextUtil.getModNameForGameObject(a.getItem())
-                                       .compareToIgnoreCase(TextUtil.getModNameForGameObject(b.getItem())) *
-                               this.direction;
+                                .compareToIgnoreCase(TextUtil.getModNameForGameObject(b.getItem())) *
+                                this.direction;
                 }
                 return 0;
             }

@@ -41,6 +41,14 @@ public class NbtCommand implements Command<CommandSource> {
     private static final NbtCommand CMD = new NbtCommand();
     //endregion Fields
 
+    //region Static Methods
+    public static ArgumentBuilder<CommandSource, ?> register(CommandDispatcher<CommandSource> dispatcher) {
+        return Commands.literal("nbt")
+                .requires(cs -> cs.hasPermission(0))
+                .executes(CMD);
+    }
+    //endregion Overrides
+
     //region Overrides
     @Override
     public int run(CommandContext<CommandSource> context) throws CommandSyntaxException {
@@ -49,14 +57,6 @@ public class NbtCommand implements Command<CommandSource> {
         ITextComponent nbtText = heldItem.isEmpty() ? new StringTextComponent("{}") : heldItem.getOrCreateTag().getPrettyDisplay();
         context.getSource().sendSuccess(nbtText, false);
         return 0;
-    }
-    //endregion Overrides
-
-    //region Static Methods
-    public static ArgumentBuilder<CommandSource, ?> register(CommandDispatcher<CommandSource> dispatcher) {
-        return Commands.literal("nbt")
-                       .requires(cs -> cs.hasPermission(0))
-                       .executes(CMD);
     }
     //endregion Static Methods
 }

@@ -24,15 +24,11 @@ package com.github.klikli_dev.occultism.registry;
 
 import com.github.klikli_dev.occultism.common.capability.DoubleJumpCapability;
 import com.github.klikli_dev.occultism.common.capability.FamiliarSettingsCapability;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.util.ActionResultType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 
 import static com.github.klikli_dev.occultism.util.StaticUtil.modLoc;
@@ -60,10 +56,10 @@ public class OccultismCapabilities {
 
     public static void onPlayerClone(final PlayerEvent.Clone event) {
         //only handle respawn after death -> not portal transfers
-        if(event.isWasDeath()){
+        if (event.isWasDeath()) {
             //copy capability to new player instance
-            event.getPlayer().getCapability(OccultismCapabilities.FAMILIAR_SETTINGS).ifPresent( newCap -> {
-                        event.getOriginal().getCapability(OccultismCapabilities.FAMILIAR_SETTINGS).ifPresent( oldCap -> {
+            event.getPlayer().getCapability(OccultismCapabilities.FAMILIAR_SETTINGS).ifPresent(newCap -> {
+                        event.getOriginal().getCapability(OccultismCapabilities.FAMILIAR_SETTINGS).ifPresent(oldCap -> {
                             newCap.clone(oldCap);
                         });
                     }

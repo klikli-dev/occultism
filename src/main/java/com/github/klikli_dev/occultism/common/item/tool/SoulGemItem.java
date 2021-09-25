@@ -45,8 +45,6 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 import java.util.List;
 
-import net.minecraft.item.Item.Properties;
-
 public class SoulGemItem extends Item {
     //region Initialization
     public SoulGemItem(Properties properties) {
@@ -118,7 +116,7 @@ public class SoulGemItem extends Item {
 
     @Override
     public ActionResultType interactLivingEntity(ItemStack stack, PlayerEntity player, LivingEntity target,
-                                                     Hand hand) {
+                                                 Hand hand) {
         //This is called from PlayerEventHandler#onPlayerRightClickEntity, because we need to bypass sitting entities processInteraction
         if (target.level.isClientSide)
             return ActionResultType.PASS;
@@ -153,19 +151,18 @@ public class SoulGemItem extends Item {
     @Override
     public String getDescriptionId(ItemStack stack) {
         return stack.getOrCreateTag().contains("entityData") ? this.getDescriptionId() :
-                       this.getDescriptionId() + "_empty";
+                this.getDescriptionId() + "_empty";
     }
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip,
-                               ITooltipFlag flagIn) {
+                                ITooltipFlag flagIn) {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
 
         if (stack.getOrCreateTag().contains("entityData")) {
             EntityType<?> type = EntityUtil.entityTypeFromNbt(stack.getTag().getCompound("entityData"));
             tooltip.add(new TranslationTextComponent(this.getDescriptionId() + ".tooltip_filled", type.getDescription()));
-        }
-        else {
+        } else {
             tooltip.add(new TranslationTextComponent(this.getDescriptionId() + ".tooltip_empty"));
         }
     }

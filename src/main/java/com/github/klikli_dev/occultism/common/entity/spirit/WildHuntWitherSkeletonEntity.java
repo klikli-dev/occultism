@@ -57,10 +57,17 @@ public class WildHuntWitherSkeletonEntity extends WitherSkeletonEntity {
     }
     //endregion Initialization
 
+    //region Static Methods
+    public static AttributeModifierMap.MutableAttribute registerAttributes() {
+        return SkeletonEntity.createAttributes()
+                .add(Attributes.ATTACK_DAMAGE, 6.0)
+                .add(Attributes.MAX_HEALTH, 60.0);
+    }
+
     //region Overrides
     @Override
     public ILivingEntityData finalizeSpawn(IServerWorld world, DifficultyInstance difficultyIn, SpawnReason reason,
-                                            @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
+                                           @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
         int maxSkeletons = 3 + world.getRandom().nextInt(6);
 
         for (int i = 0; i < maxSkeletons; i++) {
@@ -103,18 +110,11 @@ public class WildHuntWitherSkeletonEntity extends WitherSkeletonEntity {
 
         return super.isInvulnerableTo(source);
     }
+    //endregion Overrides
 
     @Override
     public boolean isInvulnerable() {
         return !this.minions.isEmpty() || super.isInvulnerable();
-    }
-    //endregion Overrides
-
-    //region Static Methods
-    public static AttributeModifierMap.MutableAttribute registerAttributes() {
-        return SkeletonEntity.createAttributes()
-                       .add(Attributes.ATTACK_DAMAGE, 6.0)
-                       .add(Attributes.MAX_HEALTH, 60.0);
     }
     //endregion Static Methods
 

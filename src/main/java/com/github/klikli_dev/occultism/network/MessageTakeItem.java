@@ -67,12 +67,12 @@ public class MessageTakeItem extends MessageBase {
                                  NetworkEvent.Context context) {
         if (player.containerMenu instanceof IStorageControllerContainer) {
             IStorageController storageController = ((IStorageControllerContainer) player.containerMenu)
-                                                           .getStorageController();
+                    .getStorageController();
             if (storageController == null)
                 return;
 
             int available = storageController
-                                    .getAvailableAmount(new ItemStackComparator(this.stack, true));
+                    .getAvailableAmount(new ItemStackComparator(this.stack, true));
             int amountRequested = 0;
 
             //ctrl down means one
@@ -103,8 +103,7 @@ public class MessageTakeItem extends MessageBase {
                 //if shift click plop it directly into the inventory
                 if (this.isShiftDown) {
                     ItemHandlerHelper.giveItemToPlayer(player, stack);
-                }
-                else {
+                } else {
                     //otherwise put it on the players mouse
                     player.inventory.setCarried(stack);
                     OccultismPackets.sendTo(player, new MessageUpdateMouseHeldItem(stack));

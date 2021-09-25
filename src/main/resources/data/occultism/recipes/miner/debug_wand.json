@@ -3,7 +3,7 @@
   "ingredient": {
     "item": "occultism:debug_wand"
   },
-  "result":{
+  "result": {
     "item": "occultism:otherstone"
   },
   "weight": 200

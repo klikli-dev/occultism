@@ -22,8 +22,8 @@
 
 package com.github.klikli_dev.occultism.common.item.tool;
 
-import com.github.klikli_dev.occultism.registry.OccultismSounds;
 import com.github.klikli_dev.occultism.common.block.ChalkGlyphBlock;
+import com.github.klikli_dev.occultism.registry.OccultismSounds;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItemUseContext;
@@ -38,11 +38,9 @@ import net.minecraft.world.World;
 
 import java.util.function.Supplier;
 
-import net.minecraft.item.Item.Properties;
-
 public class ChalkItem extends Item {
-//region Fields
-Supplier<ChalkGlyphBlock> glyphBlock;
+    //region Fields
+    Supplier<ChalkGlyphBlock> glyphBlock;
 //endregion Fields
 
     //region Initialization
@@ -63,13 +61,13 @@ Supplier<ChalkGlyphBlock> glyphBlock;
         BlockState state = world.getBlockState(pos);
         PlayerEntity player = context.getPlayer();
         boolean isReplacing = world.getBlockState(pos).getBlock()
-                                      .canBeReplaced(state, new BlockItemUseContext(context));
+                .canBeReplaced(state, new BlockItemUseContext(context));
 
         if (!world.isClientSide) {
             //only place if player clicked at a top face
             //only if the block can be placed or is replacing an existing block
             if ((context.getClickedFace() == Direction.UP
-                 && this.glyphBlock.get().canSurvive(world.getBlockState(pos.above()), world, pos.above())) || isReplacing) {
+                    && this.glyphBlock.get().canSurvive(world.getBlockState(pos.above()), world, pos.above())) || isReplacing) {
                 ItemStack heldChalk = context.getItemInHand();
                 BlockPos placeAt = isReplacing ? pos : pos.above();
 

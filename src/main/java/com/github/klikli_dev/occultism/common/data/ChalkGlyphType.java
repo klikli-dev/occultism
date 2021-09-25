@@ -64,22 +64,22 @@ public enum ChalkGlyphType implements IStringSerializable {
     }
     //endregion Initialization
 
+    //region Static Methods
+    public static ChalkGlyphType get(int value) {
+        return lookup.get(value);
+    }
+    //endregion Getter / Setter
+
     //region Getter / Setter
     public int getValue() {
         return this.value;
     }
-    //endregion Getter / Setter
+    //endregion Overrides
 
     //region Overrides
     @Override
     public String getSerializedName() {
         return this.name().toLowerCase();
-    }
-    //endregion Overrides
-
-    //region Static Methods
-    public static ChalkGlyphType get(int value) {
-        return lookup.get(value);
     }
     //endregion Static Methods
 }

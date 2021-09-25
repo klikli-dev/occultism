@@ -38,7 +38,10 @@ import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Items;
 import net.minecraft.loot.*;
-import net.minecraft.loot.conditions.*;
+import net.minecraft.loot.conditions.BlockStateProperty;
+import net.minecraft.loot.conditions.ILootCondition;
+import net.minecraft.loot.conditions.KilledByPlayer;
+import net.minecraft.loot.conditions.TableBonus;
 import net.minecraft.loot.functions.LootingEnchantBonus;
 import net.minecraft.loot.functions.SetCount;
 import net.minecraftforge.fml.RegistryObject;
@@ -76,18 +79,18 @@ public class StandardLootTableProvider extends BaseLootTableProvider {
                     LootTable.lootTable().withPool(
                             LootPool.lootPool().setRolls(ConstantRange.exactly(1))
                                     .add(ItemLootEntry.lootTableItem(Items.END_STONE)
-                                                      .apply(SetCount.setCount(RandomValueRange.between(1.0f, 2.0F)))
-                                                      .apply(LootingEnchantBonus.lootingMultiplier(
-                                                              RandomValueRange.between(0.0F, 1.0F))))));
+                                            .apply(SetCount.setCount(RandomValueRange.between(1.0f, 2.0F)))
+                                            .apply(LootingEnchantBonus.lootingMultiplier(
+                                                    RandomValueRange.between(0.0F, 1.0F))))));
 
             //Guaranteed ender pearl drop for enderman
             this.add(OccultismEntities.POSSESSED_ENDERMAN_TYPE.get(),
                     LootTable.lootTable().withPool(
                             LootPool.lootPool().setRolls(ConstantRange.exactly(1))
                                     .add(ItemLootEntry.lootTableItem(Items.ENDER_PEARL)
-                                                      .apply(SetCount.setCount(RandomValueRange.between(1.0f, 3.0F)))
-                                                      .apply(LootingEnchantBonus.lootingMultiplier(
-                                                              RandomValueRange.between(0.0F, 1.0F))))));
+                                            .apply(SetCount.setCount(RandomValueRange.between(1.0f, 3.0F)))
+                                            .apply(LootingEnchantBonus.lootingMultiplier(
+                                                    RandomValueRange.between(0.0F, 1.0F))))));
 
             //Guaranteed skeleton skull drop for skeleton
             this.add(OccultismEntities.POSSESSED_SKELETON_TYPE.get(),
@@ -113,36 +116,36 @@ public class StandardLootTableProvider extends BaseLootTableProvider {
                     LootTable.lootTable().withPool(
                             LootPool.lootPool().setRolls(ConstantRange.exactly(1))
                                     .add(ItemLootEntry.lootTableItem(OccultismItems.AFRIT_ESSENCE.get())
-                                                      .apply(SetCount.setCount(RandomValueRange.between(0.7f, 1.0F)))
-                                                      .apply(LootingEnchantBonus.lootingMultiplier(
-                                                              RandomValueRange.between(0.0F, 1.0F))))));
+                                            .apply(SetCount.setCount(RandomValueRange.between(0.7f, 1.0F)))
+                                            .apply(LootingEnchantBonus.lootingMultiplier(
+                                                    RandomValueRange.between(0.0F, 1.0F))))));
 
             //increased wither skull drop from wild hunt
             this.add(OccultismEntities.WILD_HUNT_WITHER_SKELETON_TYPE.get(), LootTable.lootTable()
-                .withPool(LootPool.lootPool().setRolls(ConstantRange.exactly(1))
-                     .add(ItemLootEntry.lootTableItem(Items.COAL)
-                                       .apply(SetCount.setCount(RandomValueRange.between(-1.0F, 1.0F)))
-                                       .apply(LootingEnchantBonus.lootingMultiplier(RandomValueRange.between(0.0F, 1.0F))))
-                ).withPool(LootPool.lootPool().setRolls(ConstantRange.exactly(1))
-                      .add(ItemLootEntry.lootTableItem(Items.BONE)
-                                        .apply(SetCount.setCount(RandomValueRange.between(0.0F, 2.0F)))
-                                        .apply(LootingEnchantBonus.lootingMultiplier(RandomValueRange.between(0.0F, 1.0F))))
-                ).withPool(LootPool.lootPool().setRolls(ConstantRange.exactly(1))
-                       .add(ItemLootEntry.lootTableItem(Blocks.WITHER_SKELETON_SKULL))
-                                       .when(KilledByPlayer.killedByPlayer())
-                                           .apply(SetCount.setCount(RandomValueRange.between(1f, 1.0F)))
-                                           .apply(LootingEnchantBonus.lootingMultiplier(RandomValueRange.between(0.0F, 1.0F)))));
+                    .withPool(LootPool.lootPool().setRolls(ConstantRange.exactly(1))
+                            .add(ItemLootEntry.lootTableItem(Items.COAL)
+                                    .apply(SetCount.setCount(RandomValueRange.between(-1.0F, 1.0F)))
+                                    .apply(LootingEnchantBonus.lootingMultiplier(RandomValueRange.between(0.0F, 1.0F))))
+                    ).withPool(LootPool.lootPool().setRolls(ConstantRange.exactly(1))
+                            .add(ItemLootEntry.lootTableItem(Items.BONE)
+                                    .apply(SetCount.setCount(RandomValueRange.between(0.0F, 2.0F)))
+                                    .apply(LootingEnchantBonus.lootingMultiplier(RandomValueRange.between(0.0F, 1.0F))))
+                    ).withPool(LootPool.lootPool().setRolls(ConstantRange.exactly(1))
+                            .add(ItemLootEntry.lootTableItem(Blocks.WITHER_SKELETON_SKULL))
+                            .when(KilledByPlayer.killedByPlayer())
+                            .apply(SetCount.setCount(RandomValueRange.between(1f, 1.0F)))
+                            .apply(LootingEnchantBonus.lootingMultiplier(RandomValueRange.between(0.0F, 1.0F)))));
 
             //normal drop from wild hunt skeletons
             this.add(OccultismEntities.WILD_HUNT_SKELETON_TYPE.get(), LootTable.lootTable()
-                .withPool(LootPool.lootPool().setRolls(ConstantRange.exactly(1))
-                     .add(ItemLootEntry.lootTableItem(Items.ARROW)
-                                       .apply(SetCount.setCount(RandomValueRange.between(0.0F, 2.0F)))
-                                       .apply(LootingEnchantBonus.lootingMultiplier(RandomValueRange.between(0.0F, 1.0F))))
-                ).withPool(LootPool.lootPool().setRolls(ConstantRange.exactly(1))
-                      .add(ItemLootEntry.lootTableItem(Items.BONE)
-                                        .apply(SetCount.setCount(RandomValueRange.between(0.0F, 2.0F)))
-                                        .apply(LootingEnchantBonus.lootingMultiplier(RandomValueRange.between(0.0F, 1.0F))))));
+                    .withPool(LootPool.lootPool().setRolls(ConstantRange.exactly(1))
+                            .add(ItemLootEntry.lootTableItem(Items.ARROW)
+                                    .apply(SetCount.setCount(RandomValueRange.between(0.0F, 2.0F)))
+                                    .apply(LootingEnchantBonus.lootingMultiplier(RandomValueRange.between(0.0F, 1.0F))))
+                    ).withPool(LootPool.lootPool().setRolls(ConstantRange.exactly(1))
+                            .add(ItemLootEntry.lootTableItem(Items.BONE)
+                                    .apply(SetCount.setCount(RandomValueRange.between(0.0F, 2.0F)))
+                                    .apply(LootingEnchantBonus.lootingMultiplier(RandomValueRange.between(0.0F, 1.0F))))));
 
         }
 
@@ -162,7 +165,7 @@ public class StandardLootTableProvider extends BaseLootTableProvider {
                     .map(RegistryObject::get)
                     .forEach(block -> {
                         OccultismBlocks.BlockDataGenSettings settings = OccultismBlocks.BLOCK_DATA_GEN_SETTINGS
-                                                                                .get(block.getRegistryName());
+                                .get(block.getRegistryName());
                         if (settings.lootTableType == OccultismBlocks.LootTableType.EMPTY)
                             this.registerDropNothingLootTable(block);
                         else if (settings.lootTableType == OccultismBlocks.LootTableType.REPLANTABLE_CROP) {
@@ -174,8 +177,7 @@ public class StandardLootTableProvider extends BaseLootTableProvider {
                             this.add(block,
                                     createCropDrops(block, cropsBlock.getCropsItem().asItem(),
                                             cropsBlock.getSeedsItem().asItem(), lootCondition));
-                        }
-                        else if (settings.lootTableType == OccultismBlocks.LootTableType.DROP_SELF)
+                        } else if (settings.lootTableType == OccultismBlocks.LootTableType.DROP_SELF)
                             this.dropSelf(block);
                         else if (settings.lootTableType == OccultismBlocks.LootTableType.OTHERWORLD_BLOCK)
                             this.registerOtherworldBlockTable(block);
@@ -223,12 +225,12 @@ public class StandardLootTableProvider extends BaseLootTableProvider {
                             StatePropertiesPredicate.Builder.properties()
                                     .hasProperty(IOtherworldBlock.UNCOVERED, true));
             LootPool.Builder builder = LootPool.lootPool()
-                                               .setRolls(ConstantRange.exactly(1))
-                                               .add(ItemLootEntry.lootTableItem(otherworldBlock.getUncoveredBlock())
-                                                                 .when(uncoveredCondition)
-                                                                 .otherwise(ItemLootEntry.lootTableItem(
-                                                                         otherworldBlock.getCoveredBlock()))
-                                               );
+                    .setRolls(ConstantRange.exactly(1))
+                    .add(ItemLootEntry.lootTableItem(otherworldBlock.getUncoveredBlock())
+                            .when(uncoveredCondition)
+                            .otherwise(ItemLootEntry.lootTableItem(
+                                    otherworldBlock.getCoveredBlock()))
+                    );
             return LootTable.lootTable().withPool(builder);
         }
 
@@ -263,17 +265,17 @@ public class StandardLootTableProvider extends BaseLootTableProvider {
                                                                             LootEntry.Builder<?> saplingEntry,
                                                                             float... chances) {
             return this.droppingAlternativeWithSilkTouchOrShears(leavesEntry,
-                    applyExplosionCondition(leaves, saplingEntry)
-                            .when(TableBonus.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, chances)))
-                           .withPool(LootPool.lootPool().setRolls(ConstantRange.exactly(1))
-                                                .when(NOT_SILK_TOUCH_OR_SHEARS)
-                                                .add(applyExplosionDecay(leaves,
-                                                        ItemLootEntry.lootTableItem(Items.STICK
-                                                        ).apply(
-                                                                SetCount.setCount(RandomValueRange.between(1.0F, 2.0F))))
-                                                                  .when(TableBonus.bonusLevelFlatChance(
-                                                                          Enchantments.BLOCK_FORTUNE, 0.02F, 0.022222223F,
-                                                                          0.025F, 0.033333335F, 0.1F))));
+                            applyExplosionCondition(leaves, saplingEntry)
+                                    .when(TableBonus.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, chances)))
+                    .withPool(LootPool.lootPool().setRolls(ConstantRange.exactly(1))
+                            .when(NOT_SILK_TOUCH_OR_SHEARS)
+                            .add(applyExplosionDecay(leaves,
+                                    ItemLootEntry.lootTableItem(Items.STICK
+                                    ).apply(
+                                            SetCount.setCount(RandomValueRange.between(1.0F, 2.0F))))
+                                    .when(TableBonus.bonusLevelFlatChance(
+                                            Enchantments.BLOCK_FORTUNE, 0.02F, 0.022222223F,
+                                            0.025F, 0.033333335F, 0.1F))));
         }
 
         protected LootTable.Builder droppingAlternativeWithSilkTouchOrShears(LootEntry.Builder<?> mainDropEntry,
@@ -285,8 +287,8 @@ public class StandardLootTableProvider extends BaseLootTableProvider {
                                                         ILootCondition.IBuilder condition,
                                                         LootEntry.Builder<?> alternativeDropEntry) {
             return LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantRange.exactly(1))
-                                                           .add((mainDropEntry.when(condition))
-                                                                             .otherwise(alternativeDropEntry)));
+                    .add((mainDropEntry.when(condition))
+                            .otherwise(alternativeDropEntry)));
         }
         //endregion Methods
     }

@@ -35,7 +35,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.server.ServerWorld;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -138,8 +137,7 @@ public class TraderJob extends SpiritJob {
 
                 if (input.isEmpty()) {
                     this.entity.setItemInHand(Hand.MAIN_HAND, ItemStack.EMPTY);
-                }
-                else {
+                } else {
                     this.entity.setItemInHand(Hand.MAIN_HAND, input.get(0));
                 }
 
@@ -151,8 +149,7 @@ public class TraderJob extends SpiritJob {
                     this.onConvert(resultCount);
                 }
             }
-        }
-        else {
+        } else {
             this.conversionTimer = 0;
         }
         super.update();

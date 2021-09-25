@@ -56,6 +56,24 @@ public class GlobalBlockPos implements INBTSerializable<CompoundNBT> {
     }
     //endregion Initialization
 
+    //region Static Methods
+    public static GlobalBlockPos from(CompoundNBT compound) {
+        GlobalBlockPos globalBlockPos = new GlobalBlockPos();
+        globalBlockPos.deserializeNBT(compound);
+        return globalBlockPos;
+    }
+
+    public static GlobalBlockPos from(PacketBuffer buf) {
+        GlobalBlockPos globalBlockPos = new GlobalBlockPos();
+        globalBlockPos.decode(buf);
+        return globalBlockPos;
+    }
+    //endregion Getter / Setter
+
+    public static GlobalBlockPos from(TileEntity tileEntity) {
+        return new GlobalBlockPos(tileEntity.getBlockPos(), tileEntity.getLevel());
+    }
+
     //region Getter / Setter
     public RegistryKey<World> getDimensionKey() {
         return this.dimensionKey;
@@ -64,7 +82,6 @@ public class GlobalBlockPos implements INBTSerializable<CompoundNBT> {
     public BlockPos getPos() {
         return this.pos;
     }
-    //endregion Getter / Setter
 
     //region Overrides
     @Override
@@ -85,12 +102,13 @@ public class GlobalBlockPos implements INBTSerializable<CompoundNBT> {
             return false;
         return this.dimensionKey.equals(other.dimensionKey);
     }
+    //endregion Overrides
 
     @Override
     public String toString() {
         return new StringJoiner(", ", "[", "]").add(this.dimensionKey.location().toString())
-                       .add("x=" + this.pos.getX()).add("y=" + this.pos.getY())
-                       .add("z=" + this.pos.getZ()).toString();
+                .add("x=" + this.pos.getX()).add("y=" + this.pos.getY())
+                .add("z=" + this.pos.getZ()).toString();
     }
 
     @Override
@@ -101,24 +119,6 @@ public class GlobalBlockPos implements INBTSerializable<CompoundNBT> {
     @Override
     public void deserializeNBT(CompoundNBT nbt) {
         this.read(nbt);
-    }
-    //endregion Overrides
-
-    //region Static Methods
-    public static GlobalBlockPos from(CompoundNBT compound) {
-        GlobalBlockPos globalBlockPos = new GlobalBlockPos();
-        globalBlockPos.deserializeNBT(compound);
-        return globalBlockPos;
-    }
-
-    public static GlobalBlockPos from(PacketBuffer buf) {
-        GlobalBlockPos globalBlockPos = new GlobalBlockPos();
-        globalBlockPos.decode(buf);
-        return globalBlockPos;
-    }
-
-    public static GlobalBlockPos from(TileEntity tileEntity) {
-        return new GlobalBlockPos(tileEntity.getBlockPos(), tileEntity.getLevel());
     }
     //endregion Static Methods
 

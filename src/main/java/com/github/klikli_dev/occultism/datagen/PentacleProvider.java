@@ -22,28 +22,12 @@
 
 package com.github.klikli_dev.occultism.datagen;
 
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.function.Supplier;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.ritual.pentacle.Pentacle;
 import com.github.klikli_dev.occultism.common.ritual.pentacle.PentacleManager;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.registry.OccultismTags;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonPrimitive;
-
+import com.google.gson.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.data.DataGenerator;
@@ -51,6 +35,16 @@ import net.minecraft.data.DirectoryCache;
 import net.minecraft.data.IDataProvider;
 import net.minecraft.tags.ITag.INamedTag;
 import net.minecraft.util.ResourceLocation;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.function.Supplier;
 
 public class PentacleProvider implements IDataProvider {
 
@@ -92,7 +86,7 @@ public class PentacleProvider implements IDataProvider {
                         "  G WCW G  ",
                         "   GCPCG   ",
                         "    GGG    ",
-                        "     Z     " ),
+                        "     Z     "),
                 new MappingBuilder().bowl().whiteChalk().goldChalk().purpleChalk().redChalk().candle().crystal().skeleton().wither().build());
         this.addPentacle("craft_djinni",
                 this.createPattern(
@@ -261,7 +255,7 @@ public class PentacleProvider implements IDataProvider {
         }
         return pattern;
     }
-    
+
     private void addPentacle(String name, List<String> pattern, Map<Character, JsonElement> mappings) {
         this.addPentacle(new ResourceLocation(Occultism.MODID, name), pattern, mappings);
     }
@@ -283,7 +277,7 @@ public class PentacleProvider implements IDataProvider {
             this.mappings.put(c, e);
             return this;
         }
-        
+
         private Map<Character, JsonElement> build() {
             return this.mappings;
         }

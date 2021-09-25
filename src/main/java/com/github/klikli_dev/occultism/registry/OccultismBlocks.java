@@ -29,8 +29,8 @@ import com.github.klikli_dev.occultism.common.block.otherworld.*;
 import com.github.klikli_dev.occultism.common.block.storage.StableWormholeBlock;
 import com.github.klikli_dev.occultism.common.block.storage.StorageControllerBlock;
 import com.github.klikli_dev.occultism.common.block.storage.StorageStabilizerBlock;
-import com.github.klikli_dev.occultism.common.world.tree.OtherworldTree;
 import com.github.klikli_dev.occultism.common.world.tree.OtherworldNaturalTree;
+import com.github.klikli_dev.occultism.common.world.tree.OtherworldTree;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
@@ -65,8 +65,8 @@ public class OccultismBlocks {
             false, true, false, true, PushReaction.DESTROY);
 
     public static final Block.Properties GLYPH_PROPERTIES = Block.Properties.of(GLYPH_MATERIAL)
-                                                                    .sound(SoundType.WOOL).noCollission()
-                                                                    .strength(5f, 30);
+            .sound(SoundType.WOOL).noCollission()
+            .strength(5f, 30);
     public static final RegistryObject<ChalkGlyphBlock> CHALK_GLYPH_WHITE = register("chalk_glyph_white",
             () -> new ChalkGlyphBlock(GLYPH_PROPERTIES, 0xffffff, () -> OccultismItems.CHALK_WHITE.get()),
             false, LootTableType.EMPTY);
@@ -83,22 +83,23 @@ public class OccultismBlocks {
     //Resources
     public static final RegistryObject<Block> OTHERSTONE = register("otherstone", () -> new Block(
             Block.Properties.of(Material.STONE).sound(SoundType.STONE).strength(1.5f, 30)));
-
+    //Components
+    public static final RegistryObject<SlabBlock> OTHERSTONE_SLAB = register("otherstone_slab", () -> new SlabBlock(Block.Properties.copy(OTHERSTONE.get())));
+    public static final RegistryObject<Block> OTHERSTONE_PEDESTAL = register("otherstone_pedestal", () -> new Block(Block.Properties.copy(OTHERSTONE.get())));
+    public static final RegistryObject<Block> STORAGE_CONTROLLER_BASE = register("storage_controller_base",
+            () -> new Block(Block.Properties.copy(OTHERSTONE.get()).noOcclusion()));
     public static final RegistryObject<OtherstoneNaturalBlock> OTHERSTONE_NATURAL =
             register("otherstone_natural", () -> new OtherstoneNaturalBlock(
                             Block.Properties.of(Material.STONE).sound(SoundType.STONE).strength(1.5f, 30)),
                     true, LootTableType.OTHERWORLD_BLOCK);
-
     public static final RegistryObject<Block> OTHERWORLD_LOG =
-            register("otherworld_log", () ->   new RotatedPillarBlock(Block.Properties.of(Material.WOOD, (state) -> {
+            register("otherworld_log", () -> new RotatedPillarBlock(Block.Properties.of(Material.WOOD, (state) -> {
                 return state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? MaterialColor.WOOD : MaterialColor.PODZOL;
             }).strength(2.0F).sound(SoundType.WOOD).strength(2.0f)));
-
     public static final RegistryObject<Block> OTHERWORLD_LOG_NATURAL =
             register("otherworld_log_natural", () -> new OtherworldLogNaturalBlock(Block.Properties.of(Material.WOOD, (state) -> {
                 return state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? MaterialColor.WOOD : MaterialColor.PODZOL;
             }).strength(2.0f)), true, LootTableType.OTHERWORLD_BLOCK);
-
     public static final RegistryObject<LeavesBlock> OTHERWORLD_LEAVES =
             register("otherworld_leaves", () -> new LeavesBlock(
                     Block.Properties.of(Material.LEAVES).sound(SoundType.GRASS)
@@ -107,7 +108,6 @@ public class OccultismBlocks {
             register("otherworld_leaves_natural", () -> new OtherworldLeavesNaturalBlock(
                     Block.Properties.of(Material.LEAVES).sound(SoundType.GRASS)
                             .strength(0.2f).randomTicks().noOcclusion()), true, LootTableType.CUSTOM);
-
     public static final RegistryObject<OtherworldSaplingBlock> OTHERWORLD_SAPLING =
             register("otherworld_sapling", () -> new OtherworldSaplingBlock(new OtherworldTree(),
                     Block.Properties.of(Material.PLANT).sound(SoundType.GRASS)
@@ -116,20 +116,12 @@ public class OccultismBlocks {
             register("otherworld_sapling_natural", () -> new OtherworldSaplingNaturalBlock(new OtherworldNaturalTree(),
                     Block.Properties.of(Material.PLANT).sound(SoundType.GRASS)
                             .strength(0.0f).randomTicks().noCollission()), false, LootTableType.OTHERWORLD_BLOCK);
-
     public static final RegistryObject<Block> COPPER_ORE = register("copper_ore", () -> new Block(Block.Properties.copy(Blocks.IRON_ORE)));
     public static final RegistryObject<Block> SILVER_ORE = register("silver_ore", () -> new Block(Block.Properties.copy(Blocks.IRON_ORE)));
-
     public static final RegistryObject<Block> IESNIUM_ORE = register("iesnium_ore", () -> new Block(Block.Properties.copy(Blocks.IRON_ORE)));
     public static final RegistryObject<IesniumOreNaturalBlock> IESNIUM_ORE_NATURAL =
             register("iesnium_ore_natural", () -> new IesniumOreNaturalBlock(Block.Properties.copy(Blocks.IRON_ORE)),
                     true, LootTableType.OTHERWORLD_BLOCK);
-    //Components
-    public static final RegistryObject<SlabBlock> OTHERSTONE_SLAB = register("otherstone_slab", () -> new SlabBlock(Block.Properties.copy(OTHERSTONE.get())));
-    public static final RegistryObject<Block> OTHERSTONE_PEDESTAL = register("otherstone_pedestal", () -> new Block(Block.Properties.copy(OTHERSTONE.get())));
-    public static final RegistryObject<Block> STORAGE_CONTROLLER_BASE = register("storage_controller_base",
-            () -> new Block(Block.Properties.copy(OTHERSTONE.get()).noOcclusion()));
-
     public static final RegistryObject<Block> COPPER_BLOCK = register("copper_block", () -> new Block(Block.Properties.copy(Blocks.IRON_BLOCK)));
     public static final RegistryObject<Block> SILVER_BLOCK = register("silver_block", () -> new Block(Block.Properties.copy(Blocks.IRON_BLOCK)));
     public static final RegistryObject<Block> IESNIUM_BLOCK = register("iesnium_block", () -> new Block(Block.Properties.copy(Blocks.IRON_BLOCK)));
@@ -183,7 +175,7 @@ public class OccultismBlocks {
             register("dimensional_mineshaft", () -> new DimensionalMineshaftBlock(
                     Block.Properties.of(Material.STONE).sound(SoundType.STONE)
                             .strength(1.5f, 30)
-                    .noOcclusion()
+                            .noOcclusion()
             ));
 
     //Crops

@@ -58,10 +58,10 @@ public class ColorEventHandler {
         //but while covered the oak leaves need their vanilla tint
         event.getBlockColors()
                 .register((state, light, pos, tintIndex) ->
-                                  state.getValue(IOtherworldBlock.UNCOVERED) ?
-                                          0xFFFFFF : (light != null && pos != null ?
-                                                              BiomeColors.getAverageFoliageColor(light, pos) :
-                                                              FoliageColors.getDefaultColor()),
+                                state.getValue(IOtherworldBlock.UNCOVERED) ?
+                                        0xFFFFFF : (light != null && pos != null ?
+                                        BiomeColors.getAverageFoliageColor(light, pos) :
+                                        FoliageColors.getDefaultColor()),
                         OccultismBlocks.OTHERWORLD_LEAVES_NATURAL.get());
 
         Occultism.LOGGER.info("Block color registration complete.");

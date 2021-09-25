@@ -35,8 +35,6 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.server.ServerWorld;
 
-import net.minecraft.item.Item.Properties;
-
 public class SummonFoliotCleanerItem extends Item {
 
     //region Initialization
@@ -48,7 +46,7 @@ public class SummonFoliotCleanerItem extends Item {
     //region Overrides
     @Override
     public ActionResultType useOn(ItemUseContext context) {
-        if(!context.getLevel().isClientSide){
+        if (!context.getLevel().isClientSide) {
             FoliotEntity spirit = OccultismEntities.FOLIOT.get().create(context.getLevel());
             spirit.finalizeSpawn((ServerWorld) context.getLevel(), context.getLevel().getCurrentDifficultyAt(context.getClickedPos()),
                     SpawnReason.SPAWN_EGG, null, null);

@@ -36,8 +36,6 @@ import javax.annotation.Nullable;
 import java.util.EnumSet;
 import java.util.List;
 
-import net.minecraft.entity.ai.goal.Goal.Flag;
-
 public class PickupItemsGoal extends TargetGoal {
 
     //region Fields
@@ -67,7 +65,7 @@ public class PickupItemsGoal extends TargetGoal {
                 ItemStack stack = item.getItem();
                 return !stack.isEmpty() && entity.canPickupItem(item) && ItemHandlerHelper.insertItemStacked(
                         entity.itemStackHandler.orElseThrow(ItemHandlerMissingException::new), stack, true).getCount() <
-                                                                          stack.getCount();
+                        stack.getCount();
             }
             //endregion Overrides
         };
@@ -95,11 +93,10 @@ public class PickupItemsGoal extends TargetGoal {
                 workAreaSize / 2.0, workAreaSize).move(this.entity.getWorkAreaCenter());
 
         List<ItemEntity> list = this.mob.level
-                                        .getEntitiesOfClass(ItemEntity.class, targetBox, this.targetItemSelector);
+                .getEntitiesOfClass(ItemEntity.class, targetBox, this.targetItemSelector);
         if (list.isEmpty()) {
             return false;
-        }
-        else {
+        } else {
             list.sort(this.entitySorter);
             this.targetItem = list.get(0);
             return true;
@@ -111,8 +108,7 @@ public class PickupItemsGoal extends TargetGoal {
         if (this.targetItem == null || !this.targetItem.isAlive()) {
             this.stop();
             this.mob.getNavigation().stop();
-        }
-        else {
+        } else {
             this.mob.getNavigation().moveTo(this.mob.getNavigation().createPath(this.targetItem, 0), 1.0f);
             double distance = this.entity.position().distanceTo(this.targetItem.position());
             if (distance < 1F) {

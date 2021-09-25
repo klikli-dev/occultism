@@ -35,8 +35,6 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.server.ServerWorld;
 
-import net.minecraft.item.Item.Properties;
-
 public class SummonDjinniManageMachineItem extends Item {
 
     //region Initialization

@@ -57,8 +57,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
-import net.minecraft.block.AbstractBlock.Properties;
-
 public class SpiritFireBlock extends Block {
     //region Initialization
     public SpiritFireBlock(Properties properties) {
@@ -67,13 +65,18 @@ public class SpiritFireBlock extends Block {
     }
     //endregion Initialization
 
+    //region Static Methods
+    private static int getTickCooldown(Random rand) {
+        return 30 + rand.nextInt(10);
+    }
+
     //region Overrides
     @Override
     public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn,
-                                          BlockPos currentPos, BlockPos facingPos) {
+                                  BlockPos currentPos, BlockPos facingPos) {
         return this.canSurvive(stateIn, worldIn, currentPos) ?
-                       this.defaultBlockState().setValue(FireBlock.AGE, stateIn.getValue(FireBlock.AGE)) :
-                       Blocks.AIR.defaultBlockState();
+                this.defaultBlockState().setValue(FireBlock.AGE, stateIn.getValue(FireBlock.AGE)) :
+                Blocks.AIR.defaultBlockState();
     }
 
     @Override
@@ -81,8 +84,7 @@ public class SpiritFireBlock extends Block {
         if (oldState.getBlock() != state.getBlock()) {
             if (!state.canSurvive(worldIn, pos)) {
                 worldIn.removeBlock(pos, false);
-            }
-            else {
+            } else {
                 worldIn.getBlockTicks().scheduleTick(pos, this, getTickCooldown(worldIn.random));
             }
         }
@@ -92,7 +94,7 @@ public class SpiritFireBlock extends Block {
     public boolean canSurvive(BlockState state, IWorldReader worldIn, BlockPos pos) {
         BlockPos blockpos = pos.below();
         return worldIn.getBlockState(blockpos).isFaceSturdy(worldIn, blockpos, Direction.UP) ||
-               this.areNeighborsFlammable(worldIn, pos);
+                this.areNeighborsFlammable(worldIn, pos);
     }
 
     @Override
@@ -123,10 +125,9 @@ public class SpiritFireBlock extends Block {
         boolean isOnFireSource = other.isFireSource(worldIn, pos.below(), Direction.UP);
         int i = state.getValue(FireBlock.AGE);
         if (!isOnFireSource && worldIn.isRaining() && this.canDie(worldIn, pos) &&
-            rand.nextFloat() < 0.2F + (float) i * 0.03F) {
+                rand.nextFloat() < 0.2F + (float) i * 0.03F) {
             worldIn.removeBlock(pos, false);
-        }
-        else {
+        } else {
             int j = Math.min(15, i + rand.nextInt(3) / 2);
             if (i != j) {
                 state = state.setValue(FireBlock.AGE, j);
@@ -163,7 +164,7 @@ public class SpiritFireBlock extends Block {
         BlockPos blockpos = pos.below();
         BlockState blockstate = worldIn.getBlockState(blockpos);
         if (!this.canCatchFire(worldIn, blockpos, Direction.UP) &&
-            !Block.canSupportRigidBlock(worldIn, blockpos)) {
+                !Block.canSupportRigidBlock(worldIn, blockpos)) {
             if (this.canCatchFire(worldIn, blockpos.west(), Direction.EAST)) {
                 for (int j = 0; j < 2; ++j) {
                     double d3 = (double) pos.getX() + rand.nextDouble() * (double) 0.1F;
@@ -208,8 +209,7 @@ public class SpiritFireBlock extends Block {
                     worldIn.addParticle(ParticleTypes.LARGE_SMOKE, d7, d12, d17, 0.0D, 0.0D, 0.0D);
                 }
             }
-        }
-        else {
+        } else {
             for (int i = 0; i < 3; ++i) {
                 double d0 = (double) pos.getX() + rand.nextDouble();
                 double d1 = (double) pos.getY() + rand.nextDouble() * 0.5D + 0.5D;
@@ -219,17 +219,12 @@ public class SpiritFireBlock extends Block {
         }
 
     }
+    //endregion Overrides
 
     @Override
     protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
         builder.add(FireBlock.AGE);
         super.createBlockStateDefinition(builder);
-    }
-    //endregion Overrides
-
-//region Static Methods
-    private static int getTickCooldown(Random rand) {
-        return 30 + rand.nextInt(10);
     }
 //endregion Static Methods
 
@@ -265,14 +260,13 @@ public class SpiritFireBlock extends Block {
 
     protected boolean canDie(World worldIn, BlockPos pos) {
         return worldIn.isRainingAt(pos) || worldIn.isRainingAt(pos.west()) || worldIn.isRainingAt(pos.east()) ||
-               worldIn.isRainingAt(pos.north()) || worldIn.isRainingAt(pos.south());
+                worldIn.isRainingAt(pos.north()) || worldIn.isRainingAt(pos.south());
     }
 
     private int getNeighborEncouragement(IWorldReader worldIn, BlockPos pos) {
         if (!worldIn.isEmptyBlock(pos)) {
             return 0;
-        }
-        else {
+        } else {
             int i = 0;
 
             for (Direction direction : Direction.values()) {

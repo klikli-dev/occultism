@@ -51,8 +51,6 @@ import net.minecraftforge.registries.ForgeRegistries;
 import javax.annotation.Nullable;
 import java.util.List;
 
-import net.minecraft.item.Item.Properties;
-
 public class DivinationRodItem extends Item {
 
     //region Fields
@@ -89,7 +87,7 @@ public class DivinationRodItem extends Item {
                     if (!world.isClientSide) {
                         String translationKey =
                                 block instanceof IOtherworldBlock ? ((IOtherworldBlock) block).getUncoveredBlock()
-                                                                            .getDescriptionId() : block.getDescriptionId();
+                                        .getDescriptionId() : block.getDescriptionId();
                         stack.getOrCreateTag().putString("linkedBlockId", block.getRegistryName().toString());
                         player.sendMessage(
                                 new TranslationTextComponent(this.getDescriptionId() + ".message.linked_block",
@@ -99,8 +97,7 @@ public class DivinationRodItem extends Item {
                     world.playSound(player, player.blockPosition(), OccultismSounds.TUNING_FORK.get(),
                             SoundCategory.PLAYERS,
                             1, 1);
-                }
-                else {
+                } else {
                     if (!world.isClientSide) {
                         player.sendMessage(
                                 new TranslationTextComponent(this.getDescriptionId() + ".message.no_link_found"), Util.NIL_UUID);
@@ -127,8 +124,7 @@ public class DivinationRodItem extends Item {
                     ResourceLocation id = new ResourceLocation(stack.getTag().getString("linkedBlockId"));
                     ScanManager.instance.beginScan(player, ForgeRegistries.BLOCKS.getValue(id));
                 }
-            }
-            else if (!world.isClientSide) {
+            } else if (!world.isClientSide) {
                 player.sendMessage(new TranslationTextComponent(this.getDescriptionId() + ".message.no_linked_block"), Util.NIL_UUID);
             }
         }
@@ -176,18 +172,17 @@ public class DivinationRodItem extends Item {
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip,
-                               ITooltipFlag flagIn) {
+                                ITooltipFlag flagIn) {
         if (stack.getOrCreateTag().contains("linkedBlockId")) {
             ResourceLocation id = new ResourceLocation(stack.getTag().getString("linkedBlockId"));
 
             Block block = ForgeRegistries.BLOCKS.getValue(id);
             String translationKey = block instanceof IOtherworldBlock ? ((IOtherworldBlock) block).getUncoveredBlock()
-                                                                                .getDescriptionId() : block.getDescriptionId();
+                    .getDescriptionId() : block.getDescriptionId();
             tooltip.add(new TranslationTextComponent(this.getDescriptionId() + ".tooltip.linked_block",
                     new TranslationTextComponent(translationKey)
                             .withStyle(TextFormatting.BOLD, TextFormatting.ITALIC)));
-        }
-        else {
+        } else {
             tooltip.add(new TranslationTextComponent(this.getDescriptionId() + ".tooltip.no_linked_block"));
         }
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
@@ -198,22 +193,22 @@ public class DivinationRodItem extends Item {
     public Block getOtherBlock(BlockState state, boolean isCreative) {
         //otherstone ore is linked to andesite.
         if (state.getBlock() == Blocks.ANDESITE || state.getBlock() == OccultismBlocks.OTHERSTONE_NATURAL.get()
-            || state.getBlock() == OccultismBlocks.OTHERSTONE.get()) {
+                || state.getBlock() == OccultismBlocks.OTHERSTONE.get()) {
             return OccultismBlocks.OTHERSTONE_NATURAL.get();
         }
         //Otherworld logs are linked to oak leaves.
         if (state.getBlock() == Blocks.OAK_LOG || state.getBlock() == OccultismBlocks.OTHERWORLD_LOG_NATURAL.get()
-            || state.getBlock() == OccultismBlocks.OTHERWORLD_LOG.get()) {
+                || state.getBlock() == OccultismBlocks.OTHERWORLD_LOG.get()) {
             return OccultismBlocks.OTHERWORLD_LOG_NATURAL.get();
         }
         //Otherworld leaves are linked to oak leaves.
         if (state.getBlock() == Blocks.OAK_LEAVES || state.getBlock() == OccultismBlocks.OTHERWORLD_LEAVES_NATURAL.get()
-            || state.getBlock() == OccultismBlocks.OTHERWORLD_LEAVES.get()) {
+                || state.getBlock() == OccultismBlocks.OTHERWORLD_LEAVES.get()) {
             return OccultismBlocks.OTHERWORLD_LEAVES_NATURAL.get();
         }
         //iesnium ore is linked to netherrack.
         if (state.getBlock() == Blocks.NETHERRACK || state.getBlock() == OccultismBlocks.IESNIUM_ORE_NATURAL.get()
-            || state.getBlock() == OccultismBlocks.IESNIUM_ORE.get()) {
+                || state.getBlock() == OccultismBlocks.IESNIUM_ORE.get()) {
             return OccultismBlocks.IESNIUM_ORE_NATURAL.get();
         }
         //In creative allow to find the clicked block

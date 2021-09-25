@@ -51,7 +51,7 @@ public class SacrificialBowlTileEntity extends NetworkedTileEntity {
                         int slot) {
                     if (!SacrificialBowlTileEntity.this.level.isClientSide) {
                         SacrificialBowlTileEntity.this.lastChangeTime = SacrificialBowlTileEntity.this.level
-                                                                                .getGameTime();
+                                .getGameTime();
                         SacrificialBowlTileEntity.this.markNetworkDirty();
                     }
                 }

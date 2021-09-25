@@ -118,7 +118,7 @@ public class StableWormholeTileEntity extends NetworkedTileEntity implements ISt
                     this.linkedStorageControllerPosition);
             if (tileEntity instanceof IStorageController)
                 return (IStorageController) tileEntity;
-            else if(!this.level.isClientSide){
+            else if (!this.level.isClientSide) {
                 //only reset the storage controller position if we are on logical server -> that means the position is not accessible.
                 //if we are on logical client it simply means we are out of render range, so we do not reset the pos
                 //resetting it would cause issues with e.g. stable wormhole

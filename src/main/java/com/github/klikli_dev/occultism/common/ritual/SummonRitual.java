@@ -44,7 +44,7 @@ public class SummonRitual extends Ritual {
 
     private final boolean tame;
 
-    public SummonRitual(RitualRecipe recipe, boolean tame){
+    public SummonRitual(RitualRecipe recipe, boolean tame) {
         super(recipe);
         this.tame = tame;
     }
@@ -57,12 +57,12 @@ public class SummonRitual extends Ritual {
      */
     public ItemStack getBookOfCallingBound(ItemStack activationItem) {
         ItemStack result = this.recipe.getResultItem().copy();
-        if(result.getItem() == OccultismItems.JEI_DUMMY_NONE.get())
+        if (result.getItem() == OccultismItems.JEI_DUMMY_NONE.get())
             return ItemStack.EMPTY;
 
         //should never happen, but apparently there is a scenario where it does (item cheated in with non jei?)
         //https://github.com/klikli-dev/occultism/issues/183
-        if(activationItem.hasTag())
+        if (activationItem.hasTag())
             result.setTag(activationItem.getTag().copy());
         return result;
     }
@@ -106,9 +106,9 @@ public class SummonRitual extends Ritual {
                 goldenBowlPosition.getY() + 0.5, goldenBowlPosition.getZ() + 0.5, 1, 0, 0, 0, 0);
 
         EntityType<?> entityType = this.recipe.getEntityToSummon();
-        if(entityType != null){
-            Entity entity = this.createSummonedEntity(entityType,  world, goldenBowlPosition, tileEntity, castingPlayer);
-            if(entity instanceof LivingEntity){
+        if (entityType != null) {
+            Entity entity = this.createSummonedEntity(entityType, world, goldenBowlPosition, tileEntity, castingPlayer);
+            if (entity instanceof LivingEntity) {
                 LivingEntity living = (LivingEntity) entity;
                 this.prepareLivingEntityForSpawn(living, world, goldenBowlPosition, tileEntity, castingPlayer,
                         ItemNBTUtil.getBoundSpiritName(copy), this.tame);
@@ -119,20 +119,20 @@ public class SummonRitual extends Ritual {
                 this.spawnEntity(living, world);
 
                 //set up the book of calling
-                if(result != ItemStack.EMPTY && living instanceof SpiritEntity)
+                if (result != ItemStack.EMPTY && living instanceof SpiritEntity)
                     this.finishBookOfCallingSetup(result, (SpiritEntity) living, castingPlayer);
             }
         }
     }
 
     public Entity createSummonedEntity(EntityType<?> entityType, World world, BlockPos goldenBowlPosition, GoldenSacrificialBowlTileEntity tileEntity,
-                                       PlayerEntity castingPlayer){
+                                       PlayerEntity castingPlayer) {
         return entityType.create(world);
     }
 
     public void initSummoned(LivingEntity living, World world, BlockPos goldenBowlPosition, GoldenSacrificialBowlTileEntity tileEntity,
-                             PlayerEntity castingPlayer){
-        if(living instanceof SpiritEntity) {
+                             PlayerEntity castingPlayer) {
+        if (living instanceof SpiritEntity) {
             SpiritEntity spirit = (SpiritEntity) living;
             spirit.setSpiritMaxAge(this.recipe.getSpiritMaxAge());
         }

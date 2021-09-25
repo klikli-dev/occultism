@@ -35,16 +35,16 @@ public class PossessedEndermiteEntity extends EndermiteEntity {
     }
     //endregion Initialization
 
+    //region Static Methods
+    public static AttributeModifierMap.MutableAttribute registerAttributes() {
+        return EndermiteEntity.createAttributes(); //=registerAttributes
+    }
+    //endregion Overrides
+
     //region Overrides
     @Override
     protected boolean shouldDespawnInPeaceful() {
         return false;
-    }
-    //endregion Overrides
-
-    //region Static Methods
-    public static AttributeModifierMap.MutableAttribute registerAttributes() {
-        return EndermiteEntity.createAttributes(); //=registerAttributes
     }
     //endregion Static Methods
 }

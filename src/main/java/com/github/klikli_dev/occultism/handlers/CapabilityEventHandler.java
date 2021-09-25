@@ -45,7 +45,7 @@ public class CapabilityEventHandler {
         if (evt.phase == TickEvent.Phase.END) {
             //Reset the double jump capability
             if (evt.player.isOnGround()) {
-                evt.player.getCapability(OccultismCapabilities.DOUBLE_JUMP).ifPresent( cap -> cap.setJumps(0));
+                evt.player.getCapability(OccultismCapabilities.DOUBLE_JUMP).ifPresent(cap -> cap.setJumps(0));
             }
         }
     }

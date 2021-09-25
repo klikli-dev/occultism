@@ -35,16 +35,16 @@ public class PossessedEndermanEntity extends EndermanEntity {
     }
     //endregion Initialization
 
+    //region Static Methods
+    public static AttributeModifierMap.MutableAttribute registerAttributes() {
+        return EndermanEntity.createAttributes(); //=registerAttributes
+    }
+    //endregion Overrides
+
     //region Overrides
     @Override
     protected boolean shouldDespawnInPeaceful() {
         return false;
-    }
-    //endregion Overrides
-
-    //region Static Methods
-    public static AttributeModifierMap.MutableAttribute registerAttributes() {
-        return EndermanEntity.createAttributes(); //=registerAttributes
     }
     //endregion Static Methods
 }

@@ -26,9 +26,6 @@ import com.github.klikli_dev.occultism.common.entity.spirit.MaridEntity;
 import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 
-
-import net.minecraft.client.renderer.entity.model.BipedModel.ArmPose;
-
 public class MaridModel extends BipedModel<MaridEntity> {
     //region Fields
     public ModelRenderer nose;

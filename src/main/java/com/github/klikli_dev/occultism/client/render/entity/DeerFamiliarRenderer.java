@@ -27,7 +27,6 @@ import com.github.klikli_dev.occultism.client.model.entity.DeerFamiliarModel;
 import com.github.klikli_dev.occultism.common.entity.DeerFamiliarEntity;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
-
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
@@ -49,7 +48,7 @@ public class DeerFamiliarRenderer extends MobRenderer<DeerFamiliarEntity, DeerFa
 
     @Override
     public void render(DeerFamiliarEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn,
-            IRenderTypeBuffer bufferIn, int packedLightIn) {
+                       IRenderTypeBuffer bufferIn, int packedLightIn) {
         matrixStackIn.pushPose();
         if (entityIn.isPartying())
             matrixStackIn.translate(0, 0.08, 0);
@@ -75,8 +74,8 @@ public class DeerFamiliarRenderer extends MobRenderer<DeerFamiliarEntity, DeerFa
 
         @Override
         public void render(MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn,
-                DeerFamiliarEntity deer, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks,
-                float netHeadYaw, float headPitch) {
+                           DeerFamiliarEntity deer, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks,
+                           float netHeadYaw, float headPitch) {
             if (deer.isInvisible() || !deer.hasRedNose())
                 return;
 

@@ -49,10 +49,14 @@ public class AfritWildEntity extends AfritEntity {
     }
     //endregion Initialization
 
+    public static AttributeModifierMap.MutableAttribute registerAttributes() {
+        return AfritEntity.registerAttributes();
+    }
+
     //region Overrides
     @Override
     public ILivingEntityData finalizeSpawn(IServerWorld world, DifficultyInstance difficultyIn, SpawnReason reason,
-                                            @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
+                                           @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
         int maxBlazes = 3 + world.getRandom().nextInt(6);
 
         for (int i = 0; i < maxBlazes; i++) {
@@ -96,10 +100,6 @@ public class AfritWildEntity extends AfritEntity {
             return true;
 
         return super.isInvulnerableTo(source);
-    }
-
-    public static AttributeModifierMap.MutableAttribute registerAttributes() {
-        return AfritEntity.registerAttributes();
     }
     //endregion Overrides
 }

@@ -22,17 +22,12 @@
 
 package com.github.klikli_dev.occultism.common.ritual.pentacle;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Map.Entry;
-
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.network.MessageUpdatePentacles;
 import com.github.klikli_dev.occultism.network.OccultismPackets;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
-
 import net.minecraft.client.resources.JsonReloadListener;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.profiler.IProfiler;
@@ -47,13 +42,16 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.fml.network.PacketDistributor;
 import net.minecraftforge.fml.server.ServerLifecycleHooks;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+
 @EventBusSubscriber(modid = Occultism.MODID, bus = Bus.FORGE)
 public class PentacleManager extends JsonReloadListener {
-    private static final Gson GSON = (new GsonBuilder()).setPrettyPrinting().disableHtmlEscaping().create();
     public static final String FOLDER_NAME = "occultism_pentacles";
-
-    private final Map<ResourceLocation, Pentacle> pentacles;
+    private static final Gson GSON = (new GsonBuilder()).setPrettyPrinting().disableHtmlEscaping().create();
     private static PentacleManager instance;
+    private final Map<ResourceLocation, Pentacle> pentacles;
 
     public PentacleManager() {
         super(GSON, FOLDER_NAME);
@@ -64,31 +62,6 @@ public class PentacleManager extends JsonReloadListener {
         if (instance == null)
             instance = new PentacleManager();
         return instance;
-    }
-
-    @Override
-    protected void apply(Map<ResourceLocation, JsonElement> objectIn, IResourceManager resourceManagerIn,
-            IProfiler profilerIn) {
-        for (Entry<ResourceLocation, JsonElement> entry : objectIn.entrySet()) {
-            ResourceLocation key = entry.getKey();
-            Pentacle pentacle = Pentacle.fromJson(key, JSONUtils.convertToJsonObject(entry.getValue(), "top element"));
-            this.pentacles.put(key, pentacle);
-        }
-
-        if (ServerLifecycleHooks.getCurrentServer() != null)
-            this.sendPentacleMessage();
-    }
-
-    private void sendPentacleMessage() {
-        OccultismPackets.INSTANCE.send(PacketDistributor.ALL.noArg(), new MessageUpdatePentacles(this.pentacles));
-    }
-    
-    private void sendPentacleMessage(ServerPlayerEntity player) {
-        OccultismPackets.INSTANCE.send(PacketDistributor.PLAYER.with(() -> player), new MessageUpdatePentacles(this.pentacles));
-    }
-
-    public void setPentacles(Map<ResourceLocation, Pentacle> pentacles){
-        this.pentacles.putAll(pentacles);
     }
 
     public static Pentacle get(ResourceLocation id) {
@@ -103,9 +76,34 @@ public class PentacleManager extends JsonReloadListener {
     public static void addPentacleReloadListener(AddReloadListenerEvent event) {
         event.addListener(getInstance());
     }
-    
+
     @SubscribeEvent
     public static void syncPentacles(PlayerLoggedInEvent event) {
         getInstance().sendPentacleMessage((ServerPlayerEntity) event.getPlayer());
+    }
+
+    @Override
+    protected void apply(Map<ResourceLocation, JsonElement> objectIn, IResourceManager resourceManagerIn,
+                         IProfiler profilerIn) {
+        for (Entry<ResourceLocation, JsonElement> entry : objectIn.entrySet()) {
+            ResourceLocation key = entry.getKey();
+            Pentacle pentacle = Pentacle.fromJson(key, JSONUtils.convertToJsonObject(entry.getValue(), "top element"));
+            this.pentacles.put(key, pentacle);
+        }
+
+        if (ServerLifecycleHooks.getCurrentServer() != null)
+            this.sendPentacleMessage();
+    }
+
+    private void sendPentacleMessage() {
+        OccultismPackets.INSTANCE.send(PacketDistributor.ALL.noArg(), new MessageUpdatePentacles(this.pentacles));
+    }
+
+    private void sendPentacleMessage(ServerPlayerEntity player) {
+        OccultismPackets.INSTANCE.send(PacketDistributor.PLAYER.with(() -> player), new MessageUpdatePentacles(this.pentacles));
+    }
+
+    public void setPentacles(Map<ResourceLocation, Pentacle> pentacles) {
+        this.pentacles.putAll(pentacles);
     }
 }

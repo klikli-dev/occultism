@@ -38,8 +38,6 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
-import net.minecraft.block.AbstractBlock.Properties;
-
 public class OtherworldSaplingNaturalBlock extends SaplingBlock implements IOtherworldBlock {
 
     //region Initialization
@@ -67,7 +65,7 @@ public class OtherworldSaplingNaturalBlock extends SaplingBlock implements IOthe
 
     @Override
     public void playerDestroy(World worldIn, PlayerEntity player, BlockPos pos, BlockState state,
-                             @Nullable TileEntity te, ItemStack stack) {
+                              @Nullable TileEntity te, ItemStack stack) {
         super.playerDestroy(worldIn, player, pos, IOtherworldBlock.super.getHarvestState(player, state, stack), te,
                 stack);
     }

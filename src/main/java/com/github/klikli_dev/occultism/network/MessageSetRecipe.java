@@ -100,8 +100,8 @@ public class MessageSetRecipe extends MessageBase {
 
                 //attempt to get the desired stack from the player inventory
                 ItemStack extractedStack = StorageUtil
-                                                   .extractItem(new PlayerMainInvWrapper(player.inventory), comparator,
-                                                           1, true);
+                        .extractItem(new PlayerMainInvWrapper(player.inventory), comparator,
+                                1, true);
                 if (extractedStack != null && !extractedStack.isEmpty() && craftMatrix.getItem(slot).isEmpty()) {
                     //if we found the desired stack, extract it for real and place it in the matrix
                     StorageUtil.extractItem(new PlayerMainInvWrapper(player.inventory), comparator, 1, false);

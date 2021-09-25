@@ -31,8 +31,6 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import net.minecraft.item.Item.Properties;
-
 public class BrushItem extends Item {
     //region Initialization
     public BrushItem(Properties properties) {

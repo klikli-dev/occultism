@@ -83,13 +83,13 @@ public class DimensionalMineshaftContainer extends Container {
                 }
             }
             //input handler slot is exactly at last output handler slot + 1
-            else if(index == this.outputHandler.getSlots()){
+            else if (index == this.outputHandler.getSlots()) {
                 if (!this.moveItemStackTo(itemstack1, this.outputHandler.getSlots() + 1, this.slots.size(), true)) {
                     return ItemStack.EMPTY;
                 }
             }
             //+1 because we are actually only interested in inserting in the input handler. Could even start at the end index instead of 0.
-            else if (!this.moveItemStackTo(itemstack1,0, this.outputHandler.getSlots() + 1, false)) {
+            else if (!this.moveItemStackTo(itemstack1, 0, this.outputHandler.getSlots() + 1, false)) {
                 return ItemStack.EMPTY;
             }
 

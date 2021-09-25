@@ -49,19 +49,19 @@ public class RitualRecipeProcessor implements IComponentProcessor {
 
     @Override
     public IVariable process(String key) {
-        if(this.recipe == null)
+        if (this.recipe == null)
             return IVariable.empty(); // if recipe was not found (e.g. due to modpack changes) exit early
 
-        if(key.startsWith("ritual_dummy")){
+        if (key.startsWith("ritual_dummy")) {
             return IVariable.from(this.recipe.getRitualDummy());
         }
 
-        if(key.startsWith("activation_item")){
+        if (key.startsWith("activation_item")) {
             return IVariable.from(this.recipe.getActivationItem().getItems());
         }
 
-        if(key.startsWith("pentacle")){
-            if(this.recipe.getPentacle() != null){
+        if (key.startsWith("pentacle")) {
+            if (this.recipe.getPentacle() != null) {
                 //$(l:pentacles/summon_foliot)Aviar's Circle$(/l)
                 String pentacleName = I18n.get(this.recipe.getPentacle().getTranslationKey());
                 String pentacleLink = "pentacles/" + this.recipe.getPentacleId().getPath();
@@ -70,10 +70,10 @@ public class RitualRecipeProcessor implements IComponentProcessor {
         }
 
         //fill ingredient variables
-        if(key.startsWith("ingredient")){
+        if (key.startsWith("ingredient")) {
             //only use ingredient slots we actually have ingredients for
             int index = Integer.parseInt(key.substring("ingredient".length())) - 1;
-            if(index >= this.recipe.getIngredients().size())
+            if (index >= this.recipe.getIngredients().size())
                 return IVariable.empty();
 
 
@@ -82,53 +82,52 @@ public class RitualRecipeProcessor implements IComponentProcessor {
         }
 
         //fill sacrificial bowl variables depending on required ingredients
-        if(key.startsWith("bowl")){
+        if (key.startsWith("bowl")) {
             //only use bowl slots we actually have ingredients for
             int index = Integer.parseInt(key.substring("bowl".length())) - 1;
-            if(index >= this.recipe.getIngredients().size())
+            if (index >= this.recipe.getIngredients().size())
                 return IVariable.empty();
 
             return IVariable.from(this.sacrificialBowl);
         }
 
         //Recipe crafting output
-        if(key.equals("output")){
+        if (key.equals("output")) {
             //do not show none dummy -> instead show ritual dummy again
-            if(this.recipe.getResultItem().getItem() != OccultismItems.JEI_DUMMY_NONE.get()){
+            if (this.recipe.getResultItem().getItem() != OccultismItems.JEI_DUMMY_NONE.get()) {
                 //if we have an item output -> render it
                 return IVariable.from(this.recipe.getResultItem());
-            }
-            else{
+            } else {
                 //if not, we instead render our ritual dummy item, just like in the corner
                 return IVariable.from(this.recipe.getRitualDummy());
             }
         }
 
-        if(key.equals("entity_to_summon")){
-            if(this.recipe.getEntityToSummon() != null){
+        if (key.equals("entity_to_summon")) {
+            if (this.recipe.getEntityToSummon() != null) {
                 return IVariable.wrap(I18n.get("jei.occultism.summon", I18n.get(this.recipe.getEntityToSummon().getDescriptionId())));
             }
         }
 
-        if(key.equals("job")){
-            if(this.recipe.getSpiritJobType() != null){
+        if (key.equals("job")) {
+            if (this.recipe.getSpiritJobType() != null) {
                 return IVariable.wrap(I18n.get("jei.occultism.job", I18n.get("job." + this.recipe.getSpiritJobType().toString().replace(":", "."))));
             }
         }
 
-        if(key.equals("entity_to_sacrifice")){
-            if(this.recipe.requiresSacrifice()){
+        if (key.equals("entity_to_sacrifice")) {
+            if (this.recipe.requiresSacrifice()) {
                 return IVariable.wrap(I18n.get("jei.occultism.sacrifice", I18n.get(this.recipe.getEntityToSacrificeDisplayName())));
             }
         }
 
-        if(key.equals("item_to_use")){
-            if(this.recipe.requiresItemUse())
+        if (key.equals("item_to_use")) {
+            if (this.recipe.requiresItemUse())
                 return IVariable.from(this.recipe.getItemToUse().getItems());
         }
 
-        if(key.equals("item_to_use_text")){
-            if(this.recipe.requiresItemUse()){
+        if (key.equals("item_to_use_text")) {
+            if (this.recipe.requiresItemUse()) {
                 return IVariable.wrap(I18n.get("jei.occultism.item_to_use"));
             }
         }

@@ -29,7 +29,6 @@ import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.github.klikli_dev.occultism.exceptions.ItemHandlerMissingException;
 import com.github.klikli_dev.occultism.util.Math3DUtil;
 import net.minecraft.entity.Entity;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.ChestTileEntity;
 import net.minecraft.tileentity.TileEntity;
@@ -38,7 +37,6 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceContext;
-import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -48,8 +46,6 @@ import net.minecraftforge.items.ItemHandlerHelper;
 import java.util.EnumSet;
 import java.util.Optional;
 import java.util.UUID;
-
-import net.minecraft.entity.ai.goal.Goal.Flag;
 
 public class DepositItemsGoal extends PausableGoal {
     //region Fields

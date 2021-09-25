@@ -26,7 +26,6 @@ import com.github.klikli_dev.occultism.common.entity.CthulhuFamiliarEntity;
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
-
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.util.math.MathHelper;
@@ -175,7 +174,7 @@ public class CthulhuFamiliarModel extends EntityModel<CthulhuFamiliarEntity> {
 
     @Override
     public void renderToBuffer(MatrixStack matrixStackIn, IVertexBuilder bufferIn, int packedLightIn, int packedOverlayIn,
-            float red, float green, float blue, float alpha) {
+                               float red, float green, float blue, float alpha) {
         ImmutableList.of(this.body).forEach((modelRenderer) -> {
             modelRenderer.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
         });
@@ -183,7 +182,7 @@ public class CthulhuFamiliarModel extends EntityModel<CthulhuFamiliarEntity> {
 
     @Override
     public void setupAnim(CthulhuFamiliarEntity entityIn, float limbSwing, float limbSwingAmount,
-            float ageInTicks, float netHeadYaw, float headPitch) {
+                          float ageInTicks, float netHeadYaw, float headPitch) {
         this.showModels(entityIn.hasHat(), entityIn.hasTrunk());
 
         this.head.yRot = netHeadYaw * (PI / 180f) * 0.7f;
@@ -240,7 +239,7 @@ public class CthulhuFamiliarModel extends EntityModel<CthulhuFamiliarEntity> {
 
     @Override
     public void prepareMobModel(CthulhuFamiliarEntity entityIn, float limbSwing, float limbSwingAmount,
-            float partialTick) {
+                                float partialTick) {
         if (entityIn.isSitting() && !entityIn.isPartying()) {
             this.leftWing.yRot = -0.43f;
             this.rightWing.yRot = 0.43f;

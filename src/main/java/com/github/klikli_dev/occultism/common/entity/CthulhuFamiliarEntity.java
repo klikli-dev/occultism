@@ -22,14 +22,9 @@
 
 package com.github.klikli_dev.occultism.common.entity;
 
-import java.util.Collections;
-import java.util.EnumSet;
-import java.util.List;
-
 import com.github.klikli_dev.occultism.common.advancement.FamiliarTrigger;
 import com.github.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.google.common.collect.ImmutableList;
-
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.LivingEntity;
@@ -62,6 +57,10 @@ import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.ForgeMod;
 
+import java.util.Collections;
+import java.util.EnumSet;
+import java.util.List;
+
 public class CthulhuFamiliarEntity extends FamiliarEntity {
 
     private static final DataParameter<Boolean> HAT = EntityDataManager.defineId(CthulhuFamiliarEntity.class,
@@ -90,7 +89,7 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
 
     @Override
     public ILivingEntityData finalizeSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason,
-            ILivingEntityData spawnDataIn, CompoundNBT dataTag) {
+                                           ILivingEntityData spawnDataIn, CompoundNBT dataTag) {
         this.setHat(this.getRandom().nextDouble() < 0.1);
         this.setTrunk(this.getRandom().nextDouble() < 0.5);
         return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
@@ -139,7 +138,7 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
                 OccultismAdvancements.FAMILIAR.trigger(this.getFamiliarOwner(), FamiliarTrigger.Type.CTHULHU_SAD);
             } else if (source.getEntity() != null) {
                 Vector3d tp = RandomPositionGenerator.getPos(this, 8, 4);
-                if(tp != null){
+                if (tp != null) {
                     this.moveTo(tp.x() + 0.5, tp.y(), tp.z() + 0.5, this.yRot,
                             this.xRot);
                 }

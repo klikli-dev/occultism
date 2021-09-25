@@ -26,9 +26,6 @@ import com.github.klikli_dev.occultism.common.entity.spirit.FoliotEntity;
 import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 
-
-import net.minecraft.client.renderer.entity.model.BipedModel.ArmPose;
-
 public class FoliotModel extends BipedModel<FoliotEntity> {
     //region Fields
     private final ModelRenderer leftHorn;

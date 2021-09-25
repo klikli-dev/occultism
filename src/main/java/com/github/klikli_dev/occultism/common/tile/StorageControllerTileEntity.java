@@ -234,19 +234,17 @@ public class StorageControllerTileEntity extends NetworkedTileEntity implements 
             UUID spiritUUID = this.depositOrderSpirits.get(linkedMachinePosition);
             if (spiritUUID != null) {
                 EntityUtil.getEntityByUuiDGlobal(this.level.getServer(),
-                        spiritUUID).filter(SpiritEntity.class::isInstance).map(SpiritEntity.class::cast)
+                                spiritUUID).filter(SpiritEntity.class::isInstance).map(SpiritEntity.class::cast)
                         .ifPresent(spirit -> {
                             Optional<ManageMachineJob> job = spirit.getJob().filter(ManageMachineJob.class::isInstance)
-                                                                     .map(ManageMachineJob.class::cast);
+                                    .map(ManageMachineJob.class::cast);
                             if (job.isPresent()) {
                                 job.get().addDepsitOrder(new DepositOrder((ItemStackComparator) comparator, amount));
-                            }
-                            else {
+                            } else {
                                 this.removeDepositOrderSpirit(linkedMachinePosition);
                             }
                         });
-            }
-            else {
+            } else {
                 //if the entity cannot be found, remove it from the list for now. it will re-register itself on spawn
                 this.removeDepositOrderSpirit(linkedMachinePosition);
             }
@@ -312,8 +310,7 @@ public class StorageControllerTileEntity extends NetworkedTileEntity implements 
                 }
                 //just take entire stack -> we're in sim mode
                 firstMatchedStack = stack.copy();
-            }
-            else {
+            } else {
                 //we already found something, so we need to make sure the stacks match up, if not we move on.
                 if (!ItemHandlerHelper.canItemStacksStack(firstMatchedStack, stack)) {
                     continue;

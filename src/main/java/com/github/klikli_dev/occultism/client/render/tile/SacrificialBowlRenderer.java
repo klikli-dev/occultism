@@ -46,6 +46,17 @@ public class SacrificialBowlRenderer extends TileEntityRenderer<SacrificialBowlT
 
     //region Overrides
 
+    //region Static Methods
+    public static float getScale(ItemStack stack) {
+        if (stack.getItem() instanceof BlockItem) {
+            BlockItem itemBlock = (BlockItem) stack.getItem();
+            if (itemBlock.getBlock() instanceof SpiritAttunedCrystalBlock)
+                return 3.0f;
+        }
+        return 1.0f;
+    }
+    //endregion Overrides
+
     @Override
     public void render(SacrificialBowlTileEntity tileEntity, float partialTicks, MatrixStack matrixStack,
                        IRenderTypeBuffer buffer, int combinedLight, int combinedOverlay) {
@@ -76,17 +87,6 @@ public class SacrificialBowlRenderer extends TileEntityRenderer<SacrificialBowlT
 
             matrixStack.popPose();
         });
-    }
-    //endregion Overrides
-
-    //region Static Methods
-    public static float getScale(ItemStack stack) {
-        if (stack.getItem() instanceof BlockItem) {
-            BlockItem itemBlock = (BlockItem) stack.getItem();
-            if (itemBlock.getBlock() instanceof SpiritAttunedCrystalBlock)
-                return 3.0f;
-        }
-        return 1.0f;
     }
     //endregion Static Methods
 }

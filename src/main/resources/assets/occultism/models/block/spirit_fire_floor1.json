@@ -1,4 +1,6 @@
 {
   "parent": "minecraft:block/template_fire_floor",
-  "textures": { "fire": "occultism:block/spirit_fire_layer_1" }
+  "textures": {
+    "fire": "occultism:block/spirit_fire_layer_1"
+  }
 }

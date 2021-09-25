@@ -251,14 +251,13 @@
   "ritual.occultism.sacrifice.squid": "Squid",
   "ritual.occultism.sacrifice.horses": "Horse",
   "_comment": "Ritual Messages",
-  "ritual.occultism.disabled":  "This ritual is disabled on this server.",
+  "ritual.occultism.disabled": "This ritual is disabled on this server.",
   "ritual.occultism.does_not_exist": "§lUnknown ritual§r. Make sure the pentacle & ingredients are set up correctly. If you are still unsuccessful join our discord at https://invite.gg/klikli",
   "ritual.occultism.book_not_bound": "§lUnbound Book of Calling§r. You must craft this book with Dictionary of Spirits to bind to a spirit before starting a ritual.",
   "ritual.occultism.debug.conditions": "Not all requirements for this ritual are met.",
   "ritual.occultism.debug.started": "Ritual started.",
   "ritual.occultism.debug.finished": "Ritual completed successfully.",
   "ritual.occultism.debug.interrupted": "Ritual interrupted.",
-
   "ritual.occultism.summon_foliot_lumberjack.conditions": "Not all requirements for this ritual are met.",
   "ritual.occultism.summon_foliot_lumberjack.started": "Started summoning foliot lumberjack.",
   "ritual.occultism.summon_foliot_lumberjack.finished": "Summoned foliot lumberjack successfully.",
@@ -327,7 +326,6 @@
   "ritual.occultism.summon_wild_hunt.started": "Started summoning the wild hunt.",
   "ritual.occultism.summon_wild_hunt.finished": "Summoned the wild hunt successfully.",
   "ritual.occultism.summon_wild_hunt.interrupted": "Summoning of the wild hunt interrupted.",
-
   "ritual.occultism.craft_dimensional_matrix.conditions": "Not all requirements for this ritual are met.",
   "ritual.occultism.craft_dimensional_matrix.started": "Started binding djinni into dimensional matrix.",
   "ritual.occultism.craft_dimensional_matrix.finished": "Successfully bound djinni into dimensional matrix.",
@@ -340,27 +338,22 @@
   "ritual.occultism.craft_storage_controller_base.started": "Started binding foliot into storage actuator base.",
   "ritual.occultism.craft_storage_controller_base.finished": "Successfully bound foliot into storage actuator base.",
   "ritual.occultism.craft_storage_controller_base.interrupted": "Binding of foliot interrupted.",
-
   "ritual.occultism.craft_stabilizer_tier1.conditions": "Not all requirements for this ritual are met.",
   "ritual.occultism.craft_stabilizer_tier1.started": "Started binding foliot into storage stabilizer.",
   "ritual.occultism.craft_stabilizer_tier1.finished": "Successfully bound foliot into storage stabilizer.",
   "ritual.occultism.craft_stabilizer_tier1.interrupted": "Binding of foliot interrupted.",
-
   "ritual.occultism.craft_stabilizer_tier2.conditions": "Not all requirements for this ritual are met.",
   "ritual.occultism.craft_stabilizer_tier2.started": "Started binding djinni into storage stabilizer.",
   "ritual.occultism.craft_stabilizer_tier2.finished": "Successfully bound djinni into storage stabilizer.",
   "ritual.occultism.craft_stabilizer_tier2.interrupted": "Binding of djinni interrupted.",
-
   "ritual.occultism.craft_stabilizer_tier3.conditions": "Not all requirements for this ritual are met.",
   "ritual.occultism.craft_stabilizer_tier3.started": "Started binding afrit into storage stabilizer.",
   "ritual.occultism.craft_stabilizer_tier3.finished": "Successfully bound afrit into storage stabilizer.",
   "ritual.occultism.craft_stabilizer_tier3.interrupted": "Binding of afrit interrupted.",
-
   "ritual.occultism.craft_stabilizer_tier4.conditions": "Not all requirements for this ritual are met.",
   "ritual.occultism.craft_stabilizer_tier4.started": "Started binding marid into storage stabilizer.",
   "ritual.occultism.craft_stabilizer_tier4.finished": "Successfully bound marid into storage stabilizer.",
   "ritual.occultism.craft_stabilizer_tier4.interrupted": "Binding of marid interrupted.",
-
   "ritual.occultism.craft_stable_wormhole.conditions": "Not all requirements for this ritual are met.",
   "ritual.occultism.craft_stable_wormhole.started": "Started binding foliot into wormhole frame.",
   "ritual.occultism.craft_stable_wormhole.finished": "Successfully bound foliot into wormhole frame.",
@@ -397,7 +390,6 @@
   "ritual.occultism.craft_familiar_ring.started": "Started binding djinni into familiar ring.",
   "ritual.occultism.craft_familiar_ring.finished": "Successfully bound djinni into familiar ring.",
   "ritual.occultism.craft_familiar_ring.interrupted": "Binding of djinni interrupted.",
-
   "ritual.occultism.possess_endermite.conditions": "Not all requirements for this ritual are met.",
   "ritual.occultism.possess_endermite.started": "Started summoning possessed endermite.",
   "ritual.occultism.possess_endermite.finished": "Summoned possessed endermite successfully.",
@@ -577,103 +569,70 @@
   "_comment": "Ritual Dummy Items",
   "item.occultism.ritual_dummy.craft_dimensional_matrix": "Ritual: Craft Dimensional Matrix",
   "item.occultism.ritual_dummy.craft_dimensional_matrix.tooltip": "The dimensional matrix is the entry point to a small dimension used for storing items.",
-
   "item.occultism.ritual_dummy.craft_dimensional_mineshaft": "Ritual: Craft Dimensional Mineshaft",
   "item.occultism.ritual_dummy.craft_dimensional_mineshaft.tooltip": "Allows miner spirits to enter the mining dimension and bring back resources.",
-
   "item.occultism.ritual_dummy.craft_infused_lenses": "Ritual: Craft Infused Lenses",
   "item.occultism.ritual_dummy.craft_infused_lenses.tooltip": "These lenses are used to craft spectacles that give thee ability to see beyond the physical world.",
-
   "item.occultism.ritual_dummy.craft_infused_pickaxe": "Ritual: Craft Infused Pickaxe",
   "item.occultism.ritual_dummy.craft_infused_pickaxe.tooltip": "Infuse a Pickaxe.",
-
   "item.occultism.ritual_dummy.craft_miner_djinni_ores": "Ritual: Summon Djinni Ore Miner",
   "item.occultism.ritual_dummy.craft_miner_djinni_ores.tooltip": "Summon Djinni Ore Miner into a magic lamp.",
-
   "item.occultism.ritual_dummy.craft_miner_foliot_unspecialized": "Ritual: Summon Foliot Miner",
   "item.occultism.ritual_dummy.craft_miner_foliot_unspecialized.tooltip": "Summon Foliot Miner into a magic lamp.",
-
   "item.occultism.ritual_dummy.craft_satchel": "Ritual: Craft Surprisingly Substantial Satchel",
   "item.occultism.ritual_dummy.craft_satchel.tooltip": "This satchels allows to store more items than it's size would indicate, making it a practical traveller's companion.",
-
   "item.occultism.ritual_dummy.craft_soul_gem": "Ritual: Craft Soul Gem",
   "item.occultism.ritual_dummy.craft_soul_gem.tooltip": "The soul gem allows the temporary storage of living beings. ",
-
   "item.occultism.ritual_dummy.craft_familiar_ring": "Ritual: Craft Familiar Ring",
   "item.occultism.ritual_dummy.craft_familiar_ring.tooltip": "The familiar ring allows to store familiars. The ring will apply the familiar effect to the wearer.",
-
   "item.occultism.ritual_dummy.craft_stabilizer_tier1": "Ritual: Craft Storage Stabilizer Tier 1",
   "item.occultism.ritual_dummy.craft_stabilizer_tier1.tooltip": "The storage stabilizer allows to store more items in the dimensional storage accessor.",
-
   "item.occultism.ritual_dummy.craft_stabilizer_tier2": "Ritual: Craft Storage Stabilizer Tier 2",
   "item.occultism.ritual_dummy.craft_stabilizer_tier2.tooltip": "The storage stabilizer allows to store more items in the dimensional storage accessor.",
-
   "item.occultism.ritual_dummy.craft_stabilizer_tier3": "Ritual: Craft Storage Stabilizer Tier 3",
   "item.occultism.ritual_dummy.craft_stabilizer_tier3.tooltip": "The storage stabilizer allows to store more items in the dimensional storage accessor.",
-
   "item.occultism.ritual_dummy.craft_stabilizer_tier4": "Ritual: Craft Storage Stabilizer Tier 4",
   "item.occultism.ritual_dummy.craft_stabilizer_tier4.tooltip": "The storage stabilizer allows to store more items in the dimensional storage accessor.",
-
   "item.occultism.ritual_dummy.craft_stable_wormhole": "Ritual: Craft Stable Wormhole",
   "item.occultism.ritual_dummy.craft_stable_wormhole.tooltip": "The stable wormhole allows access to a dimensional matrix from a remote destination.",
-
   "item.occultism.ritual_dummy.craft_storage_controller_base": "Ritual: Craft Storage Actuator Base",
   "item.occultism.ritual_dummy.craft_storage_controller_base.tooltip": "The storage actuator base imprisons a Foliot responsible for interacting with items in a dimensional storage matrix.",
-
   "item.occultism.ritual_dummy.craft_storage_remote": "Ritual: Craft Storage Accessor",
   "item.occultism.ritual_dummy.craft_storage_remote.tooltip": "The Storage Accessor can be linked to a Storage Actuator to remotely access items.",
-
   "item.occultism.ritual_dummy.familiar_otherworld_bird": "Ritual: Summon Drikwing Familiar",
   "item.occultism.ritual_dummy.familiar_otherworld_bird.tooltip": "Drikwings will provide their owner with limited flight abilities when nearby.",
-
   "item.occultism.ritual_dummy.familiar_parrot": "Ritual: Summon Parrot Familiar",
   "item.occultism.ritual_dummy.familiar_parrot.tooltip": "Parrot familiars behave exactly like tamed parrots.",
-
   "item.occultism.ritual_dummy.familiar_greedy": "Ritual: Summon Greedy Familiar",
   "item.occultism.ritual_dummy.familiar_greedy.tooltip": "Greedy familiars pick up items for their master. When stored in a familiar ring, they increase the pickup range (like an item magnet).",
-
   "item.occultism.ritual_dummy.familiar_bat": "Ritual: Summon Bat Familiar",
   "item.occultism.ritual_dummy.familiar_bat.tooltip": "Bat familiars provide night vision to their master.",
-
   "item.occultism.ritual_dummy.familiar_deer": "Ritual: Summon Deer Familiar",
   "item.occultism.ritual_dummy.familiar_deer.tooltip": "Deer familiars provide jump boost to their master.",
-
   "item.occultism.ritual_dummy.familiar_cthulhu": "Ritual: Summon Cthulhu Familiar",
   "item.occultism.ritual_dummy.familiar_cthulhu.tooltip": "The cthulhu familiars provide water breathing to their master.",
-
   "item.occultism.ritual_dummy.familiar_devil": "Ritual: Summon Devil Familiar",
   "item.occultism.ritual_dummy.familiar_devil.tooltip": "The devil familiars provide fire resistance to their master.",
-
   "item.occultism.ritual_dummy.familiar_dragon": "Ritual: Summon Dragon Familiar",
   "item.occultism.ritual_dummy.familiar_dragon.tooltip": "The dragon familiars provide increased experience gain to their master.",
-
   "item.occultism.ritual_dummy.possess_enderman": "Ritual: Summon Possessed Enderman",
   "item.occultism.ritual_dummy.possess_enderman.tooltip": "The possessed Enderman will always drop at least one ender pearl when killed.",
-
   "item.occultism.ritual_dummy.possess_endermite": "Ritual: Summon Possessed Endermite",
   "item.occultism.ritual_dummy.possess_endermite.tooltip": "The possessed Endermite drops End Stone.",
-
   "item.occultism.ritual_dummy.possess_skeleton": "Ritual: Summon Possessed Skeleton",
   "item.occultism.ritual_dummy.possess_skeleton.tooltip": " The possessed Skeleton is immune to daylight and always drop at least one Skeleton Skull when killed.",
-
   "item.occultism.ritual_dummy.summon_afrit_rain_weather": "Ritual: Rainy Weather",
   "item.occultism.ritual_dummy.summon_afrit_rain_weather.tooltip": "Summons an bound Afrit that creates rain.",
-
   "item.occultism.ritual_dummy.summon_afrit_thunder_weather": "Ritual: Thunderstorm",
   "item.occultism.ritual_dummy.summon_afrit_thunder_weather.tooltip": "Summons an bound Afrit that creates a thunderstorm.",
-
   "item.occultism.ritual_dummy.summon_djinni_clear_weather": "Ritual: Clear Weather",
   "item.occultism.ritual_dummy.summon_djinni_clear_weather.tooltip": "Summons a Djinni that clears the weather.",
-
   "item.occultism.ritual_dummy.summon_djinni_day_time": "Ritual: Summoning of Dawn",
   "item.occultism.ritual_dummy.summon_djinni_day_time.tooltip": "Summons a Djinni that sets the time to high noon.",
-
   "item.occultism.ritual_dummy.summon_djinni_manage_machine": "Ritual: Summon Djinni Machine Operator",
   "item.occultism.ritual_dummy.summon_djinni_manage_machine.tooltip": "The machine operator automatically transfers items between Dimensional Storage Systems and connected Inventories and Machines.",
-
   "item.occultism.ritual_dummy.summon_djinni_night_time": "Ritual: Summoning of Dusk",
   "item.occultism.ritual_dummy.summon_djinni_night_time.tooltip": "Summons a Djinni that sets the time to midnight.",
-
   "item.occultism.ritual_dummy.summon_foliot_crusher": "Ritual: Summon Foliot Crusher",
   "item.occultism.ritual_dummy.summon_foliot_crusher.tooltip": "The crusher is a spirit summoned to crush ores into dusts, effectively doubling the metal output.",
   "item.occultism.ritual_dummy.summon_djinni_crusher": "Ritual: Summon Djinni Crusher",
@@ -682,36 +641,25 @@
   "item.occultism.ritual_dummy.summon_afrit_crusher.tooltip": "The crusher is a spirit summoned to crush ores into dusts, effectively (more than) doubling the metal output. This crusher decays (much) slower than lower tier crushers.",
   "item.occultism.ritual_dummy.summon_marid_crusher": "Ritual: Summon Marid Crusher",
   "item.occultism.ritual_dummy.summon_marid_crusher.tooltip": "The crusher is a spirit summoned to crush ores into dusts, effectively (more than) doubling the metal output. This crusher decays (much) slower than lower tier crushers.",
-
   "item.occultism.ritual_dummy.summon_foliot_lumberjack": "Ritual: Summon Foliot Lumberjack",
   "item.occultism.ritual_dummy.summon_foliot_lumberjack.tooltip": "The lumberjack will harvest trees in it's working area and deposit the dropped items into the specified chest.",
-
   "item.occultism.ritual_dummy.summon_foliot_otherstone_trader": "Ritual: Summon Otherstone Trader",
   "item.occultism.ritual_dummy.summon_foliot_otherstone_trader.tooltip": "The otherstone trader trades normal stone for otherstone.",
-
   "item.occultism.ritual_dummy.summon_foliot_sapling_trader": "Ritual: Summon Otherworld Sapling Trader",
   "item.occultism.ritual_dummy.summon_foliot_sapling_trader.tooltip": "he otherworld sapling trader trades natural otherworld saplings for stable ones, that can be harvested without the third eye.",
-
   "item.occultism.ritual_dummy.summon_foliot_transport_items": "Ritual: Summon Foliot Transporter",
   "item.occultism.ritual_dummy.summon_foliot_transport_items.tooltip": "The transporter will move all items it can access from one inventory to another, including machines.",
-
   "item.occultism.ritual_dummy.summon_foliot_cleaner": "Ritual: Summon Foliot Janitor",
   "item.occultism.ritual_dummy.summon_foliot_cleaner.tooltip": "The janitor will pick up dropped items and deposit them into a target inventory.",
-
   "item.occultism.ritual_dummy.summon_wild_afrit": "Ritual: Summon Unbound Afrit",
   "item.occultism.ritual_dummy.summon_wild_afrit.tooltip": "Summons an unbound Afrit that can be killed to obtain Afrit Essence",
-
   "item.occultism.ritual_dummy.summon_wild_hunt": "Ritual: Summon The Wild Hunt",
   "item.occultism.ritual_dummy.summon_wild_hunt.tooltip": "The Wild Hunt consists of Wither Skeletons that are guaranteed to drop Wither Skeleton Skulls, and their minions.",
-
   "item.occultism.ritual_dummy.summon_wild_otherworld_bird": "Ritual: Summon Wild Drikwing",
   "item.occultism.ritual_dummy.summon_wild_otherworld_bird.tooltip": "Summons a Drikwing Familiar that can be tamed by anyone, not just the summoner.",
-
   "item.occultism.ritual_dummy.summon_wild_parrot": "Ritual: Summon Wilid Parrot",
   "item.occultism.ritual_dummy.summon_wild_parrot.tooltip": "Summons a Parrot that can be tamed by anyone, not just the summoner.",
-
   "dialog.occultism.dragon.pet": "purrr",
-
   "advancements.occultism.familiar.bat.description": "Lure a normal bat near your bat familiar",
   "advancements.occultism.familiar.bat.title": "Cannibalism",
   "advancements.occultism.familiar.capture.description": "Trap your familiar in a familiar ring",
@@ -735,5 +683,5 @@
   "advancements.occultism.familiar.root.description": "Use a ritual to summon a familiar",
   "advancements.occultism.familiar.root.title": "Occultism: Friends",
   "advancements.occultism.familiar.mans_best_friend.description": "Pet your dragon familiar; and play fetch with it",
-  "advancements.occultism.familiar.mans_best_friend.title": "Man's Best Friend"  
+  "advancements.occultism.familiar.mans_best_friend.title": "Man's Best Friend"
 }

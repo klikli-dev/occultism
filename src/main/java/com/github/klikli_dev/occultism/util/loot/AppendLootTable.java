@@ -46,19 +46,16 @@ import java.util.List;
 
 public class AppendLootTable extends LootModifier {
     private final ResourceLocation lootTable;
+    boolean reentryPrevention = false;
 
-    public AppendLootTable(ILootCondition[] lootConditions, ResourceLocation lootTable)
-    {
+    public AppendLootTable(ILootCondition[] lootConditions, ResourceLocation lootTable) {
         super(lootConditions);
         this.lootTable = lootTable;
     }
 
-    boolean reentryPrevention = false;
-
     @Nonnull
     @Override
-    public List<ItemStack> doApply(List<ItemStack> generatedLoot, LootContext context)
-    {
+    public List<ItemStack> doApply(List<ItemStack> generatedLoot, LootContext context) {
         if (this.reentryPrevention)
             return generatedLoot;
 
@@ -71,18 +68,15 @@ public class AppendLootTable extends LootModifier {
         return generatedLoot;
     }
 
-    public static class Serializer extends GlobalLootModifierSerializer<AppendLootTable>
-    {
+    public static class Serializer extends GlobalLootModifierSerializer<AppendLootTable> {
         @Override
-        public AppendLootTable read(ResourceLocation location, JsonObject object, ILootCondition[] ailootcondition)
-        {
+        public AppendLootTable read(ResourceLocation location, JsonObject object, ILootCondition[] ailootcondition) {
             ResourceLocation lootTable = new ResourceLocation(JSONUtils.getAsString(object, "add_loot"));
             return new AppendLootTable(ailootcondition, lootTable);
         }
 
         @Override
-        public JsonObject write(AppendLootTable instance)
-        {
+        public JsonObject write(AppendLootTable instance) {
             JsonObject object = new JsonObject();
             object.addProperty("add_loot", instance.lootTable.toString());
             return object;

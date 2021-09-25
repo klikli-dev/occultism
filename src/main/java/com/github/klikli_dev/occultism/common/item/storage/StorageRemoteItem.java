@@ -33,7 +33,10 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
-import net.minecraft.item.*;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUseContext;
+import net.minecraft.item.Rarity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
@@ -47,8 +50,6 @@ import net.minecraftforge.fml.network.NetworkHooks;
 import javax.annotation.Nullable;
 import java.util.List;
 
-import net.minecraft.item.Item.Properties;
-
 public class StorageRemoteItem extends Item implements INamedContainerProvider {
 
     //region Initialization
@@ -56,6 +57,23 @@ public class StorageRemoteItem extends Item implements INamedContainerProvider {
         super(properties);
     }
     //endregion Initialization
+
+    //region Static Methods
+    public static IStorageController getStorageController(ItemStack stack, World world) {
+        //Invalid item or cannot not get hold of server instance
+
+        if (stack.isEmpty()) {
+            return null;
+        }
+        //no storage controller linked
+        if (!stack.getOrCreateTag().contains("linkedStorageController"))
+            return null;
+
+        GlobalBlockPos globalPos = GlobalBlockPos.from(stack.getTag().getCompound("linkedStorageController"));
+        TileEntity tileEntity = TileEntityUtil.get(world, globalPos);
+
+        return tileEntity instanceof IStorageController ? (IStorageController) tileEntity : null;
+    }
 
     //region Overrides
     @Override
@@ -106,7 +124,7 @@ public class StorageRemoteItem extends Item implements INamedContainerProvider {
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip,
-                               ITooltipFlag flagIn) {
+                                ITooltipFlag flagIn) {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
 
         tooltip.add(new TranslationTextComponent(this.getDescriptionId() + ".tooltip"));
@@ -120,34 +138,17 @@ public class StorageRemoteItem extends Item implements INamedContainerProvider {
     public Rarity getRarity(ItemStack stack) {
         return stack.getOrCreateTag().contains("linkedStorageController") ? Rarity.RARE : Rarity.COMMON;
     }
+    //endregion Overrides
 
     @Nullable
     @Override
     public Container createMenu(int id, PlayerInventory playerInventory, PlayerEntity player) {
         CuriosUtil.SelectedCurio selectedCurio = CuriosUtil.getStorageRemote(player);
-        if(selectedCurio != null){
+        if (selectedCurio != null) {
             return new StorageRemoteContainer(id, playerInventory, selectedCurio.selectedSlot);
         } else {
             return null;
         }
-    }
-    //endregion Overrides
-
-    //region Static Methods
-    public static IStorageController getStorageController(ItemStack stack, World world) {
-        //Invalid item or cannot not get hold of server instance
-
-        if (stack.isEmpty()) {
-            return null;
-        }
-        //no storage controller linked
-        if (!stack.getOrCreateTag().contains("linkedStorageController"))
-            return null;
-
-        GlobalBlockPos globalPos = GlobalBlockPos.from(stack.getTag().getCompound("linkedStorageController"));
-        TileEntity tileEntity = TileEntityUtil.get(world, globalPos);
-
-        return tileEntity instanceof IStorageController ? (IStorageController) tileEntity : null;
     }
     //endregion Static Methods
 }

@@ -38,15 +38,15 @@ public class CachedObject<T> implements ICachedValue {
     }
     //endregion Initialization
 
-    //region Overrides
-    public void clear() {
-        this.cachedValue = null;
-    }
-    //endregion Overrides
-
     //region Static Methods
     public static <T> CachedObject<T> cache(IConfigCache config, ForgeConfigSpec.ConfigValue<T> configValue) {
         return new CachedObject<>(config, configValue);
+    }
+    //endregion Overrides
+
+    //region Overrides
+    public void clear() {
+        this.cachedValue = null;
     }
     //endregion Static Methods
 

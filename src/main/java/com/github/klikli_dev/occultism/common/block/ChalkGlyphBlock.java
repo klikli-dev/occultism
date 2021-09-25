@@ -48,8 +48,6 @@ import net.minecraftforge.registries.ForgeRegistries;
 import javax.annotation.Nullable;
 import java.util.function.Supplier;
 
-import net.minecraft.block.AbstractBlock.Properties;
-
 public class ChalkGlyphBlock extends Block {
     //region Fields
     /**
@@ -64,7 +62,7 @@ public class ChalkGlyphBlock extends Block {
     //endregion Fields
 
     //region Initialization
-    public ChalkGlyphBlock(Properties properties, int color, Supplier<Item>chalk) {
+    public ChalkGlyphBlock(Properties properties, int color, Supplier<Item> chalk) {
         super(properties);
         this.color = color;
         this.chalk = chalk;
@@ -129,8 +127,8 @@ public class ChalkGlyphBlock extends Block {
         BlockPos pos = context.getClickedPos();
         int sign = Math.abs(pos.getX() + pos.getZ() * 2) % 13;
         return this.defaultBlockState().setValue(SIGN, sign)
-                       .setValue(BlockStateProperties.HORIZONTAL_FACING,
-                               context.getHorizontalDirection().getOpposite());
+                .setValue(BlockStateProperties.HORIZONTAL_FACING,
+                        context.getHorizontalDirection().getOpposite());
     }
 
     @Override

@@ -91,7 +91,7 @@ public abstract class NetworkedTileEntity extends TileEntity {
         return compound;
     }
 
-    public void markNetworkDirty(){
+    public void markNetworkDirty() {
         if (this.level != null) {
             this.level.sendBlockUpdated(this.worldPosition, this.getBlockState(), this.getBlockState(), 2);
         }

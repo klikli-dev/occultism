@@ -50,7 +50,7 @@ public class MessageRequestStacks extends MessageBase {
                                  NetworkEvent.Context context) {
         if (player.containerMenu instanceof IStorageControllerContainer) {
             IStorageController storageController = ((IStorageControllerContainer) player.containerMenu)
-                                                           .getStorageController();
+                    .getStorageController();
             if (storageController != null) {
                 OccultismPackets.sendTo(player, storageController.getMessageUpdateStacks());
                 OccultismPackets

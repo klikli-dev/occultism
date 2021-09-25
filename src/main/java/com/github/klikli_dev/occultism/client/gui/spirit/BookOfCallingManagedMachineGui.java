@@ -145,7 +145,7 @@ public class BookOfCallingManagedMachineGui extends Screen {
         this.addButton(extractFacingLabel);
 
         LabelWidget customNameLabel = new LabelWidget(guiLeft - 80,
-                guiTop + buttonTop + buttonHeight * 2 + buttonMargin * 2+ 1, false, -1, 2, Color.WHITE.getRGB()).alignRight(true);
+                guiTop + buttonTop + buttonHeight * 2 + buttonMargin * 2 + 1, false, -1, 2, Color.WHITE.getRGB()).alignRight(true);
         customNameLabel.addLine("gui." + Occultism.MODID + ".book_of_calling.manage_machine.custom_name", true);
         this.addButton(customNameLabel);
     }
@@ -170,7 +170,7 @@ public class BookOfCallingManagedMachineGui extends Screen {
 
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int p_keyPressed_3_) {
-        if(this.text.keyPressed(keyCode, scanCode, p_keyPressed_3_))
+        if (this.text.keyPressed(keyCode, scanCode, p_keyPressed_3_))
             return true;
         return super.keyPressed(keyCode, scanCode, p_keyPressed_3_);
     }
@@ -180,8 +180,7 @@ public class BookOfCallingManagedMachineGui extends Screen {
         if (this.text.charTyped(typedChar, keyCode)) {
             this.customName = this.text.getValue();
             return true;
-        }
-        else {
+        } else {
             return super.charTyped(typedChar, keyCode);
         }
     }

@@ -22,75 +22,69 @@
 
 package com.github.klikli_dev.occultism.network;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.function.Supplier;
-
-import com.github.klikli_dev.occultism.api.client.gui.IStorageControllerGui;
 import com.github.klikli_dev.occultism.common.ritual.pentacle.Pentacle;
-
 import com.github.klikli_dev.occultism.common.ritual.pentacle.PentacleManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.DistExecutor.SafeRunnable;
 import net.minecraftforge.fml.network.NetworkEvent;
 import vazkii.patchouli.api.PatchouliAPI;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+
 public class MessageUpdatePentacles extends MessageBase {
 
-	private Map<ResourceLocation, Pentacle> pentacles;
+    private Map<ResourceLocation, Pentacle> pentacles;
 
-	public MessageUpdatePentacles(PacketBuffer buf) {
-		this.decode(buf);
-	}
+    public MessageUpdatePentacles(PacketBuffer buf) {
+        this.decode(buf);
+    }
 
-	public MessageUpdatePentacles(Map<ResourceLocation, Pentacle> pentacles) {
-		this.pentacles = pentacles;
-	}
+    public MessageUpdatePentacles(Map<ResourceLocation, Pentacle> pentacles) {
+        this.pentacles = pentacles;
+    }
 
-	@Override
-	public void encode(PacketBuffer buffer) {
-		buffer.writeInt(this.pentacles.size());
-		for (Entry<ResourceLocation, Pentacle> entry : this.pentacles.entrySet()) {
-		    Pentacle pentacle = entry.getValue();
-			buffer.writeResourceLocation(entry.getKey());
-			pentacle.encode(buffer);
-		}
-	}
+    @Override
+    public void encode(PacketBuffer buffer) {
+        buffer.writeInt(this.pentacles.size());
+        for (Entry<ResourceLocation, Pentacle> entry : this.pentacles.entrySet()) {
+            Pentacle pentacle = entry.getValue();
+            buffer.writeResourceLocation(entry.getKey());
+            pentacle.encode(buffer);
+        }
+    }
 
-	@Override
-	public void decode(final PacketBuffer buffer) {
-		this.pentacles = new HashMap<>();
-		int size = buffer.readInt();
-		for (int i = 0; i < size; i++) {
-			ResourceLocation key = buffer.readResourceLocation();
-			Pentacle pentacle = Pentacle.decode(key, buffer);
-			this.pentacles.put(key, pentacle);
-		}
-	}
+    @Override
+    public void decode(final PacketBuffer buffer) {
+        this.pentacles = new HashMap<>();
+        int size = buffer.readInt();
+        for (int i = 0; i < size; i++) {
+            ResourceLocation key = buffer.readResourceLocation();
+            Pentacle pentacle = Pentacle.decode(key, buffer);
+            this.pentacles.put(key, pentacle);
+        }
+    }
 
-	@Override
-	public void onClientReceived(Minecraft minecraft, PlayerEntity player, NetworkEvent.Context context) {
-		UpdatePentacles.update(this.pentacles).run();
-	}
+    @Override
+    public void onClientReceived(Minecraft minecraft, PlayerEntity player, NetworkEvent.Context context) {
+        UpdatePentacles.update(this.pentacles).run();
+    }
 
-	private static class UpdatePentacles {
-		private static SafeRunnable update(Map<ResourceLocation, Pentacle> pentacles) {
-			return new SafeRunnable() {
-				private static final long serialVersionUID = 1L;
+    private static class UpdatePentacles {
+        private static SafeRunnable update(Map<ResourceLocation, Pentacle> pentacles) {
+            return new SafeRunnable() {
+                private static final long serialVersionUID = 1L;
 
-				@Override
-				public void run() {
-					PentacleManager.getInstance().setPentacles(pentacles);
-				    PatchouliAPI.get().reloadBookContents();
-				}
-			};
-		}
-	}
+                @Override
+                public void run() {
+                    PentacleManager.getInstance().setPentacles(pentacles);
+                    PatchouliAPI.get().reloadBookContents();
+                }
+            };
+        }
+    }
 }

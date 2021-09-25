@@ -31,8 +31,6 @@ import net.minecraft.item.ItemStack;
 
 import javax.annotation.Nullable;
 
-import net.minecraft.item.Item.Properties;
-
 public class OtherworldGogglesItem extends ArmorItem {
 
     public static final String TEXTURE = Occultism.MODID + ":textures/item/armor/otherworld_goggles_model.png";

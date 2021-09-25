@@ -52,11 +52,11 @@ public interface IOtherworldBlock {
     default OtherworldBlockTier getPlayerHarvestTier(PlayerEntity player, ItemStack tool) {
         OtherworldBlockTier toolTier = OtherworldBlockTier.NONE;
         OtherworldBlockTier effectTier = player.hasEffect(OccultismEffects.THIRD_EYE.get()) ?
-                                                 OtherworldBlockTier.ONE : OtherworldBlockTier.NONE;
+                OtherworldBlockTier.ONE : OtherworldBlockTier.NONE;
         if (tool.getItem() instanceof IOtherworldTool) {
             toolTier = ((IOtherworldTool) tool.getItem()).getHarvestTier(tool);
         }
-        if(tool.hasTag() && tool.getTag().contains("occultism:otherworldToolTier")){
+        if (tool.hasTag() && tool.getTag().contains("occultism:otherworldToolTier")) {
             toolTier = OtherworldBlockTier.get(tool.getTag().getInt("occultism:otherworldToolTier"));
         }
         return OtherworldBlockTier.max(toolTier, effectTier);

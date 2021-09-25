@@ -22,14 +22,7 @@
 
 package com.github.klikli_dev.occultism.common.ritual.pentacle;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-
 import com.google.gson.*;
-
 import net.minecraft.block.Block;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.tags.ITag;
@@ -44,6 +37,12 @@ import vazkii.patchouli.api.IMultiblock;
 import vazkii.patchouli.api.IStateMatcher;
 import vazkii.patchouli.api.PatchouliAPI;
 import vazkii.patchouli.api.PatchouliAPI.IPatchouliAPI;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 public class Pentacle {
     private final ResourceLocation rl;
@@ -89,14 +88,6 @@ public class Pentacle {
         }
     }
 
-    public String getTranslationKey() {
-        return Util.makeDescriptionId("pentacle", this.rl);
-    }
-
-    public boolean validate(World world, BlockPos pos) {
-        return this.matcher.validate(world, pos) != null;
-    }
-
     public static Pentacle fromJson(ResourceLocation rl, JsonObject json) {
         JsonArray jsonPattern = JSONUtils.getAsJsonArray(json, "pattern");
         JsonObject jsonMapping = JSONUtils.getAsJsonObject(json, "mapping");
@@ -113,54 +104,37 @@ public class Pentacle {
         }
         return new Pentacle(rl, pattern, mappings);
     }
-    
-    public JsonObject toJson() {
-        JsonObject json = new JsonObject();
-        JsonArray jsonPattern = new JsonArray();
-        for (String row : this.pattern)
-            jsonPattern.add(row);
-        json.add("pattern", jsonPattern);
-        JsonObject jsonMapping = new JsonObject();
-        for (Entry<Character, JsonElement> entry : this.mappings.entrySet())
-            jsonMapping.add(String.valueOf(entry.getKey()), entry.getValue());
-        json.add("mapping", jsonMapping);
-        return json;
-    }
 
-    public static IStateMatcher parseStateMatcher(JsonElement matcher){
-        if(matcher.isJsonObject()){
+    public static IStateMatcher parseStateMatcher(JsonElement matcher) {
+        if (matcher.isJsonObject()) {
             JsonObject jsonObject = matcher.getAsJsonObject();
             Block display = null;
-            if(jsonObject.has("display"))
-            {
+            if (jsonObject.has("display")) {
                 ResourceLocation displayRL = new ResourceLocation(JSONUtils.getAsString(jsonObject, "display"));
                 display = ForgeRegistries.BLOCKS.getValue(displayRL);
                 if (display == null)
                     throw new JsonSyntaxException("Invalid display" + displayRL);
             }
-            if(jsonObject.has("block")){
+            if (jsonObject.has("block")) {
                 ResourceLocation blockRL = new ResourceLocation(JSONUtils.getAsString(jsonObject, "block"));
                 Block block = ForgeRegistries.BLOCKS.getValue(blockRL);
                 if (block == null)
                     throw new JsonSyntaxException("Invalid block " + blockRL);
 
-                if(display != null){
+                if (display != null) {
                     return PatchouliAPI.get().predicateMatcher(display, s -> s.getBlock() == block);
-                }
-                else {
+                } else {
                     return PatchouliAPI.get().looseBlockMatcher(block);
                 }
-            }
-            else if(jsonObject.has("tag")){
-                ResourceLocation tagRL= new ResourceLocation(JSONUtils.getAsString(jsonObject, "tag"));
+            } else if (jsonObject.has("tag")) {
+                ResourceLocation tagRL = new ResourceLocation(JSONUtils.getAsString(jsonObject, "tag"));
                 ITag<Block> tag = TagCollectionManager.getInstance().getBlocks().getTag(tagRL);
-                if(tag == null)
+                if (tag == null)
                     throw new JsonSyntaxException("Invalid tag " + tagRL);
-                if(display == null)
+                if (display == null)
                     throw new JsonSyntaxException("No display set for tag " + tagRL);
                 return PatchouliAPI.get().predicateMatcher(display, s -> tag.contains(s.getBlock()));
-            }
-            else if(display != null){
+            } else if (display != null) {
                 return PatchouliAPI.get().displayOnlyMatcher(display);
             }
         }
@@ -171,17 +145,6 @@ public class Pentacle {
         if (block == null)
             throw new JsonSyntaxException("Invalid block " + blockRL);
         return PatchouliAPI.get().looseBlockMatcher(block);
-    }
-    
-    public void encode(PacketBuffer buffer) {
-        buffer.writeInt(this.pattern.size());
-        for (String row : this.pattern)
-            buffer.writeUtf(row);
-        buffer.writeInt(this.mappings.size());
-        for (Entry<Character, JsonElement> entry : this.mappings.entrySet()) {
-            buffer.writeChar(entry.getKey());
-            buffer.writeUtf(entry.getValue().toString());
-        }
     }
 
     public static Pentacle decode(ResourceLocation key, PacketBuffer buffer) {
@@ -195,5 +158,37 @@ public class Pentacle {
         for (int i = 0; i < size; i++)
             mappings.put(buffer.readChar(), parser.parse(buffer.readUtf()));
         return new Pentacle(key, pattern, mappings);
+    }
+
+    public String getTranslationKey() {
+        return Util.makeDescriptionId("pentacle", this.rl);
+    }
+
+    public boolean validate(World world, BlockPos pos) {
+        return this.matcher.validate(world, pos) != null;
+    }
+
+    public JsonObject toJson() {
+        JsonObject json = new JsonObject();
+        JsonArray jsonPattern = new JsonArray();
+        for (String row : this.pattern)
+            jsonPattern.add(row);
+        json.add("pattern", jsonPattern);
+        JsonObject jsonMapping = new JsonObject();
+        for (Entry<Character, JsonElement> entry : this.mappings.entrySet())
+            jsonMapping.add(String.valueOf(entry.getKey()), entry.getValue());
+        json.add("mapping", jsonMapping);
+        return json;
+    }
+
+    public void encode(PacketBuffer buffer) {
+        buffer.writeInt(this.pattern.size());
+        for (String row : this.pattern)
+            buffer.writeUtf(row);
+        buffer.writeInt(this.mappings.size());
+        for (Entry<Character, JsonElement> entry : this.mappings.entrySet()) {
+            buffer.writeChar(entry.getKey());
+            buffer.writeUtf(entry.getValue().toString());
+        }
     }
 }

@@ -77,8 +77,8 @@ public class CrusherJob extends SpiritJob {
     public void init() {
         this.entity.targetSelector.addGoal(1, this.pickupItemsGoal = new PickupItemsGoal(this.entity));
         this.itemsToPickUp = this.entity.level.getRecipeManager().getRecipes().stream()
-                                     .filter(recipe -> recipe.getType() == OccultismRecipes.CRUSHING_TYPE.get())
-                                     .flatMap(recipe -> recipe.getIngredients().stream()).collect(Collectors.toList());
+                .filter(recipe -> recipe.getType() == OccultismRecipes.CRUSHING_TYPE.get())
+                .flatMap(recipe -> recipe.getIngredients().stream()).collect(Collectors.toList());
     }
 
     @Override
@@ -104,8 +104,7 @@ public class CrusherJob extends SpiritJob {
             if (handHeld.isEmpty() || !this.currentRecipe.get().matches(fakeInventory, this.entity.level)) {
                 //Reset cached recipe if it no longer matches
                 this.currentRecipe = Optional.empty();
-            }
-            else {
+            } else {
                 //advance conversion
                 this.crushingTimer++;
 
@@ -132,9 +131,9 @@ public class CrusherJob extends SpiritJob {
                     //make sure to ignore output multiplier on recipes that set that flag.
                     //prevents e.g. 1x ingot -> 3x dust -> 3x ingot -> 9x dust ...
                     float outputMultiplier = this.outputMultiplier.get();
-                    if(this.currentRecipe.get().getIgnoreCrushingMultiplier())
+                    if (this.currentRecipe.get().getIgnoreCrushingMultiplier())
                         outputMultiplier = 1;
-                    result.setCount((int)(result.getCount() * outputMultiplier));
+                    result.setCount((int) (result.getCount() * outputMultiplier));
                     ItemStack inputCopy = handHeld.copy();
                     inputCopy.setCount(1);
                     handHeld.shrink(1);
@@ -163,7 +162,7 @@ public class CrusherJob extends SpiritJob {
 
     @Override
     public boolean canPickupItem(ItemEntity entity) {
-        if(entity.getTags().contains(DROPPED_BY_CRUSHER) && entity.age <
+        if (entity.getTags().contains(DROPPED_BY_CRUSHER) && entity.age <
                 Occultism.SERVER_CONFIG.spiritJobs.crusherResultPickupDelay.get())
             return false; //cannot pick up items a crusher (most likely *this* one) dropped util delay elapsed.
 

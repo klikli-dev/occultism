@@ -37,8 +37,6 @@ import net.minecraft.world.server.ServerWorld;
 
 import static com.github.klikli_dev.occultism.util.StaticUtil.modLoc;
 
-import net.minecraft.item.Item.Properties;
-
 public class SummonFoliotTraderItem extends Item {
 
     //region Initialization

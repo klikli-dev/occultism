@@ -43,8 +43,6 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import net.minecraft.entity.ai.goal.Goal.Flag;
-
 public class FellTreesGoal extends Goal {
     //region Fields
     public static final int WORKAREA_EMPTY_REFRESH_TIME = 20 * 15;
@@ -68,6 +66,19 @@ public class FellTreesGoal extends Goal {
     }
     //endregion Initialization
 
+    public static boolean isTreeSoil(World world, BlockPos pos) {
+        return OccultismTags.TREE_SOIL.contains(world.getBlockState(pos).getBlock());
+    }
+
+    public static boolean isLog(World world, BlockPos pos) {
+        return BlockTags.LOGS.contains(world.getBlockState(pos).getBlock());
+    }
+
+    public static boolean isLeaf(World world, BlockPos pos) {
+        Block block = world.getBlockState(pos).getBlock();
+        return block instanceof LeavesBlock || BlockTags.LEAVES.contains(block);
+    }
+
     //region Overrides
     @Override
     public boolean canUse() {
@@ -77,6 +88,9 @@ public class FellTreesGoal extends Goal {
         this.resetTarget();
         return this.targetBlock != null;
     }
+    //endregion Overrides
+
+    //region Static Methods
 
     @Override
     public boolean canContinueToUse() {
@@ -130,22 +144,6 @@ public class FellTreesGoal extends Goal {
                 this.stop();
             }
         }
-    }
-    //endregion Overrides
-
-    //region Static Methods
-
-    public static boolean isTreeSoil(World world, BlockPos pos) {
-        return OccultismTags.TREE_SOIL.contains(world.getBlockState(pos).getBlock());
-    }
-
-    public static boolean isLog(World world, BlockPos pos) {
-        return BlockTags.LOGS.contains(world.getBlockState(pos).getBlock());
-    }
-
-    public static boolean isLeaf(World world, BlockPos pos) {
-        Block block = world.getBlockState(pos).getBlock();
-        return block instanceof LeavesBlock || BlockTags.LEAVES.contains(block);
     }
     //endregion Static Methods
 

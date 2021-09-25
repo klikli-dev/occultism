@@ -139,8 +139,7 @@ public class MessageSetRecipeByID extends MessageBase {
                     ingredientsMatrixGrid.set(target, i);
                 }
             }
-        }
-        else {
+        } else {
             for (int i = 0; i < ingredients.size(); i++) {
                 ingredientsMatrixGrid.set(i, ingredients.get(i));
             }

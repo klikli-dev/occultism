@@ -38,8 +38,6 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 import java.util.List;
 
-import net.minecraft.item.Item.Properties;
-
 public class BookOfBindingBoundItem extends Item implements IIngredientCopyNBT, IIngredientModifyCraftingResult {
     //region Fields
     //endregion Fields
@@ -54,7 +52,7 @@ public class BookOfBindingBoundItem extends Item implements IIngredientCopyNBT, 
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip,
-                               ITooltipFlag flagIn) {
+                                ITooltipFlag flagIn) {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
         tooltip.add(new TranslationTextComponent(this.getDescriptionId() + ".tooltip",
                 TextUtil.formatDemonName(ItemNBTUtil.getBoundSpiritName(stack))));

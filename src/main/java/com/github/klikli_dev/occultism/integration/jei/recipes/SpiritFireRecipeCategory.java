@@ -110,7 +110,7 @@ public class SpiritFireRecipeCategory implements IRecipeCategory<SpiritFireRecip
     @Override
     public void draw(SpiritFireRecipe recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
         RenderSystem.enableBlend();
-        this.overlay.draw(matrixStack,48, 0);
+        this.overlay.draw(matrixStack, 48, 0);
     }
     //endregion Overrides
 }

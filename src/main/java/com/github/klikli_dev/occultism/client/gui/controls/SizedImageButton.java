@@ -28,8 +28,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.widget.button.ImageButton;
 import net.minecraft.util.ResourceLocation;
 
-import net.minecraft.client.gui.widget.button.Button.IPressable;
-
 public class SizedImageButton extends ImageButton {
     //region Fields
     public final ResourceLocation resourceLocation;
@@ -82,7 +80,7 @@ public class SizedImageButton extends ImageButton {
     }
     //endregion Overrides
 
-//region Methods
+    //region Methods
     @Override
     public void renderButton(MatrixStack stack, int mouseX, int mouseY, float partialTicks) {
         if (this.visible) {

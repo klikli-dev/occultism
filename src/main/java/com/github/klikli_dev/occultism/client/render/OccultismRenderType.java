@@ -28,21 +28,15 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.renderer.vertex.VertexFormat;
 
 import java.util.OptionalDouble;
-//region Initialization
-//endregion Initialization
-//endregion Initialization
-
-import net.minecraft.client.renderer.RenderState.LineState;
-import net.minecraft.client.renderer.RenderType.State;
 
 public class OccultismRenderType extends RenderType {
     //region Fields
     private static final LineState BLOCK_SELECTION_LINE_STATE = new LineState(OptionalDouble.of(4.0D));
     public static final RenderType BLOCK_SELECTION = create("overlay_lines", DefaultVertexFormats.POSITION_COLOR, 1,
             256, State.builder().setLineState(BLOCK_SELECTION_LINE_STATE).setLayeringState(RenderState.POLYGON_OFFSET_LAYERING)
-                         //TODO: Figure out if this is the right replacement for PROJECTION_LAYERING
-                         .setTransparencyState(TRANSLUCENT_TRANSPARENCY).setTextureState(NO_TEXTURE).setDepthTestState(NO_DEPTH_TEST)
-                         .setCullState(NO_CULL).setLightmapState(NO_LIGHTMAP).setWriteMaskState(COLOR_WRITE).createCompositeState(false));
+                    //TODO: Figure out if this is the right replacement for PROJECTION_LAYERING
+                    .setTransparencyState(TRANSLUCENT_TRANSPARENCY).setTextureState(NO_TEXTURE).setDepthTestState(NO_DEPTH_TEST)
+                    .setCullState(NO_CULL).setLightmapState(NO_LIGHTMAP).setWriteMaskState(COLOR_WRITE).createCompositeState(false));
     //endregion Fields
 
     //region Initialization

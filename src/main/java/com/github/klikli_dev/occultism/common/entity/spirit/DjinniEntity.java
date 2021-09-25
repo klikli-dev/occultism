@@ -38,12 +38,12 @@ public class DjinniEntity extends SpiritEntity {
     //region Static Methods
     public static AttributeModifierMap.MutableAttribute registerAttributes() {
         return SpiritEntity.registerAttributes()
-                       .add(Attributes.ATTACK_DAMAGE, 3.0)
-                       .add(Attributes.MAX_HEALTH, 20.0)
-                       .add(Attributes.MOVEMENT_SPEED, 0.30000001192092896)
-                       .add(Attributes.ARMOR, 4.0)
-                       .add(Attributes.ARMOR_TOUGHNESS, 5.0)
-                       .add(Attributes.FOLLOW_RANGE, 50.0);
+                .add(Attributes.ATTACK_DAMAGE, 3.0)
+                .add(Attributes.MAX_HEALTH, 20.0)
+                .add(Attributes.MOVEMENT_SPEED, 0.30000001192092896)
+                .add(Attributes.ARMOR, 4.0)
+                .add(Attributes.ARMOR_TOUGHNESS, 5.0)
+                .add(Attributes.FOLLOW_RANGE, 50.0);
     }
     //endregion Static Methods
 }

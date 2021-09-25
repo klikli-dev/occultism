@@ -74,8 +74,7 @@ public class MessageSortItems extends MessageBase {
                     storageAccessor.setSortDirection(this.sortDirection);
                     tileEntity.setChanged();
                 }
-            }
-            else {
+            } else {
                 //for item remotes, we just set the nbt.
                 ItemStack stack = player.inventory.getSelected();
                 stack.getOrCreateTag().putInt("sortDirection", this.sortDirection.getValue());

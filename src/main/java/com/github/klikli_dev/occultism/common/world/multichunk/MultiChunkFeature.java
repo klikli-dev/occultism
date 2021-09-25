@@ -56,12 +56,12 @@ public class MultiChunkFeature extends Feature<MultiChunkFeatureConfig> {
     //region Overrides
     @Override
     public boolean place(ISeedReader reader, ChunkGenerator generator, Random rand, BlockPos pos,
-                            MultiChunkFeatureConfig config) {
+                         MultiChunkFeatureConfig config) {
 
         //check biome type blacklist
-        for(Biome biome : generator.getBiomeSource().getBiomesWithin(pos.getX(), pos.getY(), pos.getZ(), 1)){
+        for (Biome biome : generator.getBiomeSource().getBiomesWithin(pos.getX(), pos.getY(), pos.getZ(), 1)) {
             RegistryKey<Biome> biomeKey = RegistryKey.create(Registry.BIOME_REGISTRY, biome.getRegistryName());
-            if(BiomeUtil.containsType(biomeKey, config.biomeTypeBlacklist)){
+            if (BiomeUtil.containsType(biomeKey, config.biomeTypeBlacklist)) {
                 return false;
             }
         }

@@ -60,7 +60,7 @@ public class MessageInsertMouseHeldItem extends MessageBase {
                                  NetworkEvent.Context context) {
         if (player.containerMenu instanceof IStorageControllerContainer) {
             IStorageController storageController = ((IStorageControllerContainer) player.containerMenu)
-                                                           .getStorageController();
+                    .getStorageController();
 
             ItemStack result = ItemStack.EMPTY;
             ItemStack carriedByMouse = player.inventory.getCarried();
@@ -71,8 +71,7 @@ public class MessageInsertMouseHeldItem extends MessageBase {
                 //if not everything could be inserted, leave the rest in hand
                 if (remainder != 0)
                     result = ItemHandlerHelper.copyStackWithSize(carriedByMouse, remainder);
-            }
-            else if (this.mouseButton == InputUtil.MOUSE_BUTTON_RIGHT) {
+            } else if (this.mouseButton == InputUtil.MOUSE_BUTTON_RIGHT) {
                 //right mouse button means insert one
 
                 ItemStack toInsert = carriedByMouse.copy();

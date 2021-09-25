@@ -27,7 +27,10 @@ import com.github.klikli_dev.occultism.api.common.tile.IStorageController;
 import net.minecraft.block.Block;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.*;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUseContext;
+import net.minecraft.item.Rarity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.math.BlockPos;
@@ -38,8 +41,6 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 import java.util.List;
-
-import net.minecraft.item.Item.Properties;
 
 public class StableWormholeBlockItem extends BlockItem {
     //region Initialization
@@ -53,7 +54,7 @@ public class StableWormholeBlockItem extends BlockItem {
     @Override
     public Rarity getRarity(ItemStack stack) {
         return stack.getOrCreateTag().getCompound("BlockEntityTag")
-                       .contains("linkedStorageControllerPosition") ? Rarity.RARE : Rarity.COMMON;
+                .contains("linkedStorageControllerPosition") ? Rarity.RARE : Rarity.COMMON;
     }
 
     @Override
@@ -81,18 +82,17 @@ public class StableWormholeBlockItem extends BlockItem {
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip,
-                               ITooltipFlag flagIn) {
+                                ITooltipFlag flagIn) {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
         if (stack.getOrCreateTag().getCompound("BlockEntityTag")
-                    .contains("linkedStorageControllerPosition")) {
+                .contains("linkedStorageControllerPosition")) {
             GlobalBlockPos globalPos = GlobalBlockPos.from(stack.getTagElement("BlockEntityTag")
-                                                                   .getCompound("linkedStorageControllerPosition"));
+                    .getCompound("linkedStorageControllerPosition"));
             String formattedPosition =
                     TextFormatting.GOLD.toString() + TextFormatting.BOLD + globalPos.getPos().toString() +
                             TextFormatting.RESET;
             tooltip.add(new TranslationTextComponent(this.getDescriptionId() + ".tooltip.linked", formattedPosition));
-        }
-        else {
+        } else {
             tooltip.add(new TranslationTextComponent(this.getDescriptionId() + ".tooltip.unlinked"));
         }
     }

@@ -46,11 +46,18 @@ public class WildHuntSkeletonEntity extends SkeletonEntity {
     }
     //endregion Initialization
 
+    //region Static Methods
+    public static AttributeModifierMap.MutableAttribute registerAttributes() {
+        return SkeletonEntity.createAttributes()
+                .add(Attributes.ATTACK_DAMAGE, 4.0)
+                .add(Attributes.MAX_HEALTH, 20.0);
+    }
+    //endregion Getter / Setter
+
     //region Getter / Setter
     public void setMaster(WildHuntWitherSkeletonEntity master) {
         this.master = Optional.ofNullable(master);
     }
-    //endregion Getter / Setter
 
     //region Overrides
     @Override
@@ -70,6 +77,7 @@ public class WildHuntSkeletonEntity extends SkeletonEntity {
         });
         super.remove(keepData);
     }
+    //endregion Overrides
 
     @Override
     public boolean isInvulnerableTo(DamageSource source) {
@@ -84,14 +92,6 @@ public class WildHuntSkeletonEntity extends SkeletonEntity {
             return true;
 
         return super.isInvulnerableTo(source);
-    }
-    //endregion Overrides
-
-    //region Static Methods
-    public static AttributeModifierMap.MutableAttribute registerAttributes() {
-        return SkeletonEntity.createAttributes()
-                       .add(Attributes.ATTACK_DAMAGE, 4.0)
-                       .add(Attributes.MAX_HEALTH, 20.0);
     }
     //endregion Static Methods
 }

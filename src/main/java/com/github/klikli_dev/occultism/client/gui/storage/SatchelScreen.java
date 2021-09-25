@@ -65,7 +65,7 @@ public class SatchelScreen extends ContainerScreen<SatchelContainer> {
 
     @Override
     protected void renderBg(MatrixStack matrixStack, float partialTicks, int mouseX,
-                                                   int mouseY) {
+                            int mouseY) {
         RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.minecraft.getTextureManager().bind(BACKGROUND);
         this.blit(matrixStack, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight);

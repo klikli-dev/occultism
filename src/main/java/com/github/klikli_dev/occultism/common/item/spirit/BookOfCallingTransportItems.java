@@ -36,9 +36,6 @@ import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
-
-import net.minecraft.item.Item.Properties;
 
 public class BookOfCallingTransportItems extends BookOfCallingItem {
     //region Initialization
@@ -56,7 +53,7 @@ public class BookOfCallingTransportItems extends BookOfCallingItem {
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip,
-                               ITooltipFlag flagIn) {
+                                ITooltipFlag flagIn) {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
         BlockPos extract = ItemNBTUtil.getExtractPosition(stack);
         if (extract != null) {
@@ -96,21 +93,21 @@ public class BookOfCallingTransportItems extends BookOfCallingItem {
         }
         //endregion Initialization
 
+        //region Static Methods
+        public static ItemModeSubset get(ItemMode value) {
+            return lookup.get(value);
+        }
+
         //region Overrides
         @Override
         public ItemMode getItemMode() {
             return this.itemMode;
         }
+        //endregion Overrides
 
         @Override
         public ItemModeSubset next() {
             return values()[(this.ordinal() + 1) % values().length];
-        }
-        //endregion Overrides
-
-        //region Static Methods
-        public static ItemModeSubset get(ItemMode value) {
-            return lookup.get(value);
         }
         //endregion Static Methods
     }

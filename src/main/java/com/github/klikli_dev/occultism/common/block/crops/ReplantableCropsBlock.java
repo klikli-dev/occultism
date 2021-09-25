@@ -35,8 +35,6 @@ import net.minecraft.world.World;
 
 import java.util.function.Supplier;
 
-import net.minecraft.block.AbstractBlock.Properties;
-
 public class ReplantableCropsBlock extends CropsBlock implements IReplantableCrops {
     protected Supplier<Item> seed;
     protected Supplier<Item> crops;
@@ -64,7 +62,7 @@ public class ReplantableCropsBlock extends CropsBlock implements IReplantableCro
 
     @Override
     public ActionResultType use(BlockState state, World worldIn, BlockPos pos, PlayerEntity player,
-                                             Hand handIn, BlockRayTraceResult hit) {
+                                Hand handIn, BlockRayTraceResult hit) {
         return IReplantableCrops.super.onHarvest(state, worldIn, pos, player, handIn);
     }
 }

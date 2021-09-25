@@ -28,12 +28,13 @@ import net.minecraft.util.WeightedRandom;
 
 public class WeightedIngredient extends WeightedRandom.Item {
     protected Ingredient ingredient;
+
     public WeightedIngredient(Ingredient ingredient, int itemWeightIn) {
         super(itemWeightIn);
         this.ingredient = ingredient;
     }
 
-    public ItemStack getStack(){
+    public ItemStack getStack() {
         return this.ingredient.getItems()[0];
     }
 

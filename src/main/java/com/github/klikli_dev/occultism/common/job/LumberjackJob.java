@@ -23,9 +23,9 @@
 package com.github.klikli_dev.occultism.common.job;
 
 import com.github.klikli_dev.occultism.api.common.container.IItemStackComparator;
+import com.github.klikli_dev.occultism.common.entity.ai.DepositItemsGoal;
 import com.github.klikli_dev.occultism.common.entity.ai.FellTreesGoal;
 import com.github.klikli_dev.occultism.common.entity.ai.PickupItemsGoal;
-import com.github.klikli_dev.occultism.common.entity.ai.DepositItemsGoal;
 import com.github.klikli_dev.occultism.common.entity.ai.ReplantSaplingGoal;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.github.klikli_dev.occultism.common.misc.ItemStackComparator;
@@ -36,7 +36,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
-import net.minecraft.nbt.LongArrayNBT;
 import net.minecraft.nbt.LongNBT;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.math.BlockPos;
@@ -90,7 +89,7 @@ public class LumberjackJob extends SpiritJob {
     }
 
     @Override
-    public boolean canPickupItem(ItemEntity entity){
+    public boolean canPickupItem(ItemEntity entity) {
 
         ItemStack stack = entity.getItem();
         for (IItemStackComparator comparator : this.itemsToPickUp) {
@@ -104,7 +103,7 @@ public class LumberjackJob extends SpiritJob {
     public CompoundNBT serializeNBT() {
         CompoundNBT compound = super.serializeNBT();
         ListNBT list = new ListNBT();
-        for(BlockPos ignoredTree : this.ignoredTrees){
+        for (BlockPos ignoredTree : this.ignoredTrees) {
             list.add(LongNBT.valueOf(ignoredTree.asLong()));
         }
         compound.put("ignoredTrees", list);
@@ -116,10 +115,10 @@ public class LumberjackJob extends SpiritJob {
         super.deserializeNBT(nbt);
 
         this.ignoredTrees = new HashSet<>();
-        if(nbt.contains("ignoredTrees")){
+        if (nbt.contains("ignoredTrees")) {
             ListNBT list = nbt.getList("ignoredTrees", Constants.NBT.TAG_LIST);
-            for(int i = 0; i < list.size(); i++){
-                this.ignoredTrees.add(BlockPos.of(((LongNBT)list.get(i)).getAsLong()));
+            for (int i = 0; i < list.size(); i++) {
+                this.ignoredTrees.add(BlockPos.of(((LongNBT) list.get(i)).getAsLong()));
             }
         }
     }

@@ -27,7 +27,10 @@ import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.ItemRenderer;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.client.renderer.model.BakedQuad;
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
@@ -66,8 +69,8 @@ public class StorageControllerRenderer extends TileEntityRenderer<StorageControl
         //use system time to become independent of game time
         long systemTime = System.currentTimeMillis();
 
-        double systemTimeRadSin8 = Math.sin(Math.toRadians((float)systemTime / 8));
-        double systemTimeRadSin16 = Math.sin(Math.toRadians((float)systemTime / 16));
+        double systemTimeRadSin8 = Math.sin(Math.toRadians((float) systemTime / 8));
+        double systemTimeRadSin16 = Math.sin(Math.toRadians((float) systemTime / 16));
 
         double offset = systemTimeRadSin16 / 16.0;
         matrixStack.translate(0.5, 1.75 + offset, 0.5);

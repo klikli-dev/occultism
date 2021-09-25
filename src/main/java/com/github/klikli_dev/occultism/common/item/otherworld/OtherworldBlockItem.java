@@ -29,8 +29,6 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-import net.minecraft.item.Item.Properties;
-
 /**
  * Allows to show different textures and translation keys for HWYLA and in the inventory
  */

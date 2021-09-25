@@ -33,12 +33,12 @@ import net.minecraftforge.common.util.LazyOptional;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class BlockPosMoveTarget implements IMoveTarget{
+public class BlockPosMoveTarget implements IMoveTarget {
 
     public World world;
     public BlockPos target;
 
-    public BlockPosMoveTarget(World world, BlockPos target){
+    public BlockPosMoveTarget(World world, BlockPos target) {
         this.world = world;
         this.target = target;
     }
@@ -62,7 +62,7 @@ public class BlockPosMoveTarget implements IMoveTarget{
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
         TileEntity tileEntity = this.world.getBlockEntity(this.target);
-        if(tileEntity != null){
+        if (tileEntity != null) {
             return tileEntity.getCapability(cap, side);
         }
         return LazyOptional.empty();

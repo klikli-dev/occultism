@@ -49,8 +49,6 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Resource;
-import java.util.Optional;
 
 public class RitualRecipe extends ShapelessRecipe {
     public static Serializer SERIALIZER = new Serializer();
@@ -296,13 +294,13 @@ public class RitualRecipe extends ShapelessRecipe {
             buffer.writeVarInt(recipe.duration);
             buffer.writeVarInt(recipe.spiritMaxAge);
             buffer.writeBoolean(recipe.spiritJobType != null);
-            if(recipe.spiritJobType != null){
+            if (recipe.spiritJobType != null) {
                 buffer.writeResourceLocation(recipe.spiritJobType);
             }
             buffer.writeItem(recipe.ritualDummy);
             recipe.activationItem.toNetwork(buffer);
             buffer.writeBoolean(recipe.entityToSacrifice != null);
-            if (recipe.entityToSacrifice != null){
+            if (recipe.entityToSacrifice != null) {
                 buffer.writeResourceLocation(TagCollectionManager.getInstance().getEntityTypes().getId(recipe.entityToSacrifice));
                 buffer.writeUtf(recipe.entityToSacrificeDisplayName);
             }

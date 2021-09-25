@@ -63,14 +63,13 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 
 import javax.annotation.Nullable;
-import javax.swing.text.html.Option;
 import java.util.Optional;
 import java.util.UUID;
 
 public abstract class SpiritEntity extends TameableEntity implements ISkinnedCreatureMixin, INamedContainerProvider {
     //region Fields
     public static final DataParameter<Integer> SKIN = EntityDataManager
-                                                              .defineId(SpiritEntity.class, DataSerializers.INT);
+            .defineId(SpiritEntity.class, DataSerializers.INT);
     /**
      * The default max age in seconds.
      */
@@ -104,25 +103,25 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
      * The spirit job registry name/id.
      */
     private static final DataParameter<String> JOB_ID = EntityDataManager
-                                                                .defineId(SpiritEntity.class, DataSerializers.STRING);
+            .defineId(SpiritEntity.class, DataSerializers.STRING);
 
     /**
      * The filter mode (blacklist/whitelist)
      */
     private static final DataParameter<Boolean> IS_FILTER_BLACKLIST = EntityDataManager
-                                                                .defineId(SpiritEntity.class, DataSerializers.BOOLEAN);
+            .defineId(SpiritEntity.class, DataSerializers.BOOLEAN);
 
     /**
      * The filter item list
      */
     private static final DataParameter<CompoundNBT> FILTER_ITEMS = EntityDataManager
-                                                                              .defineId(SpiritEntity.class, DataSerializers.COMPOUND_TAG);
+            .defineId(SpiritEntity.class, DataSerializers.COMPOUND_TAG);
 
     /**
      * The filter for tags
      */
     private static final DataParameter<String> TAG_FILTER = EntityDataManager
-                                                                           .defineId(SpiritEntity.class, DataSerializers.STRING);
+            .defineId(SpiritEntity.class, DataSerializers.STRING);
 
     public LazyOptional<ItemStackHandler> itemStackHandler = LazyOptional.of(ItemStackHandler::new);
     public LazyOptional<ItemStackHandler> filterItemStackHandler = LazyOptional.of(() -> new ItemStackHandler(MAX_FILTER_SLOTS) {
@@ -143,16 +142,25 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
     }
     //endregion Initialization
 
+    //region Static Methods
+    public static AttributeModifierMap.MutableAttribute registerAttributes() {
+        return TameableEntity.createLivingAttributes()
+                .add(Attributes.ATTACK_DAMAGE, 1.0)
+                .add(Attributes.ATTACK_SPEED, 4.0)
+                .add(Attributes.MOVEMENT_SPEED, 0.30000001192092896)
+                .add(Attributes.FOLLOW_RANGE, 50.0);
+    }
+
     @Override
     public void onSyncedDataUpdated(DataParameter<?> key) {
         super.onSyncedDataUpdated(key);
 
-        if(key == FILTER_ITEMS){
+        if (key == FILTER_ITEMS) {
             //restore filter item handler from data param on client
-            if(this.level.isClientSide){
+            if (this.level.isClientSide) {
                 this.filterItemStackHandler.ifPresent((handler) -> {
                     CompoundNBT compound = this.entityData.get(FILTER_ITEMS);
-                    if(!compound.isEmpty())
+                    if (!compound.isEmpty())
                         handler.deserializeNBT(compound);
                 });
             }
@@ -160,8 +168,8 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
         //if work area changes we clear the cached ignore list for trees
         //this allows players to manually reset that list if e.g. they tore down a wooden building and real trees grow there now.
 
-        if(key.getId() == WORK_AREA_POSITION.getId() || key.getId() == WORK_AREA_SIZE.getId()){
-            if(!this.level.isClientSide){
+        if (key.getId() == WORK_AREA_POSITION.getId() || key.getId() == WORK_AREA_SIZE.getId()) {
+            if (!this.level.isClientSide) {
                 this.job.map(j -> (LumberjackJob) j).ifPresent(j -> {
                     j.getIgnoredTrees().clear();
                 });
@@ -176,7 +184,6 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
         return super.getCapability(capability, facing);
     }
 
-
     //region Getter / Setter
     public Optional<BlockPos> getDepositPosition() {
         return this.entityData.get(DEPOSIT_POSITION);
@@ -184,7 +191,7 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
 
     public void setDepositPosition(BlockPos position) {
         this.entityData.set(DEPOSIT_POSITION, Optional.ofNullable(position));
-        if(position != null)
+        if (position != null)
             this.entityData.set(DEPOSIT_ENTITY_UUID, Optional.empty());
     }
 
@@ -194,8 +201,8 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
 
     public void setDepositEntityUUID(UUID uuid) {
         this.entityData.set(DEPOSIT_ENTITY_UUID, Optional.ofNullable(uuid));
-        if(uuid != null)
-         this.entityData.set(DEPOSIT_POSITION, Optional.empty());
+        if (uuid != null)
+            this.entityData.set(DEPOSIT_POSITION, Optional.empty());
     }
 
     public Optional<BlockPos> getExtractPosition() {
@@ -309,14 +316,14 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
     /**
      * Gets the tag filter string
      */
-    public String getTagFilter(){
+    public String getTagFilter() {
         return this.entityData.get(TAG_FILTER);
     }
 
     /**
      * Sets the tag filter string
      */
-    public void setTagFilter(String tagFilter){
+    public void setTagFilter(String tagFilter) {
         this.entityData.set(TAG_FILTER, tagFilter);
     }
 
@@ -330,6 +337,7 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
     public Optional<SpiritJob> getJob() {
         return this.job;
     }
+    //endregion Getter / Setter
 
     /**
      * Cleans up old job and sets and initializes the new job.
@@ -344,7 +352,6 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
             this.setJobID(job.getFactoryID().toString());
         }
     }
-    //endregion Getter / Setter
 
     //region Overrides
     @Nullable
@@ -363,10 +370,9 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
         return SKIN;
     }
 
-
     @Override
     public ILivingEntityData finalizeSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason,
-                                            @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
+                                           @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
         this.selectRandomSkin();
         return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
     }
@@ -404,8 +410,7 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
     public boolean hurt(DamageSource source, float amount) {
         if (this.isInvulnerableTo(source)) {
             return false;
-        }
-        else {
+        } else {
             //copied from wolf
             Entity entity = source.getEntity();
             if (entity != null && !(entity instanceof PlayerEntity) && !(entity instanceof AbstractArrowEntity)) {
@@ -473,7 +478,6 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
         this.entityData.define(FILTER_ITEMS, new CompoundNBT());
         this.entityData.define(TAG_FILTER, "");
     }
-
 
     @Override
     public void addAdditionalSaveData(CompoundNBT compound) {
@@ -559,15 +563,15 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
             this.setJob(job);
         }
 
-        if(compound.contains("isFilterBlacklist")){
+        if (compound.contains("isFilterBlacklist")) {
             this.setFilterBlacklist(compound.getBoolean("isFilterBlacklist"));
         }
 
-        if(compound.contains("filterItems")){
+        if (compound.contains("filterItems")) {
             this.filterItemStackHandler.ifPresent(handler -> handler.deserializeNBT(compound.getCompound("filterItems")));
         }
 
-        if(compound.contains("tagFilter")){
+        if (compound.contains("tagFilter")) {
             this.setTagFilter(compound.getString("tagFilter"));
         }
     }
@@ -618,6 +622,7 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
         this.removeJob();
         super.remove(keepData);
     }
+    //endregion Overrides
 
     @Override
     public ActionResultType interactAt(PlayerEntity player, Vector3d vec, Hand hand) {
@@ -630,16 +635,6 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
             }
         }
         return super.interactAt(player, vec, hand);
-    }
-    //endregion Overrides
-
-    //region Static Methods
-    public static AttributeModifierMap.MutableAttribute registerAttributes() {
-        return TameableEntity.createLivingAttributes()
-                       .add(Attributes.ATTACK_DAMAGE, 1.0)
-                       .add(Attributes.ATTACK_SPEED, 4.0)
-                       .add(Attributes.MOVEMENT_SPEED, 0.30000001192092896)
-                       .add(Attributes.FOLLOW_RANGE, 50.0);
     }
     //endregion Static Methods
 
@@ -670,7 +665,7 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
             INamedContainerProvider containerProvider = this;
 
             SpiritJob currentJob = this.job.orElse(null);
-            if(currentJob instanceof INamedContainerProvider)
+            if (currentJob instanceof INamedContainerProvider)
                 containerProvider = (INamedContainerProvider) currentJob;
 
             NetworkHooks.openGui((ServerPlayerEntity) playerEntity, containerProvider, (buf) -> buf.writeInt(this.getId()));

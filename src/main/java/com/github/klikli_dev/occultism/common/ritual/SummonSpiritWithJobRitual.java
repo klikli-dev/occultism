@@ -27,16 +27,10 @@ import com.github.klikli_dev.occultism.common.job.SpiritJob;
 import com.github.klikli_dev.occultism.common.tile.GoldenSacrificialBowlTileEntity;
 import com.github.klikli_dev.occultism.crafting.recipe.RitualRecipe;
 import com.github.klikli_dev.occultism.registry.OccultismSpiritJobs;
-import com.github.klikli_dev.occultism.util.ItemNBTUtil;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
 
 public class SummonSpiritWithJobRitual extends SummonRitual {
 
@@ -49,7 +43,7 @@ public class SummonSpiritWithJobRitual extends SummonRitual {
                              PlayerEntity castingPlayer) {
         super.initSummoned(living, world, goldenBowlPosition, tileEntity, castingPlayer);
 
-        if(living instanceof SpiritEntity) {
+        if (living instanceof SpiritEntity) {
             SpiritEntity spirit = (SpiritEntity) living;
             SpiritJob job = OccultismSpiritJobs.REGISTRY.getValue(this.recipe.getSpiritJobType()).create(spirit);
             job.init();

@@ -37,11 +37,11 @@ public class OccultismBiomeFeatures {
     public static final DeferredRegister<Feature<?>> FEATURES =
             DeferredRegister.create(ForgeRegistries.FEATURES, Occultism.MODID);
 
-        public static final RegistryObject<MultiChunkFeature> UNDERGROUND_GROVE_FEATURE =
-                FEATURES.register("underground_grove",
-                        () -> new MultiChunkFeature(
-                                MultiChunkFeatureConfig.CODEC,
-                                new SphericalCaveSubFeature(new UndergroundGroveDecorator(), 25, 25)));
+    public static final RegistryObject<MultiChunkFeature> UNDERGROUND_GROVE_FEATURE =
+            FEATURES.register("underground_grove",
+                    () -> new MultiChunkFeature(
+                            MultiChunkFeatureConfig.CODEC,
+                            new SphericalCaveSubFeature(new UndergroundGroveDecorator(), 25, 25)));
 
     //endregion Fields
 

@@ -103,10 +103,10 @@ public class MinerRecipeCategory implements IRecipeCategory<MinerRecipe> {
         ItemStackHandler simulatedHandler = new ItemStackHandler(1);
         simulatedHandler.setStackInSlot(0, recipe.getIngredients().get(0).getItems()[0]);
         List<MinerRecipe> recipes = world.getRecipeManager()
-                                            .getRecipesFor(OccultismRecipes.MINER_TYPE.get(),
-                                                    new RecipeWrapper(simulatedHandler), world);
+                .getRecipesFor(OccultismRecipes.MINER_TYPE.get(),
+                        new RecipeWrapper(simulatedHandler), world);
         List<WeightedIngredient> possibleResults = recipes.stream().map(MinerRecipe::getWeightedOutput).collect(Collectors.toList());
-        float chance = (float)recipe.getWeightedOutput().weight / (float)WeightedRandom.getTotalWeight(possibleResults) * 100.0F;
+        float chance = (float) recipe.getWeightedOutput().weight / (float) WeightedRandom.getTotalWeight(possibleResults) * 100.0F;
         //reduce to two decimals
         chance = Math.round(chance * 10) / 10.0f;
         this.chances.put(recipe, chance);

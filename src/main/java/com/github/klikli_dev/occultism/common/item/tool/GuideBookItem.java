@@ -46,8 +46,6 @@ import vazkii.patchouli.common.book.BookRegistry;
 import java.lang.reflect.Field;
 import java.util.List;
 
-import net.minecraft.item.Item.Properties;
-
 public class GuideBookItem extends Item {
 
     //region Fields

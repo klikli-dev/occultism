@@ -53,8 +53,7 @@ import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
 
-public class MatchBlockCondition implements ILootCondition
-{
+public class MatchBlockCondition implements ILootCondition {
     public static LootConditionType BLOCK_TAG_CONDITION;
 
     @Nullable
@@ -62,15 +61,13 @@ public class MatchBlockCondition implements ILootCondition
     @Nullable
     final ITag.INamedTag<Block> blockTag;
 
-    public MatchBlockCondition(@Nullable List<Block> blockList, @Nullable ITag.INamedTag<Block> blockTag)
-    {
+    public MatchBlockCondition(@Nullable List<Block> blockList, @Nullable ITag.INamedTag<Block> blockTag) {
         this.blockList = blockList;
         this.blockTag = blockTag;
     }
 
     @Override
-    public boolean test(LootContext lootContext)
-    {
+    public boolean test(LootContext lootContext) {
         BlockState state = lootContext.getParamOrNull(LootParameters.BLOCK_STATE);
         if (state == null)
             return false;
@@ -82,40 +79,30 @@ public class MatchBlockCondition implements ILootCondition
     }
 
     @Override
-    public LootConditionType getType()
-    {
+    public LootConditionType getType() {
         return BLOCK_TAG_CONDITION;
     }
 
-    public static class Serializer implements ILootSerializer<MatchBlockCondition>
-    {
+    public static class Serializer implements ILootSerializer<MatchBlockCondition> {
         @Override
-        public void serialize(JsonObject json, MatchBlockCondition value, JsonSerializationContext context)
-        {
+        public void serialize(JsonObject json, MatchBlockCondition value, JsonSerializationContext context) {
             if (value.blockTag != null)
                 json.addProperty("tag", value.blockTag.getName().toString());
         }
 
         @Override
-        public MatchBlockCondition deserialize(JsonObject json, JsonDeserializationContext context)
-        {
-            if (json.has("tag"))
-            {
+        public MatchBlockCondition deserialize(JsonObject json, JsonDeserializationContext context) {
+            if (json.has("tag")) {
                 ResourceLocation tagName = new ResourceLocation(JSONUtils.getAsString(json, "tag"));
                 return new MatchBlockCondition(null, BlockTags.createOptional(tagName));
-            }
-            else if(json.has("blocks"))
-            {
+            } else if (json.has("blocks")) {
                 List<Block> blockNames = Lists.newArrayList();
-                for(JsonElement e : JSONUtils.getAsJsonArray(json, "blocks"))
-                {
+                for (JsonElement e : JSONUtils.getAsJsonArray(json, "blocks")) {
                     ResourceLocation blockName = new ResourceLocation(e.getAsString());
                     blockNames.add(ForgeRegistries.BLOCKS.getValue(blockName));
                 }
                 return new MatchBlockCondition(blockNames, null);
-            }
-            else if(json.has("block"))
-            {
+            } else if (json.has("block")) {
                 ResourceLocation blockName = new ResourceLocation(JSONUtils.getAsString(json, "block"));
                 return new MatchBlockCondition(Collections.singletonList(ForgeRegistries.BLOCKS.getValue(blockName)), null);
             }

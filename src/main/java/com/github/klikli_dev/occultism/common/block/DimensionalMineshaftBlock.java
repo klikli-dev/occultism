@@ -45,8 +45,6 @@ import net.minecraftforge.fml.network.NetworkHooks;
 import javax.annotation.Nullable;
 import java.util.stream.Stream;
 
-import net.minecraft.block.AbstractBlock.Properties;
-
 public class DimensionalMineshaftBlock extends Block {
     //region Fields
     private static final VoxelShape SHAPE = Stream.of(
@@ -67,7 +65,9 @@ public class DimensionalMineshaftBlock extends Block {
             Block.box(2, 2, 2, 14, 3, 6),
             Block.box(3, 3, 6, 6, 4, 10),
             Block.box(6, 0, 6, 10, 3, 10)
-    ).reduce((v1, v2) -> {return VoxelShapes.join(v1, v2, IBooleanFunction.OR);}).get();
+    ).reduce((v1, v2) -> {
+        return VoxelShapes.join(v1, v2, IBooleanFunction.OR);
+    }).get();
     //endregion Fields
 
     //region Initialization
@@ -85,7 +85,7 @@ public class DimensionalMineshaftBlock extends Block {
     public void onRemove(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
         if (state.getBlock() != newState.getBlock()) {
             TileEntity tile = worldIn.getBlockEntity(pos);
-            if(tile != null) {
+            if (tile != null) {
                 StorageUtil.dropInventoryItems(tile);
             }
             super.onRemove(state, worldIn, pos, newState, isMoving);
@@ -94,7 +94,7 @@ public class DimensionalMineshaftBlock extends Block {
 
     @Override
     public ActionResultType use(BlockState state, World world, BlockPos pos, PlayerEntity player,
-                                             Hand hand, BlockRayTraceResult hit) {
+                                Hand hand, BlockRayTraceResult hit) {
         if (!world.isClientSide) {
             TileEntity tileEntity = world.getBlockEntity(pos);
             if (tileEntity instanceof INamedContainerProvider) {

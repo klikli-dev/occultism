@@ -46,8 +46,6 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 import javax.annotation.Nullable;
 
-import net.minecraft.block.AbstractBlock.Properties;
-
 public class GoldenSacrificialBowlBlock extends Block {
     //region Fields
     private static final VoxelShape SHAPE = Block.box(4, 0, 4, 12, 2.3, 12);
@@ -77,8 +75,8 @@ public class GoldenSacrificialBowlBlock extends Block {
     public void onRemove(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
         if (state.getBlock() != newState.getBlock()) {
             TileEntity tile = worldIn.getBlockEntity(pos);
-            if(tile != null){
-                GoldenSacrificialBowlTileEntity bowl = (GoldenSacrificialBowlTileEntity)tile;
+            if (tile != null) {
+                GoldenSacrificialBowlTileEntity bowl = (GoldenSacrificialBowlTileEntity) tile;
                 bowl.stopRitual(false); //if block changed/was destroyed, interrupt the ritual.
                 StorageUtil.dropInventoryItems(bowl);
             }
@@ -88,7 +86,7 @@ public class GoldenSacrificialBowlBlock extends Block {
 
     @Override
     public ActionResultType use(BlockState state, World world, BlockPos pos, PlayerEntity player,
-                                             Hand hand, BlockRayTraceResult hit) {
+                                Hand hand, BlockRayTraceResult hit) {
         TileEntity tileEntity = world.getBlockEntity(pos);
         if (tileEntity instanceof GoldenSacrificialBowlTileEntity) {
             GoldenSacrificialBowlTileEntity goldenSacrificialBowlTileEntity = (GoldenSacrificialBowlTileEntity) tileEntity;
@@ -135,7 +133,7 @@ public class GoldenSacrificialBowlBlock extends Block {
         LivingEntity entityLivingBase = event.getEntityLiving();
         if (!entityLivingBase.level.isClientSide) {
             //Limit to player kills
-            if(event.getSource().getEntity() instanceof PlayerEntity){
+            if (event.getSource().getEntity() instanceof PlayerEntity) {
                 BlockPos pos = entityLivingBase.blockPosition();
                 int range = Ritual.SACRIFICE_DETECTION_RANGE;
                 for (BlockPos positionToCheck : BlockPos.betweenClosed(pos.offset(-range, -range, -range),

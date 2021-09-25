@@ -67,7 +67,7 @@ public class StorageControllerSlot extends CraftingResultSlot {
             craftingStacks.add(this.matrix.getItem(i).copy());
         }
         super.onTake(player, stack);
-        ((Container)this.storageControllerContainer).broadcastChanges();
+        ((Container) this.storageControllerContainer).broadcastChanges();
         for (int i = 0; i < this.matrix.getContainerSize(); i++) {
             IStorageController storageController = this.storageControllerContainer.getStorageController();
             if (this.matrix.getItem(i).isEmpty() && storageController != null) {
@@ -79,7 +79,7 @@ public class StorageControllerSlot extends CraftingResultSlot {
                 }
             }
         }
-        ((Container)this.storageControllerContainer).broadcastChanges();
+        ((Container) this.storageControllerContainer).broadcastChanges();
         return stack;
     }
     //endregion Overrides

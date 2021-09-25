@@ -26,7 +26,6 @@ import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.client.model.entity.DevilFamiliarModel;
 import com.github.klikli_dev.occultism.common.entity.DevilFamiliarEntity;
 import com.mojang.blaze3d.matrix.MatrixStack;
-
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
@@ -44,7 +43,7 @@ public class DevilFamiliarRenderer extends MobRenderer<DevilFamiliarEntity, Devi
 
     @Override
     public void render(DevilFamiliarEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn,
-            IRenderTypeBuffer bufferIn, int packedLightIn) {
+                       IRenderTypeBuffer bufferIn, int packedLightIn) {
         matrixStackIn.pushPose();
         matrixStackIn.translate(0, entityIn.isSitting() && !entityIn.isPartying() ? 0 : entityIn.getAnimationHeight(partialTicks) * 0.08 + 0.3, 0);
         super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);

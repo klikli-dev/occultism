@@ -24,9 +24,7 @@ package com.github.klikli_dev.occultism.handlers;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.job.SpiritJobFactory;
-import com.github.klikli_dev.occultism.common.ritual.Ritual;
 import com.github.klikli_dev.occultism.common.ritual.RitualFactory;
-import com.github.klikli_dev.occultism.common.ritual.pentacle.Pentacle;
 import com.github.klikli_dev.occultism.registry.*;
 import com.github.klikli_dev.occultism.util.loot.AppendLootTable;
 import com.github.klikli_dev.occultism.util.loot.MatchBlockCondition;
@@ -73,11 +71,11 @@ public class RegistryEventHandler {
         // Register BlockItems for blocks without custom items
         OccultismBlocks.BLOCKS.getEntries().stream().map(RegistryObject::get)
                 .filter(block -> OccultismBlocks.BLOCK_DATA_GEN_SETTINGS
-                                         .get(block.getRegistryName()).generateDefaultBlockItem).forEach(block -> {
-            BlockItem blockItem = new BlockItem(block, new Item.Properties().tab(Occultism.ITEM_GROUP));
-            blockItem.setRegistryName(block.getRegistryName());
-            registry.register(blockItem);
-        });
+                        .get(block.getRegistryName()).generateDefaultBlockItem).forEach(block -> {
+                    BlockItem blockItem = new BlockItem(block, new Item.Properties().tab(Occultism.ITEM_GROUP));
+                    blockItem.setRegistryName(block.getRegistryName());
+                    registry.register(blockItem);
+                });
         Occultism.LOGGER.info("Registered BlockItems");
 
         registerSpawnEgg(registry, OccultismEntities.FOLIOT_TYPE.get(), "foliot", 0xaa728d, 0x37222c);

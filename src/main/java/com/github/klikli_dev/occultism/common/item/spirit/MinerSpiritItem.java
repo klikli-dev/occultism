@@ -39,22 +39,20 @@ import java.lang.reflect.Field;
 import java.util.List;
 import java.util.function.Supplier;
 
-import net.minecraft.item.Item.Properties;
-
 public class MinerSpiritItem extends Item {
 
     protected static Field maxDamageField =
             ObfuscationReflectionHelper.findField(Item.class, "maxDamage");
 
     //region Fields
-    private final Supplier<Integer>  maxMiningTime;
+    private final Supplier<Integer> maxMiningTime;
     private final Supplier<Integer> rollsPerOperation;
     private final Supplier<Integer> maxDamage;
     private boolean hasInitializedMaxDamage;
     //endregion Fields
 
     //region Initialization
-    public MinerSpiritItem(Properties properties, Supplier<Integer> maxMiningTime, Supplier<Integer>  rollsPerOperation, Supplier<Integer> maxDamage) {
+    public MinerSpiritItem(Properties properties, Supplier<Integer> maxMiningTime, Supplier<Integer> rollsPerOperation, Supplier<Integer> maxDamage) {
         super(properties);
         this.maxMiningTime = maxMiningTime;
         this.rollsPerOperation = rollsPerOperation;
@@ -66,7 +64,7 @@ public class MinerSpiritItem extends Item {
     //region Overrides
     @Override
     public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip,
-                               ITooltipFlag flagIn) {
+                                ITooltipFlag flagIn) {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
         tooltip.add(new TranslationTextComponent(this.getDescriptionId() + ".tooltip",
                 TextUtil.formatDemonName(ItemNBTUtil.getBoundSpiritName(stack))));
@@ -74,7 +72,7 @@ public class MinerSpiritItem extends Item {
 
     @Override
     public double getDurabilityForDisplay(ItemStack stack) {
-        if(!this.hasInitializedMaxDamage){
+        if (!this.hasInitializedMaxDamage) {
             this.hasInitializedMaxDamage = true;
             try {
                 maxDamageField.setInt(this, this.maxDamage.get());
@@ -88,7 +86,7 @@ public class MinerSpiritItem extends Item {
     @Override
     public void onCraftedBy(ItemStack stack, World worldIn, PlayerEntity playerIn) {
         super.onCraftedBy(stack, worldIn, playerIn);
-        if(!this.hasInitializedMaxDamage){
+        if (!this.hasInitializedMaxDamage) {
             this.hasInitializedMaxDamage = true;
             try {
                 maxDamageField.setInt(this, this.maxDamage.get());

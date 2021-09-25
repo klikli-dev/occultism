@@ -39,11 +39,10 @@ public class NightTimeJob extends ChangeTimeJob {
     //region Overrides
     @Override
     public void changeTime() {
-        if(Occultism.SERVER_CONFIG.rituals.enableNightTimeRitual.get()){
+        if (Occultism.SERVER_CONFIG.rituals.enableNightTimeRitual.get()) {
             ServerWorld world = (ServerWorld) this.entity.level;
             world.setDayTime(13000);
-        }
-        else {
+        } else {
             this.entity.getOwner().sendMessage(new TranslationTextComponent("ritual.occultism.disabled"), Util.NIL_UUID);
         }
     }

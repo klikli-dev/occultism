@@ -33,6 +33,7 @@ import static com.github.klikli_dev.occultism.util.StaticUtil.modLoc;
 
 public class OtherworldBirdRenderer extends MobRenderer<ParrotEntity, ParrotModel> {
     public static final ResourceLocation TEXTURE = modLoc("textures/entity/otherworld_bird.png");
+
     public OtherworldBirdRenderer(EntityRendererManager renderManagerIn) {
         super(renderManagerIn, new ParrotModel(), 0.3F);
     }

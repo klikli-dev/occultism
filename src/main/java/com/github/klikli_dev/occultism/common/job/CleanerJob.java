@@ -79,7 +79,7 @@ public class CleanerJob extends SpiritJob implements INamedContainerProvider {
         ItemStack stack = entity.getItem();
         boolean matches = StorageUtil.matchesFilter(stack,
                 this.entity.getFilterItems().orElseThrow(ItemHandlerMissingException::new)) ||
-                          StorageUtil.matchesFilter(stack, this.entity.getTagFilter());
+                StorageUtil.matchesFilter(stack, this.entity.getTagFilter());
 
         boolean isBlacklist = this.entity.isFilterBlacklist();
         return ((!isBlacklist && matches) || (isBlacklist && !matches));

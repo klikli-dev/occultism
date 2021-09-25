@@ -96,8 +96,7 @@ public class StorageControllerRecipeTransferHandler<T extends Container & IStora
         //if recipe is in recipe manager send by id, otherwise fallback to ingredient list
         if (player.getCommandSenderWorld().getRecipeManager().byKey(recipe.getId()).isPresent()) {
             OccultismPackets.sendToServer(new MessageSetRecipeByID(recipe.getId()));
-        }
-        else {
+        } else {
             OccultismPackets.sendToServer(new MessageSetRecipe(this.recipeToTag(container, recipeLayout)));
         }
 

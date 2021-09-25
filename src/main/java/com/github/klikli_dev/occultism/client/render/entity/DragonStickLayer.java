@@ -3,7 +3,6 @@ package com.github.klikli_dev.occultism.client.render.entity;
 import com.github.klikli_dev.occultism.client.model.entity.DragonFamiliarModel;
 import com.github.klikli_dev.occultism.common.entity.DragonFamiliarEntity;
 import com.mojang.blaze3d.matrix.MatrixStack;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.entity.IEntityRenderer;
@@ -20,8 +19,8 @@ public class DragonStickLayer extends LayerRenderer<DragonFamiliarEntity, Dragon
 
     @Override
     public void render(MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn,
-            DragonFamiliarEntity entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks,
-            float ageInTicks, float netHeadYaw, float headPitch) {
+                       DragonFamiliarEntity entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks,
+                       float ageInTicks, float netHeadYaw, float headPitch) {
         if (!entitylivingbaseIn.hasStick())
             return;
         matrixStackIn.pushPose();

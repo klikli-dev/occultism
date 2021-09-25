@@ -31,10 +31,10 @@ import net.minecraft.data.DirectoryCache;
 import net.minecraft.data.IDataProvider;
 import net.minecraft.data.LootTableProvider;
 import net.minecraft.entity.EntityType;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.loot.LootParameterSets;
 import net.minecraft.loot.LootTable;
 import net.minecraft.loot.LootTableManager;
+import net.minecraft.util.ResourceLocation;
 
 import java.io.IOException;
 import java.nio.file.Path;

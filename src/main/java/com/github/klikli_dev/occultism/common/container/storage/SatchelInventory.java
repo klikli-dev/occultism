@@ -56,8 +56,7 @@ public class SatchelInventory extends Inventory {
     public void writeItemStack() {
         if (this.isEmpty()) {
             this.itemStack.removeTagKey("Items");
-        }
-        else {
+        } else {
             this.writeNBT(this.itemStack.getOrCreateTag());
         }
     }

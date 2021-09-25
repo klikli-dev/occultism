@@ -26,7 +26,6 @@ import com.github.klikli_dev.occultism.common.entity.BatFamiliarEntity;
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
-
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
@@ -156,7 +155,7 @@ public class BatFamiliarModel extends EntityModel<BatFamiliarEntity> {
 
     @Override
     public void renderToBuffer(MatrixStack matrixStackIn, IVertexBuilder bufferIn, int packedLightIn, int packedOverlayIn,
-            float red, float green, float blue, float alpha) {
+                               float red, float green, float blue, float alpha) {
         ImmutableList.of(this.body, this.stick).forEach((modelRenderer) -> {
             modelRenderer.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
         });
@@ -164,7 +163,7 @@ public class BatFamiliarModel extends EntityModel<BatFamiliarEntity> {
 
     @Override
     public void prepareMobModel(BatFamiliarEntity entityIn, float limbSwing, float limbSwingAmount,
-            float partialTick) {
+                                float partialTick) {
 
         if (entityIn.isPartying()) {
             this.stick.visible = false;
@@ -189,7 +188,7 @@ public class BatFamiliarModel extends EntityModel<BatFamiliarEntity> {
 
     @Override
     public void setupAnim(BatFamiliarEntity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks,
-            float netHeadYaw, float headPitch) {
+                          float netHeadYaw, float headPitch) {
 
         if (entityIn.isPartying()) {
             this.head.xRot = MathHelper.sin(ageInTicks / 3) * this.toRads(10);

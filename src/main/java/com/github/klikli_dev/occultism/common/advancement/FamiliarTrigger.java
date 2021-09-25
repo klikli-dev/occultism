@@ -2,7 +2,6 @@ package com.github.klikli_dev.occultism.common.advancement;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.google.gson.JsonObject;
-
 import net.minecraft.advancements.criterion.AbstractCriterionTrigger;
 import net.minecraft.advancements.criterion.CriterionInstance;
 import net.minecraft.advancements.criterion.EntityPredicate;
@@ -16,12 +15,11 @@ import net.minecraft.util.ResourceLocation;
 
 public class FamiliarTrigger extends AbstractCriterionTrigger<FamiliarTrigger.Instance> {
 
-    public enum Type {
-        DEER_POOP, CTHULHU_SAD, BAT_EAT, DEVIL_FIRE, GREEDY_ITEM, RARE_VARIANT, PARTY, CAPTURE, DRAGON_NUGGET,
-        DRAGON_RIDE, DRAGON_PET, DRAGON_FETCH
-    }
-
     private static final ResourceLocation ID = new ResourceLocation(Occultism.MODID, "familiar");
+
+    public static Instance of(Type type) {
+        return new Instance(EntityPredicate.AndPredicate.ANY, type);
+    }
 
     @Override
     public ResourceLocation getId() {
@@ -30,7 +28,7 @@ public class FamiliarTrigger extends AbstractCriterionTrigger<FamiliarTrigger.In
 
     @Override
     protected Instance createInstance(JsonObject json, AndPredicate entityPredicate,
-            ConditionArrayParser conditionsParser) {
+                                      ConditionArrayParser conditionsParser) {
         return new Instance(entityPredicate, Type.valueOf(JSONUtils.getAsString(json, "type")));
     }
 
@@ -43,8 +41,9 @@ public class FamiliarTrigger extends AbstractCriterionTrigger<FamiliarTrigger.In
             this.trigger((ServerPlayerEntity) entity, type);
     }
 
-    public static Instance of(Type type) {
-        return new Instance(EntityPredicate.AndPredicate.ANY, type);
+    public enum Type {
+        DEER_POOP, CTHULHU_SAD, BAT_EAT, DEVIL_FIRE, GREEDY_ITEM, RARE_VARIANT, PARTY, CAPTURE, DRAGON_NUGGET,
+        DRAGON_RIDE, DRAGON_PET, DRAGON_FETCH
     }
 
     public static class Instance extends CriterionInstance {

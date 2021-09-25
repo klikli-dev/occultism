@@ -45,8 +45,6 @@ import net.minecraftforge.items.ItemHandlerHelper;
 
 import javax.annotation.Nullable;
 
-import net.minecraft.block.AbstractBlock.Properties;
-
 public class SacrificialBowlBlock extends Block {
     //region Fields
     private static final VoxelShape SHAPE = Block.box(4, 0, 4, 12, 2.3, 12);
@@ -67,7 +65,7 @@ public class SacrificialBowlBlock extends Block {
     public void onRemove(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
         if (state.getBlock() != newState.getBlock()) {
             TileEntity tile = worldIn.getBlockEntity(pos);
-            if(tile != null){
+            if (tile != null) {
                 StorageUtil.dropInventoryItems(tile);
             }
             super.onRemove(state, worldIn, pos, newState, isMoving);
@@ -76,7 +74,7 @@ public class SacrificialBowlBlock extends Block {
 
     @Override
     public ActionResultType use(BlockState state, World world, BlockPos pos, PlayerEntity player,
-                                             Hand hand, BlockRayTraceResult hit) {
+                                Hand hand, BlockRayTraceResult hit) {
         if (!world.isClientSide) {
             ItemStack heldItem = player.getItemInHand(hand);
             SacrificialBowlTileEntity bowl = (SacrificialBowlTileEntity) world.getBlockEntity(pos);
@@ -87,14 +85,12 @@ public class SacrificialBowlBlock extends Block {
                         //if there is nothing in the bowl, put the hand held item in
                         player.setItemInHand(hand, handler.insertItem(0, heldItem, false));
                         world.playSound(null, pos, SoundEvents.ITEM_FRAME_ADD_ITEM, SoundCategory.BLOCKS, 1, 1);
-                    }
-                    else {
+                    } else {
                         //otherwise take out the item.
                         if (heldItem.isEmpty()) {
                             //place it in the hand if possible
                             player.setItemInHand(hand, handler.extractItem(0, 64, false));
-                        }
-                        else {
+                        } else {
                             //and if not, just put it in the inventory
                             ItemHandlerHelper.giveItemToPlayer(player, handler.extractItem(0, 64, false));
                         }

@@ -75,7 +75,7 @@ public class EntityUtil {
      * @return Optional containing the entity.
      */
     public static Optional<? extends Entity> getEntityByUuiDGlobal(MinecraftServer server, UUID uuid) {
-        if (uuid != null && server!= null) {
+        if (uuid != null && server != null) {
             for (ServerWorld world : server.getAllLevels()) {
                 Entity entity = world.getEntity(uuid);
                 if (entity != null)

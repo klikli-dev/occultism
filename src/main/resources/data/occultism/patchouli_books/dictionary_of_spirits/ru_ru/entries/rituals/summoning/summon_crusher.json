@@ -6,11 +6,13 @@
   "pages": [
     {
       "type": "text",
-      "text": "Дробитель - это дух, призванный измельчать руду в пыль, эффективно удваивая производство металла. Он подберет подходящую руду и сбросит образовавшуюся пыль в мир. Эффект пурпурных частиц и звук дробления указывают на то, что дробилтель работает."
+      "text": "Дробитель - это дух, призванный измельчать руду в пыль, эффективно удваивая производство металла. Он подберет подходящую руду и сбросит образовавшуюся пыль в мир. Эффект пурпурных частиц и звук дробления указывают на то, что дробилтель работает.",
+
     },
     {
       "type": "text",
-      "text": " To ease automation, try summoning a $(l:rituals/summoning/summon_transport_items)Transporter Spirit$(/l) to place items from chests in the crusher's inventory, and a $(l:rituals/summoning/summon_cleaner)Janitor Spirit$(/l) to collect the processed items."
+      "text": " To ease automation, try summoning a $(l:rituals/summoning/summon_transport_items)Transporter Spirit$(/l) to place items from chests in the crusher's inventory, and a $(l:rituals/summoning/summon_cleaner)Janitor Spirit$(/l) to collect the processed items.",
+
     },
     {
       "type": "text",

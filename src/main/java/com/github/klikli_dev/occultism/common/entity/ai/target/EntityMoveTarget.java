@@ -23,21 +23,19 @@
 package com.github.klikli_dev.occultism.common.entity.ai.target;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class EntityMoveTarget implements IMoveTarget{
+public class EntityMoveTarget implements IMoveTarget {
 
     public Entity target;
 
-    public EntityMoveTarget(Entity target){
+    public EntityMoveTarget(Entity target) {
         this.target = target;
     }
 

@@ -38,6 +38,6 @@ public class StableWormholeBlockItemPropertyGetter implements IItemPropertyGette
     @Override
     public float call(ItemStack stack, @Nullable ClientWorld worldIn, @Nullable LivingEntity entityIn) {
         return stack.getOrCreateTag().getCompound("BlockEntityTag")
-                       .contains("linkedStorageControllerPosition") ? 1.0f : 0.0f;
+                .contains("linkedStorageControllerPosition") ? 1.0f : 0.0f;
     }
 }

@@ -23,7 +23,6 @@
 package com.github.klikli_dev.occultism.datagen;
 
 import com.github.klikli_dev.occultism.Occultism;
-
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.common.data.LanguageProvider;
 
@@ -36,10 +35,10 @@ public class ENUSProvider extends LanguageProvider {
     @Override
     protected void addTranslations() {
         this.addAdvancements();
-        
+
 
     }
-    
+
     private void addAdvancements() {
         this.advancementTitle("root", "Occultism: Friends");
         this.advancementDescr("root", "Use a ritual to summon a familiar");
@@ -78,7 +77,7 @@ public class ENUSProvider extends LanguageProvider {
     private void advancementTitle(String name, String s) {
         this.add(OccultismAdvancementProvider.title(name).getKey(), s);
     }
-    
+
     private void advancementDescr(String name, String s) {
         this.add(OccultismAdvancementProvider.descr(name).getKey(), s);
 

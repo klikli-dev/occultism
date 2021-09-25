@@ -26,7 +26,6 @@ import com.github.klikli_dev.occultism.common.entity.DevilFamiliarEntity;
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
-
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.util.math.MathHelper;
@@ -35,9 +34,9 @@ import net.minecraft.util.math.MathHelper;
  * Created using Tabula 8.0.0
  */
 public class DevilFamiliarModel extends EntityModel<DevilFamiliarEntity> {
-    
+
     private static final float PI = (float) Math.PI;
-    
+
     public ModelRenderer egg;
     public ModelRenderer body;
     public ModelRenderer leftLeg;
@@ -222,7 +221,7 @@ public class DevilFamiliarModel extends EntityModel<DevilFamiliarEntity> {
 
     @Override
     public void renderToBuffer(MatrixStack matrixStackIn, IVertexBuilder bufferIn, int packedLightIn, int packedOverlayIn,
-            float red, float green, float blue, float alpha) {
+                               float red, float green, float blue, float alpha) {
         ImmutableList.of(this.egg).forEach((modelRenderer) -> {
             modelRenderer.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
         });
@@ -230,13 +229,13 @@ public class DevilFamiliarModel extends EntityModel<DevilFamiliarEntity> {
 
     @Override
     public void setupAnim(DevilFamiliarEntity entityIn, float limbSwing, float limbSwingAmount,
-            float ageInTicks, float netHeadYaw, float headPitch) {
+                          float ageInTicks, float netHeadYaw, float headPitch) {
         this.showModels(entityIn);
         this.head.yRot = netHeadYaw * (PI / 180f) * 0.7f;
         this.head.xRot = 0.03f + headPitch * (PI / 180f) * 0.7f;
         this.egg.yRot = 0;
         this.egg.zRot = 0;
-        
+
         if (ageInTicks % 300 < 60) {
             float progress = ageInTicks % 300 % 60;
             float armHeight = MathHelper.sin(progress * PI / 60) * 0.4f;
@@ -246,7 +245,7 @@ public class DevilFamiliarModel extends EntityModel<DevilFamiliarEntity> {
             this.leftArm.xRot = 0.35f;
             this.rightArm.xRot = 0.35f;
         }
-        
+
         if (entityIn.isPartying()) {
             this.egg.yRot = ageInTicks / 4;
             this.egg.zRot = MathHelper.cos(ageInTicks / 4) * this.toRads(10);
@@ -265,7 +264,7 @@ public class DevilFamiliarModel extends EntityModel<DevilFamiliarEntity> {
 
     @Override
     public void prepareMobModel(DevilFamiliarEntity entityIn, float limbSwing, float limbSwingAmount,
-            float partialTick) {
+                                float partialTick) {
         float animationHeight = entityIn.getAnimationHeight(partialTick);
         this.leftWing.yRot = animationHeight * this.toRads(20) - 0.43f;
         this.rightWing.yRot = -animationHeight * this.toRads(20) + 0.43f;
@@ -275,7 +274,7 @@ public class DevilFamiliarModel extends EntityModel<DevilFamiliarEntity> {
             this.rightWing.yRot = 0.43f;
         }
     }
-    
+
     private float toRads(float deg) {
         return PI / 180f * deg;
     }

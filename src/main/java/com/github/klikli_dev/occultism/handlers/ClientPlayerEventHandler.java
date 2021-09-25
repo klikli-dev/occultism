@@ -38,11 +38,11 @@ import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-import static org.lwjgl.glfw.GLFW.GLFW_PRESS;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+
+import static org.lwjgl.glfw.GLFW.GLFW_PRESS;
 
 @Mod.EventBusSubscriber(modid = Occultism.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
 public class ClientPlayerEventHandler {
@@ -109,7 +109,7 @@ public class ClientPlayerEventHandler {
         if (minecraft.player != null & minecraft.screen == null) {
             boolean familiarKeyPressed = false;
             Map<EntityType<?>, Boolean> familiarsPressed = new HashMap<>();
-            
+
             for (Entry<EntityType<?>, KeyBinding> entry : ClientSetupEventHandler.keysFamiliars.entrySet()) {
                 boolean isPressed = entry.getValue().consumeClick();
                 if (isPressed)

@@ -40,8 +40,6 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
-import net.minecraft.item.Item.Properties;
-
 public class DebugWandItem extends Item {
 
     //region Initialization
@@ -92,7 +90,7 @@ public class DebugWandItem extends Item {
 
     @Override
     public ActionResultType interactLivingEntity(ItemStack stack, PlayerEntity player, LivingEntity target,
-                                            Hand hand) {
+                                                 Hand hand) {
 
 
         return ActionResultType.SUCCESS;

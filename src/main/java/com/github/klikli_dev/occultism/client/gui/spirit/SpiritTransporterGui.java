@@ -128,7 +128,7 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
         this.tagFilterTextField.setTextColor(Color.WHITE.getRGB());
         this.tagFilterTextField.setFocus(false);
 
-        if (!StringUtils.isBlank(this.getTagFilterText())){
+        if (!StringUtils.isBlank(this.getTagFilterText())) {
             this.tagFilterTextField.setValue(this.getTagFilterText());
         }
     }
@@ -154,8 +154,8 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
         if (this.filterModeButton.isHovered()) {
             this.tooltip.add(new TranslationTextComponent(TRANSLATION_KEY_BASE + ".filter_mode"));
             this.tooltip.add(new TranslationTextComponent(TRANSLATION_KEY_BASE + ".filter_mode."
-                                                          + (this.isBlacklist() ? "blacklist" : "whitelist"))
-                                     .withStyle(TextFormatting.GRAY));
+                    + (this.isBlacklist() ? "blacklist" : "whitelist"))
+                    .withStyle(TextFormatting.GRAY));
         }
 
         //can't use isHovered here, as it also checks for focus
@@ -186,7 +186,7 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
             }
         }
 
-        if (this.tagFilterTextField.mouseClicked(mouseX, mouseY, mouseButton)){
+        if (this.tagFilterTextField.mouseClicked(mouseX, mouseY, mouseButton)) {
             return true;
         }
         return super.mouseClicked(mouseX, mouseY, mouseButton);
@@ -195,7 +195,7 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
         if (this.tagFilterTextField.isFocused() &&
-            this.tagFilterTextField.keyPressed(keyCode, scanCode, modifiers)) {
+                this.tagFilterTextField.keyPressed(keyCode, scanCode, modifiers)) {
             return true;
         }
 

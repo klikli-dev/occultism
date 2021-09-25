@@ -22,18 +22,10 @@
 
 package com.github.klikli_dev.occultism.common.entity;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.github.klikli_dev.occultism.common.advancement.FamiliarTrigger;
 import com.github.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.google.common.collect.ImmutableList;
-
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ILivingEntityData;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.FollowMobGoal;
@@ -55,6 +47,9 @@ import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DevilFamiliarEntity extends FamiliarEntity {
 
@@ -78,7 +73,7 @@ public class DevilFamiliarEntity extends FamiliarEntity {
 
     @Override
     public ILivingEntityData finalizeSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason,
-            ILivingEntityData spawnDataIn, CompoundNBT dataTag) {
+                                           ILivingEntityData spawnDataIn, CompoundNBT dataTag) {
         this.setLollipop(this.getRandom().nextDouble() < 0.1);
         this.setNose(this.getRandom().nextDouble() < 0.5);
         this.setEars(this.getRandom().nextDouble() < 0.5);
@@ -94,7 +89,7 @@ public class DevilFamiliarEntity extends FamiliarEntity {
         this.goalSelector.addGoal(5, new RandomWalkingGoal(this, 1.0D));
         this.goalSelector.addGoal(6, new FollowMobGoal(this, 1, 3, 7));
     }
-    
+
     @Override
     public void setFamiliarOwner(LivingEntity owner) {
         if (this.hasLollipop())
@@ -171,7 +166,7 @@ public class DevilFamiliarEntity extends FamiliarEntity {
     @Override
     public Iterable<EffectInstance> getFamiliarEffects() {
         if (this.isEffectEnabled()) {
-                return ImmutableList.of(new EffectInstance(Effects.FIRE_RESISTANCE, 300, 0, false, false));
+            return ImmutableList.of(new EffectInstance(Effects.FIRE_RESISTANCE, 300, 0, false, false));
         }
         return ImmutableList.of();
     }

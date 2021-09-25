@@ -36,8 +36,6 @@ import net.minecraft.world.World;
 
 import java.util.stream.Stream;
 
-import net.minecraft.block.AbstractBlock.Properties;
-
 public class SpiritAttunedCrystalBlock extends Block {
     //region Fields
     private static final VoxelShape SHAPE = Stream.of(
@@ -46,7 +44,9 @@ public class SpiritAttunedCrystalBlock extends Block {
             Block.box(8, 0, 4, 11, 2, 7),
             Block.box(4, 0, 5, 7, 6, 8),
             Block.box(6, 0, 6, 10, 12, 10)
-    ).reduce((v1, v2) -> {return VoxelShapes.join(v1, v2, IBooleanFunction.OR);}).get();
+    ).reduce((v1, v2) -> {
+        return VoxelShapes.join(v1, v2, IBooleanFunction.OR);
+    }).get();
     //endregion Fields
 
     //region Initialization
@@ -61,6 +61,7 @@ public class SpiritAttunedCrystalBlock extends Block {
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
         return SHAPE;
     }
+
     @Override
     public void neighborChanged(BlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos,
                                 boolean isMoving) {

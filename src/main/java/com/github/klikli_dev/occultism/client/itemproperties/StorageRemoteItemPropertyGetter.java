@@ -38,6 +38,6 @@ public class StorageRemoteItemPropertyGetter implements IItemPropertyGetter {
     @Override
     public float call(ItemStack stack, @Nullable ClientWorld worldIn, @Nullable LivingEntity entityIn) {
         return stack.getOrCreateTag()
-                       .contains("linkedStorageController") ? 1.0f : 0.0f;
+                .contains("linkedStorageController") ? 1.0f : 0.0f;
     }
 }

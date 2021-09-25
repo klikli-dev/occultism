@@ -27,9 +27,6 @@ import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.util.math.MathHelper;
 
-
-import net.minecraft.client.renderer.entity.model.BipedModel.ArmPose;
-
 public class DjinniModel extends BipedModel<DjinniEntity> {
     //region Fields
     private final ModelRenderer leftHorn;
@@ -157,7 +154,7 @@ public class DjinniModel extends BipedModel<DjinniEntity> {
 
     //region Methods
     public void setupAnim(DjinniEntity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks,
-                                  float netHeadYaw, float headPitch) {
+                          float netHeadYaw, float headPitch) {
 
         super.setupAnim(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
 
