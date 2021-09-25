@@ -36,28 +36,27 @@ import net.minecraft.world.phys.BlockHitResult;
 import java.util.function.Supplier;
 
 public class ReplantableCropsBlock extends CropBlock implements IReplantableCrops {
-    //region Fields
     protected Supplier<Item> seed;
     protected Supplier<Item> crops;
-    //endregion Fields
 
-    //region Initialization
     public ReplantableCropsBlock(Properties builder, Supplier<Item> seed, Supplier<Item> crops) {
         super(builder);
         this.seed = seed;
         this.crops = crops;
     }
-    //endregion Initialization
 
-    //region Getter / Setter
+    @Override
     public ItemLike getCropsItem() {
         return this.crops.get();
     }
-    //endregion Getter / Setter
 
-    //region Overrides
     @Override
     public ItemLike getSeedsItem() {
+        return this.seed.get();
+    }
+
+    @Override
+    protected ItemLike getBaseSeedId() {
         return this.seed.get();
     }
 
@@ -66,6 +65,4 @@ public class ReplantableCropsBlock extends CropBlock implements IReplantableCrop
                                  InteractionHand handIn, BlockHitResult hit) {
         return IReplantableCrops.super.onHarvest(state, worldIn, pos, player, handIn);
     }
-
-    //endregion Overrides
 }
