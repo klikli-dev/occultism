@@ -46,12 +46,14 @@ import vazkii.patchouli.common.book.BookRegistry;
 import java.lang.reflect.Field;
 import java.util.List;
 
+import net.minecraft.item.Item.Properties;
+
 public class GuideBookItem extends Item {
 
     //region Fields
     public static final ResourceLocation GUIDE = new ResourceLocation(Occultism.MODID, "dictionary_of_spirits");
     protected static Field containerItemField =
-            ObfuscationReflectionHelper.findField(Item.class, "field_77700_c");
+            ObfuscationReflectionHelper.findField(Item.class, "craftingRemainingItem");
     //endregion Fields
 
     //region Initialization
@@ -72,27 +74,27 @@ public class GuideBookItem extends Item {
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
-        if (!worldIn.isRemote) {
+    public ActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand handIn) {
+        if (!worldIn.isClientSide) {
             PatchouliAPI.instance.openBookGUI((ServerPlayerEntity) playerIn, GUIDE);
         }
-        return new ActionResult<>(ActionResultType.SUCCESS, playerIn.getHeldItem(handIn));
+        return new ActionResult<>(ActionResultType.SUCCESS, playerIn.getItemInHand(handIn));
     }
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public void addInformation(ItemStack stack, World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-        super.addInformation(stack, worldIn, tooltip, flagIn);
+    public void appendHoverText(ItemStack stack, World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+        super.appendHoverText(stack, worldIn, tooltip, flagIn);
         Book book = BookRegistry.INSTANCE.books.get(GUIDE);
         if (book != null && book.contents != null) {
-            tooltip.add(book.contents.book.getSubtitle().mergeStyle(TextFormatting.GRAY));
+            tooltip.add(book.contents.book.getSubtitle().withStyle(TextFormatting.GRAY));
         }
 
     }
 
     @Override
-    public ITextComponent getDisplayName(ItemStack stack) {
+    public ITextComponent getName(ItemStack stack) {
         Book book = BookRegistry.INSTANCE.books.get(GUIDE);
-        return book != null ? new TranslationTextComponent(book.name, new Object[0]) : super.getDisplayName(stack);
+        return book != null ? new TranslationTextComponent(book.name, new Object[0]) : super.getName(stack);
     }
 }

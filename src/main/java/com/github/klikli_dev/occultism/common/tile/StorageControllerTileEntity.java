@@ -124,7 +124,7 @@ public class StorageControllerTileEntity extends NetworkedTileEntity implements 
     @Override
     public GlobalBlockPos getLinkedStorageControllerPosition() {
         if (this.globalPos == null)
-            this.globalPos = new GlobalBlockPos(this.getPos(), this.world);
+            this.globalPos = new GlobalBlockPos(this.getBlockPos(), this.level);
         return this.globalPos;
     }
 
@@ -233,7 +233,7 @@ public class StorageControllerTileEntity extends NetworkedTileEntity implements 
         if (!stack.isEmpty()) {
             UUID spiritUUID = this.depositOrderSpirits.get(linkedMachinePosition);
             if (spiritUUID != null) {
-                EntityUtil.getEntityByUuiDGlobal(this.world.getServer(),
+                EntityUtil.getEntityByUuiDGlobal(this.level.getServer(),
                         spiritUUID).filter(SpiritEntity.class::isInstance).map(SpiritEntity.class::cast)
                         .ifPresent(spirit -> {
                             Optional<ManageMachineJob> job = spirit.getJob().filter(ManageMachineJob.class::isInstance)
@@ -363,7 +363,7 @@ public class StorageControllerTileEntity extends NetworkedTileEntity implements 
     @Override
     public void onContentsChanged() {
         this.cachedMessageUpdateStacks = null;
-        this.markDirty();
+        this.setChanged();
     }
 
     @Override
@@ -383,7 +383,7 @@ public class StorageControllerTileEntity extends NetworkedTileEntity implements 
 
     @Override
     public void tick() {
-        if (!this.world.isRemote) {
+        if (!this.level.isClientSide) {
             if (!this.stabilizersInitialized) {
                 this.stabilizersInitialized = true;
                 this.updateStabilizers();
@@ -392,9 +392,9 @@ public class StorageControllerTileEntity extends NetworkedTileEntity implements 
     }
 
     @Override
-    public void read(BlockState state, CompoundNBT compound) {
+    public void load(BlockState state, CompoundNBT compound) {
         compound.remove("linkedMachines"); //linked machines are not saved, they self-register.
-        super.read(state, compound);
+        super.load(state, compound);
 
         //read stored items
         if (compound.contains("items")) {
@@ -404,8 +404,8 @@ public class StorageControllerTileEntity extends NetworkedTileEntity implements 
     }
 
     @Override
-    public CompoundNBT write(CompoundNBT compound) {
-        super.write(compound);
+    public CompoundNBT save(CompoundNBT compound) {
+        super.save(compound);
         compound.remove("linkedMachines"); //linked machines are not saved, they self-register.
         this.itemStackHandler.ifPresent(handler -> {
             compound.put("items", handler.serializeNBT());
@@ -429,13 +429,13 @@ public class StorageControllerTileEntity extends NetworkedTileEntity implements 
             for (int i = 0; i < matrixNbt.size(); i++) {
                 CompoundNBT stackTag = matrixNbt.getCompound(i);
                 int slot = stackTag.getByte("slot");
-                ItemStack s = ItemStack.read(stackTag);
+                ItemStack s = ItemStack.of(stackTag);
                 this.matrix.put(slot, s);
             }
         }
 
         if (compound.contains("orderStack"))
-            this.orderStack = ItemStack.read(compound.getCompound("orderStack"));
+            this.orderStack = ItemStack.of(compound.getCompound("orderStack"));
 
         //read the linked machines
         this.linkedMachines = new HashMap<>();
@@ -460,14 +460,14 @@ public class StorageControllerTileEntity extends NetworkedTileEntity implements 
             if (this.matrix.get(i) != null && !this.matrix.get(i).isEmpty()) {
                 CompoundNBT stackTag = new CompoundNBT();
                 stackTag.putByte("slot", (byte) i);
-                this.matrix.get(i).write(stackTag);
+                this.matrix.get(i).save(stackTag);
                 matrixNbt.add(stackTag);
             }
         }
         compound.put("matrix", matrixNbt);
 
         if (!this.orderStack.isEmpty())
-            compound.put("orderStack", this.orderStack.write(new CompoundNBT()));
+            compound.put("orderStack", this.orderStack.save(new CompoundNBT()));
 
         //write linked machines
         ListNBT machinesNbt = new ListNBT();
@@ -491,7 +491,7 @@ public class StorageControllerTileEntity extends NetworkedTileEntity implements 
         int additionalSlots = 0;
         List<BlockPos> stabilizerLocations = this.findValidStabilizers();
         for (BlockPos pos : stabilizerLocations) {
-            additionalSlots += this.getSlotsForStabilizer(this.world.getBlockState(pos));
+            additionalSlots += this.getSlotsForStabilizer(this.level.getBlockState(pos));
         }
 
         this.setMaxSlots(Occultism.SERVER_CONFIG.storage.controllerBaseSlots.get() + additionalSlots);
@@ -500,16 +500,16 @@ public class StorageControllerTileEntity extends NetworkedTileEntity implements 
     public List<BlockPos> findValidStabilizers() {
         ArrayList<BlockPos> validStabilizers = new ArrayList<>();
 
-        BlockPos up = this.pos.up();
+        BlockPos up = this.worldPosition.above();
         for (Direction face : Direction.values()) {
             BlockPos hit = Math3DUtil.simpleTrace(up, face, MAX_STABILIZER_DISTANCE, (pos) -> {
-                BlockState state = this.world.getBlockState(pos);
+                BlockState state = this.level.getBlockState(pos);
                 return state.getBlock() instanceof StorageStabilizerBlock;
             });
 
             if (hit != null) {
-                BlockState state = this.world.getBlockState(hit);
-                if (state.get(DirectionalBlock.FACING) == face.getOpposite()) {
+                BlockState state = this.level.getBlockState(hit);
+                if (state.getValue(DirectionalBlock.FACING) == face.getOpposite()) {
                     validStabilizers.add(hit);
                 }
             }
@@ -547,7 +547,7 @@ public class StorageControllerTileEntity extends NetworkedTileEntity implements 
 
     protected void validateLinkedMachines() {
         // remove all entries that lead to invalid tile entities.
-        this.linkedMachines.entrySet().removeIf(entry -> entry.getValue().getTileEntity(this.world) == null);
+        this.linkedMachines.entrySet().removeIf(entry -> entry.getValue().getTileEntity(this.level) == null);
     }
     //endregion Methods
 

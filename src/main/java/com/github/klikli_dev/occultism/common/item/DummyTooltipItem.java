@@ -44,6 +44,8 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.LazyOptional;
 
+import net.minecraft.item.Item.Properties;
+
 /**
  * Item class to represent rituals as items with tooltip - enables JEI search for rituals
  */
@@ -59,7 +61,7 @@ public class DummyTooltipItem extends Item {
     public void performRitual(World world, BlockPos pos, GoldenSacrificialBowlTileEntity tileEntity,
             PlayerEntity player, ItemStack activationItem) {
 
-        Optional<RitualRecipe> ritualRecipe = world.getRecipeManager().getRecipesForType(OccultismRecipes.RITUAL_TYPE.get())
+        Optional<RitualRecipe> ritualRecipe = world.getRecipeManager().getAllRecipesFor(OccultismRecipes.RITUAL_TYPE.get())
                 .stream().filter(r -> r.getRitualDummy().getItem() == this).findFirst();
 
         ritualRecipe.ifPresent(r -> r.getRitual().finish(world, pos, tileEntity, player, activationItem));
@@ -67,9 +69,9 @@ public class DummyTooltipItem extends Item {
 
     //region Overrides
     @Override
-    public void addInformation(ItemStack stack, World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-        super.addInformation(stack, worldIn, tooltip, flagIn);
-        tooltip.add(new TranslationTextComponent(stack.getTranslationKey() + ".tooltip"));
+    public void appendHoverText(ItemStack stack, World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+        super.appendHoverText(stack, worldIn, tooltip, flagIn);
+        tooltip.add(new TranslationTextComponent(stack.getDescriptionId() + ".tooltip"));
     }
     //endregion Overrides
 }

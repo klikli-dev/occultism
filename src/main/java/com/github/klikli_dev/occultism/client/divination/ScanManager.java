@@ -50,7 +50,7 @@ public class ScanManager {
         this.cancelScan();
 
         this.scanner = new Scanner(target);
-        this.scanner.initialize(player, player.getPositionVec(), SCAN_RADIUS_BLOCKS, SCAN_DURATION_TICKS);
+        this.scanner.initialize(player, player.position(), SCAN_RADIUS_BLOCKS, SCAN_DURATION_TICKS);
     }
 
     public void updateScan(PlayerEntity player, boolean forceFinish) {
@@ -77,9 +77,9 @@ public class ScanManager {
     public BlockPos finishScan(PlayerEntity player) {
         this.updateScan(player, true);
 
-        Vector3d scanCenter = player.getPositionVec();
+        Vector3d scanCenter = player.position();
         this.results
-                .sort(Comparator.comparing(result -> scanCenter.squareDistanceTo(Math3DUtil.center(result))));
+                .sort(Comparator.comparing(result -> scanCenter.distanceToSqr(Math3DUtil.center(result))));
         BlockPos result = !this.results.isEmpty() ? this.results.get(0) : null;
         this.cancelScan();
         return result;

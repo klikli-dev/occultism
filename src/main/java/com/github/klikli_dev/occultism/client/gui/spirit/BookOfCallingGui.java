@@ -110,7 +110,7 @@ public class BookOfCallingGui extends Screen {
         this.addButton(
                 new ExtendedButton(guiLeft - exitButtonWidth / 2, guiTop + (showSize ? 110 : 85), exitButtonWidth, 20,
                         new StringTextComponent("X"), (b) -> {
-                    this.minecraft.displayGuiScreen(null);
+                    this.minecraft.setScreen(null);
                     this.init();
                 }));
     }

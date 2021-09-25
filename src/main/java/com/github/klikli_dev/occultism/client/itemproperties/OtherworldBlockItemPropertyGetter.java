@@ -39,7 +39,7 @@ public class OtherworldBlockItemPropertyGetter implements IItemPropertyGetter {
     @OnlyIn(Dist.CLIENT)
     @Override
     public float call(ItemStack stack, @Nullable ClientWorld worldIn, @Nullable LivingEntity entityIn) {
-        boolean thirdEye = Minecraft.getInstance().player.isPotionActive(OccultismEffects.THIRD_EYE.get());
+        boolean thirdEye = Minecraft.getInstance().player.hasEffect(OccultismEffects.THIRD_EYE.get());
         return stack.getOrCreateTag().getBoolean("isInventoryItem") || thirdEye ? 1.0f : 0.0f;
     }
 }

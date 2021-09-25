@@ -54,7 +54,7 @@ public class StableWormholeContainer extends StorageControllerContainerBase {
         this.stableWormhole = stableWormhole;
         this.storageController = (StorageControllerTileEntity) stableWormhole.getLinkedStorageController();
         this.matrix = new StorageControllerCraftingInventory(this, stableWormhole.getMatrix());
-        this.orderInventory.setInventorySlotContents(0, this.stableWormhole.getOrderStack());
+        this.orderInventory.setItem(0, this.stableWormhole.getOrderStack());
 
         this.setupCraftingOutput(); //output is slot 0
 
@@ -63,7 +63,7 @@ public class StableWormholeContainer extends StorageControllerContainerBase {
         this.setupPlayerInventorySlots();
         this.setupPlayerHotbar();
 
-        this.onCraftMatrixChanged(this.matrix);
+        this.slotsChanged(this.matrix);
     }
     //endregion Initialization
 
@@ -100,7 +100,7 @@ public class StableWormholeContainer extends StorageControllerContainerBase {
     @Override
     public void updateCraftingSlots(boolean force) {
         for (int i = 0; i < 9; i++) {
-            this.stableWormhole.getMatrix().put(i, this.matrix.getStackInSlot(i));
+            this.stableWormhole.getMatrix().put(i, this.matrix.getItem(i));
         }
         if (force)
             this.stableWormhole.markNetworkDirty();
@@ -108,30 +108,30 @@ public class StableWormholeContainer extends StorageControllerContainerBase {
 
     @Override
     public void updateOrderSlot(boolean force) {
-        this.stableWormhole.setOrderStack(this.orderInventory.getStackInSlot(0));
+        this.stableWormhole.setOrderStack(this.orderInventory.getItem(0));
         if (force)
             this.stableWormhole.markNetworkDirty();
     }
 
     @Override
-    public boolean canMergeSlot(ItemStack stack, Slot slot) {
-        return slot.inventory != this.result && super.canMergeSlot(stack, slot);
+    public boolean canTakeItemForPickAll(ItemStack stack, Slot slot) {
+        return slot.container != this.result && super.canTakeItemForPickAll(stack, slot);
     }
 
 
     @Override
-    public boolean canInteractWith(PlayerEntity player) {
+    public boolean stillValid(PlayerEntity player) {
         if (this.storageController == null || this.stableWormhole == null)
             return false;
-        World world = this.stableWormhole.getWorld();
+        World world = this.stableWormhole.getLevel();
         //send stack updates on a slow tick while interacting
-        if (!world.isRemote && world.getGameTime() % 40 == 0) {
+        if (!world.isClientSide && world.getGameTime() % 40 == 0) {
             OccultismPackets.sendTo((ServerPlayerEntity) player, this.storageController.getMessageUpdateStacks());
             OccultismPackets.sendTo((ServerPlayerEntity) player,
                     new MessageUpdateLinkedMachines(this.storageController.getLinkedMachines()));
         }
-        BlockPos wormholePosition = this.stableWormhole.getPos();
-        return player.getDistanceSq(wormholePosition.getX() + 0.5D, wormholePosition.getY() + 0.5D,
+        BlockPos wormholePosition = this.stableWormhole.getBlockPos();
+        return player.distanceToSqr(wormholePosition.getX() + 0.5D, wormholePosition.getY() + 0.5D,
                 wormholePosition.getZ() + 0.5D) <= 64.0D;
     }
     //endregion Overrides

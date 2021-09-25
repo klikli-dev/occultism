@@ -64,28 +64,28 @@ public class MinerRecipe implements IRecipe<RecipeWrapper> {
     //region Overrides
     @Override
     public boolean matches(RecipeWrapper inv, World world) {
-        return this.input.test(inv.getStackInSlot(0));
+        return this.input.test(inv.getItem(0));
     }
 
     @Override
-    public ItemStack getCraftingResult(RecipeWrapper inv) {
-        return this.getRecipeOutput().copy();
+    public ItemStack assemble(RecipeWrapper inv) {
+        return this.getResultItem().copy();
     }
 
     @Override
-    public boolean canFit(int width, int height) {
+    public boolean canCraftInDimensions(int width, int height) {
         //we only ever use one slot, and we only support miners, so return true.
         return true;
     }
 
     @Override
-    public ItemStack getRecipeOutput() {
+    public ItemStack getResultItem() {
         return this.output.getStack();
     }
 
     @Override
     public NonNullList<Ingredient> getIngredients() {
-        return NonNullList.from(Ingredient.EMPTY, this.input);
+        return NonNullList.of(Ingredient.EMPTY, this.input);
     }
 
     @Override
@@ -109,31 +109,31 @@ public class MinerRecipe implements IRecipe<RecipeWrapper> {
 
         //region Overrides
         @Override
-        public MinerRecipe read(ResourceLocation recipeId, JsonObject json) {
-            JsonElement ingredientElement = JSONUtils.isJsonArray(json, "ingredient") ? JSONUtils.getJsonArray(json,
-                    "ingredient") : JSONUtils.getJsonObject(json, "ingredient");
-            Ingredient ingredient = Ingredient.deserialize(ingredientElement);
-            JsonElement resultElement = JSONUtils.getJsonObject(json, "result");
-            Ingredient result = Ingredient.deserialize(resultElement);
-            int weight = JSONUtils.getInt(json, "weight");
+        public MinerRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
+            JsonElement ingredientElement = JSONUtils.isArrayNode(json, "ingredient") ? JSONUtils.getAsJsonArray(json,
+                    "ingredient") : JSONUtils.getAsJsonObject(json, "ingredient");
+            Ingredient ingredient = Ingredient.fromJson(ingredientElement);
+            JsonElement resultElement = JSONUtils.getAsJsonObject(json, "result");
+            Ingredient result = Ingredient.fromJson(resultElement);
+            int weight = JSONUtils.getAsInt(json, "weight");
 
             return new MinerRecipe(recipeId, ingredient, new WeightedIngredient(result, weight));
         }
 
         @Override
-        public MinerRecipe read(ResourceLocation recipeId, PacketBuffer buffer) {
-            Ingredient ingredient = Ingredient.read(buffer);
-            Ingredient result = Ingredient.read(buffer);
+        public MinerRecipe fromNetwork(ResourceLocation recipeId, PacketBuffer buffer) {
+            Ingredient ingredient = Ingredient.fromNetwork(buffer);
+            Ingredient result = Ingredient.fromNetwork(buffer);
             int weight = buffer.readInt();
 
             return new MinerRecipe(recipeId, ingredient, new WeightedIngredient(result, weight));
         }
 
         @Override
-        public void write(PacketBuffer buffer, MinerRecipe recipe) {
-            recipe.input.write(buffer);
-            recipe.output.getIngredient().write(buffer);
-            buffer.writeInt(recipe.output.itemWeight);
+        public void toNetwork(PacketBuffer buffer, MinerRecipe recipe) {
+            recipe.input.toNetwork(buffer);
+            recipe.output.getIngredient().toNetwork(buffer);
+            buffer.writeInt(recipe.output.weight);
         }
         //endregion Overrides
     }

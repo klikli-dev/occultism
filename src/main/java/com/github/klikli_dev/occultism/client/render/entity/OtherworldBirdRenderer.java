@@ -37,11 +37,11 @@ public class OtherworldBirdRenderer extends MobRenderer<ParrotEntity, ParrotMode
         super(renderManagerIn, new ParrotModel(), 0.3F);
     }
 
-    public ResourceLocation getEntityTexture(ParrotEntity entity) {
+    public ResourceLocation getTextureLocation(ParrotEntity entity) {
         return TEXTURE;
     }
 
-    public float handleRotationFloat(ParrotEntity livingBase, float partialTicks) {
+    public float getBob(ParrotEntity livingBase, float partialTicks) {
         float f = MathHelper.lerp(partialTicks, livingBase.oFlap, livingBase.flap);
         float f1 = MathHelper.lerp(partialTicks, livingBase.oFlapSpeed, livingBase.flapSpeed);
         return (MathHelper.sin(f) + 1.0F) * f1;

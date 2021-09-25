@@ -53,28 +53,28 @@ public abstract class ItemStackFakeInventoryRecipe implements IRecipe<ItemStackF
     //region Overrides
     @Override
     public boolean matches(ItemStackFakeInventory inv, World world) {
-        return this.input.test(inv.getStackInSlot(0));
+        return this.input.test(inv.getItem(0));
     }
 
     @Override
-    public ItemStack getCraftingResult(ItemStackFakeInventory inv) {
-        return this.getRecipeOutput().copy();
+    public ItemStack assemble(ItemStackFakeInventory inv) {
+        return this.getResultItem().copy();
     }
 
     @Override
-    public boolean canFit(int width, int height) {
+    public boolean canCraftInDimensions(int width, int height) {
         //as we don't have a real inventory so this is ignored.
         return true;
     }
 
     @Override
-    public ItemStack getRecipeOutput() {
+    public ItemStack getResultItem() {
         return this.output;
     }
 
     @Override
     public NonNullList<Ingredient> getIngredients() {
-        return NonNullList.from(Ingredient.EMPTY, this.input);
+        return NonNullList.of(Ingredient.EMPTY, this.input);
     }
 
     @Override
@@ -99,24 +99,24 @@ public abstract class ItemStackFakeInventoryRecipe implements IRecipe<ItemStackF
         public <T extends ItemStackFakeInventoryRecipe> T read(IItemStackFakeInventoryRecipeFactory<T> factory,
                                                                ResourceLocation recipeId, JsonObject json) {
             //we also allow arrays, but only one ingredient will be used.
-            JsonElement ingredientElement = JSONUtils.isJsonArray(json, "ingredient") ? JSONUtils.getJsonArray(json,
-                    "ingredient") : JSONUtils.getJsonObject(json, "ingredient");
-            Ingredient ingredient = Ingredient.deserialize(ingredientElement);
-            ItemStack result = CraftingHelper.getItemStack(JSONUtils.getJsonObject(json, "result"), true);
+            JsonElement ingredientElement = JSONUtils.isArrayNode(json, "ingredient") ? JSONUtils.getAsJsonArray(json,
+                    "ingredient") : JSONUtils.getAsJsonObject(json, "ingredient");
+            Ingredient ingredient = Ingredient.fromJson(ingredientElement);
+            ItemStack result = CraftingHelper.getItemStack(JSONUtils.getAsJsonObject(json, "result"), true);
 
             return factory.create(recipeId, ingredient, result);
         }
 
         public <T extends ItemStackFakeInventoryRecipe> T read(IItemStackFakeInventoryRecipeFactory<T> factory,
                                                                ResourceLocation recipeId, PacketBuffer buffer) {
-            Ingredient ingredient = Ingredient.read(buffer);
-            ItemStack result = buffer.readItemStack();
+            Ingredient ingredient = Ingredient.fromNetwork(buffer);
+            ItemStack result = buffer.readItem();
             return factory.create(recipeId, ingredient, result);
         }
 
         public <T extends ItemStackFakeInventoryRecipe> void write(PacketBuffer buffer, T recipe) {
-            recipe.input.write(buffer);
-            buffer.writeItemStack(recipe.output);
+            recipe.input.toNetwork(buffer);
+            buffer.writeItem(recipe.output);
         }
         //endregion Methods
     }

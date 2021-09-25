@@ -88,19 +88,19 @@ public class JeiPlugin implements IModPlugin {
 
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
-        ClientWorld world = Minecraft.getInstance().world;
+        ClientWorld world = Minecraft.getInstance().level;
         RecipeManager recipeManager = world.getRecipeManager();
 
-        List<SpiritFireRecipe> spiritFireRecipes = recipeManager.getRecipesForType(OccultismRecipes.SPIRIT_FIRE_TYPE.get());
+        List<SpiritFireRecipe> spiritFireRecipes = recipeManager.getAllRecipesFor(OccultismRecipes.SPIRIT_FIRE_TYPE.get());
         registration.addRecipes(spiritFireRecipes, OccultismRecipes.SPIRIT_FIRE.getId());
 
-        List<CrushingRecipe> crushingRecipes = recipeManager.getRecipesForType(OccultismRecipes.CRUSHING_TYPE.get());
+        List<CrushingRecipe> crushingRecipes = recipeManager.getAllRecipesFor(OccultismRecipes.CRUSHING_TYPE.get());
         registration.addRecipes(crushingRecipes, OccultismRecipes.CRUSHING.getId());
 
-        List<MinerRecipe> minerRecipes = recipeManager.getRecipesForType(OccultismRecipes.MINER_TYPE.get());
+        List<MinerRecipe> minerRecipes = recipeManager.getAllRecipesFor(OccultismRecipes.MINER_TYPE.get());
         registration.addRecipes(minerRecipes, OccultismRecipes.MINER.getId());
 
-        List<RitualRecipe> ritualRecipes = recipeManager.getRecipesForType(OccultismRecipes.RITUAL_TYPE.get());
+        List<RitualRecipe> ritualRecipes = recipeManager.getAllRecipesFor(OccultismRecipes.RITUAL_TYPE.get());
         registration.addRecipes(ritualRecipes, OccultismRecipes.RITUAL.getId());
 
         this.registerIngredientInfo(registration, OccultismItems.TALLOW.get());

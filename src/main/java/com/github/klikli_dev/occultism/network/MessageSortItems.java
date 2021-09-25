@@ -60,24 +60,24 @@ public class MessageSortItems extends MessageBase {
     @Override
     public void onServerReceived(MinecraftServer minecraftServer, ServerPlayerEntity player,
                                  NetworkEvent.Context context) {
-        if (player.openContainer instanceof IStorageControllerContainer) {
-            if (!((IStorageControllerContainer) player.openContainer).isContainerItem()) {
+        if (player.containerMenu instanceof IStorageControllerContainer) {
+            if (!((IStorageControllerContainer) player.containerMenu).isContainerItem()) {
 
                 //ensure players cannot load arbitrary chunks
-                if (!player.world.isBlockLoaded(this.entityPosition))
+                if (!player.level.hasChunkAt(this.entityPosition))
                     return;
 
-                TileEntity tileEntity = player.world.getTileEntity(this.entityPosition);
+                TileEntity tileEntity = player.level.getBlockEntity(this.entityPosition);
                 if (tileEntity instanceof IStorageAccessor) {
                     IStorageAccessor storageAccessor = (IStorageAccessor) tileEntity;
                     storageAccessor.setSortType(this.sortType);
                     storageAccessor.setSortDirection(this.sortDirection);
-                    tileEntity.markDirty();
+                    tileEntity.setChanged();
                 }
             }
             else {
                 //for item remotes, we just set the nbt.
-                ItemStack stack = player.inventory.getCurrentItem();
+                ItemStack stack = player.inventory.getSelected();
                 stack.getOrCreateTag().putInt("sortDirection", this.sortDirection.getValue());
                 stack.getTag().putInt("sortType", this.sortType.getValue());
             }

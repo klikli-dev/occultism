@@ -49,6 +49,8 @@ import java.util.EnumSet;
 import java.util.Optional;
 import java.util.UUID;
 
+import net.minecraft.entity.ai.goal.Goal.Flag;
+
 public class DepositItemsGoal extends PausableGoal {
     //region Fields
     protected final SpiritEntity entity;
@@ -60,7 +62,7 @@ public class DepositItemsGoal extends PausableGoal {
     public DepositItemsGoal(SpiritEntity entity) {
         this.entity = entity;
         this.targetSorter = new BlockSorter(entity);
-        this.setMutexFlags(EnumSet.of(Flag.TARGET));
+        this.setFlags(EnumSet.of(Flag.TARGET));
     }
     //endregion Initialization
 
@@ -70,20 +72,20 @@ public class DepositItemsGoal extends PausableGoal {
      * @return the position to move to to deposit the target block.
      */
     private BlockPos getMoveTarget() {
-        double angle = Math3DUtil.yaw(this.entity.getPositionVec(), Math3DUtil.center(this.moveTarget.getBlockPos()));
-        return this.moveTarget.getBlockPos().offset(Direction.fromAngle(angle).getOpposite());
+        double angle = Math3DUtil.yaw(this.entity.position(), Math3DUtil.center(this.moveTarget.getBlockPos()));
+        return this.moveTarget.getBlockPos().relative(Direction.fromYRot(angle).getOpposite());
     }
     //endregion Getter / Setter
 
     //region Overrides
     @Override
-    public boolean shouldExecute() {
+    public boolean canUse() {
         //do not use if there is a target to attack
-        if (this.entity.getAttackTarget() != null) {
+        if (this.entity.getTarget() != null) {
             return false;
         }
         //nothing to deposit in hand
-        if (this.entity.getHeldItem(Hand.MAIN_HAND).isEmpty()) {
+        if (this.entity.getItemInHand(Hand.MAIN_HAND).isEmpty()) {
             return false;
         }
         this.resetTarget();
@@ -91,12 +93,12 @@ public class DepositItemsGoal extends PausableGoal {
     }
 
     @Override
-    public boolean shouldContinueExecuting() {
-        return !this.isPaused() && this.moveTarget != null && !this.entity.getHeldItem(Hand.MAIN_HAND).isEmpty();
+    public boolean canContinueToUse() {
+        return !this.isPaused() && this.moveTarget != null && !this.entity.getItemInHand(Hand.MAIN_HAND).isEmpty();
     }
 
-    public void resetTask() {
-        this.entity.getNavigator().clearPath();
+    public void stop() {
+        this.entity.getNavigation().stop();
         this.resetTarget();
     }
 
@@ -107,7 +109,7 @@ public class DepositItemsGoal extends PausableGoal {
                 float accessDistance = 1.86f;
 
                 //when approaching a chest, open it visually
-                double distance = this.entity.getPositionVec().distanceTo(Math3DUtil.center(this.moveTarget.getBlockPos()));
+                double distance = this.entity.position().distanceTo(Math3DUtil.center(this.moveTarget.getBlockPos()));
 
                 //briefly before reaching the target, open chest, if it is one.
                 if (distance < 2.5 && distance >= accessDistance && this.canSeeTarget() &&
@@ -117,11 +119,11 @@ public class DepositItemsGoal extends PausableGoal {
 
                 if (distance < accessDistance) {
                     //stop moving while taking out
-                    this.entity.getNavigator().clearPath();
+                    this.entity.getNavigation().stop();
                 } else {
                     //continue moving
                     BlockPos moveTarget = this.getMoveTarget();
-                    this.entity.getNavigator().setPath(this.entity.getNavigator().getPathToPos(moveTarget, 0), 1.0f);
+                    this.entity.getNavigation().moveTo(this.entity.getNavigation().createPath(moveTarget, 0), 1.0f);
                 }
 
                 //when close enough insert item
@@ -135,7 +137,7 @@ public class DepositItemsGoal extends PausableGoal {
                         return;
                     }
                     IItemHandler handler = handlerCapability.orElseThrow(ItemHandlerMissingException::new);
-                    ItemStack duplicate = this.entity.getHeldItem(Hand.MAIN_HAND).copy();
+                    ItemStack duplicate = this.entity.getItemInHand(Hand.MAIN_HAND).copy();
 
                     //simulate insertion
                     ItemStack toInsert = ItemHandlerHelper.insertItem(handler, duplicate, true);
@@ -143,10 +145,10 @@ public class DepositItemsGoal extends PausableGoal {
                     if (toInsert.getCount() != duplicate.getCount()) {
                         ItemStack leftover = ItemHandlerHelper.insertItem(handler, duplicate, false);
                         //if we inserted everything
-                        this.entity.setHeldItem(Hand.MAIN_HAND, leftover);
+                        this.entity.setItemInHand(Hand.MAIN_HAND, leftover);
                         if (toInsert.isEmpty()) {
                             this.moveTarget = null;
-                            this.resetTask();
+                            this.stop();
                         } else {
                             //pause ai to retry again in a little while.
                             this.pause(2000);
@@ -168,16 +170,16 @@ public class DepositItemsGoal extends PausableGoal {
     //region Methods
     public boolean canSeeTarget() {
 
-        RayTraceContext context = new RayTraceContext(this.entity.getPositionVec(),
+        RayTraceContext context = new RayTraceContext(this.entity.position(),
                 Math3DUtil.center(this.moveTarget.getBlockPos()), RayTraceContext.BlockMode.COLLIDER, RayTraceContext.FluidMode.NONE,
                 this.entity);
-        BlockRayTraceResult result = this.entity.world.rayTraceBlocks(context);
+        BlockRayTraceResult result = this.entity.level.clip(context);
 
         if (result.getType() != BlockRayTraceResult.Type.MISS) {
-            BlockPos sidePos = result.getPos();
-            BlockPos pos = new BlockPos(result.getHitVec());
-            return this.entity.world.isAirBlock(sidePos) || this.entity.world.isAirBlock(pos) ||
-                    this.entity.world.getTileEntity(pos) == this.entity.world.getTileEntity(this.moveTarget.getBlockPos());
+            BlockPos sidePos = result.getBlockPos();
+            BlockPos pos = new BlockPos(result.getLocation());
+            return this.entity.level.isEmptyBlock(sidePos) || this.entity.level.isEmptyBlock(pos) ||
+                    this.entity.level.getBlockEntity(pos) == this.entity.level.getBlockEntity(this.moveTarget.getBlockPos());
         }
 
         return true;
@@ -191,13 +193,13 @@ public class DepositItemsGoal extends PausableGoal {
      */
     public void toggleChest(IMoveTarget target, boolean open) {
         if (target instanceof BlockPosMoveTarget) {
-            TileEntity tile = this.entity.world.getTileEntity(target.getBlockPos());
+            TileEntity tile = this.entity.level.getBlockEntity(target.getBlockPos());
             if (tile instanceof ChestTileEntity) {
                 ChestTileEntity chest = (ChestTileEntity) tile;
                 if (open) {
-                    this.entity.world.addBlockEvent(this.moveTarget.getBlockPos(), chest.getBlockState().getBlock(), 1, 1);
+                    this.entity.level.blockEvent(this.moveTarget.getBlockPos(), chest.getBlockState().getBlock(), 1, 1);
                 } else {
-                    this.entity.world.addBlockEvent(this.moveTarget.getBlockPos(), chest.getBlockState().getBlock(), 1, 0);
+                    this.entity.level.blockEvent(this.moveTarget.getBlockPos(), chest.getBlockState().getBlock(), 1, 0);
                 }
             }
         }
@@ -207,7 +209,7 @@ public class DepositItemsGoal extends PausableGoal {
         //check a target block
         Optional<BlockPos> targetPos = this.entity.getDepositPosition();
         targetPos.ifPresent((pos) -> {
-            this.moveTarget = new BlockPosMoveTarget(this.entity.world, pos);
+            this.moveTarget = new BlockPosMoveTarget(this.entity.level, pos);
             if (!this.moveTarget.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, this.entity.getDepositFacing())
                     .isPresent()) {
                 //the deposit tile is not valid for depositing, so we disable this to allow exiting this task.
@@ -217,7 +219,7 @@ public class DepositItemsGoal extends PausableGoal {
         //also check a target entity -> its mutually exclusive with block, ensured by spirit entity
         Optional<UUID> targetUUID = this.entity.getDepositEntityUUID();
         targetUUID.ifPresent((uuid) -> {
-            Entity targetEntity = ((ServerWorld) this.entity.world).getEntityByUuid(uuid);
+            Entity targetEntity = ((ServerWorld) this.entity.level).getEntity(uuid);
             if (targetEntity != null) {
                 this.moveTarget = new EntityMoveTarget(targetEntity);
             } else {

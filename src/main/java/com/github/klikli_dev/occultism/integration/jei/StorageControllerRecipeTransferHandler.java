@@ -78,12 +78,12 @@ public class StorageControllerRecipeTransferHandler<T extends Container & IStora
         IRecipe<?> recipe = (IRecipe<?>) recipeObject;
 
         if (recipe.getId() == null) {
-            return this.helper.createUserErrorWithTooltip(I18n.format("jei." + Occultism.MODID + "error.missing_id"));
+            return this.helper.createUserErrorWithTooltip(I18n.get("jei." + Occultism.MODID + "error.missing_id"));
         }
 
         //sort out any modded recipes that don't fit 3x3
-        if (!recipe.canFit(3, 3)) {
-            return this.helper.createUserErrorWithTooltip(I18n.format("jei." + Occultism.MODID + "error.recipe_too_large"));
+        if (!recipe.canCraftInDimensions(3, 3)) {
+            return this.helper.createUserErrorWithTooltip(I18n.get("jei." + Occultism.MODID + "error.recipe_too_large"));
         }
 
         // can only send shaped/shapeless recipes to storage controller
@@ -94,7 +94,7 @@ public class StorageControllerRecipeTransferHandler<T extends Container & IStora
 //        }
 
         //if recipe is in recipe manager send by id, otherwise fallback to ingredient list
-        if (player.getEntityWorld().getRecipeManager().getRecipe(recipe.getId()).isPresent()) {
+        if (player.getCommandSenderWorld().getRecipeManager().byKey(recipe.getId()).isPresent()) {
             OccultismPackets.sendToServer(new MessageSetRecipeByID(recipe.getId()));
         }
         else {
@@ -111,8 +111,8 @@ public class StorageControllerRecipeTransferHandler<T extends Container & IStora
         CompoundNBT nbt = new CompoundNBT();
         Map<Integer, ? extends IGuiIngredient<ItemStack>> inputs = recipeLayout.getItemStacks().getGuiIngredients();
 
-        for (Slot slot : container.inventorySlots) {
-            if (slot.inventory instanceof CraftingInventory) {
+        for (Slot slot : container.slots) {
+            if (slot.container instanceof CraftingInventory) {
 
                 //get ingredient from recipe layout
                 IGuiIngredient<ItemStack> ingredient = inputs.get(slot.getSlotIndex() + 1);

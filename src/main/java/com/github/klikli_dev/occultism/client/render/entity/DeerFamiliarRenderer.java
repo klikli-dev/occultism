@@ -44,23 +44,23 @@ public class DeerFamiliarRenderer extends MobRenderer<DeerFamiliarEntity, DeerFa
 
     public DeerFamiliarRenderer(EntityRendererManager renderManagerIn) {
         super(renderManagerIn, new DeerFamiliarModel(), 0.3f);
-        this.layerRenderers.add(new RedNoseLayer(this));
+        this.layers.add(new RedNoseLayer(this));
     }
 
     @Override
     public void render(DeerFamiliarEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn,
             IRenderTypeBuffer bufferIn, int packedLightIn) {
-        matrixStackIn.push();
+        matrixStackIn.pushPose();
         if (entityIn.isPartying())
             matrixStackIn.translate(0, 0.08, 0);
         else if (entityIn.isSitting())
             matrixStackIn.translate(0, -0.38, 0);
         super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
-        matrixStackIn.pop();
+        matrixStackIn.popPose();
     }
 
     @Override
-    public ResourceLocation getEntityTexture(DeerFamiliarEntity entity) {
+    public ResourceLocation getTextureLocation(DeerFamiliarEntity entity) {
         return TEXTURES;
     }
 
@@ -80,9 +80,9 @@ public class DeerFamiliarRenderer extends MobRenderer<DeerFamiliarEntity, DeerFa
             if (deer.isInvisible() || !deer.hasRedNose())
                 return;
 
-            DeerFamiliarModel model = this.getEntityModel();
-            IVertexBuilder ivertexbuilder = bufferIn.getBuffer(RenderType.getEntityCutout(RED_NOSE));
-            model.render(matrixStackIn, ivertexbuilder, packedLightIn, LivingRenderer.getPackedOverlay(deer, 0), 1, 1,
+            DeerFamiliarModel model = this.getParentModel();
+            IVertexBuilder ivertexbuilder = bufferIn.getBuffer(RenderType.entityCutout(RED_NOSE));
+            model.renderToBuffer(matrixStackIn, ivertexbuilder, packedLightIn, LivingRenderer.getOverlayCoords(deer, 0), 1, 1,
                     1, 1);
         }
     }

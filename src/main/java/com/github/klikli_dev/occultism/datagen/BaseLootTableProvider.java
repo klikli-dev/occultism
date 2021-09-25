@@ -66,16 +66,16 @@ public abstract class BaseLootTableProvider extends LootTableProvider {
     //region Overrides
     @Override
     // Entry point
-    public void act(DirectoryCache cache) {
+    public void run(DirectoryCache cache) {
         this.addTables();
         Map<ResourceLocation, LootTable> tables = new HashMap<>();
         for (Map.Entry<Block, LootTable.Builder> entry : this.blockLootTable.entrySet()) {
             tables.put(entry.getKey().getLootTable(),
-                    entry.getValue().setParameterSet(LootParameterSets.BLOCK).build());
+                    entry.getValue().setParamSet(LootParameterSets.BLOCK).build());
         }
         for (Map.Entry<EntityType<?>, LootTable.Builder> entry : this.entityLootTable.entrySet()) {
-            tables.put(entry.getKey().getLootTable(),
-                    entry.getValue().setParameterSet(LootParameterSets.ENTITY).build());
+            tables.put(entry.getKey().getDefaultLootTable(),
+                    entry.getValue().setParamSet(LootParameterSets.ENTITY).build());
         }
         this.writeTables(cache, tables);
     }
@@ -96,7 +96,7 @@ public abstract class BaseLootTableProvider extends LootTableProvider {
         tables.forEach((key, lootTable) -> {
             Path path = outputFolder.resolve("data/" + key.getNamespace() + "/loot_tables/" + key.getPath() + ".json");
             try {
-                IDataProvider.save(GSON, cache, LootTableManager.toJson(lootTable), path);
+                IDataProvider.save(GSON, cache, LootTableManager.serialize(lootTable), path);
             } catch (IOException e) {
                 Occultism.LOGGER.error("Couldn't write loot table {}", path, e);
             }

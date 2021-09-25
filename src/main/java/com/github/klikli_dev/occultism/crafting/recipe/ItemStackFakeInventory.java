@@ -39,7 +39,7 @@ public class ItemStackFakeInventory implements IInventory {
 
     //region Overrides
     @Override
-    public int getSizeInventory() {
+    public int getContainerSize() {
         return 1;
     }
 
@@ -49,38 +49,38 @@ public class ItemStackFakeInventory implements IInventory {
     }
 
     @Override
-    public ItemStack getStackInSlot(int index) {
+    public ItemStack getItem(int index) {
         return this.input;
     }
 
     @Override
-    public ItemStack decrStackSize(int index, int count) {
+    public ItemStack removeItem(int index, int count) {
         this.input.shrink(count);
         return this.input;
     }
 
     @Override
-    public ItemStack removeStackFromSlot(int index) {
+    public ItemStack removeItemNoUpdate(int index) {
         return this.input = ItemStack.EMPTY;
     }
 
     @Override
-    public void setInventorySlotContents(int index, ItemStack stack) {
+    public void setItem(int index, ItemStack stack) {
         this.input = stack;
     }
 
     @Override
-    public void markDirty() {
+    public void setChanged() {
 
     }
 
     @Override
-    public boolean isUsableByPlayer(PlayerEntity player) {
+    public boolean stillValid(PlayerEntity player) {
         return false;
     }
 
     @Override
-    public void clear() {
+    public void clearContent() {
         this.input = ItemStack.EMPTY;
     }
     //endregion Overrides

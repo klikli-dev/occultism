@@ -36,7 +36,7 @@ public class OccultismItemGroup extends ItemGroup {
 
     //region Overrides
     @Override
-    public ItemStack createIcon() {
+    public ItemStack makeIcon() {
         return new ItemStack(OccultismItems.PENTACLE.get());
     }
     //endregion Overrides

@@ -37,7 +37,7 @@ import java.util.Optional;
 
 public class CuriosUtil {
     public static boolean hasGoggles(PlayerEntity player){
-        ItemStack helmet = player.getItemStackFromSlot(EquipmentSlotType.HEAD);
+        ItemStack helmet = player.getItemBySlot(EquipmentSlotType.HEAD);
         if(helmet.getItem() instanceof OtherworldGogglesItem)
             return true;
 
@@ -80,8 +80,8 @@ public class CuriosUtil {
     }
 
     public static SelectedCurio getStorageRemote(PlayerEntity player) {
-        int selectedSlot = player.inventory.currentItem;
-        ItemStack storageRemoteStack = player.inventory.getCurrentItem();
+        int selectedSlot = player.inventory.selected;
+        ItemStack storageRemoteStack = player.inventory.getSelected();
         //if that is not a storage remote, get from curio
         if (!(storageRemoteStack.getItem() instanceof StorageRemoteItem)) {
             selectedSlot = -1;
@@ -91,7 +91,7 @@ public class CuriosUtil {
         //if not found, try to get from player inventory
         if (!(storageRemoteStack.getItem() instanceof StorageRemoteItem)) {
             selectedSlot = CuriosUtil.getFirstStorageRemoteSlot(player);
-            storageRemoteStack = selectedSlot > 0 ? player.inventory.getStackInSlot(selectedSlot) : ItemStack.EMPTY;
+            storageRemoteStack = selectedSlot > 0 ? player.inventory.getItem(selectedSlot) : ItemStack.EMPTY;
         }
         //now, if we have a storage remote, proceed
         if (storageRemoteStack.getItem() instanceof StorageRemoteItem) {
@@ -121,8 +121,8 @@ public class CuriosUtil {
     }
 
     public static int getFirstBackpackSlot(PlayerEntity player){
-        for(int slot = 0; slot < player.inventory.getSizeInventory(); slot++){
-            ItemStack stack = player.inventory.getStackInSlot(slot);
+        for(int slot = 0; slot < player.inventory.getContainerSize(); slot++){
+            ItemStack stack = player.inventory.getItem(slot);
             if(stack.getItem() instanceof SatchelItem)
                 return slot;
         }
@@ -130,8 +130,8 @@ public class CuriosUtil {
     }
 
     public static int getFirstStorageRemoteSlot(PlayerEntity player){
-        for(int slot = 0; slot < player.inventory.getSizeInventory(); slot++){
-            ItemStack stack = player.inventory.getStackInSlot(slot);
+        for(int slot = 0; slot < player.inventory.getContainerSize(); slot++){
+            ItemStack stack = player.inventory.getItem(slot);
             if(stack.getItem() instanceof StorageRemoteItem)
                 return slot;
         }

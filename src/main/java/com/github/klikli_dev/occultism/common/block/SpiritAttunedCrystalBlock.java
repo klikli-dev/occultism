@@ -36,15 +36,17 @@ import net.minecraft.world.World;
 
 import java.util.stream.Stream;
 
+import net.minecraft.block.AbstractBlock.Properties;
+
 public class SpiritAttunedCrystalBlock extends Block {
     //region Fields
     private static final VoxelShape SHAPE = Stream.of(
-            Block.makeCuboidShape(5, 0, 9, 8, 4, 12),
-            Block.makeCuboidShape(9, 0, 8, 12, 8, 11),
-            Block.makeCuboidShape(8, 0, 4, 11, 2, 7),
-            Block.makeCuboidShape(4, 0, 5, 7, 6, 8),
-            Block.makeCuboidShape(6, 0, 6, 10, 12, 10)
-    ).reduce((v1, v2) -> {return VoxelShapes.combineAndSimplify(v1, v2, IBooleanFunction.OR);}).get();
+            Block.box(5, 0, 9, 8, 4, 12),
+            Block.box(9, 0, 8, 12, 8, 11),
+            Block.box(8, 0, 4, 11, 2, 7),
+            Block.box(4, 0, 5, 7, 6, 8),
+            Block.box(6, 0, 6, 10, 12, 10)
+    ).reduce((v1, v2) -> {return VoxelShapes.join(v1, v2, IBooleanFunction.OR);}).get();
     //endregion Fields
 
     //region Initialization
@@ -62,17 +64,17 @@ public class SpiritAttunedCrystalBlock extends Block {
     @Override
     public void neighborChanged(BlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos,
                                 boolean isMoving) {
-        if (!this.isValidPosition(state, worldIn, pos)) {
-            spawnDrops(state, worldIn, pos);
+        if (!this.canSurvive(state, worldIn, pos)) {
+            dropResources(state, worldIn, pos);
             worldIn.removeBlock(pos, false);
         }
     }
 
     @Override
-    public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
-        BlockPos down = pos.down();
+    public boolean canSurvive(BlockState state, IWorldReader worldIn, BlockPos pos) {
+        BlockPos down = pos.below();
         BlockState downState = worldIn.getBlockState(down);
-        return downState.isSolidSide(worldIn, down, Direction.UP);
+        return downState.isFaceSturdy(worldIn, down, Direction.UP);
     }
     //endregion Overrides
 }

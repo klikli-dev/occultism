@@ -70,7 +70,7 @@ public class DimensionalMineshaftTileEntity extends NetworkedTileEntity implemen
         //region Overrides
         @Override
         protected void onContentsChanged(int slot) {
-            DimensionalMineshaftTileEntity.this.markDirty();
+            DimensionalMineshaftTileEntity.this.setChanged();
         }
         //endregion Overrides
     });
@@ -78,7 +78,7 @@ public class DimensionalMineshaftTileEntity extends NetworkedTileEntity implemen
         //region Overrides
         @Override
         protected void onContentsChanged(int slot) {
-            DimensionalMineshaftTileEntity.this.markDirty();
+            DimensionalMineshaftTileEntity.this.setChanged();
         }
         //endregion Overrides
     });
@@ -124,17 +124,17 @@ public class DimensionalMineshaftTileEntity extends NetworkedTileEntity implemen
     }
 
     @Override
-    public void read(BlockState state, CompoundNBT compound) {
-        super.read(state, compound);
+    public void load(BlockState state, CompoundNBT compound) {
+        super.load(state, compound);
         this.inputHandler.ifPresent((handler) -> handler.deserializeNBT(compound.getCompound("inputHandler")));
         this.outputHandler.ifPresent((handler) -> handler.deserializeNBT(compound.getCompound("outputHandler")));
     }
 
     @Override
-    public CompoundNBT write(CompoundNBT compound) {
+    public CompoundNBT save(CompoundNBT compound) {
         this.inputHandler.ifPresent(handler -> compound.put("inputHandler", handler.serializeNBT()));
         this.outputHandler.ifPresent(handler -> compound.put("outputHandler", handler.serializeNBT()));
-        return super.write(compound);
+        return super.save(compound);
     }
 
     @Override
@@ -152,15 +152,15 @@ public class DimensionalMineshaftTileEntity extends NetworkedTileEntity implemen
     }
 
     @Override
-    public void remove() {
+    public void setRemoved() {
         this.inputHandler.invalidate();
         this.outputHandler.invalidate();
-        super.remove();
+        super.setRemoved();
     }
 
     @Override
     public void tick() {
-        if (!this.world.isRemote) {
+        if (!this.level.isClientSide) {
             IItemHandler inputHandler = this.inputHandler.orElseThrow(ItemHandlerMissingException::new);
             ItemStack input = inputHandler.getStackInSlot(0);
 
@@ -168,7 +168,7 @@ public class DimensionalMineshaftTileEntity extends NetworkedTileEntity implemen
             if (this.miningTime > 0) {
                 this.miningTime--;
 
-                if (this.miningTime == 0 && !this.world.isRemote) {
+                if (this.miningTime == 0 && !this.level.isClientSide) {
                     this.mine();
                 }
 
@@ -187,7 +187,7 @@ public class DimensionalMineshaftTileEntity extends NetworkedTileEntity implemen
                 //if we're done with the last mining job, and we have valid input, start the next one.
                 this.currentInputType = input.getItem();
                 //ensure nbt is initialized, fixes issues with spawned miner spirits
-                forceInitStackNBT(input, (ServerWorld) this.world);
+                forceInitStackNBT(input, (ServerWorld) this.level);
                 this.maxMiningTime = getMaxMiningTime(input);
                 this.rollsPerOperation = getRollsPerOperation(input);
                 this.miningTime = this.maxMiningTime;
@@ -199,9 +199,9 @@ public class DimensionalMineshaftTileEntity extends NetworkedTileEntity implemen
             }
         }
         else {
-            if (this.miningTime > 0 && this.world.getGameTime() % 10 == 0) {
-                this.world.addParticle(ParticleTypes.PORTAL, this.pos.getX() + 0.5f,
-                        this.pos.getY() + 0.5, this.pos.getZ() + 0.5f, 0.0D, 0.0D, 0.0D);
+            if (this.miningTime > 0 && this.level.getGameTime() % 10 == 0) {
+                this.level.addParticle(ParticleTypes.PORTAL, this.worldPosition.getX() + 0.5f,
+                        this.worldPosition.getY() + 0.5, this.worldPosition.getZ() + 0.5f, 0.0D, 0.0D, 0.0D);
             }
         }
     }
@@ -215,7 +215,7 @@ public class DimensionalMineshaftTileEntity extends NetworkedTileEntity implemen
 
     //region Static Methods
     public static void forceInitStackNBT(ItemStack stack, ServerWorld world){
-        stack.getItem().onCreated(stack, world, FakePlayerFactory.getMinecraft(world));
+        stack.getItem().onCraftedBy(stack, world, FakePlayerFactory.getMinecraft(world));
     }
 
     public static int getMaxMiningTime(ItemStack stack) {
@@ -241,9 +241,9 @@ public class DimensionalMineshaftTileEntity extends NetworkedTileEntity implemen
         ItemStackHandler outputHandler = this.outputHandler.orElseThrow(ItemHandlerMissingException::new);
 
         if (this.possibleResults == null) {
-            List<MinerRecipe> recipes = this.world.getRecipeManager()
-                                                .getRecipes(OccultismRecipes.MINER_TYPE.get(),
-                                                        new RecipeWrapper(inputHandler), this.world);
+            List<MinerRecipe> recipes = this.level.getRecipeManager()
+                                                .getRecipesFor(OccultismRecipes.MINER_TYPE.get(),
+                                                        new RecipeWrapper(inputHandler), this.level);
             if(recipes == null ||recipes.size() == 0){
                 this.possibleResults = new ArrayList<>();
             }else {
@@ -255,7 +255,7 @@ public class DimensionalMineshaftTileEntity extends NetworkedTileEntity implemen
             return;
 
         for (int i = 0; i < this.rollsPerOperation; i++) {
-            WeightedIngredient result = WeightedRandom.getRandomItem(this.world.rand, this.possibleResults);
+            WeightedIngredient result = WeightedRandom.getRandomItem(this.level.random, this.possibleResults);
             //Important: copy the result, don't use it raw!
             ItemHandlerHelper.insertItemStacked(outputHandler, result.getStack().copy(), false);
             //If there is no space, we simply continue. The otherworld miner spirit keeps working,
@@ -264,9 +264,9 @@ public class DimensionalMineshaftTileEntity extends NetworkedTileEntity implemen
 
         //damage and eventually consume item.
         ItemStack input = inputHandler.getStackInSlot(0);
-        if (input.attemptDamageItem(1, this.world.rand, null)) {
+        if (input.hurt(1, this.level.random, null)) {
             input.shrink(1);
-            input.setDamage(0);
+            input.setDamageValue(0);
         }
     }
 

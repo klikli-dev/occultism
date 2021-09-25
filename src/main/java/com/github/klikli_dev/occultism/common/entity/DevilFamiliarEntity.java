@@ -58,31 +58,31 @@ import net.minecraft.world.World;
 
 public class DevilFamiliarEntity extends FamiliarEntity {
 
-    private static final DataParameter<Boolean> LOLLIPOP = EntityDataManager.createKey(DevilFamiliarEntity.class,
+    private static final DataParameter<Boolean> LOLLIPOP = EntityDataManager.defineId(DevilFamiliarEntity.class,
             DataSerializers.BOOLEAN);
-    private static final DataParameter<Boolean> NOSE = EntityDataManager.createKey(DevilFamiliarEntity.class,
+    private static final DataParameter<Boolean> NOSE = EntityDataManager.defineId(DevilFamiliarEntity.class,
             DataSerializers.BOOLEAN);
-    private static final DataParameter<Boolean> EARS = EntityDataManager.createKey(DevilFamiliarEntity.class,
+    private static final DataParameter<Boolean> EARS = EntityDataManager.defineId(DevilFamiliarEntity.class,
             DataSerializers.BOOLEAN);
 
     private final float heightOffset;
 
     public DevilFamiliarEntity(EntityType<? extends DevilFamiliarEntity> type, World worldIn) {
         super(type, worldIn);
-        this.heightOffset = this.getRNG().nextFloat() * 5;
+        this.heightOffset = this.getRandom().nextFloat() * 5;
     }
 
     public static AttributeModifierMap.MutableAttribute registerAttributes() {
-        return FamiliarEntity.registerAttributes().createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.2);
+        return FamiliarEntity.registerAttributes().add(Attributes.MOVEMENT_SPEED, 0.2);
     }
 
     @Override
-    public ILivingEntityData onInitialSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason,
+    public ILivingEntityData finalizeSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason,
             ILivingEntityData spawnDataIn, CompoundNBT dataTag) {
-        this.setLollipop(this.getRNG().nextDouble() < 0.1);
-        this.setNose(this.getRNG().nextDouble() < 0.5);
-        this.setEars(this.getRNG().nextDouble() < 0.5);
-        return super.onInitialSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
+        this.setLollipop(this.getRandom().nextDouble() < 0.1);
+        this.setNose(this.getRandom().nextDouble() < 0.5);
+        this.setEars(this.getRandom().nextDouble() < 0.5);
+        return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
     }
 
     @Override
@@ -105,64 +105,64 @@ public class DevilFamiliarEntity extends FamiliarEntity {
     @Override
     public void tick() {
         super.tick();
-        if (!this.isServerWorld() && this.isSwingInProgress) {
-            Vector3d direction = Vector3d.fromPitchYaw(this.getPitchYaw()).scale(0.6);
+        if (!this.isEffectiveAi() && this.swinging) {
+            Vector3d direction = Vector3d.directionFromRotation(this.getRotationVector()).scale(0.6);
 
             for (int i = 0; i < 5; i++) {
-                Vector3d pos = this.getPositionVec().add(direction.x + (this.getRNG().nextFloat() - 0.5f) * 0.7,
-                        1.5 + (this.getRNG().nextFloat() - 0.5f) * 0.7, direction.z + (this.getRNG().nextFloat() - 0.5f) * 0.7);
-                this.world.addParticle(ParticleTypes.FLAME, pos.x, pos.y, pos.z, direction.x * 0.25, 0, direction.z * 0.25);
+                Vector3d pos = this.position().add(direction.x + (this.getRandom().nextFloat() - 0.5f) * 0.7,
+                        1.5 + (this.getRandom().nextFloat() - 0.5f) * 0.7, direction.z + (this.getRandom().nextFloat() - 0.5f) * 0.7);
+                this.level.addParticle(ParticleTypes.FLAME, pos.x, pos.y, pos.z, direction.x * 0.25, 0, direction.z * 0.25);
             }
         }
     }
 
     @Override
-    protected void registerData() {
-        super.registerData();
-        this.dataManager.register(LOLLIPOP, false);
-        this.dataManager.register(NOSE, false);
-        this.dataManager.register(EARS, false);
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(LOLLIPOP, false);
+        this.entityData.define(NOSE, false);
+        this.entityData.define(EARS, false);
     }
 
     public float getAnimationHeight(float partialTicks) {
-        return MathHelper.cos((this.ticksExisted + this.heightOffset + partialTicks) / 3.5f);
+        return MathHelper.cos((this.tickCount + this.heightOffset + partialTicks) / 3.5f);
     }
 
     public boolean hasLollipop() {
-        return this.dataManager.get(LOLLIPOP);
+        return this.entityData.get(LOLLIPOP);
     }
 
     private void setLollipop(boolean b) {
-        this.dataManager.set(LOLLIPOP, b);
+        this.entityData.set(LOLLIPOP, b);
     }
 
     public boolean hasNose() {
-        return this.dataManager.get(NOSE);
+        return this.entityData.get(NOSE);
     }
 
     private void setNose(boolean b) {
-        this.dataManager.set(NOSE, b);
+        this.entityData.set(NOSE, b);
     }
 
     public boolean hasEars() {
-        return this.dataManager.get(EARS);
+        return this.entityData.get(EARS);
     }
 
     private void setEars(boolean b) {
-        this.dataManager.set(EARS, b);
+        this.entityData.set(EARS, b);
     }
 
     @Override
-    public void readAdditional(CompoundNBT compound) {
-        super.readAdditional(compound);
+    public void readAdditionalSaveData(CompoundNBT compound) {
+        super.readAdditionalSaveData(compound);
         this.setLollipop(compound.getBoolean("hasLollipop"));
         this.setNose(compound.getBoolean("hasNose"));
         this.setEars(compound.getBoolean("hasEars"));
     }
 
     @Override
-    public void writeAdditional(CompoundNBT compound) {
-        super.writeAdditional(compound);
+    public void addAdditionalSaveData(CompoundNBT compound) {
+        super.addAdditionalSaveData(compound);
         compound.putBoolean("hasLollipop", this.hasLollipop());
         compound.putBoolean("hasNose", this.hasNose());
         compound.putBoolean("hasEars", this.hasEars());
@@ -188,14 +188,14 @@ public class DevilFamiliarEntity extends FamiliarEntity {
         }
 
         @Override
-        public boolean shouldExecute() {
+        public boolean canUse() {
             return this.cooldown-- < 0 && this.entity.getFamiliarOwner() instanceof PlayerEntity && !this.getNearbyEnemies().isEmpty();
         }
 
         private List<Entity> getNearbyEnemies() {
             LivingEntity owner = this.entity.getFamiliarOwner();
-            LivingEntity revenge = owner.getRevengeTarget();
-            LivingEntity target = owner.getLastAttackedEntity();
+            LivingEntity revenge = owner.getLastHurtByMob();
+            LivingEntity target = owner.getLastHurtMob();
             List<Entity> enemies = new ArrayList<>();
             if (this.isClose(revenge))
                 enemies.add(revenge);
@@ -205,21 +205,21 @@ public class DevilFamiliarEntity extends FamiliarEntity {
         }
 
         private boolean isClose(LivingEntity e) {
-            return e != null && e != this.entity && e.getDistanceSq(this.entity) < 5;
+            return e != null && e != this.entity && e.distanceToSqr(this.entity) < 5;
         }
 
-        public void startExecuting() {
+        public void start() {
             List<Entity> enemies = this.getNearbyEnemies();
             if (!enemies.isEmpty() && this.entity instanceof DevilFamiliarEntity)
                 OccultismAdvancements.FAMILIAR.trigger(this.entity.getFamiliarOwner(), FamiliarTrigger.Type.DEVIL_FIRE);
             for (Entity e : enemies) {
-                e.attackEntityFrom(DamageSource.causePlayerDamage((PlayerEntity) this.entity.getFamiliarOwner()), 4);
+                e.hurt(DamageSource.playerAttack((PlayerEntity) this.entity.getFamiliarOwner()), 4);
             }
             this.cooldown = MAX_COOLDOWN;
-            this.entity.swingArm(Hand.MAIN_HAND);
+            this.entity.swing(Hand.MAIN_HAND);
         }
 
-        public void resetTask() {
+        public void stop() {
             this.cooldown = MAX_COOLDOWN;
         }
     }

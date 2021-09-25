@@ -38,6 +38,8 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 import java.util.List;
 
+import net.minecraft.item.Item.Properties;
+
 public class BookOfBindingBoundItem extends Item implements IIngredientCopyNBT, IIngredientModifyCraftingResult {
     //region Fields
     //endregion Fields
@@ -51,17 +53,17 @@ public class BookOfBindingBoundItem extends Item implements IIngredientCopyNBT, 
     //region Overrides
 
     @Override
-    public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip,
+    public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip,
                                ITooltipFlag flagIn) {
-        super.addInformation(stack, worldIn, tooltip, flagIn);
-        tooltip.add(new TranslationTextComponent(this.getTranslationKey() + ".tooltip",
+        super.appendHoverText(stack, worldIn, tooltip, flagIn);
+        tooltip.add(new TranslationTextComponent(this.getDescriptionId() + ".tooltip",
                 TextUtil.formatDemonName(ItemNBTUtil.getBoundSpiritName(stack))));
     }
 
     @Override
     public boolean shouldCopyNBT(ItemStack itemStack, IRecipe recipe, CraftingInventory inventory) {
         //only copy over name to book of calling
-        return recipe.getRecipeOutput().getItem() instanceof BookOfCallingItem;
+        return recipe.getResultItem().getItem() instanceof BookOfCallingItem;
     }
 
     @Override

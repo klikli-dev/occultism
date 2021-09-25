@@ -67,13 +67,13 @@ public class DragonFamiliarEntity extends FamiliarEntity {
 
     public static final int MAX_PET_TIMER = 20 * 2;
 
-    private static final DataParameter<Boolean> FEZ = EntityDataManager.createKey(DragonFamiliarEntity.class,
+    private static final DataParameter<Boolean> FEZ = EntityDataManager.defineId(DragonFamiliarEntity.class,
             DataSerializers.BOOLEAN);
-    private static final DataParameter<Boolean> EARS = EntityDataManager.createKey(DragonFamiliarEntity.class,
+    private static final DataParameter<Boolean> EARS = EntityDataManager.defineId(DragonFamiliarEntity.class,
             DataSerializers.BOOLEAN);
-    private static final DataParameter<Boolean> ARMS = EntityDataManager.createKey(DragonFamiliarEntity.class,
+    private static final DataParameter<Boolean> ARMS = EntityDataManager.defineId(DragonFamiliarEntity.class,
             DataSerializers.BOOLEAN);
-    private static final DataParameter<Boolean> STICK = EntityDataManager.createKey(DragonFamiliarEntity.class,
+    private static final DataParameter<Boolean> STICK = EntityDataManager.defineId(DragonFamiliarEntity.class,
             DataSerializers.BOOLEAN);
 
     private final float colorOffset;
@@ -83,7 +83,7 @@ public class DragonFamiliarEntity extends FamiliarEntity {
 
     public DragonFamiliarEntity(EntityType<? extends DragonFamiliarEntity> type, World worldIn) {
         super(type, worldIn);
-        this.colorOffset = this.getRNG().nextFloat() * 2;
+        this.colorOffset = this.getRandom().nextFloat() * 2;
         this.petTimer = MAX_PET_TIMER;
     }
 
@@ -95,12 +95,12 @@ public class DragonFamiliarEntity extends FamiliarEntity {
     }
 
     @Override
-    public ILivingEntityData onInitialSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason,
+    public ILivingEntityData finalizeSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason,
             ILivingEntityData spawnDataIn, CompoundNBT dataTag) {
-        this.setFez(this.getRNG().nextDouble() < 0.1);
-        this.setEars(this.getRNG().nextDouble() < 0.5);
-        this.setArms(this.getRNG().nextDouble() < 0.5);
-        return super.onInitialSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
+        this.setFez(this.getRandom().nextDouble() < 0.1);
+        this.setEars(this.getRandom().nextDouble() < 0.5);
+        this.setArms(this.getRandom().nextDouble() < 0.5);
+        return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
     }
 
     @Override
@@ -111,8 +111,8 @@ public class DragonFamiliarEntity extends FamiliarEntity {
         this.goalSelector.addGoal(2, new LookAtGoal(this, PlayerEntity.class, 8));
         this.goalSelector.addGoal(3, new GreedyFamiliarEntity.FindItemGoal(this) {
             @Override
-            public boolean shouldExecute() {
-                return super.shouldExecute() && DragonFamiliarEntity.this.getPassengers().stream()
+            public boolean canUse() {
+                return super.canUse() && DragonFamiliarEntity.this.getPassengers().stream()
                         .anyMatch(e -> e instanceof GreedyFamiliarEntity);
             }
         });
@@ -126,16 +126,16 @@ public class DragonFamiliarEntity extends FamiliarEntity {
     @Override
     public void swing(Hand handIn, boolean updateSelf) {
         super.swing(handIn, updateSelf);
-        this.swingProgressInt = -20 + 6;
+        this.swingTime = -20 + 6;
     }
 
     @Override
-    public boolean onLivingFall(float fallDistance, float damageMultiplier) {
+    public boolean causeFallDamage(float fallDistance, float damageMultiplier) {
         return false;
     }
 
     public float getAttackProgress(float partialTicks) {
-        return MathHelper.lerp((this.swingProgressInt + (20 - 6) + partialTicks) / 20, 0, 1);
+        return MathHelper.lerp((this.swingTime + (20 - 6) + partialTicks) / 20, 0, 1);
     }
 
     public int getPetTimer() {
@@ -149,14 +149,14 @@ public class DragonFamiliarEntity extends FamiliarEntity {
             this.greedyTimer--;
 
         if (!this.isOnGround()) {
-            Vector3d motion = this.getMotion();
+            Vector3d motion = this.getDeltaMovement();
             if (motion.y < 0) {
-                motion = motion.mul(1, 0.5, 1);
-                this.setMotion(motion);
+                motion = motion.multiply(1, 0.5, 1);
+                this.setDeltaMovement(motion);
             }
         }
 
-        if (!this.isServerWorld()) {
+        if (!this.isEffectiveAi()) {
             this.flyingTimer0 = this.flyingTimer;
             this.wingspan0 = this.wingspan;
             if (this.isOnGround()) {
@@ -184,78 +184,78 @@ public class DragonFamiliarEntity extends FamiliarEntity {
     }
 
     @Override
-    protected ActionResultType getEntityInteractionResult(PlayerEntity playerIn, Hand hand) {
-        ItemStack stack = playerIn.getHeldItem(hand);
+    protected ActionResultType mobInteract(PlayerEntity playerIn, Hand hand) {
+        ItemStack stack = playerIn.getItemInHand(hand);
         if (hasStick()) {
             ItemHandlerHelper.giveItemToPlayer(playerIn, new ItemStack(Items.STICK));
             setStick(false);
-            return ActionResultType.func_233537_a_(!this.isServerWorld());
-        } else if (stack.getItem().isIn(Tags.Items.NUGGETS_GOLD)) {
+            return ActionResultType.sidedSuccess(!this.isEffectiveAi());
+        } else if (stack.getItem().is(Tags.Items.NUGGETS_GOLD)) {
             OccultismAdvancements.FAMILIAR.trigger(this.getFamiliarOwner(), FamiliarTrigger.Type.DRAGON_NUGGET);
             this.greedyTimer += GREEDY_INCREMENT;
-            if (this.isServerWorld())
+            if (this.isEffectiveAi())
                 stack.shrink(1);
             else
-                this.world.addParticle(ParticleTypes.HEART, this.getPosX(), this.getPosY() + 1, this.getPosZ(), 0, 0,
+                this.level.addParticle(ParticleTypes.HEART, this.getX(), this.getY() + 1, this.getZ(), 0, 0,
                         0);
-            return ActionResultType.func_233537_a_(!this.isServerWorld());
-        } else if (stack.isEmpty() && playerIn.isSneaking()) {
+            return ActionResultType.sidedSuccess(!this.isEffectiveAi());
+        } else if (stack.isEmpty() && playerIn.isShiftKeyDown()) {
             this.petTimer = 0;
             OccultismAdvancements.FAMILIAR.trigger(playerIn, FamiliarTrigger.Type.DRAGON_PET);
-            return ActionResultType.func_233537_a_(!this.isServerWorld());
+            return ActionResultType.sidedSuccess(!this.isEffectiveAi());
         }
-        return super.getEntityInteractionResult(playerIn, hand);
+        return super.mobInteract(playerIn, hand);
     }
 
     @Override
-    protected void registerData() {
-        super.registerData();
-        this.dataManager.register(FEZ, false);
-        this.dataManager.register(EARS, false);
-        this.dataManager.register(ARMS, false);
-        this.dataManager.register(STICK, false);
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(FEZ, false);
+        this.entityData.define(EARS, false);
+        this.entityData.define(ARMS, false);
+        this.entityData.define(STICK, false);
     }
 
     public boolean hasFez() {
-        return this.dataManager.get(FEZ);
+        return this.entityData.get(FEZ);
     }
 
     private void setFez(boolean b) {
-        this.dataManager.set(FEZ, b);
+        this.entityData.set(FEZ, b);
     }
 
     public boolean hasEars() {
-        return this.dataManager.get(EARS);
+        return this.entityData.get(EARS);
     }
 
     private void setEars(boolean b) {
-        this.dataManager.set(EARS, b);
+        this.entityData.set(EARS, b);
     }
 
     public boolean hasArms() {
-        return this.dataManager.get(ARMS);
+        return this.entityData.get(ARMS);
     }
 
     private void setArms(boolean b) {
-        this.dataManager.set(ARMS, b);
+        this.entityData.set(ARMS, b);
     }
 
     public boolean hasStick() {
-        return this.dataManager.get(STICK);
+        return this.entityData.get(STICK);
     }
 
     private void setStick(boolean b) {
-        this.dataManager.set(STICK, b);
+        this.entityData.set(STICK, b);
     }
 
     @Override
-    public double getMountedYOffset() {
-        return super.getMountedYOffset() * 0.4f;
+    public double getPassengersRidingOffset() {
+        return super.getPassengersRidingOffset() * 0.4f;
     }
 
     @Override
-    public void writeAdditional(CompoundNBT compound) {
-        super.writeAdditional(compound);
+    public void addAdditionalSaveData(CompoundNBT compound) {
+        super.addAdditionalSaveData(compound);
         compound.putBoolean("hasFez", this.hasFez());
         compound.putBoolean("hasEars", this.hasEars());
         compound.putBoolean("hasArms", this.hasArms());
@@ -264,8 +264,8 @@ public class DragonFamiliarEntity extends FamiliarEntity {
     }
 
     @Override
-    public void readAdditional(CompoundNBT compound) {
-        super.readAdditional(compound);
+    public void readAdditionalSaveData(CompoundNBT compound) {
+        super.readAdditionalSaveData(compound);
         this.setFez(compound.getBoolean("hasFez"));
         this.setEars(compound.getBoolean("hasEars"));
         this.setArms(compound.getBoolean("hasArms"));
@@ -283,15 +283,15 @@ public class DragonFamiliarEntity extends FamiliarEntity {
     }
 
     public float getEyeColorR(float partialTicks) {
-        return Math.abs(MathHelper.sin((this.ticksExisted + partialTicks + 5) / 20 + this.colorOffset)) * 0.8f + 0.2f;
+        return Math.abs(MathHelper.sin((this.tickCount + partialTicks + 5) / 20 + this.colorOffset)) * 0.8f + 0.2f;
     }
 
     public float getEyeColorG(float partialTicks) {
-        return Math.abs(MathHelper.sin((this.ticksExisted + partialTicks + 10) / 30 + this.colorOffset)) * 0.8f + 0.2f;
+        return Math.abs(MathHelper.sin((this.tickCount + partialTicks + 10) / 30 + this.colorOffset)) * 0.8f + 0.2f;
     }
 
     public float getEyeColorB(float partialTicks) {
-        return Math.abs(MathHelper.sin((this.ticksExisted + partialTicks) / 40 + this.colorOffset)) * 0.8f + 0.2f;
+        return Math.abs(MathHelper.sin((this.tickCount + partialTicks) / 40 + this.colorOffset)) * 0.8f + 0.2f;
     }
 
     private static class FetchGoal extends Goal {
@@ -301,26 +301,26 @@ public class DragonFamiliarEntity extends FamiliarEntity {
 
         public FetchGoal(DragonFamiliarEntity dragon) {
             this.dragon = dragon;
-            this.setMutexFlags(EnumSet.of(Goal.Flag.JUMP, Goal.Flag.MOVE));
+            this.setFlags(EnumSet.of(Goal.Flag.JUMP, Goal.Flag.MOVE));
         }
 
         @Override
-        public boolean shouldExecute() {
+        public boolean canUse() {
             stick = findStick();
             return stick != null && !dragon.hasStick();
         }
 
         @Override
-        public boolean shouldContinueExecuting() {
+        public boolean canContinueToUse() {
             return stick != null && !dragon.hasStick();
         }
 
-        public void startExecuting() {
-            dragon.getNavigator().tryMoveToEntityLiving(stick, 1.2);
+        public void start() {
+            dragon.getNavigation().moveTo(stick, 1.2);
         }
 
-        public void resetTask() {
-            dragon.getNavigator().clearPath();
+        public void stop() {
+            dragon.getNavigation().stop();
             stick = null;
         }
 
@@ -331,9 +331,9 @@ public class DragonFamiliarEntity extends FamiliarEntity {
                 if (stick == null)
                     return;
             }
-            dragon.getNavigator().tryMoveToEntityLiving(stick, 1.2);
+            dragon.getNavigation().moveTo(stick, 1.2);
 
-            if (stick.getDistanceSq(dragon) < 3) {
+            if (stick.distanceToSqr(dragon) < 3) {
                 dragon.setStick(true);
                 OccultismAdvancements.FAMILIAR.trigger(dragon.getFamiliarOwner(), FamiliarTrigger.Type.DRAGON_FETCH);
                 stick.getItem().shrink(1);
@@ -342,8 +342,8 @@ public class DragonFamiliarEntity extends FamiliarEntity {
         }
 
         private ItemEntity findStick() {
-            List<ItemEntity> sticks = dragon.world.getEntitiesWithinAABB(ItemEntity.class,
-                    dragon.getBoundingBox().grow(8), e -> e.getItem().getItem() == Items.STICK && e.isAlive());
+            List<ItemEntity> sticks = dragon.level.getEntitiesOfClass(ItemEntity.class,
+                    dragon.getBoundingBox().inflate(8), e -> e.getItem().getItem() == Items.STICK && e.isAlive());
             return sticks.isEmpty() ? null : sticks.get(0);
         }
 

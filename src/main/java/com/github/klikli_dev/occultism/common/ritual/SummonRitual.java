@@ -56,7 +56,7 @@ public class SummonRitual extends Ritual {
      * @return return the bound book of calling with the nbt from the activation item.
      */
     public ItemStack getBookOfCallingBound(ItemStack activationItem) {
-        ItemStack result = this.recipe.getRecipeOutput().copy();
+        ItemStack result = this.recipe.getResultItem().copy();
         if(result.getItem() == OccultismItems.JEI_DUMMY_NONE.get())
             return ItemStack.EMPTY;
 
@@ -75,7 +75,7 @@ public class SummonRitual extends Ritual {
      * @param player        the player to give the book to.
      */
     public void finishBookOfCallingSetup(ItemStack bookOfCalling, SpiritEntity spirit, PlayerEntity player) {
-        ItemNBTUtil.setSpiritEntityUUID(bookOfCalling, spirit.getUniqueID());
+        ItemNBTUtil.setSpiritEntityUUID(bookOfCalling, spirit.getUUID());
         ItemHandlerHelper.giveItemToPlayer(player, bookOfCalling);
     }
 
@@ -86,10 +86,10 @@ public class SummonRitual extends Ritual {
      * @param world  the world to spawn in.
      */
     public void spawnEntity(Entity entity, World world) {
-        for (ServerPlayerEntity player : world.getEntitiesWithinAABB(ServerPlayerEntity.class,
-                entity.getBoundingBox().grow(50)))
+        for (ServerPlayerEntity player : world.getEntitiesOfClass(ServerPlayerEntity.class,
+                entity.getBoundingBox().inflate(50)))
             CriteriaTriggers.SUMMONED_ENTITY.trigger(player, entity);
-        world.addEntity(entity);
+        world.addFreshEntity(entity);
     }
 
     @Override
@@ -102,7 +102,7 @@ public class SummonRitual extends Ritual {
         ItemStack result = this.getBookOfCallingBound(activationItem);
         activationItem.shrink(1); //remove original activation item.
 
-        ((ServerWorld) world).spawnParticle(ParticleTypes.LARGE_SMOKE, goldenBowlPosition.getX() + 0.5,
+        ((ServerWorld) world).sendParticles(ParticleTypes.LARGE_SMOKE, goldenBowlPosition.getX() + 0.5,
                 goldenBowlPosition.getY() + 0.5, goldenBowlPosition.getZ() + 0.5, 1, 0, 0, 0, 0);
 
         EntityType<?> entityType = this.recipe.getEntityToSummon();

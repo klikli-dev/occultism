@@ -47,6 +47,8 @@ import net.minecraftforge.fml.network.NetworkHooks;
 import javax.annotation.Nullable;
 import java.util.List;
 
+import net.minecraft.item.Item.Properties;
+
 public class StorageRemoteItem extends Item implements INamedContainerProvider {
 
     //region Initialization
@@ -58,59 +60,59 @@ public class StorageRemoteItem extends Item implements INamedContainerProvider {
     //region Overrides
     @Override
     public ITextComponent getDisplayName() {
-        return new TranslationTextComponent(this.getTranslationKey());
+        return new TranslationTextComponent(this.getDescriptionId());
     }
 
     @Override
-    public ActionResultType onItemUse(ItemUseContext context) {
-        if (!context.getWorld().isRemote) {
-            ItemStack stack = context.getItem();
-            TileEntity tileEntity = context.getWorld().getTileEntity(context.getPos());
+    public ActionResultType useOn(ItemUseContext context) {
+        if (!context.getLevel().isClientSide) {
+            ItemStack stack = context.getItemInHand();
+            TileEntity tileEntity = context.getLevel().getBlockEntity(context.getClickedPos());
             if (tileEntity instanceof IStorageController) {
-                stack.setTagInfo("linkedStorageController", GlobalBlockPos.from(tileEntity).serializeNBT());
+                stack.addTagElement("linkedStorageController", GlobalBlockPos.from(tileEntity).serializeNBT());
                 context.getPlayer()
-                        .sendMessage(new TranslationTextComponent(this.getTranslationKey() + ".message.linked"),
-                                Util.DUMMY_UUID);
+                        .sendMessage(new TranslationTextComponent(this.getDescriptionId() + ".message.linked"),
+                                Util.NIL_UUID);
             }
         }
 
-        return super.onItemUse(context);
+        return super.useOn(context);
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, Hand hand) {
-        ItemStack stack = player.getHeldItem(hand);
+    public ActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
+        ItemStack stack = player.getItemInHand(hand);
 
-        if (world.isRemote || !stack.getOrCreateTag().contains("linkedStorageController"))
-            return super.onItemRightClick(world, player, hand);
+        if (world.isClientSide || !stack.getOrCreateTag().contains("linkedStorageController"))
+            return super.use(world, player, hand);
 
         GlobalBlockPos storageControllerPos = GlobalBlockPos.from(
                 stack.getTag().getCompound("linkedStorageController"));
-        World storageControllerWorld = world.getServer().getWorld(storageControllerPos.getDimensionKey());
+        World storageControllerWorld = world.getServer().getLevel(storageControllerPos.getDimensionKey());
 
         //ensure TE is available
-        if (!storageControllerWorld.isBlockLoaded(storageControllerPos.getPos())) {
-            player.sendMessage(new TranslationTextComponent(this.getTranslationKey() + ".message.not_loaded"), Util.DUMMY_UUID);
-            return super.onItemRightClick(world, player, hand);
+        if (!storageControllerWorld.hasChunkAt(storageControllerPos.getPos())) {
+            player.sendMessage(new TranslationTextComponent(this.getDescriptionId() + ".message.not_loaded"), Util.NIL_UUID);
+            return super.use(world, player, hand);
         }
 
         //then access it and if it fits, open UI
-        if (storageControllerWorld.getTileEntity(storageControllerPos.getPos()) instanceof IStorageController) {
-            NetworkHooks.openGui((ServerPlayerEntity) player, this, buffer -> buffer.writeVarInt(player.inventory.currentItem));
+        if (storageControllerWorld.getBlockEntity(storageControllerPos.getPos()) instanceof IStorageController) {
+            NetworkHooks.openGui((ServerPlayerEntity) player, this, buffer -> buffer.writeVarInt(player.inventory.selected));
             return new ActionResult<>(ActionResultType.SUCCESS, stack);
         }
-        return super.onItemRightClick(world, player, hand);
+        return super.use(world, player, hand);
     }
 
     @Override
-    public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip,
+    public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip,
                                ITooltipFlag flagIn) {
-        super.addInformation(stack, worldIn, tooltip, flagIn);
+        super.appendHoverText(stack, worldIn, tooltip, flagIn);
 
-        tooltip.add(new TranslationTextComponent(this.getTranslationKey() + ".tooltip"));
+        tooltip.add(new TranslationTextComponent(this.getDescriptionId() + ".tooltip"));
         if (stack.getOrCreateTag().contains("linkedStorageController")) {
             GlobalBlockPos pos = GlobalBlockPos.from(stack.getTag().getCompound("linkedStorageController"));
-            tooltip.add(new TranslationTextComponent(this.getTranslationKey() + ".tooltip.linked", pos.toString()));
+            tooltip.add(new TranslationTextComponent(this.getDescriptionId() + ".tooltip.linked", pos.toString()));
         }
     }
 

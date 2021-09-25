@@ -71,7 +71,7 @@ public class MatchBlockCondition implements ILootCondition
     @Override
     public boolean test(LootContext lootContext)
     {
-        BlockState state = lootContext.get(LootParameters.BLOCK_STATE);
+        BlockState state = lootContext.getParamOrNull(LootParameters.BLOCK_STATE);
         if (state == null)
             return false;
         if (this.blockTag != null)
@@ -82,7 +82,7 @@ public class MatchBlockCondition implements ILootCondition
     }
 
     @Override
-    public LootConditionType getConditionType()
+    public LootConditionType getType()
     {
         return BLOCK_TAG_CONDITION;
     }
@@ -101,13 +101,13 @@ public class MatchBlockCondition implements ILootCondition
         {
             if (json.has("tag"))
             {
-                ResourceLocation tagName = new ResourceLocation(JSONUtils.getString(json, "tag"));
+                ResourceLocation tagName = new ResourceLocation(JSONUtils.getAsString(json, "tag"));
                 return new MatchBlockCondition(null, BlockTags.createOptional(tagName));
             }
             else if(json.has("blocks"))
             {
                 List<Block> blockNames = Lists.newArrayList();
-                for(JsonElement e : JSONUtils.getJsonArray(json, "blocks"))
+                for(JsonElement e : JSONUtils.getAsJsonArray(json, "blocks"))
                 {
                     ResourceLocation blockName = new ResourceLocation(e.getAsString());
                     blockNames.add(ForgeRegistries.BLOCKS.getValue(blockName));
@@ -116,7 +116,7 @@ public class MatchBlockCondition implements ILootCondition
             }
             else if(json.has("block"))
             {
-                ResourceLocation blockName = new ResourceLocation(JSONUtils.getString(json, "block"));
+                ResourceLocation blockName = new ResourceLocation(JSONUtils.getAsString(json, "block"));
                 return new MatchBlockCondition(Collections.singletonList(ForgeRegistries.BLOCKS.getValue(blockName)), null);
             }
             throw new RuntimeException("match_block must have one of 'tag', 'block' or 'blocks' key");

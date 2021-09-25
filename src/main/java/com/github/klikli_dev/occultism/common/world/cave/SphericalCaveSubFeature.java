@@ -83,7 +83,7 @@ public class SphericalCaveSubFeature implements IMultiChunkSubFeature {
     public boolean generate(ISeedReader reader, ChunkGenerator generator, Random rand, BlockPos rootPosition,
                             AxisAlignedBB bounds, MultiChunkFeatureConfig config) {
         //can never generate in daylight
-        if (reader.canBlockSeeSky(rootPosition))
+        if (reader.canSeeSkyFromBelowWater(rootPosition))
             return false;
 
         //Store a list of spherical caves for easy access during development, or future command access.
@@ -92,15 +92,15 @@ public class SphericalCaveSubFeature implements IMultiChunkSubFeature {
         ChunkPos rootChunk = new ChunkPos(rootPosition);
         //Seed with root chunk position
         ((SharedSeedRandom) rand)
-                .setLargeFeatureSeedWithSalt(reader.getSeed(), rootChunk.x, rootChunk.z, config.featureSeedSalt);
+                .setLargeFeatureWithSalt(reader.getSeed(), rootChunk.x, rootChunk.z, config.featureSeedSalt);
 
         List<Sphere> spheres = new ArrayList<>();
         int radiusBase = this.radius + rand.nextInt(this.maxRandomRadiusOffset);
         int radius = (int) (radiusBase * 0.2F) + rand.nextInt(8);
         spheres.add(this.generateSphere(reader, rand, rootPosition, radius, bounds));
         for (int i = 0; i < this.additionalSpheres + rand.nextInt(this.maxRandomAdditionalSpheres); i++) {
-            Direction direction = Direction.Plane.HORIZONTAL.random(rand);
-            spheres.add(this.generateSphere(reader, rand, rootPosition.offset(direction, radius - 2),
+            Direction direction = Direction.Plane.HORIZONTAL.getRandomDirection(rand);
+            spheres.add(this.generateSphere(reader, rand, rootPosition.relative(direction, radius - 2),
                     2 * (int) (radius / 3F) + rand.nextInt(8), bounds));
         }
         for (Sphere sphere : spheres) {
@@ -122,14 +122,14 @@ public class SphericalCaveSubFeature implements IMultiChunkSubFeature {
         int k = radius / 2;
         int l = radius;
         float f = (float) (j + k + l) * 0.333F + 0.5F;
-        BlockPos min = Math3DUtil.clamp(center.add(-j, -k, -l), bounds);
-        BlockPos max = Math3DUtil.clamp(center.add(j, k, l), bounds);
+        BlockPos min = Math3DUtil.clamp(center.offset(-j, -k, -l), bounds);
+        BlockPos max = Math3DUtil.clamp(center.offset(j, k, l), bounds);
 
-        BlockPos.getAllInBox(min, max).forEach(blockPos -> {
-            if (blockPos.distanceSq(center) <= (double) (f * f * MathHelper.clamp(rand.nextFloat(), 0.75F, 1.0F))) {
+        BlockPos.betweenClosedStream(min, max).forEach(blockPos -> {
+            if (blockPos.distSqr(center) <= (double) (f * f * MathHelper.clamp(rand.nextFloat(), 0.75F, 1.0F))) {
                 BlockState currentState = reader.getBlockState(blockPos);
                 if (!currentState.hasTileEntity() && currentState.getBlock() != Blocks.BEDROCK) {
-                    reader.setBlockState(blockPos, Blocks.CAVE_AIR.getDefaultState(), 2);
+                    reader.setBlock(blockPos, Blocks.CAVE_AIR.defaultBlockState(), 2);
                 }
             }
         });
@@ -143,11 +143,11 @@ public class SphericalCaveSubFeature implements IMultiChunkSubFeature {
         int l = radius;
         CaveDecoratordata data = new CaveDecoratordata();
         float f = (float) (j + k + l) * 0.333F + 0.5F;
-        BlockPos min = Math3DUtil.clamp(center.add(-j, -k, -l), bounds);
-        BlockPos max = Math3DUtil.clamp(center.add(j, k, l), bounds);
-        BlockPos.getAllInBox(min, max).forEach(blockPos -> {
-            if (blockPos.distanceSq(center) <= (double) (f * f)) {
-                this.caveDecorator.fill(reader, generator, rand, blockPos.toImmutable(), data);
+        BlockPos min = Math3DUtil.clamp(center.offset(-j, -k, -l), bounds);
+        BlockPos max = Math3DUtil.clamp(center.offset(j, k, l), bounds);
+        BlockPos.betweenClosedStream(min, max).forEach(blockPos -> {
+            if (blockPos.distSqr(center) <= (double) (f * f)) {
+                this.caveDecorator.fill(reader, generator, rand, blockPos.immutable(), data);
             }
         });
 

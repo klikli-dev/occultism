@@ -69,12 +69,12 @@ public class MessageRequestOrder extends MessageBase {
     public void onServerReceived(MinecraftServer minecraftServer, ServerPlayerEntity player,
                                  NetworkEvent.Context context) {
 
-        World world = minecraftServer.getWorld(this.storageControllerPosition.getDimensionKey());
+        World world = minecraftServer.getLevel(this.storageControllerPosition.getDimensionKey());
         //prevent block loading by message
-        if (!world.isBlockLoaded(this.storageControllerPosition.getPos()))
+        if (!world.hasChunkAt(this.storageControllerPosition.getPos()))
             return;
 
-        TileEntity tileEntity = world.getTileEntity(this.storageControllerPosition.getPos());
+        TileEntity tileEntity = world.getBlockEntity(this.storageControllerPosition.getPos());
         if (!(tileEntity instanceof IStorageController))
             return; //early exit because we did not find the storage controller.
 
@@ -86,7 +86,7 @@ public class MessageRequestOrder extends MessageBase {
         //then place the order.
         ItemStackComparator comparator = new ItemStackComparator(this.stack, true);
         storageController.addDepositOrder(this.targetMachinePosition, comparator, this.stack.getCount());
-        player.sendStatusMessage(
+        player.displayClientMessage(
                 new TranslationTextComponent("network.messages." + Occultism.MODID + ".request_order.order_received"),
                 true);
     }
@@ -95,14 +95,14 @@ public class MessageRequestOrder extends MessageBase {
     public void encode(PacketBuffer buf) {
         this.storageControllerPosition.encode(buf);
         this.targetMachinePosition.encode(buf);
-        buf.writeItemStack(this.stack);
+        buf.writeItem(this.stack);
     }
 
     @Override
     public void decode(PacketBuffer buf) {
         this.storageControllerPosition = GlobalBlockPos.from(buf);
         this.targetMachinePosition = GlobalBlockPos.from(buf);
-        this.stack = buf.readItemStack();
+        this.stack = buf.readItem();
     }
     //endregion Overrides
 }

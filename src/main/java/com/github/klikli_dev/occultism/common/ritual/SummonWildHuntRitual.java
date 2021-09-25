@@ -47,7 +47,7 @@ public class SummonWildHuntRitual extends SummonRitual {
 
         activationItem.shrink(1); //remove original activation item.
 
-        ((ServerWorld) world).spawnParticle(ParticleTypes.LARGE_SMOKE, goldenBowlPosition.getX() + 0.5,
+        ((ServerWorld) world).sendParticles(ParticleTypes.LARGE_SMOKE, goldenBowlPosition.getX() + 0.5,
                 goldenBowlPosition.getY() + 0.5, goldenBowlPosition.getZ() + 0.5, 1, 0, 0, 0, 0);
 
         //Spawn the wither skeletons, who will spawn their minions
@@ -62,13 +62,13 @@ public class SummonWildHuntRitual extends SummonRitual {
                     double offsetX = world.getRandom().nextGaussian() * (1 + world.getRandom().nextInt(4));
                     double offsetZ = world.getRandom().nextGaussian() * (1 + world.getRandom().nextInt(4));
 
-                    living.setPositionAndRotation(goldenBowlPosition.getX() + offsetX, goldenBowlPosition.getY() + 1.5,
+                    living.absMoveTo(goldenBowlPosition.getX() + offsetX, goldenBowlPosition.getY() + 1.5,
                             goldenBowlPosition.getZ() + offsetZ,
                             world.getRandom().nextInt(360), 0);
                     living.setCustomName(new StringTextComponent(TextUtil.generateName()));
 
                     if (living instanceof MobEntity) {
-                        ((MobEntity) living).onInitialSpawn((ServerWorld) world, world.getDifficultyForLocation(goldenBowlPosition), SpawnReason.MOB_SUMMONED,
+                        ((MobEntity) living).finalizeSpawn((ServerWorld) world, world.getCurrentDifficultyAt(goldenBowlPosition), SpawnReason.MOB_SUMMONED,
                                 null,
                                 null);
                     }

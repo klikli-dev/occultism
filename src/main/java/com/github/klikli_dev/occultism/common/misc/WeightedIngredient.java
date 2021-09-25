@@ -34,7 +34,7 @@ public class WeightedIngredient extends WeightedRandom.Item {
     }
 
     public ItemStack getStack(){
-        return this.ingredient.getMatchingStacks()[0];
+        return this.ingredient.getItems()[0];
     }
 
     public Ingredient getIngredient() {

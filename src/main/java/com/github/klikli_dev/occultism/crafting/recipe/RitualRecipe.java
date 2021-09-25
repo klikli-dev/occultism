@@ -137,7 +137,7 @@ public class RitualRecipe extends ShapelessRecipe {
     }
 
     @Override
-    public ItemStack getCraftingResult(CraftingInventory inventoryCrafting) {
+    public ItemStack assemble(CraftingInventory inventoryCrafting) {
         //as we don't have an inventory this is ignored.
         return null;
     }
@@ -194,58 +194,58 @@ public class RitualRecipe extends ShapelessRecipe {
 
         //region Overrides
         @Override
-        public RitualRecipe read(ResourceLocation recipeId, JsonObject json) {
-            ShapelessRecipe recipe = serializer.read(recipeId, json);
+        public RitualRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
+            ShapelessRecipe recipe = serializer.fromJson(recipeId, json);
 
             ResourceLocation ritualType = new ResourceLocation(json.get("ritual_type").getAsString());
 
             EntityType<?> entityToSummon = null;
             if (json.has("entity_to_summon")) {
-                entityToSummon = ForgeRegistries.ENTITIES.getValue(new ResourceLocation(JSONUtils.getString(json, "entity_to_summon")));
+                entityToSummon = ForgeRegistries.ENTITIES.getValue(new ResourceLocation(JSONUtils.getAsString(json, "entity_to_summon")));
             }
 
             JsonElement activationItemElement =
-                    JSONUtils.isJsonArray(json, "activation_item") ? JSONUtils.getJsonArray(json,
-                            "activation_item") : JSONUtils.getJsonObject(json, "activation_item");
-            Ingredient activationItem = Ingredient.deserialize(activationItemElement);
+                    JSONUtils.isArrayNode(json, "activation_item") ? JSONUtils.getAsJsonArray(json,
+                            "activation_item") : JSONUtils.getAsJsonObject(json, "activation_item");
+            Ingredient activationItem = Ingredient.fromJson(activationItemElement);
 
             ResourceLocation pentacleId = new ResourceLocation(json.get("pentacle_id").getAsString());
 
-            int duration = JSONUtils.getInt(json, "duration", 30);
-            int spiritMaxAge = JSONUtils.getInt(json, "spirit_max_age", -1);
+            int duration = JSONUtils.getAsInt(json, "duration", 30);
+            int spiritMaxAge = JSONUtils.getAsInt(json, "spirit_max_age", -1);
 
             ResourceLocation spiritJobType = null;
             if (json.has("spirit_job_type")) {
                 spiritJobType = new ResourceLocation(json.get("spirit_job_type").getAsString());
             }
 
-            ItemStack ritualDummy = CraftingHelper.getItemStack(JSONUtils.getJsonObject(json, "ritual_dummy"), true);
+            ItemStack ritualDummy = CraftingHelper.getItemStack(JSONUtils.getAsJsonObject(json, "ritual_dummy"), true);
 
             ITag<EntityType<?>> entityToSacrifice = null;
             String entityToSacrificeDisplayName = "";
             if (json.has("entity_to_sacrifice")) {
-                entityToSacrifice = TagCollectionManager.getManager().getEntityTypeTags()
-                        .getTagByID(new ResourceLocation(JSONUtils.getString(json.getAsJsonObject("entity_to_sacrifice"), "tag")));
+                entityToSacrifice = TagCollectionManager.getInstance().getEntityTypes()
+                        .getTagOrEmpty(new ResourceLocation(JSONUtils.getAsString(json.getAsJsonObject("entity_to_sacrifice"), "tag")));
                 entityToSacrificeDisplayName = json.getAsJsonObject("entity_to_sacrifice").get("display_name").getAsString();
             }
 
             Ingredient itemToUse = Ingredient.EMPTY;
             if (json.has("item_to_use")) {
                 JsonElement itemToUseElement =
-                        JSONUtils.isJsonArray(json, "item_to_use") ? JSONUtils.getJsonArray(json,
-                                "item_to_use") : JSONUtils.getJsonObject(json, "item_to_use");
-                itemToUse = Ingredient.deserialize(itemToUseElement);
+                        JSONUtils.isArrayNode(json, "item_to_use") ? JSONUtils.getAsJsonArray(json,
+                                "item_to_use") : JSONUtils.getAsJsonObject(json, "item_to_use");
+                itemToUse = Ingredient.fromJson(itemToUseElement);
 
             }
 
             return new RitualRecipe(recipe.getId(), recipe.getGroup(), pentacleId, ritualType, ritualDummy,
-                    recipe.getRecipeOutput(), entityToSummon, activationItem, recipe.getIngredients(), duration,
+                    recipe.getResultItem(), entityToSummon, activationItem, recipe.getIngredients(), duration,
                     spiritMaxAge, spiritJobType, entityToSacrifice, entityToSacrificeDisplayName, itemToUse);
         }
 
         @Override
-        public RitualRecipe read(ResourceLocation recipeId, PacketBuffer buffer) {
-            ShapelessRecipe recipe = serializer.read(recipeId, buffer);
+        public RitualRecipe fromNetwork(ResourceLocation recipeId, PacketBuffer buffer) {
+            ShapelessRecipe recipe = serializer.fromNetwork(recipeId, buffer);
 
             ResourceLocation ritualType = buffer.readResourceLocation();
 
@@ -263,28 +263,28 @@ public class RitualRecipe extends ShapelessRecipe {
                 spiritJobType = buffer.readResourceLocation();
             }
 
-            ItemStack ritualDummy = buffer.readItemStack();
-            Ingredient activationItem = Ingredient.read(buffer);
+            ItemStack ritualDummy = buffer.readItem();
+            Ingredient activationItem = Ingredient.fromNetwork(buffer);
 
             ITag<EntityType<?>> entityToSacrifice = null;
             String entityToSacrificeDisplayName = "";
             if (buffer.readBoolean()) {
-                entityToSacrifice = TagCollectionManager.getManager().getEntityTypeTags().getTagByID(buffer.readResourceLocation());
-                entityToSacrificeDisplayName = buffer.readString();
+                entityToSacrifice = TagCollectionManager.getInstance().getEntityTypes().getTagOrEmpty(buffer.readResourceLocation());
+                entityToSacrificeDisplayName = buffer.readUtf();
             }
 
             Ingredient itemToUse = Ingredient.EMPTY;
             if (buffer.readBoolean()) {
-                itemToUse = Ingredient.read(buffer);
+                itemToUse = Ingredient.fromNetwork(buffer);
             }
 
-            return new RitualRecipe(recipe.getId(), recipe.getGroup(), pentacleId, ritualType, ritualDummy, recipe.getRecipeOutput(), entityToSummon,
+            return new RitualRecipe(recipe.getId(), recipe.getGroup(), pentacleId, ritualType, ritualDummy, recipe.getResultItem(), entityToSummon,
                     activationItem, recipe.getIngredients(), duration, spiritMaxAge, spiritJobType, entityToSacrifice, entityToSacrificeDisplayName, itemToUse);
         }
 
         @Override
-        public void write(PacketBuffer buffer, RitualRecipe recipe) {
-            serializer.write(buffer, recipe);
+        public void toNetwork(PacketBuffer buffer, RitualRecipe recipe) {
+            serializer.toNetwork(buffer, recipe);
 
             buffer.writeResourceLocation(recipe.ritualType);
 
@@ -299,16 +299,16 @@ public class RitualRecipe extends ShapelessRecipe {
             if(recipe.spiritJobType != null){
                 buffer.writeResourceLocation(recipe.spiritJobType);
             }
-            buffer.writeItemStack(recipe.ritualDummy);
-            recipe.activationItem.write(buffer);
+            buffer.writeItem(recipe.ritualDummy);
+            recipe.activationItem.toNetwork(buffer);
             buffer.writeBoolean(recipe.entityToSacrifice != null);
             if (recipe.entityToSacrifice != null){
-                buffer.writeResourceLocation(TagCollectionManager.getManager().getEntityTypeTags().getDirectIdFromTag(recipe.entityToSacrifice));
-                buffer.writeString(recipe.entityToSacrificeDisplayName);
+                buffer.writeResourceLocation(TagCollectionManager.getInstance().getEntityTypes().getId(recipe.entityToSacrifice));
+                buffer.writeUtf(recipe.entityToSacrificeDisplayName);
             }
             buffer.writeBoolean(recipe.itemToUse != Ingredient.EMPTY);
             if (recipe.itemToUse != Ingredient.EMPTY)
-                recipe.itemToUse.write(buffer);
+                recipe.itemToUse.toNetwork(buffer);
         }
         //endregion Overrides
     }

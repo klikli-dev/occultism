@@ -40,9 +40,9 @@ public class TooltipHandler {
     public static void onAddInformation(ItemTooltipEvent event) {
         ItemStack stack = event.getItemStack();
         if (stack.hasTag() && stack.getTag().contains(ItemNBTUtil.SPIRIT_NAME_TAG)) {
-            String translationKey = stack.getTranslationKey() + ".occultism_spirit_tooltip";
+            String translationKey = stack.getDescriptionId() + ".occultism_spirit_tooltip";
 
-            if (I18n.hasKey(translationKey))
+            if (I18n.exists(translationKey))
                 event.getToolTip().add(new TranslationTextComponent(translationKey,
                         TextUtil.formatDemonName(ItemNBTUtil.getBoundSpiritName(stack))));
         }

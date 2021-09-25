@@ -82,7 +82,7 @@ public class MachineSlotWidget {
         //render item
         //RenderHelper.setupGuiFlatDiffuseLighting();
 
-        this.minecraft.getItemRenderer().renderItemAndEffectIntoGUI(this.machine.getItemStack(), this.x, this.y);
+        this.minecraft.getItemRenderer().renderAndDecorateItem(this.machine.getItemStack(), this.x, this.y);
 
         if (this.isMouseOverSlot(mx, my)) {
             RenderSystem.colorMask(true, true, true, false);

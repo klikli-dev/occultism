@@ -55,12 +55,12 @@ public class MultiChunkFeature extends Feature<MultiChunkFeatureConfig> {
 
     //region Overrides
     @Override
-    public boolean generate(ISeedReader reader, ChunkGenerator generator, Random rand, BlockPos pos,
+    public boolean place(ISeedReader reader, ChunkGenerator generator, Random rand, BlockPos pos,
                             MultiChunkFeatureConfig config) {
 
         //check biome type blacklist
-        for(Biome biome : generator.getBiomeProvider().getBiomes(pos.getX(), pos.getY(), pos.getZ(), 1)){
-            RegistryKey<Biome> biomeKey = RegistryKey.getOrCreateKey(Registry.BIOME_KEY, biome.getRegistryName());
+        for(Biome biome : generator.getBiomeSource().getBiomesWithin(pos.getX(), pos.getY(), pos.getZ(), 1)){
+            RegistryKey<Biome> biomeKey = RegistryKey.create(Registry.BIOME_REGISTRY, biome.getRegistryName());
             if(BiomeUtil.containsType(biomeKey, config.biomeTypeBlacklist)){
                 return false;
             }
@@ -76,7 +76,7 @@ public class MultiChunkFeature extends Feature<MultiChunkFeatureConfig> {
         boolean generatedAny = false;
         for (BlockPos rootPosition : rootPositions) {
             if (this.subFeature.generate(reader, generator, rand, rootPosition,
-                    Math3DUtil.bounds(generatingChunk, generator.getMaxBuildHeight()), config))
+                    Math3DUtil.bounds(generatingChunk, generator.getGenDepth()), config))
                 generatedAny = true;
         }
         return generatedAny;
@@ -94,14 +94,14 @@ public class MultiChunkFeature extends Feature<MultiChunkFeatureConfig> {
                 ChunkPos currentChunk = new ChunkPos(generatingChunk.x + i, generatingChunk.z + j);
 
                 //Seed random for this chunk, this way we get the same result no matter how often this is called.
-                random.setLargeFeatureSeedWithSalt(reader.getSeed(), currentChunk.x, currentChunk.z,
+                random.setLargeFeatureWithSalt(reader.getSeed(), currentChunk.x, currentChunk.z,
                         config.featureSeedSalt);
 
                 if (random.nextInt(config.chanceToGenerate) == 0) {
                     //this chunk contains a root, so we generate a random
-                    result.add(currentChunk.asBlockPos().add(
+                    result.add(currentChunk.getWorldPosition().offset(
                             random.nextInt(15),
-                            Math.min(generator.getMaxBuildHeight(),
+                            Math.min(generator.getGenDepth(),
                                     config.minGenerationHeight + random.nextInt(
                                             Math.max(0, config.maxGenerationHeight - config.minGenerationHeight))),
                             random.nextInt(15))

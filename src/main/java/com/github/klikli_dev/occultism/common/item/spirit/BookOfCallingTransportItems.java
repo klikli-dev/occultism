@@ -38,6 +38,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import net.minecraft.item.Item.Properties;
+
 public class BookOfCallingTransportItems extends BookOfCallingItem {
     //region Initialization
     public BookOfCallingTransportItems(Properties properties, String translationKeyBase) {
@@ -53,9 +55,9 @@ public class BookOfCallingTransportItems extends BookOfCallingItem {
     }
 
     @Override
-    public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip,
+    public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip,
                                ITooltipFlag flagIn) {
-        super.addInformation(stack, worldIn, tooltip, flagIn);
+        super.appendHoverText(stack, worldIn, tooltip, flagIn);
         BlockPos extract = ItemNBTUtil.getExtractPosition(stack);
         if (extract != null) {
             tooltip.add(new TranslationTextComponent(this.getTranslationKeyBase() + ".tooltip.extract", extract.toString()));

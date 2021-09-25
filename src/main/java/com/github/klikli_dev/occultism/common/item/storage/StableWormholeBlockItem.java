@@ -39,6 +39,8 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 import java.util.List;
 
+import net.minecraft.item.Item.Properties;
+
 public class StableWormholeBlockItem extends BlockItem {
     //region Initialization
     public StableWormholeBlockItem(Block blockIn, Properties builder) {
@@ -55,43 +57,43 @@ public class StableWormholeBlockItem extends BlockItem {
     }
 
     @Override
-    public ActionResultType onItemUse(ItemUseContext context) {
-        ItemStack stack = context.getItem();
+    public ActionResultType useOn(ItemUseContext context) {
+        ItemStack stack = context.getItemInHand();
         PlayerEntity player = context.getPlayer();
-        World world = context.getWorld();
-        BlockPos pos = context.getPos();
-        if (!world.isRemote) {
-            if (player.isSneaking()) {
-                TileEntity tileEntity = world.getTileEntity(pos);
+        World world = context.getLevel();
+        BlockPos pos = context.getClickedPos();
+        if (!world.isClientSide) {
+            if (player.isShiftKeyDown()) {
+                TileEntity tileEntity = world.getBlockEntity(pos);
                 if (tileEntity instanceof IStorageController) {
                     //if this is a storage controller, write the position into the block entity tag that will be used to spawn the tile entity.
-                    stack.getOrCreateChildTag("BlockEntityTag")
+                    stack.getOrCreateTagElement("BlockEntityTag")
                             .put("linkedStorageControllerPosition", GlobalBlockPos.from(tileEntity).serializeNBT());
-                    player.sendStatusMessage(
-                            new TranslationTextComponent(this.getTranslationKey() + ".message.set_storage_controller"),
+                    player.displayClientMessage(
+                            new TranslationTextComponent(this.getDescriptionId() + ".message.set_storage_controller"),
                             true);
                     return ActionResultType.SUCCESS;
                 }
             }
         }
-        return super.onItemUse(context);
+        return super.useOn(context);
     }
 
     @Override
-    public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip,
+    public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip,
                                ITooltipFlag flagIn) {
-        super.addInformation(stack, worldIn, tooltip, flagIn);
+        super.appendHoverText(stack, worldIn, tooltip, flagIn);
         if (stack.getOrCreateTag().getCompound("BlockEntityTag")
                     .contains("linkedStorageControllerPosition")) {
-            GlobalBlockPos globalPos = GlobalBlockPos.from(stack.getChildTag("BlockEntityTag")
+            GlobalBlockPos globalPos = GlobalBlockPos.from(stack.getTagElement("BlockEntityTag")
                                                                    .getCompound("linkedStorageControllerPosition"));
             String formattedPosition =
                     TextFormatting.GOLD.toString() + TextFormatting.BOLD + globalPos.getPos().toString() +
                             TextFormatting.RESET;
-            tooltip.add(new TranslationTextComponent(this.getTranslationKey() + ".tooltip.linked", formattedPosition));
+            tooltip.add(new TranslationTextComponent(this.getDescriptionId() + ".tooltip.linked", formattedPosition));
         }
         else {
-            tooltip.add(new TranslationTextComponent(this.getTranslationKey() + ".tooltip.unlinked"));
+            tooltip.add(new TranslationTextComponent(this.getDescriptionId() + ".tooltip.unlinked"));
         }
     }
     //endregion Overrides

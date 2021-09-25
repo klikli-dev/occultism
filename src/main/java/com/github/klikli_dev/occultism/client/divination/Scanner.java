@@ -69,8 +69,8 @@ public class Scanner {
         this.center = center;
         this.radius = radius;
         this.radiusSquared = this.radius * this.radius;
-        this.min = new BlockPos(center).add(-this.radius, -this.radius, -this.radius);
-        this.max = new BlockPos(center).add(this.radius, this.radius, this.radius);
+        this.min = new BlockPos(center).offset(-this.radius, -this.radius, -this.radius);
+        this.max = new BlockPos(center).offset(this.radius, this.radius, this.radius);
         this.x = this.min.getX();
         this.y = this.min.getY() - 1;//first move next increments this to min.getY();
         this.z = this.min.getZ();
@@ -90,7 +90,7 @@ public class Scanner {
     }
 
     public void scan(Consumer<BlockPos> resultConsumer) {
-        World world = this.player.world;
+        World world = this.player.level;
         for (int i = 0; i < this.blocksPerTick; i++) {
             //move to next block
             if (!this.nextBlock(world)) {
@@ -98,7 +98,7 @@ public class Scanner {
             }
 
             //check if block is within radius
-            if (this.center.squareDistanceTo(this.x + 0.5, this.y + 0.5, this.z + 0.5) > this.radiusSquared) {
+            if (this.center.distanceToSqr(this.x + 0.5, this.y + 0.5, this.z + 0.5) > this.radiusSquared) {
                 continue;
             }
 
@@ -114,7 +114,7 @@ public class Scanner {
 
     public boolean nextBlock(World world) {
         this.y++;
-        if (this.y > this.max.getY() || this.y >= world.getHeight()) {
+        if (this.y > this.max.getY() || this.y >= world.getMaxBuildHeight()) {
             this.y = this.min.getY();
             this.x++;
             if (this.x > this.max.getX()) {

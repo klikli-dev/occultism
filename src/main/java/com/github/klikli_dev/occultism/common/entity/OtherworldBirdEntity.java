@@ -92,24 +92,24 @@ public class OtherworldBirdEntity extends ParrotEntity implements IFamiliar {
     }
 
     @Override
-    public void livingTick() {
+    public void aiStep() {
         // Every 10 ticks, attempt to refresh the owner buff
-        if (!this.world.isRemote && this.world.getGameTime() % 10 == 0 && this.isTamed()) {
+        if (!this.level.isClientSide && this.level.getGameTime() % 10 == 0 && this.isTame()) {
             LivingEntity owner = this.getOwnerCached();
-            if (owner != null && this.getDistance(owner) < MAX_BOOST_DISTANCE) {
+            if (owner != null && this.distanceTo(owner) < MAX_BOOST_DISTANCE) {
                 // close enough to boost
                 for (EffectInstance effect : this.getFamiliarEffects())
-                    owner.addPotionEffect(effect);
+                    owner.addEffect(effect);
             }
         }
 
-        super.livingTick();
+        super.aiStep();
     }
 
     @Override
-    public void setOwnerId(@Nullable UUID ownerId) {
+    public void setOwnerUUID(@Nullable UUID ownerId) {
         this.ownerCached = null;
-        super.setOwnerId(ownerId);
+        super.setOwnerUUID(ownerId);
     }
 
     @Override
@@ -119,7 +119,7 @@ public class OtherworldBirdEntity extends ParrotEntity implements IFamiliar {
 
     @Override
     public void setFamiliarOwner(LivingEntity owner) {
-        this.setOwnerId(owner.getUniqueID());
+        this.setOwnerUUID(owner.getUUID());
     }
 
     @Override
@@ -132,7 +132,7 @@ public class OtherworldBirdEntity extends ParrotEntity implements IFamiliar {
 
         //only provide effect if enabled
         if (this.isEffectEnabled()) {
-            return ImmutableList.of(new EffectInstance(Effects.JUMP_BOOST, 60, 5, false, false),
+            return ImmutableList.of(new EffectInstance(Effects.JUMP, 60, 5, false, false),
                     new EffectInstance(Effects.SLOW_FALLING,
                             20 * Occultism.SERVER_CONFIG.spiritJobs.drikwingFamiliarSlowFallingSeconds.get(), 0, false,
                             false),
@@ -143,18 +143,18 @@ public class OtherworldBirdEntity extends ParrotEntity implements IFamiliar {
     }
 
     @Override
-    public ActionResultType getEntityInteractionResult(PlayerEntity playerIn, Hand hand) {
-        ItemStack stack = playerIn.getHeldItem(hand);
+    public ActionResultType mobInteract(PlayerEntity playerIn, Hand hand) {
+        ItemStack stack = playerIn.getItemInHand(hand);
         if (stack.getItem() == OccultismItems.FAMILIAR_RING.get()) {
-            return stack.interactWithEntity(playerIn, this, hand);
+            return stack.interactLivingEntity(playerIn, this, hand);
         }
-        return super.getEntityInteractionResult(playerIn, hand);
+        return super.mobInteract(playerIn, hand);
     }
     // endregion Overrides
 
     //region Static Methods
     public static AttributeModifierMap.MutableAttribute registerAttributes() {
-        return ParrotEntity.func_234213_eS_(); // =registerAttributes
+        return ParrotEntity.createAttributes(); // =registerAttributes
     }
 //endregion Static Methods
 }

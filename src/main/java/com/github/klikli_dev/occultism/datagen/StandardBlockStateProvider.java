@@ -79,12 +79,12 @@ public class StandardBlockStateProvider extends BlockStateProvider {
                 this.modLoc("block/stable_wormhole_unlinked"));
         this.getVariantBuilder(block)
                 .forAllStates(state -> {
-                    Direction dir = state.get(BlockStateProperties.FACING);
+                    Direction dir = state.getValue(BlockStateProperties.FACING);
                     return ConfiguredModel.builder()
-                                   .modelFile(state.get(StableWormholeBlock.LINKED) ? linkedModel : unlinkedModel)
+                                   .modelFile(state.getValue(StableWormholeBlock.LINKED) ? linkedModel : unlinkedModel)
                                    .rotationX(dir == Direction.DOWN ? 180 : dir.getAxis().isHorizontal() ? 90 : 0)
                                    .rotationY(dir.getAxis().isVertical() ? 0 :
-                                                      (((int) dir.getHorizontalAngle()) + 180) % 360)
+                                                      (((int) dir.toYRot()) + 180) % 360)
                                    .build();
                 });
     }
@@ -96,7 +96,7 @@ public class StandardBlockStateProvider extends BlockStateProvider {
                 .forAllStates(state -> {
                     //this is called for every state combination
                     //create a child model for each glyph texture option
-                    int sign = state.get(ChalkGlyphBlock.SIGN);
+                    int sign = state.getValue(ChalkGlyphBlock.SIGN);
                     ModelFile subModel = this.models().getBuilder("block/chalk_glyph/" + sign).parent(parent)
                                                  .texture("texture", this.modLoc("block/chalk_glyph/" + sign));
 
@@ -104,8 +104,8 @@ public class StandardBlockStateProvider extends BlockStateProvider {
                                    //load the child model
                                    .modelFile(subModel)
                                    //
-                                   .rotationY((int) state.get(BlockStateProperties.HORIZONTAL_FACING)
-                                                            .getHorizontalAngle())
+                                   .rotationY((int) state.getValue(BlockStateProperties.HORIZONTAL_FACING)
+                                                            .toYRot())
                                    .build();
                 });
     }

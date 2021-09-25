@@ -61,7 +61,7 @@ public abstract class CaveDecorator implements ICaveDecorator {
     public void fill(ISeedReader seedReader, ChunkGenerator generator, Random rand,
                      BlockPos pos, CaveDecoratordata data) {
         BlockState state = seedReader.getBlockState(pos);
-        if (state.getBlockHardness(seedReader, pos) == -1 || seedReader.canBlockSeeSky(pos))
+        if (state.getDestroySpeed(seedReader, pos) == -1 || seedReader.canSeeSkyFromBelowWater(pos))
             return;
 
         if (this.isFloor(seedReader, pos, state)) {
@@ -87,20 +87,20 @@ public abstract class CaveDecorator implements ICaveDecorator {
     public void fillFloor(ISeedReader seedReader, ChunkGenerator generator, Random rand,
                           BlockPos pos, BlockState state) {
         if (this.floorState != null) {
-            seedReader.setBlockState(pos, this.floorState, 2);
+            seedReader.setBlock(pos, this.floorState, 2);
         }
     }
 
     public void fillCeiling(ISeedReader seedReader, ChunkGenerator generator, Random rand,
                             BlockPos pos, BlockState state) {
         if (this.ceilingState != null)
-            seedReader.setBlockState(pos, this.ceilingState, 2);
+            seedReader.setBlock(pos, this.ceilingState, 2);
     }
 
     public void fillWall(ISeedReader seedReader, ChunkGenerator generator, Random rand,
                          BlockPos pos, BlockState state) {
         if (this.wallState != null)
-            seedReader.setBlockState(pos, this.wallState, 2);
+            seedReader.setBlock(pos, this.wallState, 2);
     }
 
     public void fillInside(ISeedReader seedReader, ChunkGenerator generator, Random rand,
@@ -125,23 +125,23 @@ public abstract class CaveDecorator implements ICaveDecorator {
     }
 
     public boolean isFloor(ISeedReader seedReader, BlockPos pos, BlockState state) {
-        if (!state.isOpaqueCube(seedReader, pos))
+        if (!state.isSolidRender(seedReader, pos))
             return false;
 
-        BlockPos upPos = pos.up();
-        return seedReader.isAirBlock(upPos) || seedReader.getBlockState(upPos).getMaterial().isReplaceable();
+        BlockPos upPos = pos.above();
+        return seedReader.isEmptyBlock(upPos) || seedReader.getBlockState(upPos).getMaterial().isReplaceable();
     }
 
     public boolean isCeiling(ISeedReader seedReader, BlockPos pos, BlockState state) {
-        if (!state.isOpaqueCube(seedReader, pos))
+        if (!state.isSolidRender(seedReader, pos))
             return false;
 
-        BlockPos downPos = pos.down();
-        return seedReader.isAirBlock(downPos); // || world.getBlockState(downPos).getBlock().isReplaceable(world, downPos);
+        BlockPos downPos = pos.below();
+        return seedReader.isEmptyBlock(downPos); // || world.getBlockState(downPos).getBlock().isReplaceable(world, downPos);
     }
 
     public boolean isWall(ISeedReader seedReader, BlockPos pos, BlockState state) {
-        if (!state.isOpaqueCube(seedReader, pos) || !this.isStone(state))
+        if (!state.isSolidRender(seedReader, pos) || !this.isStone(state))
             return false;
 
         return this.isBorder(seedReader, pos);
@@ -150,10 +150,10 @@ public abstract class CaveDecorator implements ICaveDecorator {
     public Direction getBorderDirection(ISeedReader seedReader, BlockPos pos) {
         BlockState state = seedReader.getBlockState(pos);
         for (Direction facing : Direction.Plane.HORIZONTAL) {
-            BlockPos offsetPos = pos.offset(facing);
+            BlockPos offsetPos = pos.relative(facing);
             BlockState stateAt = seedReader.getBlockState(offsetPos);
 
-            if (state != stateAt && seedReader.isAirBlock(offsetPos) || stateAt.getMaterial().isReplaceable())
+            if (state != stateAt && seedReader.isEmptyBlock(offsetPos) || stateAt.getMaterial().isReplaceable())
                 return facing;
         }
 
@@ -170,7 +170,7 @@ public abstract class CaveDecorator implements ICaveDecorator {
 
     public boolean isStone(BlockState state) {
         if (state != null) {
-            return state.getBlock().isIn(OccultismTags.CAVE_WALL_BLOCKS);
+            return state.getBlock().is(OccultismTags.CAVE_WALL_BLOCKS);
         }
         return false;
     }

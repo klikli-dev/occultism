@@ -37,8 +37,8 @@ public class ClientRegistryEventHandler {
     //region Static Methods
     @SubscribeEvent()
     public static void onRegisterParticleFactories(ParticleFactoryRegisterEvent event) {
-        ParticleManager manager = Minecraft.getInstance().particles;
-        manager.registerFactory(OccultismParticles.RITUAL_WAITING.get(), RitualWaitingParticle.Factory::new);
+        ParticleManager manager = Minecraft.getInstance().particleEngine;
+        manager.register(OccultismParticles.RITUAL_WAITING.get(), RitualWaitingParticle.Factory::new);
 
         Occultism.LOGGER.info("Registered Particle Factories");
     }

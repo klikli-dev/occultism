@@ -38,12 +38,14 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
+import net.minecraft.block.AbstractBlock.Properties;
+
 public class OtherworldSaplingNaturalBlock extends SaplingBlock implements IOtherworldBlock {
 
     //region Initialization
     public OtherworldSaplingNaturalBlock(Tree tree, Properties properties) {
         super(tree, properties);
-        this.setDefaultState(this.getStateContainer().getBaseState().with(UNCOVERED, false));
+        this.registerDefaultState(this.getStateDefinition().any().setValue(UNCOVERED, false));
     }
     //endregion Initialization
 
@@ -64,26 +66,26 @@ public class OtherworldSaplingNaturalBlock extends SaplingBlock implements IOthe
     }
 
     @Override
-    public void harvestBlock(World worldIn, PlayerEntity player, BlockPos pos, BlockState state,
+    public void playerDestroy(World worldIn, PlayerEntity player, BlockPos pos, BlockState state,
                              @Nullable TileEntity te, ItemStack stack) {
-        super.harvestBlock(worldIn, player, pos, IOtherworldBlock.super.getHarvestState(player, state, stack), te,
+        super.playerDestroy(worldIn, player, pos, IOtherworldBlock.super.getHarvestState(player, state, stack), te,
                 stack);
     }
 
     @Override
-    public String getTranslationKey() {
+    public String getDescriptionId() {
         return "block.minecraft.oak_sapling";
     }
 
     @Override
-    public ItemStack getItem(IBlockReader worldIn, BlockPos pos, BlockState state) {
+    public ItemStack getCloneItemStack(IBlockReader worldIn, BlockPos pos, BlockState state) {
         return IOtherworldBlock.super.getItem(worldIn, pos, state);
     }
 
     @Override
-    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
         builder.add(UNCOVERED);
-        super.fillStateContainer(builder);
+        super.createBlockStateDefinition(builder);
     }
     //endregion Overrides
 

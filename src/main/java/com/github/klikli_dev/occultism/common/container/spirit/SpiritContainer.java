@@ -59,26 +59,26 @@ public class SpiritContainer extends Container {
 
     //region Overrides
     @Override
-    public ItemStack transferStackInSlot(PlayerEntity playerIn, int index) {
+    public ItemStack quickMoveStack(PlayerEntity playerIn, int index) {
         ItemStack itemstack = ItemStack.EMPTY;
-        Slot slot = this.inventorySlots.get(index);
-        if (slot != null && slot.getHasStack()) {
-            ItemStack itemstack1 = slot.getStack();
+        Slot slot = this.slots.get(index);
+        if (slot != null && slot.hasItem()) {
+            ItemStack itemstack1 = slot.getItem();
             itemstack = itemstack1.copy();
             if (index < this.inventory.getSlots()) {
-                if (!this.mergeItemStack(itemstack1, this.inventory.getSlots(), this.inventorySlots.size(), true)) {
+                if (!this.moveItemStackTo(itemstack1, this.inventory.getSlots(), this.slots.size(), true)) {
                     return ItemStack.EMPTY;
                 }
             }
-            else if (!this.mergeItemStack(itemstack1, 0, this.inventory.getSlots(), false)) {
+            else if (!this.moveItemStackTo(itemstack1, 0, this.inventory.getSlots(), false)) {
                 return ItemStack.EMPTY;
             }
 
             if (itemstack1.isEmpty()) {
-                slot.putStack(ItemStack.EMPTY);
+                slot.set(ItemStack.EMPTY);
             }
             else {
-                slot.onSlotChanged();
+                slot.setChanged();
             }
         }
 
@@ -86,13 +86,13 @@ public class SpiritContainer extends Container {
     }
 
     @Override
-    public void onContainerClosed(PlayerEntity playerIn) {
-        super.onContainerClosed(playerIn);
+    public void removed(PlayerEntity playerIn) {
+        super.removed(playerIn);
     }
 
     @Override
-    public boolean canInteractWith(PlayerEntity entityPlayer) {
-        return this.spirit.isAlive() && this.spirit.getDistance(entityPlayer) < 8.0F;
+    public boolean stillValid(PlayerEntity entityPlayer) {
+        return this.spirit.isAlive() && this.spirit.distanceTo(entityPlayer) < 8.0F;
     }
     //endregion Overrides
 
@@ -124,12 +124,12 @@ public class SpiritContainer extends Container {
         this.addSlot(new SlotItemHandler(this.inventory, 0, 152, 54) {
             //region Overrides
             @Override
-            public boolean isItemValid(ItemStack stack) {
-                return super.isItemValid(stack);
+            public boolean mayPlace(ItemStack stack) {
+                return super.mayPlace(stack);
             }
 
-            public void onSlotChanged() {
-                this.inventory.markDirty();
+            public void setChanged() {
+                this.container.setChanged();
             }
             //endregion Overrides
         });

@@ -28,6 +28,8 @@ import net.minecraft.item.IItemTier;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.PickaxeItem;
 
+import net.minecraft.item.Item.Properties;
+
 public class OtherworldPickaxeItem extends PickaxeItem implements IOtherworldTool {
     //region Initialization
     public OtherworldPickaxeItem(IItemTier tier, int attackDamageIn, float attackSpeedIn,

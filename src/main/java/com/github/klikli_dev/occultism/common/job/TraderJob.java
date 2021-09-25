@@ -83,7 +83,7 @@ public class TraderJob extends SpiritJob {
      */
     public void setTradeRecipeId(ResourceLocation recipeId) {
         this.trade = null;
-        Optional<? extends IRecipe<?>> recipe = this.entity.world.getRecipeManager().getRecipe(recipeId);
+        Optional<? extends IRecipe<?>> recipe = this.entity.level.getRecipeManager().byKey(recipeId);
         recipe.ifPresent(r -> {
             if (r instanceof SpiritTradeRecipe)
                 this.trade = (SpiritTradeRecipe) r;
@@ -113,17 +113,17 @@ public class TraderJob extends SpiritJob {
 
     @Override
     public void update() {
-        ItemStack handHeld = this.entity.getHeldItem(Hand.MAIN_HAND);
+        ItemStack handHeld = this.entity.getItemInHand(Hand.MAIN_HAND);
         if (this.trade != null && this.trade.isValid(handHeld)) {
-            if (this.entity.world.getGameTime() % 10 == 0) {
+            if (this.entity.level.getGameTime() % 10 == 0) {
                 //show particle effect while converting
-                Vector3d pos = this.entity.getPositionVec();
-                ((ServerWorld) this.entity.world)
-                        .spawnParticle(ParticleTypes.PORTAL, pos.x + this.entity.world.rand.nextGaussian() / 3,
-                                pos.y + 0.5, pos.z + this.entity.world.rand.nextGaussian() / 3, 1, 0.0, 0.0, 0.0,
+                Vector3d pos = this.entity.position();
+                ((ServerWorld) this.entity.level)
+                        .sendParticles(ParticleTypes.PORTAL, pos.x + this.entity.level.random.nextGaussian() / 3,
+                                pos.y + 0.5, pos.z + this.entity.level.random.nextGaussian() / 3, 1, 0.0, 0.0, 0.0,
                                 0.0);
             }
-            if (this.entity.world.getGameTime() % 20 == 0) {
+            if (this.entity.level.getGameTime() % 20 == 0) {
                 this.conversionTimer++;
             }
             if (this.conversionTimer >= this.getTimeToConvert()) {
@@ -137,17 +137,17 @@ public class TraderJob extends SpiritJob {
                 }
 
                 if (input.isEmpty()) {
-                    this.entity.setHeldItem(Hand.MAIN_HAND, ItemStack.EMPTY);
+                    this.entity.setItemInHand(Hand.MAIN_HAND, ItemStack.EMPTY);
                 }
                 else {
-                    this.entity.setHeldItem(Hand.MAIN_HAND, input.get(0));
+                    this.entity.setItemInHand(Hand.MAIN_HAND, input.get(0));
                 }
 
-                ItemStack converted = this.trade.getRecipeOutput().copy();
+                ItemStack converted = this.trade.getResultItem().copy();
                 converted.setCount(converted.getCount() * resultCount);
 
                 if (resultCount > 0) {
-                    this.entity.entityDropItem(converted, 0.0f);
+                    this.entity.spawnAtLocation(converted, 0.0f);
                     this.onConvert(resultCount);
                 }
             }

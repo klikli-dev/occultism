@@ -38,6 +38,8 @@ import net.minecraft.world.World;
 
 import java.util.function.Supplier;
 
+import net.minecraft.item.Item.Properties;
+
 public class ChalkItem extends Item {
 //region Fields
 Supplier<ChalkGlyphBlock> glyphBlock;
@@ -55,30 +57,30 @@ Supplier<ChalkGlyphBlock> glyphBlock;
 
 
     @Override
-    public ActionResultType onItemUse(ItemUseContext context) {
-        World world = context.getWorld();
-        BlockPos pos = context.getPos();
+    public ActionResultType useOn(ItemUseContext context) {
+        World world = context.getLevel();
+        BlockPos pos = context.getClickedPos();
         BlockState state = world.getBlockState(pos);
         PlayerEntity player = context.getPlayer();
         boolean isReplacing = world.getBlockState(pos).getBlock()
-                                      .isReplaceable(state, new BlockItemUseContext(context));
+                                      .canBeReplaced(state, new BlockItemUseContext(context));
 
-        if (!world.isRemote) {
+        if (!world.isClientSide) {
             //only place if player clicked at a top face
             //only if the block can be placed or is replacing an existing block
-            if ((context.getFace() == Direction.UP
-                 && this.glyphBlock.get().isValidPosition(world.getBlockState(pos.up()), world, pos.up())) || isReplacing) {
-                ItemStack heldChalk = context.getItem();
-                BlockPos placeAt = isReplacing ? pos : pos.up();
+            if ((context.getClickedFace() == Direction.UP
+                 && this.glyphBlock.get().canSurvive(world.getBlockState(pos.above()), world, pos.above())) || isReplacing) {
+                ItemStack heldChalk = context.getItemInHand();
+                BlockPos placeAt = isReplacing ? pos : pos.above();
 
-                world.setBlockState(placeAt,
+                world.setBlockAndUpdate(placeAt,
                         this.glyphBlock.get().getStateForPlacement(new BlockItemUseContext(context)));
 
                 world.playSound(null, pos, OccultismSounds.CHALK.get(), SoundCategory.PLAYERS, 0.5f,
-                        1 + 0.5f * player.getRNG().nextFloat());
+                        1 + 0.5f * player.getRandom().nextFloat());
 
                 if (!player.isCreative())
-                    heldChalk.damageItem(1, player, t -> {
+                    heldChalk.hurtAndBreak(1, player, t -> {
                     });
             }
         }

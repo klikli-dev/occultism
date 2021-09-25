@@ -69,7 +69,7 @@ public class NonNullArrayList<E> extends NonNullList<E> {
 
     //region Static Methods
     public static <E> NonNullArrayList<E> create() {
-        return new NonNullArrayList();
+        return new NonNullArrayList<>();
     }
 
     public static <E> NonNullArrayList<E> withSize(int size, E fill) {

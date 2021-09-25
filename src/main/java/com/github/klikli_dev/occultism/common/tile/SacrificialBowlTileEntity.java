@@ -49,8 +49,8 @@ public class SacrificialBowlTileEntity extends NetworkedTileEntity {
                 @Override
                 protected void onContentsChanged(
                         int slot) {
-                    if (!SacrificialBowlTileEntity.this.world.isRemote) {
-                        SacrificialBowlTileEntity.this.lastChangeTime = SacrificialBowlTileEntity.this.world
+                    if (!SacrificialBowlTileEntity.this.level.isClientSide) {
+                        SacrificialBowlTileEntity.this.lastChangeTime = SacrificialBowlTileEntity.this.level
                                                                                 .getGameTime();
                         SacrificialBowlTileEntity.this.markNetworkDirty();
                     }

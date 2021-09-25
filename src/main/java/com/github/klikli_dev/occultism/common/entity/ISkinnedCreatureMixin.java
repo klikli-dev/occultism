@@ -55,12 +55,12 @@ public interface ISkinnedCreatureMixin {
 
     //region Methods
     default void writeSkinToNBT(CompoundNBT tag) {
-        EntityDataManager dataManager = this.getEntity().getDataManager();
+        EntityDataManager dataManager = this.getEntity().getEntityData();
         tag.putInt("skin", dataManager.get(this.getDataParameterSkin()));
     }
 
     default void readSkinFromNBT(CompoundNBT tag) {
-        EntityDataManager dataManager = this.getEntity().getDataManager();
+        EntityDataManager dataManager = this.getEntity().getEntityData();
         dataManager.set(this.getDataParameterSkin(), tag.getInt("skin"));
     }
 
@@ -68,15 +68,15 @@ public interface ISkinnedCreatureMixin {
      * selects a random skin and stores it in the datamanager.
      */
     default void selectRandomSkin() {
-        EntityDataManager dataManager = this.getEntity().getDataManager();
-        dataManager.set(this.getDataParameterSkin(), this.getEntity().getRNG().nextInt(this.getSkinTypes()));
+        EntityDataManager dataManager = this.getEntity().getEntityData();
+        dataManager.set(this.getDataParameterSkin(), this.getEntity().getRandom().nextInt(this.getSkinTypes()));
     }
 
     /**
      * registers the skin data parameter with the data manager.
      */
     default void registerSkinDataParameter() {
-        this.getEntity().getDataManager().register(this.getDataParameterSkin(), 0);
+        this.getEntity().getEntityData().define(this.getDataParameterSkin(), 0);
     }
     //endregion Methods
 }

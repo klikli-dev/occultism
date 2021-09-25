@@ -45,15 +45,15 @@ public class BatFamiliarRenderer extends MobRenderer<BatFamiliarEntity, BatFamil
     @Override
     public void render(BatFamiliarEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn,
             IRenderTypeBuffer bufferIn, int packedLightIn) {
-        matrixStackIn.push();
+        matrixStackIn.pushPose();
         if (!entityIn.isSitting() || entityIn.isPartying())
             matrixStackIn.translate(0, entityIn.getAnimationHeight(partialTicks) * 0.1, 0);
         super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
-        matrixStackIn.pop();
+        matrixStackIn.popPose();
     }
 
     @Override
-    public ResourceLocation getEntityTexture(BatFamiliarEntity entity) {
+    public ResourceLocation getTextureLocation(BatFamiliarEntity entity) {
         return TEXTURES;
     }
 }

@@ -42,8 +42,8 @@ public class SatchelScreen extends ContainerScreen<SatchelContainer> {
                          ITextComponent titleIn) {
         super(screenContainer, inv, titleIn);
 
-        this.xSize = 247;
-        this.ySize = 256;
+        this.imageWidth = 247;
+        this.imageHeight = 256;
 
     }
     //endregion Initialization
@@ -54,21 +54,21 @@ public class SatchelScreen extends ContainerScreen<SatchelContainer> {
     public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
         this.renderBackground(matrixStack);
         super.render(matrixStack, mouseX, mouseY, partialTicks);
-        this.renderHoveredTooltip(matrixStack, mouseX, mouseY);
+        this.renderTooltip(matrixStack, mouseX, mouseY);
     }
 
     @Override
-    public void drawGuiContainerForegroundLayer(MatrixStack matrixStack, int mouseX, int mouseY) {
+    public void renderLabels(MatrixStack matrixStack, int mouseX, int mouseY) {
         //Note: Do not call super.drawGuiContainerForegroundLayer(matrixStack, mouseX, mouseY);
         //      it renders inventory titles which no vanilla inventory does
     }
 
     @Override
-    protected void drawGuiContainerBackgroundLayer(MatrixStack matrixStack, float partialTicks, int mouseX,
+    protected void renderBg(MatrixStack matrixStack, float partialTicks, int mouseX,
                                                    int mouseY) {
         RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-        this.minecraft.getTextureManager().bindTexture(BACKGROUND);
-        this.blit(matrixStack, this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
+        this.minecraft.getTextureManager().bind(BACKGROUND);
+        this.blit(matrixStack, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight);
     }
     //endregion Overrides
 }

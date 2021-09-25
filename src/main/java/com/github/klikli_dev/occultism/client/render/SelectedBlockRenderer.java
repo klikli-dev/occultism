@@ -91,12 +91,12 @@ public class SelectedBlockRenderer {
             long time = System.currentTimeMillis();
 
             MatrixStack matrixStack = event.getMatrixStack();
-            IRenderTypeBuffer.Impl buffer = Minecraft.getInstance().getRenderTypeBuffers().getBufferSource();
+            IRenderTypeBuffer.Impl buffer = Minecraft.getInstance().renderBuffers().bufferSource();
             IVertexBuilder builder = buffer.getBuffer(OccultismRenderType.BLOCK_SELECTION);
-            matrixStack.push();
-            Vector3d projectedView = Minecraft.getInstance().gameRenderer.getActiveRenderInfo().getProjectedView();
+            matrixStack.pushPose();
+            Vector3d projectedView = Minecraft.getInstance().gameRenderer.getMainCamera().getPosition();
             matrixStack.translate(-projectedView.x, -projectedView.y, -projectedView.z);
-            Matrix4f transform = matrixStack.getLast().getMatrix();
+            Matrix4f transform = matrixStack.last().pose();
 
             for (Iterator<SelectionInfo> it = this.selectedBlocks.iterator(); it.hasNext(); ) {
                 SelectionInfo info = it.next();
@@ -115,10 +115,10 @@ public class SelectedBlockRenderer {
                 }
             }
 
-            matrixStack.pop();
+            matrixStack.popPose();
             RenderSystem.enableTexture();
             RenderSystem.disableDepthTest();
-            buffer.finish(OccultismRenderType.BLOCK_SELECTION);
+            buffer.endBatch(OccultismRenderType.BLOCK_SELECTION);
             RenderSystem.enableDepthTest();
         }
     }

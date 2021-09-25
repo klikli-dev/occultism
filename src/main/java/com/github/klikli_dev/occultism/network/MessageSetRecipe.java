@@ -65,10 +65,10 @@ public class MessageSetRecipe extends MessageBase {
     @Override
     public void onServerReceived(MinecraftServer minecraftServer, ServerPlayerEntity player,
                                  NetworkEvent.Context context) {
-        if (!(player.openContainer instanceof IStorageControllerContainer)) {
+        if (!(player.containerMenu instanceof IStorageControllerContainer)) {
             return;
         }
-        IStorageControllerContainer container = (IStorageControllerContainer) player.openContainer;
+        IStorageControllerContainer container = (IStorageControllerContainer) player.containerMenu;
         IStorageController storageController = container.getStorageController();
         if (storageController == null) {
             return;
@@ -84,7 +84,7 @@ public class MessageSetRecipe extends MessageBase {
             //parse the slots
             ListNBT invList = this.nbt.getList("s" + slot, Constants.NBT.TAG_COMPOUND);
             for (int i = 0; i < invList.size(); i++) {
-                ItemStack s = ItemStack.read(invList.getCompound(i));
+                ItemStack s = ItemStack.of(invList.getCompound(i));
                 map.put(i, s);
             }
 
@@ -102,18 +102,18 @@ public class MessageSetRecipe extends MessageBase {
                 ItemStack extractedStack = StorageUtil
                                                    .extractItem(new PlayerMainInvWrapper(player.inventory), comparator,
                                                            1, true);
-                if (extractedStack != null && !extractedStack.isEmpty() && craftMatrix.getStackInSlot(slot).isEmpty()) {
+                if (extractedStack != null && !extractedStack.isEmpty() && craftMatrix.getItem(slot).isEmpty()) {
                     //if we found the desired stack, extract it for real and place it in the matrix
                     StorageUtil.extractItem(new PlayerMainInvWrapper(player.inventory), comparator, 1, false);
-                    craftMatrix.setInventorySlotContents(slot, extractedStack);
+                    craftMatrix.setItem(slot, extractedStack);
                     break;
                 }
 
                 //if we did not find anything in the player inventory, get it from the network now
                 stack = storageController.getItemStack(!stack.isEmpty() ? comparator : null, 1, false);
-                if (!stack.isEmpty() && craftMatrix.getStackInSlot(slot).isEmpty()) {
+                if (!stack.isEmpty() && craftMatrix.getItem(slot).isEmpty()) {
                     //if extraction was successful, place it in the matrix
-                    craftMatrix.setInventorySlotContents(slot, stack);
+                    craftMatrix.setItem(slot, stack);
                     break;
                 }
             }
@@ -127,13 +127,13 @@ public class MessageSetRecipe extends MessageBase {
 
     @Override
     public void encode(PacketBuffer buf) {
-        buf.writeCompoundTag(this.nbt);
+        buf.writeNbt(this.nbt);
         buf.writeInt(this.index);
     }
 
     @Override
     public void decode(PacketBuffer buf) {
-        this.nbt = buf.readCompoundTag();
+        this.nbt = buf.readNbt();
         this.index = buf.readInt();
     }
     //endregion Overrides

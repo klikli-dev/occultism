@@ -58,12 +58,12 @@ public class MessageInsertMouseHeldItem extends MessageBase {
     @Override
     public void onServerReceived(MinecraftServer minecraftServer, ServerPlayerEntity player,
                                  NetworkEvent.Context context) {
-        if (player.openContainer instanceof IStorageControllerContainer) {
-            IStorageController storageController = ((IStorageControllerContainer) player.openContainer)
+        if (player.containerMenu instanceof IStorageControllerContainer) {
+            IStorageController storageController = ((IStorageControllerContainer) player.containerMenu)
                                                            .getStorageController();
 
             ItemStack result = ItemStack.EMPTY;
-            ItemStack carriedByMouse = player.inventory.getItemStack();
+            ItemStack carriedByMouse = player.inventory.getCarried();
 
             if (this.mouseButton == InputUtil.MOUSE_BUTTON_LEFT) {
                 //Left mouse button means try to insert entire stack
@@ -86,13 +86,13 @@ public class MessageInsertMouseHeldItem extends MessageBase {
             }
 
             //store result mouse held item
-            player.inventory.setItemStack(result);
+            player.inventory.setCarried(result);
             //send new mouse held item to client
             OccultismPackets.sendTo(player, new MessageUpdateMouseHeldItem(result));
 
             //update the storage controller
             OccultismPackets.sendTo(player, storageController.getMessageUpdateStacks());
-            player.openContainer.detectAndSendChanges();
+            player.containerMenu.broadcastChanges();
         }
     }
 

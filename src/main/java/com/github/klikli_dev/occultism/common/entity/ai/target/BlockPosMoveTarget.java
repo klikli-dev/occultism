@@ -50,18 +50,18 @@ public class BlockPosMoveTarget implements IMoveTarget{
 
     @Override
     public boolean isValid() {
-        return this.world.getTileEntity(this.target) != null;
+        return this.world.getBlockEntity(this.target) != null;
     }
 
     @Override
     public boolean isChest() {
-        return this.world.getTileEntity(this.target) instanceof IInventory;
+        return this.world.getBlockEntity(this.target) instanceof IInventory;
     }
 
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-        TileEntity tileEntity = this.world.getTileEntity(this.target);
+        TileEntity tileEntity = this.world.getBlockEntity(this.target);
         if(tileEntity != null){
             return tileEntity.getCapability(cap, side);
         }

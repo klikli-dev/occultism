@@ -58,13 +58,13 @@ public class PlayerEventHandler {
         if (isFlintAndSteel || isFireCharge) {
             //find if there is any datura
             AxisAlignedBB box = new AxisAlignedBB(-1, -1, -1, 1, 1, 1)
-                                        .offset(Math3DUtil.center(event.getPos()));
-            List<ItemEntity> list = event.getWorld().getEntitiesWithinAABB(ItemEntity.class, box,
+                                        .move(Math3DUtil.center(event.getPos()));
+            List<ItemEntity> list = event.getWorld().getEntitiesOfClass(ItemEntity.class, box,
                     item -> item.getItem().getItem() == OccultismItems.DATURA.get());
             if (!list.isEmpty()) {
                 //if there is datura, check if we can edit the target face
-                BlockPos pos = event.getPos().offset(event.getFace());
-                if (!event.getPlayer().canPlayerEdit(pos, event.getFace(), event.getItemStack())) {
+                BlockPos pos = event.getPos().relative(event.getFace());
+                if (!event.getPlayer().mayUseItemAt(pos, event.getFace(), event.getItemStack())) {
                     return;
                 }
 
@@ -73,20 +73,20 @@ public class PlayerEventHandler {
 
                 World world = event.getWorld();
                 //if there is air, place block and play sound
-                if (world.isAirBlock(pos)) {
+                if (world.isEmptyBlock(pos)) {
                     //sound based on the item used
                     SoundEvent soundEvent =
-                            isFlintAndSteel ? SoundEvents.ITEM_FLINTANDSTEEL_USE : SoundEvents.ITEM_FIRECHARGE_USE;
+                            isFlintAndSteel ? SoundEvents.FLINTANDSTEEL_USE : SoundEvents.FIRECHARGE_USE;
                     world.playSound(event.getPlayer(), pos, soundEvent,
-                            SoundCategory.BLOCKS, 1.0F, world.rand.nextFloat() * 0.4F + 0.8F);
+                            SoundCategory.BLOCKS, 1.0F, world.random.nextFloat() * 0.4F + 0.8F);
 
-                    world.setBlockState(pos, OccultismBlocks.SPIRIT_FIRE.get().getDefaultState(), 11);
+                    world.setBlock(pos, OccultismBlocks.SPIRIT_FIRE.get().defaultBlockState(), 11);
                 }
 
                 //now handle used item
                 if (isFlintAndSteel) {
-                    event.getItemStack().damageItem(1, event.getPlayer(), (player) -> {
-                        player.sendBreakAnimation(event.getHand());
+                    event.getItemStack().hurtAndBreak(1, event.getPlayer(), (player) -> {
+                        player.broadcastBreakEvent(event.getHand());
                     });
                 }
                 else if (isFireCharge) {
@@ -95,18 +95,18 @@ public class PlayerEventHandler {
 
                 //finally, cancel original event to prevent real action and show use animation
                 event.setCanceled(true);
-                event.getPlayer().swingArm(Hand.MAIN_HAND);
+                event.getPlayer().swing(Hand.MAIN_HAND);
             }
         }
     }
     
     private static void dancingFamiliars(PlayerInteractEvent.RightClickBlock event) {
         BlockState state = event.getWorld().getBlockState(event.getPos());
-        if (!state.hasProperty(JukeboxBlock.HAS_RECORD) || state.get(JukeboxBlock.HAS_RECORD)
+        if (!state.hasProperty(JukeboxBlock.HAS_RECORD) || state.getValue(JukeboxBlock.HAS_RECORD)
                 || !(event.getItemStack().getItem() instanceof MusicDiscItem))
             return;
         if (event.getWorld()
-                .getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(event.getPos()).grow(3),
+                .getEntitiesOfClass(Entity.class, new AxisAlignedBB(event.getPos()).inflate(3),
                         e -> e instanceof IFamiliar && ((IFamiliar) e).getFamiliarOwner() == event.getPlayer())
                 .isEmpty())
             return;
@@ -119,7 +119,7 @@ public class PlayerEventHandler {
             event.getTarget() instanceof LivingEntity) {
             //called from here to bypass sitting entity's sit command.
             if (OccultismItems.SOUL_GEM_ITEM.get()
-                        .itemInteractionForEntity(event.getItemStack(), event.getPlayer(),
+                        .interactLivingEntity(event.getItemStack(), event.getPlayer(),
                                 (LivingEntity) event.getTarget(),
                                 event.getHand()) == ActionResultType.SUCCESS) {
                 event.setCanceled(true);

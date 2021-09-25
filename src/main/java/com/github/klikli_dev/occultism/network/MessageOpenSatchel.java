@@ -59,7 +59,7 @@ public class MessageOpenSatchel extends MessageBase {
         //if not found, try to get from player inventory
         if (!(backpackStack.getItem() instanceof SatchelItem)) {
             selectedSlot = CuriosUtil.getFirstBackpackSlot(player);
-            backpackStack = selectedSlot > 0 ? player.inventory.getStackInSlot(selectedSlot) : ItemStack.EMPTY;
+            backpackStack = selectedSlot > 0 ? player.inventory.getItem(selectedSlot) : ItemStack.EMPTY;
         }
         //now, if we have a satchel, proceed
         if (backpackStack.getItem() instanceof SatchelItem) {
@@ -70,7 +70,7 @@ public class MessageOpenSatchel extends MessageBase {
                         return new SatchelContainer(id, playerInventory,
                                 ((SatchelItem) finalBackpackStack.getItem()).getInventory(player, finalBackpackStack),
                                 finalSelectedSlot);
-                    }, backpackStack.getDisplayName()), buffer -> {
+                    }, backpackStack.getHoverName()), buffer -> {
                         buffer.writeVarInt(finalSelectedSlot);
                     });
         }

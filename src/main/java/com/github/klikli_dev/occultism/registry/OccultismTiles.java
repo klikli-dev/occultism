@@ -35,25 +35,25 @@ public class OccultismTiles {
             ForgeRegistries.TILE_ENTITIES, Occultism.MODID);
 
     public static final RegistryObject<TileEntityType<StorageControllerTileEntity>> STORAGE_CONTROLLER = TILES.register(
-            "storage_controller", () -> TileEntityType.Builder.create(StorageControllerTileEntity::new,
+            "storage_controller", () -> TileEntityType.Builder.of(StorageControllerTileEntity::new,
                     OccultismBlocks.STORAGE_CONTROLLER.get()).build(null));
 
     public static final RegistryObject<TileEntityType<StableWormholeTileEntity>> STABLE_WORMHOLE = TILES.register(
-            "stable_wormhole", () -> TileEntityType.Builder.create(StableWormholeTileEntity::new,
+            "stable_wormhole", () -> TileEntityType.Builder.of(StableWormholeTileEntity::new,
                     OccultismBlocks.STABLE_WORMHOLE.get()).build(null));
 
     public static final RegistryObject<TileEntityType<SacrificialBowlTileEntity>> SACRIFICIAL_BOWL = TILES.register(
-            "sacrificial_bowl", () -> TileEntityType.Builder.create(SacrificialBowlTileEntity::new,
+            "sacrificial_bowl", () -> TileEntityType.Builder.of(SacrificialBowlTileEntity::new,
                     OccultismBlocks.SACRIFICIAL_BOWL.get()).build(null));
 
     public static final RegistryObject<TileEntityType<GoldenSacrificialBowlTileEntity>> GOLDEN_SACRIFICIAL_BOWL =
             TILES.register(
-                    "golden_sacrificial_bowl", () -> TileEntityType.Builder.create(GoldenSacrificialBowlTileEntity::new,
+                    "golden_sacrificial_bowl", () -> TileEntityType.Builder.of(GoldenSacrificialBowlTileEntity::new,
                             OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL.get()).build(null));
 
     public static final RegistryObject<TileEntityType<DimensionalMineshaftTileEntity>> DIMENSIONAL_MINESHAFT =
             TILES.register(
-                    "dimensional_mineshaft", () -> TileEntityType.Builder.create(DimensionalMineshaftTileEntity::new,
+                    "dimensional_mineshaft", () -> TileEntityType.Builder.of(DimensionalMineshaftTileEntity::new,
                             OccultismBlocks.DIMENSIONAL_MINESHAFT.get()).build(null));
 
     //endregion Fields

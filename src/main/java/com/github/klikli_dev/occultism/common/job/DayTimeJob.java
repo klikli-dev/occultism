@@ -42,11 +42,11 @@ public class DayTimeJob extends ChangeTimeJob {
     @Override
     public void changeTime() {
         if(Occultism.SERVER_CONFIG.rituals.enableDayTimeRitual.get()){
-            IServerWorldInfo world = (IServerWorldInfo) this.entity.world;
+            IServerWorldInfo world = (IServerWorldInfo) this.entity.level;
             world.setDayTime(1000);
         }
         else {
-            this.entity.getOwner().sendMessage(new TranslationTextComponent("ritual.occultism.disabled"), Util.DUMMY_UUID);
+            this.entity.getOwner().sendMessage(new TranslationTextComponent("ritual.occultism.disabled"), Util.NIL_UUID);
         }
     }
     //endregion Overrides

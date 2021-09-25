@@ -55,7 +55,7 @@ public class SatchelInventory extends Inventory {
 
     public void writeItemStack() {
         if (this.isEmpty()) {
-            this.itemStack.removeChildTag("Items");
+            this.itemStack.removeTagKey("Items");
         }
         else {
             this.writeNBT(this.itemStack.getOrCreateTag());
@@ -63,19 +63,19 @@ public class SatchelInventory extends Inventory {
     }
 
     private void readNBT(CompoundNBT compound) {
-        final NonNullList<ItemStack> list = NonNullList.withSize(this.getSizeInventory(), ItemStack.EMPTY);
+        final NonNullList<ItemStack> list = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
         if (compound.contains("Items")) {
             ItemStackHelper.loadAllItems(compound, list);
             for (int index = 0; index < list.size(); index++) {
-                this.setInventorySlotContents(index, list.get(index));
+                this.setItem(index, list.get(index));
             }
         }
     }
 
     private void writeNBT(CompoundNBT compound) {
-        final NonNullList<ItemStack> list = NonNullList.withSize(this.getSizeInventory(), ItemStack.EMPTY);
+        final NonNullList<ItemStack> list = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
         for (int index = 0; index < list.size(); index++) {
-            list.set(index, this.getStackInSlot(index));
+            list.set(index, this.getItem(index));
         }
         ItemStackHelper.saveAllItems(compound, list, false);
     }

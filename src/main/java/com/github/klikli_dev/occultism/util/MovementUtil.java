@@ -42,7 +42,7 @@ public class MovementUtil {
         LazyOptional<DoubleJumpCapability> doubleJumpCapability = player.getCapability(OccultismCapabilities.DOUBLE_JUMP);
         int jumps = doubleJumpCapability.map(DoubleJumpCapability::getJumps).orElse(Integer.MAX_VALUE);
         if (jumps < DoubleJumpEffect.getMaxJumps(player)) {
-            player.jump();
+            player.jumpFromGround();
             doubleJumpCapability.ifPresent(DoubleJumpCapability::addJump);
             return true;
         }
@@ -53,13 +53,13 @@ public class MovementUtil {
 
         //If swimming, flying, on the ground(= normal jump) or mounted, no double jump
         boolean swimming = player.isInWater() || player.isInLava();
-        if ( player.isOnGround() || player.isPassenger() || player.abilities.isFlying || swimming) {
+        if ( player.isOnGround() || player.isPassenger() || player.abilities.flying || swimming) {
             return false;
         }
 
-        ItemStack itemstack = player.getItemStackFromSlot(EquipmentSlotType.CHEST);
+        ItemStack itemstack = player.getItemBySlot(EquipmentSlotType.CHEST);
         //If player
-        if(OccultismTags.ELYTRA.contains(itemstack.getItem()) && (itemstack.getDamage() <= 0 || ElytraItem.isUsable(itemstack))){
+        if(OccultismTags.ELYTRA.contains(itemstack.getItem()) && (itemstack.getDamageValue() <= 0 || ElytraItem.isFlyEnabled(itemstack))){
             return false;
         }
 

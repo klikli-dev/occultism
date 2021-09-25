@@ -45,13 +45,13 @@ public class MaridRenderer extends BipedSpiritRenderer<MaridEntity, MaridModel> 
     //region Overrides
 
     @Override
-    public ResourceLocation getEntityTexture(MaridEntity entity) {
-        return TEXTURES[entity.getDataManager().get(entity.getDataParameterSkin())];
+    public ResourceLocation getTextureLocation(MaridEntity entity) {
+        return TEXTURES[entity.getEntityData().get(entity.getDataParameterSkin())];
     }
 
     @Override
-    protected void preRenderCallback(MaridEntity entity, MatrixStack matrixStackIn, float partialTickTime) {
-        super.preRenderCallback(entity, matrixStackIn, partialTickTime);
+    protected void scale(MaridEntity entity, MatrixStack matrixStackIn, float partialTickTime) {
+        super.scale(entity, matrixStackIn, partialTickTime);
         matrixStackIn.scale(1.2f, 1.2f, 1.2f);
     }
     //endregion Overrides

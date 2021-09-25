@@ -64,13 +64,13 @@ import net.minecraftforge.common.ForgeMod;
 
 public class CthulhuFamiliarEntity extends FamiliarEntity {
 
-    private static final DataParameter<Boolean> HAT = EntityDataManager.createKey(CthulhuFamiliarEntity.class,
+    private static final DataParameter<Boolean> HAT = EntityDataManager.defineId(CthulhuFamiliarEntity.class,
             DataSerializers.BOOLEAN);
-    private static final DataParameter<Boolean> TRUNK = EntityDataManager.createKey(CthulhuFamiliarEntity.class,
+    private static final DataParameter<Boolean> TRUNK = EntityDataManager.defineId(CthulhuFamiliarEntity.class,
             DataSerializers.BOOLEAN);
-    private static final DataParameter<Boolean> ANGRY = EntityDataManager.createKey(CthulhuFamiliarEntity.class,
+    private static final DataParameter<Boolean> ANGRY = EntityDataManager.defineId(CthulhuFamiliarEntity.class,
             DataSerializers.BOOLEAN);
-    private static final DataParameter<Boolean> GIVING = EntityDataManager.createKey(CthulhuFamiliarEntity.class,
+    private static final DataParameter<Boolean> GIVING = EntityDataManager.defineId(CthulhuFamiliarEntity.class,
             DataSerializers.BOOLEAN);
 
     private final SwimmerPathNavigator waterNavigator;
@@ -78,22 +78,22 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
 
     public CthulhuFamiliarEntity(EntityType<? extends CthulhuFamiliarEntity> type, World worldIn) {
         super(type, worldIn);
-        this.setPathPriority(PathNodeType.WATER, 0);
+        this.setPathfindingMalus(PathNodeType.WATER, 0);
         this.waterNavigator = new SwimmerPathNavigator(this, worldIn);
         this.groundNavigator = new GroundPathNavigator(this, worldIn);
-        this.moveController = new MoveController(this);
+        this.moveControl = new MoveController(this);
     }
 
     public static AttributeModifierMap.MutableAttribute registerAttributes() {
-        return FamiliarEntity.registerAttributes().createMutableAttribute(ForgeMod.SWIM_SPEED.get(), 1f);
+        return FamiliarEntity.registerAttributes().add(ForgeMod.SWIM_SPEED.get(), 1f);
     }
 
     @Override
-    public ILivingEntityData onInitialSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason,
+    public ILivingEntityData finalizeSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason,
             ILivingEntityData spawnDataIn, CompoundNBT dataTag) {
-        this.setHat(this.getRNG().nextDouble() < 0.1);
-        this.setTrunk(this.getRNG().nextDouble() < 0.5);
-        return super.onInitialSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
+        this.setHat(this.getRandom().nextDouble() < 0.1);
+        this.setTrunk(this.getRandom().nextDouble() < 0.5);
+        return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
     }
 
     @Override
@@ -115,35 +115,35 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
 
     @Override
     public void updateSwimming() {
-        if (!this.world.isRemote) {
+        if (!this.level.isClientSide) {
             if (this.isInWater()) {
-                this.navigator = this.waterNavigator;
+                this.navigation = this.waterNavigator;
                 this.setSwimming(true);
             } else {
-                this.navigator = this.groundNavigator;
+                this.navigation = this.groundNavigator;
                 this.setSwimming(false);
             }
         }
     }
 
     public float getAnimationHeight(float partialTicks) {
-        return MathHelper.cos((this.ticksExisted + partialTicks) / 5);
+        return MathHelper.cos((this.tickCount + partialTicks) / 5);
     }
 
     @Override
-    public boolean attackEntityFrom(DamageSource source, float amount) {
-        if (super.attackEntityFrom(source, amount)) {
-            if (source.getTrueSource() == this.getFamiliarOwner()) {
+    public boolean hurt(DamageSource source, float amount) {
+        if (super.hurt(source, amount)) {
+            if (source.getEntity() == this.getFamiliarOwner()) {
                 this.setAngry(true);
                 this.setSitting(true);
                 OccultismAdvancements.FAMILIAR.trigger(this.getFamiliarOwner(), FamiliarTrigger.Type.CTHULHU_SAD);
-            } else if (source.getTrueSource() != null) {
-                Vector3d tp = RandomPositionGenerator.findRandomTarget(this, 8, 4);
+            } else if (source.getEntity() != null) {
+                Vector3d tp = RandomPositionGenerator.getPos(this, 8, 4);
                 if(tp != null){
-                    this.setLocationAndAngles(tp.getX() + 0.5, tp.getY(), tp.getZ() + 0.5, this.rotationYaw,
-                            this.rotationPitch);
+                    this.moveTo(tp.x() + 0.5, tp.y(), tp.z() + 0.5, this.yRot,
+                            this.xRot);
                 }
-                this.navigator.clearPath();
+                this.navigation.stop();
             }
             return true;
         }
@@ -153,12 +153,12 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
     @Override
     public void tick() {
         super.tick();
-        if (this.isAngry() && this.getRNG().nextDouble() < 0.0007)
+        if (this.isAngry() && this.getRandom().nextDouble() < 0.0007)
             this.setAngry(false);
     }
 
     @Override
-    public boolean onLivingFall(float fallDistance, float damageMultiplier) {
+    public boolean causeFallDamage(float fallDistance, float damageMultiplier) {
         return false;
     }
 
@@ -177,57 +177,57 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
     }
 
     @Override
-    protected void registerData() {
-        super.registerData();
-        this.dataManager.register(HAT, false);
-        this.dataManager.register(TRUNK, false);
-        this.dataManager.register(ANGRY, false);
-        this.dataManager.register(GIVING, false);
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(HAT, false);
+        this.entityData.define(TRUNK, false);
+        this.entityData.define(ANGRY, false);
+        this.entityData.define(GIVING, false);
     }
 
     public boolean hasHat() {
-        return this.dataManager.get(HAT);
+        return this.entityData.get(HAT);
     }
 
     private void setHat(boolean b) {
-        this.dataManager.set(HAT, b);
+        this.entityData.set(HAT, b);
     }
 
     public boolean hasTrunk() {
-        return this.dataManager.get(TRUNK);
+        return this.entityData.get(TRUNK);
     }
 
     private void setTrunk(boolean b) {
-        this.dataManager.set(TRUNK, b);
+        this.entityData.set(TRUNK, b);
     }
 
     public boolean isAngry() {
-        return this.dataManager.get(ANGRY);
+        return this.entityData.get(ANGRY);
     }
 
     private void setAngry(boolean b) {
-        this.dataManager.set(ANGRY, b);
+        this.entityData.set(ANGRY, b);
     }
 
     public boolean isGiving() {
-        return this.dataManager.get(GIVING);
+        return this.entityData.get(GIVING);
     }
 
     private void setGiving(boolean b) {
-        this.dataManager.set(GIVING, b);
+        this.entityData.set(GIVING, b);
     }
 
     @Override
-    public void readAdditional(CompoundNBT compound) {
-        super.readAdditional(compound);
+    public void readAdditionalSaveData(CompoundNBT compound) {
+        super.readAdditionalSaveData(compound);
         this.setHat(compound.getBoolean("hasHat"));
         this.setTrunk(compound.getBoolean("hasTrunk"));
         this.setAngry(compound.getBoolean("isAngry"));
     }
 
     @Override
-    public void writeAdditional(CompoundNBT compound) {
-        super.writeAdditional(compound);
+    public void addAdditionalSaveData(CompoundNBT compound) {
+        super.addAdditionalSaveData(compound);
         compound.putBoolean("hasHat", this.hasHat());
         compound.putBoolean("hasTrunk", this.hasTrunk());
         compound.putBoolean("isAngry", this.isAngry());
@@ -244,34 +244,34 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
         @Override
         public void tick() {
             if (this.cthulhu.isInWater()) {
-                this.cthulhu.setMotion(this.cthulhu.getMotion().add(0, 0.005, 0));
-                if (this.action == MovementController.Action.MOVE_TO) {
-                    float maxSpeed = (float) (this.speed * this.cthulhu.getAttributeValue(Attributes.MOVEMENT_SPEED))
+                this.cthulhu.setDeltaMovement(this.cthulhu.getDeltaMovement().add(0, 0.005, 0));
+                if (this.operation == MovementController.Action.MOVE_TO) {
+                    float maxSpeed = (float) (this.speedModifier * this.cthulhu.getAttributeValue(Attributes.MOVEMENT_SPEED))
                             * 3;
-                    this.cthulhu.setAIMoveSpeed(MathHelper.lerp(0.125f, this.cthulhu.getAIMoveSpeed(), maxSpeed));
-                    double dx = this.posX - this.cthulhu.getPosX();
-                    double dy = this.posY - this.cthulhu.getPosY();
-                    double dz = this.posZ - this.cthulhu.getPosZ();
+                    this.cthulhu.setSpeed(MathHelper.lerp(0.125f, this.cthulhu.getSpeed(), maxSpeed));
+                    double dx = this.wantedX - this.cthulhu.getX();
+                    double dy = this.wantedY - this.cthulhu.getY();
+                    double dz = this.wantedZ - this.cthulhu.getZ();
                     double distance = MathHelper.sqrt(dx * dx + dy * dy + dz * dz);
 
                     if (distance < 0.1) {
-                        this.cthulhu.setMoveForward(0);
+                        this.cthulhu.setZza(0);
                         return;
                     }
 
                     if (Math.abs(dy) > 0.0001) {
-                        this.cthulhu.setMotion(this.cthulhu.getMotion().add(0,
-                                this.cthulhu.getAIMoveSpeed() * (dy / distance) * 0.1, 0));
+                        this.cthulhu.setDeltaMovement(this.cthulhu.getDeltaMovement().add(0,
+                                this.cthulhu.getSpeed() * (dy / distance) * 0.1, 0));
                     }
 
                     if (Math.abs(dx) > 0.0001 || Math.abs(dz) > 0.0001) {
                         float rotate = (float) (MathHelper.atan2(dz, dx) * (180 / Math.PI)) - 90f;
-                        this.cthulhu.rotationYaw = this.limitAngle(this.cthulhu.rotationYaw, rotate, 8);
-                        this.cthulhu.renderYawOffset = this.cthulhu.rotationYaw;
+                        this.cthulhu.yRot = this.rotlerp(this.cthulhu.yRot, rotate, 8);
+                        this.cthulhu.yBodyRot = this.cthulhu.yRot;
                     }
 
                 } else {
-                    this.cthulhu.setAIMoveSpeed(0);
+                    this.cthulhu.setSpeed(0);
                 }
             } else {
                 super.tick();
@@ -287,7 +287,7 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
 
         @Override
         protected boolean shouldTeleport(LivingEntity owner) {
-            return !this.entity.world.hasWater(owner.getPosition()) && this.entity.isInWater();
+            return !this.entity.level.isWaterAt(owner.blockPosition()) && this.entity.isInWater();
         }
 
     }
@@ -302,44 +302,44 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
 
         public GiveFlowerGoal(CthulhuFamiliarEntity cthulhu) {
             this.cthulhu = cthulhu;
-            this.setMutexFlags(EnumSet.of(Goal.Flag.JUMP, Goal.Flag.MOVE));
+            this.setFlags(EnumSet.of(Goal.Flag.JUMP, Goal.Flag.MOVE));
         }
 
         @Override
-        public boolean shouldExecute() {
+        public boolean canUse() {
             devil = findDevil();
-            return devil != null && cooldown-- < 0 && cthulhu.getDistanceSq(devil) > 3;
+            return devil != null && cooldown-- < 0 && cthulhu.distanceToSqr(devil) > 3;
         }
 
         @Override
-        public boolean shouldContinueExecuting() {
-            return devil != null && cthulhu.hasPath();
+        public boolean canContinueToUse() {
+            return devil != null && cthulhu.isPathFinding();
         }
 
-        public void startExecuting() {
-            cthulhu.getNavigator().tryMoveToEntityLiving(devil, 0.3);
+        public void start() {
+            cthulhu.getNavigation().moveTo(devil, 0.3);
             cthulhu.setGiving(true);
         }
 
-        public void resetTask() {
+        public void stop() {
             cthulhu.setGiving(false);
-            cthulhu.getNavigator().clearPath();
+            cthulhu.getNavigation().stop();
             cooldown = MAX_COOLDOWN;
             devil = null;
         }
 
         @Override
         public void tick() {
-            if (cthulhu.getDistanceSq(devil) < 2) {
-                ((ServerWorld) cthulhu.world).spawnParticle(ParticleTypes.HEART, devil.getPosX(), devil.getPosY() + 1,
-                        devil.getPosZ(), 1, 0, 0, 0, 1);
+            if (cthulhu.distanceToSqr(devil) < 2) {
+                ((ServerWorld) cthulhu.level).sendParticles(ParticleTypes.HEART, devil.getX(), devil.getY() + 1,
+                        devil.getZ(), 1, 0, 0, 0, 1);
                 devil = null;
             }
         }
 
         private DevilFamiliarEntity findDevil() {
-            List<DevilFamiliarEntity> devils = cthulhu.world.getEntitiesWithinAABB(DevilFamiliarEntity.class,
-                    cthulhu.getBoundingBox().grow(4));
+            List<DevilFamiliarEntity> devils = cthulhu.level.getEntitiesOfClass(DevilFamiliarEntity.class,
+                    cthulhu.getBoundingBox().inflate(4));
             return devils.isEmpty() ? null : devils.get(0);
         }
 

@@ -41,7 +41,7 @@ public class UndergroundGroveDecorator extends CaveDecorator {
 
     //region Initialization
     public UndergroundGroveDecorator() {
-        super(Blocks.GRASS_BLOCK.getDefaultState(), null, OccultismBlocks.OTHERSTONE_NATURAL.get().getDefaultState());
+        super(Blocks.GRASS_BLOCK.defaultBlockState(), null, OccultismBlocks.OTHERSTONE_NATURAL.get().defaultBlockState());
 
     }
     //endregion Initialization
@@ -53,12 +53,12 @@ public class UndergroundGroveDecorator extends CaveDecorator {
                                BlockPos pos) {
         if (seedReader.getBlockState(pos).getBlock() == Blocks.GRASS_BLOCK &&
             rand.nextFloat() < Occultism.COMMON_CONFIG.worldGen.undergroundGroveGen.grassChance.get())
-            seedReader.setBlockState(pos.up(), Blocks.GRASS.getDefaultState(), 2);
+            seedReader.setBlock(pos.above(), Blocks.GRASS.defaultBlockState(), 2);
 
         if (rand.nextFloat() < Occultism.COMMON_CONFIG.worldGen.undergroundGroveGen.treeChance.get()) {
             ConfiguredFeature<BaseTreeFeatureConfig, ?> treeFeature = WorldGenHandler.OTHERWORLD_TREE_NATURAL;
-            treeFeature.config.forcePlacement();
-            treeFeature.generate(seedReader, generator, rand, pos.up());
+            treeFeature.config.setFromSapling();
+            treeFeature.place(seedReader, generator, rand, pos.above());
         }
     }
 
@@ -66,7 +66,7 @@ public class UndergroundGroveDecorator extends CaveDecorator {
     public void finalCeilingPass(ISeedReader seedReader, ChunkGenerator generator, Random rand,
                                  BlockPos pos) {
         if (rand.nextFloat() < Occultism.COMMON_CONFIG.worldGen.undergroundGroveGen.ceilingLightChance.get()) {
-            seedReader.setBlockState(pos, Blocks.GLOWSTONE.getDefaultState(), 2);
+            seedReader.setBlock(pos, Blocks.GLOWSTONE.defaultBlockState(), 2);
         }
         super.finalCeilingPass(seedReader, generator, rand, pos);
     }
@@ -75,17 +75,17 @@ public class UndergroundGroveDecorator extends CaveDecorator {
     public void finalWallPass(ISeedReader seedReader, ChunkGenerator generator, Random rand,
                               BlockPos pos) {
         for (Direction facing : Direction.Plane.HORIZONTAL) {
-            BlockPos offset = pos.offset(facing);
-            BlockPos up = offset.up();
+            BlockPos offset = pos.relative(facing);
+            BlockPos up = offset.above();
             if (this.isCeiling(seedReader, up, seedReader.getBlockState(up)) &&
                 rand.nextFloat() < Occultism.COMMON_CONFIG.worldGen.undergroundGroveGen.vineChance.get()) {
                 BlockState stateAt = seedReader.getBlockState(offset);
                 boolean spawnedVine = false;
                 while (stateAt.getBlock().isAir(stateAt, seedReader, offset) && offset.getY() > 0) {
-                    seedReader.setBlockState(offset,
-                            Blocks.VINE.getDefaultState().with(VineBlock.getPropertyFor(facing.getOpposite()), true),
+                    seedReader.setBlock(offset,
+                            Blocks.VINE.defaultBlockState().setValue(VineBlock.getPropertyForFace(facing.getOpposite()), true),
                             2);
-                    offset = offset.down();
+                    offset = offset.below();
                     stateAt = seedReader.getBlockState(offset);
                     spawnedVine = true;
                 }

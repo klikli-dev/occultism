@@ -43,33 +43,33 @@ public class RenderUtil {
      * @param a      the color a.
      */
     public static void buildBlockOutline(IVertexBuilder buffer, Matrix4f transform, float x, float y, float z, float r, float g, float b, float a) {
-        buffer.pos(transform, x, y, z).color(r, g, b, a).endVertex();
-        buffer.pos(transform, x + 1, y, z).color(r, g, b, a).endVertex();
-        buffer.pos(transform, x, y, z).color(r, g, b, a).endVertex();
-        buffer.pos(transform, x, y + 1, z).color(r, g, b, a).endVertex();
-        buffer.pos(transform, x, y, z).color(r, g, b, a).endVertex();
-        buffer.pos(transform, x, y, z + 1).color(r, g, b, a).endVertex();
-        buffer.pos(transform, x + 1, y + 1, z + 1).color(r, g, b, a).endVertex();
-        buffer.pos(transform, x, y + 1, z + 1).color(r, g, b, a).endVertex();
-        buffer.pos(transform, x + 1, y + 1, z + 1).color(r, g, b, a).endVertex();
-        buffer.pos(transform, x + 1, y, z + 1).color(r, g, b, a).endVertex();
-        buffer.pos(transform, x + 1, y + 1, z + 1).color(r, g, b, a).endVertex();
-        buffer.pos(transform, x + 1, y + 1, z).color(r, g, b, a).endVertex();
+        buffer.vertex(transform, x, y, z).color(r, g, b, a).endVertex();
+        buffer.vertex(transform, x + 1, y, z).color(r, g, b, a).endVertex();
+        buffer.vertex(transform, x, y, z).color(r, g, b, a).endVertex();
+        buffer.vertex(transform, x, y + 1, z).color(r, g, b, a).endVertex();
+        buffer.vertex(transform, x, y, z).color(r, g, b, a).endVertex();
+        buffer.vertex(transform, x, y, z + 1).color(r, g, b, a).endVertex();
+        buffer.vertex(transform, x + 1, y + 1, z + 1).color(r, g, b, a).endVertex();
+        buffer.vertex(transform, x, y + 1, z + 1).color(r, g, b, a).endVertex();
+        buffer.vertex(transform, x + 1, y + 1, z + 1).color(r, g, b, a).endVertex();
+        buffer.vertex(transform, x + 1, y, z + 1).color(r, g, b, a).endVertex();
+        buffer.vertex(transform, x + 1, y + 1, z + 1).color(r, g, b, a).endVertex();
+        buffer.vertex(transform, x + 1, y + 1, z).color(r, g, b, a).endVertex();
 
-        buffer.pos(transform, x, y + 1, z).color(r, g, b, a).endVertex();
-        buffer.pos(transform, x, y + 1, z + 1).color(r, g, b, a).endVertex();
-        buffer.pos(transform, x, y + 1, z).color(r, g, b, a).endVertex();
-        buffer.pos(transform, x + 1, y + 1, z).color(r, g, b, a).endVertex();
+        buffer.vertex(transform, x, y + 1, z).color(r, g, b, a).endVertex();
+        buffer.vertex(transform, x, y + 1, z + 1).color(r, g, b, a).endVertex();
+        buffer.vertex(transform, x, y + 1, z).color(r, g, b, a).endVertex();
+        buffer.vertex(transform, x + 1, y + 1, z).color(r, g, b, a).endVertex();
 
-        buffer.pos(transform, x + 1, y, z).color(r, g, b, a).endVertex();
-        buffer.pos(transform, x + 1, y, z + 1).color(r, g, b, a).endVertex();
-        buffer.pos(transform, x + 1, y, z).color(r, g, b, a).endVertex();
-        buffer.pos(transform, x + 1, y + 1, z).color(r, g, b, a).endVertex();
+        buffer.vertex(transform, x + 1, y, z).color(r, g, b, a).endVertex();
+        buffer.vertex(transform, x + 1, y, z + 1).color(r, g, b, a).endVertex();
+        buffer.vertex(transform, x + 1, y, z).color(r, g, b, a).endVertex();
+        buffer.vertex(transform, x + 1, y + 1, z).color(r, g, b, a).endVertex();
 
-        buffer.pos(transform, x, y, z + 1).color(r, g, b, a).endVertex();
-        buffer.pos(transform, x + 1, y, z + 1).color(r, g, b, a).endVertex();
-        buffer.pos(transform, x, y, z + 1).color(r, g, b, a).endVertex();
-        buffer.pos(transform, x, y + 1, z + 1).color(r, g, b, a).endVertex();
+        buffer.vertex(transform, x, y, z + 1).color(r, g, b, a).endVertex();
+        buffer.vertex(transform, x + 1, y, z + 1).color(r, g, b, a).endVertex();
+        buffer.vertex(transform, x, y, z + 1).color(r, g, b, a).endVertex();
+        buffer.vertex(transform, x, y + 1, z + 1).color(r, g, b, a).endVertex();
     }
     //endregion Static Methods
 }

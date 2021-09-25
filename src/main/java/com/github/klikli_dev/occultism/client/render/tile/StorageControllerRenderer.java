@@ -61,7 +61,7 @@ public class StorageControllerRenderer extends TileEntityRenderer<StorageControl
         if (this.stack == null)
             this.stack = new ItemStack(OccultismItems.DIMENSIONAL_MATRIX.get());
 
-        matrixStack.push();
+        matrixStack.pushPose();
 
         //use system time to become independent of game time
         long systemTime = System.currentTimeMillis();
@@ -75,7 +75,7 @@ public class StorageControllerRenderer extends TileEntityRenderer<StorageControl
         //rotate item slowly around y axis
         //do not use system time rad, as rotationDegrees converts for us and we want to clamp it to 360° first
         float angle = (systemTime / 16) % 360;
-        matrixStack.rotate(Vector3f.YP.rotationDegrees(angle));
+        matrixStack.mulPose(Vector3f.YP.rotationDegrees(angle));
 
         //Math.sin(time/frequency)*amplitude
         float scale = (float) (1 + systemTimeRadSin8 * 0.025f);
@@ -88,12 +88,12 @@ public class StorageControllerRenderer extends TileEntityRenderer<StorageControl
         int color = Color.getHSBColor(0.01F * (float) colorScale, saturation, 0.01F * (float) colorScale).getRGB();
 
         ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
-        IBakedModel model = itemRenderer.getItemModelWithOverrides(this.stack, tileEntity.getWorld(), null);
+        IBakedModel model = itemRenderer.getModel(this.stack, tileEntity.getLevel(), null);
 
         //from ItemRenderer#renderItem
         matrixStack.translate(-0.5D, -0.5D, -0.5D);
-        RenderType rendertype = RenderTypeLookup.func_239219_a_(this.stack, false); //getRenderType(itemstack, isBlock(??)) isBlock = false -> is item entity?
-        IVertexBuilder ivertexbuilder = ItemRenderer.getBuffer(buffer, rendertype, true, this.stack.hasEffect());
+        RenderType rendertype = RenderTypeLookup.getRenderType(this.stack, false); //getRenderType(itemstack, isBlock(??)) isBlock = false -> is item entity?
+        IVertexBuilder ivertexbuilder = ItemRenderer.getFoilBuffer(buffer, rendertype, true, this.stack.hasFoil());
         //from  ItemRenderer#rendermodel
         Random random = new Random();
 
@@ -108,7 +108,7 @@ public class StorageControllerRenderer extends TileEntityRenderer<StorageControl
                 combinedOverlay);
 
 
-        matrixStack.pop();
+        matrixStack.popPose();
     }
     //endregion Overrides
 
@@ -116,7 +116,7 @@ public class StorageControllerRenderer extends TileEntityRenderer<StorageControl
     public void renderQuads(MatrixStack matrixStackIn, IVertexBuilder bufferIn, List<BakedQuad> quadsIn, int colorIn,
                             int combinedLightIn, int combinedOverlayIn) {
         //from  ItemRenderer#renderQuad
-        MatrixStack.Entry matrixstack$entry = matrixStackIn.getLast();
+        MatrixStack.Entry matrixstack$entry = matrixStackIn.last();
 
         for (BakedQuad bakedquad : quadsIn) {
             int i = colorIn;

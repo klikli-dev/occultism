@@ -52,7 +52,7 @@ public class FamiliarRitual extends SummonRitual {
         String entityName = ItemNBTUtil.getBoundSpiritName(activationItem);
         activationItem.shrink(1); //remove original activation item.
 
-        ((ServerWorld) world).spawnParticle(ParticleTypes.LARGE_SMOKE, goldenBowlPosition.getX() + 0.5,
+        ((ServerWorld) world).sendParticles(ParticleTypes.LARGE_SMOKE, goldenBowlPosition.getX() + 0.5,
                 goldenBowlPosition.getY() + 0.5, goldenBowlPosition.getZ() + 0.5, 1, 0, 0, 0, 0);
 
         EntityType<?> entityType = this.recipe.getEntityToSummon();
@@ -60,10 +60,10 @@ public class FamiliarRitual extends SummonRitual {
             Entity entity = entityType.create(world);
             if (entity instanceof FamiliarEntity) {
                 FamiliarEntity familiar = (FamiliarEntity) entity;
-                familiar.onInitialSpawn((ServerWorld) world, world.getDifficultyForLocation(goldenBowlPosition), SpawnReason.MOB_SUMMONED,
+                familiar.finalizeSpawn((ServerWorld) world, world.getCurrentDifficultyAt(goldenBowlPosition), SpawnReason.MOB_SUMMONED,
                         null, null);
-                familiar.setPositionAndRotation(goldenBowlPosition.getX(), goldenBowlPosition.getY(), goldenBowlPosition.getZ(),
-                        world.rand.nextInt(360), 0);
+                familiar.absMoveTo(goldenBowlPosition.getX(), goldenBowlPosition.getY(), goldenBowlPosition.getZ(),
+                        world.random.nextInt(360), 0);
                 familiar.setCustomName(new StringTextComponent(entityName));
                 familiar.setFamiliarOwner(castingPlayer);
 

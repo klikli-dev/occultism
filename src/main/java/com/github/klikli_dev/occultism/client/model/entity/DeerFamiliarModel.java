@@ -62,92 +62,92 @@ public class DeerFamiliarModel extends EntityModel<DeerFamiliarEntity> {
     public ModelRenderer rightBackLeg2;
 
     public DeerFamiliarModel() {
-        this.textureWidth = 64;
-        this.textureHeight = 16;
+        this.texWidth = 64;
+        this.texHeight = 16;
         this.neck = new ModelRenderer(this, 30, 0);
-        this.neck.setRotationPoint(0.0F, -4.0F, -4.0F);
+        this.neck.setPos(0.0F, -4.0F, -4.0F);
         this.neck.addBox(-1.0F, -3.0F, -1.0F, 2.0F, 3.0F, 2.0F, 0.0F, 0.0F, 0.0F);
         this.setRotateAngle(neck, 0.3909537457888271F, 0.0F, 0.0F);
         this.leftEar = new ModelRenderer(this, 22, 3);
-        this.leftEar.setRotationPoint(1.0F, -2.5F, 0.5F);
+        this.leftEar.setPos(1.0F, -2.5F, 0.5F);
         this.leftEar.addBox(-1.0F, -2.0F, 0.0F, 2.0F, 2.0F, 1.0F, 0.0F, 0.0F, 0.0F);
         this.setRotateAngle(leftEar, -0.3909537457888271F, 0.0F, 0.7819074915776542F);
         this.rightBackLeg1 = new ModelRenderer(this, 28, 9);
         this.rightBackLeg1.mirror = true;
-        this.rightBackLeg1.setRotationPoint(-1.4F, -0.2F, 3.9F);
+        this.rightBackLeg1.setPos(-1.4F, -0.2F, 3.9F);
         this.rightBackLeg1.addBox(-0.5F, 0.0F, -1.0F, 1.0F, 4.0F, 2.0F, 0.0F, 0.0F, 0.0F);
         this.setRotateAngle(rightBackLeg1, 0.11728612207217244F, 0.0F, 0.0F);
         this.nose = new ModelRenderer(this, 50, 0);
-        this.nose.setRotationPoint(0.0F, -1.0F, -1.5F);
+        this.nose.setPos(0.0F, -1.0F, -1.5F);
         this.nose.addBox(-1.0F, -1.0F, -2.0F, 2.0F, 2.0F, 2.0F, 0.0F, 0.0F, 0.0F);
         this.rightFrontLeg2 = new ModelRenderer(this, 18, 0);
         this.rightFrontLeg2.mirror = true;
-        this.rightFrontLeg2.setRotationPoint(0.01F, 3.8F, 0.0F);
+        this.rightFrontLeg2.setPos(0.01F, 3.8F, 0.0F);
         this.rightFrontLeg2.addBox(-0.5F, 0.0F, -0.5F, 1.0F, 4.0F, 1.0F, 0.0F, 0.0F, 0.0F);
         this.setRotateAngle(rightFrontLeg2, 0.11728612207217244F, 0.0F, 0.0F);
         this.rightFrontLeg1 = new ModelRenderer(this, 0, 0);
         this.rightFrontLeg1.mirror = true;
-        this.rightFrontLeg1.setRotationPoint(-1.4F, -0.2F, -3.9F);
+        this.rightFrontLeg1.setPos(-1.4F, -0.2F, -3.9F);
         this.rightFrontLeg1.addBox(-0.5F, 0.0F, -1.0F, 1.0F, 4.0F, 2.0F, 0.0F, 0.0F, 0.0F);
         this.setRotateAngle(rightFrontLeg1, -0.11728612207217244F, 0.0F, 0.0F);
         this.rightEar = new ModelRenderer(this, 22, 3);
         this.rightEar.mirror = true;
-        this.rightEar.setRotationPoint(-1.0F, -2.5F, 0.5F);
+        this.rightEar.setPos(-1.0F, -2.5F, 0.5F);
         this.rightEar.addBox(-1.0F, -2.0F, 0.0F, 2.0F, 2.0F, 1.0F, 0.0F, 0.0F, 0.0F);
         this.setRotateAngle(rightEar, -0.3909537457888271F, 0.0F, -0.7819074915776542F);
         this.rightBackLeg2 = new ModelRenderer(this, 34, 10);
         this.rightBackLeg2.mirror = true;
-        this.rightBackLeg2.setRotationPoint(0.01F, 3.8F, 0.0F);
+        this.rightBackLeg2.setPos(0.01F, 3.8F, 0.0F);
         this.rightBackLeg2.addBox(-0.5F, 0.0F, -0.5F, 1.0F, 4.0F, 1.0F, 0.0F, 0.0F, 0.0F);
         this.setRotateAngle(rightBackLeg2, -0.11728612207217244F, 0.0F, 0.0F);
         this.leftHorn3 = new ModelRenderer(this, 18, 5);
-        this.leftHorn3.setRotationPoint(0.0F, -2.7F, 0.0F);
+        this.leftHorn3.setPos(0.0F, -2.7F, 0.0F);
         this.leftHorn3.addBox(-0.5F, -2.0F, -0.5F, 1.0F, 2.0F, 1.0F, 0.0F, 0.0F, 0.0F);
         this.setRotateAngle(leftHorn3, 0.5864306020384839F, 0.0F, 0.0F);
         this.rightHorn1 = new ModelRenderer(this, 50, 4);
-        this.rightHorn1.setRotationPoint(-0.7F, -2.5F, 0.3F);
+        this.rightHorn1.setPos(-0.7F, -2.5F, 0.3F);
         this.rightHorn1.addBox(-0.5F, -3.0F, -0.5F, 1.0F, 3.0F, 1.0F, 0.0F, 0.0F, 0.0F);
         this.setRotateAngle(rightHorn1, 0.0F, 0.0F, -0.3127630032889644F);
         this.leftBackLeg2 = new ModelRenderer(this, 34, 10);
-        this.leftBackLeg2.setRotationPoint(-0.01F, 3.8F, 0.0F);
+        this.leftBackLeg2.setPos(-0.01F, 3.8F, 0.0F);
         this.leftBackLeg2.addBox(-0.5F, 0.0F, -0.5F, 1.0F, 4.0F, 1.0F, 0.0F, 0.0F, 0.0F);
         this.setRotateAngle(leftBackLeg2, -0.11728612207217244F, 0.0F, 0.0F);
         this.body = new ModelRenderer(this, 0, 0);
-        this.body.setRotationPoint(0.0F, 16.4F, 0.0F);
+        this.body.setPos(0.0F, 16.4F, 0.0F);
         this.body.addBox(-2.0F, -5.0F, -5.0F, 4.0F, 5.0F, 10.0F, 0.0F, 0.0F, 0.0F);
         this.leftFrontLeg1 = new ModelRenderer(this, 0, 0);
-        this.leftFrontLeg1.setRotationPoint(1.4F, -0.2F, -3.9F);
+        this.leftFrontLeg1.setPos(1.4F, -0.2F, -3.9F);
         this.leftFrontLeg1.addBox(-0.5F, 0.0F, -1.0F, 1.0F, 4.0F, 2.0F, 0.0F, 0.0F, 0.0F);
         this.setRotateAngle(leftFrontLeg1, -0.11728612207217244F, 0.0F, 0.0F);
         this.tail = new ModelRenderer(this, 22, 0);
-        this.tail.setRotationPoint(0.0F, -4.0F, 4.5F);
+        this.tail.setPos(0.0F, -4.0F, 4.5F);
         this.tail.addBox(-1.0F, -0.5F, 0.0F, 2.0F, 1.0F, 2.0F, 0.0F, 0.0F, 0.0F);
         this.setRotateAngle(tail, -0.4363323129985824F, 0.0F, 0.0F);
         this.rightHorn2 = new ModelRenderer(this, 58, 0);
-        this.rightHorn2.setRotationPoint(-0.3F, -2.5F, 0.0F);
+        this.rightHorn2.setPos(-0.3F, -2.5F, 0.0F);
         this.rightHorn2.addBox(-0.5F, -2.0F, -0.5F, 1.0F, 2.0F, 1.0F, 0.0F, 0.0F, 0.0F);
         this.setRotateAngle(rightHorn2, 0.0F, 0.0F, -1.1344640137963142F);
         this.head = new ModelRenderer(this, 38, 0);
-        this.head.setRotationPoint(0.0F, -2.5F, -0.3F);
+        this.head.setPos(0.0F, -2.5F, -0.3F);
         this.head.addBox(-1.5F, -3.0F, -1.5F, 3.0F, 3.0F, 3.0F, 0.0F, 0.0F, 0.0F);
         this.leftBackLeg1 = new ModelRenderer(this, 28, 9);
-        this.leftBackLeg1.setRotationPoint(1.4F, -0.2F, 3.9F);
+        this.leftBackLeg1.setPos(1.4F, -0.2F, 3.9F);
         this.leftBackLeg1.addBox(-0.5F, 0.0F, -1.0F, 1.0F, 4.0F, 2.0F, 0.0F, 0.0F, 0.0F);
         this.setRotateAngle(leftBackLeg1, 0.11728612207217244F, 0.0F, 0.0F);
         this.rightHorn3 = new ModelRenderer(this, 18, 5);
-        this.rightHorn3.setRotationPoint(0.0F, -2.7F, 0.0F);
+        this.rightHorn3.setPos(0.0F, -2.7F, 0.0F);
         this.rightHorn3.addBox(-0.5F, -2.0F, -0.5F, 1.0F, 2.0F, 1.0F, 0.0F, 0.0F, 0.0F);
         this.setRotateAngle(rightHorn3, 0.5864306020384839F, 0.0F, 0.0F);
         this.leftHorn1 = new ModelRenderer(this, 50, 4);
-        this.leftHorn1.setRotationPoint(0.7F, -2.5F, 0.3F);
+        this.leftHorn1.setPos(0.7F, -2.5F, 0.3F);
         this.leftHorn1.addBox(-0.5F, -3.0F, -0.5F, 1.0F, 3.0F, 1.0F, 0.0F, 0.0F, 0.0F);
         this.setRotateAngle(leftHorn1, 0.0F, 0.0F, 0.3127630032889644F);
         this.leftHorn2 = new ModelRenderer(this, 58, 0);
-        this.leftHorn2.setRotationPoint(0.3F, -2.5F, 0.0F);
+        this.leftHorn2.setPos(0.3F, -2.5F, 0.0F);
         this.leftHorn2.addBox(-0.5F, -2.0F, -0.5F, 1.0F, 2.0F, 1.0F, 0.0F, 0.0F, 0.0F);
         this.setRotateAngle(leftHorn2, 0.0F, 0.0F, 1.1344640137963142F);
         this.leftFrontLeg2 = new ModelRenderer(this, 18, 0);
-        this.leftFrontLeg2.setRotationPoint(-0.01F, 3.8F, 0.0F);
+        this.leftFrontLeg2.setPos(-0.01F, 3.8F, 0.0F);
         this.leftFrontLeg2.addBox(-0.5F, 0.0F, -0.5F, 1.0F, 4.0F, 1.0F, 0.0F, 0.0F, 0.0F);
         this.setRotateAngle(leftFrontLeg2, 0.11728612207217244F, 0.0F, 0.0F);
         this.body.addChild(this.neck);
@@ -173,7 +173,7 @@ public class DeerFamiliarModel extends EntityModel<DeerFamiliarEntity> {
     }
 
     @Override
-    public void render(MatrixStack matrixStackIn, IVertexBuilder bufferIn, int packedLightIn, int packedOverlayIn,
+    public void renderToBuffer(MatrixStack matrixStackIn, IVertexBuilder bufferIn, int packedLightIn, int packedOverlayIn,
             float red, float green, float blue, float alpha) {
         ImmutableList.of(this.body).forEach((modelRenderer) -> {
             modelRenderer.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
@@ -185,56 +185,56 @@ public class DeerFamiliarModel extends EntityModel<DeerFamiliarEntity> {
     }
 
     @Override
-    public void setLivingAnimations(DeerFamiliarEntity entityIn, float limbSwing, float limbSwingAmount,
+    public void prepareMobModel(DeerFamiliarEntity entityIn, float limbSwing, float limbSwingAmount,
             float partialTick) {
-        this.neck.rotateAngleX = entityIn.getNeckRot(partialTick);
+        this.neck.xRot = entityIn.getNeckRot(partialTick);
     }
 
     @Override
-    public void setRotationAngles(DeerFamiliarEntity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks,
+    public void setupAnim(DeerFamiliarEntity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks,
             float netHeadYaw, float headPitch) {
         if (entityIn.isEating()) {
-            this.head.rotateAngleX = MathHelper.cos(ageInTicks * 0.8f) * 0.2f;
-            this.head.rotateAngleY = 0;
+            this.head.xRot = MathHelper.cos(ageInTicks * 0.8f) * 0.2f;
+            this.head.yRot = 0;
         } else {
-            this.head.rotateAngleY = netHeadYaw * (PI / 180f) * 0.5f;
-            this.head.rotateAngleX = headPitch * (PI / 180f) * 0.5f;
+            this.head.yRot = netHeadYaw * (PI / 180f) * 0.5f;
+            this.head.xRot = headPitch * (PI / 180f) * 0.5f;
         }
 
-        this.tail.rotateAngleX = MathHelper.cos(limbSwing * 0.7f) * 0.4f * limbSwingAmount - 0.3f;
-        this.body.rotateAngleX = 0;
+        this.tail.xRot = MathHelper.cos(limbSwing * 0.7f) * 0.4f * limbSwingAmount - 0.3f;
+        this.body.xRot = 0;
 
         if (entityIn.isPartying()) {
-            this.body.rotateAngleX = toRad(-20);
+            this.body.xRot = toRad(-20);
             this.setRotateAngle(this.rightBackLeg1, MathHelper.cos(ageInTicks / 2 + PI) * toRad(5) + toRad(20), 0, 0);
             this.setRotateAngle(this.leftBackLeg1, MathHelper.cos(ageInTicks / 2) * toRad(5) + toRad(20), 0, 0);
             this.setRotateAngle(this.rightFrontLeg1, MathHelper.cos(ageInTicks / 2) * toRad(30) - toRad(40), 0, 0);
             this.setRotateAngle(this.leftFrontLeg1, MathHelper.cos(ageInTicks / 2 + PI) * toRad(30) - toRad(40), 0, 0);
 
-            this.rightBackLeg2.rotationPointZ = 0;
-            this.leftBackLeg2.rotationPointZ = 0;
-            this.rightFrontLeg2.rotationPointZ = 0;
-            this.leftFrontLeg2.rotationPointZ = 0;
+            this.rightBackLeg2.z = 0;
+            this.leftBackLeg2.z = 0;
+            this.rightFrontLeg2.z = 0;
+            this.leftFrontLeg2.z = 0;
 
-            this.rightBackLeg2.rotateAngleX = -0.1f;
-            this.leftBackLeg2.rotateAngleX = -0.1f;
-            this.rightFrontLeg2.rotateAngleX = 0.1f;
-            this.leftFrontLeg2.rotateAngleX = 0.1f;
+            this.rightBackLeg2.xRot = -0.1f;
+            this.leftBackLeg2.xRot = -0.1f;
+            this.rightFrontLeg2.xRot = 0.1f;
+            this.leftFrontLeg2.xRot = 0.1f;
         } else if (entityIn.isSitting()) {
             this.setRotateAngle(this.rightBackLeg1, toRad(80), toRad(10), -toRad(40));
             this.setRotateAngle(this.leftBackLeg1, toRad(80), toRad(10), -toRad(40));
             this.setRotateAngle(this.rightFrontLeg1, -toRad(80), -toRad(10), -toRad(40));
             this.setRotateAngle(this.leftFrontLeg1, -toRad(80), -toRad(10), -toRad(40));
 
-            this.rightBackLeg2.rotationPointZ = -0.5f;
-            this.leftBackLeg2.rotationPointZ = -0.5f;
-            this.rightFrontLeg2.rotationPointZ = 0.5f;
-            this.leftFrontLeg2.rotationPointZ = 0.5f;
+            this.rightBackLeg2.z = -0.5f;
+            this.leftBackLeg2.z = -0.5f;
+            this.rightFrontLeg2.z = 0.5f;
+            this.leftFrontLeg2.z = 0.5f;
 
-            this.rightBackLeg2.rotateAngleX = -toRad(150);
-            this.leftBackLeg2.rotateAngleX = -toRad(150);
-            this.rightFrontLeg2.rotateAngleX = toRad(150);
-            this.leftFrontLeg2.rotateAngleX = toRad(150);
+            this.rightBackLeg2.xRot = -toRad(150);
+            this.leftBackLeg2.xRot = -toRad(150);
+            this.rightFrontLeg2.xRot = toRad(150);
+            this.leftFrontLeg2.xRot = toRad(150);
         } else {
             boolean fast = entityIn.getAttributeValue(Attributes.MOVEMENT_SPEED) > 0.4;
             this.setRotateAngle(this.rightBackLeg1,
@@ -245,15 +245,15 @@ public class DeerFamiliarModel extends EntityModel<DeerFamiliarEntity> {
                     MathHelper.cos(limbSwing * 0.7f + (fast ? 0 : PI)) * 1.4f * limbSwingAmount, 0, 0);
             this.setRotateAngle(this.leftFrontLeg1, MathHelper.cos(limbSwing * 0.7f) * 1.4f * limbSwingAmount, 0, 0);
 
-            this.rightBackLeg2.rotationPointZ = 0;
-            this.leftBackLeg2.rotationPointZ = 0;
-            this.rightFrontLeg2.rotationPointZ = 0;
-            this.leftFrontLeg2.rotationPointZ = 0;
+            this.rightBackLeg2.z = 0;
+            this.leftBackLeg2.z = 0;
+            this.rightFrontLeg2.z = 0;
+            this.leftFrontLeg2.z = 0;
 
-            this.rightBackLeg2.rotateAngleX = -0.1f;
-            this.leftBackLeg2.rotateAngleX = -0.1f;
-            this.rightFrontLeg2.rotateAngleX = 0.1f;
-            this.leftFrontLeg2.rotateAngleX = 0.1f;
+            this.rightBackLeg2.xRot = -0.1f;
+            this.leftBackLeg2.xRot = -0.1f;
+            this.rightFrontLeg2.xRot = 0.1f;
+            this.leftFrontLeg2.xRot = 0.1f;
         }
     }
 
@@ -261,8 +261,8 @@ public class DeerFamiliarModel extends EntityModel<DeerFamiliarEntity> {
      * This is a helper function from Tabula to set the rotation of model parts
      */
     public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z) {
-        modelRenderer.rotateAngleX = x;
-        modelRenderer.rotateAngleY = y;
-        modelRenderer.rotateAngleZ = z;
+        modelRenderer.xRot = x;
+        modelRenderer.yRot = y;
+        modelRenderer.zRot = z;
     }
 }

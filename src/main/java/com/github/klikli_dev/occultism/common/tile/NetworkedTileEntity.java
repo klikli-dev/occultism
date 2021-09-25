@@ -37,20 +37,20 @@ public abstract class NetworkedTileEntity extends TileEntity {
 
     //region Overrides
     @Override
-    public void read(BlockState state, CompoundNBT compound) {
+    public void load(BlockState state, CompoundNBT compound) {
         this.readNetwork(compound);
-        super.read(state, compound);
+        super.load(state, compound);
     }
 
     @Override
-    public CompoundNBT write(CompoundNBT compound) {
+    public CompoundNBT save(CompoundNBT compound) {
         this.writeNetwork(compound);
-        return super.write(compound);
+        return super.save(compound);
     }
 
     @Override
     public SUpdateTileEntityPacket getUpdatePacket() {
-        return new SUpdateTileEntityPacket(this.pos, 1, this.writeNetwork(new CompoundNBT()));
+        return new SUpdateTileEntityPacket(this.worldPosition, 1, this.writeNetwork(new CompoundNBT()));
     }
 
     @Override
@@ -60,12 +60,12 @@ public abstract class NetworkedTileEntity extends TileEntity {
 
     @Override
     public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket pkt) {
-        this.readNetwork(pkt.getNbtCompound());
+        this.readNetwork(pkt.getTag());
     }
 
     @Override
     public void handleUpdateTag(BlockState state, CompoundNBT tag) {
-        super.read(state, tag);
+        super.load(state, tag);
         this.readNetwork(tag);
     }
 
@@ -92,8 +92,8 @@ public abstract class NetworkedTileEntity extends TileEntity {
     }
 
     public void markNetworkDirty(){
-        if (this.world != null) {
-            this.world.notifyBlockUpdate(this.pos, this.getBlockState(), this.getBlockState(), 2);
+        if (this.level != null) {
+            this.level.sendBlockUpdated(this.worldPosition, this.getBlockState(), this.getBlockState(), 2);
         }
     }
 }

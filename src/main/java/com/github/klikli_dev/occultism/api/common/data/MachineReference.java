@@ -105,9 +105,9 @@ public class MachineReference implements INBTSerializable<CompoundNBT> {
     //region Static Methods
     public static MachineReference from(TileEntity tileEntity) {
         GlobalBlockPos pos = GlobalBlockPos.from(tileEntity);
-        BlockState state = tileEntity.getWorld().getBlockState(pos.getPos());
-        ItemStack item = state.getBlock().getItem(tileEntity.getWorld(), pos.getPos(), state);
-        boolean isLoaded = tileEntity.getWorld().isBlockLoaded(pos.getPos());
+        BlockState state = tileEntity.getLevel().getBlockState(pos.getPos());
+        ItemStack item = state.getBlock().getCloneItemStack(tileEntity.getLevel(), pos.getPos(), state);
+        boolean isLoaded = tileEntity.getLevel().hasChunkAt(pos.getPos());
         return new MachineReference(pos, item.getItem().getRegistryName(), isLoaded);
     }
 
@@ -134,8 +134,8 @@ public class MachineReference implements INBTSerializable<CompoundNBT> {
             compound.putString("customName", this.customName);
 
         compound.putBoolean("isChunkLoaded", this.chunkLoaded);
-        compound.putByte("insertFacing", (byte) this.insertFacing.getIndex());
-        compound.putByte("extractFacing", (byte) this.extractFacing.getIndex());
+        compound.putByte("insertFacing", (byte) this.insertFacing.get3DDataValue());
+        compound.putByte("extractFacing", (byte) this.extractFacing.get3DDataValue());
 
         return compound;
     }
@@ -149,16 +149,16 @@ public class MachineReference implements INBTSerializable<CompoundNBT> {
             this.customName = compound.getString("customName");
 
         this.chunkLoaded = compound.getBoolean("isChunkLoaded");
-        this.insertFacing = Direction.byIndex(compound.getInt("insertFacing"));
-        this.extractFacing = Direction.byIndex(compound.getInt("extractFacing"));
+        this.insertFacing = Direction.from3DDataValue(compound.getInt("insertFacing"));
+        this.extractFacing = Direction.from3DDataValue(compound.getInt("extractFacing"));
     }
 
     public void encode(PacketBuffer buf) {
-        buf.writeCompoundTag(this.write(new CompoundNBT()));
+        buf.writeNbt(this.write(new CompoundNBT()));
     }
 
     public void decode(PacketBuffer buf) {
-        this.deserializeNBT(buf.readCompoundTag());
+        this.deserializeNBT(buf.readNbt());
     }
 
     public TileEntity getTileEntity(World world) {

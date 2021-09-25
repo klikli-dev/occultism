@@ -38,12 +38,12 @@ public class FoliotEntity extends SpiritEntity {
     //region Static Methods
     public static AttributeModifierMap.MutableAttribute registerAttributes() {
         return SpiritEntity.registerAttributes()
-                       .createMutableAttribute(Attributes.ATTACK_DAMAGE, 1.0)
-                       .createMutableAttribute(Attributes.MAX_HEALTH, 8.0)
-                       .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.30000001192092896)
-                       .createMutableAttribute(Attributes.ARMOR, 2.0)
-                       .createMutableAttribute(Attributes.ARMOR_TOUGHNESS, 1.0)
-                       .createMutableAttribute(Attributes.FOLLOW_RANGE, 50.0);
+                       .add(Attributes.ATTACK_DAMAGE, 1.0)
+                       .add(Attributes.MAX_HEALTH, 8.0)
+                       .add(Attributes.MOVEMENT_SPEED, 0.30000001192092896)
+                       .add(Attributes.ARMOR, 2.0)
+                       .add(Attributes.ARMOR_TOUGHNESS, 1.0)
+                       .add(Attributes.FOLLOW_RANGE, 50.0);
     }
     //endregion Static Methods
 }

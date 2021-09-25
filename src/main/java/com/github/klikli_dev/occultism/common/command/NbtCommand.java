@@ -44,10 +44,10 @@ public class NbtCommand implements Command<CommandSource> {
     //region Overrides
     @Override
     public int run(CommandContext<CommandSource> context) throws CommandSyntaxException {
-        ServerPlayerEntity player = context.getSource().asPlayer();
-        ItemStack heldItem = player.getHeldItem(Hand.MAIN_HAND);
-        ITextComponent nbtText = heldItem.isEmpty() ? new StringTextComponent("{}") : heldItem.getOrCreateTag().toFormattedComponent();
-        context.getSource().sendFeedback(nbtText, false);
+        ServerPlayerEntity player = context.getSource().getPlayerOrException();
+        ItemStack heldItem = player.getItemInHand(Hand.MAIN_HAND);
+        ITextComponent nbtText = heldItem.isEmpty() ? new StringTextComponent("{}") : heldItem.getOrCreateTag().getPrettyDisplay();
+        context.getSource().sendSuccess(nbtText, false);
         return 0;
     }
     //endregion Overrides
@@ -55,7 +55,7 @@ public class NbtCommand implements Command<CommandSource> {
     //region Static Methods
     public static ArgumentBuilder<CommandSource, ?> register(CommandDispatcher<CommandSource> dispatcher) {
         return Commands.literal("nbt")
-                       .requires(cs -> cs.hasPermissionLevel(0))
+                       .requires(cs -> cs.hasPermission(0))
                        .executes(CMD);
     }
     //endregion Static Methods

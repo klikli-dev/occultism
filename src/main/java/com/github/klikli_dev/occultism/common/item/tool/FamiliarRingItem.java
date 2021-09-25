@@ -56,6 +56,8 @@ import net.minecraftforge.common.util.LazyOptional;
 import top.theillusivec4.curios.api.CuriosCapability;
 import top.theillusivec4.curios.api.type.capability.ICurio;
 
+import net.minecraft.item.Item.Properties;
+
 public class FamiliarRingItem extends Item {
 
     public FamiliarRingItem(Properties properties) {
@@ -63,20 +65,20 @@ public class FamiliarRingItem extends Item {
     }
 
     @Override
-    public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip,
+    public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip,
             ITooltipFlag flagIn) {
-        super.addInformation(stack, worldIn, tooltip, flagIn);
+        super.appendHoverText(stack, worldIn, tooltip, flagIn);
         if (stack.getOrCreateTag().getBoolean("occupied"))
-            tooltip.add(new TranslationTextComponent(this.getTranslationKey() + ".tooltip",
+            tooltip.add(new TranslationTextComponent(this.getDescriptionId() + ".tooltip",
                     TextUtil.formatDemonName(ItemNBTUtil.getBoundSpiritName(stack))));
     }
 
     @Override
-    public ActionResultType itemInteractionForEntity(ItemStack stack, PlayerEntity playerIn, LivingEntity target,
+    public ActionResultType interactLivingEntity(ItemStack stack, PlayerEntity playerIn, LivingEntity target,
             Hand hand) {
-        if (!playerIn.world.isRemote && target instanceof IFamiliar) {
+        if (!playerIn.level.isClientSide && target instanceof IFamiliar) {
             IFamiliar familiar = (IFamiliar) target;
-            if ((familiar.getFamiliarOwner() == playerIn || familiar.getFamiliarOwner() == null) && this.getCurio(stack).captureFamiliar(playerIn.world, familiar)) {
+            if ((familiar.getFamiliarOwner() == playerIn || familiar.getFamiliarOwner() == null) && this.getCurio(stack).captureFamiliar(playerIn.level, familiar)) {
                 OccultismAdvancements.FAMILIAR.trigger(playerIn, FamiliarTrigger.Type.CAPTURE);
                 CompoundNBT tag = stack.getOrCreateTag();
                 tag.putBoolean("occupied", true);
@@ -85,18 +87,18 @@ public class FamiliarRingItem extends Item {
             }
         }
         
-        return super.itemInteractionForEntity(stack, playerIn, target, hand);
+        return super.interactLivingEntity(stack, playerIn, target, hand);
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
-        ItemStack stack = playerIn.getHeldItem(handIn);
-        if (!playerIn.world.isRemote && this.getCurio(stack).releaseFamiliar(playerIn, worldIn)) {
+    public ActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand handIn) {
+        ItemStack stack = playerIn.getItemInHand(handIn);
+        if (!playerIn.level.isClientSide && this.getCurio(stack).releaseFamiliar(playerIn, worldIn)) {
             CompoundNBT tag = stack.getOrCreateTag();
             tag.putBoolean("occupied", false);
-            return ActionResult.resultConsume(stack);
+            return ActionResult.consume(stack);
         }
-        return super.onItemRightClick(worldIn, playerIn, handIn);
+        return super.use(worldIn, playerIn, handIn);
     }
 
     private Curio getCurio(ItemStack stack) {
@@ -120,7 +122,7 @@ public class FamiliarRingItem extends Item {
                 return false;
             this.setFamiliar(familiar);
             this.getFamiliar(world).getEntity().stopRiding();
-            this.getFamiliar(world).getEntity().removePassengers();
+            this.getFamiliar(world).getEntity().ejectPassengers();
             this.getFamiliar(world).getEntity().remove();
             return true;
         }
@@ -128,11 +130,11 @@ public class FamiliarRingItem extends Item {
         private boolean releaseFamiliar(PlayerEntity player, World world) {
             if (this.getFamiliar(world) != null
                     && !this.getFamiliar(world).getEntity().isAddedToWorld()) {
-                EntityType.loadEntityAndExecute(this.getFamiliar(world).getEntity().serializeNBT(), world, e -> {
-                    e.setPosition(player.getPosX(), player.getPosY(), player.getPosZ());
+                EntityType.loadEntityRecursive(this.getFamiliar(world).getEntity().serializeNBT(), world, e -> {
+                    e.setPos(player.getX(), player.getY(), player.getZ());
                     //on release overwrite owner -> familiar rings can be used to trade familiars.
                     ((IFamiliar)e).setFamiliarOwner(player);
-                    world.addEntity(e);
+                    world.addFreshEntity(e);
                     return e;
                 });
                 this.setFamiliar(null);
@@ -143,15 +145,15 @@ public class FamiliarRingItem extends Item {
 
         @Override
         public void curioTick(String identifier, int index, LivingEntity entity) {
-            World world = entity.world;
+            World world = entity.level;
             IFamiliar familiar = this.getFamiliar(world);
             if (familiar == null || familiar.getFamiliarOwner() != entity)
                 return;
             
             // Apply effects
-            if (!world.isRemote && entity.ticksExisted % 20 == 0)
+            if (!world.isClientSide && entity.tickCount % 20 == 0)
                 for (EffectInstance effect : familiar.getFamiliarEffects())
-                    familiar.getFamiliarOwner().addPotionEffect(effect);
+                    familiar.getFamiliarOwner().addEffect(effect);
             
             // Tick
             familiar.curioTick(entity);
@@ -181,7 +183,7 @@ public class FamiliarRingItem extends Item {
             if (this.familiar != null)
                 return this.familiar;
             if (this.nbt != null) {
-                this.familiar = (IFamiliar) EntityType.loadEntityAndExecute(this.nbt, world, Function.identity());
+                this.familiar = (IFamiliar) EntityType.loadEntityRecursive(this.nbt, world, Function.identity());
                 this.nbt = null;
             }
 

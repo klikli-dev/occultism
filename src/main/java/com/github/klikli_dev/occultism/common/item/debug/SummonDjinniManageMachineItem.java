@@ -35,6 +35,8 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.server.ServerWorld;
 
+import net.minecraft.item.Item.Properties;
+
 public class SummonDjinniManageMachineItem extends Item {
 
     //region Initialization
@@ -45,15 +47,15 @@ public class SummonDjinniManageMachineItem extends Item {
 
     //region Overrides
     @Override
-    public ActionResultType onItemUse(ItemUseContext context) {
-        if (!context.getWorld().isRemote) {
+    public ActionResultType useOn(ItemUseContext context) {
+        if (!context.getLevel().isClientSide) {
 
-            DjinniEntity spirit = OccultismEntities.DJINNI.get().create(context.getWorld());
-            spirit.onInitialSpawn((ServerWorld) context.getWorld(),
-                    context.getWorld().getDifficultyForLocation(context.getPos()),
+            DjinniEntity spirit = OccultismEntities.DJINNI.get().create(context.getLevel());
+            spirit.finalizeSpawn((ServerWorld) context.getLevel(),
+                    context.getLevel().getCurrentDifficultyAt(context.getClickedPos()),
                     SpawnReason.SPAWN_EGG, null, null);
-            spirit.setTamedBy(context.getPlayer());
-            spirit.setPosition(context.getPos().getX(), context.getPos().getY() + 1.0f, context.getPos().getZ());
+            spirit.tame(context.getPlayer());
+            spirit.setPos(context.getClickedPos().getX(), context.getClickedPos().getY() + 1.0f, context.getClickedPos().getZ());
             spirit.setCustomName(new StringTextComponent("Testspirit Manage Machine"));
             spirit.setSpiritMaxAge(-1); //cannot die from age
             //set up the job
@@ -62,10 +64,10 @@ public class SummonDjinniManageMachineItem extends Item {
             spirit.setJob(manageMachine);
 
             //notify players nearby and spawn
-            for (ServerPlayerEntity player : context.getWorld().getEntitiesWithinAABB(ServerPlayerEntity.class,
-                    spirit.getBoundingBox().grow(50)))
+            for (ServerPlayerEntity player : context.getLevel().getEntitiesOfClass(ServerPlayerEntity.class,
+                    spirit.getBoundingBox().inflate(50)))
                 CriteriaTriggers.SUMMONED_ENTITY.trigger(player, spirit);
-            context.getWorld().addEntity(spirit);
+            context.getLevel().addFreshEntity(spirit);
         }
         return ActionResultType.SUCCESS;
     }

@@ -59,7 +59,7 @@ import net.minecraft.world.World;
 
 public class DeerFamiliarEntity extends FamiliarEntity {
 
-    private static final DataParameter<Boolean> RED_NOSE = EntityDataManager.createKey(DeerFamiliarEntity.class,
+    private static final DataParameter<Boolean> RED_NOSE = EntityDataManager.defineId(DeerFamiliarEntity.class,
             DataSerializers.BOOLEAN);
 
     private static final UUID SPEED_UUID = UUID.fromString("5ebf190f-3c59-41e7-9085-d14b37dfc863");
@@ -94,10 +94,10 @@ public class DeerFamiliarEntity extends FamiliarEntity {
     @Override
     public void tick() {
         super.tick();
-        if (!this.world.isRemote && !this.isGlowing() && this.hasRedNose())
+        if (!this.level.isClientSide && !this.isGlowing() && this.hasRedNose())
             this.setGlowing(true);
 
-        if (this.world.isRemote) {
+        if (this.level.isClientSide) {
             this.eatTimer--;
             this.oNeckRotTimer = this.neckRotTimer;
             if (this.isEating())
@@ -106,11 +106,11 @@ public class DeerFamiliarEntity extends FamiliarEntity {
                 this.neckRotTimer = Math.max(this.neckRotTimer - 1, 0);
         }
 
-        if (!this.world.isRemote) {
+        if (!this.level.isClientSide) {
             Entity owner = this.getFamiliarOwner();
-            if (owner != null && this.getDistanceSq(owner) > 50) {
+            if (owner != null && this.distanceToSqr(owner) > 50) {
                 if (this.getAttribute(Attributes.MOVEMENT_SPEED).getModifier(SPEED_UUID) == null)
-                    this.getAttribute(Attributes.MOVEMENT_SPEED).applyNonPersistentModifier(
+                    this.getAttribute(Attributes.MOVEMENT_SPEED).addTransientModifier(
                             new AttributeModifier(SPEED_UUID, "deer_speedup", 0.15, Operation.ADDITION));
             } else if (this.getAttribute(Attributes.MOVEMENT_SPEED).getModifier(SPEED_UUID) != null) {
                 this.getAttribute(Attributes.MOVEMENT_SPEED).removeModifier(SPEED_UUID);
@@ -124,9 +124,9 @@ public class DeerFamiliarEntity extends FamiliarEntity {
     }
 
     @Override
-    public void eatGrassBonus() {
-        if (this.getRNG().nextDouble() < 0.25) {
-            this.entityDropItem(OccultismItems.DATURA_SEEDS.get(), 0);
+    public void ate() {
+        if (this.getRandom().nextDouble() < 0.25) {
+            this.spawnAtLocation(OccultismItems.DATURA_SEEDS.get(), 0);
             LivingEntity owner = getOwner();
             if (owner instanceof ServerPlayerEntity)
                 OccultismAdvancements.FAMILIAR.trigger((ServerPlayerEntity) owner, FamiliarTrigger.Type.DEER_POOP);
@@ -136,42 +136,42 @@ public class DeerFamiliarEntity extends FamiliarEntity {
     @Override
     public Iterable<EffectInstance> getFamiliarEffects() {
         if (this.isEffectEnabled()) {
-            return ImmutableList.of(new EffectInstance(Effects.JUMP_BOOST, 300, 0, false, false));
+            return ImmutableList.of(new EffectInstance(Effects.JUMP, 300, 0, false, false));
         }
         return Collections.emptyList();
     }
 
     @Override
-    protected void registerData() {
-        super.registerData();
-        this.dataManager.register(RED_NOSE, false);
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(RED_NOSE, false);
     }
 
     @Override
-    public ILivingEntityData onInitialSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason,
+    public ILivingEntityData finalizeSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason,
             ILivingEntityData spawnDataIn, CompoundNBT dataTag) {
-        this.setRedNose(this.getRNG().nextDouble() < 0.1);
-        return super.onInitialSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
+        this.setRedNose(this.getRandom().nextDouble() < 0.1);
+        return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
     }
 
     @Override
-    public void readAdditional(CompoundNBT compound) {
-        super.readAdditional(compound);
+    public void readAdditionalSaveData(CompoundNBT compound) {
+        super.readAdditionalSaveData(compound);
         this.setRedNose(compound.getBoolean("hasRedNose"));
     }
 
     @Override
-    public void writeAdditional(CompoundNBT compound) {
-        super.writeAdditional(compound);
+    public void addAdditionalSaveData(CompoundNBT compound) {
+        super.addAdditionalSaveData(compound);
         compound.putBoolean("hasRedNose", this.hasRedNose());
     }
 
     public boolean hasRedNose() {
-        return this.dataManager.get(RED_NOSE);
+        return this.entityData.get(RED_NOSE);
     }
 
     private void setRedNose(boolean b) {
-        this.dataManager.set(RED_NOSE, b);
+        this.entityData.set(RED_NOSE, b);
     }
 
     public boolean isEating() {
@@ -184,10 +184,10 @@ public class DeerFamiliarEntity extends FamiliarEntity {
     }
 
     @Override
-    public void handleStatusUpdate(byte id) {
+    public void handleEntityEvent(byte id) {
         if (id == START_EATING)
             this.startEating();
         else
-            super.handleStatusUpdate(id);
+            super.handleEntityEvent(id);
     }
 }

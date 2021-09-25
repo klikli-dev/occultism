@@ -24,19 +24,19 @@ public class DragonStickLayer extends LayerRenderer<DragonFamiliarEntity, Dragon
             float ageInTicks, float netHeadYaw, float headPitch) {
         if (!entitylivingbaseIn.hasStick())
             return;
-        matrixStackIn.push();
-        DragonFamiliarModel model = this.getEntityModel();
-        model.body.translateRotate(matrixStackIn);
-        model.neck1.translateRotate(matrixStackIn);
-        model.neck2.translateRotate(matrixStackIn);
-        model.head.translateRotate(matrixStackIn);
-        model.jaw.translateRotate(matrixStackIn);
+        matrixStackIn.pushPose();
+        DragonFamiliarModel model = this.getParentModel();
+        model.body.translateAndRotate(matrixStackIn);
+        model.neck1.translateAndRotate(matrixStackIn);
+        model.neck2.translateAndRotate(matrixStackIn);
+        model.head.translateAndRotate(matrixStackIn);
+        model.jaw.translateAndRotate(matrixStackIn);
 
         matrixStackIn.translate(-0.08, -0.07, -0.15);
-        matrixStackIn.rotate(new Quaternion(0, 0, -45, true));
+        matrixStackIn.mulPose(new Quaternion(0, 0, -45, true));
 
-        Minecraft.getInstance().getFirstPersonRenderer().renderItemSide(entitylivingbaseIn, new ItemStack(Items.STICK),
+        Minecraft.getInstance().getItemInHandRenderer().renderItem(entitylivingbaseIn, new ItemStack(Items.STICK),
                 ItemCameraTransforms.TransformType.GROUND, false, matrixStackIn, bufferIn, packedLightIn);
-        matrixStackIn.pop();
+        matrixStackIn.popPose();
     }
 }

@@ -72,8 +72,8 @@ public class MessageUpdateStacks extends MessageBase {
     @OnlyIn(Dist.CLIENT)
     public void onClientReceived(Minecraft minecraft, PlayerEntity player, NetworkEvent.Context context) {
         this.uncompress();
-        if(minecraft.currentScreen instanceof IStorageControllerGui){
-            IStorageControllerGui gui = (IStorageControllerGui) minecraft.currentScreen;
+        if(minecraft.screen instanceof IStorageControllerGui){
+            IStorageControllerGui gui = (IStorageControllerGui) minecraft.screen;
             if (gui != null) {
                 gui.setStacks(this.stacks);
                 gui.setUsedSlots(this.usedSlots);
@@ -125,7 +125,7 @@ public class MessageUpdateStacks extends MessageBase {
         int stacksSize = uncompressed.readInt();
         this.stacks = new ArrayList<>(stacksSize);
         for (int i = 0; i < stacksSize; i++) {
-            ItemStack stack = uncompressed.readItemStack();
+            ItemStack stack = uncompressed.readItem();
             stack.setCount(uncompressed.readInt());
             this.stacks.add(stack);
         }
@@ -141,7 +141,7 @@ public class MessageUpdateStacks extends MessageBase {
         uncompressed.writeInt(this.stacks.size());
 
         for (ItemStack stack : this.stacks) {
-            uncompressed.writeItemStack(stack);
+            uncompressed.writeItem(stack);
             uncompressed.writeInt(stack.getCount());
         }
 

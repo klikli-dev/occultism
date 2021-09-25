@@ -59,7 +59,7 @@ public class DragonFamiliarRenderer extends MobRenderer<DragonFamiliarEntity, Dr
     }
 
     @Override
-    public ResourceLocation getEntityTexture(DragonFamiliarEntity entity) {
+    public ResourceLocation getTextureLocation(DragonFamiliarEntity entity) {
         return TEXTURES;
     }
 
@@ -77,21 +77,21 @@ public class DragonFamiliarRenderer extends MobRenderer<DragonFamiliarEntity, Dr
             if (textTimer >= DragonFamiliarEntity.MAX_PET_TIMER)
                 return;
 
-            float height = dragon.getHeight() + 0.5f;
+            float height = dragon.getBbHeight() + 0.5f;
             IFormattableTextComponent text = new TranslationTextComponent("dialog.occultism.dragon.pet");
             MatrixStack matrixStackIn = event.getMatrixStack();
-            matrixStackIn.push();
+            matrixStackIn.pushPose();
             matrixStackIn.translate(0, height + textTimer / 20, 0);
-            matrixStackIn.rotate(event.getRenderer().getRenderManager().getCameraOrientation());
+            matrixStackIn.mulPose(event.getRenderer().getDispatcher().cameraOrientation());
             matrixStackIn.translate(MathHelper.sin(textTimer / 2) * 0.5, 0, 0);
             float size = (1 - textTimer / DragonFamiliarEntity.MAX_PET_TIMER) * 0.025f;
             matrixStackIn.scale(-size, -size, size);
 
-            Matrix4f matrix = matrixStackIn.getLast().getMatrix();
-            FontRenderer font = event.getRenderer().getRenderManager().getFontRenderer();
-            font.func_243247_a(text, -font.getStringPropertyWidth(text) / 2f, 0, 0xffffff, false, matrix,
+            Matrix4f matrix = matrixStackIn.last().pose();
+            FontRenderer font = event.getRenderer().getDispatcher().getFont();
+            font.drawInBatch(text, -font.width(text) / 2f, 0, 0xffffff, false, matrix,
                     event.getBuffers(), false, 0x000000, event.getLight());
-            matrixStackIn.pop();
+            matrixStackIn.popPose();
         }
     }
 }

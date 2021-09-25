@@ -63,6 +63,8 @@ import javax.annotation.Nullable;
 import java.util.*;
 import java.util.function.Predicate;
 
+import net.minecraft.item.Item.Properties;
+
 public class BookOfCallingItem extends Item implements IIngredientCopyNBT, IHandleItemMode {
 
     //region Fields
@@ -92,7 +94,7 @@ public class BookOfCallingItem extends Item implements IIngredientCopyNBT, IHand
     //region Overrides
     @Override
     public boolean shouldCopyNBT(ItemStack itemStack, IRecipe recipe, CraftingInventory inventory) {
-        return recipe.getRecipeOutput().getItem() instanceof BookOfBindingBoundItem;
+        return recipe.getResultItem().getItem() instanceof BookOfBindingBoundItem;
     }
 
     @Override
@@ -115,28 +117,28 @@ public class BookOfCallingItem extends Item implements IIngredientCopyNBT, IHand
     }
 
     @Override
-    public ActionResultType onItemUse(ItemUseContext context) {
+    public ActionResultType useOn(ItemUseContext context) {
         PlayerEntity player = context.getPlayer();
-        ItemStack itemStack = context.getItem();
-        World world = context.getWorld();
-        Direction facing = context.getFace();
-        BlockPos pos = context.getPos();
+        ItemStack itemStack = context.getItemInHand();
+        World world = context.getLevel();
+        Direction facing = context.getClickedFace();
+        BlockPos pos = context.getClickedPos();
         CompoundNBT entityData = ItemNBTUtil.getSpiritEntityData(itemStack);
         if (entityData != null) {
             //whenever we have an entity stored we can do nothing but release it
-            if (!world.isRemote) {
+            if (!world.isClientSide) {
                 EntityType type = EntityUtil.entityTypeFromNbt(entityData);
 
                 facing = facing == null ? Direction.UP : facing;
 
-                BlockPos spawnPos = pos.toImmutable();
-                if (!world.getBlockState(spawnPos).getCollisionShape(world, spawnPos).isEmpty()) {
-                    spawnPos = spawnPos.offset(facing);
+                BlockPos spawnPos = pos.immutable();
+                if (!world.getBlockState(spawnPos).getBlockSupportShape(world, spawnPos).isEmpty()) {
+                    spawnPos = spawnPos.relative(facing);
                 }
 
                 ITextComponent customName = null;
                 if (entityData.contains("CustomName")) {
-                    customName = ITextComponent.Serializer.getComponentFromJson(entityData.getString("CustomName"));
+                    customName = ITextComponent.Serializer.fromJson(entityData.getString("CustomName"));
                 }
 
                 //remove position from tag to allow the entity to spawn where it should be
@@ -147,9 +149,9 @@ public class BookOfCallingItem extends Item implements IIngredientCopyNBT, IHand
                 wrapper.put("EntityTag", entityData);
 
                 SpiritEntity entity = (SpiritEntity) type.create(world);
-                entity.read(entityData);
-                entity.setPositionAndRotation(spawnPos.getX() + 0.5, spawnPos.getY(), spawnPos.getZ() + 0.5, 0, 0);
-                world.addEntity(entity);
+                entity.load(entityData);
+                entity.absMoveTo(spawnPos.getX() + 0.5, spawnPos.getY(), spawnPos.getZ() + 0.5, 0, 0);
+                world.addFreshEntity(entity);
 
                 //old spawn code
                 //                SpiritEntity entity = (SpiritEntity) type.spawn((ServerWorld)world, wrapper, customName, null, spawnPos,
@@ -161,17 +163,17 @@ public class BookOfCallingItem extends Item implements IIngredientCopyNBT, IHand
                 //refresh item nbt
                 ItemNBTUtil.updateItemNBTFromEntity(itemStack, entity);
 
-                world.addEntity(entity);
+                world.addFreshEntity(entity);
 
                 itemStack.getTag().remove(ItemNBTUtil.SPIRIT_DATA_TAG); //delete entity from item
-                player.container.detectAndSendChanges();
+                player.inventoryMenu.broadcastChanges();
             }
         } else {
             //if there are no entities stored, we can either open the ui or perform the action
-            if (player.isSneaking()) {
+            if (player.isShiftKeyDown()) {
                 //when sneaking, perform action based on mode
                 return this.handleItemMode(player, world, pos, itemStack, facing);
-            } else if (world.isRemote) {
+            } else if (world.isClientSide) {
                 //if not sneaking, open general ui
                 IItemModeSubset<?> subset = this.getItemModeSubset(itemStack);
                 WorkAreaSize workAreaSize = ItemNBTUtil.getWorkAreaSize(itemStack);
@@ -183,9 +185,9 @@ public class BookOfCallingItem extends Item implements IIngredientCopyNBT, IHand
     }
 
     @Override
-    public ActionResultType itemInteractionForEntity(ItemStack stack, PlayerEntity player, LivingEntity target,
+    public ActionResultType interactLivingEntity(ItemStack stack, PlayerEntity player, LivingEntity target,
                                                      Hand hand) {
-        if (target.world.isRemote)
+        if (target.level.isClientSide)
             return ActionResultType.PASS;
 
         //Ignore anything that is not a spirit
@@ -195,19 +197,19 @@ public class BookOfCallingItem extends Item implements IIngredientCopyNBT, IHand
         SpiritEntity targetSpirit = (SpiritEntity) target;
 
         //books can only control the spirit that is bound to them.
-        if (!targetSpirit.getUniqueID().equals(ItemNBTUtil.getSpiritEntityUUID(stack))) {
+        if (!targetSpirit.getUUID().equals(ItemNBTUtil.getSpiritEntityUUID(stack))) {
             //re-link book
-            if (player.isSneaking()) {
+            if (player.isShiftKeyDown()) {
                 if (this.targetSpirit.test(targetSpirit)) {
-                    ItemNBTUtil.setSpiritEntityUUID(stack, targetSpirit.getUniqueID());
+                    ItemNBTUtil.setSpiritEntityUUID(stack, targetSpirit.getUUID());
                     ItemNBTUtil.setBoundSpiritName(stack, targetSpirit.getName().getString());
-                    player.sendStatusMessage(
+                    player.displayClientMessage(
                             new TranslationTextComponent(
                                     TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_target_linked"),
                             true);
-                    player.swingArm(hand);
-                    player.setHeldItem(hand, stack); //need to write the item back to hand, otherwise we only modify a copy
-                    player.container.detectAndSendChanges();
+                    player.swing(hand);
+                    player.setItemInHand(hand, stack); //need to write the item back to hand, otherwise we only modify a copy
+                    player.inventoryMenu.broadcastChanges();
                     return ActionResultType.SUCCESS;
                 } else {
                     //if our mode is "set deposit" then we check if the target is appropriate for depositing
@@ -217,26 +219,26 @@ public class BookOfCallingItem extends Item implements IIngredientCopyNBT, IHand
                             UUID boundSpiritId = ItemNBTUtil.getSpiritEntityUUID(stack);
                             //TODO set entity name to stack
                             if (boundSpiritId != null) {
-                                Optional<SpiritEntity> boundSpirit = EntityUtil.getEntityByUuiDGlobal(target.world.getServer(), boundSpiritId)
+                                Optional<SpiritEntity> boundSpirit = EntityUtil.getEntityByUuiDGlobal(target.level.getServer(), boundSpiritId)
                                         .map(e -> (SpiritEntity) e);
 
                                 if (boundSpirit.isPresent()) {
-                                    boundSpirit.get().setDepositEntityUUID(targetSpirit.getUniqueID());
+                                    boundSpirit.get().setDepositEntityUUID(targetSpirit.getUUID());
                                     //also update control item with latest data
                                     ItemNBTUtil.updateItemNBTFromEntity(stack, boundSpirit.get());
                                     ItemNBTUtil.setDepositEntityName(stack, target.getName().getString());
 
 
-                                    player.sendStatusMessage(
+                                    player.displayClientMessage(
                                             new TranslationTextComponent(TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_set_deposit_entity",
                                                     TextUtil.formatDemonName(boundSpirit.get().getName().getString()),
                                             TextUtil.formatDemonName(targetSpirit.getName().getString())), true);
-                                    player.swingArm(hand);
-                                    player.setHeldItem(hand, stack); //need to write the item back to hand, otherwise we only modify a copy
-                                    player.container.detectAndSendChanges();
+                                    player.swing(hand);
+                                    player.setItemInHand(hand, stack); //need to write the item back to hand, otherwise we only modify a copy
+                                    player.inventoryMenu.broadcastChanges();
                                     return ActionResultType.SUCCESS;
                                 } else {
-                                    player.sendStatusMessage(
+                                    player.displayClientMessage(
                                             new TranslationTextComponent(
                                                     TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_spirit_not_found"),
                                             true);
@@ -244,7 +246,7 @@ public class BookOfCallingItem extends Item implements IIngredientCopyNBT, IHand
                                 }
                             } else{
                                 //if spirit id is null then this was a (failed) link attempt -> and we fail
-                                player.sendStatusMessage(
+                                player.displayClientMessage(
                                         new TranslationTextComponent(
                                                 TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_target_cannot_link"),
                                         true);
@@ -252,7 +254,7 @@ public class BookOfCallingItem extends Item implements IIngredientCopyNBT, IHand
                             }
                         } else {
                             //if target is not appropriate, we fail
-                            player.sendStatusMessage(
+                            player.displayClientMessage(
                                     new TranslationTextComponent(
                                             TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_target_entity_no_inventory"),
                                     true);
@@ -261,14 +263,14 @@ public class BookOfCallingItem extends Item implements IIngredientCopyNBT, IHand
                     }
 
                     //if mode is not deposit we fail the linking
-                    player.sendStatusMessage(
+                    player.displayClientMessage(
                             new TranslationTextComponent(
                                     TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_target_cannot_link"),
                             true);
                     return ActionResultType.FAIL;
                 }
             } else {
-                player.sendStatusMessage(
+                player.displayClientMessage(
                         new TranslationTextComponent(
                                 TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_target_uuid_no_match"),
                         true);
@@ -279,10 +281,10 @@ public class BookOfCallingItem extends Item implements IIngredientCopyNBT, IHand
         //serialize entity
         ItemNBTUtil.setSpiritEntityData(stack, targetSpirit.serializeNBT());
         //show player swing anim
-        player.swingArm(hand);
-        player.setHeldItem(hand, stack); //need to write the item back to hand, otherwise we only modify a copy
+        player.swing(hand);
+        player.setItemInHand(hand, stack); //need to write the item back to hand, otherwise we only modify a copy
         targetSpirit.remove(true);
-        player.container.detectAndSendChanges();
+        player.inventoryMenu.broadcastChanges();
         return ActionResultType.SUCCESS;
     }
 
@@ -304,16 +306,16 @@ public class BookOfCallingItem extends Item implements IIngredientCopyNBT, IHand
     }
 
     @Override
-    public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip,
+    public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip,
                                ITooltipFlag flagIn) {
-        super.addInformation(stack, worldIn, tooltip, flagIn);
+        super.appendHoverText(stack, worldIn, tooltip, flagIn);
         tooltip.add(new TranslationTextComponent(this.getTranslationKeyBase() +
                 (ItemNBTUtil.getSpiritDead(stack) ? ".tooltip_dead" : ".tooltip"),
                 TextUtil.formatDemonName(ItemNBTUtil.getBoundSpiritName(stack))));
     }
 
     @Override
-    public boolean hasEffect(ItemStack stack) {
+    public boolean isFoil(ItemStack stack) {
         return ItemNBTUtil.getSpiritEntityData(stack) != null;
     }
 
@@ -338,7 +340,7 @@ public class BookOfCallingItem extends Item implements IIngredientCopyNBT, IHand
         if (boundSpiritId != null) {
             Optional<SpiritEntity> boundSpirit = EntityUtil.getEntityByUuiDGlobal(world.getServer(), boundSpiritId)
                     .map(e -> (SpiritEntity) e);
-            TileEntity tileEntity = world.getTileEntity(pos);
+            TileEntity tileEntity = world.getBlockEntity(pos);
             if (boundSpirit.isPresent() && tileEntity != null) {
 
                 if (boundSpirit.get().getJob().isPresent() &&
@@ -357,14 +359,14 @@ public class BookOfCallingItem extends Item implements IIngredientCopyNBT, IHand
                     //write data into item nbt for client side usage
                     ItemNBTUtil.updateItemNBTFromEntity(stack, boundSpirit.get());
 
-                    player.sendStatusMessage(
+                    player.displayClientMessage(
                             new TranslationTextComponent(
                                     TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_set_managed_machine",
                                     TextUtil.formatDemonName(boundSpirit.get().getName().getString())), true);
                     return true;
                 }
             } else {
-                player.sendStatusMessage(
+                player.displayClientMessage(
                         new TranslationTextComponent(
                                 TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_spirit_not_found"),
                         true);
@@ -387,15 +389,15 @@ public class BookOfCallingItem extends Item implements IIngredientCopyNBT, IHand
                     //write data into item nbt for client side usage
                     ItemNBTUtil.updateItemNBTFromEntity(stack, boundSpirit.get());
 
-                    String blockName = world.getBlockState(pos).getBlock().getTranslationKey();
-                    player.sendStatusMessage(new TranslationTextComponent(
+                    String blockName = world.getBlockState(pos).getBlock().getDescriptionId();
+                    player.displayClientMessage(new TranslationTextComponent(
                             TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_set_storage_controller",
                             TextUtil.formatDemonName(boundSpirit.get().getName().getString()),
                             new TranslationTextComponent(blockName)), true);
                     return true;
                 }
             } else {
-                player.sendStatusMessage(
+                player.displayClientMessage(
                         new TranslationTextComponent(
                                 TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_spirit_not_found"),
                         true);
@@ -418,14 +420,14 @@ public class BookOfCallingItem extends Item implements IIngredientCopyNBT, IHand
                 //also update control item with latest data
                 ItemNBTUtil.updateItemNBTFromEntity(stack, boundSpirit.get());
 
-                String blockName = world.getBlockState(pos).getBlock().getTranslationKey();
-                player.sendStatusMessage(
+                String blockName = world.getBlockState(pos).getBlock().getDescriptionId();
+                player.displayClientMessage(
                         new TranslationTextComponent(TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_set_deposit",
                                 TextUtil.formatDemonName(boundSpirit.get().getName().getString()),
-                                new TranslationTextComponent(blockName), face.getString()), true);
+                                new TranslationTextComponent(blockName), face.getSerializedName()), true);
                 return true;
             } else {
-                player.sendStatusMessage(
+                player.displayClientMessage(
                         new TranslationTextComponent(
                                 TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_spirit_not_found"),
                         true);
@@ -448,14 +450,14 @@ public class BookOfCallingItem extends Item implements IIngredientCopyNBT, IHand
                 //also update control item with latest data
                 ItemNBTUtil.updateItemNBTFromEntity(stack, boundSpirit.get());
 
-                String blockName = world.getBlockState(pos).getBlock().getTranslationKey();
-                player.sendStatusMessage(
+                String blockName = world.getBlockState(pos).getBlock().getDescriptionId();
+                player.displayClientMessage(
                         new TranslationTextComponent(TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_set_extract",
                                 TextUtil.formatDemonName(boundSpirit.get().getName().getString()),
-                                new TranslationTextComponent(blockName), face.getString()), true);
+                                new TranslationTextComponent(blockName), face.getSerializedName()), true);
                 return true;
             } else {
-                player.sendStatusMessage(
+                player.displayClientMessage(
                         new TranslationTextComponent(
                                 TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_spirit_not_found"),
                         true);
@@ -476,14 +478,14 @@ public class BookOfCallingItem extends Item implements IIngredientCopyNBT, IHand
                 //also update control item with latest data
                 ItemNBTUtil.updateItemNBTFromEntity(stack, boundSpirit.get());
 
-                String blockName = world.getBlockState(pos).getBlock().getTranslationKey();
-                player.sendStatusMessage(
+                String blockName = world.getBlockState(pos).getBlock().getDescriptionId();
+                player.displayClientMessage(
                         new TranslationTextComponent(TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_set_base",
                                 TextUtil.formatDemonName(boundSpirit.get().getName().getString()),
                                 new TranslationTextComponent(blockName)), true);
                 return true;
             } else {
-                player.sendStatusMessage(
+                player.displayClientMessage(
                         new TranslationTextComponent(
                                 TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_spirit_not_found"),
                         true);
@@ -495,10 +497,10 @@ public class BookOfCallingItem extends Item implements IIngredientCopyNBT, IHand
     public ActionResultType handleItemMode(PlayerEntity player, World world, BlockPos pos, ItemStack stack,
                                            Direction facing) {
         ItemMode itemMode = ItemMode.get(this.getItemMode(stack));
-        TileEntity tileEntity = world.getTileEntity(pos);
+        TileEntity tileEntity = world.getBlockEntity(pos);
 
         //handle the serverside item modes
-        if (!world.isRemote) {
+        if (!world.isClientSide) {
             switch (itemMode) {
                 case SET_DEPOSIT:
                     if (tileEntity != null &&

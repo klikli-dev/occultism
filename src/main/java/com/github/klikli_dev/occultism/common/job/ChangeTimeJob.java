@@ -59,9 +59,9 @@ public abstract class ChangeTimeJob extends SpiritJob {
     public void cleanup() {
         //in this case called on spirit death
         for(int i = 0; i < 5; i++){
-            ((ServerWorld) this.entity.world)
-                    .spawnParticle(ParticleTypes.PORTAL, this.entity.getPosX() + this.entity.world.getRandom().nextGaussian(),
-                            this.entity.getPosY() + 0.5 + this.entity.world.getRandom().nextGaussian(), this.entity.getPosZ()+ this.entity.world.getRandom().nextGaussian(), 5,
+            ((ServerWorld) this.entity.level)
+                    .sendParticles(ParticleTypes.PORTAL, this.entity.getX() + this.entity.level.getRandom().nextGaussian(),
+                            this.entity.getY() + 0.5 + this.entity.level.getRandom().nextGaussian(), this.entity.getZ()+ this.entity.level.getRandom().nextGaussian(), 5,
                             0.0, 0.0, 0.0,
                             0.0);
         }
@@ -73,21 +73,21 @@ public abstract class ChangeTimeJob extends SpiritJob {
         super.update();
 
         this.currentChangeTicks++;
-        if(!this.entity.isSwingInProgress){
-            this.entity.swingArm(Hand.MAIN_HAND);
+        if(!this.entity.swinging){
+            this.entity.swing(Hand.MAIN_HAND);
         }
-        if(this.entity.world.getGameTime() % 2 == 0){
-            ((ServerWorld) this.entity.world)
-                    .spawnParticle(ParticleTypes.PORTAL, this.entity.getPosX(),
-                            this.entity.getPosY() + 0.5, this.entity.getPosZ(), 3,
+        if(this.entity.level.getGameTime() % 2 == 0){
+            ((ServerWorld) this.entity.level)
+                    .sendParticles(ParticleTypes.PORTAL, this.entity.getX(),
+                            this.entity.getY() + 0.5, this.entity.getZ(), 3,
                             0.5, 0.0, 0.0,
                             0.0);
         }
 
         if (this.currentChangeTicks == this.requiredChangeTicks) {
             this.changeTime();
-            this.entity.world.playSound(null, this.entity.getPosition(), SoundEvents.BLOCK_BEACON_ACTIVATE, SoundCategory.NEUTRAL, 1, 1);
-            this.entity.onDeath(DamageSource.OUT_OF_WORLD);
+            this.entity.level.playSound(null, this.entity.blockPosition(), SoundEvents.BEACON_ACTIVATE, SoundCategory.NEUTRAL, 1, 1);
+            this.entity.die(DamageSource.OUT_OF_WORLD);
             this.entity.remove();
         }
     }

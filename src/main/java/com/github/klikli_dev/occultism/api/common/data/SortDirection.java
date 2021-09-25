@@ -61,7 +61,7 @@ public enum SortDirection implements IStringSerializable {
 
     //region Overrides
     @Override
-    public String getString() {
+    public String getSerializedName() {
         return this.name().toLowerCase();
     }
     //endregion Overrides

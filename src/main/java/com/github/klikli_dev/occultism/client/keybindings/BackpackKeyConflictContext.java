@@ -14,7 +14,7 @@ public class BackpackKeyConflictContext implements IKeyConflictContext {
     //region Overrides
     @Override
     public boolean isActive() {
-        return !KeyConflictContext.GUI.isActive() || Minecraft.getInstance().currentScreen instanceof SatchelScreen;
+        return !KeyConflictContext.GUI.isActive() || Minecraft.getInstance().screen instanceof SatchelScreen;
     }
 
     @Override

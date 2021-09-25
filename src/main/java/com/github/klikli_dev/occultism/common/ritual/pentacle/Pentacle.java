@@ -90,7 +90,7 @@ public class Pentacle {
     }
 
     public String getTranslationKey() {
-        return Util.makeTranslationKey("pentacle", rl);
+        return Util.makeDescriptionId("pentacle", rl);
     }
 
     public boolean validate(World world, BlockPos pos) {
@@ -98,12 +98,12 @@ public class Pentacle {
     }
 
     public static Pentacle fromJson(ResourceLocation rl, JsonObject json) {
-        JsonArray jsonPattern = JSONUtils.getJsonArray(json, "pattern");
-        JsonObject jsonMapping = JSONUtils.getJsonObject(json, "mapping");
+        JsonArray jsonPattern = JSONUtils.getAsJsonArray(json, "pattern");
+        JsonObject jsonMapping = JSONUtils.getAsJsonObject(json, "mapping");
         List<String> pattern = new ArrayList<>();
         Map<Character, JsonElement> mappings = new HashMap<>();
         for (int i = 0; i < jsonPattern.size(); i++)
-            pattern.add(JSONUtils.getString(jsonPattern.get(i), "row"));
+            pattern.add(JSONUtils.convertToString(jsonPattern.get(i), "row"));
 
         for (Entry<String, JsonElement> entry : jsonMapping.entrySet()) {
             if (entry.getKey().length() != 1)
@@ -133,13 +133,13 @@ public class Pentacle {
             Block display = null;
             if(jsonObject.has("display"))
             {
-                ResourceLocation displayRL = new ResourceLocation(JSONUtils.getString(jsonObject, "display"));
+                ResourceLocation displayRL = new ResourceLocation(JSONUtils.getAsString(jsonObject, "display"));
                 display = ForgeRegistries.BLOCKS.getValue(displayRL);
                 if (display == null)
                     throw new JsonSyntaxException("Invalid display" + displayRL);
             }
             if(jsonObject.has("block")){
-                ResourceLocation blockRL = new ResourceLocation(JSONUtils.getString(jsonObject, "block"));
+                ResourceLocation blockRL = new ResourceLocation(JSONUtils.getAsString(jsonObject, "block"));
                 Block block = ForgeRegistries.BLOCKS.getValue(blockRL);
                 if (block == null)
                     throw new JsonSyntaxException("Invalid block " + blockRL);
@@ -152,8 +152,8 @@ public class Pentacle {
                 }
             }
             else if(jsonObject.has("tag")){
-                ResourceLocation tagRL= new ResourceLocation(JSONUtils.getString(jsonObject, "tag"));
-                ITag<Block> tag = TagCollectionManager.getManager().getBlockTags().get(tagRL);
+                ResourceLocation tagRL= new ResourceLocation(JSONUtils.getAsString(jsonObject, "tag"));
+                ITag<Block> tag = TagCollectionManager.getInstance().getBlocks().getTag(tagRL);
                 if(tag == null)
                     throw new JsonSyntaxException("Invalid tag " + tagRL);
                 if(display == null)
@@ -176,11 +176,11 @@ public class Pentacle {
     public void encode(PacketBuffer buffer) {
         buffer.writeInt(pattern.size());
         for (String row : pattern)
-            buffer.writeString(row);
+            buffer.writeUtf(row);
         buffer.writeInt(mappings.size());
         for (Entry<Character, JsonElement> entry : mappings.entrySet()) {
             buffer.writeChar(entry.getKey());
-            buffer.writeString(entry.getValue().toString());
+            buffer.writeUtf(entry.getValue().toString());
         }
     }
 
@@ -189,11 +189,11 @@ public class Pentacle {
         Map<Character, JsonElement> mappings = new HashMap<>();
         int size = buffer.readInt();
         for (int i = 0; i < size; i++)
-            pattern.add(buffer.readString());
+            pattern.add(buffer.readUtf());
         size = buffer.readInt();
         JsonParser parser = new JsonParser();
         for (int i = 0; i < size; i++)
-            mappings.put(buffer.readChar(), parser.parse(buffer.readString()));
+            mappings.put(buffer.readChar(), parser.parse(buffer.readUtf()));
         return new Pentacle(key, pattern, mappings);
     }
 }

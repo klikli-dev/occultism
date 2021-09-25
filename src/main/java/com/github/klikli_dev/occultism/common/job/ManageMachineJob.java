@@ -104,7 +104,7 @@ public class ManageMachineJob extends SpiritJob {
             return null;
 
         if (this.storageController == null) {
-            this.storageController = (IStorageController) TileEntityUtil.get(this.entity.world,
+            this.storageController = (IStorageController) TileEntityUtil.get(this.entity.level,
                     this.storageControllerPosition);
         }
 
@@ -118,7 +118,7 @@ public class ManageMachineJob extends SpiritJob {
             return null;
 
         if (this.managedMachineTileEntity == null) {
-            this.managedMachineTileEntity = TileEntityUtil.get(this.entity.world, this.managedMachine.globalPos);
+            this.managedMachineTileEntity = TileEntityUtil.get(this.entity.level, this.managedMachine.globalPos);
 
         }
 
@@ -129,8 +129,8 @@ public class ManageMachineJob extends SpiritJob {
     //region Overrides
     @Override
     public void init() {
-        this.entity.getNavigator().getNodeProcessor().setCanEnterDoors(true);
-        ((GroundPathNavigator) this.entity.getNavigator()).setBreakDoors(true);
+        this.entity.getNavigation().getNodeEvaluator().setCanPassDoors(true);
+        ((GroundPathNavigator) this.entity.getNavigation()).setCanOpenDoors(true);
         this.entity.goalSelector.addGoal(3, this.manageMachineGoal = new ManageMachineGoal(this.entity, this));
         this.entity.goalSelector.addGoal(4,
                 this.fallbackDepositToControllerGoal = new FallbackDepositToControllerGoal(this.entity, this));
@@ -141,8 +141,8 @@ public class ManageMachineJob extends SpiritJob {
 
     @Override
     public void cleanup() {
-        this.entity.getNavigator().getNodeProcessor().setCanEnterDoors(false);
-        ((GroundPathNavigator) this.entity.getNavigator()).setBreakDoors(false);
+        this.entity.getNavigation().getNodeEvaluator().setCanPassDoors(false);
+        ((GroundPathNavigator) this.entity.getNavigation()).setCanOpenDoors(false);
         this.entity.goalSelector.removeGoal(this.depositItemsGoal);
         this.entity.goalSelector.removeGoal(this.manageMachineGoal);
         this.entity.goalSelector.removeGoal(this.openDoorGoal);
@@ -221,9 +221,9 @@ public class ManageMachineJob extends SpiritJob {
         IStorageController storageController = this.getStorageController();
 
         if (storageController != null && this.managedMachine != null) {
-            storageController.addDepositOrderSpirit(this.managedMachine.globalPos, this.entity.getUniqueID());
+            storageController.addDepositOrderSpirit(this.managedMachine.globalPos, this.entity.getUUID());
             storageController.linkMachine(this.managedMachine);
-            TileEntityUtil.updateTile(this.entity.world, this.getStorageControllerPosition().getPos());
+            TileEntityUtil.updateTile(this.entity.level, this.getStorageControllerPosition().getPos());
         }
     }
 

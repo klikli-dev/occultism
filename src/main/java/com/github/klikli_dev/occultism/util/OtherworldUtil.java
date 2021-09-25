@@ -43,7 +43,7 @@ public class OtherworldUtil {
     public static String getTranslationKeyDistAware(OtherworldBlockItem item, ItemStack stack) {
         if (FMLEnvironment.dist == Dist.CLIENT)
             return getClientTranslationKey(item, stack);
-        return item.getDefaultTranslationKey();
+        return item.getOrCreateDescriptionId();
     }
 
     /**
@@ -54,11 +54,11 @@ public class OtherworldUtil {
     @OnlyIn(Dist.CLIENT)
     public static String getClientTranslationKey(OtherworldBlockItem item, ItemStack stack) {
         if (Thread.currentThread().getThreadGroup() == SidedThreadGroups.SERVER)
-            return item.getDefaultTranslationKey();
+            return item.getOrCreateDescriptionId();
         boolean thirdEye = Minecraft.getInstance() != null && Minecraft.getInstance().player != null
-                           && Minecraft.getInstance().player.isPotionActive(OccultismEffects.THIRD_EYE.get());
+                           && Minecraft.getInstance().player.hasEffect(OccultismEffects.THIRD_EYE.get());
         return stack.getOrCreateTag().getBoolean("isInventoryItem") ||
-               thirdEye ? item.getDefaultTranslationKey() : item.getTranslationKey();
+               thirdEye ? item.getOrCreateDescriptionId() : item.getDescriptionId();
     }
     //endregion Static Methods
 }

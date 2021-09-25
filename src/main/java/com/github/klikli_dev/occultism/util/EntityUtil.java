@@ -48,8 +48,8 @@ public class EntityUtil {
      * @return Optional containing the player.
      */
     public static Optional<ServerPlayerEntity> getPlayerByUuiDGlobal(UUID uuid) {
-        for (ServerWorld world : ServerLifecycleHooks.getCurrentServer().getWorlds()) {
-            ServerPlayerEntity player = (ServerPlayerEntity) world.getPlayerByUuid(uuid);
+        for (ServerWorld world : ServerLifecycleHooks.getCurrentServer().getAllLevels()) {
+            ServerPlayerEntity player = (ServerPlayerEntity) world.getPlayerByUUID(uuid);
             if (player != null)
                 return Optional.of(player);
         }
@@ -76,8 +76,8 @@ public class EntityUtil {
      */
     public static Optional<? extends Entity> getEntityByUuiDGlobal(MinecraftServer server, UUID uuid) {
         if (uuid != null && server!= null) {
-            for (ServerWorld world : server.getWorlds()) {
-                Entity entity = world.getEntityByUuid(uuid);
+            for (ServerWorld world : server.getAllLevels()) {
+                Entity entity = world.getEntity(uuid);
                 if (entity != null)
                     return Optional.of(entity);
             }

@@ -39,7 +39,7 @@ public class OtherworldTree extends Tree {
 
     //region Overrides
     @Nullable
-    protected ConfiguredFeature<BaseTreeFeatureConfig, ?> getTreeFeature(Random rand, boolean moreBeehives) {
+    protected ConfiguredFeature<BaseTreeFeatureConfig, ?> getConfiguredFeature(Random rand, boolean moreBeehives) {
         return WorldGenHandler.OTHERWORLD_TREE;
     }
     //endregion Overrides

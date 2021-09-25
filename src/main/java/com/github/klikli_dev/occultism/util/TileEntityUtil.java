@@ -53,13 +53,13 @@ public class TileEntityUtil {
         if (pos == null)
             return null;
 
-        if (world.getDimensionKey() == pos.getDimensionKey()) {
+        if (world.dimension() == pos.getDimensionKey()) {
             return getWorldTileEntityUnchecked(world, pos.getPos());
         }
-        if (world.isRemote) //can only access other dimensions on the server.
+        if (world.isClientSide) //can only access other dimensions on the server.
             return null;
 
-        World dimensionWorld = ServerLifecycleHooks.getCurrentServer().getWorld(pos.getDimensionKey());
+        World dimensionWorld = ServerLifecycleHooks.getCurrentServer().getLevel(pos.getDimensionKey());
         if (dimensionWorld != null)
             return getWorldTileEntityUnchecked(dimensionWorld, pos.getPos());
 
@@ -77,16 +77,16 @@ public class TileEntityUtil {
             return null;
         } else {
             TileEntity tileentity = null;
-            if (world.processingLoadedTiles) {
-                tileentity = world.getPendingTileEntityAt(pos);
+            if (world.updatingBlockEntities) {
+                tileentity = world.getPendingBlockEntityAt(pos);
             }
 
             if (tileentity == null) {
-                tileentity = world.getChunkAt(pos).getTileEntity(pos, Chunk.CreateEntityType.IMMEDIATE);
+                tileentity = world.getChunkAt(pos).getBlockEntity(pos, Chunk.CreateEntityType.IMMEDIATE);
             }
 
             if (tileentity == null) {
-                tileentity = world.getPendingTileEntityAt(pos);
+                tileentity = world.getPendingBlockEntityAt(pos);
             }
 
             return tileentity;
@@ -101,13 +101,13 @@ public class TileEntityUtil {
      * @param pos the position to update
      */
     public static void updateTile(World world, BlockPos pos) {
-        if (world == null || world.isRemote || !world.isBlockLoaded(pos)) {
+        if (world == null || world.isClientSide || !world.hasChunkAt(pos)) {
             return;
         }
 
         BlockState state = world.getBlockState(pos);
-        world.notifyBlockUpdate(pos, state, state, 2);
-        world.markChunkDirty(pos, world.getTileEntity(pos));
+        world.sendBlockUpdated(pos, state, state, 2);
+        world.blockEntityChanged(pos, world.getBlockEntity(pos));
     }
 
     /**
@@ -136,12 +136,12 @@ public class TileEntityUtil {
     public static ItemEntity getDroppedItemWithNbt(ItemStack itemStack, TileEntity tileEntity) {
         CompoundNBT compoundnbt = tileEntity.serializeNBT();
         if (!compoundnbt.isEmpty()) {
-            itemStack.setTagInfo("BlockEntityTag", compoundnbt);
+            itemStack.addTagElement("BlockEntityTag", compoundnbt);
         }
         ItemEntity itementity =
-                new ItemEntity(tileEntity.getWorld(), tileEntity.getPos().getX(), tileEntity.getPos().getY(),
-                        tileEntity.getPos().getZ(), itemStack);
-        itementity.setDefaultPickupDelay();
+                new ItemEntity(tileEntity.getLevel(), tileEntity.getBlockPos().getX(), tileEntity.getBlockPos().getY(),
+                        tileEntity.getBlockPos().getZ(), itemStack);
+        itementity.setDefaultPickUpDelay();
         return itementity;
     }
 
@@ -157,13 +157,13 @@ public class TileEntityUtil {
     public static void onBlockChangeDropWithNbt(Block block, BlockState state, World world, BlockPos pos,
                                                 BlockState newState) {
         if (state.getBlock() != newState.getBlock()) {
-            if (!world.isRemote) {
-                TileEntity tile = world.getTileEntity(pos);
+            if (!world.isClientSide) {
+                TileEntity tile = world.getBlockEntity(pos);
                 if (tile != null) {
-                    world.addEntity(TileEntityUtil.getDroppedItemWithNbt(new ItemStack(block), tile));
+                    world.addFreshEntity(TileEntityUtil.getDroppedItemWithNbt(new ItemStack(block), tile));
                 }
             }
-            world.updateComparatorOutputLevel(pos, block);
+            world.updateNeighbourForOutputSignal(pos, block);
         }
     }
 
@@ -176,10 +176,10 @@ public class TileEntityUtil {
      */
     public static ItemStack getItemWithNbt(Block block, IBlockReader world, BlockPos pos) {
         ItemStack itemStack = new ItemStack(block);
-        TileEntity tileEntity = world.getTileEntity(pos);
+        TileEntity tileEntity = world.getBlockEntity(pos);
         CompoundNBT compoundnbt = tileEntity.serializeNBT();
         if (!compoundnbt.isEmpty()) {
-            itemStack.setTagInfo("BlockEntityTag", compoundnbt);
+            itemStack.addTagElement("BlockEntityTag", compoundnbt);
         }
 
         return itemStack;

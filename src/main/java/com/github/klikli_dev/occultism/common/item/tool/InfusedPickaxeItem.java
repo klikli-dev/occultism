@@ -37,6 +37,8 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 import java.util.List;
 
+import net.minecraft.item.Item.Properties;
+
 public class InfusedPickaxeItem extends PickaxeItem implements IOtherworldTool {
     //region Initialization
     public InfusedPickaxeItem(IItemTier tier, int attackDamageIn, float attackSpeedIn,
@@ -52,10 +54,10 @@ public class InfusedPickaxeItem extends PickaxeItem implements IOtherworldTool {
     }
 
     @Override
-    public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip,
+    public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip,
                                ITooltipFlag flagIn) {
-        super.addInformation(stack, worldIn, tooltip, flagIn);
-        tooltip.add(new TranslationTextComponent(this.getTranslationKey() + ".tooltip",
+        super.appendHoverText(stack, worldIn, tooltip, flagIn);
+        tooltip.add(new TranslationTextComponent(this.getDescriptionId() + ".tooltip",
                 TextUtil.formatDemonName(ItemNBTUtil.getBoundSpiritName(stack))));
     }
     //endregion Overrides

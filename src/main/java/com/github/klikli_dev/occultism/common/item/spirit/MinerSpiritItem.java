@@ -39,10 +39,12 @@ import java.lang.reflect.Field;
 import java.util.List;
 import java.util.function.Supplier;
 
+import net.minecraft.item.Item.Properties;
+
 public class MinerSpiritItem extends Item {
 
     protected static Field maxDamageField =
-            ObfuscationReflectionHelper.findField(Item.class, "field_77699_b");
+            ObfuscationReflectionHelper.findField(Item.class, "maxDamage");
 
     //region Fields
     private final Supplier<Integer>  maxMiningTime;
@@ -63,10 +65,10 @@ public class MinerSpiritItem extends Item {
 
     //region Overrides
     @Override
-    public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip,
+    public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip,
                                ITooltipFlag flagIn) {
-        super.addInformation(stack, worldIn, tooltip, flagIn);
-        tooltip.add(new TranslationTextComponent(this.getTranslationKey() + ".tooltip",
+        super.appendHoverText(stack, worldIn, tooltip, flagIn);
+        tooltip.add(new TranslationTextComponent(this.getDescriptionId() + ".tooltip",
                 TextUtil.formatDemonName(ItemNBTUtil.getBoundSpiritName(stack))));
     }
 
@@ -84,8 +86,8 @@ public class MinerSpiritItem extends Item {
     }
 
     @Override
-    public void onCreated(ItemStack stack, World worldIn, PlayerEntity playerIn) {
-        super.onCreated(stack, worldIn, playerIn);
+    public void onCraftedBy(ItemStack stack, World worldIn, PlayerEntity playerIn) {
+        super.onCraftedBy(stack, worldIn, playerIn);
         if(!this.hasInitializedMaxDamage){
             this.hasInitializedMaxDamage = true;
             try {

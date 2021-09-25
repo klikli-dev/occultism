@@ -57,10 +57,10 @@ public abstract class FamiliarEntity extends CreatureEntity implements IFamiliar
 
     private static final float MAX_BOOST_DISTANCE = 8;
 
-    private static final DataParameter<Boolean> SITTING = EntityDataManager.createKey(FamiliarEntity.class,
+    private static final DataParameter<Boolean> SITTING = EntityDataManager.defineId(FamiliarEntity.class,
             DataSerializers.BOOLEAN);
     private static final DataParameter<Optional<UUID>> OWNER_UNIQUE_ID = EntityDataManager
-            .createKey(FamiliarEntity.class, DataSerializers.OPTIONAL_UNIQUE_ID);
+            .defineId(FamiliarEntity.class, DataSerializers.OPTIONAL_UUID);
 
     private LivingEntity ownerCached;
     private boolean partying;
@@ -71,12 +71,12 @@ public abstract class FamiliarEntity extends CreatureEntity implements IFamiliar
     }
 
     public static AttributeModifierMap.MutableAttribute registerAttributes() {
-        return MobEntity.func_233666_p_().createMutableAttribute(Attributes.MAX_HEALTH, 6)
-                .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.3);
+        return MobEntity.createMobAttributes().add(Attributes.MAX_HEALTH, 6)
+                .add(Attributes.MOVEMENT_SPEED, 0.3);
     }
     
     @Override
-    public void setPartying(BlockPos jukeboxPos, boolean partying) {
+    public void setRecordPlayingNearby(BlockPos jukeboxPos, boolean partying) {
         this.jukeboxPos = jukeboxPos;
         this.partying = partying;
      }
@@ -87,40 +87,40 @@ public abstract class FamiliarEntity extends CreatureEntity implements IFamiliar
      }
 
     @Override
-    protected void registerData() {
-        super.registerData();
-        this.dataManager.register(SITTING, false);
-        this.dataManager.register(OWNER_UNIQUE_ID, Optional.empty());
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(SITTING, false);
+        this.entityData.define(OWNER_UNIQUE_ID, Optional.empty());
     }
 
     @Override
-    public boolean canDespawn(double distanceToClosestPlayer) {
+    public boolean removeWhenFarAway(double distanceToClosestPlayer) {
         return false;
     }
 
     @Override
-    public void livingTick() {
-        updateArmSwingProgress();
+    public void aiStep() {
+        updateSwingTime();
         
-        if (this.jukeboxPos == null || !this.jukeboxPos.withinDistance(this.getPositionVec(), 3.5)
-                || !this.world.getBlockState(this.jukeboxPos).matchesBlock(Blocks.JUKEBOX)) {
+        if (this.jukeboxPos == null || !this.jukeboxPos.closerThan(this.position(), 3.5)
+                || !this.level.getBlockState(this.jukeboxPos).is(Blocks.JUKEBOX)) {
             this.partying = false;
             this.jukeboxPos = null;
         }
         
         LivingEntity owner;
-        if (!this.world.isRemote && this.world.getGameTime() % 10 == 0 && (owner = this.getFamiliarOwner()) != null
-                && this.getDistance(owner) < MAX_BOOST_DISTANCE)
+        if (!this.level.isClientSide && this.level.getGameTime() % 10 == 0 && (owner = this.getFamiliarOwner()) != null
+                && this.distanceTo(owner) < MAX_BOOST_DISTANCE)
             for (EffectInstance effect : this.getFamiliarEffects())
-                owner.addPotionEffect(effect);
+                owner.addEffect(effect);
 
-        super.livingTick();
+        super.aiStep();
     }
 
     public LivingEntity getOwner() {
         try {
             UUID uuid = this.getOwnerId();
-            return uuid == null ? null : this.world.getPlayerByUuid(uuid);
+            return uuid == null ? null : this.level.getPlayerByUUID(uuid);
         } catch (IllegalArgumentException illegalargumentexception) {
             return null;
         }
@@ -128,7 +128,7 @@ public abstract class FamiliarEntity extends CreatureEntity implements IFamiliar
 
     @Override
     public void setFamiliarOwner(LivingEntity owner) {
-        this.setOwnerId(owner.getUniqueID());
+        this.setOwnerId(owner.getUUID());
     }
 
     public LivingEntity getOwnerCached() {
@@ -139,17 +139,17 @@ public abstract class FamiliarEntity extends CreatureEntity implements IFamiliar
     }
 
     @Override
-    protected ActionResultType getEntityInteractionResult(PlayerEntity playerIn, Hand hand) {
-        ItemStack stack = playerIn.getHeldItem(hand);
+    protected ActionResultType mobInteract(PlayerEntity playerIn, Hand hand) {
+        ItemStack stack = playerIn.getItemInHand(hand);
         if (stack.getItem() == OccultismItems.FAMILIAR_RING.get()) {
-            return stack.interactWithEntity(playerIn, this, hand);
+            return stack.interactLivingEntity(playerIn, this, hand);
         } else if (stack.getItem() == OccultismItems.DEBUG_WAND.get()) {
-            this.setOwnerId(playerIn.getUniqueID());
-            return ActionResultType.func_233537_a_(this.world.isRemote);
+            this.setOwnerId(playerIn.getUUID());
+            return ActionResultType.sidedSuccess(this.level.isClientSide);
         } else {
-            if (!this.world.isRemote && this.getFamiliarOwner() == playerIn)
+            if (!this.level.isClientSide && this.getFamiliarOwner() == playerIn)
                 this.setSitting(!this.isSitting());
-            return ActionResultType.func_233537_a_(this.world.isRemote);
+            return ActionResultType.sidedSuccess(this.level.isClientSide);
         }
     }
 
@@ -159,12 +159,12 @@ public abstract class FamiliarEntity extends CreatureEntity implements IFamiliar
     }
 
     public UUID getOwnerId() {
-        return this.dataManager.get(OWNER_UNIQUE_ID).orElse(null);
+        return this.entityData.get(OWNER_UNIQUE_ID).orElse(null);
     }
 
     private void setOwnerId(UUID id) {
         this.ownerCached = null;
-        this.dataManager.set(OWNER_UNIQUE_ID, Optional.ofNullable(id));
+        this.entityData.set(OWNER_UNIQUE_ID, Optional.ofNullable(id));
     }
 
     @Override
@@ -173,30 +173,30 @@ public abstract class FamiliarEntity extends CreatureEntity implements IFamiliar
     }
 
     @Override
-    public void readAdditional(CompoundNBT compound) {
-        super.readAdditional(compound);
-        if (compound.hasUniqueId("owner"))
-            this.setOwnerId(compound.getUniqueId("owner"));
+    public void readAdditionalSaveData(CompoundNBT compound) {
+        super.readAdditionalSaveData(compound);
+        if (compound.hasUUID("owner"))
+            this.setOwnerId(compound.getUUID("owner"));
         if (compound.contains("isSitting"))
             this.setSitting(compound.getBoolean("isSitting"));
     }
 
     @Override
-    public void writeAdditional(CompoundNBT compound) {
-        super.writeAdditional(compound);
+    public void addAdditionalSaveData(CompoundNBT compound) {
+        super.addAdditionalSaveData(compound);
         if (this.getOwnerId() != null) {
-            compound.putUniqueId("owner", this.getOwnerId());
+            compound.putUUID("owner", this.getOwnerId());
         }
 
         compound.putBoolean("isSitting", this.isSitting());
     }
 
     protected void setSitting(boolean b) {
-        this.dataManager.set(SITTING, b);
+        this.entityData.set(SITTING, b);
     }
 
     public boolean isSitting() {
-        return this.dataManager.get(SITTING);
+        return this.entityData.get(SITTING);
     }
 
     protected static class FollowOwnerGoal extends Goal {
@@ -215,41 +215,41 @@ public abstract class FamiliarEntity extends CreatureEntity implements IFamiliar
             this.speed = speed;
             this.minDist = minDist * minDist;
             this.maxDist = maxDist * maxDist;
-            this.setMutexFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
+            this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
         }
 
         private boolean shouldFollow(double distance) {
-            return this.owner != null && !this.owner.isSpectator() && this.entity.getDistanceSq(this.owner) > distance;
+            return this.owner != null && !this.owner.isSpectator() && this.entity.distanceToSqr(this.owner) > distance;
         }
 
-        public boolean shouldExecute() {
+        public boolean canUse() {
             this.owner = this.entity.getFamiliarOwner();
             return this.shouldFollow(this.minDist);
         }
 
-        public boolean shouldContinueExecuting() {
+        public boolean canContinueToUse() {
             return this.shouldFollow(this.maxDist);
         }
 
-        public void startExecuting() {
+        public void start() {
             this.cooldown = 0;
         }
 
-        public void resetTask() {
+        public void stop() {
             this.owner = null;
-            this.entity.getNavigator().clearPath();
+            this.entity.getNavigation().stop();
         }
 
         public void tick() {
-            this.entity.getLookController().setLookPositionWithEntity(this.owner, 10,
-                    this.entity.getVerticalFaceSpeed());
+            this.entity.getLookControl().setLookAt(this.owner, 10,
+                    this.entity.getMaxHeadXRot());
             if (--this.cooldown < 0) {
                 this.cooldown = 10;
-                if (!this.entity.getLeashed() && !this.entity.isPassenger()) {
-                    if (this.entity.getDistanceSq(this.owner) >= 150 || shouldTeleport(owner))
+                if (!this.entity.isLeashed() && !this.entity.isPassenger()) {
+                    if (this.entity.distanceToSqr(this.owner) >= 150 || shouldTeleport(owner))
                         this.tryTeleport();
                     else
-                        this.entity.getNavigator().tryMoveToEntityLiving(this.owner, this.speed);
+                        this.entity.getNavigation().moveTo(this.owner, this.speed);
                 }
             }
         }
@@ -260,19 +260,19 @@ public abstract class FamiliarEntity extends CreatureEntity implements IFamiliar
 
         private void tryTeleport() {
             for (int i = 0; i < TELEPORT_ATTEMPTS; i++)
-                if (this.tryTeleport(this.randomNearby(this.owner.getPosition())))
+                if (this.tryTeleport(this.randomNearby(this.owner.blockPosition())))
                     return;
         }
 
         private boolean tryTeleport(BlockPos pos) {
-            boolean walkable = PathNodeType.WALKABLE == WalkNodeProcessor.getFloorNodeType(this.entity.world,
-                    pos.toMutable());
-            boolean noCollision = this.entity.world.hasNoCollisions(this.entity,
-                    this.entity.getBoundingBox().offset(pos.subtract(this.entity.getPosition())));
+            boolean walkable = PathNodeType.WALKABLE == WalkNodeProcessor.getBlockPathTypeStatic(this.entity.level,
+                    pos.mutable());
+            boolean noCollision = this.entity.level.noCollision(this.entity,
+                    this.entity.getBoundingBox().move(pos.subtract(this.entity.blockPosition())));
             if (walkable && noCollision) {
-                this.entity.setLocationAndAngles(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5,
-                        this.entity.rotationYaw, this.entity.rotationPitch);
-                this.entity.navigator.clearPath();
+                this.entity.moveTo(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5,
+                        this.entity.yRot, this.entity.xRot);
+                this.entity.navigation.stop();
                 return true;
             }
 
@@ -280,8 +280,8 @@ public abstract class FamiliarEntity extends CreatureEntity implements IFamiliar
         }
 
         private BlockPos randomNearby(BlockPos pos) {
-            Random rand = this.entity.getRNG();
-            return pos.add(MathHelper.nextDouble(rand, -3, 3), MathHelper.nextDouble(rand, -1, 1),
+            Random rand = this.entity.getRandom();
+            return pos.offset(MathHelper.nextDouble(rand, -3, 3), MathHelper.nextDouble(rand, -1, 1),
                     MathHelper.nextDouble(rand, -3, 3));
         }
     }
@@ -291,21 +291,21 @@ public abstract class FamiliarEntity extends CreatureEntity implements IFamiliar
 
         public SitGoal(FamiliarEntity entity) {
             this.entity = entity;
-            this.setMutexFlags(EnumSet.of(Goal.Flag.JUMP, Goal.Flag.MOVE));
+            this.setFlags(EnumSet.of(Goal.Flag.JUMP, Goal.Flag.MOVE));
         }
 
-        public boolean shouldExecute() {
-            return !this.entity.isInWaterOrBubbleColumn() && this.entity.getFamiliarOwner() != null
+        public boolean canUse() {
+            return !this.entity.isInWaterOrBubble() && this.entity.getFamiliarOwner() != null
                     && this.entity.isSitting();
         }
 
-        public void startExecuting() {
-            this.entity.getNavigator().clearPath();
+        public void start() {
+            this.entity.getNavigation().stop();
             this.entity.stopRiding();
-            entity.removePassengers();
+            entity.ejectPassengers();
         }
 
-        public void resetTask() {
+        public void stop() {
             this.entity.setSitting(false);
         }
     }

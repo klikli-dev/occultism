@@ -63,16 +63,16 @@ public class MessageSetRecipeByID extends MessageBase {
     @Override
     public void onServerReceived(MinecraftServer minecraftServer, ServerPlayerEntity player,
                                  NetworkEvent.Context context) {
-        if (!(player.openContainer instanceof IStorageControllerContainer)) {
+        if (!(player.containerMenu instanceof IStorageControllerContainer)) {
             return;
         }
-        IStorageControllerContainer container = (IStorageControllerContainer) player.openContainer;
+        IStorageControllerContainer container = (IStorageControllerContainer) player.containerMenu;
         IStorageController storageController = container.getStorageController();
         if (storageController == null) {
             return;
         }
 
-        IRecipe<?> recipe = player.getEntityWorld().getRecipeManager().getRecipe(this.id).orElse(null);
+        IRecipe<?> recipe = player.getCommandSenderWorld().getRecipeManager().byKey(this.id).orElse(null);
         Preconditions.checkArgument(recipe != null); //should not happen
 
         StorageUtil.clearOpenCraftingMatrix(player, false);
@@ -84,18 +84,18 @@ public class MessageSetRecipeByID extends MessageBase {
             ItemStack extractedStack = StorageUtil.extractItem(new PlayerMainInvWrapper(player.inventory), ingredient,
                     1, true);
 
-            if (extractedStack != null && !extractedStack.isEmpty() && craftMatrix.getStackInSlot(slot).isEmpty()) {
+            if (extractedStack != null && !extractedStack.isEmpty() && craftMatrix.getItem(slot).isEmpty()) {
                 //if we found the desired stack, extract it for real and place it in the matrix
                 StorageUtil.extractItem(new PlayerMainInvWrapper(player.inventory), ingredient, 1, false);
-                craftMatrix.setInventorySlotContents(slot, extractedStack);
+                craftMatrix.setItem(slot, extractedStack);
                 continue;
             }
 
             //if we did not find anything in the player inventory, get it from the network now
             extractedStack = storageController.getItemStack(ingredient, 1, false);
-            if (!extractedStack.isEmpty() && craftMatrix.getStackInSlot(slot).isEmpty()) {
+            if (!extractedStack.isEmpty() && craftMatrix.getItem(slot).isEmpty()) {
                 //if extraction was successful, place it in the matrix
-                craftMatrix.setInventorySlotContents(slot, extractedStack);
+                craftMatrix.setItem(slot, extractedStack);
                 continue;
             }
             //endregion fill in recipe

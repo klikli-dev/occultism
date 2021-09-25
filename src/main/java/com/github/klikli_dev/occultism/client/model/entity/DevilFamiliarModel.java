@@ -70,123 +70,123 @@ public class DevilFamiliarModel extends EntityModel<DevilFamiliarEntity> {
     public ModelRenderer lollipop;
 
     public DevilFamiliarModel() {
-        this.textureWidth = 64;
-        this.textureHeight = 64;
+        this.texWidth = 64;
+        this.texHeight = 64;
         this.rightEye = new ModelRenderer(this, 49, 0);
-        this.rightEye.setRotationPoint(-2.0F, -3.3F, -2.3F);
+        this.rightEye.setPos(-2.0F, -3.3F, -2.3F);
         this.rightEye.addBox(-1.0F, -1.0F, -1.0F, 1.0F, 2.0F, 2.0F, 0.0F, 0.0F, 0.0F);
         this.setRotateAngle(rightEye, 0.3490658503988659F, 0.0F, 0.0F);
         this.rightHornBig3 = new ModelRenderer(this, 0, 29);
-        this.rightHornBig3.setRotationPoint(0.0F, -1.7F, 0.0F);
+        this.rightHornBig3.setPos(0.0F, -1.7F, 0.0F);
         this.rightHornBig3.addBox(-0.5F, -2.0F, -0.5F, 1.0F, 2.0F, 1.0F, 0.0F, 0.0F, 0.0F);
         this.setRotateAngle(rightHornBig3, 0.5864306020384839F, 0.0F, 0.0F);
         this.body = new ModelRenderer(this, 12, 40);
-        this.body.setRotationPoint(0.0F, -7.0F, 0.0F);
+        this.body.setPos(0.0F, -7.0F, 0.0F);
         this.body.addBox(-3.0F, -6.0F, -3.0F, 6.0F, 12.0F, 6.0F, 0.0F, 0.0F, 0.0F);
         this.setRotateAngle(body, -0.08726646259971647F, 0.0F, 0.0F);
         this.lowerJaw = new ModelRenderer(this, 24, 18);
-        this.lowerJaw.setRotationPoint(0.0F, -1.1F, -2.8F);
+        this.lowerJaw.setPos(0.0F, -1.1F, -2.8F);
         this.lowerJaw.addBox(-2.0F, -1.0F, -5.0F, 4.0F, 2.0F, 5.0F, 0.0F, 0.0F, 0.0F);
         this.setRotateAngle(lowerJaw, 0.3305653696487898F, 0.0F, 0.0F);
         this.leftHornBig2 = new ModelRenderer(this, 0, 29);
-        this.leftHornBig2.setRotationPoint(0.3F, -1.5F, 0.0F);
+        this.leftHornBig2.setPos(0.3F, -1.5F, 0.0F);
         this.leftHornBig2.addBox(-0.5F, -2.0F, -0.5F, 1.0F, 2.0F, 1.0F, 0.0F, 0.0F, 0.0F);
         this.setRotateAngle(leftHornBig2, 0.0F, 0.0F, 1.1344640137963142F);
         this.leftHornBig3 = new ModelRenderer(this, 0, 29);
-        this.leftHornBig3.setRotationPoint(0.0F, -1.7F, 0.0F);
+        this.leftHornBig3.setPos(0.0F, -1.7F, 0.0F);
         this.leftHornBig3.addBox(-0.5F, -2.0F, -0.5F, 1.0F, 2.0F, 1.0F, 0.0F, 0.0F, 0.0F);
         this.setRotateAngle(leftHornBig3, 0.5864306020384839F, 0.0F, 0.0F);
         this.rightHornBig2 = new ModelRenderer(this, 0, 29);
-        this.rightHornBig2.setRotationPoint(-0.3F, -1.5F, 0.0F);
+        this.rightHornBig2.setPos(-0.3F, -1.5F, 0.0F);
         this.rightHornBig2.addBox(-0.5F, -2.0F, -0.5F, 1.0F, 2.0F, 1.0F, 0.0F, 0.0F, 0.0F);
         this.setRotateAngle(rightHornBig2, 0.0F, 0.0F, -1.1344640137963142F);
         this.rightHorn = new ModelRenderer(this, 0, 2);
-        this.rightHorn.setRotationPoint(-1.0F, -4.5F, -1.8F);
+        this.rightHorn.setPos(-1.0F, -4.5F, -1.8F);
         this.rightHorn.addBox(-0.5F, -2.0F, -0.5F, 1.0F, 2.0F, 1.0F, 0.0F, 0.0F, 0.0F);
         this.setRotateAngle(rightHorn, 0.540353920438478F, -0.1350884801096195F, -0.3152064535891121F);
         this.tooth = new ModelRenderer(this, 0, 0);
-        this.tooth.setRotationPoint(0.0F, 1.0F, -4.7F);
+        this.tooth.setPos(0.0F, 1.0F, -4.7F);
         this.tooth.addBox(-1.0F, 0.0F, 0.0F, 2.0F, 1.0F, 1.0F, 0.0F, 0.0F, 0.0F);
         this.leftEye = new ModelRenderer(this, 49, 0);
-        this.leftEye.setRotationPoint(2.0F, -3.3F, -2.3F);
+        this.leftEye.setPos(2.0F, -3.3F, -2.3F);
         this.leftEye.addBox(0.0F, -1.0F, -1.0F, 1.0F, 2.0F, 2.0F, 0.0F, 0.0F, 0.0F);
         this.setRotateAngle(leftEye, 0.3490658503988659F, 0.0F, 0.0F);
         this.upperJaw = new ModelRenderer(this, 39, 23);
-        this.upperJaw.setRotationPoint(0.0F, -3.0F, -3.0F);
+        this.upperJaw.setPos(0.0F, -3.0F, -3.0F);
         this.upperJaw.addBox(-2.0F, -1.5F, -5.0F, 4.0F, 3.0F, 5.0F, 0.0F, 0.0F, 0.0F);
         this.rightArm = new ModelRenderer(this, 0, 30);
-        this.rightArm.setRotationPoint(-2.0F, -11.5F, 0.0F);
+        this.rightArm.setPos(-2.0F, -11.5F, 0.0F);
         this.rightArm.addBox(-1.5F, -1.5F, -7.0F, 3.0F, 3.0F, 7.0F, 0.0F, 0.0F, 0.0F);
         this.setRotateAngle(rightArm, 0.35185837453889574F, 0.19547687289441354F, 0.0F);
         this.leftArm = new ModelRenderer(this, 0, 30);
-        this.leftArm.setRotationPoint(2.0F, -11.5F, 0.0F);
+        this.leftArm.setPos(2.0F, -11.5F, 0.0F);
         this.leftArm.addBox(-1.5F, -1.5F, -7.0F, 3.0F, 3.0F, 7.0F, 0.0F, 0.0F, 0.0F);
         this.setRotateAngle(leftArm, 0.35185837453889574F, -0.17453292519943295F, 0.0F);
         this.jawHorn2 = new ModelRenderer(this, 0, 29);
-        this.jawHorn2.setRotationPoint(0.0F, -2.7F, 0.0F);
+        this.jawHorn2.setPos(0.0F, -2.7F, 0.0F);
         this.jawHorn2.addBox(-0.5F, -2.0F, -0.5F, 1.0F, 2.0F, 1.0F, 0.0F, 0.0F, 0.0F);
         this.setRotateAngle(jawHorn2, -0.1563815016444822F, 0.0F, 0.0F);
         this.rightWing = new ModelRenderer(this, 0, 40);
         this.rightWing.mirror = true;
-        this.rightWing.setRotationPoint(-1.5F, -6.0F, 3.0F);
+        this.rightWing.setPos(-1.5F, -6.0F, 3.0F);
         this.rightWing.addBox(-6.0F, -5.0F, 0.0F, 6.0F, 6.0F, 0.0F, 0.0F, 0.0F, 0.0F);
         this.setRotateAngle(rightWing, 0.35185837453889574F, 0.5082398928281348F, -0.11728612207217244F);
         this.neck1 = new ModelRenderer(this, 37, 0);
-        this.neck1.setRotationPoint(0.0F, -5.5F, 0.0F);
+        this.neck1.setPos(0.0F, -5.5F, 0.0F);
         this.neck1.addBox(-2.0F, -4.0F, -2.0F, 4.0F, 4.0F, 4.0F, 0.0F, 0.0F, 0.0F);
         this.setRotateAngle(neck1, 0.07400195628981794F, 0.0F, 0.0F);
         this.lollipop = new ModelRenderer(this, 0, 13);
-        this.lollipop.setRotationPoint(0.0F, -1.5F, -6.0F);
+        this.lollipop.setPos(0.0F, -1.5F, -6.0F);
         this.lollipop.addBox(0.0F, -6.0F, -2.5F, 0.0F, 6.0F, 5.0F, 0.0F, 0.0F, 0.0F);
         this.rightLeg = new ModelRenderer(this, 0, 30);
         this.rightLeg.mirror = true;
-        this.rightLeg.setRotationPoint(-2.0F, -1.5F, -2.0F);
+        this.rightLeg.setPos(-2.0F, -1.5F, -2.0F);
         this.rightLeg.addBox(-1.5F, -1.5F, -7.0F, 3.0F, 3.0F, 7.0F, 0.0F, 0.0F, 0.0F);
         this.setRotateAngle(rightLeg, 0.0F, 0.19547687289441354F, 0.0F);
         this.jawHorn1 = new ModelRenderer(this, 0, 24);
-        this.jawHorn1.setRotationPoint(0.0F, -1.2F, -3.6F);
+        this.jawHorn1.setPos(0.0F, -1.2F, -3.6F);
         this.jawHorn1.addBox(-0.5F, -3.0F, -1.0F, 1.0F, 3.0F, 2.0F, 0.0F, 0.0F, 0.0F);
         this.setRotateAngle(jawHorn1, -0.1563815016444822F, 0.0F, 0.0F);
         this.rightEar = new ModelRenderer(this, 53, 4);
-        this.rightEar.setRotationPoint(-1.3F, -4.7F, 0.8F);
+        this.rightEar.setPos(-1.3F, -4.7F, 0.8F);
         this.rightEar.addBox(-1.0F, -3.0F, -1.0F, 2.0F, 3.0F, 1.0F, 0.0F, 0.0F, 0.0F);
         this.setRotateAngle(rightEar, 0.2565633967142151F, -0.162315623764424F, -0.2925171866289913F);
         this.leftWing = new ModelRenderer(this, 0, 40);
-        this.leftWing.setRotationPoint(1.5F, -6.0F, 3.0F);
+        this.leftWing.setPos(1.5F, -6.0F, 3.0F);
         this.leftWing.addBox(0.0F, -5.0F, 0.0F, 6.0F, 6.0F, 0.0F, 0.0F, 0.0F, 0.0F);
         this.setRotateAngle(leftWing, 0.35185837453889574F, -0.5082398928281348F, 0.11728612207217244F);
         this.head = new ModelRenderer(this, 41, 13);
-        this.head.setRotationPoint(0.0F, -3.5F, 1.0F);
+        this.head.setPos(0.0F, -3.5F, 1.0F);
         this.head.addBox(-2.5F, -5.0F, -4.0F, 5.0F, 5.0F, 5.0F, 0.0F, 0.0F, 0.0F);
         this.setRotateAngle(head, 0.03490658503988659F, 0.0F, 0.0F);
         this.leftEar = new ModelRenderer(this, 53, 4);
-        this.leftEar.setRotationPoint(1.3F, -4.7F, 0.8F);
+        this.leftEar.setPos(1.3F, -4.7F, 0.8F);
         this.leftEar.addBox(-1.0F, -3.0F, -1.0F, 2.0F, 3.0F, 1.0F, 0.0F, 0.0F, 0.0F);
         this.setRotateAngle(leftEar, 0.2565633967142151F, 0.162315623764424F, 0.2925171866289913F);
         this.nose = new ModelRenderer(this, 0, 54);
-        this.nose.setRotationPoint(0.0F, -2.2F, -4.6F);
+        this.nose.setPos(0.0F, -2.2F, -4.6F);
         this.nose.addBox(-1.5F, 0.0F, 0.0F, 3.0F, 1.0F, 2.0F, 0.0F, 0.0F, 0.0F);
         this.headScales = new ModelRenderer(this, 0, 40);
-        this.headScales.setRotationPoint(0.0F, -8.0F, -2.0F);
+        this.headScales.setPos(0.0F, -8.0F, -2.0F);
         this.headScales.addBox(0.0F, 0.0F, 0.0F, 0.0F, 8.0F, 6.0F, 0.0F, 0.0F, 0.0F);
         this.setRotateAngle(headScales, 0.03490658503988659F, 0.0F, 0.0F);
         this.leftHornBig1 = new ModelRenderer(this, 0, 29);
-        this.leftHornBig1.setRotationPoint(1.0F, -4.8F, -1.0F);
+        this.leftHornBig1.setPos(1.0F, -4.8F, -1.0F);
         this.leftHornBig1.addBox(-0.5F, -2.0F, -0.5F, 1.0F, 2.0F, 1.0F, 0.0F, 0.0F, 0.0F);
         this.setRotateAngle(leftHornBig1, 0.0F, 0.0F, 0.3127630032889644F);
         this.leftHorn = new ModelRenderer(this, 0, 2);
-        this.leftHorn.setRotationPoint(1.0F, -4.5F, -1.8F);
+        this.leftHorn.setPos(1.0F, -4.5F, -1.8F);
         this.leftHorn.addBox(-0.5F, -2.0F, -0.5F, 1.0F, 2.0F, 1.0F, 0.0F, 0.0F, 0.0F);
         this.setRotateAngle(leftHorn, 0.540353920438478F, 0.1350884801096195F, 0.3152064535891121F);
         this.egg = new ModelRenderer(this, 0, 0);
-        this.egg.setRotationPoint(0.0F, 24.0F, 2.0F);
+        this.egg.setPos(0.0F, 24.0F, 2.0F);
         this.egg.addBox(-7.0F, -9.0F, -4.5F, 14.0F, 9.0F, 9.0F, 0.0F, 0.0F, 0.0F);
         this.leftLeg = new ModelRenderer(this, 0, 30);
-        this.leftLeg.setRotationPoint(2.0F, -1.5F, -2.0F);
+        this.leftLeg.setPos(2.0F, -1.5F, -2.0F);
         this.leftLeg.addBox(-1.5F, -1.5F, -7.0F, 3.0F, 3.0F, 7.0F, 0.0F, 0.0F, 0.0F);
         this.setRotateAngle(leftLeg, 0.0F, -0.19547687289441354F, 0.0F);
         this.rightHornBig1 = new ModelRenderer(this, 0, 29);
-        this.rightHornBig1.setRotationPoint(-1.0F, -4.8F, -1.0F);
+        this.rightHornBig1.setPos(-1.0F, -4.8F, -1.0F);
         this.rightHornBig1.addBox(-0.5F, -2.0F, -0.5F, 1.0F, 2.0F, 1.0F, 0.0F, 0.0F, 0.0F);
         this.setRotateAngle(rightHornBig1, 0.0F, 0.0F, -0.3127630032889644F);
         this.head.addChild(this.rightEye);
@@ -221,7 +221,7 @@ public class DevilFamiliarModel extends EntityModel<DevilFamiliarEntity> {
     }
 
     @Override
-    public void render(MatrixStack matrixStackIn, IVertexBuilder bufferIn, int packedLightIn, int packedOverlayIn,
+    public void renderToBuffer(MatrixStack matrixStackIn, IVertexBuilder bufferIn, int packedLightIn, int packedOverlayIn,
             float red, float green, float blue, float alpha) {
         ImmutableList.of(this.egg).forEach((modelRenderer) -> {
             modelRenderer.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
@@ -229,50 +229,50 @@ public class DevilFamiliarModel extends EntityModel<DevilFamiliarEntity> {
     }
 
     @Override
-    public void setRotationAngles(DevilFamiliarEntity entityIn, float limbSwing, float limbSwingAmount,
+    public void setupAnim(DevilFamiliarEntity entityIn, float limbSwing, float limbSwingAmount,
             float ageInTicks, float netHeadYaw, float headPitch) {
         this.showModels(entityIn);
-        this.head.rotateAngleY = netHeadYaw * (PI / 180f) * 0.7f;
-        this.head.rotateAngleX = 0.03f + headPitch * (PI / 180f) * 0.7f;
-        this.egg.rotateAngleY = 0;
-        this.egg.rotateAngleZ = 0;
+        this.head.yRot = netHeadYaw * (PI / 180f) * 0.7f;
+        this.head.xRot = 0.03f + headPitch * (PI / 180f) * 0.7f;
+        this.egg.yRot = 0;
+        this.egg.zRot = 0;
         
         if (ageInTicks % 300 < 60) {
             float progress = ageInTicks % 300 % 60;
             float armHeight = MathHelper.sin(progress * PI / 60) * 0.4f;
-            this.leftArm.rotateAngleX = 0.35f - armHeight + MathHelper.sin(progress * PI / 10) * 0.45f;
-            this.rightArm.rotateAngleX = 0.35f - armHeight + MathHelper.sin(progress * PI / 10 + PI) * 0.45f;
+            this.leftArm.xRot = 0.35f - armHeight + MathHelper.sin(progress * PI / 10) * 0.45f;
+            this.rightArm.xRot = 0.35f - armHeight + MathHelper.sin(progress * PI / 10 + PI) * 0.45f;
         } else {
-            this.leftArm.rotateAngleX = 0.35f;
-            this.rightArm.rotateAngleX = 0.35f;
+            this.leftArm.xRot = 0.35f;
+            this.rightArm.xRot = 0.35f;
         }
         
         if (entityIn.isPartying()) {
-            this.egg.rotateAngleY = ageInTicks / 4;
-            this.egg.rotateAngleZ = MathHelper.cos(ageInTicks / 4) * toRads(10);
-            this.leftLeg.rotateAngleX = toRads(30) + MathHelper.cos(limbSwing * 0.5f + PI) * limbSwingAmount * 0.4f;
-            this.rightLeg.rotateAngleX = toRads(30) + MathHelper.cos(limbSwing * 0.5f) * limbSwingAmount * 0.4f;
-            this.leftArm.rotateAngleX = MathHelper.cos(ageInTicks / 4) * toRads(10);
-            this.rightArm.rotateAngleX = MathHelper.cos(ageInTicks / 4 + PI) * toRads(10);
+            this.egg.yRot = ageInTicks / 4;
+            this.egg.zRot = MathHelper.cos(ageInTicks / 4) * toRads(10);
+            this.leftLeg.xRot = toRads(30) + MathHelper.cos(limbSwing * 0.5f + PI) * limbSwingAmount * 0.4f;
+            this.rightLeg.xRot = toRads(30) + MathHelper.cos(limbSwing * 0.5f) * limbSwingAmount * 0.4f;
+            this.leftArm.xRot = MathHelper.cos(ageInTicks / 4) * toRads(10);
+            this.rightArm.xRot = MathHelper.cos(ageInTicks / 4 + PI) * toRads(10);
         } else if (entityIn.isSitting()) {
-            this.leftLeg.rotateAngleX = 0;
-            this.rightLeg.rotateAngleX = 0;
+            this.leftLeg.xRot = 0;
+            this.rightLeg.xRot = 0;
         } else {
-            this.leftLeg.rotateAngleX = toRads(30) + MathHelper.cos(limbSwing * 0.5f + PI) * limbSwingAmount * 0.4f;
-            this.rightLeg.rotateAngleX = toRads(30) + MathHelper.cos(limbSwing * 0.5f) * limbSwingAmount * 0.4f;
+            this.leftLeg.xRot = toRads(30) + MathHelper.cos(limbSwing * 0.5f + PI) * limbSwingAmount * 0.4f;
+            this.rightLeg.xRot = toRads(30) + MathHelper.cos(limbSwing * 0.5f) * limbSwingAmount * 0.4f;
         }
     }
 
     @Override
-    public void setLivingAnimations(DevilFamiliarEntity entityIn, float limbSwing, float limbSwingAmount,
+    public void prepareMobModel(DevilFamiliarEntity entityIn, float limbSwing, float limbSwingAmount,
             float partialTick) {
         float animationHeight = entityIn.getAnimationHeight(partialTick);
-        leftWing.rotateAngleY = animationHeight * toRads(20) - 0.43f;
-        rightWing.rotateAngleY = -animationHeight * toRads(20) + 0.43f;
+        leftWing.yRot = animationHeight * toRads(20) - 0.43f;
+        rightWing.yRot = -animationHeight * toRads(20) + 0.43f;
 
         if (entityIn.isSitting() && !entityIn.isPartying()) {
-            leftWing.rotateAngleY = -0.43f;
-            rightWing.rotateAngleY = 0.43f;
+            leftWing.yRot = -0.43f;
+            rightWing.yRot = 0.43f;
         }
     }
     
@@ -284,23 +284,23 @@ public class DevilFamiliarModel extends EntityModel<DevilFamiliarEntity> {
         boolean hasNose = entityIn.hasNose();
         boolean hasEars = entityIn.hasEars();
 
-        this.lollipop.showModel = entityIn.hasLollipop();
-        this.nose.showModel = hasNose;
-        this.jawHorn1.showModel = !hasNose;
-        this.leftEar.showModel = hasEars;
-        this.rightEar.showModel = hasEars;
-        this.leftHorn.showModel = hasEars;
-        this.rightHorn.showModel = hasEars;
-        this.leftHornBig1.showModel = !hasEars;
-        this.rightHornBig1.showModel = !hasEars;
+        this.lollipop.visible = entityIn.hasLollipop();
+        this.nose.visible = hasNose;
+        this.jawHorn1.visible = !hasNose;
+        this.leftEar.visible = hasEars;
+        this.rightEar.visible = hasEars;
+        this.leftHorn.visible = hasEars;
+        this.rightHorn.visible = hasEars;
+        this.leftHornBig1.visible = !hasEars;
+        this.rightHornBig1.visible = !hasEars;
     }
 
     /**
      * This is a helper function from Tabula to set the rotation of model parts
      */
     public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z) {
-        modelRenderer.rotateAngleX = x;
-        modelRenderer.rotateAngleY = y;
-        modelRenderer.rotateAngleZ = z;
+        modelRenderer.xRot = x;
+        modelRenderer.yRot = y;
+        modelRenderer.zRot = z;
     }
 }

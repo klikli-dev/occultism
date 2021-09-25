@@ -114,16 +114,16 @@ public class StableWormholeTileEntity extends NetworkedTileEntity implements ISt
     @Override
     public IStorageController getLinkedStorageController() {
         if (this.linkedStorageControllerPosition != null) {
-            TileEntity tileEntity = TileEntityUtil.get(this.world,
+            TileEntity tileEntity = TileEntityUtil.get(this.level,
                     this.linkedStorageControllerPosition);
             if (tileEntity instanceof IStorageController)
                 return (IStorageController) tileEntity;
-            else if(!this.world.isRemote){
+            else if(!this.level.isClientSide){
                 //only reset the storage controller position if we are on logical server -> that means the position is not accessible.
                 //if we are on logical client it simply means we are out of render range, so we do not reset the pos
                 //resetting it would cause issues with e.g. stable wormhole
                 this.linkedStorageControllerPosition = null;
-                this.world.setBlockState(this.pos, this.getBlockState().with(StableWormholeBlock.LINKED, false), 2);
+                this.level.setBlock(this.worldPosition, this.getBlockState().setValue(StableWormholeBlock.LINKED, false), 2);
             }
         }
         return null;
@@ -165,13 +165,13 @@ public class StableWormholeTileEntity extends NetworkedTileEntity implements ISt
             for (int i = 0; i < matrixNbt.size(); i++) {
                 CompoundNBT stackTag = matrixNbt.getCompound(i);
                 int slot = stackTag.getByte("slot");
-                ItemStack s = ItemStack.read(stackTag);
+                ItemStack s = ItemStack.of(stackTag);
                 this.matrix.put(slot, s);
             }
         }
 
         if (compound.contains("orderStack"))
-            this.orderStack = ItemStack.read(compound.getCompound("orderStack"));
+            this.orderStack = ItemStack.of(compound.getCompound("orderStack"));
 
         super.readNetwork(compound);
     }
@@ -189,14 +189,14 @@ public class StableWormholeTileEntity extends NetworkedTileEntity implements ISt
             if (this.matrix.get(i) != null && !this.matrix.get(i).isEmpty()) {
                 CompoundNBT stackTag = new CompoundNBT();
                 stackTag.putByte("slot", (byte) i);
-                this.matrix.get(i).write(stackTag);
+                this.matrix.get(i).save(stackTag);
                 matrixNbt.add(stackTag);
             }
         }
         compound.put("matrix", matrixNbt);
 
         if (!this.orderStack.isEmpty())
-            compound.put("orderStack", this.orderStack.write(new CompoundNBT()));
+            compound.put("orderStack", this.orderStack.save(new CompoundNBT()));
 
         return super.writeNetwork(compound);
     }

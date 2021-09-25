@@ -65,8 +65,8 @@ public class MessageTakeItem extends MessageBase {
     @Override
     public void onServerReceived(MinecraftServer minecraftServer, ServerPlayerEntity player,
                                  NetworkEvent.Context context) {
-        if (player.openContainer instanceof IStorageControllerContainer) {
-            IStorageController storageController = ((IStorageControllerContainer) player.openContainer)
+        if (player.containerMenu instanceof IStorageControllerContainer) {
+            IStorageController storageController = ((IStorageControllerContainer) player.containerMenu)
                                                            .getStorageController();
             if (storageController == null)
                 return;
@@ -106,14 +106,14 @@ public class MessageTakeItem extends MessageBase {
                 }
                 else {
                     //otherwise put it on the players mouse
-                    player.inventory.setItemStack(stack);
+                    player.inventory.setCarried(stack);
                     OccultismPackets.sendTo(player, new MessageUpdateMouseHeldItem(stack));
                 }
             }
 
             //finally, update the storage controller stacks
             OccultismPackets.sendTo(player, storageController.getMessageUpdateStacks());
-            player.openContainer.detectAndSendChanges();
+            player.containerMenu.broadcastChanges();
         }
     }
 
@@ -121,7 +121,7 @@ public class MessageTakeItem extends MessageBase {
     public void encode(PacketBuffer buf) {
         ItemStack toWrite = this.stack.copy();
         toWrite.setCount(1);
-        buf.writeItemStack(toWrite);
+        buf.writeItem(toWrite);
         buf.writeInt(this.stack.getCount());
         buf.writeByte(this.mouseButton);
 
@@ -131,7 +131,7 @@ public class MessageTakeItem extends MessageBase {
 
     @Override
     public void decode(PacketBuffer buf) {
-        this.stack = buf.readItemStack();
+        this.stack = buf.readItem();
         this.stack.setCount(buf.readInt());
         this.mouseButton = buf.readByte();
         this.isShiftDown = buf.readBoolean();

@@ -66,28 +66,28 @@ public class CrushingRecipe extends ItemStackFakeInventoryRecipe {
     //region Overrides
     @Override
     public boolean matches(ItemStackFakeInventory inv, World world) {
-        return this.input.test(inv.getStackInSlot(0));
+        return this.input.test(inv.getItem(0));
     }
 
     @Override
-    public ItemStack getCraftingResult(ItemStackFakeInventory inv) {
-        return this.getRecipeOutput().copy();
+    public ItemStack assemble(ItemStackFakeInventory inv) {
+        return this.getResultItem().copy();
     }
 
     @Override
-    public boolean canFit(int width, int height) {
+    public boolean canCraftInDimensions(int width, int height) {
         //as we don't have a real inventory so this is ignored.
         return true;
     }
 
     @Override
-    public ItemStack getRecipeOutput() {
+    public ItemStack getResultItem() {
         return this.output;
     }
 
     @Override
     public NonNullList<Ingredient> getIngredients() {
-        return NonNullList.from(Ingredient.EMPTY, this.input);
+        return NonNullList.of(Ingredient.EMPTY, this.input);
     }
 
     @Override
@@ -111,16 +111,16 @@ public class CrushingRecipe extends ItemStackFakeInventoryRecipe {
 
         //region Overrides
         @Override
-        public CrushingRecipe read(ResourceLocation recipeId, JsonObject json) {
-            int crushingTime = JSONUtils.getInt(json, "crushing_time", DEFAULT_CRUSHING_TIME);
-            boolean ignoreCrushingMultiplier = JSONUtils.getBoolean(json, "ignore_crushing_multiplier", false);
+        public CrushingRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
+            int crushingTime = JSONUtils.getAsInt(json, "crushing_time", DEFAULT_CRUSHING_TIME);
+            boolean ignoreCrushingMultiplier = JSONUtils.getAsBoolean(json, "ignore_crushing_multiplier", false);
             return ItemStackFakeInventoryRecipe.SERIALIZER
                     .read((id, input, output) ->
                             new CrushingRecipe(id, input, output, crushingTime, ignoreCrushingMultiplier), recipeId, json);
         }
 
         @Override
-        public CrushingRecipe read(ResourceLocation recipeId, PacketBuffer buffer) {
+        public CrushingRecipe fromNetwork(ResourceLocation recipeId, PacketBuffer buffer) {
             int crushingTime = buffer.readInt();
             boolean ignoreCrushingMultiplier = buffer.readBoolean();
             return ItemStackFakeInventoryRecipe.SERIALIZER
@@ -129,7 +129,7 @@ public class CrushingRecipe extends ItemStackFakeInventoryRecipe {
         }
 
         @Override
-        public void write(PacketBuffer buffer, CrushingRecipe recipe) {
+        public void toNetwork(PacketBuffer buffer, CrushingRecipe recipe) {
             buffer.writeInt(recipe.crushingTime);
             buffer.writeBoolean(recipe.ignoreCrushingMultiplier);
             ItemStackFakeInventoryRecipe.SERIALIZER.write(buffer, recipe);

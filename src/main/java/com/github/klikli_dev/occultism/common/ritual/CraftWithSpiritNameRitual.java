@@ -50,10 +50,10 @@ public class CraftWithSpiritNameRitual extends Ritual {
         ItemStack copy = activationItem.copy();
         activationItem.shrink(1); //remove activation item.
 
-        ((ServerWorld) world).spawnParticle(ParticleTypes.LARGE_SMOKE, goldenBowlPosition.getX() + 0.5,
+        ((ServerWorld) world).sendParticles(ParticleTypes.LARGE_SMOKE, goldenBowlPosition.getX() + 0.5,
                 goldenBowlPosition.getY() + 0.5, goldenBowlPosition.getZ() + 0.5, 1, 0, 0, 0, 0);
 
-        ItemStack result = this.recipe.getRecipeOutput().copy();
+        ItemStack result = this.recipe.getResultItem().copy();
         ItemNBTUtil.setBoundSpiritName(result, ItemNBTUtil.getBoundSpiritName(copy));
         this.dropResult(world, goldenBowlPosition, tileEntity, castingPlayer, result);
     }

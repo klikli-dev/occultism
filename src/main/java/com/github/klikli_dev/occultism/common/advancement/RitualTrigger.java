@@ -52,21 +52,21 @@ public class RitualTrigger extends AbstractCriterionTrigger<RitualTrigger.Instan
         return ID;
     }
 
-    public RitualTrigger.Instance deserializeTrigger(JsonObject json, EntityPredicate.AndPredicate entityPredicate,
+    public RitualTrigger.Instance createInstance(JsonObject json, EntityPredicate.AndPredicate entityPredicate,
             ConditionArrayParser conditionsParser) {
         return new RitualTrigger.Instance(deserializeRitualPredicate(json));
     }
 
     private RitualPredicate deserializeRitualPredicate(JsonObject json) {
         if (json.has("ritual_id"))
-            return new RitualPredicate(new ResourceLocation(JSONUtils.getString(json, "ritual_id")), null);
+            return new RitualPredicate(new ResourceLocation(JSONUtils.getAsString(json, "ritual_id")), null);
         return RitualPredicate.deserialize(json.get("ritual_predicate"));
     }
     // endregion Overrides
 
     // region Methods
     public void trigger(ServerPlayerEntity player, Ritual ritual) {
-        this.triggerListeners(player, (instance) -> instance.test(player, ritual));
+        this.trigger(player, (instance) -> instance.test(player, ritual));
     }
     // endregion Methods
 
@@ -78,14 +78,14 @@ public class RitualTrigger extends AbstractCriterionTrigger<RitualTrigger.Instan
 
         // region Initialization
         public Instance(RitualPredicate ritualPredicate) {
-            super(RitualTrigger.ID, EntityPredicate.AndPredicate.ANY_AND);
+            super(RitualTrigger.ID, EntityPredicate.AndPredicate.ANY);
             this.ritualPredicate = ritualPredicate;
         }
         // endregion Initialization
 
         // region Overrides
-        public JsonObject serialize(ConditionArraySerializer conditions) {
-            JsonObject jsonobject = super.serialize(conditions);
+        public JsonObject serializeToJson(ConditionArraySerializer conditions) {
+            JsonObject jsonobject = super.serializeToJson(conditions);
             jsonobject.add("ritual_predicate", this.ritualPredicate.serialize());
             return jsonobject;
         }
@@ -126,11 +126,11 @@ public class RitualTrigger extends AbstractCriterionTrigger<RitualTrigger.Instan
 
             ResourceLocation ritualId = null;
             ResourceLocation ritualFactoryId = null;
-            JsonObject json = JSONUtils.getJsonObject(element, "ritual_predicate");
+            JsonObject json = JSONUtils.convertToJsonObject(element, "ritual_predicate");
             if (json.has("ritual_id"))
-                ritualId = new ResourceLocation(JSONUtils.getString(json, "ritual_id"));
+                ritualId = new ResourceLocation(JSONUtils.getAsString(json, "ritual_id"));
             if (json.has("ritual_factory_id"))
-                ritualFactoryId = new ResourceLocation(JSONUtils.getString(json, "ritual_factory_id"));
+                ritualFactoryId = new ResourceLocation(JSONUtils.getAsString(json, "ritual_factory_id"));
             return new RitualPredicate(ritualId, ritualFactoryId);
         }
 

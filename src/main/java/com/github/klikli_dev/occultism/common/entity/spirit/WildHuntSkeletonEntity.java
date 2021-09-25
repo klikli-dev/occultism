@@ -54,12 +54,12 @@ public class WildHuntSkeletonEntity extends SkeletonEntity {
 
     //region Overrides
     @Override
-    protected boolean isDespawnPeaceful() {
+    protected boolean shouldDespawnInPeaceful() {
         return false;
     }
 
     @Override
-    protected boolean isInDaylight() {
+    protected boolean isSunBurnTick() {
         return false;
     }
 
@@ -75,11 +75,11 @@ public class WildHuntSkeletonEntity extends SkeletonEntity {
     public boolean isInvulnerableTo(DamageSource source) {
         ITag<EntityType<?>> wildHuntTag = OccultismTags.WILD_HUNT;
 
-        Entity trueSource = source.getTrueSource();
+        Entity trueSource = source.getEntity();
         if (trueSource != null && wildHuntTag.contains(trueSource.getType()))
             return true;
 
-        Entity immediateSource = source.getImmediateSource();
+        Entity immediateSource = source.getDirectEntity();
         if (immediateSource != null && wildHuntTag.contains(immediateSource.getType()))
             return true;
 
@@ -89,9 +89,9 @@ public class WildHuntSkeletonEntity extends SkeletonEntity {
 
     //region Static Methods
     public static AttributeModifierMap.MutableAttribute registerAttributes() {
-        return SkeletonEntity.registerAttributes()
-                       .createMutableAttribute(Attributes.ATTACK_DAMAGE, 4.0)
-                       .createMutableAttribute(Attributes.MAX_HEALTH, 20.0);
+        return SkeletonEntity.createAttributes()
+                       .add(Attributes.ATTACK_DAMAGE, 4.0)
+                       .add(Attributes.MAX_HEALTH, 20.0);
     }
     //endregion Static Methods
 }

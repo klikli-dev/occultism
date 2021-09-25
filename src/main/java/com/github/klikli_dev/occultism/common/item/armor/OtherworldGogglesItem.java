@@ -31,6 +31,8 @@ import net.minecraft.item.ItemStack;
 
 import javax.annotation.Nullable;
 
+import net.minecraft.item.Item.Properties;
+
 public class OtherworldGogglesItem extends ArmorItem {
 
     public static final String TEXTURE = Occultism.MODID + ":textures/item/armor/otherworld_goggles_model.png";
@@ -42,7 +44,7 @@ public class OtherworldGogglesItem extends ArmorItem {
     }
 
     @Override
-    public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
+    public boolean isValidRepairItem(ItemStack toRepair, ItemStack repair) {
         return false;
     }
 

@@ -38,21 +38,21 @@ public class PossessedSkeletonEntity extends SkeletonEntity {
 
     //region Overrides
     @Override
-    protected boolean isDespawnPeaceful() {
+    protected boolean shouldDespawnInPeaceful() {
         return false;
     }
 
     @Override
-    protected boolean isInDaylight() {
+    protected boolean isSunBurnTick() {
         return false;
     }
     //endregion Overrides
 
     //region Static Methods
     public static AttributeModifierMap.MutableAttribute registerAttributes() {
-        return SkeletonEntity.registerAttributes()
-                       .createMutableAttribute(Attributes.ATTACK_DAMAGE, 4.0)
-                       .createMutableAttribute(Attributes.MAX_HEALTH, 30.0);
+        return SkeletonEntity.createAttributes()
+                       .add(Attributes.ATTACK_DAMAGE, 4.0)
+                       .add(Attributes.MAX_HEALTH, 30.0);
     }
     //endregion Static Methods
 }

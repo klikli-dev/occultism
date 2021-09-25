@@ -57,7 +57,7 @@ public class MessageSetWorkAreaSize extends MessageBase {
     @Override
     public void onServerReceived(MinecraftServer minecraftServer, ServerPlayerEntity player,
                                  NetworkEvent.Context context) {
-        ItemStack stack = player.getHeldItem(Hand.MAIN_HAND);
+        ItemStack stack = player.getItemInHand(Hand.MAIN_HAND);
         if (stack.getItem() instanceof BookOfCallingItem) {
             ItemNBTUtil.getSpiritEntity(stack).ifPresent(spirit -> {
                 WorkAreaSize workAreaSize = WorkAreaSize.get(this.workAreaSize);
@@ -65,9 +65,9 @@ public class MessageSetWorkAreaSize extends MessageBase {
 
                 //also update control item with latest data
                 ItemNBTUtil.updateItemNBTFromEntity(stack, spirit);
-                player.container.detectAndSendChanges();
+                player.inventoryMenu.broadcastChanges();
 
-                player.sendStatusMessage(new TranslationTextComponent(
+                player.displayClientMessage(new TranslationTextComponent(
                         TranslationKeys.BOOK_OF_CALLING_GENERIC +
                         ".message_set_work_area_size",
                         TextUtil.formatDemonName((IFormattableTextComponent) spirit.getName()),

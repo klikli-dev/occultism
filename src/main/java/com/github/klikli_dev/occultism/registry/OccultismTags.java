@@ -65,7 +65,7 @@ public class OccultismTags {
     }
 
     public static ITag.INamedTag<Item> makeItemTag(ResourceLocation id) {
-        return ItemTags.makeWrapperTag(id.toString());
+        return ItemTags.bind(id.toString());
     }
 
     public static ITag.INamedTag<Block> makeBlockTag(String id) {
@@ -73,7 +73,7 @@ public class OccultismTags {
     }
 
     public static ITag.INamedTag<Block> makeBlockTag(ResourceLocation id) {
-        return BlockTags.makeWrapperTag(id.toString());
+        return BlockTags.bind(id.toString());
     }
 
     public static ITag.INamedTag<EntityType<?>> makeEntityTypeTag(String id) {
@@ -81,7 +81,7 @@ public class OccultismTags {
     }
 
     public static ITag.INamedTag<EntityType<?>> makeEntityTypeTag(ResourceLocation id) {
-        return EntityTypeTags.getTagById(id.toString());
+        return EntityTypeTags.bind(id.toString());
     }
     //endregion Static Methods
 }

@@ -51,8 +51,8 @@ public class SacrificialBowlRenderer extends TileEntityRenderer<SacrificialBowlT
                        IRenderTypeBuffer buffer, int combinedLight, int combinedOverlay) {
         tileEntity.itemStackHandler.ifPresent(handler -> {
             ItemStack stack = handler.getStackInSlot(0);
-            long time = tileEntity.getWorld().getGameTime();
-            matrixStack.push();
+            long time = tileEntity.getLevel().getGameTime();
+            matrixStack.pushPose();
 
             //slowly bob up and down following a sine
             double offset = Math.sin((time - tileEntity.lastChangeTime + partialTicks) / 16) * 0.5f + 0.5f; // * 0.5f + 0.5f;  move sine between 0.0-1.0
@@ -63,18 +63,18 @@ public class SacrificialBowlRenderer extends TileEntityRenderer<SacrificialBowlT
             long systemTime = System.currentTimeMillis();
             //rotate item slowly around y axis
             float angle = (systemTime / 16) % 360;
-            matrixStack.rotate(Vector3f.YP.rotationDegrees(angle));
+            matrixStack.mulPose(Vector3f.YP.rotationDegrees(angle));
 
             //Fixed scale
             float scale = getScale(stack) * 0.5f;
             matrixStack.scale(scale, scale, scale);
 
             ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
-            IBakedModel model = itemRenderer.getItemModelWithOverrides(stack, tileEntity.getWorld(), null);
-            itemRenderer.renderItem(stack, ItemCameraTransforms.TransformType.FIXED, true, matrixStack, buffer,
+            IBakedModel model = itemRenderer.getModel(stack, tileEntity.getLevel(), null);
+            itemRenderer.render(stack, ItemCameraTransforms.TransformType.FIXED, true, matrixStack, buffer,
                     combinedLight, combinedOverlay, model);
 
-            matrixStack.pop();
+            matrixStack.popPose();
         });
     }
     //endregion Overrides

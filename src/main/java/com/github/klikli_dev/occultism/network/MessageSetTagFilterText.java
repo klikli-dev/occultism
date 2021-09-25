@@ -53,7 +53,7 @@ public class MessageSetTagFilterText extends MessageBase {
     public void onServerReceived(MinecraftServer minecraftServer, ServerPlayerEntity player,
                                  NetworkEvent.Context context) {
 
-        Entity e = player.world.getEntityByID(this.entityId);
+        Entity e = player.level.getEntity(this.entityId);
         if (e instanceof SpiritEntity) {
             SpiritEntity spirit = (SpiritEntity) e;
             spirit.setTagFilter(this.tagFilterText);
@@ -62,13 +62,13 @@ public class MessageSetTagFilterText extends MessageBase {
 
     @Override
     public void encode(PacketBuffer buf) {
-        buf.writeString(this.tagFilterText);
+        buf.writeUtf(this.tagFilterText);
         buf.writeInt(this.entityId);
     }
 
     @Override
     public void decode(PacketBuffer buf) {
-        this.tagFilterText = buf.readString(255);
+        this.tagFilterText = buf.readUtf(255);
         this.entityId = buf.readInt();
     }
     //endregion Overrides

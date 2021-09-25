@@ -80,11 +80,11 @@ public class ItemTagComparator implements IItemStackComparator {
 
     //region Methods
     public void read(CompoundNBT compound) {
-        compound.putString("tag", ItemTags.getCollection().getDirectIdFromTag(this.tag).toString());
+        compound.putString("tag", ItemTags.getAllTags().getId(this.tag).toString());
     }
 
     public CompoundNBT write(CompoundNBT compound) {
-        this.tag = ItemTags.getCollection().get(new ResourceLocation(compound.getString("tag")));
+        this.tag = ItemTags.getAllTags().getTag(new ResourceLocation(compound.getString("tag")));
         return compound;
     }
     //endregion Methods

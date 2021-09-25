@@ -29,6 +29,8 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
+import net.minecraft.item.Item.Properties;
+
 /**
  * Allows to show different textures and translation keys for HWYLA and in the inventory
  */
@@ -45,12 +47,12 @@ public class OtherworldBlockItem extends BlockItem {
      * Make getDefaultTranslationKey public for use in OtherworldUtil
      */
     @Override
-    public String getDefaultTranslationKey() {
-        return super.getDefaultTranslationKey();
+    public String getOrCreateDescriptionId() {
+        return super.getOrCreateDescriptionId();
     }
 
     @Override
-    public String getTranslationKey(ItemStack stack) {
+    public String getDescriptionId(ItemStack stack) {
         return OtherworldUtil.getTranslationKeyDistAware(this, stack);
     }
 

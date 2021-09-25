@@ -58,28 +58,28 @@ public class StorageControllerSlot extends CraftingResultSlot {
 
     @Override
     public ItemStack onTake(PlayerEntity player, ItemStack stack) {
-        if (player.world.isRemote) {
+        if (player.level.isClientSide) {
             return stack;
         }
 
         List<ItemStack> craftingStacks = new ArrayList<>();
-        for (int i = 0; i < this.matrix.getSizeInventory(); i++) {
-            craftingStacks.add(this.matrix.getStackInSlot(i).copy());
+        for (int i = 0; i < this.matrix.getContainerSize(); i++) {
+            craftingStacks.add(this.matrix.getItem(i).copy());
         }
         super.onTake(player, stack);
-        ((Container)this.storageControllerContainer).detectAndSendChanges();
-        for (int i = 0; i < this.matrix.getSizeInventory(); i++) {
+        ((Container)this.storageControllerContainer).broadcastChanges();
+        for (int i = 0; i < this.matrix.getContainerSize(); i++) {
             IStorageController storageController = this.storageControllerContainer.getStorageController();
-            if (this.matrix.getStackInSlot(i).isEmpty() && storageController != null) {
+            if (this.matrix.getItem(i).isEmpty() && storageController != null) {
                 ItemStack req = storageController.getItemStack(
                         !craftingStacks.get(i).isEmpty() ? new ItemStackComparator(craftingStacks.get(i)) : null, 1,
                         false);
                 if (!req.isEmpty()) {
-                    this.matrix.setInventorySlotContents(i, req);
+                    this.matrix.setItem(i, req);
                 }
             }
         }
-        ((Container)this.storageControllerContainer).detectAndSendChanges();
+        ((Container)this.storageControllerContainer).broadcastChanges();
         return stack;
     }
     //endregion Overrides

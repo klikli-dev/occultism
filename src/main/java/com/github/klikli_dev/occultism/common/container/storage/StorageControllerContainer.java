@@ -50,7 +50,7 @@ public class StorageControllerContainer extends StorageControllerContainerBase {
         this.storageController = storageController;
 
         this.matrix = new StorageControllerCraftingInventory(this, storageController.getMatrix());
-        this.orderInventory.setInventorySlotContents(0, storageController.getOrderStack());
+        this.orderInventory.setItem(0, storageController.getOrderStack());
 
         this.setupCraftingOutput(); //output is slot 0
 
@@ -59,7 +59,7 @@ public class StorageControllerContainer extends StorageControllerContainerBase {
         this.setupPlayerInventorySlots();
         this.setupPlayerHotbar();
 
-        this.onCraftMatrixChanged(this.matrix);
+        this.slotsChanged(this.matrix);
     }
     //endregion Initialization
 
@@ -85,7 +85,7 @@ public class StorageControllerContainer extends StorageControllerContainerBase {
     @Override
     public void updateCraftingSlots(boolean force) {
         for (int i = 0; i < 9; i++) {
-            this.storageController.getMatrix().put(i, this.matrix.getStackInSlot(i));
+            this.storageController.getMatrix().put(i, this.matrix.getItem(i));
         }
         if (force)
             this.storageController.markNetworkDirty();
@@ -93,29 +93,29 @@ public class StorageControllerContainer extends StorageControllerContainerBase {
 
     @Override
     public void updateOrderSlot(boolean force) {
-        this.storageController.setOrderStack(this.orderInventory.getStackInSlot(0));
+        this.storageController.setOrderStack(this.orderInventory.getItem(0));
         if (force)
             this.storageController.markNetworkDirty();
     }
 
     @Override
-    public boolean canMergeSlot(ItemStack stack, Slot slot) {
-        return slot.inventory != this.result && super.canMergeSlot(stack, slot);
+    public boolean canTakeItemForPickAll(ItemStack stack, Slot slot) {
+        return slot.container != this.result && super.canTakeItemForPickAll(stack, slot);
     }
 
     @Override
-    public boolean canInteractWith(PlayerEntity player) {
+    public boolean stillValid(PlayerEntity player) {
         if (this.storageController == null)
             return false;
-        World world = this.storageController.getWorld();
+        World world = this.storageController.getLevel();
         //send stack updates on a slow tick while interacting
-        if (!world.isRemote && world.getGameTime() % 40 == 0) {
+        if (!world.isClientSide && world.getGameTime() % 40 == 0) {
             OccultismPackets.sendTo((ServerPlayerEntity) player, this.storageController.getMessageUpdateStacks());
             OccultismPackets.sendTo((ServerPlayerEntity) player,
                     new MessageUpdateLinkedMachines(this.storageController.getLinkedMachines()));
         }
-        BlockPos controllerPosition = this.storageController.getPos();
-        return player.getDistanceSq(controllerPosition.getX() + 0.5D, controllerPosition.getY() + 0.5D,
+        BlockPos controllerPosition = this.storageController.getBlockPos();
+        return player.distanceToSqr(controllerPosition.getX() + 0.5D, controllerPosition.getY() + 0.5D,
                 controllerPosition.getZ() + 0.5D) <= 64.0D;
     }
     //endregion Overrides

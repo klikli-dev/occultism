@@ -77,9 +77,9 @@ public class BookOfCallingManagedMachineGui extends Screen {
     }
 
     @Override
-    public void onClose() {
-        super.onClose();
-        this.text.setFocused2(false);
+    public void removed() {
+        super.removed();
+        this.text.setFocus(false);
         if (!StringUtils.isBlank(this.customName) && !this.customName.equals(this.originalCustomName)) {
             OccultismPackets.sendToServer(new MessageSetManagedMachine(this.makeMachineReference()));
         }
@@ -98,7 +98,7 @@ public class BookOfCallingManagedMachineGui extends Screen {
         int buttonTop = 60;
         //the insert facing button
         this.addButton(new ExtendedButton(guiLeft - buttonWidth / 2, guiTop + buttonTop, buttonWidth,
-                buttonHeight, new TranslationTextComponent("enum." + Occultism.MODID + ".facing." + this.insertFacing.getName2()),
+                buttonHeight, new TranslationTextComponent("enum." + Occultism.MODID + ".facing." + this.insertFacing.getName()),
                 (b) -> {
                     MachineReference reference = this.makeMachineReference();
                     this.insertFacing = reference.insertFacing = EnumUtil.nextFacing(this.insertFacing);
@@ -109,7 +109,7 @@ public class BookOfCallingManagedMachineGui extends Screen {
         //the extract facing button
         this.addButton(new ExtendedButton(guiLeft - buttonWidth / 2,
                 guiTop + buttonTop + buttonHeight + buttonMargin, buttonWidth, buttonHeight,
-                new TranslationTextComponent("enum." + Occultism.MODID + ".facing." + this.extractFacing.getName2()), (b) -> {
+                new TranslationTextComponent("enum." + Occultism.MODID + ".facing." + this.extractFacing.getName()), (b) -> {
             MachineReference reference = this.makeMachineReference();
             this.extractFacing = reference.extractFacing = EnumUtil.nextFacing(this.extractFacing);
             OccultismPackets.sendToServer(new MessageSetManagedMachine(reference));
@@ -119,18 +119,18 @@ public class BookOfCallingManagedMachineGui extends Screen {
         int textWidth = buttonWidth - 4;
         this.text = new TextFieldWidget(this.font, guiLeft - textWidth / 2,
                 guiTop + buttonTop + buttonHeight * 2 + buttonMargin * 2, textWidth, buttonHeight, new StringTextComponent(""));
-        this.text.setMaxStringLength(30);
+        this.text.setMaxLength(30);
         this.text.setVisible(true);
         this.text.setTextColor(Color.WHITE.getRGB());
-        this.text.setFocused2(true);
+        this.text.setFocus(true);
 
-        this.text.setText(this.customName);
+        this.text.setValue(this.customName);
 
         //Exit button
         int exitButtonSize = 20;
         this.addButton(new ExtendedButton(guiLeft - exitButtonSize / 2,
                 guiTop + buttonTop + buttonHeight * 3 + buttonMargin * 3, exitButtonSize, exitButtonSize, new StringTextComponent("X"), (b) -> {
-            this.minecraft.displayGuiScreen(null);
+            this.minecraft.setScreen(null);
         }));
 
         buttonTop += 5;
@@ -178,7 +178,7 @@ public class BookOfCallingManagedMachineGui extends Screen {
     @Override
     public boolean charTyped(char typedChar, int keyCode) {
         if (this.text.charTyped(typedChar, keyCode)) {
-            this.customName = this.text.getText();
+            this.customName = this.text.getValue();
             return true;
         }
         else {

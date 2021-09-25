@@ -29,13 +29,13 @@ public class FamiliarTrigger extends AbstractCriterionTrigger<FamiliarTrigger.In
     }
 
     @Override
-    protected Instance deserializeTrigger(JsonObject json, AndPredicate entityPredicate,
+    protected Instance createInstance(JsonObject json, AndPredicate entityPredicate,
             ConditionArrayParser conditionsParser) {
-        return new Instance(entityPredicate, Type.valueOf(JSONUtils.getString(json, "type")));
+        return new Instance(entityPredicate, Type.valueOf(JSONUtils.getAsString(json, "type")));
     }
 
     public void trigger(ServerPlayerEntity player, Type type) {
-        this.triggerListeners(player, instance -> instance.test(type));
+        this.trigger(player, instance -> instance.test(type));
     }
 
     public void trigger(LivingEntity entity, Type type) {
@@ -44,7 +44,7 @@ public class FamiliarTrigger extends AbstractCriterionTrigger<FamiliarTrigger.In
     }
 
     public static Instance of(Type type) {
-        return new Instance(EntityPredicate.AndPredicate.ANY_AND, type);
+        return new Instance(EntityPredicate.AndPredicate.ANY, type);
     }
 
     public static class Instance extends CriterionInstance {
@@ -61,8 +61,8 @@ public class FamiliarTrigger extends AbstractCriterionTrigger<FamiliarTrigger.In
         }
 
         @Override
-        public JsonObject serialize(ConditionArraySerializer conditions) {
-            JsonObject json = super.serialize(conditions);
+        public JsonObject serializeToJson(ConditionArraySerializer conditions) {
+            JsonObject json = super.serializeToJson(conditions);
             json.addProperty("type", type.name());
             return json;
         }

@@ -45,13 +45,15 @@ import net.minecraftforge.fml.network.NetworkHooks;
 
 import java.util.stream.Stream;
 
+import net.minecraft.block.AbstractBlock.Properties;
+
 public class StorageControllerBlock extends Block {
 
     private static final VoxelShape SHAPE = Stream.of(
-            Block.makeCuboidShape(0, 0, 0, 16, 4, 16),
-            Block.makeCuboidShape(4, 4, 4, 12, 12, 12),
-            Block.makeCuboidShape(2, 12, 2, 14, 16, 14)
-    ).reduce((v1, v2) -> {return VoxelShapes.combineAndSimplify(v1, v2, IBooleanFunction.OR);}).get();
+            Block.box(0, 0, 0, 16, 4, 16),
+            Block.box(4, 4, 4, 12, 12, 12),
+            Block.box(2, 12, 2, 14, 16, 14)
+    ).reduce((v1, v2) -> {return VoxelShapes.join(v1, v2, IBooleanFunction.OR);}).get();
 
     //region Initialization
     public StorageControllerBlock(Properties properties) {
@@ -67,16 +69,16 @@ public class StorageControllerBlock extends Block {
     }
 
     @Override
-    public void onReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
+    public void onRemove(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
         TileEntityUtil.onBlockChangeDropWithNbt(this, state, worldIn, pos, newState);
-        super.onReplaced(state, worldIn, pos, newState, isMoving);
+        super.onRemove(state, worldIn, pos, newState, isMoving);
     }
 
     @Override
-    public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player,
+    public ActionResultType use(BlockState state, World world, BlockPos pos, PlayerEntity player,
                                              Hand handIn, BlockRayTraceResult rayTraceResult) {
-        if (!world.isRemote) {
-            TileEntity tileEntity = world.getTileEntity(pos);
+        if (!world.isClientSide) {
+            TileEntity tileEntity = world.getBlockEntity(pos);
             if (tileEntity instanceof INamedContainerProvider) {
                 NetworkHooks.openGui((ServerPlayerEntity) player, (INamedContainerProvider) tileEntity, pos);
             }
@@ -85,7 +87,7 @@ public class StorageControllerBlock extends Block {
     }
 
     @Override
-    public ItemStack getItem(IBlockReader worldIn, BlockPos pos, BlockState state) {
+    public ItemStack getCloneItemStack(IBlockReader worldIn, BlockPos pos, BlockState state) {
         return TileEntityUtil.getItemWithNbt(this, worldIn, pos);
     }
 

@@ -37,6 +37,8 @@ import net.minecraft.world.server.ServerWorld;
 
 import static com.github.klikli_dev.occultism.util.StaticUtil.modLoc;
 
+import net.minecraft.item.Item.Properties;
+
 public class SummonFoliotTraderItem extends Item {
 
     //region Initialization
@@ -47,13 +49,13 @@ public class SummonFoliotTraderItem extends Item {
 
     //region Overrides
     @Override
-    public ActionResultType onItemUse(ItemUseContext context) {
-        if (!context.getWorld().isRemote) {
-            FoliotEntity spirit = OccultismEntities.FOLIOT.get().create(context.getWorld());
-            spirit.onInitialSpawn((ServerWorld) context.getWorld(), context.getWorld().getDifficultyForLocation(context.getPos()),
+    public ActionResultType useOn(ItemUseContext context) {
+        if (!context.getLevel().isClientSide) {
+            FoliotEntity spirit = OccultismEntities.FOLIOT.get().create(context.getLevel());
+            spirit.finalizeSpawn((ServerWorld) context.getLevel(), context.getLevel().getCurrentDifficultyAt(context.getClickedPos()),
                     SpawnReason.SPAWN_EGG, null, null);
-            spirit.setTamedBy(context.getPlayer());
-            spirit.setPosition(context.getPos().getX(), context.getPos().getY() + 1.0f, context.getPos().getZ());
+            spirit.tame(context.getPlayer());
+            spirit.setPos(context.getClickedPos().getX(), context.getClickedPos().getY() + 1.0f, context.getClickedPos().getZ());
             spirit.setCustomName(new StringTextComponent("Testspirit Trader"));
 
             //set up the job
@@ -63,10 +65,10 @@ public class SummonFoliotTraderItem extends Item {
             spirit.setJob(trader);
 
             //notify players nearby and spawn
-            for (ServerPlayerEntity player : context.getWorld().getEntitiesWithinAABB(ServerPlayerEntity.class,
-                    spirit.getBoundingBox().grow(50)))
+            for (ServerPlayerEntity player : context.getLevel().getEntitiesOfClass(ServerPlayerEntity.class,
+                    spirit.getBoundingBox().inflate(50)))
                 CriteriaTriggers.SUMMONED_ENTITY.trigger(player, spirit);
-            context.getWorld().addEntity(spirit);
+            context.getLevel().addFreshEntity(spirit);
         }
         return ActionResultType.SUCCESS;
     }

@@ -114,7 +114,7 @@ public class StorageControllerItemStackHandler extends ItemStackHandler {
                 CompoundNBT itemTag = new CompoundNBT();
                 ItemStack stack = this.stacks.get(i);
                 itemTag.putInt("Slot", i);
-                stack.write(itemTag);
+                stack.save(itemTag);
                 itemTag.putInt("RealSize", stack.getCount());
                 nbtTagList.add(itemTag);
             }
@@ -134,7 +134,7 @@ public class StorageControllerItemStackHandler extends ItemStackHandler {
             int slot = itemTags.getInt("Slot");
 
             if (slot >= 0 && slot < this.stacks.size()) {
-                ItemStack stack = ItemStack.read(itemTags);
+                ItemStack stack = ItemStack.of(itemTags);
                 stack.setCount(itemTags.getInt("RealSize"));
                 this.stacks.set(slot, stack);
             }

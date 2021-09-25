@@ -32,6 +32,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
+import net.minecraft.item.Item.Properties;
+
 public class ButcherKnifeItem extends SwordItem {
     //region Initialization
 

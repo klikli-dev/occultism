@@ -37,14 +37,14 @@ public class PossessedEndermiteEntity extends EndermiteEntity {
 
     //region Overrides
     @Override
-    protected boolean isDespawnPeaceful() {
+    protected boolean shouldDespawnInPeaceful() {
         return false;
     }
     //endregion Overrides
 
     //region Static Methods
     public static AttributeModifierMap.MutableAttribute registerAttributes() {
-        return EndermiteEntity.func_234288_m_(); //=registerAttributes
+        return EndermiteEntity.createAttributes(); //=registerAttributes
     }
     //endregion Static Methods
 }

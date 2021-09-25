@@ -57,39 +57,41 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
+import net.minecraft.block.AbstractBlock.Properties;
+
 public class SpiritFireBlock extends Block {
     //region Initialization
     public SpiritFireBlock(Properties properties) {
         super(properties);
-        this.setDefaultState(this.getStateContainer().getBaseState().with(FireBlock.AGE, 0));
+        this.registerDefaultState(this.getStateDefinition().any().setValue(FireBlock.AGE, 0));
     }
     //endregion Initialization
 
     //region Overrides
     @Override
-    public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn,
+    public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn,
                                           BlockPos currentPos, BlockPos facingPos) {
-        return this.isValidPosition(stateIn, worldIn, currentPos) ?
-                       this.getDefaultState().with(FireBlock.AGE, stateIn.get(FireBlock.AGE)) :
-                       Blocks.AIR.getDefaultState();
+        return this.canSurvive(stateIn, worldIn, currentPos) ?
+                       this.defaultBlockState().setValue(FireBlock.AGE, stateIn.getValue(FireBlock.AGE)) :
+                       Blocks.AIR.defaultBlockState();
     }
 
     @Override
-    public void onBlockAdded(BlockState state, World worldIn, BlockPos pos, BlockState oldState, boolean isMoving) {
+    public void onPlace(BlockState state, World worldIn, BlockPos pos, BlockState oldState, boolean isMoving) {
         if (oldState.getBlock() != state.getBlock()) {
-            if (!state.isValidPosition(worldIn, pos)) {
+            if (!state.canSurvive(worldIn, pos)) {
                 worldIn.removeBlock(pos, false);
             }
             else {
-                worldIn.getPendingBlockTicks().scheduleTick(pos, this, getTickCooldown(worldIn.rand));
+                worldIn.getBlockTicks().scheduleTick(pos, this, getTickCooldown(worldIn.random));
             }
         }
     }
 
     @Override
-    public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
-        BlockPos blockpos = pos.down();
-        return worldIn.getBlockState(blockpos).isSolidSide(worldIn, blockpos, Direction.UP) ||
+    public boolean canSurvive(BlockState state, IWorldReader worldIn, BlockPos pos) {
+        BlockPos blockpos = pos.below();
+        return worldIn.getBlockState(blockpos).isFaceSturdy(worldIn, blockpos, Direction.UP) ||
                this.areNeighborsFlammable(worldIn, pos);
     }
 
@@ -100,26 +102,26 @@ public class SpiritFireBlock extends Block {
 
     @Override
     public void tick(BlockState state, ServerWorld worldIn, BlockPos pos, Random rand) {
-        worldIn.getPendingBlockTicks().scheduleTick(pos, this, getTickCooldown(worldIn.rand));
+        worldIn.getBlockTicks().scheduleTick(pos, this, getTickCooldown(worldIn.random));
         //TODO: Test if spiritfire works, if there are issues, update tick based on vanilla FireBlock
         if (!worldIn.isAreaLoaded(pos, 2)) {
             return;
         }
 
-        if (!state.isValidPosition(worldIn, pos)) {
+        if (!state.canSurvive(worldIn, pos)) {
             worldIn.removeBlock(pos, false);
         }
 
         //Call conversion
-        if (!worldIn.isRemote) {
+        if (!worldIn.isClientSide) {
             this.convertItems(worldIn, pos, state);
         }
 
         //copied from fire, minus spreading logic
-        Block block = worldIn.getBlockState(pos.down()).getBlock();
-        BlockState other = worldIn.getBlockState(pos.down());
-        boolean isOnFireSource = other.isFireSource(worldIn, pos.down(), Direction.UP);
-        int i = state.get(FireBlock.AGE);
+        Block block = worldIn.getBlockState(pos.below()).getBlock();
+        BlockState other = worldIn.getBlockState(pos.below());
+        boolean isOnFireSource = other.isFireSource(worldIn, pos.below(), Direction.UP);
+        int i = state.getValue(FireBlock.AGE);
         if (!isOnFireSource && worldIn.isRaining() && this.canDie(worldIn, pos) &&
             rand.nextFloat() < 0.2F + (float) i * 0.03F) {
             worldIn.removeBlock(pos, false);
@@ -127,22 +129,22 @@ public class SpiritFireBlock extends Block {
         else {
             int j = Math.min(15, i + rand.nextInt(3) / 2);
             if (i != j) {
-                state = state.with(FireBlock.AGE, j);
-                worldIn.setBlockState(pos, state, 4);
+                state = state.setValue(FireBlock.AGE, j);
+                worldIn.setBlock(pos, state, 4);
             }
 
             if (!isOnFireSource) {
-                worldIn.getPendingBlockTicks().scheduleTick(pos, this, getTickCooldown(worldIn.rand));
+                worldIn.getBlockTicks().scheduleTick(pos, this, getTickCooldown(worldIn.random));
                 if (!this.areNeighborsFlammable(worldIn, pos)) {
-                    BlockPos blockpos = pos.down();
-                    if (!worldIn.getBlockState(blockpos).isSolidSide(worldIn, blockpos, Direction.UP) || i > 3) {
+                    BlockPos blockpos = pos.below();
+                    if (!worldIn.getBlockState(blockpos).isFaceSturdy(worldIn, blockpos, Direction.UP) || i > 3) {
                         worldIn.removeBlock(pos, false);
                     }
 
                     return;
                 }
 
-                if (i == 15 && rand.nextInt(4) == 0 && !this.canCatchFire(worldIn, pos.down(), Direction.UP)) {
+                if (i == 15 && rand.nextInt(4) == 0 && !this.canCatchFire(worldIn, pos.below(), Direction.UP)) {
                     worldIn.removeBlock(pos, false);
                     return;
                 }
@@ -153,15 +155,15 @@ public class SpiritFireBlock extends Block {
     @OnlyIn(Dist.CLIENT)
     public void animateTick(BlockState stateIn, World worldIn, BlockPos pos, Random rand) {
         if (rand.nextInt(24) == 0) {
-            worldIn.playSound((double) ((float) pos.getX() + 0.5F), (double) ((float) pos.getY() + 0.5F),
-                    (double) ((float) pos.getZ() + 0.5F), SoundEvents.BLOCK_FIRE_AMBIENT, SoundCategory.BLOCKS,
+            worldIn.playLocalSound((double) ((float) pos.getX() + 0.5F), (double) ((float) pos.getY() + 0.5F),
+                    (double) ((float) pos.getZ() + 0.5F), SoundEvents.FIRE_AMBIENT, SoundCategory.BLOCKS,
                     1.0F + rand.nextFloat(), rand.nextFloat() * 0.7F + 0.3F, false);
         }
 
-        BlockPos blockpos = pos.down();
+        BlockPos blockpos = pos.below();
         BlockState blockstate = worldIn.getBlockState(blockpos);
         if (!this.canCatchFire(worldIn, blockpos, Direction.UP) &&
-            !Block.hasSolidSideOnTop(worldIn, blockpos)) {
+            !Block.canSupportRigidBlock(worldIn, blockpos)) {
             if (this.canCatchFire(worldIn, blockpos.west(), Direction.EAST)) {
                 for (int j = 0; j < 2; ++j) {
                     double d3 = (double) pos.getX() + rand.nextDouble() * (double) 0.1F;
@@ -198,7 +200,7 @@ public class SpiritFireBlock extends Block {
                 }
             }
 
-            if (this.canCatchFire(worldIn, pos.up(), Direction.DOWN)) {
+            if (this.canCatchFire(worldIn, pos.above(), Direction.DOWN)) {
                 for (int j1 = 0; j1 < 2; ++j1) {
                     double d7 = (double) pos.getX() + rand.nextDouble();
                     double d12 = (double) (pos.getY() + 1) - rand.nextDouble() * (double) 0.1F;
@@ -219,9 +221,9 @@ public class SpiritFireBlock extends Block {
     }
 
     @Override
-    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
         builder.add(FireBlock.AGE);
-        super.fillStateContainer(builder);
+        super.createBlockStateDefinition(builder);
     }
     //endregion Overrides
 
@@ -238,22 +240,22 @@ public class SpiritFireBlock extends Block {
 
     protected void convertItems(World world, BlockPos pos, BlockState state) {
         Vector3d center = Math3DUtil.center(pos);
-        AxisAlignedBB box = new AxisAlignedBB(-0.5, -0.5, -0.5, 0.5, 0.5, 0.5).offset(center);
-        List<ItemEntity> list = world.getEntitiesWithinAABB(ItemEntity.class, box);
+        AxisAlignedBB box = new AxisAlignedBB(-0.5, -0.5, -0.5, 0.5, 0.5, 0.5).move(center);
+        List<ItemEntity> list = world.getEntitiesOfClass(ItemEntity.class, box);
         ItemStackFakeInventory fakeInventory =
                 new ItemStackFakeInventory(ItemStack.EMPTY);
         boolean convertedAnyItem = false;
         for (ItemEntity item : list) {
-            fakeInventory.setInventorySlotContents(0, item.getItem());
+            fakeInventory.setItem(0, item.getItem());
             Optional<SpiritFireRecipe> recipe =
-                    world.getRecipeManager().getRecipe(OccultismRecipes.SPIRIT_FIRE_TYPE.get(), fakeInventory, world);
+                    world.getRecipeManager().getRecipeFor(OccultismRecipes.SPIRIT_FIRE_TYPE.get(), fakeInventory, world);
 
             if (recipe.isPresent()) {
                 convertedAnyItem = true;
                 item.remove();
 
-                ItemStack result = recipe.get().getCraftingResult(fakeInventory);
-                InventoryHelper.spawnItemStack(world, center.x, center.y + 0.5, center.z, result);
+                ItemStack result = recipe.get().assemble(fakeInventory);
+                InventoryHelper.dropItemStack(world, center.x, center.y + 0.5, center.z, result);
             }
         }
         if (convertedAnyItem) {
@@ -267,15 +269,15 @@ public class SpiritFireBlock extends Block {
     }
 
     private int getNeighborEncouragement(IWorldReader worldIn, BlockPos pos) {
-        if (!worldIn.isAirBlock(pos)) {
+        if (!worldIn.isEmptyBlock(pos)) {
             return 0;
         }
         else {
             int i = 0;
 
             for (Direction direction : Direction.values()) {
-                BlockState blockstate = worldIn.getBlockState(pos.offset(direction));
-                i = Math.max(blockstate.getFlammability(worldIn, pos.offset(direction), direction.getOpposite()), i);
+                BlockState blockstate = worldIn.getBlockState(pos.relative(direction));
+                i = Math.max(blockstate.getFlammability(worldIn, pos.relative(direction), direction.getOpposite()), i);
             }
 
             return i;
@@ -284,7 +286,7 @@ public class SpiritFireBlock extends Block {
 
     private boolean areNeighborsFlammable(IBlockReader worldIn, BlockPos pos) {
         for (Direction direction : Direction.values()) {
-            if (this.canCatchFire(worldIn, pos.offset(direction), direction.getOpposite())) {
+            if (this.canCatchFire(worldIn, pos.relative(direction), direction.getOpposite())) {
                 return true;
             }
         }

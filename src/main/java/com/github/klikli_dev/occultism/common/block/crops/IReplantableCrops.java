@@ -53,10 +53,10 @@ public interface IReplantableCrops {
     //endregion Getter / Setter
     //region Methods
     default ActionResultType onHarvest(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand) {
-        if (!world.isRemote) {
-            if (state.get(CropsBlock.AGE) >= 7) {
+        if (!world.isClientSide) {
+            if (state.getValue(CropsBlock.AGE) >= 7) {
                 List<ItemStack> drops = Block.getDrops(state, (ServerWorld) world, pos, null, player,
-                        player.getHeldItem(hand));
+                        player.getItemInHand(hand));
 
                 // From 1.15 -> does not exist any more and I guess we don't need it.
                 //                ForgeEventFactory.fireBlockHarvesting(
@@ -64,13 +64,13 @@ public interface IReplantableCrops {
                 //                        0, 1.0F, false, player);
 
                 //reset crop
-                world.setBlockState(pos, state.with(CropsBlock.AGE, 0));
+                world.setBlockAndUpdate(pos, state.setValue(CropsBlock.AGE, 0));
                 for (ItemStack stack : drops) {
-                    InventoryHelper.spawnItemStack(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, stack);
+                    InventoryHelper.dropItemStack(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, stack);
                 }
 
-                player.swingArm(hand);
-                player.addExhaustion(EXHAUSTION_PER_HARVEST);
+                player.swing(hand);
+                player.causeFoodExhaustion(EXHAUSTION_PER_HARVEST);
 
                 return ActionResultType.SUCCESS;
             }

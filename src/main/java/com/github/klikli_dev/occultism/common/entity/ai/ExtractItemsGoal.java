@@ -43,6 +43,8 @@ import net.minecraftforge.items.ItemHandlerHelper;
 import java.util.EnumSet;
 import java.util.Optional;
 
+import net.minecraft.entity.ai.goal.Goal.Flag;
+
 public class ExtractItemsGoal extends PausableGoal {
     //region Fields
     protected final SpiritEntity entity;
@@ -54,7 +56,7 @@ public class ExtractItemsGoal extends PausableGoal {
     public ExtractItemsGoal(SpiritEntity entity) {
         this.entity = entity;
         this.targetSorter = new BlockSorter(entity);
-        this.setMutexFlags(EnumSet.of(Flag.TARGET));
+        this.setFlags(EnumSet.of(Flag.TARGET));
     }
     //endregion Initialization
 
@@ -64,21 +66,21 @@ public class ExtractItemsGoal extends PausableGoal {
      * @return the position to move to to take from the target block.
      */
     private BlockPos getMoveTarget() {
-        double angle = Math3DUtil.yaw(this.entity.getPositionVec(), Math3DUtil.center(this.targetBlock));
-        return this.targetBlock.offset(Direction.fromAngle(angle).getOpposite());
+        double angle = Math3DUtil.yaw(this.entity.position(), Math3DUtil.center(this.targetBlock));
+        return this.targetBlock.relative(Direction.fromYRot(angle).getOpposite());
     }
     //endregion Getter / Setter
 
     //region Overrides
     @Override
-    public boolean shouldExecute() {
+    public boolean canUse() {
         //do not use if there is a target to attack
-        if (this.entity.getAttackTarget() != null) {
+        if (this.entity.getTarget() != null) {
             return false;
         }
 
         //hand already full, cannot pick up anythings
-        if (!this.entity.getHeldItem(Hand.MAIN_HAND).isEmpty()) {
+        if (!this.entity.getItemInHand(Hand.MAIN_HAND).isEmpty()) {
             return false;
         }
         this.resetTarget();
@@ -86,25 +88,25 @@ public class ExtractItemsGoal extends PausableGoal {
     }
 
     @Override
-    public boolean shouldContinueExecuting() {
-        return !this.isPaused() && this.targetBlock != null && !this.entity.getHeldItem(Hand.MAIN_HAND).isEmpty();
+    public boolean canContinueToUse() {
+        return !this.isPaused() && this.targetBlock != null && !this.entity.getItemInHand(Hand.MAIN_HAND).isEmpty();
     }
 
-    public void resetTask() {
-        this.entity.getNavigator().clearPath();
+    public void stop() {
+        this.entity.getNavigation().stop();
         this.resetTarget();
     }
 
     @Override
     public void tick() {
         if (this.targetBlock != null) {
-            if (this.entity.world.getTileEntity(this.targetBlock) != null) {
-                TileEntity tileEntity = this.entity.world.getTileEntity(this.targetBlock);
+            if (this.entity.level.getBlockEntity(this.targetBlock) != null) {
+                TileEntity tileEntity = this.entity.level.getBlockEntity(this.targetBlock);
 
                 float accessDistance = 1.86f;
 
                 //when approaching a chest, open it visually
-                double distance = this.entity.getPositionVec().distanceTo(Math3DUtil.center(this.targetBlock));
+                double distance = this.entity.position().distanceTo(Math3DUtil.center(this.targetBlock));
 
                 //briefly before reaching the target, open chest, if it is one.
                 if (distance < 2.5 && distance >= accessDistance && this.canSeeTarget() &&
@@ -114,12 +116,12 @@ public class ExtractItemsGoal extends PausableGoal {
 
                 if (distance < accessDistance) {
                     //stop moving while taking out
-                    this.entity.getNavigator().clearPath();
+                    this.entity.getNavigation().stop();
                 }
                 else {
                     //continue moving
                     BlockPos moveTarget = this.getMoveTarget();
-                    this.entity.getNavigator().setPath(this.entity.getNavigator().getPathToPos(moveTarget, 0), 1.0f);
+                    this.entity.getNavigation().moveTo(this.entity.getNavigation().createPath(moveTarget, 0), 1.0f);
                 }
 
                 //when close enough extract item
@@ -168,16 +170,16 @@ public class ExtractItemsGoal extends PausableGoal {
     //region Methods
     public boolean canSeeTarget() {
 
-        RayTraceContext context = new RayTraceContext(this.entity.getPositionVec(),
+        RayTraceContext context = new RayTraceContext(this.entity.position(),
                 Math3DUtil.center(this.targetBlock), RayTraceContext.BlockMode.COLLIDER, RayTraceContext.FluidMode.NONE,
                 this.entity);
-        BlockRayTraceResult result = this.entity.world.rayTraceBlocks(context);
+        BlockRayTraceResult result = this.entity.level.clip(context);
 
         if (result.getType() != BlockRayTraceResult.Type.MISS) {
-            BlockPos sidePos = result.getPos();
-            BlockPos pos = new BlockPos(result.getHitVec());
-            return this.entity.world.isAirBlock(sidePos) || this.entity.world.isAirBlock(pos) ||
-                   this.entity.world.getTileEntity(pos) == this.entity.world.getTileEntity(this.targetBlock);
+            BlockPos sidePos = result.getBlockPos();
+            BlockPos pos = new BlockPos(result.getLocation());
+            return this.entity.level.isEmptyBlock(sidePos) || this.entity.level.isEmptyBlock(pos) ||
+                   this.entity.level.getBlockEntity(pos) == this.entity.level.getBlockEntity(this.targetBlock);
         }
 
         return true;
@@ -193,10 +195,10 @@ public class ExtractItemsGoal extends PausableGoal {
         if (tileEntity instanceof ChestTileEntity) {
             ChestTileEntity chest = (ChestTileEntity) tileEntity;
             if (open) {
-                this.entity.world.addBlockEvent(this.targetBlock, chest.getBlockState().getBlock(), 1, 1);
+                this.entity.level.blockEvent(this.targetBlock, chest.getBlockState().getBlock(), 1, 1);
             }
             else {
-                this.entity.world.addBlockEvent(this.targetBlock, chest.getBlockState().getBlock(), 1, 0);
+                this.entity.level.blockEvent(this.targetBlock, chest.getBlockState().getBlock(), 1, 0);
             }
         }
     }
@@ -205,7 +207,7 @@ public class ExtractItemsGoal extends PausableGoal {
         Optional<BlockPos> targetPos = this.entity.getExtractPosition();
         targetPos.ifPresent((pos) -> {
             this.targetBlock = pos;
-            TileEntity tileEntity = this.entity.world.getTileEntity(this.targetBlock);
+            TileEntity tileEntity = this.entity.level.getBlockEntity(this.targetBlock);
             if (tileEntity == null ||
                 !tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, this.entity.getExtractFacing())
                          .isPresent()) {

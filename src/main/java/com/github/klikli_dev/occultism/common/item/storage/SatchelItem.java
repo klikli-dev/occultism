@@ -44,6 +44,8 @@ import net.minecraftforge.fml.network.NetworkHooks;
 import javax.annotation.Nullable;
 import java.util.List;
 
+import net.minecraft.item.Item.Properties;
+
 public class SatchelItem extends Item {
     //region Initialization
     public SatchelItem(Properties properties) {
@@ -53,18 +55,18 @@ public class SatchelItem extends Item {
 
     //region Overrides
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, Hand hand) {
-        final ItemStack stack = player.getHeldItem(hand);
+    public ActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
+        final ItemStack stack = player.getItemInHand(hand);
 
-        if (!world.isRemote && player instanceof ServerPlayerEntity) {
+        if (!world.isClientSide && player instanceof ServerPlayerEntity) {
             //here we use main hand item as selected slot
-            int selectedSlot = hand == Hand.MAIN_HAND ? player.inventory.currentItem : -1;
+            int selectedSlot = hand == Hand.MAIN_HAND ? player.inventory.selected : -1;
 
             NetworkHooks.openGui((ServerPlayerEntity) player,
                     new SimpleNamedContainerProvider((id, playerInventory, unused) -> {
                         return new SatchelContainer(id, playerInventory,
                                 this.getInventory((ServerPlayerEntity) player, stack), selectedSlot);
-                    }, stack.getDisplayName()), buffer -> {
+                    }, stack.getHoverName()), buffer -> {
                         buffer.writeVarInt(selectedSlot);
                     });
         }
@@ -72,10 +74,10 @@ public class SatchelItem extends Item {
         return new ActionResult<>(ActionResultType.SUCCESS, stack);
     }
     @Override
-    public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip,
+    public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip,
                                ITooltipFlag flagIn) {
-        super.addInformation(stack, worldIn, tooltip, flagIn);
-        tooltip.add(new TranslationTextComponent(this.getTranslationKey() + ".tooltip",
+        super.appendHoverText(stack, worldIn, tooltip, flagIn);
+        tooltip.add(new TranslationTextComponent(this.getDescriptionId() + ".tooltip",
                 TextUtil.formatDemonName(ItemNBTUtil.getBoundSpiritName(stack))));
     }
 

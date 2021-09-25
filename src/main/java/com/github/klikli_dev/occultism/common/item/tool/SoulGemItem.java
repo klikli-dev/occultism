@@ -45,6 +45,8 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 import java.util.List;
 
+import net.minecraft.item.Item.Properties;
+
 public class SoulGemItem extends Item {
     //region Initialization
     public SoulGemItem(Properties properties) {
@@ -54,15 +56,15 @@ public class SoulGemItem extends Item {
 
     //region Overrides
     @Override
-    public ActionResultType onItemUse(ItemUseContext context) {
+    public ActionResultType useOn(ItemUseContext context) {
         PlayerEntity player = context.getPlayer();
-        ItemStack itemStack = context.getItem();
-        World world = context.getWorld();
-        Direction facing = context.getFace();
-        BlockPos pos = context.getPos();
+        ItemStack itemStack = context.getItemInHand();
+        World world = context.getLevel();
+        Direction facing = context.getClickedFace();
+        BlockPos pos = context.getClickedPos();
         if (itemStack.getOrCreateTag().contains("entityData")) {
             //whenever we have an entity stored we can do nothing but release it
-            if (!world.isRemote) {
+            if (!world.isClientSide) {
                 CompoundNBT entityData = itemStack.getTag().getCompound("entityData");
                 itemStack.getTag()
                         .remove("entityData"); //delete entity from item right away to avoid duplicate in case of unexpected error
@@ -71,14 +73,14 @@ public class SoulGemItem extends Item {
 
                 facing = facing == null ? Direction.UP : facing;
 
-                BlockPos spawnPos = pos.toImmutable();
-                if (!world.getBlockState(spawnPos).getCollisionShape(world, spawnPos).isEmpty()) {
-                    spawnPos = spawnPos.offset(facing);
+                BlockPos spawnPos = pos.immutable();
+                if (!world.getBlockState(spawnPos).getBlockSupportShape(world, spawnPos).isEmpty()) {
+                    spawnPos = spawnPos.relative(facing);
                 }
 
                 ITextComponent customName = null;
                 if (entityData.contains("CustomName")) {
-                    customName = ITextComponent.Serializer.getComponentFromJson(entityData.getString("CustomName"));
+                    customName = ITextComponent.Serializer.fromJson(entityData.getString("CustomName"));
                 }
 
                 //remove position from tag to allow the entity to spawn where it should be
@@ -89,9 +91,9 @@ public class SoulGemItem extends Item {
                 wrapper.put("EntityTag", entityData);
 
                 Entity entity = type.create(world);
-                entity.read(entityData);
-                entity.setPositionAndRotation(spawnPos.getX() + 0.5, spawnPos.getY(), spawnPos.getZ() + 0.5, 0, 0);
-                world.addEntity(entity);
+                entity.load(entityData);
+                entity.absMoveTo(spawnPos.getX() + 0.5, spawnPos.getY(), spawnPos.getZ() + 0.5, 0, 0);
+                world.addFreshEntity(entity);
 
                 // old spawn cde:
                 //                Entity entity = type.spawn((ServerWorld) world, wrapper, customName, null, spawnPos,
@@ -106,8 +108,8 @@ public class SoulGemItem extends Item {
                 //                    }
                 //                }
 
-                player.swingArm(context.getHand());
-                player.container.detectAndSendChanges();
+                player.swing(context.getHand());
+                player.inventoryMenu.broadcastChanges();
             }
             return ActionResultType.SUCCESS;
         }
@@ -115,15 +117,15 @@ public class SoulGemItem extends Item {
     }
 
     @Override
-    public ActionResultType itemInteractionForEntity(ItemStack stack, PlayerEntity player, LivingEntity target,
+    public ActionResultType interactLivingEntity(ItemStack stack, PlayerEntity player, LivingEntity target,
                                                      Hand hand) {
         //This is called from PlayerEventHandler#onPlayerRightClickEntity, because we need to bypass sitting entities processInteraction
-        if (target.world.isRemote)
+        if (target.level.isClientSide)
             return ActionResultType.PASS;
 
         //Do not allow bosses or players.
         //canChangeDimension used to be isNonBoss
-        if (!target.canChangeDimension() || target instanceof PlayerEntity)
+        if (!target.canChangeDimensions() || target instanceof PlayerEntity)
             return ActionResultType.FAIL;
 
         //Already got an entity in there.
@@ -131,40 +133,40 @@ public class SoulGemItem extends Item {
             return ActionResultType.FAIL;
 
         //do not capture entities on deny lists
-        if (Occultism.SERVER_CONFIG.itemSettings.soulgemEntityTypeDenyList.get().contains(target.getEntityString())) {
+        if (Occultism.SERVER_CONFIG.itemSettings.soulgemEntityTypeDenyList.get().contains(target.getEncodeId())) {
             player.sendMessage(
-                    new TranslationTextComponent(this.getTranslationKey() + ".message.entity_type_denied"),
-                    Util.DUMMY_UUID);
+                    new TranslationTextComponent(this.getDescriptionId() + ".message.entity_type_denied"),
+                    Util.NIL_UUID);
             return ActionResultType.FAIL;
         }
 
         //serialize entity
         stack.getTag().put("entityData", target.serializeNBT());
         //show player swing anim
-        player.swingArm(hand);
-        player.setHeldItem(hand, stack); //need to write the item back to hand, otherwise we only modify a copy
+        player.swing(hand);
+        player.setItemInHand(hand, stack); //need to write the item back to hand, otherwise we only modify a copy
         target.remove(true);
-        player.container.detectAndSendChanges();
+        player.inventoryMenu.broadcastChanges();
         return ActionResultType.SUCCESS;
     }
 
     @Override
-    public String getTranslationKey(ItemStack stack) {
-        return stack.getOrCreateTag().contains("entityData") ? this.getTranslationKey() :
-                       this.getTranslationKey() + "_empty";
+    public String getDescriptionId(ItemStack stack) {
+        return stack.getOrCreateTag().contains("entityData") ? this.getDescriptionId() :
+                       this.getDescriptionId() + "_empty";
     }
 
     @Override
-    public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip,
+    public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip,
                                ITooltipFlag flagIn) {
-        super.addInformation(stack, worldIn, tooltip, flagIn);
+        super.appendHoverText(stack, worldIn, tooltip, flagIn);
 
         if (stack.getOrCreateTag().contains("entityData")) {
             EntityType<?> type = EntityUtil.entityTypeFromNbt(stack.getTag().getCompound("entityData"));
-            tooltip.add(new TranslationTextComponent(this.getTranslationKey() + ".tooltip_filled", type.getName()));
+            tooltip.add(new TranslationTextComponent(this.getDescriptionId() + ".tooltip_filled", type.getDescription()));
         }
         else {
-            tooltip.add(new TranslationTextComponent(this.getTranslationKey() + ".tooltip_empty"));
+            tooltip.add(new TranslationTextComponent(this.getDescriptionId() + ".tooltip_empty"));
         }
     }
     //endregion Overrides

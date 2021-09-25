@@ -105,7 +105,7 @@ public class LumberjackJob extends SpiritJob {
         CompoundNBT compound = super.serializeNBT();
         ListNBT list = new ListNBT();
         for(BlockPos ignoredTree : this.ignoredTrees){
-            list.add(LongNBT.valueOf(ignoredTree.toLong()));
+            list.add(LongNBT.valueOf(ignoredTree.asLong()));
         }
         compound.put("ignoredTrees", list);
         return compound;
@@ -119,7 +119,7 @@ public class LumberjackJob extends SpiritJob {
         if(nbt.contains("ignoredTrees")){
             ListNBT list = nbt.getList("ignoredTrees", Constants.NBT.TAG_LIST);
             for(int i = 0; i < list.size(); i++){
-                this.ignoredTrees.add(BlockPos.fromLong(((LongNBT)list.get(i)).getLong()));
+                this.ignoredTrees.add(BlockPos.of(((LongNBT)list.get(i)).getAsLong()));
             }
         }
     }

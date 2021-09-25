@@ -51,21 +51,21 @@ public class AfritWildEntity extends AfritEntity {
 
     //region Overrides
     @Override
-    public ILivingEntityData onInitialSpawn(IServerWorld world, DifficultyInstance difficultyIn, SpawnReason reason,
+    public ILivingEntityData finalizeSpawn(IServerWorld world, DifficultyInstance difficultyIn, SpawnReason reason,
                                             @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
         int maxBlazes = 3 + world.getRandom().nextInt(6);
 
         for (int i = 0; i < maxBlazes; i++) {
-            BlazeEntity entity = EntityType.BLAZE.create(this.world);
-            entity.onInitialSpawn(world, difficultyIn, reason, spawnDataIn, dataTag);
+            BlazeEntity entity = EntityType.BLAZE.create(this.level);
+            entity.finalizeSpawn(world, difficultyIn, reason, spawnDataIn, dataTag);
             double offsetX = world.getRandom().nextGaussian() * (1 + world.getRandom().nextInt(4));
             double offsetZ = world.getRandom().nextGaussian() * (1 + world.getRandom().nextInt(4));
-            entity.setPositionAndRotation(this.getPosX() + offsetX, this.getPosY() + 1.5, this.getPosZ() + offsetZ,
+            entity.absMoveTo(this.getX() + offsetX, this.getY() + 1.5, this.getZ() + offsetZ,
                     world.getRandom().nextInt(360), 0);
-            world.addEntity(entity);
+            world.addFreshEntity(entity);
         }
 
-        return super.onInitialSpawn(world, difficultyIn, reason, spawnDataIn, dataTag);
+        return super.finalizeSpawn(world, difficultyIn, reason, spawnDataIn, dataTag);
     }
 
     @Override
@@ -77,21 +77,21 @@ public class AfritWildEntity extends AfritEntity {
         this.goalSelector.addGoal(8, new LookRandomlyGoal(this));
         this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.0D, false));
         this.goalSelector.addGoal(7, new WaterAvoidingRandomWalkingGoal(this, 1.0D));
-        this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setCallsForHelp(BlazeEntity.class));
+        this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers(BlazeEntity.class));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
     }
 
     @Override
     public boolean isInvulnerableTo(DamageSource source) {
-        if (source.isFireDamage())
+        if (source.isFire())
             return true;
         ITag<EntityType<?>> alliesTags = OccultismTags.AFRIT_ALLIES;
 
-        Entity trueSource = source.getTrueSource();
+        Entity trueSource = source.getEntity();
         if (trueSource != null && alliesTags.contains(trueSource.getType()))
             return true;
 
-        Entity immediateSource = source.getImmediateSource();
+        Entity immediateSource = source.getDirectEntity();
         if (immediateSource != null && alliesTags.contains(immediateSource.getType()))
             return true;
 

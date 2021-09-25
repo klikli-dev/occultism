@@ -65,7 +65,7 @@ public class PentacleProvider implements IDataProvider {
     }
 
     @Override
-    public void act(DirectoryCache cache) throws IOException {
+    public void run(DirectoryCache cache) throws IOException {
         Path folder = generator.getOutputFolder();
         start();
 

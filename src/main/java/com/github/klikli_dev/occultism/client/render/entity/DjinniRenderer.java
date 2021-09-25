@@ -45,13 +45,13 @@ public class DjinniRenderer extends BipedSpiritRenderer<DjinniEntity, DjinniMode
     //region Overrides
 
     @Override
-    public ResourceLocation getEntityTexture(DjinniEntity entity) {
-        return TEXTURES[entity.getDataManager().get(entity.getDataParameterSkin())];
+    public ResourceLocation getTextureLocation(DjinniEntity entity) {
+        return TEXTURES[entity.getEntityData().get(entity.getDataParameterSkin())];
     }
 
     @Override
-    protected void preRenderCallback(DjinniEntity entity, MatrixStack matrixStackIn, float partialTickTime) {
-        super.preRenderCallback(entity, matrixStackIn, partialTickTime);
+    protected void scale(DjinniEntity entity, MatrixStack matrixStackIn, float partialTickTime) {
+        super.scale(entity, matrixStackIn, partialTickTime);
         matrixStackIn.scale(0.6f, 0.6f, 0.6f);
     }
     //endregion Overrides

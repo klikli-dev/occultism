@@ -62,7 +62,7 @@ public class MessageToggleFamiliarSettings extends MessageBase {
             for (Entry<EntityType<?>, Boolean> toggle : familiarsPressed.entrySet()) {
                 if (toggle.getValue()) {
                     cap.setFamiliarEnabled(toggle.getKey(), !cap.isFamiliarEnabled(toggle.getKey()));
-                    player.sendStatusMessage(
+                    player.displayClientMessage(
                             new TranslationTextComponent(
                                     "message." + Occultism.MODID + ".familiar." + toggle.getKey().getRegistryName().getPath() +
                                             (cap.isFamiliarEnabled(toggle.getKey()) ? ".enabled" : ".disabled")), true);

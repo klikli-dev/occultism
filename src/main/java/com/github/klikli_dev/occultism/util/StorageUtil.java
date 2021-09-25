@@ -55,8 +55,8 @@ public class StorageUtil {
      * @param sendStackUpdate true to resend the current stacks to the client.
      */
     public static void clearOpenCraftingMatrix(ServerPlayerEntity player, boolean sendStackUpdate) {
-        if (player.openContainer instanceof IStorageControllerContainer) {
-            IStorageControllerContainer container = (IStorageControllerContainer) player.openContainer;
+        if (player.containerMenu instanceof IStorageControllerContainer) {
+            IStorageControllerContainer container = (IStorageControllerContainer) player.containerMenu;
             CraftingInventory craftMatrix = container.getCraftMatrix();
             IStorageController storageController = container.getStorageController();
 
@@ -65,7 +65,7 @@ public class StorageUtil {
             }
 
             for (int i = 0; i < 9; i++) {
-                ItemStack stackInSlot = craftMatrix.getStackInSlot(i);
+                ItemStack stackInSlot = craftMatrix.getItem(i);
                 //ignore already cleared slots
                 if (stackInSlot.isEmpty()) {
                     continue;
@@ -78,16 +78,16 @@ public class StorageUtil {
                     continue;
                 }
                 if (remainingAfterInsert == 0)
-                    craftMatrix.setInventorySlotContents(i, ItemStack.EMPTY);
+                    craftMatrix.setItem(i, ItemStack.EMPTY);
                 else
-                    craftMatrix.setInventorySlotContents(i,
+                    craftMatrix.setItem(i,
                             ItemHandlerHelper.copyStackWithSize(stackInSlot, remainingAfterInsert));
             }
 
             //finally if requested, send the updated storage controller contents to the player.
             if (sendStackUpdate) {
                 OccultismPackets.sendTo(player, storageController.getMessageUpdateStacks());
-                ((Container) container).detectAndSendChanges();
+                ((Container) container).broadcastChanges();
             }
         }
     }
@@ -99,8 +99,8 @@ public class StorageUtil {
      * @param sendStackUpdate true to resend the current stacks to the client.
      */
     public static void clearOpenOrderSlot(ServerPlayerEntity player, boolean sendStackUpdate) {
-        if (player.openContainer instanceof IStorageControllerContainer) {
-            IStorageControllerContainer container = (IStorageControllerContainer) player.openContainer;
+        if (player.containerMenu instanceof IStorageControllerContainer) {
+            IStorageControllerContainer container = (IStorageControllerContainer) player.containerMenu;
             Inventory orderSlot = container.getOrderSlot();
             IStorageController storageController = container.getStorageController();
 
@@ -108,16 +108,16 @@ public class StorageUtil {
                 return;
             }
 
-            ItemStack stackInSlot = orderSlot.getStackInSlot(0);
+            ItemStack stackInSlot = orderSlot.getItem(0);
             if (!stackInSlot.isEmpty()) {
                 //move items into storage, and if storage is full, keep remainder in crafting matrix
                 int amountBeforeInsert = stackInSlot.getCount();
                 int remainingAfterInsert = storageController.insertStack(stackInSlot.copy(), false);
                 if (amountBeforeInsert != remainingAfterInsert) {
                     if (remainingAfterInsert == 0)
-                        orderSlot.setInventorySlotContents(0, ItemStack.EMPTY);
+                        orderSlot.setItem(0, ItemStack.EMPTY);
                     else
-                        orderSlot.setInventorySlotContents(0,
+                        orderSlot.setItem(0,
                                 ItemHandlerHelper.copyStackWithSize(stackInSlot, remainingAfterInsert));
                 }
             }
@@ -125,7 +125,7 @@ public class StorageUtil {
             //finally if requested, send the updated storage controller contents to the player.
             if (sendStackUpdate) {
                 OccultismPackets.sendTo(player, storageController.getMessageUpdateStacks());
-                ((Container) container).detectAndSendChanges();
+                ((Container) container).broadcastChanges();
             }
         }
     }
@@ -212,7 +212,7 @@ public class StorageUtil {
         for (int i = 0; i < filter.getSlots(); i++) {
             ItemStack filtered = filter.getStackInSlot(i);
 
-            boolean equals = filtered.isItemEqual(stack);
+            boolean equals = filtered.sameItem(stack);
 
             if (equals) {
                 return true;
@@ -250,13 +250,13 @@ public class StorageUtil {
      */
     public static void dropInventoryItems(TileEntity tileEntity) {
         tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(handler -> {
-            dropInventoryItems(tileEntity.getWorld(), tileEntity.getPos(), handler);
+            dropInventoryItems(tileEntity.getLevel(), tileEntity.getBlockPos(), handler);
         });
     }
 
     public static void dropInventoryItems(World worldIn, BlockPos pos, IItemHandler itemHandler) {
         for (int i = 0; i < itemHandler.getSlots(); i++) {
-            InventoryHelper.spawnItemStack(worldIn, pos.getX(), pos.getY(), pos.getZ(), itemHandler.getStackInSlot(i));
+            InventoryHelper.dropItemStack(worldIn, pos.getX(), pos.getY(), pos.getZ(), itemHandler.getStackInSlot(i));
         }
     }
     //endregion Static Methods

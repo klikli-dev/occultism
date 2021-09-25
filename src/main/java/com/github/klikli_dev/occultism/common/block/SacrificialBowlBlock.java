@@ -45,9 +45,11 @@ import net.minecraftforge.items.ItemHandlerHelper;
 
 import javax.annotation.Nullable;
 
+import net.minecraft.block.AbstractBlock.Properties;
+
 public class SacrificialBowlBlock extends Block {
     //region Fields
-    private static final VoxelShape SHAPE = Block.makeCuboidShape(4, 0, 4, 12, 2.3, 12);
+    private static final VoxelShape SHAPE = Block.box(4, 0, 4, 12, 2.3, 12);
     //endregion Fields
 
     //region Initialization
@@ -62,43 +64,43 @@ public class SacrificialBowlBlock extends Block {
         return SHAPE;
     }
 
-    public void onReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
+    public void onRemove(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
         if (state.getBlock() != newState.getBlock()) {
-            TileEntity tile = worldIn.getTileEntity(pos);
+            TileEntity tile = worldIn.getBlockEntity(pos);
             if(tile != null){
                 StorageUtil.dropInventoryItems(tile);
             }
-            super.onReplaced(state, worldIn, pos, newState, isMoving);
+            super.onRemove(state, worldIn, pos, newState, isMoving);
         }
     }
 
     @Override
-    public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player,
+    public ActionResultType use(BlockState state, World world, BlockPos pos, PlayerEntity player,
                                              Hand hand, BlockRayTraceResult hit) {
-        if (!world.isRemote) {
-            ItemStack heldItem = player.getHeldItem(hand);
-            SacrificialBowlTileEntity bowl = (SacrificialBowlTileEntity) world.getTileEntity(pos);
-            bowl.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, hit.getFace()).ifPresent(handler -> {
-                if (!player.isSneaking()) {
+        if (!world.isClientSide) {
+            ItemStack heldItem = player.getItemInHand(hand);
+            SacrificialBowlTileEntity bowl = (SacrificialBowlTileEntity) world.getBlockEntity(pos);
+            bowl.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, hit.getDirection()).ifPresent(handler -> {
+                if (!player.isShiftKeyDown()) {
                     ItemStack itemStack = handler.getStackInSlot(0);
                     if (itemStack.isEmpty()) {
                         //if there is nothing in the bowl, put the hand held item in
-                        player.setHeldItem(hand, handler.insertItem(0, heldItem, false));
-                        world.playSound(null, pos, SoundEvents.ENTITY_ITEM_FRAME_ADD_ITEM, SoundCategory.BLOCKS, 1, 1);
+                        player.setItemInHand(hand, handler.insertItem(0, heldItem, false));
+                        world.playSound(null, pos, SoundEvents.ITEM_FRAME_ADD_ITEM, SoundCategory.BLOCKS, 1, 1);
                     }
                     else {
                         //otherwise take out the item.
                         if (heldItem.isEmpty()) {
                             //place it in the hand if possible
-                            player.setHeldItem(hand, handler.extractItem(0, 64, false));
+                            player.setItemInHand(hand, handler.extractItem(0, 64, false));
                         }
                         else {
                             //and if not, just put it in the inventory
                             ItemHandlerHelper.giveItemToPlayer(player, handler.extractItem(0, 64, false));
                         }
-                        world.playSound(null, pos, SoundEvents.ENTITY_ITEM_FRAME_REMOVE_ITEM, SoundCategory.BLOCKS, 1, 1);
+                        world.playSound(null, pos, SoundEvents.ITEM_FRAME_REMOVE_ITEM, SoundCategory.BLOCKS, 1, 1);
                     }
-                    bowl.markDirty();
+                    bowl.setChanged();
                 }
             });
         }

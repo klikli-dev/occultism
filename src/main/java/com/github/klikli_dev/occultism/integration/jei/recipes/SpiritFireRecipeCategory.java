@@ -51,7 +51,7 @@ public class SpiritFireRecipeCategory implements IRecipeCategory<SpiritFireRecip
     //region Initialization
     public SpiritFireRecipeCategory(IGuiHelper guiHelper) {
         this.background = guiHelper.createBlankDrawable(168, 46); //64
-        this.localizedName = I18n.format(Occultism.MODID + ".jei.spirit_fire");
+        this.localizedName = I18n.get(Occultism.MODID + ".jei.spirit_fire");
         this.overlay = guiHelper.createDrawable(
                 new ResourceLocation(Occultism.MODID, "textures/gui/jei/spirit_fire.png"), 0, 0, 64, 46);
         this.icon = guiHelper.createDrawableIngredient(this.renderStack);
@@ -88,7 +88,7 @@ public class SpiritFireRecipeCategory implements IRecipeCategory<SpiritFireRecip
     @Override
     public void setIngredients(SpiritFireRecipe recipe, IIngredients ingredients) {
         ingredients.setInputIngredients(recipe.getIngredients());
-        ingredients.setOutput(VanillaTypes.ITEM, recipe.getRecipeOutput());
+        ingredients.setOutput(VanillaTypes.ITEM, recipe.getResultItem());
     }
 
     @Override

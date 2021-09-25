@@ -61,7 +61,7 @@ public class MinerRecipeCategory implements IRecipeCategory<MinerRecipe> {
     //region Initialization
     public MinerRecipeCategory(IGuiHelper guiHelper) {
         this.background = guiHelper.createBlankDrawable(168, 46); //64
-        this.localizedName = I18n.format(Occultism.MODID + ".jei.miner");
+        this.localizedName = I18n.get(Occultism.MODID + ".jei.miner");
         this.overlay = guiHelper.createDrawable(
                 new ResourceLocation(Occultism.MODID, "textures/gui/jei/arrow.png"), 0, 0, 64, 46);
     }
@@ -96,17 +96,17 @@ public class MinerRecipeCategory implements IRecipeCategory<MinerRecipe> {
     @Override
     public void setIngredients(MinerRecipe recipe, IIngredients ingredients) {
         ingredients.setInputIngredients(recipe.getIngredients());
-        ingredients.setOutput(VanillaTypes.ITEM, recipe.getRecipeOutput());
+        ingredients.setOutput(VanillaTypes.ITEM, recipe.getResultItem());
 
         //set up a simulated handler to get all possible results
-        World world = Minecraft.getInstance().world;
+        World world = Minecraft.getInstance().level;
         ItemStackHandler simulatedHandler = new ItemStackHandler(1);
-        simulatedHandler.setStackInSlot(0, recipe.getIngredients().get(0).getMatchingStacks()[0]);
+        simulatedHandler.setStackInSlot(0, recipe.getIngredients().get(0).getItems()[0]);
         List<MinerRecipe> recipes = world.getRecipeManager()
-                                            .getRecipes(OccultismRecipes.MINER_TYPE.get(),
+                                            .getRecipesFor(OccultismRecipes.MINER_TYPE.get(),
                                                     new RecipeWrapper(simulatedHandler), world);
         List<WeightedIngredient> possibleResults = recipes.stream().map(MinerRecipe::getWeightedOutput).collect(Collectors.toList());
-        float chance = (float)recipe.getWeightedOutput().itemWeight / (float)WeightedRandom.getTotalWeight(possibleResults) * 100.0F;
+        float chance = (float)recipe.getWeightedOutput().weight / (float)WeightedRandom.getTotalWeight(possibleResults) * 100.0F;
         //reduce to two decimals
         chance = Math.round(chance * 10) / 10.0f;
         this.chances.put(recipe, chance);
@@ -127,13 +127,13 @@ public class MinerRecipeCategory implements IRecipeCategory<MinerRecipe> {
     public void draw(MinerRecipe recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
         RenderSystem.enableBlend();
         this.overlay.draw(matrixStack, 76, 14); //(center=84) - (width/16=8) = 76
-        String text = I18n.format(Occultism.MODID + ".jei.miner.chance", this.chances.get(recipe));
-        this.drawStringCentered(matrixStack, Minecraft.getInstance().fontRenderer, text, 84, 0);
+        String text = I18n.get(Occultism.MODID + ".jei.miner.chance", this.chances.get(recipe));
+        this.drawStringCentered(matrixStack, Minecraft.getInstance().font, text, 84, 0);
 
     }
 
     protected void drawStringCentered(MatrixStack matrixStack, FontRenderer fontRenderer, String text, int x, int y) {
-        fontRenderer.drawString(matrixStack, text, (x - fontRenderer.getStringWidth(text) / 2.0f), y, 0);
+        fontRenderer.draw(matrixStack, text, (x - fontRenderer.width(text) / 2.0f), y, 0);
     }
     //endregion Overrides
 }

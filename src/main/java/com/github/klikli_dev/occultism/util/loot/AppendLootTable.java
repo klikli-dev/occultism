@@ -64,7 +64,7 @@ public class AppendLootTable extends LootModifier {
 
         this.reentryPrevention = true;
         LootTable lootTable = context.getLootTable(this.lootTable);
-        List<ItemStack> extras = lootTable.generate(context);
+        List<ItemStack> extras = lootTable.getRandomItems(context);
         generatedLoot.addAll(extras);
         this.reentryPrevention = false;
 
@@ -76,7 +76,7 @@ public class AppendLootTable extends LootModifier {
         @Override
         public AppendLootTable read(ResourceLocation location, JsonObject object, ILootCondition[] ailootcondition)
         {
-            ResourceLocation lootTable = new ResourceLocation(JSONUtils.getString(object, "add_loot"));
+            ResourceLocation lootTable = new ResourceLocation(JSONUtils.getAsString(object, "add_loot"));
             return new AppendLootTable(ailootcondition, lootTable);
         }
 

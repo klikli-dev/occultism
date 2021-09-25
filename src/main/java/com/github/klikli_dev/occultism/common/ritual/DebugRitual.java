@@ -67,14 +67,14 @@ public class DebugRitual extends Ritual {
         foliot.setJob(trader);
 
         //notify players nearby and spawn
-        for (ServerPlayerEntity player : world.getEntitiesWithinAABB(ServerPlayerEntity.class,
-                foliot.getBoundingBox().grow(50)))
+        for (ServerPlayerEntity player : world.getEntitiesOfClass(ServerPlayerEntity.class,
+                foliot.getBoundingBox().inflate(50)))
             CriteriaTriggers.SUMMONED_ENTITY.trigger(player, foliot);
 
-        ((ServerWorld) world).spawnParticle(ParticleTypes.LARGE_SMOKE, goldenBowlPosition.getX() + 0.5,
+        ((ServerWorld) world).sendParticles(ParticleTypes.LARGE_SMOKE, goldenBowlPosition.getX() + 0.5,
                 goldenBowlPosition.getY() + 0.5, goldenBowlPosition.getZ() + 0.5, 1, 0, 0, 0, 0);
 
-        world.addEntity(foliot);
+        world.addFreshEntity(foliot);
     }
     //endregion Overrides
 }

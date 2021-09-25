@@ -28,6 +28,8 @@ import net.minecraft.item.ItemStack;
 import java.util.HashMap;
 import java.util.Map;
 
+import net.minecraft.item.Item.Properties;
+
 public class BookOfCallingLumberjackItem extends BookOfCallingItem {
     //region Initialization
     public BookOfCallingLumberjackItem(Properties properties, String translationKeyBase) {

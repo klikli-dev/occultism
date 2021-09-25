@@ -52,10 +52,10 @@ public class MessageSetDivinationResult extends MessageBase {
     @Override
     public void onServerReceived(MinecraftServer minecraftServer, ServerPlayerEntity player,
                                  NetworkEvent.Context context) {
-        ItemStack stack = player.getHeldItem(Hand.MAIN_HAND);
+        ItemStack stack = player.getItemInHand(Hand.MAIN_HAND);
         if (stack.getItem() instanceof DivinationRodItem) {
             stack.getOrCreateTag().putFloat("distance", this.result);
-            player.container.detectAndSendChanges();
+            player.inventoryMenu.broadcastChanges();
         }
     }
 

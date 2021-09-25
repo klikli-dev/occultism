@@ -50,6 +50,8 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.stream.Stream;
 
+import net.minecraft.entity.ai.goal.Goal.Flag;
+
 public class ManageMachineGoal extends Goal {
     //region Fields
     protected final SpiritEntity entity;
@@ -65,7 +67,7 @@ public class ManageMachineGoal extends Goal {
         this.entity = entity;
         this.job = job;
         this.targetSorter = new BlockSorter(entity);
-        this.setMutexFlags(EnumSet.of(Flag.MOVE));
+        this.setFlags(EnumSet.of(Flag.MOVE));
     }
     //endregion Initialization
 
@@ -75,20 +77,20 @@ public class ManageMachineGoal extends Goal {
      * @return the position to move to to deposit the target block.
      */
     private BlockPos getMoveTarget() {
-        double angle = Math3DUtil.yaw(this.entity.getPositionVec(), Math3DUtil.center(this.targetBlock));
-        return this.targetBlock.offset(Direction.fromAngle(angle).getOpposite());
+        double angle = Math3DUtil.yaw(this.entity.position(), Math3DUtil.center(this.targetBlock));
+        return this.targetBlock.relative(Direction.fromYRot(angle).getOpposite());
     }
     //endregion Getter / Setter
 
     //region Overrides
     @Override
-    public boolean shouldExecute() {
+    public boolean canUse() {
         //do not use if there is a target to attack
-        if (this.entity.getAttackTarget() != null) {
+        if (this.entity.getTarget() != null) {
             return false;
         }
         //if we have something in hand, we can
-        if (!this.entity.getHeldItem(Hand.MAIN_HAND).isEmpty()) {
+        if (!this.entity.getItemInHand(Hand.MAIN_HAND).isEmpty()) {
             return false;
         }
         this.resetTarget();
@@ -96,33 +98,33 @@ public class ManageMachineGoal extends Goal {
     }
 
     @Override
-    public boolean shouldContinueExecuting() {
-        return this.targetBlock != null && this.entity.getHeldItem(Hand.MAIN_HAND).isEmpty();
+    public boolean canContinueToUse() {
+        return this.targetBlock != null && this.entity.getItemInHand(Hand.MAIN_HAND).isEmpty();
     }
 
-    public void resetTask() {
-        this.entity.getNavigator().clearPath();
+    public void stop() {
+        this.entity.getNavigation().stop();
         this.resetTarget();
     }
 
     @Override
     public void tick() {
         if (this.targetBlock != null) {
-            if (this.entity.world.getTileEntity(this.targetBlock) != null && this.job.getStorageController() != null) {
+            if (this.entity.level.getBlockEntity(this.targetBlock) != null && this.job.getStorageController() != null) {
 
-                TileEntity tileEntity = this.entity.world.getTileEntity(this.targetBlock);
+                TileEntity tileEntity = this.entity.level.getBlockEntity(this.targetBlock);
 
                 //when approaching a chest, open it visually
-                double distance = this.entity.getPositionVec().distanceTo(Math3DUtil.center(this.targetBlock));
+                double distance = this.entity.position().distanceTo(Math3DUtil.center(this.targetBlock));
                 float accessDistance = 1.86f;
                 if (distance < accessDistance) {
                     //stop moving while taking out
-                    this.entity.getNavigator().clearPath();
+                    this.entity.getNavigation().stop();
                 }
                 else {
                     //continue moving
                     BlockPos moveTarget = this.getMoveTarget();
-                    this.entity.getNavigator().setPath(this.entity.getNavigator().getPathToPos(moveTarget, 0), 1.0f);
+                    this.entity.getNavigation().moveTo(this.entity.getNavigation().createPath(moveTarget, 0), 1.0f);
                 }
 
                 //when close enough, interact
@@ -186,19 +188,19 @@ public class ManageMachineGoal extends Goal {
                             if (movedAnyItems) {
                                 TileEntity storageControllerProxy = this.findClosestStorageProxy();
 
-                                this.entity.setDepositPosition(storageControllerProxy.getPos());
+                                this.entity.setDepositPosition(storageControllerProxy.getBlockPos());
                                 this.entity.setDepositFacing(Direction.UP);
                                 this.targetBlock = null;
 
                             }
                         });
                     }
-                    this.resetTask();
+                    this.stop();
                 }
             }
             else {
                 //if we have a target block but no tile there we need to reset
-                this.resetTask();
+                this.stop();
             }
         }
     }
@@ -206,17 +208,17 @@ public class ManageMachineGoal extends Goal {
 
     //region Methods
     public boolean canSeeTarget() {
-        BlockState targetBlockState = this.entity.world.getBlockState(this.targetBlock);
+        BlockState targetBlockState = this.entity.level.getBlockState(this.targetBlock);
         RayTraceContext context = new RayTraceContext(this.entity.getEyePosition(0),
                 Math3DUtil.center(this.targetBlock), RayTraceContext.BlockMode.COLLIDER, RayTraceContext.FluidMode.NONE,
                 this.entity);
-        BlockRayTraceResult rayTrace = this.entity.world.rayTraceBlocks(context);
+        BlockRayTraceResult rayTrace = this.entity.level.clip(context);
 
         if (rayTrace.getType() != RayTraceResult.Type.MISS) {
-            BlockPos sidePos = rayTrace.getPos();
-            BlockPos pos = new BlockPos(rayTrace.getHitVec());
-            return this.entity.world.isAirBlock(sidePos) || this.entity.world.isAirBlock(pos) ||
-                   this.entity.world.getTileEntity(pos) == this.entity.world.getTileEntity(this.targetBlock);
+            BlockPos sidePos = rayTrace.getBlockPos();
+            BlockPos pos = new BlockPos(rayTrace.getLocation());
+            return this.entity.level.isEmptyBlock(sidePos) || this.entity.level.isEmptyBlock(pos) ||
+                   this.entity.level.getBlockEntity(pos) == this.entity.level.getBlockEntity(this.targetBlock);
         }
 
         return true;
@@ -226,29 +228,29 @@ public class ManageMachineGoal extends Goal {
         if (this.cachedStorageAccessor != null && this.cachedStorageAccessorOrder == this.job.getCurrentDepositOrder())
             return this.cachedStorageAccessor;
 
-        World world = this.entity.world;
+        World world = this.entity.level;
         List<BlockPos> allBlocks = new ArrayList<>();
         BlockPos machinePosition = this.job.getManagedMachine().globalPos.getPos();
 
         //get work area, but only half height, we don't need full.
         int workAreaSize = this.entity.getWorkAreaSize().getValue();
-        Stream<BlockPos> searchBlocks = BlockPos.getAllInBox(
-                machinePosition.add(-workAreaSize, -workAreaSize / 2, -workAreaSize),
-                machinePosition.add(workAreaSize, workAreaSize / 2, workAreaSize));
+        Stream<BlockPos> searchBlocks = BlockPos.betweenClosedStream(
+                machinePosition.offset(-workAreaSize, -workAreaSize / 2, -workAreaSize),
+                machinePosition.offset(workAreaSize, workAreaSize / 2, workAreaSize));
         searchBlocks.forEachOrdered(pos -> {
-            TileEntity tileEntity = world.getTileEntity(pos);
+            TileEntity tileEntity = world.getBlockEntity(pos);
             if (tileEntity instanceof IStorageControllerProxy) {
                 IStorageControllerProxy proxy = (IStorageControllerProxy) tileEntity;
                 if (proxy.getLinkedStorageControllerPosition() != null &&
                     proxy.getLinkedStorageControllerPosition().equals(this.job.getStorageControllerPosition()))
-                    allBlocks.add(pos.toImmutable());
+                    allBlocks.add(pos.immutable());
             }
         });
 
         //set closest log as target
         if (!allBlocks.isEmpty()) {
             allBlocks.sort(this.targetSorter);
-            this.cachedStorageAccessor = world.getTileEntity(allBlocks.get(0));
+            this.cachedStorageAccessor = world.getBlockEntity(allBlocks.get(0));
             this.cachedStorageAccessorOrder = this.job.getCurrentDepositOrder();
             return this.cachedStorageAccessor;
         }
@@ -268,7 +270,7 @@ public class ManageMachineGoal extends Goal {
                                //if we can insert everything we can get for this order, perform it.
                                TileEntity storageControllerProxy = this.findClosestStorageProxy();
                                if (storageControllerProxy != null) {
-                                   this.targetBlock = storageControllerProxy.getPos();
+                                   this.targetBlock = storageControllerProxy.getBlockPos();
                                    return true;
                                }
                                //no proxy in range, so we just skip this task which will lead to idle.
@@ -289,7 +291,7 @@ public class ManageMachineGoal extends Goal {
                        .map(machineItemHandler -> {
                            for (int i = 0; i < machineItemHandler.getSlots(); i++) {
                                if (!machineItemHandler.getStackInSlot(i).isEmpty()) {
-                                   this.targetBlock = machine.getPos();
+                                   this.targetBlock = machine.getBlockPos();
                                    return true;
                                }
                            }

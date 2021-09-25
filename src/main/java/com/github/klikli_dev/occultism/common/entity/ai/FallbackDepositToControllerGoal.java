@@ -36,6 +36,8 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import net.minecraft.entity.ai.goal.Goal.Flag;
+
 /**
  * If there is a handheld item and no deposit location, it will try to deposit in a storage controller.
  */
@@ -52,16 +54,16 @@ public class FallbackDepositToControllerGoal extends PausableGoal {
         this.entity = entity;
         this.job = job;
         this.targetSorter = new BlockSorter(entity);
-        this.setMutexFlags(EnumSet.of(Flag.MOVE));
+        this.setFlags(EnumSet.of(Flag.MOVE));
     }
     //endregion Initialization
 
 
     //region Overrides
     @Override
-    public boolean shouldExecute() {
+    public boolean canUse() {
         //do not use if there is a target to attack
-        if (this.entity.getAttackTarget() != null) {
+        if (this.entity.getTarget() != null) {
             return false;
         }
 
@@ -69,20 +71,20 @@ public class FallbackDepositToControllerGoal extends PausableGoal {
             return false;
 
         //if we are holding something but have no deposit location we can execute this
-        return !this.isPaused() && !this.entity.getHeldItem(Hand.MAIN_HAND).isEmpty() &&
+        return !this.isPaused() && !this.entity.getItemInHand(Hand.MAIN_HAND).isEmpty() &&
                !this.entity.getDepositPosition().isPresent();
     }
 
     @Override
-    public boolean shouldContinueExecuting() {
-        return this.shouldExecute();
+    public boolean canContinueToUse() {
+        return this.canUse();
     }
 
     @Override
     public void tick() {
         TileEntity storageProxy = this.findClosestStorageProxy();
         if (storageProxy != null) {
-            this.entity.setDepositPosition(storageProxy.getPos());
+            this.entity.setDepositPosition(storageProxy.getBlockPos());
             this.entity.setDepositFacing(Direction.UP);
         }
         else {
@@ -100,19 +102,19 @@ public class FallbackDepositToControllerGoal extends PausableGoal {
     //region Methods
 
     protected TileEntity findClosestStorageProxy() {
-        World world = this.entity.world;
+        World world = this.entity.level;
         List<BlockPos> allBlocks = new ArrayList<>();
         BlockPos machinePosition = this.job.getManagedMachine().globalPos.getPos();
 
         //get work area, but only half height, we don't need full.
         int workAreaSize = this.entity.getWorkAreaSize().getValue();
-        List<BlockPos> searchBlocks = BlockPos.getAllInBox(
-                machinePosition.add(-workAreaSize, -workAreaSize / 2, -workAreaSize),
-                machinePosition.add(workAreaSize, workAreaSize / 2, workAreaSize)).map(BlockPos::toImmutable)
+        List<BlockPos> searchBlocks = BlockPos.betweenClosedStream(
+                machinePosition.offset(-workAreaSize, -workAreaSize / 2, -workAreaSize),
+                machinePosition.offset(workAreaSize, workAreaSize / 2, workAreaSize)).map(BlockPos::immutable)
                                               .collect(Collectors.toList());
 
         for (BlockPos pos : searchBlocks) {
-            TileEntity tileEntity = world.getTileEntity(pos);
+            TileEntity tileEntity = world.getBlockEntity(pos);
             if (tileEntity instanceof IStorageControllerProxy) {
                 IStorageControllerProxy proxy = (IStorageControllerProxy) tileEntity;
                 if (proxy.getLinkedStorageControllerPosition() != null &&
@@ -124,7 +126,7 @@ public class FallbackDepositToControllerGoal extends PausableGoal {
         //set closest log as target
         if (!allBlocks.isEmpty()) {
             allBlocks.sort(this.targetSorter);
-            return world.getTileEntity(allBlocks.get(0));
+            return world.getBlockEntity(allBlocks.get(0));
         }
         return null;
     }

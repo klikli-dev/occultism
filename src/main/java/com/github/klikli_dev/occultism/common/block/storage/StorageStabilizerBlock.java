@@ -49,6 +49,8 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Map;
 
+import net.minecraft.block.AbstractBlock.Properties;
+
 public class StorageStabilizerBlock extends Block {
 
     //region Fields
@@ -73,50 +75,50 @@ public class StorageStabilizerBlock extends Block {
     //region Overrides
     @Override
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-        return SHAPES.get(state.get(BlockStateProperties.FACING));
+        return SHAPES.get(state.getValue(BlockStateProperties.FACING));
     }
 
     @Override
-    public void onReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean isMoving) {
+    public void onRemove(BlockState state, World world, BlockPos pos, BlockState newState, boolean isMoving) {
         if (state != newState) {
             this.notifyStorageControllers(world, pos, state);
         }
-        super.onReplaced(state, world, pos, newState, isMoving);
+        super.onRemove(state, world, pos, newState, isMoving);
     }
 
     @Nullable
     @Override
     public BlockState getStateForPlacement(BlockItemUseContext context) {
-        return this.getDefaultState().with(BlockStateProperties.FACING, context.getFace());
+        return this.defaultBlockState().setValue(BlockStateProperties.FACING, context.getClickedFace());
     }
 
     @Override
-    public void harvestBlock(World worldIn, PlayerEntity player, BlockPos pos, BlockState state,
+    public void playerDestroy(World worldIn, PlayerEntity player, BlockPos pos, BlockState state,
                              @Nullable TileEntity te, ItemStack stack) {
-        super.harvestBlock(worldIn, player, pos, state, te, stack);
+        super.playerDestroy(worldIn, player, pos, state, te, stack);
     }
 
     @Override
-    public void onBlockPlacedBy(World world, BlockPos pos, BlockState state, LivingEntity placer,
+    public void setPlacedBy(World world, BlockPos pos, BlockState state, LivingEntity placer,
                                 ItemStack stack) {
         this.notifyStorageControllers(world, pos, state);
 
-        super.onBlockPlacedBy(world, pos, state, placer, stack);
+        super.setPlacedBy(world, pos, state, placer, stack);
     }
 
     @Override
-    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
         builder.add(BlockStateProperties.FACING);
-        super.fillStateContainer(builder);
+        super.createBlockStateDefinition(builder);
     }
     //endregion Overrides
 
     //region Methods
     public void notifyStorageControllers(World world, BlockPos pos, BlockState state) {
-        Direction facing = state.get(DirectionalBlock.FACING);
+        Direction facing = state.getValue(DirectionalBlock.FACING);
 
         //storage controller actually wants stabilizers to point at one block above it, so unless we are on y axis we trace one below
-        BlockPos min = facing != Direction.DOWN && facing != Direction.UP ? pos.down() : pos;
+        BlockPos min = facing != Direction.DOWN && facing != Direction.UP ? pos.below() : pos;
         //trace a straight line for the possible controller positions
         List<BlockPos> blocks = Math3DUtil.simpleTrace(min, facing,
                 StorageControllerTileEntity.MAX_STABILIZER_DISTANCE);
@@ -125,7 +127,7 @@ public class StorageStabilizerBlock extends Block {
         //The trace line is actually below the line the controller uses to check for valid stabilizers.
         //This is due to the stabilizers aiming for one block above the controller.
         for (BlockPos block : blocks) {
-            TileEntity tileEntity = world.getTileEntity(block);
+            TileEntity tileEntity = world.getBlockEntity(block);
             if (tileEntity instanceof StorageControllerTileEntity) {
                 StorageControllerTileEntity controller = (StorageControllerTileEntity) tileEntity;
                 controller.updateStabilizers(); //force controller to re-check available stabilizers.

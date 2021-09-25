@@ -52,7 +52,7 @@ public class GlobalBlockPos implements INBTSerializable<CompoundNBT> {
 
     public GlobalBlockPos(BlockPos pos, World world) {
         this.pos = pos;
-        this.dimensionKey = world.getDimensionKey();
+        this.dimensionKey = world.dimension();
     }
     //endregion Initialization
 
@@ -88,7 +88,7 @@ public class GlobalBlockPos implements INBTSerializable<CompoundNBT> {
 
     @Override
     public String toString() {
-        return new StringJoiner(", ", "[", "]").add(this.dimensionKey.getLocation().toString())
+        return new StringJoiner(", ", "[", "]").add(this.dimensionKey.location().toString())
                        .add("x=" + this.pos.getX()).add("y=" + this.pos.getY())
                        .add("z=" + this.pos.getZ()).toString();
     }
@@ -118,31 +118,31 @@ public class GlobalBlockPos implements INBTSerializable<CompoundNBT> {
     }
 
     public static GlobalBlockPos from(TileEntity tileEntity) {
-        return new GlobalBlockPos(tileEntity.getPos(), tileEntity.getWorld());
+        return new GlobalBlockPos(tileEntity.getBlockPos(), tileEntity.getLevel());
     }
     //endregion Static Methods
 
     //region Methods
     public CompoundNBT write(CompoundNBT compound) {
-        compound.putLong("pos", this.getPos().toLong());
-        compound.putString("dimension", this.dimensionKey.getLocation().toString());
+        compound.putLong("pos", this.getPos().asLong());
+        compound.putString("dimension", this.dimensionKey.location().toString());
         return compound;
     }
 
     public void read(CompoundNBT compound) {
-        this.pos = BlockPos.fromLong(compound.getLong("pos"));
+        this.pos = BlockPos.of(compound.getLong("pos"));
         this.dimensionKey =
-                RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation(compound.getString("dimension")));
+                RegistryKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(compound.getString("dimension")));
     }
 
     public void encode(PacketBuffer buf) {
         buf.writeBlockPos(this.pos);
-        buf.writeResourceLocation(this.dimensionKey.getLocation());
+        buf.writeResourceLocation(this.dimensionKey.location());
     }
 
     public void decode(PacketBuffer buf) {
         this.pos = buf.readBlockPos();
-        this.dimensionKey = RegistryKey.getOrCreateKey(Registry.WORLD_KEY, buf.readResourceLocation());
+        this.dimensionKey = RegistryKey.create(Registry.DIMENSION_REGISTRY, buf.readResourceLocation());
     }
     //endregion Methods
 }

@@ -45,13 +45,13 @@ public class CraftMinerSpiritRitual extends Ritual {
         ItemStack copy = activationItem.copy();
         activationItem.shrink(1); //remove activation item.
 
-        ((ServerWorld) world).spawnParticle(ParticleTypes.LARGE_SMOKE, goldenBowlPosition.getX() + 0.5,
+        ((ServerWorld) world).sendParticles(ParticleTypes.LARGE_SMOKE, goldenBowlPosition.getX() + 0.5,
                 goldenBowlPosition.getY() + 0.5, goldenBowlPosition.getZ() + 0.5, 1, 0, 0, 0, 0);
 
-        ItemStack result = this.recipe.getRecipeOutput().copy();
+        ItemStack result = this.recipe.getResultItem().copy();
 
         //sets up nbt configuration for miner
-        result.getItem().onCreated(result, world, castingPlayer);
+        result.getItem().onCraftedBy(result, world, castingPlayer);
 
         //copy over spirit name
         ItemNBTUtil.setBoundSpiritName(result, ItemNBTUtil.getBoundSpiritName(copy));

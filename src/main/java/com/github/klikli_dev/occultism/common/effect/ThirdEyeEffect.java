@@ -48,23 +48,23 @@ public class ThirdEyeEffect extends Effect {
 
     //region Overrides
     @Override
-    public void performEffect(LivingEntity entityLivingBaseIn, int amplifier) {
+    public void applyEffectTick(LivingEntity entityLivingBaseIn, int amplifier) {
     }
 
     @Override
-    public boolean isReady(int duration, int amplifier) {
+    public boolean isDurationEffectTick(int duration, int amplifier) {
         return true;
     }
 
     @Override
-    public boolean isInstant() {
+    public boolean isInstantenous() {
         return false;
     }
 
     @Override
     public void renderInventoryEffect(EffectInstance effect, DisplayEffectsScreen<?> gui, MatrixStack mStack, int x,
                                       int y, float z) {
-        gui.getMinecraft().getTextureManager().bindTexture(ICON);
+        gui.getMinecraft().getTextureManager().bind(ICON);
         AbstractGui.blit(mStack, x + 6, y + 7, 18, 18, 0, 0, 255, 255, 256, 256);
 
     }
@@ -72,7 +72,7 @@ public class ThirdEyeEffect extends Effect {
     @Override
     public void renderHUDEffect(EffectInstance effect, AbstractGui gui, MatrixStack mStack, int x, int y, float z,
                                 float alpha) {
-        Minecraft.getInstance().getTextureManager().bindTexture(ICON);
+        Minecraft.getInstance().getTextureManager().bind(ICON);
         AbstractGui.blit(mStack, x + 3, y + 3, 18, 18, 0, 0, 255, 255, 256, 256);
     }
 

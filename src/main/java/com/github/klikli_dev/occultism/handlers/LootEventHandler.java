@@ -49,20 +49,20 @@ public class LootEventHandler {
     public static void onLivingDrops(LivingDropsEvent event) {
         //Add butcher knife drops dynamically.
         //TODO: Consider doing a global loot table for that
-        if (event.isRecentlyHit() && event.getSource().getTrueSource() instanceof LivingEntity) {
-            LivingEntity trueSource = (LivingEntity) event.getSource().getTrueSource();
-            ItemStack knifeItem = trueSource.getHeldItem(Hand.MAIN_HAND);
+        if (event.isRecentlyHit() && event.getSource().getEntity() instanceof LivingEntity) {
+            LivingEntity trueSource = (LivingEntity) event.getSource().getEntity();
+            ItemStack knifeItem = trueSource.getItemInHand(Hand.MAIN_HAND);
             if ( knifeItem.getItem() == OccultismItems.BUTCHER_KNIFE.get()) {
                 List<ItemStack> loot = ButcherKnifeItem.getLoot(event.getEntityLiving(), knifeItem, trueSource);
-                Random rand = event.getEntityLiving().getRNG();
+                Random rand = event.getEntityLiving().getRandom();
 
                 if (!loot.isEmpty()) {
                     for (ItemStack stack : loot) {
                         ItemStack copy = stack.copy();
                         copy.setCount(rand.nextInt(stack.getCount() + 1) + rand.nextInt(event.getLootingLevel() + 1));
-                        Vector3d center = Math3DUtil.center(event.getEntityLiving().getPosition());
+                        Vector3d center = Math3DUtil.center(event.getEntityLiving().blockPosition());
                         event.getDrops()
-                                .add(new ItemEntity(event.getEntityLiving().world, center.x, center.y, center.z, copy));
+                                .add(new ItemEntity(event.getEntityLiving().level, center.x, center.y, center.z, copy));
                     }
                 }
             }
@@ -76,7 +76,7 @@ public class LootEventHandler {
 
         PlayerEntity attackingPlayer = event.getAttackingPlayer();
         if(attackingPlayer != null){
-            EffectInstance greed = attackingPlayer.getActivePotionEffect(OccultismEffects.DRAGON_GREED.get());
+            EffectInstance greed = attackingPlayer.getEffect(OccultismEffects.DRAGON_GREED.get());
             if (greed == null)
                 return;
             event.setDroppedExperience(event.getDroppedExperience() + greed.getAmplifier() + 1);

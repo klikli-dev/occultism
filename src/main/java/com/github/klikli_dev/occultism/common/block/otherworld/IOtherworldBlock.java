@@ -51,7 +51,7 @@ public interface IOtherworldBlock {
 
     default OtherworldBlockTier getPlayerHarvestTier(PlayerEntity player, ItemStack tool) {
         OtherworldBlockTier toolTier = OtherworldBlockTier.NONE;
-        OtherworldBlockTier effectTier = player.isPotionActive(OccultismEffects.THIRD_EYE.get()) ?
+        OtherworldBlockTier effectTier = player.hasEffect(OccultismEffects.THIRD_EYE.get()) ?
                                                  OtherworldBlockTier.ONE : OtherworldBlockTier.NONE;
         if (tool.getItem() instanceof IOtherworldTool) {
             toolTier = ((IOtherworldTool) tool.getItem()).getHarvestTier(tool);
@@ -63,12 +63,12 @@ public interface IOtherworldBlock {
     }
 
     default BlockState getHarvestState(PlayerEntity player, BlockState state, ItemStack tool) {
-        return this.getPlayerHarvestTier(player, tool).getLevel() >= this.getTier().getLevel() ? state.with(UNCOVERED,
+        return this.getPlayerHarvestTier(player, tool).getLevel() >= this.getTier().getLevel() ? state.setValue(UNCOVERED,
                 true) : state;
     }
 
     default ItemStack getItem(IBlockReader worldIn, BlockPos pos, BlockState state) {
-        return new ItemStack(state.get(UNCOVERED) ? this.getUncoveredBlock() : this.getCoveredBlock(), 1);
+        return new ItemStack(state.getValue(UNCOVERED) ? this.getUncoveredBlock() : this.getCoveredBlock(), 1);
     }
 
     //endregion Methods

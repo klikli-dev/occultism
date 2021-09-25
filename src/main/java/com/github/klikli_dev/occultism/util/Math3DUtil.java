@@ -70,7 +70,7 @@ public class Math3DUtil {
     }
 
     public static AxisAlignedBB bounds(ChunkPos pos, int maxHeight){
-        return new AxisAlignedBB(pos.getXStart(), 0, pos.getZStart(), pos.getXEnd(), maxHeight, pos.getZEnd());
+        return new AxisAlignedBB(pos.getMinBlockX(), 0, pos.getMinBlockZ(), pos.getMaxBlockX(), maxHeight, pos.getMaxBlockZ());
     }
 
     /**
@@ -85,8 +85,8 @@ public class Math3DUtil {
     public static List<BlockPos> simpleTrace(BlockPos start, Direction direction, int distance) {
         //map to a new block pos because getAllInBox uses a mutable blockpos internally for iteration,
         // leading to the same block being collected 6x when not mapping it to an immutable blockpos
-        return BlockPos.getAllInBox(start, start.offset(direction, distance)).map(BlockPos::toImmutable)
-                       .sorted(Comparator.comparingDouble(start::distanceSq)).collect(Collectors.toList());
+        return BlockPos.betweenClosedStream(start, start.relative(direction, distance)).map(BlockPos::immutable)
+                       .sorted(Comparator.comparingDouble(start::distSqr)).collect(Collectors.toList());
     }
 
     /**

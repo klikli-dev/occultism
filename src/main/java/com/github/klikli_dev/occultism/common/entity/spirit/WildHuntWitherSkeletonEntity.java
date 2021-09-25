@@ -59,33 +59,33 @@ public class WildHuntWitherSkeletonEntity extends WitherSkeletonEntity {
 
     //region Overrides
     @Override
-    public ILivingEntityData onInitialSpawn(IServerWorld world, DifficultyInstance difficultyIn, SpawnReason reason,
+    public ILivingEntityData finalizeSpawn(IServerWorld world, DifficultyInstance difficultyIn, SpawnReason reason,
                                             @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
         int maxSkeletons = 3 + world.getRandom().nextInt(6);
 
         for (int i = 0; i < maxSkeletons; i++) {
-            WildHuntSkeletonEntity entity = OccultismEntities.WILD_HUNT_SKELETON.get().create(this.world);
-            entity.onInitialSpawn(world, difficultyIn, reason, spawnDataIn, dataTag);
+            WildHuntSkeletonEntity entity = OccultismEntities.WILD_HUNT_SKELETON.get().create(this.level);
+            entity.finalizeSpawn(world, difficultyIn, reason, spawnDataIn, dataTag);
             double offsetX = world.getRandom().nextGaussian() * (1 + world.getRandom().nextInt(4));
             double offsetZ = world.getRandom().nextGaussian() * (1 + world.getRandom().nextInt(4));
-            entity.setPositionAndRotation(this.getPosX() + offsetX, this.getPosY() + 1.5, this.getPosZ() + offsetZ,
+            entity.absMoveTo(this.getX() + offsetX, this.getY() + 1.5, this.getZ() + offsetZ,
                     world.getRandom().nextInt(360), 0);
             entity.setCustomName(new StringTextComponent(TextUtil.generateName()));
-            world.addEntity(entity);
+            world.addFreshEntity(entity);
             entity.setMaster(this);
             this.minions.add(entity);
         }
 
-        return super.onInitialSpawn(world, difficultyIn, reason, spawnDataIn, dataTag);
+        return super.finalizeSpawn(world, difficultyIn, reason, spawnDataIn, dataTag);
     }
 
     @Override
-    protected boolean isDespawnPeaceful() {
+    protected boolean shouldDespawnInPeaceful() {
         return false;
     }
 
     @Override
-    protected boolean isInDaylight() {
+    protected boolean isSunBurnTick() {
         return false;
     }
 
@@ -93,11 +93,11 @@ public class WildHuntWitherSkeletonEntity extends WitherSkeletonEntity {
     public boolean isInvulnerableTo(DamageSource source) {
         ITag<EntityType<?>> wildHuntTag = OccultismTags.WILD_HUNT;
 
-        Entity trueSource = source.getTrueSource();
+        Entity trueSource = source.getEntity();
         if (trueSource != null && wildHuntTag.contains(trueSource.getType()))
             return true;
 
-        Entity immediateSource = source.getImmediateSource();
+        Entity immediateSource = source.getDirectEntity();
         if (immediateSource != null && wildHuntTag.contains(immediateSource.getType()))
             return true;
 
@@ -112,9 +112,9 @@ public class WildHuntWitherSkeletonEntity extends WitherSkeletonEntity {
 
     //region Static Methods
     public static AttributeModifierMap.MutableAttribute registerAttributes() {
-        return SkeletonEntity.registerAttributes()
-                       .createMutableAttribute(Attributes.ATTACK_DAMAGE, 6.0)
-                       .createMutableAttribute(Attributes.MAX_HEALTH, 60.0);
+        return SkeletonEntity.createAttributes()
+                       .add(Attributes.ATTACK_DAMAGE, 6.0)
+                       .add(Attributes.MAX_HEALTH, 60.0);
     }
     //endregion Static Methods
 

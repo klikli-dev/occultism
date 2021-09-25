@@ -62,92 +62,92 @@ public class CthulhuFamiliarModel extends EntityModel<CthulhuFamiliarEntity> {
     public ModelRenderer trunk3;
 
     public CthulhuFamiliarModel() {
-        this.textureWidth = 64;
-        this.textureHeight = 32;
+        this.texWidth = 64;
+        this.texHeight = 32;
         this.leftEar = new ModelRenderer(this, 0, 21);
-        this.leftEar.setRotationPoint(3.0F, -4.5F, -1.0F);
+        this.leftEar.setPos(3.0F, -4.5F, -1.0F);
         this.leftEar.addBox(0.0F, 0.0F, 0.0F, 3.0F, 4.0F, 0.0F, 0.0F, 0.0F, 0.0F);
         this.body = new ModelRenderer(this, 0, 0);
-        this.body.setRotationPoint(0.0F, 17.0F, 0.0F);
+        this.body.setPos(0.0F, 17.0F, 0.0F);
         this.body.addBox(-3.5F, -6.0F, -1.5F, 7.0F, 7.0F, 3.0F, 0.0F, 0.0F, 0.0F);
         this.setRotateAngle(body, 0.43912483713861217F, 0.0F, 0.0F);
         this.rightArm = new ModelRenderer(this, 52, 0);
         this.rightArm.mirror = true;
-        this.rightArm.setRotationPoint(-3.2F, -4.5F, 0.0F);
+        this.rightArm.setPos(-3.2F, -4.5F, 0.0F);
         this.rightArm.addBox(-2.0F, -1.0F, -1.0F, 2.0F, 5.0F, 2.0F, 0.0F, 0.0F, 0.0F);
         this.setRotateAngle(rightArm, -0.43807764890847944F, 0.0F, 0.0F);
         this.trunk3 = new ModelRenderer(this, 54, 7);
-        this.trunk3.setRotationPoint(0.0F, 1.5F, 0.0F);
+        this.trunk3.setPos(0.0F, 1.5F, 0.0F);
         this.trunk3.addBox(-0.5F, 0.0F, -1.0F, 1.0F, 2.0F, 2.0F, 0.0F, 0.0F, 0.0F);
         this.setRotateAngle(trunk3, 0.3909537457888271F, 0.0F, 0.0F);
         this.trunk2 = new ModelRenderer(this, 44, 11);
-        this.trunk2.setRotationPoint(0.0F, 1.5F, 0.0F);
+        this.trunk2.setPos(0.0F, 1.5F, 0.0F);
         this.trunk2.addBox(-1.0F, 0.0F, -1.0F, 2.0F, 2.0F, 2.0F, 0.0F, 0.0F, 0.0F);
         this.setRotateAngle(trunk2, -0.46914448828868976F, 0.0F, 0.0F);
         this.leftEye = new ModelRenderer(this, 26, 12);
-        this.leftEye.setRotationPoint(1.3F, -3.0F, -3.7F);
+        this.leftEye.setPos(1.3F, -3.0F, -3.7F);
         this.leftEye.addBox(-1.0F, -1.0F, 0.0F, 2.0F, 2.0F, 2.0F, 0.0F, 0.0F, 0.0F);
         this.tail = new ModelRenderer(this, 0, 22);
-        this.tail.setRotationPoint(0.0F, -2.0F, 1.0F);
+        this.tail.setPos(0.0F, -2.0F, 1.0F);
         this.tail.addBox(0.0F, -1.0F, 0.0F, 0.0F, 5.0F, 5.0F, 0.0F, 0.0F, 0.0F);
         this.setRotateAngle(tail, 0.628493034348386F, 0.0F, 0.0F);
         this.hair = new ModelRenderer(this, 0, 0);
-        this.hair.setRotationPoint(0.0F, -2.0F, 0.0F);
+        this.hair.setPos(0.0F, -2.0F, 0.0F);
         this.hair.addBox(0.0F, -7.0F, -3.2F, 0.0F, 7.0F, 10.0F, 0.0F, 0.0F, 0.0F);
         this.hat1 = new ModelRenderer(this, 20, 16);
-        this.hat1.setRotationPoint(2.5F, -5.5F, -3.0F);
+        this.hat1.setPos(2.5F, -5.5F, -3.0F);
         this.hat1.addBox(-2.0F, 0.0F, -2.0F, 4.0F, 1.0F, 4.0F, 0.0F, 0.0F, 0.0F);
         this.setRotateAngle(hat1, 0.27366763203903305F, -0.03909537541112055F, 0.23457224414434488F);
         this.rightEar = new ModelRenderer(this, 0, 21);
         this.rightEar.mirror = true;
-        this.rightEar.setRotationPoint(-3.0F, -4.5F, -1.0F);
+        this.rightEar.setPos(-3.0F, -4.5F, -1.0F);
         this.rightEar.addBox(-3.0F, 0.0F, 0.0F, 3.0F, 4.0F, 0.0F, 0.0F, 0.0F, 0.0F);
         this.leftArm = new ModelRenderer(this, 52, 0);
-        this.leftArm.setRotationPoint(3.2F, -4.5F, 0.0F);
+        this.leftArm.setPos(3.2F, -4.5F, 0.0F);
         this.leftArm.addBox(0.0F, -1.0F, -1.0F, 2.0F, 5.0F, 2.0F, 0.0F, 0.0F, 0.0F);
         this.setRotateAngle(leftArm, -0.43807764890847944F, 0.0F, 0.0F);
         this.rightLeg = new ModelRenderer(this, 44, 0);
         this.rightLeg.mirror = true;
-        this.rightLeg.setRotationPoint(-2.0F, 0.5F, 0.0F);
+        this.rightLeg.setPos(-2.0F, 0.5F, 0.0F);
         this.rightLeg.addBox(-1.0F, 0.0F, -1.0F, 2.0F, 5.0F, 2.0F, 0.0F, 0.0F, 0.0F);
         this.setRotateAngle(rightLeg, -0.39426988068868013F, 0.0F, 0.0F);
         this.hat2 = new ModelRenderer(this, 36, 16);
-        this.hat2.setRotationPoint(0.5F, -2.0F, 0.5F);
+        this.hat2.setPos(0.5F, -2.0F, 0.5F);
         this.hat2.addBox(-2.0F, 0.0F, -2.0F, 3.0F, 2.0F, 3.0F, 0.0F, 0.0F, 0.0F);
         this.rightWing = new ModelRenderer(this, 20, 21);
         this.rightWing.mirror = true;
-        this.rightWing.setRotationPoint(-2.4F, -5.0F, 1.4F);
+        this.rightWing.setPos(-2.4F, -5.0F, 1.4F);
         this.rightWing.addBox(-8.0F, -8.0F, 0.0F, 8.0F, 8.0F, 0.0F, 0.0F, 0.0F, 0.0F);
         this.setRotateAngle(rightWing, -0.13142329633701952F, 0.4291764657285667F, -0.5256931853480781F);
         this.tentacle3 = new ModelRenderer(this, 0, 17);
-        this.tentacle3.setRotationPoint(0.1F, -1.1F, -2.8F);
+        this.tentacle3.setPos(0.1F, -1.1F, -2.8F);
         this.tentacle3.addBox(-0.5F, 0.0F, -1.0F, 1.0F, 3.0F, 1.0F, 0.0F, 0.0F, 0.0F);
         this.setRotateAngle(tentacle3, -0.19338247978939116F, 0.0F, -0.5759586531581287F);
         this.rightEye = new ModelRenderer(this, 26, 12);
-        this.rightEye.setRotationPoint(-1.3F, -3.0F, -3.7F);
+        this.rightEye.setPos(-1.3F, -3.0F, -3.7F);
         this.rightEye.addBox(-1.0F, -1.0F, 0.0F, 2.0F, 2.0F, 2.0F, 0.0F, 0.0F, 0.0F);
         this.leftLeg = new ModelRenderer(this, 44, 0);
-        this.leftLeg.setRotationPoint(2.0F, 0.5F, 0.0F);
+        this.leftLeg.setPos(2.0F, 0.5F, 0.0F);
         this.leftLeg.addBox(-1.0F, 0.0F, -1.0F, 2.0F, 5.0F, 2.0F, 0.0F, 0.0F, 0.0F);
         this.setRotateAngle(leftLeg, -0.39426988068868013F, 0.0F, 0.0F);
         this.tentacle2 = new ModelRenderer(this, 0, 17);
-        this.tentacle2.setRotationPoint(0.0F, -1.4F, -2.8F);
+        this.tentacle2.setPos(0.0F, -1.4F, -2.8F);
         this.tentacle2.addBox(-0.5F, 0.0F, -1.0F, 1.0F, 3.0F, 1.0F, 0.0F, 0.0F, 0.0F);
         this.setRotateAngle(tentacle2, -0.19338247978939116F, 0.0F, 0.0F);
         this.tentacle1 = new ModelRenderer(this, 0, 17);
-        this.tentacle1.setRotationPoint(-0.1F, -1.1F, -2.8F);
+        this.tentacle1.setPos(-0.1F, -1.1F, -2.8F);
         this.tentacle1.addBox(-0.5F, 0.0F, -1.0F, 1.0F, 3.0F, 1.0F, 0.0F, 0.0F, 0.0F);
         this.setRotateAngle(tentacle1, -0.19338247978939116F, 0.0F, 0.5759586531581287F);
         this.leftWing = new ModelRenderer(this, 20, 21);
-        this.leftWing.setRotationPoint(2.4F, -5.0F, 1.4F);
+        this.leftWing.setPos(2.4F, -5.0F, 1.4F);
         this.leftWing.addBox(0.0F, -8.0F, 0.0F, 8.0F, 8.0F, 0.0F, 0.0F, 0.0F, 0.0F);
         this.setRotateAngle(leftWing, -0.13142329633701952F, -0.4291764657285667F, 0.5256931853480781F);
         this.head = new ModelRenderer(this, 20, 0);
-        this.head.setRotationPoint(0.0F, -5.8F, -0.3F);
+        this.head.setPos(0.0F, -5.8F, -0.3F);
         this.head.addBox(-3.0F, -5.0F, -3.2F, 6.0F, 5.0F, 6.0F, 0.0F, 0.0F, 0.0F);
         this.setRotateAngle(head, -0.26284659267403904F, 0.0F, 0.0F);
         this.trunk1 = new ModelRenderer(this, 44, 7);
-        this.trunk1.setRotationPoint(0.0F, -1.1F, -2.2F);
+        this.trunk1.setPos(0.0F, -1.1F, -2.2F);
         this.trunk1.addBox(-1.5F, 0.0F, -1.0F, 3.0F, 2.0F, 2.0F, 0.0F, 0.0F, 0.0F);
         this.setRotateAngle(trunk1, -0.8600982340775168F, 0.0F, 0.0F);
         this.head.addChild(this.tentacle2);
@@ -174,7 +174,7 @@ public class CthulhuFamiliarModel extends EntityModel<CthulhuFamiliarEntity> {
     }
 
     @Override
-    public void render(MatrixStack matrixStackIn, IVertexBuilder bufferIn, int packedLightIn, int packedOverlayIn,
+    public void renderToBuffer(MatrixStack matrixStackIn, IVertexBuilder bufferIn, int packedLightIn, int packedOverlayIn,
             float red, float green, float blue, float alpha) {
         ImmutableList.of(this.body).forEach((modelRenderer) -> {
             modelRenderer.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
@@ -182,72 +182,72 @@ public class CthulhuFamiliarModel extends EntityModel<CthulhuFamiliarEntity> {
     }
 
     @Override
-    public void setRotationAngles(CthulhuFamiliarEntity entityIn, float limbSwing, float limbSwingAmount,
+    public void setupAnim(CthulhuFamiliarEntity entityIn, float limbSwing, float limbSwingAmount,
             float ageInTicks, float netHeadYaw, float headPitch) {
         this.showModels(entityIn.hasHat(), entityIn.hasTrunk());
 
-        this.head.rotateAngleY = netHeadYaw * (PI / 180f) * 0.7f;
-        this.head.rotateAngleX = headPitch * (PI / 180f) * 0.7f - 0.26f;
+        this.head.yRot = netHeadYaw * (PI / 180f) * 0.7f;
+        this.head.xRot = headPitch * (PI / 180f) * 0.7f - 0.26f;
 
         if (entityIn.isPartying()) {
-            this.body.rotateAngleX = -toRads(90);
-            this.rightLeg.rotateAngleX = toRads(15);
-            this.leftLeg.rotateAngleX = toRads(15);
-            this.head.rotateAngleY = 0;
-            this.head.rotateAngleX = 0;
+            this.body.xRot = -toRads(90);
+            this.rightLeg.xRot = toRads(15);
+            this.leftLeg.xRot = toRads(15);
+            this.head.yRot = 0;
+            this.head.xRot = 0;
         } else if (entityIn.isSitting()) {
-            this.rightArm.rotateAngleX = 0;
-            this.leftArm.rotateAngleX = 0;
-            this.rightLeg.rotateAngleX = -PI / 2;
-            this.leftLeg.rotateAngleX = -PI / 2;
-            this.body.rotateAngleX = 0;
+            this.rightArm.xRot = 0;
+            this.leftArm.xRot = 0;
+            this.rightLeg.xRot = -PI / 2;
+            this.leftLeg.xRot = -PI / 2;
+            this.body.xRot = 0;
         } else {
-            this.rightArm.rotateAngleX = MathHelper.cos(limbSwing * 0.5f + PI) * limbSwingAmount * 0.2f - 0.44f;
-            this.leftArm.rotateAngleX = MathHelper.cos(limbSwing * 0.5f + PI) * limbSwingAmount * 0.2f - 0.44f;
-            this.rightLeg.rotateAngleX = MathHelper.cos(limbSwing * 0.5f) * 1.4f * limbSwingAmount * 0.2f - 0.39f;
-            this.leftLeg.rotateAngleX = MathHelper.cos(limbSwing * 0.5f) * 1.4f * limbSwingAmount * 0.2f - 0.39f;
-            this.body.rotateAngleX = entityIn.isInWater() ? 1 : 0.44f;
+            this.rightArm.xRot = MathHelper.cos(limbSwing * 0.5f + PI) * limbSwingAmount * 0.2f - 0.44f;
+            this.leftArm.xRot = MathHelper.cos(limbSwing * 0.5f + PI) * limbSwingAmount * 0.2f - 0.44f;
+            this.rightLeg.xRot = MathHelper.cos(limbSwing * 0.5f) * 1.4f * limbSwingAmount * 0.2f - 0.39f;
+            this.leftLeg.xRot = MathHelper.cos(limbSwing * 0.5f) * 1.4f * limbSwingAmount * 0.2f - 0.39f;
+            this.body.xRot = entityIn.isInWater() ? 1 : 0.44f;
         }
 
         if (entityIn.isAngry()) {
-            this.leftEye.rotateAngleZ = -toRads(45);
-            this.rightEye.rotateAngleZ = -toRads(45);
-            this.leftEar.rotateAngleZ = toRads(20);
-            this.rightEar.rotateAngleZ = -toRads(20);
+            this.leftEye.zRot = -toRads(45);
+            this.rightEye.zRot = -toRads(45);
+            this.leftEar.zRot = toRads(20);
+            this.rightEar.zRot = -toRads(20);
         } else {
-            this.leftEye.rotateAngleZ = 0;
-            this.rightEye.rotateAngleZ = 0;
-            this.leftEar.rotateAngleZ = 0;
-            this.rightEar.rotateAngleZ = 0;
+            this.leftEye.zRot = 0;
+            this.rightEye.zRot = 0;
+            this.leftEar.zRot = 0;
+            this.rightEar.zRot = 0;
         }
 
         if (entityIn.isGiving()) {
-            this.leftArm.rotateAngleY = toRads(40);
-            this.rightArm.rotateAngleY = -toRads(40);
-            this.leftArm.rotateAngleX -= toRads(40);
-            this.rightArm.rotateAngleX -= toRads(40);
+            this.leftArm.yRot = toRads(40);
+            this.rightArm.yRot = -toRads(40);
+            this.leftArm.xRot -= toRads(40);
+            this.rightArm.xRot -= toRads(40);
         } else {
-            this.leftArm.rotateAngleY = 0;
-            this.rightArm.rotateAngleY = 0;
+            this.leftArm.yRot = 0;
+            this.rightArm.yRot = 0;
         }
 
-        this.trunk1.rotateAngleX = -0.86f + MathHelper.cos(ageInTicks / 10) * 0.15f;
-        this.trunk2.rotateAngleX = -0.47f + MathHelper.cos(ageInTicks / 10) * 0.15f;
-        this.trunk3.rotateAngleX = 0.39f + MathHelper.cos(ageInTicks / 10) * 0.15f;
-        this.tentacle1.rotateAngleZ = 0.58f + MathHelper.cos(ageInTicks / 10) * 0.07f;
-        this.tentacle3.rotateAngleZ = -0.58f - MathHelper.cos(ageInTicks / 10) * 0.07f;
+        this.trunk1.xRot = -0.86f + MathHelper.cos(ageInTicks / 10) * 0.15f;
+        this.trunk2.xRot = -0.47f + MathHelper.cos(ageInTicks / 10) * 0.15f;
+        this.trunk3.xRot = 0.39f + MathHelper.cos(ageInTicks / 10) * 0.15f;
+        this.tentacle1.zRot = 0.58f + MathHelper.cos(ageInTicks / 10) * 0.07f;
+        this.tentacle3.zRot = -0.58f - MathHelper.cos(ageInTicks / 10) * 0.07f;
     }
 
     @Override
-    public void setLivingAnimations(CthulhuFamiliarEntity entityIn, float limbSwing, float limbSwingAmount,
+    public void prepareMobModel(CthulhuFamiliarEntity entityIn, float limbSwing, float limbSwingAmount,
             float partialTick) {
         if (entityIn.isSitting() && !entityIn.isPartying()) {
-            leftWing.rotateAngleY = -0.43f;
-            rightWing.rotateAngleY = 0.43f;
+            leftWing.yRot = -0.43f;
+            rightWing.yRot = 0.43f;
         } else {
             float animationHeight = entityIn.getAnimationHeight(partialTick);
-            leftWing.rotateAngleY = animationHeight * toRads(20) - 0.43f;
-            rightWing.rotateAngleY = -animationHeight * toRads(20) + 0.43f;
+            leftWing.yRot = animationHeight * toRads(20) - 0.43f;
+            rightWing.yRot = -animationHeight * toRads(20) + 0.43f;
         }
     }
 
@@ -256,19 +256,19 @@ public class CthulhuFamiliarModel extends EntityModel<CthulhuFamiliarEntity> {
     }
 
     private void showModels(boolean hasHat, boolean hasTrunk) {
-        this.hat1.showModel = hasHat;
-        this.trunk1.showModel = hasTrunk;
-        this.tentacle1.showModel = !hasTrunk;
-        this.tentacle2.showModel = !hasTrunk;
-        this.tentacle3.showModel = !hasTrunk;
+        this.hat1.visible = hasHat;
+        this.trunk1.visible = hasTrunk;
+        this.tentacle1.visible = !hasTrunk;
+        this.tentacle2.visible = !hasTrunk;
+        this.tentacle3.visible = !hasTrunk;
     }
 
     /**
      * This is a helper function from Tabula to set the rotation of model parts
      */
     public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z) {
-        modelRenderer.rotateAngleX = x;
-        modelRenderer.rotateAngleY = y;
-        modelRenderer.rotateAngleZ = z;
+        modelRenderer.xRot = x;
+        modelRenderer.yRot = y;
+        modelRenderer.zRot = z;
     }
 }

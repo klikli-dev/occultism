@@ -43,7 +43,7 @@ public class EntityMoveTarget implements IMoveTarget{
 
     @Override
     public BlockPos getBlockPos() {
-        return this.target.getPosition();
+        return this.target.blockPosition();
     }
 
     @Override

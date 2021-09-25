@@ -42,18 +42,18 @@ public class GreedyFamiliarRenderer extends MobRenderer<GreedyFamiliarEntity, Gr
     }
 
     @Override
-    public ResourceLocation getEntityTexture(GreedyFamiliarEntity entity) {
+    public ResourceLocation getTextureLocation(GreedyFamiliarEntity entity) {
         return TEXTURES;
     }
 
     @Override
     public void render(GreedyFamiliarEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn,
             IRenderTypeBuffer bufferIn, int packedLightIn) {
-        matrixStackIn.push();
+        matrixStackIn.pushPose();
         if (entityIn.isSitting() && !entityIn.isPartying())
             matrixStackIn.translate(0, -0.25, 0);
         super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
-        matrixStackIn.pop();
+        matrixStackIn.popPose();
     }
 
 }

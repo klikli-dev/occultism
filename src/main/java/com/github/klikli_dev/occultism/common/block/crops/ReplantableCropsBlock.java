@@ -35,37 +35,36 @@ import net.minecraft.world.World;
 
 import java.util.function.Supplier;
 
+import net.minecraft.block.AbstractBlock.Properties;
+
 public class ReplantableCropsBlock extends CropsBlock implements IReplantableCrops {
-    //region Fields
     protected Supplier<Item> seed;
     protected Supplier<Item> crops;
-    //endregion Fields
 
-    //region Initialization
     public ReplantableCropsBlock(Properties builder, Supplier<Item> seed, Supplier<Item> crops) {
         super(builder);
         this.seed = seed;
         this.crops = crops;
     }
-    //endregion Initialization
 
-    //region Getter / Setter
+    @Override
     public IItemProvider getCropsItem() {
         return this.crops.get();
     }
-    //endregion Getter / Setter
 
-    //region Overrides
+    @Override
+    public IItemProvider getBaseSeedId() {
+        return this.seed.get();
+    }
+
     @Override
     public IItemProvider getSeedsItem() {
         return this.seed.get();
     }
 
     @Override
-    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player,
+    public ActionResultType use(BlockState state, World worldIn, BlockPos pos, PlayerEntity player,
                                              Hand handIn, BlockRayTraceResult hit) {
         return IReplantableCrops.super.onHarvest(state, worldIn, pos, player, handIn);
     }
-
-    //endregion Overrides
 }

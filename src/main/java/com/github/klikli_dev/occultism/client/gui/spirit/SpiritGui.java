@@ -59,8 +59,8 @@ public class SpiritGui<T extends SpiritContainer> extends ContainerScreen<T> {
         this.container = container;
         this.spirit = this.container.spirit;
 
-        this.xSize = 175;
-        this.ySize = 165;
+        this.imageWidth = 175;
+        this.imageHeight = 165;
     }
     //endregion Initialization
 
@@ -71,22 +71,22 @@ public class SpiritGui<T extends SpiritContainer> extends ContainerScreen<T> {
         this.buttons.clear();
 
         int labelHeight = 9;
-        LabelWidget nameLabel = new LabelWidget(this.guiLeft + 65, this.guiTop + 17, false, -1, 2, 0x404040);
+        LabelWidget nameLabel = new LabelWidget(this.leftPos + 65, this.topPos + 17, false, -1, 2, 0x404040);
         nameLabel.addLine(TextUtil.formatDemonName(this.spirit.getName().getString()));
         this.addButton(nameLabel);
 
         int agePercent = (int) Math.floor(this.spirit.getSpiritAge() / (float) this.spirit.getSpiritMaxAge() * 100);
-        LabelWidget ageLabel = new LabelWidget(this.guiLeft + 65, this.guiTop + 17 + labelHeight + 5, false, -1, 2, 0x404040);
-        ageLabel.addLine(I18n.format(TRANSLATION_KEY_BASE + ".age", agePercent));
+        LabelWidget ageLabel = new LabelWidget(this.leftPos + 65, this.topPos + 17 + labelHeight + 5, false, -1, 2, 0x404040);
+        ageLabel.addLine(I18n.get(TRANSLATION_KEY_BASE + ".age", agePercent));
         this.addButton(ageLabel);
 
         String jobID = this.spirit.getJobID();
         if (!StringUtils.isBlank(jobID)) {
             jobID = jobID.replace(":", ".");
-            LabelWidget jobLabel = new LabelWidget(this.guiLeft + 65,
-                    this.guiTop + 17 + labelHeight + 5 + labelHeight + 5 + 5, false, -1, 2, 0x404040);
+            LabelWidget jobLabel = new LabelWidget(this.leftPos + 65,
+                    this.topPos + 17 + labelHeight + 5 + labelHeight + 5 + 5, false, -1, 2, 0x404040);
 
-            String jobText = I18n.format(TRANSLATION_KEY_BASE + ".job", I18n.format("job." + jobID));
+            String jobText = I18n.get(TRANSLATION_KEY_BASE + ".job", I18n.get("job." + jobID));
             String[] lines = WordUtils.wrap(jobText, 15, "\n", true).split("[\\r\\n]+", 2);
             for (String line : lines)
                 jobLabel.addLine(TextFormatting.ITALIC + line + TextFormatting.RESET);
@@ -96,23 +96,23 @@ public class SpiritGui<T extends SpiritContainer> extends ContainerScreen<T> {
     }
 
     @Override
-    protected void drawGuiContainerBackgroundLayer(MatrixStack matrixStack, float partialTicks, int x, int y) {
+    protected void renderBg(MatrixStack matrixStack, float partialTicks, int x, int y) {
         this.renderBackground(matrixStack);
 
         RenderSystem.color4f(1, 1, 1, 1);
-        this.minecraft.getTextureManager().bindTexture(TEXTURE);
+        this.minecraft.getTextureManager().bind(TEXTURE);
 
-        this.blit(matrixStack, this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
+        this.blit(matrixStack, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight);
 
         RenderSystem.pushMatrix();
         int scale = 30;
-        drawEntityToGui(this.guiLeft + 35, this.guiTop + 65, scale, this.guiLeft + 51 - x,
-                this.guiTop + 75 - 50 - y, this.spirit);
+        drawEntityToGui(this.leftPos + 35, this.topPos + 65, scale, this.leftPos + 51 - x,
+                this.topPos + 75 - 50 - y, this.spirit);
         RenderSystem.popMatrix();
     }
 
     @Override
-    protected void drawGuiContainerForegroundLayer(MatrixStack matrixStack, int x, int y) {
+    protected void renderLabels(MatrixStack matrixStack, int x, int y) {
         //don't call super to avoid drawing names of inventories
     }
     //endregion Overrides
@@ -130,31 +130,31 @@ public class SpiritGui<T extends SpiritContainer> extends ContainerScreen<T> {
         matrixstack.scale((float)scale, (float)scale, (float)scale);
         Quaternion quaternion = Vector3f.ZP.rotationDegrees(180.0F);
         Quaternion quaternion1 = Vector3f.XP.rotationDegrees(f1 * 20.0F);
-        quaternion.multiply(quaternion1);
-        matrixstack.rotate(quaternion);
-        float f2 = entity.renderYawOffset;
-        float f3 = entity.rotationYaw;
-        float f4 = entity.rotationPitch;
-        float f5 = entity.prevRotationYawHead;
-        float f6 = entity.rotationYawHead;
-        entity.renderYawOffset = 180.0F + f * 20.0F;
-        entity.rotationYaw = 180.0F + f * 40.0F;
-        entity.rotationPitch = -f1 * 20.0F;
-        entity.rotationYawHead = entity.rotationYaw;
-        entity.prevRotationYawHead = entity.rotationYaw;
-        EntityRendererManager entityrenderermanager = Minecraft.getInstance().getRenderManager();
-        quaternion1.conjugate();
-        entityrenderermanager.setCameraOrientation(quaternion1);
+        quaternion.mul(quaternion1);
+        matrixstack.mulPose(quaternion);
+        float f2 = entity.yBodyRot;
+        float f3 = entity.yRot;
+        float f4 = entity.xRot;
+        float f5 = entity.yHeadRotO;
+        float f6 = entity.yHeadRot;
+        entity.yBodyRot = 180.0F + f * 20.0F;
+        entity.yRot = 180.0F + f * 40.0F;
+        entity.xRot = -f1 * 20.0F;
+        entity.yHeadRot = entity.yRot;
+        entity.yHeadRotO = entity.yRot;
+        EntityRendererManager entityrenderermanager = Minecraft.getInstance().getEntityRenderDispatcher();
+        quaternion1.conj();
+        entityrenderermanager.overrideCameraOrientation(quaternion1);
         entityrenderermanager.setRenderShadow(false);
-        IRenderTypeBuffer.Impl irendertypebuffer$impl = Minecraft.getInstance().getRenderTypeBuffers().getBufferSource();
-        entityrenderermanager.renderEntityStatic(entity, 0.0D, 0.0D, 0.0D, 0.0F, 1.0F, matrixstack, irendertypebuffer$impl, 15728880);
-        irendertypebuffer$impl.finish();
+        IRenderTypeBuffer.Impl irendertypebuffer$impl = Minecraft.getInstance().renderBuffers().bufferSource();
+        entityrenderermanager.render(entity, 0.0D, 0.0D, 0.0D, 0.0F, 1.0F, matrixstack, irendertypebuffer$impl, 15728880);
+        irendertypebuffer$impl.endBatch();
         entityrenderermanager.setRenderShadow(true);
-        entity.renderYawOffset = f2;
-        entity.rotationYaw = f3;
-        entity.rotationPitch = f4;
-        entity.prevRotationYawHead = f5;
-        entity.rotationYawHead = f6;
+        entity.yBodyRot = f2;
+        entity.yRot = f3;
+        entity.xRot = f4;
+        entity.yHeadRotO = f5;
+        entity.yHeadRot = f6;
         RenderSystem.popMatrix();
     }
 //endregion Static Methods

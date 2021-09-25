@@ -74,7 +74,7 @@ public class RegistryEventHandler {
         OccultismBlocks.BLOCKS.getEntries().stream().map(RegistryObject::get)
                 .filter(block -> OccultismBlocks.BLOCK_DATA_GEN_SETTINGS
                                          .get(block.getRegistryName()).generateDefaultBlockItem).forEach(block -> {
-            BlockItem blockItem = new BlockItem(block, new Item.Properties().group(Occultism.ITEM_GROUP));
+            BlockItem blockItem = new BlockItem(block, new Item.Properties().tab(Occultism.ITEM_GROUP));
             blockItem.setRegistryName(block.getRegistryName());
             registry.register(blockItem);
         });
@@ -106,20 +106,20 @@ public class RegistryEventHandler {
         Occultism.LOGGER.info("Registered SpawnEggItems");
 
         //Register compostable items
-        ComposterBlock.CHANCES.put(OccultismItems.DATURA_SEEDS.get(), 0.3f);
-        ComposterBlock.CHANCES.put(OccultismBlocks.OTHERWORLD_LEAVES.get().asItem(), 0.3f);
-        ComposterBlock.CHANCES.put(OccultismBlocks.OTHERWORLD_LEAVES_NATURAL.get().asItem(), 0.3f);
-        ComposterBlock.CHANCES.put(OccultismBlocks.OTHERWORLD_SAPLING.get().asItem(), 0.3f);
-        ComposterBlock.CHANCES.put(OccultismBlocks.OTHERWORLD_SAPLING_NATURAL.get().asItem(), 0.3f);
+        ComposterBlock.COMPOSTABLES.put(OccultismItems.DATURA_SEEDS.get(), 0.3f);
+        ComposterBlock.COMPOSTABLES.put(OccultismBlocks.OTHERWORLD_LEAVES.get().asItem(), 0.3f);
+        ComposterBlock.COMPOSTABLES.put(OccultismBlocks.OTHERWORLD_LEAVES_NATURAL.get().asItem(), 0.3f);
+        ComposterBlock.COMPOSTABLES.put(OccultismBlocks.OTHERWORLD_SAPLING.get().asItem(), 0.3f);
+        ComposterBlock.COMPOSTABLES.put(OccultismBlocks.OTHERWORLD_SAPLING_NATURAL.get().asItem(), 0.3f);
 
-        ComposterBlock.CHANCES.put(OccultismItems.DATURA.get(), 0.65f);
+        ComposterBlock.COMPOSTABLES.put(OccultismItems.DATURA.get(), 0.65f);
         Occultism.LOGGER.info("Registered compostable Items");
     }
 
     public static void registerSpawnEgg(IForgeRegistry<Item> registry, EntityType<?> entityType,
                                         String name, int primaryColor, int secondaryColor) {
         SpawnEggItem spawnEggItem = new SpawnEggItem(entityType, primaryColor, secondaryColor,
-                new Item.Properties().group(Occultism.ITEM_GROUP));
+                new Item.Properties().tab(Occultism.ITEM_GROUP));
         spawnEggItem.setRegistryName(modLoc("spawn_egg/" + name));
         registry.register(spawnEggItem);
     }

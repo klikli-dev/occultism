@@ -31,7 +31,7 @@ import java.util.function.Supplier;
 
 public enum OccultismItemTier implements IItemTier {
     SPIRIT_ATTUNED_GEM(2, 60, 3.0F, 2.0F, 14, () -> {
-        return Ingredient.fromItems(Items.IRON_INGOT);
+        return Ingredient.of(Items.IRON_INGOT);
     });
 
     //region Fields
@@ -56,28 +56,28 @@ public enum OccultismItemTier implements IItemTier {
     //endregion Initialization
 
     //region Overrides
-    public int getMaxUses() {
+    public int getUses() {
         return this.maxUses;
     }
 
-    public float getEfficiency() {
+    public float getSpeed() {
         return this.efficiency;
     }
 
-    public float getAttackDamage() {
+    public float getAttackDamageBonus() {
         return this.attackDamage;
     }
 
-    public int getHarvestLevel() {
+    public int getLevel() {
         return this.harvestLevel;
     }
 
-    public int getEnchantability() {
+    public int getEnchantmentValue() {
         return this.enchantability;
     }
 
-    public Ingredient getRepairMaterial() {
-        return this.repairMaterial.getValue();
+    public Ingredient getRepairIngredient() {
+        return this.repairMaterial.get();
     }
     //endregion Overrides
 }

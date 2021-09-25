@@ -52,24 +52,24 @@ public class CthulhuFamiliarRenderer extends MobRenderer<CthulhuFamiliarEntity, 
     @Override
     public void render(CthulhuFamiliarEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn,
             IRenderTypeBuffer bufferIn, int packedLightIn) {
-        matrixStackIn.push();
+        matrixStackIn.pushPose();
         
         if (entityIn.isPartying()) {
-            float ageInTicks = entityIn.ticksExisted + partialTicks;
+            float ageInTicks = entityIn.tickCount + partialTicks;
             matrixStackIn.translate(0, 1.55, 0);
-            matrixStackIn.rotate(new Quaternion(ageInTicks * 3, 0, 0, true));
+            matrixStackIn.mulPose(new Quaternion(ageInTicks * 3, 0, 0, true));
             matrixStackIn.translate(0, 0.5, 0);
-            entityIn.prevRenderYawOffset = -180;
-            entityIn.renderYawOffset = -180;
+            entityIn.yBodyRotO = -180;
+            entityIn.yBodyRot = -180;
         } else
             matrixStackIn.translate(0, entityIn.isSitting() ? -0.35 : entityIn.getAnimationHeight(partialTicks) * 0.08, 0);
         
         super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
-        matrixStackIn.pop();
+        matrixStackIn.popPose();
     }
 
     @Override
-    public ResourceLocation getEntityTexture(CthulhuFamiliarEntity entity) {
+    public ResourceLocation getTextureLocation(CthulhuFamiliarEntity entity) {
         return TEXTURES;
     }
 
@@ -83,14 +83,14 @@ public class CthulhuFamiliarRenderer extends MobRenderer<CthulhuFamiliarEntity, 
                 CthulhuFamiliarEntity entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks,
                 float ageInTicks, float netHeadYaw, float headPitch) {
             if (entitylivingbaseIn.isGiving()) {
-                matrixStackIn.push();
+                matrixStackIn.pushPose();
                 matrixStackIn.scale(1.25f, -1.25f, 1.25f);
                 matrixStackIn.translate(0, -0.75, -0.35);
-                matrixStackIn.rotate(new Quaternion(-65, 0, 0, true));
-                Minecraft.getInstance().getFirstPersonRenderer().renderItemSide(entitylivingbaseIn, new ItemStack(Items.POPPY),
+                matrixStackIn.mulPose(new Quaternion(-65, 0, 0, true));
+                Minecraft.getInstance().getItemInHandRenderer().renderItem(entitylivingbaseIn, new ItemStack(Items.POPPY),
                         ItemCameraTransforms.TransformType.GROUND, false, matrixStackIn, bufferIn,
                         packedLightIn);
-                matrixStackIn.pop();
+                matrixStackIn.popPose();
             }
 
         }

@@ -51,6 +51,8 @@ import net.minecraftforge.registries.ForgeRegistries;
 import javax.annotation.Nullable;
 import java.util.List;
 
+import net.minecraft.item.Item.Properties;
+
 public class DivinationRodItem extends Item {
 
     //region Fields
@@ -67,41 +69,41 @@ public class DivinationRodItem extends Item {
     //region Overrides
     @Override
     public void onUsingTick(ItemStack stack, LivingEntity entityLiving, int count) {
-        if (entityLiving.world.isRemote && entityLiving instanceof PlayerEntity) {
+        if (entityLiving.level.isClientSide && entityLiving instanceof PlayerEntity) {
             ScanManager.instance.updateScan((PlayerEntity) entityLiving, false);
         }
     }
 
     @Override
-    public ActionResultType onItemUse(ItemUseContext context) {
-        World world = context.getWorld();
+    public ActionResultType useOn(ItemUseContext context) {
+        World world = context.getLevel();
         PlayerEntity player = context.getPlayer();
-        BlockPos pos = context.getPos();
-        ItemStack stack = context.getItem();
+        BlockPos pos = context.getClickedPos();
+        ItemStack stack = context.getItemInHand();
 
-        if (player.isSneaking()) {
+        if (player.isShiftKeyDown()) {
             BlockState state = world.getBlockState(pos);
             if (!state.getBlock().isAir(state, world, pos)) {
                 Block block = this.getOtherBlock(state, player.isCreative());
                 if (block != null) {
-                    if (!world.isRemote) {
+                    if (!world.isClientSide) {
                         String translationKey =
                                 block instanceof IOtherworldBlock ? ((IOtherworldBlock) block).getUncoveredBlock()
-                                                                            .getTranslationKey() : block.getTranslationKey();
+                                                                            .getDescriptionId() : block.getDescriptionId();
                         stack.getOrCreateTag().putString("linkedBlockId", block.getRegistryName().toString());
                         player.sendMessage(
-                                new TranslationTextComponent(this.getTranslationKey() + ".message.linked_block",
-                                        new TranslationTextComponent(translationKey)), Util.DUMMY_UUID);
+                                new TranslationTextComponent(this.getDescriptionId() + ".message.linked_block",
+                                        new TranslationTextComponent(translationKey)), Util.NIL_UUID);
                     }
 
-                    world.playSound(player, player.getPosition(), OccultismSounds.TUNING_FORK.get(),
+                    world.playSound(player, player.blockPosition(), OccultismSounds.TUNING_FORK.get(),
                             SoundCategory.PLAYERS,
                             1, 1);
                 }
                 else {
-                    if (!world.isRemote) {
+                    if (!world.isClientSide) {
                         player.sendMessage(
-                                new TranslationTextComponent(this.getTranslationKey() + ".message.no_link_found"), Util.DUMMY_UUID);
+                                new TranslationTextComponent(this.getDescriptionId() + ".message.no_link_found"), Util.NIL_UUID);
                     }
                 }
                 return ActionResultType.SUCCESS;
@@ -111,23 +113,23 @@ public class DivinationRodItem extends Item {
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, Hand hand) {
-        ItemStack stack = player.getHeldItem(hand);
+    public ActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
+        ItemStack stack = player.getItemInHand(hand);
 
-        if (!player.isSneaking()) {
+        if (!player.isShiftKeyDown()) {
             if (stack.getOrCreateTag().contains("linkedBlockId")) {
                 stack.getTag().putFloat("distance", SEARCHING);
-                player.setActiveHand(hand);
-                world.playSound(player, player.getPosition(), OccultismSounds.TUNING_FORK.get(), SoundCategory.PLAYERS,
+                player.startUsingItem(hand);
+                world.playSound(player, player.blockPosition(), OccultismSounds.TUNING_FORK.get(), SoundCategory.PLAYERS,
                         1, 1);
 
-                if (world.isRemote) {
+                if (world.isClientSide) {
                     ResourceLocation id = new ResourceLocation(stack.getTag().getString("linkedBlockId"));
                     ScanManager.instance.beginScan(player, ForgeRegistries.BLOCKS.getValue(id));
                 }
             }
-            else if (!world.isRemote) {
-                player.sendMessage(new TranslationTextComponent(this.getTranslationKey() + ".message.no_linked_block"), Util.DUMMY_UUID);
+            else if (!world.isClientSide) {
+                player.sendMessage(new TranslationTextComponent(this.getDescriptionId() + ".message.no_linked_block"), Util.NIL_UUID);
             }
         }
 
@@ -135,16 +137,16 @@ public class DivinationRodItem extends Item {
     }
 
     @Override
-    public ItemStack onItemUseFinish(ItemStack stack, World world, LivingEntity entityLiving) {
+    public ItemStack finishUsingItem(ItemStack stack, World world, LivingEntity entityLiving) {
         if (!(entityLiving instanceof PlayerEntity))
             return stack;
 
         PlayerEntity player = (PlayerEntity) entityLiving;
-        player.getCooldownTracker().setCooldown(this, 40);
+        player.getCooldowns().addCooldown(this, 40);
         stack.getOrCreateTag().putFloat("distance", NOT_FOUND);
-        if (world.isRemote) {
+        if (world.isClientSide) {
             BlockPos result = ScanManager.instance.finishScan(player);
-            float distance = this.getDistance(player.getPositionVec(), result);
+            float distance = this.getDistance(player.position(), result);
             stack.getTag().putFloat("distance", distance);
             OccultismPackets.sendToServer(new MessageSetDivinationResult(distance));
 
@@ -162,33 +164,33 @@ public class DivinationRodItem extends Item {
     }
 
     @Override
-    public void onPlayerStoppedUsing(ItemStack stack, World world, LivingEntity entityLiving, int timeLeft) {
+    public void releaseUsing(ItemStack stack, World world, LivingEntity entityLiving, int timeLeft) {
         //player interrupted, so we can safely set not found on server
         stack.getOrCreateTag().putFloat("distance", NOT_FOUND);
 
-        if (world.isRemote) {
+        if (world.isClientSide) {
             ScanManager.instance.cancelScan();
         }
-        super.onPlayerStoppedUsing(stack, world, entityLiving, timeLeft);
+        super.releaseUsing(stack, world, entityLiving, timeLeft);
     }
 
     @Override
-    public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip,
+    public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip,
                                ITooltipFlag flagIn) {
         if (stack.getOrCreateTag().contains("linkedBlockId")) {
             ResourceLocation id = new ResourceLocation(stack.getTag().getString("linkedBlockId"));
 
             Block block = ForgeRegistries.BLOCKS.getValue(id);
             String translationKey = block instanceof IOtherworldBlock ? ((IOtherworldBlock) block).getUncoveredBlock()
-                                                                                .getTranslationKey() : block.getTranslationKey();
-            tooltip.add(new TranslationTextComponent(this.getTranslationKey() + ".tooltip.linked_block",
+                                                                                .getDescriptionId() : block.getDescriptionId();
+            tooltip.add(new TranslationTextComponent(this.getDescriptionId() + ".tooltip.linked_block",
                     new TranslationTextComponent(translationKey)
-                            .mergeStyle(TextFormatting.BOLD, TextFormatting.ITALIC)));
+                            .withStyle(TextFormatting.BOLD, TextFormatting.ITALIC)));
         }
         else {
-            tooltip.add(new TranslationTextComponent(this.getTranslationKey() + ".tooltip.no_linked_block"));
+            tooltip.add(new TranslationTextComponent(this.getDescriptionId() + ".tooltip.no_linked_block"));
         }
-        super.addInformation(stack, worldIn, tooltip, flagIn);
+        super.appendHoverText(stack, worldIn, tooltip, flagIn);
     }
     //endregion Overrides
 

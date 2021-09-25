@@ -57,44 +57,44 @@ public class SatchelContainer extends Container {
 
     //region Overrides
     @Override
-    public void detectAndSendChanges() {
+    public void broadcastChanges() {
         if (this.satchelInventory instanceof SatchelInventory) {
             ((SatchelInventory) this.satchelInventory).writeItemStack();
         }
-        super.detectAndSendChanges();
+        super.broadcastChanges();
     }
 
     @Override
-    public ItemStack transferStackInSlot(PlayerEntity player, int index) {
+    public ItemStack quickMoveStack(PlayerEntity player, int index) {
         //Adapted from Chestcontainer
         ItemStack itemstack = ItemStack.EMPTY;
-        Slot slot = this.inventorySlots.get(index);
-        if (slot != null && slot.getHasStack()) {
-            ItemStack itemstack1 = slot.getStack();
+        Slot slot = this.slots.get(index);
+        if (slot != null && slot.hasItem()) {
+            ItemStack itemstack1 = slot.getItem();
             itemstack = itemstack1.copy();
 
-            if(index >= this.satchelInventory.getSizeInventory()) {
+            if(index >= this.satchelInventory.getContainerSize()) {
                 //if putting into satchel, abort if it's another satchel
                 if(itemstack.getItem() == OccultismItems.SATCHEL.get())
                     return ItemStack.EMPTY;
             }
             //take out of satchel
-            if (index < this.satchelInventory.getSizeInventory()) {
-                if (!this.mergeItemStack(itemstack1, this.satchelInventory.getSizeInventory(),
-                        this.inventorySlots.size(), true)) {
+            if (index < this.satchelInventory.getContainerSize()) {
+                if (!this.moveItemStackTo(itemstack1, this.satchelInventory.getContainerSize(),
+                        this.slots.size(), true)) {
                     return ItemStack.EMPTY;
                 }
             }
             //put into satchel
-            else if (!this.mergeItemStack(itemstack1, 0, this.satchelInventory.getSizeInventory(), false)) {
+            else if (!this.moveItemStackTo(itemstack1, 0, this.satchelInventory.getContainerSize(), false)) {
                 return ItemStack.EMPTY;
             }
 
             if (itemstack1.isEmpty()) {
-                slot.putStack(ItemStack.EMPTY);
+                slot.set(ItemStack.EMPTY);
             }
             else {
-                slot.onSlotChanged();
+                slot.setChanged();
             }
         }
 
@@ -102,13 +102,13 @@ public class SatchelContainer extends Container {
     }
 
     @Override
-    public boolean canInteractWith(PlayerEntity player) {
+    public boolean stillValid(PlayerEntity player) {
         if(this.selectedSlot == -1){
             return CuriosUtil.getBackpack(player).getItem() == OccultismItems.SATCHEL.get();
         }
-        if(this.selectedSlot < 0 || this.selectedSlot >= player.inventory.getSizeInventory())
+        if(this.selectedSlot < 0 || this.selectedSlot >= player.inventory.getContainerSize())
             return false;
-        return player.inventory.getStackInSlot(this.selectedSlot).getItem() == OccultismItems.SATCHEL.get();
+        return player.inventory.getItem(this.selectedSlot).getItem() == OccultismItems.SATCHEL.get();
     }
     //endregion Overrides
 

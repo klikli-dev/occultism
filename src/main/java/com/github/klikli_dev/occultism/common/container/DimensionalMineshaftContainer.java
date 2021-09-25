@@ -63,40 +63,40 @@ public class DimensionalMineshaftContainer extends Container {
 
     //region Overrides
     @Override
-    public boolean canInteractWith(PlayerEntity player) {
-        return player.getDistanceSq(this.otherworldMiner.getPos().getX() + 0.5D,
-                this.otherworldMiner.getPos().getY() + 0.5D,
-                this.otherworldMiner.getPos().getZ() + 0.5D) <= 64.0D;
+    public boolean stillValid(PlayerEntity player) {
+        return player.distanceToSqr(this.otherworldMiner.getBlockPos().getX() + 0.5D,
+                this.otherworldMiner.getBlockPos().getY() + 0.5D,
+                this.otherworldMiner.getBlockPos().getZ() + 0.5D) <= 64.0D;
     }
 
     @Override
-    public ItemStack transferStackInSlot(PlayerEntity playerIn, int index) {
+    public ItemStack quickMoveStack(PlayerEntity playerIn, int index) {
         ItemStack itemstack = ItemStack.EMPTY;
-        Slot slot = this.inventorySlots.get(index);
-        if (slot != null && slot.getHasStack()) {
-            ItemStack itemstack1 = slot.getStack();
+        Slot slot = this.slots.get(index);
+        if (slot != null && slot.hasItem()) {
+            ItemStack itemstack1 = slot.getItem();
             itemstack = itemstack1.copy();
             if (index < this.outputHandler.getSlots()) {
                 //+1 because we have the input handler slot after the output hander slots
-                if (!this.mergeItemStack(itemstack1, this.outputHandler.getSlots() + 1, this.inventorySlots.size(), true)) {
+                if (!this.moveItemStackTo(itemstack1, this.outputHandler.getSlots() + 1, this.slots.size(), true)) {
                     return ItemStack.EMPTY;
                 }
             }
             //input handler slot is exactly at last output handler slot + 1
             else if(index == this.outputHandler.getSlots()){
-                if (!this.mergeItemStack(itemstack1, this.outputHandler.getSlots() + 1, this.inventorySlots.size(), true)) {
+                if (!this.moveItemStackTo(itemstack1, this.outputHandler.getSlots() + 1, this.slots.size(), true)) {
                     return ItemStack.EMPTY;
                 }
             }
             //+1 because we are actually only interested in inserting in the input handler. Could even start at the end index instead of 0.
-            else if (!this.mergeItemStack(itemstack1,0, this.outputHandler.getSlots() + 1, false)) {
+            else if (!this.moveItemStackTo(itemstack1,0, this.outputHandler.getSlots() + 1, false)) {
                 return ItemStack.EMPTY;
             }
 
             if (itemstack1.isEmpty()) {
-                slot.putStack(ItemStack.EMPTY);
+                slot.set(ItemStack.EMPTY);
             } else {
-                slot.onSlotChanged();
+                slot.setChanged();
             }
         }
 
@@ -151,8 +151,8 @@ public class DimensionalMineshaftContainer extends Container {
         //endregion Initialization
 
         //region Overrides
-        public boolean isItemValid(ItemStack stack) {
-            RecipeManager recipeManager = DimensionalMineshaftContainer.this.otherworldMiner.getWorld().getRecipeManager();
+        public boolean mayPlace(ItemStack stack) {
+            RecipeManager recipeManager = DimensionalMineshaftContainer.this.otherworldMiner.getLevel().getRecipeManager();
             return RecipeUtil.isValidIngredient(recipeManager, OccultismRecipes.MINER_TYPE.get(), stack);
         }
         //endregion Overrides
@@ -166,7 +166,7 @@ public class DimensionalMineshaftContainer extends Container {
         //endregion Initialization
 
         //region Overrides
-        public boolean isItemValid(ItemStack stack) {
+        public boolean mayPlace(ItemStack stack) {
             return false;
         }
         //endregion Overrides

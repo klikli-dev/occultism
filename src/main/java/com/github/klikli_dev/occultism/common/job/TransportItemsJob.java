@@ -61,8 +61,8 @@ public class TransportItemsJob extends SpiritJob implements INamedContainerProvi
 
     @Override
     public void init() {
-        this.entity.getNavigator().getNodeProcessor().setCanEnterDoors(true);
-        ((GroundPathNavigator) this.entity.getNavigator()).setBreakDoors(true);
+        this.entity.getNavigation().getNodeEvaluator().setCanPassDoors(true);
+        ((GroundPathNavigator) this.entity.getNavigation()).setCanOpenDoors(true);
         this.entity.goalSelector.addGoal(3, this.depositItemsGoal = new DepositItemsGoal(this.entity));
         this.entity.goalSelector.addGoal(4, this.extractItemsGoal = new ExtractItemsGoal(this.entity));
         this.entity.goalSelector.addGoal(5, this.openDoorGoal = new OpenDoorGoal(this.entity, true));
@@ -70,8 +70,8 @@ public class TransportItemsJob extends SpiritJob implements INamedContainerProvi
 
     @Override
     public void cleanup() {
-        this.entity.getNavigator().getNodeProcessor().setCanEnterDoors(false);
-        ((GroundPathNavigator) this.entity.getNavigator()).setBreakDoors(false);
+        this.entity.getNavigation().getNodeEvaluator().setCanPassDoors(false);
+        ((GroundPathNavigator) this.entity.getNavigation()).setCanOpenDoors(false);
         this.entity.goalSelector.removeGoal(this.depositItemsGoal);
         this.entity.goalSelector.removeGoal(this.extractItemsGoal);
         this.entity.goalSelector.removeGoal(this.openDoorGoal);

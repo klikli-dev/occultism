@@ -54,7 +54,7 @@ public class ClientPlayerEventHandler {
         checkBackpackKey(event);
         checkStorageRemoteKey(event);
         checkFamiliarSettingsKeys(event);
-        if (event.getAction() == GLFW_PRESS && minecraft.gameSettings.keyBindJump.isKeyDown()) {
+        if (event.getAction() == GLFW_PRESS && minecraft.options.keyJump.isDown()) {
             if (minecraft.player != null && MovementUtil.doubleJump(minecraft.player)) {
                 OccultismPackets.sendToServer(new MessageDoubleJump());
             }
@@ -72,16 +72,16 @@ public class ClientPlayerEventHandler {
     public static void checkBackpackKey(InputEvent event) {
         Minecraft minecraft = Minecraft.getInstance();
 
-        if (minecraft.currentScreen instanceof SatchelScreen && ClientSetupEventHandler.KEY_BACKPACK.isPressed()) {
-            minecraft.player.closeScreen();
+        if (minecraft.screen instanceof SatchelScreen && ClientSetupEventHandler.KEY_BACKPACK.consumeClick()) {
+            minecraft.player.closeContainer();
         }
         //open satchel
-        else if (minecraft.player != null & minecraft.currentScreen == null &&
-                ClientSetupEventHandler.KEY_BACKPACK.isPressed()) {
+        else if (minecraft.player != null & minecraft.screen == null &&
+                ClientSetupEventHandler.KEY_BACKPACK.consumeClick()) {
             if (!CuriosUtil.getBackpack(minecraft.player).isEmpty() ||
                     CuriosUtil.getFirstBackpackSlot(minecraft.player) > 0) {
                 OccultismPackets.sendToServer(new MessageOpenSatchel());
-                minecraft.getSoundHandler().play(SimpleSound.master(SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0.75F, 1.0F));
+                minecraft.getSoundManager().play(SimpleSound.forUI(SoundEvents.ARMOR_EQUIP_LEATHER, 0.75F, 1.0F));
             }
         }
     }
@@ -89,29 +89,29 @@ public class ClientPlayerEventHandler {
     public static void checkStorageRemoteKey(InputEvent event) {
         Minecraft minecraft = Minecraft.getInstance();
 
-        if (minecraft.currentScreen instanceof StorageRemoteGui && ClientSetupEventHandler.KEY_STORAGE_REMOTE.isPressed()) {
-            minecraft.player.closeScreen();
+        if (minecraft.screen instanceof StorageRemoteGui && ClientSetupEventHandler.KEY_STORAGE_REMOTE.consumeClick()) {
+            minecraft.player.closeContainer();
         }
         //open satchel
-        else if (minecraft.player != null & minecraft.currentScreen == null &&
-                ClientSetupEventHandler.KEY_STORAGE_REMOTE.isPressed()) {
+        else if (minecraft.player != null & minecraft.screen == null &&
+                ClientSetupEventHandler.KEY_STORAGE_REMOTE.consumeClick()) {
 
             if (!CuriosUtil.getStorageRemoteCurio(minecraft.player).isEmpty() ||
                     CuriosUtil.getFirstStorageRemoteSlot(minecraft.player) > 0) {
                 OccultismPackets.sendToServer(new MessageOpenStorageRemote());
-                minecraft.getSoundHandler().play(SimpleSound.master(SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 0.75F, 1.0F));
+                minecraft.getSoundManager().play(SimpleSound.forUI(SoundEvents.ARMOR_EQUIP_DIAMOND, 0.75F, 1.0F));
             }
         }
     }
 
     public static void checkFamiliarSettingsKeys(InputEvent event) {
         Minecraft minecraft = Minecraft.getInstance();
-        if (minecraft.player != null & minecraft.currentScreen == null) {
+        if (minecraft.player != null & minecraft.screen == null) {
             boolean familiarKeyPressed = false;
             Map<EntityType<?>, Boolean> familiarsPressed = new HashMap<>();
             
             for (Entry<EntityType<?>, KeyBinding> entry : ClientSetupEventHandler.keysFamiliars.entrySet()) {
-                boolean isPressed = entry.getValue().isPressed();
+                boolean isPressed = entry.getValue().consumeClick();
                 if (isPressed)
                     familiarKeyPressed = true;
                 familiarsPressed.put(entry.getKey(), isPressed);

@@ -71,7 +71,7 @@ public class PentacleManager extends JsonReloadListener {
             IProfiler profilerIn) {
         for (Entry<ResourceLocation, JsonElement> entry : objectIn.entrySet()) {
             ResourceLocation key = entry.getKey();
-            Pentacle pentacle = Pentacle.fromJson(key, JSONUtils.getJsonObject(entry.getValue(), "top element"));
+            Pentacle pentacle = Pentacle.fromJson(key, JSONUtils.convertToJsonObject(entry.getValue(), "top element"));
             this.pentacles.put(key, pentacle);
         }
 

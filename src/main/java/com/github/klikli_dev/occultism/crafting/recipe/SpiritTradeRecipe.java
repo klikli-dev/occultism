@@ -63,7 +63,7 @@ public class SpiritTradeRecipe extends ShapelessRecipe {
     }
 
     @Override
-    public ItemStack getCraftingResult(CraftingInventory inventoryCrafting) {
+    public ItemStack assemble(CraftingInventory inventoryCrafting) {
         //as we don't have an inventory this is ignored.
         return null;
     }
@@ -131,20 +131,20 @@ public class SpiritTradeRecipe extends ShapelessRecipe {
 
         //region Overrides
         @Override
-        public SpiritTradeRecipe read(ResourceLocation recipeId, JsonObject json) {
-            ShapelessRecipe recipe = serializer.read(recipeId, json);
-            return new SpiritTradeRecipe(recipe.getId(), recipe.getGroup(), recipe.getRecipeOutput(), recipe.getIngredients());
+        public SpiritTradeRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
+            ShapelessRecipe recipe = serializer.fromJson(recipeId, json);
+            return new SpiritTradeRecipe(recipe.getId(), recipe.getGroup(), recipe.getResultItem(), recipe.getIngredients());
         }
 
         @Override
-        public SpiritTradeRecipe read(ResourceLocation recipeId, PacketBuffer buffer) {
-            ShapelessRecipe recipe = serializer.read(recipeId, buffer);
-            return new SpiritTradeRecipe(recipe.getId(), recipe.getGroup(), recipe.getRecipeOutput(), recipe.getIngredients());
+        public SpiritTradeRecipe fromNetwork(ResourceLocation recipeId, PacketBuffer buffer) {
+            ShapelessRecipe recipe = serializer.fromNetwork(recipeId, buffer);
+            return new SpiritTradeRecipe(recipe.getId(), recipe.getGroup(), recipe.getResultItem(), recipe.getIngredients());
         }
 
         @Override
-        public void write(PacketBuffer buffer, SpiritTradeRecipe recipe) {
-            serializer.write(buffer, recipe);
+        public void toNetwork(PacketBuffer buffer, SpiritTradeRecipe recipe) {
+            serializer.toNetwork(buffer, recipe);
         }
         //endregion Overrides
     }

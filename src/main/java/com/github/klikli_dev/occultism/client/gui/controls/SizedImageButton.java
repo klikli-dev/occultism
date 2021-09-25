@@ -28,6 +28,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.widget.button.ImageButton;
 import net.minecraft.util.ResourceLocation;
 
+import net.minecraft.client.gui.widget.button.Button.IPressable;
+
 public class SizedImageButton extends ImageButton {
     //region Fields
     public final ResourceLocation resourceLocation;
@@ -82,9 +84,9 @@ public class SizedImageButton extends ImageButton {
 
 //region Methods
     @Override
-    public void renderWidget(MatrixStack stack, int mouseX, int mouseY, float partialTicks) {
+    public void renderButton(MatrixStack stack, int mouseX, int mouseY, float partialTicks) {
         if (this.visible) {
-            Minecraft.getInstance().getTextureManager().bindTexture(this.resourceLocation);
+            Minecraft.getInstance().getTextureManager().bind(this.resourceLocation);
             RenderSystem.disableDepthTest();
             int i = this.xTexStart;
             int j = this.yTexStart;

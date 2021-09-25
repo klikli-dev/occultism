@@ -75,7 +75,7 @@ public class ItemStackComparator implements IItemStackComparator {
         if (stack.isEmpty())
             return false;
 
-        if (this.matchNbt && !ItemStack.areItemStackTagsEqual(this.filterStack, stack))
+        if (this.matchNbt && !ItemStack.tagMatches(this.filterStack, stack))
             return false;
         return stack.getItem() == this.filterStack.getItem();
     }
@@ -102,12 +102,12 @@ public class ItemStackComparator implements IItemStackComparator {
     //region Methods
     public void read(CompoundNBT compound) {
         CompoundNBT nbt = compound.getCompound("stack");
-        this.filterStack = ItemStack.read(nbt);
+        this.filterStack = ItemStack.of(nbt);
         this.matchNbt = compound.getBoolean("matchNbt");
     }
 
     public CompoundNBT write(CompoundNBT compound) {
-        compound.put("stack", this.filterStack.write(new CompoundNBT()));
+        compound.put("stack", this.filterStack.save(new CompoundNBT()));
         compound.putBoolean("matchNbt", this.matchNbt);
         return compound;
     }

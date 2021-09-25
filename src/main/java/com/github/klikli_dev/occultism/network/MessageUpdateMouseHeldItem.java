@@ -55,17 +55,17 @@ public class MessageUpdateMouseHeldItem extends MessageBase {
     @Override
     @OnlyIn(Dist.CLIENT)
     public void onClientReceived(Minecraft minecraft, PlayerEntity player, NetworkEvent.Context context) {
-        player.inventory.setItemStack(this.stack);
+        player.inventory.setCarried(this.stack);
     }
 
     @Override
     public void encode(PacketBuffer buf) {
-        buf.writeItemStack(this.stack);
+        buf.writeItem(this.stack);
     }
 
     @Override
     public void decode(PacketBuffer buf) {
-        this.stack = buf.readItemStack();
+        this.stack = buf.readItem();
     }
     //endregion Overrides
 }

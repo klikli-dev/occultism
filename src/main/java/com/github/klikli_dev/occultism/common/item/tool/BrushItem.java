@@ -31,6 +31,8 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import net.minecraft.item.Item.Properties;
+
 public class BrushItem extends Item {
     //region Initialization
     public BrushItem(Properties properties) {
@@ -41,15 +43,15 @@ public class BrushItem extends Item {
     //region Overrides
 
     @Override
-    public ActionResultType onItemUse(ItemUseContext context) {
-        World world = context.getWorld();
-        BlockPos pos = context.getPos();
-        if (!world.isRemote) {
+    public ActionResultType useOn(ItemUseContext context) {
+        World world = context.getLevel();
+        BlockPos pos = context.getClickedPos();
+        if (!world.isClientSide) {
             //only remove chalks
             if (world.getBlockState(pos).getBlock() instanceof ChalkGlyphBlock) {
                 world.removeBlock(pos, false);
                 world.playSound(null, pos, OccultismSounds.BRUSH.get(), SoundCategory.PLAYERS, 0.5f,
-                        1 + 0.5f * context.getPlayer().getRNG().nextFloat());
+                        1 + 0.5f * context.getPlayer().getRandom().nextFloat());
             }
         }
         return ActionResultType.SUCCESS;

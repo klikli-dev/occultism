@@ -138,23 +138,23 @@ public class Occultism {
     }
 
     private void onEntityAttributeCreation(final EntityAttributeCreationEvent event){
-        event.put(OccultismEntities.FOLIOT_TYPE.get(), FoliotEntity.registerAttributes().create());
-        event.put(OccultismEntities.DJINNI_TYPE.get(), DjinniEntity.registerAttributes().create());
-        event.put(OccultismEntities.AFRIT_TYPE.get(), AfritEntity.registerAttributes().create());
-        event.put(OccultismEntities.AFRIT_WILD_TYPE.get(), AfritWildEntity.registerAttributes().create());
-        event.put(OccultismEntities.MARID_TYPE.get(), MaridEntity.registerAttributes().create());
-        event.put(OccultismEntities.POSSESSED_ENDERMITE_TYPE.get(), PossessedEndermiteEntity.registerAttributes().create());
-        event.put(OccultismEntities.POSSESSED_SKELETON_TYPE.get(), PossessedSkeletonEntity.registerAttributes().create());
-        event.put(OccultismEntities.POSSESSED_ENDERMAN_TYPE.get(), PossessedEndermanEntity.registerAttributes().create());
-        event.put(OccultismEntities.WILD_HUNT_SKELETON_TYPE.get(), WildHuntSkeletonEntity.registerAttributes().create());
-        event.put(OccultismEntities.WILD_HUNT_WITHER_SKELETON_TYPE.get(), WildHuntWitherSkeletonEntity.registerAttributes().create());
-        event.put(OccultismEntities.OTHERWORLD_BIRD_TYPE.get(), OtherworldBirdEntity.registerAttributes().create());
-        event.put(OccultismEntities.GREEDY_FAMILIAR_TYPE.get(), FamiliarEntity.registerAttributes().create());
-        event.put(OccultismEntities.BAT_FAMILIAR_TYPE.get(), BatFamiliarEntity.registerAttributes().create());
-        event.put(OccultismEntities.DEER_FAMILIAR_TYPE.get(), FamiliarEntity.registerAttributes().create());
-        event.put(OccultismEntities.CTHULHU_FAMILIAR_TYPE.get(), CthulhuFamiliarEntity.registerAttributes().create());
-        event.put(OccultismEntities.DEVIL_FAMILIAR_TYPE.get(), DevilFamiliarEntity.registerAttributes().create());
-        event.put(OccultismEntities.DRAGON_FAMILIAR_TYPE.get(), FamiliarEntity.registerAttributes().create());
+        event.put(OccultismEntities.FOLIOT_TYPE.get(), FoliotEntity.registerAttributes().build());
+        event.put(OccultismEntities.DJINNI_TYPE.get(), DjinniEntity.registerAttributes().build());
+        event.put(OccultismEntities.AFRIT_TYPE.get(), AfritEntity.registerAttributes().build());
+        event.put(OccultismEntities.AFRIT_WILD_TYPE.get(), AfritWildEntity.registerAttributes().build());
+        event.put(OccultismEntities.MARID_TYPE.get(), MaridEntity.registerAttributes().build());
+        event.put(OccultismEntities.POSSESSED_ENDERMITE_TYPE.get(), PossessedEndermiteEntity.registerAttributes().build());
+        event.put(OccultismEntities.POSSESSED_SKELETON_TYPE.get(), PossessedSkeletonEntity.registerAttributes().build());
+        event.put(OccultismEntities.POSSESSED_ENDERMAN_TYPE.get(), PossessedEndermanEntity.registerAttributes().build());
+        event.put(OccultismEntities.WILD_HUNT_SKELETON_TYPE.get(), WildHuntSkeletonEntity.registerAttributes().build());
+        event.put(OccultismEntities.WILD_HUNT_WITHER_SKELETON_TYPE.get(), WildHuntWitherSkeletonEntity.registerAttributes().build());
+        event.put(OccultismEntities.OTHERWORLD_BIRD_TYPE.get(), OtherworldBirdEntity.registerAttributes().build());
+        event.put(OccultismEntities.GREEDY_FAMILIAR_TYPE.get(), FamiliarEntity.registerAttributes().build());
+        event.put(OccultismEntities.BAT_FAMILIAR_TYPE.get(), BatFamiliarEntity.registerAttributes().build());
+        event.put(OccultismEntities.DEER_FAMILIAR_TYPE.get(), FamiliarEntity.registerAttributes().build());
+        event.put(OccultismEntities.CTHULHU_FAMILIAR_TYPE.get(), CthulhuFamiliarEntity.registerAttributes().build());
+        event.put(OccultismEntities.DEVIL_FAMILIAR_TYPE.get(), DevilFamiliarEntity.registerAttributes().build());
+        event.put(OccultismEntities.DRAGON_FAMILIAR_TYPE.get(), FamiliarEntity.registerAttributes().build());
     }
 
     private void serverSetup(final FMLDedicatedServerSetupEvent event) {

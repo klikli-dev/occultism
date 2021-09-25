@@ -75,32 +75,32 @@ public class SpiritTransporterContainer extends SpiritContainer {
     }
 
     @Override
-    public ItemStack slotClick(int id, int dragType, ClickType clickType, PlayerEntity player) {
+    public ItemStack clicked(int id, int dragType, ClickType clickType, PlayerEntity player) {
         Slot slot = id >= 0 ? this.getSlot(id) : null;
 
-        ItemStack holding = player.inventory.getItemStack();
+        ItemStack holding = player.inventory.getCarried();
 
         if (slot instanceof FilterSlot) {
             if (holding.isEmpty()) {
-                slot.putStack(ItemStack.EMPTY);
+                slot.set(ItemStack.EMPTY);
             }
-            else if (slot.isItemValid(holding)) {
-                slot.putStack(holding.copy());
+            else if (slot.mayPlace(holding)) {
+                slot.set(holding.copy());
             }
 
             return holding;
         }
 
-        return super.slotClick(id, dragType, clickType, player);
+        return super.clicked(id, dragType, clickType, player);
     }
 
     @Override
-    public boolean canMergeSlot(ItemStack stack, Slot slot) {
+    public boolean canTakeItemForPickAll(ItemStack stack, Slot slot) {
         if (slot instanceof FilterSlot) {
             return false;
         }
 
-        return super.canMergeSlot(stack, slot);
+        return super.canTakeItemForPickAll(stack, slot);
     }
     //endregion Overrides
 
@@ -126,12 +126,12 @@ public class SpiritTransporterContainer extends SpiritContainer {
 
         //region Overrides
         @Override
-        public void putStack(@Nonnull ItemStack stack) {
+        public void set(@Nonnull ItemStack stack) {
             if (!stack.isEmpty()) {
                 stack.setCount(1);
             }
 
-            super.putStack(stack);
+            super.set(stack);
         }
         //endregion Overrides
     }

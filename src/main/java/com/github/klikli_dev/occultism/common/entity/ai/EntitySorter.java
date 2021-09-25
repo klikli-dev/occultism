@@ -39,8 +39,8 @@ public class EntitySorter implements Comparator<Entity> {
 
     //region Overrides
     public int compare(Entity a, Entity b) {
-        double distanceA = this.entity.getDistanceSq(a);
-        double distanceB = this.entity.getDistanceSq(b);
+        double distanceA = this.entity.distanceToSqr(a);
+        double distanceB = this.entity.distanceToSqr(b);
         return Double.compare(distanceA, distanceB);
     }
     //endregion Overrides

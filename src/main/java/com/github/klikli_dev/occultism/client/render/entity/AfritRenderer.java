@@ -45,13 +45,13 @@ public class AfritRenderer extends BipedSpiritRenderer<AfritEntity, AfritModel> 
     //region Overrides
 
     @Override
-    public ResourceLocation getEntityTexture(AfritEntity entity) {
-        return TEXTURES[entity.getDataManager().get(entity.getDataParameterSkin())];
+    public ResourceLocation getTextureLocation(AfritEntity entity) {
+        return TEXTURES[entity.getEntityData().get(entity.getDataParameterSkin())];
     }
 
     @Override
-    protected void preRenderCallback(AfritEntity entity, MatrixStack matrixStackIn, float partialTickTime) {
-        super.preRenderCallback(entity, matrixStackIn, partialTickTime);
+    protected void scale(AfritEntity entity, MatrixStack matrixStackIn, float partialTickTime) {
+        super.scale(entity, matrixStackIn, partialTickTime);
         matrixStackIn.scale(1.2f, 1.2f, 1.2f);
     }
     //endregion Overrides

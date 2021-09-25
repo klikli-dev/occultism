@@ -48,7 +48,7 @@ public class OccultismPacketHandler {
     }
 
     public static <T extends IMessage> void handleServer(T message, Supplier<NetworkEvent.Context> ctx) {
-        MinecraftServer server = ctx.get().getSender().world.getServer();
+        MinecraftServer server = ctx.get().getSender().level.getServer();
         message.onServerReceived(server, ctx.get().getSender(), ctx.get());
     }
 

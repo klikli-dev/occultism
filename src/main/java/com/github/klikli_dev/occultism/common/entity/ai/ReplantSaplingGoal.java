@@ -35,6 +35,8 @@ import net.minecraft.util.math.BlockPos;
 
 import java.util.EnumSet;
 
+import net.minecraft.entity.ai.goal.Goal.Flag;
+
 public class ReplantSaplingGoal extends Goal {
     protected final SpiritEntity entity;
     protected final BlockSorter targetSorter;
@@ -43,21 +45,21 @@ public class ReplantSaplingGoal extends Goal {
     public ReplantSaplingGoal(SpiritEntity entity) {
         this.entity = entity;
         this.targetSorter = new BlockSorter(entity);
-        this.setMutexFlags(EnumSet.of(Flag.MOVE));
+        this.setFlags(EnumSet.of(Flag.MOVE));
     }
 
     /**
      * @return the position to move to to deposit the target block.
      */
     private BlockPos getMoveTarget() {
-        double angle = Math3DUtil.yaw(this.entity.getPositionVec(), Math3DUtil.center(this.moveTarget));
-        return this.moveTarget.offset(Direction.fromAngle(angle).getOpposite());
+        double angle = Math3DUtil.yaw(this.entity.position(), Math3DUtil.center(this.moveTarget));
+        return this.moveTarget.relative(Direction.fromYRot(angle).getOpposite());
     }
 
     @Override
-    public boolean shouldExecute() {
+    public boolean canUse() {
         //nothing to deposit in hand
-        if (!ItemTags.SAPLINGS.contains(this.entity.getHeldItem(Hand.MAIN_HAND).getItem())) {
+        if (!ItemTags.SAPLINGS.contains(this.entity.getItemInHand(Hand.MAIN_HAND).getItem())) {
             return false;
         }
         if (!this.entity.getJob().map(j -> (LumberjackJob) j).map(j -> j.getLastFelledTree() != null).orElse(false))
@@ -67,13 +69,13 @@ public class ReplantSaplingGoal extends Goal {
     }
 
     @Override
-    public boolean shouldContinueExecuting() {
-        return this.moveTarget != null && !ItemTags.SAPLINGS.contains(this.entity.getHeldItem(Hand.MAIN_HAND).getItem())
+    public boolean canContinueToUse() {
+        return this.moveTarget != null && !ItemTags.SAPLINGS.contains(this.entity.getItemInHand(Hand.MAIN_HAND).getItem())
                 && !this.entity.getJob().map(j -> (LumberjackJob) j).map(j -> j.getLastFelledTree() != null).orElse(false);
     }
 
-    public void resetTask() {
-        this.entity.getNavigator().clearPath();
+    public void stop() {
+        this.entity.getNavigation().stop();
         this.resetTarget();
     }
 
@@ -82,19 +84,19 @@ public class ReplantSaplingGoal extends Goal {
         if (this.moveTarget != null) {
             float accessDistance = 1.86f;
 
-            double distance = this.entity.getPositionVec().distanceTo(Math3DUtil.center(this.moveTarget));
+            double distance = this.entity.position().distanceTo(Math3DUtil.center(this.moveTarget));
 
             if (distance < accessDistance) {
                 //stop moving while planting
-                this.entity.getNavigator().clearPath();
+                this.entity.getNavigation().stop();
 
                 this.entity.getJob().map(j -> (LumberjackJob) j).map(LumberjackJob::getLastFelledTree).ifPresent(lastFelledTree -> {
 
-                    if (this.entity.world.isAirBlock(lastFelledTree)) {
-                        ItemStack sapling = this.entity.getHeldItem(Hand.MAIN_HAND);
+                    if (this.entity.level.isEmptyBlock(lastFelledTree)) {
+                        ItemStack sapling = this.entity.getItemInHand(Hand.MAIN_HAND);
                         if (sapling.getItem() instanceof BlockItem) {
                             BlockItem saplingBlockItem = (BlockItem) sapling.getItem();
-                            this.entity.world.setBlockState(lastFelledTree, saplingBlockItem.getBlock().getDefaultState());
+                            this.entity.level.setBlockAndUpdate(lastFelledTree, saplingBlockItem.getBlock().defaultBlockState());
                             sapling.shrink(1);
                         }
                     }
@@ -107,7 +109,7 @@ public class ReplantSaplingGoal extends Goal {
             } else {
                 //continue moving
                 BlockPos moveTarget = this.getMoveTarget();
-                this.entity.getNavigator().setPath(this.entity.getNavigator().getPathToPos(moveTarget, 0), 1.0f);
+                this.entity.getNavigation().moveTo(this.entity.getNavigation().createPath(moveTarget, 0), 1.0f);
             }
         } else {
             this.resetTarget(); //if there is no tile entity, recheck

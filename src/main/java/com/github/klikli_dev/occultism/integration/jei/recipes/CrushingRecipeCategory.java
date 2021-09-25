@@ -49,7 +49,7 @@ public class CrushingRecipeCategory implements IRecipeCategory<CrushingRecipe> {
     //region Initialization
     public CrushingRecipeCategory(IGuiHelper guiHelper) {
         this.background = guiHelper.createBlankDrawable(168, 46); //64
-        this.localizedName = I18n.format(Occultism.MODID + ".jei.crushing");
+        this.localizedName = I18n.get(Occultism.MODID + ".jei.crushing");
         this.overlay = guiHelper.createDrawable(
                 new ResourceLocation(Occultism.MODID, "textures/gui/jei/arrow.png"), 0, 0, 64, 46);
     }
@@ -84,7 +84,7 @@ public class CrushingRecipeCategory implements IRecipeCategory<CrushingRecipe> {
     @Override
     public void setIngredients(CrushingRecipe recipe, IIngredients ingredients) {
         ingredients.setInputIngredients(recipe.getIngredients());
-        ingredients.setOutput(VanillaTypes.ITEM, recipe.getRecipeOutput());
+        ingredients.setOutput(VanillaTypes.ITEM, recipe.getResultItem());
     }
 
     @Override
@@ -102,11 +102,11 @@ public class CrushingRecipeCategory implements IRecipeCategory<CrushingRecipe> {
     public void draw(CrushingRecipe recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
         RenderSystem.enableBlend();
         this.overlay.draw(matrixStack, 76, 14); //(center=84) - (width/16=8) = 76
-        this.drawStringCentered(matrixStack, Minecraft.getInstance().fontRenderer, this.getTitle(), 84, 0);
+        this.drawStringCentered(matrixStack, Minecraft.getInstance().font, this.getTitle(), 84, 0);
     }
 
     protected void drawStringCentered(MatrixStack matrixStack, FontRenderer fontRenderer, String text, int x, int y) {
-        fontRenderer.drawString(matrixStack, text, (x - fontRenderer.getStringWidth(text) / 2.0f), y, 0);
+        fontRenderer.draw(matrixStack, text, (x - fontRenderer.width(text) / 2.0f), y, 0);
     }
     //endregion Overrides
 }

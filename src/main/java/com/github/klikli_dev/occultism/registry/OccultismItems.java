@@ -50,21 +50,21 @@ public class OccultismItems {
     public static final RegistryObject<Item> PENTACLE = ITEMS.register("pentacle",
             () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> DEBUG_WAND = ITEMS.register("debug_wand",
-            () -> new DebugWandItem(defaultProperties().maxStackSize(1)));
+            () -> new DebugWandItem(defaultProperties().stacksTo(1)));
     public static final RegistryObject<Item> DEBUG_FOLIOT_LUMBERJACK = ITEMS.register("debug_foliot_lumberjack",
-            () -> new SummonFoliotLumberjackItem(defaultProperties().maxStackSize(1)));
+            () -> new SummonFoliotLumberjackItem(defaultProperties().stacksTo(1)));
     public static final RegistryObject<Item> DEBUG_FOLIOT_TRANSPORT_ITEMS =
             ITEMS.register("debug_foliot_transport_items",
-                    () -> new SummonFoliotTransportItemsItem(defaultProperties().maxStackSize(1)));
+                    () -> new SummonFoliotTransportItemsItem(defaultProperties().stacksTo(1)));
     public static final RegistryObject<Item> DEBUG_FOLIOT_CLEANER =
             ITEMS.register("debug_foliot_cleaner",
-                    () -> new SummonFoliotCleanerItem(defaultProperties().maxStackSize(1)));
+                    () -> new SummonFoliotCleanerItem(defaultProperties().stacksTo(1)));
     public static final RegistryObject<Item> DEBUG_FOLIOT_TRADER_ITEM = ITEMS.register("debug_foliot_trader",
-            () -> new SummonFoliotTraderItem(defaultProperties().maxStackSize(1)));
+            () -> new SummonFoliotTraderItem(defaultProperties().stacksTo(1)));
     public static final RegistryObject<Item> DEBUG_DJINNI_MANAGE_MACHINE = ITEMS.register("debug_djinni_manage_machine",
-            () -> new SummonDjinniManageMachineItem(defaultProperties().maxStackSize(1)));
+            () -> new SummonDjinniManageMachineItem(defaultProperties().stacksTo(1)));
     public static final RegistryObject<Item> DEBUG_DJINNI_TEST = ITEMS.register("debug_djinni_test",
-            () -> new SummonDjinniTest(defaultProperties().maxStackSize(1)));
+            () -> new SummonDjinniTest(defaultProperties().stacksTo(1)));
 
     public static final RegistryObject<BlockItem> SPIRIT_FIRE =
             ITEMS.register("spirit_fire", () -> new BlockItem(OccultismBlocks.SPIRIT_FIRE.get(), defaultProperties()));
@@ -156,28 +156,28 @@ public class OccultismItems {
             () -> new Item(defaultProperties()));
     //Tools
     public static final RegistryObject<GuideBookItem> GUIDE_BOOK = ITEMS.register("dictionary_of_spirits",
-            () -> new GuideBookItem(defaultProperties().maxStackSize(1)));
+            () -> new GuideBookItem(defaultProperties().stacksTo(1)));
 
     public static final RegistryObject<StorageRemoteItem> STORAGE_REMOTE = ITEMS.register("storage_remote",
-            () -> new StorageRemoteItem(defaultProperties().maxStackSize(1)));
+            () -> new StorageRemoteItem(defaultProperties().stacksTo(1)));
 
     public static final RegistryObject<Item> CHALK_WHITE = ITEMS.register("chalk_white",
-            () -> new ChalkItem(defaultProperties().setNoRepair().maxDamage(128),
+            () -> new ChalkItem(defaultProperties().setNoRepair().durability(128),
                     () -> OccultismBlocks.CHALK_GLYPH_WHITE.get()));
     public static final RegistryObject<Item> CHALK_GOLD = ITEMS.register("chalk_gold",
-            () -> new ChalkItem(defaultProperties().setNoRepair().maxDamage(128),
+            () -> new ChalkItem(defaultProperties().setNoRepair().durability(128),
                     () -> OccultismBlocks.CHALK_GLYPH_GOLD.get()));
     public static final RegistryObject<Item> CHALK_PURPLE = ITEMS.register("chalk_purple",
-            () -> new ChalkItem(defaultProperties().setNoRepair().maxDamage(128),
+            () -> new ChalkItem(defaultProperties().setNoRepair().durability(128),
                     () -> OccultismBlocks.CHALK_GLYPH_PURPLE.get()));
     public static final RegistryObject<Item> CHALK_RED = ITEMS.register("chalk_red",
-            () -> new ChalkItem(defaultProperties().setNoRepair().maxDamage(128),
+            () -> new ChalkItem(defaultProperties().setNoRepair().durability(128),
                     () -> OccultismBlocks.CHALK_GLYPH_RED.get()));
 
     public static final RegistryObject<DivinationRodItem> DIVINATION_ROD = ITEMS.register("divination_rod",
-            () -> new DivinationRodItem(defaultProperties().maxStackSize(1)));
+            () -> new DivinationRodItem(defaultProperties().stacksTo(1)));
     public static final RegistryObject<BrushItem> BRUSH = ITEMS.register("brush",
-            () -> new BrushItem(defaultProperties().maxStackSize(1)));
+            () -> new BrushItem(defaultProperties().stacksTo(1)));
     public static final RegistryObject<ButcherKnifeItem> BUTCHER_KNIFE = ITEMS.register("butcher_knife",
             () -> new ButcherKnifeItem(ItemTier.IRON, 3, -2.4F, defaultProperties()));
 
@@ -187,55 +187,55 @@ public class OccultismItems {
             () -> new OtherworldPickaxeItem(ItemTier.DIAMOND, 1, -2.8F, defaultProperties()));
 
     public static final RegistryObject<SoulGemItem> SOUL_GEM_ITEM = ITEMS.register("soul_gem",
-            () -> new SoulGemItem(defaultProperties().maxStackSize(1)));
+            () -> new SoulGemItem(defaultProperties().stacksTo(1)));
 
     public static final RegistryObject<Item> SATCHEL = ITEMS.register("satchel",
-            () -> new SatchelItem(defaultProperties().maxStackSize(1).rarity(Rarity.RARE)));
+            () -> new SatchelItem(defaultProperties().stacksTo(1).rarity(Rarity.RARE)));
 
     public static final RegistryObject<Item> FAMILIAR_RING = ITEMS.register("familiar_ring",
-            () -> new FamiliarRingItem(defaultProperties().maxStackSize(1)));
+            () -> new FamiliarRingItem(defaultProperties().stacksTo(1)));
 
     //Books of Binding
     public static final RegistryObject<BookOfBindingItem> BOOK_OF_BINDING_FOLIOT = ITEMS.register(
-            "book_of_binding_foliot", () -> new BookOfBindingItem(defaultProperties().maxStackSize(1)));
+            "book_of_binding_foliot", () -> new BookOfBindingItem(defaultProperties().stacksTo(1)));
     public static final RegistryObject<BookOfBindingBoundItem> BOOK_OF_BINDING_BOUND_FOLIOT = ITEMS.register(
-            "book_of_binding_bound_foliot", () -> new BookOfBindingBoundItem(defaultProperties().maxStackSize(1)));
+            "book_of_binding_bound_foliot", () -> new BookOfBindingBoundItem(defaultProperties().stacksTo(1)));
     public static final RegistryObject<BookOfBindingItem> BOOK_OF_BINDING_DJINNI = ITEMS.register(
-            "book_of_binding_djinni", () -> new BookOfBindingItem(defaultProperties().maxStackSize(1)));
+            "book_of_binding_djinni", () -> new BookOfBindingItem(defaultProperties().stacksTo(1)));
     public static final RegistryObject<BookOfBindingBoundItem> BOOK_OF_BINDING_BOUND_DJINNI = ITEMS.register(
-            "book_of_binding_bound_djinni", () -> new BookOfBindingBoundItem(defaultProperties().maxStackSize(1)));
+            "book_of_binding_bound_djinni", () -> new BookOfBindingBoundItem(defaultProperties().stacksTo(1)));
     public static final RegistryObject<BookOfBindingItem> BOOK_OF_BINDING_AFRIT = ITEMS.register(
-            "book_of_binding_afrit", () -> new BookOfBindingItem(defaultProperties().maxStackSize(1)));
+            "book_of_binding_afrit", () -> new BookOfBindingItem(defaultProperties().stacksTo(1)));
     public static final RegistryObject<BookOfBindingBoundItem> BOOK_OF_BINDING_BOUND_AFRIT = ITEMS.register(
-            "book_of_binding_bound_afrit", () -> new BookOfBindingBoundItem(defaultProperties().maxStackSize(1)));
+            "book_of_binding_bound_afrit", () -> new BookOfBindingBoundItem(defaultProperties().stacksTo(1)));
     public static final RegistryObject<BookOfBindingItem> BOOK_OF_BINDING_MARID = ITEMS.register(
-            "book_of_binding_marid", () -> new BookOfBindingItem(defaultProperties().maxStackSize(1)));
+            "book_of_binding_marid", () -> new BookOfBindingItem(defaultProperties().stacksTo(1)));
     public static final RegistryObject<BookOfBindingBoundItem> BOOK_OF_BINDING_BOUND_MARID = ITEMS.register(
-            "book_of_binding_bound_marid", () -> new BookOfBindingBoundItem(defaultProperties().maxStackSize(1)));
+            "book_of_binding_bound_marid", () -> new BookOfBindingBoundItem(defaultProperties().stacksTo(1)));
     //Books of Calling
     //Foliot
     public static final RegistryObject<BookOfCallingLumberjackItem> BOOK_OF_CALLING_FOLIOT_LUMBERJACK =
             ITEMS.register("book_of_calling_foliot_lumberjack",
-                    () -> new BookOfCallingLumberjackItem(defaultProperties().maxStackSize(1),
+                    () -> new BookOfCallingLumberjackItem(defaultProperties().stacksTo(1),
                             TranslationKeys.BOOK_OF_CALLING_GENERIC + "_foliot"));
     public static final RegistryObject<BookOfCallingTransportItems> BOOK_OF_CALLING_FOLIOT_TRANSPORT_ITEMS =
             ITEMS.register("book_of_calling_foliot_transport_items",
-                    () -> new BookOfCallingTransportItems(defaultProperties().maxStackSize(1),
+                    () -> new BookOfCallingTransportItems(defaultProperties().stacksTo(1),
                             TranslationKeys.BOOK_OF_CALLING_GENERIC + "_foliot"));
     public static final RegistryObject<BookOfCallingCleanerItem> BOOK_OF_CALLING_FOLIOT_CLEANER =
             ITEMS.register("book_of_calling_foliot_cleaner",
-                    () -> new BookOfCallingCleanerItem(defaultProperties().maxStackSize(1),
+                    () -> new BookOfCallingCleanerItem(defaultProperties().stacksTo(1),
                             TranslationKeys.BOOK_OF_CALLING_GENERIC + "_foliot"));
     //Djinn
     public static final RegistryObject<BookOfCallingManageMachineItem> BOOK_OF_CALLING_DJINNI_MANAGE_MACHINE =
             ITEMS.register("book_of_calling_djinni_manage_machine",
-                    () -> new BookOfCallingManageMachineItem(defaultProperties().maxStackSize(1),
+                    () -> new BookOfCallingManageMachineItem(defaultProperties().stacksTo(1),
                             TranslationKeys.BOOK_OF_CALLING_GENERIC + "_djinni"));
 
     //Armor
     public static final RegistryObject<OtherworldGogglesItem> OTHERWORLD_GOGGLES = ITEMS.register("otherworld_goggles",
             () -> new OtherworldGogglesItem(ArmorMaterial.IRON,
-                    EquipmentSlotType.HEAD, defaultProperties().maxStackSize(1)));
+                    EquipmentSlotType.HEAD, defaultProperties().stacksTo(1)));
 
     //Machines
     public static final RegistryObject<StableWormholeBlockItem> STABLE_WORMHOLE = ITEMS.register("stable_wormhole",
@@ -252,18 +252,18 @@ public class OccultismItems {
     //Miner Spirits
     public static final RegistryObject<MinerSpiritItem> MINER_DEBUG_UNSPECIALIZED =
             ITEMS.register("miner_debug_unspecialized",
-                    () -> new MinerSpiritItem(defaultProperties().maxDamage(10000), () -> 100, () -> 10, () -> 10000));
+                    () -> new MinerSpiritItem(defaultProperties().durability(10000), () -> 100, () -> 10, () -> 10000));
     public static final RegistryObject<MinerSpiritItem> MINER_FOLIOT_UNSPECIALIZED =
             ITEMS.register("miner_foliot_unspecialized",
                     () -> new MinerSpiritItem(defaultProperties()
-                            .maxDamage(
+                            .durability(
                                     Occultism.SERVER_CONFIG.dimensionalMineshaft.minerFoliotUnspecialized.durability
                                             .get()),
                             Occultism.SERVER_CONFIG.dimensionalMineshaft.minerFoliotUnspecialized.maxMiningTime::get,
                             Occultism.SERVER_CONFIG.dimensionalMineshaft.minerFoliotUnspecialized.rollsPerOperation::get,
                             Occultism.SERVER_CONFIG.dimensionalMineshaft.minerFoliotUnspecialized.durability::get));
     public static final RegistryObject<MinerSpiritItem> MINER_DJINNI_ORES = ITEMS.register("miner_djinni_ores",
-            () -> new MinerSpiritItem(defaultProperties().maxDamage(
+            () -> new MinerSpiritItem(defaultProperties().durability(
                     Occultism.SERVER_CONFIG.dimensionalMineshaft.minerDjinniOres.durability.get())
                     , Occultism.SERVER_CONFIG.dimensionalMineshaft.minerDjinniOres.maxMiningTime::get,
                     Occultism.SERVER_CONFIG.dimensionalMineshaft.minerDjinniOres.rollsPerOperation::get,
@@ -333,7 +333,7 @@ public class OccultismItems {
 
     //region Static Methods
     public static Item.Properties defaultProperties() {
-        return new Item.Properties().group(Occultism.ITEM_GROUP);
+        return new Item.Properties().tab(Occultism.ITEM_GROUP);
     }
     //endregion Static Methods
 }

@@ -57,18 +57,18 @@ public class BatFamiliarEntity extends FamiliarEntity implements IFlyingAnimal {
 
     public BatFamiliarEntity(EntityType<? extends BatFamiliarEntity> type, World worldIn) {
         super(type, worldIn);
-        this.moveController = new FlyingMovementController(this, 20, true);
+        this.moveControl = new FlyingMovementController(this, 20, true);
     }
 
     public static AttributeModifierMap.MutableAttribute registerAttributes() {
-        return FamiliarEntity.registerAttributes().createMutableAttribute(Attributes.FLYING_SPEED, 0.4);
+        return FamiliarEntity.registerAttributes().add(Attributes.FLYING_SPEED, 0.4);
     }
 
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new PanicGoal(this, 1.25));
         SitGoal sitGoal = new SitGoal(this);
-        sitGoal.setMutexFlags(EnumSet.of(Goal.Flag.JUMP, Goal.Flag.MOVE, Goal.Flag.LOOK));
+        sitGoal.setFlags(EnumSet.of(Goal.Flag.JUMP, Goal.Flag.MOVE, Goal.Flag.LOOK));
         this.goalSelector.addGoal(2, sitGoal);
         this.goalSelector.addGoal(3, new CannibalismGoal(this));
         this.goalSelector.addGoal(4, new LookAtGoal(this, PlayerEntity.class, 8));
@@ -78,24 +78,24 @@ public class BatFamiliarEntity extends FamiliarEntity implements IFlyingAnimal {
     }
 
     @Override
-    protected PathNavigator createNavigator(World world) {
+    protected PathNavigator createNavigation(World world) {
         FlyingPathNavigator navigator = new FlyingPathNavigator(this, world) {
             @Override
-            public boolean canEntityStandOnPos(BlockPos pos) {
-                BlockState state = this.world.getBlockState(pos);
-                return state.getBlock().isAir(state, this.world, pos) || !state.getMaterial().blocksMovement();
+            public boolean isStableDestination(BlockPos pos) {
+                BlockState state = this.level.getBlockState(pos);
+                return state.getBlock().isAir(state, this.level, pos) || !state.getMaterial().blocksMotion();
             }
         };
         return navigator;
     }
 
     @Override
-    public boolean onLivingFall(float fallDistance, float damageMultiplier) {
+    public boolean causeFallDamage(float fallDistance, float damageMultiplier) {
         return false;
     }
 
     @Override
-    public boolean hasNoGravity() {
+    public boolean isNoGravity() {
         return true;
     }
 
@@ -103,11 +103,11 @@ public class BatFamiliarEntity extends FamiliarEntity implements IFlyingAnimal {
     public void tick() {
         super.tick();
         if (this.isSitting())
-            this.setMotion(Vector3d.ZERO);
+            this.setDeltaMovement(Vector3d.ZERO);
     }
 
     public float getAnimationHeight(float partialTicks) {
-        return MathHelper.cos((ticksExisted + partialTicks) / 5);
+        return MathHelper.cos((tickCount + partialTicks) / 5);
     }
 
     @Override
@@ -128,22 +128,22 @@ public class BatFamiliarEntity extends FamiliarEntity implements IFlyingAnimal {
         }
 
         @Override
-        public boolean shouldExecute() {
+        public boolean canUse() {
             nearby = nearbyBat();
             return nearby != null;
         }
 
         @Override
-        public void startExecuting() {
+        public void start() {
             if (nearby != null) {
-                nearby.attackEntityFrom(DamageSource.causeMobDamage(bat), 10);
+                nearby.hurt(DamageSource.mobAttack(bat), 10);
                 OccultismAdvancements.FAMILIAR.trigger(bat.getFamiliarOwner(), FamiliarTrigger.Type.BAT_EAT);
             }
         }
 
         private BatEntity nearbyBat() {
             BatEntity nearby = null;
-            List<BatEntity> bats = bat.world.getEntitiesWithinAABB(BatEntity.class, bat.getBoundingBox().grow(2));
+            List<BatEntity> bats = bat.level.getEntitiesOfClass(BatEntity.class, bat.getBoundingBox().inflate(2));
             if (!bats.isEmpty())
                 nearby = bats.get(0);
             return nearby;

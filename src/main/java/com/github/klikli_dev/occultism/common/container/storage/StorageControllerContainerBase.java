@@ -97,7 +97,7 @@ public abstract class StorageControllerContainerBase extends Container implement
     }
 
     @Override
-    public void onCraftMatrixChanged(IInventory inventoryIn) {
+    public void slotsChanged(IInventory inventoryIn) {
         if (this.recipeLocked) {
             //only allow matrix changes while we are not crafting
             return;
@@ -111,14 +111,14 @@ public abstract class StorageControllerContainerBase extends Container implement
     }
 
     @Override
-    public ItemStack transferStackInSlot(PlayerEntity player, int index) {
-        if (player.world.isRemote)
+    public ItemStack quickMoveStack(PlayerEntity player, int index) {
+        if (player.level.isClientSide)
             return ItemStack.EMPTY;
 
         ItemStack result = ItemStack.EMPTY;
-        Slot slot = this.inventorySlots.get(index);
-        if (slot != null && slot.getHasStack()) {
-            ItemStack slotStack = slot.getStack();
+        Slot slot = this.slots.get(index);
+        if (slot != null && slot.hasItem()) {
+            ItemStack slotStack = slot.getItem();
             result = slotStack.copy();
 
             IStorageController storageController = this.getStorageController();
@@ -136,10 +136,10 @@ public abstract class StorageControllerContainerBase extends Container implement
                         .copyStackWithSize(
                                 slotStack,
                                 remainingItems);
-                slot.putStack(remainingItemStack);
+                slot.set(remainingItemStack);
 
                 //sync slots
-                this.detectAndSendChanges();
+                this.broadcastChanges();
 
                 //get updated stacks from storage controller and send to client
                 OccultismPackets.sendTo((ServerPlayerEntity) player, storageController.getMessageUpdateStacks());
@@ -154,10 +154,10 @@ public abstract class StorageControllerContainerBase extends Container implement
     }
 
     @Override
-    public void onContainerClosed(PlayerEntity playerIn) {
+    public void removed(PlayerEntity playerIn) {
         this.updateCraftingSlots(false);
         this.updateOrderSlot(true); //only send network update on second call
-        super.onContainerClosed(playerIn);
+        super.removed(playerIn);
     }
 
     //endregion Overrides
@@ -205,30 +205,30 @@ public abstract class StorageControllerContainerBase extends Container implement
 
     protected void findRecipeForMatrixClient() {
         Optional<ICraftingRecipe> optional =
-                this.player.world.getRecipeManager().getRecipe(IRecipeType.CRAFTING, this.matrix, this.player.world);
+                this.player.level.getRecipeManager().getRecipeFor(IRecipeType.CRAFTING, this.matrix, this.player.level);
         optional.ifPresent(iCraftingRecipe -> this.currentRecipe = iCraftingRecipe);
     }
 
     protected void findRecipeForMatrix() {
-        //TODO: if there are issues, set up a copy of this based on WorkBenchContainer func_217066_a / updateCraftingResult
+        //TODO: if there are issues, set up a copy of this based on WorkBenchContainer slotChangedCraftingGrid / updateCraftingResult
         //      and call it onCraftingMatrixChanged(). Send slot packet!
-        if (!this.player.world.isRemote) {
+        if (!this.player.level.isClientSide) {
             this.currentRecipe = null;
             ServerPlayerEntity serverplayerentity = (ServerPlayerEntity) this.player;
             ItemStack itemstack = ItemStack.EMPTY;
-            Optional<ICraftingRecipe> optional = this.player.world.getServer().getRecipeManager()
-                    .getRecipe(IRecipeType.CRAFTING, this.matrix,
-                            this.player.world);
+            Optional<ICraftingRecipe> optional = this.player.level.getServer().getRecipeManager()
+                    .getRecipeFor(IRecipeType.CRAFTING, this.matrix,
+                            this.player.level);
             if (optional.isPresent()) {
                 ICraftingRecipe icraftingrecipe = optional.get();
-                if (this.result.canUseRecipe(this.player.world, serverplayerentity, icraftingrecipe)) {
-                    itemstack = icraftingrecipe.getCraftingResult(this.matrix);
+                if (this.result.setRecipeUsed(this.player.level, serverplayerentity, icraftingrecipe)) {
+                    itemstack = icraftingrecipe.assemble(this.matrix);
                     this.currentRecipe = icraftingrecipe;
                 }
             }
 
-            this.result.setInventorySlotContents(0, itemstack);
-            serverplayerentity.connection.sendPacket(new SSetSlotPacket(this.windowId, 0, itemstack));
+            this.result.setItem(0, itemstack);
+            serverplayerentity.connection.send(new SSetSlotPacket(this.containerId, 0, itemstack));
         }
     }
 
@@ -246,13 +246,13 @@ public abstract class StorageControllerContainerBase extends Container implement
         this.recipeLocked = true;
 
         //copy the recipe stacks
-        List<ItemStack> recipeCopy = new ArrayList<>(this.matrix.getSizeInventory());
-        for (int i = 0; i < this.matrix.getSizeInventory(); i++) {
-            recipeCopy.add(this.matrix.getStackInSlot(i).copy());
+        List<ItemStack> recipeCopy = new ArrayList<>(this.matrix.getContainerSize());
+        for (int i = 0; i < this.matrix.getContainerSize(); i++) {
+            recipeCopy.add(this.matrix.getItem(i).copy());
         }
 
         //Get the crafting result and abort if none
-        ItemStack result = this.currentRecipe.getCraftingResult(this.matrix);
+        ItemStack result = this.currentRecipe.assemble(this.matrix);
         if (result.isEmpty()) {
             return;
         }
@@ -268,7 +268,7 @@ public abstract class StorageControllerContainerBase extends Container implement
             if (this.currentRecipe == null)
                 break;
 
-            ItemStack newResult = this.currentRecipe.getCraftingResult(this.matrix).copy();
+            ItemStack newResult = this.currentRecipe.assemble(this.matrix).copy();
             if(newResult.getItem() != result.getItem())
                 break;
 
@@ -279,7 +279,7 @@ public abstract class StorageControllerContainerBase extends Container implement
             }
 
             //if recipe is no longer fulfilled, stop
-            if (!this.currentRecipe.matches(this.matrix, player.world)) {
+            if (!this.currentRecipe.matches(this.matrix, player.level)) {
                 break;
             }
 
@@ -295,11 +295,11 @@ public abstract class StorageControllerContainerBase extends Container implement
             for (int i = 0; i < remainingCraftingItems.size(); ++i) {
 
                 ItemStack currentCraftingItem = remainingCraftingItems.get(i).copy();
-                ItemStack stackInSlot = this.matrix.getStackInSlot(i);
+                ItemStack stackInSlot = this.matrix.getItem(i);
 
                 //if we find an empty stack, shrink it to remove it.
                 if (currentCraftingItem.isEmpty()) {
-                    this.matrix.getStackInSlot(i).shrink(1);
+                    this.matrix.getItem(i).shrink(1);
                     continue;
                 }
 
@@ -308,7 +308,7 @@ public abstract class StorageControllerContainerBase extends Container implement
                     ItemStack container = stackInSlot.getItem().getContainerItem(stackInSlot);
                     if (!stackInSlot.isStackable()) {
                         stackInSlot = container;
-                        this.matrix.setInventorySlotContents(i, stackInSlot);
+                        this.matrix.setItem(i, stackInSlot);
                     } else {
                         //handle stackable container items
                         stackInSlot.shrink(1);
@@ -317,36 +317,36 @@ public abstract class StorageControllerContainerBase extends Container implement
                 } else if (!currentCraftingItem.isEmpty()) {
                     //if the slot is empty now we just place the crafting item in it
                     if (stackInSlot.isEmpty()) {
-                        this.matrix.setInventorySlotContents(i, currentCraftingItem);
+                        this.matrix.setItem(i, currentCraftingItem);
                     }
                     //handle "normal items"
                     //Note: Doe not use item stack isdamagable -> it also takes into account unbreakable items which would then dupe
-                    else if (!stackInSlot.getItem().isDamageable() && ItemStack.areItemsEqual(stackInSlot, currentCraftingItem) &&
-                            ItemStack.areItemStackTagsEqual(stackInSlot, currentCraftingItem)) {
+                    else if (!stackInSlot.getItem().canBeDepleted() && ItemStack.isSame(stackInSlot, currentCraftingItem) &&
+                            ItemStack.tagMatches(stackInSlot, currentCraftingItem)) {
                         //hacky workaround for aquaculture unbreakable fillet knife being mis-interpreted and duped
                         if(!stackInSlot.getItem().getRegistryName().toString().equals("aquaculture:neptunium_fillet_knife"))
                             currentCraftingItem.grow(stackInSlot.getCount());
-                        this.matrix.setInventorySlotContents(i, currentCraftingItem);
+                        this.matrix.setItem(i, currentCraftingItem);
                     }
                     //handle items that consume durability on craft
-                    else if (ItemStack.areItemsEqualIgnoreDurability(stackInSlot, currentCraftingItem)) {
-                        this.matrix.setInventorySlotContents(i, currentCraftingItem);
+                    else if (ItemStack.isSameIgnoreDurability(stackInSlot, currentCraftingItem)) {
+                        this.matrix.setItem(i, currentCraftingItem);
                     } else {
                         //last resort, try to place in player inventory or if that fails, drop.
                         ItemHandlerHelper.giveItemToPlayer(player, newResult);
                     }
                 } else if (!stackInSlot.isEmpty()) {
                     //decrease the stack size in the matrix
-                    this.matrix.decrStackSize(i, 1);
-                    stackInSlot = this.matrix.getStackInSlot(i);
+                    this.matrix.removeItem(i, 1);
+                    stackInSlot = this.matrix.getItem(i);
                 }
             }
             //endregion onTake replacement for crafting
 
 
             crafted += resultStackSize;
-            for (int i = 0; i < this.matrix.getSizeInventory(); i++) {
-                ItemStack stackInSlot = this.matrix.getStackInSlot(i);
+            for (int i = 0; i < this.matrix.getContainerSize(); i++) {
+                ItemStack stackInSlot = this.matrix.getItem(i);
                 //if the stack is empty, refill from storage and then continue looping
                 if (stackInSlot.isEmpty()) {
                     ItemStack recipeStack = recipeCopy.get(i);
@@ -355,10 +355,10 @@ public abstract class StorageControllerContainerBase extends Container implement
                             recipeStack) : null;
 
                     ItemStack requestedItem = this.getStorageController().getItemStack(comparator, 1, false);
-                    this.matrix.setInventorySlotContents(i, requestedItem);
+                    this.matrix.setItem(i, requestedItem);
                 }
             }
-            this.onCraftMatrixChanged(this.matrix);
+            this.slotsChanged(this.matrix);
         }
 
         //now actually give to the players
@@ -368,13 +368,13 @@ public abstract class StorageControllerContainerBase extends Container implement
         }
         ItemHandlerHelper.giveItemToPlayer(player, finalResult);
 
-        this.detectAndSendChanges();
+        this.broadcastChanges();
 
         //unlock crafting matrix
         this.recipeLocked = false;
 
         //update crafting matrix to handle container items / items that survive crafting
-        this.onCraftMatrixChanged(this.matrix);
+        this.slotsChanged(this.matrix);
         OccultismPackets.sendTo((ServerPlayerEntity) player, this.getStorageController().getMessageUpdateStacks());
 
     }

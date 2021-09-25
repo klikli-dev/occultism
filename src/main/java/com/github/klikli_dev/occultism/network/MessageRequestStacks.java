@@ -48,14 +48,14 @@ public class MessageRequestStacks extends MessageBase {
     @Override
     public void onServerReceived(MinecraftServer minecraftServer, ServerPlayerEntity player,
                                  NetworkEvent.Context context) {
-        if (player.openContainer instanceof IStorageControllerContainer) {
-            IStorageController storageController = ((IStorageControllerContainer) player.openContainer)
+        if (player.containerMenu instanceof IStorageControllerContainer) {
+            IStorageController storageController = ((IStorageControllerContainer) player.containerMenu)
                                                            .getStorageController();
             if (storageController != null) {
                 OccultismPackets.sendTo(player, storageController.getMessageUpdateStacks());
                 OccultismPackets
                         .sendTo(player, new MessageUpdateLinkedMachines(storageController.getLinkedMachines()));
-                player.openContainer.detectAndSendChanges();
+                player.containerMenu.broadcastChanges();
             }
         }
     }

@@ -36,6 +36,8 @@ import javax.annotation.Nullable;
 import java.util.EnumSet;
 import java.util.List;
 
+import net.minecraft.entity.ai.goal.Goal.Flag;
+
 public class PickupItemsGoal extends TargetGoal {
 
     //region Fields
@@ -51,7 +53,7 @@ public class PickupItemsGoal extends TargetGoal {
 
     public PickupItemsGoal(SpiritEntity entity) {
         this(entity, 10);
-        this.setMutexFlags(EnumSet.of(Flag.MOVE));
+        this.setFlags(EnumSet.of(Flag.MOVE));
     }
 
     public PickupItemsGoal(SpiritEntity entity, int executionChance) {
@@ -70,30 +72,30 @@ public class PickupItemsGoal extends TargetGoal {
             //endregion Overrides
         };
         this.entitySorter = new EntitySorter(entity);
-        this.setMutexFlags(EnumSet.of(Flag.MOVE));
+        this.setFlags(EnumSet.of(Flag.MOVE));
     }
     //endregion Initialization
 
     //region Overrides
     @Override
-    public boolean shouldExecute() {
+    public boolean canUse() {
 
         //fire on a slow tick based on chance
-        long worldTime = this.goalOwner.world.getGameTime() % 10;
-        if (this.entity.getIdleTime() >= 100 && worldTime != 0) {
+        long worldTime = this.mob.level.getGameTime() % 10;
+        if (this.entity.getNoActionTime() >= 100 && worldTime != 0) {
             return false;
         }
-        if (this.executionChance > 0 && this.entity.getRNG().nextInt(this.executionChance) != 0 && worldTime != 0) {
+        if (this.executionChance > 0 && this.entity.getRandom().nextInt(this.executionChance) != 0 && worldTime != 0) {
             return false;
         }
 
         //get work area, but only half height, we don't need full.
         int workAreaSize = this.entity.getWorkAreaSize().getValue();
         AxisAlignedBB targetBox = new AxisAlignedBB(-workAreaSize, -workAreaSize / 2.0, -workAreaSize, workAreaSize,
-                workAreaSize / 2.0, workAreaSize).offset(this.entity.getWorkAreaCenter());
+                workAreaSize / 2.0, workAreaSize).move(this.entity.getWorkAreaCenter());
 
-        List<ItemEntity> list = this.goalOwner.world
-                                        .getEntitiesWithinAABB(ItemEntity.class, targetBox, this.targetItemSelector);
+        List<ItemEntity> list = this.mob.level
+                                        .getEntitiesOfClass(ItemEntity.class, targetBox, this.targetItemSelector);
         if (list.isEmpty()) {
             return false;
         }
@@ -107,15 +109,15 @@ public class PickupItemsGoal extends TargetGoal {
     @Override
     public void tick() {
         if (this.targetItem == null || !this.targetItem.isAlive()) {
-            this.resetTask();
-            this.goalOwner.getNavigator().clearPath();
+            this.stop();
+            this.mob.getNavigation().stop();
         }
         else {
-            this.goalOwner.getNavigator().setPath(this.goalOwner.getNavigator().pathfind(this.targetItem, 0), 1.0f);
-            double distance = this.entity.getPositionVec().distanceTo(this.targetItem.getPositionVec());
+            this.mob.getNavigation().moveTo(this.mob.getNavigation().createPath(this.targetItem, 0), 1.0f);
+            double distance = this.entity.position().distanceTo(this.targetItem.position());
             if (distance < 1F) {
-                this.entity.setMotion(0, 0, 0);
-                this.entity.getNavigator().clearPath();
+                this.entity.setDeltaMovement(0, 0, 0);
+                this.entity.getNavigation().stop();
 
                 ItemStack duplicate = this.targetItem.getItem().copy();
                 ItemStackHandler handler = this.entity.itemStackHandler.orElseThrow(ItemHandlerMissingException::new);
@@ -128,14 +130,14 @@ public class PickupItemsGoal extends TargetGoal {
     }
 
     @Override
-    public boolean shouldContinueExecuting() {
-        return !this.goalOwner.getNavigator().noPath();
+    public boolean canContinueToUse() {
+        return !this.mob.getNavigation().isDone();
     }
 
     @Override
-    public void startExecuting() {
-        this.goalOwner.getNavigator().setPath(this.goalOwner.getNavigator().pathfind(this.targetItem, 0), 1.0f);
-        super.startExecuting();
+    public void start() {
+        this.mob.getNavigation().moveTo(this.mob.getNavigation().createPath(this.targetItem, 0), 1.0f);
+        super.start();
     }
     //endregion Overrides
 

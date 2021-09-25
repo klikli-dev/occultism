@@ -72,8 +72,8 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
         this.background = guiHelper.createBlankDrawable(168, 120); //64
         this.ritualCenterX = this.background.getWidth() / 2 - this.iconWidth / 2 - 30;
         this.ritualCenterY = this.background.getHeight() / 2 - this.iconWidth / 2 + 20;
-        this.localizedName = I18n.format(Occultism.MODID + ".jei.ritual");
-        this.pentacle = I18n.format(Occultism.MODID + ".jei.pentacle");
+        this.localizedName = I18n.get(Occultism.MODID + ".jei.ritual");
+        this.pentacle = I18n.get(Occultism.MODID + ".jei.pentacle");
         this.goldenSacrificialBowl.getOrCreateTag().putBoolean("RenderFull", true);
         this.sacrificialBowl.getOrCreateTag().putBoolean("RenderFull", true);
         this.arrow = guiHelper.createDrawable(
@@ -121,7 +121,7 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
                 ingredientStream.collect(Collectors.toList())
         );
         //0: recipe output, 1: ritual dummy item
-        ingredients.setOutputs(VanillaTypes.ITEM, Stream.of(recipe.getRecipeOutput(),
+        ingredients.setOutputs(VanillaTypes.ITEM, Stream.of(recipe.getResultItem(),
                 recipe.getRitualDummy()).collect(Collectors.toList()));
     }
 
@@ -201,7 +201,7 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
         //ingredients: 0: recipe output, 1: ritual dummy item
 
         //draw recipe output on the left
-        if(recipe.getRecipeOutput().getItem() != OccultismItems.JEI_DUMMY_NONE.get()){
+        if(recipe.getResultItem().getItem() != OccultismItems.JEI_DUMMY_NONE.get()){
             //if we have an item output -> render it
             recipeLayout.getItemStacks()
                     .init(index, false, this.ritualCenterX + this.recipeOutputOffsetX, this.ritualCenterY - 5);
@@ -235,9 +235,9 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
             }
 
             infotextY += 10;
-            String text = I18n.format("jei.occultism.item_to_use");
+            String text = I18n.get("jei.occultism.item_to_use");
             int itemToUseY = infotextY - 5;
-            int itemToUseX = this.getStringCenteredMaxX(Minecraft.getInstance().fontRenderer, text, 84, infotextY);
+            int itemToUseX = this.getStringCenteredMaxX(Minecraft.getInstance().font, text, 84, infotextY);
 
             recipeLayout.getItemStacks().init(index, false, itemToUseX, itemToUseY);
             recipeLayout.getItemStacks().set(index, itemToUse);
@@ -253,38 +253,38 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
 
         Pentacle pentacle = PentacleManager.get(recipe.getPentacleId());
         if(pentacle != null){
-            this.drawStringCentered(matrixStack, Minecraft.getInstance().fontRenderer,
-                    I18n.format(pentacle.getTranslationKey()), 84, 0);
+            this.drawStringCentered(matrixStack, Minecraft.getInstance().font,
+                    I18n.get(pentacle.getTranslationKey()), 84, 0);
         } else {
-            this.drawStringCentered(matrixStack, Minecraft.getInstance().fontRenderer,
-                    I18n.format("jei.occultism.error.pentacle_not_loaded"), 84, 0);
+            this.drawStringCentered(matrixStack, Minecraft.getInstance().font,
+                    I18n.get("jei.occultism.error.pentacle_not_loaded"), 84, 0);
         }
 
         int infotextY = 0;
         if(recipe.requiresSacrifice()){
             infotextY += 10;
-            this.drawStringCentered(matrixStack, Minecraft.getInstance().fontRenderer,
-                    I18n.format("jei.occultism.sacrifice", I18n.format(recipe.getEntityToSacrificeDisplayName())), 84, infotextY);
+            this.drawStringCentered(matrixStack, Minecraft.getInstance().font,
+                    I18n.get("jei.occultism.sacrifice", I18n.get(recipe.getEntityToSacrificeDisplayName())), 84, infotextY);
         }
 
         if(recipe.requiresItemUse()){
             infotextY += 10;
-            String text = I18n.format("jei.occultism.item_to_use");
-            this.drawStringCentered(matrixStack, Minecraft.getInstance().fontRenderer, text, 84, infotextY);
+            String text = I18n.get("jei.occultism.item_to_use");
+            this.drawStringCentered(matrixStack, Minecraft.getInstance().font, text, 84, infotextY);
         }
 
         if(recipe.getEntityToSummon() != null){
             infotextY += 10;
-            this.drawStringCentered(matrixStack, Minecraft.getInstance().fontRenderer,
-                    I18n.format("jei.occultism.summon", I18n.format(recipe.getEntityToSummon().getTranslationKey())),
+            this.drawStringCentered(matrixStack, Minecraft.getInstance().font,
+                    I18n.get("jei.occultism.summon", I18n.get(recipe.getEntityToSummon().getDescriptionId())),
                     84, infotextY);
         }
 
         if(recipe.getSpiritJobType() != null){
             infotextY += 10;
-            this.drawStringCentered(matrixStack, Minecraft.getInstance().fontRenderer,
-                    I18n.format("jei.occultism.job",
-                            I18n.format("job." + recipe.getSpiritJobType().toString().replace(":", "."))),
+            this.drawStringCentered(matrixStack, Minecraft.getInstance().font,
+                    I18n.get("jei.occultism.job",
+                            I18n.get("job." + recipe.getSpiritJobType().toString().replace(":", "."))),
                     84, infotextY);
         }
     }
@@ -293,13 +293,13 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
     //region Methods
 
     protected int getStringCenteredMaxX(FontRenderer fontRenderer, String text, int x, int y){
-        int width = fontRenderer.getStringWidth(text);
+        int width = fontRenderer.width(text);
         int actualX = (int)(x - width / 2.0f);
         return actualX + width;
     }
 
     protected void drawStringCentered(MatrixStack matrixStack, FontRenderer fontRenderer, String text, int x, int y) {
-        fontRenderer.drawString(matrixStack, text, (x - fontRenderer.getStringWidth(text) / 2.0f), y, 0);
+        fontRenderer.draw(matrixStack, text, (x - fontRenderer.width(text) / 2.0f), y, 0);
     }
     //endregion Methods
 }

@@ -103,15 +103,15 @@ public class ItemSlotWidget {
                 //render item overlay
                 RenderSystem.pushMatrix();
                 RenderSystem.scalef(.5f, .5f, .5f);
-                this.minecraft.getItemRenderer().zLevel = -0.1F;
+                this.minecraft.getItemRenderer().blitOffset = -0.1F;
                 this.minecraft.getItemRenderer()
-                        .renderItemOverlayIntoGUI(this.fontRenderer, this.stack, this.x * 2 + 16, this.y * 2 + 16,
+                        .renderGuiItemDecorations(this.fontRenderer, this.stack, this.x * 2 + 16, this.y * 2 + 16,
                                 amount);
                 RenderSystem.popMatrix();
             }
 
-            this.minecraft.getItemRenderer().zLevel = -100F;
-            this.minecraft.getItemRenderer().renderItemAndEffectIntoGUI(this.getStack(), this.x, this.y);
+            this.minecraft.getItemRenderer().blitOffset = -100F;
+            this.minecraft.getItemRenderer().renderAndDecorateItem(this.getStack(), this.x, this.y);
 
             if (this.isMouseOverSlot(mx, my)) {
                 RenderSystem.colorMask(true, true, true, false);

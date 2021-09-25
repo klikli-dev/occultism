@@ -40,7 +40,7 @@ public class RainWeatherJob extends ChangeWeatherJob {
     //region Overrides
     public void changeWeather() {
         if(Occultism.SERVER_CONFIG.rituals.enableRainWeatherRitual.get()){
-            IServerWorldInfo info = (IServerWorldInfo) this.entity.world.getWorldInfo();
+            IServerWorldInfo info = (IServerWorldInfo) this.entity.level.getLevelData();
             //taken from weathercommand#rain
             info.setClearWeatherTime(0);
             info.setRainTime(6000);
@@ -49,7 +49,7 @@ public class RainWeatherJob extends ChangeWeatherJob {
             info.setThundering(false);
         }
         else {
-            this.entity.getOwner().sendMessage(new TranslationTextComponent("ritual.occultism.disabled"), Util.DUMMY_UUID);
+            this.entity.getOwner().sendMessage(new TranslationTextComponent("ritual.occultism.disabled"), Util.NIL_UUID);
         }
     }
     //endregion Overrides

@@ -48,6 +48,8 @@ import net.minecraftforge.registries.ForgeRegistries;
 import javax.annotation.Nullable;
 import java.util.function.Supplier;
 
+import net.minecraft.block.AbstractBlock.Properties;
+
 public class ChalkGlyphBlock extends Block {
     //region Fields
     /**
@@ -55,7 +57,7 @@ public class ChalkGlyphBlock extends Block {
      */
     public static final IntegerProperty SIGN = IntegerProperty.create("sign", 0, 12);
 
-    private static final VoxelShape SHAPE = Block.makeCuboidShape(0, 0, 0, 15, 0.04, 15);
+    private static final VoxelShape SHAPE = Block.box(0, 0, 0, 15, 0.04, 15);
 
     protected Supplier<Item> chalk;
     protected int color;
@@ -87,12 +89,12 @@ public class ChalkGlyphBlock extends Block {
     //region Overrides
 
     @Override
-    public boolean isReplaceable(BlockState state, BlockItemUseContext useContext) {
+    public boolean canBeReplaced(BlockState state, BlockItemUseContext useContext) {
         return true;
     }
 
     @Override
-    public boolean isReplaceable(BlockState state, Fluid fluid) {
+    public boolean canBeReplaced(BlockState state, Fluid fluid) {
         return true;
     }
 
@@ -110,31 +112,31 @@ public class ChalkGlyphBlock extends Block {
     @Override
     public void neighborChanged(BlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos,
                                 boolean isMoving) {
-        if (!this.isValidPosition(state, worldIn, pos)) {
+        if (!this.canSurvive(state, worldIn, pos)) {
             worldIn.removeBlock(pos, false);
         }
     }
 
     @Override
-    public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
-        BlockPos down = pos.down();
+    public boolean canSurvive(BlockState state, IWorldReader worldIn, BlockPos pos) {
+        BlockPos down = pos.below();
         BlockState downState = worldIn.getBlockState(down);
-        return downState.isSolidSide(worldIn, down, Direction.UP) && state.getMaterial().isReplaceable();
+        return downState.isFaceSturdy(worldIn, down, Direction.UP) && state.getMaterial().isReplaceable();
     }
 
     @Override
     public BlockState getStateForPlacement(BlockItemUseContext context) {
-        BlockPos pos = context.getPos();
+        BlockPos pos = context.getClickedPos();
         int sign = Math.abs(pos.getX() + pos.getZ() * 2) % 13;
-        return this.getDefaultState().with(SIGN, sign)
-                       .with(BlockStateProperties.HORIZONTAL_FACING,
-                               context.getPlacementHorizontalFacing().getOpposite());
+        return this.defaultBlockState().setValue(SIGN, sign)
+                       .setValue(BlockStateProperties.HORIZONTAL_FACING,
+                               context.getHorizontalDirection().getOpposite());
     }
 
     @Override
-    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
         builder.add(SIGN, BlockStateProperties.HORIZONTAL_FACING);
-        super.fillStateContainer(builder);
+        super.createBlockStateDefinition(builder);
     }
 
     @Override

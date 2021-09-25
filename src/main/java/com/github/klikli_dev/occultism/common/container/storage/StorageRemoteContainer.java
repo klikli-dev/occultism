@@ -57,7 +57,7 @@ public class StorageRemoteContainer extends StorageControllerContainerBase {
 
         this.matrix = new StorageControllerCraftingInventory(this,
                 this.getCraftingMatrixFromItemStack(this.getStorageRemote()));
-        this.orderInventory.setInventorySlotContents(0, this.getOrderStackFromItemStack(this.getStorageRemote()));
+        this.orderInventory.setItem(0, this.getOrderStackFromItemStack(this.getStorageRemote()));
 
         this.setupCraftingOutput();
         this.setupCraftingGrid();
@@ -65,7 +65,7 @@ public class StorageRemoteContainer extends StorageControllerContainerBase {
         this.setupPlayerInventorySlots();
         this.setupPlayerHotbar();
 
-        this.onCraftMatrixChanged(this.matrix);
+        this.slotsChanged(this.matrix);
     }
     //endregion Initialization
 
@@ -74,9 +74,9 @@ public class StorageRemoteContainer extends StorageControllerContainerBase {
         if (this.selectedSlot == -1) {
             return CuriosUtil.getStorageRemoteCurio(this.player);
         }
-        if (this.selectedSlot < 0 || this.selectedSlot >= this.player.inventory.getSizeInventory())
+        if (this.selectedSlot < 0 || this.selectedSlot >= this.player.inventory.getContainerSize())
             return ItemStack.EMPTY;
-        return this.player.inventory.getStackInSlot(this.selectedSlot);
+        return this.player.inventory.getItem(this.selectedSlot);
     }
     //endregion Getter / Setter
 
@@ -98,17 +98,17 @@ public class StorageRemoteContainer extends StorageControllerContainerBase {
                 this.addSlot(new Slot(this.playerInventory, i, hotbarLeft + i * 18, hotbarTop) {
                     //region Overrides
                     @Override
-                    public boolean isItemValid(ItemStack stack) {
+                    public boolean mayPlace(ItemStack stack) {
                         return false;
                     }
 
                     @Override
-                    public boolean getHasStack() {
+                    public boolean hasItem() {
                         return false;
                     }
 
                     @Override
-                    public boolean canTakeStack(PlayerEntity playerIn) {
+                    public boolean mayPickup(PlayerEntity playerIn) {
                         return false;
                     }
                     //endregion Overrides
@@ -128,12 +128,12 @@ public class StorageRemoteContainer extends StorageControllerContainerBase {
     }
 
     @Override
-    public boolean canInteractWith(PlayerEntity entityPlayer) {
+    public boolean stillValid(PlayerEntity entityPlayer) {
         IStorageController storageController = this.getStorageController();
         //canInteractWith is constantly called, so we use it to send
         //stack updates every 40 ticks.
-        if (storageController != null && !entityPlayer.world.isRemote &&
-                entityPlayer.world.getGameTime() % 40 == 0) {
+        if (storageController != null && !entityPlayer.level.isClientSide &&
+                entityPlayer.level.getGameTime() % 40 == 0) {
             OccultismPackets.sendTo((ServerPlayerEntity) this.player, this.getStorageController().getMessageUpdateStacks());
             OccultismPackets.sendTo((ServerPlayerEntity) this.player,
                     new MessageUpdateLinkedMachines(this.getStorageController().getLinkedMachines()));
@@ -144,7 +144,7 @@ public class StorageRemoteContainer extends StorageControllerContainerBase {
 
     @Override
     public IStorageController getStorageController() {
-        return StorageRemoteItem.getStorageController(this.getStorageRemote(), this.playerInventory.player.world);
+        return StorageRemoteItem.getStorageController(this.getStorageRemote(), this.playerInventory.player.level);
     }
 
     @Override
@@ -155,8 +155,8 @@ public class StorageRemoteContainer extends StorageControllerContainerBase {
     @Override
     public void updateCraftingSlots(boolean force) {
         ListNBT nbtTagList = new ListNBT();
-        for (int i = 0; i < this.matrix.getSizeInventory(); i++) {
-            nbtTagList.add(this.matrix.getStackInSlot(i).serializeNBT());
+        for (int i = 0; i < this.matrix.getContainerSize(); i++) {
+            nbtTagList.add(this.matrix.getItem(i).serializeNBT());
         }
         ItemStack storageRemote = this.getStorageRemote();
         if (storageRemote != ItemStack.EMPTY)
@@ -167,7 +167,7 @@ public class StorageRemoteContainer extends StorageControllerContainerBase {
     public void updateOrderSlot(boolean force) {
         ItemStack storageRemote = this.getStorageRemote();
         if (storageRemote != ItemStack.EMPTY)
-            storageRemote.getOrCreateTag().put("orderStack", this.orderInventory.getStackInSlot(0).serializeNBT());
+            storageRemote.getOrCreateTag().put("orderStack", this.orderInventory.getItem(0).serializeNBT());
     }
     //endregion Overrides
 
@@ -180,7 +180,7 @@ public class StorageRemoteContainer extends StorageControllerContainerBase {
         ListNBT nbtTagList = stack.getTag().getList("craftingMatrix", Constants.NBT.TAG_COMPOUND);
 
         for (int i = 0; i < nbtTagList.size(); i++) {
-            craftingMatrix.set(i, ItemStack.read(nbtTagList.getCompound(i)));
+            craftingMatrix.set(i, ItemStack.of(nbtTagList.getCompound(i)));
         }
 
         return craftingMatrix;
@@ -190,7 +190,7 @@ public class StorageRemoteContainer extends StorageControllerContainerBase {
         if (!stack.getOrCreateTag().contains("orderStack"))
             return ItemStack.EMPTY;
 
-        return ItemStack.read(stack.getTag().getCompound("orderStack"));
+        return ItemStack.of(stack.getTag().getCompound("orderStack"));
     }
     //endregion Methods
 }

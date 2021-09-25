@@ -38,12 +38,12 @@ public class MaridEntity extends SpiritEntity {
     //region Static Methods
     public static AttributeModifierMap.MutableAttribute registerAttributes() {
         return SpiritEntity.registerAttributes()
-                       .createMutableAttribute(Attributes.ATTACK_DAMAGE, 16.0)
-                       .createMutableAttribute(Attributes.ATTACK_SPEED, 8.0)
-                       .createMutableAttribute(Attributes.MAX_HEALTH, 300.0)
-                       .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.40000001192092896)
-                       .createMutableAttribute(Attributes.ARMOR, 16.0)
-                       .createMutableAttribute(Attributes.ARMOR_TOUGHNESS, 100.0);
+                       .add(Attributes.ATTACK_DAMAGE, 16.0)
+                       .add(Attributes.ATTACK_SPEED, 8.0)
+                       .add(Attributes.MAX_HEALTH, 300.0)
+                       .add(Attributes.MOVEMENT_SPEED, 0.40000001192092896)
+                       .add(Attributes.ARMOR, 16.0)
+                       .add(Attributes.ARMOR_TOUGHNESS, 100.0);
     }
     //endregion Static Methods
 }

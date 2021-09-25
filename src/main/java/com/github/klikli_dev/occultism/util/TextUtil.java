@@ -116,7 +116,7 @@ public class TextUtil {
      * @return the formatted name.
      */
     public static IFormattableTextComponent formatDemonName(IFormattableTextComponent name) {
-        return name.mergeStyle(TextFormatting.GOLD, TextFormatting.BOLD);
+        return name.withStyle(TextFormatting.GOLD, TextFormatting.BOLD);
     }
 
     /**

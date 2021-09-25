@@ -45,13 +45,13 @@ public class FoliotRenderer extends BipedSpiritRenderer<FoliotEntity, FoliotMode
     //region Overrides
 
     @Override
-    public ResourceLocation getEntityTexture(FoliotEntity entity) {
-        return TEXTURES[entity.getDataManager().get(entity.getDataParameterSkin())];
+    public ResourceLocation getTextureLocation(FoliotEntity entity) {
+        return TEXTURES[entity.getEntityData().get(entity.getDataParameterSkin())];
     }
 
     @Override
-    protected void preRenderCallback(FoliotEntity entity, MatrixStack matrixStackIn, float partialTickTime) {
-        super.preRenderCallback(entity, matrixStackIn, partialTickTime);
+    protected void scale(FoliotEntity entity, MatrixStack matrixStackIn, float partialTickTime) {
+        super.scale(entity, matrixStackIn, partialTickTime);
         matrixStackIn.scale(0.6f, 0.6f, 0.6f);
     }
     //endregion Overrides

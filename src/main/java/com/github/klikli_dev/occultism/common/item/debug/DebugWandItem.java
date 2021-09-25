@@ -40,6 +40,8 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
+import net.minecraft.item.Item.Properties;
+
 public class DebugWandItem extends Item {
 
     //region Initialization
@@ -50,9 +52,9 @@ public class DebugWandItem extends Item {
 
     //region Overrides
     @Override
-    public ActionResultType onItemUse(ItemUseContext context) {
+    public ActionResultType useOn(ItemUseContext context) {
 
-        if (!context.getWorld().isRemote) {
+        if (!context.getLevel().isClientSide) {
 //            PlayerEntity player = context.getPlayer();
 //
 //            ItemStack spirit = new ItemStack(OccultismItems.MINER_DEBUG_UNSPECIALIZED.get());
@@ -61,35 +63,35 @@ public class DebugWandItem extends Item {
             //context.getPlayer().sendMessage(new StringTextComponent(TextUtil.generateName()), Util.DUMMY_UUID);
 
             //set up the foliot entity
-            BlockPos target = context.getPos().up();
-            SpiritEntity spirit = OccultismEntities.MARID.get().create(context.getWorld());
-            spirit.setPositionAndRotation(target.getX(), target.getY(), target.getZ(),
-                    context.getWorld().rand.nextInt(360), 0);
+            BlockPos target = context.getClickedPos().above();
+            SpiritEntity spirit = OccultismEntities.MARID.get().create(context.getLevel());
+            spirit.absMoveTo(target.getX(), target.getY(), target.getZ(),
+                    context.getLevel().random.nextInt(360), 0);
             spirit.setCustomName(new StringTextComponent("Testguy"));
-            spirit.onInitialSpawn((ServerWorld) context.getWorld(), context.getWorld().getDifficultyForLocation(target),
+            spirit.finalizeSpawn((ServerWorld) context.getLevel(), context.getLevel().getCurrentDifficultyAt(target),
                     SpawnReason.MOB_SUMMONED, null,
                     null);
-            spirit.setTamedBy(context.getPlayer());
+            spirit.tame(context.getPlayer());
             //set up the job
             SpiritJob job = OccultismSpiritJobs.CRUSH_TIER4.get().create(spirit);
             job.init();
             spirit.setJob(job);
 
             spirit.setSpiritMaxAge(60 * 60 * 3); //3 hours max age
-            context.getWorld().addEntity(spirit);
+            context.getLevel().addFreshEntity(spirit);
 
         }
         return ActionResultType.SUCCESS;
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
+    public ActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand handIn) {
 
-        return super.onItemRightClick(worldIn, playerIn, handIn);
+        return super.use(worldIn, playerIn, handIn);
     }
 
     @Override
-    public ActionResultType itemInteractionForEntity(ItemStack stack, PlayerEntity player, LivingEntity target,
+    public ActionResultType interactLivingEntity(ItemStack stack, PlayerEntity player, LivingEntity target,
                                             Hand hand) {
 
 

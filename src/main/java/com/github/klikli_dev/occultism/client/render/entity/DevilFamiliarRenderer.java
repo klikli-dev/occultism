@@ -45,14 +45,14 @@ public class DevilFamiliarRenderer extends MobRenderer<DevilFamiliarEntity, Devi
     @Override
     public void render(DevilFamiliarEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn,
             IRenderTypeBuffer bufferIn, int packedLightIn) {
-        matrixStackIn.push();
+        matrixStackIn.pushPose();
         matrixStackIn.translate(0, entityIn.isSitting() && !entityIn.isPartying() ? 0 : entityIn.getAnimationHeight(partialTicks) * 0.08 + 0.3, 0);
         super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
-        matrixStackIn.pop();
+        matrixStackIn.popPose();
     }
 
     @Override
-    public ResourceLocation getEntityTexture(DevilFamiliarEntity entity) {
+    public ResourceLocation getTextureLocation(DevilFamiliarEntity entity) {
         return TEXTURES;
     }
 }

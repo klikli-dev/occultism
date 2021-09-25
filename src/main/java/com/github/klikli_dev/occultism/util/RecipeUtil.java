@@ -42,7 +42,7 @@ public class RecipeUtil {
         if (stack.isEmpty())
             return false;
 
-        List<T> recipes = recipeManager.getRecipesForType(recipeType);
+        List<T> recipes = recipeManager.getAllRecipesFor(recipeType);
         for (T recipe : recipes) {
             if (recipe.getIngredients().stream().anyMatch(i -> i.test(stack))) {
                 return true;

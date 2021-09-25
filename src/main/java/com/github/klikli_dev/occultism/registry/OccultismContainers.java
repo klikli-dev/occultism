@@ -49,15 +49,15 @@ public class OccultismContainers {
             CONTAINERS.register("storage_controller",
                     () -> IForgeContainerType
                                   .create((windowId, inv, data) -> new StorageControllerContainer(windowId, inv,
-                                          (StorageControllerTileEntity) inv.player.world
-                                                                                .getTileEntity(data.readBlockPos()))));
+                                          (StorageControllerTileEntity) inv.player.level
+                                                                                .getBlockEntity(data.readBlockPos()))));
 
     public static final RegistryObject<ContainerType<StableWormholeContainer>> STABLE_WORMHOLE =
             CONTAINERS.register("stable_wormhole",
                     () -> IForgeContainerType
                                   .create((windowId, inv, data) -> new StableWormholeContainer(windowId, inv,
-                                          (StableWormholeTileEntity) inv.player.world
-                                                                             .getTileEntity(data.readBlockPos()))));
+                                          (StableWormholeTileEntity) inv.player.level
+                                                                             .getBlockEntity(data.readBlockPos()))));
 
     public static final RegistryObject<ContainerType<StorageRemoteContainer>> STORAGE_REMOTE =
             CONTAINERS.register("storage_remote",
@@ -69,7 +69,7 @@ public class OccultismContainers {
                     () -> IForgeContainerType
                                   .create((windowId, inv, data) -> {
                                       return new SpiritContainer(windowId, inv,
-                                              (SpiritEntity) inv.player.world.getEntityByID(data.readInt()));
+                                              (SpiritEntity) inv.player.level.getEntity(data.readInt()));
                                   }));
 
     public static final RegistryObject<ContainerType<SpiritTransporterContainer>> SPIRIT_TRANSPORTER =
@@ -77,14 +77,14 @@ public class OccultismContainers {
                     () -> IForgeContainerType
                                   .create((windowId, inv, data) -> {
                                       return new SpiritTransporterContainer(windowId, inv,
-                                              (SpiritEntity) inv.player.world.getEntityByID(data.readInt()));
+                                              (SpiritEntity) inv.player.level.getEntity(data.readInt()));
                                   }));
 
     public static final RegistryObject<ContainerType<DimensionalMineshaftContainer>> OTHERWORLD_MINER =
             CONTAINERS.register("otherworld_miner",
                     () -> IForgeContainerType
                                   .create((windowId, inv, data) -> new DimensionalMineshaftContainer(windowId, inv,
-                                          (DimensionalMineshaftTileEntity) inv.player.world.getTileEntity(
+                                          (DimensionalMineshaftTileEntity) inv.player.level.getBlockEntity(
                                                   data.readBlockPos()))));
 
     public static final RegistryObject<ContainerType<SatchelContainer>> SATCHEL =

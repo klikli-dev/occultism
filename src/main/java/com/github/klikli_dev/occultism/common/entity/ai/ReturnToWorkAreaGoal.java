@@ -28,6 +28,8 @@ import net.minecraft.util.math.vector.Vector3d;
 
 import java.util.EnumSet;
 
+import net.minecraft.entity.ai.goal.Goal.Flag;
+
 public class ReturnToWorkAreaGoal extends Goal {
 
     //region Fields
@@ -45,20 +47,20 @@ public class ReturnToWorkAreaGoal extends Goal {
     public ReturnToWorkAreaGoal(SpiritEntity entity, int executionChance) {
         this.entity = entity;
         this.executionChance = executionChance;
-        this.setMutexFlags(EnumSet.of(Flag.TARGET));
+        this.setFlags(EnumSet.of(Flag.TARGET));
     }
     //endregion Initialization
 
     //region Overrides
     @Override
-    public boolean shouldExecute() {
+    public boolean canUse() {
 
         //fire on a slow tick based on chance
-        long worldTime = this.entity.world.getGameTime() % 10;
-        if (this.entity.getIdleTime() >= 100 && worldTime != 0) {
+        long worldTime = this.entity.level.getGameTime() % 10;
+        if (this.entity.getNoActionTime() >= 100 && worldTime != 0) {
             return false;
         }
-        if (this.entity.getRNG().nextInt(this.executionChance) != 0 && worldTime != 0) {
+        if (this.entity.getRandom().nextInt(this.executionChance) != 0 && worldTime != 0) {
             return false;
         }
 
@@ -68,31 +70,31 @@ public class ReturnToWorkAreaGoal extends Goal {
     @Override
     public void tick() {
         if (!this.entity.getWorkAreaPosition().isPresent()) {
-            this.resetTask();
-            this.entity.getNavigator().clearPath();
+            this.stop();
+            this.entity.getNavigation().stop();
         }
         else {
-            this.entity.getNavigator().setPath(this.entity.getNavigator().getPathToPos(
-                    this.entity.getWorkAreaPosition().orElse(this.entity.getPosition()), 0), 1.0f);
-            double distance = this.entity.getPositionVec().distanceTo(
-                    Vector3d.copyCentered(this.entity.getWorkAreaPosition().orElse(this.entity.getPosition())));
+            this.entity.getNavigation().moveTo(this.entity.getNavigation().createPath(
+                    this.entity.getWorkAreaPosition().orElse(this.entity.blockPosition()), 0), 1.0f);
+            double distance = this.entity.position().distanceTo(
+                    Vector3d.atCenterOf(this.entity.getWorkAreaPosition().orElse(this.entity.blockPosition())));
             if (distance < 1F) {
-                this.entity.setMotion(0, 0, 0);
-                this.entity.getNavigator().clearPath();
+                this.entity.setDeltaMovement(0, 0, 0);
+                this.entity.getNavigation().stop();
             }
         }
     }
 
     @Override
-    public boolean shouldContinueExecuting() {
-        return !this.entity.getNavigator().noPath();
+    public boolean canContinueToUse() {
+        return !this.entity.getNavigation().isDone();
     }
 
     @Override
-    public void startExecuting() {
-        this.entity.getNavigator().setPath(this.entity.getNavigator().getPathToPos(
-                this.entity.getWorkAreaPosition().orElse(this.entity.getPosition()), 0), 1.0f);
-        super.startExecuting();
+    public void start() {
+        this.entity.getNavigation().moveTo(this.entity.getNavigation().createPath(
+                this.entity.getWorkAreaPosition().orElse(this.entity.blockPosition()), 0), 1.0f);
+        super.start();
     }
     //endregion Overrides
 

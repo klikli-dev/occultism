@@ -76,7 +76,7 @@ public class GreedyFamiliarEntity extends FamiliarEntity {
             return;
 
         if (this.isEffectEnabled())
-            for (ItemEntity e : wearer.world.getEntitiesWithinAABB(ItemEntity.class, wearer.getBoundingBox().grow(5),
+            for (ItemEntity e : wearer.level.getEntitiesOfClass(ItemEntity.class, wearer.getBoundingBox().inflate(5),
                     e -> e.isAlive())) {
                 ItemStack stack = e.getItem();
 
@@ -84,7 +84,7 @@ public class GreedyFamiliarEntity extends FamiliarEntity {
                 boolean isEntityDemagnetized = e.getPersistentData().getBoolean("PreventRemoteMovement");
 
                 if (!isStackDemagnetized && !isEntityDemagnetized) {
-                    e.onCollideWithPlayer((PlayerEntity) wearer);
+                    e.playerTouch((PlayerEntity) wearer);
                 }
             }
     }
@@ -97,29 +97,29 @@ public class GreedyFamiliarEntity extends FamiliarEntity {
 
         public FindItemGoal(FamiliarEntity entity) {
             this.entity = entity;
-            this.setMutexFlags(EnumSet.of(Goal.Flag.MOVE));
+            this.setFlags(EnumSet.of(Goal.Flag.MOVE));
         }
 
         @Override
-        public boolean shouldExecute() {
+        public boolean canUse() {
             return this.getNearbyItem() != null && this.entity.getFamiliarOwner() instanceof PlayerEntity;
         }
 
         @Override
-        public void startExecuting() {
+        public void start() {
             ItemEntity item = this.getNearbyItem();
             if (item != null)
-                this.entity.getNavigator().tryMoveToEntityLiving(item, 1.2);
+                this.entity.getNavigation().moveTo(item, 1.2);
         }
 
         @Override
         public void tick() {
             ItemEntity item = this.getNearbyItem();
             if (item != null) {
-                this.entity.getNavigator().tryMoveToEntityLiving(item, 1.2);
+                this.entity.getNavigation().moveTo(item, 1.2);
                 LivingEntity owner = this.entity.getFamiliarOwner();
-                if (item.getDistanceSq(this.entity) < 4 && owner instanceof PlayerEntity) {
-                    item.onCollideWithPlayer(((PlayerEntity) owner));
+                if (item.distanceToSqr(this.entity) < 4 && owner instanceof PlayerEntity) {
+                    item.playerTouch(((PlayerEntity) owner));
                     if (this.entity instanceof GreedyFamiliarEntity)
                         OccultismAdvancements.FAMILIAR.trigger(owner, FamiliarTrigger.Type.GREEDY_ITEM);
                     else if (this.entity instanceof DragonFamiliarEntity)
@@ -136,8 +136,8 @@ public class GreedyFamiliarEntity extends FamiliarEntity {
             PlayerEntity player = (PlayerEntity) owner;
             IItemHandler inv = new PlayerMainInvWrapper(player.inventory);
 
-            for (ItemEntity item : this.entity.world.getEntitiesWithinAABB(ItemEntity.class,
-                    this.entity.getBoundingBox().grow(RANGE), e -> e.isAlive())) {
+            for (ItemEntity item : this.entity.level.getEntitiesOfClass(ItemEntity.class,
+                    this.entity.getBoundingBox().inflate(RANGE), e -> e.isAlive())) {
                 ItemStack stack = item.getItem();
 
                 boolean isStackDemagnetized = stack.hasTag() && stack.getTag().getBoolean("PreventRemoteMovement");
@@ -159,37 +159,37 @@ public class GreedyFamiliarEntity extends FamiliarEntity {
 
         private RideDragonGoal(GreedyFamiliarEntity greedy) {
             this.greedy = greedy;
-            this.setMutexFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.JUMP));
+            this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.JUMP));
         }
 
         @Override
-        public boolean shouldExecute() {
-            if (greedy.getRidingEntity() instanceof DragonFamiliarEntity)
+        public boolean canUse() {
+            if (greedy.getVehicle() instanceof DragonFamiliarEntity)
                 return true;
 
             DragonFamiliarEntity dragon = findDragon();
             if (dragon != null) {
                 this.dragon = dragon;
-                this.greedy.getNavigator().tryMoveToEntityLiving(dragon, 1);
+                this.greedy.getNavigation().moveTo(dragon, 1);
                 return true;
             }
             return false;
         }
 
         @Override
-        public boolean shouldContinueExecuting() {
-            return this.greedy.getRidingEntity() instanceof DragonFamiliarEntity
-                    || (this.greedy.hasPath() && this.dragon != null);
+        public boolean canContinueToUse() {
+            return this.greedy.getVehicle() instanceof DragonFamiliarEntity
+                    || (this.greedy.isPathFinding() && this.dragon != null);
         }
 
         @Override
-        public void resetTask() {
+        public void stop() {
             dragon = null;
         }
 
         @Override
         public void tick() {
-            if (this.dragon != null && this.greedy.getDistanceSq(this.dragon) < 5) {
+            if (this.dragon != null && this.greedy.distanceToSqr(this.dragon) < 5) {
                 this.greedy.startRiding(this.dragon);
             }
         }
@@ -199,9 +199,9 @@ public class GreedyFamiliarEntity extends FamiliarEntity {
             if (owner == null)
                 return null;
 
-            List<DragonFamiliarEntity> dragons = this.greedy.world.getEntitiesWithinAABB(DragonFamiliarEntity.class,
-                    this.greedy.getBoundingBox().grow(5),
-                    e -> e.getFamiliarOwner() == owner && !e.isBeingRidden() && !e.isSitting());
+            List<DragonFamiliarEntity> dragons = this.greedy.level.getEntitiesOfClass(DragonFamiliarEntity.class,
+                    this.greedy.getBoundingBox().inflate(5),
+                    e -> e.getFamiliarOwner() == owner && !e.isVehicle() && !e.isSitting());
             if (dragons.isEmpty())
                 return null;
             return dragons.get(0);

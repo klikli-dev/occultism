@@ -178,7 +178,7 @@ public abstract class Ritual {
     public void start(World world, BlockPos goldenBowlPosition, GoldenSacrificialBowlTileEntity tileEntity,
                       PlayerEntity castingPlayer, ItemStack activationItem) {
         world.playSound(null, goldenBowlPosition, OccultismSounds.START_RITUAL.get(), SoundCategory.BLOCKS, 1, 1);
-        castingPlayer.sendStatusMessage(new TranslationTextComponent(this.getStartedMessage()), true);
+        castingPlayer.displayClientMessage(new TranslationTextComponent(this.getStartedMessage()), true);
     }
 
     /**
@@ -194,7 +194,7 @@ public abstract class Ritual {
                        PlayerEntity castingPlayer, ItemStack activationItem) {
         world.playSound(null, goldenBowlPosition, OccultismSounds.POOF.get(), SoundCategory.BLOCKS, 0.7f,
                 0.7f);
-        castingPlayer.sendStatusMessage(new TranslationTextComponent(this.getFinishedMessage()), true);
+        castingPlayer.displayClientMessage(new TranslationTextComponent(this.getFinishedMessage()), true);
         OccultismAdvancements.RITUAL.trigger((ServerPlayerEntity) castingPlayer, this);
     }
 
@@ -209,8 +209,8 @@ public abstract class Ritual {
      */
     public void interrupt(World world, BlockPos goldenBowlPosition, GoldenSacrificialBowlTileEntity tileEntity,
                           PlayerEntity castingPlayer, ItemStack activationItem) {
-        world.playSound(null, goldenBowlPosition, SoundEvents.ENTITY_CHICKEN_EGG, SoundCategory.BLOCKS, 0.7f, 0.7f);
-        castingPlayer.sendStatusMessage(new TranslationTextComponent(this.getInterruptedMessage()), true);
+        world.playSound(null, goldenBowlPosition, SoundEvents.CHICKEN_EGG, SoundCategory.BLOCKS, 0.7f, 0.7f);
+        castingPlayer.displayClientMessage(new TranslationTextComponent(this.getInterruptedMessage()), true);
     }
 
     /**
@@ -322,12 +322,12 @@ public abstract class Ritual {
                     consumedIngredients.add(extracted);
                     //Show effect in world
                     ((ServerWorld) world)
-                            .spawnParticle(ParticleTypes.LARGE_SMOKE, sacrificialBowl.getPos().getX() + 0.5,
-                                    sacrificialBowl.getPos().getY() + 1.5, sacrificialBowl.getPos().getZ() + 0.5, 1,
+                            .sendParticles(ParticleTypes.LARGE_SMOKE, sacrificialBowl.getBlockPos().getX() + 0.5,
+                                    sacrificialBowl.getBlockPos().getY() + 1.5, sacrificialBowl.getBlockPos().getZ() + 0.5, 1,
                                     0.0, 0.0, 0.0,
                                     0.0);
 
-                    world.playSound(null, sacrificialBowl.getPos(), OccultismSounds.POOF.get(), SoundCategory.BLOCKS,
+                    world.playSound(null, sacrificialBowl.getBlockPos(), OccultismSounds.POOF.get(), SoundCategory.BLOCKS,
                             0.7f, 0.7f);
                     return true;
                 }
@@ -449,11 +449,11 @@ public abstract class Ritual {
      */
     public List<SacrificialBowlTileEntity> getSacrificialBowls(World world, BlockPos goldenBowlPosition) {
         List<SacrificialBowlTileEntity> result = new ArrayList<>();
-        Iterable<BlockPos> blocksToCheck = BlockPos.getAllInBoxMutable(
-                goldenBowlPosition.add(-SACRIFICIAL_BOWL_RANGE, 0, -SACRIFICIAL_BOWL_RANGE),
-                goldenBowlPosition.add(SACRIFICIAL_BOWL_RANGE, 0, SACRIFICIAL_BOWL_RANGE));
+        Iterable<BlockPos> blocksToCheck = BlockPos.betweenClosed(
+                goldenBowlPosition.offset(-SACRIFICIAL_BOWL_RANGE, 0, -SACRIFICIAL_BOWL_RANGE),
+                goldenBowlPosition.offset(SACRIFICIAL_BOWL_RANGE, 0, SACRIFICIAL_BOWL_RANGE));
         for (BlockPos blockToCheck : blocksToCheck) {
-            TileEntity tileEntity = world.getTileEntity(blockToCheck);
+            TileEntity tileEntity = world.getBlockEntity(blockToCheck);
             if (tileEntity instanceof SacrificialBowlTileEntity &&
                     !(tileEntity instanceof GoldenSacrificialBowlTileEntity)) {
                 result.add((SacrificialBowlTileEntity) tileEntity);
@@ -498,14 +498,14 @@ public abstract class Ritual {
                                             PlayerEntity castingPlayer, String spiritName, boolean setTamed) {
         if (setTamed && livingEntity instanceof TameableEntity) {
 
-            ((TameableEntity)livingEntity).setTamedBy(castingPlayer);
+            ((TameableEntity)livingEntity).tame(castingPlayer);
         }
-        livingEntity.setPositionAndRotation(goldenBowlPosition.getX(), goldenBowlPosition.getY(), goldenBowlPosition.getZ(),
-                world.rand.nextInt(360), 0);
+        livingEntity.absMoveTo(goldenBowlPosition.getX(), goldenBowlPosition.getY(), goldenBowlPosition.getZ(),
+                world.random.nextInt(360), 0);
         if(spiritName.length() > 0)
             livingEntity.setCustomName(new StringTextComponent(spiritName));
         if(livingEntity instanceof MobEntity)
-            ((MobEntity)livingEntity).onInitialSpawn((ServerWorld) world, world.getDifficultyForLocation(goldenBowlPosition),
+            ((MobEntity)livingEntity).finalizeSpawn((ServerWorld) world, world.getCurrentDifficultyAt(goldenBowlPosition),
                     SpawnReason.MOB_SUMMONED, null,
                     null);
     }
@@ -559,12 +559,12 @@ public abstract class Ritual {
      */
     public void dropResult(World world, BlockPos goldenBowlPosition, GoldenSacrificialBowlTileEntity tileEntity,
                            PlayerEntity castingPlayer, ItemStack stack) {
-        double angle = world.rand.nextDouble() * Math.PI * 2;
+        double angle = world.random.nextDouble() * Math.PI * 2;
         ItemEntity entity = new ItemEntity(world, goldenBowlPosition.getX() + 0.5, goldenBowlPosition.getY() + 0.75,
                 goldenBowlPosition.getZ() + 0.5, stack);
-        entity.setMotion(Math.sin(angle) * 0.125, 0.25, Math.cos(angle) * 0.125);
-        entity.setPickupDelay(10);
-        world.addEntity(entity);
+        entity.setDeltaMovement(Math.sin(angle) * 0.125, 0.25, Math.cos(angle) * 0.125);
+        entity.setPickUpDelay(10);
+        world.addFreshEntity(entity);
     }
     //endregion Methods
 }
