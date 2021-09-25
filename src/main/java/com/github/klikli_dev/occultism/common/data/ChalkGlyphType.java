@@ -55,7 +55,7 @@ public enum ChalkGlyphType implements IStringSerializable {
         }
     }
 
-    private int value;
+    private final int value;
     //endregion Fields
 
     //region Initialization

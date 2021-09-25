@@ -59,7 +59,7 @@ public class MessageToggleFamiliarSettings extends MessageBase {
                                  NetworkEvent.Context context) {
 
         player.getCapability(OccultismCapabilities.FAMILIAR_SETTINGS).ifPresent(cap -> {
-            for (Entry<EntityType<?>, Boolean> toggle : familiarsPressed.entrySet()) {
+            for (Entry<EntityType<?>, Boolean> toggle : this.familiarsPressed.entrySet()) {
                 if (toggle.getValue()) {
                     cap.setFamiliarEnabled(toggle.getKey(), !cap.isFamiliarEnabled(toggle.getKey()));
                     player.displayClientMessage(

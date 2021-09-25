@@ -134,11 +134,11 @@ public class GreedyFamiliarModel extends EntityModel<GreedyFamiliarEntity> {
         this.rightArm.zRot = 0;
         this.leftArm.zRot = 0;
         if (entityIn.isPartying()) {
-            this.rightArm.xRot = MathHelper.cos(ageInTicks + PI) * toRad(20) + toRad(180);
-            this.leftArm.xRot = MathHelper.cos(ageInTicks) * toRad(20) + toRad(180);
-            this.rightArm.zRot = -toRad(20);
-            this.leftArm.zRot = toRad(20);
-            this.head.zRot = MathHelper.sin(ageInTicks) * toRad(20);
+            this.rightArm.xRot = MathHelper.cos(ageInTicks + PI) * this.toRad(20) + this.toRad(180);
+            this.leftArm.xRot = MathHelper.cos(ageInTicks) * this.toRad(20) + this.toRad(180);
+            this.rightArm.zRot = -this.toRad(20);
+            this.leftArm.zRot = this.toRad(20);
+            this.head.zRot = MathHelper.sin(ageInTicks) * this.toRad(20);
             if (entityIn.getVehicle() == null) {
                 this.rightLeg.xRot = MathHelper.cos(limbSwing * 0.5f) * 1.4f * limbSwingAmount;
                 this.leftLeg.xRot = MathHelper.cos(limbSwing * 0.5f + PI) * 1.4f * limbSwingAmount;

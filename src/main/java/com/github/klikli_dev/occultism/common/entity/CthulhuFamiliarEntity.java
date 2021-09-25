@@ -108,7 +108,7 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
 
     @Override
     public void setFamiliarOwner(LivingEntity owner) {
-        if (hasHat())
+        if (this.hasHat())
             OccultismAdvancements.FAMILIAR.trigger(owner, FamiliarTrigger.Type.RARE_VARIANT);
         super.setFamiliarOwner(owner);
     }
@@ -296,7 +296,7 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
 
         private static final int MAX_COOLDOWN = 20 * 60 * 5;
 
-        private CthulhuFamiliarEntity cthulhu;
+        private final CthulhuFamiliarEntity cthulhu;
         private DevilFamiliarEntity devil;
         private int cooldown = MAX_COOLDOWN;
 
@@ -307,39 +307,39 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
 
         @Override
         public boolean canUse() {
-            devil = findDevil();
-            return devil != null && cooldown-- < 0 && cthulhu.distanceToSqr(devil) > 3;
+            this.devil = this.findDevil();
+            return this.devil != null && this.cooldown-- < 0 && this.cthulhu.distanceToSqr(this.devil) > 3;
         }
 
         @Override
         public boolean canContinueToUse() {
-            return devil != null && cthulhu.isPathFinding();
+            return this.devil != null && this.cthulhu.isPathFinding();
         }
 
         public void start() {
-            cthulhu.getNavigation().moveTo(devil, 0.3);
-            cthulhu.setGiving(true);
+            this.cthulhu.getNavigation().moveTo(this.devil, 0.3);
+            this.cthulhu.setGiving(true);
         }
 
         public void stop() {
-            cthulhu.setGiving(false);
-            cthulhu.getNavigation().stop();
-            cooldown = MAX_COOLDOWN;
-            devil = null;
+            this.cthulhu.setGiving(false);
+            this.cthulhu.getNavigation().stop();
+            this.cooldown = MAX_COOLDOWN;
+            this.devil = null;
         }
 
         @Override
         public void tick() {
-            if (cthulhu.distanceToSqr(devil) < 2) {
-                ((ServerWorld) cthulhu.level).sendParticles(ParticleTypes.HEART, devil.getX(), devil.getY() + 1,
-                        devil.getZ(), 1, 0, 0, 0, 1);
-                devil = null;
+            if (this.cthulhu.distanceToSqr(this.devil) < 2) {
+                ((ServerWorld) this.cthulhu.level).sendParticles(ParticleTypes.HEART, this.devil.getX(), this.devil.getY() + 1,
+                        this.devil.getZ(), 1, 0, 0, 0, 1);
+                this.devil = null;
             }
         }
 
         private DevilFamiliarEntity findDevil() {
-            List<DevilFamiliarEntity> devils = cthulhu.level.getEntitiesOfClass(DevilFamiliarEntity.class,
-                    cthulhu.getBoundingBox().inflate(4));
+            List<DevilFamiliarEntity> devils = this.cthulhu.level.getEntitiesOfClass(DevilFamiliarEntity.class,
+                    this.cthulhu.getBoundingBox().inflate(4));
             return devils.isEmpty() ? null : devils.get(0);
         }
 

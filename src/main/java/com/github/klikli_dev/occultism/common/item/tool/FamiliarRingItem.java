@@ -200,7 +200,7 @@ public class FamiliarRingItem extends Item {
     private static class Provider implements ICapabilitySerializable<CompoundNBT> {
 
         private Curio curio;
-        private LazyOptional<ICurio> instance = LazyOptional.of(this::get);
+        private final LazyOptional<ICurio> instance = LazyOptional.of(this::get);
 
         @Override
         public <T> LazyOptional<T> getCapability(Capability<T> cap, Direction side) {

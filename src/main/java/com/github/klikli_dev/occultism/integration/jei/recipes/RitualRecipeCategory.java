@@ -62,9 +62,9 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
     private final ItemStack requireSacrifice = new ItemStack(OccultismItems.JEI_DUMMY_REQUIRE_SACRIFICE.get());
 
     private int recipeOutputOffsetX = 50;
-    private int iconWidth = 16;
-    private int ritualCenterX;
-    private int ritualCenterY;
+    private final int iconWidth = 16;
+    private final int ritualCenterX;
+    private final int ritualCenterY;
     //endregion Fields
 
     //region Initialization

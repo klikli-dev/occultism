@@ -65,77 +65,77 @@ public class BatFamiliarModel extends EntityModel<BatFamiliarEntity> {
         this.leftChain1 = new ModelRenderer(this, 26, 2);
         this.leftChain1.setPos(7.0F, 0.0F, 0.5F);
         this.leftChain1.addBox(-1.5F, -5.0F, 0.0F, 3.0F, 5.0F, 0.0F, 0.0F, 0.0F, 0.0F);
-        this.setRotateAngle(leftChain1, 0.0F, -0.5235987755982988F, 0.0F);
+        this.setRotateAngle(this.leftChain1, 0.0F, -0.5235987755982988F, 0.0F);
         this.rightEar = new ModelRenderer(this, 16, 0);
         this.rightEar.mirror = true;
         this.rightEar.setPos(-2.0F, -4.0F, 0.0F);
         this.rightEar.addBox(-1.5F, -4.0F, 0.0F, 3.0F, 4.0F, 1.0F, 0.0F, 0.0F, 0.0F);
-        this.setRotateAngle(rightEar, -0.0781907508222411F, 0.3127630032889644F, -0.5082398928281348F);
+        this.setRotateAngle(this.rightEar, -0.0781907508222411F, 0.3127630032889644F, -0.5082398928281348F);
         this.rightChain2 = new ModelRenderer(this, 32, 2);
         this.rightChain2.setPos(0.0F, -3.0F, 0.0F);
         this.rightChain2.addBox(-1.5F, -5.0F, 0.0F, 3.0F, 5.0F, 0.0F, 0.0F, 0.0F, 0.0F);
-        this.setRotateAngle(rightChain2, 0.0F, 1.0471975511965976F, 0.0F);
+        this.setRotateAngle(this.rightChain2, 0.0F, 1.0471975511965976F, 0.0F);
         this.head = new ModelRenderer(this, 11, 6);
         this.head.setPos(0.0F, -5.0F, -1.0F);
         this.head.addBox(-2.5F, -5.0F, -2.5F, 5.0F, 5.0F, 5.0F, 0.0F, 0.0F, 0.0F);
-        this.setRotateAngle(head, -0.19547687289441354F, 0.0F, 0.0F);
+        this.setRotateAngle(this.head, -0.19547687289441354F, 0.0F, 0.0F);
         this.nose = new ModelRenderer(this, 0, 16);
         this.nose.setPos(0.0F, -2.0F, -2.0F);
         this.nose.addBox(-1.5F, -1.0F, -3.0F, 3.0F, 2.0F, 3.0F, 0.0F, 0.0F, 0.0F);
         this.rightChain3 = new ModelRenderer(this, 38, 2);
         this.rightChain3.setPos(0.0F, -3.0F, 0.0F);
         this.rightChain3.addBox(-1.5F, -5.0F, 0.0F, 3.0F, 5.0F, 0.0F, 0.0F, 0.0F, 0.0F);
-        this.setRotateAngle(rightChain3, 0.0F, -1.5707963267948966F, 0.0F);
+        this.setRotateAngle(this.rightChain3, 0.0F, -1.5707963267948966F, 0.0F);
         this.leftWing2 = new ModelRenderer(this, 16, 21);
         this.leftWing2.setPos(6.0F, 0.0F, 0.0F);
         this.leftWing2.addBox(0.0F, -5.0F, 0.0F, 8.0F, 10.0F, 0.0F, 0.0F, 0.0F, 0.0F);
-        this.setRotateAngle(leftWing2, 0.0F, -0.1563815016444822F, 0.0F);
+        this.setRotateAngle(this.leftWing2, 0.0F, -0.1563815016444822F, 0.0F);
         this.rightWing1 = new ModelRenderer(this, 0, 21);
         this.rightWing1.mirror = true;
         this.rightWing1.setPos(-2.5F, 0.0F, 0.0F);
         this.rightWing1.addBox(-6.0F, -5.0F, 0.0F, 8.0F, 10.0F, 0.0F, 0.0F, 0.0F, 0.0F);
-        this.setRotateAngle(rightWing1, 0.0F, 0.1563815016444822F, 0.0F);
+        this.setRotateAngle(this.rightWing1, 0.0F, 0.1563815016444822F, 0.0F);
         this.leftEar = new ModelRenderer(this, 16, 0);
         this.leftEar.setPos(2.0F, -4.0F, 0.0F);
         this.leftEar.addBox(-1.5F, -4.0F, 0.0F, 3.0F, 4.0F, 1.0F, 0.0F, 0.0F, 0.0F);
-        this.setRotateAngle(leftEar, -0.0781907508222411F, -0.3127630032889644F, 0.5082398928281348F);
+        this.setRotateAngle(this.leftEar, -0.0781907508222411F, -0.3127630032889644F, 0.5082398928281348F);
         this.rightLeg = new ModelRenderer(this, 0, 11);
         this.rightLeg.mirror = true;
         this.rightLeg.setPos(0.0F, 5.0F, 0.0F);
         this.rightLeg.addBox(-1.5F, 0.0F, 0.0F, 3.0F, 3.0F, 0.0F, 0.0F, 0.0F, 0.0F);
-        this.setRotateAngle(rightLeg, -0.35185837453889574F, 0.0F, 0.0F);
+        this.setRotateAngle(this.rightLeg, -0.35185837453889574F, 0.0F, 0.0F);
         this.stick = new ModelRenderer(this, 24, 0);
         this.stick.setPos(0.0F, 8.0F, 0.0F);
         this.stick.addBox(-7.0F, 0.0F, 0.0F, 14.0F, 1.0F, 1.0F, 0.0F, 0.0F, 0.0F);
         this.rightChain1 = new ModelRenderer(this, 26, 2);
         this.rightChain1.setPos(-7.0F, 0.0F, 0.5F);
         this.rightChain1.addBox(-1.5F, -5.0F, 0.0F, 3.0F, 5.0F, 0.0F, 0.0F, 0.0F, 0.0F);
-        this.setRotateAngle(rightChain1, 0.0F, -0.5235987755982988F, 0.0F);
+        this.setRotateAngle(this.rightChain1, 0.0F, -0.5235987755982988F, 0.0F);
         this.body = new ModelRenderer(this, 0, 0);
         this.body.setPos(0.0F, 16.5F, 0.0F);
         this.body.addBox(-2.5F, -5.0F, -2.5F, 5.0F, 8.0F, 3.0F, 0.0F, 0.0F, 0.0F);
-        this.setRotateAngle(body, 3.141592653589793F, 0.0F, 0.0F);
+        this.setRotateAngle(this.body, 3.141592653589793F, 0.0F, 0.0F);
         this.rightWing2 = new ModelRenderer(this, 16, 21);
         this.rightWing2.mirror = true;
         this.rightWing2.setPos(-6.0F, 0.0F, 0.0F);
         this.rightWing2.addBox(-8.0F, -5.0F, 0.0F, 8.0F, 10.0F, 0.0F, 0.0F, 0.0F, 0.0F);
-        this.setRotateAngle(rightWing2, 0.0F, 0.1563815016444822F, 0.0F);
+        this.setRotateAngle(this.rightWing2, 0.0F, 0.1563815016444822F, 0.0F);
         this.leftWing1 = new ModelRenderer(this, 0, 21);
         this.leftWing1.setPos(2.5F, 0.0F, 0.0F);
         this.leftWing1.addBox(-2.0F, -5.0F, 0.0F, 8.0F, 10.0F, 0.0F, 0.0F, 0.0F, 0.0F);
-        this.setRotateAngle(leftWing1, 0.0F, -0.1563815016444822F, 0.0F);
+        this.setRotateAngle(this.leftWing1, 0.0F, -0.1563815016444822F, 0.0F);
         this.leftLeg = new ModelRenderer(this, 0, 11);
         this.leftLeg.setPos(0.0F, 5.0F, 0.0F);
         this.leftLeg.addBox(-1.5F, 0.0F, 0.0F, 3.0F, 3.0F, 0.0F, 0.0F, 0.0F, 0.0F);
-        this.setRotateAngle(leftLeg, -0.35185837453889574F, 0.0F, 0.0F);
+        this.setRotateAngle(this.leftLeg, -0.35185837453889574F, 0.0F, 0.0F);
         this.leftChain2 = new ModelRenderer(this, 32, 2);
         this.leftChain2.setPos(0.0F, -3.0F, 0.0F);
         this.leftChain2.addBox(-1.5F, -5.0F, 0.0F, 3.0F, 5.0F, 0.0F, 0.0F, 0.0F, 0.0F);
-        this.setRotateAngle(leftChain2, 0.0F, 1.0471975511965976F, 0.0F);
+        this.setRotateAngle(this.leftChain2, 0.0F, 1.0471975511965976F, 0.0F);
         this.leftChain3 = new ModelRenderer(this, 38, 2);
         this.leftChain3.setPos(0.0F, -3.0F, 0.0F);
         this.leftChain3.addBox(-1.5F, -5.0F, 0.0F, 3.0F, 5.0F, 0.0F, 0.0F, 0.0F, 0.0F);
-        this.setRotateAngle(leftChain3, 0.0F, -1.5707963267948966F, 0.0F);
+        this.setRotateAngle(this.leftChain3, 0.0F, -1.5707963267948966F, 0.0F);
         this.stick.addChild(this.leftChain1);
         this.head.addChild(this.rightEar);
         this.rightChain1.addChild(this.rightChain2);
@@ -167,23 +167,23 @@ public class BatFamiliarModel extends EntityModel<BatFamiliarEntity> {
             float partialTick) {
 
         if (entityIn.isPartying()) {
-            stick.visible = false;
-            body.xRot = toRads(0);
+            this.stick.visible = false;
+            this.body.xRot = this.toRads(0);
         } else if (entityIn.isSitting()) {
-            leftWing1.yRot = toRads(60);
-            leftWing2.yRot = toRads(60);
-            rightWing1.yRot = -toRads(60);
-            rightWing2.yRot = -toRads(60);
-            body.xRot = toRads(180);
-            stick.visible = true;
+            this.leftWing1.yRot = this.toRads(60);
+            this.leftWing2.yRot = this.toRads(60);
+            this.rightWing1.yRot = -this.toRads(60);
+            this.rightWing2.yRot = -this.toRads(60);
+            this.body.xRot = this.toRads(180);
+            this.stick.visible = true;
         } else {
             float animationHeight = entityIn.getAnimationHeight(partialTick);
-            leftWing1.yRot = animationHeight * toRads(20);
-            leftWing2.yRot = animationHeight * toRads(20);
-            rightWing1.yRot = -animationHeight * toRads(20);
-            rightWing2.yRot = -animationHeight * toRads(20);
-            body.xRot = toRads(0);
-            stick.visible = false;
+            this.leftWing1.yRot = animationHeight * this.toRads(20);
+            this.leftWing2.yRot = animationHeight * this.toRads(20);
+            this.rightWing1.yRot = -animationHeight * this.toRads(20);
+            this.rightWing2.yRot = -animationHeight * this.toRads(20);
+            this.body.xRot = this.toRads(0);
+            this.stick.visible = false;
         }
     }
 
@@ -192,28 +192,28 @@ public class BatFamiliarModel extends EntityModel<BatFamiliarEntity> {
             float netHeadYaw, float headPitch) {
 
         if (entityIn.isPartying()) {
-            head.xRot = MathHelper.sin(ageInTicks / 3) * toRads(10);
-            head.yRot = MathHelper.cos(ageInTicks / 3) * toRads(10);
-            head.zRot = MathHelper.sin(ageInTicks / 3) * toRads(10);
-            leftWing1.yRot = MathHelper.sin(ageInTicks / 3) * toRads(60);
-            leftWing2.yRot = MathHelper.sin(ageInTicks / 3) * toRads(60);
-            rightWing1.yRot = MathHelper.sin(ageInTicks / 3) * toRads(60);
-            rightWing2.yRot = MathHelper.sin(ageInTicks / 3) * toRads(60);
-            body.xRot = toRads(20) + limbSwingAmount * toRads(70);
-            body.yRot = 0;
+            this.head.xRot = MathHelper.sin(ageInTicks / 3) * this.toRads(10);
+            this.head.yRot = MathHelper.cos(ageInTicks / 3) * this.toRads(10);
+            this.head.zRot = MathHelper.sin(ageInTicks / 3) * this.toRads(10);
+            this.leftWing1.yRot = MathHelper.sin(ageInTicks / 3) * this.toRads(60);
+            this.leftWing2.yRot = MathHelper.sin(ageInTicks / 3) * this.toRads(60);
+            this.rightWing1.yRot = MathHelper.sin(ageInTicks / 3) * this.toRads(60);
+            this.rightWing2.yRot = MathHelper.sin(ageInTicks / 3) * this.toRads(60);
+            this.body.xRot = this.toRads(20) + limbSwingAmount * this.toRads(70);
+            this.body.yRot = 0;
         } else if (entityIn.isSitting()) {
-            head.xRot = 0.2f;
-            head.yRot = 0;
-            head.zRot = 0;
-            body.xRot = (float) Math.toRadians(180);
-            body.yRot = (float) Math.toRadians(180);
+            this.head.xRot = 0.2f;
+            this.head.yRot = 0;
+            this.head.zRot = 0;
+            this.body.xRot = (float) Math.toRadians(180);
+            this.body.yRot = (float) Math.toRadians(180);
         } else {
-            head.xRot = 0;
-            head.yRot = toRads(netHeadYaw) * 0.35f;
-            head.zRot = toRads(headPitch) * 0.35f;
+            this.head.xRot = 0;
+            this.head.yRot = this.toRads(netHeadYaw) * 0.35f;
+            this.head.zRot = this.toRads(headPitch) * 0.35f;
 
-            body.xRot = toRads(20) + limbSwingAmount * toRads(70);
-            body.yRot = 0;
+            this.body.xRot = this.toRads(20) + limbSwingAmount * this.toRads(70);
+            this.body.yRot = 0;
         }
     }
 

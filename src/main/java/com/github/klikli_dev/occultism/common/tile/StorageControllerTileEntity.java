@@ -270,11 +270,8 @@ public class StorageControllerTileEntity extends NetworkedTileEntity implements 
             BlockItem itemBlock = (BlockItem) stack.getItem();
             return BLOCK_BLACKLIST.stream().map(RegistryObject::get).anyMatch(block -> itemBlock.getBlock() == block);
         }
-        
-        if(stack.getItem() == OccultismItems.STORAGE_REMOTE.get())
-            return true;
-        
-        return false;
+
+        return stack.getItem() == OccultismItems.STORAGE_REMOTE.get();
     }
 
     @Override

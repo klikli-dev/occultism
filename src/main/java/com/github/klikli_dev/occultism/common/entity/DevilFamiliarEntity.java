@@ -97,7 +97,7 @@ public class DevilFamiliarEntity extends FamiliarEntity {
     
     @Override
     public void setFamiliarOwner(LivingEntity owner) {
-        if (hasLollipop())
+        if (this.hasLollipop())
             OccultismAdvancements.FAMILIAR.trigger(owner, FamiliarTrigger.Type.RARE_VARIANT);
         super.setFamiliarOwner(owner);
     }

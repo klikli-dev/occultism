@@ -19,7 +19,7 @@ public class FamiliarTrigger extends AbstractCriterionTrigger<FamiliarTrigger.In
     public enum Type {
         DEER_POOP, CTHULHU_SAD, BAT_EAT, DEVIL_FIRE, GREEDY_ITEM, RARE_VARIANT, PARTY, CAPTURE, DRAGON_NUGGET,
         DRAGON_RIDE, DRAGON_PET, DRAGON_FETCH
-    };
+    }
 
     private static final ResourceLocation ID = new ResourceLocation(Occultism.MODID, "familiar");
 
@@ -49,7 +49,7 @@ public class FamiliarTrigger extends AbstractCriterionTrigger<FamiliarTrigger.In
 
     public static class Instance extends CriterionInstance {
 
-        private Type type;
+        private final Type type;
 
         public Instance(AndPredicate playerCondition, Type type) {
             super(FamiliarTrigger.ID, playerCondition);
@@ -63,7 +63,7 @@ public class FamiliarTrigger extends AbstractCriterionTrigger<FamiliarTrigger.In
         @Override
         public JsonObject serializeToJson(ConditionArraySerializer conditions) {
             JsonObject json = super.serializeToJson(conditions);
-            json.addProperty("type", type.name());
+            json.addProperty("type", this.type.name());
             return json;
         }
 

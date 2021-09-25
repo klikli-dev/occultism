@@ -54,7 +54,7 @@ public class RitualTrigger extends AbstractCriterionTrigger<RitualTrigger.Instan
 
     public RitualTrigger.Instance createInstance(JsonObject json, EntityPredicate.AndPredicate entityPredicate,
             ConditionArrayParser conditionsParser) {
-        return new RitualTrigger.Instance(deserializeRitualPredicate(json));
+        return new RitualTrigger.Instance(this.deserializeRitualPredicate(json));
     }
 
     private RitualPredicate deserializeRitualPredicate(JsonObject json) {
@@ -102,8 +102,8 @@ public class RitualTrigger extends AbstractCriterionTrigger<RitualTrigger.Instan
 
         public static final RitualPredicate ANY = new RitualPredicate(null, null);
 
-        private ResourceLocation ritualId;
-        private ResourceLocation ritualFactoryId;
+        private final ResourceLocation ritualId;
+        private final ResourceLocation ritualFactoryId;
 
         public RitualPredicate(ResourceLocation ritualId, ResourceLocation ritualFactoryId) {
             this.ritualId = ritualId;
@@ -113,11 +113,9 @@ public class RitualTrigger extends AbstractCriterionTrigger<RitualTrigger.Instan
         public boolean test(Ritual ritual) {
             if (this == ANY)
                 return true;
-            else if (ritualId != null && !ritualId.equals(ritual.getRecipe().getId()))
+            else if (this.ritualId != null && !this.ritualId.equals(ritual.getRecipe().getId()))
                 return false;
-            else if (ritualFactoryId != null && !ritualFactoryId.equals(ritual.getFactoryID()))
-                return false;
-            return true;
+            else return this.ritualFactoryId == null || this.ritualFactoryId.equals(ritual.getFactoryID());
         }
 
         public static RitualPredicate deserialize(JsonElement element) {
@@ -138,10 +136,10 @@ public class RitualTrigger extends AbstractCriterionTrigger<RitualTrigger.Instan
             if (this == ANY)
                 return JsonNull.INSTANCE;
             JsonObject json = new JsonObject();
-            if (ritualId != null)
-                json.addProperty("ritual_id", ritualId.toString());
-            if (ritualFactoryId != null)
-                json.addProperty("ritual_factory_id", ritualFactoryId.toString());
+            if (this.ritualId != null)
+                json.addProperty("ritual_id", this.ritualId.toString());
+            if (this.ritualFactoryId != null)
+                json.addProperty("ritual_factory_id", this.ritualFactoryId.toString());
             return json;
         }
     }

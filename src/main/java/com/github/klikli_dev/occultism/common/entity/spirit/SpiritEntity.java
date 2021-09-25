@@ -355,7 +355,7 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
 
     @Override
     public LivingEntity getEntity() {
-        return (LivingEntity) this;
+        return this;
     }
 
     @Override

@@ -58,7 +58,7 @@ public class BookOfCallingManageMachineItem extends BookOfCallingItem {
             }
         }
 
-        private ItemMode itemMode;
+        private final ItemMode itemMode;
         //endregion Fields
 
         //region Initialization

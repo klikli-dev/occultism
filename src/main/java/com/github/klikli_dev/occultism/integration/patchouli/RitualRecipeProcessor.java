@@ -112,7 +112,7 @@ public class RitualRecipeProcessor implements IComponentProcessor {
 
         if(key.equals("job")){
             if(this.recipe.getSpiritJobType() != null){
-                return IVariable.wrap(I18n.get("jei.occultism.job", I18n.get("job." + recipe.getSpiritJobType().toString().replace(":", "."))));
+                return IVariable.wrap(I18n.get("jei.occultism.job", I18n.get("job." + this.recipe.getSpiritJobType().toString().replace(":", "."))));
             }
         }
 

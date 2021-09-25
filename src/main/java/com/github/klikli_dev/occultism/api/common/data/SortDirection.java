@@ -40,7 +40,7 @@ public enum SortDirection implements IStringSerializable {
         }
     }
 
-    private int value;
+    private final int value;
 
     //endregion Fields
     //region Initialization

@@ -35,52 +35,52 @@ public class ENUSProvider extends LanguageProvider {
 
     @Override
     protected void addTranslations() {
-        addAdvancements();
+        this.addAdvancements();
         
 
     }
     
     private void addAdvancements() {
-        advancementTitle("root", "Occultism: Friends");
-        advancementDescr("root", "Use a ritual to summon a familiar");
-        
-        advancementTitle("deer", "Demonic Poop");
-        advancementDescr("deer", "Observe when your deer familiar poops demon seed");
-        
-        advancementTitle("cthulhu", "You Monster!");
-        advancementDescr("cthulhu", "Make your cthulhu familiar sad");
-        
-        advancementTitle("bat", "Cannibalism");
-        advancementDescr("bat", "Lure a normal bat near your bat familiar");
-        
-        advancementTitle("devil", "Hellfire");
-        advancementDescr("devil", "Command your devil familiar to breath fire");
-        
-        advancementTitle("greedy", "Errand Boy");
-        advancementDescr("greedy", "Let your greedy familiar pick something up for you");
-        
-        advancementTitle("rare", "Rare Friend");
-        advancementDescr("rare", "Obtain a rare familiar variant");
-        
-        advancementTitle("party", "Dance!");
-        advancementDescr("party", "Get your familiar to dance");
-        
-        advancementTitle("capture", "Catch them all!");
-        advancementDescr("capture", "Trap your familiar in a familiar ring");
-        
-        advancementTitle("dragon_nugget", "Deal!");
-        advancementDescr("dragon_nugget", "Give a gold nugget to your dragon familiar");
-        
-        advancementTitle("dragon_ride", "Working together");
-        advancementDescr("dragon_ride", "Let your greedy familiar pick something up while riding a dragon familiar");
+        this.advancementTitle("root", "Occultism: Friends");
+        this.advancementDescr("root", "Use a ritual to summon a familiar");
+
+        this.advancementTitle("deer", "Demonic Poop");
+        this.advancementDescr("deer", "Observe when your deer familiar poops demon seed");
+
+        this.advancementTitle("cthulhu", "You Monster!");
+        this.advancementDescr("cthulhu", "Make your cthulhu familiar sad");
+
+        this.advancementTitle("bat", "Cannibalism");
+        this.advancementDescr("bat", "Lure a normal bat near your bat familiar");
+
+        this.advancementTitle("devil", "Hellfire");
+        this.advancementDescr("devil", "Command your devil familiar to breath fire");
+
+        this.advancementTitle("greedy", "Errand Boy");
+        this.advancementDescr("greedy", "Let your greedy familiar pick something up for you");
+
+        this.advancementTitle("rare", "Rare Friend");
+        this.advancementDescr("rare", "Obtain a rare familiar variant");
+
+        this.advancementTitle("party", "Dance!");
+        this.advancementDescr("party", "Get your familiar to dance");
+
+        this.advancementTitle("capture", "Catch them all!");
+        this.advancementDescr("capture", "Trap your familiar in a familiar ring");
+
+        this.advancementTitle("dragon_nugget", "Deal!");
+        this.advancementDescr("dragon_nugget", "Give a gold nugget to your dragon familiar");
+
+        this.advancementTitle("dragon_ride", "Working together");
+        this.advancementDescr("dragon_ride", "Let your greedy familiar pick something up while riding a dragon familiar");
     }
 
     private void advancementTitle(String name, String s) {
-        add(OccultismAdvancementProvider.title(name).getKey(), s);
+        this.add(OccultismAdvancementProvider.title(name).getKey(), s);
     }
     
     private void advancementDescr(String name, String s) {
-        add(OccultismAdvancementProvider.descr(name).getKey(), s);
+        this.add(OccultismAdvancementProvider.descr(name).getKey(), s);
 
     }
 

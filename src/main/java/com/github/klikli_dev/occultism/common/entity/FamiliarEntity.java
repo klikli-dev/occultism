@@ -100,7 +100,7 @@ public abstract class FamiliarEntity extends CreatureEntity implements IFamiliar
 
     @Override
     public void aiStep() {
-        updateSwingTime();
+        this.updateSwingTime();
         
         if (this.jukeboxPos == null || !this.jukeboxPos.closerThan(this.position(), 3.5)
                 || !this.level.getBlockState(this.jukeboxPos).is(Blocks.JUKEBOX)) {
@@ -204,10 +204,10 @@ public abstract class FamiliarEntity extends CreatureEntity implements IFamiliar
         private static final int TELEPORT_ATTEMPTS = 10;
 
         protected FamiliarEntity entity;
-        private double speed;
+        private final double speed;
         private int cooldown;
-        private float maxDist;
-        private float minDist;
+        private final float maxDist;
+        private final float minDist;
         private LivingEntity owner;
 
         public FollowOwnerGoal(FamiliarEntity entity, double speed, float minDist, float maxDist) {
@@ -246,7 +246,7 @@ public abstract class FamiliarEntity extends CreatureEntity implements IFamiliar
             if (--this.cooldown < 0) {
                 this.cooldown = 10;
                 if (!this.entity.isLeashed() && !this.entity.isPassenger()) {
-                    if (this.entity.distanceToSqr(this.owner) >= 150 || shouldTeleport(owner))
+                    if (this.entity.distanceToSqr(this.owner) >= 150 || this.shouldTeleport(this.owner))
                         this.tryTeleport();
                     else
                         this.entity.getNavigation().moveTo(this.owner, this.speed);
@@ -302,7 +302,7 @@ public abstract class FamiliarEntity extends CreatureEntity implements IFamiliar
         public void start() {
             this.entity.getNavigation().stop();
             this.entity.stopRiding();
-            entity.ejectPassengers();
+            this.entity.ejectPassengers();
         }
 
         public void stop() {

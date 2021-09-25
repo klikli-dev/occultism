@@ -139,7 +139,7 @@ public class DragonFamiliarEntity extends FamiliarEntity {
     }
 
     public int getPetTimer() {
-        return petTimer;
+        return this.petTimer;
     }
 
     @Override
@@ -186,9 +186,9 @@ public class DragonFamiliarEntity extends FamiliarEntity {
     @Override
     protected ActionResultType mobInteract(PlayerEntity playerIn, Hand hand) {
         ItemStack stack = playerIn.getItemInHand(hand);
-        if (hasStick()) {
+        if (this.hasStick()) {
             ItemHandlerHelper.giveItemToPlayer(playerIn, new ItemStack(Items.STICK));
-            setStick(false);
+            this.setStick(false);
             return ActionResultType.sidedSuccess(!this.isEffectiveAi());
         } else if (stack.getItem().is(Tags.Items.NUGGETS_GOLD)) {
             OccultismAdvancements.FAMILIAR.trigger(this.getFamiliarOwner(), FamiliarTrigger.Type.DRAGON_NUGGET);
@@ -296,7 +296,7 @@ public class DragonFamiliarEntity extends FamiliarEntity {
 
     private static class FetchGoal extends Goal {
 
-        private DragonFamiliarEntity dragon;
+        private final DragonFamiliarEntity dragon;
         private ItemEntity stick;
 
         public FetchGoal(DragonFamiliarEntity dragon) {
@@ -306,44 +306,44 @@ public class DragonFamiliarEntity extends FamiliarEntity {
 
         @Override
         public boolean canUse() {
-            stick = findStick();
-            return stick != null && !dragon.hasStick();
+            this.stick = this.findStick();
+            return this.stick != null && !this.dragon.hasStick();
         }
 
         @Override
         public boolean canContinueToUse() {
-            return stick != null && !dragon.hasStick();
+            return this.stick != null && !this.dragon.hasStick();
         }
 
         public void start() {
-            dragon.getNavigation().moveTo(stick, 1.2);
+            this.dragon.getNavigation().moveTo(this.stick, 1.2);
         }
 
         public void stop() {
-            dragon.getNavigation().stop();
-            stick = null;
+            this.dragon.getNavigation().stop();
+            this.stick = null;
         }
 
         @Override
         public void tick() {
-            if (stick == null || !stick.isAlive()) {
-                stick = findStick();
-                if (stick == null)
+            if (this.stick == null || !this.stick.isAlive()) {
+                this.stick = this.findStick();
+                if (this.stick == null)
                     return;
             }
-            dragon.getNavigation().moveTo(stick, 1.2);
+            this.dragon.getNavigation().moveTo(this.stick, 1.2);
 
-            if (stick.distanceToSqr(dragon) < 3) {
-                dragon.setStick(true);
-                OccultismAdvancements.FAMILIAR.trigger(dragon.getFamiliarOwner(), FamiliarTrigger.Type.DRAGON_FETCH);
-                stick.getItem().shrink(1);
-                stick = null;
+            if (this.stick.distanceToSqr(this.dragon) < 3) {
+                this.dragon.setStick(true);
+                OccultismAdvancements.FAMILIAR.trigger(this.dragon.getFamiliarOwner(), FamiliarTrigger.Type.DRAGON_FETCH);
+                this.stick.getItem().shrink(1);
+                this.stick = null;
             }
         }
 
         private ItemEntity findStick() {
-            List<ItemEntity> sticks = dragon.level.getEntitiesOfClass(ItemEntity.class,
-                    dragon.getBoundingBox().inflate(8), e -> e.getItem().getItem() == Items.STICK && e.isAlive());
+            List<ItemEntity> sticks = this.dragon.level.getEntitiesOfClass(ItemEntity.class,
+                    this.dragon.getBoundingBox().inflate(8), e -> e.getItem().getItem() == Items.STICK && e.isAlive());
             return sticks.isEmpty() ? null : sticks.get(0);
         }
 

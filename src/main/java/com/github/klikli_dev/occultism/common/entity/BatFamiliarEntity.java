@@ -107,7 +107,7 @@ public class BatFamiliarEntity extends FamiliarEntity implements IFlyingAnimal {
     }
 
     public float getAnimationHeight(float partialTicks) {
-        return MathHelper.cos((tickCount + partialTicks) / 5);
+        return MathHelper.cos((this.tickCount + partialTicks) / 5);
     }
 
     @Override
@@ -129,21 +129,21 @@ public class BatFamiliarEntity extends FamiliarEntity implements IFlyingAnimal {
 
         @Override
         public boolean canUse() {
-            nearby = nearbyBat();
-            return nearby != null;
+            this.nearby = this.nearbyBat();
+            return this.nearby != null;
         }
 
         @Override
         public void start() {
-            if (nearby != null) {
-                nearby.hurt(DamageSource.mobAttack(bat), 10);
-                OccultismAdvancements.FAMILIAR.trigger(bat.getFamiliarOwner(), FamiliarTrigger.Type.BAT_EAT);
+            if (this.nearby != null) {
+                this.nearby.hurt(DamageSource.mobAttack(this.bat), 10);
+                OccultismAdvancements.FAMILIAR.trigger(this.bat.getFamiliarOwner(), FamiliarTrigger.Type.BAT_EAT);
             }
         }
 
         private BatEntity nearbyBat() {
             BatEntity nearby = null;
-            List<BatEntity> bats = bat.level.getEntitiesOfClass(BatEntity.class, bat.getBoundingBox().inflate(2));
+            List<BatEntity> bats = this.bat.level.getEntitiesOfClass(BatEntity.class, this.bat.getBoundingBox().inflate(2));
             if (!bats.isEmpty())
                 nearby = bats.get(0);
             return nearby;

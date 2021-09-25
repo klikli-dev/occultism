@@ -155,8 +155,8 @@ public class SpiritFireBlock extends Block {
     @OnlyIn(Dist.CLIENT)
     public void animateTick(BlockState stateIn, World worldIn, BlockPos pos, Random rand) {
         if (rand.nextInt(24) == 0) {
-            worldIn.playLocalSound((double) ((float) pos.getX() + 0.5F), (double) ((float) pos.getY() + 0.5F),
-                    (double) ((float) pos.getZ() + 0.5F), SoundEvents.FIRE_AMBIENT, SoundCategory.BLOCKS,
+            worldIn.playLocalSound((float) pos.getX() + 0.5F, (float) pos.getY() + 0.5F,
+                    (float) pos.getZ() + 0.5F, SoundEvents.FIRE_AMBIENT, SoundCategory.BLOCKS,
                     1.0F + rand.nextFloat(), rand.nextFloat() * 0.7F + 0.3F, false);
         }
 

@@ -235,8 +235,7 @@ public class FellTreesGoal extends Goal {
             //find the stump of the tree
             if (isLeaf(this.entity.level, topOfTree)) {
                 BlockPos logPos = this.getStump(topOfTree);
-                if (isLog(this.entity.level, logPos))
-                    return true;
+                return isLog(this.entity.level, logPos);
             }
         }
         return false;

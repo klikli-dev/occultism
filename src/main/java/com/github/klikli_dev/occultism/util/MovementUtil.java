@@ -59,10 +59,6 @@ public class MovementUtil {
 
         ItemStack itemstack = player.getItemBySlot(EquipmentSlotType.CHEST);
         //If player
-        if(OccultismTags.ELYTRA.contains(itemstack.getItem()) && (itemstack.getDamageValue() <= 0 || ElytraItem.isFlyEnabled(itemstack))){
-            return false;
-        }
-
-        return true;
+        return !OccultismTags.ELYTRA.contains(itemstack.getItem()) || (itemstack.getDamageValue() > 0 && !ElytraItem.isFlyEnabled(itemstack));
     }
 }

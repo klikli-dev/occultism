@@ -93,7 +93,7 @@ public class GreedyFamiliarEntity extends FamiliarEntity {
 
         private static final double RANGE = 12;
 
-        private FamiliarEntity entity;
+        private final FamiliarEntity entity;
 
         public FindItemGoal(FamiliarEntity entity) {
             this.entity = entity;
@@ -154,7 +154,7 @@ public class GreedyFamiliarEntity extends FamiliarEntity {
 
     private static class RideDragonGoal extends Goal {
 
-        private GreedyFamiliarEntity greedy;
+        private final GreedyFamiliarEntity greedy;
         private DragonFamiliarEntity dragon;
 
         private RideDragonGoal(GreedyFamiliarEntity greedy) {
@@ -164,10 +164,10 @@ public class GreedyFamiliarEntity extends FamiliarEntity {
 
         @Override
         public boolean canUse() {
-            if (greedy.getVehicle() instanceof DragonFamiliarEntity)
+            if (this.greedy.getVehicle() instanceof DragonFamiliarEntity)
                 return true;
 
-            DragonFamiliarEntity dragon = findDragon();
+            DragonFamiliarEntity dragon = this.findDragon();
             if (dragon != null) {
                 this.dragon = dragon;
                 this.greedy.getNavigation().moveTo(dragon, 1);
@@ -184,7 +184,7 @@ public class GreedyFamiliarEntity extends FamiliarEntity {
 
         @Override
         public void stop() {
-            dragon = null;
+            this.dragon = null;
         }
 
         @Override

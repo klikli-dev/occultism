@@ -42,7 +42,7 @@ public enum SortType implements IStringSerializable {
         }
     }
 
-    private int value;
+    private final int value;
 
     //endregion Fields
     //region Initialization

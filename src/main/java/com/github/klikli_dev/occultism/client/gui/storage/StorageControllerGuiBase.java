@@ -710,7 +710,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         stacksToDisplay.sort(new Comparator<ItemStack>() {
 
             //region Fields
-            int direction = StorageControllerGuiBase.this.getSortDirection().isDown() ? -1 : 1;
+            final int direction = StorageControllerGuiBase.this.getSortDirection().isDown() ? -1 : 1;
             //endregion Fields
 
             //region Overrides
@@ -810,7 +810,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         machinesToDisplay.sort(new Comparator<MachineReference>() {
 
             //region Fields
-            int direction = StorageControllerGuiBase.this.getSortDirection().isDown() ? -1 : 1;
+            final int direction = StorageControllerGuiBase.this.getSortDirection().isDown() ? -1 : 1;
             //endregion Fields
 
             //region Overrides

@@ -46,10 +46,10 @@ import vazkii.patchouli.api.PatchouliAPI;
 import vazkii.patchouli.api.PatchouliAPI.IPatchouliAPI;
 
 public class Pentacle {
-    private ResourceLocation rl;
-    private List<String> pattern;
-    private Map<Character, JsonElement> mappings;
-    private IMultiblock matcher;
+    private final ResourceLocation rl;
+    private final List<String> pattern;
+    private final Map<Character, JsonElement> mappings;
+    private final IMultiblock matcher;
 
     public Pentacle(ResourceLocation rl, List<String> pattern, Map<Character, JsonElement> mappings) {
         this.rl = rl;
@@ -81,20 +81,20 @@ public class Pentacle {
         multiMappings.add(api.anyMatcher());
 
         ResourceLocation multiRL = new ResourceLocation(rl.getNamespace(), "pentacle." + rl.getPath());
-        matcher = api.makeMultiblock(multiPattern, multiMappings.toArray());
-        matcher.setId(multiRL);
+        this.matcher = api.makeMultiblock(multiPattern, multiMappings.toArray());
+        this.matcher.setId(multiRL);
         try {
-            PatchouliAPI.get().registerMultiblock(multiRL, matcher);
+            PatchouliAPI.get().registerMultiblock(multiRL, this.matcher);
         } catch (IllegalArgumentException e) { // Patchouli weirdness
         }
     }
 
     public String getTranslationKey() {
-        return Util.makeDescriptionId("pentacle", rl);
+        return Util.makeDescriptionId("pentacle", this.rl);
     }
 
     public boolean validate(World world, BlockPos pos) {
-        return matcher.validate(world, pos) != null;
+        return this.matcher.validate(world, pos) != null;
     }
 
     public static Pentacle fromJson(ResourceLocation rl, JsonObject json) {
@@ -117,11 +117,11 @@ public class Pentacle {
     public JsonObject toJson() {
         JsonObject json = new JsonObject();
         JsonArray jsonPattern = new JsonArray();
-        for (String row : pattern)
+        for (String row : this.pattern)
             jsonPattern.add(row);
         json.add("pattern", jsonPattern);
         JsonObject jsonMapping = new JsonObject();
-        for (Entry<Character, JsonElement> entry : mappings.entrySet())
+        for (Entry<Character, JsonElement> entry : this.mappings.entrySet())
             jsonMapping.add(String.valueOf(entry.getKey()), entry.getValue());
         json.add("mapping", jsonMapping);
         return json;
@@ -174,11 +174,11 @@ public class Pentacle {
     }
     
     public void encode(PacketBuffer buffer) {
-        buffer.writeInt(pattern.size());
-        for (String row : pattern)
+        buffer.writeInt(this.pattern.size());
+        for (String row : this.pattern)
             buffer.writeUtf(row);
-        buffer.writeInt(mappings.size());
-        for (Entry<Character, JsonElement> entry : mappings.entrySet()) {
+        buffer.writeInt(this.mappings.size());
+        for (Entry<Character, JsonElement> entry : this.mappings.entrySet()) {
             buffer.writeChar(entry.getKey());
             buffer.writeUtf(entry.getValue().toString());
         }

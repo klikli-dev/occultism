@@ -47,8 +47,8 @@ public class ItemModelsGenerator extends ItemModelProvider {
                 this.registerRitualDummy("item/" + item.getRegistryName().getPath());
             }
         });
-        
-        registerAdvancementItem();
+
+        this.registerAdvancementItem();
     }
 
 
@@ -62,10 +62,10 @@ public class ItemModelsGenerator extends ItemModelProvider {
         
         List<ItemModelBuilder> icons = new ArrayList<>();
         for (String texture : textures)
-            icons.add(this.withExistingParent("item/advancement/" + texture, mcLoc("item/generated")).texture("layer0", modLoc("item/advancement/" + texture)));
+            icons.add(this.withExistingParent("item/advancement/" + texture, this.mcLoc("item/generated")).texture("layer0", this.modLoc("item/advancement/" + texture)));
         
-        ItemModelBuilder builder = this.withExistingParent("item/advancement_icon", mcLoc("item/generated"));
+        ItemModelBuilder builder = this.withExistingParent("item/advancement_icon", this.mcLoc("item/generated"));
         for (int i = 0; i < icons.size(); i++)
-            builder.override().predicate(mcLoc("custom_model_data"), i).model(icons.get(i)).end();
+            builder.override().predicate(this.mcLoc("custom_model_data"), i).model(icons.get(i)).end();
     }
 }

@@ -49,7 +49,7 @@ public class DragonFamiliarRenderer extends MobRenderer<DragonFamiliarEntity, Dr
 
     public DragonFamiliarRenderer(EntityRendererManager renderManagerIn) {
         super(renderManagerIn, new DragonFamiliarModel(), 0.3f);
-        addLayer(new DragonStickLayer(this));
+        this.addLayer(new DragonStickLayer(this));
     }
 
     @Override
