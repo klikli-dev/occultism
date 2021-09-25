@@ -128,6 +128,12 @@ public class OccultismAdvancementProvider implements IDataProvider {
                         false)
                 .withCriterion("dragon_ride", FamiliarTrigger.of(FamiliarTrigger.Type.DRAGON_RIDE))
                 .build(new ResourceLocation(Occultism.MODID, "occultism/familiar/dragon_ride")));
+        add(Advancement.Builder.builder().withParent(root)
+                .withDisplay(Items.STICK, title("mans_best_friend"), descr("mans_best_friend"), null, FrameType.TASK,
+                        true, true, false)
+                .withCriterion("dragon_pet", FamiliarTrigger.of(FamiliarTrigger.Type.DRAGON_PET))
+                .withCriterion("dragon_fetch", FamiliarTrigger.of(FamiliarTrigger.Type.DRAGON_FETCH))
+                .build(new ResourceLocation(Occultism.MODID, "occultism/familiar/mans_best_friend")));
     }
 
     private static TranslationTextComponent text(String name, String type) {

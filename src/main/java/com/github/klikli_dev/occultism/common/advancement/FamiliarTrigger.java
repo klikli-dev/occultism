@@ -17,7 +17,8 @@ import net.minecraft.util.ResourceLocation;
 public class FamiliarTrigger extends AbstractCriterionTrigger<FamiliarTrigger.Instance> {
 
     public enum Type {
-        DEER_POOP, CTHULHU_SAD, BAT_EAT, DEVIL_FIRE, GREEDY_ITEM, RARE_VARIANT, PARTY, CAPTURE, DRAGON_NUGGET, DRAGON_RIDE
+        DEER_POOP, CTHULHU_SAD, BAT_EAT, DEVIL_FIRE, GREEDY_ITEM, RARE_VARIANT, PARTY, CAPTURE, DRAGON_NUGGET,
+        DRAGON_RIDE, DRAGON_PET, DRAGON_FETCH
     };
 
     private static final ResourceLocation ID = new ResourceLocation(Occultism.MODID, "familiar");
@@ -36,12 +37,12 @@ public class FamiliarTrigger extends AbstractCriterionTrigger<FamiliarTrigger.In
     public void trigger(ServerPlayerEntity player, Type type) {
         this.triggerListeners(player, instance -> instance.test(type));
     }
-    
+
     public void trigger(LivingEntity entity, Type type) {
         if (entity instanceof ServerPlayerEntity)
             this.trigger((ServerPlayerEntity) entity, type);
     }
-    
+
     public static Instance of(Type type) {
         return new Instance(EntityPredicate.AndPredicate.ANY_AND, type);
     }

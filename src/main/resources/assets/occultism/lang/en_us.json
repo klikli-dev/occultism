@@ -710,6 +710,8 @@
   "item.occultism.ritual_dummy.summon_wild_parrot": "Ritual: Summon Wilid Parrot",
   "item.occultism.ritual_dummy.summon_wild_parrot.tooltip": "Summons a Parrot that can be tamed by anyone, not just the summoner.",
 
+  "dialog.occultism.dragon.pet": "purrr",
+
   "advancements.occultism.familiar.bat.description": "Lure a normal bat near your bat familiar",
   "advancements.occultism.familiar.bat.title": "Cannibalism",
   "advancements.occultism.familiar.capture.description": "Trap your familiar in a familiar ring",
@@ -731,5 +733,7 @@
   "advancements.occultism.familiar.rare.description": "Obtain a rare familiar variant",
   "advancements.occultism.familiar.rare.title": "Rare Friend",
   "advancements.occultism.familiar.root.description": "Use a ritual to summon a familiar",
-  "advancements.occultism.familiar.root.title": "Occultism: Friends"  
+  "advancements.occultism.familiar.root.title": "Occultism: Friends",
+  "advancements.occultism.familiar.mans_best_friend.description": "Pet your dragon familiar; and play fetch with it",
+  "advancements.occultism.familiar.mans_best_friend.title": "Man's Best Friend"  
 }
