@@ -47,8 +47,9 @@ minecraft {
             // Recommended logging level for the console
             property 'forge.logging.console.level', 'debug'
 
-            //Workaround for patchouli mixin crash
-            property 'mixin.env.disableRefMap', 'true'
+            //Fix for patchouli mixin crash
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
 
             mods {
                 occultism {
