@@ -56,7 +56,7 @@ public class MinerRecipeCategory implements IRecipeCategory<MinerRecipe> {
     private final Component localizedName;
     private final IDrawable overlay;
 
-    private Map<MinerRecipe, Float> chances = new HashMap<>();
+    private final Map<MinerRecipe, Float> chances = new HashMap<>();
     //endregion Fields
 
     //region Initialization

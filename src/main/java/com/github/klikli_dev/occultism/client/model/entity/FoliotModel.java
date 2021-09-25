@@ -36,8 +36,8 @@ public class FoliotModel extends HumanoidModel<FoliotEntity> {
 
     public FoliotModel(ModelPart part) {
         super(part);
-        this.leftHorn = head.getChild("left_horn");
-        this.rightHorn = head.getChild("right_horn");
+        this.leftHorn = this.head.getChild("left_horn");
+        this.rightHorn = this.head.getChild("right_horn");
     }
 
     public static LayerDefinition createBodyLayer() {

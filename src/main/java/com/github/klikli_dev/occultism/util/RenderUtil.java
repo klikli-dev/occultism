@@ -92,7 +92,7 @@ public class RenderUtil {
         if (!pStack.isEmpty()) {
             if (pStack.getCount() != 1 || pText != null) {
                 String s = pText == null ? String.valueOf(pStack.getCount()) : pText;
-                posestack.translate(0.0D, 0.0D, (double)(renderer.blitOffset + 200.0F));
+                posestack.translate(0.0D, 0.0D, renderer.blitOffset + 200.0F);
                 MultiBufferSource.BufferSource multibuffersource$buffersource = MultiBufferSource.immediate(Tesselator.getInstance().getBuilder());
                 pFr.drawInBatch(s, (float)(pXPosition + 19 - 2 - pFr.width(s)), (float)(pYPosition + 6 + 3), 16777215, true, posestack.last().pose(), multibuffersource$buffersource, false, 0, 15728880);
                 multibuffersource$buffersource.endBatch();

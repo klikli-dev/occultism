@@ -571,8 +571,8 @@ public class BookOfCallingItem extends Item implements IIngredientCopyNBT, IHand
             }
         }
 
-        private int value;
-        private String translationKey;
+        private final int value;
+        private final String translationKey;
         //endregion Fields
 
         //region Initialization

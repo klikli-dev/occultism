@@ -136,9 +136,9 @@ public class CthulhuFamiliarModel extends EntityModel<CthulhuFamiliarEntity> {
         this.head.xRot = headPitch * (PI / 180f) * 0.7f - 0.26f;
 
         if (entityIn.isPartying()) {
-            this.body.xRot = -toRads(90);
-            this.rightLeg.xRot = toRads(15);
-            this.leftLeg.xRot = toRads(15);
+            this.body.xRot = -this.toRads(90);
+            this.rightLeg.xRot = this.toRads(15);
+            this.leftLeg.xRot = this.toRads(15);
             this.head.yRot = 0;
             this.head.xRot = 0;
         } else if (entityIn.isSitting()) {

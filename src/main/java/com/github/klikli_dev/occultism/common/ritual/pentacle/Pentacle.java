@@ -162,11 +162,11 @@ public class Pentacle {
     public JsonObject toJson() {
         JsonObject json = new JsonObject();
         JsonArray jsonPattern = new JsonArray();
-        for (String row : pattern)
+        for (String row : this.pattern)
             jsonPattern.add(row);
         json.add("pattern", jsonPattern);
         JsonObject jsonMapping = new JsonObject();
-        for (Entry<Character, JsonElement> entry : mappings.entrySet())
+        for (Entry<Character, JsonElement> entry : this.mappings.entrySet())
             jsonMapping.add(String.valueOf(entry.getKey()), entry.getValue());
         json.add("mapping", jsonMapping);
         return json;

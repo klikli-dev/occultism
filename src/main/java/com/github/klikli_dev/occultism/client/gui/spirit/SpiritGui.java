@@ -122,8 +122,8 @@ public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScree
     //region Static Methods
     public static void drawEntityToGui(PoseStack poseStack, int posX, int posY, int scale, float mouseX, float mouseY, LivingEntity entity) {
         //From inventory screen
-        float f = (float) Math.atan((double) (mouseX / 40.0F));
-        float f1 = (float) Math.atan((double) (mouseY / 40.0F));
+        float f = (float) Math.atan(mouseX / 40.0F);
+        float f1 = (float) Math.atan(mouseY / 40.0F);
         poseStack.pushPose();
         poseStack.translate((float) posX, (float) posY, 1050.0F);
         poseStack.scale(1.0F, 1.0F, -1.0F);

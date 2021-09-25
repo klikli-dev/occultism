@@ -39,7 +39,7 @@ public enum OtherworldBlockTier {
         }
     }
 
-    private int level;
+    private final int level;
 
     //endregion Fields
     //region Initialization

@@ -85,7 +85,7 @@ public class GreedyFamiliarEntity extends FamiliarEntity {
 
         private static final double RANGE = 12;
 
-        private GreedyFamiliarEntity entity;
+        private final GreedyFamiliarEntity entity;
 
         public FindItemGoal(GreedyFamiliarEntity raptor) {
             this.entity = raptor;

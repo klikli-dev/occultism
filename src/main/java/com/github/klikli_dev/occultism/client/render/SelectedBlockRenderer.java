@@ -66,9 +66,7 @@ public class SelectedBlockRenderer {
      */
     public void selectBlock(BlockPos pos, long expireTime, Color color) {
         SelectionInfo info = new SelectionInfo(pos, expireTime, color);
-        if(this.selectedBlocks.contains(info)){
-            this.selectedBlocks.remove(info);
-        }
+        this.selectedBlocks.remove(info);
         this.selectedBlocks.add(info);
     }
 

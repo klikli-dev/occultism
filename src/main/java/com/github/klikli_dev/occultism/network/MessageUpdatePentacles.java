@@ -51,7 +51,7 @@ public class MessageUpdatePentacles extends MessageBase {
     @Override
     public void encode(FriendlyByteBuf buffer) {
         buffer.writeInt(this.pentacles.size());
-        for (Entry<ResourceLocation, Pentacle> entry : pentacles.entrySet()) {
+        for (Entry<ResourceLocation, Pentacle> entry : this.pentacles.entrySet()) {
             Pentacle pentacle = entry.getValue();
             buffer.writeResourceLocation(entry.getKey());
             pentacle.toNetwork(buffer);

@@ -93,7 +93,7 @@ public class DevilFamiliarEntity extends FamiliarEntity {
 
     @Override
     public void setFamiliarOwner(LivingEntity owner) {
-        if (hasLollipop())
+        if (this.hasLollipop())
             OccultismAdvancements.FAMILIAR.trigger(owner, FamiliarTrigger.Type.RARE_VARIANT);
         super.setFamiliarOwner(owner);
     }
@@ -213,7 +213,7 @@ public class DevilFamiliarEntity extends FamiliarEntity {
                 e.hurt(DamageSource.playerAttack((Player) this.devil.getFamiliarOwner()), 4);
             }
             this.cooldown = MAX_COOLDOWN;
-            this.devil.swing(InteractionHand.MAIN_HAND.MAIN_HAND);
+            this.devil.swing(InteractionHand.MAIN_HAND);
         }
 
         @Override

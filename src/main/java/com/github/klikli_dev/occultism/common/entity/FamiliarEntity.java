@@ -197,10 +197,10 @@ public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar 
         private static final int TELEPORT_ATTEMPTS = 10;
 
         protected FamiliarEntity entity;
-        private double speed;
+        private final double speed;
         private int cooldown;
-        private float maxDist;
-        private float minDist;
+        private final float maxDist;
+        private final float minDist;
         private LivingEntity owner;
 
         public FollowOwnerGoal(FamiliarEntity entity, double speed, float minDist, float maxDist) {
@@ -244,7 +244,7 @@ public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar 
             if (--this.cooldown < 0) {
                 this.cooldown = 10;
                 if (!this.entity.isLeashed() && !this.entity.isPassenger()) {
-                    if (this.entity.distanceToSqr(this.owner) >= 150 || shouldTeleport(owner))
+                    if (this.entity.distanceToSqr(this.owner) >= 150 || this.shouldTeleport(this.owner))
                         this.tryTeleport();
                     else
                         this.entity.getNavigation().moveTo(this.owner, this.speed);

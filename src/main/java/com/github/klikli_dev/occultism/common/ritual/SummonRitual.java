@@ -42,7 +42,7 @@ import net.minecraftforge.items.ItemHandlerHelper;
 
 public class SummonRitual extends Ritual {
 
-    private boolean tame;
+    private final boolean tame;
 
     public SummonRitual(RitualRecipe recipe, boolean tame) {
         super(recipe);
@@ -110,7 +110,7 @@ public class SummonRitual extends Ritual {
             Entity entity = this.createSummonedEntity(entityType, level, goldenBowlPosition, blockEntity, castingPlayer);
             if (entity instanceof LivingEntity living) {
                 this.prepareLivingEntityForSpawn(living, level, goldenBowlPosition, blockEntity, castingPlayer,
-                        ItemNBTUtil.getBoundSpiritName(copy), tame);
+                        ItemNBTUtil.getBoundSpiritName(copy), this.tame);
 
                 this.initSummoned(living, level, goldenBowlPosition, blockEntity, castingPlayer);
 

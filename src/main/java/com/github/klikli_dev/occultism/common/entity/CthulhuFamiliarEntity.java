@@ -109,7 +109,7 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
 
     @Override
     public void setFamiliarOwner(LivingEntity owner) {
-        if (hasHat())
+        if (this.hasHat())
             OccultismAdvancements.FAMILIAR.trigger(owner, FamiliarTrigger.Type.RARE_VARIANT);
         super.setFamiliarOwner(owner);
     }

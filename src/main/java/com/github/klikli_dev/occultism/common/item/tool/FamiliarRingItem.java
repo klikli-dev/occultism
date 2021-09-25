@@ -118,7 +118,7 @@ public class FamiliarRingItem extends Item {
     private static class Curio implements ICurio, INBTSerializable<CompoundTag> {
         private IFamiliar familiar;
         private CompoundTag nbt;
-        private ItemStack stack;
+        private final ItemStack stack;
 
         private Curio(ItemStack stack){
             this.stack = stack;
@@ -209,8 +209,8 @@ public class FamiliarRingItem extends Item {
     private static class Provider implements ICapabilitySerializable<CompoundTag> {
 
         private Curio curio;
-        private ItemStack stack;
-        private LazyOptional<ICurio> instance = LazyOptional.of(this::get);
+        private final ItemStack stack;
+        private final LazyOptional<ICurio> instance = LazyOptional.of(this::get);
 
         public Provider(ItemStack stack){
             this.stack = stack;

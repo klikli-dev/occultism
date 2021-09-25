@@ -78,7 +78,7 @@ public class DeerFamiliarEntity extends FamiliarEntity {
 
     @Override
     public void setFamiliarOwner(LivingEntity owner) {
-        if (hasRedNose())
+        if (this.hasRedNose())
             OccultismAdvancements.FAMILIAR.trigger(owner, FamiliarTrigger.Type.RARE_VARIANT);
         super.setFamiliarOwner(owner);
     }
@@ -119,7 +119,7 @@ public class DeerFamiliarEntity extends FamiliarEntity {
     public void ate() {
         if (this.getRandom().nextDouble() < 0.25){
             this.spawnAtLocation(OccultismItems.DATURA_SEEDS.get(), 0);
-            LivingEntity owner = getOwner();
+            LivingEntity owner = this.getOwner();
             if (owner instanceof ServerPlayer serverPlayer)
                 OccultismAdvancements.FAMILIAR.trigger(serverPlayer, FamiliarTrigger.Type.DEER_POOP);
         }
