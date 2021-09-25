@@ -26,6 +26,7 @@ import com.github.klikli_dev.occultism.common.blockentity.StorageControllerBlock
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.math.Vector3f;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -35,9 +36,8 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.resources.model.BakedModel;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.core.Direction;
-import com.mojang.math.Vector3f;
+import net.minecraft.world.item.ItemStack;
 
 import java.awt.*;
 import java.util.List;
@@ -68,8 +68,8 @@ public class StorageControllerRenderer implements BlockEntityRenderer<StorageCon
         //use system time to become independent of game time
         long systemTime = System.currentTimeMillis();
 
-        double systemTimeRadSin8 = Math.sin(Math.toRadians((float)systemTime / 8));
-        double systemTimeRadSin16 = Math.sin(Math.toRadians((float)systemTime / 16));
+        double systemTimeRadSin8 = Math.sin(Math.toRadians((float) systemTime / 8));
+        double systemTimeRadSin16 = Math.sin(Math.toRadians((float) systemTime / 16));
 
         double offset = systemTimeRadSin16 / 16.0;
         poseStack.translate(0.5, 1.75 + offset, 0.5);
@@ -90,7 +90,7 @@ public class StorageControllerRenderer implements BlockEntityRenderer<StorageCon
         int color = Color.getHSBColor(0.01F * (float) colorScale, saturation, 0.01F * (float) colorScale).getRGB();
 
         ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
-        BakedModel model = itemRenderer.getModel(this.stack, blockEntity.getLevel(), null,0);
+        BakedModel model = itemRenderer.getModel(this.stack, blockEntity.getLevel(), null, 0);
 
         //from ItemRenderer#renderItem
         poseStack.translate(-0.5D, -0.5D, -0.5D);

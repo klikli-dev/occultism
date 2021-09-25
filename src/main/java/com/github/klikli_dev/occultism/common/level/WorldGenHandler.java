@@ -90,9 +90,9 @@ public class WorldGenHandler {
                 VerticalAnchor.absolute(oreGen.copperOre.maximum.get()) :
                 VerticalAnchor.belowTop(-oreGen.copperOre.maximum.get());
         COPPER_ORE = Feature.ORE.configured(
-                new OreConfiguration(
-                        new TagMatchTest(oreGen.copperOre.getFillerBlockTag()),
-                        OccultismBlocks.COPPER_ORE.get().defaultBlockState(), oreGen.copperOre.size.get()))
+                        new OreConfiguration(
+                                new TagMatchTest(oreGen.copperOre.getFillerBlockTag()),
+                                OccultismBlocks.COPPER_ORE.get().defaultBlockState(), oreGen.copperOre.size.get()))
                 .rangeUniform(VerticalAnchor.aboveBottom(oreGen.copperOre.bottomOffset.get()), copperMaxAnchor)
                 .squared().count(oreGen.copperOre.count.get());
         Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, modLoc("copper_ore"), COPPER_ORE);
@@ -101,9 +101,9 @@ public class WorldGenHandler {
                 VerticalAnchor.absolute(oreGen.copperOre.maximum.get()) :
                 VerticalAnchor.belowTop(-oreGen.copperOre.maximum.get());
         SILVER_ORE = Feature.ORE.configured(
-                new OreConfiguration(
-                        new TagMatchTest(oreGen.silverOre.getFillerBlockTag()),
-                        OccultismBlocks.SILVER_ORE.get().defaultBlockState(), oreGen.silverOre.size.get()))
+                        new OreConfiguration(
+                                new TagMatchTest(oreGen.silverOre.getFillerBlockTag()),
+                                OccultismBlocks.SILVER_ORE.get().defaultBlockState(), oreGen.silverOre.size.get()))
                 .rangeUniform(VerticalAnchor.aboveBottom(oreGen.silverOre.bottomOffset.get()), silverMaxAnchor)
                 .squared().count(oreGen.silverOre.count.get());
         Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, modLoc("silver_ore"), SILVER_ORE);
@@ -112,24 +112,24 @@ public class WorldGenHandler {
                 VerticalAnchor.absolute(oreGen.copperOre.maximum.get()) :
                 VerticalAnchor.belowTop(-oreGen.copperOre.maximum.get());
         IESNIUM_ORE = Feature.ORE.configured(
-                new OreConfiguration(
-                        new TagMatchTest(oreGen.iesniumOre.getFillerBlockTag()),
-                        OccultismBlocks.IESNIUM_ORE.get().defaultBlockState(), oreGen.iesniumOre.size.get()))
+                        new OreConfiguration(
+                                new TagMatchTest(oreGen.iesniumOre.getFillerBlockTag()),
+                                OccultismBlocks.IESNIUM_ORE.get().defaultBlockState(), oreGen.iesniumOre.size.get()))
                 .rangeUniform(VerticalAnchor.aboveBottom(oreGen.iesniumOre.bottomOffset.get()), iesniumMaxAnchor)
                 .squared().count(oreGen.iesniumOre.count.get());
         Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, modLoc("iesnium_ore"), IESNIUM_ORE);
 
         UNDERGROUND_GROVE =
                 OccultismBiomeFeatures.UNDERGROUND_GROVE_FEATURE.get().configured(
-                        new MultiChunkFeatureConfig(
-                                7,
-                                groveGen.groveSpawnChance.get(),
-                                groveGen.groveSpawnMin.get(),
-                                groveGen.groveSpawnMax.get(),
-                                14653667,
-                                Occultism.COMMON_CONFIG.worldGen.undergroundGroveGen.biomeTypeBlacklist.get().stream()
-                                        .map(BiomeDictionary.Type::getType)
-                                        .collect(Collectors.toList())))
+                                new MultiChunkFeatureConfig(
+                                        7,
+                                        groveGen.groveSpawnChance.get(),
+                                        groveGen.groveSpawnMin.get(),
+                                        groveGen.groveSpawnMax.get(),
+                                        14653667,
+                                        Occultism.COMMON_CONFIG.worldGen.undergroundGroveGen.biomeTypeBlacklist.get().stream()
+                                                .map(BiomeDictionary.Type::getType)
+                                                .collect(Collectors.toList())))
                         .decorated(FeatureDecorator.NOPE.configured(new NoneDecoratorConfiguration()));
         Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, modLoc("underground_grove"), UNDERGROUND_GROVE);
 

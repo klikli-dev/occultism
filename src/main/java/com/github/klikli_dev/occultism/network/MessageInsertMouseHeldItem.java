@@ -22,8 +22,8 @@
 
 package com.github.klikli_dev.occultism.network;
 
-import com.github.klikli_dev.occultism.api.common.container.IStorageControllerContainer;
 import com.github.klikli_dev.occultism.api.common.blockentity.IStorageController;
+import com.github.klikli_dev.occultism.api.common.container.IStorageControllerContainer;
 import com.github.klikli_dev.occultism.util.InputUtil;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.MinecraftServer;

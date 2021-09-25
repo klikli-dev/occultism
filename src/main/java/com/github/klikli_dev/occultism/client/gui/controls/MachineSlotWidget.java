@@ -25,8 +25,8 @@ package com.github.klikli_dev.occultism.client.gui.controls;
 
 import com.github.klikli_dev.occultism.api.client.gui.IStorageControllerGuiContainer;
 import com.github.klikli_dev.occultism.api.common.data.MachineReference;
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 

@@ -24,14 +24,14 @@ package com.github.klikli_dev.occultism.common.blockentity;
 
 
 import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.api.common.blockentity.IStorageAccessor;
+import com.github.klikli_dev.occultism.api.common.blockentity.IStorageController;
+import com.github.klikli_dev.occultism.api.common.blockentity.IStorageControllerProxy;
 import com.github.klikli_dev.occultism.api.common.container.IItemStackComparator;
 import com.github.klikli_dev.occultism.api.common.data.GlobalBlockPos;
 import com.github.klikli_dev.occultism.api.common.data.MachineReference;
 import com.github.klikli_dev.occultism.api.common.data.SortDirection;
 import com.github.klikli_dev.occultism.api.common.data.SortType;
-import com.github.klikli_dev.occultism.api.common.blockentity.IStorageAccessor;
-import com.github.klikli_dev.occultism.api.common.blockentity.IStorageController;
-import com.github.klikli_dev.occultism.api.common.blockentity.IStorageControllerProxy;
 import com.github.klikli_dev.occultism.common.block.storage.StorageStabilizerBlock;
 import com.github.klikli_dev.occultism.common.container.storage.StorageControllerContainer;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
@@ -233,7 +233,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
             UUID spiritUUID = this.depositOrderSpirits.get(linkedMachinePosition);
             if (spiritUUID != null) {
                 EntityUtil.getEntityByUuiDGlobal(this.level.getServer(),
-                        spiritUUID).filter(SpiritEntity.class::isInstance).map(SpiritEntity.class::cast)
+                                spiritUUID).filter(SpiritEntity.class::isInstance).map(SpiritEntity.class::cast)
                         .ifPresent(spirit -> {
                             Optional<ManageMachineJob> job = spirit.getJob().filter(ManageMachineJob.class::isInstance)
                                     .map(ManageMachineJob.class::cast);

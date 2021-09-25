@@ -53,9 +53,9 @@ public class OccultismSpiritJobs {
                 job.setTimeToConvert(15);
                 job.setMaxTradesPerRound(4);
                 return job;
-            } ));
+            }));
     public static final RegistryObject<SpiritJobFactory> TRADE_OTHERWORLD_SAPLINGS_T2 = JOBS.register("trade_otherworld_saplings_t1",
-            () -> new SpiritJobFactory((entity) ->  {
+            () -> new SpiritJobFactory((entity) -> {
                 TraderJob job = new TraderJob(entity, modLoc("spirit_trade/otherworld_sapling"));
                 job.setTimeToConvert(20);
                 job.setMaxTradesPerRound(1);

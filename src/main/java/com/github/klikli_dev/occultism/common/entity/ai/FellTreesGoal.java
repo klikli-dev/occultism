@@ -58,6 +58,16 @@ public class FellTreesGoal extends Goal {
     }
     //endregion Initialization
 
+    //region Static Methods
+    public static final boolean isLog(Level level, BlockPos pos) {
+        return BlockTags.LOGS.contains(level.getBlockState(pos).getBlock());
+    }
+
+    public static final boolean isLeaf(Level level, BlockPos pos) {
+        Block block = level.getBlockState(pos).getBlock();
+        return block instanceof LeavesBlock || BlockTags.LEAVES.contains(block);
+    }
+
     //region Overrides
     @Override
     public boolean canUse() {
@@ -73,6 +83,7 @@ public class FellTreesGoal extends Goal {
         //only continue execution if a tree is available and entity is not carrying anything.
         return this.targetBlock != null && this.entity.getItemInHand(InteractionHand.MAIN_HAND).isEmpty();
     }
+    //endregion Overrides
 
     public void stop() {
         this.entity.getNavigation().stop();
@@ -109,17 +120,6 @@ public class FellTreesGoal extends Goal {
                 this.stop();
             }
         }
-    }
-    //endregion Overrides
-
-    //region Static Methods
-    public static final boolean isLog(Level level, BlockPos pos) {
-        return BlockTags.LOGS.contains(level.getBlockState(pos).getBlock());
-    }
-
-    public static final boolean isLeaf(Level level, BlockPos pos) {
-        Block block = level.getBlockState(pos).getBlock();
-        return block instanceof LeavesBlock || BlockTags.LEAVES.contains(block);
     }
     //endregion Static Methods
 

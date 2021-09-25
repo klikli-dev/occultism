@@ -100,6 +100,27 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
     }
     //endregion Initialization
 
+    //region Static Methods
+    public static void forceInitStackNBT(ItemStack stack, ServerLevel level) {
+        stack.getItem().onCraftedBy(stack, level, FakePlayerFactory.getMinecraft(level));
+    }
+
+    public static int getMaxMiningTime(ItemStack stack) {
+        CompoundTag tag = stack.getTag();
+        if (tag == null)
+            return 0;
+        int time = tag.getInt(MAX_MINING_TIME_TAG);
+        return time <= 0 ? DEFAULT_MAX_MINING_TIME : time;
+    }
+
+    public static int getRollsPerOperation(ItemStack stack) {
+        CompoundTag tag = stack.getTag();
+        if (tag == null)
+            return 0;
+        int rolls = tag.getInt(ROLLS_PER_OPERATION_TAG);
+        return rolls <= 0 ? DEFAULT_ROLLS_PER_OPERATION : rolls;
+    }
+
     //region Overrides
     @Override
     public Component getDisplayName() {
@@ -149,6 +170,7 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
         compound.putInt("maxMiningTime", this.maxMiningTime);
         return super.saveNetwork(compound);
     }
+    //endregion Overrides
 
     @Override
     public void setRemoved() {
@@ -206,28 +228,6 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory playerInventory, Player player) {
         return new DimensionalMineshaftContainer(id, playerInventory, this);
-    }
-    //endregion Overrides
-
-    //region Static Methods
-    public static void forceInitStackNBT(ItemStack stack, ServerLevel level) {
-        stack.getItem().onCraftedBy(stack, level, FakePlayerFactory.getMinecraft(level));
-    }
-
-    public static int getMaxMiningTime(ItemStack stack) {
-        CompoundTag tag = stack.getTag();
-        if (tag == null)
-            return 0;
-        int time = tag.getInt(MAX_MINING_TIME_TAG);
-        return time <= 0 ? DEFAULT_MAX_MINING_TIME : time;
-    }
-
-    public static int getRollsPerOperation(ItemStack stack) {
-        CompoundTag tag = stack.getTag();
-        if (tag == null)
-            return 0;
-        int rolls = tag.getInt(ROLLS_PER_OPERATION_TAG);
-        return rolls <= 0 ? DEFAULT_ROLLS_PER_OPERATION : rolls;
     }
     //endregion Static Methods
 

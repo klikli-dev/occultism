@@ -39,6 +39,6 @@ public interface IStorageControllerGuiContainer {
 
     void renderToolTip(PoseStack poseStack, ItemStack stack, int x, int y);
 
-    void renderToolTip(PoseStack poseStack,MachineReference machine, int x, int y);
+    void renderToolTip(PoseStack poseStack, MachineReference machine, int x, int y);
     //endregion Methods
 }

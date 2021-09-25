@@ -96,45 +96,45 @@ public class OccultismServerConfig extends ConfigBase {
             builder.comment("Spirit Job Settings").push("spirit_job");
             this.drikwingFamiliarSlowFallingSeconds = CachedInt.cache(this,
                     builder.comment(
-                            "The duration for the slow falling effect applied by a drikwing.")
+                                    "The duration for the slow falling effect applied by a drikwing.")
                             .define("drikwingFamiliarSlowFallingSeconds", 15));
             this.tier1CrusherTimeMultiplier = CachedFloat.cache(this,
                     builder.comment(
-                            "The multiplier to each crushing recipe's crushing_time for Tier 1 (Foliot) Crusher Spirits.")
+                                    "The multiplier to each crushing recipe's crushing_time for Tier 1 (Foliot) Crusher Spirits.")
                             .define("tier1CrusherTimeMultiplier", 2.0));
             this.tier2CrusherTimeMultiplier = CachedFloat.cache(this,
                     builder.comment(
-                            "The multiplier to each crushing recipe's crushing_time for Tier 2 (Djinni) Crusher Spirits.")
+                                    "The multiplier to each crushing recipe's crushing_time for Tier 2 (Djinni) Crusher Spirits.")
                             .define("tier2CrusherTimeMultiplier", 1.0));
             this.tier3CrusherTimeMultiplier = CachedFloat.cache(this,
                     builder.comment(
-                            "Currently unused. The multiplier to each crushing recipe's crushing_time for Tier 3 (Afrit) Crusher Spirits.")
+                                    "Currently unused. The multiplier to each crushing recipe's crushing_time for Tier 3 (Afrit) Crusher Spirits.")
                             .define("tier3CrusherTimeMultiplier", 0.5));
             this.tier4CrusherTimeMultiplier = CachedFloat.cache(this,
                     builder.comment(
-                            "Currently unused. The multiplier to each crushing recipe's crushing_time for Tier 4 (Marid) Crusher Spirits.")
+                                    "Currently unused. The multiplier to each crushing recipe's crushing_time for Tier 4 (Marid) Crusher Spirits.")
                             .define("tier4CrusherTimeMultiplier", 0.2));
 
             this.tier1CrusherOutputMultiplier = CachedFloat.cache(this,
                     builder.comment(
-                            "The multiplier to each crushing recipe's output count for Tier 1 (Foliot) Crusher Spirits.")
+                                    "The multiplier to each crushing recipe's output count for Tier 1 (Foliot) Crusher Spirits.")
                             .define("tier1CrusherOutputMultiplier", 1.0));
             this.tier2CrusherOutputMultiplier = CachedFloat.cache(this,
                     builder.comment(
-                            "The multiplier to each crushing recipe's output count for Tier 2 (Djinni) Crusher Spirits.")
+                                    "The multiplier to each crushing recipe's output count for Tier 2 (Djinni) Crusher Spirits.")
                             .define("tier2CrusherOutputMultiplier", 1.5));
             this.tier3CrusherOutputMultiplier = CachedFloat.cache(this,
                     builder.comment(
-                            "The multiplier to each crushing recipe's output count for Tier 3 (Afrit) Crusher Spirits.")
+                                    "The multiplier to each crushing recipe's output count for Tier 3 (Afrit) Crusher Spirits.")
                             .define("tier3CrusherOutputMultiplier", 2.0));
             this.tier4CrusherOutputMultiplier = CachedFloat.cache(this,
                     builder.comment(
-                            "The multiplier to each crushing recipe's output count for Tier 4 (Marid) Crusher Spirits.")
+                                    "The multiplier to each crushing recipe's output count for Tier 4 (Marid) Crusher Spirits.")
                             .define("tier4CrusherOutputMultiplier", 3.0));
 
             this.crusherResultPickupDelay = CachedInt.cache(this,
                     builder.comment(
-                            "The minimum ticks before a crusher can pick up an item it dropped. Default is 3 Seconds = 3 * 20 Ticks.")
+                                    "The minimum ticks before a crusher can pick up an item it dropped. Default is 3 Seconds = 3 * 20 Ticks.")
                             .define("crusherResultPickupDelay", 20 * 3));
 
             builder.pop();
@@ -225,9 +225,9 @@ public class OccultismServerConfig extends ConfigBase {
                             .define("enableNightTimeRitual", true));
             this.enableRemainingIngredientCountMatching = CachedBoolean.cache(this,
                     builder.comment(
-                            "If enabled, rituals are interrupted if *more* ingredients are present than needed. " +
-                            "This should usually be disabled, but can improve performance if " +
-                            "(very very) many rituals are running.")
+                                    "If enabled, rituals are interrupted if *more* ingredients are present than needed. " +
+                                            "This should usually be disabled, but can improve performance if " +
+                                            "(very very) many rituals are running.")
                             .define("enableRemainingIngredientCountMatching", false));
             builder.pop();
         }
@@ -269,9 +269,9 @@ public class OccultismServerConfig extends ConfigBase {
                             .define("controllerStackSize", 1024));
             this.overrideItemStackSizes = CachedBoolean.cache(this,
                     builder.comment(
-                            "True to use the configured controllerStackSize for all items, instead of the stack sizes provided by " +
-                            "item type (such as 16 for ender pearls, 64 for iron ingot). WARNING: Setting this to " +
-                            "false may have a negative impact on performance.")
+                                    "True to use the configured controllerStackSize for all items, instead of the stack sizes provided by " +
+                                            "item type (such as 16 for ender pearls, 64 for iron ingot). WARNING: Setting this to " +
+                                            "false may have a negative impact on performance.")
                             .define("overrideItemStackSizes", true));
             builder.pop();
         }

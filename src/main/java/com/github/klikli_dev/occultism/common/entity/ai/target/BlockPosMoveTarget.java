@@ -22,23 +22,23 @@
 
 package com.github.klikli_dev.occultism.common.entity.ai.target;
 
-import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.world.Container;
 import net.minecraft.world.level.Level;
-import net.minecraft.core.Direction;
-import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class BlockPosMoveTarget implements IMoveTarget{
+public class BlockPosMoveTarget implements IMoveTarget {
 
     public Level level;
     public BlockPos target;
 
-    public BlockPosMoveTarget(Level level, BlockPos target){
+    public BlockPosMoveTarget(Level level, BlockPos target) {
         this.level = level;
         this.target = target;
     }
@@ -62,7 +62,7 @@ public class BlockPosMoveTarget implements IMoveTarget{
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
         BlockEntity blockEntity = this.level.getBlockEntity(this.target);
-        if(blockEntity != null){
+        if (blockEntity != null) {
             return blockEntity.getCapability(cap, side);
         }
         return LazyOptional.empty();

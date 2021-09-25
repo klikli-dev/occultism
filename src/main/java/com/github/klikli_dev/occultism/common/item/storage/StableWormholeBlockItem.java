@@ -22,22 +22,22 @@
 
 package com.github.klikli_dev.occultism.common.item.storage;
 
-import com.github.klikli_dev.occultism.api.common.data.GlobalBlockPos;
 import com.github.klikli_dev.occultism.api.common.blockentity.IStorageController;
+import com.github.klikli_dev.occultism.api.common.data.GlobalBlockPos;
+import net.minecraft.ChatFormatting;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.Component;
-import net.minecraft.ChatFormatting;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -54,7 +54,7 @@ public class StableWormholeBlockItem extends BlockItem {
     @Override
     public Rarity getRarity(ItemStack stack) {
         return stack.getOrCreateTag().getCompound("BlockEntityTag")
-                       .contains("linkedStorageControllerPosition") ? Rarity.RARE : Rarity.COMMON;
+                .contains("linkedStorageControllerPosition") ? Rarity.RARE : Rarity.COMMON;
     }
 
     @Override
@@ -82,18 +82,17 @@ public class StableWormholeBlockItem extends BlockItem {
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip,
-                               TooltipFlag flagIn) {
+                                TooltipFlag flagIn) {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
         if (stack.getOrCreateTag().getCompound("BlockEntityTag")
-                    .contains("linkedStorageControllerPosition")) {
+                .contains("linkedStorageControllerPosition")) {
             GlobalBlockPos globalPos = GlobalBlockPos.from(stack.getTagElement("BlockEntityTag")
-                                                                   .getCompound("linkedStorageControllerPosition"));
+                    .getCompound("linkedStorageControllerPosition"));
             String formattedPosition =
                     ChatFormatting.GOLD.toString() + ChatFormatting.BOLD + globalPos.getPos().toString() +
                             ChatFormatting.RESET;
             tooltip.add(new TranslatableComponent(this.getDescriptionId() + ".tooltip.linked", formattedPosition));
-        }
-        else {
+        } else {
             tooltip.add(new TranslatableComponent(this.getDescriptionId() + ".tooltip.unlinked"));
         }
     }

@@ -23,8 +23,6 @@
 package com.github.klikli_dev.occultism.common.entity;
 
 import com.github.klikli_dev.occultism.Occultism;
-import com.github.klikli_dev.occultism.common.capability.FamiliarSettingsCapability;
-import com.github.klikli_dev.occultism.registry.OccultismCapabilities;
 import com.github.klikli_dev.occultism.registry.OccultismEffects;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.google.common.collect.ImmutableList;
@@ -61,6 +59,14 @@ public class OtherworldBirdEntity extends Parrot implements IFamiliar {
     }
     // endregion Initialization
 
+    //region Static Methods
+    public static AttributeSupplier.Builder createAttributes() {
+        return Parrot.createAttributes();
+    }
+    // endregion Getter / Setter
+
+    // region Overrides
+
     // region Getter / Setter
     public LivingEntity getOwnerCached() {
         if (this.ownerCached != null)
@@ -68,9 +74,6 @@ public class OtherworldBirdEntity extends Parrot implements IFamiliar {
         this.ownerCached = this.getOwner();
         return this.ownerCached;
     }
-    // endregion Getter / Setter
-
-    // region Overrides
 
     @Override
     protected void registerGoals() {
@@ -99,7 +102,6 @@ public class OtherworldBirdEntity extends Parrot implements IFamiliar {
 
         super.aiStep();
     }
-
 
     @Override
     public void setOwnerUUID(@Nullable UUID ownerId) {
@@ -136,6 +138,7 @@ public class OtherworldBirdEntity extends Parrot implements IFamiliar {
         }
         return Collections.emptyList();
     }
+    // endregion Overrides
 
     @Override
     public InteractionResult mobInteract(Player playerIn, InteractionHand hand) {
@@ -144,12 +147,6 @@ public class OtherworldBirdEntity extends Parrot implements IFamiliar {
             return stack.interactLivingEntity(playerIn, this, hand);
         }
         return super.mobInteract(playerIn, hand);
-    }
-    // endregion Overrides
-
-    //region Static Methods
-    public static AttributeSupplier.Builder createAttributes() {
-        return Parrot.createAttributes();
     }
 //endregion Static Methods
 }

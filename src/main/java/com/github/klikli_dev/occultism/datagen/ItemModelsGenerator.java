@@ -22,17 +22,16 @@
 
 package com.github.klikli_dev.occultism.datagen;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.github.klikli_dev.occultism.Occultism;
-
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.client.model.generators.ItemModelBuilder;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ItemModelsGenerator extends ItemModelProvider {
     public ItemModelsGenerator(DataGenerator generator,
@@ -43,7 +42,7 @@ public class ItemModelsGenerator extends ItemModelProvider {
     @Override
     protected void registerModels() {
         ForgeRegistries.ITEMS.forEach(item -> {
-            if(item.getRegistryName().getPath().startsWith("ritual_dummy/")){
+            if (item.getRegistryName().getPath().startsWith("ritual_dummy/")) {
                 this.registerRitualDummy("item/" + item.getRegistryName().getPath());
             }
         });
@@ -56,14 +55,14 @@ public class ItemModelsGenerator extends ItemModelProvider {
         this.getBuilder(name)
                 .parent(new ModelFile.UncheckedModelFile("occultism:item/pentacle"));
     }
-    
+
     private void registerAdvancementItem() {
-        String[] textures = { "cthulhu_icon", "bat_icon", "deer_icon", "devil_icon", "greedy_icon", "hat_icon" };
-        
+        String[] textures = {"cthulhu_icon", "bat_icon", "deer_icon", "devil_icon", "greedy_icon", "hat_icon"};
+
         List<ItemModelBuilder> icons = new ArrayList<>();
         for (String texture : textures)
             icons.add(this.withExistingParent("item/advancement/" + texture, this.mcLoc("item/generated")).texture("layer0", this.modLoc("item/advancement/" + texture)));
-        
+
         ItemModelBuilder builder = this.withExistingParent("item/advancement_icon", this.mcLoc("item/generated"));
         for (int i = 0; i < icons.size(); i++)
             builder.override().predicate(this.mcLoc("custom_model_data"), i).model(icons.get(i)).end();

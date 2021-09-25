@@ -22,17 +22,17 @@
 
 package com.github.klikli_dev.occultism.common.block;
 
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.Level;
-import net.minecraft.core.Direction;
-import net.minecraft.core.BlockPos;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 import java.util.stream.Stream;
 
@@ -44,7 +44,9 @@ public class SpiritAttunedCrystalBlock extends Block {
             Block.box(8, 0, 4, 11, 2, 7),
             Block.box(4, 0, 5, 7, 6, 8),
             Block.box(6, 0, 6, 10, 12, 10)
-    ).reduce((v1, v2) -> {return Shapes.join(v1, v2, BooleanOp.OR);}).get();
+    ).reduce((v1, v2) -> {
+        return Shapes.join(v1, v2, BooleanOp.OR);
+    }).get();
     //endregion Fields
 
     //region Initialization
@@ -59,6 +61,7 @@ public class SpiritAttunedCrystalBlock extends Block {
     public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
         return SHAPE;
     }
+
     @Override
     public void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block blockIn, BlockPos fromPos,
                                 boolean isMoving) {

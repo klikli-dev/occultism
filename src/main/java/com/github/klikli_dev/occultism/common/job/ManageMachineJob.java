@@ -22,9 +22,9 @@
 
 package com.github.klikli_dev.occultism.common.job;
 
+import com.github.klikli_dev.occultism.api.common.blockentity.IStorageController;
 import com.github.klikli_dev.occultism.api.common.data.GlobalBlockPos;
 import com.github.klikli_dev.occultism.api.common.data.MachineReference;
-import com.github.klikli_dev.occultism.api.common.blockentity.IStorageController;
 import com.github.klikli_dev.occultism.common.entity.ai.DepositItemsGoal;
 import com.github.klikli_dev.occultism.common.entity.ai.FallbackDepositToControllerGoal;
 import com.github.klikli_dev.occultism.common.entity.ai.ManageMachineGoal;

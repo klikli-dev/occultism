@@ -32,10 +32,9 @@
 package com.github.klikli_dev.occultism.util.loot;
 
 import com.google.gson.JsonObject;
-import net.minecraft.world.item.ItemStack;
-
-import net.minecraft.util.GsonHelper;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.GsonHelper;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
@@ -47,19 +46,16 @@ import java.util.List;
 
 public class AppendLootTable extends LootModifier {
     private final ResourceLocation lootTable;
+    boolean reentryPrevention = false;
 
-    public AppendLootTable(LootItemCondition[] lootConditions, ResourceLocation lootTable)
-    {
+    public AppendLootTable(LootItemCondition[] lootConditions, ResourceLocation lootTable) {
         super(lootConditions);
         this.lootTable = lootTable;
     }
 
-    boolean reentryPrevention = false;
-
     @Nonnull
     @Override
-    public List<ItemStack> doApply(List<ItemStack> generatedLoot, LootContext context)
-    {
+    public List<ItemStack> doApply(List<ItemStack> generatedLoot, LootContext context) {
         if (this.reentryPrevention)
             return generatedLoot;
 
@@ -72,18 +68,15 @@ public class AppendLootTable extends LootModifier {
         return generatedLoot;
     }
 
-    public static class Serializer extends GlobalLootModifierSerializer<AppendLootTable>
-    {
+    public static class Serializer extends GlobalLootModifierSerializer<AppendLootTable> {
         @Override
-        public AppendLootTable read(ResourceLocation location, JsonObject object, LootItemCondition[] aLootItemCondition)
-        {
+        public AppendLootTable read(ResourceLocation location, JsonObject object, LootItemCondition[] aLootItemCondition) {
             ResourceLocation lootTable = new ResourceLocation(GsonHelper.getAsString(object, "add_loot"));
             return new AppendLootTable(aLootItemCondition, lootTable);
         }
 
         @Override
-        public JsonObject write(AppendLootTable instance)
-        {
+        public JsonObject write(AppendLootTable instance) {
             JsonObject object = new JsonObject();
             object.addProperty("add_loot", instance.lootTable.toString());
             return object;

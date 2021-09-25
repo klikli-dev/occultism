@@ -36,23 +36,23 @@ public class PossessedSkeletonEntity extends Skeleton {
     }
     //endregion Initialization
 
-    //region Overrides
-    @Override
-    protected boolean shouldDespawnInPeaceful() {
-        return false;
-    }
-
-    @Override
-    protected boolean isSunBurnTick() {
-        return false;
-    }
-    //endregion Overrides
-
     //region Static Methods
     public static AttributeSupplier.Builder createAttributes() {
         return Skeleton.createAttributes()
                 .add(Attributes.ATTACK_DAMAGE, 4.0)
                 .add(Attributes.MAX_HEALTH, 30.0);
+    }
+
+    //region Overrides
+    @Override
+    protected boolean shouldDespawnInPeaceful() {
+        return false;
+    }
+    //endregion Overrides
+
+    @Override
+    protected boolean isSunBurnTick() {
+        return false;
     }
     //endregion Static Methods
 }

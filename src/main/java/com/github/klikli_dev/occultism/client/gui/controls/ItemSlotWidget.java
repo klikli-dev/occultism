@@ -108,7 +108,7 @@ public class ItemSlotWidget {
                 this.minecraft.getItemRenderer().blitOffset = 0.1f;
                 //copied from ItemRenderer.renderGuiItemDecorations but allows to scale
                 RenderUtil.renderGuiItemDecorationsWithPose(this.minecraft.getItemRenderer(), this.fontRenderer, poseStack, this.stack, this.x * 2 + 16, this.y * 2 + 16, amount);
-               // this.minecraft.getItemRenderer().renderGuiItemDecorations(this.fontRenderer, this.stack, this.x, this.y, amount);
+                // this.minecraft.getItemRenderer().renderGuiItemDecorations(this.fontRenderer, this.stack, this.x, this.y, amount);
                 poseStack.popPose();
             }
 

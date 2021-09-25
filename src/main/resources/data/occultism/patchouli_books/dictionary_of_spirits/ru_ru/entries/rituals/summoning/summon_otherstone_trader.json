@@ -16,7 +16,8 @@
       "heading": "Summoning",
       "pentacle": "$(l:pentacles/summon_foliot)Aviar's Circle$(/l)",
       "activation_item": "occultism:book_of_binding_bound_foliot",
-      "ingredients": "$(li)1x $(item)Stone $()$(li)1x $(item)Granite $()$(li)1x $(item)Diorite $()$(li)1x $(item)Andesite $()"
+      "ingredients": "$(li)1x $(item)Stone $()$(li)1x $(item)Granite $()$(li)1x $(item)Diorite $()$(li)1x $(item)Andesite $()",
+
     }
   ]
 }

@@ -22,8 +22,8 @@
 
 package com.github.klikli_dev.occultism.client.gui.controls;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.components.AbstractWidget;
@@ -91,11 +91,9 @@ public class LabelWidget extends AbstractWidget {
                 int top = this.y + i * (fontrenderer.lineHeight + this.margin);
                 if (this.centered) {
                     this.drawCenteredLabelString(stack, fontrenderer, this.lines.get(i), this.x, top, color);
-                }
-                else if (this.rightAligned) {
+                } else if (this.rightAligned) {
                     this.drawRightAlignedLabelString(stack, fontrenderer, this.lines.get(i), this.x, top, color);
-                }
-                else {
+                } else {
                     this.drawLabelString(stack, fontrenderer, this.lines.get(i), this.x, top, color);
                 }
             }
@@ -106,19 +104,17 @@ public class LabelWidget extends AbstractWidget {
         if (this.shadow) {
             fontRenderer
                     .drawShadow(stack, text, (float) (x - fontRenderer.width(text) / 2), (float) y, color);
-        }
-        else {
+        } else {
             fontRenderer.draw(stack, text, (float) (x - fontRenderer.width(text) / 2), (float) y, color);
         }
     }
 
     public void drawRightAlignedLabelString(PoseStack stack, Font fontRenderer, String text,
-                                       int x, int y,
-                                       int color) {
+                                            int x, int y,
+                                            int color) {
         if (this.shadow) {
             fontRenderer.drawShadow(stack, text, (float) (x - fontRenderer.width(text)), (float) y, color);
-        }
-        else {
+        } else {
             fontRenderer.draw(stack, text, (float) (x - fontRenderer.width(text)), (float) y, color);
         }
 
@@ -127,8 +123,7 @@ public class LabelWidget extends AbstractWidget {
     public void drawLabelString(PoseStack stack, Font fontRenderer, String text, int x, int y, int color) {
         if (this.shadow) {
             fontRenderer.drawShadow(stack, text, x, y, color);
-        }
-        else {
+        } else {
             fontRenderer.draw(stack, text, x, y, color);
         }
     }

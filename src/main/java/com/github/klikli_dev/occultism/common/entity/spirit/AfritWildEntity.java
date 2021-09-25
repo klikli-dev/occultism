@@ -50,6 +50,10 @@ public class AfritWildEntity extends AfritEntity {
     }
     //endregion Initialization
 
+    public static AttributeSupplier.Builder createAttributes() {
+        return AfritEntity.createAttributes();
+    }
+
     //region Overrides
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficultyIn, MobSpawnType reason,
@@ -97,10 +101,6 @@ public class AfritWildEntity extends AfritEntity {
             return true;
 
         return super.isInvulnerableTo(source);
-    }
-
-    public static AttributeSupplier.Builder createAttributes() {
-        return AfritEntity.createAttributes();
     }
     //endregion Overrides
 }

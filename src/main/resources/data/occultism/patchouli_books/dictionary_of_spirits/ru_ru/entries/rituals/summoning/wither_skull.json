@@ -6,7 +6,8 @@
   "pages": [
     {
       "type": "text",
-      "text": "Помимо погружения в подземелья, есть еще один способ получить эти черепа. Легендарная $(thing)Wild Hunt$() состоит из Великих Духов, принимающих форму скелетов-иссушителей. Хотя призыв к дикой охоте невероятно опасен, это самый быстрый способ получить черепа скелетов иссушителей."
+      "text": "Помимо погружения в подземелья, есть еще один способ получить эти черепа. Легендарная $(thing)Wild Hunt$() состоит из Великих Духов, принимающих форму скелетов-иссушителей. Хотя призыв к дикой охоте невероятно опасен, это самый быстрый способ получить черепа скелетов иссушителей.",
+
     },
     {
       "type": "summoning_sacrifice_noformat",
@@ -14,7 +15,8 @@
       "pentacle": "$(l:pentacles/summon_wild_greater_spirit)Osorin' Unbound Calling$(/l)",
       "activation_item": "minecraft:skeleton_skull",
       "sacrifice": "$(thing)Player$() or $(thing)Villager$()",
-      "ingredients": "$(li)1x $(item)Copper Block $()$(li)1x $(item)Silver Block $()$(li)1x $(item)Gold Block  $()$(li)1x $(item)Diamond $()$(li)1x $(item)Netherrack $()$(li)1x $(item)Soul Sand $()"
+      "ingredients": "$(li)1x $(item)Copper Block $()$(li)1x $(item)Silver Block $()$(li)1x $(item)Gold Block  $()$(li)1x $(item)Diamond $()$(li)1x $(item)Netherrack $()$(li)1x $(item)Soul Sand $()",
+
     }
   ]
 }

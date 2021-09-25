@@ -93,14 +93,6 @@ public class RitualTrigger extends SimpleCriterionTrigger<RitualTrigger.Instance
             this.ritualFactoryId = ritualFactoryId;
         }
 
-        public boolean test(Ritual ritual) {
-            if (this == ANY)
-                return true;
-            else if (this.ritualId != null && !this.ritualId.equals(ritual.getRecipe().getId()))
-                return false;
-            else return this.ritualFactoryId == null || this.ritualFactoryId.equals(ritual.getFactoryID());
-        }
-
         public static RitualPredicate deserialize(JsonElement element) {
             if (element == null || element.isJsonNull())
                 return ANY;
@@ -113,6 +105,14 @@ public class RitualTrigger extends SimpleCriterionTrigger<RitualTrigger.Instance
             if (json.has("ritual_factory_id"))
                 ritualFactoryId = new ResourceLocation(GsonHelper.getAsString(json, "ritual_factory_id"));
             return new RitualPredicate(ritualId, ritualFactoryId);
+        }
+
+        public boolean test(Ritual ritual) {
+            if (this == ANY)
+                return true;
+            else if (this.ritualId != null && !this.ritualId.equals(ritual.getRecipe().getId()))
+                return false;
+            else return this.ritualFactoryId == null || this.ritualFactoryId.equals(ritual.getFactoryID());
         }
 
         public JsonElement serialize() {

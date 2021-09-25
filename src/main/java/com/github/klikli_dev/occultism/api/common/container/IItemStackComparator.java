@@ -42,7 +42,7 @@ public interface IItemStackComparator extends INBTSerializable<CompoundTag>, Pre
     boolean matches(@Nonnull ItemStack stack);
 
     @Override
-    default boolean test(ItemStack stack){
+    default boolean test(ItemStack stack) {
         return this.matches(stack);
     }
 

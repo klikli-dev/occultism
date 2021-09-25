@@ -94,7 +94,7 @@ public class RenderUtil {
                 String s = pText == null ? String.valueOf(pStack.getCount()) : pText;
                 posestack.translate(0.0D, 0.0D, renderer.blitOffset + 200.0F);
                 MultiBufferSource.BufferSource multibuffersource$buffersource = MultiBufferSource.immediate(Tesselator.getInstance().getBuilder());
-                pFr.drawInBatch(s, (float)(pXPosition + 19 - 2 - pFr.width(s)), (float)(pYPosition + 6 + 3), 16777215, true, posestack.last().pose(), multibuffersource$buffersource, false, 0, 15728880);
+                pFr.drawInBatch(s, (float) (pXPosition + 19 - 2 - pFr.width(s)), (float) (pYPosition + 6 + 3), 16777215, true, posestack.last().pose(), multibuffersource$buffersource, false, 0, 15728880);
                 multibuffersource$buffersource.endBatch();
             }
 
@@ -105,7 +105,7 @@ public class RenderUtil {
                 Tesselator tesselator = Tesselator.getInstance();
                 BufferBuilder bufferbuilder = tesselator.getBuilder();
                 double health = pStack.getItem().getDurabilityForDisplay(pStack);
-                int i = Math.round(13.0F - (float)health * 13.0F);
+                int i = Math.round(13.0F - (float) health * 13.0F);
                 int j = pStack.getItem().getRGBDurabilityForDisplay(pStack);
                 renderer.fillRect(bufferbuilder, pXPosition + 2, pYPosition + 13, 13, 2, 0, 0, 0, 255);
                 renderer.fillRect(bufferbuilder, pXPosition + 2, pYPosition + 13, i, 1, j >> 16 & 255, j >> 8 & 255, j & 255, 255);

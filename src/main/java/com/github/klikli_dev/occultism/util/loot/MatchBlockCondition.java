@@ -72,7 +72,7 @@ public class MatchBlockCondition implements LootItemCondition {
     @Override
     public boolean test(LootContext lootContext) {
         //TODO: 1.17 test if this works
-        if(lootContext.hasParam(LootContextParams.BLOCK_STATE)){
+        if (lootContext.hasParam(LootContextParams.BLOCK_STATE)) {
             BlockState state = lootContext.getParam(LootContextParams.BLOCK_STATE);
             if (this.blockTag != null)
                 return this.blockTag.contains(state.getBlock());

@@ -92,6 +92,31 @@ public abstract class Ritual {
 
     //region Getter / Setter
 
+    /**
+     * Removes all matching consumed already consumed ingredients from the remaining additional ingredients.
+     *
+     * @param additionalIngredients the total additional ingredients required.
+     * @param consumedIngredients   the already consumed ingredients.
+     * @return the remaining additional ingredients that still need to be consumed.
+     */
+    public static List<Ingredient> getRemainingAdditionalIngredients(List<Ingredient> additionalIngredients, List<ItemStack> consumedIngredients) {
+        //copy the consumed ingredients to not modify the input
+        List<ItemStack> consumedIngredientsCopy = new ArrayList<>(consumedIngredients);
+        List<Ingredient> remainingAdditionalIngredients = new ArrayList<>();
+        for (Ingredient ingredient : additionalIngredients) {
+            Optional<ItemStack> matchedStack = consumedIngredientsCopy.stream().filter(ingredient::test).findFirst();
+            if (matchedStack.isPresent()) {
+                //if it is in the consumed ingredients, we do not need to add it to the remaining required ones
+                //but we remove it from our consumed ingredients copy so each provided ingredient an only be simulated consumed once
+                consumedIngredientsCopy.remove(matchedStack.get());
+            } else {
+                //if it is not already consumed, we add it to the remaining additional ingredients.
+                remainingAdditionalIngredients.add(ingredient);
+            }
+        }
+        return remainingAdditionalIngredients;
+    }
+
     public ResourceLocation getFactoryID() {
         return this.factoryId;
     }
@@ -133,6 +158,9 @@ public abstract class Ritual {
     public String getInterruptedMessage() {
         return String.format("ritual.%s.interrupted", this.getRitualID());
     }
+    //endregion Getter / Setter
+
+    //region Methods
 
     /**
      * @return the finished message translation key for this ritual.
@@ -140,9 +168,6 @@ public abstract class Ritual {
     public String getFinishedMessage() {
         return String.format("ritual.%s.finished", this.getRitualID());
     }
-    //endregion Getter / Setter
-
-    //region Methods
 
     /**
      * Checks whether the ritual is valid.
@@ -334,31 +359,6 @@ public abstract class Ritual {
 
         }
         return false;
-    }
-
-    /**
-     * Removes all matching consumed already consumed ingredients from the remaining additional ingredients.
-     *
-     * @param additionalIngredients the total additional ingredients required.
-     * @param consumedIngredients   the already consumed ingredients.
-     * @return the remaining additional ingredients that still need to be consumed.
-     */
-    public static List<Ingredient> getRemainingAdditionalIngredients(List<Ingredient> additionalIngredients, List<ItemStack> consumedIngredients) {
-        //copy the consumed ingredients to not modify the input
-        List<ItemStack> consumedIngredientsCopy = new ArrayList<>(consumedIngredients);
-        List<Ingredient> remainingAdditionalIngredients = new ArrayList<>();
-        for (Ingredient ingredient : additionalIngredients) {
-            Optional<ItemStack> matchedStack = consumedIngredientsCopy.stream().filter(ingredient::test).findFirst();
-            if (matchedStack.isPresent()) {
-                //if it is in the consumed ingredients, we do not need to add it to the remaining required ones
-                //but we remove it from our consumed ingredients copy so each provided ingredient an only be simulated consumed once
-                consumedIngredientsCopy.remove(matchedStack.get());
-            } else {
-                //if it is not already consumed, we add it to the remaining additional ingredients.
-                remainingAdditionalIngredients.add(ingredient);
-            }
-        }
-        return remainingAdditionalIngredients;
     }
 
     /**

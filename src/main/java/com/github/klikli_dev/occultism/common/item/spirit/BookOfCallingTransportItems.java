@@ -25,12 +25,12 @@ package com.github.klikli_dev.occultism.common.item.spirit;
 import com.github.klikli_dev.occultism.common.job.TransportItemsJob;
 import com.github.klikli_dev.occultism.util.ItemNBTUtil;
 import com.github.klikli_dev.occultism.util.TextUtil;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.Level;
 
 import javax.annotation.Nullable;
 import java.util.HashMap;
@@ -53,7 +53,7 @@ public class BookOfCallingTransportItems extends BookOfCallingItem {
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip,
-                               TooltipFlag flagIn) {
+                                TooltipFlag flagIn) {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
         BlockPos extract = ItemNBTUtil.getExtractPosition(stack);
         if (extract != null) {
@@ -93,21 +93,21 @@ public class BookOfCallingTransportItems extends BookOfCallingItem {
         }
         //endregion Initialization
 
+        //region Static Methods
+        public static ItemModeSubset get(ItemMode value) {
+            return lookup.get(value);
+        }
+
         //region Overrides
         @Override
         public ItemMode getItemMode() {
             return this.itemMode;
         }
+        //endregion Overrides
 
         @Override
         public ItemModeSubset next() {
             return values()[(this.ordinal() + 1) % values().length];
-        }
-        //endregion Overrides
-
-        //region Static Methods
-        public static ItemModeSubset get(ItemMode value) {
-            return lookup.get(value);
         }
         //endregion Static Methods
     }

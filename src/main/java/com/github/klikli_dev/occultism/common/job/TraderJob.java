@@ -25,14 +25,14 @@ package com.github.klikli_dev.occultism.common.job;
 import com.github.klikli_dev.occultism.common.entity.ai.PickupItemsGoal;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.github.klikli_dev.occultism.crafting.recipe.SpiritTradeRecipe;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.Collections;
@@ -137,8 +137,7 @@ public class TraderJob extends SpiritJob {
 
                 if (input.isEmpty()) {
                     this.entity.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
-                }
-                else {
+                } else {
                     this.entity.setItemInHand(InteractionHand.MAIN_HAND, input.get(0));
                 }
 
@@ -150,8 +149,7 @@ public class TraderJob extends SpiritJob {
                     this.onConvert(resultCount);
                 }
             }
-        }
-        else {
+        } else {
             this.conversionTimer = 0;
         }
         super.update();

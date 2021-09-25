@@ -48,11 +48,10 @@ import java.util.Map.Entry;
 
 @EventBusSubscriber(modid = Occultism.MODID, bus = Bus.FORGE)
 public class PentacleManager extends SimpleJsonResourceReloadListener {
-    private static final Gson GSON = (new GsonBuilder()).setPrettyPrinting().disableHtmlEscaping().create();
     public static final String FOLDER_NAME = "occultism_pentacles";
-
-    private final Map<ResourceLocation, Pentacle> pentacles;
+    private static final Gson GSON = (new GsonBuilder()).setPrettyPrinting().disableHtmlEscaping().create();
     private static PentacleManager instance;
+    private final Map<ResourceLocation, Pentacle> pentacles;
 
     public PentacleManager() {
         super(GSON, FOLDER_NAME);
@@ -63,6 +62,24 @@ public class PentacleManager extends SimpleJsonResourceReloadListener {
         if (instance == null)
             instance = new PentacleManager();
         return instance;
+    }
+
+    public static Pentacle get(ResourceLocation id) {
+        return getInstance().pentacles.get(id);
+    }
+
+    public static Pentacle get(String modid, String path) {
+        return getInstance().pentacles.get(new ResourceLocation(modid, path));
+    }
+
+    @SubscribeEvent
+    public static void addPentacleReloadListener(AddReloadListenerEvent event) {
+        event.addListener(getInstance());
+    }
+
+    @SubscribeEvent
+    public static void syncPentacles(PlayerLoggedInEvent event) {
+        getInstance().sendPentacleMessage((ServerPlayer) event.getPlayer());
     }
 
     @Override
@@ -86,25 +103,7 @@ public class PentacleManager extends SimpleJsonResourceReloadListener {
         OccultismPackets.INSTANCE.send(PacketDistributor.PLAYER.with(() -> player), new MessageUpdatePentacles(this.pentacles));
     }
 
-    public void setPentacles(Map<ResourceLocation, Pentacle> pentacles){
+    public void setPentacles(Map<ResourceLocation, Pentacle> pentacles) {
         this.pentacles.putAll(pentacles);
-    }
-
-    public static Pentacle get(ResourceLocation id) {
-        return getInstance().pentacles.get(id);
-    }
-
-    public static Pentacle get(String modid, String path) {
-        return getInstance().pentacles.get(new ResourceLocation(modid, path));
-    }
-
-    @SubscribeEvent
-    public static void addPentacleReloadListener(AddReloadListenerEvent event) {
-        event.addListener(getInstance());
-    }
-
-    @SubscribeEvent
-    public static void syncPentacles(PlayerLoggedInEvent event) {
-        getInstance().sendPentacleMessage((ServerPlayer) event.getPlayer());
     }
 }

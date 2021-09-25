@@ -56,6 +56,24 @@ public class GlobalBlockPos implements INBTSerializable<CompoundTag> {
     }
     //endregion Initialization
 
+    //region Static Methods
+    public static GlobalBlockPos from(CompoundTag compound) {
+        GlobalBlockPos globalBlockPos = new GlobalBlockPos();
+        globalBlockPos.deserializeNBT(compound);
+        return globalBlockPos;
+    }
+
+    public static GlobalBlockPos from(FriendlyByteBuf buf) {
+        GlobalBlockPos globalBlockPos = new GlobalBlockPos();
+        globalBlockPos.decode(buf);
+        return globalBlockPos;
+    }
+    //endregion Getter / Setter
+
+    public static GlobalBlockPos from(BlockEntity blockEntity) {
+        return new GlobalBlockPos(blockEntity.getBlockPos(), blockEntity.getLevel());
+    }
+
     //region Getter / Setter
     public ResourceKey<Level> getDimensionKey() {
         return this.dimensionKey;
@@ -64,7 +82,6 @@ public class GlobalBlockPos implements INBTSerializable<CompoundTag> {
     public BlockPos getPos() {
         return this.pos;
     }
-    //endregion Getter / Setter
 
     //region Overrides
     @Override
@@ -85,6 +102,7 @@ public class GlobalBlockPos implements INBTSerializable<CompoundTag> {
             return false;
         return this.dimensionKey.equals(other.dimensionKey);
     }
+    //endregion Overrides
 
     @Override
     public String toString() {
@@ -101,24 +119,6 @@ public class GlobalBlockPos implements INBTSerializable<CompoundTag> {
     @Override
     public void deserializeNBT(CompoundTag nbt) {
         this.read(nbt);
-    }
-    //endregion Overrides
-
-    //region Static Methods
-    public static GlobalBlockPos from(CompoundTag compound) {
-        GlobalBlockPos globalBlockPos = new GlobalBlockPos();
-        globalBlockPos.deserializeNBT(compound);
-        return globalBlockPos;
-    }
-
-    public static GlobalBlockPos from(FriendlyByteBuf buf) {
-        GlobalBlockPos globalBlockPos = new GlobalBlockPos();
-        globalBlockPos.decode(buf);
-        return globalBlockPos;
-    }
-
-    public static GlobalBlockPos from(BlockEntity blockEntity) {
-        return new GlobalBlockPos(blockEntity.getBlockPos(), blockEntity.getLevel());
     }
     //endregion Static Methods
 

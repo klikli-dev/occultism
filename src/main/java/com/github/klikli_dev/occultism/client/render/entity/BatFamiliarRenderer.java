@@ -28,7 +28,6 @@ import com.github.klikli_dev.occultism.common.entity.BatFamiliarEntity;
 import com.github.klikli_dev.occultism.registry.OccultismModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
@@ -42,10 +41,10 @@ public class BatFamiliarRenderer extends MobRenderer<BatFamiliarEntity, BatFamil
         super(context, new BatFamiliarModel(context.bakeLayer(OccultismModelLayers.FAMILIAR_BAT)), 0.3f);
 
     }
-    
+
     @Override
     public void render(BatFamiliarEntity entityIn, float entityYaw, float partialTicks, PoseStack poseStack,
-            MultiBufferSource bufferIn, int packedLightIn) {
+                       MultiBufferSource bufferIn, int packedLightIn) {
         poseStack.pushPose();
         if (!entityIn.isSitting() || entityIn.isPartying())
             poseStack.translate(0, entityIn.getAnimationHeight(partialTicks) * 0.1, 0);

@@ -56,23 +56,6 @@ public class DjinniModel extends HumanoidModel<DjinniEntity> {
 
     }
 
-    @Override
-    public void setupAnim(DjinniEntity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks,
-                          float netHeadYaw, float headPitch) {
-
-        super.setupAnim(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
-
-        //Copied from HumanoidModel, removed all code except that which accesses rotationPointX
-        this.rightArm.x = -6.0F;
-        this.leftArm.x = 6.0F;
-
-        if (this.attackTime > 0.0F) {
-            //original x needs to be used as the multiplier here
-            this.rightArm.x = -Mth.cos(this.body.yRot) * 6.0F;
-            this.leftArm.x = Mth.cos(this.body.yRot) * 6.0F;
-        }
-    }
-
     public static LayerDefinition createBodyLayer() {
         MeshDefinition mesh = new MeshDefinition();
         PartDefinition parts = mesh.getRoot();
@@ -163,6 +146,23 @@ public class DjinniModel extends HumanoidModel<DjinniEntity> {
 
 
         return LayerDefinition.create(mesh, 64, 64);
+    }
+
+    @Override
+    public void setupAnim(DjinniEntity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks,
+                          float netHeadYaw, float headPitch) {
+
+        super.setupAnim(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
+
+        //Copied from HumanoidModel, removed all code except that which accesses rotationPointX
+        this.rightArm.x = -6.0F;
+        this.leftArm.x = 6.0F;
+
+        if (this.attackTime > 0.0F) {
+            //original x needs to be used as the multiplier here
+            this.rightArm.x = -Mth.cos(this.body.yRot) * 6.0F;
+            this.leftArm.x = Mth.cos(this.body.yRot) * 6.0F;
+        }
     }
 
 }

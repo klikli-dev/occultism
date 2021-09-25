@@ -29,22 +29,18 @@ import com.github.klikli_dev.occultism.network.MessageSetRecipeByID;
 import com.github.klikli_dev.occultism.network.OccultismPackets;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.ingredient.IGuiIngredient;
-import mezz.jei.api.helpers.IStackHelper;
 import mezz.jei.api.recipe.transfer.IRecipeTransferError;
 import mezz.jei.api.recipe.transfer.IRecipeTransferHandler;
 import mezz.jei.api.recipe.transfer.IRecipeTransferHandlerHelper;
-import mezz.jei.api.recipe.transfer.IRecipeTransferInfo;
-import net.minecraft.client.resources.language.I18n;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.network.chat.TranslatableComponent;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -65,7 +61,7 @@ public class StorageControllerRecipeTransferHandler<T extends AbstractContainerM
     public StorageControllerRecipeTransferHandler(Class<T> containerClass, Class<R> recipeClass, IRecipeTransferHandlerHelper handlerHelper) {
         this.handlerHelper = handlerHelper;
         this.containerClass = containerClass;
-        this.recipeClass =  recipeClass;
+        this.recipeClass = recipeClass;
     }
     //endregion Initialization
 
@@ -104,8 +100,7 @@ public class StorageControllerRecipeTransferHandler<T extends AbstractContainerM
         //if recipe is in recipe manager send by id, otherwise fallback to ingredient list
         if (player.getCommandSenderWorld().getRecipeManager().byKey(recipe.getId()).isPresent()) {
             OccultismPackets.sendToServer(new MessageSetRecipeByID(recipe.getId()));
-        }
-        else {
+        } else {
             OccultismPackets.sendToServer(new MessageSetRecipe(this.recipeToTag(container, recipeLayout)));
         }
 

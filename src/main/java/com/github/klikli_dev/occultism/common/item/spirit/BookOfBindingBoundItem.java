@@ -52,7 +52,7 @@ public class BookOfBindingBoundItem extends Item implements IIngredientCopyNBT, 
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip,
-                               TooltipFlag flagIn) {
+                                TooltipFlag flagIn) {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
         tooltip.add(new TranslatableComponent(this.getDescriptionId() + ".tooltip",
                 TextUtil.formatDemonName(ItemNBTUtil.getBoundSpiritName(stack))));

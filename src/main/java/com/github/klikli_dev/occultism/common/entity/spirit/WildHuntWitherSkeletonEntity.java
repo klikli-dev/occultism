@@ -56,6 +56,13 @@ public class WildHuntWitherSkeletonEntity extends WitherSkeleton {
     }
     //endregion Initialization
 
+    //region Static Methods
+    public static AttributeSupplier.Builder createAttributes() {
+        return WitherSkeleton.createAttributes()
+                .add(Attributes.ATTACK_DAMAGE, 6.0)
+                .add(Attributes.MAX_HEALTH, 60.0);
+    }
+
     //region Overrides
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficultyIn, MobSpawnType reason,
@@ -102,18 +109,11 @@ public class WildHuntWitherSkeletonEntity extends WitherSkeleton {
 
         return super.isInvulnerableTo(source);
     }
+    //endregion Overrides
 
     @Override
     public boolean isInvulnerable() {
         return !this.minions.isEmpty() || super.isInvulnerable();
-    }
-    //endregion Overrides
-
-    //region Static Methods
-    public static AttributeSupplier.Builder createAttributes() {
-        return WitherSkeleton.createAttributes()
-                .add(Attributes.ATTACK_DAMAGE, 6.0)
-                .add(Attributes.MAX_HEALTH, 60.0);
     }
     //endregion Static Methods
 

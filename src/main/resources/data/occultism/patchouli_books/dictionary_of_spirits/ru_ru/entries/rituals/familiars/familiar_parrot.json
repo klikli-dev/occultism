@@ -15,11 +15,13 @@
       "pentacle": "$(l:pentacles/possess_foliot)Hedyrin's Lure$(/l)",
       "activation_item": "occultism:book_of_binding_bound_foliot",
       "sacrifice": "Chicken",
-      "ingredients": "$(li)1x $(item)Feather $()$(li)1x $(item)Green Dye  $()$(li)1x $(item)Yellow Dye  $()$(li)1x $(item)Red Dye  $()$()$(li)1x $(item)Blue Dye  $()"
+      "ingredients": "$(li)1x $(item)Feather $()$(li)1x $(item)Green Dye  $()$(li)1x $(item)Yellow Dye  $()$(li)1x $(item)Red Dye  $()$()$(li)1x $(item)Blue Dye  $()",
+
     },
     {
       "type": "text",
-      "text": "В этом ритуале $(thing)Foliot$() вызывается, режется $(thing)chicken$() и подношение краски принуждаюь Филита принять форму попугая. Все $(thing)Foliot$() не относятся к числу самых умных, они иногда неправильно понимают инструкции ...:DDD "
+      "text": "В этом ритуале $(thing)Foliot$() вызывается, режется $(thing)chicken$() и подношение краски принуждаюь Филита принять форму попугая. Все $(thing)Foliot$() не относятся к числу самых умных, они иногда неправильно понимают инструкции ...:DDD ",
+
     },
     {
       "type": "text",

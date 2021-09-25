@@ -22,12 +22,7 @@
 
 package com.github.klikli_dev.occultism.integration.patchouli;
 
-import com.github.klikli_dev.occultism.crafting.recipe.RitualRecipe;
-import com.github.klikli_dev.occultism.registry.OccultismBlocks;
-import com.github.klikli_dev.occultism.registry.OccultismItems;
-import net.minecraft.client.Minecraft;
-
-public class RitualRecipeProcessor{
+public class RitualRecipeProcessor {
 
 }
 //TODO: Patchouli

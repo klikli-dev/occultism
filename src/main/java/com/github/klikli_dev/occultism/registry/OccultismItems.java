@@ -37,7 +37,6 @@ import com.github.klikli_dev.occultism.common.item.storage.StorageRemoteItem;
 import com.github.klikli_dev.occultism.common.item.tool.*;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.*;
-import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -69,7 +68,7 @@ public class OccultismItems {
 
     public static final RegistryObject<BlockItem> SPIRIT_FIRE =
             ITEMS.register("spirit_fire", () -> new BlockItem(OccultismBlocks.SPIRIT_FIRE.get(), defaultProperties()));
-    
+
     public static final RegistryObject<Item> ADVANCEMENT_ICON =
             ITEMS.register("advancement_icon", () -> new Item(new Item.Properties()));
 

@@ -38,7 +38,6 @@ import com.github.klikli_dev.occultism.config.OccultismCommonConfig;
 import com.github.klikli_dev.occultism.config.OccultismServerConfig;
 import com.github.klikli_dev.occultism.network.OccultismPackets;
 import com.github.klikli_dev.occultism.registry.*;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
@@ -57,8 +56,6 @@ import org.apache.logging.log4j.Logger;
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.SlotTypeMessage;
 import top.theillusivec4.curios.api.SlotTypePreset;
-
-import static com.github.klikli_dev.occultism.util.StaticUtil.modLoc;
 
 @Mod(Occultism.MODID)
 public class Occultism {
@@ -133,7 +130,7 @@ public class Occultism {
         LOGGER.info("Common setup complete.");
     }
 
-    private void onEntityAttributeCreation(final EntityAttributeCreationEvent event){
+    private void onEntityAttributeCreation(final EntityAttributeCreationEvent event) {
         event.put(OccultismEntities.FOLIOT_TYPE.get(), FoliotEntity.createAttributes().build());
         event.put(OccultismEntities.DJINNI_TYPE.get(), DjinniEntity.createAttributes().build());
         event.put(OccultismEntities.AFRIT_TYPE.get(), AfritEntity.createAttributes().build());
@@ -156,7 +153,7 @@ public class Occultism {
         LOGGER.info("Dedicated server setup complete.");
     }
 
-    private void enqueueIMC(final InterModEnqueueEvent event){
+    private void enqueueIMC(final InterModEnqueueEvent event) {
         InterModComms.sendTo(CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE, () -> SlotTypePreset.BELT.getMessageBuilder().build());
         InterModComms.sendTo(CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE, () -> SlotTypePreset.HEAD.getMessageBuilder().build());
         InterModComms.sendTo(CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE, () -> SlotTypePreset.RING.getMessageBuilder().build());

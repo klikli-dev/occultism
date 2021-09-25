@@ -23,8 +23,8 @@
 package com.github.klikli_dev.occultism.client.itemproperties;
 
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.client.renderer.item.ItemPropertyFunction;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -38,6 +38,6 @@ public class StableWormholeBlockItemPropertyGetter implements ItemPropertyFuncti
     @Override
     public float call(ItemStack stack, @Nullable ClientLevel worldIn, @Nullable LivingEntity entityIn, int i) {
         return stack.getOrCreateTag().getCompound("BlockEntityTag")
-                       .contains("linkedStorageControllerPosition") ? 1.0f : 0.0f;
+                .contains("linkedStorageControllerPosition") ? 1.0f : 0.0f;
     }
 }

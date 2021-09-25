@@ -34,17 +34,16 @@ import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexFormat;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.client.Minecraft;
+import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import org.lwjgl.opengl.GL11;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -97,7 +96,7 @@ public class ThirdEyeEffectRenderer {
     //region Methods
     @SubscribeEvent
     public void onPlayerTick(TickEvent.PlayerTickEvent event) {
-        if(event.player.level.isClientSide && event.player == Minecraft.getInstance().player){
+        if (event.player.level.isClientSide && event.player == Minecraft.getInstance().player) {
             this.onThirdEyeTick(event);
             this.onGogglesTick(event);
         }
@@ -135,16 +134,17 @@ public class ThirdEyeEffectRenderer {
 
     /**
      * Resets the currently uncovered blocks
+     *
      * @param level the level.
      * @param clear true to delete the list of uncovered blocks.
      */
-    public void resetUncoveredBlocks(Level level, boolean clear){
-        for(BlockPos pos : this.uncoveredBlocks) {
+    public void resetUncoveredBlocks(Level level, boolean clear) {
+        for (BlockPos pos : this.uncoveredBlocks) {
             BlockState state = level.getBlockState(pos);
-            if(state.getBlock() instanceof IOtherworldBlock) //handle replaced or removed blocks gracefully
+            if (state.getBlock() instanceof IOtherworldBlock) //handle replaced or removed blocks gracefully
                 level.setBlock(pos, state.setValue(IOtherworldBlock.UNCOVERED, false), 1);
         }
-        if(clear)
+        if (clear)
             this.uncoveredBlocks.clear();
     }
 
@@ -152,17 +152,17 @@ public class ThirdEyeEffectRenderer {
      * Uncovers the otherworld blocks within MAX_THIRD_EYE_DISTANCE of the player.
      *
      * @param player the player.
-     * @param level the level.
+     * @param level  the level.
      */
-    public void uncoverBlocks(Player player, Level level, OtherworldBlockTier tier){
+    public void uncoverBlocks(Player player, Level level, OtherworldBlockTier tier) {
         BlockPos origin = player.blockPosition();
         BlockPos.betweenClosed(origin.offset(-MAX_THIRD_EYE_DISTANCE, -MAX_THIRD_EYE_DISTANCE, -MAX_THIRD_EYE_DISTANCE),
-                origin.offset(MAX_THIRD_EYE_DISTANCE,MAX_THIRD_EYE_DISTANCE,MAX_THIRD_EYE_DISTANCE)).forEach(pos -> {
+                origin.offset(MAX_THIRD_EYE_DISTANCE, MAX_THIRD_EYE_DISTANCE, MAX_THIRD_EYE_DISTANCE)).forEach(pos -> {
             BlockState state = level.getBlockState(pos);
-            if(state.getBlock() instanceof IOtherworldBlock){
+            if (state.getBlock() instanceof IOtherworldBlock) {
                 IOtherworldBlock block = (IOtherworldBlock) state.getBlock();
-                if(block.getTier().getLevel()  <= tier.getLevel()){
-                    if(!state.getValue(IOtherworldBlock.UNCOVERED)){
+                if (block.getTier().getLevel() <= tier.getLevel()) {
+                    if (!state.getValue(IOtherworldBlock.UNCOVERED)) {
                         level.setBlock(pos, state.setValue(IOtherworldBlock.UNCOVERED, true), 1);
                     }
                     this.uncoveredBlocks.add(pos.immutable());
@@ -183,14 +183,13 @@ public class ThirdEyeEffectRenderer {
                 this.thirdEyeActiveLastTick = true;
 
                 //load shader, but only if we are on the natural effects
-                if(!Occultism.CLIENT_CONFIG.visuals.disableDemonsDreamShaders.get()){
+                if (!Occultism.CLIENT_CONFIG.visuals.disableDemonsDreamShaders.get()) {
                     Minecraft.getInstance().tell(() -> Minecraft.getInstance().gameRenderer.loadEffect(THIRD_EYE_SHADER));
                 }
             }
             //also handle goggles in one if we have them
             this.uncoverBlocks(event.player, event.player.level, OtherworldBlockTier.ONE);
-        }
-        else {
+        } else {
             //if we don't have goggles, cover blocks
             //Try twice, but on the last effect tick, clear the list.
             this.resetUncoveredBlocks(event.player.level, duration == 0);
@@ -206,15 +205,14 @@ public class ThirdEyeEffectRenderer {
         }
     }
 
-    public void onGogglesTick(TickEvent.PlayerTickEvent event){
+    public void onGogglesTick(TickEvent.PlayerTickEvent event) {
         boolean hasGoggles = CuriosUtil.hasGoggles(event.player);
-        if(hasGoggles){
-            if(!this.gogglesActiveLastTick){
+        if (hasGoggles) {
+            if (!this.gogglesActiveLastTick) {
                 this.gogglesActiveLastTick = true;
             }
             this.uncoverBlocks(event.player, event.player.level, OtherworldBlockTier.TWO);
-        }
-        else {
+        } else {
             if (this.gogglesActiveLastTick) {
                 this.gogglesActiveLastTick = false;
 

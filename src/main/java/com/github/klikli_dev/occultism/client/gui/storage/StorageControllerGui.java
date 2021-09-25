@@ -24,11 +24,11 @@ package com.github.klikli_dev.occultism.client.gui.storage;
 
 import com.github.klikli_dev.occultism.api.common.data.SortDirection;
 import com.github.klikli_dev.occultism.api.common.data.SortType;
-import com.github.klikli_dev.occultism.common.container.storage.StorageControllerContainer;
 import com.github.klikli_dev.occultism.common.blockentity.StorageControllerBlockEntity;
-import net.minecraft.world.entity.player.Inventory;
+import com.github.klikli_dev.occultism.common.container.storage.StorageControllerContainer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.player.Inventory;
 
 public class StorageControllerGui extends StorageControllerGuiBase<StorageControllerContainer> {
 

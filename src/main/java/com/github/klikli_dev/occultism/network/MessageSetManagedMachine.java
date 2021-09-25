@@ -26,11 +26,11 @@ import com.github.klikli_dev.occultism.api.common.data.MachineReference;
 import com.github.klikli_dev.occultism.common.item.spirit.BookOfCallingItem;
 import com.github.klikli_dev.occultism.common.job.ManageMachineJob;
 import com.github.klikli_dev.occultism.util.ItemNBTUtil;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.fmllegacy.network.NetworkEvent;
 
 public class MessageSetManagedMachine extends MessageBase {

@@ -67,11 +67,6 @@ public class GreedyFamiliarModel extends EntityModel<GreedyFamiliarEntity> {
         this.nose = this.head.getChild("nose");
     }
 
-    @Override
-    public void renderToBuffer(PoseStack pPoseStack, VertexConsumer pBuffer, int pPackedLight, int pPackedOverlay, float red, float green, float blue, float alpha) {
-        this.body.render(pPoseStack, pBuffer, pPackedLight, pPackedOverlay, red, green, blue, alpha);
-    }
-
     public static LayerDefinition createBodyLayer() {
         MeshDefinition mesh = new MeshDefinition();
         PartDefinition parts = mesh.getRoot();
@@ -87,6 +82,11 @@ public class GreedyFamiliarModel extends EntityModel<GreedyFamiliarEntity> {
         PartDefinition rightEar = head.addOrReplaceChild("rightEar", CubeListBuilder.create().texOffs(0, 0).addBox(-1.0F, -3.0F, 0.0F, 2.0F, 3.0F, 0.0F, true), PartPose.offsetAndRotation(-2.0F, -4.5F, 0.0F, 0.0F, 0.0F, -0.5235987755982988F));
         PartDefinition nose = head.addOrReplaceChild("nose", CubeListBuilder.create().texOffs(18, 8).addBox(-1.0F, 0.0F, -2.0F, 2.0F, 2.0F, 2.0F, false), PartPose.offsetAndRotation(0.0F, -3.0F, -2.5F, 0, 0, 0));
         return LayerDefinition.create(mesh, 32, 32);
+    }
+
+    @Override
+    public void renderToBuffer(PoseStack pPoseStack, VertexConsumer pBuffer, int pPackedLight, int pPackedOverlay, float red, float green, float blue, float alpha) {
+        this.body.render(pPoseStack, pBuffer, pPackedLight, pPackedOverlay, red, green, blue, alpha);
     }
 
     private float toRad(float deg) {

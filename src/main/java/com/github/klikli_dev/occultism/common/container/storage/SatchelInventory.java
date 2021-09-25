@@ -22,12 +22,11 @@
 
 package com.github.klikli_dev.occultism.common.container.storage;
 
+import net.minecraft.core.NonNullList;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.SimpleContainer;
-import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.core.NonNullList;
 
 public class SatchelInventory extends SimpleContainer {
 
@@ -57,8 +56,7 @@ public class SatchelInventory extends SimpleContainer {
     public void writeItemStack() {
         if (this.isEmpty()) {
             this.itemStack.removeTagKey("Items");
-        }
-        else {
+        } else {
             this.writeNBT(this.itemStack.getOrCreateTag());
         }
     }

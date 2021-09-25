@@ -23,9 +23,9 @@
 package com.github.klikli_dev.occultism.network;
 
 import com.github.klikli_dev.occultism.util.StorageUtil;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.fmllegacy.network.NetworkEvent;
 
 public class MessageClearCraftingMatrix extends MessageBase {

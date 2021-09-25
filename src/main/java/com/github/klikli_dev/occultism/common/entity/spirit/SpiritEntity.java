@@ -147,6 +147,14 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
     }
     //endregion Initialization
 
+    //region Static Methods
+    public static AttributeSupplier.Builder createAttributes() {
+        return TamableAnimal.createLivingAttributes()
+                .add(Attributes.ATTACK_DAMAGE, 1.0)
+                .add(Attributes.ATTACK_SPEED, 4.0)
+                .add(Attributes.MOVEMENT_SPEED, 0.30000001192092896)
+                .add(Attributes.FOLLOW_RANGE, 50.0);
+    }
 
     @Override
     public void onSyncedDataUpdated(EntityDataAccessor<?> key) {
@@ -170,7 +178,6 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
         }
         return super.getCapability(capability, facing);
     }
-
 
     //region Getter / Setter
     public Optional<BlockPos> getDepositPosition() {
@@ -325,6 +332,7 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
     public Optional<SpiritJob> getJob() {
         return this.job;
     }
+    //endregion Getter / Setter
 
     /**
      * Cleans up old job and sets and initializes the new job.
@@ -339,7 +347,6 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
             this.setJobID(job.getFactoryID().toString());
         }
     }
-    //endregion Getter / Setter
 
     //region Overrides
     @Nullable
@@ -357,7 +364,6 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
     public EntityDataAccessor<Integer> getDataParameterSkin() {
         return SKIN;
     }
-
 
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason,
@@ -467,7 +473,6 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
         this.entityData.define(FILTER_ITEMS, new CompoundTag());
         this.entityData.define(TAG_FILTER, "");
     }
-
 
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {
@@ -613,6 +618,7 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
         this.removeJob();
         super.remove(reason);
     }
+    //endregion Overrides
 
     @Override
     public InteractionResult interactAt(Player player, Vec3 vec, InteractionHand hand) {
@@ -625,16 +631,6 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
             }
         }
         return super.interactAt(player, vec, hand);
-    }
-    //endregion Overrides
-
-    //region Static Methods
-    public static AttributeSupplier.Builder createAttributes() {
-        return TamableAnimal.createLivingAttributes()
-                .add(Attributes.ATTACK_DAMAGE, 1.0)
-                .add(Attributes.ATTACK_SPEED, 4.0)
-                .add(Attributes.MOVEMENT_SPEED, 0.30000001192092896)
-                .add(Attributes.FOLLOW_RANGE, 50.0);
     }
     //endregion Static Methods
 

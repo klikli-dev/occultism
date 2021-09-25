@@ -69,10 +69,10 @@ public class Math3DUtil {
                 Mth.clamp(pos.getX(), bounds.minX, bounds.maxX),
                 Mth.clamp(pos.getY(), bounds.minY, bounds.maxY),
                 Mth.clamp(pos.getZ(), bounds.minZ, bounds.maxZ)
-                );
+        );
     }
 
-    public static AABB bounds(ChunkPos pos, int maxHeight){
+    public static AABB bounds(ChunkPos pos, int maxHeight) {
         return new AABB(pos.getMinBlockX(), 0, pos.getMinBlockZ(), pos.getMaxBlockX(), maxHeight, pos.getMaxBlockZ());
     }
 
@@ -89,7 +89,7 @@ public class Math3DUtil {
         //map to a new block pos because getAllInBox uses a mutable blockpos internally for iteration,
         // leading to the same block being collected 6x when not mapping it to an immutable blockpos
         return BlockPos.betweenClosedStream(start, start.relative(direction, distance)).map(BlockPos::immutable)
-                       .sorted(Comparator.comparingDouble(start::distSqr)).collect(Collectors.toList());
+                .sorted(Comparator.comparingDouble(start::distSqr)).collect(Collectors.toList());
     }
 
     /**

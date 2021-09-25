@@ -22,9 +22,9 @@
 
 package com.github.klikli_dev.occultism.common.container.storage;
 
+import com.github.klikli_dev.occultism.api.common.blockentity.IStorageController;
 import com.github.klikli_dev.occultism.api.common.container.IStorageControllerContainer;
 import com.github.klikli_dev.occultism.api.common.data.GlobalBlockPos;
-import com.github.klikli_dev.occultism.api.common.blockentity.IStorageController;
 import com.github.klikli_dev.occultism.client.gui.storage.StorageControllerGuiBase;
 import com.github.klikli_dev.occultism.common.misc.ItemStackComparator;
 import com.github.klikli_dev.occultism.common.misc.StorageControllerCraftingInventory;

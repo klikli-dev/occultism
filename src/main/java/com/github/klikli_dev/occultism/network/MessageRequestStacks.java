@@ -23,11 +23,11 @@
 package com.github.klikli_dev.occultism.network;
 
 
-import com.github.klikli_dev.occultism.api.common.container.IStorageControllerContainer;
 import com.github.klikli_dev.occultism.api.common.blockentity.IStorageController;
-import net.minecraft.server.level.ServerPlayer;
+import com.github.klikli_dev.occultism.api.common.container.IStorageControllerContainer;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.fmllegacy.network.NetworkEvent;
 
 public class MessageRequestStacks extends MessageBase {
@@ -50,7 +50,7 @@ public class MessageRequestStacks extends MessageBase {
                                  NetworkEvent.Context context) {
         if (player.containerMenu instanceof IStorageControllerContainer) {
             IStorageController storageController = ((IStorageControllerContainer) player.containerMenu)
-                                                           .getStorageController();
+                    .getStorageController();
             if (storageController != null) {
                 OccultismPackets.sendTo(player, storageController.getMessageUpdateStacks());
                 OccultismPackets

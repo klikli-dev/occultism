@@ -28,7 +28,6 @@ import com.github.klikli_dev.occultism.common.entity.GreedyFamiliarEntity;
 import com.github.klikli_dev.occultism.registry.OccultismModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
@@ -49,7 +48,7 @@ public class GreedyFamiliarRenderer extends MobRenderer<GreedyFamiliarEntity, Gr
 
     @Override
     public void render(GreedyFamiliarEntity entityIn, float entityYaw, float partialTicks, PoseStack matrixStackIn,
-            MultiBufferSource bufferIn, int packedLightIn) {
+                       MultiBufferSource bufferIn, int packedLightIn) {
         matrixStackIn.pushPose();
         if (entityIn.isSitting() && !entityIn.isPartying())
             matrixStackIn.translate(0, -0.25, 0);

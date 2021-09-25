@@ -35,16 +35,16 @@ public class PossessedEndermiteEntity extends Endermite {
     }
     //endregion Initialization
 
+    //region Static Methods
+    public static AttributeSupplier.Builder createAttributes() {
+        return Endermite.createAttributes();
+    }
+    //endregion Overrides
+
     //region Overrides
     @Override
     protected boolean shouldDespawnInPeaceful() {
         return false;
-    }
-    //endregion Overrides
-
-    //region Static Methods
-    public static AttributeSupplier.Builder createAttributes() {
-        return Endermite.createAttributes();
     }
     //endregion Static Methods
 }

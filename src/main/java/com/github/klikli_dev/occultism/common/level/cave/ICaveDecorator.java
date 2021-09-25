@@ -22,9 +22,9 @@
 
 package com.github.klikli_dev.occultism.common.level.cave;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.chunk.ChunkGenerator;
-import net.minecraft.core.BlockPos;
 
 import java.util.Random;
 

@@ -21,19 +21,19 @@
  */
 package com.github.klikli_dev.occultism.network;
 
-import com.github.klikli_dev.occultism.api.common.container.IStorageControllerContainer;
 import com.github.klikli_dev.occultism.api.common.blockentity.IStorageController;
+import com.github.klikli_dev.occultism.api.common.container.IStorageControllerContainer;
 import com.github.klikli_dev.occultism.util.StorageUtil;
 import com.google.common.base.Preconditions;
+import net.minecraft.core.NonNullList;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.core.NonNullList;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraftforge.common.crafting.IShapedRecipe;
 import net.minecraftforge.fmllegacy.network.NetworkEvent;
 import net.minecraftforge.items.wrapper.PlayerMainInvWrapper;
@@ -139,8 +139,7 @@ public class MessageSetRecipeByID extends MessageBase {
                     ingredientsMatrixGrid.set(target, i);
                 }
             }
-        }
-        else {
+        } else {
             for (int i = 0; i < ingredients.size(); i++) {
                 ingredientsMatrixGrid.set(i, ingredients.get(i));
             }

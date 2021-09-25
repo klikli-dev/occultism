@@ -22,14 +22,14 @@
 
 package com.github.klikli_dev.occultism.network;
 
-import com.github.klikli_dev.occultism.api.common.container.IStorageControllerContainer;
 import com.github.klikli_dev.occultism.api.common.blockentity.IStorageController;
+import com.github.klikli_dev.occultism.api.common.container.IStorageControllerContainer;
 import com.github.klikli_dev.occultism.common.misc.ItemStackComparator;
 import com.github.klikli_dev.occultism.util.InputUtil;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.fmllegacy.network.NetworkEvent;
 import net.minecraftforge.items.ItemHandlerHelper;
 
@@ -67,12 +67,12 @@ public class MessageTakeItem extends MessageBase {
                                  NetworkEvent.Context context) {
         if (player.containerMenu instanceof IStorageControllerContainer) {
             IStorageController storageController = ((IStorageControllerContainer) player.containerMenu)
-                                                           .getStorageController();
+                    .getStorageController();
             if (storageController == null)
                 return;
 
             int available = storageController
-                                    .getAvailableAmount(new ItemStackComparator(this.stack, true));
+                    .getAvailableAmount(new ItemStackComparator(this.stack, true));
             int amountRequested = 0;
 
             //ctrl down means one
@@ -103,8 +103,7 @@ public class MessageTakeItem extends MessageBase {
                 //if shift click plop it directly into the inventory
                 if (this.isShiftDown) {
                     ItemHandlerHelper.giveItemToPlayer(player, stack);
-                }
-                else {
+                } else {
                     //otherwise put it on the players mouse
                     player.containerMenu.setCarried(stack);
                     OccultismPackets.sendTo(player, new MessageUpdateMouseHeldItem(stack));

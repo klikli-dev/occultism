@@ -64,20 +64,20 @@ public enum ChalkGlyphType implements StringRepresentable {
     }
     //endregion Initialization
 
+    //region Static Methods
+    public static ChalkGlyphType get(int value) {
+        return lookup.get(value);
+    }
+    //endregion Getter / Setter
+
     //region Getter / Setter
     public int getValue() {
         return this.value;
     }
-    //endregion Getter / Setter
 
     @Override
     public String getSerializedName() {
         return this.name().toLowerCase();
-    }
-
-    //region Static Methods
-    public static ChalkGlyphType get(int value) {
-        return lookup.get(value);
     }
 
     //endregion Static Methods

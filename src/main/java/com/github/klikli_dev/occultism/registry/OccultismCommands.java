@@ -27,7 +27,6 @@ import com.github.klikli_dev.occultism.common.command.DebugAICommand;
 import com.github.klikli_dev.occultism.common.command.NbtCommand;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.tree.LiteralCommandNode;
-import net.minecraft.commands.CommandSource;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 

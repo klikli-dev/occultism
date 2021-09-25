@@ -62,7 +62,7 @@ public class ReturnToWorkAreaGoal extends Goal {
             return false;
         }
 
-       return this.entity.getWorkAreaPosition().isPresent();
+        return this.entity.getWorkAreaPosition().isPresent();
     }
 
     @Override
@@ -70,8 +70,7 @@ public class ReturnToWorkAreaGoal extends Goal {
         if (!this.entity.getWorkAreaPosition().isPresent()) {
             this.stop();
             this.entity.getNavigation().stop();
-        }
-        else {
+        } else {
             this.entity.getNavigation().moveTo(this.entity.getNavigation().createPath(
                     this.entity.getWorkAreaPosition().orElse(this.entity.blockPosition()), 0), 1.0f);
             double distance = this.entity.position().distanceTo(

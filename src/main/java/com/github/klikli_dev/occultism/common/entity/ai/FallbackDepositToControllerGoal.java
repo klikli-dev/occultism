@@ -106,8 +106,8 @@ public class FallbackDepositToControllerGoal extends PausableGoal {
         //get work area, but only half height, we don't need full.
         int workAreaSize = this.entity.getWorkAreaSize().getValue();
         List<BlockPos> searchBlocks = BlockPos.betweenClosedStream(
-                machinePosition.offset(-workAreaSize, -workAreaSize / 2, -workAreaSize),
-                machinePosition.offset(workAreaSize, workAreaSize / 2, workAreaSize)).map(BlockPos::immutable)
+                        machinePosition.offset(-workAreaSize, -workAreaSize / 2, -workAreaSize),
+                        machinePosition.offset(workAreaSize, workAreaSize / 2, workAreaSize)).map(BlockPos::immutable)
                 .collect(Collectors.toList());
 
         for (BlockPos pos : searchBlocks) {

@@ -22,9 +22,9 @@
 
 package com.github.klikli_dev.occultism.common.entity.ai;
 
-import com.github.klikli_dev.occultism.api.common.data.MachineReference;
 import com.github.klikli_dev.occultism.api.common.blockentity.IStorageController;
 import com.github.klikli_dev.occultism.api.common.blockentity.IStorageControllerProxy;
+import com.github.klikli_dev.occultism.api.common.data.MachineReference;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.github.klikli_dev.occultism.common.job.ManageMachineJob;
 import com.github.klikli_dev.occultism.common.misc.DepositOrder;
@@ -156,7 +156,7 @@ public class ManageMachineGoal extends Goal {
                                 machineReference.extractFacing).ifPresent(machineHandler -> {
 
                             IItemHandler entityHandler = this.entity.getCapability(
-                                    CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, Direction.UP)
+                                            CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, Direction.UP)
                                     .orElseThrow(ItemHandlerMissingException::new);
 
                             boolean movedAnyItems = false;

@@ -10,11 +10,11 @@ import net.minecraft.world.entity.LivingEntity;
 
 public class FamiliarTrigger extends SimpleCriterionTrigger<FamiliarTrigger.Instance> {
 
-    public enum Type {
-        DEER_POOP, CTHULHU_SAD, BAT_EAT, DEVIL_FIRE, GREEDY_ITEM, RARE_VARIANT, PARTY, CAPTURE
-    }
-
     private static final ResourceLocation ID = new ResourceLocation(Occultism.MODID, "familiar");
+
+    public static Instance of(Type type) {
+        return new Instance(EntityPredicate.Composite.ANY, type);
+    }
 
     @Override
     public ResourceLocation getId() {
@@ -35,8 +35,8 @@ public class FamiliarTrigger extends SimpleCriterionTrigger<FamiliarTrigger.Inst
             this.trigger((ServerPlayer) entity, type);
     }
 
-    public static Instance of(Type type) {
-        return new Instance(EntityPredicate.Composite.ANY, type);
+    public enum Type {
+        DEER_POOP, CTHULHU_SAD, BAT_EAT, DEVIL_FIRE, GREEDY_ITEM, RARE_VARIANT, PARTY, CAPTURE
     }
 
     public static class Instance extends AbstractCriterionTriggerInstance {

@@ -22,8 +22,8 @@
 
 package com.github.klikli_dev.occultism.common.entity.ai;
 
-import net.minecraft.world.entity.Entity;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.Entity;
 
 import java.util.Comparator;
 

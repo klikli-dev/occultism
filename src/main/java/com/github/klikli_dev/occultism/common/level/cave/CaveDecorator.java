@@ -23,11 +23,11 @@
 package com.github.klikli_dev.occultism.common.level.cave;
 
 import com.github.klikli_dev.occultism.registry.OccultismTags;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.WorldGenLevel;
-import net.minecraft.world.level.chunk.ChunkGenerator;
-import net.minecraft.core.Direction;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.chunk.ChunkGenerator;
 
 import java.util.Random;
 
@@ -67,16 +67,13 @@ public abstract class CaveDecorator implements ICaveDecorator {
         if (this.isFloor(seedReader, pos, state)) {
             data.floorBlocks.add(pos);
             this.fillFloor(seedReader, generator, rand, pos, state);
-        }
-        else if (this.isCeiling(seedReader, pos, state)) {
+        } else if (this.isCeiling(seedReader, pos, state)) {
             data.ceilingBlocks.add(pos);
             this.fillCeiling(seedReader, generator, rand, pos, state);
-        }
-        else if (this.isWall(seedReader, pos, state)) {
+        } else if (this.isWall(seedReader, pos, state)) {
             data.wallBlocks.put(pos, this.getBorderDirection(seedReader, pos));
             this.fillWall(seedReader, generator, rand, pos, state);
-        }
-        else if (this.isInside(state)) {
+        } else if (this.isInside(state)) {
             data.insideBlocks.add(pos);
             this.fillInside(seedReader, generator, rand, pos, state);
         }

@@ -26,10 +26,10 @@ import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.block.ChalkGlyphBlock;
 import com.github.klikli_dev.occultism.common.block.storage.StableWormholeBlock;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.core.Direction;
+import net.minecraft.data.DataGenerator;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.ModelFile;
@@ -84,32 +84,32 @@ public class StandardBlockStateProvider extends BlockStateProvider {
                 .forAllStates(state -> {
                     Direction dir = state.getValue(BlockStateProperties.FACING);
                     return ConfiguredModel.builder()
-                                   .modelFile(state.getValue(StableWormholeBlock.LINKED) ? linkedModel : unlinkedModel)
-                                   .rotationX(dir == Direction.DOWN ? 180 : dir.getAxis().isHorizontal() ? 90 : 0)
-                                   .rotationY(dir.getAxis().isVertical() ? 0 :
-                                                      (((int) dir.toYRot()) + 180) % 360)
-                                   .build();
+                            .modelFile(state.getValue(StableWormholeBlock.LINKED) ? linkedModel : unlinkedModel)
+                            .rotationX(dir == Direction.DOWN ? 180 : dir.getAxis().isHorizontal() ? 90 : 0)
+                            .rotationY(dir.getAxis().isVertical() ? 0 :
+                                    (((int) dir.toYRot()) + 180) % 360)
+                            .build();
                 });
     }
 
     protected void generateGlyphBlockState(Block block) {
         ModelFile.ExistingModelFile parent = this.models()
-                                                     .getExistingFile(this.modLoc("block/chalk_glyph/chalk_glyph"));
+                .getExistingFile(this.modLoc("block/chalk_glyph/chalk_glyph"));
         this.getVariantBuilder(block)
                 .forAllStates(state -> {
                     //this is called for every state combination
                     //create a child model for each glyph texture option
                     int sign = state.getValue(ChalkGlyphBlock.SIGN);
                     ModelFile subModel = this.models().getBuilder("block/chalk_glyph/" + sign).parent(parent)
-                                                 .texture("texture", this.modLoc("block/chalk_glyph/" + sign));
+                            .texture("texture", this.modLoc("block/chalk_glyph/" + sign));
 
                     return ConfiguredModel.builder()
-                                   //load the child model
-                                   .modelFile(subModel)
-                                   //
-                                   .rotationY((int) state.getValue(BlockStateProperties.HORIZONTAL_FACING)
-                                                            .toYRot())
-                                   .build();
+                            //load the child model
+                            .modelFile(subModel)
+                            //
+                            .rotationY((int) state.getValue(BlockStateProperties.HORIZONTAL_FACING)
+                                    .toYRot())
+                            .build();
                 });
     }
     //endregion Methods

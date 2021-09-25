@@ -23,9 +23,7 @@
 package com.github.klikli_dev.occultism.common.entity;
 
 import com.github.klikli_dev.occultism.common.advancement.FamiliarTrigger;
-import com.github.klikli_dev.occultism.common.capability.FamiliarSettingsCapability;
 import com.github.klikli_dev.occultism.registry.OccultismAdvancements;
-import com.github.klikli_dev.occultism.registry.OccultismCapabilities;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.nbt.CompoundTag;
@@ -117,7 +115,7 @@ public class DeerFamiliarEntity extends FamiliarEntity {
 
     @Override
     public void ate() {
-        if (this.getRandom().nextDouble() < 0.25){
+        if (this.getRandom().nextDouble() < 0.25) {
             this.spawnAtLocation(OccultismItems.DATURA_SEEDS.get(), 0);
             LivingEntity owner = this.getOwner();
             if (owner instanceof ServerPlayer serverPlayer)

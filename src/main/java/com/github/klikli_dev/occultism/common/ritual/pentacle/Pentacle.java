@@ -25,15 +25,10 @@ package com.github.klikli_dev.occultism.common.ritual.pentacle;
 import com.google.gson.*;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Registry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.SerializationTags;
-import net.minecraft.tags.Tag;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -87,16 +82,6 @@ public class Pentacle {
 //        }
     }
 
-    public String getDescriptionId() {
-        return Util.makeDescriptionId("pentacle", this.rl);
-    }
-
-    public boolean validate(Level level, BlockPos pos) {
-        //TODO: Patchouli
-        // return this.matcher.validate(level, pos) != null;
-        return false;
-    }
-
     public static Pentacle fromJson(ResourceLocation rl, JsonObject json) {
         JsonArray jsonPattern = GsonHelper.getAsJsonArray(json, "pattern");
         JsonObject jsonMapping = GsonHelper.getAsJsonObject(json, "mapping");
@@ -112,6 +97,23 @@ public class Pentacle {
             mappings.put(key, entry.getValue());
         }
         return new Pentacle(rl, pattern, mappings);
+    }
+
+    public static Pentacle fromNetwork(ResourceLocation key, FriendlyByteBuf buffer) {
+        List<String> pattern = new ArrayList<>();
+        Map<Character, JsonElement> mappings = new HashMap<>();
+        int size = buffer.readInt();
+        for (int i = 0; i < size; i++)
+            pattern.add(buffer.readUtf());
+        size = buffer.readInt();
+        JsonParser parser = new JsonParser();
+        for (int i = 0; i < size; i++)
+            mappings.put(buffer.readChar(), parser.parse(buffer.readUtf()));
+        return new Pentacle(key, pattern, mappings);
+    }
+
+    public String getDescriptionId() {
+        return Util.makeDescriptionId("pentacle", this.rl);
     }
 //TODO: Patchouli
 //    public static IStateMatcher parseStateMatcher(JsonElement matcher) {
@@ -158,7 +160,13 @@ public class Pentacle {
 //            throw new JsonSyntaxException("Invalid block " + blockRL);
 //        return PatchouliAPI.get().looseBlockMatcher(block);
 //    }
-    
+
+    public boolean validate(Level level, BlockPos pos) {
+        //TODO: Patchouli
+        // return this.matcher.validate(level, pos) != null;
+        return false;
+    }
+
     public JsonObject toJson() {
         JsonObject json = new JsonObject();
         JsonArray jsonPattern = new JsonArray();
@@ -181,18 +189,5 @@ public class Pentacle {
             buffer.writeChar(entry.getKey());
             buffer.writeUtf(entry.getValue().toString());
         }
-    }
-
-    public static Pentacle fromNetwork(ResourceLocation key, FriendlyByteBuf buffer) {
-        List<String> pattern = new ArrayList<>();
-        Map<Character, JsonElement> mappings = new HashMap<>();
-        int size = buffer.readInt();
-        for (int i = 0; i < size; i++)
-            pattern.add(buffer.readUtf());
-        size = buffer.readInt();
-        JsonParser parser = new JsonParser();
-        for (int i = 0; i < size; i++)
-            mappings.put(buffer.readChar(), parser.parse(buffer.readUtf()));
-        return new Pentacle(key, pattern, mappings);
     }
 }

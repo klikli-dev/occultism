@@ -22,8 +22,8 @@
 
 package com.github.klikli_dev.occultism.common.item.storage;
 
-import com.github.klikli_dev.occultism.api.common.data.GlobalBlockPos;
 import com.github.klikli_dev.occultism.api.common.blockentity.IStorageController;
+import com.github.klikli_dev.occultism.api.common.data.GlobalBlockPos;
 import com.github.klikli_dev.occultism.common.container.storage.StorageRemoteContainer;
 import com.github.klikli_dev.occultism.util.BlockEntityUtil;
 import com.github.klikli_dev.occultism.util.CuriosUtil;
@@ -57,6 +57,22 @@ public class StorageRemoteItem extends Item implements MenuProvider {
         super(properties);
     }
     //endregion Initialization
+
+    public static IStorageController getStorageController(ItemStack stack, Level level) {
+        //Invalid item or cannot not get hold of server instance
+
+        if (stack.isEmpty()) {
+            return null;
+        }
+        //no storage controller linked
+        if (!stack.getOrCreateTag().contains("linkedStorageController"))
+            return null;
+
+        GlobalBlockPos globalPos = GlobalBlockPos.from(stack.getTag().getCompound("linkedStorageController"));
+        BlockEntity blockEntity = BlockEntityUtil.get(level, globalPos);
+
+        return blockEntity instanceof IStorageController ? (IStorageController) blockEntity : null;
+    }
 
     //region Overrides
     @Override
@@ -131,22 +147,6 @@ public class StorageRemoteItem extends Item implements MenuProvider {
         } else {
             return null;
         }
-    }
-
-    public static IStorageController getStorageController(ItemStack stack, Level level) {
-        //Invalid item or cannot not get hold of server instance
-
-        if (stack.isEmpty()) {
-            return null;
-        }
-        //no storage controller linked
-        if (!stack.getOrCreateTag().contains("linkedStorageController"))
-            return null;
-
-        GlobalBlockPos globalPos = GlobalBlockPos.from(stack.getTag().getCompound("linkedStorageController"));
-        BlockEntity blockEntity = BlockEntityUtil.get(level, globalPos);
-
-        return blockEntity instanceof IStorageController ? (IStorageController) blockEntity : null;
     }
 }
 

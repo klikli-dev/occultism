@@ -7,7 +7,8 @@
     {
       "type": "spotlight",
       "item": "occultism:storage_stabilizer_tier2",
-      "text": "This improved stabilizer is inhabited by a $(thing)Djinni$() that supports the dimensional matrix in keeping the storage dimension stable, thus allowing to store even more items."
+      "text": "This improved stabilizer is inhabited by a $(thing)Djinni$() that supports the dimensional matrix in keeping the storage dimension stable, thus allowing to store even more items.",
+
     },
     {
       "type": "occultism:ritual",

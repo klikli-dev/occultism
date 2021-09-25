@@ -38,10 +38,9 @@ public class RainWeatherJob extends ChangeWeatherJob {
 
     //region Overrides
     public void changeWeather() {
-        if(Occultism.SERVER_CONFIG.rituals.enableClearWeatherRitual.get()){
+        if (Occultism.SERVER_CONFIG.rituals.enableClearWeatherRitual.get()) {
             ((ServerLevel) this.entity.level).setWeatherParameters(0, 6000, true, false);
-        }
-        else {
+        } else {
             this.entity.getOwner().sendMessage(new TranslatableComponent("ritual.occultism.disabled"), Util.NIL_UUID);
         }
     }

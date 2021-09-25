@@ -24,17 +24,17 @@ package com.github.klikli_dev.occultism.common.block.otherworld;
 
 import com.github.klikli_dev.occultism.api.common.data.OtherworldBlockTier;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
-import net.minecraft.world.level.block.LeavesBlock;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.Blocks;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.LeavesBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.core.BlockPos;
 
 import javax.annotation.Nullable;
 
@@ -47,7 +47,7 @@ public class OtherworldLeavesNaturalBlock extends LeavesBlock implements IOtherw
     //region Initialization
     public OtherworldLeavesNaturalBlock(Properties properties) {
         super(properties);
-        this.registerDefaultState(this.defaultBlockState().setValue(UNCOVERED,false));
+        this.registerDefaultState(this.defaultBlockState().setValue(UNCOVERED, false));
     }
     //endregion Initialization
 
@@ -69,7 +69,7 @@ public class OtherworldLeavesNaturalBlock extends LeavesBlock implements IOtherw
 
     @Override
     public void playerDestroy(Level worldIn, Player player, BlockPos pos, BlockState state,
-                             @Nullable BlockEntity te, ItemStack stack) {
+                              @Nullable BlockEntity te, ItemStack stack) {
         super.playerDestroy(worldIn, player, pos, IOtherworldBlock.super.getHarvestState(player, state, stack), te,
                 stack);
     }

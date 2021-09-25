@@ -27,13 +27,13 @@ import com.github.klikli_dev.occultism.common.job.SpiritJob;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.registry.OccultismSpiritJobs;
 import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.context.UseOnContext;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.network.chat.TextComponent;
 
 public class SummonDjinniTest extends Item {
 

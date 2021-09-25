@@ -35,6 +35,8 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -42,8 +44,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Inventory;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.WordUtils;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 
 public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScreen<T> {
     //region Fields
@@ -63,61 +63,6 @@ public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScree
         this.imageHeight = 165;
     }
     //endregion Initialization
-
-    //region Overrides
-    @Override
-    public void init() {
-        super.init();
-        this.clearWidgets();
-
-        int labelHeight = 9;
-        LabelWidget nameLabel = new LabelWidget(this.leftPos + 65, this.topPos + 17, false, -1, 2, 0x404040);
-        nameLabel.addLine(TextUtil.formatDemonName(this.spirit.getName().getString()));
-        this.addRenderableWidget(nameLabel);
-
-        int agePercent = (int) Math.floor(this.spirit.getSpiritAge() / (float) this.spirit.getSpiritMaxAge() * 100);
-        LabelWidget ageLabel = new LabelWidget(this.leftPos + 65, this.topPos + 17 + labelHeight + 5, false, -1, 2, 0x404040);
-        ageLabel.addLine(I18n.get(TRANSLATION_KEY_BASE + ".age", agePercent));
-        this.addRenderableWidget(ageLabel);
-
-        String jobID = this.spirit.getJobID();
-        if (!StringUtils.isBlank(jobID)) {
-            jobID = jobID.replace(":", ".");
-            LabelWidget jobLabel = new LabelWidget(this.leftPos + 65,
-                    this.topPos + 17 + labelHeight + 5 + labelHeight + 5 + 5, false, -1, 2, 0x404040);
-
-            String jobText = I18n.get(TRANSLATION_KEY_BASE + ".job", I18n.get("job." + jobID));
-            String[] lines = WordUtils.wrap(jobText, 15, "\n", true).split("[\\r\\n]+", 2);
-            for (String line : lines)
-                jobLabel.addLine(ChatFormatting.ITALIC + line + ChatFormatting.RESET);
-            this.addRenderableWidget(jobLabel);
-
-        }
-    }
-
-    @Override
-    protected void renderLabels(PoseStack pPoseStack, int pMouseX, int pMouseY) {
-        //prevent default labels being rendered
-    }
-
-    @Override
-    protected void renderBg(PoseStack poseStack, float partialTicks, int x, int y) {
-        this.renderBackground(poseStack);
-
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        RenderSystem.setShaderTexture(0, TEXTURE);
-
-        this.blit(poseStack, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight);
-
-        poseStack.pushPose();
-        int scale = 30;
-        drawEntityToGui(poseStack,this.leftPos + 35, this.topPos + 65, scale, this.leftPos + 51 - x,
-                this.topPos + 75 - 50 - y, this.spirit);
-        poseStack.popPose();
-    }
-
-    //endregion Overrides
 
     //region Static Methods
     public static void drawEntityToGui(PoseStack poseStack, int posX, int posY, int scale, float mouseX, float mouseY, LivingEntity entity) {
@@ -156,6 +101,61 @@ public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScree
         entity.xRotO = f4;
         entity.yHeadRotO = f5;
         entity.yHeadRot = f6;
+        poseStack.popPose();
+    }
+
+    //region Overrides
+    @Override
+    public void init() {
+        super.init();
+        this.clearWidgets();
+
+        int labelHeight = 9;
+        LabelWidget nameLabel = new LabelWidget(this.leftPos + 65, this.topPos + 17, false, -1, 2, 0x404040);
+        nameLabel.addLine(TextUtil.formatDemonName(this.spirit.getName().getString()));
+        this.addRenderableWidget(nameLabel);
+
+        int agePercent = (int) Math.floor(this.spirit.getSpiritAge() / (float) this.spirit.getSpiritMaxAge() * 100);
+        LabelWidget ageLabel = new LabelWidget(this.leftPos + 65, this.topPos + 17 + labelHeight + 5, false, -1, 2, 0x404040);
+        ageLabel.addLine(I18n.get(TRANSLATION_KEY_BASE + ".age", agePercent));
+        this.addRenderableWidget(ageLabel);
+
+        String jobID = this.spirit.getJobID();
+        if (!StringUtils.isBlank(jobID)) {
+            jobID = jobID.replace(":", ".");
+            LabelWidget jobLabel = new LabelWidget(this.leftPos + 65,
+                    this.topPos + 17 + labelHeight + 5 + labelHeight + 5 + 5, false, -1, 2, 0x404040);
+
+            String jobText = I18n.get(TRANSLATION_KEY_BASE + ".job", I18n.get("job." + jobID));
+            String[] lines = WordUtils.wrap(jobText, 15, "\n", true).split("[\\r\\n]+", 2);
+            for (String line : lines)
+                jobLabel.addLine(ChatFormatting.ITALIC + line + ChatFormatting.RESET);
+            this.addRenderableWidget(jobLabel);
+
+        }
+    }
+
+    @Override
+    protected void renderLabels(PoseStack pPoseStack, int pMouseX, int pMouseY) {
+        //prevent default labels being rendered
+    }
+
+    //endregion Overrides
+
+    @Override
+    protected void renderBg(PoseStack poseStack, float partialTicks, int x, int y) {
+        this.renderBackground(poseStack);
+
+        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+        RenderSystem.setShaderTexture(0, TEXTURE);
+
+        this.blit(poseStack, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight);
+
+        poseStack.pushPose();
+        int scale = 30;
+        drawEntityToGui(poseStack, this.leftPos + 35, this.topPos + 65, scale, this.leftPos + 51 - x,
+                this.topPos + 75 - 50 - y, this.spirit);
         poseStack.popPose();
     }
 //endregion Static Methods

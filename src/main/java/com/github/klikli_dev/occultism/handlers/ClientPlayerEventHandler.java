@@ -38,13 +38,11 @@ import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-import javax.swing.text.JTextComponent;
-
-import static org.lwjgl.glfw.GLFW.GLFW_PRESS;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+
+import static org.lwjgl.glfw.GLFW.GLFW_PRESS;
 
 @Mod.EventBusSubscriber(modid = Occultism.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
 public class ClientPlayerEventHandler {

@@ -23,8 +23,8 @@
 package com.github.klikli_dev.occultism.common.misc;
 
 import com.github.klikli_dev.occultism.api.common.container.IItemStackComparator;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.item.ItemStack;
 
 import javax.annotation.Nonnull;
 
@@ -51,6 +51,13 @@ public class ItemStackComparator implements IItemStackComparator {
     }
     //endregion Initialization
 
+    //region Static Methods
+    public static ItemStackComparator from(CompoundTag nbt) {
+        ItemStackComparator comparator = new ItemStackComparator();
+        comparator.deserializeNBT(nbt);
+        return !comparator.filterStack.isEmpty() ? comparator : null;
+    }
+
     //region Getter / Setter
     public boolean getMatchNbt() {
         return this.matchNbt;
@@ -63,11 +70,11 @@ public class ItemStackComparator implements IItemStackComparator {
     public ItemStack getFilterStack() {
         return this.filterStack;
     }
+    //endregion Getter / Setter
 
     public void setFilterStack(@Nonnull ItemStack filterStack) {
         this.filterStack = filterStack;
     }
-    //endregion Getter / Setter
 
     //region Overrides
     @Override
@@ -84,18 +91,11 @@ public class ItemStackComparator implements IItemStackComparator {
     public CompoundTag serializeNBT() {
         return this.write(new CompoundTag());
     }
+    //endregion Overrides
 
     @Override
     public void deserializeNBT(CompoundTag nbt) {
         this.read(nbt);
-    }
-    //endregion Overrides
-
-    //region Static Methods
-    public static ItemStackComparator from(CompoundTag nbt) {
-        ItemStackComparator comparator = new ItemStackComparator();
-        comparator.deserializeNBT(nbt);
-        return !comparator.filterStack.isEmpty() ? comparator : null;
     }
     //endregion Static Methods
 

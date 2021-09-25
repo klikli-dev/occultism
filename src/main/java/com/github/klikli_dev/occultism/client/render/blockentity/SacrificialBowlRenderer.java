@@ -46,6 +46,16 @@ public class SacrificialBowlRenderer implements BlockEntityRenderer<SacrificialB
 
     //region Overrides
 
+    //region Static Methods
+    public static float getScale(ItemStack stack) {
+        if (stack.getItem() instanceof BlockItem itemBlock) {
+            if (itemBlock.getBlock() instanceof SpiritAttunedCrystalBlock)
+                return 3.0f;
+        }
+        return 1.0f;
+    }
+    //endregion Overrides
+
     @Override
     public void render(SacrificialBowlBlockEntity blockEntity, float partialTicks, PoseStack poseStack,
                        MultiBufferSource buffer, int combinedLight, int combinedOverlay) {
@@ -76,16 +86,6 @@ public class SacrificialBowlRenderer implements BlockEntityRenderer<SacrificialB
 
             poseStack.popPose();
         });
-    }
-    //endregion Overrides
-
-    //region Static Methods
-    public static float getScale(ItemStack stack) {
-        if (stack.getItem() instanceof BlockItem itemBlock) {
-            if (itemBlock.getBlock() instanceof SpiritAttunedCrystalBlock)
-                return 3.0f;
-        }
-        return 1.0f;
     }
     //endregion Static Methods
 }

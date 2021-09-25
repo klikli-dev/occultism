@@ -24,12 +24,12 @@ package com.github.klikli_dev.occultism.common.item.spirit;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.TranslationKeys;
+import com.github.klikli_dev.occultism.api.common.blockentity.IStorageController;
 import com.github.klikli_dev.occultism.api.common.data.GlobalBlockPos;
 import com.github.klikli_dev.occultism.api.common.data.MachineReference;
 import com.github.klikli_dev.occultism.api.common.data.WorkAreaSize;
 import com.github.klikli_dev.occultism.api.common.item.IHandleItemMode;
 import com.github.klikli_dev.occultism.api.common.item.IIngredientCopyNBT;
-import com.github.klikli_dev.occultism.api.common.blockentity.IStorageController;
 import com.github.klikli_dev.occultism.client.gui.GuiHelper;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.github.klikli_dev.occultism.common.job.ManageMachineJob;
@@ -582,30 +582,30 @@ public class BookOfCallingItem extends Item implements IIngredientCopyNBT, IHand
         }
         //endregion Initialization
 
+        //region Static Methods
+        public static ItemMode get(int value) {
+            return lookup.get(value);
+        }
+
         //region Getter / Setter
         public int getValue() {
             return this.value;
         }
+        //endregion Getter / Setter
 
         public String getDescriptionId() {
             return this.translationKey;
         }
-        //endregion Getter / Setter
 
         //region Overrides
         @Override
         public ItemMode getItemMode() {
             return this;
         }
+        //endregion Overrides
 
         public ItemMode next() {
             return values()[(this.ordinal() + 1) % values().length];
-        }
-        //endregion Overrides
-
-        //region Static Methods
-        public static ItemMode get(int value) {
-            return lookup.get(value);
         }
         //endregion Static Methods
 

@@ -42,35 +42,35 @@ public abstract class SpiritJob implements INBTSerializable<CompoundTag> {
     }
     //endregion Initialization
 
+    //region Static Methods
+    public static SpiritJob from(SpiritEntity entity, CompoundTag nbt) {
+        SpiritJobFactory factory = OccultismSpiritJobs.REGISTRY
+                .getValue(new ResourceLocation(nbt.getString("factoryId")));
+        SpiritJob job = factory.create(entity);
+        job.deserializeNBT(nbt);
+        return job;
+    }
+
     //region Getter / Setter
     public ResourceLocation getFactoryID() {
         return this.factoryId;
     }
+    //endregion Getter / Setter
 
     public void setFactoryId(ResourceLocation factoryId) {
         this.factoryId = factoryId;
     }
-    //endregion Getter / Setter
 
     //region Overrides
     @Override
     public CompoundTag serializeNBT() {
         return this.writeJobToNBT(new CompoundTag());
     }
+    //endregion Overrides
 
     @Override
     public void deserializeNBT(CompoundTag nbt) {
         this.readJobFromNBT(nbt);
-    }
-    //endregion Overrides
-
-    //region Static Methods
-    public static SpiritJob from(SpiritEntity entity, CompoundTag nbt) {
-        SpiritJobFactory factory = OccultismSpiritJobs.REGISTRY
-                                           .getValue(new ResourceLocation(nbt.getString("factoryId")));
-        SpiritJob job = factory.create(entity);
-        job.deserializeNBT(nbt);
-        return job;
     }
     //endregion Static Methods
 

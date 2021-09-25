@@ -23,14 +23,14 @@
 package com.github.klikli_dev.occultism.client.gui;
 
 import com.github.klikli_dev.occultism.Occultism;
-import com.github.klikli_dev.occultism.common.container.DimensionalMineshaftContainer;
 import com.github.klikli_dev.occultism.common.blockentity.DimensionalMineshaftBlockEntity;
-import com.mojang.blaze3d.vertex.PoseStack;
+import com.github.klikli_dev.occultism.common.container.DimensionalMineshaftContainer;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
 public class DimensionalMineshaftScreen extends AbstractContainerScreen<DimensionalMineshaftContainer> {
@@ -71,7 +71,7 @@ public class DimensionalMineshaftScreen extends AbstractContainerScreen<Dimensio
         int miningTime = this.otherworldMiner.miningTime;
         int progress = (int) (18 * (1.0F - (float) miningTime / this.otherworldMiner.maxMiningTime));
         if (progress > 0 && miningTime > 0) {
-            this.blit(stack, this.leftPos + 61, this.topPos + 41, 176, 0, progress+1, 4);
+            this.blit(stack, this.leftPos + 61, this.topPos + 41, 176, 0, progress + 1, 4);
         }
     }
     //endregion Overrides

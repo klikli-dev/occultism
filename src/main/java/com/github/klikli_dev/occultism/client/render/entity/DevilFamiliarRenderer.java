@@ -44,7 +44,7 @@ public class DevilFamiliarRenderer extends MobRenderer<DevilFamiliarEntity, Devi
     @Override
     public void render(DevilFamiliarEntity pEntity, float pEntityYaw, float pPartialTicks, PoseStack pMatrixStack, MultiBufferSource pBuffer, int pPackedLight) {
         pMatrixStack.pushPose();
-        pMatrixStack.translate(0, pEntity.isSitting() && !pEntity.isPartying()  ? 0 : pEntity.getAnimationHeight(pPartialTicks) * 0.08 + 0.3, 0);
+        pMatrixStack.translate(0, pEntity.isSitting() && !pEntity.isPartying() ? 0 : pEntity.getAnimationHeight(pPartialTicks) * 0.08 + 0.3, 0);
         super.render(pEntity, pEntityYaw, pPartialTicks, pMatrixStack, pBuffer, pPackedLight);
         pMatrixStack.popPose();
 

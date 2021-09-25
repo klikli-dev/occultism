@@ -70,38 +70,6 @@ public class MachineReference implements INBTSerializable<CompoundTag> {
     }
     //endregion Initialization
 
-    //region Getter / Setter
-    public Block getBlock() {
-        if (this.cachedBlock == null)
-            this.cachedBlock = ForgeRegistries.BLOCKS.getValue(this.registryName);
-        return this.cachedBlock;
-    }
-
-    public Item getItem() {
-        if (this.cachedItem == null)
-            this.cachedItem = ForgeRegistries.ITEMS.getValue(this.registryName);
-        return this.cachedItem;
-    }
-
-    public ItemStack getItemStack() {
-        if (this.cachedItemStack.isEmpty())
-            this.cachedItemStack = new ItemStack(this.getItem());
-        return this.cachedItemStack;
-    }
-    //endregion Getter / Setter
-
-    //region Overrides
-    @Override
-    public CompoundTag serializeNBT() {
-        return this.write(new CompoundTag());
-    }
-
-    @Override
-    public void deserializeNBT(CompoundTag nbt) {
-        this.read(nbt);
-    }
-    //endregion Overrides
-
     //region Static Methods
     public static MachineReference from(BlockEntity blockEntity) {
         GlobalBlockPos pos = GlobalBlockPos.from(blockEntity);
@@ -121,6 +89,38 @@ public class MachineReference implements INBTSerializable<CompoundTag> {
         MachineReference reference = new MachineReference();
         reference.decode(buf);
         return reference;
+    }
+    //endregion Getter / Setter
+
+    //region Getter / Setter
+    public Block getBlock() {
+        if (this.cachedBlock == null)
+            this.cachedBlock = ForgeRegistries.BLOCKS.getValue(this.registryName);
+        return this.cachedBlock;
+    }
+
+    public Item getItem() {
+        if (this.cachedItem == null)
+            this.cachedItem = ForgeRegistries.ITEMS.getValue(this.registryName);
+        return this.cachedItem;
+    }
+    //endregion Overrides
+
+    public ItemStack getItemStack() {
+        if (this.cachedItemStack.isEmpty())
+            this.cachedItemStack = new ItemStack(this.getItem());
+        return this.cachedItemStack;
+    }
+
+    //region Overrides
+    @Override
+    public CompoundTag serializeNBT() {
+        return this.write(new CompoundTag());
+    }
+
+    @Override
+    public void deserializeNBT(CompoundTag nbt) {
+        this.read(nbt);
     }
     //endregion Static Methods
 

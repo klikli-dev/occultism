@@ -68,6 +68,11 @@ public class SpiritFireBlock extends Block {
 
     //region Overrides
 
+    //region Static Methods
+    private static int getTickCooldown(Random rand) {
+        return 30 + rand.nextInt(10);
+    }
+
     public BlockState updateShape(BlockState pState, Direction pFacing, BlockState pFacingState, LevelAccessor pLevel, BlockPos pCurrentPos, BlockPos pFacingPos) {
         return this.canSurvive(pState, pLevel, pCurrentPos) ? this.defaultBlockState().setValue(FireBlock.AGE, pState.getValue(FireBlock.AGE)) : Blocks.AIR.defaultBlockState();
     }
@@ -212,17 +217,12 @@ public class SpiritFireBlock extends Block {
         }
 
     }
+    //endregion Overrides
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(FireBlock.AGE);
         super.createBlockStateDefinition(builder);
-    }
-    //endregion Overrides
-
-    //region Static Methods
-    private static int getTickCooldown(Random rand) {
-        return 30 + rand.nextInt(10);
     }
 //endregion Static Methods
 

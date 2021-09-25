@@ -35,16 +35,16 @@ public class PossessedEndermanEntity extends EnderMan {
     }
     //endregion Initialization
 
+    //region Static Methods
+    public static AttributeSupplier.Builder createAttributes() {
+        return EnderMan.createAttributes();
+    }
+    //endregion Overrides
+
     //region Overrides
     @Override
     protected boolean shouldDespawnInPeaceful() {
         return false;
-    }
-    //endregion Overrides
-
-    //region Static Methods
-    public static AttributeSupplier.Builder createAttributes() {
-        return EnderMan.createAttributes();
     }
     //endregion Static Methods
 }

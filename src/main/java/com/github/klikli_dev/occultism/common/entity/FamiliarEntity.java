@@ -119,11 +119,6 @@ public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar 
         }
     }
 
-    @Override
-    public void setFamiliarOwner(LivingEntity owner) {
-        this.setOwnerId(owner.getUUID());
-    }
-
     public LivingEntity getOwnerCached() {
         if (this.ownerCached != null)
             return this.ownerCached;
@@ -149,6 +144,11 @@ public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar 
     @Override
     public LivingEntity getFamiliarOwner() {
         return this.getOwnerCached();
+    }
+
+    @Override
+    public void setFamiliarOwner(LivingEntity owner) {
+        this.setOwnerId(owner.getUUID());
     }
 
     public UUID getOwnerId() {
@@ -184,23 +184,22 @@ public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar 
         compound.putBoolean("isSitting", this.isSitting());
     }
 
-    protected void setSitting(boolean b) {
-        this.entityData.set(SITTING, b);
-    }
-
     public boolean isSitting() {
         return this.entityData.get(SITTING);
+    }
+
+    protected void setSitting(boolean b) {
+        this.entityData.set(SITTING, b);
     }
 
     protected static class FollowOwnerGoal extends Goal {
 
         private static final int TELEPORT_ATTEMPTS = 10;
-
-        protected FamiliarEntity entity;
         private final double speed;
-        private int cooldown;
         private final float maxDist;
         private final float minDist;
+        protected FamiliarEntity entity;
+        private int cooldown;
         private LivingEntity owner;
 
         public FollowOwnerGoal(FamiliarEntity entity, double speed, float minDist, float maxDist) {

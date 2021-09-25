@@ -27,23 +27,22 @@ import com.github.klikli_dev.occultism.common.entity.IFamiliar;
 import com.github.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.github.klikli_dev.occultism.util.ItemNBTUtil;
 import com.github.klikli_dev.occultism.util.TextUtil;
+import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.core.Direction;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
@@ -52,7 +51,6 @@ import net.minecraftforge.common.util.LazyOptional;
 import top.theillusivec4.curios.api.CuriosCapability;
 import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.type.capability.ICurio;
-import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -66,7 +64,7 @@ public class FamiliarRingItem extends Item {
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip,
-            TooltipFlag flagIn) {
+                                TooltipFlag flagIn) {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
         if (stack.getOrCreateTag().getBoolean("occupied"))
             tooltip.add(new TranslatableComponent(this.getDescriptionId() + ".tooltip",
@@ -75,7 +73,7 @@ public class FamiliarRingItem extends Item {
 
     @Override
     public InteractionResult interactLivingEntity(ItemStack stack, Player playerIn, LivingEntity target,
-            InteractionHand hand) {
+                                                  InteractionHand hand) {
         if (!playerIn.level.isClientSide && target instanceof IFamiliar) {
             IFamiliar familiar = (IFamiliar) target;
             if ((familiar.getFamiliarOwner() == playerIn || familiar.getFamiliarOwner() == null) && this.getCurio(stack).captureFamiliar(playerIn.level, familiar)) {
@@ -86,7 +84,7 @@ public class FamiliarRingItem extends Item {
                 return InteractionResult.SUCCESS;
             }
         }
-        
+
         return super.interactLivingEntity(stack, playerIn, target, hand);
     }
 
@@ -116,11 +114,11 @@ public class FamiliarRingItem extends Item {
     }
 
     private static class Curio implements ICurio, INBTSerializable<CompoundTag> {
+        private final ItemStack stack;
         private IFamiliar familiar;
         private CompoundTag nbt;
-        private final ItemStack stack;
 
-        private Curio(ItemStack stack){
+        private Curio(ItemStack stack) {
             this.stack = stack;
         }
 
@@ -138,7 +136,7 @@ public class FamiliarRingItem extends Item {
                 EntityType.loadEntityRecursive(this.getFamiliar(level).getEntity().serializeNBT(), level, e -> {
                     e.setPos(player.getX(), player.getY(), player.getZ());
                     //on release overwrite owner -> familiar rings can be used to trade familiars.
-                    ((IFamiliar)e).setFamiliarOwner(player);
+                    ((IFamiliar) e).setFamiliarOwner(player);
                     level.addFreshEntity(e);
                     return e;
                 });
@@ -208,11 +206,11 @@ public class FamiliarRingItem extends Item {
 
     private static class Provider implements ICapabilitySerializable<CompoundTag> {
 
-        private Curio curio;
         private final ItemStack stack;
+        private Curio curio;
         private final LazyOptional<ICurio> instance = LazyOptional.of(this::get);
 
-        public Provider(ItemStack stack){
+        public Provider(ItemStack stack) {
             this.stack = stack;
         }
 

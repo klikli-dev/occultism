@@ -22,15 +22,15 @@
 
 package com.github.klikli_dev.occultism.common.ritual;
 
+import com.github.klikli_dev.occultism.common.blockentity.GoldenSacrificialBowlBlockEntity;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.github.klikli_dev.occultism.common.job.SpiritJob;
-import com.github.klikli_dev.occultism.common.blockentity.GoldenSacrificialBowlBlockEntity;
 import com.github.klikli_dev.occultism.crafting.recipe.RitualRecipe;
 import com.github.klikli_dev.occultism.registry.OccultismSpiritJobs;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.minecraft.core.BlockPos;
 
 public class SummonSpiritWithJobRitual extends SummonRitual {
 
@@ -43,7 +43,7 @@ public class SummonSpiritWithJobRitual extends SummonRitual {
                              Player castingPlayer) {
         super.initSummoned(living, level, goldenBowlPosition, blockEntity, castingPlayer);
 
-        if(living instanceof SpiritEntity spirit) {
+        if (living instanceof SpiritEntity spirit) {
             SpiritJob job = OccultismSpiritJobs.REGISTRY.getValue(this.recipe.getSpiritJobType()).create(spirit);
             job.init();
             spirit.setJob(job);

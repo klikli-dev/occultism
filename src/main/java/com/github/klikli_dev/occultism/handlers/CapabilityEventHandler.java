@@ -28,9 +28,9 @@ import com.github.klikli_dev.occultism.common.capability.FamiliarSettingsCapabil
 import com.github.klikli_dev.occultism.network.MessageSetJumps;
 import com.github.klikli_dev.occultism.network.OccultismPackets;
 import com.github.klikli_dev.occultism.registry.OccultismCapabilities;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
@@ -45,7 +45,7 @@ public class CapabilityEventHandler {
         if (evt.phase == TickEvent.Phase.END) {
             //Reset the double jump capability
             if (evt.player.isOnGround()) {
-                evt.player.getCapability(OccultismCapabilities.DOUBLE_JUMP).ifPresent( cap -> cap.setJumps(0));
+                evt.player.getCapability(OccultismCapabilities.DOUBLE_JUMP).ifPresent(cap -> cap.setJumps(0));
             }
         }
     }

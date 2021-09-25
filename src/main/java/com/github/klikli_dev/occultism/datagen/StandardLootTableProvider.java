@@ -100,10 +100,10 @@ public class StandardLootTableProvider extends BaseLootTableProvider {
             //Guaranteed skeleton skull drop for skeleton
             this.add(OccultismEntities.POSSESSED_SKELETON_TYPE.get(),
                     LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1)).add(
-                            LootItem.lootTableItem(Items.ARROW)
-                                    .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 2.0F)))
-                                    .apply(
-                                            LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 1.0F)))))
+                                    LootItem.lootTableItem(Items.ARROW)
+                                            .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 2.0F)))
+                                            .apply(
+                                                    LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 1.0F)))))
                             .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1)).add(
                                     LootItem.lootTableItem(Items.SKELETON_SKULL)
                                             .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 1.0F)))
@@ -269,8 +269,8 @@ public class StandardLootTableProvider extends BaseLootTableProvider {
                                                                             LootPoolEntryContainer.Builder<?> saplingEntry,
                                                                             float... chances) {
             return this.droppingAlternativeWithSilkTouchOrShears(leavesEntry,
-                    applyExplosionCondition(leaves, saplingEntry)
-                            .when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, chances)))
+                            applyExplosionCondition(leaves, saplingEntry)
+                                    .when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, chances)))
                     .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1))
                             .when(NOT_SILK_TOUCH_OR_SHEARS)
                             .add(applyExplosionDecay(leaves,

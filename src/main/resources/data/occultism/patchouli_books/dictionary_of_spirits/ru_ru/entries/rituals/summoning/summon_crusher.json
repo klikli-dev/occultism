@@ -6,14 +6,16 @@
   "pages": [
     {
       "type": "text",
-      "text": "Дробитель - это дух, призванный измельчать руду в пыль, эффективно удваивая производство металла. Он подберет подходящую руду и сбросит образовавшуюся пыль в мир. Эффект пурпурных частиц и звук дробления указывают на то, что дробилтель работает."
+      "text": "Дробитель - это дух, призванный измельчать руду в пыль, эффективно удваивая производство металла. Он подберет подходящую руду и сбросит образовавшуюся пыль в мир. Эффект пурпурных частиц и звук дробления указывают на то, что дробилтель работает.",
+
     },
     {
       "type": "summoning",
       "heading": "Summoning",
       "pentacle": "$(l:pentacles/summon_foliot)Aviar's Circle$(/l)",
       "activation_item": "occultism:book_of_binding_bound_foliot",
-      "ingredients": "$(li)1x $(item)Copper Ore $()$(li)1x $(item)Iron Ore $()$(li)1x $(item)Silver Ore $()$(li)1x $(item)Gold Ore $()"
+      "ingredients": "$(li)1x $(item)Copper Ore $()$(li)1x $(item)Iron Ore $()$(li)1x $(item)Silver Ore $()$(li)1x $(item)Gold Ore $()",
+
     }
   ]
 }

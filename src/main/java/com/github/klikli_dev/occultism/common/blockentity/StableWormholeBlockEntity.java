@@ -22,28 +22,28 @@
 
 package com.github.klikli_dev.occultism.common.blockentity;
 
-import com.github.klikli_dev.occultism.api.common.data.GlobalBlockPos;
-import com.github.klikli_dev.occultism.api.common.data.SortDirection;
-import com.github.klikli_dev.occultism.api.common.data.SortType;
 import com.github.klikli_dev.occultism.api.common.blockentity.IStorageAccessor;
 import com.github.klikli_dev.occultism.api.common.blockentity.IStorageController;
 import com.github.klikli_dev.occultism.api.common.blockentity.IStorageControllerProxy;
+import com.github.klikli_dev.occultism.api.common.data.GlobalBlockPos;
+import com.github.klikli_dev.occultism.api.common.data.SortDirection;
+import com.github.klikli_dev.occultism.api.common.data.SortType;
 import com.github.klikli_dev.occultism.common.block.storage.StableWormholeBlock;
 import com.github.klikli_dev.occultism.common.container.storage.StableWormholeContainer;
 import com.github.klikli_dev.occultism.registry.OccultismTiles;
 import com.github.klikli_dev.occultism.util.BlockEntityUtil;
-import net.minecraft.world.MenuProvider;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.core.Direction;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.Constants;
@@ -120,7 +120,7 @@ public class StableWormholeBlockEntity extends NetworkedBlockEntity implements I
                     this.linkedStorageControllerPosition);
             if (blockEntity instanceof IStorageController controller)
                 return controller;
-            else if(!this.level.isClientSide){
+            else if (!this.level.isClientSide) {
                 //only reset the storage controller position if we are on logical server -> that means the position is not accessible.
                 //if we are on logical client it simply means we are out of render range, so we do not reset the pos
                 //resetting it would cause issues with e.g. stable wormhole

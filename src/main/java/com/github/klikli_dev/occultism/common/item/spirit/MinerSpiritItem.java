@@ -25,13 +25,13 @@ package com.github.klikli_dev.occultism.common.item.spirit;
 import com.github.klikli_dev.occultism.common.blockentity.DimensionalMineshaftBlockEntity;
 import com.github.klikli_dev.occultism.util.ItemNBTUtil;
 import com.github.klikli_dev.occultism.util.TextUtil;
-import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
 
 import javax.annotation.Nullable;
@@ -45,14 +45,14 @@ public class MinerSpiritItem extends Item {
             ObfuscationReflectionHelper.findField(Item.class, "f_41371_");
 
     //region Fields
-    private final Supplier<Integer>  maxMiningTime;
+    private final Supplier<Integer> maxMiningTime;
     private final Supplier<Integer> rollsPerOperation;
     private final Supplier<Integer> maxDamage;
     private boolean hasInitializedMaxDamage;
     //endregion Fields
 
     //region Initialization
-    public MinerSpiritItem(Properties properties, Supplier<Integer> maxMiningTime, Supplier<Integer>  rollsPerOperation, Supplier<Integer> maxDamage) {
+    public MinerSpiritItem(Properties properties, Supplier<Integer> maxMiningTime, Supplier<Integer> rollsPerOperation, Supplier<Integer> maxDamage) {
         super(properties);
         this.maxMiningTime = maxMiningTime;
         this.rollsPerOperation = rollsPerOperation;
@@ -64,7 +64,7 @@ public class MinerSpiritItem extends Item {
     //region Overrides
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip,
-                               TooltipFlag flagIn) {
+                                TooltipFlag flagIn) {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
         tooltip.add(new TranslatableComponent(this.getDescriptionId() + ".tooltip",
                 TextUtil.formatDemonName(ItemNBTUtil.getBoundSpiritName(stack))));
@@ -72,7 +72,7 @@ public class MinerSpiritItem extends Item {
 
     @Override
     public double getDurabilityForDisplay(ItemStack stack) {
-        if(!this.hasInitializedMaxDamage){
+        if (!this.hasInitializedMaxDamage) {
             this.hasInitializedMaxDamage = true;
             try {
                 maxDamageField.setInt(this, this.maxDamage.get());
@@ -86,7 +86,7 @@ public class MinerSpiritItem extends Item {
     @Override
     public void onCraftedBy(ItemStack stack, Level worldIn, Player playerIn) {
         super.onCraftedBy(stack, worldIn, playerIn);
-        if(!this.hasInitializedMaxDamage){
+        if (!this.hasInitializedMaxDamage) {
             this.hasInitializedMaxDamage = true;
             try {
                 maxDamageField.setInt(this, this.maxDamage.get());

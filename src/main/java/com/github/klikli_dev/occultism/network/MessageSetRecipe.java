@@ -21,17 +21,17 @@
  */
 package com.github.klikli_dev.occultism.network;
 
-import com.github.klikli_dev.occultism.api.common.container.IStorageControllerContainer;
 import com.github.klikli_dev.occultism.api.common.blockentity.IStorageController;
+import com.github.klikli_dev.occultism.api.common.container.IStorageControllerContainer;
 import com.github.klikli_dev.occultism.common.misc.ItemStackComparator;
 import com.github.klikli_dev.occultism.util.StorageUtil;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.inventory.CraftingContainer;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.inventory.CraftingContainer;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.fmllegacy.network.NetworkEvent;
 import net.minecraftforge.items.wrapper.PlayerMainInvWrapper;
@@ -100,8 +100,8 @@ public class MessageSetRecipe extends MessageBase {
 
                 //attempt to get the desired stack from the player inventory
                 ItemStack extractedStack = StorageUtil
-                                                   .extractItem(new PlayerMainInvWrapper(player.getInventory()), comparator,
-                                                           1, true);
+                        .extractItem(new PlayerMainInvWrapper(player.getInventory()), comparator,
+                                1, true);
                 if (extractedStack != null && !extractedStack.isEmpty() && craftMatrix.getItem(slot).isEmpty()) {
                     //if we found the desired stack, extract it for real and place it in the matrix
                     StorageUtil.extractItem(new PlayerMainInvWrapper(player.getInventory()), comparator, 1, false);

@@ -25,14 +25,14 @@ package com.github.klikli_dev.occultism.common.container.storage;
 import com.github.klikli_dev.occultism.registry.OccultismContainers;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.github.klikli_dev.occultism.util.CuriosUtil;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.Container;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.network.FriendlyByteBuf;
 
 public class SatchelContainer extends AbstractContainerMenu {
     //region Fields
@@ -55,6 +55,12 @@ public class SatchelContainer extends AbstractContainerMenu {
     }
     //endregion Initialization
 
+    //region Static Methods
+    public static SatchelContainer createClientContainer(int id, Inventory playerInventory, FriendlyByteBuf buffer) {
+        final int selectedSlot = buffer.readVarInt();
+        return new SatchelContainer(id, playerInventory, new SimpleContainer(SATCHEL_SIZE), selectedSlot);
+    }
+
     //region Overrides
     @Override
     public void broadcastChanges() {
@@ -73,9 +79,9 @@ public class SatchelContainer extends AbstractContainerMenu {
             ItemStack itemstack1 = slot.getItem();
             itemstack = itemstack1.copy();
 
-            if(index >= this.satchelInventory.getContainerSize()) {
+            if (index >= this.satchelInventory.getContainerSize()) {
                 //if putting into satchel, abort if it's another satchel
-                if(itemstack.getItem() == OccultismItems.SATCHEL.get())
+                if (itemstack.getItem() == OccultismItems.SATCHEL.get())
                     return ItemStack.EMPTY;
             }
             //take out of satchel
@@ -92,30 +98,23 @@ public class SatchelContainer extends AbstractContainerMenu {
 
             if (itemstack1.isEmpty()) {
                 slot.set(ItemStack.EMPTY);
-            }
-            else {
+            } else {
                 slot.setChanged();
             }
         }
 
         return itemstack;
     }
+    //endregion Overrides
 
     @Override
     public boolean stillValid(Player player) {
-        if(this.selectedSlot == -1){
+        if (this.selectedSlot == -1) {
             return CuriosUtil.getBackpack(player).getItem() == OccultismItems.SATCHEL.get();
         }
-        if(this.selectedSlot < 0 || this.selectedSlot >= player.getInventory().getContainerSize())
+        if (this.selectedSlot < 0 || this.selectedSlot >= player.getInventory().getContainerSize())
             return false;
         return player.getInventory().getItem(this.selectedSlot).getItem() == OccultismItems.SATCHEL.get();
-    }
-    //endregion Overrides
-
-    //region Static Methods
-    public static SatchelContainer createClientContainer(int id, Inventory playerInventory, FriendlyByteBuf buffer) {
-        final int selectedSlot = buffer.readVarInt();
-        return new SatchelContainer(id, playerInventory, new SimpleContainer(SATCHEL_SIZE), selectedSlot);
     }
     //endregion Static Methods
 

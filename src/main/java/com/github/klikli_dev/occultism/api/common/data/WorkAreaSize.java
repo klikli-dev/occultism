@@ -53,19 +53,19 @@ public enum WorkAreaSize {
     }
     //endregion Initialization
 
+    //region Static Methods
+    public static WorkAreaSize get(int value) {
+        return lookup.get(value);
+    }
+
     //region Getter / Setter
     public int getValue() {
         return this.value;
     }
+    //endregion Getter / Setter
 
     public String getDescriptionId() {
         return this.translationKey;
-    }
-    //endregion Getter / Setter
-
-    //region Static Methods
-    public static WorkAreaSize get(int value) {
-        return lookup.get(value);
     }
     //endregion Static Methods
 

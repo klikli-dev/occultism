@@ -37,8 +37,6 @@ import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fmllegacy.server.ServerLifecycleHooks;
 
-import javax.annotation.Nullable;
-
 public class BlockEntityUtil {
     //region Static Methods
 

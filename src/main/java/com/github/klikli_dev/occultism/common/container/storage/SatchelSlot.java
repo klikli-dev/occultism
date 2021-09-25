@@ -34,7 +34,7 @@ public class SatchelSlot extends Slot {
 
     @Override
     public boolean mayPlace(ItemStack stack) {
-        if(stack.getItem() == OccultismItems.SATCHEL.get())
+        if (stack.getItem() == OccultismItems.SATCHEL.get())
             return false;
         return super.mayPlace(stack);
     }

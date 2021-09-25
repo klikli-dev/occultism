@@ -24,14 +24,13 @@ package com.github.klikli_dev.occultism.client.gui.storage;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.container.storage.SatchelContainer;
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.client.gui.screens.inventory.ContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Inventory;
 
 public class SatchelScreen extends AbstractContainerScreen<SatchelContainer> {
     //region Fields
@@ -66,7 +65,7 @@ public class SatchelScreen extends AbstractContainerScreen<SatchelContainer> {
 
     @Override
     protected void renderBg(PoseStack poseStack, float partialTicks, int mouseX,
-                                                   int mouseY) {
+                            int mouseY) {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShaderTexture(0, BACKGROUND);

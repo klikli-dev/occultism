@@ -22,8 +22,8 @@
 
 package com.github.klikli_dev.occultism.common.block;
 
-import com.github.klikli_dev.occultism.common.ritual.Ritual;
 import com.github.klikli_dev.occultism.common.blockentity.GoldenSacrificialBowlBlockEntity;
+import com.github.klikli_dev.occultism.common.ritual.Ritual;
 import com.github.klikli_dev.occultism.registry.OccultismTiles;
 import com.github.klikli_dev.occultism.util.StorageUtil;
 import net.minecraft.core.BlockPos;
@@ -152,8 +152,8 @@ public class GoldenSacrificialBowlBlock extends Block implements EntityBlock {
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState blockState, BlockEntityType<T> type) {
         return (l, p, s, be) -> {
-          if (be instanceof GoldenSacrificialBowlBlockEntity bowl)
-              bowl.tick();
+            if (be instanceof GoldenSacrificialBowlBlockEntity bowl)
+                bowl.tick();
         };
     }
     //endregion Methods

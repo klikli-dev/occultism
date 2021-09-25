@@ -22,8 +22,8 @@
 
 package com.github.klikli_dev.occultism.common.level.cave;
 
-import net.minecraft.core.Direction;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 
 import java.util.HashMap;
 import java.util.LinkedList;

@@ -127,7 +127,7 @@ public class JeiPlugin implements IModPlugin {
         IStackHelper stackHelper = registration.getJeiHelpers().getStackHelper();
         IRecipeTransferHandlerHelper handlerHelper = registration.getTransferHelper();
         registration.addRecipeTransferHandler(new StorageControllerRecipeTransferHandler<>(
-                StorageControllerContainer.class, CraftingRecipe.class, handlerHelper),
+                        StorageControllerContainer.class, CraftingRecipe.class, handlerHelper),
                 VanillaRecipeCategoryUid.CRAFTING);
         registration.addRecipeTransferHandler(new StorageControllerRecipeTransferHandler<>(
                         StorageRemoteContainer.class, CraftingRecipe.class, handlerHelper),

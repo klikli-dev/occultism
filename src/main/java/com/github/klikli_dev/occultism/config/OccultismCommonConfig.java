@@ -27,10 +27,10 @@ import com.github.klikli_dev.occultism.config.value.CachedFloat;
 import com.github.klikli_dev.occultism.config.value.CachedInt;
 import com.github.klikli_dev.occultism.config.value.CachedObject;
 import com.github.klikli_dev.occultism.registry.OccultismTags;
-import net.minecraft.world.level.block.Block;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.Tag;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.ForgeConfigSpec;
 
@@ -171,15 +171,15 @@ public class OccultismCommonConfig extends ConfigBase {
 
                 this.groveSpawnChance = CachedInt.cache(this,
                         builder.comment(
-                                "The chance for a grove to spawn in a chunk (generates 1/groveSpawnChance chunks on average).")
+                                        "The chance for a grove to spawn in a chunk (generates 1/groveSpawnChance chunks on average).")
                                 .define("groveSpawnChance", 400));
                 this.groveSpawnMin = CachedInt.cache(this,
                         builder.comment(
-                                "The min height for a grove to spawn (applied to the center of the grove, not the floor).")
+                                        "The min height for a grove to spawn (applied to the center of the grove, not the floor).")
                                 .define("groveSpawnMin", 25));
                 this.groveSpawnMax = CachedInt.cache(this,
                         builder.comment(
-                                "The max height for a grove to spawn (applied to the center of the grove, not the ceiling).")
+                                        "The max height for a grove to spawn (applied to the center of the grove, not the ceiling).")
                                 .define("groveSpawnMax", 60));
 
 

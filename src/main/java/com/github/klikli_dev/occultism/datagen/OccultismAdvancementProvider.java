@@ -22,11 +22,17 @@
 
 package com.github.klikli_dev.occultism.datagen;
 
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.HashMap;
-import java.util.Map;
-
+import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.common.advancement.FamiliarTrigger;
+import com.github.klikli_dev.occultism.common.advancement.RitualTrigger;
+import com.github.klikli_dev.occultism.common.advancement.RitualTrigger.RitualPredicate;
+import com.github.klikli_dev.occultism.registry.OccultismItems;
+import com.github.klikli_dev.occultism.registry.OccultismRituals;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import net.minecraft.advancements.Advancement;
+import net.minecraft.advancements.FrameType;
+import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.HashCache;
 import net.minecraft.nbt.IntTag;
@@ -37,18 +43,10 @@ import net.minecraft.world.item.Items;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.github.klikli_dev.occultism.Occultism;
-import com.github.klikli_dev.occultism.common.advancement.FamiliarTrigger;
-import com.github.klikli_dev.occultism.common.advancement.RitualTrigger;
-import com.github.klikli_dev.occultism.common.advancement.RitualTrigger.RitualPredicate;
-import com.github.klikli_dev.occultism.registry.OccultismItems;
-import com.github.klikli_dev.occultism.registry.OccultismRituals;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
-import net.minecraft.advancements.Advancement;
-import net.minecraft.advancements.FrameType;
-import net.minecraft.data.DataGenerator;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.HashMap;
+import java.util.Map;
 
 public class OccultismAdvancementProvider implements DataProvider {
     private static final Logger LOGGER = LogManager.getLogger();
@@ -60,6 +58,23 @@ public class OccultismAdvancementProvider implements DataProvider {
     public OccultismAdvancementProvider(DataGenerator generator) {
         this.generator = generator;
         this.advancements = new HashMap<>();
+    }
+
+    private static TranslatableComponent text(String name, String type) {
+        return new TranslatableComponent("advancements." + Occultism.MODID + ".familiar." + name + "." + type);
+    }
+
+    public static TranslatableComponent title(String name) {
+        return text(name, "title");
+    }
+
+    public static TranslatableComponent descr(String name) {
+        return text(name, "description");
+    }
+
+    private static Path getPath(Path path, Advancement advancement) {
+        ResourceLocation id = advancement.getId();
+        return path.resolve("data/" + id.getNamespace() + "/advancements/" + id.getPath() + ".json");
     }
 
     @Override
@@ -120,18 +135,6 @@ public class OccultismAdvancementProvider implements DataProvider {
                 .build(new ResourceLocation(Occultism.MODID, "occultism/familiar/capture")));
     }
 
-    private static TranslatableComponent text(String name, String type) {
-        return new TranslatableComponent("advancements." + Occultism.MODID + ".familiar." + name + "." + type);
-    }
-
-    public static TranslatableComponent title(String name) {
-        return text(name, "title");
-    }
-
-    public static TranslatableComponent descr(String name) {
-        return text(name, "description");
-    }
-
     private ItemStack icon(int data) {
         ItemStack icon = OccultismItems.ADVANCEMENT_ICON.get().getDefaultInstance();
         icon.addTagElement("CustomModelData", IntTag.valueOf(data));
@@ -143,11 +146,6 @@ public class OccultismAdvancementProvider implements DataProvider {
             throw new IllegalStateException("Duplicate advancement " + advancement.getId());
         this.advancements.put(advancement.getId(), advancement);
         return advancement;
-    }
-
-    private static Path getPath(Path path, Advancement advancement) {
-        ResourceLocation id = advancement.getId();
-        return path.resolve("data/" + id.getNamespace() + "/advancements/" + id.getPath() + ".json");
     }
 
     @Override

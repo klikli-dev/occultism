@@ -66,6 +66,19 @@ public class DoubleJumpEffect extends MobEffect {
     }
     //endregion Initialization
 
+    /**
+     * Gets the amount of jumps provided by the double jump effect on the player, or 0 if there is no double jump effect present.
+     *
+     * @param player the player
+     * @return the max amount of jumps.
+     */
+    public static int getMaxJumps(Player player) {
+        MobEffectInstance effect = player.getEffect(OccultismEffects.DOUBLE_JUMP.get());
+        if (effect != null) {
+            return 1 + effect.getAmplifier();
+        }
+        return 0;
+    }
 
     //region Overrides
     @Override
@@ -82,28 +95,14 @@ public class DoubleJumpEffect extends MobEffect {
         return false;
     }
 
-    @Override
-    public void initializeClient(Consumer<EffectRenderer> consumer) {
-        consumer.accept(EFFECT_RENDERER);
-    }
-
 
     //endregion Overrides
 
     //region Static Methods
 
-    /**
-     * Gets the amount of jumps provided by the double jump effect on the player, or 0 if there is no double jump effect present.
-     *
-     * @param player the player
-     * @return the max amount of jumps.
-     */
-    public static int getMaxJumps(Player player) {
-        MobEffectInstance effect = player.getEffect(OccultismEffects.DOUBLE_JUMP.get());
-        if (effect != null) {
-            return 1 + effect.getAmplifier();
-        }
-        return 0;
+    @Override
+    public void initializeClient(Consumer<EffectRenderer> consumer) {
+        consumer.accept(EFFECT_RENDERER);
     }
     //endregion Static Methods
 }

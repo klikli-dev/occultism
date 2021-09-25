@@ -30,17 +30,17 @@ import com.github.klikli_dev.occultism.network.MessageSetTagFilterText;
 import com.github.klikli_dev.occultism.network.OccultismPackets;
 import com.github.klikli_dev.occultism.util.InputUtil;
 import com.mojang.blaze3d.platform.InputConstants;
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.renderer.GameRenderer;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
-import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraftforge.fmlclient.gui.GuiUtils;
 import org.apache.commons.lang3.StringUtils;
 
@@ -128,7 +128,7 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
         this.tagFilterTextField.setTextColor(Color.WHITE.getRGB());
         this.tagFilterTextField.setFocus(false);
 
-        if (!StringUtils.isBlank(this.getTagFilterText())){
+        if (!StringUtils.isBlank(this.getTagFilterText())) {
             this.tagFilterTextField.setValue(this.getTagFilterText());
         }
     }
@@ -143,7 +143,7 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
 
         poseStack.pushPose();
         int scale = 30;
-        drawEntityToGui(poseStack,this.leftPos + 35, this.topPos + 65, scale, this.leftPos + 51 - x,
+        drawEntityToGui(poseStack, this.leftPos + 35, this.topPos + 65, scale, this.leftPos + 51 - x,
                 this.topPos + 75 - 50 - y, this.spirit);
         poseStack.popPose();
     }
@@ -154,8 +154,8 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
         if (this.filterModeButton.isHovered()) {
             this.tooltip.add(new TranslatableComponent(TRANSLATION_KEY_BASE + ".filter_mode"));
             this.tooltip.add(new TranslatableComponent(TRANSLATION_KEY_BASE + ".filter_mode."
-                                                          + (this.isBlacklist() ? "blacklist" : "whitelist"))
-                                     .withStyle(ChatFormatting.GRAY));
+                    + (this.isBlacklist() ? "blacklist" : "whitelist"))
+                    .withStyle(ChatFormatting.GRAY));
         }
 
         //can't use isHovered here, as it also checks for focus
@@ -187,7 +187,7 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
             }
         }
 
-        if (this.tagFilterTextField.mouseClicked(mouseX, mouseY, mouseButton)){
+        if (this.tagFilterTextField.mouseClicked(mouseX, mouseY, mouseButton)) {
             return true;
         }
         return super.mouseClicked(mouseX, mouseY, mouseButton);
@@ -196,7 +196,7 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
         if (this.tagFilterTextField.isFocused() &&
-            this.tagFilterTextField.keyPressed(keyCode, scanCode, modifiers)) {
+                this.tagFilterTextField.keyPressed(keyCode, scanCode, modifiers)) {
             return true;
         }
 

@@ -29,13 +29,13 @@ import com.github.klikli_dev.occultism.common.entity.ai.ReturnToWorkAreaGoal;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.github.klikli_dev.occultism.exceptions.ItemHandlerMissingException;
 import com.github.klikli_dev.occultism.util.StorageUtil;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.MenuProvider;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.network.chat.Component;
 
 import javax.annotation.Nullable;
 
@@ -79,7 +79,7 @@ public class CleanerJob extends SpiritJob implements MenuProvider {
         ItemStack stack = entity.getItem();
         boolean matches = StorageUtil.matchesFilter(stack,
                 this.entity.getFilterItems().orElseThrow(ItemHandlerMissingException::new)) ||
-                          StorageUtil.matchesFilter(stack, this.entity.getTagFilter());
+                StorageUtil.matchesFilter(stack, this.entity.getTagFilter());
 
         boolean isBlacklist = this.entity.isFilterBlacklist();
         return ((!isBlacklist && matches) || (isBlacklist && !matches));

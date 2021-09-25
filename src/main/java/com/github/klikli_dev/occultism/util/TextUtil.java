@@ -42,8 +42,6 @@ public class TextUtil {
 
     //region Fields
     private static final Map<String, String> MOD_NAME_TO_ID = new HashMap<String, String>();
-    private static boolean modNamesInitialized = false;
-
     private static final String[] SYLLABLE1 = {"Kr", "Ca", "Ra", "Mrok", "Cru", "Ray", "Bre", "Zed", "Drak", "Mor", "Jag", "Mer", "Jar", "Mjol", "Zork", "Mad", "Cry", "Zur", "Creo", "Azak", "Azur", "Rei", "Cro", "Mar", "Luk", "Bar"};
     //KliKli: Obvious :)
     //Xalmas: You know why!
@@ -58,6 +56,7 @@ public class TextUtil {
     private static final String[] SYLLABLE2 = {"air", "ir", "mi", "sor", "mee", "clo", "red", "cra", "ark", "arc", "miri", "lori", "cres", "mur", "zer", "marac", "zoir", "slamar", "salmar", "urak", "tim"};
     private static final String[] SYLLABLE3 = {"d", "ed", "ark", "arc", "es", "er", "der", "tron", "med", "ure", "zur", "cred", "mur", "aeus"};
     private static final Random random = new Random();
+    private static boolean modNamesInitialized = false;
     //endregion Fields
 
     //region Static Methods

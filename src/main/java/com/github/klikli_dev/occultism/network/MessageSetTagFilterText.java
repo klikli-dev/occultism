@@ -23,10 +23,10 @@
 package com.github.klikli_dev.occultism.network;
 
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.Entity;
 import net.minecraftforge.fmllegacy.network.NetworkEvent;
 
 public class MessageSetTagFilterText extends MessageBase {
