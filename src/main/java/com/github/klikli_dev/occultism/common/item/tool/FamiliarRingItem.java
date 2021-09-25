@@ -74,7 +74,7 @@ public class FamiliarRingItem extends Item {
                                                  Hand hand) {
         if (!playerIn.level.isClientSide && target instanceof IFamiliar) {
             IFamiliar familiar = (IFamiliar) target;
-            if ((familiar.getFamiliarOwner() == playerIn || familiar.getFamiliarOwner() == null) && this.getCurio(stack).captureFamiliar(playerIn.level, familiar)) {
+            if ((familiar.getFamiliarOwner() == playerIn || familiar.getFamiliarOwner() == null) && getCurio(stack).captureFamiliar(playerIn.level, familiar)) {
                 OccultismAdvancements.FAMILIAR.trigger(playerIn, FamiliarTrigger.Type.CAPTURE);
                 CompoundNBT tag = stack.getOrCreateTag();
                 tag.putBoolean("occupied", true);
@@ -89,7 +89,7 @@ public class FamiliarRingItem extends Item {
     @Override
     public ActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand handIn) {
         ItemStack stack = playerIn.getItemInHand(handIn);
-        if (!playerIn.level.isClientSide && this.getCurio(stack).releaseFamiliar(playerIn, worldIn)) {
+        if (!playerIn.level.isClientSide && getCurio(stack).releaseFamiliar(playerIn, worldIn)) {
             CompoundNBT tag = stack.getOrCreateTag();
             tag.putBoolean("occupied", false);
             return ActionResult.consume(stack);
@@ -97,7 +97,7 @@ public class FamiliarRingItem extends Item {
         return super.use(worldIn, playerIn, handIn);
     }
 
-    private Curio getCurio(ItemStack stack) {
+    private static Curio getCurio(ItemStack stack) {
         ICurio curio = stack.getCapability(CuriosCapability.ITEM).orElse(null);
         if (curio != null && curio instanceof Curio)
             return (Curio) curio;
@@ -107,6 +107,11 @@ public class FamiliarRingItem extends Item {
     @Override
     public ICapabilityProvider initCapabilities(ItemStack stack, CompoundNBT nbt) {
         return new Provider();
+    }
+    
+    public static IFamiliar getFamiliar(ItemStack stack, World world) {
+        Curio curio = getCurio(stack);
+        return curio == null ? null : curio.getFamiliar(world);
     }
 
     private static class Curio implements ICurio, INBTSerializable<CompoundNBT> {
