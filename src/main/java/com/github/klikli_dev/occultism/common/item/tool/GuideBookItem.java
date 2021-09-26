@@ -51,7 +51,7 @@ public class GuideBookItem extends Item {
     //region Fields
     public static final ResourceLocation GUIDE = new ResourceLocation(Occultism.MODID, "dictionary_of_spirits");
     protected static Field containerItemField =
-            ObfuscationReflectionHelper.findField(Item.class, "craftingRemainingItem");
+            ObfuscationReflectionHelper.findField(Item.class, "field_77700_c");
     //endregion Fields
 
     //region Initialization
