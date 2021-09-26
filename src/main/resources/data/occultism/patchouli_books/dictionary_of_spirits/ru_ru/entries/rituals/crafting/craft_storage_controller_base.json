@@ -7,9 +7,7 @@
     {
       "type": "spotlight",
       "item": "occultism:storage_controller_base",
-      "text": "Основание привода хранения заключает в себе Foliot, ответственного за взаимодействие с элементами в dimensional storage matrix (межпространственной матрице хранения).",
-
-    },
+      "text": "Основание привода хранения заключает в себе Foliot, ответственного за взаимодействие с элементами в dimensional storage matrix (межпространственной матрице хранения)."},
     {
       "type": "occultism:ritual",
       "recipe": "occultism:ritual/craft_storage_controller_base"
