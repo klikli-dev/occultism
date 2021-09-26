@@ -26,6 +26,7 @@ import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.client.model.entity.DragonFamiliarModel;
 import com.github.klikli_dev.occultism.common.entity.DragonFamiliarEntity;
 import com.mojang.blaze3d.matrix.MatrixStack;
+
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
@@ -48,7 +49,8 @@ public class DragonFamiliarRenderer extends MobRenderer<DragonFamiliarEntity, Dr
 
     public DragonFamiliarRenderer(EntityRendererManager renderManagerIn) {
         super(renderManagerIn, new DragonFamiliarModel(), 0.3f);
-        this.addLayer(new DragonStickLayer(this));
+        this.addLayer(new DragonRendering.StickLayer(this));
+        this.addLayer(new DragonRendering.SwordLayer(this));
     }
 
     @Override

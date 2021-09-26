@@ -31,6 +31,7 @@ import com.github.klikli_dev.occultism.common.entity.DevilFamiliarEntity;
 import com.github.klikli_dev.occultism.common.entity.DragonFamiliarEntity;
 import com.github.klikli_dev.occultism.common.entity.GreedyFamiliarEntity;
 import com.github.klikli_dev.occultism.common.entity.OtherworldBirdEntity;
+import com.github.klikli_dev.occultism.common.entity.ThrownSwordEntity;
 import com.github.klikli_dev.occultism.common.entity.possessed.PossessedEndermanEntity;
 import com.github.klikli_dev.occultism.common.entity.possessed.PossessedEndermiteEntity;
 import com.github.klikli_dev.occultism.common.entity.possessed.PossessedSkeletonEntity;
@@ -140,6 +141,12 @@ public class OccultismEntities {
                                          .sized(0.65F, 1F)
                                          .clientTrackingRange(8)
                                          .build(modLoc("blacksmith_familiar").toString()));
+    
+    public static final NonNullLazy<EntityType<ThrownSwordEntity>> THROWN_SWORD_TYPE =
+            NonNullLazy.of(() -> EntityType.Builder.of(ThrownSwordEntity::new, EntityClassification.MISC)
+                                         .sized(0.5F, 0.5F)
+                                         .clientTrackingRange(8)
+                                         .build(modLoc("thrown_sword").toString()));
 
     public static final RegistryObject<EntityType<FoliotEntity>> FOLIOT = ENTITIES.register("foliot", FOLIOT_TYPE::get);
     public static final RegistryObject<EntityType<DjinniEntity>> DJINNI = ENTITIES.register("djinni", DJINNI_TYPE::get);
@@ -174,5 +181,8 @@ public class OccultismEntities {
             ENTITIES.register("dragon_familiar", DRAGON_FAMILIAR_TYPE::get);
     public static final RegistryObject<EntityType<BlacksmithFamiliarEntity>> BLACKSMITH_FAMILIAR =
             ENTITIES.register("blacksmith_familiar", BLACKSMITH_FAMILIAR_TYPE::get);
+    
+    public static final RegistryObject<EntityType<ThrownSwordEntity>> THROWN_SWORD =
+            ENTITIES.register("thrown_sword", THROWN_SWORD_TYPE::get);
     //endregion Fields
 }

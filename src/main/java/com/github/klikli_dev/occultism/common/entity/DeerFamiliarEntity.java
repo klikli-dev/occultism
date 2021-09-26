@@ -70,7 +70,7 @@ public class DeerFamiliarEntity extends FamiliarEntity {
         this.goalSelector.addGoal(2, new LookAtGoal(this, PlayerEntity.class, 8));
         this.goalSelector.addGoal(3, new FollowOwnerGoal(this, 1, 3, 1));
         this.goalSelector.addGoal(4, new EatGrassGoal(this));
-        this.goalSelector.addGoal(5, new DevilFamiliarEntity.AttackGoal(this) {
+        this.goalSelector.addGoal(5, new DevilFamiliarEntity.AttackGoal(this, 5) {
             @Override
             public boolean canUse() {
                 return super.canUse() && hasBlacksmithUpgrade();
