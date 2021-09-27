@@ -60,6 +60,13 @@ public class BlacksmithFamiliarRenderer extends MobRenderer<BlacksmithFamiliarEn
         return TEXTURES;
     }
 
+    @Override
+    protected void setupRotations(BlacksmithFamiliarEntity pEntityLiving, MatrixStack pMatrixStack, float pAgeInTicks,
+            float pRotationYaw, float pPartialTicks) {
+        if (!pEntityLiving.isSitting())
+            super.setupRotations(pEntityLiving, pMatrixStack, pAgeInTicks, pRotationYaw, pPartialTicks);
+    }
+
     private class IngotsLayer extends LayerRenderer<BlacksmithFamiliarEntity, BlacksmithFamiliarModel> {
         public IngotsLayer(IEntityRenderer<BlacksmithFamiliarEntity, BlacksmithFamiliarModel> renderer) {
             super(renderer);
