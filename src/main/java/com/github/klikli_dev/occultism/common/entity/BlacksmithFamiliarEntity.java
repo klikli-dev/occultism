@@ -240,6 +240,8 @@ public class BlacksmithFamiliarEntity extends FamiliarEntity {
                 if (target.canBlacksmithUpgrade()) {
                     target.blacksmithUpgrade();
                     blacksmith.changeIronCount(-UPGRADE_COST);
+                    OccultismAdvancements.FAMILIAR.trigger(blacksmith.getFamiliarOwner(),
+                            FamiliarTrigger.Type.BLACKSMITH_UPGRADE);
                 }
                 target = null;
             }

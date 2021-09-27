@@ -519,6 +519,8 @@
   "advancements.occultism.familiar.root.title": "Occultism: Friends",
   "advancements.occultism.familiar.mans_best_friend.description": "Pet your dragon familiar; and play fetch with it",
   "advancements.occultism.familiar.mans_best_friend.title": "Man's Best Friend",
+  "advancements.occultism.familiar.blacksmith_upgrade.title": "Fully Equipped!",
+  "advancements.occultism.familiar.blacksmith_upgrade.description": "Let your blacksmith familiar upgrade one of your other familiars",  
   "_comment": "Keybinds",
   "key.occultism.category": "Occultism",
   "key.occultism.backpack": "Open Satchel",

@@ -42,6 +42,12 @@
         "minecraft:custom_model_data": 6.0
       },
       "model": "occultism:item/advancement/dragon_icon"
+    },
+    {
+      "predicate": {
+        "minecraft:custom_model_data": 7.0
+      },
+      "model": "occultism:item/advancement/blacksmith_icon"
     }
   ]
 }
