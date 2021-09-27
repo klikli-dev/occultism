@@ -75,11 +75,11 @@ public class ENUSProvider extends LanguageProvider {
     }
 
     private void advancementTitle(String name, String s) {
-        this.add(OccultismAdvancementProvider.title(name).getKey(), s);
+        this.add(OccultismAdvancementProvider.familiar_title(name).getKey(), s);
     }
 
     private void advancementDescr(String name, String s) {
-        this.add(OccultismAdvancementProvider.descr(name).getKey(), s);
+        this.add(OccultismAdvancementProvider.familiar_descr(name).getKey(), s);
 
     }
 

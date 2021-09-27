@@ -1,0 +1,33 @@
+{
+  "parent": "occultism:occultism/root",
+  "display": {
+    "icon": {
+      "item": "occultism:jei_dummy/none"
+    },
+    "title": {
+      "translate": "advancements.occultism.familiar.craft_miner_djinni_ores.title"
+    },
+    "description": {
+      "translate": "advancements.occultism.familiar.craft_miner_djinni_ores.description"
+    },
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false,
+    "hidden": true
+  },
+  "criteria": {
+    "craft_miner_djinni_ores": {
+      "trigger": "occultism:ritual",
+      "conditions": {
+        "ritual_predicate": {
+          "ritual_id": "occultism:ritual/craft_miner_djinni_ores"
+        }
+      }
+    }
+  },
+  "requirements": [
+    [
+      "craft_miner_djinni_ores"
+    ]
+  ]
+}

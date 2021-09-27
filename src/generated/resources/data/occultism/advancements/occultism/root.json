@@ -1,0 +1,29 @@
+{
+  "display": {
+    "icon": {
+      "item": "occultism:jei_dummy/none"
+    },
+    "title": {
+      "translate": "advancements.occultism.root.title"
+    },
+    "description": {
+      "translate": "advancements.occultism.root.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false,
+    "background": "minecraft:textures/gui/advancements/backgrounds/stone.png"
+  },
+  "criteria": {
+    "occultism_present": {
+      "trigger": "minecraft:tick",
+      "conditions": {}
+    }
+  },
+  "requirements": [
+    [
+      "occultism_present"
+    ]
+  ]
+}
