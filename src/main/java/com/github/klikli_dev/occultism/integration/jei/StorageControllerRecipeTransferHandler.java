@@ -73,8 +73,6 @@ public class StorageControllerRecipeTransferHandler<T extends Container & IStora
     @Override
     public IRecipeTransferError transferRecipe(T container, Object recipeObject, IRecipeLayout recipeLayout,
                                                PlayerEntity player, boolean maxTransfer, boolean doTransfer) {
-
-
         IRecipe<?> recipe = (IRecipe<?>) recipeObject;
 
         if (recipe.getId() == null) {
@@ -94,12 +92,13 @@ public class StorageControllerRecipeTransferHandler<T extends Container & IStora
 //        }
 
         //if recipe is in recipe manager send by id, otherwise fallback to ingredient list
-        if (player.getCommandSenderWorld().getRecipeManager().byKey(recipe.getId()).isPresent()) {
-            OccultismPackets.sendToServer(new MessageSetRecipeByID(recipe.getId()));
-        } else {
-            OccultismPackets.sendToServer(new MessageSetRecipe(this.recipeToTag(container, recipeLayout)));
+        if(doTransfer){
+            if (player.getCommandSenderWorld().getRecipeManager().byKey(recipe.getId()).isPresent()) {
+                OccultismPackets.sendToServer(new MessageSetRecipeByID(recipe.getId()));
+            } else {
+                OccultismPackets.sendToServer(new MessageSetRecipe(this.recipeToTag(container, recipeLayout)));
+            }
         }
-
         return null;
     }
     //endregion Overrides
