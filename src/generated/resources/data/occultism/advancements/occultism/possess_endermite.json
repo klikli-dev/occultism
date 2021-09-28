@@ -5,10 +5,10 @@
       "item": "occultism:jei_dummy/none"
     },
     "title": {
-      "translate": "advancements.occultism.familiar.possess_endermite.title"
+      "translate": "advancements.occultism.possess_endermite.title"
     },
     "description": {
-      "translate": "advancements.occultism.familiar.possess_endermite.description"
+      "translate": "advancements.occultism.possess_endermite.description"
     },
     "frame": "task",
     "show_toast": false,

@@ -5,10 +5,10 @@
       "item": "occultism:jei_dummy/none"
     },
     "title": {
-      "translate": "advancements.occultism.familiar.craft_stable_wormhole.title"
+      "translate": "advancements.occultism.craft_stable_wormhole.title"
     },
     "description": {
-      "translate": "advancements.occultism.familiar.craft_stable_wormhole.description"
+      "translate": "advancements.occultism.craft_stable_wormhole.description"
     },
     "frame": "task",
     "show_toast": false,

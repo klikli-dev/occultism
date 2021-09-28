@@ -5,10 +5,10 @@
       "item": "occultism:jei_dummy/none"
     },
     "title": {
-      "translate": "advancements.occultism.familiar.craft_familiar_ring.title"
+      "translate": "advancements.occultism.craft_familiar_ring.title"
     },
     "description": {
-      "translate": "advancements.occultism.familiar.craft_familiar_ring.description"
+      "translate": "advancements.occultism.craft_familiar_ring.description"
     },
     "frame": "task",
     "show_toast": false,

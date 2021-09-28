@@ -5,10 +5,10 @@
       "item": "occultism:jei_dummy/none"
     },
     "title": {
-      "translate": "advancements.occultism.familiar.craft_miner_djinni_ores.title"
+      "translate": "advancements.occultism.craft_miner_djinni_ores.title"
     },
     "description": {
-      "translate": "advancements.occultism.familiar.craft_miner_djinni_ores.description"
+      "translate": "advancements.occultism.craft_miner_djinni_ores.description"
     },
     "frame": "task",
     "show_toast": false,

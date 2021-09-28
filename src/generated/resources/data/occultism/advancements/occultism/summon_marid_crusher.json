@@ -5,10 +5,10 @@
       "item": "occultism:jei_dummy/none"
     },
     "title": {
-      "translate": "advancements.occultism.familiar.summon_marid_crusher.title"
+      "translate": "advancements.occultism.summon_marid_crusher.title"
     },
     "description": {
-      "translate": "advancements.occultism.familiar.summon_marid_crusher.description"
+      "translate": "advancements.occultism.summon_marid_crusher.description"
     },
     "frame": "task",
     "show_toast": false,

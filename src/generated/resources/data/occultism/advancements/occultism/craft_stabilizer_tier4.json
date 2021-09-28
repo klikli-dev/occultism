@@ -5,10 +5,10 @@
       "item": "occultism:jei_dummy/none"
     },
     "title": {
-      "translate": "advancements.occultism.familiar.craft_stabilizer_tier4.title"
+      "translate": "advancements.occultism.craft_stabilizer_tier4.title"
     },
     "description": {
-      "translate": "advancements.occultism.familiar.craft_stabilizer_tier4.description"
+      "translate": "advancements.occultism.craft_stabilizer_tier4.description"
     },
     "frame": "task",
     "show_toast": false,

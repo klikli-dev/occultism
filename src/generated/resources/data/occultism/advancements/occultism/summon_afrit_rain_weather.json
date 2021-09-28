@@ -5,10 +5,10 @@
       "item": "occultism:jei_dummy/none"
     },
     "title": {
-      "translate": "advancements.occultism.familiar.summon_afrit_rain_weather.title"
+      "translate": "advancements.occultism.summon_afrit_rain_weather.title"
     },
     "description": {
-      "translate": "advancements.occultism.familiar.summon_afrit_rain_weather.description"
+      "translate": "advancements.occultism.summon_afrit_rain_weather.description"
     },
     "frame": "task",
     "show_toast": false,

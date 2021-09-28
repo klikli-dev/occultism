@@ -5,10 +5,10 @@
       "item": "occultism:jei_dummy/none"
     },
     "title": {
-      "translate": "advancements.occultism.familiar.familiar_cthulhu.title"
+      "translate": "advancements.occultism.familiar_cthulhu.title"
     },
     "description": {
-      "translate": "advancements.occultism.familiar.familiar_cthulhu.description"
+      "translate": "advancements.occultism.familiar_cthulhu.description"
     },
     "frame": "task",
     "show_toast": false,

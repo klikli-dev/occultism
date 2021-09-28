@@ -5,10 +5,10 @@
       "item": "occultism:jei_dummy/none"
     },
     "title": {
-      "translate": "advancements.occultism.familiar.familiar_greedy.title"
+      "translate": "advancements.occultism.familiar_greedy.title"
     },
     "description": {
-      "translate": "advancements.occultism.familiar.familiar_greedy.description"
+      "translate": "advancements.occultism.familiar_greedy.description"
     },
     "frame": "task",
     "show_toast": false,

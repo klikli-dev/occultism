@@ -5,10 +5,10 @@
       "item": "occultism:jei_dummy/none"
     },
     "title": {
-      "translate": "advancements.occultism.familiar.summon_djinni_night_time.title"
+      "translate": "advancements.occultism.summon_djinni_night_time.title"
     },
     "description": {
-      "translate": "advancements.occultism.familiar.summon_djinni_night_time.description"
+      "translate": "advancements.occultism.summon_djinni_night_time.description"
     },
     "frame": "task",
     "show_toast": false,

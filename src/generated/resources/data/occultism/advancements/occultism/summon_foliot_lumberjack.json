@@ -5,10 +5,10 @@
       "item": "occultism:jei_dummy/none"
     },
     "title": {
-      "translate": "advancements.occultism.familiar.summon_foliot_lumberjack.title"
+      "translate": "advancements.occultism.summon_foliot_lumberjack.title"
     },
     "description": {
-      "translate": "advancements.occultism.familiar.summon_foliot_lumberjack.description"
+      "translate": "advancements.occultism.summon_foliot_lumberjack.description"
     },
     "frame": "task",
     "show_toast": false,

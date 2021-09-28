@@ -1,5 +1,5 @@
 {
-  "parent": "occultism:occultism/familiar/familiars",
+  "parent": "occultism:occultism/familiar/root",
   "display": {
     "icon": {
       "item": "minecraft:stick"
