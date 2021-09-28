@@ -26,10 +26,19 @@ import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.client.model.entity.GreedyFamiliarModel;
 import com.github.klikli_dev.occultism.common.entity.GreedyFamiliarEntity;
 import com.mojang.blaze3d.matrix.MatrixStack;
+
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.FirstPersonRenderer;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
+import net.minecraft.client.renderer.entity.IEntityRenderer;
 import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.client.renderer.entity.layers.LayerRenderer;
+import net.minecraft.client.renderer.model.ItemCameraTransforms;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.vector.Quaternion;
 
 public class GreedyFamiliarRenderer extends MobRenderer<GreedyFamiliarEntity, GreedyFamiliarModel> {
 
@@ -38,6 +47,7 @@ public class GreedyFamiliarRenderer extends MobRenderer<GreedyFamiliarEntity, Gr
 
     public GreedyFamiliarRenderer(EntityRendererManager renderManagerIn) {
         super(renderManagerIn, new GreedyFamiliarModel(), 0.3f);
+        addLayer(new ItemLayer(this));
     }
 
     @Override
@@ -47,7 +57,7 @@ public class GreedyFamiliarRenderer extends MobRenderer<GreedyFamiliarEntity, Gr
 
     @Override
     public void render(GreedyFamiliarEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn,
-                       IRenderTypeBuffer bufferIn, int packedLightIn) {
+            IRenderTypeBuffer bufferIn, int packedLightIn) {
         matrixStackIn.pushPose();
         if (entityIn.isSitting() && !entityIn.isPartying())
             matrixStackIn.translate(0, -0.25, 0);
@@ -55,4 +65,52 @@ public class GreedyFamiliarRenderer extends MobRenderer<GreedyFamiliarEntity, Gr
         matrixStackIn.popPose();
     }
 
+    private static class ItemLayer extends LayerRenderer<GreedyFamiliarEntity, GreedyFamiliarModel> {
+        public ItemLayer(IEntityRenderer<GreedyFamiliarEntity, GreedyFamiliarModel> renderer) {
+            super(renderer);
+        }
+
+        @Override
+        public void render(MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn,
+                GreedyFamiliarEntity entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks,
+                float ageInTicks, float netHeadYaw, float headPitch) {
+            boolean hasBlacksmithUpgrade = entitylivingbaseIn.hasBlacksmithUpgrade();
+            ItemStack offhand = entitylivingbaseIn.getOffhandItem();
+            if (!hasBlacksmithUpgrade && offhand.isEmpty())
+                return;
+            
+            GreedyFamiliarModel model = this.getParentModel();
+            FirstPersonRenderer renderer = Minecraft.getInstance().getItemInHandRenderer();
+            matrixStackIn.pushPose();
+
+            
+            if (hasBlacksmithUpgrade) {
+                model.body.translateAndRotate(matrixStackIn);
+                model.rightArm.translateAndRotate(matrixStackIn);
+
+                matrixStackIn.translate(-0.06, 0.2, -0.1);
+                matrixStackIn.mulPose(new Quaternion(0, 90, -45, true));
+
+                renderer.renderItem(entitylivingbaseIn,
+                        new ItemStack(Items.IRON_PICKAXE), ItemCameraTransforms.TransformType.GROUND, false,
+                        matrixStackIn, bufferIn, packedLightIn);
+                matrixStackIn.popPose();
+            }
+
+            if (!offhand.isEmpty()) {
+                matrixStackIn.pushPose();
+                model.body.translateAndRotate(matrixStackIn);
+                model.leftArm.translateAndRotate(matrixStackIn);
+
+                matrixStackIn.translate(0.06, 0.2, -0.17);
+                matrixStackIn.mulPose(new Quaternion(0, 45, 0, true));
+                float size = 0.75f;
+                matrixStackIn.scale(size, size, size);
+
+                renderer.renderItem(entitylivingbaseIn, offhand,
+                        ItemCameraTransforms.TransformType.GROUND, false, matrixStackIn, bufferIn, packedLightIn);
+                matrixStackIn.popPose();
+            }
+        }
+    }
 }

@@ -85,7 +85,7 @@ public class DevilFamiliarEntity extends FamiliarEntity {
         this.goalSelector.addGoal(1, new SitGoal(this));
         this.goalSelector.addGoal(2, new LookAtGoal(this, PlayerEntity.class, 8));
         this.goalSelector.addGoal(3, new FollowOwnerGoal(this, 1, 3, 1));
-        this.goalSelector.addGoal(4, new AttackGoal(this));
+        this.goalSelector.addGoal(4, new AttackGoal(this, 5));
         this.goalSelector.addGoal(5, new RandomWalkingGoal(this, 1.0D));
         this.goalSelector.addGoal(6, new FollowMobGoal(this, 1, 3, 7));
     }
@@ -175,11 +175,13 @@ public class DevilFamiliarEntity extends FamiliarEntity {
 
         private static final int MAX_COOLDOWN = 20 * 5;
 
-        private final FamiliarEntity entity;
+        protected final FamiliarEntity entity;
+        private final float range;
         private int cooldown = MAX_COOLDOWN;
 
-        public AttackGoal(FamiliarEntity entity) {
+        public AttackGoal(FamiliarEntity entity, float range) {
             this.entity = entity;
+            this.range = range;
         }
 
         @Override
@@ -200,18 +202,23 @@ public class DevilFamiliarEntity extends FamiliarEntity {
         }
 
         private boolean isClose(LivingEntity e) {
-            return e != null && e != this.entity && e.distanceToSqr(this.entity) < 5;
+            return e != null && e != this.entity && e.distanceToSqr(this.entity) < range;
         }
 
         public void start() {
             List<Entity> enemies = this.getNearbyEnemies();
             if (!enemies.isEmpty() && this.entity instanceof DevilFamiliarEntity)
                 OccultismAdvancements.FAMILIAR.trigger(this.entity.getFamiliarOwner(), FamiliarTrigger.Type.DEVIL_FIRE);
+            
+            attack(enemies);
+            this.entity.swing(Hand.MAIN_HAND);
+            this.cooldown = MAX_COOLDOWN;
+        }
+
+        protected void attack(List<Entity> enemies) {
             for (Entity e : enemies) {
                 e.hurt(DamageSource.playerAttack((PlayerEntity) this.entity.getFamiliarOwner()), 4);
             }
-            this.cooldown = MAX_COOLDOWN;
-            this.entity.swing(Hand.MAIN_HAND);
         }
 
         public void stop() {

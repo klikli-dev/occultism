@@ -50,7 +50,7 @@ public interface IFamiliar {
 
     /**
      * Sets the owner entity of this familiar.
-     *
+     * 
      * @param owner the new owner of this familiar
      */
     void setFamiliarOwner(LivingEntity owner);
@@ -73,8 +73,8 @@ public interface IFamiliar {
 
     /***
      * This method is called every tick when this familiar is captured in a
-     * {@link FamiliarRingItem}.
-     * <br><br>
+     * {@link FamiliarRingItem}. <br>
+     * <br>
      * BEWARE: Extra caution has to be taken when using instance variables from the
      * {@link IFamiliar#getEntity} in this method (such as {@link Entity#world}),
      * since their values are no longer updated when the familiar is inside the ring
@@ -100,5 +100,21 @@ public interface IFamiliar {
             return false;
         return owner.getCapability(OccultismCapabilities.FAMILIAR_SETTINGS)
                 .map(cap -> cap.isFamiliarEnabled(this.getEntity().getType())).orElse(false);
+    }
+
+    /***
+     * This method determines if the familiar can be upgraded by the blacksmith familiar.
+     * 
+     * @return True if the familiar can be upgraded, false otherwise.
+     */
+    default boolean canBlacksmithUpgrade() {
+        return false;
+    }
+    
+    /***
+     * Upgrade the familiar by a blacksmith familiar.
+     */
+    default void blacksmithUpgrade() {
+
     }
 }
