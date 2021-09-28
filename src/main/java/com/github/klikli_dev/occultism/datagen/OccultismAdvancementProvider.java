@@ -176,6 +176,11 @@ public class OccultismAdvancementProvider implements IDataProvider {
                     .addCriterion("dragon_pet", FamiliarTrigger.of(FamiliarTrigger.Type.DRAGON_PET))
                     .addCriterion("dragon_fetch", FamiliarTrigger.of(FamiliarTrigger.Type.DRAGON_FETCH))
                     .build(new ResourceLocation(Occultism.MODID, "occultism/familiar/mans_best_friend")));
+            this.add(Advancement.Builder.advancement().parent(root)
+                    .display(this.icon(7), familiar_title("blacksmith_upgrade"), familiar_descr("blacksmith_upgrade"), null, FrameType.TASK,
+                            true, true, false)
+                    .addCriterion("blacksmith_upgrade", FamiliarTrigger.of(FamiliarTrigger.Type.BLACKSMITH_UPGRADE))
+                    .build(new ResourceLocation(Occultism.MODID, "occultism/familiar/blacksmith_upgrade")));
 
             this.addRitualHidden(root, "craft_dimensional_matrix");
             this.addRitualHidden(root, "craft_dimensional_mineshaft");

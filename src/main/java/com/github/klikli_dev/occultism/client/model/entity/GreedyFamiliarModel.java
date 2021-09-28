@@ -26,6 +26,7 @@ import com.github.klikli_dev.occultism.common.entity.GreedyFamiliarEntity;
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
+
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.util.math.MathHelper;
@@ -104,8 +105,8 @@ public class GreedyFamiliarModel extends EntityModel<GreedyFamiliarEntity> {
     }
 
     @Override
-    public void renderToBuffer(MatrixStack matrixStackIn, IVertexBuilder bufferIn, int packedLightIn, int packedOverlayIn,
-                               float red, float green, float blue, float alpha) {
+    public void renderToBuffer(MatrixStack matrixStackIn, IVertexBuilder bufferIn, int packedLightIn,
+            int packedOverlayIn, float red, float green, float blue, float alpha) {
         ImmutableList.of(this.body).forEach((modelRenderer) -> {
             modelRenderer.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
         });
@@ -123,15 +124,25 @@ public class GreedyFamiliarModel extends EntityModel<GreedyFamiliarEntity> {
     private float toRad(float deg) {
         return (float) Math.toRadians(deg);
     }
+    
+    @Override
+    public void prepareMobModel(GreedyFamiliarEntity pEntity, float pLimbSwing, float pLimbSwingAmount,
+            float pPartialTick) {
+        this.leftEar.zRot = -pEntity.getEarRotZ(pPartialTick);
+        this.rightEar.zRot = pEntity.getEarRotZ(pPartialTick);
+        this.leftEar.xRot = pEntity.getEarRotX(pPartialTick);
+        this.rightEar.xRot = pEntity.getEarRotX(pPartialTick);
+    }
 
     @Override
-    public void setupAnim(GreedyFamiliarEntity entityIn, float limbSwing, float limbSwingAmount,
-                          float ageInTicks, float netHeadYaw, float headPitch) {
+    public void setupAnim(GreedyFamiliarEntity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks,
+            float netHeadYaw, float headPitch) {
         this.head.yRot = netHeadYaw * (PI / 180f);
         this.head.xRot = headPitch * (PI / 180f);
         this.head.zRot = 0;
         this.rightArm.zRot = 0;
         this.leftArm.zRot = 0;
+
         if (entityIn.isPartying()) {
             this.rightArm.xRot = MathHelper.cos(ageInTicks + PI) * this.toRad(20) + this.toRad(180);
             this.leftArm.xRot = MathHelper.cos(ageInTicks) * this.toRad(20) + this.toRad(180);
@@ -157,6 +168,8 @@ public class GreedyFamiliarModel extends EntityModel<GreedyFamiliarEntity> {
             this.leftLeg.xRot = MathHelper.cos(limbSwing * 0.5f + PI) * 1.4f * limbSwingAmount;
         }
         this.chest2.xRot = MathHelper.cos(limbSwing * 0.35f + PI) * 0.5f * limbSwingAmount + PI / 12;
-
+        
+        if (entityIn.getTargetBlock().isPresent())
+            this.rightArm.xRot = -this.toRad(100) + MathHelper.cos(limbSwing * 0.5f + PI) * limbSwingAmount;
     }
 }

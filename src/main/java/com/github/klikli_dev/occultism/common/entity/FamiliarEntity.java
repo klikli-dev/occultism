@@ -55,6 +55,8 @@ public abstract class FamiliarEntity extends CreatureEntity implements IFamiliar
 
     private static final DataParameter<Boolean> SITTING = EntityDataManager.defineId(FamiliarEntity.class,
             DataSerializers.BOOLEAN);
+    private static final DataParameter<Boolean> BLACKSMITH_UPGRADE = EntityDataManager.defineId(FamiliarEntity.class,
+            DataSerializers.BOOLEAN);
     private static final DataParameter<Optional<UUID>> OWNER_UNIQUE_ID = EntityDataManager
             .defineId(FamiliarEntity.class, DataSerializers.OPTIONAL_UUID);
 
@@ -85,7 +87,21 @@ public abstract class FamiliarEntity extends CreatureEntity implements IFamiliar
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(SITTING, false);
+        this.entityData.define(BLACKSMITH_UPGRADE, false);
         this.entityData.define(OWNER_UNIQUE_ID, Optional.empty());
+    }
+    
+    public boolean hasBlacksmithUpgrade() {
+        return this.entityData.get(BLACKSMITH_UPGRADE);
+    }
+    
+    private void setBlacksmithUpgrade(boolean b) {
+        this.entityData.set(BLACKSMITH_UPGRADE, b);
+    }
+    
+    @Override
+    public void blacksmithUpgrade() {
+        setBlacksmithUpgrade(true);
     }
 
     @Override
@@ -166,6 +182,7 @@ public abstract class FamiliarEntity extends CreatureEntity implements IFamiliar
             this.setOwnerId(compound.getUUID("owner"));
         if (compound.contains("isSitting"))
             this.setSitting(compound.getBoolean("isSitting"));
+        this.setBlacksmithUpgrade(compound.getBoolean("hasBlacksmithUpgrade"));
     }
 
     @Override
@@ -176,6 +193,7 @@ public abstract class FamiliarEntity extends CreatureEntity implements IFamiliar
         }
 
         compound.putBoolean("isSitting", this.isSitting());
+        compound.putBoolean("hasBlacksmithUpgrade", this.hasBlacksmithUpgrade());
     }
 
     public boolean isSitting() {
