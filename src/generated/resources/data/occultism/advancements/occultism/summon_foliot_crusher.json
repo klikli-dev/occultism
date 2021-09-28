@@ -11,9 +11,9 @@
       "translate": "advancements.occultism.familiar.summon_foliot_crusher.description"
     },
     "frame": "task",
-    "show_toast": true,
-    "announce_to_chat": true,
-    "hidden": false
+    "show_toast": false,
+    "announce_to_chat": false,
+    "hidden": true
   },
   "criteria": {
     "summon_foliot_crusher": {

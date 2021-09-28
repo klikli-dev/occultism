@@ -1,5 +1,5 @@
 {
-  "parent": "occultism:occultism/root",
+  "parent": "occultism:occultism/familiar/familiars",
   "display": {
     "icon": {
       "item": "occultism:familiar_ring"

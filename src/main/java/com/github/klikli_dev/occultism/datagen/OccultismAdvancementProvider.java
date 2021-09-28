@@ -26,6 +26,7 @@ import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.advancement.FamiliarTrigger;
 import com.github.klikli_dev.occultism.common.advancement.RitualTrigger;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
+import com.github.klikli_dev.occultism.registry.OccultismRituals;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import net.minecraft.advancements.Advancement;
@@ -72,17 +73,16 @@ public class OccultismAdvancementProvider implements IDataProvider {
         return text(name, "description");
     }
 
-    private static TranslationTextComponent familiar_text(String name, String type) {
+    private static TranslationTextComponent familiarText(String name, String type) {
         return new TranslationTextComponent("advancements." + Occultism.MODID + ".familiar." + name + "." + type);
     }
 
-
-    public static TranslationTextComponent familiar_title(String name) {
-        return familiar_text(name, "title");
+    public static TranslationTextComponent familiarTitle(String name) {
+        return familiarText(name, "title");
     }
 
-    public static TranslationTextComponent familiar_descr(String name) {
-        return familiar_text(name, "description");
+    public static TranslationTextComponent familiarDescr(String name) {
+        return familiarText(name, "description");
     }
 
         private static Path getPath (Path path, Advancement advancement){
@@ -116,52 +116,62 @@ public class OccultismAdvancementProvider implements IDataProvider {
                             new TickTrigger.Instance(EntityPredicate.AndPredicate.ANY))
                     .build(new ResourceLocation(Occultism.MODID, "occultism/root")));
 
+            Advancement familiars = this.add(Advancement.Builder.advancement()
+                    .display(OccultismItems.JEI_DUMMY_NONE.get(),
+                            title("familiars"),
+                            descr("familiars"),
+                            null, FrameType.TASK, true,
+                            true, false)
+                    .addCriterion("summon_familiar",
+                            new RitualTrigger.Instance(new RitualTrigger.RitualPredicate(null, OccultismRituals.FAMILIAR_RITUAL.getId())))
+                    .build(new ResourceLocation(Occultism.MODID, "occultism/familiar/familiars")));
+
             //Familiar advancements
-            this.add(Advancement.Builder.advancement().parent(root)
-                    .display(this.icon(2), familiar_title("deer"), familiar_descr("deer"), null, FrameType.TASK, true, true, false)
+            this.add(Advancement.Builder.advancement().parent(familiars)
+                    .display(this.icon(2), familiarTitle("deer"), familiarDescr("deer"), null, FrameType.TASK, true, true, false)
                     .addCriterion("deer_poop", FamiliarTrigger.of(FamiliarTrigger.Type.DEER_POOP))
                     .build(new ResourceLocation(Occultism.MODID, "occultism/familiar/deer")));
-            this.add(Advancement.Builder.advancement().parent(root)
-                    .display(this.icon(0), familiar_title("cthulhu"), familiar_descr("cthulhu"), null, FrameType.TASK, true, true, false)
+            this.add(Advancement.Builder.advancement().parent(familiars)
+                    .display(this.icon(0), familiarTitle("cthulhu"), familiarDescr("cthulhu"), null, FrameType.TASK, true, true, false)
                     .addCriterion("cthulhu_sad", FamiliarTrigger.of(FamiliarTrigger.Type.CTHULHU_SAD))
                     .build(new ResourceLocation(Occultism.MODID, "occultism/familiar/cthulhu")));
-            this.add(Advancement.Builder.advancement().parent(root)
-                    .display(this.icon(1), familiar_title("bat"), familiar_descr("bat"), null, FrameType.TASK, true, true, false)
+            this.add(Advancement.Builder.advancement().parent(familiars)
+                    .display(this.icon(1), familiarTitle("bat"), familiarDescr("bat"), null, FrameType.TASK, true, true, false)
                     .addCriterion("bat_eat", FamiliarTrigger.of(FamiliarTrigger.Type.BAT_EAT))
                     .build(new ResourceLocation(Occultism.MODID, "occultism/familiar/bat")));
-            this.add(Advancement.Builder.advancement().parent(root)
-                    .display(this.icon(3), familiar_title("devil"), familiar_descr("devil"), null, FrameType.TASK, true, true, false)
+            this.add(Advancement.Builder.advancement().parent(familiars)
+                    .display(this.icon(3), familiarTitle("devil"), familiarDescr("devil"), null, FrameType.TASK, true, true, false)
                     .addCriterion("devil_fire", FamiliarTrigger.of(FamiliarTrigger.Type.DEVIL_FIRE))
                     .build(new ResourceLocation(Occultism.MODID, "occultism/familiar/devil")));
-            this.add(Advancement.Builder.advancement().parent(root)
-                    .display(this.icon(4), familiar_title("greedy"), familiar_descr("greedy"), null, FrameType.TASK, true, true, false)
+            this.add(Advancement.Builder.advancement().parent(familiars)
+                    .display(this.icon(4), familiarTitle("greedy"), familiarDescr("greedy"), null, FrameType.TASK, true, true, false)
                     .addCriterion("greedy_item", FamiliarTrigger.of(FamiliarTrigger.Type.GREEDY_ITEM))
                     .build(new ResourceLocation(Occultism.MODID, "occultism/familiar/greedy")));
-            this.add(Advancement.Builder.advancement().parent(root)
-                    .display(this.icon(5), familiar_title("rare"), familiar_descr("rare"), null, FrameType.TASK, true, true, false)
+            this.add(Advancement.Builder.advancement().parent(familiars)
+                    .display(this.icon(5), familiarTitle("rare"), familiarDescr("rare"), null, FrameType.TASK, true, true, false)
                     .addCriterion("rare_variant", FamiliarTrigger.of(FamiliarTrigger.Type.RARE_VARIANT))
                     .build(new ResourceLocation(Occultism.MODID, "occultism/familiar/rare")));
-            this.add(Advancement.Builder.advancement().parent(root)
-                    .display(Items.JUKEBOX, familiar_title("party"), familiar_descr("party"), null, FrameType.TASK, true, true, false)
+            this.add(Advancement.Builder.advancement().parent(familiars)
+                    .display(Items.JUKEBOX, familiarTitle("party"), familiarDescr("party"), null, FrameType.TASK, true, true, false)
                     .addCriterion("party", FamiliarTrigger.of(FamiliarTrigger.Type.PARTY))
                     .build(new ResourceLocation(Occultism.MODID, "occultism/familiar/party")));
-            this.add(Advancement.Builder.advancement().parent(root)
-                    .display(OccultismItems.FAMILIAR_RING.get(), familiar_title("capture"), familiar_descr("capture"), null,
+            this.add(Advancement.Builder.advancement().parent(familiars)
+                    .display(OccultismItems.FAMILIAR_RING.get(), familiarTitle("capture"), familiarDescr("capture"), null,
                             FrameType.TASK, true, true, false)
                     .addCriterion("capture", FamiliarTrigger.of(FamiliarTrigger.Type.CAPTURE))
                     .build(new ResourceLocation(Occultism.MODID, "occultism/familiar/capture")));
-            this.add(Advancement.Builder.advancement().parent(root)
-                    .display(Items.GOLD_NUGGET, familiar_title("dragon_nugget"), familiar_descr("dragon_nugget"), null, FrameType.TASK,
+            this.add(Advancement.Builder.advancement().parent(familiars)
+                    .display(Items.GOLD_NUGGET, familiarTitle("dragon_nugget"), familiarDescr("dragon_nugget"), null, FrameType.TASK,
                             true, true, false)
                     .addCriterion("dragon_nugget", FamiliarTrigger.of(FamiliarTrigger.Type.DRAGON_NUGGET))
                     .build(new ResourceLocation(Occultism.MODID, "occultism/familiar/dragon_nugget")));
-            this.add(Advancement.Builder.advancement().parent(root)
-                    .display(this.icon(6), familiar_title("dragon_ride"), familiar_descr("dragon_ride"), null, FrameType.TASK, true, true,
+            this.add(Advancement.Builder.advancement().parent(familiars)
+                    .display(this.icon(6), familiarTitle("dragon_ride"), familiarDescr("dragon_ride"), null, FrameType.TASK, true, true,
                             false)
                     .addCriterion("dragon_ride", FamiliarTrigger.of(FamiliarTrigger.Type.DRAGON_RIDE))
                     .build(new ResourceLocation(Occultism.MODID, "occultism/familiar/dragon_ride")));
-            this.add(Advancement.Builder.advancement().parent(root)
-                    .display(Items.STICK, familiar_title("mans_best_friend"), familiar_descr("mans_best_friend"), null, FrameType.TASK,
+            this.add(Advancement.Builder.advancement().parent(familiars)
+                    .display(Items.STICK, familiarTitle("mans_best_friend"), familiarDescr("mans_best_friend"), null, FrameType.TASK,
                             true, true, false)
                     .addCriterion("dragon_pet", FamiliarTrigger.of(FamiliarTrigger.Type.DRAGON_PET))
                     .addCriterion("dragon_fetch", FamiliarTrigger.of(FamiliarTrigger.Type.DRAGON_FETCH))
@@ -215,7 +225,7 @@ public class OccultismAdvancementProvider implements IDataProvider {
 
         private Advancement addRitualHidden(Advancement parent, String id){
             return this.add(Advancement.Builder.advancement().parent(parent)
-                    .display(OccultismItems.JEI_DUMMY_NONE.get(), familiar_title(id), familiar_descr(id), null, FrameType.TASK,
+                    .display(OccultismItems.JEI_DUMMY_NONE.get(), familiarTitle(id), familiarDescr(id), null, FrameType.TASK,
                             false, false, true)
                     .addCriterion(id, new RitualTrigger.Instance(new RitualTrigger.RitualPredicate(
                             new ResourceLocation("occultism", "ritual/" + id), null)))

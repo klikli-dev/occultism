@@ -1,0 +1,32 @@
+{
+  "display": {
+    "icon": {
+      "item": "occultism:jei_dummy/none"
+    },
+    "title": {
+      "translate": "advancements.occultism.familiars.title"
+    },
+    "description": {
+      "translate": "advancements.occultism.familiars.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "summon_familiar": {
+      "trigger": "occultism:ritual",
+      "conditions": {
+        "ritual_predicate": {
+          "ritual_factory_id": "occultism:familiar"
+        }
+      }
+    }
+  },
+  "requirements": [
+    [
+      "summon_familiar"
+    ]
+  ]
+}

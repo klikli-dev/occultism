@@ -35,52 +35,59 @@ public class ENUSProvider extends LanguageProvider {
     @Override
     protected void addTranslations() {
         this.addAdvancements();
-
-
     }
 
     private void addAdvancements() {
-        this.advancementTitle("root", "Occultism: Friends");
-        this.advancementDescr("root", "Use a ritual to summon a familiar");
+        this.advancementTitle("root", "Occultism");
+        this.advancementDescr("root", "Get spiritual");
 
-        this.advancementTitle("deer", "Demonic Poop");
-        this.advancementDescr("deer", "Observe when your deer familiar poops demon seed");
+        this.advancementTitle("familiars", "Occultism: Friends");
+        this.advancementDescr("familiars", "Use a ritual to summon a familiar");
 
-        this.advancementTitle("cthulhu", "You Monster!");
-        this.advancementDescr("cthulhu", "Make your cthulhu familiar sad");
+        this.familiarAdvancementTitle("deer", "Demonic Poop");
+        this.familiarAdvancementDescr("deer", "Observe when your deer familiar poops demon seed");
 
-        this.advancementTitle("bat", "Cannibalism");
-        this.advancementDescr("bat", "Lure a normal bat near your bat familiar");
+        this.familiarAdvancementTitle("cthulhu", "You Monster!");
+        this.familiarAdvancementDescr("cthulhu", "Make your cthulhu familiar sad");
 
-        this.advancementTitle("devil", "Hellfire");
-        this.advancementDescr("devil", "Command your devil familiar to breath fire");
+        this.familiarAdvancementTitle("bat", "Cannibalism");
+        this.familiarAdvancementDescr("bat", "Lure a normal bat near your bat familiar");
 
-        this.advancementTitle("greedy", "Errand Boy");
-        this.advancementDescr("greedy", "Let your greedy familiar pick something up for you");
+        this.familiarAdvancementTitle("devil", "Hellfire");
+        this.familiarAdvancementDescr("devil", "Command your devil familiar to breath fire");
 
-        this.advancementTitle("rare", "Rare Friend");
-        this.advancementDescr("rare", "Obtain a rare familiar variant");
+        this.familiarAdvancementTitle("greedy", "Errand Boy");
+        this.familiarAdvancementDescr("greedy", "Let your greedy familiar pick something up for you");
 
-        this.advancementTitle("party", "Dance!");
-        this.advancementDescr("party", "Get your familiar to dance");
+        this.familiarAdvancementTitle("rare", "Rare Friend");
+        this.familiarAdvancementDescr("rare", "Obtain a rare familiar variant");
 
-        this.advancementTitle("capture", "Catch them all!");
-        this.advancementDescr("capture", "Trap your familiar in a familiar ring");
+        this.familiarAdvancementTitle("party", "Dance!");
+        this.familiarAdvancementDescr("party", "Get your familiar to dance");
 
-        this.advancementTitle("dragon_nugget", "Deal!");
-        this.advancementDescr("dragon_nugget", "Give a gold nugget to your dragon familiar");
+        this.familiarAdvancementTitle("capture", "Catch them all!");
+        this.familiarAdvancementDescr("capture", "Trap your familiar in a familiar ring");
 
-        this.advancementTitle("dragon_ride", "Working together");
-        this.advancementDescr("dragon_ride", "Let your greedy familiar pick something up while riding a dragon familiar");
+        this.familiarAdvancementTitle("dragon_nugget", "Deal!");
+        this.familiarAdvancementDescr("dragon_nugget", "Give a gold nugget to your dragon familiar");
+
+        this.familiarAdvancementTitle("dragon_ride", "Working together");
+        this.familiarAdvancementDescr("dragon_ride", "Let your greedy familiar pick something up while riding a dragon familiar");
+    }
+
+    private void familiarAdvancementTitle(String name, String s) {
+        this.add(OccultismAdvancementProvider.familiarTitle(name).getKey(), s);
+    }
+
+    private void familiarAdvancementDescr(String name, String s) {
+        this.add(OccultismAdvancementProvider.familiarDescr(name).getKey(), s);
     }
 
     private void advancementTitle(String name, String s) {
-        this.add(OccultismAdvancementProvider.familiar_title(name).getKey(), s);
+        this.add(OccultismAdvancementProvider.title(name).getKey(), s);
     }
 
     private void advancementDescr(String name, String s) {
-        this.add(OccultismAdvancementProvider.familiar_descr(name).getKey(), s);
-
+        this.add(OccultismAdvancementProvider.descr(name).getKey(), s);
     }
-
 }
