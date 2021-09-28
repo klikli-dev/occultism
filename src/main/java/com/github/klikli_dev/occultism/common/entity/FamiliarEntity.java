@@ -58,7 +58,6 @@ public abstract class FamiliarEntity extends CreatureEntity implements IFamiliar
     private static final DataParameter<Optional<UUID>> OWNER_UNIQUE_ID = EntityDataManager
             .defineId(FamiliarEntity.class, DataSerializers.OPTIONAL_UUID);
 
-    private WeakReference<LivingEntity> ownerCached;
     private boolean partying;
     private BlockPos jukeboxPos;
 
@@ -122,14 +121,6 @@ public abstract class FamiliarEntity extends CreatureEntity implements IFamiliar
         }
     }
 
-    public LivingEntity getOwnerCached() {
-        LivingEntity ownerCached = this.ownerCached != null ? this.ownerCached.get() : null;
-        if (ownerCached != null && !ownerCached.isDeadOrDying())
-            return ownerCached;
-        this.ownerCached = new WeakReference<>(this.getOwner());
-        return this.ownerCached.get();
-    }
-
     @Override
     protected ActionResultType mobInteract(PlayerEntity playerIn, Hand hand) {
         ItemStack stack = playerIn.getItemInHand(hand);
@@ -147,7 +138,7 @@ public abstract class FamiliarEntity extends CreatureEntity implements IFamiliar
 
     @Override
     public LivingEntity getFamiliarOwner() {
-        return this.getOwnerCached();
+        return this.getOwner();
     }
 
     @Override
@@ -160,7 +151,6 @@ public abstract class FamiliarEntity extends CreatureEntity implements IFamiliar
     }
 
     private void setOwnerId(UUID id) {
-        this.ownerCached = null;
         this.entityData.set(OWNER_UNIQUE_ID, Optional.ofNullable(id));
     }
 
