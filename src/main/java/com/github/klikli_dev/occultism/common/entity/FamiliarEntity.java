@@ -43,6 +43,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
+import java.lang.ref.WeakReference;
 import java.util.EnumSet;
 import java.util.Optional;
 import java.util.Random;
@@ -57,7 +58,7 @@ public abstract class FamiliarEntity extends CreatureEntity implements IFamiliar
     private static final DataParameter<Optional<UUID>> OWNER_UNIQUE_ID = EntityDataManager
             .defineId(FamiliarEntity.class, DataSerializers.OPTIONAL_UUID);
 
-    private LivingEntity ownerCached;
+    private WeakReference<LivingEntity> ownerCached;
     private boolean partying;
     private BlockPos jukeboxPos;
 
@@ -122,10 +123,11 @@ public abstract class FamiliarEntity extends CreatureEntity implements IFamiliar
     }
 
     public LivingEntity getOwnerCached() {
-        if (this.ownerCached != null)
-            return this.ownerCached;
-        this.ownerCached = this.getOwner();
-        return this.ownerCached;
+        LivingEntity ownerCached = this.ownerCached != null ? this.ownerCached.get() : null;
+        if (ownerCached != null && !ownerCached.isDeadOrDying())
+            return ownerCached;
+        this.ownerCached = new WeakReference<>(this.getOwner());
+        return this.ownerCached.get();
     }
 
     @Override
