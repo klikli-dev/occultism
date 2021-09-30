@@ -184,6 +184,7 @@
   "block.occultism.dimensional_mineshaft": "Dimensional Mineshaft",
   "block.occultism.skeleton_skull_dummy": "Skeleton Skull",
   "block.occultism.wither_skeleton_skull_dummy": "Wither Skeleton Skull",
+  "block.occultism.lighted_air": "Lighted Air",
   "_comment": "Entities",
   "entity.occultism.foliot": "Foliot",
   "entity.occultism.djinni": "Djinni",

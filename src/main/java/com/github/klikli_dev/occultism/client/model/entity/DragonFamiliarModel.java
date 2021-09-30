@@ -420,24 +420,29 @@ public class DragonFamiliarModel extends EntityModel<DragonFamiliarEntity> {
         modelRenderer.zRot = z;
     }
 
-    private static class ColorModelRenderer extends ModelRenderer {
+    public static class ColorModelRenderer extends ModelRenderer {
 
-        float r, g, b;
+        float r, g, b, a;
 
         public ColorModelRenderer(Model model, int texOffX, int texOffY) {
             super(model, texOffX, texOffY);
         }
 
-        private void setColor(float r, float g, float b) {
+        public void setColor(float r, float g, float b) {
+            this.setColor(r, g, b, a);
+        }
+        
+        public void setColor(float r, float g, float b, float a) {
             this.r = r;
             this.g = g;
             this.b = b;
+            this.a = a;
         }
 
         @Override
         public void render(MatrixStack matrixStackIn, IVertexBuilder bufferIn, int packedLightIn, int packedOverlayIn,
                 float red, float green, float blue, float alpha) {
-            super.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, this.r, this.g, this.b, alpha);
+            super.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, this.r, this.g, this.b, this.a);
         }
 
     }
