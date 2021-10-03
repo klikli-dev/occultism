@@ -29,11 +29,15 @@ import com.mojang.blaze3d.vertex.IVertexBuilder;
 
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
+import net.minecraft.util.math.MathHelper;
 
 /**
  * Created using Tabula 8.0.0
  */
 public class GuardianFamiliarModel extends EntityModel<GuardianFamiliarEntity> {
+
+    private static final float PI = (float) Math.PI;
+
     public ModelRenderer body;
     public ModelRenderer bodyLower;
     public ModelRenderer head;
@@ -222,9 +226,30 @@ public class GuardianFamiliarModel extends EntityModel<GuardianFamiliarEntity> {
         modelRenderer.zRot = z;
     }
 
+    private float toRads(float deg) {
+        return PI / 180f * deg;
+    }
+
     @Override
     public void setupAnim(GuardianFamiliarEntity pEntity, float pLimbSwing, float pLimbSwingAmount, float pAgeInTicks,
             float pNetHeadYaw, float pHeadPitch) {
+        showModels(pEntity);
 
+        this.birdHead.yRot = pNetHeadYaw * (PI / 180f) * 0.4f;
+        this.birdHead.xRot = pHeadPitch * (PI / 180f) * 0.4f + toRads(30);
+        this.birdLeftLeg.y = -(MathHelper.sin(pAgeInTicks / 2) + 1) * 0.1f - 0.21f;
+        this.birdRightLeg.y = -(MathHelper.sin(pAgeInTicks / 2 + PI) + 1) * 0.1f - 0.21f;
+        if (pAgeInTicks % 100 < 20) {
+            float wingProgress = pAgeInTicks % 100 % 20;
+            this.birdLeftWing.zRot = toRads(20) + MathHelper.sin(wingProgress / 20 * toRads(360) * 2) * toRads(25);
+            this.birdRightWing.zRot = toRads(-20) - MathHelper.sin(wingProgress / 20 * toRads(360) * 2) * toRads(25);
+        }
+    }
+
+    private void showModels(GuardianFamiliarEntity entity) {
+        boolean hasTree = entity.hasTree();
+        this.tree1.visible = hasTree;
+        this.tree2.visible = hasTree;
+        this.birdBody.visible = entity.hasBird();
     }
 }

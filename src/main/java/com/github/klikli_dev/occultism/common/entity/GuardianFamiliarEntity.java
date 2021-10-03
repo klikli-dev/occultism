@@ -24,11 +24,16 @@ package com.github.klikli_dev.occultism.common.entity;
 
 import java.util.Random;
 
+import com.github.klikli_dev.occultism.common.advancement.FamiliarTrigger;
+import com.github.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.google.common.collect.ImmutableList;
 
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ILivingEntityData;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.ai.goal.LookAtGoal;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
@@ -47,6 +52,12 @@ public class GuardianFamiliarEntity extends FamiliarEntity {
             DataSerializers.FLOAT);
     private static final DataParameter<Float> BLUE = EntityDataManager.defineId(GuardianFamiliarEntity.class,
             DataSerializers.FLOAT);
+    private static final DataParameter<Boolean> TREE = EntityDataManager.defineId(GuardianFamiliarEntity.class,
+            DataSerializers.BOOLEAN);
+    private static final DataParameter<Boolean> BIRD = EntityDataManager.defineId(GuardianFamiliarEntity.class,
+            DataSerializers.BOOLEAN);
+    private static final DataParameter<Boolean> TOOLS = EntityDataManager.defineId(GuardianFamiliarEntity.class,
+            DataSerializers.BOOLEAN);
 
     public GuardianFamiliarEntity(EntityType<? extends GuardianFamiliarEntity> type, World worldIn) {
         super(type, worldIn);
@@ -56,7 +67,22 @@ public class GuardianFamiliarEntity extends FamiliarEntity {
     public ILivingEntityData finalizeSpawn(IServerWorld pLevel, DifficultyInstance pDifficulty, SpawnReason pReason,
             ILivingEntityData pSpawnData, CompoundNBT pDataTag) {
         this.setColor();
+        this.setTree(this.getRandom().nextDouble() < 0.1);
+        this.setBird(this.getRandom().nextDouble() < 0.5);
+        this.setTools(this.getRandom().nextDouble() < 0.5);
         return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
+    }
+    
+    @Override
+    protected void registerGoals() {
+        this.goalSelector.addGoal(2, new LookAtGoal(this, PlayerEntity.class, 8));
+    }
+
+    @Override
+    public void setFamiliarOwner(LivingEntity owner) {
+        if (this.hasTree())
+            OccultismAdvancements.FAMILIAR.trigger(owner, FamiliarTrigger.Type.RARE_VARIANT);
+        super.setFamiliarOwner(owner);
     }
 
     @Override
@@ -65,6 +91,9 @@ public class GuardianFamiliarEntity extends FamiliarEntity {
         this.entityData.define(RED, 0f);
         this.entityData.define(GREEN, 0f);
         this.entityData.define(BLUE, 0f);
+        this.entityData.define(TREE, false);
+        this.entityData.define(BIRD, false);
+        this.entityData.define(TOOLS, false);
     }
 
     private void setColor() {
@@ -112,12 +141,39 @@ public class GuardianFamiliarEntity extends FamiliarEntity {
         this.entityData.set(BLUE, f);
     }
 
+    public boolean hasTree() {
+        return this.entityData.get(TREE);
+    }
+
+    private void setTree(boolean b) {
+        this.entityData.set(TREE, b);
+    }
+
+    public boolean hasBird() {
+        return this.entityData.get(BIRD);
+    }
+
+    private void setBird(boolean b) {
+        this.entityData.set(BIRD, b);
+    }
+
+    public boolean hasTools() {
+        return this.entityData.get(TOOLS);
+    }
+
+    private void setTools(boolean b) {
+        this.entityData.set(TOOLS, b);
+    }
+
     @Override
     public void addAdditionalSaveData(CompoundNBT compound) {
         super.addAdditionalSaveData(compound);
         compound.putFloat("red", getRed());
         compound.putFloat("green", getGreen());
         compound.putFloat("blue", getBlue());
+        compound.putBoolean("hasTree", hasTree());
+        compound.putBoolean("hasBird", hasBird());
+        compound.putBoolean("hasTools", hasTools());
     }
 
     @Override
@@ -126,5 +182,8 @@ public class GuardianFamiliarEntity extends FamiliarEntity {
         this.setRed(compound.getFloat("red"));
         this.setGreen(compound.getFloat("green"));
         this.setBlue(compound.getFloat("blue"));
+        this.setTree(compound.getBoolean("hasTree"));
+        this.setBird(compound.getBoolean("hasBird"));
+        this.setTools(compound.getBoolean("hasTools"));
     }
 }

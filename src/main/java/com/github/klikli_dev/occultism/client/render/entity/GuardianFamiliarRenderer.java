@@ -28,6 +28,8 @@ import com.github.klikli_dev.occultism.common.entity.GuardianFamiliarEntity;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.FirstPersonRenderer;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
@@ -35,8 +37,12 @@ import net.minecraft.client.renderer.entity.IEntityRenderer;
 import net.minecraft.client.renderer.entity.LivingRenderer;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
+import net.minecraft.client.renderer.model.ItemCameraTransforms;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.vector.Quaternion;
 
 public class GuardianFamiliarRenderer extends MobRenderer<GuardianFamiliarEntity, GuardianFamiliarModel> {
 
@@ -46,6 +52,7 @@ public class GuardianFamiliarRenderer extends MobRenderer<GuardianFamiliarEntity
     public GuardianFamiliarRenderer(EntityRendererManager renderManagerIn) {
         super(renderManagerIn, new GuardianFamiliarModel(), 0.3f);
         addLayer(new GuardianFamiliarOverlay(this));
+        addLayer(new ToolsLayer(this));
     }
 
     @Override
@@ -81,6 +88,54 @@ public class GuardianFamiliarRenderer extends MobRenderer<GuardianFamiliarEntity
                         LivingRenderer.getOverlayCoords(entitylivingbaseIn, 0.0F), entitylivingbaseIn.getRed(),
                         entitylivingbaseIn.getGreen(), entitylivingbaseIn.getBlue(),
                         (MathHelper.cos(ageInTicks / 20) + 1) * 0.3f + 0.4f);
+            }
+        }
+    }
+
+    private static class ToolsLayer extends LayerRenderer<GuardianFamiliarEntity, GuardianFamiliarModel> {
+
+        public ToolsLayer(IEntityRenderer<GuardianFamiliarEntity, GuardianFamiliarModel> renderer) {
+            super(renderer);
+        }
+
+        public void render(MatrixStack matrix, IRenderTypeBuffer bufferIn, int light, GuardianFamiliarEntity entity,
+                float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw,
+                float headPitch) {
+            if (entity.isInvisible() || !entity.hasTools())
+                return;
+
+            FirstPersonRenderer itemRenderer = Minecraft.getInstance().getItemInHandRenderer();
+            ItemCameraTransforms.TransformType ground = ItemCameraTransforms.TransformType.GROUND;
+            GuardianFamiliarModel model = this.getParentModel();
+
+            matrix.pushPose();
+            model.body.translateAndRotate(matrix);
+
+            matrix.translate(-0.15, -0.25, -0.25);
+            matrix.mulPose(new Quaternion(0, -60, 0, true));
+
+            itemRenderer.renderItem(entity, new ItemStack(Items.STONE_SWORD), ground, false, matrix, bufferIn, light);
+            matrix.popPose();
+            
+            matrix.pushPose();
+            model.body.translateAndRotate(matrix);
+
+            matrix.translate(-0.15, 0.1, 0.37);
+            matrix.mulPose(new Quaternion(0, 60, -110, true));
+
+            itemRenderer.renderItem(entity, new ItemStack(Items.STONE_AXE), ground, false, matrix, bufferIn, light);
+            matrix.popPose();
+            
+            if (model.leftArm1.visible) {
+                matrix.pushPose();
+                model.body.translateAndRotate(matrix);
+                model.leftArm1.translateAndRotate(matrix);
+
+                matrix.translate(0.21, 0.2, 0);
+                matrix.mulPose(new Quaternion(0, 0, 210, true));
+
+                itemRenderer.renderItem(entity, new ItemStack(Items.STONE_PICKAXE), ground, false, matrix, bufferIn, light);
+                matrix.popPose();
             }
         }
     }
