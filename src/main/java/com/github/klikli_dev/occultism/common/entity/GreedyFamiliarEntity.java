@@ -64,10 +64,12 @@ public class GreedyFamiliarEntity extends FamiliarEntity {
     private static final DataParameter<Optional<BlockPos>> TARGET_BLOCK = EntityDataManager
             .defineId(GreedyFamiliarEntity.class, DataSerializers.OPTIONAL_BLOCK_POS);
 
-    private float earRotZ, earRotZ0, earRotX, earRotX0;
+    private float earRotZ, earRotZ0, earRotX, earRotX0, peekRot, peekRot0, monsterRot, monsterRot0;
+    private int monsterAnimTimer;
 
     public GreedyFamiliarEntity(EntityType<? extends GreedyFamiliarEntity> type, World worldIn) {
         super(type, worldIn);
+        this.monsterAnimTimer = this.getRandom().nextInt(100);
     }
 
     @Override
@@ -148,7 +150,40 @@ public class GreedyFamiliarEntity extends FamiliarEntity {
                 this.earRotX = MathHelper.lerp(0.1f, this.earRotX, 0);
                 this.earRotZ = MathHelper.lerp(0.1f, this.earRotZ, -0.5f);
             }
+
+            this.monsterAnimTimer++;
+            this.peekRot0 = this.peekRot;
+            this.monsterRot0 = this.monsterRot;
+            if (monsterAnimTimer % 300 < 200) {
+                float peekTimer = monsterAnimTimer % 300 % 200;
+                if (peekTimer > 30 && peekTimer < 50)
+                    this.monsterRot = MathHelper.lerp(0.3f, this.monsterRot, toRad(37));
+                else if (peekTimer > 50 && peekTimer < 70)
+                    this.monsterRot = MathHelper.lerp(0.3f, this.monsterRot, toRad(-37));
+                else if (peekTimer > 70)
+                    this.monsterRot = MathHelper.lerp(0.3f, this.monsterRot, 0);
+
+                if (peekTimer < 100)
+                    this.peekRot = MathHelper.lerp(0.1f, this.peekRot, toRad(46));
+                else
+                    this.peekRot = MathHelper.lerp(0.1f, this.peekRot, 0);
+            } else {
+                this.peekRot = 0;
+                this.monsterRot = 0;
+            }
         }
+    }
+
+    private float toRad(float deg) {
+        return (float) Math.toRadians(deg);
+    }
+
+    public float getLidRot(float partialTicks) {
+        return MathHelper.lerp(partialTicks, this.peekRot0, this.peekRot);
+    }
+
+    public float getMonsterRot(float partialTicks) {
+        return MathHelper.lerp(partialTicks, this.monsterRot0, this.monsterRot);
     }
 
     public float getEarRotZ(float partialTicks) {
