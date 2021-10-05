@@ -514,7 +514,7 @@ public abstract class Ritual {
      * @return true if the entity is a valid sacrifice.
      */
     public boolean isValidSacrifice(LivingEntity entity) {
-        return this.recipe.getEntityToSacrifice().contains(entity.getType());
+        return entity != null && this.recipe.requiresSacrifice() && this.recipe.getEntityToSacrifice().contains(entity.getType());
     }
 
     /**
@@ -524,7 +524,7 @@ public abstract class Ritual {
      * @return true if the event represents a valid item use.
      */
     public boolean isValidItemUse(PlayerInteractEvent.RightClickItem event) {
-        return this.recipe.getItemToUse().test(event.getItemStack());
+        return this.recipe.requiresItemUse() && this.recipe.getItemToUse().test(event.getItemStack());
     }
 
     /**
