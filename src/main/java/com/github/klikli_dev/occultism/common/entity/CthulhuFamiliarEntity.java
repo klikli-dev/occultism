@@ -22,9 +22,16 @@
 
 package com.github.klikli_dev.occultism.common.entity;
 
+import java.util.Collections;
+import java.util.EnumSet;
+import java.util.List;
+
 import com.github.klikli_dev.occultism.common.advancement.FamiliarTrigger;
 import com.github.klikli_dev.occultism.registry.OccultismAdvancements;
+import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.google.common.collect.ImmutableList;
+
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.LivingEntity;
@@ -39,6 +46,7 @@ import net.minecraft.entity.ai.goal.LookAtGoal;
 import net.minecraft.entity.ai.goal.RandomWalkingGoal;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.NBTUtil;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
@@ -49,6 +57,7 @@ import net.minecraft.pathfinding.SwimmerPathNavigator;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.DifficultyInstance;
@@ -56,10 +65,6 @@ import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.ForgeMod;
-
-import java.util.Collections;
-import java.util.EnumSet;
-import java.util.List;
 
 public class CthulhuFamiliarEntity extends FamiliarEntity {
 
@@ -74,6 +79,8 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
 
     private final SwimmerPathNavigator waterNavigator;
     private final GroundPathNavigator groundNavigator;
+    private BlockPos lightPos, lightPos0;
+    private int lightTimer;
 
     public CthulhuFamiliarEntity(EntityType<? extends CthulhuFamiliarEntity> type, World worldIn) {
         super(type, worldIn);
@@ -89,7 +96,7 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
 
     @Override
     public ILivingEntityData finalizeSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason,
-                                           ILivingEntityData spawnDataIn, CompoundNBT dataTag) {
+            ILivingEntityData spawnDataIn, CompoundNBT dataTag) {
         this.setHat(this.getRandom().nextDouble() < 0.1);
         this.setTrunk(this.getRandom().nextDouble() < 0.5);
         return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
@@ -110,6 +117,11 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
         if (this.hasHat())
             OccultismAdvancements.FAMILIAR.trigger(owner, FamiliarTrigger.Type.RARE_VARIANT);
         super.setFamiliarOwner(owner);
+    }
+
+    @Override
+    public boolean canBlacksmithUpgrade() {
+        return !hasBlacksmithUpgrade();
     }
 
     @Override
@@ -139,8 +151,7 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
             } else if (source.getEntity() != null) {
                 Vector3d tp = RandomPositionGenerator.getPos(this, 8, 4);
                 if (tp != null) {
-                    this.moveTo(tp.x() + 0.5, tp.y(), tp.z() + 0.5, this.yRot,
-                            this.xRot);
+                    this.moveTo(tp.x() + 0.5, tp.y(), tp.z() + 0.5, this.yRot, this.xRot);
                 }
                 this.navigation.stop();
             }
@@ -154,6 +165,60 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
         super.tick();
         if (this.isAngry() && this.getRandom().nextDouble() < 0.0007)
             this.setAngry(false);
+
+        if (!level.isClientSide) {
+            lightTimer--;
+            if (lightTimer < 0) {
+                lightTimer = 10;
+                if (lightPos == null)
+                    lightPos = blockPosition();
+                updateLight();
+            }
+        }
+    }
+
+    private void updateLight() {
+        removeLight(lightPos0);
+        lightPos0 = null;
+        if (lightPos != blockPosition()) {
+            lightPos0 = lightPos;
+            lightPos = blockPosition();
+        }
+        if (level.isEmptyBlock(lightPos) && isAlive() && hasBlacksmithUpgrade())
+            level.setBlockAndUpdate(lightPos, OccultismBlocks.LIGHTED_AIR.get().defaultBlockState());
+    }
+
+    private void removeLight(BlockPos pos) {
+        if (!level.isClientSide && pos != null
+                && level.getBlockState(pos).getBlock() == OccultismBlocks.LIGHTED_AIR.get())
+            level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
+    }
+
+    @Override
+    protected void removeAfterChangingDimensions() {
+        removeLight(lightPos);
+        removeLight(lightPos0);
+        lightPos = null;
+        lightPos0 = null;
+        super.removeAfterChangingDimensions();
+    }
+
+    @Override
+    public void die(DamageSource pCause) {
+        removeLight(lightPos);
+        removeLight(lightPos0);
+        lightPos = null;
+        lightPos0 = null;
+        super.die(pCause);
+    }
+
+    @Override
+    public void remove() {
+        removeLight(lightPos);
+        removeLight(lightPos0);
+        lightPos = null;
+        lightPos0 = null;
+        super.remove();
     }
 
     @Override
@@ -222,6 +287,10 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
         this.setHat(compound.getBoolean("hasHat"));
         this.setTrunk(compound.getBoolean("hasTrunk"));
         this.setAngry(compound.getBoolean("isAngry"));
+        if (compound.contains("lightPos"))
+            lightPos = NBTUtil.readBlockPos(compound.getCompound("lightPos"));
+        if (compound.contains("lightPos0"))
+            lightPos0 = NBTUtil.readBlockPos(compound.getCompound("lightPos0"));
     }
 
     @Override
@@ -230,6 +299,10 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
         compound.putBoolean("hasHat", this.hasHat());
         compound.putBoolean("hasTrunk", this.hasTrunk());
         compound.putBoolean("isAngry", this.isAngry());
+        if (lightPos != null)
+            compound.put("lightPos", NBTUtil.writeBlockPos(lightPos));
+        if (lightPos0 != null)
+            compound.put("lightPos0", NBTUtil.writeBlockPos(lightPos0));
     }
 
     private static class MoveController extends MovementController {
@@ -245,8 +318,8 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
             if (this.cthulhu.isInWater()) {
                 this.cthulhu.setDeltaMovement(this.cthulhu.getDeltaMovement().add(0, 0.005, 0));
                 if (this.operation == MovementController.Action.MOVE_TO) {
-                    float maxSpeed = (float) (this.speedModifier * this.cthulhu.getAttributeValue(Attributes.MOVEMENT_SPEED))
-                            * 3;
+                    float maxSpeed = (float) (this.speedModifier
+                            * this.cthulhu.getAttributeValue(Attributes.MOVEMENT_SPEED)) * 3;
                     this.cthulhu.setSpeed(MathHelper.lerp(0.125f, this.cthulhu.getSpeed(), maxSpeed));
                     double dx = this.wantedX - this.cthulhu.getX();
                     double dy = this.wantedY - this.cthulhu.getY();
@@ -330,8 +403,8 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
         @Override
         public void tick() {
             if (this.cthulhu.distanceToSqr(this.devil) < 2) {
-                ((ServerWorld) this.cthulhu.level).sendParticles(ParticleTypes.HEART, this.devil.getX(), this.devil.getY() + 1,
-                        this.devil.getZ(), 1, 0, 0, 0, 1);
+                ((ServerWorld) this.cthulhu.level).sendParticles(ParticleTypes.HEART, this.devil.getX(),
+                        this.devil.getY() + 1, this.devil.getZ(), 1, 0, 0, 0, 1);
                 this.devil = null;
             }
         }
