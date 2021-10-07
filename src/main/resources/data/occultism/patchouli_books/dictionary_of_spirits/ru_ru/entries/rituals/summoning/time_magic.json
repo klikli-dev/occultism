@@ -10,24 +10,12 @@
 
     },
     {
-      "type": "summoning",
-      "heading": "Призыв рассвета",
-      "pentacle": "$(l:pentacles/summon_djinni)Ophyx' Calling$(/l)",
-      "activation_item": "occultism:book_of_binding_bound_djinni",
-      "ingredients": "$(li)1x $(item)Torch $()$(li)1x $(item)Any Sapling $()$(li)1x $(item)Wheat $()$(li)1x $(item)Any Yellow Dye $()",
-
+      "type": "occultism:ritual",
+      "recipe": "occultism:ritual/summon_djinni_day_time"
     },
     {
-      "type": "summoning",
-      "heading": "Призыв сумерек",
-      "pentacle": "$(l:pentacles/summon_djinni)Ophyx' Calling$(/l)",
-      "activation_item": "occultism:book_of_binding_bound_djinni",
-      "ingredients": "$(li)1x $(item)Any Bed $()$(li)1x $(item)Rotten Flesh $()$(li)1x $(item)Bone $()$(li)1x $(item)Any Black Dye $()",
-
-    },
-    {
-      "type": "empty",
-      "draw_filler": false
+      "type": "occultism:ritual",
+      "recipe": "occultism:ritual/summon_djinni_night_time"
     }
   ]
 }

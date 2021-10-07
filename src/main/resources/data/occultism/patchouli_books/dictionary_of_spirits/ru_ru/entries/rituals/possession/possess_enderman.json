@@ -10,22 +10,13 @@
       "text": "Дроп: 1-3x $(item)Ender Pearl$()  (Жемчуг края)"
     },
     {
-      "type": "summoning_sacrifice",
-      "heading": "Summoning",
-      "pentacle": "$(l:pentacles/possess_djinni)Ihagan's Enthrallment$(/l)",
-      "activation_item": "occultism:book_of_binding_bound_djinni",
-      "sacrifice": "Pig",
-      "ingredients": "$(li)1x $(item)Bone $()$(li)1x $(item)String  $()$(li)1x $(item)End Stone  $()$(li)1x $(item)Rotten Flesh  $()",
-
+      "type": "occultism:ritual",
+      "recipe": "occultism:ritual/possess_enderman"
     },
     {
       "type": "text",
       "text": "В этом ритуале $(thing)Enderman$() порождается с использованием жизненной энергии $(thing)pig$() (свиньи)и им немедленно овладевает вызванным $(thing)Djinni$() (Джин). Этот $(thing)Possessed Enderman$() (одержимый эндермен) дропает хотя бы 1 $(item)Ender Pearl$() после убийства.",
 
-    },
-    {
-      "type": "text",
-      "text": ""
     }
   ]
 }

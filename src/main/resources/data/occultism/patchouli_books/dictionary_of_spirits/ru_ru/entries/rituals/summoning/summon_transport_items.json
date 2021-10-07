@@ -10,12 +10,8 @@
 
     },
     {
-      "type": "summoning",
-      "heading": "Summoning",
-      "pentacle": "$(l:pentacles/summon_foliot)Aviar's Circle$(/l)",
-      "activation_item": "occultism:book_of_binding_bound_foliot",
-      "ingredients": "$(li)1x $(item)Minecart $()$(li)1x $(item)Chest $()$(li)1x $(item)Dispenser $()$(li)1x $(item)Hopper $()",
-
+      "type": "occultism:ritual",
+      "recipe": "occultism:ritual/summon_foliot_transport_items"
     }
   ]
 }

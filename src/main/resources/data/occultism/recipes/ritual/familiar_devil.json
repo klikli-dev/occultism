@@ -28,16 +28,16 @@
       "item": "minecraft:lava_bucket"
     },
     {
-      "item": "minecraft:bone"
+      "tag": "forge:bones"
     },
     {
-      "item": "minecraft:bone"
+      "tag": "forge:bones"
     },
     {
-      "item": "minecraft:bone"
+      "tag": "forge:bones"
     },
     {
-      "item": "minecraft:bone"
+      "tag": "forge:bones"
     }
   ],
   "result": {

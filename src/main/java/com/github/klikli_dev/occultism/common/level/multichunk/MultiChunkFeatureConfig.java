@@ -33,13 +33,13 @@ public class MultiChunkFeatureConfig implements FeatureConfiguration {
 
     //region Fields
     public static final Codec<BiomeDictionary.Type> BIOME_TYPE_CODEC = RecordCodecBuilder.create((kind1) -> {
-        //field_237127_c_ = codec
+        //CODEC = codec
         return kind1.group(
                 Codec.STRING.fieldOf("name").forGetter(BiomeDictionary.Type::getName)
         ).apply(kind1, BiomeDictionary.Type::getType);
     });
     public static final Codec<MultiChunkFeatureConfig> CODEC = RecordCodecBuilder.create((kind1) -> {
-        //field_237127_c_ = codec
+        //CODEC = codec
         return kind1.group(
                 Codec.intRange(0, 16).fieldOf("max_chunks_to_root").forGetter((config) -> {
                     return config.maxChunksToRoot;

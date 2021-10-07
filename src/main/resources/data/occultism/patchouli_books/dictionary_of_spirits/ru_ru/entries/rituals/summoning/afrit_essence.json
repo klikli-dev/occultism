@@ -10,13 +10,8 @@
 
     },
     {
-      "type": "summoning_sacrifice",
-      "heading": "Unbound Afrit",
-      "pentacle": "$(l:pentacles/summon_wild_afrit)Abras' Open Conjure$(/l)",
-      "activation_item": "occultism:book_of_binding_bound_afrit",
-      "sacrifice": "Cow",
-      "ingredients": "$(li)1x $(item)Netherrack $()$(li)1x $(item)Netherquartz $()$(li)1x $(item)Flint and Steel $()$(li)1x $(item)Gunpowder $()",
-
+      "type": "occultism:ritual",
+      "recipe": "occultism:ritual/summon_wild_afrit"
     }
   ]
 }

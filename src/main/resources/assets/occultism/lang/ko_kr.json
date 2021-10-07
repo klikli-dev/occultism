@@ -326,7 +326,7 @@
   "_comment": "Network",
   "_comment": "# Messages",
   "network.messages.occultism.request_order.order_received": "Order received!",
-  "_comment": "MobEffects",
+  "_comment": "Effects",
   "effect.occultism.third_eye": "제3의 눈",
   "effect.occultism.double_jump": "다중 점프",
   "_comment": "Sounds",

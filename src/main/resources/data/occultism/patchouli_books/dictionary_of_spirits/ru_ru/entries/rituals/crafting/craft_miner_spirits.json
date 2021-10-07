@@ -16,10 +16,6 @@
 
     },
     {
-      "type": "summoning",
-      "heading": "Foliot Miner",
-      "pentacle": "$(l:pentacles/craft_foliot)Eziveus' Spectral Compulsion$(/l)",
-    {
       "type": "occultism:ritual",
       "recipe": "occultism:ritual/craft_miner_foliot_unspecialized"
     },
@@ -32,10 +28,6 @@
     {
       "type": "occultism:ritual",
       "recipe": "occultism:ritual/craft_miner_djinni_ores"
-    },
-    {
-      "type": "empty",
-      "draw_filler": false
     }
   ]
 }

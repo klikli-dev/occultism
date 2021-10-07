@@ -18,11 +18,7 @@
     },
     {
       "type": "occultism:ritual",
-      "recipe": "occultism:ritual/craft_otherworld_goggles"
-    },
-    {
-      "type": "empty",
-      "draw_filler": false
+      "recipe": "occultism:ritual/craft_infused_lenses"
     }
   ]
 }

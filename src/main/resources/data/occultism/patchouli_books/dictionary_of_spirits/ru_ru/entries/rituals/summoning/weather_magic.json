@@ -10,29 +10,16 @@
 
     },
     {
-      "type": "summoning",
-      "heading": "Ясная погода",
-      "pentacle": "$(l:pentacles/summon_djinni)Ophyx' Calling$(/l)",
-      "activation_item": "occultism:book_of_binding_bound_djinni",
-      "ingredients": "$(li)1x $(item)Beetroot $()$(li)1x $(item)Potato $()$(li)1x $(item)Carrot $()$(li)1x $(item)Wheat $()",
-
+      "type": "occultism:ritual",
+      "recipe": "occultism:ritual/summon_djinni_clear_weather"
     },
     {
-      "type": "summoning_sacrifice",
-      "heading": "Дождливая погода",
-      "pentacle": "$(l:pentacles/summon_afrit)Abras' Conjure$(/l)",
-      "activation_item": "occultism:book_of_binding_bound_afrit",
-      "sacrifice": "Cow",
-      "ingredients": "$(li)1x $(item)Dead Bush $()$(li)1x $(item)Cactus $()$(li)1x $(item)Sand $()$(li)1x $(item)Diamond $()",
-
+      "type": "occultism:ritual",
+      "recipe": "occultism:ritual/summon_afrit_rain_weather"
     },
     {
-      "type": "summoning_sacrifice",
-      "heading": "Гроза",
-      "pentacle": "$(l:pentacles/summon_afrit)Abras' Conjure$(/l)",
-      "activation_item": "occultism:book_of_binding_bound_afrit",
-      "sacrifice": "Cow",
-      "ingredients": "$(li)1x $(item)Ghast Tear $()$(li)2x $(item)Gunpowder $()$(li)1x $(item)Bone $()"
+      "type": "occultism:ritual",
+      "recipe": "occultism:ritual/summon_afrit_thunder_weather"
     }
   ]
 }

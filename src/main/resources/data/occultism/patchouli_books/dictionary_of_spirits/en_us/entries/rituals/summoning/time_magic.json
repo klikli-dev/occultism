@@ -16,10 +16,6 @@
     {
       "type": "occultism:ritual",
       "recipe": "occultism:ritual/summon_djinni_night_time"
-    },
-    {
-      "type": "empty",
-      "draw_filler": false
     }
   ]
 }

@@ -264,10 +264,13 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
             if (this.currentRecipe == null)
                 break;
 
-            result = this.currentRecipe.assemble(this.matrix);
+            ItemStack newResult = this.currentRecipe.assemble(this.matrix).copy();
+            if (newResult.getItem() != result.getItem())
+                break;
+
 
             //exit if we can no longer insert
-            if (!ItemHandlerHelper.insertItemStacked(new PlayerMainInvWrapper(this.playerInventory), result, true)
+            if (!ItemHandlerHelper.insertItemStacked(new PlayerMainInvWrapper(this.playerInventory), newResult, true)
                     .isEmpty()) {
                 break;
             }
@@ -282,7 +285,7 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
             //give to the player
             //historically we used ItemHandlerHelper.giveItemToPlayer(player, result); here
             //now we instead pre-merge the stack -> might prevent intervention by other mods.
-            resultList.add(result);
+            resultList.add(newResult);
 
             //get remaining items in the crafting matrix
             NonNullList<ItemStack> remainingCraftingItems = this.currentRecipe.getRemainingItems(this.matrix);
@@ -314,9 +317,11 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
                         this.matrix.setItem(i, currentCraftingItem);
                     }
                     //handle "normal items"
-                    else if (ItemStack.matches(stackInSlot, currentCraftingItem) &&
+                    else if (!stackInSlot.getItem().canBeDepleted() && ItemStack.matches(stackInSlot, currentCraftingItem) &&
                             ItemStack.tagMatches(stackInSlot, currentCraftingItem)) {
-                        currentCraftingItem.grow(stackInSlot.getCount());
+                        //hacky workaround for aquaculture unbreakable fillet knife being mis-interpreted and duped
+                        if (!stackInSlot.getItem().getRegistryName().toString().equals("aquaculture:neptunium_fillet_knife"))
+                            currentCraftingItem.grow(stackInSlot.getCount());
                         this.matrix.setItem(i, currentCraftingItem);
                     }
                     //handle items that consume durability on craft
@@ -324,7 +329,7 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
                         this.matrix.setItem(i, currentCraftingItem);
                     } else {
                         //last resort, try to place in player inventory or if that fails, drop.
-                        ItemHandlerHelper.giveItemToPlayer(player, result);
+                        ItemHandlerHelper.giveItemToPlayer(player, newResult);
                     }
                 } else if (!stackInSlot.isEmpty()) {
                     //decrease the stack size in the matrix

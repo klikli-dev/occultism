@@ -52,17 +52,17 @@ public class NonNullArrayList<E> extends NonNullList<E> {
 
     //region Static Methods
     public static <E> NonNullArrayList<E> create() {
-        return new NonNullArrayList();
+        return new NonNullArrayList<>();
     }
 
     public static <E> NonNullArrayList<E> withSize(int size, E fill) {
-        return new NonNullArrayList<E>(new ArrayList<E>(Collections.nCopies(size, fill)), fill);
+        return new NonNullArrayList<>(new ArrayList<E>(Collections.nCopies(size, fill)), fill);
     }
     //endregion Overrides
 
     public static <E> NonNullList<E> from(E defaultElementIn, E... elements) {
 
-        return new NonNullArrayList<E>(Stream.of(elements).collect(Collectors.toCollection(ArrayList::new)),
+        return new NonNullArrayList<>(Stream.of(elements).collect(Collectors.toCollection(ArrayList::new)),
                 defaultElementIn);
     }
 
