@@ -125,7 +125,11 @@ public class OccultismEntities {
                     .sized(0.8F, 1.0F)
                     .clientTrackingRange(8)
                     .build(modLoc("devil_familiar").toString()));
-
+    public static final NonNullLazy<EntityType<DragonFamiliarEntity>> DRAGON_FAMILIAR_TYPE =
+            NonNullLazy.of(() -> EntityType.Builder.of(DragonFamiliarEntity::new, MobCategory.CREATURE)
+                    .sized(1F, 0.8F)
+                    .clientTrackingRange(8)
+                    .build(modLoc("dragon_familiar").toString()));
 
     public static final RegistryObject<EntityType<FoliotEntity>> FOLIOT = ENTITIES.register("foliot", FOLIOT_TYPE::get);
     public static final RegistryObject<EntityType<DjinniEntity>> DJINNI = ENTITIES.register("djinni", DJINNI_TYPE::get);
@@ -156,5 +160,7 @@ public class OccultismEntities {
             ENTITIES.register("cthulhu_familiar", CTHULHU_FAMILIAR_TYPE::get);
     public static final RegistryObject<EntityType<DevilFamiliarEntity>> DEVIL_FAMILIAR =
             ENTITIES.register("devil_familiar", DEVIL_FAMILIAR_TYPE::get);
+    public static final RegistryObject<EntityType<DragonFamiliarEntity>> DRAGON_FAMILIAR =
+            ENTITIES.register("dragon_familiar", DRAGON_FAMILIAR_TYPE::get);
     //endregion Fields
 }

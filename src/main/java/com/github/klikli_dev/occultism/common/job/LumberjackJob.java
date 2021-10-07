@@ -26,39 +26,46 @@ import com.github.klikli_dev.occultism.api.common.container.IItemStackComparator
 import com.github.klikli_dev.occultism.common.entity.ai.DepositItemsGoal;
 import com.github.klikli_dev.occultism.common.entity.ai.FellTreesGoal;
 import com.github.klikli_dev.occultism.common.entity.ai.PickupItemsGoal;
+import com.github.klikli_dev.occultism.common.entity.ai.ReplantSaplingGoal;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.github.klikli_dev.occultism.common.misc.ItemStackComparator;
 import com.github.klikli_dev.occultism.common.misc.ItemTagComparator;
 import com.github.klikli_dev.occultism.registry.OccultismTags;
+import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.LongTag;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraftforge.common.util.Constants;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class LumberjackJob extends SpiritJob {
 
-    //region Fields
+    protected ReplantSaplingGoal replantSaplingGoal;
     protected PickupItemsGoal pickupItemsGoal;
     protected FellTreesGoal fellTreesGoal;
     protected DepositItemsGoal depositItemsGoal;
     protected List<IItemStackComparator> itemsToPickUp = new ArrayList<>();
-    //endregion Fields
+    private Set<BlockPos> ignoredTrees = new HashSet<>();
+    private BlockPos lastFelledTree = null;
 
 
-    //region Initialization
     public LumberjackJob(SpiritEntity entity) {
         super(entity);
     }
-    //endregion Initialization
 
-    //region Overrides
     @Override
     public void init() {
-        this.entity.targetSelector.addGoal(0, this.pickupItemsGoal = new PickupItemsGoal(this.entity));
-        this.entity.goalSelector.addGoal(3, this.fellTreesGoal = new FellTreesGoal(this.entity));
+        this.entity.goalSelector.addGoal(0, this.pickupItemsGoal = new PickupItemsGoal(this.entity));
+        this.entity.goalSelector.addGoal(2, this.fellTreesGoal = new FellTreesGoal(this.entity));
+        this.entity.goalSelector.addGoal(3, this.replantSaplingGoal = new ReplantSaplingGoal(this.entity));
         this.entity.goalSelector.addGoal(4, this.depositItemsGoal = new DepositItemsGoal(this.entity));
 
         this.itemsToPickUp.add(new ItemTagComparator(ItemTags.LOGS));
@@ -70,6 +77,7 @@ public class LumberjackJob extends SpiritJob {
 
     @Override
     public void cleanup() {
+        this.entity.targetSelector.removeGoal(this.replantSaplingGoal);
         this.entity.targetSelector.removeGoal(this.pickupItemsGoal);
         this.entity.goalSelector.removeGoal(this.fellTreesGoal);
         this.entity.goalSelector.removeGoal(this.depositItemsGoal);
@@ -85,5 +93,45 @@ public class LumberjackJob extends SpiritJob {
         }
         return false;
     }
-    //endregion Overrides
+
+    @Override
+    public CompoundTag serializeNBT() {
+        CompoundTag compound = super.serializeNBT();
+        ListTag list = new ListTag();
+        for (BlockPos ignoredTree : this.ignoredTrees) {
+            list.add(LongTag.valueOf(ignoredTree.asLong()));
+        }
+        compound.put("ignoredTrees", list);
+        return compound;
+    }
+
+    @Override
+    public void deserializeNBT(CompoundTag nbt) {
+        super.deserializeNBT(nbt);
+
+        this.ignoredTrees = new HashSet<>();
+        if (nbt.contains("ignoredTrees")) {
+            ListTag list = nbt.getList("ignoredTrees", Constants.NBT.TAG_LIST);
+            for (int i = 0; i < list.size(); i++) {
+                this.ignoredTrees.add(BlockPos.of(((LongTag) list.get(i)).getAsLong()));
+            }
+        }
+    }
+
+    public Set<BlockPos> getIgnoredTrees() {
+        return this.ignoredTrees;
+    }
+
+    public void setIgnoredTrees(Set<BlockPos> ignoredTrees) {
+        this.ignoredTrees = ignoredTrees;
+    }
+
+    public BlockPos getLastFelledTree() {
+        return this.lastFelledTree;
+    }
+
+    public void setLastFelledTree(BlockPos lastFelledTree) {
+        this.lastFelledTree = lastFelledTree;
+    }
+
 }

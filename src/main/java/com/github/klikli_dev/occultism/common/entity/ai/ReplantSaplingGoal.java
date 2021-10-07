@@ -25,13 +25,13 @@ package com.github.klikli_dev.occultism.common.entity.ai;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.github.klikli_dev.occultism.common.job.LumberjackJob;
 import com.github.klikli_dev.occultism.util.Math3DUtil;
-import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.ItemStack;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.util.Direction;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.ItemStack;
 
 import java.util.EnumSet;
 
@@ -57,7 +57,7 @@ public class ReplantSaplingGoal extends Goal {
     @Override
     public boolean canUse() {
         //nothing to deposit in hand
-        if (!ItemTags.SAPLINGS.contains(this.entity.getItemInHand(Hand.MAIN_HAND).getItem())) {
+        if (!ItemTags.SAPLINGS.contains(this.entity.getItemInHand(InteractionHand.MAIN_HAND).getItem())) {
             return false;
         }
         if (!this.entity.getJob().map(j -> (LumberjackJob) j).map(j -> j.getLastFelledTree() != null).orElse(false))
@@ -68,7 +68,7 @@ public class ReplantSaplingGoal extends Goal {
 
     @Override
     public boolean canContinueToUse() {
-        return this.moveTarget != null && !ItemTags.SAPLINGS.contains(this.entity.getItemInHand(Hand.MAIN_HAND).getItem())
+        return this.moveTarget != null && !ItemTags.SAPLINGS.contains(this.entity.getItemInHand(InteractionHand.MAIN_HAND).getItem())
                 && !this.entity.getJob().map(j -> (LumberjackJob) j).map(j -> j.getLastFelledTree() != null).orElse(false);
     }
 
@@ -91,9 +91,8 @@ public class ReplantSaplingGoal extends Goal {
                 this.entity.getJob().map(j -> (LumberjackJob) j).map(LumberjackJob::getLastFelledTree).ifPresent(lastFelledTree -> {
 
                     if (this.entity.level.isEmptyBlock(lastFelledTree)) {
-                        ItemStack sapling = this.entity.getItemInHand(Hand.MAIN_HAND);
-                        if (sapling.getItem() instanceof BlockItem) {
-                            BlockItem saplingBlockItem = (BlockItem) sapling.getItem();
+                        ItemStack sapling = this.entity.getItemInHand(InteractionHand.MAIN_HAND);
+                        if (sapling.getItem() instanceof BlockItem saplingBlockItem) {
                             this.entity.level.setBlockAndUpdate(lastFelledTree, saplingBlockItem.getBlock().defaultBlockState());
                             sapling.shrink(1);
                         }

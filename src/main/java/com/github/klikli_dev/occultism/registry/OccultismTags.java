@@ -36,6 +36,7 @@ public class OccultismTags {
     //region Fields
 
     // Block Tags
+    public static final Tag<Block> TREE_SOIL = makeBlockTag(new ResourceLocation(Occultism.MODID, "tree_soil"));
     public static final Tag<Block> CAVE_WALL_BLOCKS = makeBlockTag(new ResourceLocation(Occultism.MODID, "cave_wall_blocks"));
     public static final Tag<Block> NETHERRACK = makeBlockTag(new ResourceLocation(Occultism.MODID, "netherrack"));
     public static final Tag.Named<Block> CANDLES = makeBlockTag(new ResourceLocation("forge", "candles"));

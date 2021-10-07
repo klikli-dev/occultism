@@ -67,8 +67,8 @@ public class FellTreesGoal extends Goal {
     //endregion Initialization
 
     //region Static Methods
-    public static boolean isTreeSoil(World world, BlockPos pos) {
-        return OccultismTags.TREE_SOIL.contains(world.getBlockState(pos).getBlock());
+    public static boolean isTreeSoil(Level level, BlockPos pos) {
+        return OccultismTags.TREE_SOIL.contains(level.getBlockState(pos).getBlock());
     }
 
     public static final boolean isLog(Level level, BlockPos pos) {
@@ -125,10 +125,6 @@ public class FellTreesGoal extends Goal {
                         this.entity.getNavigation().stop();
                     }
 
-                    this.updateBreakBlock();
-                }
-            } else {
-                this.stop();
                     //only when spirit gets to target do we check if it really is a tree
                     //this way spirit moves around a bit more, but we space out the intensive tree-identification
                     if (this.isTargetTree || this.isTree(this.targetBlock)) {
@@ -177,10 +173,10 @@ public class FellTreesGoal extends Goal {
 
     private void resetTarget() {
         this.isTargetTree = false;
-        World world = this.entity.level;
+        Level level = this.entity.level;
 
         //if work area was recently empty, wait until refresh time has elapsed
-        if (world.getGameTime() - this.lastWorkareaEmptyTime < WORKAREA_EMPTY_REFRESH_TIME)
+        if (level.getGameTime() - this.lastWorkareaEmptyTime < WORKAREA_EMPTY_REFRESH_TIME)
             return;
 
         Set<BlockPos> ignoredTrees = this.entity.getJob().map(j -> (LumberjackJob) j).map(LumberjackJob::getIgnoredTrees).orElse(new HashSet<>());
@@ -195,7 +191,7 @@ public class FellTreesGoal extends Goal {
 
         //filter potential stumps
         List<BlockPos> potentialStumps = stream.filter(pos ->
-                isLog(world, pos) && isTreeSoil(world, pos.below()) && !ignoredTrees.contains(pos)
+                isLog(level, pos) && isTreeSoil(level, pos.below()) && !ignoredTrees.contains(pos)
         ).collect(Collectors.toList());
 
         if (!potentialStumps.isEmpty()) {
@@ -218,7 +214,7 @@ public class FellTreesGoal extends Goal {
             }
         } else {
             //if we found nothing in our work area, go on a slow tick;
-            this.lastWorkareaEmptyTime = world.getGameTime();
+            this.lastWorkareaEmptyTime = level.getGameTime();
             this.moveTarget = null;
             this.targetBlock = null;
         }
