@@ -1,26 +1,27 @@
 on:
   milestone:
     types: [closed]
-name: Release Notes
+name: Milestone Closure
 jobs:
   create-release-notes:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@master
+        with:
+          fetch-depth: 0
       - name: Create Release Notes
         uses: docker://decathlon/release-notes-generator-action:3.1.5
         env:
           GITHUB_TOKEN: ${{ secrets.RELEASE_NOTES_TOKEN }}
-          OUTPUT_FOLDER: temp_release_notes
           USE_MILESTONE_TITLE: "true"
-      - name: Upload Release Notes to Wiki
-        uses: docker://decathlon/wiki-page-creator-action:latest
-        env:
-          ACTION_MAIL: klikli@outlook.at
-          ACTION_NAME:  klikli-dev
-          GH_PAT: ${{ secrets.RELEASE_NOTES_TOKEN }}
-          MD_FOLDER: temp_release_notes
-          OWNER: klikli-dev
-          REPO_NAME: occultism
-          SKIP_MD: README.md
+          FILENAME: release
+      - name: Get Previous tag
+        id: previoustag
+        uses: WyriHaximus/github-action-get-previous-tag@v1
+      - name: Update Release
+        uses: softprops/action-gh-release@v1
+        with:
+          body_path: release.md
+          token: ${{ secrets.RELEASE_NOTES_TOKEN }}
+          tag_name: ${{ steps.previoustag.outputs.tag }}
