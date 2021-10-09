@@ -273,6 +273,7 @@ public class RitualRecipe extends ShapelessRecipe {
                 entityToSacrifice = SerializationTags.getInstance().getTagOrThrow(Registry.ENTITY_TYPE_REGISTRY, buffer.readResourceLocation(), (rl) -> {
                     return new RuntimeException("Unknown entity tag '" + rl + "'");
                 });
+                entityToSacrificeDisplayName = buffer.readUtf();
             }
 
             Ingredient itemToUse = Ingredient.EMPTY;
