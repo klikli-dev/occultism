@@ -36,7 +36,8 @@ public class FamiliarTrigger extends SimpleCriterionTrigger<FamiliarTrigger.Inst
     }
 
     public enum Type {
-        DEER_POOP, CTHULHU_SAD, BAT_EAT, DEVIL_FIRE, GREEDY_ITEM, RARE_VARIANT, PARTY, CAPTURE
+        DEER_POOP, CTHULHU_SAD, BAT_EAT, DEVIL_FIRE, GREEDY_ITEM, RARE_VARIANT, PARTY, CAPTURE, DRAGON_NUGGET,
+        DRAGON_RIDE, DRAGON_PET, DRAGON_FETCH,
     }
 
     public static class Instance extends AbstractCriterionTriggerInstance {

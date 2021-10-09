@@ -26,31 +26,33 @@ import com.github.klikli_dev.occultism.common.advancement.FamiliarTrigger;
 import com.github.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.github.klikli_dev.occultism.registry.OccultismEffects;
 import com.google.common.collect.ImmutableList;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ILivingEntityData;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.ai.goal.*;
-import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.network.datasync.DataSerializers;
-import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.IServerWorld;
-import net.minecraft.world.World;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.items.ItemHandlerHelper;
 
+import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.EnumSet;
 import java.util.List;
@@ -59,22 +61,22 @@ public class DragonFamiliarEntity extends FamiliarEntity {
 
     public static final int MAX_PET_TIMER = 20 * 2;
     private static final int GREEDY_INCREMENT = 20 * 60 * 5;
-    private static final DataParameter<Boolean> FEZ = EntityDataManager.defineId(DragonFamiliarEntity.class,
-            DataSerializers.BOOLEAN);
-    private static final DataParameter<Boolean> EARS = EntityDataManager.defineId(DragonFamiliarEntity.class,
-            DataSerializers.BOOLEAN);
-    private static final DataParameter<Boolean> ARMS = EntityDataManager.defineId(DragonFamiliarEntity.class,
-            DataSerializers.BOOLEAN);
-    private static final DataParameter<Boolean> STICK = EntityDataManager.defineId(DragonFamiliarEntity.class,
-            DataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> FEZ = SynchedEntityData.defineId(DragonFamiliarEntity.class,
+            EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> EARS = SynchedEntityData.defineId(DragonFamiliarEntity.class,
+            EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> ARMS = SynchedEntityData.defineId(DragonFamiliarEntity.class,
+            EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> STICK = SynchedEntityData.defineId(DragonFamiliarEntity.class,
+            EntityDataSerializers.BOOLEAN);
 
     private final float colorOffset;
     private int greedyTimer;
     private int flyingTimer, flyingTimer0, wingspan, wingspan0;
     private int petTimer;
 
-    public DragonFamiliarEntity(EntityType<? extends DragonFamiliarEntity> type, World worldIn) {
-        super(type, worldIn);
+    public DragonFamiliarEntity(EntityType<? extends DragonFamiliarEntity> type, Level level) {
+        super(type, level);
         this.colorOffset = this.getRandom().nextFloat() * 2;
         this.petTimer = MAX_PET_TIMER;
     }
@@ -86,21 +88,21 @@ public class DragonFamiliarEntity extends FamiliarEntity {
         super.setFamiliarOwner(owner);
     }
 
+    @Nullable
     @Override
-    public ILivingEntityData finalizeSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason,
-                                           ILivingEntityData spawnDataIn, CompoundNBT dataTag) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {
         this.setFez(this.getRandom().nextDouble() < 0.1);
         this.setEars(this.getRandom().nextDouble() < 0.5);
         this.setArms(this.getRandom().nextDouble() < 0.5);
-        return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
+        return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
     }
 
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new PanicGoal(this, 1.25));
-        this.goalSelector.addGoal(0, new SwimGoal(this));
+        this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new SitGoal(this));
-        this.goalSelector.addGoal(2, new LookAtGoal(this, PlayerEntity.class, 8));
+        this.goalSelector.addGoal(2, new LookAtPlayerGoal(this, Player.class, 8));
         this.goalSelector.addGoal(3, new GreedyFamiliarEntity.FindItemGoal(this) {
             @Override
             public boolean canUse() {
@@ -110,24 +112,24 @@ public class DragonFamiliarEntity extends FamiliarEntity {
         });
         this.goalSelector.addGoal(4, new FetchGoal(this));
         this.goalSelector.addGoal(5, new FollowOwnerGoal(this, 1, 3, 1));
-        this.goalSelector.addGoal(6, new DevilFamiliarEntity.AttackGoal(this));
-        this.goalSelector.addGoal(7, new RandomWalkingGoal(this, 1));
+        this.goalSelector.addGoal(6, new DevilFamiliarEntity.AttackGoal(this, 5));
+        this.goalSelector.addGoal(7, new RandomStrollGoal(this, 1));
         this.goalSelector.addGoal(8, new FollowMobGoal(this, 1, 3, 7));
     }
 
     @Override
-    public void swing(Hand handIn, boolean updateSelf) {
+    public void swing(InteractionHand handIn, boolean updateSelf) {
         super.swing(handIn, updateSelf);
         this.swingTime = -20 + 6;
     }
 
     @Override
-    public boolean causeFallDamage(float fallDistance, float damageMultiplier) {
+    public boolean causeFallDamage(float fallDistance, float damageMultiplier, DamageSource source) {
         return false;
     }
 
     public float getAttackProgress(float partialTicks) {
-        return MathHelper.lerp((this.swingTime + (20 - 6) + partialTicks) / 20, 0, 1);
+        return Mth.lerp((this.swingTime + (20 - 6) + partialTicks) / 20, 0, 1);
     }
 
     public int getPetTimer() {
@@ -141,7 +143,7 @@ public class DragonFamiliarEntity extends FamiliarEntity {
             this.greedyTimer--;
 
         if (!this.isOnGround()) {
-            Vector3d motion = this.getDeltaMovement();
+            Vec3 motion = this.getDeltaMovement();
             if (motion.y < 0) {
                 motion = motion.multiply(1, 0.5, 1);
                 this.setDeltaMovement(motion);
@@ -168,21 +170,21 @@ public class DragonFamiliarEntity extends FamiliarEntity {
     }
 
     public float getFlyingTimer(float partialTicks) {
-        return MathHelper.lerp(partialTicks, this.flyingTimer0, this.flyingTimer);
+        return Mth.lerp(partialTicks, this.flyingTimer0, this.flyingTimer);
     }
 
     public float getWingspan(float partialTicks) {
-        return MathHelper.lerp(partialTicks, this.wingspan0, this.wingspan);
+        return Mth.lerp(partialTicks, this.wingspan0, this.wingspan);
     }
 
     @Override
-    protected ActionResultType mobInteract(PlayerEntity playerIn, Hand hand) {
+    protected InteractionResult mobInteract(Player playerIn, InteractionHand hand) {
         ItemStack stack = playerIn.getItemInHand(hand);
         if (this.hasStick()) {
             ItemHandlerHelper.giveItemToPlayer(playerIn, new ItemStack(Items.STICK));
             this.setStick(false);
-            return ActionResultType.sidedSuccess(!this.isEffectiveAi());
-        } else if (stack.getItem().is(Tags.Items.NUGGETS_GOLD)) {
+            return InteractionResult.sidedSuccess(!this.isEffectiveAi());
+        } else if (Tags.Items.NUGGETS_GOLD.contains(stack.getItem())) {
             OccultismAdvancements.FAMILIAR.trigger(this.getFamiliarOwner(), FamiliarTrigger.Type.DRAGON_NUGGET);
             this.greedyTimer += GREEDY_INCREMENT;
             if (this.isEffectiveAi())
@@ -190,11 +192,11 @@ public class DragonFamiliarEntity extends FamiliarEntity {
             else
                 this.level.addParticle(ParticleTypes.HEART, this.getX(), this.getY() + 1, this.getZ(), 0, 0,
                         0);
-            return ActionResultType.sidedSuccess(!this.isEffectiveAi());
+            return InteractionResult.sidedSuccess(!this.isEffectiveAi());
         } else if (stack.isEmpty() && playerIn.isShiftKeyDown()) {
             this.petTimer = 0;
             OccultismAdvancements.FAMILIAR.trigger(playerIn, FamiliarTrigger.Type.DRAGON_PET);
-            return ActionResultType.sidedSuccess(!this.isEffectiveAi());
+            return InteractionResult.sidedSuccess(!this.isEffectiveAi());
         }
         return super.mobInteract(playerIn, hand);
     }
@@ -246,7 +248,7 @@ public class DragonFamiliarEntity extends FamiliarEntity {
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundNBT compound) {
+    public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
         compound.putBoolean("hasFez", this.hasFez());
         compound.putBoolean("hasEars", this.hasEars());
@@ -256,7 +258,7 @@ public class DragonFamiliarEntity extends FamiliarEntity {
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundNBT compound) {
+    public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
         this.setFez(compound.getBoolean("hasFez"));
         this.setEars(compound.getBoolean("hasEars"));
@@ -266,24 +268,24 @@ public class DragonFamiliarEntity extends FamiliarEntity {
     }
 
     @Override
-    public Iterable<EffectInstance> getFamiliarEffects() {
+    public Iterable<MobEffectInstance> getFamiliarEffects() {
         if (this.isEffectEnabled()) {
-            return ImmutableList.of(new EffectInstance(OccultismEffects.DRAGON_GREED.get(), 300,
+            return ImmutableList.of(new MobEffectInstance(OccultismEffects.DRAGON_GREED.get(), 300,
                     this.greedyTimer > 0 ? 1 : 0, false, false));
         }
         return Collections.emptyList();
     }
 
     public float getEyeColorR(float partialTicks) {
-        return Math.abs(MathHelper.sin((this.tickCount + partialTicks + 5) / 20 + this.colorOffset)) * 0.8f + 0.2f;
+        return Math.abs(Mth.sin((this.tickCount + partialTicks + 5) / 20 + this.colorOffset)) * 0.8f + 0.2f;
     }
 
     public float getEyeColorG(float partialTicks) {
-        return Math.abs(MathHelper.sin((this.tickCount + partialTicks + 10) / 30 + this.colorOffset)) * 0.8f + 0.2f;
+        return Math.abs(Mth.sin((this.tickCount + partialTicks + 10) / 30 + this.colorOffset)) * 0.8f + 0.2f;
     }
 
     public float getEyeColorB(float partialTicks) {
-        return Math.abs(MathHelper.sin((this.tickCount + partialTicks) / 40 + this.colorOffset)) * 0.8f + 0.2f;
+        return Math.abs(Mth.sin((this.tickCount + partialTicks) / 40 + this.colorOffset)) * 0.8f + 0.2f;
     }
 
     private static class FetchGoal extends Goal {

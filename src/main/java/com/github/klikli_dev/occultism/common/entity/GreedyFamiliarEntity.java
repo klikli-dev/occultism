@@ -81,14 +81,14 @@ public class GreedyFamiliarEntity extends FamiliarEntity {
             }
     }
 
-    private static class FindItemGoal extends Goal {
+    public static class FindItemGoal extends Goal {
 
         private static final double RANGE = 12;
 
-        private final GreedyFamiliarEntity entity;
+        private final FamiliarEntity entity;
 
-        public FindItemGoal(GreedyFamiliarEntity raptor) {
-            this.entity = raptor;
+        public FindItemGoal(FamiliarEntity entity) {
+            this.entity = entity;
             this.setFlags(EnumSet.of(Goal.Flag.MOVE));
         }
 

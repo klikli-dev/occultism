@@ -25,16 +25,16 @@ package com.github.klikli_dev.occultism.client.render.entity;
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.client.model.entity.DragonFamiliarModel;
 import com.github.klikli_dev.occultism.common.entity.DragonFamiliarEntity;
-import com.mojang.blaze3d.matrix.MatrixStack;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.entity.EntityRendererManager;
+import com.github.klikli_dev.occultism.registry.OccultismModelLayers;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Matrix4f;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.vector.Matrix4f;
-import net.minecraft.util.text.IFormattableTextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -46,16 +46,11 @@ public class DragonFamiliarRenderer extends MobRenderer<DragonFamiliarEntity, Dr
     private static final ResourceLocation TEXTURES = new ResourceLocation(Occultism.MODID,
             "textures/entity/dragon_familiar.png");
 
-    public DragonFamiliarRenderer(EntityRendererManager renderManagerIn) {
-        super(renderManagerIn, new DragonFamiliarModel(), 0.3f);
+    public DragonFamiliarRenderer(EntityRendererProvider.Context context) {
+        super(context, new DragonFamiliarModel(context.bakeLayer(OccultismModelLayers.FAMILIAR_DRAGON)), 0.3f);
         this.addLayer(new DragonStickLayer(this));
     }
 
-    @Override
-    public void render(DragonFamiliarEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn,
-                       IRenderTypeBuffer bufferIn, int packedLightIn) {
-        super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
-    }
 
     @Override
     public ResourceLocation getTextureLocation(DragonFamiliarEntity entity) {
@@ -77,17 +72,18 @@ public class DragonFamiliarRenderer extends MobRenderer<DragonFamiliarEntity, Dr
                 return;
 
             float height = dragon.getBbHeight() + 0.5f;
-            IFormattableTextComponent text = new TranslationTextComponent("dialog.occultism.dragon.pet");
-            MatrixStack matrixStackIn = event.getMatrixStack();
+            TranslatableComponent text = new TranslatableComponent("dialog.occultism.dragon.pet");
+            PoseStack matrixStackIn = event.getMatrixStack();
             matrixStackIn.pushPose();
             matrixStackIn.translate(0, height + textTimer / 20, 0);
-            matrixStackIn.mulPose(event.getRenderer().getDispatcher().cameraOrientation());
-            matrixStackIn.translate(MathHelper.sin(textTimer / 2) * 0.5, 0, 0);
+
+            matrixStackIn.mulPose(Minecraft.getInstance().getEntityRenderDispatcher().cameraOrientation());
+            matrixStackIn.translate(Mth.sin(textTimer / 2) * 0.5, 0, 0);
             float size = (1 - textTimer / DragonFamiliarEntity.MAX_PET_TIMER) * 0.025f;
             matrixStackIn.scale(-size, -size, size);
 
             Matrix4f matrix = matrixStackIn.last().pose();
-            FontRenderer font = event.getRenderer().getDispatcher().getFont();
+            Font font = event.getRenderer().getFont();
             font.drawInBatch(text, -font.width(text) / 2f, 0, 0xffffff, false, matrix,
                     event.getBuffers(), false, 0x000000, event.getLight());
             matrixStackIn.popPose();

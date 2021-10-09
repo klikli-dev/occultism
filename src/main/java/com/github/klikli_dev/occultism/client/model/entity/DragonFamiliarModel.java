@@ -1,18 +1,19 @@
 package com.github.klikli_dev.occultism.client.model.entity;
 
-import com.github.klikli_dev.occultism.common.entity.DevilFamiliarEntity;
 import com.github.klikli_dev.occultism.common.entity.DragonFamiliarEntity;
 import com.google.common.collect.ImmutableList;
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.vertex.IVertexBuilder;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
+import net.minecraft.util.Mth;
+
+import java.util.Collections;
 
 /**
  * Created using Tabula 8.0.0
@@ -33,8 +34,8 @@ public class DragonFamiliarModel extends EntityModel<DragonFamiliarEntity> {
     public ModelPart neck2;
     public ModelPart head;
     public ModelPart jaw;
-    public ModelPart leftEye;
-    public ModelPart rightEye;
+    public ColorModelPartProxy leftEye;
+    public ColorModelPartProxy rightEye;
     public ModelPart fez1;
     public ModelPart leftHorn1;
     public ModelPart leftEar;
@@ -78,8 +79,8 @@ public class DragonFamiliarModel extends EntityModel<DragonFamiliarEntity> {
         this.neck2 = neck1.getChild("neck2");
         this.head = neck2.getChild("head");
         this.jaw = head.getChild("jaw");
-        this.leftEye = head.getChild("leftEye");
-        this.rightEye = head.getChild("rightEye");
+        this.leftEye = new ColorModelPartProxy(head.getChild("leftEye"));
+        this.rightEye = new ColorModelPartProxy(head.getChild("rightEye"));
         this.fez1 = head.getChild("fez1");
         this.leftHorn1 = head.getChild("leftHorn1");
         this.leftEar = head.getChild("leftEar");
@@ -166,13 +167,14 @@ public class DragonFamiliarModel extends EntityModel<DragonFamiliarEntity> {
         });
     }
 
+
     @Override
-    public void setupAnim(DevilFamiliarEntity entityIn, float limbSwing, float limbSwingAmount,
-                          float ageInTicks, float netHeadYaw, float headPitch) {
+    public void setupAnim(DragonFamiliarEntity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks,
+                          float netHeadYaw, float headPitch) {
         if (entityIn.isPartying()) {
-            this.head.xRot = this.toRads(50) + MathHelper.sin(ageInTicks) * this.toRads(20);
-            this.head.yRot = MathHelper.sin(ageInTicks) * this.toRads(5);
-            this.head.zRot = MathHelper.sin(ageInTicks) * this.toRads(5);
+            this.head.xRot = this.toRads(50) + Mth.sin(ageInTicks) * this.toRads(20);
+            this.head.yRot = Mth.sin(ageInTicks) * this.toRads(5);
+            this.head.zRot = Mth.sin(ageInTicks) * this.toRads(5);
 
         } else {
             this.head.xRot = this.toRads(50) + 0.03f + headPitch * (PI / 180f) * 0.7f;
@@ -181,6 +183,7 @@ public class DragonFamiliarModel extends EntityModel<DragonFamiliarEntity> {
         }
 
     }
+
 
     @Override
     public void prepareMobModel(DragonFamiliarEntity entityIn, float limbSwing, float limbSwingAmount,
@@ -197,12 +200,12 @@ public class DragonFamiliarModel extends EntityModel<DragonFamiliarEntity> {
         this.jaw.zRot = 0;
 
         if (entityIn.isPartying()) {
-            this.tail1.zRot = MathHelper.sin(ageInTicks) * this.toRads(30);
-            this.tail2.zRot = -MathHelper.sin(ageInTicks) * this.toRads(60);
-            this.tail3.zRot = MathHelper.sin(ageInTicks) * this.toRads(90);
+            this.tail1.zRot = Mth.sin(ageInTicks) * this.toRads(30);
+            this.tail2.zRot = -Mth.sin(ageInTicks) * this.toRads(60);
+            this.tail3.zRot = Mth.sin(ageInTicks) * this.toRads(90);
 
-            this.leftWing1.yRot = MathHelper.sin(ageInTicks) * this.toRads(20);
-            this.rightWing1.yRot = -MathHelper.sin(ageInTicks) * this.toRads(20);
+            this.leftWing1.yRot = Mth.sin(ageInTicks) * this.toRads(20);
+            this.rightWing1.yRot = -Mth.sin(ageInTicks) * this.toRads(20);
         } else {
             this.leftWing1.yRot = 0;
             this.rightWing1.yRot = 0;
@@ -211,17 +214,17 @@ public class DragonFamiliarModel extends EntityModel<DragonFamiliarEntity> {
         float petTimer = entityIn.getPetTimer() + partialTick;
         float petDuration = DragonFamiliarEntity.MAX_PET_TIMER / 2;
         if (petTimer < petDuration) {
-            this.tail1.zRot = MathHelper.sin(petTimer / petDuration * PI * 6) * this.toRads(20);
-            this.tail2.zRot = MathHelper.sin(petTimer / petDuration * PI * 6) * this.toRads(20);
-            this.tail3.zRot = MathHelper.sin(petTimer / petDuration * PI * 6) * this.toRads(20);
-            this.jaw.zRot = -MathHelper.sin(petTimer / petDuration * PI * 6) * this.toRads(10);
+            this.tail1.zRot = Mth.sin(petTimer / petDuration * PI * 6) * this.toRads(20);
+            this.tail2.zRot = Mth.sin(petTimer / petDuration * PI * 6) * this.toRads(20);
+            this.tail3.zRot = Mth.sin(petTimer / petDuration * PI * 6) * this.toRads(20);
+            this.jaw.zRot = -Mth.sin(petTimer / petDuration * PI * 6) * this.toRads(10);
         }
 
         if (entityIn.swinging) {
             float attackProgress = entityIn.getAttackProgress(partialTick);
-            this.tail1.yRot = MathHelper.sin(attackProgress * PI * 4) * this.toRads(30);
-            this.tail2.yRot = MathHelper.sin(attackProgress * PI * 4) * this.toRads(30);
-            this.tail3.yRot = MathHelper.sin(attackProgress * PI * 4) * this.toRads(30);
+            this.tail1.yRot = Mth.sin(attackProgress * PI * 4) * this.toRads(30);
+            this.tail2.yRot = Mth.sin(attackProgress * PI * 4) * this.toRads(30);
+            this.tail3.yRot = Mth.sin(attackProgress * PI * 4) * this.toRads(30);
         } else {
             this.tail1.yRot = 0;
             this.tail2.yRot = 0;
@@ -229,8 +232,8 @@ public class DragonFamiliarModel extends EntityModel<DragonFamiliarEntity> {
         }
 
         if (!entityIn.isSitting()) {
-            this.leftLeg1.xRot = this.toRads(25) + MathHelper.cos(limbSwing * 0.7f + PI) * limbSwingAmount * 0.5f;
-            this.rightLeg1.xRot = this.toRads(25) + MathHelper.cos(limbSwing * 0.7f) * limbSwingAmount * 0.5f;
+            this.leftLeg1.xRot = this.toRads(25) + Mth.cos(limbSwing * 0.7f + PI) * limbSwingAmount * 0.5f;
+            this.rightLeg1.xRot = this.toRads(25) + Mth.cos(limbSwing * 0.7f) * limbSwingAmount * 0.5f;
             this.leftLeg3.xRot = this.toRads(23);
             this.rightLeg3.xRot = this.toRads(23);
 
@@ -238,17 +241,17 @@ public class DragonFamiliarModel extends EntityModel<DragonFamiliarEntity> {
             float wingspan = entityIn.getWingspan(partialTick);
             float flyingWingRot = flyingTimer * 1.15f;
             this.leftWing1.zRot = this.toRads(65)
-                    + MathHelper.cos(limbSwing * 0.7f + flyingWingRot) * (limbSwingAmount * 0.2f + this.toRads(wingspan));
-            this.leftWing2.zRot = this.toRads(50) + MathHelper.cos(limbSwing * 0.7f + flyingWingRot)
+                    + Mth.cos(limbSwing * 0.7f + flyingWingRot) * (limbSwingAmount * 0.2f + this.toRads(wingspan));
+            this.leftWing2.zRot = this.toRads(50) + Mth.cos(limbSwing * 0.7f + flyingWingRot)
                     * (limbSwingAmount * 0.2f + this.toRads(wingspan) * 0.5f);
             this.rightWing1.zRot = -this.toRads(65)
-                    - MathHelper.cos(limbSwing * 0.7f + flyingWingRot) * (limbSwingAmount * 0.2f + this.toRads(wingspan));
-            this.rightWing2.zRot = -this.toRads(50) - MathHelper.cos(limbSwing * 0.7f + flyingWingRot)
+                    - Mth.cos(limbSwing * 0.7f + flyingWingRot) * (limbSwingAmount * 0.2f + this.toRads(wingspan));
+            this.rightWing2.zRot = -this.toRads(50) - Mth.cos(limbSwing * 0.7f + flyingWingRot)
                     * (limbSwingAmount * 0.2f + this.toRads(wingspan) * 0.5f);
 
-            this.tail1.xRot = MathHelper.cos(ageInTicks / 20) * this.toRads(10);
-            this.tail2.xRot = MathHelper.cos(ageInTicks / 20) * this.toRads(10);
-            this.tail3.xRot = MathHelper.cos(ageInTicks / 20) * this.toRads(10);
+            this.tail1.xRot = Mth.cos(ageInTicks / 20) * this.toRads(10);
+            this.tail2.xRot = Mth.cos(ageInTicks / 20) * this.toRads(10);
+            this.tail3.xRot = Mth.cos(ageInTicks / 20) * this.toRads(10);
 
             this.body.xRot = this.toRads(-4);
             this.neck1.xRot = this.toRads(-30);
@@ -296,21 +299,13 @@ public class DragonFamiliarModel extends EntityModel<DragonFamiliarEntity> {
         this.rightEye.setColor(r, g, b);
     }
 
-    /**
-     * This is a helper function from Tabula to set the rotation of model parts
-     */
-    public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z) {
-        modelRenderer.xRot = x;
-        modelRenderer.yRot = y;
-        modelRenderer.zRot = z;
-    }
 
-    private static class ColorModelRenderer extends ModelRenderer {
+    private static class ColorModelPartProxy extends ModelPart {
 
         float r, g, b;
 
-        public ColorModelRenderer(Model model, int texOffX, int texOffY) {
-            super(model, texOffX, texOffY);
+        public ColorModelPartProxy(ModelPart modelPart) {
+            super(Collections.emptyList(), Collections.emptyMap());
         }
 
         private void setColor(float r, float g, float b) {
@@ -320,10 +315,12 @@ public class DragonFamiliarModel extends EntityModel<DragonFamiliarEntity> {
         }
 
         @Override
-        public void render(MatrixStack matrixStackIn, IVertexBuilder bufferIn, int packedLightIn, int packedOverlayIn,
-                           float red, float green, float blue, float alpha) {
-            super.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, this.r, this.g, this.b, alpha);
+        public void render(PoseStack pPoseStack, VertexConsumer pVertexConsumer, int pPackedLight, int pPackedOverlay, float pRed, float pGreen, float pBlue, float pAlpha) {
+            //prevent actual render
         }
 
+        public void proxyRender(PoseStack pPoseStack, VertexConsumer pVertexConsumer, int pPackedLight, int pPackedOverlay, float pRed, float pGreen, float pBlue, float pAlpha) {
+            super.render(pPoseStack, pVertexConsumer, pPackedLight, pPackedOverlay, this.r, this.g, this.b, pAlpha);
+        }
     }
 }
