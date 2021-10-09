@@ -98,6 +98,15 @@ public class DragonFamiliarEntity extends FamiliarEntity {
     }
 
     @Override
+    public boolean canBlacksmithUpgrade() {
+        return !hasBlacksmithUpgrade();
+    }
+
+    public boolean hasSword() {
+        return this.hasBlacksmithUpgrade() && !swinging;
+    }
+
+    @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new PanicGoal(this, 1.25));
         this.goalSelector.addGoal(0, new FloatGoal(this));
@@ -113,6 +122,13 @@ public class DragonFamiliarEntity extends FamiliarEntity {
         this.goalSelector.addGoal(4, new FetchGoal(this));
         this.goalSelector.addGoal(5, new FollowOwnerGoal(this, 1, 3, 1));
         this.goalSelector.addGoal(6, new DevilFamiliarEntity.AttackGoal(this, 5));
+        this.goalSelector.addGoal(6, new DevilFamiliarEntity.AttackGoal(this, 5) {
+            @Override
+            public boolean canUse() {
+                return super.canUse() && !hasBlacksmithUpgrade();
+            }
+        });
+        this.goalSelector.addGoal(6, new ThrowSwordGoal(this, 100));
         this.goalSelector.addGoal(7, new RandomStrollGoal(this, 1));
         this.goalSelector.addGoal(8, new FollowMobGoal(this, 1, 3, 7));
     }
@@ -288,6 +304,38 @@ public class DragonFamiliarEntity extends FamiliarEntity {
         return Math.abs(Mth.sin((this.tickCount + partialTicks) / 40 + this.colorOffset)) * 0.8f + 0.2f;
     }
 
+    private static class ThrowSwordGoal extends DevilFamiliarEntity.AttackGoal {
+
+        public ThrowSwordGoal(FamiliarEntity entity, float range) {
+            super(entity, range);
+        }
+
+        @Override
+        public boolean canUse() {
+            return super.canUse() && entity.hasBlacksmithUpgrade();
+        }
+
+        @Override
+        protected void attack(List<Entity> enemies) {
+            if (enemies.isEmpty())
+                return;
+
+            Entity enemy = enemies.get(entity.getRandom().nextInt(enemies.size()));
+            ThrownSwordEntity sword = new ThrownSwordEntity(OccultismEntities.THROWN_SWORD_TYPE.get(), entity.level);
+            sword.setOwner(entity.getFamiliarOwner());
+            double x = entity.getX();
+            double y = entity.getEyeY();
+            double z = entity.getZ();
+            double xDir = enemy.getX() - x;
+            double yDir = enemy.getY() + enemy.getBbHeight() - y;
+            double zDir = enemy.getZ() - z;
+            sword.setPos(x, y, z);
+            sword.shoot(xDir, yDir, zDir, 0.5f, 3f);
+            entity.level.addFreshEntity(sword);
+        }
+
+    }
+
     private static class FetchGoal extends Goal {
 
         private final DragonFamiliarEntity dragon;
@@ -329,7 +377,8 @@ public class DragonFamiliarEntity extends FamiliarEntity {
 
             if (this.stick.distanceToSqr(this.dragon) < 3) {
                 this.dragon.setStick(true);
-                OccultismAdvancements.FAMILIAR.trigger(this.dragon.getFamiliarOwner(), FamiliarTrigger.Type.DRAGON_FETCH);
+                OccultismAdvancements.FAMILIAR.trigger(this.dragon.getFamiliarOwner(),
+                        FamiliarTrigger.Type.DRAGON_FETCH);
                 this.stick.getItem().shrink(1);
                 this.stick = null;
             }

@@ -115,10 +115,12 @@ public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScree
         nameLabel.addLine(TextUtil.formatDemonName(this.spirit.getName().getString()));
         this.addRenderableWidget(nameLabel);
 
-        int agePercent = (int) Math.floor(this.spirit.getSpiritAge() / (float) this.spirit.getSpiritMaxAge() * 100);
-        LabelWidget ageLabel = new LabelWidget(this.leftPos + 65, this.topPos + 17 + labelHeight + 5, false, -1, 2, 0x404040);
-        ageLabel.addLine(I18n.get(TRANSLATION_KEY_BASE + ".age", agePercent));
-        this.addRenderableWidget(ageLabel);
+        if(this.spirit.getSpiritMaxAge() >= 0 ){
+            int agePercent = (int) Math.floor(this.spirit.getSpiritAge() / (float) this.spirit.getSpiritMaxAge() * 100);
+            LabelWidget ageLabel = new LabelWidget(this.leftPos + 65, this.topPos + 17 + labelHeight + 5, false, -1, 2, 0x404040);
+            ageLabel.addLine(I18n.get(TRANSLATION_KEY_BASE + ".age", agePercent));
+            this.addRenderableWidget(ageLabel);
+        }
 
         String jobID = this.spirit.getJobID();
         if (!StringUtils.isBlank(jobID)) {

@@ -54,9 +54,10 @@ public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar 
 
     private static final EntityDataAccessor<Boolean> SITTING = SynchedEntityData.defineId(FamiliarEntity.class,
             EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> BLACKSMITH_UPGRADE = SynchedEntityData.defineId(FamiliarEntity.class,
+            EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Optional<UUID>> OWNER_UNIQUE_ID = SynchedEntityData.defineId(FamiliarEntity.class, EntityDataSerializers.OPTIONAL_UUID);
 
-    private LivingEntity ownerCached;
     private boolean partying;
     private BlockPos jukeboxPos;
 
@@ -83,7 +84,21 @@ public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar 
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(SITTING, false);
+        this.entityData.define(BLACKSMITH_UPGRADE, false);
         this.entityData.define(OWNER_UNIQUE_ID, Optional.empty());
+    }
+
+    public boolean hasBlacksmithUpgrade() {
+        return this.entityData.get(BLACKSMITH_UPGRADE);
+    }
+
+    private void setBlacksmithUpgrade(boolean b) {
+        this.entityData.set(BLACKSMITH_UPGRADE, b);
+    }
+
+    @Override
+    public void blacksmithUpgrade() {
+        setBlacksmithUpgrade(true);
     }
 
     @Override
@@ -119,13 +134,6 @@ public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar 
         }
     }
 
-    public LivingEntity getOwnerCached() {
-        if (this.ownerCached != null)
-            return this.ownerCached;
-        this.ownerCached = this.getOwner();
-        return this.ownerCached;
-    }
-
     @Override
     protected InteractionResult mobInteract(Player playerIn, InteractionHand hand) {
         ItemStack stack = playerIn.getItemInHand(hand);
@@ -143,7 +151,7 @@ public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar 
 
     @Override
     public LivingEntity getFamiliarOwner() {
-        return this.getOwnerCached();
+        return this.getOwner();
     }
 
     @Override
@@ -156,7 +164,6 @@ public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar 
     }
 
     private void setOwnerId(UUID id) {
-        this.ownerCached = null;
         this.entityData.set(OWNER_UNIQUE_ID, Optional.ofNullable(id));
     }
 
@@ -172,6 +179,7 @@ public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar 
             this.setOwnerId(compound.getUUID("owner"));
         if (compound.contains("isSitting"))
             this.setSitting(compound.getBoolean("isSitting"));
+        this.setBlacksmithUpgrade(compound.getBoolean("hasBlacksmithUpgrade"));
     }
 
     @Override
@@ -182,6 +190,7 @@ public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar 
         }
 
         compound.putBoolean("isSitting", this.isSitting());
+        compound.putBoolean("hasBlacksmithUpgrade", this.hasBlacksmithUpgrade());
     }
 
     public boolean isSitting() {

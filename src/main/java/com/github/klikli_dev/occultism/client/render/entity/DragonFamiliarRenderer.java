@@ -48,7 +48,8 @@ public class DragonFamiliarRenderer extends MobRenderer<DragonFamiliarEntity, Dr
 
     public DragonFamiliarRenderer(EntityRendererProvider.Context context) {
         super(context, new DragonFamiliarModel(context.bakeLayer(OccultismModelLayers.FAMILIAR_DRAGON)), 0.3f);
-        this.addLayer(new DragonStickLayer(this));
+        this.addLayer(new DragonRendering.StickLayer(this));
+        this.addLayer(new DragonRendering.SwordLayer(this));
     }
 
 

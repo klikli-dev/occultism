@@ -48,7 +48,6 @@ public class OtherworldBirdEntity extends Parrot implements IFamiliar {
 
     // region Fields
     public static final float MAX_BOOST_DISTANCE = 8f;
-    public LivingEntity ownerCached;
 
     public SitWhenOrderedToGoal sitGoal;
     // endregion Fields
@@ -68,12 +67,6 @@ public class OtherworldBirdEntity extends Parrot implements IFamiliar {
     // region Overrides
 
     // region Getter / Setter
-    public LivingEntity getOwnerCached() {
-        if (this.ownerCached != null)
-            return this.ownerCached;
-        this.ownerCached = this.getOwner();
-        return this.ownerCached;
-    }
 
     @Override
     protected void registerGoals() {
@@ -92,7 +85,7 @@ public class OtherworldBirdEntity extends Parrot implements IFamiliar {
     public void aiStep() {
         // Every 10 ticks, attempt to refresh the owner buff
         if (!this.level.isClientSide && this.level.getGameTime() % 10 == 0 && this.isTame()) {
-            LivingEntity owner = this.getOwnerCached();
+            LivingEntity owner = this.getOwner();
             if (owner != null && this.distanceTo(owner) < MAX_BOOST_DISTANCE) {
                 // close enough to boost
                 for (MobEffectInstance effect : this.getFamiliarEffects())
@@ -105,13 +98,12 @@ public class OtherworldBirdEntity extends Parrot implements IFamiliar {
 
     @Override
     public void setOwnerUUID(@Nullable UUID ownerId) {
-        this.ownerCached = null;
         super.setOwnerUUID(ownerId);
     }
 
     @Override
     public LivingEntity getFamiliarOwner() {
-        return this.getOwnerCached();
+        return this.getOwner();
     }
 
     @Override

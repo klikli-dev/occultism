@@ -30,11 +30,13 @@ import com.github.klikli_dev.occultism.common.block.otherworld.*;
 import com.github.klikli_dev.occultism.common.block.storage.StableWormholeBlock;
 import com.github.klikli_dev.occultism.common.block.storage.StorageControllerBlock;
 import com.github.klikli_dev.occultism.common.block.storage.StorageStabilizerBlock;
+import com.github.klikli_dev.occultism.common.entity.CthulhuFamiliarEntity;
 import com.github.klikli_dev.occultism.common.level.tree.OtherworldNaturalTreeGrower;
 import com.github.klikli_dev.occultism.common.level.tree.OtherworldTreeGrower;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraft.world.level.material.PushReaction;
@@ -44,6 +46,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 import java.util.function.Supplier;
 
 public class OccultismBlocks {
@@ -59,6 +62,18 @@ public class OccultismBlocks {
                     Block.Properties.of(Material.FIRE, MaterialColor.FIRE).noCollission().randomTicks()
                             .strength(0, 0).lightLevel((state) -> 12)
                             .sound(SoundType.WOOL)), false, LootTableType.EMPTY);
+
+    public static final RegistryObject<Block> LIGHTED_AIR = register("lighted_air", () -> new AirBlock(
+            Block.Properties.of(Material.AIR).noCollission().air().noDrops().lightLevel(s -> 15).randomTicks()) {
+
+        @Override
+        public void tick(BlockState state, ServerWorld world, BlockPos pos, Random rand) {
+            if (world.getEntitiesOfClass(CthulhuFamiliarEntity.class, new AxisAlignedBB(pos),
+                    e -> e.hasBlacksmithUpgrade()).isEmpty())
+                world.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
+        }
+    });
+
 
     //can't use builder here because of random private builder methods ..
     public static final Material GLYPH_MATERIAL = new Material(MaterialColor.NONE, false, false,

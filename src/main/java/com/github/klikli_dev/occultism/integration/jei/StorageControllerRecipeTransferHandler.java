@@ -98,12 +98,13 @@ public class StorageControllerRecipeTransferHandler<T extends AbstractContainerM
 //        }
 
         //if recipe is in recipe manager send by id, otherwise fallback to ingredient list
-        if (player.getCommandSenderWorld().getRecipeManager().byKey(recipe.getId()).isPresent()) {
-            OccultismPackets.sendToServer(new MessageSetRecipeByID(recipe.getId()));
-        } else {
-            OccultismPackets.sendToServer(new MessageSetRecipe(this.recipeToTag(container, recipeLayout)));
+        if(doTransfer) {
+            if (player.getCommandSenderWorld().getRecipeManager().byKey(recipe.getId()).isPresent()) {
+                OccultismPackets.sendToServer(new MessageSetRecipeByID(recipe.getId()));
+            } else {
+                OccultismPackets.sendToServer(new MessageSetRecipe(this.recipeToTag(container, recipeLayout)));
+            }
         }
-
         return null;
     }
     //endregion Overrides

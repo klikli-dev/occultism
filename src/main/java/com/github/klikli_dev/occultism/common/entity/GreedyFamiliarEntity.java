@@ -25,6 +25,7 @@ package com.github.klikli_dev.occultism.common.entity;
 import com.github.klikli_dev.occultism.common.advancement.FamiliarTrigger;
 import com.github.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.google.common.collect.ImmutableList;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -39,11 +40,20 @@ import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.wrapper.PlayerMainInvWrapper;
 
 import java.util.EnumSet;
+import java.util.List;
+import java.util.Optional;
 
 public class GreedyFamiliarEntity extends FamiliarEntity {
 
+    private static final DataParameter<Optional<BlockPos>> TARGET_BLOCK = EntityDataManager
+            .defineId(GreedyFamiliarEntity.class, DataSerializers.OPTIONAL_BLOCK_POS);
+
+    private float earRotZ, earRotZ0, earRotX, earRotX0, peekRot, peekRot0, monsterRot, monsterRot0;
+    private int monsterAnimTimer;
+
     public GreedyFamiliarEntity(EntityType<? extends GreedyFamiliarEntity> type, Level worldIn) {
         super(type, worldIn);
+        this.monsterAnimTimer = this.getRandom().nextInt(100);
     }
 
     @Override
@@ -51,11 +61,27 @@ public class GreedyFamiliarEntity extends FamiliarEntity {
         this.goalSelector.addGoal(0, new PanicGoal(this, 1.25));
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new SitGoal(this));
-        this.goalSelector.addGoal(2, new FindItemGoal(this));
-        this.goalSelector.addGoal(2, new LookAtPlayerGoal(this, Player.class, 8));
-        this.goalSelector.addGoal(3, new FollowOwnerGoal(this, 1, 3, 1));
-        this.goalSelector.addGoal(4, new WaterAvoidingRandomStrollGoal(this, 1.0D));
-        this.goalSelector.addGoal(5, new FollowMobGoal(this, 1, 3, 7));
+        this.goalSelector.addGoal(2, new FindBlockGoal(this));
+        this.goalSelector.addGoal(3, new RideDragonGoal(this));
+        this.goalSelector.addGoal(4, new FindItemGoal(this));
+        this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 8));
+        this.goalSelector.addGoal(5, new FollowOwnerGoal(this, 1, 3, 1));
+        this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 1.0D));
+        this.goalSelector.addGoal(7, new FollowMobGoal(this, 1, 3, 7));
+    }
+
+    @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(TARGET_BLOCK, Optional.empty());
+    }
+
+    public Optional<BlockPos> getTargetBlock() {
+        return this.entityData.get(TARGET_BLOCK);
+    }
+
+    private void setTargetBlock(Optional<BlockPos> pos) {
+        this.entityData.set(TARGET_BLOCK, pos);
     }
 
     @Override
@@ -79,6 +105,96 @@ public class GreedyFamiliarEntity extends FamiliarEntity {
                     e.playerTouch((Player) wearer);
                 }
             }
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+
+        // Ears point to target block pos
+        this.earRotX0 = this.earRotX;
+        this.earRotZ0 = this.earRotZ;
+        if (level.isClientSide) {
+            Optional<BlockPos> targetBlock = getTargetBlock();
+            if (targetBlock.isPresent()) {
+                Vector3d p = Vector3d.atCenterOf(targetBlock.get());
+
+                float endZRot = -0.5f;
+                if (Math.abs(p.y - this.getEyeY()) > 1)
+                    endZRot = p.y > this.getEyeY() ? 0 : -2f;
+                this.earRotZ = MathHelper.lerp(0.1f, this.earRotZ, endZRot);
+
+                Vector3d look = this.getViewVector(1.0F);
+                Vector3d toTarget = p.vectorTo(this.position()).normalize();
+                toTarget = new Vector3d(toTarget.x, 0.0D, toTarget.z);
+                float endXRot = toTarget.dot(look) < 0 ? 1 : -1;
+                this.earRotX = MathHelper.lerp(0.1f, this.earRotX, endXRot);
+            } else {
+                this.earRotX = MathHelper.lerp(0.1f, this.earRotX, 0);
+                this.earRotZ = MathHelper.lerp(0.1f, this.earRotZ, -0.5f);
+            }
+
+            this.monsterAnimTimer++;
+            this.peekRot0 = this.peekRot;
+            this.monsterRot0 = this.monsterRot;
+            if (monsterAnimTimer % 300 < 200) {
+                float peekTimer = monsterAnimTimer % 300 % 200;
+                if (peekTimer > 30 && peekTimer < 50)
+                    this.monsterRot = MathHelper.lerp(0.3f, this.monsterRot, toRad(37));
+                else if (peekTimer > 50 && peekTimer < 70)
+                    this.monsterRot = MathHelper.lerp(0.3f, this.monsterRot, toRad(-37));
+                else if (peekTimer > 70)
+                    this.monsterRot = MathHelper.lerp(0.3f, this.monsterRot, 0);
+
+                if (peekTimer < 100)
+                    this.peekRot = MathHelper.lerp(0.1f, this.peekRot, toRad(46));
+                else
+                    this.peekRot = MathHelper.lerp(0.1f, this.peekRot, 0);
+            } else {
+                this.peekRot = 0;
+                this.monsterRot = 0;
+            }
+        }
+    }
+
+    private float toRad(float deg) {
+        return (float) Math.toRadians(deg);
+    }
+
+    public float getLidRot(float partialTicks) {
+        return MathHelper.lerp(partialTicks, this.peekRot0, this.peekRot);
+    }
+
+    public float getMonsterRot(float partialTicks) {
+        return MathHelper.lerp(partialTicks, this.monsterRot0, this.monsterRot);
+    }
+
+    public float getEarRotZ(float partialTicks) {
+        return MathHelper.lerp(partialTicks, this.earRotZ0, this.earRotZ);
+    }
+
+    public float getEarRotX(float partialTicks) {
+        return MathHelper.lerp(partialTicks, this.earRotX0, this.earRotX);
+    }
+
+    @Override
+    public boolean canBlacksmithUpgrade() {
+        return !hasBlacksmithUpgrade();
+    }
+
+    @Override
+    protected ActionResultType mobInteract(PlayerEntity playerIn, Hand hand) {
+        ItemStack stack = playerIn.getItemInHand(hand);
+        if (hasBlacksmithUpgrade() && !getOffhandItem().isEmpty()) {
+            ItemHandlerHelper.giveItemToPlayer(playerIn, getOffhandItem());
+            this.setItemInHand(Hand.OFF_HAND, ItemStack.EMPTY);
+            return ActionResultType.sidedSuccess(this.level.isClientSide);
+        } else if (hasBlacksmithUpgrade() && stack.getItem() instanceof BlockItem) {
+            this.setItemInHand(Hand.OFF_HAND, new ItemStack(stack.getItem()));
+            stack.shrink(1);
+            return ActionResultType.sidedSuccess(this.level.isClientSide);
+        }
+        return super.mobInteract(playerIn, hand);
     }
 
     public static class FindItemGoal extends Goal {
@@ -140,4 +256,105 @@ public class GreedyFamiliarEntity extends FamiliarEntity {
         }
 
     }
+
+    private static class RideDragonGoal extends Goal {
+
+        private final GreedyFamiliarEntity greedy;
+        private DragonFamiliarEntity dragon;
+
+        private RideDragonGoal(GreedyFamiliarEntity greedy) {
+            this.greedy = greedy;
+            this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.JUMP));
+        }
+
+        @Override
+        public boolean canUse() {
+            if (this.greedy.getVehicle() instanceof DragonFamiliarEntity)
+                return true;
+
+            DragonFamiliarEntity dragon = this.findDragon();
+            if (dragon != null) {
+                this.dragon = dragon;
+                this.greedy.getNavigation().moveTo(dragon, 1);
+                return true;
+            }
+            return false;
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            return this.greedy.getVehicle() instanceof DragonFamiliarEntity
+                    || (this.greedy.isPathFinding() && this.dragon != null);
+        }
+
+        @Override
+        public void stop() {
+            this.dragon = null;
+        }
+
+        @Override
+        public void tick() {
+            if (this.dragon != null && this.greedy.distanceToSqr(this.dragon) < 5) {
+                this.greedy.startRiding(this.dragon);
+            }
+        }
+
+        private DragonFamiliarEntity findDragon() {
+            LivingEntity owner = this.greedy.getOwner();
+            if (owner == null)
+                return null;
+
+            List<DragonFamiliarEntity> dragons = this.greedy.level.getEntitiesOfClass(DragonFamiliarEntity.class,
+                    this.greedy.getBoundingBox().inflate(5),
+                    e -> e.getFamiliarOwner() == owner && !e.isVehicle() && !e.isSitting());
+            if (dragons.isEmpty())
+                return null;
+            return dragons.get(0);
+        }
+    }
+
+    private static class FindBlockGoal extends MoveToBlockGoal {
+
+        GreedyFamiliarEntity greedy;
+
+        public FindBlockGoal(GreedyFamiliarEntity greedy) {
+            super(greedy, 1, 10, 5);
+            this.greedy = greedy;
+        }
+
+        @Override
+        public boolean canUse() {
+            return super.canUse() && !mob.getOffhandItem().isEmpty();
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            return super.canContinueToUse() && !mob.getOffhandItem().isEmpty();
+        }
+
+        @Override
+        protected boolean isValidTarget(IWorldReader pLevel, BlockPos pPos) {
+            ItemStack offhand = mob.getOffhandItem();
+            return pLevel.getBlockState(pPos).getBlock() == Block.byItem(offhand.getItem());
+        }
+
+        @Override
+        public void start() {
+            super.start();
+            this.greedy.setTargetBlock(Optional.of(this.blockPos));
+        }
+
+        @Override
+        public void stop() {
+            super.stop();
+            this.greedy.setTargetBlock(Optional.empty());
+        }
+
+        @Override
+        protected BlockPos getMoveToTarget() {
+            return this.blockPos;
+        }
+
+    }
+
 }

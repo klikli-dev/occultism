@@ -7,9 +7,7 @@
     {
       "type": "spotlight",
       "item": "occultism:iesnium_ore",
-      "text": "Iesnium (Иесниум - больше не буду переводить это :DDD) является $(thing)Otherworld Ore$() (потусторонней рудой), которая появляется в Аду. Таким образом, его можно добыть только с $(l:rituals/crafting/craft_infused_pickaxe)Infuse a pickaxe$(/l) или $(item)Iesnium Pickaxe$() (Иесниумовая кирка) во время ношения $(l:rituals/crafting/craft_otherworld_goggles)Otherworld Goggles$(/l) потусторонних очков. ",
-
-    },
+      "text": "Iesnium (Иесниум - больше не буду переводить это :DDD) является $(thing)Otherworld Ore$() (потусторонней рудой), которая появляется в Аду. Таким образом, его можно добыть только с $(l:rituals/crafting/craft_infused_pickaxe)Infuse a pickaxe$(/l) или $(item)Iesnium Pickaxe$() (Иесниумовая кирка) во время ношения $(l:rituals/crafting/craft_otherworld_goggles)Otherworld Goggles$(/l) потусторонних очков. "},
     {
       "type": "crafting",
       "recipe": "occultism:crafting/iesnium_pickaxe",
@@ -18,8 +16,6 @@
     {
       "type": "spotlight",
       "item": "occultism:iesnium_ingot",
-      "text": "Основное применение Iesnium - это использование для вызова $(l:rituals/crafting/craft_miner_spirits)Miner Spirits$(/l) для $(l:rituals/crafting/craft_dimensional_mineshaft)Dimensional Mineshaft$(/l).",
-
-    }
+      "text": "Основное применение Iesnium - это использование для вызова $(l:rituals/crafting/craft_miner_spirits)Miner Spirits$(/l) для $(l:rituals/crafting/craft_dimensional_mineshaft)Dimensional Mineshaft$(/l)."}
   ]
 }

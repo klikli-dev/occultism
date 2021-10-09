@@ -22,6 +22,9 @@
 
 package com.github.klikli_dev.occultism.handlers;
 
+import java.util.List;
+import java.util.Random;
+
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.item.tool.ButcherKnifeItem;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
@@ -63,5 +66,74 @@ public class LootEventHandler {
                 }
             }
         }
+    }
+
+    @SubscribeEvent
+    public static void onExpDrop(LivingExperienceDropEvent event) {
+        if (event.getDroppedExperience() == 0)
+            return;
+
+        PlayerEntity attackingPlayer = event.getAttackingPlayer();
+        if (attackingPlayer != null) {
+            EffectInstance greed = attackingPlayer.getEffect(OccultismEffects.DRAGON_GREED.get());
+            if (greed == null)
+                return;
+            event.setDroppedExperience(event.getDroppedExperience() + greed.getAmplifier() + 1);
+        }
+    }
+
+    @SubscribeEvent
+    public static void giveStoneToBlacksmith(EntityItemPickupEvent event) {
+        ItemEntity entity = event.getItem();
+        ItemStack stack = entity.getItem();
+        Item item = stack.getItem();
+
+        if (!(item.is(Tags.Items.COBBLESTONE) || item.is(Tags.Items.STONE)))
+            return;
+
+        PlayerEntity player = event.getPlayer();
+
+        if (!isBlacksmithEnabled(player) || !hasBlacksmith(player))
+            return;
+
+        if (player.getRandom().nextDouble() < 0.01 * stack.getCount())
+            repairEquipment(player);
+
+        event.setCanceled(true);
+        entity.remove();
+    }
+
+    private static void repairEquipment(PlayerEntity player) {
+        for (ItemStack stack : player.getAllSlots()) {
+            if (!stack.isDamaged())
+                continue;
+            stack.setDamageValue(stack.getDamageValue() - 2);
+            return;
+        }
+    }
+
+    private static boolean isBlacksmithEnabled(PlayerEntity player) {
+        return player.getCapability(OccultismCapabilities.FAMILIAR_SETTINGS)
+                .lazyMap(c -> c.isFamiliarEnabled(OccultismEntities.BLACKSMITH_FAMILIAR.get())).orElse(false);
+    }
+
+    private static boolean hasBlacksmith(PlayerEntity player) {
+        return hasEquippedBlacksmith(player) || hasNearbyBlacksmith(player);
+    }
+
+    private static boolean hasNearbyBlacksmith(PlayerEntity player) {
+        return !player.level.getEntitiesOfClass(BlacksmithFamiliarEntity.class, player.getBoundingBox().inflate(10),
+                e -> e.getFamiliarOwner() == player).isEmpty();
+    }
+
+    private static boolean hasEquippedBlacksmith(PlayerEntity player) {
+        return CuriosApi.getCuriosHelper().getEquippedCurios(player).map(handler -> {
+            for (int i = 0; i < handler.getSlots(); i++) {
+                IFamiliar familiar = FamiliarRingItem.getFamiliar(handler.getStackInSlot(i), player.level);
+                if (familiar instanceof BlacksmithFamiliarEntity)
+                    return true;
+            }
+            return false;
+        }).orElse(false);
     }
 }

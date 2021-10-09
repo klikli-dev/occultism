@@ -39,6 +39,7 @@ public class GreedyFamiliarRenderer extends MobRenderer<GreedyFamiliarEntity, Gr
 
     public GreedyFamiliarRenderer(EntityRendererProvider.Context context) {
         super(context, new GreedyFamiliarModel(context.bakeLayer(OccultismModelLayers.FAMILIAR_GREEDY)), 0.3f);
+        addLayer(new ItemLayer(this));
     }
 
     @Override
@@ -56,4 +57,52 @@ public class GreedyFamiliarRenderer extends MobRenderer<GreedyFamiliarEntity, Gr
         matrixStackIn.popPose();
     }
 
+    private static class ItemLayer extends LayerRenderer<GreedyFamiliarEntity, GreedyFamiliarModel> {
+        public ItemLayer(IEntityRenderer<GreedyFamiliarEntity, GreedyFamiliarModel> renderer) {
+            super(renderer);
+        }
+
+        @Override
+        public void render(MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn,
+                GreedyFamiliarEntity entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks,
+                float ageInTicks, float netHeadYaw, float headPitch) {
+            boolean hasBlacksmithUpgrade = entitylivingbaseIn.hasBlacksmithUpgrade();
+            ItemStack offhand = entitylivingbaseIn.getOffhandItem();
+            if (!hasBlacksmithUpgrade && offhand.isEmpty())
+                return;
+
+            GreedyFamiliarModel model = this.getParentModel();
+            FirstPersonRenderer renderer = Minecraft.getInstance().getItemInHandRenderer();
+            matrixStackIn.pushPose();
+
+
+            if (hasBlacksmithUpgrade) {
+                model.body.translateAndRotate(matrixStackIn);
+                model.rightArm.translateAndRotate(matrixStackIn);
+
+                matrixStackIn.translate(-0.06, 0.2, -0.1);
+                matrixStackIn.mulPose(new Quaternion(0, 90, -45, true));
+
+                renderer.renderItem(entitylivingbaseIn,
+                        new ItemStack(Items.IRON_PICKAXE), ItemCameraTransforms.TransformType.GROUND, false,
+                        matrixStackIn, bufferIn, packedLightIn);
+                matrixStackIn.popPose();
+            }
+
+            if (!offhand.isEmpty()) {
+                matrixStackIn.pushPose();
+                model.body.translateAndRotate(matrixStackIn);
+                model.leftArm.translateAndRotate(matrixStackIn);
+
+                matrixStackIn.translate(0.06, 0.2, -0.17);
+                matrixStackIn.mulPose(new Quaternion(0, 45, 0, true));
+                float size = 0.75f;
+                matrixStackIn.scale(size, size, size);
+
+                renderer.renderItem(entitylivingbaseIn, offhand,
+                        ItemCameraTransforms.TransformType.GROUND, false, matrixStackIn, bufferIn, packedLightIn);
+                matrixStackIn.popPose();
+            }
+        }
+    }
 }

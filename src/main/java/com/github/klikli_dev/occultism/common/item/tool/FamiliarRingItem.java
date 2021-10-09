@@ -101,7 +101,7 @@ public class FamiliarRingItem extends Item {
         return super.useOn(pContext);
     }
 
-    private Curio getCurio(ItemStack stack) {
+    private static Curio getCurio(ItemStack stack) {
         ICurio curio = stack.getCapability(CuriosCapability.ITEM).orElse(null);
         if (curio != null && curio instanceof Curio)
             return (Curio) curio;
@@ -111,6 +111,11 @@ public class FamiliarRingItem extends Item {
     @Override
     public ICapabilityProvider initCapabilities(ItemStack stack, CompoundTag nbt) {
         return new Provider(stack);
+    }
+
+    public static IFamiliar getFamiliar(ItemStack stack, World world) {
+        Curio curio = getCurio(stack);
+        return curio == null ? null : curio.getFamiliar(world);
     }
 
     private static class Curio implements ICurio, INBTSerializable<CompoundTag> {
