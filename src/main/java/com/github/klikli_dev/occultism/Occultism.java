@@ -115,6 +115,10 @@ public class Occultism {
             //Clear the config cache on reload.
             CLIENT_CONFIG.clear();
         }
+        if (event.getConfig().getSpec() == COMMON_CONFIG.spec) {
+            //Clear the config cache on reload.
+            COMMON_CONFIG.clear();
+        }
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
