@@ -248,8 +248,14 @@ public class GuardianFamiliarModel extends EntityModel<GuardianFamiliarEntity> {
 
     private void showModels(GuardianFamiliarEntity entity) {
         boolean hasTree = entity.hasTree();
+        byte lives = entity.getLives();
+
         this.tree1.visible = hasTree;
         this.tree2.visible = hasTree;
         this.birdBody.visible = entity.hasBird();
+        this.leftArm1.visible = lives > 4;
+        this.leftLeg1.visible = lives > 3;
+        this.rightLeg1.visible = lives > 2;
+        this.rightArm1.visible = lives > 1;
     }
 }

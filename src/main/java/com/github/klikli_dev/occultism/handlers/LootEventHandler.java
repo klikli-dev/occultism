@@ -26,14 +26,11 @@ import java.util.List;
 import java.util.Random;
 
 import com.github.klikli_dev.occultism.Occultism;
-import com.github.klikli_dev.occultism.common.entity.BlacksmithFamiliarEntity;
-import com.github.klikli_dev.occultism.common.entity.IFamiliar;
 import com.github.klikli_dev.occultism.common.item.tool.ButcherKnifeItem;
-import com.github.klikli_dev.occultism.common.item.tool.FamiliarRingItem;
-import com.github.klikli_dev.occultism.registry.OccultismCapabilities;
 import com.github.klikli_dev.occultism.registry.OccultismEffects;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
+import com.github.klikli_dev.occultism.util.FamiliarUtil;
 import com.github.klikli_dev.occultism.util.Math3DUtil;
 
 import net.minecraft.entity.LivingEntity;
@@ -50,7 +47,6 @@ import net.minecraftforge.event.entity.living.LivingExperienceDropEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import top.theillusivec4.curios.api.CuriosApi;
 
 @Mod.EventBusSubscriber(modid = Occultism.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class LootEventHandler {
@@ -104,7 +100,7 @@ public class LootEventHandler {
 
         PlayerEntity player = event.getPlayer();
 
-        if (!isBlacksmithEnabled(player) || !hasBlacksmith(player))
+        if (!FamiliarUtil.isFamiliarEnabled(player, OccultismEntities.BLACKSMITH_FAMILIAR.get()) || !FamiliarUtil.hasFamiliar(player, OccultismEntities.BLACKSMITH_FAMILIAR.get()))
             return;
 
         if (player.getRandom().nextDouble() < 0.01 * stack.getCount())
@@ -123,28 +119,7 @@ public class LootEventHandler {
         }
     }
 
-    private static boolean isBlacksmithEnabled(PlayerEntity player) {
-        return player.getCapability(OccultismCapabilities.FAMILIAR_SETTINGS)
-                .lazyMap(c -> c.isFamiliarEnabled(OccultismEntities.BLACKSMITH_FAMILIAR.get())).orElse(false);
-    }
 
-    private static boolean hasBlacksmith(PlayerEntity player) {
-        return hasEquippedBlacksmith(player) || hasNearbyBlacksmith(player);
-    }
 
-    private static boolean hasNearbyBlacksmith(PlayerEntity player) {
-        return !player.level.getEntitiesOfClass(BlacksmithFamiliarEntity.class, player.getBoundingBox().inflate(10),
-                e -> e.getFamiliarOwner() == player).isEmpty();
-    }
 
-    private static boolean hasEquippedBlacksmith(PlayerEntity player) {
-        return CuriosApi.getCuriosHelper().getEquippedCurios(player).map(handler -> {
-            for (int i = 0; i < handler.getSlots(); i++) {
-                IFamiliar familiar = FamiliarRingItem.getFamiliar(handler.getStackInSlot(i), player.level);
-                if (familiar instanceof BlacksmithFamiliarEntity)
-                    return true;
-            }
-            return false;
-        }).orElse(false);
-    }
 }
