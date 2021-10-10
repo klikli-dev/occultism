@@ -48,6 +48,12 @@
         "minecraft:custom_model_data": 7.0
       },
       "model": "occultism:item/advancement/blacksmith_icon"
+    },
+    {
+      "predicate": {
+        "minecraft:custom_model_data": 8.0
+      },
+      "model": "occultism:item/advancement/guardian_icon"
     }
   ]
 }

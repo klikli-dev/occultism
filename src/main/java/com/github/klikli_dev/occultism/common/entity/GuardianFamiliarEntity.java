@@ -166,8 +166,11 @@ public class GuardianFamiliarEntity extends FamiliarEntity {
     }
 
     public boolean sacrifice() {
-        boolean success = this.getLives() > 0;
-        this.setLives((byte) (this.getLives() - 1));
+        byte lives = this.getLives();
+        boolean success = lives > 0;
+        if (lives == DEATHS_DOOR)
+            OccultismAdvancements.FAMILIAR.trigger(this.getFamiliarOwner(), FamiliarTrigger.Type.GUARDIAN_ULTIMATE_SACRIFICE);
+        this.setLives((byte) (lives - 1));
         return success;
     }
 
