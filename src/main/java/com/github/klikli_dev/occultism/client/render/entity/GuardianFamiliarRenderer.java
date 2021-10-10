@@ -58,7 +58,12 @@ public class GuardianFamiliarRenderer extends MobRenderer<GuardianFamiliarEntity
     @Override
     public void render(GuardianFamiliarEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn,
             IRenderTypeBuffer bufferIn, int packedLightIn) {
+        matrixStackIn.pushPose();
+        boolean noLegs = entityIn.getLives() <= GuardianFamiliarEntity.FLOATING;
+        matrixStackIn.translate(0,
+                entityIn.isSitting() ? (noLegs ? -0.5 : -0.36) : entityIn.getAnimationHeight(partialTicks) * 0.08, 0);
         super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
+        matrixStackIn.popPose();
     }
 
     @Override
@@ -116,7 +121,7 @@ public class GuardianFamiliarRenderer extends MobRenderer<GuardianFamiliarEntity
 
             itemRenderer.renderItem(entity, new ItemStack(Items.STONE_SWORD), ground, false, matrix, bufferIn, light);
             matrix.popPose();
-            
+
             matrix.pushPose();
             model.body.translateAndRotate(matrix);
 
@@ -125,7 +130,7 @@ public class GuardianFamiliarRenderer extends MobRenderer<GuardianFamiliarEntity
 
             itemRenderer.renderItem(entity, new ItemStack(Items.STONE_AXE), ground, false, matrix, bufferIn, light);
             matrix.popPose();
-            
+
             if (model.leftArm1.visible) {
                 matrix.pushPose();
                 model.body.translateAndRotate(matrix);
@@ -134,7 +139,8 @@ public class GuardianFamiliarRenderer extends MobRenderer<GuardianFamiliarEntity
                 matrix.translate(0.21, 0.2, 0);
                 matrix.mulPose(new Quaternion(0, 0, 210, true));
 
-                itemRenderer.renderItem(entity, new ItemStack(Items.STONE_PICKAXE), ground, false, matrix, bufferIn, light);
+                itemRenderer.renderItem(entity, new ItemStack(Items.STONE_PICKAXE), ground, false, matrix, bufferIn,
+                        light);
                 matrix.popPose();
             }
         }

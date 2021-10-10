@@ -28,12 +28,15 @@ import com.github.klikli_dev.occultism.common.advancement.FamiliarTrigger;
 import com.github.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.google.common.collect.ImmutableList;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.ai.goal.FollowMobGoal;
 import net.minecraft.entity.ai.goal.LookAtGoal;
+import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
@@ -43,6 +46,7 @@ import net.minecraft.particles.BlockParticleData;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.SoundEvents;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IServerWorld;
@@ -51,6 +55,12 @@ import net.minecraft.world.World;
 public class GuardianFamiliarEntity extends FamiliarEntity {
 
     private static final byte MAX_LIVES = 5;
+    public static final byte UNDAMAGED = MAX_LIVES;
+    public static final byte ONE_ARMED = 4;
+    public static final byte ONE_LEGGED = 3;
+    public static final byte FLOATING = 2;
+    public static final byte DEATHS_DOOR = 1;
+    public static final byte DEAD = 0;
 
     private static final DataParameter<Float> RED = EntityDataManager.defineId(GuardianFamiliarEntity.class,
             DataSerializers.FLOAT);
@@ -85,6 +95,21 @@ public class GuardianFamiliarEntity extends FamiliarEntity {
         return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
     }
 
+    public boolean hasLegs() {
+        return this.getLives() > 2;
+    }
+
+    @Override
+    protected void playStepSound(BlockPos pPos, BlockState pBlock) {
+        if (!hasLegs())
+            return;
+        super.playStepSound(pPos, pBlock);
+    }
+
+    public float getAnimationHeight(float partialTicks) {
+        return this.hasLegs() ? 0 : MathHelper.cos((this.tickCount + partialTicks) / 5);
+    }
+
     @Override
     public boolean canBlacksmithUpgrade() {
         return !hasBlacksmithUpgrade() && this.getLives() != MAX_LIVES;
@@ -98,7 +123,11 @@ public class GuardianFamiliarEntity extends FamiliarEntity {
 
     @Override
     protected void registerGoals() {
+        this.goalSelector.addGoal(1, new SitGoal(this));
         this.goalSelector.addGoal(2, new LookAtGoal(this, PlayerEntity.class, 8));
+        this.goalSelector.addGoal(3, new FollowOwnerGoal(this, 1, 3, 1));
+        this.goalSelector.addGoal(4, new WaterAvoidingRandomWalkingGoal(this, 1.0D));
+        this.goalSelector.addGoal(5, new FollowMobGoal(this, 1, 3, 7));
     }
 
     @Override
@@ -149,7 +178,7 @@ public class GuardianFamiliarEntity extends FamiliarEntity {
         if (this.getLives() <= 0 && !level.isClientSide)
             this.kill();
 
-        if (lives0 != -1 && lives0 != getLives()) {
+        if (lives0 != -1 && lives0 > getLives()) {
             particleTimer = 30;
             playSound(SoundEvents.GENERIC_HURT, getSoundVolume(), getVoicePitch());
         }

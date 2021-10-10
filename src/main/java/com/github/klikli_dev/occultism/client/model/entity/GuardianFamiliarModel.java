@@ -215,6 +215,14 @@ public class GuardianFamiliarModel extends EntityModel<GuardianFamiliarEntity> {
         ImmutableList.of(this.body).forEach((modelRenderer) -> {
             modelRenderer.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
         });
+
+        if (!this.leftArm1.visible) {
+            matrixStackIn.pushPose();
+            matrixStackIn.translate(body.x / 16d, body.y / 16d, body.z / 16d);
+            matrixStackIn.translate(0.35, -0.2, 0);
+            this.birdBody.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn);
+            matrixStackIn.popPose();
+        }
     }
 
     /**
@@ -231,18 +239,69 @@ public class GuardianFamiliarModel extends EntityModel<GuardianFamiliarEntity> {
     }
 
     @Override
-    public void setupAnim(GuardianFamiliarEntity pEntity, float pLimbSwing, float pLimbSwingAmount, float pAgeInTicks,
-            float pNetHeadYaw, float pHeadPitch) {
+    public void setupAnim(GuardianFamiliarEntity pEntity, float limbSwing, float limbSwingAmount, float pAgeInTicks,
+            float netHeadYaw, float headPitch) {
         showModels(pEntity);
+        int lives = pEntity.getLives();
+        this.head.yRot = netHeadYaw * (PI / 180f);
 
-        this.birdHead.yRot = pNetHeadYaw * (PI / 180f) * 0.4f;
-        this.birdHead.xRot = pHeadPitch * (PI / 180f) * 0.4f + toRads(30);
-        this.birdLeftLeg.y = -(MathHelper.sin(pAgeInTicks / 2) + 1) * 0.1f - 0.21f;
-        this.birdRightLeg.y = -(MathHelper.sin(pAgeInTicks / 2 + PI) + 1) * 0.1f - 0.21f;
-        if (pAgeInTicks % 100 < 20) {
-            float wingProgress = pAgeInTicks % 100 % 20;
-            this.birdLeftWing.zRot = toRads(20) + MathHelper.sin(wingProgress / 20 * toRads(360) * 2) * toRads(25);
-            this.birdRightWing.zRot = toRads(-20) - MathHelper.sin(wingProgress / 20 * toRads(360) * 2) * toRads(25);
+        this.body.zRot = 0;
+        this.rightLeg1.zRot = 0.16f;
+        this.rightArm1.zRot = 0.19f;
+
+        if (pEntity.isSitting()) {
+            this.rightLeg1.xRot = toRads(-90);
+            this.leftLeg1.xRot = toRads(-90);
+            this.leftArm1.xRot = toRads(-30);
+            this.rightArm1.xRot = toRads(-30);
+            this.leftArm2.xRot = toRads(-30);
+            this.rightArm2.xRot = toRads(-30);
+            this.leftArm3.xRot = toRads(-30);
+            this.rightArm3.xRot = toRads(-30);
+        } else {
+            this.rightLeg1.xRot = MathHelper.cos(limbSwing * 0.5f) * limbSwingAmount * 0.5f;
+            this.leftLeg1.xRot = MathHelper.cos(limbSwing * 0.5f + PI) * limbSwingAmount * 0.5f;
+            this.leftArm2.xRot = 0;
+            this.rightArm2.xRot = 0;
+            this.leftArm3.xRot = 0;
+            this.rightArm3.xRot = 0;
+        }
+        
+        if (pEntity.isPartying()) {
+            this.leftArm1.xRot = -pAgeInTicks / 10;
+            this.rightArm1.xRot = -pAgeInTicks / 10;
+            this.head.yRot = pAgeInTicks / 10;
+        } else if (!pEntity.isSitting()) {
+            this.rightArm1.xRot = MathHelper.cos(limbSwing * 0.5f + PI) * limbSwingAmount * 0.5f;
+            this.leftArm1.xRot = MathHelper.cos(limbSwing * 0.5f) * limbSwingAmount * 0.5f;
+        }
+
+        if (lives == GuardianFamiliarEntity.ONE_LEGGED) {
+            this.body.zRot = toRads(-20);
+            this.rightLeg1.zRot = toRads(20);
+            this.rightArm1.zRot = toRads(20);
+        }
+        
+        // Bird
+        this.birdHead.yRot = netHeadYaw * (PI / 180f) * 0.4f;
+        this.birdHead.xRot = headPitch * (PI / 180f) * 0.4f + toRads(30);
+        if (lives > GuardianFamiliarEntity.ONE_ARMED) {
+            this.birdLeftLeg.y = -(MathHelper.sin(pAgeInTicks / 2) + 1) * 0.1f - 0.21f;
+            this.birdRightLeg.y = -(MathHelper.sin(pAgeInTicks / 2 + PI) + 1) * 0.1f - 0.21f;
+            if (pAgeInTicks % 100 < 20) {
+                float wingProgress = pAgeInTicks % 100 % 20;
+                this.birdLeftWing.zRot = toRads(20) + MathHelper.sin(wingProgress / 20 * toRads(360) * 2) * toRads(25);
+                this.birdRightWing.zRot = toRads(-20)
+                        - MathHelper.sin(wingProgress / 20 * toRads(360) * 2) * toRads(25);
+            }
+            this.birdBody.y = -2.9f;
+        } else {
+            this.birdLeftLeg.y = -0.31f;
+            this.birdRightLeg.y = -0.31f;
+            this.birdLeftWing.zRot = toRads(20) + MathHelper.sin(pAgeInTicks / 2) * toRads(25);
+            this.birdRightWing.zRot = toRads(-20) - MathHelper.sin(pAgeInTicks / 2) * toRads(25);
+            this.birdBody.y = -2.9f - MathHelper.sin(pAgeInTicks / 2) * 0.4f;
+            this.birdBody.zRot = lives <= GuardianFamiliarEntity.ONE_LEGGED ? -0 : 0;
         }
     }
 
