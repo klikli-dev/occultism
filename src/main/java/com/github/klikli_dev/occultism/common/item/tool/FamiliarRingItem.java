@@ -113,9 +113,9 @@ public class FamiliarRingItem extends Item {
         return new Provider(stack);
     }
 
-    public static IFamiliar getFamiliar(ItemStack stack, World world) {
+    public static IFamiliar getFamiliar(ItemStack stack, Level level) {
         Curio curio = getCurio(stack);
-        return curio == null ? null : curio.getFamiliar(world);
+        return curio == null ? null : curio.getFamiliar(level);
     }
 
     private static class Curio implements ICurio, INBTSerializable<CompoundTag> {

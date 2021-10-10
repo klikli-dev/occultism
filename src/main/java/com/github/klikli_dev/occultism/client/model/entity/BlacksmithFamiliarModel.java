@@ -27,6 +27,11 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.model.geom.PartPose;
+import net.minecraft.client.model.geom.builders.CubeListBuilder;
+import net.minecraft.client.model.geom.builders.LayerDefinition;
+import net.minecraft.client.model.geom.builders.MeshDefinition;
+import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.util.Mth;
 
 /**
@@ -95,6 +100,42 @@ public class BlacksmithFamiliarModel extends EntityModel<BlacksmithFamiliarEntit
         this.anvil6 = this.anvil4.getChild("anvil6");
         this.anvil7 = this.anvil4.getChild("anvil7");
     }
+
+
+    public static LayerDefinition createBodyLayer() {
+        MeshDefinition mesh = new MeshDefinition();
+        PartDefinition parts = mesh.getRoot();
+        PartDefinition body = parts.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 0).addBox(-2.5F, -5.0F, -1.5F, 5.0F, 5.0F, 3.0F, false), PartPose.offsetAndRotation(0.0F, 19.0F, 3.0F, 0, 0, 0));
+        PartDefinition rightArm = body.addOrReplaceChild("rightArm", CubeListBuilder.create().texOffs(24, 0).addBox(-2.0F, 0.0F, -1.0F, 2.0F, 6.0F, 2.0F, true), PartPose.offsetAndRotation(-2.5F, -5.0F, 0.0F, 0, 0, 0));
+        PartDefinition leftArm = body.addOrReplaceChild("leftArm", CubeListBuilder.create().texOffs(24, 0).addBox(0.0F, 0.0F, -1.0F, 2.0F, 6.0F, 2.0F, false), PartPose.offsetAndRotation(2.5F, -5.0F, 0.0F, 0, 0, 0));
+        PartDefinition rightLeg = body.addOrReplaceChild("rightLeg", CubeListBuilder.create().texOffs(40, 0).addBox(-1.0F, 0.0F, -1.0F, 2.0F, 5.0F, 2.0F, true), PartPose.offsetAndRotation(-1.5F, 0.0F, 0.0F, 0, 0, 0));
+        PartDefinition leftLeg = body.addOrReplaceChild("leftLeg", CubeListBuilder.create().texOffs(40, 0).addBox(-1.0F, 0.0F, -1.0F, 2.0F, 5.0F, 2.0F, false), PartPose.offsetAndRotation(1.5F, 0.0F, 0.0F, 0, 0, 0));
+        PartDefinition head = body.addOrReplaceChild("head", CubeListBuilder.create().texOffs(43, 2).addBox(-2.5F, -5.0F, -2.5F, 5.0F, 5.0F, 5.0F, false), PartPose.offsetAndRotation(0.0F, -5.0F, 0.0F, 0, 0, 0));
+        PartDefinition wagon = parts.addOrReplaceChild("wagon", CubeListBuilder.create().texOffs(14, 12).addBox(-3.5F, 0.0F, -3.0F, 7.0F, 1.0F, 6.0F, false), PartPose.offsetAndRotation(0.0F, 22.5F, -2.0F, 0, 0, 0));
+        PartDefinition hammer1 = rightArm.addOrReplaceChild("hammer1", CubeListBuilder.create().texOffs(16, 0).addBox(-0.5F, -0.5F, -3.0F, 1.0F, 1.0F, 3.0F, true), PartPose.offsetAndRotation(-1.0F, 5.0F, 0.0F, 0.6255260065779288F, 1.7983872772339238F, 0.0F));
+        PartDefinition hammer2 = hammer1.addOrReplaceChild("hammer2", CubeListBuilder.create().texOffs(14, 6).addBox(-1.0F, -1.0F, -1.0F, 3.0F, 2.0F, 2.0F, true), PartPose.offsetAndRotation(0.0F, 0.0F, -4.0F, 0, 0, 0));
+        PartDefinition nose = head.addOrReplaceChild("nose", CubeListBuilder.create().texOffs(30, 7).addBox(-1.0F, 0.0F, -2.0F, 2.0F, 3.0F, 2.0F, false), PartPose.offsetAndRotation(0.0F, -3.2F, -1.5F, -0.23457224414434488F, 0.0F, 0.0F));
+        PartDefinition mouth1 = head.addOrReplaceChild("mouth1", CubeListBuilder.create().texOffs(8, 26).addBox(-3.5F, -2.0F, 0.0F, 7.0F, 5.0F, 0.0F, false), PartPose.offsetAndRotation(0.0F, -1.1F, -3.2F, 0, 0, 0));
+        PartDefinition leftEar = head.addOrReplaceChild("leftEar", CubeListBuilder.create().texOffs(0, 26).addBox(0.0F, -2.0F, 0.0F, 4.0F, 3.0F, 0.0F, false), PartPose.offsetAndRotation(2.4F, -3.0F, 0.0F, 0.22689280275926282F, -0.8726646259971648F, -0.5235987755982988F));
+        PartDefinition hair1 = head.addOrReplaceChild("hair1", CubeListBuilder.create().texOffs(0, 8).addBox(-2.0F, -3.0F, -2.0F, 4.0F, 3.0F, 4.0F, false), PartPose.offsetAndRotation(0.0F, -5.0F, 0.0F, 0, 0, 0));
+        PartDefinition rightEar = head.addOrReplaceChild("rightEar", CubeListBuilder.create().texOffs(0, 26).addBox(-4.0F, -2.0F, 0.0F, 4.0F, 3.0F, 0.0F, true), PartPose.offsetAndRotation(-2.4F, -3.0F, 0.0F, 0.22689280275926282F, 0.8726646259971648F, 0.5235987755982988F));
+        PartDefinition hair2 = head.addOrReplaceChild("hair2", CubeListBuilder.create().texOffs(42, 21).addBox(-2.0F, -5.0F, -2.0F, 4.0F, 5.0F, 6.0F, false), PartPose.offsetAndRotation(0.0F, -3.0F, 1.0F, 0, 0, 0));
+        PartDefinition mouth2 = head.addOrReplaceChild("mouth2", CubeListBuilder.create().texOffs(22, 26).addBox(-3.5F, -2.0F, 0.0F, 7.0F, 5.0F, 0.0F, false), PartPose.offsetAndRotation(0.0F, -1.1F, -3.2F, 0, 0, 0));
+        PartDefinition earring = leftEar.addOrReplaceChild("earring", CubeListBuilder.create().texOffs(0, 29).addBox(-1.5F, -1.5F, 0.0F, 3.0F, 3.0F, 0.0F, false), PartPose.offsetAndRotation(1.4F, 1.0F, 0.0F, 0.0F, 2.3917990897539414F, 0.0F));
+        PartDefinition anvil1 = wagon.addOrReplaceChild("anvil1", CubeListBuilder.create().texOffs(42, 12).addBox(-1.0F, -1.0F, -2.0F, 2.0F, 2.0F, 4.0F, true), PartPose.offsetAndRotation(-2.0F, -1.0F, 0.0F, 0, 0, 0));
+        PartDefinition anvil2 = wagon.addOrReplaceChild("anvil2", CubeListBuilder.create().texOffs(42, 12).addBox(-1.0F, -1.0F, -2.0F, 2.0F, 2.0F, 4.0F, false), PartPose.offsetAndRotation(2.0F, -1.0F, 0.0F, 0, 0, 0));
+        PartDefinition anvil3 = wagon.addOrReplaceChild("anvil3", CubeListBuilder.create().texOffs(51, 15).addBox(-1.0F, -2.0F, -1.5F, 2.0F, 3.0F, 3.0F, false), PartPose.offsetAndRotation(0.0F, -1.0F, 0.0F, 0, 0, 0));
+        PartDefinition wheel1 = wagon.addOrReplaceChild("wheel1", CubeListBuilder.create().texOffs(34, 14).addBox(0.0F, -1.0F, -1.0F, 1.0F, 2.0F, 2.0F, false), PartPose.offsetAndRotation(3.5F, 0.5F, 2.5F, 0, 0, 0));
+        PartDefinition wheel2 = wagon.addOrReplaceChild("wheel2", CubeListBuilder.create().texOffs(34, 14).addBox(0.0F, -1.0F, -1.0F, 1.0F, 2.0F, 2.0F, false), PartPose.offsetAndRotation(3.5F, 0.5F, -2.5F, 0, 0, 0));
+        PartDefinition wheel3 = wagon.addOrReplaceChild("wheel3", CubeListBuilder.create().texOffs(34, 14).addBox(-1.0F, -1.0F, -1.0F, 1.0F, 2.0F, 2.0F, true), PartPose.offsetAndRotation(-3.5F, 0.5F, -2.5F, 0, 0, 0));
+        PartDefinition wheel4 = wagon.addOrReplaceChild("wheel4", CubeListBuilder.create().texOffs(34, 14).addBox(-1.0F, -1.0F, -1.0F, 1.0F, 2.0F, 2.0F, true), PartPose.offsetAndRotation(-3.5F, 0.5F, 2.5F, 0, 0, 0));
+        PartDefinition anvil4 = anvil3.addOrReplaceChild("anvil4", CubeListBuilder.create().texOffs(0, 19).addBox(-3.0F, -1.5F, -2.0F, 6.0F, 3.0F, 4.0F, false), PartPose.offsetAndRotation(0.0F, -3.5F, 0.0F, 0, 0, 0));
+        PartDefinition anvil5 = anvil4.addOrReplaceChild("anvil5", CubeListBuilder.create().texOffs(36, 18).addBox(-1.0F, -1.0F, -2.0F, 2.0F, 2.0F, 4.0F, false), PartPose.offsetAndRotation(-4.0F, -0.5F, 0.0F, 0, 0, 0));
+        PartDefinition anvil6 = anvil4.addOrReplaceChild("anvil6", CubeListBuilder.create().texOffs(16, 19).addBox(0.0F, -1.0F, -1.0F, 3.0F, 2.0F, 2.0F, false), PartPose.offsetAndRotation(2.5F, -0.51F, 0.5F, 0.0F, 0.2617993877991494F, 0.0F));
+        PartDefinition anvil7 = anvil4.addOrReplaceChild("anvil7", CubeListBuilder.create().texOffs(16, 19).addBox(0.0F, -1.0F, -1.0F, 3.0F, 2.0F, 2.0F, false), PartPose.offsetAndRotation(2.5F, -0.5F, -0.5F, 0.0F, -0.27366763203903305F, 0.0F));
+        return LayerDefinition.create(mesh, 64, 32);
+    }
+
 
     @Override
     public void renderToBuffer(PoseStack pPoseStack, VertexConsumer pBuffer, int pPackedLight, int pPackedOverlay, float pRed, float pGreen, float pBlue, float pAlpha) {

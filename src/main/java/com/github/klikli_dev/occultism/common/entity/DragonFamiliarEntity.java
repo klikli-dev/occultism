@@ -25,6 +25,7 @@ package com.github.klikli_dev.occultism.common.entity;
 import com.github.klikli_dev.occultism.common.advancement.FamiliarTrigger;
 import com.github.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.github.klikli_dev.occultism.registry.OccultismEffects;
+import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -37,10 +38,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
@@ -99,11 +97,11 @@ public class DragonFamiliarEntity extends FamiliarEntity {
 
     @Override
     public boolean canBlacksmithUpgrade() {
-        return !hasBlacksmithUpgrade();
+        return !this.hasBlacksmithUpgrade();
     }
 
     public boolean hasSword() {
-        return this.hasBlacksmithUpgrade() && !swinging;
+        return this.hasBlacksmithUpgrade() && !this.swinging;
     }
 
     @Override
@@ -125,7 +123,7 @@ public class DragonFamiliarEntity extends FamiliarEntity {
         this.goalSelector.addGoal(6, new DevilFamiliarEntity.AttackGoal(this, 5) {
             @Override
             public boolean canUse() {
-                return super.canUse() && !hasBlacksmithUpgrade();
+                return super.canUse() && !DragonFamiliarEntity.this.hasBlacksmithUpgrade();
             }
         });
         this.goalSelector.addGoal(6, new ThrowSwordGoal(this, 100));
@@ -312,7 +310,7 @@ public class DragonFamiliarEntity extends FamiliarEntity {
 
         @Override
         public boolean canUse() {
-            return super.canUse() && entity.hasBlacksmithUpgrade();
+            return super.canUse() && this.entity.hasBlacksmithUpgrade();
         }
 
         @Override
@@ -320,18 +318,18 @@ public class DragonFamiliarEntity extends FamiliarEntity {
             if (enemies.isEmpty())
                 return;
 
-            Entity enemy = enemies.get(entity.getRandom().nextInt(enemies.size()));
-            ThrownSwordEntity sword = new ThrownSwordEntity(OccultismEntities.THROWN_SWORD_TYPE.get(), entity.level);
-            sword.setOwner(entity.getFamiliarOwner());
-            double x = entity.getX();
-            double y = entity.getEyeY();
-            double z = entity.getZ();
+            Entity enemy = enemies.get(this.entity.getRandom().nextInt(enemies.size()));
+            ThrownSwordEntity sword = new ThrownSwordEntity(OccultismEntities.THROWN_SWORD_TYPE.get(), this.entity.level);
+            sword.setOwner(this.entity.getFamiliarOwner());
+            double x = this.entity.getX();
+            double y = this.entity.getEyeY();
+            double z = this.entity.getZ();
             double xDir = enemy.getX() - x;
             double yDir = enemy.getY() + enemy.getBbHeight() - y;
             double zDir = enemy.getZ() - z;
             sword.setPos(x, y, z);
             sword.shoot(xDir, yDir, zDir, 0.5f, 3f);
-            entity.level.addFreshEntity(sword);
+            this.entity.level.addFreshEntity(sword);
         }
 
     }

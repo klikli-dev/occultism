@@ -26,6 +26,12 @@ import com.github.klikli_dev.occultism.common.advancement.FamiliarTrigger;
 import com.github.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.util.Mth;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -33,8 +39,12 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.wrapper.PlayerMainInvWrapper;
@@ -45,8 +55,8 @@ import java.util.Optional;
 
 public class GreedyFamiliarEntity extends FamiliarEntity {
 
-    private static final DataParameter<Optional<BlockPos>> TARGET_BLOCK = EntityDataManager
-            .defineId(GreedyFamiliarEntity.class, DataSerializers.OPTIONAL_BLOCK_POS);
+    private static final EntityDataAccessor<Optional<BlockPos>> TARGET_BLOCK = SynchedEntityData
+            .defineId(GreedyFamiliarEntity.class, EntityDataSerializers.OPTIONAL_BLOCK_POS);
 
     private float earRotZ, earRotZ0, earRotX, earRotX0, peekRot, peekRot0, monsterRot, monsterRot0;
     private int monsterAnimTimer;
@@ -114,42 +124,42 @@ public class GreedyFamiliarEntity extends FamiliarEntity {
         // Ears point to target block pos
         this.earRotX0 = this.earRotX;
         this.earRotZ0 = this.earRotZ;
-        if (level.isClientSide) {
-            Optional<BlockPos> targetBlock = getTargetBlock();
+        if (this.level.isClientSide) {
+            Optional<BlockPos> targetBlock = this.getTargetBlock();
             if (targetBlock.isPresent()) {
-                Vector3d p = Vector3d.atCenterOf(targetBlock.get());
+                Vec3 p = Vec3.atCenterOf(targetBlock.get());
 
                 float endZRot = -0.5f;
                 if (Math.abs(p.y - this.getEyeY()) > 1)
                     endZRot = p.y > this.getEyeY() ? 0 : -2f;
-                this.earRotZ = MathHelper.lerp(0.1f, this.earRotZ, endZRot);
+                this.earRotZ = Mth.lerp(0.1f, this.earRotZ, endZRot);
 
-                Vector3d look = this.getViewVector(1.0F);
-                Vector3d toTarget = p.vectorTo(this.position()).normalize();
-                toTarget = new Vector3d(toTarget.x, 0.0D, toTarget.z);
+                Vec3 look = this.getViewVector(1.0F);
+                Vec3 toTarget = p.vectorTo(this.position()).normalize();
+                toTarget = new Vec3(toTarget.x, 0.0D, toTarget.z);
                 float endXRot = toTarget.dot(look) < 0 ? 1 : -1;
-                this.earRotX = MathHelper.lerp(0.1f, this.earRotX, endXRot);
+                this.earRotX = Mth.lerp(0.1f, this.earRotX, endXRot);
             } else {
-                this.earRotX = MathHelper.lerp(0.1f, this.earRotX, 0);
-                this.earRotZ = MathHelper.lerp(0.1f, this.earRotZ, -0.5f);
+                this.earRotX = Mth.lerp(0.1f, this.earRotX, 0);
+                this.earRotZ = Mth.lerp(0.1f, this.earRotZ, -0.5f);
             }
 
             this.monsterAnimTimer++;
             this.peekRot0 = this.peekRot;
             this.monsterRot0 = this.monsterRot;
-            if (monsterAnimTimer % 300 < 200) {
-                float peekTimer = monsterAnimTimer % 300 % 200;
+            if (this.monsterAnimTimer % 300 < 200) {
+                float peekTimer = this.monsterAnimTimer % 300 % 200;
                 if (peekTimer > 30 && peekTimer < 50)
-                    this.monsterRot = MathHelper.lerp(0.3f, this.monsterRot, toRad(37));
+                    this.monsterRot = Mth.lerp(0.3f, this.monsterRot, this.toRad(37));
                 else if (peekTimer > 50 && peekTimer < 70)
-                    this.monsterRot = MathHelper.lerp(0.3f, this.monsterRot, toRad(-37));
+                    this.monsterRot = Mth.lerp(0.3f, this.monsterRot, this.toRad(-37));
                 else if (peekTimer > 70)
-                    this.monsterRot = MathHelper.lerp(0.3f, this.monsterRot, 0);
+                    this.monsterRot = Mth.lerp(0.3f, this.monsterRot, 0);
 
                 if (peekTimer < 100)
-                    this.peekRot = MathHelper.lerp(0.1f, this.peekRot, toRad(46));
+                    this.peekRot = Mth.lerp(0.1f, this.peekRot, this.toRad(46));
                 else
-                    this.peekRot = MathHelper.lerp(0.1f, this.peekRot, 0);
+                    this.peekRot = Mth.lerp(0.1f, this.peekRot, 0);
             } else {
                 this.peekRot = 0;
                 this.monsterRot = 0;
@@ -162,40 +172,42 @@ public class GreedyFamiliarEntity extends FamiliarEntity {
     }
 
     public float getLidRot(float partialTicks) {
-        return MathHelper.lerp(partialTicks, this.peekRot0, this.peekRot);
+        return Mth.lerp(partialTicks, this.peekRot0, this.peekRot);
     }
 
     public float getMonsterRot(float partialTicks) {
-        return MathHelper.lerp(partialTicks, this.monsterRot0, this.monsterRot);
+        return Mth.lerp(partialTicks, this.monsterRot0, this.monsterRot);
     }
 
     public float getEarRotZ(float partialTicks) {
-        return MathHelper.lerp(partialTicks, this.earRotZ0, this.earRotZ);
+        return Mth.lerp(partialTicks, this.earRotZ0, this.earRotZ);
     }
 
     public float getEarRotX(float partialTicks) {
-        return MathHelper.lerp(partialTicks, this.earRotX0, this.earRotX);
+        return Mth.lerp(partialTicks, this.earRotX0, this.earRotX);
     }
 
     @Override
     public boolean canBlacksmithUpgrade() {
-        return !hasBlacksmithUpgrade();
+        return !this.hasBlacksmithUpgrade();
     }
 
     @Override
-    protected ActionResultType mobInteract(PlayerEntity playerIn, Hand hand) {
+    protected InteractionResult mobInteract(Player playerIn, InteractionHand hand) {
         ItemStack stack = playerIn.getItemInHand(hand);
-        if (hasBlacksmithUpgrade() && !getOffhandItem().isEmpty()) {
-            ItemHandlerHelper.giveItemToPlayer(playerIn, getOffhandItem());
-            this.setItemInHand(Hand.OFF_HAND, ItemStack.EMPTY);
-            return ActionResultType.sidedSuccess(this.level.isClientSide);
-        } else if (hasBlacksmithUpgrade() && stack.getItem() instanceof BlockItem) {
-            this.setItemInHand(Hand.OFF_HAND, new ItemStack(stack.getItem()));
+        if (this.hasBlacksmithUpgrade() && !this.getOffhandItem().isEmpty()) {
+            ItemHandlerHelper.giveItemToPlayer(playerIn, this.getOffhandItem());
+            this.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
+            return InteractionResult.sidedSuccess(this.level.isClientSide);
+        } else if (this.hasBlacksmithUpgrade() && stack.getItem() instanceof BlockItem) {
+            this.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(stack.getItem()));
             stack.shrink(1);
-            return ActionResultType.sidedSuccess(this.level.isClientSide);
+            return InteractionResult.sidedSuccess(this.level.isClientSide);
         }
+
         return super.mobInteract(playerIn, hand);
     }
+
 
     public static class FindItemGoal extends Goal {
 
@@ -324,17 +336,17 @@ public class GreedyFamiliarEntity extends FamiliarEntity {
 
         @Override
         public boolean canUse() {
-            return super.canUse() && !mob.getOffhandItem().isEmpty();
+            return super.canUse() && !this.mob.getOffhandItem().isEmpty();
         }
 
         @Override
         public boolean canContinueToUse() {
-            return super.canContinueToUse() && !mob.getOffhandItem().isEmpty();
+            return super.canContinueToUse() && !this.mob.getOffhandItem().isEmpty();
         }
 
         @Override
-        protected boolean isValidTarget(IWorldReader pLevel, BlockPos pPos) {
-            ItemStack offhand = mob.getOffhandItem();
+        protected boolean isValidTarget(LevelReader pLevel, BlockPos pPos) {
+            ItemStack offhand = this.mob.getOffhandItem();
             return pLevel.getBlockState(pPos).getBlock() == Block.byItem(offhand.getItem());
         }
 

@@ -26,19 +26,18 @@ import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.client.model.entity.BlacksmithFamiliarModel;
 import com.github.klikli_dev.occultism.common.entity.BlacksmithFamiliarEntity;
 import com.github.klikli_dev.occultism.registry.OccultismModelLayers;
-import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Quaternion;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.entity.IEntityRenderer;
 import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.client.renderer.entity.layers.LayerRenderer;
-import net.minecraft.client.renderer.model.ItemCameraTransforms;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
+import net.minecraft.client.renderer.entity.RenderLayerParent;
+import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.math.vector.Quaternion;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 
 public class BlacksmithFamiliarRenderer extends MobRenderer<BlacksmithFamiliarEntity, BlacksmithFamiliarModel> {
 
@@ -62,28 +61,25 @@ public class BlacksmithFamiliarRenderer extends MobRenderer<BlacksmithFamiliarEn
     }
 
     private class IngotsLayer extends RenderLayer<BlacksmithFamiliarEntity, BlacksmithFamiliarModel> {
-        public IngotsLayer(IEntityRenderer<BlacksmithFamiliarEntity, BlacksmithFamiliarModel> renderer) {
-            super(renderer);
+        public IngotsLayer(RenderLayerParent<BlacksmithFamiliarEntity, BlacksmithFamiliarModel> parent) {
+            super(parent);
         }
 
         @Override
-        public void render(MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn,
-                           BlacksmithFamiliarEntity entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks,
-                           float ageInTicks, float netHeadYaw, float headPitch) {
-            matrixStackIn.pushPose();
+        public void render(PoseStack pMatrixStack, MultiBufferSource pBuffer, int pPackedLight, BlacksmithFamiliarEntity pLivingEntity, float pLimbSwing, float pLimbSwingAmount, float pPartialTicks, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch) {
+            pMatrixStack.pushPose();
             float scale = 0.5f;
-            matrixStackIn.scale(scale, scale, scale);
-            for (int i = 0; i < entitylivingbaseIn.getBars(); i++) {
-                matrixStackIn.pushPose();
-                matrixStackIn.translate(i % 2 == 0 ? -0.3 : 0.3, 2.03 - i / 2 * 0.03, -0.15);
-                matrixStackIn.mulPose(new Quaternion(-90, 0, i, true));
-                Minecraft.getInstance().getItemInHandRenderer().renderItem(entitylivingbaseIn,
-                        new ItemStack(Items.IRON_INGOT), ItemCameraTransforms.TransformType.GROUND, false,
-                        matrixStackIn, bufferIn, packedLightIn);
-                matrixStackIn.popPose();
+            pMatrixStack.scale(scale, scale, scale);
+            for (int i = 0; i < pLivingEntity.getBars(); i++) {
+                pMatrixStack.pushPose();
+                pMatrixStack.translate(i % 2 == 0 ? -0.3 : 0.3, 2.03 - i / 2 * 0.03, -0.15);
+                pMatrixStack.mulPose(new Quaternion(-90, 0, i, true));
+                Minecraft.getInstance().getItemInHandRenderer().renderItem(pLivingEntity,
+                        new ItemStack(Items.IRON_INGOT), ItemTransforms.TransformType.GROUND, false,
+                        pMatrixStack, pBuffer, pPackedLight);
+                pMatrixStack.popPose();
             }
-            matrixStackIn.popPose();
-
+            pMatrixStack.popPose();
         }
     }
 }

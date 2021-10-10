@@ -22,19 +22,18 @@
 
 package com.github.klikli_dev.occultism.common.entity;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.projectile.ProjectileItemEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.IPacket;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.math.EntityRayTraceResult;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.world.World;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
-import net.minecraftforge.fml.network.NetworkHooks;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.HitResult;
+import net.minecraftforge.fmllegacy.network.NetworkHooks;
 
 public class ThrownSwordEntity extends ThrowableItemProjectile {
 
@@ -42,29 +41,29 @@ public class ThrownSwordEntity extends ThrowableItemProjectile {
 
     private int duration;
 
-    public ThrownSwordEntity(EntityType<? extends ThrownSwordEntity> type, World world) {
-        super(type, world);
+    public ThrownSwordEntity(EntityType<? extends ThrownSwordEntity> type, Level level) {
+        super(type, level);
     }
 
     @Override
     public void tick() {
         super.tick();
-        duration++;
+        this.duration++;
 
-        if (!level.isClientSide && duration > MAX_DURATION)
-            remove();
+        if (!this.level.isClientSide && this.duration > MAX_DURATION)
+            this.remove(RemovalReason.DISCARDED);
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundNBT pCompound) {
+    public void addAdditionalSaveData(CompoundTag pCompound) {
         super.addAdditionalSaveData(pCompound);
-        pCompound.putInt("duration", duration);
+        pCompound.putInt("duration", this.duration);
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundNBT pCompound) {
+    public void readAdditionalSaveData(CompoundTag pCompound) {
         super.readAdditionalSaveData(pCompound);
-        duration = pCompound.getInt("duration");
+        this.duration = pCompound.getInt("duration");
     }
 
     @Override
@@ -72,26 +71,26 @@ public class ThrownSwordEntity extends ThrowableItemProjectile {
         return Items.IRON_SWORD;
     }
 
-    @Override
-    protected void onHit(RayTraceResult pResult) {
-        super.onHit(pResult);
-        this.remove();
 
+    @Override
+    protected void onHit(HitResult pResult) {
+        super.onHit(pResult);
+        this.remove(RemovalReason.DISCARDED);
     }
 
     @Override
-    protected void onHitEntity(EntityRayTraceResult result) {
-        Entity target = result.getEntity();
-        if (friendlyFire(target))
+    protected void onHitEntity(EntityHitResult pResult) {
+        Entity target = pResult.getEntity();
+        if (this.friendlyFire(target))
             return;
 
-        if (!level.isClientSide) {
-            target.hurt(DamageSource.thrown(this, getOwner()), 6);
+        if (!this.level.isClientSide) {
+            target.hurt(DamageSource.thrown(this, this.getOwner()), 6);
         }
     }
 
     private boolean friendlyFire(Entity target) {
-        Entity owner = getOwner();
+        Entity owner = this.getOwner();
         if (owner == null)
             return false;
 
@@ -104,7 +103,7 @@ public class ThrownSwordEntity extends ThrowableItemProjectile {
     }
 
     @Override
-    public IPacket<?> getAddEntityPacket() {
+    public Packet<?> getAddEntityPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 }

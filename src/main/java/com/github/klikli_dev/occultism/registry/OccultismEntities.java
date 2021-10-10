@@ -139,13 +139,13 @@ public class OccultismEntities {
                     .clientTrackingRange(8)
                     .build(modLoc("dragon_familiar").toString()));
     public static final NonNullLazy<EntityType<BlacksmithFamiliarEntity>> BLACKSMITH_FAMILIAR_TYPE =
-            NonNullLazy.of(() -> EntityType.Builder.of(BlacksmithFamiliarEntity::new, EntityClassification.CREATURE)
+            NonNullLazy.of(() -> EntityType.Builder.of(BlacksmithFamiliarEntity::new, MobCategory.CREATURE)
                                          .sized(0.65F, 1F)
                                          .clientTrackingRange(8)
                                          .build(modLoc("blacksmith_familiar").toString()));
     
     public static final NonNullLazy<EntityType<ThrownSwordEntity>> THROWN_SWORD_TYPE =
-            NonNullLazy.of(() -> EntityType.Builder.of(ThrownSwordEntity::new, EntityClassification.MISC)
+            NonNullLazy.of(() -> EntityType.Builder.of(ThrownSwordEntity::new, MobCategory.MISC)
                                          .sized(0.5F, 0.5F)
                                          .clientTrackingRange(8)
                                          .build(modLoc("thrown_sword").toString()));
