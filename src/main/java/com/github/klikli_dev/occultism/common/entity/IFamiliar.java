@@ -61,7 +61,7 @@ public interface IFamiliar {
      * @return The familiar.
      */
     @Nonnull
-    Entity getEntity();
+    Entity getFamiliarEntity();
 
     /***
      * Gets fresh instances of effects that this familiar should apply to the owner.
@@ -99,7 +99,7 @@ public interface IFamiliar {
         if (owner == null)
             return false;
         return owner.getCapability(OccultismCapabilities.FAMILIAR_SETTINGS)
-                .map(cap -> cap.isFamiliarEnabled(this.getEntity().getType())).orElse(false);
+                .map(cap -> cap.isFamiliarEnabled(this.getFamiliarEntity().getType())).orElse(false);
     }
 
     /***

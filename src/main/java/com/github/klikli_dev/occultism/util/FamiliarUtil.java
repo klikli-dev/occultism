@@ -66,8 +66,8 @@ public class FamiliarUtil {
 
         for (int i = 0; i < curios.getSlots(); i++) {
             IFamiliar familiar = FamiliarRingItem.getFamiliar(curios.getStackInSlot(i), player.level);
-            if (familiar != null && familiar.getEntity().getType() == type)
-                return (T) familiar.getEntity();
+            if (familiar != null && familiar.getFamiliarEntity().getType() == type)
+                return (T) familiar.getFamiliarEntity();
         }
 
         return null;
