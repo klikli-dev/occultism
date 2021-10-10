@@ -23,13 +23,16 @@
 package com.github.klikli_dev.occultism.client.model.entity;
 
 import com.github.klikli_dev.occultism.common.entity.GreedyFamiliarEntity;
-import com.google.common.collect.ImmutableList;
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.vertex.IVertexBuilder;
-
-import net.minecraft.client.renderer.entity.model.EntityModel;
-import net.minecraft.client.renderer.model.ModelRenderer;
-import net.minecraft.util.math.MathHelper;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.model.geom.PartPose;
+import net.minecraft.client.model.geom.builders.CubeListBuilder;
+import net.minecraft.client.model.geom.builders.LayerDefinition;
+import net.minecraft.client.model.geom.builders.MeshDefinition;
+import net.minecraft.client.model.geom.builders.PartDefinition;
+import net.minecraft.util.Mth;
 
 /**
  * Created using Tabula 8.0.0
@@ -38,116 +41,68 @@ public class GreedyFamiliarModel extends EntityModel<GreedyFamiliarEntity> {
 
     private static final float PI = (float) Math.PI;
 
-    public ModelRenderer body;
-    public ModelRenderer rightArm;
-    public ModelRenderer chest1;
-    public ModelRenderer leftArm;
-    public ModelRenderer rightLeg;
-    public ModelRenderer leftLeg;
-    public ModelRenderer head;
-    public ModelRenderer chest2;
-    public ModelRenderer monster;
-    public ModelRenderer monsterLeftEye;
-    public ModelRenderer monsterRightEye;
-    public ModelRenderer monsterLeftEar;
-    public ModelRenderer monsterRightEar;
-    public ModelRenderer leftEar;
-    public ModelRenderer rightEar;
-    public ModelRenderer nose;
+    public ModelPart body;
+    public ModelPart rightArm;
+    public ModelPart chest1;
+    public ModelPart leftArm;
+    public ModelPart rightLeg;
+    public ModelPart leftLeg;
+    public ModelPart head;
+    public ModelPart chest2;
+    public ModelPart monster;
+    public ModelPart monsterLeftEye;
+    public ModelPart monsterRightEye;
+    public ModelPart monsterLeftEar;
+    public ModelPart monsterRightEar;
+    public ModelPart leftEar;
+    public ModelPart rightEar;
+    public ModelPart nose;
 
-    public GreedyFamiliarModel() {
-        this.texWidth = 32;
-        this.texHeight = 32;
-        this.body = new ModelRenderer(this, 0, 10);
-        this.body.setPos(0.0F, 19.0F, 0.6F);
-        this.body.addBox(-2.5F, -5.0F, -1.5F, 5.0F, 5.0F, 3.0F, 0.0F, 0.0F, 0.0F);
-        this.head = new ModelRenderer(this, 0, 0);
-        this.head.setPos(0.0F, -5.0F, 0.0F);
-        this.head.addBox(-2.5F, -5.0F, -2.5F, 5.0F, 5.0F, 5.0F, 0.0F, 0.0F, 0.0F);
-        this.rightArm = new ModelRenderer(this, 16, 21);
-        this.rightArm.mirror = true;
-        this.rightArm.setPos(-2.5F, -5.0F, 0.0F);
-        this.rightArm.addBox(-2.0F, 0.0F, -1.0F, 2.0F, 6.0F, 2.0F, 0.0F, 0.0F, 0.0F);
-        this.leftEar = new ModelRenderer(this, 0, 0);
-        this.leftEar.setPos(2.0F, -4.5F, 0.0F);
-        this.leftEar.addBox(-1.0F, -3.0F, 0.0F, 2.0F, 3.0F, 0.0F, 0.0F, 0.0F, 0.0F);
-        this.setRotateAngle(leftEar, 0.0F, 0.0F, 0.5235987755982988F);
-        this.chest2 = new ModelRenderer(this, 0, 18);
-        this.chest2.setPos(0.0F, -3.0F, 0.0F);
-        this.chest2.addBox(-2.0F, -2.0F, 0.0F, 4.0F, 2.0F, 4.0F, 0.0F, 0.0F, 0.0F);
-        this.setRotateAngle(chest2, 1.0555751236166873F, 0.0F, 0.0F);
-        this.leftLeg = new ModelRenderer(this, 8, 24);
-        this.leftLeg.setPos(1.5F, 0.0F, 0.0F);
-        this.leftLeg.addBox(-1.0F, 0.0F, -1.0F, 2.0F, 5.0F, 2.0F, 0.0F, 0.0F, 0.0F);
-        this.monster = new ModelRenderer(this, 15, 0);
-        this.monster.setPos(0.0F, -2.0F, 1.5F);
-        this.monster.addBox(-1.0F, -2.0F, 0.0F, 2.0F, 2.0F, 2.0F, 0.0F, 0.0F, 0.0F);
-        this.setRotateAngle(monster, 0.1563815016444822F, -0.11728612207217244F, 0.0F);
-        this.monsterRightEye = new ModelRenderer(this, 21, 0);
-        this.monsterRightEye.mirror = true;
-        this.monsterRightEye.setPos(0.8F, -1.8F, 1.8F);
-        this.monsterRightEye.addBox(-0.5F, -0.5F, -0.5F, 1.0F, 1.0F, 1.0F, 0.0F, 0.0F, 0.0F);
-        this.rightEar = new ModelRenderer(this, 0, 0);
-        this.rightEar.mirror = true;
-        this.rightEar.setPos(-2.0F, -4.5F, 0.0F);
-        this.rightEar.addBox(-1.0F, -3.0F, 0.0F, 2.0F, 3.0F, 0.0F, 0.0F, 0.0F, 0.0F);
-        this.setRotateAngle(rightEar, 0.0F, 0.0F, -0.5235987755982988F);
-        this.chest1 = new ModelRenderer(this, 12, 14);
-        this.chest1.setPos(0.0F, 0.5F, 1.5F);
-        this.chest1.addBox(-2.0F, -3.0F, 0.0F, 4.0F, 3.0F, 4.0F, 0.0F, 0.0F, 0.0F);
-        this.monsterLeftEar = new ModelRenderer(this, 24, 0);
-        this.monsterLeftEar.setPos(-0.6F, -1.6F, 0.3F);
-        this.monsterLeftEar.addBox(-1.0F, -1.0F, 0.0F, 1.0F, 1.0F, 0.0F, 0.0F, 0.0F, 0.0F);
-        this.setRotateAngle(monsterLeftEar, -0.3127630032889644F, 0.0781907508222411F, -0.35185837453889574F);
-        this.rightLeg = new ModelRenderer(this, 8, 24);
-        this.rightLeg.mirror = true;
-        this.rightLeg.setPos(-1.5F, 0.0F, 0.0F);
-        this.rightLeg.addBox(-1.0F, 0.0F, -1.0F, 2.0F, 5.0F, 2.0F, 0.0F, 0.0F, 0.0F);
-        this.monsterRightEar = new ModelRenderer(this, 24, 0);
-        this.monsterRightEar.setPos(0.6F, -1.6F, 0.3F);
-        this.monsterRightEar.addBox(0.0F, -1.0F, 0.0F, 1.0F, 1.0F, 0.0F, 0.0F, 0.0F, 0.0F);
-        this.setRotateAngle(monsterRightEar, -0.3127630032889644F, 0.0781907508222411F, 0.35185837453889574F);
-        this.nose = new ModelRenderer(this, 18, 8);
-        this.nose.setPos(0.0F, -3.0F, -2.5F);
-        this.nose.addBox(-1.0F, 0.0F, -2.0F, 2.0F, 2.0F, 2.0F, 0.0F, 0.0F, 0.0F);
-        this.leftArm = new ModelRenderer(this, 16, 21);
-        this.leftArm.setPos(2.5F, -5.0F, 0.0F);
-        this.leftArm.addBox(0.0F, 0.0F, -1.0F, 2.0F, 6.0F, 2.0F, 0.0F, 0.0F, 0.0F);
-        this.monsterLeftEye = new ModelRenderer(this, 21, 0);
-        this.monsterLeftEye.setPos(-0.8F, -1.8F, 1.8F);
-        this.monsterLeftEye.addBox(-0.5F, -0.5F, -0.5F, 1.0F, 1.0F, 1.0F, 0.0F, 0.0F, 0.0F);
-        this.body.addChild(this.head);
-        this.body.addChild(this.rightArm);
-        this.head.addChild(this.leftEar);
-        this.chest1.addChild(this.chest2);
-        this.body.addChild(this.leftLeg);
-        this.chest1.addChild(this.monster);
-        this.monster.addChild(this.monsterRightEye);
-        this.head.addChild(this.rightEar);
-        this.body.addChild(this.chest1);
-        this.monster.addChild(this.monsterLeftEar);
-        this.body.addChild(this.rightLeg);
-        this.monster.addChild(this.monsterRightEar);
-        this.head.addChild(this.nose);
-        this.body.addChild(this.leftArm);
-        this.monster.addChild(this.monsterLeftEye);
+
+    public GreedyFamiliarModel(ModelPart part) {
+        this.body = part.getChild("body");
+        this.rightArm = this.body.getChild("rightArm");
+        this.chest1 = this.body.getChild("chest1");
+        this.leftArm = this.body.getChild("leftArm");
+        this.rightLeg = this.body.getChild("rightLeg");
+        this.leftLeg = this.body.getChild("leftLeg");
+        this.head = this.body.getChild("head");
+        this.chest2 = this.chest1.getChild("chest2");
+        this.monster = this.chest1.getChild("monster");
+        this.monsterLeftEye = this.monster.getChild("monsterLeftEye");
+        this.monsterRightEye = this.monster.getChild("monsterRightEye");
+        this.monsterLeftEar = this.monster.getChild("monsterLeftEar");
+        this.monsterRightEar = this.monster.getChild("monsterRightEar");
+        this.leftEar = this.head.getChild("leftEar");
+        this.rightEar = this.head.getChild("rightEar");
+        this.nose = this.head.getChild("nose");
+    }
+
+    public static LayerDefinition createBodyLayer() {
+        MeshDefinition mesh = new MeshDefinition();
+        PartDefinition parts = mesh.getRoot();
+        PartDefinition body = parts.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 10).addBox(-2.5F, -5.0F, -1.5F, 5.0F, 5.0F, 3.0F, false), PartPose.offsetAndRotation(0.0F, 19.0F, 0.6F, 0, 0, 0));
+        PartDefinition rightArm = body.addOrReplaceChild("rightArm", CubeListBuilder.create().texOffs(16, 21).addBox(-2.0F, 0.0F, -1.0F, 2.0F, 6.0F, 2.0F, true), PartPose.offsetAndRotation(-2.5F, -5.0F, 0.0F, 0, 0, 0));
+        PartDefinition chest1 = body.addOrReplaceChild("chest1", CubeListBuilder.create().texOffs(12, 14).addBox(-2.0F, -3.0F, 0.0F, 4.0F, 3.0F, 4.0F, false), PartPose.offsetAndRotation(0.0F, 0.5F, 1.5F, 0, 0, 0));
+        PartDefinition leftArm = body.addOrReplaceChild("leftArm", CubeListBuilder.create().texOffs(16, 21).addBox(0.0F, 0.0F, -1.0F, 2.0F, 6.0F, 2.0F, false), PartPose.offsetAndRotation(2.5F, -5.0F, 0.0F, 0, 0, 0));
+        PartDefinition rightLeg = body.addOrReplaceChild("rightLeg", CubeListBuilder.create().texOffs(8, 24).addBox(-1.0F, 0.0F, -1.0F, 2.0F, 5.0F, 2.0F, true), PartPose.offsetAndRotation(-1.5F, 0.0F, 0.0F, 0, 0, 0));
+        PartDefinition leftLeg = body.addOrReplaceChild("leftLeg", CubeListBuilder.create().texOffs(8, 24).addBox(-1.0F, 0.0F, -1.0F, 2.0F, 5.0F, 2.0F, false), PartPose.offsetAndRotation(1.5F, 0.0F, 0.0F, 0, 0, 0));
+        PartDefinition head = body.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 0).addBox(-2.5F, -5.0F, -2.5F, 5.0F, 5.0F, 5.0F, false), PartPose.offsetAndRotation(0.0F, -5.0F, 0.0F, 0, 0, 0));
+        PartDefinition chest2 = chest1.addOrReplaceChild("chest2", CubeListBuilder.create().texOffs(0, 18).addBox(-2.0F, -2.0F, 0.0F, 4.0F, 2.0F, 4.0F, false), PartPose.offsetAndRotation(0.0F, -3.0F, 0.0F, 1.0555751236166873F, 0.0F, 0.0F));
+        PartDefinition monster = chest1.addOrReplaceChild("monster", CubeListBuilder.create().texOffs(15, 0).addBox(-1.0F, -2.0F, 0.0F, 2.0F, 2.0F, 2.0F, false), PartPose.offsetAndRotation(0.0F, -2.0F, 1.5F, 0.1563815016444822F, -0.11728612207217244F, 0.0F));
+        PartDefinition monsterLeftEye = monster.addOrReplaceChild("monsterLeftEye", CubeListBuilder.create().texOffs(21, 0).addBox(-0.5F, -0.5F, -0.5F, 1.0F, 1.0F, 1.0F, false), PartPose.offsetAndRotation(-0.8F, -1.8F, 1.8F, 0, 0, 0));
+        PartDefinition monsterRightEye = monster.addOrReplaceChild("monsterRightEye", CubeListBuilder.create().texOffs(21, 0).addBox(-0.5F, -0.5F, -0.5F, 1.0F, 1.0F, 1.0F, true), PartPose.offsetAndRotation(0.8F, -1.8F, 1.8F, 0, 0, 0));
+        PartDefinition monsterLeftEar = monster.addOrReplaceChild("monsterLeftEar", CubeListBuilder.create().texOffs(24, 0).addBox(-1.0F, -1.0F, 0.0F, 1.0F, 1.0F, 0.0F, false), PartPose.offsetAndRotation(-0.6F, -1.6F, 0.3F, -0.3127630032889644F, 0.0781907508222411F, -0.35185837453889574F));
+        PartDefinition monsterRightEar = monster.addOrReplaceChild("monsterRightEar", CubeListBuilder.create().texOffs(24, 0).addBox(0.0F, -1.0F, 0.0F, 1.0F, 1.0F, 0.0F, false), PartPose.offsetAndRotation(0.6F, -1.6F, 0.3F, -0.3127630032889644F, 0.0781907508222411F, 0.35185837453889574F));
+        PartDefinition leftEar = head.addOrReplaceChild("leftEar", CubeListBuilder.create().texOffs(0, 0).addBox(-1.0F, -3.0F, 0.0F, 2.0F, 3.0F, 0.0F, false), PartPose.offsetAndRotation(2.0F, -4.5F, 0.0F, 0.0F, 0.0F, 0.5235987755982988F));
+        PartDefinition rightEar = head.addOrReplaceChild("rightEar", CubeListBuilder.create().texOffs(0, 0).addBox(-1.0F, -3.0F, 0.0F, 2.0F, 3.0F, 0.0F, true), PartPose.offsetAndRotation(-2.0F, -4.5F, 0.0F, 0.0F, 0.0F, -0.5235987755982988F));
+        PartDefinition nose = head.addOrReplaceChild("nose", CubeListBuilder.create().texOffs(18, 8).addBox(-1.0F, 0.0F, -2.0F, 2.0F, 2.0F, 2.0F, false), PartPose.offsetAndRotation(0.0F, -3.0F, -2.5F, 0, 0, 0));
+        return LayerDefinition.create(mesh, 32, 32);
     }
 
     @Override
-    public void renderToBuffer(MatrixStack matrixStackIn, IVertexBuilder bufferIn, int packedLightIn,
-            int packedOverlayIn, float red, float green, float blue, float alpha) {
-        ImmutableList.of(this.body).forEach((modelRenderer) -> {
-            modelRenderer.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
-        });
-    }
-
-    /**
-     * This is a helper function from Tabula to set the rotation of model parts
-     */
-    public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z) {
-        modelRenderer.xRot = x;
-        modelRenderer.yRot = y;
-        modelRenderer.zRot = z;
+    public void renderToBuffer(PoseStack pPoseStack, VertexConsumer pBuffer, int pPackedLight, int pPackedOverlay, float red, float green, float blue, float alpha) {
+        this.body.render(pPoseStack, pBuffer, pPackedLight, pPackedOverlay, red, green, blue, alpha);
     }
 
     private float toRad(float deg) {
@@ -156,7 +111,7 @@ public class GreedyFamiliarModel extends EntityModel<GreedyFamiliarEntity> {
 
     @Override
     public void prepareMobModel(GreedyFamiliarEntity pEntity, float pLimbSwing, float pLimbSwingAmount,
-            float pPartialTick) {
+                                float pPartialTick) {
         this.leftEar.zRot = -pEntity.getEarRotZ(pPartialTick);
         this.rightEar.zRot = pEntity.getEarRotZ(pPartialTick);
         this.leftEar.xRot = pEntity.getEarRotX(pPartialTick);
@@ -170,16 +125,16 @@ public class GreedyFamiliarModel extends EntityModel<GreedyFamiliarEntity> {
             this.monster.yRot = pEntity.getMonsterRot(pPartialTick);
             this.monster.xRot = 0;
         } else {
-            this.chest2.xRot = toRad(40);
+            this.chest2.xRot = this.toRad(40);
             this.monster.y = -2.5f;
             this.monster.yRot = 0;
-            this.monster.xRot = MathHelper.cos(ageInTicks) * this.toRad(15);
+            this.monster.xRot = Mth.cos(ageInTicks) * this.toRad(15);
         }
     }
 
     @Override
-    public void setupAnim(GreedyFamiliarEntity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks,
-            float netHeadYaw, float headPitch) {
+    public void setupAnim(GreedyFamiliarEntity entityIn, float limbSwing, float limbSwingAmount,
+                          float ageInTicks, float netHeadYaw, float headPitch) {
         this.head.yRot = netHeadYaw * (PI / 180f);
         this.head.xRot = headPitch * (PI / 180f);
         this.head.zRot = 0;
@@ -187,14 +142,14 @@ public class GreedyFamiliarModel extends EntityModel<GreedyFamiliarEntity> {
         this.leftArm.zRot = 0;
 
         if (entityIn.isPartying()) {
-            this.rightArm.xRot = MathHelper.cos(ageInTicks + PI) * this.toRad(20) + this.toRad(180);
-            this.leftArm.xRot = MathHelper.cos(ageInTicks) * this.toRad(20) + this.toRad(180);
+            this.rightArm.xRot = Mth.cos(ageInTicks + PI) * this.toRad(20) + this.toRad(180);
+            this.leftArm.xRot = Mth.cos(ageInTicks) * this.toRad(20) + this.toRad(180);
             this.rightArm.zRot = -this.toRad(20);
             this.leftArm.zRot = this.toRad(20);
-            this.head.zRot = MathHelper.sin(ageInTicks) * this.toRad(20);
+            this.head.zRot = Mth.sin(ageInTicks) * this.toRad(20);
             if (entityIn.getVehicle() == null) {
-                this.rightLeg.xRot = MathHelper.cos(limbSwing * 0.5f) * 1.4f * limbSwingAmount;
-                this.leftLeg.xRot = MathHelper.cos(limbSwing * 0.5f + PI) * 1.4f * limbSwingAmount;
+                this.rightLeg.xRot = Mth.cos(limbSwing * 0.5f) * 1.4f * limbSwingAmount;
+                this.leftLeg.xRot = Mth.cos(limbSwing * 0.5f + PI) * 1.4f * limbSwingAmount;
             } else {
                 this.rightLeg.xRot = -PI / 2;
                 this.leftLeg.xRot = -PI / 2;
@@ -205,15 +160,15 @@ public class GreedyFamiliarModel extends EntityModel<GreedyFamiliarEntity> {
             this.rightLeg.xRot = -PI / 2;
             this.leftLeg.xRot = -PI / 2;
         } else {
-            this.rightArm.xRot = MathHelper.cos(limbSwing * 0.5f + PI) * limbSwingAmount;
-            this.leftArm.xRot = MathHelper.cos(limbSwing * 0.5f) * limbSwingAmount;
-            this.rightLeg.xRot = MathHelper.cos(limbSwing * 0.5f) * 1.4f * limbSwingAmount;
-            this.leftLeg.xRot = MathHelper.cos(limbSwing * 0.5f + PI) * 1.4f * limbSwingAmount;
+            this.rightArm.xRot = Mth.cos(limbSwing * 0.5f + PI) * limbSwingAmount;
+            this.leftArm.xRot = Mth.cos(limbSwing * 0.5f) * limbSwingAmount;
+            this.rightLeg.xRot = Mth.cos(limbSwing * 0.5f) * 1.4f * limbSwingAmount;
+            this.leftLeg.xRot = Mth.cos(limbSwing * 0.5f + PI) * 1.4f * limbSwingAmount;
         }
 
-        this.chest1.zRot = MathHelper.cos(limbSwing * 0.5f + PI) * limbSwingAmount * 0.2f;
+        this.chest1.zRot = Mth.cos(limbSwing * 0.5f + PI) * limbSwingAmount * 0.2f;
 
         if (entityIn.getTargetBlock().isPresent())
-            this.rightArm.xRot = -this.toRad(100) + MathHelper.cos(limbSwing * 0.5f + PI) * limbSwingAmount;
+            this.rightArm.xRot = -this.toRad(100) + Mth.cos(limbSwing * 0.5f + PI) * limbSwingAmount;
     }
 }

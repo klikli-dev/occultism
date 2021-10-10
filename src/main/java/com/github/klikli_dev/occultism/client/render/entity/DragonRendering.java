@@ -9,8 +9,10 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.IEntityRenderer;
 import net.minecraft.client.renderer.entity.SpriteRenderer;
+import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.item.ItemStack;
@@ -77,11 +79,12 @@ public class DragonRendering {
         }
     }
     
-    public static class ThrownSwordRenderer extends SpriteRenderer<ThrownSwordEntity> {
+    public static class ThrownSwordRenderer extends ThrownItemRenderer<ThrownSwordEntity> {
 
-        public ThrownSwordRenderer(EntityRendererManager manager, ItemRenderer itemRenderer) {
-            super(manager, itemRenderer);
+        public ThrownSwordRenderer(EntityRendererProvider.Context context) {
+            super(context);
         }
+
         
         @Override
         public void render(ThrownSwordEntity pEntity, float pEntityYaw, float pPartialTicks, MatrixStack pMatrixStack,

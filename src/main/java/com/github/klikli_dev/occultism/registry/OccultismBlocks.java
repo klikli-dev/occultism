@@ -31,15 +31,19 @@ import com.github.klikli_dev.occultism.common.block.storage.StableWormholeBlock;
 import com.github.klikli_dev.occultism.common.block.storage.StorageControllerBlock;
 import com.github.klikli_dev.occultism.common.block.storage.StorageStabilizerBlock;
 import com.github.klikli_dev.occultism.common.entity.CthulhuFamiliarEntity;
+import com.github.klikli_dev.occultism.common.entity.FamiliarEntity;
 import com.github.klikli_dev.occultism.common.level.tree.OtherworldNaturalTreeGrower;
 import com.github.klikli_dev.occultism.common.level.tree.OtherworldTreeGrower;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraft.world.level.material.PushReaction;
+import net.minecraft.world.phys.AABB;
 import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -65,12 +69,11 @@ public class OccultismBlocks {
 
     public static final RegistryObject<Block> LIGHTED_AIR = register("lighted_air", () -> new AirBlock(
             Block.Properties.of(Material.AIR).noCollission().air().noDrops().lightLevel(s -> 15).randomTicks()) {
-
         @Override
-        public void tick(BlockState state, ServerWorld world, BlockPos pos, Random rand) {
-            if (world.getEntitiesOfClass(CthulhuFamiliarEntity.class, new AxisAlignedBB(pos),
-                    e -> e.hasBlacksmithUpgrade()).isEmpty())
-                world.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
+        public void tick(BlockState pState, ServerLevel pLevel, BlockPos pPos, Random pRandom) {
+            if (pLevel.getEntitiesOfClass(CthulhuFamiliarEntity.class, new AABB(pPos),
+                    FamiliarEntity::hasBlacksmithUpgrade).isEmpty())
+                pLevel.setBlockAndUpdate(pPos, Blocks.AIR.defaultBlockState());
         }
     });
 

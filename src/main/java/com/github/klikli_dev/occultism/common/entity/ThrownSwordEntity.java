@@ -33,9 +33,10 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
+import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
 import net.minecraftforge.fml.network.NetworkHooks;
 
-public class ThrownSwordEntity extends ProjectileItemEntity {
+public class ThrownSwordEntity extends ThrowableItemProjectile {
 
     private static final int MAX_DURATION = 20 * 5;
 
