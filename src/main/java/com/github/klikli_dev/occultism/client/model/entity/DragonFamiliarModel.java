@@ -311,7 +311,7 @@ public class DragonFamiliarModel extends EntityModel<DragonFamiliarEntity> {
         }
 
         public void setColor(float r, float g, float b) {
-            this.setColor(r, g, b, this.a);
+            this.setColor(r, g, b, 1);
         }
 
         public void setColor(float r, float g, float b, float a) {
