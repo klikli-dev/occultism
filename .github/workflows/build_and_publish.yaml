@@ -64,8 +64,7 @@ jobs:
           release_name: occultism-${{ steps.get_mc_version.outputs.result }}-${{ steps.get_version.outputs.result }}-${{ steps.get_release_type.outputs.result }}
           body: |
             [[Automated Build]]
-            ## Changelog
-            [${{ steps.get_version.outputs.result }}](https://github.com/klikli-dev/occultism/wiki/${{ steps.get_version.outputs.result }})
+            Changelog will be added on milestone close.
           draft: false
           prerelease: false
       - name: Upload release asset
@@ -89,7 +88,8 @@ jobs:
           file_path: ./build/libs/occultism-${{ steps.get_mc_version.outputs.result }}-${{ steps.get_version.outputs.result }}.jar
           changelog: |-
             [Automated Build]
-            Changelog for this build: https://github.com/klikli-dev/occultism/wiki/${{ steps.get_version.outputs.result }}
+            ${{ steps.get_version.outputs.result }}
+            Changelog for this build: https://github.com/klikli-dev/occultism/releases/tag/${{ steps.get_release_type.outputs.result }}%2Fv${{ steps.get_mc_version.outputs.result }}-${{ steps.get_version.outputs.result }}
             Find changes for all versions at https://github.com/klikli-dev/occultism/releases
           display_name: occultism-${{ steps.get_version.outputs.result }}.jar
           game_versions: Forge,1.16.2,1.16.3,1.16.4,1.16.5,${{ steps.get_mc_version.outputs.result }}

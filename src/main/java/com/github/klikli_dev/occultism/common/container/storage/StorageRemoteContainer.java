@@ -76,7 +76,8 @@ public class StorageRemoteContainer extends StorageControllerContainerBase {
         }
         if (this.selectedSlot < 0 || this.selectedSlot >= this.player.getInventory().getContainerSize())
             return ItemStack.EMPTY;
-        return this.player.getInventory().getItem(this.selectedSlot);
+        ItemStack selected = this.player.getInventory().getItem(this.selectedSlot);
+        return selected.getItem() instanceof StorageRemoteItem ? selected : ItemStack.EMPTY;
     }
     //endregion Getter / Setter
 

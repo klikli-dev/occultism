@@ -107,7 +107,7 @@ public class LootEventHandler {
         if (!isBlacksmithEnabled(player) || !hasBlacksmith(player))
             return;
 
-        if (player.getRandom().nextDouble() < 0.01 * stack.getCount())
+        if (player.getRandom().nextDouble() < Occultism.SERVER_CONFIG.spiritJobs.blacksmithFamiliarRepairChance.get() * stack.getCount())
             repairEquipment(player);
 
         event.setCanceled(true);

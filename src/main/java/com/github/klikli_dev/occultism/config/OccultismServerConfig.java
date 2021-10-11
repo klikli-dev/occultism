@@ -88,6 +88,9 @@ public class OccultismServerConfig extends ConfigBase {
         public final CachedFloat tier4CrusherOutputMultiplier;
         public final CachedInt drikwingFamiliarSlowFallingSeconds;
         public final CachedInt crusherResultPickupDelay;
+        public final CachedInt blacksmithFamiliarUpgradeCost;
+        public final CachedInt blacksmithFamiliarUpgradeCooldown;
+        public final CachedFloat blacksmithFamiliarRepairChance;
         //endregion Fields
 
         //region Initialization
@@ -136,6 +139,20 @@ public class OccultismServerConfig extends ConfigBase {
                     builder.comment(
                                     "The minimum ticks before a crusher can pick up an item it dropped. Default is 3 Seconds = 3 * 20 Ticks.")
                             .define("crusherResultPickupDelay", 20 * 3));
+
+            this.blacksmithFamiliarRepairChance = CachedFloat.cache(this,
+                    builder.comment(
+                                    "The chance for a blacksmith familiar to repair an item (by 2 durability) whenever stone is picked up. 1.0 = 100%, 0.0 = 0%.")
+                            .define("blacksmithFamiliarRepairChance", 0.05));
+            this.blacksmithFamiliarUpgradeCost = CachedInt.cache(this,
+                    builder.comment(
+                                    "The amount of iron required for a blacksmith familiar to upgrade another familiar.")
+                            .define("blacksmithFamiliarUpgradeCost", 18));
+            this.blacksmithFamiliarUpgradeCooldown = CachedInt.cache(this,
+                    builder.comment(
+                                    "The cooldown for a blacksmith familiar to upgrade another familiar.")
+                            .define("blacksmithFamiliarUpgradeCooldown",  20 * 20));
+
 
             builder.pop();
         }
