@@ -22,15 +22,28 @@
 
 package com.github.klikli_dev.occultism.client.render.entity;
 
+import java.util.Map;
+
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.client.model.entity.HeadlessFamiliarModel;
 import com.github.klikli_dev.occultism.common.entity.HeadlessFamiliarEntity;
+import com.google.common.collect.ImmutableMap;
 import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.IVertexBuilder;
 
 import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
+import net.minecraft.client.renderer.entity.IEntityRenderer;
 import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.client.renderer.entity.layers.LayerRenderer;
+import net.minecraft.client.renderer.entity.model.GenericHeadModel;
+import net.minecraft.client.renderer.entity.model.HumanoidHeadModel;
+import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.client.resources.DefaultPlayerSkin;
+import net.minecraft.entity.EntityType;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.vector.Quaternion;
 
 public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity, HeadlessFamiliarModel> {
 
@@ -39,6 +52,7 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
 
     public HeadlessFamiliarRenderer(EntityRendererManager renderManagerIn) {
         super(renderManagerIn, new HeadlessFamiliarModel(), 0.3f);
+        this.addLayer(new HeadLayer(this));
     }
 
     @Override
@@ -50,5 +64,74 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
     public void render(HeadlessFamiliarEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn,
             IRenderTypeBuffer bufferIn, int packedLightIn) {
         super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
+    }
+
+    public static class HeadLayer extends LayerRenderer<HeadlessFamiliarEntity, HeadlessFamiliarModel> {
+
+        private static final Map<EntityType<?>, ResourceLocation> TEXTURES;
+
+        static {
+            ImmutableMap.Builder<EntityType<?>, ResourceLocation> builder = new ImmutableMap.Builder<>();
+            builder.put(EntityType.PLAYER, DefaultPlayerSkin.getDefaultSkin());
+            builder.put(EntityType.ZOMBIE, new ResourceLocation("textures/entity/zombie/zombie.png"));
+            builder.put(EntityType.SKELETON, new ResourceLocation("textures/entity/skeleton/skeleton.png"));
+            builder.put(EntityType.WITHER_SKELETON,
+                    new ResourceLocation("textures/entity/skeleton/wither_skeleton.png"));
+            builder.put(EntityType.CREEPER, new ResourceLocation("textures/entity/creeper/creeper.png"));
+            builder.put(EntityType.SPIDER, new ResourceLocation("textures/entity/spider/spider.png"));
+            TEXTURES = builder.build();
+        }
+
+        HumanoidHeadModel humanoidHead = new HumanoidHeadModel();
+        GenericHeadModel genericHead = new GenericHeadModel(0, 0, 64, 32);
+        GenericHeadModel spiderHead = new GenericHeadModel(32, 4, 64, 32);
+
+        public HeadLayer(IEntityRenderer<HeadlessFamiliarEntity, HeadlessFamiliarModel> renderer) {
+            super(renderer);
+        }
+
+        private GenericHeadModel getHeadModel(EntityType<?> type) {
+            if (type == EntityType.SKELETON || type == EntityType.WITHER_SKELETON || type == EntityType.CREEPER)
+                return genericHead;
+            else if (type == EntityType.PLAYER || type == EntityType.ZOMBIE)
+                return humanoidHead;
+            else if (type == EntityType.SPIDER)
+                return spiderHead;
+
+            return null;
+        }
+
+        @Override
+        public void render(MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn,
+                HeadlessFamiliarEntity entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks,
+                float ageInTicks, float netHeadYaw, float headPitch) {
+
+            EntityType<?> headType = entitylivingbaseIn.getHeadType();
+            if (headType == null)
+                return;
+
+            GenericHeadModel head = getHeadModel(headType);
+            if (head == null)
+                return;
+
+            matrixStackIn.pushPose();
+            HeadlessFamiliarModel model = this.getParentModel();
+            model.body.translateAndRotate(matrixStackIn);
+            model.leftArm.translateAndRotate(matrixStackIn);
+
+            float size = 0.5f;
+            matrixStackIn.scale(size, size, size);
+            matrixStackIn.translate(0.3, 0.8, 2.28);
+            matrixStackIn.mulPose(new Quaternion(90, 0, 0, true));
+
+            ResourceLocation texture = TEXTURES.get(headType);
+
+            if (texture != null) {
+                IVertexBuilder builder = bufferIn.getBuffer(RenderType.entityCutoutNoCull(texture));
+                head.renderToBuffer(matrixStackIn, builder, packedLightIn, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
+            }
+
+            matrixStackIn.popPose();
+        }
     }
 }

@@ -267,7 +267,12 @@ public class HeadlessFamiliarModel extends EntityModel<HeadlessFamiliarEntity> {
     @Override
     public void setupAnim(HeadlessFamiliarEntity pEntity, float pLimbSwing, float pLimbSwingAmount, float pAgeInTicks,
             float pNetHeadYaw, float pHeadPitch) {
+        showModels(pEntity);
 
+    }
+
+    private void showModels(HeadlessFamiliarEntity entityIn) {
+        this.pumpkin1.visible = !entityIn.hasHead();
     }
 
     /**
