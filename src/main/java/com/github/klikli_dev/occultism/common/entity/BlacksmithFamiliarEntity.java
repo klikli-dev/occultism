@@ -22,22 +22,13 @@
 
 package com.github.klikli_dev.occultism.common.entity;
 
-import java.util.EnumSet;
-
+import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.advancement.FamiliarTrigger;
+import com.github.klikli_dev.occultism.config.value.CachedInt;
 import com.github.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.google.common.collect.ImmutableList;
-
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ILivingEntityData;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.ai.goal.FollowMobGoal;
-import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.ai.goal.LookAtGoal;
-import net.minecraft.entity.ai.goal.PanicGoal;
-import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
+import net.minecraft.entity.*;
+import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -54,10 +45,15 @@ import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
 import net.minecraftforge.common.Tags;
 
+import java.util.EnumSet;
+
 public class BlacksmithFamiliarEntity extends FamiliarEntity {
 
-    private static final int UPGRADE_COST = 18;
-    private static final int MAX_IRON = UPGRADE_COST * 10;
+    private static final CachedInt UPGRADE_COST = Occultism.SERVER_CONFIG.spiritJobs.blacksmithFamiliarUpgradeCost;
+
+    private static int getMaxIron() {
+        return UPGRADE_COST.get() * 10;
+    }
 
     private static final DataParameter<Boolean> EARRING = EntityDataManager.defineId(BlacksmithFamiliarEntity.class,
             DataSerializers.BOOLEAN);
@@ -77,7 +73,7 @@ public class BlacksmithFamiliarEntity extends FamiliarEntity {
 
     @Override
     public ILivingEntityData finalizeSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason,
-            ILivingEntityData spawnDataIn, CompoundNBT dataTag) {
+                                           ILivingEntityData spawnDataIn, CompoundNBT dataTag) {
         this.setEarring(this.getRandom().nextDouble() < 0.1);
         this.setMarioMoustache(this.getRandom().nextDouble() < 0.5);
         this.setSquareHair(this.getRandom().nextDouble() < 0.5);
@@ -99,7 +95,7 @@ public class BlacksmithFamiliarEntity extends FamiliarEntity {
     protected ActionResultType mobInteract(PlayerEntity playerIn, Hand hand) {
         ItemStack stack = playerIn.getItemInHand(hand);
         Item item = stack.getItem();
-        if (playerIn == getFamiliarOwner() && ironCount < MAX_IRON
+        if (playerIn == getFamiliarOwner() && ironCount < getMaxIron()
                 && (item.is(Tags.Items.INGOTS_IRON) || item.is((Tags.Items.STORAGE_BLOCKS_IRON)))) {
             if (!this.level.isClientSide) {
                 stack.shrink(1);
@@ -152,7 +148,7 @@ public class BlacksmithFamiliarEntity extends FamiliarEntity {
 
     private void setIronCount(int count) {
         this.ironCount = count;
-        this.entityData.set(BARS, (byte) Math.min(10, (this.ironCount / UPGRADE_COST)));
+        this.entityData.set(BARS, (byte) Math.min(10, (this.ironCount / UPGRADE_COST.get())));
     }
 
     private void changeIronCount(int delta) {
@@ -196,11 +192,11 @@ public class BlacksmithFamiliarEntity extends FamiliarEntity {
 
     private static class UpgradeGoal extends Goal {
 
-        private static final int MAX_COOLDOWN = 20 * 20;
+        private static final CachedInt MAX_COOLDOWN = Occultism.SERVER_CONFIG.spiritJobs.blacksmithFamiliarUpgradeCooldown;
 
         private BlacksmithFamiliarEntity blacksmith;
         private IFamiliar target;
-        private int cooldown = MAX_COOLDOWN;
+        private int cooldown = MAX_COOLDOWN.get();
 
         public UpgradeGoal(BlacksmithFamiliarEntity blacksmith) {
             this.blacksmith = blacksmith;
@@ -210,7 +206,7 @@ public class BlacksmithFamiliarEntity extends FamiliarEntity {
         @Override
         public boolean canUse() {
             target = findTarget();
-            return blacksmith.ironCount >= UPGRADE_COST && target != null && cooldown-- < 0;
+            return blacksmith.ironCount >= UPGRADE_COST.get() && target != null && cooldown-- < 0;
         }
 
         @Override
@@ -224,7 +220,7 @@ public class BlacksmithFamiliarEntity extends FamiliarEntity {
 
         public void stop() {
             blacksmith.getNavigation().stop();
-            cooldown = MAX_COOLDOWN;
+            cooldown = MAX_COOLDOWN.get();
             target = null;
         }
 
@@ -239,7 +235,7 @@ public class BlacksmithFamiliarEntity extends FamiliarEntity {
             if (blacksmith.distanceToSqr(target.getEntity()) < 3) {
                 if (target.canBlacksmithUpgrade()) {
                     target.blacksmithUpgrade();
-                    blacksmith.changeIronCount(-UPGRADE_COST);
+                    blacksmith.changeIronCount(-UPGRADE_COST.get());
                     OccultismAdvancements.FAMILIAR.trigger(blacksmith.getFamiliarOwner(),
                             FamiliarTrigger.Type.BLACKSMITH_UPGRADE);
                 }
