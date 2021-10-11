@@ -31,6 +31,7 @@ import com.github.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.google.common.collect.ImmutableList;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ILivingEntityData;
@@ -122,6 +123,11 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
     @Override
     public boolean canBlacksmithUpgrade() {
         return !hasBlacksmithUpgrade();
+    }
+    
+    @Override
+    protected void playStepSound(BlockPos pPos, BlockState pBlock) {
+
     }
 
     @Override
