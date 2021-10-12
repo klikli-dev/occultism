@@ -31,6 +31,7 @@ import com.google.common.collect.ImmutableMap;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
@@ -39,6 +40,7 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.client.renderer.entity.model.GenericHeadModel;
 import net.minecraft.client.renderer.entity.model.HumanoidHeadModel;
+import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.resources.DefaultPlayerSkin;
 import net.minecraft.entity.EntityType;
@@ -53,6 +55,7 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
     public HeadlessFamiliarRenderer(EntityRendererManager renderManagerIn) {
         super(renderManagerIn, new HeadlessFamiliarModel(), 0.3f);
         this.addLayer(new HeadLayer(this));
+        this.addLayer(new WeaponLayer(this));
     }
 
     @Override
@@ -64,6 +67,30 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
     public void render(HeadlessFamiliarEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn,
             IRenderTypeBuffer bufferIn, int packedLightIn) {
         super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
+    }
+
+    private static class WeaponLayer extends LayerRenderer<HeadlessFamiliarEntity, HeadlessFamiliarModel> {
+        public WeaponLayer(IEntityRenderer<HeadlessFamiliarEntity, HeadlessFamiliarModel> renderer) {
+            super(renderer);
+        }
+
+        @Override
+        public void render(MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn,
+                HeadlessFamiliarEntity entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks,
+                float ageInTicks, float netHeadYaw, float headPitch) {
+            matrixStackIn.pushPose();
+            HeadlessFamiliarModel model = this.getParentModel();
+            matrixStackIn.mulPose(new Quaternion(-20, 10, -90, true));
+
+            model.body.translateAndRotate(matrixStackIn);
+            model.leftArm.translateAndRotate(matrixStackIn);
+
+            matrixStackIn.translate(-0.51, -0.33, 0.45);
+
+            Minecraft.getInstance().getItemInHandRenderer().renderItem(entitylivingbaseIn, entitylivingbaseIn.getWeaponItem(),
+                    ItemCameraTransforms.TransformType.GROUND, false, matrixStackIn, bufferIn, packedLightIn);
+            matrixStackIn.popPose();
+        }
     }
 
     public static class HeadLayer extends LayerRenderer<HeadlessFamiliarEntity, HeadlessFamiliarModel> {

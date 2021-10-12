@@ -272,7 +272,13 @@ public class HeadlessFamiliarModel extends EntityModel<HeadlessFamiliarEntity> {
     }
 
     private void showModels(HeadlessFamiliarEntity entityIn) {
+        boolean isHairy = entityIn.isHairy();
+        
         this.pumpkin1.visible = !entityIn.hasHead();
+        this.ratGlasses.visible = entityIn.hasGlasses();
+        this.ratHair1.visible = isHairy;
+        this.ratHair2.visible = isHairy;
+        this.ratHair3.visible = isHairy;
     }
 
     /**

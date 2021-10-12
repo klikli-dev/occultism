@@ -22,15 +22,25 @@
 
 package com.github.klikli_dev.occultism.common.entity;
 
+import com.github.klikli_dev.occultism.common.advancement.FamiliarTrigger;
+import com.github.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.google.common.collect.ImmutableBiMap;
 import com.google.common.collect.ImmutableList;
 
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.ILivingEntityData;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.SpawnReason;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.EffectInstance;
+import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
 
 public class HeadlessFamiliarEntity extends FamiliarEntity {
@@ -52,6 +62,12 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
 
     private static final DataParameter<Byte> HEAD = EntityDataManager.defineId(HeadlessFamiliarEntity.class,
             DataSerializers.BYTE);
+    private static final DataParameter<Boolean> HAIRY = EntityDataManager.defineId(HeadlessFamiliarEntity.class,
+            DataSerializers.BOOLEAN);
+    private static final DataParameter<Boolean> GLASSES = EntityDataManager.defineId(HeadlessFamiliarEntity.class,
+            DataSerializers.BOOLEAN);
+    private static final DataParameter<Byte> WEAPON = EntityDataManager.defineId(HeadlessFamiliarEntity.class,
+            DataSerializers.BYTE);
 
     private int headTimer;
 
@@ -65,9 +81,28 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
     }
 
     @Override
+    public void setFamiliarOwner(LivingEntity owner) {
+        if (this.hasGlasses())
+            OccultismAdvancements.FAMILIAR.trigger(owner, FamiliarTrigger.Type.RARE_VARIANT);
+        super.setFamiliarOwner(owner);
+    }
+
+    @Override
+    public ILivingEntityData finalizeSpawn(IServerWorld pLevel, DifficultyInstance pDifficulty, SpawnReason pReason,
+            ILivingEntityData pSpawnData, CompoundNBT pDataTag) {
+        this.setWeapon((byte) this.getRandom().nextInt(3));
+        this.setHairy(this.getRandom().nextBoolean());
+        this.setGlasses(this.getRandom().nextDouble() < 0.1);
+        return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
+    }
+
+    @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(HEAD, NO_HEAD);
+        this.entityData.define(HAIRY, false);
+        this.entityData.define(GLASSES, false);
+        this.entityData.define(WEAPON, (byte) 0);
     }
 
     @Override
@@ -79,6 +114,43 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
             if (headTimer-- == 0)
                 this.setHead(NO_HEAD);
         }
+    }
+
+    private void setHairy(boolean b) {
+        this.entityData.set(HAIRY, b);
+    }
+
+    public boolean isHairy() {
+        return this.entityData.get(HAIRY);
+    }
+
+    private void setGlasses(boolean b) {
+        this.entityData.set(GLASSES, b);
+    }
+
+    public boolean hasGlasses() {
+        return this.entityData.get(GLASSES);
+    }
+
+    private void setWeapon(byte b) {
+        this.entityData.set(WEAPON, b);
+    }
+
+    private byte getWeapon() {
+        return this.entityData.get(WEAPON);
+    }
+
+    public ItemStack getWeaponItem() {
+        Item weapon = Items.IRON_SWORD;
+        switch (getWeapon()) {
+        case 1:
+            weapon = Items.IRON_AXE;
+            break;
+        case 2:
+            weapon = Items.IRON_HOE;
+            break;
+        }
+        return new ItemStack(weapon);
     }
 
     private void setHead(byte head) {
@@ -110,6 +182,9 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
         super.addAdditionalSaveData(compound);
         compound.putByte("head", this.getHead());
         compound.putInt("headTimer", this.headTimer);
+        compound.putBoolean("isHairy", this.isHairy());
+        compound.putBoolean("hasGlasses", this.hasGlasses());
+        compound.putByte("getWeapon", this.getWeapon());
     }
 
     @Override
@@ -117,6 +192,9 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
         super.readAdditionalSaveData(compound);
         this.setHead(compound.getByte("head"));
         this.headTimer = compound.getInt("headTimer");
+        this.setHairy(compound.getBoolean("isHairy"));
+        this.setGlasses(compound.getBoolean("hasGlasses"));
+        this.setWeapon(compound.getByte("getWeapon"));
     }
 
 }
