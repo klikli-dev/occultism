@@ -171,7 +171,7 @@ public abstract class FamiliarEntity extends CreatureEntity implements IFamiliar
     }
 
     @Override
-    public Entity getEntity() {
+    public Entity getFamiliarEntity() {
         return this;
     }
 

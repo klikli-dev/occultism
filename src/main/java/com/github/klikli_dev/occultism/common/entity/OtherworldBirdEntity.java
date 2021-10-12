@@ -112,7 +112,7 @@ public class OtherworldBirdEntity extends ParrotEntity implements IFamiliar {
     }
 
     @Override
-    public Entity getEntity() {
+    public Entity getFamiliarEntity() {
         return this;
     }
 

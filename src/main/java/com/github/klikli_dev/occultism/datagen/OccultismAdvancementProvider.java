@@ -176,11 +176,16 @@ public class OccultismAdvancementProvider implements IDataProvider {
                     .addCriterion("dragon_pet", FamiliarTrigger.of(FamiliarTrigger.Type.DRAGON_PET))
                     .addCriterion("dragon_fetch", FamiliarTrigger.of(FamiliarTrigger.Type.DRAGON_FETCH))
                     .build(new ResourceLocation(Occultism.MODID, "occultism/familiar/mans_best_friend")));
-            this.add(Advancement.Builder.advancement().parent(root)
+            this.add(Advancement.Builder.advancement().parent(familiarsRoot)
                     .display(this.icon(7), familiarTitle("blacksmith_upgrade"), familiarDescr("blacksmith_upgrade"), null, FrameType.TASK,
                             true, true, false)
                     .addCriterion("blacksmith_upgrade", FamiliarTrigger.of(FamiliarTrigger.Type.BLACKSMITH_UPGRADE))
                     .build(new ResourceLocation(Occultism.MODID, "occultism/familiar/blacksmith_upgrade")));
+            this.add(Advancement.Builder.advancement().parent(familiarsRoot)
+                    .display(this.icon(8), familiarTitle("guardian_ultimate_sacrifice"), familiarDescr("guardian_ultimate_sacrifice"), null, FrameType.TASK,
+                            true, true, false)
+                    .addCriterion("guardian_ultimate_sacrifice", FamiliarTrigger.of(FamiliarTrigger.Type.GUARDIAN_ULTIMATE_SACRIFICE))
+                    .build(new ResourceLocation(Occultism.MODID, "occultism/familiar/guardian_ultimate_sacrifice")));
 
             this.addRitualHidden(root, "craft_dimensional_matrix");
             this.addRitualHidden(root, "craft_dimensional_mineshaft");
@@ -206,6 +211,7 @@ public class OccultismAdvancementProvider implements IDataProvider {
             this.addRitualHidden(root, "familiar_greedy");
             this.addRitualHidden(root, "familiar_otherworld_bird");
             this.addRitualHidden(root, "familiar_parrot");
+            this.addRitualHidden(root, "familiar_guardian");
             this.addRitualHidden(root, "possess_enderman");
             this.addRitualHidden(root, "possess_endermite");
             this.addRitualHidden(root, "possess_skeleton");
