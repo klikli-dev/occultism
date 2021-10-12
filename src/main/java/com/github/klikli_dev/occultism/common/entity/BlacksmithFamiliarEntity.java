@@ -215,7 +215,7 @@ public class BlacksmithFamiliarEntity extends FamiliarEntity {
         }
 
         public void start() {
-            blacksmith.getNavigation().moveTo(target.getEntity(), 0.7);
+            blacksmith.getNavigation().moveTo(target.getFamiliarEntity(), 0.7);
         }
 
         public void stop() {
@@ -230,9 +230,9 @@ public class BlacksmithFamiliarEntity extends FamiliarEntity {
                 return;
 
             if (!blacksmith.isPathFinding())
-                blacksmith.getNavigation().moveTo(target.getEntity(), 0.7);
+                blacksmith.getNavigation().moveTo(target.getFamiliarEntity(), 0.7);
 
-            if (blacksmith.distanceToSqr(target.getEntity()) < 3) {
+            if (blacksmith.distanceToSqr(target.getFamiliarEntity()) < 3) {
                 if (target.canBlacksmithUpgrade()) {
                     target.blacksmithUpgrade();
                     blacksmith.changeIronCount(-UPGRADE_COST.get());

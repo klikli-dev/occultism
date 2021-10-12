@@ -3,13 +3,13 @@
   "display": {
     "icon": {
       "item": "occultism:advancement_icon",
-      "nbt": "{CustomModelData:7}"
+      "nbt": "{CustomModelData:8}"
     },
     "title": {
-      "translate": "advancements.occultism.familiar.blacksmith_upgrade.title"
+      "translate": "advancements.occultism.familiar.guardian_ultimate_sacrifice.title"
     },
     "description": {
-      "translate": "advancements.occultism.familiar.blacksmith_upgrade.description"
+      "translate": "advancements.occultism.familiar.guardian_ultimate_sacrifice.description"
     },
     "frame": "task",
     "show_toast": true,
@@ -17,16 +17,16 @@
     "hidden": false
   },
   "criteria": {
-    "blacksmith_upgrade": {
+    "guardian_ultimate_sacrifice": {
       "trigger": "occultism:familiar",
       "conditions": {
-        "type": "BLACKSMITH_UPGRADE"
+        "type": "GUARDIAN_ULTIMATE_SACRIFICE"
       }
     }
   },
   "requirements": [
     [
-      "blacksmith_upgrade"
+      "guardian_ultimate_sacrifice"
     ]
   ]
 }
