@@ -48,22 +48,22 @@ public class ThrownSwordEntity extends ProjectileItemEntity {
     @Override
     public void tick() {
         super.tick();
-        duration++;
+        this.duration++;
 
-        if (!level.isClientSide && duration > MAX_DURATION)
-            remove();
+        if (!this.level.isClientSide && this.duration > MAX_DURATION)
+            this.remove();
     }
 
     @Override
     public void addAdditionalSaveData(CompoundNBT pCompound) {
         super.addAdditionalSaveData(pCompound);
-        pCompound.putInt("duration", duration);
+        pCompound.putInt("duration", this.duration);
     }
 
     @Override
     public void readAdditionalSaveData(CompoundNBT pCompound) {
         super.readAdditionalSaveData(pCompound);
-        duration = pCompound.getInt("duration");
+        this.duration = pCompound.getInt("duration");
     }
 
     @Override
@@ -81,16 +81,16 @@ public class ThrownSwordEntity extends ProjectileItemEntity {
     @Override
     protected void onHitEntity(EntityRayTraceResult result) {
         Entity target = result.getEntity();
-        if (friendlyFire(target))
+        if (this.friendlyFire(target))
             return;
 
-        if (!level.isClientSide) {
-            target.hurt(DamageSource.thrown(this, getOwner()), 6);
+        if (!this.level.isClientSide) {
+            target.hurt(DamageSource.thrown(this, this.getOwner()), 6);
         }
     }
 
     private boolean friendlyFire(Entity target) {
-        Entity owner = getOwner();
+        Entity owner = this.getOwner();
         if (owner == null)
             return false;
 

@@ -95,7 +95,7 @@ public class BlacksmithFamiliarEntity extends FamiliarEntity {
     protected ActionResultType mobInteract(PlayerEntity playerIn, Hand hand) {
         ItemStack stack = playerIn.getItemInHand(hand);
         Item item = stack.getItem();
-        if (playerIn == getFamiliarOwner() && ironCount < getMaxIron()
+        if (playerIn == this.getFamiliarOwner() && this.ironCount < getMaxIron()
                 && (item.is(Tags.Items.INGOTS_IRON) || item.is((Tags.Items.STORAGE_BLOCKS_IRON)))) {
             if (!this.level.isClientSide) {
                 stack.shrink(1);
@@ -152,7 +152,7 @@ public class BlacksmithFamiliarEntity extends FamiliarEntity {
     }
 
     private void changeIronCount(int delta) {
-        this.setIronCount(ironCount + delta);
+        this.setIronCount(this.ironCount + delta);
     }
 
     public byte getBars() {
@@ -166,8 +166,8 @@ public class BlacksmithFamiliarEntity extends FamiliarEntity {
 
     @Override
     protected void dropEquipment() {
-        int blockCount = ironCount / 9;
-        int barCount = ironCount % 9;
+        int blockCount = this.ironCount / 9;
+        int barCount = this.ironCount % 9;
         this.spawnAtLocation(new ItemStack(Items.IRON_INGOT, barCount));
         this.spawnAtLocation(new ItemStack(Items.IRON_BLOCK, blockCount));
     }
@@ -194,7 +194,7 @@ public class BlacksmithFamiliarEntity extends FamiliarEntity {
 
         private static final CachedInt MAX_COOLDOWN = Occultism.SERVER_CONFIG.spiritJobs.blacksmithFamiliarUpgradeCooldown;
 
-        private BlacksmithFamiliarEntity blacksmith;
+        private final BlacksmithFamiliarEntity blacksmith;
         private IFamiliar target;
         private int cooldown = MAX_COOLDOWN.get();
 
@@ -205,47 +205,47 @@ public class BlacksmithFamiliarEntity extends FamiliarEntity {
 
         @Override
         public boolean canUse() {
-            target = findTarget();
-            return blacksmith.ironCount >= UPGRADE_COST.get() && target != null && cooldown-- < 0;
+            this.target = this.findTarget();
+            return this.blacksmith.ironCount >= UPGRADE_COST.get() && this.target != null && this.cooldown-- < 0;
         }
 
         @Override
         public boolean canContinueToUse() {
-            return target != null;
+            return this.target != null;
         }
 
         public void start() {
-            blacksmith.getNavigation().moveTo(target.getFamiliarEntity(), 0.7);
+            this.blacksmith.getNavigation().moveTo(this.target.getFamiliarEntity(), 0.7);
         }
 
         public void stop() {
-            blacksmith.getNavigation().stop();
-            cooldown = MAX_COOLDOWN.get();
-            target = null;
+            this.blacksmith.getNavigation().stop();
+            this.cooldown = MAX_COOLDOWN.get();
+            this.target = null;
         }
 
         @Override
         public void tick() {
-            if (target == null)
+            if (this.target == null)
                 return;
 
-            if (!blacksmith.isPathFinding())
-                blacksmith.getNavigation().moveTo(target.getFamiliarEntity(), 0.7);
+            if (!this.blacksmith.isPathFinding())
+                this.blacksmith.getNavigation().moveTo(this.target.getFamiliarEntity(), 0.7);
 
-            if (blacksmith.distanceToSqr(target.getFamiliarEntity()) < 3) {
-                if (target.canBlacksmithUpgrade()) {
-                    target.blacksmithUpgrade();
-                    blacksmith.changeIronCount(-UPGRADE_COST.get());
-                    OccultismAdvancements.FAMILIAR.trigger(blacksmith.getFamiliarOwner(),
+            if (this.blacksmith.distanceToSqr(this.target.getFamiliarEntity()) < 3) {
+                if (this.target.canBlacksmithUpgrade()) {
+                    this.target.blacksmithUpgrade();
+                    this.blacksmith.changeIronCount(-UPGRADE_COST.get());
+                    OccultismAdvancements.FAMILIAR.trigger(this.blacksmith.getFamiliarOwner(),
                             FamiliarTrigger.Type.BLACKSMITH_UPGRADE);
                 }
-                target = null;
+                this.target = null;
             }
         }
 
         private IFamiliar findTarget() {
-            for (LivingEntity e : blacksmith.level.getEntitiesOfClass(LivingEntity.class,
-                    blacksmith.getBoundingBox().inflate(4), e -> familiarPred(e))) {
+            for (LivingEntity e : this.blacksmith.level.getEntitiesOfClass(LivingEntity.class,
+                    this.blacksmith.getBoundingBox().inflate(4), e -> this.familiarPred(e))) {
                 return (IFamiliar) e;
             }
             return null;
@@ -256,7 +256,7 @@ public class BlacksmithFamiliarEntity extends FamiliarEntity {
                 return false;
             IFamiliar familiar = (IFamiliar) e;
             LivingEntity owner = familiar.getFamiliarOwner();
-            return familiar.canBlacksmithUpgrade() && owner != null && owner == blacksmith.getFamiliarOwner();
+            return familiar.canBlacksmithUpgrade() && owner != null && owner == this.blacksmith.getFamiliarOwner();
         }
     }
 }

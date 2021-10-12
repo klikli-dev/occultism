@@ -101,7 +101,7 @@ public abstract class FamiliarEntity extends CreatureEntity implements IFamiliar
     
     @Override
     public void blacksmithUpgrade() {
-        setBlacksmithUpgrade(true);
+        this.setBlacksmithUpgrade(true);
     }
 
     @Override

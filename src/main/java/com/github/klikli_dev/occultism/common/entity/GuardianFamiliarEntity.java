@@ -101,7 +101,7 @@ public class GuardianFamiliarEntity extends FamiliarEntity {
 
     @Override
     protected void playStepSound(BlockPos pPos, BlockState pBlock) {
-        if (!hasLegs())
+        if (!this.hasLegs())
             return;
         super.playStepSound(pPos, pBlock);
     }
@@ -112,7 +112,7 @@ public class GuardianFamiliarEntity extends FamiliarEntity {
 
     @Override
     public boolean canBlacksmithUpgrade() {
-        return !hasBlacksmithUpgrade() && this.getLives() != MAX_LIVES;
+        return !this.hasBlacksmithUpgrade() && this.getLives() != MAX_LIVES;
     }
 
     @Override
@@ -178,21 +178,21 @@ public class GuardianFamiliarEntity extends FamiliarEntity {
     public void tick() {
         super.tick();
 
-        if (this.getLives() <= 0 && !level.isClientSide)
+        if (this.getLives() <= 0 && !this.level.isClientSide)
             this.kill();
 
-        if (lives0 != -1 && lives0 > getLives()) {
-            particleTimer = 30;
-            playSound(SoundEvents.GENERIC_HURT, getSoundVolume(), getVoicePitch());
+        if (this.lives0 != -1 && this.lives0 > this.getLives()) {
+            this.particleTimer = 30;
+            this.playSound(SoundEvents.GENERIC_HURT, this.getSoundVolume(), this.getVoicePitch());
         }
 
-        lives0 = getLives();
+        this.lives0 = this.getLives();
 
-        if (level.isClientSide) {
-            if (particleTimer-- > 0) {
+        if (this.level.isClientSide) {
+            if (this.particleTimer-- > 0) {
                 for (int i = 0; i < 20; i++) {
-                    level.addParticle(new BlockParticleData(ParticleTypes.BLOCK, Blocks.STONE.defaultBlockState())
-                            .setPos(this.blockPosition()), getRandomX(0.5), getRandomY(), getRandomZ(0.5), 0, 0, 0);
+                    this.level.addParticle(new BlockParticleData(ParticleTypes.BLOCK, Blocks.STONE.defaultBlockState())
+                            .setPos(this.blockPosition()), this.getRandomX(0.5), this.getRandomY(), this.getRandomZ(0.5), 0, 0, 0);
                 }
             }
         }
@@ -264,13 +264,13 @@ public class GuardianFamiliarEntity extends FamiliarEntity {
     @Override
     public void addAdditionalSaveData(CompoundNBT compound) {
         super.addAdditionalSaveData(compound);
-        compound.putFloat("red", getRed());
-        compound.putFloat("green", getGreen());
-        compound.putFloat("blue", getBlue());
-        compound.putBoolean("hasTree", hasTree());
-        compound.putBoolean("hasBird", hasBird());
-        compound.putBoolean("hasTools", hasTools());
-        compound.putByte("lives", getLives());
+        compound.putFloat("red", this.getRed());
+        compound.putFloat("green", this.getGreen());
+        compound.putFloat("blue", this.getBlue());
+        compound.putBoolean("hasTree", this.hasTree());
+        compound.putBoolean("hasBird", this.hasBird());
+        compound.putBoolean("hasTools", this.hasTools());
+        compound.putByte("lives", this.getLives());
     }
 
     @Override

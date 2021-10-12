@@ -209,15 +209,15 @@ public class DevilFamiliarEntity extends FamiliarEntity {
         }
 
         private boolean isClose(LivingEntity e) {
-            return e != null && e != this.entity && e.distanceToSqr(this.entity) < range;
+            return e != null && e != this.entity && e.distanceToSqr(this.entity) < this.range;
         }
 
         public void start() {
             List<Entity> enemies = this.getNearbyEnemies();
             if (!enemies.isEmpty() && this.entity instanceof DevilFamiliarEntity)
                 OccultismAdvancements.FAMILIAR.trigger(this.entity.getFamiliarOwner(), FamiliarTrigger.Type.DEVIL_FIRE);
-            
-            attack(enemies);
+
+            this.attack(enemies);
             this.entity.swing(Hand.MAIN_HAND);
             this.cooldown = MAX_COOLDOWN;
         }

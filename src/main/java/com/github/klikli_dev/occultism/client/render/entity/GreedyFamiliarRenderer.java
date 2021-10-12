@@ -47,7 +47,7 @@ public class GreedyFamiliarRenderer extends MobRenderer<GreedyFamiliarEntity, Gr
 
     public GreedyFamiliarRenderer(EntityRendererManager renderManagerIn) {
         super(renderManagerIn, new GreedyFamiliarModel(), 0.3f);
-        addLayer(new ItemLayer(this));
+        this.addLayer(new ItemLayer(this));
     }
 
     @Override

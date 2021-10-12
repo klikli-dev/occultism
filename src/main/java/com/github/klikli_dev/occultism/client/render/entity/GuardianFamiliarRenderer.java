@@ -51,8 +51,8 @@ public class GuardianFamiliarRenderer extends MobRenderer<GuardianFamiliarEntity
 
     public GuardianFamiliarRenderer(EntityRendererManager renderManagerIn) {
         super(renderManagerIn, new GuardianFamiliarModel(), 0.3f);
-        addLayer(new GuardianFamiliarOverlay(this));
-        addLayer(new ToolsLayer(this));
+        this.addLayer(new GuardianFamiliarOverlay(this));
+        this.addLayer(new ToolsLayer(this));
     }
 
     @Override

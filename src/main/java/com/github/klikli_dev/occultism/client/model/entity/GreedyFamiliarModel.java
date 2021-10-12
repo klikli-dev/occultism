@@ -71,18 +71,18 @@ public class GreedyFamiliarModel extends EntityModel<GreedyFamiliarEntity> {
         this.leftEar = new ModelRenderer(this, 0, 0);
         this.leftEar.setPos(2.0F, -4.5F, 0.0F);
         this.leftEar.addBox(-1.0F, -3.0F, 0.0F, 2.0F, 3.0F, 0.0F, 0.0F, 0.0F, 0.0F);
-        this.setRotateAngle(leftEar, 0.0F, 0.0F, 0.5235987755982988F);
+        this.setRotateAngle(this.leftEar, 0.0F, 0.0F, 0.5235987755982988F);
         this.chest2 = new ModelRenderer(this, 0, 18);
         this.chest2.setPos(0.0F, -3.0F, 0.0F);
         this.chest2.addBox(-2.0F, -2.0F, 0.0F, 4.0F, 2.0F, 4.0F, 0.0F, 0.0F, 0.0F);
-        this.setRotateAngle(chest2, 1.0555751236166873F, 0.0F, 0.0F);
+        this.setRotateAngle(this.chest2, 1.0555751236166873F, 0.0F, 0.0F);
         this.leftLeg = new ModelRenderer(this, 8, 24);
         this.leftLeg.setPos(1.5F, 0.0F, 0.0F);
         this.leftLeg.addBox(-1.0F, 0.0F, -1.0F, 2.0F, 5.0F, 2.0F, 0.0F, 0.0F, 0.0F);
         this.monster = new ModelRenderer(this, 15, 0);
         this.monster.setPos(0.0F, -2.0F, 1.5F);
         this.monster.addBox(-1.0F, -2.0F, 0.0F, 2.0F, 2.0F, 2.0F, 0.0F, 0.0F, 0.0F);
-        this.setRotateAngle(monster, 0.1563815016444822F, -0.11728612207217244F, 0.0F);
+        this.setRotateAngle(this.monster, 0.1563815016444822F, -0.11728612207217244F, 0.0F);
         this.monsterRightEye = new ModelRenderer(this, 21, 0);
         this.monsterRightEye.mirror = true;
         this.monsterRightEye.setPos(0.8F, -1.8F, 1.8F);
@@ -91,14 +91,14 @@ public class GreedyFamiliarModel extends EntityModel<GreedyFamiliarEntity> {
         this.rightEar.mirror = true;
         this.rightEar.setPos(-2.0F, -4.5F, 0.0F);
         this.rightEar.addBox(-1.0F, -3.0F, 0.0F, 2.0F, 3.0F, 0.0F, 0.0F, 0.0F, 0.0F);
-        this.setRotateAngle(rightEar, 0.0F, 0.0F, -0.5235987755982988F);
+        this.setRotateAngle(this.rightEar, 0.0F, 0.0F, -0.5235987755982988F);
         this.chest1 = new ModelRenderer(this, 12, 14);
         this.chest1.setPos(0.0F, 0.5F, 1.5F);
         this.chest1.addBox(-2.0F, -3.0F, 0.0F, 4.0F, 3.0F, 4.0F, 0.0F, 0.0F, 0.0F);
         this.monsterLeftEar = new ModelRenderer(this, 24, 0);
         this.monsterLeftEar.setPos(-0.6F, -1.6F, 0.3F);
         this.monsterLeftEar.addBox(-1.0F, -1.0F, 0.0F, 1.0F, 1.0F, 0.0F, 0.0F, 0.0F, 0.0F);
-        this.setRotateAngle(monsterLeftEar, -0.3127630032889644F, 0.0781907508222411F, -0.35185837453889574F);
+        this.setRotateAngle(this.monsterLeftEar, -0.3127630032889644F, 0.0781907508222411F, -0.35185837453889574F);
         this.rightLeg = new ModelRenderer(this, 8, 24);
         this.rightLeg.mirror = true;
         this.rightLeg.setPos(-1.5F, 0.0F, 0.0F);
@@ -106,7 +106,7 @@ public class GreedyFamiliarModel extends EntityModel<GreedyFamiliarEntity> {
         this.monsterRightEar = new ModelRenderer(this, 24, 0);
         this.monsterRightEar.setPos(0.6F, -1.6F, 0.3F);
         this.monsterRightEar.addBox(0.0F, -1.0F, 0.0F, 1.0F, 1.0F, 0.0F, 0.0F, 0.0F, 0.0F);
-        this.setRotateAngle(monsterRightEar, -0.3127630032889644F, 0.0781907508222411F, 0.35185837453889574F);
+        this.setRotateAngle(this.monsterRightEar, -0.3127630032889644F, 0.0781907508222411F, 0.35185837453889574F);
         this.nose = new ModelRenderer(this, 18, 8);
         this.nose.setPos(0.0F, -3.0F, -2.5F);
         this.nose.addBox(-1.0F, 0.0F, -2.0F, 2.0F, 2.0F, 2.0F, 0.0F, 0.0F, 0.0F);
@@ -170,7 +170,7 @@ public class GreedyFamiliarModel extends EntityModel<GreedyFamiliarEntity> {
             this.monster.yRot = pEntity.getMonsterRot(pPartialTick);
             this.monster.xRot = 0;
         } else {
-            this.chest2.xRot = toRad(40);
+            this.chest2.xRot = this.toRad(40);
             this.monster.y = -2.5f;
             this.monster.yRot = 0;
             this.monster.xRot = MathHelper.cos(ageInTicks) * this.toRad(15);

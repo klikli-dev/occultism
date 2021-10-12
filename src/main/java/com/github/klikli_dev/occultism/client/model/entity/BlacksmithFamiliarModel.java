@@ -72,7 +72,7 @@ public class BlacksmithFamiliarModel extends EntityModel<BlacksmithFamiliarEntit
         this.anvil6 = new ModelRenderer(this, 16, 19);
         this.anvil6.setPos(2.5F, -0.51F, 0.5F);
         this.anvil6.addBox(0.0F, -1.0F, -1.0F, 3.0F, 2.0F, 2.0F, 0.0F, 0.0F, 0.0F);
-        this.setRotateAngle(anvil6, 0.0F, 0.2617993877991494F, 0.0F);
+        this.setRotateAngle(this.anvil6, 0.0F, 0.2617993877991494F, 0.0F);
         this.anvil1 = new ModelRenderer(this, 42, 12);
         this.anvil1.mirror = true;
         this.anvil1.setPos(-2.0F, -1.0F, 0.0F);
@@ -100,7 +100,7 @@ public class BlacksmithFamiliarModel extends EntityModel<BlacksmithFamiliarEntit
         this.nose = new ModelRenderer(this, 30, 7);
         this.nose.setPos(0.0F, -3.2F, -1.5F);
         this.nose.addBox(-1.0F, 0.0F, -2.0F, 2.0F, 3.0F, 2.0F, 0.0F, 0.0F, 0.0F);
-        this.setRotateAngle(nose, -0.23457224414434488F, 0.0F, 0.0F);
+        this.setRotateAngle(this.nose, -0.23457224414434488F, 0.0F, 0.0F);
         this.mouth1 = new ModelRenderer(this, 8, 26);
         this.mouth1.setPos(0.0F, -1.1F, -3.2F);
         this.mouth1.addBox(-3.5F, -2.0F, 0.0F, 7.0F, 5.0F, 0.0F, 0.0F, 0.0F, 0.0F);
@@ -123,7 +123,7 @@ public class BlacksmithFamiliarModel extends EntityModel<BlacksmithFamiliarEntit
         this.anvil7 = new ModelRenderer(this, 16, 19);
         this.anvil7.setPos(2.5F, -0.5F, -0.5F);
         this.anvil7.addBox(0.0F, -1.0F, -1.0F, 3.0F, 2.0F, 2.0F, 0.0F, 0.0F, 0.0F);
-        this.setRotateAngle(anvil7, 0.0F, -0.27366763203903305F, 0.0F);
+        this.setRotateAngle(this.anvil7, 0.0F, -0.27366763203903305F, 0.0F);
         this.wheel4 = new ModelRenderer(this, 34, 14);
         this.wheel4.mirror = true;
         this.wheel4.setPos(-3.5F, 0.5F, 2.5F);
@@ -134,7 +134,7 @@ public class BlacksmithFamiliarModel extends EntityModel<BlacksmithFamiliarEntit
         this.leftEar = new ModelRenderer(this, 0, 26);
         this.leftEar.setPos(2.4F, -3.0F, 0.0F);
         this.leftEar.addBox(0.0F, -2.0F, 0.0F, 4.0F, 3.0F, 0.0F, 0.0F, 0.0F, 0.0F);
-        this.setRotateAngle(leftEar, 0.22689280275926282F, -0.8726646259971648F, -0.5235987755982988F);
+        this.setRotateAngle(this.leftEar, 0.22689280275926282F, -0.8726646259971648F, -0.5235987755982988F);
         this.wagon = new ModelRenderer(this, 14, 12);
         this.wagon.setPos(0.0F, 22.5F, -2.0F);
         this.wagon.addBox(-3.5F, 0.0F, -3.0F, 7.0F, 1.0F, 6.0F, 0.0F, 0.0F, 0.0F);
@@ -148,17 +148,17 @@ public class BlacksmithFamiliarModel extends EntityModel<BlacksmithFamiliarEntit
         this.earring = new ModelRenderer(this, 0, 29);
         this.earring.setPos(1.4F, 1.0F, 0.0F);
         this.earring.addBox(-1.5F, -1.5F, 0.0F, 3.0F, 3.0F, 0.0F, 0.0F, 0.0F, 0.0F);
-        this.setRotateAngle(earring, 0.0F, 2.3917990897539414F, 0.0F);
+        this.setRotateAngle(this.earring, 0.0F, 2.3917990897539414F, 0.0F);
         this.hammer1 = new ModelRenderer(this, 16, 0);
         this.hammer1.mirror = true;
         this.hammer1.setPos(-1.0F, 5.0F, 0.0F);
         this.hammer1.addBox(-0.5F, -0.5F, -3.0F, 1.0F, 1.0F, 3.0F, 0.0F, 0.0F, 0.0F);
-        this.setRotateAngle(hammer1, 0.6255260065779288F, 1.7983872772339238F, 0.0F);
+        this.setRotateAngle(this.hammer1, 0.6255260065779288F, 1.7983872772339238F, 0.0F);
         this.rightEar = new ModelRenderer(this, 0, 26);
         this.rightEar.mirror = true;
         this.rightEar.setPos(-2.4F, -3.0F, 0.0F);
         this.rightEar.addBox(-4.0F, -2.0F, 0.0F, 4.0F, 3.0F, 0.0F, 0.0F, 0.0F, 0.0F);
-        this.setRotateAngle(rightEar, 0.22689280275926282F, 0.8726646259971648F, 0.5235987755982988F);
+        this.setRotateAngle(this.rightEar, 0.22689280275926282F, 0.8726646259971648F, 0.5235987755982988F);
         this.wheel1 = new ModelRenderer(this, 34, 14);
         this.wheel1.setPos(3.5F, 0.5F, 2.5F);
         this.wheel1.addBox(0.0F, -1.0F, -1.0F, 1.0F, 2.0F, 2.0F, 0.0F, 0.0F, 0.0F);
@@ -218,12 +218,12 @@ public class BlacksmithFamiliarModel extends EntityModel<BlacksmithFamiliarEntit
         this.rightLeg.xRot = MathHelper.cos(limbSwing * 0.5f) * limbSwingAmount * 0.6f;
         this.leftLeg.xRot = MathHelper.cos(limbSwing * 0.5f + PI) * limbSwingAmount * 0.6f;
 
-        this.leftArm.xRot = toRad(-30) + MathHelper.cos(limbSwing * 0.5f + PI) * limbSwingAmount * 0.2f;
-        this.leftArm.yRot = toRad(-15);
-        this.rightArm.xRot = toRad(-75);
-        this.rightArm.yRot = toRad(25);
+        this.leftArm.xRot = this.toRad(-30) + MathHelper.cos(limbSwing * 0.5f + PI) * limbSwingAmount * 0.2f;
+        this.leftArm.yRot = this.toRad(-15);
+        this.rightArm.xRot = this.toRad(-75);
+        this.rightArm.yRot = this.toRad(25);
         this.hammer1.yRot = 0;
-        this.hammer1.zRot = toRad(90);
+        this.hammer1.zRot = this.toRad(90);
         this.hammer1.xRot = 0;
         
         this.body.yRot = 0;
@@ -234,25 +234,25 @@ public class BlacksmithFamiliarModel extends EntityModel<BlacksmithFamiliarEntit
         this.rightArm.zRot = 0;
 
         if (entityIn.isPartying()) {
-            this.head.xRot = MathHelper.cos(ageInTicks * 0.8f) * toRad(25);
+            this.head.xRot = MathHelper.cos(ageInTicks * 0.8f) * this.toRad(25);
             this.head.yRot = 0;
-            this.leftArm.xRot = toRad(-90) + MathHelper.cos(ageInTicks * 1.2f) * toRad(25);
-            this.leftArm.yRot = toRad(-5);
-            this.leftArm.zRot = toRad(20);
-            this.rightArm.xRot = toRad(-90) + MathHelper.cos(ageInTicks * 1.2f + PI) * toRad(25);
-            this.rightArm.yRot = toRad(-5);
-            this.rightArm.zRot = toRad(-20);
+            this.leftArm.xRot = this.toRad(-90) + MathHelper.cos(ageInTicks * 1.2f) * this.toRad(25);
+            this.leftArm.yRot = this.toRad(-5);
+            this.leftArm.zRot = this.toRad(20);
+            this.rightArm.xRot = this.toRad(-90) + MathHelper.cos(ageInTicks * 1.2f + PI) * this.toRad(25);
+            this.rightArm.yRot = this.toRad(-5);
+            this.rightArm.zRot = this.toRad(-20);
         } else if (entityIn.isSitting()) {
-            this.body.yRot = toRad(180);
-            this.leftLeg.xRot = toRad(-70);
-            this.rightLeg.xRot = toRad(-70);
+            this.body.yRot = this.toRad(180);
+            this.leftLeg.xRot = this.toRad(-70);
+            this.rightLeg.xRot = this.toRad(-70);
             this.body.y = 23f;
             this.body.z = 4;
-            this.body.xRot = toRad(-20);
-            this.head.xRot = toRad(20);
+            this.body.xRot = this.toRad(-20);
+            this.head.xRot = this.toRad(20);
             this.head.yRot = 0;
-            this.leftArm.xRot = toRad(-10);
-            this.rightArm.xRot = toRad(-10);
+            this.leftArm.xRot = this.toRad(-10);
+            this.rightArm.xRot = this.toRad(-10);
         }
 
     }
@@ -264,7 +264,7 @@ public class BlacksmithFamiliarModel extends EntityModel<BlacksmithFamiliarEntit
     @Override
     public void prepareMobModel(BlacksmithFamiliarEntity entityIn, float limbSwing, float limbSwingAmount,
             float partialTick) {
-        showModels(entityIn);
+        this.showModels(entityIn);
     }
 
     private void showModels(BlacksmithFamiliarEntity entityIn) {

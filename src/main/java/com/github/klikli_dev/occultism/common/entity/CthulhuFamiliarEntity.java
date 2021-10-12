@@ -122,7 +122,7 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
 
     @Override
     public boolean canBlacksmithUpgrade() {
-        return !hasBlacksmithUpgrade();
+        return !this.hasBlacksmithUpgrade();
     }
     
     @Override
@@ -172,58 +172,58 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
         if (this.isAngry() && this.getRandom().nextDouble() < 0.0007)
             this.setAngry(false);
 
-        if (!level.isClientSide) {
-            lightTimer--;
-            if (lightTimer < 0) {
-                lightTimer = 10;
-                if (lightPos == null)
-                    lightPos = blockPosition();
-                updateLight();
+        if (!this.level.isClientSide) {
+            this.lightTimer--;
+            if (this.lightTimer < 0) {
+                this.lightTimer = 10;
+                if (this.lightPos == null)
+                    this.lightPos = this.blockPosition();
+                this.updateLight();
             }
         }
     }
 
     private void updateLight() {
-        removeLight(lightPos0);
-        lightPos0 = null;
-        if (lightPos != blockPosition()) {
-            lightPos0 = lightPos;
-            lightPos = blockPosition();
+        this.removeLight(this.lightPos0);
+        this.lightPos0 = null;
+        if (this.lightPos != this.blockPosition()) {
+            this.lightPos0 = this.lightPos;
+            this.lightPos = this.blockPosition();
         }
-        if (level.isEmptyBlock(lightPos) && isAlive() && hasBlacksmithUpgrade())
-            level.setBlockAndUpdate(lightPos, OccultismBlocks.LIGHTED_AIR.get().defaultBlockState());
+        if (this.level.isEmptyBlock(this.lightPos) && this.isAlive() && this.hasBlacksmithUpgrade())
+            this.level.setBlockAndUpdate(this.lightPos, OccultismBlocks.LIGHTED_AIR.get().defaultBlockState());
     }
 
     private void removeLight(BlockPos pos) {
-        if (!level.isClientSide && pos != null
-                && level.getBlockState(pos).getBlock() == OccultismBlocks.LIGHTED_AIR.get())
-            level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
+        if (!this.level.isClientSide && pos != null
+                && this.level.getBlockState(pos).getBlock() == OccultismBlocks.LIGHTED_AIR.get())
+            this.level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
     }
 
     @Override
     protected void removeAfterChangingDimensions() {
-        removeLight(lightPos);
-        removeLight(lightPos0);
-        lightPos = null;
-        lightPos0 = null;
+        this.removeLight(this.lightPos);
+        this.removeLight(this.lightPos0);
+        this.lightPos = null;
+        this.lightPos0 = null;
         super.removeAfterChangingDimensions();
     }
 
     @Override
     public void die(DamageSource pCause) {
-        removeLight(lightPos);
-        removeLight(lightPos0);
-        lightPos = null;
-        lightPos0 = null;
+        this.removeLight(this.lightPos);
+        this.removeLight(this.lightPos0);
+        this.lightPos = null;
+        this.lightPos0 = null;
         super.die(pCause);
     }
 
     @Override
     public void remove() {
-        removeLight(lightPos);
-        removeLight(lightPos0);
-        lightPos = null;
-        lightPos0 = null;
+        this.removeLight(this.lightPos);
+        this.removeLight(this.lightPos0);
+        this.lightPos = null;
+        this.lightPos0 = null;
         super.remove();
     }
 
@@ -294,9 +294,9 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
         this.setTrunk(compound.getBoolean("hasTrunk"));
         this.setAngry(compound.getBoolean("isAngry"));
         if (compound.contains("lightPos"))
-            lightPos = NBTUtil.readBlockPos(compound.getCompound("lightPos"));
+            this.lightPos = NBTUtil.readBlockPos(compound.getCompound("lightPos"));
         if (compound.contains("lightPos0"))
-            lightPos0 = NBTUtil.readBlockPos(compound.getCompound("lightPos0"));
+            this.lightPos0 = NBTUtil.readBlockPos(compound.getCompound("lightPos0"));
     }
 
     @Override
@@ -305,10 +305,10 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
         compound.putBoolean("hasHat", this.hasHat());
         compound.putBoolean("hasTrunk", this.hasTrunk());
         compound.putBoolean("isAngry", this.isAngry());
-        if (lightPos != null)
-            compound.put("lightPos", NBTUtil.writeBlockPos(lightPos));
-        if (lightPos0 != null)
-            compound.put("lightPos0", NBTUtil.writeBlockPos(lightPos0));
+        if (this.lightPos != null)
+            compound.put("lightPos", NBTUtil.writeBlockPos(this.lightPos));
+        if (this.lightPos0 != null)
+            compound.put("lightPos0", NBTUtil.writeBlockPos(this.lightPos0));
     }
 
     private static class MoveController extends MovementController {
