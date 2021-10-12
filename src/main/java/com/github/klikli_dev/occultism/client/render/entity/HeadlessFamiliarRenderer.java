@@ -25,8 +25,10 @@ package com.github.klikli_dev.occultism.client.render.entity;
 import java.util.Map;
 
 import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.client.model.entity.CthulhuFamiliarModel;
 import com.github.klikli_dev.occultism.client.model.entity.HeadlessFamiliarModel;
 import com.github.klikli_dev.occultism.common.entity.HeadlessFamiliarEntity;
+import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.google.common.collect.ImmutableMap;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
@@ -49,7 +51,7 @@ import net.minecraft.util.math.vector.Quaternion;
 
 public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity, HeadlessFamiliarModel> {
 
-    private static final ResourceLocation TEXTURES = new ResourceLocation(Occultism.MODID,
+    private static final ResourceLocation TEXTURE = new ResourceLocation(Occultism.MODID,
             "textures/entity/headless_familiar.png");
 
     public HeadlessFamiliarRenderer(EntityRendererManager renderManagerIn) {
@@ -60,7 +62,7 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
 
     @Override
     public ResourceLocation getTextureLocation(HeadlessFamiliarEntity entity) {
-        return TEXTURES;
+        return TEXTURE;
     }
 
     @Override
@@ -87,31 +89,38 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
 
             matrixStackIn.translate(-0.51, -0.33, 0.45);
 
-            Minecraft.getInstance().getItemInHandRenderer().renderItem(entitylivingbaseIn, entitylivingbaseIn.getWeaponItem(),
-                    ItemCameraTransforms.TransformType.GROUND, false, matrixStackIn, bufferIn, packedLightIn);
+            Minecraft.getInstance().getItemInHandRenderer().renderItem(entitylivingbaseIn,
+                    entitylivingbaseIn.getWeaponItem(), ItemCameraTransforms.TransformType.GROUND, false, matrixStackIn,
+                    bufferIn, packedLightIn);
             matrixStackIn.popPose();
         }
     }
 
     public static class HeadLayer extends LayerRenderer<HeadlessFamiliarEntity, HeadlessFamiliarModel> {
 
-        private static final Map<EntityType<?>, ResourceLocation> TEXTURES;
-
-        static {
-            ImmutableMap.Builder<EntityType<?>, ResourceLocation> builder = new ImmutableMap.Builder<>();
-            builder.put(EntityType.PLAYER, DefaultPlayerSkin.getDefaultSkin());
-            builder.put(EntityType.ZOMBIE, new ResourceLocation("textures/entity/zombie/zombie.png"));
-            builder.put(EntityType.SKELETON, new ResourceLocation("textures/entity/skeleton/skeleton.png"));
-            builder.put(EntityType.WITHER_SKELETON,
-                    new ResourceLocation("textures/entity/skeleton/wither_skeleton.png"));
-            builder.put(EntityType.CREEPER, new ResourceLocation("textures/entity/creeper/creeper.png"));
-            builder.put(EntityType.SPIDER, new ResourceLocation("textures/entity/spider/spider.png"));
-            TEXTURES = builder.build();
-        }
+        private static Map<EntityType<?>, ResourceLocation> textures;
 
         HumanoidHeadModel humanoidHead = new HumanoidHeadModel();
         GenericHeadModel genericHead = new GenericHeadModel(0, 0, 64, 32);
         GenericHeadModel spiderHead = new GenericHeadModel(32, 4, 64, 32);
+        GenericHeadModel cthulhuHead = new CthulhuHeadModel();
+
+        private static ResourceLocation getTexture(EntityType<?> type) {
+            if (textures == null) {
+                ImmutableMap.Builder<EntityType<?>, ResourceLocation> builder = new ImmutableMap.Builder<>();
+                builder.put(EntityType.PLAYER, DefaultPlayerSkin.getDefaultSkin());
+                builder.put(EntityType.ZOMBIE, new ResourceLocation("textures/entity/zombie/zombie.png"));
+                builder.put(EntityType.SKELETON, new ResourceLocation("textures/entity/skeleton/skeleton.png"));
+                builder.put(EntityType.WITHER_SKELETON,
+                        new ResourceLocation("textures/entity/skeleton/wither_skeleton.png"));
+                builder.put(EntityType.CREEPER, new ResourceLocation("textures/entity/creeper/creeper.png"));
+                builder.put(EntityType.SPIDER, new ResourceLocation("textures/entity/spider/spider.png"));
+                builder.put(OccultismEntities.CTHULHU_FAMILIAR.get(),
+                        new ResourceLocation(Occultism.MODID, "textures/entity/cthulhu_familiar.png"));
+                textures = builder.build();
+            }
+            return textures.get(type);
+        }
 
         public HeadLayer(IEntityRenderer<HeadlessFamiliarEntity, HeadlessFamiliarModel> renderer) {
             super(renderer);
@@ -124,6 +133,8 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
                 return humanoidHead;
             else if (type == EntityType.SPIDER)
                 return spiderHead;
+            else if (type == OccultismEntities.CTHULHU_FAMILIAR.get())
+                return cthulhuHead;
 
             return null;
         }
@@ -151,7 +162,7 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
             matrixStackIn.translate(0.3, 0.8, 2.28);
             matrixStackIn.mulPose(new Quaternion(90, 0, 0, true));
 
-            ResourceLocation texture = TEXTURES.get(headType);
+            ResourceLocation texture = getTexture(headType);
 
             if (texture != null) {
                 IVertexBuilder builder = bufferIn.getBuffer(RenderType.entityCutoutNoCull(texture));
@@ -159,6 +170,25 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
             }
 
             matrixStackIn.popPose();
+        }
+    }
+
+    private static class CthulhuHeadModel extends GenericHeadModel {
+        private final CthulhuFamiliarModel model = new CthulhuFamiliarModel();
+
+        @Override
+        public void renderToBuffer(MatrixStack pMatrixStack, IVertexBuilder pBuffer, int pPackedLight,
+                int pPackedOverlay, float pRed, float pGreen, float pBlue, float pAlpha) {
+            this.model.trunk1.visible = false;
+            this.model.trunk2.visible = false;
+            this.model.trunk3.visible = false;
+            this.model.hat1.visible = false;
+            pMatrixStack.pushPose();
+            pMatrixStack.scale(1.5f, 1.5f, 1.5f);
+            pMatrixStack.translate(0, 0.35, 0.07);
+            pMatrixStack.mulPose(new Quaternion(10, 0, 0, true));
+            this.model.head.render(pMatrixStack, pBuffer, pPackedLight, pPackedOverlay);
+            pMatrixStack.popPose();
         }
     }
 }

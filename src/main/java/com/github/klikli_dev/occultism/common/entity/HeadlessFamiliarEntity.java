@@ -24,6 +24,7 @@ package com.github.klikli_dev.occultism.common.entity;
 
 import com.github.klikli_dev.occultism.common.advancement.FamiliarTrigger;
 import com.github.klikli_dev.occultism.registry.OccultismAdvancements;
+import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.google.common.collect.ImmutableBiMap;
 import com.google.common.collect.ImmutableList;
 
@@ -45,17 +46,7 @@ import net.minecraft.world.World;
 
 public class HeadlessFamiliarEntity extends FamiliarEntity {
 
-    private static final ImmutableBiMap<Byte, EntityType<?>> TYPES_LOOKUP;
-    static {
-        ImmutableBiMap.Builder<Byte, EntityType<?>> builder = new ImmutableBiMap.Builder<>();
-        builder.put((byte) 1, EntityType.PLAYER);
-        builder.put((byte) 2, EntityType.ZOMBIE);
-        builder.put((byte) 3, EntityType.SKELETON);
-        builder.put((byte) 4, EntityType.WITHER_SKELETON);
-        builder.put((byte) 5, EntityType.CREEPER);
-        builder.put((byte) 6, EntityType.SPIDER);
-        TYPES_LOOKUP = builder.build();
-    }
+    private static ImmutableBiMap<Byte, EntityType<?>> typesLookup;
 
     private static final int HEAD_TIME = 20 * 60;
     private static final byte NO_HEAD = 0;
@@ -70,6 +61,21 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
             DataSerializers.BYTE);
 
     private int headTimer;
+    
+    private static ImmutableBiMap<Byte, EntityType<?>> getTypesLookup() {
+        if (typesLookup == null) {
+            ImmutableBiMap.Builder<Byte, EntityType<?>> builder = new ImmutableBiMap.Builder<>();
+            builder.put((byte) 1, EntityType.PLAYER);
+            builder.put((byte) 2, EntityType.ZOMBIE);
+            builder.put((byte) 3, EntityType.SKELETON);
+            builder.put((byte) 4, EntityType.WITHER_SKELETON);
+            builder.put((byte) 5, EntityType.CREEPER);
+            builder.put((byte) 6, EntityType.SPIDER);
+            builder.put((byte) 7, OccultismEntities.CTHULHU_FAMILIAR.get());
+            typesLookup = builder.build();
+        }
+        return typesLookup;
+    }
 
     public HeadlessFamiliarEntity(EntityType<? extends HeadlessFamiliarEntity> type, World worldIn) {
         super(type, worldIn);
@@ -168,13 +174,13 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
     }
 
     public EntityType<?> getHeadType() {
-        return TYPES_LOOKUP.getOrDefault(this.getHead(), null);
+        return getTypesLookup().getOrDefault(this.getHead(), null);
     }
 
     public void setHeadType(EntityType<?> type) {
-        if (type == null || !TYPES_LOOKUP.inverse().containsKey(type))
+        if (type == null || !getTypesLookup().inverse().containsKey(type))
             return;
-        this.setHead(TYPES_LOOKUP.inverse().get(type));
+        this.setHead(getTypesLookup().inverse().get(type));
     }
 
     @Override
