@@ -22,6 +22,7 @@
 
 package com.github.klikli_dev.occultism.crafting.recipe;
 
+import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.ritual.Ritual;
 import com.github.klikli_dev.occultism.common.ritual.pentacle.Pentacle;
 import com.github.klikli_dev.occultism.common.ritual.pentacle.PentacleManager;
@@ -33,8 +34,10 @@ import com.google.gson.JsonSyntaxException;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.Registry;
+import net.minecraft.data.tags.EntityTypeTagsProvider;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.tags.SerializationTags;
 import net.minecraft.tags.Tag;
 import net.minecraft.util.GsonHelper;
@@ -46,6 +49,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.ShapelessRecipe;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.common.ForgeTagHandler;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.ForgeRegistryEntry;
@@ -270,9 +274,16 @@ public class RitualRecipe extends ShapelessRecipe {
             Tag<EntityType<?>> entityToSacrifice = null;
             String entityToSacrificeDisplayName = "";
             if (buffer.readBoolean()) {
-                entityToSacrifice = SerializationTags.getInstance().getTagOrThrow(Registry.ENTITY_TYPE_REGISTRY, buffer.readResourceLocation(), (rl) -> {
-                    return new RuntimeException("Unknown entity tag '" + rl + "'");
-                });
+                ResourceLocation tag = buffer.readResourceLocation();
+                try{
+                    entityToSacrifice = SerializationTags.getInstance().getTagOrThrow(Registry.ENTITY_TYPE_REGISTRY, tag, (rl) -> {
+                        return new RuntimeException("Unknown entity tag '" + rl + "'");
+                    });
+                } catch(Exception e){
+                    Occultism.LOGGER.error(e);
+                    entityToSacrifice = EntityTypeTags.createOptional(tag);
+                }
+
                 entityToSacrificeDisplayName = buffer.readUtf();
             }
 
