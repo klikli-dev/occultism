@@ -128,7 +128,6 @@ public class RitualRecipe extends ShapelessRecipe {
         return this.ritual.identify(world, goldenBowlPosition, activationItem);
     }
 
-
     @Override
     public boolean matches(@Nonnull CraftingInventory inventory, @Nonnull World world) {
         return false;
