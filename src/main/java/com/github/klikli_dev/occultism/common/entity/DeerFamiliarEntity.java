@@ -73,7 +73,7 @@ public class DeerFamiliarEntity extends FamiliarEntity {
         this.goalSelector.addGoal(5, new DevilFamiliarEntity.AttackGoal(this, 5) {
             @Override
             public boolean canUse() {
-                return super.canUse() && hasBlacksmithUpgrade();
+                return super.canUse() && DeerFamiliarEntity.this.hasBlacksmithUpgrade();
             }
         });
         this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 1.0D));
@@ -164,7 +164,7 @@ public class DeerFamiliarEntity extends FamiliarEntity {
 
     @Override
     public boolean canBlacksmithUpgrade() {
-        return !hasBlacksmithUpgrade();
+        return !this.hasBlacksmithUpgrade();
     }
 
     public boolean hasRedNose() {

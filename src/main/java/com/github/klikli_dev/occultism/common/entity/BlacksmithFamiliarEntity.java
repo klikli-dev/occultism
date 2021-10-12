@@ -207,7 +207,7 @@ public class BlacksmithFamiliarEntity extends FamiliarEntity {
         @Override
         public boolean canUse() {
             this.target = this.findTarget();
-            return this.blacksmith.ironCount >= UPGRADE_COST.get() && target != null && cooldown-- < 0;
+            return this.blacksmith.ironCount >= UPGRADE_COST.get() && this.target != null && this.cooldown-- < 0;
         }
 
         @Override

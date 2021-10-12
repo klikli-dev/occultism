@@ -64,22 +64,22 @@ public class BatFamiliarModel extends EntityModel<BatFamiliarEntity> {
 
         this.body = part.getChild("body");
         this.stick = part.getChild("stick");
-        this.head = body.getChild("head");
-        this.leftWing1 = body.getChild("leftWing1");
-        this.rightWing1 = body.getChild("rightWing1");
-        this.leftEar = head.getChild("leftEar");
-        this.rightEar = head.getChild("rightEar");
-        this.nose = head.getChild("nose");
-        this.leftLeg = leftWing1.getChild("leftLeg");
-        this.leftWing2 = leftWing1.getChild("leftWing2");
-        this.rightLeg = rightWing1.getChild("rightLeg");
-        this.rightWing2 = rightWing1.getChild("rightWing2");
-        this.leftChain1 = stick.getChild("leftChain1");
-        this.rightChain1 = stick.getChild("rightChain1");
-        this.leftChain2 = leftChain1.getChild("leftChain2");
-        this.leftChain3 = leftChain2.getChild("leftChain3");
-        this.rightChain2 = rightChain1.getChild("rightChain2");
-        this.rightChain3 = rightChain2.getChild("rightChain3");
+        this.head = this.body.getChild("head");
+        this.leftWing1 = this.body.getChild("leftWing1");
+        this.rightWing1 = this.body.getChild("rightWing1");
+        this.leftEar = this.head.getChild("leftEar");
+        this.rightEar = this.head.getChild("rightEar");
+        this.nose = this.head.getChild("nose");
+        this.leftLeg = this.leftWing1.getChild("leftLeg");
+        this.leftWing2 = this.leftWing1.getChild("leftWing2");
+        this.rightLeg = this.rightWing1.getChild("rightLeg");
+        this.rightWing2 = this.rightWing1.getChild("rightWing2");
+        this.leftChain1 = this.stick.getChild("leftChain1");
+        this.rightChain1 = this.stick.getChild("rightChain1");
+        this.leftChain2 = this.leftChain1.getChild("leftChain2");
+        this.leftChain3 = this.leftChain2.getChild("leftChain3");
+        this.rightChain2 = this.rightChain1.getChild("rightChain2");
+        this.rightChain3 = this.rightChain2.getChild("rightChain3");
     }
 
     public static LayerDefinition createBodyLayer() {

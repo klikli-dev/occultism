@@ -47,7 +47,7 @@ public class GreedyFamiliarRenderer extends MobRenderer<GreedyFamiliarEntity, Gr
 
     public GreedyFamiliarRenderer(EntityRendererProvider.Context context) {
         super(context, new GreedyFamiliarModel(context.bakeLayer(OccultismModelLayers.FAMILIAR_GREEDY)), 0.3f);
-        addLayer(new ItemLayer(this));
+        this.addLayer(new ItemLayer(this));
     }
 
     @Override

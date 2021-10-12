@@ -98,7 +98,7 @@ public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar 
 
     @Override
     public void blacksmithUpgrade() {
-        setBlacksmithUpgrade(true);
+        this.setBlacksmithUpgrade(true);
     }
 
     @Override
