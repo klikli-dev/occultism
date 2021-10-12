@@ -80,7 +80,7 @@ public class FamiliarRingItem extends Item {
                 OccultismAdvancements.FAMILIAR.trigger(playerIn, FamiliarTrigger.Type.CAPTURE);
                 CompoundTag tag = stack.getOrCreateTag();
                 tag.putBoolean("occupied", true);
-                ItemNBTUtil.setBoundSpiritName(stack, familiar.getEntity().getDisplayName().getString());
+                ItemNBTUtil.setBoundSpiritName(stack, familiar.getFamiliarEntity().getDisplayName().getString());
                 return InteractionResult.SUCCESS;
             }
         }
@@ -131,14 +131,16 @@ public class FamiliarRingItem extends Item {
             if (this.getFamiliar(level) != null)
                 return false;
             this.setFamiliar(familiar);
+            this.getFamiliar(level).getEntity().stopRiding();
+            this.getFamiliar(level).getEntity().ejectPassengers();
             this.getFamiliar(level).getEntity().remove(Entity.RemovalReason.DISCARDED);
             return true;
         }
 
         private boolean releaseFamiliar(Player player, Level level) {
             if (this.getFamiliar(level) != null
-                    && !this.getFamiliar(level).getEntity().isAddedToWorld()) {
-                EntityType.loadEntityRecursive(this.getFamiliar(level).getEntity().serializeNBT(), level, e -> {
+                    && !this.getFamiliar(level).getFamiliarEntity().isAddedToWorld()) {
+                EntityType.loadEntityRecursive(this.getFamiliar(level).getFamiliarEntity().serializeNBT(), level, e -> {
                     e.setPos(player.getX(), player.getY(), player.getZ());
                     //on release overwrite owner -> familiar rings can be used to trade familiars.
                     ((IFamiliar) e).setFamiliarOwner(player);
@@ -176,7 +178,7 @@ public class FamiliarRingItem extends Item {
             CompoundTag compound = new CompoundTag();
             compound.putBoolean("hasFamiliar", this.familiar != null || this.nbt != null);
             if (this.familiar != null)
-                compound.put("familiar", this.familiar.getEntity().serializeNBT());
+                compound.put("familiar", this.familiar.getFamiliarEntity().serializeNBT());
             else if (this.nbt != null)
                 compound.put("familiar", this.nbt);
 

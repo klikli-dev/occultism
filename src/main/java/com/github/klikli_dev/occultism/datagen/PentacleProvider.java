@@ -138,6 +138,20 @@ public class PentacleProvider implements DataProvider {
                         " G P G ",
                         "  GCG  "),
                 new MappingBuilder().bowl().goldChalk().purpleChalk().candle().skeleton().build());
+        this.addPentacle("possess_afrit",
+                this.createPattern(
+                        "           ",
+                        "    PRP    ",
+                        "   GCWCG   ",
+                        "  G WNW G  ",
+                        " PCWP PWCP ",
+                        " RWZ 0 ZWR ",
+                        " PCWP PWCP ",
+                        "  G WNW G  ",
+                        "   GCWCG   ",
+                        "    PRP    ",
+                        "           "),
+                new MappingBuilder().bowl().whiteChalk().goldChalk().purpleChalk().redChalk().candle().skeleton().wither().build());
         this.addPentacle("possess_djinni",
                 this.createPattern(
                         "   GPG   ",

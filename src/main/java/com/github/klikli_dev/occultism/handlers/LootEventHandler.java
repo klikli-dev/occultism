@@ -47,7 +47,6 @@ import net.minecraftforge.event.entity.living.LivingExperienceDropEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import top.theillusivec4.curios.api.CuriosApi;
 
 import java.util.List;
 import java.util.Random;
@@ -104,7 +103,7 @@ public class LootEventHandler {
 
         Player player = event.getPlayer();
 
-        if (!isBlacksmithEnabled(player) || !hasBlacksmith(player))
+        if (!FamiliarUtil.isFamiliarEnabled(player, OccultismEntities.BLACKSMITH_FAMILIAR.get()) || !FamiliarUtil.hasFamiliar(player, OccultismEntities.BLACKSMITH_FAMILIAR.get()))
             return;
 
         if (player.getRandom().nextDouble() < Occultism.SERVER_CONFIG.spiritJobs.blacksmithFamiliarRepairChance.get() * stack.getCount())
@@ -123,28 +122,7 @@ public class LootEventHandler {
         }
     }
 
-    private static boolean isBlacksmithEnabled(Player player) {
-        return player.getCapability(OccultismCapabilities.FAMILIAR_SETTINGS)
-                .lazyMap(c -> c.isFamiliarEnabled(OccultismEntities.BLACKSMITH_FAMILIAR.get())).orElse(false);
-    }
 
-    private static boolean hasBlacksmith(Player player) {
-        return hasEquippedBlacksmith(player) || hasNearbyBlacksmith(player);
-    }
 
-    private static boolean hasNearbyBlacksmith(Player player) {
-        return !player.level.getEntitiesOfClass(BlacksmithFamiliarEntity.class, player.getBoundingBox().inflate(10),
-                e -> e.getFamiliarOwner() == player).isEmpty();
-    }
 
-    private static boolean hasEquippedBlacksmith(Player player) {
-        return CuriosApi.getCuriosHelper().getEquippedCurios(player).map(handler -> {
-            for (int i = 0; i < handler.getSlots(); i++) {
-                IFamiliar familiar = FamiliarRingItem.getFamiliar(handler.getStackInSlot(i), player.level);
-                if (familiar instanceof BlacksmithFamiliarEntity)
-                    return true;
-            }
-            return false;
-        }).orElse(false);
-    }
 }

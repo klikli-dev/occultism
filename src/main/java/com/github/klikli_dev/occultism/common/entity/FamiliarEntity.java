@@ -168,7 +168,7 @@ public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar 
     }
 
     @Override
-    public Entity getEntity() {
+    public Entity getFamiliarEntity() {
         return this;
     }
 
