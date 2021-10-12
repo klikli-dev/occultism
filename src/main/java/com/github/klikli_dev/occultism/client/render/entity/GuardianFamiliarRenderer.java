@@ -25,45 +25,47 @@ package com.github.klikli_dev.occultism.client.render.entity;
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.client.model.entity.GuardianFamiliarModel;
 import com.github.klikli_dev.occultism.common.entity.GuardianFamiliarEntity;
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.vertex.IVertexBuilder;
-
+import com.github.klikli_dev.occultism.registry.OccultismModelLayers;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.math.Quaternion;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.FirstPersonRenderer;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.ItemInHandRenderer;
+import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.entity.EntityRendererManager;
-import net.minecraft.client.renderer.entity.IEntityRenderer;
-import net.minecraft.client.renderer.entity.LivingRenderer;
+import net.minecraft.client.renderer.block.model.ItemTransforms;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.client.renderer.entity.layers.LayerRenderer;
-import net.minecraft.client.renderer.model.ItemCameraTransforms;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.vector.Quaternion;
+import net.minecraft.client.renderer.entity.RenderLayerParent;
+import net.minecraft.client.renderer.entity.layers.RenderLayer;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 
 public class GuardianFamiliarRenderer extends MobRenderer<GuardianFamiliarEntity, GuardianFamiliarModel> {
 
     private static final ResourceLocation TEXTURES = new ResourceLocation(Occultism.MODID,
             "textures/entity/guardian_familiar.png");
 
-    public GuardianFamiliarRenderer(EntityRendererManager renderManagerIn) {
-        super(renderManagerIn, new GuardianFamiliarModel(), 0.3f);
-        addLayer(new GuardianFamiliarOverlay(this));
-        addLayer(new ToolsLayer(this));
+    private GuardianFamiliarModel model;
+
+    public GuardianFamiliarRenderer(EntityRendererProvider.Context context) {
+        super(context, new GuardianFamiliarModel(context.bakeLayer(OccultismModelLayers.FAMILIAR_GUARDIAN)), 0.3f);
+        this.addLayer(new GuardianFamiliarOverlay(this, context));
+        this.addLayer(new ToolsLayer(this));
     }
 
     @Override
-    public void render(GuardianFamiliarEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn,
-            IRenderTypeBuffer bufferIn, int packedLightIn) {
-        matrixStackIn.pushPose();
-        boolean noLegs = entityIn.getLives() <= GuardianFamiliarEntity.FLOATING;
-        matrixStackIn.translate(0,
-                entityIn.isSitting() ? (noLegs ? -0.5 : -0.36) : entityIn.getAnimationHeight(partialTicks) * 0.08, 0);
-        super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
-        matrixStackIn.popPose();
+    public void render(GuardianFamiliarEntity pEntity, float pEntityYaw, float pPartialTicks, PoseStack ppMatrixStackStack, MultiBufferSource pBuffer, int pPackedLight) {
+        ppMatrixStackStack.pushPose();
+        boolean noLegs = pEntity.getLives() <= GuardianFamiliarEntity.FLOATING;
+        ppMatrixStackStack.translate(0,
+                pEntity.isSitting() ? (noLegs ? -0.5 : -0.36) : pEntity.getAnimationHeight(pPartialTicks) * 0.08, 0);
+        super.render(pEntity, pEntityYaw, pPartialTicks, ppMatrixStackStack, pBuffer, pPackedLight);
+        ppMatrixStackStack.popPose();
+
     }
 
     @Override
@@ -71,77 +73,76 @@ public class GuardianFamiliarRenderer extends MobRenderer<GuardianFamiliarEntity
         return TEXTURES;
     }
 
-    private static class GuardianFamiliarOverlay extends LayerRenderer<GuardianFamiliarEntity, GuardianFamiliarModel> {
+    private static class GuardianFamiliarOverlay extends RenderLayer<GuardianFamiliarEntity, GuardianFamiliarModel> {
         private static final ResourceLocation OVERLAY = new ResourceLocation(Occultism.MODID,
                 "textures/entity/guardian_familiar_overlay.png");
 
-        private final GuardianFamiliarModel model = new GuardianFamiliarModel();
+        private final GuardianFamiliarModel model;
 
-        public GuardianFamiliarOverlay(IEntityRenderer<GuardianFamiliarEntity, GuardianFamiliarModel> renderer) {
-            super(renderer);
+        public GuardianFamiliarOverlay(RenderLayerParent<GuardianFamiliarEntity, GuardianFamiliarModel> parent, EntityRendererProvider.Context context) {
+            super(parent);
+            this.model = new GuardianFamiliarModel(context.bakeLayer(OccultismModelLayers.FAMILIAR_GUARDIAN));
         }
 
-        public void render(MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn,
-                GuardianFamiliarEntity entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks,
-                float ageInTicks, float netHeadYaw, float headPitch) {
-            if (!entitylivingbaseIn.isInvisible()) {
+        @Override
+        public void render(PoseStack ppMatrixStackStack, MultiBufferSource pBuffer, int pPackedLight, GuardianFamiliarEntity pLivingEntity, float pLimbSwing, float pLimbSwingAmount, float pPartialTicks, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch) {
+            if (!pLivingEntity.isInvisible()) {
                 this.getParentModel().copyPropertiesTo(this.model);
-                this.model.prepareMobModel(entitylivingbaseIn, limbSwing, limbSwingAmount, partialTicks);
-                this.model.setupAnim(entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
-                IVertexBuilder ivertexbuilder = bufferIn.getBuffer(RenderType.entityTranslucent(OVERLAY));
-                this.model.renderToBuffer(matrixStackIn, ivertexbuilder, packedLightIn,
-                        LivingRenderer.getOverlayCoords(entitylivingbaseIn, 0.0F), entitylivingbaseIn.getRed(),
-                        entitylivingbaseIn.getGreen(), entitylivingbaseIn.getBlue(),
-                        (MathHelper.cos(ageInTicks / 20) + 1) * 0.3f + 0.4f);
+                this.model.prepareMobModel(pLivingEntity, pLimbSwing, pLimbSwingAmount, pPartialTicks);
+                this.model.setupAnim(pLivingEntity, pLimbSwing, pLimbSwingAmount, pAgeInTicks, pNetHeadYaw, pHeadPitch);
+                VertexConsumer ivertexbuilder = pBuffer.getBuffer(RenderType.entityTranslucent(OVERLAY));
+                this.model.renderToBuffer(ppMatrixStackStack, ivertexbuilder, pPackedLight,
+                        LivingEntityRenderer.getOverlayCoords(pLivingEntity, 0.0F), pLivingEntity.getRed(),
+                        pLivingEntity.getGreen(), pLivingEntity.getBlue(),
+                        (Mth.cos(pAgeInTicks / 20) + 1) * 0.3f + 0.4f);
             }
         }
     }
 
-    private static class ToolsLayer extends LayerRenderer<GuardianFamiliarEntity, GuardianFamiliarModel> {
+    private static class ToolsLayer extends RenderLayer<GuardianFamiliarEntity, GuardianFamiliarModel> {
 
-        public ToolsLayer(IEntityRenderer<GuardianFamiliarEntity, GuardianFamiliarModel> renderer) {
-            super(renderer);
+        public ToolsLayer(RenderLayerParent<GuardianFamiliarEntity, GuardianFamiliarModel> parent) {
+            super(parent);
         }
 
-        public void render(MatrixStack matrix, IRenderTypeBuffer bufferIn, int light, GuardianFamiliarEntity entity,
-                float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw,
-                float headPitch) {
-            if (entity.isInvisible() || !entity.hasTools())
+        @Override
+        public void render(PoseStack pMatrixStack, MultiBufferSource pBuffer, int pPackedLight, GuardianFamiliarEntity pLivingEntity, float pLimbSwing, float pLimbSwingAmount, float pPartialTicks, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch) {
+            if (pLivingEntity.isInvisible() || !pLivingEntity.hasTools())
                 return;
 
-            FirstPersonRenderer itemRenderer = Minecraft.getInstance().getItemInHandRenderer();
-            ItemCameraTransforms.TransformType ground = ItemCameraTransforms.TransformType.GROUND;
+            ItemInHandRenderer itemRenderer = Minecraft.getInstance().getItemInHandRenderer();
+            ItemTransforms.TransformType ground = ItemTransforms.TransformType.GROUND;
             GuardianFamiliarModel model = this.getParentModel();
 
-            matrix.pushPose();
-            model.body.translateAndRotate(matrix);
+            pMatrixStack.pushPose();
+            model.body.translateAndRotate(pMatrixStack);
 
-            matrix.translate(-0.15, -0.25, -0.25);
-            matrix.mulPose(new Quaternion(0, -60, 0, true));
+            pMatrixStack.translate(-0.15, -0.25, -0.25);
+            pMatrixStack.mulPose(new Quaternion(0, -60, 0, true));
 
-            itemRenderer.renderItem(entity, new ItemStack(Items.STONE_SWORD), ground, false, matrix, bufferIn, light);
-            matrix.popPose();
+            itemRenderer.renderItem(pLivingEntity, new ItemStack(Items.STONE_SWORD), ground, false, pMatrixStack, pBuffer, pPackedLight);
+            pMatrixStack.popPose();
 
-            matrix.pushPose();
-            model.body.translateAndRotate(matrix);
+            pMatrixStack.pushPose();
+            model.body.translateAndRotate(pMatrixStack);
 
-            matrix.translate(-0.15, 0.1, 0.37);
-            matrix.mulPose(new Quaternion(0, 60, -110, true));
+            pMatrixStack.translate(-0.15, 0.1, 0.37);
+            pMatrixStack.mulPose(new Quaternion(0, 60, -110, true));
 
-            itemRenderer.renderItem(entity, new ItemStack(Items.STONE_AXE), ground, false, matrix, bufferIn, light);
-            matrix.popPose();
+            itemRenderer.renderItem(pLivingEntity, new ItemStack(Items.STONE_AXE), ground, false, pMatrixStack, pBuffer, pPackedLight);
+            pMatrixStack.popPose();
 
             if (model.leftArm1.visible) {
-                matrix.pushPose();
-                model.body.translateAndRotate(matrix);
-                model.leftArm1.translateAndRotate(matrix);
+                pMatrixStack.pushPose();
+                model.body.translateAndRotate(pMatrixStack);
+                model.leftArm1.translateAndRotate(pMatrixStack);
 
-                matrix.translate(0.21, 0.2, 0);
-                matrix.mulPose(new Quaternion(0, 0, 210, true));
+                pMatrixStack.translate(0.21, 0.2, 0);
+                pMatrixStack.mulPose(new Quaternion(0, 0, 210, true));
 
-                itemRenderer.renderItem(entity, new ItemStack(Items.STONE_PICKAXE), ground, false, matrix, bufferIn,
-                        light);
-                matrix.popPose();
+                itemRenderer.renderItem(pLivingEntity, new ItemStack(Items.STONE_PICKAXE), ground, false, pMatrixStack, pBuffer,
+                        pPackedLight);
+                pMatrixStack.popPose();
             }
         }
     }

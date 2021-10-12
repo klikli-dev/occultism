@@ -28,29 +28,31 @@ import com.github.klikli_dev.occultism.common.advancement.FamiliarTrigger;
 import com.github.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.google.common.collect.ImmutableList;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ILivingEntityData;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.ai.goal.FollowMobGoal;
-import net.minecraft.entity.ai.goal.LookAtGoal;
-import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.network.datasync.DataSerializers;
-import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.particles.BlockParticleData;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.BlockParticleOption;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.IServerWorld;
-import net.minecraft.world.World;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.ai.goal.FollowMobGoal;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+
+import javax.annotation.Nullable;
 
 public class GuardianFamiliarEntity extends FamiliarEntity {
 
@@ -62,31 +64,31 @@ public class GuardianFamiliarEntity extends FamiliarEntity {
     public static final byte DEATHS_DOOR = 1;
     public static final byte DEAD = 0;
 
-    private static final DataParameter<Float> RED = EntityDataManager.defineId(GuardianFamiliarEntity.class,
-            DataSerializers.FLOAT);
-    private static final DataParameter<Float> GREEN = EntityDataManager.defineId(GuardianFamiliarEntity.class,
-            DataSerializers.FLOAT);
-    private static final DataParameter<Float> BLUE = EntityDataManager.defineId(GuardianFamiliarEntity.class,
-            DataSerializers.FLOAT);
-    private static final DataParameter<Boolean> TREE = EntityDataManager.defineId(GuardianFamiliarEntity.class,
-            DataSerializers.BOOLEAN);
-    private static final DataParameter<Boolean> BIRD = EntityDataManager.defineId(GuardianFamiliarEntity.class,
-            DataSerializers.BOOLEAN);
-    private static final DataParameter<Boolean> TOOLS = EntityDataManager.defineId(GuardianFamiliarEntity.class,
-            DataSerializers.BOOLEAN);
-    private static final DataParameter<Byte> LIVES = EntityDataManager.defineId(GuardianFamiliarEntity.class,
-            DataSerializers.BYTE);
+    private static final EntityDataAccessor<Float> RED = SynchedEntityData.defineId(GuardianFamiliarEntity.class,
+            EntityDataSerializers.FLOAT);
+    private static final EntityDataAccessor<Float> GREEN = SynchedEntityData.defineId(GuardianFamiliarEntity.class,
+            EntityDataSerializers.FLOAT);
+    private static final EntityDataAccessor<Float> BLUE = SynchedEntityData.defineId(GuardianFamiliarEntity.class,
+            EntityDataSerializers.FLOAT);
+    private static final EntityDataAccessor<Boolean> TREE = SynchedEntityData.defineId(GuardianFamiliarEntity.class,
+            EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> BIRD = SynchedEntityData.defineId(GuardianFamiliarEntity.class,
+            EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> TOOLS = SynchedEntityData.defineId(GuardianFamiliarEntity.class,
+            EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Byte> LIVES = SynchedEntityData.defineId(GuardianFamiliarEntity.class,
+            EntityDataSerializers.BYTE);
 
     private byte lives0 = -1;
     private int particleTimer;
 
-    public GuardianFamiliarEntity(EntityType<? extends GuardianFamiliarEntity> type, World worldIn) {
-        super(type, worldIn);
+    public GuardianFamiliarEntity(EntityType<? extends GuardianFamiliarEntity> type, Level level) {
+        super(type, level);
     }
 
+    @Nullable
     @Override
-    public ILivingEntityData finalizeSpawn(IServerWorld pLevel, DifficultyInstance pDifficulty, SpawnReason pReason,
-            ILivingEntityData pSpawnData, CompoundNBT pDataTag) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {
         this.setColor();
         this.setTree(this.getRandom().nextDouble() < 0.1);
         this.setBird(this.getRandom().nextDouble() < 0.5);
@@ -101,18 +103,18 @@ public class GuardianFamiliarEntity extends FamiliarEntity {
 
     @Override
     protected void playStepSound(BlockPos pPos, BlockState pBlock) {
-        if (!hasLegs())
+        if (!this.hasLegs())
             return;
         super.playStepSound(pPos, pBlock);
     }
 
     public float getAnimationHeight(float partialTicks) {
-        return this.hasLegs() ? 0 : MathHelper.cos((this.tickCount + partialTicks) / 5);
+        return this.hasLegs() ? 0 : Mth.cos((this.tickCount + partialTicks) / 5);
     }
 
     @Override
     public boolean canBlacksmithUpgrade() {
-        return !hasBlacksmithUpgrade() && this.getLives() != MAX_LIVES;
+        return !this.hasBlacksmithUpgrade() && this.getLives() != MAX_LIVES;
     }
 
     @Override
@@ -124,9 +126,9 @@ public class GuardianFamiliarEntity extends FamiliarEntity {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new SitGoal(this));
-        this.goalSelector.addGoal(2, new LookAtGoal(this, PlayerEntity.class, 8));
+        this.goalSelector.addGoal(2, new LookAtPlayerGoal(this, Player.class, 8));
         this.goalSelector.addGoal(3, new FollowOwnerGoal(this, 1, 3, 1));
-        this.goalSelector.addGoal(4, new WaterAvoidingRandomWalkingGoal(this, 1.0D));
+        this.goalSelector.addGoal(4, new WaterAvoidingRandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(5, new FollowMobGoal(this, 1, 3, 7));
     }
 
@@ -156,7 +158,7 @@ public class GuardianFamiliarEntity extends FamiliarEntity {
             r = rand.nextFloat();
             g = rand.nextFloat();
             b = rand.nextFloat();
-            if (MathHelper.abs(r - g) > 0.2f || MathHelper.abs(r - b) > 0.2f || MathHelper.abs(g - b) > 0.2f) {
+            if (Mth.abs(r - g) > 0.2f || Mth.abs(r - b) > 0.2f || Mth.abs(g - b) > 0.2f) {
                 this.setRed(r);
                 this.setGreen(g);
                 this.setBlue(b);
@@ -178,28 +180,28 @@ public class GuardianFamiliarEntity extends FamiliarEntity {
     public void tick() {
         super.tick();
 
-        if (this.getLives() <= 0 && !level.isClientSide)
+        if (this.getLives() <= 0 && !this.level.isClientSide)
             this.kill();
 
-        if (lives0 != -1 && lives0 > getLives()) {
-            particleTimer = 30;
-            playSound(SoundEvents.GENERIC_HURT, getSoundVolume(), getVoicePitch());
+        if (this.lives0 != -1 && this.lives0 > this.getLives()) {
+            this.particleTimer = 30;
+            this.playSound(SoundEvents.GENERIC_HURT, this.getSoundVolume(), this.getVoicePitch());
         }
 
-        lives0 = getLives();
+        this.lives0 = this.getLives();
 
-        if (level.isClientSide) {
-            if (particleTimer-- > 0) {
+        if (this.level.isClientSide) {
+            if (this.particleTimer-- > 0) {
                 for (int i = 0; i < 20; i++) {
-                    level.addParticle(new BlockParticleData(ParticleTypes.BLOCK, Blocks.STONE.defaultBlockState())
-                            .setPos(this.blockPosition()), getRandomX(0.5), getRandomY(), getRandomZ(0.5), 0, 0, 0);
+                    this.level.addParticle(new BlockParticleOption(ParticleTypes.BLOCK, Blocks.STONE.defaultBlockState())
+                            .setPos(this.blockPosition()), this.getRandomX(0.5), this.getRandomY(), this.getRandomZ(0.5), 0, 0, 0);
                 }
             }
         }
     }
 
     @Override
-    public Iterable<EffectInstance> getFamiliarEffects() {
+    public Iterable<MobEffectInstance> getFamiliarEffects() {
         return ImmutableList.of();
     }
 
@@ -262,19 +264,19 @@ public class GuardianFamiliarEntity extends FamiliarEntity {
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundNBT compound) {
+    public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
-        compound.putFloat("red", getRed());
-        compound.putFloat("green", getGreen());
-        compound.putFloat("blue", getBlue());
-        compound.putBoolean("hasTree", hasTree());
-        compound.putBoolean("hasBird", hasBird());
-        compound.putBoolean("hasTools", hasTools());
-        compound.putByte("lives", getLives());
+        compound.putFloat("red", this.getRed());
+        compound.putFloat("green", this.getGreen());
+        compound.putFloat("blue", this.getBlue());
+        compound.putBoolean("hasTree", this.hasTree());
+        compound.putBoolean("hasBird", this.hasBird());
+        compound.putBoolean("hasTools", this.hasTools());
+        compound.putByte("lives", this.getLives());
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundNBT compound) {
+    public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
         this.setRed(compound.getFloat("red"));
         this.setGreen(compound.getFloat("green"));

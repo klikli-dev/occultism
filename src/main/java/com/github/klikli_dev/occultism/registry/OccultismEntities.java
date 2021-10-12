@@ -23,16 +23,7 @@
 package com.github.klikli_dev.occultism.registry;
 
 import com.github.klikli_dev.occultism.Occultism;
-import com.github.klikli_dev.occultism.common.entity.BatFamiliarEntity;
-import com.github.klikli_dev.occultism.common.entity.BlacksmithFamiliarEntity;
-import com.github.klikli_dev.occultism.common.entity.CthulhuFamiliarEntity;
-import com.github.klikli_dev.occultism.common.entity.DeerFamiliarEntity;
-import com.github.klikli_dev.occultism.common.entity.DevilFamiliarEntity;
-import com.github.klikli_dev.occultism.common.entity.DragonFamiliarEntity;
-import com.github.klikli_dev.occultism.common.entity.GreedyFamiliarEntity;
-import com.github.klikli_dev.occultism.common.entity.GuardianFamiliarEntity;
-import com.github.klikli_dev.occultism.common.entity.OtherworldBirdEntity;
-import com.github.klikli_dev.occultism.common.entity.ThrownSwordEntity;
+import com.github.klikli_dev.occultism.common.entity.*;
 import com.github.klikli_dev.occultism.common.entity.possessed.PossessedEndermanEntity;
 import com.github.klikli_dev.occultism.common.entity.possessed.PossessedEndermiteEntity;
 import com.github.klikli_dev.occultism.common.entity.possessed.PossessedSkeletonEntity;
@@ -141,21 +132,21 @@ public class OccultismEntities {
                     .build(modLoc("dragon_familiar").toString()));
     public static final NonNullLazy<EntityType<BlacksmithFamiliarEntity>> BLACKSMITH_FAMILIAR_TYPE =
             NonNullLazy.of(() -> EntityType.Builder.of(BlacksmithFamiliarEntity::new, MobCategory.CREATURE)
-                                         .sized(0.65F, 1F)
-                                         .clientTrackingRange(8)
-                                         .build(modLoc("blacksmith_familiar").toString()));
+                    .sized(0.65F, 1F)
+                    .clientTrackingRange(8)
+                    .build(modLoc("blacksmith_familiar").toString()));
     public static final NonNullLazy<EntityType<GuardianFamiliarEntity>> GUARDIAN_FAMILIAR_TYPE =
-            NonNullLazy.of(() -> EntityType.Builder.of(GuardianFamiliarEntity::new, EntityClassification.CREATURE)
-                                         .sized(0.8F, 1.5F)
-                                         .clientTrackingRange(8)
-                                         .fireImmune()
-                                         .build(modLoc("guardian_familiar").toString()));
-    
+            NonNullLazy.of(() -> EntityType.Builder.of(GuardianFamiliarEntity::new, MobCategory.CREATURE)
+                    .sized(0.8F, 1.5F)
+                    .clientTrackingRange(8)
+                    .fireImmune()
+                    .build(modLoc("guardian_familiar").toString()));
+
     public static final NonNullLazy<EntityType<ThrownSwordEntity>> THROWN_SWORD_TYPE =
             NonNullLazy.of(() -> EntityType.Builder.of(ThrownSwordEntity::new, MobCategory.MISC)
-                                         .sized(0.5F, 0.5F)
-                                         .clientTrackingRange(8)
-                                         .build(modLoc("thrown_sword").toString()));
+                    .sized(0.5F, 0.5F)
+                    .clientTrackingRange(8)
+                    .build(modLoc("thrown_sword").toString()));
 
     public static final RegistryObject<EntityType<FoliotEntity>> FOLIOT = ENTITIES.register("foliot", FOLIOT_TYPE::get);
     public static final RegistryObject<EntityType<DjinniEntity>> DJINNI = ENTITIES.register("djinni", DJINNI_TYPE::get);
@@ -192,7 +183,7 @@ public class OccultismEntities {
             ENTITIES.register("blacksmith_familiar", BLACKSMITH_FAMILIAR_TYPE::get);
     public static final RegistryObject<EntityType<GuardianFamiliarEntity>> GUARDIAN_FAMILIAR =
             ENTITIES.register("guardian_familiar", GUARDIAN_FAMILIAR_TYPE::get);
-    
+
     public static final RegistryObject<EntityType<ThrownSwordEntity>> THROWN_SWORD =
             ENTITIES.register("thrown_sword", THROWN_SWORD_TYPE::get);
     //endregion Fields

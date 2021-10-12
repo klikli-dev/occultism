@@ -37,4 +37,5 @@ public class OccultismModelLayers {
     public static ModelLayerLocation FAMILIAR_DEVIL = new ModelLayerLocation(new ResourceLocation("occultism:familiar_devil"), "main");
     public static ModelLayerLocation FAMILIAR_DRAGON = new ModelLayerLocation(new ResourceLocation("occultism:familiar_dragon"), "main");
     public static ModelLayerLocation FAMILIAR_BLACKSMITH = new ModelLayerLocation(new ResourceLocation("occultism:familiar_blacksmith"), "main");
+    public static ModelLayerLocation FAMILIAR_GUARDIAN = new ModelLayerLocation(new ResourceLocation("occultism:familiar_guardian"), "main");
 }

@@ -26,10 +26,9 @@ import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.entity.GuardianFamiliarEntity;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.util.FamiliarUtil;
-
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Effects;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -39,10 +38,10 @@ public class FamiliarEventHandler {
 
     @SubscribeEvent
     public static void guardianUltimateSacrifice(LivingDeathEvent event) {
-        if (event.getSource().isBypassInvul() || !(event.getEntity() instanceof PlayerEntity))
+        if (event.getSource().isBypassInvul() || !(event.getEntity() instanceof Player))
             return;
 
-        PlayerEntity player = (PlayerEntity) event.getEntity();
+        Player player = (Player) event.getEntity();
         if (!FamiliarUtil.isFamiliarEnabled(player, OccultismEntities.GUARDIAN_FAMILIAR.get()))
             return;
 
@@ -56,7 +55,7 @@ public class FamiliarEventHandler {
         event.setCanceled(true);
         player.setHealth(1);
         player.removeAllEffects();
-        player.addEffect(new EffectInstance(Effects.REGENERATION, 20 * 10, 1));
-        player.addEffect(new EffectInstance(Effects.ABSORPTION, 20 * 5, 1));
+        player.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 20 * 10, 1));
+        player.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 20 * 5, 1));
     }
 }

@@ -23,14 +23,11 @@
 package com.github.klikli_dev.occultism.handlers;
 
 import com.github.klikli_dev.occultism.Occultism;
-import com.github.klikli_dev.occultism.common.entity.BlacksmithFamiliarEntity;
-import com.github.klikli_dev.occultism.common.entity.IFamiliar;
 import com.github.klikli_dev.occultism.common.item.tool.ButcherKnifeItem;
-import com.github.klikli_dev.occultism.common.item.tool.FamiliarRingItem;
-import com.github.klikli_dev.occultism.registry.OccultismCapabilities;
 import com.github.klikli_dev.occultism.registry.OccultismEffects;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
+import com.github.klikli_dev.occultism.util.FamiliarUtil;
 import com.github.klikli_dev.occultism.util.Math3DUtil;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -121,8 +118,6 @@ public class LootEventHandler {
             return;
         }
     }
-
-
 
 
 }

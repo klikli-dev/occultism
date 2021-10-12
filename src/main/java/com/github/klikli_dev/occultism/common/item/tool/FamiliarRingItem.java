@@ -76,7 +76,7 @@ public class FamiliarRingItem extends Item {
                                                   InteractionHand hand) {
         if (!playerIn.level.isClientSide && target instanceof IFamiliar) {
             IFamiliar familiar = (IFamiliar) target;
-            if ((familiar.getFamiliarOwner() == playerIn || familiar.getFamiliarOwner() == null) && this.getCurio(stack).captureFamiliar(playerIn.level, familiar)) {
+            if ((familiar.getFamiliarOwner() == playerIn || familiar.getFamiliarOwner() == null) && getCurio(stack).captureFamiliar(playerIn.level, familiar)) {
                 OccultismAdvancements.FAMILIAR.trigger(playerIn, FamiliarTrigger.Type.CAPTURE);
                 CompoundTag tag = stack.getOrCreateTag();
                 tag.putBoolean("occupied", true);
@@ -92,7 +92,7 @@ public class FamiliarRingItem extends Item {
     public InteractionResult useOn(UseOnContext pContext) {
 
         ItemStack stack = pContext.getPlayer().getItemInHand(pContext.getHand());
-        if (!pContext.getPlayer().level.isClientSide && this.getCurio(stack).releaseFamiliar(pContext.getPlayer(), pContext.getLevel())) {
+        if (!pContext.getPlayer().level.isClientSide && getCurio(stack).releaseFamiliar(pContext.getPlayer(), pContext.getLevel())) {
             CompoundTag tag = stack.getOrCreateTag();
             tag.putBoolean("occupied", false);
             return InteractionResult.SUCCESS;
@@ -131,9 +131,9 @@ public class FamiliarRingItem extends Item {
             if (this.getFamiliar(level) != null)
                 return false;
             this.setFamiliar(familiar);
-            this.getFamiliar(level).getEntity().stopRiding();
-            this.getFamiliar(level).getEntity().ejectPassengers();
-            this.getFamiliar(level).getEntity().remove(Entity.RemovalReason.DISCARDED);
+            this.getFamiliar(level).getFamiliarEntity().stopRiding();
+            this.getFamiliar(level).getFamiliarEntity().ejectPassengers();
+            this.getFamiliar(level).getFamiliarEntity().remove(Entity.RemovalReason.DISCARDED);
             return true;
         }
 

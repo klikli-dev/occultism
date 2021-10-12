@@ -22,44 +22,43 @@
 
 package com.github.klikli_dev.occultism.util;
 
-import java.util.List;
-
 import com.github.klikli_dev.occultism.common.entity.IFamiliar;
 import com.github.klikli_dev.occultism.common.item.tool.FamiliarRingItem;
 import com.github.klikli_dev.occultism.registry.OccultismCapabilities;
-
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import top.theillusivec4.curios.api.CuriosApi;
 
+import java.util.List;
+
 public class FamiliarUtil {
 
-    public static boolean isFamiliarEnabled(PlayerEntity player, EntityType<? extends IFamiliar> familiar) {
+    public static boolean isFamiliarEnabled(Player player, EntityType<? extends IFamiliar> familiar) {
         return player.getCapability(OccultismCapabilities.FAMILIAR_SETTINGS).lazyMap(c -> c.isFamiliarEnabled(familiar))
                 .orElse(false);
     }
 
-    public static <T extends Entity & IFamiliar> boolean hasFamiliar(PlayerEntity player, EntityType<T> type) {
+    public static <T extends Entity & IFamiliar> boolean hasFamiliar(Player player, EntityType<T> type) {
         return getFamiliar(player, type) != null;
     }
 
-    public static <T extends Entity & IFamiliar> T getFamiliar(PlayerEntity player, EntityType<T> type) {
+    public static <T extends Entity & IFamiliar> T getFamiliar(Player player, EntityType<T> type) {
         T familiar = getEquippedFamiliar(player, type);
         if (familiar == null)
             familiar = getNearbyFamiliar(player, type);
         return familiar;
     }
 
-    public static <T extends Entity & IFamiliar> T getNearbyFamiliar(PlayerEntity player, EntityType<T> type) {
+    public static <T extends Entity & IFamiliar> T getNearbyFamiliar(Player player, EntityType<T> type) {
         List<T> nearby = player.level.getEntities(type, player.getBoundingBox().inflate(10),
                 e -> e.getFamiliarOwner() == player && e.isAlive());
         return nearby.isEmpty() ? null : nearby.get(0);
     }
 
     @SuppressWarnings("unchecked")
-    public static <T extends Entity & IFamiliar> T getEquippedFamiliar(PlayerEntity player, EntityType<T> type) {
+    public static <T extends Entity & IFamiliar> T getEquippedFamiliar(Player player, EntityType<T> type) {
         IItemHandlerModifiable curios = CuriosApi.getCuriosHelper().getEquippedCurios(player).orElse(null);
         if (curios == null)
             return null;
