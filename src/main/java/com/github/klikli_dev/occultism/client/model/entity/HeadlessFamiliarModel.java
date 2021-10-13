@@ -282,6 +282,7 @@ public class HeadlessFamiliarModel extends EntityModel<HeadlessFamiliarEntity> {
         this.pumpkin1.visible = !entityIn.hasHead();
         this.ratGlasses.visible = entityIn.hasGlasses();
         this.helmet.visible = entityIn.hasBlacksmithUpgrade();
+        this.body.visible = !entityIn.isHeadlessDead();
         this.ratHair1.visible = isHairy;
         this.ratHair2.visible = isHairy;
         this.ratHair3.visible = isHairy;

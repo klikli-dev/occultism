@@ -23,6 +23,8 @@
 package com.github.klikli_dev.occultism.common.entity;
 
 import com.github.klikli_dev.occultism.common.advancement.FamiliarTrigger;
+import com.github.klikli_dev.occultism.network.MessageHeadlessDie;
+import com.github.klikli_dev.occultism.network.OccultismPackets;
 import com.github.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.google.common.collect.ImmutableBiMap;
@@ -32,6 +34,8 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.ai.attributes.AttributeModifierMap;
+import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -40,8 +44,10 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.particles.ParticleTypes;
+import net.minecraft.particles.RedstoneParticleData;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IServerWorld;
@@ -62,8 +68,10 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
             DataSerializers.BOOLEAN);
     private static final DataParameter<Byte> WEAPON = EntityDataManager.defineId(HeadlessFamiliarEntity.class,
             DataSerializers.BYTE);
+    private static final DataParameter<Boolean> HEADLESS_DEAD = EntityDataManager.defineId(HeadlessFamiliarEntity.class,
+            DataSerializers.BOOLEAN);
 
-    private int headTimer;
+    private int headTimer, headlessDieTimer;
 
     private static ImmutableBiMap<Byte, EntityType<? extends LivingEntity>> getTypesLookup() {
         if (typesLookup == null) {
@@ -78,6 +86,10 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
             typesLookup = builder.build();
         }
         return typesLookup;
+    }
+
+    public static AttributeModifierMap.MutableAttribute registerAttributes() {
+        return FamiliarEntity.registerAttributes().add(Attributes.MAX_HEALTH, 40);
     }
 
     public HeadlessFamiliarEntity(EntityType<? extends HeadlessFamiliarEntity> type, World worldIn) {
@@ -117,6 +129,7 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
         this.entityData.define(HAIRY, false);
         this.entityData.define(GLASSES, false);
         this.entityData.define(WEAPON, (byte) 0);
+        this.entityData.define(HEADLESS_DEAD, false);
     }
 
     @Override
@@ -128,22 +141,41 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
             if (headTimer-- == 0)
                 this.setHead(NO_HEAD);
 
-            if (this.hasBlacksmithUpgrade() && this.tickCount % 10 == 0 && this.getHeadType() != null)
+            if (this.hasBlacksmithUpgrade() && !this.isHeadlessDead() && this.tickCount % 10 == 0
+                    && this.getHeadType() != null)
                 for (LivingEntity e : this.level.getEntities(this.getHeadType(), this.getBoundingBox().inflate(5),
                         e -> e != this.getFamiliarOwner()))
                     e.addEffect(new EffectInstance(Effects.WEAKNESS, 20 * 3));
         } else {
-            if (this.hasBlacksmithUpgrade() && this.tickCount % 10 == 0) {
+            if (this.hasBlacksmithUpgrade() && !this.isHeadlessDead() && this.tickCount % 10 == 0) {
                 Vector3d forward = Vector3d.directionFromRotation(0, this.yRot);
-                Vector3d pos = this.position().add(forward.reverse().scale(0.15)).add(randFlamePos(), randFlamePos(),
-                        randFlamePos());
+                Vector3d pos = this.position().add(forward.reverse().scale(0.15)).add(randPos(0.08), randPos(0.08),
+                        randPos(0.08));
                 level.addParticle(ParticleTypes.SOUL_FIRE_FLAME, pos.x, pos.y + 1.1, pos.z, 0, 0, 0);
             }
+
+            if (headlessDieTimer == 1)
+                level.addParticle(ParticleTypes.SOUL, getX(), getY() + 1, getZ(), 0, 0, 0);
+
+            if (headlessDieTimer-- > 7)
+                for (int i = 0; i < 2; i++) {
+                    level.addParticle(new RedstoneParticleData(0.5f, 0, 0, 1), getX() + randPos(0.3),
+                            getY() + 1 + randPos(0.3), getZ() + randPos(0.3), 0, 0, 0);
+                }
         }
     }
 
-    private double randFlamePos() {
-        return (this.getRandom().nextFloat() - 0.5) * 0.08;
+    @Override
+    protected void actuallyHurt(DamageSource pDamageSrc, float pDamageAmount) {
+        super.actuallyHurt(pDamageSrc, pDamageAmount);
+        if (this.getHealth() / this.getMaxHealth() < 0.5 && !this.isHeadlessDead()) {
+            this.setHeadlessDead(true);
+            OccultismPackets.sendToTracking(this, new MessageHeadlessDie(this.getId()));
+        }
+    }
+
+    private double randPos(double scale) {
+        return (this.getRandom().nextFloat() - 0.5) * scale;
     }
 
     private void setHairy(boolean b) {
@@ -207,6 +239,14 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
         this.setHead(getTypesLookup().inverse().get(type));
     }
 
+    private void setHeadlessDead(boolean b) {
+        this.entityData.set(HEADLESS_DEAD, b);
+    }
+
+    public boolean isHeadlessDead() {
+        return this.entityData.get(HEADLESS_DEAD);
+    }
+
     @Override
     public void addAdditionalSaveData(CompoundNBT compound) {
         super.addAdditionalSaveData(compound);
@@ -215,6 +255,7 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
         compound.putBoolean("isHairy", this.isHairy());
         compound.putBoolean("hasGlasses", this.hasGlasses());
         compound.putByte("getWeapon", this.getWeapon());
+        compound.putBoolean("isHeadlessDead", this.isHeadlessDead());
     }
 
     @Override
@@ -225,6 +266,11 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
         this.setHairy(compound.getBoolean("isHairy"));
         this.setGlasses(compound.getBoolean("hasGlasses"));
         this.setWeapon(compound.getByte("getWeapon"));
+        this.setHeadlessDead(compound.getBoolean("isHeadlessDead"));
+    }
+
+    public void killHeadless() {
+        this.headlessDieTimer = 20;
     }
 
 }

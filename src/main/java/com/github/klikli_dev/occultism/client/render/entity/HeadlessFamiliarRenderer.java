@@ -80,6 +80,9 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
         public void render(MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn,
                 HeadlessFamiliarEntity entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks,
                 float ageInTicks, float netHeadYaw, float headPitch) {
+            if (entitylivingbaseIn.isHeadlessDead())
+                return;
+            
             matrixStackIn.pushPose();
             HeadlessFamiliarModel model = this.getParentModel();
             matrixStackIn.mulPose(new Quaternion(-20, 10, -90, true));
