@@ -39,14 +39,17 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Effects;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
 
 public class HeadlessFamiliarEntity extends FamiliarEntity {
 
-    private static ImmutableBiMap<Byte, EntityType<?>> typesLookup;
+    private static ImmutableBiMap<Byte, EntityType<? extends LivingEntity>> typesLookup;
 
     private static final int HEAD_TIME = 20 * 60;
     private static final byte NO_HEAD = 0;
@@ -61,10 +64,10 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
             DataSerializers.BYTE);
 
     private int headTimer;
-    
-    private static ImmutableBiMap<Byte, EntityType<?>> getTypesLookup() {
+
+    private static ImmutableBiMap<Byte, EntityType<? extends LivingEntity>> getTypesLookup() {
         if (typesLookup == null) {
-            ImmutableBiMap.Builder<Byte, EntityType<?>> builder = new ImmutableBiMap.Builder<>();
+            ImmutableBiMap.Builder<Byte, EntityType<? extends LivingEntity>> builder = new ImmutableBiMap.Builder<>();
             builder.put((byte) 1, EntityType.PLAYER);
             builder.put((byte) 2, EntityType.ZOMBIE);
             builder.put((byte) 3, EntityType.SKELETON);
@@ -84,6 +87,11 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
     @Override
     public Iterable<EffectInstance> getFamiliarEffects() {
         return ImmutableList.of();
+    }
+
+    @Override
+    public boolean canBlacksmithUpgrade() {
+        return !this.hasBlacksmithUpgrade();
     }
 
     @Override
@@ -119,7 +127,23 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
 
             if (headTimer-- == 0)
                 this.setHead(NO_HEAD);
+
+            if (this.hasBlacksmithUpgrade() && this.tickCount % 10 == 0 && this.getHeadType() != null)
+                for (LivingEntity e : this.level.getEntities(this.getHeadType(), this.getBoundingBox().inflate(5),
+                        e -> e != this.getFamiliarOwner()))
+                    e.addEffect(new EffectInstance(Effects.WEAKNESS, 20 * 3));
+        } else {
+            if (this.hasBlacksmithUpgrade() && this.tickCount % 10 == 0) {
+                Vector3d forward = Vector3d.directionFromRotation(0, this.yRot);
+                Vector3d pos = this.position().add(forward.reverse().scale(0.15)).add(randFlamePos(), randFlamePos(),
+                        randFlamePos());
+                level.addParticle(ParticleTypes.SOUL_FIRE_FLAME, pos.x, pos.y + 1.1, pos.z, 0, 0, 0);
+            }
         }
+    }
+
+    private double randFlamePos() {
+        return (this.getRandom().nextFloat() - 0.5) * 0.08;
     }
 
     private void setHairy(boolean b) {
@@ -173,7 +197,7 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
         return getHead() != NO_HEAD;
     }
 
-    public EntityType<?> getHeadType() {
+    public EntityType<? extends LivingEntity> getHeadType() {
         return getTypesLookup().getOrDefault(this.getHead(), null);
     }
 
