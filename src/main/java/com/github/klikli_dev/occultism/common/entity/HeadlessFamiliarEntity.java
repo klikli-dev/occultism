@@ -36,6 +36,8 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
+import net.minecraft.entity.ai.goal.LookAtGoal;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -47,13 +49,30 @@ import net.minecraft.particles.ParticleTypes;
 import net.minecraft.particles.RedstoneParticleData;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
+import net.minecraftforge.common.Tags;
 
 public class HeadlessFamiliarEntity extends FamiliarEntity {
+
+    public enum Rebuilt {
+        LeftLeg(0), RightLeg(1), Body(2), LeftArm(3), RightArm(4), Head(5);
+
+        private int value;
+
+        Rebuilt(int value) {
+            this.value = value;
+        }
+
+        public int getValue() {
+            return value;
+        }
+    };
 
     private static ImmutableBiMap<Byte, EntityType<? extends LivingEntity>> typesLookup;
 
@@ -70,6 +89,8 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
             DataSerializers.BYTE);
     private static final DataParameter<Boolean> HEADLESS_DEAD = EntityDataManager.defineId(HeadlessFamiliarEntity.class,
             DataSerializers.BOOLEAN);
+    private static final DataParameter<Byte> REBUILT = EntityDataManager.defineId(HeadlessFamiliarEntity.class,
+            DataSerializers.BYTE);
 
     private int headTimer, headlessDieTimer;
 
@@ -94,6 +115,11 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
 
     public HeadlessFamiliarEntity(EntityType<? extends HeadlessFamiliarEntity> type, World worldIn) {
         super(type, worldIn);
+    }
+    
+    @Override
+    protected void registerGoals() {
+        this.goalSelector.addGoal(2, new LookAtGoal(this, PlayerEntity.class, 8));
     }
 
     @Override
@@ -130,6 +156,7 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
         this.entityData.define(GLASSES, false);
         this.entityData.define(WEAPON, (byte) 0);
         this.entityData.define(HEADLESS_DEAD, false);
+        this.entityData.define(REBUILT, (byte) 0);
     }
 
     @Override
@@ -247,6 +274,56 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
         return this.entityData.get(HEADLESS_DEAD);
     }
 
+    private void setRebuilt(byte b) {
+        this.entityData.set(REBUILT, b);
+    }
+
+    private byte getRebuilt() {
+        return this.entityData.get(REBUILT);
+    }
+
+    public boolean isRebuilt(Rebuilt r) {
+        return ((this.getRebuilt() >> r.getValue()) & 1) == 1;
+    }
+
+    private void setRebuilt(Rebuilt r) {
+        this.setRebuilt((byte) (this.getRebuilt() | (1 << r.getValue())));
+    }
+
+    @Override
+    protected ActionResultType mobInteract(PlayerEntity playerIn, Hand hand) {
+        if (this.isHeadlessDead()) {
+            ItemStack stack = playerIn.getItemInHand(hand);
+            Item item = stack.getItem();
+            boolean success = false;
+            if (item.is(Tags.Items.CROPS_WHEAT) && !isRebuilt(Rebuilt.LeftLeg)) {
+                setRebuilt(Rebuilt.LeftLeg);
+                success = true;
+            } else if (item.is(Tags.Items.CROPS_WHEAT) && !isRebuilt(Rebuilt.RightLeg)) {
+                setRebuilt(Rebuilt.RightLeg);
+                success = true;
+            } else if (item == Items.HAY_BLOCK && !isRebuilt(Rebuilt.Body)) {
+                setRebuilt(Rebuilt.Body);
+                success = true;
+            } else if (item.is(Tags.Items.RODS_WOODEN) && isRebuilt(Rebuilt.Body) && !isRebuilt(Rebuilt.LeftArm)) {
+                setRebuilt(Rebuilt.LeftArm);
+                success = true;
+            } else if (item.is(Tags.Items.RODS_WOODEN) && isRebuilt(Rebuilt.Body) && !isRebuilt(Rebuilt.RightArm)) {
+                setRebuilt(Rebuilt.RightArm);
+                success = true;
+            } else if (item == Items.CARVED_PUMPKIN && isRebuilt(Rebuilt.Body) && !isRebuilt(Rebuilt.Head)) {
+                setRebuilt(Rebuilt.Head);
+                success = true;
+            }
+
+            if (success) {
+                stack.shrink(1);
+                return ActionResultType.sidedSuccess(!this.level.isClientSide);
+            }
+        }
+        return super.mobInteract(playerIn, hand);
+    }
+
     @Override
     public void addAdditionalSaveData(CompoundNBT compound) {
         super.addAdditionalSaveData(compound);
@@ -256,6 +333,7 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
         compound.putBoolean("hasGlasses", this.hasGlasses());
         compound.putByte("getWeapon", this.getWeapon());
         compound.putBoolean("isHeadlessDead", this.isHeadlessDead());
+        compound.putByte("getRebuilt", this.getRebuilt());
     }
 
     @Override
@@ -267,6 +345,7 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
         this.setGlasses(compound.getBoolean("hasGlasses"));
         this.setWeapon(compound.getByte("getWeapon"));
         this.setHeadlessDead(compound.getBoolean("isHeadlessDead"));
+        this.setRebuilt(compound.getByte("getRebuilt"));
     }
 
     public void killHeadless() {

@@ -34,6 +34,7 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.FirstPersonRenderer;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
@@ -46,7 +47,11 @@ import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.resources.DefaultPlayerSkin;
 import net.minecraft.entity.EntityType;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Quaternion;
 
 public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity, HeadlessFamiliarModel> {
@@ -58,6 +63,7 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
         super(renderManagerIn, new HeadlessFamiliarModel(), 0.3f);
         this.addLayer(new HeadLayer(this));
         this.addLayer(new WeaponLayer(this));
+        this.addLayer(new RebuiltLayer(this));
     }
 
     @Override
@@ -71,6 +77,84 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
         super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
     }
 
+    private static class RebuiltLayer extends LayerRenderer<HeadlessFamiliarEntity, HeadlessFamiliarModel> {
+        public RebuiltLayer(IEntityRenderer<HeadlessFamiliarEntity, HeadlessFamiliarModel> renderer) {
+            super(renderer);
+        }
+
+        @Override
+        public void render(MatrixStack matrix, IRenderTypeBuffer bufferIn, int packedLightIn,
+                HeadlessFamiliarEntity headless, float limbSwing, float limbSwingAmount, float partialTicks,
+                float ageInTicks, float netHeadYaw, float headPitch) {
+            if (!headless.isHeadlessDead())
+                return;
+
+            FirstPersonRenderer renderer = Minecraft.getInstance().getItemInHandRenderer();
+
+            matrix.pushPose();
+            HeadlessFamiliarModel model = this.getParentModel();
+            model.ratBody1.translateAndRotate(matrix);
+            boolean partying = headless.isPartying();
+
+            if (headless.isRebuilt(HeadlessFamiliarEntity.Rebuilt.RightLeg)) {
+                matrix.pushPose();
+                matrix.mulPose(new Quaternion(0, 130, 0, true));
+                matrix.translate(0.3, -0.3, 0);
+                renderItem(Items.WHEAT, matrix, bufferIn, packedLightIn, headless, renderer);
+                matrix.popPose();
+            }
+            if (headless.isRebuilt(HeadlessFamiliarEntity.Rebuilt.LeftLeg)) {
+                matrix.pushPose();
+                matrix.mulPose(new Quaternion(0, 50, 0, true));
+                matrix.translate(0.3, -0.3, 0);
+                renderItem(Items.WHEAT, matrix, bufferIn, packedLightIn, headless, renderer);
+                matrix.popPose();
+            }
+            if (headless.isRebuilt(HeadlessFamiliarEntity.Rebuilt.Body)) {
+                matrix.pushPose();
+                float size = 1.2f;
+                matrix.scale(size, size, size);
+                matrix.mulPose(new Quaternion(0, 0, 0, true));
+                matrix.translate(0, -0.45, -0.05);
+                renderItem(Items.HAY_BLOCK, matrix, bufferIn, packedLightIn, headless, renderer);
+                matrix.translate(0, -0.25, 0);
+                renderItem(Items.HAY_BLOCK, matrix, bufferIn, packedLightIn, headless, renderer);
+                matrix.popPose();
+            }
+            if (headless.isRebuilt(HeadlessFamiliarEntity.Rebuilt.RightArm)) {
+                matrix.pushPose();
+                matrix.mulPose(new Quaternion(0, 180 + (partying ? MathHelper.sin(ageInTicks / 3) * 20 : 0), 0, true));
+                matrix.translate(0.25, -0.6, 0.05);
+                renderItem(Items.STICK, matrix, bufferIn, packedLightIn, headless, renderer);
+                matrix.popPose();
+            }
+            if (headless.isRebuilt(HeadlessFamiliarEntity.Rebuilt.LeftArm)) {
+                matrix.pushPose();
+                matrix.mulPose(new Quaternion(0, partying ? MathHelper.sin(ageInTicks / 3) * 20 : 0, 0, true));
+                matrix.translate(0.25, -0.6, -0.05);
+                renderItem(Items.STICK, matrix, bufferIn, packedLightIn, headless, renderer);
+                matrix.popPose();
+            }
+            if (headless.isRebuilt(HeadlessFamiliarEntity.Rebuilt.Head)) {
+                matrix.pushPose();
+                matrix.scale(-1, -1, 1);
+                matrix.translate(0, 0.7, -0.06);
+                matrix.mulPose(new Quaternion(0, partying ? ageInTicks * 8 : -netHeadYaw, 0, true));
+
+                renderItem(Items.CARVED_PUMPKIN, matrix, bufferIn, packedLightIn, headless, renderer);
+                matrix.popPose();
+            }
+            matrix.popPose();
+        }
+
+        private void renderItem(Item item, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn,
+                HeadlessFamiliarEntity entitylivingbaseIn, FirstPersonRenderer renderer) {
+            renderer.renderItem(entitylivingbaseIn, new ItemStack(item), ItemCameraTransforms.TransformType.GROUND,
+                    false, matrixStackIn, bufferIn, packedLightIn);
+        }
+
+    }
+
     private static class WeaponLayer extends LayerRenderer<HeadlessFamiliarEntity, HeadlessFamiliarModel> {
         public WeaponLayer(IEntityRenderer<HeadlessFamiliarEntity, HeadlessFamiliarModel> renderer) {
             super(renderer);
@@ -82,7 +166,7 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
                 float ageInTicks, float netHeadYaw, float headPitch) {
             if (entitylivingbaseIn.isHeadlessDead())
                 return;
-            
+
             matrixStackIn.pushPose();
             HeadlessFamiliarModel model = this.getParentModel();
             matrixStackIn.mulPose(new Quaternion(-20, 10, -90, true));
