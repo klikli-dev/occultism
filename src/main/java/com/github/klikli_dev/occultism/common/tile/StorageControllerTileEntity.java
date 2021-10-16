@@ -203,6 +203,8 @@ public class StorageControllerTileEntity extends NetworkedTileEntity implements 
     public void setMaxSlots(int slots) {
         this.maxSlots = slots;
         this.itemStackHandler.orElseThrow(ItemHandlerMissingException::new).setSize(this.maxSlots);
+        //force resync
+        this.cachedMessageUpdateStacks = null;
         this.markNetworkDirty();
     }
 
