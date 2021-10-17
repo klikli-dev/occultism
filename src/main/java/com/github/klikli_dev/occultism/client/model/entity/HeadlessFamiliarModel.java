@@ -29,11 +29,15 @@ import com.mojang.blaze3d.vertex.IVertexBuilder;
 
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
+import net.minecraft.util.math.MathHelper;
 
 /**
  * Created using Tabula 8.0.0
  */
 public class HeadlessFamiliarModel extends EntityModel<HeadlessFamiliarEntity> {
+
+    private static final float PI = (float) Math.PI;
+
     public ModelRenderer ratBody1;
     public ModelRenderer ratBody2;
     public ModelRenderer ratBackLeftLeg1;
@@ -270,10 +274,54 @@ public class HeadlessFamiliarModel extends EntityModel<HeadlessFamiliarEntity> {
     }
 
     @Override
-    public void setupAnim(HeadlessFamiliarEntity pEntity, float pLimbSwing, float pLimbSwingAmount, float pAgeInTicks,
+    public void setupAnim(HeadlessFamiliarEntity pEntity, float limbSwing, float limbSwingAmount, float pAgeInTicks,
             float pNetHeadYaw, float pHeadPitch) {
         showModels(pEntity);
 
+        this.ratBody1.xRot = -0.078f;
+        this.ratTail1.xRot = -0.195f;
+        this.body.xRot = 0;
+        this.ratHead.zRot = 0;
+        this.ratTail1.zRot = 0;
+        this.pumpkin1.z = -3.51f;
+        this.pumpkin1.yRot = 0;
+
+        this.ratHead.xRot = toRads(pHeadPitch) * 0.4f;
+        this.ratHead.yRot = toRads(pNetHeadYaw) * 0.4f;
+
+        this.ratTail1.yRot = MathHelper.sin(pAgeInTicks * 0.2f) * toRads(15);
+        this.ratTail2.yRot = MathHelper.sin(pAgeInTicks * 0.2f) * toRads(15);
+
+        this.ratBackLeftLeg1.xRot = 0.31f + MathHelper.cos(limbSwing * 0.7f + PI) * limbSwingAmount * 0.5f;
+        this.ratBackRightLeg1.xRot = 0.31f + MathHelper.cos(limbSwing * 0.7f) * limbSwingAmount * 0.5f;
+        this.ratFrontLeftLeg1.xRot = -0.20f + MathHelper.cos(limbSwing * 0.7f) * limbSwingAmount * 0.5f;
+        this.ratFrontRightLeg1.xRot = -0.20f + MathHelper.cos(limbSwing * 0.7f + PI) * limbSwingAmount * 0.5f;
+        this.rightArm.xRot = -1.57f + MathHelper.cos(limbSwing * 0.4f) * limbSwingAmount * 0.2f;
+        
+        if (this.attackTime > 0)
+            this.rightArm.xRot = -1.57f + MathHelper.sin(this.attackTime * toRads(180)) * toRads(90);
+
+        if (pEntity.isSitting()) {
+            this.ratBody1.xRot = -toRads(40);
+            this.ratHead.xRot += toRads(20);
+            this.ratBackLeftLeg1.xRot = -toRads(10);
+            this.ratBackRightLeg1.xRot = -toRads(10);
+            this.ratFrontLeftLeg1.xRot = toRads(25);
+            this.ratFrontRightLeg1.xRot = toRads(25);
+            this.ratTail1.xRot = toRads(35);
+            this.body.xRot = toRads(20);
+        }
+        
+        if (pEntity.isPartying()) {
+            this.ratHead.zRot = MathHelper.cos(pAgeInTicks * 0.5f) * toRads(40);
+            this.ratTail1.zRot = MathHelper.cos(pAgeInTicks * 0.5f) * toRads(40);
+            this.pumpkin1.z = -7f + MathHelper.cos(pAgeInTicks * 0.25f) * 2;
+            this.pumpkin1.yRot = pAgeInTicks * toRads(10);
+        }
+    }
+
+    private float toRads(float deg) {
+        return PI / 180f * deg;
     }
 
     private void showModels(HeadlessFamiliarEntity entityIn) {

@@ -74,7 +74,11 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
     @Override
     public void render(HeadlessFamiliarEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn,
             IRenderTypeBuffer bufferIn, int packedLightIn) {
+        matrixStackIn.pushPose();
+        if (entityIn.isSitting())
+            matrixStackIn.translate(0, -0.12, 0);
         super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
+        matrixStackIn.popPose();
     }
 
     private static class RebuiltLayer extends LayerRenderer<HeadlessFamiliarEntity, HeadlessFamiliarModel> {
@@ -169,12 +173,15 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
 
             matrixStackIn.pushPose();
             HeadlessFamiliarModel model = this.getParentModel();
-            matrixStackIn.mulPose(new Quaternion(-20, 10, -90, true));
 
+            model.ratBody1.translateAndRotate(matrixStackIn);
             model.body.translateAndRotate(matrixStackIn);
-            model.leftArm.translateAndRotate(matrixStackIn);
+            model.rightArm.translateAndRotate(matrixStackIn);
+            
+            matrixStackIn.translate(-0.05f, 0.16, -0.08);
+            
+            matrixStackIn.mulPose(new Quaternion(0, 90, -50, true));
 
-            matrixStackIn.translate(-0.51, -0.33, 0.45);
 
             Minecraft.getInstance().getItemInHandRenderer().renderItem(entitylivingbaseIn,
                     entitylivingbaseIn.getWeaponItem(), ItemCameraTransforms.TransformType.GROUND, false, matrixStackIn,
@@ -230,6 +237,9 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
         public void render(MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn,
                 HeadlessFamiliarEntity entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks,
                 float ageInTicks, float netHeadYaw, float headPitch) {
+            
+            if (entitylivingbaseIn.isHeadlessDead())
+                return;
 
             EntityType<?> headType = entitylivingbaseIn.getHeadType();
             if (headType == null)
@@ -241,12 +251,13 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
 
             matrixStackIn.pushPose();
             HeadlessFamiliarModel model = this.getParentModel();
+            model.ratBody1.translateAndRotate(matrixStackIn);
             model.body.translateAndRotate(matrixStackIn);
             model.leftArm.translateAndRotate(matrixStackIn);
 
             float size = 0.5f;
             matrixStackIn.scale(size, size, size);
-            matrixStackIn.translate(0.3, 0.8, 2.28);
+            matrixStackIn.translate(0.15, 0.5, -0.12);
             matrixStackIn.mulPose(new Quaternion(90, 0, 0, true));
 
             ResourceLocation texture = getTexture(headType);

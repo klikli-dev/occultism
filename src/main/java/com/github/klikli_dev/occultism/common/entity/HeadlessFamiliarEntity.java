@@ -36,7 +36,11 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
+import net.minecraft.entity.ai.goal.FollowMobGoal;
 import net.minecraft.entity.ai.goal.LookAtGoal;
+import net.minecraft.entity.ai.goal.PanicGoal;
+import net.minecraft.entity.ai.goal.RandomWalkingGoal;
+import net.minecraft.entity.ai.goal.SwimGoal;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -116,10 +120,22 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
     public HeadlessFamiliarEntity(EntityType<? extends HeadlessFamiliarEntity> type, World worldIn) {
         super(type, worldIn);
     }
-    
+
     @Override
     protected void registerGoals() {
+        this.goalSelector.addGoal(0, new PanicGoal(this, 1.25));
+        this.goalSelector.addGoal(0, new SwimGoal(this));
+        this.goalSelector.addGoal(1, new SitGoal(this));
         this.goalSelector.addGoal(2, new LookAtGoal(this, PlayerEntity.class, 8));
+        this.goalSelector.addGoal(5, new FollowOwnerGoal(this, 1, 3, 1));
+        this.goalSelector.addGoal(6, new DevilFamiliarEntity.AttackGoal(this, 5) {
+            @Override
+            public boolean canUse() {
+                return super.canUse() && !isHeadlessDead();
+            }
+        });
+        this.goalSelector.addGoal(7, new RandomWalkingGoal(this, 1));
+        this.goalSelector.addGoal(8, new FollowMobGoal(this, 1, 3, 7));
     }
 
     @Override
