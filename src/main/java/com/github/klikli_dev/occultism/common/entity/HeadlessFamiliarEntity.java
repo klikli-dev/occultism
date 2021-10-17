@@ -301,6 +301,10 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
     public boolean isRebuilt(Rebuilt r) {
         return ((this.getRebuilt() >> r.getValue()) & 1) == 1;
     }
+    
+    private boolean isFullyRebuilt() {
+        return getRebuilt() == 63;
+    }
 
     private void setRebuilt(Rebuilt r) {
         this.setRebuilt((byte) (this.getRebuilt() | (1 << r.getValue())));
@@ -334,6 +338,9 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
 
             if (success) {
                 stack.shrink(1);
+                if (isFullyRebuilt())
+                    OccultismAdvancements.FAMILIAR.trigger(playerIn, FamiliarTrigger.Type.HEADLESS_REBUILT);
+
                 return ActionResultType.sidedSuccess(!this.level.isClientSide);
             }
         }

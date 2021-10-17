@@ -25,8 +25,10 @@ package com.github.klikli_dev.occultism.handlers;
 import java.util.List;
 
 import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.common.advancement.FamiliarTrigger;
 import com.github.klikli_dev.occultism.common.entity.GuardianFamiliarEntity;
 import com.github.klikli_dev.occultism.common.entity.HeadlessFamiliarEntity;
+import com.github.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.util.FamiliarUtil;
 
@@ -76,6 +78,9 @@ public class FamiliarEventHandler {
 
         List<HeadlessFamiliarEntity> headlesses = FamiliarUtil.getAllFamiliars(player,
                 OccultismEntities.HEADLESS_FAMILIAR.get());
+        
+        if (event.getEntityLiving().getType() == OccultismEntities.CTHULHU_FAMILIAR.get())
+            OccultismAdvancements.FAMILIAR.trigger(player, FamiliarTrigger.Type.HEADLESS_CTHULHU_HEAD);
 
         headlesses.forEach(h -> h.setHeadType(event.getEntityLiving().getType()));
     }

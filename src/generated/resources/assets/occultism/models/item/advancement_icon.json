@@ -54,6 +54,12 @@
         "minecraft:custom_model_data": 8.0
       },
       "model": "occultism:item/advancement/guardian_icon"
+    },
+    {
+      "predicate": {
+        "minecraft:custom_model_data": 9.0
+      },
+      "model": "occultism:item/advancement/headless_icon"
     }
   ]
 }

@@ -186,6 +186,16 @@ public class OccultismAdvancementProvider implements IDataProvider {
                             true, true, false)
                     .addCriterion("guardian_ultimate_sacrifice", FamiliarTrigger.of(FamiliarTrigger.Type.GUARDIAN_ULTIMATE_SACRIFICE))
                     .build(new ResourceLocation(Occultism.MODID, "occultism/familiar/guardian_ultimate_sacrifice")));
+            this.add(Advancement.Builder.advancement().parent(familiarsRoot)
+                    .display(this.icon(9), familiarTitle("headless_cthulhu_head"), familiarDescr("headless_cthulhu_head"), null, FrameType.TASK,
+                            true, true, false)
+                    .addCriterion("headless_cthulhu_head", FamiliarTrigger.of(FamiliarTrigger.Type.HEADLESS_CTHULHU_HEAD))
+                    .build(new ResourceLocation(Occultism.MODID, "occultism/familiar/headless_cthulhu_head")));
+            this.add(Advancement.Builder.advancement().parent(familiarsRoot)
+                    .display(Items.HAY_BLOCK, familiarTitle("headless_rebuilt"), familiarDescr("headless_rebuilt"), null, FrameType.TASK,
+                            true, true, false)
+                    .addCriterion("headless_rebuilt", FamiliarTrigger.of(FamiliarTrigger.Type.HEADLESS_REBUILT))
+                    .build(new ResourceLocation(Occultism.MODID, "occultism/familiar/headless_rebuilt")));
 
             this.addRitualHidden(root, "craft_dimensional_matrix");
             this.addRitualHidden(root, "craft_dimensional_mineshaft");
