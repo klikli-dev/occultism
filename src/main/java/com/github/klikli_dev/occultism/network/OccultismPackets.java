@@ -194,6 +194,12 @@ public class OccultismPackets {
                 MessageUpdatePentacles::encode,
                 MessageUpdatePentacles::new,
                 OccultismPacketHandler::handle);
+        
+        INSTANCE.registerMessage(nextID(),
+                MessageHeadlessDie.class,
+                MessageHeadlessDie::encode,
+                MessageHeadlessDie::new,
+                OccultismPacketHandler::handle);
     }
 
     public static <MSG> void sendTo(ServerPlayer player, MSG message) {

@@ -142,6 +142,13 @@ public class OccultismEntities {
                     .fireImmune()
                     .build(modLoc("guardian_familiar").toString()));
 
+    public static final NonNullLazy<EntityType<HeadlessFamiliarEntity>> HEADLESS_FAMILIAR_TYPE =
+            NonNullLazy.of(() -> EntityType.Builder.of(HeadlessFamiliarEntity::new, MobCategory.CREATURE)
+                    .sized(0.7F, 1.1F)
+                    .clientTrackingRange(8)
+                    .build(modLoc("headless_familiar").toString()));
+
+
     public static final NonNullLazy<EntityType<ThrownSwordEntity>> THROWN_SWORD_TYPE =
             NonNullLazy.of(() -> EntityType.Builder.of(ThrownSwordEntity::new, MobCategory.MISC)
                     .sized(0.5F, 0.5F)
@@ -183,6 +190,8 @@ public class OccultismEntities {
             ENTITIES.register("blacksmith_familiar", BLACKSMITH_FAMILIAR_TYPE::get);
     public static final RegistryObject<EntityType<GuardianFamiliarEntity>> GUARDIAN_FAMILIAR =
             ENTITIES.register("guardian_familiar", GUARDIAN_FAMILIAR_TYPE::get);
+    public static final RegistryObject<EntityType<HeadlessFamiliarEntity>> HEADLESS_FAMILIAR =
+            ENTITIES.register("headless_familiar", HEADLESS_FAMILIAR_TYPE::get);
 
     public static final RegistryObject<EntityType<ThrownSwordEntity>> THROWN_SWORD =
             ENTITIES.register("thrown_sword", THROWN_SWORD_TYPE::get);

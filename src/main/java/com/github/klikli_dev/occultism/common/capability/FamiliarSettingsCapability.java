@@ -64,7 +64,8 @@ public class FamiliarSettingsCapability implements INBTSerializable<CompoundTag>
                     OccultismEntities.DEVIL_FAMILIAR_TYPE.get(),
                     OccultismEntities.DRAGON_FAMILIAR_TYPE.get(),
                     OccultismEntities.BLACKSMITH_FAMILIAR_TYPE.get(),
-                    OccultismEntities.GUARDIAN_FAMILIAR_TYPE.get()
+                    OccultismEntities.GUARDIAN_FAMILIAR_TYPE.get(),
+                    OccultismEntities.HEADLESS_FAMILIAR_TYPE.get()
             );
         return familiars;
     }

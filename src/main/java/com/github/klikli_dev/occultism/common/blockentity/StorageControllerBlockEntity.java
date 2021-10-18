@@ -202,6 +202,8 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
     public void setMaxSlots(int slots) {
         this.maxSlots = slots;
         this.itemStackHandler.orElseThrow(ItemHandlerMissingException::new).setSize(this.maxSlots);
+        //force resync
+        this.cachedMessageUpdateStacks = null;
         this.markNetworkDirty();
     }
 

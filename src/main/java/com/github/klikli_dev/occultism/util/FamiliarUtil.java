@@ -31,44 +31,81 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import top.theillusivec4.curios.api.CuriosApi;
 
-import java.util.List;
-
 public class FamiliarUtil {
 
-    public static boolean isFamiliarEnabled(Player player, EntityType<? extends IFamiliar> familiar) {
-        return player.getCapability(OccultismCapabilities.FAMILIAR_SETTINGS).lazyMap(c -> c.isFamiliarEnabled(familiar))
+    public static boolean isFamiliarEnabled(LivingEntity owner, EntityType<? extends IFamiliar> familiar) {
+        return owner.getCapability(OccultismCapabilities.FAMILIAR_SETTINGS).lazyMap(c -> c.isFamiliarEnabled(familiar))
                 .orElse(false);
     }
 
-    public static <T extends Entity & IFamiliar> boolean hasFamiliar(Player player, EntityType<T> type) {
-        return getFamiliar(player, type) != null;
+    public static <T extends Entity & IFamiliar> boolean hasFamiliar(LivingEntity owner, EntityType<T> type) {
+        return hasFamiliar(owner, type, f -> true);
     }
 
-    public static <T extends Entity & IFamiliar> T getFamiliar(Player player, EntityType<T> type) {
-        T familiar = getEquippedFamiliar(player, type);
+    public static <T extends Entity & IFamiliar> boolean hasFamiliar(LivingEntity owner, EntityType<T> type,
+            Predicate<T> pred) {
+        return getFamiliar(owner, type, pred) != null;
+    }
+
+    public static <T extends Entity & IFamiliar> List<T> getAllFamiliars(LivingEntity owner, EntityType<T> type) {
+        return getAllFamiliars(owner, type, f -> true);
+    }
+
+    public static <T extends Entity & IFamiliar> List<T> getAllFamiliars(LivingEntity owner, EntityType<T> type,
+            Predicate<T> pred) {
+        List<T> nearby = getAllNearbyFamiliars(owner, type, pred);
+        List<T> equipped = getAllNearbyFamiliars(owner, type, pred);
+        nearby.addAll(equipped);
+        return nearby;
+    }
+
+    public static <T extends Entity & IFamiliar> T getFamiliar(LivingEntity owner, EntityType<T> type) {
+        return getFamiliar(owner, type, f -> true);
+    }
+
+    public static <T extends Entity & IFamiliar> T getFamiliar(LivingEntity owner, EntityType<T> type,
+            Predicate<T> pred) {
+        T familiar = getEquippedFamiliar(owner, type, pred);
         if (familiar == null)
-            familiar = getNearbyFamiliar(player, type);
+            familiar = getNearbyFamiliar(owner, type, pred);
         return familiar;
     }
 
-    public static <T extends Entity & IFamiliar> T getNearbyFamiliar(Player player, EntityType<T> type) {
-        List<T> nearby = player.level.getEntities(type, player.getBoundingBox().inflate(10),
-                e -> e.getFamiliarOwner() == player && e.isAlive());
+    public static <T extends Entity & IFamiliar> List<T> getAllNearbyFamiliars(LivingEntity owner, EntityType<T> type,
+            Predicate<T> pred) {
+        return owner.level.getEntities(type, owner.getBoundingBox().inflate(10),
+                e -> pred.test(e) && e.getFamiliarOwner() == owner && e.isAlive());
+    }
+
+    public static <T extends Entity & IFamiliar> T getNearbyFamiliar(LivingEntity owner, EntityType<T> type,
+            Predicate<T> pred) {
+        List<T> nearby = getAllNearbyFamiliars(owner, type, pred);
         return nearby.isEmpty() ? null : nearby.get(0);
     }
 
     @SuppressWarnings("unchecked")
-    public static <T extends Entity & IFamiliar> T getEquippedFamiliar(Player player, EntityType<T> type) {
-        IItemHandlerModifiable curios = CuriosApi.getCuriosHelper().getEquippedCurios(player).orElse(null);
+    public static <T extends Entity & IFamiliar> List<T> getAllEquippedFamiliars(LivingEntity owner, EntityType<T> type,
+            Predicate<T> pred) {
+        List<T> familiars = new ArrayList<>();
+        IItemHandlerModifiable curios = CuriosApi.getCuriosHelper().getEquippedCurios(owner).orElse(null);
         if (curios == null)
-            return null;
+            return familiars;
 
         for (int i = 0; i < curios.getSlots(); i++) {
-            IFamiliar familiar = FamiliarRingItem.getFamiliar(curios.getStackInSlot(i), player.level);
-            if (familiar != null && familiar.getFamiliarEntity().getType() == type)
-                return (T) familiar.getFamiliarEntity();
+            IFamiliar familiar = FamiliarRingItem.getFamiliar(curios.getStackInSlot(i), owner.level);
+            if (familiar != null && familiar.getFamiliarEntity().getType() == type) {
+                T fam = (T) familiar.getFamiliarEntity();
+                if (pred.test(fam))
+                    familiars.add(fam);
+            }
         }
 
-        return null;
+        return familiars;
+    }
+
+    public static <T extends Entity & IFamiliar> T getEquippedFamiliar(LivingEntity owner, EntityType<T> type,
+            Predicate<T> pred) {
+        List<T> familiars = getAllEquippedFamiliars(owner, type, pred);
+        return familiars.isEmpty() ? null : familiars.get(0);
     }
 }

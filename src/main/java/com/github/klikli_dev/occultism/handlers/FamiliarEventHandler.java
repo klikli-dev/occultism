@@ -22,8 +22,13 @@
 
 package com.github.klikli_dev.occultism.handlers;
 
+import java.util.List;
+
 import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.common.advancement.FamiliarTrigger;
 import com.github.klikli_dev.occultism.common.entity.GuardianFamiliarEntity;
+import com.github.klikli_dev.occultism.common.entity.HeadlessFamiliarEntity;
+import com.github.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.util.FamiliarUtil;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -37,11 +42,51 @@ import net.minecraftforge.fml.common.Mod;
 public class FamiliarEventHandler {
 
     @SubscribeEvent
-    public static void guardianUltimateSacrifice(LivingDeathEvent event) {
-        if (event.getSource().isBypassInvul() || !(event.getEntity() instanceof Player))
+    public static void livingDeathEvent(LivingDeathEvent event) {
+        guardianUltimateSacrifice(event);
+        headlessStealHead(event);
+    }
+
+    @SubscribeEvent
+    public static void livingDamageEvent(LivingDamageEvent event) {
+        if (!(event.getSource().getEntity() instanceof PlayerEntity))
+            return;
+        PlayerEntity player = (PlayerEntity) event.getSource().getEntity();
+
+        if (!FamiliarUtil.isFamiliarEnabled(player, OccultismEntities.HEADLESS_FAMILIAR.get()))
             return;
 
-        Player player = (Player) event.getEntity();
+        EntityType<?> headType = event.getEntityLiving().getType();
+
+        if (!FamiliarUtil.hasFamiliar(player, OccultismEntities.HEADLESS_FAMILIAR.get(),
+                h -> h.getHeadType() == headType))
+            return;
+
+        event.setAmount(event.getAmount() * 1.3f);
+    }
+
+    private static void headlessStealHead(LivingDeathEvent event) {
+        if (!(event.getSource().getEntity() instanceof PlayerEntity))
+            return;
+        PlayerEntity player = (PlayerEntity) event.getSource().getEntity();
+
+        if (!FamiliarUtil.isFamiliarEnabled(player, OccultismEntities.HEADLESS_FAMILIAR.get()))
+            return;
+
+        List<HeadlessFamiliarEntity> headlesses = FamiliarUtil.getAllFamiliars(player,
+                OccultismEntities.HEADLESS_FAMILIAR.get());
+
+        if (event.getEntityLiving().getType() == OccultismEntities.CTHULHU_FAMILIAR.get())
+            OccultismAdvancements.FAMILIAR.trigger(player, FamiliarTrigger.Type.HEADLESS_CTHULHU_HEAD);
+
+        headlesses.forEach(h -> h.setHeadType(event.getEntityLiving().getType()));
+    }
+
+    private static void guardianUltimateSacrifice(LivingDeathEvent event) {
+        if (event.getSource().isBypassInvul() || !(event.getEntity() instanceof PlayerEntity))
+            return;
+
+        PlayerEntity player = (PlayerEntity) event.getEntity();
         if (!FamiliarUtil.isFamiliarEnabled(player, OccultismEntities.GUARDIAN_FAMILIAR.get()))
             return;
 
@@ -55,7 +100,7 @@ public class FamiliarEventHandler {
         event.setCanceled(true);
         player.setHealth(1);
         player.removeAllEffects();
-        player.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 20 * 10, 1));
-        player.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 20 * 5, 1));
+        player.addEffect(new EffectInstance(Effects.REGENERATION, 20 * 10, 1));
+        player.addEffect(new EffectInstance(Effects.ABSORPTION, 20 * 5, 1));
     }
 }
