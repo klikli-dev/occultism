@@ -1,0 +1,31 @@
+{
+  "parent": "occultism:occultism/familiar/root",
+  "display": {
+    "icon": {
+      "item": "minecraft:hay_block"
+    },
+    "title": {
+      "translate": "advancements.occultism.familiar.headless_rebuilt.title"
+    },
+    "description": {
+      "translate": "advancements.occultism.familiar.headless_rebuilt.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "headless_rebuilt": {
+      "trigger": "occultism:familiar",
+      "conditions": {
+        "type": "HEADLESS_REBUILT"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "headless_rebuilt"
+    ]
+  ]
+}
