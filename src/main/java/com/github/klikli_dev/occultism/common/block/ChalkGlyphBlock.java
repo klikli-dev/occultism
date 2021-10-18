@@ -54,6 +54,7 @@ public class ChalkGlyphBlock extends Block {
      * The glyph sign (the typeface)
      */
     public static final IntegerProperty SIGN = IntegerProperty.create("sign", 0, 12);
+    public static final int MAX_SIGN = 12;
 
     private static final VoxelShape SHAPE = Block.box(0, 0, 0, 15, 0.04, 15);
 
@@ -125,7 +126,12 @@ public class ChalkGlyphBlock extends Block {
     @Override
     public BlockState getStateForPlacement(BlockItemUseContext context) {
         BlockPos pos = context.getClickedPos();
-        int sign = Math.abs(pos.getX() + pos.getZ() * 2) % 13;
+        int sign = context.getLevel().getRandom().nextInt(MAX_SIGN + 1);
+        BlockState current = context.getLevel().getBlockState(pos);
+        if(current.getBlock() == this){
+            sign = (current.getValue(SIGN) + 1) % (MAX_SIGN + 1);
+        }
+
         return this.defaultBlockState().setValue(SIGN, sign)
                 .setValue(BlockStateProperties.HORIZONTAL_FACING,
                         context.getHorizontalDirection().getOpposite());

@@ -71,15 +71,16 @@ public class ChalkItem extends Item {
                 ItemStack heldChalk = context.getItemInHand();
                 BlockPos placeAt = isReplacing ? pos : pos.above();
 
+                boolean isSameChalkType = world.getBlockState(placeAt).getBlock() == this.glyphBlock.get();
                 world.setBlockAndUpdate(placeAt,
                         this.glyphBlock.get().getStateForPlacement(new BlockItemUseContext(context)));
 
                 world.playSound(null, pos, OccultismSounds.CHALK.get(), SoundCategory.PLAYERS, 0.5f,
                         1 + 0.5f * player.getRandom().nextFloat());
 
-                if (!player.isCreative())
-                    heldChalk.hurtAndBreak(1, player, t -> {
-                    });
+                // do not consume durability if creative, or if same kind of chalk (= cycle through sings)
+                if (!player.isCreative() && !isSameChalkType)
+                    heldChalk.hurtAndBreak(1, player, t -> {});
             }
         }
         return ActionResultType.SUCCESS;
