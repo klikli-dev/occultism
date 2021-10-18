@@ -27,9 +27,13 @@ import com.github.klikli_dev.occultism.common.item.tool.FamiliarRingItem;
 import com.github.klikli_dev.occultism.registry.OccultismCapabilities;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import top.theillusivec4.curios.api.CuriosApi;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Predicate;
 
 public class FamiliarUtil {
 
@@ -43,7 +47,7 @@ public class FamiliarUtil {
     }
 
     public static <T extends Entity & IFamiliar> boolean hasFamiliar(LivingEntity owner, EntityType<T> type,
-            Predicate<T> pred) {
+                                                                     Predicate<T> pred) {
         return getFamiliar(owner, type, pred) != null;
     }
 
@@ -52,7 +56,7 @@ public class FamiliarUtil {
     }
 
     public static <T extends Entity & IFamiliar> List<T> getAllFamiliars(LivingEntity owner, EntityType<T> type,
-            Predicate<T> pred) {
+                                                                         Predicate<T> pred) {
         List<T> nearby = getAllNearbyFamiliars(owner, type, pred);
         List<T> equipped = getAllNearbyFamiliars(owner, type, pred);
         nearby.addAll(equipped);
@@ -64,7 +68,7 @@ public class FamiliarUtil {
     }
 
     public static <T extends Entity & IFamiliar> T getFamiliar(LivingEntity owner, EntityType<T> type,
-            Predicate<T> pred) {
+                                                               Predicate<T> pred) {
         T familiar = getEquippedFamiliar(owner, type, pred);
         if (familiar == null)
             familiar = getNearbyFamiliar(owner, type, pred);
@@ -72,22 +76,22 @@ public class FamiliarUtil {
     }
 
     public static <T extends Entity & IFamiliar> List<T> getAllNearbyFamiliars(LivingEntity owner, EntityType<T> type,
-            Predicate<T> pred) {
+                                                                               Predicate<T> pred) {
         return owner.level.getEntities(type, owner.getBoundingBox().inflate(10),
                 e -> pred.test(e) && e.getFamiliarOwner() == owner && e.isAlive());
     }
 
     public static <T extends Entity & IFamiliar> T getNearbyFamiliar(LivingEntity owner, EntityType<T> type,
-            Predicate<T> pred) {
+                                                                     Predicate<T> pred) {
         List<T> nearby = getAllNearbyFamiliars(owner, type, pred);
         return nearby.isEmpty() ? null : nearby.get(0);
     }
 
     @SuppressWarnings("unchecked")
     public static <T extends Entity & IFamiliar> List<T> getAllEquippedFamiliars(LivingEntity owner, EntityType<T> type,
-            Predicate<T> pred) {
+                                                                                 Predicate<T> pred) {
         List<T> familiars = new ArrayList<>();
-        IItemHandlerModifiable curios = CuriosApi.getCuriosHelper().getEquippedCurios(owner).orElse(null);
+        var curios = CuriosApi.getCuriosHelper().getEquippedCurios(owner).orElse(null);
         if (curios == null)
             return familiars;
 
@@ -104,7 +108,7 @@ public class FamiliarUtil {
     }
 
     public static <T extends Entity & IFamiliar> T getEquippedFamiliar(LivingEntity owner, EntityType<T> type,
-            Predicate<T> pred) {
+                                                                       Predicate<T> pred) {
         List<T> familiars = getAllEquippedFamiliars(owner, type, pred);
         return familiars.isEmpty() ? null : familiars.get(0);
     }

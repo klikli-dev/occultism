@@ -23,12 +23,11 @@
 package com.github.klikli_dev.occultism.network;
 
 import com.github.klikli_dev.occultism.common.entity.HeadlessFamiliarEntity;
-
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.network.PacketBuffer;
-import net.minecraftforge.fml.network.NetworkEvent.Context;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraftforge.fmllegacy.network.NetworkEvent;
 
 public class MessageHeadlessDie extends MessageBase {
 
@@ -38,23 +37,23 @@ public class MessageHeadlessDie extends MessageBase {
         this.id = id;
     }
 
-    public MessageHeadlessDie(PacketBuffer buf) {
+    public MessageHeadlessDie(FriendlyByteBuf buf) {
         this.decode(buf);
     }
 
     @Override
-    public void encode(PacketBuffer buf) {
+    public void encode(FriendlyByteBuf buf) {
         buf.writeInt(this.id);
     }
 
     @Override
-    public void decode(PacketBuffer buf) {
+    public void decode(FriendlyByteBuf buf) {
         this.id = buf.readInt();
     }
 
     @Override
-    public void onClientReceived(Minecraft minecraft, PlayerEntity player, Context context) {
-        Entity headless = minecraft.level.getEntity(id);
+    public void onClientReceived(Minecraft minecraft, Player player, NetworkEvent.Context context) {
+        Entity headless = minecraft.level.getEntity(this.id);
         if (headless instanceof HeadlessFamiliarEntity)
             ((HeadlessFamiliarEntity) headless).killHeadless();
     }

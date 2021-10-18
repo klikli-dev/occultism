@@ -29,56 +29,59 @@ import com.github.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.google.common.collect.ImmutableBiMap;
 import com.google.common.collect.ImmutableList;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ILivingEntityData;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.ai.attributes.AttributeModifierMap;
-import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.ai.goal.*;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.network.datasync.DataSerializers;
-import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.particles.RedstoneParticleData;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Effects;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.vector.Vector3d;
+import com.mojang.math.Vector3f;
+import net.minecraft.core.particles.DustParticleOptions;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.IServerWorld;
-import net.minecraft.world.World;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.Tags;
+
+import javax.annotation.Nullable;
 
 public class HeadlessFamiliarEntity extends FamiliarEntity {
 
     private static final int HEAD_TIME = 20 * 60;
 
     private static final byte NO_HEAD = 0;
-    private static final DataParameter<Byte> HEAD = EntityDataManager.defineId(HeadlessFamiliarEntity.class,
-            DataSerializers.BYTE);
-    private static final DataParameter<Boolean> HAIRY = EntityDataManager.defineId(HeadlessFamiliarEntity.class,
-            DataSerializers.BOOLEAN);
-    private static final DataParameter<Boolean> GLASSES = EntityDataManager.defineId(HeadlessFamiliarEntity.class,
-            DataSerializers.BOOLEAN);
-    private static final DataParameter<Byte> WEAPON = EntityDataManager.defineId(HeadlessFamiliarEntity.class,
-            DataSerializers.BYTE);
-    private static final DataParameter<Boolean> HEADLESS_DEAD = EntityDataManager.defineId(HeadlessFamiliarEntity.class,
-            DataSerializers.BOOLEAN);
-    private static final DataParameter<Byte> REBUILT = EntityDataManager.defineId(HeadlessFamiliarEntity.class,
-            DataSerializers.BYTE);
+    private static final EntityDataAccessor<Byte> HEAD = SynchedEntityData.defineId(HeadlessFamiliarEntity.class,
+            EntityDataSerializers.BYTE);
+    private static final EntityDataAccessor<Boolean> HAIRY = SynchedEntityData.defineId(HeadlessFamiliarEntity.class,
+            EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> GLASSES = SynchedEntityData.defineId(HeadlessFamiliarEntity.class,
+            EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Byte> WEAPON = SynchedEntityData.defineId(HeadlessFamiliarEntity.class,
+            EntityDataSerializers.BYTE);
+    private static final EntityDataAccessor<Boolean> HEADLESS_DEAD = SynchedEntityData.defineId(HeadlessFamiliarEntity.class,
+            EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Byte> REBUILT = SynchedEntityData.defineId(HeadlessFamiliarEntity.class,
+            EntityDataSerializers.BYTE);
     private static ImmutableBiMap<Byte, EntityType<? extends LivingEntity>> typesLookup;
     private int headTimer, headlessDieTimer;
 
-    public HeadlessFamiliarEntity(EntityType<? extends HeadlessFamiliarEntity> type, World worldIn) {
-        super(type, worldIn);
+    public HeadlessFamiliarEntity(EntityType<? extends HeadlessFamiliarEntity> type, Level level) {
+        super(type, level);
     }
 
     private static ImmutableBiMap<Byte, EntityType<? extends LivingEntity>> getTypesLookup() {
@@ -96,16 +99,16 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
         return typesLookup;
     }
 
-    public static AttributeModifierMap.MutableAttribute registerAttributes() {
-        return FamiliarEntity.registerAttributes().add(Attributes.MAX_HEALTH, 40);
+    public static AttributeSupplier.Builder createAttributes() {
+        return FamiliarEntity.createAttributes().add(Attributes.MAX_HEALTH, 40);
     }
 
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new PanicGoal(this, 1.25));
-        this.goalSelector.addGoal(0, new SwimGoal(this));
+        this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new SitGoal(this));
-        this.goalSelector.addGoal(2, new LookAtGoal(this, PlayerEntity.class, 8));
+        this.goalSelector.addGoal(2, new LookAtPlayerGoal(this, Player.class, 8));
         this.goalSelector.addGoal(5, new FollowOwnerGoal(this, 1, 3, 1));
         this.goalSelector.addGoal(6, new DevilFamiliarEntity.AttackGoal(this, 5) {
             @Override
@@ -113,7 +116,7 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
                 return super.canUse() && !HeadlessFamiliarEntity.this.isHeadlessDead();
             }
         });
-        this.goalSelector.addGoal(7, new RandomWalkingGoal(this, 1));
+        this.goalSelector.addGoal(7, new RandomStrollGoal(this, 1));
         this.goalSelector.addGoal(8, new FollowMobGoal(this, 1, 3, 7));
     }
 
@@ -130,11 +133,11 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
                     && this.getHeadType() != null)
                 for (LivingEntity e : this.level.getEntities(this.getHeadType(), this.getBoundingBox().inflate(5),
                         e -> e != this.getFamiliarOwner()))
-                    e.addEffect(new EffectInstance(Effects.WEAKNESS, 20 * 3));
+                    e.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 20 * 3));
         } else {
             if (this.hasBlacksmithUpgrade() && !this.isHeadlessDead() && this.tickCount % 10 == 0) {
-                Vector3d forward = Vector3d.directionFromRotation(0, this.yRot);
-                Vector3d pos = this.position().add(forward.reverse().scale(0.15)).add(this.randPos(0.08), this.randPos(0.08),
+                Vec3 forward = Vec3.directionFromRotation(0, this.getYRot());
+                Vec3 pos = this.position().add(forward.reverse().scale(0.15)).add(this.randPos(0.08), this.randPos(0.08),
                         this.randPos(0.08));
                 this.level.addParticle(ParticleTypes.SOUL_FIRE_FLAME, pos.x, pos.y + 1.1, pos.z, 0, 0, 0);
             }
@@ -144,15 +147,15 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
 
             if (this.headlessDieTimer-- > 7)
                 for (int i = 0; i < 2; i++) {
-                    this.level.addParticle(new RedstoneParticleData(0.5f, 0, 0, 1), this.getX() + this.randPos(0.3),
+                    this.level.addParticle(new DustParticleOptions(new Vector3f(0.5f, 0, 0), 1), this.getX() + this.randPos(0.3),
                             this.getY() + 1 + this.randPos(0.3), this.getZ() + this.randPos(0.3), 0, 0, 0);
                 }
         }
     }
 
+    @Nullable
     @Override
-    public ILivingEntityData finalizeSpawn(IServerWorld pLevel, DifficultyInstance pDifficulty, SpawnReason pReason,
-                                           ILivingEntityData pSpawnData, CompoundNBT pDataTag) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {
         this.setWeapon((byte) this.getRandom().nextInt(3));
         this.setHairy(this.getRandom().nextBoolean());
         this.setGlasses(this.getRandom().nextDouble() < 0.1);
@@ -160,7 +163,7 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
     }
 
     @Override
-    public Iterable<EffectInstance> getFamiliarEffects() {
+    public Iterable<MobEffectInstance> getFamiliarEffects() {
         return ImmutableList.of();
     }
 
@@ -181,24 +184,24 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
     }
 
     @Override
-    protected ActionResultType mobInteract(PlayerEntity playerIn, Hand hand) {
+    protected InteractionResult mobInteract(Player playerIn, InteractionHand hand) {
         if (this.isHeadlessDead()) {
             ItemStack stack = playerIn.getItemInHand(hand);
             Item item = stack.getItem();
             boolean success = false;
-            if (item.is(Tags.Items.CROPS_WHEAT) && !this.isRebuilt(Rebuilt.LeftLeg)) {
+            if (Tags.Items.CROPS_WHEAT.contains(item) && !this.isRebuilt(Rebuilt.LeftLeg)) {
                 this.setRebuilt(Rebuilt.LeftLeg);
                 success = true;
-            } else if (item.is(Tags.Items.CROPS_WHEAT) && !this.isRebuilt(Rebuilt.RightLeg)) {
+            } else if (Tags.Items.CROPS_WHEAT.contains(item) && !this.isRebuilt(Rebuilt.RightLeg)) {
                 this.setRebuilt(Rebuilt.RightLeg);
                 success = true;
             } else if (item == Items.HAY_BLOCK && !this.isRebuilt(Rebuilt.Body)) {
                 this.setRebuilt(Rebuilt.Body);
                 success = true;
-            } else if (item.is(Tags.Items.RODS_WOODEN) && this.isRebuilt(Rebuilt.Body) && !this.isRebuilt(Rebuilt.LeftArm)) {
+            } else if (Tags.Items.RODS_WOODEN.contains(item) && this.isRebuilt(Rebuilt.Body) && !this.isRebuilt(Rebuilt.LeftArm)) {
                 this.setRebuilt(Rebuilt.LeftArm);
                 success = true;
-            } else if (item.is(Tags.Items.RODS_WOODEN) && this.isRebuilt(Rebuilt.Body) && !this.isRebuilt(Rebuilt.RightArm)) {
+            } else if (Tags.Items.RODS_WOODEN.contains(item) && this.isRebuilt(Rebuilt.Body) && !this.isRebuilt(Rebuilt.RightArm)) {
                 this.setRebuilt(Rebuilt.RightArm);
                 success = true;
             } else if (item == Items.CARVED_PUMPKIN && this.isRebuilt(Rebuilt.Body) && !this.isRebuilt(Rebuilt.Head)) {
@@ -211,11 +214,12 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
                 if (this.isFullyRebuilt())
                     OccultismAdvancements.FAMILIAR.trigger(playerIn, FamiliarTrigger.Type.HEADLESS_REBUILT);
 
-                return ActionResultType.sidedSuccess(!this.level.isClientSide);
+                return InteractionResult.sidedSuccess(!this.level.isClientSide);
             }
         }
         return super.mobInteract(playerIn, hand);
     }
+
 
     @Override
     public void setFamiliarOwner(LivingEntity owner) {
@@ -225,7 +229,7 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundNBT compound) {
+    public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
         this.setHead(compound.getByte("head"));
         this.headTimer = compound.getInt("headTimer");
@@ -237,7 +241,7 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundNBT compound) {
+    public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
         compound.putByte("head", this.getHead());
         compound.putInt("headTimer", this.headTimer);
