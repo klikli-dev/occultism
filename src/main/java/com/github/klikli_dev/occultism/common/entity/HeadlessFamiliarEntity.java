@@ -29,18 +29,13 @@ import com.github.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.google.common.collect.ImmutableBiMap;
 import com.google.common.collect.ImmutableList;
-
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.ai.goal.FollowMobGoal;
-import net.minecraft.entity.ai.goal.LookAtGoal;
-import net.minecraft.entity.ai.goal.PanicGoal;
-import net.minecraft.entity.ai.goal.RandomWalkingGoal;
-import net.minecraft.entity.ai.goal.SwimGoal;
+import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -64,25 +59,9 @@ import net.minecraftforge.common.Tags;
 
 public class HeadlessFamiliarEntity extends FamiliarEntity {
 
-    public enum Rebuilt {
-        LeftLeg(0), RightLeg(1), Body(2), LeftArm(3), RightArm(4), Head(5);
-
-        private int value;
-
-        Rebuilt(int value) {
-            this.value = value;
-        }
-
-        public int getValue() {
-            return value;
-        }
-    };
-
-    private static ImmutableBiMap<Byte, EntityType<? extends LivingEntity>> typesLookup;
-
     private static final int HEAD_TIME = 20 * 60;
-    private static final byte NO_HEAD = 0;
 
+    private static final byte NO_HEAD = 0;
     private static final DataParameter<Byte> HEAD = EntityDataManager.defineId(HeadlessFamiliarEntity.class,
             DataSerializers.BYTE);
     private static final DataParameter<Boolean> HAIRY = EntityDataManager.defineId(HeadlessFamiliarEntity.class,
@@ -95,8 +74,12 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
             DataSerializers.BOOLEAN);
     private static final DataParameter<Byte> REBUILT = EntityDataManager.defineId(HeadlessFamiliarEntity.class,
             DataSerializers.BYTE);
-
+    private static ImmutableBiMap<Byte, EntityType<? extends LivingEntity>> typesLookup;
     private int headTimer, headlessDieTimer;
+
+    public HeadlessFamiliarEntity(EntityType<? extends HeadlessFamiliarEntity> type, World worldIn) {
+        super(type, worldIn);
+    }
 
     private static ImmutableBiMap<Byte, EntityType<? extends LivingEntity>> getTypesLookup() {
         if (typesLookup == null) {
@@ -117,10 +100,6 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
         return FamiliarEntity.registerAttributes().add(Attributes.MAX_HEALTH, 40);
     }
 
-    public HeadlessFamiliarEntity(EntityType<? extends HeadlessFamiliarEntity> type, World worldIn) {
-        super(type, worldIn);
-    }
-
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new PanicGoal(this, 1.25));
@@ -131,11 +110,53 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
         this.goalSelector.addGoal(6, new DevilFamiliarEntity.AttackGoal(this, 5) {
             @Override
             public boolean canUse() {
-                return super.canUse() && !isHeadlessDead();
+                return super.canUse() && !HeadlessFamiliarEntity.this.isHeadlessDead();
             }
         });
         this.goalSelector.addGoal(7, new RandomWalkingGoal(this, 1));
         this.goalSelector.addGoal(8, new FollowMobGoal(this, 1, 3, 7));
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+
+        if (!this.level.isClientSide) {
+
+            if (this.headTimer-- == 0)
+                this.setHead(NO_HEAD);
+
+            if (this.hasBlacksmithUpgrade() && !this.isHeadlessDead() && this.tickCount % 10 == 0
+                    && this.getHeadType() != null)
+                for (LivingEntity e : this.level.getEntities(this.getHeadType(), this.getBoundingBox().inflate(5),
+                        e -> e != this.getFamiliarOwner()))
+                    e.addEffect(new EffectInstance(Effects.WEAKNESS, 20 * 3));
+        } else {
+            if (this.hasBlacksmithUpgrade() && !this.isHeadlessDead() && this.tickCount % 10 == 0) {
+                Vector3d forward = Vector3d.directionFromRotation(0, this.yRot);
+                Vector3d pos = this.position().add(forward.reverse().scale(0.15)).add(this.randPos(0.08), this.randPos(0.08),
+                        this.randPos(0.08));
+                this.level.addParticle(ParticleTypes.SOUL_FIRE_FLAME, pos.x, pos.y + 1.1, pos.z, 0, 0, 0);
+            }
+
+            if (this.headlessDieTimer == 1)
+                this.level.addParticle(ParticleTypes.SOUL, this.getX(), this.getY() + 1, this.getZ(), 0, 0, 0);
+
+            if (this.headlessDieTimer-- > 7)
+                for (int i = 0; i < 2; i++) {
+                    this.level.addParticle(new RedstoneParticleData(0.5f, 0, 0, 1), this.getX() + this.randPos(0.3),
+                            this.getY() + 1 + this.randPos(0.3), this.getZ() + this.randPos(0.3), 0, 0, 0);
+                }
+        }
+    }
+
+    @Override
+    public ILivingEntityData finalizeSpawn(IServerWorld pLevel, DifficultyInstance pDifficulty, SpawnReason pReason,
+                                           ILivingEntityData pSpawnData, CompoundNBT pDataTag) {
+        this.setWeapon((byte) this.getRandom().nextInt(3));
+        this.setHairy(this.getRandom().nextBoolean());
+        this.setGlasses(this.getRandom().nextDouble() < 0.1);
+        return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
     }
 
     @Override
@@ -146,22 +167,6 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
     @Override
     public boolean canBlacksmithUpgrade() {
         return !this.hasBlacksmithUpgrade();
-    }
-
-    @Override
-    public void setFamiliarOwner(LivingEntity owner) {
-        if (this.hasGlasses())
-            OccultismAdvancements.FAMILIAR.trigger(owner, FamiliarTrigger.Type.RARE_VARIANT);
-        super.setFamiliarOwner(owner);
-    }
-
-    @Override
-    public ILivingEntityData finalizeSpawn(IServerWorld pLevel, DifficultyInstance pDifficulty, SpawnReason pReason,
-            ILivingEntityData pSpawnData, CompoundNBT pDataTag) {
-        this.setWeapon((byte) this.getRandom().nextInt(3));
-        this.setHairy(this.getRandom().nextBoolean());
-        this.setGlasses(this.getRandom().nextDouble() < 0.1);
-        return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
     }
 
     @Override
@@ -176,175 +181,59 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
     }
 
     @Override
-    public void tick() {
-        super.tick();
-
-        if (!level.isClientSide) {
-
-            if (headTimer-- == 0)
-                this.setHead(NO_HEAD);
-
-            if (this.hasBlacksmithUpgrade() && !this.isHeadlessDead() && this.tickCount % 10 == 0
-                    && this.getHeadType() != null)
-                for (LivingEntity e : this.level.getEntities(this.getHeadType(), this.getBoundingBox().inflate(5),
-                        e -> e != this.getFamiliarOwner()))
-                    e.addEffect(new EffectInstance(Effects.WEAKNESS, 20 * 3));
-        } else {
-            if (this.hasBlacksmithUpgrade() && !this.isHeadlessDead() && this.tickCount % 10 == 0) {
-                Vector3d forward = Vector3d.directionFromRotation(0, this.yRot);
-                Vector3d pos = this.position().add(forward.reverse().scale(0.15)).add(randPos(0.08), randPos(0.08),
-                        randPos(0.08));
-                level.addParticle(ParticleTypes.SOUL_FIRE_FLAME, pos.x, pos.y + 1.1, pos.z, 0, 0, 0);
-            }
-
-            if (headlessDieTimer == 1)
-                level.addParticle(ParticleTypes.SOUL, getX(), getY() + 1, getZ(), 0, 0, 0);
-
-            if (headlessDieTimer-- > 7)
-                for (int i = 0; i < 2; i++) {
-                    level.addParticle(new RedstoneParticleData(0.5f, 0, 0, 1), getX() + randPos(0.3),
-                            getY() + 1 + randPos(0.3), getZ() + randPos(0.3), 0, 0, 0);
-                }
-        }
-    }
-
-    @Override
-    protected void actuallyHurt(DamageSource pDamageSrc, float pDamageAmount) {
-        super.actuallyHurt(pDamageSrc, pDamageAmount);
-        if (this.getHealth() / this.getMaxHealth() < 0.5 && !this.isHeadlessDead()) {
-            this.setHeadlessDead(true);
-            OccultismPackets.sendToTracking(this, new MessageHeadlessDie(this.getId()));
-        }
-    }
-
-    private double randPos(double scale) {
-        return (this.getRandom().nextFloat() - 0.5) * scale;
-    }
-
-    private void setHairy(boolean b) {
-        this.entityData.set(HAIRY, b);
-    }
-
-    public boolean isHairy() {
-        return this.entityData.get(HAIRY);
-    }
-
-    private void setGlasses(boolean b) {
-        this.entityData.set(GLASSES, b);
-    }
-
-    public boolean hasGlasses() {
-        return this.entityData.get(GLASSES);
-    }
-
-    private void setWeapon(byte b) {
-        this.entityData.set(WEAPON, b);
-    }
-
-    private byte getWeapon() {
-        return this.entityData.get(WEAPON);
-    }
-
-    public ItemStack getWeaponItem() {
-        Item weapon = Items.IRON_SWORD;
-        switch (getWeapon()) {
-        case 1:
-            weapon = Items.IRON_AXE;
-            break;
-        case 2:
-            weapon = Items.IRON_HOE;
-            break;
-        }
-        return new ItemStack(weapon);
-    }
-
-    private void setHead(byte head) {
-        this.entityData.set(HEAD, head);
-        if (head != NO_HEAD)
-            this.headTimer = HEAD_TIME;
-    }
-
-    private byte getHead() {
-        return this.entityData.get(HEAD);
-    }
-
-    public boolean hasHead() {
-        return getHead() != NO_HEAD;
-    }
-
-    public EntityType<? extends LivingEntity> getHeadType() {
-        return getTypesLookup().getOrDefault(this.getHead(), null);
-    }
-
-    public void setHeadType(EntityType<?> type) {
-        if (type == null || !getTypesLookup().inverse().containsKey(type))
-            return;
-        this.setHead(getTypesLookup().inverse().get(type));
-    }
-
-    private void setHeadlessDead(boolean b) {
-        this.entityData.set(HEADLESS_DEAD, b);
-    }
-
-    public boolean isHeadlessDead() {
-        return this.entityData.get(HEADLESS_DEAD);
-    }
-
-    private void setRebuilt(byte b) {
-        this.entityData.set(REBUILT, b);
-    }
-
-    private byte getRebuilt() {
-        return this.entityData.get(REBUILT);
-    }
-
-    public boolean isRebuilt(Rebuilt r) {
-        return ((this.getRebuilt() >> r.getValue()) & 1) == 1;
-    }
-    
-    private boolean isFullyRebuilt() {
-        return getRebuilt() == 63;
-    }
-
-    private void setRebuilt(Rebuilt r) {
-        this.setRebuilt((byte) (this.getRebuilt() | (1 << r.getValue())));
-    }
-
-    @Override
     protected ActionResultType mobInteract(PlayerEntity playerIn, Hand hand) {
         if (this.isHeadlessDead()) {
             ItemStack stack = playerIn.getItemInHand(hand);
             Item item = stack.getItem();
             boolean success = false;
-            if (item.is(Tags.Items.CROPS_WHEAT) && !isRebuilt(Rebuilt.LeftLeg)) {
-                setRebuilt(Rebuilt.LeftLeg);
+            if (item.is(Tags.Items.CROPS_WHEAT) && !this.isRebuilt(Rebuilt.LeftLeg)) {
+                this.setRebuilt(Rebuilt.LeftLeg);
                 success = true;
-            } else if (item.is(Tags.Items.CROPS_WHEAT) && !isRebuilt(Rebuilt.RightLeg)) {
-                setRebuilt(Rebuilt.RightLeg);
+            } else if (item.is(Tags.Items.CROPS_WHEAT) && !this.isRebuilt(Rebuilt.RightLeg)) {
+                this.setRebuilt(Rebuilt.RightLeg);
                 success = true;
-            } else if (item == Items.HAY_BLOCK && !isRebuilt(Rebuilt.Body)) {
-                setRebuilt(Rebuilt.Body);
+            } else if (item == Items.HAY_BLOCK && !this.isRebuilt(Rebuilt.Body)) {
+                this.setRebuilt(Rebuilt.Body);
                 success = true;
-            } else if (item.is(Tags.Items.RODS_WOODEN) && isRebuilt(Rebuilt.Body) && !isRebuilt(Rebuilt.LeftArm)) {
-                setRebuilt(Rebuilt.LeftArm);
+            } else if (item.is(Tags.Items.RODS_WOODEN) && this.isRebuilt(Rebuilt.Body) && !this.isRebuilt(Rebuilt.LeftArm)) {
+                this.setRebuilt(Rebuilt.LeftArm);
                 success = true;
-            } else if (item.is(Tags.Items.RODS_WOODEN) && isRebuilt(Rebuilt.Body) && !isRebuilt(Rebuilt.RightArm)) {
-                setRebuilt(Rebuilt.RightArm);
+            } else if (item.is(Tags.Items.RODS_WOODEN) && this.isRebuilt(Rebuilt.Body) && !this.isRebuilt(Rebuilt.RightArm)) {
+                this.setRebuilt(Rebuilt.RightArm);
                 success = true;
-            } else if (item == Items.CARVED_PUMPKIN && isRebuilt(Rebuilt.Body) && !isRebuilt(Rebuilt.Head)) {
-                setRebuilt(Rebuilt.Head);
+            } else if (item == Items.CARVED_PUMPKIN && this.isRebuilt(Rebuilt.Body) && !this.isRebuilt(Rebuilt.Head)) {
+                this.setRebuilt(Rebuilt.Head);
                 success = true;
             }
 
             if (success) {
                 stack.shrink(1);
-                if (isFullyRebuilt())
+                if (this.isFullyRebuilt())
                     OccultismAdvancements.FAMILIAR.trigger(playerIn, FamiliarTrigger.Type.HEADLESS_REBUILT);
 
                 return ActionResultType.sidedSuccess(!this.level.isClientSide);
             }
         }
         return super.mobInteract(playerIn, hand);
+    }
+
+    @Override
+    public void setFamiliarOwner(LivingEntity owner) {
+        if (this.hasGlasses())
+            OccultismAdvancements.FAMILIAR.trigger(owner, FamiliarTrigger.Type.RARE_VARIANT);
+        super.setFamiliarOwner(owner);
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundNBT compound) {
+        super.readAdditionalSaveData(compound);
+        this.setHead(compound.getByte("head"));
+        this.headTimer = compound.getInt("headTimer");
+        this.setHairy(compound.getBoolean("isHairy"));
+        this.setGlasses(compound.getBoolean("hasGlasses"));
+        this.setWeapon(compound.getByte("getWeapon"));
+        this.setHeadlessDead(compound.getBoolean("isHeadlessDead"));
+        this.setRebuilt(compound.getByte("getRebuilt"));
     }
 
     @Override
@@ -360,19 +249,123 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundNBT compound) {
-        super.readAdditionalSaveData(compound);
-        this.setHead(compound.getByte("head"));
-        this.headTimer = compound.getInt("headTimer");
-        this.setHairy(compound.getBoolean("isHairy"));
-        this.setGlasses(compound.getBoolean("hasGlasses"));
-        this.setWeapon(compound.getByte("getWeapon"));
-        this.setHeadlessDead(compound.getBoolean("isHeadlessDead"));
-        this.setRebuilt(compound.getByte("getRebuilt"));
+    protected void actuallyHurt(DamageSource pDamageSrc, float pDamageAmount) {
+        super.actuallyHurt(pDamageSrc, pDamageAmount);
+        if (this.getHealth() / this.getMaxHealth() < 0.5 && !this.isHeadlessDead()) {
+            this.setHeadlessDead(true);
+            OccultismPackets.sendToTracking(this, new MessageHeadlessDie(this.getId()));
+        }
+    }
+
+    private double randPos(double scale) {
+        return (this.getRandom().nextFloat() - 0.5) * scale;
+    }
+
+    public boolean isHairy() {
+        return this.entityData.get(HAIRY);
+    }
+
+    private void setHairy(boolean b) {
+        this.entityData.set(HAIRY, b);
+    }
+
+    private void setGlasses(boolean b) {
+        this.entityData.set(GLASSES, b);
+    }
+
+    public boolean hasGlasses() {
+        return this.entityData.get(GLASSES);
+    }
+
+    private byte getWeapon() {
+        return this.entityData.get(WEAPON);
+    }
+
+    private void setWeapon(byte b) {
+        this.entityData.set(WEAPON, b);
+    }
+
+    public ItemStack getWeaponItem() {
+        Item weapon = Items.IRON_SWORD;
+        switch (this.getWeapon()) {
+            case 1:
+                weapon = Items.IRON_AXE;
+                break;
+            case 2:
+                weapon = Items.IRON_HOE;
+                break;
+        }
+        return new ItemStack(weapon);
+    }
+
+    private byte getHead() {
+        return this.entityData.get(HEAD);
+    }
+
+    private void setHead(byte head) {
+        this.entityData.set(HEAD, head);
+        if (head != NO_HEAD)
+            this.headTimer = HEAD_TIME;
+    }
+
+    public boolean hasHead() {
+        return this.getHead() != NO_HEAD;
+    }
+
+    public EntityType<? extends LivingEntity> getHeadType() {
+        return getTypesLookup().getOrDefault(this.getHead(), null);
+    }
+
+    public void setHeadType(EntityType<?> type) {
+        if (type == null || !getTypesLookup().inverse().containsKey(type))
+            return;
+        this.setHead(getTypesLookup().inverse().get(type));
+    }
+
+    public boolean isHeadlessDead() {
+        return this.entityData.get(HEADLESS_DEAD);
+    }
+
+    private void setHeadlessDead(boolean b) {
+        this.entityData.set(HEADLESS_DEAD, b);
+    }
+
+    private byte getRebuilt() {
+        return this.entityData.get(REBUILT);
+    }
+
+    private void setRebuilt(byte b) {
+        this.entityData.set(REBUILT, b);
+    }
+
+    private void setRebuilt(Rebuilt r) {
+        this.setRebuilt((byte) (this.getRebuilt() | (1 << r.getValue())));
+    }
+
+    public boolean isRebuilt(Rebuilt r) {
+        return ((this.getRebuilt() >> r.getValue()) & 1) == 1;
+    }
+
+    private boolean isFullyRebuilt() {
+        return this.getRebuilt() == 63;
     }
 
     public void killHeadless() {
         this.headlessDieTimer = 20;
+    }
+
+    public enum Rebuilt {
+        LeftLeg(0), RightLeg(1), Body(2), LeftArm(3), RightArm(4), Head(5);
+
+        private final int value;
+
+        Rebuilt(int value) {
+            this.value = value;
+        }
+
+        public int getValue() {
+            return this.value;
+        }
     }
 
 }

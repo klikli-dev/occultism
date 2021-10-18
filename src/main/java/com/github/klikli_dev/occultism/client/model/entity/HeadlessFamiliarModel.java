@@ -26,7 +26,6 @@ import com.github.klikli_dev.occultism.common.entity.HeadlessFamiliarEntity;
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
-
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.util.math.MathHelper;
@@ -82,7 +81,7 @@ public class HeadlessFamiliarModel extends EntityModel<HeadlessFamiliarEntity> {
         this.leftArm = new ModelRenderer(this, 8, 10);
         this.leftArm.setPos(2.3F, -5.01F, 0.0F);
         this.leftArm.addBox(0.0F, 0.0F, -1.0F, 2.0F, 5.0F, 2.0F, 0.0F, 0.0F, 0.0F);
-        this.setRotateAngle(leftArm, -1.2901473511162753F, -0.3909537457888271F, 0.0F);
+        this.setRotateAngle(this.leftArm, -1.2901473511162753F, -0.3909537457888271F, 0.0F);
         this.ratGlasses = new ModelRenderer(this, 0, 22);
         this.ratGlasses.setPos(0.0F, -2.8F, -0.2F);
         this.ratGlasses.addBox(-2.5F, 0.0F, 0.0F, 5.0F, 2.0F, 0.0F, 0.0F, 0.0F, 0.0F);
@@ -92,45 +91,45 @@ public class HeadlessFamiliarModel extends EntityModel<HeadlessFamiliarEntity> {
         this.ratTail1 = new ModelRenderer(this, 48, 6);
         this.ratTail1.setPos(0.0F, -0.5F, 2.5F);
         this.ratTail1.addBox(-1.0F, -1.0F, 0.0F, 2.0F, 2.0F, 4.0F, 0.0F, 0.0F, 0.0F);
-        this.setRotateAngle(ratTail1, -0.35185837453889574F, 0.0F, 0.0F);
+        this.setRotateAngle(this.ratTail1, -0.35185837453889574F, 0.0F, 0.0F);
         this.ratFrontRightLeg2 = new ModelRenderer(this, 43, 0);
         this.ratFrontRightLeg2.mirror = true;
         this.ratFrontRightLeg2.setPos(0.0F, 1.5F, 0.2F);
         this.ratFrontRightLeg2.addBox(-0.5F, 0.0F, -0.5F, 1.0F, 2.0F, 1.0F, 0.0F, 0.0F, 0.0F);
-        this.setRotateAngle(ratFrontRightLeg2, -0.23457224414434488F, 0.0F, 0.0F);
+        this.setRotateAngle(this.ratFrontRightLeg2, -0.23457224414434488F, 0.0F, 0.0F);
         this.rightLeg = new ModelRenderer(this, 0, 10);
         this.rightLeg.setPos(-1.5F, 0.0F, 0.0F);
         this.rightLeg.addBox(-1.0F, 0.0F, -1.0F, 2.0F, 5.0F, 2.0F, 0.0F, 0.0F, 0.0F);
-        this.setRotateAngle(rightLeg, -1.4144148417951712F, 0.35185837453889574F, 0.0F);
+        this.setRotateAngle(this.rightLeg, -1.4144148417951712F, 0.35185837453889574F, 0.0F);
         this.ratBackRightLeg2 = new ModelRenderer(this, 43, 0);
         this.ratBackRightLeg2.mirror = true;
         this.ratBackRightLeg2.setPos(0.0F, 1.5F, 0.4F);
         this.ratBackRightLeg2.addBox(-0.5F, 0.0F, -0.5F, 1.0F, 2.0F, 1.0F, 0.0F, 0.0F, 0.0F);
-        this.setRotateAngle(ratBackRightLeg2, -0.5473352640780661F, 0.0F, 0.0F);
+        this.setRotateAngle(this.ratBackRightLeg2, -0.5473352640780661F, 0.0F, 0.0F);
         this.ratHair3 = new ModelRenderer(this, 4, 26);
         this.ratHair3.setPos(0.2F, -1.9F, -0.2F);
         this.ratHair3.addBox(0.0F, 0.0F, -3.0F, 3.0F, 0.0F, 6.0F, 0.0F, 0.0F, 0.0F);
-        this.setRotateAngle(ratHair3, 0.5082398928281348F, 0.0F, -1.4213961854347594F);
+        this.setRotateAngle(this.ratHair3, 0.5082398928281348F, 0.0F, -1.4213961854347594F);
         this.ratTeeth = new ModelRenderer(this, 0, 17);
         this.ratTeeth.setPos(0.5F, 0.5F, -1.8F);
         this.ratTeeth.addBox(-1.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F, 0.0F, 0.0F, 0.0F);
         this.leftLeg = new ModelRenderer(this, 0, 10);
         this.leftLeg.setPos(1.5F, 0.0F, 0.0F);
         this.leftLeg.addBox(-1.0F, 0.0F, -1.0F, 2.0F, 5.0F, 2.0F, 0.0F, 0.0F, 0.0F);
-        this.setRotateAngle(leftLeg, -1.4144148417951712F, -0.35185837453889574F, 0.0F);
+        this.setRotateAngle(this.leftLeg, -1.4144148417951712F, -0.35185837453889574F, 0.0F);
         this.ratBackLeftLeg1 = new ModelRenderer(this, 56, 3);
         this.ratBackLeftLeg1.setPos(3.0F, 0.5F, 0.5F);
         this.ratBackLeftLeg1.addBox(-0.5F, 0.0F, -1.0F, 1.0F, 2.0F, 2.0F, 0.0F, 0.0F, 0.0F);
-        this.setRotateAngle(ratBackLeftLeg1, 0.3127630032889644F, 0.0F, 0.0F);
+        this.setRotateAngle(this.ratBackLeftLeg1, 0.3127630032889644F, 0.0F, 0.0F);
         this.ratFrontLeftLeg3 = new ModelRenderer(this, 44, 6);
         this.ratFrontLeftLeg3.setPos(0.0F, 1.7F, 0.4F);
         this.ratFrontLeftLeg3.addBox(-1.0F, 0.0F, -2.0F, 2.0F, 1.0F, 2.0F, 0.0F, 0.0F, 0.0F);
-        this.setRotateAngle(ratFrontLeftLeg3, 0.35185837453889574F, 0.0F, 0.0F);
+        this.setRotateAngle(this.ratFrontLeftLeg3, 0.35185837453889574F, 0.0F, 0.0F);
         this.ratRightEar = new ModelRenderer(this, 0, 24);
         this.ratRightEar.mirror = true;
         this.ratRightEar.setPos(-1.5F, -1.5F, -1.5F);
         this.ratRightEar.addBox(-1.0F, -1.0F, 0.0F, 2.0F, 2.0F, 0.0F, 0.0F, 0.0F, 0.0F);
-        this.setRotateAngle(ratRightEar, 0.0F, 0.0F, -0.5082398928281348F);
+        this.setRotateAngle(this.ratRightEar, 0.0F, 0.0F, -0.5082398928281348F);
         this.pumpkin4 = new ModelRenderer(this, 34, 27);
         this.pumpkin4.mirror = true;
         this.pumpkin4.setPos(0.49F, 0.99F, -2.5F);
@@ -142,88 +141,88 @@ public class HeadlessFamiliarModel extends EntityModel<HeadlessFamiliarEntity> {
         this.rightArm.mirror = true;
         this.rightArm.setPos(-2.3F, -5.01F, 0.0F);
         this.rightArm.addBox(-2.0F, 0.0F, -1.0F, 2.0F, 5.0F, 2.0F, 0.0F, 0.0F, 0.0F);
-        this.setRotateAngle(rightArm, -1.5707963267948966F, 0.0F, 0.0F);
+        this.setRotateAngle(this.rightArm, -1.5707963267948966F, 0.0F, 0.0F);
         this.ratHair2 = new ModelRenderer(this, 4, 26);
         this.ratHair2.mirror = true;
         this.ratHair2.setPos(-2.5F, -1.3F, 0.0F);
         this.ratHair2.addBox(-3.0F, 0.0F, -3.0F, 3.0F, 0.0F, 6.0F, 0.0F, 0.0F, 0.0F);
-        this.setRotateAngle(ratHair2, 0.4300491170387584F, 0.11728612207217244F, -0.11746065899211351F);
+        this.setRotateAngle(this.ratHair2, 0.4300491170387584F, 0.11728612207217244F, -0.11746065899211351F);
         this.mantle = new ModelRenderer(this, 16, 25);
         this.mantle.setPos(0.0F, -6.0F, 1.5F);
         this.mantle.addBox(-4.5F, 0.0F, 0.0F, 9.0F, 7.0F, 0.0F, 0.0F, 0.0F, 0.0F);
-        this.setRotateAngle(mantle, 0.46914448828868976F, 0.0F, 0.0F);
+        this.setRotateAngle(this.mantle, 0.46914448828868976F, 0.0F, 0.0F);
         this.ratBackRightLeg1 = new ModelRenderer(this, 56, 3);
         this.ratBackRightLeg1.mirror = true;
         this.ratBackRightLeg1.setPos(-3.0F, 0.5F, 0.5F);
         this.ratBackRightLeg1.addBox(-0.5F, 0.0F, -1.0F, 1.0F, 2.0F, 2.0F, 0.0F, 0.0F, 0.0F);
-        this.setRotateAngle(ratBackRightLeg1, 0.3127630032889644F, 0.0F, 0.0F);
+        this.setRotateAngle(this.ratBackRightLeg1, 0.3127630032889644F, 0.0F, 0.0F);
         this.ratBackLeftLeg2 = new ModelRenderer(this, 43, 0);
         this.ratBackLeftLeg2.setPos(0.0F, 1.5F, 0.4F);
         this.ratBackLeftLeg2.addBox(-0.5F, 0.0F, -0.5F, 1.0F, 2.0F, 1.0F, 0.0F, 0.0F, 0.0F);
-        this.setRotateAngle(ratBackLeftLeg2, -0.5473352640780661F, 0.0F, 0.0F);
+        this.setRotateAngle(this.ratBackLeftLeg2, -0.5473352640780661F, 0.0F, 0.0F);
         this.ratBody2 = new ModelRenderer(this, 24, 0);
         this.ratBody2.setPos(0.0F, -0.1F, -5.0F);
         this.ratBody2.addBox(-2.5F, -2.5F, -2.5F, 5.0F, 4.0F, 5.0F, 0.0F, 0.0F, 0.0F);
-        this.setRotateAngle(ratBody2, 0.1563815016444822F, 0.0F, 0.0F);
+        this.setRotateAngle(this.ratBody2, 0.1563815016444822F, 0.0F, 0.0F);
         this.ratFrontRightLeg3 = new ModelRenderer(this, 44, 6);
         this.ratFrontRightLeg3.mirror = true;
         this.ratFrontRightLeg3.setPos(0.0F, 1.7F, 0.4F);
         this.ratFrontRightLeg3.addBox(-1.0F, 0.0F, -2.0F, 2.0F, 1.0F, 2.0F, 0.0F, 0.0F, 0.0F);
-        this.setRotateAngle(ratFrontRightLeg3, 0.35185837453889574F, 0.0F, 0.0F);
+        this.setRotateAngle(this.ratFrontRightLeg3, 0.35185837453889574F, 0.0F, 0.0F);
         this.pumpkin1 = new ModelRenderer(this, 44, 22);
         this.pumpkin1.setPos(1.0F, 5.0F, -3.51F);
         this.pumpkin1.addBox(-2.5F, -2.5F, -2.5F, 5.0F, 5.0F, 5.0F, 0.0F, 0.0F, 0.0F);
-        this.setRotateAngle(pumpkin1, 1.586853323955311F, 0.0F, 0.27366763203903305F);
+        this.setRotateAngle(this.pumpkin1, 1.586853323955311F, 0.0F, 0.27366763203903305F);
         this.ratBody1 = new ModelRenderer(this, 0, 0);
         this.ratBody1.setPos(0.0F, 19.4F, 3.0F);
         this.ratBody1.addBox(-3.0F, -3.0F, -3.0F, 6.0F, 4.0F, 6.0F, 0.0F, 0.0F, 0.0F);
-        this.setRotateAngle(ratBody1, -0.0781907508222411F, 0.0F, 0.0F);
+        this.setRotateAngle(this.ratBody1, -0.0781907508222411F, 0.0F, 0.0F);
         this.ratHead = new ModelRenderer(this, 44, 0);
         this.ratHead.setPos(0.0F, -0.5F, -2.3F);
         this.ratHead.addBox(-1.5F, -1.5F, -3.0F, 3.0F, 3.0F, 3.0F, 0.0F, 0.0F, 0.0F);
-        this.setRotateAngle(ratHead, 0.0781907508222411F, 0.0F, 0.0F);
+        this.setRotateAngle(this.ratHead, 0.0781907508222411F, 0.0F, 0.0F);
         this.pumpkin2 = new ModelRenderer(this, 56, 7);
         this.pumpkin2.setPos(0.0F, -2.0F, 0.0F);
         this.pumpkin2.addBox(-0.5F, -2.0F, -0.5F, 1.0F, 2.0F, 1.0F, 0.0F, 0.0F, 0.0F);
-        this.setRotateAngle(pumpkin2, 0.23457224414434488F, 0.5082398928281348F, 0.27366763203903305F);
+        this.setRotateAngle(this.pumpkin2, 0.23457224414434488F, 0.5082398928281348F, 0.27366763203903305F);
         this.ratFrontLeftLeg2 = new ModelRenderer(this, 43, 0);
         this.ratFrontLeftLeg2.setPos(0.0F, 1.5F, 0.2F);
         this.ratFrontLeftLeg2.addBox(-0.5F, 0.0F, -0.5F, 1.0F, 2.0F, 1.0F, 0.0F, 0.0F, 0.0F);
-        this.setRotateAngle(ratFrontLeftLeg2, -0.23457224414434488F, 0.0F, 0.0F);
+        this.setRotateAngle(this.ratFrontLeftLeg2, -0.23457224414434488F, 0.0F, 0.0F);
         this.ratFrontLeftLeg1 = new ModelRenderer(this, 56, 3);
         this.ratFrontLeftLeg1.setPos(2.5F, 0.8F, -0.5F);
         this.ratFrontLeftLeg1.addBox(-0.5F, 0.0F, -1.0F, 1.0F, 2.0F, 2.0F, 0.0F, 0.0F, 0.0F);
-        this.setRotateAngle(ratFrontLeftLeg1, -0.19547687289441354F, 0.0F, 0.0F);
+        this.setRotateAngle(this.ratFrontLeftLeg1, -0.19547687289441354F, 0.0F, 0.0F);
         this.ratBackLeftLeg3 = new ModelRenderer(this, 44, 6);
         this.ratBackLeftLeg3.setPos(0.0F, 1.7F, 0.4F);
         this.ratBackLeftLeg3.addBox(-1.0F, 0.0F, -2.0F, 2.0F, 1.0F, 2.0F, 0.0F, 0.0F, 0.0F);
-        this.setRotateAngle(ratBackLeftLeg3, 0.3127630032889644F, 0.0F, 0.0F);
+        this.setRotateAngle(this.ratBackLeftLeg3, 0.3127630032889644F, 0.0F, 0.0F);
         this.ratLeftEar = new ModelRenderer(this, 0, 24);
         this.ratLeftEar.setPos(1.5F, -1.5F, -1.5F);
         this.ratLeftEar.addBox(-1.0F, -1.0F, 0.0F, 2.0F, 2.0F, 0.0F, 0.0F, 0.0F, 0.0F);
-        this.setRotateAngle(ratLeftEar, 0.0F, 0.0F, 0.5082398928281348F);
+        this.setRotateAngle(this.ratLeftEar, 0.0F, 0.0F, 0.5082398928281348F);
         this.ratHair1 = new ModelRenderer(this, 4, 26);
         this.ratHair1.setPos(2.5F, -2.0F, 0.0F);
         this.ratHair1.addBox(0.0F, 0.0F, -3.0F, 3.0F, 0.0F, 6.0F, 0.0F, 0.0F, 0.0F);
-        this.setRotateAngle(ratHair1, 0.23457224414434488F, 0.11728612207217244F, 0.5082398928281348F);
+        this.setRotateAngle(this.ratHair1, 0.23457224414434488F, 0.11728612207217244F, 0.5082398928281348F);
         this.pumpkin3 = new ModelRenderer(this, 34, 27);
         this.pumpkin3.setPos(-2.49F, 0.99F, -2.5F);
         this.pumpkin3.addBox(0.0F, -2.5F, 0.0F, 2.0F, 4.0F, 1.0F, 0.0F, 0.0F, 0.0F);
         this.ratTail2 = new ModelRenderer(this, 20, 9);
         this.ratTail2.setPos(0.0F, 0.0F, 3.5F);
         this.ratTail2.addBox(-0.5F, -0.5F, 0.0F, 1.0F, 1.0F, 4.0F, 0.0F, 0.0F, 0.0F);
-        this.setRotateAngle(ratTail2, 0.19547687289441354F, 0.0F, 0.0F);
+        this.setRotateAngle(this.ratTail2, 0.19547687289441354F, 0.0F, 0.0F);
         this.ratFrontRightLeg1 = new ModelRenderer(this, 56, 3);
         this.ratFrontRightLeg1.setPos(-2.5F, 0.8F, -0.5F);
         this.ratFrontRightLeg1.addBox(-0.5F, 0.0F, -1.0F, 1.0F, 2.0F, 2.0F, 0.0F, 0.0F, 0.0F);
-        this.setRotateAngle(ratFrontRightLeg1, -0.19547687289441354F, 0.0F, 0.0F);
+        this.setRotateAngle(this.ratFrontRightLeg1, -0.19547687289441354F, 0.0F, 0.0F);
         this.ratNose = new ModelRenderer(this, 18, 0);
         this.ratNose.setPos(0.0F, 0.2F, -3.0F);
         this.ratNose.addBox(-1.0F, -1.0F, -2.0F, 2.0F, 2.0F, 2.0F, 0.0F, 0.0F, 0.0F);
         this.ratBackRightLeg3 = new ModelRenderer(this, 44, 6);
         this.ratBackRightLeg3.setPos(0.0F, 1.7F, 0.4F);
         this.ratBackRightLeg3.addBox(-1.0F, 0.0F, -2.0F, 2.0F, 1.0F, 2.0F, 0.0F, 0.0F, 0.0F);
-        this.setRotateAngle(ratBackRightLeg3, 0.3127630032889644F, 0.0F, 0.0F);
+        this.setRotateAngle(this.ratBackRightLeg3, 0.3127630032889644F, 0.0F, 0.0F);
         this.collar = new ModelRenderer(this, 13, 14);
         this.collar.setPos(0.0F, -6.0F, 0.0F);
         this.collar.addBox(-1.5F, -1.0F, -1.5F, 3.0F, 1.0F, 3.0F, 0.0F, 0.0F, 0.0F);
@@ -267,7 +266,7 @@ public class HeadlessFamiliarModel extends EntityModel<HeadlessFamiliarEntity> {
 
     @Override
     public void renderToBuffer(MatrixStack matrixStackIn, IVertexBuilder bufferIn, int packedLightIn,
-            int packedOverlayIn, float red, float green, float blue, float alpha) {
+                               int packedOverlayIn, float red, float green, float blue, float alpha) {
         ImmutableList.of(this.ratBody1).forEach((modelRenderer) -> {
             modelRenderer.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
         });
@@ -275,8 +274,8 @@ public class HeadlessFamiliarModel extends EntityModel<HeadlessFamiliarEntity> {
 
     @Override
     public void setupAnim(HeadlessFamiliarEntity pEntity, float limbSwing, float limbSwingAmount, float pAgeInTicks,
-            float pNetHeadYaw, float pHeadPitch) {
-        showModels(pEntity);
+                          float pNetHeadYaw, float pHeadPitch) {
+        this.showModels(pEntity);
 
         this.ratBody1.xRot = -0.078f;
         this.ratTail1.xRot = -0.195f;
@@ -286,37 +285,37 @@ public class HeadlessFamiliarModel extends EntityModel<HeadlessFamiliarEntity> {
         this.pumpkin1.z = -3.51f;
         this.pumpkin1.yRot = 0;
 
-        this.ratHead.xRot = toRads(pHeadPitch) * 0.4f;
-        this.ratHead.yRot = toRads(pNetHeadYaw) * 0.4f;
+        this.ratHead.xRot = this.toRads(pHeadPitch) * 0.4f;
+        this.ratHead.yRot = this.toRads(pNetHeadYaw) * 0.4f;
 
-        this.ratTail1.yRot = MathHelper.sin(pAgeInTicks * 0.2f) * toRads(15);
-        this.ratTail2.yRot = MathHelper.sin(pAgeInTicks * 0.2f) * toRads(15);
+        this.ratTail1.yRot = MathHelper.sin(pAgeInTicks * 0.2f) * this.toRads(15);
+        this.ratTail2.yRot = MathHelper.sin(pAgeInTicks * 0.2f) * this.toRads(15);
 
         this.ratBackLeftLeg1.xRot = 0.31f + MathHelper.cos(limbSwing * 0.7f + PI) * limbSwingAmount * 0.5f;
         this.ratBackRightLeg1.xRot = 0.31f + MathHelper.cos(limbSwing * 0.7f) * limbSwingAmount * 0.5f;
         this.ratFrontLeftLeg1.xRot = -0.20f + MathHelper.cos(limbSwing * 0.7f) * limbSwingAmount * 0.5f;
         this.ratFrontRightLeg1.xRot = -0.20f + MathHelper.cos(limbSwing * 0.7f + PI) * limbSwingAmount * 0.5f;
         this.rightArm.xRot = -1.57f + MathHelper.cos(limbSwing * 0.4f) * limbSwingAmount * 0.2f;
-        
+
         if (this.attackTime > 0)
-            this.rightArm.xRot = -1.57f + MathHelper.sin(this.attackTime * toRads(180)) * toRads(90);
+            this.rightArm.xRot = -1.57f + MathHelper.sin(this.attackTime * this.toRads(180)) * this.toRads(90);
 
         if (pEntity.isSitting()) {
-            this.ratBody1.xRot = -toRads(40);
-            this.ratHead.xRot += toRads(20);
-            this.ratBackLeftLeg1.xRot = -toRads(10);
-            this.ratBackRightLeg1.xRot = -toRads(10);
-            this.ratFrontLeftLeg1.xRot = toRads(25);
-            this.ratFrontRightLeg1.xRot = toRads(25);
-            this.ratTail1.xRot = toRads(35);
-            this.body.xRot = toRads(20);
+            this.ratBody1.xRot = -this.toRads(40);
+            this.ratHead.xRot += this.toRads(20);
+            this.ratBackLeftLeg1.xRot = -this.toRads(10);
+            this.ratBackRightLeg1.xRot = -this.toRads(10);
+            this.ratFrontLeftLeg1.xRot = this.toRads(25);
+            this.ratFrontRightLeg1.xRot = this.toRads(25);
+            this.ratTail1.xRot = this.toRads(35);
+            this.body.xRot = this.toRads(20);
         }
-        
+
         if (pEntity.isPartying()) {
-            this.ratHead.zRot = MathHelper.cos(pAgeInTicks * 0.5f) * toRads(40);
-            this.ratTail1.zRot = MathHelper.cos(pAgeInTicks * 0.5f) * toRads(40);
+            this.ratHead.zRot = MathHelper.cos(pAgeInTicks * 0.5f) * this.toRads(40);
+            this.ratTail1.zRot = MathHelper.cos(pAgeInTicks * 0.5f) * this.toRads(40);
             this.pumpkin1.z = -7f + MathHelper.cos(pAgeInTicks * 0.25f) * 2;
-            this.pumpkin1.yRot = pAgeInTicks * toRads(10);
+            this.pumpkin1.yRot = pAgeInTicks * this.toRads(10);
         }
     }
 

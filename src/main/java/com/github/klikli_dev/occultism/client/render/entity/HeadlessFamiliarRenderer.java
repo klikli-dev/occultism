@@ -22,8 +22,6 @@
 
 package com.github.klikli_dev.occultism.client.render.entity;
 
-import java.util.Map;
-
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.client.model.entity.CthulhuFamiliarModel;
 import com.github.klikli_dev.occultism.client.model.entity.HeadlessFamiliarModel;
@@ -32,7 +30,6 @@ import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.google.common.collect.ImmutableMap;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.FirstPersonRenderer;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
@@ -54,6 +51,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Quaternion;
 
+import java.util.Map;
+
 public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity, HeadlessFamiliarModel> {
 
     private static final ResourceLocation TEXTURE = new ResourceLocation(Occultism.MODID,
@@ -73,7 +72,7 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
 
     @Override
     public void render(HeadlessFamiliarEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn,
-            IRenderTypeBuffer bufferIn, int packedLightIn) {
+                       IRenderTypeBuffer bufferIn, int packedLightIn) {
         matrixStackIn.pushPose();
         if (entityIn.isSitting())
             matrixStackIn.translate(0, -0.12, 0);
@@ -88,8 +87,8 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
 
         @Override
         public void render(MatrixStack matrix, IRenderTypeBuffer bufferIn, int packedLightIn,
-                HeadlessFamiliarEntity headless, float limbSwing, float limbSwingAmount, float partialTicks,
-                float ageInTicks, float netHeadYaw, float headPitch) {
+                           HeadlessFamiliarEntity headless, float limbSwing, float limbSwingAmount, float partialTicks,
+                           float ageInTicks, float netHeadYaw, float headPitch) {
             if (!headless.isHeadlessDead())
                 return;
 
@@ -104,14 +103,14 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
                 matrix.pushPose();
                 matrix.mulPose(new Quaternion(0, 130, 0, true));
                 matrix.translate(0.3, -0.3, 0);
-                renderItem(Items.WHEAT, matrix, bufferIn, packedLightIn, headless, renderer);
+                this.renderItem(Items.WHEAT, matrix, bufferIn, packedLightIn, headless, renderer);
                 matrix.popPose();
             }
             if (headless.isRebuilt(HeadlessFamiliarEntity.Rebuilt.LeftLeg)) {
                 matrix.pushPose();
                 matrix.mulPose(new Quaternion(0, 50, 0, true));
                 matrix.translate(0.3, -0.3, 0);
-                renderItem(Items.WHEAT, matrix, bufferIn, packedLightIn, headless, renderer);
+                this.renderItem(Items.WHEAT, matrix, bufferIn, packedLightIn, headless, renderer);
                 matrix.popPose();
             }
             if (headless.isRebuilt(HeadlessFamiliarEntity.Rebuilt.Body)) {
@@ -120,23 +119,23 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
                 matrix.scale(size, size, size);
                 matrix.mulPose(new Quaternion(0, 0, 0, true));
                 matrix.translate(0, -0.45, -0.05);
-                renderItem(Items.HAY_BLOCK, matrix, bufferIn, packedLightIn, headless, renderer);
+                this.renderItem(Items.HAY_BLOCK, matrix, bufferIn, packedLightIn, headless, renderer);
                 matrix.translate(0, -0.25, 0);
-                renderItem(Items.HAY_BLOCK, matrix, bufferIn, packedLightIn, headless, renderer);
+                this.renderItem(Items.HAY_BLOCK, matrix, bufferIn, packedLightIn, headless, renderer);
                 matrix.popPose();
             }
             if (headless.isRebuilt(HeadlessFamiliarEntity.Rebuilt.RightArm)) {
                 matrix.pushPose();
                 matrix.mulPose(new Quaternion(0, 180 + (partying ? MathHelper.sin(ageInTicks / 3) * 20 : 0), 0, true));
                 matrix.translate(0.25, -0.6, 0.05);
-                renderItem(Items.STICK, matrix, bufferIn, packedLightIn, headless, renderer);
+                this.renderItem(Items.STICK, matrix, bufferIn, packedLightIn, headless, renderer);
                 matrix.popPose();
             }
             if (headless.isRebuilt(HeadlessFamiliarEntity.Rebuilt.LeftArm)) {
                 matrix.pushPose();
                 matrix.mulPose(new Quaternion(0, partying ? MathHelper.sin(ageInTicks / 3) * 20 : 0, 0, true));
                 matrix.translate(0.25, -0.6, -0.05);
-                renderItem(Items.STICK, matrix, bufferIn, packedLightIn, headless, renderer);
+                this.renderItem(Items.STICK, matrix, bufferIn, packedLightIn, headless, renderer);
                 matrix.popPose();
             }
             if (headless.isRebuilt(HeadlessFamiliarEntity.Rebuilt.Head)) {
@@ -145,14 +144,14 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
                 matrix.translate(0, 0.7, -0.06);
                 matrix.mulPose(new Quaternion(0, partying ? ageInTicks * 8 : -netHeadYaw, 0, true));
 
-                renderItem(Items.CARVED_PUMPKIN, matrix, bufferIn, packedLightIn, headless, renderer);
+                this.renderItem(Items.CARVED_PUMPKIN, matrix, bufferIn, packedLightIn, headless, renderer);
                 matrix.popPose();
             }
             matrix.popPose();
         }
 
         private void renderItem(Item item, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn,
-                HeadlessFamiliarEntity entitylivingbaseIn, FirstPersonRenderer renderer) {
+                                HeadlessFamiliarEntity entitylivingbaseIn, FirstPersonRenderer renderer) {
             renderer.renderItem(entitylivingbaseIn, new ItemStack(item), ItemCameraTransforms.TransformType.GROUND,
                     false, matrixStackIn, bufferIn, packedLightIn);
         }
@@ -166,8 +165,8 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
 
         @Override
         public void render(MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn,
-                HeadlessFamiliarEntity entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks,
-                float ageInTicks, float netHeadYaw, float headPitch) {
+                           HeadlessFamiliarEntity entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks,
+                           float ageInTicks, float netHeadYaw, float headPitch) {
             if (entitylivingbaseIn.isHeadlessDead())
                 return;
 
@@ -177,9 +176,9 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
             model.ratBody1.translateAndRotate(matrixStackIn);
             model.body.translateAndRotate(matrixStackIn);
             model.rightArm.translateAndRotate(matrixStackIn);
-            
+
             matrixStackIn.translate(-0.05f, 0.16, -0.08);
-            
+
             matrixStackIn.mulPose(new Quaternion(0, 90, -50, true));
 
 
@@ -199,6 +198,10 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
         GenericHeadModel spiderHead = new GenericHeadModel(32, 4, 64, 32);
         GenericHeadModel cthulhuHead = new CthulhuHeadModel();
 
+        public HeadLayer(IEntityRenderer<HeadlessFamiliarEntity, HeadlessFamiliarModel> renderer) {
+            super(renderer);
+        }
+
         private static ResourceLocation getTexture(EntityType<?> type) {
             if (textures == null) {
                 ImmutableMap.Builder<EntityType<?>, ResourceLocation> builder = new ImmutableMap.Builder<>();
@@ -216,28 +219,24 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
             return textures.get(type);
         }
 
-        public HeadLayer(IEntityRenderer<HeadlessFamiliarEntity, HeadlessFamiliarModel> renderer) {
-            super(renderer);
-        }
-
         private GenericHeadModel getHeadModel(EntityType<?> type) {
             if (type == EntityType.SKELETON || type == EntityType.WITHER_SKELETON || type == EntityType.CREEPER)
-                return genericHead;
+                return this.genericHead;
             else if (type == EntityType.PLAYER || type == EntityType.ZOMBIE)
-                return humanoidHead;
+                return this.humanoidHead;
             else if (type == EntityType.SPIDER)
-                return spiderHead;
+                return this.spiderHead;
             else if (type == OccultismEntities.CTHULHU_FAMILIAR.get())
-                return cthulhuHead;
+                return this.cthulhuHead;
 
             return null;
         }
 
         @Override
         public void render(MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn,
-                HeadlessFamiliarEntity entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks,
-                float ageInTicks, float netHeadYaw, float headPitch) {
-            
+                           HeadlessFamiliarEntity entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks,
+                           float ageInTicks, float netHeadYaw, float headPitch) {
+
             if (entitylivingbaseIn.isHeadlessDead())
                 return;
 
@@ -245,7 +244,7 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
             if (headType == null)
                 return;
 
-            GenericHeadModel head = getHeadModel(headType);
+            GenericHeadModel head = this.getHeadModel(headType);
             if (head == null)
                 return;
 
@@ -276,7 +275,7 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
 
         @Override
         public void renderToBuffer(MatrixStack pMatrixStack, IVertexBuilder pBuffer, int pPackedLight,
-                int pPackedOverlay, float pRed, float pGreen, float pBlue, float pAlpha) {
+                                   int pPackedOverlay, float pRed, float pGreen, float pBlue, float pAlpha) {
             this.model.trunk1.visible = false;
             this.model.trunk2.visible = false;
             this.model.trunk3.visible = false;

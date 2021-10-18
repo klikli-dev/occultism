@@ -240,8 +240,8 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
     @Override
     public Iterable<EffectInstance> getFamiliarEffects() {
         if (this.isEffectEnabled()) {
-            if (this.isAngry())
-                return ImmutableList.of(new EffectInstance(Effects.WATER_BREATHING, 300, 0, false, false));
+            //if (this.isAngry())
+            return ImmutableList.of(new EffectInstance(Effects.WATER_BREATHING, 300, 0, false, false));
         }
         return Collections.emptyList();
     }
