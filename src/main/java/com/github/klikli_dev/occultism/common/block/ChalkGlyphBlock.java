@@ -49,27 +49,23 @@ import javax.annotation.Nullable;
 import java.util.function.Supplier;
 
 public class ChalkGlyphBlock extends Block {
-    //region Fields
     /**
      * The glyph sign (the typeface)
      */
     public static final IntegerProperty SIGN = IntegerProperty.create("sign", 0, 12);
+    public static final int MAX_SIGN = 12;
 
     private static final VoxelShape SHAPE = Block.box(0, 0, 0, 15, 0.04, 15);
 
     protected Supplier<Item> chalk;
     protected int color;
-    //endregion Fields
 
-    //region Initialization
     public ChalkGlyphBlock(Properties properties, int color, Supplier<Item> chalk) {
         super(properties);
         this.color = color;
         this.chalk = chalk;
     }
-    //endregion Initialization
 
-    //region Getter / Setter
     public int getColor() {
         return this.color;
     }
@@ -82,10 +78,13 @@ public class ChalkGlyphBlock extends Block {
         return this.chalk.get();
     }
 
-    //endregion Getter / Setter
-
-    //region Overrides
-
+    @Override
+    public void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block blockIn, BlockPos fromPos,
+                                boolean isMoving) {
+        if (!this.canSurvive(state, worldIn, pos)) {
+            worldIn.removeBlock(pos, false);
+        }
+    }
 
     @Override
     public boolean canBeReplaced(BlockState state, BlockPlaceContext context) {
@@ -97,6 +96,12 @@ public class ChalkGlyphBlock extends Block {
         return true;
     }
 
+    @Override
+    public boolean canSurvive(BlockState state, LevelReader worldIn, BlockPos pos) {
+        BlockPos down = pos.below();
+        BlockState downState = worldIn.getBlockState(down);
+        return downState.isFaceSturdy(worldIn, down, Direction.UP) && state.getMaterial().isReplaceable();
+    }
 
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
@@ -110,24 +115,14 @@ public class ChalkGlyphBlock extends Block {
     }
 
     @Override
-    public void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block blockIn, BlockPos fromPos,
-                                boolean isMoving) {
-        if (!this.canSurvive(state, worldIn, pos)) {
-            worldIn.removeBlock(pos, false);
-        }
-    }
-
-    @Override
-    public boolean canSurvive(BlockState state, LevelReader worldIn, BlockPos pos) {
-        BlockPos down = pos.below();
-        BlockState downState = worldIn.getBlockState(down);
-        return downState.isFaceSturdy(worldIn, down, Direction.UP) && state.getMaterial().isReplaceable();
-    }
-
-    @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
         BlockPos pos = context.getClickedPos();
-        int sign = Math.abs(pos.getX() + pos.getZ() * 2) % 13;
+        int sign = context.getLevel().getRandom().nextInt(MAX_SIGN + 1);
+        BlockState current = context.getLevel().getBlockState(pos);
+        if (current.getBlock() == this) {
+            sign = (current.getValue(SIGN) + 1) % (MAX_SIGN + 1);
+        }
+
         return this.defaultBlockState().setValue(SIGN, sign)
                 .setValue(BlockStateProperties.HORIZONTAL_FACING,
                         context.getHorizontalDirection().getOpposite());
@@ -152,6 +147,4 @@ public class ChalkGlyphBlock extends Block {
     public BlockPathTypes getAiPathNodeType(BlockState state, BlockGetter world, BlockPos pos, @Nullable Mob entity) {
         return BlockPathTypes.OPEN;
     }
-
-    //endregion Overrides
 }

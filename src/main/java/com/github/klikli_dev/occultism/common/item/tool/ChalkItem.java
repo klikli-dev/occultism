@@ -39,20 +39,12 @@ import net.minecraft.world.level.block.state.BlockState;
 import java.util.function.Supplier;
 
 public class ChalkItem extends Item {
-    //region Fields
     Supplier<ChalkGlyphBlock> glyphBlock;
-//endregion Fields
 
-    //region Initialization
     public ChalkItem(Properties properties, Supplier<ChalkGlyphBlock> glyphBlock) {
         super(properties);
         this.glyphBlock = glyphBlock;
     }
-
-    //endregion Initialization
-
-    //region Overrides
-
 
     @Override
     public InteractionResult useOn(UseOnContext context) {
@@ -70,20 +62,19 @@ public class ChalkItem extends Item {
                 ItemStack heldChalk = context.getItemInHand();
                 BlockPos placeAt = isReplacing ? pos : pos.above();
 
-                level.setBlock(placeAt,
-                        this.glyphBlock.get().getStateForPlacement(new BlockPlaceContext(context)), 1 | 2);
+                boolean isSameChalkType = level.getBlockState(placeAt).getBlock() == this.glyphBlock.get();
+                level.setBlockAndUpdate(placeAt,
+                        this.glyphBlock.get().getStateForPlacement(new BlockPlaceContext(context)));
 
                 level.playSound(null, pos, OccultismSounds.CHALK.get(), SoundSource.PLAYERS, 0.5f,
                         1 + 0.5f * player.getRandom().nextFloat());
 
-                if (!player.isCreative())
+                // do not consume durability if creative, or if same kind of chalk (= cycle through sings)
+                if (!player.isCreative() && !isSameChalkType)
                     heldChalk.hurtAndBreak(1, player, t -> {
                     });
             }
         }
         return InteractionResult.SUCCESS;
     }
-
-    //endregion Overrides
-
 }
