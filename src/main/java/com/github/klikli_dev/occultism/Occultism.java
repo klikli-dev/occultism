@@ -153,6 +153,7 @@ public class Occultism {
         event.put(OccultismEntities.DRAGON_FAMILIAR_TYPE.get(), FamiliarEntity.registerAttributes().build());
         event.put(OccultismEntities.BLACKSMITH_FAMILIAR_TYPE.get(), FamiliarEntity.registerAttributes().build());
         event.put(OccultismEntities.GUARDIAN_FAMILIAR_TYPE.get(), FamiliarEntity.registerAttributes().build());
+        event.put(OccultismEntities.HEADLESS_FAMILIAR_TYPE.get(), HeadlessFamiliarEntity.registerAttributes().build());
     }
 
     private void serverSetup(final FMLDedicatedServerSetupEvent event) {

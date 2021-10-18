@@ -22,14 +22,21 @@
 
 package com.github.klikli_dev.occultism.handlers;
 
+import java.util.List;
+
 import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.common.advancement.FamiliarTrigger;
 import com.github.klikli_dev.occultism.common.entity.GuardianFamiliarEntity;
+import com.github.klikli_dev.occultism.common.entity.HeadlessFamiliarEntity;
+import com.github.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.util.FamiliarUtil;
 
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
+import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -38,7 +45,47 @@ import net.minecraftforge.fml.common.Mod;
 public class FamiliarEventHandler {
 
     @SubscribeEvent
-    public static void guardianUltimateSacrifice(LivingDeathEvent event) {
+    public static void livingDeathEvent(LivingDeathEvent event) {
+        guardianUltimateSacrifice(event);
+        headlessStealHead(event);
+    }
+
+    @SubscribeEvent
+    public static void livingDamageEvent(LivingDamageEvent event) {
+        if (!(event.getSource().getEntity() instanceof PlayerEntity))
+            return;
+        PlayerEntity player = (PlayerEntity) event.getSource().getEntity();
+
+        if (!FamiliarUtil.isFamiliarEnabled(player, OccultismEntities.HEADLESS_FAMILIAR.get()))
+            return;
+
+        EntityType<?> headType = event.getEntityLiving().getType();
+
+        if (!FamiliarUtil.hasFamiliar(player, OccultismEntities.HEADLESS_FAMILIAR.get(),
+                h -> h.getHeadType() == headType))
+            return;
+
+        event.setAmount(event.getAmount() * 1.3f);
+    }
+
+    private static void headlessStealHead(LivingDeathEvent event) {
+        if (!(event.getSource().getEntity() instanceof PlayerEntity))
+            return;
+        PlayerEntity player = (PlayerEntity) event.getSource().getEntity();
+
+        if (!FamiliarUtil.isFamiliarEnabled(player, OccultismEntities.HEADLESS_FAMILIAR.get()))
+            return;
+
+        List<HeadlessFamiliarEntity> headlesses = FamiliarUtil.getAllFamiliars(player,
+                OccultismEntities.HEADLESS_FAMILIAR.get());
+        
+        if (event.getEntityLiving().getType() == OccultismEntities.CTHULHU_FAMILIAR.get())
+            OccultismAdvancements.FAMILIAR.trigger(player, FamiliarTrigger.Type.HEADLESS_CTHULHU_HEAD);
+
+        headlesses.forEach(h -> h.setHeadType(event.getEntityLiving().getType()));
+    }
+
+    private static void guardianUltimateSacrifice(LivingDeathEvent event) {
         if (event.getSource().isBypassInvul() || !(event.getEntity() instanceof PlayerEntity))
             return;
 
