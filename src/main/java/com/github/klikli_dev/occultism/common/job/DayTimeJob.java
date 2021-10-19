@@ -40,7 +40,7 @@ public class DayTimeJob extends ChangeTimeJob {
     @Override
     public void changeTime() {
         if (Occultism.SERVER_CONFIG.rituals.enableClearWeatherRitual.get()) {
-            ServerLevel level = (ServerLevel) this.entity.level;
+            ServerLevel level = (ServerLevel) this.entity.level.getLevelData();
             level.setDayTime(1000);
         } else {
             this.entity.getOwner().sendMessage(new TranslatableComponent("ritual.occultism.disabled"), Util.NIL_UUID);
