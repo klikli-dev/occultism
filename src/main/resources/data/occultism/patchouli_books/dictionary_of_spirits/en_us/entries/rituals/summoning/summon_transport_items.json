@@ -1,7 +1,7 @@
 {
   "name": "Foliot Transporter",
   "icon": "minecraft:minecart",
-  "category": "rituals/summoning",
+  "category": "occultismrituals/summoning",
   "sortnum": 13,
   "pages": [
     {

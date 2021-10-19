@@ -1,7 +1,7 @@
 {
   "name": "Devil Familiar",
   "icon": "occultism:textures/gui/book/familiar_devil.png",
-  "category": "rituals/familiars",
+  "category": "occultismrituals/familiars",
   "sortnum": 50,
   "pages": [
     {

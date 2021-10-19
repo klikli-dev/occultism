@@ -23,8 +23,11 @@
 package com.github.klikli_dev.occultism.common.item.tool;
 
 import com.github.klikli_dev.occultism.Occultism;
+import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
@@ -36,19 +39,19 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
+import vazkii.patchouli.api.PatchouliAPI;
+import vazkii.patchouli.common.book.Book;
+import vazkii.patchouli.common.book.BookRegistry;
 
 import java.lang.reflect.Field;
 import java.util.List;
 
 public class GuideBookItem extends Item {
 
-    //region Fields
     public static final ResourceLocation GUIDE = new ResourceLocation(Occultism.MODID, "dictionary_of_spirits");
     protected static Field craftingRemainingItemField =
             ObfuscationReflectionHelper.findField(Item.class, "f_41378_");
-    //endregion Fields
 
-    //region Initialization
     public GuideBookItem(Properties properties) {
         super(properties);
         try {
@@ -56,9 +59,6 @@ public class GuideBookItem extends Item {
         } catch (IllegalAccessException e) {
         }
     }
-    //endregion Initialization
-
-    //region Overrides
 
     @Override
     public ItemStack getContainerItem(ItemStack itemStack) {
@@ -68,8 +68,7 @@ public class GuideBookItem extends Item {
     @Override
     public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {
         if (!worldIn.isClientSide) {
-            //TODO: Patchouli
-            //PatchouliAPI.instance.openBookGUI((ServerPlayer) playerIn, GUIDE);
+            PatchouliAPI.get().openBookGUI((ServerPlayer) playerIn, GUIDE);
         }
         return new InteractionResultHolder<>(InteractionResult.SUCCESS, playerIn.getItemInHand(handIn));
     }
@@ -78,19 +77,16 @@ public class GuideBookItem extends Item {
     @Override
     public void appendHoverText(ItemStack stack, Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
-        //TODO: Patchouli
-//        Book book = BookRegistry.INSTANCE.books.get(GUIDE);
-//        if (book != null && book.contents != null) {
-//            tooltip.add(book.contents.book.getSubtitle().mergeStyle(ChatFormatting.GRAY));
-//        }
 
+        Book book = BookRegistry.INSTANCE.books.get(GUIDE);
+        if (book != null && book.getContents() != null) {
+            book.getSubtitle().withStyle(ChatFormatting.GRAY);
+        }
     }
 
     @Override
     public Component getName(ItemStack stack) {
-        //TODO: Patchouli
-//        Book book = BookRegistry.INSTANCE.books.get(GUIDE);
-//        return book != null ? new TranslatableComponent(book.name, new Object[0]) : super.getName(stack);
-        return super.getName(stack);
+        Book book = BookRegistry.INSTANCE.books.get(GUIDE);
+        return book != null ? new TranslatableComponent(book.name) : super.getName(stack);
     }
 }

@@ -1,7 +1,7 @@
 {
   "name": "Blacksmith Familiar",
   "icon": "occultism:textures/gui/book/familiar_blacksmith.png",
-  "category": "rituals/familiars",
+  "category": "occultismrituals/familiars",
   "sortnum": 70,
   "pages": [
     {

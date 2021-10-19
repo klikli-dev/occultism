@@ -1,7 +1,7 @@
 {
   "name": "Surprisingly Substantial Satchel",
   "icon": "occultism:satchel",
-  "category": "rituals/crafting",
+  "category": "occultismrituals/crafting",
   "sortnum": 11,
   "pages": [
     {

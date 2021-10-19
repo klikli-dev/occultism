@@ -1,7 +1,7 @@
 {
   "name": "Time Magic",
   "icon": "minecraft:clock",
-  "category": "rituals/summoning",
+  "category": "occultismrituals/summoning",
   "sortnum": 31,
   "pages": [
     {

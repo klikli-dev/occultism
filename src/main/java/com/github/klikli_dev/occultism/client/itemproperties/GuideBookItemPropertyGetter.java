@@ -22,43 +22,45 @@
 
 package com.github.klikli_dev.occultism.client.itemproperties;
 
+import com.github.klikli_dev.occultism.common.item.tool.GuideBookItem;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.item.ItemPropertyFunction;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import vazkii.patchouli.client.book.BookEntry;
+import vazkii.patchouli.common.book.Book;
+import vazkii.patchouli.common.book.BookRegistry;
 
 import javax.annotation.Nullable;
+import java.util.Iterator;
 
 @OnlyIn(Dist.CLIENT)
 public class GuideBookItemPropertyGetter implements ItemPropertyFunction {
-    //region Overrides
     @OnlyIn(Dist.CLIENT)
     @Override
     public float call(ItemStack stack, @Nullable ClientLevel worldIn, @Nullable LivingEntity entityIn, int i) {
-        //TODO: Patchouli
-//        Book book = BookRegistry.INSTANCE.books.get(GuideBookItem.GUIDE);
-//        float progression = 0.0F;
-//        if (book != null) {
-//            int totalEntries = 0;
-//            int unlockedEntries = 0;
-//            Iterator var8 = book.contents.entries.values().iterator();
-//
-//            while (var8.hasNext()) {
-//                BookEntry entry = (BookEntry) var8.next();
-//                if (!entry.isSecret()) {
-//                    ++totalEntries;
-//                    if (!entry.isLocked()) {
-//                        ++unlockedEntries;
-//                    }
-//                }
-//            }
-//
-//            progression = (float) unlockedEntries / Math.max(1.0F, (float) totalEntries);
-//        }
-//
-//        return progression;
-        return 0.0f;
+        Book book = BookRegistry.INSTANCE.books.get(GuideBookItem.GUIDE);
+        float progression = 0.0F;
+        if (book != null) {
+            int totalEntries = 0;
+            int unlockedEntries = 0;
+            Iterator<BookEntry> var8 = book.getContents().entries.values().iterator();
+
+            while (var8.hasNext()) {
+                BookEntry entry = var8.next();
+                if (!entry.isSecret()) {
+                    ++totalEntries;
+                    if (!entry.isLocked()) {
+                        ++unlockedEntries;
+                    }
+                }
+            }
+
+            progression = (float) unlockedEntries / Math.max(1.0F, (float) totalEntries);
+        }
+
+        return progression;
     }
 }

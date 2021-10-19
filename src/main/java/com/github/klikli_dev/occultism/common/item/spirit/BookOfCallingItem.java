@@ -215,7 +215,6 @@ public class BookOfCallingItem extends Item implements IIngredientCopyNBT, IHand
                     if (ItemMode.get(this.getItemMode(stack)) == ItemMode.SET_DEPOSIT) {
                         if (targetSpirit.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).isPresent()) {
                             UUID boundSpiritId = ItemNBTUtil.getSpiritEntityUUID(stack);
-                            //TODO set entity name to stack
                             if (boundSpiritId != null) {
                                 Optional<SpiritEntity> boundSpirit = EntityUtil.getEntityByUuiDGlobal(target.level.getServer(), boundSpiritId)
                                         .map(e -> (SpiritEntity) e);

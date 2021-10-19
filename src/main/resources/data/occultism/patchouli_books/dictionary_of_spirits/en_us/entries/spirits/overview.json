@@ -1,7 +1,7 @@
 {
   "name": "On Spirits",
   "icon": "occultism:textures/gui/book/spirits.png",
-  "category": "spirits",
+  "category": "occultismspirits",
   "sortnum": 0,
   "pages": [
     {

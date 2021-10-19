@@ -1,7 +1,7 @@
 {
   "name": "Greedy Familiar",
   "icon": "occultism:textures/gui/book/familiar_greedy.png",
-  "category": "rituals/familiars",
+  "category": "occultismrituals/familiars",
   "sortnum": 15,
   "pages": [
     {

@@ -36,11 +36,11 @@ authors="Kli Kli" #optional
 description='''A magic mod inspired by the world of Jonathan Stroud's Bartimaeus. With the help of occult rituals players can summon entities from the "Other Side" to perform magic.'''
 
 # A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
-# TODO: Patchouli
+# TODO: unkomment patchouli once we have a stable release on CF
 # [[dependencies.occultism]]
 #     modId="patchouli"
 #     mandatory=true
-#     versionRange="[1.16.4-1.2-28,)"
+#     versionRange="[1.17.1-57,)"
 #     side="BOTH"
 
 [[dependencies.occultism]]

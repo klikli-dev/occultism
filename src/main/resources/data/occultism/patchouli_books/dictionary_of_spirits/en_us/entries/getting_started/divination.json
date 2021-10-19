@@ -1,7 +1,7 @@
 {
   "name": "Divination",
   "icon": "occultism:divination_rod",
-  "category": "getting_started",
+  "category": "occultismgetting_started",
   "sortnum": 3,
   "pages": [
     {
