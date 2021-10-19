@@ -85,7 +85,7 @@ public class MessageUpdatePentacles extends MessageBase {
                 @Override
                 public void run() {
                     PentacleManager.getInstance().setPentacles(pentacles);
-                    BookRegistry.INSTANCE.reloadContents(false);
+                    //TODO: Reload patchouli?
                 }
             };
         }

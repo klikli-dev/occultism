@@ -50,6 +50,7 @@ public class RitualRecipeProcessor implements IComponentProcessor {
 
     @Override
     public IVariable process(String key) {
+        //TODO: patchouli recipe processor process never called
         if (this.recipe == null)
             return IVariable.empty(); // if recipe was not found (e.g. due to modpack changes) exit early
 
