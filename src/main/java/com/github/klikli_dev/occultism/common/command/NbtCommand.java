@@ -29,6 +29,7 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
+import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.server.level.ServerPlayer;
@@ -37,29 +38,21 @@ import net.minecraft.world.item.ItemStack;
 
 public class NbtCommand implements Command<CommandSourceStack> {
 
-    //region Fields
     private static final NbtCommand CMD = new NbtCommand();
-    //endregion Fields
 
-    //region Static Methods
     public static ArgumentBuilder<CommandSourceStack, ?> register(CommandDispatcher<CommandSourceStack> dispatcher) {
         return Commands.literal("nbt")
                 .requires(cs -> cs.hasPermission(0))
                 .executes(CMD);
     }
-    //endregion Overrides
 
-    //region Overrides
     @Override
     public int run(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
         ServerPlayer player = context.getSource().getPlayerOrException();
         ItemStack heldItem = player.getItemInHand(InteractionHand.MAIN_HAND);
 
-        //TODO: Verify if the new code is an appropriate replacement of the old
-        // Component nbtText = heldItem.isEmpty() ? new TextComponent("{}") : heldItem.getOrCreateTag().getPrettyDisplay();
-        Component nbtText = heldItem.isEmpty() ? new TextComponent("{}") : new TextComponent(heldItem.getOrCreateTag().getAsString());
+        Component nbtText = heldItem.isEmpty() || !heldItem.hasTag() ? new TextComponent("{}") : NbtUtils.toPrettyComponent(heldItem.getTag());
         context.getSource().sendSuccess(nbtText, false);
         return 0;
     }
-    //endregion Static Methods
 }
