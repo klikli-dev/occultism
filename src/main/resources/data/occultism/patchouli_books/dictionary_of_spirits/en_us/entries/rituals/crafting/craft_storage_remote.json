@@ -1,7 +1,7 @@
 {
   "name": "Storage Accessor",
   "icon": "occultism:storage_remote",
-  "category": "occultismrituals/crafting",
+  "category": "occultism:rituals/crafting",
   "sortnum": 24,
   "pages": [
     {

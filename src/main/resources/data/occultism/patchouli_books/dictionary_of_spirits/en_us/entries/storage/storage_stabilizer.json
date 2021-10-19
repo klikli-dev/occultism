@@ -1,7 +1,7 @@
 {
   "name": "Storage Stabilizers",
   "icon": "occultism:storage_stabilizer_tier1",
-  "category": "occultismstorage",
+  "category": "occultism:storage",
   "sortnum": 3,
   "pages": [
     {

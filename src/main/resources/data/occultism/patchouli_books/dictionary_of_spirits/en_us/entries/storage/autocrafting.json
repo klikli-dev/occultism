@@ -1,7 +1,7 @@
 {
   "name": "Machine Operators",
   "icon": "occultism:textures/gui/book/autocrafting.png",
-  "category": "occultismstorage",
+  "category": "occultism:storage",
   "sortnum": 4,
   "pages": [
     {

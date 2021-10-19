@@ -1,7 +1,7 @@
 {
   "name": "Iesnium",
   "icon": "occultism:iesnium_ingot",
-  "category": "occultismmisc",
+  "category": "occultism:misc",
   "sortnum": 20,
   "pages": [
     {

@@ -1,7 +1,7 @@
 {
   "name": "Unbound Spirits",
   "icon": "occultism:textures/gui/book/unbound_spirits.png",
-  "category": "occultismspirits",
+  "category": "occultism:spirits",
   "sortnum": 5,
   "pages": [
     {
