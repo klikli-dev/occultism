@@ -31,6 +31,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.FireBlock;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.ItemStack;
@@ -56,6 +57,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class SpiritFireBlock extends Block {
     //region Initialization
@@ -239,21 +241,21 @@ public class SpiritFireBlock extends Block {
         List<ItemEntity> list = world.getEntitiesOfClass(ItemEntity.class, box);
         ItemStackFakeInventory fakeInventory =
                 new ItemStackFakeInventory(ItemStack.EMPTY);
-        boolean convertedAnyItem = false;
-        for (ItemEntity item : list) {
+        AtomicBoolean convertedAnyItem = new AtomicBoolean(false);
+        list.stream().filter(Entity::isAlive).forEach(item -> {
             fakeInventory.setItem(0, item.getItem());
             Optional<SpiritFireRecipe> recipe =
                     world.getRecipeManager().getRecipeFor(OccultismRecipes.SPIRIT_FIRE_TYPE.get(), fakeInventory, world);
 
             if (recipe.isPresent()) {
-                convertedAnyItem = true;
+                convertedAnyItem.set(true);
                 item.remove();
 
                 ItemStack result = recipe.get().assemble(fakeInventory);
                 InventoryHelper.dropItemStack(world, center.x, center.y + 0.5, center.z, result);
             }
-        }
-        if (convertedAnyItem) {
+        });
+        if (convertedAnyItem.get()) {
             world.playSound(null, pos, OccultismSounds.START_RITUAL.get(), SoundCategory.BLOCKS, 1, 1);
         }
     }
