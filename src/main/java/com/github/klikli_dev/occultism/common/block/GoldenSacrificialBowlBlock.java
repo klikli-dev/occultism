@@ -120,7 +120,7 @@ public class GoldenSacrificialBowlBlock extends Block {
                 TileEntity tileEntity = player.level.getBlockEntity(positionToCheck);
                 if (tileEntity instanceof GoldenSacrificialBowlTileEntity) {
                     GoldenSacrificialBowlTileEntity bowl = (GoldenSacrificialBowlTileEntity) tileEntity;
-                    if (bowl.currentRitualRecipe != null && bowl.currentRitualRecipe.getRitual().isValidItemUse(event)) {
+                    if (bowl.getCurrentRitualRecipe() != null && bowl.getCurrentRitualRecipe().getRitual().isValidItemUse(event)) {
                         bowl.notifyItemUse(event);
                     }
                 }
@@ -141,7 +141,7 @@ public class GoldenSacrificialBowlBlock extends Block {
                     TileEntity tileEntity = entityLivingBase.level.getBlockEntity(positionToCheck);
                     if (tileEntity instanceof GoldenSacrificialBowlTileEntity) {
                         GoldenSacrificialBowlTileEntity bowl = (GoldenSacrificialBowlTileEntity) tileEntity;
-                        if (bowl.currentRitualRecipe != null && bowl.currentRitualRecipe.getRitual().isValidSacrifice(entityLivingBase)) {
+                        if (bowl.getCurrentRitualRecipe() != null && bowl.getCurrentRitualRecipe().getRitual().isValidSacrifice(entityLivingBase)) {
                             bowl.notifySacrifice(entityLivingBase);
                         }
                     }
