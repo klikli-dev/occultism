@@ -62,6 +62,7 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
 
     //region Fields
     public RitualRecipe currentRitualRecipe;
+    public ResourceLocation currentRitualRecipeId;
     public UUID castingPlayerId;
     public Player castingPlayer;
     public List<Ingredient> remainingAdditionalIngredients = new ArrayList<>();
@@ -78,6 +79,17 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
     }
     //endregion Initialization
 
+    public RitualRecipe getCurrentRitualRecipe(){
+        if(this.currentRitualRecipeId != null){
+            if(this.level != null){
+                Optional<? extends Recipe<?>> recipe = this.level.getRecipeManager().byKey(this.currentRitualRecipeId);
+                recipe.map(r -> (RitualRecipe) r).ifPresent(r -> this.currentRitualRecipe = r);
+                this.currentRitualRecipeId = null;
+            }
+        }
+        return this.currentRitualRecipe;
+    }
+
     //region Overrides
 
     @Override
@@ -85,7 +97,7 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
         super.load(compound);
 
         this.consumedIngredients.clear();
-        if (this.currentRitualRecipe != null) {
+        if (this.currentRitualRecipeId != null || this.getCurrentRitualRecipe() != null) {
             if (compound.contains("consumedIngredients")) {
                 ListTag list = compound.getList("consumedIngredients", Constants.NBT.TAG_COMPOUND);
                 for (int i = 0; i < list.size(); i++) {
@@ -105,7 +117,7 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
 
     @Override
     public CompoundTag save(CompoundTag compound) {
-        if (this.currentRitualRecipe != null) {
+        if (this.getCurrentRitualRecipe() != null) {
             if (this.consumedIngredients.size() > 0) {
                 ListTag list = new ListTag();
                 for (ItemStack stack : this.consumedIngredients) {
@@ -123,8 +135,7 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
     public void loadNetwork(CompoundTag compound) {
         super.loadNetwork(compound);
         if (compound.contains("currentRitual")) {
-            Optional<? extends Recipe<?>> recipe = this.level.getRecipeManager().byKey(new ResourceLocation(compound.getString("currentRitual")));
-            recipe.map(r -> (RitualRecipe) r).ifPresent(r -> this.currentRitualRecipe = r);
+            this.currentRitualRecipeId = new ResourceLocation(compound.getString("currentRitual"));
         }
 
         if (compound.contains("castingPlayerId")) {
@@ -136,8 +147,9 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
 
     @Override
     public CompoundTag saveNetwork(CompoundTag compound) {
-        if (this.currentRitualRecipe != null) {
-            compound.putString("currentRitual", this.currentRitualRecipe.getId().toString());
+        RitualRecipe recipe = this.getCurrentRitualRecipe();
+        if (recipe != null) {
+            compound.putString("currentRitual", recipe.getId().toString());
         }
         if (this.castingPlayerId != null) {
             compound.putUUID("castingPlayerId", this.castingPlayerId);
@@ -147,7 +159,8 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
     }
 
     public void tick() {
-        if (!this.level.isClientSide && this.currentRitualRecipe != null) {
+        RitualRecipe recipe = this.getCurrentRitualRecipe();
+        if (!this.level.isClientSide && recipe != null) {
             this.restoreCastingPlayer();
 
             if (this.remainingAdditionalIngredients == null) {
@@ -161,7 +174,7 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
             //if we ever have a ritual that depends on casting player for validity, we need to rework this
             //to involve casting player id with some good pre-check
             IItemHandler handler = this.itemStackHandler.orElseThrow(ItemHandlerMissingException::new);
-            if (!this.currentRitualRecipe.getRitual().isValid(this.level, this.getBlockPos(), this, this.castingPlayer,
+            if (!recipe.getRitual().isValid(this.level, this.getBlockPos(), this, this.castingPlayer,
                     handler.getStackInSlot(0), this.remainingAdditionalIngredients)) {
                 //ritual is no longer valid, so interrupt
                 this.stopRitual(false);
@@ -203,12 +216,12 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
                 this.currentTime++;
 
 
-            this.currentRitualRecipe
+            recipe
                     .getRitual()
                     .update(this.level, this.getBlockPos(), this, this.castingPlayer, handler.getStackInSlot(0),
                             this.currentTime);
 
-            if (!this.currentRitualRecipe
+            if (!recipe
                     .getRitual()
                     .consumeAdditionalIngredients(this.level, this.getBlockPos(), this.remainingAdditionalIngredients,
                             this.currentTime, this.consumedIngredients)) {
@@ -217,7 +230,7 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
                 return;
             }
 
-            if (this.currentRitualRecipe.getDuration() >= 0 && this.currentTime >= this.currentRitualRecipe.getDuration())
+            if (recipe.getDuration() >= 0 && this.currentTime >= recipe.getDuration())
                 this.stopRitual(true);
         }
     }
@@ -247,7 +260,7 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
                 return true;
             }
 
-            if (this.currentRitualRecipe == null) {
+            if (this.getCurrentRitualRecipe() == null) {
                 //Identify the ritual in the ritual registry.
 
                 RitualRecipe ritualRecipe = this.level.getRecipeManager().getAllRecipesFor(OccultismRecipes.RITUAL_TYPE.get()).stream().filter(
@@ -304,13 +317,14 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
 
     public void stopRitual(boolean finished) {
         if (!this.level.isClientSide) {
-            if (this.currentRitualRecipe != null && this.castingPlayer != null) {
+            RitualRecipe recipe = this.getCurrentRitualRecipe();
+            if (recipe != null && this.castingPlayer != null) {
                 IItemHandler handler = this.itemStackHandler.orElseThrow(ItemHandlerMissingException::new);
                 if (finished) {
                     ItemStack activationItem = handler.getStackInSlot(0);
-                    this.currentRitualRecipe.getRitual().finish(this.level, this.getBlockPos(), this, this.castingPlayer, activationItem);
+                    recipe.getRitual().finish(this.level, this.getBlockPos(), this, this.castingPlayer, activationItem);
                 } else {
-                    this.currentRitualRecipe.getRitual().interrupt(this.level, this.getBlockPos(), this, this.castingPlayer,
+                    recipe.getRitual().interrupt(this.level, this.getBlockPos(), this, this.castingPlayer,
                             handler.getStackInSlot(0));
                     //Pop activation item back into level
                     Containers.dropItemStack(this.level, this.getBlockPos().getX(), this.getBlockPos().getY(), this.getBlockPos().getZ(),
@@ -332,11 +346,11 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
     }
 
     public boolean sacrificeFulfilled() {
-        return !this.currentRitualRecipe.requiresSacrifice() || this.sacrificeProvided;
+        return !this.getCurrentRitualRecipe().requiresSacrifice() || this.sacrificeProvided;
     }
 
     public boolean itemUseFulfilled() {
-        return !this.currentRitualRecipe.requiresItemUse() || this.itemUseProvided;
+        return !this.getCurrentRitualRecipe().requiresItemUse() || this.itemUseProvided;
     }
 
     public void notifySacrifice(LivingEntity entityLivingBase) {
@@ -354,9 +368,9 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
         } else {
             if (this.consumedIngredients.size() > 0) {
                 this.remainingAdditionalIngredients = Ritual.getRemainingAdditionalIngredients(
-                        this.currentRitualRecipe.getIngredients(), this.consumedIngredients);
+                        this.getCurrentRitualRecipe().getIngredients(), this.consumedIngredients);
             } else {
-                this.remainingAdditionalIngredients = new ArrayList<>(this.currentRitualRecipe.getIngredients());
+                this.remainingAdditionalIngredients = new ArrayList<>(this.getCurrentRitualRecipe().getIngredients());
             }
         }
 

@@ -57,6 +57,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class SpiritFireBlock extends Block {
     //region Initialization
@@ -237,21 +238,21 @@ public class SpiritFireBlock extends Block {
         List<ItemEntity> list = level.getEntitiesOfClass(ItemEntity.class, box);
         ItemStackFakeInventory fakeInventory =
                 new ItemStackFakeInventory(ItemStack.EMPTY);
-        boolean convertedAnyItem = false;
-        for (ItemEntity item : list) {
+        AtomicBoolean convertedAnyItem = new AtomicBoolean(false);
+        list.stream().filter(Entity::isAlive).forEach(item -> {
             fakeInventory.setItem(0, item.getItem());
             Optional<SpiritFireRecipe> recipe =
                     level.getRecipeManager().getRecipeFor(OccultismRecipes.SPIRIT_FIRE_TYPE.get(), fakeInventory, level);
 
             if (recipe.isPresent()) {
-                convertedAnyItem = true;
+                convertedAnyItem.set(true);
                 item.remove(Entity.RemovalReason.DISCARDED);
 
                 ItemStack result = recipe.get().assemble(fakeInventory);
                 Containers.dropItemStack(level, center.x, center.y + 0.5, center.z, result);
             }
-        }
-        if (convertedAnyItem) {
+        });
+        if (convertedAnyItem.get()) {
             level.playSound(null, pos, OccultismSounds.START_RITUAL.get(), SoundSource.BLOCKS, 1, 1);
         }
     }

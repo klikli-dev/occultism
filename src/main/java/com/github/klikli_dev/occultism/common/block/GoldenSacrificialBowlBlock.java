@@ -113,7 +113,7 @@ public class GoldenSacrificialBowlBlock extends Block implements EntityBlock {
                     pos.offset(range, range, range))) {
                 BlockEntity blockEntity = player.level.getBlockEntity(positionToCheck);
                 if (blockEntity instanceof GoldenSacrificialBowlBlockEntity bowl) {
-                    if (bowl.currentRitualRecipe != null && bowl.currentRitualRecipe.getRitual().isValidItemUse(event)) {
+                    if (bowl.getCurrentRitualRecipe() != null && bowl.getCurrentRitualRecipe().getRitual().isValidItemUse(event)) {
                         bowl.notifyItemUse(event);
                     }
                 }
@@ -133,7 +133,7 @@ public class GoldenSacrificialBowlBlock extends Block implements EntityBlock {
                         pos.offset(range, range, range))) {
                     BlockEntity blockEntity = entityLivingBase.level.getBlockEntity(positionToCheck);
                     if (blockEntity instanceof GoldenSacrificialBowlBlockEntity bowl) {
-                        if (bowl.currentRitualRecipe != null && bowl.currentRitualRecipe.getRitual().isValidSacrifice(entityLivingBase)) {
+                        if (bowl.getCurrentRitualRecipe() != null && bowl.getCurrentRitualRecipe().getRitual().isValidSacrifice(entityLivingBase)) {
                             bowl.notifySacrifice(entityLivingBase);
                         }
                     }
