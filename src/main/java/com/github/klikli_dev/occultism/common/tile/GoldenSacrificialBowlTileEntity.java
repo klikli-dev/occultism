@@ -82,9 +82,11 @@ public class GoldenSacrificialBowlTileEntity extends SacrificialBowlTileEntity i
 
     public RitualRecipe getCurrentRitualRecipe(){
         if(this.currentRitualRecipeId != null){
-            Optional<? extends IRecipe<?>> recipe = this.level.getRecipeManager().byKey(this.currentRitualRecipeId);
-            recipe.map(r -> (RitualRecipe) r).ifPresent(r -> this.currentRitualRecipe = r);
-            this.currentRitualRecipeId = null;
+            if(this.level != null) {
+                Optional<? extends IRecipe<?>> recipe = this.level.getRecipeManager().byKey(this.currentRitualRecipeId);
+                recipe.map(r -> (RitualRecipe) r).ifPresent(r -> this.currentRitualRecipe = r);
+                this.currentRitualRecipeId = null;
+            }
         }
         return this.currentRitualRecipe;
     }
