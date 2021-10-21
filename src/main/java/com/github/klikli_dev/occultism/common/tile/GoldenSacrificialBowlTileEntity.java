@@ -160,8 +160,8 @@ public class GoldenSacrificialBowlTileEntity extends SacrificialBowlTileEntity i
 
     @Override
     public void tick() {
-        RitualRecipe ritual = this.getCurrentRitualRecipe();
-        if (!this.level.isClientSide && ritual != null) {
+        RitualRecipe recipe = this.getCurrentRitualRecipe();
+        if (!this.level.isClientSide && recipe != null) {
             this.restoreCastingPlayer();
 
             if (this.remainingAdditionalIngredients == null) {
@@ -175,7 +175,7 @@ public class GoldenSacrificialBowlTileEntity extends SacrificialBowlTileEntity i
             //if we ever have a ritual that depends on casting player for validity, we need to rework this
             //to involve casting player id with some good pre-check
             IItemHandler handler = this.itemStackHandler.orElseThrow(ItemHandlerMissingException::new);
-            if (!ritual.getRitual().isValid(this.level, this.worldPosition, this, this.castingPlayer,
+            if (!recipe.getRitual().isValid(this.level, this.worldPosition, this, this.castingPlayer,
                     handler.getStackInSlot(0), this.remainingAdditionalIngredients)) {
                 //ritual is no longer valid, so interrupt
                 this.stopRitual(false);
@@ -217,11 +217,11 @@ public class GoldenSacrificialBowlTileEntity extends SacrificialBowlTileEntity i
                 this.currentTime++;
 
 
-            ritual
+            recipe
                     .getRitual().update(this.level, this.worldPosition, this, this.castingPlayer, handler.getStackInSlot(0),
                             this.currentTime);
 
-            if (!ritual.getRitual()
+            if (!recipe.getRitual()
                     .consumeAdditionalIngredients(this.level, this.worldPosition, this.remainingAdditionalIngredients,
                             this.currentTime, this.consumedIngredients)) {
                 //if ingredients cannot be found, interrupt
@@ -229,7 +229,7 @@ public class GoldenSacrificialBowlTileEntity extends SacrificialBowlTileEntity i
                 return;
             }
 
-            if (ritual.getDuration() >= 0 && this.currentTime >= ritual.getDuration())
+            if (recipe.getDuration() >= 0 && this.currentTime >= recipe.getDuration())
                 this.stopRitual(true);
         }
     }
