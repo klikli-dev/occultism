@@ -118,6 +118,7 @@ public class ClientSetupEventHandler {
         RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.BLACKSMITH_FAMILIAR.get(), BlacksmithFamiliarRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.GUARDIAN_FAMILIAR.get(), GuardianFamiliarRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.HEADLESS_FAMILIAR.get(), HeadlessFamiliarRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.CHIMERA_FAMILIAR.get(), ChimeraFamiliarRenderer::new);
         
         RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.THROWN_SWORD.get(), m -> new DragonRendering.ThrownSwordRenderer(m, Minecraft.getInstance().getItemRenderer()));
         RenderingRegistry
