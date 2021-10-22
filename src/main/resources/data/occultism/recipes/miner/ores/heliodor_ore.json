@@ -4,7 +4,7 @@
     "tag": "occultism:miners/ores"
   },
   "result": {
-    "tag": "forge:ores/heliodore"
+    "tag": "forge:ores/heliodor"
   },
   "weight": 200,
   "conditions": [
@@ -12,7 +12,7 @@
       "type": "forge:not",
       "value": {
         "type": "forge:tag_empty",
-        "tag": "forge:ores/heliodore"
+        "tag": "forge:ores/heliodor"
       }
     }
   ]

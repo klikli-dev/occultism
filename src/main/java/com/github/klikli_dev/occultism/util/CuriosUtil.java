@@ -30,6 +30,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.SlotTypePreset;
+import top.theillusivec4.curios.api.type.inventory.ICurioStacksHandler;
 import top.theillusivec4.curios.api.type.inventory.IDynamicStackHandler;
 
 import java.util.Optional;
@@ -40,23 +41,20 @@ public class CuriosUtil {
         if (helmet.getItem() instanceof OtherworldGogglesItem)
             return true;
 
-        Optional<Boolean> hasGoggles = CuriosApi.getCuriosHelper().getCuriosHandler(player).map(curiosHandler -> {
+        Optional<Boolean> hasGoggles = CuriosApi.getCuriosHelper().getCuriosHandler(player)
+                .map(curiosHandler -> curiosHandler.getCurios().values())
+                .map(slotsHandler -> slotsHandler.stream().map(ICurioStacksHandler::getStacks).map(
+                        stackHandler -> {
+                            for (int i = 0; i < stackHandler.getSlots(); i++) {
+                                ItemStack stack = stackHandler.getStackInSlot(i);
+                                if (stack.getItem() instanceof OtherworldGogglesItem) {
+                                    return true;
 
-            Optional<Boolean> hasGogglesStack = curiosHandler.getStacksHandler(
-                    SlotTypePreset.HEAD.getIdentifier()).map(slotHandler -> {
-                IDynamicStackHandler stackHandler = slotHandler.getStacks();
-                for (int i = 0; i < stackHandler.getSlots(); i++) {
-                    ItemStack stack = stackHandler.getStackInSlot(i);
-                    if (stack.getItem() instanceof OtherworldGogglesItem) {
-                        return true;
-
-                    }
-                }
-                return false;
-            });
-            return hasGogglesStack.orElse(false);
-        });
-
+                                }
+                            }
+                            return false;
+                        }
+                )).map(results -> results.anyMatch(found -> found));
         return hasGoggles.orElse(false);
     }
 
