@@ -22,61 +22,43 @@
 
 package com.github.klikli_dev.occultism.config;
 
-import com.github.klikli_dev.occultism.config.value.CachedBoolean;
 import net.minecraftforge.common.ForgeConfigSpec;
+import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
 
-public class OccultismClientConfig extends ConfigBase {
+public class OccultismClientConfig {
 
-    //region Fields
     public final VisualSettings visuals;
     public final MiscSettings misc;
     public final ForgeConfigSpec spec;
-    //endregion Fields
 
-    //region Initialization
     public OccultismClientConfig() {
         ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
-        this.visuals = new VisualSettings(this, builder);
-        this.misc = new MiscSettings(this, builder);
+        this.visuals = new VisualSettings(builder);
+        this.misc = new MiscSettings(builder);
         this.spec = builder.build();
     }
-    //endregion Initialization
 
-    public static class VisualSettings extends ConfigCategoryBase {
-        //region Fields
-        public final CachedBoolean disableDemonsDreamShaders;
-        //endregion Fields
+    public static class VisualSettings {
+        public final BooleanValue disableDemonsDreamShaders;
 
-        //region Initialization
-        public VisualSettings(IConfigCache parent, ForgeConfigSpec.Builder builder) {
-            super(parent, builder);
+        public VisualSettings(ForgeConfigSpec.Builder builder) {
             builder.comment("Visual Settings").push("visual");
 
-            this.disableDemonsDreamShaders = CachedBoolean.cache(this,
-                    builder.comment(
-                                    "Disables the headache- and possibly seizure-inducing visual effects of Demon's Dream.")
-                            .define("disableDemonsDreamShaders", false));
+            this.disableDemonsDreamShaders = builder.comment("Disables the headache- and possibly seizure-inducing visual effects of Demon's Dream.")
+                    .define("disableDemonsDreamShaders", false);
             builder.pop();
         }
-        //endregion Initialization
     }
 
-    public static class MiscSettings extends ConfigCategoryBase {
-        //region Fields
-        public final CachedBoolean syncJeiSearch;
-        //endregion Fields
+    public static class MiscSettings {
+        public final BooleanValue syncJeiSearch;
 
-        //region Initialization
-        public MiscSettings(IConfigCache parent, ForgeConfigSpec.Builder builder) {
-            super(parent, builder);
+        public MiscSettings(ForgeConfigSpec.Builder builder) {
             builder.comment("Misc Settings").push("misc");
 
-            this.syncJeiSearch = CachedBoolean.cache(this,
-                    builder.comment(
-                                    "Sync JEI search in storage actuator.")
-                            .define("syncJeiSearch", false));
+            this.syncJeiSearch = builder.comment("Sync JEI search in storage actuator.")
+                    .define("syncJeiSearch", false);
             builder.pop();
         }
-        //endregion Initialization
     }
 }

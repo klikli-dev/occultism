@@ -22,276 +22,242 @@
 
 package com.github.klikli_dev.occultism.config;
 
-import com.github.klikli_dev.occultism.config.value.CachedBoolean;
-import com.github.klikli_dev.occultism.config.value.CachedFloat;
-import com.github.klikli_dev.occultism.config.value.CachedInt;
-import com.github.klikli_dev.occultism.config.value.CachedObject;
 import net.minecraftforge.common.ForgeConfigSpec;
+import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
+import net.minecraftforge.common.ForgeConfigSpec.ConfigValue;
 
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class OccultismServerConfig extends ConfigBase {
+public class OccultismServerConfig {
 
-    //region Fields
     public final StorageSettings storage;
     public final SpiritJobSettings spiritJobs;
     public final RitualSettings rituals;
     public final DimensionalMineshaftSettings dimensionalMineshaft;
     public final ItemSettings itemSettings;
     public final ForgeConfigSpec spec;
-    //endregion Fields
 
-    //region Initialization
     public OccultismServerConfig() {
         ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
-        this.storage = new StorageSettings(this, builder);
-        this.spiritJobs = new SpiritJobSettings(this, builder);
-        this.rituals = new RitualSettings(this, builder);
-        this.dimensionalMineshaft = new DimensionalMineshaftSettings(this, builder);
-        this.itemSettings = new ItemSettings(this, builder);
+        this.storage = new StorageSettings(builder);
+        this.spiritJobs = new SpiritJobSettings(builder);
+        this.rituals = new RitualSettings(builder);
+        this.dimensionalMineshaft = new DimensionalMineshaftSettings(builder);
+        this.itemSettings = new ItemSettings(builder);
         this.spec = builder.build();
     }
-    //endregion Initialization
 
-    public static class ItemSettings extends ConfigCategoryBase {
-        //region Fields
-        public final CachedObject<List<String>> soulgemEntityTypeDenyList;
-        //endregion Fields
+    public static class ItemSettings {
+        public final ConfigValue<List<String>> soulgemEntityTypeDenyList;
 
-        //region Initialization
-        public ItemSettings(IConfigCache parent, ForgeConfigSpec.Builder builder) {
-            super(parent, builder);
+        public ItemSettings(ForgeConfigSpec.Builder builder) {
             builder.comment("Item Settings").push("items");
 
             List<String> defaultSoulgemEntityDenyList =
                     Stream.of("minecraft:wither")
                             .collect(Collectors.toList());
-            this.soulgemEntityTypeDenyList = CachedObject.cache(this,
+            this.soulgemEntityTypeDenyList =
                     builder.comment("Entity types that cannot be captured in a soul gem. Specify by their full id, e.g \"minecraft:zombie\"")
-                            .define("soulgemEntityDenyList", defaultSoulgemEntityDenyList));
+                            .define("soulgemEntityDenyList", defaultSoulgemEntityDenyList);
 
             builder.pop();
         }
     }
 
-    public static class SpiritJobSettings extends ConfigCategoryBase {
-        //region Fields
-        public final CachedFloat tier1CrusherTimeMultiplier;
-        public final CachedFloat tier2CrusherTimeMultiplier;
-        public final CachedFloat tier3CrusherTimeMultiplier;
-        public final CachedFloat tier4CrusherTimeMultiplier;
-        public final CachedFloat tier1CrusherOutputMultiplier;
-        public final CachedFloat tier2CrusherOutputMultiplier;
-        public final CachedFloat tier3CrusherOutputMultiplier;
-        public final CachedFloat tier4CrusherOutputMultiplier;
-        public final CachedInt drikwingFamiliarSlowFallingSeconds;
-        public final CachedInt crusherResultPickupDelay;
-        public final CachedInt blacksmithFamiliarUpgradeCost;
-        public final CachedInt blacksmithFamiliarUpgradeCooldown;
-        public final CachedFloat blacksmithFamiliarRepairChance;
-        //endregion Fields
+    public static class SpiritJobSettings {
+        public final ConfigValue<Double> tier1CrusherTimeMultiplier;
+        public final ConfigValue<Double> tier2CrusherTimeMultiplier;
+        public final ConfigValue<Double> tier3CrusherTimeMultiplier;
+        public final ConfigValue<Double> tier4CrusherTimeMultiplier;
+        public final ConfigValue<Double> tier1CrusherOutputMultiplier;
+        public final ConfigValue<Double> tier2CrusherOutputMultiplier;
+        public final ConfigValue<Double> tier3CrusherOutputMultiplier;
+        public final ConfigValue<Double> tier4CrusherOutputMultiplier;
+        public final ConfigValue<Integer> drikwingFamiliarSlowFallingSeconds;
+        public final ConfigValue<Integer> crusherResultPickupDelay;
+        public final ConfigValue<Integer> blacksmithFamiliarUpgradeCost;
+        public final ConfigValue<Integer> blacksmithFamiliarUpgradeCooldown;
+        public final ConfigValue<Double> blacksmithFamiliarRepairChance;
 
-        //region Initialization
-        public SpiritJobSettings(IConfigCache parent, ForgeConfigSpec.Builder builder) {
-            super(parent, builder);
+        public SpiritJobSettings(ForgeConfigSpec.Builder builder) {
             builder.comment("Spirit Job Settings").push("spirit_job");
-            this.drikwingFamiliarSlowFallingSeconds = CachedInt.cache(this,
+            this.drikwingFamiliarSlowFallingSeconds =
                     builder.comment(
                                     "The duration for the slow falling effect applied by a drikwing.")
-                            .define("drikwingFamiliarSlowFallingSeconds", 15));
-            this.tier1CrusherTimeMultiplier = CachedFloat.cache(this,
+                            .define("drikwingFamiliarSlowFallingSeconds", 15);
+
+            this.tier1CrusherTimeMultiplier =
                     builder.comment(
                                     "The multiplier to each crushing recipe's crushing_time for Tier 1 (Foliot) Crusher Spirits.")
-                            .define("tier1CrusherTimeMultiplier", 2.0));
-            this.tier2CrusherTimeMultiplier = CachedFloat.cache(this,
+                            .define("tier1CrusherTimeMultiplier", 2.0);
+            this.tier2CrusherTimeMultiplier =
                     builder.comment(
                                     "The multiplier to each crushing recipe's crushing_time for Tier 2 (Djinni) Crusher Spirits.")
-                            .define("tier2CrusherTimeMultiplier", 1.0));
-            this.tier3CrusherTimeMultiplier = CachedFloat.cache(this,
+                            .define("tier2CrusherTimeMultiplier", 1.0);
+            this.tier3CrusherTimeMultiplier =
                     builder.comment(
                                     "Currently unused. The multiplier to each crushing recipe's crushing_time for Tier 3 (Afrit) Crusher Spirits.")
-                            .define("tier3CrusherTimeMultiplier", 0.5));
-            this.tier4CrusherTimeMultiplier = CachedFloat.cache(this,
+                            .define("tier3CrusherTimeMultiplier", 0.5);
+            this.tier4CrusherTimeMultiplier =
                     builder.comment(
                                     "Currently unused. The multiplier to each crushing recipe's crushing_time for Tier 4 (Marid) Crusher Spirits.")
-                            .define("tier4CrusherTimeMultiplier", 0.2));
+                            .define("tier4CrusherTimeMultiplier", 0.2);
 
-            this.tier1CrusherOutputMultiplier = CachedFloat.cache(this,
+            this.tier1CrusherOutputMultiplier =
                     builder.comment(
                                     "The multiplier to each crushing recipe's output count for Tier 1 (Foliot) Crusher Spirits.")
-                            .define("tier1CrusherOutputMultiplier", 1.0));
-            this.tier2CrusherOutputMultiplier = CachedFloat.cache(this,
+                            .define("tier1CrusherOutputMultiplier", 1.0);
+            this.tier2CrusherOutputMultiplier =
                     builder.comment(
                                     "The multiplier to each crushing recipe's output count for Tier 2 (Djinni) Crusher Spirits.")
-                            .define("tier2CrusherOutputMultiplier", 1.5));
-            this.tier3CrusherOutputMultiplier = CachedFloat.cache(this,
+                            .define("tier2CrusherOutputMultiplier", 1.5);
+            this.tier3CrusherOutputMultiplier =
                     builder.comment(
                                     "The multiplier to each crushing recipe's output count for Tier 3 (Afrit) Crusher Spirits.")
-                            .define("tier3CrusherOutputMultiplier", 2.0));
-            this.tier4CrusherOutputMultiplier = CachedFloat.cache(this,
+                            .define("tier3CrusherOutputMultiplier", 2.0);
+            this.tier4CrusherOutputMultiplier =
                     builder.comment(
                                     "The multiplier to each crushing recipe's output count for Tier 4 (Marid) Crusher Spirits.")
-                            .define("tier4CrusherOutputMultiplier", 3.0));
+                            .define("tier4CrusherOutputMultiplier", 3.0);
 
-            this.crusherResultPickupDelay = CachedInt.cache(this,
+            this.crusherResultPickupDelay =
                     builder.comment(
                                     "The minimum ticks before a crusher can pick up an item it dropped. Default is 3 Seconds = 3 * 20 Ticks.")
-                            .define("crusherResultPickupDelay", 20 * 3));
+                            .define("crusherResultPickupDelay", 20 * 3);
 
-            this.blacksmithFamiliarRepairChance = CachedFloat.cache(this,
+            this.blacksmithFamiliarRepairChance =
                     builder.comment(
                                     "The chance for a blacksmith familiar to repair an item (by 2 durability) whenever stone is picked up. 1.0 = 100%, 0.0 = 0%.")
-                            .define("blacksmithFamiliarRepairChance", 0.05));
-            this.blacksmithFamiliarUpgradeCost = CachedInt.cache(this,
+                            .define("blacksmithFamiliarRepairChance", 0.05);
+            this.blacksmithFamiliarUpgradeCost =
                     builder.comment(
                                     "The amount of iron required for a blacksmith familiar to upgrade another familiar.")
-                            .define("blacksmithFamiliarUpgradeCost", 18));
-            this.blacksmithFamiliarUpgradeCooldown = CachedInt.cache(this,
+                            .define("blacksmithFamiliarUpgradeCost", 18);
+            this.blacksmithFamiliarUpgradeCooldown =
                     builder.comment(
                                     "The cooldown for a blacksmith familiar to upgrade another familiar.")
-                            .define("blacksmithFamiliarUpgradeCooldown",  20 * 20));
+                            .define("blacksmithFamiliarUpgradeCooldown", 20 * 20);
 
 
             builder.pop();
         }
-        //endregion Initialization
     }
 
-    public static class DimensionalMineshaftSettings extends ConfigCategoryBase {
-        //region Fields
+    public static class DimensionalMineshaftSettings {
         public final MinerSpiritSettings minerFoliotUnspecialized;
         public final MinerSpiritSettings minerDjinniOres;
-        //endregion Fields
 
-        //region Initialization
-        public DimensionalMineshaftSettings(IConfigCache parent, ForgeConfigSpec.Builder builder) {
-            super(parent, builder);
+        public DimensionalMineshaftSettings(ForgeConfigSpec.Builder builder) {
             builder.comment("Dimensional Mineshaft Settings").push("dimensional_mineshaft");
 
             this.minerFoliotUnspecialized =
-                    new MinerSpiritSettings("miner_foliot_unspecialized", parent, builder, 400, 1, 1000);
+                    new MinerSpiritSettings("miner_foliot_unspecialized", builder, 400, 1, 1000);
 
             this.minerDjinniOres =
-                    new MinerSpiritSettings("miner_djinni_ores", parent, builder, 300, 1, 400);
+                    new MinerSpiritSettings("miner_djinni_ores", builder, 300, 1, 400);
 
             builder.pop();
         }
 
-        //endregion Initialization
-        public static class MinerSpiritSettings extends ConfigCategoryBase {
-            //region Fields
-            public final CachedInt maxMiningTime;
-            public final CachedInt rollsPerOperation;
-            public final CachedInt durability;
-            //endregion Fields
+        public static class MinerSpiritSettings {
+            public final ConfigValue<Integer> maxMiningTime;
+            public final ConfigValue<Integer> rollsPerOperation;
+            public final ConfigValue<Integer> durability;
 
-            //region Initialization
-            public MinerSpiritSettings(String oreName, IConfigCache parent, ForgeConfigSpec.Builder builder,
+            public MinerSpiritSettings(String oreName, ForgeConfigSpec.Builder builder,
                                        int maxMiningTime, int rollsPerOperation, int durability) {
-                super(parent, builder);
                 builder.comment("Miner Spirit Settings").push(oreName);
 
-                this.maxMiningTime = CachedInt.cache(this,
+                this.maxMiningTime =
                         builder.comment("The amount of time it takes the spirit to perform one mining operation.")
-                                .define("maxMiningTime", maxMiningTime));
-                this.rollsPerOperation = CachedInt.cache(this,
+                                .define("maxMiningTime", maxMiningTime);
+                this.rollsPerOperation =
                         builder.comment("The amount of blocks the spirit will obtain per mining operation")
-                                .define("rollsPerOperation", rollsPerOperation));
-                this.durability = CachedInt.cache(this,
+                                .define("rollsPerOperation", rollsPerOperation);
+                this.durability =
                         builder.comment("The amount of mining operations the spirit can perform before breaking.")
-                                .define("durability", durability));
+                                .define("durability", durability);
 
                 builder.pop();
             }
-            //endregion Initialization
         }
 
     }
 
-    public static class RitualSettings extends ConfigCategoryBase {
-        //region Fields
-        public final CachedBoolean enableClearWeatherRitual;
-        public final CachedBoolean enableRainWeatherRitual;
-        public final CachedBoolean enableThunderWeatherRitual;
-        public final CachedBoolean enableDayTimeRitual;
-        public final CachedBoolean enableNightTimeRitual;
-        public final CachedBoolean enableRemainingIngredientCountMatching;
-        //endregion Fields
+    public static class RitualSettings {
+        public final BooleanValue enableClearWeatherRitual;
+        public final BooleanValue enableRainWeatherRitual;
+        public final BooleanValue enableThunderWeatherRitual;
+        public final BooleanValue enableDayTimeRitual;
+        public final BooleanValue enableNightTimeRitual;
+        public final BooleanValue enableRemainingIngredientCountMatching;
 
-        //region Initialization
-        public RitualSettings(IConfigCache parent, ForgeConfigSpec.Builder builder) {
-            super(parent, builder);
+        public RitualSettings(ForgeConfigSpec.Builder builder) {
             builder.comment("Ritual Settings").push("rituals");
 
-            this.enableClearWeatherRitual = CachedBoolean.cache(this,
+            this.enableClearWeatherRitual =
                     builder.comment("Enables the ritual to clear rainy weather.")
-                            .define("enableClearWeatherRitual", true));
-            this.enableRainWeatherRitual = CachedBoolean.cache(this,
+                            .define("enableClearWeatherRitual", true);
+            this.enableRainWeatherRitual =
                     builder.comment("Enables the ritual to start rainy weather.")
-                            .define("enableRainWeatherRitual", true));
-            this.enableThunderWeatherRitual = CachedBoolean.cache(this,
+                            .define("enableRainWeatherRitual", true);
+            this.enableThunderWeatherRitual =
                     builder.comment("Enables the ritual to start a thunderstorm.")
-                            .define("enableThunderWeatherRitual", true));
-            this.enableDayTimeRitual = CachedBoolean.cache(this,
+                            .define("enableThunderWeatherRitual", true);
+            this.enableDayTimeRitual =
                     builder.comment("Enables the ritual to set time to day.")
-                            .define("enableDayTimeRitual", true));
-            this.enableNightTimeRitual = CachedBoolean.cache(this,
+                            .define("enableDayTimeRitual", true);
+            this.enableNightTimeRitual =
                     builder.comment("Enables the ritual to set time to night.")
-                            .define("enableNightTimeRitual", true));
-            this.enableRemainingIngredientCountMatching = CachedBoolean.cache(this,
+                            .define("enableNightTimeRitual", true);
+            this.enableRemainingIngredientCountMatching =
                     builder.comment(
                                     "If enabled, rituals are interrupted if *more* ingredients are present than needed. " +
                                             "This should usually be disabled, but can improve performance if " +
                                             "(very very) many rituals are running.")
-                            .define("enableRemainingIngredientCountMatching", false));
+                            .define("enableRemainingIngredientCountMatching", false);
             builder.pop();
         }
-        //endregion Initialization
     }
 
-    public static class StorageSettings extends ConfigCategoryBase {
-        //region Fields
-        public final CachedInt stabilizerTier1Slots;
-        public final CachedInt stabilizerTier2Slots;
-        public final CachedInt stabilizerTier3Slots;
-        public final CachedInt stabilizerTier4Slots;
-        public final CachedInt controllerBaseSlots;
-        public final CachedInt controllerStackSize;
-        public final CachedBoolean overrideItemStackSizes;
-        //endregion Fields
+    public static class StorageSettings {
+        public final ConfigValue<Integer> stabilizerTier1Slots;
+        public final ConfigValue<Integer> stabilizerTier2Slots;
+        public final ConfigValue<Integer> stabilizerTier3Slots;
+        public final ConfigValue<Integer> stabilizerTier4Slots;
+        public final ConfigValue<Integer> controllerBaseSlots;
+        public final ConfigValue<Integer> controllerStackSize;
+        public final BooleanValue overrideItemStackSizes;
 
-        //region Initialization
-        public StorageSettings(IConfigCache parent, ForgeConfigSpec.Builder builder) {
-            super(parent, builder);
+        public StorageSettings(ForgeConfigSpec.Builder builder) {
             builder.comment("Storage Settings").push("storage");
-            this.stabilizerTier1Slots = CachedInt.cache(this,
+            this.stabilizerTier1Slots =
                     builder.comment("The amount of slots the storage stabilizer tier 1 provides.")
-                            .define("stabilizerTier1Slots", 256));
-            this.stabilizerTier2Slots = CachedInt.cache(this,
+                            .define("stabilizerTier1Slots", 256);
+            this.stabilizerTier2Slots =
                     builder.comment("The amount of slots the storage stabilizer tier 2 provides.")
-                            .define("stabilizerTier2Slots", 512));
-            this.stabilizerTier3Slots = CachedInt.cache(this,
+                            .define("stabilizerTier2Slots", 512);
+            this.stabilizerTier3Slots =
                     builder.comment("The amount of slots the storage stabilizer tier 3 provides.")
-                            .define("stabilizerTier3Slots", 1024));
-            this.stabilizerTier4Slots = CachedInt.cache(this,
+                            .define("stabilizerTier3Slots", 1024);
+            this.stabilizerTier4Slots =
                     builder.comment("The amount of slots the storage stabilizer tier 4 provides.")
-                            .define("stabilizerTier4Slots", 2048));
-            this.controllerBaseSlots = CachedInt.cache(this,
+                            .define("stabilizerTier4Slots", 2048);
+            this.controllerBaseSlots =
                     builder.comment("The amount of slots the storage actuator provides.")
-                            .define("controllerBaseSlots", 128));
-            this.controllerStackSize = CachedInt.cache(this,
+                            .define("controllerBaseSlots", 128);
+            this.controllerStackSize =
                     builder.comment("The stack size the storage actuator uses.")
-                            .define("controllerStackSize", 1024));
-            this.overrideItemStackSizes = CachedBoolean.cache(this,
+                            .define("controllerStackSize", 1024);
+            this.overrideItemStackSizes =
                     builder.comment(
                                     "True to use the configured controllerStackSize for all items, instead of the stack sizes provided by " +
                                             "item type (such as 16 for ender pearls, 64 for iron ingot). WARNING: Setting this to " +
                                             "false may have a negative impact on performance.")
-                            .define("overrideItemStackSizes", true));
+                            .define("overrideItemStackSizes", true);
             builder.pop();
         }
-        //endregion Initialization
     }
 }

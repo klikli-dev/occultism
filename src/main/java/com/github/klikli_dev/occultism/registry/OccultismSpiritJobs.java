@@ -65,23 +65,23 @@ public class OccultismSpiritJobs {
     //Crushing jobs
     public static final RegistryObject<SpiritJobFactory> CRUSH_TIER1 = JOBS.register("crush_tier1",
             () -> new SpiritJobFactory((entity) -> new CrusherJob(entity,
-                    Occultism.SERVER_CONFIG.spiritJobs.tier1CrusherTimeMultiplier::get,
-                    Occultism.SERVER_CONFIG.spiritJobs.tier1CrusherOutputMultiplier::get
+                    () ->  Occultism.SERVER_CONFIG.spiritJobs.tier1CrusherTimeMultiplier.get().floatValue(),
+                    () ->  Occultism.SERVER_CONFIG.spiritJobs.tier1CrusherOutputMultiplier.get().floatValue()
             )));
     public static final RegistryObject<SpiritJobFactory> CRUSH_TIER2 = JOBS.register("crush_tier2",
             () -> new SpiritJobFactory((entity) -> new CrusherJob(entity,
-                    Occultism.SERVER_CONFIG.spiritJobs.tier2CrusherTimeMultiplier::get,
-                    Occultism.SERVER_CONFIG.spiritJobs.tier2CrusherOutputMultiplier::get
+                    () ->  Occultism.SERVER_CONFIG.spiritJobs.tier2CrusherTimeMultiplier.get().floatValue(),
+                    () ->  Occultism.SERVER_CONFIG.spiritJobs.tier2CrusherOutputMultiplier.get().floatValue()
             )));
     public static final RegistryObject<SpiritJobFactory> CRUSH_TIER3 = JOBS.register("crush_tier3",
             () -> new SpiritJobFactory((entity) -> new CrusherJob(entity,
-                    Occultism.SERVER_CONFIG.spiritJobs.tier3CrusherTimeMultiplier::get,
-                    Occultism.SERVER_CONFIG.spiritJobs.tier3CrusherOutputMultiplier::get
+                    () ->  Occultism.SERVER_CONFIG.spiritJobs.tier3CrusherTimeMultiplier.get().floatValue(),
+                    () ->  Occultism.SERVER_CONFIG.spiritJobs.tier3CrusherOutputMultiplier.get().floatValue()
             )));
     public static final RegistryObject<SpiritJobFactory> CRUSH_TIER4 = JOBS.register("crush_tier4",
             () -> new SpiritJobFactory((entity) -> new CrusherJob(entity,
-                    Occultism.SERVER_CONFIG.spiritJobs.tier4CrusherTimeMultiplier::get,
-                    Occultism.SERVER_CONFIG.spiritJobs.tier4CrusherOutputMultiplier::get
+                    () ->  Occultism.SERVER_CONFIG.spiritJobs.tier4CrusherTimeMultiplier.get().floatValue(),
+                    () ->  Occultism.SERVER_CONFIG.spiritJobs.tier4CrusherOutputMultiplier.get().floatValue()
             )));
 
     //Weather Jobs

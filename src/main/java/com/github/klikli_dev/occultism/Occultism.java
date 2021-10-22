@@ -59,7 +59,6 @@ import top.theillusivec4.curios.api.SlotTypePreset;
 
 @Mod(Occultism.MODID)
 public class Occultism {
-    //region Fields
     public static final String MODID = "occultism";
     public static final String NAME = "Occultism";
     public static final CreativeModeTab ITEM_GROUP = new OccultismCreativeModeTab();
@@ -71,9 +70,7 @@ public class Occultism {
     public static final ThirdEyeEffectRenderer THIRD_EYE_EFFECT_RENDERER = new ThirdEyeEffectRenderer();
     public static final DebugHelper DEBUG = new DebugHelper();
     public static Occultism INSTANCE;
-    //endregion Fields
 
-    //region Initialization
     public Occultism() {
         INSTANCE = this;
         ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, SERVER_CONFIG.spec);
@@ -98,29 +95,12 @@ public class Occultism {
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::onEntityAttributeCreation);
         modEventBus.addListener(this::serverSetup);
-        modEventBus.addListener(this::onModConfigEvent);
         modEventBus.addListener(this::enqueueIMC);
 
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.addListener(OccultismCapabilities::onPlayerClone);
     }
 
-    //endregion Initialization
-    //region Methods
-    public void onModConfigEvent(final ModConfigEvent event) {
-        if (event.getConfig().getSpec() == SERVER_CONFIG.spec) {
-            //Clear the config cache on reload.
-            SERVER_CONFIG.clear();
-        }
-        if (event.getConfig().getSpec() == CLIENT_CONFIG.spec) {
-            //Clear the config cache on reload.
-            CLIENT_CONFIG.clear();
-        }
-        if (event.getConfig().getSpec() == COMMON_CONFIG.spec) {
-            //Clear the config cache on reload.
-            COMMON_CONFIG.clear();
-        }
-    }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
         OccultismPackets.registerMessages();
@@ -167,5 +147,4 @@ public class Occultism {
         InterModComms.sendTo(CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE, () -> SlotTypePreset.RING.getMessageBuilder().build());
         InterModComms.sendTo(CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE, () -> SlotTypePreset.HANDS.getMessageBuilder().build());
     }
-    //endregion Methods
 }

@@ -24,7 +24,6 @@ package com.github.klikli_dev.occultism.common.entity;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.advancement.FamiliarTrigger;
-import com.github.klikli_dev.occultism.config.value.CachedInt;
 import com.github.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.nbt.CompoundTag;
@@ -43,6 +42,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraftforge.common.ForgeConfigSpec.ConfigValue;
+import net.minecraftforge.common.ForgeConfigSpec.IntValue;
 import net.minecraftforge.common.Tags;
 
 import javax.annotation.Nullable;
@@ -50,7 +51,7 @@ import java.util.EnumSet;
 
 public class BlacksmithFamiliarEntity extends FamiliarEntity {
 
-    private static final CachedInt UPGRADE_COST = Occultism.SERVER_CONFIG.spiritJobs.blacksmithFamiliarUpgradeCost;
+    private static final ConfigValue<Integer> UPGRADE_COST = Occultism.SERVER_CONFIG.spiritJobs.blacksmithFamiliarUpgradeCost;
 
     private static int getMaxIron() {
         return UPGRADE_COST.get() * 10;
@@ -193,7 +194,7 @@ public class BlacksmithFamiliarEntity extends FamiliarEntity {
 
     private static class UpgradeGoal extends Goal {
 
-        private static final CachedInt MAX_COOLDOWN = Occultism.SERVER_CONFIG.spiritJobs.blacksmithFamiliarUpgradeCooldown;
+        private static final ConfigValue<Integer> MAX_COOLDOWN = Occultism.SERVER_CONFIG.spiritJobs.blacksmithFamiliarUpgradeCooldown;
 
         private final BlacksmithFamiliarEntity blacksmith;
         private IFamiliar target;

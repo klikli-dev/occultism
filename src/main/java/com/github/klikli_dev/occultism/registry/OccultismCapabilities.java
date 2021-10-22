@@ -27,6 +27,7 @@ import com.github.klikli_dev.occultism.common.capability.FamiliarSettingsCapabil
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
+import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 
@@ -39,7 +40,7 @@ public class OccultismCapabilities {
     public static final ResourceLocation FAMILIAR_SETTINGS_ID = modLoc("familiar_settings");
 
     @CapabilityInject(DoubleJumpCapability.class)
-    public static Capability<DoubleJumpCapability> DOUBLE_JUMP = null;
+    public static Capability<DoubleJumpCapability> DOUBLE_JUMP;
 
     @CapabilityInject(FamiliarSettingsCapability.class)
     public static Capability<FamiliarSettingsCapability> FAMILIAR_SETTINGS = null;
