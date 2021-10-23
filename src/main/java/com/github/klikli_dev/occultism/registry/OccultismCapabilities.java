@@ -25,28 +25,19 @@ package com.github.klikli_dev.occultism.registry;
 import com.github.klikli_dev.occultism.common.capability.DoubleJumpCapability;
 import com.github.klikli_dev.occultism.common.capability.FamiliarSettingsCapability;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.CapabilityInject;
-import net.minecraftforge.common.capabilities.CapabilityManager;
-import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
+import net.minecraftforge.common.capabilities.*;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 
 import static com.github.klikli_dev.occultism.util.StaticUtil.modLoc;
 
 public class OccultismCapabilities {
 
-    //region Fields
     public static final ResourceLocation DOUBLE_JUMP_ID = modLoc("double_jump");
     public static final ResourceLocation FAMILIAR_SETTINGS_ID = modLoc("familiar_settings");
 
-    @CapabilityInject(DoubleJumpCapability.class)
-    public static Capability<DoubleJumpCapability> DOUBLE_JUMP;
+    public static Capability<DoubleJumpCapability> DOUBLE_JUMP = CapabilityManager.get(new CapabilityToken<>(){});
+    public static Capability<FamiliarSettingsCapability> FAMILIAR_SETTINGS = CapabilityManager.get(new CapabilityToken<>(){});
 
-    @CapabilityInject(FamiliarSettingsCapability.class)
-    public static Capability<FamiliarSettingsCapability> FAMILIAR_SETTINGS = null;
-    //endregion Fields
-
-    //region Static Methods
 
     public static void onRegisterCapabilities(final RegisterCapabilitiesEvent event) {
         event.register(DoubleJumpCapability.class);
@@ -65,5 +56,4 @@ public class OccultismCapabilities {
             );
         }
     }
-    //endregion Static Methods
 }
