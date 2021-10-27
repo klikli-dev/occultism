@@ -157,7 +157,7 @@ public class OccultismEntities {
                                          .build(modLoc("headless_familiar").toString()));
     public static final NonNullLazy<EntityType<ChimeraFamiliarEntity>> CHIMERA_FAMILIAR_TYPE =
             NonNullLazy.of(() -> EntityType.Builder.of(ChimeraFamiliarEntity::new, EntityClassification.CREATURE)
-                                         .sized(0.9F, 1.1F)
+                                         .sized(0.85F, 1.05F)
                                          .clientTrackingRange(8)
                                          .build(modLoc("chimera_familiar").toString()));
     
