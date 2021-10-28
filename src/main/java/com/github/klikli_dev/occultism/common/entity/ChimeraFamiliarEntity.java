@@ -22,11 +22,13 @@
 
 package com.github.klikli_dev.occultism.common.entity;
 
+import java.lang.reflect.Field;
 import java.util.Random;
 import java.util.UUID;
 
 import javax.annotation.Nullable;
 
+import com.github.klikli_dev.occultism.Occultism;
 import com.google.common.collect.ImmutableList;
 
 import net.minecraft.entity.BoostHelper;
@@ -34,10 +36,11 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.IRideable;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.AttributeModifier.Operation;
+import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.FollowMobGoal;
 import net.minecraft.entity.ai.goal.LookAtGoal;
@@ -58,6 +61,8 @@ import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper.UnableToFindFieldException;
 
 public class ChimeraFamiliarEntity extends FamiliarEntity implements IRideable {
 
@@ -67,18 +72,34 @@ public class ChimeraFamiliarEntity extends FamiliarEntity implements IRideable {
     private static final byte MAX_SIZE = 100;
     private static final byte RIDING_SIZE = 80;
     private static final double SHRINK_CHANCE = 0.005;
+    private static final int JUMP_COOLDOWN = 20 * 2;
 
     private static final DataParameter<Byte> SIZE = EntityDataManager.defineId(ChimeraFamiliarEntity.class,
             DataSerializers.BYTE);
 
+    private static Field isRiderJumping;
+
     private BoostHelper boost = new DummyBoostHelper();
+    private int jumpTimer;
 
     public static AttributeModifierMap.MutableAttribute registerAttributes() {
-        return FamiliarEntity.registerAttributes().add(Attributes.ATTACK_DAMAGE, 2).add(Attributes.MOVEMENT_SPEED, 0.25);
+        return FamiliarEntity.registerAttributes().add(Attributes.ATTACK_DAMAGE, 2).add(Attributes.MOVEMENT_SPEED,
+                0.25);
     }
 
     public ChimeraFamiliarEntity(EntityType<? extends ChimeraFamiliarEntity> type, World worldIn) {
         super(type, worldIn);
+    }
+
+    private boolean isRiderJumping(PlayerEntity rider) {
+        try {
+            if (isRiderJumping == null)
+                isRiderJumping = ObfuscationReflectionHelper.findField(LivingEntity.class, "field_70703_bu");
+            return isRiderJumping.getBoolean(rider);
+        } catch (IllegalArgumentException | IllegalAccessException | UnableToFindFieldException e) {
+            Occultism.LOGGER.debug("Unable to get jump field for Chimera familiar");
+            return false;
+        }
     }
 
     @Override
@@ -147,6 +168,9 @@ public class ChimeraFamiliarEntity extends FamiliarEntity implements IRideable {
         super.tick();
         if (!level.isClientSide && getRandom().nextDouble() < SHRINK_CHANCE)
             this.setSize((byte) (this.getSize() - 1));
+
+        if (jumpTimer > 0)
+            jumpTimer--;
     }
 
     @Override
@@ -213,11 +237,27 @@ public class ChimeraFamiliarEntity extends FamiliarEntity implements IRideable {
     }
 
     @Override
+    protected float getJumpPower() {
+        return super.getJumpPower() * 1.35f;
+    }
+
+    @Override
+    protected int calculateFallDamage(float pDistance, float pDamageMultiplier) {
+        return super.calculateFallDamage(pDistance - 3, pDamageMultiplier);
+    }
+
+    @Override
     public void travelWithInput(Vector3d pTravelVec) {
         if (this.isVehicle() && getControllingPassenger() instanceof PlayerEntity) {
             PlayerEntity rider = (PlayerEntity) getControllingPassenger();
             float forward = rider.zza;
             float strafe = rider.xxa * 0.5f;
+            if (isRiderJumping(rider) && onGround && jumpTimer <= 0) {
+                jumpTimer = JUMP_COOLDOWN;
+                Vector3d forwardDirection = Vector3d.directionFromRotation(0, this.yRot).scale(0.7);
+                this.setDeltaMovement(this.getDeltaMovement().add(forwardDirection.x, 0, forwardDirection.z));
+                this.jumpFromGround();
+            }
             if (forward < 0)
                 forward *= 0.25f;
             super.travel(new Vector3d(strafe, 0, forward));
