@@ -22,11 +22,27 @@
 
 package com.github.klikli_dev.occultism.common.entity;
 
+import java.util.Random;
+import java.util.UUID;
+
+import javax.annotation.Nullable;
+
 import com.google.common.collect.ImmutableList;
 
+import net.minecraft.entity.BoostHelper;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ILivingEntityData;
+import net.minecraft.entity.IRideable;
 import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.ai.attributes.AttributeModifierMap;
+import net.minecraft.entity.ai.attributes.AttributeModifier.Operation;
+import net.minecraft.entity.ai.attributes.Attributes;
+import net.minecraft.entity.ai.goal.FollowMobGoal;
+import net.minecraft.entity.ai.goal.LookAtGoal;
+import net.minecraft.entity.ai.goal.RandomWalkingGoal;
+import net.minecraft.entity.ai.goal.SwimGoal;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Food;
 import net.minecraft.item.ItemStack;
@@ -38,20 +54,41 @@ import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
 
-public class ChimeraFamiliarEntity extends FamiliarEntity {
+public class ChimeraFamiliarEntity extends FamiliarEntity implements IRideable {
+
+    private static final UUID SPEED_BONUS = UUID.fromString("f1db15e0-174b-4534-96a3-d941cec44e55");
+    private static final UUID DAMAGE_BONUS = UUID.fromString("fdaa6165-abdf-4b85-aed6-199086f6a5ee");
 
     private static final byte MAX_SIZE = 100;
-    private static final double SHRINK_CHANCE = 0.01;
+    private static final byte RIDING_SIZE = 80;
+    private static final double SHRINK_CHANCE = 0.005;
 
     private static final DataParameter<Byte> SIZE = EntityDataManager.defineId(ChimeraFamiliarEntity.class,
             DataSerializers.BYTE);
 
+    private BoostHelper boost = new DummyBoostHelper();
+
+    public static AttributeModifierMap.MutableAttribute registerAttributes() {
+        return FamiliarEntity.registerAttributes().add(Attributes.ATTACK_DAMAGE, 2).add(Attributes.MOVEMENT_SPEED, 0.25);
+    }
+
     public ChimeraFamiliarEntity(EntityType<? extends ChimeraFamiliarEntity> type, World worldIn) {
         super(type, worldIn);
+    }
+
+    @Override
+    protected void registerGoals() {
+        this.goalSelector.addGoal(0, new SwimGoal(this));
+        this.goalSelector.addGoal(1, new SitGoal(this));
+        this.goalSelector.addGoal(2, new LookAtGoal(this, PlayerEntity.class, 8));
+        this.goalSelector.addGoal(5, new FollowOwnerGoal(this, 1, 3, 1));
+        this.goalSelector.addGoal(7, new RandomWalkingGoal(this, 1));
+        this.goalSelector.addGoal(8, new FollowMobGoal(this, 1, 3, 7));
     }
 
     @Override
@@ -76,8 +113,28 @@ public class ChimeraFamiliarEntity extends FamiliarEntity {
         return this.entityData.get(SIZE);
     }
 
+    private double getAttackBonus() {
+        return MathHelper.lerp(this.getSize() / (double) MAX_SIZE, 0, 2);
+    }
+
+    private double getSpeedBonus() {
+        return MathHelper.lerp(this.getSize() / (double) MAX_SIZE, 0, 0.08);
+    }
+
     private void setSize(byte size) {
         this.entityData.set(SIZE, (byte) MathHelper.clamp(size, 0, MAX_SIZE));
+        calcSizeModifiers();
+    }
+
+    private void calcSizeModifiers() {
+        if (this.getSize() <= RIDING_SIZE)
+            this.ejectPassengers();
+        this.getAttribute(Attributes.ATTACK_DAMAGE).removeModifier(DAMAGE_BONUS);
+        this.getAttribute(Attributes.MOVEMENT_SPEED).removeModifier(SPEED_BONUS);
+        this.getAttribute(Attributes.ATTACK_DAMAGE).addTransientModifier(
+                new AttributeModifier(DAMAGE_BONUS, "Chimera attack bonus", getAttackBonus(), Operation.ADDITION));
+        this.getAttribute(Attributes.MOVEMENT_SPEED).addTransientModifier(
+                new AttributeModifier(SPEED_BONUS, "Chimera speed bonus", getSpeedBonus(), Operation.ADDITION));
     }
 
     @Override
@@ -100,8 +157,30 @@ public class ChimeraFamiliarEntity extends FamiliarEntity {
             stack.shrink(1);
             setSize((byte) (getSize() + food.getNutrition()));
             return ActionResultType.sidedSuccess(this.level.isClientSide);
+        } else if (!isSitting() && !this.isVehicle() && !playerIn.isSecondaryUseActive()
+                && getFamiliarOwner() == playerIn && getSize() > RIDING_SIZE) {
+            if (!this.level.isClientSide) {
+                playerIn.startRiding(this);
+            }
+            return ActionResultType.sidedSuccess(this.level.isClientSide);
         }
+
         return super.mobInteract(playerIn, hand);
+    }
+
+    @Override
+    public double getPassengersRidingOffset() {
+        return super.getPassengersRidingOffset() * 0.6;
+    }
+
+    @Override
+    public boolean canBeControlledByRider() {
+        return true;
+    }
+
+    @Nullable
+    public Entity getControllingPassenger() {
+        return this.getPassengers().isEmpty() ? null : this.getPassengers().get(0);
     }
 
     @Override
@@ -121,5 +200,73 @@ public class ChimeraFamiliarEntity extends FamiliarEntity {
     public void readAdditionalSaveData(CompoundNBT compound) {
         super.readAdditionalSaveData(compound);
         this.setSize(compound.getByte("getSize"));
+    }
+
+    @Override
+    public void travel(Vector3d pTravelVector) {
+        this.travel(this, this.boost, pTravelVector);
+    }
+
+    @Override
+    public boolean boost() {
+        return false;
+    }
+
+    @Override
+    public void travelWithInput(Vector3d pTravelVec) {
+        if (this.isVehicle() && getControllingPassenger() instanceof PlayerEntity) {
+            PlayerEntity rider = (PlayerEntity) getControllingPassenger();
+            float forward = rider.zza;
+            float strafe = rider.xxa * 0.5f;
+            if (forward < 0)
+                forward *= 0.25f;
+            super.travel(new Vector3d(strafe, 0, forward));
+        } else {
+            super.travel(pTravelVec);
+        }
+    }
+
+    @Override
+    protected float nextStep() {
+        return this.moveDist + 1.6f;
+    }
+
+    @Override
+    public float getSteeringSpeed() {
+        return (float) this.getAttributeValue(Attributes.MOVEMENT_SPEED) * 0.8f;
+    }
+
+    private static class DummyBoostHelper extends BoostHelper {
+
+        public DummyBoostHelper() {
+            super(null, null, null);
+        }
+
+        @Override
+        public void readAdditionalSaveData(CompoundNBT pNbt) {
+        }
+
+        @Override
+        public void addAdditionalSaveData(CompoundNBT pNbt) {
+        }
+
+        @Override
+        public boolean boost(Random pRand) {
+            return false;
+        }
+
+        @Override
+        public boolean hasSaddle() {
+            return false;
+        }
+
+        @Override
+        public void onSynced() {
+        }
+
+        @Override
+        public void setSaddle(boolean pSaddled) {
+        }
+
     }
 }
