@@ -28,11 +28,15 @@ import com.mojang.blaze3d.vertex.IVertexBuilder;
 
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
+import net.minecraft.util.math.MathHelper;
 
 /**
  * Created using Tabula 8.0.0
  */
 public class ChimeraFamiliarModel extends EntityModel<ChimeraFamiliarEntity> {
+
+    private static final float PI = (float) Math.PI;
+
     public ModelRenderer body;
     public ModelRenderer head;
     public ModelRenderer leftBackLeg1;
@@ -337,11 +341,90 @@ public class ChimeraFamiliarModel extends EntityModel<ChimeraFamiliarEntity> {
             modelRenderer.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
         });
     }
+    
+    @Override
+    public void prepareMobModel(ChimeraFamiliarEntity pEntity, float pLimbSwing, float pLimbSwingAmount,
+            float pPartialTick) {
+        this.goatMouth.zRot = pEntity.getNoseGoatRot(pPartialTick) - 0.2f;
+    }
 
     @Override
-    public void setupAnim(ChimeraFamiliarEntity pEntity, float pLimbSwing, float pLimbSwingAmount, float pAgeInTicks,
-            float pNetHeadYaw, float pHeadPitch) {
+    public void setupAnim(ChimeraFamiliarEntity pEntity, float limbSwing, float limbSwingAmount, float pAgeInTicks,
+            float netHeadYaw, float headPitch) {
 
+        showModels(pEntity);
+        
+        this.snake2.yRot = 0;
+        this.snake3.yRot = 0;
+        this.leftLeg3.xRot = 0.31f;
+        this.rightLeg3.xRot = 0.31f;
+        this.body.xRot = 0;
+        this.snake2.xRot = 0.47f;
+        this.snake3.xRot = 0.47f;
+        this.snake4.xRot = 0.59f;
+        this.goatHead.zRot = -0.94f;
+        this.leftLeg1.yRot = 0;
+        this.rightLeg1.yRot = 0;
+        
+        this.head.yRot = toRads(netHeadYaw) * 0.7f;
+        this.head.xRot = toRads(headPitch) * 0.7f;
+        this.snake4.yRot = toRads(netHeadYaw) * 0.3f;
+        this.snake4.zRot = -toRads(netHeadYaw) * 0.3f;
+
+        this.snake1.zRot = MathHelper.cos(limbSwing * 0.3f) * 0.1f * limbSwingAmount + toRads(0);
+        this.snake2.zRot = MathHelper.cos(limbSwing * 0.3f) * 0.1f * limbSwingAmount + toRads(0);
+        this.snake3.zRot = MathHelper.cos(limbSwing * 0.3f) * 0.25f * limbSwingAmount + toRads(0);
+        this.snake4.zRot = -MathHelper.cos(limbSwing * 0.3f) * 0.25f * limbSwingAmount;
+
+        this.snake5.xRot = MathHelper.cos(pAgeInTicks * 0.1f) * toRads(15) + toRads(15);
+
+        this.rightBackLeg1.xRot = MathHelper.cos(limbSwing * 0.7f) * 0.8f * limbSwingAmount - 0.23f;
+        this.leftBackLeg1.xRot = MathHelper.cos(limbSwing * 0.7f + PI) * 0.8f * limbSwingAmount - 0.23f;
+        this.rightLeg1.xRot = MathHelper.cos(limbSwing * 0.7f + PI) * 0.8f * limbSwingAmount + 0.43f;
+        this.leftLeg1.xRot = MathHelper.cos(limbSwing * 0.7f) * 0.8f * limbSwingAmount + 0.43f;
+        
+        if (pEntity.isSitting()) {
+            this.leftLeg1.xRot = -toRads(15);
+            this.rightLeg1.xRot = -toRads(15);
+            this.leftLeg3.xRot = toRads(30);
+            this.rightLeg3.xRot = toRads(30);
+            this.leftBackLeg1.xRot = -toRads(62);
+            this.rightBackLeg1.xRot = -toRads(62);
+            this.body.xRot = -toRads(20);
+            this.leftLeg1.yRot = -toRads(10);
+            this.rightLeg1.yRot = toRads(10);
+            this.snake1.zRot = toRads(80);
+            this.snake2.zRot = toRads(0);
+            this.snake3.zRot = toRads(-20);
+            this.snake4.zRot = toRads(-65);
+            this.snake2.yRot = -toRads(20);
+            this.snake3.yRot = -toRads(20);
+            this.snake4.yRot = -toRads(20);
+            this.snake2.xRot = toRads(40);
+            this.snake3.xRot = toRads(50);
+            this.snake4.xRot = toRads(60);
+            this.snake5.xRot = toRads(7);
+        }
+        
+        if (pEntity.isPartying()) {
+            this.head.xRot = MathHelper.cos(pAgeInTicks * 0.4f) * toRads(30);
+            this.goatHead.zRot = -MathHelper.cos(pAgeInTicks * 0.4f) * toRads(15) - 0.94f;
+            this.goatHead.yRot = -0.20f;
+            this.snake4.xRot = MathHelper.cos(pAgeInTicks * 0.4f) * toRads(30) + 0.59f;
+        }
+    }
+
+    private void showModels(ChimeraFamiliarEntity entityIn) {
+        boolean hasFlaps = entityIn.hasFlaps();
+
+        this.snakeFlap1.visible = hasFlaps;
+        this.snakeFlap2.visible = hasFlaps;
+        this.goatRing.visible = entityIn.hasRing();
+        this.snakeHat1.visible = entityIn.hasHat();
+    }
+
+    private float toRads(float deg) {
+        return (float) Math.toRadians(deg);
     }
 
     /**

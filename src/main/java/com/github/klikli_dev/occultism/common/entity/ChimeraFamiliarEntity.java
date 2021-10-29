@@ -29,6 +29,8 @@ import java.util.UUID;
 import javax.annotation.Nullable;
 
 import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.common.advancement.FamiliarTrigger;
+import com.github.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.google.common.collect.ImmutableList;
 
 import net.minecraft.entity.BoostHelper;
@@ -76,11 +78,18 @@ public class ChimeraFamiliarEntity extends FamiliarEntity implements IRideable {
 
     private static final DataParameter<Byte> SIZE = EntityDataManager.defineId(ChimeraFamiliarEntity.class,
             DataSerializers.BYTE);
+    private static final DataParameter<Boolean> FLAPS = EntityDataManager.defineId(ChimeraFamiliarEntity.class,
+            DataSerializers.BOOLEAN);
+    private static final DataParameter<Boolean> RING = EntityDataManager.defineId(ChimeraFamiliarEntity.class,
+            DataSerializers.BOOLEAN);
+    private static final DataParameter<Boolean> HAT = EntityDataManager.defineId(ChimeraFamiliarEntity.class,
+            DataSerializers.BOOLEAN);
 
     private static Field isRiderJumping;
 
     private BoostHelper boost = new DummyBoostHelper();
     private int jumpTimer;
+    private int goatNoseTimer;
 
     public static AttributeModifierMap.MutableAttribute registerAttributes() {
         return FamiliarEntity.registerAttributes().add(Attributes.ATTACK_DAMAGE, 2).add(Attributes.MOVEMENT_SPEED,
@@ -89,6 +98,7 @@ public class ChimeraFamiliarEntity extends FamiliarEntity implements IRideable {
 
     public ChimeraFamiliarEntity(EntityType<? extends ChimeraFamiliarEntity> type, World worldIn) {
         super(type, worldIn);
+        this.goatNoseTimer = this.getRandom().nextInt(100);
     }
 
     private boolean isRiderJumping(PlayerEntity rider) {
@@ -121,13 +131,26 @@ public class ChimeraFamiliarEntity extends FamiliarEntity implements IRideable {
     public ILivingEntityData finalizeSpawn(IServerWorld pLevel, DifficultyInstance pDifficulty, SpawnReason pReason,
             ILivingEntityData pSpawnData, CompoundNBT pDataTag) {
         this.setSize((byte) 0);
+        this.setFlaps(this.getRandom().nextBoolean());
+        this.setRing(this.getRandom().nextBoolean());
+        this.setHat(this.getRandom().nextDouble() < 0.1);
         return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
+    }
+    
+    @Override
+    public void setFamiliarOwner(LivingEntity owner) {
+        if (this.hasHat())
+            OccultismAdvancements.FAMILIAR.trigger(owner, FamiliarTrigger.Type.RARE_VARIANT);
+        super.setFamiliarOwner(owner);
     }
 
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(SIZE, (byte) 0);
+        this.entityData.define(FLAPS, false);
+        this.entityData.define(RING, false);
+        this.entityData.define(HAT, false);
     }
 
     public byte getSize() {
@@ -145,6 +168,30 @@ public class ChimeraFamiliarEntity extends FamiliarEntity implements IRideable {
     private void setSize(byte size) {
         this.entityData.set(SIZE, (byte) MathHelper.clamp(size, 0, MAX_SIZE));
         calcSizeModifiers();
+    }
+    
+    public boolean hasFlaps() {
+        return this.entityData.get(FLAPS);
+    }
+    
+    public boolean hasRing() {
+        return this.entityData.get(RING);
+    }
+    
+    public boolean hasHat() {
+        return this.entityData.get(HAT);
+    }
+    
+    private void setFlaps(boolean b) {
+        this.entityData.set(FLAPS, b);
+    }
+    
+    private void setRing(boolean b) {
+        this.entityData.set(RING, b);
+    }
+    
+    private void setHat(boolean b) {
+        this.entityData.set(HAT, b);
     }
 
     private void calcSizeModifiers() {
@@ -171,6 +218,18 @@ public class ChimeraFamiliarEntity extends FamiliarEntity implements IRideable {
 
         if (jumpTimer > 0)
             jumpTimer--;
+        
+        if (level.isClientSide) {
+            this.goatNoseTimer++;
+        }
+    }
+    
+    public float getNoseGoatRot(float partialTicks) {
+        if (this.goatNoseTimer % 200 >= 40)
+            return 0;
+        
+        float progress = (this.goatNoseTimer % 200 + partialTicks) / 40;
+        return MathHelper.sin(progress * (float) Math.PI * 4) * 0.1f;
     }
 
     @Override
@@ -218,12 +277,18 @@ public class ChimeraFamiliarEntity extends FamiliarEntity implements IRideable {
     public void addAdditionalSaveData(CompoundNBT compound) {
         super.addAdditionalSaveData(compound);
         compound.putByte("getSize", this.getSize());
+        compound.putBoolean("hasFlaps", this.hasFlaps());
+        compound.putBoolean("hasRing", this.hasRing());
+        compound.putBoolean("hasHat", this.hasHat());
     }
 
     @Override
     public void readAdditionalSaveData(CompoundNBT compound) {
         super.readAdditionalSaveData(compound);
         this.setSize(compound.getByte("getSize"));
+        this.setFlaps(compound.getBoolean("hasFlaps"));
+        this.setRing(compound.getBoolean("hasRing"));
+        this.setHat(compound.getBoolean("hasHat"));
     }
 
     @Override

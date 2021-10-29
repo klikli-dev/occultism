@@ -48,6 +48,8 @@ public class ChimeraFamiliarRenderer extends MobRenderer<ChimeraFamiliarEntity, 
         matrixStackIn.pushPose();
         float size = entityIn.getScale();
         matrixStackIn.scale(size, size, size);
+        if (entityIn.isSitting())
+            matrixStackIn.translate(0, -0.23, 0);
         super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
         matrixStackIn.popPose();
     }
