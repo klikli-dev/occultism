@@ -29,6 +29,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.pathfinding.PathType;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
@@ -62,6 +63,7 @@ public class SacrificialBowlBlock extends Block {
         return SHAPE;
     }
 
+    @Override
     public void onRemove(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
         if (state.getBlock() != newState.getBlock()) {
             TileEntity tile = worldIn.getBlockEntity(pos);
@@ -101,6 +103,11 @@ public class SacrificialBowlBlock extends Block {
             });
         }
         return ActionResultType.SUCCESS;
+    }
+
+    @Override
+    public boolean isPathfindable(BlockState pState, IBlockReader pLevel, BlockPos pPos, PathType pType) {
+        return false;
     }
 
     @Override

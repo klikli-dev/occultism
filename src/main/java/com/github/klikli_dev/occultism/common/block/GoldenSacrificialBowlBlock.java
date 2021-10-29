@@ -30,6 +30,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.pathfinding.PathType;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
@@ -72,6 +73,7 @@ public class GoldenSacrificialBowlBlock extends Block {
         world.getBlockTicks().scheduleTick(pos, this, 0);
     }
 
+    @Override
     public void onRemove(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
         if (state.getBlock() != newState.getBlock()) {
             TileEntity tile = worldIn.getBlockEntity(pos);
@@ -94,6 +96,11 @@ public class GoldenSacrificialBowlBlock extends Block {
                     hit.getDirection()) ? ActionResultType.SUCCESS : ActionResultType.PASS;
         }
         return super.use(state, world, pos, player, hand, hit);
+    }
+
+    @Override
+    public boolean isPathfindable(BlockState pState, IBlockReader pLevel, BlockPos pPos, PathType pType) {
+        return false;
     }
 
     @Override

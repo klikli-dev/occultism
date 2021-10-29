@@ -33,6 +33,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
+import net.minecraft.pathfinding.PathType;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.TileEntity;
@@ -82,6 +83,11 @@ public class StorageStabilizerBlock extends Block {
             this.notifyStorageControllers(world, pos, state);
         }
         super.onRemove(state, world, pos, newState, isMoving);
+    }
+
+    @Override
+    public boolean isPathfindable(BlockState pState, IBlockReader pLevel, BlockPos pPos, PathType pType) {
+        return false;
     }
 
     @Nullable

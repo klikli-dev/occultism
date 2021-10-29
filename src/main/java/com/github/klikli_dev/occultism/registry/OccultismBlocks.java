@@ -28,13 +28,7 @@ import java.util.Random;
 import java.util.function.Supplier;
 
 import com.github.klikli_dev.occultism.Occultism;
-import com.github.klikli_dev.occultism.common.block.CandleBlock;
-import com.github.klikli_dev.occultism.common.block.ChalkGlyphBlock;
-import com.github.klikli_dev.occultism.common.block.DimensionalMineshaftBlock;
-import com.github.klikli_dev.occultism.common.block.GoldenSacrificialBowlBlock;
-import com.github.klikli_dev.occultism.common.block.SacrificialBowlBlock;
-import com.github.klikli_dev.occultism.common.block.SpiritAttunedCrystalBlock;
-import com.github.klikli_dev.occultism.common.block.SpiritFireBlock;
+import com.github.klikli_dev.occultism.common.block.*;
 import com.github.klikli_dev.occultism.common.block.crops.ReplantableCropsBlock;
 import com.github.klikli_dev.occultism.common.block.otherworld.IesniumOreNaturalBlock;
 import com.github.klikli_dev.occultism.common.block.otherworld.OtherstoneNaturalBlock;
@@ -121,7 +115,7 @@ public class OccultismBlocks {
     public static final RegistryObject<SlabBlock> OTHERSTONE_SLAB = register("otherstone_slab", () -> new SlabBlock(Block.Properties.copy(OTHERSTONE.get())));
     public static final RegistryObject<Block> OTHERSTONE_PEDESTAL = register("otherstone_pedestal", () -> new Block(Block.Properties.copy(OTHERSTONE.get())));
     public static final RegistryObject<Block> STORAGE_CONTROLLER_BASE = register("storage_controller_base",
-            () -> new Block(Block.Properties.copy(OTHERSTONE.get()).noOcclusion()));
+            () -> new NonPathfindableBlock(Block.Properties.copy(OTHERSTONE.get()).noOcclusion()));
     public static final RegistryObject<OtherstoneNaturalBlock> OTHERSTONE_NATURAL =
             register("otherstone_natural", () -> new OtherstoneNaturalBlock(
                             Block.Properties.of(Material.STONE).sound(SoundType.STONE).strength(1.5f, 30)),
