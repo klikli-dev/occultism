@@ -39,6 +39,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -50,22 +51,17 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import javax.annotation.Nullable;
 
 public class GoldenSacrificialBowlBlock extends Block implements EntityBlock {
-    //region Fields
-    private static final VoxelShape SHAPE = Block.box(4, 0, 4, 12, 2.3, 12);
-    //endregion Fields
 
-    //region Initialization
+    private static final VoxelShape SHAPE = Block.box(4, 0, 4, 12, 2.3, 12);
+
     public GoldenSacrificialBowlBlock(Properties properties) {
         super(properties);
         MinecraftForge.EVENT_BUS.register(this);
     }
-    //endregion Initialization
-
-    //region Overrides
 
     @Override
-    public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
-        return SHAPE;
+    public boolean isPathfindable(BlockState pState, BlockGetter pLevel, BlockPos pPos, PathComputationType pType) {
+        return super.isPathfindable(pState, pLevel, pPos, pType);
     }
 
     @Override
@@ -100,9 +96,11 @@ public class GoldenSacrificialBowlBlock extends Block implements EntityBlock {
         return super.use(state, level, pos, player, hand, hit);
     }
 
-    //endregion Overrides
+    @Override
+    public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
+        return SHAPE;
+    }
 
-    //region Methods
     @SubscribeEvent
     public void onPlayerRightClickItem(PlayerInteractEvent.RightClickItem event) {
         Player player = event.getPlayer();
@@ -156,5 +154,4 @@ public class GoldenSacrificialBowlBlock extends Block implements EntityBlock {
                 bowl.tick();
         };
     }
-    //endregion Methods
 }

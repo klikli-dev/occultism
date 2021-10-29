@@ -105,7 +105,7 @@ public class OccultismBlocks {
     public static final RegistryObject<SlabBlock> OTHERSTONE_SLAB = register("otherstone_slab", () -> new SlabBlock(Block.Properties.copy(OTHERSTONE.get())));
     public static final RegistryObject<Block> OTHERSTONE_PEDESTAL = register("otherstone_pedestal", () -> new Block(Block.Properties.copy(OTHERSTONE.get())));
     public static final RegistryObject<Block> STORAGE_CONTROLLER_BASE = register("storage_controller_base",
-            () -> new Block(Block.Properties.copy(OTHERSTONE.get()).noOcclusion()));
+            () -> new NonPathfindableBlock(Block.Properties.copy(OTHERSTONE.get()).noOcclusion()));
     public static final RegistryObject<OtherstoneNaturalBlock> OTHERSTONE_NATURAL =
             register("otherstone_natural", () -> new OtherstoneNaturalBlock(
                             Block.Properties.of(Material.STONE).sound(SoundType.STONE).strength(1.5f, 30)),

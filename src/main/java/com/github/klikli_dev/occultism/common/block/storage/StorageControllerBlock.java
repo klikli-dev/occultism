@@ -40,6 +40,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -60,17 +61,13 @@ public class StorageControllerBlock extends Block implements EntityBlock {
         return Shapes.join(v1, v2, BooleanOp.OR);
     }).get();
 
-    //region Initialization
     public StorageControllerBlock(Properties properties) {
         super(properties);
     }
-    //endregion Initialization
-
-    //region Overrides
 
     @Override
-    public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
-        return SHAPE;
+    public boolean isPathfindable(BlockState pState, BlockGetter pLevel, BlockPos pPos, PathComputationType pType) {
+        return super.isPathfindable(pState, pLevel, pPos, pType);
     }
 
     @Override
@@ -92,6 +89,11 @@ public class StorageControllerBlock extends Block implements EntityBlock {
     }
 
     @Override
+    public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
+        return SHAPE;
+    }
+
+    @Override
     public ItemStack getCloneItemStack(BlockGetter worldIn, BlockPos pos, BlockState state) {
         return BlockEntityUtil.getItemWithNbt(this, worldIn, pos);
     }
@@ -110,6 +112,4 @@ public class StorageControllerBlock extends Block implements EntityBlock {
                 controller.tick();
         };
     }
-
-    //endregion Overrides
 }

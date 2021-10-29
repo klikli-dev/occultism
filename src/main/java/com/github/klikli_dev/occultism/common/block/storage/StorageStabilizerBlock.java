@@ -40,6 +40,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
@@ -51,7 +52,6 @@ import java.util.Map;
 
 public class StorageStabilizerBlock extends Block {
 
-    //region Fields
     private static final Map<Direction, VoxelShape> SHAPES = Maps.newEnumMap(
             ImmutableMap.<Direction, VoxelShape>builder()
                     .put(Direction.EAST, Shapes.create(new AABB(0, 0, 0, 0.3, 1, 1)))
@@ -61,19 +61,14 @@ public class StorageStabilizerBlock extends Block {
                     .put(Direction.UP, Shapes.create(new AABB(0, 0, 0, 1, 0.3, 1)))
                     .put(Direction.DOWN, Shapes.create(new AABB(0, 0.7, 0, 1, 1, 1))).build());
 
-    //endregion Fields
-
-    //region Initialization
     public StorageStabilizerBlock(Properties properties) {
         super(properties);
 
     }
-    //endregion Initialization
 
-    //region Overrides
     @Override
-    public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
-        return SHAPES.get(state.getValue(BlockStateProperties.FACING));
+    public boolean isPathfindable(BlockState pState, BlockGetter pLevel, BlockPos pPos, PathComputationType pType) {
+        return super.isPathfindable(pState, pLevel, pPos, pType);
     }
 
     @Override
@@ -82,6 +77,11 @@ public class StorageStabilizerBlock extends Block {
             this.notifyStorageControllers(level, pos, state);
         }
         super.onRemove(state, level, pos, newState, isMoving);
+    }
+
+    @Override
+    public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
+        return SHAPES.get(state.getValue(BlockStateProperties.FACING));
     }
 
     @Nullable
@@ -109,9 +109,7 @@ public class StorageStabilizerBlock extends Block {
         builder.add(BlockStateProperties.FACING);
         super.createBlockStateDefinition(builder);
     }
-    //endregion Overrides
 
-    //region Methods
     public void notifyStorageControllers(Level level, BlockPos pos, BlockState state) {
         Direction facing = state.getValue(DirectionalBlock.FACING);
 
@@ -131,7 +129,6 @@ public class StorageStabilizerBlock extends Block {
             }
         }
     }
-    //endregion Methods
 }
 
 

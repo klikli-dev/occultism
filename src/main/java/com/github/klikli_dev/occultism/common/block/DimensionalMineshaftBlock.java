@@ -39,6 +39,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -50,7 +51,7 @@ import javax.annotation.Nullable;
 import java.util.stream.Stream;
 
 public class DimensionalMineshaftBlock extends Block implements EntityBlock {
-    //region Fields
+
     private static final VoxelShape SHAPE = Stream.of(
             Block.box(10, 0, 6, 16, 1, 10),
             Block.box(0, 0, 6, 6, 1, 10),
@@ -72,18 +73,14 @@ public class DimensionalMineshaftBlock extends Block implements EntityBlock {
     ).reduce((v1, v2) -> {
         return Shapes.join(v1, v2, BooleanOp.OR);
     }).get();
-    //endregion Fields
 
-    //region Initialization
     public DimensionalMineshaftBlock(Properties properties) {
         super(properties);
     }
-    //endregion Initialization
 
-    //region Overrides
     @Override
-    public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
-        return SHAPE;
+    public boolean isPathfindable(BlockState pState, BlockGetter pLevel, BlockPos pPos, PathComputationType pType) {
+        return super.isPathfindable(pState, pLevel, pPos, pType);
     }
 
     @Override
@@ -109,6 +106,11 @@ public class DimensionalMineshaftBlock extends Block implements EntityBlock {
         return InteractionResult.SUCCESS;
     }
 
+    @Override
+    public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
+        return SHAPE;
+    }
+
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
@@ -124,6 +126,4 @@ public class DimensionalMineshaftBlock extends Block implements EntityBlock {
                 shaft.tick();
         };
     }
-
-    //endregion Overrides
 }

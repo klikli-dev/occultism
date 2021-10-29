@@ -38,6 +38,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -47,22 +48,19 @@ import net.minecraftforge.items.ItemHandlerHelper;
 import javax.annotation.Nullable;
 
 public class SacrificialBowlBlock extends Block implements EntityBlock {
-    //region Fields
-    private static final VoxelShape SHAPE = Block.box(4, 0, 4, 12, 2.3, 12);
-    //endregion Fields
 
-    //region Initialization
+    private static final VoxelShape SHAPE = Block.box(4, 0, 4, 12, 2.3, 12);
+
     public SacrificialBowlBlock(Properties properties) {
         super(properties);
     }
-    //endregion Initialization
 
-    //region Overrides
     @Override
-    public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
-        return SHAPE;
+    public boolean isPathfindable(BlockState pState, BlockGetter pLevel, BlockPos pPos, PathComputationType pType) {
+        return super.isPathfindable(pState, pLevel, pPos, pType);
     }
 
+    @Override
     public void onRemove(BlockState state, Level worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
         if (state.getBlock() != newState.getBlock()) {
             BlockEntity blockEntity = worldIn.getBlockEntity(pos);
@@ -104,10 +102,14 @@ public class SacrificialBowlBlock extends Block implements EntityBlock {
         return InteractionResult.SUCCESS;
     }
 
+    @Override
+    public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
+        return SHAPE;
+    }
+
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
         return OccultismTiles.SACRIFICIAL_BOWL.get().create(blockPos, blockState);
     }
-    //endregion Overrides
 }
