@@ -341,31 +341,51 @@ public class ChimeraFamiliarModel extends EntityModel<ChimeraFamiliarEntity> {
             modelRenderer.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
         });
     }
-    
+
     @Override
     public void prepareMobModel(ChimeraFamiliarEntity pEntity, float pLimbSwing, float pLimbSwingAmount,
             float pPartialTick) {
         this.goatMouth.zRot = pEntity.getNoseGoatRot(pPartialTick) - 0.2f;
+
+        float attackProgress = pEntity.getAttackProgress(pPartialTick);
+        if (attackProgress > 0) {
+            switch (pEntity.getAttacker()) {
+            case ChimeraFamiliarEntity.GOAT_ATTACKER:
+                this.goatNeck.zRot = -MathHelper.sin(attackProgress * PI * 2) * toRads(30) + 0.9f;
+                break;
+            case ChimeraFamiliarEntity.SNAKE_ATTACKER:
+                this.snake1.xRot = MathHelper.sin(attackProgress * PI) * toRads(25) - 0.66f;
+                this.snake2.xRot = MathHelper.sin(attackProgress * PI) * toRads(25) + 0.47f;
+                this.snake3.xRot = MathHelper.sin(attackProgress * PI) * toRads(25) + 0.47f;
+                this.snake4.xRot = -MathHelper.sin(attackProgress * PI) * toRads(30) + 0.59f;
+                break;
+            }
+        }
     }
 
     @Override
     public void setupAnim(ChimeraFamiliarEntity pEntity, float limbSwing, float limbSwingAmount, float pAgeInTicks,
             float netHeadYaw, float headPitch) {
+        boolean isSnakeAttacking = pEntity.getAttackProgress(0) > 0
+                && pEntity.getAttacker() == ChimeraFamiliarEntity.SNAKE_ATTACKER;
 
         showModels(pEntity);
-        
+
         this.snake2.yRot = 0;
         this.snake3.yRot = 0;
         this.leftLeg3.xRot = 0.31f;
         this.rightLeg3.xRot = 0.31f;
         this.body.xRot = 0;
-        this.snake2.xRot = 0.47f;
-        this.snake3.xRot = 0.47f;
-        this.snake4.xRot = 0.59f;
+        if (!isSnakeAttacking) {
+            this.snake1.xRot = -0.66f;
+            this.snake2.xRot = 0.47f;
+            this.snake3.xRot = 0.47f;
+            this.snake4.xRot = 0.59f;
+        }
         this.goatHead.zRot = -0.94f;
         this.leftLeg1.yRot = 0;
         this.rightLeg1.yRot = 0;
-        
+
         this.head.yRot = toRads(netHeadYaw) * 0.7f;
         this.head.xRot = toRads(headPitch) * 0.7f;
         this.snake4.yRot = toRads(netHeadYaw) * 0.3f;
@@ -382,7 +402,7 @@ public class ChimeraFamiliarModel extends EntityModel<ChimeraFamiliarEntity> {
         this.leftBackLeg1.xRot = MathHelper.cos(limbSwing * 0.7f + PI) * 0.8f * limbSwingAmount - 0.23f;
         this.rightLeg1.xRot = MathHelper.cos(limbSwing * 0.7f + PI) * 0.8f * limbSwingAmount + 0.43f;
         this.leftLeg1.xRot = MathHelper.cos(limbSwing * 0.7f) * 0.8f * limbSwingAmount + 0.43f;
-        
+
         if (pEntity.isSitting()) {
             this.leftLeg1.xRot = -toRads(15);
             this.rightLeg1.xRot = -toRads(15);
@@ -405,7 +425,7 @@ public class ChimeraFamiliarModel extends EntityModel<ChimeraFamiliarEntity> {
             this.snake4.xRot = toRads(60);
             this.snake5.xRot = toRads(7);
         }
-        
+
         if (pEntity.isPartying()) {
             this.head.xRot = MathHelper.cos(pAgeInTicks * 0.4f) * toRads(30);
             this.goatHead.zRot = -MathHelper.cos(pAgeInTicks * 0.4f) * toRads(15) - 0.94f;

@@ -23,6 +23,7 @@
 package com.github.klikli_dev.occultism.common.entity;
 
 import java.lang.reflect.Field;
+import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
@@ -55,8 +56,11 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Effects;
 import net.minecraft.util.ActionResultType;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
@@ -71,10 +75,16 @@ public class ChimeraFamiliarEntity extends FamiliarEntity implements IRideable {
     private static final UUID SPEED_BONUS = UUID.fromString("f1db15e0-174b-4534-96a3-d941cec44e55");
     private static final UUID DAMAGE_BONUS = UUID.fromString("fdaa6165-abdf-4b85-aed6-199086f6a5ee");
 
+    public static final byte NO_ATTACKER = 0;
+    public static final byte LION_ATTACKER = 1;
+    public static final byte GOAT_ATTACKER = 2;
+    public static final byte SNAKE_ATTACKER = 3;
+
     private static final byte MAX_SIZE = 100;
     private static final byte RIDING_SIZE = 80;
     private static final double SHRINK_CHANCE = 0.005;
     private static final int JUMP_COOLDOWN = 20 * 2;
+    private static final int ATTACK_TIME = 10;
 
     private static final DataParameter<Byte> SIZE = EntityDataManager.defineId(ChimeraFamiliarEntity.class,
             DataSerializers.BYTE);
@@ -84,16 +94,19 @@ public class ChimeraFamiliarEntity extends FamiliarEntity implements IRideable {
             DataSerializers.BOOLEAN);
     private static final DataParameter<Boolean> HAT = EntityDataManager.defineId(ChimeraFamiliarEntity.class,
             DataSerializers.BOOLEAN);
+    private static final DataParameter<Byte> ATTACKER = EntityDataManager.defineId(ChimeraFamiliarEntity.class,
+            DataSerializers.BYTE);
 
     private static Field isRiderJumping;
 
     private BoostHelper boost = new DummyBoostHelper();
     private int jumpTimer;
     private int goatNoseTimer;
+    private int attackTimer;
 
     public static AttributeModifierMap.MutableAttribute registerAttributes() {
-        return FamiliarEntity.registerAttributes().add(Attributes.ATTACK_DAMAGE, 2).add(Attributes.MOVEMENT_SPEED,
-                0.25);
+        return FamiliarEntity.registerAttributes().add(Attributes.ATTACK_DAMAGE, 3).add(Attributes.MOVEMENT_SPEED, 0.25)
+                .add(Attributes.MAX_HEALTH, 20);
     }
 
     public ChimeraFamiliarEntity(EntityType<? extends ChimeraFamiliarEntity> type, World worldIn) {
@@ -118,6 +131,7 @@ public class ChimeraFamiliarEntity extends FamiliarEntity implements IRideable {
         this.goalSelector.addGoal(1, new SitGoal(this));
         this.goalSelector.addGoal(2, new LookAtGoal(this, PlayerEntity.class, 8));
         this.goalSelector.addGoal(5, new FollowOwnerGoal(this, 1, 3, 1));
+        this.goalSelector.addGoal(6, new AttackGoal(this, 10));
         this.goalSelector.addGoal(7, new RandomWalkingGoal(this, 1));
         this.goalSelector.addGoal(8, new FollowMobGoal(this, 1, 3, 7));
     }
@@ -136,7 +150,7 @@ public class ChimeraFamiliarEntity extends FamiliarEntity implements IRideable {
         this.setHat(this.getRandom().nextDouble() < 0.1);
         return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
     }
-    
+
     @Override
     public void setFamiliarOwner(LivingEntity owner) {
         if (this.hasHat())
@@ -148,6 +162,7 @@ public class ChimeraFamiliarEntity extends FamiliarEntity implements IRideable {
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(SIZE, (byte) 0);
+        this.entityData.define(ATTACKER, NO_ATTACKER);
         this.entityData.define(FLAPS, false);
         this.entityData.define(RING, false);
         this.entityData.define(HAT, false);
@@ -158,7 +173,7 @@ public class ChimeraFamiliarEntity extends FamiliarEntity implements IRideable {
     }
 
     private double getAttackBonus() {
-        return MathHelper.lerp(this.getSize() / (double) MAX_SIZE, 0, 2);
+        return MathHelper.lerp(this.getSize() / (double) MAX_SIZE, 0, 3);
     }
 
     private double getSpeedBonus() {
@@ -169,29 +184,37 @@ public class ChimeraFamiliarEntity extends FamiliarEntity implements IRideable {
         this.entityData.set(SIZE, (byte) MathHelper.clamp(size, 0, MAX_SIZE));
         calcSizeModifiers();
     }
-    
+
     public boolean hasFlaps() {
         return this.entityData.get(FLAPS);
     }
-    
+
     public boolean hasRing() {
         return this.entityData.get(RING);
     }
-    
+
     public boolean hasHat() {
         return this.entityData.get(HAT);
     }
-    
+
+    public byte getAttacker() {
+        return this.entityData.get(ATTACKER);
+    }
+
     private void setFlaps(boolean b) {
         this.entityData.set(FLAPS, b);
     }
-    
+
     private void setRing(boolean b) {
         this.entityData.set(RING, b);
     }
-    
+
     private void setHat(boolean b) {
         this.entityData.set(HAT, b);
+    }
+
+    private void setAttacker(byte b) {
+        this.entityData.set(ATTACKER, b);
     }
 
     private void calcSizeModifiers() {
@@ -218,18 +241,39 @@ public class ChimeraFamiliarEntity extends FamiliarEntity implements IRideable {
 
         if (jumpTimer > 0)
             jumpTimer--;
-        
+
+        this.attackTimer--;
+        if (this.attackTimer == 0)
+            this.setAttacker(NO_ATTACKER);
+
         if (level.isClientSide) {
             this.goatNoseTimer++;
+
+            if (this.attackTimer > 0 && this.getAttacker() == LION_ATTACKER) {
+                Vector3d direction = Vector3d.directionFromRotation(this.getRotationVector()).scale(getScale());
+                for (int i = 0; i < 5; i++) {
+                    Vector3d pos = this.position().add(direction.x + (this.getRandom().nextFloat() - 0.5f) * 0.7,
+                            1 + (this.getRandom().nextFloat() - 0.5f) * 0.7,
+                            direction.z + (this.getRandom().nextFloat() - 0.5f) * 0.7);
+                    this.level.addParticle(ParticleTypes.FLAME, pos.x, pos.y, pos.z, direction.x * 0.1, 0,
+                            direction.z * 0.1);
+                }
+            }
         }
     }
-    
+
     public float getNoseGoatRot(float partialTicks) {
         if (this.goatNoseTimer % 200 >= 40)
             return 0;
-        
+
         float progress = (this.goatNoseTimer % 200 + partialTicks) / 40;
         return MathHelper.sin(progress * (float) Math.PI * 4) * 0.1f;
+    }
+
+    public float getAttackProgress(float partialTicks) {
+        if (this.attackTimer <= 0)
+            return 0;
+        return (ATTACK_TIME - this.attackTimer + partialTicks) / (float) ATTACK_TIME;
     }
 
     @Override
@@ -271,6 +315,9 @@ public class ChimeraFamiliarEntity extends FamiliarEntity implements IRideable {
         super.onSyncedDataUpdated(pKey);
         if (SIZE.equals(pKey))
             this.refreshDimensions();
+
+        if (ATTACKER.equals(pKey))
+            this.attackTimer = ATTACK_TIME;
     }
 
     @Override
@@ -371,6 +418,45 @@ public class ChimeraFamiliarEntity extends FamiliarEntity implements IRideable {
 
         @Override
         public void setSaddle(boolean pSaddled) {
+        }
+
+    }
+
+    private static class AttackGoal extends DevilFamiliarEntity.AttackGoal {
+
+        ChimeraFamiliarEntity chimera;
+
+        public AttackGoal(ChimeraFamiliarEntity chimera, float range) {
+            super(chimera, range);
+            this.chimera = chimera;
+        }
+
+        @Override
+        protected void attack(List<LivingEntity> enemies) {
+            byte attacker = randomAttacker();
+            this.chimera.setAttacker(attacker);
+
+            for (LivingEntity e : enemies) {
+                e.hurt(DamageSource.playerAttack((PlayerEntity) this.chimera.getFamiliarOwner()),
+                        (float) this.chimera.getAttributeValue(Attributes.ATTACK_DAMAGE));
+
+                switch (attacker) {
+                case LION_ATTACKER:
+                    e.setSecondsOnFire(4);
+                    break;
+                case GOAT_ATTACKER:
+                    Vector3d direction = e.position().vectorTo(this.chimera.position());
+                    e.knockback(2, direction.x, direction.z);
+                    break;
+                case SNAKE_ATTACKER:
+                    e.addEffect(new EffectInstance(Effects.POISON, 20 * 10));
+                    break;
+                }
+            }
+        }
+
+        private byte randomAttacker() {
+            return (byte) this.chimera.getRandom().nextInt(4);
         }
 
     }
