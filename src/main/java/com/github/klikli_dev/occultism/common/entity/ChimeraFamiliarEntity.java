@@ -52,6 +52,7 @@ import net.minecraft.entity.ai.goal.SwimGoal;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Food;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
@@ -70,7 +71,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper.UnableToFindFieldException;
 
-public class ChimeraFamiliarEntity extends FamiliarEntity implements IRideable {
+public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements IRideable {
 
     private static final UUID SPEED_BONUS = UUID.fromString("f1db15e0-174b-4534-96a3-d941cec44e55");
     private static final UUID DAMAGE_BONUS = UUID.fromString("fdaa6165-abdf-4b85-aed6-199086f6a5ee");
@@ -80,14 +81,11 @@ public class ChimeraFamiliarEntity extends FamiliarEntity implements IRideable {
     public static final byte GOAT_ATTACKER = 2;
     public static final byte SNAKE_ATTACKER = 3;
 
-    private static final byte MAX_SIZE = 100;
     private static final byte RIDING_SIZE = 80;
     private static final double SHRINK_CHANCE = 0.005;
     private static final int JUMP_COOLDOWN = 20 * 2;
     private static final int ATTACK_TIME = 10;
 
-    private static final DataParameter<Byte> SIZE = EntityDataManager.defineId(ChimeraFamiliarEntity.class,
-            DataSerializers.BYTE);
     private static final DataParameter<Boolean> FLAPS = EntityDataManager.defineId(ChimeraFamiliarEntity.class,
             DataSerializers.BOOLEAN);
     private static final DataParameter<Boolean> RING = EntityDataManager.defineId(ChimeraFamiliarEntity.class,
@@ -96,6 +94,8 @@ public class ChimeraFamiliarEntity extends FamiliarEntity implements IRideable {
             DataSerializers.BOOLEAN);
     private static final DataParameter<Byte> ATTACKER = EntityDataManager.defineId(ChimeraFamiliarEntity.class,
             DataSerializers.BYTE);
+    private static final DataParameter<Boolean> GOAT = EntityDataManager.defineId(ChimeraFamiliarEntity.class,
+            DataSerializers.BOOLEAN);
 
     private static Field isRiderJumping;
 
@@ -161,15 +161,11 @@ public class ChimeraFamiliarEntity extends FamiliarEntity implements IRideable {
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(SIZE, (byte) 0);
         this.entityData.define(ATTACKER, NO_ATTACKER);
         this.entityData.define(FLAPS, false);
         this.entityData.define(RING, false);
         this.entityData.define(HAT, false);
-    }
-
-    public byte getSize() {
-        return this.entityData.get(SIZE);
+        this.entityData.define(GOAT, true);
     }
 
     private double getAttackBonus() {
@@ -180,8 +176,9 @@ public class ChimeraFamiliarEntity extends FamiliarEntity implements IRideable {
         return MathHelper.lerp(this.getSize() / (double) MAX_SIZE, 0, 0.08);
     }
 
-    private void setSize(byte size) {
-        this.entityData.set(SIZE, (byte) MathHelper.clamp(size, 0, MAX_SIZE));
+    @Override
+    public void setSize(byte size) {
+        super.setSize(size);
         calcSizeModifiers();
     }
 
@@ -195,6 +192,10 @@ public class ChimeraFamiliarEntity extends FamiliarEntity implements IRideable {
 
     public boolean hasHat() {
         return this.entityData.get(HAT);
+    }
+
+    public boolean hasGoat() {
+        return this.entityData.get(GOAT);
     }
 
     public byte getAttacker() {
@@ -213,6 +214,10 @@ public class ChimeraFamiliarEntity extends FamiliarEntity implements IRideable {
         this.entityData.set(HAT, b);
     }
 
+    private void setGoat(boolean b) {
+        this.entityData.set(GOAT, b);
+    }
+
     private void setAttacker(byte b) {
         this.entityData.set(ATTACKER, b);
     }
@@ -226,11 +231,6 @@ public class ChimeraFamiliarEntity extends FamiliarEntity implements IRideable {
                 new AttributeModifier(DAMAGE_BONUS, "Chimera attack bonus", getAttackBonus(), Operation.ADDITION));
         this.getAttribute(Attributes.MOVEMENT_SPEED).addTransientModifier(
                 new AttributeModifier(SPEED_BONUS, "Chimera speed bonus", getSpeedBonus(), Operation.ADDITION));
-    }
-
-    @Override
-    public float getScale() {
-        return 1 + getSize() * 1f / MAX_SIZE;
     }
 
     @Override
@@ -280,6 +280,17 @@ public class ChimeraFamiliarEntity extends FamiliarEntity implements IRideable {
     protected ActionResultType mobInteract(PlayerEntity playerIn, Hand hand) {
         ItemStack stack = playerIn.getItemInHand(hand);
         Food food = stack.getItem().getFoodProperties();
+        if (hasGoat() && stack.getItem() == Items.GOLDEN_APPLE && playerIn == this.getFamiliarOwner()) {
+            if (!this.level.isClientSide) {
+                stack.shrink(1);
+                this.setGoat(false);
+                GoatFamiliarEntity goat = new GoatFamiliarEntity(this.level, this.hasRing(), this.getSize(),
+                        this.getFamiliarOwner());
+                goat.setPos(this.getX(), this.getY(), this.getZ());
+                level.addFreshEntity(goat);
+            }
+            return ActionResultType.sidedSuccess(this.level.isClientSide);
+        }
         if (getSize() < MAX_SIZE && food != null && food.isMeat()) {
             stack.shrink(1);
             setSize((byte) (getSize() + food.getNutrition()));
@@ -313,8 +324,6 @@ public class ChimeraFamiliarEntity extends FamiliarEntity implements IRideable {
     @Override
     public void onSyncedDataUpdated(DataParameter<?> pKey) {
         super.onSyncedDataUpdated(pKey);
-        if (SIZE.equals(pKey))
-            this.refreshDimensions();
 
         if (ATTACKER.equals(pKey))
             this.attackTimer = ATTACK_TIME;
@@ -323,19 +332,19 @@ public class ChimeraFamiliarEntity extends FamiliarEntity implements IRideable {
     @Override
     public void addAdditionalSaveData(CompoundNBT compound) {
         super.addAdditionalSaveData(compound);
-        compound.putByte("getSize", this.getSize());
         compound.putBoolean("hasFlaps", this.hasFlaps());
         compound.putBoolean("hasRing", this.hasRing());
         compound.putBoolean("hasHat", this.hasHat());
+        compound.putBoolean("hasGoat", this.hasGoat());
     }
 
     @Override
     public void readAdditionalSaveData(CompoundNBT compound) {
         super.readAdditionalSaveData(compound);
-        this.setSize(compound.getByte("getSize"));
         this.setFlaps(compound.getBoolean("hasFlaps"));
         this.setRing(compound.getBoolean("hasRing"));
         this.setHat(compound.getBoolean("hasHat"));
+        this.setGoat(compound.getBoolean("hasGoat"));
     }
 
     @Override
@@ -356,6 +365,11 @@ public class ChimeraFamiliarEntity extends FamiliarEntity implements IRideable {
     @Override
     protected int calculateFallDamage(float pDistance, float pDamageMultiplier) {
         return super.calculateFallDamage(pDistance - 3, pDamageMultiplier);
+    }
+
+    private byte[] possibleAttackers() {
+        return this.hasGoat() ? new byte[] { LION_ATTACKER, GOAT_ATTACKER, SNAKE_ATTACKER }
+                : new byte[] { LION_ATTACKER, SNAKE_ATTACKER };
     }
 
     @Override
@@ -456,7 +470,8 @@ public class ChimeraFamiliarEntity extends FamiliarEntity implements IRideable {
         }
 
         private byte randomAttacker() {
-            return (byte) this.chimera.getRandom().nextInt(4);
+            byte[] attackers = this.chimera.possibleAttackers();
+            return attackers[this.chimera.getRandom().nextInt(attackers.length)];
         }
 
     }

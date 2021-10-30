@@ -441,6 +441,7 @@ public class ChimeraFamiliarModel extends EntityModel<ChimeraFamiliarEntity> {
         this.snakeFlap2.visible = hasFlaps;
         this.goatRing.visible = entityIn.hasRing();
         this.snakeHat1.visible = entityIn.hasHat();
+        this.goatNeck.visible = entityIn.hasGoat();
     }
 
     private float toRads(float deg) {
