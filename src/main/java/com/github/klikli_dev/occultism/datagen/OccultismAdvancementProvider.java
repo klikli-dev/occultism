@@ -196,6 +196,16 @@ public class OccultismAdvancementProvider implements IDataProvider {
                             true, true, false)
                     .addCriterion("headless_rebuilt", FamiliarTrigger.of(FamiliarTrigger.Type.HEADLESS_REBUILT))
                     .build(new ResourceLocation(Occultism.MODID, "occultism/familiar/headless_rebuilt")));
+            this.add(Advancement.Builder.advancement().parent(familiarsRoot)
+                    .display(this.icon(10), familiarTitle("chimera_ride"), familiarDescr("chimera_ride"), null, FrameType.TASK,
+                            true, true, false)
+                    .addCriterion("chimera_ride", FamiliarTrigger.of(FamiliarTrigger.Type.CHIMERA_RIDE))
+                    .build(new ResourceLocation(Occultism.MODID, "occultism/familiar/chimera_ride")));
+            this.add(Advancement.Builder.advancement().parent(familiarsRoot)
+                    .display(Items.GOLDEN_APPLE, familiarTitle("goat_detach"), familiarDescr("goat_detach"), null, FrameType.TASK,
+                            true, true, false)
+                    .addCriterion("goat_detach", FamiliarTrigger.of(FamiliarTrigger.Type.GOAT_DETACH))
+                    .build(new ResourceLocation(Occultism.MODID, "occultism/familiar/goat_detach")));
 
             this.addRitualHidden(root, "craft_dimensional_matrix");
             this.addRitualHidden(root, "craft_dimensional_mineshaft");

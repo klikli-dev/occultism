@@ -288,6 +288,7 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements IR
                         this.getFamiliarOwner());
                 goat.setPos(this.getX(), this.getY(), this.getZ());
                 level.addFreshEntity(goat);
+                OccultismAdvancements.FAMILIAR.trigger(playerIn, FamiliarTrigger.Type.GOAT_DETACH);
             }
             return ActionResultType.sidedSuccess(this.level.isClientSide);
         }
@@ -299,6 +300,7 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements IR
                 && getFamiliarOwner() == playerIn && getSize() > RIDING_SIZE) {
             if (!this.level.isClientSide) {
                 playerIn.startRiding(this);
+                OccultismAdvancements.FAMILIAR.trigger(playerIn, FamiliarTrigger.Type.CHIMERA_RIDE);
             }
             return ActionResultType.sidedSuccess(this.level.isClientSide);
         }
