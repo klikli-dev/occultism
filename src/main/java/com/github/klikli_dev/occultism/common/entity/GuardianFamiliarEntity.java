@@ -169,7 +169,8 @@ public class GuardianFamiliarEntity extends FamiliarEntity {
         byte lives = this.getLives();
         boolean success = lives > 0;
         if (lives == DEATHS_DOOR)
-            OccultismAdvancements.FAMILIAR.trigger(this.getFamiliarOwner(), FamiliarTrigger.Type.GUARDIAN_ULTIMATE_SACRIFICE);
+            OccultismAdvancements.FAMILIAR.trigger(this.getFamiliarOwner(),
+                    FamiliarTrigger.Type.GUARDIAN_ULTIMATE_SACRIFICE);
         this.setLives((byte) (lives - 1));
         return success;
     }
@@ -191,8 +192,10 @@ public class GuardianFamiliarEntity extends FamiliarEntity {
         if (this.level.isClientSide) {
             if (this.particleTimer-- > 0) {
                 for (int i = 0; i < 20; i++) {
-                    this.level.addParticle(new BlockParticleData(ParticleTypes.BLOCK, Blocks.STONE.defaultBlockState())
-                            .setPos(this.blockPosition()), this.getRandomX(0.5), this.getRandomY(), this.getRandomZ(0.5), 0, 0, 0);
+                    this.level.addParticle(
+                            new BlockParticleData(ParticleTypes.BLOCK, Blocks.STONE.defaultBlockState())
+                                    .setPos(this.blockPosition()),
+                            this.getRandomX(0.5), this.getRandomY(), this.getRandomZ(0.5), 0, 0, 0);
                 }
             }
         }
@@ -283,5 +286,10 @@ public class GuardianFamiliarEntity extends FamiliarEntity {
         this.setBird(compound.getBoolean("hasBird"));
         this.setTools(compound.getBoolean("hasTools"));
         this.setLives(compound.getByte("lives"));
+        
+        if (compound.getBoolean("for_patchouli")) {
+            this.setLives(MAX_LIVES);
+            this.setColor();
+        }
     }
 }
