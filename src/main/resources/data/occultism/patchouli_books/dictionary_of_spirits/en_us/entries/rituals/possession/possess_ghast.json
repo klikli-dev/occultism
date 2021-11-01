@@ -7,6 +7,7 @@
     {
       "type": "entity",
       "entity": "occultism:possessed_ghast",
+      "scale": 0.5,
       "text": "Drops: 1-3x $(item)Ghast Tear$()"
     },
     {
