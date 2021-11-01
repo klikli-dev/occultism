@@ -25,10 +25,12 @@ package com.github.klikli_dev.occultism.registry;
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.entity.BatFamiliarEntity;
 import com.github.klikli_dev.occultism.common.entity.BlacksmithFamiliarEntity;
+import com.github.klikli_dev.occultism.common.entity.ChimeraFamiliarEntity;
 import com.github.klikli_dev.occultism.common.entity.CthulhuFamiliarEntity;
 import com.github.klikli_dev.occultism.common.entity.DeerFamiliarEntity;
 import com.github.klikli_dev.occultism.common.entity.DevilFamiliarEntity;
 import com.github.klikli_dev.occultism.common.entity.DragonFamiliarEntity;
+import com.github.klikli_dev.occultism.common.entity.GoatFamiliarEntity;
 import com.github.klikli_dev.occultism.common.entity.GreedyFamiliarEntity;
 import com.github.klikli_dev.occultism.common.entity.GuardianFamiliarEntity;
 import com.github.klikli_dev.occultism.common.entity.HeadlessFamiliarEntity;
@@ -154,6 +156,16 @@ public class OccultismEntities {
                                          .sized(0.7F, 1.1F)
                                          .clientTrackingRange(8)
                                          .build(modLoc("headless_familiar").toString()));
+    public static final NonNullLazy<EntityType<ChimeraFamiliarEntity>> CHIMERA_FAMILIAR_TYPE =
+            NonNullLazy.of(() -> EntityType.Builder.of(ChimeraFamiliarEntity::new, EntityClassification.CREATURE)
+                                         .sized(0.85F, 1.05F)
+                                         .clientTrackingRange(8)
+                                         .build(modLoc("chimera_familiar").toString()));
+    public static final NonNullLazy<EntityType<GoatFamiliarEntity>> GOAT_FAMILIAR_TYPE =
+            NonNullLazy.of(() -> EntityType.Builder.<GoatFamiliarEntity>of(GoatFamiliarEntity::new, EntityClassification.CREATURE)
+                                         .sized(0.7F, 0.8F)
+                                         .clientTrackingRange(8)
+                                         .build(modLoc("goat_familiar").toString()));
     
     public static final NonNullLazy<EntityType<ThrownSwordEntity>> THROWN_SWORD_TYPE =
             NonNullLazy.of(() -> EntityType.Builder.of(ThrownSwordEntity::new, EntityClassification.MISC)
@@ -198,6 +210,10 @@ public class OccultismEntities {
             ENTITIES.register("guardian_familiar", GUARDIAN_FAMILIAR_TYPE::get);
     public static final RegistryObject<EntityType<HeadlessFamiliarEntity>> HEADLESS_FAMILIAR =
             ENTITIES.register("headless_familiar", HEADLESS_FAMILIAR_TYPE::get);
+    public static final RegistryObject<EntityType<ChimeraFamiliarEntity>> CHIMERA_FAMILIAR =
+            ENTITIES.register("chimera_familiar", CHIMERA_FAMILIAR_TYPE::get);
+    public static final RegistryObject<EntityType<GoatFamiliarEntity>> GOAT_FAMILIAR =
+            ENTITIES.register("goat_familiar", GOAT_FAMILIAR_TYPE::get);
     
     public static final RegistryObject<EntityType<ThrownSwordEntity>> THROWN_SWORD =
             ENTITIES.register("thrown_sword", THROWN_SWORD_TYPE::get);

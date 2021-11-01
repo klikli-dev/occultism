@@ -28,7 +28,7 @@ public class FamiliarTrigger extends AbstractCriterionTrigger<FamiliarTrigger.In
 
     @Override
     protected Instance createInstance(JsonObject json, AndPredicate entityPredicate,
-                                      ConditionArrayParser conditionsParser) {
+            ConditionArrayParser conditionsParser) {
         return new Instance(entityPredicate, Type.valueOf(JSONUtils.getAsString(json, "type")));
     }
 
@@ -43,7 +43,8 @@ public class FamiliarTrigger extends AbstractCriterionTrigger<FamiliarTrigger.In
 
     public enum Type {
         DEER_POOP, CTHULHU_SAD, BAT_EAT, DEVIL_FIRE, GREEDY_ITEM, RARE_VARIANT, PARTY, CAPTURE, DRAGON_NUGGET,
-        DRAGON_RIDE, DRAGON_PET, DRAGON_FETCH, BLACKSMITH_UPGRADE, GUARDIAN_ULTIMATE_SACRIFICE, HEADLESS_CTHULHU_HEAD, HEADLESS_REBUILT
+        DRAGON_RIDE, DRAGON_PET, DRAGON_FETCH, BLACKSMITH_UPGRADE, GUARDIAN_ULTIMATE_SACRIFICE, HEADLESS_CTHULHU_HEAD,
+        HEADLESS_REBUILT, CHIMERA_RIDE, GOAT_DETACH
     }
 
     public static class Instance extends CriterionInstance {

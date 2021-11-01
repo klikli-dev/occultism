@@ -60,6 +60,12 @@
         "minecraft:custom_model_data": 9.0
       },
       "model": "occultism:item/advancement/headless_icon"
+    },
+    {
+      "predicate": {
+        "minecraft:custom_model_data": 10.0
+      },
+      "model": "occultism:item/advancement/chimera_icon"
     }
   ]
 }

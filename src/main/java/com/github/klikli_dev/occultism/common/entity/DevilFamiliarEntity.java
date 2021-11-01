@@ -196,11 +196,11 @@ public class DevilFamiliarEntity extends FamiliarEntity {
             return this.cooldown-- < 0 && this.entity.getFamiliarOwner() instanceof PlayerEntity && !this.getNearbyEnemies().isEmpty();
         }
 
-        private List<Entity> getNearbyEnemies() {
+        private List<LivingEntity> getNearbyEnemies() {
             LivingEntity owner = this.entity.getFamiliarOwner();
             LivingEntity revenge = owner.getLastHurtByMob();
             LivingEntity target = owner.getLastHurtMob();
-            List<Entity> enemies = new ArrayList<>();
+            List<LivingEntity> enemies = new ArrayList<>();
             if (this.isClose(revenge))
                 enemies.add(revenge);
             if (this.isClose(target))
@@ -213,7 +213,7 @@ public class DevilFamiliarEntity extends FamiliarEntity {
         }
 
         public void start() {
-            List<Entity> enemies = this.getNearbyEnemies();
+            List<LivingEntity> enemies = this.getNearbyEnemies();
             if (!enemies.isEmpty() && this.entity instanceof DevilFamiliarEntity)
                 OccultismAdvancements.FAMILIAR.trigger(this.entity.getFamiliarOwner(), FamiliarTrigger.Type.DEVIL_FIRE);
 
@@ -222,7 +222,7 @@ public class DevilFamiliarEntity extends FamiliarEntity {
             this.cooldown = MAX_COOLDOWN;
         }
 
-        protected void attack(List<Entity> enemies) {
+        protected void attack(List<LivingEntity> enemies) {
             for (Entity e : enemies) {
                 e.hurt(DamageSource.playerAttack((PlayerEntity) this.entity.getFamiliarOwner()), 4);
             }
