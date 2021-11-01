@@ -65,7 +65,9 @@ public class FamiliarSettingsCapability {
                     OccultismEntities.DRAGON_FAMILIAR_TYPE.get(),
                     OccultismEntities.BLACKSMITH_FAMILIAR_TYPE.get(),
                     OccultismEntities.GUARDIAN_FAMILIAR_TYPE.get(),
-                    OccultismEntities.HEADLESS_FAMILIAR_TYPE.get()
+                    OccultismEntities.HEADLESS_FAMILIAR_TYPE.get(),
+                    OccultismEntities.CHIMERA_FAMILIAR_TYPE.get(),
+                    OccultismEntities.GOAT_FAMILIAR_TYPE.get()
             );
         return familiars;
     }

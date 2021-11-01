@@ -1,0 +1,31 @@
+{
+  "parent": "occultism:occultism/familiar/root",
+  "display": {
+    "icon": {
+      "item": "minecraft:golden_apple"
+    },
+    "title": {
+      "translate": "advancements.occultism.familiar.goat_detach.title"
+    },
+    "description": {
+      "translate": "advancements.occultism.familiar.goat_detach.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "goat_detach": {
+      "trigger": "occultism:familiar",
+      "conditions": {
+        "type": "GOAT_DETACH"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "goat_detach"
+    ]
+  ]
+}
