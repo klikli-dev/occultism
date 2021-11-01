@@ -30,6 +30,7 @@ import com.github.klikli_dev.occultism.common.OccultismItemGroup;
 import com.github.klikli_dev.occultism.common.entity.*;
 import com.github.klikli_dev.occultism.common.entity.possessed.PossessedEndermanEntity;
 import com.github.klikli_dev.occultism.common.entity.possessed.PossessedEndermiteEntity;
+import com.github.klikli_dev.occultism.common.entity.possessed.PossessedGhastEntity;
 import com.github.klikli_dev.occultism.common.entity.possessed.PossessedSkeletonEntity;
 import com.github.klikli_dev.occultism.common.entity.spirit.*;
 import com.github.klikli_dev.occultism.common.world.WorldGenHandler;
@@ -142,6 +143,7 @@ public class Occultism {
         event.put(OccultismEntities.POSSESSED_ENDERMITE_TYPE.get(), PossessedEndermiteEntity.registerAttributes().build());
         event.put(OccultismEntities.POSSESSED_SKELETON_TYPE.get(), PossessedSkeletonEntity.registerAttributes().build());
         event.put(OccultismEntities.POSSESSED_ENDERMAN_TYPE.get(), PossessedEndermanEntity.registerAttributes().build());
+        event.put(OccultismEntities.POSSESSED_GHAST_TYPE.get(), PossessedGhastEntity.registerAttributes().build());
         event.put(OccultismEntities.WILD_HUNT_SKELETON_TYPE.get(), WildHuntSkeletonEntity.registerAttributes().build());
         event.put(OccultismEntities.WILD_HUNT_WITHER_SKELETON_TYPE.get(), WildHuntWitherSkeletonEntity.registerAttributes().build());
         event.put(OccultismEntities.OTHERWORLD_BIRD_TYPE.get(), OtherworldBirdEntity.registerAttributes().build());
