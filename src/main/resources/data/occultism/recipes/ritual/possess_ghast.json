@@ -34,13 +34,13 @@
       "tag": "forge:magma"
     },
     {
-      "tag": "minecraft:lava_bucket"
+      "item": "minecraft:lava_bucket"
     },
     {
-      "tag": "minecraft:lava_bucket"
+      "item": "minecraft:lava_bucket"
     },
     {
-      "tag": "minecraft:lava_bucket"
+      "item": "minecraft:lava_bucket"
     },
     {
       "tag": "forge:gems/diamond"

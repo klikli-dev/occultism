@@ -6,7 +6,7 @@
   "pages": [
     {
       "type": "entity",
-      "entity": "occultism:possessed_gast",
+      "entity": "occultism:possessed_ghast",
       "text": "Drops: 1-3x $(item)Ghast Tear$()"
     },
     {
