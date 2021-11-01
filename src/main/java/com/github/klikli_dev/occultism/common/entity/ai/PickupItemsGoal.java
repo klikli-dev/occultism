@@ -45,18 +45,20 @@ public class PickupItemsGoal extends TargetGoal {
     protected final EntitySorter entitySorter;
     protected ItemEntity targetItem;
     protected int executionChance;
+    protected float pickupRange;
     //endregion Fields
 
     //region Initialization
 
     public PickupItemsGoal(SpiritEntity entity) {
-        this(entity, 10);
+        this(entity, 2f, 10);
         this.setFlags(EnumSet.of(Flag.MOVE));
     }
 
-    public PickupItemsGoal(SpiritEntity entity, int executionChance) {
+    public PickupItemsGoal(SpiritEntity entity, float pickupRange, int executionChance) {
         super(entity, false, false);
         this.entity = entity;
+        this.pickupRange = pickupRange;
         this.executionChance = executionChance;
         this.targetItemSelector = new Predicate<ItemEntity>() {
             //region Overrides
@@ -111,7 +113,7 @@ public class PickupItemsGoal extends TargetGoal {
         } else {
             this.mob.getNavigation().moveTo(this.mob.getNavigation().createPath(this.targetItem, 0), 1.0f);
             double distance = this.entity.position().distanceTo(this.targetItem.position());
-            if (distance < 1F) {
+            if (distance < this.pickupRange) {
                 this.entity.setDeltaMovement(0, 0, 0);
                 this.entity.getNavigation().stop();
 
