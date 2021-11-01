@@ -27,15 +27,14 @@ import com.github.klikli_dev.occultism.common.ritual.pentacle.Pentacle;
 import com.github.klikli_dev.occultism.common.ritual.pentacle.PentacleManager;
 import com.github.klikli_dev.occultism.registry.OccultismRecipes;
 import com.github.klikli_dev.occultism.registry.OccultismRituals;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
 import net.minecraft.entity.EntityType;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.item.crafting.ShapelessRecipe;
+import net.minecraft.item.crafting.*;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.tags.ITag;
 import net.minecraft.tags.TagCollectionManager;
@@ -192,7 +191,14 @@ public class RitualRecipe extends ShapelessRecipe {
         //region Overrides
         @Override
         public RitualRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
-            ShapelessRecipe recipe = serializer.fromJson(recipeId, json);
+
+            //do not use shapeless serializer here, because it limits max ingredients
+            String group = JSONUtils.getAsString(json, "group", "");
+            NonNullList<Ingredient> ingredients = itemsFromJson(JSONUtils.getAsJsonArray(json, "ingredients"));
+            if (ingredients.isEmpty()) {
+                throw new JsonParseException("No ingredients for shapeless recipe");
+            }
+            ItemStack result = ShapedRecipe.itemFromJson(JSONUtils.getAsJsonObject(json, "result"));
 
             ResourceLocation ritualType = new ResourceLocation(json.get("ritual_type").getAsString());
 
@@ -235,9 +241,22 @@ public class RitualRecipe extends ShapelessRecipe {
 
             }
 
-            return new RitualRecipe(recipe.getId(), recipe.getGroup(), pentacleId, ritualType, ritualDummy,
-                    recipe.getResultItem(), entityToSummon, activationItem, recipe.getIngredients(), duration,
+            return new RitualRecipe(recipeId, group, pentacleId, ritualType, ritualDummy,
+                    result, entityToSummon, activationItem, ingredients, duration,
                     spiritMaxAge, spiritJobType, entityToSacrifice, entityToSacrificeDisplayName, itemToUse);
+        }
+
+        private static NonNullList<Ingredient> itemsFromJson(JsonArray pIngredientArray) {
+            NonNullList<Ingredient> nonnulllist = NonNullList.create();
+
+            for(int i = 0; i < pIngredientArray.size(); ++i) {
+                Ingredient ingredient = Ingredient.fromJson(pIngredientArray.get(i));
+                if (!ingredient.isEmpty()) {
+                    nonnulllist.add(ingredient);
+                }
+            }
+
+            return nonnulllist;
         }
 
         @Override

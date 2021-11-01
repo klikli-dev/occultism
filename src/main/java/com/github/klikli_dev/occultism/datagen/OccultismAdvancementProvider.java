@@ -237,6 +237,7 @@ public class OccultismAdvancementProvider implements IDataProvider {
             this.addRitualHidden(root, "possess_enderman");
             this.addRitualHidden(root, "possess_endermite");
             this.addRitualHidden(root, "possess_skeleton");
+            this.addRitualHidden(root, "possess_ghast");
             this.addRitualHidden(root, "summon_afrit_crusher");
             this.addRitualHidden(root, "summon_afrit_rain_weather");
             this.addRitualHidden(root, "summon_afrit_thunder_weather");

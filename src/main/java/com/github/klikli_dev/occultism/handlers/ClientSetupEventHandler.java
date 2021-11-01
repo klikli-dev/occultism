@@ -44,10 +44,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
-import net.minecraft.client.renderer.entity.EndermanRenderer;
-import net.minecraft.client.renderer.entity.EndermiteRenderer;
-import net.minecraft.client.renderer.entity.SkeletonRenderer;
-import net.minecraft.client.renderer.entity.WitherSkeletonRenderer;
+import net.minecraft.client.renderer.entity.*;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.client.util.InputMappings;
 import net.minecraft.entity.EntityType;
@@ -128,6 +125,8 @@ public class ClientSetupEventHandler {
                 .registerEntityRenderingHandler(OccultismEntities.POSSESSED_SKELETON.get(), SkeletonRenderer::new);
         RenderingRegistry
                 .registerEntityRenderingHandler(OccultismEntities.POSSESSED_ENDERMAN.get(), EndermanRenderer::new);
+        RenderingRegistry
+                .registerEntityRenderingHandler(OccultismEntities.POSSESSED_GHAST.get(), GhastRenderer::new);
         RenderingRegistry
                 .registerEntityRenderingHandler(OccultismEntities.WILD_HUNT_SKELETON.get(), SkeletonRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.WILD_HUNT_WITHER_SKELETON.get(),

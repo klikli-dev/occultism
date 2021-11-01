@@ -38,10 +38,12 @@ import com.github.klikli_dev.occultism.common.entity.OtherworldBirdEntity;
 import com.github.klikli_dev.occultism.common.entity.ThrownSwordEntity;
 import com.github.klikli_dev.occultism.common.entity.possessed.PossessedEndermanEntity;
 import com.github.klikli_dev.occultism.common.entity.possessed.PossessedEndermiteEntity;
+import com.github.klikli_dev.occultism.common.entity.possessed.PossessedGhastEntity;
 import com.github.klikli_dev.occultism.common.entity.possessed.PossessedSkeletonEntity;
 import com.github.klikli_dev.occultism.common.entity.spirit.*;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.monster.GhastEntity;
 import net.minecraftforge.common.util.NonNullLazy;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
@@ -66,11 +68,13 @@ public class OccultismEntities {
                     .build(modLoc("djinni").toString()));
     public static final NonNullLazy<EntityType<AfritEntity>> AFRIT_TYPE =
             NonNullLazy.of(() -> EntityType.Builder.of(AfritEntity::new, EntityClassification.CREATURE)
+                    .fireImmune()
                     .sized(1.2f, 1.8f)
                     .clientTrackingRange(8)
                     .build(modLoc("afrit").toString()));
     public static final NonNullLazy<EntityType<AfritWildEntity>> AFRIT_WILD_TYPE =
             NonNullLazy.of(() -> EntityType.Builder.of(AfritWildEntity::new, EntityClassification.CREATURE)
+                    .fireImmune()
                     .sized(1.2f, 1.8f)
                     .clientTrackingRange(8)
                     .build(modLoc("afrit_wild").toString()));
@@ -94,7 +98,14 @@ public class OccultismEntities {
             NonNullLazy.of(() -> EntityType.Builder.of(PossessedEndermanEntity::new, EntityClassification.MONSTER)
                     .sized(0.6F, 2.9F)
                     .clientTrackingRange(8)
-                    .build(modLoc("possessed_endermite").toString()));
+                    .build(modLoc("possessed_enderman").toString()));
+    public static final NonNullLazy<EntityType<PossessedGhastEntity>> POSSESSED_GHAST_TYPE =
+            NonNullLazy.of(() -> EntityType.Builder.of(PossessedGhastEntity::new, EntityClassification.MONSTER)
+                    .fireImmune()
+                    .sized(4.0F, 4.0F)
+                    .clientTrackingRange(10)
+                    .build(modLoc("possessed_ghast").toString()));
+
     public static final NonNullLazy<EntityType<WildHuntSkeletonEntity>> WILD_HUNT_SKELETON_TYPE =
             NonNullLazy.of(() -> EntityType.Builder.of(WildHuntSkeletonEntity::new, EntityClassification.MONSTER)
                     .sized(0.6F, 2.9F)
@@ -186,6 +197,8 @@ public class OccultismEntities {
             ENTITIES.register("possessed_skeleton", POSSESSED_SKELETON_TYPE::get);
     public static final RegistryObject<EntityType<PossessedEndermanEntity>> POSSESSED_ENDERMAN =
             ENTITIES.register("possessed_enderman", POSSESSED_ENDERMAN_TYPE::get);
+    public static final RegistryObject<EntityType<PossessedGhastEntity>> POSSESSED_GHAST =
+            ENTITIES.register("possessed_ghast", POSSESSED_GHAST_TYPE::get);
     public static final RegistryObject<EntityType<WildHuntSkeletonEntity>> WILD_HUNT_SKELETON =
             ENTITIES.register("wild_hunt_skeleton", WILD_HUNT_SKELETON_TYPE::get);
     public static final RegistryObject<EntityType<WildHuntWitherSkeletonEntity>> WILD_HUNT_WITHER_SKELETON =
