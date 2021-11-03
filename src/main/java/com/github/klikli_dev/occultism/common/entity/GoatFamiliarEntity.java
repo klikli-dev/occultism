@@ -25,8 +25,10 @@ package com.github.klikli_dev.occultism.common.entity;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.google.common.collect.ImmutableList;
 
+import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.ai.goal.FollowMobGoal;
 import net.minecraft.entity.ai.goal.LookAtGoal;
 import net.minecraft.entity.ai.goal.PanicGoal;
@@ -38,21 +40,23 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.EffectInstance;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.world.World;
 
 public class GoatFamiliarEntity extends ResizableFamiliarEntity {
 
-    private static final DataParameter<Boolean> RING = EntityDataManager.defineId(GoatFamiliarEntity.class,
-            DataSerializers.BOOLEAN);
+    private static final DataParameter<Byte> VARIANTS = EntityDataManager.defineId(GoatFamiliarEntity.class,
+            DataSerializers.BYTE);
 
     public GoatFamiliarEntity(EntityType<? extends GoatFamiliarEntity> type, World worldIn) {
         super(type, worldIn);
     }
 
-    public GoatFamiliarEntity(World worldIn, boolean hasRing, byte size,
-            LivingEntity owner) {
+    public GoatFamiliarEntity(World worldIn, boolean hasRing, boolean hasBeard, byte size, LivingEntity owner) {
         super(OccultismEntities.GOAT_FAMILIAR.get(), worldIn);
         this.setRing(hasRing);
+        this.setBeard(hasBeard);
         this.setSize(size);
         this.setFamiliarOwner(owner);
     }
@@ -69,6 +73,29 @@ public class GoatFamiliarEntity extends ResizableFamiliarEntity {
     }
 
     @Override
+    public boolean hurt(DamageSource pSource, float pAmount) {
+        if (super.hurt(pSource, pAmount)) {
+            if (pSource.getEntity() != null) {
+                ringBell(this);
+            }
+            return true;
+        }
+        return false;
+    }
+
+    private static void ringBell(FamiliarEntity entity) {
+        LivingEntity owner = entity.getFamiliarOwner();
+        if (owner == null || !entity.hasBlacksmithUpgrade())
+            return;
+        
+        entity.playSound(SoundEvents.BELL_BLOCK, 1, 1);
+
+        for (MobEntity e : entity.level.getEntitiesOfClass(MobEntity.class, entity.getBoundingBox().inflate(30),
+                e -> e.isAlive() && e.getClassification(false) == EntityClassification.MONSTER))
+            e.setTarget(owner);
+    }
+
+    @Override
     public Iterable<EffectInstance> getFamiliarEffects() {
         return ImmutableList.of();
     }
@@ -76,26 +103,52 @@ public class GoatFamiliarEntity extends ResizableFamiliarEntity {
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(RING, false);
+        this.entityData.define(VARIANTS, (byte) 0);
     }
 
     @Override
     public void readAdditionalSaveData(CompoundNBT compound) {
         super.readAdditionalSaveData(compound);
-        this.setRing(compound.getBoolean("hasRing"));
+        if (!compound.contains("variants"))
+            this.setRing(compound.getBoolean("hasRing"));
+        this.entityData.set(VARIANTS, compound.getByte("variants"));
     }
 
     @Override
     public void addAdditionalSaveData(CompoundNBT compound) {
         super.addAdditionalSaveData(compound);
-        compound.putBoolean("hasRing", this.hasRing());
+        compound.putByte("variants", this.entityData.get(VARIANTS));
+    }
+
+    @Override
+    public boolean canBlacksmithUpgrade() {
+        return !this.hasBlacksmithUpgrade();
+    }
+
+    private void setVariant(int offset, boolean b) {
+        if (b)
+            this.entityData.set(VARIANTS, (byte) (this.entityData.get(VARIANTS) | (1 << offset)));
+        else
+            this.entityData.set(VARIANTS, (byte) (this.entityData.get(VARIANTS) & (0b11111110 << offset)));
+    }
+
+    private boolean hasVariant(int offset) {
+        return ((this.entityData.get(VARIANTS) >> offset) & 1) == 1;
     }
 
     public boolean hasRing() {
-        return this.entityData.get(RING);
+        return this.hasVariant(0);
     }
 
     private void setRing(boolean b) {
-        this.entityData.set(RING, b);
+        this.setVariant(0, b);
+    }
+
+    public boolean hasBeard() {
+        return this.hasVariant(1);
+    }
+
+    private void setBeard(boolean b) {
+        this.setVariant(1, b);
     }
 }
