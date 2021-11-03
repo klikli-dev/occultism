@@ -35,6 +35,7 @@ import com.github.klikli_dev.occultism.common.entity.GreedyFamiliarEntity;
 import com.github.klikli_dev.occultism.common.entity.GuardianFamiliarEntity;
 import com.github.klikli_dev.occultism.common.entity.HeadlessFamiliarEntity;
 import com.github.klikli_dev.occultism.common.entity.OtherworldBirdEntity;
+import com.github.klikli_dev.occultism.common.entity.ShubNiggurathFamiliarEntity;
 import com.github.klikli_dev.occultism.common.entity.ThrownSwordEntity;
 import com.github.klikli_dev.occultism.common.entity.possessed.PossessedEndermanEntity;
 import com.github.klikli_dev.occultism.common.entity.possessed.PossessedEndermiteEntity;
@@ -43,7 +44,6 @@ import com.github.klikli_dev.occultism.common.entity.possessed.PossessedSkeleton
 import com.github.klikli_dev.occultism.common.entity.spirit.*;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.monster.GhastEntity;
 import net.minecraftforge.common.util.NonNullLazy;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
@@ -177,6 +177,11 @@ public class OccultismEntities {
                                          .sized(0.7F, 0.8F)
                                          .clientTrackingRange(8)
                                          .build(modLoc("goat_familiar").toString()));
+    public static final NonNullLazy<EntityType<ShubNiggurathFamiliarEntity>> SHUB_NIGGURATH_FAMILIAR_TYPE =
+            NonNullLazy.of(() -> EntityType.Builder.<ShubNiggurathFamiliarEntity>of(ShubNiggurathFamiliarEntity::new, EntityClassification.CREATURE)
+                                         .sized(0.7F, 0.8F)
+                                         .clientTrackingRange(8)
+                                         .build(modLoc("shub_niggurath_familiar").toString()));
     
     public static final NonNullLazy<EntityType<ThrownSwordEntity>> THROWN_SWORD_TYPE =
             NonNullLazy.of(() -> EntityType.Builder.of(ThrownSwordEntity::new, EntityClassification.MISC)
@@ -227,6 +232,8 @@ public class OccultismEntities {
             ENTITIES.register("chimera_familiar", CHIMERA_FAMILIAR_TYPE::get);
     public static final RegistryObject<EntityType<GoatFamiliarEntity>> GOAT_FAMILIAR =
             ENTITIES.register("goat_familiar", GOAT_FAMILIAR_TYPE::get);
+    public static final RegistryObject<EntityType<ShubNiggurathFamiliarEntity>> SHUB_NIGGURATH_FAMILIAR =
+            ENTITIES.register("shub_niggurath_familiar", SHUB_NIGGURATH_FAMILIAR_TYPE::get);
     
     public static final RegistryObject<EntityType<ThrownSwordEntity>> THROWN_SWORD =
             ENTITIES.register("thrown_sword", THROWN_SWORD_TYPE::get);
