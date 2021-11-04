@@ -26,12 +26,18 @@ import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.google.common.collect.ImmutableList;
 
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.ai.goal.FollowMobGoal;
+import net.minecraft.entity.ai.goal.LookAtGoal;
+import net.minecraft.entity.ai.goal.RandomWalkingGoal;
+import net.minecraft.entity.ai.goal.SwimGoal;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
 public class ShubNiggurathFamiliarEntity extends ResizableFamiliarEntity {
@@ -49,6 +55,27 @@ public class ShubNiggurathFamiliarEntity extends ResizableFamiliarEntity {
         this.setBeard(goat.hasBeard());
         this.setSize(goat.getSize());
         this.setFamiliarOwner(goat.getFamiliarOwner());
+        this.setPos(goat.getX(), goat.getY(), goat.getZ());
+    }
+    
+    @Override
+    protected void registerGoals() {
+        super.registerGoals();
+        this.goalSelector.addGoal(0, new SwimGoal(this));
+        this.goalSelector.addGoal(1, new SitGoal(this));
+        this.goalSelector.addGoal(2, new LookAtGoal(this, PlayerEntity.class, 8));
+        this.goalSelector.addGoal(5, new FollowOwnerGoal(this, 1, 3, 1));
+        this.goalSelector.addGoal(7, new RandomWalkingGoal(this, 1));
+        this.goalSelector.addGoal(8, new FollowMobGoal(this, 1, 3, 7));
+    }
+    
+    @Override
+    protected float tickHeadTurn(float p_110146_1_, float distance) {
+        if (distance > 0.1) {
+            yBodyRot = yRot;
+            yHeadRot = MathHelper.rotateIfNecessary(yHeadRot, yBodyRot, getMaxHeadYRot());
+        }
+        return distance;
     }
 
     @Override

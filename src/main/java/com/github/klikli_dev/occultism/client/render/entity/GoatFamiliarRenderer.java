@@ -26,10 +26,15 @@ import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.client.model.entity.GoatFamiliarModel;
 import com.github.klikli_dev.occultism.common.entity.GoatFamiliarEntity;
 import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.IVertexBuilder;
 
 import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
+import net.minecraft.client.renderer.entity.IEntityRenderer;
+import net.minecraft.client.renderer.entity.LivingRenderer;
 import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.util.ResourceLocation;
 
 public class GoatFamiliarRenderer extends MobRenderer<GoatFamiliarEntity, GoatFamiliarModel> {
@@ -39,7 +44,7 @@ public class GoatFamiliarRenderer extends MobRenderer<GoatFamiliarEntity, GoatFa
 
     public GoatFamiliarRenderer(EntityRendererManager renderManagerIn) {
         super(renderManagerIn, new GoatFamiliarModel(), 0.3f);
-
+        this.addLayer(new BlackLayer(this));
     }
 
     @Override
@@ -59,5 +64,29 @@ public class GoatFamiliarRenderer extends MobRenderer<GoatFamiliarEntity, GoatFa
     @Override
     public ResourceLocation getTextureLocation(GoatFamiliarEntity entity) {
         return TEXTURES;
+    }
+
+    private class BlackLayer extends LayerRenderer<GoatFamiliarEntity, GoatFamiliarModel> {
+
+        private final GoatFamiliarModel model = new GoatFamiliarModel();
+
+        public BlackLayer(IEntityRenderer<GoatFamiliarEntity, GoatFamiliarModel> renderer) {
+            super(renderer);
+        }
+
+        @Override
+        public void render(MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn,
+                GoatFamiliarEntity entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks,
+                float ageInTicks, float netHeadYaw, float headPitch) {
+            if (!entitylivingbaseIn.isInvisible() && entitylivingbaseIn.isBlack()) {
+                this.getParentModel().copyPropertiesTo(this.model);
+                this.model.prepareMobModel(entitylivingbaseIn, limbSwing, limbSwingAmount, partialTicks);
+                this.model.setupAnim(entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
+                IVertexBuilder ivertexbuilder = bufferIn
+                        .getBuffer(RenderType.entityTranslucent(this.getTextureLocation(entitylivingbaseIn)));
+                this.model.renderToBuffer(matrixStackIn, ivertexbuilder, packedLightIn,
+                        LivingRenderer.getOverlayCoords(entitylivingbaseIn, 0), 0, 0, 0, 0.5f);
+            }
+        }
     }
 }

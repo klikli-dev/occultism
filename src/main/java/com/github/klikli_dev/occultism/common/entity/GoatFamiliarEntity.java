@@ -25,6 +25,7 @@ package com.github.klikli_dev.occultism.common.entity;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.google.common.collect.ImmutableList;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -35,19 +36,30 @@ import net.minecraft.entity.ai.goal.PanicGoal;
 import net.minecraft.entity.ai.goal.SwimGoal;
 import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.potion.EffectInstance;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.Hand;
 import net.minecraft.util.SoundEvents;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.Biome.Category;
+import net.minecraftforge.common.Tags;
 
 public class GoatFamiliarEntity extends ResizableFamiliarEntity {
 
     private static final DataParameter<Byte> VARIANTS = EntityDataManager.defineId(GoatFamiliarEntity.class,
             DataSerializers.BYTE);
+
+    private int shakeHeadTimer;
 
     public GoatFamiliarEntity(EntityType<? extends GoatFamiliarEntity> type, World worldIn) {
         super(type, worldIn);
@@ -87,7 +99,7 @@ public class GoatFamiliarEntity extends ResizableFamiliarEntity {
         LivingEntity owner = entity.getFamiliarOwner();
         if (owner == null || !entity.hasBlacksmithUpgrade())
             return;
-        
+
         entity.playSound(SoundEvents.BELL_BLOCK, 1, 1);
 
         for (MobEntity e : entity.level.getEntitiesOfClass(MobEntity.class, entity.getBoundingBox().inflate(30),
@@ -121,6 +133,13 @@ public class GoatFamiliarEntity extends ResizableFamiliarEntity {
     }
 
     @Override
+    public void tick() {
+        super.tick();
+        if (level.isClientSide)
+            this.shakeHeadTimer--;
+    }
+
+    @Override
     public boolean canBlacksmithUpgrade() {
         return !this.hasBlacksmithUpgrade();
     }
@@ -150,5 +169,88 @@ public class GoatFamiliarEntity extends ResizableFamiliarEntity {
 
     private void setBeard(boolean b) {
         this.setVariant(1, b);
+    }
+
+    public boolean isBlack() {
+        return this.hasVariant(2);
+    }
+
+    private void setBlack(boolean b) {
+        this.setVariant(2, b);
+    }
+
+    public boolean hasRedEyes() {
+        return this.hasVariant(3);
+    }
+
+    private void setRedEyes(boolean b) {
+        this.setVariant(3, b);
+    }
+
+    public boolean hasEvilHorns() {
+        return this.hasVariant(4);
+    }
+
+    private void setEvilHorns(boolean b) {
+        this.setVariant(4, b);
+    }
+
+    @Override
+    protected ActionResultType mobInteract(PlayerEntity playerIn, Hand hand) {
+        ItemStack stack = playerIn.getItemInHand(hand);
+        Item item = stack.getItem();
+        boolean isInForest = isInForest(playerIn) || isInForest(this);
+        if (isTransformItem(item) && playerIn == getFamiliarOwner()) {
+            if (isInForest) {
+                if (!level.isClientSide)
+                    stack.shrink(1);
+                if (item.is(Tags.Items.DYES_BLACK))
+                    this.setBlack(true);
+                else if (item == Items.ENDER_EYE)
+                    this.setRedEyes(true);
+                else if (item == Items.FLINT)
+                    this.setEvilHorns(true);
+                if (shouldTransform()) {
+                    transform();
+                }
+                return ActionResultType.sidedSuccess(level.isClientSide);
+            } else {
+                shakeHeadTimer = 20;
+                return ActionResultType.CONSUME;
+            }
+        }
+        return super.mobInteract(playerIn, hand);
+    }
+
+    private void transform() {
+        if (level.isClientSide) {
+            float scale = getScale();
+            for (int i = 0; i < 30; i++)
+                level.addParticle(ParticleTypes.SMOKE, getRandomX(scale), getRandomY() * scale, getRandomZ(scale), 0, 0,
+                        0);
+        } else {
+            ShubNiggurathFamiliarEntity shubNiggurath = new ShubNiggurathFamiliarEntity(level, this);
+            level.addFreshEntity(shubNiggurath);
+            this.remove();
+        }
+    }
+
+    boolean isTransformItem(Item item) {
+        return (item.is(Tags.Items.DYES_BLACK) && !this.isBlack()) || (item == Items.FLINT && !this.hasEvilHorns())
+                || (item == Items.ENDER_EYE && !this.hasRedEyes());
+    }
+
+    boolean shouldTransform() {
+        return this.isBlack() && this.hasRedEyes() && this.hasEvilHorns();
+    }
+
+    private boolean isInForest(Entity entity) {
+        return this.level.getBiome(entity.blockPosition()).getBiomeCategory() == Category.FOREST;
+    }
+
+    public float getNeckYRot(float pPartialTick) {
+        if (shakeHeadTimer <= 0)
+            return 0;
+        return MathHelper.sin((shakeHeadTimer - pPartialTick) / 20 * (float) Math.PI * 5) * (float) Math.toRadians(30);
     }
 }
