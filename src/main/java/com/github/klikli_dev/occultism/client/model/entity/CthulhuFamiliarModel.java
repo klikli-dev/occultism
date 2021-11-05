@@ -27,6 +27,7 @@ import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
@@ -210,6 +211,11 @@ public class CthulhuFamiliarModel extends EntityModel<CthulhuFamiliarEntity> {
     @Override
     public void setupAnim(CthulhuFamiliarEntity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks,
             float netHeadYaw, float headPitch) {
+        float partialTicks = Minecraft.getInstance().getFrameTime();
+        
+        entityIn.riderLimbSwing = limbSwing;
+        entityIn.riderLimbSwingAmount = limbSwingAmount;
+        
         this.showModels(entityIn);
         this.lantern4.setColor(1, 1, 1, (MathHelper.cos(ageInTicks * 0.2f) + 1) * 0.5f);
 
@@ -282,6 +288,11 @@ public class CthulhuFamiliarModel extends EntityModel<CthulhuFamiliarEntity> {
                 this.lantern1.x = 1f;
                 this.lantern1.z = -0.5f;
             }
+        }
+        
+        if (entityIn.isVehicle()) {
+            float animHeight = entityIn.getAnimationHeight(partialTicks);
+            this.rightArm.xRot = toRads(40 - animHeight * 15);
         }
     }
 

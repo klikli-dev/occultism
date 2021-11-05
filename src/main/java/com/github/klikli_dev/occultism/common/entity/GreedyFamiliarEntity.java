@@ -28,6 +28,7 @@ import java.util.Optional;
 
 import com.github.klikli_dev.occultism.common.advancement.FamiliarTrigger;
 import com.github.klikli_dev.occultism.registry.OccultismAdvancements;
+import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.google.common.collect.ImmutableList;
 
 import net.minecraft.block.Block;
@@ -78,7 +79,7 @@ public class GreedyFamiliarEntity extends FamiliarEntity {
         this.goalSelector.addGoal(0, new SwimGoal(this));
         this.goalSelector.addGoal(1, new SitGoal(this));
         this.goalSelector.addGoal(2, new FindBlockGoal(this));
-        this.goalSelector.addGoal(3, new RideDragonGoal(this));
+        this.goalSelector.addGoal(3, new RideFamiliarGoal<>(this, OccultismEntities.DRAGON_FAMILIAR.get()));
         this.goalSelector.addGoal(4, new FindItemGoal(this));
         this.goalSelector.addGoal(4, new LookAtGoal(this, PlayerEntity.class, 8));
         this.goalSelector.addGoal(5, new FollowOwnerGoal(this, 1, 3, 1));
@@ -277,25 +278,27 @@ public class GreedyFamiliarEntity extends FamiliarEntity {
 
     }
 
-    private static class RideDragonGoal extends Goal {
+    public static class RideFamiliarGoal<T extends FamiliarEntity> extends Goal {
 
-        private final GreedyFamiliarEntity greedy;
-        private DragonFamiliarEntity dragon;
+        private final FamiliarEntity rider;
+        private EntityType<T> type;
+        private FamiliarEntity mount;
 
-        private RideDragonGoal(GreedyFamiliarEntity greedy) {
-            this.greedy = greedy;
+        public RideFamiliarGoal(FamiliarEntity rider, EntityType<T> type) {
+            this.rider = rider;
+            this.type = type;
             this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.JUMP));
         }
 
         @Override
         public boolean canUse() {
-            if (this.greedy.getVehicle() instanceof DragonFamiliarEntity)
+            if (this.rider.getVehicle() != null && this.rider.getVehicle().getType() == type)
                 return true;
 
-            DragonFamiliarEntity dragon = this.findDragon();
-            if (dragon != null) {
-                this.dragon = dragon;
-                this.greedy.getNavigation().moveTo(dragon, 1);
+            FamiliarEntity mount = this.findMount();
+            if (mount != null) {
+                this.mount = mount;
+                this.rider.getNavigation().moveTo(mount, 1);
                 return true;
             }
             return false;
@@ -303,33 +306,34 @@ public class GreedyFamiliarEntity extends FamiliarEntity {
 
         @Override
         public boolean canContinueToUse() {
-            return this.greedy.getVehicle() instanceof DragonFamiliarEntity
-                    || (this.greedy.isPathFinding() && this.dragon != null);
+            return (this.rider.getVehicle() != null && this.rider.getVehicle().getType() == type)
+                    || (this.rider.isPathFinding() && this.mount != null);
         }
 
         @Override
         public void stop() {
-            this.dragon = null;
+            this.rider.stopRiding();
+            this.mount = null;
         }
 
         @Override
         public void tick() {
-            if (this.dragon != null && this.greedy.distanceToSqr(this.dragon) < 5) {
-                this.greedy.startRiding(this.dragon);
+            if (this.mount != null && this.rider.distanceToSqr(this.mount) < 5 && !this.mount.hasPassenger(this.rider)) {
+                this.rider.startRiding(this.mount);
+                this.mount.getNavigation().stop();
             }
         }
 
-        private DragonFamiliarEntity findDragon() {
-            LivingEntity owner = this.greedy.getOwner();
+        private FamiliarEntity findMount() {
+            LivingEntity owner = this.rider.getOwner();
             if (owner == null)
                 return null;
 
-            List<DragonFamiliarEntity> dragons = this.greedy.level.getEntitiesOfClass(DragonFamiliarEntity.class,
-                    this.greedy.getBoundingBox().inflate(5),
+            List<T> mounts = this.rider.level.getEntities(type, this.rider.getBoundingBox().inflate(5),
                     e -> e.getFamiliarOwner() == owner && !e.isVehicle() && !e.isSitting());
-            if (dragons.isEmpty())
+            if (mounts.isEmpty())
                 return null;
-            return dragons.get(0);
+            return mounts.get(0);
         }
     }
 

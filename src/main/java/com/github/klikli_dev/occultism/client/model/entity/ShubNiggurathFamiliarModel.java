@@ -24,11 +24,13 @@ package com.github.klikli_dev.occultism.client.model.entity;
 
 import java.util.List;
 
+import com.github.klikli_dev.occultism.common.entity.CthulhuFamiliarEntity;
 import com.github.klikli_dev.occultism.common.entity.ShubNiggurathFamiliarEntity;
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.util.math.MathHelper;
@@ -363,9 +365,19 @@ public class ShubNiggurathFamiliarModel extends EntityModel<ShubNiggurathFamilia
     }
 
     @Override
-    public void setupAnim(ShubNiggurathFamiliarEntity pEntity, float pLimbSwing, float pLimbSwingAmount,
+    public void setupAnim(ShubNiggurathFamiliarEntity pEntity, float limbSwing, float limbSwingAmount,
             float pAgeInTicks, float netHeadYaw, float headPitch) {
+
+        float partialTicks = Minecraft.getInstance().getFrameTime();
+
         this.showModels(pEntity);
+
+        CthulhuFamiliarEntity friend = pEntity.getCthulhuFriend();
+
+        if (friend != null) {
+            limbSwing = friend.riderLimbSwing;
+            limbSwingAmount = friend.riderLimbSwingAmount;
+        }
 
         this.head.yRot = toRads(netHeadYaw) * 0.7f;
         this.head.xRot = toRads(headPitch) * 0.7f;
@@ -373,6 +385,17 @@ public class ShubNiggurathFamiliarModel extends EntityModel<ShubNiggurathFamilia
         this.rotateTentacles(ImmutableList.of(tentacleBottom1, tentacleBottom2, tentacleBottom3), pAgeInTicks, 0);
         this.rotateTentacles(ImmutableList.of(tentacleMiddle1, tentacleMiddle2, tentacleMiddle3), pAgeInTicks, 0.5f);
         this.rotateTentacles(ImmutableList.of(tentacleTop1, tentacleTop2, tentacleTop3), pAgeInTicks, 1);
+
+        this.rightArm1.xRot = MathHelper.cos(limbSwing * 0.5f + PI) * limbSwingAmount * 0.5f - 1.21f;
+        this.leftArm1.xRot = MathHelper.cos(limbSwing * 0.5f) * limbSwingAmount * 0.5f - 1.21f;
+        this.leftLeg1.xRot = MathHelper.cos(limbSwing * 0.5f + PI) * limbSwingAmount * 0.5f - 2.53f;
+        this.rightLeg1.xRot = MathHelper.cos(limbSwing * 0.5f) * limbSwingAmount * 0.5f - 2.53f;
+        this.body.y = 18.6f - Math.abs(MathHelper.cos(limbSwing * 0.5f + PI)) * limbSwingAmount * 1.5f;
+
+        if (friend != null) {
+            this.leftArm1.xRot = toRads(
+                    -143 - 5 * friend.getAnimationHeight(partialTicks) - 10 * (this.body.y - 18.6f));
+        }
     }
 
     private void rotateTentacles(List<ModelRenderer> tentacles, float ageInTicks, float offset) {

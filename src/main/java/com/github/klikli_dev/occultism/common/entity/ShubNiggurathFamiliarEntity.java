@@ -26,6 +26,7 @@ import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.google.common.collect.ImmutableList;
 
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.FollowMobGoal;
 import net.minecraft.entity.ai.goal.LookAtGoal;
 import net.minecraft.entity.ai.goal.RandomWalkingGoal;
@@ -38,9 +39,10 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 
-public class ShubNiggurathFamiliarEntity extends ResizableFamiliarEntity {
+public class ShubNiggurathFamiliarEntity extends FamiliarEntity {
 
     private static final DataParameter<Byte> VARIANTS = EntityDataManager.defineId(ShubNiggurathFamiliarEntity.class,
             DataSerializers.BYTE);
@@ -53,22 +55,24 @@ public class ShubNiggurathFamiliarEntity extends ResizableFamiliarEntity {
         super(OccultismEntities.SHUB_NIGGURATH_FAMILIAR.get(), worldIn);
         this.setRing(goat.hasRing());
         this.setBeard(goat.hasBeard());
-        this.setSize(goat.getSize());
         this.setFamiliarOwner(goat.getFamiliarOwner());
         this.setPos(goat.getX(), goat.getY(), goat.getZ());
     }
-    
+
     @Override
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(0, new SwimGoal(this));
         this.goalSelector.addGoal(1, new SitGoal(this));
-        this.goalSelector.addGoal(2, new LookAtGoal(this, PlayerEntity.class, 8));
-        this.goalSelector.addGoal(5, new FollowOwnerGoal(this, 1, 3, 1));
-        this.goalSelector.addGoal(7, new RandomWalkingGoal(this, 1));
-        this.goalSelector.addGoal(8, new FollowMobGoal(this, 1, 3, 7));
+        this.goalSelector.addGoal(1, new LookAtGoal(this, PlayerEntity.class, 8));
+        this.goalSelector.addGoal(2, new LookAtGoal(this, LivingEntity.class, 8));
+        this.goalSelector.addGoal(3,
+                new GreedyFamiliarEntity.RideFamiliarGoal<>(this, OccultismEntities.CTHULHU_FAMILIAR.get()));
+        this.goalSelector.addGoal(6, new FollowOwnerGoal(this, 1, 3, 1));
+        this.goalSelector.addGoal(8, new RandomWalkingGoal(this, 1));
+        this.goalSelector.addGoal(9, new FollowMobGoal(this, 1, 3, 7));
     }
-    
+
     @Override
     protected float tickHeadTurn(float p_110146_1_, float distance) {
         if (distance > 0.1) {
@@ -78,8 +82,36 @@ public class ShubNiggurathFamiliarEntity extends ResizableFamiliarEntity {
         return distance;
     }
 
+    public CthulhuFamiliarEntity getCthulhuFriend() {
+        if (getVehicle() instanceof CthulhuFamiliarEntity)
+            return (CthulhuFamiliarEntity) getVehicle();
+        return null;
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        if (!level.isClientSide)
+            rotateTowardsFriend();
+    }
+
+    private void rotateTowardsFriend() {
+        CthulhuFamiliarEntity friend = getCthulhuFriend();
+        if (friend != null) {
+            Vector3d direction = position().vectorTo(friend.position());
+            float rot = (float) Math.toDegrees(MathHelper.atan2(direction.z, direction.x)) - 50;
+            yRotO = yRot;
+            yRot = rot;
+            yBodyRot = yRot;
+            yBodyRotO = yRotO;
+        }
+    }
+
     @Override
     public boolean hurt(DamageSource pSource, float pAmount) {
+        if (getVehicle() != null && immuneWhileHoldingHand(pSource))
+            return false;
+
         if (super.hurt(pSource, pAmount)) {
             if (pSource.getEntity() != null) {
                 GoatFamiliarEntity.ringBell(this);
@@ -87,6 +119,11 @@ public class ShubNiggurathFamiliarEntity extends ResizableFamiliarEntity {
             return true;
         }
         return false;
+    }
+
+    private boolean immuneWhileHoldingHand(DamageSource s) {
+        return s == DamageSource.CRAMMING || s == DamageSource.DROWN || s == DamageSource.FALL
+                || s == DamageSource.FALLING_BLOCK || s == DamageSource.FLY_INTO_WALL || s == DamageSource.IN_WALL;
     }
 
     @Override
