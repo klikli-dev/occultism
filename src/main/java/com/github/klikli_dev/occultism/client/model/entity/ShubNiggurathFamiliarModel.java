@@ -367,12 +367,15 @@ public class ShubNiggurathFamiliarModel extends EntityModel<ShubNiggurathFamilia
     @Override
     public void setupAnim(ShubNiggurathFamiliarEntity pEntity, float limbSwing, float limbSwingAmount,
             float pAgeInTicks, float netHeadYaw, float headPitch) {
-
         float partialTicks = Minecraft.getInstance().getFrameTime();
-
         this.showModels(pEntity);
-
         CthulhuFamiliarEntity friend = pEntity.getCthulhuFriend();
+
+        this.body.xRot = 0.59f;
+        this.body.yRot = 0;
+        this.body.zRot = 0;
+        this.leftLeg2.xRot = 1.99f;
+        this.rightLeg2.xRot = 1.99f;
 
         if (friend != null) {
             limbSwing = friend.riderLimbSwing;
@@ -395,6 +398,25 @@ public class ShubNiggurathFamiliarModel extends EntityModel<ShubNiggurathFamilia
         if (friend != null) {
             this.leftArm1.xRot = toRads(
                     -143 - 5 * friend.getAnimationHeight(partialTicks) - 10 * (this.body.y - 18.6f));
+        }
+
+        if (pEntity.isPartying()) {
+            this.body.xRot = toRads(-90) + MathHelper.cos(pAgeInTicks * 0.3f) * toRads(5);
+            this.body.yRot = MathHelper.cos(pAgeInTicks * 0.3f + PI * 1.5f) * toRads(5);
+            this.body.zRot = MathHelper.cos(pAgeInTicks * 0.3f + PI) * toRads(5);
+            this.leftArm1.xRot = MathHelper.cos(pAgeInTicks * 0.3f) * toRads(30) - toRads(90);
+            this.rightArm1.xRot = MathHelper.cos(pAgeInTicks * 0.3f + PI) * toRads(30) - toRads(90);
+            this.leftLeg1.xRot = MathHelper.cos(pAgeInTicks * 0.3f + PI) * toRads(30) - toRads(90);
+            this.rightLeg1.xRot = MathHelper.cos(pAgeInTicks * 0.3f + PI) * toRads(30) - toRads(90);
+        } else if (pEntity.isSitting()) {
+            this.body.xRot = toRads(100);
+            this.leftLeg1.xRot = -toRads(60);
+            this.rightLeg1.xRot = -toRads(60);
+            this.leftLeg2.xRot = toRads(75);
+            this.rightLeg2.xRot = toRads(75);
+            this.rightArm1.xRot = -toRads(170);
+            this.leftArm1.xRot = -toRads(170);
+            this.head.yRot = toRads(115);
         }
     }
 

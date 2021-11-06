@@ -46,8 +46,10 @@ public class ShubNiggurathFamiliarRenderer
     public void render(ShubNiggurathFamiliarEntity entityIn, float entityYaw, float partialTicks,
             MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
         matrixStackIn.pushPose();
-        float size = entityIn.getScale();
-        matrixStackIn.scale(size, size, size);
+        if (entityIn.isPartying())
+            matrixStackIn.translate(0, 0.07, 0);
+        else if (entityIn.isSitting())
+            matrixStackIn.translate(0, -0.19, 0);
         super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
         matrixStackIn.popPose();
     }
