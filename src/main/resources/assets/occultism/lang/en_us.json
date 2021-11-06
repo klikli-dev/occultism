@@ -216,6 +216,7 @@
   "entity.occultism.chimera_familiar": "Chimera Familiar",
   "entity.occultism.goat_familiar": "Goat Familiar",
   "entity.occultism.shub_niggurath_familiar": "Shub Niggurath Familiar",
+  "entity.occultism.shub_niggurath_spawn": "Shub Niggurath Spawn",
   "entity.occultism.thrown_sword": "Thrown Sword",
   "_comment": "# Spirit Jobs",
   "job.occultism.lumberjack": "Lumberjack",

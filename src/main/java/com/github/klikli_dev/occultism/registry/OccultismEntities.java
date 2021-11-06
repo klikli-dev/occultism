@@ -36,6 +36,7 @@ import com.github.klikli_dev.occultism.common.entity.GuardianFamiliarEntity;
 import com.github.klikli_dev.occultism.common.entity.HeadlessFamiliarEntity;
 import com.github.klikli_dev.occultism.common.entity.OtherworldBirdEntity;
 import com.github.klikli_dev.occultism.common.entity.ShubNiggurathFamiliarEntity;
+import com.github.klikli_dev.occultism.common.entity.ShubNiggurathSpawnEntity;
 import com.github.klikli_dev.occultism.common.entity.ThrownSwordEntity;
 import com.github.klikli_dev.occultism.common.entity.possessed.PossessedEndermanEntity;
 import com.github.klikli_dev.occultism.common.entity.possessed.PossessedEndermiteEntity;
@@ -188,6 +189,11 @@ public class OccultismEntities {
                                          .sized(0.5F, 0.5F)
                                          .clientTrackingRange(8)
                                          .build(modLoc("thrown_sword").toString()));
+    public static final NonNullLazy<EntityType<ShubNiggurathSpawnEntity>> SHUB_NIGGURATH_SPAWN_TYPE =
+            NonNullLazy.of(() -> EntityType.Builder.<ShubNiggurathSpawnEntity>of(ShubNiggurathSpawnEntity::new, EntityClassification.CREATURE)
+                                         .sized(0.6F, 0.6F)
+                                         .clientTrackingRange(8)
+                                         .build(modLoc("shub_niggurath_spawn").toString()));
 
     public static final RegistryObject<EntityType<FoliotEntity>> FOLIOT = ENTITIES.register("foliot", FOLIOT_TYPE::get);
     public static final RegistryObject<EntityType<DjinniEntity>> DJINNI = ENTITIES.register("djinni", DJINNI_TYPE::get);
@@ -237,5 +243,7 @@ public class OccultismEntities {
     
     public static final RegistryObject<EntityType<ThrownSwordEntity>> THROWN_SWORD =
             ENTITIES.register("thrown_sword", THROWN_SWORD_TYPE::get);
+    public static final RegistryObject<EntityType<ShubNiggurathSpawnEntity>> SHUB_NIGGURATH_SPAWN =
+            ENTITIES.register("shub_niggurath_spawn", SHUB_NIGGURATH_SPAWN_TYPE::get);
     //endregion Fields
 }

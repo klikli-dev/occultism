@@ -66,7 +66,7 @@ public class GoatFamiliarEntity extends ResizableFamiliarEntity {
     }
 
     public GoatFamiliarEntity(World worldIn, boolean hasRing, boolean hasBeard, byte size, LivingEntity owner) {
-        super(OccultismEntities.GOAT_FAMILIAR.get(), worldIn);
+        this(OccultismEntities.GOAT_FAMILIAR.get(), worldIn);
         this.setRing(hasRing);
         this.setBeard(hasBeard);
         this.setSize(size);

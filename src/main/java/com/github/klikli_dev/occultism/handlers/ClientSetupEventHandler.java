@@ -120,6 +120,7 @@ public class ClientSetupEventHandler {
         RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.SHUB_NIGGURATH_FAMILIAR.get(), ShubNiggurathFamiliarRenderer::new);
         
         RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.THROWN_SWORD.get(), m -> new DragonRendering.ThrownSwordRenderer(m, Minecraft.getInstance().getItemRenderer()));
+        RenderingRegistry.registerEntityRenderingHandler(OccultismEntities.SHUB_NIGGURATH_SPAWN.get(), ShubNiggurathSpawnRenderer::new);
         RenderingRegistry
                 .registerEntityRenderingHandler(OccultismEntities.POSSESSED_ENDERMITE.get(), EndermiteRenderer::new);
         RenderingRegistry

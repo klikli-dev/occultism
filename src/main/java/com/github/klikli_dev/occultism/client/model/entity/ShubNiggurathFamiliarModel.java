@@ -385,9 +385,9 @@ public class ShubNiggurathFamiliarModel extends EntityModel<ShubNiggurathFamilia
         this.head.yRot = toRads(netHeadYaw) * 0.7f;
         this.head.xRot = toRads(headPitch) * 0.7f;
 
-        this.rotateTentacles(ImmutableList.of(tentacleBottom1, tentacleBottom2, tentacleBottom3), pAgeInTicks, 0);
-        this.rotateTentacles(ImmutableList.of(tentacleMiddle1, tentacleMiddle2, tentacleMiddle3), pAgeInTicks, 0.5f);
-        this.rotateTentacles(ImmutableList.of(tentacleTop1, tentacleTop2, tentacleTop3), pAgeInTicks, 1);
+        rotateTentacles(ImmutableList.of(tentacleBottom1, tentacleBottom2, tentacleBottom3), pAgeInTicks, 0);
+        rotateTentacles(ImmutableList.of(tentacleMiddle1, tentacleMiddle2, tentacleMiddle3), pAgeInTicks, 0.5f);
+        rotateTentacles(ImmutableList.of(tentacleTop1, tentacleTop2, tentacleTop3), pAgeInTicks, 1);
 
         this.rightArm1.xRot = MathHelper.cos(limbSwing * 0.5f + PI) * limbSwingAmount * 0.5f - 1.21f;
         this.leftArm1.xRot = MathHelper.cos(limbSwing * 0.5f) * limbSwingAmount * 0.5f - 1.21f;
@@ -420,8 +420,8 @@ public class ShubNiggurathFamiliarModel extends EntityModel<ShubNiggurathFamilia
         }
     }
 
-    private void rotateTentacles(List<ModelRenderer> tentacles, float ageInTicks, float offset) {
-        float rot = MathHelper.cos(ageInTicks * 0.1f + offset) * toRads(12);
+    public static void rotateTentacles(List<ModelRenderer> tentacles, float ageInTicks, float offset) {
+        float rot = MathHelper.cos(ageInTicks * 0.1f + offset) * (float) Math.toRadians(12);
         for (ModelRenderer tentacle : tentacles) {
             tentacle.xRot = rot;
             tentacle.yRot = rot;
