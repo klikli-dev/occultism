@@ -90,6 +90,8 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements IR
             DataSerializers.BOOLEAN);
     private static final DataParameter<Boolean> RING = EntityDataManager.defineId(ChimeraFamiliarEntity.class,
             DataSerializers.BOOLEAN);
+    private static final DataParameter<Boolean> BEARD = EntityDataManager.defineId(ChimeraFamiliarEntity.class,
+            DataSerializers.BOOLEAN);
     private static final DataParameter<Boolean> HAT = EntityDataManager.defineId(ChimeraFamiliarEntity.class,
             DataSerializers.BOOLEAN);
     private static final DataParameter<Byte> ATTACKER = EntityDataManager.defineId(ChimeraFamiliarEntity.class,
@@ -147,6 +149,7 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements IR
         this.setSize((byte) 0);
         this.setFlaps(this.getRandom().nextBoolean());
         this.setRing(this.getRandom().nextBoolean());
+        this.setBeard(this.getRandom().nextBoolean());
         this.setHat(this.getRandom().nextDouble() < 0.1);
         return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
     }
@@ -164,6 +167,7 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements IR
         this.entityData.define(ATTACKER, NO_ATTACKER);
         this.entityData.define(FLAPS, false);
         this.entityData.define(RING, false);
+        this.entityData.define(BEARD, true);
         this.entityData.define(HAT, false);
         this.entityData.define(GOAT, true);
     }
@@ -190,6 +194,10 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements IR
         return this.entityData.get(RING);
     }
 
+    public boolean hasBeard() {
+        return this.entityData.get(BEARD);
+    }
+
     public boolean hasHat() {
         return this.entityData.get(HAT);
     }
@@ -208,6 +216,10 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements IR
 
     private void setRing(boolean b) {
         this.entityData.set(RING, b);
+    }
+
+    private void setBeard(boolean b) {
+        this.entityData.set(BEARD, b);
     }
 
     private void setHat(boolean b) {
@@ -284,8 +296,8 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements IR
             if (!this.level.isClientSide) {
                 stack.shrink(1);
                 this.setGoat(false);
-                GoatFamiliarEntity goat = new GoatFamiliarEntity(this.level, this.hasRing(), this.getSize(),
-                        this.getFamiliarOwner());
+                GoatFamiliarEntity goat = new GoatFamiliarEntity(this.level, this.hasRing(), this.hasBeard(),
+                        this.getSize(), this.getFamiliarOwner());
                 goat.setPos(this.getX(), this.getY(), this.getZ());
                 level.addFreshEntity(goat);
                 OccultismAdvancements.FAMILIAR.trigger(playerIn, FamiliarTrigger.Type.GOAT_DETACH);
@@ -336,6 +348,7 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements IR
         super.addAdditionalSaveData(compound);
         compound.putBoolean("hasFlaps", this.hasFlaps());
         compound.putBoolean("hasRing", this.hasRing());
+        compound.putBoolean("hasBeard", this.hasBeard());
         compound.putBoolean("hasHat", this.hasHat());
         compound.putBoolean("hasGoat", this.hasGoat());
     }
@@ -345,6 +358,8 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements IR
         super.readAdditionalSaveData(compound);
         this.setFlaps(compound.getBoolean("hasFlaps"));
         this.setRing(compound.getBoolean("hasRing"));
+        if (compound.contains("hasBeard"))
+            this.setBeard(compound.getBoolean("hasBeard"));
         this.setHat(compound.getBoolean("hasHat"));
         this.setGoat(compound.getBoolean("hasGoat"));
     }

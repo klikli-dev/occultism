@@ -22,37 +22,55 @@
 
 package com.github.klikli_dev.occultism.common.entity;
 
+import com.github.klikli_dev.occultism.common.advancement.FamiliarTrigger;
+import com.github.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.google.common.collect.ImmutableList;
 
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.ai.goal.FollowMobGoal;
 import net.minecraft.entity.ai.goal.LookAtGoal;
 import net.minecraft.entity.ai.goal.PanicGoal;
 import net.minecraft.entity.ai.goal.SwimGoal;
 import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.potion.EffectInstance;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.Hand;
+import net.minecraft.util.SoundEvents;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.Biome.Category;
+import net.minecraftforge.common.Tags;
 
 public class GoatFamiliarEntity extends ResizableFamiliarEntity {
 
-    private static final DataParameter<Boolean> RING = EntityDataManager.defineId(GoatFamiliarEntity.class,
-            DataSerializers.BOOLEAN);
+    private static final DataParameter<Byte> VARIANTS = EntityDataManager.defineId(GoatFamiliarEntity.class,
+            DataSerializers.BYTE);
+
+    private int shakeHeadTimer;
 
     public GoatFamiliarEntity(EntityType<? extends GoatFamiliarEntity> type, World worldIn) {
         super(type, worldIn);
     }
 
-    public GoatFamiliarEntity(World worldIn, boolean hasRing, byte size,
-            LivingEntity owner) {
-        super(OccultismEntities.GOAT_FAMILIAR.get(), worldIn);
+    public GoatFamiliarEntity(World worldIn, boolean hasRing, boolean hasBeard, byte size, LivingEntity owner) {
+        this(OccultismEntities.GOAT_FAMILIAR.get(), worldIn);
         this.setRing(hasRing);
+        this.setBeard(hasBeard);
         this.setSize(size);
         this.setFamiliarOwner(owner);
     }
@@ -69,6 +87,29 @@ public class GoatFamiliarEntity extends ResizableFamiliarEntity {
     }
 
     @Override
+    public boolean hurt(DamageSource pSource, float pAmount) {
+        if (super.hurt(pSource, pAmount)) {
+            if (pSource.getEntity() != null) {
+                ringBell(this);
+            }
+            return true;
+        }
+        return false;
+    }
+
+    public static void ringBell(FamiliarEntity entity) {
+        LivingEntity owner = entity.getFamiliarOwner();
+        if (owner == null || !entity.hasBlacksmithUpgrade())
+            return;
+
+        entity.playSound(SoundEvents.BELL_BLOCK, 1, 1);
+
+        for (MobEntity e : entity.level.getEntitiesOfClass(MobEntity.class, entity.getBoundingBox().inflate(30),
+                e -> e.isAlive() && e.getClassification(false) == EntityClassification.MONSTER))
+            e.setTarget(owner);
+    }
+
+    @Override
     public Iterable<EffectInstance> getFamiliarEffects() {
         return ImmutableList.of();
     }
@@ -76,26 +117,143 @@ public class GoatFamiliarEntity extends ResizableFamiliarEntity {
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(RING, false);
+        this.entityData.define(VARIANTS, (byte) 0);
     }
 
     @Override
     public void readAdditionalSaveData(CompoundNBT compound) {
         super.readAdditionalSaveData(compound);
-        this.setRing(compound.getBoolean("hasRing"));
+        if (!compound.contains("variants"))
+            this.setRing(compound.getBoolean("hasRing"));
+        this.entityData.set(VARIANTS, compound.getByte("variants"));
     }
 
     @Override
     public void addAdditionalSaveData(CompoundNBT compound) {
         super.addAdditionalSaveData(compound);
-        compound.putBoolean("hasRing", this.hasRing());
+        compound.putByte("variants", this.entityData.get(VARIANTS));
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        if (level.isClientSide)
+            this.shakeHeadTimer--;
+    }
+
+    @Override
+    public boolean canBlacksmithUpgrade() {
+        return !this.hasBlacksmithUpgrade();
+    }
+
+    private void setVariant(int offset, boolean b) {
+        if (b)
+            this.entityData.set(VARIANTS, (byte) (this.entityData.get(VARIANTS) | (1 << offset)));
+        else
+            this.entityData.set(VARIANTS, (byte) (this.entityData.get(VARIANTS) & (0b11111110 << offset)));
+    }
+
+    private boolean hasVariant(int offset) {
+        return ((this.entityData.get(VARIANTS) >> offset) & 1) == 1;
     }
 
     public boolean hasRing() {
-        return this.entityData.get(RING);
+        return this.hasVariant(0);
     }
 
     private void setRing(boolean b) {
-        this.entityData.set(RING, b);
+        this.setVariant(0, b);
+    }
+
+    public boolean hasBeard() {
+        return this.hasVariant(1);
+    }
+
+    private void setBeard(boolean b) {
+        this.setVariant(1, b);
+    }
+
+    public boolean isBlack() {
+        return this.hasVariant(2);
+    }
+
+    private void setBlack(boolean b) {
+        this.setVariant(2, b);
+    }
+
+    public boolean hasRedEyes() {
+        return this.hasVariant(3);
+    }
+
+    private void setRedEyes(boolean b) {
+        this.setVariant(3, b);
+    }
+
+    public boolean hasEvilHorns() {
+        return this.hasVariant(4);
+    }
+
+    private void setEvilHorns(boolean b) {
+        this.setVariant(4, b);
+    }
+
+    @Override
+    protected ActionResultType mobInteract(PlayerEntity playerIn, Hand hand) {
+        ItemStack stack = playerIn.getItemInHand(hand);
+        Item item = stack.getItem();
+        boolean isInForest = isInForest(playerIn) || isInForest(this);
+        if (isTransformItem(item) && playerIn == getFamiliarOwner()) {
+            if (isInForest) {
+                if (!level.isClientSide)
+                    stack.shrink(1);
+                if (item.is(Tags.Items.DYES_BLACK))
+                    this.setBlack(true);
+                else if (item == Items.ENDER_EYE)
+                    this.setRedEyes(true);
+                else if (item == Items.FLINT)
+                    this.setEvilHorns(true);
+                if (shouldTransform()) {
+                    OccultismAdvancements.FAMILIAR.trigger(playerIn, FamiliarTrigger.Type.SHUB_NIGGURATH_SUMMON);
+                    transform();
+                }
+                return ActionResultType.sidedSuccess(level.isClientSide);
+            } else {
+                shakeHeadTimer = 20;
+                return ActionResultType.CONSUME;
+            }
+        }
+        return super.mobInteract(playerIn, hand);
+    }
+
+    private void transform() {
+        if (level.isClientSide) {
+            float scale = getScale();
+            for (int i = 0; i < 30; i++)
+                level.addParticle(ParticleTypes.SMOKE, getRandomX(scale), getRandomY() * scale, getRandomZ(scale), 0, 0,
+                        0);
+        } else {
+            ShubNiggurathFamiliarEntity shubNiggurath = new ShubNiggurathFamiliarEntity(level, this);
+            level.addFreshEntity(shubNiggurath);
+            this.remove();
+        }
+    }
+
+    boolean isTransformItem(Item item) {
+        return (item.is(Tags.Items.DYES_BLACK) && !this.isBlack()) || (item == Items.FLINT && !this.hasEvilHorns())
+                || (item == Items.ENDER_EYE && !this.hasRedEyes());
+    }
+
+    boolean shouldTransform() {
+        return this.isBlack() && this.hasRedEyes() && this.hasEvilHorns();
+    }
+
+    private boolean isInForest(Entity entity) {
+        return this.level.getBiome(entity.blockPosition()).getBiomeCategory() == Category.FOREST;
+    }
+
+    public float getNeckYRot(float pPartialTick) {
+        if (shakeHeadTimer <= 0)
+            return 0;
+        return MathHelper.sin((shakeHeadTimer - pPartialTick) / 20 * (float) Math.PI * 5) * (float) Math.toRadians(30);
     }
 }
