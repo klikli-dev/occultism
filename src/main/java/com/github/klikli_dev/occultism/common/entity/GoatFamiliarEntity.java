@@ -22,6 +22,8 @@
 
 package com.github.klikli_dev.occultism.common.entity;
 
+import com.github.klikli_dev.occultism.common.advancement.FamiliarTrigger;
+import com.github.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.google.common.collect.ImmutableList;
 
@@ -211,6 +213,7 @@ public class GoatFamiliarEntity extends ResizableFamiliarEntity {
                 else if (item == Items.FLINT)
                     this.setEvilHorns(true);
                 if (shouldTransform()) {
+                    OccultismAdvancements.FAMILIAR.trigger(playerIn, FamiliarTrigger.Type.SHUB_NIGGURATH_SUMMON);
                     transform();
                 }
                 return ActionResultType.sidedSuccess(level.isClientSide);

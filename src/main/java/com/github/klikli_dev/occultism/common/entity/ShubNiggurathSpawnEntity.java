@@ -26,6 +26,8 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.UUID;
 
+import com.github.klikli_dev.occultism.common.advancement.FamiliarTrigger;
+import com.github.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.util.FamiliarUtil;
 
@@ -104,8 +106,12 @@ public class ShubNiggurathSpawnEntity extends CreatureEntity {
 
         float damage = (float) getAttributeValue(Attributes.ATTACK_DAMAGE);
         LivingEntity owner = getCreatorOwner();
-        for (LivingEntity e : FamiliarUtil.getOwnerEnemies(owner, this, 10))
+        List<LivingEntity> enemies = FamiliarUtil.getOwnerEnemies(owner, this, 10);
+        for (LivingEntity e : enemies)
             e.hurt(owner == null ? DamageSource.GENERIC : DamageSource.mobAttack(owner), damage);
+        
+        if (!enemies.isEmpty())
+            OccultismAdvancements.FAMILIAR.trigger(this.getCreatorOwner(), FamiliarTrigger.Type.SHUB_NIGGURATH_SPAWN);
 
         kill();
     }
