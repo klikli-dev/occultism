@@ -64,14 +64,8 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
     private static final byte NO_HEAD = 0;
     private static final DataParameter<Byte> HEAD = EntityDataManager.defineId(HeadlessFamiliarEntity.class,
             DataSerializers.BYTE);
-    private static final DataParameter<Boolean> HAIRY = EntityDataManager.defineId(HeadlessFamiliarEntity.class,
-            DataSerializers.BOOLEAN);
-    private static final DataParameter<Boolean> GLASSES = EntityDataManager.defineId(HeadlessFamiliarEntity.class,
-            DataSerializers.BOOLEAN);
     private static final DataParameter<Byte> WEAPON = EntityDataManager.defineId(HeadlessFamiliarEntity.class,
             DataSerializers.BYTE);
-    private static final DataParameter<Boolean> HEADLESS_DEAD = EntityDataManager.defineId(HeadlessFamiliarEntity.class,
-            DataSerializers.BOOLEAN);
     private static final DataParameter<Byte> REBUILT = EntityDataManager.defineId(HeadlessFamiliarEntity.class,
             DataSerializers.BYTE);
     private static ImmutableBiMap<Byte, EntityType<? extends LivingEntity>> typesLookup;
@@ -173,10 +167,7 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(HEAD, NO_HEAD);
-        this.entityData.define(HAIRY, false);
-        this.entityData.define(GLASSES, false);
         this.entityData.define(WEAPON, (byte) 0);
-        this.entityData.define(HEADLESS_DEAD, false);
         this.entityData.define(REBUILT, (byte) 0);
     }
 
@@ -229,10 +220,12 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
         super.readAdditionalSaveData(compound);
         this.setHead(compound.getByte("head"));
         this.headTimer = compound.getInt("headTimer");
-        this.setHairy(compound.getBoolean("isHairy"));
-        this.setGlasses(compound.getBoolean("hasGlasses"));
+        if (!compound.contains("variants")) {
+            this.setHairy(compound.getBoolean("isHairy"));
+            this.setGlasses(compound.getBoolean("hasGlasses"));
+            this.setHeadlessDead(compound.getBoolean("isHeadlessDead"));
+        }
         this.setWeapon(compound.getByte("getWeapon"));
-        this.setHeadlessDead(compound.getBoolean("isHeadlessDead"));
         this.setRebuilt(compound.getByte("getRebuilt"));
     }
 
@@ -241,10 +234,7 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
         super.addAdditionalSaveData(compound);
         compound.putByte("head", this.getHead());
         compound.putInt("headTimer", this.headTimer);
-        compound.putBoolean("isHairy", this.isHairy());
-        compound.putBoolean("hasGlasses", this.hasGlasses());
         compound.putByte("getWeapon", this.getWeapon());
-        compound.putBoolean("isHeadlessDead", this.isHeadlessDead());
         compound.putByte("getRebuilt", this.getRebuilt());
     }
 
@@ -262,19 +252,19 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
     }
 
     public boolean isHairy() {
-        return this.entityData.get(HAIRY);
+        return this.hasVariant(0);
     }
 
     private void setHairy(boolean b) {
-        this.entityData.set(HAIRY, b);
+        this.setVariant(0, b);
     }
 
     private void setGlasses(boolean b) {
-        this.entityData.set(GLASSES, b);
+        this.setVariant(1, b);
     }
 
     public boolean hasGlasses() {
-        return this.entityData.get(GLASSES);
+        return this.hasVariant(1);
     }
 
     private byte getWeapon() {
@@ -323,11 +313,11 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
     }
 
     public boolean isHeadlessDead() {
-        return this.entityData.get(HEADLESS_DEAD);
+        return this.hasVariant(2);
     }
 
     private void setHeadlessDead(boolean b) {
-        this.entityData.set(HEADLESS_DEAD, b);
+        this.setVariant(2, b);
     }
 
     private byte getRebuilt() {

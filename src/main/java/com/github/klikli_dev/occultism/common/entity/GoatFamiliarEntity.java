@@ -42,9 +42,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.network.datasync.DataSerializers;
-import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.ActionResultType;
@@ -57,9 +54,6 @@ import net.minecraft.world.biome.Biome.Category;
 import net.minecraftforge.common.Tags;
 
 public class GoatFamiliarEntity extends ResizableFamiliarEntity {
-
-    private static final DataParameter<Byte> VARIANTS = EntityDataManager.defineId(GoatFamiliarEntity.class,
-            DataSerializers.BYTE);
 
     private int shakeHeadTimer;
 
@@ -115,23 +109,10 @@ public class GoatFamiliarEntity extends ResizableFamiliarEntity {
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(VARIANTS, (byte) 0);
-    }
-
-    @Override
     public void readAdditionalSaveData(CompoundNBT compound) {
         super.readAdditionalSaveData(compound);
         if (!compound.contains("variants"))
             this.setRing(compound.getBoolean("hasRing"));
-        this.entityData.set(VARIANTS, compound.getByte("variants"));
-    }
-
-    @Override
-    public void addAdditionalSaveData(CompoundNBT compound) {
-        super.addAdditionalSaveData(compound);
-        compound.putByte("variants", this.entityData.get(VARIANTS));
     }
 
     @Override
@@ -144,17 +125,6 @@ public class GoatFamiliarEntity extends ResizableFamiliarEntity {
     @Override
     public boolean canBlacksmithUpgrade() {
         return !this.hasBlacksmithUpgrade();
-    }
-
-    private void setVariant(int offset, boolean b) {
-        if (b)
-            this.entityData.set(VARIANTS, (byte) (this.entityData.get(VARIANTS) | (1 << offset)));
-        else
-            this.entityData.set(VARIANTS, (byte) (this.entityData.get(VARIANTS) & (0b11111110 << offset)));
-    }
-
-    private boolean hasVariant(int offset) {
-        return ((this.entityData.get(VARIANTS) >> offset) & 1) == 1;
     }
 
     public boolean hasRing() {

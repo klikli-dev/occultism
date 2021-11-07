@@ -43,9 +43,6 @@ import net.minecraft.entity.ai.goal.LookAtGoal;
 import net.minecraft.entity.ai.goal.RandomWalkingGoal;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.network.datasync.DataSerializers;
-import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
@@ -59,13 +56,6 @@ import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
 
 public class DevilFamiliarEntity extends FamiliarEntity {
-
-    private static final DataParameter<Boolean> LOLLIPOP = EntityDataManager.defineId(DevilFamiliarEntity.class,
-            DataSerializers.BOOLEAN);
-    private static final DataParameter<Boolean> NOSE = EntityDataManager.defineId(DevilFamiliarEntity.class,
-            DataSerializers.BOOLEAN);
-    private static final DataParameter<Boolean> EARS = EntityDataManager.defineId(DevilFamiliarEntity.class,
-            DataSerializers.BOOLEAN);
 
     private final float heightOffset;
 
@@ -124,56 +114,42 @@ public class DevilFamiliarEntity extends FamiliarEntity {
         }
     }
 
-    @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(LOLLIPOP, false);
-        this.entityData.define(NOSE, false);
-        this.entityData.define(EARS, false);
-    }
-
     public float getAnimationHeight(float partialTicks) {
         return MathHelper.cos((this.tickCount + this.heightOffset + partialTicks) / 3.5f);
     }
 
     public boolean hasLollipop() {
-        return this.entityData.get(LOLLIPOP);
+        return this.hasVariant(0);
     }
 
     private void setLollipop(boolean b) {
-        this.entityData.set(LOLLIPOP, b);
+        this.setVariant(0, b);
     }
 
     public boolean hasNose() {
-        return this.entityData.get(NOSE);
+        return this.hasVariant(1);
     }
 
     private void setNose(boolean b) {
-        this.entityData.set(NOSE, b);
+        this.setVariant(1, b);
     }
 
     public boolean hasEars() {
-        return this.entityData.get(EARS);
+        return this.hasVariant(2);
     }
 
     private void setEars(boolean b) {
-        this.entityData.set(EARS, b);
+        this.setVariant(2, b);
     }
 
     @Override
     public void readAdditionalSaveData(CompoundNBT compound) {
         super.readAdditionalSaveData(compound);
-        this.setLollipop(compound.getBoolean("hasLollipop"));
-        this.setNose(compound.getBoolean("hasNose"));
-        this.setEars(compound.getBoolean("hasEars"));
-    }
-
-    @Override
-    public void addAdditionalSaveData(CompoundNBT compound) {
-        super.addAdditionalSaveData(compound);
-        compound.putBoolean("hasLollipop", this.hasLollipop());
-        compound.putBoolean("hasNose", this.hasNose());
-        compound.putBoolean("hasEars", this.hasEars());
+        if (!compound.contains("variants")) {
+            this.setLollipop(compound.getBoolean("hasLollipop"));
+            this.setNose(compound.getBoolean("hasNose"));
+            this.setEars(compound.getBoolean("hasEars"));
+        }
     }
 
     @Override

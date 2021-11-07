@@ -68,12 +68,6 @@ public class GuardianFamiliarEntity extends FamiliarEntity {
             DataSerializers.FLOAT);
     private static final DataParameter<Float> BLUE = EntityDataManager.defineId(GuardianFamiliarEntity.class,
             DataSerializers.FLOAT);
-    private static final DataParameter<Boolean> TREE = EntityDataManager.defineId(GuardianFamiliarEntity.class,
-            DataSerializers.BOOLEAN);
-    private static final DataParameter<Boolean> BIRD = EntityDataManager.defineId(GuardianFamiliarEntity.class,
-            DataSerializers.BOOLEAN);
-    private static final DataParameter<Boolean> TOOLS = EntityDataManager.defineId(GuardianFamiliarEntity.class,
-            DataSerializers.BOOLEAN);
     private static final DataParameter<Byte> LIVES = EntityDataManager.defineId(GuardianFamiliarEntity.class,
             DataSerializers.BYTE);
 
@@ -143,9 +137,6 @@ public class GuardianFamiliarEntity extends FamiliarEntity {
         this.entityData.define(RED, 0f);
         this.entityData.define(GREEN, 0f);
         this.entityData.define(BLUE, 0f);
-        this.entityData.define(TREE, false);
-        this.entityData.define(BIRD, false);
-        this.entityData.define(TOOLS, false);
         this.entityData.define(LIVES, (byte) 0);
     }
 
@@ -231,27 +222,27 @@ public class GuardianFamiliarEntity extends FamiliarEntity {
     }
 
     public boolean hasTree() {
-        return this.entityData.get(TREE);
+        return this.hasVariant(0);
     }
 
     private void setTree(boolean b) {
-        this.entityData.set(TREE, b);
+        this.setVariant(0, b);
     }
 
     public boolean hasBird() {
-        return this.entityData.get(BIRD);
+        return this.hasVariant(1);
     }
 
     private void setBird(boolean b) {
-        this.entityData.set(BIRD, b);
+        this.setVariant(1, b);
     }
 
     public boolean hasTools() {
-        return this.entityData.get(TOOLS);
+        return this.hasVariant(2);
     }
 
     private void setTools(boolean b) {
-        this.entityData.set(TOOLS, b);
+        this.setVariant(2, b);
     }
 
     public byte getLives() {
@@ -270,9 +261,6 @@ public class GuardianFamiliarEntity extends FamiliarEntity {
         compound.putFloat("red", this.getRed());
         compound.putFloat("green", this.getGreen());
         compound.putFloat("blue", this.getBlue());
-        compound.putBoolean("hasTree", this.hasTree());
-        compound.putBoolean("hasBird", this.hasBird());
-        compound.putBoolean("hasTools", this.hasTools());
         compound.putByte("lives", this.getLives());
     }
 
@@ -282,9 +270,11 @@ public class GuardianFamiliarEntity extends FamiliarEntity {
         this.setRed(compound.getFloat("red"));
         this.setGreen(compound.getFloat("green"));
         this.setBlue(compound.getFloat("blue"));
-        this.setTree(compound.getBoolean("hasTree"));
-        this.setBird(compound.getBoolean("hasBird"));
-        this.setTools(compound.getBoolean("hasTools"));
+        if (!compound.contains("variants")) {
+            this.setTree(compound.getBoolean("hasTree"));
+            this.setBird(compound.getBoolean("hasBird"));
+            this.setTools(compound.getBoolean("hasTools"));
+        }
         this.setLives(compound.getByte("lives"));
         
         if (compound.getBoolean("for_patchouli")) {
