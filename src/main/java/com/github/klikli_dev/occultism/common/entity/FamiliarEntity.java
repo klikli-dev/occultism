@@ -69,6 +69,7 @@ public abstract class FamiliarEntity extends CreatureEntity implements IFamiliar
 
     public FamiliarEntity(EntityType<? extends FamiliarEntity> type, World worldIn) {
         super(type, worldIn);
+        this.setPersistenceRequired();
     }
 
     public static AttributeModifierMap.MutableAttribute registerAttributes() {

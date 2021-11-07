@@ -34,8 +34,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ItemModelsGenerator extends ItemModelProvider {
-    public ItemModelsGenerator(DataGenerator generator,
-                               ExistingFileHelper existingFileHelper) {
+    public ItemModelsGenerator(DataGenerator generator, ExistingFileHelper existingFileHelper) {
         super(generator, Occultism.MODID, existingFileHelper);
     }
 
@@ -50,18 +49,19 @@ public class ItemModelsGenerator extends ItemModelProvider {
         this.registerAdvancementItem();
     }
 
-
     private void registerRitualDummy(String name) {
-        this.getBuilder(name)
-                .parent(new ModelFile.UncheckedModelFile("occultism:item/pentacle"));
+        this.getBuilder(name).parent(new ModelFile.UncheckedModelFile("occultism:item/pentacle"));
     }
 
     private void registerAdvancementItem() {
-        String[] textures = {"cthulhu_icon", "bat_icon", "deer_icon", "devil_icon", "greedy_icon", "hat_icon", "dragon_icon", "blacksmith_icon", "guardian_icon", "headless_icon", "chimera_icon" };
+        String[] textures = { "cthulhu_icon", "bat_icon", "deer_icon", "devil_icon", "greedy_icon", "hat_icon",
+                "dragon_icon", "blacksmith_icon", "guardian_icon", "headless_icon", "chimera_icon",
+                "shub_niggurath_icon", "shub_niggurath_spawn_icon" };
 
         List<ItemModelBuilder> icons = new ArrayList<>();
         for (String texture : textures)
-            icons.add(this.withExistingParent("item/advancement/" + texture, this.mcLoc("item/generated")).texture("layer0", this.modLoc("item/advancement/" + texture)));
+            icons.add(this.withExistingParent("item/advancement/" + texture, this.mcLoc("item/generated"))
+                    .texture("layer0", this.modLoc("item/advancement/" + texture)));
 
         ItemModelBuilder builder = this.withExistingParent("item/advancement_icon", this.mcLoc("item/generated"));
         for (int i = 0; i < icons.size(); i++)

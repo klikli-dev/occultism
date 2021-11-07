@@ -33,6 +33,7 @@ import com.google.common.collect.ImmutableList;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.LivingEntity;
@@ -41,7 +42,6 @@ import net.minecraft.entity.ai.RandomPositionGenerator;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.controller.MovementController;
-import net.minecraft.entity.ai.goal.FollowMobGoal;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.ai.goal.LookAtGoal;
 import net.minecraft.entity.ai.goal.RandomWalkingGoal;
@@ -82,6 +82,7 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
     private final GroundPathNavigator groundNavigator;
     private BlockPos lightPos, lightPos0;
     private int lightTimer;
+    public float riderRot, riderRot0, riderLimbSwingAmount, riderLimbSwing;
 
     public CthulhuFamiliarEntity(EntityType<? extends CthulhuFamiliarEntity> type, World worldIn) {
         super(type, worldIn);
@@ -110,7 +111,6 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
         this.goalSelector.addGoal(3, new FollowOwnerWaterGoal(this, 1, 3, 1));
         this.goalSelector.addGoal(4, new GiveFlowerGoal(this));
         this.goalSelector.addGoal(5, new RandomWalkingGoal(this, 1.0D));
-        this.goalSelector.addGoal(6, new FollowMobGoal(this, 1, 3, 7));
     }
 
     @Override
@@ -124,10 +124,32 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
     public boolean canBlacksmithUpgrade() {
         return !this.hasBlacksmithUpgrade();
     }
-    
+
     @Override
     protected void playStepSound(BlockPos pPos, BlockState pBlock) {
 
+    }
+    
+    private Vector3d riderLocation() {
+        return Vector3d.directionFromRotation(0, riderRot).yRot(230).scale(0.68).add(position());
+    }
+
+    @Override
+    public void positionRider(Entity pPassenger) {
+        if (this.hasPassenger(pPassenger)) {
+            Vector3d direction = riderLocation();
+            pPassenger.setPos(direction.x, direction.y, direction.z);
+        }
+    }
+    
+    @Override
+    public Vector3d getDismountLocationForPassenger(LivingEntity pLivingEntity) {
+        return riderLocation();
+    }
+
+    @Override
+    public boolean shouldRiderSit() {
+        return false;
     }
 
     @Override
@@ -165,12 +187,15 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
         }
         return false;
     }
-
+    
     @Override
     public void tick() {
         super.tick();
         if (this.isAngry() && this.getRandom().nextDouble() < 0.0007)
             this.setAngry(false);
+
+        this.riderRot0 = this.riderRot;
+        this.riderRot = MathHelper.approachDegrees(this.riderRot, yRot, 10);
 
         if (!this.level.isClientSide) {
             this.lightTimer--;
@@ -181,6 +206,10 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
                 this.updateLight();
             }
         }
+    }
+    
+    public float riderRot(float partialTicks) {
+        return MathHelper.lerp(partialTicks, riderRot0, riderRot);
     }
 
     private void updateLight() {
@@ -240,7 +269,7 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
     @Override
     public Iterable<EffectInstance> getFamiliarEffects() {
         if (this.isEffectEnabled()) {
-            //if (this.isAngry())
+            // if (this.isAngry())
             return ImmutableList.of(new EffectInstance(Effects.WATER_BREATHING, 300, 0, false, false));
         }
         return Collections.emptyList();
@@ -386,12 +415,12 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
         @Override
         public boolean canUse() {
             this.devil = this.findDevil();
-            return this.devil != null && this.cooldown-- < 0 && this.cthulhu.distanceToSqr(this.devil) > 3;
+            return this.devil != null && this.cooldown-- < 0 && this.cthulhu.distanceToSqr(this.devil) > 3 && !cthulhu.isVehicle();
         }
 
         @Override
         public boolean canContinueToUse() {
-            return this.devil != null && this.cthulhu.isPathFinding();
+            return this.devil != null && this.cthulhu.isPathFinding() && !cthulhu.isVehicle();
         }
 
         public void start() {

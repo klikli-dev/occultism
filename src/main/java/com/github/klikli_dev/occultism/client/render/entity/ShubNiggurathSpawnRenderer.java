@@ -23,8 +23,8 @@
 package com.github.klikli_dev.occultism.client.render.entity;
 
 import com.github.klikli_dev.occultism.Occultism;
-import com.github.klikli_dev.occultism.client.model.entity.GoatFamiliarModel;
-import com.github.klikli_dev.occultism.common.entity.GoatFamiliarEntity;
+import com.github.klikli_dev.occultism.client.model.entity.ShubNiggurathSpawnModel;
+import com.github.klikli_dev.occultism.common.entity.ShubNiggurathSpawnEntity;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 
@@ -35,58 +35,63 @@ import net.minecraft.client.renderer.entity.IEntityRenderer;
 import net.minecraft.client.renderer.entity.LivingRenderer;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
+import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.util.ResourceLocation;
 
-public class GoatFamiliarRenderer extends MobRenderer<GoatFamiliarEntity, GoatFamiliarModel> {
+public class ShubNiggurathSpawnRenderer extends MobRenderer<ShubNiggurathSpawnEntity, ShubNiggurathSpawnModel> {
 
     private static final ResourceLocation TEXTURES = new ResourceLocation(Occultism.MODID,
-            "textures/entity/goat_familiar.png");
+            "textures/entity/shub_niggurath_spawn.png");
 
-    public GoatFamiliarRenderer(EntityRendererManager renderManagerIn) {
-        super(renderManagerIn, new GoatFamiliarModel(), 0.3f);
-        this.addLayer(new BlackLayer(this));
+    public ShubNiggurathSpawnRenderer(EntityRendererManager renderManagerIn) {
+        super(renderManagerIn, new ShubNiggurathSpawnModel(), 0.1f);
+        this.addLayer(new BlinkingEyesLayer(this));
     }
 
     @Override
-    public void render(GoatFamiliarEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn,
-            IRenderTypeBuffer bufferIn, int packedLightIn) {
-        matrixStackIn.pushPose();
-        float size = entityIn.getScale();
-        matrixStackIn.scale(size, size, size);
-        if (entityIn.isPartying())
-            matrixStackIn.translate(0, -0.25, 0);
-        else if (entityIn.isSitting())
-            matrixStackIn.translate(0, -0.3, 0);
+    public void render(ShubNiggurathSpawnEntity entityIn, float entityYaw, float partialTicks,
+            MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
         super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
-        matrixStackIn.popPose();
     }
 
     @Override
-    public ResourceLocation getTextureLocation(GoatFamiliarEntity entity) {
+    public ResourceLocation getTextureLocation(ShubNiggurathSpawnEntity entity) {
         return TEXTURES;
     }
 
-    private class BlackLayer extends LayerRenderer<GoatFamiliarEntity, GoatFamiliarModel> {
+    private static class BlinkingEyesLayer extends LayerRenderer<ShubNiggurathSpawnEntity, ShubNiggurathSpawnModel> {
 
-        private final GoatFamiliarModel model = new GoatFamiliarModel();
+        private static final ResourceLocation BLINKING = new ResourceLocation(Occultism.MODID,
+                "textures/entity/shub_niggurath_spawn_blinking.png");
 
-        public BlackLayer(IEntityRenderer<GoatFamiliarEntity, GoatFamiliarModel> renderer) {
+        private final ShubNiggurathSpawnModel model = new ShubNiggurathSpawnModel();
+
+        public BlinkingEyesLayer(IEntityRenderer<ShubNiggurathSpawnEntity, ShubNiggurathSpawnModel> renderer) {
             super(renderer);
         }
 
         @Override
         public void render(MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn,
-                GoatFamiliarEntity entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks,
+                ShubNiggurathSpawnEntity entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks,
                 float ageInTicks, float netHeadYaw, float headPitch) {
-            if (!entitylivingbaseIn.isInvisible() && entitylivingbaseIn.isBlack()) {
+            if (!entitylivingbaseIn.isInvisible()) {
                 this.getParentModel().copyPropertiesTo(this.model);
                 this.model.prepareMobModel(entitylivingbaseIn, limbSwing, limbSwingAmount, partialTicks);
                 this.model.setupAnim(entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
-                IVertexBuilder ivertexbuilder = bufferIn
-                        .getBuffer(RenderType.entityTranslucent(this.getTextureLocation(entitylivingbaseIn)));
+                IVertexBuilder ivertexbuilder = bufferIn.getBuffer(RenderType.entityTranslucent(BLINKING));
+
+                blinkEyes(entitylivingbaseIn);
+
                 this.model.renderToBuffer(matrixStackIn, ivertexbuilder, packedLightIn,
-                        LivingRenderer.getOverlayCoords(entitylivingbaseIn, 0), 0, 0, 0, 0.5f);
+                        LivingRenderer.getOverlayCoords(entitylivingbaseIn, 0), 1, 1, 1, 1);
             }
         }
+
+        private void blinkEyes(ShubNiggurathSpawnEntity shub) {
+            ModelRenderer[] eyes = new ModelRenderer[] { model.eye1, model.eye2, model.eye3, model.eye4 };
+            for (int i = 0; i < eyes.length; i++)
+                eyes[i].visible = shub.isBlinking(i);
+        }
     }
+
 }

@@ -22,12 +22,19 @@
 
 package com.github.klikli_dev.occultism.common.entity;
 
+import java.util.List;
+
 import com.github.klikli_dev.occultism.common.advancement.FamiliarTrigger;
 import com.github.klikli_dev.occultism.registry.OccultismAdvancements;
+import com.github.klikli_dev.occultism.util.FamiliarUtil;
 import com.google.common.collect.ImmutableList;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.*;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.ILivingEntityData;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.FollowMobGoal;
@@ -51,9 +58,6 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class DevilFamiliarEntity extends FamiliarEntity {
 
     private static final DataParameter<Boolean> LOLLIPOP = EntityDataManager.defineId(DevilFamiliarEntity.class,
@@ -76,13 +80,13 @@ public class DevilFamiliarEntity extends FamiliarEntity {
 
     @Override
     public ILivingEntityData finalizeSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason,
-                                           ILivingEntityData spawnDataIn, CompoundNBT dataTag) {
+            ILivingEntityData spawnDataIn, CompoundNBT dataTag) {
         this.setLollipop(this.getRandom().nextDouble() < 0.1);
         this.setNose(this.getRandom().nextDouble() < 0.5);
         this.setEars(this.getRandom().nextDouble() < 0.5);
         return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
     }
-    
+
     @Override
     protected void playStepSound(BlockPos pPos, BlockState pBlock) {
     }
@@ -112,8 +116,10 @@ public class DevilFamiliarEntity extends FamiliarEntity {
 
             for (int i = 0; i < 5; i++) {
                 Vector3d pos = this.position().add(direction.x + (this.getRandom().nextFloat() - 0.5f) * 0.7,
-                        1.5 + (this.getRandom().nextFloat() - 0.5f) * 0.7, direction.z + (this.getRandom().nextFloat() - 0.5f) * 0.7);
-                this.level.addParticle(ParticleTypes.FLAME, pos.x, pos.y, pos.z, direction.x * 0.25, 0, direction.z * 0.25);
+                        1.5 + (this.getRandom().nextFloat() - 0.5f) * 0.7,
+                        direction.z + (this.getRandom().nextFloat() - 0.5f) * 0.7);
+                this.level.addParticle(ParticleTypes.FLAME, pos.x, pos.y, pos.z, direction.x * 0.25, 0,
+                        direction.z * 0.25);
             }
         }
     }
@@ -193,23 +199,12 @@ public class DevilFamiliarEntity extends FamiliarEntity {
 
         @Override
         public boolean canUse() {
-            return this.cooldown-- < 0 && this.entity.getFamiliarOwner() instanceof PlayerEntity && !this.getNearbyEnemies().isEmpty();
+            return this.cooldown-- < 0 && this.entity.getFamiliarOwner() instanceof PlayerEntity
+                    && !this.getNearbyEnemies().isEmpty();
         }
 
         private List<LivingEntity> getNearbyEnemies() {
-            LivingEntity owner = this.entity.getFamiliarOwner();
-            LivingEntity revenge = owner.getLastHurtByMob();
-            LivingEntity target = owner.getLastHurtMob();
-            List<LivingEntity> enemies = new ArrayList<>();
-            if (this.isClose(revenge))
-                enemies.add(revenge);
-            if (this.isClose(target))
-                enemies.add(target);
-            return enemies;
-        }
-
-        private boolean isClose(LivingEntity e) {
-            return e != null && e != this.entity && e.distanceToSqr(this.entity) < this.range;
+            return FamiliarUtil.getOwnerEnemies(this.entity.getFamiliarOwner(), this.entity, this.range);
         }
 
         public void start() {
