@@ -28,38 +28,44 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.monster.SkeletonEntity;
+import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.tags.ITag;
 import net.minecraft.util.DamageSource;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 
 import java.util.Optional;
 
 public class WildHuntSkeletonEntity extends SkeletonEntity {
-    //region Fields
     protected Optional<WildHuntWitherSkeletonEntity> master = Optional.empty();
-    //endregion Fields
 
-    //region Initialization
     public WildHuntSkeletonEntity(EntityType<? extends WildHuntSkeletonEntity> type,
                                   World worldIn) {
         super(type, worldIn);
     }
-    //endregion Initialization
 
-    //region Static Methods
     public static AttributeModifierMap.MutableAttribute registerAttributes() {
         return SkeletonEntity.createAttributes()
                 .add(Attributes.ATTACK_DAMAGE, 4.0)
                 .add(Attributes.MAX_HEALTH, 20.0);
     }
-    //endregion Getter / Setter
 
-    //region Getter / Setter
     public void setMaster(WildHuntWitherSkeletonEntity master) {
         this.master = Optional.ofNullable(master);
     }
 
-    //region Overrides
+
+    @Override
+    protected void populateDefaultEquipmentSlots(DifficultyInstance pDifficulty) {
+        this.populateDefaultEquipmentSlots(pDifficulty);
+
+        //70% chance to wear a stone sword
+        if(this.random.nextFloat() <= 0.7f)
+            this.setItemSlot(EquipmentSlotType.MAINHAND, new ItemStack(Items.STONE_SWORD));
+    }
+
     @Override
     protected boolean shouldDespawnInPeaceful() {
         return false;
@@ -77,7 +83,6 @@ public class WildHuntSkeletonEntity extends SkeletonEntity {
         });
         super.remove(keepData);
     }
-    //endregion Overrides
 
     @Override
     public boolean isInvulnerableTo(DamageSource source) {
@@ -93,5 +98,4 @@ public class WildHuntSkeletonEntity extends SkeletonEntity {
 
         return super.isInvulnerableTo(source);
     }
-    //endregion Static Methods
 }
