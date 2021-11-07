@@ -24,6 +24,7 @@ package com.github.klikli_dev.occultism.common.entity;
 
 import com.github.klikli_dev.occultism.common.advancement.FamiliarTrigger;
 import com.github.klikli_dev.occultism.registry.OccultismAdvancements;
+import com.github.klikli_dev.occultism.util.FamiliarUtil;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -196,24 +197,12 @@ public class DevilFamiliarEntity extends FamiliarEntity {
             return this.cooldown-- < 0 && this.entity.getFamiliarOwner() instanceof Player && !this.getNearbyEnemies().isEmpty();
         }
 
-        private List<Entity> getNearbyEnemies() {
-            LivingEntity owner = this.entity.getFamiliarOwner();
-            LivingEntity revenge = owner.getLastHurtByMob();
-            LivingEntity target = owner.getLastHurtMob();
-            List<Entity> enemies = new ArrayList<>();
-            if (this.isClose(revenge))
-                enemies.add(revenge);
-            if (this.isClose(target))
-                enemies.add(target);
-            return enemies;
-        }
-
-        private boolean isClose(LivingEntity e) {
-            return e != null && e != this.entity && e.distanceToSqr(this.entity) < this.range;
+        private List<LivingEntity> getNearbyEnemies() {
+            return FamiliarUtil.getOwnerEnemies(this.entity.getFamiliarOwner(), this.entity, this.range);
         }
 
         public void start() {
-            List<Entity> enemies = this.getNearbyEnemies();
+            List<LivingEntity> enemies = this.getNearbyEnemies();
             if (!enemies.isEmpty() && this.entity instanceof DevilFamiliarEntity)
                 OccultismAdvancements.FAMILIAR.trigger(this.entity.getFamiliarOwner(), FamiliarTrigger.Type.DEVIL_FIRE);
 
@@ -222,7 +211,7 @@ public class DevilFamiliarEntity extends FamiliarEntity {
             this.cooldown = MAX_COOLDOWN;
         }
 
-        protected void attack(List<Entity> enemies) {
+        protected void attack(List<LivingEntity> enemies) {
             for (Entity e : enemies) {
                 e.hurt(DamageSource.playerAttack((Player) this.entity.getFamiliarOwner()), 4);
             }

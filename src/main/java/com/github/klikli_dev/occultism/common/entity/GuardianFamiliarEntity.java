@@ -285,5 +285,10 @@ public class GuardianFamiliarEntity extends FamiliarEntity {
         this.setBird(compound.getBoolean("hasBird"));
         this.setTools(compound.getBoolean("hasTools"));
         this.setLives(compound.getByte("lives"));
+
+        if (compound.getBoolean("for_patchouli")) {
+            this.setLives(MAX_LIVES);
+            this.setColor();
+        }
     }
 }

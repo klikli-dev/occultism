@@ -196,7 +196,31 @@ public class OccultismAdvancementProvider implements DataProvider {
                         true, true, false)
                 .addCriterion("headless_rebuilt", FamiliarTrigger.of(FamiliarTrigger.Type.HEADLESS_REBUILT))
                 .build(new ResourceLocation(Occultism.MODID, "occultism/familiar/headless_rebuilt")));
-
+        this.add(Advancement.Builder.advancement().parent(familiarsRoot)
+                .display(this.icon(10), familiarTitle("chimera_ride"), familiarDescr("chimera_ride"), null, FrameType.TASK,
+                        true, true, false)
+                .addCriterion("chimera_ride", FamiliarTrigger.of(FamiliarTrigger.Type.CHIMERA_RIDE))
+                .build(new ResourceLocation(Occultism.MODID, "occultism/familiar/chimera_ride")));
+        this.add(Advancement.Builder.advancement().parent(familiarsRoot)
+                .display(Items.GOLDEN_APPLE, familiarTitle("goat_detach"), familiarDescr("goat_detach"), null, FrameType.TASK,
+                        true, true, false)
+                .addCriterion("goat_detach", FamiliarTrigger.of(FamiliarTrigger.Type.GOAT_DETACH))
+                .build(new ResourceLocation(Occultism.MODID, "occultism/familiar/goat_detach")));
+        Advancement summonShub = this.add(Advancement.Builder.advancement().parent(familiarsRoot)
+                .display(this.icon(11), familiarTitle("shub_niggurath_summon"), familiarDescr("shub_niggurath_summon"), null, FrameType.TASK,
+                        true, true, false)
+                .addCriterion("shub_niggurath_summon", FamiliarTrigger.of(FamiliarTrigger.Type.SHUB_NIGGURATH_SUMMON))
+                .build(new ResourceLocation(Occultism.MODID, "occultism/familiar/shub_niggurath_summon")));
+        this.add(Advancement.Builder.advancement().parent(summonShub)
+                .display(Items.POPPY, familiarTitle("shub_cthulhu_friends"), familiarDescr("shub_cthulhu_friends"), null, FrameType.TASK,
+                        true, true, false)
+                .addCriterion("shub_cthulhu_friends", FamiliarTrigger.of(FamiliarTrigger.Type.SHUB_CTHULHU_FRIENDS))
+                .build(new ResourceLocation(Occultism.MODID, "occultism/familiar/shub_cthulhu_friends")));
+        this.add(Advancement.Builder.advancement().parent(summonShub)
+                .display(this.icon(12), familiarTitle("shub_niggurath_spawn"), familiarDescr("shub_niggurath_spawn"), null, FrameType.TASK,
+                        true, true, false)
+                .addCriterion("shub_niggurath_spawn", FamiliarTrigger.of(FamiliarTrigger.Type.SHUB_NIGGURATH_SPAWN))
+                .build(new ResourceLocation(Occultism.MODID, "occultism/familiar/shub_niggurath_spawn")));
 
 
         this.addRitualHidden(root, "craft_dimensional_matrix");
@@ -225,9 +249,11 @@ public class OccultismAdvancementProvider implements DataProvider {
         this.addRitualHidden(root, "familiar_parrot");
         this.addRitualHidden(root, "familiar_guardian");
         this.addRitualHidden(root, "familiar_headless");
+        this.addRitualHidden(root, "familiar_chimera");
         this.addRitualHidden(root, "possess_enderman");
         this.addRitualHidden(root, "possess_endermite");
         this.addRitualHidden(root, "possess_skeleton");
+        this.addRitualHidden(root, "possess_ghast");
         this.addRitualHidden(root, "summon_afrit_crusher");
         this.addRitualHidden(root, "summon_afrit_rain_weather");
         this.addRitualHidden(root, "summon_afrit_thunder_weather");

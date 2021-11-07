@@ -26,6 +26,7 @@ import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.entity.*;
 import com.github.klikli_dev.occultism.common.entity.possessed.PossessedEndermanEntity;
 import com.github.klikli_dev.occultism.common.entity.possessed.PossessedEndermiteEntity;
+import com.github.klikli_dev.occultism.common.entity.possessed.PossessedGhastEntity;
 import com.github.klikli_dev.occultism.common.entity.possessed.PossessedSkeletonEntity;
 import com.github.klikli_dev.occultism.common.entity.spirit.*;
 import net.minecraft.world.entity.EntityType;
@@ -54,11 +55,13 @@ public class OccultismEntities {
                     .build(modLoc("djinni").toString()));
     public static final NonNullLazy<EntityType<AfritEntity>> AFRIT_TYPE =
             NonNullLazy.of(() -> EntityType.Builder.of(AfritEntity::new, MobCategory.CREATURE)
+                    .fireImmune()
                     .sized(1.2f, 1.8f)
                     .clientTrackingRange(8)
                     .build(modLoc("afrit").toString()));
     public static final NonNullLazy<EntityType<AfritWildEntity>> AFRIT_WILD_TYPE =
             NonNullLazy.of(() -> EntityType.Builder.of(AfritWildEntity::new, MobCategory.CREATURE)
+                    .fireImmune()
                     .sized(1.2f, 1.8f)
                     .clientTrackingRange(8)
                     .build(modLoc("afrit_wild").toString()));
@@ -82,7 +85,14 @@ public class OccultismEntities {
             NonNullLazy.of(() -> EntityType.Builder.of(PossessedEndermanEntity::new, MobCategory.MONSTER)
                     .sized(0.6F, 2.9F)
                     .clientTrackingRange(8)
-                    .build(modLoc("possessed_endermite").toString()));
+                    .build(modLoc("possessed_enderman").toString()));
+    public static final NonNullLazy<EntityType<PossessedGhastEntity>> POSSESSED_GHAST_TYPE =
+            NonNullLazy.of(() -> EntityType.Builder.of(PossessedGhastEntity::new, MobCategory.MONSTER)
+                    .fireImmune()
+                    .sized(4.0F, 4.0F)
+                    .clientTrackingRange(10)
+                    .build(modLoc("possessed_ghast").toString()));
+
     public static final NonNullLazy<EntityType<WildHuntSkeletonEntity>> WILD_HUNT_SKELETON_TYPE =
             NonNullLazy.of(() -> EntityType.Builder.of(WildHuntSkeletonEntity::new, MobCategory.MONSTER)
                     .sized(0.6F, 2.9F)
@@ -148,12 +158,32 @@ public class OccultismEntities {
                     .clientTrackingRange(8)
                     .build(modLoc("headless_familiar").toString()));
 
+    public static final NonNullLazy<EntityType<ChimeraFamiliarEntity>> CHIMERA_FAMILIAR_TYPE =
+            NonNullLazy.of(() -> EntityType.Builder.of(ChimeraFamiliarEntity::new, MobCategory.CREATURE)
+                    .sized(0.85F, 1.05F)
+                    .clientTrackingRange(8)
+                    .build(modLoc("chimera_familiar").toString()));
+    public static final NonNullLazy<EntityType<GoatFamiliarEntity>> GOAT_FAMILIAR_TYPE =
+            NonNullLazy.of(() -> EntityType.Builder.<GoatFamiliarEntity>of(GoatFamiliarEntity::new, MobCategory.CREATURE)
+                    .sized(0.7F, 0.8F)
+                    .clientTrackingRange(8)
+                    .build(modLoc("goat_familiar").toString()));
+    public static final NonNullLazy<EntityType<ShubNiggurathFamiliarEntity>> SHUB_NIGGURATH_FAMILIAR_TYPE =
+            NonNullLazy.of(() -> EntityType.Builder.<ShubNiggurathFamiliarEntity>of(ShubNiggurathFamiliarEntity::new, MobCategory.CREATURE)
+                    .sized(0.7F, 0.8F)
+                    .clientTrackingRange(8)
+                    .build(modLoc("shub_niggurath_familiar").toString()));
 
     public static final NonNullLazy<EntityType<ThrownSwordEntity>> THROWN_SWORD_TYPE =
             NonNullLazy.of(() -> EntityType.Builder.of(ThrownSwordEntity::new, MobCategory.MISC)
                     .sized(0.5F, 0.5F)
                     .clientTrackingRange(8)
                     .build(modLoc("thrown_sword").toString()));
+    public static final NonNullLazy<EntityType<ShubNiggurathSpawnEntity>> SHUB_NIGGURATH_SPAWN_TYPE =
+            NonNullLazy.of(() -> EntityType.Builder.<ShubNiggurathSpawnEntity>of(ShubNiggurathSpawnEntity::new, MobCategory.CREATURE)
+                    .sized(0.6F, 0.6F)
+                    .clientTrackingRange(8)
+                    .build(modLoc("shub_niggurath_spawn").toString()));
 
     public static final RegistryObject<EntityType<FoliotEntity>> FOLIOT = ENTITIES.register("foliot", FOLIOT_TYPE::get);
     public static final RegistryObject<EntityType<DjinniEntity>> DJINNI = ENTITIES.register("djinni", DJINNI_TYPE::get);
@@ -168,6 +198,8 @@ public class OccultismEntities {
             ENTITIES.register("possessed_skeleton", POSSESSED_SKELETON_TYPE::get);
     public static final RegistryObject<EntityType<PossessedEndermanEntity>> POSSESSED_ENDERMAN =
             ENTITIES.register("possessed_enderman", POSSESSED_ENDERMAN_TYPE::get);
+    public static final RegistryObject<EntityType<PossessedGhastEntity>> POSSESSED_GHAST =
+            ENTITIES.register("possessed_ghast", POSSESSED_GHAST_TYPE::get);
     public static final RegistryObject<EntityType<WildHuntSkeletonEntity>> WILD_HUNT_SKELETON =
             ENTITIES.register("wild_hunt_skeleton", WILD_HUNT_SKELETON_TYPE::get);
     public static final RegistryObject<EntityType<WildHuntWitherSkeletonEntity>> WILD_HUNT_WITHER_SKELETON =
@@ -192,8 +224,16 @@ public class OccultismEntities {
             ENTITIES.register("guardian_familiar", GUARDIAN_FAMILIAR_TYPE::get);
     public static final RegistryObject<EntityType<HeadlessFamiliarEntity>> HEADLESS_FAMILIAR =
             ENTITIES.register("headless_familiar", HEADLESS_FAMILIAR_TYPE::get);
+    public static final RegistryObject<EntityType<ChimeraFamiliarEntity>> CHIMERA_FAMILIAR =
+            ENTITIES.register("chimera_familiar", CHIMERA_FAMILIAR_TYPE::get);
+    public static final RegistryObject<EntityType<GoatFamiliarEntity>> GOAT_FAMILIAR =
+            ENTITIES.register("goat_familiar", GOAT_FAMILIAR_TYPE::get);
+    public static final RegistryObject<EntityType<ShubNiggurathFamiliarEntity>> SHUB_NIGGURATH_FAMILIAR =
+            ENTITIES.register("shub_niggurath_familiar", SHUB_NIGGURATH_FAMILIAR_TYPE::get);
 
     public static final RegistryObject<EntityType<ThrownSwordEntity>> THROWN_SWORD =
             ENTITIES.register("thrown_sword", THROWN_SWORD_TYPE::get);
+    public static final RegistryObject<EntityType<ShubNiggurathSpawnEntity>> SHUB_NIGGURATH_SPAWN =
+            ENTITIES.register("shub_niggurath_spawn", SHUB_NIGGURATH_SPAWN_TYPE::get);
     //endregion Fields
 }

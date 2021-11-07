@@ -63,6 +63,7 @@ public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar 
 
     public FamiliarEntity(EntityType<? extends FamiliarEntity> type, Level level) {
         super(type, level);
+        this.setPersistenceRequired();
     }
 
     public static AttributeSupplier.Builder createAttributes() {

@@ -314,7 +314,7 @@ public class DragonFamiliarEntity extends FamiliarEntity {
         }
 
         @Override
-        protected void attack(List<Entity> enemies) {
+        protected void attack(List<LivingEntity> enemies) {
             if (enemies.isEmpty())
                 return;
 

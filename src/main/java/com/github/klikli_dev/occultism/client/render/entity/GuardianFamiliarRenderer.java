@@ -49,8 +49,6 @@ public class GuardianFamiliarRenderer extends MobRenderer<GuardianFamiliarEntity
     private static final ResourceLocation TEXTURES = new ResourceLocation(Occultism.MODID,
             "textures/entity/guardian_familiar.png");
 
-    private GuardianFamiliarModel model;
-
     public GuardianFamiliarRenderer(EntityRendererProvider.Context context) {
         super(context, new GuardianFamiliarModel(context.bakeLayer(OccultismModelLayers.FAMILIAR_GUARDIAN)), 0.3f);
         this.addLayer(new GuardianFamiliarOverlay(this, context));

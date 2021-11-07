@@ -47,6 +47,7 @@ import org.apache.commons.lang3.StringUtils;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> {
     //region Fields
@@ -164,9 +165,8 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
         }
 
         if (!this.tooltip.isEmpty()) {
-            GuiUtils.drawHoveringText(poseStack, this.tooltip, mouseX - this.leftPos,
-                    mouseY - this.topPos, this.width, this.height, -1,
-                    Minecraft.getInstance().font);
+            this.renderTooltip(poseStack, this.tooltip, Optional.empty(), mouseX - this.leftPos,
+                    mouseY - this.topPos);
         }
     }
 

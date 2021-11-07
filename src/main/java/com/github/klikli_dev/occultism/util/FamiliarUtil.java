@@ -37,6 +37,24 @@ import java.util.function.Predicate;
 
 public class FamiliarUtil {
 
+    public static List<LivingEntity> getOwnerEnemies(LivingEntity owner, LivingEntity familiar, float range) {
+        if (null == owner)
+            return new ArrayList<>();
+        
+        LivingEntity revenge = owner.getLastHurtByMob();
+        LivingEntity target = owner.getLastHurtMob();
+        List<LivingEntity> enemies = new ArrayList<>();
+        if (isClose(revenge, familiar, range))
+            enemies.add(revenge);
+        if (isClose(target, familiar, range))
+            enemies.add(target);
+        return enemies;
+    }
+
+    private static boolean isClose(LivingEntity e, LivingEntity familiar, float range) {
+        return e != null && e != familiar && e.distanceToSqr(familiar) < range;
+    }
+
     public static boolean isFamiliarEnabled(LivingEntity owner, EntityType<? extends IFamiliar> familiar) {
         return owner.getCapability(OccultismCapabilities.FAMILIAR_SETTINGS).lazyMap(c -> c.isFamiliarEnabled(familiar))
                 .orElse(false);

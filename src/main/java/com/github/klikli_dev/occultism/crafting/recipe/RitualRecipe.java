@@ -28,13 +28,10 @@ import com.github.klikli_dev.occultism.common.ritual.pentacle.Pentacle;
 import com.github.klikli_dev.occultism.common.ritual.pentacle.PentacleManager;
 import com.github.klikli_dev.occultism.registry.OccultismRecipes;
 import com.github.klikli_dev.occultism.registry.OccultismRituals;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonSyntaxException;
+import com.google.gson.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.Registry;
-import net.minecraft.data.tags.EntityTypeTagsProvider;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.EntityTypeTags;
@@ -44,12 +41,8 @@ import net.minecraft.util.GsonHelper;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.item.crafting.ShapelessRecipe;
+import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.common.ForgeTagHandler;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.ForgeRegistryEntry;
@@ -120,6 +113,17 @@ public class RitualRecipe extends ShapelessRecipe {
         return SERIALIZER;
     }
 
+    @Override
+    public boolean matches(CraftingContainer pInv, Level pLevel) {
+        return false;
+    }
+
+    @Override
+    public ItemStack assemble(CraftingContainer pInv) {
+        //as we don't have an inventory this is ignored.
+        return null;
+    }
+
     /**
      * Custom matches method for ritual recipes
      *
@@ -130,17 +134,6 @@ public class RitualRecipe extends ShapelessRecipe {
      */
     public boolean matches(Level level, BlockPos goldenBowlPosition, ItemStack activationItem) {
         return this.ritual.identify(level, goldenBowlPosition, activationItem);
-    }
-
-    @Override
-    public boolean matches(CraftingContainer pInv, Level pLevel) {
-        return false;
-    }
-
-    @Override
-    public ItemStack assemble(CraftingContainer pInv) {
-        //as we don't have an inventory this is ignored.
-        return null;
     }
 
     @Override
@@ -193,10 +186,30 @@ public class RitualRecipe extends ShapelessRecipe {
         private static final ShapelessRecipe.Serializer serializer = new ShapelessRecipe.Serializer();
         //endregion Fields
 
+        private static NonNullList<Ingredient> itemsFromJson(JsonArray pIngredientArray) {
+            NonNullList<Ingredient> nonnulllist = NonNullList.create();
+
+            for (int i = 0; i < pIngredientArray.size(); ++i) {
+                Ingredient ingredient = Ingredient.fromJson(pIngredientArray.get(i));
+                if (!ingredient.isEmpty()) {
+                    nonnulllist.add(ingredient);
+                }
+            }
+
+            return nonnulllist;
+        }
+
         //region Overrides
         @Override
         public RitualRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
-            ShapelessRecipe recipe = serializer.fromJson(recipeId, json);
+
+            //do not use shapeless serializer here, because it limits max ingredients
+            String group = GsonHelper.getAsString(json, "group", "");
+            NonNullList<Ingredient> ingredients = itemsFromJson(GsonHelper.getAsJsonArray(json, "ingredients"));
+            if (ingredients.isEmpty()) {
+                throw new JsonParseException("No ingredients for shapeless recipe");
+            }
+            ItemStack result = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "result"));
 
             ResourceLocation ritualType = new ResourceLocation(json.get("ritual_type").getAsString());
 
@@ -243,8 +256,8 @@ public class RitualRecipe extends ShapelessRecipe {
 
             }
 
-            return new RitualRecipe(recipe.getId(), recipe.getGroup(), pentacleId, ritualType, ritualDummy,
-                    recipe.getResultItem(), entityToSummon, activationItem, recipe.getIngredients(), duration,
+            return new RitualRecipe(recipeId, group, pentacleId, ritualType, ritualDummy,
+                    result, entityToSummon, activationItem, ingredients, duration,
                     spiritMaxAge, spiritJobType, entityToSacrifice, entityToSacrificeDisplayName, itemToUse);
         }
 
@@ -275,11 +288,11 @@ public class RitualRecipe extends ShapelessRecipe {
             String entityToSacrificeDisplayName = "";
             if (buffer.readBoolean()) {
                 ResourceLocation tag = buffer.readResourceLocation();
-                try{
+                try {
                     entityToSacrifice = SerializationTags.getInstance().getTagOrThrow(Registry.ENTITY_TYPE_REGISTRY, tag, (rl) -> {
                         return new RuntimeException("Unknown entity tag '" + rl + "'");
                     });
-                } catch(Exception e){
+                } catch (Exception e) {
                     Occultism.LOGGER.error(e);
                     entityToSacrifice = EntityTypeTags.createOptional(tag);
                 }

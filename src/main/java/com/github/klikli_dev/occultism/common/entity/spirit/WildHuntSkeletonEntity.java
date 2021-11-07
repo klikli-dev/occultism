@@ -24,12 +24,16 @@ package com.github.klikli_dev.occultism.common.entity.spirit;
 
 import com.github.klikli_dev.occultism.registry.OccultismTags;
 import net.minecraft.tags.Tag;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Skeleton;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 
 import java.util.Optional;
@@ -37,29 +41,34 @@ import java.util.Optional;
 public class WildHuntSkeletonEntity extends Skeleton {
     //region Fields
     protected Optional<WildHuntWitherSkeletonEntity> master = Optional.empty();
-    //endregion Fields
 
-    //region Initialization
     public WildHuntSkeletonEntity(EntityType<? extends WildHuntSkeletonEntity> type,
                                   Level worldIn) {
         super(type, worldIn);
     }
-    //endregion Initialization
 
-    //region Static Methods
+
     public static AttributeSupplier.Builder createAttributes() {
         return Skeleton.createAttributes()
                 .add(Attributes.ATTACK_DAMAGE, 4.0)
                 .add(Attributes.MAX_HEALTH, 20.0);
     }
-    //endregion Getter / Setter
 
-    //region Getter / Setter
     public void setMaster(WildHuntWitherSkeletonEntity master) {
         this.master = Optional.ofNullable(master);
     }
 
-    //region Overrides
+    @Override
+    protected void populateDefaultEquipmentSlots(DifficultyInstance pDifficulty) {
+        super.populateDefaultEquipmentSlots(pDifficulty);
+
+        //70% chance to wear a stone sword
+        if(this.random.nextFloat() <= 0.7f)
+            super.populateDefaultEquipmentSlots(pDifficulty);
+        this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.STONE_SWORD));
+    }
+
+
     @Override
     protected boolean shouldDespawnInPeaceful() {
         return false;
@@ -77,7 +86,6 @@ public class WildHuntSkeletonEntity extends Skeleton {
         });
         super.remove(reason);
     }
-    //endregion Overrides
 
     @Override
     public boolean isInvulnerableTo(DamageSource source) {
@@ -93,5 +101,4 @@ public class WildHuntSkeletonEntity extends Skeleton {
 
         return super.isInvulnerableTo(source);
     }
-    //endregion Static Methods
 }
