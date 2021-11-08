@@ -48,9 +48,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.network.datasync.DataSerializers;
-import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.ActionResultType;
@@ -67,14 +64,6 @@ public class DragonFamiliarEntity extends FamiliarEntity {
 
     public static final int MAX_PET_TIMER = 20 * 2;
     private static final int GREEDY_INCREMENT = 20 * 60 * 5;
-    private static final DataParameter<Boolean> FEZ = EntityDataManager.defineId(DragonFamiliarEntity.class,
-            DataSerializers.BOOLEAN);
-    private static final DataParameter<Boolean> EARS = EntityDataManager.defineId(DragonFamiliarEntity.class,
-            DataSerializers.BOOLEAN);
-    private static final DataParameter<Boolean> ARMS = EntityDataManager.defineId(DragonFamiliarEntity.class,
-            DataSerializers.BOOLEAN);
-    private static final DataParameter<Boolean> STICK = EntityDataManager.defineId(DragonFamiliarEntity.class,
-            DataSerializers.BOOLEAN);
 
     private final float colorOffset;
     private int greedyTimer;
@@ -221,45 +210,36 @@ public class DragonFamiliarEntity extends FamiliarEntity {
         return super.mobInteract(playerIn, hand);
     }
 
-    @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(FEZ, false);
-        this.entityData.define(EARS, false);
-        this.entityData.define(ARMS, false);
-        this.entityData.define(STICK, false);
-    }
-
     public boolean hasFez() {
-        return this.entityData.get(FEZ);
+        return this.hasVariant(0);
     }
 
     private void setFez(boolean b) {
-        this.entityData.set(FEZ, b);
+        this.setVariant(0, b);
     }
 
     public boolean hasEars() {
-        return this.entityData.get(EARS);
+        return this.hasVariant(1);
     }
 
     private void setEars(boolean b) {
-        this.entityData.set(EARS, b);
+        this.setVariant(1, b);
     }
 
     public boolean hasArms() {
-        return this.entityData.get(ARMS);
+        return this.hasVariant(2);
     }
 
     private void setArms(boolean b) {
-        this.entityData.set(ARMS, b);
+        this.setVariant(2, b);
     }
 
     public boolean hasStick() {
-        return this.entityData.get(STICK);
+        return this.hasVariant(3);
     }
 
     private void setStick(boolean b) {
-        this.entityData.set(STICK, b);
+        this.setVariant(3, b);
     }
 
     @Override
@@ -270,20 +250,18 @@ public class DragonFamiliarEntity extends FamiliarEntity {
     @Override
     public void addAdditionalSaveData(CompoundNBT compound) {
         super.addAdditionalSaveData(compound);
-        compound.putBoolean("hasFez", this.hasFez());
-        compound.putBoolean("hasEars", this.hasEars());
-        compound.putBoolean("hasArms", this.hasArms());
-        compound.putBoolean("hasStick", this.hasStick());
         compound.putInt("greedyTimer", this.greedyTimer);
     }
 
     @Override
     public void readAdditionalSaveData(CompoundNBT compound) {
         super.readAdditionalSaveData(compound);
-        this.setFez(compound.getBoolean("hasFez"));
-        this.setEars(compound.getBoolean("hasEars"));
-        this.setArms(compound.getBoolean("hasArms"));
-        this.setStick(compound.getBoolean("hasStick"));
+        if (!compound.contains("variants")) {
+            this.setFez(compound.getBoolean("hasFez"));
+            this.setEars(compound.getBoolean("hasEars"));
+            this.setArms(compound.getBoolean("hasArms"));
+            this.setStick(compound.getBoolean("hasStick"));
+        }
         this.greedyTimer = compound.getInt("greedyTimer");
     }
 

@@ -48,9 +48,6 @@ import net.minecraft.entity.ai.goal.RandomWalkingGoal;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.NBTUtil;
-import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.network.datasync.DataSerializers;
-import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.pathfinding.GroundPathNavigator;
 import net.minecraft.pathfinding.PathNodeType;
@@ -68,15 +65,6 @@ import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.ForgeMod;
 
 public class CthulhuFamiliarEntity extends FamiliarEntity {
-
-    private static final DataParameter<Boolean> HAT = EntityDataManager.defineId(CthulhuFamiliarEntity.class,
-            DataSerializers.BOOLEAN);
-    private static final DataParameter<Boolean> TRUNK = EntityDataManager.defineId(CthulhuFamiliarEntity.class,
-            DataSerializers.BOOLEAN);
-    private static final DataParameter<Boolean> ANGRY = EntityDataManager.defineId(CthulhuFamiliarEntity.class,
-            DataSerializers.BOOLEAN);
-    private static final DataParameter<Boolean> GIVING = EntityDataManager.defineId(CthulhuFamiliarEntity.class,
-            DataSerializers.BOOLEAN);
 
     private final SwimmerPathNavigator waterNavigator;
     private final GroundPathNavigator groundNavigator;
@@ -275,53 +263,46 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
         return Collections.emptyList();
     }
 
-    @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(HAT, false);
-        this.entityData.define(TRUNK, false);
-        this.entityData.define(ANGRY, false);
-        this.entityData.define(GIVING, false);
-    }
-
     public boolean hasHat() {
-        return this.entityData.get(HAT);
+        return this.hasVariant(0);
     }
 
     private void setHat(boolean b) {
-        this.entityData.set(HAT, b);
+        this.setVariant(0, b);
     }
 
     public boolean hasTrunk() {
-        return this.entityData.get(TRUNK);
+        return this.hasVariant(1);
     }
 
     private void setTrunk(boolean b) {
-        this.entityData.set(TRUNK, b);
+        this.setVariant(1, b);
     }
 
     public boolean isAngry() {
-        return this.entityData.get(ANGRY);
+        return this.hasVariant(2);
     }
 
     private void setAngry(boolean b) {
-        this.entityData.set(ANGRY, b);
+        this.setVariant(2, b);
     }
 
     public boolean isGiving() {
-        return this.entityData.get(GIVING);
+        return this.hasVariant(3);
     }
 
     private void setGiving(boolean b) {
-        this.entityData.set(GIVING, b);
+        this.setVariant(3, b);
     }
 
     @Override
     public void readAdditionalSaveData(CompoundNBT compound) {
         super.readAdditionalSaveData(compound);
-        this.setHat(compound.getBoolean("hasHat"));
-        this.setTrunk(compound.getBoolean("hasTrunk"));
-        this.setAngry(compound.getBoolean("isAngry"));
+        if (!compound.contains("variants")) {
+            this.setHat(compound.getBoolean("hasHat"));
+            this.setTrunk(compound.getBoolean("hasTrunk"));
+            this.setAngry(compound.getBoolean("isAngry"));
+        }
         if (compound.contains("lightPos"))
             this.lightPos = NBTUtil.readBlockPos(compound.getCompound("lightPos"));
         if (compound.contains("lightPos0"))
@@ -331,9 +312,6 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
     @Override
     public void addAdditionalSaveData(CompoundNBT compound) {
         super.addAdditionalSaveData(compound);
-        compound.putBoolean("hasHat", this.hasHat());
-        compound.putBoolean("hasTrunk", this.hasTrunk());
-        compound.putBoolean("isAngry", this.isAngry());
         if (this.lightPos != null)
             compound.put("lightPos", NBTUtil.writeBlockPos(this.lightPos));
         if (this.lightPos0 != null)
