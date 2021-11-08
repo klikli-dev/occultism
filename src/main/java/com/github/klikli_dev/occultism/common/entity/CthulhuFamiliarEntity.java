@@ -30,9 +30,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
@@ -64,15 +61,6 @@ import java.util.EnumSet;
 import java.util.List;
 
 public class CthulhuFamiliarEntity extends FamiliarEntity {
-
-    private static final EntityDataAccessor<Boolean> HAT = SynchedEntityData.defineId(CthulhuFamiliarEntity.class,
-            EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Boolean> TRUNK = SynchedEntityData.defineId(CthulhuFamiliarEntity.class,
-            EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Boolean> ANGRY = SynchedEntityData.defineId(CthulhuFamiliarEntity.class,
-            EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Boolean> GIVING = SynchedEntityData.defineId(CthulhuFamiliarEntity.class,
-            EntityDataSerializers.BOOLEAN);
 
     private final WaterBoundPathNavigation waterNavigator;
     private final GroundPathNavigation groundNavigator;
@@ -259,33 +247,46 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
         return Collections.emptyList();
     }
 
-    @Override
-    public boolean canBlacksmithUpgrade() {
-        return !this.hasBlacksmithUpgrade();
+    public boolean hasHat() {
+        return this.hasVariant(0);
     }
 
-    @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(HAT, false);
-        this.entityData.define(TRUNK, false);
-        this.entityData.define(ANGRY, false);
-        this.entityData.define(GIVING, false);
+    private void setHat(boolean b) {
+        this.setVariant(0, b);
     }
 
-    @Override
-    public void setFamiliarOwner(LivingEntity owner) {
-        if (this.hasHat())
-            OccultismAdvancements.FAMILIAR.trigger(owner, FamiliarTrigger.Type.RARE_VARIANT);
-        super.setFamiliarOwner(owner);
+    public boolean hasTrunk() {
+        return this.hasVariant(1);
+    }
+
+    private void setTrunk(boolean b) {
+        this.setVariant(1, b);
+    }
+
+    public boolean isAngry() {
+        return this.hasVariant(2);
+    }
+
+    private void setAngry(boolean b) {
+        this.setVariant(2, b);
+    }
+
+    public boolean isGiving() {
+        return this.hasVariant(3);
+    }
+
+    private void setGiving(boolean b) {
+        this.setVariant(3, b);
     }
 
     @Override
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
-        this.setHat(compound.getBoolean("hasHat"));
-        this.setTrunk(compound.getBoolean("hasTrunk"));
-        this.setAngry(compound.getBoolean("isAngry"));
+        if (!compound.contains("variants")) {
+            this.setHat(compound.getBoolean("hasHat"));
+            this.setTrunk(compound.getBoolean("hasTrunk"));
+            this.setAngry(compound.getBoolean("isAngry"));
+        }
         if (compound.contains("lightPos"))
             this.lightPos = NbtUtils.readBlockPos(compound.getCompound("lightPos"));
         if (compound.contains("lightPos0"))
@@ -295,45 +296,10 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
-        compound.putBoolean("hasHat", this.hasHat());
-        compound.putBoolean("hasTrunk", this.hasTrunk());
-        compound.putBoolean("isAngry", this.isAngry());
         if (this.lightPos != null)
             compound.put("lightPos", NbtUtils.writeBlockPos(this.lightPos));
         if (this.lightPos0 != null)
             compound.put("lightPos0", NbtUtils.writeBlockPos(this.lightPos0));
-    }
-
-    public boolean hasHat() {
-        return this.entityData.get(HAT);
-    }
-
-    private void setHat(boolean b) {
-        this.entityData.set(HAT, b);
-    }
-
-    public boolean hasTrunk() {
-        return this.entityData.get(TRUNK);
-    }
-
-    private void setTrunk(boolean b) {
-        this.entityData.set(TRUNK, b);
-    }
-
-    public boolean isAngry() {
-        return this.entityData.get(ANGRY);
-    }
-
-    private void setAngry(boolean b) {
-        this.entityData.set(ANGRY, b);
-    }
-
-    public boolean isGiving() {
-        return this.entityData.get(GIVING);
-    }
-
-    private void setGiving(boolean b) {
-        this.entityData.set(GIVING, b);
     }
 
     private static class CthulhuMoveController extends MoveControl {

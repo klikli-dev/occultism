@@ -56,6 +56,8 @@ public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar 
             EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> BLACKSMITH_UPGRADE = SynchedEntityData.defineId(FamiliarEntity.class,
             EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Byte> VARIANTS = SynchedEntityData.defineId(FamiliarEntity.class,
+            EntityDataSerializers.BYTE);
     private static final EntityDataAccessor<Optional<UUID>> OWNER_UNIQUE_ID = SynchedEntityData.defineId(FamiliarEntity.class, EntityDataSerializers.OPTIONAL_UUID);
 
     private boolean partying;
@@ -87,6 +89,7 @@ public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar 
         this.entityData.define(SITTING, false);
         this.entityData.define(BLACKSMITH_UPGRADE, false);
         this.entityData.define(OWNER_UNIQUE_ID, Optional.empty());
+        this.entityData.define(VARIANTS, (byte) 0);
     }
 
     public boolean hasBlacksmithUpgrade() {
@@ -181,6 +184,7 @@ public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar 
         if (compound.contains("isSitting"))
             this.setSitting(compound.getBoolean("isSitting"));
         this.setBlacksmithUpgrade(compound.getBoolean("hasBlacksmithUpgrade"));
+        this.entityData.set(VARIANTS, compound.getByte("variants"));
     }
 
     @Override
@@ -192,6 +196,7 @@ public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar 
 
         compound.putBoolean("isSitting", this.isSitting());
         compound.putBoolean("hasBlacksmithUpgrade", this.hasBlacksmithUpgrade());
+        compound.putByte("variants", this.entityData.get(VARIANTS));
     }
 
     public boolean isSitting() {
@@ -200,6 +205,17 @@ public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar 
 
     protected void setSitting(boolean b) {
         this.entityData.set(SITTING, b);
+    }
+
+    protected void setVariant(int offset, boolean b) {
+        if (b)
+            this.entityData.set(VARIANTS, (byte) (this.entityData.get(VARIANTS) | (1 << offset)));
+        else
+            this.entityData.set(VARIANTS, (byte) (this.entityData.get(VARIANTS) & ~(1 << offset)));
+    }
+
+    protected boolean hasVariant(int offset) {
+        return ((this.entityData.get(VARIANTS) >> offset) & 1) == 1;
     }
 
     protected static class FollowOwnerGoal extends Goal {

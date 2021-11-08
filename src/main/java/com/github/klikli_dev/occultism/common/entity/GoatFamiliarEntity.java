@@ -28,9 +28,6 @@ import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
@@ -48,9 +45,6 @@ import net.minecraft.world.level.biome.Biome.BiomeCategory;
 import net.minecraftforge.common.Tags;
 
 public class GoatFamiliarEntity extends ResizableFamiliarEntity {
-
-    private static final EntityDataAccessor<Byte> VARIANTS = SynchedEntityData.defineId(GoatFamiliarEntity.class,
-            EntityDataSerializers.BYTE);
 
     private int shakeHeadTimer;
 
@@ -118,34 +112,10 @@ public class GoatFamiliarEntity extends ResizableFamiliarEntity {
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(VARIANTS, (byte) 0);
-    }
-
-    @Override
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
         if (!compound.contains("variants"))
             this.setRing(compound.getBoolean("hasRing"));
-        this.entityData.set(VARIANTS, compound.getByte("variants"));
-    }
-
-    @Override
-    public void addAdditionalSaveData(CompoundTag compound) {
-        super.addAdditionalSaveData(compound);
-        compound.putByte("variants", this.entityData.get(VARIANTS));
-    }
-
-    private void setVariant(int offset, boolean b) {
-        if (b)
-            this.entityData.set(VARIANTS, (byte) (this.entityData.get(VARIANTS) | (1 << offset)));
-        else
-            this.entityData.set(VARIANTS, (byte) (this.entityData.get(VARIANTS) & (0b11111110 << offset)));
-    }
-
-    private boolean hasVariant(int offset) {
-        return ((this.entityData.get(VARIANTS) >> offset) & 1) == 1;
     }
 
     public boolean hasRing() {

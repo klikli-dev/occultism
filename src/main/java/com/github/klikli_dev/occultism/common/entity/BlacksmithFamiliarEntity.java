@@ -57,13 +57,6 @@ public class BlacksmithFamiliarEntity extends FamiliarEntity {
         return UPGRADE_COST.get() * 10;
     }
 
-    private static final EntityDataAccessor<Boolean> EARRING = SynchedEntityData.defineId(BlacksmithFamiliarEntity.class,
-            EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Boolean> MARIO_MOUSTACHE = SynchedEntityData
-            .defineId(BlacksmithFamiliarEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Boolean> SQUARE_HAIR = SynchedEntityData
-            .defineId(BlacksmithFamiliarEntity.class, EntityDataSerializers.BOOLEAN);
-
     private static final EntityDataAccessor<Byte> BARS = SynchedEntityData.defineId(BlacksmithFamiliarEntity.class,
             EntityDataSerializers.BYTE);
 
@@ -118,34 +111,31 @@ public class BlacksmithFamiliarEntity extends FamiliarEntity {
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(EARRING, false);
-        this.entityData.define(MARIO_MOUSTACHE, false);
-        this.entityData.define(SQUARE_HAIR, false);
         this.entityData.define(BARS, (byte) 0);
     }
 
     public boolean hasEarring() {
-        return this.entityData.get(EARRING);
+        return this.hasVariant(0);
     }
 
     public boolean hasMarioMoustache() {
-        return this.entityData.get(MARIO_MOUSTACHE);
+        return this.hasVariant(1);
     }
 
     public boolean hasSquareHair() {
-        return this.entityData.get(SQUARE_HAIR);
+        return this.hasVariant(2);
     }
 
     private void setEarring(boolean b) {
-        this.entityData.set(EARRING, b);
+        this.setVariant(0, b);
     }
 
     private void setMarioMoustache(boolean b) {
-        this.entityData.set(MARIO_MOUSTACHE, b);
+        this.setVariant(1, b);
     }
 
     private void setSquareHair(boolean b) {
-        this.entityData.set(SQUARE_HAIR, b);
+        this.setVariant(2, b);
     }
 
     private void setIronCount(int count) {
@@ -177,18 +167,17 @@ public class BlacksmithFamiliarEntity extends FamiliarEntity {
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
-        compound.putBoolean("hasEarring", this.hasEarring());
-        compound.putBoolean("hasMarioMoustache", this.hasMarioMoustache());
-        compound.putBoolean("hasSquareHair", this.hasSquareHair());
         compound.putInt("ironCount", this.ironCount);
     }
 
     @Override
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
-        this.setEarring(compound.getBoolean("hasEarring"));
-        this.setMarioMoustache(compound.getBoolean("hasMarioMoustache"));
-        this.setSquareHair(compound.getBoolean("hasSquareHair"));
+        if (!compound.contains("variants")) {
+            this.setEarring(compound.getBoolean("hasEarring"));
+            this.setMarioMoustache(compound.getBoolean("hasMarioMoustache"));
+            this.setSquareHair(compound.getBoolean("hasSquareHair"));
+        }
         this.setIronCount(compound.getInt("ironCount"));
     }
 

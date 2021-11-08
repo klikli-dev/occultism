@@ -43,10 +43,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
 public class ShubNiggurathFamiliarEntity extends FamiliarEntity {
-
-    private static final EntityDataAccessor<Byte> VARIANTS = SynchedEntityData.defineId(ShubNiggurathFamiliarEntity.class,
-            EntityDataSerializers.BYTE);
-
     private static final int MAX_SPAWN_TIMER = 20 * 10;
 
     private int spawnTimer;
@@ -149,42 +145,8 @@ public class ShubNiggurathFamiliarEntity extends FamiliarEntity {
     }
 
     @Override
-    public void curioTick(LivingEntity wearer) {
-        this.createSpawn(wearer, new Vector3d(wearer.getRandomX(2), wearer.getRandomY(), wearer.getRandomZ(2)));
-    }
-
-    @Override
     public boolean canBlacksmithUpgrade() {
         return !this.hasBlacksmithUpgrade();
-    }
-
-    @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(VARIANTS, (byte) 0);
-    }
-
-    @Override
-    public void readAdditionalSaveData(CompoundTag compound) {
-        super.readAdditionalSaveData(compound);
-        this.entityData.set(VARIANTS, compound.getByte("variants"));
-    }
-
-    @Override
-    public void addAdditionalSaveData(CompoundTag compound) {
-        super.addAdditionalSaveData(compound);
-        compound.putByte("variants", this.entityData.get(VARIANTS));
-    }
-
-    private void setVariant(int offset, boolean b) {
-        if (b)
-            this.entityData.set(VARIANTS, (byte) (this.entityData.get(VARIANTS) | (1 << offset)));
-        else
-            this.entityData.set(VARIANTS, (byte) (this.entityData.get(VARIANTS) & (0b11111110 << offset)));
-    }
-
-    private boolean hasVariant(int offset) {
-        return ((this.entityData.get(VARIANTS) >> offset) & 1) == 1;
     }
 
     public boolean hasRing() {

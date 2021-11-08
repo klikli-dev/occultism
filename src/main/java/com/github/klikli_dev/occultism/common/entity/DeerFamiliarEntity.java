@@ -22,6 +22,9 @@
 
 package com.github.klikli_dev.occultism.common.entity;
 
+import java.util.Collections;
+import java.util.UUID;
+
 import com.github.klikli_dev.occultism.common.advancement.FamiliarTrigger;
 import com.github.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
@@ -48,9 +51,6 @@ import java.util.Collections;
 import java.util.UUID;
 
 public class DeerFamiliarEntity extends FamiliarEntity {
-
-    private static final EntityDataAccessor<Boolean> RED_NOSE = SynchedEntityData.defineId(DeerFamiliarEntity.class,
-            EntityDataSerializers.BOOLEAN);
 
     private static final UUID SPEED_UUID = UUID.fromString("5ebf190f-3c59-41e7-9085-d14b37dfc863");
 
@@ -138,12 +138,6 @@ public class DeerFamiliarEntity extends FamiliarEntity {
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(RED_NOSE, false);
-    }
-
-    @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficultyIn, MobSpawnType reason,
                                         @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
         this.setRedNose(this.getRandom().nextDouble() < 0.1);
@@ -153,13 +147,8 @@ public class DeerFamiliarEntity extends FamiliarEntity {
     @Override
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
-        this.setRedNose(compound.getBoolean("hasRedNose"));
-    }
-
-    @Override
-    public void addAdditionalSaveData(CompoundTag compound) {
-        super.addAdditionalSaveData(compound);
-        compound.putBoolean("hasRedNose", this.hasRedNose());
+        if (!compound.contains("variants"))
+            this.setRedNose(compound.getBoolean("hasRedNose"));
     }
 
     @Override
@@ -168,11 +157,11 @@ public class DeerFamiliarEntity extends FamiliarEntity {
     }
 
     public boolean hasRedNose() {
-        return this.entityData.get(RED_NOSE);
+        return this.hasVariant(0);
     }
 
     private void setRedNose(boolean b) {
-        this.entityData.set(RED_NOSE, b);
+        this.setVariant(0, b);
     }
 
     public boolean isEating() {

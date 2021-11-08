@@ -76,18 +76,8 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
     private static final int JUMP_COOLDOWN = 20 * 2;
     private static final int ATTACK_TIME = 10;
 
-    private static final EntityDataAccessor<Boolean> FLAPS = SynchedEntityData.defineId(ChimeraFamiliarEntity.class,
-            EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Boolean> RING = SynchedEntityData.defineId(ChimeraFamiliarEntity.class,
-            EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Boolean> BEARD = SynchedEntityData.defineId(ChimeraFamiliarEntity.class,
-            EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Boolean> HAT = SynchedEntityData.defineId(ChimeraFamiliarEntity.class,
-            EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Byte> ATTACKER = SynchedEntityData.defineId(ChimeraFamiliarEntity.class,
             EntityDataSerializers.BYTE);
-    private static final EntityDataAccessor<Boolean> GOAT = SynchedEntityData.defineId(ChimeraFamiliarEntity.class,
-            EntityDataSerializers.BOOLEAN);
 
     private static Field isRiderJumping;
 
@@ -178,20 +168,46 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(ATTACKER, NO_ATTACKER);
-        this.entityData.define(FLAPS, false);
-        this.entityData.define(RING, false);
-        this.entityData.define(BEARD, true);
-        this.entityData.define(HAT, false);
-        this.entityData.define(GOAT, true);
-    }
-
-    @Override
     public void setSize(byte size) {
         super.setSize(size);
         this.calcSizeModifiers();
+    }
+
+    @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(ATTACKER, NO_ATTACKER);
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag compound) {
+        super.readAdditionalSaveData(compound);
+        if (!compound.contains("variants")) {
+            this.setFlaps(compound.getBoolean("hasFlaps"));
+            this.setRing(compound.getBoolean("hasRing"));
+            if (compound.contains("hasBeard"))
+                this.setBeard(compound.getBoolean("hasBeard"));
+            this.setHat(compound.getBoolean("hasHat"));
+            this.setGoat(compound.getBoolean("hasGoat"));
+        }
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
+        compound.putBoolean("hasFlaps", this.hasFlaps());
+        compound.putBoolean("hasRing", this.hasRing());
+        compound.putBoolean("hasBeard", this.hasBeard());
+        compound.putBoolean("hasHat", this.hasHat());
+        compound.putBoolean("hasGoat", this.hasGoat());
+    }
+
+    @Override
+    public void onSyncedDataUpdated(EntityDataAccessor<?> pKey) {
+        super.onSyncedDataUpdated(pKey);
+
+        if (ATTACKER.equals(pKey))
+            this.attackTimer = ATTACK_TIME;
     }
 
     private double getAttackBonus() {
@@ -203,23 +219,23 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
     }
 
     public boolean hasFlaps() {
-        return this.entityData.get(FLAPS);
+        return this.hasVariant(0);
     }
 
     public boolean hasRing() {
-        return this.entityData.get(RING);
+        return this.hasVariant(1);
     }
 
     public boolean hasBeard() {
-        return this.entityData.get(BEARD);
+        return this.hasVariant(2);
     }
 
     public boolean hasHat() {
-        return this.entityData.get(HAT);
+        return this.hasVariant(3);
     }
 
     public boolean hasGoat() {
-        return this.entityData.get(GOAT);
+        return this.hasVariant(4);
     }
 
     public byte getAttacker() {
@@ -231,23 +247,23 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
     }
 
     private void setFlaps(boolean b) {
-        this.entityData.set(FLAPS, b);
+        this.setVariant(0, b);
     }
 
     private void setRing(boolean b) {
-        this.entityData.set(RING, b);
+        this.setVariant(1, b);
     }
 
     private void setBeard(boolean b) {
-        this.entityData.set(BEARD, b);
+        this.setVariant(2, b);
     }
 
     private void setHat(boolean b) {
-        this.entityData.set(HAT, b);
+        this.setVariant(3, b);
     }
 
     private void setGoat(boolean b) {
-        this.entityData.set(GOAT, b);
+        this.setVariant(4, b);
     }
 
     private void calcSizeModifiers() {
@@ -315,27 +331,6 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag compound) {
-        super.readAdditionalSaveData(compound);
-        this.setFlaps(compound.getBoolean("hasFlaps"));
-        this.setRing(compound.getBoolean("hasRing"));
-        if (compound.contains("hasBeard"))
-            this.setBeard(compound.getBoolean("hasBeard"));
-        this.setHat(compound.getBoolean("hasHat"));
-        this.setGoat(compound.getBoolean("hasGoat"));
-    }
-
-    @Override
-    public void addAdditionalSaveData(CompoundTag compound) {
-        super.addAdditionalSaveData(compound);
-        compound.putBoolean("hasFlaps", this.hasFlaps());
-        compound.putBoolean("hasRing", this.hasRing());
-        compound.putBoolean("hasBeard", this.hasBeard());
-        compound.putBoolean("hasHat", this.hasHat());
-        compound.putBoolean("hasGoat", this.hasGoat());
-    }
-
-    @Override
     public boolean boost() {
         return false;
     }
@@ -378,14 +373,6 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
     @Override
     public void travel(Vec3 pTravelVector) {
         this.travel(this, this.boost, pTravelVector);
-    }
-
-    @Override
-    public void onSyncedDataUpdated(EntityDataAccessor<?> pKey) {
-        super.onSyncedDataUpdated(pKey);
-
-        if (ATTACKER.equals(pKey))
-            this.attackTimer = ATTACK_TIME;
     }
 
     private byte[] possibleAttackers() {

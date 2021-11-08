@@ -57,13 +57,6 @@ import java.util.List;
 
 public class DevilFamiliarEntity extends FamiliarEntity {
 
-    private static final EntityDataAccessor<Boolean> LOLLIPOP = SynchedEntityData.defineId(DevilFamiliarEntity.class,
-            EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Boolean> NOSE = SynchedEntityData.defineId(DevilFamiliarEntity.class,
-            EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Boolean> EARS = SynchedEntityData.defineId(DevilFamiliarEntity.class,
-            EntityDataSerializers.BOOLEAN);
-
     private final float heightOffset;
 
     public DevilFamiliarEntity(EntityType<? extends DevilFamiliarEntity> type, Level level) {
@@ -118,57 +111,43 @@ public class DevilFamiliarEntity extends FamiliarEntity {
         }
     }
 
-    @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(LOLLIPOP, false);
-        this.entityData.define(NOSE, false);
-        this.entityData.define(EARS, false);
-    }
-
     public float getAnimationHeight(float partialTicks) {
         return Mth.cos((this.tickCount + this.heightOffset + partialTicks) / 3.5f);
     }
 
     public boolean hasLollipop() {
-        return this.entityData.get(LOLLIPOP);
+        return this.hasVariant(0);
     }
 
     private void setLollipop(boolean b) {
-        this.entityData.set(LOLLIPOP, b);
+        this.setVariant(0, b);
     }
 
     public boolean hasNose() {
-        return this.entityData.get(NOSE);
+        return this.hasVariant(1);
     }
 
     private void setNose(boolean b) {
-        this.entityData.set(NOSE, b);
+        this.setVariant(1, b);
     }
 
     public boolean hasEars() {
-        return this.entityData.get(EARS);
+        return this.hasVariant(2);
     }
 
     private void setEars(boolean b) {
-        this.entityData.set(EARS, b);
+        this.setVariant(2, b);
     }
 
 
     @Override
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
-        this.setLollipop(compound.getBoolean("hasLollipop"));
-        this.setNose(compound.getBoolean("hasNose"));
-        this.setEars(compound.getBoolean("hasEars"));
-    }
-
-    @Override
-    public void addAdditionalSaveData(CompoundTag compound) {
-        super.addAdditionalSaveData(compound);
-        compound.putBoolean("hasLollipop", this.hasLollipop());
-        compound.putBoolean("hasNose", this.hasNose());
-        compound.putBoolean("hasEars", this.hasEars());
+        if (!compound.contains("variants")) {
+            this.setLollipop(compound.getBoolean("hasLollipop"));
+            this.setNose(compound.getBoolean("hasNose"));
+            this.setEars(compound.getBoolean("hasEars"));
+        }
     }
 
     @Override

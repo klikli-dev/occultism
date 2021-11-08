@@ -24,6 +24,7 @@ package com.github.klikli_dev.occultism.common.data;
 
 import net.minecraft.core.NonNullList;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -39,7 +40,7 @@ public class NonNullArrayList<E> extends NonNullList<E> {
 
     //region Initialization
     protected NonNullArrayList() {
-        this(new ArrayList<E>(), null);
+        this(new ArrayList<>(), null);
     }
 
     protected NonNullArrayList(ArrayList<E> delegateIn, @Nullable E listType) {
@@ -56,10 +57,11 @@ public class NonNullArrayList<E> extends NonNullList<E> {
     }
 
     public static <E> NonNullArrayList<E> withSize(int size, E fill) {
-        return new NonNullArrayList<>(new ArrayList<E>(Collections.nCopies(size, fill)), fill);
+        return new NonNullArrayList<>(new ArrayList<>(Collections.nCopies(size, fill)), fill);
     }
     //endregion Overrides
 
+    @SafeVarargs
     public static <E> NonNullList<E> from(E defaultElementIn, E... elements) {
 
         return new NonNullArrayList<>(Stream.of(elements).collect(Collectors.toCollection(ArrayList::new)),
@@ -78,7 +80,7 @@ public class NonNullArrayList<E> extends NonNullList<E> {
      * Warning! No null check here, you need to ensure that on your end!
      */
     @Override
-    public boolean addAll(Collection<? extends E> c) {
+    public boolean addAll(@Nonnull Collection<? extends E> c) {
         return this.delegate.addAll(c);
     }
     //endregion Static Methods
