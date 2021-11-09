@@ -22,9 +22,12 @@
 
 package com.github.klikli_dev.occultism.common.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.github.klikli_dev.occultism.common.advancement.FamiliarTrigger;
+import com.github.klikli_dev.occultism.network.MessageBeholderAttack;
+import com.github.klikli_dev.occultism.network.OccultismPackets;
 import com.github.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.github.klikli_dev.occultism.util.FamiliarUtil;
 import com.google.common.collect.ImmutableList;
@@ -34,8 +37,13 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.ai.goal.Goal;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.particles.RedstoneParticleData;
 import net.minecraft.potion.EffectInstance;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector2f;
 import net.minecraft.util.math.vector.Vector3d;
@@ -43,12 +51,12 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
 
-public class BeholderFamiliarEntity extends FamiliarEntity {
+public class BeholderFamiliarEntity extends ColoredFamiliarEntity {
 
     private static final float DEG_30 = FamiliarUtil.toRads(30);
 
-    private Eye[] eyes = new Eye[] { new Eye(-0.2, 1.3, -0.2), new Eye(0.24, 1.3, -0.23), new Eye(0.28, 1.3, 0.23),
-            new Eye(-0.15, 1.3, 0.27) };
+    private Eye[] eyes = new Eye[] { new Eye(-0.2 + 0.07, 1.3, -0.2 + 0.07), new Eye(0.24 - 0.1, 1.3, -0.23 + 0.1),
+            new Eye(0.28 - 0.1, 1.3, 0.23 - 0.07), new Eye(-0.15 + 0.06, 1.3, 0.2 - 0.09) };
 
     public BeholderFamiliarEntity(EntityType<? extends BeholderFamiliarEntity> type, World worldIn) {
         super(type, worldIn);
@@ -60,8 +68,14 @@ public class BeholderFamiliarEntity extends FamiliarEntity {
     }
 
     @Override
+    protected void registerGoals() {
+        this.goalSelector.addGoal(1, new RayGoal(this));
+    }
+
+    @Override
     public ILivingEntityData finalizeSpawn(IServerWorld pLevel, DifficultyInstance pDifficulty, SpawnReason pReason,
             ILivingEntityData pSpawnData, CompoundNBT pDataTag) {
+        this.setColor();
         this.setBeard(this.getRandom().nextBoolean());
         this.setSpikes(this.getRandom().nextBoolean());
         this.setTongue(this.getRandom().nextDouble() < 0.1);
@@ -107,7 +121,7 @@ public class BeholderFamiliarEntity extends FamiliarEntity {
             for (Eye eye : eyes)
                 eye.tick();
         } else {
-            this.yRot = 90;
+            this.yRot += 4;
         }
         this.yBodyRot = this.yRot;
     }
@@ -121,13 +135,36 @@ public class BeholderFamiliarEntity extends FamiliarEntity {
                 MathHelper.lerp(value, start.z, stop.z));
     }
 
+    // Client method
+    public void shootRay(List<Integer> targetIds) {
+        List<Eye> eyeList = new ArrayList<>();
+        for (Eye e : eyes)
+            eyeList.add(e);
+
+        for (int id : targetIds) {
+            if (eyeList.isEmpty())
+                break;
+
+            int index = this.getRandom().nextInt(eyeList.size());
+            Eye e = eyeList.get(index);
+            eyeList.remove(index);
+            e.prepareShot(id);
+        }
+    }
+
     private class Eye {
         private Vector3d lookPos0, lookPos, pos;
         private EyeTarget eyeTarget;
+        private int shotTimer;
 
         private Eye(double x, double y, double z) {
             this.pos = new Vector3d(x, y, z);
             this.init();
+        }
+
+        public void prepareShot(int id) {
+            shotTimer = 20;
+            eyeTarget = new EntityEyeTarget(id);
         }
 
         private void init() {
@@ -159,12 +196,18 @@ public class BeholderFamiliarEntity extends FamiliarEntity {
 
         private void tick() {
             this.lookPos0 = this.lookPos;
-            if (needNewEyeTarget())
+            if (needNewEyeTarget() && shotTimer == 0)
                 selectEyeTarget();
 
             Vector3d targetPos = eyeTarget.getEyeTarget();
             if (targetPos != null)
                 this.lookPos = lerpVec(0.2f, this.lookPos, targetPos);
+
+            if (shotTimer > 0) {
+                shotTimer--;
+                if (shotTimer < 5)
+                    shoot();
+            }
         }
 
         private Vector2f getEyeRot(float partialTicks) {
@@ -174,6 +217,31 @@ public class BeholderFamiliarEntity extends FamiliarEntity {
             double yRot = MathHelper.atan2(direction.z, direction.x) + FamiliarUtil.toRads(-90) - bodyRot;
             double xRot = direction.normalize().y;
             return new Vector2f((float) (DEG_30 - DEG_30 * xRot), (float) yRot);
+        }
+
+        private void shoot() {
+            float bodyRot = FamiliarUtil.toRads(MathHelper.rotLerp(1, yBodyRotO, yBodyRot));
+
+            Vector2f rot = getEyeRot(1);
+            Vector3d increment = new Vector3d(0, 0.15, 0);
+            Vector3d end = eyeTarget.getEyeTarget();
+            if (end == null)
+                return;
+            Vector3d start = position().add(new Vector3d(pos.x, 0.9, pos.z).yRot(-bodyRot)).add(increment);
+            for (int i = 0; i < 3; i++) {
+                increment = increment.xRot(-rot.x);
+                start = start.add(increment.yRot(-rot.y - bodyRot));
+            }
+
+            Vector3d direction = start.vectorTo(end).normalize();
+            AxisAlignedBB endBox = new AxisAlignedBB(end, end).inflate(0.25);
+            for (int i = 0; i < 150; i++) {
+                Vector3d particlePos = start.add(direction.scale(i * 0.1));
+                level.addParticle(new RedstoneParticleData(getRed(), getBlue(), getGreen(), 1), particlePos.x,
+                        particlePos.y, particlePos.z, 0, 0, 0);
+                if (endBox.intersects(new AxisAlignedBB(particlePos, particlePos).inflate(0.25)))
+                    break;
+            }
         }
 
         private abstract class EyeTarget {
@@ -204,6 +272,64 @@ public class BeholderFamiliarEntity extends FamiliarEntity {
             @Override
             protected Vector3d getEyeTarget() {
                 return position;
+            }
+        }
+    }
+
+    private static class RayGoal extends Goal {
+
+        private static final int MAX_COOLDOWN = 20 * 5;
+
+        protected final BeholderFamiliarEntity entity;
+        private int cooldown = MAX_COOLDOWN;
+        private int attackTimer;
+        private List<Integer> targetIds;
+
+        private RayGoal(BeholderFamiliarEntity entity) {
+            this.entity = entity;
+        }
+
+        @Override
+        public boolean canUse() {
+            return this.entity.getFamiliarOwner() instanceof PlayerEntity;
+        }
+
+        private List<Integer> getNearbyEnemies() {
+            List<Integer> enemies = new ArrayList<>();
+            for (Entity e : FamiliarUtil.getOwnerEnemies(this.entity.getFamiliarOwner(), this.entity, 100)) {
+                enemies.add(e.getId());
+            }
+            return enemies;
+        }
+
+        protected void attack() {
+            for (int id : targetIds) {
+                Entity e = entity.level.getEntity(id);
+                if (e != null)
+                    e.hurt(DamageSource.playerAttack((PlayerEntity) this.entity.getFamiliarOwner()), 6);
+            }
+        }
+
+        public void stop() {
+            this.cooldown = MAX_COOLDOWN;
+            this.targetIds = null;
+            this.attackTimer = 0;
+        }
+
+        @Override
+        public void tick() {
+            List<Integer> enemies = this.getNearbyEnemies();
+            if (this.cooldown-- < 0 && !enemies.isEmpty()) {
+                this.targetIds = enemies;
+                this.cooldown = MAX_COOLDOWN;
+                attackTimer = 23;
+                OccultismPackets.sendToTracking(this.entity,
+                        new MessageBeholderAttack(this.entity.getId(), this.targetIds));
+            }
+
+            if (targetIds != null && attackTimer-- < 0) {
+                attack();
+                targetIds = null;
             }
         }
     }
