@@ -77,7 +77,7 @@ public class FamiliarUtil {
     public static <T extends Entity & IFamiliar> List<T> getAllFamiliars(LivingEntity owner, EntityType<T> type,
             Predicate<T> pred) {
         List<T> nearby = getAllNearbyFamiliars(owner, type, pred);
-        List<T> equipped = getAllNearbyFamiliars(owner, type, pred);
+        List<T> equipped = getAllEquippedFamiliars(owner, type, pred);
         nearby.addAll(equipped);
         return nearby;
     }

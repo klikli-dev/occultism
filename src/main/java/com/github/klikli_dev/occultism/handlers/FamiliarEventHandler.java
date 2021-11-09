@@ -79,7 +79,7 @@ public class FamiliarEventHandler {
         List<HeadlessFamiliarEntity> headlesses = FamiliarUtil.getAllFamiliars(player,
                 OccultismEntities.HEADLESS_FAMILIAR.get());
         
-        if (event.getEntityLiving().getType() == OccultismEntities.CTHULHU_FAMILIAR.get())
+        if (!headlesses.isEmpty() && event.getEntityLiving().getType() == OccultismEntities.CTHULHU_FAMILIAR.get())
             OccultismAdvancements.FAMILIAR.trigger(player, FamiliarTrigger.Type.HEADLESS_CTHULHU_HEAD);
 
         headlesses.forEach(h -> h.setHeadType(event.getEntityLiving().getType()));
