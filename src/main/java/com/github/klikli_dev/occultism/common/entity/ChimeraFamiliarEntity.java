@@ -310,6 +310,7 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
         if (this.getSize() < MAX_SIZE && food != null && food.isMeat()) {
             stack.shrink(1);
             this.setSize((byte) (this.getSize() + food.getNutrition()));
+            this.heal(4);
             return InteractionResult.sidedSuccess(this.level.isClientSide);
         } else if (!this.isSitting() && !this.isVehicle() && !playerIn.isSecondaryUseActive()
                 && this.getFamiliarOwner() == playerIn && this.getSize() > RIDING_SIZE) {
