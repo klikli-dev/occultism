@@ -292,6 +292,7 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements IR
         if (getSize() < MAX_SIZE && food != null && food.isMeat()) {
             stack.shrink(1);
             setSize((byte) (getSize() + food.getNutrition()));
+            this.heal(4);
             return ActionResultType.sidedSuccess(this.level.isClientSide);
         } else if (!isSitting() && !this.isVehicle() && !playerIn.isSecondaryUseActive()
                 && getFamiliarOwner() == playerIn && getSize() > RIDING_SIZE) {
