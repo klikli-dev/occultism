@@ -26,10 +26,15 @@ import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.client.model.entity.BeholderFamiliarModel;
 import com.github.klikli_dev.occultism.common.entity.BeholderFamiliarEntity;
 import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.IVertexBuilder;
 
 import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
+import net.minecraft.client.renderer.entity.IEntityRenderer;
+import net.minecraft.client.renderer.entity.LivingRenderer;
 import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.util.ResourceLocation;
 
 public class BeholderFamiliarRenderer extends MobRenderer<BeholderFamiliarEntity, BeholderFamiliarModel> {
@@ -39,17 +44,43 @@ public class BeholderFamiliarRenderer extends MobRenderer<BeholderFamiliarEntity
 
     public BeholderFamiliarRenderer(EntityRendererManager renderManagerIn) {
         super(renderManagerIn, new BeholderFamiliarModel(), 0.3f);
-
+        this.addLayer(new SleepLayer(this));
     }
 
     @Override
     public void render(BeholderFamiliarEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn,
             IRenderTypeBuffer bufferIn, int packedLightIn) {
+        matrixStackIn.pushPose();
+        matrixStackIn.translate(0, entityIn.getAnimationHeight(partialTicks), 0);
         super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
+        matrixStackIn.popPose();
     }
 
     @Override
     public ResourceLocation getTextureLocation(BeholderFamiliarEntity entity) {
         return TEXTURES;
+    }
+
+    private static class SleepLayer extends LayerRenderer<BeholderFamiliarEntity, BeholderFamiliarModel> {
+
+        private static final ResourceLocation SLEEP = new ResourceLocation(Occultism.MODID,
+                "textures/entity/beholder_familiar_sleep.png");
+
+        public SleepLayer(IEntityRenderer<BeholderFamiliarEntity, BeholderFamiliarModel> renderer) {
+            super(renderer);
+        }
+
+        @Override
+        public void render(MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn,
+                BeholderFamiliarEntity entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks,
+                float ageInTicks, float netHeadYaw, float headPitch) {
+            if (entitylivingbaseIn.isInvisible() || !entitylivingbaseIn.isSitting())
+                return;
+
+            BeholderFamiliarModel model = this.getParentModel();
+            IVertexBuilder ivertexbuilder = bufferIn.getBuffer(RenderType.entityCutout(SLEEP));
+            model.renderToBuffer(matrixStackIn, ivertexbuilder, packedLightIn,
+                    LivingRenderer.getOverlayCoords(entitylivingbaseIn, 0), 1, 1, 1, 1);
+        }
     }
 }

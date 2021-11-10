@@ -32,6 +32,7 @@ import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector2f;
 
 /**
@@ -258,17 +259,87 @@ public class BeholderFamiliarModel extends EntityModel<BeholderFamiliarEntity> {
 
         float partialTicks = Minecraft.getInstance().getFrameTime();
 
+        setRotateAngle(head, 0, 0, 0);
+
         setEyeRot(pEntity, partialTicks, ImmutableList.of(eye11, eye12, eye13, eye14), 0);
         setEyeRot(pEntity, partialTicks, ImmutableList.of(eye21, eye22, eye23, eye24), 1);
         setEyeRot(pEntity, partialTicks, ImmutableList.of(eye31, eye32, eye33, eye34), 2);
         setEyeRot(pEntity, partialTicks, ImmutableList.of(eye41, eye42, eye43, eye44), 3);
+
+        Vector2f bigEyePos = pEntity.getBigEyePos(partialTicks);
+        this.bigPupil.x = bigEyePos.x;
+        this.bigPupil.y = bigEyePos.y - 0.5f;
+
+        this.mouth.xRot = MathHelper.cos(pAgeInTicks * 0.1f) * toRads(10) + toRads(27);
+
+        if (pEntity.isPartying()) {
+            float eyeRot = -MathHelper.cos(pAgeInTicks * 0.2f) * toRads(15);
+            ImmutableList.of(eye11, eye12, eye13, eye14, eye21, eye22, eye23, eye24, eye31, eye32, eye33, eye34, eye41,
+                    eye42, eye43, eye44).forEach(e -> {
+                        e.yRot = 0;
+                        e.xRot = eyeRot;
+                    });
+
+            this.head.xRot = MathHelper.cos(pAgeInTicks * 0.2f) * toRads(20);
+            this.head.yRot = MathHelper.cos(pAgeInTicks * 0.2f + PI) * toRads(20);
+            this.head.zRot = MathHelper.cos(pAgeInTicks * 0.1f) * toRads(30);
+        } else if (pEntity.isSitting()) {
+            this.head.zRot = toRads(90);
+            this.mouth.xRot = toRads(20);
+
+            ImmutableList.of(eye11, eye12, eye13, eye14, eye21, eye22, eye23, eye24, eye31, eye32, eye33, eye34, eye41,
+                    eye42, eye43, eye44).forEach(e -> {
+                        e.yRot = 0;
+                        e.xRot = 0;
+                    });
+            eye11.xRot = toRads(25);
+            eye12.xRot = toRads(25);
+            eye13.xRot = toRads(25);
+            eye14.xRot = toRads(25);
+            eye11.zRot = toRads(-40);
+            eye12.zRot = toRads(-40);
+            eye13.zRot = toRads(-40);
+            eye14.zRot = toRads(-40);
+            
+            eye41.xRot = toRads(-10);
+            eye42.xRot = toRads(-10);
+            eye43.xRot = toRads(-10);
+            eye44.xRot = toRads(-10);
+            eye41.zRot = toRads(-40);
+            eye42.zRot = toRads(-40);
+            eye43.zRot = toRads(-40);
+            eye44.zRot = toRads(-40);
+            
+            eye21.xRot = toRads(-20);
+            eye22.xRot = toRads(-15);
+            eye23.xRot = toRads(-10);
+            eye24.xRot = toRads(-5);
+            eye21.zRot = toRads(2);
+            eye22.zRot = toRads(2);
+            eye23.zRot = toRads(2);
+            eye24.zRot = toRads(2);
+            
+            eye31.xRot = toRads(20);
+            eye32.xRot = toRads(15);
+            eye33.xRot = toRads(10);
+            eye34.xRot = toRads(5);
+            eye31.zRot = toRads(2);
+            eye32.zRot = toRads(2);
+            eye33.zRot = toRads(2);
+            eye34.zRot = toRads(2);
+        }
     }
 
     private void setEyeRot(BeholderFamiliarEntity entity, float partialTicks, List<ModelRenderer> models, int index) {
         Vector2f rotation = entity.getEyeRot(partialTicks, index);
-        models.get(0).yRot = rotation.y;
-        for (int i = 1; i < models.size(); i++)
+        for (int i = 0; i < models.size(); i++) {
             models.get(i).xRot = rotation.x;
+            models.get(i).zRot = 0;
+            models.get(i).yRot = 0;
+        }
+        
+        models.get(0).xRot = 0;
+        models.get(0).yRot = rotation.y;
     }
 
     private void showModels(BeholderFamiliarEntity entityIn) {
@@ -282,6 +353,7 @@ public class BeholderFamiliarModel extends EntityModel<BeholderFamiliarEntity> {
         this.spike4.visible = hasSpikes;
         this.spike5.visible = hasSpikes;
         this.spike6.visible = hasSpikes;
+        this.bigPupil.visible = !entityIn.isSitting();
     }
 
     private float toRads(float deg) {

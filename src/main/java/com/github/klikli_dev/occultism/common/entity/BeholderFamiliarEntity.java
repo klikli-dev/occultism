@@ -37,7 +37,9 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.ai.goal.FollowMobGoal;
 import net.minecraft.entity.ai.goal.Goal;
+import net.minecraft.entity.ai.goal.RandomWalkingGoal;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.particles.RedstoneParticleData;
@@ -58,8 +60,13 @@ public class BeholderFamiliarEntity extends ColoredFamiliarEntity {
     private Eye[] eyes = new Eye[] { new Eye(-0.2 + 0.07, 1.3, -0.2 + 0.07), new Eye(0.24 - 0.1, 1.3, -0.23 + 0.1),
             new Eye(0.28 - 0.1, 1.3, 0.23 - 0.07), new Eye(-0.15 + 0.06, 1.3, 0.2 - 0.09) };
 
+    private Vector2f bigEyePos, bigEyePos0, bigEyeTarget;
+    private final float heightOffset;
+
     public BeholderFamiliarEntity(EntityType<? extends BeholderFamiliarEntity> type, World worldIn) {
         super(type, worldIn);
+        this.bigEyePos = this.bigEyePos0 = this.bigEyeTarget = Vector2f.ZERO;
+        this.heightOffset = this.getRandom().nextFloat() * 5;
     }
 
     @Override
@@ -69,7 +76,18 @@ public class BeholderFamiliarEntity extends ColoredFamiliarEntity {
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(1, new RayGoal(this));
+        this.goalSelector.addGoal(1, new SitGoal(this));
+        this.goalSelector.addGoal(2, new RayGoal(this));
+        this.goalSelector.addGoal(4, new FollowOwnerGoal(this, 1, 3, 1));
+        this.goalSelector.addGoal(5, new RandomWalkingGoal(this, 1.0D));
+        this.goalSelector.addGoal(6, new FollowMobGoal(this, 1, 3, 7));
+    }
+
+    public float getAnimationHeight(float partialTicks) {
+        if (this.isSitting())
+            return -0.44f;
+
+        return MathHelper.cos((this.tickCount + this.heightOffset + partialTicks) / 5f) * 0.1f;
     }
 
     @Override
@@ -120,10 +138,19 @@ public class BeholderFamiliarEntity extends ColoredFamiliarEntity {
         if (level.isClientSide) {
             for (Eye eye : eyes)
                 eye.tick();
-        } else {
-            this.yRot += 4;
+
+            this.bigEyePos0 = new Vector2f(this.bigEyePos.x, this.bigEyePos.y);
+            if (Math.abs(bigEyePos.x - bigEyeTarget.x) + Math.abs(bigEyePos.y - bigEyeTarget.y) < 0.05) {
+                bigEyeTarget = new Vector2f((getRandom().nextFloat() - 0.5f) * 2.9f,
+                        (getRandom().nextFloat() - 0.5f) * 1.9f);
+            }
+            this.bigEyePos = lerpVec(0.1f, this.bigEyePos, this.bigEyeTarget);
         }
         this.yBodyRot = this.yRot;
+    }
+
+    public Vector2f getBigEyePos(float partialTicks) {
+        return lerpVec(partialTicks, this.bigEyePos0, this.bigEyePos);
     }
 
     public Vector2f getEyeRot(float partialTicks, int i) {
@@ -133,6 +160,10 @@ public class BeholderFamiliarEntity extends ColoredFamiliarEntity {
     private Vector3d lerpVec(float value, Vector3d start, Vector3d stop) {
         return new Vector3d(MathHelper.lerp(value, start.x, stop.x), MathHelper.lerp(value, start.y, stop.y),
                 MathHelper.lerp(value, start.z, stop.z));
+    }
+
+    private Vector2f lerpVec(float value, Vector2f start, Vector2f stop) {
+        return new Vector2f(MathHelper.lerp(value, start.x, stop.x), MathHelper.lerp(value, start.y, stop.y));
     }
 
     // Client method
@@ -213,7 +244,8 @@ public class BeholderFamiliarEntity extends ColoredFamiliarEntity {
         private Vector2f getEyeRot(float partialTicks) {
             float bodyRot = FamiliarUtil.toRads(MathHelper.rotLerp(partialTicks, yBodyRotO, yBodyRot));
 
-            Vector3d direction = position().add(pos.yRot(-bodyRot)).vectorTo(lerpVec(partialTicks, lookPos0, lookPos));
+            Vector3d direction = position().add(0, getAnimationHeight(partialTicks), 0).add(pos.yRot(-bodyRot))
+                    .vectorTo(lerpVec(partialTicks, lookPos0, lookPos));
             double yRot = MathHelper.atan2(direction.z, direction.x) + FamiliarUtil.toRads(-90) - bodyRot;
             double xRot = direction.normalize().y;
             return new Vector2f((float) (DEG_30 - DEG_30 * xRot), (float) yRot);
@@ -227,7 +259,8 @@ public class BeholderFamiliarEntity extends ColoredFamiliarEntity {
             Vector3d end = eyeTarget.getEyeTarget();
             if (end == null)
                 return;
-            Vector3d start = position().add(new Vector3d(pos.x, 0.9, pos.z).yRot(-bodyRot)).add(increment);
+            Vector3d start = position().add(new Vector3d(pos.x, 0.9 + getAnimationHeight(1), pos.z).yRot(-bodyRot))
+                    .add(increment);
             for (int i = 0; i < 3; i++) {
                 increment = increment.xRot(-rot.x);
                 start = start.add(increment.yRot(-rot.y - bodyRot));
