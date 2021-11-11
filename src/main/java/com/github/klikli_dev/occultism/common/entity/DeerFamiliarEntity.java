@@ -22,7 +22,6 @@
 
 package com.github.klikli_dev.occultism.common.entity;
 
-import java.util.Collections;
 import java.util.UUID;
 
 import com.github.klikli_dev.occultism.common.advancement.FamiliarTrigger;
@@ -135,15 +134,12 @@ public class DeerFamiliarEntity extends FamiliarEntity {
 
     @Override
     public Iterable<EffectInstance> getFamiliarEffects() {
-        if (this.isEffectEnabled()) {
-            return ImmutableList.of(new EffectInstance(Effects.JUMP, 300, 0, false, false));
-        }
-        return Collections.emptyList();
+        return ImmutableList.of(new EffectInstance(Effects.JUMP, 300, 0, false, false));
     }
 
     @Override
     public ILivingEntityData finalizeSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason,
-                                           ILivingEntityData spawnDataIn, CompoundNBT dataTag) {
+            ILivingEntityData spawnDataIn, CompoundNBT dataTag) {
         this.setRedNose(this.getRandom().nextDouble() < 0.1);
         return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
     }
@@ -154,7 +150,7 @@ public class DeerFamiliarEntity extends FamiliarEntity {
         if (!compound.contains("variants"))
             this.setRedNose(compound.getBoolean("hasRedNose"));
     }
-    
+
     @Override
     public boolean canBlacksmithUpgrade() {
         return !this.hasBlacksmithUpgrade();

@@ -44,6 +44,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.particles.RedstoneParticleData;
 import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Effects;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.MathHelper;
@@ -107,6 +108,19 @@ public class BeholderFamiliarEntity extends ColoredFamiliarEntity {
         super.setFamiliarOwner(owner);
     }
 
+    private void tickGlow(LivingEntity owner) {
+        if (getRandom().nextDouble() < 0.98 || !isEffectEnabled(owner))
+            return;
+
+        List<LivingEntity> nearby = owner.level.getEntitiesOfClass(LivingEntity.class,
+                owner.getBoundingBox().inflate(10),
+                e -> !(e instanceof PlayerEntity) && e != owner && e != this && !e.hasEffect(Effects.GLOWING));
+        if (nearby.isEmpty())
+            return;
+
+        nearby.get(getRandom().nextInt(nearby.size())).addEffect(new EffectInstance(Effects.GLOWING, 20 * 60));
+    }
+
     public boolean hasBeard() {
         return this.hasVariant(0);
     }
@@ -145,8 +159,15 @@ public class BeholderFamiliarEntity extends ColoredFamiliarEntity {
                         (getRandom().nextFloat() - 0.5f) * 1.9f);
             }
             this.bigEyePos = lerpVec(0.1f, this.bigEyePos, this.bigEyeTarget);
+        } else {
+            tickGlow(getFamiliarOwner());
         }
         this.yBodyRot = this.yRot;
+    }
+
+    @Override
+    public void curioTick(LivingEntity wearer) {
+        tickGlow(wearer);
     }
 
     public Vector2f getBigEyePos(float partialTicks) {

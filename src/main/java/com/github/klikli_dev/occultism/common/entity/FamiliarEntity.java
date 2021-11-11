@@ -129,7 +129,7 @@ public abstract class FamiliarEntity extends CreatureEntity implements IFamiliar
 
         LivingEntity owner;
         if (!this.level.isClientSide && this.level.getGameTime() % 10 == 0 && (owner = this.getFamiliarOwner()) != null
-                && this.distanceTo(owner) < MAX_BOOST_DISTANCE)
+                && this.distanceTo(owner) < MAX_BOOST_DISTANCE && isEffectEnabled(getFamiliarOwner()))
             for (EffectInstance effect : this.getFamiliarEffects())
                 owner.addEffect(effect);
 
