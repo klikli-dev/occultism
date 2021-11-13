@@ -36,6 +36,7 @@ import net.minecraft.client.renderer.entity.LivingRenderer;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.MathHelper;
 
 public class BeholderFamiliarRenderer extends MobRenderer<BeholderFamiliarEntity, BeholderFamiliarModel> {
 
@@ -52,6 +53,11 @@ public class BeholderFamiliarRenderer extends MobRenderer<BeholderFamiliarEntity
             IRenderTypeBuffer bufferIn, int packedLightIn) {
         matrixStackIn.pushPose();
         matrixStackIn.translate(0, entityIn.getAnimationHeight(partialTicks), 0);
+        if (entityIn.isEating()) {
+            float eatTimer = entityIn.getEatTimer(partialTicks);
+            float scale = eatTimer < 5 / 6f ? 1 : MathHelper.sin((eatTimer - 5 / 6f) * 6 * (float) Math.PI) + 1;
+            matrixStackIn.scale(scale, scale, scale);
+        }
         super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
         matrixStackIn.popPose();
     }

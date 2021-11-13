@@ -137,12 +137,8 @@ public abstract class FamiliarEntity extends CreatureEntity implements IFamiliar
     }
 
     public LivingEntity getOwner() {
-        try {
-            UUID uuid = this.getOwnerId();
-            return uuid == null ? null : this.level.getPlayerByUUID(uuid);
-        } catch (IllegalArgumentException illegalargumentexception) {
-            return null;
-        }
+        UUID uuid = this.getOwnerId();
+        return uuid == null ? null : this.level.getPlayerByUUID(uuid);
     }
 
     @Override

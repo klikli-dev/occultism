@@ -46,6 +46,9 @@ import net.minecraft.particles.RedstoneParticleData;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.Hand;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector2f;
@@ -57,12 +60,15 @@ import net.minecraft.world.World;
 public class BeholderFamiliarEntity extends ColoredFamiliarEntity {
 
     private static final float DEG_30 = FamiliarUtil.toRads(30);
+    private static final int EAT_EFFECT_DURATION = 20 * 60 * 10;
 
     private Eye[] eyes = new Eye[] { new Eye(-0.2 + 0.07, 1.3, -0.2 + 0.07), new Eye(0.24 - 0.1, 1.3, -0.23 + 0.1),
             new Eye(0.28 - 0.1, 1.3, 0.23 - 0.07), new Eye(-0.15 + 0.06, 1.3, 0.2 - 0.09) };
 
     private Vector2f bigEyePos, bigEyePos0, bigEyeTarget;
     private final float heightOffset;
+    private int eatTimer = -1;
+    private float mouthRot, actualMouthRot, actualMouthRot0;
 
     public BeholderFamiliarEntity(EntityType<? extends BeholderFamiliarEntity> type, World worldIn) {
         super(type, worldIn);
@@ -79,6 +85,7 @@ public class BeholderFamiliarEntity extends ColoredFamiliarEntity {
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new SitGoal(this));
         this.goalSelector.addGoal(2, new RayGoal(this));
+        this.goalSelector.addGoal(3, new EatGoal(this));
         this.goalSelector.addGoal(4, new FollowOwnerGoal(this, 1, 3, 1));
         this.goalSelector.addGoal(5, new RandomWalkingGoal(this, 1.0D));
         this.goalSelector.addGoal(6, new FollowMobGoal(this, 1, 3, 7));
@@ -109,7 +116,7 @@ public class BeholderFamiliarEntity extends ColoredFamiliarEntity {
     }
 
     private void tickGlow(LivingEntity owner) {
-        if (getRandom().nextDouble() < 0.98 || !isEffectEnabled(owner))
+        if (!isEffectEnabled(owner))
             return;
 
         List<LivingEntity> nearby = owner.level.getEntitiesOfClass(LivingEntity.class,
@@ -118,7 +125,8 @@ public class BeholderFamiliarEntity extends ColoredFamiliarEntity {
         if (nearby.isEmpty())
             return;
 
-        nearby.get(getRandom().nextInt(nearby.size())).addEffect(new EffectInstance(Effects.GLOWING, 20 * 60));
+        nearby.get(getRandom().nextInt(nearby.size()))
+                .addEffect(new EffectInstance(Effects.GLOWING, 20 * 60, 0, false, false));
     }
 
     public boolean hasBeard() {
@@ -159,15 +167,49 @@ public class BeholderFamiliarEntity extends ColoredFamiliarEntity {
                         (getRandom().nextFloat() - 0.5f) * 1.9f);
             }
             this.bigEyePos = lerpVec(0.1f, this.bigEyePos, this.bigEyeTarget);
+
+            this.actualMouthRot0 = this.actualMouthRot;
+            this.mouthRot = MathHelper.cos(tickCount * 0.1f) * FamiliarUtil.toRads(10) + FamiliarUtil.toRads(27);
+            if (this.eatTimer != -1) {
+                this.eatTimer++;
+                if (this.eatTimer == 60)
+                    this.eatTimer = -1;
+
+                if (this.eatTimer < 50) {
+                    if (this.eatTimer % 5 == 0)
+                        this.level.playLocalSound(getX(), getY(), getZ(), SoundEvents.GENERIC_EAT,
+                                SoundCategory.HOSTILE, getSoundVolume(), getVoicePitch(), false);
+
+                    this.mouthRot = MathHelper.sin(tickCount) * FamiliarUtil.toRads(50) + FamiliarUtil.toRads(20);
+                }
+                if (this.eatTimer == 51)
+                    this.level.playLocalSound(getX(), getY(), getZ(), SoundEvents.GENERIC_EXPLODE,
+                            SoundCategory.HOSTILE, getSoundVolume(), 0.2f, false);
+            }
+            this.actualMouthRot = MathHelper.lerp(0.2f, this.actualMouthRot, this.mouthRot);
         } else {
-            tickGlow(getFamiliarOwner());
+            if (getRandom().nextDouble() >= 0.98)
+                tickGlow(getFamiliarOwner());
         }
         this.yBodyRot = this.yRot;
     }
 
+    public float getMouthRot(float partialTicks) {
+        return MathHelper.lerp(partialTicks, this.actualMouthRot0, this.actualMouthRot);
+    }
+
+    public float getEatTimer(float partialTicks) {
+        return (this.eatTimer + partialTicks) / 60;
+    }
+
+    public boolean isEating() {
+        return this.eatTimer != -1;
+    }
+
     @Override
     public void curioTick(LivingEntity wearer) {
-        tickGlow(wearer);
+        if (getRandom().nextDouble() >= 0.98)
+            tickGlow(wearer);
     }
 
     public Vector2f getBigEyePos(float partialTicks) {
@@ -185,6 +227,12 @@ public class BeholderFamiliarEntity extends ColoredFamiliarEntity {
 
     private Vector2f lerpVec(float value, Vector2f start, Vector2f stop) {
         return new Vector2f(MathHelper.lerp(value, start.x, stop.x), MathHelper.lerp(value, start.y, stop.y));
+    }
+
+    @Override
+    public void swing(Hand pHand) {
+        super.swing(pHand);
+        this.eatTimer = 0;
     }
 
     // Client method
@@ -265,7 +313,7 @@ public class BeholderFamiliarEntity extends ColoredFamiliarEntity {
         private Vector2f getEyeRot(float partialTicks) {
             float bodyRot = FamiliarUtil.toRads(MathHelper.rotLerp(partialTicks, yBodyRotO, yBodyRot));
 
-            Vector3d direction = position().add(0, getAnimationHeight(partialTicks), 0).add(pos.yRot(-bodyRot))
+            Vector3d direction = getPosition(partialTicks).add(0, getAnimationHeight(partialTicks), 0).add(pos.yRot(-bodyRot))
                     .vectorTo(lerpVec(partialTicks, lookPos0, lookPos));
             double yRot = MathHelper.atan2(direction.z, direction.x) + FamiliarUtil.toRads(-90) - bodyRot;
             double xRot = direction.normalize().y;
@@ -359,8 +407,12 @@ public class BeholderFamiliarEntity extends ColoredFamiliarEntity {
         protected void attack() {
             for (int id : targetIds) {
                 Entity e = entity.level.getEntity(id);
+                float damage = 6;
+                if (entity.hasEffect(Effects.DAMAGE_BOOST))
+                    damage *= entity.getEffect(Effects.DAMAGE_BOOST).getAmplifier() + 2;
+                System.out.println(damage);
                 if (e != null)
-                    e.hurt(DamageSource.playerAttack((PlayerEntity) this.entity.getFamiliarOwner()), 6);
+                    e.hurt(DamageSource.playerAttack((PlayerEntity) this.entity.getFamiliarOwner()), damage);
             }
         }
 
@@ -384,6 +436,43 @@ public class BeholderFamiliarEntity extends ColoredFamiliarEntity {
             if (targetIds != null && attackTimer-- < 0) {
                 attack();
                 targetIds = null;
+            }
+        }
+    }
+
+    private static class EatGoal extends Goal {
+        
+        private static final int MAX_COOLDOWN = 20 * 30;
+
+        protected final BeholderFamiliarEntity entity;
+        private int cooldown;
+
+        private EatGoal(BeholderFamiliarEntity entity) {
+            this.entity = entity;
+        }
+
+        @Override
+        public boolean canUse() {
+            return !entity.isSitting() && cooldown-- < 0;
+        }
+
+        @Override
+        public void stop() {
+            this.cooldown = MAX_COOLDOWN;
+        }
+
+        @Override
+        public void start() {
+            this.cooldown = MAX_COOLDOWN;
+            List<Entity> foods = entity.level.getEntitiesOfClass(ShubNiggurathSpawnEntity.class,
+                    entity.getBoundingBox().inflate(3), e -> e.isAlive());
+
+            if (!foods.isEmpty() && entity.isEffectEnabled(entity.getFamiliarOwner())) {
+                Entity food = foods.get(entity.getRandom().nextInt(foods.size()));
+                food.remove();
+                this.entity.swing(Hand.MAIN_HAND);
+                entity.addEffect(new EffectInstance(Effects.DAMAGE_BOOST, EAT_EFFECT_DURATION, 0, false, false));
+                entity.addEffect(new EffectInstance(Effects.MOVEMENT_SPEED, EAT_EFFECT_DURATION, 0, false, false));
             }
         }
     }

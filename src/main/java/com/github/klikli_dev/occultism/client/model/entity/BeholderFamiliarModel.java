@@ -270,7 +270,7 @@ public class BeholderFamiliarModel extends EntityModel<BeholderFamiliarEntity> {
         this.bigPupil.x = bigEyePos.x;
         this.bigPupil.y = bigEyePos.y - 0.5f;
 
-        this.mouth.xRot = MathHelper.cos(pAgeInTicks * 0.1f) * toRads(10) + toRads(27);
+        this.mouth.xRot = pEntity.getMouthRot(partialTicks);
 
         if (pEntity.isPartying()) {
             float eyeRot = -MathHelper.cos(pAgeInTicks * 0.2f) * toRads(15);
@@ -300,7 +300,7 @@ public class BeholderFamiliarModel extends EntityModel<BeholderFamiliarEntity> {
             eye12.zRot = toRads(-40);
             eye13.zRot = toRads(-40);
             eye14.zRot = toRads(-40);
-            
+
             eye41.xRot = toRads(-10);
             eye42.xRot = toRads(-10);
             eye43.xRot = toRads(-10);
@@ -309,7 +309,7 @@ public class BeholderFamiliarModel extends EntityModel<BeholderFamiliarEntity> {
             eye42.zRot = toRads(-40);
             eye43.zRot = toRads(-40);
             eye44.zRot = toRads(-40);
-            
+
             eye21.xRot = toRads(-20);
             eye22.xRot = toRads(-15);
             eye23.xRot = toRads(-10);
@@ -318,7 +318,7 @@ public class BeholderFamiliarModel extends EntityModel<BeholderFamiliarEntity> {
             eye22.zRot = toRads(2);
             eye23.zRot = toRads(2);
             eye24.zRot = toRads(2);
-            
+
             eye31.xRot = toRads(20);
             eye32.xRot = toRads(15);
             eye33.xRot = toRads(10);
@@ -337,7 +337,7 @@ public class BeholderFamiliarModel extends EntityModel<BeholderFamiliarEntity> {
             models.get(i).zRot = 0;
             models.get(i).yRot = 0;
         }
-        
+
         models.get(0).xRot = 0;
         models.get(0).yRot = rotation.y;
     }
