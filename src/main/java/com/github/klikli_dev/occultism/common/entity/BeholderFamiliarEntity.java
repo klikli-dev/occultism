@@ -128,6 +128,11 @@ public class BeholderFamiliarEntity extends ColoredFamiliarEntity {
         nearby.get(getRandom().nextInt(nearby.size()))
                 .addEffect(new EffectInstance(Effects.GLOWING, 20 * 60, 0, false, false));
     }
+    
+    @Override
+    public boolean canBlacksmithUpgrade() {
+        return !this.hasBlacksmithUpgrade();
+    }
 
     public boolean hasBeard() {
         return this.hasVariant(0);
