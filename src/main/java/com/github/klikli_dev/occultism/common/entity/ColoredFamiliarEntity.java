@@ -34,11 +34,11 @@ import net.minecraft.world.World;
 
 public abstract class ColoredFamiliarEntity extends FamiliarEntity {
     
-    private static final DataParameter<Float> RED = EntityDataManager.defineId(GuardianFamiliarEntity.class,
+    private static final DataParameter<Float> RED = EntityDataManager.defineId(ColoredFamiliarEntity.class,
             DataSerializers.FLOAT);
-    private static final DataParameter<Float> GREEN = EntityDataManager.defineId(GuardianFamiliarEntity.class,
+    private static final DataParameter<Float> GREEN = EntityDataManager.defineId(ColoredFamiliarEntity.class,
             DataSerializers.FLOAT);
-    private static final DataParameter<Float> BLUE = EntityDataManager.defineId(GuardianFamiliarEntity.class,
+    private static final DataParameter<Float> BLUE = EntityDataManager.defineId(ColoredFamiliarEntity.class,
             DataSerializers.FLOAT);
     
     public ColoredFamiliarEntity(EntityType<? extends ColoredFamiliarEntity> type, World worldIn) {

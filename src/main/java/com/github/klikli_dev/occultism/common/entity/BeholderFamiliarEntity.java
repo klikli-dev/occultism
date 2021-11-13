@@ -128,7 +128,7 @@ public class BeholderFamiliarEntity extends ColoredFamiliarEntity {
         nearby.get(getRandom().nextInt(nearby.size()))
                 .addEffect(new EffectInstance(Effects.GLOWING, 20 * 60, 0, false, false));
     }
-    
+
     @Override
     public boolean canBlacksmithUpgrade() {
         return !this.hasBlacksmithUpgrade();
@@ -318,8 +318,8 @@ public class BeholderFamiliarEntity extends ColoredFamiliarEntity {
         private Vector2f getEyeRot(float partialTicks) {
             float bodyRot = FamiliarUtil.toRads(MathHelper.rotLerp(partialTicks, yBodyRotO, yBodyRot));
 
-            Vector3d direction = getPosition(partialTicks).add(0, getAnimationHeight(partialTicks), 0).add(pos.yRot(-bodyRot))
-                    .vectorTo(lerpVec(partialTicks, lookPos0, lookPos));
+            Vector3d direction = getPosition(partialTicks).add(0, getAnimationHeight(partialTicks), 0)
+                    .add(pos.yRot(-bodyRot)).vectorTo(lerpVec(partialTicks, lookPos0, lookPos));
             double yRot = MathHelper.atan2(direction.z, direction.x) + FamiliarUtil.toRads(-90) - bodyRot;
             double xRot = direction.normalize().y;
             return new Vector2f((float) (DEG_30 - DEG_30 * xRot), (float) yRot);
@@ -410,14 +410,17 @@ public class BeholderFamiliarEntity extends ColoredFamiliarEntity {
         }
 
         protected void attack() {
+            LivingEntity owner = this.entity.getFamiliarOwner();
+            OccultismAdvancements.FAMILIAR.trigger(owner, FamiliarTrigger.Type.BEHOLDER_RAY);
+
             for (int id : targetIds) {
                 Entity e = entity.level.getEntity(id);
                 float damage = 6;
                 if (entity.hasEffect(Effects.DAMAGE_BOOST))
                     damage *= entity.getEffect(Effects.DAMAGE_BOOST).getAmplifier() + 2;
-                System.out.println(damage);
-                if (e != null)
-                    e.hurt(DamageSource.playerAttack((PlayerEntity) this.entity.getFamiliarOwner()), damage);
+
+                if (e != null && owner instanceof PlayerEntity)
+                    e.hurt(DamageSource.playerAttack((PlayerEntity) owner), damage);
             }
         }
 
@@ -446,7 +449,7 @@ public class BeholderFamiliarEntity extends ColoredFamiliarEntity {
     }
 
     private static class EatGoal extends Goal {
-        
+
         private static final int MAX_COOLDOWN = 20 * 30;
 
         protected final BeholderFamiliarEntity entity;
@@ -472,12 +475,16 @@ public class BeholderFamiliarEntity extends ColoredFamiliarEntity {
             List<Entity> foods = entity.level.getEntitiesOfClass(ShubNiggurathSpawnEntity.class,
                     entity.getBoundingBox().inflate(3), e -> e.isAlive());
 
-            if (!foods.isEmpty() && entity.isEffectEnabled(entity.getFamiliarOwner())) {
+            LivingEntity owner = entity.getFamiliarOwner();
+
+            if (!foods.isEmpty() && entity.isEffectEnabled(owner)) {
                 Entity food = foods.get(entity.getRandom().nextInt(foods.size()));
                 food.remove();
                 this.entity.swing(Hand.MAIN_HAND);
                 entity.addEffect(new EffectInstance(Effects.DAMAGE_BOOST, EAT_EFFECT_DURATION, 0, false, false));
                 entity.addEffect(new EffectInstance(Effects.MOVEMENT_SPEED, EAT_EFFECT_DURATION, 0, false, false));
+
+                OccultismAdvancements.FAMILIAR.trigger(owner, FamiliarTrigger.Type.BEHOLDER_EAT);
             }
         }
     }

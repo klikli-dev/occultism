@@ -221,6 +221,16 @@ public class OccultismAdvancementProvider implements IDataProvider {
                             true, true, false)
                     .addCriterion("shub_niggurath_spawn", FamiliarTrigger.of(FamiliarTrigger.Type.SHUB_NIGGURATH_SPAWN))
                     .build(new ResourceLocation(Occultism.MODID, "occultism/familiar/shub_niggurath_spawn")));
+            this.add(Advancement.Builder.advancement().parent(familiarsRoot)
+                    .display(this.icon(13), familiarTitle("beholder_ray"), familiarDescr("beholder_ray"), null, FrameType.TASK,
+                            true, true, false)
+                    .addCriterion("beholder_ray", FamiliarTrigger.of(FamiliarTrigger.Type.BEHOLDER_RAY))
+                    .build(new ResourceLocation(Occultism.MODID, "occultism/familiar/beholder_ray")));
+            this.add(Advancement.Builder.advancement().parent(familiarsRoot)
+                    .display(Items.PUMPKIN_PIE, familiarTitle("beholder_eat"), familiarDescr("beholder_eat"), null, FrameType.TASK,
+                            true, true, false)
+                    .addCriterion("beholder_eat", FamiliarTrigger.of(FamiliarTrigger.Type.BEHOLDER_EAT))
+                    .build(new ResourceLocation(Occultism.MODID, "occultism/familiar/beholder_eat")));
 
             this.addRitualHidden(root, "craft_dimensional_matrix");
             this.addRitualHidden(root, "craft_dimensional_mineshaft");
