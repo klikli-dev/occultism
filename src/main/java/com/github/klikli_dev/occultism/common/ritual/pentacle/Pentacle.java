@@ -22,8 +22,21 @@
 
 package com.github.klikli_dev.occultism.common.ritual.pentacle;
 
-import com.google.gson.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+
+import com.github.klikli_dev.occultism.common.block.ChalkGlyphBlock;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.gson.JsonSyntaxException;
+
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.tags.ITag;
 import net.minecraft.tags.TagCollectionManager;
@@ -31,18 +44,14 @@ import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.TriPredicate;
 import net.minecraftforge.registries.ForgeRegistries;
 import vazkii.patchouli.api.IMultiblock;
 import vazkii.patchouli.api.IStateMatcher;
 import vazkii.patchouli.api.PatchouliAPI;
 import vazkii.patchouli.api.PatchouliAPI.IPatchouliAPI;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 
 public class Pentacle {
     private final ResourceLocation rl;
@@ -122,9 +131,9 @@ public class Pentacle {
                     throw new JsonSyntaxException("Invalid block " + blockRL);
 
                 if (display != null) {
-                    return PatchouliAPI.get().predicateMatcher(display, s -> s.getBlock() == block);
+                    return OM(PatchouliAPI.get().predicateMatcher(display, s -> s.getBlock() == block), block);
                 } else {
-                    return PatchouliAPI.get().looseBlockMatcher(block);
+                    return OM(PatchouliAPI.get().looseBlockMatcher(block), block);
                 }
             } else if (jsonObject.has("tag")) {
                 ResourceLocation tagRL = new ResourceLocation(JSONUtils.getAsString(jsonObject, "tag"));
@@ -133,18 +142,18 @@ public class Pentacle {
                     throw new JsonSyntaxException("Invalid tag " + tagRL);
                 if (display == null)
                     throw new JsonSyntaxException("No display set for tag " + tagRL);
-                return PatchouliAPI.get().predicateMatcher(display, s -> tag.contains(s.getBlock()));
+                return OM(PatchouliAPI.get().predicateMatcher(display, s -> tag.contains(s.getBlock())));
             } else if (display != null) {
-                return PatchouliAPI.get().displayOnlyMatcher(display);
+                return OM(PatchouliAPI.get().displayOnlyMatcher(display));
             }
         }
 
-        //if it's a primitive we assume it's a block
+        // if it's a primitive we assume it's a block
         ResourceLocation blockRL = new ResourceLocation(matcher.getAsString());
         Block block = ForgeRegistries.BLOCKS.getValue(blockRL);
         if (block == null)
             throw new JsonSyntaxException("Invalid block " + blockRL);
-        return PatchouliAPI.get().looseBlockMatcher(block);
+        return OM(PatchouliAPI.get().looseBlockMatcher(block), block);
     }
 
     public static Pentacle decode(ResourceLocation key, PacketBuffer buffer) {
@@ -190,5 +199,44 @@ public class Pentacle {
             buffer.writeChar(entry.getKey());
             buffer.writeUtf(entry.getValue().toString());
         }
+    }
+
+    private static OccultismMatcher OM(IStateMatcher matcher) {
+        return new OccultismMatcher(matcher);
+    }
+
+    private static OccultismMatcher OM(IStateMatcher matcher, Block block) {
+        return new OccultismMatcher(matcher, block);
+    }
+
+    // Matcher wrapper to handle the case of cycling through the different glyphs
+    private static class OccultismMatcher implements IStateMatcher {
+
+        private IStateMatcher matcher;
+        private Block block;
+
+        private OccultismMatcher(IStateMatcher matcher, Block block) {
+            this.matcher = matcher;
+            this.block = block;
+        }
+
+        private OccultismMatcher(IStateMatcher matcher) {
+            this(matcher, null);
+        }
+
+        @Override
+        public BlockState getDisplayedState(int ticks) {
+            if (block instanceof ChalkGlyphBlock) {
+                return block.defaultBlockState().setValue(ChalkGlyphBlock.SIGN, ticks / 20 % ChalkGlyphBlock.MAX_SIGN);
+            }
+
+            return matcher.getDisplayedState(ticks);
+        }
+
+        @Override
+        public TriPredicate<IBlockReader, BlockPos, BlockState> getStatePredicate() {
+            return matcher.getStatePredicate();
+        }
+
     }
 }
