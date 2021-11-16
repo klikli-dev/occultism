@@ -59,7 +59,7 @@ public class WildHuntSkeletonEntity extends SkeletonEntity {
 
     @Override
     protected void populateDefaultEquipmentSlots(DifficultyInstance pDifficulty) {
-        this.populateDefaultEquipmentSlots(pDifficulty);
+        super.populateDefaultEquipmentSlots(pDifficulty);
 
         //70% chance to wear a stone sword
         if(this.random.nextFloat() <= 0.7f)
