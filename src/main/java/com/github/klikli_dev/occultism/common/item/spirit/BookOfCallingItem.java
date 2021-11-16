@@ -277,6 +277,8 @@ public class BookOfCallingItem extends Item implements IIngredientCopyNBT, IHand
 
         //serialize entity
         ItemNBTUtil.setSpiritEntityData(stack, targetSpirit.serializeNBT());
+        ItemNBTUtil.setSpiritEntityUUID(stack, targetSpirit.getUUID());
+        ItemNBTUtil.setBoundSpiritName(stack, targetSpirit.getName().getString());
         //show player swing anim
         player.swing(hand);
         player.setItemInHand(hand, stack); //need to write the item back to hand, otherwise we only modify a copy
