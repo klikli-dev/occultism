@@ -23,6 +23,7 @@
 package com.github.klikli_dev.occultism.common.ritual.pentacle;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,6 +35,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
+import com.mojang.datafixers.util.Pair;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -42,6 +44,7 @@ import net.minecraft.tags.ITag;
 import net.minecraft.tags.TagCollectionManager;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Rotation;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
@@ -51,6 +54,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import vazkii.patchouli.api.IMultiblock;
 import vazkii.patchouli.api.IStateMatcher;
 import vazkii.patchouli.api.PatchouliAPI;
+import vazkii.patchouli.api.IMultiblock.SimulateResult;
 import vazkii.patchouli.api.PatchouliAPI.IPatchouliAPI;
 
 public class Pentacle {
@@ -175,6 +179,31 @@ public class Pentacle {
 
     public boolean validate(World world, BlockPos pos) {
         return this.matcher.validate(world, pos) != null;
+    }
+
+    // Return the positions that are wrong
+    public Map<BlockPos, Block> getDifference(World world, BlockPos pos) {
+        Map<BlockPos, Block> minDifference = new HashMap<>();
+        int minDiffSize = Integer.MAX_VALUE;
+
+        Map<BlockPos, Block> difference;
+        for (Rotation rot : Rotation.values()) {
+            difference = new HashMap<>();
+            Pair<BlockPos, Collection<SimulateResult>> sim = this.matcher.simulate(world, pos, rot, false);
+
+            for (SimulateResult result : sim.getSecond()) {
+                if (!result.test(world, rot)) {
+                    difference.put(result.getWorldPosition(), result.getStateMatcher().getDisplayedState(0).getBlock());
+                }
+            }
+
+            if (difference.size() < minDiffSize) {
+                minDifference = difference;
+                minDiffSize = difference.size();
+            }
+        }
+
+        return minDifference;
     }
 
     public JsonObject toJson() {
