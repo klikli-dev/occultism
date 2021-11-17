@@ -1,0 +1,46 @@
+{
+  "type": "occultism:ritual",
+  "ritual_type": "occultism:familiar",
+  "activation_item": {
+    "item": "occultism:book_of_binding_bound_djinni"
+  },
+  "pentacle_id": "occultism:possess_djinni",
+  "duration": 30,
+  "entity_to_sacrifice": {
+    "tag": "forge:spiders",
+    "display_name": "ritual.occultism.sacrifice.spiders"
+  },
+  "entity_to_summon": "occultism:beholder_familiar",
+  "ritual_dummy": {
+    "item": "occultism:ritual_dummy/familiar_beholder"
+  },
+  "ingredients": [
+    {
+      "item": "minecraft:spider_eye"
+    },
+    {
+      "item": "minecraft:spider_eye"
+    },
+    {
+      "item": "minecraft:spider_eye"
+    },
+    {
+      "item": "minecraft:spider_eye"
+    },
+    {
+      "tag": "forge:dusts/glowstone"
+    },
+    {
+      "tag": "forge:dusts/glowstone"
+    },
+    {
+      "tag": "forge:dusts/glowstone"
+    },
+    {
+      "tag": "forge:dusts/glowstone"
+    }
+  ],
+  "result": {
+    "item": "occultism:jei_dummy/none"
+  }
+}
