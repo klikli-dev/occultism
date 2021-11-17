@@ -22,7 +22,6 @@
 
 package com.github.klikli_dev.occultism.common.entity;
 
-import java.util.Collections;
 import java.util.EnumSet;
 import java.util.List;
 
@@ -117,7 +116,7 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
     protected void playStepSound(BlockPos pPos, BlockState pBlock) {
 
     }
-    
+
     private Vector3d riderLocation() {
         return Vector3d.directionFromRotation(0, riderRot).yRot(230).scale(0.68).add(position());
     }
@@ -129,7 +128,7 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
             pPassenger.setPos(direction.x, direction.y, direction.z);
         }
     }
-    
+
     @Override
     public Vector3d getDismountLocationForPassenger(LivingEntity pLivingEntity) {
         return riderLocation();
@@ -175,7 +174,7 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
         }
         return false;
     }
-    
+
     @Override
     public void tick() {
         super.tick();
@@ -195,7 +194,7 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
             }
         }
     }
-    
+
     public float riderRot(float partialTicks) {
         return MathHelper.lerp(partialTicks, riderRot0, riderRot);
     }
@@ -256,11 +255,7 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
 
     @Override
     public Iterable<EffectInstance> getFamiliarEffects() {
-        if (this.isEffectEnabled()) {
-            // if (this.isAngry())
-            return ImmutableList.of(new EffectInstance(Effects.WATER_BREATHING, 300, 0, false, false));
-        }
-        return Collections.emptyList();
+        return ImmutableList.of(new EffectInstance(Effects.WATER_BREATHING, 300, 0, false, false));
     }
 
     public boolean hasHat() {
@@ -393,7 +388,8 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
         @Override
         public boolean canUse() {
             this.devil = this.findDevil();
-            return this.devil != null && this.cooldown-- < 0 && this.cthulhu.distanceToSqr(this.devil) > 3 && !cthulhu.isVehicle();
+            return this.devil != null && this.cooldown-- < 0 && this.cthulhu.distanceToSqr(this.devil) > 3
+                    && !cthulhu.isVehicle();
         }
 
         @Override

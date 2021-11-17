@@ -152,7 +152,7 @@ public class FamiliarRingItem extends Item {
                 return;
 
             // Apply effects
-            if (!world.isClientSide && entity.tickCount % 20 == 0)
+            if (!world.isClientSide && entity.tickCount % 20 == 0 && familiar.isEffectEnabled(entity))
                 for (EffectInstance effect : familiar.getFamiliarEffects())
                     familiar.getFamiliarOwner().addEffect(effect);
 
