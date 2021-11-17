@@ -131,4 +131,8 @@ public class FamiliarUtil {
         List<T> familiars = getAllEquippedFamiliars(owner, type, pred);
         return familiars.isEmpty() ? null : familiars.get(0);
     }
+    
+    public static float toRads(float deg) {
+        return (float) Math.toRadians(deg);
+    }
 }

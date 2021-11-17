@@ -91,17 +91,19 @@ public class ShubNiggurathFamiliarEntity extends FamiliarEntity {
         if (!level.isClientSide) {
             rotateTowardsFriend();
 
-            createSpawn(this, new Vector3d(getRandomX(2), getRandomY(), getRandomZ(2)));
+            if (isEffectEnabled(getFamiliarOwner()))
+                createSpawn(this, new Vector3d(getRandomX(2), getRandomY(), getRandomZ(2)));
         }
     }
 
     @Override
     public void curioTick(LivingEntity wearer) {
-        createSpawn(wearer, new Vector3d(wearer.getRandomX(2), wearer.getRandomY(), wearer.getRandomZ(2)));
+        if (isEffectEnabled(wearer))
+            createSpawn(wearer, new Vector3d(wearer.getRandomX(2), wearer.getRandomY(), wearer.getRandomZ(2)));
     }
 
     private void createSpawn(LivingEntity creator, Vector3d pos) {
-        if (isEffectEnabled() && spawnTimer-- < 0) {
+        if (spawnTimer-- < 0) {
             spawnTimer = MAX_SPAWN_TIMER;
             ShubNiggurathSpawnEntity spawn = new ShubNiggurathSpawnEntity(creator.level, creator);
             spawn.setPos(pos.x, pos.y, pos.z);
