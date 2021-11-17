@@ -22,7 +22,6 @@
 
 package com.github.klikli_dev.occultism.common.entity;
 
-import java.util.Collections;
 import java.util.UUID;
 
 import com.github.klikli_dev.occultism.common.advancement.FamiliarTrigger;
@@ -131,10 +130,7 @@ public class DeerFamiliarEntity extends FamiliarEntity {
 
     @Override
     public Iterable<MobEffectInstance> getFamiliarEffects() {
-        if (this.isEffectEnabled()) {
-            return ImmutableList.of(new MobEffectInstance(MobEffects.JUMP, 300, 0, false, false));
-        }
-        return Collections.emptyList();
+        return ImmutableList.of(new MobEffectInstance(MobEffects.JUMP, 300, 0, false, false));
     }
 
     @Override

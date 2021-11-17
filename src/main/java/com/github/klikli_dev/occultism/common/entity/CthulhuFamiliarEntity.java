@@ -46,6 +46,7 @@ import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
 import net.minecraft.world.entity.ai.util.DefaultRandomPos;
+import net.minecraft.world.entity.ai.util.RandomPos;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -87,6 +88,18 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
         this.goalSelector.addGoal(3, new FollowOwnerWaterGoal(this, 1, 3, 1));
         this.goalSelector.addGoal(4, new GiveFlowerGoal(this));
         this.goalSelector.addGoal(5, new RandomStrollGoal(this, 1.0D));
+    }
+
+    @Override
+    public void setFamiliarOwner(LivingEntity owner) {
+        if (this.hasHat())
+            OccultismAdvancements.FAMILIAR.trigger(owner, FamiliarTrigger.Type.RARE_VARIANT);
+        super.setFamiliarOwner(owner);
+    }
+
+    @Override
+    public boolean canBlacksmithUpgrade() {
+        return !this.hasBlacksmithUpgrade();
     }
 
     @Override
@@ -240,11 +253,7 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
 
     @Override
     public Iterable<MobEffectInstance> getFamiliarEffects() {
-        if (this.isEffectEnabled()) {
-            //if (this.isAngry())
-            return ImmutableList.of(new MobEffectInstance(MobEffects.WATER_BREATHING, 300, 0, false, false));
-        }
-        return Collections.emptyList();
+        return ImmutableList.of(new MobEffectInstance(MobEffects.WATER_BREATHING, 300, 0, false, false));
     }
 
     public boolean hasHat() {

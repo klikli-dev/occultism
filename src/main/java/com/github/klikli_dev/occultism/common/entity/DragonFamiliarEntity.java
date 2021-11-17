@@ -264,11 +264,8 @@ public class DragonFamiliarEntity extends FamiliarEntity {
 
     @Override
     public Iterable<MobEffectInstance> getFamiliarEffects() {
-        if (this.isEffectEnabled()) {
-            return ImmutableList.of(new MobEffectInstance(OccultismEffects.DRAGON_GREED.get(), 300,
-                    this.greedyTimer > 0 ? 1 : 0, false, false));
-        }
-        return Collections.emptyList();
+        return ImmutableList.of(new MobEffectInstance(OccultismEffects.DRAGON_GREED.get(), 300,
+                this.greedyTimer > 0 ? 1 : 0, false, false));
     }
 
     public float getEyeColorR(float partialTicks) {
@@ -300,7 +297,8 @@ public class DragonFamiliarEntity extends FamiliarEntity {
                 return;
 
             Entity enemy = enemies.get(this.entity.getRandom().nextInt(enemies.size()));
-            ThrownSwordEntity sword = new ThrownSwordEntity(OccultismEntities.THROWN_SWORD_TYPE.get(), this.entity.level);
+            ThrownSwordEntity sword = new ThrownSwordEntity(OccultismEntities.THROWN_SWORD_TYPE.get(),
+                    this.entity.level);
             sword.setOwner(this.entity.getFamiliarOwner());
             double x = this.entity.getX();
             double y = this.entity.getEyeY();

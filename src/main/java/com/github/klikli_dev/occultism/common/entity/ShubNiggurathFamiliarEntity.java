@@ -100,7 +100,7 @@ public class ShubNiggurathFamiliarEntity extends FamiliarEntity {
     }
 
     private void createSpawn(LivingEntity creator, Vector3d pos) {
-        if (this.isEffectEnabled() && this.spawnTimer-- < 0) {
+        if (this.spawnTimer-- < 0) {
             this.spawnTimer = MAX_SPAWN_TIMER;
             ShubNiggurathSpawnEntity spawn = new ShubNiggurathSpawnEntity(creator.level, creator);
             spawn.setPos(pos.x, pos.y, pos.z);

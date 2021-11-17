@@ -165,7 +165,7 @@ public class FamiliarRingItem extends Item {
             if (familiar == null || familiar.getFamiliarOwner() != slotContext.entity())
                 return;
             // Apply effects
-            if (!level.isClientSide && slotContext.entity().tickCount % 20 == 0)
+            if (!level.isClientSide && slotContext.entity().tickCount % 20 == 0  && familiar.isEffectEnabled(slotContext.entity()))
                 for (MobEffectInstance effect : familiar.getFamiliarEffects())
                     familiar.getFamiliarOwner().addEffect(effect);
 

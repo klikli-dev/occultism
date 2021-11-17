@@ -118,17 +118,11 @@ public class OtherworldBirdEntity extends Parrot implements IFamiliar {
 
     @Override
     public Iterable<MobEffectInstance> getFamiliarEffects() {
-
-        //only provide effect if enabled
-        if (this.isEffectEnabled()) {
-            return ImmutableList.of(new MobEffectInstance(MobEffects.JUMP, 60, 5, false, false),
-                    new MobEffectInstance(MobEffects.SLOW_FALLING,
-                            20 * Occultism.SERVER_CONFIG.spiritJobs.drikwingFamiliarSlowFallingSeconds.get(), 0, false,
-                            false),
-                    new MobEffectInstance(OccultismEffects.DOUBLE_JUMP.get(), 120, 4, false, false));
-
-        }
-        return Collections.emptyList();
+        return ImmutableList.of(new MobEffectInstance(MobEffects.JUMP, 60, 5, false, false),
+                new MobEffectInstance(MobEffects.SLOW_FALLING,
+                        20 * Occultism.SERVER_CONFIG.spiritJobs.drikwingFamiliarSlowFallingSeconds.get(), 0, false,
+                        false),
+                new MobEffectInstance(OccultismEffects.DOUBLE_JUMP.get(), 120, 4, false, false));
     }
     // endregion Overrides
 

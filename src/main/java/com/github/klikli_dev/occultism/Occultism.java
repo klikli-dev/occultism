@@ -140,6 +140,7 @@ public class Occultism {
         event.put(OccultismEntities.CHIMERA_FAMILIAR_TYPE.get(), ChimeraFamiliarEntity.createAttributes().build());
         event.put(OccultismEntities.GOAT_FAMILIAR_TYPE.get(), FamiliarEntity.createAttributes().build());
         event.put(OccultismEntities.SHUB_NIGGURATH_FAMILIAR_TYPE.get(), FamiliarEntity.createAttributes().build());
+        event.put(OccultismEntities.BEHOLDER_FAMILIAR_TYPE.get(), FamiliarEntity.createAttributes().build());
         event.put(OccultismEntities.SHUB_NIGGURATH_SPAWN_TYPE.get(), ShubNiggurathSpawnEntity.createAttributes().build());
     }
 

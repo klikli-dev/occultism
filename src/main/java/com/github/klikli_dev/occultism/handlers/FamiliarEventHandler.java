@@ -24,6 +24,8 @@ package com.github.klikli_dev.occultism.handlers;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.advancement.FamiliarTrigger;
+import com.github.klikli_dev.occultism.common.entity.BeholderFamiliarEntity;
+import com.github.klikli_dev.occultism.common.entity.FamiliarEntity;
 import com.github.klikli_dev.occultism.common.entity.GuardianFamiliarEntity;
 import com.github.klikli_dev.occultism.common.entity.HeadlessFamiliarEntity;
 import com.github.klikli_dev.occultism.registry.OccultismAdvancements;
@@ -32,9 +34,12 @@ import com.github.klikli_dev.occultism.util.FamiliarUtil;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.event.entity.living.PotionEvent;
+import net.minecraftforge.eventbus.api.Event.Result;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -77,7 +82,7 @@ public class FamiliarEventHandler {
 
         List<HeadlessFamiliarEntity> headlesses = FamiliarUtil.getAllFamiliars(player,
                 OccultismEntities.HEADLESS_FAMILIAR.get());
-        
+
         if (!headlesses.isEmpty() && event.getEntityLiving().getType() == OccultismEntities.CTHULHU_FAMILIAR.get())
             OccultismAdvancements.FAMILIAR.trigger(player, FamiliarTrigger.Type.HEADLESS_CTHULHU_HEAD);
 
@@ -104,5 +109,19 @@ public class FamiliarEventHandler {
         player.removeAllEffects();
         player.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 20 * 10, 1));
         player.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 20 * 5, 1));
+    }
+
+    @SubscribeEvent
+    public static void beholderBlindnessImmune(PotionEvent.PotionApplicableEvent event) {
+        if (event.getPotionEffect().getEffect() != MobEffects.BLINDNESS)
+            return;
+
+        LivingEntity entity = event.getEntityLiving();
+        EntityType<BeholderFamiliarEntity> beholder = OccultismEntities.BEHOLDER_FAMILIAR.get();
+
+        if (!FamiliarUtil.hasFamiliar(entity, beholder, FamiliarEntity::hasBlacksmithUpgrade))
+            return;
+
+        event.setResult(Result.DENY);
     }
 }

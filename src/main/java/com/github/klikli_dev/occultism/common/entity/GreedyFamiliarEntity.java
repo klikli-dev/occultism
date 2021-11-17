@@ -105,7 +105,7 @@ public class GreedyFamiliarEntity extends FamiliarEntity {
         if (!(wearer instanceof Player))
             return;
 
-        if (this.isEffectEnabled())
+        if (this.isEffectEnabled(wearer))
             for (ItemEntity e : wearer.level.getEntitiesOfClass(ItemEntity.class, wearer.getBoundingBox().inflate(5), Entity::isAlive)) {
                 ItemStack stack = e.getItem();
 

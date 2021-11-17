@@ -24,6 +24,7 @@ package com.github.klikli_dev.occultism.common.ritual.pentacle;
 
 import com.github.klikli_dev.occultism.common.block.ChalkGlyphBlock;
 import com.google.gson.*;
+import com.mojang.datafixers.util.Pair;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
@@ -35,17 +36,16 @@ import net.minecraft.util.GsonHelper;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.registries.ForgeRegistries;
 import vazkii.patchouli.api.IMultiblock;
+import vazkii.patchouli.api.IMultiblock.SimulateResult;
 import vazkii.patchouli.api.IStateMatcher;
 import vazkii.patchouli.api.PatchouliAPI;
 import vazkii.patchouli.api.TriPredicate;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
 
 public class Pentacle {
@@ -168,12 +168,45 @@ public class Pentacle {
         return OM(PatchouliAPI.get().looseBlockMatcher(block), block);
     }
 
+    private static OccultismMatcher OM(IStateMatcher matcher) {
+        return new OccultismMatcher(matcher);
+    }
+
+    private static OccultismMatcher OM(IStateMatcher matcher, Block block) {
+        return new OccultismMatcher(matcher, block);
+    }
+
     public String getDescriptionId() {
         return Util.makeDescriptionId("pentacle", this.rl);
     }
 
     public boolean validate(Level level, BlockPos pos) {
         return this.matcher.validate(level, pos) != null;
+    }
+
+    // Return the positions that are wrong
+    public Map<BlockPos, Block> getDifference(Level level, BlockPos pos) {
+        Map<BlockPos, Block> minDifference = new HashMap<>();
+        int minDiffSize = Integer.MAX_VALUE;
+
+        Map<BlockPos, Block> difference;
+        for (Rotation rot : Rotation.values()) {
+            difference = new HashMap<>();
+            Pair<BlockPos, Collection<SimulateResult>> sim = this.matcher.simulate(level, pos, rot, false);
+
+            for (SimulateResult result : sim.getSecond()) {
+                if (!result.test(level, rot)) {
+                    difference.put(result.getWorldPosition(), result.getStateMatcher().getDisplayedState(0).getBlock());
+                }
+            }
+
+            if (difference.size() < minDiffSize) {
+                minDifference = difference;
+                minDiffSize = difference.size();
+            }
+        }
+
+        return minDifference;
     }
 
     public JsonObject toJson() {
@@ -200,19 +233,11 @@ public class Pentacle {
         }
     }
 
-    private static OccultismMatcher OM(IStateMatcher matcher) {
-        return new OccultismMatcher(matcher);
-    }
-
-    private static OccultismMatcher OM(IStateMatcher matcher, Block block) {
-        return new OccultismMatcher(matcher, block);
-    }
-
     // Matcher wrapper to handle the case of cycling through the different glyphs
     private static class OccultismMatcher implements IStateMatcher {
 
-        private IStateMatcher matcher;
-        private Block block;
+        private final IStateMatcher matcher;
+        private final Block block;
 
         private OccultismMatcher(IStateMatcher matcher, Block block) {
             this.matcher = matcher;
@@ -225,16 +250,16 @@ public class Pentacle {
 
         @Override
         public BlockState getDisplayedState(int ticks) {
-            if (block instanceof ChalkGlyphBlock) {
-                return block.defaultBlockState().setValue(ChalkGlyphBlock.SIGN, ticks / 20 % ChalkGlyphBlock.MAX_SIGN);
+            if (this.block instanceof ChalkGlyphBlock) {
+                return this.block.defaultBlockState().setValue(ChalkGlyphBlock.SIGN, ticks / 20 % ChalkGlyphBlock.MAX_SIGN);
             }
 
-            return matcher.getDisplayedState(ticks);
+            return this.matcher.getDisplayedState(ticks);
         }
 
         @Override
         public TriPredicate<BlockGetter, BlockPos, BlockState> getStatePredicate() {
-            return matcher.getStatePredicate();
+            return this.matcher.getStatePredicate();
         }
 
     }

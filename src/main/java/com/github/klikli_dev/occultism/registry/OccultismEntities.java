@@ -173,6 +173,11 @@ public class OccultismEntities {
                     .sized(0.7F, 0.8F)
                     .clientTrackingRange(8)
                     .build(modLoc("shub_niggurath_familiar").toString()));
+    public static final NonNullLazy<EntityType<BeholderFamiliarEntity>> BEHOLDER_FAMILIAR_TYPE =
+            NonNullLazy.of(() -> EntityType.Builder.of(BeholderFamiliarEntity::new, MobCategory.CREATURE)
+                    .sized(0.6F, 1F)
+                    .clientTrackingRange(8)
+                    .build(modLoc("beholder_familiar").toString()));
 
     public static final NonNullLazy<EntityType<ThrownSwordEntity>> THROWN_SWORD_TYPE =
             NonNullLazy.of(() -> EntityType.Builder.of(ThrownSwordEntity::new, MobCategory.MISC)
@@ -230,6 +235,8 @@ public class OccultismEntities {
             ENTITIES.register("goat_familiar", GOAT_FAMILIAR_TYPE::get);
     public static final RegistryObject<EntityType<ShubNiggurathFamiliarEntity>> SHUB_NIGGURATH_FAMILIAR =
             ENTITIES.register("shub_niggurath_familiar", SHUB_NIGGURATH_FAMILIAR_TYPE::get);
+    public static final RegistryObject<EntityType<BeholderFamiliarEntity>> BEHOLDER_FAMILIAR =
+            ENTITIES.register("beholder_familiar", BEHOLDER_FAMILIAR_TYPE::get);
 
     public static final RegistryObject<EntityType<ThrownSwordEntity>> THROWN_SWORD =
             ENTITIES.register("thrown_sword", THROWN_SWORD_TYPE::get);

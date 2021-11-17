@@ -22,8 +22,6 @@
 
 package com.github.klikli_dev.occultism.common.entity;
 
-import java.util.Random;
-
 import com.github.klikli_dev.occultism.common.advancement.FamiliarTrigger;
 import com.github.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.google.common.collect.ImmutableList;
@@ -54,7 +52,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import javax.annotation.Nullable;
 
-public class GuardianFamiliarEntity extends FamiliarEntity {
+public class GuardianFamiliarEntity extends ColoredFamiliarEntity {
 
     private static final byte MAX_LIVES = 5;
     public static final byte UNDAMAGED = MAX_LIVES;
@@ -64,12 +62,6 @@ public class GuardianFamiliarEntity extends FamiliarEntity {
     public static final byte DEATHS_DOOR = 1;
     public static final byte DEAD = 0;
 
-    private static final EntityDataAccessor<Float> RED = SynchedEntityData.defineId(GuardianFamiliarEntity.class,
-            EntityDataSerializers.FLOAT);
-    private static final EntityDataAccessor<Float> GREEN = SynchedEntityData.defineId(GuardianFamiliarEntity.class,
-            EntityDataSerializers.FLOAT);
-    private static final EntityDataAccessor<Float> BLUE = SynchedEntityData.defineId(GuardianFamiliarEntity.class,
-            EntityDataSerializers.FLOAT);
     private static final EntityDataAccessor<Byte> LIVES = SynchedEntityData.defineId(GuardianFamiliarEntity.class,
             EntityDataSerializers.BYTE);
 
@@ -136,26 +128,7 @@ public class GuardianFamiliarEntity extends FamiliarEntity {
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(RED, 0f);
-        this.entityData.define(GREEN, 0f);
-        this.entityData.define(BLUE, 0f);
         this.entityData.define(LIVES, (byte) 0);
-    }
-
-    private void setColor() {
-        float r, g, b;
-        Random rand = this.getRandom();
-        for (int i = 0; i < 20; i++) {
-            r = rand.nextFloat();
-            g = rand.nextFloat();
-            b = rand.nextFloat();
-            if (Mth.abs(r - g) > 0.2f || Mth.abs(r - b) > 0.2f || Mth.abs(g - b) > 0.2f) {
-                this.setRed(r);
-                this.setGreen(g);
-                this.setBlue(b);
-                return;
-            }
-        }
     }
 
     public boolean sacrifice() {
@@ -196,30 +169,6 @@ public class GuardianFamiliarEntity extends FamiliarEntity {
         return ImmutableList.of();
     }
 
-    public float getRed() {
-        return this.entityData.get(RED);
-    }
-
-    private void setRed(float f) {
-        this.entityData.set(RED, f);
-    }
-
-    public float getGreen() {
-        return this.entityData.get(GREEN);
-    }
-
-    private void setGreen(float f) {
-        this.entityData.set(GREEN, f);
-    }
-
-    public float getBlue() {
-        return this.entityData.get(BLUE);
-    }
-
-    private void setBlue(float f) {
-        this.entityData.set(BLUE, f);
-    }
-
     public boolean hasTree() {
         return this.hasVariant(0);
     }
@@ -257,18 +206,12 @@ public class GuardianFamiliarEntity extends FamiliarEntity {
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
-        compound.putFloat("red", this.getRed());
-        compound.putFloat("green", this.getGreen());
-        compound.putFloat("blue", this.getBlue());
         compound.putByte("lives", this.getLives());
     }
 
     @Override
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
-        this.setRed(compound.getFloat("red"));
-        this.setGreen(compound.getFloat("green"));
-        this.setBlue(compound.getFloat("blue"));
         if (!compound.contains("variants")) {
             this.setTree(compound.getBoolean("hasTree"));
             this.setBird(compound.getBoolean("hasBird"));

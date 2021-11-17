@@ -152,10 +152,7 @@ public class DevilFamiliarEntity extends FamiliarEntity {
 
     @Override
     public Iterable<MobEffectInstance> getFamiliarEffects() {
-        if (this.isEffectEnabled()) {
-            return ImmutableList.of(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 300, 0, false, false));
-        }
-        return ImmutableList.of();
+        return ImmutableList.of(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 300, 0, false, false));
     }
 
     public static class AttackGoal extends Goal {

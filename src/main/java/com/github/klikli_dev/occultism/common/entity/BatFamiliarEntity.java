@@ -44,7 +44,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
-import java.util.Collections;
 import java.util.EnumSet;
 import java.util.List;
 
@@ -85,8 +84,10 @@ public class BatFamiliarEntity extends FamiliarEntity implements FlyingAnimal {
     }
 
     @Override
-    public boolean causeFallDamage(float fallDistance, float damageMultiplier, DamageSource source) {
-        return false;
+    public void tick() {
+        super.tick();
+        if (this.isSitting())
+            this.setDeltaMovement(Vec3.ZERO);
     }
 
     @Override
@@ -94,15 +95,13 @@ public class BatFamiliarEntity extends FamiliarEntity implements FlyingAnimal {
     }
 
     @Override
-    public boolean isNoGravity() {
-        return true;
+    public boolean causeFallDamage(float fallDistance, float damageMultiplier, DamageSource source) {
+        return false;
     }
 
     @Override
-    public void tick() {
-        super.tick();
-        if (this.isSitting())
-            this.setDeltaMovement(Vec3.ZERO);
+    public boolean isNoGravity() {
+        return true;
     }
 
     public float getAnimationHeight(float partialTicks) {
@@ -111,10 +110,7 @@ public class BatFamiliarEntity extends FamiliarEntity implements FlyingAnimal {
 
     @Override
     public Iterable<MobEffectInstance> getFamiliarEffects() {
-        if (this.isEffectEnabled()) {
-            return ImmutableList.of(new MobEffectInstance(MobEffects.NIGHT_VISION, 300, 1, false, false));
-        }
-        return Collections.emptyList();
+        return ImmutableList.of(new MobEffectInstance(MobEffects.NIGHT_VISION, 300, 1, false, false));
     }
 
     @Override

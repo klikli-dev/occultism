@@ -71,6 +71,10 @@ public class PentacleManager extends SimpleJsonResourceReloadListener {
     public static Pentacle get(String modid, String path) {
         return getInstance().pentacles.get(new ResourceLocation(modid, path));
     }
+    
+    public static Map<ResourceLocation, Pentacle> getAllPentacles() {
+        return getInstance().pentacles;
+    }
 
     @SubscribeEvent
     public static void addPentacleReloadListener(AddReloadListenerEvent event) {
