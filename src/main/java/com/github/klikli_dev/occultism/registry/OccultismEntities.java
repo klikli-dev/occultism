@@ -31,6 +31,7 @@ import com.github.klikli_dev.occultism.common.entity.CthulhuFamiliarEntity;
 import com.github.klikli_dev.occultism.common.entity.DeerFamiliarEntity;
 import com.github.klikli_dev.occultism.common.entity.DevilFamiliarEntity;
 import com.github.klikli_dev.occultism.common.entity.DragonFamiliarEntity;
+import com.github.klikli_dev.occultism.common.entity.FairyFamiliarEntity;
 import com.github.klikli_dev.occultism.common.entity.GoatFamiliarEntity;
 import com.github.klikli_dev.occultism.common.entity.GreedyFamiliarEntity;
 import com.github.klikli_dev.occultism.common.entity.GuardianFamiliarEntity;
@@ -189,6 +190,11 @@ public class OccultismEntities {
                                          .sized(0.6F, 1F)
                                          .clientTrackingRange(8)
                                          .build(modLoc("beholder_familiar").toString()));
+    public static final NonNullLazy<EntityType<FairyFamiliarEntity>> FAIRY_FAMILIAR_TYPE =
+            NonNullLazy.of(() -> EntityType.Builder.of(FairyFamiliarEntity::new, EntityClassification.CREATURE)
+                                         .sized(0.6F, 1F)
+                                         .clientTrackingRange(8)
+                                         .build(modLoc("fairy_familiar").toString()));
     
     public static final NonNullLazy<EntityType<ThrownSwordEntity>> THROWN_SWORD_TYPE =
             NonNullLazy.of(() -> EntityType.Builder.of(ThrownSwordEntity::new, EntityClassification.MISC)
@@ -248,6 +254,8 @@ public class OccultismEntities {
             ENTITIES.register("shub_niggurath_familiar", SHUB_NIGGURATH_FAMILIAR_TYPE::get);
     public static final RegistryObject<EntityType<BeholderFamiliarEntity>> BEHOLDER_FAMILIAR =
             ENTITIES.register("beholder_familiar", BEHOLDER_FAMILIAR_TYPE::get);
+    public static final RegistryObject<EntityType<FairyFamiliarEntity>> FAIRY_FAMILIAR =
+            ENTITIES.register("fairy_familiar", FAIRY_FAMILIAR_TYPE::get);
     
     public static final RegistryObject<EntityType<ThrownSwordEntity>> THROWN_SWORD =
             ENTITIES.register("thrown_sword", THROWN_SWORD_TYPE::get);
