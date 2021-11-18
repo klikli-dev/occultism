@@ -26,10 +26,15 @@ import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.client.model.entity.FairyFamiliarModel;
 import com.github.klikli_dev.occultism.common.entity.FairyFamiliarEntity;
 import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.IVertexBuilder;
 
 import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
+import net.minecraft.client.renderer.entity.IEntityRenderer;
+import net.minecraft.client.renderer.entity.LivingRenderer;
 import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.util.ResourceLocation;
 
 public class FairyFamiliarRenderer extends MobRenderer<FairyFamiliarEntity, FairyFamiliarModel> {
@@ -39,17 +44,41 @@ public class FairyFamiliarRenderer extends MobRenderer<FairyFamiliarEntity, Fair
 
     public FairyFamiliarRenderer(EntityRendererManager renderManagerIn) {
         super(renderManagerIn, new FairyFamiliarModel(), 0.3f);
-
+        this.addLayer(new SleepLayer(this));
     }
 
     @Override
     public void render(FairyFamiliarEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn,
             IRenderTypeBuffer bufferIn, int packedLightIn) {
+        matrixStackIn.translate(0, entityIn.getAnimationHeight(partialTicks), 0);
         super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
     }
 
     @Override
     public ResourceLocation getTextureLocation(FairyFamiliarEntity entity) {
         return TEXTURES;
+    }
+
+    private static class SleepLayer extends LayerRenderer<FairyFamiliarEntity, FairyFamiliarModel> {
+
+        private static final ResourceLocation SLEEP = new ResourceLocation(Occultism.MODID,
+                "textures/entity/fairy_familiar_sleep.png");
+
+        public SleepLayer(IEntityRenderer<FairyFamiliarEntity, FairyFamiliarModel> renderer) {
+            super(renderer);
+        }
+
+        @Override
+        public void render(MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn,
+                FairyFamiliarEntity entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks,
+                float ageInTicks, float netHeadYaw, float headPitch) {
+            if (entitylivingbaseIn.isInvisible() || !entitylivingbaseIn.isSitting())
+                return;
+
+            FairyFamiliarModel model = this.getParentModel();
+            IVertexBuilder ivertexbuilder = bufferIn.getBuffer(RenderType.entityCutout(SLEEP));
+            model.renderToBuffer(matrixStackIn, ivertexbuilder, packedLightIn,
+                    LivingRenderer.getOverlayCoords(entitylivingbaseIn, 0), 1, 1, 1, 1);
+        }
     }
 }

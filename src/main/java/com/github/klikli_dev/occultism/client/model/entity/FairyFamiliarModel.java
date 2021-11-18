@@ -27,9 +27,11 @@ import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
+import net.minecraft.util.math.MathHelper;
 
 /**
  * Created using Tabula 8.0.0
@@ -269,13 +271,65 @@ public class FairyFamiliarModel extends EntityModel<FairyFamiliarEntity> {
     }
 
     @Override
-    public void setupAnim(FairyFamiliarEntity pEntity, float pLimbSwing, float pLimbSwingAmount, float pAgeInTicks,
-            float pNetHeadYaw, float pHeadPitch) {
+    public void setupAnim(FairyFamiliarEntity pEntity, float limbSwing, float limbSwingAmount, float pAgeInTicks,
+            float netHeadYaw, float headPitch) {
         showModels(pEntity);
+
+        float partialTicks = Minecraft.getInstance().getFrameTime();
+
+        ModelRenderer mainArm = this.getMainArm(pEntity);
+
+        this.leftArm.yRot = 0;
+        this.rightArm.yRot = 0;
+        this.leftWand.xRot = 0;
+        this.rightWand.xRot = 0;
+
+        this.head.xRot = 0;
+        this.head.yRot = this.toRads(netHeadYaw) * 0.8f;
+        this.head.zRot = this.toRads(headPitch) * 0.8f;
+
+        float animationHeight = pEntity.getWingRot(partialTicks);
+        this.leftWing.yRot = animationHeight * this.toRads(15) - 0.59f;
+        this.rightWing.yRot = -animationHeight * this.toRads(15) + 0.59f;
+
+        float bodyRot = limbSwingAmount * this.toRads(100);
+        this.body.xRot = bodyRot;
+        this.leftArm.xRot = -bodyRot * 3 + MathHelper.cos(pAgeInTicks * 0.2f) * toRads(10);
+        this.rightArm.xRot = -bodyRot * 3 + MathHelper.cos(pAgeInTicks * 0.2f + PI) * toRads(10);
+        this.leftLeg1.xRot = this.body.xRot;
+        this.rightLeg1.xRot = this.body.xRot;
+
+        this.tail1.xRot = -0.51f + MathHelper.cos(pAgeInTicks * 0.2f) * toRads(10);
+        this.tail2.xRot = 0.27f + MathHelper.cos(pAgeInTicks * 0.2f) * toRads(10);
+        this.tail3.xRot = 0.27f + MathHelper.cos(pAgeInTicks * 0.2f) * toRads(10);
+
+        if (pEntity.isPartying()) {
+            this.body.xRot = 0;
+            mainArm.xRot = pEntity.getPartyArmRotX(partialTicks);
+            mainArm.yRot = pEntity.getPartyArmRotY(partialTicks);
+        } else if (pEntity.isSitting()) {
+            this.body.xRot = toRads(90);
+            this.head.xRot = toRads(-10);
+            this.head.yRot = 0;
+            this.head.zRot = 0;
+            this.leftArm.xRot = toRads(-80) + MathHelper.cos(pAgeInTicks * 0.1f) * toRads(10);
+            this.rightArm.xRot = toRads(-80) + MathHelper.cos(pAgeInTicks * 0.1f + PI) * toRads(10);
+            this.leftWand.xRot = toRads(60);
+            this.rightWand.xRot = toRads(60);
+            this.leftLeg1.xRot = toRads(-80) + MathHelper.cos(pAgeInTicks * 0.1f + PI) * toRads(10);
+            this.rightLeg1.xRot = toRads(-80) + MathHelper.cos(pAgeInTicks * 0.1f) * toRads(10);
+            this.tail1.xRot = toRads(-130) + MathHelper.cos(pAgeInTicks * 0.1f) * toRads(5);
+            this.tail2.xRot = toRads(-15) + MathHelper.cos(pAgeInTicks * 0.05f) * toRads(5);
+            this.tail3.xRot = toRads(-15) + MathHelper.cos(pAgeInTicks * 0.05f) * toRads(5);
+        }
     }
 
     private float toRads(float deg) {
         return PI / 180f * deg;
+    }
+
+    private ModelRenderer getMainArm(FairyFamiliarEntity pEntity) {
+        return pEntity.isLeftHanded() ? this.leftArm : this.rightArm;
     }
 
     private void showModels(FairyFamiliarEntity entityIn) {
