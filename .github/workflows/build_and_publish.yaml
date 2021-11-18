@@ -92,15 +92,6 @@ jobs:
             Changelog for this build: https://github.com/klikli-dev/occultism/releases/tag/${{ steps.get_release_type.outputs.result }}%2Fv${{ steps.get_mc_version.outputs.result }}-${{ steps.get_version.outputs.result }}
             Find changes for all versions at https://github.com/klikli-dev/occultism/releases
           display_name: occultism-${{ steps.get_version.outputs.result }}.jar
-          game_versions: Forge,1.16.2,1.16.3,1.16.4,1.16.5,${{ steps.get_mc_version.outputs.result }}
+          game_versions: Forge,${{ steps.get_mc_version.outputs.result }}
           release_type: ${{ steps.get_release_type.outputs.result }}
           relations: patchouli:requiredDependency,curios:requiredDependency
-#      - name: Upload to Curseforge via Cursegradle
-#        id: curseforge
-#        if: ${{ steps.get_release_type.outputs.result }} != "test"
-#        run: ./gradlew curseforge
-#        env:
-#          VERSION: ${{ steps.get_version.outputs.result }}
-#          MC_VERSION: ${{ steps.get_mc_version.outputs.result }}
-#          RELEASE_TYPE: ${{ steps.get_release_type.outputs.result }}
-#          CURSEFORGE_API_KEY: ${{ secrets.CURSEFORGE_API_KEY }}
