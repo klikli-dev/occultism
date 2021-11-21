@@ -27,6 +27,7 @@ import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import net.minecraft.Util;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.storage.ServerLevelData;
 
 public class NightTimeJob extends ChangeTimeJob {
 
@@ -40,7 +41,7 @@ public class NightTimeJob extends ChangeTimeJob {
     @Override
     public void changeTime() {
         if (Occultism.SERVER_CONFIG.rituals.enableClearWeatherRitual.get()) {
-            ServerLevel level = (ServerLevel) this.entity.level.getLevelData();
+            ServerLevelData level = (ServerLevelData) this.entity.level.getLevelData();
             level.setDayTime(13000);
         } else {
             this.entity.getOwner().sendMessage(new TranslatableComponent("ritual.occultism.disabled"), Util.NIL_UUID);
