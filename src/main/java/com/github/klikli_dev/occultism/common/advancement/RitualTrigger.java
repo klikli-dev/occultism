@@ -27,10 +27,7 @@ import com.github.klikli_dev.occultism.common.ritual.Ritual;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonNull;
 import com.google.gson.JsonObject;
-import net.minecraft.advancements.critereon.AbstractCriterionTriggerInstance;
-import net.minecraft.advancements.critereon.DeserializationContext;
-import net.minecraft.advancements.critereon.EntityPredicate;
-import net.minecraft.advancements.critereon.SimpleCriterionTrigger;
+import net.minecraft.advancements.critereon.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.GsonHelper;
@@ -64,11 +61,8 @@ public class RitualTrigger extends SimpleCriterionTrigger<RitualTrigger.Instance
 
     public static class Instance extends AbstractCriterionTriggerInstance {
 
-        // region Fields
         RitualPredicate ritualPredicate;
-        // endregion Fields
 
-        // region Initialization
         public Instance(RitualPredicate ritualPredicate) {
             super(RitualTrigger.ID, EntityPredicate.Composite.ANY);
             this.ritualPredicate = ritualPredicate;
@@ -78,7 +72,12 @@ public class RitualTrigger extends SimpleCriterionTrigger<RitualTrigger.Instance
             return this.ritualPredicate.test(ritual);
         }
 
-        //endregion Methods
+        public JsonObject serializeToJson(SerializationContext pConditions) {
+            JsonObject jsonobject = super.serializeToJson(pConditions);
+            jsonobject.add("ritual_predicate", this.ritualPredicate.serialize());
+            return jsonobject;
+        }
+
     }
 
     public static class RitualPredicate {
