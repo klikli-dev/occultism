@@ -70,8 +70,6 @@ public class WorldGenHandler {
     @SubscribeEvent
     public static void onBiomeLoading(BiomeLoadingEvent event) {
 
-        if (Occultism.COMMON_CONFIG.worldGen.oreGen.copperOre.generateOre.get())
-            event.getGeneration().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, COPPER_ORE);
         if (Occultism.COMMON_CONFIG.worldGen.oreGen.silverOre.generateOre.get())
             event.getGeneration().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, SILVER_ORE);
         if (Occultism.COMMON_CONFIG.worldGen.oreGen.iesniumOre.generateOre.get())
@@ -86,20 +84,9 @@ public class WorldGenHandler {
         OccultismCommonConfig.WorldGenSettings.UndergroundGroveGenSettings groveGen =
                 Occultism.COMMON_CONFIG.worldGen.undergroundGroveGen;
 
-        VerticalAnchor copperMaxAnchor = oreGen.copperOre.maximum.get() > 0 ?
-                VerticalAnchor.absolute(oreGen.copperOre.maximum.get()) :
-                VerticalAnchor.belowTop(-oreGen.copperOre.maximum.get());
-        COPPER_ORE = Feature.ORE.configured(
-                        new OreConfiguration(
-                                new TagMatchTest(oreGen.copperOre.getFillerBlockTag()),
-                                OccultismBlocks.COPPER_ORE.get().defaultBlockState(), oreGen.copperOre.size.get()))
-                .rangeUniform(VerticalAnchor.aboveBottom(oreGen.copperOre.bottomOffset.get()), copperMaxAnchor)
-                .squared().count(oreGen.copperOre.count.get());
-        Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, modLoc("copper_ore"), COPPER_ORE);
-
-        VerticalAnchor silverMaxAnchor = oreGen.copperOre.maximum.get() > 0 ?
-                VerticalAnchor.absolute(oreGen.copperOre.maximum.get()) :
-                VerticalAnchor.belowTop(-oreGen.copperOre.maximum.get());
+        VerticalAnchor silverMaxAnchor = oreGen.silverOre.maximum.get() > 0 ?
+                VerticalAnchor.absolute(oreGen.silverOre.maximum.get()) :
+                VerticalAnchor.belowTop(-oreGen.silverOre.maximum.get());
         SILVER_ORE = Feature.ORE.configured(
                         new OreConfiguration(
                                 new TagMatchTest(oreGen.silverOre.getFillerBlockTag()),
@@ -108,9 +95,9 @@ public class WorldGenHandler {
                 .squared().count(oreGen.silverOre.count.get());
         Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, modLoc("silver_ore"), SILVER_ORE);
 
-        VerticalAnchor iesniumMaxAnchor = oreGen.copperOre.maximum.get() > 0 ?
-                VerticalAnchor.absolute(oreGen.copperOre.maximum.get()) :
-                VerticalAnchor.belowTop(-oreGen.copperOre.maximum.get());
+        VerticalAnchor iesniumMaxAnchor = oreGen.iesniumOre.maximum.get() > 0 ?
+                VerticalAnchor.absolute(oreGen.iesniumOre.maximum.get()) :
+                VerticalAnchor.belowTop(-oreGen.iesniumOre.maximum.get());
         IESNIUM_ORE = Feature.ORE.configured(
                         new OreConfiguration(
                                 new TagMatchTest(oreGen.iesniumOre.getFillerBlockTag()),

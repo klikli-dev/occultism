@@ -1,0 +1,11 @@
+{
+  "type": "occultism:crushing",
+  "ingredient": {
+    "tag": "forge:raw_ores/iron"
+  },
+  "result": {
+    "item": "occultism:iron_dust",
+    "count": 2
+  },
+  "crushing_time": 200
+}

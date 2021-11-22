@@ -190,6 +190,9 @@ public class StandardLootTableProvider extends BaseLootTableProvider {
             this.add(OccultismBlocks.OTHERWORLD_LEAVES.get(),
                     (block) -> createLeavesDrops(block, OccultismBlocks.OTHERWORLD_SAPLING.get(),
                             DEFAULT_SAPLING_DROP_RATES));
+
+            createOreDrop(OccultismBlocks.SILVER_ORE.get(), OccultismItems.RAW_SILVER.get());
+            createOreDrop(OccultismBlocks.IESNIUM_ORE.get(), OccultismItems.RAW_IESNIUM.get());
         }
 
         @Override

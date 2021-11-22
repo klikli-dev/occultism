@@ -61,17 +61,12 @@ public class OccultismCommonConfig {
         }
 
         public static class OreGenSettings {
-            public final OreSettings copperOre;
             public final OreSettings silverOre;
             public final OreSettings iesniumOre;
 
             public OreGenSettings(ForgeConfigSpec.Builder builder) {
                 builder.comment("Ore Gen Settings").push("oregen");
-
-                this.copperOre =
-                        new OreSettings("copperOre",
-                                BlockTags.BASE_STONE_OVERWORLD, 9,
-                                10, 20, 0, 64, builder);
+                
                 this.silverOre =
                         new OreSettings("silverOre",
                                 BlockTags.BASE_STONE_OVERWORLD, 7,

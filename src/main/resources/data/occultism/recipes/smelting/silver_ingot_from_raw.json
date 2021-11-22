@@ -1,9 +1,9 @@
 {
   "type": "minecraft:smelting",
   "ingredient": {
-    "tag": "forge:dusts/copper"
+    "tag": "forge:raw_ores/silver"
   },
-  "result": "minecraft:copper_ingot",
+  "result": "occultism:silver_ingot",
   "experience": 0.7,
   "cookingtime": 200
 }

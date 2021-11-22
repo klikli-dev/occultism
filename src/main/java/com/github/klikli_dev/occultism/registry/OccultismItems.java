@@ -110,15 +110,16 @@ public class OccultismItems {
     public static final RegistryObject<Item> CHALK_PURPLE_IMPURE = ITEMS.register("chalk_purple_impure",
             () -> new Item(defaultProperties()));
 
-    public static final RegistryObject<Item> COPPER_INGOT = ITEMS.register("copper_ingot",
+    public static final RegistryObject<Item> RAW_SILVER = ITEMS.register("raw_silver",
             () -> new Item(defaultProperties()));
+    public static final RegistryObject<Item> RAW_IESNIUM = ITEMS.register("raw_iesnium",
+            () -> new Item(defaultProperties()));
+
     public static final RegistryObject<Item> SILVER_INGOT = ITEMS.register("silver_ingot",
             () -> new Item(defaultProperties()));
     public static final RegistryObject<Item> IESNIUM_INGOT = ITEMS.register("iesnium_ingot",
             () -> new Item(defaultProperties()));
 
-    public static final RegistryObject<Item> COPPER_NUGGET = ITEMS.register("copper_nugget",
-            () -> new Item(defaultProperties()));
     public static final RegistryObject<Item> SILVER_NUGGET = ITEMS.register("silver_nugget",
             () -> new Item(defaultProperties()));
     public static final RegistryObject<Item> IESNIUM_NUGGET = ITEMS.register("iesnium_nugget",
