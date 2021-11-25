@@ -16,12 +16,12 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.RELEASE_NOTES_TOKEN }}
           USE_MILESTONE_TITLE: "true"
           FILENAME: release
-      - name: Get Previous tag
-        id: previoustag
-        uses: WyriHaximus/github-action-get-previous-tag@v1
+      - name: Get Tag matching milestone
+        id: milestonetag
+        uses: klikli-dev/get-tag-from-milestone@master
       - name: Update Release
         uses: softprops/action-gh-release@v1
         with:
           body_path: release.md
           token: ${{ secrets.RELEASE_NOTES_TOKEN }}
-          tag_name: ${{ steps.previoustag.outputs.tag }}
+          tag_name: ${{ steps.milestonetag.outputs.tag }}
