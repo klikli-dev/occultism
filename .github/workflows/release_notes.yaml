@@ -18,7 +18,7 @@ jobs:
           FILENAME: release
       - name: Get Tag matching milestone
         id: milestonetag
-        uses: klikli-dev/get-tag-from-milestone@master
+        uses: klikli-dev/get-tag-from-milestone@main
       - name: Update Release
         uses: softprops/action-gh-release@v1
         with:
