@@ -25,6 +25,7 @@ package com.github.klikli_dev.occultism.config;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
 import net.minecraftforge.common.ForgeConfigSpec.ConfigValue;
+import net.minecraftforge.common.ForgeConfigSpec.DoubleValue;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -193,6 +194,7 @@ public class OccultismServerConfig {
         public final BooleanValue enableDayTimeRitual;
         public final BooleanValue enableNightTimeRitual;
         public final BooleanValue enableRemainingIngredientCountMatching;
+        public final DoubleValue ritualDurationMultiplier;
 
         public RitualSettings(ForgeConfigSpec.Builder builder) {
             builder.comment("Ritual Settings").push("rituals");
@@ -218,6 +220,10 @@ public class OccultismServerConfig {
                                             "This should usually be disabled, but can improve performance if " +
                                             "(very very) many rituals are running.")
                             .define("enableRemainingIngredientCountMatching", false);
+            this.ritualDurationMultiplier =
+                    builder.comment("Set a value below 1.0 to speed up rituals.")
+                            .defineInRange("ritualDurationMultiplier", 1.0, 0.0, Double.MAX_VALUE);
+
             builder.pop();
         }
     }

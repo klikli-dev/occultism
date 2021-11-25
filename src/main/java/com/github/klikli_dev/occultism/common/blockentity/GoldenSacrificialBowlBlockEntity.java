@@ -338,7 +338,7 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
                 return;
             }
 
-            if (recipe.getDuration() >= 0 && this.currentTime >= recipe.getDuration())
+            if (recipe.getDuration() >= 0 && this.currentTime >= recipe.getDuration() * Occultism.SERVER_CONFIG.rituals.ritualDurationMultiplier.get())
                 this.stopRitual(true);
         }
     }
