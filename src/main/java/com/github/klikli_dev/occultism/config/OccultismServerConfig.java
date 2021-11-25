@@ -218,6 +218,7 @@ public class OccultismServerConfig extends ConfigBase {
         public final CachedBoolean enableDayTimeRitual;
         public final CachedBoolean enableNightTimeRitual;
         public final CachedBoolean enableRemainingIngredientCountMatching;
+        public final CachedFloat ritualDurationMultiplier;
         //endregion Fields
 
         //region Initialization
@@ -246,6 +247,9 @@ public class OccultismServerConfig extends ConfigBase {
                                             "This should usually be disabled, but can improve performance if " +
                                             "(very very) many rituals are running.")
                             .define("enableRemainingIngredientCountMatching", false));
+            this.ritualDurationMultiplier = CachedFloat.cache(this,
+                    builder.comment("Set a value below 1.0 to speed up rituals.")
+                            .define("ritualDurationMultiplier", 1.0));
             builder.pop();
         }
         //endregion Initialization
