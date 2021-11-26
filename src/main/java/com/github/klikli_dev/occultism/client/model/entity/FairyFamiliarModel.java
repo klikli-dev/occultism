@@ -303,25 +303,41 @@ public class FairyFamiliarModel extends EntityModel<FairyFamiliarEntity> {
         this.tail2.xRot = 0.27f + MathHelper.cos(pAgeInTicks * 0.2f) * toRads(10);
         this.tail3.xRot = 0.27f + MathHelper.cos(pAgeInTicks * 0.2f) * toRads(10);
 
-        if (pEntity.isPartying()) {
-            this.body.xRot = 0;
-            mainArm.xRot = pEntity.getPartyArmRotX(partialTicks);
-            mainArm.yRot = pEntity.getPartyArmRotY(partialTicks);
-        } else if (pEntity.isSitting()) {
-            this.body.xRot = toRads(90);
-            this.head.xRot = toRads(-10);
-            this.head.yRot = 0;
-            this.head.zRot = 0;
-            this.leftArm.xRot = toRads(-80) + MathHelper.cos(pAgeInTicks * 0.1f) * toRads(10);
-            this.rightArm.xRot = toRads(-80) + MathHelper.cos(pAgeInTicks * 0.1f + PI) * toRads(10);
-            this.leftWand.xRot = toRads(60);
-            this.rightWand.xRot = toRads(60);
-            this.leftLeg1.xRot = toRads(-80) + MathHelper.cos(pAgeInTicks * 0.1f + PI) * toRads(10);
-            this.rightLeg1.xRot = toRads(-80) + MathHelper.cos(pAgeInTicks * 0.1f) * toRads(10);
-            this.tail1.xRot = toRads(-130) + MathHelper.cos(pAgeInTicks * 0.1f) * toRads(5);
-            this.tail2.xRot = toRads(-15) + MathHelper.cos(pAgeInTicks * 0.05f) * toRads(5);
-            this.tail3.xRot = toRads(-15) + MathHelper.cos(pAgeInTicks * 0.05f) * toRads(5);
+        if (pEntity.hasMagicTarget()) {
+            this.body.xRot = toRads(20);
+            this.setRotateAngle(head, 0, 0, 0);
+            this.leftArm.xRot = toRads(-80) + MathHelper.cos(pAgeInTicks * 0.2f) * toRads(20);
+            this.rightArm.xRot = toRads(-80) + MathHelper.cos(pAgeInTicks * 0.2f) * toRads(20);
+            this.leftLeg1.xRot = toRads(20);
+            this.rightLeg1.xRot = toRads(20);
+        } else {
+            if (pEntity.isPartying()) {
+                this.body.xRot = 0;
+                mainArm.xRot = pEntity.getPartyArmRotX(partialTicks);
+                mainArm.yRot = pEntity.getPartyArmRotY(partialTicks);
+            } else if (pEntity.isSitting()) {
+                this.body.xRot = toRads(90);
+                this.head.xRot = toRads(-10);
+                this.head.yRot = 0;
+                this.head.zRot = 0;
+                this.leftArm.xRot = toRads(-80) + MathHelper.cos(pAgeInTicks * 0.1f) * toRads(10);
+                this.rightArm.xRot = toRads(-80) + MathHelper.cos(pAgeInTicks * 0.1f + PI) * toRads(10);
+                this.leftWand.xRot = toRads(60);
+                this.rightWand.xRot = toRads(60);
+                this.leftLeg1.xRot = toRads(-80) + MathHelper.cos(pAgeInTicks * 0.1f + PI) * toRads(10);
+                this.rightLeg1.xRot = toRads(-80) + MathHelper.cos(pAgeInTicks * 0.1f) * toRads(10);
+                this.tail1.xRot = toRads(-130) + MathHelper.cos(pAgeInTicks * 0.1f) * toRads(5);
+                this.tail2.xRot = toRads(-15) + MathHelper.cos(pAgeInTicks * 0.05f) * toRads(5);
+                this.tail3.xRot = toRads(-15) + MathHelper.cos(pAgeInTicks * 0.05f) * toRads(5);
+            }
         }
+
+        float supportAnim = pEntity.getSupportAnim(partialTicks);
+        if (supportAnim != 0) {
+            mainArm.xRot = toRads(-80) + MathHelper.sin(supportAnim * PI * 3) * toRads(35);
+            mainArm.yRot = MathHelper.cos(supportAnim * PI * 3) * toRads(35);
+        }
+
     }
 
     private float toRads(float deg) {

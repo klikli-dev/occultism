@@ -194,6 +194,7 @@ public class OccultismEntities {
             NonNullLazy.of(() -> EntityType.Builder.of(FairyFamiliarEntity::new, EntityClassification.CREATURE)
                                          .sized(0.6F, 1F)
                                          .clientTrackingRange(8)
+                                         .fireImmune()
                                          .build(modLoc("fairy_familiar").toString()));
     
     public static final NonNullLazy<EntityType<ThrownSwordEntity>> THROWN_SWORD_TYPE =

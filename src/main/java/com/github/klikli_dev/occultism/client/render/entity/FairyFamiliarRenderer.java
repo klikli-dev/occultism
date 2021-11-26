@@ -35,7 +35,11 @@ import net.minecraft.client.renderer.entity.IEntityRenderer;
 import net.minecraft.client.renderer.entity.LivingRenderer;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
+import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.vector.Quaternion;
+import net.minecraft.util.math.vector.Vector2f;
+import net.minecraft.util.math.vector.Vector3d;
 
 public class FairyFamiliarRenderer extends MobRenderer<FairyFamiliarEntity, FairyFamiliarModel> {
 
@@ -50,8 +54,25 @@ public class FairyFamiliarRenderer extends MobRenderer<FairyFamiliarEntity, Fair
     @Override
     public void render(FairyFamiliarEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn,
             IRenderTypeBuffer bufferIn, int packedLightIn) {
+        matrixStackIn.pushPose();
         matrixStackIn.translate(0, entityIn.getAnimationHeight(partialTicks), 0);
+        performMagicTransform(entityIn, entityYaw, partialTicks, matrixStackIn);
         super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
+        matrixStackIn.popPose();
+    }
+
+    private void performMagicTransform(FairyFamiliarEntity entityIn, float entityYaw, float partialTicks,
+            MatrixStack matrixStackIn) {
+        Entity target = entityIn.getMagicTarget();
+        if (target != null) {
+            Vector3d pos = entityIn.getMagicPosition(partialTicks).subtract(entityIn.getPosition(partialTicks));
+            Vector2f radiusAngle = entityIn.getMagicRadiusAngle(partialTicks);
+            matrixStackIn.translate(pos.x, pos.y, pos.z);
+            matrixStackIn.mulPose(new Quaternion(0, -radiusAngle.y, 0, false));
+            this.shadowStrength = 0;
+        } else {
+            this.shadowStrength = 1;
+        }
     }
 
     @Override
