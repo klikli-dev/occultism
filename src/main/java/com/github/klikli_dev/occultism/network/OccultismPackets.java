@@ -206,6 +206,12 @@ public class OccultismPackets {
                 MessageBeholderAttack::encode,
                 MessageBeholderAttack::new,
                 OccultismPacketHandler::handle);
+        
+        INSTANCE.registerMessage(nextID(),
+                MessageFairySupport.class,
+                MessageFairySupport::encode,
+                MessageFairySupport::new,
+                OccultismPacketHandler::handle);
     }
 
     public static <MSG> void sendTo(ServerPlayer player, MSG message) {

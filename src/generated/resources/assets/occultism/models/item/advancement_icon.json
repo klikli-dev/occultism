@@ -84,6 +84,12 @@
         "minecraft:custom_model_data": 13.0
       },
       "model": "occultism:item/advancement/beholder_icon"
+    },
+    {
+      "predicate": {
+        "minecraft:custom_model_data": 14.0
+      },
+      "model": "occultism:item/advancement/fairy_icon"
     }
   ]
 }

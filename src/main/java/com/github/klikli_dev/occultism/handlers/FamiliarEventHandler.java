@@ -24,10 +24,7 @@ package com.github.klikli_dev.occultism.handlers;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.advancement.FamiliarTrigger;
-import com.github.klikli_dev.occultism.common.entity.BeholderFamiliarEntity;
-import com.github.klikli_dev.occultism.common.entity.FamiliarEntity;
-import com.github.klikli_dev.occultism.common.entity.GuardianFamiliarEntity;
-import com.github.klikli_dev.occultism.common.entity.HeadlessFamiliarEntity;
+import com.github.klikli_dev.occultism.common.entity.*;
 import com.github.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.util.FamiliarUtil;
@@ -52,6 +49,35 @@ public class FamiliarEventHandler {
     public static void livingDeathEvent(LivingDeathEvent event) {
         guardianUltimateSacrifice(event);
         headlessStealHead(event);
+        fairySave(event);
+    }
+
+    private static void fairySave(LivingDeathEvent event) {
+        LivingEntity entity = event.getEntityLiving();
+
+        if (event.getSource().isBypassInvul() || !(entity instanceof IFamiliar)
+                || entity.getType() == OccultismEntities.GUARDIAN_FAMILIAR.get()
+                || entity.getType() == OccultismEntities.FAIRY_FAMILIAR.get())
+            return;
+
+        IFamiliar familiar = (IFamiliar) entity;
+
+        LivingEntity owner = familiar.getFamiliarOwner();
+
+        if (owner == null || !FamiliarUtil.isFamiliarEnabled(owner, OccultismEntities.FAIRY_FAMILIAR.get()))
+            return;
+
+        FairyFamiliarEntity fairy = FamiliarUtil.getFamiliar(owner, OccultismEntities.FAIRY_FAMILIAR.get());
+
+        if (fairy == null || !fairy.saveFamiliar(familiar))
+            return;
+
+        event.setCanceled(true);
+        entity.setHealth(2);
+        entity.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 20 * 5, 2));
+
+        if (!owner.level.isClientSide)
+            OccultismAdvancements.FAMILIAR.trigger(owner, FamiliarTrigger.Type.FAIRY_SAVE);
     }
 
     @SubscribeEvent
