@@ -80,6 +80,9 @@ public class FamiliarEventHandler {
         event.setCanceled(true);
         entity.setHealth(2);
         entity.addEffect(new EffectInstance(Effects.ABSORPTION, 20 * 5, 2));
+
+        if (!owner.level.isClientSide)
+            OccultismAdvancements.FAMILIAR.trigger(owner, FamiliarTrigger.Type.FAIRY_SAVE);
     }
 
     @SubscribeEvent
