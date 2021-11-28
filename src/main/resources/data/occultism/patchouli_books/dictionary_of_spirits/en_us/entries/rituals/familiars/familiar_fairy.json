@@ -6,7 +6,8 @@
   "pages": [
     {
       "type": "entity",
-      "entity": "occultism:fairy_familiar"
+      "entity": "occultism:fairy_familiar",
+      "scale": 0.7
     },
     {
       "type": "occultism:ritual",
