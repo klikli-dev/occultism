@@ -1,28 +1,18 @@
 {
-  "type": "minecraft:decorated",
+  "type": "occultism:underground_grove",
   "config": {
-    "feature": {
-      "type": "occultism:underground_grove",
-      "config": {
-        "max_chunks_to_root": 7,
-        "chance_to_generate": 400,
-        "min_generation_height": 25,
-        "max_generation_height": 60,
-        "feature_seed_salt": 14653667,
-        "biome_type_blacklist": [
-          {
-            "name": "nether"
-          },
-          {
-            "name": "end"
-          }
-        ]
+    "max_chunks_to_root": 7,
+    "chance_to_generate": 400,
+    "min_generation_height": 25,
+    "max_generation_height": 60,
+    "feature_seed_salt": 14653667,
+    "biome_type_blacklist": [
+      {
+        "name": "nether"
+      },
+      {
+        "name": "end"
       }
-    },
-    "decorator": {
-      "type": "minecraft:nope",
-      "config": {
-      }
-    }
+    ]
   }
 }

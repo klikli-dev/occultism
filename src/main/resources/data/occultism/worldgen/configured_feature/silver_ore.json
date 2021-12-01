@@ -1,57 +1,18 @@
 {
   "config": {
-    "feature": {
-      "config": {
-        "feature": {
-          "config": {
-            "feature": {
-              "config": {
-                "targets": [
-                  {
-                    "target": {
-                      "tag": "minecraft:base_stone_overworld",
-                      "predicate_type": "minecraft:tag_match"
-                    },
-                    "state": {
-                      "Name": "occultism:silver_ore"
-                    }
-                  }
-                ],
-                "size": 7,
-                "discard_chance_on_air_exposure": 0.0
-              },
-              "type": "minecraft:ore"
-            },
-            "decorator": {
-              "config": {
-                "height": {
-                  "min_inclusive": {
-                    "above_bottom": 5
-                  },
-                  "max_inclusive": {
-                    "absolute": 30
-                  },
-                  "type": "minecraft:uniform"
-                }
-              },
-              "type": "minecraft:range"
-            }
-          },
-          "type": "minecraft:decorated"
+    "targets": [
+      {
+        "target": {
+          "tag": "minecraft:stone_ore_replaceables",
+          "predicate_type": "minecraft:tag_match"
         },
-        "decorator": {
-          "config": {},
-          "type": "minecraft:square"
+        "state": {
+          "Name": "occultism:silver_ore"
         }
-      },
-      "type": "minecraft:decorated"
-    },
-    "decorator": {
-      "config": {
-        "count": 3
-      },
-      "type": "minecraft:count"
-    }
+      }
+    ],
+    "size": 7,
+    "discard_chance_on_air_exposure": 0.0
   },
-  "type": "minecraft:decorated"
+  "type": "minecraft:ore"
 }
