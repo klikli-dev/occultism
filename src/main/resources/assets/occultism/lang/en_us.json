@@ -807,5 +807,6 @@
   "item.occultism.ritual_dummy.summon_wild_otherworld_bird.tooltip": "Summons a Drikwing Familiar that can be tamed by anyone, not just the summoner.",
   "item.occultism.ritual_dummy.summon_wild_parrot": "Ritual: Summon Wild Parrot",
   "item.occultism.ritual_dummy.summon_wild_parrot.tooltip": "Summons a Parrot that can be tamed by anyone, not just the summoner.",
-  "dialog.occultism.dragon.pet": "purrr"
+  "dialog.occultism.dragon.pet": "purrr",
+  "dialog.occultism.mummy.kapow": "KAPOW!"
 }

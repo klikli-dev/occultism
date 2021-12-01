@@ -25,12 +25,24 @@ package com.github.klikli_dev.occultism.client.render.entity;
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.client.model.entity.MummyFamiliarModel;
 import com.github.klikli_dev.occultism.common.entity.MummyFamiliarEntity;
+import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.IVertexBuilder;
 
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.client.renderer.entity.layers.LayerRenderer;
+import net.minecraft.client.renderer.model.Model;
+import net.minecraft.client.renderer.model.ModelRenderer;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.vector.Matrix4f;
+import net.minecraft.util.math.vector.Quaternion;
+import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.text.TranslationTextComponent;
 
 public class MummyFamiliarRenderer extends MobRenderer<MummyFamiliarEntity, MummyFamiliarModel> {
 
@@ -39,16 +51,80 @@ public class MummyFamiliarRenderer extends MobRenderer<MummyFamiliarEntity, Mumm
 
     public MummyFamiliarRenderer(EntityRendererManager renderManagerIn) {
         super(renderManagerIn, new MummyFamiliarModel(), 0.3f);
+        this.addLayer(new KapowLayer(this));
     }
 
     @Override
-    public void render(MummyFamiliarEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn,
+    public void render(MummyFamiliarEntity mummy, float entityYaw, float partialTicks, MatrixStack matrixStackIn,
             IRenderTypeBuffer bufferIn, int packedLightIn) {
-        super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
+        super.render(mummy, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
     }
 
     @Override
     public ResourceLocation getTextureLocation(MummyFamiliarEntity entity) {
         return TEXTURES;
+    }
+
+    private static class KapowLayer extends LayerRenderer<MummyFamiliarEntity, MummyFamiliarModel> {
+
+        private static final ResourceLocation KAPOW_TEXTURE = new ResourceLocation(Occultism.MODID,
+                "textures/entity/kapow.png");
+        private static final TranslationTextComponent KAPOW_TEXT = new TranslationTextComponent(
+                "dialog.occultism.mummy.kapow");
+
+        private static KapowModel model = new KapowModel();
+        private MummyFamiliarRenderer renderer;
+
+        public KapowLayer(MummyFamiliarRenderer renderer) {
+            super(renderer);
+            this.renderer = renderer;
+        }
+
+        @Override
+        public void render(MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn,
+                MummyFamiliarEntity entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks,
+                float ageInTicks, float netHeadYaw, float headPitch) {
+            float alpha = entitylivingbaseIn.getCapowAlpha(partialTicks);
+
+            matrixStackIn.pushPose();
+            float scale = 0.5f;
+            matrixStackIn.scale(scale, scale, scale);
+            Vector3d capowPos = entitylivingbaseIn.getCapowPosition(partialTicks);
+            matrixStackIn.translate(capowPos.x, -0.4 + capowPos.y, capowPos.z);
+            model.renderToBuffer(matrixStackIn, bufferIn.getBuffer(model.renderType(KAPOW_TEXTURE)), packedLightIn,
+                    OverlayTexture.NO_OVERLAY, 1, 1, 1, alpha);
+
+            matrixStackIn.pushPose();
+            matrixStackIn.scale(0.07f, 0.07f, 0.07f);
+            matrixStackIn.translate(0, -2.5, -0.01);
+            matrixStackIn.mulPose(new Quaternion(0, 0, 20, true));
+            Matrix4f matrix = matrixStackIn.last().pose();
+            FontRenderer font = renderer.getFont();
+            font.drawInBatch(KAPOW_TEXT, -font.width(KAPOW_TEXT) / 2, 0, 0xff0000 | ((int) (alpha * 255) << 24), true,
+                    matrix, bufferIn, false, 0, packedLightIn);
+            matrixStackIn.popPose();
+            matrixStackIn.popPose();
+        }
+    }
+
+    private static class KapowModel extends Model {
+        public ModelRenderer kapow;
+
+        public KapowModel() {
+            super(RenderType::entityTranslucent);
+            this.texWidth = 64;
+            this.texHeight = 32;
+            this.kapow = new ModelRenderer(this, 0, 0);
+            this.kapow.setPos(0.0F, 0.0F, 0.0F);
+            this.kapow.addBox(-16.0F, -16.0F, 0.0F, 32.0F, 32.0F, 0.0F, 0.0F, 0.0F, 0.0F);
+        }
+
+        @Override
+        public void renderToBuffer(MatrixStack matrixStackIn, IVertexBuilder bufferIn, int packedLightIn,
+                int packedOverlayIn, float red, float green, float blue, float alpha) {
+            ImmutableList.of(this.kapow).forEach((modelRenderer) -> {
+                modelRenderer.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
+            });
+        }
     }
 }
