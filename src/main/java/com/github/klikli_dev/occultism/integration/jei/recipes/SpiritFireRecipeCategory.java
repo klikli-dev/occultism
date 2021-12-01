@@ -28,90 +28,91 @@ import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.github.klikli_dev.occultism.registry.OccultismRecipes;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
-import mezz.jei.api.constants.VanillaTypes;
-import mezz.jei.api.gui.IRecipeLayout;
-import mezz.jei.api.gui.drawable.IDrawable;
-import mezz.jei.api.helpers.IGuiHelper;
-import mezz.jei.api.ingredients.IIngredients;
-import mezz.jei.api.recipe.category.IRecipeCategory;
+//import mezz.jei.api.constants.VanillaTypes;
+//import mezz.jei.api.gui.IRecipeLayout;
+//import mezz.jei.api.gui.drawable.IDrawable;
+//import mezz.jei.api.helpers.IGuiHelper;
+//import mezz.jei.api.ingredients.IIngredients;
+//import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
-public class SpiritFireRecipeCategory implements IRecipeCategory<SpiritFireRecipe> {
-
-    //region Fields
-    private final IDrawable background;
-    private final Component localizedName;
-    private final IDrawable overlay;
-    private final IDrawable icon;
-    private final ItemStack renderStack = new ItemStack(OccultismItems.SPIRIT_FIRE.get());
-    //endregion Fields
-
-    //region Initialization
-    public SpiritFireRecipeCategory(IGuiHelper guiHelper) {
-        this.background = guiHelper.createBlankDrawable(168, 46); //64
-        this.localizedName = new TranslatableComponent(Occultism.MODID + ".jei.spirit_fire");
-        this.overlay = guiHelper.createDrawable(
-                new ResourceLocation(Occultism.MODID, "textures/gui/jei/spirit_fire.png"), 0, 0, 64, 46);
-        this.icon = guiHelper.createDrawableIngredient(this.renderStack);
-        this.renderStack.getOrCreateTag().putBoolean("RenderFull", true);
-    }
-    //endregion Initialization
-
-    //region Overrides
-    @Override
-    public ResourceLocation getUid() {
-        return OccultismRecipes.SPIRIT_FIRE.getId();
-    }
-
-    @Override
-    public Class<? extends SpiritFireRecipe> getRecipeClass() {
-        return SpiritFireRecipe.class;
-    }
-
-    @Override
-    public Component getTitle() {
-        return this.localizedName;
-    }
-
-    @Override
-    public IDrawable getBackground() {
-        return this.background;
-    }
-
-    @Override
-    public IDrawable getIcon() {
-        return this.icon;
-    }
-
-    @Override
-    public void setIngredients(SpiritFireRecipe recipe, IIngredients ingredients) {
-        ingredients.setInputIngredients(recipe.getIngredients());
-        ingredients.setOutput(VanillaTypes.ITEM, recipe.getResultItem());
-    }
-
-    @Override
-    public void setRecipe(IRecipeLayout recipeLayout, SpiritFireRecipe recipe, IIngredients ingredients) {
-        int index = 0;
-
-        recipeLayout.getItemStacks().init(index, true, 40, 12);
-        recipeLayout.getItemStacks().set(index, ingredients.getInputs(VanillaTypes.ITEM).get(0));
-        index++;
-
-        recipeLayout.getItemStacks().init(index, true, 75, 12);
-        recipeLayout.getItemStacks().set(index, this.renderStack);
-        index++;
-
-        recipeLayout.getItemStacks().init(index, false, 110, 12);
-        recipeLayout.getItemStacks().set(index, ingredients.getOutputs(VanillaTypes.ITEM).get(0));
-    }
-
-    @Override
-    public void draw(SpiritFireRecipe recipe, PoseStack poseStack, double mouseX, double mouseY) {
-        RenderSystem.enableBlend();
-        this.overlay.draw(poseStack, 48, 0);
-    }
-    //endregion Overrides
-}
+//TODO: Patchouli
+//public class SpiritFireRecipeCategory implements IRecipeCategory<SpiritFireRecipe> {
+//
+//    //region Fields
+//    private final IDrawable background;
+//    private final Component localizedName;
+//    private final IDrawable overlay;
+//    private final IDrawable icon;
+//    private final ItemStack renderStack = new ItemStack(OccultismItems.SPIRIT_FIRE.get());
+//    //endregion Fields
+//
+//    //region Initialization
+//    public SpiritFireRecipeCategory(IGuiHelper guiHelper) {
+//        this.background = guiHelper.createBlankDrawable(168, 46); //64
+//        this.localizedName = new TranslatableComponent(Occultism.MODID + ".jei.spirit_fire");
+//        this.overlay = guiHelper.createDrawable(
+//                new ResourceLocation(Occultism.MODID, "textures/gui/jei/spirit_fire.png"), 0, 0, 64, 46);
+//        this.icon = guiHelper.createDrawableIngredient(this.renderStack);
+//        this.renderStack.getOrCreateTag().putBoolean("RenderFull", true);
+//    }
+//    //endregion Initialization
+//
+//    //region Overrides
+//    @Override
+//    public ResourceLocation getUid() {
+//        return OccultismRecipes.SPIRIT_FIRE.getId();
+//    }
+//
+//    @Override
+//    public Class<? extends SpiritFireRecipe> getRecipeClass() {
+//        return SpiritFireRecipe.class;
+//    }
+//
+//    @Override
+//    public Component getTitle() {
+//        return this.localizedName;
+//    }
+//
+//    @Override
+//    public IDrawable getBackground() {
+//        return this.background;
+//    }
+//
+//    @Override
+//    public IDrawable getIcon() {
+//        return this.icon;
+//    }
+//
+//    @Override
+//    public void setIngredients(SpiritFireRecipe recipe, IIngredients ingredients) {
+//        ingredients.setInputIngredients(recipe.getIngredients());
+//        ingredients.setOutput(VanillaTypes.ITEM, recipe.getResultItem());
+//    }
+//
+//    @Override
+//    public void setRecipe(IRecipeLayout recipeLayout, SpiritFireRecipe recipe, IIngredients ingredients) {
+//        int index = 0;
+//
+//        recipeLayout.getItemStacks().init(index, true, 40, 12);
+//        recipeLayout.getItemStacks().set(index, ingredients.getInputs(VanillaTypes.ITEM).get(0));
+//        index++;
+//
+//        recipeLayout.getItemStacks().init(index, true, 75, 12);
+//        recipeLayout.getItemStacks().set(index, this.renderStack);
+//        index++;
+//
+//        recipeLayout.getItemStacks().init(index, false, 110, 12);
+//        recipeLayout.getItemStacks().set(index, ingredients.getOutputs(VanillaTypes.ITEM).get(0));
+//    }
+//
+//    @Override
+//    public void draw(SpiritFireRecipe recipe, PoseStack poseStack, double mouseX, double mouseY) {
+//        RenderSystem.enableBlend();
+//        this.overlay.draw(poseStack, 48, 0);
+//    }
+//    //endregion Overrides
+//}

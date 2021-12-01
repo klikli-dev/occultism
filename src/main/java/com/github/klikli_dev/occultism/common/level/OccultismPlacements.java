@@ -59,7 +59,7 @@ public class OccultismPlacements {
         VerticalAnchor iesniumMaxAnchor = oreGen.iesniumOre.maximum.get() > 0 ?
                 VerticalAnchor.absolute(oreGen.iesniumOre.maximum.get()) :
                 VerticalAnchor.belowTop(-oreGen.iesniumOre.maximum.get());
-        SILVER_ORE = OccultismFeatures.IESNIUM_ORE.placed(commonOrePlacement(oreGen.iesniumOre.count.get(),
+        IESNIUM_ORE = OccultismFeatures.IESNIUM_ORE.placed(commonOrePlacement(oreGen.iesniumOre.count.get(),
                 HeightRangePlacement.triangle(VerticalAnchor.aboveBottom(oreGen.iesniumOre.bottomOffset.get()), iesniumMaxAnchor)));
         Registry.register(BuiltinRegistries.PLACED_FEATURE, modLoc("iesnium_ore"), IESNIUM_ORE);
 

@@ -39,11 +39,11 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.registries.ForgeRegistries;
-import vazkii.patchouli.api.IMultiblock;
-import vazkii.patchouli.api.IMultiblock.SimulateResult;
-import vazkii.patchouli.api.IStateMatcher;
-import vazkii.patchouli.api.PatchouliAPI;
-import vazkii.patchouli.api.TriPredicate;
+//import vazkii.patchouli.api.IMultiblock;
+//import vazkii.patchouli.api.IMultiblock.SimulateResult;
+//import vazkii.patchouli.api.IStateMatcher;
+//import vazkii.patchouli.api.PatchouliAPI;
+//import vazkii.patchouli.api.TriPredicate;
 
 import java.util.*;
 import java.util.Map.Entry;
@@ -52,7 +52,7 @@ public class Pentacle {
     private final ResourceLocation rl;
     private final List<String> pattern;
     private final Map<Character, JsonElement> mappings;
-    private final IMultiblock matcher;
+//    private final IMultiblock matcher;
 
     public Pentacle(ResourceLocation rl, List<String> pattern, Map<Character, JsonElement> mappings) {
         this.rl = rl;
@@ -70,27 +70,27 @@ public class Pentacle {
                     throw new IllegalArgumentException("Pentacle mappings is missing " + c);
             }
         }
-
-        var api = PatchouliAPI.get();
-        String[][] multiPattern = new String[1][pattern.size()];
-        for (int i = 0; i < pattern.size(); i++)
-            multiPattern[0][i] = pattern.get(pattern.size() - 1 - i);
-        List<Object> multiMappings = new ArrayList<>();
-        for (Entry<Character, JsonElement> entry : mappings.entrySet()) {
-            multiMappings.add(entry.getKey());
-            multiMappings.add(parseStateMatcher(entry.getValue()));
-        }
-        // Space == whatever
-        multiMappings.add(' ');
-        multiMappings.add(api.anyMatcher());
-
-        ResourceLocation multiRL = new ResourceLocation(rl.getNamespace(), "pentacle." + rl.getPath());
-        this.matcher = api.makeMultiblock(multiPattern, multiMappings.toArray());
-        this.matcher.setId(multiRL);
-        try {
-            PatchouliAPI.get().registerMultiblock(multiRL, this.matcher);
-        } catch (IllegalArgumentException e) { // Patchouli weirdness
-        }
+   //TODO: Patchouli
+//        var api = PatchouliAPI.get();
+//        String[][] multiPattern = new String[1][pattern.size()];
+//        for (int i = 0; i < pattern.size(); i++)
+//            multiPattern[0][i] = pattern.get(pattern.size() - 1 - i);
+//        List<Object> multiMappings = new ArrayList<>();
+//        for (Entry<Character, JsonElement> entry : mappings.entrySet()) {
+//            multiMappings.add(entry.getKey());
+//            multiMappings.add(parseStateMatcher(entry.getValue()));
+//        }
+//        // Space == whatever
+//        multiMappings.add(' ');
+//        multiMappings.add(api.anyMatcher());
+//
+//        ResourceLocation multiRL = new ResourceLocation(rl.getNamespace(), "pentacle." + rl.getPath());
+//        this.matcher = api.makeMultiblock(multiPattern, multiMappings.toArray());
+//        this.matcher.setId(multiRL);
+//        try {
+//            PatchouliAPI.get().registerMultiblock(multiRL, this.matcher);
+//        } catch (IllegalArgumentException e) { // Patchouli weirdness
+//        }
     }
 
     public static Pentacle fromJson(ResourceLocation rl, JsonObject json) {
@@ -122,66 +122,68 @@ public class Pentacle {
             mappings.put(buffer.readChar(), parser.parse(buffer.readUtf()));
         return new Pentacle(key, pattern, mappings);
     }
-
-    public static IStateMatcher parseStateMatcher(JsonElement matcher) {
-        if (matcher.isJsonObject()) {
-            JsonObject jsonObject = matcher.getAsJsonObject();
-            Block display = null;
-            if (jsonObject.has("display")) {
-                ResourceLocation displayRL = new ResourceLocation(GsonHelper.getAsString(jsonObject, "display"));
-                display = ForgeRegistries.BLOCKS.getValue(displayRL);
-                if (display == null)
-                    throw new JsonSyntaxException("Invalid display" + displayRL);
-            }
-            if (jsonObject.has("block")) {
-                ResourceLocation blockRL = new ResourceLocation(GsonHelper.getAsString(jsonObject, "block"));
-                Block block = ForgeRegistries.BLOCKS.getValue(blockRL);
-                if (block == null)
-                    throw new JsonSyntaxException("Invalid block " + blockRL);
-
-                if (display != null) {
-                    return OM(PatchouliAPI.get().predicateMatcher(display, s -> s.getBlock() == block), block);
-                } else {
-                    return OM(PatchouliAPI.get().looseBlockMatcher(block), block);
-                }
-            } else if (jsonObject.has("tag")) {
-                ResourceLocation tagRL = new ResourceLocation(GsonHelper.getAsString(jsonObject, "tag"));
-                Tag<Block> tag = SerializationTags.getInstance().getTagOrThrow(Registry.BLOCK_REGISTRY, tagRL, (rl) -> {
-                    return new JsonSyntaxException("Unknown block tag '" + rl + "'");
-                });
-
-                if (tag == null)
-                    throw new JsonSyntaxException("Invalid tag " + tagRL);
-                if (display == null)
-                    throw new JsonSyntaxException("No display set for tag " + tagRL);
-                return OM(PatchouliAPI.get().predicateMatcher(display, s -> tag.contains(s.getBlock())));
-            } else if (display != null) {
-                return OM(PatchouliAPI.get().displayOnlyMatcher(display));
-            }
-        }
-
-        // if it's a primitive we assume it's a block
-        ResourceLocation blockRL = new ResourceLocation(matcher.getAsString());
-        Block block = ForgeRegistries.BLOCKS.getValue(blockRL);
-        if (block == null)
-            throw new JsonSyntaxException("Invalid block " + blockRL);
-        return OM(PatchouliAPI.get().looseBlockMatcher(block), block);
-    }
-
-    private static OccultismMatcher OM(IStateMatcher matcher) {
-        return new OccultismMatcher(matcher);
-    }
-
-    private static OccultismMatcher OM(IStateMatcher matcher, Block block) {
-        return new OccultismMatcher(matcher, block);
-    }
+    //TODO: Patchouli
+//    public static IStateMatcher parseStateMatcher(JsonElement matcher) {
+//        if (matcher.isJsonObject()) {
+//            JsonObject jsonObject = matcher.getAsJsonObject();
+//            Block display = null;
+//            if (jsonObject.has("display")) {
+//                ResourceLocation displayRL = new ResourceLocation(GsonHelper.getAsString(jsonObject, "display"));
+//                display = ForgeRegistries.BLOCKS.getValue(displayRL);
+//                if (display == null)
+//                    throw new JsonSyntaxException("Invalid display" + displayRL);
+//            }
+//            if (jsonObject.has("block")) {
+//                ResourceLocation blockRL = new ResourceLocation(GsonHelper.getAsString(jsonObject, "block"));
+//                Block block = ForgeRegistries.BLOCKS.getValue(blockRL);
+//                if (block == null)
+//                    throw new JsonSyntaxException("Invalid block " + blockRL);
+//
+//                if (display != null) {
+//                    return OM(PatchouliAPI.get().predicateMatcher(display, s -> s.getBlock() == block), block);
+//                } else {
+//                    return OM(PatchouliAPI.get().looseBlockMatcher(block), block);
+//                }
+//            } else if (jsonObject.has("tag")) {
+//                ResourceLocation tagRL = new ResourceLocation(GsonHelper.getAsString(jsonObject, "tag"));
+//                Tag<Block> tag = SerializationTags.getInstance().getTagOrThrow(Registry.BLOCK_REGISTRY, tagRL, (rl) -> {
+//                    return new JsonSyntaxException("Unknown block tag '" + rl + "'");
+//                });
+//
+//                if (tag == null)
+//                    throw new JsonSyntaxException("Invalid tag " + tagRL);
+//                if (display == null)
+//                    throw new JsonSyntaxException("No display set for tag " + tagRL);
+//                return OM(PatchouliAPI.get().predicateMatcher(display, s -> tag.contains(s.getBlock())));
+//            } else if (display != null) {
+//                return OM(PatchouliAPI.get().displayOnlyMatcher(display));
+//            }
+//        }
+//
+//        // if it's a primitive we assume it's a block
+//        ResourceLocation blockRL = new ResourceLocation(matcher.getAsString());
+//        Block block = ForgeRegistries.BLOCKS.getValue(blockRL);
+//        if (block == null)
+//            throw new JsonSyntaxException("Invalid block " + blockRL);
+//        return OM(PatchouliAPI.get().looseBlockMatcher(block), block);
+//    }
+//
+//    private static OccultismMatcher OM(IStateMatcher matcher) {
+//        return new OccultismMatcher(matcher);
+//    }
+//
+//    private static OccultismMatcher OM(IStateMatcher matcher, Block block) {
+//        return new OccultismMatcher(matcher, block);
+//    }
 
     public String getDescriptionId() {
         return Util.makeDescriptionId("pentacle", this.rl);
     }
 
     public boolean validate(Level level, BlockPos pos) {
-        return this.matcher.validate(level, pos) != null;
+        //TODO: Patchouli
+        //return this.matcher.validate(level, pos) != null;
+        return true;
     }
 
     // Return the positions that are wrong
@@ -192,13 +194,14 @@ public class Pentacle {
         Map<BlockPos, Block> difference;
         for (Rotation rot : Rotation.values()) {
             difference = new HashMap<>();
-            Pair<BlockPos, Collection<SimulateResult>> sim = this.matcher.simulate(level, pos, rot, false);
-
-            for (SimulateResult result : sim.getSecond()) {
-                if (!result.test(level, rot)) {
-                    difference.put(result.getWorldPosition(), result.getStateMatcher().getDisplayedState(0).getBlock());
-                }
-            }
+            //TODO: Patchouli
+//            Pair<BlockPos, Collection<SimulateResult>> sim = this.matcher.simulate(level, pos, rot, false);
+//
+//            for (SimulateResult result : sim.getSecond()) {
+//                if (!result.test(level, rot)) {
+//                    difference.put(result.getWorldPosition(), result.getStateMatcher().getDisplayedState(0).getBlock());
+//                }
+//            }
 
             if (difference.size() < minDiffSize) {
                 minDifference = difference;
@@ -234,33 +237,34 @@ public class Pentacle {
     }
 
     // Matcher wrapper to handle the case of cycling through the different glyphs
-    private static class OccultismMatcher implements IStateMatcher {
-
-        private final IStateMatcher matcher;
-        private final Block block;
-
-        private OccultismMatcher(IStateMatcher matcher, Block block) {
-            this.matcher = matcher;
-            this.block = block;
-        }
-
-        private OccultismMatcher(IStateMatcher matcher) {
-            this(matcher, null);
-        }
-
-        @Override
-        public BlockState getDisplayedState(int ticks) {
-            if (this.block instanceof ChalkGlyphBlock) {
-                return this.block.defaultBlockState().setValue(ChalkGlyphBlock.SIGN, ticks / 20 % ChalkGlyphBlock.MAX_SIGN);
-            }
-
-            return this.matcher.getDisplayedState(ticks);
-        }
-
-        @Override
-        public TriPredicate<BlockGetter, BlockPos, BlockState> getStatePredicate() {
-            return this.matcher.getStatePredicate();
-        }
-
-    }
+    //TODO: Patchouli
+//    private static class OccultismMatcher implements IStateMatcher {
+//
+//        private final IStateMatcher matcher;
+//        private final Block block;
+//
+//        private OccultismMatcher(IStateMatcher matcher, Block block) {
+//            this.matcher = matcher;
+//            this.block = block;
+//        }
+//
+//        private OccultismMatcher(IStateMatcher matcher) {
+//            this(matcher, null);
+//        }
+//
+//        @Override
+//        public BlockState getDisplayedState(int ticks) {
+//            if (this.block instanceof ChalkGlyphBlock) {
+//                return this.block.defaultBlockState().setValue(ChalkGlyphBlock.SIGN, ticks / 20 % ChalkGlyphBlock.MAX_SIGN);
+//            }
+//
+//            return this.matcher.getDisplayedState(ticks);
+//        }
+//
+//        @Override
+//        public TriPredicate<BlockGetter, BlockPos, BlockState> getStatePredicate() {
+//            return this.matcher.getStatePredicate();
+//        }
+//
+//    }
 }
