@@ -22,6 +22,7 @@
 
 package com.github.klikli_dev.occultism.common.level.tree;
 
+import com.github.klikli_dev.occultism.common.level.OccultismFeatures;
 import com.github.klikli_dev.occultism.common.level.WorldGenHandler;
 import net.minecraft.world.level.block.grower.AbstractTreeGrower;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
@@ -31,16 +32,11 @@ import java.util.Random;
 
 public class OtherworldTreeGrower extends AbstractTreeGrower {
 
-    //region Initialization
     public OtherworldTreeGrower() {
     }
-    //endregion Initialization
-
-    //region Overrides
 
     @Override
     protected ConfiguredFeature<TreeConfiguration, ?> getConfiguredFeature(Random pRandom, boolean pLargeHive) {
-        return WorldGenHandler.OTHERWORLD_TREE;
+        return OccultismFeatures.OTHERWORLD_TREE;
     }
-    //endregion Overrides
 }

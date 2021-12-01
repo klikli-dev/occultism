@@ -98,15 +98,15 @@ public class RenderUtil {
                 multibuffersource$buffersource.endBatch();
             }
 
-            if (pStack.getItem().showDurabilityBar(pStack)) {
+            if (pStack.getItem().isBarVisible(pStack)) {
                 RenderSystem.disableDepthTest();
                 RenderSystem.disableTexture();
                 RenderSystem.disableBlend();
                 Tesselator tesselator = Tesselator.getInstance();
                 BufferBuilder bufferbuilder = tesselator.getBuilder();
-                double health = pStack.getItem().getDurabilityForDisplay(pStack);
+                double health = pStack.getItem().getBarWidth(pStack);
                 int i = Math.round(13.0F - (float) health * 13.0F);
-                int j = pStack.getItem().getRGBDurabilityForDisplay(pStack);
+                int j = pStack.getItem().getBarColor(pStack);
                 renderer.fillRect(bufferbuilder, pXPosition + 2, pYPosition + 13, 13, 2, 0, 0, 0, 255);
                 renderer.fillRect(bufferbuilder, pXPosition + 2, pYPosition + 13, i, 1, j >> 16 & 255, j >> 8 & 255, j & 255, 255);
                 RenderSystem.enableBlend();

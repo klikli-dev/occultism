@@ -70,8 +70,10 @@ public class MinerSpiritItem extends Item {
                 TextUtil.formatDemonName(ItemNBTUtil.getBoundSpiritName(stack))));
     }
 
+
+
     @Override
-    public double getDurabilityForDisplay(ItemStack stack) {
+    public int getBarWidth(ItemStack stack) {
         if (!this.hasInitializedMaxDamage) {
             this.hasInitializedMaxDamage = true;
             try {
@@ -80,7 +82,7 @@ public class MinerSpiritItem extends Item {
 
             }
         }
-        return super.getDurabilityForDisplay(stack);
+        return super.getBarWidth(stack);
     }
 
     @Override

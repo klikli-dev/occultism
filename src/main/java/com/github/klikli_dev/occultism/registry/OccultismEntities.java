@@ -32,9 +32,9 @@ import com.github.klikli_dev.occultism.common.entity.spirit.*;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraftforge.common.util.NonNullLazy;
-import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 
 import static com.github.klikli_dev.occultism.util.StaticUtil.modLoc;
 
