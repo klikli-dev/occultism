@@ -44,9 +44,9 @@ public abstract class NetworkedBlockEntity extends BlockEntity {
     }
 
     @Override
-    public CompoundTag save(CompoundTag compound) {
+    protected void saveAdditional(CompoundTag compound) {
         this.saveNetwork(compound);
-        return super.save(compound);
+        super.saveAdditional(compound);
     }
 
     @Override

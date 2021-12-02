@@ -398,13 +398,12 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
     }
 
     @Override
-    public CompoundTag save(CompoundTag compound) {
-        super.save(compound);
+    protected void saveAdditional(CompoundTag compound) {
+        super.saveAdditional(compound);
         compound.remove("linkedMachines"); //linked machines are not saved, they self-register.
         this.itemStackHandler.ifPresent(handler -> {
             compound.put("items", handler.serializeNBT());
         });
-        return compound;
     }
 
     @Override

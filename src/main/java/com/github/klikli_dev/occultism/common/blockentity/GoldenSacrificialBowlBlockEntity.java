@@ -224,7 +224,7 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
     //endregion Overrides
 
     @Override
-    public CompoundTag save(CompoundTag compound) {
+    protected void saveAdditional(CompoundTag compound) {
         if (this.getCurrentRitualRecipe() != null) {
             if (this.consumedIngredients.size() > 0) {
                 ListTag list = new ListTag();
@@ -236,7 +236,7 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
             compound.putBoolean("sacrificeProvided", this.sacrificeProvided);
             compound.putBoolean("requiredItemUsed", this.itemUseProvided);
         }
-        return super.save(compound);
+        super.saveAdditional(compound);
     }
 
     @Override
