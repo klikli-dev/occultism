@@ -34,6 +34,7 @@ import net.minecraft.data.loot.EntityLoot;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CropBlock;
@@ -191,8 +192,8 @@ public class StandardLootTableProvider extends BaseLootTableProvider {
                     (block) -> createLeavesDrops(block, OccultismBlocks.OTHERWORLD_SAPLING.get(),
                             DEFAULT_SAPLING_DROP_RATES));
 
-            createOreDrop(OccultismBlocks.SILVER_ORE.get(), OccultismItems.RAW_SILVER.get());
-            createOreDrop(OccultismBlocks.IESNIUM_ORE.get(), OccultismItems.RAW_IESNIUM.get());
+            this.add(OccultismBlocks.SILVER_ORE.get(), createOreDrop(OccultismBlocks.SILVER_ORE.get(), OccultismItems.RAW_SILVER.get()));
+            this.add(OccultismBlocks.IESNIUM_ORE.get(), createOreDrop(OccultismBlocks.IESNIUM_ORE.get(), OccultismItems.RAW_IESNIUM.get()));
         }
 
         @Override
@@ -227,16 +228,19 @@ public class StandardLootTableProvider extends BaseLootTableProvider {
 
         protected LootTable.Builder createOtherworldBlockTable(Block block) {
             IOtherworldBlock otherworldBlock = (IOtherworldBlock) block;
+            return createOtherworldBlockTable(block, otherworldBlock.getCoveredBlock(), otherworldBlock.getUncoveredBlock());
+        }
+
+        protected LootTable.Builder createOtherworldBlockTable(Block block, ItemLike coveredDrop, ItemLike uncoveredDrop) {
             LootItemCondition.Builder uncoveredCondition =
                     LootItemBlockStatePropertyCondition.hasBlockStateProperties(block).setProperties(
                             StatePropertiesPredicate.Builder.properties()
                                     .hasProperty(IOtherworldBlock.UNCOVERED, true));
             LootPool.Builder builder = LootPool.lootPool()
                     .setRolls(ConstantValue.exactly(1))
-                    .add(LootItem.lootTableItem(otherworldBlock.getUncoveredBlock())
+                    .add(LootItem.lootTableItem(uncoveredDrop)
                             .when(uncoveredCondition)
-                            .otherwise(LootItem.lootTableItem(
-                                    otherworldBlock.getCoveredBlock()))
+                            .otherwise(LootItem.lootTableItem(coveredDrop))
                     );
             return LootTable.lootTable().withPool(builder);
         }
