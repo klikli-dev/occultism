@@ -24,6 +24,7 @@ package com.github.klikli_dev.occultism.common.entity;
 
 import com.github.klikli_dev.occultism.common.advancement.FamiliarTrigger;
 import com.github.klikli_dev.occultism.registry.OccultismAdvancements;
+import com.github.klikli_dev.occultism.registry.OccultismEffects;
 import com.google.common.collect.ImmutableList;
 
 import net.minecraft.entity.EntityType;
@@ -67,7 +68,7 @@ public class MummyFamiliarEntity extends FamiliarEntity {
 
     @Override
     public Iterable<EffectInstance> getFamiliarEffects() {
-        return ImmutableList.of();
+        return ImmutableList.of(new EffectInstance(OccultismEffects.MUMMY_DODGE.get(), 300, 0, false, false));
     }
 
     @Override
@@ -89,7 +90,7 @@ public class MummyFamiliarEntity extends FamiliarEntity {
     private double randNum(double size) {
         return (random.nextDouble() - 0.5) * size;
     }
-    
+
     public float getCapowAlpha(float partialTicks) {
         return (MAX_FIGHT_TIMER - fightTimer - partialTicks) / MAX_FIGHT_TIMER;
     }

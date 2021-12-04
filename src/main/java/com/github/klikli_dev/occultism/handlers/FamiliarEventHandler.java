@@ -32,6 +32,7 @@ import com.github.klikli_dev.occultism.common.entity.GuardianFamiliarEntity;
 import com.github.klikli_dev.occultism.common.entity.HeadlessFamiliarEntity;
 import com.github.klikli_dev.occultism.common.entity.IFamiliar;
 import com.github.klikli_dev.occultism.registry.OccultismAdvancements;
+import com.github.klikli_dev.occultism.registry.OccultismEffects;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.util.FamiliarUtil;
 
@@ -40,8 +41,11 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.EntityDamageSource;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.living.PotionEvent;
 import net.minecraftforge.eventbus.api.Event.Result;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -49,6 +53,22 @@ import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = Occultism.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class FamiliarEventHandler {
+
+    @SubscribeEvent
+    public static void dodge(LivingHurtEvent event) {
+        LivingEntity entity = event.getEntityLiving();
+
+        if (!entity.hasEffect(OccultismEffects.MUMMY_DODGE.get()))
+            return;
+
+        DamageSource source = event.getSource();
+
+        if (!(source instanceof EntityDamageSource) || source.isExplosion() || source.isBypassInvul())
+            return;
+
+        int level = entity.getEffect(OccultismEffects.MUMMY_DODGE.get()).getAmplifier();
+        event.setCanceled(entity.getRandom().nextDouble() < (level + 1) * 0.1f);
+    }
 
     @SubscribeEvent
     public static void livingDeathEvent(LivingDeathEvent event) {
