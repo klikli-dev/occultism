@@ -29,6 +29,7 @@ import com.mojang.blaze3d.vertex.IVertexBuilder;
 
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
+import net.minecraft.util.math.MathHelper;
 
 /**
  * Created using Tabula 8.0.0
@@ -205,6 +206,18 @@ public class MummyFamiliarModel extends EntityModel<MummyFamiliarEntity> {
         setRotateAngle(rightLeg2, 0, 0, 0);
         setRotateAngle(leftLeg1, 0, 0, 0);
         setRotateAngle(leftLeg2, 0, 0, 0);
+        this.body.z = 0;
+
+        this.head.xRot = toRads(pHeadPitch);
+        this.head.yRot = toRads(pNetHeadYaw);
+        this.rightLeg1.xRot = MathHelper.cos(pLimbSwing * 0.5f + PI) * toRads(40) * pLimbSwingAmount;
+        this.leftLeg1.xRot = MathHelper.cos(pLimbSwing * 0.5f) * toRads(40) * pLimbSwingAmount;
+        this.rightLeg2.xRot = Math.abs(MathHelper.cos(pLimbSwing * 0.5f + PI)) * toRads(40) * pLimbSwingAmount;
+        this.leftLeg2.xRot = Math.abs(MathHelper.cos(pLimbSwing * 0.5f) * toRads(40)) * pLimbSwingAmount;
+        this.rightArm1.xRot = MathHelper.cos(pLimbSwing * 0.5f) * toRads(40) * pLimbSwingAmount;
+        this.leftArm1.xRot = MathHelper.cos(pLimbSwing * 0.5f + PI) * toRads(40) * pLimbSwingAmount;
+        this.rightArm2.xRot = toRads(-30) + MathHelper.cos(pLimbSwing * 0.5f) * toRads(20) * pLimbSwingAmount;
+        this.leftArm2.xRot = toRads(-30) + MathHelper.cos(pLimbSwing * 0.5f + PI) * toRads(20) * pLimbSwingAmount;
 
         int fightPose = pEntity.getFightPose();
 
@@ -255,6 +268,31 @@ public class MummyFamiliarModel extends EntityModel<MummyFamiliarEntity> {
             this.rightLeg2.xRot = toRads(55);
             this.leftLeg1.yRot = toRads(60);
             this.leftLeg1.xRot = toRads(30);
+        }
+
+        if (pEntity.isPartying()) {
+            setRotateAngle(head, 0, 0, 0);
+            float bodyRot = pAgeInTicks * 10f % 360;
+            this.body.z = MathHelper.sin(toRads(bodyRot)) * 5;
+            this.body.yRot = bodyRot > 90 && bodyRot < 270 ? 0 : PI;
+            this.leftArm1.xRot = toRads(90);
+            this.leftArm2.xRot = toRads(-90) + MathHelper.cos(pAgeInTicks * 0.5f) * toRads(20);
+            this.rightArm1.xRot = toRads(-90);
+            this.rightArm2.xRot = toRads(-90) + MathHelper.cos(pAgeInTicks * 0.5f) * toRads(20);
+            this.leftLeg1.xRot = toRads(-20) + MathHelper.cos(pAgeInTicks * 0.5f) * toRads(20);
+            this.leftLeg2.xRot = toRads(20) + MathHelper.cos(pAgeInTicks * 0.5f) * toRads(-10);
+            this.rightLeg1.xRot = toRads(-20) - MathHelper.cos(pAgeInTicks * 0.5f) * toRads(20);
+            this.rightLeg2.xRot = toRads(20) - MathHelper.cos(pAgeInTicks * 0.5f) * toRads(-10);
+        } else if (pEntity.isSitting()) {
+            this.head.xRot = toRads(40);
+            this.head.yRot = toRads(-20);
+            this.body.xRot = toRads(35);
+            this.leftArm1.xRot = toRads(-50);
+            this.leftArm2.xRot = toRads(10);
+            this.rightArm1.xRot = toRads(-50);
+            this.rightArm2.xRot = toRads(10);
+            this.leftLeg1.xRot = toRads(-35);
+            this.rightLeg1.xRot = toRads(-35);
         }
     }
 

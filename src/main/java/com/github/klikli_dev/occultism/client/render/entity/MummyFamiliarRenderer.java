@@ -31,8 +31,11 @@ import com.mojang.blaze3d.vertex.IVertexBuilder;
 
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
+import net.minecraft.client.renderer.entity.IEntityRenderer;
+import net.minecraft.client.renderer.entity.LivingRenderer;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.client.renderer.model.Model;
@@ -52,6 +55,7 @@ public class MummyFamiliarRenderer extends MobRenderer<MummyFamiliarEntity, Mumm
     public MummyFamiliarRenderer(EntityRendererManager renderManagerIn) {
         super(renderManagerIn, new MummyFamiliarModel(), 0.3f);
         this.addLayer(new KapowLayer(this));
+        this.addLayer(new EyesLayer(this));
     }
 
     @Override
@@ -63,6 +67,31 @@ public class MummyFamiliarRenderer extends MobRenderer<MummyFamiliarEntity, Mumm
     @Override
     public ResourceLocation getTextureLocation(MummyFamiliarEntity entity) {
         return TEXTURES;
+    }
+
+    private static class EyesLayer extends LayerRenderer<MummyFamiliarEntity, MummyFamiliarModel> {
+
+        private static final ResourceLocation EYES = new ResourceLocation(Occultism.MODID,
+                "textures/entity/mummy_familiar_eyes.png");
+
+        public EyesLayer(IEntityRenderer<MummyFamiliarEntity, MummyFamiliarModel> entityRendererIn) {
+            super(entityRendererIn);
+        }
+
+        @Override
+        public void render(MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn,
+                MummyFamiliarEntity mummy, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks,
+                float netHeadYaw, float headPitch) {
+            if (mummy.isInvisible())
+                return;
+
+            int light = mummy.isSitting() ? 0 : 10;
+
+            MummyFamiliarModel model = this.getParentModel();
+            IVertexBuilder ivertexbuilder = bufferIn.getBuffer(RenderType.entityCutout(EYES));
+            model.renderToBuffer(matrixStackIn, ivertexbuilder, LightTexture.pack(light, light),
+                    LivingRenderer.getOverlayCoords(mummy, 0), 1, 1, 1, 1);
+        }
     }
 
     private static class KapowLayer extends LayerRenderer<MummyFamiliarEntity, MummyFamiliarModel> {
@@ -84,6 +113,9 @@ public class MummyFamiliarRenderer extends MobRenderer<MummyFamiliarEntity, Mumm
         public void render(MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn,
                 MummyFamiliarEntity entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks,
                 float ageInTicks, float netHeadYaw, float headPitch) {
+            if (entitylivingbaseIn.getFightPose() == -1)
+                return;
+
             float alpha = entitylivingbaseIn.getCapowAlpha(partialTicks);
 
             matrixStackIn.pushPose();
@@ -96,12 +128,24 @@ public class MummyFamiliarRenderer extends MobRenderer<MummyFamiliarEntity, Mumm
 
             matrixStackIn.pushPose();
             matrixStackIn.scale(0.07f, 0.07f, 0.07f);
-            matrixStackIn.translate(0, -2.5, -0.01);
+            matrixStackIn.translate(0, -2.5, 0);
             matrixStackIn.mulPose(new Quaternion(0, 0, 20, true));
-            Matrix4f matrix = matrixStackIn.last().pose();
             FontRenderer font = renderer.getFont();
+
+            matrixStackIn.pushPose();
+            matrixStackIn.translate(0, 0, -0.01);
+            Matrix4f matrix = matrixStackIn.last().pose();
             font.drawInBatch(KAPOW_TEXT, -font.width(KAPOW_TEXT) / 2, 0, 0xff0000 | ((int) (alpha * 255) << 24), true,
                     matrix, bufferIn, false, 0, packedLightIn);
+            matrixStackIn.popPose();
+
+            matrixStackIn.pushPose();
+            matrixStackIn.translate(0, 0, 0.01);
+            matrixStackIn.mulPose(new Quaternion(0, 180, 0, true));
+            matrix = matrixStackIn.last().pose();
+            font.drawInBatch(KAPOW_TEXT, -font.width(KAPOW_TEXT) / 2, 0, 0xff0000 | ((int) (alpha * 255) << 24), true,
+                    matrix, bufferIn, false, 0, packedLightIn);
+            matrixStackIn.popPose();
             matrixStackIn.popPose();
             matrixStackIn.popPose();
         }
