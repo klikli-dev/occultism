@@ -23,6 +23,7 @@
 package com.github.klikli_dev.occultism.util;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -41,7 +42,7 @@ public class FamiliarUtil {
     public static List<LivingEntity> getOwnerEnemies(LivingEntity owner, LivingEntity familiar, float range) {
         if (null == owner)
             return new ArrayList<>();
-        
+
         LivingEntity revenge = owner.getLastHurtByMob();
         LivingEntity target = owner.getLastHurtMob();
         List<LivingEntity> enemies = new ArrayList<>();
@@ -131,8 +132,15 @@ public class FamiliarUtil {
         List<T> familiars = getAllEquippedFamiliars(owner, type, pred);
         return familiars.isEmpty() ? null : familiars.get(0);
     }
-    
+
     public static float toRads(float deg) {
         return (float) Math.toRadians(deg);
+    }
+
+    public static boolean isChristmas() {
+        Calendar calendar = Calendar.getInstance();
+        return (calendar.get(Calendar.MONTH) == Calendar.DECEMBER && calendar.get(Calendar.DAY_OF_MONTH) >= 15)
+                || calendar.get(Calendar.MONTH) == Calendar.JANUARY && calendar.get(Calendar.DAY_OF_MONTH) <= 15
+                || true;
     }
 }
