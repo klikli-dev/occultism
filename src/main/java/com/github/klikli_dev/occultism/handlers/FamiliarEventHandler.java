@@ -67,7 +67,11 @@ public class FamiliarEventHandler {
             return;
 
         int level = entity.getEffect(OccultismEffects.MUMMY_DODGE.get()).getAmplifier();
-        event.setCanceled(entity.getRandom().nextDouble() < (level + 1) * 0.1f);
+        boolean dodge = entity.getRandom().nextDouble() < (level + 1) * 0.1f;
+        event.setCanceled(dodge);
+
+        if (dodge)
+            OccultismAdvancements.FAMILIAR.trigger(entity, FamiliarTrigger.Type.MUMMY_DODGE);
     }
 
     @SubscribeEvent

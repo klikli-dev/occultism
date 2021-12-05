@@ -607,6 +607,8 @@
   "advancements.occultism.familiar.beholder_eat.description": "Watch your Beholder familiar eat a spawn of Shub Niggurath",  
   "advancements.occultism.familiar.fairy_save.title": "Guardian Angel",  
   "advancements.occultism.familiar.fairy_save.description": "Let your Fairy familiar save one of your other familiars from certain death",  
+  "advancements.occultism.familiar.mummy_dodge.title": "Ninja!",  
+  "advancements.occultism.familiar.mummy_dodge.description": "Dodge an attack with the Mummy familiar dodge effect",  
   "_comment": "Keybinds",
   "key.occultism.category": "Occultism",
   "key.occultism.backpack": "Open Satchel",
