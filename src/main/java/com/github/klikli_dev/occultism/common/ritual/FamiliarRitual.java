@@ -46,8 +46,6 @@ public class FamiliarRitual extends SummonRitual {
     @Override
     public void finish(Level level, BlockPos goldenBowlPosition, GoldenSacrificialBowlBlockEntity blockEntity,
                        Player castingPlayer, ItemStack activationItem) {
-        super.finish(level, goldenBowlPosition, blockEntity, castingPlayer, activationItem);
-
         String entityName = ItemNBTUtil.getBoundSpiritName(activationItem);
         activationItem.shrink(1); //remove original activation item.
 
