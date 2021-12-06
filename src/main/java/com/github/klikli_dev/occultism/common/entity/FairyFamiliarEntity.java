@@ -477,23 +477,23 @@ public class FairyFamiliarEntity extends FamiliarEntity implements IFlyingAnimal
 
     }
 
-    private static class SetAttackTargetGoal extends TargetGoal {
+    public static class SetAttackTargetGoal extends TargetGoal {
 
-        private FairyFamiliarEntity fairy;
+        private FamiliarEntity entity;
         private int timestamp;
 
-        public SetAttackTargetGoal(FairyFamiliarEntity fairy) {
-            super(fairy, false);
-            this.fairy = fairy;
+        public SetAttackTargetGoal(FamiliarEntity entity) {
+            super(entity, false);
+            this.entity = entity;
         }
 
         @Override
         public boolean canUse() {
-            LivingEntity owner = fairy.getFamiliarOwner();
+            LivingEntity owner = entity.getFamiliarOwner();
             if (owner == null)
                 return false;
 
-            if (owner.distanceToSqr(fairy) >= 400)
+            if (owner.distanceToSqr(entity) >= 400)
                 return false;
 
             if (timestamp == owner.getLastHurtMobTimestamp())
@@ -508,17 +508,17 @@ public class FairyFamiliarEntity extends FamiliarEntity implements IFlyingAnimal
 
         @Override
         public boolean canContinueToUse() {
-            LivingEntity owner = fairy.getFamiliarOwner();
-            return super.canContinueToUse() && owner != null && owner.distanceToSqr(fairy) < 400;
+            LivingEntity owner = entity.getFamiliarOwner();
+            return super.canContinueToUse() && owner != null && owner.distanceToSqr(entity) < 400;
         }
 
         @Override
         public void start() {
-            LivingEntity owner = fairy.getFamiliarOwner();
+            LivingEntity owner = entity.getFamiliarOwner();
             if (owner == null)
                 return;
 
-            fairy.setTarget(owner.getLastHurtMob());
+            entity.setTarget(owner.getLastHurtMob());
             timestamp = owner.getLastHurtMobTimestamp();
             super.start();
         }

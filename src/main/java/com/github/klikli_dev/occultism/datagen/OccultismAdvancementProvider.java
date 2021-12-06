@@ -236,6 +236,11 @@ public class OccultismAdvancementProvider implements IDataProvider {
                             true, true, false)
                     .addCriterion("fairy_save", FamiliarTrigger.of(FamiliarTrigger.Type.FAIRY_SAVE))
                     .build(new ResourceLocation(Occultism.MODID, "occultism/familiar/fairy_save")));
+            this.add(Advancement.Builder.advancement().parent(familiarsRoot)
+                    .display(icon(15), familiarTitle("mummy_dodge"), familiarDescr("mummy_dodge"), null, FrameType.TASK,
+                            true, true, false)
+                    .addCriterion("mummy_dodge", FamiliarTrigger.of(FamiliarTrigger.Type.MUMMY_DODGE))
+                    .build(new ResourceLocation(Occultism.MODID, "occultism/familiar/mummy_dodge")));
 
             this.addRitualHidden(root, "craft_dimensional_matrix");
             this.addRitualHidden(root, "craft_dimensional_mineshaft");
@@ -266,6 +271,7 @@ public class OccultismAdvancementProvider implements IDataProvider {
             this.addRitualHidden(root, "familiar_chimera");
             this.addRitualHidden(root, "familiar_beholder");
             this.addRitualHidden(root, "familiar_fairy");
+            this.addRitualHidden(root, "familiar_mummy");
             this.addRitualHidden(root, "possess_enderman");
             this.addRitualHidden(root, "possess_endermite");
             this.addRitualHidden(root, "possess_skeleton");
