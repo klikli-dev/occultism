@@ -106,6 +106,7 @@
   "item.occultism.spawn_egg.familiar_shub_niggurath": "Shub Niggurath Familiar Spawn Egg",
   "item.occultism.spawn_egg.familiar_beholder": "Beholder Familiar Spawn Egg",
   "item.occultism.spawn_egg.familiar_fairy": "Fairy Familiar Spawn Egg",
+  "item.occultism.spawn_egg.familiar_mummy": "Mummy Familiar Spawn Egg",
   "_comment": "# Item Messages",
   "_comment": "## Book of calling - also contains messages triggered in related network messages",
   "item.occultism.book_of_calling.message_target_uuid_no_match": "This spirit is not currently bound to this book. Shift-Click the spirit to bind it to this book.",
@@ -224,6 +225,7 @@
   "entity.occultism.shub_niggurath_familiar": "Shub Niggurath Familiar",
   "entity.occultism.beholder_familiar": "Beholder Familiar",
   "entity.occultism.fairy_familiar": "Fairy Familiar",
+  "entity.occultism.mummy_familiar": "Mummy Familiar",
   "entity.occultism.shub_niggurath_spawn": "Shub Niggurath Spawn",
   "entity.occultism.thrown_sword": "Thrown Sword",
   "_comment": "# Spirit Jobs",
@@ -541,6 +543,7 @@
   "effect.occultism.third_eye": "Third Eye",
   "effect.occultism.double_jump": "Multi Jump",
   "effect.occultism.dragon_greed": "Dragon's Greed",
+  "effect.occultism.mummy_dodge": "Dodge",
   "_comment": "Sounds",
   "occultism.subtitle.chalk": "Chalk",
   "occultism.subtitle.brush": "Brush",
@@ -604,6 +607,8 @@
   "advancements.occultism.familiar.beholder_eat.description": "Watch your Beholder familiar eat a spawn of Shub Niggurath",  
   "advancements.occultism.familiar.fairy_save.title": "Guardian Angel",  
   "advancements.occultism.familiar.fairy_save.description": "Let your Fairy familiar save one of your other familiars from certain death",  
+  "advancements.occultism.familiar.mummy_dodge.title": "Ninja!",  
+  "advancements.occultism.familiar.mummy_dodge.description": "Dodge an attack with the Mummy familiar dodge effect",  
   "_comment": "Keybinds",
   "key.occultism.category": "Occultism",
   "key.occultism.backpack": "Open Satchel",
@@ -806,5 +811,6 @@
   "item.occultism.ritual_dummy.summon_wild_otherworld_bird.tooltip": "Summons a Drikwing Familiar that can be tamed by anyone, not just the summoner.",
   "item.occultism.ritual_dummy.summon_wild_parrot": "Ritual: Summon Wild Parrot",
   "item.occultism.ritual_dummy.summon_wild_parrot.tooltip": "Summons a Parrot that can be tamed by anyone, not just the summoner.",
-  "dialog.occultism.dragon.pet": "purrr"
+  "dialog.occultism.dragon.pet": "purrr",
+  "dialog.occultism.mummy.kapow": "KAPOW!"
 }
