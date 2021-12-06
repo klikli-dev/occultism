@@ -90,6 +90,12 @@
         "minecraft:custom_model_data": 14.0
       },
       "model": "occultism:item/advancement/fairy_icon"
+    },
+    {
+      "predicate": {
+        "minecraft:custom_model_data": 15.0
+      },
+      "model": "occultism:item/advancement/mummy_icon"
     }
   ]
 }

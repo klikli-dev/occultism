@@ -37,6 +37,7 @@ import com.github.klikli_dev.occultism.client.model.entity.*;
 import com.github.klikli_dev.occultism.client.render.blockentity.SacrificialBowlRenderer;
 import com.github.klikli_dev.occultism.client.render.blockentity.StorageControllerRenderer;
 import com.github.klikli_dev.occultism.client.render.entity.*;
+import com.github.klikli_dev.occultism.client.render.entity.MummyFamiliarRenderer.KapowModel;
 import com.github.klikli_dev.occultism.common.capability.FamiliarSettingsCapability;
 import com.github.klikli_dev.occultism.common.container.spirit.SpiritContainer;
 import com.github.klikli_dev.occultism.registry.*;
@@ -96,9 +97,11 @@ public class ClientSetupEventHandler {
         event.registerLayerDefinition(OccultismModelLayers.FAMILIAR_SHUB_NIGGURATH_SPAWN, ShubNiggurathSpawnModel::createBodyLayer);
         event.registerLayerDefinition(OccultismModelLayers.FAMILIAR_BEHOLDER, BeholderFamiliarModel::createBodyLayer);
         event.registerLayerDefinition(OccultismModelLayers.FAMILIAR_FAIRY, FairyFamiliarModel::createBodyLayer);
+        event.registerLayerDefinition(OccultismModelLayers.FAMILIAR_MUMMY, MummyFamiliarModel::createBodyLayer);
         event.registerLayerDefinition(OccultismModelLayers.DJINNI, DjinniModel::createBodyLayer);
         event.registerLayerDefinition(OccultismModelLayers.FOLIOT, FoliotModel::createBodyLayer);
         event.registerLayerDefinition(OccultismModelLayers.MARID, MaridModel::createBodyLayer);
+        event.registerLayerDefinition(OccultismModelLayers.KAPOW, KapowModel::createBodyLayer);
     }
 
     @SubscribeEvent
@@ -123,6 +126,7 @@ public class ClientSetupEventHandler {
         event.registerEntityRenderer(OccultismEntities.SHUB_NIGGURATH_FAMILIAR.get(), ShubNiggurathFamiliarRenderer::new);
         event.registerEntityRenderer(OccultismEntities.BEHOLDER_FAMILIAR.get(), BeholderFamiliarRenderer::new);
         event.registerEntityRenderer(OccultismEntities.FAIRY_FAMILIAR.get(), FairyFamiliarRenderer::new);
+        event.registerEntityRenderer(OccultismEntities.MUMMY_FAMILIAR.get(), MummyFamiliarRenderer::new);
         event.registerEntityRenderer(OccultismEntities.GOAT_FAMILIAR.get(), GoatFamiliarRenderer::new);
         event.registerEntityRenderer(OccultismEntities.SHUB_NIGGURATH_SPAWN.get(), ShubNiggurathSpawnRenderer::new);
         event.registerEntityRenderer(OccultismEntities.POSSESSED_ENDERMITE.get(), EndermiteRenderer::new);
