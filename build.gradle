@@ -141,8 +141,8 @@ dependencies {
     //TODO: enable dependencies once they are ready
     //TODO: also enable in mods.toml
     //Jei
-    //compileOnly fg.deobf("mezz.jei:jei-${jei_mc_version}:${jei_version}:api")
-    //runtimeOnly fg.deobf("mezz.jei:jei-${jei_mc_version}:${jei_version}")
+    compileOnly fg.deobf("mezz.jei:jei-${jei_mc_version}:${jei_version}:api")
+    runtimeOnly fg.deobf("mezz.jei:jei-${jei_mc_version}:${jei_version}")
 
     //curios
     compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_mc_version}-${curios_version}:api")
