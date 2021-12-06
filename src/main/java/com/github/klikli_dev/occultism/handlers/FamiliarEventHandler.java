@@ -26,8 +26,11 @@ import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.advancement.FamiliarTrigger;
 import com.github.klikli_dev.occultism.common.entity.*;
 import com.github.klikli_dev.occultism.registry.OccultismAdvancements;
+import com.github.klikli_dev.occultism.registry.OccultismEffects;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.util.FamiliarUtil;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.EntityDamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
@@ -35,6 +38,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.living.PotionEvent;
 import net.minecraftforge.eventbus.api.Event.Result;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -44,6 +48,26 @@ import java.util.List;
 
 @Mod.EventBusSubscriber(modid = Occultism.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class FamiliarEventHandler {
+
+    @SubscribeEvent
+    public static void dodge(LivingHurtEvent event) {
+        LivingEntity entity = event.getEntityLiving();
+
+        if (!entity.hasEffect(OccultismEffects.MUMMY_DODGE.get()))
+            return;
+
+        DamageSource source = event.getSource();
+
+        if (!(source instanceof EntityDamageSource) || source.isExplosion() || source.isBypassInvul())
+            return;
+
+        int level = entity.getEffect(OccultismEffects.MUMMY_DODGE.get()).getAmplifier();
+        boolean dodge = entity.getRandom().nextDouble() < (level + 1) * 0.1f;
+        event.setCanceled(dodge);
+
+        if (dodge)
+            OccultismAdvancements.FAMILIAR.trigger(entity, FamiliarTrigger.Type.MUMMY_DODGE);
+    }
 
     @SubscribeEvent
     public static void livingDeathEvent(LivingDeathEvent event) {

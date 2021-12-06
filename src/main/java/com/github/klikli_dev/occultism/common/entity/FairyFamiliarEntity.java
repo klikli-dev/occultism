@@ -468,23 +468,23 @@ public class FairyFamiliarEntity extends FamiliarEntity implements FlyingAnimal 
 
     }
 
-    private static class SetAttackTargetGoal extends TargetGoal {
+    public static class SetAttackTargetGoal extends TargetGoal {
 
-        private final FairyFamiliarEntity fairy;
+        private final FamiliarEntity entity;
         private int timestamp;
 
-        public SetAttackTargetGoal(FairyFamiliarEntity fairy) {
-            super(fairy, false);
-            this.fairy = fairy;
+        public SetAttackTargetGoal(FamiliarEntity entity) {
+            super(entity, false);
+            this.entity = entity;
         }
 
         @Override
         public boolean canUse() {
-            LivingEntity owner = this.fairy.getFamiliarOwner();
+            LivingEntity owner = this.entity.getFamiliarOwner();
             if (owner == null)
                 return false;
 
-            if (owner.distanceToSqr(this.fairy) >= 400)
+            if (owner.distanceToSqr(this.entity) >= 400)
                 return false;
 
             if (this.timestamp == owner.getLastHurtMobTimestamp())
@@ -496,17 +496,17 @@ public class FairyFamiliarEntity extends FamiliarEntity implements FlyingAnimal 
 
         @Override
         public boolean canContinueToUse() {
-            LivingEntity owner = this.fairy.getFamiliarOwner();
-            return super.canContinueToUse() && owner != null && owner.distanceToSqr(this.fairy) < 400;
+            LivingEntity owner = this.entity.getFamiliarOwner();
+            return super.canContinueToUse() && owner != null && owner.distanceToSqr(this.entity) < 400;
         }
 
         @Override
         public void start() {
-            LivingEntity owner = this.fairy.getFamiliarOwner();
+            LivingEntity owner = this.entity.getFamiliarOwner();
             if (owner == null)
                 return;
 
-            this.fairy.setTarget(owner.getLastHurtMob());
+            this.entity.setTarget(owner.getLastHurtMob());
             this.timestamp = owner.getLastHurtMobTimestamp();
             super.start();
         }
