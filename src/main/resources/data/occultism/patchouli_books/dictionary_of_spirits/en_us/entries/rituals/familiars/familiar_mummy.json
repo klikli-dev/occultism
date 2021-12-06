@@ -1,7 +1,7 @@
 {
   "name": "Mummy Familiar",
   "icon": "occultism:textures/gui/book/familiar_mummy.png",
-  "category": "rituals/familiars",
+  "category": "occultism:rituals/familiars",
   "sortnum": 140,
   "pages": [
     {
