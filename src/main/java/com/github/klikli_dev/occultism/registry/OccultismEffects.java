@@ -38,6 +38,7 @@ public class OccultismEffects {
     public static final RegistryObject<DoubleJumpEffect> DOUBLE_JUMP = EFFECTS.register("double_jump", DoubleJumpEffect::new);
     public static final RegistryObject<ModEffect> DRAGON_GREED = EFFECTS.register("dragon_greed", () -> new ModEffect(EffectType.BENEFICIAL, 0xFFD700));
     public static final RegistryObject<ModEffect> MUMMY_DODGE = EFFECTS.register("mummy_dodge", () -> new ModEffect(EffectType.BENEFICIAL, 0xe4d8a7));
+    public static final RegistryObject<ModEffect> BAT_LIFESTEAL = EFFECTS.register("bat_lifesteal", () -> new ModEffect(EffectType.BENEFICIAL, 0x960201));
 
     private static class ModEffect extends Effect {
 
