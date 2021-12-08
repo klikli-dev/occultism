@@ -33,6 +33,7 @@ import com.github.klikli_dev.occultism.common.advancement.FamiliarTrigger;
 import com.github.klikli_dev.occultism.network.MessageFairySupport;
 import com.github.klikli_dev.occultism.network.OccultismPackets;
 import com.github.klikli_dev.occultism.registry.OccultismAdvancements;
+import com.github.klikli_dev.occultism.registry.OccultismParticles;
 import com.github.klikli_dev.occultism.util.FamiliarUtil;
 
 import net.minecraft.block.BlockState;
@@ -57,6 +58,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.particles.IParticleData;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.particles.RedstoneParticleData;
 import net.minecraft.pathfinding.FlyingPathNavigator;
@@ -213,9 +215,14 @@ public class FairyFamiliarEntity extends FamiliarEntity implements IFlyingAnimal
             supportAnim--;
     }
 
+    private IParticleData createParticle() {
+        return FamiliarUtil.isChristmas() ? OccultismParticles.SNOWFLAKE.get()
+                : new RedstoneParticleData(0.9f, 0.9f, 0.5f, 1);
+    }
+
     private void magicParticle() {
         Vector3d pos = getMagicPosition(1);
-        level.addParticle(new RedstoneParticleData(0.9f, 0.9f, 0.5f, 1), pos.x, pos.y + 1, pos.z, 0, 0, 0);
+        level.addParticle(createParticle(), pos.x, pos.y + 1, pos.z, 0, 0, 0);
     }
 
     @Override
@@ -225,7 +232,7 @@ public class FairyFamiliarEntity extends FamiliarEntity implements IFlyingAnimal
     }
 
     private void partyParticle() {
-        if (!level.isClientSide || !this.isPartying())
+        if (!level.isClientSide || !this.isPartying() || this.tickCount % 2 != 0)
             return;
 
         Vector3d right = Vector3d.directionFromRotation(0, this.yBodyRot).yRot(FamiliarUtil.toRads(-90));
@@ -234,7 +241,7 @@ public class FairyFamiliarEntity extends FamiliarEntity implements IFlyingAnimal
         Vector3d pos = position().add(right.scale(0.2 * (this.isLeftHanded() ? -1 : 1)))
                 .add(0, 0.7 + getAnimationHeight(0), 0).add(armVector);
 
-        level.addParticle(new RedstoneParticleData(0.9f, 0.9f, 0.5f, 1), pos.x, pos.y, pos.z, 0, 0, 0);
+        level.addParticle(createParticle(), pos.x, pos.y, pos.z, 0, 0, 0);
     }
 
     public Vector2f getMagicRadiusAngle(float partialTicks) {
