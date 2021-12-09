@@ -46,7 +46,7 @@ public class BatFamiliarRenderer extends MobRenderer<BatFamiliarEntity, BatFamil
                        IRenderTypeBuffer bufferIn, int packedLightIn) {
         matrixStackIn.pushPose();
         if (!entityIn.isSitting() || entityIn.isPartying())
-            matrixStackIn.translate(0, entityIn.getAnimationHeight(partialTicks) * 0.1, 0);
+            matrixStackIn.translate(0, entityIn.getAnimationHeight(partialTicks) * 0.1f + 0.1f, 0);
         super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
         matrixStackIn.popPose();
     }

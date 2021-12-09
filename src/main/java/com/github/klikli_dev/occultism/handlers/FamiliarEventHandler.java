@@ -79,6 +79,19 @@ public class FamiliarEventHandler {
         guardianUltimateSacrifice(event);
         headlessStealHead(event);
         fairySave(event);
+        lifesteal(event);
+    }
+
+    private static void lifesteal(LivingDeathEvent event) {
+        if (!(event.getSource().getEntity() instanceof LivingEntity))
+            return;
+
+        LivingEntity attacker = (LivingEntity) event.getSource().getEntity();
+
+        if (!attacker.hasEffect(OccultismEffects.BAT_LIFESTEAL.get()))
+            return;
+
+        attacker.heal(1 + attacker.getEffect(OccultismEffects.BAT_LIFESTEAL.get()).getAmplifier());
     }
 
     private static void fairySave(LivingDeathEvent event) {
