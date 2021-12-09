@@ -149,6 +149,7 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
     @Nullable
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {
+        this.setGoat(true);
         this.setSize((byte) 0);
         this.setFlaps(this.getRandom().nextBoolean());
         this.setRing(this.getRandom().nextBoolean());
