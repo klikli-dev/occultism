@@ -136,6 +136,7 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements IR
     @Override
     public ILivingEntityData finalizeSpawn(IServerWorld pLevel, DifficultyInstance pDifficulty, SpawnReason pReason,
             ILivingEntityData pSpawnData, CompoundNBT pDataTag) {
+        this.setGoat(true);
         this.setSize((byte) 0);
         this.setFlaps(this.getRandom().nextBoolean());
         this.setRing(this.getRandom().nextBoolean());
