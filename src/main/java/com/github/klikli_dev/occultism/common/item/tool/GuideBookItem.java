@@ -39,6 +39,9 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
+import vazkii.patchouli.api.PatchouliAPI;
+import vazkii.patchouli.common.book.Book;
+import vazkii.patchouli.common.book.BookRegistry;
 //import vazkii.patchouli.api.PatchouliAPI;
 //import vazkii.patchouli.common.book.Book;
 //import vazkii.patchouli.common.book.BookRegistry;
@@ -68,8 +71,7 @@ public class GuideBookItem extends Item {
     @Override
     public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {
         if (!worldIn.isClientSide) {
-            //TODO: Patchouli
-            //PatchouliAPI.get().openBookGUI((ServerPlayer) playerIn, GUIDE);
+            PatchouliAPI.get().openBookGUI((ServerPlayer) playerIn, GUIDE);
         }
         return new InteractionResultHolder<>(InteractionResult.SUCCESS, playerIn.getItemInHand(handIn));
     }
@@ -78,18 +80,15 @@ public class GuideBookItem extends Item {
     @Override
     public void appendHoverText(ItemStack stack, Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
-        //TODO: Patchouli
-//        Book book = BookRegistry.INSTANCE.books.get(GUIDE);
-//        if (book != null && book.getContents() != null) {
-//            book.getSubtitle().withStyle(ChatFormatting.GRAY);
-//        }
+        Book book = BookRegistry.INSTANCE.books.get(GUIDE);
+        if (book != null && book.getContents() != null) {
+            book.getSubtitle().withStyle(ChatFormatting.GRAY);
+        }
     }
 
     @Override
     public Component getName(ItemStack stack) {
-        //TODO: Patchouli
-//        Book book = BookRegistry.INSTANCE.books.get(GUIDE);
-//        return book != null ? new TranslatableComponent(book.name) : super.getName(stack);
-        return super.getName(stack);
+        Book book = BookRegistry.INSTANCE.books.get(GUIDE);
+        return book != null ? new TranslatableComponent(book.name) : super.getName(stack);
     }
 }
