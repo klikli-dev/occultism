@@ -14,10 +14,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Set up OpenJDK 16
+      - name: Set up OpenJDK 17
         uses: actions/setup-java@v2
         with:
-          java-version: 16
+          java-version: 17
           distribution: temurin
       - name: Get release type from github tag
         id: get_release_type
