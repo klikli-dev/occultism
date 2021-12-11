@@ -68,6 +68,13 @@ import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
+import software.bernie.geckolib3.core.IAnimatable;
+import software.bernie.geckolib3.core.PlayState;
+import software.bernie.geckolib3.core.builder.AnimationBuilder;
+import software.bernie.geckolib3.core.controller.AnimationController;
+import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
+import software.bernie.geckolib3.core.manager.AnimationData;
+import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -76,7 +83,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class StorageControllerBlockEntity extends NetworkedBlockEntity implements MenuProvider, IStorageController, IStorageAccessor, IStorageControllerProxy {
+public class StorageControllerBlockEntity extends NetworkedBlockEntity implements MenuProvider, IStorageController, IStorageAccessor, IStorageControllerProxy, IAnimatable {
 
     //region Fields
     public static final int MAX_STABILIZER_DISTANCE = 5;
@@ -101,6 +108,8 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
     protected GlobalBlockPos globalPos;
 
     protected MessageUpdateStacks cachedMessageUpdateStacks;
+
+    private AnimationFactory factory = new AnimationFactory(this);
     //endregion Fields
 
     //region Initialization
@@ -542,6 +551,22 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
     protected void validateLinkedMachines() {
         // remove all entries that lead to invalid block entities.
         this.linkedMachines.entrySet().removeIf(entry -> entry.getValue().getBlockEntity(this.level) == null);
+    }
+
+    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event)
+    {
+        event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.dimensional_matrix.new", true));
+        return PlayState.CONTINUE;
+    }
+
+    @Override
+    public void registerControllers(AnimationData data) {
+        data.addAnimationController(new AnimationController(this, "controller", 0, this::predicate));
+    }
+
+    @Override
+    public AnimationFactory getFactory() {
+        return this.factory;
     }
     //endregion Methods
 

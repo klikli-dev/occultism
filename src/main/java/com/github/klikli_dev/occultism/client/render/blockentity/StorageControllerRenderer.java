@@ -43,6 +43,10 @@ import java.awt.*;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Use StorageControllerGeoRenderer instead
+ */
+@Deprecated
 public class StorageControllerRenderer implements BlockEntityRenderer<StorageControllerBlockEntity> {
 
     //region Fields
