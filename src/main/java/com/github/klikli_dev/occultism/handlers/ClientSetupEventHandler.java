@@ -35,7 +35,7 @@ import com.github.klikli_dev.occultism.client.keybindings.BackpackKeyConflictCon
 import com.github.klikli_dev.occultism.client.keybindings.StorageRemoteKeyConflictContext;
 import com.github.klikli_dev.occultism.client.model.entity.*;
 import com.github.klikli_dev.occultism.client.render.blockentity.SacrificialBowlRenderer;
-import com.github.klikli_dev.occultism.client.render.blockentity.StorageControllerRenderer;
+import com.github.klikli_dev.occultism.client.render.blockentity.StorageControllerGeoRenderer;
 import com.github.klikli_dev.occultism.client.render.entity.*;
 import com.github.klikli_dev.occultism.client.render.entity.MummyFamiliarRenderer.KapowModel;
 import com.github.klikli_dev.occultism.common.capability.FamiliarSettingsCapability;
@@ -43,7 +43,6 @@ import com.github.klikli_dev.occultism.common.container.spirit.SpiritContainer;
 import com.github.klikli_dev.occultism.registry.*;
 import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.KeyMapping;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
@@ -160,7 +159,7 @@ public class ClientSetupEventHandler {
         });
 
         //Register Tile Entity Renderers
-        BlockEntityRenderers.register(OccultismTiles.STORAGE_CONTROLLER.get(), StorageControllerRenderer::new);
+        BlockEntityRenderers.register(OccultismTiles.STORAGE_CONTROLLER.get(), StorageControllerGeoRenderer::new);
         BlockEntityRenderers.register(OccultismTiles.SACRIFICIAL_BOWL.get(), SacrificialBowlRenderer::new);
         BlockEntityRenderers.register(OccultismTiles.GOLDEN_SACRIFICIAL_BOWL.get(), SacrificialBowlRenderer::new);
 
