@@ -35,6 +35,7 @@ import com.github.klikli_dev.occultism.client.keybindings.BackpackKeyConflictCon
 import com.github.klikli_dev.occultism.client.keybindings.StorageRemoteKeyConflictContext;
 import com.github.klikli_dev.occultism.client.render.entity.*;
 import com.github.klikli_dev.occultism.client.render.tile.SacrificialBowlRenderer;
+import com.github.klikli_dev.occultism.client.render.tile.StorageControllerGeoRenderer;
 import com.github.klikli_dev.occultism.client.render.tile.StorageControllerRenderer;
 import com.github.klikli_dev.occultism.common.capability.FamiliarSettingsCapability;
 import com.github.klikli_dev.occultism.common.container.spirit.SpiritContainer;
@@ -140,7 +141,7 @@ public class ClientSetupEventHandler {
                 .registerEntityRenderingHandler(OccultismEntities.OTHERWORLD_BIRD.get(), OtherworldBirdRenderer::new);
 
         //Register Tile Entity Renderers
-        ClientRegistry.bindTileEntityRenderer(OccultismTiles.STORAGE_CONTROLLER.get(), StorageControllerRenderer::new);
+        ClientRegistry.bindTileEntityRenderer(OccultismTiles.STORAGE_CONTROLLER.get(), StorageControllerGeoRenderer::new);
         ClientRegistry.bindTileEntityRenderer(OccultismTiles.SACRIFICIAL_BOWL.get(), SacrificialBowlRenderer::new);
         ClientRegistry
                 .bindTileEntityRenderer(OccultismTiles.GOLDEN_SACRIFICIAL_BOWL.get(), SacrificialBowlRenderer::new);
