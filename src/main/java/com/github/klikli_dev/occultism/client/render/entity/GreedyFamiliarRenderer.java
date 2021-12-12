@@ -25,13 +25,17 @@ package com.github.klikli_dev.occultism.client.render.entity;
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.client.model.entity.GreedyFamiliarModel;
 import com.github.klikli_dev.occultism.common.entity.GreedyFamiliarEntity;
+import com.github.klikli_dev.occultism.util.FamiliarUtil;
 import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.IVertexBuilder;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.FirstPersonRenderer;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.IEntityRenderer;
+import net.minecraft.client.renderer.entity.LivingRenderer;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
@@ -48,6 +52,7 @@ public class GreedyFamiliarRenderer extends MobRenderer<GreedyFamiliarEntity, Gr
     public GreedyFamiliarRenderer(EntityRendererManager renderManagerIn) {
         super(renderManagerIn, new GreedyFamiliarModel(), 0.3f);
         this.addLayer(new ItemLayer(this));
+        this.addLayer(new GreedyFamiliarChest(this));
     }
 
     @Override
@@ -65,6 +70,30 @@ public class GreedyFamiliarRenderer extends MobRenderer<GreedyFamiliarEntity, Gr
         matrixStackIn.popPose();
     }
 
+    private static class GreedyFamiliarChest extends LayerRenderer<GreedyFamiliarEntity, GreedyFamiliarModel> {
+        private static final ResourceLocation CHEST = new ResourceLocation(Occultism.MODID,
+                "textures/entity/greedy_familiar_chest.png");
+        private static final ResourceLocation CHRISTMAS = new ResourceLocation(Occultism.MODID,
+                "textures/entity/greedy_familiar_christmas.png");
+
+        public GreedyFamiliarChest(IEntityRenderer<GreedyFamiliarEntity, GreedyFamiliarModel> renderer) {
+            super(renderer);
+        }
+
+        public void render(MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn,
+                GreedyFamiliarEntity entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks,
+                float ageInTicks, float netHeadYaw, float headPitch) {
+            if (entitylivingbaseIn.isInvisible())
+                return;
+
+            IVertexBuilder ivertexbuilder = bufferIn
+                    .getBuffer(RenderType.entityTranslucent(FamiliarUtil.isChristmas() ? CHRISTMAS : CHEST));
+            GreedyFamiliarModel model = this.getParentModel();
+            model.renderToBuffer(matrixStackIn, ivertexbuilder, packedLightIn,
+                    LivingRenderer.getOverlayCoords(entitylivingbaseIn, 0), 1, 1, 1, 1);
+        }
+    }
+
     private static class ItemLayer extends LayerRenderer<GreedyFamiliarEntity, GreedyFamiliarModel> {
         public ItemLayer(IEntityRenderer<GreedyFamiliarEntity, GreedyFamiliarModel> renderer) {
             super(renderer);
@@ -78,12 +107,11 @@ public class GreedyFamiliarRenderer extends MobRenderer<GreedyFamiliarEntity, Gr
             ItemStack offhand = entitylivingbaseIn.getOffhandItem();
             if (!hasBlacksmithUpgrade && offhand.isEmpty())
                 return;
-            
+
             GreedyFamiliarModel model = this.getParentModel();
             FirstPersonRenderer renderer = Minecraft.getInstance().getItemInHandRenderer();
             matrixStackIn.pushPose();
 
-            
             if (hasBlacksmithUpgrade) {
                 model.body.translateAndRotate(matrixStackIn);
                 model.rightArm.translateAndRotate(matrixStackIn);
@@ -91,9 +119,8 @@ public class GreedyFamiliarRenderer extends MobRenderer<GreedyFamiliarEntity, Gr
                 matrixStackIn.translate(-0.06, 0.2, -0.1);
                 matrixStackIn.mulPose(new Quaternion(0, 90, -45, true));
 
-                renderer.renderItem(entitylivingbaseIn,
-                        new ItemStack(Items.IRON_PICKAXE), ItemCameraTransforms.TransformType.GROUND, false,
-                        matrixStackIn, bufferIn, packedLightIn);
+                renderer.renderItem(entitylivingbaseIn, new ItemStack(Items.IRON_PICKAXE),
+                        ItemCameraTransforms.TransformType.GROUND, false, matrixStackIn, bufferIn, packedLightIn);
                 matrixStackIn.popPose();
             }
 
@@ -107,8 +134,8 @@ public class GreedyFamiliarRenderer extends MobRenderer<GreedyFamiliarEntity, Gr
                 float size = 0.75f;
                 matrixStackIn.scale(size, size, size);
 
-                renderer.renderItem(entitylivingbaseIn, offhand,
-                        ItemCameraTransforms.TransformType.GROUND, false, matrixStackIn, bufferIn, packedLightIn);
+                renderer.renderItem(entitylivingbaseIn, offhand, ItemCameraTransforms.TransformType.GROUND, false,
+                        matrixStackIn, bufferIn, packedLightIn);
                 matrixStackIn.popPose();
             }
         }
