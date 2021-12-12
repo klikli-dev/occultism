@@ -50,7 +50,7 @@ public class ItemModelsGenerator extends ItemModelProvider {
     }
 
     private void registerRitualDummy(String name) {
-        this.getBuilder(name).parent(new ModelFile.UncheckedModelFile("occultism:item/pentacle"));
+        this.getBuilder(name).parent(new ModelFile.UncheckedModelFile("occultism:item/ritual_dummy"));
     }
 
     private void registerAdvancementItem() {
