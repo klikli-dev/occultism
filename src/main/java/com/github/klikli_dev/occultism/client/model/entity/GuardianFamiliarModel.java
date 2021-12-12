@@ -140,9 +140,9 @@ public class GuardianFamiliarModel extends EntityModel<GuardianFamiliarEntity> {
         this.crystal3.setPos(-1.1F, -1.0F, 1.0F);
         this.crystal3.addBox(-1.0F, -4.0F, 0.0F, 2.0F, 4.0F, 0.0F, 0.0F, 0.0F, 0.0F);
         this.setRotateAngle(this.crystal3, -0.11728612207217244F, 0.8210028961170991F, -0.23457224414434488F);
-        this.tree2 = new ModelRenderer(this, 12, 27);
+        this.tree2 = new ModelRenderer(this, 12, 22);
         this.tree2.setPos(0.0F, -2.0F, 0.0F);
-        this.tree2.addBox(-2.5F, -5.0F, 0.0F, 5.0F, 5.0F, 0.0F, 0.0F, 0.0F, 0.0F);
+        this.tree2.addBox(-5.0F, -10.0F, 0.0F, 10.0F, 10.0F, 0.0F, 0.0F, 0.0F, 0.0F);
         this.setRotateAngle(this.tree2, 0.0F, -0.7853981633974483F, 0.0F);
         this.leftArm3 = new ModelRenderer(this, 52, 13);
         this.leftArm3.setPos(0.0F, 5.5F, 0.0F);
@@ -155,9 +155,9 @@ public class GuardianFamiliarModel extends EntityModel<GuardianFamiliarEntity> {
         this.leftArm1.setPos(5.0F, -3.0F, 0.0F);
         this.leftArm1.addBox(-2.0F, -2.0F, -2.0F, 4.0F, 6.0F, 4.0F, 0.0F, 0.0F, 0.0F);
         this.setRotateAngle(this.leftArm1, 0.0F, 0.0F, -0.19547687289441354F);
-        this.tree1 = new ModelRenderer(this, 12, 27);
+        this.tree1 = new ModelRenderer(this, 12, 22);
         this.tree1.setPos(0.0F, -2.0F, 0.0F);
-        this.tree1.addBox(-2.5F, -5.0F, 0.0F, 5.0F, 5.0F, 0.0F, 0.0F, 0.0F, 0.0F);
+        this.tree1.addBox(-5.0F, -10.0F, 0.0F, 10.0F, 10.0F, 0.0F, 0.0F, 0.0F, 0.0F);
         this.setRotateAngle(this.tree1, 0.0F, 0.7853981633974483F, 0.0F);
         this.rightLeg2 = new ModelRenderer(this, 20, 0);
         this.rightLeg2.mirror = true;
@@ -266,7 +266,7 @@ public class GuardianFamiliarModel extends EntityModel<GuardianFamiliarEntity> {
             this.leftArm3.xRot = 0;
             this.rightArm3.xRot = 0;
         }
-        
+
         if (pEntity.isPartying()) {
             this.leftArm1.xRot = -pAgeInTicks / 10;
             this.rightArm1.xRot = -pAgeInTicks / 10;
@@ -281,7 +281,7 @@ public class GuardianFamiliarModel extends EntityModel<GuardianFamiliarEntity> {
             this.rightLeg1.zRot = this.toRads(20);
             this.rightArm1.zRot = this.toRads(20);
         }
-        
+
         // Bird
         this.birdHead.yRot = netHeadYaw * (PI / 180f) * 0.4f;
         this.birdHead.xRot = headPitch * (PI / 180f) * 0.4f + this.toRads(30);
@@ -290,7 +290,8 @@ public class GuardianFamiliarModel extends EntityModel<GuardianFamiliarEntity> {
             this.birdRightLeg.y = -(MathHelper.sin(pAgeInTicks / 2 + PI) + 1) * 0.1f - 0.21f;
             if (pAgeInTicks % 100 < 20) {
                 float wingProgress = pAgeInTicks % 100 % 20;
-                this.birdLeftWing.zRot = this.toRads(20) + MathHelper.sin(wingProgress / 20 * this.toRads(360) * 2) * this.toRads(25);
+                this.birdLeftWing.zRot = this.toRads(20)
+                        + MathHelper.sin(wingProgress / 20 * this.toRads(360) * 2) * this.toRads(25);
                 this.birdRightWing.zRot = this.toRads(-20)
                         - MathHelper.sin(wingProgress / 20 * this.toRads(360) * 2) * this.toRads(25);
             }
@@ -306,11 +307,8 @@ public class GuardianFamiliarModel extends EntityModel<GuardianFamiliarEntity> {
     }
 
     private void showModels(GuardianFamiliarEntity entity) {
-        boolean hasTree = entity.hasTree();
         byte lives = entity.getLives();
 
-        this.tree1.visible = hasTree;
-        this.tree2.visible = hasTree;
         this.birdBody.visible = entity.hasBird();
         this.leftArm1.visible = lives > 4;
         this.leftLeg1.visible = lives > 3;
