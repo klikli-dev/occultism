@@ -140,7 +140,6 @@ public class FamiliarUtil {
     public static boolean isChristmas() {
         Calendar calendar = Calendar.getInstance();
         return (calendar.get(Calendar.MONTH) == Calendar.DECEMBER && calendar.get(Calendar.DAY_OF_MONTH) >= 15)
-                || calendar.get(Calendar.MONTH) == Calendar.JANUARY && calendar.get(Calendar.DAY_OF_MONTH) <= 15
-                || true;
+                || calendar.get(Calendar.MONTH) == Calendar.JANUARY && calendar.get(Calendar.DAY_OF_MONTH) <= 15;
     }
 }
