@@ -42,6 +42,9 @@ import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
 import vazkii.patchouli.api.PatchouliAPI;
 import vazkii.patchouli.common.book.Book;
 import vazkii.patchouli.common.book.BookRegistry;
+//import vazkii.patchouli.api.PatchouliAPI;
+//import vazkii.patchouli.common.book.Book;
+//import vazkii.patchouli.common.book.BookRegistry;
 
 import java.lang.reflect.Field;
 import java.util.List;
@@ -77,7 +80,6 @@ public class GuideBookItem extends Item {
     @Override
     public void appendHoverText(ItemStack stack, Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
-
         Book book = BookRegistry.INSTANCE.books.get(GUIDE);
         if (book != null && book.getContents() != null) {
             book.getSubtitle().withStyle(ChatFormatting.GRAY);

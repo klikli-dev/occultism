@@ -122,7 +122,6 @@ public class Pentacle {
             mappings.put(buffer.readChar(), parser.parse(buffer.readUtf()));
         return new Pentacle(key, pattern, mappings);
     }
-
     public static IStateMatcher parseStateMatcher(JsonElement matcher) {
         if (matcher.isJsonObject()) {
             JsonObject jsonObject = matcher.getAsJsonObject();

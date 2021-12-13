@@ -39,6 +39,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
@@ -53,7 +54,6 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.items.IItemHandler;
 
@@ -205,7 +205,7 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
         this.consumedIngredients.clear();
         if (this.currentRitualRecipeId != null || this.getCurrentRitualRecipe() != null) {
             if (compound.contains("consumedIngredients")) {
-                ListTag list = compound.getList("consumedIngredients", Constants.NBT.TAG_COMPOUND);
+                ListTag list = compound.getList("consumedIngredients", Tag.TAG_COMPOUND);
                 for (int i = 0; i < list.size(); i++) {
                     ItemStack stack = ItemStack.of(list.getCompound(i));
                     this.consumedIngredients.add(stack);
@@ -224,7 +224,7 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
     //endregion Overrides
 
     @Override
-    public CompoundTag save(CompoundTag compound) {
+    protected void saveAdditional(CompoundTag compound) {
         if (this.getCurrentRitualRecipe() != null) {
             if (this.consumedIngredients.size() > 0) {
                 ListTag list = new ListTag();
@@ -236,7 +236,7 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
             compound.putBoolean("sacrificeProvided", this.sacrificeProvided);
             compound.putBoolean("requiredItemUsed", this.itemUseProvided);
         }
-        return super.save(compound);
+        super.saveAdditional(compound);
     }
 
     @Override

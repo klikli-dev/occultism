@@ -35,11 +35,11 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.LongTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraftforge.common.util.Constants;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -111,7 +111,7 @@ public class LumberjackJob extends SpiritJob {
 
         this.ignoredTrees = new HashSet<>();
         if (nbt.contains("ignoredTrees")) {
-            ListTag list = nbt.getList("ignoredTrees", Constants.NBT.TAG_LIST);
+            ListTag list = nbt.getList("ignoredTrees", Tag.TAG_LIST);
             for (int i = 0; i < list.size(); i++) {
                 this.ignoredTrees.add(BlockPos.of(((LongTag) list.get(i)).getAsLong()));
             }

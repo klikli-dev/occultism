@@ -1,0 +1,27 @@
+{
+  "feature": "occultism:iesnium_ore",
+  "placement": [
+    {
+      "count": 10,
+      "type": "minecraft:count"
+    },
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "height": {
+        "min_inclusive": {
+          "above_bottom": 10
+        },
+        "max_inclusive": {
+          "below_top": 20
+        },
+        "type": "minecraft:trapezoid"
+      },
+      "type": "minecraft:height_range"
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

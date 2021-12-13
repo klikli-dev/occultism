@@ -44,14 +44,14 @@ public abstract class NetworkedBlockEntity extends BlockEntity {
     }
 
     @Override
-    public CompoundTag save(CompoundTag compound) {
+    protected void saveAdditional(CompoundTag compound) {
         this.saveNetwork(compound);
-        return super.save(compound);
+        super.saveAdditional(compound);
     }
 
     @Override
     public ClientboundBlockEntityDataPacket getUpdatePacket() {
-        return new ClientboundBlockEntityDataPacket(this.worldPosition, 1, this.saveNetwork(new CompoundTag()));
+        return ClientboundBlockEntityDataPacket.create(this);
     }
 
     @Override

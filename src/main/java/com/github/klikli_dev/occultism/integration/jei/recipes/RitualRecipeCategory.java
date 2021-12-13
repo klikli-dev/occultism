@@ -54,7 +54,6 @@ import java.util.stream.Stream;
 
 public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
 
-    //region Fields
     private final IDrawable background;
     private final IDrawable arrow;
     private final Component localizedName;
@@ -65,9 +64,7 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
     private final int ritualCenterX;
     private final int ritualCenterY;
     private int recipeOutputOffsetX = 50;
-    //endregion Fields
 
-    //region Initialization
     public RitualRecipeCategory(IGuiHelper guiHelper) {
         this.background = guiHelper.createBlankDrawable(168, 120); //64
         this.ritualCenterX = this.background.getWidth() / 2 - this.iconWidth / 2 - 30;
@@ -79,9 +76,7 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
         this.arrow = guiHelper.createDrawable(
                 new ResourceLocation(Occultism.MODID, "textures/gui/jei/arrow.png"), 0, 0, 64, 46);
     }
-    //endregion Initialization
 
-    //region Overrides
     @Override
     public ResourceLocation getUid() {
         return OccultismRecipes.RITUAL.getId();
@@ -285,9 +280,6 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
                     84, infotextY);
         }
     }
-    //endregion Overrides
-
-    //region Methods
 
     protected int getStringCenteredMaxX(Font font, Component text, int x, int y) {
         int width = font.width(text);
@@ -298,5 +290,4 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
     protected void drawStringCentered(PoseStack poseStack, Font font, Component text, int x, int y) {
         font.draw(poseStack, text, (x - font.width(text) / 2.0f), y, 0);
     }
-    //endregion Methods
 }

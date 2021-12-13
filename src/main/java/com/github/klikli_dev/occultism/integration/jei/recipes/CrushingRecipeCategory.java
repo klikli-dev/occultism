@@ -41,22 +41,17 @@ import net.minecraft.resources.ResourceLocation;
 
 public class CrushingRecipeCategory implements IRecipeCategory<CrushingRecipe> {
 
-    //region Fields
     private final IDrawable background;
     private final Component localizedName;
     private final IDrawable overlay;
-    //endregion Fields
 
-    //region Initialization
     public CrushingRecipeCategory(IGuiHelper guiHelper) {
         this.background = guiHelper.createBlankDrawable(168, 46); //64
         this.localizedName = new TranslatableComponent(Occultism.MODID + ".jei.crushing");
         this.overlay = guiHelper.createDrawable(
                 new ResourceLocation(Occultism.MODID, "textures/gui/jei/arrow.png"), 0, 0, 64, 46);
     }
-    //endregion Initialization
 
-    //region Overrides
     @Override
     public ResourceLocation getUid() {
         return OccultismRecipes.CRUSHING.getId();
@@ -109,5 +104,4 @@ public class CrushingRecipeCategory implements IRecipeCategory<CrushingRecipe> {
     protected void drawStringCentered(PoseStack poseStack, Font fontRenderer, Component text, int x, int y) {
         fontRenderer.draw(poseStack, text, (x - fontRenderer.width(text) / 2.0f), y, 0);
     }
-    //endregion Overrides
 }

@@ -57,7 +57,6 @@ import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.ItemLike;
 
 import java.util.List;
-
 @mezz.jei.api.JeiPlugin
 public class JeiPlugin implements IModPlugin {
 
@@ -114,7 +113,6 @@ public class JeiPlugin implements IModPlugin {
         this.registerIngredientInfo(registration, OccultismBlocks.OTHERWORLD_SAPLING_NATURAL.get());
         this.registerIngredientInfo(registration, OccultismBlocks.IESNIUM_ORE.get());
         this.registerIngredientInfo(registration, OccultismBlocks.SPIRIT_FIRE.get());
-        this.registerIngredientInfo(registration, OccultismItems.RAW_IESNIUM.get());
     }
 
     public void registerIngredientInfo(IRecipeRegistration registration, ItemLike ingredient) {

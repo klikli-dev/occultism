@@ -31,7 +31,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.client.event.RenderWorldLastEvent;
+import net.minecraftforge.client.event.RenderLevelLastEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 import java.awt.*;
@@ -80,15 +80,15 @@ public class SelectedBlockRenderer {
     }
 
     @SubscribeEvent
-    public void renderWorldLastEvent(RenderWorldLastEvent event) {
+    public void RenderLevelLastEvent(RenderLevelLastEvent event) {
         this.renderSelectedBlocks(event);
     }
 
-    protected void renderSelectedBlocks(RenderWorldLastEvent event) {
+    protected void renderSelectedBlocks(RenderLevelLastEvent event) {
         if (!this.selectedBlocks.isEmpty()) {
             long time = System.currentTimeMillis();
 
-            PoseStack poseStack = event.getMatrixStack();
+            PoseStack poseStack = event.getPoseStack();
             MultiBufferSource.BufferSource buffer = Minecraft.getInstance().renderBuffers().bufferSource();
             VertexConsumer builder = buffer.getBuffer(OccultismRenderType.BLOCK_SELECTION);
             poseStack.pushPose();

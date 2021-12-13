@@ -83,13 +83,13 @@ public class SizedImageButton extends ImageButton {
             RenderSystem.setShaderTexture(0, this.resourceLocation);
             int i = this.xTexStart;
             int j = this.yTexStart;
-            if (this.isHovered()) {
+            if (this.isHoveredOrFocused()) {
                 i += this.xDiffOffset;
             }
             RenderSystem.enableDepthTest();
             blit(stack, this.x, this.y, this.width, this.height, i, j, this.textureWidth, this.textureHeight, this.textureMapWidth, this.textureMapHeight);
 
-            if (this.isHovered()) {
+            if (this.isHoveredOrFocused()) {
                 this.renderToolTip(stack, mouseX, mouseY);
             }
         }

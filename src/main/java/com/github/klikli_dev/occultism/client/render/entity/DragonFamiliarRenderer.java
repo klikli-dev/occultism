@@ -67,14 +67,14 @@ public class DragonFamiliarRenderer extends MobRenderer<DragonFamiliarEntity, Dr
                 return;
 
             DragonFamiliarEntity dragon = (DragonFamiliarEntity) event.getEntity();
-            float partialTicks = event.getPartialRenderTick();
+            float partialTicks = event.getPartialTick();
             float textTimer = dragon.getPetTimer() + partialTicks;
             if (textTimer >= DragonFamiliarEntity.MAX_PET_TIMER)
                 return;
 
             float height = dragon.getBbHeight() + 0.5f;
             TranslatableComponent text = new TranslatableComponent("dialog.occultism.dragon.pet");
-            PoseStack matrixStackIn = event.getMatrixStack();
+            PoseStack matrixStackIn = event.getPoseStack();
             matrixStackIn.pushPose();
             matrixStackIn.translate(0, height + textTimer / 20, 0);
 
@@ -86,7 +86,7 @@ public class DragonFamiliarRenderer extends MobRenderer<DragonFamiliarEntity, Dr
             Matrix4f matrix = matrixStackIn.last().pose();
             Font font = event.getRenderer().getFont();
             font.drawInBatch(text, -font.width(text) / 2f, 0, 0xffffff, false, matrix,
-                    event.getBuffers(), false, 0x000000, event.getLight());
+                    event.getMultiBufferSource(), false, 0x000000, event.getPackedLight());
             matrixStackIn.popPose();
         }
     }

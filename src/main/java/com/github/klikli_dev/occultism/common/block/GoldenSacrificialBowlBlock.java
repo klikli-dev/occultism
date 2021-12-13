@@ -68,7 +68,7 @@ public class GoldenSacrificialBowlBlock extends Block implements EntityBlock {
     public void neighborChanged(BlockState state, Level level, BlockPos pos, Block blockIn, BlockPos fromPos,
                                 boolean isMoving) {
         super.neighborChanged(state, level, pos, blockIn, fromPos, isMoving);
-        level.getBlockTicks().scheduleTick(pos, this, 0);
+        level.scheduleTick(pos, this, 0);
     }
 
 

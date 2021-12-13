@@ -51,24 +51,19 @@ import java.util.stream.Collectors;
 
 public class MinerRecipeCategory implements IRecipeCategory<MinerRecipe> {
 
-    //region Fields
     private final IDrawable background;
     private final Component localizedName;
     private final IDrawable overlay;
 
     private final Map<MinerRecipe, Float> chances = new HashMap<>();
-    //endregion Fields
 
-    //region Initialization
     public MinerRecipeCategory(IGuiHelper guiHelper) {
         this.background = guiHelper.createBlankDrawable(168, 46); //64
         this.localizedName = new TranslatableComponent(Occultism.MODID + ".jei.miner");
         this.overlay = guiHelper.createDrawable(
                 new ResourceLocation(Occultism.MODID, "textures/gui/jei/arrow.png"), 0, 0, 64, 46);
     }
-    //endregion Initialization
 
-    //region Overrides
     @Override
     public ResourceLocation getUid() {
         return OccultismRecipes.MINER.getId();
@@ -137,5 +132,4 @@ public class MinerRecipeCategory implements IRecipeCategory<MinerRecipe> {
     protected void drawStringCentered(PoseStack poseStack, Font fontRenderer, Component text, int x, int y) {
         fontRenderer.draw(poseStack, text, (x - fontRenderer.width(text) / 2.0f), y, 0);
     }
-    //endregion Overrides
 }

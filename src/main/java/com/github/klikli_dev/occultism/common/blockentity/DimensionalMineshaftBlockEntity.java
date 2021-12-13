@@ -151,10 +151,10 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
     }
 
     @Override
-    public CompoundTag save(CompoundTag compound) {
+    protected void saveAdditional(CompoundTag compound) {
         this.inputHandler.ifPresent(handler -> compound.put("inputHandler", handler.serializeNBT()));
         this.outputHandler.ifPresent(handler -> compound.put("outputHandler", handler.serializeNBT()));
-        return super.save(compound);
+        super.saveAdditional(compound);
     }
 
     @Override
