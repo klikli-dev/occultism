@@ -91,13 +91,16 @@ public class AfritWildEntity extends AfritEntity {
             return true;
         ITag<EntityType<?>> alliesTags = OccultismTags.AFRIT_ALLIES;
 
-        Entity trueSource = source.getEntity();
-        if (trueSource != null && alliesTags.contains(trueSource.getType()))
-            return true;
+        //alliesTags should never be null - should in fact be impossible - but somehow for some people sometimes is.
+        if(alliesTags != null){
+            Entity trueSource = source.getEntity();
+            if (trueSource != null && alliesTags.contains(trueSource.getType()))
+                return true;
 
-        Entity immediateSource = source.getDirectEntity();
-        if (immediateSource != null && alliesTags.contains(immediateSource.getType()))
-            return true;
+            Entity immediateSource = source.getDirectEntity();
+            if (immediateSource != null && alliesTags.contains(immediateSource.getType()))
+                return true;
+        }
 
         return super.isInvulnerableTo(source);
     }
