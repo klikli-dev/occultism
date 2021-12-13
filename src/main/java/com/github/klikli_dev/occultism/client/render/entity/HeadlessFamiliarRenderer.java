@@ -22,20 +22,25 @@
 
 package com.github.klikli_dev.occultism.client.render.entity;
 
+import java.util.Map;
+
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.client.model.entity.CthulhuFamiliarModel;
 import com.github.klikli_dev.occultism.client.model.entity.HeadlessFamiliarModel;
 import com.github.klikli_dev.occultism.common.entity.HeadlessFamiliarEntity;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
+import com.github.klikli_dev.occultism.util.FamiliarUtil;
 import com.google.common.collect.ImmutableMap;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.FirstPersonRenderer;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.IEntityRenderer;
+import net.minecraft.client.renderer.entity.LivingRenderer;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.client.renderer.entity.model.GenericHeadModel;
@@ -51,8 +56,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Quaternion;
 
-import java.util.Map;
-
 public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity, HeadlessFamiliarModel> {
 
     private static final ResourceLocation TEXTURE = new ResourceLocation(Occultism.MODID,
@@ -63,6 +66,7 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
         this.addLayer(new HeadLayer(this));
         this.addLayer(new WeaponLayer(this));
         this.addLayer(new RebuiltLayer(this));
+        this.addLayer(new PumpkinLayer(this));
     }
 
     @Override
@@ -72,7 +76,7 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
 
     @Override
     public void render(HeadlessFamiliarEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn,
-                       IRenderTypeBuffer bufferIn, int packedLightIn) {
+            IRenderTypeBuffer bufferIn, int packedLightIn) {
         matrixStackIn.pushPose();
         if (entityIn.isSitting())
             matrixStackIn.translate(0, -0.12, 0);
@@ -87,8 +91,8 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
 
         @Override
         public void render(MatrixStack matrix, IRenderTypeBuffer bufferIn, int packedLightIn,
-                           HeadlessFamiliarEntity headless, float limbSwing, float limbSwingAmount, float partialTicks,
-                           float ageInTicks, float netHeadYaw, float headPitch) {
+                HeadlessFamiliarEntity headless, float limbSwing, float limbSwingAmount, float partialTicks,
+                float ageInTicks, float netHeadYaw, float headPitch) {
             if (!headless.isHeadlessDead())
                 return;
 
@@ -151,7 +155,7 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
         }
 
         private void renderItem(Item item, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn,
-                                HeadlessFamiliarEntity entitylivingbaseIn, FirstPersonRenderer renderer) {
+                HeadlessFamiliarEntity entitylivingbaseIn, FirstPersonRenderer renderer) {
             renderer.renderItem(entitylivingbaseIn, new ItemStack(item), ItemCameraTransforms.TransformType.GROUND,
                     false, matrixStackIn, bufferIn, packedLightIn);
         }
@@ -165,8 +169,8 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
 
         @Override
         public void render(MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn,
-                           HeadlessFamiliarEntity entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks,
-                           float ageInTicks, float netHeadYaw, float headPitch) {
+                HeadlessFamiliarEntity entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks,
+                float ageInTicks, float netHeadYaw, float headPitch) {
             if (entitylivingbaseIn.isHeadlessDead())
                 return;
 
@@ -181,11 +185,48 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
 
             matrixStackIn.mulPose(new Quaternion(0, 90, -50, true));
 
-
             Minecraft.getInstance().getItemInHandRenderer().renderItem(entitylivingbaseIn,
                     entitylivingbaseIn.getWeaponItem(), ItemCameraTransforms.TransformType.GROUND, false, matrixStackIn,
                     bufferIn, packedLightIn);
             matrixStackIn.popPose();
+        }
+    }
+
+    private static class PumpkinLayer extends LayerRenderer<HeadlessFamiliarEntity, HeadlessFamiliarModel> {
+        private static final ResourceLocation PUMPKIN = new ResourceLocation(Occultism.MODID,
+                "textures/entity/headless_familiar_pumpkin.png");
+        private static final ResourceLocation CHRISTMAS = new ResourceLocation(Occultism.MODID,
+                "textures/entity/headless_familiar_christmas.png");
+
+        public PumpkinLayer(IEntityRenderer<HeadlessFamiliarEntity, HeadlessFamiliarModel> renderer) {
+            super(renderer);
+        }
+
+        public void render(MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn,
+                HeadlessFamiliarEntity entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks,
+                float ageInTicks, float netHeadYaw, float headPitch) {
+            if (entitylivingbaseIn.isInvisible())
+                return;
+
+            boolean isChristmas = FamiliarUtil.isChristmas();
+            boolean hasPumpkin = !entitylivingbaseIn.hasHead();
+            IVertexBuilder ivertexbuilder = bufferIn
+                    .getBuffer(RenderType.entityTranslucent(isChristmas ? CHRISTMAS : PUMPKIN));
+            HeadlessFamiliarModel model = this.getParentModel();
+            model.pumpkin1.visible = hasPumpkin;
+            model.snowmanHat1.visible = isChristmas;
+            model.snowmanHat2.visible = isChristmas;
+            model.snowmanLeftEye.visible = isChristmas;
+            model.snowmanRightEye.visible = isChristmas;
+            model.snowmanMouth1.visible = isChristmas;
+            model.snowmanMouth2.visible = isChristmas;
+            model.snowmanMouth3.visible = isChristmas;
+            model.snowmanNose.visible = isChristmas;
+            model.pumpkin2.visible = !isChristmas;
+            model.pumpkin3.visible = !isChristmas;
+            model.pumpkin4.visible = !isChristmas;
+            model.renderToBuffer(matrixStackIn, ivertexbuilder, packedLightIn,
+                    LivingRenderer.getOverlayCoords(entitylivingbaseIn, 0), 1, 1, 1, 1);
         }
     }
 
@@ -234,8 +275,8 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
 
         @Override
         public void render(MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn,
-                           HeadlessFamiliarEntity entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks,
-                           float ageInTicks, float netHeadYaw, float headPitch) {
+                HeadlessFamiliarEntity entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks,
+                float ageInTicks, float netHeadYaw, float headPitch) {
 
             if (entitylivingbaseIn.isHeadlessDead())
                 return;
@@ -275,7 +316,7 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
 
         @Override
         public void renderToBuffer(MatrixStack pMatrixStack, IVertexBuilder pBuffer, int pPackedLight,
-                                   int pPackedOverlay, float pRed, float pGreen, float pBlue, float pAlpha) {
+                int pPackedOverlay, float pRed, float pGreen, float pBlue, float pAlpha) {
             this.model.trunk1.visible = false;
             this.model.trunk2.visible = false;
             this.model.trunk3.visible = false;

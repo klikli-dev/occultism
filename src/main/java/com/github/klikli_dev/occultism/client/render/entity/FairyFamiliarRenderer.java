@@ -93,7 +93,7 @@ public class FairyFamiliarRenderer extends MobRenderer<FairyFamiliarEntity, Fair
         public void render(MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn,
                 FairyFamiliarEntity entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks,
                 float ageInTicks, float netHeadYaw, float headPitch) {
-            if (entitylivingbaseIn.isInvisible() || !entitylivingbaseIn.isSitting())
+            if (entitylivingbaseIn.isInvisible() || !entitylivingbaseIn.isSitting() || entitylivingbaseIn.isPartying())
                 return;
 
             FairyFamiliarModel model = this.getParentModel();

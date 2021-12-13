@@ -36,5 +36,7 @@ public class OccultismParticles {
 
     public static final RegistryObject<BasicParticleType> RITUAL_WAITING = PARTICLES.register(
             "ritual_waiting", () -> new BasicParticleType(false));
+    public static final RegistryObject<BasicParticleType> SNOWFLAKE = PARTICLES.register(
+            "snowflake", () -> new BasicParticleType(false));
 //endregion Fields
 }
