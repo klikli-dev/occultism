@@ -50,7 +50,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.MenuProvider;
@@ -63,8 +62,9 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DirectionalBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.registries.RegistryObject;
+import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
@@ -407,12 +407,13 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
     }
 
     @Override
-    protected void saveAdditional(CompoundTag compound) {
-        super.saveAdditional(compound);
+    public CompoundTag save(CompoundTag compound) {
+        super.save(compound);
         compound.remove("linkedMachines"); //linked machines are not saved, they self-register.
         this.itemStackHandler.ifPresent(handler -> {
             compound.put("items", handler.serializeNBT());
         });
+        return compound;
     }
 
     @Override
@@ -427,7 +428,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
         //read stored crafting matrix
         this.matrix = new HashMap<Integer, ItemStack>();
         if (compound.contains("matrix")) {
-            ListTag matrixNbt = compound.getList("matrix", Tag.TAG_COMPOUND);
+            ListTag matrixNbt = compound.getList("matrix", Constants.NBT.TAG_COMPOUND);
             for (int i = 0; i < matrixNbt.size(); i++) {
                 CompoundTag stackTag = matrixNbt.getCompound(i);
                 int slot = stackTag.getByte("slot");
@@ -442,7 +443,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
         //read the linked machines
         this.linkedMachines = new HashMap<>();
         if (compound.contains("linkedMachines")) {
-            ListTag machinesNbt = compound.getList("linkedMachines", Tag.TAG_COMPOUND);
+            ListTag machinesNbt = compound.getList("linkedMachines", Constants.NBT.TAG_COMPOUND);
             for (int i = 0; i < machinesNbt.size(); i++) {
                 MachineReference reference = MachineReference.from(machinesNbt.getCompound(i));
                 this.linkedMachines.put(reference.globalPos, reference);

@@ -33,10 +33,10 @@ import com.github.klikli_dev.occultism.common.misc.DepositOrder;
 import com.github.klikli_dev.occultism.util.BlockEntityUtil;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.Tag;
 import net.minecraft.world.entity.ai.goal.OpenDoorGoal;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraftforge.common.util.Constants;
 
 import java.util.ArrayDeque;
 import java.util.Queue;
@@ -196,7 +196,7 @@ public class ManageMachineJob extends SpiritJob {
 
         this.depositOrderQueue = new ArrayDeque<>();
         if (compound.contains("depositOrders")) {
-            ListTag nbtOrderList = compound.getList("depositOrders", Tag.TAG_COMPOUND);
+            ListTag nbtOrderList = compound.getList("depositOrders", Constants.NBT.TAG_COMPOUND);
             for (int i = 0; i < nbtOrderList.size(); i++) {
                 DepositOrder depositOrder = DepositOrder.from(nbtOrderList.getCompound(i));
                 this.depositOrderQueue.add(depositOrder);

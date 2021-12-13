@@ -28,9 +28,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.network.NetworkRegistry;
-import net.minecraftforge.network.PacketDistributor;
-import net.minecraftforge.network.simple.SimpleChannel;
+import net.minecraftforge.fmllegacy.network.NetworkRegistry;
+import net.minecraftforge.fmllegacy.network.PacketDistributor;
+import net.minecraftforge.fmllegacy.network.simple.SimpleChannel;
 
 public class OccultismPackets {
     //region Fields
@@ -194,19 +194,19 @@ public class OccultismPackets {
                 MessageUpdatePentacles::encode,
                 MessageUpdatePentacles::new,
                 OccultismPacketHandler::handle);
-
+        
         INSTANCE.registerMessage(nextID(),
                 MessageHeadlessDie.class,
                 MessageHeadlessDie::encode,
                 MessageHeadlessDie::new,
                 OccultismPacketHandler::handle);
-
+        
         INSTANCE.registerMessage(nextID(),
                 MessageBeholderAttack.class,
                 MessageBeholderAttack::encode,
                 MessageBeholderAttack::new,
                 OccultismPacketHandler::handle);
-
+        
         INSTANCE.registerMessage(nextID(),
                 MessageFairySupport.class,
                 MessageFairySupport::encode,

@@ -41,12 +41,15 @@ import net.minecraft.world.item.ItemStack;
 
 public class SpiritFireRecipeCategory implements IRecipeCategory<SpiritFireRecipe> {
 
+    //region Fields
     private final IDrawable background;
     private final Component localizedName;
     private final IDrawable overlay;
     private final IDrawable icon;
     private final ItemStack renderStack = new ItemStack(OccultismItems.SPIRIT_FIRE.get());
+    //endregion Fields
 
+    //region Initialization
     public SpiritFireRecipeCategory(IGuiHelper guiHelper) {
         this.background = guiHelper.createBlankDrawable(168, 46); //64
         this.localizedName = new TranslatableComponent(Occultism.MODID + ".jei.spirit_fire");
@@ -55,7 +58,9 @@ public class SpiritFireRecipeCategory implements IRecipeCategory<SpiritFireRecip
         this.icon = guiHelper.createDrawableIngredient(this.renderStack);
         this.renderStack.getOrCreateTag().putBoolean("RenderFull", true);
     }
+    //endregion Initialization
 
+    //region Overrides
     @Override
     public ResourceLocation getUid() {
         return OccultismRecipes.SPIRIT_FIRE.getId();
@@ -108,4 +113,5 @@ public class SpiritFireRecipeCategory implements IRecipeCategory<SpiritFireRecip
         RenderSystem.enableBlend();
         this.overlay.draw(poseStack, 48, 0);
     }
+    //endregion Overrides
 }

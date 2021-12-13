@@ -33,7 +33,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
-import net.minecraftforge.network.NetworkHooks;
+import net.minecraftforge.fmllegacy.network.NetworkHooks;
 
 public class ThrownSwordEntity extends ThrowableItemProjectile {
 
@@ -55,16 +55,6 @@ public class ThrownSwordEntity extends ThrowableItemProjectile {
     }
 
     @Override
-    protected float getGravity() {
-        return 0;
-    }
-
-    @Override
-    protected Item getDefaultItem() {
-        return Items.IRON_SWORD;
-    }
-
-    @Override
     public void addAdditionalSaveData(CompoundTag pCompound) {
         super.addAdditionalSaveData(pCompound);
         pCompound.putInt("duration", this.duration);
@@ -75,6 +65,12 @@ public class ThrownSwordEntity extends ThrowableItemProjectile {
         super.readAdditionalSaveData(pCompound);
         this.duration = pCompound.getInt("duration");
     }
+
+    @Override
+    protected Item getDefaultItem() {
+        return Items.IRON_SWORD;
+    }
+
 
     @Override
     protected void onHit(HitResult pResult) {
@@ -93,16 +89,21 @@ public class ThrownSwordEntity extends ThrowableItemProjectile {
         }
     }
 
-    @Override
-    public Packet<?> getAddEntityPacket() {
-        return NetworkHooks.getEntitySpawningPacket(this);
-    }
-
     private boolean friendlyFire(Entity target) {
         Entity owner = this.getOwner();
         if (owner == null)
             return false;
 
         return target == owner || (target instanceof IFamiliar && ((IFamiliar) target).getFamiliarOwner() == owner);
+    }
+
+    @Override
+    protected float getGravity() {
+        return 0;
+    }
+
+    @Override
+    public Packet<?> getAddEntityPacket() {
+        return NetworkHooks.getEntitySpawningPacket(this);
     }
 }

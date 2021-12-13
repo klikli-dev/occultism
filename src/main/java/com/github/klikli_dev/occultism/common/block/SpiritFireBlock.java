@@ -84,7 +84,7 @@ public class SpiritFireBlock extends Block {
             if (!state.canSurvive(worldIn, pos)) {
                 worldIn.removeBlock(pos, false);
             } else {
-                worldIn.scheduleTick(pos, this, getTickCooldown(worldIn.random));
+                worldIn.getBlockTicks().scheduleTick(pos, this, getTickCooldown(worldIn.random));
             }
         }
     }
@@ -103,7 +103,7 @@ public class SpiritFireBlock extends Block {
 
     @Override
     public void tick(BlockState state, ServerLevel worldIn, BlockPos pos, Random rand) {
-        worldIn.scheduleTick(pos, this, getTickCooldown(worldIn.random));
+        worldIn.getBlockTicks().scheduleTick(pos, this, getTickCooldown(worldIn.random));
 
         if (!worldIn.isAreaLoaded(pos, 2)) {
             return;
@@ -134,7 +134,7 @@ public class SpiritFireBlock extends Block {
             }
 
             if (!isOnFireSource) {
-                worldIn.scheduleTick(pos, this, getTickCooldown(worldIn.random));
+                worldIn.getBlockTicks().scheduleTick(pos, this, getTickCooldown(worldIn.random));
                 if (!this.areNeighborsFlammable(worldIn, pos)) {
                     BlockPos blockpos = pos.below();
                     if (!worldIn.getBlockState(blockpos).isFaceSturdy(worldIn, blockpos, Direction.UP) || i > 3) {

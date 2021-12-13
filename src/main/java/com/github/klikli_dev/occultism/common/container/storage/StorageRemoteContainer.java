@@ -32,12 +32,12 @@ import com.github.klikli_dev.occultism.network.OccultismPackets;
 import com.github.klikli_dev.occultism.registry.OccultismContainers;
 import com.github.klikli_dev.occultism.util.CuriosUtil;
 import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.Tag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.common.util.Constants;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -171,7 +171,7 @@ public class StorageRemoteContainer extends StorageControllerContainerBase {
         if (!stack.getOrCreateTag().contains("craftingMatrix"))
             return craftingMatrix;
 
-        ListTag nbtTagList = stack.getTag().getList("craftingMatrix", Tag.TAG_COMPOUND);
+        ListTag nbtTagList = stack.getTag().getList("craftingMatrix", Constants.NBT.TAG_COMPOUND);
 
         for (int i = 0; i < nbtTagList.size(); i++) {
             craftingMatrix.set(i, ItemStack.of(nbtTagList.getCompound(i)));

@@ -69,11 +69,11 @@ public class OccultismCommonConfig {
                 
                 this.silverOre =
                         new OreSettings("silverOre",
-                                BlockTags.STONE_ORE_REPLACEABLES, 7,
+                                BlockTags.BASE_STONE_OVERWORLD, 7,
                                 3, 5, 0, 30, builder);
                 this.iesniumOre =
                         new OreSettings("iesniumOre",
-                                BlockTags.BASE_STONE_NETHER, 3, 10,
+                                OccultismTags.NETHERRACK, 3, 10,
                                 10, 10, 128, builder);
                 builder.pop();
             }

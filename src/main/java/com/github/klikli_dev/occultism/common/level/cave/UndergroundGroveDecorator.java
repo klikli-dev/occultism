@@ -23,7 +23,6 @@
 package com.github.klikli_dev.occultism.common.level.cave;
 
 import com.github.klikli_dev.occultism.Occultism;
-import com.github.klikli_dev.occultism.common.level.OccultismPlacements;
 import com.github.klikli_dev.occultism.common.level.WorldGenHandler;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import net.minecraft.core.BlockPos;
@@ -40,10 +39,14 @@ import java.util.Random;
 
 public class UndergroundGroveDecorator extends CaveDecorator {
 
+    //region Initialization
     public UndergroundGroveDecorator() {
         super(Blocks.GRASS_BLOCK.defaultBlockState(), null, OccultismBlocks.OTHERSTONE_NATURAL.get().defaultBlockState());
 
     }
+    //endregion Initialization
+
+    //region Overrides
 
     @Override
     public void finalFloorPass(WorldGenLevel seedReader, ChunkGenerator generator, Random rand,
@@ -53,7 +56,8 @@ public class UndergroundGroveDecorator extends CaveDecorator {
             seedReader.setBlock(pos.above(), Blocks.GRASS.defaultBlockState(), 2);
 
         if (rand.nextFloat() < Occultism.COMMON_CONFIG.worldGen.undergroundGroveGen.treeChance.get()) {
-            OccultismPlacements.OTHERWORLD_TREE_NATURAL.place(seedReader, generator, rand, pos.above());
+            ConfiguredFeature<TreeConfiguration, ?> treeFeature = WorldGenHandler.OTHERWORLD_TREE_NATURAL;
+            treeFeature.place(seedReader, generator, rand, pos.above());
         }
     }
 
@@ -90,4 +94,6 @@ public class UndergroundGroveDecorator extends CaveDecorator {
             }
         }
     }
+
+    //endregion Overrides
 }

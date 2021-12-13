@@ -41,6 +41,7 @@ import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraftforge.fmlclient.gui.GuiUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.awt.*;
@@ -151,7 +152,7 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
     protected void renderFg(PoseStack poseStack, int mouseX, int mouseY) {
         this.tooltip.clear();
 
-        if (this.filterModeButton.isHoveredOrFocused()) {
+        if (this.filterModeButton.isHovered()) {
             this.tooltip.add(new TranslatableComponent(TRANSLATION_KEY_BASE + ".filter_mode"));
             this.tooltip.add(new TranslatableComponent(TRANSLATION_KEY_BASE + ".filter_mode."
                     + (this.isBlacklist() ? "blacklist" : "whitelist"))

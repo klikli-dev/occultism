@@ -13,7 +13,7 @@
                       "predicate_type": "minecraft:tag_match"
                     },
                     "state": {
-                      "Name": "occultism:silver_ore"
+                      "Name": "occultism:copper_ore"
                     }
                   }
                 ],
@@ -26,10 +26,10 @@
               "config": {
                 "height": {
                   "min_inclusive": {
-                    "above_bottom": 5
+                    "above_bottom": 10
                   },
                   "max_inclusive": {
-                    "absolute": 30
+                    "absolute": 64
                   },
                   "type": "minecraft:uniform"
                 }
@@ -48,7 +48,7 @@
     },
     "decorator": {
       "config": {
-        "count": 3
+        "count": 10
       },
       "type": "minecraft:count"
     }

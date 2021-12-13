@@ -24,14 +24,12 @@ if (System.getenv('VERSION') != null) {
 group = "com.github.klikli_dev"
 archivesBaseName = "occultism"
 
-java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+java.toolchain.languageVersion = JavaLanguageVersion.of(16)
 
 println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
 minecraft {
 
-    //TODO: switch to parchment once available
-    //mappings channel: 'parchment', version: mapping_version
-    mappings channel: 'official', version: '1.18'
+    mappings channel: 'parchment', version: mapping_version
 
     accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 
@@ -145,6 +143,7 @@ dependencies {
     //Jei
     compileOnly fg.deobf("mezz.jei:jei-${jei_mc_version}:${jei_version}:api")
     runtimeOnly fg.deobf("mezz.jei:jei-${jei_mc_version}:${jei_version}")
+
 
     //curios
     compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_mc_version}-${curios_version}:api")

@@ -81,7 +81,7 @@ public class OccultismTags {
     }
 
     public static Tag<EntityType<?>> makeEntityTypeTag(ResourceLocation id) {
-        return EntityTypeTags.bind(id.toString());
+        return EntityTypeTags.getAllTags().getTag(id);
     }
     //endregion Static Methods
 }

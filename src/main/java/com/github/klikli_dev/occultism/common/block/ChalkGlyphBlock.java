@@ -133,8 +133,9 @@ public class ChalkGlyphBlock extends Block {
         super.createBlockStateDefinition(builder);
     }
 
+
     @Override
-    public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockGetter world, BlockPos pos, Player player) {
+    public ItemStack getPickBlock(BlockState state, HitResult target, BlockGetter world, BlockPos pos, Player player) {
         if (ForgeRegistries.ITEMS.containsKey(
                 this.getChalk().getRegistryName()))//fix for startup crash related to patchouli getting pick block too early
             return new ItemStack(this.getChalk());
