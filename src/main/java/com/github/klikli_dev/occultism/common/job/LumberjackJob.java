@@ -63,7 +63,7 @@ public class LumberjackJob extends SpiritJob {
 
     @Override
     public void init() {
-        this.entity.goalSelector.addGoal(0, this.pickupItemsGoal = new PickupItemsGoal(this.entity));
+        this.entity.goalSelector.addGoal(0, this.pickupItemsGoal = new PickupItemsGoal(this.entity, 4f, 10));
         this.entity.goalSelector.addGoal(2, this.fellTreesGoal = new FellTreesGoal(this.entity));
         this.entity.goalSelector.addGoal(3, this.replantSaplingGoal = new ReplantSaplingGoal(this.entity));
         this.entity.goalSelector.addGoal(4, this.depositItemsGoal = new DepositItemsGoal(this.entity));
