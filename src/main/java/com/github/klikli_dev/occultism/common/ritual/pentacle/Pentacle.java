@@ -22,6 +22,7 @@
 
 package com.github.klikli_dev.occultism.common.ritual.pentacle;
 
+import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.block.ChalkGlyphBlock;
 import com.google.gson.*;
 import com.mojang.datafixers.util.Pair;
@@ -30,6 +31,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.SerializationTags;
 import net.minecraft.tags.Tag;
 import net.minecraft.util.GsonHelper;
@@ -145,15 +147,23 @@ public class Pentacle {
                 }
             } else if (jsonObject.has("tag")) {
                 ResourceLocation tagRL = new ResourceLocation(GsonHelper.getAsString(jsonObject, "tag"));
-                Tag<Block> tag = SerializationTags.getInstance().getTagOrThrow(Registry.BLOCK_REGISTRY, tagRL, (rl) -> {
-                    return new JsonSyntaxException("Unknown block tag '" + rl + "'");
-                });
 
-                if (tag == null)
-                    throw new JsonSyntaxException("Invalid tag " + tagRL);
-                if (display == null)
-                    throw new JsonSyntaxException("No display set for tag " + tagRL);
-                return OM(PatchouliAPI.get().predicateMatcher(display, s -> tag.contains(s.getBlock())));
+                //Absolutely abhorrent, but apparently Forge doesn't have a way to get a tag from a ResourceLocation when clients receive pentacles
+                //and a dirty hack is quicker than a proper fix :shrugs:
+                try{
+                    Tag<Block> tag = SerializationTags.getInstance().getTagOrThrow(Registry.BLOCK_REGISTRY, tagRL, (rl) -> {
+                        return new JsonSyntaxException("Unknown block tag '" + rl + "'");
+                    });
+                    if (display == null)
+                        throw new JsonSyntaxException("No display set for tag " + tagRL);
+                    return OM(PatchouliAPI.get().predicateMatcher(display, s -> tag.contains(s.getBlock())));
+                }
+                catch (JsonSyntaxException jsonSyntaxException){
+                    return OM(PatchouliAPI.get().predicateMatcher(display, s ->
+                        BlockTags.getAllTags().getTagOrEmpty(tagRL).contains(s.getBlock())
+                    ));
+                }
+
             } else if (display != null) {
                 return OM(PatchouliAPI.get().displayOnlyMatcher(display));
             }
