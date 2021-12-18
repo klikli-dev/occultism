@@ -61,7 +61,7 @@ public class OccultismPlacements {
                 VerticalAnchor.belowTop(-oreGen.iesniumOre.maximum.get());
         IESNIUM_ORE = OccultismFeatures.IESNIUM_ORE.placed(commonOrePlacement(oreGen.iesniumOre.count.get(),
                 HeightRangePlacement.triangle(VerticalAnchor.aboveBottom(oreGen.iesniumOre.bottomOffset.get()), iesniumMaxAnchor)));
-        Registry.register(BuiltinRegistries.PLACED_FEATURE, modLoc("iesnium_ore_natural"), IESNIUM_ORE);
+        Registry.register(BuiltinRegistries.PLACED_FEATURE, modLoc("iesnium_ore"), IESNIUM_ORE);
 
         UNDERGROUND_GROVE = OccultismFeatures.UNDERGROUND_GROVE.placed();
         Registry.register(BuiltinRegistries.PLACED_FEATURE, modLoc("underground_grove"), UNDERGROUND_GROVE);
