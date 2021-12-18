@@ -107,8 +107,7 @@ public class FellTreesGoal extends Goal {
     public void tick() {
         if (this.targetBlock != null) {
 
-            this.entity.getNavigation().moveTo(
-                    this.entity.getNavigation().createPath(this.moveTarget, 0), 1.0f);
+            this.entity.getNavigation().moveTo(this.entity.getNavigation().createPath(this.moveTarget, 0), 1.0f);
 
             if (Occultism.DEBUG.debugAI) {
                 OccultismPackets.sendToTracking(this.entity, new MessageSelectBlock(this.targetBlock, 5000, 0xffffff));
@@ -176,23 +175,17 @@ public class FellTreesGoal extends Goal {
         Level level = this.entity.level;
 
         //if work area was recently empty, wait until refresh time has elapsed
-        if (level.getGameTime() - this.lastWorkareaEmptyTime < WORKAREA_EMPTY_REFRESH_TIME)
-            return;
+        if (level.getGameTime() - this.lastWorkareaEmptyTime < WORKAREA_EMPTY_REFRESH_TIME) return;
 
         Set<BlockPos> ignoredTrees = this.entity.getJob().map(j -> (LumberjackJob) j).map(LumberjackJob::getIgnoredTrees).orElse(new HashSet<>());
 
         BlockPos workAreaCenter = this.entity.getWorkAreaCenter();
         //get work area, but only half height, we don't need full.
         int workAreaSize = this.entity.getWorkAreaSize().getValue();
-        Stream<BlockPos> stream = BlockPos.betweenClosedStream(
-                        workAreaCenter.offset(-workAreaSize, -workAreaSize / 2, -workAreaSize),
-                        workAreaCenter.offset(workAreaSize, workAreaSize / 2, workAreaSize))
-                .map(BlockPos::immutable);
+        Stream<BlockPos> stream = BlockPos.betweenClosedStream(workAreaCenter.offset(-workAreaSize, -workAreaSize / 2, -workAreaSize), workAreaCenter.offset(workAreaSize, workAreaSize / 2, workAreaSize)).map(BlockPos::immutable);
 
         //filter potential stumps
-        List<BlockPos> potentialStumps = stream.filter(pos ->
-                isLog(level, pos) && isTreeSoil(level, pos.below()) && !ignoredTrees.contains(pos)
-        ).collect(Collectors.toList());
+        List<BlockPos> potentialStumps = stream.filter(pos -> isLog(level, pos) && isTreeSoil(level, pos.below()) && !ignoredTrees.contains(pos)).collect(Collectors.toList());
 
         if (!potentialStumps.isEmpty()) {
             potentialStumps.sort(this.targetSorter);
@@ -245,14 +238,10 @@ public class FellTreesGoal extends Goal {
      * @return the stump block position.
      */
     private BlockPos getStump(BlockPos log) {
-        if (log.getY() > 0) {
-            //for all nearby logs and leaves, move one block down and recurse.
-            for (BlockPos pos : BlockPos.betweenClosedStream(log.offset(-4, -4, -4), log.offset(4, 0, 4)).map(BlockPos::immutable)
-                    .collect(
-                            Collectors.toList())) {
-                if (isLog(this.entity.level, pos.below()) || isLeaf(this.entity.level, pos.below())) {
-                    return this.getStump(pos.below());
-                }
+        //for all nearby logs and leaves, move one block down and recurse.
+        for (BlockPos pos : BlockPos.betweenClosedStream(log.offset(-4, -4, -4), log.offset(4, 0, 4)).map(BlockPos::immutable).collect(Collectors.toList())) {
+            if (isLog(this.entity.level, pos.below()) || isLeaf(this.entity.level, pos.below())) {
+                return this.getStump(pos.below());
             }
         }
         return log;
