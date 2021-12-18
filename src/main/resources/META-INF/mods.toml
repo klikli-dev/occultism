@@ -38,7 +38,7 @@ description='''A magic mod inspired by the world of Jonathan Stroud's Bartimaeus
 [[dependencies.occultism]]
     modId="patchouli"
     mandatory=true
-    versionRange="[1.18-58,)"
+    versionRange="[1.18.1-61,)"
     side="BOTH"
 
 [[dependencies.occultism]]
