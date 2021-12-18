@@ -70,8 +70,8 @@ public class OccultismFeatures {
         IESNIUM_ORE = Feature.ORE.configured(
                 new OreConfiguration(
                         new TagMatchTest(oreGen.iesniumOre.getFillerBlockTag()),
-                        OccultismBlocks.IESNIUM_ORE.get().defaultBlockState(), oreGen.iesniumOre.size.get()));
-        Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, modLoc("iesnium_ore"), IESNIUM_ORE);
+                        OccultismBlocks.IESNIUM_ORE_NATURAL.get().defaultBlockState(), oreGen.iesniumOre.size.get()));
+        Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, modLoc("iesnium_ore_natural"), IESNIUM_ORE);
 
         UNDERGROUND_GROVE =
                 OccultismBiomeFeatures.UNDERGROUND_GROVE_FEATURE.get().configured(
