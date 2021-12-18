@@ -26,6 +26,7 @@ import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.client.model.entity.GuardianFamiliarModel;
 import com.github.klikli_dev.occultism.common.entity.GuardianFamiliarEntity;
 import com.github.klikli_dev.occultism.registry.OccultismModelLayers;
+import com.github.klikli_dev.occultism.util.FamiliarUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Quaternion;
@@ -53,6 +54,7 @@ public class GuardianFamiliarRenderer extends MobRenderer<GuardianFamiliarEntity
         super(context, new GuardianFamiliarModel(context.bakeLayer(OccultismModelLayers.FAMILIAR_GUARDIAN)), 0.3f);
         this.addLayer(new GuardianFamiliarOverlay(this, context));
         this.addLayer(new ToolsLayer(this));
+        this.addLayer(new GuardianFamiliarTree(this));
     }
 
     @Override
@@ -142,6 +144,35 @@ public class GuardianFamiliarRenderer extends MobRenderer<GuardianFamiliarEntity
                         pPackedLight);
                 pMatrixStack.popPose();
             }
+        }
+    }
+
+    private static class GuardianFamiliarTree extends RenderLayer<GuardianFamiliarEntity, GuardianFamiliarModel> {
+        private static final ResourceLocation TREE = new ResourceLocation(Occultism.MODID,
+                "textures/entity/guardian_familiar_tree.png");
+        private static final ResourceLocation CHRISTMAS = new ResourceLocation(Occultism.MODID,
+                "textures/entity/guardian_familiar_christmas.png");
+
+        public GuardianFamiliarTree(RenderLayerParent<GuardianFamiliarEntity, GuardianFamiliarModel> renderer) {
+            super(renderer);
+        }
+
+        @Override
+        public void render(PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn,
+                           GuardianFamiliarEntity entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks,
+                           float ageInTicks, float netHeadYaw, float headPitch) {
+            if (entitylivingbaseIn.isInvisible())
+                return;
+
+            boolean isChristmas = FamiliarUtil.isChristmas();
+            boolean hasTree = entitylivingbaseIn.hasTree();
+            VertexConsumer ivertexbuilder = bufferIn
+                    .getBuffer(RenderType.entityTranslucent(isChristmas ? CHRISTMAS : TREE));
+            GuardianFamiliarModel model = this.getParentModel();
+            model.tree1.visible = isChristmas || hasTree;
+            model.tree2.visible = isChristmas || hasTree;
+            model.renderToBuffer(matrixStackIn, ivertexbuilder, packedLightIn,
+                    LivingEntityRenderer.getOverlayCoords(entitylivingbaseIn, 0), 1, 1, 1, 1);
         }
     }
 

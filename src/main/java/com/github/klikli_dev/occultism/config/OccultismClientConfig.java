@@ -40,12 +40,15 @@ public class OccultismClientConfig {
 
     public static class VisualSettings {
         public final BooleanValue disableDemonsDreamShaders;
+        public final BooleanValue disableHolidayTheming;
 
         public VisualSettings(ForgeConfigSpec.Builder builder) {
             builder.comment("Visual Settings").push("visual");
 
             this.disableDemonsDreamShaders = builder.comment("Disables the headache- and possibly seizure-inducing visual effects of Demon's Dream.")
                     .define("disableDemonsDreamShaders", false);
+            this.disableHolidayTheming = builder.comment("Disables holiday themed visual content such as familiar skins.")
+                    .define("disableHolidayTheming", false);
             builder.pop();
         }
     }

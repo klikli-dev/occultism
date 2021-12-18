@@ -30,11 +30,11 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class OccultismParticles {
-    //region Fields
     public static final DeferredRegister<ParticleType<?>> PARTICLES = DeferredRegister.create(
             ForgeRegistries.PARTICLE_TYPES, Occultism.MODID);
 
     public static final RegistryObject<SimpleParticleType> RITUAL_WAITING = PARTICLES.register(
             "ritual_waiting", () -> new SimpleParticleType(false));
-//endregion Fields
+    public static final RegistryObject<SimpleParticleType> SNOWFLAKE = PARTICLES.register(
+            "snowflake", () -> new SimpleParticleType(false));
 }

@@ -28,6 +28,7 @@ import com.github.klikli_dev.occultism.client.model.entity.HeadlessFamiliarModel
 import com.github.klikli_dev.occultism.common.entity.HeadlessFamiliarEntity;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.registry.OccultismModelLayers;
+import com.github.klikli_dev.occultism.util.FamiliarUtil;
 import com.google.common.collect.ImmutableMap;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -43,6 +44,7 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
@@ -67,6 +69,7 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
         this.addLayer(new HeadLayer(this));
         this.addLayer(new WeaponLayer(this));
         this.addLayer(new RebuiltLayer(this));
+        this.addLayer(new PumpkinLayer(this));
     }
 
     @Override
@@ -187,6 +190,45 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
                     pLivingEntity.getWeaponItem(), ItemTransforms.TransformType.GROUND, false, pMatrixStack,
                     pBuffer, pPackedLight);
             pMatrixStack.popPose();
+        }
+    }
+
+    private static class PumpkinLayer extends RenderLayer<HeadlessFamiliarEntity, HeadlessFamiliarModel> {
+        private static final ResourceLocation PUMPKIN = new ResourceLocation(Occultism.MODID,
+                "textures/entity/headless_familiar_pumpkin.png");
+        private static final ResourceLocation CHRISTMAS = new ResourceLocation(Occultism.MODID,
+                "textures/entity/headless_familiar_christmas.png");
+
+        public PumpkinLayer(RenderLayerParent<HeadlessFamiliarEntity, HeadlessFamiliarModel> renderer) {
+            super(renderer);
+        }
+
+        @Override
+        public void render(PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn,
+                           HeadlessFamiliarEntity entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks,
+                           float ageInTicks, float netHeadYaw, float headPitch) {
+            if (entitylivingbaseIn.isInvisible())
+                return;
+
+            boolean isChristmas = FamiliarUtil.isChristmas();
+            boolean hasPumpkin = !entitylivingbaseIn.hasHead();
+            VertexConsumer ivertexbuilder = bufferIn
+                    .getBuffer(RenderType.entityTranslucent(isChristmas ? CHRISTMAS : PUMPKIN));
+            HeadlessFamiliarModel model = this.getParentModel();
+            model.pumpkin1.visible = hasPumpkin;
+            model.snowmanHat1.visible = isChristmas;
+            model.snowmanHat2.visible = isChristmas;
+            model.snowmanLeftEye.visible = isChristmas;
+            model.snowmanRightEye.visible = isChristmas;
+            model.snowmanMouth1.visible = isChristmas;
+            model.snowmanMouth2.visible = isChristmas;
+            model.snowmanMouth3.visible = isChristmas;
+            model.snowmanNose.visible = isChristmas;
+            model.pumpkin2.visible = !isChristmas;
+            model.pumpkin3.visible = !isChristmas;
+            model.pumpkin4.visible = !isChristmas;
+            model.renderToBuffer(matrixStackIn, ivertexbuilder, packedLightIn,
+                    LivingEntityRenderer.getOverlayCoords(entitylivingbaseIn, 0), 1, 1, 1, 1);
         }
     }
 

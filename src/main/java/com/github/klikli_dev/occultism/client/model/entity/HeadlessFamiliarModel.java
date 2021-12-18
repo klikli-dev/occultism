@@ -77,6 +77,14 @@ public class HeadlessFamiliarModel extends EntityModel<HeadlessFamiliarEntity> {
     public ModelPart pumpkin2;
     public ModelPart pumpkin3;
     public ModelPart pumpkin4;
+    public ModelPart snowmanLeftEye;
+    public ModelPart snowmanRightEye;
+    public ModelPart snowmanNose;
+    public ModelPart snowmanMouth1;
+    public ModelPart snowmanMouth2;
+    public ModelPart snowmanMouth3;
+    public ModelPart snowmanHat1;
+    public ModelPart snowmanHat2;
     public ModelPart ratBackRightLeg2;
     public ModelPart ratBackRightLeg3;
 
@@ -116,6 +124,14 @@ public class HeadlessFamiliarModel extends EntityModel<HeadlessFamiliarEntity> {
         this.pumpkin2 = this.pumpkin1.getChild("pumpkin2");
         this.pumpkin3 = this.pumpkin1.getChild("pumpkin3");
         this.pumpkin4 = this.pumpkin1.getChild("pumpkin4");
+        this.snowmanLeftEye = this.pumpkin1.getChild("snowmanLeftEye");
+        this.snowmanRightEye = this.pumpkin1.getChild("snowmanRightEye");
+        this.snowmanNose = this.pumpkin1.getChild("snowmanNose");
+        this.snowmanMouth1 = this.pumpkin1.getChild("snowmanMouth1");
+        this.snowmanMouth2 = this.pumpkin1.getChild("snowmanMouth2");
+        this.snowmanMouth3 = this.pumpkin1.getChild("snowmanMouth3");
+        this.snowmanHat1 = this.pumpkin1.getChild("snowmanHat1");
+        this.snowmanHat2 = this.snowmanHat1.getChild("snowmanHat2");
         this.ratBackRightLeg2 = this.ratBackRightLeg1.getChild("ratBackRightLeg2");
         this.ratBackRightLeg3 = this.ratBackRightLeg2.getChild("ratBackRightLeg3");
     }
@@ -159,6 +175,14 @@ public class HeadlessFamiliarModel extends EntityModel<HeadlessFamiliarEntity> {
         PartDefinition pumpkin2 = pumpkin1.addOrReplaceChild("pumpkin2", CubeListBuilder.create().texOffs(56, 7).addBox(-0.5F, -2.0F, -0.5F, 1.0F, 2.0F, 1.0F, false), PartPose.offsetAndRotation(0.0F, -2.0F, 0.0F, 0.23457224414434488F, 0.5082398928281348F, 0.27366763203903305F));
         PartDefinition pumpkin3 = pumpkin1.addOrReplaceChild("pumpkin3", CubeListBuilder.create().texOffs(34, 27).addBox(0.0F, -2.5F, 0.0F, 2.0F, 4.0F, 1.0F, false), PartPose.offsetAndRotation(-2.49F, 0.99F, -2.5F, 0, 0, 0));
         PartDefinition pumpkin4 = pumpkin1.addOrReplaceChild("pumpkin4", CubeListBuilder.create().texOffs(34, 27).addBox(0.0F, -2.5F, 0.0F, 2.0F, 4.0F, 1.0F, true), PartPose.offsetAndRotation(0.49F, 0.99F, -2.5F, 0, 0, 0));
+        PartDefinition snowmanLeftEye = pumpkin1.addOrReplaceChild("snowmanLeftEye", CubeListBuilder.create().texOffs(44, 32).addBox(-0.5F, -0.5F, 0.0F, 1.0F, 1.0F, 1.0F, false), PartPose.offsetAndRotation(1.0F, -1.0F, -3.0F, 0, 0, 0));
+        PartDefinition snowmanRightEye = pumpkin1.addOrReplaceChild("snowmanRightEye", CubeListBuilder.create().texOffs(44, 32).addBox(-0.5F, -0.5F, 0.0F, 1.0F, 1.0F, 1.0F, false), PartPose.offsetAndRotation(-1.0F, -1.0F, -3.0F, 0, 0, 0));
+        PartDefinition snowmanNose = pumpkin1.addOrReplaceChild("snowmanNose", CubeListBuilder.create().texOffs(46, 32).addBox(-0.5F, -0.5F, -2.0F, 1.0F, 1.0F, 2.0F, false), PartPose.offsetAndRotation(0.0F, 0.3F, -2.5F, 0, 0, 0));
+        PartDefinition snowmanMouth1 = pumpkin1.addOrReplaceChild("snowmanMouth1", CubeListBuilder.create().texOffs(44, 32).addBox(-0.5F, -0.5F, 0.0F, 1.0F, 1.0F, 1.0F, false), PartPose.offsetAndRotation(1.3F, 1.2F, -3.0F, 0, 0, 0));
+        PartDefinition snowmanMouth2 = pumpkin1.addOrReplaceChild("snowmanMouth2", CubeListBuilder.create().texOffs(44, 32).addBox(-0.5F, -0.5F, 0.0F, 1.0F, 1.0F, 1.0F, false), PartPose.offsetAndRotation(0.0F, 1.5F, -3.0F, 0, 0, 0));
+        PartDefinition snowmanMouth3 = pumpkin1.addOrReplaceChild("snowmanMouth3", CubeListBuilder.create().texOffs(44, 32).addBox(-0.5F, -0.5F, 0.0F, 1.0F, 1.0F, 1.0F, false), PartPose.offsetAndRotation(-1.3F, 1.2F, -3.0F, 0, 0, 0));
+        PartDefinition snowmanHat1 = pumpkin1.addOrReplaceChild("snowmanHat1", CubeListBuilder.create().texOffs(46, 32).addBox(-3.0F, 0.0F, -3.0F, 6.0F, 0.0F, 6.0F, false), PartPose.offsetAndRotation(0.0F, -2.51F, 0.0F, 0, 0, 0));
+        PartDefinition snowmanHat2 = snowmanHat1.addOrReplaceChild("snowmanHat2", CubeListBuilder.create().texOffs(48, 38).addBox(-2.0F, -4.0F, -2.0F, 4.0F, 4.0F, 4.0F, false), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0, 0, 0));
         PartDefinition ratBackRightLeg2 = ratBackRightLeg1.addOrReplaceChild("ratBackRightLeg2", CubeListBuilder.create().texOffs(43, 0).addBox(-0.5F, 0.0F, -0.5F, 1.0F, 2.0F, 1.0F, true), PartPose.offsetAndRotation(0.0F, 1.5F, 0.4F, -0.5473352640780661F, 0.0F, 0.0F));
         PartDefinition ratBackRightLeg3 = ratBackRightLeg2.addOrReplaceChild("ratBackRightLeg3", CubeListBuilder.create().texOffs(44, 6).addBox(-1.0F, 0.0F, -2.0F, 2.0F, 1.0F, 2.0F, false), PartPose.offsetAndRotation(0.0F, 1.7F, 0.4F, 0.3127630032889644F, 0.0F, 0.0F));
         return LayerDefinition.create(mesh, 64, 64);

@@ -22,6 +22,7 @@
 
 package com.github.klikli_dev.occultism.util;
 
+import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.entity.IFamiliar;
 import com.github.klikli_dev.occultism.common.item.tool.FamiliarRingItem;
 import com.github.klikli_dev.occultism.registry.OccultismCapabilities;
@@ -32,6 +33,7 @@ import net.minecraftforge.items.IItemHandlerModifiable;
 import top.theillusivec4.curios.api.CuriosApi;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -133,5 +135,14 @@ public class FamiliarUtil {
     
     public static float toRads(float deg) {
         return (float) Math.toRadians(deg);
+    }
+
+    public static boolean isChristmas() {
+        if(Occultism.CLIENT_CONFIG.visuals.disableHolidayTheming.get())
+            return false;
+
+        Calendar calendar = Calendar.getInstance();
+        return (calendar.get(Calendar.MONTH) == Calendar.DECEMBER && calendar.get(Calendar.DAY_OF_MONTH) >= 15)
+                || calendar.get(Calendar.MONTH) == Calendar.JANUARY && calendar.get(Calendar.DAY_OF_MONTH) <= 15;
     }
 }

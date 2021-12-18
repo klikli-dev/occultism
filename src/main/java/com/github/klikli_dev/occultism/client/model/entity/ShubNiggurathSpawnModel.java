@@ -52,6 +52,7 @@ public class ShubNiggurathSpawnModel extends EntityModel<ShubNiggurathSpawnEntit
     public ModelPart eye2;
     public ModelPart eye3;
     public ModelPart eye4;
+    public ModelPart christmasPresent1;
     public ModelPart rightHorn2;
     public ModelPart jaw;
     public ModelPart upperTeeth;
@@ -64,30 +65,35 @@ public class ShubNiggurathSpawnModel extends EntityModel<ShubNiggurathSpawnEntit
     public ModelPart tentacleMiddle3;
     public ModelPart tentacleBottom2;
     public ModelPart tentacleBottom3;
+    public ModelPart christmasPresent2;
+    public ModelPart christmasPresent3;
 
     public ShubNiggurathSpawnModel(ModelPart part) {
         this.head = part.getChild("head");
-        this.rightHorn1 = this.head.getChild("rightHorn1");
-        this.mouth = this.head.getChild("mouth");
-        this.leftHorn1 = this.head.getChild("leftHorn1");
-        this.tentacleTop1 = this.head.getChild("tentacleTop1");
-        this.tentacleMiddle1 = this.head.getChild("tentacleMiddle1");
-        this.tentacleBottom1 = this.head.getChild("tentacleBottom1");
-        this.eye2 = this.head.getChild("eye2");
-        this.eye3 = this.head.getChild("eye3");
-        this.eye4 = this.head.getChild("eye4");
-        this.rightHorn2 = this.rightHorn1.getChild("rightHorn2");
-        this.jaw = this.mouth.getChild("jaw");
-        this.upperTeeth = this.mouth.getChild("upperTeeth");
-        this.eye1 = this.mouth.getChild("eye1");
-        this.lowerTeeth = this.jaw.getChild("lowerTeeth");
-        this.leftHorn2 = this.leftHorn1.getChild("leftHorn2");
-        this.tentacleTop2 = this.tentacleTop1.getChild("tentacleTop2");
-        this.tentacleTop3 = this.tentacleTop2.getChild("tentacleTop3");
-        this.tentacleMiddle2 = this.tentacleMiddle1.getChild("tentacleMiddle2");
-        this.tentacleMiddle3 = this.tentacleMiddle2.getChild("tentacleMiddle3");
-        this.tentacleBottom2 = this.tentacleBottom1.getChild("tentacleBottom2");
-        this.tentacleBottom3 = this.tentacleBottom2.getChild("tentacleBottom3");
+        this.rightHorn1 = head.getChild("rightHorn1");
+        this.mouth = head.getChild("mouth");
+        this.leftHorn1 = head.getChild("leftHorn1");
+        this.tentacleTop1 = head.getChild("tentacleTop1");
+        this.tentacleMiddle1 = head.getChild("tentacleMiddle1");
+        this.tentacleBottom1 = head.getChild("tentacleBottom1");
+        this.eye2 = head.getChild("eye2");
+        this.eye3 = head.getChild("eye3");
+        this.eye4 = head.getChild("eye4");
+        this.christmasPresent1 = head.getChild("christmasPresent1");
+        this.rightHorn2 = rightHorn1.getChild("rightHorn2");
+        this.jaw = mouth.getChild("jaw");
+        this.upperTeeth = mouth.getChild("upperTeeth");
+        this.eye1 = mouth.getChild("eye1");
+        this.lowerTeeth = jaw.getChild("lowerTeeth");
+        this.leftHorn2 = leftHorn1.getChild("leftHorn2");
+        this.tentacleTop2 = tentacleTop1.getChild("tentacleTop2");
+        this.tentacleTop3 = tentacleTop2.getChild("tentacleTop3");
+        this.tentacleMiddle2 = tentacleMiddle1.getChild("tentacleMiddle2");
+        this.tentacleMiddle3 = tentacleMiddle2.getChild("tentacleMiddle3");
+        this.tentacleBottom2 = tentacleBottom1.getChild("tentacleBottom2");
+        this.tentacleBottom3 = tentacleBottom2.getChild("tentacleBottom3");
+        this.christmasPresent2 = christmasPresent1.getChild("christmasPresent2");
+        this.christmasPresent3 = christmasPresent1.getChild("christmasPresent3");
     }
 
     public static LayerDefinition createBodyLayer() {
@@ -103,6 +109,7 @@ public class ShubNiggurathSpawnModel extends EntityModel<ShubNiggurathSpawnEntit
         PartDefinition eye2 = head.addOrReplaceChild("eye2", CubeListBuilder.create().texOffs(11, 15).addBox(-1.0F, -1.0F, -0.5F, 2.0F, 1.0F, 1.0F, false), PartPose.offsetAndRotation(-0.2F, -0.8F, -1.8F, 0.0F, 0.4300491170387584F, 0.0F));
         PartDefinition eye3 = head.addOrReplaceChild("eye3", CubeListBuilder.create().texOffs(11, 15).addBox(-1.0F, -1.0F, -0.5F, 2.0F, 1.0F, 1.0F, true), PartPose.offsetAndRotation(0.8F, 0.0F, -2.1F, 0.0F, 0.27366763203903305F, 1.5707963267948966F));
         PartDefinition eye4 = head.addOrReplaceChild("eye4", CubeListBuilder.create().texOffs(11, 15).addBox(-1.0F, -1.0F, -0.5F, 2.0F, 1.0F, 1.0F, false), PartPose.offsetAndRotation(0.8F, 0.0F, -0.8F, 0.0F, 0.0781907508222411F, 1.5707963267948966F));
+        PartDefinition christmasPresent1 = head.addOrReplaceChild("christmasPresent1", CubeListBuilder.create().texOffs(0, 18).addBox(-1.5F, -3.5F, -3.5F, 5.0F, 7.0F, 7.0F, false), PartPose.offsetAndRotation(-0.01F, 0.0F, 0.0F, 0, 0, 0));
         PartDefinition rightHorn2 = rightHorn1.addOrReplaceChild("rightHorn2", CubeListBuilder.create().texOffs(18, 0).addBox(-0.5F, -0.5F, 0.0F, 1.0F, 1.0F, 2.0F, true), PartPose.offsetAndRotation(0.01F, 0.2F, 1.0F, -0.17453292519943295F, 0.0F, 0.0F));
         PartDefinition jaw = mouth.addOrReplaceChild("jaw", CubeListBuilder.create().texOffs(9, 4).addBox(-1.0F, 0.0F, -3.0F, 2.0F, 1.0F, 3.0F, false), PartPose.offsetAndRotation(0.0F, 0.1F, 0.0F, 0.3483677027191016F, 0.0F, 0.0F));
         PartDefinition upperTeeth = mouth.addOrReplaceChild("upperTeeth", CubeListBuilder.create().texOffs(0, 6).addBox(-1.0F, 0.0F, -3.0F, 2.0F, 1.0F, 3.0F, false), PartPose.offsetAndRotation(0.0F, 0.5F, 0.0F, 0, 0, 0));
@@ -115,6 +122,8 @@ public class ShubNiggurathSpawnModel extends EntityModel<ShubNiggurathSpawnEntit
         PartDefinition tentacleMiddle3 = tentacleMiddle2.addOrReplaceChild("tentacleMiddle3", CubeListBuilder.create().texOffs(4, 11).addBox(-0.5F, -0.5F, 0.0F, 1.0F, 1.0F, 2.0F, false), PartPose.offsetAndRotation(0.0F, 0.0F, 1.9F, 0, 0, 0));
         PartDefinition tentacleBottom2 = tentacleBottom1.addOrReplaceChild("tentacleBottom2", CubeListBuilder.create().texOffs(4, 11).addBox(-0.5F, -0.5F, 0.0F, 1.0F, 1.0F, 2.0F, false), PartPose.offsetAndRotation(0.0F, 0.0F, 1.9F, 0, 0, 0));
         PartDefinition tentacleBottom3 = tentacleBottom2.addOrReplaceChild("tentacleBottom3", CubeListBuilder.create().texOffs(4, 11).addBox(-0.5F, -0.5F, 0.0F, 1.0F, 1.0F, 2.0F, false), PartPose.offsetAndRotation(0.0F, 0.0F, 1.9F, 0, 0, 0));
+        PartDefinition christmasPresent2 = christmasPresent1.addOrReplaceChild("christmasPresent2", CubeListBuilder.create().texOffs(0, 22).addBox(0.0F, 0.0F, -0.5F, 0.0F, 2.0F, 1.0F, false), PartPose.offsetAndRotation(3.5F, 0.0F, 0.0F, 0.7044148967575558F, 0.5473352640780661F, -0.5085889333785032F));
+        PartDefinition christmasPresent3 = christmasPresent1.addOrReplaceChild("christmasPresent3", CubeListBuilder.create().texOffs(0, 22).addBox(0.0F, 0.0F, -0.5F, 0.0F, 2.0F, 1.0F, false), PartPose.offsetAndRotation(3.5F, 0.0F, 0.0F, -0.5082398928281348F, 0.6651449885876833F, -2.4635321326635524F));
         return LayerDefinition.create(mesh, 32, 32);
     }
 

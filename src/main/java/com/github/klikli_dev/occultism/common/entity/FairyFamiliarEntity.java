@@ -26,10 +26,12 @@ import com.github.klikli_dev.occultism.common.advancement.FamiliarTrigger;
 import com.github.klikli_dev.occultism.network.MessageFairySupport;
 import com.github.klikli_dev.occultism.network.OccultismPackets;
 import com.github.klikli_dev.occultism.registry.OccultismAdvancements;
+import com.github.klikli_dev.occultism.registry.OccultismParticles;
 import com.github.klikli_dev.occultism.util.FamiliarUtil;
 import com.mojang.math.Vector3f;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.DustParticleOptions;
+import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -206,13 +208,19 @@ public class FairyFamiliarEntity extends FamiliarEntity implements FlyingAnimal 
         return true;
     }
 
+    private ParticleOptions createParticle() {
+        return FamiliarUtil.isChristmas() ? OccultismParticles.SNOWFLAKE.get()
+                : new DustParticleOptions(new Vector3f(0.9f, 0.9f, 0.5f), 1);
+    }
+
+
     private void magicParticle() {
         Vec3 pos = this.getMagicPosition(1);
-        this.level.addParticle(new DustParticleOptions(new Vector3f(0.9f, 0.9f, 0.5f), 1), pos.x, pos.y + 1, pos.z, 0, 0, 0);
+        this.level.addParticle(this.createParticle(), pos.x, pos.y + 1, pos.z, 0, 0, 0);
     }
 
     private void partyParticle() {
-        if (!this.level.isClientSide || !this.isPartying())
+        if (!this.level.isClientSide || !this.isPartying() || this.tickCount % 2 != 0)
             return;
 
         Vec3 right = Vec3.directionFromRotation(0, this.yBodyRot).yRot(FamiliarUtil.toRads(-90));
@@ -221,7 +229,7 @@ public class FairyFamiliarEntity extends FamiliarEntity implements FlyingAnimal 
         Vec3 pos = this.position().add(right.scale(0.2 * (this.isLeftHanded() ? -1 : 1)))
                 .add(0, 0.7 + this.getAnimationHeight(0), 0).add(armVector);
 
-        this.level.addParticle(new DustParticleOptions(new Vector3f(0.9f, 0.9f, 0.5f), 1), pos.x, pos.y, pos.z, 0, 0, 0);
+        this.level.addParticle(this.createParticle(), pos.x, pos.y, pos.z, 0, 0, 0);
     }
 
     public Vec2 getMagicRadiusAngle(float partialTicks) {
