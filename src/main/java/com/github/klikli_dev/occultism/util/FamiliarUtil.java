@@ -27,6 +27,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.function.Predicate;
 
+import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.entity.IFamiliar;
 import com.github.klikli_dev.occultism.common.item.tool.FamiliarRingItem;
 import com.github.klikli_dev.occultism.registry.OccultismCapabilities;
@@ -138,6 +139,9 @@ public class FamiliarUtil {
     }
 
     public static boolean isChristmas() {
+        if(Occultism.CLIENT_CONFIG.visuals.disableHolidayTheming.get())
+            return false;
+
         Calendar calendar = Calendar.getInstance();
         return (calendar.get(Calendar.MONTH) == Calendar.DECEMBER && calendar.get(Calendar.DAY_OF_MONTH) >= 15)
                 || calendar.get(Calendar.MONTH) == Calendar.JANUARY && calendar.get(Calendar.DAY_OF_MONTH) <= 15;

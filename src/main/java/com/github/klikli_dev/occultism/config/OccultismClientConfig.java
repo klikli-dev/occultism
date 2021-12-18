@@ -45,6 +45,7 @@ public class OccultismClientConfig extends ConfigBase {
     public class VisualSettings extends ConfigCategoryBase {
         //region Fields
         public final CachedBoolean disableDemonsDreamShaders;
+        public final CachedBoolean disableHolidayTheming;
         //endregion Fields
 
         //region Initialization
@@ -56,6 +57,10 @@ public class OccultismClientConfig extends ConfigBase {
                     builder.comment(
                                     "Disables the headache- and possibly seizure-inducing visual effects of Demon's Dream.")
                             .define("disableDemonsDreamShaders", false));
+            this.disableHolidayTheming = CachedBoolean.cache(this,
+                    builder.comment(
+                                    "Disables holiday themed visual content such as familiar skins.")
+                            .define("disableHolidayTheming", false));
             builder.pop();
         }
         //endregion Initialization
