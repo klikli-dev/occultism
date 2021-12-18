@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "#occultism:candles"
+    "#occultism:candles",
+    "#minecraft:candles"
   ]
 }
