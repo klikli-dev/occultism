@@ -222,7 +222,7 @@ public class OccultismServerConfig {
                             .define("enableRemainingIngredientCountMatching", false);
             this.ritualDurationMultiplier =
                     builder.comment("Set a value below 1.0 to speed up rituals.")
-                            .defineInRange("ritualDurationMultiplier", 1.0, 0.0, Double.MAX_VALUE);
+                            .defineInRange("ritualDurationMultiplier", 1.0, 0.05, Double.MAX_VALUE);
 
             builder.pop();
         }
