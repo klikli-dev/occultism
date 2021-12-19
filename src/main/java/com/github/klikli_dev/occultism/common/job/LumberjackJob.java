@@ -37,6 +37,8 @@ import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.LongTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.world.entity.EntityDimensions;
+import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -48,6 +50,7 @@ import java.util.Set;
 
 public class LumberjackJob extends SpiritJob {
 
+    protected EntityDimensions lumberJackDimensions;
     protected ReplantSaplingGoal replantSaplingGoal;
     protected PickupItemsGoal pickupItemsGoal;
     protected FellTreesGoal fellTreesGoal;
@@ -59,6 +62,7 @@ public class LumberjackJob extends SpiritJob {
 
     public LumberjackJob(SpiritEntity entity) {
         super(entity);
+        this.lumberJackDimensions =EntityDimensions.scalable(0.9f, 0.9f);
     }
 
     @Override
@@ -92,6 +96,11 @@ public class LumberjackJob extends SpiritJob {
                 return true;
         }
         return false;
+    }
+
+    @Override
+    public EntityDimensions getDimensions(Pose pPose, EntityDimensions original) {
+        return this.fellTreesGoal.shouldUseLumberjackDimensions() ? this.lumberJackDimensions : original;
     }
 
     @Override

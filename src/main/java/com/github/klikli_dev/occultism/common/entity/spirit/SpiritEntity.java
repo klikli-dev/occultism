@@ -72,7 +72,6 @@ import java.util.Optional;
 import java.util.UUID;
 
 public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCreatureMixin, MenuProvider {
-    //region Fields
     public static final EntityDataAccessor<Integer> SKIN = SynchedEntityData
             .defineId(SpiritEntity.class, EntityDataSerializers.INT);
     /**
@@ -139,15 +138,11 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
     protected Optional<SpiritJob> job = Optional.empty();
     protected boolean isInitialized = false;
 
-    //endregion Fields
-    //region Initialization
     public SpiritEntity(EntityType<? extends SpiritEntity> type, Level worldIn) {
         super(type, worldIn);
         this.setPersistenceRequired();
     }
-    //endregion Initialization
 
-    //region Static Methods
     public static AttributeSupplier.Builder createAttributes() {
         return TamableAnimal.createLivingAttributes()
                 .add(Attributes.ATTACK_DAMAGE, 1.0)
@@ -179,7 +174,6 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
         return super.getCapability(capability, facing);
     }
 
-    //region Getter / Setter
     public Optional<BlockPos> getDepositPosition() {
         return this.entityData.get(DEPOSIT_POSITION);
     }
@@ -332,7 +326,6 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
     public Optional<SpiritJob> getJob() {
         return this.job;
     }
-    //endregion Getter / Setter
 
     /**
      * Cleans up old job and sets and initializes the new job.
@@ -348,7 +341,6 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
         }
     }
 
-    //region Overrides
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory playerInventory, Player player) {
@@ -618,7 +610,6 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
         this.removeJob();
         super.remove(reason);
     }
-    //endregion Overrides
 
     @Override
     public InteractionResult interactAt(Player player, Vec3 vec, InteractionHand hand) {
@@ -632,9 +623,11 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
         }
         return super.interactAt(player, vec, hand);
     }
-    //endregion Static Methods
 
-    //region Methods
+    @Override
+    public EntityDimensions getDimensions(Pose pPose) {
+        return this.job.map(job -> job.getDimensions(pPose, super.getDimensions(pPose))).orElse(super.getDimensions(pPose));
+    }
 
     public void removeJob() {
         this.job.ifPresent(SpiritJob::cleanup);
@@ -667,5 +660,4 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
             NetworkHooks.openGui((ServerPlayer) playerEntity, menuProvider, (buf) -> buf.writeInt(this.getId()));
         }
     }
-    //endregion Methods
 }

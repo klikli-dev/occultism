@@ -26,6 +26,8 @@ import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.github.klikli_dev.occultism.registry.OccultismSpiritJobs;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EntityDimensions;
+import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraftforge.common.util.INBTSerializable;
 
@@ -120,6 +122,10 @@ public abstract class SpiritJob implements INBTSerializable<CompoundTag> {
      */
     public boolean canPickupItem(ItemEntity entity) {
         return false;
+    }
+
+    public EntityDimensions getDimensions(Pose pPose, EntityDimensions original){
+        return original;
     }
     //endregion Methods
 }

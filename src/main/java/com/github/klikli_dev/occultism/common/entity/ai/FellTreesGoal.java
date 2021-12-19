@@ -55,8 +55,7 @@ public class FellTreesGoal extends Goal {
     protected int previousBreakProgress;
     protected boolean isTargetTree;
     protected long lastWorkareaEmptyTime;
-
-    //endregion Fields
+    protected boolean shouldUseLumberjackDimensions;
 
     //region Initialization
     public FellTreesGoal(SpiritEntity entity) {
@@ -64,12 +63,14 @@ public class FellTreesGoal extends Goal {
         this.targetSorter = new BlockSorter(entity);
         this.setFlags(EnumSet.of(Flag.MOVE));
     }
-    //endregion Initialization
+
+    //endregion Fields
 
     //region Static Methods
     public static boolean isTreeSoil(Level level, BlockPos pos) {
         return OccultismTags.TREE_SOIL.contains(level.getBlockState(pos).getBlock());
     }
+    //endregion Initialization
 
     public static final boolean isLog(Level level, BlockPos pos) {
         return BlockTags.LOGS.contains(level.getBlockState(pos).getBlock());
@@ -78,6 +79,10 @@ public class FellTreesGoal extends Goal {
     public static final boolean isLeaf(Level level, BlockPos pos) {
         Block block = level.getBlockState(pos).getBlock();
         return block instanceof LeavesBlock || BlockTags.LEAVES.contains(block);
+    }
+
+    public boolean shouldUseLumberjackDimensions() {
+        return this.shouldUseLumberjackDimensions;
     }
 
     //region Overrides
@@ -98,6 +103,8 @@ public class FellTreesGoal extends Goal {
     //endregion Overrides
 
     public void stop() {
+        this.shouldUseLumberjackDimensions = false;
+        this.entity.refreshDimensions();
         this.entity.getNavigation().stop();
         this.targetBlock = null;
         this.moveTarget = null;
@@ -172,10 +179,13 @@ public class FellTreesGoal extends Goal {
 
     private void resetTarget() {
         this.isTargetTree = false;
+        this.shouldUseLumberjackDimensions = true;
+
         Level level = this.entity.level;
 
         //if work area was recently empty, wait until refresh time has elapsed
         if (level.getGameTime() - this.lastWorkareaEmptyTime < WORKAREA_EMPTY_REFRESH_TIME) return;
+
 
         Set<BlockPos> ignoredTrees = this.entity.getJob().map(j -> (LumberjackJob) j).map(LumberjackJob::getIgnoredTrees).orElse(new HashSet<>());
 
@@ -204,13 +214,17 @@ public class FellTreesGoal extends Goal {
             //none found -> invalid target
             if (this.moveTarget == null) {
                 this.targetBlock = null;
+                this.shouldUseLumberjackDimensions = false;
             }
         } else {
             //if we found nothing in our work area, go on a slow tick;
             this.lastWorkareaEmptyTime = level.getGameTime();
             this.moveTarget = null;
             this.targetBlock = null;
+            this.shouldUseLumberjackDimensions = false;
         }
+
+        this.entity.refreshDimensions();
     }
 
     private boolean isTree(BlockPos potentialStump) {
