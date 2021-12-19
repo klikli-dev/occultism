@@ -29,9 +29,7 @@ java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
 minecraft {
 
-    //TODO: switch to parchment once available
-    //mappings channel: 'parchment', version: mapping_version
-    mappings channel: 'official', version: '1.18'
+    mappings channel: 'parchment', version: mapping_version
 
     accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 
