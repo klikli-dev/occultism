@@ -95,10 +95,10 @@ public class FamiliarRingItem extends Item {
         if (!pContext.getPlayer().level.isClientSide && getCurio(stack).releaseFamiliar(pContext.getPlayer(), pContext.getLevel())) {
             CompoundTag tag = stack.getOrCreateTag();
             tag.putBoolean("occupied", false);
-            return InteractionResult.SUCCESS;
+            return InteractionResult.sidedSuccess(pContext.getPlayer().level.isClientSide);
         }
 
-        return super.useOn(pContext);
+        return InteractionResult.CONSUME;
     }
 
     private static Curio getCurio(ItemStack stack) {
@@ -130,6 +130,9 @@ public class FamiliarRingItem extends Item {
         private boolean captureFamiliar(Level level, IFamiliar familiar) {
             if (this.getFamiliar(level) != null)
                 return false;
+
+            //otherwise is added to world is serialized
+            familiar.getFamiliarEntity().onRemovedFromWorld();
             this.setFamiliar(familiar);
             this.getFamiliar(level).getFamiliarEntity().stopRiding();
             this.getFamiliar(level).getFamiliarEntity().ejectPassengers();
