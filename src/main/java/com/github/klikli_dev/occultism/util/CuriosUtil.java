@@ -100,17 +100,16 @@ public class CuriosUtil {
 
     public static ItemStack getStorageRemoteCurio(PlayerEntity player) {
         Optional<ItemStack> hasStorageRemote = CuriosApi.getCuriosHelper().getCuriosHandler(player).map(curiosHandler -> {
-            Optional<ItemStack> hasStorageRemoteStack = curiosHandler.getStacksHandler(SlotTypePreset.HANDS.getIdentifier()).map(slotHandler -> {
-                IDynamicStackHandler stackHandler = slotHandler.getStacks();
+            for (ICurioStacksHandler curiosStackshandler : curiosHandler.getCurios().values()) {
+                IDynamicStackHandler stackHandler = curiosStackshandler.getStacks();
                 for (int i = 0; i < stackHandler.getSlots(); i++) {
                     ItemStack stack = stackHandler.getStackInSlot(i);
                     if (stack.getItem() instanceof StorageRemoteItem) {
                         return stack;
                     }
                 }
-                return ItemStack.EMPTY;
-            });
-            return hasStorageRemoteStack.orElse(ItemStack.EMPTY);
+            }
+            return ItemStack.EMPTY;
         });
         return hasStorageRemote.orElse(ItemStack.EMPTY);
     }

@@ -220,13 +220,11 @@ public class GoldenSacrificialBowlTileEntity extends SacrificialBowlTileEntity i
                                 0.0);
             }
 
-            //Advance ritual time every second, based on the standard 20 tps.
-            if (this.level.getGameTime() % 20 == 0)
+            //Advance ritual time every second, based on the standard 20 tps, but taking into account duration multiplier
+            if (this.level.getGameTime() % ((int)(20 * Occultism.SERVER_CONFIG.rituals.ritualDurationMultiplier.get())) == 0)
                 this.currentTime++;
 
-
-            recipe
-                    .getRitual().update(this.level, this.worldPosition, this, this.castingPlayer, handler.getStackInSlot(0),
+            recipe.getRitual().update(this.level, this.worldPosition, this, this.castingPlayer, handler.getStackInSlot(0),
                             this.currentTime);
 
             if (!recipe.getRitual()
@@ -237,7 +235,7 @@ public class GoldenSacrificialBowlTileEntity extends SacrificialBowlTileEntity i
                 return;
             }
 
-            if (recipe.getDuration() >= 0 && this.currentTime >= recipe.getDuration() * Occultism.SERVER_CONFIG.rituals.ritualDurationMultiplier.get())
+            if (recipe.getDuration() >= 0 && this.currentTime >= recipe.getDuration())
                 this.stopRitual(true);
         }
     }

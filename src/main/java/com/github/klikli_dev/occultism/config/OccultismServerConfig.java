@@ -249,7 +249,7 @@ public class OccultismServerConfig extends ConfigBase {
                             .define("enableRemainingIngredientCountMatching", false));
             this.ritualDurationMultiplier = CachedFloat.cache(this,
                     builder.comment("Set a value below 1.0 to speed up rituals.")
-                            .define("ritualDurationMultiplier", 1.0));
+                            .defineInRange("ritualDurationMultiplier", 1.0, 0.05, Double.MAX_VALUE));
             builder.pop();
         }
         //endregion Initialization
