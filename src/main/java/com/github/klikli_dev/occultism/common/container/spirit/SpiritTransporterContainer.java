@@ -78,7 +78,7 @@ public class SpiritTransporterContainer extends SpiritContainer {
     public void clicked(int id, int dragType, ClickType clickType, Player player) {
         Slot slot = id >= 0 ? this.getSlot(id) : null;
 
-        ItemStack holding = player.getInventory().getSelected();
+        ItemStack holding = player.containerMenu.getCarried();
 
         if (slot instanceof FilterSlot) {
             if (holding.isEmpty()) {
