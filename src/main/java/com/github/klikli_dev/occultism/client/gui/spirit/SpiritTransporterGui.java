@@ -194,6 +194,9 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
 
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+        //prevent exiting without saving
+        this.setTagFilterText(this.tagFilterTextField.getValue());
+
         if (this.tagFilterTextField.isFocused() &&
                 this.tagFilterTextField.keyPressed(keyCode, scanCode, modifiers)) {
             return true;
@@ -214,10 +217,10 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
     public void removed() {
         super.removed();
         this.tagFilterTextField.setFocus(false);
-        if (!StringUtils.isBlank(this.tagFilter)) {
-            this.spirit.setTagFilter(this.tagFilter);
-            OccultismPackets.sendToServer(new MessageSetTagFilterText(this.tagFilter, this.spirit.getId()));
-        }
+
+        //we used to check for blank tag filter here, but that prevents emptying the filter
+        this.spirit.setTagFilter(this.tagFilter);
+        OccultismPackets.sendToServer(new MessageSetTagFilterText(this.tagFilter, this.spirit.getId()));
     }
 
     @Override

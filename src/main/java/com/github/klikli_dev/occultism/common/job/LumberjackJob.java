@@ -31,6 +31,8 @@ import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.github.klikli_dev.occultism.common.misc.ItemStackComparator;
 import com.github.klikli_dev.occultism.common.misc.ItemTagComparator;
 import com.github.klikli_dev.occultism.registry.OccultismTags;
+import net.minecraft.entity.EntitySize;
+import net.minecraft.entity.Pose;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -48,7 +50,7 @@ import java.util.Set;
 
 public class LumberjackJob extends SpiritJob {
 
-    //region Fields
+    protected EntitySize lumberJackDimensions;
     protected ReplantSaplingGoal replantSaplingGoal;
     protected PickupItemsGoal pickupItemsGoal;
     protected FellTreesGoal fellTreesGoal;
@@ -56,16 +58,12 @@ public class LumberjackJob extends SpiritJob {
     protected List<IItemStackComparator> itemsToPickUp = new ArrayList<>();
     private Set<BlockPos> ignoredTrees = new HashSet<>();
     private BlockPos lastFelledTree = null;
-    //endregion Fields
 
-
-    //region Initialization
     public LumberjackJob(SpiritEntity entity) {
         super(entity);
+        this.lumberJackDimensions = EntitySize.scalable(0.9f, 0.9f);
     }
-    //endregion Initialization
 
-    //region Overrides
     @Override
     public void init() {
         this.entity.goalSelector.addGoal(0, this.pickupItemsGoal = new PickupItemsGoal(this.entity, 4f, 10));
@@ -97,6 +95,11 @@ public class LumberjackJob extends SpiritJob {
                 return true;
         }
         return false;
+    }
+
+    @Override
+    public EntitySize getDimensions(Pose pPose, EntitySize original) {
+        return this.fellTreesGoal.shouldUseLumberjackDimensions() ? this.lumberJackDimensions : original;
     }
 
     @Override

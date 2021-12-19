@@ -184,7 +184,6 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
         return super.getCapability(capability, facing);
     }
 
-    //region Getter / Setter
     public Optional<BlockPos> getDepositPosition() {
         return this.entityData.get(DEPOSIT_POSITION);
     }
@@ -337,7 +336,6 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
     public Optional<SpiritJob> getJob() {
         return this.job;
     }
-    //endregion Getter / Setter
 
     /**
      * Cleans up old job and sets and initializes the new job.
@@ -353,7 +351,6 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
         }
     }
 
-    //region Overrides
     @Nullable
     @Override
     public Container createMenu(int id, PlayerInventory playerInventory, PlayerEntity player) {
@@ -622,7 +619,6 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
         this.removeJob();
         super.remove(keepData);
     }
-    //endregion Overrides
 
     @Override
     public ActionResultType interactAt(PlayerEntity player, Vector3d vec, Hand hand) {
@@ -636,9 +632,11 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
         }
         return super.interactAt(player, vec, hand);
     }
-    //endregion Static Methods
 
-    //region Methods
+    @Override
+    public EntitySize getDimensions(Pose pPose) {
+        return this.job.map(job -> job.getDimensions(pPose, super.getDimensions(pPose))).orElse(super.getDimensions(pPose));
+    }
 
     public void removeJob() {
         this.job.ifPresent(SpiritJob::cleanup);
@@ -671,5 +669,4 @@ public abstract class SpiritEntity extends TameableEntity implements ISkinnedCre
             NetworkHooks.openGui((ServerPlayerEntity) playerEntity, containerProvider, (buf) -> buf.writeInt(this.getId()));
         }
     }
-    //endregion Methods
 }

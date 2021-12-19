@@ -80,7 +80,7 @@ public class ReplantSaplingGoal extends Goal {
     @Override
     public void tick() {
         if (this.moveTarget != null) {
-            float accessDistance = 1.86f;
+            float accessDistance = 4.5f;
 
             double distance = this.entity.position().distanceTo(Math3DUtil.center(this.moveTarget));
 

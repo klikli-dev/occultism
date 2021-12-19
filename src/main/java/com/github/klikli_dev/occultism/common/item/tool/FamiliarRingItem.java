@@ -92,9 +92,9 @@ public class FamiliarRingItem extends Item {
         if (!playerIn.level.isClientSide && getCurio(stack).releaseFamiliar(playerIn, worldIn)) {
             CompoundNBT tag = stack.getOrCreateTag();
             tag.putBoolean("occupied", false);
-            return ActionResult.consume(stack);
+            return ActionResult.sidedSuccess(stack, playerIn.level.isClientSide);
         }
-        return super.use(worldIn, playerIn, handIn);
+        return ActionResult.consume(stack);
     }
 
     private static Curio getCurio(ItemStack stack) {
@@ -108,7 +108,7 @@ public class FamiliarRingItem extends Item {
     public ICapabilityProvider initCapabilities(ItemStack stack, CompoundNBT nbt) {
         return new Provider();
     }
-    
+
     public static IFamiliar getFamiliar(ItemStack stack, World world) {
         Curio curio = getCurio(stack);
         return curio == null ? null : curio.getFamiliar(world);
@@ -121,6 +121,9 @@ public class FamiliarRingItem extends Item {
         private boolean captureFamiliar(World world, IFamiliar familiar) {
             if (this.getFamiliar(world) != null)
                 return false;
+
+            //otherwise is added to world is serialized
+            familiar.getFamiliarEntity().onRemovedFromWorld();
             this.setFamiliar(familiar);
             this.getFamiliar(world).getFamiliarEntity().stopRiding();
             this.getFamiliar(world).getFamiliarEntity().ejectPassengers();

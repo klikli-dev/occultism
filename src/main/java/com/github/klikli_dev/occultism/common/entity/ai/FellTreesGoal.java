@@ -55,8 +55,7 @@ public class FellTreesGoal extends Goal {
     protected int previousBreakProgress;
     protected boolean isTargetTree;
     protected long lastWorkareaEmptyTime;
-
-    //endregion Fields
+    protected boolean shouldUseLumberjackDimensions;
 
     //region Initialization
     public FellTreesGoal(SpiritEntity entity) {
@@ -79,6 +78,10 @@ public class FellTreesGoal extends Goal {
         return block instanceof LeavesBlock || BlockTags.LEAVES.contains(block);
     }
 
+    public boolean shouldUseLumberjackDimensions() {
+        return this.shouldUseLumberjackDimensions;
+    }
+
     //region Overrides
     @Override
     public boolean canUse() {
@@ -99,6 +102,8 @@ public class FellTreesGoal extends Goal {
     }
 
     public void stop() {
+        this.shouldUseLumberjackDimensions = false;
+        this.entity.refreshDimensions();
         this.entity.getNavigation().stop();
         this.targetBlock = null;
         this.moveTarget = null;
@@ -175,6 +180,7 @@ public class FellTreesGoal extends Goal {
     private void resetTarget() {
         this.isTargetTree = false;
         World world = this.entity.level;
+        this.shouldUseLumberjackDimensions = true;
 
         //if work area was recently empty, wait until refresh time has elapsed
         if (world.getGameTime() - this.lastWorkareaEmptyTime < WORKAREA_EMPTY_REFRESH_TIME)
@@ -212,13 +218,17 @@ public class FellTreesGoal extends Goal {
             //none found -> invalid target
             if (this.moveTarget == null) {
                 this.targetBlock = null;
+                this.shouldUseLumberjackDimensions = false;
             }
         } else {
             //if we found nothing in our work area, go on a slow tick;
             this.lastWorkareaEmptyTime = world.getGameTime();
             this.moveTarget = null;
             this.targetBlock = null;
+            this.shouldUseLumberjackDimensions = false;
         }
+
+        this.entity.refreshDimensions();
     }
 
     private boolean isTree(BlockPos potentialStump) {
