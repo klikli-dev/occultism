@@ -62,29 +62,29 @@ public class OccultismEntities {
 
     public static final NonNullLazy<EntityType<FoliotEntity>> FOLIOT_TYPE =
             NonNullLazy.of(() -> EntityType.Builder.of(FoliotEntity::new, EntityClassification.CREATURE)
-                    .sized(0.6f, 0.9f)
+                    .sized(0.6f, 1.1f)
                     .clientTrackingRange(8)
                     .build(modLoc("foliot").toString()));
     public static final NonNullLazy<EntityType<DjinniEntity>> DJINNI_TYPE =
             NonNullLazy.of(() -> EntityType.Builder.of(DjinniEntity::new, EntityClassification.CREATURE)
-                    .sized(0.6f, 0.9f)
+                    .sized(0.6f, 1.1f)
                     .clientTrackingRange(8)
                     .build(modLoc("djinni").toString()));
     public static final NonNullLazy<EntityType<AfritEntity>> AFRIT_TYPE =
             NonNullLazy.of(() -> EntityType.Builder.of(AfritEntity::new, EntityClassification.CREATURE)
                     .fireImmune()
-                    .sized(1.2f, 1.8f)
+                    .sized(1.2f, 2.4f)
                     .clientTrackingRange(8)
                     .build(modLoc("afrit").toString()));
     public static final NonNullLazy<EntityType<AfritWildEntity>> AFRIT_WILD_TYPE =
             NonNullLazy.of(() -> EntityType.Builder.of(AfritWildEntity::new, EntityClassification.CREATURE)
                     .fireImmune()
-                    .sized(1.2f, 1.8f)
+                    .sized(1.2f, 2.4f)
                     .clientTrackingRange(8)
                     .build(modLoc("afrit_wild").toString()));
     public static final NonNullLazy<EntityType<MaridEntity>> MARID_TYPE =
             NonNullLazy.of(() -> EntityType.Builder.of(MaridEntity::new, EntityClassification.CREATURE)
-                    .sized(1.2f, 1.8f)
+                    .sized(1.2f, 2.4f)
                     .clientTrackingRange(8)
                     .build(modLoc("marid").toString()));
 
