@@ -90,8 +90,11 @@ public class Pentacle {
         this.matcher = api.makeMultiblock(multiPattern, multiMappings.toArray());
         this.matcher.setId(multiRL);
         try {
-            PatchouliAPI.get().registerMultiblock(multiRL, this.matcher);
-        } catch (IllegalArgumentException e) { // Patchouli weirdness
+            if(PatchouliAPI.get().getMultiblock(multiRL) == null)
+                PatchouliAPI.get().registerMultiblock(multiRL, this.matcher);
+        } catch (IllegalArgumentException e) {
+            //should never happen, only thrown if multiblock registered twice
+            Occultism.LOGGER.warn(e);
         }
     }
 
