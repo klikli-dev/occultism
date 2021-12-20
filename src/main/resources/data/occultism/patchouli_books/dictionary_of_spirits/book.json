@@ -11,5 +11,5 @@
   "i18n": true,
   "dont_generate_book": true,
   "custom_book_item": "occultism:dictionary_of_spirits",
-  "use_resource_pack": true
+  "use_resource_pack": false
 }
