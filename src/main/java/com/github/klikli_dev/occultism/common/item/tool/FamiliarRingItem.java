@@ -60,13 +60,29 @@ public class FamiliarRingItem extends Item {
         super(properties);
     }
 
+    private static Curio getCurio(ItemStack stack) {
+        ICurio curio = stack.getCapability(CuriosCapability.ITEM).orElse(null);
+        if (curio != null && curio instanceof Curio)
+            return (Curio) curio;
+        return null;
+    }
+
+    public static IFamiliar getFamiliar(ItemStack stack, World world) {
+        Curio curio = getCurio(stack);
+        return curio == null ? null : curio.getFamiliar(world);
+    }
+
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip,
-                                ITooltipFlag flagIn) {
-        super.appendHoverText(stack, worldIn, tooltip, flagIn);
-        if (stack.getOrCreateTag().getBoolean("occupied"))
-            tooltip.add(new TranslationTextComponent(this.getDescriptionId() + ".tooltip",
-                    TextUtil.formatDemonName(ItemNBTUtil.getBoundSpiritName(stack))));
+    public ActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand handIn) {
+        ItemStack stack = playerIn.getItemInHand(handIn);
+        CompoundNBT tag = stack.getTag();
+        if (!playerIn.level.isClientSide
+                && tag != null && tag.getLong("occupiedTime") < worldIn.getGameTime() + 5 //prevent release right after capture
+                && getCurio(stack).releaseFamiliar(playerIn, worldIn)) {
+            tag.putBoolean("occupied", false);
+            return ActionResult.sidedSuccess(stack, playerIn.level.isClientSide);
+        }
+        return ActionResult.consume(stack);
     }
 
     @Override
@@ -78,8 +94,9 @@ public class FamiliarRingItem extends Item {
                 OccultismAdvancements.FAMILIAR.trigger(playerIn, FamiliarTrigger.Type.CAPTURE);
                 CompoundNBT tag = stack.getOrCreateTag();
                 tag.putBoolean("occupied", true);
+                tag.putLong("occupiedTime", playerIn.level.getGameTime());
                 ItemNBTUtil.setBoundSpiritName(stack, familiar.getFamiliarEntity().getDisplayName().getString());
-                return ActionResultType.CONSUME;
+                return ActionResultType.sidedSuccess(playerIn.level.isClientSide);
             }
         }
 
@@ -87,31 +104,17 @@ public class FamiliarRingItem extends Item {
     }
 
     @Override
-    public ActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand handIn) {
-        ItemStack stack = playerIn.getItemInHand(handIn);
-        if (!playerIn.level.isClientSide && getCurio(stack).releaseFamiliar(playerIn, worldIn)) {
-            CompoundNBT tag = stack.getOrCreateTag();
-            tag.putBoolean("occupied", false);
-            return ActionResult.sidedSuccess(stack, playerIn.level.isClientSide);
-        }
-        return ActionResult.consume(stack);
-    }
-
-    private static Curio getCurio(ItemStack stack) {
-        ICurio curio = stack.getCapability(CuriosCapability.ITEM).orElse(null);
-        if (curio != null && curio instanceof Curio)
-            return (Curio) curio;
-        return null;
+    public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip,
+                                ITooltipFlag flagIn) {
+        super.appendHoverText(stack, worldIn, tooltip, flagIn);
+        if (stack.getOrCreateTag().getBoolean("occupied"))
+            tooltip.add(new TranslationTextComponent(this.getDescriptionId() + ".tooltip",
+                    TextUtil.formatDemonName(ItemNBTUtil.getBoundSpiritName(stack))));
     }
 
     @Override
     public ICapabilityProvider initCapabilities(ItemStack stack, CompoundNBT nbt) {
         return new Provider();
-    }
-
-    public static IFamiliar getFamiliar(ItemStack stack, World world) {
-        Curio curio = getCurio(stack);
-        return curio == null ? null : curio.getFamiliar(world);
     }
 
     private static class Curio implements ICurio, INBTSerializable<CompoundNBT> {
