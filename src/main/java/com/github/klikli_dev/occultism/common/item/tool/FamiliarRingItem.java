@@ -126,7 +126,6 @@ public class FamiliarRingItem extends Item {
                 return false;
 
             //otherwise is added to world is serialized
-            familiar.getFamiliarEntity().onRemovedFromWorld();
             this.setFamiliar(familiar);
             this.getFamiliar(world).getFamiliarEntity().stopRiding();
             this.getFamiliar(world).getFamiliarEntity().ejectPassengers();
