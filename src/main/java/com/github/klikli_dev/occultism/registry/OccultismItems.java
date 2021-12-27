@@ -43,7 +43,6 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public class OccultismItems {
 
-    //region Fields
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Occultism.MODID);
 
     //Debug and placeholder items
@@ -279,6 +278,11 @@ public class OccultismItems {
     public static final RegistryObject<DummyTooltipItem> JEI_DUMMY_REQUIRE_ITEM_USE = ITEMS.register(
             "jei_dummy/require_item_use", () -> new DummyTooltipItem(new Item.Properties()));
 
+    //Deco Block Items
+    public static final RegistryObject<Item> SPIRIT_TORCH = ITEMS.register("spirit_torch",
+            ()-> new StandingAndWallBlockItem(OccultismBlocks.SPIRIT_TORCH.get(),OccultismBlocks.SPIRIT_WALL_TORCH.get(),
+                    defaultProperties()));
+
     //Ritual Dummy Items
     static {
         ITEMS.register("ritual_dummy/custom_ritual", () -> new DummyTooltipItem(defaultProperties()));
@@ -338,11 +342,7 @@ public class OccultismItems {
         ITEMS.register("ritual_dummy/summon_marid_crusher", () -> new DummyTooltipItem(defaultProperties()));
     }
 
-    //endregion Fields
-
-    //region Static Methods
     public static Item.Properties defaultProperties() {
         return new Item.Properties().tab(Occultism.ITEM_GROUP);
     }
-    //endregion Static Methods
 }

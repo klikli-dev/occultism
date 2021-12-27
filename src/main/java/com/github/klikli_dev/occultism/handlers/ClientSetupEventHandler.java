@@ -173,10 +173,15 @@ public class ClientSetupEventHandler {
         ItemBlockRenderTypes.setRenderLayer(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL.get(), RenderType.translucent());
         ItemBlockRenderTypes.setRenderLayer(OccultismBlocks.DATURA.get(), RenderType.cutoutMipped());
         ItemBlockRenderTypes.setRenderLayer(OccultismBlocks.SPIRIT_FIRE.get(), RenderType.cutoutMipped());
+        ItemBlockRenderTypes.setRenderLayer(OccultismBlocks.SPIRIT_TORCH.get(), RenderType.cutoutMipped());
+        ItemBlockRenderTypes.setRenderLayer(OccultismBlocks.SPIRIT_WALL_TORCH.get(), RenderType.cutoutMipped());
+        ItemBlockRenderTypes.setRenderLayer(OccultismBlocks.SPIRIT_LANTERN.get(), RenderType.cutoutMipped());
+        ItemBlockRenderTypes.setRenderLayer(OccultismBlocks.SPIRIT_CAMPFIRE.get(), RenderType.cutoutMipped());
         ItemBlockRenderTypes.setRenderLayer(OccultismBlocks.OTHERWORLD_SAPLING.get(), RenderType.cutoutMipped());
         ItemBlockRenderTypes.setRenderLayer(OccultismBlocks.OTHERWORLD_SAPLING_NATURAL.get(), RenderType.cutoutMipped());
         ItemBlockRenderTypes.setRenderLayer(OccultismBlocks.OTHERWORLD_LEAVES.get(), RenderType.cutoutMipped());
         ItemBlockRenderTypes.setRenderLayer(OccultismBlocks.OTHERWORLD_LEAVES_NATURAL.get(), RenderType.cutoutMipped());
+
 
         registerItemModelProperties(event);
 

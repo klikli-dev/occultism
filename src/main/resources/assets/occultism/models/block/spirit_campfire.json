@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/template_campfire",
+  "textures": {
+    "fire": "occultism:block/spirit_campfire_fire",
+    "lit_log": "occultism:block/spirit_campfire_log_lit"
+  }
+}
