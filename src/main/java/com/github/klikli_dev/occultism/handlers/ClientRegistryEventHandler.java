@@ -27,6 +27,7 @@ import com.github.klikli_dev.occultism.client.particle.RitualWaitingParticle;
 import com.github.klikli_dev.occultism.client.particle.SnowflakeParticle;
 import com.github.klikli_dev.occultism.registry.OccultismParticles;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.particle.FlameParticle;
 import net.minecraft.client.particle.ParticleEngine;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
@@ -40,6 +41,7 @@ public class ClientRegistryEventHandler {
         ParticleEngine manager = Minecraft.getInstance().particleEngine;
         manager.register(OccultismParticles.RITUAL_WAITING.get(), RitualWaitingParticle.Factory::new);
         manager.register(OccultismParticles.SNOWFLAKE.get(), SnowflakeParticle.Factory::new);
+        manager.register(OccultismParticles.SPIRIT_FIRE_FLAME.get(), FlameParticle.Provider::new);
         Occultism.LOGGER.info("Registered Particle Factories");
     }
 }

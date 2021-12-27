@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "hanging=false": {
+      "model": "occultism:block/spirit_lantern"
+    },
+    "hanging=true": {
+      "model": "occultism:block/spirit_lantern_hanging"
+    }
+  }
+}

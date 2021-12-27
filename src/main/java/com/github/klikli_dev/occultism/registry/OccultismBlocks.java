@@ -36,9 +36,11 @@ import com.github.klikli_dev.occultism.common.level.tree.OtherworldNaturalTreeGr
 import com.github.klikli_dev.occultism.common.level.tree.OtherworldTreeGrower;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
@@ -55,7 +57,6 @@ import java.util.function.Supplier;
 
 public class OccultismBlocks {
 
-    //region Fields
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS,
             Occultism.MODID);
     public static final Map<ResourceLocation, BlockDataGenSettings> BLOCK_DATA_GEN_SETTINGS = new HashMap<>();
@@ -208,9 +209,24 @@ public class OccultismBlocks {
     public static final RegistryObject<Block> WITHER_SKELETON_SKULL_DUMMY = register("wither_skeleton_skull_dummy", () -> new Block(
             Block.Properties.of(Material.DECORATION).strength(1.0F)), false);
 
-    //endregion Fields
+    //Deco
+    public static final RegistryObject<Block> SPIRIT_LANTERN = register("spirit_lantern",
+            () -> new LanternBlock(BlockBehaviour.Properties.of(Material.METAL)
+                    .requiresCorrectToolForDrops().strength(3.5F).sound(SoundType.LANTERN)
+                    .lightLevel((state) -> 10).noOcclusion()));
 
-    //region Static Methods
+    public static final RegistryObject<Block>  SPIRIT_CAMPFIRE = register("spirit_campfire",
+            () -> new CampfireBlock(false, 2, BlockBehaviour.Properties.of(Material.WOOD, MaterialColor.PODZOL)
+                    .strength(2.0F).sound(SoundType.WOOD).lightLevel((state)->10).noOcclusion()));
+
+    public static final RegistryObject<Block> SPIRIT_TORCH = register("spirit_torch",
+            () -> new SpiritTorchBlock(BlockBehaviour.Properties.of(Material.DECORATION)
+                    .noCollission().instabreak().lightLevel((state) -> 10).sound(SoundType.WOOD)), false);
+
+    public static final RegistryObject<Block>  SPIRIT_WALL_TORCH = register("spirit_wall_torch",
+            () -> new SpiritWallTorchBlock(BlockBehaviour.Properties.of(Material.DECORATION)
+                    .noCollission().instabreak().lightLevel((state) -> 10).sound(SoundType.WOOD).lootFrom(SPIRIT_TORCH)), false);
+
     public static <I extends Block> RegistryObject<I> register(final String name, final Supplier<? extends I> sup) {
         return register(name, sup, true);
     }
@@ -227,7 +243,6 @@ public class OccultismBlocks {
         BLOCK_DATA_GEN_SETTINGS.put(object.getId(), new BlockDataGenSettings(generateDefaultBlockItem, lootTableType));
         return object;
     }
-    //endregion Static Methods
 
     public enum LootTableType {
         EMPTY,
@@ -238,17 +253,13 @@ public class OccultismBlocks {
     }
 
     public static class BlockDataGenSettings {
-        //region Fields
         public boolean generateDefaultBlockItem;
         public LootTableType lootTableType;
-        //endregion Fields
 
-        //region Initialization
         public BlockDataGenSettings(boolean generateDefaultBlockItem,
                                     LootTableType lootTableType) {
             this.generateDefaultBlockItem = generateDefaultBlockItem;
             this.lootTableType = lootTableType;
         }
-        //endregion Initialization
     }
 }

@@ -37,4 +37,8 @@ public class OccultismParticles {
             "ritual_waiting", () -> new SimpleParticleType(false));
     public static final RegistryObject<SimpleParticleType> SNOWFLAKE = PARTICLES.register(
             "snowflake", () -> new SimpleParticleType(false));
+    public static final RegistryObject<SimpleParticleType> SPIRIT_FIRE_FLAME = PARTICLES.register(
+            "spirit_fire_flame", () -> new SimpleParticleType(false));
+
+    //NOTE: IF adding new particles, Register in ClientRegistryEventHandler.onRegisterParticleFactories
 }
