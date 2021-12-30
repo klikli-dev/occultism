@@ -140,7 +140,7 @@ public class StorageRemoteContainer extends StorageControllerContainerBase {
                     new MessageUpdateLinkedMachines(this.getStorageController().getLinkedMachines()));
         }
 
-        return this.getStorageRemote() != ItemStack.EMPTY;
+        return storageController != null && this.getStorageRemote() != ItemStack.EMPTY;
     }
 
     @Override

@@ -22,11 +22,14 @@
 
 package com.github.klikli_dev.occultism.network;
 
+import com.github.klikli_dev.occultism.api.common.data.GlobalBlockPos;
+import com.github.klikli_dev.occultism.api.common.tile.IStorageController;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.github.klikli_dev.occultism.util.CuriosUtil;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkEvent;
 import net.minecraftforge.fml.network.NetworkHooks;
 
@@ -51,8 +54,16 @@ public class MessageOpenStorageRemote extends MessageBase {
 
         CuriosUtil.SelectedCurio selectedCurio = CuriosUtil.getStorageRemote(player);
         if (selectedCurio != null) {
-            NetworkHooks.openGui(player, OccultismItems.STORAGE_REMOTE.get(),
-                    buffer -> buffer.writeVarInt(selectedCurio.selectedSlot));
+
+            if (!selectedCurio.itemStack.getOrCreateTag().contains("linkedStorageController"))
+                return;
+
+            GlobalBlockPos storageControllerPos = GlobalBlockPos.from(
+                    selectedCurio.itemStack.getTag().getCompound("linkedStorageController"));
+            World storageControllerWorld = minecraftServer.getLevel(storageControllerPos.getDimensionKey());
+            if(storageControllerWorld.getBlockEntity(storageControllerPos.getPos()) instanceof IStorageController){
+                NetworkHooks.openGui(player, OccultismItems.STORAGE_REMOTE.get(), buffer -> buffer.writeVarInt(selectedCurio.selectedSlot));
+            }
         }
     }
 
