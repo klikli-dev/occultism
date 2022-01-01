@@ -32,7 +32,6 @@ import net.minecraftforge.network.NetworkEvent;
 import java.util.function.Supplier;
 
 public class OccultismPacketHandler {
-    //region Static Methods
     public static <T extends IMessage> void handle(T message, Supplier<NetworkEvent.Context> ctx) {
         if (ctx.get().getDirection().getReceptionSide() == LogicalSide.SERVER) {
             ctx.get().enqueueWork(() -> {
@@ -56,5 +55,4 @@ public class OccultismPacketHandler {
         Minecraft minecraft = Minecraft.getInstance();
         message.onClientReceived(minecraft, minecraft.player, ctx.get());
     }
-    //endregion Static Methods
 }
