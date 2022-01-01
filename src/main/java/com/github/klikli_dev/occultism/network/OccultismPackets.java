@@ -28,23 +28,24 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.fml.network.NetworkRegistry;
 import net.minecraftforge.fml.network.PacketDistributor;
 import net.minecraftforge.fml.network.simple.SimpleChannel;
 
 public class OccultismPackets {
-    //region Fields
-    private static final String PROTOCOL_VERSION = "1";
+    public static final String PROTOCOL_VERSION = "1";
+    public static final ResourceLocation CHANNEL =  new ResourceLocation(Occultism.MODID, "main");
     public static final SimpleChannel INSTANCE = NetworkRegistry.newSimpleChannel(
-            new ResourceLocation(Occultism.MODID, "main"),
+            CHANNEL,
             () -> PROTOCOL_VERSION,
             PROTOCOL_VERSION::equals,
             PROTOCOL_VERSION::equals
     );
-    private static int ID = 0;
-    //endregion Fields
+    public static final PacketSplitter SPLITTER = new PacketSplitter(5, INSTANCE, CHANNEL);
 
-    //region Static Methods
+    private static int ID = 0;
+
     public static int nextID() {
         return ID++;
     }
@@ -57,13 +58,13 @@ public class OccultismPackets {
                 MessageRequestStacks::new,
                 OccultismPacketHandler::handle);
 
-        INSTANCE.registerMessage(nextID(),
+        SPLITTER.registerMessage(nextID(),
                 MessageUpdateLinkedMachines.class,
                 MessageUpdateLinkedMachines::encode,
                 MessageUpdateLinkedMachines::new,
                 OccultismPacketHandler::handle);
 
-        INSTANCE.registerMessage(nextID(),
+        SPLITTER.registerMessage(nextID(),
                 MessageUpdateStacks.class,
                 MessageUpdateStacks::encode,
                 MessageUpdateStacks::new,
@@ -214,10 +215,6 @@ public class OccultismPackets {
                 OccultismPacketHandler::handle);
     }
 
-    public static <MSG> void sendTo(ServerPlayerEntity player, MSG message) {
-        INSTANCE.send(PacketDistributor.PLAYER.with(() -> player), message);
-    }
-
     public static <MSG> void sendToTracking(Entity entity, MSG message) {
         INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(() -> entity), message);
     }
@@ -227,7 +224,24 @@ public class OccultismPackets {
     }
 
     public static <MSG> void sendToServer(MSG message) {
-        INSTANCE.sendToServer(message);
+        if (SPLITTER.shouldMessageBeSplit(message.getClass())) {
+            SPLITTER.sendToServer(message);
+        } else {
+            INSTANCE.send(PacketDistributor.SERVER.noArg(), message);
+        }
     }
-    //endregion Static Methods
+
+    public static <MSG> void sendTo(ServerPlayerEntity player, MSG message) {
+        if (!(player instanceof FakePlayer)) {
+            if (SPLITTER.shouldMessageBeSplit(message.getClass())) {
+                SPLITTER.sendToPlayer(player, message);
+            } else {
+                INSTANCE.send(PacketDistributor.PLAYER.with(() -> player), message);
+            }
+        }
+    }
+
+    public static void addPackagePart(int communicationId, int packetIndex, byte[] payload) {
+        SPLITTER.addPackagePart(communicationId, packetIndex, payload);
+    }
 }
