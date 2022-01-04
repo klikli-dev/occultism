@@ -41,7 +41,7 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 public class PacketSplitter {
-    private final static int MAX_PACKET_SIZE = 943718;
+    private final static int MAX_PACKET_SIZE = 32767;
     private static final Map<Integer, Map<Integer, byte[]>> packageCache = new HashMap<>();
     private final ResourceLocation CHANNEL_ID;
     private final SimpleChannel CHANNEL;

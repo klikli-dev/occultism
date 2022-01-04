@@ -214,6 +214,12 @@ public class OccultismPackets {
                 MessageFairySupport::encode,
                 MessageFairySupport::new,
                 OccultismPacketHandler::handle);
+
+        INSTANCE.registerMessage(nextID(),
+                MessageUpdateStorageSettings.class,
+                MessageUpdateStorageSettings::encode,
+                MessageUpdateStorageSettings::new,
+                OccultismPacketHandler::handle);
     }
 
     public static <MSG> void sendToTracking(Entity entity, MSG message) {

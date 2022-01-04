@@ -25,6 +25,8 @@ package com.github.klikli_dev.occultism.client.gui.storage;
 import com.github.klikli_dev.occultism.api.common.data.SortDirection;
 import com.github.klikli_dev.occultism.api.common.data.SortType;
 import com.github.klikli_dev.occultism.common.container.storage.StorageRemoteContainer;
+import com.github.klikli_dev.occultism.network.MessageUpdateStorageSettings;
+import com.github.klikli_dev.occultism.network.OccultismPackets;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
@@ -62,6 +64,7 @@ public class StorageRemoteGui extends StorageControllerGuiBase<StorageRemoteCont
     @Override
     public void setSortDirection(SortDirection sortDirection) {
         this.container.getStorageRemote().getOrCreateTag().putInt("sortDirection", sortDirection.getValue());
+        OccultismPackets.sendToServer(new MessageUpdateStorageSettings(sortDirection, this.getSortType()));
     }
 
     @Override
@@ -72,6 +75,7 @@ public class StorageRemoteGui extends StorageControllerGuiBase<StorageRemoteCont
     @Override
     public void setSortType(SortType sortType) {
         this.container.getStorageRemote().getOrCreateTag().putInt("sortType", sortType.getValue());
+        OccultismPackets.sendToServer(new MessageUpdateStorageSettings(this.getSortDirection(), sortType));
     }
     //endregion Overrides
 }
