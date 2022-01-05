@@ -24,6 +24,7 @@ package com.github.klikli_dev.occultism.common.entity;
 
 import com.github.klikli_dev.occultism.common.advancement.FamiliarTrigger;
 import com.github.klikli_dev.occultism.registry.OccultismAdvancements;
+import com.github.klikli_dev.occultism.registry.OccultismEffects;
 import com.google.common.collect.ImmutableList;
 
 import net.minecraft.entity.EntityType;
@@ -84,7 +85,7 @@ public class BeaverFamiliarEntity extends FamiliarEntity {
 
     @Override
     public Iterable<EffectInstance> getFamiliarEffects() {
-        return ImmutableList.of();
+        return ImmutableList.of(new EffectInstance(OccultismEffects.BEAVER_HARVEST.get(), 300));
     }
 
 }

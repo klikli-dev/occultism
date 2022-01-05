@@ -41,18 +41,35 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSource;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.living.PotionEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.Event.Result;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = Occultism.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class FamiliarEventHandler {
+
+    @SubscribeEvent
+    public static void beaverHarvest(PlayerEvent.BreakSpeed event) {
+        PlayerEntity player = event.getPlayer();
+
+        if (!event.getState().is(BlockTags.LOGS))
+            return;
+
+        if (!player.hasEffect(OccultismEffects.BEAVER_HARVEST.get()))
+            return;
+
+        int level = player.getEffect(OccultismEffects.BEAVER_HARVEST.get()).getAmplifier();
+
+        event.setNewSpeed(event.getNewSpeed() * (level + 3));
+    }
 
     @SubscribeEvent
     public static void dodge(LivingHurtEvent event) {
