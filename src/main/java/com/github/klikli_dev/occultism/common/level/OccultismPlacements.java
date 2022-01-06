@@ -37,6 +37,7 @@ import static com.github.klikli_dev.occultism.util.StaticUtil.modLoc;
 public class OccultismPlacements {
 
     public static PlacedFeature SILVER_ORE;
+    public static PlacedFeature SILVER_ORE_DEEPSLATE;
     public static PlacedFeature IESNIUM_ORE;
 
     public static PlacedFeature UNDERGROUND_GROVE;
@@ -53,14 +54,23 @@ public class OccultismPlacements {
                 VerticalAnchor.absolute(oreGen.silverOre.maximum.get()) :
                 VerticalAnchor.belowTop(-oreGen.silverOre.maximum.get());
         SILVER_ORE = OccultismFeatures.SILVER_ORE.placed(commonOrePlacement(oreGen.silverOre.count.get(),
-                HeightRangePlacement.triangle(VerticalAnchor.aboveBottom(oreGen.silverOre.bottomOffset.get()), silverMaxAnchor)));
+                HeightRangePlacement.triangle(VerticalAnchor.absolute(oreGen.silverOre.minimum.get()), silverMaxAnchor)));
         Registry.register(BuiltinRegistries.PLACED_FEATURE, modLoc("silver_ore"), SILVER_ORE);
+
+
+        VerticalAnchor silverDeepslateMaxAnchor = oreGen.silverOreDeepslate.maximum.get() > 0 ?
+                VerticalAnchor.absolute(oreGen.silverOreDeepslate.maximum.get()) :
+                VerticalAnchor.belowTop(-oreGen.silverOreDeepslate.maximum.get());
+        SILVER_ORE_DEEPSLATE = OccultismFeatures.SILVER_ORE_DEEPSLATE.placed(commonOrePlacement(oreGen.silverOreDeepslate.count.get(),
+                HeightRangePlacement.triangle(VerticalAnchor.absolute(oreGen.silverOreDeepslate.minimum.get()), silverMaxAnchor)));
+        Registry.register(BuiltinRegistries.PLACED_FEATURE, modLoc("silver_ore_deepslate"), SILVER_ORE_DEEPSLATE);
+
 
         VerticalAnchor iesniumMaxAnchor = oreGen.iesniumOre.maximum.get() > 0 ?
                 VerticalAnchor.absolute(oreGen.iesniumOre.maximum.get()) :
                 VerticalAnchor.belowTop(-oreGen.iesniumOre.maximum.get());
         IESNIUM_ORE = OccultismFeatures.IESNIUM_ORE.placed(commonOrePlacement(oreGen.iesniumOre.count.get(),
-                HeightRangePlacement.triangle(VerticalAnchor.aboveBottom(oreGen.iesniumOre.bottomOffset.get()), iesniumMaxAnchor)));
+                HeightRangePlacement.triangle(VerticalAnchor.absolute(oreGen.iesniumOre.minimum.get()), iesniumMaxAnchor)));
         Registry.register(BuiltinRegistries.PLACED_FEATURE, modLoc("iesnium_ore"), IESNIUM_ORE);
 
         UNDERGROUND_GROVE = OccultismFeatures.UNDERGROUND_GROVE.placed();

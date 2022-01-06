@@ -22,7 +22,6 @@
 
 package com.github.klikli_dev.occultism.config;
 
-import com.github.klikli_dev.occultism.registry.OccultismTags;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.Tag;
@@ -62,6 +61,7 @@ public class OccultismCommonConfig {
 
         public static class OreGenSettings {
             public final OreSettings silverOre;
+            public final OreSettings silverOreDeepslate;
             public final OreSettings iesniumOre;
 
             public OreGenSettings(ForgeConfigSpec.Builder builder) {
@@ -70,7 +70,11 @@ public class OccultismCommonConfig {
                 this.silverOre =
                         new OreSettings("silverOre",
                                 BlockTags.STONE_ORE_REPLACEABLES, 7,
-                                3, 5, 0, 30, builder);
+                                3, 50, 0, 200, builder);
+                this.silverOreDeepslate =
+                        new OreSettings("silverOreDeepslate",
+                                BlockTags.DEEPSLATE_ORE_REPLACEABLES, 7,
+                                3, -64, 0, 50, builder);
                 this.iesniumOre =
                         new OreSettings("iesniumOre",
                                 BlockTags.BASE_STONE_NETHER, 3, 10,
@@ -83,11 +87,11 @@ public class OccultismCommonConfig {
                 public final ConfigValue<String> fillerBlockTag;
                 public final IntValue size;
                 public final IntValue count;
-                public final IntValue bottomOffset;
+                public final IntValue minimum;
                 public final IntValue maximum;
 
                 public OreSettings(String oreName, Tag<Block> fillerBlockTag,
-                                   int size, int count, int bottomOffset, int topOffset, int maximum,
+                                   int size, int count, int minimum, int topOffset, int maximum,
                                    ForgeConfigSpec.Builder builder) {
                     builder.comment("Ore Settings").push(oreName);
 
@@ -105,8 +109,8 @@ public class OccultismCommonConfig {
                     this.count =
                             builder.comment("The count value for the decorator for this ore.")
                                     .defineInRange("count", count, 0, Byte.MAX_VALUE);
-                    this.bottomOffset = builder.comment("Range configuration min height.")
-                            .defineInRange("bottomOffset", bottomOffset, Integer.MIN_VALUE, Integer.MAX_VALUE);
+                    this.minimum = builder.comment("Range configuration min height.")
+                            .defineInRange("bottomOffset", minimum, Integer.MIN_VALUE, Integer.MAX_VALUE);
                     this.maximum = builder.comment("Range configuration max height. A negative max height is interpreted as offset from the top of the world (relevant for nether)")
                             .defineInRange("maximum", maximum, Integer.MIN_VALUE, Integer.MAX_VALUE);
                     builder.pop();

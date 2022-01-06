@@ -193,6 +193,7 @@ public class StandardLootTableProvider extends BaseLootTableProvider {
                             DEFAULT_SAPLING_DROP_RATES));
 
             this.add(OccultismBlocks.SILVER_ORE.get(), createOreDrop(OccultismBlocks.SILVER_ORE.get(), OccultismItems.RAW_SILVER.get()));
+            this.add(OccultismBlocks.SILVER_ORE_DEEPSLATE.get(), createOreDrop(OccultismBlocks.SILVER_ORE_DEEPSLATE.get(), OccultismItems.RAW_SILVER.get()));
             this.add(OccultismBlocks.IESNIUM_ORE.get(), createOreDrop(OccultismBlocks.IESNIUM_ORE.get(), OccultismItems.RAW_IESNIUM.get()));
         }
 

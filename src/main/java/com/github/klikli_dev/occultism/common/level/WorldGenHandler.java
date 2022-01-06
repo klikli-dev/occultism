@@ -62,6 +62,8 @@ public class WorldGenHandler {
 
         if (Occultism.COMMON_CONFIG.worldGen.oreGen.silverOre.generateOre.get())
             event.getGeneration().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, OccultismPlacements.SILVER_ORE);
+        if (Occultism.COMMON_CONFIG.worldGen.oreGen.silverOreDeepslate.generateOre.get())
+            event.getGeneration().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, OccultismPlacements.SILVER_ORE_DEEPSLATE);
         if (Occultism.COMMON_CONFIG.worldGen.oreGen.iesniumOre.generateOre.get())
             event.getGeneration().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, OccultismPlacements.IESNIUM_ORE);
         if (Occultism.COMMON_CONFIG.worldGen.undergroundGroveGen.generateUndergroundGroves.get())

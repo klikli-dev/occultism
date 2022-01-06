@@ -47,6 +47,7 @@ import static com.github.klikli_dev.occultism.util.StaticUtil.modLoc;
 
 public class OccultismFeatures {
     public static ConfiguredFeature<?, ?> SILVER_ORE;
+    public static ConfiguredFeature<?, ?> SILVER_ORE_DEEPSLATE;
     public static ConfiguredFeature<?, ?> IESNIUM_ORE;
 
     public static ConfiguredFeature<?, ?> UNDERGROUND_GROVE;
@@ -66,6 +67,13 @@ public class OccultismFeatures {
                         new TagMatchTest(oreGen.silverOre.getFillerBlockTag()),
                         OccultismBlocks.SILVER_ORE.get().defaultBlockState(), oreGen.silverOre.size.get()));
         Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, modLoc("silver_ore"), SILVER_ORE);
+
+
+        SILVER_ORE_DEEPSLATE = Feature.ORE.configured(
+                new OreConfiguration(
+                        new TagMatchTest(oreGen.silverOreDeepslate.getFillerBlockTag()),
+                        OccultismBlocks.SILVER_ORE_DEEPSLATE.get().defaultBlockState(), oreGen.silverOreDeepslate.size.get()));
+        Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, modLoc("silver_ore_deepslate"), SILVER_ORE_DEEPSLATE);
 
         IESNIUM_ORE = Feature.ORE.configured(
                 new OreConfiguration(

@@ -136,6 +136,7 @@ public class OccultismBlocks {
                     Block.Properties.of(Material.PLANT).sound(SoundType.GRASS)
                             .strength(0.0f).randomTicks().noCollission()), false, LootTableType.OTHERWORLD_BLOCK);
     public static final RegistryObject<Block> SILVER_ORE = register("silver_ore", () -> new Block(Block.Properties.copy(Blocks.IRON_ORE)), true, LootTableType.CUSTOM);
+    public static final RegistryObject<Block> SILVER_ORE_DEEPSLATE = register("silver_ore_deepslate", () -> new Block(Block.Properties.copy(Blocks.IRON_ORE)), true, LootTableType.CUSTOM);
     public static final RegistryObject<Block> IESNIUM_ORE = register("iesnium_ore", () -> new Block(Block.Properties.copy(Blocks.IRON_ORE)), true, LootTableType.CUSTOM);
     public static final RegistryObject<IesniumOreNaturalBlock> IESNIUM_ORE_NATURAL =
             register("iesnium_ore_natural", () -> new IesniumOreNaturalBlock(Block.Properties.copy(Blocks.IRON_ORE)),

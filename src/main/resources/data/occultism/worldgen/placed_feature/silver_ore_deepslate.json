@@ -1,5 +1,5 @@
 {
-  "feature": "occultism:silver_ore",
+  "feature": "occultism:silver_ore_deepslate",
   "placement": [
     {
       "count": 3,
@@ -11,10 +11,10 @@
     {
       "height": {
         "min_inclusive": {
-          "absolute": 50
+          "absolute": -64
         },
         "max_inclusive": {
-          "absolute": 200
+          "absolute": 50
         },
         "type": "minecraft:trapezoid"
       },
