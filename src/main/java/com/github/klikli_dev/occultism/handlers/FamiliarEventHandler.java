@@ -26,6 +26,7 @@ import java.util.List;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.advancement.FamiliarTrigger;
+import com.github.klikli_dev.occultism.common.entity.BeaverFamiliarEntity;
 import com.github.klikli_dev.occultism.common.entity.BeholderFamiliarEntity;
 import com.github.klikli_dev.occultism.common.entity.FairyFamiliarEntity;
 import com.github.klikli_dev.occultism.common.entity.GuardianFamiliarEntity;
@@ -44,17 +45,33 @@ import net.minecraft.potion.Effects;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSource;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IWorld;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.living.PotionEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.event.world.SaplingGrowTreeEvent;
 import net.minecraftforge.eventbus.api.Event.Result;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = Occultism.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class FamiliarEventHandler {
+
+    @SubscribeEvent
+    public static void beaverFindTree(SaplingGrowTreeEvent event) {
+        IWorld world = event.getWorld();
+        BlockPos pos = event.getPos();
+        List<BeaverFamiliarEntity> beavers = event.getWorld().getEntitiesOfClass(BeaverFamiliarEntity.class,
+                new AxisAlignedBB(pos).inflate(30), b -> !b.isSitting() && b.isEffectEnabled(b.getFamiliarOwner()));
+
+        BeaverFamiliarEntity beaver = beavers.get(world.getRandom().nextInt(beavers.size()));
+        
+        beaver.setTreeTarget(pos);
+    }
 
     @SubscribeEvent
     public static void beaverHarvest(PlayerEvent.BreakSpeed event) {
