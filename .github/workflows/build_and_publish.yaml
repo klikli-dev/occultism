@@ -78,7 +78,7 @@ jobs:
           asset_content_type: application/java-archive
       - name: Upload to Curseforge
         id: curseforge
-        uses: klikli-dev/curseforge-upload@master
+        uses: itsmeow/curseforge-upload@master
         if: ${{ steps.get_release_type.outputs.result }} != "test"
         with:
           token: ${{ secrets.CURSEFORGE_API_KEY }}
@@ -90,7 +90,7 @@ jobs:
             ${{ steps.get_version.outputs.result }}
             Changelog for this build: https://github.com/klikli-dev/occultism/releases/tag/${{ steps.get_release_type.outputs.result }}%2Fv${{ steps.get_mc_version.outputs.result }}-${{ steps.get_version.outputs.result }}
             Find changes for all versions at https://github.com/klikli-dev/occultism/releases
-          game_versions: Forge,1.18,${{ steps.get_mc_version.outputs.result }}
+          game_versions: Forge,Minecraft 1.18:1.18,Minecraft 1.18:${{ steps.get_mc_version.outputs.result }}
           display_name: occultism-${{ steps.get_mc_version.outputs.result }}-${{ steps.get_version.outputs.result }}.jar
           release_type: ${{ steps.get_release_type.outputs.result }}
           relations: patchouli:requiredDependency,curios:requiredDependency,geckolib:requiredDependency,jei:optionalDependency
