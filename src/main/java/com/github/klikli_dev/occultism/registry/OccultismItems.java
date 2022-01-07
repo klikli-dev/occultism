@@ -178,8 +178,8 @@ public class OccultismItems {
             () -> new DivinationRodItem(defaultProperties().stacksTo(1)));
     public static final RegistryObject<BrushItem> BRUSH = ITEMS.register("brush",
             () -> new BrushItem(defaultProperties().stacksTo(1)));
-    public static final RegistryObject<ButcherKnifeItem> BUTCHER_KNIFE = ITEMS.register("butcher_knife",
-            () -> new ButcherKnifeItem(Tiers.IRON, 3, -2.4F, defaultProperties()));
+    public static final RegistryObject<SwordItem> BUTCHER_KNIFE = ITEMS.register("butcher_knife",
+            () -> new SwordItem(Tiers.IRON, 3, -2.4F, defaultProperties()));
 
     public static final RegistryObject<InfusedPickaxeItem> INFUSED_PICKAXE = ITEMS.register("infused_pickaxe",
             () -> new InfusedPickaxeItem(OccultismItemTier.SPIRIT_ATTUNED_GEM, 1, -2.8F, defaultProperties()));

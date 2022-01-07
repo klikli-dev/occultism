@@ -23,57 +23,23 @@
 package com.github.klikli_dev.occultism.handlers;
 
 import com.github.klikli_dev.occultism.Occultism;
-import com.github.klikli_dev.occultism.common.item.tool.ButcherKnifeItem;
 import com.github.klikli_dev.occultism.registry.OccultismEffects;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
-import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.github.klikli_dev.occultism.util.FamiliarUtil;
-import com.github.klikli_dev.occultism.util.Math3DUtil;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.Tags;
-import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.living.LivingExperienceDropEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-import java.util.List;
-import java.util.Random;
-
 @Mod.EventBusSubscriber(modid = Occultism.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class LootEventHandler {
-
-    @SubscribeEvent
-    public static void onLivingDrops(LivingDropsEvent event) {
-        //Add butcher knife drops dynamically.
-        //TODO: Consider doing a global loot table for that
-        if (event.isRecentlyHit() && event.getSource().getDirectEntity() instanceof LivingEntity) {
-            LivingEntity trueSource = (LivingEntity) event.getSource().getDirectEntity();
-            ItemStack knifeItem = trueSource.getItemInHand(InteractionHand.MAIN_HAND);
-            if (knifeItem.getItem() == OccultismItems.BUTCHER_KNIFE.get()) {
-                List<ItemStack> loot = ButcherKnifeItem.getLoot(event.getEntityLiving(), knifeItem, trueSource);
-                Random rand = event.getEntityLiving().getRandom();
-
-                if (!loot.isEmpty()) {
-                    for (ItemStack stack : loot) {
-                        ItemStack copy = stack.copy();
-                        copy.setCount(rand.nextInt(stack.getCount() + 1) + rand.nextInt(event.getLootingLevel() + 1));
-                        Vec3 center = Math3DUtil.center(event.getEntityLiving().blockPosition());
-                        event.getDrops()
-                                .add(new ItemEntity(event.getEntityLiving().level, center.x, center.y, center.z, copy));
-                    }
-                }
-            }
-        }
-    }
 
     @SubscribeEvent
     public static void onExpDrop(LivingExperienceDropEvent event) {

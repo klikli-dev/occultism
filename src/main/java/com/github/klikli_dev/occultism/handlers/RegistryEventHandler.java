@@ -25,10 +25,8 @@ package com.github.klikli_dev.occultism.handlers;
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.job.SpiritJobFactory;
 import com.github.klikli_dev.occultism.common.ritual.RitualFactory;
+import com.github.klikli_dev.occultism.loot.AddItemModifier;
 import com.github.klikli_dev.occultism.registry.*;
-import com.github.klikli_dev.occultism.util.loot.AppendLootTable;
-import com.github.klikli_dev.occultism.util.loot.MatchBlockCondition;
-import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
@@ -36,23 +34,20 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.level.block.ComposterBlock;
-import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.registries.RegistryObject;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.RegistryBuilder;
+import net.minecraftforge.registries.RegistryObject;
 
 import static com.github.klikli_dev.occultism.util.StaticUtil.modLoc;
 
 @Mod.EventBusSubscriber(modid = Occultism.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class RegistryEventHandler {
-
-    //region Static Methods
 
     @SubscribeEvent
     public static void registerRegistries(RegistryEvent.NewRegistry event) {
@@ -133,15 +128,7 @@ public class RegistryEventHandler {
     }
 
     @SubscribeEvent
-    public static void onRegisterGlobalLootModifierSerializer(
-            RegistryEvent.Register<GlobalLootModifierSerializer<?>> event) {
-
-        //Register the serializer to append to loot tables (see https://github.com/gigaherz/Survivalist/blob/87b2e6b547152262544020587f5a31a778f72899/src/main/java/gigaherz/survivalist/SurvivalistMod.java#L153)
-        MatchBlockCondition.BLOCK_TAG_CONDITION = Registry.register(
-                Registry.LOOT_CONDITION_TYPE,
-                modLoc("match_block"),
-                new LootItemConditionType(new MatchBlockCondition.LootSerializer()));
-        event.getRegistry().register(new AppendLootTable.Serializer().setRegistryName(modLoc("append_loot")));
+    public static void onRegisterGlobalLootModifierSerializer(RegistryEvent.Register<GlobalLootModifierSerializer<?>> event) {
+        event.getRegistry().register(new AddItemModifier.Serializer().setRegistryName(modLoc("add_item")));
     }
-    //endregion Static Methods
 }

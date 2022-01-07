@@ -110,8 +110,6 @@ public class Occultism {
 
         WorldGenHandler.registerFeatures();
 
-        OccultismAPI.commonSetup();
-
         //Register entity attributes on single thread
 
         LOGGER.info("Common setup complete.");
