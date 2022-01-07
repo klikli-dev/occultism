@@ -78,7 +78,7 @@ jobs:
           asset_content_type: application/java-archive
       - name: Upload to Curseforge
         id: curseforge
-        uses: itsmeow/curseforge-upload@master
+        uses: klikli-dev/curseforge-upload@master
         if: ${{ steps.get_release_type.outputs.result }} != "test"
         with:
           token: ${{ secrets.CURSEFORGE_API_KEY }}
