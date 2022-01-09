@@ -128,9 +128,7 @@ public class SphericalCaveSubFeature implements IMultiChunkSubFeature {
         BlockPos.betweenClosed(min, max).forEach(blockPos -> {
             if (blockPos.distSqr(center) <= (double) (f * f * Mth.clamp(rand.nextFloat(), 0.75F, 1.0F))) {
                 BlockState currentState = reader.getBlockState(blockPos);
-                if (!currentState.hasBlockEntity() && currentState.getBlock() != Blocks.BEDROCK) {
-                    this.setBlockSafely(reader, blockPos, Blocks.CAVE_AIR.defaultBlockState(), 2);
-                }
+                this.setBlockSafely(reader, blockPos, currentState, Blocks.CAVE_AIR.defaultBlockState(), 2);
             }
         });
     }
@@ -154,8 +152,8 @@ public class SphericalCaveSubFeature implements IMultiChunkSubFeature {
         this.caveDecorator.finalPass(reader, generator, rand, data);
     }
 
-    protected void setBlockSafely(WorldGenLevel level, BlockPos pPos, BlockState pNewState, int pFlags){
-        if(OccultismTags.WORLDGEN_BLACKLIST.contains(level.getBlockState(pPos).getBlock())){
+    protected void setBlockSafely(WorldGenLevel level, BlockPos pPos, BlockState pCurrentState, BlockState pNewState, int pFlags){
+        if(pCurrentState.hasBlockEntity() || pCurrentState.getBlock() == Blocks.BEDROCK || OccultismTags.WORLDGEN_BLACKLIST.contains(pCurrentState.getBlock())){
             return;
         }
         level.setBlock(pPos, pNewState, pFlags);
