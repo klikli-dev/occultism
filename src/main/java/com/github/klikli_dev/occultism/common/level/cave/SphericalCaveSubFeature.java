@@ -24,6 +24,7 @@ package com.github.klikli_dev.occultism.common.level.cave;
 
 import com.github.klikli_dev.occultism.common.level.multichunk.IMultiChunkSubFeature;
 import com.github.klikli_dev.occultism.common.level.multichunk.MultiChunkFeatureConfig;
+import com.github.klikli_dev.occultism.registry.OccultismTags;
 import com.github.klikli_dev.occultism.util.Math3DUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -128,7 +129,7 @@ public class SphericalCaveSubFeature implements IMultiChunkSubFeature {
             if (blockPos.distSqr(center) <= (double) (f * f * Mth.clamp(rand.nextFloat(), 0.75F, 1.0F))) {
                 BlockState currentState = reader.getBlockState(blockPos);
                 if (!currentState.hasBlockEntity() && currentState.getBlock() != Blocks.BEDROCK) {
-                    reader.setBlock(blockPos, Blocks.CAVE_AIR.defaultBlockState(), 2);
+                    this.setBlockSafely(reader, blockPos, Blocks.CAVE_AIR.defaultBlockState(), 2);
                 }
             }
         });
@@ -151,6 +152,13 @@ public class SphericalCaveSubFeature implements IMultiChunkSubFeature {
         });
 
         this.caveDecorator.finalPass(reader, generator, rand, data);
+    }
+
+    protected void setBlockSafely(WorldGenLevel level, BlockPos pPos, BlockState pNewState, int pFlags){
+        if(OccultismTags.WORLDGEN_BLACKLIST.contains(level.getBlockState(pPos).getBlock())){
+            return;
+        }
+        level.setBlock(pPos, pNewState, pFlags);
     }
     //endregion Methods
 
