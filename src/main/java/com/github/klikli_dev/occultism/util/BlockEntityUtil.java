@@ -114,7 +114,7 @@ public class BlockEntityUtil {
      * @return the item entity.
      */
     public static ItemEntity getDroppedItemWithNbt(ItemStack itemStack, BlockEntity blockEntity) {
-        CompoundTag CompoundTag = blockEntity.serializeNBT();
+        CompoundTag CompoundTag = blockEntity.saveWithoutMetadata();
         if (!CompoundTag.isEmpty()) {
             itemStack.addTagElement("BlockEntityTag", CompoundTag);
         }
