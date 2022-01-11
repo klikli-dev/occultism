@@ -29,11 +29,15 @@ import com.mojang.blaze3d.vertex.IVertexBuilder;
 
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
+import net.minecraft.util.math.MathHelper;
 
 /**
  * Created using Tabula 8.0.0
  */
 public class BeaverFamiliarModel extends EntityModel<BeaverFamiliarEntity> {
+
+    private static final float PI = (float) Math.PI;
+
     public ModelRenderer body;
     public ModelRenderer tail;
     public ModelRenderer leftLeg1;
@@ -172,9 +176,83 @@ public class BeaverFamiliarModel extends EntityModel<BeaverFamiliarEntity> {
     }
 
     @Override
-    public void setupAnim(BeaverFamiliarEntity pEntity, float pLimbSwing, float pLimbSwingAmount, float pAgeInTicks,
-            float pNetHeadYaw, float pHeadPitch) {
+    public void setupAnim(BeaverFamiliarEntity pEntity, float limbSwing, float limbSwingAmount, float pAgeInTicks,
+            float netHeadYaw, float headPitch) {
         this.showModels(pEntity);
+        
+        this.rightLeg1.zRot = 0;
+        this.leftLeg1.zRot = 0;
+        this.rightArm1.zRot = 0;
+        this.leftArm1.zRot = 0;
+        this.body.xRot = 0.09f;
+        this.body.yRot = 0;
+        this.body.y = 19.5f;
+        this.leftLeg2.xRot = 0;
+        this.rightLeg2.xRot = 0;
+        this.leftArm2.xRot = 0;
+        this.rightArm2.xRot = 0;
+
+        
+        this.head.xRot = toRads(headPitch);
+        this.head.yRot = toRads(netHeadYaw);
+
+        this.rightLeg1.xRot = -0.07f + MathHelper.cos(limbSwing * 0.7f) * 0.8f * limbSwingAmount;
+        this.leftLeg1.xRot = -0.07f + MathHelper.cos(limbSwing * 0.7f + PI) * 0.8f * limbSwingAmount;
+        this.rightArm1.xRot = -0.07f + MathHelper.cos(limbSwing * 0.7f + PI) * 0.8f * limbSwingAmount;
+        this.leftArm1.xRot = -0.07f + MathHelper.cos(limbSwing * 0.7f) * 0.8f * limbSwingAmount;
+
+        this.tail.xRot = 0.51f + MathHelper.cos(pAgeInTicks * 0.1f) * toRads(20);
+        this.tail2.xRot = 0.51f + MathHelper.cos(pAgeInTicks * 0.1f) * toRads(20);
+        
+        if (!pEntity.isSitting() && pEntity.isInWater()) {
+            this.rightLeg1.zRot = toRads(40);
+            this.leftLeg1.zRot = -toRads(40);
+            this.rightArm1.zRot = toRads(40);
+            this.leftArm1.zRot = -toRads(40);
+            
+            this.rightLeg1.xRot = -0.07f + MathHelper.cos(pAgeInTicks * 0.3f) * 0.4f;
+            this.leftLeg1.xRot = -0.07f + MathHelper.cos(pAgeInTicks * 0.3f) * 0.4f;
+            this.rightArm1.xRot = -0.07f + MathHelper.cos(pAgeInTicks * 0.3f + PI) * 0.4f;
+            this.leftArm1.xRot = -0.07f + MathHelper.cos(pAgeInTicks * 0.3f + PI) * 0.4f;
+        }
+        
+        if (pEntity.isSitting()) {
+            this.body.xRot = toRads(-40);
+            this.head.xRot = toRads(25);
+            this.head.yRot = 0;
+            this.tail.xRot = toRads(70);
+            this.tail2.xRot = toRads(70);
+            
+            this.leftLeg1.xRot = toRads(-20);
+            this.leftLeg2.xRot = toRads(50);
+            this.rightLeg1.xRot = toRads(-20);
+            this.rightLeg2.xRot = toRads(50);
+            
+            this.leftArm1.xRot = toRads(10);
+            this.leftArm2.xRot = toRads(40);
+            this.rightArm1.xRot = toRads(10);
+            this.rightArm2.xRot = toRads(40);
+        }
+        
+        if (pEntity.isPartying()) {
+            this.body.xRot = toRads(90);
+            this.body.yRot = pAgeInTicks * 0.5f;
+            this.body.y = 12.5f;
+            this.head.xRot = 0;
+            this.head.yRot = 0;
+            
+            this.tail.xRot = MathHelper.cos(pAgeInTicks * 0.8f) * toRads(50);
+            this.tail2.xRot = MathHelper.cos(pAgeInTicks * 0.8f) * toRads(50);
+            
+            this.rightLeg1.xRot = -0.07f + MathHelper.cos(pAgeInTicks * 0.7f) * toRads(40);
+            this.leftLeg1.xRot = -0.07f + MathHelper.cos(pAgeInTicks * 0.7f + PI) * toRads(40);
+            this.rightArm1.xRot = -0.07f + MathHelper.cos(pAgeInTicks * 0.7f + PI) * toRads(40);
+            this.leftArm1.xRot = -0.07f + MathHelper.cos(pAgeInTicks * 0.7f) * toRads(40);
+        }
+    }
+
+    private float toRads(float deg) {
+        return (float) Math.toRadians(deg);
     }
 
     private void showModels(BeaverFamiliarEntity entityIn) {

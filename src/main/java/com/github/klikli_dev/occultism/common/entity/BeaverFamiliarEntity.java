@@ -36,27 +36,37 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.goal.FollowMobGoal;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.ai.goal.LookAtGoal;
 import net.minecraft.entity.ai.goal.PanicGoal;
 import net.minecraft.entity.ai.goal.RandomWalkingGoal;
-import net.minecraft.entity.ai.goal.SwimGoal;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.pathfinding.GroundPathNavigator;
+import net.minecraft.pathfinding.PathNodeType;
+import net.minecraft.pathfinding.SwimmerPathNavigator;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ForgeMod;
 
 public class BeaverFamiliarEntity extends FamiliarEntity {
 
     private BlockPos treeTarget;
+    private final SwimmerPathNavigator waterNavigator;
+    private final GroundPathNavigator groundNavigator;
 
     public BeaverFamiliarEntity(EntityType<? extends BeaverFamiliarEntity> type, World worldIn) {
         super(type, worldIn);
+        this.setPathfindingMalus(PathNodeType.WATER, 0);
+        this.waterNavigator = new SwimmerPathNavigator(this, worldIn);
+        this.groundNavigator = new GroundPathNavigator(this, worldIn);
+        this.moveControl = new CthulhuFamiliarEntity.MoveController(this);
     }
 
     @Override
@@ -66,6 +76,23 @@ public class BeaverFamiliarEntity extends FamiliarEntity {
         this.setEars(this.getRandom().nextBoolean());
         this.setWhiskers(this.getRandom().nextBoolean());
         return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
+    }
+    
+    public static AttributeModifierMap.MutableAttribute registerAttributes() {
+        return FamiliarEntity.registerAttributes().add(ForgeMod.SWIM_SPEED.get(), 1f);
+    }
+    
+    @Override
+    public void updateSwimming() {
+        if (!this.level.isClientSide) {
+            if (this.isInWater()) {
+                this.navigation = this.waterNavigator;
+                this.setSwimming(true);
+            } else {
+                this.navigation = this.groundNavigator;
+                this.setSwimming(false);
+            }
+        }
     }
 
     @Override
@@ -78,13 +105,17 @@ public class BeaverFamiliarEntity extends FamiliarEntity {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new PanicGoal(this, 1.25));
-        this.goalSelector.addGoal(0, new SwimGoal(this));
         this.goalSelector.addGoal(1, new SitGoal(this));
         this.goalSelector.addGoal(2, new LookAtGoal(this, PlayerEntity.class, 8));
         this.goalSelector.addGoal(4, new ChopTreeGoal(this));
-        this.goalSelector.addGoal(5, new FollowOwnerGoal(this, 1, 3, 1));
+        this.goalSelector.addGoal(5, new CthulhuFamiliarEntity.FollowOwnerWaterGoal(this, 1, 3, 1));
         this.goalSelector.addGoal(7, new RandomWalkingGoal(this, 1));
         this.goalSelector.addGoal(8, new FollowMobGoal(this, 1, 3, 7));
+    }
+    
+    @Override
+    public boolean canBreatheUnderwater() {
+        return true;
     }
 
     public boolean hasWhiskers() {
