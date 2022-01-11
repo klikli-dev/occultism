@@ -40,7 +40,7 @@ public class OccultismTags {
     public static final Tag<Block> CAVE_WALL_BLOCKS = makeBlockTag(new ResourceLocation(Occultism.MODID, "cave_wall_blocks"));
     public static final Tag<Block> WORLDGEN_BLACKLIST = makeBlockTag(new ResourceLocation(Occultism.MODID, "worldgen_blacklist"));
     public static final Tag<Block> NETHERRACK = makeBlockTag(new ResourceLocation(Occultism.MODID, "netherrack"));
-    public static final Tag.Named<Block> CANDLES = makeBlockTag(new ResourceLocation("forge", "candles"));
+    public static final Tag.Named<Block> CANDLES = makeBlockTag(new ResourceLocation("minecraft", "candles"));
 
     //Item Tags
     public static final Tag<Item> ELYTRA = makeItemTag(new ResourceLocation(Occultism.MODID, "elytra"));

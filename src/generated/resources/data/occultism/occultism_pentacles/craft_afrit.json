@@ -17,7 +17,7 @@
     "P": "occultism:chalk_glyph_purple",
     "R": "occultism:chalk_glyph_red",
     "C": {
-      "tag": "forge:candles",
+      "tag": "minecraft:candles",
       "display": "occultism:candle_white"
     },
     "S": "occultism:spirit_attuned_crystal",

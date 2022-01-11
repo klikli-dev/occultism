@@ -12,7 +12,7 @@
     "0": "occultism:golden_sacrificial_bowl",
     "P": "occultism:chalk_glyph_purple",
     "C": {
-      "tag": "forge:candles",
+      "tag": "minecraft:candles",
       "display": "occultism:candle_white"
     },
     "G": "occultism:chalk_glyph_gold",
