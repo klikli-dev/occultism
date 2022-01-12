@@ -619,6 +619,8 @@
   "advancements.occultism.familiar.fairy_save.description": "Let your Fairy familiar save one of your other familiars from certain death",  
   "advancements.occultism.familiar.mummy_dodge.title": "Ninja!",  
   "advancements.occultism.familiar.mummy_dodge.description": "Dodge an attack with the Mummy familiar dodge effect",  
+  "advancements.occultism.familiar.beaver_woodchop.title": "Woodchopper",  
+  "advancements.occultism.familiar.beaver_woodchop.description": "Let your Beaver familiar chop down a tree",  
   "_comment": "Keybinds",
   "key.occultism.category": "Occultism",
   "key.occultism.backpack": "Open Satchel",

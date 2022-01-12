@@ -210,6 +210,7 @@ public class BeaverFamiliarEntity extends FamiliarEntity {
                 for (BlockPos p : harvesting)
                     beaver.level.destroyBlock(p, true);
                 beaver.treeTarget = null;
+                OccultismAdvancements.FAMILIAR.trigger(beaver.getFamiliarOwner(), FamiliarTrigger.Type.BEAVER_WOODCHOP);
             }
         }
     }
