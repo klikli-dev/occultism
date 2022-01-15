@@ -54,6 +54,12 @@ public class OccultismPackets {
     public static void registerMessages() {
 
         INSTANCE.registerMessage(nextID(),
+                MessageSplitPacket.class,
+                MessageSplitPacket::encode,
+                MessageSplitPacket::decode,
+                MessageSplitPacket::handle);
+
+        INSTANCE.registerMessage(nextID(),
                 MessageRequestStacks.class,
                 MessageRequestStacks::encode,
                 MessageRequestStacks::new,
