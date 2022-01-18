@@ -165,15 +165,23 @@ public class FamiliarRingItem extends Item {
         public void curioTick(SlotContext slotContext) {
             Level level = slotContext.entity().level;
             IFamiliar familiar = this.getFamiliar(level);
-            if (familiar == null || familiar.getFamiliarOwner() != slotContext.entity())
-                return;
-            // Apply effects
-            if (!level.isClientSide && slotContext.entity().tickCount % 20 == 0  && familiar.isEffectEnabled(slotContext.entity()))
-                for (MobEffectInstance effect : familiar.getFamiliarEffects())
-                    familiar.getFamiliarOwner().addEffect(effect);
 
-            // Tick
-            familiar.curioTick(slotContext.entity());
+            if(familiar != null) {
+                // after portal use the level is still the pre-teleport level, the familiar owner is not found on the next check
+                // hence, we update the level, if the familiar is in a ring
+                if(!familiar.getFamiliarEntity().isAddedToWorld())
+                    familiar.getFamiliarEntity().level = level;
+
+                if (familiar.getFamiliarOwner() != slotContext.entity())
+                    return;
+                // Apply effects
+                if (!level.isClientSide && slotContext.entity().tickCount % 20 == 0  && familiar.isEffectEnabled(slotContext.entity()))
+                    for (MobEffectInstance effect : familiar.getFamiliarEffects())
+                        familiar.getFamiliarOwner().addEffect(effect);
+
+                // Tick
+                familiar.curioTick(slotContext.entity());
+            }
         }
 
         @Override
