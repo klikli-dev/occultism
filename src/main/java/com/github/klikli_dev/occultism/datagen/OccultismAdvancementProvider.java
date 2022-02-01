@@ -242,7 +242,11 @@ public class OccultismAdvancementProvider implements DataProvider {
                         true, true, false)
                 .addCriterion("mummy_dodge", FamiliarTrigger.of(FamiliarTrigger.Type.MUMMY_DODGE))
                 .build(new ResourceLocation(Occultism.MODID, "occultism/familiar/mummy_dodge")));
-
+        this.add(Advancement.Builder.advancement().parent(familiarsRoot)
+                .display(icon(16), familiarTitle("beaver_woodchop"), familiarDescr("beaver_woodchop"), null, FrameType.TASK,
+                        true, true, false)
+                .addCriterion("beaver_woodchop", FamiliarTrigger.of(FamiliarTrigger.Type.BEAVER_WOODCHOP))
+                .build(new ResourceLocation(Occultism.MODID, "occultism/familiar/beaver_woodchop")));
 
         this.addRitualHidden(root, "craft_dimensional_matrix");
         this.addRitualHidden(root, "craft_dimensional_mineshaft");
@@ -274,6 +278,7 @@ public class OccultismAdvancementProvider implements DataProvider {
         this.addRitualHidden(root, "familiar_beholder");
         this.addRitualHidden(root, "familiar_fairy");
         this.addRitualHidden(root, "familiar_mummy");
+        this.addRitualHidden(root, "familiar_beaver");
         this.addRitualHidden(root, "possess_enderman");
         this.addRitualHidden(root, "possess_endermite");
         this.addRitualHidden(root, "possess_skeleton");
