@@ -33,7 +33,6 @@ import net.minecraft.block.Blocks;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DirectoryCache;
 import net.minecraft.data.IDataProvider;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ITag.INamedTag;
 import net.minecraft.util.ResourceLocation;
 import org.apache.logging.log4j.LogManager;
@@ -72,6 +71,11 @@ public class PentacleProvider implements IDataProvider {
                 LOGGER.error("Couldn't save pentacle {}", path, e);
             }
         });
+    }
+
+    @Override
+    public String getName() {
+        return "Pentacles: " + Occultism.MODID;
     }
 
     private void start() {
@@ -278,11 +282,6 @@ public class PentacleProvider implements IDataProvider {
     private void addPentacle(ResourceLocation rl, List<String> pattern, Map<Character, JsonElement> mappings) {
         JsonObject json = new Pentacle(rl, pattern, mappings).toJson();
         this.toSerialize.put(rl.getPath(), json);
-    }
-
-    @Override
-    public String getName() {
-        return "Pentacles: " + Occultism.MODID;
     }
 
     private static class MappingBuilder {
