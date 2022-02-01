@@ -28,6 +28,7 @@ import com.github.klikli_dev.occultism.util.ItemNBTUtil;
 import com.github.klikli_dev.occultism.util.TextUtil;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -68,5 +69,14 @@ public class BookOfBindingBoundItem extends Item implements IIngredientCopyNBT, 
     public void modifyResult(Recipe recipe, CraftingContainer inventory, ItemStack result) {
         ItemNBTUtil.generateBoundSpiritName(result);
     }
+
+    
+
+    @Override
+    public void onCraftedBy(ItemStack pStack, Level pLevel, Player pPlayer) {
+        ItemNBTUtil.generateBoundSpiritName(pStack);
+        super.onCraftedBy(pStack, pLevel, pPlayer);
+    }
+
     //endregion Overrides
 }
