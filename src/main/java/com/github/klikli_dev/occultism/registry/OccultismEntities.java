@@ -24,6 +24,7 @@ package com.github.klikli_dev.occultism.registry;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.entity.BatFamiliarEntity;
+import com.github.klikli_dev.occultism.common.entity.BeaverFamiliarEntity;
 import com.github.klikli_dev.occultism.common.entity.BeholderFamiliarEntity;
 import com.github.klikli_dev.occultism.common.entity.BlacksmithFamiliarEntity;
 import com.github.klikli_dev.occultism.common.entity.ChimeraFamiliarEntity;
@@ -202,6 +203,11 @@ public class OccultismEntities {
                                          .sized(0.6F, 1.2F)
                                          .clientTrackingRange(8)
                                          .build(modLoc("mummy_familiar").toString()));
+    public static final NonNullLazy<EntityType<BeaverFamiliarEntity>> BEAVER_FAMILIAR_TYPE =
+            NonNullLazy.of(() -> EntityType.Builder.of(BeaverFamiliarEntity::new, EntityClassification.CREATURE)
+                                         .sized(0.7F, 0.6F)
+                                         .clientTrackingRange(8)
+                                         .build(modLoc("beaver_familiar").toString()));
     
     public static final NonNullLazy<EntityType<ThrownSwordEntity>> THROWN_SWORD_TYPE =
             NonNullLazy.of(() -> EntityType.Builder.of(ThrownSwordEntity::new, EntityClassification.MISC)
@@ -265,6 +271,8 @@ public class OccultismEntities {
             ENTITIES.register("fairy_familiar", FAIRY_FAMILIAR_TYPE::get);
     public static final RegistryObject<EntityType<MummyFamiliarEntity>> MUMMY_FAMILIAR =
             ENTITIES.register("mummy_familiar", MUMMY_FAMILIAR_TYPE::get);  
+    public static final RegistryObject<EntityType<BeaverFamiliarEntity>> BEAVER_FAMILIAR =
+            ENTITIES.register("beaver_familiar", BEAVER_FAMILIAR_TYPE::get);  
     
     public static final RegistryObject<EntityType<ThrownSwordEntity>> THROWN_SWORD =
             ENTITIES.register("thrown_sword", THROWN_SWORD_TYPE::get);

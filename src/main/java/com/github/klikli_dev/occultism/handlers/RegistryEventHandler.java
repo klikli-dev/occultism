@@ -109,6 +109,7 @@ public class RegistryEventHandler {
         registerSpawnEgg(registry, OccultismEntities.BEHOLDER_FAMILIAR_TYPE.get(), "familiar_beholder", 0x340a09, 0xfffbff);
         registerSpawnEgg(registry, OccultismEntities.FAIRY_FAMILIAR_TYPE.get(), "familiar_fairy", 0xbd674c, 0xcca896);
         registerSpawnEgg(registry, OccultismEntities.MUMMY_FAMILIAR_TYPE.get(), "familiar_mummy", 0xcbb76a, 0xe0d4a3);
+        registerSpawnEgg(registry, OccultismEntities.BEAVER_FAMILIAR_TYPE.get(), "familiar_beaver", 0x824a2b, 0xdd9973);
 
         Occultism.LOGGER.info("Registered SpawnEggItems");
 
