@@ -313,45 +313,45 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
             compound.put("lightPos0", NBTUtil.writeBlockPos(this.lightPos0));
     }
 
-    private static class MoveController extends MovementController {
-        private final CthulhuFamiliarEntity cthulhu;
+    public static class MoveController extends MovementController {
+        private final FamiliarEntity familiar;
 
-        MoveController(CthulhuFamiliarEntity cthulhu) {
-            super(cthulhu);
-            this.cthulhu = cthulhu;
+        MoveController(FamiliarEntity familiar) {
+            super(familiar);
+            this.familiar = familiar;
         }
 
         @Override
         public void tick() {
-            if (this.cthulhu.isInWater()) {
-                this.cthulhu.setDeltaMovement(this.cthulhu.getDeltaMovement().add(0, 0.005, 0));
+            if (this.familiar.isInWater()) {
+                this.familiar.setDeltaMovement(this.familiar.getDeltaMovement().add(0, 0.005, 0));
                 if (this.operation == MovementController.Action.MOVE_TO) {
                     float maxSpeed = (float) (this.speedModifier
-                            * this.cthulhu.getAttributeValue(Attributes.MOVEMENT_SPEED)) * 3;
-                    this.cthulhu.setSpeed(MathHelper.lerp(0.125f, this.cthulhu.getSpeed(), maxSpeed));
-                    double dx = this.wantedX - this.cthulhu.getX();
-                    double dy = this.wantedY - this.cthulhu.getY();
-                    double dz = this.wantedZ - this.cthulhu.getZ();
+                            * this.familiar.getAttributeValue(Attributes.MOVEMENT_SPEED)) * 3;
+                    this.familiar.setSpeed(MathHelper.lerp(0.125f, this.familiar.getSpeed(), maxSpeed));
+                    double dx = this.wantedX - this.familiar.getX();
+                    double dy = this.wantedY - this.familiar.getY();
+                    double dz = this.wantedZ - this.familiar.getZ();
                     double distance = MathHelper.sqrt(dx * dx + dy * dy + dz * dz);
 
                     if (distance < 0.1) {
-                        this.cthulhu.setZza(0);
+                        this.familiar.setZza(0);
                         return;
                     }
 
                     if (Math.abs(dy) > 0.0001) {
-                        this.cthulhu.setDeltaMovement(this.cthulhu.getDeltaMovement().add(0,
-                                this.cthulhu.getSpeed() * (dy / distance) * 0.1, 0));
+                        this.familiar.setDeltaMovement(this.familiar.getDeltaMovement().add(0,
+                                this.familiar.getSpeed() * (dy / distance) * 0.1, 0));
                     }
 
                     if (Math.abs(dx) > 0.0001 || Math.abs(dz) > 0.0001) {
                         float rotate = (float) (MathHelper.atan2(dz, dx) * (180 / Math.PI)) - 90f;
-                        this.cthulhu.yRot = this.rotlerp(this.cthulhu.yRot, rotate, 8);
-                        this.cthulhu.yBodyRot = this.cthulhu.yRot;
+                        this.familiar.yRot = this.rotlerp(this.familiar.yRot, rotate, 8);
+                        this.familiar.yBodyRot = this.familiar.yRot;
                     }
 
                 } else {
-                    this.cthulhu.setSpeed(0);
+                    this.familiar.setSpeed(0);
                 }
             } else {
                 super.tick();
@@ -359,7 +359,7 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
         }
     }
 
-    private static class FollowOwnerWaterGoal extends FollowOwnerGoal {
+    public static class FollowOwnerWaterGoal extends FollowOwnerGoal {
 
         public FollowOwnerWaterGoal(FamiliarEntity entity, double speed, float minDist, float maxDist) {
             super(entity, speed, minDist, maxDist);
