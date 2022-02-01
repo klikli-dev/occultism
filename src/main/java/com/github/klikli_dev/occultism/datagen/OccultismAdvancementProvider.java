@@ -273,6 +273,7 @@ public class OccultismAdvancementProvider implements DataProvider {
         this.addRitualHidden(root, "familiar_otherworld_bird");
         this.addRitualHidden(root, "familiar_parrot");
         this.addRitualHidden(root, "familiar_guardian");
+        this.addRitualHidden(root, "familiar_blacksmith");
         this.addRitualHidden(root, "familiar_headless");
         this.addRitualHidden(root, "familiar_chimera");
         this.addRitualHidden(root, "familiar_beholder");
