@@ -47,13 +47,13 @@
       "type":"patchouli:item",
       "item": "occultism:golden_sacrificial_bowl",
       "x": 40,
-      "y": 65
+      "y": 75
     },
     {
       "type":"patchouli:item",
       "item": "#activation_item",
       "x": 40,
-      "y": 60
+      "y": 70
     },
     {
       "type":"patchouli:item",
@@ -202,14 +202,14 @@
     {
       "type":"patchouli:item",
       "item": "occultism:golden_sacrificial_bowl",
-      "x": 40,
-      "y": 85
+      "x": 95,
+      "y": 110
     },
     {
       "type":"patchouli:item",
       "item": "#output",
-      "x": 40,
-      "y": 80
+      "x": 95,
+      "y": 105
     }
   ]
 }
