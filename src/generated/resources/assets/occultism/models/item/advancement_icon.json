@@ -96,6 +96,12 @@
         "minecraft:custom_model_data": 15.0
       },
       "model": "occultism:item/advancement/mummy_icon"
+    },
+    {
+      "predicate": {
+        "minecraft:custom_model_data": 16.0
+      },
+      "model": "occultism:item/advancement/beaver_icon"
     }
   ]
 }

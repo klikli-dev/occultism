@@ -29,6 +29,8 @@ import com.github.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.github.klikli_dev.occultism.registry.OccultismEffects;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.util.FamiliarUtil;
+import net.minecraft.core.BlockPos;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.EntityDamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -36,10 +38,14 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.phys.AABB;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.living.PotionEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.event.world.SaplingGrowTreeEvent;
 import net.minecraftforge.eventbus.api.Event.Result;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -48,6 +54,34 @@ import java.util.List;
 
 @Mod.EventBusSubscriber(modid = Occultism.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class FamiliarEventHandler {
+
+    @SubscribeEvent
+    public static void beaverFindTree(SaplingGrowTreeEvent event) {
+        LevelAccessor world = event.getWorld();
+        BlockPos pos = event.getPos();
+        List<BeaverFamiliarEntity> beavers = event.getWorld().getEntitiesOfClass(BeaverFamiliarEntity.class,
+                new AABB(pos).inflate(30), b -> !b.isSitting() && b.isEffectEnabled(b.getFamiliarOwner()));
+
+        BeaverFamiliarEntity beaver = beavers.get(world.getRandom().nextInt(beavers.size()));
+
+        beaver.setTreeTarget(pos);
+    }
+
+    @SubscribeEvent
+    public static void beaverHarvest(PlayerEvent.BreakSpeed event) {
+        Player player = event.getPlayer();
+
+        if (!event.getState().is(BlockTags.LOGS))
+            return;
+
+        if (!player.hasEffect(OccultismEffects.BEAVER_HARVEST.get()))
+            return;
+
+        int level = player.getEffect(OccultismEffects.BEAVER_HARVEST.get()).getAmplifier();
+
+        event.setNewSpeed(event.getNewSpeed() * (level + 3));
+    }
+
 
     @SubscribeEvent
     public static void dodge(LivingHurtEvent event) {

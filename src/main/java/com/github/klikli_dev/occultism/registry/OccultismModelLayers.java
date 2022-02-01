@@ -44,6 +44,7 @@ public class OccultismModelLayers {
     public static ModelLayerLocation FAMILIAR_BEHOLDER = new ModelLayerLocation(new ResourceLocation("occultism:familiar_beholder"), "main");
     public static ModelLayerLocation FAMILIAR_FAIRY = new ModelLayerLocation(new ResourceLocation("occultism:familiar_fairy"), "main");
     public static ModelLayerLocation FAMILIAR_MUMMY = new ModelLayerLocation(new ResourceLocation("occultism:familiar_mummy"), "main");
+    public static ModelLayerLocation FAMILIAR_BEAVER = new ModelLayerLocation(new ResourceLocation("occultism:familiar_beaver"), "main");
     public static ModelLayerLocation KAPOW = new ModelLayerLocation(new ResourceLocation("occultism:kapow"), "main");
     public static ModelLayerLocation FAMILIAR_SHUB_NIGGURATH = new ModelLayerLocation(new ResourceLocation("occultism:familiar_shub_niggurath"), "main");
     public static ModelLayerLocation FAMILIAR_SHUB_NIGGURATH_SPAWN = new ModelLayerLocation(new ResourceLocation("occultism:familiar_shub_niggurath_spawn"), "main");

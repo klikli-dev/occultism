@@ -192,6 +192,12 @@ public class OccultismEntities {
                     .clientTrackingRange(8)
                     .build(modLoc("mummy_familiar").toString()));
 
+    public static final NonNullLazy<EntityType<BeaverFamiliarEntity>> BEAVER_FAMILIAR_TYPE =
+            NonNullLazy.of(() -> EntityType.Builder.of(BeaverFamiliarEntity::new, MobCategory.CREATURE)
+                    .sized(0.7F, 0.6F)
+                    .clientTrackingRange(8)
+                    .build(modLoc("beaver_familiar").toString()));
+
     public static final NonNullLazy<EntityType<ThrownSwordEntity>> THROWN_SWORD_TYPE =
             NonNullLazy.of(() -> EntityType.Builder.of(ThrownSwordEntity::new, MobCategory.MISC)
                     .sized(0.5F, 0.5F)
@@ -254,7 +260,8 @@ public class OccultismEntities {
             ENTITIES.register("fairy_familiar", FAIRY_FAMILIAR_TYPE::get);
     public static final RegistryObject<EntityType<MummyFamiliarEntity>> MUMMY_FAMILIAR =
             ENTITIES.register("mummy_familiar", MUMMY_FAMILIAR_TYPE::get);
-
+    public static final RegistryObject<EntityType<BeaverFamiliarEntity>> BEAVER_FAMILIAR =
+            ENTITIES.register("beaver_familiar", BEAVER_FAMILIAR_TYPE::get);
     public static final RegistryObject<EntityType<ThrownSwordEntity>> THROWN_SWORD =
             ENTITIES.register("thrown_sword", THROWN_SWORD_TYPE::get);
     public static final RegistryObject<EntityType<ShubNiggurathSpawnEntity>> SHUB_NIGGURATH_SPAWN =

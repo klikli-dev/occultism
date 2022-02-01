@@ -1,0 +1,32 @@
+{
+  "parent": "occultism:occultism/familiar/root",
+  "display": {
+    "icon": {
+      "item": "occultism:advancement_icon",
+      "nbt": "{CustomModelData:16}"
+    },
+    "title": {
+      "translate": "advancements.occultism.familiar.beaver_woodchop.title"
+    },
+    "description": {
+      "translate": "advancements.occultism.familiar.beaver_woodchop.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "beaver_woodchop": {
+      "trigger": "occultism:familiar",
+      "conditions": {
+        "type": "BEAVER_WOODCHOP"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "beaver_woodchop"
+    ]
+  ]
+}
