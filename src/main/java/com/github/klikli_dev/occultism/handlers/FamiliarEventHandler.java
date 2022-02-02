@@ -68,9 +68,11 @@ public class FamiliarEventHandler {
         List<BeaverFamiliarEntity> beavers = event.getWorld().getEntitiesOfClass(BeaverFamiliarEntity.class,
                 new AxisAlignedBB(pos).inflate(30), b -> !b.isSitting() && b.isEffectEnabled(b.getFamiliarOwner()));
 
-        BeaverFamiliarEntity beaver = beavers.get(world.getRandom().nextInt(beavers.size()));
-        
-        beaver.setTreeTarget(pos);
+        if(!beavers.isEmpty()) {
+            BeaverFamiliarEntity beaver = beavers.get(world.getRandom().nextInt(beavers.size()));
+
+            beaver.setTreeTarget(pos);
+        }
     }
 
     @SubscribeEvent
