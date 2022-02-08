@@ -88,6 +88,11 @@ public class BeholderFamiliarEntity extends ColoredFamiliarEntity {
     }
 
     @Override
+    public boolean causeFallDamage(float fallDistance, float damageMultiplier, DamageSource damageSource) {
+        return false;
+    }
+
+    @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new SitGoal(this));
         this.goalSelector.addGoal(2, new RayGoal(this));
