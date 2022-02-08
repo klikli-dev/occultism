@@ -99,7 +99,7 @@ public class LumberjackJob extends SpiritJob {
 
     @Override
     public EntitySize getDimensions(Pose pPose, EntitySize original) {
-        return this.fellTreesGoal.shouldUseLumberjackDimensions() ? this.lumberJackDimensions : original;
+        return this.fellTreesGoal != null ? this.fellTreesGoal.shouldUseLumberjackDimensions() ? this.lumberJackDimensions : original : null;
     }
 
     @Override
