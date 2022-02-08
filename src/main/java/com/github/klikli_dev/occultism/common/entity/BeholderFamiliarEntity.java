@@ -134,6 +134,11 @@ public class BeholderFamiliarEntity extends ColoredFamiliarEntity {
         return !this.hasBlacksmithUpgrade();
     }
 
+    @Override
+    public boolean causeFallDamage(float fallDistance, float damageMultiplier) {
+        return false;
+    }
+
     public boolean hasBeard() {
         return this.hasVariant(0);
     }
