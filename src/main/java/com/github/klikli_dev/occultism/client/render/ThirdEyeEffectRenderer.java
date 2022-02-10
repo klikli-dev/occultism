@@ -106,29 +106,32 @@ public class ThirdEyeEffectRenderer {
     public void onPreRenderOverlay(RenderGameOverlayEvent.Pre event) {
         //TODO: Remove this hack once MC fixes shader rendering on their own
         //      Based on: https://discordapp.com/channels/313125603924639766/725850371834118214/784883909694980167
-        RenderSystem.enableTexture();
+
+        //TODO: enable once we fix 1.18 overlay rendering
+        //RenderSystem.enableTexture();
     }
 
     @SubscribeEvent
     public void onRenderOverlay(RenderGameOverlayEvent.Post event) {
         //Elementtype was HELMET in 1.16
-        if (event.getType() == RenderGameOverlayEvent.ElementType.BOSSINFO) {
-            if (this.thirdEyeActiveLastTick || this.gogglesActiveLastTick) {
-                RenderSystem.enableBlend();
-                RenderSystem.blendFuncSeparate(
-                        GlStateManager.SourceFactor.SRC_ALPHA,
-                        GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA,
-                        GlStateManager.SourceFactor.ONE,
-                        GlStateManager.DestFactor.ZERO);
-
-                RenderSystem.clearColor(1, 1, 1, 1);
-
-                renderOverlay(event, THIRD_EYE_OVERLAY);
-
-                RenderSystem.clearColor(1, 1, 1, 1);
-                RenderSystem.disableBlend();
-            }
-        }
+        //TODO: enable once we fix 1.18 overlay rendering
+//        if (event.getType() == RenderGameOverlayEvent.ElementType.BOSSINFO) {
+//            if (this.thirdEyeActiveLastTick || this.gogglesActiveLastTick) {
+//                RenderSystem.enableBlend();
+//                RenderSystem.blendFuncSeparate(
+//                        GlStateManager.SourceFactor.SRC_ALPHA,
+//                        GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA,
+//                        GlStateManager.SourceFactor.ONE,
+//                        GlStateManager.DestFactor.ZERO);
+//
+//                RenderSystem.clearColor(1, 1, 1, 1);
+//
+//                renderOverlay(event, THIRD_EYE_OVERLAY);
+//
+//                RenderSystem.clearColor(1, 1, 1, 1);
+//                RenderSystem.disableBlend();
+//            }
+//        }
 
     }
 
