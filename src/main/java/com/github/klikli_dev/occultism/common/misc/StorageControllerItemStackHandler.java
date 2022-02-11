@@ -28,6 +28,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
 
 import javax.annotation.Nonnull;
@@ -84,7 +85,7 @@ public class StorageControllerItemStackHandler extends ItemStackHandler {
     @Nonnull
     @Override
     public ItemStack extractItem(int slot, int amount, boolean simulate) {
-        ItemStack result = super.extractItem(slot, amount, simulate);
+        ItemStack result = this.extractItemOverride(slot, amount, simulate);
 
         if (!simulate && this.stacks.size() > this.maxSlots) {
             //in real mode if we are above desired size, delete empty slots.
@@ -93,6 +94,47 @@ public class StorageControllerItemStackHandler extends ItemStackHandler {
         }
 
         return result;
+    }
+
+    //Logic from super.extractItem modified to allow for custom stack sizes
+    public ItemStack extractItemOverride(int slot, int amount, boolean simulate)
+    {
+        if (amount == 0)
+            return ItemStack.EMPTY;
+
+        this.validateSlotIndex(slot);
+
+        ItemStack existing = this.stacks.get(slot);
+
+        if (existing.isEmpty())
+            return ItemStack.EMPTY;
+
+        //only change to forge's method -> instead of just using max stack size, we refer to our stack limit which can be overridden via config.
+        int toExtract = Math.min(amount, this.getStackLimit(-1, existing));
+
+        if (existing.getCount() <= toExtract)
+        {
+            if (!simulate)
+            {
+                this.stacks.set(slot, ItemStack.EMPTY);
+                this.onContentsChanged(slot);
+                return existing;
+            }
+            else
+            {
+                return existing.copy();
+            }
+        }
+        else
+        {
+            if (!simulate)
+            {
+                this.stacks.set(slot, ItemHandlerHelper.copyStackWithSize(existing, existing.getCount() - toExtract));
+                this.onContentsChanged(slot);
+            }
+
+            return ItemHandlerHelper.copyStackWithSize(existing, toExtract);
+        }
     }
 
     @Override
