@@ -178,7 +178,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
 
     @Override
     public List<ItemStack> getStacks() {
-        ItemStackHandler handler = this.itemStackHandler.orElseThrow(ItemHandlerMissingException::new);
+        ItemStackHandler handler = this.itemStackHandlerInternal;
         int size = handler.getSlots();
         int usedSlots = 0;
         List<ItemStack> result = new ArrayList<>(size);
@@ -210,7 +210,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
     @Override
     public void setMaxSlots(int slots) {
         this.maxSlots = slots;
-        this.itemStackHandler.orElseThrow(ItemHandlerMissingException::new).setSize(this.maxSlots);
+        this.itemStackHandlerInternal.setSize(this.maxSlots);
         //force resync
         this.cachedMessageUpdateStacks = null;
         this.markNetworkDirty();
@@ -287,7 +287,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
         if (this.isBlacklisted(stack))
             return stack.getCount();
 
-        ItemStackHandler handler = this.itemStackHandler.orElseThrow(ItemHandlerMissingException::new);
+        ItemStackHandler handler = this.itemStackHandlerInternal;
         if (ItemHandlerHelper.insertItem(handler, stack, true).getCount() < stack.getCount()) {
             stack = ItemHandlerHelper.insertItem(handler, stack, simulate);
         }
@@ -300,7 +300,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
         if (requestedSize <= 0 || comparator == null) {
             return ItemStack.EMPTY;
         }
-        ItemStackHandler handler = this.itemStackHandler.orElseThrow(ItemHandlerMissingException::new);
+        ItemStackHandler handler = this.itemStackHandlerInternal;
         ItemStack firstMatchedStack = ItemStack.EMPTY;
         int remaining = requestedSize;
         for (int slot = 0; slot < handler.getSlots(); slot++) {
@@ -354,7 +354,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
             return 0;
         }
         int totalCount = 0;
-        ItemStackHandler handler = this.itemStackHandler.orElseThrow(ItemHandlerMissingException::new);
+        ItemStackHandler handler = this.itemStackHandlerInternal;
         int size = handler.getSlots();
         for (int slot = 0; slot < size; slot++) {
             ItemStack stack = handler.getStackInSlot(slot);
@@ -374,6 +374,12 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
     public void invalidateCaps() {
         super.invalidateCaps();
         this.itemStackHandler.invalidate();
+    }
+
+    @Override
+    public void reviveCaps() {
+        super.reviveCaps();
+        this.itemStackHandler = LazyOptional.of(() -> this.itemStackHandlerInternal);
     }
 
     @Nonnull
@@ -401,7 +407,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
 
         //read stored items
         if (compound.contains("items")) {
-            this.itemStackHandler.ifPresent(handler -> handler.deserializeNBT(compound.getCompound("items")));
+            this.itemStackHandlerInternal.deserializeNBT(compound.getCompound("items"));
             this.cachedMessageUpdateStacks = null;
         }
     }
@@ -410,9 +416,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
     protected void saveAdditional(CompoundTag compound) {
         super.saveAdditional(compound);
         compound.remove("linkedMachines"); //linked machines are not saved, they self-register.
-        this.itemStackHandler.ifPresent(handler -> {
-            compound.put("items", handler.serializeNBT());
-        });
+        compound.put("items", this.itemStackHandlerInternal.serializeNBT());
     }
 
     @Override
