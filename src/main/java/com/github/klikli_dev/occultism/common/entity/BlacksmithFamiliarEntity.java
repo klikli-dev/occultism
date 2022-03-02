@@ -91,10 +91,10 @@ public class BlacksmithFamiliarEntity extends FamiliarEntity {
         ItemStack stack = playerIn.getItemInHand(hand);
         Item item = stack.getItem();
         if (playerIn == this.getFamiliarOwner() && this.ironCount < getMaxIron()
-                && (Tags.Items.INGOTS_IRON.contains(item) || Tags.Items.STORAGE_BLOCKS_IRON.contains(item))) {
+                && (stack.is(Tags.Items.INGOTS_IRON) || stack.is(Tags.Items.STORAGE_BLOCKS_IRON))) {
             if (!this.level.isClientSide) {
                 stack.shrink(1);
-                this.changeIronCount(Tags.Items.INGOTS_IRON.contains(item) ? 1 : 9);
+                this.changeIronCount(stack.is(Tags.Items.INGOTS_IRON) ? 1 : 9);
             }
             return InteractionResult.sidedSuccess(!this.level.isClientSide);
         }

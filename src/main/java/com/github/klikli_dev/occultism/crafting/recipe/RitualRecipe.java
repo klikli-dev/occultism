@@ -35,11 +35,12 @@ import net.minecraft.core.Registry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.EntityTypeTags;
-import net.minecraft.tags.SerializationTags;
 import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.inventory.CraftingContainer;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
@@ -56,7 +57,7 @@ public class RitualRecipe extends ShapelessRecipe {
     private final Ritual ritual;
     private final ItemStack ritualDummy;
     private final Ingredient activationItem;
-    private final Tag<EntityType<?>> entityToSacrifice;
+    private final TagKey<EntityType<?>> entityToSacrifice;
     private final EntityType<?> entityToSummon;
     private final Ingredient itemToUse;
     private final int duration;
@@ -67,7 +68,7 @@ public class RitualRecipe extends ShapelessRecipe {
 
     public RitualRecipe(ResourceLocation id, String group, ResourceLocation pentacleId, ResourceLocation ritualType, ItemStack ritualDummy,
                         ItemStack result, EntityType<?> entityToSummon, Ingredient activationItem, NonNullList<Ingredient> input, int duration, int spiritMaxAge, ResourceLocation spiritJobType,
-                        Tag<EntityType<?>> entityToSacrifice, String entityToSacrificeDisplayName, Ingredient itemToUse) {
+                        TagKey<EntityType<?>> entityToSacrifice, String entityToSacrificeDisplayName, Ingredient itemToUse) {
         super(id, group, result, input);
         this.entityToSummon = entityToSummon;
         this.pentacleId = pentacleId;
@@ -141,7 +142,7 @@ public class RitualRecipe extends ShapelessRecipe {
         return OccultismRecipes.RITUAL_TYPE.get();
     }
 
-    public Tag<EntityType<?>> getEntityToSacrifice() {
+    public TagKey<EntityType<?>> getEntityToSacrifice() {
         return this.entityToSacrifice;
     }
 
@@ -235,14 +236,11 @@ public class RitualRecipe extends ShapelessRecipe {
 
             ItemStack ritualDummy = CraftingHelper.getItemStack(GsonHelper.getAsJsonObject(json, "ritual_dummy"), true);
 
-            Tag<EntityType<?>> entityToSacrifice = null;
+            TagKey<EntityType<?>> entityToSacrifice = null;
             String entityToSacrificeDisplayName = "";
             if (json.has("entity_to_sacrifice")) {
-
-                entityToSacrifice = SerializationTags.getInstance().getTagOrThrow(Registry.ENTITY_TYPE_REGISTRY,
-                        new ResourceLocation(GsonHelper.getAsString(json.getAsJsonObject("entity_to_sacrifice"), "tag")), (rl) -> {
-                            return new JsonSyntaxException("Unknown entity tag '" + rl + "'");
-                        });
+                var tagRL =  new ResourceLocation(GsonHelper.getAsString(json.getAsJsonObject("entity_to_sacrifice"), "tag"));
+                entityToSacrifice = TagKey.create(Registry.ENTITY_TYPE_REGISTRY, tagRL);
 
                 entityToSacrificeDisplayName = json.getAsJsonObject("entity_to_sacrifice").get("display_name").getAsString();
             }
@@ -284,19 +282,11 @@ public class RitualRecipe extends ShapelessRecipe {
             ItemStack ritualDummy = buffer.readItem();
             Ingredient activationItem = Ingredient.fromNetwork(buffer);
 
-            Tag<EntityType<?>> entityToSacrifice = null;
+            TagKey<EntityType<?>> entityToSacrifice = null;
             String entityToSacrificeDisplayName = "";
             if (buffer.readBoolean()) {
-                ResourceLocation tag = buffer.readResourceLocation();
-                try {
-                    entityToSacrifice = SerializationTags.getInstance().getTagOrThrow(Registry.ENTITY_TYPE_REGISTRY, tag, (rl) -> {
-                        return new RuntimeException("Unknown entity tag '" + rl + "'");
-                    });
-                } catch (Exception e) {
-                    Occultism.LOGGER.error(e);
-                    entityToSacrifice = EntityTypeTags.createOptional(tag);
-                }
-
+                var tagRL = buffer.readResourceLocation();
+                entityToSacrifice = TagKey.create(Registry.ENTITY_TYPE_REGISTRY, tagRL);
                 entityToSacrificeDisplayName = buffer.readUtf();
             }
 
@@ -330,9 +320,8 @@ public class RitualRecipe extends ShapelessRecipe {
             recipe.activationItem.toNetwork(buffer);
             buffer.writeBoolean(recipe.entityToSacrifice != null);
             if (recipe.entityToSacrifice != null) {
-                buffer.writeResourceLocation(SerializationTags.getInstance().getIdOrThrow(Registry.ENTITY_TYPE_REGISTRY, recipe.entityToSacrifice, () -> {
-                    return new RuntimeException("Id not found for tag.");
-                }));
+
+                buffer.writeResourceLocation(recipe.entityToSacrifice.location());
                 buffer.writeUtf(recipe.entityToSacrificeDisplayName);
             }
             buffer.writeBoolean(recipe.itemToUse != Ingredient.EMPTY);

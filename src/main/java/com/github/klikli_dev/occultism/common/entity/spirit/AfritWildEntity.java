@@ -25,6 +25,7 @@ package com.github.klikli_dev.occultism.common.entity.spirit;
 import com.github.klikli_dev.occultism.registry.OccultismTags;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
@@ -90,16 +91,16 @@ public class AfritWildEntity extends AfritEntity {
     public boolean isInvulnerableTo(DamageSource source) {
         if (source.isFire())
             return true;
-        Tag<EntityType<?>> alliesTags = OccultismTags.AFRIT_ALLIES;
+        TagKey<EntityType<?>> alliesTags = OccultismTags.AFRIT_ALLIES;
 
         //alliesTags should never be null - should in fact be impossible - but somehow for some people sometimes is.
         if(alliesTags != null){
             Entity trueSource = source.getEntity();
-            if (trueSource != null && alliesTags.contains(trueSource.getType()))
+            if (trueSource != null && trueSource.getType().is(alliesTags))
                 return true;
 
             Entity immediateSource = source.getDirectEntity();
-            if (immediateSource != null && alliesTags.contains(immediateSource.getType()))
+            if (immediateSource != null && immediateSource.getType().is(alliesTags))
                 return true;
         }
 

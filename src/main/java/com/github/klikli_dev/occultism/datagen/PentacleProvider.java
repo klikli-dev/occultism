@@ -33,6 +33,7 @@ import net.minecraft.data.DataProvider;
 import net.minecraft.data.HashCache;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import org.apache.logging.log4j.LogManager;
@@ -307,9 +308,9 @@ public class PentacleProvider implements DataProvider {
             return this.element(c, json);
         }
 
-        private MappingBuilder tag(char c, Tag.Named<Block> tag, Supplier<? extends Block> display) {
+        private MappingBuilder tag(char c, TagKey<Block> tag, Supplier<? extends Block> display) {
             JsonObject json = new JsonObject();
-            json.add("tag", new JsonPrimitive(tag.getName().toString()));
+            json.add("tag", new JsonPrimitive(tag.location().toString()));
             json.add("display", new JsonPrimitive(display.get().getRegistryName().toString()));
             return this.element(c, json);
         }

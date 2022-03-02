@@ -22,9 +22,11 @@
 
 package com.github.klikli_dev.occultism.config;
 
+import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.ForgeConfigSpec;
@@ -90,7 +92,7 @@ public class OccultismCommonConfig {
                 public final IntValue minimum;
                 public final IntValue maximum;
 
-                public OreSettings(String oreName, Tag<Block> fillerBlockTag,
+                public OreSettings(String oreName, TagKey<Block> fillerBlockTag,
                                    int size, int count, int minimum, int topOffset, int maximum,
                                    ForgeConfigSpec.Builder builder) {
                     builder.comment("Ore Settings").push(oreName);
@@ -100,9 +102,7 @@ public class OccultismCommonConfig {
                                     .define("generateOre", true);
                     this.fillerBlockTag =
                             builder.comment("The tag for the blocks this ore will spawn in.")
-                                    .define("fillerBlockTag",
-                                            BlockTags.getAllTags()
-                                                    .getId(fillerBlockTag).toString());
+                                    .define("fillerBlockTag", fillerBlockTag.location().toString());
                     this.size =
                             builder.comment("The size of veins for this ore.")
                                     .defineInRange("size", size, 0, Byte.MAX_VALUE);
@@ -116,8 +116,8 @@ public class OccultismCommonConfig {
                     builder.pop();
                 }
 
-                public Tag<Block> getFillerBlockTag() {
-                    return BlockTags.createOptional(new ResourceLocation(this.fillerBlockTag.get()));
+                public TagKey<Block> getFillerBlockTag() {
+                    return TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation(this.fillerBlockTag.get()));
                 }
             }
         }

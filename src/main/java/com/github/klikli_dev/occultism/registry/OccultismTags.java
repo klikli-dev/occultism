@@ -23,11 +23,9 @@
 package com.github.klikli_dev.occultism.registry;
 
 import com.github.klikli_dev.occultism.Occultism;
+import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.EntityTypeTags;
-import net.minecraft.tags.ItemTags;
-import net.minecraft.tags.Tag;
+import net.minecraft.tags.*;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -36,53 +34,53 @@ public class OccultismTags {
     //region Fields
 
     // Block Tags
-    public static final Tag<Block> TREE_SOIL = makeBlockTag(new ResourceLocation(Occultism.MODID, "tree_soil"));
-    public static final Tag<Block> CAVE_WALL_BLOCKS = makeBlockTag(new ResourceLocation(Occultism.MODID, "cave_wall_blocks"));
-    public static final Tag<Block> WORLDGEN_BLACKLIST = makeBlockTag(new ResourceLocation(Occultism.MODID, "worldgen_blacklist"));
-    public static final Tag<Block> NETHERRACK = makeBlockTag(new ResourceLocation(Occultism.MODID, "netherrack"));
-    public static final Tag.Named<Block> CANDLES = makeBlockTag(new ResourceLocation("minecraft", "candles"));
+    public static final TagKey<Block> TREE_SOIL = makeBlockTag(new ResourceLocation(Occultism.MODID, "tree_soil"));
+    public static final TagKey<Block> CAVE_WALL_BLOCKS = makeBlockTag(new ResourceLocation(Occultism.MODID, "cave_wall_blocks"));
+    public static final TagKey<Block> WORLDGEN_BLACKLIST = makeBlockTag(new ResourceLocation(Occultism.MODID, "worldgen_blacklist"));
+    public static final TagKey<Block> NETHERRACK = makeBlockTag(new ResourceLocation(Occultism.MODID, "netherrack"));
+    public static final TagKey<Block> CANDLES = makeBlockTag(new ResourceLocation("minecraft", "candles"));
 
     //Item Tags
-    public static final Tag<Item> ELYTRA = makeItemTag(new ResourceLocation(Occultism.MODID, "elytra"));
-    public static final Tag<Item> FRUITS = makeItemTag(new ResourceLocation("forge", "fruits"));
+    public static final TagKey<Item> ELYTRA = makeItemTag(new ResourceLocation(Occultism.MODID, "elytra"));
+    public static final TagKey<Item> FRUITS = makeItemTag(new ResourceLocation("forge", "fruits"));
 
     //Entity Tags
-    public static final Tag<EntityType<?>> AFRIT_ALLIES = makeEntityTypeTag(new ResourceLocation(Occultism.MODID, "afrit_allies"));
-    public static final Tag<EntityType<?>> WILD_HUNT = makeEntityTypeTag(new ResourceLocation(Occultism.MODID, "wild_hunt"));
+    public static final TagKey<EntityType<?>> AFRIT_ALLIES = makeEntityTypeTag(new ResourceLocation(Occultism.MODID, "afrit_allies"));
+    public static final TagKey<EntityType<?>> WILD_HUNT = makeEntityTypeTag(new ResourceLocation(Occultism.MODID, "wild_hunt"));
 
-    public static final Tag<EntityType<?>> CHICKEN = makeEntityTypeTag(new ResourceLocation("forge", "chicken"));
-    public static final Tag<EntityType<?>> PARROTS = makeEntityTypeTag(new ResourceLocation("forge", "parrots"));
-    public static final Tag<EntityType<?>> PIGS = makeEntityTypeTag(new ResourceLocation("forge", "pigs"));
-    public static final Tag<EntityType<?>> COWS = makeEntityTypeTag(new ResourceLocation("forge", "cows"));
-    public static final Tag<EntityType<?>> VILLAGERS = makeEntityTypeTag(new ResourceLocation("forge", "villagers"));
-    public static final Tag<EntityType<?>> ZOMBIES = makeEntityTypeTag(new ResourceLocation("forge", "zombies"));
-    public static final Tag<EntityType<?>> BATS = makeEntityTypeTag(new ResourceLocation("forge", "bats"));
+    public static final TagKey<EntityType<?>> CHICKEN = makeEntityTypeTag(new ResourceLocation("forge", "chicken"));
+    public static final TagKey<EntityType<?>> PARROTS = makeEntityTypeTag(new ResourceLocation("forge", "parrots"));
+    public static final TagKey<EntityType<?>> PIGS = makeEntityTypeTag(new ResourceLocation("forge", "pigs"));
+    public static final TagKey<EntityType<?>> COWS = makeEntityTypeTag(new ResourceLocation("forge", "cows"));
+    public static final TagKey<EntityType<?>> VILLAGERS = makeEntityTypeTag(new ResourceLocation("forge", "villagers"));
+    public static final TagKey<EntityType<?>> ZOMBIES = makeEntityTypeTag(new ResourceLocation("forge", "zombies"));
+    public static final TagKey<EntityType<?>> BATS = makeEntityTypeTag(new ResourceLocation("forge", "bats"));
 
     //endregion Fields
 
     //region Static Methods
-    public static Tag.Named<Item> makeItemTag(String id) {
+    public static TagKey<Item> makeItemTag(String id) {
         return makeItemTag(new ResourceLocation(id));
     }
 
-    public static Tag.Named<Item> makeItemTag(ResourceLocation id) {
-        return ItemTags.bind(id.toString());
+    public static TagKey<Item> makeItemTag(ResourceLocation id) {
+        return TagKey.create(Registry.ITEM_REGISTRY, id);
     }
 
-    public static Tag.Named<Block> makeBlockTag(String id) {
+    public static TagKey<Block> makeBlockTag(String id) {
         return makeBlockTag(new ResourceLocation(id));
     }
 
-    public static Tag.Named<Block> makeBlockTag(ResourceLocation id) {
-        return BlockTags.bind(id.toString());
+    public static TagKey<Block> makeBlockTag(ResourceLocation id) {
+        return TagKey.create(Registry.BLOCK_REGISTRY, id);
     }
 
-    public static Tag<EntityType<?>> makeEntityTypeTag(String id) {
+    public static TagKey<EntityType<?>> makeEntityTypeTag(String id) {
         return makeEntityTypeTag(new ResourceLocation(id));
     }
 
-    public static Tag<EntityType<?>> makeEntityTypeTag(ResourceLocation id) {
-        return EntityTypeTags.bind(id.toString());
+    public static TagKey<EntityType<?>> makeEntityTypeTag(ResourceLocation id) {
+        return TagKey.create(Registry.ENTITY_TYPE_REGISTRY, id);
     }
     //endregion Static Methods
 }

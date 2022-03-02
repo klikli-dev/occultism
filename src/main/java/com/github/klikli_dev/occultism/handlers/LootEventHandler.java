@@ -59,9 +59,8 @@ public class LootEventHandler {
     public static void giveStoneToBlacksmith(EntityItemPickupEvent event) {
         ItemEntity entity = event.getItem();
         ItemStack stack = entity.getItem();
-        Item item = stack.getItem();
 
-        if (!(Tags.Items.COBBLESTONE.contains(item) || Tags.Items.STONE.contains(item)))
+        if (!(stack.is(Tags.Items.COBBLESTONE) || stack.is(Tags.Items.STONE)))
             return;
 
         Player player = event.getPlayer();

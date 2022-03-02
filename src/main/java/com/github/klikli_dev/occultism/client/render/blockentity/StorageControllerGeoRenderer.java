@@ -33,12 +33,12 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
+import software.bernie.geckolib3.core.util.Color;
 import software.bernie.geckolib3.geo.render.built.GeoModel;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
 import software.bernie.geckolib3.renderers.geo.GeoBlockRenderer;
 
 import javax.annotation.Nullable;
-import java.awt.*;
 
 public class StorageControllerGeoRenderer extends GeoBlockRenderer<StorageControllerBlockEntity> {
 
@@ -95,7 +95,6 @@ public class StorageControllerGeoRenderer extends GeoBlockRenderer<StorageContro
         long colorScale = 100L - Math.abs(systemTime / 16 / 2 % 160L - 80L);
         //make saturation smoothly go from 0.0-1.0
         float saturation = (float) systemTimeRadSin8 * 0.5f + 0.5f;
-
-        return Color.getHSBColor(0.01F * (float) colorScale, saturation, 0.01F * (float) colorScale);
+        return Color.ofHSB(0.01F * (float) colorScale, saturation, 0.01F * (float) colorScale);
     }
 }

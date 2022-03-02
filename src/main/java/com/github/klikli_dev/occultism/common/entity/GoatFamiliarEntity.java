@@ -41,6 +41,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biome.BiomeCategory;
 import net.minecraftforge.common.Tags;
 
@@ -163,11 +164,11 @@ public class GoatFamiliarEntity extends ResizableFamiliarEntity {
         ItemStack stack = playerIn.getItemInHand(hand);
         Item item = stack.getItem();
         boolean isInForest = this.isInForest(playerIn) || this.isInForest(this);
-        if (this.isTransformItem(item) && playerIn == this.getFamiliarOwner()) {
+        if (this.isTransformItem(stack) && playerIn == this.getFamiliarOwner()) {
             if (isInForest) {
                 if (!this.level.isClientSide)
                     stack.shrink(1);
-                if (Tags.Items.DYES_BLACK.contains(item))
+                if (stack.is(Tags.Items.DYES_BLACK))
                     this.setBlack(true);
                 else if (item == Items.ENDER_EYE)
                     this.setRedEyes(true);
@@ -199,9 +200,9 @@ public class GoatFamiliarEntity extends ResizableFamiliarEntity {
         }
     }
 
-    boolean isTransformItem(Item item) {
-        return (Tags.Items.DYES_BLACK.contains(item) && !this.isBlack()) || (item == Items.FLINT && !this.hasEvilHorns())
-                || (item == Items.ENDER_EYE && !this.hasRedEyes());
+    boolean isTransformItem(ItemStack stack) {
+        return (stack.is(Tags.Items.DYES_BLACK) && !this.isBlack()) || (stack.getItem() == Items.FLINT && !this.hasEvilHorns())
+                || (stack.getItem() == Items.ENDER_EYE && !this.hasRedEyes());
     }
 
     boolean shouldTransform() {
@@ -209,7 +210,7 @@ public class GoatFamiliarEntity extends ResizableFamiliarEntity {
     }
 
     private boolean isInForest(Entity entity) {
-        return this.level.getBiome(entity.blockPosition()).getBiomeCategory() == BiomeCategory.FOREST;
+        return Biome.getBiomeCategory(this.level.getBiome(entity.blockPosition())) == BiomeCategory.FOREST;
     }
 
     public float getNeckYRot(float pPartialTick) {

@@ -180,19 +180,19 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
             ItemStack stack = playerIn.getItemInHand(hand);
             Item item = stack.getItem();
             boolean success = false;
-            if (Tags.Items.CROPS_WHEAT.contains(item) && !this.isRebuilt(Rebuilt.LeftLeg)) {
+            if (stack.is(Tags.Items.CROPS_WHEAT) && !this.isRebuilt(Rebuilt.LeftLeg)) {
                 this.setRebuilt(Rebuilt.LeftLeg);
                 success = true;
-            } else if (Tags.Items.CROPS_WHEAT.contains(item) && !this.isRebuilt(Rebuilt.RightLeg)) {
+            } else if (stack.is(Tags.Items.CROPS_WHEAT) && !this.isRebuilt(Rebuilt.RightLeg)) {
                 this.setRebuilt(Rebuilt.RightLeg);
                 success = true;
             } else if (item == Items.HAY_BLOCK && !this.isRebuilt(Rebuilt.Body)) {
                 this.setRebuilt(Rebuilt.Body);
                 success = true;
-            } else if (Tags.Items.RODS_WOODEN.contains(item) && this.isRebuilt(Rebuilt.Body) && !this.isRebuilt(Rebuilt.LeftArm)) {
+            } else if (stack.is(Tags.Items.RODS_WOODEN) && this.isRebuilt(Rebuilt.Body) && !this.isRebuilt(Rebuilt.LeftArm)) {
                 this.setRebuilt(Rebuilt.LeftArm);
                 success = true;
-            } else if (Tags.Items.RODS_WOODEN.contains(item) && this.isRebuilt(Rebuilt.Body) && !this.isRebuilt(Rebuilt.RightArm)) {
+            } else if (stack.is(Tags.Items.RODS_WOODEN) && this.isRebuilt(Rebuilt.Body) && !this.isRebuilt(Rebuilt.RightArm)) {
                 this.setRebuilt(Rebuilt.RightArm);
                 success = true;
             } else if (item == Items.CARVED_PUMPKIN && this.isRebuilt(Rebuilt.Body) && !this.isRebuilt(Rebuilt.Head)) {

@@ -774,9 +774,9 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
             return tooltipString.toLowerCase().contains(searchText.toLowerCase().substring(1));
         } else if (searchText.startsWith("$")) {
             StringBuilder tagStringBuilder = new StringBuilder();
-            for (ResourceLocation tag : stack.getItem().getTags()) {
-                tagStringBuilder.append(tag.toString()).append(' ');
-            }
+            stack.getTags().forEach(
+                    tag -> tagStringBuilder.append(tag.location()).append(" ")
+            );
             return tagStringBuilder.toString().toLowerCase().contains(searchText.toLowerCase().substring(1));
         } else {
             //Note: If search stops working, forge may have re-implemented .getUnformattedComponentText() for translated text components

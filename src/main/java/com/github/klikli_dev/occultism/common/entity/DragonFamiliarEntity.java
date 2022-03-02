@@ -190,7 +190,7 @@ public class DragonFamiliarEntity extends FamiliarEntity {
             ItemHandlerHelper.giveItemToPlayer(playerIn, new ItemStack(Items.STICK));
             this.setStick(false);
             return InteractionResult.sidedSuccess(!this.isEffectiveAi());
-        } else if (Tags.Items.NUGGETS_GOLD.contains(stack.getItem())) {
+        } else if (stack.is(Tags.Items.NUGGETS_GOLD)) {
             OccultismAdvancements.FAMILIAR.trigger(this.getFamiliarOwner(), FamiliarTrigger.Type.DRAGON_NUGGET);
             this.greedyTimer += GREEDY_INCREMENT;
             if (this.isEffectiveAi())

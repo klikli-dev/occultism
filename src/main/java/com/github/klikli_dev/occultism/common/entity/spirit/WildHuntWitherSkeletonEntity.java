@@ -28,6 +28,7 @@ import com.github.klikli_dev.occultism.util.TextUtil;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
@@ -97,14 +98,14 @@ public class WildHuntWitherSkeletonEntity extends WitherSkeleton {
 
     @Override
     public boolean isInvulnerableTo(DamageSource source) {
-        Tag<EntityType<?>> wildHuntTag = OccultismTags.WILD_HUNT;
+        TagKey<EntityType<?>> wildHuntTag = OccultismTags.WILD_HUNT;
 
         Entity trueSource = source.getEntity();
-        if (trueSource != null && wildHuntTag.contains(trueSource.getType()))
+        if (trueSource != null && trueSource.getType().is(wildHuntTag))
             return true;
 
         Entity immediateSource = source.getDirectEntity();
-        if (immediateSource != null && wildHuntTag.contains(immediateSource.getType()))
+        if (immediateSource != null && immediateSource.getType().is(wildHuntTag))
             return true;
 
         return super.isInvulnerableTo(source);

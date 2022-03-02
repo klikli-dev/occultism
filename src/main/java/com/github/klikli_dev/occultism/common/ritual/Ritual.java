@@ -513,7 +513,7 @@ public abstract class Ritual {
      * @return true if the entity is a valid sacrifice.
      */
     public boolean isValidSacrifice(LivingEntity entity) {
-        return entity != null && this.recipe.requiresSacrifice() && this.recipe.getEntityToSacrifice().contains(entity.getType());
+        return entity != null && this.recipe.requiresSacrifice() && entity.getType().is(recipe.getEntityToSacrifice());
     }
 
     /**

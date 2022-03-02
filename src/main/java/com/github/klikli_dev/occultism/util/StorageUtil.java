@@ -231,7 +231,7 @@ public class StorageUtil {
 
         String[] filters = tagFilter.split(";");
         for (String filter : filters) {
-            boolean equals = stack.getItem().getTags().stream().anyMatch(rl -> {
+            boolean equals = stack.getTags().anyMatch(rl -> {
                 return FilenameUtils.wildcardMatch(rl.toString(), filter, IOCase.INSENSITIVE);
             });
 

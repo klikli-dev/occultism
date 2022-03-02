@@ -167,7 +167,7 @@ public abstract class CaveDecorator implements ICaveDecorator {
 
     public boolean isStone(BlockState state) {
         if (state != null) {
-            return OccultismTags.CAVE_WALL_BLOCKS.contains(state.getBlock());
+            return state.is(OccultismTags.CAVE_WALL_BLOCKS);
         }
         return false;
     }

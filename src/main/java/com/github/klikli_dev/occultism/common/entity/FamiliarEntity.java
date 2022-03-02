@@ -114,7 +114,7 @@ public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar 
     public void aiStep() {
         this.updateSwingTime();
 
-        if (this.jukeboxPos == null || !this.jukeboxPos.closerThan(this.position(), 3.5)
+        if (this.jukeboxPos == null || !this.jukeboxPos.closerThan(this.blockPosition(), 3.5)
                 || !this.level.getBlockState(this.jukeboxPos).is(Blocks.JUKEBOX)) {
             this.partying = false;
             this.jukeboxPos = null;

@@ -57,7 +57,7 @@ public class ReplantSaplingGoal extends Goal {
     @Override
     public boolean canUse() {
         //nothing to deposit in hand
-        if (!ItemTags.SAPLINGS.contains(this.entity.getItemInHand(InteractionHand.MAIN_HAND).getItem())) {
+        if (!this.entity.getItemInHand(InteractionHand.MAIN_HAND).is(ItemTags.SAPLINGS)) {
             return false;
         }
         if (!this.entity.getJob().map(j -> (LumberjackJob) j).map(j -> j.getLastFelledTree() != null).orElse(false))
@@ -68,7 +68,7 @@ public class ReplantSaplingGoal extends Goal {
 
     @Override
     public boolean canContinueToUse() {
-        return this.moveTarget != null && !ItemTags.SAPLINGS.contains(this.entity.getItemInHand(InteractionHand.MAIN_HAND).getItem())
+        return this.moveTarget != null && !this.entity.getItemInHand(InteractionHand.MAIN_HAND).is(ItemTags.SAPLINGS)
                 && !this.entity.getJob().map(j -> (LumberjackJob) j).map(j -> j.getLastFelledTree() != null).orElse(false);
     }
 

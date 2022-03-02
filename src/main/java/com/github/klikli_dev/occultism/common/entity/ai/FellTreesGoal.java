@@ -44,7 +44,6 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class FellTreesGoal extends Goal {
-    //region Fields
     public static final int WORKAREA_EMPTY_REFRESH_TIME = 20 * 15;
 
     protected final SpiritEntity entity;
@@ -57,35 +56,29 @@ public class FellTreesGoal extends Goal {
     protected long lastWorkareaEmptyTime;
     protected boolean shouldUseLumberjackDimensions;
 
-    //region Initialization
     public FellTreesGoal(SpiritEntity entity) {
         this.entity = entity;
         this.targetSorter = new BlockSorter(entity);
         this.setFlags(EnumSet.of(Flag.MOVE));
     }
 
-    //endregion Fields
-
-    //region Static Methods
     public static boolean isTreeSoil(Level level, BlockPos pos) {
-        return OccultismTags.TREE_SOIL.contains(level.getBlockState(pos).getBlock());
+        return level.getBlockState(pos).is(OccultismTags.TREE_SOIL);
     }
-    //endregion Initialization
 
     public static final boolean isLog(Level level, BlockPos pos) {
-        return BlockTags.LOGS.contains(level.getBlockState(pos).getBlock());
+        return level.getBlockState(pos).is(BlockTags.LOGS);
     }
 
     public static final boolean isLeaf(Level level, BlockPos pos) {
-        Block block = level.getBlockState(pos).getBlock();
-        return block instanceof LeavesBlock || BlockTags.LEAVES.contains(block);
+        var blockState = level.getBlockState(pos);
+        return blockState.getBlock() instanceof LeavesBlock || blockState.is(BlockTags.LEAVES);
     }
 
     public boolean shouldUseLumberjackDimensions() {
         return this.shouldUseLumberjackDimensions;
     }
 
-    //region Overrides
     @Override
     public boolean canUse() {
         if (!this.entity.getItemInHand(InteractionHand.MAIN_HAND).isEmpty()) {
@@ -100,7 +93,6 @@ public class FellTreesGoal extends Goal {
         //only continue execution if a tree is available and entity is not carrying anything.
         return this.targetBlock != null && this.entity.getItemInHand(InteractionHand.MAIN_HAND).isEmpty();
     }
-    //endregion Overrides
 
     public void stop() {
         this.shouldUseLumberjackDimensions = false;
@@ -150,9 +142,7 @@ public class FellTreesGoal extends Goal {
             }
         }
     }
-    //endregion Static Methods
 
-    //region Methods
     public void updateBreakBlock() {
         this.breakingTime++;
         this.entity.swing(InteractionHand.MAIN_HAND);
@@ -299,7 +289,4 @@ public class FellTreesGoal extends Goal {
         }
 
     }
-
-    //endregion Methods
-
 }

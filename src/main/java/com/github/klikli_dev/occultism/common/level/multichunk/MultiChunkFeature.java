@@ -26,6 +26,7 @@ import com.github.klikli_dev.occultism.util.BiomeUtil;
 import com.github.klikli_dev.occultism.util.Math3DUtil;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.ChunkPos;
@@ -88,8 +89,8 @@ public class MultiChunkFeature extends Feature<MultiChunkFeatureConfig> {
         BlockPos pos = context.origin();
 
         //check biome type blacklist
-        for (Biome biome : context.chunkGenerator().getBiomeSource().getBiomesWithin(pos.getX(), pos.getY(), pos.getZ(), 1, context.chunkGenerator().climateSampler())) {
-            ResourceKey<Biome> biomeKey = ResourceKey.create(Registry.BIOME_REGISTRY, biome.getRegistryName());
+        for (Holder<Biome> biome : context.chunkGenerator().getBiomeSource().getBiomesWithin(pos.getX(), pos.getY(), pos.getZ(), 1, context.chunkGenerator().climateSampler())) {
+            ResourceKey<Biome> biomeKey = ResourceKey.create(Registry.BIOME_REGISTRY, biome.value().getRegistryName());
             if (BiomeUtil.containsType(biomeKey, context.config().biomeTypeBlacklist)) {
                 return false;
             }

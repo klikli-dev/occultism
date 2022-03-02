@@ -53,7 +53,7 @@ public class UndergroundGroveDecorator extends CaveDecorator {
             seedReader.setBlock(pos.above(), Blocks.GRASS.defaultBlockState(), 2);
 
         if (rand.nextFloat() < Occultism.COMMON_CONFIG.worldGen.undergroundGroveGen.treeChance.get()) {
-            OccultismPlacements.OTHERWORLD_TREE_NATURAL.place(seedReader, generator, rand, pos.above());
+            OccultismPlacements.OTHERWORLD_TREE_NATURAL.value().place(seedReader, generator, rand, pos.above());
         }
     }
 

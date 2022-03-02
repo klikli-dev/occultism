@@ -23,10 +23,12 @@
 package com.github.klikli_dev.occultism.common.misc;
 
 import com.github.klikli_dev.occultism.api.common.container.IItemStackComparator;
+import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
@@ -36,22 +38,15 @@ import javax.annotation.Nonnull;
  * Based on https://github.com/Lothrazar/Storage-Network
  */
 public class ItemTagComparator implements IItemStackComparator {
-    //region Fields
-    protected Tag<Item> tag;
-    //endregion Fields
+    protected TagKey<Item> tag;
 
-    //region Initialization
-    public ItemTagComparator(Tag<Item> tag) {
+    public ItemTagComparator(TagKey<Item> tag) {
         this.tag = tag;
     }
 
     private ItemTagComparator() {
     }
-    //endregion Initialization
 
-    //region Overrides
-
-    //region Static Methods
     public static ItemTagComparator from(CompoundTag nbt) {
         ItemTagComparator comparator = new ItemTagComparator();
         comparator.deserializeNBT(nbt);
@@ -63,29 +58,25 @@ public class ItemTagComparator implements IItemStackComparator {
         if (stack.isEmpty())
             return false;
 
-        return this.tag.contains(stack.getItem());
+        return stack.is(this.tag);
     }
 
     @Override
     public CompoundTag serializeNBT() {
         return this.write(new CompoundTag());
     }
-    //endregion Overrides
 
     @Override
     public void deserializeNBT(CompoundTag nbt) {
         this.read(nbt);
     }
-    //endregion Static Methods
 
-    //region Methods
     public void read(CompoundTag compound) {
-        compound.putString("tag", ItemTags.getAllTags().getId(this.tag).toString());
+        compound.putString("tag", this.tag.location().toString());
     }
 
     public CompoundTag write(CompoundTag compound) {
-        this.tag = ItemTags.getAllTags().getTag(new ResourceLocation(compound.getString("tag")));
+        this.tag = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(compound.getString("tag")));
         return compound;
     }
-    //endregion Methods
 }
