@@ -33,6 +33,7 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.SpawnEggItem;
+import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.block.ComposterBlock;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.event.RegistryEvent;
@@ -59,6 +60,16 @@ public class RegistryEventHandler {
 
         OccultismSpiritJobs.JOBS.register(modEventBus);
         OccultismRituals.RITUAL_FACTORIES.register(modEventBus);
+    }
+
+    @SubscribeEvent
+    public static void onRegisterRecipeSerializers(RegistryEvent.Register<RecipeSerializer<?>> event){
+        //We're not actually registering recipe serializers, but we call the recipe types so they get registered before recipe serialization
+        OccultismRecipes.SPIRIT_TRADE_TYPE.get();
+        OccultismRecipes.SPIRIT_FIRE_TYPE.get();
+        OccultismRecipes.CRUSHING_TYPE.get();
+        OccultismRecipes.MINER_TYPE.get();
+        OccultismRecipes.RITUAL_TYPE.get();
     }
 
     @SubscribeEvent

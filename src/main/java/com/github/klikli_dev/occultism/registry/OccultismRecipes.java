@@ -36,6 +36,8 @@ public class OccultismRecipes {
     public static final DeferredRegister<RecipeSerializer<?>> RECIPES = DeferredRegister.create(
             ForgeRegistries.RECIPE_SERIALIZERS, Occultism.MODID);
 
+    //we now need to call get on each of those in RegistryEventHandler.onRegisterRecipeSerializers event
+    //  if they are first accessed (and thus registered) only during recipe loading the registry will already be frozen and throw
     public static final NonNullLazy<RecipeType<SpiritTradeRecipe>> SPIRIT_TRADE_TYPE =
             NonNullLazy.of(() -> RecipeType.register("occultism:spirit_trade"));
     public static final NonNullLazy<RecipeType<SpiritFireRecipe>> SPIRIT_FIRE_TYPE =
