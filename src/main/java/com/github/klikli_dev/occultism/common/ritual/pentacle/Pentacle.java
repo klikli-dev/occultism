@@ -247,9 +247,9 @@ public class Pentacle {
         }
 
         @Override
-        public BlockState getDisplayedState(int ticks) {
+        public BlockState getDisplayedState(long ticks) {
             if (this.block instanceof ChalkGlyphBlock) {
-                return this.block.defaultBlockState().setValue(ChalkGlyphBlock.SIGN, ticks / 20 % ChalkGlyphBlock.MAX_SIGN);
+                return this.block.defaultBlockState().setValue(ChalkGlyphBlock.SIGN, (int)(ticks / 20 % ChalkGlyphBlock.MAX_SIGN));
             }
 
             return this.matcher.getDisplayedState(ticks);
