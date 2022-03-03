@@ -27,11 +27,12 @@ import com.github.klikli_dev.occultism.crafting.recipe.CrushingRecipe;
 import com.github.klikli_dev.occultism.registry.OccultismRecipes;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
-import mezz.jei.api.constants.VanillaTypes;
-import mezz.jei.api.gui.IRecipeLayout;
+import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
+import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
-import mezz.jei.api.ingredients.IIngredients;
+import mezz.jei.api.recipe.IFocusGroup;
+import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -78,27 +79,20 @@ public class CrushingRecipeCategory implements IRecipeCategory<CrushingRecipe> {
     }
 
     @Override
-    public void setIngredients(CrushingRecipe recipe, IIngredients ingredients) {
-        ingredients.setInputIngredients(recipe.getIngredients());
-        ingredients.setOutput(VanillaTypes.ITEM, recipe.getResultItem());
+    public void setRecipe(IRecipeLayoutBuilder builder, CrushingRecipe recipe, IFocusGroup focuses) {
+        builder.addSlot(RecipeIngredientRole.INPUT, 56, 12)
+                .addIngredients(recipe.getIngredients().get(0));
+
+
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 94, 12)
+                .addIngredients(recipe.getIngredients().get(0));
     }
 
     @Override
-    public void setRecipe(IRecipeLayout recipeLayout, CrushingRecipe recipe, IIngredients ingredients) {
-        int index = 0;
-        recipeLayout.getItemStacks().init(index, true, 56, 12);
-        recipeLayout.getItemStacks().set(index, ingredients.getInputs(VanillaTypes.ITEM).get(0));
-        index++;
-
-        recipeLayout.getItemStacks().init(index, false, 94, 12);
-        recipeLayout.getItemStacks().set(index, ingredients.getOutputs(VanillaTypes.ITEM).get(0));
-    }
-
-    @Override
-    public void draw(CrushingRecipe recipe, PoseStack poseStack, double mouseX, double mouseY) {
+    public void draw(CrushingRecipe recipe, IRecipeSlotsView recipeSlotsView, PoseStack stack, double mouseX, double mouseY) {
         RenderSystem.enableBlend();
-        this.overlay.draw(poseStack, 76, 14); //(center=84) - (width/16=8) = 76
-        this.drawStringCentered(poseStack, Minecraft.getInstance().font, this.getTitle(), 84, 0);
+        this.overlay.draw(stack, 76, 14); //(center=84) - (width/16=8) = 76
+        this.drawStringCentered(stack, Minecraft.getInstance().font, this.getTitle(), 84, 0);
     }
 
     protected void drawStringCentered(PoseStack poseStack, Font fontRenderer, Component text, int x, int y) {
