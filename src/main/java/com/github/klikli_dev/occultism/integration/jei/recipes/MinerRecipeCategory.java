@@ -24,15 +24,20 @@ package com.github.klikli_dev.occultism.integration.jei.recipes;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.misc.WeightedIngredient;
+import com.github.klikli_dev.occultism.crafting.recipe.CrushingRecipe;
 import com.github.klikli_dev.occultism.crafting.recipe.MinerRecipe;
 import com.github.klikli_dev.occultism.registry.OccultismRecipes;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
+import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
+import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredients;
+import mezz.jei.api.recipe.IFocusGroup;
+import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -90,10 +95,7 @@ public class MinerRecipeCategory implements IRecipeCategory<MinerRecipe> {
     }
 
     @Override
-    public void setIngredients(MinerRecipe recipe, IIngredients ingredients) {
-        ingredients.setInputIngredients(recipe.getIngredients());
-        ingredients.setOutput(VanillaTypes.ITEM, recipe.getResultItem());
-
+    public void setRecipe(IRecipeLayoutBuilder builder, MinerRecipe recipe, IFocusGroup focuses) {
         //set up a simulated handler to get all possible results
         Level level = Minecraft.getInstance().level;
         ItemStackHandler simulatedHandler = new ItemStackHandler(1);
@@ -107,27 +109,22 @@ public class MinerRecipeCategory implements IRecipeCategory<MinerRecipe> {
         //reduce to two decimals
         chance = Math.round(chance * 10) / 10.0f;
         this.chances.put(recipe, chance);
+
+        builder.addSlot(RecipeIngredientRole.INPUT, 56, 12)
+                .addIngredients(recipe.getIngredients().get(0));
+
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 94, 12)
+                .addItemStack(recipe.getResultItem());
     }
 
     @Override
-    public void setRecipe(IRecipeLayout recipeLayout, MinerRecipe recipe, IIngredients ingredients) {
-        int index = 0;
-        recipeLayout.getItemStacks().init(index, true, 56, 12);
-        recipeLayout.getItemStacks().set(index, ingredients.getInputs(VanillaTypes.ITEM).get(0));
-        index++;
-
-        recipeLayout.getItemStacks().init(index, false, 94, 12);
-        recipeLayout.getItemStacks().set(index, ingredients.getOutputs(VanillaTypes.ITEM).get(0));
-    }
-
-    @Override
-    public void draw(MinerRecipe recipe, PoseStack poseStack, double mouseX, double mouseY) {
+    public void draw(MinerRecipe recipe, IRecipeSlotsView recipeSlotsView, PoseStack stack, double mouseX, double mouseY) {
         RenderSystem.enableBlend();
-        this.overlay.draw(poseStack, 76, 14); //(center=84) - (width/16=8) = 76
-        this.drawStringCentered(poseStack, Minecraft.getInstance().font,
+        this.overlay.draw(stack, 76, 14); //(center=84) - (width/16=8) = 76
+        this.drawStringCentered(stack, Minecraft.getInstance().font,
                 new TranslatableComponent(Occultism.MODID + ".jei.miner.chance", this.chances.get(recipe)), 84, 0);
-
     }
+
 
     protected void drawStringCentered(PoseStack poseStack, Font fontRenderer, Component text, int x, int y) {
         fontRenderer.draw(poseStack, text, (x - fontRenderer.width(text) / 2.0f), y, 0);

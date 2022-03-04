@@ -25,6 +25,7 @@ package com.github.klikli_dev.occultism.integration.jei.recipes;
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.ritual.pentacle.Pentacle;
 import com.github.klikli_dev.occultism.common.ritual.pentacle.PentacleManager;
+import com.github.klikli_dev.occultism.crafting.recipe.CrushingRecipe;
 import com.github.klikli_dev.occultism.crafting.recipe.RitualRecipe;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
@@ -33,9 +34,13 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
+import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
+import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredients;
+import mezz.jei.api.recipe.IFocusGroup;
+import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -103,47 +108,16 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
     }
 
     @Override
-    public void setIngredients(RitualRecipe recipe, IIngredients ingredients) {
-        //0: activation item, 1...n: ingredients
-        Stream<Ingredient> ingredientStream = Stream.concat(
-                Stream.of(recipe.getActivationItem()),
-                recipe.getIngredients().stream()
-        );
-        if (recipe.requiresItemUse()) {
-            ingredientStream = Stream.concat(Stream.of(recipe.getItemToUse()), ingredientStream);
-        }
-        ingredients.setInputIngredients(
-                ingredientStream.collect(Collectors.toList())
-        );
-        //0: recipe output, 1: ritual dummy item
-        ingredients.setOutputs(VanillaTypes.ITEM, Stream.of(recipe.getResultItem(),
-                recipe.getRitualDummy()).collect(Collectors.toList()));
-    }
-
-    @Override
-    public void setRecipe(IRecipeLayout recipeLayout, RitualRecipe recipe, IIngredients ingredients) {
-        int index = 0;
+    public void setRecipe(IRecipeLayoutBuilder builder, RitualRecipe recipe, IFocusGroup focuses) {
         this.recipeOutputOffsetX = 75;
 
-        int currentIngredient = 0;
-        List<ItemStack> itemToUse = new ArrayList<>();
-        if (recipe.requiresItemUse()) {
-            itemToUse = ingredients.getInputs(VanillaTypes.ITEM).get(currentIngredient++);
-        }
-        //0: activation item, 1...n: ingredients
-        List<ItemStack> activationItem = ingredients.getInputs(VanillaTypes.ITEM).get(currentIngredient++);
-        List<List<ItemStack>> inputItems =
-                ingredients.getInputs(VanillaTypes.ITEM).stream().skip(currentIngredient).collect(Collectors.toList());
-
         //draw activation item on top of bowl
-        recipeLayout.getItemStacks().init(index, true, this.ritualCenterX, this.ritualCenterY - 5);
-        recipeLayout.getItemStacks().set(index, activationItem);
-        index++;
+        builder.addSlot(RecipeIngredientRole.INPUT, this.ritualCenterX, this.ritualCenterY - 5)
+                .addIngredients(recipe.getActivationItem());
 
         //draw the sacrificial bowl in the center
-        recipeLayout.getItemStacks().init(index, false, this.ritualCenterX, this.ritualCenterY);
-        recipeLayout.getItemStacks().set(index, this.goldenSacrificialBowl);
-        index++;
+        builder.addSlot(RecipeIngredientRole.CATALYST, this.ritualCenterX, this.ritualCenterY)
+                .addItemStack(this.goldenSacrificialBowl);
 
         int sacrificialCircleRadius = 30;
         int sacricialBowlPaddingVertical = 20;
@@ -180,17 +154,15 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
                         this.ritualCenterY - sacricialBowlPaddingVertical, 0)
         ).collect(Collectors.toList());
 
-        for (int i = 0; i < inputItems.size(); i++) {
+
+        for (int i = 0; i < recipe.getIngredients().size(); i++) {
             Vec3i pos = sacrificialBowlPosition.get(i);
 
-            recipeLayout.getItemStacks().init(index, true, pos.getX(), pos.getY() - 5);
-            recipeLayout.getItemStacks().set(index, inputItems.get(i));
-            index++;
+            builder.addSlot(RecipeIngredientRole.INPUT, pos.getX(), pos.getY() - 5)
+                    .addIngredients(recipe.getIngredients().get(i));
 
-            recipeLayout.getItemStacks().init(index, false, pos.getX(), pos.getY());
-            recipeLayout.getItemStacks().set(index, this.sacrificialBowl);
-            index++;
-
+            builder.addSlot(RecipeIngredientRole.RENDER_ONLY, pos.getX(), pos.getY())
+                    .addItemStack(this.sacrificialBowl);
         }
 
         //ingredients: 0: recipe output, 1: ritual dummy item
@@ -198,27 +170,21 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
         //draw recipe output on the left
         if (recipe.getResultItem().getItem() != OccultismItems.JEI_DUMMY_NONE.get()) {
             //if we have an item output -> render it
-            recipeLayout.getItemStacks()
-                    .init(index, false, this.ritualCenterX + this.recipeOutputOffsetX, this.ritualCenterY - 5);
-            recipeLayout.getItemStacks().set(index, ingredients.getOutputs(VanillaTypes.ITEM).get(0));
-            index++;
+            builder.addSlot(RecipeIngredientRole.OUTPUT, this.ritualCenterX + this.recipeOutputOffsetX, this.ritualCenterY - 5)
+                    .addItemStack(recipe.getResultItem());
         } else {
             //if not, we instead render our ritual dummy item, just like in the corner
-            recipeLayout.getItemStacks()
-                    .init(index, false, this.ritualCenterX + this.recipeOutputOffsetX, this.ritualCenterY - 5);
-            recipeLayout.getItemStacks().set(index, ingredients.getOutputs(VanillaTypes.ITEM).get(1));
-            index++;
+            builder.addSlot(RecipeIngredientRole.OUTPUT, this.ritualCenterX + this.recipeOutputOffsetX, this.ritualCenterY - 5)
+                    .addItemStack(recipe.getRitualDummy());
         }
-        recipeLayout.getItemStacks()
-                .init(index, false, this.ritualCenterX + this.recipeOutputOffsetX, this.ritualCenterY);
-        recipeLayout.getItemStacks().set(index, this.goldenSacrificialBowl);
-        index++;
 
+        //draw output golden bowl
+        builder.addSlot(RecipeIngredientRole.CATALYST, this.ritualCenterX + this.recipeOutputOffsetX, this.ritualCenterY)
+                .addItemStack(this.goldenSacrificialBowl);
 
         //draw ritual dummy item in upper left corner
-        recipeLayout.getItemStacks().init(index, false, 0, 0);
-        recipeLayout.getItemStacks().set(index, ingredients.getOutputs(VanillaTypes.ITEM).get(1));
-        index++;
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 0, 0)
+                .addItemStack(recipe.getRitualDummy());
 
         //draw item to use
         if (recipe.requiresItemUse()) {
@@ -232,14 +198,13 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
             int itemToUseY = infotextY - 5;
             int itemToUseX = this.getStringCenteredMaxX(Minecraft.getInstance().font, new TranslatableComponent("jei.occultism.item_to_use"), 84, infotextY);
 
-            recipeLayout.getItemStacks().init(index, false, itemToUseX, itemToUseY);
-            recipeLayout.getItemStacks().set(index, itemToUse);
-            index++;
+            builder.addSlot(RecipeIngredientRole.CATALYST, itemToUseX, itemToUseY)
+                    .addIngredients(recipe.getItemToUse());
         }
     }
 
     @Override
-    public void draw(RitualRecipe recipe, PoseStack poseStack, double mouseX, double mouseY) {
+    public void draw(RitualRecipe recipe, IRecipeSlotsView recipeSlotsView, PoseStack poseStack, double mouseX, double mouseY) {
         RenderSystem.enableBlend();
         this.arrow.draw(poseStack, this.ritualCenterX + this.recipeOutputOffsetX - 20, this.ritualCenterY);
         RenderSystem.disableBlend();
@@ -280,6 +245,7 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
                     84, infotextY);
         }
     }
+
 
     protected int getStringCenteredMaxX(Font font, Component text, int x, int y) {
         int width = font.width(text);
