@@ -57,24 +57,21 @@ import net.minecraftforge.registries.RegistryObject;
  */
 public class StandardLootTableProvider extends BaseLootTableProvider {
 
-    //region Fields
+    //Copied from BlockLootTables
+    protected static final float[] INCREASED_SAPLING_DROP_RATES = new float[]{0.1F, 0.2F, 0.3F, 0.4F};
+
     InternalBlockLootTable blockLoot = new InternalBlockLootTable();
     InternalEntityLootTable entityLoot = new InternalEntityLootTable();
-    //endregion Fields
 
-    //region Initialization
     public StandardLootTableProvider(DataGenerator dataGeneratorIn) {
         super(dataGeneratorIn);
     }
-    //endregion Initialization
 
-    //region Overrides
     @Override
     protected void addTables() {
         this.blockLoot.addTables();
         this.entityLoot.addTables();
     }
-    //endregion Overrides
 
     private class InternalEntityLootTable extends EntityLoot {
         //region Overrides
@@ -162,7 +159,6 @@ public class StandardLootTableProvider extends BaseLootTableProvider {
     }
 
     private class InternalBlockLootTable extends StandardBlockLootTables {
-        //region Overrides
         @Override
         protected void addTables() {
             //Handle the non custom tables
@@ -192,6 +188,10 @@ public class StandardLootTableProvider extends BaseLootTableProvider {
                     (block) -> createLeavesDrops(block, OccultismBlocks.OTHERWORLD_SAPLING.get(),
                             DEFAULT_SAPLING_DROP_RATES));
 
+            this.add(OccultismBlocks.OTHERWORLD_LEAVES_NATURAL.get(),
+                    (block) -> this.createOtherworldLeavesDrops(block, Blocks.OAK_SAPLING, OccultismBlocks.OTHERWORLD_SAPLING_NATURAL.get(),
+                            INCREASED_SAPLING_DROP_RATES));
+
             this.add(OccultismBlocks.SILVER_ORE.get(), createOreDrop(OccultismBlocks.SILVER_ORE.get(), OccultismItems.RAW_SILVER.get()));
             this.add(OccultismBlocks.SILVER_ORE_DEEPSLATE.get(), createOreDrop(OccultismBlocks.SILVER_ORE_DEEPSLATE.get(), OccultismItems.RAW_SILVER.get()));
             this.add(OccultismBlocks.IESNIUM_ORE.get(), createOreDrop(OccultismBlocks.IESNIUM_ORE.get(), OccultismItems.RAW_IESNIUM.get()));
@@ -201,9 +201,7 @@ public class StandardLootTableProvider extends BaseLootTableProvider {
         protected void add(Block blockIn, LootTable.Builder table) {
             StandardLootTableProvider.this.blockLootTable.put(blockIn, table);
         }
-        //endregion Overrides
 
-        //region Methods
         protected void registerOtherworldBlockTable(Block block) {
             if (block instanceof IOtherworldBlock)
                 this.add(block, this.createOtherworldBlockTable(block));
@@ -212,24 +210,9 @@ public class StandardLootTableProvider extends BaseLootTableProvider {
                         block.getRegistryName());
         }
 
-        /**
-         * Does not work currently, leads to no sapling drop.
-         */
-        @Deprecated
-        protected void registerOtherworldLeavesTable(Block block, Block coveredSapling,
-                                                     Block uncoveredSapling, float... chances) {
-            if (block instanceof IOtherworldBlock)
-                this.add(block,
-                        this.otherWorldLeavesDroppingWithChancesAndSticks(block, coveredSapling, uncoveredSapling,
-                                chances));
-            else
-                Occultism.LOGGER.warn("Tried to register otherworld leaves loot table for non-otherworld block {}",
-                        block.getRegistryName());
-        }
-
         protected LootTable.Builder createOtherworldBlockTable(Block block) {
             IOtherworldBlock otherworldBlock = (IOtherworldBlock) block;
-            return createOtherworldBlockTable(block, otherworldBlock.getCoveredBlock(), otherworldBlock.getUncoveredBlock());
+            return this.createOtherworldBlockTable(block, otherworldBlock.getCoveredBlock(), otherworldBlock.getUncoveredBlock());
         }
 
         protected LootTable.Builder createOtherworldBlockTable(Block block, ItemLike coveredDrop, ItemLike uncoveredDrop) {
@@ -246,62 +229,26 @@ public class StandardLootTableProvider extends BaseLootTableProvider {
             return LootTable.lootTable().withPool(builder);
         }
 
-        /**
-         * Does not work currently, leads to no sapling drop
-         */
-        @Deprecated
-        protected LootTable.Builder otherWorldLeavesDroppingWithChancesAndSticks(Block forBlock, Block coveredSapling,
+        protected LootTable.Builder createOtherworldLeavesDrops(Block leavesBlock, Block coveredSapling,
                                                                                  Block uncoveredSapling,
                                                                                  float... chances) {
-            IOtherworldBlock otherworldBlock = (IOtherworldBlock) forBlock;
             LootItemCondition.Builder uncoveredCondition =
-                    LootItemBlockStatePropertyCondition.hasBlockStateProperties(forBlock).setProperties(
+                    LootItemBlockStatePropertyCondition.hasBlockStateProperties(leavesBlock).setProperties(
                             StatePropertiesPredicate.Builder.properties()
                                     .hasProperty(IOtherworldBlock.UNCOVERED, true));
 
+            var saplingLootItem = LootItem.lootTableItem(uncoveredSapling)
+                    .when(uncoveredCondition)
+                    .otherwise(LootItem.lootTableItem(coveredSapling));
 
-            return this.droppingAlternativeWithChancesAndSticks(forBlock,
-                    //Leaves entry
-                    LootItem.lootTableItem(otherworldBlock.getUncoveredBlock())
-                            .when(uncoveredCondition)
-                            .otherwise(LootItem.lootTableItem(
-                                    otherworldBlock.getCoveredBlock())),
-                    //Sapling entry
-                    LootItem.lootTableItem(uncoveredSapling)
-                            .when(uncoveredCondition)
-                            .otherwise(LootItem.lootTableItem(coveredSapling)), chances);
-        }
-
-        protected LootTable.Builder droppingAlternativeWithChancesAndSticks(Block leaves,
-                                                                            LootPoolEntryContainer.Builder<?> leavesEntry,
-                                                                            LootPoolEntryContainer.Builder<?> saplingEntry,
-                                                                            float... chances) {
-            return this.droppingAlternativeWithSilkTouchOrShears(leavesEntry,
-                            applyExplosionCondition(leaves, saplingEntry)
-                                    .when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, chances)))
-                    .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1))
+            return createSilkTouchOrShearsDispatchTable(leavesBlock,
+                    applyExplosionCondition(leavesBlock, saplingLootItem)
+                            .when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, chances)))
+                    .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
                             .when(NOT_SILK_TOUCH_OR_SHEARS)
-                            .add(applyExplosionDecay(leaves,
-                                    LootItem.lootTableItem(Items.STICK
-                                    ).apply(
-                                            SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F))))
-                                    .when(BonusLevelTableCondition.bonusLevelFlatChance(
-                                            Enchantments.BLOCK_FORTUNE, 0.02F, 0.022222223F,
-                                            0.025F, 0.033333335F, 0.1F))));
+                            .add(applyExplosionDecay(leavesBlock, LootItem.lootTableItem(Items.STICK)
+                                    .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F))))
+                                    .when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, 0.02F, 0.022222223F, 0.025F, 0.033333335F, 0.1F))));
         }
-
-        protected LootTable.Builder droppingAlternativeWithSilkTouchOrShears(LootPoolEntryContainer.Builder<?> mainDropEntry,
-                                                                             LootPoolEntryContainer.Builder<?> silkTouchDropEntry) {
-            return this.droppingAlternative(mainDropEntry, SILK_TOUCH_OR_SHEARS, silkTouchDropEntry);
-        }
-
-        protected LootTable.Builder droppingAlternative(LootPoolEntryContainer.Builder<?> mainDropEntry,
-                                                        LootItemCondition.Builder condition,
-                                                        LootPoolEntryContainer.Builder<?> alternativeDropEntry) {
-            return LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1))
-                    .add((mainDropEntry.when(condition))
-                            .otherwise(alternativeDropEntry)));
-        }
-        //endregion Methods
     }
 }
