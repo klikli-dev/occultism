@@ -67,7 +67,7 @@ public class DimensionalMineshaftScreen extends AbstractContainerScreen<Dimensio
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShaderTexture(0, TEXTURE);
 
-        this.blit(stack, this.leftPos, this.topPos, 0, 0, this.width, this.height);
+        this.blit(stack, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight);
         int miningTime = this.otherworldMiner.miningTime;
         int progress = (int) (18 * (1.0F - (float) miningTime / this.otherworldMiner.maxMiningTime));
         if (progress > 0 && miningTime > 0) {
