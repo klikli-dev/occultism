@@ -335,24 +335,27 @@ public class BookOfCallingItem extends Item implements IIngredientCopyNBT, IHand
 
     public boolean setSpiritManagedMachine(Player player, Level world, BlockPos pos, ItemStack stack,
                                            Direction face) {
+        //TODO: update the set extract code to handle managed machine mode
         UUID boundSpiritId = ItemNBTUtil.getSpiritEntityUUID(stack);
         if (boundSpiritId != null) {
             Optional<SpiritEntity> boundSpirit = EntityUtil.getEntityByUuiDGlobal(world.getServer(), boundSpiritId)
                     .map(e -> (SpiritEntity) e);
-            BlockEntity BlockEntity = world.getBlockEntity(pos);
-            if (boundSpirit.isPresent() && BlockEntity != null) {
+            BlockEntity blockEntity = world.getBlockEntity(pos);
+            if (boundSpirit.isPresent() && blockEntity != null) {
 
                 if (boundSpirit.get().getJob().isPresent() &&
                         boundSpirit.get().getJob().get() instanceof ManageMachineJob) {
                     ManageMachineJob manageMachine = (ManageMachineJob) boundSpirit.get().getJob().get();
-                    MachineReference newReference = MachineReference.from(BlockEntity);
+                    //get the existing extract reference here, or if null reuse insert
+                    var oldExtractBlockEntity = manageMachine.getExtractBlockEntity();
+                    MachineReference newReference = MachineReference.from(blockEntity, oldExtractBlockEntity != null ? oldExtractBlockEntity : blockEntity);
                     if (manageMachine.getManagedMachine() == null ||
-                            !manageMachine.getManagedMachine().globalPos.equals(newReference.globalPos)) {
+                            !manageMachine.getManagedMachine().insertGlobalPos.equals(newReference.insertGlobalPos)) {
                         //if we are setting a completely new machine, just overwrite the reference.
                         manageMachine.setManagedMachine(newReference);
                     } else {
                         //otherwise just update the registry name in case the block type was switched out
-                        manageMachine.getManagedMachine().registryName = newReference.registryName;
+                        manageMachine.getManagedMachine().insertRegistryName = newReference.insertRegistryName;
                     }
 
                     //write data into item nbt for client side usage

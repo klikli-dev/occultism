@@ -117,11 +117,23 @@ public class ManageMachineJob extends SpiritJob {
             return null;
 
         if (this.managedMachineBlockEntity == null) {
-            this.managedMachineBlockEntity = BlockEntityUtil.get(this.entity.level, this.managedMachine.globalPos);
+            this.managedMachineBlockEntity = BlockEntityUtil.get(this.entity.level, this.managedMachine.insertGlobalPos);
 
         }
 
         return this.managedMachineBlockEntity;
+    }
+
+    public BlockEntity getExtractBlockEntity() {
+        if (this.managedMachine == null)
+            return null;
+
+        if (this.extractBlockEntity == null) {
+            this.extractBlockEntity = BlockEntityUtil.get(this.entity.level, this.managedMachine.extractGlobalPos);
+
+        }
+
+        return this.extractBlockEntity;
     }
     //endregion Getter / Setter
 

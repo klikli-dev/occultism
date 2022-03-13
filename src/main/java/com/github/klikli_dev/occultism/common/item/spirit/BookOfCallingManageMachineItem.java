@@ -45,6 +45,7 @@ public class BookOfCallingManageMachineItem extends BookOfCallingItem {
 
     public enum ItemModeSubset implements IItemModeSubset<ItemModeSubset> {
         SET_MANAGED_MACHINE(ItemMode.SET_MANAGED_MACHINE),
+        SET_EXTRACT(ItemMode.SET_EXTRACT),
         SET_STORAGE_CONTROLLER(ItemMode.SET_STORAGE_CONTROLLER);
 
         //region Fields
