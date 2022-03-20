@@ -25,15 +25,16 @@ package com.github.klikli_dev.occultism.registry;
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.job.SpiritJobFactory;
 import com.github.klikli_dev.occultism.common.ritual.*;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.registries.*;
 
 import java.util.function.Supplier;
 
 public class OccultismRituals {
 
-    public static final DeferredRegister<RitualFactory> RITUAL_FACTORIES = DeferredRegister.create(RitualFactory.class, Occultism.MODID);
+    public static final DeferredRegister<RitualFactory> RITUAL_FACTORIES = DeferredRegister.create(new ResourceLocation(Occultism.MODID, "ritual_factory"), Occultism.MODID);
 
-    public static final Supplier<IForgeRegistry<RitualFactory>> REGISTRY = RITUAL_FACTORIES.makeRegistry("ritual_factory", RegistryBuilder::new);
+    public static final Supplier<IForgeRegistry<RitualFactory>> REGISTRY = RITUAL_FACTORIES.makeRegistry(RitualFactory.class, RegistryBuilder::new);
 
     //Summoning
     public static final RegistryObject<RitualFactory> SUMMON_RITUAL =

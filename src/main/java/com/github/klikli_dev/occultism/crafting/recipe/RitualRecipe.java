@@ -49,13 +49,15 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 import net.minecraftforge.registries.RegistryManager;
 
+import java.util.function.Supplier;
+
 public class RitualRecipe extends ShapelessRecipe {
     public static Serializer SERIALIZER = new Serializer();
 
     private final ResourceLocation pentacleId;
     private final ResourceLocation ritualType;
     private final ResourceLocation spiritJobType;
-    private final Ritual ritual;
+    private final Supplier<Ritual> ritual;
     private final ItemStack ritualDummy;
     private final Ingredient activationItem;
     private final TagKey<EntityType<?>> entityToSacrifice;
@@ -74,7 +76,7 @@ public class RitualRecipe extends ShapelessRecipe {
         this.entityToSummon = entityToSummon;
         this.pentacleId = pentacleId;
         this.ritualType = ritualType;
-        this.ritual = OccultismRituals.REGISTRY.get().getValue(this.ritualType).create(this);
+        this.ritual = () -> OccultismRituals.REGISTRY.get().getValue(this.ritualType).create(this);
         this.ritualDummy = ritualDummy;
         this.activationItem = activationItem;
         this.duration = duration;
@@ -135,7 +137,7 @@ public class RitualRecipe extends ShapelessRecipe {
      * @return true if the ritual matches, false otherwise.
      */
     public boolean matches(Level level, BlockPos goldenBowlPosition, ItemStack activationItem) {
-        return this.ritual.identify(level, goldenBowlPosition, activationItem);
+        return this.ritual.get().identify(level, goldenBowlPosition, activationItem);
     }
 
     @Override
@@ -168,7 +170,7 @@ public class RitualRecipe extends ShapelessRecipe {
     }
 
     public Ritual getRitual() {
-        return this.ritual;
+        return this.ritual.get();
     }
 
     public String getEntityToSacrificeDisplayName() {

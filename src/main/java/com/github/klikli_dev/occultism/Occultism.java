@@ -92,7 +92,9 @@ public class Occultism {
         OccultismParticles.PARTICLES.register(modEventBus);
         OccultismBiomeFeatures.FEATURES.register(modEventBus);
 
+        //now register the custom registries
         OccultismSpiritJobs.JOBS.register(modEventBus);
+        OccultismRituals.RITUAL_FACTORIES.register(modEventBus);
 
         OccultismAdvancements.register();
 
