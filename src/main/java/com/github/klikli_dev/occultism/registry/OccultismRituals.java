@@ -23,16 +23,17 @@
 package com.github.klikli_dev.occultism.registry;
 
 import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.common.job.SpiritJobFactory;
 import com.github.klikli_dev.occultism.common.ritual.*;
-import net.minecraftforge.registries.RegistryObject;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.IForgeRegistry;
-import net.minecraftforge.registries.RegistryManager;
+import net.minecraftforge.registries.*;
+
+import java.util.function.Supplier;
 
 public class OccultismRituals {
 
-    public static final IForgeRegistry<RitualFactory> RITUAL_FACTORY_REGISTRY = RegistryManager.ACTIVE.getRegistry(RitualFactory.class);
-    public static final DeferredRegister<RitualFactory> RITUAL_FACTORIES = DeferredRegister.create(RITUAL_FACTORY_REGISTRY, Occultism.MODID);
+    public static final DeferredRegister<RitualFactory> RITUAL_FACTORIES = DeferredRegister.create(RitualFactory.class, Occultism.MODID);
+
+    public static final Supplier<IForgeRegistry<RitualFactory>> REGISTRY = RITUAL_FACTORIES.makeRegistry("ritual_factory", RegistryBuilder::new);
 
     //Summoning
     public static final RegistryObject<RitualFactory> SUMMON_RITUAL =

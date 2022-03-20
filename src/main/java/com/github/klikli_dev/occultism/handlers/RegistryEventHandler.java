@@ -52,18 +52,6 @@ import static com.github.klikli_dev.occultism.util.StaticUtil.modLoc;
 public class RegistryEventHandler {
 
     @SubscribeEvent
-    public static void registerRegistries(NewRegistryEvent event) {
-        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-        event.create(new RegistryBuilder<RitualFactory>().setName(new ResourceLocation(Occultism.MODID, "ritual_factory"))
-                .setType(RitualFactory.class));
-        event.create(new RegistryBuilder<SpiritJobFactory>().setName(new ResourceLocation(Occultism.MODID, "spirit_job_factory"))
-                .setType(SpiritJobFactory.class));
-
-        OccultismSpiritJobs.JOBS.register(modEventBus);
-        OccultismRituals.RITUAL_FACTORIES.register(modEventBus);
-    }
-
-    @SubscribeEvent
     public static void onRegisterRecipeSerializers(RegistryEvent.Register<RecipeSerializer<?>> event){
         //We're not actually registering recipe serializers, but we call the recipe types so they get registered before recipe serialization
         OccultismRecipes.SPIRIT_TRADE_TYPE.get();
