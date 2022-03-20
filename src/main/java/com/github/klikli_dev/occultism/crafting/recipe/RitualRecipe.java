@@ -47,6 +47,7 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.ForgeRegistryEntry;
+import net.minecraftforge.registries.RegistryManager;
 
 public class RitualRecipe extends ShapelessRecipe {
     public static Serializer SERIALIZER = new Serializer();
@@ -73,7 +74,7 @@ public class RitualRecipe extends ShapelessRecipe {
         this.entityToSummon = entityToSummon;
         this.pentacleId = pentacleId;
         this.ritualType = ritualType;
-        this.ritual = OccultismRituals.RITUAL_FACTORY_REGISTRY.getValue(this.ritualType).create(this);
+        this.ritual = OccultismRituals.REGISTRY.get().getValue(this.ritualType).create(this);
         this.ritualDummy = ritualDummy;
         this.activationItem = activationItem;
         this.duration = duration;

@@ -32,51 +32,39 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraftforge.common.util.INBTSerializable;
 
 public abstract class SpiritJob implements INBTSerializable<CompoundTag> {
-
-    //region Fields
     public SpiritEntity entity;
     public ResourceLocation factoryId;
 
-    //endregion Fields
-    //region Initialization
     public SpiritJob(SpiritEntity entity) {
         this.entity = entity;
     }
-    //endregion Initialization
 
-    //region Static Methods
     public static SpiritJob from(SpiritEntity entity, CompoundTag nbt) {
         SpiritJobFactory factory = OccultismSpiritJobs.REGISTRY
-                .getValue(new ResourceLocation(nbt.getString("factoryId")));
+                .get().getValue(new ResourceLocation(nbt.getString("factoryId")));
         SpiritJob job = factory.create(entity);
         job.deserializeNBT(nbt);
         return job;
     }
 
-    //region Getter / Setter
     public ResourceLocation getFactoryID() {
         return this.factoryId;
     }
-    //endregion Getter / Setter
 
     public void setFactoryId(ResourceLocation factoryId) {
         this.factoryId = factoryId;
     }
 
-    //region Overrides
     @Override
     public CompoundTag serializeNBT() {
         return this.writeJobToNBT(new CompoundTag());
     }
-    //endregion Overrides
 
     @Override
     public void deserializeNBT(CompoundTag nbt) {
         this.readJobFromNBT(nbt);
     }
-    //endregion Static Methods
 
-    //region Methods
 
     /**
      * Sets up the job, e.g. AI Tasks
@@ -124,8 +112,7 @@ public abstract class SpiritJob implements INBTSerializable<CompoundTag> {
         return false;
     }
 
-    public EntityDimensions getDimensions(Pose pPose, EntityDimensions original){
+    public EntityDimensions getDimensions(Pose pPose, EntityDimensions original) {
         return original;
     }
-    //endregion Methods
 }
