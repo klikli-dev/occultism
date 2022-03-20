@@ -1,0 +1,10 @@
+{
+  "homepage": "https://www.curseforge.com/minecraft/mc-mods/occultism",
+  "1.18.2": {
+    "1.27.4": "See https://github.com/klikli-dev/occultism/releases/tag/release/v1.18.2-1.27.4",
+  },
+  "promos": {
+    "1.18.2-latest": "1.28.0",
+    "1.18.2-recommended": "1.27.4"
+  }
+}

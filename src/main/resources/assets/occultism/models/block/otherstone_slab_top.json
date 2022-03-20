@@ -1,8 +1,0 @@
-{
-  "parent": "block/slab_top",
-  "textures": {
-    "bottom": "occultism:block/otherstone_16x16_seamless",
-    "top": "occultism:block/otherstone_16x16_seamless",
-    "side": "occultism:block/otherstone_16x16_seamless"
-  }
-}
