@@ -29,6 +29,7 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Matrix4f;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.client.event.RenderLevelLastEvent;
@@ -90,11 +91,12 @@ public class SelectedBlockRenderer {
 
             PoseStack poseStack = event.getPoseStack();
             MultiBufferSource.BufferSource buffer = Minecraft.getInstance().renderBuffers().bufferSource();
+
             VertexConsumer builder = buffer.getBuffer(OccultismRenderType.BLOCK_SELECTION);
+
             poseStack.pushPose();
             Vec3 projectedView = Minecraft.getInstance().gameRenderer.getMainCamera().getPosition();
             poseStack.translate(-projectedView.x, -projectedView.y, -projectedView.z);
-            Matrix4f transform = poseStack.last().pose();
 
             for (Iterator<SelectionInfo> it = this.selectedBlocks.iterator(); it.hasNext(); ) {
                 SelectionInfo info = it.next();
@@ -105,7 +107,7 @@ public class SelectedBlockRenderer {
                     return;
                 } else {
                     RenderUtil
-                            .buildBlockOutline(builder, transform, info.selectedBlock.getX(), info.selectedBlock.getY(),
+                            .buildBlockOutline(builder, poseStack, info.selectedBlock.getX(), info.selectedBlock.getY(),
                                     info.selectedBlock.getZ(), info.color.getRed() / 255.0f,
                                     info.color.getGreen() / 255.0f, info.color.getBlue() / 255.0f,
                                     info.color.getAlpha() / 255.0f);

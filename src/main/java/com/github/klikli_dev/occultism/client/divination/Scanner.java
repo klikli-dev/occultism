@@ -22,6 +22,9 @@
 
 package com.github.klikli_dev.occultism.client.divination;
 
+import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.network.MessageSetDivinationResult;
+import com.github.klikli_dev.occultism.network.OccultismPackets;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
@@ -67,6 +70,7 @@ public class Scanner {
     public void initialize(Player player, Vec3 center, float radius, int totalTicks) {
         this.player = player;
         this.center = center;
+        Occultism.SELECTED_BLOCK_RENDERER.selectBlock(new BlockPos(center), System.currentTimeMillis() + 10000);
         this.radius = radius;
         this.radiusSquared = this.radius * this.radius;
         this.min = new BlockPos(center).offset(-this.radius, -this.radius, -this.radius);
@@ -106,6 +110,11 @@ public class Scanner {
             BlockState state = level.getBlockState(pos);
 
             //if this is the block we search for, consume it.
+            if(state.getBlock().getRegistryName().equals("occultism"))
+            {
+                Occultism.LOGGER.debug("found occultism block at {}", pos);
+            }
+
             if (this.isValidBlock(state)) {
                 resultConsumer.accept(pos);
             }
