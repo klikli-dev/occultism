@@ -512,7 +512,14 @@ public class BookOfCallingItem extends Item implements IIngredientCopyNBT, IHand
                     }
                     break;
                 case SET_EXTRACT:
-                    if (blockEntity != null &&
+                    if(this instanceof BookOfCallingManageMachineItem){
+                        if (blockEntity != null &&
+                                blockEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, facing).isPresent()) {
+                            return this.setSpiritManageMachineExtractLocation(player, world, pos, stack,
+                                    facing) ? InteractionResult.SUCCESS : InteractionResult.PASS;
+                        }
+                    }
+                    else if (blockEntity != null &&
                             blockEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, facing).isPresent()) {
                         return this.setSpiritExtractLocation(player, world, pos, stack,
                                 facing) ? InteractionResult.SUCCESS : InteractionResult.PASS;
