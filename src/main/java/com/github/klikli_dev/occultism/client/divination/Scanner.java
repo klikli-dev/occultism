@@ -23,6 +23,7 @@
 package com.github.klikli_dev.occultism.client.divination;
 
 import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.client.render.SelectedBlockRenderer;
 import com.github.klikli_dev.occultism.network.MessageSetDivinationResult;
 import com.github.klikli_dev.occultism.network.OccultismPackets;
 import net.minecraft.core.BlockPos;
@@ -39,7 +40,6 @@ import java.util.function.Consumer;
  * Based on https://github.com/MightyPirates/Scannable
  */
 public class Scanner {
-    //region Fields
     protected Block target;
 
     protected Player player;
@@ -58,19 +58,20 @@ public class Scanner {
     protected int z;
 
     private int blocksPerTick;
-    //endregion Fields
 
-    //region Initialization
+    protected boolean highlightAllResults;
+
     public Scanner(Block target) {
         this.target = target;
     }
-    //endregion Initialization
 
-    //region Methods
+    public void setHighlightAllResults(boolean highlightAllResults) {
+        this.highlightAllResults = highlightAllResults;
+    }
+
     public void initialize(Player player, Vec3 center, float radius, int totalTicks) {
         this.player = player;
         this.center = center;
-        Occultism.SELECTED_BLOCK_RENDERER.selectBlock(new BlockPos(center), System.currentTimeMillis() + 10000);
         this.radius = radius;
         this.radiusSquared = this.radius * this.radius;
         this.min = new BlockPos(center).offset(-this.radius, -this.radius, -this.radius);
@@ -110,12 +111,10 @@ public class Scanner {
             BlockState state = level.getBlockState(pos);
 
             //if this is the block we search for, consume it.
-            if(state.getBlock().getRegistryName().equals("occultism"))
-            {
-                Occultism.LOGGER.debug("found occultism block at {}", pos);
-            }
-
             if (this.isValidBlock(state)) {
+                if(this.highlightAllResults){
+                    Occultism.SELECTED_BLOCK_RENDERER.selectBlock(pos, System.currentTimeMillis() + 10000);
+                }
                 resultConsumer.accept(pos);
             }
         }
@@ -141,6 +140,4 @@ public class Scanner {
     public boolean isValidBlock(BlockState state) {
         return state.getBlock() == this.target;
     }
-
-    //endregion Methods
 }
