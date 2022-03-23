@@ -27,8 +27,8 @@ import com.github.klikli_dev.occultism.api.common.container.IStorageControllerCo
 import com.github.klikli_dev.occultism.network.MessageSetRecipe;
 import com.github.klikli_dev.occultism.network.MessageSetRecipeByID;
 import com.github.klikli_dev.occultism.network.OccultismPackets;
-import mezz.jei.api.gui.IRecipeLayout;
-import mezz.jei.api.gui.ingredient.IGuiIngredient;
+import mezz.jei.api.constants.VanillaTypes;
+import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.recipe.transfer.IRecipeTransferError;
 import mezz.jei.api.recipe.transfer.IRecipeTransferHandler;
 import mezz.jei.api.recipe.transfer.IRecipeTransferHandlerHelper;
@@ -40,46 +40,35 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.CraftingRecipe;
 
-import javax.annotation.Nullable;
 import java.util.List;
-import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Based on https://github.com/Lothrazar/Storage-Network
  */
-public class StorageControllerRecipeTransferHandler<T extends AbstractContainerMenu & IStorageControllerContainer, R extends Recipe<?>> implements IRecipeTransferHandler<T, R> {
+public class StorageControllerRecipeTransferHandler<T extends AbstractContainerMenu & IStorageControllerContainer> implements IRecipeTransferHandler<T, CraftingRecipe> {
 
-    //region Fields
     protected final Class<T> containerClass;
-    protected final Class<R> recipeClass;
     protected final IRecipeTransferHandlerHelper handlerHelper;
-    //endregion Fields
 
-    //region Initialization
-    public StorageControllerRecipeTransferHandler(Class<T> containerClass, Class<R> recipeClass, IRecipeTransferHandlerHelper handlerHelper) {
+    public StorageControllerRecipeTransferHandler(Class<T> containerClass, IRecipeTransferHandlerHelper handlerHelper) {
         this.handlerHelper = handlerHelper;
         this.containerClass = containerClass;
-        this.recipeClass = recipeClass;
     }
-    //endregion Initialization
 
-    //region Overrides
     @Override
     public Class<T> getContainerClass() {
         return this.containerClass;
     }
 
     @Override
-    public Class<R> getRecipeClass() {
-        return this.recipeClass;
+    public Class<CraftingRecipe> getRecipeClass() {
+        return CraftingRecipe.class;
     }
 
-    @Nullable
-    @Override
-    public IRecipeTransferError transferRecipe(T container, R recipe, IRecipeLayout recipeLayout,
-                                               Player player, boolean maxTransfer, boolean doTransfer) {
+    public IRecipeTransferError transferRecipe(T container, CraftingRecipe recipe, IRecipeSlotsView recipeSlots, Player player, boolean maxTransfer, boolean doTransfer) {
 
         if (recipe.getId() == null) {
             return this.handlerHelper.createUserErrorWithTooltip(new TranslatableComponent("jei." + Occultism.MODID + "error.missing_id"));
@@ -98,34 +87,31 @@ public class StorageControllerRecipeTransferHandler<T extends AbstractContainerM
 //        }
 
         //if recipe is in recipe manager send by id, otherwise fallback to ingredient list
-        if(doTransfer) {
+        if (doTransfer) {
             if (player.getCommandSenderWorld().getRecipeManager().byKey(recipe.getId()).isPresent()) {
                 OccultismPackets.sendToServer(new MessageSetRecipeByID(recipe.getId()));
             } else {
-                OccultismPackets.sendToServer(new MessageSetRecipe(this.recipeToTag(container, recipeLayout)));
+                OccultismPackets.sendToServer(new MessageSetRecipe(this.recipeToNbt(container, recipeSlots)));
             }
         }
         return null;
     }
-    //endregion Overrides
 
-
-    //region Methods
-    public CompoundTag recipeToTag(AbstractContainerMenu container, IRecipeLayout recipeLayout) {
+    public CompoundTag recipeToNbt(AbstractContainerMenu container, IRecipeSlotsView recipeSlots) {
         CompoundTag nbt = new CompoundTag();
-        Map<Integer, ? extends IGuiIngredient<ItemStack>> inputs = recipeLayout.getItemStacks().getGuiIngredients();
+        var slotsViewList = recipeSlots.getSlotViews();
 
         for (Slot slot : container.slots) {
             if (slot.container instanceof CraftingContainer) {
 
-                //get ingredient from recipe layout
-                IGuiIngredient<ItemStack> ingredient = inputs.get(slot.getSlotIndex() + 1);
-                if (ingredient == null) {
+                //get slot view corresponding to slot
+                var slotView = slotsViewList.get(slot.getSlotIndex() + 1);
+                if (slotView == null) {
                     continue;
                 }
 
                 //gets all items matching ingredients.
-                List<ItemStack> possibleItems = ingredient.getAllIngredients();
+                List<ItemStack> possibleItems = slotView.getIngredients(VanillaTypes.ITEM).collect(Collectors.toList());
                 if (possibleItems.isEmpty()) {
                     continue;
                 }

@@ -27,6 +27,7 @@ import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.math.Matrix3f;
 import com.mojang.math.Matrix4f;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -55,34 +56,57 @@ public class RenderUtil {
      * @param b         the color b.
      * @param a         the color a.
      */
-    public static void buildBlockOutline(VertexConsumer buffer, Matrix4f transform, float x, float y, float z, float r, float g, float b, float a) {
-        buffer.vertex(transform, x, y, z).color(r, g, b, a).endVertex();
-        buffer.vertex(transform, x + 1, y, z).color(r, g, b, a).endVertex();
-        buffer.vertex(transform, x, y, z).color(r, g, b, a).endVertex();
-        buffer.vertex(transform, x, y + 1, z).color(r, g, b, a).endVertex();
-        buffer.vertex(transform, x, y, z).color(r, g, b, a).endVertex();
-        buffer.vertex(transform, x, y, z + 1).color(r, g, b, a).endVertex();
-        buffer.vertex(transform, x + 1, y + 1, z + 1).color(r, g, b, a).endVertex();
-        buffer.vertex(transform, x, y + 1, z + 1).color(r, g, b, a).endVertex();
-        buffer.vertex(transform, x + 1, y + 1, z + 1).color(r, g, b, a).endVertex();
-        buffer.vertex(transform, x + 1, y, z + 1).color(r, g, b, a).endVertex();
-        buffer.vertex(transform, x + 1, y + 1, z + 1).color(r, g, b, a).endVertex();
-        buffer.vertex(transform, x + 1, y + 1, z).color(r, g, b, a).endVertex();
+    public static void buildBlockOutline(VertexConsumer buffer, PoseStack stack,
+                                         float x, float y, float z, float red, float green, float blue, float alpha) {
+        Matrix4f matrix4f = stack.last().pose();
+        Matrix3f matrix3f = stack.last().normal();
 
-        buffer.vertex(transform, x, y + 1, z).color(r, g, b, a).endVertex();
-        buffer.vertex(transform, x, y + 1, z + 1).color(r, g, b, a).endVertex();
-        buffer.vertex(transform, x, y + 1, z).color(r, g, b, a).endVertex();
-        buffer.vertex(transform, x + 1, y + 1, z).color(r, g, b, a).endVertex();
+        float minX = x;
+        float minY = y;
+        float minZ = z;
 
-        buffer.vertex(transform, x + 1, y, z).color(r, g, b, a).endVertex();
-        buffer.vertex(transform, x + 1, y, z + 1).color(r, g, b, a).endVertex();
-        buffer.vertex(transform, x + 1, y, z).color(r, g, b, a).endVertex();
-        buffer.vertex(transform, x + 1, y + 1, z).color(r, g, b, a).endVertex();
+        float maxX = x+1;
+        float maxY = y+1;
+        float maxZ = z+1;
 
-        buffer.vertex(transform, x, y, z + 1).color(r, g, b, a).endVertex();
-        buffer.vertex(transform, x + 1, y, z + 1).color(r, g, b, a).endVertex();
-        buffer.vertex(transform, x, y, z + 1).color(r, g, b, a).endVertex();
-        buffer.vertex(transform, x, y + 1, z + 1).color(r, g, b, a).endVertex();
+        //Bottom
+        buffer.vertex(matrix4f, minX, minY, maxZ).color(red, green, blue, alpha).normal(matrix3f, 0, -1, 0).endVertex();
+        buffer.vertex(matrix4f, maxX, minY, maxZ).color(red, green, blue, alpha).normal(matrix3f, 0, -1, 0).endVertex();
+
+        buffer.vertex(matrix4f, minX, minY, minZ).color(red, green, blue, alpha).normal(matrix3f, 0, -1, 0).endVertex();
+        buffer.vertex(matrix4f, maxX, minY, minZ).color(red, green, blue, alpha).normal(matrix3f, 0, -1, 0).endVertex();
+
+        buffer.vertex(matrix4f, minX, minY, minZ).color(red, green, blue, alpha).normal(matrix3f, 0, -1, 0).endVertex();
+        buffer.vertex(matrix4f, minX, minY, maxZ).color(red, green, blue, alpha).normal(matrix3f, 0, -1, 0).endVertex();
+
+        buffer.vertex(matrix4f, maxX, minY, minZ).color(red, green, blue, alpha).normal(matrix3f, 0, -1, 0).endVertex();
+        buffer.vertex(matrix4f, maxX, minY, maxZ).color(red, green, blue, alpha).normal(matrix3f, 0, -1, 0).endVertex();
+
+        //Top
+        buffer.vertex(matrix4f, minX, maxY, maxZ).color(red, green, blue, alpha).normal(matrix3f, 0, 1, 0).endVertex();
+        buffer.vertex(matrix4f, maxX, maxY, maxZ).color(red, green, blue, alpha).normal(matrix3f, 0, 1, 0).endVertex();
+
+        buffer.vertex(matrix4f, minX, maxY, minZ).color(red, green, blue, alpha).normal(matrix3f, 0, 1, 0).endVertex();
+        buffer.vertex(matrix4f, maxX, maxY, minZ).color(red, green, blue, alpha).normal(matrix3f, 0, 1, 0).endVertex();
+
+        buffer.vertex(matrix4f, minX, maxY, minZ).color(red, green, blue, alpha).normal(matrix3f, 0, 1, 0).endVertex();
+        buffer.vertex(matrix4f, minX, maxY, maxZ).color(red, green, blue, alpha).normal(matrix3f, 0, 1, 0).endVertex();
+
+        buffer.vertex(matrix4f, maxX, maxY, minZ).color(red, green, blue, alpha).normal(matrix3f, 0, 1, 0).endVertex();
+        buffer.vertex(matrix4f, maxX, maxY, maxZ).color(red, green, blue, alpha).normal(matrix3f, 0, 1, 0).endVertex();
+
+        //Sides
+        buffer.vertex(matrix4f, minX, minY, minZ).color(red, green, blue, alpha).normal(matrix3f, 0, 0, -1).endVertex();
+        buffer.vertex(matrix4f, minX, maxY, minZ).color(red, green, blue, alpha).normal(matrix3f, 0, 0, -1).endVertex();
+
+        buffer.vertex(matrix4f, maxX, minY, maxZ).color(red, green, blue, alpha).normal(matrix3f, 0, 0, 1).endVertex();
+        buffer.vertex(matrix4f, maxX, maxY, maxZ).color(red, green, blue, alpha).normal(matrix3f, 0, 0, 1).endVertex();
+
+        buffer.vertex(matrix4f, minX, minY, maxZ).color(red, green, blue, alpha).normal(matrix3f, 0, 0, 1).endVertex();
+        buffer.vertex(matrix4f, minX, maxY, maxZ).color(red, green, blue, alpha).normal(matrix3f, 0, 0, 1).endVertex();
+
+        buffer.vertex(matrix4f, maxX, minY, minZ).color(red, green, blue, alpha).normal(matrix3f, 0, 0, -1).endVertex();
+        buffer.vertex(matrix4f, maxX, maxY, minZ).color(red, green, blue, alpha).normal(matrix3f, 0, 0, -1).endVertex();
     }
 
     /**

@@ -38,7 +38,6 @@ import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.github.klikli_dev.occultism.registry.OccultismRecipes;
 import mezz.jei.api.IModPlugin;
-import mezz.jei.api.constants.VanillaRecipeCategoryUid;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.helpers.IStackHelper;
 import mezz.jei.api.recipe.transfer.IRecipeTransferHandlerHelper;
@@ -52,28 +51,20 @@ import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.ItemLike;
 
 import java.util.List;
+
 @mezz.jei.api.JeiPlugin
 public class JeiPlugin implements IModPlugin {
 
-    //region Fields
-
     protected static IJeiRuntime runtime;
-    //endregion Fields
-
-    //region Getter / Setter
 
     public static IJeiRuntime getJeiRuntime() {
         return runtime;
     }
 
-    //endregion Getter / Setter
-
-    //region Overrides
     @Override
     public ResourceLocation getPluginUid() {
         return new ResourceLocation(Occultism.MODID, "jei");
@@ -92,18 +83,17 @@ public class JeiPlugin implements IModPlugin {
         ClientLevel level = Minecraft.getInstance().level;
         RecipeManager recipeManager = level.getRecipeManager();
 
-
         List<SpiritFireRecipe> spiritFireRecipes = recipeManager.getAllRecipesFor(OccultismRecipes.SPIRIT_FIRE_TYPE.get());
-        registration.addRecipes(spiritFireRecipes, OccultismRecipes.SPIRIT_FIRE.getId());
+        registration.addRecipes(JeiRecipeTypes.SPIRIT_FIRE, spiritFireRecipes);
 
         List<CrushingRecipe> crushingRecipes = recipeManager.getAllRecipesFor(OccultismRecipes.CRUSHING_TYPE.get());
-        registration.addRecipes(crushingRecipes, OccultismRecipes.CRUSHING.getId());
+        registration.addRecipes(JeiRecipeTypes.CRUSHING, crushingRecipes);
 
         List<MinerRecipe> minerRecipes = recipeManager.getAllRecipesFor(OccultismRecipes.MINER_TYPE.get());
-        registration.addRecipes(minerRecipes, OccultismRecipes.MINER.getId());
+        registration.addRecipes(JeiRecipeTypes.MINER, minerRecipes);
 
         List<RitualRecipe> ritualRecipes = recipeManager.getAllRecipesFor(OccultismRecipes.RITUAL_TYPE.get());
-        registration.addRecipes(ritualRecipes, OccultismRecipes.RITUAL.getId());
+        registration.addRecipes(JeiRecipeTypes.RITUAL, ritualRecipes);
 
         this.registerIngredientInfo(registration, OccultismItems.TALLOW.get());
         this.registerIngredientInfo(registration, OccultismBlocks.OTHERSTONE.get());
@@ -115,35 +105,26 @@ public class JeiPlugin implements IModPlugin {
         this.registerIngredientInfo(registration, OccultismBlocks.SPIRIT_FIRE.get());
     }
 
-    public void registerIngredientInfo(IRecipeRegistration registration, ItemLike ingredient) {
-        registration.addIngredientInfo(new ItemStack(ingredient.asItem()), VanillaTypes.ITEM,
-                new TranslatableComponent("jei." + Occultism.MODID + ".ingredient." + ingredient.asItem().getRegistryName().getPath() + ".description"));
-    }
-
     @Override
     public void registerRecipeTransferHandlers(IRecipeTransferRegistration registration) {
-        //region Fields
         IStackHelper stackHelper = registration.getJeiHelpers().getStackHelper();
         IRecipeTransferHandlerHelper handlerHelper = registration.getTransferHelper();
-        registration.addRecipeTransferHandler(new StorageControllerRecipeTransferHandler<>(
-                        StorageControllerContainer.class, CraftingRecipe.class, handlerHelper),
-                VanillaRecipeCategoryUid.CRAFTING);
-        registration.addRecipeTransferHandler(new StorageControllerRecipeTransferHandler<>(
-                        StorageRemoteContainer.class, CraftingRecipe.class, handlerHelper),
-                VanillaRecipeCategoryUid.CRAFTING);
-        registration.addRecipeTransferHandler(new StorageControllerRecipeTransferHandler<>(
-                        StableWormholeContainer.class, CraftingRecipe.class, handlerHelper),
-                VanillaRecipeCategoryUid.CRAFTING);
+        registration.addUniversalRecipeTransferHandler(new StorageControllerRecipeTransferHandler<>(
+                StorageControllerContainer.class, handlerHelper));
+        registration.addUniversalRecipeTransferHandler(new StorageControllerRecipeTransferHandler<>(
+                StorageRemoteContainer.class, handlerHelper));
+        registration.addUniversalRecipeTransferHandler(new StorageControllerRecipeTransferHandler<>(
+                StableWormholeContainer.class, handlerHelper));
     }
 
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
         registration.addRecipeCatalyst(new ItemStack(OccultismBlocks.SPIRIT_FIRE.get()),
-                OccultismRecipes.SPIRIT_FIRE.getId());
+                JeiRecipeTypes.SPIRIT_FIRE);
         registration.addRecipeCatalyst(new ItemStack(OccultismBlocks.DIMENSIONAL_MINESHAFT.get()),
-                OccultismRecipes.MINER.getId());
+                JeiRecipeTypes.MINER);
         registration.addRecipeCatalyst(new ItemStack(OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL.get()),
-                OccultismRecipes.RITUAL.getId());
+                JeiRecipeTypes.RITUAL);
     }
 
     @Override
@@ -151,6 +132,9 @@ public class JeiPlugin implements IModPlugin {
         JeiPlugin.runtime = jeiRuntime;
         JeiSettings.setJeiLoaded(true);
     }
-    //endregion Overrides
 
+    public void registerIngredientInfo(IRecipeRegistration registration, ItemLike ingredient) {
+        registration.addIngredientInfo(new ItemStack(ingredient.asItem()), VanillaTypes.ITEM,
+                new TranslatableComponent("jei." + Occultism.MODID + ".ingredient." + ingredient.asItem().getRegistryName().getPath() + ".description"));
+    }
 }

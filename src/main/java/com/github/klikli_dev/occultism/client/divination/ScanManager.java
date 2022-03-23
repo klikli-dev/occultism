@@ -22,6 +22,7 @@
 
 package com.github.klikli_dev.occultism.client.divination;
 
+import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.util.Math3DUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
@@ -36,21 +37,19 @@ import java.util.List;
  * Based on https://github.com/MightyPirates/Scannable
  */
 public class ScanManager {
-    //region Fields
     public static final ScanManager instance = new ScanManager();
     public static final int SCAN_DURATION_TICKS = 40;
     public static final int SCAN_RADIUS_BLOCKS = 96;
     List<BlockPos> results = new ArrayList<>();
     private Scanner scanner;
     private int scanningTicks = -1;
-    //endregion Fields
 
-    //region Methods
     public void beginScan(Player player, Block target) {
         this.cancelScan();
 
         this.scanner = new Scanner(target);
-        this.scanner.initialize(player, player.position(), SCAN_RADIUS_BLOCKS, SCAN_DURATION_TICKS);
+        this.scanner.initialize(player, player.position(), Occultism.CLIENT_CONFIG.misc.divinationRodScanRange.get(), SCAN_DURATION_TICKS);
+        this.scanner.setHighlightAllResults(Occultism.CLIENT_CONFIG.misc.divinationRodHighlightAllResults.get());
     }
 
     public void updateScan(Player player, boolean forceFinish) {
@@ -90,6 +89,4 @@ public class ScanManager {
         this.results.clear();
         this.scanningTicks = -1;
     }
-
-    //endregion Methods
 }

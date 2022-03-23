@@ -23,11 +23,11 @@
 package com.github.klikli_dev.occultism.handlers;
 
 import com.github.klikli_dev.occultism.Occultism;
-import com.github.klikli_dev.occultism.common.job.SpiritJobFactory;
-import com.github.klikli_dev.occultism.common.ritual.RitualFactory;
 import com.github.klikli_dev.occultism.loot.AddItemModifier;
-import com.github.klikli_dev.occultism.registry.*;
-import net.minecraft.resources.ResourceLocation;
+import com.github.klikli_dev.occultism.registry.OccultismBlocks;
+import com.github.klikli_dev.occultism.registry.OccultismEntities;
+import com.github.klikli_dev.occultism.registry.OccultismItems;
+import com.github.klikli_dev.occultism.registry.OccultismRecipes;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.item.BlockItem;
@@ -37,13 +37,9 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.block.ComposterBlock;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.IForgeRegistry;
-import net.minecraftforge.registries.NewRegistryEvent;
-import net.minecraftforge.registries.RegistryBuilder;
 import net.minecraftforge.registries.RegistryObject;
 
 import static com.github.klikli_dev.occultism.util.StaticUtil.modLoc;
@@ -52,19 +48,7 @@ import static com.github.klikli_dev.occultism.util.StaticUtil.modLoc;
 public class RegistryEventHandler {
 
     @SubscribeEvent
-    public static void registerRegistries(NewRegistryEvent event) {
-        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-        event.create(new RegistryBuilder<RitualFactory>().setName(new ResourceLocation(Occultism.MODID, "ritual_factory"))
-                        .setType(RitualFactory.class));
-        event.create(new RegistryBuilder<SpiritJobFactory>().setName(new ResourceLocation(Occultism.MODID, "spirit_job_factory"))
-                .setType(SpiritJobFactory.class));
-
-        OccultismSpiritJobs.JOBS.register(modEventBus);
-        OccultismRituals.RITUAL_FACTORIES.register(modEventBus);
-    }
-
-    @SubscribeEvent
-    public static void onRegisterRecipeSerializers(RegistryEvent.Register<RecipeSerializer<?>> event){
+    public static void onRegisterRecipeSerializers(RegistryEvent.Register<RecipeSerializer<?>> event) {
         //We're not actually registering recipe serializers, but we call the recipe types so they get registered before recipe serialization
         OccultismRecipes.SPIRIT_TRADE_TYPE.get();
         OccultismRecipes.SPIRIT_FIRE_TYPE.get();

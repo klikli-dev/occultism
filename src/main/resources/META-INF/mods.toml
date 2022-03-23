@@ -23,7 +23,7 @@ version="${file.jarVersion}" #mandatory
  # A display name for the mod
 displayName="Occultism" #mandatory
 # A URL to query for updates for this mod. See the JSON update specification <here>
-# updateJSONURL="http://myurl.me/" #optional
+updateJSONURL="https://raw.githubusercontent.com/klikli-dev/occultism/meta/updates.json" #optional
 # A URL for the "homepage" for this mod, displayed in the mod UI
 displayURL="https://www.curseforge.com/minecraft/mc-mods/occultism" #optional
 # A file name (in the root of the mod JAR) containing a logo for display
@@ -57,4 +57,10 @@ description='''A magic mod inspired by the world of Jonathan Stroud's Bartimaeus
     modId="jei"
     mandatory=false
     versionRange="[1.18-9.0.0.40,)"
+    side="BOTH"
+
+[[dependencies.occultism]]
+    modId="forge"
+    mandatory=false
+    versionRange="[40.0.18,)"
     side="BOTH"
