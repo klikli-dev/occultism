@@ -43,16 +43,13 @@ jobs:
           result-encoding: string
           script: |
             return '${{ github.ref }}'.match(/refs\/tags\/(.*)\/v((.*)-(.*))/)[3];
-      - name: "Build"
-        uses: eskatos/gradle-command-action@v1
+      - name: Build
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: build
         env:
           VERSION: ${{ steps.get_mc_version.outputs.result }}-${{ steps.get_version.outputs.result }}
-          CURSEFORGE_API_KEY: ${{ secrets.CURSEFORGE_API_KEY }}
-        with:
-          arguments: build --max-workers 1
-          distributions-cache-enabled: true
-          dependencies-cache-enabled: true
-          configuration-cache-enabled: true
+          GRADLE_BUILD_ACTION_CACHE_DEBUG_ENABLED: true
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
