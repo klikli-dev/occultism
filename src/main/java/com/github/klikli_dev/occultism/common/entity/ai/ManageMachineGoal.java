@@ -50,25 +50,20 @@ import java.util.List;
 import java.util.stream.Stream;
 
 public class ManageMachineGoal extends Goal {
-    //region Fields
     protected final SpiritEntity entity;
     protected final BlockSorter targetSorter;
     protected BlockPos targetBlock = null;
     protected BlockEntity cachedStorageAccessor;
     protected DepositOrder cachedStorageAccessorOrder;
     protected ManageMachineJob job;
-    //endregion Fields
 
-    //region Initialization
     public ManageMachineGoal(SpiritEntity entity, ManageMachineJob job) {
         this.entity = entity;
         this.job = job;
         this.targetSorter = new BlockSorter(entity);
         this.setFlags(EnumSet.of(Flag.MOVE));
     }
-    //endregion Initialization
 
-    //region Getter / Setter
 
     /**
      * @return the position to move to to deposit the target block.
@@ -77,9 +72,7 @@ public class ManageMachineGoal extends Goal {
         double angle = Math3DUtil.yaw(this.entity.position(), Math3DUtil.center(this.targetBlock));
         return this.targetBlock.relative(Direction.fromYRot(angle).getOpposite());
     }
-    //endregion Getter / Setter
 
-    //region Overrides
     @Override
     public boolean canUse() {
         //do not use if there is a target to attack
@@ -106,6 +99,11 @@ public class ManageMachineGoal extends Goal {
 
     @Override
     public void tick() {
+        //extract Resource from Storage Controller: ManageMachineGoal
+        //insert Resource into Machine: DepositItemsGoal
+        //Extract Result from Machine: ManageMachineGoal
+        //Insert Result into Storage Controller: DepositItemsGoal
+
         if (this.targetBlock != null) {
             if (this.entity.level.getBlockEntity(this.targetBlock) != null && this.job.getStorageController() != null) {
 
@@ -113,7 +111,7 @@ public class ManageMachineGoal extends Goal {
 
                 //when approaching a chest, open it visually
                 double distance = this.entity.position().distanceTo(Math3DUtil.center(this.targetBlock));
-                float accessDistance = 1.86f;
+                float accessDistance = 2.2f;//1.86f;
                 if (distance < accessDistance) {
                     //stop moving while taking out
                     this.entity.getNavigation().stop();
@@ -143,13 +141,13 @@ public class ManageMachineGoal extends Goal {
                             ItemHandlerHelper.insertItem(handler, extracted, false);
 
                             //job fulfilled, deposit ai will take over
-                            this.entity.setDepositPosition(machineReference.globalPos.getPos());
+                            this.entity.setDepositPosition(machineReference.insertGlobalPos.getPos());
                             this.entity.setDepositFacing(machineReference.insertFacing);
                             this.job.setCurrentDepositOrder(null);
                             this.targetBlock = null;
                         }
-                    } else if (this.targetBlock.equals(machineReference.globalPos.getPos())) {
-                        //if we reached the machine, we take out the result
+                    } else if (this.targetBlock.equals(machineReference.extractGlobalPos.getPos())) {
+                        //if we reached the machine (=extract block entity), we take out the result
 
 
                         blockEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY,
@@ -199,9 +197,7 @@ public class ManageMachineGoal extends Goal {
             }
         }
     }
-    //endregion Overrides
 
-    //region Methods
     public boolean canSeeTarget() {
         BlockState targetBlockState = this.entity.level.getBlockState(this.targetBlock);
         ClipContext context = new ClipContext(this.entity.getEyePosition(0),
@@ -225,7 +221,7 @@ public class ManageMachineGoal extends Goal {
 
         Level level = this.entity.level;
         List<BlockPos> allBlocks = new ArrayList<>();
-        BlockPos machinePosition = this.job.getManagedMachine().globalPos.getPos();
+        BlockPos machinePosition = this.job.getManagedMachine().insertGlobalPos.getPos();
 
         //get work area, but only half height, we don't need full.
         int workAreaSize = this.entity.getWorkAreaSize().getValue();
@@ -278,13 +274,13 @@ public class ManageMachineGoal extends Goal {
                 }).orElse(false);
     }
 
-    private boolean startTargetingMachine(DepositOrder depositOrder, MachineReference machineReference,
-                                          BlockEntity machine, IStorageController storageController) {
-        return machine.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, machineReference.extractFacing)
+    private boolean startTargetingExtractBlockEntity(DepositOrder depositOrder, MachineReference machineReference,
+                                                     BlockEntity extractBlockEntity, IStorageController storageController) {
+        return extractBlockEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, machineReference.extractFacing)
                 .map(machineItemHandler -> {
                     for (int i = 0; i < machineItemHandler.getSlots(); i++) {
                         if (!machineItemHandler.getStackInSlot(i).isEmpty()) {
-                            this.targetBlock = machine.getBlockPos();
+                            this.targetBlock = extractBlockEntity.getBlockPos();
                             return true;
                         }
                     }
@@ -297,15 +293,14 @@ public class ManageMachineGoal extends Goal {
         DepositOrder currentOrder = this.job.getCurrentDepositOrder();
         MachineReference machineReference = this.job.getManagedMachine();
         BlockEntity machine = this.job.getManagedMachineBlockEntity();
+        BlockEntity extractBlockEntity = this.job.getExtractBlockEntity();
         IStorageController storageController = this.job.getStorageController();
 
-        if (machine != null && storageController != null) {
+        if (machine != null && extractBlockEntity != null && storageController != null) {
 
             //machine was replaced or no longer supports inventories, so we unlink it and abort
-            if (!machine.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, machineReference.insertFacing)
-                    .isPresent() ||
-                    !machine.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, machineReference.extractFacing)
-                            .isPresent()) {
+            if (!machine.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, machineReference.insertFacing).isPresent() ||
+                    !extractBlockEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, machineReference.extractFacing).isPresent()) {
                 this.job.setManagedMachine(null);
                 this.targetBlock = null;
                 return;
@@ -315,9 +310,9 @@ public class ManageMachineGoal extends Goal {
             if (currentOrder == null ||
                     !this.startTargetingStorageController(currentOrder, machineReference, machine, storageController)) {
                 //we either have no order, or no space in the machine, so we extract from  the machine first
-                this.startTargetingMachine(currentOrder, machineReference, machine, storageController);
+                //to be precise, we extract from the extract block entity, which might be different from the machine
+                this.startTargetingExtractBlockEntity(currentOrder, machineReference, extractBlockEntity, storageController);
             }
         }
     }
-    //endregion Methods
 }

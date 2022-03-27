@@ -233,7 +233,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
 
     @Override
     public void linkMachine(MachineReference machine) {
-        this.linkedMachines.put(machine.globalPos, machine);
+        this.linkedMachines.put(machine.insertGlobalPos, machine);
     }
 
     @Override
@@ -449,7 +449,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
             ListTag machinesNbt = compound.getList("linkedMachines", Tag.TAG_COMPOUND);
             for (int i = 0; i < machinesNbt.size(); i++) {
                 MachineReference reference = MachineReference.from(machinesNbt.getCompound(i));
-                this.linkedMachines.put(reference.globalPos, reference);
+                this.linkedMachines.put(reference.insertGlobalPos, reference);
             }
         }
     }
@@ -553,7 +553,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
 
     protected void validateLinkedMachines() {
         // remove all entries that lead to invalid block entities.
-        this.linkedMachines.entrySet().removeIf(entry -> entry.getValue().getBlockEntity(this.level) == null);
+        this.linkedMachines.entrySet().removeIf(entry -> !entry.getValue().isValidFor(this.level));
     }
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event)

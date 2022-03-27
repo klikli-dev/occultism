@@ -188,7 +188,7 @@ public class BookOfCallingManagedMachineGui extends Screen {
 
     //region Methods
     public MachineReference makeMachineReference() {
-        MachineReference reference = new MachineReference(null, null, false);
+        MachineReference reference = new MachineReference(null, null, false, null, null, false);
         reference.insertFacing = this.insertFacing;
         reference.extractFacing = this.extractFacing;
         reference.customName = this.customName;

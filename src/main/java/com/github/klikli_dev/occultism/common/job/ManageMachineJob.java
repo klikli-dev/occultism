@@ -53,6 +53,7 @@ public class ManageMachineJob extends SpiritJob {
     protected Queue<DepositOrder> depositOrderQueue = new ArrayDeque<>();
     protected IStorageController storageController;
     protected BlockEntity managedMachineBlockEntity;
+    protected BlockEntity extractBlockEntity;
 
     //endregion Fields
     //region Initialization
@@ -80,6 +81,7 @@ public class ManageMachineJob extends SpiritJob {
 
         this.managedMachine = managedMachine;
         this.managedMachineBlockEntity = null; //reset, next call to get will refill it based on the new managed machine.
+        this.extractBlockEntity = null; //reset, next call to get will refill it based on the new managed machine.
         this.clearAllOrders();
         this.registerWithStorageController();
     }
@@ -117,11 +119,23 @@ public class ManageMachineJob extends SpiritJob {
             return null;
 
         if (this.managedMachineBlockEntity == null) {
-            this.managedMachineBlockEntity = BlockEntityUtil.get(this.entity.level, this.managedMachine.globalPos);
+            this.managedMachineBlockEntity = BlockEntityUtil.get(this.entity.level, this.managedMachine.insertGlobalPos);
 
         }
 
         return this.managedMachineBlockEntity;
+    }
+
+    public BlockEntity getExtractBlockEntity() {
+        if (this.managedMachine == null)
+            return null;
+
+        if (this.extractBlockEntity == null) {
+            this.extractBlockEntity = BlockEntityUtil.get(this.entity.level, this.managedMachine.extractGlobalPos);
+
+        }
+
+        return this.extractBlockEntity;
     }
     //endregion Getter / Setter
 
@@ -220,7 +234,7 @@ public class ManageMachineJob extends SpiritJob {
         IStorageController storageController = this.getStorageController();
 
         if (storageController != null && this.managedMachine != null) {
-            storageController.addDepositOrderSpirit(this.managedMachine.globalPos, this.entity.getUUID());
+            storageController.addDepositOrderSpirit(this.managedMachine.insertGlobalPos, this.entity.getUUID());
             storageController.linkMachine(this.managedMachine);
             BlockEntityUtil.updateTile(this.entity.level, this.getStorageControllerPosition().getPos());
         }
@@ -230,7 +244,7 @@ public class ManageMachineJob extends SpiritJob {
         if (this.storageControllerPosition != null && this.managedMachine != null) {
             IStorageController storageController = this.getStorageController();
             if (storageController != null)
-                storageController.removeDepositOrderSpirit(this.managedMachine.globalPos);
+                storageController.removeDepositOrderSpirit(this.managedMachine.insertGlobalPos);
         }
     }
     //endregion Methods
