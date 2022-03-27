@@ -76,6 +76,7 @@ public class OtherworldSaplingNaturalBlock extends SaplingBlock implements IOthe
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public ItemStack getCloneItemStack(BlockGetter worldIn, BlockPos pos, BlockState state) {
         return IOtherworldBlock.super.getItem(worldIn, pos, state);
     }

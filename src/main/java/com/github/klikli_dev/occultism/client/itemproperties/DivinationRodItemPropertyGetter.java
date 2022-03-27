@@ -33,6 +33,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import javax.annotation.Nullable;
 
 @OnlyIn(Dist.CLIENT)
+@SuppressWarnings("deprecation")
 public class DivinationRodItemPropertyGetter implements ItemPropertyFunction {
 
     @Override

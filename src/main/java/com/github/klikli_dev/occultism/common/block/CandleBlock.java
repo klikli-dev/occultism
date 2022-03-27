@@ -71,6 +71,7 @@ public class CandleBlock extends Block {
     //region Overrides
 
     @Override
+    @SuppressWarnings("deprecation")
     public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
         return SHAPE;
     }
@@ -85,6 +86,7 @@ public class CandleBlock extends Block {
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block blockIn, BlockPos fromPos,
                                 boolean isMoving) {
         if (!this.canSurvive(state, worldIn, pos)) {
@@ -99,6 +101,7 @@ public class CandleBlock extends Block {
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public boolean canSurvive(BlockState state, LevelReader worldIn, BlockPos pos) {
         BlockPos down = pos.below();
         BlockState downState = worldIn.getBlockState(down);

@@ -80,6 +80,7 @@ public class OtherworldLeavesNaturalBlock extends LeavesBlock implements IOtherw
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public ItemStack getCloneItemStack(BlockGetter worldIn, BlockPos pos, BlockState state) {
         return IOtherworldBlock.super.getItem(worldIn, pos, state);
     }

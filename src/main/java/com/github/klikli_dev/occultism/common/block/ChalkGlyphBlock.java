@@ -79,6 +79,7 @@ public class ChalkGlyphBlock extends Block {
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block blockIn, BlockPos fromPos,
                                 boolean isMoving) {
         if (!this.canSurvive(state, worldIn, pos)) {
@@ -87,16 +88,19 @@ public class ChalkGlyphBlock extends Block {
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public boolean canBeReplaced(BlockState state, BlockPlaceContext context) {
         return true;
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public boolean canBeReplaced(BlockState state, Fluid fluid) {
         return true;
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public boolean canSurvive(BlockState state, LevelReader worldIn, BlockPos pos) {
         BlockPos down = pos.below();
         BlockState downState = worldIn.getBlockState(down);
@@ -104,11 +108,13 @@ public class ChalkGlyphBlock extends Block {
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
         return SHAPE;
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public VoxelShape getCollisionShape(BlockState state, BlockGetter worldIn, BlockPos pos,
                                         CollisionContext context) {
         return Shapes.empty();

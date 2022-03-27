@@ -106,6 +106,7 @@ public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScree
 
     //region Overrides
     @Override
+    @SuppressWarnings("deprecation")
     public void init() {
         super.init();
         this.clearWidgets();

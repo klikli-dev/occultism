@@ -67,11 +67,13 @@ public class StorageStabilizerBlock extends Block {
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public boolean isPathfindable(BlockState pState, BlockGetter pLevel, BlockPos pPos, PathComputationType pType) {
         return super.isPathfindable(pState, pLevel, pPos, pType);
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
         if (state != newState) {
             this.notifyStorageControllers(level, pos, state);
@@ -80,6 +82,7 @@ public class StorageStabilizerBlock extends Block {
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
         return SHAPES.get(state.getValue(BlockStateProperties.FACING));
     }

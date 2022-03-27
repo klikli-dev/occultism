@@ -66,17 +66,20 @@ public class StorageControllerBlock extends Block implements EntityBlock {
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public boolean isPathfindable(BlockState pState, BlockGetter pLevel, BlockPos pPos, PathComputationType pType) {
         return super.isPathfindable(pState, pLevel, pPos, pType);
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public void onRemove(BlockState state, Level worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
         BlockEntityUtil.onBlockChangeDropWithNbt(this, state, worldIn, pos, newState);
         super.onRemove(state, worldIn, pos, newState, isMoving);
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player,
                                  InteractionHand handIn, BlockHitResult rayTraceResult) {
         if (!level.isClientSide) {
@@ -89,11 +92,13 @@ public class StorageControllerBlock extends Block implements EntityBlock {
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
         return SHAPE;
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public ItemStack getCloneItemStack(BlockGetter worldIn, BlockPos pos, BlockState state) {
         return BlockEntityUtil.getItemWithNbt(this, worldIn, pos);
     }

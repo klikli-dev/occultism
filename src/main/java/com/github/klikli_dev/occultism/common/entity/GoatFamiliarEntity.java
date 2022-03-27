@@ -209,6 +209,7 @@ public class GoatFamiliarEntity extends ResizableFamiliarEntity {
         return this.isBlack() && this.hasRedEyes() && this.hasEvilHorns();
     }
 
+    @SuppressWarnings("deprecation")
     private boolean isInForest(Entity entity) {
         return Biome.getBiomeCategory(this.level.getBiome(entity.blockPosition())) == BiomeCategory.FOREST;
     }

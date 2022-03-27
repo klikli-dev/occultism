@@ -32,8 +32,9 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import javax.annotation.Nullable;
 
 @OnlyIn(Dist.CLIENT)
+@SuppressWarnings("deprecation")
 public class StorageRemoteItemPropertyGetter implements ItemPropertyFunction {
-    //region Overrides
+
     @OnlyIn(Dist.CLIENT)
     @Override
     public float call(ItemStack stack, @Nullable ClientLevel worldIn, @Nullable LivingEntity entityIn, int i) {

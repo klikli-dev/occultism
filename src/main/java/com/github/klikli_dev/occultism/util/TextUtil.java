@@ -73,6 +73,7 @@ public class TextUtil {
      * @param object the game object (item or block) to get the mod name for.
      * @return the mod name or null if invalid object type was supplied.
      */
+    @SuppressWarnings("deprecation")
     public static String getModNameForGameObject(@Nonnull Object object) {
 
         if (modNamesInitialized)

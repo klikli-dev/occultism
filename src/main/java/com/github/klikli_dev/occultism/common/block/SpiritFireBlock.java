@@ -74,11 +74,14 @@ public class SpiritFireBlock extends Block {
         return 30 + rand.nextInt(10);
     }
 
+    @Override
+    @SuppressWarnings("deprecation")
     public BlockState updateShape(BlockState pState, Direction pFacing, BlockState pFacingState, LevelAccessor pLevel, BlockPos pCurrentPos, BlockPos pFacingPos) {
         return this.canSurvive(pState, pLevel, pCurrentPos) ? this.defaultBlockState().setValue(FireBlock.AGE, pState.getValue(FireBlock.AGE)) : Blocks.AIR.defaultBlockState();
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public void onPlace(BlockState state, Level worldIn, BlockPos pos, BlockState oldState, boolean isMoving) {
         if (oldState.getBlock() != state.getBlock()) {
             if (!state.canSurvive(worldIn, pos)) {
@@ -90,6 +93,7 @@ public class SpiritFireBlock extends Block {
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public boolean canSurvive(BlockState state, LevelReader worldIn, BlockPos pos) {
         BlockPos blockpos = pos.below();
         return worldIn.getBlockState(blockpos).isFaceSturdy(worldIn, blockpos, Direction.UP) ||
@@ -97,11 +101,13 @@ public class SpiritFireBlock extends Block {
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
         return Shapes.empty();
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public void tick(BlockState state, ServerLevel worldIn, BlockPos pos, Random rand) {
         worldIn.scheduleTick(pos, this, getTickCooldown(worldIn.random));
 

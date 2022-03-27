@@ -23,10 +23,12 @@
 package com.github.klikli_dev.occultism.api.common.misc;
 
 
+import com.google.common.base.Suppliers;
 import net.minecraft.util.LazyLoadedValue;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraftforge.common.util.Lazy;
 
 import java.util.function.Supplier;
 
@@ -41,7 +43,7 @@ public enum OccultismItemTier implements Tier {
     private final float speed;
     private final float attackDamageBonus;
     private final int enchantmentValue;
-    private final LazyLoadedValue<Ingredient> repairIngredient;
+    private final Lazy<Ingredient> repairIngredient;
     //endregion Fields
 
     //region Initialization
@@ -52,7 +54,7 @@ public enum OccultismItemTier implements Tier {
         this.speed = efficiencyIn;
         this.attackDamageBonus = attackDamageIn;
         this.enchantmentValue = enchantabilityIn;
-        this.repairIngredient = new LazyLoadedValue<>(repairMaterialIn);
+        this.repairIngredient = Lazy.of(repairMaterialIn);
     }
     //endregion Initialization
 

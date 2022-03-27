@@ -61,6 +61,7 @@ public class ReplantableCropsBlock extends CropBlock implements IReplantableCrop
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public InteractionResult use(BlockState state, Level worldIn, BlockPos pos, Player player,
                                  InteractionHand handIn, BlockHitResult hit) {
         return IReplantableCrops.super.onHarvest(state, worldIn, pos, player, handIn);

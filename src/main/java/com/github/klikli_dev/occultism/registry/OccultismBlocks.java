@@ -71,6 +71,7 @@ public class OccultismBlocks {
     public static final RegistryObject<Block> LIGHTED_AIR = register("lighted_air", () -> new AirBlock(
             Block.Properties.of(Material.AIR).noCollission().air().noDrops().lightLevel(s -> 15).randomTicks()) {
         @Override
+        @SuppressWarnings("deprecation")
         public void tick(BlockState pState, ServerLevel pLevel, BlockPos pPos, Random pRandom) {
             if (pLevel.getEntitiesOfClass(CthulhuFamiliarEntity.class, new AABB(pPos),
                     FamiliarEntity::hasBlacksmithUpgrade).isEmpty())

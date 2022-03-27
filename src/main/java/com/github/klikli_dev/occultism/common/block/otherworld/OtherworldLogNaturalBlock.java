@@ -77,6 +77,7 @@ public class OtherworldLogNaturalBlock extends RotatedPillarBlock implements IOt
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public ItemStack getCloneItemStack(BlockGetter worldIn, BlockPos pos, BlockState state) {
         return IOtherworldBlock.super.getItem(worldIn, pos, state);
     }

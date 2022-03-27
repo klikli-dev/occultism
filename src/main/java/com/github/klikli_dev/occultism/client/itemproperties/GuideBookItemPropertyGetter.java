@@ -37,6 +37,7 @@ import javax.annotation.Nullable;
 import java.util.Iterator;
 
 @OnlyIn(Dist.CLIENT)
+@SuppressWarnings("deprecation")
 public class GuideBookItemPropertyGetter implements ItemPropertyFunction {
     @OnlyIn(Dist.CLIENT)
     @Override

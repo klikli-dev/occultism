@@ -35,6 +35,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.block.ComposterBlock;
+import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -118,7 +119,7 @@ public class RegistryEventHandler {
 
     public static void registerSpawnEgg(IForgeRegistry<Item> registry, EntityType<? extends Mob> entityType,
                                         String name, int primaryColor, int secondaryColor) {
-        SpawnEggItem spawnEggItem = new SpawnEggItem(entityType, primaryColor, secondaryColor,
+        SpawnEggItem spawnEggItem = new ForgeSpawnEggItem(() -> entityType, primaryColor, secondaryColor,
                 new Item.Properties().tab(Occultism.ITEM_GROUP));
         spawnEggItem.setRegistryName(modLoc("spawn_egg/" + name));
         registry.register(spawnEggItem);

@@ -58,7 +58,6 @@ import java.util.stream.Stream;
 
 public class StableWormholeBlock extends Block implements EntityBlock {
 
-    //region Fields
     public static final Property<Boolean> LINKED = BooleanProperty.create("linked");
     private static final Map<Direction, VoxelShape> SHAPES = Maps.newEnumMap(
             ImmutableMap.<Direction, VoxelShape>builder()
@@ -189,33 +188,33 @@ public class StableWormholeBlock extends Block implements EntityBlock {
                         return Shapes.join(v1, v2, BooleanOp.OR);
                     }).get()).build());
 
-    //endregion Fields
-    //region Initialization
     public StableWormholeBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(this.getStateDefinition().any().setValue(LINKED, false));
     }
-    //endregion Initialization
 
-    //region Overrides
     @Override
+    @SuppressWarnings("deprecation")
     public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
         return SHAPES.get(state.getValue(BlockStateProperties.FACING));
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public VoxelShape getCollisionShape(BlockState state, BlockGetter worldIn, BlockPos pos,
                                         CollisionContext context) {
         return Shapes.empty();
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public void onRemove(BlockState state, Level worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
         BlockEntityUtil.onBlockChangeDropWithNbt(this, state, worldIn, pos, newState);
         super.onRemove(state, worldIn, pos, newState, isMoving);
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player,
                                  InteractionHand handIn, BlockHitResult rayTraceResult) {
         if (!level.isClientSide) {
@@ -243,6 +242,7 @@ public class StableWormholeBlock extends Block implements EntityBlock {
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public ItemStack getCloneItemStack(BlockGetter worldIn, BlockPos pos, BlockState state) {
         return BlockEntityUtil.getItemWithNbt(this, worldIn, pos);
     }
@@ -258,8 +258,6 @@ public class StableWormholeBlock extends Block implements EntityBlock {
     public BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
         return OccultismTiles.STABLE_WORMHOLE.get().create(blockPos, blockState);
     }
-
-    //endregion Overrides
 }
 
 
