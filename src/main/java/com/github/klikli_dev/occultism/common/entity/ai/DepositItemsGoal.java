@@ -102,7 +102,7 @@ public class DepositItemsGoal extends PausableGoal {
     public void tick() {
         if (this.moveTarget != null) {
             if (this.moveTarget.isValid()) {
-                float accessDistance = 1.86f;
+                float accessDistance = 2.2f;
 
                 //when approaching a chest, open it visually
                 double distance = this.entity.position().distanceTo(Math3DUtil.center(this.moveTarget.getBlockPos()));
@@ -119,11 +119,12 @@ public class DepositItemsGoal extends PausableGoal {
                 } else {
                     //continue moving
                     BlockPos moveTarget = this.getMoveTarget();
-                    this.entity.getNavigation().moveTo(this.entity.getNavigation().createPath(moveTarget, 0), 1.0f);
+                    this.entity.getNavigation().moveTo(moveTarget.getX(), moveTarget.getY(), moveTarget.getZ(), 1.0f);
+                    //this.entity.getNavigation().moveTo(this.entity.getNavigation().createPath(moveTarget, 0), 1.0f);
                 }
 
                 //when close enough insert item
-                if (distance < 1.86 && this.canSeeTarget()) {
+                if (distance < accessDistance && this.canSeeTarget()) {
 
                     LazyOptional<IItemHandler> handlerCapability = this.moveTarget.getCapability(
                             CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, this.entity.getDepositFacing());

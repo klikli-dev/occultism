@@ -67,6 +67,11 @@ public class MachineReference implements INBTSerializable<CompoundTag> {
         this.insertChunkLoaded = insertChunkLoaded;
     }
 
+    /**
+     * @param extractBlockEntity the block entity to extract from
+     * @param insertBlockEntity the block entity to insert into, this is the managed machine
+     * @return
+     */
     public static MachineReference from(BlockEntity extractBlockEntity, BlockEntity insertBlockEntity) {
         var extractPos = GlobalBlockPos.from(extractBlockEntity);
         BlockState extractState = extractBlockEntity.getLevel().getBlockState(extractPos.getPos());

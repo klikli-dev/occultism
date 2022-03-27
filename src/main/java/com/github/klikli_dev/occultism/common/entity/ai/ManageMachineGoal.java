@@ -111,7 +111,7 @@ public class ManageMachineGoal extends Goal {
 
                 //when approaching a chest, open it visually
                 double distance = this.entity.position().distanceTo(Math3DUtil.center(this.targetBlock));
-                float accessDistance = 1.86f;
+                float accessDistance = 2.2f;//1.86f;
                 if (distance < accessDistance) {
                     //stop moving while taking out
                     this.entity.getNavigation().stop();
@@ -296,7 +296,7 @@ public class ManageMachineGoal extends Goal {
         BlockEntity extractBlockEntity = this.job.getExtractBlockEntity();
         IStorageController storageController = this.job.getStorageController();
 
-        if (machine != null && storageController != null) {
+        if (machine != null && extractBlockEntity != null && storageController != null) {
 
             //machine was replaced or no longer supports inventories, so we unlink it and abort
             if (!machine.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, machineReference.insertFacing).isPresent() ||

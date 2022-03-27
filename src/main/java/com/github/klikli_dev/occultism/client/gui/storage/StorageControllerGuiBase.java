@@ -170,16 +170,16 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     @Override
     public void renderToolTip(PoseStack poseStack, MachineReference machine, int x, int y) {
         List<Component> tooltip = new ArrayList<>();
-        tooltip.add(machine.getItemStack().getDisplayName());
+        tooltip.add(machine.getInsertItemStack().getDisplayName());
         if (machine.customName != null) {
             tooltip.add(new TextComponent(ChatFormatting.GRAY.toString() +
                     ChatFormatting.BOLD + machine.customName +
                     ChatFormatting.RESET));
         }
 
-        if (this.minecraft.player.level.dimension() != machine.globalPos.getDimensionKey())
+        if (this.minecraft.player.level.dimension() != machine.insertGlobalPos.getDimensionKey())
             tooltip.add(new TranslatableComponent(ChatFormatting.GRAY.toString() + ChatFormatting.ITALIC +
-                    machine.globalPos.getDimensionKey().location() +
+                    machine.insertGlobalPos.getDimensionKey().location() +
                     ChatFormatting.RESET));
         this.renderComponentTooltip(poseStack, tooltip, x, y);
     }
@@ -213,7 +213,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     public void init() {
         super.init();
         this.leftPos = (this.width - this.imageWidth) / 2 - ORDER_AREA_OFFSET;
-        this.topPos = (this.height - this.imageHeight) / 2;
+        this.topPos = Math.max(0, (this.height - this.imageHeight) / 2);
 
         this.clearWidgets();
 
@@ -341,14 +341,15 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                         ItemStack orderStack = this.storageControllerContainer.getOrderSlot().getItem(0);
                         if (Screen.hasShiftDown()) {
                             long time = System.currentTimeMillis() + 5000;
-                            Occultism.SELECTED_BLOCK_RENDERER.selectBlock(slot.getMachine().globalPos.getPos(), time);
+                            Occultism.SELECTED_BLOCK_RENDERER.selectBlock(slot.getMachine().insertGlobalPos.getPos(), time, Color.GREEN);
+                            Occultism.SELECTED_BLOCK_RENDERER.selectBlock(slot.getMachine().extractGlobalPos.getPos(), time, Color.YELLOW);
                         } else if (!orderStack.isEmpty()) {
                             //this message both clears the order slot and creates the order
                             GlobalBlockPos storageControllerPos = this.storageControllerContainer.getStorageControllerGlobalBlockPos();
                             if (storageControllerPos != null) {
                                 OccultismPackets.sendToServer(new MessageRequestOrder(
                                         storageControllerPos,
-                                        slot.getMachine().globalPos, orderStack));
+                                        slot.getMachine().insertGlobalPos, orderStack));
                             } else {
                                 Occultism.LOGGER.warn("Linked Storage Controller Position null.");
                             }
@@ -788,11 +789,11 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     protected boolean machineMatchesSearch(MachineReference machine) {
         String searchText = this.searchBar.getValue();
         if (searchText.startsWith("@")) {
-            String name = TextUtil.getModNameForGameObject(machine.getItem());
+            String name = TextUtil.getModNameForGameObject(machine.getInsertItem());
             return name.toLowerCase().contains(searchText.toLowerCase().substring(1));
         } else {
             String customName = machine.customName == null ? "" : machine.customName.toLowerCase();
-            return machine.getItemStack().getDisplayName().getContents().toLowerCase()
+            return machine.getInsertItemStack().getDisplayName().getContents().toLowerCase()
                     .contains(searchText.toLowerCase()) ||
                     customName.contains(searchText.toLowerCase().substring(1));
         }
@@ -813,20 +814,20 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                 switch (StorageControllerGuiBase.this.getSortType()) {
                     case AMOUNT: //use distance in this case
                         double distanceA =
-                                a.globalPos.getDimensionKey() == dimensionKey ? a.globalPos.getPos().distSqr(
+                                a.insertGlobalPos.getDimensionKey() == dimensionKey ? a.insertGlobalPos.getPos().distSqr(
                                         entityPosition) : Double.MAX_VALUE;
                         double distanceB =
-                                b.globalPos.getDimensionKey() == dimensionKey ? b.globalPos.getPos().distSqr(
+                                b.insertGlobalPos.getDimensionKey() == dimensionKey ? b.insertGlobalPos.getPos().distSqr(
                                         entityPosition) : Double.MAX_VALUE;
                         return Double.compare(distanceB, distanceA) * this.direction;
                     case NAME:
-                        return a.getItemStack().getDisplayName().getContents()
+                        return a.getInsertItemStack().getDisplayName().getContents()
                                 .compareToIgnoreCase(
-                                        b.getItemStack().getDisplayName().getContents()) *
+                                        b.getInsertItemStack().getDisplayName().getContents()) *
                                 this.direction;
                     case MOD:
-                        return TextUtil.getModNameForGameObject(a.getItem())
-                                .compareToIgnoreCase(TextUtil.getModNameForGameObject(b.getItem())) *
+                        return TextUtil.getModNameForGameObject(a.getInsertItem())
+                                .compareToIgnoreCase(TextUtil.getModNameForGameObject(b.getInsertItem())) *
                                 this.direction;
                 }
                 return 0;

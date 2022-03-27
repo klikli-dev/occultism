@@ -333,22 +333,76 @@ public class BookOfCallingItem extends Item implements IIngredientCopyNBT, IHand
         return true;
     }
 
-    public boolean setSpiritManagedMachine(Player player, Level world, BlockPos pos, ItemStack stack,
+    public boolean setSpiritManagedMachineExtractLocation(Player player, Level world, BlockPos pos, ItemStack stack,
                                            Direction face) {
-        //TODO: update the set extract code to handle managed machine mode
         UUID boundSpiritId = ItemNBTUtil.getSpiritEntityUUID(stack);
         if (boundSpiritId != null) {
             Optional<SpiritEntity> boundSpirit = EntityUtil.getEntityByUuiDGlobal(world.getServer(), boundSpiritId)
                     .map(e -> (SpiritEntity) e);
-            BlockEntity blockEntity = world.getBlockEntity(pos);
-            if (boundSpirit.isPresent() && blockEntity != null) {
+            BlockEntity extractBlockEntity = world.getBlockEntity(pos);
+            if (boundSpirit.isPresent() && extractBlockEntity != null){
+                if (boundSpirit.get().getJob().isPresent() &&
+                        boundSpirit.get().getJob().get() instanceof ManageMachineJob manageMachine) {
+
+                    if(manageMachine.getManagedMachine() != null){
+
+                    } else {
+                        player.displayClientMessage(
+                                new TranslatableComponent(
+                                        TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_set_managed_machine_extract_location",
+                                        TextUtil.formatDemonName(boundSpirit.get().getName().getString())), true);
+                        return true;
+                    }
+
+                    //get the existing insert reference here, or if null reuse extract
+                    var oldManagedMachineBlockEntity = manageMachine.getManagedMachineBlockEntity();
+                    MachineReference newReference = MachineReference.from(extractBlockEntity, oldManagedMachineBlockEntity != null ? oldManagedMachineBlockEntity : extractBlockEntity);
+                    newReference.extractFacing = face;
+                    if (manageMachine.getManagedMachine() == null ||
+                            !manageMachine.getManagedMachine().extractGlobalPos.equals(newReference.extractGlobalPos)) {
+                        //if we are setting a completely new extract entity, just overwrite the reference.
+                        manageMachine.setManagedMachine(newReference);
+                    } else {
+                        //otherwise just update the registry name in case the extract block type was switched out
+                        manageMachine.getManagedMachine().extractRegistryName = newReference.extractRegistryName;
+                        manageMachine.getManagedMachine().extractFacing = newReference.extractFacing;
+                    }
+
+                    //write data into item nbt for client side usage
+                    ItemNBTUtil.updateItemNBTFromEntity(stack, boundSpirit.get());
+
+                    String blockName = world.getBlockState(pos).getBlock().getDescriptionId();
+                    player.displayClientMessage(
+                            new TranslatableComponent(
+                                    TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_set_managed_machine_extract_location",
+                                    TextUtil.formatDemonName(boundSpirit.get().getName().getString()),
+                            new TranslatableComponent(blockName), face.getSerializedName()),true);
+                    return true;
+                }
+            } else {
+                player.displayClientMessage(
+                        new TranslatableComponent(
+                                TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_spirit_not_found"),
+                        true);
+            }
+        }
+        return false;
+    }
+
+    public boolean setSpiritManagedMachine(Player player, Level world, BlockPos pos, ItemStack stack,
+                                           Direction face) {
+        UUID boundSpiritId = ItemNBTUtil.getSpiritEntityUUID(stack);
+        if (boundSpiritId != null) {
+            Optional<SpiritEntity> boundSpirit = EntityUtil.getEntityByUuiDGlobal(world.getServer(), boundSpiritId)
+                    .map(e -> (SpiritEntity) e);
+            BlockEntity managedMachineBlockEntity = world.getBlockEntity(pos);
+            if (boundSpirit.isPresent() && managedMachineBlockEntity != null) {
 
                 if (boundSpirit.get().getJob().isPresent() &&
-                        boundSpirit.get().getJob().get() instanceof ManageMachineJob) {
-                    ManageMachineJob manageMachine = (ManageMachineJob) boundSpirit.get().getJob().get();
+                        boundSpirit.get().getJob().get() instanceof ManageMachineJob manageMachine) {
                     //get the existing extract reference here, or if null reuse insert
                     var oldExtractBlockEntity = manageMachine.getExtractBlockEntity();
-                    MachineReference newReference = MachineReference.from(blockEntity, oldExtractBlockEntity != null ? oldExtractBlockEntity : blockEntity);
+                    MachineReference newReference = MachineReference.from(oldExtractBlockEntity != null ? oldExtractBlockEntity : managedMachineBlockEntity, managedMachineBlockEntity);
                     if (manageMachine.getManagedMachine() == null ||
                             !manageMachine.getManagedMachine().insertGlobalPos.equals(newReference.insertGlobalPos)) {
                         //if we are setting a completely new machine, just overwrite the reference.
@@ -515,7 +569,7 @@ public class BookOfCallingItem extends Item implements IIngredientCopyNBT, IHand
                     if(this instanceof BookOfCallingManageMachineItem){
                         if (blockEntity != null &&
                                 blockEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, facing).isPresent()) {
-                            return this.setSpiritManageMachineExtractLocation(player, world, pos, stack,
+                            return this.setSpiritManagedMachineExtractLocation(player, world, pos, stack,
                                     facing) ? InteractionResult.SUCCESS : InteractionResult.PASS;
                         }
                     }

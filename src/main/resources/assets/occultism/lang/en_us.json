@@ -125,6 +125,8 @@
   "item.occultism.book_of_calling.message_set_storage_controller": "%s will now accept work orders from %s",
   "item.occultism.book_of_calling.message_set_work_area_size": "%s will now monitor a work area of %s",
   "item.occultism.book_of_calling.message_set_managed_machine": "Updated machine settings for %s",
+  "item.occultism.book_of_calling.message_set_managed_machine_extract_location": "%s will now extract from %s from the side: %s",
+  "item.occultism.book_of_calling.message_no_managed_machine": "Set a managed machine before setting an extract location %s",
   "block.occultism.stable_wormhole.message.set_storage_controller": "Linked the stable wormhole to this storage actuator.",
   "item.occultism.storage_remote.message.not_loaded": "Chunk for storage actuator not loaded!",
   "item.occultism.storage_remote.message.linked": "Linked storage remote to actuator.",
