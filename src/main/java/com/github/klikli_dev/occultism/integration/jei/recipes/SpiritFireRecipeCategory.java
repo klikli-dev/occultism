@@ -29,10 +29,12 @@ import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.github.klikli_dev.occultism.registry.OccultismRecipes;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
+import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
+import mezz.jei.api.ingredients.IIngredientType;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
@@ -55,7 +57,7 @@ public class SpiritFireRecipeCategory implements IRecipeCategory<SpiritFireRecip
         this.localizedName = new TranslatableComponent(Occultism.MODID + ".jei.spirit_fire");
         this.overlay = guiHelper.createDrawable(
                 new ResourceLocation(Occultism.MODID, "textures/gui/jei/spirit_fire.png"), 0, 0, 64, 46);
-        this.icon = guiHelper.createDrawableIngredient(this.renderStack);
+        this.icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM, this.renderStack);
         this.renderStack.getOrCreateTag().putBoolean("RenderFull", true);
     }
 
