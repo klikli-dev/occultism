@@ -23,23 +23,20 @@
 package com.github.klikli_dev.occultism.integration.jei.recipes;
 
 import com.github.klikli_dev.occultism.Occultism;
-import com.github.klikli_dev.occultism.crafting.recipe.CrushingRecipe;
 import com.github.klikli_dev.occultism.crafting.recipe.SpiritFireRecipe;
+import com.github.klikli_dev.occultism.integration.jei.JeiRecipeTypes;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.github.klikli_dev.occultism.registry.OccultismRecipes;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
-import mezz.jei.api.constants.VanillaTypes;
-import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
-import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
+import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
-import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
@@ -63,13 +60,8 @@ public class SpiritFireRecipeCategory implements IRecipeCategory<SpiritFireRecip
     }
 
     @Override
-    public ResourceLocation getUid() {
-        return OccultismRecipes.SPIRIT_FIRE.getId();
-    }
-
-    @Override
-    public Class<? extends SpiritFireRecipe> getRecipeClass() {
-        return SpiritFireRecipe.class;
+    public RecipeType<SpiritFireRecipe> getRecipeType() {
+        return JeiRecipeTypes.SPIRIT_FIRE;
     }
 
     @Override
@@ -103,5 +95,15 @@ public class SpiritFireRecipeCategory implements IRecipeCategory<SpiritFireRecip
     public void draw(SpiritFireRecipe recipe, IRecipeSlotsView recipeSlotsView, PoseStack stack, double mouseX, double mouseY) {
         RenderSystem.enableBlend();
         this.overlay.draw(stack, 48, 0);
+    }
+
+    @Override
+    public ResourceLocation getUid() {
+        return OccultismRecipes.SPIRIT_FIRE.getId();
+    }
+
+    @Override
+    public Class<? extends SpiritFireRecipe> getRecipeClass() {
+        return SpiritFireRecipe.class;
     }
 }

@@ -25,22 +25,20 @@ package com.github.klikli_dev.occultism.integration.jei.recipes;
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.ritual.pentacle.Pentacle;
 import com.github.klikli_dev.occultism.common.ritual.pentacle.PentacleManager;
-import com.github.klikli_dev.occultism.crafting.recipe.CrushingRecipe;
 import com.github.klikli_dev.occultism.crafting.recipe.RitualRecipe;
+import com.github.klikli_dev.occultism.integration.jei.JeiRecipeTypes;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.github.klikli_dev.occultism.registry.OccultismRecipes;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
-import mezz.jei.api.constants.VanillaTypes;
-import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
-import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
+import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -50,9 +48,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -82,14 +78,19 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
                 new ResourceLocation(Occultism.MODID, "textures/gui/jei/arrow.png"), 0, 0, 64, 46);
     }
 
-    @Override
-    public ResourceLocation getUid() {
-        return OccultismRecipes.RITUAL.getId();
+    protected int getStringCenteredMaxX(Font font, Component text, int x, int y) {
+        int width = font.width(text);
+        int actualX = (int) (x - width / 2.0f);
+        return actualX + width;
+    }
+
+    protected void drawStringCentered(PoseStack poseStack, Font font, Component text, int x, int y) {
+        font.draw(poseStack, text, (x - font.width(text) / 2.0f), y, 0);
     }
 
     @Override
-    public Class<? extends RitualRecipe> getRecipeClass() {
-        return RitualRecipe.class;
+    public RecipeType<RitualRecipe> getRecipeType() {
+        return JeiRecipeTypes.RITUAL;
     }
 
     @Override
@@ -246,14 +247,13 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
         }
     }
 
-
-    protected int getStringCenteredMaxX(Font font, Component text, int x, int y) {
-        int width = font.width(text);
-        int actualX = (int) (x - width / 2.0f);
-        return actualX + width;
+    @Override
+    public ResourceLocation getUid() {
+        return OccultismRecipes.RITUAL.getId();
     }
 
-    protected void drawStringCentered(PoseStack poseStack, Font font, Component text, int x, int y) {
-        font.draw(poseStack, text, (x - font.width(text) / 2.0f), y, 0);
+    @Override
+    public Class<? extends RitualRecipe> getRecipeClass() {
+        return RitualRecipe.class;
     }
 }

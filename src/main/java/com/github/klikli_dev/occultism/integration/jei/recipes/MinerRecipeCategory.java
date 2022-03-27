@@ -24,20 +24,18 @@ package com.github.klikli_dev.occultism.integration.jei.recipes;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.misc.WeightedIngredient;
-import com.github.klikli_dev.occultism.crafting.recipe.CrushingRecipe;
 import com.github.klikli_dev.occultism.crafting.recipe.MinerRecipe;
+import com.github.klikli_dev.occultism.integration.jei.JeiRecipeTypes;
 import com.github.klikli_dev.occultism.registry.OccultismRecipes;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
-import mezz.jei.api.constants.VanillaTypes;
-import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
-import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
+import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -69,14 +67,13 @@ public class MinerRecipeCategory implements IRecipeCategory<MinerRecipe> {
                 new ResourceLocation(Occultism.MODID, "textures/gui/jei/arrow.png"), 0, 0, 64, 46);
     }
 
-    @Override
-    public ResourceLocation getUid() {
-        return OccultismRecipes.MINER.getId();
+    protected void drawStringCentered(PoseStack poseStack, Font fontRenderer, Component text, int x, int y) {
+        fontRenderer.draw(poseStack, text, (x - fontRenderer.width(text) / 2.0f), y, 0);
     }
 
     @Override
-    public Class<? extends MinerRecipe> getRecipeClass() {
-        return MinerRecipe.class;
+    public RecipeType<MinerRecipe> getRecipeType() {
+        return JeiRecipeTypes.MINER;
     }
 
     @Override
@@ -125,8 +122,13 @@ public class MinerRecipeCategory implements IRecipeCategory<MinerRecipe> {
                 new TranslatableComponent(Occultism.MODID + ".jei.miner.chance", this.chances.get(recipe)), 84, 0);
     }
 
+    @Override
+    public ResourceLocation getUid() {
+        return OccultismRecipes.MINER.getId();
+    }
 
-    protected void drawStringCentered(PoseStack poseStack, Font fontRenderer, Component text, int x, int y) {
-        fontRenderer.draw(poseStack, text, (x - fontRenderer.width(text) / 2.0f), y, 0);
+    @Override
+    public Class<? extends MinerRecipe> getRecipeClass() {
+        return MinerRecipe.class;
     }
 }
