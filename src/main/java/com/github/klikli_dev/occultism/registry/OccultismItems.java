@@ -37,6 +37,7 @@ import com.github.klikli_dev.occultism.common.item.storage.StorageRemoteItem;
 import com.github.klikli_dev.occultism.common.item.tool.*;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.*;
+import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.registries.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -282,6 +283,66 @@ public class OccultismItems {
     public static final RegistryObject<Item> SPIRIT_TORCH = ITEMS.register("spirit_torch",
             ()-> new StandingAndWallBlockItem(OccultismBlocks.SPIRIT_TORCH.get(),OccultismBlocks.SPIRIT_WALL_TORCH.get(),
                     defaultProperties()));
+
+    public static final RegistryObject<Item> SPAWN_EGG_FOLIOT = ITEMS.register("spawn_egg/foliot",
+            () -> new ForgeSpawnEggItem(OccultismEntities.FOLIOT_TYPE::get, 0xaa728d, 0x37222c, defaultProperties()));
+    public static final RegistryObject<Item> SPAWN_EGG_DJINNI = ITEMS.register("spawn_egg/djinni",
+            () -> new ForgeSpawnEggItem(OccultismEntities.DJINNI_TYPE::get, 0xaa728d, 0x37222c, defaultProperties()));
+    public static final RegistryObject<Item> SPAWN_EGG_AFRIT = ITEMS.register("spawn_egg/afrit",
+            () -> new ForgeSpawnEggItem(OccultismEntities.AFRIT_TYPE::get, 0xaa728d, 0x37222c, defaultProperties()));
+    public static final RegistryObject<Item> SPAWN_EGG_AFRIT_WILD = ITEMS.register("spawn_egg/afrit_wild",
+            () -> new ForgeSpawnEggItem(OccultismEntities.AFRIT_WILD_TYPE::get, 0xaa728d, 0x37222c, defaultProperties()));
+    public static final RegistryObject<Item> SPAWN_EGG_MARID = ITEMS.register("spawn_egg/marid",
+            () -> new ForgeSpawnEggItem(OccultismEntities.MARID_TYPE::get, 0xaa728d, 0x37222c, defaultProperties()));
+
+    public static final RegistryObject<Item> SPAWN_EGG_POSSESSED_ENDERMITE = ITEMS.register("spawn_egg/possessed_endermite",
+            () -> new ForgeSpawnEggItem(OccultismEntities.POSSESSED_ENDERMITE_TYPE::get, 0x161616, 0x6E6E6E, defaultProperties()));
+    public static final RegistryObject<Item> SPAWN_EGG_POSSESSED_SKELETON = ITEMS.register("spawn_egg/possessed_skeleton",
+            () -> new ForgeSpawnEggItem(OccultismEntities.POSSESSED_SKELETON_TYPE::get, 0xC1C1C1, 0x494949, defaultProperties()));
+    public static final RegistryObject<Item> SPAWN_EGG_POSSESSED_ENDERMAN= ITEMS.register("spawn_egg/possessed_enderman",
+            () -> new ForgeSpawnEggItem(OccultismEntities.POSSESSED_ENDERMAN_TYPE::get, 0x161616, 0x0, defaultProperties()));
+
+    public static final RegistryObject<Item> SPAWN_EGG_WILD_HUNT_SKELETON= ITEMS.register("spawn_egg/wild_hunt_skeleton",
+            () -> new ForgeSpawnEggItem(OccultismEntities.WILD_HUNT_SKELETON_TYPE::get, 12698049, 4802889, defaultProperties()));
+    public static final RegistryObject<Item> SPAWN_EGG_WILD_HUNT_WITHER_SKELETON = ITEMS.register("spawn_egg/wild_hunt_wither_skeleton",
+            () -> new ForgeSpawnEggItem(OccultismEntities.WILD_HUNT_WITHER_SKELETON_TYPE::get, 1315860, 4672845, defaultProperties()));
+
+    public static final RegistryObject<Item> SPAWN_EGG_OTHERWORLD_BIRD = ITEMS.register("spawn_egg/otherworld_bird",
+            () -> new ForgeSpawnEggItem(OccultismEntities.OTHERWORLD_BIRD_TYPE::get, 0x221269, 0x6b56c4, defaultProperties()));
+
+    public static final RegistryObject<Item> SPAWN_EGG_GREEDY_FAMILIAR = ITEMS.register("spawn_egg/familiar_greedy",
+            () -> new ForgeSpawnEggItem(OccultismEntities.GREEDY_FAMILIAR_TYPE::get, 0x54990f, 0x725025, defaultProperties()));
+    public static final RegistryObject<Item> SPAWN_EGG_BAT_FAMILIAR = ITEMS.register("spawn_egg/familiar_bat",
+            () -> new ForgeSpawnEggItem(OccultismEntities.BAT_FAMILIAR_TYPE::get, 0x434343, 0xda95de, defaultProperties()));
+
+    public static final RegistryObject<Item> SPAWN_EGG_DEER_FAMILIAR = ITEMS.register("spawn_egg/familiar_deer",
+            () -> new ForgeSpawnEggItem(OccultismEntities.DEER_FAMILIAR_TYPE::get, 0xc9833e, 0xfffdf2, defaultProperties()));
+    public static final RegistryObject<Item> SPAWN_EGG_CTHULHU_FAMILIAR = ITEMS.register("spawn_egg/familiar_cthulhu",
+            () -> new ForgeSpawnEggItem(OccultismEntities.CTHULHU_FAMILIAR_TYPE::get, 0x00cdc2, 0x4ae7c0, defaultProperties()));
+    public static final RegistryObject<Item> SPAWN_EGG_DEVIL_FAMILIAR = ITEMS.register("spawn_egg/familiar_devil",
+            () -> new ForgeSpawnEggItem(OccultismEntities.DEVIL_FAMILIAR_TYPE::get, 0xf2f0d7, 0xa01d1d, defaultProperties()));
+    public static final RegistryObject<Item> SPAWN_EGG_DRAGON_FAMILIAR = ITEMS.register("spawn_egg/familiar_dragon",
+            () -> new ForgeSpawnEggItem(OccultismEntities.DRAGON_FAMILIAR_TYPE::get, 0x18780f, 0x76c47b, defaultProperties()));
+    public static final RegistryObject<Item> SPAWN_EGG_BLACKSMITH_FAMILIAR = ITEMS.register("spawn_egg/familiar_blacksmith",
+            () -> new ForgeSpawnEggItem(OccultismEntities.BLACKSMITH_FAMILIAR_TYPE::get, 0x06bc64, 0x2b2b2b, defaultProperties()));
+    public static final RegistryObject<Item> SPAWN_EGG_GUARDIAN_FAMILIAR = ITEMS.register("spawn_egg/familiar_guardian",
+            () -> new ForgeSpawnEggItem(OccultismEntities.GUARDIAN_FAMILIAR_TYPE::get, 0x787878, 0x515151, defaultProperties()));
+    public static final RegistryObject<Item> SPAWN_EGG_HEADLESS_FAMILIAR = ITEMS.register("spawn_egg/familiar_headless",
+            () -> new ForgeSpawnEggItem(OccultismEntities.HEADLESS_FAMILIAR_TYPE::get, 0x0c0606, 0xde7900, defaultProperties()));
+    public static final RegistryObject<Item> SPAWN_EGG_CHIMERA_FAMILIAR = ITEMS.register("spawn_egg/familiar_chimera",
+            () -> new ForgeSpawnEggItem(OccultismEntities.CHIMERA_FAMILIAR_TYPE::get, 0xcf8441, 0x3e7922, defaultProperties()));
+    public static final RegistryObject<Item> SPAWN_EGG_GOAT_FAMILIAR = ITEMS.register("spawn_egg/familiar_goat",
+            () -> new ForgeSpawnEggItem(OccultismEntities.GOAT_FAMILIAR_TYPE::get, 0xe2e2e2, 0x0f0f0e, defaultProperties()));
+    public static final RegistryObject<Item> SPAWN_EGG_SHUB_NIGGURATH_FAMILIAR = ITEMS.register("spawn_egg/familiar_shub_niggurath",
+            () -> new ForgeSpawnEggItem(OccultismEntities.SHUB_NIGGURATH_FAMILIAR_TYPE::get, 0x362836, 0x594a3a, defaultProperties()));
+    public static final RegistryObject<Item> SPAWN_EGG_BEHOLDER_FAMILIAR = ITEMS.register("spawn_egg/familiar_beholder",
+            () -> new ForgeSpawnEggItem(OccultismEntities.BEHOLDER_FAMILIAR_TYPE::get, 0x340a09, 0xfffbff, defaultProperties()));
+    public static final RegistryObject<Item> SPAWN_EGG_FAIRY_FAMILIAR = ITEMS.register("spawn_egg/familiar_fairy",
+            () -> new ForgeSpawnEggItem(OccultismEntities.FAIRY_FAMILIAR_TYPE::get, 0xbd674c, 0xcca896, defaultProperties()));
+    public static final RegistryObject<Item> SPAWN_EGG_MUMMY_FAMILIAR = ITEMS.register("spawn_egg/familiar_mummy",
+            () -> new ForgeSpawnEggItem(OccultismEntities.MUMMY_FAMILIAR_TYPE::get, 0xcbb76a, 0xe0d4a3, defaultProperties()));
+    public static final RegistryObject<Item> SPAWN_EGG_BEAVER_FAMILIAR = ITEMS.register("spawn_egg/familiar_beaver",
+            () -> new ForgeSpawnEggItem(OccultismEntities.BEAVER_FAMILIAR_TYPE::get, 0x824a2b, 0xdd9973, defaultProperties()));
 
     //Ritual Dummy Items
     static {
