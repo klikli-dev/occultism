@@ -33,24 +33,24 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
 public class SatchelScreen extends AbstractContainerScreen<SatchelContainer> {
-    //region Fields
     protected static final ResourceLocation BACKGROUND = new ResourceLocation(Occultism.MODID,
             "textures/gui/inventory_satchel.png");
-    //endregion Fields
 
-    //region Initialization
     public SatchelScreen(SatchelContainer screenContainer, Inventory inv,
                          Component titleIn) {
         super(screenContainer, inv, titleIn);
 
         this.imageWidth = 247;
         this.imageHeight = 256;
-
     }
-    //endregion Initialization
 
+    @Override
+    protected void init() {
+        super.init();
+        this.leftPos = (this.width - this.imageWidth) / 2;
+        this.topPos = Math.max(0, (this.height - this.imageHeight) / 2);
+    }
 
-    //region Overrides
     @Override
     public void render(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
         this.renderBackground(poseStack);
@@ -71,5 +71,4 @@ public class SatchelScreen extends AbstractContainerScreen<SatchelContainer> {
         RenderSystem.setShaderTexture(0, BACKGROUND);
         this.blit(poseStack, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight);
     }
-    //endregion Overrides
 }
