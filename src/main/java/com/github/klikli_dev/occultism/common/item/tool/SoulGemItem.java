@@ -55,6 +55,11 @@ public class SoulGemItem extends Item {
     //region Overrides
     @Override
     public InteractionResult useOn(UseOnContext context) {
+
+        if (context.getHand() != InteractionHand.MAIN_HAND) {
+            return InteractionResult.PASS;
+        }
+
         Player player = context.getPlayer();
         ItemStack itemStack = context.getItemInHand();
         Level level = context.getLevel();
@@ -117,6 +122,13 @@ public class SoulGemItem extends Item {
     @Override
     public InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity target,
                                                   InteractionHand hand) {
+
+        if (hand != InteractionHand.MAIN_HAND)
+            return InteractionResult.PASS;
+
+        if (!target.isAlive())
+            return InteractionResult.PASS;
+
         //This is called from PlayerEventHandler#onPlayerRightClickEntity, because we need to bypass sitting entities processInteraction
         if (target.level.isClientSide)
             return InteractionResult.PASS;
