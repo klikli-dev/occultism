@@ -42,7 +42,6 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 
-import javax.annotation.Nullable;
 import java.util.List;
 
 public class SoulGemItem extends Item {
@@ -55,6 +54,10 @@ public class SoulGemItem extends Item {
     //region Overrides
     @Override
     public ActionResultType useOn(ItemUseContext context) {
+        if (context.getHand() != Hand.MAIN_HAND) {
+            return ActionResultType.PASS;
+        }
+
         PlayerEntity player = context.getPlayer();
         ItemStack itemStack = context.getItemInHand();
         World world = context.getLevel();
@@ -117,6 +120,13 @@ public class SoulGemItem extends Item {
     @Override
     public ActionResultType interactLivingEntity(ItemStack stack, PlayerEntity player, LivingEntity target,
                                                  Hand hand) {
+
+        if (hand != Hand.MAIN_HAND)
+            return ActionResultType.PASS;
+
+        if (!target.isAlive())
+            return ActionResultType.PASS;
+
         //This is called from PlayerEventHandler#onPlayerRightClickEntity, because we need to bypass sitting entities processInteraction
         if (target.level.isClientSide)
             return ActionResultType.PASS;
@@ -155,7 +165,7 @@ public class SoulGemItem extends Item {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip,
+    public void appendHoverText(ItemStack stack, World worldIn, List<ITextComponent> tooltip,
                                 ITooltipFlag flagIn) {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
 
