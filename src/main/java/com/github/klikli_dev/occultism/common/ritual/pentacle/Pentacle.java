@@ -94,7 +94,7 @@ public class Pentacle {
                 PatchouliAPI.get().registerMultiblock(multiRL, this.matcher);
         } catch (IllegalArgumentException e) {
             //should never happen, only thrown if multiblock registered twice
-            Occultism.LOGGER.warn(e);
+            Occultism.LOGGER.warn(e.getMessage());
         }
     }
 

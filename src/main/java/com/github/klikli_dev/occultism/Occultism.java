@@ -22,7 +22,6 @@
 
 package com.github.klikli_dev.occultism;
 
-import com.github.klikli_dev.occultism.api.OccultismAPI;
 import com.github.klikli_dev.occultism.client.render.SelectedBlockRenderer;
 import com.github.klikli_dev.occultism.client.render.ThirdEyeEffectRenderer;
 import com.github.klikli_dev.occultism.common.DebugHelper;
@@ -39,6 +38,7 @@ import com.github.klikli_dev.occultism.config.OccultismCommonConfig;
 import com.github.klikli_dev.occultism.config.OccultismServerConfig;
 import com.github.klikli_dev.occultism.network.OccultismPackets;
 import com.github.klikli_dev.occultism.registry.*;
+import com.mojang.logging.LogUtils;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
@@ -51,10 +51,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLDedicatedServerSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.RegistryBuilder;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
 import software.bernie.geckolib3.GeckoLib;
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.SlotTypeMessage;
@@ -65,7 +62,7 @@ public class Occultism {
     public static final String MODID = "occultism";
     public static final String NAME = "Occultism";
     public static final CreativeModeTab ITEM_GROUP = new OccultismCreativeModeTab();
-    public static final Logger LOGGER = LogManager.getLogger(MODID);
+    public static final Logger LOGGER = LogUtils.getLogger();
     public static final OccultismServerConfig SERVER_CONFIG = new OccultismServerConfig();
     public static final OccultismCommonConfig COMMON_CONFIG = new OccultismCommonConfig();
     public static final OccultismClientConfig CLIENT_CONFIG = new OccultismClientConfig();
