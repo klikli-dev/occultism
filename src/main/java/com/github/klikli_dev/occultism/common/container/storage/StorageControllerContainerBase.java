@@ -354,7 +354,7 @@ public abstract class StorageControllerContainerBase extends Container implement
                     ItemStackComparator comparator = !recipeStack.isEmpty() ? new ItemStackComparator(
                             recipeStack) : null;
 
-                    ItemStack requestedItem = this.getStorageController().getItemStack(comparator, 1, false);
+                    ItemStack requestedItem = this.getStorageController().getOneOfMostCommonItem(comparator,  false);
                     this.matrix.setItem(i, requestedItem);
                 }
             }

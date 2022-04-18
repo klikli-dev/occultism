@@ -54,6 +54,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.BlockItem;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
@@ -110,7 +111,7 @@ public class StorageControllerTileEntity extends NetworkedTileEntity implements 
 
     protected MessageUpdateStacks cachedMessageUpdateStacks;
 
-    private AnimationFactory factory = new AnimationFactory(this);
+    private final AnimationFactory factory = new AnimationFactory(this);
 
     //endregion Fields
 
@@ -298,6 +299,40 @@ public class StorageControllerTileEntity extends NetworkedTileEntity implements 
     }
 
     @Override
+    public ItemStack getOneOfMostCommonItem(Predicate<ItemStack> comparator, boolean simulate) {
+        if (comparator == null) {
+            return ItemStack.EMPTY;
+        }
+
+        List<Predicate<ItemStack>> comparators = this.getComparatorsSortedByAmount(comparator);
+
+        ItemStackHandler handler = this.itemStackHandlerInternal;
+
+        //we start with the comparator representing the most common item, and if we don't find anything we move on.
+        //Note: unless something weird happens we should always find something.
+        for (Predicate<ItemStack> currentComparator : comparators) {
+            for (int slot = 0; slot < handler.getSlots(); slot++) {
+
+                //first we force a simulation to check if the stack fits
+                ItemStack stack = handler.extractItem(slot, 1, true);
+                if (stack.isEmpty()) {
+                    continue;
+                }
+
+                if (currentComparator.test(stack)) {
+                    //now we do the actual operation (note: can still be a simulation, if caller wants to simulate=
+                    return handler.extractItem(slot, 1, simulate);
+                }
+
+                //this slot does not match so we move on in the loop.
+            }
+        }
+
+        //nothing found
+        return ItemStack.EMPTY;
+    }
+
+    @Override
     public ItemStack getItemStack(Predicate<ItemStack> comparator, int requestedSize, boolean simulate) {
         if (requestedSize <= 0 || comparator == null) {
             return ItemStack.EMPTY;
@@ -370,6 +405,20 @@ public class StorageControllerTileEntity extends NetworkedTileEntity implements 
     public void onContentsChanged() {
         this.cachedMessageUpdateStacks = null;
         this.setChanged();
+    }
+
+    private List<Predicate<ItemStack>> getComparatorsSortedByAmount(Predicate<ItemStack> comparator) {
+        ItemStackHandler handler = this.itemStackHandlerInternal;
+        Map<Item, Integer> map = new HashMap<>();
+        for (int i = 0; i < handler.getSlots(); i++) {
+            ItemStack getStackInSlot = handler.getStackInSlot(i);
+            if (comparator.test(getStackInSlot)) {
+                int oldCount = map.getOrDefault(getStackInSlot.getItem(), 0);
+                map.put(getStackInSlot.getItem(), oldCount + getStackInSlot.getCount());
+            }
+        }
+        return map.entrySet().stream().sorted((a, b) -> b.getValue().compareTo(a.getValue()))
+                .map(entry -> (Predicate<ItemStack>) stack -> stack.getItem() == entry.getKey()).collect(Collectors.toList());
     }
 
     @Override
@@ -556,8 +605,7 @@ public class StorageControllerTileEntity extends NetworkedTileEntity implements 
         this.linkedMachines.entrySet().removeIf(entry -> entry.getValue().getTileEntity(this.level) == null);
     }
 
-    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event)
-    {
+    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
         event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.dimensional_matrix.new", true));
         return PlayState.CONTINUE;
     }
