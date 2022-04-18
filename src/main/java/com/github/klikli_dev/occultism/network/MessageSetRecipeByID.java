@@ -92,7 +92,7 @@ public class MessageSetRecipeByID extends MessageBase {
             }
 
             //if we did not find anything in the player inventory, get it from the network now
-            extractedStack = storageController.getItemStack(ingredient, 1, false);
+            extractedStack = storageController.getOneOfMostCommonItem(ingredient, false);
             if (!extractedStack.isEmpty() && craftMatrix.getItem(slot).isEmpty()) {
                 //if extraction was successful, place it in the matrix
                 craftMatrix.setItem(slot, extractedStack);

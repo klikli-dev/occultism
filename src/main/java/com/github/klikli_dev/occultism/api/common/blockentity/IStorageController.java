@@ -124,6 +124,14 @@ public interface IStorageController {
     int insertStack(ItemStack stack, boolean simulate);
 
     /**
+     * Gets a stack with the size 1 of the most common item in the storage controller fitting the comparator.
+     * @param comparator    the comparator to match against.
+     * @param simulate      true for simulation.
+     * @return the matching item stack.
+     */
+    ItemStack getOneOfMostCommonItem(Predicate<ItemStack> comparator, boolean simulate);
+
+    /**
      * Gets the matching itemstack from the controller.
      *
      * @param comparator    the comparator to match against.

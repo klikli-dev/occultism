@@ -39,7 +39,6 @@ import com.github.klikli_dev.occultism.common.job.ManageMachineJob;
 import com.github.klikli_dev.occultism.common.misc.DepositOrder;
 import com.github.klikli_dev.occultism.common.misc.ItemStackComparator;
 import com.github.klikli_dev.occultism.common.misc.StorageControllerItemStackHandler;
-import com.github.klikli_dev.occultism.exceptions.ItemHandlerMissingException;
 import com.github.klikli_dev.occultism.network.MessageUpdateStacks;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
@@ -58,16 +57,17 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DirectionalBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.registries.RegistryObject;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
+import net.minecraftforge.registries.RegistryObject;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
@@ -79,6 +79,7 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.*;
+import java.util.Map.Entry;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -109,7 +110,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
 
     protected MessageUpdateStacks cachedMessageUpdateStacks;
 
-    private AnimationFactory factory = new AnimationFactory(this);
+    private final AnimationFactory factory = new AnimationFactory(this);
     //endregion Fields
 
     //region Initialization
@@ -117,6 +118,97 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
         super(OccultismTiles.STORAGE_CONTROLLER.get(), worldPos, state);
     }
     //endregion Initialization
+
+    public void tick() {
+        if (!this.level.isClientSide) {
+            if (!this.stabilizersInitialized) {
+                this.stabilizersInitialized = true;
+                this.updateStabilizers();
+            }
+        }
+    }
+
+    //region Methods
+    public void updateStabilizers() {
+        int additionalSlots = 0;
+        List<BlockPos> stabilizerLocations = this.findValidStabilizers();
+        for (BlockPos pos : stabilizerLocations) {
+            additionalSlots += this.getSlotsForStabilizer(this.level.getBlockState(pos));
+        }
+
+        this.setMaxSlots(Occultism.SERVER_CONFIG.storage.controllerBaseSlots.get() + additionalSlots);
+    }
+
+    public List<BlockPos> findValidStabilizers() {
+        ArrayList<BlockPos> validStabilizers = new ArrayList<>();
+
+        BlockPos up = this.getBlockPos().above();
+        for (Direction face : Direction.values()) {
+            BlockPos hit = Math3DUtil.simpleTrace(up, face, MAX_STABILIZER_DISTANCE, (pos) -> {
+                BlockState state = this.level.getBlockState(pos);
+                return state.getBlock() instanceof StorageStabilizerBlock;
+            });
+
+            if (hit != null) {
+                BlockState state = this.level.getBlockState(hit);
+                if (state.getValue(DirectionalBlock.FACING) == face.getOpposite()) {
+                    validStabilizers.add(hit);
+                }
+            }
+        }
+        return validStabilizers;
+    }
+
+    protected int getSlotsForStabilizer(BlockState state) {
+        Block block = state.getBlock();
+        if (block == OccultismBlocks.STORAGE_STABILIZER_TIER1.get())
+            return Occultism.SERVER_CONFIG.storage.stabilizerTier1Slots.get();
+        if (block == OccultismBlocks.STORAGE_STABILIZER_TIER2.get())
+            return Occultism.SERVER_CONFIG.storage.stabilizerTier2Slots.get();
+        if (block == OccultismBlocks.STORAGE_STABILIZER_TIER3.get())
+            return Occultism.SERVER_CONFIG.storage.stabilizerTier3Slots.get();
+        if (block == OccultismBlocks.STORAGE_STABILIZER_TIER4.get())
+            return Occultism.SERVER_CONFIG.storage.stabilizerTier4Slots.get();
+        return 0;
+    }
+
+    protected void mergeIntoList(List<ItemStack> list, ItemStack stackToAdd) {
+        boolean merged = false;
+        for (ItemStack stack : list) {
+            if (ItemHandlerHelper.canItemStacksStack(stackToAdd, stack)) {
+                stack.setCount(stack.getCount() + stackToAdd.getCount());
+                merged = true;
+                break;
+            }
+        }
+        if (!merged) {
+            list.add(stackToAdd);
+        }
+    }
+
+    protected void validateLinkedMachines() {
+        // remove all entries that lead to invalid block entities.
+        this.linkedMachines.entrySet().removeIf(entry -> !entry.getValue().isValidFor(this.level));
+    }
+
+    private List<Predicate<ItemStack>> getComparatorsSortedByAmount(Predicate<ItemStack> comparator) {
+        var handler = this.itemStackHandlerInternal;
+        var map = new HashMap<Item, Integer>();
+        for (int i = 0; i < handler.getSlots(); i++) {
+            var getStackInSlot = handler.getStackInSlot(i);
+            if (comparator.test(getStackInSlot)) {
+                var oldCount = map.getOrDefault(getStackInSlot.getItem(), 0);
+                map.put(getStackInSlot.getItem(), oldCount + getStackInSlot.getCount());
+            }
+        }
+        return map.entrySet().stream().sorted((a, b) -> b.getValue().compareTo(a.getValue()))
+                .map(entry -> (Predicate<ItemStack>) stack -> stack.getItem() == entry.getKey()).toList();
+    }
+
+    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
+        event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.dimensional_matrix.new", true));
+        return PlayState.CONTINUE;
+    }
 
     //region Overrides
     @Override
@@ -296,6 +388,40 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
     }
 
     @Override
+    public ItemStack getOneOfMostCommonItem(Predicate<ItemStack> comparator, boolean simulate) {
+        if (comparator == null) {
+            return ItemStack.EMPTY;
+        }
+
+        var comparators = getComparatorsSortedByAmount(comparator);
+
+        ItemStackHandler handler = this.itemStackHandlerInternal;
+
+        //we start with the comparator representing the most common item, and if we don't find anything we move on.
+        //Note: unless something weird happens we should always find something.
+        for (var currentComparator : comparators) {
+            for (int slot = 0; slot < handler.getSlots(); slot++) {
+
+                //first we force a simulation to check if the stack fits
+                ItemStack stack = handler.extractItem(slot, 1, true);
+                if (stack.isEmpty()) {
+                    continue;
+                }
+
+                if (currentComparator.test(stack)) {
+                    //now we do the actual operation (note: can still be a simulation, if caller wants to simulate=
+                    return handler.extractItem(slot, 1, simulate);
+                }
+
+                //this slot does not match so we move on in the loop.
+            }
+        }
+
+        //nothing found
+        return ItemStack.EMPTY;
+    }
+
+    @Override
     public ItemStack getItemStack(Predicate<ItemStack> comparator, int requestedSize, boolean simulate) {
         if (requestedSize <= 0 || comparator == null) {
             return ItemStack.EMPTY;
@@ -381,6 +507,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
         super.reviveCaps();
         this.itemStackHandler = LazyOptional.of(() -> this.itemStackHandlerInternal);
     }
+    //endregion Overrides
 
     @Nonnull
     @Override
@@ -389,15 +516,6 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
             return this.itemStackHandler.cast();
         }
         return super.getCapability(cap, direction);
-    }
-
-    public void tick() {
-        if (!this.level.isClientSide) {
-            if (!this.stabilizersInitialized) {
-                this.stabilizersInitialized = true;
-                this.updateStabilizers();
-            }
-        }
     }
 
     @Override
@@ -489,77 +607,6 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory playerInventory, Player playerEntity) {
         return new StorageControllerContainer(id, playerInventory, this);
-    }
-    //endregion Overrides
-
-    //region Methods
-    public void updateStabilizers() {
-        int additionalSlots = 0;
-        List<BlockPos> stabilizerLocations = this.findValidStabilizers();
-        for (BlockPos pos : stabilizerLocations) {
-            additionalSlots += this.getSlotsForStabilizer(this.level.getBlockState(pos));
-        }
-
-        this.setMaxSlots(Occultism.SERVER_CONFIG.storage.controllerBaseSlots.get() + additionalSlots);
-    }
-
-    public List<BlockPos> findValidStabilizers() {
-        ArrayList<BlockPos> validStabilizers = new ArrayList<>();
-
-        BlockPos up = this.getBlockPos().above();
-        for (Direction face : Direction.values()) {
-            BlockPos hit = Math3DUtil.simpleTrace(up, face, MAX_STABILIZER_DISTANCE, (pos) -> {
-                BlockState state = this.level.getBlockState(pos);
-                return state.getBlock() instanceof StorageStabilizerBlock;
-            });
-
-            if (hit != null) {
-                BlockState state = this.level.getBlockState(hit);
-                if (state.getValue(DirectionalBlock.FACING) == face.getOpposite()) {
-                    validStabilizers.add(hit);
-                }
-            }
-        }
-        return validStabilizers;
-    }
-
-    protected int getSlotsForStabilizer(BlockState state) {
-        Block block = state.getBlock();
-        if (block == OccultismBlocks.STORAGE_STABILIZER_TIER1.get())
-            return Occultism.SERVER_CONFIG.storage.stabilizerTier1Slots.get();
-        if (block == OccultismBlocks.STORAGE_STABILIZER_TIER2.get())
-            return Occultism.SERVER_CONFIG.storage.stabilizerTier2Slots.get();
-        if (block == OccultismBlocks.STORAGE_STABILIZER_TIER3.get())
-            return Occultism.SERVER_CONFIG.storage.stabilizerTier3Slots.get();
-        if (block == OccultismBlocks.STORAGE_STABILIZER_TIER4.get())
-            return Occultism.SERVER_CONFIG.storage.stabilizerTier4Slots.get();
-        return 0;
-    }
-
-
-    protected void mergeIntoList(List<ItemStack> list, ItemStack stackToAdd) {
-        boolean merged = false;
-        for (ItemStack stack : list) {
-            if (ItemHandlerHelper.canItemStacksStack(stackToAdd, stack)) {
-                stack.setCount(stack.getCount() + stackToAdd.getCount());
-                merged = true;
-                break;
-            }
-        }
-        if (!merged) {
-            list.add(stackToAdd);
-        }
-    }
-
-    protected void validateLinkedMachines() {
-        // remove all entries that lead to invalid block entities.
-        this.linkedMachines.entrySet().removeIf(entry -> !entry.getValue().isValidFor(this.level));
-    }
-
-    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event)
-    {
-        event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.dimensional_matrix.new", true));
-        return PlayState.CONTINUE;
     }
 
     @Override
