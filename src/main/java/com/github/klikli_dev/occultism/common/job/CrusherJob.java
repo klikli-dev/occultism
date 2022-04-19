@@ -95,10 +95,18 @@ public class CrusherJob extends SpiritJob {
             this.currentRecipe = this.entity.level.getRecipeManager().getRecipeFor(OccultismRecipes.CRUSHING_TYPE.get(),
                     fakeInventory, this.entity.level);
             this.crushingTimer = 0;
-            //play crushing sound
-            this.entity.level
-                    .playSound(null, this.entity.blockPosition(), OccultismSounds.CRUNCHING.get(), SoundCategory.NEUTRAL, 0.5f,
-                            1 + 0.5f * this.entity.getRandom().nextFloat());
+
+            if(this.currentRecipe.isPresent()){
+                //play crushing sound
+                this.entity.level
+                        .playSound(null, this.entity.blockPosition(), OccultismSounds.CRUNCHING.get(), SoundCategory.NEUTRAL, 0.5f,
+                                1 + 0.5f * this.entity.getRandom().nextFloat());
+            } else {
+                //if no recipe is found, drop hand held item as we can't process it
+                this.entity.setItemInHand(Hand.MAIN_HAND, ItemStack.EMPTY);
+                ItemEntity droppedItem = this.entity.spawnAtLocation(handHeld);
+                droppedItem.addTag(DROPPED_BY_CRUSHER);
+            }
         }
         if (this.currentRecipe.isPresent()) {
             if (handHeld.isEmpty() || !this.currentRecipe.get().matches(fakeInventory, this.entity.level)) {
