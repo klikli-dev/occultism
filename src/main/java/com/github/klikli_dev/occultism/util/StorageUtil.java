@@ -231,13 +231,27 @@ public class StorageUtil {
 
         String[] filters = tagFilter.split(";");
         for (String filter : filters) {
-            boolean equals = stack.getItem().getTags().stream().anyMatch(rl -> {
-                return FilenameUtils.wildcardMatch(rl.toString(), filter, IOCase.INSENSITIVE);
-            });
 
-            if (equals) {
-                return true;
+            if(filter.startsWith("item:")){
+                filter = filter.substring(5);
+                if(FilenameUtils.wildcardMatch(stack.getItem().getRegistryName().toString(), filter, IOCase.INSENSITIVE))
+                    return true;
             }
+            else {
+                //tags should not be prefixed, but we allow it and handle it
+                if(filter.startsWith("tag:")){
+                    filter = filter.substring(4);
+                }
+                final String finalFilter = filter;
+                boolean equals = stack.getItem().getTags().stream().anyMatch(rl -> {
+                    return FilenameUtils.wildcardMatch(rl.toString(), finalFilter, IOCase.INSENSITIVE);
+                });
+
+                if (equals) {
+                    return true;
+                }
+            }
+
         }
         return false;
     }

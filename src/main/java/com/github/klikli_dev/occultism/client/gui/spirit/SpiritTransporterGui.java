@@ -120,7 +120,7 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
         int tagFilterWidth = 124;
         this.tagFilterTextField = new TextFieldWidget(this.font, this.leftPos + tagFilterLeft,
                 this.topPos + tagFilterTop, tagFilterWidth, this.font.lineHeight,
-                new StringTextComponent("forge:ores;*logs*"));
+                new StringTextComponent("forge:ores;*logs*;item:minecraft:chest"));
         this.tagFilterTextField.setMaxLength(90);
 
         this.tagFilterTextField.setBordered(false);
