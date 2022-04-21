@@ -537,7 +537,7 @@
   "gui.occultism.spirit.transporter.filter_mode": "Filter Mode",
   "gui.occultism.spirit.transporter.filter_mode.blacklist": "Blacklist",
   "gui.occultism.spirit.transporter.filter_mode.whitelist": "Whitelist",
-  "gui.occultism.spirit.transporter.tag_filter": "Enter the tags to filter for separated by \";\".\nE.g.: \"forge:ores;*logs*\".\nUse \"*\" to match any character, e.g. \"*ore*\" to match ore tags from any mod.",
+  "gui.occultism.spirit.transporter.tag_filter": "Enter the tags to filter for separated by \";\".\nE.g.: \"forge:ores;*logs*\".\nUse \"*\" to match any character, e.g. \"*ore*\" to match ore tags from any mod. To filter for items, prefix the item id with \"item:\", E.g.: \"item:minecraft:chest\".",
   "_comment": "# Storage Controller",
   "gui.occultism.storage_controller.space_info_label": "%d/%d",
   "gui.occultism.storage_controller.shift": "Hold shift for more information.",
