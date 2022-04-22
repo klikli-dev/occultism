@@ -57,7 +57,7 @@ public class SpiritTransporterContainer extends SpiritContainer {
 
     @Override
     protected void setupPlayerInventorySlots(Player player) {
-        int playerInventoryTop = 120;
+        int playerInventoryTop = 138;
         int playerInventoryLeft = 8;
 
         for (int i = 0; i < 3; i++)
@@ -68,7 +68,7 @@ public class SpiritTransporterContainer extends SpiritContainer {
 
     @Override
     protected void setupPlayerHotbar(Player player) {
-        int hotbarTop = 178;
+        int hotbarTop = 196;
         int hotbarLeft = 8;
         for (int i = 0; i < 9; i++)
             this.addSlot(new Slot(player.getInventory(), i, hotbarLeft + i * 18, hotbarTop));
@@ -109,11 +109,13 @@ public class SpiritTransporterContainer extends SpiritContainer {
         int x = 8;
         int y = 84;
         ItemStackHandler filterItems = this.spirit.filterItemStackHandler.orElseThrow(ItemHandlerMissingException::new);
-        for (int i = 0; i < filterItems.getSlots(); ++i) {
-            this.addSlot(new FilterSlot(filterItems, i, x, y));
-            x += 18;
-        }
 
+        for (int i = 0; i < 2; i++){
+            for (int j = 0; j < filterItems.getSlots() / 2; j++){
+                this.addSlot(new FilterSlot(filterItems, j + i * 7, x + j * 18,
+                        y + i * 18));
+            }
+        }
     }
     //endregion Methods
 

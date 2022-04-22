@@ -70,8 +70,8 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
 
         this.container = container;
 
-        this.imageWidth = 176; //photoshop says 176
-        this.imageHeight = 202; //photoshop says 188
+        this.imageWidth = 176;
+        this.imageHeight = 220;
     }
     //endregion Initialization
 
@@ -116,7 +116,7 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
         this.addRenderableWidget(this.filterModeButton);
 
         int tagFilterLeft = 8;
-        int tagFilterTop = 105;
+        int tagFilterTop = 123;
         int tagFilterWidth = 124;
         this.tagFilterTextField = new EditBox(this.font, this.leftPos + tagFilterLeft,
                 this.topPos + tagFilterTop, tagFilterWidth, this.font.lineHeight,

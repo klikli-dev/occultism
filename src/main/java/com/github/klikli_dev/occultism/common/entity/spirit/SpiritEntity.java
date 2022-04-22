@@ -78,7 +78,7 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
      * The default max age in seconds.
      */
     public static final int DEFAULT_MAX_AGE = -1;//default age is unlimited.
-    public static final int MAX_FILTER_SLOTS = 7;
+    public static final int MAX_FILTER_SLOTS = 14;
     private static final EntityDataAccessor<Optional<BlockPos>> DEPOSIT_POSITION =
             SynchedEntityData.defineId(SpiritEntity.class, EntityDataSerializers.OPTIONAL_BLOCK_POS);
     private static final EntityDataAccessor<Optional<UUID>> DEPOSIT_ENTITY_UUID =
@@ -555,6 +555,7 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
         }
 
         if (compound.contains("filterItems")) {
+            compound.getCompound("filterItems").putInt("Size", MAX_FILTER_SLOTS); //override legacy filter size
             this.filterItemStackHandler.ifPresent(handler -> handler.deserializeNBT(compound.getCompound("filterItems")));
         }
 
