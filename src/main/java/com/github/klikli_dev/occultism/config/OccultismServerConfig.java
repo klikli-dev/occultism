@@ -22,6 +22,7 @@
 
 package com.github.klikli_dev.occultism.config;
 
+import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
 import net.minecraftforge.common.ForgeConfigSpec.ConfigValue;
@@ -35,6 +36,7 @@ public class OccultismServerConfig {
 
     public final StorageSettings storage;
     public final SpiritJobSettings spiritJobs;
+
     public final RitualSettings rituals;
     public final DimensionalMineshaftSettings dimensionalMineshaft;
     public final ItemSettings itemSettings;
@@ -196,6 +198,8 @@ public class OccultismServerConfig {
         public final BooleanValue enableRemainingIngredientCountMatching;
         public final DoubleValue ritualDurationMultiplier;
 
+        public final ConfigValue<List<String>> possibleSpiritNames;
+
         public RitualSettings(ForgeConfigSpec.Builder builder) {
             builder.comment("Ritual Settings").push("rituals");
 
@@ -223,6 +227,11 @@ public class OccultismServerConfig {
             this.ritualDurationMultiplier =
                     builder.comment("Set a value below 1.0 to speed up rituals.")
                             .defineInRange("ritualDurationMultiplier", 1.0, 0.05, Double.MAX_VALUE);
+
+            this.possibleSpiritNames =
+                    builder.comment("By default spirit names are generated at random from lists of possible syllables. " +
+                                    "If you instead want to specify the possible spirit names directly, configure a list of values here.")
+                            .define("possibleSpiritNames", List.of());
 
             builder.pop();
         }

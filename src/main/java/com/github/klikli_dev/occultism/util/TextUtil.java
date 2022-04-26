@@ -22,6 +22,7 @@
 
 package com.github.klikli_dev.occultism.util;
 
+import com.github.klikli_dev.occultism.Occultism;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
@@ -144,6 +145,12 @@ public class TextUtil {
      * @return a random name from the 3 syllable variations.
      */
     public static String generateName() {
+        var possibleSpiritNames = Occultism.SERVER_CONFIG.rituals.possibleSpiritNames.get();
+        if(!possibleSpiritNames.isEmpty()){
+            return random.nextInt(20) == 0 ?
+                    EASTER_EGGS[random.nextInt(EASTER_EGGS.length)] :
+                    possibleSpiritNames.get(random.nextInt(possibleSpiritNames.size()));
+        }
         return random.nextInt(20) == 0 ? EASTER_EGGS[random.nextInt(
                 EASTER_EGGS.length)] : SYLLABLE1[random.nextInt(SYLLABLE1.length)] + SYLLABLE2[random.nextInt(SYLLABLE2.length)] +
                 SYLLABLE3[random.nextInt(SYLLABLE3.length)];
