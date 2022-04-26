@@ -28,6 +28,7 @@ import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
 import net.minecraftforge.common.ForgeConfigSpec.ConfigValue;
 import net.minecraftforge.common.ForgeConfigSpec.DoubleValue;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -231,7 +232,7 @@ public class OccultismServerConfig {
             this.possibleSpiritNames =
                     builder.comment("By default spirit names are generated at random from lists of possible syllables. " +
                                     "If you instead want to specify the possible spirit names directly, configure a list of values here.")
-                            .define("possibleSpiritNames", List.of());
+                            .define("possibleSpiritNames", new ArrayList<String>());
 
             builder.pop();
         }
