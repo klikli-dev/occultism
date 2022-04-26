@@ -1,0 +1,16 @@
+{
+  "name": "Matriz Dimensional",
+  "icon": "occultism:dimensional_matrix",
+  "category": "occultism:rituals/crafting",
+  "sortnum": 22,
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "occultism:dimensional_matrix",
+      "text": "La matriz dimensional es un punto de entrada a una pequeña dimensión para almacenar objetos. Un $(thing)Djinni$() vinculado a la matriz mantiene la dimensión estable, normalmente apoyado en espíritus adicionales mediante estabilizadores de almacenamiento, para aumentar el tamaño de la dimensión."},
+    {
+      "type": "occultism:ritual",
+      "recipe": "occultism:ritual/craft_dimensional_matrix"
+    }
+  ]
+}

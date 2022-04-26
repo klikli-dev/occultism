@@ -1,0 +1,7 @@
+{
+  "name": "Rituales de Invocación",
+  "description": "Los Rituales de Invocación fuerzan a los espíritus a entrar en este mundo en su forma elegida, llevando a pequeñas restricciones en su poder, pero exponiéndolos a la decadencia de esencia. Los espíritus invocados abarcan desde comerciantes capaces de intercambiar y convertir objetos, a esclavos para labores manuales.",
+  "icon": "occultism:textures/gui/book/summoning.png",
+  "parent": "occultism:rituals",
+  "sortnum": 1
+}

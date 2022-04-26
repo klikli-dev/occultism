@@ -1,0 +1,15 @@
+{
+  "name": "Maquinistas",
+  "icon": "occultism:textures/gui/book/autocrafting.png",
+  "category": "occultism:storage",
+  "sortnum": 4,
+  "pages": [
+    {
+      "type": "text",
+      "text": "Los $(l:rituals/summoning/summon_manage_machine)Maquinistas$(/l) son espíritus que permiten automatizar hornos y otras máquinas. Droppea un stack de objetos en el hueco de órdenes de la GUI de Almacenamiento y el espíritu lo dejará en la máquina asignada, devolviendo el resultado al mismo sistema."},
+    {
+      "type": "empty",
+      "draw_filler": false
+    }
+  ]
+}

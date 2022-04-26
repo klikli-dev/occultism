@@ -1,0 +1,16 @@
+{
+  "name": "Lámparas Mágicas",
+  "icon": "occultism:magic_lamp_empty",
+  "category": "occultism:misc",
+  "sortnum": 30,
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "occultism:magic_lamp_empty",
+      "text": "Las lámparas mágicas pueden mantener encerrados a los espíritus en nuestro mundo, sin exponerlos a la decadencia de su esencia. A diferencia de los libros de invocación, el espíritu no regresa al $(thing)El Otro Lado$(), lo que convierte a las lámparas mágicas en una necesidad cuando un espíritu trabaja activamente a su aire, bajo el control de su invocador."},
+    {
+      "type": "empty",
+      "draw_filler": false
+    }
+  ]
+}

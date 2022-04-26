@@ -1,0 +1,16 @@
+{
+  "name": "Tomos Vínculo",
+  "icon": "occultism:book_of_binding_bound_marid",
+  "category": "occultism:spirits",
+  "sortnum": 4,
+  "pages": [
+    {
+      "type": "spotlight",
+      "title": "Tomos Vínculo",
+      "item": "occultism:book_of_binding_bound_foliot",
+      "text": "Los libros vínculo contienen los textos específicos para invocar ciertas clases de espíritus. Una vez el nombre del espíritu a invocar se ha escrito en el libro, se considerará que el libro ha sido vinculado a ese espíritu y puede utilizarse para invocarlo."},
+    {
+      "type": "text",
+      "text": "Para escribir el nombre de un espíritu en el libro, crea el libro de vinculación con este diccionario. Los libros de vinculación se crean utilizando  $(item)Libro y Pluma$() y varios tintes."}
+  ]
+}

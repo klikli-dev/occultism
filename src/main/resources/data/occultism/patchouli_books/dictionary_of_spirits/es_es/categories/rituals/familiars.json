@@ -1,0 +1,7 @@
+{
+  "name": "Rituales de Familiares",
+  "description": "Los Rituales de Familiares invocan espíritus para ayudar directamente al invocador. Estos espíritus normalmente habitan el cuerpo de un animal, permitiéndoles resistir la decadencia de esencia en su mayor parte. Los familiares otorgan buffos, pero también pueden protegen activamente al invocador.",
+  "icon": "occultism:textures/gui/book/parrot.png",
+  "parent": "occultism:rituals",
+  "sortnum": 4
+}

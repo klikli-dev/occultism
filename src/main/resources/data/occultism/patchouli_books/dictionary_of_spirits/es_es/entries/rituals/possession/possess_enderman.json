@@ -1,0 +1,21 @@
+{
+  "name": "Enderman poseído",
+  "icon": "minecraft:ender_pearl",
+  "category": "occultism:rituals/possession",
+  "sortnum": 3,
+  "pages": [
+    {
+      "type": "entity",
+      "entity": "occultism:possessed_enderman",
+      "text": "Droppea: 1-3x $(item)Perla de Ender$()"
+    },
+    {
+      "type": "occultism:ritual",
+      "recipe": "occultism:ritual/possess_enderman"
+    },
+    {
+      "type": "text",
+      "text": "En este ritual, un $(thing)Enderman$() es invocado utilizando la energía vital de un $(thing)cerdo$() y, inmediatamente poseído por el $(thing)Djinni$() invocado. El $(thing)Enderman poseído$() siempre dejará caer una $(item)Perla de Ender$() al morir."}
+  ]
+}
+

@@ -1,0 +1,27 @@
+{
+  "name": "Familiar Momia",
+  "icon": "occultism:textures/gui/book/familiar_mummy.png",
+  "category": "occultism:rituals/familiars",
+  "sortnum": 140,
+  "pages": [
+    {
+      "type": "entity",
+      "entity": "occultism:mummy_familiar",
+      "scale": 1.0,
+      "text": "$(bold)Otorga$(): $(thing)Efecto de esquiva$()"
+    },
+    {
+      "type": "occultism:ritual",
+      "recipe": "occultism:ritual/familiar_mummy"
+    },
+    {
+      "type": "text",
+      "text": "El familiar momia es un experto en artes marciales y luchará por proteger a su amo."
+    },
+    {
+      "type": "text",
+      "text": "Mejorado por el familiar herrero, hará aún más daño a los enemigos."
+    }
+  ]
+}
+

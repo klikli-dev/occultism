@@ -1,0 +1,21 @@
+{
+  "name": "Invocación desatada Osorin",
+  "icon": "occultism:textures/gui/book/pentagram_rose.png",
+  "category": "occultism:pentacles",
+  "sortnum": 32,
+  "pages": [
+    {
+      "type": "text",
+      "text": "$(bold)Objetivo:$() Invocar Espíritu Mayor Desatado $(br2)$(thing)Invocación desatada de Osorin$() se basa en $(thing)Conjuro de apertura de Abras$(), pero no presenta ninguna parafernalia estabilizadora. El pentáculo no ofrece protección de cualquier tipo al invocador, pero actúa como una invocación irresistible para Espíritus Mayores."},
+    {
+      "type": "multiblock",
+      "name": "",
+      "multiblock_id": "occultism:pentacle.summon_wild_greater_spirit"
+    },
+    {
+      "type": "text",
+      "title": "Usos",
+      "text": "$(li)$(l:rituals/summoning/wither_skull)Calavera de esqueleto Wither$(/l)$()"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "name": "Espíritus Desatados",
+  "icon": "occultism:textures/gui/book/unbound_spirits.png",
+  "category": "occultism:spirits",
+  "sortnum": 5,
+  "pages": [
+    {
+      "type": "text",
+      "text": "Generalmente, los espíritus invocados están $(thing)Atados$(), es decir, cualquier condición que los mantenga bajo el control de su invocador. Un efecto paralelo de los hechizos de vinculación es que una parte del espíritu permanece en $(thing)El Otro Lado$(), arrancándoles una gran parte de su poder, pero al mismo tiempo protegiendo su esencia de acceder por completo a este mundo."},
+    {
+      "type": "text",
+      "text": "Para acceder a la esencia de un espíritu, o desatar su poder destructivo al completo, es necesario invocarlos desatados. Las invocaciones desatadas utilizan pentáculos que están intencionadamente incompletos o son inestables, permitiendo invocar al espíritu, pero sin nada que lo mantenga a raya. Los resultados de este tipo de invocaciones son increiblemente peligrosos, pero a menudo no hay forma de evitarlas."}
+  ]
+}

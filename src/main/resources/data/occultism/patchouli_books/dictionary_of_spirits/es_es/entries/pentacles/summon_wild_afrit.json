@@ -1,0 +1,21 @@
+{
+  "name": "Conjuro apertura Abras",
+  "icon": "occultism:textures/gui/book/pentagram_rose.png",
+  "category": "occultism:pentacles",
+  "sortnum": 31,
+  "pages": [
+    {
+      "type": "text",
+      "text": "$(bold)Objetivo:$() Invocar Afrit Desatado $(br2)$(thing)Conjuro de apertura de Abras$() es una versión simplificada de $(thing)Conjuro de Abras$(), que permite invocar a un Afrit sin la tiza roja. Debido a la reducción de poder del pentáculo, no puede ser utilizado para controlar al Afrit, siendo su único propósito el de invocarlo para lugar y matar al Afrit."},
+    {
+      "type": "multiblock",
+      "name": "",
+      "multiblock_id": "occultism:pentacle.summon_wild_afrit"
+    },
+    {
+      "type": "text",
+      "title": "Usos",
+      "text": "$(li)$(l:rituals/summoning/afrit_essence)Esencia de Afrit$(/l)$()"
+    }
+  ]
+}

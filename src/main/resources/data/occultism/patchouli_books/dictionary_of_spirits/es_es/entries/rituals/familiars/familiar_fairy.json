@@ -1,0 +1,22 @@
+{
+  "name": "Familiar Hada",
+  "icon": "occultism:textures/gui/book/familiar_fairy.png",
+  "category": "occultism:rituals/familiars",
+  "sortnum": 130,
+  "pages": [
+    {
+      "type": "entity",
+      "entity": "occultism:fairy_familiar",
+      "scale": 0.7
+    },
+    {
+      "type": "occultism:ritual",
+      "recipe": "occultism:ritual/familiar_fairy"
+    },
+    {
+      "type": "text",
+      "text": "El familiar hada mantiene al resto de familiares alejados de la muerte (con un tiempo de recuperación de la habilidad), ayuda al resto con efectos beneficiosos y drena la vida de los enemigos para asistir a su amo."
+    }
+  ]
+}
+

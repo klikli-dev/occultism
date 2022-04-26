@@ -1,0 +1,22 @@
+{
+  "name": "Familiar Murciélago",
+  "icon": "occultism:textures/gui/book/bat_familiar.png",
+  "category": "occultism:rituals/familiars",
+  "sortnum": 40,
+  "pages": [
+    {
+      "type": "entity",
+      "entity": "occultism:bat_familiar",
+      "text": "$(bold)Otorga$(): $(thing)Visión Nocturna$()"
+    },
+    {
+      "type": "occultism:ritual",
+      "recipe": "occultism:ritual/familiar_bat"
+    },
+    {
+      "type": "text",
+      "text": "Al mejorarlo con un familiar herrero, el familiar murciélago otorgará robo de vida a su maestro."
+    }
+  ]
+}
+
