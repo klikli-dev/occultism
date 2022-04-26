@@ -1,0 +1,31 @@
+{
+  "name": "Familiar Hombre-rata acéfalo",
+  "icon": "occultism:textures/gui/book/familiar_headless_ratman.png",
+  "category": "occultism:rituals/familiars",
+  "sortnum": 90,
+  "pages": [
+    {
+      "type": "entity",
+      "entity": "occultism:headless_familiar",
+      "scale": 0.7,
+      "text": "$(bold)Otorga$(): $(thing)Bonificación de daño condicional$()"
+    },
+    {
+      "type": "occultism:ritual",
+      "recipe": "occultism:ritual/familiar_headless"
+    },
+    {
+      "type": "text",
+      "text": "El familiar hombre-rata acéfalo robará la cabeza de las entidades muertas cerca de él, otorgando una mejora de daño contra el tipo de entidad de su cabeza, a su amo. "
+    },
+    {
+      "type": "text",
+      "text": "Si la salud del hombre-rata cae por debajo del 50% morirá, pero puede ser reconstruido por su maestro dándole trigo, palos, heno o una calabaza."
+    },
+    {
+      "type": "text",
+      "text": "Mejorado por el familiar herrero, aplicará debilidad a las entidades cercanas que pertenezcan al tipo del que robó la cabeza."
+    }
+  ]
+}
+

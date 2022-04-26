@@ -1,0 +1,23 @@
+{
+  "name": "Introducción a los Rituales",
+  "icon": "occultism:textures/gui/book/robe.png",
+  "category": "occultism:rituals",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "text",
+      "text": "Los rituales permiten invocar espíritus a nuestro plano de existencia, o vincularlos en objetos o seres vivos. Cada ritual consiste de un $(thing)pentáculo$(), $(thing)ingredientes de ritual$() procurados mediante cuencos sacrificiales, un $(thing)objeto de inicio$() y, opcionalmente, el $(thing)sacrificio$() de criaturas vivas.$(br2)Una partícula morada aparecerá si el ritual es exitoso y está en progreso."},
+    {
+      "type": "text",
+      "title": "Realizar un ritual",
+      "text": "Los rituales siempre siguen los mismos pasos: $(br)$(li)Dibujar el pentáculo. $(li)Colocar el cuenco dorado. $(li)Colocar los cuencos sacrificiales.$(li)Colocar los ingredientes en los cuencos.$(li)Haz click derecho en el cuenco dorado con el objeto de inicio.$(li)$(italic)Opcional: Realiza un sacrificio cerca del centro del pentáculo.$()$(br2)"},
+    {
+      "type": "text",
+      "title": "Requerimientos Adicionales",
+      "text": "Si un ritual muestra partículas grises sobre el cuenco dorado sacrificial, se necesitarán requerimientos adicionales descritos en la página del ritual. Cuando todos los requerimientos sean completados, el ritual mostrará partículas moradas y empezará a consumir los objetos de los cuencos sacrificiales."},
+    {
+      "type": "empty",
+      "draw_filler": false
+    }
+  ]
+}

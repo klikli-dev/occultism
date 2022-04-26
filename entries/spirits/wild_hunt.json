@@ -1,0 +1,14 @@
+{
+  "name": "La Cacería Salvaje",
+  "icon": "occultism:textures/gui/book/wild_hunt.png",
+  "category": "occultism:spirits",
+  "sortnum": 6,
+  "pages": [
+    {
+      "type": "text",
+      "text": "Un grupo de legendarios Espíritus Mayores, que toman normalmente la apariencia de esqueletos Wither, junto a sus esbirros como esqueletos. Estos Espíritus Mayores están vinculados a sus esbirros de tal manera que son, virtualmente, invulnerables hasta que sus esbirros sean devueltos al $(thing)Otro Lado$(). A pesar de que es increiblemente peligroso invocar a la Cacería Salvaje, se sabe de algunos invocadores que lo han hecho para un acceso rápido."},
+    {
+      "type": "text",
+      "text": "Sobre las calaveras de esqueleto wither que dejan atrás. La invocación de la cacería salvaje está descrita en la página de obtención de $(l:rituals/summoning/wither_skull)Calaveras de esqueleto Wither$(/l)"}
+  ]
+}

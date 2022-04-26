@@ -1,0 +1,27 @@
+{
+  "name": "Familiar Dragón",
+  "icon": "occultism:textures/gui/book/familiar_dragon.png",
+  "category": "occultism:rituals/familiars",
+  "sortnum": 60,
+  "pages": [
+    {
+      "type": "entity",
+      "entity": "occultism:dragon_familiar",
+      "scale": 0.7,
+      "text": "$(bold)Otorga$(): $(thing)Aumento XP$(), le encantan los palos."
+    },
+    {
+      "type": "occultism:ritual",
+      "recipe": "occultism:ritual/familiar_dragon"
+    },
+    {
+      "type": "text",
+      "text": "Los familiares codiciosos pueden montar a los familiares dragón, otorgando al dragón los efectos adicionales que poseen los codiciosos."
+    },
+    {
+      "type": "text",
+      "text": "Al mejorarlo con un familiar herrero, arrojará espadas a enemigos cercanos."
+    }
+  ]
+}
+

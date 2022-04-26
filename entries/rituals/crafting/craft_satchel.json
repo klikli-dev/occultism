@@ -1,0 +1,16 @@
+{
+  "name": "Morral espacioso",
+  "icon": "occultism:satchel",
+  "category": "occultism:rituals/crafting",
+  "sortnum": 11,
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "occultism:satchel",
+      "text": "Un $(thing)Foliot$() se vincula al morral, encargado de deformar $(italic)ligeramente$() la realidad. Esto permite almacenar más objetos en el morral de lo que su tamaño indicaría, convirtiéndolo en un práctico compañero de viaje."},
+    {
+      "type": "occultism:ritual",
+      "recipe": "occultism:ritual/craft_satchel"
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "name": "Estabilizador  Almacén IV",
+  "icon": "occultism:storage_stabilizer_tier4",
+  "category": "occultism:rituals/crafting",
+  "sortnum": 25,
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "occultism:storage_stabilizer_tier4",
+      "text": "Este estabilizador superior está habitado por un $(thing)Marid$() que soporta la matriz dimensional que mantiene la dimensión de almacenamiento estable, maximizando la cantidad de objetos almacenados."},
+    {
+      "type": "occultism:ritual",
+      "recipe": "occultism:ritual/craft_stabilizer_tier4"
+    }
+  ]
+}

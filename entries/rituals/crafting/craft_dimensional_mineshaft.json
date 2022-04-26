@@ -1,0 +1,24 @@
+{
+  "name": "Mina Dimensional",
+  "icon": "occultism:dimensional_mineshaft",
+  "category": "occultism:rituals/crafting",
+  "sortnum": 26,
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "occultism:dimensional_mineshaft",
+      "text": "La mina dimensional aloja a un $(thing)Djinni$() que abre una conexión estable a una dimensión deshabitada, perfecta para minar. Dado que el portal es muy pequeño para transferir humanos, otros espíritus pueden utilizarlo para entrar en la dimensión minera y traer recursos de vuelta."},
+    {
+      "type": "occultism:ritual",
+      "recipe": "occultism:ritual/craft_dimensional_mineshaft"
+    },
+    {
+      "type": "text",
+      "title": "Operación",
+      "text": "La mina dimensional descartará cualquier objeto que no pueda contener, así que es importante vaciar regularmente la mina, ya sea manualmente, con tolvas o mediante espíritus transportadores. Los espíritus en lámparas mágicas pueden ser insertados desde la parte superior, el resto de posiciones son utilizadas para extraer objetos."},
+    {
+      "type": "empty",
+      "draw_filler": false
+    }
+  ]
+}

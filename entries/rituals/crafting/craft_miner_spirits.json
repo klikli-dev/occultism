@@ -1,0 +1,27 @@
+{
+  "name": "Espíritus Mineros",
+  "icon": "occultism:miner_foliot_unspecialized",
+  "category": "occultism:rituals/crafting",
+  "sortnum": 27,
+  "pages": [
+    {
+      "type": "text",
+      "text": "Los espíritus mineros usan la $(thing)Mina Dimensional$() para adquirir recursos de otras dimensiones. Son invocados y vinculados a lámparas mágicas, de las cuales pueden salir SOLO a través de la mina. La lámpara mágica se degrada con el tiempo, cuando se rompe, el espíritu es devuelto al $(thing)Otro Lado$()."},
+    {
+      "type": "text",
+      "title": "Foliot Minero",
+      "text": "El foliot minero recoge bloques sin mucha exactitud y devuelve cualquier cosa que encuentre. El proceso de minado es bastante lento, debido a esto el foliot solo gasta pequeñas cantidades de energía, dañando la lámpara mágica en la que se aloja lentamente con el tiempo."},
+    {
+      "type": "occultism:ritual",
+      "recipe": "occultism:ritual/craft_miner_foliot_unspecialized"
+    },
+    {
+      "type": "text",
+      "title": "Djinni Minamenas",
+      "text": "El djinni minamenas recoge minerales específicos. El gran poder del Djinni daña la lámpara mágica relativamente rápido."},
+    {
+      "type": "occultism:ritual",
+      "recipe": "occultism:ritual/craft_miner_djinni_ores"
+    }
+  ]
+}

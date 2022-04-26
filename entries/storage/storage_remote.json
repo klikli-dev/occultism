@@ -1,0 +1,16 @@
+{
+  "name": "Accesor Almacén",
+  "icon": "occultism:storage_remote",
+  "category": "occultism:storage",
+  "sortnum": 2,
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "occultism:storage_remote",
+      "text": "Los $(l:rituals/crafting/craft_storage_remote)Accesores de Almacén$(/l) son similares a los agujeros de gusano estables, pero otorgan un acceso portátil, para los jugadores, al almacenamiento."},
+    {
+      "type": "empty",
+      "draw_filler": false
+    }
+  ]
+}

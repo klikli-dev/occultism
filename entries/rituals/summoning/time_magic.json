@@ -1,0 +1,20 @@
+{
+  "name": "Magia de Tiempo",
+  "icon": "minecraft:clock",
+  "category": "occultism:rituals/summoning",
+  "sortnum": 31,
+  "pages": [
+    {
+      "type": "text",
+      "text": "La magia temporal tiene un alcance limitado, no puede mandar al mago atrás o hacia delante en el tiempo, sino que permite cambiar la hora del día. Es especialmente útil para rituales o otras tareas que requieren que sea día o noche, especificamente."},
+    {
+      "type": "occultism:ritual",
+      "recipe": "occultism:ritual/summon_djinni_day_time"
+    },
+    {
+      "type": "occultism:ritual",
+      "recipe": "occultism:ritual/summon_djinni_night_time"
+    }
+  ]
+}
+

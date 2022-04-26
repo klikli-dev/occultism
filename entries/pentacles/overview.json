@@ -1,0 +1,38 @@
+{
+  "name": "Sobre Pentáculos",
+  "icon": "occultism:textures/gui/book/pentagram_rose.png",
+  "category": "occultism:pentacles",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "text",
+      "text": "El nombre $(thing)Pentáculo$() en este contexto se refiere a los dibujos rituales de cualquier forma, no a una estrella de cinco puntas. Los pentáculos se utilizan para invocar y vincular espíritus del $(thing)Otro Lado$(). Funcionan tanto como para invocar a la entidad, como un amplificador de las órdenes del invocador y como un círculo de protección para prevenir ataques contra el invocador."},
+    {
+      "type": "text",
+      "text": "Cada pentáculo está formado por un cuenco dorado sacrificial, rodeado de varias runas de colores y parafernalia ocultista que mejoran el efecto deseado de varias maneras. La combinación de las runas elegidas y los objetos de apoyo, así como si exacta posicion espacial, determina el uso y la efectividad del pentáculo. Los ingredientes se sitúan en $(thing)Cuencos sacrificiales$() cerca del pentáculo."},
+    {
+      "_comment": "exact duplicate of this is in first_ritual.json",
+      "type": "image",
+      "border": "true",
+      "images": [
+        "occultism:textures/gui/book/bowl_placement.png"
+      ]
+    },
+    {
+      "_comment": "exact duplicate of this is in first_ritual.json",
+      "type": "text",
+      "text": "Los $(thing)Cuencos sacrificiales$() deben colocarse $(bold)en cualquier punto$() a 8 bloques del $(thing)Cuenco dorado sacrificial$() central. La localización no es exacta."},
+    {
+      "type": "text",
+      "title": "Pentáculos de Invocación",
+      "text": "El propósito de estos pentáculos es invocar espíritus en su forma elegida a nuestro mundo. Los espíritus invocados sufren de una fuerte decadencia de esencia, y sólo los espíritus más poderosos pueden permanecer por periodos extensos de tiempo."},
+    {
+      "type": "text",
+      "title": "Pentáculos de Infusión",
+      "text": "Los pentáculos de infusión permiten la vinculación de espíritus a objetos. Si bien los espíritus sufren de decadencia de esencia en algunos casos, esto a menudo se puede evitar con la correcta disposición del pentáculo, y añadiendo cristales y metales preciosos a los objetos a soportar al espíritu."},
+    {
+      "type": "text",
+      "title": "Pentáculos de Posesión",
+      "text": "Estos pentáculos fuerzan a los espíritus a poseer seres vivos, los cuales, dependiendo del contexto del ritual, otorgan al invocador el control de varios aspectos de la entidad, desde los objetos caídos al morir, e incluso en algunos casos otorgan control total sobre las entidades poseídas."}
+  ]
+}

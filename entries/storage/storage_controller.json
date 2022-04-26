@@ -1,0 +1,17 @@
+{
+  "name": "Actuador Almacén",
+  "icon": "occultism:storage_controller_base",
+  "category": "occultism:storage",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "occultism:storage_controller",
+      "title": "Actuador Almacén",
+      "text": "Los $(item)Actuadores Dimensionales de Almacén$() consisten en una $(l:rituals/crafting/craft_dimensional_matrix)Matriz Dimensional$(/l) habitada por un Djinni que crea y controla la dimensión de almacenamiento, y una $(l:rituals/crafting/craft_storage_controller_base)Base$(/l), imbuida con un Foliot que mueve los objetos dentro y fuera de la dimensión de almacenamiento."},
+    {
+      "type": "empty",
+      "draw_filler": false
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "name": "Sueño Demoníaco",
+  "icon": "occultism:datura",
+  "category": "occultism:getting_started",
+  "sortnum": 1,
+  "pages": [
+    {
+      "title": "Sueño Demoníaco",
+      "type": "spotlight",
+      "item": "occultism:datura",
+      "text": "El Sueño Demoníaco es una planta que otorga a los humanos el $(thing)Tercer Ojo$(), así como la habilidad de interactuar con materiales del $(thing)Otro Lado$(). Las semillas pueden encontrarse igual que las semillas de trigo, rompiendo la hierba. Consumir la fruta cultivada activa la habilidad"
+    },
+    {
+      "type": "text",
+      "text": "Un efecto adicional del Sueño Demoníaco, que otros métodos de obtener el $(thing)Tercer Ojo$() no consiguen, es la capacidad de interactuar con materiales del $(thing)Otro Lado$(). Bajo los efectos del Sueño Demoníaco, serás capaz de recolectar Piedra del Otro Lado así como árboles del Otro Lado."
+    },
+    {
+      "type": "image",
+      "border": "true",
+      "images": [
+        "occultism:textures/gui/book/datura_effect.png"
+      ]
+    },
+    {
+      "type": "text",
+      "text": "El consumo del Sueño Demoníaco permitirá ver partes del $(thing)Otro Lado$() que se cruzan con nuestro plano de existencia."
+    }
+  ]
+}

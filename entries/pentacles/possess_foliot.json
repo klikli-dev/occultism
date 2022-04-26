@@ -1,0 +1,21 @@
+{
+  "name": "Señuelo Hedyrin",
+  "icon": "occultism:textures/gui/book/pentagram_rose.png",
+  "category": "occultism:pentacles",
+  "sortnum": 12,
+  "pages": [
+    {
+      "type": "text",
+      "text": "$(bold)Objetivo:$() Posesión Foliot $(br2)$(thing)Señuelo de Hedyrin$() atrae a un $(thing)Foliot$() y lo fuerza a poseer a una criatura cercana. Este pentáculo no provoca un confinamiento permanente, el espíritu y la criatura poseída perecerán en un corto período de tiempo."},
+    {
+      "type": "multiblock",
+      "name": "",
+      "multiblock_id": "occultism:pentacle.possess_foliot"
+    },
+    {
+      "type": "text",
+      "title": "Usos",
+      "text": "$(li)$(l:rituals/possession/possess_endermite)Endermite poseído$(/l)$() $(li)$(l:rituals/possession/possess_skeleton)Esqueleto poseído$(/l)$() $(li)$(l:rituals/familiars/familiar_parrot)Familiar Loro$(/l)$() $(li)$(l:rituals/familiars/familiar_greedy)Familiar Codicioso$(/l)$() $(li)$(l:rituals/familiars/familiar_deer)Familiar Ciervo$(/l)$() $(li)$(l:rituals/familiars/familiar_blacksmith)Familiar Herrero$(/l)$() $(li)$(l:rituals/familiars/familiar_beaver)Familiar Castor$(/l)$()"
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "name": "Cautivación Ihagan",
+  "icon": "occultism:textures/gui/book/pentagram_rose.png",
+  "category": "occultism:pentacles",
+  "sortnum": 22,
+  "pages": [
+    {
+      "type": "text",
+      "text": "$(bold)Objetivo:$() Posesión Djinn $(br2)$(thing)Cautivación de Ihagan$() fuerza a un $(thing)Djinn$() a poseer a la criatura cercana. Este pentáculo no provoca un confinamiento permanente, el espíritu y la criatura poseída perecerán en un corto período de tiempo."},
+    {
+      "type": "multiblock",
+      "name": "",
+      "multiblock_id": "occultism:pentacle.possess_djinni"
+    },
+    {
+      "type": "text",
+      "title": "Usos",
+      "text": "$(li)$(l:rituals/possession/possess_enderman)Enderman poseído$(/l)$() $(li)$(l:rituals/possession/possess_ghast)Ghast poseído$(/l)$() $(li)$(l:rituals/familiars/familiar_otherworld_bird)Familiar Drikwing$(/l)$() $(li)$(l:rituals/familiars/familiar_bat)Familiar Murciélago$(/l)$() $(li)$(l:rituals/familiars/familiar_cthulhu)Familiar Cthulhu$(/l)$() $(li)$(l:rituals/familiars/familiar_devil)Familiar Demonio$(/l)$() $(li)$(l:rituals/familiars/familiar_dragon)Familiar Dragón$(/l)$() $(li)$(l:rituals/familiars/familiar_headless_ratman)Familiar hombre-rata acéfalo$(/l)$() $(li)$(l:rituals/familiars/familiar_chimera)Familiar Quimera$(/l)$() $(li)$(l:rituals/familiars/familiar_beholder)Familiar Observador$(/l)$()"
+    },
+    {
+      "type": "text",
+      "title": "Usos",
+      "text": "$(li)$(l:rituals/familiars/familiar_fairy)Familiar Hada$(/l)$() $(li)$(l:rituals/familiars/familiar_mummy)Familiar Momia$(/l)$()"
+    }
+  ]
+}

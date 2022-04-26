@@ -1,0 +1,23 @@
+{
+  "name": "Familiar Ciervo",
+  "icon": "occultism:textures/gui/book/familiar_deer.png",
+  "category": "occultism:rituals/familiars",
+  "sortnum": 12,
+  "pages": [
+    {
+      "type": "entity",
+      "entity": "occultism:deer_familiar",
+      "scale": 0.7,
+      "text": "$(bold)Otorga$(): $(thing)Aumento de salto$()"
+    },
+    {
+      "type": "occultism:ritual",
+      "recipe": "occultism:ritual/familiar_deer"
+    },
+    {
+      "type": "text",
+      "text": "Al ser mejorado por un familiar herrero, atacará a enemigos cercanos con un martillo."
+    }
+  ]
+}
+

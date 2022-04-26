@@ -1,0 +1,20 @@
+{
+  "name": "Comerciante de Piedra",
+  "icon": "occultism:otherstone",
+  "category": "occultism:rituals/summoning",
+  "sortnum": 21,
+  "pages": [
+    {
+      "type": "trade_description",
+      "heading": "Comerciante de Piedra del Otro Lado",
+      "content": "El Comerciante de Piedra del Otro Lado intercambia pierda normal por Piedra del Otro Lado.",
+      "input_item": "minecraft:stone",
+      "output_item": "occultism:otherstone#4"
+    },
+    {
+      "type": "occultism:ritual",
+      "recipe": "occultism:ritual/summon_foliot_otherstone_trader"
+    }
+  ]
+}
+

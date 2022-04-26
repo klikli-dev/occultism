@@ -1,0 +1,14 @@
+{
+  "name": "Sacrificios",
+  "icon": "minecraft:iron_sword",
+  "category": "occultism:rituals",
+  "sortnum": 3,
+  "pages": [
+    {
+      "type": "text",
+      "text": "Algunos rituales requieren del sacrificio de un ser vivo para otorgar la energía necesaria para invocar al espíritu. Los sacrificios se describen en la página del ritual a realizar, bajo el subtítulo \"Sacrificio\". Para realizar el sacrificio, mata al animal a menos de 8 bloques alrededor del cuenco dorado sacrificial. Solo las muertes por jugadores cuentan como sacrificios!"},
+    {
+      "type": "text",
+      "text": "Importante: Antes de sacrificar, comienza el ritual. Partículas grises indicarán que el ritual está listo para el sacrificio."}
+  ]
+}

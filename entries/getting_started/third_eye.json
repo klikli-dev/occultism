@@ -1,0 +1,21 @@
+{
+  "name": "El Tercer Ojo",
+  "icon": "occultism:textures/mob_effect/third_eye.png",
+  "category": "occultism:getting_started",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "text",
+      "text": "La capacidad de ver más allá del mundo físico se llama El $(thing)Tercer Ojo$(). Los humanos no poseen una habilidad para ver $(thing)más allá del velo$(), pero gracias a ciertas sustancias y artilugios, un invocador experto puede saltarse esta limitación."},
+    {
+      "type": "text",
+      "text": "La forma más cómoda - y complicada - de obtener esta habilidad, es equiparse con gafas imbuidas con espíritus, que $(o)presten$() su vista al usuario. Una alternativa más nauseabunda, pero asequible, es el consumo de ciertas hierbas, siendo la planta $(l:getting_started/datura)Sueño Demoníaco$(/l) la más prominente entre todas."},
+    {
+      "type": "text",
+      "text": "$(l:rituals/crafting/craft_otherworld_goggles)Gafas del Otro Lado$(/l)$() permiten ver bloques más ocultos del Otro Lado, pero no permiten su recolección ni cosecha de esos materiales. Los materiales de bajo nivel pueden cosecharse al consumir $(l:getting_started/datura)Sueño Demoníaco$(/l), pero los materiales más valiosos requieren de herramientas especiales."},
+    {
+      "type": "empty",
+      "draw_filler": false
+    }
+  ]
+}

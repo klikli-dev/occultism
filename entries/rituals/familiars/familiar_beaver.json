@@ -1,0 +1,23 @@
+{
+  "name": "Familiar Castor",
+  "icon": "occultism:textures/gui/book/familiar_beaver.png",
+  "category": "occultism:rituals/familiars",
+  "sortnum": 160,
+  "pages": [
+    {
+      "type": "entity",
+      "entity": "occultism:beaver_familiar",
+      "scale": 1,
+      "text": "$(bold)Otorga$(): $(thing)Aumento de velocidad al cortar madera$()"
+    },
+    {
+      "type": "occultism:ritual",
+      "recipe": "occultism:ritual/familiar_beaver"
+    },
+    {
+      "type": "text",
+      "text": "El familiar castor cortará árboles cercanos cuando crezcan de un brote. Sólo puede encargarse de árboles pequeños."
+    }
+  ]
+}
+
