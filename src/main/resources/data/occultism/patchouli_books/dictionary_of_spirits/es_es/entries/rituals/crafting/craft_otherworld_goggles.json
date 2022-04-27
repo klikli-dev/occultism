@@ -1,0 +1,20 @@
+{
+  "name": "Gafas del Otro Lado",
+  "icon": "occultism:otherworld_goggles",
+  "category": "occultism:rituals/crafting",
+  "sortnum": 10,
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "occultism:otherworld_goggles",
+      "text": "Las $(item)Gafas del Otro Lado$() otorgan al portador un efecto permanente del $(thing)Tercer Ojo$(), permitiendo ver bloques ocultos para aquellos que participan en el $(l:getting_started/datura)Sueño Demoníaco$(/l). No otorgará la capacidad de recolectar materiales del Otro Mundo. Para ello, se utilizarán herramientas especiales o el uso del Sueño Demoníaco es requerido, dependiendo del tipo de material."},
+    {
+      "type": "spotlight",
+      "item": "occultism:infused_lenses",
+      "text": "Las Gafas del Otro Mundo usan a un Foliot vinculado a las lentes. El Foliot comparte su habilidad para ver planos superiores con el portador, permitiendo ver materiales del Otro Lado. La invocación necesaria es simple, haciendo la fabricación de estas gafas una tarea común entre aprendices de invocador."},
+    {
+      "type": "occultism:ritual",
+      "recipe": "occultism:ritual/craft_infused_lenses"
+    }
+  ]
+}

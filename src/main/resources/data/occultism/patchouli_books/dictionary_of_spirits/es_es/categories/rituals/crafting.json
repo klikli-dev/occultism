@@ -1,0 +1,7 @@
+{
+  "name": "Rituales de Vinculación",
+  "description": "Los rituales de vinculación imbuyen objetos con espíritus, utilizando sus poderes para usos específicos. Los objetos generados pueden actuar potenciando encantamientos, o cumplir tareas complejas para ayudar al invocador.",
+  "icon": "occultism:textures/gui/book/infusion.png",
+  "parent": "occultism:rituals",
+  "sortnum": 3
+}

@@ -1,0 +1,7 @@
+{
+  "name": "Rituales de Posesión",
+  "description": "Los Rituales de Posesión, atan espíritus a seres vivos, dándole al invocador cierto grado de control sobre al ser poseído. Este efecto abarca desde controlar los objetos dejados o forzarlos a cumplir las órdenes del invocador.",
+  "icon": "occultism:textures/gui/book/possession.png",
+  "parent": "occultism:rituals",
+  "sortnum": 2
+}

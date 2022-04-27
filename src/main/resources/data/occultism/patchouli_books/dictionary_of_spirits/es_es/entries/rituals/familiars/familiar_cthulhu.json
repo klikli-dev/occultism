@@ -1,0 +1,23 @@
+{
+  "name": "Familiar Cthulhu",
+  "icon": "occultism:textures/gui/book/familiar_cthulhu.png",
+  "category": "occultism:rituals/familiars",
+  "sortnum": 50,
+  "pages": [
+    {
+      "type": "entity",
+      "entity": "occultism:cthulhu_familiar",
+      "scale": 0.5,
+      "text": "$(bold)Otorga$(): $(thing)Respiración acuática$()"
+    },
+    {
+      "type": "occultism:ritual",
+      "recipe": "occultism:ritual/familiar_cthulhu"
+    },
+    {
+      "type": "text",
+      "text": "Al mejorarlo con el familiar herrero, actuará como una fuente de luz móvil."
+    }
+  ]
+}
+

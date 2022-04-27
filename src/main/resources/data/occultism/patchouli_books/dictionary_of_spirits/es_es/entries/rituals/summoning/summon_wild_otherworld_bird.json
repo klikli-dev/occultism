@@ -1,0 +1,22 @@
+{
+  "name": "Drikwing Salvaje",
+  "icon": "occultism:textures/gui/book/otherworld_bird.png",
+  "category": "occultism:rituals/summoning",
+  "sortnum": 16,
+  "pages": [
+    {
+      "type": "entity",
+      "entity": "occultism:otherworld_bird",
+      "text": "$(bold)Otorga$(): Un Drikwing domable"
+    },
+    {
+      "type": "occultism:ritual",
+      "recipe": "occultism:ritual/summon_wild_otherworld_bird"
+    },
+    {
+      "type": "text",
+      "text": "Ver $(l:rituals/familiars/familiar_otherworld_bird)Familiar Drikwing$(/l) para más información."
+    }
+  ]
+}
+

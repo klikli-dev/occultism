@@ -1,0 +1,6 @@
+{
+  "name": "Rituales",
+  "description": "Todos los rituales y sus requisitos. Haz clic en los iconos para ver las categorías de rituales, o busca a la derecha para obtener información general.",
+  "icon": "occultism:textures/gui/book/robe.png",
+  "sortnum": 4
+}

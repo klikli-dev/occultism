@@ -1,0 +1,14 @@
+{
+  "name": "Nombres Verdaderos",
+  "icon": "occultism:textures/gui/book/spirits.png",
+  "category": "occultism:spirits",
+  "sortnum": 3,
+  "pages": [
+    {
+      "type": "text",
+      "text": "Para invocar a un espíritu, el mago necesita conocer su $(thing)Nombre Verdadero$(). Hoy en día se pueden conseguir información fácilmente, pero en la antigüedad la investigación se seguía de forma activa. Algunos espíritus pueden ser convencidos para compartir su conocimiento sobre el nombre verdadero de otros demonios, ya sea mediante la promesa de un regreso rápido al Otro Lado, o por métodos más persuasivos, como la tortura."},
+    {
+      "type": "text",
+      "text": "En este trabajo encontrarás los nombres conocidos de los espíritus de los 4 rangos, así como algunos más allá de eso. Para invocar a un espíritu, copia su nombre de este libro al libro de vinculación apropiado y, entonces, usa ese libro para activar el ritual de invocación."}
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "name": "Familiar Herrero",
+  "icon": "occultism:textures/gui/book/familiar_blacksmith.png",
+  "category": "occultism:rituals/familiars",
+  "sortnum": 70,
+  "pages": [
+    {
+      "type": "entity",
+      "entity": "occultism:blacksmith_familiar",
+      "text": "$(bold)Otorga$(): $(thing)eparacion de equipamiento al minar$(), $(thing)Mejora a otros familiares.$()"
+    },
+    {
+      "type": "occultism:ritual",
+      "recipe": "occultism:ritual/familiar_blacksmith"
+    },
+    {
+      "type": "text",
+      "text": "Cuando el jugador recoja piedra, hay una posibilidad de que el familiar herrero repare su equipamiento un poco.§(br2)Para mejorar a otros familiares, el herrero necesitar? lingotes de hierro o bloques haciendo click derecho sobre ?l. Mejorar familiares otorga efectos adicionales."
+    }
+  ]
+}
+

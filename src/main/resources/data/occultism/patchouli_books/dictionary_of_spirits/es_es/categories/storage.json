@@ -1,0 +1,6 @@
+{
+  "name": "Dimensión de almacenamiento",
+  "description": "La dimensión de almacenamiento permite almacenar grandes cantidades de objetos, y acceder a ellos remotamente. Adicionalmente, ciertos espíritus pueden transportar esos objetos e incluso crear otros por ti.",
+  "icon": "occultism:storage_controller_base",
+  "sortnum": 5
+}

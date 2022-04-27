@@ -1,0 +1,16 @@
+{
+  "name": "Foliot Transportador",
+  "icon": "minecraft:minecart",
+  "category": "occultism:rituals/summoning",
+  "sortnum": 13,
+  "pages": [
+    {
+      "type": "text",
+      "text": "El transportador moverá todos los objetos a los que pueda acceder de un inventario a otro, incluido máquinas. También puede depositarlos en inventarios de otros espíritus. Configurando los puntos de inserción y extracción pueden utilizarse para automatizar varias tareas de transporte."},
+    {
+      "type": "occultism:ritual",
+      "recipe": "occultism:ritual/summon_foliot_transport_items"
+    }
+  ]
+}
+

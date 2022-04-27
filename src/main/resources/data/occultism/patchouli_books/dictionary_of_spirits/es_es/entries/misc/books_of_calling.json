@@ -1,0 +1,15 @@
+{
+  "name": "Libros Invocantes",
+  "icon": "occultism:book_of_calling_foliot_lumberjack",
+  "category": "occultism:misc",
+  "sortnum": 10,
+  "pages": [
+    {
+      "type": "text",
+      "text": "Los libros de invocación permiten controlar a los espíritus invocados. Adicionalmente, permiten de forma temporal al espíritu regresar al $(thing)Otro Lado$(), pueden utilizarse para llamarlos de vuelta en cualquier momento. El vínculo entre el libro sólo se romperá si el espíritu es liberado o su esencia decae por completo."},
+    {
+      "type": "empty",
+      "draw_filler": false
+    }
+  ]
+}

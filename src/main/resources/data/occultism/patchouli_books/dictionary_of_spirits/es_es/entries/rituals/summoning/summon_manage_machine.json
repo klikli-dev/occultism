@@ -1,0 +1,21 @@
+{
+  "name": "Djinni Maquinista",
+  "icon": "minecraft:lever",
+  "category": "occultism:rituals/summoning",
+  "sortnum": 15,
+  "pages": [
+    {
+      "type": "text",
+      "text": "El maquinista transfiere objetos específicos de la dimensión de almacenamiento a las máquinas que controla, devolviendo los resultados de la máquina al sistema de almacenamiento. También pueden ser utilizados para vaciar automáticamente un cofre en el actuador de almacenamiento."
+    },
+    {
+      "type": "occultism:ritual",
+      "recipe": "occultism:ritual/summon_djinni_manage_machine"
+    },
+    {
+      "type": "text",
+      "text": "Para utilizar al maquinista, use el libro de vinculación para vincular un Actuador de Almacenamiento, la máquina y opcionalmente una ubicación de extracción a parte (la cara en la que hagas click será de donde se extraigan!). Para la máquina, puedes elegir un nombre personalizado en las configuraciones de insertar/extraer partes. Tener en cuenta que, añadir una máquina nueva (o configurarla con el libro de vinculación) reseteará las configuraciones de extracción."
+    }
+  ]
+}
+

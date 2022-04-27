@@ -1,0 +1,19 @@
+{
+  "name": "Comerciante de brotes",
+  "icon": "occultism:otherworld_sapling",
+  "category": "occultism:rituals/summoning",
+  "sortnum": 22,
+  "pages": [
+    {
+      "type": "trade_description",
+      "heading": "Comerciante de brotes del Otro Lado",
+      "content": "El Comerciante de brotes del Otro Lado intercambia brotes naturales del mundo real por brotes estables del Otro Lado, que pueden cosecharse sin el uso del $(thing)tercer ojo$().",
+      "input_item": "occultism:otherworld_sapling_natural",
+      "output_item": "occultism:otherworld_sapling"
+    },
+    {
+      "type": "occultism:ritual",
+      "recipe": "occultism:ritual/summon_foliot_sapling_trader"
+    }
+  ]
+}
