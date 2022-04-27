@@ -41,6 +41,7 @@ public class OccultismTags {
     public static final TagKey<Block> CANDLES = makeBlockTag(new ResourceLocation("minecraft", "candles"));
 
     //Item Tags
+    public static final TagKey<Item> OTHERWORLD_GOGGLES = makeItemTag(new ResourceLocation(Occultism.MODID, "otherworld_goggles"));
     public static final TagKey<Item> ELYTRA = makeItemTag(new ResourceLocation(Occultism.MODID, "elytra"));
     public static final TagKey<Item> FRUITS = makeItemTag(new ResourceLocation("forge", "fruits"));
 

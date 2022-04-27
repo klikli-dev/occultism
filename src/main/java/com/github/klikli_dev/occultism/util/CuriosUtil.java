@@ -38,7 +38,7 @@ import java.util.Optional;
 public class CuriosUtil {
     public static boolean hasGoggles(Player player) {
         ItemStack helmet = player.getItemBySlot(EquipmentSlot.HEAD);
-        if (helmet.getItem() instanceof OtherworldGogglesItem)
+        if (OtherworldGogglesItem.isGogglesItem(helmet))
             return true;
 
         Optional<Boolean> hasGoggles = CuriosApi.getCuriosHelper().getCuriosHandler(player)
@@ -47,7 +47,7 @@ public class CuriosUtil {
                         stackHandler -> {
                             for (int i = 0; i < stackHandler.getSlots(); i++) {
                                 ItemStack stack = stackHandler.getStackInSlot(i);
-                                if (stack.getItem() instanceof OtherworldGogglesItem) {
+                                if (OtherworldGogglesItem.isGogglesItem(stack)) {
                                     return true;
 
                                 }
