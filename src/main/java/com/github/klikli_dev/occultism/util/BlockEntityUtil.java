@@ -53,14 +53,14 @@ public class BlockEntityUtil {
             return null;
 
         if (level.dimension() == pos.getDimensionKey()) {
-            return getWorldTileEntityUnchecked(level, pos.getPos());
+            return level.getBlockEntity(pos.getPos()); //getWorldTileEntityUnchecked(level, pos.getPos());
         }
         if (level.isClientSide) //can only access other dimensions on the server.
             return null;
 
         Level dimensionWorld = ServerLifecycleHooks.getCurrentServer().getLevel(pos.getDimensionKey());
         if (dimensionWorld != null)
-            return getWorldTileEntityUnchecked(dimensionWorld, pos.getPos());
+            return dimensionWorld.getBlockEntity(pos.getPos()); // getWorldTileEntityUnchecked(dimensionWorld, pos.getPos());
 
         return null;
     }
@@ -70,8 +70,7 @@ public class BlockEntityUtil {
             return null;
         } else {
             //Note: this should handle the pending entities that we manually did via world in 1.16
-            //level.hasChunkAt() will call getChunk with load=true, which will cause hangs if the chunk is not loaded
-            var chunkAccess = level.getChunk(pos.getX(), pos.getY(), ChunkStatus.FULL, false);
+            var chunkAccess = level.getChunk(pos.getX(), pos.getY(), ChunkStatus.FULL, true);
             if(chunkAccess instanceof LevelChunk chunk) {
                 return chunk.getBlockEntity(pos, LevelChunk.EntityCreationType.IMMEDIATE);
             }
