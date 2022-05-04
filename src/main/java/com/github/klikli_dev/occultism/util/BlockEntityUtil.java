@@ -33,6 +33,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.chunk.ChunkStatus;
 import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.server.ServerLifecycleHooks;
@@ -69,7 +70,9 @@ public class BlockEntityUtil {
             return null;
         } else {
             //Note: this should handle the pending entities that we manually did via world in 1.16
-            return level.getChunkAt(pos).getBlockEntity(pos, LevelChunk.EntityCreationType.IMMEDIATE);
+            //level.hasChunkAt() will call getChunk with load=true, which will cause hangs if the chunk is not loaded
+            var chunkAccess = level.getChunk(pos.getX(), pos.getY(), ChunkStatus.FULL, false);
+            return ((LevelChunk) chunkAccess).getBlockEntity(pos, LevelChunk.EntityCreationType.IMMEDIATE);
         }
     }
 
