@@ -72,7 +72,10 @@ public class BlockEntityUtil {
             //Note: this should handle the pending entities that we manually did via world in 1.16
             //level.hasChunkAt() will call getChunk with load=true, which will cause hangs if the chunk is not loaded
             var chunkAccess = level.getChunk(pos.getX(), pos.getY(), ChunkStatus.FULL, false);
-            return ((LevelChunk) chunkAccess).getBlockEntity(pos, LevelChunk.EntityCreationType.IMMEDIATE);
+            if(chunkAccess instanceof LevelChunk chunk) {
+                return chunk.getBlockEntity(pos, LevelChunk.EntityCreationType.IMMEDIATE);
+            }
+            return null;
         }
     }
 
