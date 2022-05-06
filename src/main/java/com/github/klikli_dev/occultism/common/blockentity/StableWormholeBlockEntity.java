@@ -48,6 +48,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.items.CapabilityItemHandler;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -144,8 +145,10 @@ public class StableWormholeBlockEntity extends NetworkedBlockEntity implements I
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, Direction side) {
-        if (this.getLinkedStorageController() != null) {
-            return ((BlockEntity) this.getLinkedStorageController()).getCapability(cap, side);
+        if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+            if (this.getLinkedStorageController() != null) {
+                return ((BlockEntity) this.getLinkedStorageController()).getCapability(cap, side);
+            }
         }
         return super.getCapability(cap, side);
     }
