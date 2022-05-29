@@ -34,6 +34,7 @@ import com.github.klikli_dev.occultism.client.itemproperties.*;
 import com.github.klikli_dev.occultism.client.keybindings.BackpackKeyConflictContext;
 import com.github.klikli_dev.occultism.client.keybindings.StorageRemoteKeyConflictContext;
 import com.github.klikli_dev.occultism.client.model.entity.*;
+import com.github.klikli_dev.occultism.client.render.ThirdEyeEffectRenderer;
 import com.github.klikli_dev.occultism.client.render.blockentity.SacrificialBowlRenderer;
 import com.github.klikli_dev.occultism.client.render.blockentity.StorageControllerGeoRenderer;
 import com.github.klikli_dev.occultism.client.render.entity.*;
@@ -42,6 +43,7 @@ import com.github.klikli_dev.occultism.common.capability.FamiliarSettingsCapabil
 import com.github.klikli_dev.occultism.common.container.spirit.SpiritContainer;
 import com.github.klikli_dev.occultism.registry.*;
 import com.mojang.blaze3d.platform.InputConstants;
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
@@ -54,6 +56,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.ClientRegistry;
 import net.minecraftforge.client.event.EntityRenderersEvent;
+import net.minecraftforge.client.gui.OverlayRegistry;
 import net.minecraftforge.client.settings.KeyConflictContext;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -199,6 +202,14 @@ public class ClientSetupEventHandler {
             MenuScreens.register(OccultismContainers.SATCHEL.get(), SatchelScreen::new);
             Occultism.LOGGER.debug("Registered Screen Containers");
         });
+
+        ThirdEyeEffectRenderer.THIRD_EYE_OVERLAY = OverlayRegistry.registerOverlayTop("third_eye", (gui, poseStack, partialTick, screenWidth, screenHeight) -> {
+            gui.setupOverlayRenderState(true, false, ThirdEyeEffectRenderer.THIRD_EYE_TEXTURE);
+            RenderSystem.enableTexture();
+            Occultism.THIRD_EYE_EFFECT_RENDERER.renderOverlay(poseStack);
+        });
+
+        Occultism.LOGGER.debug("Registered Overlays");
 
         Occultism.LOGGER.info("Client setup complete.");
     }

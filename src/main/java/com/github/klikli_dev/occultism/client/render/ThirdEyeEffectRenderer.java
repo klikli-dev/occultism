@@ -30,10 +30,7 @@ import com.github.klikli_dev.occultism.util.CuriosUtil;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.platform.Window;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.BufferBuilder;
-import com.mojang.blaze3d.vertex.DefaultVertexFormat;
-import com.mojang.blaze3d.vertex.Tesselator;
-import com.mojang.blaze3d.vertex.VertexFormat;
+import com.mojang.blaze3d.vertex.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
@@ -41,7 +38,8 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.client.event.RenderGameOverlayEvent;
+import net.minecraftforge.client.gui.IIngameOverlay;
+import net.minecraftforge.client.gui.OverlayRegistry;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
@@ -50,30 +48,42 @@ import java.util.Set;
 
 public class ThirdEyeEffectRenderer {
 
-    //region Fields
     public static final int MAX_THIRD_EYE_DISTANCE = 10;
-
     public static final ResourceLocation THIRD_EYE_SHADER = new ResourceLocation(Occultism.MODID,
             "shaders/post/third_eye.json");
-    public static final ResourceLocation THIRD_EYE_OVERLAY = new ResourceLocation(Occultism.MODID,
+    public static final ResourceLocation THIRD_EYE_TEXTURE = new ResourceLocation(Occultism.MODID,
             "textures/overlay/third_eye.png");
-
+    public static IIngameOverlay THIRD_EYE_OVERLAY;
     public boolean thirdEyeActiveLastTick = false;
     public boolean gogglesActiveLastTick = false;
 
     public Set<BlockPos> uncoveredBlocks = new HashSet<>();
-    //endregion Fields
 
-    //region Static Methods
-    private static void renderOverlay(RenderGameOverlayEvent.Post event, ResourceLocation texture) {
+    @SubscribeEvent
+    public void onPlayerTick(TickEvent.PlayerTickEvent event) {
+        if (event.player.level.isClientSide && event.player == Minecraft.getInstance().player) {
+            this.onThirdEyeTick(event);
+            this.onGogglesTick(event);
+
+            OverlayRegistry.enableOverlay(THIRD_EYE_OVERLAY, this.thirdEyeActiveLastTick || this.gogglesActiveLastTick);
+        }
+    }
+
+    public void renderOverlay(PoseStack pose) {
+        RenderSystem.enableBlend();
+        RenderSystem.blendFuncSeparate(
+                GlStateManager.SourceFactor.SRC_ALPHA,
+                GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA,
+                GlStateManager.SourceFactor.ONE,
+                GlStateManager.DestFactor.ZERO);
+
+        RenderSystem.clearColor(1, 1, 1, 1);
 
         Window window = Minecraft.getInstance().getWindow();
-        event.getMatrixStack().pushPose();
+        pose.pushPose();
 
         RenderSystem.disableDepthTest();
         RenderSystem.depthMask(false);
-
-        Minecraft.getInstance().getTextureManager().bindForSetup(texture);
 
         Tesselator tessellator = Tesselator.getInstance();
         BufferBuilder buffer = tessellator.getBuilder();
@@ -89,50 +99,10 @@ public class ThirdEyeEffectRenderer {
         RenderSystem.depthMask(true);
         RenderSystem.enableDepthTest();
 
-        event.getMatrixStack().popPose();
-    }
-    //endregion Static Methods
+        pose.popPose();
 
-    //region Methods
-    @SubscribeEvent
-    public void onPlayerTick(TickEvent.PlayerTickEvent event) {
-        if (event.player.level.isClientSide && event.player == Minecraft.getInstance().player) {
-            this.onThirdEyeTick(event);
-            this.onGogglesTick(event);
-        }
-    }
-
-    @SubscribeEvent
-    public void onPreRenderOverlay(RenderGameOverlayEvent.Pre event) {
-        //TODO: Remove this hack once MC fixes shader rendering on their own
-        //      Based on: https://discordapp.com/channels/313125603924639766/725850371834118214/784883909694980167
-
-        //TODO: enable once we fix 1.18 overlay rendering
-        //RenderSystem.enableTexture();
-    }
-
-    @SubscribeEvent
-    public void onRenderOverlay(RenderGameOverlayEvent.Post event) {
-        //Elementtype was HELMET in 1.16
-        //TODO: enable once we fix 1.18 overlay rendering
-//        if (event.getType() == RenderGameOverlayEvent.ElementType.BOSSINFO) {
-//            if (this.thirdEyeActiveLastTick || this.gogglesActiveLastTick) {
-//                RenderSystem.enableBlend();
-//                RenderSystem.blendFuncSeparate(
-//                        GlStateManager.SourceFactor.SRC_ALPHA,
-//                        GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA,
-//                        GlStateManager.SourceFactor.ONE,
-//                        GlStateManager.DestFactor.ZERO);
-//
-//                RenderSystem.clearColor(1, 1, 1, 1);
-//
-//                renderOverlay(event, THIRD_EYE_OVERLAY);
-//
-//                RenderSystem.clearColor(1, 1, 1, 1);
-//                RenderSystem.disableBlend();
-//            }
-//        }
-
+        RenderSystem.clearColor(1, 1, 1, 1);
+        RenderSystem.disableBlend();
     }
 
     /**
