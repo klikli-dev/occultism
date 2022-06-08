@@ -24,6 +24,7 @@ package com.github.klikli_dev.occultism.config;
 
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
@@ -50,75 +51,12 @@ public class OccultismCommonConfig {
     }
 
     public static class WorldGenSettings {
-        public final OreGenSettings oreGen;
         public final UndergroundGroveGenSettings undergroundGroveGen;
 
         public WorldGenSettings(ForgeConfigSpec.Builder builder) {
             builder.comment("WorldGen Settings").push("worldgen");
-            this.oreGen = new OreGenSettings(builder);
             this.undergroundGroveGen = new UndergroundGroveGenSettings(builder);
             builder.pop();
-        }
-
-        public static class OreGenSettings {
-            public final OreSettings silverOre;
-            public final OreSettings silverOreDeepslate;
-            public final OreSettings iesniumOre;
-
-            public OreGenSettings(ForgeConfigSpec.Builder builder) {
-                builder.comment("Ore Gen Settings").push("oregen");
-
-                this.silverOre =
-                        new OreSettings("silverOre",
-                                BlockTags.STONE_ORE_REPLACEABLES, 7,
-                                3, 50, 0, 200, builder);
-                this.silverOreDeepslate =
-                        new OreSettings("silverOreDeepslate",
-                                BlockTags.DEEPSLATE_ORE_REPLACEABLES, 7,
-                                3, -64, 0, 50, builder);
-                this.iesniumOre =
-                        new OreSettings("iesniumOre",
-                                BlockTags.BASE_STONE_NETHER, 3, 10,
-                                10, 10, 128, builder);
-                builder.pop();
-            }
-
-            public static class OreSettings {
-                public final BooleanValue generateOre;
-                public final ConfigValue<String> fillerBlockTag;
-                public final IntValue size;
-                public final IntValue count;
-                public final IntValue minimum;
-                public final IntValue maximum;
-
-                public OreSettings(String oreName, TagKey<Block> fillerBlockTag,
-                                   int size, int count, int minimum, int topOffset, int maximum,
-                                   ForgeConfigSpec.Builder builder) {
-                    builder.comment("Ore Settings").push(oreName);
-
-                    this.generateOre =
-                            builder.comment("True to generate this ore.")
-                                    .define("generateOre", true);
-                    this.fillerBlockTag =
-                            builder.comment("The tag for the blocks this ore will spawn in.")
-                                    .define("fillerBlockTag", fillerBlockTag.location().toString());
-                    this.size =
-                            builder.comment("The size of veins for this ore.")
-                                    .defineInRange("size", size, 0, Byte.MAX_VALUE);
-                    this.count =
-                            builder.comment("The count value for the decorator for this ore.")
-                                    .defineInRange("count", count, 0, Byte.MAX_VALUE);
-                    this.minimum = builder.comment("Range configuration min height.")
-                            .defineInRange("bottomOffset", minimum, Integer.MIN_VALUE, Integer.MAX_VALUE);
-                    this.maximum = builder.comment("Range configuration max height. A negative max height is interpreted as offset from the top of the world (relevant for nether)")
-                            .defineInRange("maximum", maximum, Integer.MIN_VALUE, Integer.MAX_VALUE);
-                    builder.pop();
-                }
-
-                public TagKey<Block> getFillerBlockTag() {
-                    return TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation(this.fillerBlockTag.get()));
-                }
-            }
         }
 
 
@@ -167,8 +105,8 @@ public class OccultismCommonConfig {
                                 .defineInRange("ceilingLightChance", 0.1, 0.0f, 1.0f);
 
                 List<String> defaultBiomeTypeBlacklist =
-                        Stream.of(BiomeDictionary.Type.NETHER, BiomeDictionary.Type.END)
-                                .map(BiomeDictionary.Type::getName)
+                        Stream.of(BiomeTags.IS_NETHER, BiomeTags.IS_END)
+                                .map(t -> t.location().toString())
                                 .collect(Collectors.toList());
                 this.biomeTypeBlacklist =
                         builder.comment("The biome types the underground grove cannot spawn in.")

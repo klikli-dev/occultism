@@ -38,8 +38,8 @@ public class OccultismSpiritJobs {
     //region Fields
     public static DeferredRegister<SpiritJobFactory> JOBS = DeferredRegister.create(new ResourceLocation(Occultism.MODID, "spirit_job_factory"), Occultism.MODID);
 
-    public static final Supplier<IForgeRegistry<SpiritJobFactory>> REGISTRY = JOBS.makeRegistry(SpiritJobFactory.class, RegistryBuilder::new);
-
+    public static final Supplier<IForgeRegistry<SpiritJobFactory>> REGISTRY = JOBS.makeRegistry(() ->
+            new RegistryBuilder<SpiritJobFactory>().disableSaving().setMaxID(Integer.MAX_VALUE - 1));
 
     public static final RegistryObject<SpiritJobFactory> LUMBERJACK = JOBS.register("lumberjack",
             () -> new SpiritJobFactory(LumberjackJob::new));

@@ -29,6 +29,9 @@ import com.github.klikli_dev.occultism.registry.OccultismBiomeFeatures;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import net.minecraft.core.Holder;
 import net.minecraft.data.worldgen.features.FeatureUtils;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
@@ -39,12 +42,15 @@ import net.minecraft.world.level.levelgen.feature.foliageplacers.BlobFoliagePlac
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.StraightTrunkPlacer;
 import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
-import net.minecraftforge.common.BiomeDictionary;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.stream.Collectors;
 
 public class OccultismFeatures {
-    public static Holder<ConfiguredFeature<OreConfiguration, ?>> SILVER_ORE;
+    public static Holder<ConfiguredFeature<OreConfiguration, ?>> SILVER_ORE = FeatureUtils.register("silver_ore",
+            Feature.ORE, new OreConfiguration(
+                    new TagMatchTest(BlockTags.STONE_ORE_REPLACEABLES),
+                    OccultismBlocks.SILVER_ORE.get().defaultBlockState(), 7));
     public static Holder<ConfiguredFeature<OreConfiguration, ?>> SILVER_ORE_DEEPSLATE;
     public static Holder<ConfiguredFeature<OreConfiguration, ?>> IESNIUM_ORE;
 
@@ -59,10 +65,6 @@ public class OccultismFeatures {
         OccultismCommonConfig.WorldGenSettings.UndergroundGroveGenSettings groveGen =
                 Occultism.COMMON_CONFIG.worldGen.undergroundGroveGen;
 
-
-        SILVER_ORE = FeatureUtils.register("silver_ore", Feature.ORE, new OreConfiguration(
-                new TagMatchTest(oreGen.silverOre.getFillerBlockTag()),
-                OccultismBlocks.SILVER_ORE.get().defaultBlockState(), oreGen.silverOre.size.get()));
 
         SILVER_ORE_DEEPSLATE = FeatureUtils.register("silver_ore_deepslate", Feature.ORE, new OreConfiguration(
                 new TagMatchTest(oreGen.silverOreDeepslate.getFillerBlockTag()),
@@ -81,7 +83,7 @@ public class OccultismFeatures {
                         groveGen.groveSpawnMax.get(),
                         14653667,
                         Occultism.COMMON_CONFIG.worldGen.undergroundGroveGen.biomeTypeBlacklist.get().stream()
-                                .map(BiomeDictionary.Type::getType)
+                                .map(s -> TagKey.create(ForgeRegistries.BIOMES.getRegistryKey(), ResourceLocation.tryParse(s)))
                                 .collect(Collectors.toList())));
 
         OTHERWORLD_TREE_NATURAL = FeatureUtils.register("otherworld_tree_natural", Feature.TREE,

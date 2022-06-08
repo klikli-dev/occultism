@@ -24,7 +24,6 @@ package com.github.klikli_dev.occultism.common.level;
 
 import com.github.klikli_dev.occultism.Occultism;
 import net.minecraft.world.level.levelgen.GenerationStep;
-import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 

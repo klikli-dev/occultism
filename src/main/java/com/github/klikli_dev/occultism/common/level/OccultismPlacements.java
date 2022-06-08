@@ -26,15 +26,23 @@ import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.config.OccultismCommonConfig;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.placement.*;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.RegistryObject;
 
 import java.util.List;
 
 public class OccultismPlacements {
 
-    public static Holder<PlacedFeature> SILVER_ORE;
+    public static final DeferredRegister<PlacedFeature> PLACED_FEATURES = DeferredRegister.create(Registry.PLACED_FEATURE_REGISTRY, Occultism.MODID);
+
+    public static RegistryObject<PlacedFeature> SILVER_ORE = PLACED_FEATURES.register("silver_ore",
+            () -> new PlacedFeature((Holder<ConfiguredFeature<?,?>>)(Holder<? extends ConfiguredFeature<?,?>>)OccultismFeatures.SILVER_ORE, commonOrePlacement(3,
+                    HeightRangePlacement.triangle(VerticalAnchor.absolute(50), VerticalAnchor.absolute(200)))));
     public static Holder<PlacedFeature> SILVER_ORE_DEEPSLATE;
     public static Holder<PlacedFeature> IESNIUM_ORE;
 
@@ -52,6 +60,7 @@ public class OccultismPlacements {
                 VerticalAnchor.absolute(oreGen.silverOre.maximum.get()) :
                 VerticalAnchor.belowTop(-oreGen.silverOre.maximum.get());
         SILVER_ORE = PlacementUtils.register("silver_ore", OccultismFeatures.SILVER_ORE,
+                PlacementUtils.filteredByBlockSurvival()
                 commonOrePlacement(oreGen.silverOre.count.get(),
                         HeightRangePlacement.triangle(VerticalAnchor.absolute(oreGen.silverOre.minimum.get()), silverMaxAnchor)));
 

@@ -34,7 +34,6 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.ShapelessRecipe;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import javax.annotation.Nonnull;
 import java.util.Arrays;
@@ -124,7 +123,7 @@ public class SpiritTradeRecipe extends ShapelessRecipe {
     }
     //endregion Methods
 
-    public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<SpiritTradeRecipe> {
+    public static class Serializer implements RecipeSerializer<SpiritTradeRecipe> {
         //region Fields
         private static final ShapelessRecipe.Serializer serializer = new ShapelessRecipe.Serializer();
         //endregion Fields

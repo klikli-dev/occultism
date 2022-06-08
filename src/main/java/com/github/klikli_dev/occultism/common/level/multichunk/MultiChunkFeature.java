@@ -91,7 +91,7 @@ public class MultiChunkFeature extends Feature<MultiChunkFeatureConfig> {
         //check biome type blacklist
         for (Holder<Biome> biome : context.chunkGenerator().getBiomeSource().getBiomesWithin(pos.getX(), pos.getY(), pos.getZ(), 1, context.chunkGenerator().climateSampler())) {
             ResourceKey<Biome> biomeKey = ResourceKey.create(Registry.BIOME_REGISTRY, biome.value().getRegistryName());
-            if (BiomeUtil.containsType(biomeKey, context.config().biomeTypeBlacklist)) {
+            if (BiomeUtil.containsType(biomeKey, context.config().biomeTagBlacklist)) {
                 return false;
             }
         }

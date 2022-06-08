@@ -24,20 +24,15 @@ package com.github.klikli_dev.occultism.common.level.multichunk;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
-import net.minecraftforge.common.BiomeDictionary;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.List;
 
 public class MultiChunkFeatureConfig implements FeatureConfiguration {
 
-    //region Fields
-    public static final Codec<BiomeDictionary.Type> BIOME_TYPE_CODEC = RecordCodecBuilder.create((kind1) -> {
-        //CODEC = codec
-        return kind1.group(
-                Codec.STRING.fieldOf("name").forGetter(BiomeDictionary.Type::getName)
-        ).apply(kind1, BiomeDictionary.Type::getType);
-    });
     public static final Codec<MultiChunkFeatureConfig> CODEC = RecordCodecBuilder.create((kind1) -> {
         //CODEC = codec
         return kind1.group(
@@ -51,8 +46,8 @@ public class MultiChunkFeatureConfig implements FeatureConfiguration {
                     return config.maxGenerationHeight;
                 }), Codec.intRange(0, Integer.MAX_VALUE).fieldOf("feature_seed_salt").forGetter((config) -> {
                     return config.featureSeedSalt;
-                }), Codec.list(BIOME_TYPE_CODEC).fieldOf("biome_type_blacklist").forGetter((config) -> {
-                    return config.biomeTypeBlacklist;
+                }), Codec.list(TagKey.codec(ForgeRegistries.BIOMES.getRegistryKey())).fieldOf("biome_tag_blacklist").forGetter((config) -> {
+                    return config.biomeTagBlacklist;
                 })
         ).apply(kind1, MultiChunkFeatureConfig::new);
     });
@@ -64,21 +59,16 @@ public class MultiChunkFeatureConfig implements FeatureConfiguration {
     public final int minGenerationHeight;
     public final int maxGenerationHeight;
     public final int featureSeedSalt;
-    public final List<BiomeDictionary.Type> biomeTypeBlacklist;
-    //endregion Fields
+    public final List<TagKey<Biome>> biomeTagBlacklist;
 
-    //region Initialization
 
     public MultiChunkFeatureConfig(int maxChunksToRoot, int chanceToGenerate, int minGenerationHeight,
-                                   int maxGenerationHeight, int featureSeedSalt, List<BiomeDictionary.Type> biomeTypeBlacklist) {
+                                   int maxGenerationHeight, int featureSeedSalt, List<TagKey<Biome>> biomeTagBlacklist) {
         this.maxChunksToRoot = maxChunksToRoot;
         this.chanceToGenerate = chanceToGenerate;
         this.featureSeedSalt = featureSeedSalt;
         this.minGenerationHeight = minGenerationHeight;
         this.maxGenerationHeight = maxGenerationHeight;
-        this.biomeTypeBlacklist = biomeTypeBlacklist;
+        this.biomeTagBlacklist = biomeTagBlacklist;
     }
-    //endregion Initialization
-
-
 }
