@@ -96,7 +96,7 @@ public class CrusherJob extends SpiritJob {
                     fakeInventory, this.entity.level);
             this.crushingTimer = 0;
 
-            if(this.currentRecipe.isPresent()){
+            if (this.currentRecipe.isPresent()) {
                 //play crushing sound
                 this.entity.level
                         .playSound(null, this.entity.blockPosition(), OccultismSounds.CRUNCHING.get(), SoundSource.NEUTRAL, 0.5f,

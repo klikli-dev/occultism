@@ -27,7 +27,6 @@ import com.github.klikli_dev.occultism.common.job.SpiritJob;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.registry.OccultismSpiritJobs;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -58,14 +57,14 @@ public class DebugWandItem extends Item {
 //            ItemStack spirit = new ItemStack(OccultismItems.MINER_DEBUG_UNSPECIALIZED.get());
 //            spirit.getItem().onCreated(spirit, context.getLevel(), context.getPlayer());
 //            ItemHandlerHelper.giveItemToPlayer(player, spirit);
-            //context.getPlayer().sendMessage(new TextComponent(TextUtil.generateName()), Util.NIL_UUID);
+            //context.getPlayer().sendMessage(Component.literal(TextUtil.generateName()), Util.NIL_UUID);
 
             //set up the foliot entity
             BlockPos target = context.getClickedPos().above();
             SpiritEntity spirit = OccultismEntities.MARID.get().create(context.getLevel());
             spirit.absMoveTo(target.getX(), target.getY(), target.getZ(),
                     context.getLevel().random.nextInt(360), 0);
-            spirit.setCustomName(new TextComponent("Testguy"));
+            spirit.setCustomName(Component.literal("Testguy"));
             spirit.finalizeSpawn((ServerLevel) context.getLevel(), context.getLevel().getCurrentDifficultyAt(target),
                     MobSpawnType.MOB_SUMMONED, null,
                     null);

@@ -40,8 +40,8 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.Containers;
@@ -96,7 +96,7 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
 
         if (bestPentacleDiff != null && !bestPentacleDiff.isEmpty() && bestPentacleDiff.size() < 4) {
             player.displayClientMessage(
-                    new TranslatableComponent("ritual." + Occultism.MODID + ".pentacle_help", new TranslatableComponent(bestMatch.getDescriptionId()), pentacleDiffToComponent(bestPentacleDiff)),
+                    Component.translatable("ritual." + Occultism.MODID + ".pentacle_help", Component.translatable(bestMatch.getDescriptionId()), pentacleDiffToComponent(bestPentacleDiff)),
                     false);
             return true;
         }
@@ -105,14 +105,14 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
 
     //region Overrides
 
-    private static TextComponent pentacleDiffToComponent(Map<BlockPos, Block> bestPentacleDiff) {
-        TextComponent text = new TextComponent("");
+    private static MutableComponent pentacleDiffToComponent(Map<BlockPos, Block> bestPentacleDiff) {
+        var text = Component.literal("");
 
         for (Entry<BlockPos, Block> entry : bestPentacleDiff.entrySet()) {
-            text.append(new TranslatableComponent(entry.getValue().getDescriptionId()));
-            text.append(new TranslatableComponent("ritual." + Occultism.MODID + ".pentacle_help_at_glue"));
+            text.append(Component.translatable(entry.getValue().getDescriptionId()));
+            text.append(Component.translatable("ritual." + Occultism.MODID + ".pentacle_help_at_glue"));
             BlockPos pos = entry.getKey();
-            text.append(new TextComponent("x: " + pos.getX() + ", y: " + pos.getY() + ", z: " + pos.getZ() + "\n"));
+            text.append(Component.literal("x: " + pos.getX() + ", y: " + pos.getY() + ", z: " + pos.getZ() + "\n"));
         }
 
         return text;
@@ -163,7 +163,7 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
 
         if (bestRitualDiff != null && !bestRitualDiff.isEmpty() && bestRitualDiff.size() < 4) {
             player.displayClientMessage(
-                    new TranslatableComponent("ritual." + Occultism.MODID + ".ritual_help", new TranslatableComponent(bestRitual.getRitual().getStartedMessage()), ritualDiffToComponent(bestRitualDiff)),
+                    Component.translatable("ritual." + Occultism.MODID + ".ritual_help", Component.translatable(bestRitual.getRitual().getStartedMessage()), ritualDiffToComponent(bestRitualDiff)),
                     false);
 
             return true;
@@ -174,7 +174,7 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
 
     private static Object ritualDiffToComponent(List<Ingredient> ritualDiff) {
         Random rand = new Random();
-        TextComponent text = new TextComponent("");
+        TextComponent text = Component.literal("");
 
         for (Ingredient ingredient : ritualDiff) {
             if (ingredient.getItems().length == 0)
@@ -320,9 +320,9 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
             }
 
             //Advance ritual time every second, based on the standard 20 tps, but taking into account duration multiplier
-            if (this.level.getGameTime() % ((int)(20 * Occultism.SERVER_CONFIG.rituals.ritualDurationMultiplier.get())) == 0)
+            if (this.level.getGameTime() % ((int) (20 * Occultism.SERVER_CONFIG.rituals.ritualDurationMultiplier.get())) == 0)
                 this.currentTime++;
-            
+
             recipe
                     .getRitual()
                     .update(this.level, this.getBlockPos(), this, this.castingPlayer, handler.getStackInSlot(0),
@@ -378,20 +378,20 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
                         this.startRitual(player, activationItem, ritualRecipe);
                     } else {
                         //if ritual is not valid, inform player.
-                        player.displayClientMessage(new TranslatableComponent(ritualRecipe.getRitual().getConditionsMessage()), true);
+                        player.displayClientMessage(Component.translatable(ritualRecipe.getRitual().getConditionsMessage()), true);
                         return false;
                     }
                 } else {
                     if (activationItem.getItem() instanceof BookOfBindingItem) {
                         //common error: people use unbound book, so we send a special message for those
                         player.displayClientMessage(
-                                new TranslatableComponent(String.format("ritual.%s.book_not_bound", Occultism.MODID)),
+                                Component.translatable(String.format("ritual.%s.book_not_bound", Occultism.MODID)),
                                 false);
                     } else {
                         if (!helpWithPentacle(level, pos, player)) {
                             if (!helpWithRitual(level, pos, player, activationItem)) {
                                 player.displayClientMessage(
-                                        new TranslatableComponent(String.format("ritual.%s.does_not_exist", Occultism.MODID)),
+                                        Component.translatable(String.format("ritual.%s.does_not_exist", Occultism.MODID)),
                                         false);
                             }
                         }

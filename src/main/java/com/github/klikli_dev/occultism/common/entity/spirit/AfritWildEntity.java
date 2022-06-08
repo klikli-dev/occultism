@@ -24,7 +24,6 @@ package com.github.klikli_dev.occultism.common.entity.spirit;
 
 import com.github.klikli_dev.occultism.registry.OccultismTags;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.tags.Tag;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
@@ -94,7 +93,7 @@ public class AfritWildEntity extends AfritEntity {
         TagKey<EntityType<?>> alliesTags = OccultismTags.AFRIT_ALLIES;
 
         //alliesTags should never be null - should in fact be impossible - but somehow for some people sometimes is.
-        if(alliesTags != null){
+        if (alliesTags != null) {
             Entity trueSource = source.getEntity();
             if (trueSource != null && trueSource.getType().is(alliesTags))
                 return true;

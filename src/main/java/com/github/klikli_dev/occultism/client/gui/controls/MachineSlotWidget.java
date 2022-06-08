@@ -84,7 +84,7 @@ public class MachineSlotWidget {
 
         var isMouseOverSlot = this.isMouseOverSlot(mx, my);
 
-        if(isMouseOverSlot)
+        if (isMouseOverSlot)
             this.minecraft.getItemRenderer().renderAndDecorateItem(this.machine.getExtractItemStack(), this.x, this.y);
         else
             this.minecraft.getItemRenderer().renderAndDecorateItem(this.machine.getInsertItemStack(), this.x, this.y);

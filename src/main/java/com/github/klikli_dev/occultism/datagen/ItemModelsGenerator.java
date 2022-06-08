@@ -54,9 +54,9 @@ public class ItemModelsGenerator extends ItemModelProvider {
     }
 
     private void registerAdvancementItem() {
-        String[] textures = { "cthulhu_icon", "bat_icon", "deer_icon", "devil_icon", "greedy_icon", "hat_icon",
+        String[] textures = {"cthulhu_icon", "bat_icon", "deer_icon", "devil_icon", "greedy_icon", "hat_icon",
                 "dragon_icon", "blacksmith_icon", "guardian_icon", "headless_icon", "chimera_icon",
-                "shub_niggurath_icon", "shub_niggurath_spawn_icon", "beholder_icon", "fairy_icon", "mummy_icon", "beaver_icon" };
+                "shub_niggurath_icon", "shub_niggurath_spawn_icon", "beholder_icon", "fairy_icon", "mummy_icon", "beaver_icon"};
 
         List<ItemModelBuilder> icons = new ArrayList<>();
         for (String texture : textures)

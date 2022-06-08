@@ -30,7 +30,6 @@ import com.github.klikli_dev.occultism.util.TextUtil;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -67,7 +66,7 @@ public class FamiliarRingItem extends Item {
                                 TooltipFlag flagIn) {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
         if (stack.getOrCreateTag().getBoolean("occupied"))
-            tooltip.add(new TranslatableComponent(this.getDescriptionId() + ".tooltip",
+            tooltip.add(Component.translatable(this.getDescriptionId() + ".tooltip",
                     TextUtil.formatDemonName(ItemNBTUtil.getBoundSpiritName(stack))));
     }
 
@@ -166,16 +165,16 @@ public class FamiliarRingItem extends Item {
             Level level = slotContext.entity().level;
             IFamiliar familiar = this.getFamiliar(level);
 
-            if(familiar != null) {
+            if (familiar != null) {
                 // after portal use the level is still the pre-teleport level, the familiar owner is not found on the next check
                 // hence, we update the level, if the familiar is in a ring
-                if(!familiar.getFamiliarEntity().isAddedToWorld())
+                if (!familiar.getFamiliarEntity().isAddedToWorld())
                     familiar.getFamiliarEntity().level = level;
 
                 if (familiar.getFamiliarOwner() != slotContext.entity())
                     return;
                 // Apply effects
-                if (!level.isClientSide && slotContext.entity().tickCount % 20 == 0  && familiar.isEffectEnabled(slotContext.entity()))
+                if (!level.isClientSide && slotContext.entity().tickCount % 20 == 0 && familiar.isEffectEnabled(slotContext.entity()))
                     for (MobEffectInstance effect : familiar.getFamiliarEffects())
                         familiar.getFamiliarOwner().addEffect(effect);
 

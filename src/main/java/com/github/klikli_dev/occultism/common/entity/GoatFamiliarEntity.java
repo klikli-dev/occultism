@@ -29,6 +29,7 @@ import com.google.common.collect.ImmutableList;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.BiomeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -42,7 +43,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.biome.Biome.BiomeCategory;
 import net.minecraftforge.common.Tags;
 
 public class GoatFamiliarEntity extends ResizableFamiliarEntity {
@@ -211,7 +211,7 @@ public class GoatFamiliarEntity extends ResizableFamiliarEntity {
 
     @SuppressWarnings("deprecation")
     private boolean isInForest(Entity entity) {
-        return Biome.getBiomeCategory(this.level.getBiome(entity.blockPosition())) == BiomeCategory.FOREST;
+        return this.level.getBiome(entity.blockPosition()).containsTag(BiomeTags.IS_FOREST);
     }
 
     public float getNeckYRot(float pPartialTick) {

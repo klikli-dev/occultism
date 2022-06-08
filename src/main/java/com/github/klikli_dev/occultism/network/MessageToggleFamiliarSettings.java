@@ -26,7 +26,7 @@ import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.capability.FamiliarSettingsCapability;
 import com.github.klikli_dev.occultism.registry.OccultismCapabilities;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EntityType;
@@ -57,7 +57,7 @@ public class MessageToggleFamiliarSettings extends MessageBase {
                 if (toggle.getValue()) {
                     cap.setFamiliarEnabled(toggle.getKey(), !cap.isFamiliarEnabled(toggle.getKey()));
                     player.displayClientMessage(
-                            new TranslatableComponent(
+                            Component.translatable(
                                     "message." + Occultism.MODID + ".familiar." + toggle.getKey().getRegistryName().getPath() +
                                             (cap.isFamiliarEnabled(toggle.getKey()) ? ".enabled" : ".disabled")), true);
                 }

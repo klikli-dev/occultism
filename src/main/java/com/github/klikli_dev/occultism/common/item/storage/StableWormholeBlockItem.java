@@ -27,7 +27,6 @@ import com.github.klikli_dev.occultism.api.common.data.GlobalBlockPos;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
@@ -71,7 +70,7 @@ public class StableWormholeBlockItem extends BlockItem {
                     stack.getOrCreateTagElement("BlockEntityTag")
                             .put("linkedStorageControllerPosition", GlobalBlockPos.from(blockEntity).serializeNBT());
                     player.displayClientMessage(
-                            new TranslatableComponent(this.getDescriptionId() + ".message.set_storage_controller"),
+                            Component.translatable(this.getDescriptionId() + ".message.set_storage_controller"),
                             true);
                     return InteractionResult.SUCCESS;
                 }
@@ -91,9 +90,9 @@ public class StableWormholeBlockItem extends BlockItem {
             String formattedPosition =
                     ChatFormatting.GOLD.toString() + ChatFormatting.BOLD + globalPos.getPos().toString() +
                             ChatFormatting.RESET;
-            tooltip.add(new TranslatableComponent(this.getDescriptionId() + ".tooltip.linked", formattedPosition));
+            tooltip.add(Component.translatable(this.getDescriptionId() + ".tooltip.linked", formattedPosition));
         } else {
-            tooltip.add(new TranslatableComponent(this.getDescriptionId() + ".tooltip.unlinked"));
+            tooltip.add(Component.translatable(this.getDescriptionId() + ".tooltip.unlinked"));
         }
     }
     //endregion Overrides

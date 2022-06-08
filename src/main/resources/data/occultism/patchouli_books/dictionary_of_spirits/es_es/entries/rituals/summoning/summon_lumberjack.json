@@ -6,7 +6,8 @@
   "pages": [
     {
       "type": "text",
-      "text": "El leñador recolectará árboles en su área de trabajo y depositará los objetos caídos en un cofre específico."},
+      "text": "El leñador recolectará árboles en su área de trabajo y depositará los objetos caídos en un cofre específico."
+    },
     {
       "type": "occultism:ritual",
       "recipe": "occultism:ritual/summon_foliot_lumberjack"

@@ -51,7 +51,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -79,7 +78,6 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.*;
-import java.util.Map.Entry;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -213,7 +211,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
     //region Overrides
     @Override
     public Component getDisplayName() {
-        return new TextComponent(this.getType().getRegistryName().getPath());
+        return Component.literal(this.getType().getRegistryName().getPath());
     }
 
     @Override

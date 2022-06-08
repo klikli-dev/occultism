@@ -50,7 +50,7 @@ public interface IFamiliar {
 
     /**
      * Sets the owner entity of this familiar.
-     * 
+     *
      * @param owner the new owner of this familiar
      */
     void setFamiliarOwner(LivingEntity owner);
@@ -103,13 +103,13 @@ public interface IFamiliar {
 
     /***
      * This method determines if the familiar can be upgraded by the blacksmith familiar.
-     * 
+     *
      * @return True if the familiar can be upgraded, false otherwise.
      */
     default boolean canBlacksmithUpgrade() {
         return false;
     }
-    
+
     /***
      * Upgrade the familiar by a blacksmith familiar.
      */

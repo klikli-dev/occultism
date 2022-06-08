@@ -65,9 +65,9 @@ public class RenderUtil {
         float minY = y;
         float minZ = z;
 
-        float maxX = x+1;
-        float maxY = y+1;
-        float maxZ = z+1;
+        float maxX = x + 1;
+        float maxY = y + 1;
+        float maxZ = z + 1;
 
         //Bottom
         buffer.vertex(matrix4f, minX, minY, maxZ).color(red, green, blue, alpha).normal(matrix3f, 0, -1, 0).endVertex();

@@ -41,8 +41,7 @@ public class EntityUtil {
     //region Static Methods
 
     /**
-     * Gets the player by given uuid
-     * Call on server only!
+     * Gets the player by given uuid Call on server only!
      *
      * @param uuid the uuid of the player
      * @return Optional containing the player.
@@ -57,8 +56,7 @@ public class EntityUtil {
     }
 
     /**
-     * Gets the entity by given uuid.
-     * Call on server only!
+     * Gets the entity by given uuid. Call on server only!
      *
      * @param uuid the uuid of the entity
      * @return Optional containing the entity.
@@ -68,8 +66,7 @@ public class EntityUtil {
     }
 
     /**
-     * Gets the entity by given uuid.
-     * Call on server only!
+     * Gets the entity by given uuid. Call on server only!
      *
      * @param uuid the uuid of the entity
      * @return Optional containing the entity.

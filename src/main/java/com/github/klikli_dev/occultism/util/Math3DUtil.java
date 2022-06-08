@@ -77,8 +77,8 @@ public class Math3DUtil {
     }
 
     /**
-     * Gets all blocks in the given direction and distance, sorted by distance from closest to furthest.
-     * Does not stop on hit!
+     * Gets all blocks in the given direction and distance, sorted by distance from closest to furthest. Does not stop
+     * on hit!
      *
      * @param start     the start position
      * @param direction the trace direction

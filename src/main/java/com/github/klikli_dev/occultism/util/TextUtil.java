@@ -119,8 +119,7 @@ public class TextUtil {
     }
 
     /**
-     * Formats the given number for human friendly display.
-     * Rounds high numbers.
+     * Formats the given number for human friendly display. Rounds high numbers.
      *
      * @param number the number to format.
      * @return a formatted string for the number.
@@ -146,7 +145,7 @@ public class TextUtil {
      */
     public static String generateName() {
         var possibleSpiritNames = Occultism.SERVER_CONFIG.rituals.possibleSpiritNames.get();
-        if(!possibleSpiritNames.isEmpty()){
+        if (!possibleSpiritNames.isEmpty()) {
             return random.nextInt(20) == 0 ?
                     EASTER_EGGS[random.nextInt(EASTER_EGGS.length)] :
                     possibleSpiritNames.get(random.nextInt(possibleSpiritNames.size()));

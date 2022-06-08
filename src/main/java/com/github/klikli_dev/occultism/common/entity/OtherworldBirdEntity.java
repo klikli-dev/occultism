@@ -41,7 +41,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
 import javax.annotation.Nullable;
-import java.util.Collections;
 import java.util.UUID;
 
 public class OtherworldBirdEntity extends Parrot implements IFamiliar {

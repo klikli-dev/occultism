@@ -36,9 +36,8 @@ public class OtherworldUtil {
     //region Static Methods
 
     /**
-     * Runs on both physical client and server.
-     * Returns default translation key for physical server.
-     * Returns getClientTranslationKey for physical client.
+     * Runs on both physical client and server. Returns default translation key for physical server. Returns
+     * getClientTranslationKey for physical client.
      */
     public static String getTranslationKeyDistAware(OtherworldBlockItem item, ItemStack stack) {
         if (FMLEnvironment.dist == Dist.CLIENT)
@@ -47,9 +46,8 @@ public class OtherworldUtil {
     }
 
     /**
-     * Runs on physical client.
-     * Returns default translation for logical server or if third eye is not present.
-     * Returns otherworld translation for logical client if third eye is present.
+     * Runs on physical client. Returns default translation for logical server or if third eye is not present. Returns
+     * otherworld translation for logical client if third eye is present.
      */
     @OnlyIn(Dist.CLIENT)
     public static String getClientTranslationKey(OtherworldBlockItem item, ItemStack stack) {

@@ -26,7 +26,7 @@ import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.util.ItemNBTUtil;
 import com.github.klikli_dev.occultism.util.TextUtil;
 import net.minecraft.client.resources.language.I18n;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
@@ -43,7 +43,7 @@ public class TooltipHandler {
             String translationKey = stack.getDescriptionId() + ".occultism_spirit_tooltip";
 
             if (I18n.exists(translationKey))
-                event.getToolTip().add(new TranslatableComponent(translationKey,
+                event.getToolTip().add(Component.translatable(translationKey,
                         TextUtil.formatDemonName(ItemNBTUtil.getBoundSpiritName(stack))));
         }
     }

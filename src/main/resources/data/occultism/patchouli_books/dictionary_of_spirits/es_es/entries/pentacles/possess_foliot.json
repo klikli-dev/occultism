@@ -6,7 +6,8 @@
   "pages": [
     {
       "type": "text",
-      "text": "$(bold)Objetivo:$() Posesión Foliot $(br2)$(thing)Señuelo de Hedyrin$() atrae a un $(thing)Foliot$() y lo fuerza a poseer a una criatura cercana. Este pentáculo no provoca un confinamiento permanente, el espíritu y la criatura poseída perecerán en un corto período de tiempo."},
+      "text": "$(bold)Objetivo:$() Posesión Foliot $(br2)$(thing)Señuelo de Hedyrin$() atrae a un $(thing)Foliot$() y lo fuerza a poseer a una criatura cercana. Este pentáculo no provoca un confinamiento permanente, el espíritu y la criatura poseída perecerán en un corto período de tiempo."
+    },
     {
       "type": "multiblock",
       "name": "",

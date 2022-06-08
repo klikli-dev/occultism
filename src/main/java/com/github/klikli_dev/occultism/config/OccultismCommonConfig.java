@@ -25,7 +25,6 @@ package com.github.klikli_dev.occultism.config;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.Tag;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.BiomeDictionary;
@@ -68,7 +67,7 @@ public class OccultismCommonConfig {
 
             public OreGenSettings(ForgeConfigSpec.Builder builder) {
                 builder.comment("Ore Gen Settings").push("oregen");
-                
+
                 this.silverOre =
                         new OreSettings("silverOre",
                                 BlockTags.STONE_ORE_REPLACEABLES, 7,

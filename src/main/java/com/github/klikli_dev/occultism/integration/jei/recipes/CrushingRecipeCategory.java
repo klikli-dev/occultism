@@ -39,7 +39,6 @@ import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 
 public class CrushingRecipeCategory implements IRecipeCategory<CrushingRecipe> {
@@ -50,7 +49,7 @@ public class CrushingRecipeCategory implements IRecipeCategory<CrushingRecipe> {
 
     public CrushingRecipeCategory(IGuiHelper guiHelper) {
         this.background = guiHelper.createBlankDrawable(168, 46); //64
-        this.localizedName = new TranslatableComponent(Occultism.MODID + ".jei.crushing");
+        this.localizedName = Component.translatable(Occultism.MODID + ".jei.crushing");
         this.overlay = guiHelper.createDrawable(
                 new ResourceLocation(Occultism.MODID, "textures/gui/jei/arrow.png"), 0, 0, 64, 46);
     }

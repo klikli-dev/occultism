@@ -7,10 +7,12 @@
     {
       "type": "text",
       "title": "Espíritus Trituradores",
-      "text": "Los espiritus trituradores son invocados para convertir menas en polvo, duplicando la cantidad de metal obtenido. Recogerán las menas apropiadas y dejarán caer el polvo resultante al mundo. Una particula morada y un sonido de crujido indicarán que el Triturador está trabajando. "},
+      "text": "Los espiritus trituradores son invocados para convertir menas en polvo, duplicando la cantidad de metal obtenido. Recogerán las menas apropiadas y dejarán caer el polvo resultante al mundo. Una particula morada y un sonido de crujido indicarán que el Triturador está trabajando. "
+    },
     {
       "type": "text",
-      "text": "Para facilitar la automatización, intente invocar un $(l:rituals/summoning/summon_transport_items)Espíritu Transportador$(/l) para colocar los objetos desde cofres al inventario del Triturador, y un $(l:rituals/summoning/summon_cleaner)Espíritu Conserje$(/l) recogerá los objetos procesados."},
+      "text": "Para facilitar la automatización, intente invocar un $(l:rituals/summoning/summon_transport_items)Espíritu Transportador$(/l) para colocar los objetos desde cofres al inventario del Triturador, y un $(l:rituals/summoning/summon_cleaner)Espíritu Conserje$(/l) recogerá los objetos procesados."
+    },
     {
       "type": "text",
       "title": "Foliot Triturador",

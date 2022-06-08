@@ -40,7 +40,6 @@ import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.random.WeightedRandom;
 import net.minecraft.world.level.Level;
@@ -62,7 +61,7 @@ public class MinerRecipeCategory implements IRecipeCategory<MinerRecipe> {
 
     public MinerRecipeCategory(IGuiHelper guiHelper) {
         this.background = guiHelper.createBlankDrawable(168, 46); //64
-        this.localizedName = new TranslatableComponent(Occultism.MODID + ".jei.miner");
+        this.localizedName = Component.translatable(Occultism.MODID + ".jei.miner");
         this.overlay = guiHelper.createDrawable(
                 new ResourceLocation(Occultism.MODID, "textures/gui/jei/arrow.png"), 0, 0, 64, 46);
     }
@@ -119,7 +118,7 @@ public class MinerRecipeCategory implements IRecipeCategory<MinerRecipe> {
         RenderSystem.enableBlend();
         this.overlay.draw(stack, 76, 14); //(center=84) - (width/16=8) = 76
         this.drawStringCentered(stack, Minecraft.getInstance().font,
-                new TranslatableComponent(Occultism.MODID + ".jei.miner.chance", this.chances.get(recipe)), 84, 0);
+                Component.translatable(Occultism.MODID + ".jei.miner.chance", this.chances.get(recipe)), 84, 0);
     }
 
     @Override

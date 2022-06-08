@@ -25,7 +25,6 @@ package com.github.klikli_dev.occultism.common.item.tool;
 import com.github.klikli_dev.occultism.Occultism;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -42,9 +41,6 @@ import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
 import vazkii.patchouli.api.PatchouliAPI;
 import vazkii.patchouli.common.book.Book;
 import vazkii.patchouli.common.book.BookRegistry;
-//import vazkii.patchouli.api.PatchouliAPI;
-//import vazkii.patchouli.common.book.Book;
-//import vazkii.patchouli.common.book.BookRegistry;
 
 import java.lang.reflect.Field;
 import java.util.List;
@@ -89,6 +85,6 @@ public class GuideBookItem extends Item {
     @Override
     public Component getName(ItemStack stack) {
         Book book = BookRegistry.INSTANCE.books.get(GUIDE);
-        return book != null ? new TranslatableComponent(book.name) : super.getName(stack);
+        return book != null ? Component.translatable(book.name) : super.getName(stack);
     }
 }

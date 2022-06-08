@@ -30,7 +30,7 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
-import net.minecraft.network.chat.TextComponent;
+
 
 public class DebugAICommand implements Command<CommandSourceStack> {
 
@@ -51,7 +51,7 @@ public class DebugAICommand implements Command<CommandSourceStack> {
     @Override
     public int run(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
         Occultism.DEBUG.debugAI = !Occultism.DEBUG.debugAI;
-        context.getSource().sendSuccess(new TextComponent("AI Debugging enabled: " + Occultism.DEBUG.debugAI), false);
+        context.getSource().sendSuccess(Component.literal("AI Debugging enabled: " + Occultism.DEBUG.debugAI), false);
         return 0;
     }
     //endregion Static Methods

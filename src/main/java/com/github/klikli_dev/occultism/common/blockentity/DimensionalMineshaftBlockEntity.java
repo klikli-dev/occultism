@@ -33,7 +33,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.random.WeightedRandom;
 import net.minecraft.world.MenuProvider;
@@ -52,6 +51,7 @@ import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.wrapper.CombinedInvWrapper;
 import net.minecraftforge.items.wrapper.RecipeWrapper;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -124,7 +124,7 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
     //region Overrides
     @Override
     public Component getDisplayName() {
-        return new TextComponent(this.getType().getRegistryName().getPath());
+        return Component.literal(ForgeRegistries.BLOCK_ENTITIES.getKey(this.getType()).getPath());
     }
 
     @Nonnull

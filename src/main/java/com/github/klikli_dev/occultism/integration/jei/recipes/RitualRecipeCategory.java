@@ -45,7 +45,6 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.Vec3i;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
@@ -70,7 +69,7 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
         this.background = guiHelper.createBlankDrawable(168, 120); //64
         this.ritualCenterX = this.background.getWidth() / 2 - this.iconWidth / 2 - 30;
         this.ritualCenterY = this.background.getHeight() / 2 - this.iconWidth / 2 + 20;
-        this.localizedName = new TranslatableComponent(Occultism.MODID + ".jei.ritual");
+        this.localizedName = Component.translatable(Occultism.MODID + ".jei.ritual");
         this.pentacle = I18n.get(Occultism.MODID + ".jei.pentacle");
         this.goldenSacrificialBowl.getOrCreateTag().putBoolean("RenderFull", true);
         this.sacrificialBowl.getOrCreateTag().putBoolean("RenderFull", true);
@@ -197,7 +196,7 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
 
             infotextY += 10;
             int itemToUseY = infotextY - 5;
-            int itemToUseX = this.getStringCenteredMaxX(Minecraft.getInstance().font, new TranslatableComponent("jei.occultism.item_to_use"), 84, infotextY);
+            int itemToUseX = this.getStringCenteredMaxX(Minecraft.getInstance().font, Component.translatable("jei.occultism.item_to_use"), 84, infotextY);
 
             builder.addSlot(RecipeIngredientRole.CATALYST, itemToUseX, itemToUseY)
                     .addIngredients(recipe.getItemToUse());
@@ -213,36 +212,36 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
         Pentacle pentacle = PentacleManager.get(recipe.getPentacleId());
         if (pentacle != null) {
             this.drawStringCentered(poseStack, Minecraft.getInstance().font,
-                    new TranslatableComponent(pentacle.getDescriptionId()), 84, 0);
+                    Component.translatable(pentacle.getDescriptionId()), 84, 0);
         } else {
             this.drawStringCentered(poseStack, Minecraft.getInstance().font,
-                    new TranslatableComponent("jei.occultism.error.pentacle_not_loaded"), 84, 0);
+                    Component.translatable("jei.occultism.error.pentacle_not_loaded"), 84, 0);
         }
 
         int infotextY = 0;
         if (recipe.requiresSacrifice()) {
             infotextY += 10;
             this.drawStringCentered(poseStack, Minecraft.getInstance().font,
-                    new TranslatableComponent("jei.occultism.sacrifice", new TranslatableComponent(recipe.getEntityToSacrificeDisplayName())), 84, infotextY);
+                    Component.translatable("jei.occultism.sacrifice", Component.translatable(recipe.getEntityToSacrificeDisplayName())), 84, infotextY);
         }
 
         if (recipe.requiresItemUse()) {
             infotextY += 10;
-            this.drawStringCentered(poseStack, Minecraft.getInstance().font, new TranslatableComponent("jei.occultism.item_to_use"), 84, infotextY);
+            this.drawStringCentered(poseStack, Minecraft.getInstance().font, Component.translatable("jei.occultism.item_to_use"), 84, infotextY);
         }
 
         if (recipe.getEntityToSummon() != null) {
             infotextY += 10;
             this.drawStringCentered(poseStack, Minecraft.getInstance().font,
-                    new TranslatableComponent("jei.occultism.summon", new TranslatableComponent(recipe.getEntityToSummon().getDescriptionId())),
+                    Component.translatable("jei.occultism.summon", Component.translatable(recipe.getEntityToSummon().getDescriptionId())),
                     84, infotextY);
         }
 
         if (recipe.getSpiritJobType() != null) {
             infotextY += 10;
             this.drawStringCentered(poseStack, Minecraft.getInstance().font,
-                    new TranslatableComponent("jei.occultism.job",
-                            new TranslatableComponent("job." + recipe.getSpiritJobType().toString().replace(":", "."))),
+                    Component.translatable("jei.occultism.job",
+                            Component.translatable("job." + recipe.getSpiritJobType().toString().replace(":", "."))),
                     84, infotextY);
         }
     }

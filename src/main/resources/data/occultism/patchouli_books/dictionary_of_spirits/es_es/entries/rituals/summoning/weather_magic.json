@@ -6,7 +6,8 @@
   "pages": [
     {
       "type": "text",
-      "text": "La magia climática es especialmente útil para granjeros o otros dependiendo de un clima específico. Invoca espíritus para cambiar el clima. Las diferentes alteraciones de climas requieren diferentes niveles de poder."},
+      "text": "La magia climática es especialmente útil para granjeros o otros dependiendo de un clima específico. Invoca espíritus para cambiar el clima. Las diferentes alteraciones de climas requieren diferentes niveles de poder."
+    },
     {
       "type": "occultism:ritual",
       "recipe": "occultism:ritual/summon_djinni_clear_weather"

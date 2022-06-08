@@ -15,10 +15,12 @@
     },
     {
       "type": "text",
-      "text": "$(thing)Drikwings$() son una subclase de $(thing)Djinni$() que son conocidos por se amigables hacia humanos. Suelen tomar la forma de un loro azul oscuro y morado. Drikwings otorgarán a su dueño con habilidades limitadas de vuelo cuando estén cerca."},
+      "text": "$(thing)Drikwings$() son una subclase de $(thing)Djinni$() que son conocidos por se amigables hacia humanos. Suelen tomar la forma de un loro azul oscuro y morado. Drikwings otorgarán a su dueño con habilidades limitadas de vuelo cuando estén cerca."
+    },
     {
       "type": "text",
-      "text": "Para obtener al loro o loro familiar para el sacrificio, considere invocarlos con el ritual $(l:rituals/summoning/summon_wild_parrot)Ritual de Loro Salvaje$(/l) or $(l:rituals/familiars/familiar_parrot)Ritual de Loro Familiar$(/l). $(bold)Pista:$() Si utilizas mods que protejan a las mascotas de morir, usa el ritual de loro salvaje!"}
+      "text": "Para obtener al loro o loro familiar para el sacrificio, considere invocarlos con el ritual $(l:rituals/summoning/summon_wild_parrot)Ritual de Loro Salvaje$(/l) or $(l:rituals/familiars/familiar_parrot)Ritual de Loro Familiar$(/l). $(bold)Pista:$() Si utilizas mods que protejan a las mascotas de morir, usa el ritual de loro salvaje!"
+    }
   ]
 }
 

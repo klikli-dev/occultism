@@ -27,7 +27,6 @@ import com.github.klikli_dev.occultism.api.common.item.IIngredientModifyCrafting
 import com.github.klikli_dev.occultism.util.ItemNBTUtil;
 import com.github.klikli_dev.occultism.util.TextUtil;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.Item;
@@ -55,7 +54,7 @@ public class BookOfBindingBoundItem extends Item implements IIngredientCopyNBT, 
     public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip,
                                 TooltipFlag flagIn) {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
-        tooltip.add(new TranslatableComponent(this.getDescriptionId() + ".tooltip",
+        tooltip.add(Component.translatable(this.getDescriptionId() + ".tooltip",
                 TextUtil.formatDemonName(ItemNBTUtil.getBoundSpiritName(stack))));
     }
 
@@ -70,7 +69,6 @@ public class BookOfBindingBoundItem extends Item implements IIngredientCopyNBT, 
         ItemNBTUtil.generateBoundSpiritName(result);
     }
 
-    
 
     @Override
     public void onCraftedBy(ItemStack pStack, Level pLevel, Player pPlayer) {

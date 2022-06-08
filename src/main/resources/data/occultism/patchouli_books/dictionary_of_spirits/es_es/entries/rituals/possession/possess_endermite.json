@@ -15,7 +15,8 @@
     },
     {
       "type": "text",
-      "text": "En este ritual, un $(thing)Endermite$() es engañado para aparecer. La piedra y la tierra representan el entorno, entonces se lanzará un huevo para simular el uso de una perla de Ender. Cuando el mite aparece, el $(thing)Foliot$() invocado inmediatamente lo poseerá, visitará $(thing)El End$(), y volverá. El $(thing)Endermite poseído$() dejará caer $(item)Piedra de End$() al morir."}
+      "text": "En este ritual, un $(thing)Endermite$() es engañado para aparecer. La piedra y la tierra representan el entorno, entonces se lanzará un huevo para simular el uso de una perla de Ender. Cuando el mite aparece, el $(thing)Foliot$() invocado inmediatamente lo poseerá, visitará $(thing)El End$(), y volverá. El $(thing)Endermite poseído$() dejará caer $(item)Piedra de End$() al morir."
+    }
   ]
 }
 

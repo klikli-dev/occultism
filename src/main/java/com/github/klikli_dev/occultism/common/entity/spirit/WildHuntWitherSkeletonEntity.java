@@ -26,8 +26,6 @@ import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.registry.OccultismTags;
 import com.github.klikli_dev.occultism.util.TextUtil;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.tags.Tag;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
@@ -77,7 +75,7 @@ public class WildHuntWitherSkeletonEntity extends WitherSkeleton {
             double offsetZ = level.getRandom().nextGaussian() * (1 + level.getRandom().nextInt(4));
             entity.absMoveTo(this.getBlockX() + offsetX, this.getBlockY() + 1.5, this.getBlockZ() + offsetZ,
                     level.getRandom().nextInt(360), 0);
-            entity.setCustomName(new TextComponent(TextUtil.generateName()));
+            entity.setCustomName(Component.literal(TextUtil.generateName()));
             level.addFreshEntity(entity);
             entity.setMaster(this);
             this.minions.add(entity);

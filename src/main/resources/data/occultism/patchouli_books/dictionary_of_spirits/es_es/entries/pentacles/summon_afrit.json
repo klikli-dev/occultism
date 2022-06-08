@@ -6,7 +6,8 @@
   "pages": [
     {
       "type": "text",
-      "text": "$(bold)Objetivo:$() Invocar Afrit $(br2)$(thing)Conjuro de Abras$() es uno de los pocos pentáculos capaces de (mayormente) invocar de forma segura a un Afrit. A pesar de que el requerimiento de una calavera de esqueleto Wither es comparativamente compleja, el potencial adicional de la invocación es requerido para alcanzar a estos espíritus de gran poder."},
+      "text": "$(bold)Objetivo:$() Invocar Afrit $(br2)$(thing)Conjuro de Abras$() es uno de los pocos pentáculos capaces de (mayormente) invocar de forma segura a un Afrit. A pesar de que el requerimiento de una calavera de esqueleto Wither es comparativamente compleja, el potencial adicional de la invocación es requerido para alcanzar a estos espíritus de gran poder."
+    },
     {
       "type": "multiblock",
       "name": "",
@@ -15,6 +16,7 @@
     {
       "type": "text",
       "title": "Usos",
-      "text": "$(li)$(l:rituals/summoning/weather_magic#thunderstorm)Tormenta$(/l)$()$(li)$(l:rituals/summoning/weather_magic#rain)Clima Lluvioso$(/l)$()$(li)$(l:rituals/summoning/summon_crusher)Afrit Triturador$(/l)$()"}
+      "text": "$(li)$(l:rituals/summoning/weather_magic#thunderstorm)Tormenta$(/l)$()$(li)$(l:rituals/summoning/weather_magic#rain)Clima Lluvioso$(/l)$()$(li)$(l:rituals/summoning/summon_crusher)Afrit Triturador$(/l)$()"
+    }
   ]
 }

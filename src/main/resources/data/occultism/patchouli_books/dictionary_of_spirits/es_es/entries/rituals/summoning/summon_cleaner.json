@@ -6,7 +6,8 @@
   "pages": [
     {
       "type": "text",
-      "text": "El conserje recogerá objetos dejados en el suelo y los depositará en el inventario objetivo. Puedes configuar una lista de permitidos/prohibidos para especificar que objetos recoge o ignora. Puedes usar etiquetas para agrupar objetos."},
+      "text": "El conserje recogerá objetos dejados en el suelo y los depositará en el inventario objetivo. Puedes configuar una lista de permitidos/prohibidos para especificar que objetos recoge o ignora. Puedes usar etiquetas para agrupar objetos."
+    },
     {
       "type": "occultism:ritual",
       "recipe": "occultism:ritual/summon_foliot_cleaner"

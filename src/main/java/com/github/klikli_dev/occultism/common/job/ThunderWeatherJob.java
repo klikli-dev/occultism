@@ -25,8 +25,7 @@ package com.github.klikli_dev.occultism.common.job;
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import net.minecraft.Util;
-import net.minecraft.network.chat.TranslatableComponent;
-import net.minecraft.server.level.ServerLevel;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.storage.ServerLevelData;
 
 public class ThunderWeatherJob extends ChangeWeatherJob {
@@ -47,7 +46,7 @@ public class ThunderWeatherJob extends ChangeWeatherJob {
             level.setRaining(true);
             level.setThundering(true);
         } else {
-            this.entity.getOwner().sendMessage(new TranslatableComponent("ritual.occultism.disabled"), Util.NIL_UUID);
+            this.entity.getOwner().sendMessage(Component.translatable("ritual.occultism.disabled"), Util.NIL_UUID);
         }
     }
     //endregion Overrides

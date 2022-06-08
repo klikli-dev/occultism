@@ -38,7 +38,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -111,7 +110,7 @@ public class StableWormholeBlockEntity extends NetworkedBlockEntity implements I
     //region Overrides
     @Override
     public Component getDisplayName() {
-        return new TextComponent(this.getType().getRegistryName().getPath());
+        return Component.literal(this.getType().getRegistryName().getPath());
     }
 
     @Override

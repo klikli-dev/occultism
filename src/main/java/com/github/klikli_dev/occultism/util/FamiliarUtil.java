@@ -29,7 +29,6 @@ import com.github.klikli_dev.occultism.registry.OccultismCapabilities;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraftforge.items.IItemHandlerModifiable;
 import top.theillusivec4.curios.api.CuriosApi;
 
 import java.util.ArrayList;
@@ -42,7 +41,7 @@ public class FamiliarUtil {
     public static List<LivingEntity> getOwnerEnemies(LivingEntity owner, LivingEntity familiar, float range) {
         if (null == owner)
             return new ArrayList<>();
-        
+
         LivingEntity revenge = owner.getLastHurtByMob();
         LivingEntity target = owner.getLastHurtMob();
         List<LivingEntity> enemies = new ArrayList<>();
@@ -132,13 +131,13 @@ public class FamiliarUtil {
         List<T> familiars = getAllEquippedFamiliars(owner, type, pred);
         return familiars.isEmpty() ? null : familiars.get(0);
     }
-    
+
     public static float toRads(float deg) {
         return (float) Math.toRadians(deg);
     }
 
     public static boolean isChristmas() {
-        if(Occultism.CLIENT_CONFIG.visuals.disableHolidayTheming.get())
+        if (Occultism.CLIENT_CONFIG.visuals.disableHolidayTheming.get())
             return false;
 
         Calendar calendar = Calendar.getInstance();

@@ -7,7 +7,8 @@
     {
       "type": "spotlight",
       "item": "occultism:spirit_fire",
-      "text": "El Fuego Espiritual existe principalmente en $(thing)El Otro Lado$() y no daña a los seres vivos. Sus características le permiten purificar y convertir ciertos materiales al quemarlos, sin consumirlos. Para crear el Fuego Espiritual se requiere $(item)Fruta del Sueño Demoníaco$() y un $(item)Mechero$()."},
+      "text": "El Fuego Espiritual existe principalmente en $(thing)El Otro Lado$() y no daña a los seres vivos. Sus características le permiten purificar y convertir ciertos materiales al quemarlos, sin consumirlos. Para crear el Fuego Espiritual se requiere $(item)Fruta del Sueño Demoníaco$() y un $(item)Mechero$()."
+    },
     {
       "type": "image",
       "border": "true",
@@ -18,7 +19,8 @@
     },
     {
       "type": "text",
-      "text": "El uso principal del Fuego Espiritual es convertir $(item)Diamantes$() en $(item)Gemas espirituales sintonizadas$(), además de purificar tizas impuras."},
+      "text": "El uso principal del Fuego Espiritual es convertir $(item)Diamantes$() en $(item)Gemas espirituales sintonizadas$(), además de purificar tizas impuras."
+    },
     {
       "type": "empty",
       "draw_filler": false

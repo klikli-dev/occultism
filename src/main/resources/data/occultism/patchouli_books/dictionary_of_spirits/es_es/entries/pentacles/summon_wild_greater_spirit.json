@@ -6,7 +6,8 @@
   "pages": [
     {
       "type": "text",
-      "text": "$(bold)Objetivo:$() Invocar Espíritu Mayor Desatado $(br2)$(thing)Invocación desatada de Osorin$() se basa en $(thing)Conjuro de apertura de Abras$(), pero no presenta ninguna parafernalia estabilizadora. El pentáculo no ofrece protección de cualquier tipo al invocador, pero actúa como una invocación irresistible para Espíritus Mayores."},
+      "text": "$(bold)Objetivo:$() Invocar Espíritu Mayor Desatado $(br2)$(thing)Invocación desatada de Osorin$() se basa en $(thing)Conjuro de apertura de Abras$(), pero no presenta ninguna parafernalia estabilizadora. El pentáculo no ofrece protección de cualquier tipo al invocador, pero actúa como una invocación irresistible para Espíritus Mayores."
+    },
     {
       "type": "multiblock",
       "name": "",

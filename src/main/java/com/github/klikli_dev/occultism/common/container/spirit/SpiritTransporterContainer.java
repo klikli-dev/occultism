@@ -110,8 +110,8 @@ public class SpiritTransporterContainer extends SpiritContainer {
         int y = 84;
         ItemStackHandler filterItems = this.spirit.filterItemStackHandler.orElseThrow(ItemHandlerMissingException::new);
 
-        for (int i = 0; i < 2; i++){
-            for (int j = 0; j < filterItems.getSlots() / 2; j++){
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < filterItems.getSlots() / 2; j++) {
                 this.addSlot(new FilterSlot(filterItems, j + i * 7, x + j * 18,
                         y + i * 18));
             }

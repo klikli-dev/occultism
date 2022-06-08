@@ -25,9 +25,9 @@ package com.github.klikli_dev.occultism.registry;
 import com.github.klikli_dev.occultism.Occultism;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraftforge.registries.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 
 public class OccultismSounds {
 
@@ -44,8 +44,8 @@ public class OccultismSounds {
     //endregion Fields
 
     /**
-     * Creates the sound event object for the given sound event name, as specified in sounds.json
-     * Automatically appends MODID.
+     * Creates the sound event object for the given sound event name, as specified in sounds.json Automatically appends
+     * MODID.
      *
      * @param name the sound event name without domain.
      * @return the sound event.

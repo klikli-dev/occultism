@@ -28,8 +28,8 @@ import com.github.klikli_dev.occultism.common.item.spirit.BookOfCallingItem;
 import com.github.klikli_dev.occultism.util.ItemNBTUtil;
 import com.github.klikli_dev.occultism.util.TextUtil;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -67,11 +67,11 @@ public class MessageSetWorkAreaSize extends MessageBase {
                 ItemNBTUtil.updateItemNBTFromEntity(stack, spirit);
                 player.inventoryMenu.broadcastChanges();
 
-                player.displayClientMessage(new TranslatableComponent(
+                player.displayClientMessage(Component.translatable(
                         TranslationKeys.BOOK_OF_CALLING_GENERIC +
                                 ".message_set_work_area_size",
                         TextUtil.formatDemonName((MutableComponent) spirit.getName()),
-                        new TranslatableComponent(workAreaSize.getDescriptionId())), true);
+                        Component.translatable(workAreaSize.getDescriptionId())), true);
             });
         }
     }

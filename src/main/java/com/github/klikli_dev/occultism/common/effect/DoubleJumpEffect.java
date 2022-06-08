@@ -67,7 +67,8 @@ public class DoubleJumpEffect extends MobEffect {
     //endregion Initialization
 
     /**
-     * Gets the amount of jumps provided by the double jump effect on the player, or 0 if there is no double jump effect present.
+     * Gets the amount of jumps provided by the double jump effect on the player, or 0 if there is no double jump effect
+     * present.
      *
      * @param player the player
      * @return the max amount of jumps.

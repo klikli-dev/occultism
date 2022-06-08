@@ -6,7 +6,8 @@
   "pages": [
     {
       "type": "text",
-      "text": "$(bold)Objetivo:$() Posesión Afrit $(br2)$(thing)Conjuro de control de Abras$() es una versión modificada de Conjuro de Abras que permite la posesión de entidades, así como invocar familiares."},
+      "text": "$(bold)Objetivo:$() Posesión Afrit $(br2)$(thing)Conjuro de control de Abras$() es una versión modificada de Conjuro de Abras que permite la posesión de entidades, así como invocar familiares."
+    },
     {
       "type": "multiblock",
       "name": "",

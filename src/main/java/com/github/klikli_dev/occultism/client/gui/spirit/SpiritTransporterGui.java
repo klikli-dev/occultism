@@ -33,12 +33,9 @@ import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import org.apache.commons.lang3.StringUtils;
@@ -120,7 +117,7 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
         int tagFilterWidth = 124;
         this.tagFilterTextField = new EditBox(this.font, this.leftPos + tagFilterLeft,
                 this.topPos + tagFilterTop, tagFilterWidth, this.font.lineHeight,
-                new TextComponent("forge:ores;*logs*;item:minecraft:chest"));
+                Component.literal("forge:ores;*logs*;item:minecraft:chest"));
         this.tagFilterTextField.setMaxLength(90);
 
         this.tagFilterTextField.setBordered(false);
@@ -152,15 +149,15 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
         this.tooltip.clear();
 
         if (this.filterModeButton.isHoveredOrFocused()) {
-            this.tooltip.add(new TranslatableComponent(TRANSLATION_KEY_BASE + ".filter_mode"));
-            this.tooltip.add(new TranslatableComponent(TRANSLATION_KEY_BASE + ".filter_mode."
-                    + (this.isBlacklist() ? "blacklist" : "whitelist"))
+            this.tooltip.add(Component.translatable(TRANSLATION_KEY_BASE + ".filter_mode"));
+            this.tooltip.add(Component.translatable(TRANSLATION_KEY_BASE + ".filter_mode."
+                            + (this.isBlacklist() ? "blacklist" : "whitelist"))
                     .withStyle(ChatFormatting.GRAY));
         }
 
         //can't use isHovered here, as it also checks for focus
         if (this.isPointInSearchbar(mouseX, mouseY)) {
-            this.tooltip.add(new TranslatableComponent(TRANSLATION_KEY_BASE + ".tag_filter"));
+            this.tooltip.add(Component.translatable(TRANSLATION_KEY_BASE + ".tag_filter"));
         }
 
         if (!this.tooltip.isEmpty()) {

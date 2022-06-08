@@ -15,7 +15,8 @@
     },
     {
       "type": "text",
-      "text": "En este ritual, un $(thing)Enderman$() es invocado utilizando la energía vital de un $(thing)cerdo$() y, inmediatamente poseído por el $(thing)Djinni$() invocado. El $(thing)Enderman poseído$() siempre dejará caer una $(item)Perla de Ender$() al morir."}
+      "text": "En este ritual, un $(thing)Enderman$() es invocado utilizando la energía vital de un $(thing)cerdo$() y, inmediatamente poseído por el $(thing)Djinni$() invocado. El $(thing)Enderman poseído$() siempre dejará caer una $(item)Perla de Ender$() al morir."
+    }
   ]
 }
 

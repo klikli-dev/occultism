@@ -41,7 +41,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
@@ -202,7 +201,7 @@ public class BookOfCallingItem extends Item implements IIngredientCopyNBT, IHand
                     ItemNBTUtil.setSpiritEntityUUID(stack, targetSpirit.getUUID());
                     ItemNBTUtil.setBoundSpiritName(stack, targetSpirit.getName().getString());
                     player.displayClientMessage(
-                            new TranslatableComponent(
+                            Component.translatable(
                                     TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_target_linked"),
                             true);
                     player.swing(hand);
@@ -227,7 +226,7 @@ public class BookOfCallingItem extends Item implements IIngredientCopyNBT, IHand
 
 
                                     player.displayClientMessage(
-                                            new TranslatableComponent(TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_set_deposit_entity",
+                                            Component.translatable(TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_set_deposit_entity",
                                                     TextUtil.formatDemonName(boundSpirit.get().getName().getString()),
                                                     TextUtil.formatDemonName(targetSpirit.getName().getString())), true);
                                     player.swing(hand);
@@ -236,7 +235,7 @@ public class BookOfCallingItem extends Item implements IIngredientCopyNBT, IHand
                                     return InteractionResult.SUCCESS;
                                 } else {
                                     player.displayClientMessage(
-                                            new TranslatableComponent(
+                                            Component.translatable(
                                                     TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_spirit_not_found"),
                                             true);
                                     return InteractionResult.FAIL;
@@ -244,7 +243,7 @@ public class BookOfCallingItem extends Item implements IIngredientCopyNBT, IHand
                             } else {
                                 //if spirit id is null then this was a (failed) link attempt -> and we fail
                                 player.displayClientMessage(
-                                        new TranslatableComponent(
+                                        Component.translatable(
                                                 TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_target_cannot_link"),
                                         true);
                                 return InteractionResult.FAIL;
@@ -252,7 +251,7 @@ public class BookOfCallingItem extends Item implements IIngredientCopyNBT, IHand
                         } else {
                             //if target is not appropriate, we fail
                             player.displayClientMessage(
-                                    new TranslatableComponent(
+                                    Component.translatable(
                                             TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_target_entity_no_inventory"),
                                     true);
                             return InteractionResult.FAIL;
@@ -261,14 +260,14 @@ public class BookOfCallingItem extends Item implements IIngredientCopyNBT, IHand
 
                     //if mode is not deposit we fail the linking
                     player.displayClientMessage(
-                            new TranslatableComponent(
+                            Component.translatable(
                                     TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_target_cannot_link"),
                             true);
                     return InteractionResult.FAIL;
                 }
             } else {
                 player.displayClientMessage(
-                        new TranslatableComponent(
+                        Component.translatable(
                                 TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_target_uuid_no_match"),
                         true);
                 return InteractionResult.FAIL;
@@ -308,8 +307,8 @@ public class BookOfCallingItem extends Item implements IIngredientCopyNBT, IHand
     public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip,
                                 TooltipFlag flagIn) {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
-        tooltip.add(new TranslatableComponent(this.getTranslationKeyBase() +
-                (ItemNBTUtil.getSpiritDead(stack) ? ".tooltip_dead" : ".tooltip"),
+        tooltip.add(Component.translatable(this.getTranslationKeyBase() +
+                        (ItemNBTUtil.getSpiritDead(stack) ? ".tooltip_dead" : ".tooltip"),
                 TextUtil.formatDemonName(ItemNBTUtil.getBoundSpiritName(stack))));
     }
 
@@ -334,21 +333,21 @@ public class BookOfCallingItem extends Item implements IIngredientCopyNBT, IHand
     }
 
     public boolean setSpiritManagedMachineExtractLocation(Player player, Level world, BlockPos pos, ItemStack stack,
-                                           Direction face) {
+                                                          Direction face) {
         UUID boundSpiritId = ItemNBTUtil.getSpiritEntityUUID(stack);
         if (boundSpiritId != null) {
             Optional<SpiritEntity> boundSpirit = EntityUtil.getEntityByUuiDGlobal(world.getServer(), boundSpiritId)
                     .map(e -> (SpiritEntity) e);
             BlockEntity extractBlockEntity = world.getBlockEntity(pos);
-            if (boundSpirit.isPresent() && extractBlockEntity != null){
+            if (boundSpirit.isPresent() && extractBlockEntity != null) {
                 if (boundSpirit.get().getJob().isPresent() &&
                         boundSpirit.get().getJob().get() instanceof ManageMachineJob manageMachine) {
 
-                    if(manageMachine.getManagedMachine() != null){
+                    if (manageMachine.getManagedMachine() != null) {
 
                     } else {
                         player.displayClientMessage(
-                                new TranslatableComponent(
+                                Component.translatable(
                                         TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_set_managed_machine_extract_location",
                                         TextUtil.formatDemonName(boundSpirit.get().getName().getString())), true);
                         return true;
@@ -373,15 +372,15 @@ public class BookOfCallingItem extends Item implements IIngredientCopyNBT, IHand
 
                     String blockName = world.getBlockState(pos).getBlock().getDescriptionId();
                     player.displayClientMessage(
-                            new TranslatableComponent(
+                            Component.translatable(
                                     TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_set_managed_machine_extract_location",
                                     TextUtil.formatDemonName(boundSpirit.get().getName().getString()),
-                            new TranslatableComponent(blockName), face.getSerializedName()),true);
+                                    Component.translatable(blockName), face.getSerializedName()), true);
                     return true;
                 }
             } else {
                 player.displayClientMessage(
-                        new TranslatableComponent(
+                        Component.translatable(
                                 TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_spirit_not_found"),
                         true);
             }
@@ -416,14 +415,14 @@ public class BookOfCallingItem extends Item implements IIngredientCopyNBT, IHand
                     ItemNBTUtil.updateItemNBTFromEntity(stack, boundSpirit.get());
 
                     player.displayClientMessage(
-                            new TranslatableComponent(
+                            Component.translatable(
                                     TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_set_managed_machine",
                                     TextUtil.formatDemonName(boundSpirit.get().getName().getString())), true);
                     return true;
                 }
             } else {
                 player.displayClientMessage(
-                        new TranslatableComponent(
+                        Component.translatable(
                                 TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_spirit_not_found"),
                         true);
             }
@@ -446,15 +445,15 @@ public class BookOfCallingItem extends Item implements IIngredientCopyNBT, IHand
                     ItemNBTUtil.updateItemNBTFromEntity(stack, boundSpirit.get());
 
                     String blockName = world.getBlockState(pos).getBlock().getDescriptionId();
-                    player.displayClientMessage(new TranslatableComponent(
+                    player.displayClientMessage(Component.translatable(
                             TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_set_storage_controller",
                             TextUtil.formatDemonName(boundSpirit.get().getName().getString()),
-                            new TranslatableComponent(blockName)), true);
+                            Component.translatable(blockName)), true);
                     return true;
                 }
             } else {
                 player.displayClientMessage(
-                        new TranslatableComponent(
+                        Component.translatable(
                                 TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_spirit_not_found"),
                         true);
             }
@@ -478,13 +477,13 @@ public class BookOfCallingItem extends Item implements IIngredientCopyNBT, IHand
 
                 String blockName = world.getBlockState(pos).getBlock().getDescriptionId();
                 player.displayClientMessage(
-                        new TranslatableComponent(TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_set_deposit",
+                        Component.translatable(TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_set_deposit",
                                 TextUtil.formatDemonName(boundSpirit.get().getName().getString()),
-                                new TranslatableComponent(blockName), face.getSerializedName()), true);
+                                Component.translatable(blockName), face.getSerializedName()), true);
                 return true;
             } else {
                 player.displayClientMessage(
-                        new TranslatableComponent(
+                        Component.translatable(
                                 TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_spirit_not_found"),
                         true);
             }
@@ -508,13 +507,13 @@ public class BookOfCallingItem extends Item implements IIngredientCopyNBT, IHand
 
                 String blockName = world.getBlockState(pos).getBlock().getDescriptionId();
                 player.displayClientMessage(
-                        new TranslatableComponent(TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_set_extract",
+                        Component.translatable(TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_set_extract",
                                 TextUtil.formatDemonName(boundSpirit.get().getName().getString()),
-                                new TranslatableComponent(blockName), face.getSerializedName()), true);
+                                Component.translatable(blockName), face.getSerializedName()), true);
                 return true;
             } else {
                 player.displayClientMessage(
-                        new TranslatableComponent(
+                        Component.translatable(
                                 TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_spirit_not_found"),
                         true);
             }
@@ -536,13 +535,13 @@ public class BookOfCallingItem extends Item implements IIngredientCopyNBT, IHand
 
                 String blockName = world.getBlockState(pos).getBlock().getDescriptionId();
                 player.displayClientMessage(
-                        new TranslatableComponent(TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_set_base",
+                        Component.translatable(TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_set_base",
                                 TextUtil.formatDemonName(boundSpirit.get().getName().getString()),
-                                new TranslatableComponent(blockName)), true);
+                                Component.translatable(blockName)), true);
                 return true;
             } else {
                 player.displayClientMessage(
-                        new TranslatableComponent(
+                        Component.translatable(
                                 TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_spirit_not_found"),
                         true);
             }
@@ -566,14 +565,13 @@ public class BookOfCallingItem extends Item implements IIngredientCopyNBT, IHand
                     }
                     break;
                 case SET_EXTRACT:
-                    if(this instanceof BookOfCallingManageMachineItem){
+                    if (this instanceof BookOfCallingManageMachineItem) {
                         if (blockEntity != null &&
                                 blockEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, facing).isPresent()) {
                             return this.setSpiritManagedMachineExtractLocation(player, world, pos, stack,
                                     facing) ? InteractionResult.SUCCESS : InteractionResult.PASS;
                         }
-                    }
-                    else if (blockEntity != null &&
+                    } else if (blockEntity != null &&
                             blockEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, facing).isPresent()) {
                         return this.setSpiritExtractLocation(player, world, pos, stack,
                                 facing) ? InteractionResult.SUCCESS : InteractionResult.PASS;

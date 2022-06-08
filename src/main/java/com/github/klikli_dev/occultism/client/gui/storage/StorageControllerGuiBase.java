@@ -52,8 +52,6 @@ import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
@@ -172,13 +170,13 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         List<Component> tooltip = new ArrayList<>();
         tooltip.add(machine.getInsertItemStack().getDisplayName());
         if (machine.customName != null) {
-            tooltip.add(new TextComponent(ChatFormatting.GRAY.toString() +
+            tooltip.add(Component.literal(ChatFormatting.GRAY.toString() +
                     ChatFormatting.BOLD + machine.customName +
                     ChatFormatting.RESET));
         }
 
         if (this.minecraft.player.level.dimension() != machine.insertGlobalPos.getDimensionKey())
-            tooltip.add(new TranslatableComponent(ChatFormatting.GRAY.toString() + ChatFormatting.ITALIC +
+            tooltip.add(Component.translatable(ChatFormatting.GRAY.toString() + ChatFormatting.ITALIC +
                     machine.insertGlobalPos.getDimensionKey().location() +
                     ChatFormatting.RESET));
         this.renderComponentTooltip(poseStack, tooltip, x, y);
@@ -230,7 +228,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
 
         this.searchBar = new EditBox(this.font, this.leftPos + searchBarLeft,
-                this.topPos + searchBarTop, 90, this.font.lineHeight, new TextComponent("search"));
+                this.topPos + searchBarTop, 90, this.font.lineHeight, Component.literal("search"));
         this.searchBar.setMaxLength(30);
 
         this.searchBar.setBordered(false);
@@ -593,25 +591,25 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         if (this.isPointInSearchbar(mouseX, mouseY)) {
             List<Component> tooltip = new ArrayList<>();
             if (!Screen.hasShiftDown()) {
-                tooltip.add(new TranslatableComponent(TRANSLATION_KEY_BASE + ".shift"));
+                tooltip.add(Component.translatable(TRANSLATION_KEY_BASE + ".shift"));
             } else {
                 switch (this.guiMode) {
                     case INVENTORY:
-                        tooltip.add(new TranslatableComponent(TRANSLATION_KEY_BASE + ".search.tooltip@"));
-                        tooltip.add(new TranslatableComponent(TRANSLATION_KEY_BASE + ".search.tooltip#"));
-                        tooltip.add(new TranslatableComponent(TRANSLATION_KEY_BASE + ".search.tooltip$"));
+                        tooltip.add(Component.translatable(TRANSLATION_KEY_BASE + ".search.tooltip@"));
+                        tooltip.add(Component.translatable(TRANSLATION_KEY_BASE + ".search.tooltip#"));
+                        tooltip.add(Component.translatable(TRANSLATION_KEY_BASE + ".search.tooltip$"));
                         break;
                     case AUTOCRAFTING:
-                        tooltip.add(new TranslatableComponent(TRANSLATION_KEY_BASE + ".search.machines.tooltip@"));
+                        tooltip.add(Component.translatable(TRANSLATION_KEY_BASE + ".search.machines.tooltip@"));
                         break;
                 }
-                tooltip.add(new TranslatableComponent(TRANSLATION_KEY_BASE + ".search.tooltip_rightclick"));
+                tooltip.add(Component.translatable(TRANSLATION_KEY_BASE + ".search.tooltip_rightclick"));
             }
             this.renderComponentTooltip(poseStack, tooltip, mouseX, mouseY);
         }
         if (this.clearTextButton != null && this.clearTextButton.isMouseOver(mouseX, mouseY)) {
             this.renderComponentTooltip(poseStack,
-                    Lists.newArrayList(new TranslatableComponent(TRANSLATION_KEY_BASE + ".search.tooltip_clear")),
+                    Lists.newArrayList(Component.translatable(TRANSLATION_KEY_BASE + ".search.tooltip_clear")),
                     mouseX, mouseY);
         }
         if (this.sortTypeButton != null && this.sortTypeButton.isMouseOver(mouseX, mouseY)) {
@@ -627,15 +625,15 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                                     this.getSortType().getSerializedName();
                     break;
             }
-            this.renderTooltip(poseStack, new TranslatableComponent(translationKey), mouseX, mouseY);
+            this.renderTooltip(poseStack, Component.translatable(translationKey), mouseX, mouseY);
         }
         if (this.sortDirectionButton != null && this.sortDirectionButton.isMouseOver(mouseX, mouseY)) {
-            this.renderTooltip(poseStack, new TranslatableComponent(
+            this.renderTooltip(poseStack, Component.translatable(
                             TRANSLATION_KEY_BASE + ".search.tooltip_sort_direction_" + this.getSortDirection().getSerializedName()),
                     mouseX, mouseY);
         }
         if (this.jeiSyncButton != null && this.jeiSyncButton.isMouseOver(mouseX, mouseY)) {
-            this.renderTooltip(poseStack, new TranslatableComponent(
+            this.renderTooltip(poseStack, Component.translatable(
                             TRANSLATION_KEY_BASE + ".search.tooltip_jei_" +
                                     (JeiSettings.isJeiSearchSynced() ? "on" : "off")),
                     mouseX, mouseY);

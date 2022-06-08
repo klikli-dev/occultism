@@ -6,7 +6,8 @@
   "pages": [
     {
       "type": "text",
-      "text": "$(bold)Objetivo:$() Vincular Foliot $(br2)Como un pentáculo de vinculación simple, $(thing)Compulsión espectral de Eziveus$(),  es el punto de inicio más común para la infusión de objetos con espíritus menores. El encantamiento es permanente si se estabiliza con velas y cristales espirituales sintonizados."},
+      "text": "$(bold)Objetivo:$() Vincular Foliot $(br2)Como un pentáculo de vinculación simple, $(thing)Compulsión espectral de Eziveus$(),  es el punto de inicio más común para la infusión de objetos con espíritus menores. El encantamiento es permanente si se estabiliza con velas y cristales espirituales sintonizados."
+    },
     {
       "type": "multiblock",
       "name": "",
@@ -15,6 +16,7 @@
     {
       "type": "text",
       "title": "Usos",
-      "text": "$(li)$(l:rituals/crafting/craft_otherworld_goggles)Lentes imbuidas$(/l)$()$(li)$(l:rituals/crafting/craft_satchel)Morral acaudalado$(/l)$()$(li)$(l:rituals/crafting/craft_storage_controller_base)Baso de actuador de almacenamiento$(/l)$()$(li)$(l:rituals/crafting/craft_stable_wormhole)Agujero de gusano estable$(/l)$()$(li)$(l:rituals/crafting/craft_stabilizer_tier1)Estabilizador de almacenamiento I$(/l)$()$(li)$(l:rituals/crafting/craft_miner_spirits)Foliot Minero$(/l)$()"}
+      "text": "$(li)$(l:rituals/crafting/craft_otherworld_goggles)Lentes imbuidas$(/l)$()$(li)$(l:rituals/crafting/craft_satchel)Morral acaudalado$(/l)$()$(li)$(l:rituals/crafting/craft_storage_controller_base)Baso de actuador de almacenamiento$(/l)$()$(li)$(l:rituals/crafting/craft_stable_wormhole)Agujero de gusano estable$(/l)$()$(li)$(l:rituals/crafting/craft_stabilizer_tier1)Estabilizador de almacenamiento I$(/l)$()$(li)$(l:rituals/crafting/craft_miner_spirits)Foliot Minero$(/l)$()"
+    }
   ]
 }

@@ -69,7 +69,7 @@ public class MachineReference implements INBTSerializable<CompoundTag> {
 
     /**
      * @param extractBlockEntity the block entity to extract from
-     * @param insertBlockEntity the block entity to insert into, this is the managed machine
+     * @param insertBlockEntity  the block entity to insert into, this is the managed machine
      * @return
      */
     public static MachineReference from(BlockEntity extractBlockEntity, BlockEntity insertBlockEntity) {
@@ -208,7 +208,7 @@ public class MachineReference implements INBTSerializable<CompoundTag> {
         return BlockEntityUtil.get(level, this.insertGlobalPos);
     }
 
-    public boolean isValidFor(Level level){
+    public boolean isValidFor(Level level) {
         return this.getExtractBlockEntity(level) != null && this.getInsertBlockEntity(level) != null;
     }
 }

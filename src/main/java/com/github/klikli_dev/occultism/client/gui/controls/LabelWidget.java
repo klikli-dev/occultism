@@ -30,7 +30,6 @@ import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,7 +62,7 @@ public class LabelWidget extends AbstractWidget {
     }
 
     public LabelWidget(int xIn, int yIn, boolean centered, int width, int height, int margin, int color) {
-        super(xIn, yIn, width, height, new TextComponent(""));
+        super(xIn, yIn, width, height, Component.literal(""));
         this.centered = centered;
         this.width = width;
         this.margin = margin;

@@ -26,15 +26,11 @@ import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.config.OccultismCommonConfig;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
-import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.placement.*;
 
 import java.util.List;
-
-import static com.github.klikli_dev.occultism.util.StaticUtil.modLoc;
 
 public class OccultismPlacements {
 
@@ -55,7 +51,7 @@ public class OccultismPlacements {
         VerticalAnchor silverMaxAnchor = oreGen.silverOre.maximum.get() > 0 ?
                 VerticalAnchor.absolute(oreGen.silverOre.maximum.get()) :
                 VerticalAnchor.belowTop(-oreGen.silverOre.maximum.get());
-        SILVER_ORE = PlacementUtils.register("silver_ore",  OccultismFeatures.SILVER_ORE,
+        SILVER_ORE = PlacementUtils.register("silver_ore", OccultismFeatures.SILVER_ORE,
                 commonOrePlacement(oreGen.silverOre.count.get(),
                         HeightRangePlacement.triangle(VerticalAnchor.absolute(oreGen.silverOre.minimum.get()), silverMaxAnchor)));
 
@@ -64,7 +60,7 @@ public class OccultismPlacements {
                 VerticalAnchor.absolute(oreGen.silverOreDeepslate.maximum.get()) :
                 VerticalAnchor.belowTop(-oreGen.silverOreDeepslate.maximum.get());
 
-        SILVER_ORE_DEEPSLATE = PlacementUtils.register("silver_ore_deepslate",  OccultismFeatures.SILVER_ORE_DEEPSLATE,
+        SILVER_ORE_DEEPSLATE = PlacementUtils.register("silver_ore_deepslate", OccultismFeatures.SILVER_ORE_DEEPSLATE,
                 commonOrePlacement(oreGen.silverOreDeepslate.count.get(),
                         HeightRangePlacement.triangle(VerticalAnchor.absolute(oreGen.silverOreDeepslate.minimum.get()), silverMaxAnchor)));
 
@@ -73,11 +69,11 @@ public class OccultismPlacements {
                 VerticalAnchor.absolute(oreGen.iesniumOre.maximum.get()) :
                 VerticalAnchor.belowTop(-oreGen.iesniumOre.maximum.get());
 
-        IESNIUM_ORE = PlacementUtils.register("iesnium_ore",  OccultismFeatures.IESNIUM_ORE,
+        IESNIUM_ORE = PlacementUtils.register("iesnium_ore", OccultismFeatures.IESNIUM_ORE,
                 commonOrePlacement(oreGen.iesniumOre.count.get(),
                         HeightRangePlacement.triangle(VerticalAnchor.absolute(oreGen.iesniumOre.minimum.get()), iesniumMaxAnchor)));
 
-        UNDERGROUND_GROVE = PlacementUtils.register("underground_grove",  OccultismFeatures.UNDERGROUND_GROVE);
+        UNDERGROUND_GROVE = PlacementUtils.register("underground_grove", OccultismFeatures.UNDERGROUND_GROVE);
 
         OTHERWORLD_TREE_NATURAL = PlacementUtils.register("otherworld_tree_natural",
                 OccultismFeatures.OTHERWORLD_TREE_NATURAL,

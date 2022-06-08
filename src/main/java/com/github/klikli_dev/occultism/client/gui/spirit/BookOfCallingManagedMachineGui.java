@@ -32,8 +32,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.Direction;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraftforge.client.gui.widget.ExtendedButton;
 import org.apache.commons.lang3.StringUtils;
 
@@ -52,7 +51,7 @@ public class BookOfCallingManagedMachineGui extends Screen {
 
     //region Initialization
     public BookOfCallingManagedMachineGui(Direction insertFacing, Direction extractFacing, String customName) {
-        super(new TextComponent(""));
+        super(Component.literal(""));
 
         this.insertFacing = insertFacing;
         this.extractFacing = extractFacing;
@@ -98,7 +97,7 @@ public class BookOfCallingManagedMachineGui extends Screen {
         int buttonTop = 60;
         //the insert facing button
         this.addRenderableWidget(new ExtendedButton(guiLeft - buttonWidth / 2, guiTop + buttonTop, buttonWidth,
-                buttonHeight, new TranslatableComponent("enum." + Occultism.MODID + ".facing." + this.insertFacing.getSerializedName()),
+                buttonHeight, Component.translatable("enum." + Occultism.MODID + ".facing." + this.insertFacing.getSerializedName()),
                 (b) -> {
                     MachineReference reference = this.makeMachineReference();
                     this.insertFacing = reference.insertFacing = EnumUtil.nextFacing(this.insertFacing);
@@ -109,7 +108,7 @@ public class BookOfCallingManagedMachineGui extends Screen {
         //the extract facing button
         this.addRenderableWidget(new ExtendedButton(guiLeft - buttonWidth / 2,
                 guiTop + buttonTop + buttonHeight + buttonMargin, buttonWidth, buttonHeight,
-                new TranslatableComponent("enum." + Occultism.MODID + ".facing." + this.extractFacing.getSerializedName()), (b) -> {
+                Component.translatable("enum." + Occultism.MODID + ".facing." + this.extractFacing.getSerializedName()), (b) -> {
             MachineReference reference = this.makeMachineReference();
             this.extractFacing = reference.extractFacing = EnumUtil.nextFacing(this.extractFacing);
             OccultismPackets.sendToServer(new MessageSetManagedMachine(reference));
@@ -118,7 +117,7 @@ public class BookOfCallingManagedMachineGui extends Screen {
 
         int textWidth = buttonWidth - 4;
         this.text = new EditBox(this.font, guiLeft - textWidth / 2,
-                guiTop + buttonTop + buttonHeight * 2 + buttonMargin * 2, textWidth, buttonHeight, new TextComponent(""));
+                guiTop + buttonTop + buttonHeight * 2 + buttonMargin * 2, textWidth, buttonHeight, Component.literal(""));
         this.text.setMaxLength(30);
         this.text.setVisible(true);
         this.text.setTextColor(Color.WHITE.getRGB());
@@ -129,7 +128,7 @@ public class BookOfCallingManagedMachineGui extends Screen {
         //Exit button
         int exitButtonSize = 20;
         this.addRenderableWidget(new ExtendedButton(guiLeft - exitButtonSize / 2,
-                guiTop + buttonTop + buttonHeight * 3 + buttonMargin * 3, exitButtonSize, exitButtonSize, new TextComponent("X"), (b) -> {
+                guiTop + buttonTop + buttonHeight * 3 + buttonMargin * 3, exitButtonSize, exitButtonSize, Component.literal("X"), (b) -> {
             this.minecraft.setScreen(null);
         }));
 

@@ -29,14 +29,13 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.util.FakePlayer;
-import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.network.simple.SimpleChannel;
 
 public class OccultismPackets {
     public static final String PROTOCOL_VERSION = "1";
-    public static final ResourceLocation CHANNEL =  new ResourceLocation(Occultism.MODID, "main");
+    public static final ResourceLocation CHANNEL = new ResourceLocation(Occultism.MODID, "main");
     public static final SimpleChannel INSTANCE = NetworkRegistry.newSimpleChannel(
             CHANNEL,
             () -> PROTOCOL_VERSION,

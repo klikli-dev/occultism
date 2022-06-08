@@ -47,7 +47,7 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.phys.Vec3;
 
@@ -95,7 +95,7 @@ public class MummyFamiliarRenderer extends MobRenderer<MummyFamiliarEntity, Mumm
 
         private static final ResourceLocation KAPOW_TEXTURE = new ResourceLocation(Occultism.MODID,
                 "textures/entity/kapow.png");
-        private static final TranslatableComponent KAPOW_TEXT = new TranslatableComponent(
+        private static final Component KAPOW_TEXT = Component.translatable(
                 "dialog.occultism.mummy.kapow");
 
         private static KapowModel model;

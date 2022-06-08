@@ -7,7 +7,8 @@
     {
       "type": "spotlight",
       "item": "occultism:iesnium_ore",
-      "text": "Iesnium es un $(thing)mineral del Otro Lado$() que aparece en el Nether. Sólo se puede conseguir al minarse con un $(l:rituals/crafting/craft_infused_pickaxe)Pico imbuido$(/l) o un $(item)Pico de Iesnium$() mientras estén equipadas las $(l:rituals/crafting/craft_otherworld_goggles)Gafas del Otro Lado$(/l)."},
+      "text": "Iesnium es un $(thing)mineral del Otro Lado$() que aparece en el Nether. Sólo se puede conseguir al minarse con un $(l:rituals/crafting/craft_infused_pickaxe)Pico imbuido$(/l) o un $(item)Pico de Iesnium$() mientras estén equipadas las $(l:rituals/crafting/craft_otherworld_goggles)Gafas del Otro Lado$(/l)."
+    },
     {
       "type": "crafting",
       "recipe": "occultism:crafting/iesnium_pickaxe",
@@ -16,6 +17,7 @@
     {
       "type": "spotlight",
       "item": "occultism:iesnium_ingot",
-      "text": "El uso principal del Iesnium es la invocación de $(l:rituals/crafting/craft_miner_spirits)Espíritus Mineros$(/l) para el ritual de la $(l:rituals/crafting/craft_dimensional_mineshaft)Mina Dimensional$(/l)."}
+      "text": "El uso principal del Iesnium es la invocación de $(l:rituals/crafting/craft_miner_spirits)Espíritus Mineros$(/l) para el ritual de la $(l:rituals/crafting/craft_dimensional_mineshaft)Mina Dimensional$(/l)."
+    }
   ]
 }

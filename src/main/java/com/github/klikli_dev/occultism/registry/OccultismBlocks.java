@@ -36,7 +36,6 @@ import com.github.klikli_dev.occultism.common.level.tree.OtherworldNaturalTreeGr
 import com.github.klikli_dev.occultism.common.level.tree.OtherworldTreeGrower;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.*;
@@ -46,9 +45,9 @@ import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.AABB;
-import net.minecraftforge.registries.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -217,15 +216,15 @@ public class OccultismBlocks {
                     .requiresCorrectToolForDrops().strength(3.5F).sound(SoundType.LANTERN)
                     .lightLevel((state) -> 10).noOcclusion()));
 
-    public static final RegistryObject<Block>  SPIRIT_CAMPFIRE = register("spirit_campfire",
+    public static final RegistryObject<Block> SPIRIT_CAMPFIRE = register("spirit_campfire",
             () -> new CampfireBlock(false, 2, BlockBehaviour.Properties.of(Material.WOOD, MaterialColor.PODZOL)
-                    .strength(2.0F).sound(SoundType.WOOD).lightLevel((state)->10).noOcclusion()));
+                    .strength(2.0F).sound(SoundType.WOOD).lightLevel((state) -> 10).noOcclusion()));
 
     public static final RegistryObject<Block> SPIRIT_TORCH = register("spirit_torch",
             () -> new SpiritTorchBlock(BlockBehaviour.Properties.of(Material.DECORATION)
                     .noCollission().instabreak().lightLevel((state) -> 10).sound(SoundType.WOOD)), false);
 
-    public static final RegistryObject<Block>  SPIRIT_WALL_TORCH = register("spirit_wall_torch",
+    public static final RegistryObject<Block> SPIRIT_WALL_TORCH = register("spirit_wall_torch",
             () -> new SpiritWallTorchBlock(BlockBehaviour.Properties.of(Material.DECORATION)
                     .noCollission().instabreak().lightLevel((state) -> 10).sound(SoundType.WOOD).lootFrom(SPIRIT_TORCH)), false);
 

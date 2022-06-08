@@ -33,7 +33,6 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.registries.ForgeRegistryEntry;
 
 public class CrushingRecipe extends ItemStackFakeInventoryRecipe {
     //region Fields
@@ -107,7 +106,7 @@ public class CrushingRecipe extends ItemStackFakeInventoryRecipe {
 
     //endregion Overrides
 
-    public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<CrushingRecipe> {
+    public static class Serializer implements RecipeSerializer<CrushingRecipe> {
 
         //region Overrides
         @Override

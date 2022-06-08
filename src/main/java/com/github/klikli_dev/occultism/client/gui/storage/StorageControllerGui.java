@@ -26,7 +26,6 @@ import com.github.klikli_dev.occultism.api.common.data.SortDirection;
 import com.github.klikli_dev.occultism.api.common.data.SortType;
 import com.github.klikli_dev.occultism.common.blockentity.StorageControllerBlockEntity;
 import com.github.klikli_dev.occultism.common.container.storage.StorageControllerContainer;
-import com.github.klikli_dev.occultism.network.MessageRequestStacks;
 import com.github.klikli_dev.occultism.network.MessageUpdateStorageSettings;
 import com.github.klikli_dev.occultism.network.OccultismPackets;
 import net.minecraft.core.BlockPos;

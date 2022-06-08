@@ -34,7 +34,7 @@ import mezz.jei.api.recipe.transfer.IRecipeTransferHandler;
 import mezz.jei.api.recipe.transfer.IRecipeTransferHandlerHelper;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.CraftingContainer;
@@ -71,12 +71,12 @@ public class StorageControllerRecipeTransferHandler<T extends AbstractContainerM
     public IRecipeTransferError transferRecipe(T container, CraftingRecipe recipe, IRecipeSlotsView recipeSlots, Player player, boolean maxTransfer, boolean doTransfer) {
 
         if (recipe.getId() == null) {
-            return this.handlerHelper.createUserErrorWithTooltip(new TranslatableComponent("jei." + Occultism.MODID + "error.missing_id"));
+            return this.handlerHelper.createUserErrorWithTooltip(Component.translatable("jei." + Occultism.MODID + "error.missing_id"));
         }
 
         //sort out any modded recipes that don't fit 3x3
         if (!recipe.canCraftInDimensions(3, 3)) {
-            return this.handlerHelper.createUserErrorWithTooltip(new TranslatableComponent("jei." + Occultism.MODID + "error.recipe_too_large"));
+            return this.handlerHelper.createUserErrorWithTooltip(Component.translatable("jei." + Occultism.MODID + "error.recipe_too_large"));
         }
 
         // can only send shaped/shapeless recipes to storage controller

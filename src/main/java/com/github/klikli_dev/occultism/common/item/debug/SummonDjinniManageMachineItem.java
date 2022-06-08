@@ -27,7 +27,6 @@ import com.github.klikli_dev.occultism.common.job.SpiritJob;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.registry.OccultismSpiritJobs;
 import net.minecraft.advancements.CriteriaTriggers;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionResult;
@@ -54,7 +53,7 @@ public class SummonDjinniManageMachineItem extends Item {
                     MobSpawnType.SPAWN_EGG, null, null);
             spirit.tame(context.getPlayer());
             spirit.setPos(context.getClickedPos().getX(), context.getClickedPos().getY() + 1.0f, context.getClickedPos().getZ());
-            spirit.setCustomName(new TextComponent("Testspirit Manage Machine"));
+            spirit.setCustomName(Component.literal("Testspirit Manage Machine"));
             spirit.setSpiritMaxAge(-1); //cannot die from age
             //set up the job
             SpiritJob manageMachine = OccultismSpiritJobs.MANAGE_MACHINE.get().create(spirit);

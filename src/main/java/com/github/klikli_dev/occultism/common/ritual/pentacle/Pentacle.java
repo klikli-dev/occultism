@@ -31,8 +31,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.Tag;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.level.BlockGetter;
@@ -90,7 +88,7 @@ public class Pentacle {
         this.matcher = api.makeMultiblock(multiPattern, multiMappings.toArray());
         this.matcher.setId(multiRL);
         try {
-            if(PatchouliAPI.get().getMultiblock(multiRL) == null)
+            if (PatchouliAPI.get().getMultiblock(multiRL) == null)
                 PatchouliAPI.get().registerMultiblock(multiRL, this.matcher);
         } catch (IllegalArgumentException e) {
             //should never happen, only thrown if multiblock registered twice
@@ -126,6 +124,7 @@ public class Pentacle {
             mappings.put(buffer.readChar(), JsonParser.parseString(buffer.readUtf()));
         return new Pentacle(key, pattern, mappings);
     }
+
     public static IStateMatcher parseStateMatcher(JsonElement matcher) {
         if (matcher.isJsonObject()) {
             JsonObject jsonObject = matcher.getAsJsonObject();
@@ -248,7 +247,7 @@ public class Pentacle {
         @Override
         public BlockState getDisplayedState(long ticks) {
             if (this.block instanceof ChalkGlyphBlock) {
-                return this.block.defaultBlockState().setValue(ChalkGlyphBlock.SIGN, (int)(ticks / 20 % ChalkGlyphBlock.MAX_SIGN));
+                return this.block.defaultBlockState().setValue(ChalkGlyphBlock.SIGN, (int) (ticks / 20 % ChalkGlyphBlock.MAX_SIGN));
             }
 
             return this.matcher.getDisplayedState(ticks);

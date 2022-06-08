@@ -6,7 +6,8 @@
   "pages": [
     {
       "type": "text",
-      "text": "$(bold)Objetivo:$() Vincular Marid $(br2)$(thing)Torre invertida de Uphyxes$() es uno de los pocos pentáculos capaces de vincular $(thing)Marids$() a objetos. Cualquiera de los rituales que involucre a un $(thing)Marid$() debe realizarse SOLO por los invocadores más expertos. "},
+      "text": "$(bold)Objetivo:$() Vincular Marid $(br2)$(thing)Torre invertida de Uphyxes$() es uno de los pocos pentáculos capaces de vincular $(thing)Marids$() a objetos. Cualquiera de los rituales que involucre a un $(thing)Marid$() debe realizarse SOLO por los invocadores más expertos. "
+    },
     {
       "type": "multiblock",
       "name": "",

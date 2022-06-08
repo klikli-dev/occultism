@@ -6,7 +6,8 @@
   "pages": [
     {
       "type": "text",
-      "text": "$(bold)Objetivo:$() Invocar Foliot $(br2) Considerado el pentáculo más simple, $(thing)Círculo de Aviar$() es fácil de preparar, pero otorga un poder de vinculación y protección mínimo para el invocador. $(br2)Sólo los más débiles y fácilmente doblegables $(thing)Foliot$() pueden ser invocados en rituales con este pentáculo."},
+      "text": "$(bold)Objetivo:$() Invocar Foliot $(br2) Considerado el pentáculo más simple, $(thing)Círculo de Aviar$() es fácil de preparar, pero otorga un poder de vinculación y protección mínimo para el invocador. $(br2)Sólo los más débiles y fácilmente doblegables $(thing)Foliot$() pueden ser invocados en rituales con este pentáculo."
+    },
     {
       "type": "multiblock",
       "name": "",
@@ -15,6 +16,7 @@
     {
       "type": "text",
       "title": "Usos",
-      "text": "$(li)$(l:rituals/summoning/summon_crusher)Foliot Triturador$(/l)$()$(li)$(l:rituals/summoning/summon_lumberjack)Foliot Leñador$(/l)$()$(li)$(l:rituals/summoning/summon_transport_items)Foliot Transportador$(/l)$()$(li)$(l:rituals/summoning/summon_cleaner)Foliot Conserje$(/l)$()$(li)$(l:rituals/summoning/summon_otherstone_trader)Comerciante de Piedra del Otro Lado$(/l)$()$(li)$(l:rituals/summoning/summon_otherworld_sapling_trader)Comerciante de brotes del Otro Lado$(/l)$()"}
+      "text": "$(li)$(l:rituals/summoning/summon_crusher)Foliot Triturador$(/l)$()$(li)$(l:rituals/summoning/summon_lumberjack)Foliot Leñador$(/l)$()$(li)$(l:rituals/summoning/summon_transport_items)Foliot Transportador$(/l)$()$(li)$(l:rituals/summoning/summon_cleaner)Foliot Conserje$(/l)$()$(li)$(l:rituals/summoning/summon_otherstone_trader)Comerciante de Piedra del Otro Lado$(/l)$()$(li)$(l:rituals/summoning/summon_otherworld_sapling_trader)Comerciante de brotes del Otro Lado$(/l)$()"
+    }
   ]
 }

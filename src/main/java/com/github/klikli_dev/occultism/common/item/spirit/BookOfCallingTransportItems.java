@@ -27,7 +27,6 @@ import com.github.klikli_dev.occultism.util.ItemNBTUtil;
 import com.github.klikli_dev.occultism.util.TextUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
@@ -57,16 +56,16 @@ public class BookOfCallingTransportItems extends BookOfCallingItem {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
         BlockPos extract = ItemNBTUtil.getExtractPosition(stack);
         if (extract != null) {
-            tooltip.add(new TranslatableComponent(this.getTranslationKeyBase() + ".tooltip.extract", extract.toString()));
+            tooltip.add(Component.translatable(this.getTranslationKeyBase() + ".tooltip.extract", extract.toString()));
         }
 
         BlockPos deposit = ItemNBTUtil.getDepositPosition(stack);
         String depositName = ItemNBTUtil.getDepositEntityName(stack);
 
         if (deposit != null) {
-            tooltip.add(new TranslatableComponent(this.getTranslationKeyBase() + ".tooltip.deposit", deposit.toString()));
+            tooltip.add(Component.translatable(this.getTranslationKeyBase() + ".tooltip.deposit", deposit.toString()));
         } else if (depositName != null) {
-            tooltip.add(new TranslatableComponent(this.getTranslationKeyBase() + ".tooltip.deposit_entity", TextUtil.formatDemonName(depositName)));
+            tooltip.add(Component.translatable(this.getTranslationKeyBase() + ".tooltip.deposit_entity", TextUtil.formatDemonName(depositName)));
         }
     }
     //endregion Overrides

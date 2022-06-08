@@ -6,7 +6,8 @@
   "pages": [
     {
       "type": "text",
-      "text": "$(bold)Objetivo:$() Invocar Marid $(br2)$(thing)Atracción incentivada de Fatma$() es un pentáculo poderoso, permitiendo invocar un Marid y doblegarlos a la voluntad del invocador."},
+      "text": "$(bold)Objetivo:$() Invocar Marid $(br2)$(thing)Atracción incentivada de Fatma$() es un pentáculo poderoso, permitiendo invocar un Marid y doblegarlos a la voluntad del invocador."
+    },
     {
       "type": "multiblock",
       "name": "",

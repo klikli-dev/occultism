@@ -6,7 +6,8 @@
   "pages": [
     {
       "type": "text",
-      "text": "$(bold)Objetivo:$() Vincular Afrit $(br2)Descubierto por la Gran Maestra Sevira de Emberwoods, $(thing)Confinamiento eterno$() se usa para vincular $(thing)Afrits$() a objetos. Dado el poder de los espíritus inmiscuidos, este ritual debe ser realizado por invocadores expertos."},
+      "text": "$(bold)Objetivo:$() Vincular Afrit $(br2)Descubierto por la Gran Maestra Sevira de Emberwoods, $(thing)Confinamiento eterno$() se usa para vincular $(thing)Afrits$() a objetos. Dado el poder de los espíritus inmiscuidos, este ritual debe ser realizado por invocadores expertos."
+    },
     {
       "type": "multiblock",
       "name": "",

@@ -97,8 +97,7 @@ public class StorageControllerItemStackHandler extends ItemStackHandler {
     }
 
     //Logic from super.extractItem modified to allow for custom stack sizes
-    public ItemStack extractItemOverride(int slot, int amount, boolean simulate)
-    {
+    public ItemStack extractItemOverride(int slot, int amount, boolean simulate) {
         if (amount == 0)
             return ItemStack.EMPTY;
 
@@ -112,23 +111,16 @@ public class StorageControllerItemStackHandler extends ItemStackHandler {
         //only change to forge's method -> instead of just using max stack size, we refer to our stack limit which can be overridden via config.
         int toExtract = Math.min(amount, this.getStackLimit(-1, existing));
 
-        if (existing.getCount() <= toExtract)
-        {
-            if (!simulate)
-            {
+        if (existing.getCount() <= toExtract) {
+            if (!simulate) {
                 this.stacks.set(slot, ItemStack.EMPTY);
                 this.onContentsChanged(slot);
                 return existing;
-            }
-            else
-            {
+            } else {
                 return existing.copy();
             }
-        }
-        else
-        {
-            if (!simulate)
-            {
+        } else {
+            if (!simulate) {
                 this.stacks.set(slot, ItemHandlerHelper.copyStackWithSize(existing, existing.getCount() - toExtract));
                 this.onContentsChanged(slot);
             }

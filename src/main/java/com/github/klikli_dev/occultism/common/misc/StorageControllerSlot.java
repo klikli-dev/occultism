@@ -35,8 +35,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Extension of slot crafting that sends network updates.
- * Based on https://github.com/Lothrazar/Storage-Network
+ * Extension of slot crafting that sends network updates. Based on https://github.com/Lothrazar/Storage-Network
  */
 public class StorageControllerSlot extends ResultSlot {
     //region Fields

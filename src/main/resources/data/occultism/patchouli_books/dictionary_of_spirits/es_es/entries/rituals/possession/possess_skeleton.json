@@ -15,7 +15,8 @@
     },
     {
       "type": "text",
-      "text": "En este ritual, un $(thing)Esqueleto$() es invocado utilizando la energia vital de un $(thing)pollo$() y será poseído por un $(thing)Foliot$(). El $(thing)Esqueleto poseído$() será inmune a la luz solar y siempre dejará caer al menos una $(item)Calavera de esqueleto$() al morir."}
+      "text": "En este ritual, un $(thing)Esqueleto$() es invocado utilizando la energia vital de un $(thing)pollo$() y será poseído por un $(thing)Foliot$(). El $(thing)Esqueleto poseído$() será inmune a la luz solar y siempre dejará caer al menos una $(item)Calavera de esqueleto$() al morir."
+    }
   ]
 }
 

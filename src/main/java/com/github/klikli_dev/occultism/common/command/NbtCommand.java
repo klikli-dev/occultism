@@ -31,7 +31,6 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemStack;
@@ -51,7 +50,7 @@ public class NbtCommand implements Command<CommandSourceStack> {
         ServerPlayer player = context.getSource().getPlayerOrException();
         ItemStack heldItem = player.getItemInHand(InteractionHand.MAIN_HAND);
 
-        Component nbtText = heldItem.isEmpty() || !heldItem.hasTag() ? new TextComponent("{}") : NbtUtils.toPrettyComponent(heldItem.getTag());
+        Component nbtText = heldItem.isEmpty() || !heldItem.hasTag() ? Component.literal("{}") : NbtUtils.toPrettyComponent(heldItem.getTag());
         context.getSource().sendSuccess(nbtText, false);
         return 0;
     }

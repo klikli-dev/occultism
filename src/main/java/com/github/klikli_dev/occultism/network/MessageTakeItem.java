@@ -30,12 +30,12 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.network.NetworkEvent;
 import net.minecraftforge.items.ItemHandlerHelper;
+import net.minecraftforge.network.NetworkEvent;
 
 /**
- * This message requests to take an item from the currently opened storage
- * Based on https://github.com/Lothrazar/Storage-Network
+ * This message requests to take an item from the currently opened storage Based on
+ * https://github.com/Lothrazar/Storage-Network
  */
 public class MessageTakeItem extends MessageBase {
 

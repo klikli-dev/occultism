@@ -29,7 +29,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
@@ -145,7 +144,7 @@ public class SoulGemItem extends Item {
         //do not capture entities on deny lists
         if (Occultism.SERVER_CONFIG.itemSettings.soulgemEntityTypeDenyList.get().contains(target.getEncodeId())) {
             player.sendMessage(
-                    new TranslatableComponent(this.getDescriptionId() + ".message.entity_type_denied"),
+                    Component.translatable(this.getDescriptionId() + ".message.entity_type_denied"),
                     Util.NIL_UUID);
             return InteractionResult.FAIL;
         }
@@ -173,9 +172,9 @@ public class SoulGemItem extends Item {
 
         if (stack.getOrCreateTag().contains("entityData")) {
             EntityType<?> type = EntityUtil.entityTypeFromNbt(stack.getTag().getCompound("entityData"));
-            tooltip.add(new TranslatableComponent(this.getDescriptionId() + ".tooltip_filled", type.getDescription()));
+            tooltip.add(Component.translatable(this.getDescriptionId() + ".tooltip_filled", type.getDescription()));
         } else {
-            tooltip.add(new TranslatableComponent(this.getDescriptionId() + ".tooltip_empty"));
+            tooltip.add(Component.translatable(this.getDescriptionId() + ".tooltip_empty"));
         }
     }
     //endregion Overrides

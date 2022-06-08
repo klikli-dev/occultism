@@ -273,7 +273,7 @@ public class GreedyFamiliarEntity extends FamiliarEntity {
     public static class RideFamiliarGoal<T extends FamiliarEntity> extends Goal {
 
         private final FamiliarEntity rider;
-        private EntityType<T> type;
+        private final EntityType<T> type;
         private FamiliarEntity mount;
 
         public RideFamiliarGoal(FamiliarEntity rider, EntityType<T> type) {
@@ -313,7 +313,7 @@ public class GreedyFamiliarEntity extends FamiliarEntity {
             if (this.mount != null && this.rider.distanceToSqr(this.mount) < 5 && !this.mount.hasPassenger(this.rider)) {
                 this.rider.startRiding(this.mount);
                 this.mount.getNavigation().stop();
-                
+
                 if (this.rider.getType() == OccultismEntities.SHUB_NIGGURATH_FAMILIAR.get() && type == OccultismEntities.CTHULHU_FAMILIAR.get())
                     OccultismAdvancements.FAMILIAR.trigger(this.rider.getFamiliarOwner(), FamiliarTrigger.Type.SHUB_CTHULHU_FRIENDS);
             }

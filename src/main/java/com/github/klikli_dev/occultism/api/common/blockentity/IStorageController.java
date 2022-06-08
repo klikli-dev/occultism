@@ -37,8 +37,8 @@ public interface IStorageController {
     //region Getter / Setter
 
     /**
-     * Gets a list of all stacks in the storage controller. Use sparingly!
-     * This list can be large and thus cause a lot of network traffic as well as performance issues in collecting it.
+     * Gets a list of all stacks in the storage controller. Use sparingly! This list can be large and thus cause a lot
+     * of network traffic as well as performance issues in collecting it.
      *
      * @return all stacks available in the storage controller.
      */
@@ -85,7 +85,8 @@ public interface IStorageController {
     void linkMachine(MachineReference machine);
 
     /**
-     * Creates an order to depositing the given amount of items matching the given comparator in the machine at the given position.
+     * Creates an order to depositing the given amount of items matching the given comparator in the machine at the
+     * given position.
      *
      * @param linkedMachinePosition the position of the machine to deposit in.
      * @param comparator            the item stack comparator.
@@ -125,8 +126,9 @@ public interface IStorageController {
 
     /**
      * Gets a stack with the size 1 of the most common item in the storage controller fitting the comparator.
-     * @param comparator    the comparator to match against.
-     * @param simulate      true for simulation.
+     *
+     * @param comparator the comparator to match against.
+     * @param simulate   true for simulation.
      * @return the matching item stack.
      */
     ItemStack getOneOfMostCommonItem(Predicate<ItemStack> comparator, boolean simulate);

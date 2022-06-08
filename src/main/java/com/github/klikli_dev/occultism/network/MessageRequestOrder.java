@@ -28,7 +28,7 @@ import com.github.klikli_dev.occultism.api.common.data.GlobalBlockPos;
 import com.github.klikli_dev.occultism.common.misc.ItemStackComparator;
 import com.github.klikli_dev.occultism.util.StorageUtil;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
@@ -85,7 +85,7 @@ public class MessageRequestOrder extends MessageBase {
         ItemStackComparator comparator = new ItemStackComparator(this.stack, true);
         storageController.addDepositOrder(this.targetMachinePosition, comparator, this.stack.getCount());
         player.displayClientMessage(
-                new TranslatableComponent("network.messages." + Occultism.MODID + ".request_order.order_received"),
+                Component.translatable("network.messages." + Occultism.MODID + ".request_order.order_received"),
                 true);
     }
 

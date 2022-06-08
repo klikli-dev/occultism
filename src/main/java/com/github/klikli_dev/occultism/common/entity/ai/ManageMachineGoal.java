@@ -180,7 +180,7 @@ public class ManageMachineGoal extends Goal {
                             //now we need to set up depositing in the storage controller proxy
                             if (movedAnyItems) {
                                 BlockEntity storageControllerProxy = this.findClosestStorageProxy();
-                                if(storageControllerProxy != null) {
+                                if (storageControllerProxy != null) {
                                     this.entity.setDepositPosition(storageControllerProxy.getBlockPos());
                                 }
                                 this.entity.setDepositFacing(Direction.UP);

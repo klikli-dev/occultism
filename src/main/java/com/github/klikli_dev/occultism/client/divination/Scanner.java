@@ -23,9 +23,6 @@
 package com.github.klikli_dev.occultism.client.divination;
 
 import com.github.klikli_dev.occultism.Occultism;
-import com.github.klikli_dev.occultism.client.render.SelectedBlockRenderer;
-import com.github.klikli_dev.occultism.network.MessageSetDivinationResult;
-import com.github.klikli_dev.occultism.network.OccultismPackets;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
@@ -112,7 +109,7 @@ public class Scanner {
 
             //if this is the block we search for, consume it.
             if (this.isValidBlock(state)) {
-                if(this.highlightAllResults){
+                if (this.highlightAllResults) {
                     Occultism.SELECTED_BLOCK_RENDERER.selectBlock(pos, System.currentTimeMillis() + 10000);
                 }
                 resultConsumer.accept(pos);

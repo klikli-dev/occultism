@@ -6,15 +6,18 @@
   "pages": [
     {
       "type": "text",
-      "text": "Además de las runas, se utilizan varias parafernalias ocultistas para mejorar el efecto previsto del pentáculo."},
+      "text": "Además de las runas, se utilizan varias parafernalias ocultistas para mejorar el efecto previsto del pentáculo."
+    },
     {
       "type": "spotlight",
       "item": "occultism:candle_white",
-      "text": "Las velas aumentan la estabilidad del pentáculo, aportando también un descenso en la decadencia de esencia del espíritu invocado, llevando a una esperanza de vida más larga del espíritu, objeto o entidad poseídos."},
+      "text": "Las velas aumentan la estabilidad del pentáculo, aportando también un descenso en la decadencia de esencia del espíritu invocado, llevando a una esperanza de vida más larga del espíritu, objeto o entidad poseídos."
+    },
     {
       "type": "spotlight",
       "item": "occultism:spirit_attuned_crystal",
-      "text": "Los cristales aumentan el poder de vinculación del pentáculo, permitiendo una unión permanente del espíritu en un bojeto o ser vivo."},
+      "text": "Los cristales aumentan el poder de vinculación del pentáculo, permitiendo una unión permanente del espíritu en un bojeto o ser vivo."
+    },
     {
       "type": "spotlight",
       "item": "minecraft:skeleton_skull",

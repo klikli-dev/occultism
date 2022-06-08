@@ -38,9 +38,9 @@ import com.github.klikli_dev.occultism.common.item.tool.*;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.*;
 import net.minecraftforge.common.ForgeSpawnEggItem;
-import net.minecraftforge.registries.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 
 public class OccultismItems {
 
@@ -281,7 +281,7 @@ public class OccultismItems {
 
     //Deco Block Items
     public static final RegistryObject<Item> SPIRIT_TORCH = ITEMS.register("spirit_torch",
-            ()-> new StandingAndWallBlockItem(OccultismBlocks.SPIRIT_TORCH.get(),OccultismBlocks.SPIRIT_WALL_TORCH.get(),
+            () -> new StandingAndWallBlockItem(OccultismBlocks.SPIRIT_TORCH.get(), OccultismBlocks.SPIRIT_WALL_TORCH.get(),
                     defaultProperties()));
 
     public static final RegistryObject<Item> SPAWN_EGG_FOLIOT = ITEMS.register("spawn_egg/foliot",
@@ -299,10 +299,10 @@ public class OccultismItems {
             () -> new ForgeSpawnEggItem(OccultismEntities.POSSESSED_ENDERMITE_TYPE::get, 0x161616, 0x6E6E6E, defaultProperties()));
     public static final RegistryObject<Item> SPAWN_EGG_POSSESSED_SKELETON = ITEMS.register("spawn_egg/possessed_skeleton",
             () -> new ForgeSpawnEggItem(OccultismEntities.POSSESSED_SKELETON_TYPE::get, 0xC1C1C1, 0x494949, defaultProperties()));
-    public static final RegistryObject<Item> SPAWN_EGG_POSSESSED_ENDERMAN= ITEMS.register("spawn_egg/possessed_enderman",
+    public static final RegistryObject<Item> SPAWN_EGG_POSSESSED_ENDERMAN = ITEMS.register("spawn_egg/possessed_enderman",
             () -> new ForgeSpawnEggItem(OccultismEntities.POSSESSED_ENDERMAN_TYPE::get, 0x161616, 0x0, defaultProperties()));
 
-    public static final RegistryObject<Item> SPAWN_EGG_WILD_HUNT_SKELETON= ITEMS.register("spawn_egg/wild_hunt_skeleton",
+    public static final RegistryObject<Item> SPAWN_EGG_WILD_HUNT_SKELETON = ITEMS.register("spawn_egg/wild_hunt_skeleton",
             () -> new ForgeSpawnEggItem(OccultismEntities.WILD_HUNT_SKELETON_TYPE::get, 12698049, 4802889, defaultProperties()));
     public static final RegistryObject<Item> SPAWN_EGG_WILD_HUNT_WITHER_SKELETON = ITEMS.register("spawn_egg/wild_hunt_wither_skeleton",
             () -> new ForgeSpawnEggItem(OccultismEntities.WILD_HUNT_WITHER_SKELETON_TYPE::get, 1315860, 4672845, defaultProperties()));

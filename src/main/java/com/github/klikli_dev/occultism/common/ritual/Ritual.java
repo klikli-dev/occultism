@@ -30,8 +30,7 @@ import com.github.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.github.klikli_dev.occultism.registry.OccultismSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -170,8 +169,7 @@ public abstract class Ritual {
     }
 
     /**
-     * Checks whether the ritual is valid.
-     * Validity is required to start and continue a ritual.
+     * Checks whether the ritual is valid. Validity is required to start and continue a ritual.
      *
      * @param level              the level.
      * @param goldenBowlPosition the position of the golden bowl.
@@ -200,7 +198,7 @@ public abstract class Ritual {
     public void start(Level level, BlockPos goldenBowlPosition, GoldenSacrificialBowlBlockEntity blockEntity,
                       Player castingPlayer, ItemStack activationItem) {
         level.playSound(null, goldenBowlPosition, OccultismSounds.START_RITUAL.get(), SoundSource.BLOCKS, 1, 1);
-        castingPlayer.displayClientMessage(new TranslatableComponent(this.getStartedMessage()), true);
+        castingPlayer.displayClientMessage(Component.translatable(this.getStartedMessage()), true);
     }
 
     /**
@@ -216,7 +214,7 @@ public abstract class Ritual {
                        Player castingPlayer, ItemStack activationItem) {
         level.playSound(null, goldenBowlPosition, OccultismSounds.POOF.get(), SoundSource.BLOCKS, 0.7f,
                 0.7f);
-        castingPlayer.displayClientMessage(new TranslatableComponent(this.getFinishedMessage()), true);
+        castingPlayer.displayClientMessage(Component.translatable(this.getFinishedMessage()), true);
         OccultismAdvancements.RITUAL.trigger((ServerPlayer) castingPlayer, this);
     }
 
@@ -232,7 +230,7 @@ public abstract class Ritual {
     public void interrupt(Level level, BlockPos goldenBowlPosition, GoldenSacrificialBowlBlockEntity blockEntity,
                           Player castingPlayer, ItemStack activationItem) {
         level.playSound(null, goldenBowlPosition, SoundEvents.CHICKEN_EGG, SoundSource.BLOCKS, 0.7f, 0.7f);
-        castingPlayer.displayClientMessage(new TranslatableComponent(this.getInterruptedMessage()), true);
+        castingPlayer.displayClientMessage(Component.translatable(this.getInterruptedMessage()), true);
     }
 
     /**
@@ -286,9 +284,11 @@ public abstract class Ritual {
      *
      * @param level                          the level.
      * @param goldenBowlPosition             the position of the golden bowl.
-     * @param remainingAdditionalIngredients the remaining additional ingredients. Will be modified if something was consumed!
+     * @param remainingAdditionalIngredients the remaining additional ingredients. Will be modified if something was
+     *                                       consumed!
      * @param time                           the current ritual time.
-     * @param consumedIngredients            the list of already consumed ingredients, newly consumd ingredients will be appended
+     * @param consumedIngredients            the list of already consumed ingredients, newly consumd ingredients will be
+     *                                       appended
      * @return true if ingredients were consumed successfully, or none needed to be consumed.
      */
     public boolean consumeAdditionalIngredients(Level level, BlockPos goldenBowlPosition,
@@ -460,11 +460,8 @@ public abstract class Ritual {
     }
 
     /**
-     * Prepares the given living entity for spawning by
-     * - initializing it
-     * - setting the taming player
-     * - preparing position and rotation
-     * - setting the custom name.
+     * Prepares the given living entity for spawning by - initializing it - setting the taming player - preparing
+     * position and rotation - setting the custom name.
      *
      * @param livingEntity       the living entity to prepare.
      * @param level              the level to spawn in.
@@ -478,11 +475,8 @@ public abstract class Ritual {
     }
 
     /**
-     * Prepares the given living entity for spawning by
-     * - initializing it
-     * - optionally setting the taming player
-     * - preparing position and rotation
-     * - setting the custom name.
+     * Prepares the given living entity for spawning by - initializing it - optionally setting the taming player -
+     * preparing position and rotation - setting the custom name.
      *
      * @param livingEntity       the living entity to prepare.
      * @param level              the level to spawn in.
@@ -499,7 +493,7 @@ public abstract class Ritual {
         livingEntity.absMoveTo(goldenBowlPosition.getX(), goldenBowlPosition.getY(), goldenBowlPosition.getZ(),
                 level.random.nextInt(360), 0);
         if (spiritName.length() > 0)
-            livingEntity.setCustomName(new TextComponent(spiritName));
+            livingEntity.setCustomName(Component.literal(spiritName));
         if (livingEntity instanceof Mob mob)
             mob.finalizeSpawn((ServerLevel) level, level.getCurrentDifficultyAt(goldenBowlPosition),
                     MobSpawnType.MOB_SUMMONED, null,

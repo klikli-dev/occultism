@@ -37,7 +37,7 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.HashCache;
 import net.minecraft.nbt.IntTag;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -62,7 +62,7 @@ public class OccultismAdvancementProvider implements DataProvider {
     }
 
     private static TranslatableComponent text(String name, String type) {
-        return new TranslatableComponent("advancements." + Occultism.MODID + "." + name + "." + type);
+        return Component.translatable("advancements." + Occultism.MODID + "." + name + "." + type);
     }
 
     public static TranslatableComponent title(String name) {
@@ -74,7 +74,7 @@ public class OccultismAdvancementProvider implements DataProvider {
     }
 
     private static TranslatableComponent familiarText(String name, String type) {
-        return new TranslatableComponent("advancements." + Occultism.MODID + ".familiar." + name + "." + type);
+        return Component.translatable("advancements." + Occultism.MODID + ".familiar." + name + "." + type);
     }
 
     public static TranslatableComponent familiarTitle(String name) {

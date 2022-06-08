@@ -29,7 +29,6 @@ import com.github.klikli_dev.occultism.util.BlockEntityUtil;
 import com.github.klikli_dev.occultism.util.CuriosUtil;
 import net.minecraft.Util;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -77,7 +76,7 @@ public class StorageRemoteItem extends Item implements MenuProvider {
     //region Overrides
     @Override
     public Component getDisplayName() {
-        return new TranslatableComponent(this.getDescriptionId());
+        return Component.translatable(this.getDescriptionId());
     }
 
     @Override
@@ -88,7 +87,7 @@ public class StorageRemoteItem extends Item implements MenuProvider {
             if (blockEntity instanceof IStorageController) {
                 stack.addTagElement("linkedStorageController", GlobalBlockPos.from(blockEntity).serializeNBT());
                 context.getPlayer()
-                        .sendMessage(new TranslatableComponent(this.getDescriptionId() + ".message.linked"),
+                        .sendMessage(Component.translatable(this.getDescriptionId() + ".message.linked"),
                                 Util.NIL_UUID);
             }
         }
@@ -109,7 +108,7 @@ public class StorageRemoteItem extends Item implements MenuProvider {
 
         //ensure TE is available
         if (!storageControllerWorld.hasChunkAt(storageControllerPos.getPos())) {
-            player.sendMessage(new TranslatableComponent(this.getDescriptionId() + ".message.not_loaded"), Util.NIL_UUID);
+            player.sendMessage(Component.translatable(this.getDescriptionId() + ".message.not_loaded"), Util.NIL_UUID);
             return super.use(level, player, hand);
         }
 
@@ -126,10 +125,10 @@ public class StorageRemoteItem extends Item implements MenuProvider {
                                 TooltipFlag flagIn) {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
 
-        tooltip.add(new TranslatableComponent(this.getDescriptionId() + ".tooltip"));
+        tooltip.add(Component.translatable(this.getDescriptionId() + ".tooltip"));
         if (stack.getOrCreateTag().contains("linkedStorageController")) {
             GlobalBlockPos pos = GlobalBlockPos.from(stack.getTag().getCompound("linkedStorageController"));
-            tooltip.add(new TranslatableComponent(this.getDescriptionId() + ".tooltip.linked", pos.toString()));
+            tooltip.add(Component.translatable(this.getDescriptionId() + ".tooltip.linked", pos.toString()));
         }
     }
 

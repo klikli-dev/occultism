@@ -23,11 +23,11 @@
 package com.github.klikli_dev.occultism.common.job;
 
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
-import net.minecraftforge.registries.ForgeRegistryEntry;
+import com.github.klikli_dev.occultism.registry.OccultismSpiritJobs;
 
 import java.util.function.Function;
 
-public class SpiritJobFactory extends ForgeRegistryEntry<SpiritJobFactory> {
+public class SpiritJobFactory {
 
     //region Fields
     Function<SpiritEntity, ? extends SpiritJob> constructor;
@@ -42,7 +42,7 @@ public class SpiritJobFactory extends ForgeRegistryEntry<SpiritJobFactory> {
     //region Methods
     public SpiritJob create(SpiritEntity entity) {
         SpiritJob job = this.constructor.apply(entity);
-        job.setFactoryId(this.getRegistryName());
+        job.setFactoryId(OccultismSpiritJobs.REGISTRY.get().getKey(this));
         return job;
     }
     //endregion Methods

@@ -6,7 +6,8 @@
   "pages": [
     {
       "type": "text",
-      "text": "Además de aventurarse en mazmorras del Nether, hay otra manera de obtener estas calaveras. La legendaria $(thing)Cacería Salvaje$() cconsiste en Espíritus Mayores adoptando la forma de esqueletos Wither. Aunque invocar a La Cacería Salvaje es increíblemente peligroso, es la forma más rápida de obtener calaveras de esqueleto Wither."},
+      "text": "Además de aventurarse en mazmorras del Nether, hay otra manera de obtener estas calaveras. La legendaria $(thing)Cacería Salvaje$() cconsiste en Espíritus Mayores adoptando la forma de esqueletos Wither. Aunque invocar a La Cacería Salvaje es increíblemente peligroso, es la forma más rápida de obtener calaveras de esqueleto Wither."
+    },
     {
       "type": "occultism:ritual",
       "recipe": "occultism:ritual/summon_wild_hunt"

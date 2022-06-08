@@ -23,7 +23,6 @@
 package com.github.klikli_dev.occultism.common.item.spirit;
 
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -46,7 +45,7 @@ public class BookOfBindingItem extends Item {
     public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip,
                                 TooltipFlag flagIn) {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
-        tooltip.add(new TranslatableComponent(this.getDescriptionId() + ".tooltip"));
+        tooltip.add(Component.translatable(this.getDescriptionId() + ".tooltip"));
     }
 
     //endregion Overrides

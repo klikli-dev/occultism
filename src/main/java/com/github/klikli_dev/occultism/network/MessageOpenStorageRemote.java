@@ -55,7 +55,7 @@ public class MessageOpenStorageRemote extends MessageBase {
             GlobalBlockPos storageControllerPos = GlobalBlockPos.from(
                     selectedCurio.itemStack.getTag().getCompound("linkedStorageController"));
             Level storageControllerWorld = minecraftServer.getLevel(storageControllerPos.getDimensionKey());
-            if(storageControllerWorld.getBlockEntity(storageControllerPos.getPos()) instanceof IStorageController){
+            if (storageControllerWorld.getBlockEntity(storageControllerPos.getPos()) instanceof IStorageController) {
                 NetworkHooks.openGui(player, OccultismItems.STORAGE_REMOTE.get(), buffer -> buffer.writeVarInt(selectedCurio.selectedSlot));
             }
         }

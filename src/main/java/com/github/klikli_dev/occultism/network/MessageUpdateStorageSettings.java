@@ -69,14 +69,14 @@ public class MessageUpdateStorageSettings extends MessageBase {
             }
 
             //handle storage controller
-            if(storageContainer instanceof StorageControllerContainer storageControllerContainer){
+            if (storageContainer instanceof StorageControllerContainer storageControllerContainer) {
                 storageControllerContainer.getStorageController().setSortDirection(this.sortDirection);
                 storageControllerContainer.getStorageController().setSortType(this.sortType);
                 storageControllerContainer.getStorageController().markNetworkDirty();
             }
 
             //handle stable wormhole
-            if(storageContainer instanceof StableWormholeContainer stableWormholeContainer){
+            if (storageContainer instanceof StableWormholeContainer stableWormholeContainer) {
                 stableWormholeContainer.getStableWormhole().setSortDirection(this.sortDirection);
                 stableWormholeContainer.getStableWormhole().setSortType(this.sortType);
                 stableWormholeContainer.getStableWormhole().markNetworkDirty();

@@ -34,7 +34,6 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -95,8 +94,8 @@ public class DivinationRodItem extends Item {
                                         .getDescriptionId() : block.getDescriptionId();
                         stack.getOrCreateTag().putString("linkedBlockId", block.getRegistryName().toString());
                         player.sendMessage(
-                                new TranslatableComponent(this.getDescriptionId() + ".message.linked_block",
-                                        new TranslatableComponent(translationKey)), Util.NIL_UUID);
+                                Component.translatable(this.getDescriptionId() + ".message.linked_block",
+                                        Component.translatable(translationKey)), Util.NIL_UUID);
                     }
 
                     level.playSound(player, player.blockPosition(), OccultismSounds.TUNING_FORK.get(),
@@ -105,7 +104,7 @@ public class DivinationRodItem extends Item {
                 } else {
                     if (!level.isClientSide) {
                         player.sendMessage(
-                                new TranslatableComponent(this.getDescriptionId() + ".message.no_link_found"), Util.NIL_UUID);
+                                Component.translatable(this.getDescriptionId() + ".message.no_link_found"), Util.NIL_UUID);
                     }
                 }
                 return InteractionResult.SUCCESS;
@@ -130,7 +129,7 @@ public class DivinationRodItem extends Item {
                     ScanManager.instance.beginScan(player, ForgeRegistries.BLOCKS.getValue(id));
                 }
             } else if (!level.isClientSide) {
-                player.sendMessage(new TranslatableComponent(this.getDescriptionId() + ".message.no_linked_block"), Util.NIL_UUID);
+                player.sendMessage(Component.translatable(this.getDescriptionId() + ".message.no_linked_block"), Util.NIL_UUID);
             }
         }
 
@@ -185,11 +184,11 @@ public class DivinationRodItem extends Item {
             Block block = ForgeRegistries.BLOCKS.getValue(id);
             String translationKey = block instanceof IOtherworldBlock ? ((IOtherworldBlock) block).getUncoveredBlock()
                     .getDescriptionId() : block.getDescriptionId();
-            tooltip.add(new TranslatableComponent(this.getDescriptionId() + ".tooltip.linked_block",
-                    new TranslatableComponent(translationKey)
+            tooltip.add(Component.translatable(this.getDescriptionId() + ".tooltip.linked_block",
+                    Component.translatable(translationKey)
                             .withStyle(ChatFormatting.BOLD, ChatFormatting.ITALIC)));
         } else {
-            tooltip.add(new TranslatableComponent(this.getDescriptionId() + ".tooltip.no_linked_block"));
+            tooltip.add(Component.translatable(this.getDescriptionId() + ".tooltip.no_linked_block"));
         }
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
     }

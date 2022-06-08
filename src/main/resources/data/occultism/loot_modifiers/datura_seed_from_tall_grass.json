@@ -11,7 +11,7 @@
     },
     {
       "condition": "minecraft:inverted",
-      "term":  {
+      "term": {
         "condition": "minecraft:match_tool",
         "predicate": {
           "items": [

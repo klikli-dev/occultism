@@ -7,7 +7,8 @@
     {
       "type": "spotlight",
       "item": "occultism:storage_stabilizer_tier3",
-      "text": "Este estabilizador avanzado está habitado por un $(thing)Afrit$() que soporta la matriz dimensional que mantiene la dimensión de almacenamiento estable, permitiendo almacenar muchos más objetos que antes."},
+      "text": "Este estabilizador avanzado está habitado por un $(thing)Afrit$() que soporta la matriz dimensional que mantiene la dimensión de almacenamiento estable, permitiendo almacenar muchos más objetos que antes."
+    },
     {
       "type": "occultism:ritual",
       "recipe": "occultism:ritual/craft_stabilizer_tier3"
