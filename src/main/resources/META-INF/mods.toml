@@ -6,7 +6,7 @@
 # The name of the mod loader type to load - for regular FML @Mod mods it should be javafml
 modLoader="javafml" #mandatory
 # A version range to match for said mod loader - for regular FML @Mod it will be the forge version
-loaderVersion="[40,)" #mandatory This is typically bumped every Minecraft version by Forge. See our download page for lists of versions.
+loaderVersion="[41,)" #mandatory This is typically bumped every Minecraft version by Forge. See our download page for lists of versions.
 # The license for you mod. This is mandatory metadata and allows for easier comprehension of your redistributive properties.
 # Review your options at https://choosealicense.com/. All rights reserved is the default copyright stance, and is thus the default here.
 license="MIT"
@@ -44,13 +44,13 @@ description='''A magic mod inspired by the world of Jonathan Stroud's Bartimaeus
 [[dependencies.occultism]]
     modId="curios"
     mandatory=true
-    versionRange="[1.18-5.0.2.1,)"
+    versionRange="[1.19-5.1.0.0,)"
     side="BOTH"
 
 [[dependencies.occultism]]
     modId="geckolib3"
     mandatory=true
-    versionRange="[1.18-3.0.3,)"
+    versionRange="[1.19-3.1.0,)"
     side="BOTH"
 
 [[dependencies.occultism]]
@@ -62,5 +62,5 @@ description='''A magic mod inspired by the world of Jonathan Stroud's Bartimaeus
 [[dependencies.occultism]]
     modId="forge"
     mandatory=false
-    versionRange="[40.0.18,)"
+    versionRange="[41,)"
     side="BOTH"
