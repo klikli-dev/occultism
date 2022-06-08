@@ -33,6 +33,7 @@ import com.github.klikli_dev.occultism.common.entity.possessed.PossessedGhastEnt
 import com.github.klikli_dev.occultism.common.entity.possessed.PossessedSkeletonEntity;
 import com.github.klikli_dev.occultism.common.entity.spirit.*;
 import com.github.klikli_dev.occultism.common.level.OccultismBiomeModifiers;
+import com.github.klikli_dev.occultism.registry.OccultismFeatures;
 import com.github.klikli_dev.occultism.common.level.OccultismPlacements;
 import com.github.klikli_dev.occultism.common.level.WorldGenHandler;
 import com.github.klikli_dev.occultism.config.OccultismClientConfig;
@@ -89,9 +90,11 @@ public class Occultism {
         OccultismEntities.ENTITIES.register(modEventBus);
         OccultismSounds.SOUNDS.register(modEventBus);
         OccultismParticles.PARTICLES.register(modEventBus);
-        OccultismBiomeFeatures.FEATURES.register(modEventBus);
-        OccultismPlacements.PLACED_FEATURES.register(modEventBus);
         OccultismBiomeModifiers.SERIALIZERS.register(modEventBus);
+        OccultismFeatures.FEATURES.register(modEventBus);
+        OccultismFeatures.CONFIGURED_FEATURES.register(modEventBus);
+        OccultismFeatures.PLACED_FEATURES.register(modEventBus);
+
 
         //now register the custom registries
         OccultismSpiritJobs.JOBS.register(modEventBus);

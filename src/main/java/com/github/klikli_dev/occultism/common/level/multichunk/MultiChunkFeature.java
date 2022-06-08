@@ -22,13 +22,11 @@
 
 package com.github.klikli_dev.occultism.common.level.multichunk;
 
-import com.github.klikli_dev.occultism.util.BiomeUtil;
 import com.github.klikli_dev.occultism.util.Math3DUtil;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
-import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.level.ServerChunkCache;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.biome.Biome;
@@ -88,28 +86,30 @@ public class MultiChunkFeature extends Feature<MultiChunkFeatureConfig> {
     public boolean place(FeaturePlaceContext<MultiChunkFeatureConfig> context) {
         BlockPos pos = context.origin();
 
-        //check biome type blacklist
-        for (Holder<Biome> biome : context.chunkGenerator().getBiomeSource().getBiomesWithin(pos.getX(), pos.getY(), pos.getZ(), 1, context.chunkGenerator().climateSampler())) {
-            ResourceKey<Biome> biomeKey = ResourceKey.create(Registry.BIOME_REGISTRY, biome.value().getRegistryName());
-            if (BiomeUtil.containsType(biomeKey, context.config().biomeTagBlacklist)) {
+        if (context.level().getChunkSource() instanceof ServerChunkCache chunkSource) {
+            for (Holder<Biome> biome : context.chunkGenerator().getBiomeSource().getBiomesWithin(pos.getX(), pos.getY(), pos.getZ(), 1,
+                    chunkSource.randomState().sampler())) {
+                if (context.config().biomeTagBlacklist.stream().anyMatch(biome::containsTag)) {
+                    return false;
+                }
+            }
+            ChunkPos generatingChunk = new ChunkPos(pos);
+            List<BlockPos> rootPositions =
+                    this.getRootPositions(context.level(), context.chunkGenerator(), (WorldgenRandom) context.random(), generatingChunk, context.config());
+            //If no root position was found in range, we exit
+            if (rootPositions.isEmpty()) {
                 return false;
             }
+            boolean generatedAny = false;
+            for (BlockPos rootPosition : rootPositions) {
+                if (this.subFeature.place(context.level(), context.chunkGenerator(), context.random(), rootPosition,
+                        Math3DUtil.bounds(generatingChunk, context.chunkGenerator().getGenDepth()), context.config()))
+                    generatedAny = true;
+            }
+            return generatedAny;
         }
 
-        ChunkPos generatingChunk = new ChunkPos(pos);
-        List<BlockPos> rootPositions =
-                this.getRootPositions(context.level(), context.chunkGenerator(), (WorldgenRandom) context.random(), generatingChunk, context.config());
-        //If no root position was found in range, we exit
-        if (rootPositions.isEmpty()) {
-            return false;
-        }
-        boolean generatedAny = false;
-        for (BlockPos rootPosition : rootPositions) {
-            if (this.subFeature.place(context.level(), context.chunkGenerator(), context.random(), rootPosition,
-                    Math3DUtil.bounds(generatingChunk, context.chunkGenerator().getGenDepth()), context.config()))
-                generatedAny = true;
-        }
-        return generatedAny;
+        return false;
     }
     //endregion Methods
 

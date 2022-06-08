@@ -23,10 +23,11 @@
 package com.github.klikli_dev.occultism.common.level.cave;
 
 import com.github.klikli_dev.occultism.Occultism;
-import com.github.klikli_dev.occultism.common.level.OccultismPlacements;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
+import com.github.klikli_dev.occultism.registry.OccultismFeatures;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.VineBlock;
@@ -43,19 +44,20 @@ public class UndergroundGroveDecorator extends CaveDecorator {
     }
 
     @Override
-    public void finalFloorPass(WorldGenLevel seedReader, ChunkGenerator generator, Random rand,
+    public void finalFloorPass(WorldGenLevel seedReader, ChunkGenerator generator, RandomSource rand,
                                BlockPos pos) {
+        //TODO: move these settings from config to biome modifier / configured or placed feature
         if (seedReader.getBlockState(pos).getBlock() == Blocks.GRASS_BLOCK &&
                 rand.nextFloat() < Occultism.COMMON_CONFIG.worldGen.undergroundGroveGen.grassChance.get())
             seedReader.setBlock(pos.above(), Blocks.GRASS.defaultBlockState(), 2);
 
         if (rand.nextFloat() < Occultism.COMMON_CONFIG.worldGen.undergroundGroveGen.treeChance.get()) {
-            OccultismPlacements.OTHERWORLD_TREE_NATURAL.value().place(seedReader, generator, rand, pos.above());
+            OccultismFeatures.OTHERWORLD_TREE_NATURAL_PLACED.get().place(seedReader, generator, rand, pos.above());
         }
     }
 
     @Override
-    public void finalCeilingPass(WorldGenLevel seedReader, ChunkGenerator generator, Random rand,
+    public void finalCeilingPass(WorldGenLevel seedReader, ChunkGenerator generator, RandomSource rand,
                                  BlockPos pos) {
         if (rand.nextFloat() < Occultism.COMMON_CONFIG.worldGen.undergroundGroveGen.ceilingLightChance.get()) {
             seedReader.setBlock(pos, Blocks.GLOWSTONE.defaultBlockState(), 2);
@@ -64,7 +66,7 @@ public class UndergroundGroveDecorator extends CaveDecorator {
     }
 
     @Override
-    public void finalWallPass(WorldGenLevel seedReader, ChunkGenerator generator, Random rand,
+    public void finalWallPass(WorldGenLevel seedReader, ChunkGenerator generator, RandomSource rand,
                               BlockPos pos) {
         for (Direction facing : Direction.Plane.HORIZONTAL) {
             BlockPos offset = pos.relative(facing);

@@ -23,18 +23,14 @@
 package com.github.klikli_dev.occultism.common.level.multichunk;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.phys.AABB;
 
-import java.util.Random;
-
 public interface IMultiChunkSubFeature {
 
-    //region Methods
-
-    boolean place(WorldGenLevel reader, ChunkGenerator generator, Random rand, BlockPos rootPosition,
+    boolean place(WorldGenLevel reader, ChunkGenerator generator, RandomSource rand, BlockPos rootPosition,
                   AABB bounds,
                   MultiChunkFeatureConfig config);
-    //endregion Methods
 }

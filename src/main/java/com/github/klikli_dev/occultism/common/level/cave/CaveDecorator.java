@@ -25,6 +25,7 @@ package com.github.klikli_dev.occultism.common.level.cave;
 import com.github.klikli_dev.occultism.registry.OccultismTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkGenerator;
@@ -49,7 +50,7 @@ public abstract class CaveDecorator implements ICaveDecorator {
 
     //region Overrides
     @Override
-    public void finalPass(WorldGenLevel seedReader, ChunkGenerator generator, Random rand,
+    public void finalPass(WorldGenLevel seedReader, ChunkGenerator generator, RandomSource rand,
                           CaveDecoratordata data) {
         data.floorBlocks.forEach(blockPos -> this.finalFloorPass(seedReader, generator, rand, blockPos));
         data.ceilingBlocks.forEach(blockPos -> this.finalCeilingPass(seedReader, generator, rand, blockPos));
@@ -58,7 +59,7 @@ public abstract class CaveDecorator implements ICaveDecorator {
     }
 
     @Override
-    public void fill(WorldGenLevel seedReader, ChunkGenerator generator, Random rand,
+    public void fill(WorldGenLevel seedReader, ChunkGenerator generator, RandomSource rand,
                      BlockPos pos, CaveDecoratordata data) {
         BlockState state = seedReader.getBlockState(pos);
         if (state.getDestroySpeed(seedReader, pos) == -1 || seedReader.canSeeSkyFromBelowWater(pos))
@@ -81,43 +82,43 @@ public abstract class CaveDecorator implements ICaveDecorator {
     //endregion Overrides
 
     //region Methods
-    public void fillFloor(WorldGenLevel seedReader, ChunkGenerator generator, Random rand,
+    public void fillFloor(WorldGenLevel seedReader, ChunkGenerator generator, RandomSource rand,
                           BlockPos pos, BlockState state) {
         if (this.floorState != null) {
             seedReader.setBlock(pos, this.floorState, 2);
         }
     }
 
-    public void fillCeiling(WorldGenLevel seedReader, ChunkGenerator generator, Random rand,
+    public void fillCeiling(WorldGenLevel seedReader, ChunkGenerator generator, RandomSource rand,
                             BlockPos pos, BlockState state) {
         if (this.ceilingState != null)
             seedReader.setBlock(pos, this.ceilingState, 2);
     }
 
-    public void fillWall(WorldGenLevel seedReader, ChunkGenerator generator, Random rand,
+    public void fillWall(WorldGenLevel seedReader, ChunkGenerator generator, RandomSource rand,
                          BlockPos pos, BlockState state) {
         if (this.wallState != null)
             seedReader.setBlock(pos, this.wallState, 2);
     }
 
-    public void fillInside(WorldGenLevel seedReader, ChunkGenerator generator, Random rand,
+    public void fillInside(WorldGenLevel seedReader, ChunkGenerator generator, RandomSource rand,
                            BlockPos pos, BlockState state) {
         //level.setBlockState(pos, Blocks.AIR.defaultBlockState(), 2);
     }
 
-    public void finalFloorPass(WorldGenLevel seedReader, ChunkGenerator generator, Random rand,
+    public void finalFloorPass(WorldGenLevel seedReader, ChunkGenerator generator, RandomSource rand,
                                BlockPos pos) {
     }
 
-    public void finalCeilingPass(WorldGenLevel seedReader, ChunkGenerator generator, Random rand,
+    public void finalCeilingPass(WorldGenLevel seedReader, ChunkGenerator generator, RandomSource rand,
                                  BlockPos pos) {
     }
 
-    public void finalWallPass(WorldGenLevel seedReader, ChunkGenerator generator, Random rand,
+    public void finalWallPass(WorldGenLevel seedReader, ChunkGenerator generator, RandomSource rand,
                               BlockPos pos) {
     }
 
-    public void finalInsidePass(WorldGenLevel seedReader, ChunkGenerator generator, Random rand,
+    public void finalInsidePass(WorldGenLevel seedReader, ChunkGenerator generator, RandomSource rand,
                                 BlockPos pos) {
     }
 
