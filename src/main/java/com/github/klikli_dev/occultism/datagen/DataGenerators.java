@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright 2020 klikli-dev, McJty
+ * Copyright 2020 klikli-dev
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the "Software"), to deal in the Software without restriction, including
@@ -27,26 +27,18 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
 
-/**
- * Based on https://github.com/McJty/YouTubeModding14
- */
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class DataGenerators {
 
-    //region Static Methods
     @SubscribeEvent
     public static void gatherData(GatherDataEvent event) {
         DataGenerator generator = event.getGenerator();
-        if (event.includeServer()) {
-            generator.addProvider(new StandardLootTableProvider(generator));
-            generator.addProvider(new PentacleProvider(generator));
-            generator.addProvider(new OccultismAdvancementProvider(generator));
-        }
-        if (event.includeClient()) {
-            generator.addProvider(new ItemModelsGenerator(generator, event.getExistingFileHelper()));
-            generator.addProvider(new StandardBlockStateProvider(generator, event.getExistingFileHelper()));
-            //generator.addProvider(new ENUSProvider(generator));
-        }
+        generator.addProvider(event.includeServer(), new BiomeModifierProvider(generator));
+        generator.addProvider(event.includeServer(), new StandardLootTableProvider(generator));
+        generator.addProvider(event.includeServer(), new PentacleProvider(generator));
+        generator.addProvider(event.includeServer(), new OccultismAdvancementProvider(generator));
+        generator.addProvider(event.includeClient(), new ItemModelsGenerator(generator, event.getExistingFileHelper()));
+        generator.addProvider(event.includeClient(), new StandardBlockStateProvider(generator, event.getExistingFileHelper()));
+        //generator.addProvider(event.includeClient(), new ENUSProvider(generator));
     }
-    //endregion Static Methods
 }

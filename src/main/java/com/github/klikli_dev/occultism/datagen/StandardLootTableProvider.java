@@ -49,6 +49,7 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemKilledByPlayerCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 /**
@@ -165,7 +166,7 @@ public class StandardLootTableProvider extends BaseLootTableProvider {
                     .map(RegistryObject::get)
                     .forEach(block -> {
                         OccultismBlocks.BlockDataGenSettings settings = OccultismBlocks.BLOCK_DATA_GEN_SETTINGS
-                                .get(block.getRegistryName());
+                                .get(ForgeRegistries.BLOCKS.getKey(block));
                         if (settings.lootTableType == OccultismBlocks.LootTableType.EMPTY)
                             this.registerDropNothingLootTable(block);
                         else if (settings.lootTableType == OccultismBlocks.LootTableType.REPLANTABLE_CROP) {
@@ -206,7 +207,7 @@ public class StandardLootTableProvider extends BaseLootTableProvider {
                 this.add(block, this.createOtherworldBlockTable(block));
             else
                 Occultism.LOGGER.warn("Tried to register otherworld block loot table for non-otherworld block {}",
-                        block.getRegistryName());
+                        ForgeRegistries.BLOCKS.getKey(block));
         }
 
         protected LootTable.Builder createOtherworldBlockTable(Block block) {

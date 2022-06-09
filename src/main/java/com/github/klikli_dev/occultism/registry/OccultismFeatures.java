@@ -25,8 +25,10 @@ package com.github.klikli_dev.occultism.registry;
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.level.cave.SphericalCaveSubFeature;
 import com.github.klikli_dev.occultism.common.level.cave.UndergroundGroveDecorator;
+import com.github.klikli_dev.occultism.common.level.modifiers.OreBiomeModifier;
 import com.github.klikli_dev.occultism.common.level.multichunk.MultiChunkFeature;
 import com.github.klikli_dev.occultism.common.level.multichunk.MultiChunkFeatureConfig;
+import com.mojang.serialization.Codec;
 import net.minecraft.core.Registry;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.tags.BiomeTags;
@@ -43,6 +45,7 @@ import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvi
 import net.minecraft.world.level.levelgen.feature.trunkplacers.StraightTrunkPlacer;
 import net.minecraft.world.level.levelgen.placement.*;
 import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
+import net.minecraftforge.common.world.BiomeModifier;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -61,6 +64,7 @@ public class OccultismFeatures {
     public static final DeferredRegister<PlacedFeature> PLACED_FEATURES =
             DeferredRegister.create(Registry.PLACED_FEATURE_REGISTRY, Occultism.MODID);
 
+    public static final DeferredRegister<Codec<? extends BiomeModifier>> BIOME_MODIFIERS = DeferredRegister.create(ForgeRegistries.Keys.BIOME_MODIFIER_SERIALIZERS, Occultism.MODID);
 
     //Features
 
@@ -148,4 +152,9 @@ public class OccultismFeatures {
     private static List<PlacementModifier> rareOrePlacement(int rarity, PlacementModifier modifier) {
         return orePlacement(RarityFilter.onAverageOnceEvery(rarity), modifier);
     }
+
+    // Biome Modifiers
+
+    public static final RegistryObject<Codec<? extends BiomeModifier>> ORE = BIOME_MODIFIERS.register("ore", OreBiomeModifier::makeCodec);
+
 }

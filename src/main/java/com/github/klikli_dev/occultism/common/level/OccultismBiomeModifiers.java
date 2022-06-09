@@ -9,7 +9,5 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 public class OccultismBiomeModifiers {
-    public static final DeferredRegister<Codec<? extends BiomeModifier>> SERIALIZERS = DeferredRegister.create(ForgeRegistries.Keys.BIOME_MODIFIER_SERIALIZERS, Occultism.MODID);
 
-    public static final RegistryObject<Codec<? extends BiomeModifier>> ORE = SERIALIZERS.register("ore", OreBiomeModifier::makeCodec);
 }

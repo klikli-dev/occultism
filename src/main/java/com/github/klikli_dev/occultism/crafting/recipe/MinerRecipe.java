@@ -37,7 +37,6 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.items.wrapper.RecipeWrapper;
-import net.minecraftforge.registries.ForgeRegistryEntry;
 
 public class MinerRecipe implements Recipe<RecipeWrapper> {
     //region Fields
@@ -105,7 +104,7 @@ public class MinerRecipe implements Recipe<RecipeWrapper> {
 
     //endregion Overrides
 
-    public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<MinerRecipe> {
+    public static class Serializer implements RecipeSerializer<MinerRecipe> {
 
         //region Overrides
         @Override

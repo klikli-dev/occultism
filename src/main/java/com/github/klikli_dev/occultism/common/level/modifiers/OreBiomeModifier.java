@@ -16,7 +16,7 @@ import net.minecraftforge.registries.RegistryObject;
 
 public class OreBiomeModifier implements BiomeModifier {
 
-    public static final ResourceLocation RL = new ResourceLocation(Occultism.MODID, "silver_ore");
+    public static final ResourceLocation RL = new ResourceLocation(Occultism.MODID, "ore");
     private static final RegistryObject<Codec<? extends BiomeModifier>> SERIALIZER = RegistryObject.create(RL, ForgeRegistries.Keys.BIOME_MODIFIER_SERIALIZERS, Occultism.MODID);
 
     private HolderSet<PlacedFeature> features;
