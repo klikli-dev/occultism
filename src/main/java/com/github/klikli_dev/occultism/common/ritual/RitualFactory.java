@@ -23,11 +23,11 @@
 package com.github.klikli_dev.occultism.common.ritual;
 
 import com.github.klikli_dev.occultism.crafting.recipe.RitualRecipe;
-import net.minecraftforge.registries.ForgeRegistryEntry;
+import com.github.klikli_dev.occultism.registry.OccultismRituals;
 
 import java.util.function.Function;
 
-public class RitualFactory extends ForgeRegistryEntry<RitualFactory> {
+public class RitualFactory {
 
     Function<RitualRecipe, ? extends Ritual> constructor;
 
@@ -37,7 +37,7 @@ public class RitualFactory extends ForgeRegistryEntry<RitualFactory> {
 
     public Ritual create(RitualRecipe recipe) {
         Ritual ritual = this.constructor.apply(recipe);
-        ritual.setFactoryId(this.getRegistryName());
+        ritual.setFactoryId(OccultismRituals.REGISTRY.get().getKey(this));
         return ritual;
     }
 }

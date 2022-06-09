@@ -24,6 +24,9 @@ package com.github.klikli_dev.occultism.registry;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.crafting.recipe.*;
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraftforge.common.util.NonNullLazy;
@@ -32,22 +35,16 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 public class OccultismRecipes {
-    //region Fields
+    public static final DeferredRegister<RecipeType<?>> RECIPE_TYPES = DeferredRegister.create(
+            ForgeRegistries.RECIPE_TYPES, Occultism.MODID);
     public static final DeferredRegister<RecipeSerializer<?>> RECIPES = DeferredRegister.create(
             ForgeRegistries.RECIPE_SERIALIZERS, Occultism.MODID);
 
-    //we now need to call get on each of those in RegistryEventHandler.onRegisterRecipeSerializers event
-    //  if they are first accessed (and thus registered) only during recipe loading the registry will already be frozen and throw
-    public static final NonNullLazy<RecipeType<SpiritTradeRecipe>> SPIRIT_TRADE_TYPE =
-            NonNullLazy.of(() -> RecipeType.register("occultism:spirit_trade"));
-    public static final NonNullLazy<RecipeType<SpiritFireRecipe>> SPIRIT_FIRE_TYPE =
-            NonNullLazy.of(() -> RecipeType.register("occultism:spirit_fire"));
-    public static final NonNullLazy<RecipeType<CrushingRecipe>> CRUSHING_TYPE =
-            NonNullLazy.of(() -> RecipeType.register("occultism:crushing"));
-    public static final NonNullLazy<RecipeType<MinerRecipe>> MINER_TYPE =
-            NonNullLazy.of(() -> RecipeType.register("occultism:miner"));
-    public static final NonNullLazy<RecipeType<RitualRecipe>> RITUAL_TYPE =
-            NonNullLazy.of(() -> RecipeType.register("occultism:ritual"));
+    public static final RegistryObject<RecipeType<SpiritTradeRecipe>> SPIRIT_TRADE_TYPE = registerRecipeType("occultism:spirit_trade");
+    public static final RegistryObject<RecipeType<SpiritFireRecipe>> SPIRIT_FIRE_TYPE = registerRecipeType("occultism:spirit_fire");
+    public static final RegistryObject<RecipeType<CrushingRecipe>> CRUSHING_TYPE = registerRecipeType("occultism:crushing");
+    public static final RegistryObject<RecipeType<MinerRecipe>> MINER_TYPE = registerRecipeType("occultism:miner");
+    public static final RegistryObject<RecipeType<RitualRecipe>> RITUAL_TYPE = registerRecipeType("occultism:ritual");
 
     public static final RegistryObject<RecipeSerializer<SpiritTradeRecipe>> SPIRIT_TRADE = RECIPES.register("spirit_trade",
             () -> SpiritTradeRecipe.SERIALIZER);
@@ -61,6 +58,13 @@ public class OccultismRecipes {
     public static final RegistryObject<RecipeSerializer<RitualRecipe>> RITUAL = RECIPES.register("ritual",
             () -> RitualRecipe.SERIALIZER);
 
-    //endregion Fields
+
+    static <T extends Recipe<?>> RegistryObject<RecipeType<T>> registerRecipeType(final String id) {
+        return RECIPE_TYPES.register(id, () -> new RecipeType<T>() {
+            public String toString() {
+                return id;
+            }
+        });
+    }
 
 }

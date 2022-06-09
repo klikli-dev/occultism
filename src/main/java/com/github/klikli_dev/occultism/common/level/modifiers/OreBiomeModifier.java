@@ -1,7 +1,6 @@
 package com.github.klikli_dev.occultism.common.level.modifiers;
 
 import com.github.klikli_dev.occultism.Occultism;
-import com.github.klikli_dev.occultism.common.level.OccultismPlacements;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.Holder;

@@ -33,9 +33,6 @@ import com.github.klikli_dev.occultism.common.entity.possessed.PossessedGhastEnt
 import com.github.klikli_dev.occultism.common.entity.possessed.PossessedSkeletonEntity;
 import com.github.klikli_dev.occultism.common.entity.spirit.*;
 import com.github.klikli_dev.occultism.common.level.OccultismBiomeModifiers;
-import com.github.klikli_dev.occultism.registry.OccultismFeatures;
-import com.github.klikli_dev.occultism.common.level.OccultismPlacements;
-import com.github.klikli_dev.occultism.common.level.WorldGenHandler;
 import com.github.klikli_dev.occultism.config.OccultismClientConfig;
 import com.github.klikli_dev.occultism.config.OccultismCommonConfig;
 import com.github.klikli_dev.occultism.config.OccultismServerConfig;
@@ -82,6 +79,7 @@ public class Occultism {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         OccultismEffects.EFFECTS.register(modEventBus);
+        OccultismRecipes.RECIPE_TYPES.register(modEventBus);
         OccultismRecipes.RECIPES.register(modEventBus);
         OccultismBlocks.BLOCKS.register(modEventBus);
         OccultismItems.ITEMS.register(modEventBus);
@@ -94,6 +92,7 @@ public class Occultism {
         OccultismFeatures.FEATURES.register(modEventBus);
         OccultismFeatures.CONFIGURED_FEATURES.register(modEventBus);
         OccultismFeatures.PLACED_FEATURES.register(modEventBus);
+        OccultismLootModifiers.LOOT_MODIFIERS.register(modEventBus);
 
 
         //now register the custom registries
@@ -119,7 +118,7 @@ public class Occultism {
     private void commonSetup(final FMLCommonSetupEvent event) {
         OccultismPackets.registerMessages();
 
-        WorldGenHandler.registerFeatures();
+        OccultismItems.registerCompostables();
 
         //Register entity attributes on single thread
 

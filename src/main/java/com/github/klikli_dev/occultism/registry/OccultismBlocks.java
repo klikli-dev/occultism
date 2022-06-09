@@ -38,6 +38,9 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
@@ -68,10 +71,10 @@ public class OccultismBlocks {
                             .sound(SoundType.WOOL)), false, LootTableType.EMPTY);
 
     public static final RegistryObject<Block> LIGHTED_AIR = register("lighted_air", () -> new AirBlock(
-            Block.Properties.of(Material.AIR).noCollission().air().noDrops().lightLevel(s -> 15).randomTicks()) {
+            Block.Properties.of(Material.AIR).noCollission().air().noLootTable().lightLevel(s -> 15).randomTicks()) {
         @Override
         @SuppressWarnings("deprecation")
-        public void tick(BlockState pState, ServerLevel pLevel, BlockPos pPos, Random pRandom) {
+        public void tick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
             if (pLevel.getEntitiesOfClass(CthulhuFamiliarEntity.class, new AABB(pPos),
                     FamiliarEntity::hasBlacksmithUpgrade).isEmpty())
                 pLevel.setBlockAndUpdate(pPos, Blocks.AIR.defaultBlockState());
@@ -242,6 +245,11 @@ public class OccultismBlocks {
                                                                LootTableType lootTableType) {
         RegistryObject<I> object = BLOCKS.register(name, sup);
         BLOCK_DATA_GEN_SETTINGS.put(object.getId(), new BlockDataGenSettings(generateDefaultBlockItem, lootTableType));
+
+        if(generateDefaultBlockItem) {
+            OccultismItems.ITEMS.register(name, () -> new BlockItem(object.get(), new Item.Properties().tab(Occultism.ITEM_GROUP)));
+        }
+
         return object;
     }
 

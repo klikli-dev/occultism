@@ -37,6 +37,7 @@ import com.github.klikli_dev.occultism.common.item.storage.StorageRemoteItem;
 import com.github.klikli_dev.occultism.common.item.tool.*;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.*;
+import net.minecraft.world.level.block.ComposterBlock;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -406,5 +407,16 @@ public class OccultismItems {
 
     public static Item.Properties defaultProperties() {
         return new Item.Properties().tab(Occultism.ITEM_GROUP);
+    }
+
+    public static void registerCompostables(){
+        ComposterBlock.COMPOSTABLES.put(OccultismItems.DATURA_SEEDS.get(), 0.3f);
+        ComposterBlock.COMPOSTABLES.put(OccultismBlocks.OTHERWORLD_LEAVES.get().asItem(), 0.3f);
+        ComposterBlock.COMPOSTABLES.put(OccultismBlocks.OTHERWORLD_LEAVES_NATURAL.get().asItem(), 0.3f);
+        ComposterBlock.COMPOSTABLES.put(OccultismBlocks.OTHERWORLD_SAPLING.get().asItem(), 0.3f);
+        ComposterBlock.COMPOSTABLES.put(OccultismBlocks.OTHERWORLD_SAPLING_NATURAL.get().asItem(), 0.3f);
+
+        ComposterBlock.COMPOSTABLES.put(OccultismItems.DATURA.get(), 0.65f);
+        Occultism.LOGGER.info("Registered compostable Items");
     }
 }
