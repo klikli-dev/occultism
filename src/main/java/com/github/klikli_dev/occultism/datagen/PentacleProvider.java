@@ -28,6 +28,7 @@ import com.github.klikli_dev.occultism.common.ritual.pentacle.PentacleManager;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.registry.OccultismTags;
 import com.google.gson.*;
+import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.HashCache;
@@ -35,6 +36,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -48,7 +50,6 @@ import java.util.function.Supplier;
 
 public class PentacleProvider implements DataProvider {
 
-    private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     private static final Logger LOGGER = LogManager.getLogger();
 
     private final Map<String, JsonElement> toSerialize = new HashMap<>();
@@ -59,14 +60,14 @@ public class PentacleProvider implements DataProvider {
     }
 
     @Override
-    public void run(HashCache cache) throws IOException {
+    public void run(CachedOutput cache) throws IOException {
         Path folder = this.generator.getOutputFolder();
         this.start();
 
         this.toSerialize.forEach((name, json) -> {
             Path path = folder.resolve("data/" + Occultism.MODID + "/" + PentacleManager.FOLDER_NAME + "/" + name + ".json");
             try {
-                DataProvider.save(GSON, cache, json, path);
+                DataProvider.saveStable(cache, json, path);
             } catch (IOException e) {
                 LOGGER.error("Couldn't save pentacle {}", path, e);
             }
@@ -297,20 +298,20 @@ public class PentacleProvider implements DataProvider {
         }
 
         private MappingBuilder block(char c, Supplier<? extends Block> b) {
-            return this.element(c, new JsonPrimitive(b.get().getRegistryName().toString()));
+            return this.element(c, new JsonPrimitive(ForgeRegistries.BLOCKS.getKey(b.get()).toString()));
         }
 
         private MappingBuilder blockDisplay(char c, Supplier<? extends Block> b, Supplier<? extends Block> display) {
             JsonObject json = new JsonObject();
-            json.add("block", new JsonPrimitive(b.get().getRegistryName().toString()));
-            json.add("display", new JsonPrimitive(display.get().getRegistryName().toString()));
+            json.add("block", new JsonPrimitive(ForgeRegistries.BLOCKS.getKey(b.get()).toString()));
+            json.add("display", new JsonPrimitive(ForgeRegistries.BLOCKS.getKey(display.get()).toString()));
             return this.element(c, json);
         }
 
         private MappingBuilder tag(char c, TagKey<Block> tag, Supplier<? extends Block> display) {
             JsonObject json = new JsonObject();
             json.add("tag", new JsonPrimitive(tag.location().toString()));
-            json.add("display", new JsonPrimitive(display.get().getRegistryName().toString()));
+            json.add("display", new JsonPrimitive(ForgeRegistries.BLOCKS.getKey(display.get()).toString()));
             return this.element(c, json);
         }
 

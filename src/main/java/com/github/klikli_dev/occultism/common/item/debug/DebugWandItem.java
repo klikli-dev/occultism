@@ -27,6 +27,7 @@ import com.github.klikli_dev.occultism.common.job.SpiritJob;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.registry.OccultismSpiritJobs;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;

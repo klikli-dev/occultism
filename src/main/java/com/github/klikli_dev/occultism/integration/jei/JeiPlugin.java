@@ -53,6 +53,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.ItemLike;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.List;
 
@@ -135,6 +136,6 @@ public class JeiPlugin implements IModPlugin {
 
     public void registerIngredientInfo(IRecipeRegistration registration, ItemLike ingredient) {
         registration.addIngredientInfo(new ItemStack(ingredient.asItem()), VanillaTypes.ITEM,
-                Component.translatable("jei." + Occultism.MODID + ".ingredient." + ingredient.asItem().getRegistryName().getPath() + ".description"));
+                Component.translatable("jei." + Occultism.MODID + ".ingredient." + ForgeRegistries.ITEMS.getKey(ingredient.asItem()).getPath() + ".description"));
     }
 }

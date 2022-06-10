@@ -29,6 +29,7 @@ import com.github.klikli_dev.occultism.util.Math3DUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
@@ -80,7 +81,7 @@ public class SphericalCaveSubFeature implements IMultiChunkSubFeature {
 
     //region Overrides
     @Override
-    public boolean place(WorldGenLevel reader, ChunkGenerator generator, Random rand, BlockPos rootPosition,
+    public boolean place(WorldGenLevel reader, ChunkGenerator generator, RandomSource rand, BlockPos rootPosition,
                          AABB bounds, MultiChunkFeatureConfig config) {
         //can never generate in daylight
         if (reader.canSeeSkyFromBelowWater(rootPosition))
@@ -113,11 +114,11 @@ public class SphericalCaveSubFeature implements IMultiChunkSubFeature {
     //endregion Overrides
 
     //region Methods
-    protected Sphere generateSphere(WorldGenLevel level, Random rand, BlockPos position, int radius, AABB bounds) {
+    protected Sphere generateSphere(WorldGenLevel level, RandomSource rand, BlockPos position, int radius, AABB bounds) {
         return new Sphere(position, radius);
     }
 
-    protected void hollowOutSphere(WorldGenLevel reader, Random rand, BlockPos center, int radius, AABB bounds) {
+    protected void hollowOutSphere(WorldGenLevel reader, RandomSource rand, BlockPos center, int radius, AABB bounds) {
         int j = radius;
         int k = radius / 2;
         int l = radius;
@@ -133,7 +134,7 @@ public class SphericalCaveSubFeature implements IMultiChunkSubFeature {
         });
     }
 
-    protected void decorateSphere(WorldGenLevel reader, ChunkGenerator generator, Random rand,
+    protected void decorateSphere(WorldGenLevel reader, ChunkGenerator generator, RandomSource rand,
                                   BlockPos center, int radius, AABB bounds) {
         int j = radius;
         //int k = radius / 2;

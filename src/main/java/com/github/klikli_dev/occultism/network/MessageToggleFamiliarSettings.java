@@ -31,6 +31,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EntityType;
 import net.minecraftforge.network.NetworkEvent;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -58,7 +59,7 @@ public class MessageToggleFamiliarSettings extends MessageBase {
                     cap.setFamiliarEnabled(toggle.getKey(), !cap.isFamiliarEnabled(toggle.getKey()));
                     player.displayClientMessage(
                             Component.translatable(
-                                    "message." + Occultism.MODID + ".familiar." + toggle.getKey().getRegistryName().getPath() +
+                                    "message." + Occultism.MODID + ".familiar." + ForgeRegistries.ENTITIES.getKey(toggle.getKey()).getPath() +
                                             (cap.isFamiliarEnabled(toggle.getKey()) ? ".enabled" : ".disabled")), true);
                 }
             }

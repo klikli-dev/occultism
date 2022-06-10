@@ -43,7 +43,7 @@ public class DayTimeJob extends ChangeTimeJob {
             ServerLevelData level = (ServerLevelData) this.entity.level.getLevelData();
             level.setDayTime(1000);
         } else {
-            this.entity.getOwner().sendMessage(Component.translatable("ritual.occultism.disabled"), Util.NIL_UUID);
+            this.entity.getOwner().sendSystemMessage(Component.translatable("ritual.occultism.disabled"));
         }
     }
     //endregion Overrides

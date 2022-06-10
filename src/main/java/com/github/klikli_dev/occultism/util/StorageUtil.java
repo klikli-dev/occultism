@@ -37,6 +37,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOCase;
 
@@ -234,7 +235,7 @@ public class StorageUtil {
 
             if (filter.startsWith("item:")) {
                 filter = filter.substring(5);
-                if (FilenameUtils.wildcardMatch(stack.getItem().getRegistryName().toString(), filter, IOCase.INSENSITIVE))
+                if (FilenameUtils.wildcardMatch(ForgeRegistries.ITEMS.getKey(stack.getItem()).toString(), filter, IOCase.INSENSITIVE))
                     return true;
             } else {
                 //tags should not be prefixed, but we allow it and handle it

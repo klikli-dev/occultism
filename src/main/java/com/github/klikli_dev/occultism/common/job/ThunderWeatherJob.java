@@ -46,7 +46,7 @@ public class ThunderWeatherJob extends ChangeWeatherJob {
             level.setRaining(true);
             level.setThundering(true);
         } else {
-            this.entity.getOwner().sendMessage(Component.translatable("ritual.occultism.disabled"), Util.NIL_UUID);
+            this.entity.getOwner().sendSystemMessage(Component.translatable("ritual.occultism.disabled"));
         }
     }
     //endregion Overrides

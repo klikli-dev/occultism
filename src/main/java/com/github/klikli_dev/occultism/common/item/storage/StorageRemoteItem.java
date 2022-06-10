@@ -87,8 +87,7 @@ public class StorageRemoteItem extends Item implements MenuProvider {
             if (blockEntity instanceof IStorageController) {
                 stack.addTagElement("linkedStorageController", GlobalBlockPos.from(blockEntity).serializeNBT());
                 context.getPlayer()
-                        .sendMessage(Component.translatable(this.getDescriptionId() + ".message.linked"),
-                                Util.NIL_UUID);
+                        .sendSystemMessage(Component.translatable(this.getDescriptionId() + ".message.linked"));
             }
         }
 
@@ -108,7 +107,7 @@ public class StorageRemoteItem extends Item implements MenuProvider {
 
         //ensure TE is available
         if (!storageControllerWorld.hasChunkAt(storageControllerPos.getPos())) {
-            player.sendMessage(Component.translatable(this.getDescriptionId() + ".message.not_loaded"), Util.NIL_UUID);
+            player.sendSystemMessage(Component.translatable(this.getDescriptionId() + ".message.not_loaded"));
             return super.use(level, player, hand);
         }
 

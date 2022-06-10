@@ -62,6 +62,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.lwjgl.glfw.GLFW;
 
 import java.util.HashMap;
@@ -156,7 +157,7 @@ public class ClientSetupEventHandler {
 
             keysFamiliars = new HashMap<>();
             for (EntityType<?> familiar : FamiliarSettingsCapability.getFamiliars()) {
-                KeyMapping kb = new KeyMapping("key.occultism.familiar." + familiar.getRegistryName().getPath(), KeyConflictContext.IN_GAME,
+                KeyMapping kb = new KeyMapping("key.occultism.familiar." + ForgeRegistries.ENTITIES.getKey(familiar).getPath(), KeyConflictContext.IN_GAME,
                         InputConstants.Type.KEYSYM.getOrCreate(-1), "key.occultism.category");
                 keysFamiliars.put(familiar, kb);
                 ClientRegistry.registerKeyBinding(kb);

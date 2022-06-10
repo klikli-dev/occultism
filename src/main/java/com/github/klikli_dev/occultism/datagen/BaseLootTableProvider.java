@@ -25,6 +25,7 @@ package com.github.klikli_dev.occultism.datagen;
 import com.github.klikli_dev.occultism.Occultism;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.HashCache;
@@ -46,28 +47,18 @@ import java.util.Map;
  */
 public abstract class BaseLootTableProvider extends LootTableProvider {
 
-    //region Fields
-    private static final Gson GSON = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
-
-    // Filled by subclasses
     protected final Map<Block, LootTable.Builder> blockLootTable = new HashMap<>();
     protected final Map<EntityType<?>, LootTable.Builder> entityLootTable = new HashMap<>();
 
     private final DataGenerator generator;
-    //endregion Fields
 
-    //region Initialization
     public BaseLootTableProvider(DataGenerator dataGeneratorIn) {
         super(dataGeneratorIn);
         this.generator = dataGeneratorIn;
     }
-    //endregion Initialization
-
-    //region Overrides
-
 
     @Override
-    public void run(HashCache cache) {
+    public void run(CachedOutput cache) {
         this.addTables();
         Map<ResourceLocation, LootTable> tables = new HashMap<>();
         for (Map.Entry<Block, LootTable.Builder> entry : this.blockLootTable.entrySet()) {
@@ -86,23 +77,18 @@ public abstract class BaseLootTableProvider extends LootTableProvider {
     public String getName() {
         return "Occultism LootTables";
     }
-    //endregion Overrides
 
-    //region Methods
-    // Subclasses can override this to fill the 'lootTables' map.
     protected abstract void addTables();
 
-    // Actually write out the tables in the output folder
-    private void writeTables(HashCache cache, Map<ResourceLocation, LootTable> tables) {
+    private void writeTables(CachedOutput cache, Map<ResourceLocation, LootTable> tables) {
         Path outputFolder = this.generator.getOutputFolder();
         tables.forEach((key, lootTable) -> {
             Path path = outputFolder.resolve("data/" + key.getNamespace() + "/loot_tables/" + key.getPath() + ".json");
             try {
-                DataProvider.save(GSON, cache, LootTables.serialize(lootTable), path);
+                DataProvider.saveStable(cache, LootTables.serialize(lootTable), path);
             } catch (IOException e) {
                 Occultism.LOGGER.error("Couldn't write loot table {}", path, e);
             }
         });
     }
-    //endregion Methods
 }

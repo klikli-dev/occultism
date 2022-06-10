@@ -32,7 +32,6 @@ import com.github.klikli_dev.occultism.common.entity.possessed.PossessedEndermit
 import com.github.klikli_dev.occultism.common.entity.possessed.PossessedGhastEntity;
 import com.github.klikli_dev.occultism.common.entity.possessed.PossessedSkeletonEntity;
 import com.github.klikli_dev.occultism.common.entity.spirit.*;
-import com.github.klikli_dev.occultism.common.level.OccultismBiomeModifiers;
 import com.github.klikli_dev.occultism.config.OccultismClientConfig;
 import com.github.klikli_dev.occultism.config.OccultismCommonConfig;
 import com.github.klikli_dev.occultism.config.OccultismServerConfig;
@@ -88,10 +87,10 @@ public class Occultism {
         OccultismEntities.ENTITIES.register(modEventBus);
         OccultismSounds.SOUNDS.register(modEventBus);
         OccultismParticles.PARTICLES.register(modEventBus);
-        OccultismBiomeModifiers.SERIALIZERS.register(modEventBus);
         OccultismFeatures.FEATURES.register(modEventBus);
         OccultismFeatures.CONFIGURED_FEATURES.register(modEventBus);
         OccultismFeatures.PLACED_FEATURES.register(modEventBus);
+        OccultismFeatures.BIOME_MODIFIERS.register(modEventBus);
         OccultismLootModifiers.LOOT_MODIFIERS.register(modEventBus);
 
 

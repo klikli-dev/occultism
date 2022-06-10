@@ -23,6 +23,7 @@
 package com.github.klikli_dev.occultism.loot;
 
 import com.google.gson.JsonObject;
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.Item;
@@ -46,7 +47,7 @@ public class AddItemModifier extends LootModifier {
     }
 
     @Override
-    protected List<ItemStack> doApply(List<ItemStack> generatedLoot, LootContext context) {
+    protected ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> generatedLoot, LootContext context) {
         generatedLoot.add(new ItemStack(this.addedItem, count));
         return generatedLoot;
     }
@@ -62,7 +63,7 @@ public class AddItemModifier extends LootModifier {
         @Override
         public JsonObject write(AddItemModifier instance) {
             var json = new JsonObject();
-            json.addProperty("item", instance.addedItem.getRegistryName().toString());
+            json.addProperty("item", ForgeRegistries.ITEMS.getKey(instance.addedItem).toString());
             json.addProperty("count", instance.count);
             return json;
         }

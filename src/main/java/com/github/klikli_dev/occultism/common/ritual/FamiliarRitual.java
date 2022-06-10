@@ -28,6 +28,7 @@ import com.github.klikli_dev.occultism.crafting.recipe.RitualRecipe;
 import com.github.klikli_dev.occultism.util.ItemNBTUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;

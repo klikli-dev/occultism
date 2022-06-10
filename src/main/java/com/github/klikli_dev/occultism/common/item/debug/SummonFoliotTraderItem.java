@@ -27,6 +27,7 @@ import com.github.klikli_dev.occultism.common.job.TraderJob;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.registry.OccultismSpiritJobs;
 import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionResult;

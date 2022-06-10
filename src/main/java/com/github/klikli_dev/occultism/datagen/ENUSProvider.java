@@ -24,6 +24,7 @@ package com.github.klikli_dev.occultism.datagen;
 
 import com.github.klikli_dev.occultism.Occultism;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraftforge.common.data.LanguageProvider;
 
 public class ENUSProvider extends LanguageProvider {
@@ -76,18 +77,18 @@ public class ENUSProvider extends LanguageProvider {
     }
 
     private void familiarAdvancementTitle(String name, String s) {
-        this.add(OccultismAdvancementProvider.familiarTitle(name).getKey(), s);
+        this.add(((TranslatableContents)OccultismAdvancementProvider.familiarTitle(name).getContents()).getKey(), s);
     }
 
     private void familiarAdvancementDescr(String name, String s) {
-        this.add(OccultismAdvancementProvider.familiarDescr(name).getKey(), s);
+        this.add(((TranslatableContents)OccultismAdvancementProvider.familiarDescr(name).getContents()).getKey(), s);
     }
 
     private void advancementTitle(String name, String s) {
-        this.add(OccultismAdvancementProvider.title(name).getKey(), s);
+        this.add(((TranslatableContents)OccultismAdvancementProvider.title(name).getContents()).getKey(), s);
     }
 
     private void advancementDescr(String name, String s) {
-        this.add(OccultismAdvancementProvider.descr(name).getKey(), s);
+        this.add(((TranslatableContents)OccultismAdvancementProvider.descr(name).getContents()).getKey(), s);
     }
 }

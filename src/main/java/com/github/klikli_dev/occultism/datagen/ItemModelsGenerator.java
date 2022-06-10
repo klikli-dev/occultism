@@ -41,8 +41,9 @@ public class ItemModelsGenerator extends ItemModelProvider {
     @Override
     protected void registerModels() {
         ForgeRegistries.ITEMS.forEach(item -> {
-            if (item.getRegistryName().getPath().startsWith("ritual_dummy/")) {
-                this.registerRitualDummy("item/" + item.getRegistryName().getPath());
+            var key = ForgeRegistries.ITEMS.getKey(item);
+            if (key.getPath().startsWith("ritual_dummy/")) {
+                this.registerRitualDummy("item/" + key.getPath());
             }
         });
 

@@ -143,9 +143,8 @@ public class SoulGemItem extends Item {
 
         //do not capture entities on deny lists
         if (Occultism.SERVER_CONFIG.itemSettings.soulgemEntityTypeDenyList.get().contains(target.getEncodeId())) {
-            player.sendMessage(
-                    Component.translatable(this.getDescriptionId() + ".message.entity_type_denied"),
-                    Util.NIL_UUID);
+            player.sendSystemMessage(
+                    Component.translatable(this.getDescriptionId() + ".message.entity_type_denied"));
             return InteractionResult.FAIL;
         }
 

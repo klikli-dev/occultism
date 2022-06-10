@@ -92,10 +92,10 @@ public class DivinationRodItem extends Item {
                         String translationKey =
                                 block instanceof IOtherworldBlock ? ((IOtherworldBlock) block).getUncoveredBlock()
                                         .getDescriptionId() : block.getDescriptionId();
-                        stack.getOrCreateTag().putString("linkedBlockId", block.getRegistryName().toString());
-                        player.sendMessage(
+                        stack.getOrCreateTag().putString("linkedBlockId", ForgeRegistries.BLOCKS.getKey(block).toString());
+                        player.sendSystemMessage(
                                 Component.translatable(this.getDescriptionId() + ".message.linked_block",
-                                        Component.translatable(translationKey)), Util.NIL_UUID);
+                                        Component.translatable(translationKey)));
                     }
 
                     level.playSound(player, player.blockPosition(), OccultismSounds.TUNING_FORK.get(),
@@ -103,8 +103,8 @@ public class DivinationRodItem extends Item {
                             1, 1);
                 } else {
                     if (!level.isClientSide) {
-                        player.sendMessage(
-                                Component.translatable(this.getDescriptionId() + ".message.no_link_found"), Util.NIL_UUID);
+                        player.sendSystemMessage(
+                                Component.translatable(this.getDescriptionId() + ".message.no_link_found"));
                     }
                 }
                 return InteractionResult.SUCCESS;
@@ -129,7 +129,7 @@ public class DivinationRodItem extends Item {
                     ScanManager.instance.beginScan(player, ForgeRegistries.BLOCKS.getValue(id));
                 }
             } else if (!level.isClientSide) {
-                player.sendMessage(Component.translatable(this.getDescriptionId() + ".message.no_linked_block"), Util.NIL_UUID);
+                player.sendSystemMessage(Component.translatable(this.getDescriptionId() + ".message.no_linked_block"));
             }
         }
 

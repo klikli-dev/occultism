@@ -24,6 +24,7 @@ package com.github.klikli_dev.occultism.common.entity.spirit;
 
 import com.github.klikli_dev.occultism.registry.OccultismTags;
 import net.minecraft.tags.TagKey;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
@@ -59,13 +60,12 @@ public class WildHuntSkeletonEntity extends Skeleton {
     }
 
     @Override
-    protected void populateDefaultEquipmentSlots(DifficultyInstance pDifficulty) {
-        super.populateDefaultEquipmentSlots(pDifficulty);
+    protected void populateDefaultEquipmentSlots(RandomSource randomSource, DifficultyInstance pDifficulty) {
+        super.populateDefaultEquipmentSlots(randomSource, pDifficulty);
 
         //70% chance to wear a stone sword
         if (this.random.nextFloat() <= 0.7f)
-            super.populateDefaultEquipmentSlots(pDifficulty);
-        this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.STONE_SWORD));
+            this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.STONE_SWORD));
     }
 
 
