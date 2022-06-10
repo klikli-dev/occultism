@@ -33,6 +33,7 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.Containers;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -70,7 +71,7 @@ public class SpiritFireBlock extends Block {
     //region Overrides
 
     //region Static Methods
-    private static int getTickCooldown(Random rand) {
+    private static int getTickCooldown(RandomSource rand) {
         return 30 + rand.nextInt(10);
     }
 
@@ -108,7 +109,7 @@ public class SpiritFireBlock extends Block {
 
     @Override
     @SuppressWarnings("deprecation")
-    public void tick(BlockState state, ServerLevel worldIn, BlockPos pos, Random rand) {
+    public void tick(BlockState state, ServerLevel worldIn, BlockPos pos, RandomSource rand) {
         worldIn.scheduleTick(pos, this, getTickCooldown(worldIn.random));
 
         if (!worldIn.isAreaLoaded(pos, 2)) {

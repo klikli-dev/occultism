@@ -33,6 +33,7 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -99,15 +100,15 @@ public class FamiliarSettingsCapability implements INBTSerializable<CompoundTag>
     public CompoundTag serializeNBT() {
         CompoundTag compound = new CompoundTag();
         for (Entry<EntityType<?>, Boolean> entry : this.familiarEnabled.entrySet())
-            compound.putBoolean(entry.getKey().getRegistryName().getPath(), entry.getValue());
+            compound.putBoolean(ForgeRegistries.ENTITIES.getKey(entry.getKey()).getPath(), entry.getValue());
         return compound;
     }
 
     @Override
     public void deserializeNBT(CompoundTag nbt) {
         for (EntityType<?> familiar : getFamiliars())
-            if (nbt.contains(familiar.getRegistryName().getPath()))
-                this.familiarEnabled.put(familiar, nbt.getBoolean(familiar.getRegistryName().getPath()));
+            if (nbt.contains(ForgeRegistries.ENTITIES.getKey(familiar).getPath()))
+                this.familiarEnabled.put(familiar, nbt.getBoolean(ForgeRegistries.ENTITIES.getKey(familiar).getPath()));
     }
 
     public static class Dispatcher implements ICapabilitySerializable<CompoundTag> {

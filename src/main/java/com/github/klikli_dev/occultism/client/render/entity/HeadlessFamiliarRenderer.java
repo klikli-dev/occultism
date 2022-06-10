@@ -97,7 +97,7 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
             if (!headless.isHeadlessDead())
                 return;
 
-            ItemInHandRenderer renderer = Minecraft.getInstance().getItemInHandRenderer();
+            ItemInHandRenderer renderer = Minecraft.getInstance().getEntityRenderDispatcher().getItemInHandRenderer();
 
             matrix.pushPose();
             HeadlessFamiliarModel model = this.getParentModel();
@@ -186,7 +186,7 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
             pMatrixStack.mulPose(new Quaternion(0, 90, -50, true));
 
 
-            Minecraft.getInstance().getItemInHandRenderer().renderItem(pLivingEntity,
+            Minecraft.getInstance().getEntityRenderDispatcher().getItemInHandRenderer().renderItem(pLivingEntity,
                     pLivingEntity.getWeaponItem(), ItemTransforms.TransformType.GROUND, false, pMatrixStack,
                     pBuffer, pPackedLight);
             pMatrixStack.popPose();

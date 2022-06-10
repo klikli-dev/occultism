@@ -299,7 +299,7 @@ public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar 
         }
 
         private BlockPos randomNearby(BlockPos pos) {
-            Random rand = this.entity.getRandom();
+            var rand = this.entity.getRandom();
             return pos.offset(Mth.nextDouble(rand, -3, 3), Mth.nextDouble(rand, -1, 1),
                     Mth.nextDouble(rand, -3, 3));
         }

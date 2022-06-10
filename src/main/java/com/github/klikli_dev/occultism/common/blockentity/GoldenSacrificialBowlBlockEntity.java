@@ -174,7 +174,7 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
 
     private static Object ritualDiffToComponent(List<Ingredient> ritualDiff) {
         Random rand = new Random();
-        TextComponent text = Component.literal("");
+        var text = Component.literal("");
 
         for (Ingredient ingredient : ritualDiff) {
             if (ingredient.getItems().length == 0)

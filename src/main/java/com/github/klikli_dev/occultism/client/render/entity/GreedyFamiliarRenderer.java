@@ -108,7 +108,7 @@ public class GreedyFamiliarRenderer extends MobRenderer<GreedyFamiliarEntity, Gr
                 return;
 
             GreedyFamiliarModel model = this.getParentModel();
-            ItemInHandRenderer renderer = Minecraft.getInstance().getItemInHandRenderer();
+            ItemInHandRenderer renderer = Minecraft.getInstance().getEntityRenderDispatcher().getItemInHandRenderer();
             pMatrixStack.pushPose();
 
 

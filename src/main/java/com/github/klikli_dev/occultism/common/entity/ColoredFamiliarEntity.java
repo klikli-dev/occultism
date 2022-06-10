@@ -95,7 +95,7 @@ public abstract class ColoredFamiliarEntity extends FamiliarEntity {
 
     protected void setColor() {
         float r, g, b;
-        Random rand = this.getRandom();
+        var rand = this.getRandom();
         for (int i = 0; i < 20; i++) {
             r = rand.nextFloat();
             g = rand.nextFloat();

@@ -85,7 +85,7 @@ public class CthulhuFamiliarRenderer extends MobRenderer<CthulhuFamiliarEntity, 
                 matrixStack.scale(1.25f, -1.25f, 1.25f);
                 matrixStack.translate(0, -0.75, -0.35);
                 matrixStack.mulPose(new Quaternion(-65, 0, 0, true));
-                Minecraft.getInstance().getItemInHandRenderer().renderItem(pLivingEntity, new ItemStack(Items.POPPY),
+                Minecraft.getInstance().getEntityRenderDispatcher().getItemInHandRenderer().renderItem(pLivingEntity, new ItemStack(Items.POPPY),
                         ItemTransforms.TransformType.GROUND, false, matrixStack, pBuffer,
                         pPackedLight);
                 matrixStack.popPose();

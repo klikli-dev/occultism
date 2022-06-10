@@ -56,7 +56,7 @@ public class StorageControllerGeoRenderer extends GeoBlockRenderer<StorageContro
     public void render(StorageControllerBlockEntity tile, float partialTicks, PoseStack stack, MultiBufferSource bufferIn, int packedLightIn) {
         //copied from super + modified
 
-        GeoModel model = this.modelProvider.getModel(this.modelProvider.getModelLocation(tile));
+        GeoModel model = this.modelProvider.getModel(this.modelProvider.getModelResource(tile));
         this.modelProvider.setLivingAnimations(tile, this.getUniqueID(tile));
         stack.pushPose();
         //stack.translate(0, 0.01f, 0); //we don't need this
@@ -84,7 +84,7 @@ public class StorageControllerGeoRenderer extends GeoBlockRenderer<StorageContro
 
     @Override
     public RenderType getRenderType(StorageControllerBlockEntity animatable, float partialTicks, PoseStack stack, @Nullable MultiBufferSource renderTypeBuffer, @Nullable VertexConsumer vertexBuilder, int packedLightIn, ResourceLocation textureLocation) {
-        return RenderType.entityTranslucentCull(this.modelProvider.getTextureLocation(animatable));
+        return RenderType.entityTranslucentCull(this.modelProvider.getTextureResource(animatable));
     }
 
     @Override

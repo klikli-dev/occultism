@@ -44,6 +44,7 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.wrapper.PlayerMainInvWrapper;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -320,7 +321,7 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
                     else if (!stackInSlot.getItem().canBeDepleted() && ItemStack.matches(stackInSlot, currentCraftingItem) &&
                             ItemStack.tagMatches(stackInSlot, currentCraftingItem)) {
                         //hacky workaround for aquaculture unbreakable fillet knife being mis-interpreted and duped
-                        if (!stackInSlot.getItem().getRegistryName().toString().equals("aquaculture:neptunium_fillet_knife"))
+                        if (!ForgeRegistries.ITEMS.getKey(stackInSlot.getItem()).toString().equals("aquaculture:neptunium_fillet_knife"))
                             currentCraftingItem.grow(stackInSlot.getCount());
                         this.matrix.setItem(i, currentCraftingItem);
                     }

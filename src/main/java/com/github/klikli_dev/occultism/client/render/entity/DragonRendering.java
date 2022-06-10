@@ -37,7 +37,7 @@ public class DragonRendering {
             pMatrixStack.translate(-0.08, -0.07, -0.15);
             pMatrixStack.mulPose(new Quaternion(0, 0, -45, true));
 
-            Minecraft.getInstance().getItemInHandRenderer().renderItem(pLivingEntity, new ItemStack(Items.STICK),
+            Minecraft.getInstance().getEntityRenderDispatcher().getItemInHandRenderer().renderItem(pLivingEntity, new ItemStack(Items.STICK),
                     ItemTransforms.TransformType.GROUND, false, pMatrixStack, pBuffer, pPackedLight);
             pMatrixStack.popPose();
         }
@@ -64,7 +64,7 @@ public class DragonRendering {
             pMatrixStack.mulPose(new Quaternion(Mth.sin(pAgeInTicks / 20) * 20 + 130, 90 + Mth.cos(pAgeInTicks / 20) * 20, 0, true));
             pMatrixStack.translate(0.23, 0.12, 0.0);
 
-            Minecraft.getInstance().getItemInHandRenderer().renderItem(pLivingEntity,
+            Minecraft.getInstance().getEntityRenderDispatcher().getItemInHandRenderer().renderItem(pLivingEntity,
                     new ItemStack(Items.IRON_SWORD), ItemTransforms.TransformType.GROUND, false, pMatrixStack,
                     pBuffer, pPackedLight);
             pMatrixStack.popPose();

@@ -110,7 +110,7 @@ public class GuardianFamiliarRenderer extends MobRenderer<GuardianFamiliarEntity
             if (pLivingEntity.isInvisible() || !pLivingEntity.hasTools())
                 return;
 
-            ItemInHandRenderer itemRenderer = Minecraft.getInstance().getItemInHandRenderer();
+            ItemInHandRenderer itemRenderer = Minecraft.getInstance().getEntityRenderDispatcher().getItemInHandRenderer();
             ItemTransforms.TransformType ground = ItemTransforms.TransformType.GROUND;
             GuardianFamiliarModel model = this.getParentModel();
 

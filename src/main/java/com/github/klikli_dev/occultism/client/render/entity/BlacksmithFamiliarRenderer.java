@@ -74,7 +74,7 @@ public class BlacksmithFamiliarRenderer extends MobRenderer<BlacksmithFamiliarEn
                 pMatrixStack.pushPose();
                 pMatrixStack.translate(i % 2 == 0 ? -0.3 : 0.3, 2.03 - i / 2 * 0.03, -0.15);
                 pMatrixStack.mulPose(new Quaternion(-90, 0, i, true));
-                Minecraft.getInstance().getItemInHandRenderer().renderItem(pLivingEntity,
+                Minecraft.getInstance().getEntityRenderDispatcher().getItemInHandRenderer().renderItem(pLivingEntity,
                         new ItemStack(Items.IRON_INGOT), ItemTransforms.TransformType.GROUND, false,
                         pMatrixStack, pBuffer, pPackedLight);
                 pMatrixStack.popPose();

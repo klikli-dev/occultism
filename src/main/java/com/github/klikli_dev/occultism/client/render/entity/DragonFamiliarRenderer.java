@@ -73,7 +73,7 @@ public class DragonFamiliarRenderer extends MobRenderer<DragonFamiliarEntity, Dr
                 return;
 
             float height = dragon.getBbHeight() + 0.5f;
-            TranslatableComponent text = Component.translatable("dialog.occultism.dragon.pet");
+            var text = Component.translatable("dialog.occultism.dragon.pet");
             PoseStack matrixStackIn = event.getPoseStack();
             matrixStackIn.pushPose();
             matrixStackIn.translate(0, height + textTimer / 20, 0);

@@ -30,14 +30,17 @@ import com.github.klikli_dev.occultism.registry.OccultismRituals;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import net.minecraft.advancements.Advancement;
+import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.advancements.FrameType;
 import net.minecraft.advancements.critereon.EntityPredicate;
-import net.minecraft.advancements.critereon.TickTrigger;
+import net.minecraft.advancements.critereon.PlayerTrigger;
+import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.HashCache;
 import net.minecraft.nbt.IntTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -51,7 +54,6 @@ import java.util.Map;
 
 public class OccultismAdvancementProvider implements DataProvider {
     private static final Logger LOGGER = LogManager.getLogger();
-    private static final Gson GSON = (new GsonBuilder()).setPrettyPrinting().create();
 
     private final DataGenerator generator;
     private final Map<ResourceLocation, Advancement> advancements;
@@ -61,27 +63,27 @@ public class OccultismAdvancementProvider implements DataProvider {
         this.advancements = new HashMap<>();
     }
 
-    private static TranslatableComponent text(String name, String type) {
+    private static MutableComponent text(String name, String type) {
         return Component.translatable("advancements." + Occultism.MODID + "." + name + "." + type);
     }
 
-    public static TranslatableComponent title(String name) {
+    public static MutableComponent title(String name) {
         return text(name, "title");
     }
 
-    public static TranslatableComponent descr(String name) {
+    public static MutableComponent descr(String name) {
         return text(name, "description");
     }
 
-    private static TranslatableComponent familiarText(String name, String type) {
+    private static MutableComponent familiarText(String name, String type) {
         return Component.translatable("advancements." + Occultism.MODID + ".familiar." + name + "." + type);
     }
 
-    public static TranslatableComponent familiarTitle(String name) {
+    public static MutableComponent familiarTitle(String name) {
         return familiarText(name, "title");
     }
 
-    public static TranslatableComponent familiarDescr(String name) {
+    public static MutableComponent familiarDescr(String name) {
         return familiarText(name, "description");
     }
 
@@ -91,14 +93,14 @@ public class OccultismAdvancementProvider implements DataProvider {
     }
 
     @Override
-    public void run(HashCache pCache) throws IOException {
+    public void run(CachedOutput pCache) throws IOException {
         Path folder = this.generator.getOutputFolder();
         this.start();
 
         for (Advancement advancement : this.advancements.values()) {
             Path path = getPath(folder, advancement);
             try {
-                DataProvider.save(GSON, pCache, advancement.deconstruct().serializeToJson(), path);
+                DataProvider.saveStable(pCache, advancement.deconstruct().serializeToJson(), path);
             } catch (IOException exception) {
                 LOGGER.error("Couldn't save advancement {}", path, exception);
             }
@@ -113,7 +115,7 @@ public class OccultismAdvancementProvider implements DataProvider {
 //                            new ResourceLocation("textures/gui/advancements/backgrounds/stone.png"), FrameType.TASK, true,
 //                            true, true)
                 .addCriterion("occultism_present",
-                        new TickTrigger.TriggerInstance(EntityPredicate.Composite.ANY))
+                        new PlayerTrigger.TriggerInstance(CriteriaTriggers.TICK.getId(), EntityPredicate.Composite.ANY))
                 .build(new ResourceLocation(Occultism.MODID, "occultism/root")));
 
         Advancement familiarsRoot = this.add(Advancement.Builder.advancement()

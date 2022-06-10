@@ -32,6 +32,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -159,7 +160,7 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
     }
 
     @Override
-    public boolean canBeControlledByRider() {
+    public boolean isControlledByLocalInstance() {
         return true;
     }
 
@@ -408,7 +409,7 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
         }
 
         @Override
-        public boolean boost(Random pRand) {
+        public boolean boost(RandomSource pRand) {
             return false;
         }
 

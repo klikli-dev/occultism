@@ -106,7 +106,7 @@ public class GlobalBlockPos implements INBTSerializable<CompoundTag> {
 
     @Override
     public String toString() {
-        return new StringJoiner(", ", "[", "]").add(this.dimensionKey.getRegistryName().toString())
+        return new StringJoiner(", ", "[", "]").add( this.dimensionKey.registry().toString())
                 .add("x=" + this.pos.getX()).add("y=" + this.pos.getY())
                 .add("z=" + this.pos.getZ()).toString();
     }

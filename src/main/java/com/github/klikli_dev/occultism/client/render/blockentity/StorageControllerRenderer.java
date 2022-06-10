@@ -37,6 +37,7 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 
 import java.awt.*;
@@ -101,7 +102,7 @@ public class StorageControllerRenderer implements BlockEntityRenderer<StorageCon
         RenderType rendertype = ItemBlockRenderTypes.getRenderType(this.stack, false); //getRenderType(itemstack, isBlock(??)) isBlock = false -> is item entity?
         VertexConsumer ivertexbuilder = ItemRenderer.getFoilBuffer(buffer, rendertype, true, this.stack.hasFoil());
         //from  ItemRenderer#rendermodel
-        Random random = new Random();
+        var random = RandomSource.create();
 
         for (Direction direction : Direction.values()) {
             random.setSeed(42L);

@@ -48,6 +48,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -110,7 +111,7 @@ public class StableWormholeBlockEntity extends NetworkedBlockEntity implements I
     //region Overrides
     @Override
     public Component getDisplayName() {
-        return Component.literal(this.getType().getRegistryName().getPath());
+        return Component.literal(ForgeRegistries.BLOCK_ENTITIES.getKey(this.getType()).getPath());
     }
 
     @Override

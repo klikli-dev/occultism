@@ -66,6 +66,7 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
@@ -211,7 +212,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
     //region Overrides
     @Override
     public Component getDisplayName() {
-        return Component.literal(this.getType().getRegistryName().getPath());
+        return Component.literal(ForgeRegistries.BLOCK_ENTITIES.getKey(this.getType()).getPath());
     }
 
     @Override

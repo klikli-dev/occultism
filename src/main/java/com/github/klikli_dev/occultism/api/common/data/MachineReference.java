@@ -84,7 +84,9 @@ public class MachineReference implements INBTSerializable<CompoundTag> {
         ItemStack insertItem = insertState.getBlock().getCloneItemStack(extractBlockEntity.getLevel(), insertPos.getPos(), insertState);
         boolean insertIsLoaded = insertBlockEntity.getLevel().isLoaded(insertPos.getPos());
 
-        return new MachineReference(extractPos, extractItem.getItem().getRegistryName(), extractIsLoaded, insertPos, insertItem.getItem().getRegistryName(), insertIsLoaded);
+        return new MachineReference(extractPos,
+                ForgeRegistries.ITEMS.getKey(extractItem.getItem()), extractIsLoaded, insertPos,
+                ForgeRegistries.ITEMS.getKey(insertItem.getItem()), insertIsLoaded);
     }
 
     public static MachineReference from(CompoundTag compound) {

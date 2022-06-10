@@ -717,8 +717,9 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                     case AMOUNT:
                         return Integer.compare(b.getCount(), a.getCount()) * this.direction;
                     case NAME:
-                        return a.getDisplayName().getContents()
-                                .compareToIgnoreCase(b.getDisplayName().getContents()) *
+                        //TODO: TEST: sort by name
+                        return a.getDisplayName().getString()
+                                .compareToIgnoreCase(b.getDisplayName().getString()) *
                                 this.direction;
                     case MOD:
                         return TextUtil.getModNameForGameObject(a.getItem())
@@ -767,7 +768,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
             return name.toLowerCase().contains(searchText.toLowerCase().substring(1));
         } else if (searchText.startsWith("#")) {
             List<String> tooltip = stack.getTooltipLines(this.minecraft.player, TooltipFlag.Default.NORMAL).stream()
-                    .map(Component::getContents).collect(
+                    .map(Component::getString).collect(
                             Collectors.toList());
             String tooltipString = Joiner.on(' ').join(tooltip).toLowerCase().trim();
             return tooltipString.toLowerCase().contains(searchText.toLowerCase().substring(1));
@@ -791,7 +792,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
             return name.toLowerCase().contains(searchText.toLowerCase().substring(1));
         } else {
             String customName = machine.customName == null ? "" : machine.customName.toLowerCase();
-            return machine.getInsertItemStack().getDisplayName().getContents().toLowerCase()
+            return machine.getInsertItemStack().getDisplayName().getString().toLowerCase()
                     .contains(searchText.toLowerCase()) ||
                     customName.contains(searchText.toLowerCase().substring(1));
         }
@@ -819,9 +820,9 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                                         entityPosition) : Double.MAX_VALUE;
                         return Double.compare(distanceB, distanceA) * this.direction;
                     case NAME:
-                        return a.getInsertItemStack().getDisplayName().getContents()
+                        return a.getInsertItemStack().getDisplayName().getString()
                                 .compareToIgnoreCase(
-                                        b.getInsertItemStack().getDisplayName().getContents()) *
+                                        b.getInsertItemStack().getDisplayName().getString()) *
                                 this.direction;
                     case MOD:
                         return TextUtil.getModNameForGameObject(a.getInsertItem())

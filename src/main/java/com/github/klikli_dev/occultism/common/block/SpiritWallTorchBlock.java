@@ -26,6 +26,7 @@ import com.github.klikli_dev.occultism.registry.OccultismParticles;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.WallTorchBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -38,7 +39,7 @@ public class SpiritWallTorchBlock extends WallTorchBlock {
     }
 
     @Override
-    public void animateTick(BlockState pState, Level pLevel, BlockPos pPos, Random pRand) {
+    public void animateTick(BlockState pState, Level pLevel, BlockPos pPos, RandomSource pRand) {
         Direction direction = pState.getValue(FACING);
         double d0 = (double) pPos.getX() + 0.5D;
         double d1 = (double) pPos.getY() + 0.7D;
