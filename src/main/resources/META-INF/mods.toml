@@ -56,7 +56,7 @@ side = "BOTH"
 [[dependencies.occultism]]
 modId = "jei"
 mandatory = false
-versionRange = "[1.18-9.0.0.40,)"
+versionRange = "[1.19-11.0.0.206,)"
 side = "BOTH"
 
 [[dependencies.occultism]]
