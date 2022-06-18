@@ -66,10 +66,9 @@ public class BlockEntityUtil {
     }
 
     static BlockEntity getWorldTileEntityUnchecked(Level level, BlockPos pos) {
-        if (level.isOutsideBuildHeight(pos)) {
+        if (!level.isLoaded(pos)) {
             return null;
         } else {
-            //Note: this should handle the pending entities that we manually did via world in 1.16
             return level.getChunkAt(pos).getBlockEntity(pos, LevelChunk.EntityCreationType.IMMEDIATE);
         }
     }
