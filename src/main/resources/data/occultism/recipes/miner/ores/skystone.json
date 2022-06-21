@@ -4,16 +4,17 @@
     "tag": "occultism:miners/ores"
   },
   "result": {
-    "tag": "forge:ores/charged_certus_quartz"
+    "item": "ae2:sky_stone_block"
   },
-  "weight": 109,
+  "weight": 50,
   "conditions": [
     {
       "type": "forge:not",
       "value": {
         "type": "forge:tag_empty",
-        "tag": "forge:ores/charged_certus_quartz"
+        "tag": "forge:ores/certus_quartz"
       }
     }
   ]
 }
+
