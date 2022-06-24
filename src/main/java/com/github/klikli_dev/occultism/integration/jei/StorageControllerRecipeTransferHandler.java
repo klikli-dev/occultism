@@ -27,8 +27,10 @@ import com.github.klikli_dev.occultism.api.common.container.IStorageControllerCo
 import com.github.klikli_dev.occultism.network.MessageSetRecipe;
 import com.github.klikli_dev.occultism.network.MessageSetRecipeByID;
 import com.github.klikli_dev.occultism.network.OccultismPackets;
+import mezz.jei.api.constants.RecipeTypes;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
+import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.transfer.IRecipeTransferError;
 import mezz.jei.api.recipe.transfer.IRecipeTransferHandler;
 import mezz.jei.api.recipe.transfer.IRecipeTransferHandlerHelper;
@@ -38,11 +40,13 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.CraftingContainer;
+import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingRecipe;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -58,14 +62,56 @@ public class StorageControllerRecipeTransferHandler<T extends AbstractContainerM
         this.containerClass = containerClass;
     }
 
+    public CompoundTag recipeToNbt(AbstractContainerMenu container, IRecipeSlotsView recipeSlots) {
+        CompoundTag nbt = new CompoundTag();
+        var slotsViewList = recipeSlots.getSlotViews();
+
+        for (Slot slot : container.slots) {
+            if (slot.container instanceof CraftingContainer) {
+
+                //get slot view corresponding to slot
+                var slotView = slotsViewList.get(slot.getSlotIndex() + 1);
+                if (slotView == null) {
+                    continue;
+                }
+
+                //gets all items matching ingredients.
+                List<ItemStack> possibleItems = slotView.getIngredients(VanillaTypes.ITEM_STACK).collect(Collectors.toList());
+                if (possibleItems.isEmpty()) {
+                    continue;
+                }
+
+                ListTag invList = new ListTag();
+                for (int i = 0; i < possibleItems.size(); i++) {
+                    if (i >= 5) {
+                        break; //cap possible items at 5 to avoid mega-messages that hit network cap
+                    }
+
+                    //if stack is not empty, write to result
+                    ItemStack itemStack = possibleItems.get(i);
+                    if (!itemStack.isEmpty()) {
+                        invList.add(itemStack.serializeNBT());
+                    }
+                }
+                nbt.put("s" + (slot.getSlotIndex()), invList);
+            }
+        }
+        return nbt;
+    }
+
     @Override
     public Class<T> getContainerClass() {
         return this.containerClass;
     }
 
     @Override
-    public Class<CraftingRecipe> getRecipeClass() {
-        return CraftingRecipe.class;
+    public Optional<MenuType<T>> getMenuType() {
+        return Optional.empty();
+    }
+
+    @Override
+    public RecipeType<CraftingRecipe> getRecipeType() {
+        return RecipeTypes.CRAFTING;
     }
 
     public IRecipeTransferError transferRecipe(T container, CraftingRecipe recipe, IRecipeSlotsView recipeSlots, Player player, boolean maxTransfer, boolean doTransfer) {
@@ -96,42 +142,4 @@ public class StorageControllerRecipeTransferHandler<T extends AbstractContainerM
         }
         return null;
     }
-
-    public CompoundTag recipeToNbt(AbstractContainerMenu container, IRecipeSlotsView recipeSlots) {
-        CompoundTag nbt = new CompoundTag();
-        var slotsViewList = recipeSlots.getSlotViews();
-
-        for (Slot slot : container.slots) {
-            if (slot.container instanceof CraftingContainer) {
-
-                //get slot view corresponding to slot
-                var slotView = slotsViewList.get(slot.getSlotIndex() + 1);
-                if (slotView == null) {
-                    continue;
-                }
-
-                //gets all items matching ingredients.
-                List<ItemStack> possibleItems = slotView.getIngredients(VanillaTypes.ITEM).collect(Collectors.toList());
-                if (possibleItems.isEmpty()) {
-                    continue;
-                }
-
-                ListTag invList = new ListTag();
-                for (int i = 0; i < possibleItems.size(); i++) {
-                    if (i >= 5) {
-                        break; //cap possible items at 5 to avoid mega-messages that hit network cap
-                    }
-
-                    //if stack is not empty, write to result
-                    ItemStack itemStack = possibleItems.get(i);
-                    if (!itemStack.isEmpty()) {
-                        invList.add(itemStack.serializeNBT());
-                    }
-                }
-                nbt.put("s" + (slot.getSlotIndex()), invList);
-            }
-        }
-        return nbt;
-    }
-    //endregion Methods
 }

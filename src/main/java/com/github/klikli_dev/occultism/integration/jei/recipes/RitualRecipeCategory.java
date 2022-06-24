@@ -245,14 +245,4 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
                     84, infotextY);
         }
     }
-
-    @Override
-    public ResourceLocation getUid() {
-        return OccultismRecipes.RITUAL.getId();
-    }
-
-    @Override
-    public Class<? extends RitualRecipe> getRecipeClass() {
-        return RitualRecipe.class;
-    }
 }

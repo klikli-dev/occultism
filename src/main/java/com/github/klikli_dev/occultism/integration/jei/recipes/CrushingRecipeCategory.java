@@ -40,6 +40,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import org.jetbrains.annotations.Nullable;
 
 public class CrushingRecipeCategory implements IRecipeCategory<CrushingRecipe> {
 
@@ -92,15 +93,5 @@ public class CrushingRecipeCategory implements IRecipeCategory<CrushingRecipe> {
         RenderSystem.enableBlend();
         this.overlay.draw(stack, 76, 14); //(center=84) - (width/16=8) = 76
         this.drawStringCentered(stack, Minecraft.getInstance().font, this.getTitle(), 84, 0);
-    }
-
-    @Override
-    public ResourceLocation getUid() {
-        return OccultismRecipes.CRUSHING.getId();
-    }
-
-    @Override
-    public Class<? extends CrushingRecipe> getRecipeClass() {
-        return CrushingRecipe.class;
     }
 }

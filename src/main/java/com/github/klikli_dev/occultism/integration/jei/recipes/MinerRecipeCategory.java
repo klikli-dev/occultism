@@ -45,6 +45,7 @@ import net.minecraft.util.random.WeightedRandom;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.wrapper.RecipeWrapper;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
 import java.util.List;
@@ -119,15 +120,5 @@ public class MinerRecipeCategory implements IRecipeCategory<MinerRecipe> {
         this.overlay.draw(stack, 76, 14); //(center=84) - (width/16=8) = 76
         this.drawStringCentered(stack, Minecraft.getInstance().font,
                 Component.translatable(Occultism.MODID + ".jei.miner.chance", this.chances.get(recipe)), 84, 0);
-    }
-
-    @Override
-    public ResourceLocation getUid() {
-        return OccultismRecipes.MINER.getId();
-    }
-
-    @Override
-    public Class<? extends MinerRecipe> getRecipeClass() {
-        return MinerRecipe.class;
     }
 }

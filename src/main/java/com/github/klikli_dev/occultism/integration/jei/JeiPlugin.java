@@ -135,7 +135,7 @@ public class JeiPlugin implements IModPlugin {
     }
 
     public void registerIngredientInfo(IRecipeRegistration registration, ItemLike ingredient) {
-        registration.addIngredientInfo(new ItemStack(ingredient.asItem()), VanillaTypes.ITEM,
+        registration.addIngredientInfo(new ItemStack(ingredient.asItem()), VanillaTypes.ITEM_STACK,
                 Component.translatable("jei." + Occultism.MODID + ".ingredient." + ForgeRegistries.ITEMS.getKey(ingredient.asItem()).getPath() + ".description"));
     }
 }

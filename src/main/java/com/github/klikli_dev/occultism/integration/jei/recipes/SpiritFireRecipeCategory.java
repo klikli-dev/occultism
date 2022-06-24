@@ -55,7 +55,7 @@ public class SpiritFireRecipeCategory implements IRecipeCategory<SpiritFireRecip
         this.localizedName = Component.translatable(Occultism.MODID + ".jei.spirit_fire");
         this.overlay = guiHelper.createDrawable(
                 new ResourceLocation(Occultism.MODID, "textures/gui/jei/spirit_fire.png"), 0, 0, 64, 46);
-        this.icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM, this.renderStack);
+        this.icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, this.renderStack);
         this.renderStack.getOrCreateTag().putBoolean("RenderFull", true);
     }
 
@@ -95,15 +95,5 @@ public class SpiritFireRecipeCategory implements IRecipeCategory<SpiritFireRecip
     public void draw(SpiritFireRecipe recipe, IRecipeSlotsView recipeSlotsView, PoseStack stack, double mouseX, double mouseY) {
         RenderSystem.enableBlend();
         this.overlay.draw(stack, 48, 0);
-    }
-
-    @Override
-    public ResourceLocation getUid() {
-        return OccultismRecipes.SPIRIT_FIRE.getId();
-    }
-
-    @Override
-    public Class<? extends SpiritFireRecipe> getRecipeClass() {
-        return SpiritFireRecipe.class;
     }
 }
