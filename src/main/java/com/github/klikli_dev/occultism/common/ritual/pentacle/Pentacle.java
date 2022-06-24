@@ -154,6 +154,8 @@ public class Pentacle {
 
             } else if (display != null) {
                 return OM(PatchouliAPI.get().displayOnlyMatcher(display));
+            } else {
+                throw new JsonSyntaxException("Matcher has no block, tag or display property:" + matcher.toString());
             }
         }
 

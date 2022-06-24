@@ -26,7 +26,7 @@ Mappings:
     "G": "occultism:chalk_glyph_gold",
     "P": "occultism:chalk_glyph_purple",
     "R": {
-      "block:": "occultism:chalk_glyph_red"
+      "block": "occultism:chalk_glyph_red"
     },
     "C": {
       "tag": "forge:candles",
