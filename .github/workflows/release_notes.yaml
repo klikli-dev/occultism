@@ -11,7 +11,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: Create Release Notes
-        uses: docker://decathlon/release-notes-generator-action:3.1.5
+        uses: docker://decathlon/release-notes-generator-action:3.1.6
         env:
           GITHUB_TOKEN: ${{ secrets.RELEASE_NOTES_TOKEN }}
           USE_MILESTONE_TITLE: "true"
