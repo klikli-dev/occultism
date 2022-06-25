@@ -23,8 +23,10 @@
 package com.github.klikli_dev.occultism.datagen;
 
 import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.registry.OccultismFeatures;
 import com.mojang.serialization.JsonOps;
+import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
@@ -32,14 +34,22 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.RegistryOps;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BiomeTags;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.levelgen.GenerationStep.Decoration;
+import net.minecraft.world.level.levelgen.VerticalAnchor;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
+import net.minecraft.world.level.levelgen.placement.HeightRangePlacement;
+import net.minecraft.world.level.levelgen.placement.PlacedFeature;
+import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
 import net.minecraftforge.common.data.JsonCodecProvider;
-import net.minecraftforge.common.world.BiomeModifier;
 import net.minecraftforge.common.world.ForgeBiomeModifiers.AddFeaturesBiomeModifier;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 
 import java.util.Map;
 
@@ -49,7 +59,6 @@ public class DataGenerators {
     @SubscribeEvent
     public static void gatherData(GatherDataEvent event) {
         DataGenerator generator = event.getGenerator();
-        //generator.addProvider(event.includeServer(), new FeatureProvider(generator));
         generator.addProvider(event.includeServer(), new StandardLootTableProvider(generator));
         generator.addProvider(event.includeServer(), new PentacleProvider(generator));
         generator.addProvider(event.includeServer(), new OccultismAdvancementProvider(generator));
@@ -61,26 +70,55 @@ public class DataGenerators {
 
     }
 
-    public static void registerFeatures(GatherDataEvent event){
+    public static void registerFeatures(GatherDataEvent event) {
         var generator = event.getGenerator();
 
         var registries = RegistryAccess.builtinCopy();
         var ops = RegistryOps.create(JsonOps.INSTANCE, registries);
 
-        generator.addProvider(event.includeServer(), JsonCodecProvider.forDatapackRegistry(
-                generator, event.getExistingFileHelper(), Occultism.MODID, ops, Registry.CONFIGURED_FEATURE_REGISTRY,
-                Map.of(new ResourceLocation(Occultism.MODID, "silver_ore"), OccultismFeatures.SILVER_ORE_CONFIGURED.get())));
+        Holder<ConfiguredFeature<?, ?>> silverOreConfigured = Holder.direct(new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(
+                new TagMatchTest(BlockTags.STONE_ORE_REPLACEABLES),
+                OccultismBlocks.SILVER_ORE.get().defaultBlockState(), 7)));
+        Holder<ConfiguredFeature<?, ?>> silverOreDeepslateConfigured = Holder.direct(new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(
+                new TagMatchTest(BlockTags.DEEPSLATE_ORE_REPLACEABLES),
+                OccultismBlocks.SILVER_ORE_DEEPSLATE.get().defaultBlockState(), 7)));
 
         generator.addProvider(event.includeServer(), JsonCodecProvider.forDatapackRegistry(
-                generator, event.getExistingFileHelper(), Occultism.MODID, ops, Registry.PLACED_FEATURE_REGISTRY, Map.of(
-                        new ResourceLocation(Occultism.MODID, "silver_ore"), OccultismFeatures.SILVER_ORE_PLACED.get())));
+                generator, event.getExistingFileHelper(), Occultism.MODID, ops, Registry.CONFIGURED_FEATURE_REGISTRY,
+                Map.of(
+                        new ResourceLocation(Occultism.MODID, "silver_ore"), silverOreConfigured.get(),
+                        new ResourceLocation(Occultism.MODID, "silver_ore_deepslate"), silverOreDeepslateConfigured.get()
+
+                )));
+
+        var silverOrePlaced = Holder.direct(new PlacedFeature(silverOreConfigured,
+                OccultismFeatures.commonOrePlacement(3, HeightRangePlacement.triangle(VerticalAnchor.absolute(50), VerticalAnchor.absolute(200)))));
+        var silverOreDeepslatePlaced = Holder.direct(new PlacedFeature(silverOreDeepslateConfigured,
+                OccultismFeatures.commonOrePlacement(3, HeightRangePlacement.triangle(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(50)))));
+
+
+
+        generator.addProvider(event.includeServer(), JsonCodecProvider.forDatapackRegistry(
+                generator, event.getExistingFileHelper(), Occultism.MODID, ops, Registry.PLACED_FEATURE_REGISTRY,
+                Map.of(
+                        new ResourceLocation(Occultism.MODID, "silver_ore"), silverOrePlaced.get(),
+                        new ResourceLocation(Occultism.MODID, "silver_ore_deepslate"), silverOreDeepslatePlaced.get()
+                )));
 
         var addSilverOre = new AddFeaturesBiomeModifier(
                 new HolderSet.Named<>(ops.registry(Registry.BIOME_REGISTRY).get(), BiomeTags.IS_OVERWORLD),
-                HolderSet.direct(OccultismFeatures.SILVER_ORE_PLACED.getHolder().orElseThrow()), Decoration.UNDERGROUND_ORES);
+                HolderSet.direct(silverOrePlaced), Decoration.UNDERGROUND_ORES);
+        var addDeepslateSilverOre = new AddFeaturesBiomeModifier(
+                new HolderSet.Named<>(ops.registry(Registry.BIOME_REGISTRY).get(), BiomeTags.IS_OVERWORLD),
+                HolderSet.direct(silverOreDeepslatePlaced), Decoration.UNDERGROUND_ORES);
 
         generator.addProvider(event.includeServer(), JsonCodecProvider.forDatapackRegistry(
-                generator, event.getExistingFileHelper(), Occultism.MODID, ops, ForgeRegistries.Keys.BIOME_MODIFIERS, Map.of(
-                        new ResourceLocation(Occultism.MODID, "add_silver_ore"), addSilverOre)));
+                generator, event.getExistingFileHelper(), Occultism.MODID, ops, ForgeRegistries.Keys.BIOME_MODIFIERS,
+                Map.of(
+                        new ResourceLocation(Occultism.MODID, "add_silver_ore"), addSilverOre,
+                        new ResourceLocation(Occultism.MODID, "add_deepslate_silver_ore"), addDeepslateSilverOre
+                )));
+
+        //TODO: add all other features
     }
 }

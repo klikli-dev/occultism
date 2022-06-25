@@ -75,14 +75,6 @@ public class OccultismFeatures {
 
     // Configured Features
 
-    public static RegistryObject<ConfiguredFeature<?, ?>> SILVER_ORE_CONFIGURED = CONFIGURED_FEATURES.register("silver_ore", () ->
-            new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(
-                    new TagMatchTest(BlockTags.STONE_ORE_REPLACEABLES),
-                    OccultismBlocks.SILVER_ORE.get().defaultBlockState(), 7)));
-    public static RegistryObject<ConfiguredFeature<?, ?>> SILVER_ORE_DEEPSLATE_CONFIGURED = CONFIGURED_FEATURES.register("silver_ore_deepslate", () ->
-            new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(
-                    new TagMatchTest(BlockTags.DEEPSLATE_ORE_REPLACEABLES),
-                    OccultismBlocks.SILVER_ORE_DEEPSLATE.get().defaultBlockState(), 7)));
     public static RegistryObject<ConfiguredFeature<?, ?>> IESNIUM_ORE_CONFIGURED = CONFIGURED_FEATURES.register("iesnium_ore", () ->
             new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(
                     new TagMatchTest(BlockTags.BASE_STONE_NETHER),
@@ -117,15 +109,6 @@ public class OccultismFeatures {
 
     // Placed Features
 
-    public static RegistryObject<PlacedFeature> SILVER_ORE_PLACED = PLACED_FEATURES.register("silver_ore",
-            () ->
-                    new PlacedFeature(SILVER_ORE_CONFIGURED.getHolder().orElseThrow(),
-                    commonOrePlacement(3, HeightRangePlacement.triangle(VerticalAnchor.absolute(50), VerticalAnchor.absolute(200)))));
-
-    public static RegistryObject<PlacedFeature> SILVER_ORE_DEEPSLATE_PLACED = PLACED_FEATURES.register("silver_ore_deepslate",
-            () -> new PlacedFeature(SILVER_ORE_DEEPSLATE_CONFIGURED.getHolder().orElseThrow(),
-                    commonOrePlacement(3, HeightRangePlacement.triangle(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(50)))));
-
     public static RegistryObject<PlacedFeature> IESNIUM_ORE_PLACED = PLACED_FEATURES.register("iesnium_ore",
             () -> new PlacedFeature(IESNIUM_ORE_CONFIGURED.getHolder().orElseThrow(),
                     commonOrePlacement(3, HeightRangePlacement.triangle(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(50)))));
@@ -145,7 +128,7 @@ public class OccultismFeatures {
         return List.of(modifier1, InSquarePlacement.spread(), modifier2, BiomeFilter.biome());
     }
 
-    private static List<PlacementModifier> commonOrePlacement(int count, PlacementModifier modifier) {
+    public static List<PlacementModifier> commonOrePlacement(int count, PlacementModifier modifier) {
         return orePlacement(CountPlacement.of(count), modifier);
     }
 
