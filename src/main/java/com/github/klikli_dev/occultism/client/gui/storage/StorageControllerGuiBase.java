@@ -429,8 +429,6 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     public void initButtons() {
         int controlButtonSize = 12;
 
-        //TODO: Move tooltips to button, instead of in gui base?
-
         int clearRecipeButtonLeft = 93 + ORDER_AREA_OFFSET;
         int clearRecipeButtonTop = 112;
         this.clearRecipeButton = new SizedImageButton(this.leftPos + clearRecipeButtonLeft,
@@ -717,7 +715,6 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                     case AMOUNT:
                         return Integer.compare(b.getCount(), a.getCount()) * this.direction;
                     case NAME:
-                        //TODO: TEST: sort by name
                         return a.getDisplayName().getString()
                                 .compareToIgnoreCase(b.getDisplayName().getString()) *
                                 this.direction;
