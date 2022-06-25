@@ -22,6 +22,7 @@
 
 package com.github.klikli_dev.occultism.common.level.cave;
 
+import com.github.klikli_dev.occultism.common.level.multichunk.MultiChunkFeatureConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
@@ -32,8 +33,8 @@ import java.util.Random;
 public interface ICaveDecorator {
     //region Methods
     void finalPass(WorldGenLevel seedReader, ChunkGenerator generator, RandomSource rand,
-                   CaveDecoratordata data);
+                   CaveDecoratordata data, MultiChunkFeatureConfig config);
 
     void fill(WorldGenLevel seedReader, ChunkGenerator generator, RandomSource rand,
-              BlockPos pos, CaveDecoratordata data);
+              BlockPos pos, CaveDecoratordata data, MultiChunkFeatureConfig config);
 }

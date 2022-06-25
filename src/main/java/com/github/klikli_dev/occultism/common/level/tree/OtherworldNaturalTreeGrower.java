@@ -24,15 +24,20 @@ package com.github.klikli_dev.occultism.common.level.tree;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.registry.OccultismFeatures;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.grower.AbstractTreeGrower;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Random;
 
@@ -45,8 +50,33 @@ public class OtherworldNaturalTreeGrower extends AbstractTreeGrower {
     public OtherworldNaturalTreeGrower() {
     }
 
+    @Nullable
     @Override
-    protected Holder<? extends ConfiguredFeature<?, ?>> getConfiguredFeature(RandomSource pRandom, boolean pLargeHive) {
-        return BuiltinRegistries.CONFIGURED_FEATURE.getHolder(OTHERWORLD_TREE_NATURAL).orElseThrow();
+    protected Holder<? extends ConfiguredFeature<?, ?>> getConfiguredFeature(RandomSource p_222910_, boolean p_222911_) {
+        return null;
     }
+
+    @Override
+    public boolean growTree(ServerLevel level, ChunkGenerator p_222906_, BlockPos p_222907_, BlockState p_222908_, RandomSource p_222909_) {
+        Holder<? extends ConfiguredFeature<?, ?>> holder = level.registryAccess().registryOrThrow(Registry.CONFIGURED_FEATURE_REGISTRY).getHolderOrThrow(OTHERWORLD_TREE_NATURAL);
+
+        if (holder == null) {
+            return false;
+        } else {
+            ConfiguredFeature<?, ?> configuredfeature = holder.value();
+            BlockState blockstate = level.getFluidState(p_222907_).createLegacyBlock();
+            level.setBlock(p_222907_, blockstate, 4);
+            if (configuredfeature.place(level, p_222906_, p_222909_, p_222907_)) {
+                if (level.getBlockState(p_222907_) == blockstate) {
+                    level.sendBlockUpdated(p_222907_, p_222908_, blockstate, 2);
+                }
+
+                return true;
+            } else {
+                level.setBlock(p_222907_, p_222908_, 4);
+                return false;
+            }
+        }
+    }
+
 }

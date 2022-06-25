@@ -23,55 +23,13 @@
 package com.github.klikli_dev.occultism.config;
 
 import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.common.ForgeConfigSpec.DoubleValue;
 
 public class OccultismCommonConfig {
-    public final WorldGenSettings worldGen;
     public final ForgeConfigSpec spec;
 
     //region Initialization
     public OccultismCommonConfig() {
         ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
-        this.worldGen = new WorldGenSettings(builder);
         this.spec = builder.build();
-    }
-
-    public static class WorldGenSettings {
-        public final UndergroundGroveGenSettings undergroundGroveGen;
-
-        public WorldGenSettings(ForgeConfigSpec.Builder builder) {
-            builder.comment("WorldGen Settings").push("worldgen");
-            this.undergroundGroveGen = new UndergroundGroveGenSettings(builder);
-            builder.pop();
-        }
-
-
-        public static class UndergroundGroveGenSettings {
-            public final DoubleValue grassChance;
-            public final DoubleValue treeChance;
-            public final DoubleValue vineChance;
-            public final DoubleValue ceilingLightChance;
-
-            public UndergroundGroveGenSettings(ForgeConfigSpec.Builder builder) {
-                builder.comment("Underground Grove Settings").push("underground_grove");
-
-
-                this.grassChance =
-                        builder.comment("The chance grass will spawn in the underground grove.")
-                                .defineInRange("grassChance", 0.6, 0.0f, 1.0f);
-                this.treeChance =
-                        builder.comment("The chance small trees will spawn in the underground grove.")
-                                .defineInRange("treeChance", 0.1, 0.0f, 1.0f);
-                this.vineChance =
-                        builder.comment("The chance vines will spawn in the underground grove.")
-                                .defineInRange("vineChance", 0.3, 0.0f, 1.0f);
-                this.ceilingLightChance =
-                        builder.comment("The chance glowstone will spawn in the ceiling of the underground grove.")
-                                .defineInRange("ceilingLightChance", 0.1, 0.0f, 1.0f);
-
-
-                builder.pop();
-            }
-        }
     }
 }

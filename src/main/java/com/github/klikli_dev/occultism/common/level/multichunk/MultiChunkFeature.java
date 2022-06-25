@@ -40,20 +40,14 @@ import java.util.List;
 
 public class MultiChunkFeature extends Feature<MultiChunkFeatureConfig> {
 
-    //region Fields
     public final IMultiChunkSubFeature subFeature;
-    //endregion Fields
 
-    //region Initialization
     public MultiChunkFeature(Codec<MultiChunkFeatureConfig> codec, IMultiChunkSubFeature subFeature) {
-        //IMultiChunkSubFeature<T> subFeature
         super(codec);
         this.subFeature = subFeature;
     }
-    //endregion Initialization
 
 
-    //region Methods
     protected List<BlockPos> getRootPositions(WorldGenLevel reader, ChunkGenerator generator, WorldgenRandom random,
                                               ChunkPos generatingChunk,
                                               MultiChunkFeatureConfig config) {
@@ -87,12 +81,6 @@ public class MultiChunkFeature extends Feature<MultiChunkFeatureConfig> {
         BlockPos pos = context.origin();
 
         if (context.level().getChunkSource() instanceof ServerChunkCache chunkSource) {
-            for (Holder<Biome> biome : context.chunkGenerator().getBiomeSource().getBiomesWithin(pos.getX(), pos.getY(), pos.getZ(), 1,
-                    chunkSource.randomState().sampler())) {
-                if (context.config().biomeTagBlacklist.stream().anyMatch(biome::containsTag)) {
-                    return false;
-                }
-            }
             ChunkPos generatingChunk = new ChunkPos(pos);
             List<BlockPos> rootPositions =
                     this.getRootPositions(context.level(), context.chunkGenerator(), (WorldgenRandom) context.random(), generatingChunk, context.config());
@@ -111,6 +99,4 @@ public class MultiChunkFeature extends Feature<MultiChunkFeatureConfig> {
 
         return false;
     }
-    //endregion Methods
-
 }

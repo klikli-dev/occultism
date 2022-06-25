@@ -96,15 +96,6 @@ public class DataGenerators {
                         new TagMatchTest(BlockTags.BASE_STONE_NETHER),
                         OccultismBlocks.IESNIUM_ORE_NATURAL.get().defaultBlockState(), 3)));
 
-        Holder<ConfiguredFeature<?, ?>> undergroundGroveConfigured = Holder.direct(
-                new ConfiguredFeature<>(OccultismFeatures.UNDERGROUND_GROVE_FEATURE.get(),
-                        new MultiChunkFeatureConfig(
-                                7,
-                                400,
-                                25,
-                                60,
-                                14653667,
-                                Stream.of(BiomeTags.IS_NETHER, BiomeTags.IS_END).toList())));
 
         Holder<ConfiguredFeature<?, ?>> otherworldTreeNaturalConfigured = Holder.direct(
                 new ConfiguredFeature<>(Feature.TREE,
@@ -124,19 +115,6 @@ public class DataGenerators {
                                 new BlobFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0), 3),
                                 new TwoLayersFeatureSize(1, 0, 1)).ignoreVines().build()));
 
-
-        generator.addProvider(event.includeServer(), JsonCodecProvider.forDatapackRegistry(
-                generator, event.getExistingFileHelper(), Occultism.MODID, ops, Registry.CONFIGURED_FEATURE_REGISTRY,
-                Map.of(
-                        new ResourceLocation(Occultism.MODID, "silver_ore"), silverOreConfigured.get(),
-                        new ResourceLocation(Occultism.MODID, "silver_ore_deepslate"), silverOreDeepslateConfigured.get(),
-                        new ResourceLocation(Occultism.MODID, "iesnium_ore"), iesniumOreConfigured.get(),
-                        new ResourceLocation(Occultism.MODID, "underground_grove"), undergroundGroveConfigured.get(),
-                        new ResourceLocation(Occultism.MODID, "otherworld_tree_natural"), otherworldTreeNaturalConfigured.get(),
-                        new ResourceLocation(Occultism.MODID, "otherworld_tree"), otherworldTreeConfigured.get()
-
-                )));
-
         var silverOrePlaced = Holder.direct(new PlacedFeature(silverOreConfigured,
                 OccultismFeatures.commonOrePlacement(3, HeightRangePlacement.triangle(VerticalAnchor.absolute(50), VerticalAnchor.absolute(200)))));
         var silverOreDeepslatePlaced = Holder.direct(new PlacedFeature(silverOreDeepslateConfigured,
@@ -146,26 +124,29 @@ public class DataGenerators {
                         OccultismFeatures.commonOrePlacement(3, HeightRangePlacement.triangle(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(50)))));
 
 
-        var undergroundGrovePlaced = Holder.direct(new PlacedFeature(undergroundGroveConfigured, List.of()));
-
         var otherworldTreeNaturalPlaced = Holder.direct(new PlacedFeature(otherworldTreeNaturalConfigured, List.of(
                 PlacementUtils.filteredByBlockSurvival(OccultismBlocks.OTHERWORLD_SAPLING_NATURAL.get()))));
-
         var otherworldTreePlaced = Holder.direct(new PlacedFeature(otherworldTreeConfigured, List.of(
                 PlacementUtils.filteredByBlockSurvival(OccultismBlocks.OTHERWORLD_SAPLING.get()))));
 
 
-        generator.addProvider(event.includeServer(), JsonCodecProvider.forDatapackRegistry(
-                generator, event.getExistingFileHelper(), Occultism.MODID, ops, Registry.PLACED_FEATURE_REGISTRY,
-                Map.of(
-                        new ResourceLocation(Occultism.MODID, "silver_ore"), silverOrePlaced.get(),
-                        new ResourceLocation(Occultism.MODID, "silver_ore_deepslate"), silverOreDeepslatePlaced.get(),
-                        new ResourceLocation(Occultism.MODID, "iesnium_ore"), iesniumOrePlaced.get(),
-                        new ResourceLocation(Occultism.MODID, "underground_grove"), undergroundGrovePlaced.get(),
-                        new ResourceLocation(Occultism.MODID, "otherworld_tree_natural"), otherworldTreeNaturalPlaced.get(),
-                        new ResourceLocation(Occultism.MODID, "otherworld_tree"), otherworldTreePlaced.get()
-                )));
+        Holder<ConfiguredFeature<?, ?>> undergroundGroveConfigured = Holder.direct(
+                new ConfiguredFeature<>(OccultismFeatures.UNDERGROUND_GROVE_FEATURE.get(),
+                        new MultiChunkFeatureConfig(
+                                7,
+                                400,
+                                25,
+                                60,
+                                14653667,
+                                0.6f,
+                                0.1f,
+                                0.3f,
+                                0.1f,
+                                otherworldTreeNaturalPlaced)));
+        var undergroundGrovePlaced = Holder.direct(new PlacedFeature(undergroundGroveConfigured, List.of()));
 
+
+        //biome modifiers
         var addSilverOre = new AddFeaturesBiomeModifier(
                 new HolderSet.Named<>(ops.registry(Registry.BIOME_REGISTRY).get(), BiomeTags.IS_OVERWORLD),
                 HolderSet.direct(silverOrePlaced), Decoration.UNDERGROUND_ORES);
@@ -184,6 +165,29 @@ public class DataGenerators {
         var addOtherworldTree = new AddFeaturesBiomeModifier(
                 new HolderSet.Named<>(ops.registry(Registry.BIOME_REGISTRY).get(), BiomeTags.IS_OVERWORLD),
                 HolderSet.direct(otherworldTreePlaced), Decoration.UNDERGROUND_ORES);
+
+        generator.addProvider(event.includeServer(), JsonCodecProvider.forDatapackRegistry(
+                generator, event.getExistingFileHelper(), Occultism.MODID, ops, Registry.CONFIGURED_FEATURE_REGISTRY,
+                Map.of(
+                        new ResourceLocation(Occultism.MODID, "silver_ore"), silverOreConfigured.get(),
+                        new ResourceLocation(Occultism.MODID, "silver_ore_deepslate"), silverOreDeepslateConfigured.get(),
+                        new ResourceLocation(Occultism.MODID, "iesnium_ore"), iesniumOreConfigured.get(),
+                        new ResourceLocation(Occultism.MODID, "underground_grove"), undergroundGroveConfigured.get(),
+                        new ResourceLocation(Occultism.MODID, "otherworld_tree_natural"), otherworldTreeNaturalConfigured.get(),
+                        new ResourceLocation(Occultism.MODID, "otherworld_tree"), otherworldTreeConfigured.get()
+
+                )));
+
+        generator.addProvider(event.includeServer(), JsonCodecProvider.forDatapackRegistry(
+                generator, event.getExistingFileHelper(), Occultism.MODID, ops, Registry.PLACED_FEATURE_REGISTRY,
+                Map.of(
+                        new ResourceLocation(Occultism.MODID, "silver_ore"), silverOrePlaced.get(),
+                        new ResourceLocation(Occultism.MODID, "silver_ore_deepslate"), silverOreDeepslatePlaced.get(),
+                        new ResourceLocation(Occultism.MODID, "iesnium_ore"), iesniumOrePlaced.get(),
+                        new ResourceLocation(Occultism.MODID, "underground_grove"), undergroundGrovePlaced.get(),
+                        new ResourceLocation(Occultism.MODID, "otherworld_tree_natural"), otherworldTreeNaturalPlaced.get(),
+                        new ResourceLocation(Occultism.MODID, "otherworld_tree"), otherworldTreePlaced.get()
+                )));
 
         generator.addProvider(event.includeServer(), JsonCodecProvider.forDatapackRegistry(
                 generator, event.getExistingFileHelper(), Occultism.MODID, ops, ForgeRegistries.Keys.BIOME_MODIFIERS,

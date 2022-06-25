@@ -23,12 +23,14 @@
 package com.github.klikli_dev.occultism.common.level.cave;
 
 import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.common.level.multichunk.MultiChunkFeatureConfig;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.registry.OccultismFeatures;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
 import net.minecraft.data.BuiltinRegistries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.util.RandomSource;
@@ -37,6 +39,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.VineBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkGenerator;
+import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.Random;
@@ -52,34 +55,33 @@ public class UndergroundGroveDecorator extends CaveDecorator {
 
     @Override
     public void finalFloorPass(WorldGenLevel seedReader, ChunkGenerator generator, RandomSource rand,
-                               BlockPos pos) {
-        //TODO: move these settings from config to biome modifier / configured or placed feature
+                               BlockPos pos, MultiChunkFeatureConfig config) {
         if (seedReader.getBlockState(pos).getBlock() == Blocks.GRASS_BLOCK &&
-                rand.nextFloat() < Occultism.COMMON_CONFIG.worldGen.undergroundGroveGen.grassChance.get())
+                rand.nextFloat() < config.grassChance)
             seedReader.setBlock(pos.above(), Blocks.GRASS.defaultBlockState(), 2);
 
-        if (rand.nextFloat() < Occultism.COMMON_CONFIG.worldGen.undergroundGroveGen.treeChance.get()) {
-            BuiltinRegistries.PLACED_FEATURE.get(OTHERWORLD_TREE_NATURAL).place(seedReader, generator, rand, pos.above());
+        if (rand.nextFloat() < config.treeChance) {
+            config.otherworldTreeFeature.get().place(seedReader, generator, rand, pos.above());
         }
     }
 
     @Override
     public void finalCeilingPass(WorldGenLevel seedReader, ChunkGenerator generator, RandomSource rand,
-                                 BlockPos pos) {
-        if (rand.nextFloat() < Occultism.COMMON_CONFIG.worldGen.undergroundGroveGen.ceilingLightChance.get()) {
+                                 BlockPos pos, MultiChunkFeatureConfig config) {
+        if (rand.nextFloat() < config.ceilingLightChance) {
             seedReader.setBlock(pos, Blocks.GLOWSTONE.defaultBlockState(), 2);
         }
-        super.finalCeilingPass(seedReader, generator, rand, pos);
+        super.finalCeilingPass(seedReader, generator, rand, pos, config);
     }
 
     @Override
     public void finalWallPass(WorldGenLevel seedReader, ChunkGenerator generator, RandomSource rand,
-                              BlockPos pos) {
+                              BlockPos pos, MultiChunkFeatureConfig config) {
         for (Direction facing : Direction.Plane.HORIZONTAL) {
             BlockPos offset = pos.relative(facing);
             BlockPos up = offset.above();
             if (this.isCeiling(seedReader, up, seedReader.getBlockState(up)) &&
-                    rand.nextFloat() < Occultism.COMMON_CONFIG.worldGen.undergroundGroveGen.vineChance.get()) {
+                    rand.nextFloat() < config.vineChance) {
                 BlockState stateAt = seedReader.getBlockState(offset);
                 boolean spawnedVine = false;
                 while (stateAt.isAir() && offset.getY() > 0) {

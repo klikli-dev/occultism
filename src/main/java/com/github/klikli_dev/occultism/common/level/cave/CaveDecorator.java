@@ -22,6 +22,7 @@
 
 package com.github.klikli_dev.occultism.common.level.cave;
 
+import com.github.klikli_dev.occultism.common.level.multichunk.MultiChunkFeatureConfig;
 import com.github.klikli_dev.occultism.registry.OccultismTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -51,75 +52,75 @@ public abstract class CaveDecorator implements ICaveDecorator {
     //region Overrides
     @Override
     public void finalPass(WorldGenLevel seedReader, ChunkGenerator generator, RandomSource rand,
-                          CaveDecoratordata data) {
-        data.floorBlocks.forEach(blockPos -> this.finalFloorPass(seedReader, generator, rand, blockPos));
-        data.ceilingBlocks.forEach(blockPos -> this.finalCeilingPass(seedReader, generator, rand, blockPos));
-        data.wallBlocks.keySet().forEach(blockPos -> this.finalWallPass(seedReader, generator, rand, blockPos));
-        data.insideBlocks.forEach(blockPos -> this.finalInsidePass(seedReader, generator, rand, blockPos));
+                          CaveDecoratordata data, MultiChunkFeatureConfig config) {
+        data.floorBlocks.forEach(blockPos -> this.finalFloorPass(seedReader, generator, rand, blockPos, config));
+        data.ceilingBlocks.forEach(blockPos -> this.finalCeilingPass(seedReader, generator, rand, blockPos, config));
+        data.wallBlocks.keySet().forEach(blockPos -> this.finalWallPass(seedReader, generator, rand, blockPos, config));
+        data.insideBlocks.forEach(blockPos -> this.finalInsidePass(seedReader, generator, rand, blockPos, config));
     }
 
     @Override
     public void fill(WorldGenLevel seedReader, ChunkGenerator generator, RandomSource rand,
-                     BlockPos pos, CaveDecoratordata data) {
+                     BlockPos pos, CaveDecoratordata data, MultiChunkFeatureConfig config) {
         BlockState state = seedReader.getBlockState(pos);
         if (state.getDestroySpeed(seedReader, pos) == -1 || seedReader.canSeeSkyFromBelowWater(pos))
             return;
 
         if (this.isFloor(seedReader, pos, state)) {
             data.floorBlocks.add(pos);
-            this.fillFloor(seedReader, generator, rand, pos, state);
+            this.fillFloor(seedReader, generator, rand, pos, state, config);
         } else if (this.isCeiling(seedReader, pos, state)) {
             data.ceilingBlocks.add(pos);
-            this.fillCeiling(seedReader, generator, rand, pos, state);
+            this.fillCeiling(seedReader, generator, rand, pos, state, config);
         } else if (this.isWall(seedReader, pos, state)) {
             data.wallBlocks.put(pos, this.getBorderDirection(seedReader, pos));
-            this.fillWall(seedReader, generator, rand, pos, state);
+            this.fillWall(seedReader, generator, rand, pos, state, config);
         } else if (this.isInside(state)) {
             data.insideBlocks.add(pos);
-            this.fillInside(seedReader, generator, rand, pos, state);
+            this.fillInside(seedReader, generator, rand, pos, state, config);
         }
     }
     //endregion Overrides
 
     //region Methods
     public void fillFloor(WorldGenLevel seedReader, ChunkGenerator generator, RandomSource rand,
-                          BlockPos pos, BlockState state) {
+                          BlockPos pos, BlockState state, MultiChunkFeatureConfig config) {
         if (this.floorState != null) {
             seedReader.setBlock(pos, this.floorState, 2);
         }
     }
 
     public void fillCeiling(WorldGenLevel seedReader, ChunkGenerator generator, RandomSource rand,
-                            BlockPos pos, BlockState state) {
+                            BlockPos pos, BlockState state, MultiChunkFeatureConfig config) {
         if (this.ceilingState != null)
             seedReader.setBlock(pos, this.ceilingState, 2);
     }
 
     public void fillWall(WorldGenLevel seedReader, ChunkGenerator generator, RandomSource rand,
-                         BlockPos pos, BlockState state) {
+                         BlockPos pos, BlockState state, MultiChunkFeatureConfig config) {
         if (this.wallState != null)
             seedReader.setBlock(pos, this.wallState, 2);
     }
 
     public void fillInside(WorldGenLevel seedReader, ChunkGenerator generator, RandomSource rand,
-                           BlockPos pos, BlockState state) {
+                           BlockPos pos, BlockState state, MultiChunkFeatureConfig config) {
         //level.setBlockState(pos, Blocks.AIR.defaultBlockState(), 2);
     }
 
     public void finalFloorPass(WorldGenLevel seedReader, ChunkGenerator generator, RandomSource rand,
-                               BlockPos pos) {
+                               BlockPos pos, MultiChunkFeatureConfig config) {
     }
 
     public void finalCeilingPass(WorldGenLevel seedReader, ChunkGenerator generator, RandomSource rand,
-                                 BlockPos pos) {
+                                 BlockPos pos, MultiChunkFeatureConfig config) {
     }
 
     public void finalWallPass(WorldGenLevel seedReader, ChunkGenerator generator, RandomSource rand,
-                              BlockPos pos) {
+                              BlockPos pos, MultiChunkFeatureConfig config) {
     }
 
     public void finalInsidePass(WorldGenLevel seedReader, ChunkGenerator generator, RandomSource rand,
-                                BlockPos pos) {
+                                BlockPos pos, MultiChunkFeatureConfig config) {
     }
 
     public boolean isFloor(WorldGenLevel seedReader, BlockPos pos, BlockState state) {

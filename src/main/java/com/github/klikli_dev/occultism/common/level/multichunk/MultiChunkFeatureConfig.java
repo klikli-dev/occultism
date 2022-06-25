@@ -24,10 +24,12 @@ package com.github.klikli_dev.occultism.common.level.multichunk;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.core.Holder;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraft.world.level.levelgen.placement.PlacedFeature;
+import net.minecraftforge.common.ForgeConfigSpec.DoubleValue;
 
 import java.util.List;
 
@@ -46,11 +48,22 @@ public class MultiChunkFeatureConfig implements FeatureConfiguration {
                     return config.maxGenerationHeight;
                 }), Codec.intRange(0, Integer.MAX_VALUE).fieldOf("feature_seed_salt").forGetter((config) -> {
                     return config.featureSeedSalt;
-                }), Codec.list(TagKey.codec(ForgeRegistries.BIOMES.getRegistryKey())).fieldOf("biome_tag_blacklist").forGetter((config) -> {
-                    return config.biomeTagBlacklist;
+                }), Codec.floatRange(0.0f, 1.0f).fieldOf("grass_chance").forGetter((config) -> {
+                    return config.grassChance;
+                }), Codec.floatRange(0.0f, 1.0f).fieldOf("tree_chance").forGetter((config) -> {
+                    return config.treeChance;
+                }), Codec.floatRange(0.0f, 1.0f).fieldOf("vine_chance").forGetter((config) -> {
+                    return config.vineChance;
+                }), Codec.floatRange(0.0f, 1.0f).fieldOf("ceiling_light_chance").forGetter((config) -> {
+                    return config.ceilingLightChance;
+                }),
+                PlacedFeature.CODEC.fieldOf("otherworld_tree_feature").forGetter((config) -> {
+                    return config.otherworldTreeFeature;
                 })
         ).apply(kind1, MultiChunkFeatureConfig::new);
     });
+
+
     /**
      * The maximum amount of chunks from the root position to still generate this feature.
      */
@@ -59,16 +72,28 @@ public class MultiChunkFeatureConfig implements FeatureConfiguration {
     public final int minGenerationHeight;
     public final int maxGenerationHeight;
     public final int featureSeedSalt;
-    public final List<TagKey<Biome>> biomeTagBlacklist;
+
+    public final float grassChance;
+
+    public final float treeChance;
+    public final float vineChance;
+    public final float ceilingLightChance;
+    public final Holder<PlacedFeature> otherworldTreeFeature;
 
 
     public MultiChunkFeatureConfig(int maxChunksToRoot, int chanceToGenerate, int minGenerationHeight,
-                                   int maxGenerationHeight, int featureSeedSalt, List<TagKey<Biome>> biomeTagBlacklist) {
+                                   int maxGenerationHeight, int featureSeedSalt, float grassChance,float treeChance,
+                                   float vineChance, float ceilingLightChance,
+                                   Holder<PlacedFeature> otherworldTreeFeature) {
         this.maxChunksToRoot = maxChunksToRoot;
         this.chanceToGenerate = chanceToGenerate;
         this.featureSeedSalt = featureSeedSalt;
         this.minGenerationHeight = minGenerationHeight;
         this.maxGenerationHeight = maxGenerationHeight;
-        this.biomeTagBlacklist = biomeTagBlacklist;
+        this.grassChance = grassChance;
+        this.treeChance = treeChance;
+        this.vineChance = vineChance;
+        this.ceilingLightChance = ceilingLightChance;
+        this.otherworldTreeFeature = otherworldTreeFeature;
     }
 }

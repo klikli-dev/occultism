@@ -106,7 +106,7 @@ public class SphericalCaveSubFeature implements IMultiChunkSubFeature {
         }
         for (Sphere sphere : spheres) {
             this.hollowOutSphere(reader, rand, sphere.center, sphere.radius - 2, bounds);
-            this.decorateSphere(reader, generator, rand, sphere.center, sphere.radius + 2, bounds);
+            this.decorateSphere(reader, generator, rand, sphere.center, sphere.radius + 2, bounds, config);
         }
         spheres.clear();
         return true;
@@ -135,7 +135,7 @@ public class SphericalCaveSubFeature implements IMultiChunkSubFeature {
     }
 
     protected void decorateSphere(WorldGenLevel reader, ChunkGenerator generator, RandomSource rand,
-                                  BlockPos center, int radius, AABB bounds) {
+                                  BlockPos center, int radius, AABB bounds, MultiChunkFeatureConfig config) {
         int j = radius;
         //int k = radius / 2;
         int k = radius / 2;
@@ -146,11 +146,11 @@ public class SphericalCaveSubFeature implements IMultiChunkSubFeature {
         BlockPos max = Math3DUtil.clamp(center.offset(j, k, l), bounds);
         BlockPos.betweenClosed(min, max).forEach(blockPos -> {
             if (blockPos.distSqr(center) <= (double) (f * f)) {
-                this.caveDecorator.fill(reader, generator, rand, blockPos.immutable(), data);
+                this.caveDecorator.fill(reader, generator, rand, blockPos.immutable(), data, config);
             }
         });
 
-        this.caveDecorator.finalPass(reader, generator, rand, data);
+        this.caveDecorator.finalPass(reader, generator, rand, data, config);
     }
 
     protected void setBlockSafely(WorldGenLevel level, BlockPos pPos, BlockState pCurrentState, BlockState pNewState, int pFlags) {
