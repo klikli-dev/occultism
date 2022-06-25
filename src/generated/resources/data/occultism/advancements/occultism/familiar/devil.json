@@ -1,27 +1,27 @@
 {
   "parent": "occultism:occultism/familiar/root",
+  "criteria": {
+    "devil_fire": {
+      "conditions": {
+        "type": "DEVIL_FIRE"
+      },
+      "trigger": "occultism:familiar"
+    }
+  },
   "display": {
-    "icon": {
-      "item": "occultism:advancement_icon",
-      "nbt": "{CustomModelData:3}"
-    },
-    "title": {
-      "translate": "advancements.occultism.familiar.devil.title"
-    },
+    "announce_to_chat": true,
     "description": {
       "translate": "advancements.occultism.familiar.devil.description"
     },
     "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "occultism:advancement_icon",
+      "nbt": "{CustomModelData:3}"
+    },
     "show_toast": true,
-    "announce_to_chat": true,
-    "hidden": false
-  },
-  "criteria": {
-    "devil_fire": {
-      "trigger": "occultism:familiar",
-      "conditions": {
-        "type": "DEVIL_FIRE"
-      }
+    "title": {
+      "translate": "advancements.occultism.familiar.devil.title"
     }
   },
   "requirements": [

@@ -1,26 +1,26 @@
 {
   "parent": "occultism:occultism/familiar/root",
+  "criteria": {
+    "capture": {
+      "conditions": {
+        "type": "CAPTURE"
+      },
+      "trigger": "occultism:familiar"
+    }
+  },
   "display": {
-    "icon": {
-      "item": "occultism:familiar_ring"
-    },
-    "title": {
-      "translate": "advancements.occultism.familiar.capture.title"
-    },
+    "announce_to_chat": true,
     "description": {
       "translate": "advancements.occultism.familiar.capture.description"
     },
     "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "occultism:familiar_ring"
+    },
     "show_toast": true,
-    "announce_to_chat": true,
-    "hidden": false
-  },
-  "criteria": {
-    "capture": {
-      "trigger": "occultism:familiar",
-      "conditions": {
-        "type": "CAPTURE"
-      }
+    "title": {
+      "translate": "advancements.occultism.familiar.capture.title"
     }
   },
   "requirements": [

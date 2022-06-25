@@ -1,26 +1,26 @@
 {
   "parent": "occultism:occultism/familiar/root",
+  "criteria": {
+    "party": {
+      "conditions": {
+        "type": "PARTY"
+      },
+      "trigger": "occultism:familiar"
+    }
+  },
   "display": {
-    "icon": {
-      "item": "minecraft:jukebox"
-    },
-    "title": {
-      "translate": "advancements.occultism.familiar.party.title"
-    },
+    "announce_to_chat": true,
     "description": {
       "translate": "advancements.occultism.familiar.party.description"
     },
     "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "minecraft:jukebox"
+    },
     "show_toast": true,
-    "announce_to_chat": true,
-    "hidden": false
-  },
-  "criteria": {
-    "party": {
-      "trigger": "occultism:familiar",
-      "conditions": {
-        "type": "PARTY"
-      }
+    "title": {
+      "translate": "advancements.occultism.familiar.party.title"
     }
   },
   "requirements": [

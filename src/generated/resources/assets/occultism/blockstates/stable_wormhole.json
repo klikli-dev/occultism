@@ -4,11 +4,26 @@
       "model": "occultism:block/stable_wormhole_unlinked",
       "x": 180
     },
-    "facing=up,linked=false": {
-      "model": "occultism:block/stable_wormhole_unlinked"
+    "facing=down,linked=true": {
+      "model": "occultism:block/stable_wormhole",
+      "x": 180
+    },
+    "facing=east,linked=false": {
+      "model": "occultism:block/stable_wormhole_unlinked",
+      "x": 90,
+      "y": 90
+    },
+    "facing=east,linked=true": {
+      "model": "occultism:block/stable_wormhole",
+      "x": 90,
+      "y": 90
     },
     "facing=north,linked=false": {
       "model": "occultism:block/stable_wormhole_unlinked",
+      "x": 90
+    },
+    "facing=north,linked=true": {
+      "model": "occultism:block/stable_wormhole",
       "x": 90
     },
     "facing=south,linked=false": {
@@ -16,41 +31,26 @@
       "x": 90,
       "y": 180
     },
-    "facing=west,linked=false": {
-      "model": "occultism:block/stable_wormhole_unlinked",
-      "x": 90,
-      "y": 270
-    },
-    "facing=east,linked=false": {
-      "model": "occultism:block/stable_wormhole_unlinked",
-      "x": 90,
-      "y": 90
-    },
-    "facing=down,linked=true": {
-      "model": "occultism:block/stable_wormhole",
-      "x": 180
-    },
-    "facing=up,linked=true": {
-      "model": "occultism:block/stable_wormhole"
-    },
-    "facing=north,linked=true": {
-      "model": "occultism:block/stable_wormhole",
-      "x": 90
-    },
     "facing=south,linked=true": {
       "model": "occultism:block/stable_wormhole",
       "x": 90,
       "y": 180
     },
+    "facing=up,linked=false": {
+      "model": "occultism:block/stable_wormhole_unlinked"
+    },
+    "facing=up,linked=true": {
+      "model": "occultism:block/stable_wormhole"
+    },
+    "facing=west,linked=false": {
+      "model": "occultism:block/stable_wormhole_unlinked",
+      "x": 90,
+      "y": 270
+    },
     "facing=west,linked=true": {
       "model": "occultism:block/stable_wormhole",
       "x": 90,
       "y": 270
-    },
-    "facing=east,linked=true": {
-      "model": "occultism:block/stable_wormhole",
-      "x": 90,
-      "y": 90
     }
   }
 }

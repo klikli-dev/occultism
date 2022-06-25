@@ -33,7 +33,7 @@ public class DataGenerators {
     @SubscribeEvent
     public static void gatherData(GatherDataEvent event) {
         DataGenerator generator = event.getGenerator();
-        generator.addProvider(event.includeServer(), new BiomeModifierProvider(generator));
+        generator.addProvider(event.includeServer(), new FeatureProvider(generator));
         generator.addProvider(event.includeServer(), new StandardLootTableProvider(generator));
         generator.addProvider(event.includeServer(), new PentacleProvider(generator));
         generator.addProvider(event.includeServer(), new OccultismAdvancementProvider(generator));

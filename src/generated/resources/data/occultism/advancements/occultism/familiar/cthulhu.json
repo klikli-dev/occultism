@@ -1,27 +1,27 @@
 {
   "parent": "occultism:occultism/familiar/root",
+  "criteria": {
+    "cthulhu_sad": {
+      "conditions": {
+        "type": "CTHULHU_SAD"
+      },
+      "trigger": "occultism:familiar"
+    }
+  },
   "display": {
-    "icon": {
-      "item": "occultism:advancement_icon",
-      "nbt": "{CustomModelData:0}"
-    },
-    "title": {
-      "translate": "advancements.occultism.familiar.cthulhu.title"
-    },
+    "announce_to_chat": true,
     "description": {
       "translate": "advancements.occultism.familiar.cthulhu.description"
     },
     "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "occultism:advancement_icon",
+      "nbt": "{CustomModelData:0}"
+    },
     "show_toast": true,
-    "announce_to_chat": true,
-    "hidden": false
-  },
-  "criteria": {
-    "cthulhu_sad": {
-      "trigger": "occultism:familiar",
-      "conditions": {
-        "type": "CTHULHU_SAD"
-      }
+    "title": {
+      "translate": "advancements.occultism.familiar.cthulhu.title"
     }
   },
   "requirements": [

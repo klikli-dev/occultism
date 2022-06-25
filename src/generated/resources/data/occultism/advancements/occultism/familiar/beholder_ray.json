@@ -1,27 +1,27 @@
 {
   "parent": "occultism:occultism/familiar/root",
+  "criteria": {
+    "beholder_ray": {
+      "conditions": {
+        "type": "BEHOLDER_RAY"
+      },
+      "trigger": "occultism:familiar"
+    }
+  },
   "display": {
-    "icon": {
-      "item": "occultism:advancement_icon",
-      "nbt": "{CustomModelData:13}"
-    },
-    "title": {
-      "translate": "advancements.occultism.familiar.beholder_ray.title"
-    },
+    "announce_to_chat": true,
     "description": {
       "translate": "advancements.occultism.familiar.beholder_ray.description"
     },
     "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "occultism:advancement_icon",
+      "nbt": "{CustomModelData:13}"
+    },
     "show_toast": true,
-    "announce_to_chat": true,
-    "hidden": false
-  },
-  "criteria": {
-    "beholder_ray": {
-      "trigger": "occultism:familiar",
-      "conditions": {
-        "type": "BEHOLDER_RAY"
-      }
+    "title": {
+      "translate": "advancements.occultism.familiar.beholder_ray.title"
     }
   },
   "requirements": [

@@ -1,4 +1,14 @@
 {
+  "mapping": {
+    "0": "occultism:golden_sacrificial_bowl",
+    "C": {
+      "display": "occultism:candle_white",
+      "tag": "minecraft:candles"
+    },
+    "G": "occultism:chalk_glyph_gold",
+    "S": "occultism:spirit_attuned_crystal",
+    "W": "occultism:chalk_glyph_white"
+  },
   "pattern": [
     "  WSW  ",
     " G   G ",
@@ -7,15 +17,5 @@
     "W  W  W",
     " G   G ",
     "  WSW  "
-  ],
-  "mapping": {
-    "0": "occultism:golden_sacrificial_bowl",
-    "C": {
-      "tag": "minecraft:candles",
-      "display": "occultism:candle_white"
-    },
-    "S": "occultism:spirit_attuned_crystal",
-    "W": "occultism:chalk_glyph_white",
-    "G": "occultism:chalk_glyph_gold"
-  }
+  ]
 }

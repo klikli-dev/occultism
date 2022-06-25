@@ -1,27 +1,27 @@
 {
   "parent": "occultism:occultism/familiar/root",
+  "criteria": {
+    "chimera_ride": {
+      "conditions": {
+        "type": "CHIMERA_RIDE"
+      },
+      "trigger": "occultism:familiar"
+    }
+  },
   "display": {
-    "icon": {
-      "item": "occultism:advancement_icon",
-      "nbt": "{CustomModelData:10}"
-    },
-    "title": {
-      "translate": "advancements.occultism.familiar.chimera_ride.title"
-    },
+    "announce_to_chat": true,
     "description": {
       "translate": "advancements.occultism.familiar.chimera_ride.description"
     },
     "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "occultism:advancement_icon",
+      "nbt": "{CustomModelData:10}"
+    },
     "show_toast": true,
-    "announce_to_chat": true,
-    "hidden": false
-  },
-  "criteria": {
-    "chimera_ride": {
-      "trigger": "occultism:familiar",
-      "conditions": {
-        "type": "CHIMERA_RIDE"
-      }
+    "title": {
+      "translate": "advancements.occultism.familiar.chimera_ride.title"
     }
   },
   "requirements": [

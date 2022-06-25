@@ -1,8 +1,8 @@
 {
   "criteria": {
     "occultism_present": {
-      "trigger": "minecraft:tick",
-      "conditions": {}
+      "conditions": {},
+      "trigger": "minecraft:tick"
     }
   },
   "requirements": [

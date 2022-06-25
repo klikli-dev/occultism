@@ -2,7 +2,6 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "rolls": 1.0,
       "bonus_rolls": 0.0,
       "entries": [
         {
@@ -12,8 +11,8 @@
               "type": "minecraft:item",
               "conditions": [
                 {
-                  "condition": "minecraft:block_state_property",
                   "block": "occultism:otherworld_log_natural",
+                  "condition": "minecraft:block_state_property",
                   "properties": {
                     "uncovered": "true"
                   }
@@ -27,7 +26,8 @@
             }
           ]
         }
-      ]
+      ],
+      "rolls": 1.0
     }
   ]
 }

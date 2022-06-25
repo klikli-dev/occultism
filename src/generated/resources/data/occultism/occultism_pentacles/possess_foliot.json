@@ -1,4 +1,13 @@
 {
+  "mapping": {
+    "0": "occultism:golden_sacrificial_bowl",
+    "C": {
+      "display": "occultism:candle_white",
+      "tag": "minecraft:candles"
+    },
+    "G": "occultism:chalk_glyph_gold",
+    "W": "occultism:chalk_glyph_white"
+  },
   "pattern": [
     "   GGG   ",
     "  GC CG  ",
@@ -9,14 +18,5 @@
     " GW   WG ",
     "  GC CG  ",
     "   GGG   "
-  ],
-  "mapping": {
-    "0": "occultism:golden_sacrificial_bowl",
-    "C": {
-      "tag": "minecraft:candles",
-      "display": "occultism:candle_white"
-    },
-    "W": "occultism:chalk_glyph_white",
-    "G": "occultism:chalk_glyph_gold"
-  }
+  ]
 }

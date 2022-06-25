@@ -1,28 +1,28 @@
 {
   "parent": "occultism:occultism/root",
-  "display": {
-    "icon": {
-      "item": "occultism:jei_dummy/none"
-    },
-    "title": {
-      "translate": "advancements.occultism.craft_soul_gem.title"
-    },
-    "description": {
-      "translate": "advancements.occultism.craft_soul_gem.description"
-    },
-    "frame": "task",
-    "show_toast": false,
-    "announce_to_chat": false,
-    "hidden": true
-  },
   "criteria": {
     "craft_soul_gem": {
-      "trigger": "occultism:ritual",
       "conditions": {
         "ritual_predicate": {
           "ritual_id": "occultism:ritual/craft_soul_gem"
         }
-      }
+      },
+      "trigger": "occultism:ritual"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancements.occultism.craft_soul_gem.description"
+    },
+    "frame": "task",
+    "hidden": true,
+    "icon": {
+      "item": "occultism:jei_dummy/none"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancements.occultism.craft_soul_gem.title"
     }
   },
   "requirements": [

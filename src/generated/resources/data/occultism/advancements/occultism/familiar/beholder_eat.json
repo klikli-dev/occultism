@@ -1,26 +1,26 @@
 {
   "parent": "occultism:occultism/familiar/root",
+  "criteria": {
+    "beholder_eat": {
+      "conditions": {
+        "type": "BEHOLDER_EAT"
+      },
+      "trigger": "occultism:familiar"
+    }
+  },
   "display": {
-    "icon": {
-      "item": "minecraft:pumpkin_pie"
-    },
-    "title": {
-      "translate": "advancements.occultism.familiar.beholder_eat.title"
-    },
+    "announce_to_chat": true,
     "description": {
       "translate": "advancements.occultism.familiar.beholder_eat.description"
     },
     "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "minecraft:pumpkin_pie"
+    },
     "show_toast": true,
-    "announce_to_chat": true,
-    "hidden": false
-  },
-  "criteria": {
-    "beholder_eat": {
-      "trigger": "occultism:familiar",
-      "conditions": {
-        "type": "BEHOLDER_EAT"
-      }
+    "title": {
+      "translate": "advancements.occultism.familiar.beholder_eat.title"
     }
   },
   "requirements": [

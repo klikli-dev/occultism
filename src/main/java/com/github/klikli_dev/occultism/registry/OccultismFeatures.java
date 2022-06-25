@@ -25,7 +25,6 @@ package com.github.klikli_dev.occultism.registry;
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.level.cave.SphericalCaveSubFeature;
 import com.github.klikli_dev.occultism.common.level.cave.UndergroundGroveDecorator;
-import com.github.klikli_dev.occultism.common.level.modifiers.OreBiomeModifier;
 import com.github.klikli_dev.occultism.common.level.multichunk.MultiChunkFeature;
 import com.github.klikli_dev.occultism.common.level.multichunk.MultiChunkFeatureConfig;
 import com.mojang.serialization.Codec;
@@ -152,9 +151,5 @@ public class OccultismFeatures {
     private static List<PlacementModifier> rareOrePlacement(int rarity, PlacementModifier modifier) {
         return orePlacement(RarityFilter.onAverageOnceEvery(rarity), modifier);
     }
-
-    // Biome Modifiers
-
-    public static final RegistryObject<Codec<? extends BiomeModifier>> ORE = BIOME_MODIFIERS.register("ore", OreBiomeModifier::makeCodec);
 
 }

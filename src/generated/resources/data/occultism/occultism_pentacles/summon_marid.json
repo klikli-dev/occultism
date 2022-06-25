@@ -1,4 +1,22 @@
 {
+  "mapping": {
+    "0": "occultism:golden_sacrificial_bowl",
+    "C": {
+      "display": "occultism:candle_white",
+      "tag": "minecraft:candles"
+    },
+    "G": "occultism:chalk_glyph_gold",
+    "N": {
+      "block": "minecraft:wither_skeleton_skull",
+      "display": "occultism:wither_skeleton_skull_dummy"
+    },
+    "R": "occultism:chalk_glyph_red",
+    "W": "occultism:chalk_glyph_white",
+    "Z": {
+      "block": "minecraft:skeleton_skull",
+      "display": "occultism:skeleton_skull_dummy"
+    }
+  },
   "pattern": [
     "       Z       ",
     "      RRR      ",
@@ -15,23 +33,5 @@
     "     RCWCR     ",
     "      RRR      ",
     "       Z       "
-  ],
-  "mapping": {
-    "0": "occultism:golden_sacrificial_bowl",
-    "R": "occultism:chalk_glyph_red",
-    "C": {
-      "tag": "minecraft:candles",
-      "display": "occultism:candle_white"
-    },
-    "W": "occultism:chalk_glyph_white",
-    "G": "occultism:chalk_glyph_gold",
-    "Z": {
-      "block": "minecraft:skeleton_skull",
-      "display": "occultism:skeleton_skull_dummy"
-    },
-    "N": {
-      "block": "minecraft:wither_skeleton_skull",
-      "display": "occultism:wither_skeleton_skull_dummy"
-    }
-  }
+  ]
 }
