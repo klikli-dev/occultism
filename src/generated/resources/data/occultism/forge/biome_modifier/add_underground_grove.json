@@ -1,0 +1,22 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#minecraft:is_overworld",
+  "features": {
+    "feature": {
+      "type": "occultism:underground_grove",
+      "config": {
+        "biome_tag_blacklist": [
+          "minecraft:is_nether",
+          "minecraft:is_end"
+        ],
+        "chance_to_generate": 400,
+        "feature_seed_salt": 14653667,
+        "max_chunks_to_root": 7,
+        "max_generation_height": 60,
+        "min_generation_height": 25
+      }
+    },
+    "placement": []
+  },
+  "step": "underground_ores"
+}
