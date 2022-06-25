@@ -40,11 +40,11 @@ public class OccultismRecipes {
     public static final DeferredRegister<RecipeSerializer<?>> RECIPES = DeferredRegister.create(
             ForgeRegistries.RECIPE_SERIALIZERS, Occultism.MODID);
 
-    public static final RegistryObject<RecipeType<SpiritTradeRecipe>> SPIRIT_TRADE_TYPE = registerRecipeType("occultism:spirit_trade");
-    public static final RegistryObject<RecipeType<SpiritFireRecipe>> SPIRIT_FIRE_TYPE = registerRecipeType("occultism:spirit_fire");
-    public static final RegistryObject<RecipeType<CrushingRecipe>> CRUSHING_TYPE = registerRecipeType("occultism:crushing");
-    public static final RegistryObject<RecipeType<MinerRecipe>> MINER_TYPE = registerRecipeType("occultism:miner");
-    public static final RegistryObject<RecipeType<RitualRecipe>> RITUAL_TYPE = registerRecipeType("occultism:ritual");
+    public static final RegistryObject<RecipeType<SpiritTradeRecipe>> SPIRIT_TRADE_TYPE = registerRecipeType("spirit_trade");
+    public static final RegistryObject<RecipeType<SpiritFireRecipe>> SPIRIT_FIRE_TYPE = registerRecipeType("spirit_fire");
+    public static final RegistryObject<RecipeType<CrushingRecipe>> CRUSHING_TYPE = registerRecipeType("crushing");
+    public static final RegistryObject<RecipeType<MinerRecipe>> MINER_TYPE = registerRecipeType("miner");
+    public static final RegistryObject<RecipeType<RitualRecipe>> RITUAL_TYPE = registerRecipeType("ritual");
 
     public static final RegistryObject<RecipeSerializer<SpiritTradeRecipe>> SPIRIT_TRADE = RECIPES.register("spirit_trade",
             () -> SpiritTradeRecipe.SERIALIZER);
