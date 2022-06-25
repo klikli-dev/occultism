@@ -106,6 +106,7 @@ public class BiomeModifierProvider implements DataProvider {
         //TODO: register other features
         //TODO: register the ore biome modifiers
         //TODO: register the biome modifier for undergourund grove
+        //TODO: replace our own biome mod with forge builtin
     }
 
     @Override
