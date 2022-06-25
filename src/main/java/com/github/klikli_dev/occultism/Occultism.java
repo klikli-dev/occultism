@@ -88,9 +88,6 @@ public class Occultism {
         OccultismSounds.SOUNDS.register(modEventBus);
         OccultismParticles.PARTICLES.register(modEventBus);
         OccultismFeatures.FEATURES.register(modEventBus);
-        OccultismFeatures.CONFIGURED_FEATURES.register(modEventBus);
-        OccultismFeatures.PLACED_FEATURES.register(modEventBus);
-        OccultismFeatures.BIOME_MODIFIERS.register(modEventBus);
         OccultismLootModifiers.LOOT_MODIFIERS.register(modEventBus);
 
 

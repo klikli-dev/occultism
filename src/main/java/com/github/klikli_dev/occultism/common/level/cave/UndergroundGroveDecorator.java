@@ -27,16 +27,23 @@ import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.registry.OccultismFeatures;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Registry;
+import net.minecraft.data.BuiltinRegistries;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.VineBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkGenerator;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.Random;
 
 public class UndergroundGroveDecorator extends CaveDecorator {
+
+    public static final ResourceLocation OTHERWORLD_TREE_NATURAL = new ResourceLocation(Occultism.MODID, "otherworld_tree_natural");
 
     public UndergroundGroveDecorator() {
         super(Blocks.GRASS_BLOCK.defaultBlockState(), null, OccultismBlocks.OTHERSTONE_NATURAL.get().defaultBlockState());
@@ -52,7 +59,7 @@ public class UndergroundGroveDecorator extends CaveDecorator {
             seedReader.setBlock(pos.above(), Blocks.GRASS.defaultBlockState(), 2);
 
         if (rand.nextFloat() < Occultism.COMMON_CONFIG.worldGen.undergroundGroveGen.treeChance.get()) {
-            OccultismFeatures.OTHERWORLD_TREE_NATURAL_PLACED.get().place(seedReader, generator, rand, pos.above());
+            BuiltinRegistries.PLACED_FEATURE.get(OTHERWORLD_TREE_NATURAL).place(seedReader, generator, rand, pos.above());
         }
     }
 

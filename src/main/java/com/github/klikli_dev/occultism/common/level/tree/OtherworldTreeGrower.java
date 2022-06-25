@@ -22,8 +22,13 @@
 
 package com.github.klikli_dev.occultism.common.level.tree;
 
+import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.registry.OccultismFeatures;
 import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
+import net.minecraft.data.BuiltinRegistries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.grower.AbstractTreeGrower;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
@@ -32,11 +37,14 @@ import java.util.Random;
 
 public class OtherworldTreeGrower extends AbstractTreeGrower {
 
+    public static final ResourceKey<ConfiguredFeature<?, ?>> OTHERWORLD_TREE =
+            ResourceKey.create(Registry.CONFIGURED_FEATURE_REGISTRY, new ResourceLocation(Occultism.MODID, "otherworld_tree"));
+
     public OtherworldTreeGrower() {
     }
 
     @Override
     protected Holder<? extends ConfiguredFeature<?, ?>> getConfiguredFeature(RandomSource pRandom, boolean pLargeHive) {
-        return OccultismFeatures.OTHERWORLD_TREE_CONFIGURED.getHolder().orElseThrow();
+        return BuiltinRegistries.CONFIGURED_FEATURE.getHolder(OTHERWORLD_TREE).orElseThrow();
     }
 }
