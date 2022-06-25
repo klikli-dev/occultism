@@ -22,10 +22,26 @@
 
 package com.github.klikli_dev.occultism.datagen;
 
+import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.registry.OccultismFeatures;
+import com.mojang.serialization.JsonOps;
+import net.minecraft.core.HolderSet;
+import net.minecraft.core.Registry;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.resources.RegistryOps;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.BiomeTags;
+import net.minecraft.world.level.levelgen.GenerationStep.Decoration;
+import net.minecraftforge.common.data.JsonCodecProvider;
+import net.minecraftforge.common.world.BiomeModifier;
+import net.minecraftforge.common.world.ForgeBiomeModifiers.AddFeaturesBiomeModifier;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
+import net.minecraftforge.registries.ForgeRegistries;
+
+import java.util.Map;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class DataGenerators {
@@ -33,12 +49,38 @@ public class DataGenerators {
     @SubscribeEvent
     public static void gatherData(GatherDataEvent event) {
         DataGenerator generator = event.getGenerator();
-        generator.addProvider(event.includeServer(), new FeatureProvider(generator));
+        //generator.addProvider(event.includeServer(), new FeatureProvider(generator));
         generator.addProvider(event.includeServer(), new StandardLootTableProvider(generator));
         generator.addProvider(event.includeServer(), new PentacleProvider(generator));
         generator.addProvider(event.includeServer(), new OccultismAdvancementProvider(generator));
         generator.addProvider(event.includeClient(), new ItemModelsGenerator(generator, event.getExistingFileHelper()));
         generator.addProvider(event.includeClient(), new StandardBlockStateProvider(generator, event.getExistingFileHelper()));
         //generator.addProvider(event.includeClient(), new ENUSProvider(generator));
+
+        registerFeatures(event);
+
+    }
+
+    public static void registerFeatures(GatherDataEvent event){
+        var generator = event.getGenerator();
+
+        var registries = RegistryAccess.builtinCopy();
+        var ops = RegistryOps.create(JsonOps.INSTANCE, registries);
+
+        generator.addProvider(event.includeServer(), JsonCodecProvider.forDatapackRegistry(
+                generator, event.getExistingFileHelper(), Occultism.MODID, ops, Registry.CONFIGURED_FEATURE_REGISTRY,
+                Map.of(new ResourceLocation(Occultism.MODID, "silver_ore"), OccultismFeatures.SILVER_ORE_CONFIGURED.get())));
+
+        generator.addProvider(event.includeServer(), JsonCodecProvider.forDatapackRegistry(
+                generator, event.getExistingFileHelper(), Occultism.MODID, ops, Registry.PLACED_FEATURE_REGISTRY, Map.of(
+                        new ResourceLocation(Occultism.MODID, "silver_ore"), OccultismFeatures.SILVER_ORE_PLACED.get())));
+
+        var addSilverOre = new AddFeaturesBiomeModifier(
+                new HolderSet.Named<>(ops.registry(Registry.BIOME_REGISTRY).get(), BiomeTags.IS_OVERWORLD),
+                HolderSet.direct(OccultismFeatures.SILVER_ORE_PLACED.getHolder().orElseThrow()), Decoration.UNDERGROUND_ORES);
+
+        generator.addProvider(event.includeServer(), JsonCodecProvider.forDatapackRegistry(
+                generator, event.getExistingFileHelper(), Occultism.MODID, ops, ForgeRegistries.Keys.BIOME_MODIFIERS, Map.of(
+                        new ResourceLocation(Occultism.MODID, "add_silver_ore"), addSilverOre)));
     }
 }

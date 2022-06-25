@@ -118,7 +118,8 @@ public class OccultismFeatures {
     // Placed Features
 
     public static RegistryObject<PlacedFeature> SILVER_ORE_PLACED = PLACED_FEATURES.register("silver_ore",
-            () -> new PlacedFeature(SILVER_ORE_CONFIGURED.getHolder().orElseThrow(),
+            () ->
+                    new PlacedFeature(SILVER_ORE_CONFIGURED.getHolder().orElseThrow(),
                     commonOrePlacement(3, HeightRangePlacement.triangle(VerticalAnchor.absolute(50), VerticalAnchor.absolute(200)))));
 
     public static RegistryObject<PlacedFeature> SILVER_ORE_DEEPSLATE_PLACED = PLACED_FEATURES.register("silver_ore_deepslate",
