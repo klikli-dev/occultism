@@ -310,10 +310,12 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
 
     private static class CthulhuHeadModel extends SkullModel {
         private final CthulhuFamiliarModel model;
+        protected final ModelPart head;
 
         public CthulhuHeadModel(ModelPart part) {
             super(part);
             this.model = new CthulhuFamiliarModel(part);
+            this.head = part.getChild("body").getChild("head");
         }
 
         @Override
@@ -328,6 +330,11 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
             pMatrixStack.mulPose(new Quaternion(10, 0, 0, true));
             this.model.head.render(pMatrixStack, pBuffer, pPackedLight, pPackedOverlay);
             pMatrixStack.popPose();
+        }
+
+        public void setupAnim(float p_103811_, float p_103812_, float p_103813_) {
+            this.head.yRot = p_103812_ * ((float)Math.PI / 180F);
+            this.head.xRot = p_103813_ * ((float)Math.PI / 180F);
         }
     }
 }
