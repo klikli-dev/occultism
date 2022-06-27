@@ -66,8 +66,8 @@ public class OccultismBlocks {
     //Blocks without item
     public static final RegistryObject<SpiritFireBlock> SPIRIT_FIRE = register("spirit_fire",
             () -> new SpiritFireBlock(
-                    Block.Properties.of(Material.FIRE, MaterialColor.FIRE).noCollission().randomTicks()
-                            .strength(0, 0).lightLevel((state) -> 12)
+                    Block.Properties.of(Material.FIRE, MaterialColor.COLOR_PURPLE).noCollission().instabreak()
+                            .lightLevel((state) -> 12)
                             .sound(SoundType.WOOL)), false, LootTableType.EMPTY);
 
     public static final RegistryObject<Block> LIGHTED_AIR = register("lighted_air", () -> new AirBlock(
