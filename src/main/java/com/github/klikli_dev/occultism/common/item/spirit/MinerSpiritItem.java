@@ -25,42 +25,39 @@ package com.github.klikli_dev.occultism.common.item.spirit;
 import com.github.klikli_dev.occultism.common.blockentity.DimensionalMineshaftBlockEntity;
 import com.github.klikli_dev.occultism.util.ItemNBTUtil;
 import com.github.klikli_dev.occultism.util.TextUtil;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
+import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nullable;
-import java.lang.reflect.Field;
 import java.util.List;
 import java.util.function.Supplier;
 
 public class MinerSpiritItem extends Item {
 
-    protected static Field maxDamageField =
-            ObfuscationReflectionHelper.findField(Item.class, "f_41371_");
-
-    //region Fields
     private final Supplier<Integer> maxMiningTime;
     private final Supplier<Integer> rollsPerOperation;
     private final Supplier<Integer> maxDamage;
-    private boolean hasInitializedMaxDamage;
-    //endregion Fields
 
-    //region Initialization
     public MinerSpiritItem(Properties properties, Supplier<Integer> maxMiningTime, Supplier<Integer> rollsPerOperation, Supplier<Integer> maxDamage) {
         super(properties);
         this.maxMiningTime = maxMiningTime;
         this.rollsPerOperation = rollsPerOperation;
         this.maxDamage = maxDamage;
-        this.hasInitializedMaxDamage = false;
     }
-    //endregion Initialization
 
-    //region Overrides
+    @Override
+    public void onCraftedBy(ItemStack stack, Level worldIn, Player playerIn) {
+        super.onCraftedBy(stack, worldIn, playerIn);
+        stack.getOrCreateTag().putInt(DimensionalMineshaftBlockEntity.MAX_MINING_TIME_TAG, this.maxMiningTime.get());
+        stack.getOrCreateTag().putInt(DimensionalMineshaftBlockEntity.ROLLS_PER_OPERATION_TAG, this.rollsPerOperation.get());
+    }
+
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip,
                                 TooltipFlag flagIn) {
@@ -69,33 +66,15 @@ public class MinerSpiritItem extends Item {
                 TextUtil.formatDemonName(ItemNBTUtil.getBoundSpiritName(stack))));
     }
 
-
     @Override
-    public int getBarWidth(ItemStack stack) {
-        if (!this.hasInitializedMaxDamage) {
-            this.hasInitializedMaxDamage = true;
-            try {
-                maxDamageField.setInt(this, this.maxDamage.get());
-            } catch (IllegalAccessException ignored) {
-
-            }
-        }
-        return super.getBarWidth(stack);
+    public int getMaxDamage(ItemStack stack) {
+        return this.maxDamage.get();
     }
 
     @Override
-    public void onCraftedBy(ItemStack stack, Level worldIn, Player playerIn) {
-        super.onCraftedBy(stack, worldIn, playerIn);
-        if (!this.hasInitializedMaxDamage) {
-            this.hasInitializedMaxDamage = true;
-            try {
-                maxDamageField.setInt(this, this.maxDamage.get());
-            } catch (IllegalAccessException ignored) {
-
-            }
-        }
+    public @Nullable ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag nbt) {
         stack.getOrCreateTag().putInt(DimensionalMineshaftBlockEntity.MAX_MINING_TIME_TAG, this.maxMiningTime.get());
         stack.getOrCreateTag().putInt(DimensionalMineshaftBlockEntity.ROLLS_PER_OPERATION_TAG, this.rollsPerOperation.get());
+        return super.initCapabilities(stack, nbt);
     }
-    //endregion Overrides
 }

@@ -259,14 +259,14 @@ public class OccultismItems {
             ITEMS.register("miner_foliot_unspecialized",
                     () -> new MinerSpiritItem(defaultProperties()
                             .durability(1000),
-                            Occultism.SERVER_CONFIG.dimensionalMineshaft.minerFoliotUnspecialized.maxMiningTime::get,
-                            Occultism.SERVER_CONFIG.dimensionalMineshaft.minerFoliotUnspecialized.rollsPerOperation::get,
-                            Occultism.SERVER_CONFIG.dimensionalMineshaft.minerFoliotUnspecialized.durability::get));
+                            Occultism.SERVER_CONFIG.dimensionalMineshaft.minerFoliotUnspecialized.maxMiningTime,
+                            Occultism.SERVER_CONFIG.dimensionalMineshaft.minerFoliotUnspecialized.rollsPerOperation,
+                            Occultism.SERVER_CONFIG.dimensionalMineshaft.minerFoliotUnspecialized.durability));
     public static final RegistryObject<MinerSpiritItem> MINER_DJINNI_ORES = ITEMS.register("miner_djinni_ores",
             () -> new MinerSpiritItem(defaultProperties().durability(400)
-                    , Occultism.SERVER_CONFIG.dimensionalMineshaft.minerDjinniOres.maxMiningTime::get,
-                    Occultism.SERVER_CONFIG.dimensionalMineshaft.minerDjinniOres.rollsPerOperation::get,
-                    Occultism.SERVER_CONFIG.dimensionalMineshaft.minerDjinniOres.durability::get));
+                    , Occultism.SERVER_CONFIG.dimensionalMineshaft.minerDjinniOres.maxMiningTime,
+                    Occultism.SERVER_CONFIG.dimensionalMineshaft.minerDjinniOres.rollsPerOperation,
+                    Occultism.SERVER_CONFIG.dimensionalMineshaft.minerDjinniOres.durability));
 
 
     //JEI Dummy Items
