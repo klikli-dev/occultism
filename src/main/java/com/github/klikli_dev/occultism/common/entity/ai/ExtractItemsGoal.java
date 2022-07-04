@@ -122,7 +122,7 @@ public class ExtractItemsGoal extends PausableGoal {
                 }
 
                 //when close enough extract item
-                if (distance < 1.86 && this.canSeeTarget()) {
+                if (distance < accessDistance && this.canSeeTarget()) {
 
                     LazyOptional<IItemHandler> handlerCapability = blockEntity.getCapability(
                             CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, this.entity.getExtractFacing());
