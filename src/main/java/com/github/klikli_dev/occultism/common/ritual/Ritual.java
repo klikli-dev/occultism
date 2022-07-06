@@ -66,11 +66,13 @@ public abstract class Ritual {
      * The default range to listen for sacrifices.
      */
     public static final int SACRIFICE_DETECTION_RANGE = 8;
+    public static final int SACRIFICE_DETECTION_RANGE_SQUARE = (int)Math.pow(SACRIFICE_DETECTION_RANGE, 2);
 
     /**
      * The default range to listen for sacrifices.
      */
     public static final int ITEM_USE_DETECTION_RANGE = 16;
+    public static final int ITEM_USE_DETECTION_RANGE_SQUARE = (int)Math.pow(ITEM_USE_DETECTION_RANGE, 2);
 
     public RitualRecipe recipe;
 
