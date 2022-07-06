@@ -56,7 +56,6 @@ public class GoldenSacrificialBowlBlock extends Block implements EntityBlock {
 
     public GoldenSacrificialBowlBlock(Properties properties) {
         super(properties);
-        MinecraftForge.EVENT_BUS.register(this);
     }
 
     @Override
