@@ -54,11 +54,15 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickItem;
 import net.minecraftforge.items.IItemHandler;
 
 import java.util.*;
 import java.util.Map.Entry;
+import java.util.function.Consumer;
 
 public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity {
 
@@ -73,11 +77,17 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
     public boolean itemUseProvided;
     public int currentTime;
 
+    public Consumer<RightClickItem> rightClickItemListener;
+    public Consumer<LivingDeathEvent> livingDeathEventListener;
+
     //endregion Fields
 
     //region Initialization
     public GoldenSacrificialBowlBlockEntity(BlockPos worldPos, BlockState state) {
         super(OccultismTiles.GOLDEN_SACRIFICIAL_BOWL.get(), worldPos, state);
+
+        this.rightClickItemListener = this::onPlayerRightClickItem;
+        this.livingDeathEventListener = this::onLivingDeath;
     }
     //endregion Initialization
 
@@ -192,6 +202,10 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
             if (this.level != null) {
                 Optional<? extends Recipe<?>> recipe = this.level.getRecipeManager().byKey(this.currentRitualRecipeId);
                 recipe.map(r -> (RitualRecipe) r).ifPresent(r -> this.currentRitualRecipe = r);
+
+                MinecraftForge.EVENT_BUS.addListener(rightClickItemListener);
+                MinecraftForge.EVENT_BUS.addListener(livingDeathEventListener);
+
                 this.currentRitualRecipeId = null;
             }
         }
@@ -419,6 +433,10 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
             IItemHandler handler = this.itemStackHandler.orElseThrow(ItemHandlerMissingException::new);
             handler.insertItem(0, activationItem.split(1), false);
             this.currentRitualRecipe.getRitual().start(this.level, this.getBlockPos(), this, player, handler.getStackInSlot(0));
+
+            MinecraftForge.EVENT_BUS.addListener(rightClickItemListener);
+            MinecraftForge.EVENT_BUS.addListener(livingDeathEventListener);
+
             this.setChanged();
             this.markNetworkDirty();
         }
@@ -449,6 +467,11 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
             if (this.remainingAdditionalIngredients != null)
                 this.remainingAdditionalIngredients.clear();
             this.consumedIngredients.clear();
+
+
+            MinecraftForge.EVENT_BUS.unregister(rightClickItemListener);
+            MinecraftForge.EVENT_BUS.unregister(livingDeathEventListener);
+
             this.setChanged();
             this.markNetworkDirty();
         }
@@ -483,6 +506,32 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
             }
         }
 
+    }
+
+    public void onPlayerRightClickItem(PlayerInteractEvent.RightClickItem event) {
+        Player player = event.getPlayer();
+        if (!player.level.isClientSide && this.getCurrentRitualRecipe() != null) {
+
+            if(this.getBlockPos().distSqr(event.getPos()) <= Ritual.ITEM_USE_DETECTION_RANGE_SQUARE){
+                if (this.getCurrentRitualRecipe().getRitual().isValidItemUse(event)) {
+                    this.notifyItemUse(event);
+                }
+            }
+        }
+    }
+
+    public void onLivingDeath(LivingDeathEvent event) {
+        LivingEntity entityLivingBase = event.getEntityLiving();
+        if (!entityLivingBase.level.isClientSide && this.getCurrentRitualRecipe() != null) {
+            //Limit to player kills
+            if (event.getSource().getEntity() instanceof Player) {
+                if(this.getBlockPos().distSqr(entityLivingBase.blockPosition()) <= Ritual.SACRIFICE_DETECTION_RANGE_SQUARE){
+                    if (this.getCurrentRitualRecipe().getRitual().isValidSacrifice(entityLivingBase)) {
+                        this.notifySacrifice(entityLivingBase);
+                    }
+                }
+            }
+        }
     }
     //endregion Methods
 }

@@ -106,45 +106,6 @@ public class GoldenSacrificialBowlBlock extends Block implements EntityBlock {
         return SHAPE;
     }
 
-    @SubscribeEvent
-    public void onPlayerRightClickItem(PlayerInteractEvent.RightClickItem event) {
-        Player player = event.getPlayer();
-        if (!player.level.isClientSide) {
-            BlockPos pos = player.blockPosition();
-            int range = Ritual.ITEM_USE_DETECTION_RANGE;
-            for (BlockPos positionToCheck : BlockPos.betweenClosed(pos.offset(-range, -range, -range),
-                    pos.offset(range, range, range))) {
-                BlockEntity blockEntity = player.level.getBlockEntity(positionToCheck);
-                if (blockEntity instanceof GoldenSacrificialBowlBlockEntity bowl) {
-                    if (bowl.getCurrentRitualRecipe() != null && bowl.getCurrentRitualRecipe().getRitual().isValidItemUse(event)) {
-                        bowl.notifyItemUse(event);
-                    }
-                }
-            }
-        }
-    }
-
-    @SubscribeEvent
-    public void livingDeath(LivingDeathEvent event) {
-        LivingEntity entityLivingBase = event.getEntityLiving();
-        if (!entityLivingBase.level.isClientSide) {
-            //Limit to player kills
-            if (event.getSource().getEntity() instanceof Player) {
-                BlockPos pos = entityLivingBase.blockPosition();
-                int range = Ritual.SACRIFICE_DETECTION_RANGE;
-                for (BlockPos positionToCheck : BlockPos.betweenClosed(pos.offset(-range, -range, -range),
-                        pos.offset(range, range, range))) {
-                    BlockEntity blockEntity = entityLivingBase.level.getBlockEntity(positionToCheck);
-                    if (blockEntity instanceof GoldenSacrificialBowlBlockEntity bowl) {
-                        if (bowl.getCurrentRitualRecipe() != null && bowl.getCurrentRitualRecipe().getRitual().isValidSacrifice(entityLivingBase)) {
-                            bowl.notifySacrifice(entityLivingBase);
-                        }
-                    }
-                }
-            }
-        }
-    }
-
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
