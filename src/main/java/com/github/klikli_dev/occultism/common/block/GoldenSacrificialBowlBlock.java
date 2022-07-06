@@ -55,7 +55,6 @@ public class GoldenSacrificialBowlBlock extends Block {
     //region Initialization
     public GoldenSacrificialBowlBlock(Properties properties) {
         super(properties);
-        MinecraftForge.EVENT_BUS.register(this);
     }
     //endregion Initialization
 
@@ -114,47 +113,4 @@ public class GoldenSacrificialBowlBlock extends Block {
         return OccultismTiles.GOLDEN_SACRIFICIAL_BOWL.get().create();
     }
     //endregion Overrides
-
-    //region Methods
-    @SubscribeEvent
-    public void onPlayerRightClickItem(PlayerInteractEvent.RightClickItem event) {
-        PlayerEntity player = event.getPlayer();
-        if (!player.level.isClientSide) {
-            BlockPos pos = player.blockPosition();
-            int range = Ritual.ITEM_USE_DETECTION_RANGE;
-            for (BlockPos positionToCheck : BlockPos.betweenClosed(pos.offset(-range, -range, -range),
-                    pos.offset(range, range, range))) {
-                TileEntity tileEntity = player.level.getBlockEntity(positionToCheck);
-                if (tileEntity instanceof GoldenSacrificialBowlTileEntity) {
-                    GoldenSacrificialBowlTileEntity bowl = (GoldenSacrificialBowlTileEntity) tileEntity;
-                    if (bowl.getCurrentRitualRecipe() != null && bowl.getCurrentRitualRecipe().getRitual().isValidItemUse(event)) {
-                        bowl.notifyItemUse(event);
-                    }
-                }
-            }
-        }
-    }
-
-    @SubscribeEvent
-    public void livingDeath(LivingDeathEvent event) {
-        LivingEntity entityLivingBase = event.getEntityLiving();
-        if (!entityLivingBase.level.isClientSide) {
-            //Limit to player kills
-            if (event.getSource().getEntity() instanceof PlayerEntity) {
-                BlockPos pos = entityLivingBase.blockPosition();
-                int range = Ritual.SACRIFICE_DETECTION_RANGE;
-                for (BlockPos positionToCheck : BlockPos.betweenClosed(pos.offset(-range, -range, -range),
-                        pos.offset(range, range, range))) {
-                    TileEntity tileEntity = entityLivingBase.level.getBlockEntity(positionToCheck);
-                    if (tileEntity instanceof GoldenSacrificialBowlTileEntity) {
-                        GoldenSacrificialBowlTileEntity bowl = (GoldenSacrificialBowlTileEntity) tileEntity;
-                        if (bowl.getCurrentRitualRecipe() != null && bowl.getCurrentRitualRecipe().getRitual().isValidSacrifice(entityLivingBase)) {
-                            bowl.notifySacrifice(entityLivingBase);
-                        }
-                    }
-                }
-            }
-        }
-    }
-    //endregion Methods
 }
