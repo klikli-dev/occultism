@@ -28,11 +28,10 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 
 public class OccultismTags {
-    //region Fields
-
     // Block Tags
     public static final TagKey<Block> TREE_SOIL = makeBlockTag(new ResourceLocation(Occultism.MODID, "tree_soil"));
     public static final TagKey<Block> CAVE_WALL_BLOCKS = makeBlockTag(new ResourceLocation(Occultism.MODID, "cave_wall_blocks"));
@@ -57,9 +56,12 @@ public class OccultismTags {
     public static final TagKey<EntityType<?>> ZOMBIES = makeEntityTypeTag(new ResourceLocation("forge", "zombies"));
     public static final TagKey<EntityType<?>> BATS = makeEntityTypeTag(new ResourceLocation("forge", "bats"));
 
-    //endregion Fields
 
-    //region Static Methods
+    //Biome Tags
+
+    public static final TagKey<Biome> ALLOWS_SHUB_NIGGURRATH_TRANSFORMATION = makeBiomeTag(new ResourceLocation(Occultism.MODID, "allows_shub_niggurath_transformation"));
+
+
     public static TagKey<Item> makeItemTag(String id) {
         return makeItemTag(new ResourceLocation(id));
     }
@@ -83,5 +85,12 @@ public class OccultismTags {
     public static TagKey<EntityType<?>> makeEntityTypeTag(ResourceLocation id) {
         return TagKey.create(Registry.ENTITY_TYPE_REGISTRY, id);
     }
-    //endregion Static Methods
+
+    public static TagKey<Biome> makeBiomeTag(String id) {
+        return makeBiomeTag(new ResourceLocation(id));
+    }
+
+    public static TagKey<Biome> makeBiomeTag(ResourceLocation id) {
+        return TagKey.create(Registry.BIOME_REGISTRY, id);
+    }
 }
