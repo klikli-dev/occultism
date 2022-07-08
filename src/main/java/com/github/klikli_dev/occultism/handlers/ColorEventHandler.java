@@ -31,7 +31,7 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.FoliageColor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.ColorHandlerEvent;
+import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -40,7 +40,7 @@ public class ColorEventHandler {
 
     //region Static Methods
     @SubscribeEvent
-    public static void onRegisterBlockColors(ColorHandlerEvent.Block event) {
+    public static void onRegisterBlockColorHandlers(RegisterColorHandlersEvent.Block event) {
         event.getBlockColors()
                 .register((state, light, pos, tintIndex) -> OccultismBlocks.CHALK_GLYPH_WHITE.get().getColor(),
                         OccultismBlocks.CHALK_GLYPH_WHITE.get());
@@ -68,7 +68,7 @@ public class ColorEventHandler {
     }
 
     @SubscribeEvent
-    public static void onRegisterItemColors(ColorHandlerEvent.Item event) {
+    public static void onRegisterItemColorHandlers(RegisterColorHandlersEvent.Item event) {
         BlockColors blockColors = event.getBlockColors();
         //Otherworld leaves have a colored texture, so return white tint;
         //but while covered the oak leaves need their vanilla tint

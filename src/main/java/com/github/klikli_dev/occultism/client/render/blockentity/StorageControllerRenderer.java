@@ -131,7 +131,7 @@ public class StorageControllerRenderer implements BlockEntityRenderer<StorageCon
             float f = (float) (i >> 16 & 255) / 255.0F;
             float f1 = (float) (i >> 8 & 255) / 255.0F;
             float f2 = (float) (i & 255) / 255.0F;
-            bufferIn.putBulkData(pose, bakedquad, f, f1, f2, combinedLightIn, combinedOverlayIn, true);
+            bufferIn.putBulkData(pose, bakedquad, f, f1, f2, 1.0f, combinedLightIn, combinedOverlayIn, true);
         }
 
     }

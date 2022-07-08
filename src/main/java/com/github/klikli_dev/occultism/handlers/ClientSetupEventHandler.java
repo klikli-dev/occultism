@@ -54,9 +54,9 @@ import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.ClientRegistry;
 import net.minecraftforge.client.event.EntityRenderersEvent;
-import net.minecraftforge.client.gui.OverlayRegistry;
+import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
+import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 import net.minecraftforge.client.settings.KeyConflictContext;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -145,49 +145,28 @@ public class ClientSetupEventHandler {
     }
 
     @SubscribeEvent
+    public static void onRegisterKeyMappings(RegisterKeyMappingsEvent event){
+        event.register(KEY_BACKPACK);
+        event.register(KEY_STORAGE_REMOTE);
+
+        keysFamiliars = new HashMap<>();
+        for (EntityType<?> familiar : FamiliarSettingsCapability.getFamiliars()) {
+            KeyMapping kb = new KeyMapping("key.occultism.familiar." + ForgeRegistries.ENTITIES.getKey(familiar).getPath(), KeyConflictContext.IN_GAME,
+                    InputConstants.Type.KEYSYM.getOrCreate(-1), "key.occultism.category");
+            keysFamiliars.put(familiar, kb);
+            event.register(kb);
+        }
+    }
+
+    @SubscribeEvent
     public static void onClientSetup(FMLClientSetupEvent event) {
         //Register client side event handlers
         MinecraftForge.EVENT_BUS.register(Occultism.SELECTED_BLOCK_RENDERER);
-        MinecraftForge.EVENT_BUS.register(Occultism.THIRD_EYE_EFFECT_RENDERER);
-
-        //keybindings
-        event.enqueueWork(() -> {
-            ClientRegistry.registerKeyBinding(KEY_BACKPACK);
-            ClientRegistry.registerKeyBinding(KEY_STORAGE_REMOTE);
-
-            keysFamiliars = new HashMap<>();
-            for (EntityType<?> familiar : FamiliarSettingsCapability.getFamiliars()) {
-                KeyMapping kb = new KeyMapping("key.occultism.familiar." + ForgeRegistries.ENTITIES.getKey(familiar).getPath(), KeyConflictContext.IN_GAME,
-                        InputConstants.Type.KEYSYM.getOrCreate(-1), "key.occultism.category");
-                keysFamiliars.put(familiar, kb);
-                ClientRegistry.registerKeyBinding(kb);
-            }
-        });
 
         //Register Tile Entity Renderers
         BlockEntityRenderers.register(OccultismTiles.STORAGE_CONTROLLER.get(), StorageControllerGeoRenderer::new);
         BlockEntityRenderers.register(OccultismTiles.SACRIFICIAL_BOWL.get(), SacrificialBowlRenderer::new);
         BlockEntityRenderers.register(OccultismTiles.GOLDEN_SACRIFICIAL_BOWL.get(), SacrificialBowlRenderer::new);
-
-        //Setup block render layers
-        ItemBlockRenderTypes.setRenderLayer(OccultismBlocks.CHALK_GLYPH_WHITE.get(), RenderType.cutout());
-        ItemBlockRenderTypes.setRenderLayer(OccultismBlocks.CHALK_GLYPH_GOLD.get(), RenderType.cutout());
-        ItemBlockRenderTypes.setRenderLayer(OccultismBlocks.CHALK_GLYPH_PURPLE.get(), RenderType.cutout());
-        ItemBlockRenderTypes.setRenderLayer(OccultismBlocks.CHALK_GLYPH_RED.get(), RenderType.cutout());
-
-        ItemBlockRenderTypes.setRenderLayer(OccultismBlocks.STABLE_WORMHOLE.get(), RenderType.translucent());
-        ItemBlockRenderTypes.setRenderLayer(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL.get(), RenderType.translucent());
-        ItemBlockRenderTypes.setRenderLayer(OccultismBlocks.DATURA.get(), RenderType.cutoutMipped());
-        ItemBlockRenderTypes.setRenderLayer(OccultismBlocks.SPIRIT_FIRE.get(), RenderType.cutoutMipped());
-        ItemBlockRenderTypes.setRenderLayer(OccultismBlocks.SPIRIT_TORCH.get(), RenderType.cutoutMipped());
-        ItemBlockRenderTypes.setRenderLayer(OccultismBlocks.SPIRIT_WALL_TORCH.get(), RenderType.cutoutMipped());
-        ItemBlockRenderTypes.setRenderLayer(OccultismBlocks.SPIRIT_LANTERN.get(), RenderType.cutoutMipped());
-        ItemBlockRenderTypes.setRenderLayer(OccultismBlocks.SPIRIT_CAMPFIRE.get(), RenderType.cutoutMipped());
-        ItemBlockRenderTypes.setRenderLayer(OccultismBlocks.OTHERWORLD_SAPLING.get(), RenderType.cutoutMipped());
-        ItemBlockRenderTypes.setRenderLayer(OccultismBlocks.OTHERWORLD_SAPLING_NATURAL.get(), RenderType.cutoutMipped());
-        ItemBlockRenderTypes.setRenderLayer(OccultismBlocks.OTHERWORLD_LEAVES.get(), RenderType.cutoutMipped());
-        ItemBlockRenderTypes.setRenderLayer(OccultismBlocks.OTHERWORLD_LEAVES_NATURAL.get(), RenderType.cutoutMipped());
-
 
         registerItemModelProperties(event);
 
@@ -202,12 +181,6 @@ public class ClientSetupEventHandler {
             MenuScreens.register(OccultismContainers.OTHERWORLD_MINER.get(), DimensionalMineshaftScreen::new);
             MenuScreens.register(OccultismContainers.SATCHEL.get(), SatchelScreen::new);
             Occultism.LOGGER.debug("Registered Screen Containers");
-        });
-
-        ThirdEyeEffectRenderer.THIRD_EYE_OVERLAY = OverlayRegistry.registerOverlayTop("third_eye", (gui, poseStack, partialTick, screenWidth, screenHeight) -> {
-            gui.setupOverlayRenderState(true, false, ThirdEyeEffectRenderer.THIRD_EYE_TEXTURE);
-            RenderSystem.enableTexture();
-            Occultism.THIRD_EYE_EFFECT_RENDERER.renderOverlay(poseStack);
         });
 
         Occultism.LOGGER.debug("Registered Overlays");
@@ -234,6 +207,16 @@ public class ClientSetupEventHandler {
                     new ResourceLocation(Occultism.MODID, "linked"), new StableWormholeBlockItemPropertyGetter());
 
             Occultism.LOGGER.debug("Registered Item Properties");
+        });
+    }
+    @SubscribeEvent
+    public static void onRegisterGuiOverlays(RegisterGuiOverlaysEvent event){
+        event.registerAboveAll("third_eye", (gui, poseStack, partialTick, screenWidth, screenHeight) -> {
+            if(  Occultism.THIRD_EYE_EFFECT_RENDERER.gogglesActiveLastTick || Occultism.THIRD_EYE_EFFECT_RENDERER.thirdEyeActiveLastTick){
+                gui.setupOverlayRenderState(true, false, ThirdEyeEffectRenderer.THIRD_EYE_TEXTURE);
+                RenderSystem.enableTexture();
+                Occultism.THIRD_EYE_EFFECT_RENDERER.renderOverlay(poseStack);
+            }
         });
     }
 }
