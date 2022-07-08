@@ -28,6 +28,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.*;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 
 public class OccultismTags {
@@ -57,6 +58,10 @@ public class OccultismTags {
     public static final TagKey<EntityType<?>> ZOMBIES = makeEntityTypeTag(new ResourceLocation("forge", "zombies"));
     public static final TagKey<EntityType<?>> BATS = makeEntityTypeTag(new ResourceLocation("forge", "bats"));
 
+    //Biome Tags
+
+    public static final TagKey<Biome> ALLOWS_SHUB_NIGGURRATH_TRANSFORMATION = makeBiomeTag(new ResourceLocation(Occultism.MODID, "allows_shub_niggurath_transformation"));
+
     //endregion Fields
 
     //region Static Methods
@@ -82,6 +87,14 @@ public class OccultismTags {
 
     public static TagKey<EntityType<?>> makeEntityTypeTag(ResourceLocation id) {
         return TagKey.create(Registry.ENTITY_TYPE_REGISTRY, id);
+    }
+
+    public static TagKey<Biome> makeBiomeTag(String id) {
+        return makeBiomeTag(new ResourceLocation(id));
+    }
+
+    public static TagKey<Biome> makeBiomeTag(ResourceLocation id) {
+        return TagKey.create(Registry.BIOME_REGISTRY, id);
     }
     //endregion Static Methods
 }

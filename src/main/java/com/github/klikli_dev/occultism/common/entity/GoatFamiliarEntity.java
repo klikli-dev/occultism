@@ -25,6 +25,7 @@ package com.github.klikli_dev.occultism.common.entity;
 import com.github.klikli_dev.occultism.common.advancement.FamiliarTrigger;
 import com.github.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
+import com.github.klikli_dev.occultism.registry.OccultismTags;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -41,8 +42,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.biome.Biome.BiomeCategory;
 import net.minecraftforge.common.Tags;
 
 public class GoatFamiliarEntity extends ResizableFamiliarEntity {
@@ -163,9 +162,9 @@ public class GoatFamiliarEntity extends ResizableFamiliarEntity {
     protected InteractionResult mobInteract(Player playerIn, InteractionHand hand) {
         ItemStack stack = playerIn.getItemInHand(hand);
         Item item = stack.getItem();
-        boolean isInForest = this.isInForest(playerIn) || this.isInForest(this);
+        boolean isInTransformationBiome = this.isInTransformationBiome(playerIn) || this.isInTransformationBiome(this);
         if (this.isTransformItem(stack) && playerIn == this.getFamiliarOwner()) {
-            if (isInForest) {
+            if (isInTransformationBiome) {
                 if (!this.level.isClientSide)
                     stack.shrink(1);
                 if (stack.is(Tags.Items.DYES_BLACK))
@@ -210,8 +209,8 @@ public class GoatFamiliarEntity extends ResizableFamiliarEntity {
     }
 
     @SuppressWarnings("deprecation")
-    private boolean isInForest(Entity entity) {
-        return Biome.getBiomeCategory(this.level.getBiome(entity.blockPosition())) == BiomeCategory.FOREST;
+    private boolean isInTransformationBiome(Entity entity) {
+        return this.level.getBiome(entity.blockPosition()).is(OccultismTags.ALLOWS_SHUB_NIGGURRATH_TRANSFORMATION);
     }
 
     public float getNeckYRot(float pPartialTick) {
