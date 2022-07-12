@@ -62,7 +62,7 @@ public class LootEventHandler {
         if (!(stack.is(Tags.Items.COBBLESTONE) || stack.is(Tags.Items.STONE)))
             return;
 
-        Player player = event.getPlayer();
+        Player player = event.getEntity();
 
         if (!FamiliarUtil.isFamiliarEnabled(player, OccultismEntities.BLACKSMITH_FAMILIAR.get()) || !FamiliarUtil.hasFamiliar(player, OccultismEntities.BLACKSMITH_FAMILIAR.get()))
             return;

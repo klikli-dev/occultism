@@ -40,7 +40,7 @@ import static com.github.klikli_dev.occultism.util.StaticUtil.modLoc;
 
 public class OccultismEntities {
     //region Fields
-    public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITIES,
+    public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES,
             Occultism.MODID);
 
     public static final NonNullLazy<EntityType<FoliotEntity>> FOLIOT_TYPE =

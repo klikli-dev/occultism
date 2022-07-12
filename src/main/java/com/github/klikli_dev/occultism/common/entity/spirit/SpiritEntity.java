@@ -618,7 +618,7 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
 
         if (itemStack.isEmpty()) {
             if (this.isTame() && player.isShiftKeyDown()) {
-                this.openGUI(player);
+                this.openScreen(player);
                 return InteractionResult.SUCCESS;
             }
         }
@@ -650,7 +650,7 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
         return this.job.map(job -> job.canPickupItem(entity)).orElse(false);
     }
 
-    public void openGUI(Player playerEntity) {
+    public void openScreen(Player playerEntity) {
         if (!this.level.isClientSide) {
             MenuProvider menuProvider = this;
 
@@ -658,7 +658,7 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
             if (currentJob instanceof MenuProvider)
                 menuProvider = (MenuProvider) currentJob;
 
-            NetworkHooks.openGui((ServerPlayer) playerEntity, menuProvider, (buf) -> buf.writeInt(this.getId()));
+            NetworkHooks.openScreen ((ServerPlayer) playerEntity, menuProvider, (buf) -> buf.writeInt(this.getId()));
         }
     }
 }

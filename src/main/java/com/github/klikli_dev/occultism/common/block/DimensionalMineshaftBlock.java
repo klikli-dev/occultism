@@ -103,7 +103,7 @@ public class DimensionalMineshaftBlock extends Block implements EntityBlock {
         if (!level.isClientSide) {
             BlockEntity blockEntity = level.getBlockEntity(pos);
             if (blockEntity instanceof MenuProvider) {
-                NetworkHooks.openGui((ServerPlayer) player, (MenuProvider) blockEntity, pos);
+                NetworkHooks.openScreen((ServerPlayer) player, (MenuProvider) blockEntity, pos);
             }
         }
         return InteractionResult.SUCCESS;

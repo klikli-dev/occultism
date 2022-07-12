@@ -302,8 +302,8 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
                 }
 
                 //handle container item refunding
-                if (!stackInSlot.getItem().getContainerItem(stackInSlot).isEmpty()) {
-                    ItemStack container = stackInSlot.getItem().getContainerItem(stackInSlot);
+                if (!stackInSlot.getItem().getCraftingRemainingItem(stackInSlot).isEmpty()) {
+                    ItemStack container = stackInSlot.getItem().getCraftingRemainingItem (stackInSlot);
                     if (!stackInSlot.isStackable()) {
                         stackInSlot = container;
                         this.matrix.setItem(i, stackInSlot);

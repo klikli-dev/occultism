@@ -83,7 +83,7 @@ public class PentacleManager extends SimpleJsonResourceReloadListener {
 
     @SubscribeEvent
     public static void syncPentacles(PlayerLoggedInEvent event) {
-        getInstance().sendPentacleMessage((ServerPlayer) event.getPlayer());
+        getInstance().sendPentacleMessage((ServerPlayer) event.getEntity());
     }
 
     @Override

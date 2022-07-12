@@ -33,7 +33,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -51,7 +51,7 @@ public class CapabilityEventHandler {
     }
 
     @SubscribeEvent
-    public static void onEntityJoinWorld(final EntityJoinWorldEvent evt) {
+    public static void onEntityJoinWorld(final EntityJoinLevelEvent evt) {
         if (evt.getEntity() instanceof ServerPlayer) {
             ServerPlayer player = (ServerPlayer) evt.getEntity();
             int jumps = player.getCapability(OccultismCapabilities.DOUBLE_JUMP).map(DoubleJumpCapability::getJumps).orElse(0);

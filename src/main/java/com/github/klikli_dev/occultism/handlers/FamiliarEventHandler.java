@@ -43,9 +43,9 @@ import net.minecraft.world.phys.AABB;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.event.entity.living.PotionEvent;
+import net.minecraftforge.event.entity.living.MobEffectEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.event.world.SaplingGrowTreeEvent;
+import net.minecraftforge.event.level.SaplingGrowTreeEvent;
 import net.minecraftforge.eventbus.api.Event.Result;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -57,9 +57,9 @@ public class FamiliarEventHandler {
 
     @SubscribeEvent
     public static void beaverFindTree(SaplingGrowTreeEvent event) {
-        LevelAccessor world = event.getWorld();
+        LevelAccessor world = event.getLevel();
         BlockPos pos = event.getPos();
-        List<BeaverFamiliarEntity> beavers = event.getWorld().getEntitiesOfClass(BeaverFamiliarEntity.class,
+        List<BeaverFamiliarEntity> beavers = event.getLevel().getEntitiesOfClass(BeaverFamiliarEntity.class,
                 new AABB(pos).inflate(30), b -> !b.isSitting() && b.isEffectEnabled(b.getFamiliarOwner()));
 
         if (!beavers.isEmpty()) {
@@ -71,7 +71,7 @@ public class FamiliarEventHandler {
 
     @SubscribeEvent
     public static void beaverHarvest(PlayerEvent.BreakSpeed event) {
-        Player player = event.getPlayer();
+        Player player = event.getEntity();
 
         if (!event.getState().is(BlockTags.LOGS))
             return;
@@ -87,7 +87,7 @@ public class FamiliarEventHandler {
 
     @SubscribeEvent
     public static void dodge(LivingHurtEvent event) {
-        LivingEntity entity = event.getEntityLiving();
+        LivingEntity entity = event.getEntity();
 
         if (!entity.hasEffect(OccultismEffects.MUMMY_DODGE.get()))
             return;
@@ -126,7 +126,7 @@ public class FamiliarEventHandler {
     }
 
     private static void fairySave(LivingDeathEvent event) {
-        LivingEntity entity = event.getEntityLiving();
+        LivingEntity entity = event.getEntity();
 
         if (event.getSource().isBypassInvul() || !(entity instanceof IFamiliar)
                 || entity.getType() == OccultismEntities.GUARDIAN_FAMILIAR.get()
@@ -162,7 +162,7 @@ public class FamiliarEventHandler {
         if (!FamiliarUtil.isFamiliarEnabled(player, OccultismEntities.HEADLESS_FAMILIAR.get()))
             return;
 
-        EntityType<?> headType = event.getEntityLiving().getType();
+        EntityType<?> headType = event.getEntity().getType();
 
         if (!FamiliarUtil.hasFamiliar(player, OccultismEntities.HEADLESS_FAMILIAR.get(),
                 h -> h.getHeadType() == headType))
@@ -182,10 +182,10 @@ public class FamiliarEventHandler {
         List<HeadlessFamiliarEntity> headlesses = FamiliarUtil.getAllFamiliars(player,
                 OccultismEntities.HEADLESS_FAMILIAR.get());
 
-        if (!headlesses.isEmpty() && event.getEntityLiving().getType() == OccultismEntities.CTHULHU_FAMILIAR.get())
+        if (!headlesses.isEmpty() && event.getEntity().getType() == OccultismEntities.CTHULHU_FAMILIAR.get())
             OccultismAdvancements.FAMILIAR.trigger(player, FamiliarTrigger.Type.HEADLESS_CTHULHU_HEAD);
 
-        headlesses.forEach(h -> h.setHeadType(event.getEntityLiving().getType()));
+        headlesses.forEach(h -> h.setHeadType(event.getEntity().getType()));
     }
 
     private static void guardianUltimateSacrifice(LivingDeathEvent event) {
@@ -211,11 +211,11 @@ public class FamiliarEventHandler {
     }
 
     @SubscribeEvent
-    public static void beholderBlindnessImmune(PotionEvent.PotionApplicableEvent event) {
-        if (event.getPotionEffect().getEffect() != MobEffects.BLINDNESS)
+    public static void beholderBlindnessImmune(MobEffectEvent.Applicable event) {
+        if (event.getEffectInstance().getEffect() != MobEffects.BLINDNESS)
             return;
 
-        LivingEntity entity = event.getEntityLiving();
+        LivingEntity entity = event.getEntity();
         EntityType<BeholderFamiliarEntity> beholder = OccultismEntities.BEHOLDER_FAMILIAR.get();
 
         if (!FamiliarUtil.hasFamiliar(entity, beholder, FamiliarEntity::hasBlacksmithUpgrade))

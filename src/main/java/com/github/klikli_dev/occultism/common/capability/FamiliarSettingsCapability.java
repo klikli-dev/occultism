@@ -100,15 +100,15 @@ public class FamiliarSettingsCapability implements INBTSerializable<CompoundTag>
     public CompoundTag serializeNBT() {
         CompoundTag compound = new CompoundTag();
         for (Entry<EntityType<?>, Boolean> entry : this.familiarEnabled.entrySet())
-            compound.putBoolean(ForgeRegistries.ENTITIES.getKey(entry.getKey()).getPath(), entry.getValue());
+            compound.putBoolean(ForgeRegistries.ENTITY_TYPES.getKey(entry.getKey()).getPath(), entry.getValue());
         return compound;
     }
 
     @Override
     public void deserializeNBT(CompoundTag nbt) {
         for (EntityType<?> familiar : getFamiliars())
-            if (nbt.contains(ForgeRegistries.ENTITIES.getKey(familiar).getPath()))
-                this.familiarEnabled.put(familiar, nbt.getBoolean(ForgeRegistries.ENTITIES.getKey(familiar).getPath()));
+            if (nbt.contains(ForgeRegistries.ENTITY_TYPES.getKey(familiar).getPath()))
+                this.familiarEnabled.put(familiar, nbt.getBoolean(ForgeRegistries.ENTITY_TYPES.getKey(familiar).getPath()));
     }
 
     public static class Dispatcher implements ICapabilitySerializable<CompoundTag> {

@@ -53,7 +53,7 @@ public class OccultismCapabilities {
         //only handle respawn after death -> not portal transfers
         if (event.isWasDeath()) {
             //copy capability to new player instance
-            event.getPlayer().getCapability(OccultismCapabilities.FAMILIAR_SETTINGS).ifPresent(newCap -> {
+            event.getEntity().getCapability(OccultismCapabilities.FAMILIAR_SETTINGS).ifPresent(newCap -> {
                         event.getOriginal().getCapability(OccultismCapabilities.FAMILIAR_SETTINGS).ifPresent(oldCap -> {
                             newCap.clone(oldCap);
                         });

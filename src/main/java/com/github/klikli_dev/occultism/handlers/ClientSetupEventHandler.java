@@ -151,7 +151,7 @@ public class ClientSetupEventHandler {
 
         keysFamiliars = new HashMap<>();
         for (EntityType<?> familiar : FamiliarSettingsCapability.getFamiliars()) {
-            KeyMapping kb = new KeyMapping("key.occultism.familiar." + ForgeRegistries.ENTITIES.getKey(familiar).getPath(), KeyConflictContext.IN_GAME,
+            KeyMapping kb = new KeyMapping("key.occultism.familiar." + ForgeRegistries.ENTITY_TYPES.getKey(familiar).getPath(), KeyConflictContext.IN_GAME,
                     InputConstants.Type.KEYSYM.getOrCreate(-1), "key.occultism.category");
             keysFamiliars.put(familiar, kb);
             event.register(kb);

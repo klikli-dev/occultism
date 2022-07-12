@@ -221,7 +221,7 @@ public class StableWormholeBlock extends Block implements EntityBlock {
             BlockEntity blockEntity = level.getBlockEntity(pos);
             if (blockEntity instanceof StableWormholeBlockEntity wormhole) {
                 if (wormhole.getLinkedStorageController() != null)
-                    NetworkHooks.openGui((ServerPlayer) player, wormhole, pos);
+                    NetworkHooks.openScreen((ServerPlayer) player, wormhole, pos);
                 else {
                     level.setBlock(pos, state.setValue(LINKED, false), 2);
                 }

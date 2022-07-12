@@ -31,6 +31,8 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.client.event.RenderLevelLastEvent;
+import net.minecraftforge.client.event.RenderLevelStageEvent;
+import net.minecraftforge.client.event.RenderLevelStageEvent.Stage;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 import java.awt.*;
@@ -79,11 +81,14 @@ public class SelectedBlockRenderer {
     }
 
     @SubscribeEvent
-    public void RenderLevelLastEvent(RenderLevelLastEvent event) {
+    public void RenderLevelLastEvent(RenderLevelStageEvent event) {
         this.renderSelectedBlocks(event);
     }
 
-    protected void renderSelectedBlocks(RenderLevelLastEvent event) {
+    protected void renderSelectedBlocks(RenderLevelStageEvent event) {
+        if(event.getStage() != Stage.AFTER_TRANSLUCENT_BLOCKS)
+            return;
+
         if (!this.selectedBlocks.isEmpty()) {
             long time = System.currentTimeMillis();
 

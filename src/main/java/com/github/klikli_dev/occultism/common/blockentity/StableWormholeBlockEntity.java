@@ -111,7 +111,7 @@ public class StableWormholeBlockEntity extends NetworkedBlockEntity implements I
     //region Overrides
     @Override
     public Component getDisplayName() {
-        return Component.literal(ForgeRegistries.BLOCK_ENTITIES.getKey(this.getType()).getPath());
+        return Component.literal(ForgeRegistries.BLOCK_ENTITY_TYPES.getKey(this.getType()).getPath());
     }
 
     @Override

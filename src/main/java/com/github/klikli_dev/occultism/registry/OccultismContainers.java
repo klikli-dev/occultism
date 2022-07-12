@@ -43,7 +43,7 @@ import net.minecraftforge.registries.RegistryObject;
 public class OccultismContainers {
     //region Fields
     public static final DeferredRegister<MenuType<?>> CONTAINERS = DeferredRegister.create(
-            ForgeRegistries.CONTAINERS, Occultism.MODID);
+            ForgeRegistries.MENU_TYPES, Occultism.MODID);
 
     public static final RegistryObject<MenuType<StorageControllerContainer>> STORAGE_CONTROLLER =
             CONTAINERS.register("storage_controller",
