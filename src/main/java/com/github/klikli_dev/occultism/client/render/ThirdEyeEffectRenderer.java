@@ -54,7 +54,6 @@ public class ThirdEyeEffectRenderer {
             "shaders/post/third_eye.json");
     public static final ResourceLocation THIRD_EYE_TEXTURE = new ResourceLocation(Occultism.MODID,
             "textures/overlay/third_eye.png");
-    public static IGuiOverlay THIRD_EYE_OVERLAY;
     public boolean thirdEyeActiveLastTick = false;
     public boolean gogglesActiveLastTick = false;
 
