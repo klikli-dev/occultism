@@ -359,7 +359,7 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
         }
 
         //now actually give to the players
-        ItemStack finalResult = new ItemStack(result.getItem(), 0);
+        ItemStack finalResult = new ItemStack(result.getItem(), 0, result.getTag());
         for (ItemStack intermediateResult : resultList) {
             finalResult.setCount(finalResult.getCount() + intermediateResult.getCount());
         }
