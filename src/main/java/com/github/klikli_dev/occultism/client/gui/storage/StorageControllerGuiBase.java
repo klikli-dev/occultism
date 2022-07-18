@@ -217,12 +217,13 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
         int searchBarLeft = 9 + ORDER_AREA_OFFSET;
         int searchBarTop = 7;
-        boolean focus = true;
+        boolean focus = false;
+
         String searchBarText = "";
         if (this.searchBar != null) {
             searchBarText = this.searchBar.getValue();
-            if (!this.searchBar.isFocused()) {
-                focus = false;
+            if (this.searchBar.isFocused()) {
+                focus = true;
             }
         }
 
