@@ -162,6 +162,7 @@ public class ClientSetupEventHandler {
     public static void onClientSetup(FMLClientSetupEvent event) {
         //Register client side event handlers
         MinecraftForge.EVENT_BUS.register(Occultism.SELECTED_BLOCK_RENDERER);
+        MinecraftForge.EVENT_BUS.register(Occultism.THIRD_EYE_EFFECT_RENDERER);
 
         //Register Tile Entity Renderers
         BlockEntityRenderers.register(OccultismTiles.STORAGE_CONTROLLER.get(), StorageControllerGeoRenderer::new);

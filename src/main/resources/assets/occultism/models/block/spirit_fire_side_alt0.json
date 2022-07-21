@@ -1,6 +1,5 @@
 {
   "parent": "minecraft:block/template_fire_side_alt",
-  "render_type": "cutout_mipped",
   "textures": {
     "fire": "occultism:block/spirit_fire_layer_0"
   }
