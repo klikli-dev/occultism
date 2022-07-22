@@ -22,7 +22,10 @@
 
 package com.github.klikli_dev.occultism.loot;
 
+import com.google.common.base.Suppliers;
 import com.google.gson.JsonObject;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
@@ -30,13 +33,25 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
-import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
+import net.minecraftforge.common.loot.IGlobalLootModifier;
 import net.minecraftforge.common.loot.LootModifier;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 public class AddItemModifier extends LootModifier {
+
+    public static final Supplier<Codec<AddItemModifier>> CODEC = Suppliers.memoize(() ->
+            RecordCodecBuilder.create( instance ->
+                    instance.group(
+                            LOOT_CONDITIONS_CODEC.fieldOf("conditions").forGetter(lm -> lm.conditions),
+                                    ForgeRegistries.ITEMS.getCodec().fieldOf("item").forGetter(lm -> lm.addedItem),
+                                    Codec.intRange(0, Integer.MAX_VALUE).fieldOf("count").forGetter((lm) -> lm.count)
+                            )
+
+                    .apply(instance, AddItemModifier::new)));
+
     private final Item addedItem;
     private final int count;
 
@@ -52,20 +67,8 @@ public class AddItemModifier extends LootModifier {
         return generatedLoot;
     }
 
-    public static class Serializer extends GlobalLootModifierSerializer<AddItemModifier> {
-        @Override
-        public AddItemModifier read(ResourceLocation location, JsonObject object, LootItemCondition[] ailootcondition) {
-            Item addedItem = ForgeRegistries.ITEMS.getValue(new ResourceLocation((GsonHelper.getAsString(object, "item"))));
-            int count = GsonHelper.getAsInt(object, "count", 1);
-            return new AddItemModifier(ailootcondition, addedItem, count);
-        }
-
-        @Override
-        public JsonObject write(AddItemModifier instance) {
-            var json = new JsonObject();
-            json.addProperty("item", ForgeRegistries.ITEMS.getKey(instance.addedItem).toString());
-            json.addProperty("count", instance.count);
-            return json;
-        }
+    @Override
+    public Codec<? extends IGlobalLootModifier> codec() {
+        return CODEC.get();
     }
 }

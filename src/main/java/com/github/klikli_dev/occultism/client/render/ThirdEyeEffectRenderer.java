@@ -38,8 +38,9 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.client.gui.IIngameOverlay;
-import net.minecraftforge.client.gui.OverlayRegistry;
+import net.minecraftforge.client.event.RenderGuiOverlayEvent;
+import net.minecraftforge.client.gui.overlay.GuiOverlayManager;
+import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
@@ -53,7 +54,6 @@ public class ThirdEyeEffectRenderer {
             "shaders/post/third_eye.json");
     public static final ResourceLocation THIRD_EYE_TEXTURE = new ResourceLocation(Occultism.MODID,
             "textures/overlay/third_eye.png");
-    public static IIngameOverlay THIRD_EYE_OVERLAY;
     public boolean thirdEyeActiveLastTick = false;
     public boolean gogglesActiveLastTick = false;
 
@@ -64,10 +64,9 @@ public class ThirdEyeEffectRenderer {
         if (event.player.level.isClientSide && event.player == Minecraft.getInstance().player) {
             this.onThirdEyeTick(event);
             this.onGogglesTick(event);
-
-            OverlayRegistry.enableOverlay(THIRD_EYE_OVERLAY, this.thirdEyeActiveLastTick || this.gogglesActiveLastTick);
         }
     }
+
 
     public void renderOverlay(PoseStack pose) {
         RenderSystem.enableBlend();

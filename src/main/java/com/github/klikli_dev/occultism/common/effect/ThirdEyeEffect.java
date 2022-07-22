@@ -23,8 +23,10 @@
 package com.github.klikli_dev.occultism.common.effect;
 
 import com.github.klikli_dev.occultism.Occultism;
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.screens.inventory.EffectRenderingInventoryScreen;
 import net.minecraft.resources.ResourceLocation;
@@ -32,36 +34,31 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraftforge.client.EffectRenderer;
+import net.minecraftforge.client.extensions.common.IClientMobEffectExtensions;
+
+import java.util.function.Consumer;
 
 public class ThirdEyeEffect extends MobEffect {
 
-    //region Fields
     public static final ResourceLocation ICON = new ResourceLocation(Occultism.MODID,
             "textures/mob_effect/third_eye.png");
-    //endregion Fields
 
-    public static final EffectRenderer EFFECT_RENDERER = new EffectRenderer() {
-        @Override
-        public void renderInventoryEffect(MobEffectInstance effect, EffectRenderingInventoryScreen<?> gui, PoseStack mStack, int x, int y, float z) {
-            gui.getMinecraft().getTextureManager().bindForSetup(ICON);
-            GuiComponent.blit(mStack, x + 6, y + 7, 18, 18, 0, 0, 255, 255, 256, 256);
-        }
+    public static final IClientMobEffectExtensions EFFECT_RENDERER = new IClientMobEffectExtensions() {
 
         @Override
-        public void renderHUDEffect(MobEffectInstance effect, GuiComponent gui, PoseStack mStack, int x, int y, float z, float alpha) {
-            Minecraft.getInstance().getTextureManager().bindForSetup(ICON);
-            GuiComponent.blit(mStack, x + 3, y + 3, 18, 18, 0, 0, 255, 255, 256, 256);
+        public boolean renderGuiIcon(MobEffectInstance instance, Gui gui, PoseStack poseStack, int x, int y, float z, float alpha) {
+            RenderSystem.setShaderTexture(0, ICON);
+            GuiComponent.blit(poseStack, x + 3, y + 3, 18, 18, 0, 0, 255, 255, 256, 256);
+
+            return true;
         }
+
     };
 
-    //region Initialization
     public ThirdEyeEffect() {
         super(MobEffectCategory.BENEFICIAL, 0xffff00);
     }
-    //endregion Initialization
 
-    //region Overrides
     @Override
     public void applyEffectTick(LivingEntity entityLivingBaseIn, int amplifier) {
     }
@@ -77,5 +74,8 @@ public class ThirdEyeEffect extends MobEffect {
     }
 
 
-    //endregion Overrides
+    @Override
+    public void initializeClient(Consumer<IClientMobEffectExtensions> consumer) {
+        consumer.accept(EFFECT_RENDERER);
+    }
 }

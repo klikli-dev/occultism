@@ -30,14 +30,14 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.FlameParticle;
 import net.minecraft.client.particle.ParticleEngine;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
+import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = Occultism.MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class ClientRegistryEventHandler {
     @SubscribeEvent()
-    public static void onRegisterParticleFactories(ParticleFactoryRegisterEvent event) {
+    public static void onRegisterParticleProviders(RegisterParticleProvidersEvent event) {
         ParticleEngine manager = Minecraft.getInstance().particleEngine;
         manager.register(OccultismParticles.RITUAL_WAITING.get(), RitualWaitingParticle.Factory::new);
         manager.register(OccultismParticles.SNOWFLAKE.get(), SnowflakeParticle.Factory::new);

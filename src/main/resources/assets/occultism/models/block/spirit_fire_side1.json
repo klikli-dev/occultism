@@ -1,6 +1,7 @@
 {
   "parent": "minecraft:block/template_fire_side",
+  "render_type": "minecraft:cutout",
   "textures": {
-    "fire": "occultism:block/spirit_fire_layer_1"
+    "fire": "occultism:block/spirit_fire_1"
   }
 }

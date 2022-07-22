@@ -85,7 +85,7 @@ public class StorageControllerBlock extends Block implements EntityBlock {
         if (!level.isClientSide) {
             BlockEntity blockEntity = level.getBlockEntity(pos);
             if (blockEntity instanceof MenuProvider provider) {
-                NetworkHooks.openGui((ServerPlayer) player, provider, pos);
+                NetworkHooks.openScreen((ServerPlayer) player, provider, pos);
             }
         }
         return InteractionResult.SUCCESS;

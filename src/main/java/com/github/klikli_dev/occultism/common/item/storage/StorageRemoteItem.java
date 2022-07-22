@@ -113,7 +113,7 @@ public class StorageRemoteItem extends Item implements MenuProvider {
 
         //then access it and if it fits, open UI
         if (storageControllerWorld.getBlockEntity(storageControllerPos.getPos()) instanceof IStorageController) {
-            NetworkHooks.openGui((ServerPlayer) player, this, buffer -> buffer.writeVarInt(player.getInventory().selected));
+            NetworkHooks.openScreen((ServerPlayer) player, this, buffer -> buffer.writeVarInt(player.getInventory().selected));
             return new InteractionResultHolder<>(InteractionResult.SUCCESS, stack);
         }
         return super.use(level, player, hand);

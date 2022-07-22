@@ -32,7 +32,7 @@ import net.minecraftforge.registries.RegistryObject;
 public class OccultismTiles {
     //region Fields
     public static final DeferredRegister<BlockEntityType<?>> TILES = DeferredRegister.create(
-            ForgeRegistries.BLOCK_ENTITIES, Occultism.MODID);
+            ForgeRegistries.BLOCK_ENTITY_TYPES, Occultism.MODID);
 
     public static final RegistryObject<BlockEntityType<StorageControllerBlockEntity>> STORAGE_CONTROLLER = TILES.register(
             "storage_controller", () -> BlockEntityType.Builder.of(StorageControllerBlockEntity::new,

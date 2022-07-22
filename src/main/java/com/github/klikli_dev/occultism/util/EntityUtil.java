@@ -92,7 +92,7 @@ public class EntityUtil {
     public static Entity entityFromNBT(Level level, CompoundTag nbtTagCompound) {
         ResourceLocation typeId = new ResourceLocation(nbtTagCompound.getString("id"));
 
-        Entity entity = ForgeRegistries.ENTITIES.getValue(typeId).create(level);
+        Entity entity = ForgeRegistries.ENTITY_TYPES.getValue(typeId).create(level);
         entity.deserializeNBT(nbtTagCompound);
         return entity;
     }
@@ -105,7 +105,7 @@ public class EntityUtil {
      */
     public static EntityType<?> entityTypeFromNbt(CompoundTag nbtTagCompound) {
         ResourceLocation typeId = new ResourceLocation(nbtTagCompound.getString("id"));
-        return ForgeRegistries.ENTITIES.getValue(typeId);
+        return ForgeRegistries.ENTITY_TYPES.getValue(typeId);
     }
     //endregion Static Methods
 

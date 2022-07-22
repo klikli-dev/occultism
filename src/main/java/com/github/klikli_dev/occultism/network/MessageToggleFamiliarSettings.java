@@ -59,7 +59,7 @@ public class MessageToggleFamiliarSettings extends MessageBase {
                     cap.setFamiliarEnabled(toggle.getKey(), !cap.isFamiliarEnabled(toggle.getKey()));
                     player.displayClientMessage(
                             Component.translatable(
-                                    "message." + Occultism.MODID + ".familiar." + ForgeRegistries.ENTITIES.getKey(toggle.getKey()).getPath() +
+                                    "message." + Occultism.MODID + ".familiar." + ForgeRegistries.ENTITY_TYPES.getKey(toggle.getKey()).getPath() +
                                             (cap.isFamiliarEnabled(toggle.getKey()) ? ".enabled" : ".disabled")), true);
                 }
             }

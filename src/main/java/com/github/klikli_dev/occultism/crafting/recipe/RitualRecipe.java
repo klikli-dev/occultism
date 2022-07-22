@@ -216,7 +216,7 @@ public class RitualRecipe extends ShapelessRecipe {
 
             EntityType<?> entityToSummon = null;
             if (json.has("entity_to_summon")) {
-                entityToSummon = ForgeRegistries.ENTITIES.getValue(new ResourceLocation(GsonHelper.getAsString(json, "entity_to_summon")));
+                entityToSummon = ForgeRegistries.ENTITY_TYPES.getValue(new ResourceLocation(GsonHelper.getAsString(json, "entity_to_summon")));
             }
 
             JsonElement activationItemElement =
@@ -307,7 +307,7 @@ public class RitualRecipe extends ShapelessRecipe {
 
             buffer.writeBoolean(recipe.entityToSummon != null);
             if (recipe.entityToSummon != null)
-                buffer.writeRegistryId(ForgeRegistries.ENTITIES, recipe.entityToSummon);
+                buffer.writeRegistryId(ForgeRegistries.ENTITY_TYPES, recipe.entityToSummon);
 
             buffer.writeResourceLocation(recipe.pentacleId);
             buffer.writeVarInt(recipe.duration);

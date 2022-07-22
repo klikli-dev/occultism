@@ -65,7 +65,7 @@ public class MessageOpenSatchel extends MessageBase {
         if (backpackStack.getItem() instanceof SatchelItem) {
             ItemStack finalBackpackStack = backpackStack;
             int finalSelectedSlot = selectedSlot;
-            NetworkHooks.openGui(player,
+            NetworkHooks.openScreen(player,
                     new SimpleMenuProvider((id, playerInventory, unused) -> {
                         return new SatchelContainer(id, playerInventory,
                                 ((SatchelItem) finalBackpackStack.getItem()).getInventory(player, finalBackpackStack),

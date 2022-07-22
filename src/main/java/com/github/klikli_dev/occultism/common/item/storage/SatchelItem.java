@@ -55,7 +55,7 @@ public class SatchelItem extends Item {
             //here we use main hand item as selected slot
             int selectedSlot = hand == InteractionHand.MAIN_HAND ? player.getInventory().selected : -1;
 
-            NetworkHooks.openGui((ServerPlayer) player,
+            NetworkHooks.openScreen((ServerPlayer) player,
                     new SimpleMenuProvider((id, playerInventory, unused) -> {
                         return new SatchelContainer(id, playerInventory,
                                 this.getInventory((ServerPlayer) player, stack), selectedSlot);

@@ -1,6 +1,7 @@
 {
   "parent": "block/block",
   "ambientocclusion": true,
+  "render_type": "cutout",
   "textures": {
     "particle": "#texture"
   },

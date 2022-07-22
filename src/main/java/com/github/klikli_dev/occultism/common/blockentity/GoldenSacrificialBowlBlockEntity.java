@@ -511,7 +511,7 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
     }
 
     public void onPlayerRightClickItem(PlayerInteractEvent.RightClickItem event) {
-        Player player = event.getPlayer();
+        Player player = event.getEntity();
         if (!player.level.isClientSide && this.getCurrentRitualRecipe() != null) {
 
             if(this.getBlockPos().distSqr(event.getPos()) <= Ritual.ITEM_USE_DETECTION_RANGE_SQUARE){
@@ -523,7 +523,7 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
     }
 
     public void onLivingDeath(LivingDeathEvent event) {
-        LivingEntity entityLivingBase = event.getEntityLiving();
+        LivingEntity entityLivingBase = event.getEntity();
         if (!entityLivingBase.level.isClientSide && this.getCurrentRitualRecipe() != null) {
             //Limit to player kills
             if (event.getSource().getEntity() instanceof Player) {

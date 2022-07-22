@@ -2,6 +2,7 @@
   "credit": "Made with Blockbench",
   "parent": "block/block",
   "ambientocclusion": false,
+  "render_type": "translucent",
   "textures": {
     "0": "occultism:block/spirit_attuned_crystal",
     "particle": "occultism:block/spirit_attuned_crystal"

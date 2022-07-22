@@ -62,25 +62,25 @@ public class PlayerEventHandler {
             //find if there is any datura
             AABB box = new AABB(-1, -1, -1, 1, 1, 1)
                     .move(Math3DUtil.center(event.getPos()));
-            List<ItemEntity> list = event.getWorld().getEntitiesOfClass(ItemEntity.class, box,
+            List<ItemEntity> list = event.getLevel().getEntitiesOfClass(ItemEntity.class, box,
                     item -> item.getItem().getItem() == OccultismItems.DATURA.get());
             if (!list.isEmpty()) {
                 //if there is datura, check if we can edit the target face
                 BlockPos pos = event.getPos().relative(event.getFace());
-                if (!event.getPlayer().mayUseItemAt(pos, event.getFace(), event.getItemStack())) {
+                if (!event.getEntity().mayUseItemAt(pos, event.getFace(), event.getItemStack())) {
                     return;
                 }
 
                 //consume all datura
                 list.forEach(e -> e.remove(Entity.RemovalReason.DISCARDED));
 
-                Level level = event.getWorld();
+                Level level = event.getLevel();
                 //if there is air, place block and play sound
                 if (level.isEmptyBlock(pos)) {
                     //sound based on the item used
                     SoundEvent soundEvent =
                             isFlintAndSteel ? SoundEvents.FLINTANDSTEEL_USE : SoundEvents.FIRECHARGE_USE;
-                    level.playSound(event.getPlayer(), pos, soundEvent,
+                    level.playSound(event.getEntity(), pos, soundEvent,
                             SoundSource.BLOCKS, 1.0F, level.random.nextFloat() * 0.4F + 0.8F);
 
                     level.setBlock(pos, OccultismBlocks.SPIRIT_FIRE.get().defaultBlockState(), 11);
@@ -88,7 +88,7 @@ public class PlayerEventHandler {
 
                 //now handle used item
                 if (isFlintAndSteel) {
-                    event.getItemStack().hurtAndBreak(1, event.getPlayer(), (player) -> {
+                    event.getItemStack().hurtAndBreak(1, event.getEntity(), (player) -> {
                         player.broadcastBreakEvent(event.getHand());
                     });
                 } else if (isFireCharge) {
@@ -97,22 +97,22 @@ public class PlayerEventHandler {
 
                 //finally, cancel original event to prevent real action and show use animation
                 event.setCanceled(true);
-                event.getPlayer().swing(InteractionHand.MAIN_HAND);
+                event.getEntity().swing(InteractionHand.MAIN_HAND);
             }
         }
     }
 
     private static void dancingFamiliars(PlayerInteractEvent.RightClickBlock event) {
-        BlockState state = event.getWorld().getBlockState(event.getPos());
+        BlockState state = event.getLevel().getBlockState(event.getPos());
         if (!state.hasProperty(JukeboxBlock.HAS_RECORD) || state.getValue(JukeboxBlock.HAS_RECORD)
                 || !(event.getItemStack().getItem() instanceof RecordItem))
             return;
-        if (event.getWorld()
+        if (event.getLevel()
                 .getEntitiesOfClass(Entity.class, new AABB(event.getPos()).inflate(3),
-                        e -> e instanceof IFamiliar && ((IFamiliar) e).getFamiliarOwner() == event.getPlayer())
+                        e -> e instanceof IFamiliar && ((IFamiliar) e).getFamiliarOwner() == event.getEntity())
                 .isEmpty())
             return;
-        OccultismAdvancements.FAMILIAR.trigger(event.getPlayer(), FamiliarTrigger.Type.PARTY);
+        OccultismAdvancements.FAMILIAR.trigger(event.getEntity(), FamiliarTrigger.Type.PARTY);
     }
 
     @SubscribeEvent
@@ -121,7 +121,7 @@ public class PlayerEventHandler {
                 event.getTarget() instanceof LivingEntity) {
             //called from here to bypass sitting entity's sit command.
             if (OccultismItems.SOUL_GEM_ITEM.get()
-                    .interactLivingEntity(event.getItemStack(), event.getPlayer(),
+                    .interactLivingEntity(event.getItemStack(), event.getEntity(),
                             (LivingEntity) event.getTarget(),
                             event.getHand()) == InteractionResult.SUCCESS) {
                 event.setCanceled(true);

@@ -49,7 +49,7 @@ public class ClientPlayerEventHandler {
     //region Static Methods
 
     @SubscribeEvent
-    public static void onKeyInput(final InputEvent.KeyInputEvent event) {
+    public static void onKeyInput(final InputEvent.Key event) {
         Minecraft minecraft = Minecraft.getInstance();
         checkBackpackKey(event);
         checkStorageRemoteKey(event);
@@ -62,7 +62,7 @@ public class ClientPlayerEventHandler {
     }
 
     @SubscribeEvent
-    public static void onMouseInput(final InputEvent.MouseInputEvent event) {
+    public static void onMouseInput(final InputEvent.MouseButton event) {
         //handle mouse button bindings for storage keys
         checkBackpackKey(event);
         checkStorageRemoteKey(event);
