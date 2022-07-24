@@ -117,6 +117,11 @@ public class StableWormholeBlockEntity extends NetworkedBlockEntity implements I
     @Override
     public IStorageController getLinkedStorageController() {
         if (this.linkedStorageControllerPosition != null) {
+            if(!BlockEntityUtil.isLoaded(this.level, this.linkedStorageControllerPosition)) {
+                //if the target pos is not loaded we exit early to prevent accidentally clearing the linked storage controller position
+                return null;
+            }
+
             BlockEntity blockEntity = BlockEntityUtil.get(this.level,
                     this.linkedStorageControllerPosition);
             if (blockEntity instanceof IStorageController controller)

@@ -40,6 +40,23 @@ import net.minecraftforge.server.ServerLifecycleHooks;
 public class BlockEntityUtil {
     //region Static Methods
 
+    public static boolean isLoaded(Level level, GlobalBlockPos pos){
+        if (pos == null)
+            return false;
+
+        if (level.dimension() == pos.getDimensionKey()) {
+            return level.isLoaded(pos.getPos());
+        }
+        if (level.isClientSide) //can only access other dimensions on the server.
+            return false;
+
+        Level dimensionWorld = ServerLifecycleHooks.getCurrentServer().getLevel(pos.getDimensionKey());
+        if (dimensionWorld != null)
+            return dimensionWorld.isLoaded(pos.getPos());
+
+        return false;
+    }
+
     /**
      * Gets the block entity from the given global position.
      *
