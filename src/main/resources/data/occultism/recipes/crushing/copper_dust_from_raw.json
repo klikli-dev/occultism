@@ -1,7 +1,7 @@
 {
   "type": "occultism:crushing",
   "ingredient": {
-    "tag": "forge:raw_ores/copper"
+    "tag": "forge:raw_materials/copper"
   },
   "result": {
     "item": "occultism:copper_dust",

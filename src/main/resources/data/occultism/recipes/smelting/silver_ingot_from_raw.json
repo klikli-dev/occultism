@@ -1,7 +1,7 @@
 {
   "type": "minecraft:smelting",
   "ingredient": {
-    "tag": "forge:raw_ores/silver"
+    "tag": "forge:raw_materials/silver"
   },
   "result": "occultism:silver_ingot",
   "experience": 0.7,
