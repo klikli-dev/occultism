@@ -1,4 +1,5 @@
 {
+  "type": "modonomicon:dense",
   "mapping": {
     "0": "occultism:golden_sacrificial_bowl",
     "C": {
@@ -9,14 +10,16 @@
     "W": "occultism:chalk_glyph_white"
   },
   "pattern": [
-    "   GGG   ",
-    "  GC CG  ",
-    " GW   WG ",
-    "GC W W CG",
-    "G   0   G",
-    "GC W W CG",
-    " GW   WG ",
-    "  GC CG  ",
-    "   GGG   "
+    [
+      "   GGG   ",
+      "  GC CG  ",
+      " GW   WG ",
+      "GC W W CG",
+      "G   0   G",
+      "GC W W CG",
+      " GW   WG ",
+      "  GC CG  ",
+      "   GGG   "
+    ]
   ]
 }

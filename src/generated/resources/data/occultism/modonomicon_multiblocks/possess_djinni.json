@@ -1,4 +1,5 @@
 {
+  "type": "modonomicon:dense",
   "mapping": {
     "0": "occultism:golden_sacrificial_bowl",
     "C": {
@@ -7,18 +8,23 @@
     },
     "G": "occultism:chalk_glyph_gold",
     "P": "occultism:chalk_glyph_purple",
+    "W": "occultism:chalk_glyph_white",
     "Z": {
       "block": "minecraft:skeleton_skull",
       "display": "occultism:skeleton_skull_dummy"
     }
   },
   "pattern": [
-    "  GCG  ",
-    " G P G ",
-    "G  P  G",
-    "CPP0PPC",
-    "G  P  G",
-    " G P G ",
-    "  GCG  "
+    [
+      "   GPG   ",
+      "  GC CG  ",
+      " GZW WZG ",
+      "GCWP PWCG",
+      "P   0   P",
+      "GCWP PWCG",
+      " GZW WZG ",
+      "  GC CG  ",
+      "   GPG   "
+    ]
   ]
 }

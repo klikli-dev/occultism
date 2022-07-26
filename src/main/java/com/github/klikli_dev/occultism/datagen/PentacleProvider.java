@@ -264,6 +264,9 @@ public class PentacleProvider implements DataProvider {
 
     private void addPentacle(ResourceLocation rl, List<String> pattern, Map<Character, JsonElement> mappings) {
         JsonObject json = new JsonObject();
+
+        json.addProperty("type", "modonomicon:dense");
+
         JsonArray outerPattern = new JsonArray();
         JsonArray innerPattern = new JsonArray();
         for (String row : pattern)

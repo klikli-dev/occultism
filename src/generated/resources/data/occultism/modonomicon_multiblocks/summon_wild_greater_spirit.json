@@ -1,4 +1,5 @@
 {
+  "type": "modonomicon:dense",
   "mapping": {
     "0": "occultism:golden_sacrificial_bowl",
     "P": "occultism:chalk_glyph_purple",
@@ -9,16 +10,18 @@
     }
   },
   "pattern": [
-    "           ",
-    "    PPP    ",
-    "   W W W   ",
-    "  W WZW W  ",
-    " P WP PW P ",
-    " PWZ 0 ZWP ",
-    " P WP PW P ",
-    "  W WZW W  ",
-    "   W W W   ",
-    "    PPP    ",
-    "           "
+    [
+      "           ",
+      "    PPP    ",
+      "   W W W   ",
+      "  W WZW W  ",
+      " P WP PW P ",
+      " PWZ 0 ZWP ",
+      " P WP PW P ",
+      "  W WZW W  ",
+      "   W W W   ",
+      "    PPP    ",
+      "           "
+    ]
   ]
 }

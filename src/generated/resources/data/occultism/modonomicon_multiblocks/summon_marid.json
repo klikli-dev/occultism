@@ -1,15 +1,16 @@
 {
+  "type": "modonomicon:dense",
   "mapping": {
     "0": "occultism:golden_sacrificial_bowl",
     "C": {
       "display": "occultism:candle_white",
       "tag": "minecraft:candles"
     },
+    "G": "occultism:chalk_glyph_gold",
     "N": {
       "block": "minecraft:wither_skeleton_skull",
       "display": "occultism:wither_skeleton_skull_dummy"
     },
-    "P": "occultism:chalk_glyph_purple",
     "R": "occultism:chalk_glyph_red",
     "W": "occultism:chalk_glyph_white",
     "Z": {
@@ -18,16 +19,22 @@
     }
   },
   "pattern": [
-    "           ",
-    "    PRP    ",
-    "   WCWCW   ",
-    "  W WNW W  ",
-    " PCWP PWCP ",
-    " RWZ 0 ZWR ",
-    " PCWP PWCP ",
-    "  W WNW W  ",
-    "   WCWCW   ",
-    "    PRP    ",
-    "           "
+    [
+      "       Z       ",
+      "      RRR      ",
+      "     RCWCR     ",
+      "    R  W  R    ",
+      "   RG WNW GR   ",
+      "  R  GW WG  R  ",
+      " RC WW   WW CR ",
+      "ZRWWN  0  NWWRZ",
+      " RC WW   WW CR ",
+      "  R  GW WG  R  ",
+      "   RG WNW GR   ",
+      "    R  W  R    ",
+      "     RCWCR     ",
+      "      RRR      ",
+      "       Z       "
+    ]
   ]
 }
