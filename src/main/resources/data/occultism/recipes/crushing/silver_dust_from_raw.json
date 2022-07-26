@@ -1,7 +1,7 @@
 {
   "type": "occultism:crushing",
   "ingredient": {
-    "tag": "forge:raw_ores/silver"
+    "tag": "forge:raw_materials/silver"
   },
   "result": {
     "item": "occultism:silver_dust",

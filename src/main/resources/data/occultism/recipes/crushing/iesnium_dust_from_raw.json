@@ -1,7 +1,7 @@
 {
   "type": "occultism:crushing",
   "ingredient": {
-    "tag": "forge:raw_ores/iesnium"
+    "tag": "forge:raw_materials/iesnium"
   },
   "result": {
     "item": "occultism:iesnium_dust",
