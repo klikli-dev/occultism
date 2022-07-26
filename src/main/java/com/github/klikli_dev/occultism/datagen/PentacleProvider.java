@@ -315,20 +315,26 @@ public class PentacleProvider implements DataProvider {
         }
 
         private MappingBuilder block(char c, Supplier<? extends Block> b) {
-            return this.element(c, new JsonPrimitive(ForgeRegistries.BLOCKS.getKey(b.get()).toString()));
+
+            JsonObject json = new JsonObject();
+            json.addProperty("type", "modonomicon:block");
+            json.addProperty("block", ForgeRegistries.BLOCKS.getKey(b.get()).toString());
+            return this.element(c, json);
         }
 
         private MappingBuilder blockDisplay(char c, Supplier<? extends Block> b, Supplier<? extends Block> display) {
             JsonObject json = new JsonObject();
-            json.add("block", new JsonPrimitive(ForgeRegistries.BLOCKS.getKey(b.get()).toString()));
-            json.add("display", new JsonPrimitive(ForgeRegistries.BLOCKS.getKey(display.get()).toString()));
+            json.addProperty("type", "modonomicon:block");
+            json.addProperty("block", ForgeRegistries.BLOCKS.getKey(b.get()).toString());
+            json.addProperty("display", ForgeRegistries.BLOCKS.getKey(display.get()).toString());
             return this.element(c, json);
         }
 
         private MappingBuilder tag(char c, TagKey<Block> tag, Supplier<? extends Block> display) {
             JsonObject json = new JsonObject();
-            json.add("tag", new JsonPrimitive(tag.location().toString()));
-            json.add("display", new JsonPrimitive(ForgeRegistries.BLOCKS.getKey(display.get()).toString()));
+            json.addProperty("type", "modonomicon:tag");
+            json.addProperty("tag", tag.location().toString());
+            json.addProperty("display", ForgeRegistries.BLOCKS.getKey(display.get()).toString());
             return this.element(c, json);
         }
 
@@ -361,11 +367,11 @@ public class PentacleProvider implements DataProvider {
         }
 
         private MappingBuilder skeleton() {
-            return this.blockDisplay('Z', () -> Blocks.SKELETON_SKULL, OccultismBlocks.SKELETON_SKULL_DUMMY);
+            return this.block('Z', () -> Blocks.SKELETON_SKULL);
         }
 
         private MappingBuilder wither() {
-            return this.blockDisplay('N', () -> Blocks.WITHER_SKELETON_SKULL, OccultismBlocks.WITHER_SKELETON_SKULL_DUMMY);
+            return this.block('N', () -> Blocks.WITHER_SKELETON_SKULL);
         }
     }
 

@@ -1,12 +1,19 @@
 {
   "type": "modonomicon:dense",
   "mapping": {
-    "0": "occultism:golden_sacrificial_bowl",
+    "0": {
+      "type": "modonomicon:block",
+      "block": "occultism:golden_sacrificial_bowl"
+    },
     "C": {
+      "type": "modonomicon:tag",
       "display": "occultism:candle_white",
       "tag": "minecraft:candles"
     },
-    "W": "occultism:chalk_glyph_white"
+    "W": {
+      "type": "modonomicon:block",
+      "block": "occultism:chalk_glyph_white"
+    }
   },
   "pattern": [
     [
