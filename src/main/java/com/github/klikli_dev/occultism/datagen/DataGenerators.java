@@ -26,8 +26,6 @@ import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.level.multichunk.MultiChunkFeatureConfig;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.registry.OccultismFeatures;
-import com.klikli_dev.modonomicon.Modonomicon;
-import com.klikli_dev.modonomicon.datagen.BookGenerator;
 import com.mojang.serialization.JsonOps;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
