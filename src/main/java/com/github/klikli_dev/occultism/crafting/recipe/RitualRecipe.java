@@ -23,14 +23,14 @@
 package com.github.klikli_dev.occultism.crafting.recipe;
 
 import com.github.klikli_dev.occultism.common.ritual.Ritual;
-import com.github.klikli_dev.occultism.common.ritual.pentacle.Pentacle;
-import com.github.klikli_dev.occultism.common.ritual.pentacle.PentacleManager;
 import com.github.klikli_dev.occultism.registry.OccultismRecipes;
 import com.github.klikli_dev.occultism.registry.OccultismRituals;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
+import com.klikli_dev.modonomicon.api.ModonomiconAPI;
+import com.klikli_dev.modonomicon.api.multiblock.Multiblock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.Registry;
@@ -89,8 +89,8 @@ public class RitualRecipe extends ShapelessRecipe {
         return this.pentacleId;
     }
 
-    public Pentacle getPentacle() {
-        return PentacleManager.get(this.pentacleId);
+    public Multiblock getPentacle() {
+        return ModonomiconAPI.get().getMultiblock(this.pentacleId);
     }
 
     public ItemStack getRitualDummy() {

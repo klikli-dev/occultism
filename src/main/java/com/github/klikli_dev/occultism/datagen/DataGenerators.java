@@ -26,6 +26,8 @@ import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.level.multichunk.MultiChunkFeatureConfig;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.registry.OccultismFeatures;
+import com.klikli_dev.modonomicon.Modonomicon;
+import com.klikli_dev.modonomicon.datagen.BookGenerator;
 import com.mojang.serialization.JsonOps;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
@@ -72,7 +74,8 @@ public class DataGenerators {
         generator.addProvider(event.includeServer(), new OccultismAdvancementProvider(generator));
         generator.addProvider(event.includeClient(), new ItemModelsGenerator(generator, event.getExistingFileHelper()));
         generator.addProvider(event.includeClient(), new StandardBlockStateProvider(generator, event.getExistingFileHelper()));
-        //generator.addProvider(event.includeClient(), new ENUSProvider(generator));
+        generator.addProvider(event.includeClient(), new ENUSProvider(generator));
+        generator.addProvider(event.includeServer(), new BookGenerator(generator, Occultism.MODID));
 
         registerFeatures(event);
 

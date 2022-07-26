@@ -194,8 +194,7 @@ public class ClientSetupEventHandler {
         //Not safe to call during parallel load, so register to run threadsafe
         event.enqueueWork(() -> {
             //Register item model properties
-            ItemProperties.register(OccultismItems.GUIDE_BOOK.get(),
-                    new ResourceLocation("completion"), new GuideBookItemPropertyGetter());
+
             ItemProperties.register(OccultismItems.SOUL_GEM_ITEM.get(),
                     new ResourceLocation(Occultism.MODID, "has_entity"), new SoulGemItemPropertyGetter());
             ItemProperties.register(OccultismItems.DIVINATION_ROD.get(),

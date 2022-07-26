@@ -23,6 +23,8 @@
 package com.github.klikli_dev.occultism.datagen;
 
 import com.github.klikli_dev.occultism.Occultism;
+import com.klikli_dev.modonomicon.Modonomicon;
+import com.klikli_dev.modonomicon.api.ModonomiconAPI;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraftforge.common.data.LanguageProvider;
@@ -36,6 +38,24 @@ public class ENUSProvider extends LanguageProvider {
     @Override
     protected void addTranslations() {
         this.addAdvancements();
+        this.addBook();
+
+        //TODO: pentacle names Util.makeDescriptionId("multiblock", pentacle.getId()))
+    }
+
+    private void addBook(){
+        var helper = ModonomiconAPI.get().getLangHelper(Modonomicon.MODID);
+        helper.book("dictionary_of_spirits");
+
+//        this.addDemoBookFeaturesCategory(helper);
+//        this.addDemoBookFormattingCategory(helper);
+
+        this.add(helper.bookName(), "Dictionary of Spirits");
+        this.add(helper.bookTooltip(), """
+                This book aims to introduce the novice reader to the most common summoning rituals and equip them with a list of spirits and their names. 
+                The authors advise caution in the summoning of the listed entities. 
+                For help or to give feedback please join us in Discord https://invite.gg/klikli.
+                """);
     }
 
     private void addAdvancements() {

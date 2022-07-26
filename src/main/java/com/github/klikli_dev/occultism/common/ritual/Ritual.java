@@ -185,7 +185,7 @@ public abstract class Ritual {
                            List<Ingredient> remainingAdditionalIngredients) {
         return this.recipe.getPentacle() != null && this.recipe.getActivationItem().test(activationItem) &&
                 this.areAdditionalIngredientsFulfilled(level, goldenBowlPosition, remainingAdditionalIngredients) &&
-                this.recipe.getPentacle().validate(level, goldenBowlPosition);
+                this.recipe.getPentacle().validate(level, goldenBowlPosition) != null;
     }
 
     /**
@@ -278,7 +278,7 @@ public abstract class Ritual {
     public boolean identify(Level level, BlockPos goldenBowlPosition, ItemStack activationItem) {
         return this.recipe.getPentacle() != null && this.recipe.getActivationItem().test(activationItem) &&
                 this.areAdditionalIngredientsFulfilled(level, goldenBowlPosition, this.recipe.getIngredients()) &&
-                this.recipe.getPentacle().validate(level, goldenBowlPosition);
+                this.recipe.getPentacle().validate(level, goldenBowlPosition) != null;
     }
 
     /**

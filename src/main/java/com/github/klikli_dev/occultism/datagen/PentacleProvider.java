@@ -23,15 +23,16 @@
 package com.github.klikli_dev.occultism.datagen;
 
 import com.github.klikli_dev.occultism.Occultism;
-import com.github.klikli_dev.occultism.common.ritual.pentacle.Pentacle;
-import com.github.klikli_dev.occultism.common.ritual.pentacle.PentacleManager;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.registry.OccultismTags;
-import com.google.gson.*;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
+import com.klikli_dev.modonomicon.data.MultiblockDataManager;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
-import net.minecraft.data.HashCache;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
@@ -46,6 +47,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.function.Supplier;
 
 public class PentacleProvider implements DataProvider {
@@ -57,21 +59,6 @@ public class PentacleProvider implements DataProvider {
 
     public PentacleProvider(DataGenerator generator) {
         this.generator = generator;
-    }
-
-    @Override
-    public void run(CachedOutput cache) throws IOException {
-        Path folder = this.generator.getOutputFolder();
-        this.start();
-
-        this.toSerialize.forEach((name, json) -> {
-            Path path = folder.resolve("data/" + Occultism.MODID + "/" + PentacleManager.FOLDER_NAME + "/" + name + ".json");
-            try {
-                DataProvider.saveStable(cache, json, path);
-            } catch (IOException e) {
-                LOGGER.error("Couldn't save pentacle {}", path, e);
-            }
-        });
     }
 
     private void start() {
@@ -276,8 +263,35 @@ public class PentacleProvider implements DataProvider {
     }
 
     private void addPentacle(ResourceLocation rl, List<String> pattern, Map<Character, JsonElement> mappings) {
-        JsonObject json = new Pentacle(rl, pattern, mappings).toJson();
+        JsonObject json = new JsonObject();
+        JsonArray outerPattern = new JsonArray();
+        JsonArray innerPattern = new JsonArray();
+        for (String row : pattern)
+            innerPattern.add(row);
+        outerPattern.add(innerPattern); //modonomicon multiblocks may have multiple layers, but we use only one
+        json.add("pattern", outerPattern);
+        JsonObject jsonMapping = new JsonObject();
+        for (Entry<Character, JsonElement> entry : mappings.entrySet())
+            jsonMapping.add(String.valueOf(entry.getKey()), entry.getValue());
+        json.add("mapping", jsonMapping);
+
         this.toSerialize.put(rl.getPath(), json);
+    }
+
+    //TODO: convert to modo multiblock
+    @Override
+    public void run(CachedOutput cache) throws IOException {
+        Path folder = this.generator.getOutputFolder();
+        this.start();
+
+        this.toSerialize.forEach((name, json) -> {
+            Path path = folder.resolve("data/" + Occultism.MODID + "/" + MultiblockDataManager.FOLDER + "/" + name + ".json");
+            try {
+                DataProvider.saveStable(cache, json, path);
+            } catch (IOException e) {
+                LOGGER.error("Couldn't save pentacle {}", path, e);
+            }
+        });
     }
 
     @Override
