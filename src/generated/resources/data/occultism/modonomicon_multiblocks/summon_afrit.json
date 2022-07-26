@@ -8,7 +8,7 @@
     "C": {
       "type": "modonomicon:tag",
       "display": "occultism:candle_white",
-      "tag": "minecraft:candles"
+      "tag": "#minecraft:candles"
     },
     "N": {
       "type": "modonomicon:block",

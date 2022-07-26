@@ -333,7 +333,7 @@ public class PentacleProvider implements DataProvider {
         private MappingBuilder tag(char c, TagKey<Block> tag, Supplier<? extends Block> display) {
             JsonObject json = new JsonObject();
             json.addProperty("type", "modonomicon:tag");
-            json.addProperty("tag", tag.location().toString());
+            json.addProperty("tag", "#" + tag.location());
             json.addProperty("display", ForgeRegistries.BLOCKS.getKey(display.get()).toString());
             return this.element(c, json);
         }
