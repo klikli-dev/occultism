@@ -1,9 +1,16 @@
 package com.github.klikli_dev.occultism.datagen;
 
 import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.registry.OccultismItems;
+import com.klikli_dev.modonomicon.api.ModonomiconAPI;
+import com.klikli_dev.modonomicon.api.datagen.BookLangHelper;
+import com.klikli_dev.modonomicon.api.datagen.EntryLocationHelper;
 import com.klikli_dev.modonomicon.datagen.book.BookCategoryModel;
 import com.klikli_dev.modonomicon.datagen.book.BookEntryModel;
+import com.klikli_dev.modonomicon.datagen.book.BookEntryParentModel;
 import com.klikli_dev.modonomicon.datagen.book.BookModel;
+import com.klikli_dev.modonomicon.datagen.book.page.BookMultiblockPageModel;
+import com.klikli_dev.modonomicon.datagen.book.page.BookTextPageModel;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
@@ -50,9 +57,65 @@ public class BookGenerator implements DataProvider {
     }
 
     private void start() {
-//        var demoBook = this.makeDemoBook();
-//        this.add(demoBook);
+        var dictionaryOfSpirits = this.makeDictionaryOfSpirits();
+        this.add(dictionaryOfSpirits);
     }
+
+    private BookModel makeDictionaryOfSpirits() {
+        var helper = ModonomiconAPI.get().getLangHelper(this.modid);
+        helper.book("dictionary_of_spirits");
+
+        var helperCategory = this.makeHelperCategory(helper);
+
+        var demoBook = BookModel.builder()
+                .withId(this.modLoc("dictionary_of_spirits"))
+                .withName(helper.bookName())
+                .withTooltip(helper.bookTooltip())
+                .withCategory(helperCategory)
+                .build();
+        return demoBook;
+    }
+
+    private BookCategoryModel makeHelperCategory(BookLangHelper helper) {
+        helper.category("helper");
+
+        var entryHelper = ModonomiconAPI.get().getEntryLocationHelper();
+        entryHelper.setMap(
+                "_____________________",
+                "_____m_______________",
+                "_____________________",
+                "_____________________",
+                "_____________________",
+                "_____________________"
+        );
+
+        var multiblockEntry = this.makeMultiblockEntry(helper, entryHelper);
+
+        return BookCategoryModel.builder()
+                .withId(this.modLoc("helper"))
+                .withName(helper.categoryName())
+                .withIcon("minecraft:nether_star")
+                .withEntry(multiblockEntry.build())
+                .build();
+    }
+
+    private BookEntryModel.Builder makeMultiblockEntry(BookLangHelper helper, EntryLocationHelper entryHelper) {
+        helper.entry("multiblock");
+
+        helper.page("preview");
+        var pentacle = BookMultiblockPageModel.builder()
+                .withMultiblockId(this.modLoc("summon_foliot"))
+                .build();
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc("helper/multiblock"))
+                .withName(helper.entryName())
+                .withDescription(helper.entryDescription())
+                .withIcon(OccultismItems.PENTACLE.getId().toString())
+                .withLocation(entryHelper.get('m'))
+                .withPages(pentacle);
+    }
+
 
     private BookModel add(BookModel bookModel) {
         if (this.bookModels.containsKey(bookModel.getId()))

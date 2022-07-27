@@ -33,17 +33,17 @@
   },
   "pattern": [
     [
-      "           ",
-      "    PRP    ",
-      "   WCWCW   ",
-      "  W WNW W  ",
-      " PCWP PWCP ",
-      " RWZ 0 ZWR ",
-      " PCWP PWCP ",
-      "  W WNW W  ",
-      "   WCWCW   ",
-      "    PRP    ",
-      "           "
+      "___________",
+      "____PRP____",
+      "___WCWCW___",
+      "__W_WNW_W__",
+      "_PCWP_PWCP_",
+      "_RWZ_0_ZWR_",
+      "_PCWP_PWCP_",
+      "__W_WNW_W__",
+      "___WCWCW___",
+      "____PRP____",
+      "___________"
     ]
   ]
 }

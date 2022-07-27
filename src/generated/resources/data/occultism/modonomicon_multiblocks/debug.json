@@ -25,13 +25,13 @@
   },
   "pattern": [
     [
-      "  GCG  ",
-      " G P G ",
-      "G  P  G",
+      "__GCG__",
+      "_G_P_G_",
+      "G__P__G",
       "CPP0PPC",
-      "G  P  G",
-      " G P G ",
-      "  GCG  "
+      "G__P__G",
+      "_G_P_G_",
+      "__GCG__"
     ]
   ]
 }

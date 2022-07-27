@@ -33,21 +33,21 @@
   },
   "pattern": [
     [
-      "       Z       ",
-      "      RRR      ",
-      "     RCWCR     ",
-      "    R  W  R    ",
-      "   RG WNW GR   ",
-      "  R  GW WG  R  ",
-      " RC WW   WW CR ",
-      "ZRWWN  0  NWWRZ",
-      " RC WW   WW CR ",
-      "  R  GW WG  R  ",
-      "   RG WNW GR   ",
-      "    R  W  R    ",
-      "     RCWCR     ",
-      "      RRR      ",
-      "       Z       "
+      "_______Z_______",
+      "______RRR______",
+      "_____RCWCR_____",
+      "____R__W__R____",
+      "___RG_WNW_GR___",
+      "__R__GW_WG__R__",
+      "_RC_WW___WW_CR_",
+      "ZRWWN__0__NWWRZ",
+      "_RC_WW___WW_CR_",
+      "__R__GW_WG__R__",
+      "___RG_WNW_GR___",
+      "____R__W__R____",
+      "_____RCWCR_____",
+      "______RRR______",
+      "_______Z_______"
     ]
   ]
 }

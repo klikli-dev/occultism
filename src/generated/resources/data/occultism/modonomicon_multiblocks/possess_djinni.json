@@ -29,15 +29,15 @@
   },
   "pattern": [
     [
-      "   GPG   ",
-      "  GC CG  ",
-      " GZW WZG ",
-      "GCWP PWCG",
-      "P   0   P",
-      "GCWP PWCG",
-      " GZW WZG ",
-      "  GC CG  ",
-      "   GPG   "
+      "___GPG___",
+      "__GC_CG__",
+      "_GZW_WZG_",
+      "GCWP_PWCG",
+      "P___0___P",
+      "GCWP_PWCG",
+      "_GZW_WZG_",
+      "__GC_CG__",
+      "___GPG___"
     ]
   ]
 }
