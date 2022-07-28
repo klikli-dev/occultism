@@ -87,7 +87,7 @@ jobs:
             ${{ steps.get_version.outputs.result }}
             Changelog for this build: https://github.com/klikli-dev/occultism/releases/tag/${{ steps.get_release_type.outputs.result }}%2Fv${{ steps.get_mc_version.outputs.result }}-${{ steps.get_version.outputs.result }}
             Find changes for all versions at https://github.com/klikli-dev/occultism/releases
-          game_versions: Forge,Minecraft 1.19:${{ steps.get_mc_version.outputs.result }}
+          game_versions: Forge,Minecraft 1.19:1.19,Minecraft 1.19:${{ steps.get_mc_version.outputs.result }}
           display_name: occultism-${{ steps.get_mc_version.outputs.result }}-${{ steps.get_version.outputs.result }}.jar
           release_type: ${{ steps.get_release_type.outputs.result }}
           relations: patchouli:requiredDependency,curios:requiredDependency,geckolib:requiredDependency,jei:optionalDependency
