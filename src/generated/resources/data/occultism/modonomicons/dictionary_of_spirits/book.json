@@ -5,7 +5,7 @@
   "creative_tab": "misc",
   "default_title_color": 0,
   "generate_book_item": true,
-  "model": "modonomicon:modonomicon_purple",
+  "model": "occultism:dictionary_of_spirits_icon",
   "name": "book.occultism.dictionary_of_spirits.name",
   "tooltip": "book.occultism.dictionary_of_spirits.tooltip"
 }

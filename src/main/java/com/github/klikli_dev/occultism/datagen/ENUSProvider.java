@@ -28,14 +28,25 @@ import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.modonomicon.Modonomicon;
 import com.klikli_dev.modonomicon.api.ModonomiconAPI;
+import com.klikli_dev.modonomicon.api.datagen.BookLangHelper;
+import com.klikli_dev.modonomicon.datagen.book.BookCategoryModel;
+import com.klikli_dev.modonomicon.datagen.book.BookEntryModel;
+import com.klikli_dev.modonomicon.datagen.book.page.BookImagePageModel;
+import com.klikli_dev.modonomicon.datagen.book.page.BookSpotlightPageModel;
+import com.klikli_dev.modonomicon.datagen.book.page.BookTextPageModel;
 import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.common.data.LanguageProvider;
 
 public class ENUSProvider extends LanguageProvider {
+
+    public static final String COLOR_PURPLE = "ad03fc";
+    public static final String DEMONS_DREAM = "Demon's Dream";
+
 
     public ENUSProvider(DataGenerator gen) {
         super(gen, Occultism.MODID, "en_us");
@@ -657,18 +668,60 @@ public class ENUSProvider extends LanguageProvider {
     }
 
     private void addBook() {
-        var helper = ModonomiconAPI.get().getLangHelper(Modonomicon.MODID);
+        var helper = ModonomiconAPI.get().getLangHelper(Occultism.MODID);
         helper.book("dictionary_of_spirits");
-
-//        this.addDemoBookFeaturesCategory(helper);
-//        this.addDemoBookFormattingCategory(helper);
-
         this.add(helper.bookName(), "Dictionary of Spirits");
         this.add(helper.bookTooltip(), """
                 This book aims to introduce the novice reader to the most common summoning rituals and equip them with a list of spirits and their names. 
                 The authors advise caution in the summoning of the listed entities. 
                 For help or to give feedback please join us in Discord https://invite.gg/klikli.
                 """);
+
+        this.addGettingStartedCategory(helper);
+    }
+
+    private void addGettingStartedCategory(BookLangHelper helper){
+        helper.category("getting_started");
+        this.add(helper.categoryName(), "Getting Started");
+
+        helper.entry("demons_dream");
+        this.add(helper.entryName(), "Lifting the Veil");
+        this.add(helper.entryDescription(), "Learn about the Otherworld and the Third Eye.");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "The Otherworld");
+        this.add(helper.pageText(),
+                """
+                        Hidden from mere human eyes exists another plane of existence, another *dimension* if you will, the [#](%1$s)Otherworld[#]().
+                        This world is populated with entities often referred to as [#](%1$s)Demons[#]().
+                        """.formatted(COLOR_PURPLE));
+
+        helper.page("intro2");
+        this.add(helper.pageText(),
+                """
+                        These Demons possess a wide variety of powers and useful skills, and for centuries magicians have sought to summon them for their own gain.
+                        The first step on the journey to successfully summoning such an Entity is to learn how to interact with the Otherworld.
+                        """);
+
+        helper.page("spotlight");
+        this.add(helper.pageText(),
+                """
+                        %1$s is a herb that gives humans the [#](%2$s)Third Eye[#](), 
+                        allowing them to see where the [#](%2$s)Otherworld[#]() intersects with our own.
+                        Seeds can be found **by breaking grass**. 
+                        **Consuming** the grown fruit activates the ability.
+                        """.formatted(DEMONS_DREAM, COLOR_PURPLE));
+
+        helper.page("harvest_effect");
+        this.add(helper.pageText(),
+                """
+                       An additional side effect of %1$s, is **the ability to interact with [#](%2$s)Otherworld[#]() materials**. 
+                       This is unique to %1$s, other ways to obtain [#](%2$s)Third Eye[#]() do not yield this ability. 
+                       While under the effect of %1$s you are able to **harvest** Otherstone as well as Otherworld trees.
+                        """.formatted(DEMONS_DREAM, COLOR_PURPLE));
+
+
+        helper.page("datura_effect_preview"); //no text
     }
 
     private void addAdvancements() {
@@ -844,7 +897,6 @@ public class ENUSProvider extends LanguageProvider {
         this.add(Util.makeDescriptionId("multiblock", new ResourceLocation(Occultism.MODID, id)), name);
     }
 
-
     private void addRitualDummies() {
         this.add("item.occultism.ritual_dummy.custom_ritual", "Custom Ritual Dummy");
         this.add("item.occultism.ritual_dummy.custom_ritual.tooltip", "Used for modpacks as a fallback for custom rituals that do not have their own ritual item.");
@@ -964,6 +1016,7 @@ public class ENUSProvider extends LanguageProvider {
         this.add("dialog.occultism.dragon.pet", "purrr");
         this.add("dialog.occultism.mummy.kapow", "KAPOW!");
     }
+
 
     private void advancementTitle(String name, String s) {
         this.add(((TranslatableContents) OccultismAdvancementProvider.title(name).getContents()).getKey(), s);

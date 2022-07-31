@@ -9,12 +9,15 @@ import com.klikli_dev.modonomicon.datagen.book.BookCategoryModel;
 import com.klikli_dev.modonomicon.datagen.book.BookEntryModel;
 import com.klikli_dev.modonomicon.datagen.book.BookEntryParentModel;
 import com.klikli_dev.modonomicon.datagen.book.BookModel;
+import com.klikli_dev.modonomicon.datagen.book.page.BookImagePageModel;
 import com.klikli_dev.modonomicon.datagen.book.page.BookMultiblockPageModel;
+import com.klikli_dev.modonomicon.datagen.book.page.BookSpotlightPageModel;
 import com.klikli_dev.modonomicon.datagen.book.page.BookTextPageModel;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.Ingredient;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -67,11 +70,15 @@ public class BookGenerator implements DataProvider {
 
         var helperCategory = this.makeHelperCategory(helper);
 
+        var gettingStartedCategory = this.makeGettingStartedCategory(helper);
+
         var demoBook = BookModel.builder()
                 .withId(this.modLoc("dictionary_of_spirits"))
+                .withModel(this.modLoc("dictionary_of_spirits_icon"))
                 .withName(helper.bookName())
                 .withTooltip(helper.bookTooltip())
                 .withCategory(helperCategory)
+                .withCategory(gettingStartedCategory)
                 .build();
         return demoBook;
     }
@@ -116,6 +123,71 @@ public class BookGenerator implements DataProvider {
                 .withPages(pentacle);
     }
 
+    private BookCategoryModel makeGettingStartedCategory(BookLangHelper helper) {
+        helper.category("getting_started");
+
+        var entryHelper = ModonomiconAPI.get().getEntryLocationHelper();
+        entryHelper.setMap(
+                "_____________________", //third eye
+                "_____________________",
+                "__d___f___g___r_____", //dream -> fire -> gem
+                "_____________________",
+                "______e_______t______",
+                "__________________c__",
+                "______________s______"
+        );
+
+
+        var demonsDreamEntry = this.makeDemonsDreamEntry(helper, entryHelper, 'd');
+
+
+        return BookCategoryModel.builder()
+                .withId(this.modLoc("getting_started"))
+                .withName(helper.categoryName())
+                .withIcon("occultism:dictionary_of_spirits_icon")
+                .withEntry(demonsDreamEntry.build())
+                .build();
+    }
+
+
+    private BookEntryModel.Builder makeDemonsDreamEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("demons_dream");
+
+        helper.page("intro");
+        var intro = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("intro2");
+        var intro2 = BookTextPageModel.builder()
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("spotlight");
+        var spotlight = BookSpotlightPageModel.builder()
+                .withItem(Ingredient.of(OccultismItems.DATURA.get()))
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("harvest_effect");
+        var harvestEffect = BookTextPageModel.builder()
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("datura_effect_preview");
+        var daturaEffectPreview = BookImagePageModel.builder()
+                .withImages(this.modLoc("textures/gui/book/datura_effect.png"))
+                .build();
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc("helper/multiblock"))
+                .withName(helper.entryName())
+                .withDescription(helper.entryDescription())
+                .withIcon(OccultismItems.DATURA.getId().toString())
+                .withLocation(entryHelper.get(icon))
+                .withPages(intro, intro2, spotlight, harvestEffect, daturaEffectPreview);
+    }
 
     private BookModel add(BookModel bookModel) {
         if (this.bookModels.containsKey(bookModel.getId()))
