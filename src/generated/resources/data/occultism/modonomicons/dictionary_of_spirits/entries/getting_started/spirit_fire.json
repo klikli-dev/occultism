@@ -1,0 +1,48 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "occultism:getting_started",
+  "description": "book.occultism.dictionary_of_spirits.getting_started.spirit_fire.description",
+  "hide_while_locked": false,
+  "icon": "occultism:spirit_fire",
+  "name": "book.occultism.dictionary_of_spirits.getting_started.spirit_fire.name",
+  "pages": [
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "item": {
+        "item": "occultism:spirit_fire"
+      },
+      "text": "book.occultism.dictionary_of_spirits.getting_started.spirit_fire.spotlight.text",
+      "title": ""
+    },
+    {
+      "type": "modonomicon:image",
+      "anchor": "",
+      "border": true,
+      "images": [
+        "occultism:textures/gui/book/spiritfire_instructions.png"
+      ],
+      "text": "book.occultism.dictionary_of_spirits.getting_started.spirit_fire.spirit_fire_screenshot.text",
+      "title": ""
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.getting_started.spirit_fire.main_uses.text",
+      "title": "",
+      "use_markdown_in_title": false
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "occultism:getting_started/demons_dream",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "x": -4,
+  "y": -1
+}

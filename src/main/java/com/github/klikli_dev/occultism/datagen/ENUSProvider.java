@@ -721,7 +721,34 @@ public class ENUSProvider extends LanguageProvider {
                         """.formatted(DEMONS_DREAM, COLOR_PURPLE));
 
 
-        helper.page("datura_effect_preview"); //no text
+        helper.page("datura_screenshot"); //no text
+
+
+        helper.entry("spirit_fire");
+        this.add(helper.entryName(), "It burns!");
+        this.add(helper.entryDescription(), "Or does it?");
+
+        helper.page("spotlight");
+        this.add(helper.pageText(),
+                """
+                        [#](%1$s)Spiritfire[#]() is a special type of fire that exists mostly in [#](%1$s)The Other Place[#]() 
+                        and does not harm living beings. Its special properties allow to use it to purify and convert 
+                        certain materials by burning them, without consuming them. 
+                        """.formatted(COLOR_PURPLE));
+
+
+        helper.page("spirit_fire_screenshot");
+        this.add(helper.pageText(),
+                """
+                       Throw [](item://occultism:datura) to the ground and light it on fire with [](item://minecraft:flint_and_steel).
+                        """);
+
+
+        helper.page("main_uses");
+        this.add(helper.pageText(),
+                """
+                       The main uses of Spiritfire are to convert [](item://minecraft:diamond) into  [](item://occultism:spirit_attuned_gem), and to purify impure chalk.
+                        """);
     }
 
     private void addAdvancements() {
