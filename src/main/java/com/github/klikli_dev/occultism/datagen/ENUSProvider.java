@@ -28,6 +28,8 @@ import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.modonomicon.api.ModonomiconAPI;
 import com.klikli_dev.modonomicon.api.datagen.BookLangHelper;
+import com.klikli_dev.modonomicon.datagen.book.BookEntryModel;
+import com.klikli_dev.modonomicon.datagen.book.page.BookTextPageModel;
 import net.minecraft.Util;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.network.chat.contents.TranslatableContents;
@@ -774,6 +776,112 @@ public class ENUSProvider extends LanguageProvider {
                         Low-tier materials can be harvested by consuming [%1$s](entry://occultism:dictionary_of_spirits/getting_started/demons_dream), 
                         but more valuable materials require special tools.
                                 """.formatted(DEMONS_DREAM));
+
+
+        helper.entry("divination_rod");
+        this.add(helper.entryName(), "Divination Rod");
+        this.add(helper.entryDescription(), "Obtaining otherworld materials");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Divination");
+        this.add(helper.pageText(),
+                """
+                        To make it easier to get started, the materials obtained by divination now also have crafting recipes.
+                        **If you want the full experience, skip the following recipe page and move on to the 
+                        [divination instructions](entry://occultism:dictionary_of_spirits/getting_started/divination_rod@divination_instructions).**
+                                """);
+
+
+        helper.page("otherstone_recipe");
+        //no text
+
+        helper.page("otherworld_sapling_natural_recipe");
+        this.add(helper.pageText(),
+                """
+                        **Beware**: the tree growing from the sapling will look like a normal oak tree. 
+                        You need to activate the [Third Eye](entry://occultism:dictionary_of_spirits/getting_started/demons_dream)
+                        to harvest the Otherworld Logs and Leaves.
+                                """);
+
+        helper.page("divination_rod");
+        this.add(helper.pageText(),
+                """
+                        Otherworld materials play an important role in interacting with spirits. 
+                        As they are rare and not visible to the naked eye, finding them requires special tools. 
+                        The divination rod allows to find Otherworld materials based on their similarities to materials common to our world.
+                                 """);
+
+        helper.page("about_divination_rod");
+        this.add(helper.pageText(),
+                """
+                        The divination rod uses a spirit attuned gem attached to a wooden rod. 
+                        The gem resonates with the chosen material, and this movement is amplified by the wooden rod, 
+                        allowing to detect nearby Otherworld materials.   \s
+                           \s
+                           \s
+                        The rod works by detecting resonance between real world and Otherworld materials. 
+                        Attuned the rod to a real world material, and it will find the corresponding Otherworld block.
+                                 """);
+
+        helper.page("how_to_use");
+        this.add(helper.pageTitle(), "Use of the Rod");
+        this.add(helper.pageText(),
+                """
+                        Shift-right-click a block to attune the rod to the corresponding Otherworld block.
+                        - [](item://minecraft:andesite): [](item://occultism:otherstone)
+                        - [](item://minecraft:oak_wood):  [](item://occultism:otherworld_log)
+                        - [](item://minecraft:oak_leaves): [](item://occultism:otherworld_leaves)
+                        - [](item://minecraft:netherrack): [](item://occultism:iesnium_ore)
+           
+                        Then right-click and hold until the rod animation finishes.""");
+
+        helper.page("how_to_use2");
+        this.add(helper.pageText(),
+                """
+                        After the animation finishes, the closest **found block will be highlighted 
+                        with white lines and can be seen through other blocks**. 
+                        Additionally you can watch the crystals for hints: a white crystal indicates no target blocks found, 
+                        a fully purple block means the found block is nearby. Mixes between white and purple show 
+                        that the target is rather far away.""");
+
+        helper.page("divination_rod_screenshots");
+        this.add(helper.pageText(),
+                """
+                        White means nothing was found.
+                        The more purple you see, the closer you are. 
+                        """);
+
+        helper.page("otherworld_groves");
+        this.add(helper.pageTitle(), "Otherworld Groves");
+        this.add(helper.pageText(),
+                """
+                       Otherworld Groves are lush, overgrown caves, with [#](%1$s)Otherworld Trees[#](), 
+                       and walls of [](item://occultism:otherstone), and represent the fastest way to get everything one 
+                       needs to get set up as a summoner.
+                       To find them, attune your divination rod to Otherworld leaves 
+                       or logs, as unlike Otherstone, they only spawn in these groves.
+                        """.formatted(COLOR_PURPLE));
+
+        helper.page("otherworld_groves_2");
+        this.add(helper.pageText(),
+                """
+                      **Hint:** In the Overworld, look **down**.
+                        """);
+
+        helper.page("otherworld_trees");
+        this.add(helper.pageTitle(), "Otherworld Trees");
+        this.add(helper.pageText(),
+                """
+                       Otherworld trees grow naturally in Otherworld Groves. To the naked eye they appear as oak trees, 
+                       but to the Third Eye they reveal their true nature.   \s
+                       **Important:** Otherworld Saplings can only be obtained by breaking the leaves manually, naturally only oak saplings drop. 
+                        """);
+
+        helper.page("otherworld_trees_2");
+        this.add(helper.pageText(),
+                """
+                       Trees grown from Stable Otherworld Saplings as obtained from spirit traders do not have that limitation.
+                        """);
     }
 
     private void addRitualsCategory(BookLangHelper helper) {

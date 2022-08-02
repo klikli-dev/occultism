@@ -30,16 +30,16 @@ public class BookSpiritFireRecipePage extends BookProcessingRecipePage<SpiritFir
         return Page.SPIRIT_FIRE_RECIPE;
     }
 
-    public static BookSmeltingRecipePage fromJson(JsonObject json) {
+    public static BookSpiritFireRecipePage fromJson(JsonObject json) {
         var common = BookRecipePage.commonFromJson(json);
         var anchor = GsonHelper.getAsString(json, "anchor", "");
-        return new BookSmeltingRecipePage(common.title1(), common.recipeId1(), common.title2(), common.recipeId2(), common.text(), anchor);
+        return new BookSpiritFireRecipePage(common.title1(), common.recipeId1(), common.title2(), common.recipeId2(), common.text(), anchor);
     }
 
-    public static BookSmeltingRecipePage fromNetwork(FriendlyByteBuf buffer) {
+    public static BookSpiritFireRecipePage fromNetwork(FriendlyByteBuf buffer) {
         var common = BookRecipePage.commonFromNetwork(buffer);
         var anchor = buffer.readUtf();
-        return new BookSmeltingRecipePage(common.title1(), common.recipeId1(), common.title2(), common.recipeId2(), common.text(), anchor);
+        return new BookSpiritFireRecipePage(common.title1(), common.recipeId1(), common.title2(), common.recipeId2(), common.text(), anchor);
     }
 
     @Override

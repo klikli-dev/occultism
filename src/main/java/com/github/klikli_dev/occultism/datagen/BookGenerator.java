@@ -1,6 +1,8 @@
 package com.github.klikli_dev.occultism.datagen;
 
 import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.integration.modonomicon.BookSpiritFireRecipePage;
+import com.github.klikli_dev.occultism.integration.modonomicon.BookSpiritFireRecipePageModel;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.modonomicon.api.ModonomiconAPI;
 import com.klikli_dev.modonomicon.api.datagen.BookLangHelper;
@@ -81,6 +83,7 @@ public class BookGenerator implements DataProvider {
                 .withTooltip(helper.bookTooltip())
                 .withCategory(gettingStartedCategory)
                 .withCategory(ritualsCategory)
+                .withCraftingTexture(this.modLoc("textures/gui/book/crafting_textures.png"))
                 .build();
         return demoBook;
     }
@@ -92,7 +95,7 @@ public class BookGenerator implements DataProvider {
         entryHelper.setMap(
                 "_____________________",
                 "_____________________",
-                "__d___f___g___r_____",
+                "__d___f___r_________",
                 "_____________________",
                 "_____________________",
                 "_____________________",
@@ -111,6 +114,8 @@ public class BookGenerator implements DataProvider {
         var thirdEyeEntry = this.makeThirdEyeEntry(helper, entryHelper, 'e');
         thirdEyeEntry.withParent(BookEntryParentModel.builder().withEntryId(demonsDreamEntry.id).build());
 
+        var divinationRodEntry = this.makeDivinationRodEntry(helper, entryHelper, 'r');
+        divinationRodEntry.withParent(BookEntryParentModel.builder().withEntryId(spiritFireEntry.id).build());
 
         return BookCategoryModel.builder()
                 .withId(this.modLoc("getting_started"))
@@ -119,6 +124,7 @@ public class BookGenerator implements DataProvider {
                 .withEntry(demonsDreamEntry.build())
                 .withEntry(spiritFireEntry.build())
                 .withEntries(thirdEyeEntry.build())
+                .withEntries(divinationRodEntry.build())
                 .build();
     }
 
@@ -220,6 +226,91 @@ public class BookGenerator implements DataProvider {
                 .withIcon(this.modLoc("textures/mob_effect/third_eye.png").toString())
                 .withLocation(entryHelper.get(icon))
                 .withPages(about, howToObtain, otherworldGoggles);
+    }
+
+    private BookEntryModel.Builder makeDivinationRodEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("divination_rod");
+
+        helper.page("intro");
+        var intro = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("otherstone_recipe");
+        var otherstoneRecipe = BookSpiritFireRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("spirit_fire/otherstone"))
+                .build();
+
+        helper.page("otherworld_sapling_natural_recipe");
+        var otherworldSaplingNaturalRecipe = BookSpiritFireRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("spirit_fire/otherworld_sapling_natural"))
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("divination_rod");
+        var divinationRod = BookSpotlightPageModel.builder()
+                .withItem(Ingredient.of(OccultismItems.DIVINATION_ROD.get()))
+                .withText(helper.pageText())
+                .withAnchor("divination_instructions")
+                .build();
+
+        helper.page("about_divination_rod");
+        var aboutDivinationRod = BookTextPageModel.builder()
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("how_to_use");
+        var howToUse = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+
+        helper.page("how_to_use2");
+        var howToUse2 = BookTextPageModel.builder()
+                .withText(helper.pageText())
+                .build();
+
+
+        helper.page("divination_rod_screenshots");
+        var divinationRodScreenshots = BookImagePageModel.builder()
+                .withImages(
+                        this.modLoc("textures/gui/book/rod_detected.png"),
+                        this.modLoc("textures/gui/book/rod_close.png")
+                )
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("otherworld_groves");
+        var otherworldGroves = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("otherworld_groves_2");
+        var otherworldGroves2 = BookTextPageModel.builder()
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("otherworld_trees");
+        var otherworldTrees = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+        helper.page("otherworld_trees_2");
+        var otherworldTrees2 = BookTextPageModel.builder()
+                .withText(helper.pageText())
+                .build();
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc("getting_started/divination_rod"))
+                .withName(helper.entryName())
+                .withDescription(helper.entryDescription())
+                .withIcon(OccultismItems.DIVINATION_ROD.getId().toString())
+                .withLocation(entryHelper.get(icon))
+                .withPages(intro, otherstoneRecipe, otherworldSaplingNaturalRecipe, divinationRod, aboutDivinationRod,
+                        howToUse, howToUse2, divinationRodScreenshots, otherworldGroves, otherworldGroves2, otherworldTrees, otherworldTrees2);
     }
 
     private BookCategoryModel makeRitualsCategory(BookLangHelper helper) {
