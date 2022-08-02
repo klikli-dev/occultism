@@ -26,20 +26,12 @@ import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
-import com.klikli_dev.modonomicon.Modonomicon;
 import com.klikli_dev.modonomicon.api.ModonomiconAPI;
 import com.klikli_dev.modonomicon.api.datagen.BookLangHelper;
-import com.klikli_dev.modonomicon.datagen.book.BookCategoryModel;
-import com.klikli_dev.modonomicon.datagen.book.BookEntryModel;
-import com.klikli_dev.modonomicon.datagen.book.page.BookImagePageModel;
-import com.klikli_dev.modonomicon.datagen.book.page.BookSpotlightPageModel;
-import com.klikli_dev.modonomicon.datagen.book.page.BookTextPageModel;
-import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.common.data.LanguageProvider;
 
 public class ENUSProvider extends LanguageProvider {
@@ -678,9 +670,10 @@ public class ENUSProvider extends LanguageProvider {
                 """);
 
         this.addGettingStartedCategory(helper);
+        this.addRitualsCategory(helper);
     }
 
-    private void addGettingStartedCategory(BookLangHelper helper){
+    private void addGettingStartedCategory(BookLangHelper helper) {
         helper.category("getting_started");
         this.add(helper.categoryName(), "Getting Started");
 
@@ -715,10 +708,10 @@ public class ENUSProvider extends LanguageProvider {
         helper.page("harvest_effect");
         this.add(helper.pageText(),
                 """
-                       An additional side effect of %1$s, is **the ability to interact with [#](%2$s)Otherworld[#]() materials**. 
-                       This is unique to %1$s, other ways to obtain [#](%2$s)Third Eye[#]() do not yield this ability. 
-                       While under the effect of %1$s you are able to **harvest** Otherstone as well as Otherworld trees.
-                        """.formatted(DEMONS_DREAM, COLOR_PURPLE));
+                        An additional side effect of %1$s, is **the ability to interact with [#](%2$s)Otherworld[#]() materials**. 
+                        This is unique to %1$s, other ways to obtain [#](%2$s)Third Eye[#]() do not yield this ability. 
+                        While under the effect of %1$s you are able to **harvest** Otherstone as well as Otherworld trees.
+                         """.formatted(DEMONS_DREAM, COLOR_PURPLE));
 
 
         helper.page("datura_screenshot"); //no text
@@ -740,15 +733,55 @@ public class ENUSProvider extends LanguageProvider {
         helper.page("spirit_fire_screenshot");
         this.add(helper.pageText(),
                 """
-                       Throw [](item://occultism:datura) to the ground and light it on fire with [](item://minecraft:flint_and_steel).
-                        """);
+                        Throw [](item://occultism:datura) to the ground and light it on fire with [](item://minecraft:flint_and_steel).
+                         """);
 
 
         helper.page("main_uses");
         this.add(helper.pageText(),
                 """
-                       The main uses of Spiritfire are to convert [](item://minecraft:diamond) into  [](item://occultism:spirit_attuned_gem), and to purify impure chalk.
-                        """);
+                        The main uses of Spiritfire are to convert [](item://minecraft:diamond) into  [](item://occultism:spirit_attuned_gem), and to purify impure chalk.
+                         """);
+
+
+        helper.entry("third_eye");
+        this.add(helper.entryName(), "The Third Eye");
+        this.add(helper.entryDescription(), "Do you see now?");
+
+        helper.page("about");
+        this.add(helper.pageTitle(), "Third Eye");
+        this.add(helper.pageText(),
+                """
+                        The ability to see beyond the physical world is referred to as [#](%1$s)Third Eye[#](). 
+                        Humans do not possess such an ability to see [#](%1$s)beyond the veil[#](), 
+                        however with certain substances and contraptions the knowledgeable summoner can work around this limitation.
+                         """.formatted(COLOR_PURPLE));
+
+        helper.page("how_to_obtain");
+        this.add(helper.pageText(),
+                """
+                        The most comfortable, and most *expensive*, way to obtain this ability, is to wear spectacles 
+                        infused with spirits, that *lend* their sight to the wearer. 
+                        A slightly more nauseating, but **very affordable** alternative is the consumption of certain herbs, 
+                        [%1$s](entry://occultism:dictionary_of_spirits/getting_started/demons_dream) most prominent among them.
+                         """.formatted(DEMONS_DREAM));
+
+        helper.page("otherworld_goggles");
+        this.add(helper.pageText(),
+                """
+                        [These goggles](entry://occultism:dictionary_of_spirits/rituals/craft_otherworld_goggles) allow to see even more hidden Otherworld blocks, 
+                        however they do not allow harvesting those materials. 
+                        Low-tier materials can be harvested by consuming [%1$s](entry://occultism:dictionary_of_spirits/getting_started/demons_dream), 
+                        but more valuable materials require special tools.
+                                """.formatted(DEMONS_DREAM));
+    }
+
+    private void addRitualsCategory(BookLangHelper helper) {
+        helper.category("rituals");
+        this.add(helper.categoryName(), "Rituals");
+
+        helper.entry("craft_otherworld_goggles");
+        this.add(helper.entryName(), "Craft Otherworld Goggles");
     }
 
     private void addAdvancements() {
