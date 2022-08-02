@@ -41,6 +41,7 @@ import com.github.klikli_dev.occultism.client.render.entity.*;
 import com.github.klikli_dev.occultism.client.render.entity.MummyFamiliarRenderer.KapowModel;
 import com.github.klikli_dev.occultism.common.capability.FamiliarSettingsCapability;
 import com.github.klikli_dev.occultism.common.container.spirit.SpiritContainer;
+import com.github.klikli_dev.occultism.integration.modonomicon.PageRenderers;
 import com.github.klikli_dev.occultism.registry.*;
 import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -183,6 +184,8 @@ public class ClientSetupEventHandler {
             MenuScreens.register(OccultismContainers.SATCHEL.get(), SatchelScreen::new);
             Occultism.LOGGER.debug("Registered Screen Containers");
         });
+
+        PageRenderers.onClientSetup(event);
 
         Occultism.LOGGER.debug("Registered Overlays");
 
