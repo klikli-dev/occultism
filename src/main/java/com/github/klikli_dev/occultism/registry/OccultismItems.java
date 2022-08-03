@@ -253,7 +253,7 @@ public class OccultismItems {
 
     //Foods
     public static final RegistryObject<Item> DATURA = ITEMS.register("datura",
-            () -> new Item(defaultProperties().food(OccultismFoods.DATURA.get())));
+            () -> new SpiritHealingItem(defaultProperties().food(OccultismFoods.DATURA.get())));
 
     //Miner Spirits
     public static final RegistryObject<MinerSpiritItem> MINER_DEBUG_UNSPECIALIZED =

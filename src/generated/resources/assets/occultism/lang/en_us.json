@@ -497,6 +497,7 @@
   "jei.occultism.error.missing_id": "Cannot identify recipe.",
   "jei.occultism.error.pentacle_not_loaded": "The pentacle could not be loaded.",
   "jei.occultism.error.recipe_too_large": "Recipe larger than 3x3.",
+  "jei.occultism.ingredient.datura.description": "Can be used to heal all spirits and familiars summoned by Occultism Rituals. Simply right-click the entity to heal it by one heart",
   "jei.occultism.ingredient.iesnium_ore.description": "Found in the nether. Only visible while the status §6Third§r §6Eye§r is active. See §6Dictionary§r §6of§r §6Spirits§r for more information.",
   "jei.occultism.ingredient.otherstone.description": "Primarily found in Otherworld Groves. Only visible while the status §6Third Eye§r is active. See §6Dictionary of Spirits§r for more information.",
   "jei.occultism.ingredient.otherworld_leaves.description": "Primarily found in Otherworld Groves. Only visible while the status §6Third Eye§r is active. See §6Dictionary of Spirits§r for more information.",
