@@ -103,6 +103,7 @@ public class JeiPlugin implements IModPlugin {
         this.registerIngredientInfo(registration, OccultismBlocks.OTHERWORLD_SAPLING_NATURAL.get());
         this.registerIngredientInfo(registration, OccultismBlocks.IESNIUM_ORE.get());
         this.registerIngredientInfo(registration, OccultismBlocks.SPIRIT_FIRE.get());
+        this.registerIngredientInfo(registration, OccultismItems.DATURA.get());
     }
 
     @Override

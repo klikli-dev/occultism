@@ -50,6 +50,9 @@ public class OccultismTags {
     public static final TagKey<EntityType<?>> AFRIT_ALLIES = makeEntityTypeTag(new ResourceLocation(Occultism.MODID, "afrit_allies"));
     public static final TagKey<EntityType<?>> WILD_HUNT = makeEntityTypeTag(new ResourceLocation(Occultism.MODID, "wild_hunt"));
 
+    public static final TagKey<EntityType<?>> HEALED_BY_DEMONS_DREAM_FRUIT = makeEntityTypeTag(new ResourceLocation(Occultism.MODID, "healed_by_demons_dream_fruit"));
+
+
     public static final TagKey<EntityType<?>> CHICKEN = makeEntityTypeTag(new ResourceLocation("forge", "chicken"));
     public static final TagKey<EntityType<?>> PARROTS = makeEntityTypeTag(new ResourceLocation("forge", "parrots"));
     public static final TagKey<EntityType<?>> PIGS = makeEntityTypeTag(new ResourceLocation("forge", "pigs"));
@@ -57,6 +60,7 @@ public class OccultismTags {
     public static final TagKey<EntityType<?>> VILLAGERS = makeEntityTypeTag(new ResourceLocation("forge", "villagers"));
     public static final TagKey<EntityType<?>> ZOMBIES = makeEntityTypeTag(new ResourceLocation("forge", "zombies"));
     public static final TagKey<EntityType<?>> BATS = makeEntityTypeTag(new ResourceLocation("forge", "bats"));
+
 
     //Biome Tags
 
