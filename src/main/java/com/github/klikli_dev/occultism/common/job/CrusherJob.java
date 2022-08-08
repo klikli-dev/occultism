@@ -105,7 +105,9 @@ public class CrusherJob extends SpiritJob {
                 //if no recipe is found, drop hand held item as we can't process it
                 this.entity.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
                 ItemEntity droppedItem = this.entity.spawnAtLocation(handHeld);
-                droppedItem.addTag(DROPPED_BY_CRUSHER);
+                if(droppedItem != null){
+                    droppedItem.addTag(DROPPED_BY_CRUSHER);
+                }
             }
         }
         if (this.currentRecipe.isPresent()) {
@@ -148,7 +150,9 @@ public class CrusherJob extends SpiritJob {
 
                     this.onCrush(inputCopy, result);
                     ItemEntity droppedItem = this.entity.spawnAtLocation(result);
-                    droppedItem.addTag(DROPPED_BY_CRUSHER);
+                    if(droppedItem != null){
+                        droppedItem.addTag(DROPPED_BY_CRUSHER);
+                    }
                     //Don't reset recipe here, keep it cached
                 }
             }
