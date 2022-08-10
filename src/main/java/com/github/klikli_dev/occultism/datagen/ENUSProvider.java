@@ -742,9 +742,23 @@ public class ENUSProvider extends LanguageProvider {
         helper.page("main_uses");
         this.add(helper.pageText(),
                 """
-                        The main uses of Spiritfire are to convert [](item://minecraft:diamond) into  [](item://occultism:spirit_attuned_gem), and to purify impure chalk.
+                        The main uses of [](item://occultism:spirit_fire) are to convert [](item://minecraft:diamond) into [](item://occultism:spirit_attuned_gem), 
+                        to get basic ingredients such as [](item://occultism:otherstone) and [Otherworld Saplings](item://occultism:otherworld_sapling_natural),
+                        and to purify impure chalks.
                          """);
 
+        helper.page("otherstone_recipe");
+        this.add(helper.pageText(),
+                """
+                   An easier way to obtain [](item://occultism:otherstone) than via divination.
+                         """);
+
+
+        helper.page("otherworld_sapling_natural_recipe");
+        this.add(helper.pageText(),
+                """
+                   An easier way to obtain [Otherworld Saplings](item://occultism:otherworld_sapling_natural) than via divination.
+                         """);
 
         helper.entry("third_eye");
         this.add(helper.entryName(), "The Third Eye");
