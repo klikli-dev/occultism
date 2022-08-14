@@ -28,12 +28,14 @@ import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.modonomicon.api.ModonomiconAPI;
 import com.klikli_dev.modonomicon.api.datagen.BookLangHelper;
-import com.klikli_dev.modonomicon.datagen.book.BookEntryModel;
+import com.klikli_dev.modonomicon.datagen.book.page.BookCraftingRecipePageModel;
+import com.klikli_dev.modonomicon.datagen.book.page.BookSpotlightPageModel;
 import com.klikli_dev.modonomicon.datagen.book.page.BookTextPageModel;
 import net.minecraft.Util;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.common.data.LanguageProvider;
 
 public class ENUSProvider extends LanguageProvider {
@@ -750,15 +752,15 @@ public class ENUSProvider extends LanguageProvider {
         helper.page("otherstone_recipe");
         this.add(helper.pageText(),
                 """
-                   An easier way to obtain [](item://occultism:otherstone) than via divination.
-                         """);
+                        An easier way to obtain [](item://occultism:otherstone) than via divination.
+                              """);
 
 
         helper.page("otherworld_sapling_natural_recipe");
         this.add(helper.pageText(),
                 """
-                   An easier way to obtain [Otherworld Saplings](item://occultism:otherworld_sapling_natural) than via divination.
-                         """);
+                        An easier way to obtain [Otherworld Saplings](item://occultism:otherworld_sapling_natural) than via divination.
+                              """);
 
         helper.entry("third_eye");
         this.add(helper.entryName(), "The Third Eye");
@@ -846,7 +848,7 @@ public class ENUSProvider extends LanguageProvider {
                         - [](item://minecraft:oak_wood):  [](item://occultism:otherworld_log)
                         - [](item://minecraft:oak_leaves): [](item://occultism:otherworld_leaves)
                         - [](item://minecraft:netherrack): [](item://occultism:iesnium_ore)
-           
+                                   
                         Then right-click and hold until the rod animation finishes.""");
 
         helper.page("how_to_use2");
@@ -869,33 +871,112 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Otherworld Groves");
         this.add(helper.pageText(),
                 """
-                       Otherworld Groves are lush, overgrown caves, with [#](%1$s)Otherworld Trees[#](), 
-                       and walls of [](item://occultism:otherstone), and represent the fastest way to get everything one 
-                       needs to get set up as a summoner.
-                       To find them, attune your divination rod to Otherworld leaves 
-                       or logs, as unlike Otherstone, they only spawn in these groves.
-                        """.formatted(COLOR_PURPLE));
+                        Otherworld Groves are lush, overgrown caves, with [#](%1$s)Otherworld Trees[#](), 
+                        and walls of [](item://occultism:otherstone), and represent the fastest way to get everything one 
+                        needs to get set up as a summoner.
+                        To find them, attune your divination rod to Otherworld leaves 
+                        or logs, as unlike Otherstone, they only spawn in these groves.
+                         """.formatted(COLOR_PURPLE));
 
         helper.page("otherworld_groves_2");
         this.add(helper.pageText(),
                 """
-                      **Hint:** In the Overworld, look **down**.
-                        """);
+                        **Hint:** In the Overworld, look **down**.
+                          """);
 
         helper.page("otherworld_trees");
         this.add(helper.pageTitle(), "Otherworld Trees");
         this.add(helper.pageText(),
                 """
-                       Otherworld trees grow naturally in Otherworld Groves. To the naked eye they appear as oak trees, 
-                       but to the Third Eye they reveal their true nature.   \s
-                       **Important:** Otherworld Saplings can only be obtained by breaking the leaves manually, naturally only oak saplings drop. 
-                        """);
+                        Otherworld trees grow naturally in Otherworld Groves. To the naked eye they appear as oak trees, 
+                        but to the Third Eye they reveal their true nature.   \s
+                        **Important:** Otherworld Saplings can only be obtained by breaking the leaves manually, naturally only oak saplings drop. 
+                         """);
 
         helper.page("otherworld_trees_2");
         this.add(helper.pageText(),
                 """
-                       Trees grown from Stable Otherworld Saplings as obtained from spirit traders do not have that limitation.
-                        """);
+                        Trees grown from Stable Otherworld Saplings as obtained from spirit traders do not have that limitation.
+                         """);
+
+
+        helper.entry("ritual_prep");
+        this.add(helper.entryName(), "Ritual Preparations");
+        this.add(helper.entryDescription(), "Things to do before your first ritual.");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Ritual Preparations");
+        this.add(helper.pageText(),
+                """
+                        To summon spirits from the [#](%1$s)Other Place[#]() in relative safety, 
+                        you need to draw a fitting pentacle using chalk to contain their powers.
+                        Furthermore, you need [Sacrificial Bowls](item://occultism:sacrificial_bowl) 
+                        to sacrifice fitting items to attract the spirit.
+                         """.formatted(COLOR_PURPLE));
+
+
+        helper.page("white_chalk");
+        this.add(helper.pageText(),
+                """
+                        For pentacles, only the color of chalk is relevant, not the glyph/sign. 
+                        For decorative purposes you can repeatedly click a block to cycle through glyphs. 
+                            """.formatted(COLOR_PURPLE));
+
+        //TODO: Book: link to chalk types page
+
+        helper.page("burnt_otherstone_recipe");
+        //no text
+
+        helper.page("otherworld_ashes_recipe");
+        //no text
+
+        helper.page("impure_white_chalk_recipe");
+        //no text
+
+        helper.page("white_chalk_recipe");
+        //no text
+
+        helper.page("brush_recipe");
+        this.add(helper.pageText(), "The brush can be used to easily remove chalk glyphs fom the ground.");
+
+        helper.page("white_candle");
+        this.add(helper.pageText(),
+                """
+                        Candles provide stability to rituals and are an important part of almost all pentacles. 
+                        **Candles also act like bookshelves for enchantment purposes.**
+                            """);
+
+        helper.page("tallow");
+        this.add(helper.pageText(),
+                """
+                        Ingredient for candles. Kill large animals like pigs, cows or sheep with a [#](item://occultism:butcher_knife) 
+                        to harvest [#](item://occultism:tallow).
+                            """);
+
+
+        helper.page("white_candle_recipe");
+        //no text
+
+        helper.page("sacrificial_bowl");
+        this.add(helper.pageText(),
+                """
+                       These bowls are used to sacrifice items as part of a ritual and you will need a handful of them. 
+                       Note: Their exact placement in the ritual does not matter - just keep them within 8 blocks of the pentacle center!
+                            """);
+
+        helper.page("sacrificial_bowl_recipe");
+        //no text
+
+        helper.page("golden_sacrificial_bowl");
+        this.add(helper.pageText(),
+                """
+                       This special sacrificial bowl is used to activate the ritual by right-clicking it with the activation item, 
+                       usually a book of binding, once everything has been set up and you are ready to start.
+                            """);
+
+
+        helper.page("golden_sacrificial_bowl_recipe");
+        //no text
     }
 
     private void addRitualsCategory(BookLangHelper helper) {

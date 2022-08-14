@@ -120,7 +120,7 @@ public class BookGenerator implements DataProvider {
         var divinationRodEntry = this.makeDivinationRodEntry(helper, entryHelper, 'r');
         divinationRodEntry.withParent(BookEntryParentModel.builder().withEntryId(spiritFireEntry.id).build());
 
-        var pentaclePrepEntry = this.makePentaclePrepEntry(helper, entryHelper, 'p');
+        var pentaclePrepEntry = this.makeRitualPrepEntry(helper, entryHelper, 'p');
         pentaclePrepEntry.withParent(BookEntryParentModel.builder().withEntryId(divinationRodEntry.id).build());
 
 //        var ritualBookEntry = this.makeRitualBookEntry(helper, entryHelper, 'b');
@@ -341,8 +341,8 @@ public class BookGenerator implements DataProvider {
                         howToUse, howToUse2, divinationRodScreenshots, otherworldGroves, otherworldGroves2, otherworldTrees, otherworldTrees2);
     }
 
-    private BookEntryModel.Builder makePentaclePrepEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
-        helper.entry("pentacle");
+    private BookEntryModel.Builder makeRitualPrepEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("ritual_prep");
 
         helper.page("intro");
         var intro = BookTextPageModel.builder()
@@ -421,14 +421,8 @@ public class BookGenerator implements DataProvider {
                 .withRecipeId1(this.modLoc("crafting/golden_sacrificial_bowl"))
                 .build();
 
-        helper.page("golden_sacrificial_bowl_info");
-        var goldenSacrificialBowlInfo = BookTextPageModel.builder()
-                .withTitle(helper.pageTitle())
-                .withText(helper.pageText())
-                .build();
-
         return BookEntryModel.builder()
-                .withId(this.modLoc("getting_started/pentacle"))
+                .withId(this.modLoc("getting_started/ritual_prep"))
                 .withName(helper.entryName())
                 .withDescription(helper.entryDescription())
                 .withIcon(OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL.getId().toString())
@@ -447,8 +441,7 @@ public class BookGenerator implements DataProvider {
                         sacrificialBowlSpotlight,
                         sacrificialBowlRecipe,
                         goldenSacrificialBowlSpotlight,
-                        goldenSacrificialBowlRecipe,
-                        goldenSacrificialBowlInfo
+                        goldenSacrificialBowlRecipe
                 );
     }
 

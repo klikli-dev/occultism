@@ -1,0 +1,138 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "occultism:getting_started",
+  "description": "book.occultism.dictionary_of_spirits.getting_started.ritual_prep.description",
+  "hide_while_locked": false,
+  "icon": "occultism:golden_sacrificial_bowl",
+  "name": "book.occultism.dictionary_of_spirits.getting_started.ritual_prep.name",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.getting_started.ritual_prep.intro.text",
+      "title": "book.occultism.dictionary_of_spirits.getting_started.ritual_prep.intro.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "item": {
+        "item": "occultism:chalk_white"
+      },
+      "text": "book.occultism.dictionary_of_spirits.getting_started.ritual_prep.white_chalk.text",
+      "title": ""
+    },
+    {
+      "type": "modonomicon:smelting_recipe",
+      "anchor": "",
+      "recipe_id_1": "occultism:smelting/burnt_otherstone",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    },
+    {
+      "type": "occultism:spirit_fire_recipe",
+      "anchor": "",
+      "recipe_id_1": "occultism:spirit_fire/otherworld_ashes",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    },
+    {
+      "type": "modonomicon:crafting_recipe",
+      "anchor": "",
+      "recipe_id_1": "occultism:crafting/chalk_white_impure",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    },
+    {
+      "type": "occultism:spirit_fire_recipe",
+      "anchor": "",
+      "recipe_id_1": "occultism:spirit_fire/chalk_white",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    },
+    {
+      "type": "modonomicon:crafting_recipe",
+      "anchor": "",
+      "recipe_id_1": "occultism:crafting/brush",
+      "text": "book.occultism.dictionary_of_spirits.getting_started.ritual_prep.brush_recipe.text",
+      "title1": "",
+      "title2": ""
+    },
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "item": {
+        "item": "occultism:candle_white"
+      },
+      "text": "book.occultism.dictionary_of_spirits.getting_started.ritual_prep.white_candle.text",
+      "title": ""
+    },
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "item": {
+        "item": "occultism:tallow"
+      },
+      "text": "book.occultism.dictionary_of_spirits.getting_started.ritual_prep.tallow.text",
+      "title": ""
+    },
+    {
+      "type": "modonomicon:crafting_recipe",
+      "anchor": "",
+      "recipe_id_1": "occultism:crafting/candle",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    },
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "item": {
+        "item": "occultism:sacrificial_bowl"
+      },
+      "text": "book.occultism.dictionary_of_spirits.getting_started.ritual_prep.sacrificial_bowl.text",
+      "title": ""
+    },
+    {
+      "type": "modonomicon:crafting_recipe",
+      "anchor": "",
+      "recipe_id_1": "occultism:crafting/sacrificial_bowl",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    },
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "item": {
+        "item": "occultism:golden_sacrificial_bowl"
+      },
+      "text": "book.occultism.dictionary_of_spirits.getting_started.ritual_prep.golden_sacrificial_bowl.text",
+      "title": ""
+    },
+    {
+      "type": "modonomicon:crafting_recipe",
+      "anchor": "",
+      "recipe_id_1": "occultism:crafting/golden_sacrificial_bowl",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "occultism:getting_started/divination_rod",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "x": 3,
+  "y": -6
+}
