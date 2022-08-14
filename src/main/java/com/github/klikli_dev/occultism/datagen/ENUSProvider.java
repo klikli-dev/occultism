@@ -920,9 +920,8 @@ public class ENUSProvider extends LanguageProvider {
                 """
                         For pentacles, only the color of chalk is relevant, not the glyph/sign. 
                         For decorative purposes you can repeatedly click a block to cycle through glyphs. 
-                            """.formatted(COLOR_PURPLE));
-
-        //TODO: Book: link to chalk types page
+                        For other chalks see [Chalks](entry://occultism:dictionary_of_spirits/advanced/chalks)
+                            """);
 
         helper.page("burnt_otherstone_recipe");
         //no text
