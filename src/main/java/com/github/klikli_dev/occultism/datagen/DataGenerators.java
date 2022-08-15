@@ -24,6 +24,8 @@ package com.github.klikli_dev.occultism.datagen;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.level.multichunk.MultiChunkFeatureConfig;
+import com.github.klikli_dev.occultism.datagen.lang.ENUSProvider;
+import com.github.klikli_dev.occultism.datagen.lang.FRFRProvider;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.registry.OccultismFeatures;
 import com.mojang.serialization.JsonOps;
@@ -72,7 +74,8 @@ public class DataGenerators {
         generator.addProvider(event.includeServer(), new OccultismAdvancementProvider(generator));
         generator.addProvider(event.includeClient(), new ItemModelsGenerator(generator, event.getExistingFileHelper()));
         generator.addProvider(event.includeClient(), new StandardBlockStateProvider(generator, event.getExistingFileHelper()));
-        //generator.addProvider(event.includeClient(), new ENUSProvider(generator));
+        generator.addProvider(event.includeClient(), new ENUSProvider(generator));
+        generator.addProvider(event.includeClient(), new FRFRProvider(generator));
 
         registerFeatures(event);
 
