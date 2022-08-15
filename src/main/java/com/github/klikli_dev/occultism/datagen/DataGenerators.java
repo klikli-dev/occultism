@@ -22,6 +22,8 @@
 
 package com.github.klikli_dev.occultism.datagen;
 
+import com.github.klikli_dev.occultism.datagen.lang.ENUSProvider;
+import com.github.klikli_dev.occultism.datagen.lang.FRFRProvider;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -45,7 +47,8 @@ public class DataGenerators {
         if (event.includeClient()) {
             generator.addProvider(new ItemModelsGenerator(generator, event.getExistingFileHelper()));
             generator.addProvider(new StandardBlockStateProvider(generator, event.getExistingFileHelper()));
-            //generator.addProvider(new ENUSProvider(generator));
+            generator.addProvider(new ENUSProvider(generator));
+            generator.addProvider(new FRFRProvider(generator));
         }
     }
     //endregion Static Methods
