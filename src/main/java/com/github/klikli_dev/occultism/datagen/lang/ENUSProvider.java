@@ -310,8 +310,6 @@ public class ENUSProvider extends LanguageProvider {
 
         //"(.*?)": "(.*)",
         //this.add\("\1", "\2"\);
-        this.add("book.occultism.name", "Dictionary of Spirits");
-        this.add("book.occultism.landing_text", "This book aims to introduce the novice reader to the most common summoning rituals and equip them with a list of spirits and their names. The authors advise caution in the summoning of the listed entities. $(br2)For help or to give feedback please join us in Discord $(l:https://invite.gg/klikli)https://invite.gg/klikli$().");
 
         //Jobs
         this.add("job.occultism.lumberjack", "Lumberjack");
@@ -1140,21 +1138,6 @@ public class ENUSProvider extends LanguageProvider {
     }
 
     private void addPentacles() {
-        //old:
-        this.add("pentacle.occultism.craft_afrit", "Sevira's Permanent Confinement");
-        this.add("pentacle.occultism.craft_djinni", "Strigeor's Higher Binding");
-        this.add("pentacle.occultism.craft_foliot", "Eziveus' Spectral Compulsion");
-        this.add("pentacle.occultism.craft_marid", "Uphyxes Inverted Tower");
-        this.add("pentacle.occultism.possess_afrit", "Abras' Commanding Conjure");
-        this.add("pentacle.occultism.possess_djinni", "Ihagan's Enthrallment");
-        this.add("pentacle.occultism.possess_foliot", "Hedyrin's Lure");
-        this.add("pentacle.occultism.summon_afrit", "Abras' Conjure");
-        this.add("pentacle.occultism.summon_djinni", "Ophyx' Calling");
-        this.add("pentacle.occultism.summon_foliot", "Aviar's Circle");
-        this.add("pentacle.occultism.summon_wild_afrit", "Abras' Open Conjure");
-        this.add("pentacle.occultism.summon_marid", "Fatma's Incentivized Attraction");
-        this.add("pentacle.occultism.summon_wild_greater_spirit", "Osorin's Unbound Calling");
-
         this.addPentacle("otherworld_bird", "Otherworld Bird");
         this.addPentacle("craft_afrit", "Sevira's Permanent Confinement");
         this.addPentacle("craft_djinni", "Strigeor's Higher Binding");
