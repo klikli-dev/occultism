@@ -161,7 +161,10 @@ public class ENUSProvider extends LanguageProvider {
         this.addItem(OccultismItems.DATURA_SEEDS, "Demon's Dream Seeds");
         this.addItem(OccultismItems.DATURA, "Demon's Dream Fruit");
         this.addItem(OccultismItems.SPIRIT_ATTUNED_GEM, "Spirit Attuned Gem");
-        this.addItem(OccultismItems.OTHERWORLD_SAPLING_NATURAL, "Unstable Otherworld Sapling");
+
+        this.add("item.occultism.otherworld_sapling",  "Otherworld Sapling");
+        this.add("item.occultism.otherworld_sapling_natural", "Unstable Otherworld Sapling");
+
         this.addItem(OccultismItems.OTHERWORLD_ASHES, "Otherworld Ashes");
         this.addItem(OccultismItems.BURNT_OTHERSTONE, "Burnt Otherstone");
         this.addItem(OccultismItems.BUTCHER_KNIFE, "Butcher Knife");
@@ -247,9 +250,11 @@ public class ENUSProvider extends LanguageProvider {
         this.addBlock(OccultismBlocks.STORAGE_STABILIZER_TIER4, "Tier 4 Dimensional Storage Stabilizer");
         this.addBlock(OccultismBlocks.STABLE_WORMHOLE, "Stable Wormhole");
         this.addBlock(OccultismBlocks.DATURA, "Demon's Dream");
-        this.addBlock(OccultismBlocks.OTHERWORLD_LOG, "Otherworld Wood");
-        this.addBlock(OccultismBlocks.OTHERWORLD_SAPLING, "Otherworld Sapling");
-        this.addBlock(OccultismBlocks.OTHERWORLD_LEAVES, "Otherworld Leaves");
+
+        this.add("block.occultism.otherworld_log", "Otherworld Wood");
+        this.add("block.occultism.otherworld_sapling", "Otherworld Sapling");
+        this.add("block.occultism.otherworld_leaves", "Otherworld Leaves");
+
         this.addBlock(OccultismBlocks.SPIRIT_FIRE, "Spiritfire");
         this.addBlock(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL, "Spirit Attuned Crystal");
         this.addBlock(OccultismBlocks.CANDLE_WHITE, "White Candle");
