@@ -9,7 +9,6 @@
   "creative_tab": "occultism",
   "show_progress": false,
   "i18n": true,
-  "dont_generate_book": true,
-  "custom_book_item": "occultism:dictionary_of_spirits",
+  "dont_generate_book": false,
   "use_resource_pack": false
 }

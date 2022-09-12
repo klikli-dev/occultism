@@ -8,11 +8,7 @@
       "type": "text",
       "text": "$(bold)Purpose:$() Bind Marid $(br2)$(thing)Uphyxes Inverted Tower$() is one of the few pentacles capable of binding $(thing)Marid$() into objects. Any rituals involving $(thing)Marid$() should be performed only by the most experienced summoners. "
     },
-    {
-      "type": "multiblock",
-      "name": "",
-      "multiblock_id": "occultism:pentacle.craft_marid"
-    },
+
     {
       "type": "text",
       "title": "Uses",

@@ -1,5 +1,4 @@
 {
-  "processor": "com.github.klikli_dev.occultism.integration.patchouli.RitualRecipeProcessor",
   "components": [
     {
       "type": "patchouli:item",

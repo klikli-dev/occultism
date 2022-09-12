@@ -8,11 +8,7 @@
       "type": "text",
       "text": "$(bold)Purpose:$() Summon Unbound Greater Spirit $(br2)$(thing)Osorin' Unbound Calling$() is based on $(thing)Abras' Open Conjure$(), but features none of the stabilizing paraphernalia. The pentacle offers no protection whatsoever to the summoner, but acts as an irresistible call to Greater Spirits."
     },
-    {
-      "type": "multiblock",
-      "name": "",
-      "multiblock_id": "occultism:pentacle.summon_wild_greater_spirit"
-    },
+
     {
       "type": "text",
       "title": "Uses",

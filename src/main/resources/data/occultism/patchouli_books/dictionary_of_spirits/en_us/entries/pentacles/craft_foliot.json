@@ -8,11 +8,7 @@
       "type": "text",
       "text": "$(bold)Purpose:$() Bind Foliot $(br2)As a simple binding pentacle, $(thing)Eziveus' Spectral Compulsion$(), is a common starting point for object infusion with lower spirits. The enchantment is made permanent by stabilizing candles and spirit attuned crystals."
     },
-    {
-      "type": "multiblock",
-      "name": "",
-      "multiblock_id": "occultism:pentacle.craft_foliot"
-    },
+
     {
       "type": "text",
       "title": "Uses",
