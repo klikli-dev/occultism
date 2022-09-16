@@ -1,0 +1,7 @@
+{
+  "background": "modonomicon:textures/gui/dark_slate_seamless.png",
+  "entry_textures": "modonomicon:textures/gui/entry_textures.png",
+  "icon": "occultism:otherworld_goggles",
+  "name": "book.occultism.dictionary_of_spirits.advanced.name",
+  "sort_number": -1
+}

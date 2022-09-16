@@ -24,11 +24,16 @@ package com.github.klikli_dev.occultism.datagen.lang;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.datagen.OccultismAdvancementProvider;
+import com.github.klikli_dev.occultism.integration.modonomicon.BookSpiritFireRecipePageModel;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.modonomicon.api.ModonomiconAPI;
 import com.klikli_dev.modonomicon.api.datagen.BookLangHelper;
+import com.klikli_dev.modonomicon.datagen.book.BookCategoryModel;
+import com.klikli_dev.modonomicon.datagen.book.page.BookCraftingRecipePageModel;
+import com.klikli_dev.modonomicon.datagen.book.page.BookSpotlightPageModel;
+import com.klikli_dev.modonomicon.datagen.book.page.BookTextPageModel;
 import net.minecraft.Util;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.network.chat.contents.TranslatableContents;
@@ -164,7 +169,7 @@ public class ENUSProvider extends LanguageProvider {
         this.addItem(OccultismItems.DATURA_SEEDS, "Demon's Dream Seeds");
         this.addItem(OccultismItems.DATURA, "Demon's Dream Fruit");
         this.addItem(OccultismItems.SPIRIT_ATTUNED_GEM, "Spirit Attuned Gem");
-        this.add("item.occultism.otherworld_sapling",  "Otherworld Sapling");
+        this.add("item.occultism.otherworld_sapling", "Otherworld Sapling");
         this.add("item.occultism.otherworld_sapling_natural", "Unstable Otherworld Sapling");
         this.addItem(OccultismItems.OTHERWORLD_ASHES, "Otherworld Ashes");
         this.addItem(OccultismItems.BURNT_OTHERSTONE, "Burnt Otherstone");
@@ -676,6 +681,7 @@ public class ENUSProvider extends LanguageProvider {
 
         this.addGettingStartedCategory(helper);
         this.addRitualsCategory(helper);
+        this.addAdvancedCategory(helper);
     }
 
     private void addGettingStartedCategory(BookLangHelper helper) {
@@ -921,7 +927,7 @@ public class ENUSProvider extends LanguageProvider {
                 """
                         For pentacles, only the color of chalk is relevant, not the glyph/sign.
                         For decorative purposes you can repeatedly click a block to cycle through glyphs.
-                        For other chalks see [Chalks](entry://occultism:dictionary_of_spirits/advanced/chalks)
+                        For other chalks see [Chalks](entry://occultism:dictionary_of_spirits/advanced/chalks).
                             """);
 
         helper.page("burnt_otherstone_recipe");
@@ -960,9 +966,9 @@ public class ENUSProvider extends LanguageProvider {
         helper.page("sacrificial_bowl");
         this.add(helper.pageText(),
                 """
-                       These bowls are used to sacrifice items as part of a ritual and you will need a handful of them.
-                       Note: Their exact placement in the ritual does not matter - just keep them within 8 blocks of the pentacle center!
-                            """);
+                        These bowls are used to sacrifice items as part of a ritual and you will need a handful of them.
+                        Note: Their exact placement in the ritual does not matter - just keep them within 8 blocks of the pentacle center!
+                             """);
 
         helper.page("sacrificial_bowl_recipe");
         //no text
@@ -970,13 +976,58 @@ public class ENUSProvider extends LanguageProvider {
         helper.page("golden_sacrificial_bowl");
         this.add(helper.pageText(),
                 """
-                       This special sacrificial bowl is used to activate the ritual by right-clicking it with the activation item,
-                       usually a book of binding, once everything has been set up and you are ready to start.
-                            """);
+                        This special sacrificial bowl is used to activate the ritual by right-clicking it with the activation item,
+                        usually a book of binding, once everything has been set up and you are ready to start.
+                             """);
 
 
         helper.page("golden_sacrificial_bowl_recipe");
         //no text
+
+
+        helper.entry("ritual_book");
+        this.add(helper.entryName(), "Books of Binding");
+        this.add(helper.entryDescription(), "Or how to identify your spirit");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Books of Binding");
+        this.add(helper.pageText(),
+                """
+                        To call forth a spirit, a [#](%1$s)Book of Binding[#]() must be used in the ritual.
+                        There is a type of book corresponding to each type (or tier) of spirit.
+                        To identify a spirit to summon, it's name must be written in the [#](%1$s)Book of Binding[#](), 
+                        resulting in a [#](%1$s)Bound Book of Binding[#]() that can be used in the ritual. 
+                         """.formatted(COLOR_PURPLE));
+
+        helper.page("purified_ink_recipe");
+        this.add(helper.pageText(),
+                """
+                        In order to craft [#](%1$s)Books of Binding[#]() to summon spirits, you need purified ink. 
+                        Simply drop any black dye into [](item://occultism:spirit_fire) to purify it.
+                            """.formatted(COLOR_PURPLE));
+
+        helper.page("book_of_binding_foliot_recipe");
+        this.add(helper.pageText(),
+                """
+                        Craft a book of binding that will be used to call forth a [#](%1$s)Foliot[#]() spirit.
+                           """.formatted(COLOR_PURPLE));
+
+        helper.page("book_of_binding_bound_foliot_recipe");
+        this.add(helper.pageText(),
+                """
+                        Add the name of the spirit to summon to your book of binding by crafting it with the Dictionary of Spirits. The Dictionary will not be used up.
+                           """);
+
+        helper.page("book_of_binding_djinni_recipe");
+        //no text
+
+        helper.page("book_of_binding_afrit_recipe");
+        //no text
+
+        helper.page("book_of_binding_marid_recipe");
+        //no text
+
+
     }
 
     private void addRitualsCategory(BookLangHelper helper) {
@@ -986,6 +1037,40 @@ public class ENUSProvider extends LanguageProvider {
         helper.entry("craft_otherworld_goggles");
         this.add(helper.entryName(), "Craft Otherworld Goggles");
     }
+
+    private void addAdvancedCategory(BookLangHelper helper) {
+        helper.category("advanced");
+        this.add(helper.categoryName(), "Advanced");
+
+        helper.entry("chalks");
+        this.add(helper.entryName(), "Chalks");
+        this.add(helper.entryDescription(), "Better chalks for better rituals!");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "More Chalks");
+        this.add(helper.pageText(),
+                """
+                    For more advanced rituals the basic [White Chalk](entry://occultism:dictionary_of_spirits/getting_started/ritual_prep@white_chalk) 
+                    is not sufficient. Instead chalks made from more arcane materials are required.
+                    """);
+
+        helper.page("gold_chalk_recipe");
+        //no text
+
+        helper.page("purple_chalk_recipe");
+        //no text
+
+        helper.page("red_chalk_recipe");
+        //no text
+
+        helper.page("afrit_essence");
+        //TODO: Modonomicon, add link to correct entry for unbound afrit
+        this.add(helper.pageText(),
+                """
+                    //TODO: Entry not yet implemented
+                    """);
+    }
+
 
     private void addAdvancements() {
         //"advancements\.occultism\.(.*?)\.title": "(.*)",

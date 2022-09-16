@@ -17,7 +17,7 @@
     },
     {
       "type": "modonomicon:spotlight",
-      "anchor": "",
+      "anchor": "white_chalk",
       "item": {
         "item": "occultism:chalk_white"
       },

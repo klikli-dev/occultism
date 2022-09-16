@@ -82,6 +82,7 @@ public class BookGenerator implements DataProvider {
                 .withTooltip(helper.bookTooltip())
                 .withCategory(gettingStartedCategory)
                 .withCategory(ritualsCategory)
+                .withCategory(advancedCategory)
                 .withCraftingTexture(this.modLoc("textures/gui/book/crafting_textures.png"))
                 .build();
         return demoBook;
@@ -126,11 +127,10 @@ public class BookGenerator implements DataProvider {
         pentaclePrepEntry.withParent(BookEntryParentModel.builder().withEntryId(divinationRodEntry.id).build());
 
 
-//        var ritualBookEntry = this.makeRitualBookEntry(helper, entryHelper, 'b');
-//        ritualBookEntry.withParent(BookEntryParentModel.builder().withEntryId(divinationRodEntry.id).build());
-//            //needs purified ink
-//
-//        var ritualEntry = this.makeRitualEntry(helper, entryHelper, 'R');
+        var ritualBookEntry = this.makeRitualBookEntry(helper, entryHelper, 'b');
+        ritualBookEntry.withParent(BookEntryParentModel.builder().withEntryId(divinationRodEntry.id).build());
+
+        //        var ritualEntry = this.makeRitualEntry(helper, entryHelper, 'R');
 //        ritualEntry
 //                .withParent(BookEntryParentModel.builder().withEntryId(pentaclePrepEntry.id).build())
 //                .withParent(BookEntryParentModel.builder().withEntryId(ritualBookEntry.id).build());
@@ -144,6 +144,7 @@ public class BookGenerator implements DataProvider {
                 .withEntries(thirdEyeEntry.build())
                 .withEntries(divinationRodEntry.build())
                 .withEntries(pentaclePrepEntry.build())
+                .withEntries(ritualBookEntry.build())
                 .build();
     }
 
@@ -357,6 +358,7 @@ public class BookGenerator implements DataProvider {
         var whiteChalkSpotlight = BookSpotlightPageModel.builder()
                 .withItem(Ingredient.of(OccultismItems.CHALK_WHITE.get()))
                 .withText(helper.pageText())
+                .withAnchor("white_chalk")
                 .build();
 
         helper.page("burnt_otherstone_recipe");
@@ -448,6 +450,75 @@ public class BookGenerator implements DataProvider {
                 );
     }
 
+    private BookEntryModel.Builder makeRitualBookEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("ritual_book");
+
+        helper.page("intro");
+        var intro = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText()) //talk about book of binding, and bound book of binding
+                .build();
+
+//        helper.page("purified_ink");
+//        var purifiedInkSpotlight = BookSpotlightPageModel.builder()
+//                .withItem(Ingredient.of(OccultismItems.PURIFIED_INK.get()))
+//                .withText(helper.pageText())
+//                .build();
+
+        helper.page("purified_ink_recipe");
+        var purifiedInkRecipe = BookSpiritFireRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("spirit_fire/purified_ink"))
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("book_of_binding_foliot_recipe");
+        var bookOfBindingFoliotRecipe = BookCraftingRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("crafting/book_of_binding_foliot"))
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("book_of_binding_bound_foliot_recipe");
+        var bookOfBindingBoundFoliotRecipe = BookCraftingRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("crafting/book_of_binding_bound_foliot"))
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("book_of_binding_djinni_recipe");
+        var bookOfBindingDjinniRecipe = BookCraftingRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("crafting/book_of_binding_djinni"))
+                .withRecipeId2(this.modLoc("crafting/book_of_binding_bound_djinni"))
+                .build();
+
+        helper.page("book_of_binding_afrit_recipe");
+        var bookOfBindingAfritRecipe = BookCraftingRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("crafting/book_of_binding_afrit"))
+                .withRecipeId2(this.modLoc("crafting/book_of_binding_bound_afrit"))
+                .build();
+
+        helper.page("book_of_binding_marid_recipe");
+        var bookOfBindingMaritRecipe = BookCraftingRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("crafting/book_of_binding_marid"))
+                .withRecipeId2(this.modLoc("crafting/book_of_binding_bound_marid"))
+                .build();
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withDescription(helper.entryDescription())
+                .withIcon(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.getId().toString())
+                .withLocation(entryHelper.get(icon))
+                .withPages(
+                        intro,
+//                        purifiedInkSpotlight,
+                        purifiedInkRecipe,
+                        bookOfBindingFoliotRecipe,
+                        bookOfBindingBoundFoliotRecipe,
+                        bookOfBindingDjinniRecipe,
+                        bookOfBindingAfritRecipe,
+                        bookOfBindingMaritRecipe
+                );
+    }
+
     private BookCategoryModel makeAdvancedCategory(BookLangHelper helper) {
         helper.category("advanced");
 
@@ -513,11 +584,15 @@ public class BookGenerator implements DataProvider {
                 .withRecipeId1(this.modLoc("crafting/chalk_red_impure"))
                 .build();
 
-        //TODO: dictionary, link to unbound afrit summoning
-
-        helper.page("gold_red_recipe");
+        helper.page("red_chalk_recipe");
         var redChalkRecipe = BookSpiritFireRecipePageModel.builder()
                 .withRecipeId1(this.modLoc("spirit_fire/chalk_red"))
+                .build();
+
+        helper.page("afrit_essence");
+        var afritEssenceSpotlight = BookSpotlightPageModel.builder()
+                .withItem(Ingredient.of(OccultismItems.AFRIT_ESSENCE.get()))
+                .withText(helper.pageText())
                 .build();
 
         return BookEntryModel.builder()
@@ -533,7 +608,8 @@ public class BookGenerator implements DataProvider {
                         impurePurpleChalkRecipe,
                         purpleChalkRecipe,
                         impureRedChalkRecipe,
-                        redChalkRecipe
+                        redChalkRecipe,
+                        afritEssenceSpotlight
                 );
     }
 
