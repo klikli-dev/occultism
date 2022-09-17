@@ -1366,6 +1366,12 @@ public class ENUSProvider extends LanguageProvider {
         this.add("dialog.occultism.mummy.kapow", "KAPOW!");
     }
 
+    private void addPatchouli(){
+        this.add("book.occultism.name", "Dictionary of Spirits (Old Edition)");
+        this.add("pentacle.occultim.craft_djinni", "Strigeor's Higher Binding");
+        this.add("pentacle.occultim.craft_foliot", "Eziveus' Spectral Compulsion");
+    }
+
     private void advancementTitle(String name, String s) {
         this.add(((TranslatableContents) OccultismAdvancementProvider.title(name).getContents()).getKey(), s);
     }
@@ -1392,5 +1398,6 @@ public class ENUSProvider extends LanguageProvider {
         this.addRitualDummies();
         this.addDialogs();
         this.addPentacles();
+        this.addPatchouli(); //TODO: remove once no longer needed
     }
 }
