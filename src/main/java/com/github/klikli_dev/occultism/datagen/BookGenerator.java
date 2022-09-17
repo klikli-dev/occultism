@@ -84,6 +84,8 @@ public class BookGenerator implements DataProvider {
                 .withCategory(ritualsCategory)
                 .withCategory(advancedCategory)
                 .withCraftingTexture(this.modLoc("textures/gui/book/crafting_textures.png"))
+                .withGenerateBookItem(false)
+                .withAutoAddReadConditions(true)
                 .build();
         return demoBook;
     }
@@ -93,7 +95,7 @@ public class BookGenerator implements DataProvider {
 
         var entryHelper = ModonomiconAPI.get().getEntryLocationHelper();
         entryHelper.setMap(
-                "_____________p_____C_", //p=pentaclePrep, C=Chalks
+                "__i__________p_____C_", //p=pentaclePrep, C=Chalks
                 "_____________________",
                 "_____________________",
                 "_____________________",
@@ -113,7 +115,11 @@ public class BookGenerator implements DataProvider {
         //TODO: Entry about books
         //TODO: ritualentry
 
+        var introEntry = this.makeIntroEntry(helper, entryHelper, 'i');
+
         var demonsDreamEntry = this.makeDemonsDreamEntry(helper, entryHelper, 'd');
+        demonsDreamEntry.withParent(BookEntryParentModel.builder().withEntryId(introEntry.id).build());
+
         var spiritFireEntry = this.makeSpiritFireEntry(helper, entryHelper, 'f');
         spiritFireEntry.withParent(BookEntryParentModel.builder().withEntryId(demonsDreamEntry.id).build());
 
@@ -139,6 +145,7 @@ public class BookGenerator implements DataProvider {
                 .withId(this.modLoc("getting_started"))
                 .withName(helper.categoryName())
                 .withIcon(OccultismItems.DICTIONARY_OF_SPIRITS_ICON.getId().toString())
+                .withEntry(introEntry.build())
                 .withEntry(demonsDreamEntry.build())
                 .withEntry(spiritFireEntry.build())
                 .withEntries(thirdEyeEntry.build())
@@ -148,6 +155,34 @@ public class BookGenerator implements DataProvider {
                 .build();
     }
 
+    private BookEntryModel.Builder makeIntroEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("intro");
+
+        helper.page("intro");
+        var intro = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("intro2");
+        var intro2 = BookTextPageModel.builder()
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("recipe");
+        var recipe = BookCraftingRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("crafting/dictionary_of_spirits_old_edition"))
+                .withText(helper.pageText())
+                .build();
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withDescription(helper.entryDescription())
+                .withIcon(OccultismItems.DICTIONARY_OF_SPIRITS_ICON.getId().toString())
+                .withLocation(entryHelper.get(icon))
+                .withPages(intro, intro2, recipe);
+    }
 
     private BookEntryModel.Builder makeDemonsDreamEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
         helper.entry("demons_dream");

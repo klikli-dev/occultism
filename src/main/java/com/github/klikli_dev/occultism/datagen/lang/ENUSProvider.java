@@ -688,6 +688,39 @@ public class ENUSProvider extends LanguageProvider {
         helper.category("getting_started");
         this.add(helper.categoryName(), "Getting Started");
 
+        helper.entry("intro");
+        this.add(helper.entryName(), "Disclaimer!");
+        this.add(helper.entryDescription(), "About using the Dictionary of Spirits");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Important Information");
+        this.add(helper.pageText(),
+                """
+                        Occultism is transitioning from Patchouli to Modonomicon as in-game documentation.   \s
+                           \s
+                           \s
+
+                        Currently only the "getting started" section is available in Modonomicon, 
+                        for all other content you need to refer back to the Patchouli book
+                        titled "Dictionary of Spirits (Old Edition)". 
+                        
+                        """);
+
+        helper.page("intro2");
+        this.add(helper.pageText(),
+                """
+                        For now, to look up recipes, pentacle shapes, ritual information and basically everything after "getting started", 
+                        please open the Old Edition.
+                           
+                        Over time more and more content will be available directly here in the Modonomicon version.
+                        """);
+
+        helper.page("recipe");
+        this.add(helper.pageText(),
+                """
+                        To obtain the old edition, simply craft this book alone in a crafting grid. (The book new edition will not be destroyed.)
+                        """);
+
         helper.entry("demons_dream");
         this.add(helper.entryName(), "Lifting the Veil");
         this.add(helper.entryDescription(), "Learn about the Otherworld and the Third Eye.");

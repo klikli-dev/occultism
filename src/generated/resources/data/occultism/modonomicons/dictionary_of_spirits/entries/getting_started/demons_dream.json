@@ -51,6 +51,14 @@
       "title": ""
     }
   ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "occultism:getting_started/intro",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
   "x": -8,
   "y": -2
 }
