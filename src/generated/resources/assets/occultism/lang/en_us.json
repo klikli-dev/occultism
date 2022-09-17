@@ -167,6 +167,8 @@
   "book.occultism.dictionary_of_spirits.getting_started.third_eye.name": "The Third Eye",
   "book.occultism.dictionary_of_spirits.getting_started.third_eye.otherworld_goggles.text": "[These goggles](entry://occultism:dictionary_of_spirits/rituals/craft_otherworld_goggles) allow to see even more hidden Otherworld blocks,\nhowever they do not allow harvesting those materials.\nLow-tier materials can be harvested by consuming [Demon's Dream](entry://occultism:dictionary_of_spirits/getting_started/demons_dream),\nbut more valuable materials require special tools.\n",
   "book.occultism.dictionary_of_spirits.name": "Dictionary of Spirits",
+  "book.occultism.dictionary_of_spirits.rituals.craft_otherworld_goggles.intro.text": "//TODO: Entry not yet implemented\n",
+  "book.occultism.dictionary_of_spirits.rituals.craft_otherworld_goggles.intro.title": "Otherworld Goggles",
   "book.occultism.dictionary_of_spirits.rituals.craft_otherworld_goggles.name": "Craft Otherworld Goggles",
   "book.occultism.dictionary_of_spirits.rituals.name": "Rituals",
   "book.occultism.dictionary_of_spirits.tooltip": "This book aims to introduce the novice reader to the most common summoning rituals and equip them with a list of spirits and their names.\nThe authors advise caution in the summoning of the listed entities.\nFor help or to give feedback please join us in Discord https://invite.gg/klikli.\n",

@@ -1110,6 +1110,13 @@ public class ENUSProvider extends LanguageProvider {
 
         helper.entry("craft_otherworld_goggles");
         this.add(helper.entryName(), "Craft Otherworld Goggles");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Otherworld Goggles");
+        this.add(helper.pageText(),
+                """
+                    //TODO: Entry not yet implemented
+                    """);
     }
 
     private void addAdvancedCategory(BookLangHelper helper) {
