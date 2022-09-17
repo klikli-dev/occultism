@@ -9,7 +9,7 @@ public class PageRenderers {
 
     public static void onClientSetup(FMLClientSetupEvent event) {
         PageRendererRegistry.registerPageRenderer(
-                OccultismModnomiconConstants.Page.SPIRIT_FIRE_RECIPE,
+                OccultismModonomiconConstants.Page.SPIRIT_FIRE_RECIPE,
                 p -> new BookSpiritFireRecipePageRenderer<>((BookSpiritFireRecipePage) p) {
                 });
     }
