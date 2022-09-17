@@ -95,15 +95,15 @@ public class BookGenerator implements DataProvider {
 
         var entryHelper = ModonomiconAPI.get().getEntryLocationHelper();
         entryHelper.setMap(
-                "__i__________p_____C_", //p=pentaclePrep, C=Chalks
+                "__i___________p___C__", //p=pentaclePrep, C=Chalks
                 "_____________________",
                 "_____________________",
                 "_____________________",
-                "__d___f___r________R_", //d=demonsDream, f=SpiritFire, r=divinationRod, R=ritualPrep
+                "__d___f___r_______R__", //d=demonsDream, f=SpiritFire, r=divinationRod, R=ritualPrep
                 "_____________________",
                 "_____________________",
                 "_____________________",
-                "____e_______b_______", //e=thirdEye, b=ritualBook
+                "____e_________b_____", //e=thirdEye, b=ritualBook
                 "_____________________",
                 "__________________c__", //c=?
                 "_____________________",
@@ -131,7 +131,6 @@ public class BookGenerator implements DataProvider {
 
         var pentaclePrepEntry = this.makeRitualPrepEntry(helper, entryHelper, 'p');
         pentaclePrepEntry.withParent(BookEntryParentModel.builder().withEntryId(divinationRodEntry.id).build());
-
 
         var ritualBookEntry = this.makeRitualBookEntry(helper, entryHelper, 'b');
         ritualBookEntry.withParent(BookEntryParentModel.builder().withEntryId(divinationRodEntry.id).build());
@@ -561,7 +560,6 @@ public class BookGenerator implements DataProvider {
         var bowlPlacementImage = BookImagePageModel.builder()
                 .withImages(modLoc("textures/gui/book/bowl_placement.png"))
                 .withBorder(true)
-                .withText(helper.pageText())
                 .build();
 
         helper.page("bowl_text");

@@ -1092,6 +1092,12 @@ public class ENUSProvider extends LanguageProvider {
                          """.formatted(COLOR_PURPLE));
 
         helper.page("ritual_recipe");
+        this.add(helper.pageText(),
+                """
+                       This page will show the ritual recipe in the future. 
+                       For now refer to the Old Edition to look up the 
+                       \"Summon Foliot Crusher\" ritual recipe.
+                         """.formatted(COLOR_PURPLE));
         //no text
 
         helper.page("start_ritual");

@@ -22,7 +22,7 @@
       "images": [
         "occultism:textures/gui/book/bowl_placement.png"
       ],
-      "text": "book.occultism.dictionary_of_spirits.getting_started.first_ritual.bowl_placement.text",
+      "text": "",
       "title": ""
     },
     {
@@ -64,6 +64,6 @@
       "line_reversed": false
     }
   ],
-  "x": 9,
+  "x": 8,
   "y": -2
 }
