@@ -16,8 +16,9 @@ import com.klikli_dev.modonomicon.book.page.BookRecipePage;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
+import net.minecraft.world.item.ItemStack;
 
-public class BookRitualRecipePage extends BookProcessingRecipePage<RitualRecipe> {
+public class BookRitualRecipePage extends BookRecipePage<RitualRecipe> {
     public BookRitualRecipePage(BookTextHolder title1, ResourceLocation recipeId1, BookTextHolder title2, ResourceLocation recipeId2, BookTextHolder text, String anchor) {
         super(OccultismRecipes.RITUAL_TYPE.get(), title1, recipeId1, title2, recipeId2, text, anchor);
     }
@@ -37,6 +38,15 @@ public class BookRitualRecipePage extends BookProcessingRecipePage<RitualRecipe>
         var common = BookRecipePage.commonFromNetwork(buffer);
         var anchor = buffer.readUtf();
         return new BookRitualRecipePage(common.title1(), common.recipeId1(), common.title2(), common.recipeId2(), common.text(), anchor);
+    }
+
+    @Override
+    protected ItemStack getRecipeOutput(RitualRecipe recipe) {
+        if (recipe == null) {
+            return ItemStack.EMPTY;
+        }
+
+        return recipe.getRitualDummy();
     }
 
     @Override

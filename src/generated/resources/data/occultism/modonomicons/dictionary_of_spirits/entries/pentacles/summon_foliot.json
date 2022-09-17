@@ -1,0 +1,37 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "occultism:pentacles",
+  "description": "",
+  "hide_while_locked": false,
+  "icon": "occultism:pentacle",
+  "name": "book.occultism.dictionary_of_spirits.pentacles.summon_foliot.name",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.pentacles.summon_foliot.intro.text",
+      "title": "book.occultism.dictionary_of_spirits.pentacles.summon_foliot.intro.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:multiblock",
+      "anchor": "",
+      "multiblock_id": "occultism:summon_foliot",
+      "multiblock_name": "",
+      "show_visualize_button": true,
+      "text": ""
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.pentacles.summon_foliot.uses.text",
+      "title": "book.occultism.dictionary_of_spirits.pentacles.summon_foliot.uses.title",
+      "use_markdown_in_title": false
+    }
+  ],
+  "x": 0,
+  "y": 0
+}

@@ -24,12 +24,15 @@ package com.github.klikli_dev.occultism.datagen.lang;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.datagen.OccultismAdvancementProvider;
+import com.github.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants;
+import com.github.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants.I18n;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.modonomicon.api.ModonomiconAPI;
 import com.klikli_dev.modonomicon.api.datagen.BookLangHelper;
 import com.klikli_dev.modonomicon.datagen.book.page.BookImagePageModel;
+import com.klikli_dev.modonomicon.datagen.book.page.BookMultiblockPageModel;
 import com.klikli_dev.modonomicon.datagen.book.page.BookTextPageModel;
 import net.minecraft.Util;
 import net.minecraft.data.DataGenerator;
@@ -677,6 +680,7 @@ public class ENUSProvider extends LanguageProvider {
                 """);
 
         this.addGettingStartedCategory(helper);
+        this.addPentaclesCategory(helper);
         this.addRitualsCategory(helper);
         this.addAdvancedCategory(helper);
     }
@@ -1112,6 +1116,41 @@ public class ENUSProvider extends LanguageProvider {
 
     }
 
+    private void addPentaclesCategory(BookLangHelper helper) {
+        helper.category("pentacles");
+        this.add(helper.categoryName(), "Pentacles");
+
+        helper.entry("summon_foliot");
+        this.add(helper.entryName(), "Aviar's Circle");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Otherworld Goggles");
+        this.add(helper.pageText(),
+                """
+                    **Purpose:** Summon a [#](%1$s)Foliot[#]()
+                    \\ 
+                    \\
+                    Considered by most to be the simplest pentacle, [#](%1$s)Aviar's Circle[#]() is easy to set up, 
+                    but provides only a minimum of binding power and protection for the summoner.
+                    \\
+                    \\
+                   Only the weakest [#](%1$s)Foliot[#]() can be summoned in rituals using this pentacle.
+                    """.formatted(COLOR_PURPLE));
+
+        helper.page("multiblock");
+        //no text
+
+        helper.page("uses");
+        this.add(helper.pageTitle(), "Uses");
+        this.add(helper.pageText(),
+                """
+                    - [Foliot Crusher]()
+                    - //TODO: Add remaining uses
+                    """.formatted(COLOR_PURPLE));
+        //TODO: add remaining backlinks for pentacle
+
+    }
+
     private void addRitualsCategory(BookLangHelper helper) {
         helper.category("rituals");
         this.add(helper.categoryName(), "Rituals");
@@ -1461,6 +1500,14 @@ public class ENUSProvider extends LanguageProvider {
         this.add("pentacle.occultim.craft_foliot", "Eziveus' Spectral Compulsion");
     }
 
+    private void addModonomiconIntegration(){
+        this.add(OccultismModonomiconConstants.I18n.RITUAL_RECIPE_ITEM_USE,"Item to use:");
+        this.add(OccultismModonomiconConstants.I18n.RITUAL_RECIPE_SUMMON,"Summon: %s");
+        this.add(OccultismModonomiconConstants.I18n.RITUAL_RECIPE_JOB,"Job: %s");
+        this.add(OccultismModonomiconConstants.I18n.RITUAL_RECIPE_SACRIFICE,"Sacrifice: %s");
+        this.add(I18n.RITUAL_RECIPE_GO_TO_PENTACLE,"Open Pentacle Page: %s");
+    }
+
     private void advancementTitle(String name, String s) {
         this.add(((TranslatableContents) OccultismAdvancementProvider.title(name).getContents()).getKey(), s);
     }
@@ -1488,5 +1535,6 @@ public class ENUSProvider extends LanguageProvider {
         this.addDialogs();
         this.addPentacles();
         this.addPatchouli(); //TODO: remove once no longer needed
+        this.addModonomiconIntegration();
     }
 }

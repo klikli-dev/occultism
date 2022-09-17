@@ -34,12 +34,12 @@
       "use_markdown_in_title": false
     },
     {
-      "type": "modonomicon:text",
+      "type": "occultism:ritual_recipe",
       "anchor": "",
-      "show_title_separator": true,
+      "recipe_id_1": "occultism:ritual/summon_foliot_crusher",
       "text": "book.occultism.dictionary_of_spirits.getting_started.first_ritual.ritual_recipe.text",
-      "title": "",
-      "use_markdown_in_title": false
+      "title1": "",
+      "title2": ""
     },
     {
       "type": "modonomicon:text",
