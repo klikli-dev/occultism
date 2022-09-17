@@ -1,6 +1,7 @@
 package com.github.klikli_dev.occultism.integration.modonomicon;
 
 import com.github.klikli_dev.occultism.integration.modonomicon.OccultismModnomiconConstants.Page;
+import com.github.klikli_dev.occultism.integration.modonomicon.pages.BookSpiritFireRecipePage;
 import com.klikli_dev.modonomicon.data.LoaderRegistry;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 

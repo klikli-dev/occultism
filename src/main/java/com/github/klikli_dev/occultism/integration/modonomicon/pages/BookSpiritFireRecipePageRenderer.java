@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-package com.github.klikli_dev.occultism.integration.modonomicon;
+package com.github.klikli_dev.occultism.integration.modonomicon.pages;
 
 import com.klikli_dev.modonomicon.book.page.BookProcessingRecipePage;
 import com.klikli_dev.modonomicon.client.gui.book.BookContentScreen;

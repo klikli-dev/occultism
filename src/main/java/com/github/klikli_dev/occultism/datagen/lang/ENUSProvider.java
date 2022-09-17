@@ -24,15 +24,12 @@ package com.github.klikli_dev.occultism.datagen.lang;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.datagen.OccultismAdvancementProvider;
-import com.github.klikli_dev.occultism.integration.modonomicon.BookSpiritFireRecipePageModel;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.modonomicon.api.ModonomiconAPI;
 import com.klikli_dev.modonomicon.api.datagen.BookLangHelper;
-import com.klikli_dev.modonomicon.datagen.book.BookCategoryModel;
-import com.klikli_dev.modonomicon.datagen.book.page.BookCraftingRecipePageModel;
-import com.klikli_dev.modonomicon.datagen.book.page.BookSpotlightPageModel;
+import com.klikli_dev.modonomicon.datagen.book.page.BookImagePageModel;
 import com.klikli_dev.modonomicon.datagen.book.page.BookTextPageModel;
 import net.minecraft.Util;
 import net.minecraft.data.DataGenerator;
@@ -696,10 +693,8 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Important Information");
         this.add(helper.pageText(),
                 """
-                        Occultism is transitioning from Patchouli to Modonomicon as in-game documentation.   \s
-                           \s
-                           \s
-
+                        Occultism is transitioning from Patchouli to Modonomicon as in-game documentation.\\
+                        \\
                         Currently only the "getting started" section is available in Modonomicon, 
                         for all other content you need to refer back to the Patchouli book
                         titled "Dictionary of Spirits (Old Edition)". 
@@ -710,8 +705,8 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageText(),
                 """
                         For now, to look up recipes, pentacle shapes, ritual information and basically everything after "getting started", 
-                        please open the Old Edition.
-                           
+                        please open the Old Edition.\\
+                        \\
                         Over time more and more content will be available directly here in the Modonomicon version.
                         """);
 
@@ -1060,6 +1055,52 @@ public class ENUSProvider extends LanguageProvider {
         helper.page("book_of_binding_marid_recipe");
         //no text
 
+        helper.entry("first_ritual");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "The Ritual (tm)");
+        //TODO: link to ritual and pentacle page
+        //  " The ritual is described in $(l:rituals/summoning/summon_crusher)the section on rituals$(/l) "
+        //  maybe just general text linking to ritual section
+        //TODO: link to aviars circle page
+        this.add(helper.pageText(),
+                """
+                       These pages will walk the gentle reader through the process of the first ritual step by step.
+                       We start by placing the golden sacrificial bowl and drawing the appropriate pentacle, 
+                       [#](%1$s)Aviar's Circle[#](). 
+                       \\
+                       \\
+                       Next, place four sacrificial bowls close to the pentacle.
+                         """.formatted(COLOR_PURPLE));
+
+
+
+        helper.page("bowl_placement");
+        //no text
+
+        helper.page("bowl_text");
+        this.add(helper.pageText(),
+                """
+                       [Sacrificial Bowls](item://occultism:sacrificial_bowl) must be placed **anywhere** 
+                       within 8 blocks of the central [](item://occultism:golden_sacrificial_bowl).
+                       The exact location does not matter.
+                       \\
+                       \\
+                       Now it is time to place the ingredients you see on the next page in the (regular, not golden) sacrificial bowls.
+                         """.formatted(COLOR_PURPLE));
+
+        helper.page("ritual_recipe");
+        //no text
+
+        helper.page("start_ritual");
+        this.add(helper.pageText(),
+                """
+                       Finally, right-click the golden sacrificial bowl with the **bound** book of binding 
+                       you created and wait until the crusher spawns. 
+                       \\
+                       \\
+                       Now all that remains is to drop appropriate ores near the crusher and wait for it to turn it into dust.
+                         """.formatted(COLOR_PURPLE));
 
     }
 

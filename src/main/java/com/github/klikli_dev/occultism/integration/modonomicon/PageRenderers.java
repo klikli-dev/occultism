@@ -1,5 +1,7 @@
 package com.github.klikli_dev.occultism.integration.modonomicon;
 
+import com.github.klikli_dev.occultism.integration.modonomicon.pages.BookSpiritFireRecipePage;
+import com.github.klikli_dev.occultism.integration.modonomicon.pages.BookSpiritFireRecipePageRenderer;
 import com.klikli_dev.modonomicon.client.render.page.PageRendererRegistry;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 

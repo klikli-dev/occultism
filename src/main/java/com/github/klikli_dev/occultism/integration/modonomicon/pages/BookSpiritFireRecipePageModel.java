@@ -4,11 +4,10 @@
  * SPDX-License-Identifier: MIT
  */
 
-package com.github.klikli_dev.occultism.integration.modonomicon;
+package com.github.klikli_dev.occultism.integration.modonomicon.pages;
 
 import com.github.klikli_dev.occultism.integration.modonomicon.OccultismModnomiconConstants.Page;
 import com.klikli_dev.modonomicon.datagen.book.page.BookRecipePageModel;
-import com.klikli_dev.modonomicon.datagen.book.page.BookSmeltingRecipePageModel;
 import org.jetbrains.annotations.NotNull;
 
 public class BookSpiritFireRecipePageModel extends BookRecipePageModel {
