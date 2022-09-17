@@ -8,7 +8,11 @@
       "type": "text",
       "text": "$(bold)Purpose:$() Summon Djinni $(br2)Developed by Ophyx during the Third Era, the $(thing)Calling$() is the go-to pentacle for $(thing)Djinni$() summonings ever since. Skeleton skulls ($(l:rituals/possession/possess_skeleton)obtain here$(/l)) and purple chalk provide the calling power required to force Djinni into appearance and candles stabilize the ritual."
     },
-
+    {
+      "type": "multiblock",
+      "name": "",
+      "multiblock_id": "occultism:pentacle.summon_djinni"
+    },
     {
       "type": "text",
       "title": "Uses",

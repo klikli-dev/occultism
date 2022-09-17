@@ -219,6 +219,12 @@ public class OccultismPackets {
                 MessageUpdateStorageSettings::encode,
                 MessageUpdateStorageSettings::new,
                 OccultismPacketHandler::handle);
+
+        INSTANCE.registerMessage(nextID(),
+                MessageUpdatePentacles.class,
+                MessageUpdatePentacles::encode,
+                MessageUpdatePentacles::new,
+                OccultismPacketHandler::handle);
     }
 
     public static <MSG> void sendToTracking(Entity entity, MSG message) {

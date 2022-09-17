@@ -1056,6 +1056,8 @@ public class ENUSProvider extends LanguageProvider {
         //no text
 
         helper.entry("first_ritual");
+        this.add(helper.entryName(), "First Ritual");
+        this.add(helper.entryDescription(), "We're actually getting started now!");
 
         helper.page("intro");
         this.add(helper.pageTitle(), "The Ritual (tm)");
