@@ -30,22 +30,19 @@ import net.minecraft.client.renderer.RenderType;
 import java.util.OptionalDouble;
 
 public class OccultismRenderType extends RenderType {
-
-    public static final RenderType BLOCK_SELECTION = create("overlay_lines", DefaultVertexFormat.POSITION_COLOR_NORMAL, VertexFormat.Mode.LINES,
-            256, false, false, RenderType.CompositeState.builder()
+    private static final LineStateShard THICK_LINES = new LineStateShard(OptionalDouble.of(4.0D));
+    public static final RenderType OVERLAY_LINES = create("overlay_lines",
+            DefaultVertexFormat.POSITION_COLOR, VertexFormat.Mode.LINES, 256, true, false,
+            CompositeState.builder().setLineState(THICK_LINES)
+                    .setLayeringState(VIEW_OFFSET_Z_LAYERING)
                     .setShaderState(RENDERTYPE_LINES_SHADER)
-                    .setLineState(new RenderStateShard.LineStateShard(OptionalDouble.empty()))
-                    .setLayeringState(RenderStateShard.VIEW_OFFSET_Z_LAYERING)
                     .setTransparencyState(TRANSLUCENT_TRANSPARENCY)
+                    .setTextureState(NO_TEXTURE)
                     .setDepthTestState(NO_DEPTH_TEST)
-                    .setOutputState(OutputStateShard.ITEM_ENTITY_TARGET)
                     .setCullState(NO_CULL)
-                    .setWriteMaskState(COLOR_DEPTH_WRITE)
+                    .setLightmapState(NO_LIGHTMAP)
+                    .setWriteMaskState(COLOR_WRITE)
                     .createCompositeState(false));
-
-    public static RenderType getBlockSelection() {
-        return BLOCK_SELECTION;
-    }
 
     public OccultismRenderType(String name, VertexFormat vertexFormat, VertexFormat.Mode drawMode, int bufferSize,
                                boolean useDelegate, boolean needsSorting, Runnable setupTaskIn,

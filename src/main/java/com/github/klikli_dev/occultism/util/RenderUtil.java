@@ -43,70 +43,34 @@ public class RenderUtil {
 
     //region Static Methods
 
-    /**
-     * Builds a block outline into the given tesselator buffer.
-     *
-     * @param buffer    the buffer to write into.
-     * @param transform the transform matrix.
-     * @param x         the block x vertexition.
-     * @param y         the block y vertexition.
-     * @param z         the block z vertexition.
-     * @param r         the color r.
-     * @param g         the color g.
-     * @param b         the color b.
-     * @param a         the color a.
-     */
-    public static void buildBlockOutline(VertexConsumer buffer, PoseStack stack,
-                                         float x, float y, float z, float red, float green, float blue, float alpha) {
-        Matrix4f matrix4f = stack.last().pose();
-        Matrix3f matrix3f = stack.last().normal();
+    public static void buildBlockOutline(VertexConsumer buffer, Matrix4f positionMatrix, float mx, float my, float mz, float r, float g, float b, float a) {
+        buffer.vertex(positionMatrix, mx, my, mz).color(r, g, b, a).endVertex();
+        buffer.vertex(positionMatrix, mx + 1, my, mz).color(r, g, b, a).endVertex();
+        buffer.vertex(positionMatrix, mx, my, mz).color(r, g, b, a).endVertex();
+        buffer.vertex(positionMatrix, mx, my + 1, mz).color(r, g, b, a).endVertex();
+        buffer.vertex(positionMatrix, mx, my, mz).color(r, g, b, a).endVertex();
+        buffer.vertex(positionMatrix, mx, my, mz + 1).color(r, g, b, a).endVertex();
+        buffer.vertex(positionMatrix, mx + 1, my + 1, mz + 1).color(r, g, b, a).endVertex();
+        buffer.vertex(positionMatrix, mx, my + 1, mz + 1).color(r, g, b, a).endVertex();
+        buffer.vertex(positionMatrix, mx + 1, my + 1, mz + 1).color(r, g, b, a).endVertex();
+        buffer.vertex(positionMatrix, mx + 1, my, mz + 1).color(r, g, b, a).endVertex();
+        buffer.vertex(positionMatrix, mx + 1, my + 1, mz + 1).color(r, g, b, a).endVertex();
+        buffer.vertex(positionMatrix, mx + 1, my + 1, mz).color(r, g, b, a).endVertex();
 
-        float minX = x;
-        float minY = y;
-        float minZ = z;
+        buffer.vertex(positionMatrix, mx, my + 1, mz).color(r, g, b, a).endVertex();
+        buffer.vertex(positionMatrix, mx, my + 1, mz + 1).color(r, g, b, a).endVertex();
+        buffer.vertex(positionMatrix, mx, my + 1, mz).color(r, g, b, a).endVertex();
+        buffer.vertex(positionMatrix, mx + 1, my + 1, mz).color(r, g, b, a).endVertex();
 
-        float maxX = x + 1;
-        float maxY = y + 1;
-        float maxZ = z + 1;
+        buffer.vertex(positionMatrix, mx + 1, my, mz).color(r, g, b, a).endVertex();
+        buffer.vertex(positionMatrix, mx + 1, my, mz + 1).color(r, g, b, a).endVertex();
+        buffer.vertex(positionMatrix, mx + 1, my, mz).color(r, g, b, a).endVertex();
+        buffer.vertex(positionMatrix, mx + 1, my + 1, mz).color(r, g, b, a).endVertex();
 
-        //Bottom
-        buffer.vertex(matrix4f, minX, minY, maxZ).color(red, green, blue, alpha).normal(matrix3f, 0, -1, 0).endVertex();
-        buffer.vertex(matrix4f, maxX, minY, maxZ).color(red, green, blue, alpha).normal(matrix3f, 0, -1, 0).endVertex();
-
-        buffer.vertex(matrix4f, minX, minY, minZ).color(red, green, blue, alpha).normal(matrix3f, 0, -1, 0).endVertex();
-        buffer.vertex(matrix4f, maxX, minY, minZ).color(red, green, blue, alpha).normal(matrix3f, 0, -1, 0).endVertex();
-
-        buffer.vertex(matrix4f, minX, minY, minZ).color(red, green, blue, alpha).normal(matrix3f, 0, -1, 0).endVertex();
-        buffer.vertex(matrix4f, minX, minY, maxZ).color(red, green, blue, alpha).normal(matrix3f, 0, -1, 0).endVertex();
-
-        buffer.vertex(matrix4f, maxX, minY, minZ).color(red, green, blue, alpha).normal(matrix3f, 0, -1, 0).endVertex();
-        buffer.vertex(matrix4f, maxX, minY, maxZ).color(red, green, blue, alpha).normal(matrix3f, 0, -1, 0).endVertex();
-
-        //Top
-        buffer.vertex(matrix4f, minX, maxY, maxZ).color(red, green, blue, alpha).normal(matrix3f, 0, 1, 0).endVertex();
-        buffer.vertex(matrix4f, maxX, maxY, maxZ).color(red, green, blue, alpha).normal(matrix3f, 0, 1, 0).endVertex();
-
-        buffer.vertex(matrix4f, minX, maxY, minZ).color(red, green, blue, alpha).normal(matrix3f, 0, 1, 0).endVertex();
-        buffer.vertex(matrix4f, maxX, maxY, minZ).color(red, green, blue, alpha).normal(matrix3f, 0, 1, 0).endVertex();
-
-        buffer.vertex(matrix4f, minX, maxY, minZ).color(red, green, blue, alpha).normal(matrix3f, 0, 1, 0).endVertex();
-        buffer.vertex(matrix4f, minX, maxY, maxZ).color(red, green, blue, alpha).normal(matrix3f, 0, 1, 0).endVertex();
-
-        buffer.vertex(matrix4f, maxX, maxY, minZ).color(red, green, blue, alpha).normal(matrix3f, 0, 1, 0).endVertex();
-        buffer.vertex(matrix4f, maxX, maxY, maxZ).color(red, green, blue, alpha).normal(matrix3f, 0, 1, 0).endVertex();
-
-        //Sides
-        buffer.vertex(matrix4f, minX, minY, minZ).color(red, green, blue, alpha).normal(matrix3f, 0, 0, -1).endVertex();
-        buffer.vertex(matrix4f, minX, maxY, minZ).color(red, green, blue, alpha).normal(matrix3f, 0, 0, -1).endVertex();
-
-        buffer.vertex(matrix4f, maxX, minY, maxZ).color(red, green, blue, alpha).normal(matrix3f, 0, 0, 1).endVertex();
-        buffer.vertex(matrix4f, maxX, maxY, maxZ).color(red, green, blue, alpha).normal(matrix3f, 0, 0, 1).endVertex();
-
-        buffer.vertex(matrix4f, minX, minY, maxZ).color(red, green, blue, alpha).normal(matrix3f, 0, 0, 1).endVertex();
-        buffer.vertex(matrix4f, minX, maxY, maxZ).color(red, green, blue, alpha).normal(matrix3f, 0, 0, 1).endVertex();
-
-        buffer.vertex(matrix4f, maxX, minY, minZ).color(red, green, blue, alpha).normal(matrix3f, 0, 0, -1).endVertex();
-        buffer.vertex(matrix4f, maxX, maxY, minZ).color(red, green, blue, alpha).normal(matrix3f, 0, 0, -1).endVertex();
+        buffer.vertex(positionMatrix, mx, my, mz + 1).color(r, g, b, a).endVertex();
+        buffer.vertex(positionMatrix, mx + 1, my, mz + 1).color(r, g, b, a).endVertex();
+        buffer.vertex(positionMatrix, mx, my, mz + 1).color(r, g, b, a).endVertex();
+        buffer.vertex(positionMatrix, mx, my + 1, mz + 1).color(r, g, b, a).endVertex();
     }
 
     /**
