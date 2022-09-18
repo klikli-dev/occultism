@@ -41,6 +41,7 @@ import com.github.klikli_dev.occultism.client.render.entity.*;
 import com.github.klikli_dev.occultism.client.render.entity.MummyFamiliarRenderer.KapowModel;
 import com.github.klikli_dev.occultism.common.capability.FamiliarSettingsCapability;
 import com.github.klikli_dev.occultism.common.container.spirit.SpiritContainer;
+import com.github.klikli_dev.occultism.integration.modonomicon.PageRenderers;
 import com.github.klikli_dev.occultism.registry.*;
 import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -184,6 +185,8 @@ public class ClientSetupEventHandler {
             Occultism.LOGGER.debug("Registered Screen Containers");
         });
 
+        PageRenderers.onClientSetup(event);
+
         Occultism.LOGGER.debug("Registered Overlays");
 
         Occultism.LOGGER.info("Client setup complete.");
@@ -194,8 +197,7 @@ public class ClientSetupEventHandler {
         //Not safe to call during parallel load, so register to run threadsafe
         event.enqueueWork(() -> {
             //Register item model properties
-            ItemProperties.register(OccultismItems.GUIDE_BOOK.get(),
-                    new ResourceLocation("completion"), new GuideBookItemPropertyGetter());
+
             ItemProperties.register(OccultismItems.SOUL_GEM_ITEM.get(),
                     new ResourceLocation(Occultism.MODID, "has_entity"), new SoulGemItemPropertyGetter());
             ItemProperties.register(OccultismItems.DIVINATION_ROD.get(),

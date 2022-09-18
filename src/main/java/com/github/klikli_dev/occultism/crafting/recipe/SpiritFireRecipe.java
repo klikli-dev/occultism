@@ -22,6 +22,7 @@
 
 package com.github.klikli_dev.occultism.crafting.recipe;
 
+import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.registry.OccultismRecipes;
 import com.google.gson.JsonObject;
 import net.minecraft.core.NonNullList;
@@ -32,6 +33,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
 
 public class SpiritFireRecipe extends ItemStackFakeInventoryRecipe {
     //region Fields
@@ -81,6 +83,11 @@ public class SpiritFireRecipe extends ItemStackFakeInventoryRecipe {
     @Override
     public RecipeSerializer<?> getSerializer() {
         return SERIALIZER;
+    }
+
+    @Override
+    public ItemStack getToastSymbol() {
+        return new ItemStack(OccultismBlocks.SPIRIT_FIRE.get());
     }
 
     @Override

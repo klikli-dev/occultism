@@ -36,6 +36,12 @@ authors = "Kli Kli" #optional
 description = '''A magic mod inspired by the world of Jonathan Stroud's Bartimaeus. With the help of occult rituals players can summon entities from the "Other Side" to perform magic.'''
 
 [[dependencies.occultism]]
+modId = "modonomicon"
+mandatory = true
+versionRange = "[1.19-1.0.0,)"
+side = "BOTH"
+
+[[dependencies.occultism]]
 modId = "patchouli"
 mandatory = true
 versionRange = "[1.19-74,)"
@@ -56,7 +62,7 @@ side = "BOTH"
 [[dependencies.occultism]]
 modId = "jei"
 mandatory = false
-versionRange = "[1.19-11.0.0.211,)"
+versionRange = "[1.19-11.1.0.235,)"
 side = "BOTH"
 
 [[dependencies.occultism]]

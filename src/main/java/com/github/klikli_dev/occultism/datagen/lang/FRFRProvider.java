@@ -27,6 +27,8 @@ import com.github.klikli_dev.occultism.datagen.OccultismAdvancementProvider;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
+import com.klikli_dev.modonomicon.api.ModonomiconAPI;
+import com.klikli_dev.modonomicon.api.datagen.BookLangHelper;
 import net.minecraft.Util;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.network.chat.contents.TranslatableContents;
@@ -659,312 +661,312 @@ public class FRFRProvider extends LanguageProvider {
         this.add("ritual.occultism.familiar_beaver.interrupted", "Invocation de castor familier interrompu.");
     }
 
-//    private void addBook() {
-//        var helper = ModonomiconAPI.get().getLangHelper(Occultism.MODID);
-//        helper.book("dictionary_of_spirits");
-//        this.add(helper.bookName(), "Dictionnaire des Esprits");
-//        this.add(helper.bookTooltip(), """
-//                Ce livre a pour but de présenter au lecteur novice les rituels d'invocation les plus courants et de le doter d'une liste d'esprits et de leurs noms.
-//                Les auteurs conseillent la prudence dans l'invocation des entités listées.
-//                Pour obtenir de l'aide ou faire part de vos commentaires, veuillez nous rejoindre sur Discord. https://invite.gg/klikli.
-//                """);
-//
-//        this.addGettingStartedCategory(helper);
-//        this.addRitualsCategory(helper);
-//    }
-//
-//    private void addGettingStartedCategory(BookLangHelper helper) {
-//        helper.category("getting_started");
-//        this.add(helper.categoryName(), "Pour commencer");
-//
-//        helper.entry("demons_dream");
-//        this.add(helper.entryName(), "Lever le voile");
-//        this.add(helper.entryDescription(), "Découvrez l'autre monde et le troisième œil.");
-//
-//        helper.page("intro");
-//        this.add(helper.pageTitle(), "L'autre monde");
-//        this.add(helper.pageText(),
-//                """
-//                        Caché aux yeux des humains, il existe un autre plan d'existence, une autre *dimension* si vous voulez, le [#](%1$s)Otherworld[#]().
-//                        Ce monde est peuplé d'entités souvent appelées [#](%1$s)Demons[#]().
-//                        """.formatted(COLOR_PURPLE));
-//
-//        helper.page("intro2");
-//        this.add(helper.pageText(),
-//                """
-//                        Ces Démons possèdent une grande variété de pouvoirs et de compétences utiles, et depuis des siècles, les magiciens ont cherché à les invoquer pour leur propre bénéfice. La première étape du voyage pour réussir à invoquer une telle Entité est d'apprendre à interagir avec l'Autre Monde.
-//                        """);
-//
-//        helper.page("spotlight");
-//        this.add(helper.pageText(),
-//                """
-//                        %1$s est une herbe qui donne aux humains [#](%2$s)Third Eye[#](),
-//                        leur permettant de voir où le [#](%2$s)Otherworld[#]() se croise avec la nôtre.
-//                        On peut trouver des semences **en cassant des graines**.
-//                        **Consommer** le fruit cultivé active la capacité.
-//                        """.formatted(DEMONS_DREAM, COLOR_PURPLE));
-//
-//        helper.page("harvest_effect");
-//        this.add(helper.pageText(),
-//                """
-//                        Un effet secondaire supplémentaire de %1$s, est **la possibilité d'interagir avec [#](%2$s)Otherworld[#]() matériaux**.
-//                        Ceci est unique à %1$s, d'autres façons d'obtenir [#](%2$s)Troisième œil[#]() ne donnent pas cette capacité.
-//                        Sous l'effet de %1$s vous êtes en mesure de **récolter** des pierres de l'autre côté ainsi que des arbres de l'autre monde..
-//                         """.formatted(DEMONS_DREAM, COLOR_PURPLE));
-//
-//
-//        helper.page("datura_screenshot"); //no text
-//
-//
-//        helper.entry("spirit_fire");
-//        this.add(helper.entryName(), "Ça brûle !");
-//        this.add(helper.entryDescription(), "Ou pas ?");
-//
-//        helper.page("spotlight");
-//        this.add(helper.pageText(),
-//                """
-//                        [#](%1$s)Spiritfire[#]() est un type spécial de feu qui existe surtout dans les pays suivants [#](%1$s)L'autre lieu[#]()
-//                        et ne nuit pas aux êtres vivants. Ses propriétés particulières permettent de l'utiliser pour purifier et convertir certains matériaux en les brûlant, sans les consommer.
-//                        """.formatted(COLOR_PURPLE));
-//
-//
-//        helper.page("spirit_fire_screenshot");
-//        this.add(helper.pageText(),
-//                """
-//                        Lancer [](item://occultism:datura) au sol et y mettre le feu avec [](item://minecraft:flint_and_steel).
-//                         """);
-//
-//
-//        helper.page("main_uses");
-//        this.add(helper.pageText(),
-//                """
-//                        Les principales utilisations de [](item://occultism:spirit_fire) sont à convertir [](item://minecraft:diamond) en [](item://occultism:spirit_attuned_gem),
-//                        pour obtenir des ingrédients de base tels que [](item://occultism:otherstone) et [Otherworld Saplings](item://occultism:otherworld_sapling_natural),
-//                        et pour purifier les craies impures.
-//                         """);
-//
-//        helper.page("otherstone_recipe");
-//        this.add(helper.pageText(),
-//                """
-//                        Un moyen plus facile d'obtenir [](item://occultism:otherstone) que par la divination.
-//                              """);
-//
-//
-//        helper.page("otherworld_sapling_natural_recipe");
-//        this.add(helper.pageText(),
-//                """
-//                        Un moyen plus facile d'obtenir [Otherworld Saplings](item://occultism:otherworld_sapling_natural) que par la divination.
-//                              """);
-//
-//        helper.entry("third_eye");
-//        this.add(helper.entryName(), "Le troisième œil");
-//        this.add(helper.entryDescription(), "Vous voyez maintenant ?");
-//
-//        helper.page("about");
-//        this.add(helper.pageTitle(), "Troisième œil");
-//        this.add(helper.pageText(),
-//                """
-//                        La capacité de voir au-delà du monde physique est appelée [#](%1$s)Third Eye[#]().
-//                        Les humains ne possèdent pas cette capacité à voir. [#](%1$s)beyond the veil[#](),
-//                        Cependant, avec certaines substances et certains appareils, l'invocateur averti peut contourner cette limitation.
-//                         """.formatted(COLOR_PURPLE));
-//
-//        helper.page("how_to_obtain");
-//        this.add(helper.pageText(),
-//                """
-//                        La façon la plus confortable, et la plus *coûteuse*, d'obtenir cette capacité, est de porter des lunettes infusées avec des esprits, qui *prêtent* leur vue à celui qui les porte.
-//                        Une alternative légèrement plus nauséabonde, mais **très abordable** est la consommation de certaines herbes,
-//                        [%1$s](entry://occultism:dictionary_of_spirits/getting_started/demons_dream) le plus important d'entre eux.
-//                         """.formatted(DEMONS_DREAM));
-//
-//        helper.page("otherworld_goggles");
-//        this.add(helper.pageText(),
-//                """
-//                        [Ces lunettes de protection](entry://occultism:dictionary_of_spirits/rituals/craft_otherworld_goggles) permettent de voir encore plus de blocs cachés de l'Autre Monde, mais ils ne permettent pas de récolter ces matériaux.
-//                        Les matériaux de bas niveau peuvent être récoltés en consommant [%1$s](entry://occultism:dictionary_of_spirits/getting_started/demons_dream),
-//                        mais les matériaux plus précieux nécessitent des outils spéciaux.
-//                                """.formatted(DEMONS_DREAM));
-//
-//
-//        helper.entry("divination_rod");
-//        this.add(helper.entryName(), "Bâton de divination");
-//        this.add(helper.entryDescription(), "Obtenir des matériaux d'un autre monde");
-//
-//        helper.page("intro");
-//        this.add(helper.pageTitle(), "Divination");
-//        this.add(helper.pageText(),
-//                """
-//                        Pour faciliter la prise en main, les matériaux obtenus par divination sont désormais accompagnés de recettes d'artisanat.
-//                        **Si vous voulez profiter pleinement de l'expérience, passez la page de la recette suivante et passez à la page de la
-//                        [divination instructions](entry://occultism:dictionary_of_spirits/getting_started/divination_rod@divination_instructions).**
-//                                """);
-//
-//
-//        helper.page("otherstone_recipe");
-//        //no text
-//
-//        helper.page("otherworld_sapling_natural_recipe");
-//        this.add(helper.pageText(),
-//                """
-//                        **Méfiez-vous de**: l'arbre qui poussera à partir du jeune arbre ressemblera à un chêne normal.
-//                        Vous devez activer le [Troisième oeil](entry://occultism:dictionary_of_spirits/getting_started/demons_dream)
-//                        pour récolter les bûches et les feuilles de l'Autre Monde.
-//                                """);
-//
-//        helper.page("divination_rod");
-//        this.add(helper.pageText(),
-//                """
-//                        Les matériaux de l'autre monde jouent un rôle important dans l'interaction avec les esprits.
-//                        Comme ils sont rares et non visibles à l'œil nu, leur recherche nécessite des outils spéciaux.
-//                        La baguette de divination permet de trouver les matériaux de l'Autre Monde en se basant sur leurs similitudes avec les matériaux communs de notre monde.
-//                                 """);
-//
-//        helper.page("about_divination_rod");
-//        this.add(helper.pageText(),
-//                """
-//                        La baguette de divination utilise une gemme accordée à un esprit et attachée à une tige de bois.
-//                        La gemme résonne avec le matériau choisi, et ce mouvement est amplifié par la tige en bois, permettant de détecter les matériaux de l'Autre Monde à proximité.   \s
-//                           \s
-//                           \s
-//                        La baguette fonctionne en détectant la résonance entre les matériaux du monde réel et ceux de l'Autre Monde.
-//                        Si vous accordez la baguette à un matériau du monde réel, elle trouvera le bloc correspondant dans l'autre monde.
-//                                 """);
-//
-//        helper.page("how_to_use");
-//        this.add(helper.pageTitle(), "Utilisation du bâton");
-//        this.add(helper.pageText(),
-//                """
-//                        Shift-clic droit sur un bloc pour accorder la baguette au bloc correspondant de l'Autre Monde.
-//                        - [](item://minecraft:andesite): [](item://occultism:otherstone)
-//                        - [](item://minecraft:oak_wood):  [](item://occultism:otherworld_log)
-//                        - [](item://minecraft:oak_leaves): [](item://occultism:otherworld_leaves)
-//                        - [](item://minecraft:netherrack): [](item://occultism:iesnium_ore)
-//
-//                        Ensuite, faites un clic droit et maintenez-le enfoncé jusqu'à ce que l'animation de la tige se termine.""");
-//
-//        helper.page("how_to_use2");
-//        this.add(helper.pageText(),
-//                """
-//                        Une fois l'animation terminée, le plus proche **Le bloc trouvé sera mis en évidence par des lignes blanches et pourra être vu à travers les autres blocs.**.
-//                        En outre, vous pouvez observer les cristaux pour obtenir des indices : un cristal blanc indique qu'aucun bloc cible n'a été trouvé, un bloc entièrement violet signifie que le bloc trouvé est proche. Un mélange de blanc et de violet indique que la cible est assez éloignée.""");
-//
-//        helper.page("divination_rod_screenshots");
-//        this.add(helper.pageText(),
-//                """
-//                        Le blanc signifie que rien n'a été trouvé. Plus vous voyez de violet, plus vous êtes proche.
-//                        """);
-//
-//        helper.page("otherworld_groves");
-//        this.add(helper.pageTitle(), "Bosquets de l'Autre Monde");
-//        this.add(helper.pageText(),
-//                """
-//                        Les bosquets de l'Autre Monde sont des grottes luxuriantes, envahies par la végétation, avec... [#](%1$s)Otherworld Trees[#](),
-//                        et les murs[](item://occultism:otherstone), Pour les trouver, accordez votre baguette de divination sur les feuilles ou les bûches de l'Autre Monde, car contrairement à la pierre de l'Autre, elles n'apparaissent que dans ces bosquets.
-//                         """.formatted(COLOR_PURPLE));
-//
-//        helper.page("otherworld_groves_2");
-//        this.add(helper.pageText(),
-//                """
-//                        **Indice:** Dans l'Overworld, regardez **en bas**.
-//                          """);
-//
-//        helper.page("otherworld_trees");
-//        this.add(helper.pageTitle(), "Arbres d'un autre monde");
-//        this.add(helper.pageText(),
-//                """
-//                        Les arbres de l'Autre Monde poussent naturellement dans les bosquets de l'Autre Monde. À l'œil nu, ils ressemblent à des chênes, mais pour le troisième œil, ils révèlent leur véritable nature.   \s
-//                        **Important:** Les jeunes arbres de l'Autre Monde ne peuvent être obtenus qu'en cassant les feuilles manuellement, naturellement seuls les jeunes arbres de chêne tombent.
-//                         """);
-//
-//        helper.page("otherworld_trees_2");
-//        this.add(helper.pageText(),
-//                """
-//                        Les arbres cultivés à partir de plants stables de l'autre monde, obtenus auprès de marchands d'esprits, ne sont pas soumis à cette limitation.
-//                         """);
-//
-//
-//        helper.entry("ritual_prep");
-//        this.add(helper.entryName(), "Préparations rituelles");
-//        this.add(helper.entryDescription(), "Les choses à faire avant votre premier rituel.");
-//
-//        helper.page("intro");
-//        this.add(helper.pageTitle(), "Préparations rituelles");
-//        this.add(helper.pageText(),
-//                """
-//                        Pour invoquer les esprits de la [#](%1$s)Other Place[#]() dans une sécurité relative, vous devez dessiner un pentacle adéquat à l'aide de craie pour contenir leurs pouvoirs. De plus, vous devez [Sacrificial Bowls](item://occultism:sacrificial_bowl)
-//                        de sacrifier des objets appropriés pour attirer l'esprit.
-//                         """.formatted(COLOR_PURPLE));
-//
-//
-//        helper.page("white_chalk");
-//        this.add(helper.pageText(),
-//                """
-//                        Pour les pentacles, seule la couleur de la craie est pertinente, pas le glyph/sign.
-//                        À des fins décoratives, vous pouvez cliquer plusieurs fois sur un bloc pour faire défiler les glyphes.
-//                        Pour d'autres craies, voir [Chalks](entry://occultism:dictionary_of_spirits/advanced/chalks)
-//                            """);
-//
-//        helper.page("burnt_otherstone_recipe");
-//        //no text
-//
-//        helper.page("otherworld_ashes_recipe");
-//        //no text
-//
-//        helper.page("impure_white_chalk_recipe");
-//        //no text
-//
-//        helper.page("white_chalk_recipe");
-//        //no text
-//
-//        helper.page("brush_recipe");
-//        this.add(helper.pageText(), "La brosse peut être utilisée pour enlever facilement les glyphes de craie du sol..");
-//
-//        helper.page("white_candle");
-//        this.add(helper.pageText(),
-//                """
-//                        Les bougies apportent de la stabilité aux rituels et sont un élément important de presque tous les pentacles.
-//                        **Les bougies agissent également comme des étagères pour l'enchantement.**
-//                            """);
-//
-//        helper.page("tallow");
-//        this.add(helper.pageText(),
-//                """
-//                        Ingrédient pour les bougies. Tuez les gros animaux comme les porcs, les vaches ou les moutons avec un [#](item://occultism:butcher_knife)
-//                        pour récolter[#](item://occultism:tallow).
-//                            """);
-//
-//
-//        helper.page("white_candle_recipe");
-//        //no text
-//
-//        helper.page("sacrificial_bowl");
-//        this.add(helper.pageText(),
-//                """
-//                       Ces bols sont utilisés pour sacrifier des objets dans le cadre d'un rituel et vous aurez besoin d'une poignée d'entre eux.
-//                       Remarque : leur emplacement exact dans le rituel n'a pas d'importance - il suffit de les garder à moins de 8 blocs du centre du pentacle !
-//                            """);
-//
-//        helper.page("sacrificial_bowl_recipe");
-//        //no text
-//
-//        helper.page("golden_sacrificial_bowl");
-//        this.add(helper.pageText(),
-//                """
-//                       Ce bol sacrificiel spécial est utilisé pour activer le rituel en faisant un clic droit dessus avec l'objet d'activation, généralement un livre de liaison, une fois que tout a été mis en place et que vous êtes prêt à commencer.
-//                            """);
-//
-//
-//        helper.page("golden_sacrificial_bowl_recipe");
-//        //no text
-//    }
-//
-//    private void addRitualsCategory(BookLangHelper helper) {
-//        helper.category("rituels");
-//        this.add(helper.categoryName(), "Rituels");
-//
-//        helper.entry("craft_otherworld_goggles");
-//        this.add(helper.entryName(), "Fabriquer des lunettes de protection pour l'autre monde");
-//    }
+    private void addBook() {
+        var helper = ModonomiconAPI.get().getLangHelper(Occultism.MODID);
+        helper.book("dictionary_of_spirits");
+        this.add(helper.bookName(), "Dictionnaire des Esprits");
+        this.add(helper.bookTooltip(), """
+                Ce livre a pour but de présenter au lecteur novice les rituels d'invocation les plus courants et de le doter d'une liste d'esprits et de leurs noms.
+                Les auteurs conseillent la prudence dans l'invocation des entités listées.
+                Pour obtenir de l'aide ou faire part de vos commentaires, veuillez nous rejoindre sur Discord. https://invite.gg/klikli.
+                """);
+
+        this.addGettingStartedCategory(helper);
+        this.addRitualsCategory(helper);
+    }
+
+    private void addGettingStartedCategory(BookLangHelper helper) {
+        helper.category("getting_started");
+        this.add(helper.categoryName(), "Pour commencer");
+
+        helper.entry("demons_dream");
+        this.add(helper.entryName(), "Lever le voile");
+        this.add(helper.entryDescription(), "Découvrez l'autre monde et le troisième œil.");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "L'autre monde");
+        this.add(helper.pageText(),
+                """
+                        Caché aux yeux des humains, il existe un autre plan d'existence, une autre *dimension* si vous voulez, le [#](%1$s)Otherworld[#]().
+                        Ce monde est peuplé d'entités souvent appelées [#](%1$s)Demons[#]().
+                        """.formatted(COLOR_PURPLE));
+
+        helper.page("intro2");
+        this.add(helper.pageText(),
+                """
+                        Ces Démons possèdent une grande variété de pouvoirs et de compétences utiles, et depuis des siècles, les magiciens ont cherché à les invoquer pour leur propre bénéfice. La première étape du voyage pour réussir à invoquer une telle Entité est d'apprendre à interagir avec l'Autre Monde.
+                        """);
+
+        helper.page("spotlight");
+        this.add(helper.pageText(),
+                """
+                        %1$s est une herbe qui donne aux humains [#](%2$s)Third Eye[#](),
+                        leur permettant de voir où le [#](%2$s)Otherworld[#]() se croise avec la nôtre.
+                        On peut trouver des semences **en cassant des graines**.
+                        **Consommer** le fruit cultivé active la capacité.
+                        """.formatted(DEMONS_DREAM, COLOR_PURPLE));
+
+        helper.page("harvest_effect");
+        this.add(helper.pageText(),
+                """
+                        Un effet secondaire supplémentaire de %1$s, est **la possibilité d'interagir avec [#](%2$s)Otherworld[#]() matériaux**.
+                        Ceci est unique à %1$s, d'autres façons d'obtenir [#](%2$s)Troisième œil[#]() ne donnent pas cette capacité.
+                        Sous l'effet de %1$s vous êtes en mesure de **récolter** des pierres de l'autre côté ainsi que des arbres de l'autre monde..
+                         """.formatted(DEMONS_DREAM, COLOR_PURPLE));
+
+
+        helper.page("datura_screenshot"); //no text
+
+
+        helper.entry("spirit_fire");
+        this.add(helper.entryName(), "Ça brûle !");
+        this.add(helper.entryDescription(), "Ou pas ?");
+
+        helper.page("spotlight");
+        this.add(helper.pageText(),
+                """
+                        [#](%1$s)Spiritfire[#]() est un type spécial de feu qui existe surtout dans les pays suivants [#](%1$s)L'autre lieu[#]()
+                        et ne nuit pas aux êtres vivants. Ses propriétés particulières permettent de l'utiliser pour purifier et convertir certains matériaux en les brûlant, sans les consommer.
+                        """.formatted(COLOR_PURPLE));
+
+
+        helper.page("spirit_fire_screenshot");
+        this.add(helper.pageText(),
+                """
+                        Lancer [](item://occultism:datura) au sol et y mettre le feu avec [](item://minecraft:flint_and_steel).
+                         """);
+
+
+        helper.page("main_uses");
+        this.add(helper.pageText(),
+                """
+                        Les principales utilisations de [](item://occultism:spirit_fire) sont à convertir [](item://minecraft:diamond) en [](item://occultism:spirit_attuned_gem),
+                        pour obtenir des ingrédients de base tels que [](item://occultism:otherstone) et [Otherworld Saplings](item://occultism:otherworld_sapling_natural),
+                        et pour purifier les craies impures.
+                         """);
+
+        helper.page("otherstone_recipe");
+        this.add(helper.pageText(),
+                """
+                        Un moyen plus facile d'obtenir [](item://occultism:otherstone) que par la divination.
+                              """);
+
+
+        helper.page("otherworld_sapling_natural_recipe");
+        this.add(helper.pageText(),
+                """
+                        Un moyen plus facile d'obtenir [Otherworld Saplings](item://occultism:otherworld_sapling_natural) que par la divination.
+                              """);
+
+        helper.entry("third_eye");
+        this.add(helper.entryName(), "Le troisième œil");
+        this.add(helper.entryDescription(), "Vous voyez maintenant ?");
+
+        helper.page("about");
+        this.add(helper.pageTitle(), "Troisième œil");
+        this.add(helper.pageText(),
+                """
+                        La capacité de voir au-delà du monde physique est appelée [#](%1$s)Third Eye[#]().
+                        Les humains ne possèdent pas cette capacité à voir. [#](%1$s)beyond the veil[#](),
+                        Cependant, avec certaines substances et certains appareils, l'invocateur averti peut contourner cette limitation.
+                         """.formatted(COLOR_PURPLE));
+
+        helper.page("how_to_obtain");
+        this.add(helper.pageText(),
+                """
+                        La façon la plus confortable, et la plus *coûteuse*, d'obtenir cette capacité, est de porter des lunettes infusées avec des esprits, qui *prêtent* leur vue à celui qui les porte.
+                        Une alternative légèrement plus nauséabonde, mais **très abordable** est la consommation de certaines herbes,
+                        [%1$s](entry://occultism:dictionary_of_spirits/getting_started/demons_dream) le plus important d'entre eux.
+                         """.formatted(DEMONS_DREAM));
+
+        helper.page("otherworld_goggles");
+        this.add(helper.pageText(),
+                """
+                        [Ces lunettes de protection](entry://occultism:dictionary_of_spirits/rituals/craft_otherworld_goggles) permettent de voir encore plus de blocs cachés de l'Autre Monde, mais ils ne permettent pas de récolter ces matériaux.
+                        Les matériaux de bas niveau peuvent être récoltés en consommant [%1$s](entry://occultism:dictionary_of_spirits/getting_started/demons_dream),
+                        mais les matériaux plus précieux nécessitent des outils spéciaux.
+                                """.formatted(DEMONS_DREAM));
+
+
+        helper.entry("divination_rod");
+        this.add(helper.entryName(), "Bâton de divination");
+        this.add(helper.entryDescription(), "Obtenir des matériaux d'un autre monde");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Divination");
+        this.add(helper.pageText(),
+                """
+                        Pour faciliter la prise en main, les matériaux obtenus par divination sont désormais accompagnés de recettes d'artisanat.
+                        **Si vous voulez profiter pleinement de l'expérience, passez la page de la recette suivante et passez à la page de la
+                        [divination instructions](entry://occultism:dictionary_of_spirits/getting_started/divination_rod@divination_instructions).**
+                                """);
+
+
+        helper.page("otherstone_recipe");
+        //no text
+
+        helper.page("otherworld_sapling_natural_recipe");
+        this.add(helper.pageText(),
+                """
+                        **Méfiez-vous de**: l'arbre qui poussera à partir du jeune arbre ressemblera à un chêne normal.
+                        Vous devez activer le [Troisième oeil](entry://occultism:dictionary_of_spirits/getting_started/demons_dream)
+                        pour récolter les bûches et les feuilles de l'Autre Monde.
+                                """);
+
+        helper.page("divination_rod");
+        this.add(helper.pageText(),
+                """
+                        Les matériaux de l'autre monde jouent un rôle important dans l'interaction avec les esprits.
+                        Comme ils sont rares et non visibles à l'œil nu, leur recherche nécessite des outils spéciaux.
+                        La baguette de divination permet de trouver les matériaux de l'Autre Monde en se basant sur leurs similitudes avec les matériaux communs de notre monde.
+                                 """);
+
+        helper.page("about_divination_rod");
+        this.add(helper.pageText(),
+                """
+                        La baguette de divination utilise une gemme accordée à un esprit et attachée à une tige de bois.
+                        La gemme résonne avec le matériau choisi, et ce mouvement est amplifié par la tige en bois, permettant de détecter les matériaux de l'Autre Monde à proximité.   \s
+                           \s
+                           \s
+                        La baguette fonctionne en détectant la résonance entre les matériaux du monde réel et ceux de l'Autre Monde.
+                        Si vous accordez la baguette à un matériau du monde réel, elle trouvera le bloc correspondant dans l'autre monde.
+                                 """);
+
+        helper.page("how_to_use");
+        this.add(helper.pageTitle(), "Utilisation du bâton");
+        this.add(helper.pageText(),
+                """
+                        Shift-clic droit sur un bloc pour accorder la baguette au bloc correspondant de l'Autre Monde.
+                        - [](item://minecraft:andesite): [](item://occultism:otherstone)
+                        - [](item://minecraft:oak_wood):  [](item://occultism:otherworld_log)
+                        - [](item://minecraft:oak_leaves): [](item://occultism:otherworld_leaves)
+                        - [](item://minecraft:netherrack): [](item://occultism:iesnium_ore)
+
+                        Ensuite, faites un clic droit et maintenez-le enfoncé jusqu'à ce que l'animation de la tige se termine.""");
+
+        helper.page("how_to_use2");
+        this.add(helper.pageText(),
+                """
+                        Une fois l'animation terminée, le plus proche **Le bloc trouvé sera mis en évidence par des lignes blanches et pourra être vu à travers les autres blocs.**.
+                        En outre, vous pouvez observer les cristaux pour obtenir des indices : un cristal blanc indique qu'aucun bloc cible n'a été trouvé, un bloc entièrement violet signifie que le bloc trouvé est proche. Un mélange de blanc et de violet indique que la cible est assez éloignée.""");
+
+        helper.page("divination_rod_screenshots");
+        this.add(helper.pageText(),
+                """
+                        Le blanc signifie que rien n'a été trouvé. Plus vous voyez de violet, plus vous êtes proche.
+                        """);
+
+        helper.page("otherworld_groves");
+        this.add(helper.pageTitle(), "Bosquets de l'Autre Monde");
+        this.add(helper.pageText(),
+                """
+                        Les bosquets de l'Autre Monde sont des grottes luxuriantes, envahies par la végétation, avec... [#](%1$s)Otherworld Trees[#](),
+                        et les murs[](item://occultism:otherstone), Pour les trouver, accordez votre baguette de divination sur les feuilles ou les bûches de l'Autre Monde, car contrairement à la pierre de l'Autre, elles n'apparaissent que dans ces bosquets.
+                         """.formatted(COLOR_PURPLE));
+
+        helper.page("otherworld_groves_2");
+        this.add(helper.pageText(),
+                """
+                        **Indice:** Dans l'Overworld, regardez **en bas**.
+                          """);
+
+        helper.page("otherworld_trees");
+        this.add(helper.pageTitle(), "Arbres d'un autre monde");
+        this.add(helper.pageText(),
+                """
+                        Les arbres de l'Autre Monde poussent naturellement dans les bosquets de l'Autre Monde. À l'œil nu, ils ressemblent à des chênes, mais pour le troisième œil, ils révèlent leur véritable nature.   \s
+                        **Important:** Les jeunes arbres de l'Autre Monde ne peuvent être obtenus qu'en cassant les feuilles manuellement, naturellement seuls les jeunes arbres de chêne tombent.
+                         """);
+
+        helper.page("otherworld_trees_2");
+        this.add(helper.pageText(),
+                """
+                        Les arbres cultivés à partir de plants stables de l'autre monde, obtenus auprès de marchands d'esprits, ne sont pas soumis à cette limitation.
+                         """);
+
+
+        helper.entry("ritual_prep");
+        this.add(helper.entryName(), "Préparations rituelles");
+        this.add(helper.entryDescription(), "Les choses à faire avant votre premier rituel.");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Préparations rituelles");
+        this.add(helper.pageText(),
+                """
+                        Pour invoquer les esprits de la [#](%1$s)Other Place[#]() dans une sécurité relative, vous devez dessiner un pentacle adéquat à l'aide de craie pour contenir leurs pouvoirs. De plus, vous devez [Sacrificial Bowls](item://occultism:sacrificial_bowl)
+                        de sacrifier des objets appropriés pour attirer l'esprit.
+                         """.formatted(COLOR_PURPLE));
+
+
+        helper.page("white_chalk");
+        this.add(helper.pageText(),
+                """
+                        Pour les pentacles, seule la couleur de la craie est pertinente, pas le glyph/sign.
+                        À des fins décoratives, vous pouvez cliquer plusieurs fois sur un bloc pour faire défiler les glyphes.
+                        Pour d'autres craies, voir [Chalks](entry://occultism:dictionary_of_spirits/advanced/chalks)
+                            """);
+
+        helper.page("burnt_otherstone_recipe");
+        //no text
+
+        helper.page("otherworld_ashes_recipe");
+        //no text
+
+        helper.page("impure_white_chalk_recipe");
+        //no text
+
+        helper.page("white_chalk_recipe");
+        //no text
+
+        helper.page("brush_recipe");
+        this.add(helper.pageText(), "La brosse peut être utilisée pour enlever facilement les glyphes de craie du sol..");
+
+        helper.page("white_candle");
+        this.add(helper.pageText(),
+                """
+                        Les bougies apportent de la stabilité aux rituels et sont un élément important de presque tous les pentacles.
+                        **Les bougies agissent également comme des étagères pour l'enchantement.**
+                            """);
+
+        helper.page("tallow");
+        this.add(helper.pageText(),
+                """
+                        Ingrédient pour les bougies. Tuez les gros animaux comme les porcs, les vaches ou les moutons avec un [#](item://occultism:butcher_knife)
+                        pour récolter[#](item://occultism:tallow).
+                            """);
+
+
+        helper.page("white_candle_recipe");
+        //no text
+
+        helper.page("sacrificial_bowl");
+        this.add(helper.pageText(),
+                """
+                        Ces bols sont utilisés pour sacrifier des objets dans le cadre d'un rituel et vous aurez besoin d'une poignée d'entre eux.
+                        Remarque : leur emplacement exact dans le rituel n'a pas d'importance - il suffit de les garder à moins de 8 blocs du centre du pentacle !
+                             """);
+
+        helper.page("sacrificial_bowl_recipe");
+        //no text
+
+        helper.page("golden_sacrificial_bowl");
+        this.add(helper.pageText(),
+                """
+                        Ce bol sacrificiel spécial est utilisé pour activer le rituel en faisant un clic droit dessus avec l'objet d'activation, généralement un livre de liaison, une fois que tout a été mis en place et que vous êtes prêt à commencer.
+                             """);
+
+
+        helper.page("golden_sacrificial_bowl_recipe");
+        //no text
+    }
+
+    private void addRitualsCategory(BookLangHelper helper) {
+        helper.category("rituels");
+        this.add(helper.categoryName(), "Rituels");
+
+        helper.entry("craft_otherworld_goggles");
+        this.add(helper.entryName(), "Fabriquer des lunettes de protection pour l'autre monde");
+    }
 
     private void addAdvancements() {
         //"advancements\.occultism\.(.*?)\.title": "(.*)",
@@ -1276,7 +1278,7 @@ public class FRFRProvider extends LanguageProvider {
         this.addItemMessages();
         this.addItemTooltips();
         this.addBlocks();
-//        this.addBook();
+        this.addBook();
         this.addEntities();
         this.addMiscTranslations();
         this.addRitualMessages();

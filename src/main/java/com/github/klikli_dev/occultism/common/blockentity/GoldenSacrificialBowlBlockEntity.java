@@ -26,14 +26,17 @@ import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.item.DummyTooltipItem;
 import com.github.klikli_dev.occultism.common.item.spirit.BookOfBindingItem;
 import com.github.klikli_dev.occultism.common.ritual.Ritual;
-import com.github.klikli_dev.occultism.common.ritual.pentacle.Pentacle;
-import com.github.klikli_dev.occultism.common.ritual.pentacle.PentacleManager;
 import com.github.klikli_dev.occultism.crafting.recipe.RitualRecipe;
 import com.github.klikli_dev.occultism.exceptions.ItemHandlerMissingException;
 import com.github.klikli_dev.occultism.registry.OccultismParticles;
 import com.github.klikli_dev.occultism.registry.OccultismRecipes;
 import com.github.klikli_dev.occultism.registry.OccultismTiles;
 import com.github.klikli_dev.occultism.util.EntityUtil;
+import com.klikli_dev.modonomicon.api.ModonomiconAPI;
+import com.klikli_dev.modonomicon.api.multiblock.Multiblock;
+import com.klikli_dev.modonomicon.api.multiblock.Multiblock.SimulateResult;
+import com.mojang.datafixers.util.Pair;
+import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -53,6 +56,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
@@ -66,7 +70,6 @@ import java.util.function.Consumer;
 
 public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity {
 
-    //region Fields
     public RitualRecipe currentRitualRecipe;
     public ResourceLocation currentRitualRecipeId;
     public UUID castingPlayerId;
@@ -80,24 +83,25 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
     public Consumer<RightClickItem> rightClickItemListener;
     public Consumer<LivingDeathEvent> livingDeathEventListener;
 
-    //endregion Fields
 
-    //region Initialization
     public GoldenSacrificialBowlBlockEntity(BlockPos worldPos, BlockState state) {
         super(OccultismTiles.GOLDEN_SACRIFICIAL_BOWL.get(), worldPos, state);
 
         this.rightClickItemListener = this::onPlayerRightClickItem;
         this.livingDeathEventListener = this::onLivingDeath;
     }
-    //endregion Initialization
 
     // If we find pentacle that almost matches block in the world, then print help
     private static boolean helpWithPentacle(Level level, BlockPos pos, Player player) {
         Map<BlockPos, Block> pentacleDiff = null;
         Map<BlockPos, Block> bestPentacleDiff = null;
-        Pentacle bestMatch = null;
-        for (Pentacle pentacle : PentacleManager.getAllPentacles().values()) {
-            pentacleDiff = pentacle.getDifference(level, pos);
+
+        var pentacleMultiblocks = level.getRecipeManager().getAllRecipesFor(OccultismRecipes.RITUAL_TYPE.get())
+                .stream().map(RitualRecipe::getPentacleId).distinct().map(ModonomiconAPI.get()::getMultiblock).toList();
+
+        Multiblock bestMatch = null;
+        for (var pentacle : pentacleMultiblocks) {
+            pentacleDiff = getDifference(pentacle, level, pos);
             if (bestPentacleDiff == null || bestPentacleDiff.size() > pentacleDiff.size()) {
                 bestPentacleDiff = pentacleDiff;
                 bestMatch = pentacle;
@@ -106,14 +110,13 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
 
         if (bestPentacleDiff != null && !bestPentacleDiff.isEmpty() && bestPentacleDiff.size() < 4) {
             player.displayClientMessage(
-                    Component.translatable("ritual." + Occultism.MODID + ".pentacle_help", Component.translatable(bestMatch.getDescriptionId()), pentacleDiffToComponent(bestPentacleDiff)),
+                    Component.translatable("ritual." + Occultism.MODID + ".pentacle_help",
+                            Component.translatable(Util.makeDescriptionId("multiblock", bestMatch.getId())), pentacleDiffToComponent(bestPentacleDiff)),
                     false);
             return true;
         }
         return false;
     }
-
-    //region Overrides
 
     private static MutableComponent pentacleDiffToComponent(Map<BlockPos, Block> bestPentacleDiff) {
         var text = Component.literal("");
@@ -133,19 +136,18 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
         List<Ingredient> ritualDiff = null;
         List<Ingredient> bestRitualDiff = null;
         RitualRecipe bestRitual = null;
-        Pentacle pentacle = null;
-        for (Pentacle p : PentacleManager.getAllPentacles().values()) {
-            if (p.validate(level, pos)) {
-                pentacle = p;
-                break;
-            }
-        }
 
-        if (pentacle == null)
+        var pentacleMultiblocks = level.getRecipeManager().getAllRecipesFor(OccultismRecipes.RITUAL_TYPE.get())
+                .stream().map(RitualRecipe::getPentacleId).distinct().map(ModonomiconAPI.get()::getMultiblock);
+
+        var pentacle = pentacleMultiblocks.filter(p -> p.validate(level, pos) != null).findFirst();
+
+        if (pentacle.isEmpty())
             return false;
 
+
         for (RitualRecipe recipe : level.getRecipeManager().getAllRecipesFor(OccultismRecipes.RITUAL_TYPE.get())) {
-            if (recipe.getPentacle() != pentacle)
+            if (recipe.getPentacle() != pentacle.orElseThrow())
                 continue;
 
             ritualDiff = new ArrayList<>(recipe.getIngredients());
@@ -197,6 +199,30 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
         return text;
     }
 
+    public static Map<BlockPos, Block> getDifference(Multiblock multiblock, Level level, BlockPos pos) {
+        Map<BlockPos, Block> minDifference = new HashMap<>();
+        int minDiffSize = Integer.MAX_VALUE;
+
+        Map<BlockPos, Block> difference;
+        for (Rotation rot : Rotation.values()) {
+            difference = new HashMap<>();
+            Pair<BlockPos, Collection<SimulateResult>> sim = multiblock.simulate(level, pos, rot, false, false);
+
+            for (SimulateResult result : sim.getSecond()) {
+                if (!result.test(level, rot)) {
+                    difference.put(result.getWorldPosition(), result.getStateMatcher().getDisplayedState(0).getBlock());
+                }
+            }
+
+            if (difference.size() < minDiffSize) {
+                minDifference = difference;
+                minDiffSize = difference.size();
+            }
+        }
+
+        return minDifference;
+    }
+
     public RitualRecipe getCurrentRitualRecipe() {
         if (this.currentRitualRecipeId != null) {
             if (this.level != null) {
@@ -210,74 +236,6 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
             }
         }
         return this.currentRitualRecipe;
-    }
-
-    @Override
-    public void load(CompoundTag compound) {
-        super.load(compound);
-
-        this.consumedIngredients.clear();
-        if (this.currentRitualRecipeId != null || this.getCurrentRitualRecipe() != null) {
-            if (compound.contains("consumedIngredients")) {
-                ListTag list = compound.getList("consumedIngredients", Tag.TAG_COMPOUND);
-                for (int i = 0; i < list.size(); i++) {
-                    ItemStack stack = ItemStack.of(list.getCompound(i));
-                    this.consumedIngredients.add(stack);
-                }
-            }
-            this.restoreRemainingAdditionalIngredients();
-        }
-        if (compound.contains("sacrificeProvided")) {
-            this.sacrificeProvided = compound.getBoolean("sacrificeProvided");
-        }
-        if (compound.contains("requiredItemUsed")) {
-            this.itemUseProvided = compound.getBoolean("requiredItemUsed");
-        }
-    }
-
-    //endregion Overrides
-
-    @Override
-    protected void saveAdditional(CompoundTag compound) {
-        if (this.getCurrentRitualRecipe() != null) {
-            if (this.consumedIngredients.size() > 0) {
-                ListTag list = new ListTag();
-                for (ItemStack stack : this.consumedIngredients) {
-                    list.add(stack.serializeNBT());
-                }
-                compound.put("consumedIngredients", list);
-            }
-            compound.putBoolean("sacrificeProvided", this.sacrificeProvided);
-            compound.putBoolean("requiredItemUsed", this.itemUseProvided);
-        }
-        super.saveAdditional(compound);
-    }
-
-    @Override
-    public void loadNetwork(CompoundTag compound) {
-        super.loadNetwork(compound);
-        if (compound.contains("currentRitual")) {
-            this.currentRitualRecipeId = new ResourceLocation(compound.getString("currentRitual"));
-        }
-
-        if (compound.contains("castingPlayerId")) {
-            this.castingPlayerId = compound.getUUID("castingPlayerId");
-        }
-
-        this.currentTime = compound.getInt("currentTime");
-    }
-
-    @Override
-    public CompoundTag saveNetwork(CompoundTag compound) {
-        RitualRecipe recipe = this.getCurrentRitualRecipe();
-        if (recipe != null) {
-            compound.putString("currentRitual", recipe.getId().toString());
-        }
-        if (this.castingPlayerId != null) {
-            compound.putUUID("castingPlayerId", this.castingPlayerId);
-        }
-        compound.putInt("currentTime", this.currentTime);
-        return super.saveNetwork(compound);
     }
 
     public void tick() {
@@ -355,6 +313,8 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
                 this.stopRitual(true);
         }
     }
+
+    //endregion Overrides
 
     //region Methods
     public void restoreCastingPlayer() {
@@ -495,6 +455,32 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
         this.itemUseProvided = true;
     }
 
+    public void onPlayerRightClickItem(PlayerInteractEvent.RightClickItem event) {
+        Player player = event.getEntity();
+        if (!player.level.isClientSide && this.getCurrentRitualRecipe() != null) {
+
+            if (this.getBlockPos().distSqr(event.getPos()) <= Ritual.ITEM_USE_DETECTION_RANGE_SQUARE) {
+                if (this.getCurrentRitualRecipe().getRitual().isValidItemUse(event)) {
+                    this.notifyItemUse(event);
+                }
+            }
+        }
+    }
+
+    public void onLivingDeath(LivingDeathEvent event) {
+        LivingEntity entityLivingBase = event.getEntity();
+        if (!entityLivingBase.level.isClientSide && this.getCurrentRitualRecipe() != null) {
+            //Limit to player kills
+            if (event.getSource().getEntity() instanceof Player) {
+                if (this.getBlockPos().distSqr(entityLivingBase.blockPosition()) <= Ritual.SACRIFICE_DETECTION_RANGE_SQUARE) {
+                    if (this.getCurrentRitualRecipe().getRitual().isValidSacrifice(entityLivingBase)) {
+                        this.notifySacrifice(entityLivingBase);
+                    }
+                }
+            }
+        }
+    }
+
     protected void restoreRemainingAdditionalIngredients() {
         if (this.level == null) {
             //this sets the signal that loading didn't go right -> will reattempt during tick()
@@ -510,31 +496,69 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
 
     }
 
-    public void onPlayerRightClickItem(PlayerInteractEvent.RightClickItem event) {
-        Player player = event.getEntity();
-        if (!player.level.isClientSide && this.getCurrentRitualRecipe() != null) {
+    @Override
+    public void load(CompoundTag compound) {
+        super.load(compound);
 
-            if(this.getBlockPos().distSqr(event.getPos()) <= Ritual.ITEM_USE_DETECTION_RANGE_SQUARE){
-                if (this.getCurrentRitualRecipe().getRitual().isValidItemUse(event)) {
-                    this.notifyItemUse(event);
+        this.consumedIngredients.clear();
+        if (this.currentRitualRecipeId != null || this.getCurrentRitualRecipe() != null) {
+            if (compound.contains("consumedIngredients")) {
+                ListTag list = compound.getList("consumedIngredients", Tag.TAG_COMPOUND);
+                for (int i = 0; i < list.size(); i++) {
+                    ItemStack stack = ItemStack.of(list.getCompound(i));
+                    this.consumedIngredients.add(stack);
                 }
             }
+            this.restoreRemainingAdditionalIngredients();
+        }
+        if (compound.contains("sacrificeProvided")) {
+            this.sacrificeProvided = compound.getBoolean("sacrificeProvided");
+        }
+        if (compound.contains("requiredItemUsed")) {
+            this.itemUseProvided = compound.getBoolean("requiredItemUsed");
         }
     }
 
-    public void onLivingDeath(LivingDeathEvent event) {
-        LivingEntity entityLivingBase = event.getEntity();
-        if (!entityLivingBase.level.isClientSide && this.getCurrentRitualRecipe() != null) {
-            //Limit to player kills
-            if (event.getSource().getEntity() instanceof Player) {
-                if(this.getBlockPos().distSqr(entityLivingBase.blockPosition()) <= Ritual.SACRIFICE_DETECTION_RANGE_SQUARE){
-                    if (this.getCurrentRitualRecipe().getRitual().isValidSacrifice(entityLivingBase)) {
-                        this.notifySacrifice(entityLivingBase);
-                    }
+    @Override
+    protected void saveAdditional(CompoundTag compound) {
+        if (this.getCurrentRitualRecipe() != null) {
+            if (this.consumedIngredients.size() > 0) {
+                ListTag list = new ListTag();
+                for (ItemStack stack : this.consumedIngredients) {
+                    list.add(stack.serializeNBT());
                 }
+                compound.put("consumedIngredients", list);
             }
+            compound.putBoolean("sacrificeProvided", this.sacrificeProvided);
+            compound.putBoolean("requiredItemUsed", this.itemUseProvided);
         }
+        super.saveAdditional(compound);
     }
 
-    //endregion Methods
+    @Override
+    public void loadNetwork(CompoundTag compound) {
+        super.loadNetwork(compound);
+        if (compound.contains("currentRitual")) {
+            this.currentRitualRecipeId = new ResourceLocation(compound.getString("currentRitual"));
+        }
+
+        if (compound.contains("castingPlayerId")) {
+            this.castingPlayerId = compound.getUUID("castingPlayerId");
+        }
+
+        this.currentTime = compound.getInt("currentTime");
+    }
+
+    @Override
+    public CompoundTag saveNetwork(CompoundTag compound) {
+        RitualRecipe recipe = this.getCurrentRitualRecipe();
+        if (recipe != null) {
+            compound.putString("currentRitual", recipe.getId().toString());
+        }
+        if (this.castingPlayerId != null) {
+            compound.putUUID("castingPlayerId", this.castingPlayerId);
+        }
+        compound.putInt("currentTime", this.currentTime);
+        return super.saveNetwork(compound);
+    }
 }

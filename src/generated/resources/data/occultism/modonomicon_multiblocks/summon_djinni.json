@@ -1,0 +1,39 @@
+{
+  "type": "modonomicon:dense",
+  "mapping": {
+    "0": {
+      "type": "modonomicon:block",
+      "block": "occultism:golden_sacrificial_bowl"
+    },
+    "C": {
+      "type": "modonomicon:tag",
+      "display": "occultism:candle_white",
+      "tag": "#minecraft:candles"
+    },
+    "P": {
+      "type": "modonomicon:block",
+      "block": "occultism:chalk_glyph_purple"
+    },
+    "W": {
+      "type": "modonomicon:block",
+      "block": "occultism:chalk_glyph_white"
+    },
+    "Z": {
+      "type": "modonomicon:block",
+      "block": "minecraft:skeleton_skull"
+    }
+  },
+  "pattern": [
+    [
+      "___C_C___",
+      "___PPP___",
+      "__W_Z_W__",
+      "CP_W_W_PC",
+      "_PZ_0_ZP_",
+      "CP_W_W_PC",
+      "__W_Z_W__",
+      "___PPP___",
+      "___C_C___"
+    ]
+  ]
+}

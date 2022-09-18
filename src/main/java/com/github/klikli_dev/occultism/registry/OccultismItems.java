@@ -35,6 +35,7 @@ import com.github.klikli_dev.occultism.common.item.storage.SatchelItem;
 import com.github.klikli_dev.occultism.common.item.storage.StableWormholeBlockItem;
 import com.github.klikli_dev.occultism.common.item.storage.StorageRemoteItem;
 import com.github.klikli_dev.occultism.common.item.tool.*;
+import com.klikli_dev.modonomicon.item.ModonomiconItem;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.ComposterBlock;
@@ -48,6 +49,12 @@ public class OccultismItems {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Occultism.MODID);
 
     //Debug and placeholder items
+    public static final RegistryObject<Item> DICTIONARY_OF_SPIRITS_ICON =
+            ITEMS.register("dictionary_of_spirits_icon", () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<GuideBookItem> DICTIONARY_OF_SPIRITS = ITEMS.register("dictionary_of_spirits",
+            () -> new GuideBookItem(defaultProperties().stacksTo(1)));
+
     public static final RegistryObject<Item> PENTACLE = ITEMS.register("pentacle",
             () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> DEBUG_WAND = ITEMS.register("debug_wand",
@@ -156,9 +163,6 @@ public class OccultismItems {
 
     public static final RegistryObject<Item> MAGIC_LAMP_EMPTY = ITEMS.register("magic_lamp_empty",
             () -> new Item(defaultProperties()));
-    //Tools
-    public static final RegistryObject<GuideBookItem> GUIDE_BOOK = ITEMS.register("dictionary_of_spirits",
-            () -> new GuideBookItem(defaultProperties().stacksTo(1)));
 
     public static final RegistryObject<StorageRemoteItem> STORAGE_REMOTE = ITEMS.register("storage_remote",
             () -> new StorageRemoteItem(defaultProperties().stacksTo(1)));

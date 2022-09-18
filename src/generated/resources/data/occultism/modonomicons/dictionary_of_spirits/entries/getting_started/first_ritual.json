@@ -1,0 +1,69 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "occultism:getting_started",
+  "description": "book.occultism.dictionary_of_spirits.getting_started.first_ritual.description",
+  "hide_while_locked": false,
+  "icon": "occultism:pentacle",
+  "name": "book.occultism.dictionary_of_spirits.getting_started.first_ritual.name",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.getting_started.first_ritual.intro.text",
+      "title": "book.occultism.dictionary_of_spirits.getting_started.first_ritual.intro.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:image",
+      "anchor": "",
+      "border": true,
+      "images": [
+        "occultism:textures/gui/book/bowl_placement.png"
+      ],
+      "text": "",
+      "title": ""
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.getting_started.first_ritual.bowl_text.text",
+      "title": "",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "occultism:ritual_recipe",
+      "anchor": "",
+      "recipe_id_1": "occultism:ritual/summon_foliot_crusher",
+      "text": "book.occultism.dictionary_of_spirits.getting_started.first_ritual.ritual_recipe.text",
+      "title1": "",
+      "title2": ""
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.getting_started.first_ritual.start_ritual.text",
+      "title": "",
+      "use_markdown_in_title": false
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "occultism:getting_started/ritual_prep",
+      "line_enabled": true,
+      "line_reversed": false
+    },
+    {
+      "draw_arrow": true,
+      "entry": "occultism:getting_started/ritual_book",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "x": 7,
+  "y": -2
+}

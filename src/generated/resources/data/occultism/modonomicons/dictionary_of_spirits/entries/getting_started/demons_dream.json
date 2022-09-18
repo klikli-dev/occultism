@@ -1,0 +1,64 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "occultism:getting_started",
+  "description": "book.occultism.dictionary_of_spirits.getting_started.demons_dream.description",
+  "hide_while_locked": false,
+  "icon": "occultism:datura",
+  "name": "book.occultism.dictionary_of_spirits.getting_started.demons_dream.name",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.getting_started.demons_dream.intro.text",
+      "title": "book.occultism.dictionary_of_spirits.getting_started.demons_dream.intro.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.getting_started.demons_dream.intro2.text",
+      "title": "",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "item": {
+        "item": "occultism:datura"
+      },
+      "text": "book.occultism.dictionary_of_spirits.getting_started.demons_dream.spotlight.text",
+      "title": ""
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.getting_started.demons_dream.harvest_effect.text",
+      "title": "",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:image",
+      "anchor": "",
+      "border": true,
+      "images": [
+        "occultism:textures/gui/book/datura_effect.png"
+      ],
+      "text": "",
+      "title": ""
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "occultism:getting_started/intro",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "x": -9,
+  "y": -2
+}

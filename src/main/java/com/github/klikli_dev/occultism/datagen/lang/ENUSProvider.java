@@ -24,9 +24,16 @@ package com.github.klikli_dev.occultism.datagen.lang;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.datagen.OccultismAdvancementProvider;
+import com.github.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants;
+import com.github.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants.I18n;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
+import com.klikli_dev.modonomicon.api.ModonomiconAPI;
+import com.klikli_dev.modonomicon.api.datagen.BookLangHelper;
+import com.klikli_dev.modonomicon.datagen.book.page.BookImagePageModel;
+import com.klikli_dev.modonomicon.datagen.book.page.BookMultiblockPageModel;
+import com.klikli_dev.modonomicon.datagen.book.page.BookTextPageModel;
 import net.minecraft.Util;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.network.chat.contents.TranslatableContents;
@@ -162,7 +169,7 @@ public class ENUSProvider extends LanguageProvider {
         this.addItem(OccultismItems.DATURA_SEEDS, "Demon's Dream Seeds");
         this.addItem(OccultismItems.DATURA, "Demon's Dream Fruit");
         this.addItem(OccultismItems.SPIRIT_ATTUNED_GEM, "Spirit Attuned Gem");
-        this.add("item.occultism.otherworld_sapling",  "Otherworld Sapling");
+        this.add("item.occultism.otherworld_sapling", "Otherworld Sapling");
         this.add("item.occultism.otherworld_sapling_natural", "Unstable Otherworld Sapling");
         this.addItem(OccultismItems.OTHERWORLD_ASHES, "Otherworld Ashes");
         this.addItem(OccultismItems.BURNT_OTHERSTONE, "Burnt Otherstone");
@@ -311,8 +318,6 @@ public class ENUSProvider extends LanguageProvider {
 
         //"(.*?)": "(.*)",
         //this.add\("\1", "\2"\);
-        this.add("book.occultism.name", "Dictionary of Spirits");
-        this.add("book.occultism.landing_text", "This book aims to introduce the novice reader to the most common summoning rituals and equip them with a list of spirits and their names. The authors advise caution in the summoning of the listed entities. $(br2)For help or to give feedback please join us in Discord $(l:https://invite.gg/klikli)https://invite.gg/klikli$().");
 
         //Jobs
         this.add("job.occultism.lumberjack", "Lumberjack");
@@ -664,328 +669,550 @@ public class ENUSProvider extends LanguageProvider {
         this.add("ritual.occultism.familiar_beaver.interrupted", "Summoning of beaver familiar interrupted.");
     }
 
-//    private void addBook() {
-//        var helper = ModonomiconAPI.get().getLangHelper(Occultism.MODID);
-//        helper.book("dictionary_of_spirits");
-//        this.add(helper.bookName(), "Dictionary of Spirits");
-//        this.add(helper.bookTooltip(), """
-//                This book aims to introduce the novice reader to the most common summoning rituals and equip them with a list of spirits and their names.
-//                The authors advise caution in the summoning of the listed entities.
-//                For help or to give feedback please join us in Discord https://invite.gg/klikli.
-//                """);
-//
-//        this.addGettingStartedCategory(helper);
-//        this.addRitualsCategory(helper);
-//    }
-//
-//    private void addGettingStartedCategory(BookLangHelper helper) {
-//        helper.category("getting_started");
-//        this.add(helper.categoryName(), "Getting Started");
-//
-//        helper.entry("demons_dream");
-//        this.add(helper.entryName(), "Lifting the Veil");
-//        this.add(helper.entryDescription(), "Learn about the Otherworld and the Third Eye.");
-//
-//        helper.page("intro");
-//        this.add(helper.pageTitle(), "The Otherworld");
-//        this.add(helper.pageText(),
-//                """
-//                        Hidden from mere human eyes exists another plane of existence, another *dimension* if you will, the [#](%1$s)Otherworld[#]().
-//                        This world is populated with entities often referred to as [#](%1$s)Demons[#]().
-//                        """.formatted(COLOR_PURPLE));
-//
-//        helper.page("intro2");
-//        this.add(helper.pageText(),
-//                """
-//                        These Demons possess a wide variety of powers and useful skills, and for centuries magicians have sought to summon them for their own gain.
-//                        The first step on the journey to successfully summoning such an Entity is to learn how to interact with the Otherworld.
-//                        """);
-//
-//        helper.page("spotlight");
-//        this.add(helper.pageText(),
-//                """
-//                        %1$s is a herb that gives humans the [#](%2$s)Third Eye[#](),
-//                        allowing them to see where the [#](%2$s)Otherworld[#]() intersects with our own.
-//                        Seeds can be found **by breaking grass**.
-//                        **Consuming** the grown fruit activates the ability.
-//                        """.formatted(DEMONS_DREAM, COLOR_PURPLE));
-//
-//        helper.page("harvest_effect");
-//        this.add(helper.pageText(),
-//                """
-//                        An additional side effect of %1$s, is **the ability to interact with [#](%2$s)Otherworld[#]() materials**.
-//                        This is unique to %1$s, other ways to obtain [#](%2$s)Third Eye[#]() do not yield this ability.
-//                        While under the effect of %1$s you are able to **harvest** Otherstone as well as Otherworld trees.
-//                         """.formatted(DEMONS_DREAM, COLOR_PURPLE));
-//
-//
-//        helper.page("datura_screenshot"); //no text
-//
-//
-//        helper.entry("spirit_fire");
-//        this.add(helper.entryName(), "It burns!");
-//        this.add(helper.entryDescription(), "Or does it?");
-//
-//        helper.page("spotlight");
-//        this.add(helper.pageText(),
-//                """
-//                        [#](%1$s)Spiritfire[#]() is a special type of fire that exists mostly in [#](%1$s)The Other Place[#]()
-//                        and does not harm living beings. Its special properties allow to use it to purify and convert
-//                        certain materials by burning them, without consuming them.
-//                        """.formatted(COLOR_PURPLE));
-//
-//
-//        helper.page("spirit_fire_screenshot");
-//        this.add(helper.pageText(),
-//                """
-//                        Throw [](item://occultism:datura) to the ground and light it on fire with [](item://minecraft:flint_and_steel).
-//                         """);
-//
-//
-//        helper.page("main_uses");
-//        this.add(helper.pageText(),
-//                """
-//                        The main uses of [](item://occultism:spirit_fire) are to convert [](item://minecraft:diamond) into [](item://occultism:spirit_attuned_gem),
-//                        to get basic ingredients such as [](item://occultism:otherstone) and [Otherworld Saplings](item://occultism:otherworld_sapling_natural),
-//                        and to purify impure chalks.
-//                         """);
-//
-//        helper.page("otherstone_recipe");
-//        this.add(helper.pageText(),
-//                """
-//                        An easier way to obtain [](item://occultism:otherstone) than via divination.
-//                              """);
-//
-//
-//        helper.page("otherworld_sapling_natural_recipe");
-//        this.add(helper.pageText(),
-//                """
-//                        An easier way to obtain [Otherworld Saplings](item://occultism:otherworld_sapling_natural) than via divination.
-//                              """);
-//
-//        helper.entry("third_eye");
-//        this.add(helper.entryName(), "The Third Eye");
-//        this.add(helper.entryDescription(), "Do you see now?");
-//
-//        helper.page("about");
-//        this.add(helper.pageTitle(), "Third Eye");
-//        this.add(helper.pageText(),
-//                """
-//                        The ability to see beyond the physical world is referred to as [#](%1$s)Third Eye[#]().
-//                        Humans do not possess such an ability to see [#](%1$s)beyond the veil[#](),
-//                        however with certain substances and contraptions the knowledgeable summoner can work around this limitation.
-//                         """.formatted(COLOR_PURPLE));
-//
-//        helper.page("how_to_obtain");
-//        this.add(helper.pageText(),
-//                """
-//                        The most comfortable, and most *expensive*, way to obtain this ability, is to wear spectacles
-//                        infused with spirits, that *lend* their sight to the wearer.
-//                        A slightly more nauseating, but **very affordable** alternative is the consumption of certain herbs,
-//                        [%1$s](entry://occultism:dictionary_of_spirits/getting_started/demons_dream) most prominent among them.
-//                         """.formatted(DEMONS_DREAM));
-//
-//        helper.page("otherworld_goggles");
-//        this.add(helper.pageText(),
-//                """
-//                        [These goggles](entry://occultism:dictionary_of_spirits/rituals/craft_otherworld_goggles) allow to see even more hidden Otherworld blocks,
-//                        however they do not allow harvesting those materials.
-//                        Low-tier materials can be harvested by consuming [%1$s](entry://occultism:dictionary_of_spirits/getting_started/demons_dream),
-//                        but more valuable materials require special tools.
-//                                """.formatted(DEMONS_DREAM));
-//
-//
-//        helper.entry("divination_rod");
-//        this.add(helper.entryName(), "Divination Rod");
-//        this.add(helper.entryDescription(), "Obtaining otherworld materials");
-//
-//        helper.page("intro");
-//        this.add(helper.pageTitle(), "Divination");
-//        this.add(helper.pageText(),
-//                """
-//                        To make it easier to get started, the materials obtained by divination now also have crafting recipes.
-//                        **If you want the full experience, skip the following recipe page and move on to the
-//                        [divination instructions](entry://occultism:dictionary_of_spirits/getting_started/divination_rod@divination_instructions).**
-//                                """);
-//
-//
-//        helper.page("otherstone_recipe");
-//        //no text
-//
-//        helper.page("otherworld_sapling_natural_recipe");
-//        this.add(helper.pageText(),
-//                """
-//                        **Beware**: the tree growing from the sapling will look like a normal oak tree.
-//                        You need to activate the [Third Eye](entry://occultism:dictionary_of_spirits/getting_started/demons_dream)
-//                        to harvest the Otherworld Logs and Leaves.
-//                                """);
-//
-//        helper.page("divination_rod");
-//        this.add(helper.pageText(),
-//                """
-//                        Otherworld materials play an important role in interacting with spirits.
-//                        As they are rare and not visible to the naked eye, finding them requires special tools.
-//                        The divination rod allows to find Otherworld materials based on their similarities to materials common to our world.
-//                                 """);
-//
-//        helper.page("about_divination_rod");
-//        this.add(helper.pageText(),
-//                """
-//                        The divination rod uses a spirit attuned gem attached to a wooden rod.
-//                        The gem resonates with the chosen material, and this movement is amplified by the wooden rod,
-//                        allowing to detect nearby Otherworld materials.   \s
-//                           \s
-//                           \s
-//                        The rod works by detecting resonance between real world and Otherworld materials.
-//                        Attuned the rod to a real world material, and it will find the corresponding Otherworld block.
-//                                 """);
-//
-//        helper.page("how_to_use");
-//        this.add(helper.pageTitle(), "Use of the Rod");
-//        this.add(helper.pageText(),
-//                """
-//                        Shift-right-click a block to attune the rod to the corresponding Otherworld block.
-//                        - [](item://minecraft:andesite): [](item://occultism:otherstone)
-//                        - [](item://minecraft:oak_wood):  [](item://occultism:otherworld_log)
-//                        - [](item://minecraft:oak_leaves): [](item://occultism:otherworld_leaves)
-//                        - [](item://minecraft:netherrack): [](item://occultism:iesnium_ore)
-//
-//                        Then right-click and hold until the rod animation finishes.""");
-//
-//        helper.page("how_to_use2");
-//        this.add(helper.pageText(),
-//                """
-//                        After the animation finishes, the closest **found block will be highlighted
-//                        with white lines and can be seen through other blocks**.
-//                        Additionally you can watch the crystals for hints: a white crystal indicates no target blocks found,
-//                        a fully purple block means the found block is nearby. Mixes between white and purple show
-//                        that the target is rather far away.""");
-//
-//        helper.page("divination_rod_screenshots");
-//        this.add(helper.pageText(),
-//                """
-//                        White means nothing was found.
-//                        The more purple you see, the closer you are.
-//                        """);
-//
-//        helper.page("otherworld_groves");
-//        this.add(helper.pageTitle(), "Otherworld Groves");
-//        this.add(helper.pageText(),
-//                """
-//                        Otherworld Groves are lush, overgrown caves, with [#](%1$s)Otherworld Trees[#](),
-//                        and walls of [](item://occultism:otherstone), and represent the fastest way to get everything one
-//                        needs to get set up as a summoner.
-//                        To find them, attune your divination rod to Otherworld leaves
-//                        or logs, as unlike Otherstone, they only spawn in these groves.
-//                         """.formatted(COLOR_PURPLE));
-//
-//        helper.page("otherworld_groves_2");
-//        this.add(helper.pageText(),
-//                """
-//                        **Hint:** In the Overworld, look **down**.
-//                          """);
-//
-//        helper.page("otherworld_trees");
-//        this.add(helper.pageTitle(), "Otherworld Trees");
-//        this.add(helper.pageText(),
-//                """
-//                        Otherworld trees grow naturally in Otherworld Groves. To the naked eye they appear as oak trees,
-//                        but to the Third Eye they reveal their true nature.   \s
-//                        **Important:** Otherworld Saplings can only be obtained by breaking the leaves manually, naturally only oak saplings drop.
-//                         """);
-//
-//        helper.page("otherworld_trees_2");
-//        this.add(helper.pageText(),
-//                """
-//                        Trees grown from Stable Otherworld Saplings as obtained from spirit traders do not have that limitation.
-//                         """);
-//
-//
-//        helper.entry("ritual_prep");
-//        this.add(helper.entryName(), "Ritual Preparations");
-//        this.add(helper.entryDescription(), "Things to do before your first ritual.");
-//
-//        helper.page("intro");
-//        this.add(helper.pageTitle(), "Ritual Preparations");
-//        this.add(helper.pageText(),
-//                """
-//                        To summon spirits from the [#](%1$s)Other Place[#]() in relative safety,
-//                        you need to draw a fitting pentacle using chalk to contain their powers.
-//                        Furthermore, you need [Sacrificial Bowls](item://occultism:sacrificial_bowl)
-//                        to sacrifice fitting items to attract the spirit.
-//                         """.formatted(COLOR_PURPLE));
-//
-//
-//        helper.page("white_chalk");
-//        this.add(helper.pageText(),
-//                """
-//                        For pentacles, only the color of chalk is relevant, not the glyph/sign.
-//                        For decorative purposes you can repeatedly click a block to cycle through glyphs.
-//                        For other chalks see [Chalks](entry://occultism:dictionary_of_spirits/advanced/chalks)
-//                            """);
-//
-//        helper.page("burnt_otherstone_recipe");
-//        //no text
-//
-//        helper.page("otherworld_ashes_recipe");
-//        //no text
-//
-//        helper.page("impure_white_chalk_recipe");
-//        //no text
-//
-//        helper.page("white_chalk_recipe");
-//        //no text
-//
-//        helper.page("brush_recipe");
-//        this.add(helper.pageText(), "The brush can be used to easily remove chalk glyphs fom the ground.");
-//
-//        helper.page("white_candle");
-//        this.add(helper.pageText(),
-//                """
-//                        Candles provide stability to rituals and are an important part of almost all pentacles.
-//                        **Candles also act like bookshelves for enchantment purposes.**
-//                            """);
-//
-//        helper.page("tallow");
-//        this.add(helper.pageText(),
-//                """
-//                        Ingredient for candles. Kill large animals like pigs, cows or sheep with a [#](item://occultism:butcher_knife)
-//                        to harvest [#](item://occultism:tallow).
-//                            """);
-//
-//
-//        helper.page("white_candle_recipe");
-//        //no text
-//
-//        helper.page("sacrificial_bowl");
-//        this.add(helper.pageText(),
-//                """
-//                       These bowls are used to sacrifice items as part of a ritual and you will need a handful of them.
-//                       Note: Their exact placement in the ritual does not matter - just keep them within 8 blocks of the pentacle center!
-//                            """);
-//
-//        helper.page("sacrificial_bowl_recipe");
-//        //no text
-//
-//        helper.page("golden_sacrificial_bowl");
-//        this.add(helper.pageText(),
-//                """
-//                       This special sacrificial bowl is used to activate the ritual by right-clicking it with the activation item,
-//                       usually a book of binding, once everything has been set up and you are ready to start.
-//                            """);
-//
-//
-//        helper.page("golden_sacrificial_bowl_recipe");
-//        //no text
-//    }
-//
-//    private void addRitualsCategory(BookLangHelper helper) {
-//        helper.category("rituals");
-//        this.add(helper.categoryName(), "Rituals");
-//
-//        helper.entry("craft_otherworld_goggles");
-//        this.add(helper.entryName(), "Craft Otherworld Goggles");
-//    }
+    private void addBook() {
+        var helper = ModonomiconAPI.get().getLangHelper(Occultism.MODID);
+        helper.book("dictionary_of_spirits");
+        this.add(helper.bookName(), "Dictionary of Spirits");
+        this.add(helper.bookTooltip(), """
+                This book aims to introduce the novice reader to the most common summoning rituals and equip them with a list of spirits and their names.
+                The authors advise caution in the summoning of the listed entities.
+                For help or to give feedback please join us in Discord https://invite.gg/klikli.
+                """);
+
+        this.addGettingStartedCategory(helper);
+        this.addPentaclesCategory(helper);
+        this.addRitualsCategory(helper);
+        this.addAdvancedCategory(helper);
+    }
+
+    private void addGettingStartedCategory(BookLangHelper helper) {
+        helper.category("getting_started");
+        this.add(helper.categoryName(), "Getting Started");
+
+        helper.entry("intro");
+        this.add(helper.entryName(), "Disclaimer!");
+        this.add(helper.entryDescription(), "About using the Dictionary of Spirits");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Important Information");
+        this.add(helper.pageText(),
+                """
+                        Occultism is transitioning from Patchouli to Modonomicon as in-game documentation.\\
+                        \\
+                        Currently only the "getting started" section is available in Modonomicon, 
+                        for all other content you need to refer back to the Patchouli book
+                        titled "Dictionary of Spirits (Old Edition)". 
+                        
+                        """);
+
+        helper.page("intro2");
+        this.add(helper.pageText(),
+                """
+                        For now, to look up recipes, pentacle shapes, ritual information and basically everything after "getting started", 
+                        please open the Old Edition.\\
+                        \\
+                        Over time more and more content will be available directly here in the Modonomicon version.
+                        """);
+
+        helper.page("recipe");
+        this.add(helper.pageText(),
+                """
+                        To obtain the old edition, simply craft this book alone in a crafting grid. (The book new edition will not be destroyed.)
+                        """);
+
+        helper.entry("demons_dream");
+        this.add(helper.entryName(), "Lifting the Veil");
+        this.add(helper.entryDescription(), "Learn about the Otherworld and the Third Eye.");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "The Otherworld");
+        this.add(helper.pageText(),
+                """
+                        Hidden from mere human eyes exists another plane of existence, another *dimension* if you will, the [#](%1$s)Otherworld[#]().
+                        This world is populated with entities often referred to as [#](%1$s)Demons[#]().
+                        """.formatted(COLOR_PURPLE));
+
+        helper.page("intro2");
+        this.add(helper.pageText(),
+                """
+                        These Demons possess a wide variety of powers and useful skills, and for centuries magicians have sought to summon them for their own gain.
+                        The first step on the journey to successfully summoning such an Entity is to learn how to interact with the Otherworld.
+                        """);
+
+        helper.page("spotlight");
+        this.add(helper.pageText(),
+                """
+                        %1$s is a herb that gives humans the [#](%2$s)Third Eye[#](),
+                        allowing them to see where the [#](%2$s)Otherworld[#]() intersects with our own.
+                        Seeds can be found **by breaking grass**.
+                        **Consuming** the grown fruit activates the ability.
+                        """.formatted(DEMONS_DREAM, COLOR_PURPLE));
+
+        helper.page("harvest_effect");
+        this.add(helper.pageText(),
+                """
+                        An additional side effect of %1$s, is **the ability to interact with [#](%2$s)Otherworld[#]() materials**.
+                        This is unique to %1$s, other ways to obtain [#](%2$s)Third Eye[#]() do not yield this ability.
+                        While under the effect of %1$s you are able to **harvest** Otherstone as well as Otherworld trees.
+                         """.formatted(DEMONS_DREAM, COLOR_PURPLE));
+
+
+        helper.page("datura_screenshot"); //no text
+
+
+        helper.entry("spirit_fire");
+        this.add(helper.entryName(), "It burns!");
+        this.add(helper.entryDescription(), "Or does it?");
+
+        helper.page("spotlight");
+        this.add(helper.pageText(),
+                """
+                        [#](%1$s)Spiritfire[#]() is a special type of fire that exists mostly in [#](%1$s)The Other Place[#]()
+                        and does not harm living beings. Its special properties allow to use it to purify and convert
+                        certain materials by burning them, without consuming them.
+                        """.formatted(COLOR_PURPLE));
+
+
+        helper.page("spirit_fire_screenshot");
+        this.add(helper.pageText(),
+                """
+                        Throw [](item://occultism:datura) to the ground and light it on fire with [](item://minecraft:flint_and_steel).
+                         """);
+
+
+        helper.page("main_uses");
+        this.add(helper.pageText(),
+                """
+                        The main uses of [](item://occultism:spirit_fire) are to convert [](item://minecraft:diamond) into [](item://occultism:spirit_attuned_gem),
+                        to get basic ingredients such as [](item://occultism:otherstone) and [Otherworld Saplings](item://occultism:otherworld_sapling_natural),
+                        and to purify impure chalks.
+                         """);
+
+        helper.page("otherstone_recipe");
+        this.add(helper.pageText(),
+                """
+                        An easier way to obtain [](item://occultism:otherstone) than via divination.
+                              """);
+
+
+        helper.page("otherworld_sapling_natural_recipe");
+        this.add(helper.pageText(),
+                """
+                        An easier way to obtain [Otherworld Saplings](item://occultism:otherworld_sapling_natural) than via divination.
+                              """);
+
+        helper.entry("third_eye");
+        this.add(helper.entryName(), "The Third Eye");
+        this.add(helper.entryDescription(), "Do you see now?");
+
+        helper.page("about");
+        this.add(helper.pageTitle(), "Third Eye");
+        this.add(helper.pageText(),
+                """
+                        The ability to see beyond the physical world is referred to as [#](%1$s)Third Eye[#]().
+                        Humans do not possess such an ability to see [#](%1$s)beyond the veil[#](),
+                        however with certain substances and contraptions the knowledgeable summoner can work around this limitation.
+                         """.formatted(COLOR_PURPLE));
+
+        helper.page("how_to_obtain");
+        this.add(helper.pageText(),
+                """
+                        The most comfortable, and most *expensive*, way to obtain this ability, is to wear spectacles
+                        infused with spirits, that *lend* their sight to the wearer.
+                        A slightly more nauseating, but **very affordable** alternative is the consumption of certain herbs,
+                        [%1$s](entry://occultism:dictionary_of_spirits/getting_started/demons_dream) most prominent among them.
+                         """.formatted(DEMONS_DREAM));
+
+        helper.page("otherworld_goggles");
+        this.add(helper.pageText(),
+                """
+                        [These goggles](entry://occultism:dictionary_of_spirits/rituals/craft_otherworld_goggles) allow to see even more hidden Otherworld blocks,
+                        however they do not allow harvesting those materials.
+                        Low-tier materials can be harvested by consuming [%1$s](entry://occultism:dictionary_of_spirits/getting_started/demons_dream),
+                        but more valuable materials require special tools.
+                                """.formatted(DEMONS_DREAM));
+
+
+        helper.entry("divination_rod");
+        this.add(helper.entryName(), "Divination Rod");
+        this.add(helper.entryDescription(), "Obtaining otherworld materials");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Divination");
+        this.add(helper.pageText(),
+                """
+                        To make it easier to get started, the materials obtained by divination now also have crafting recipes.
+                        **If you want the full experience, skip the following recipe page and move on to the
+                        [divination instructions](entry://occultism:dictionary_of_spirits/getting_started/divination_rod@divination_instructions).**
+                                """);
+
+
+        helper.page("otherstone_recipe");
+        //no text
+
+        helper.page("otherworld_sapling_natural_recipe");
+        this.add(helper.pageText(),
+                """
+                        **Beware**: the tree growing from the sapling will look like a normal oak tree.
+                        You need to activate the [Third Eye](entry://occultism:dictionary_of_spirits/getting_started/demons_dream)
+                        to harvest the Otherworld Logs and Leaves.
+                                """);
+
+        helper.page("divination_rod");
+        this.add(helper.pageText(),
+                """
+                        Otherworld materials play an important role in interacting with spirits.
+                        As they are rare and not visible to the naked eye, finding them requires special tools.
+                        The divination rod allows to find Otherworld materials based on their similarities to materials common to our world.
+                                 """);
+
+        helper.page("about_divination_rod");
+        this.add(helper.pageText(),
+                """
+                        The divination rod uses a spirit attuned gem attached to a wooden rod.
+                        The gem resonates with the chosen material, and this movement is amplified by the wooden rod,
+                        allowing to detect nearby Otherworld materials.   \s
+                           \s
+                           \s
+                        The rod works by detecting resonance between real world and Otherworld materials.
+                        Attuned the rod to a real world material, and it will find the corresponding Otherworld block.
+                                 """);
+
+        helper.page("how_to_use");
+        this.add(helper.pageTitle(), "Use of the Rod");
+        this.add(helper.pageText(),
+                """
+                        Shift-right-click a block to attune the rod to the corresponding Otherworld block.
+                        - [](item://minecraft:andesite): [](item://occultism:otherstone)
+                        - [](item://minecraft:oak_wood):  [](item://occultism:otherworld_log)
+                        - [](item://minecraft:oak_leaves): [](item://occultism:otherworld_leaves)
+                        - [](item://minecraft:netherrack): [](item://occultism:iesnium_ore)
+
+                        Then right-click and hold until the rod animation finishes.""");
+
+        helper.page("how_to_use2");
+        this.add(helper.pageText(),
+                """
+                        After the animation finishes, the closest **found block will be highlighted
+                        with white lines and can be seen through other blocks**.
+                        Additionally you can watch the crystals for hints: a white crystal indicates no target blocks found,
+                        a fully purple block means the found block is nearby. Mixes between white and purple show
+                        that the target is rather far away.""");
+
+        helper.page("divination_rod_screenshots");
+        this.add(helper.pageText(),
+                """
+                        White means nothing was found.
+                        The more purple you see, the closer you are.
+                        """);
+
+        helper.page("otherworld_groves");
+        this.add(helper.pageTitle(), "Otherworld Groves");
+        this.add(helper.pageText(),
+                """
+                        Otherworld Groves are lush, overgrown caves, with [#](%1$s)Otherworld Trees[#](),
+                        and walls of [](item://occultism:otherstone), and represent the fastest way to get everything one
+                        needs to get set up as a summoner.
+                        To find them, attune your divination rod to Otherworld leaves
+                        or logs, as unlike Otherstone, they only spawn in these groves.
+                         """.formatted(COLOR_PURPLE));
+
+        helper.page("otherworld_groves_2");
+        this.add(helper.pageText(),
+                """
+                        **Hint:** In the Overworld, look **down**.
+                          """);
+
+        helper.page("otherworld_trees");
+        this.add(helper.pageTitle(), "Otherworld Trees");
+        this.add(helper.pageText(),
+                """
+                        Otherworld trees grow naturally in Otherworld Groves. To the naked eye they appear as oak trees,
+                        but to the Third Eye they reveal their true nature.   \s
+                        **Important:** Otherworld Saplings can only be obtained by breaking the leaves manually, naturally only oak saplings drop.
+                         """);
+
+        helper.page("otherworld_trees_2");
+        this.add(helper.pageText(),
+                """
+                        Trees grown from Stable Otherworld Saplings as obtained from spirit traders do not have that limitation.
+                         """);
+
+
+        helper.entry("ritual_prep");
+        this.add(helper.entryName(), "Ritual Preparations");
+        this.add(helper.entryDescription(), "Things to do before your first ritual.");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Ritual Preparations");
+        this.add(helper.pageText(),
+                """
+                        To summon spirits from the [#](%1$s)Other Place[#]() in relative safety,
+                        you need to draw a fitting pentacle using chalk to contain their powers.
+                        Furthermore, you need [Sacrificial Bowls](item://occultism:sacrificial_bowl)
+                        to sacrifice fitting items to attract the spirit.
+                         """.formatted(COLOR_PURPLE));
+
+
+        helper.page("white_chalk");
+        this.add(helper.pageText(),
+                """
+                        For pentacles, only the color of chalk is relevant, not the glyph/sign.
+                        For decorative purposes you can repeatedly click a block to cycle through glyphs.
+                        For other chalks see [Chalks](entry://occultism:dictionary_of_spirits/advanced/chalks).
+                            """);
+
+        helper.page("burnt_otherstone_recipe");
+        //no text
+
+        helper.page("otherworld_ashes_recipe");
+        //no text
+
+        helper.page("impure_white_chalk_recipe");
+        //no text
+
+        helper.page("white_chalk_recipe");
+        //no text
+
+        helper.page("brush_recipe");
+        this.add(helper.pageText(), "The brush can be used to easily remove chalk glyphs fom the ground.");
+
+        helper.page("white_candle");
+        this.add(helper.pageText(),
+                """
+                        Candles provide stability to rituals and are an important part of almost all pentacles.
+                        **Candles also act like bookshelves for enchantment purposes.**
+                            """);
+
+        helper.page("tallow");
+        this.add(helper.pageText(),
+                """
+                        Ingredient for candles. Kill large animals like pigs, cows or sheep with a [#](item://occultism:butcher_knife)
+                        to harvest [#](item://occultism:tallow).
+                            """);
+
+
+        helper.page("white_candle_recipe");
+        //no text
+
+        helper.page("sacrificial_bowl");
+        this.add(helper.pageText(),
+                """
+                        These bowls are used to sacrifice items as part of a ritual and you will need a handful of them.
+                        Note: Their exact placement in the ritual does not matter - just keep them within 8 blocks of the pentacle center!
+                             """);
+
+        helper.page("sacrificial_bowl_recipe");
+        //no text
+
+        helper.page("golden_sacrificial_bowl");
+        this.add(helper.pageText(),
+                """
+                        This special sacrificial bowl is used to activate the ritual by right-clicking it with the activation item,
+                        usually a book of binding, once everything has been set up and you are ready to start.
+                             """);
+
+
+        helper.page("golden_sacrificial_bowl_recipe");
+        //no text
+
+
+        helper.entry("ritual_book");
+        this.add(helper.entryName(), "Books of Binding");
+        this.add(helper.entryDescription(), "Or how to identify your spirit");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Books of Binding");
+        this.add(helper.pageText(),
+                """
+                        To call forth a spirit, a [#](%1$s)Book of Binding[#]() must be used in the ritual.
+                        There is a type of book corresponding to each type (or tier) of spirit.
+                        To identify a spirit to summon, it's name must be written in the [#](%1$s)Book of Binding[#](), 
+                        resulting in a [#](%1$s)Bound Book of Binding[#]() that can be used in the ritual. 
+                         """.formatted(COLOR_PURPLE));
+
+        helper.page("purified_ink_recipe");
+        this.add(helper.pageText(),
+                """
+                        In order to craft [#](%1$s)Books of Binding[#]() to summon spirits, you need purified ink. 
+                        Simply drop any black dye into [](item://occultism:spirit_fire) to purify it.
+                            """.formatted(COLOR_PURPLE));
+
+        helper.page("book_of_binding_foliot_recipe");
+        this.add(helper.pageText(),
+                """
+                        Craft a book of binding that will be used to call forth a [#](%1$s)Foliot[#]() spirit.
+                           """.formatted(COLOR_PURPLE));
+
+        helper.page("book_of_binding_bound_foliot_recipe");
+        this.add(helper.pageText(),
+                """
+                        Add the name of the spirit to summon to your book of binding by crafting it with the Dictionary of Spirits. The Dictionary will not be used up.
+                           """);
+
+        helper.page("book_of_binding_djinni_recipe");
+        //no text
+
+        helper.page("book_of_binding_afrit_recipe");
+        //no text
+
+        helper.page("book_of_binding_marid_recipe");
+        //no text
+
+        helper.entry("first_ritual");
+        this.add(helper.entryName(), "First Ritual");
+        this.add(helper.entryDescription(), "We're actually getting started now!");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "The Ritual (tm)");
+        //TODO: link to ritual and pentacle page
+        //  " The ritual is described in $(l:rituals/summoning/summon_crusher)the section on rituals$(/l) "
+        //  maybe just general text linking to ritual section
+        //TODO: link to aviars circle page
+        this.add(helper.pageText(),
+                """
+                       These pages will walk the gentle reader through the process of the first ritual step by step.
+                       We start by placing the golden sacrificial bowl and drawing the appropriate pentacle, 
+                       [#](%1$s)Aviar's Circle[#](). 
+                       \\
+                       \\
+                       Next, place four sacrificial bowls close to the pentacle.
+                         """.formatted(COLOR_PURPLE));
+
+
+
+        helper.page("bowl_placement");
+        //no text
+
+        helper.page("bowl_text");
+        this.add(helper.pageText(),
+                """
+                       [Sacrificial Bowls](item://occultism:sacrificial_bowl) must be placed **anywhere** 
+                       within 8 blocks of the central [](item://occultism:golden_sacrificial_bowl).
+                       The exact location does not matter.
+                       \\
+                       \\
+                       Now it is time to place the ingredients you see on the next page in the (regular, not golden) sacrificial bowls.
+                         """.formatted(COLOR_PURPLE));
+
+        helper.page("ritual_recipe");
+        this.add(helper.pageText(),
+                """
+                       This page will show the ritual recipe in the future. 
+                       For now refer to the Old Edition to look up the 
+                       \"Summon Foliot Crusher\" ritual recipe.
+                         """.formatted(COLOR_PURPLE));
+        //no text
+
+        helper.page("start_ritual");
+        this.add(helper.pageText(),
+                """
+                       Finally, right-click the golden sacrificial bowl with the **bound** book of binding 
+                       you created and wait until the crusher spawns. 
+                       \\
+                       \\
+                       Now all that remains is to drop appropriate ores near the crusher and wait for it to turn it into dust.
+                         """.formatted(COLOR_PURPLE));
+
+
+        helper.entry("next_steps");
+        this.add(helper.entryName(), "Next Steps");
+        this.add(helper.entryDescription(), "To infinity, and beyond!");
+
+        helper.page("text");
+        this.add(helper.pageTitle(), "Next Steps");
+        this.add(helper.pageText(),
+                """
+                       For Now, please refer to the Old Edition's Getting Started section to learn more about next steps.
+                       \\
+                       \\
+                       See also the [Disclaimer Entry](entry://occultism:dictionary_of_spirits/getting_started/intro).
+                         """);
+    }
+
+    private void addPentaclesCategory(BookLangHelper helper) {
+        helper.category("pentacles");
+        this.add(helper.categoryName(), "Pentacles");
+
+        helper.entry("summon_foliot");
+        this.add(helper.entryName(), "Aviar's Circle");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Otherworld Goggles");
+        this.add(helper.pageText(),
+                """
+                    **Purpose:** Summon a [#](%1$s)Foliot[#]()
+                    \\ 
+                    \\
+                    Considered by most to be the simplest pentacle, [#](%1$s)Aviar's Circle[#]() is easy to set up, 
+                    but provides only a minimum of binding power and protection for the summoner.
+                    \\
+                    \\
+                   Only the weakest [#](%1$s)Foliot[#]() can be summoned in rituals using this pentacle.
+                    """.formatted(COLOR_PURPLE));
+
+        helper.page("multiblock");
+        //no text
+
+        helper.page("uses");
+        this.add(helper.pageTitle(), "Uses");
+        this.add(helper.pageText(),
+                """
+                    - [Foliot Crusher]()
+                    - //TODO: Add remaining uses
+                    """.formatted(COLOR_PURPLE));
+        //TODO: add remaining backlinks for pentacle
+
+    }
+
+    private void addRitualsCategory(BookLangHelper helper) {
+        helper.category("rituals");
+        this.add(helper.categoryName(), "Rituals");
+
+        helper.entry("craft_otherworld_goggles");
+        this.add(helper.entryName(), "Craft Otherworld Goggles");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Otherworld Goggles");
+        this.add(helper.pageText(),
+                """
+                    //TODO: Entry not yet implemented
+                    """);
+    }
+
+    private void addAdvancedCategory(BookLangHelper helper) {
+        helper.category("advanced");
+        this.add(helper.categoryName(), "Advanced");
+
+        helper.entry("chalks");
+        this.add(helper.entryName(), "Chalks");
+        this.add(helper.entryDescription(), "Better chalks for better rituals!");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "More Chalks");
+        this.add(helper.pageText(),
+                """
+                    For more advanced rituals the basic [White Chalk](entry://occultism:dictionary_of_spirits/getting_started/ritual_prep@white_chalk) 
+                    is not sufficient. Instead chalks made from more arcane materials are required.
+                    """);
+
+        helper.page("gold_chalk_recipe");
+        //no text
+
+        helper.page("purple_chalk_recipe");
+        //no text
+
+        helper.page("red_chalk_recipe");
+        //no text
+
+        helper.page("afrit_essence");
+        //TODO: Modonomicon, add link to correct entry for unbound afrit
+        this.add(helper.pageText(),
+                """
+                    //TODO: Entry not yet implemented
+                    """);
+    }
+
 
     private void addAdvancements() {
         //"advancements\.occultism\.(.*?)\.title": "(.*)",
@@ -1141,21 +1368,6 @@ public class ENUSProvider extends LanguageProvider {
     }
 
     private void addPentacles() {
-        //old:
-        this.add("pentacle.occultism.craft_afrit", "Sevira's Permanent Confinement");
-        this.add("pentacle.occultism.craft_djinni", "Strigeor's Higher Binding");
-        this.add("pentacle.occultism.craft_foliot", "Eziveus' Spectral Compulsion");
-        this.add("pentacle.occultism.craft_marid", "Uphyxes Inverted Tower");
-        this.add("pentacle.occultism.possess_afrit", "Abras' Commanding Conjure");
-        this.add("pentacle.occultism.possess_djinni", "Ihagan's Enthrallment");
-        this.add("pentacle.occultism.possess_foliot", "Hedyrin's Lure");
-        this.add("pentacle.occultism.summon_afrit", "Abras' Conjure");
-        this.add("pentacle.occultism.summon_djinni", "Ophyx' Calling");
-        this.add("pentacle.occultism.summon_foliot", "Aviar's Circle");
-        this.add("pentacle.occultism.summon_wild_afrit", "Abras' Open Conjure");
-        this.add("pentacle.occultism.summon_marid", "Fatma's Incentivized Attraction");
-        this.add("pentacle.occultism.summon_wild_greater_spirit", "Osorin's Unbound Calling");
-
         this.addPentacle("otherworld_bird", "Otherworld Bird");
         this.addPentacle("craft_afrit", "Sevira's Permanent Confinement");
         this.addPentacle("craft_djinni", "Strigeor's Higher Binding");
@@ -1296,6 +1508,19 @@ public class ENUSProvider extends LanguageProvider {
         this.add("dialog.occultism.mummy.kapow", "KAPOW!");
     }
 
+    private void addPatchouli(){
+        this.add("book.occultism.name", "Dictionary of Spirits (Old Edition)");
+        this.add("pentacle.occultim.craft_djinni", "Strigeor's Higher Binding");
+        this.add("pentacle.occultim.craft_foliot", "Eziveus' Spectral Compulsion");
+    }
+
+    private void addModonomiconIntegration(){
+        this.add(OccultismModonomiconConstants.I18n.RITUAL_RECIPE_ITEM_USE,"Item to use:");
+        this.add(OccultismModonomiconConstants.I18n.RITUAL_RECIPE_SUMMON,"Summon: %s");
+        this.add(OccultismModonomiconConstants.I18n.RITUAL_RECIPE_JOB,"Job: %s");
+        this.add(OccultismModonomiconConstants.I18n.RITUAL_RECIPE_SACRIFICE,"Sacrifice: %s");
+        this.add(I18n.RITUAL_RECIPE_GO_TO_PENTACLE,"Open Pentacle Page: %s");
+    }
 
     private void advancementTitle(String name, String s) {
         this.add(((TranslatableContents) OccultismAdvancementProvider.title(name).getContents()).getKey(), s);
@@ -1312,7 +1537,7 @@ public class ENUSProvider extends LanguageProvider {
         this.addItemMessages();
         this.addItemTooltips();
         this.addBlocks();
-//        this.addBook();
+        this.addBook();
         this.addEntities();
         this.addMiscTranslations();
         this.addRitualMessages();
@@ -1323,5 +1548,7 @@ public class ENUSProvider extends LanguageProvider {
         this.addRitualDummies();
         this.addDialogs();
         this.addPentacles();
+        this.addPatchouli(); //TODO: remove once no longer needed
+        this.addModonomiconIntegration();
     }
 }

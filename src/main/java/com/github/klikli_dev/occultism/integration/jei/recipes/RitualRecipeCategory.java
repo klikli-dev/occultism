@@ -23,13 +23,11 @@
 package com.github.klikli_dev.occultism.integration.jei.recipes;
 
 import com.github.klikli_dev.occultism.Occultism;
-import com.github.klikli_dev.occultism.common.ritual.pentacle.Pentacle;
-import com.github.klikli_dev.occultism.common.ritual.pentacle.PentacleManager;
 import com.github.klikli_dev.occultism.crafting.recipe.RitualRecipe;
 import com.github.klikli_dev.occultism.integration.jei.JeiRecipeTypes;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
-import com.github.klikli_dev.occultism.registry.OccultismRecipes;
+import com.klikli_dev.modonomicon.api.ModonomiconAPI;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
@@ -40,6 +38,7 @@ import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.resources.language.I18n;
@@ -209,10 +208,10 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
         this.arrow.draw(poseStack, this.ritualCenterX + this.recipeOutputOffsetX - 20, this.ritualCenterY);
         RenderSystem.disableBlend();
 
-        Pentacle pentacle = PentacleManager.get(recipe.getPentacleId());
+        var pentacle = ModonomiconAPI.get().getMultiblock(recipe.getPentacleId());
         if (pentacle != null) {
             this.drawStringCentered(poseStack, Minecraft.getInstance().font,
-                    Component.translatable(pentacle.getDescriptionId()), 84, 0);
+                    Component.translatable(Util.makeDescriptionId("multiblock", pentacle.getId())), 84, 0);
         } else {
             this.drawStringCentered(poseStack, Minecraft.getInstance().font,
                     Component.translatable("jei.occultism.error.pentacle_not_loaded"), 84, 0);

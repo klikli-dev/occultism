@@ -98,6 +98,10 @@ repositories {
         url = "https://klikli-dev.github.io/maven"
     }
     maven {
+        name = "KliKli Dev Repsy Maven"
+        url = "https://repo.repsy.io/mvn/klikli-dev/mods"
+    }
+    maven {
         name = "Patchouli Maven"
         url = 'https://maven.blamejared.com'
     }
@@ -139,11 +143,13 @@ dependencies {
     compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_mc_version}-${curios_version}:api")
     runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_mc_version}-${curios_version}")
 
-    //patchouli
-    implementation fg.deobf("vazkii.patchouli:Patchouli:${patchouli_mc_version}-${patchouli_version}")
-
     //geckolib
     implementation fg.deobf("software.bernie.geckolib:geckolib-forge-${geckolib_mc_version}:${geckolib_version}")
+
+    compileOnly fg.deobf("com.klikli_dev:modonomicon:${modonomicon_mc_version}-${modonomicon_version}") //we build against full jar because we NEED IT ALL
+    runtimeOnly fg.deobf("com.klikli_dev:modonomicon:${modonomicon_mc_version}-${modonomicon_version}")
+
+    implementation fg.deobf("vazkii.patchouli:Patchouli:1.19-75")
 
     //runtime only helper mods for dev env, placed in ./runtime-mods, example: Hwyla-forge-1.10.11-B78_1.16.2.jar
     //runtimeOnly fg.deobf("ignoredvalue:Hwyla:forge-1.10.11-B78_1.16.2")

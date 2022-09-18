@@ -76,6 +76,7 @@ public class DataGenerators {
         generator.addProvider(event.includeClient(), new StandardBlockStateProvider(generator, event.getExistingFileHelper()));
         generator.addProvider(event.includeClient(), new ENUSProvider(generator));
         generator.addProvider(event.includeClient(), new FRFRProvider(generator));
+        generator.addProvider(event.includeServer(), new BookGenerator(generator, Occultism.MODID));
 
         registerFeatures(event);
 

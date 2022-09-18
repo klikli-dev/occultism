@@ -26,6 +26,7 @@ package com.github.klikli_dev.occultism.integration.patchouli;
 import com.github.klikli_dev.occultism.crafting.recipe.RitualRecipe;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
+import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.resources.ResourceLocation;
@@ -36,7 +37,7 @@ import vazkii.patchouli.api.IVariable;
 import vazkii.patchouli.api.IVariableProvider;
 
 public class RitualRecipeProcessor implements IComponentProcessor {
-
+    //TODO: Replace with modo recipe page
     protected RitualRecipe recipe;
     protected ItemStack sacrificialBowl;
 
@@ -63,8 +64,7 @@ public class RitualRecipeProcessor implements IComponentProcessor {
 
         if (key.startsWith("pentacle")) {
             if (this.recipe.getPentacle() != null) {
-                //$(l:pentacles/summon_foliot)Aviar's Circle$(/l)
-                String pentacleName = I18n.get(this.recipe.getPentacle().getDescriptionId());
+                String pentacleName = I18n.get(Util.makeDescriptionId("multiblock", this.recipe.getPentacleId()));
                 String pentacleLink = "pentacles/" + this.recipe.getPentacleId().getPath();
                 return IVariable.wrap(String.format("$(l:%s)%s$(/l)", pentacleLink, pentacleName));
             }

@@ -1,0 +1,9 @@
+{
+  "type": "patchouli:shapeless_book_recipe",
+  "ingredients": [
+    {
+      "item": "occultism:dictionary_of_spirits"
+    }
+  ],
+  "book": "occultism:dictionary_of_spirits"
+}

@@ -1,0 +1,29 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "occultism:getting_started",
+  "description": "book.occultism.dictionary_of_spirits.getting_started.next_steps.description",
+  "hide_while_locked": false,
+  "icon": "occultism:soul_gem",
+  "name": "book.occultism.dictionary_of_spirits.getting_started.next_steps.name",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.getting_started.next_steps.text.text",
+      "title": "book.occultism.dictionary_of_spirits.getting_started.next_steps.text.title",
+      "use_markdown_in_title": false
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "occultism:getting_started/first_ritual",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "x": 11,
+  "y": -2
+}
