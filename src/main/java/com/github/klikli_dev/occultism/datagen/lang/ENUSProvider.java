@@ -1114,6 +1114,20 @@ public class ENUSProvider extends LanguageProvider {
                        Now all that remains is to drop appropriate ores near the crusher and wait for it to turn it into dust.
                          """.formatted(COLOR_PURPLE));
 
+
+        helper.entry("next_steps");
+        this.add(helper.entryName(), "Next Steps");
+        this.add(helper.entryDescription(), "To infinity, and beyond!");
+
+        helper.page("text");
+        this.add(helper.pageTitle(), "Next Steps");
+        this.add(helper.pageText(),
+                """
+                       For Now, please refer to the Old Edition's Getting Started section to learn more about next steps.
+                       \\
+                       \\
+                       See also the [Disclaimer Entry](entry://occultism:dictionary_of_spirits/getting_started/intro).
+                         """);
     }
 
     private void addPentaclesCategory(BookLangHelper helper) {

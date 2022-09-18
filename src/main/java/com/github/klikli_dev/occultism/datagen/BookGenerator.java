@@ -100,19 +100,19 @@ public class BookGenerator implements DataProvider {
 
         var entryHelper = ModonomiconAPI.get().getEntryLocationHelper();
         entryHelper.setMap(
-                "__i___________p___C__", //p=pentaclePrep, C=Chalks
-                "_____________________",
-                "_____________________",
-                "_____________________",
-                "__d___f___r_______R__", //d=demonsDream, f=SpiritFire, r=divinationRod, R=ritualPrep
-                "_____________________",
-                "_____________________",
-                "_____________________",
-                "____e_________b_____", //e=thirdEye, b=ritualBook
-                "_____________________",
-                "__________________c__", //c=?
-                "_____________________",
-                "______________s______"  //s=?
+                "__i___________p________", //p=pentaclePrep, C=Chalks
+                "_______________________",
+                "_______________________",
+                "_______________________",
+                "__d___f___r_______R___N", //d=demonsDream, f=SpiritFire, r=divinationRod, R=ritualPrep, N=Next Steps
+                "_______________________",
+                "_______________________",
+                "_______________________",
+                "____e_________b________", //e=thirdEye, b=ritualBook
+                "_______________________",
+                "__________________c____", //c=?
+                "_______________________",
+                "______________s________"  //s=?
         );
 
 
@@ -145,6 +145,9 @@ public class BookGenerator implements DataProvider {
                 .withParent(BookEntryParentModel.builder().withEntryId(pentaclePrepEntry.id).build())
                 .withParent(BookEntryParentModel.builder().withEntryId(ritualBookEntry.id).build());
 
+        var nextStepsEntry = this.makeNextStepsEntry(helper, entryHelper, 'N');
+        nextStepsEntry.withParent(BookEntryParentModel.builder().withEntryId(ritualEntry.id).build());
+
         return BookCategoryModel.builder()
                 .withId(this.modLoc("getting_started"))
                 .withName(helper.categoryName())
@@ -157,6 +160,7 @@ public class BookGenerator implements DataProvider {
                 .withEntries(pentaclePrepEntry.build())
                 .withEntries(ritualBookEntry.build())
                 .withEntries(ritualEntry.build())
+                .withEntries(nextStepsEntry.build())
                 .build();
     }
 
@@ -597,6 +601,24 @@ public class BookGenerator implements DataProvider {
                         ritualRecipe,
                         startRitualText
                 );
+    }
+
+    private BookEntryModel.Builder makeNextStepsEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("next_steps");
+
+        helper.page("text");
+        var text = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withDescription(helper.entryDescription())
+                .withIcon(OccultismItems.SOUL_GEM_ITEM.getId().toString())
+                .withLocation(entryHelper.get(icon))
+                .withPages(text);
     }
 
 
