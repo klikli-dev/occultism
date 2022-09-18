@@ -38,8 +38,8 @@ import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
 
@@ -126,7 +126,7 @@ public class DepositItemsGoal extends PausableGoal {
                 if (distance < accessDistance && this.canSeeTarget()) {
 
                     LazyOptional<IItemHandler> handlerCapability = this.moveTarget.getCapability(
-                            CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, this.entity.getDepositFacing());
+                            ForgeCapabilities.ITEM_HANDLER, this.entity.getDepositFacing());
                     if (!handlerCapability
                             .isPresent()) { //worst case scenario if block entity or entity changes since last target reset.
                         this.resetTarget();
@@ -205,7 +205,7 @@ public class DepositItemsGoal extends PausableGoal {
         Optional<BlockPos> targetPos = this.entity.getDepositPosition();
         targetPos.ifPresent((pos) -> {
             this.moveTarget = new BlockPosMoveTarget(this.entity.level, pos);
-            if (!this.moveTarget.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, this.entity.getDepositFacing())
+            if (!this.moveTarget.getCapability(ForgeCapabilities.ITEM_HANDLER, this.entity.getDepositFacing())
                     .isPresent()) {
                 //the deposit block is not valid for depositing, so we disable this to allow exiting this task.
                 this.entity.setDepositPosition(null);

@@ -28,7 +28,6 @@ import com.github.klikli_dev.occultism.registry.OccultismTags;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonPrimitive;
 import com.klikli_dev.modonomicon.data.MultiblockDataManager;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataGenerator;

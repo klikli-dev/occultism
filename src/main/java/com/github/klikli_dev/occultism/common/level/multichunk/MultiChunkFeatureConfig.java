@@ -25,13 +25,8 @@ package com.github.klikli_dev.occultism.common.level.multichunk;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.Holder;
-import net.minecraft.tags.TagKey;
-import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
-import net.minecraftforge.common.ForgeConfigSpec.DoubleValue;
-
-import java.util.List;
 
 public class MultiChunkFeatureConfig implements FeatureConfiguration {
 

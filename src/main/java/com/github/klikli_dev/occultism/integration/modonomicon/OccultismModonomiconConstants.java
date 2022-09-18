@@ -1,7 +1,6 @@
 package com.github.klikli_dev.occultism.integration.modonomicon;
 
 import com.github.klikli_dev.occultism.Occultism;
-import com.klikli_dev.modonomicon.api.ModonomiconAPI;
 import net.minecraft.resources.ResourceLocation;
 
 public class OccultismModonomiconConstants {

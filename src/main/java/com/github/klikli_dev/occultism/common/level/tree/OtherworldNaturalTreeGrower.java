@@ -23,11 +23,9 @@
 package com.github.klikli_dev.occultism.common.level.tree;
 
 import com.github.klikli_dev.occultism.Occultism;
-import com.github.klikli_dev.occultism.registry.OccultismFeatures;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
-import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -36,10 +34,7 @@ import net.minecraft.world.level.block.grower.AbstractTreeGrower;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
-import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.Random;
 
 public class OtherworldNaturalTreeGrower extends AbstractTreeGrower {
 

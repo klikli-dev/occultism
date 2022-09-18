@@ -40,7 +40,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
 
@@ -130,7 +130,7 @@ public class ManageMachineGoal extends Goal {
                         ItemStack itemToExtract = this.job.getStorageController()
                                 .getItemStack(currentOrder.comparator, currentOrder.amount,
                                         true);
-                        IItemHandler handler = this.entity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY,
+                        IItemHandler handler = this.entity.getCapability(ForgeCapabilities.ITEM_HANDLER,
                                 Direction.UP).orElseThrow(ItemHandlerMissingException::new);
                         if (!itemToExtract.isEmpty() &&
                                 ItemHandlerHelper.insertItem(handler, itemToExtract, true).isEmpty()) {
@@ -150,11 +150,11 @@ public class ManageMachineGoal extends Goal {
                         //if we reached the machine (=extract block entity), we take out the result
 
 
-                        blockEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY,
+                        blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER,
                                 machineReference.extractFacing).ifPresent(machineHandler -> {
 
                             IItemHandler entityHandler = this.entity.getCapability(
-                                            CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, Direction.UP)
+                                            ForgeCapabilities.ITEM_HANDLER, Direction.UP)
                                     .orElseThrow(ItemHandlerMissingException::new);
 
                             boolean movedAnyItems = false;
@@ -249,7 +249,7 @@ public class ManageMachineGoal extends Goal {
 
     private boolean startTargetingStorageController(DepositOrder depositOrder, MachineReference machineReference,
                                                     BlockEntity machine, IStorageController storageController) {
-        return machine.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, machineReference.insertFacing)
+        return machine.getCapability(ForgeCapabilities.ITEM_HANDLER, machineReference.insertFacing)
                 .map(machineItemHandler -> {
                     //simulate taking and inserting items to ensure we have space
                     ItemStack orderStack = storageController
@@ -276,7 +276,7 @@ public class ManageMachineGoal extends Goal {
 
     private boolean startTargetingExtractBlockEntity(DepositOrder depositOrder, MachineReference machineReference,
                                                      BlockEntity extractBlockEntity, IStorageController storageController) {
-        return extractBlockEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, machineReference.extractFacing)
+        return extractBlockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER, machineReference.extractFacing)
                 .map(machineItemHandler -> {
                     for (int i = 0; i < machineItemHandler.getSlots(); i++) {
                         if (!machineItemHandler.getStackInSlot(i).isEmpty()) {
@@ -299,8 +299,8 @@ public class ManageMachineGoal extends Goal {
         if (machine != null && extractBlockEntity != null && storageController != null) {
 
             //machine was replaced or no longer supports inventories, so we unlink it and abort
-            if (!machine.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, machineReference.insertFacing).isPresent() ||
-                    !extractBlockEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, machineReference.extractFacing).isPresent()) {
+            if (!machine.getCapability(ForgeCapabilities.ITEM_HANDLER, machineReference.insertFacing).isPresent() ||
+                    !extractBlockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER, machineReference.extractFacing).isPresent()) {
                 this.job.setManagedMachine(null);
                 this.targetBlock = null;
                 return;

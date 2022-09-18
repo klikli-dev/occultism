@@ -31,8 +31,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.WallTorchBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
-import java.util.Random;
-
 public class SpiritWallTorchBlock extends WallTorchBlock {
     public SpiritWallTorchBlock(Properties pProperties) {
         super(pProperties, null);

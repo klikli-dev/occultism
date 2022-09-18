@@ -31,8 +31,6 @@ import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 
-import java.util.Random;
-
 public abstract class CaveDecorator implements ICaveDecorator {
     //region Fields
     public BlockState floorState;

@@ -61,7 +61,6 @@ import net.minecraftforge.fml.util.ObfuscationReflectionHelper.UnableToFindField
 import javax.annotation.Nullable;
 import java.lang.reflect.Field;
 import java.util.List;
-import java.util.Random;
 import java.util.UUID;
 
 public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements ItemSteerable {

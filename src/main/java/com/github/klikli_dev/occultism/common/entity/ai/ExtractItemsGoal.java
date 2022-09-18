@@ -35,8 +35,8 @@ import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
 
@@ -125,7 +125,7 @@ public class ExtractItemsGoal extends PausableGoal {
                 if (distance < accessDistance && this.canSeeTarget()) {
 
                     LazyOptional<IItemHandler> handlerCapability = blockEntity.getCapability(
-                            CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, this.entity.getExtractFacing());
+                            ForgeCapabilities.ITEM_HANDLER, this.entity.getExtractFacing());
                     if (!handlerCapability
                             .isPresent()) { //worst case scenario if block entity changes since last target reset.
                         this.resetTarget();
@@ -133,7 +133,7 @@ public class ExtractItemsGoal extends PausableGoal {
                     }
                     IItemHandler blockEntityHandler = handlerCapability.orElseThrow(ItemHandlerMissingException::new);
                     IItemHandler entityHandler =
-                            this.entity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, Direction.DOWN)
+                            this.entity.getCapability(ForgeCapabilities.ITEM_HANDLER, Direction.DOWN)
                                     .orElseThrow(ItemHandlerMissingException::new);
 
                     int slot = StorageUtil.getFirstMatchingSlot(blockEntityHandler,
@@ -203,7 +203,7 @@ public class ExtractItemsGoal extends PausableGoal {
             this.targetBlock = pos;
             BlockEntity blockEntity = this.entity.level.getBlockEntity(this.targetBlock);
             if (blockEntity == null ||
-                    !blockEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, this.entity.getExtractFacing())
+                    !blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER, this.entity.getExtractFacing())
                             .isPresent()) {
                 //the extract block is not valid for extracting, so we disable this to allow exiting this task.
                 this.entity.setExtractPosition(null);
