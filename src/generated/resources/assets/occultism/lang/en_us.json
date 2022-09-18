@@ -141,7 +141,7 @@
   "book.occultism.dictionary_of_spirits.getting_started.name": "Getting Started",
   "book.occultism.dictionary_of_spirits.getting_started.next_steps.description": "To infinity, and beyond!",
   "book.occultism.dictionary_of_spirits.getting_started.next_steps.name": "Next Steps",
-  "book.occultism.dictionary_of_spirits.getting_started.next_steps.text.text": "For Now, please refer to the Old Edition's Getting Started section to learn more about next steps.\nSee also the [Disclaimer Entry](entry://occultism:dictionary_of_spirits/getting_started/intro).\n",
+  "book.occultism.dictionary_of_spirits.getting_started.next_steps.text.text": "For Now, please refer to the Old Edition's Getting Started section to learn more about next steps.\n\\\n\\\nSee also the [Disclaimer Entry](entry://occultism:dictionary_of_spirits/getting_started/intro).\n",
   "book.occultism.dictionary_of_spirits.getting_started.next_steps.text.title": "Next Steps",
   "book.occultism.dictionary_of_spirits.getting_started.ritual_book.book_of_binding_bound_foliot_recipe.text": "Add the name of the spirit to summon to your book of binding by crafting it with the Dictionary of Spirits. The Dictionary will not be used up.\n",
   "book.occultism.dictionary_of_spirits.getting_started.ritual_book.book_of_binding_foliot_recipe.text": "Craft a book of binding that will be used to call forth a [#](ad03fc)Foliot[#]() spirit.\n",

@@ -5,6 +5,10 @@
       "type": "modonomicon:block",
       "block": "occultism:golden_sacrificial_bowl"
     },
+    "9": {
+      "type": "modonomicon:display",
+      "display": "occultism:otherstone"
+    },
     "P": {
       "type": "modonomicon:block",
       "block": "occultism:chalk_glyph_purple"
@@ -31,6 +35,19 @@
       "___W_W_W___",
       "____PPP____",
       "___________"
+    ],
+    [
+      "99999999999",
+      "99999999999",
+      "99999999999",
+      "99999999999",
+      "99999999999",
+      "99999999999",
+      "99999999999",
+      "99999999999",
+      "99999999999",
+      "99999999999",
+      "99999999999"
     ]
   ]
 }

@@ -75,7 +75,7 @@ public class PentacleProvider implements DataProvider {
                         "   GCPCG   ",
                         "    GGG    ",
                         "     Z     "),
-                new MappingBuilder().bowl().whiteChalk().goldChalk().purpleChalk().redChalk().candle().crystal().skeleton().wither().build());
+                new MappingBuilder().bowl().whiteChalk().goldChalk().purpleChalk().redChalk().candle().crystal().skeleton().wither().ground().build());
         this.addPentacle("craft_djinni",
                 this.createPattern(
                         "         ",
@@ -87,7 +87,7 @@ public class PentacleProvider implements DataProvider {
                         "  P W P  ",
                         " C WGW C ",
                         "         "),
-                new MappingBuilder().bowl().whiteChalk().goldChalk().purpleChalk().candle().crystal().build());
+                new MappingBuilder().bowl().whiteChalk().goldChalk().purpleChalk().candle().crystal().ground().build());
         this.addPentacle("craft_foliot",
                 this.createPattern(
                         "  WSW  ",
@@ -97,7 +97,7 @@ public class PentacleProvider implements DataProvider {
                         "W  W  W",
                         " G   G ",
                         "  WSW  "),
-                new MappingBuilder().bowl().whiteChalk().goldChalk().candle().crystal().build());
+                new MappingBuilder().bowl().whiteChalk().goldChalk().candle().crystal().ground().build());
         this.addPentacle("craft_marid",
                 this.createPattern(
                         "       Z       ",
@@ -115,7 +115,7 @@ public class PentacleProvider implements DataProvider {
                         "     RCWCR     ",
                         "      RRR      ",
                         "       Z       "),
-                new MappingBuilder().bowl().whiteChalk().goldChalk().redChalk().candle().crystal().skeleton().wither().build());
+                new MappingBuilder().bowl().whiteChalk().goldChalk().redChalk().candle().crystal().skeleton().wither().ground().build());
         this.addPentacle("debug",
                 this.createPattern(
                         "  GCG  ",
@@ -125,7 +125,7 @@ public class PentacleProvider implements DataProvider {
                         "G  P  G",
                         " G P G ",
                         "  GCG  "),
-                new MappingBuilder().bowl().goldChalk().purpleChalk().candle().skeleton().build());
+                new MappingBuilder().bowl().goldChalk().purpleChalk().candle().skeleton().ground().build());
         this.addPentacle("possess_afrit",
                 this.createPattern(
                         "           ",
@@ -139,7 +139,7 @@ public class PentacleProvider implements DataProvider {
                         "   GCWCG   ",
                         "    PRP    ",
                         "           "),
-                new MappingBuilder().bowl().whiteChalk().goldChalk().purpleChalk().redChalk().candle().skeleton().wither().build());
+                new MappingBuilder().bowl().whiteChalk().goldChalk().purpleChalk().redChalk().candle().skeleton().wither().ground().build());
         this.addPentacle("possess_djinni",
                 this.createPattern(
                         "   GPG   ",
@@ -151,7 +151,7 @@ public class PentacleProvider implements DataProvider {
                         " GZW WZG ",
                         "  GC CG  ",
                         "   GPG   "),
-                new MappingBuilder().bowl().whiteChalk().goldChalk().purpleChalk().candle().skeleton().build());
+                new MappingBuilder().bowl().whiteChalk().goldChalk().purpleChalk().candle().skeleton().ground().build());
         this.addPentacle("possess_foliot",
                 this.createPattern(
                         "   GGG   ",
@@ -163,7 +163,7 @@ public class PentacleProvider implements DataProvider {
                         " GW   WG ",
                         "  GC CG  ",
                         "   GGG   "),
-                new MappingBuilder().bowl().whiteChalk().goldChalk().candle().build());
+                new MappingBuilder().bowl().whiteChalk().goldChalk().candle().ground().build());
         this.addPentacle("summon_afrit",
                 this.createPattern(
                         "           ",
@@ -177,7 +177,7 @@ public class PentacleProvider implements DataProvider {
                         "   WCWCW   ",
                         "    PRP    ",
                         "           "),
-                new MappingBuilder().bowl().whiteChalk().purpleChalk().redChalk().candle().skeleton().wither().build());
+                new MappingBuilder().bowl().whiteChalk().purpleChalk().redChalk().candle().skeleton().wither().ground().build());
         this.addPentacle("summon_djinni",
                 this.createPattern(
                         "   C C   ",
@@ -189,7 +189,7 @@ public class PentacleProvider implements DataProvider {
                         "  W Z W  ",
                         "   PPP   ",
                         "   C C   "),
-                new MappingBuilder().bowl().whiteChalk().purpleChalk().candle().skeleton().build());
+                new MappingBuilder().bowl().whiteChalk().purpleChalk().candle().skeleton().ground().build());
         this.addPentacle("summon_marid",
                 this.createPattern(
                         "       Z       ",
@@ -207,7 +207,7 @@ public class PentacleProvider implements DataProvider {
                         "     RCWCR     ",
                         "      RRR      ",
                         "       Z       "),
-                new MappingBuilder().bowl().whiteChalk().goldChalk().redChalk().candle().skeleton().wither().build());
+                new MappingBuilder().bowl().whiteChalk().goldChalk().redChalk().candle().skeleton().wither().ground().build());
         this.addPentacle("summon_foliot",
                 this.createPattern(
                         "         ",
@@ -219,7 +219,7 @@ public class PentacleProvider implements DataProvider {
                         "  W W W  ",
                         "   WCW   ",
                         "         "),
-                new MappingBuilder().bowl().whiteChalk().candle().build());
+                new MappingBuilder().bowl().whiteChalk().candle().ground().build());
         this.addPentacle("summon_wild_afrit",
                 this.createPattern(
                         "           ",
@@ -233,7 +233,7 @@ public class PentacleProvider implements DataProvider {
                         "   WCWCW   ",
                         "    PPP    ",
                         "           "),
-                new MappingBuilder().bowl().whiteChalk().purpleChalk().candle().skeleton().wither().build());
+                new MappingBuilder().bowl().whiteChalk().purpleChalk().candle().skeleton().wither().ground().build());
         this.addPentacle("summon_wild_greater_spirit",
                 this.createPattern(
                         "           ",
@@ -247,7 +247,7 @@ public class PentacleProvider implements DataProvider {
                         "   W W W   ",
                         "    PPP    ",
                         "           "),
-                new MappingBuilder().bowl().whiteChalk().purpleChalk().skeleton().build());
+                new MappingBuilder().bowl().whiteChalk().purpleChalk().skeleton().ground().build());
     }
 
     private List<String> createPattern(String... rows) {
@@ -272,7 +272,15 @@ public class PentacleProvider implements DataProvider {
         for (String row : pattern)
             innerPattern.add(row);
         outerPattern.add(innerPattern); //modonomicon multiblocks may have multiple layers, but we use only one
+
+        JsonArray ground = new JsonArray();
+        for(int i = 0; i < pattern.size(); i++){
+            ground.add("9".repeat(pattern.get(i).length()));
+        }
+        outerPattern.add(ground);
+
         json.add("pattern", outerPattern);
+
         JsonObject jsonMapping = new JsonObject();
         for (Entry<Character, JsonElement> entry : mappings.entrySet())
             jsonMapping.add(String.valueOf(entry.getKey()), entry.getValue());
@@ -305,6 +313,10 @@ public class PentacleProvider implements DataProvider {
     private static class MappingBuilder {
         private final Map<Character, JsonElement> mappings = new HashMap<>();
 
+        public MappingBuilder() {
+            this.ground(); //always map ground
+        }
+
         private MappingBuilder element(char c, JsonElement e) {
             this.mappings.put(c, e);
             return this;
@@ -326,6 +338,13 @@ public class PentacleProvider implements DataProvider {
             JsonObject json = new JsonObject();
             json.addProperty("type", "modonomicon:block");
             json.addProperty("block", ForgeRegistries.BLOCKS.getKey(b.get()).toString());
+            json.addProperty("display", ForgeRegistries.BLOCKS.getKey(display.get()).toString());
+            return this.element(c, json);
+        }
+
+        private MappingBuilder display(char c, Supplier<? extends Block> display) {
+            JsonObject json = new JsonObject();
+            json.addProperty("type", "modonomicon:display");
             json.addProperty("display", ForgeRegistries.BLOCKS.getKey(display.get()).toString());
             return this.element(c, json);
         }
@@ -368,6 +387,10 @@ public class PentacleProvider implements DataProvider {
 
         private MappingBuilder skeleton() {
             return this.block('Z', () -> Blocks.SKELETON_SKULL);
+        }
+
+        private MappingBuilder ground() {
+            return this.display('9', OccultismBlocks.OTHERSTONE);
         }
 
         private MappingBuilder wither() {
