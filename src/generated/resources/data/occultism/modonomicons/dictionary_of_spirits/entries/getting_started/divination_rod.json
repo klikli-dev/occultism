@@ -41,6 +41,22 @@
       "title": ""
     },
     {
+      "type": "occultism:spirit_fire_recipe",
+      "anchor": "",
+      "recipe_id_1": "occultism:spirit_fire/spirit_attuned_gem",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    },
+    {
+      "type": "modonomicon:crafting_recipe",
+      "anchor": "",
+      "recipe_id_1": "occultism:crafting/divination_rod",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    },
+    {
       "type": "modonomicon:text",
       "anchor": "",
       "show_title_separator": true,

@@ -328,6 +328,16 @@ public class BookGenerator implements DataProvider {
                 .withAnchor("divination_instructions")
                 .build();
 
+        helper.page("spirit_attuned_gem_recipe");
+        var spiritAttunedGemRecipe = BookSpiritFireRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("spirit_fire/spirit_attuned_gem"))
+                .build();
+
+        helper.page("divination_rod_recipe");
+        var divinationRodRecipe = BookCraftingRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("crafting/divination_rod"))
+                .build();
+
         helper.page("about_divination_rod");
         var aboutDivinationRod = BookTextPageModel.builder()
                 .withText(helper.pageText())
@@ -382,7 +392,7 @@ public class BookGenerator implements DataProvider {
                 .withDescription(helper.entryDescription())
                 .withIcon(OccultismItems.DIVINATION_ROD.getId().toString())
                 .withLocation(entryHelper.get(icon))
-                .withPages(intro, otherstoneRecipe, otherworldSaplingNaturalRecipe, divinationRod, aboutDivinationRod,
+                .withPages(intro, otherstoneRecipe, otherworldSaplingNaturalRecipe, divinationRod, spiritAttunedGemRecipe, divinationRodRecipe, aboutDivinationRod,
                         howToUse, howToUse2, divinationRodScreenshots, otherworldGroves, otherworldGroves2, otherworldTrees, otherworldTrees2);
     }
 
