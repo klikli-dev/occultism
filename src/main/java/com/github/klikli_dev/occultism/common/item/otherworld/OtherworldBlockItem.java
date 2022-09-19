@@ -46,7 +46,7 @@ public class OtherworldBlockItem extends BlockItem {
      */
     @Override
     public String getOrCreateDescriptionId() {
-        return super.getOrCreateDescriptionId();
+        return this.getBlock().getDescriptionId();
     }
 
     @Override

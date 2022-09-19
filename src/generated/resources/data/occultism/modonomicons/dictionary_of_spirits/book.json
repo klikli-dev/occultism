@@ -1,0 +1,12 @@
+{
+  "name": "book.occultism.dictionary_of_spirits.name",
+  "tooltip": "book.occultism.dictionary_of_spirits.tooltip",
+  "model": "occultism:dictionary_of_spirits_icon",
+  "creative_tab": "misc",
+  "book_overview_texture": "modonomicon:textures/gui/book_overview.png",
+  "book_content_texture": "modonomicon:textures/gui/book_content.png",
+  "crafting_texture": "occultism:textures/gui/book/crafting_textures.png",
+  "default_title_color": 0,
+  "auto_add_read_conditions": true,
+  "generate_book_item": false
+}

@@ -22,6 +22,7 @@
 
 package com.github.klikli_dev.occultism.datagen;
 
+import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.datagen.lang.ENUSProvider;
 import com.github.klikli_dev.occultism.datagen.lang.FRFRProvider;
 import net.minecraft.data.DataGenerator;
@@ -43,6 +44,7 @@ public class DataGenerators {
             generator.addProvider(new StandardLootTableProvider(generator));
             generator.addProvider(new PentacleProvider(generator));
             generator.addProvider(new OccultismAdvancementProvider(generator));
+            generator.addProvider(new BookGenerator(generator, Occultism.MODID));
         }
         if (event.includeClient()) {
             generator.addProvider(new ItemModelsGenerator(generator, event.getExistingFileHelper()));

@@ -28,6 +28,7 @@ import com.github.klikli_dev.occultism.common.ritual.pentacle.PentacleManager;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.registry.OccultismTags;
 import com.google.gson.*;
+import com.klikli_dev.modonomicon.data.MultiblockDataManager;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.HashCache;
@@ -36,6 +37,7 @@ import net.minecraft.tags.Tag;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -45,6 +47,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.function.Supplier;
 
 public class PentacleProvider implements DataProvider {
@@ -65,7 +68,7 @@ public class PentacleProvider implements DataProvider {
         this.start();
 
         this.toSerialize.forEach((name, json) -> {
-            Path path = folder.resolve("data/" + Occultism.MODID + "/" + PentacleManager.FOLDER_NAME + "/" + name + ".json");
+            Path path = folder.resolve("data/" + Occultism.MODID + "/" + MultiblockDataManager.FOLDER + "/" + name + ".json");
             try {
                 DataProvider.save(GSON, cache, json, path);
             } catch (IOException e) {
@@ -276,7 +279,30 @@ public class PentacleProvider implements DataProvider {
     }
 
     private void addPentacle(ResourceLocation rl, List<String> pattern, Map<Character, JsonElement> mappings) {
-        JsonObject json = new Pentacle(rl, pattern, mappings).toJson();
+        JsonObject json = new JsonObject();
+
+        json.addProperty("type", "modonomicon:dense");
+
+        JsonArray outerPattern = new JsonArray();
+        JsonArray innerPattern = new JsonArray();
+        for (String row : pattern)
+            innerPattern.add(row);
+        outerPattern.add(innerPattern); //modonomicon multiblocks may have multiple layers, but we use only one
+
+        JsonArray ground = new JsonArray();
+        for(int i = 0; i < pattern.size(); i++){
+            ground.add("9".repeat(pattern.get(i).length()));
+        }
+        outerPattern.add(ground);
+
+        json.add("pattern", outerPattern);
+
+        JsonObject jsonMapping = new JsonObject();
+
+        for (Entry<Character, JsonElement> entry : mappings.entrySet())
+            jsonMapping.add(String.valueOf(entry.getKey()), entry.getValue());
+        json.add("mapping", jsonMapping);
+
         this.toSerialize.put(rl.getPath(), json);
     }
 
@@ -288,6 +314,10 @@ public class PentacleProvider implements DataProvider {
     private static class MappingBuilder {
         private final Map<Character, JsonElement> mappings = new HashMap<>();
 
+        public MappingBuilder() {
+            this.ground(); //always map ground
+        }
+
         private MappingBuilder element(char c, JsonElement e) {
             this.mappings.put(c, e);
             return this;
@@ -298,20 +328,33 @@ public class PentacleProvider implements DataProvider {
         }
 
         private MappingBuilder block(char c, Supplier<? extends Block> b) {
-            return this.element(c, new JsonPrimitive(b.get().getRegistryName().toString()));
+
+            JsonObject json = new JsonObject();
+            json.addProperty("type", "modonomicon:block");
+            json.addProperty("block", ForgeRegistries.BLOCKS.getKey(b.get()).toString());
+            return this.element(c, json);
         }
 
         private MappingBuilder blockDisplay(char c, Supplier<? extends Block> b, Supplier<? extends Block> display) {
             JsonObject json = new JsonObject();
-            json.add("block", new JsonPrimitive(b.get().getRegistryName().toString()));
-            json.add("display", new JsonPrimitive(display.get().getRegistryName().toString()));
+            json.addProperty("type", "modonomicon:block");
+            json.addProperty("block", ForgeRegistries.BLOCKS.getKey(b.get()).toString());
+            json.addProperty("display", ForgeRegistries.BLOCKS.getKey(display.get()).toString());
+            return this.element(c, json);
+        }
+
+        private MappingBuilder display(char c, Supplier<? extends Block> display) {
+            JsonObject json = new JsonObject();
+            json.addProperty("type", "modonomicon:display");
+            json.addProperty("display", ForgeRegistries.BLOCKS.getKey(display.get()).toString());
             return this.element(c, json);
         }
 
         private MappingBuilder tag(char c, TagKey<Block> tag, Supplier<? extends Block> display) {
             JsonObject json = new JsonObject();
-            json.add("tag", new JsonPrimitive(tag.location().toString()));
-            json.add("display", new JsonPrimitive(display.get().getRegistryName().toString()));
+            json.addProperty("type", "modonomicon:tag");
+            json.addProperty("tag", "#" + tag.location());
+            json.addProperty("display", ForgeRegistries.BLOCKS.getKey(display.get()).toString());
             return this.element(c, json);
         }
 
@@ -345,6 +388,10 @@ public class PentacleProvider implements DataProvider {
 
         private MappingBuilder skeleton() {
             return this.blockDisplay('Z', () -> Blocks.SKELETON_SKULL, OccultismBlocks.SKELETON_SKULL_DUMMY);
+        }
+
+        private MappingBuilder ground() {
+            return this.display('9', OccultismBlocks.OTHERSTONE);
         }
 
         private MappingBuilder wither() {

@@ -1,0 +1,51 @@
+{
+  "type": "modonomicon:dense",
+  "pattern": [
+    [
+      "  GCG  ",
+      " G P G ",
+      "G  P  G",
+      "CPP0PPC",
+      "G  P  G",
+      " G P G ",
+      "  GCG  "
+    ],
+    [
+      "9999999",
+      "9999999",
+      "9999999",
+      "9999999",
+      "9999999",
+      "9999999",
+      "9999999"
+    ]
+  ],
+  "mapping": {
+    "0": {
+      "type": "modonomicon:block",
+      "block": "occultism:golden_sacrificial_bowl"
+    },
+    "P": {
+      "type": "modonomicon:block",
+      "block": "occultism:chalk_glyph_purple"
+    },
+    "C": {
+      "type": "modonomicon:tag",
+      "tag": "#minecraft:candles",
+      "display": "occultism:candle_white"
+    },
+    "G": {
+      "type": "modonomicon:block",
+      "block": "occultism:chalk_glyph_gold"
+    },
+    "9": {
+      "type": "modonomicon:display",
+      "display": "occultism:otherstone"
+    },
+    "Z": {
+      "type": "modonomicon:block",
+      "block": "minecraft:skeleton_skull",
+      "display": "occultism:skeleton_skull_dummy"
+    }
+  }
+}

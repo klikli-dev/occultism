@@ -1,0 +1,80 @@
+{
+  "category": "occultism:getting_started",
+  "name": "book.occultism.dictionary_of_spirits.getting_started.ritual_book.name",
+  "description": "book.occultism.dictionary_of_spirits.getting_started.ritual_book.description",
+  "icon": "occultism:book_of_binding_bound_foliot",
+  "x": 5,
+  "y": 3,
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "hide_while_locked": false,
+  "parents": [
+    {
+      "entry": "occultism:getting_started/divination_rod",
+      "draw_arrow": true,
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "title": "book.occultism.dictionary_of_spirits.getting_started.ritual_book.intro.title",
+      "use_markdown_in_title": false,
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.getting_started.ritual_book.intro.text"
+    },
+    {
+      "type": "occultism:spirit_fire_recipe",
+      "anchor": "",
+      "title1": "",
+      "recipe_id_1": "occultism:spirit_fire/purified_ink",
+      "title2": "",
+      "text": "book.occultism.dictionary_of_spirits.getting_started.ritual_book.purified_ink_recipe.text"
+    },
+    {
+      "type": "modonomicon:crafting_recipe",
+      "anchor": "",
+      "title1": "",
+      "recipe_id_1": "occultism:crafting/book_of_binding_foliot",
+      "title2": "",
+      "text": "book.occultism.dictionary_of_spirits.getting_started.ritual_book.book_of_binding_foliot_recipe.text"
+    },
+    {
+      "type": "modonomicon:crafting_recipe",
+      "anchor": "",
+      "title1": "",
+      "recipe_id_1": "occultism:crafting/book_of_binding_bound_foliot",
+      "title2": "",
+      "text": "book.occultism.dictionary_of_spirits.getting_started.ritual_book.book_of_binding_bound_foliot_recipe.text"
+    },
+    {
+      "type": "modonomicon:crafting_recipe",
+      "anchor": "",
+      "title1": "",
+      "recipe_id_1": "occultism:crafting/book_of_binding_djinni",
+      "title2": "",
+      "recipe_id_2": "occultism:crafting/book_of_binding_bound_djinni",
+      "text": ""
+    },
+    {
+      "type": "modonomicon:crafting_recipe",
+      "anchor": "",
+      "title1": "",
+      "recipe_id_1": "occultism:crafting/book_of_binding_afrit",
+      "title2": "",
+      "recipe_id_2": "occultism:crafting/book_of_binding_bound_afrit",
+      "text": ""
+    },
+    {
+      "type": "modonomicon:crafting_recipe",
+      "anchor": "",
+      "title1": "",
+      "recipe_id_1": "occultism:crafting/book_of_binding_marid",
+      "title2": "",
+      "recipe_id_2": "occultism:crafting/book_of_binding_bound_marid",
+      "text": ""
+    }
+  ]
+}

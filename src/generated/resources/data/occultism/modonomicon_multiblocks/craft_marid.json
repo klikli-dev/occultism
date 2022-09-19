@@ -1,0 +1,80 @@
+{
+  "type": "modonomicon:dense",
+  "pattern": [
+    [
+      "       Z       ",
+      "      RRR      ",
+      "     RCWCR     ",
+      "    R  W  R    ",
+      "   RGSWNWSGR   ",
+      "  R SGW WGS R  ",
+      " RC WW   WW CR ",
+      "ZRWWN  0  NWWRZ",
+      " RC WW   WW CR ",
+      "  R SGW WGS R  ",
+      "   RGSWNWSGR   ",
+      "    R  W  R    ",
+      "     RCWCR     ",
+      "      RRR      ",
+      "       Z       "
+    ],
+    [
+      "999999999999999",
+      "999999999999999",
+      "999999999999999",
+      "999999999999999",
+      "999999999999999",
+      "999999999999999",
+      "999999999999999",
+      "999999999999999",
+      "999999999999999",
+      "999999999999999",
+      "999999999999999",
+      "999999999999999",
+      "999999999999999",
+      "999999999999999",
+      "999999999999999"
+    ]
+  ],
+  "mapping": {
+    "0": {
+      "type": "modonomicon:block",
+      "block": "occultism:golden_sacrificial_bowl"
+    },
+    "R": {
+      "type": "modonomicon:block",
+      "block": "occultism:chalk_glyph_red"
+    },
+    "C": {
+      "type": "modonomicon:tag",
+      "tag": "#minecraft:candles",
+      "display": "occultism:candle_white"
+    },
+    "S": {
+      "type": "modonomicon:block",
+      "block": "occultism:spirit_attuned_crystal"
+    },
+    "W": {
+      "type": "modonomicon:block",
+      "block": "occultism:chalk_glyph_white"
+    },
+    "G": {
+      "type": "modonomicon:block",
+      "block": "occultism:chalk_glyph_gold"
+    },
+    "9": {
+      "type": "modonomicon:display",
+      "display": "occultism:otherstone"
+    },
+    "Z": {
+      "type": "modonomicon:block",
+      "block": "minecraft:skeleton_skull",
+      "display": "occultism:skeleton_skull_dummy"
+    },
+    "N": {
+      "type": "modonomicon:block",
+      "block": "minecraft:wither_skeleton_skull",
+      "display": "occultism:wither_skeleton_skull_dummy"
+    }
+  }
+}
