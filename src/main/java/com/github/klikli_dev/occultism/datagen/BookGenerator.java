@@ -117,11 +117,6 @@ public class BookGenerator implements DataProvider {
                 "__________________s________"  //s=?
         );
 
-
-        //TODO: Entry about making a pentacle (chalks, bowls, candles, ... )
-        //TODO: Entry about books
-        //TODO: ritualentry
-
         var introEntry = this.makeIntroEntry(helper, entryHelper, 'i');
 
         var demonsDreamEntry = this.makeDemonsDreamEntry(helper, entryHelper, 'd');
