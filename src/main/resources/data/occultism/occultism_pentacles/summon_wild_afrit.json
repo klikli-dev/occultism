@@ -1,0 +1,32 @@
+{
+  "mapping": {
+    "0": "occultism:golden_sacrificial_bowl",
+    "C": {
+      "display": "occultism:candle_white",
+      "tag": "minecraft:candles"
+    },
+    "N": {
+      "block": "minecraft:wither_skeleton_skull",
+      "display": "occultism:wither_skeleton_skull_dummy"
+    },
+    "P": "occultism:chalk_glyph_purple",
+    "W": "occultism:chalk_glyph_white",
+    "Z": {
+      "block": "minecraft:skeleton_skull",
+      "display": "occultism:skeleton_skull_dummy"
+    }
+  },
+  "pattern": [
+    "           ",
+    "    PPP    ",
+    "   WCWCW   ",
+    "  W WNW W  ",
+    " PCWP PWCP ",
+    " PWZ 0 ZWP ",
+    " PCWP PWCP ",
+    "  W WNW W  ",
+    "   WCWCW   ",
+    "    PPP    ",
+    "           "
+  ]
+}

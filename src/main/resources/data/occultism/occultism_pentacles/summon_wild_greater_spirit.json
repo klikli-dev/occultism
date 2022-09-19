@@ -1,0 +1,24 @@
+{
+  "mapping": {
+    "0": "occultism:golden_sacrificial_bowl",
+    "P": "occultism:chalk_glyph_purple",
+    "W": "occultism:chalk_glyph_white",
+    "Z": {
+      "block": "minecraft:skeleton_skull",
+      "display": "occultism:skeleton_skull_dummy"
+    }
+  },
+  "pattern": [
+    "           ",
+    "    PPP    ",
+    "   W W W   ",
+    "  W WZW W  ",
+    " P WP PW P ",
+    " PWZ 0 ZWP ",
+    " P WP PW P ",
+    "  W WZW W  ",
+    "   W W W   ",
+    "    PPP    ",
+    "           "
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "type": "modonomicon:dense",
+  "pattern": [
+    [
+      "           ",
+      "    PPP    ",
+      "   W W W   ",
+      "  W WZW W  ",
+      " P WP PW P ",
+      " PWZ 0 ZWP ",
+      " P WP PW P ",
+      "  W WZW W  ",
+      "   W W W   ",
+      "    PPP    ",
+      "           "
+    ],
+    [
+      "99999999999",
+      "99999999999",
+      "99999999999",
+      "99999999999",
+      "99999999999",
+      "99999999999",
+      "99999999999",
+      "99999999999",
+      "99999999999",
+      "99999999999",
+      "99999999999"
+    ]
+  ],
+  "mapping": {
+    "0": {
+      "type": "modonomicon:block",
+      "block": "occultism:golden_sacrificial_bowl"
+    },
+    "P": {
+      "type": "modonomicon:block",
+      "block": "occultism:chalk_glyph_purple"
+    },
+    "W": {
+      "type": "modonomicon:block",
+      "block": "occultism:chalk_glyph_white"
+    },
+    "9": {
+      "type": "modonomicon:display",
+      "display": "occultism:otherstone"
+    },
+    "Z": {
+      "type": "modonomicon:block",
+      "block": "minecraft:skeleton_skull",
+      "display": "occultism:skeleton_skull_dummy"
+    }
+  }
+}

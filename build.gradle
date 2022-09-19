@@ -108,6 +108,10 @@ repositories {
         url = "https://klikli-dev.github.io/maven"
     }
     maven {
+        name = "KliKli Dev Repsy Maven"
+        url = "https://repo.repsy.io/mvn/klikli-dev/mods"
+    }
+    maven {
         name = "Patchouli Maven"
         url = 'https://maven.blamejared.com'
     }
@@ -153,6 +157,9 @@ dependencies {
 
     //geckolib
     implementation fg.deobf("software.bernie.geckolib:geckolib-${geckolib_mc_version}-forge:${geckolib_version}")
+
+    compileOnly fg.deobf("com.klikli_dev:modonomicon:${modonomicon_mc_version}-${modonomicon_version}") //we build against full jar because we NEED IT ALL
+    runtimeOnly fg.deobf("com.klikli_dev:modonomicon:${modonomicon_mc_version}-${modonomicon_version}")
 
     //runtime only helper mods for dev env, placed in ./runtime-mods, example: Hwyla-forge-1.10.11-B78_1.16.2.jar
     //runtimeOnly fg.deobf("ignoredvalue:Hwyla:forge-1.10.11-B78_1.16.2")

@@ -34,6 +34,11 @@ import com.github.klikli_dev.occultism.registry.OccultismParticles;
 import com.github.klikli_dev.occultism.registry.OccultismRecipes;
 import com.github.klikli_dev.occultism.registry.OccultismTiles;
 import com.github.klikli_dev.occultism.util.EntityUtil;
+import com.klikli_dev.modonomicon.api.ModonomiconAPI;
+import com.klikli_dev.modonomicon.api.multiblock.Multiblock;
+import com.klikli_dev.modonomicon.api.multiblock.Multiblock.SimulateResult;
+import com.mojang.datafixers.util.Pair;
+import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -53,6 +58,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
@@ -95,9 +101,14 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
     private static boolean helpWithPentacle(Level level, BlockPos pos, Player player) {
         Map<BlockPos, Block> pentacleDiff = null;
         Map<BlockPos, Block> bestPentacleDiff = null;
-        Pentacle bestMatch = null;
-        for (Pentacle pentacle : PentacleManager.getAllPentacles().values()) {
-            pentacleDiff = pentacle.getDifference(level, pos);
+
+        var pentacleMultiblocks = level.getRecipeManager().getAllRecipesFor(OccultismRecipes.RITUAL_TYPE.get())
+                .stream().map(RitualRecipe::getPentacleId).distinct().map(ModonomiconAPI.get()::getMultiblock).toList();
+
+        Multiblock bestMatch = null;
+
+        for (var pentacle : pentacleMultiblocks) {
+            pentacleDiff = getDifference(pentacle, level, pos);
             if (bestPentacleDiff == null || bestPentacleDiff.size() > pentacleDiff.size()) {
                 bestPentacleDiff = pentacleDiff;
                 bestMatch = pentacle;
@@ -106,13 +117,35 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
 
         if (bestPentacleDiff != null && !bestPentacleDiff.isEmpty() && bestPentacleDiff.size() < 4) {
             player.displayClientMessage(
-                    new TranslatableComponent("ritual." + Occultism.MODID + ".pentacle_help", new TranslatableComponent(bestMatch.getDescriptionId()), pentacleDiffToComponent(bestPentacleDiff)),
+                    new TranslatableComponent("ritual." + Occultism.MODID + ".pentacle_help", new TranslatableComponent(Util.makeDescriptionId("multiblock", bestMatch.getId())), pentacleDiffToComponent(bestPentacleDiff)),
                     false);
             return true;
         }
         return false;
     }
 
+    public static Map<BlockPos, Block> getDifference(Multiblock multiblock, Level level, BlockPos pos) {
+        Map<BlockPos, Block> minDifference = new HashMap<>();
+        int minDiffSize = Integer.MAX_VALUE;
+
+        Map<BlockPos, Block> difference;
+        for (Rotation rot : Rotation.values()) {
+            difference = new HashMap<>();
+            Pair<BlockPos, Collection<SimulateResult>> sim = multiblock.simulate(level, pos, rot, false, false);
+
+            for (SimulateResult result : sim.getSecond()) {
+                if (!result.test(level, rot)) {
+                    difference.put(result.getWorldPosition(), result.getStateMatcher().getDisplayedState(0).getBlock());
+                }
+            }
+
+            if (difference.size() < minDiffSize) {
+                minDifference = difference;
+                minDiffSize = difference.size();
+            }
+        }
+        return minDifference;
+    }
     //region Overrides
 
     private static TextComponent pentacleDiffToComponent(Map<BlockPos, Block> bestPentacleDiff) {
@@ -133,19 +166,18 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
         List<Ingredient> ritualDiff = null;
         List<Ingredient> bestRitualDiff = null;
         RitualRecipe bestRitual = null;
-        Pentacle pentacle = null;
-        for (Pentacle p : PentacleManager.getAllPentacles().values()) {
-            if (p.validate(level, pos)) {
-                pentacle = p;
-                break;
-            }
-        }
 
-        if (pentacle == null)
+
+        var pentacleMultiblocks = level.getRecipeManager().getAllRecipesFor(OccultismRecipes.RITUAL_TYPE.get())
+                .stream().map(RitualRecipe::getPentacleId).distinct().map(ModonomiconAPI.get()::getMultiblock);
+
+        var pentacle = pentacleMultiblocks.filter(p -> p.validate(level, pos) != null).findFirst();
+
+        if (pentacle.isEmpty())
             return false;
 
         for (RitualRecipe recipe : level.getRecipeManager().getAllRecipesFor(OccultismRecipes.RITUAL_TYPE.get())) {
-            if (recipe.getPentacle() != pentacle)
+            if (recipe.getPentacle() != pentacle.orElseThrow())
                 continue;
 
             ritualDiff = new ArrayList<>(recipe.getIngredients());

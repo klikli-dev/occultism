@@ -23,8 +23,18 @@
 package com.github.klikli_dev.occultism.common.item.tool;
 
 import com.github.klikli_dev.occultism.Occultism;
+import com.klikli_dev.modonomicon.Modonomicon;
+import com.klikli_dev.modonomicon.api.ModonimiconConstants.I18n.Tooltips;
+import com.klikli_dev.modonomicon.api.ModonimiconConstants.Nbt;
+import com.klikli_dev.modonomicon.book.Book;
+import com.klikli_dev.modonomicon.client.gui.BookGuiManager;
+import com.klikli_dev.modonomicon.data.BookDataManager;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.NonNullList;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -32,15 +42,17 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
+import org.jetbrains.annotations.Nullable;
 import vazkii.patchouli.api.PatchouliAPI;
-import vazkii.patchouli.common.book.Book;
 import vazkii.patchouli.common.book.BookRegistry;
 //import vazkii.patchouli.api.PatchouliAPI;
 //import vazkii.patchouli.common.book.Book;
@@ -51,7 +63,7 @@ import java.util.List;
 
 public class GuideBookItem extends Item {
 
-    public static final ResourceLocation GUIDE = new ResourceLocation(Occultism.MODID, "dictionary_of_spirits");
+    public static final ResourceLocation DICTIONARY_OF_SPIRITS = new ResourceLocation(Occultism.MODID, "dictionary_of_spirits");
     protected static Field craftingRemainingItemField =
             ObfuscationReflectionHelper.findField(Item.class, "f_41378_");
 
@@ -69,26 +81,71 @@ public class GuideBookItem extends Item {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {
-        if (!worldIn.isClientSide) {
-            PatchouliAPI.get().openBookGUI((ServerPlayer) playerIn, GUIDE);
+    public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
+        //Copied from parent but statically gets DICTIONARY_OF_SPIRITS instead of from nbt
+        var itemInHand = pPlayer.getItemInHand(pUsedHand);
+
+        if (pLevel.isClientSide) {
+
+            if(itemInHand.hasTag()){
+                var book = BookDataManager.get().getBook(DICTIONARY_OF_SPIRITS);
+                BookGuiManager.get().openBook(book.getId());
+            } else {
+                Modonomicon.LOGGER.error("ModonomiconItem: ItemStack has no tag!");
+            }
         }
-        return new InteractionResultHolder<>(InteractionResult.SUCCESS, playerIn.getItemInHand(handIn));
+
+        return InteractionResultHolder.sidedSuccess(itemInHand, pLevel.isClientSide);
     }
 
-    @OnlyIn(Dist.CLIENT)
+    @Override
+    public Component getName(ItemStack pStack) {
+        com.klikli_dev.modonomicon.book.Book book = BookDataManager.get().getBook(DICTIONARY_OF_SPIRITS);
+        if (book != null) {
+            return new TranslatableComponent(book.getName());
+        }
+
+        return super.getName(pStack);
+    }
+
     @Override
     public void appendHoverText(ItemStack stack, Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
-        super.appendHoverText(stack, worldIn, tooltip, flagIn);
-        Book book = BookRegistry.INSTANCE.books.get(GUIDE);
-        if (book != null && book.getContents() != null) {
-            book.getSubtitle().withStyle(ChatFormatting.GRAY);
+        //super.appendHoverText(stack, worldIn, tooltip, flagIn);
+
+        Book book =  BookDataManager.get().getBook(DICTIONARY_OF_SPIRITS);
+        if(book != null){
+            if (flagIn.isAdvanced()) {
+                tooltip.add(new TextComponent("Book ID: ").withStyle(ChatFormatting.DARK_GRAY)
+                        .append(new TextComponent(book.getId().toString()).withStyle(ChatFormatting.RED)));
+            }
+
+            if (!book.getTooltip().isBlank()) {
+                tooltip.add(new TranslatableComponent(book.getTooltip()).withStyle(ChatFormatting.GRAY));
+            }
+        }
+        else {
+            tooltip.add(new TranslatableComponent(Tooltips.ITEM_NO_BOOK_FOUND_FOR_STACK,
+                            !stack.hasTag() ? new TextComponent("{}") : NbtUtils.toPrettyComponent(stack.getTag()))
+                    .withStyle(ChatFormatting.DARK_GRAY));
         }
     }
 
     @Override
-    public Component getName(ItemStack stack) {
-        Book book = BookRegistry.INSTANCE.books.get(GUIDE);
-        return book != null ? new TranslatableComponent(book.name) : super.getName(stack);
+    public void fillItemCategory(CreativeModeTab tab, NonNullList<ItemStack> items) {
+        if (this.allowdedIn(tab)) {
+            ItemStack stack = new ItemStack(this);
+
+            CompoundTag cmp = new CompoundTag();
+            cmp.putString(Nbt.ITEM_BOOK_ID_TAG, DICTIONARY_OF_SPIRITS.toString());
+            stack.setTag(cmp);
+
+            items.add(stack);
+        }
+    }
+
+    @Override
+    public @Nullable ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag nbt) {
+        stack.getOrCreateTag().putString(Nbt.ITEM_BOOK_ID_TAG, DICTIONARY_OF_SPIRITS.toString());
+        return super.initCapabilities(stack, nbt);
     }
 }

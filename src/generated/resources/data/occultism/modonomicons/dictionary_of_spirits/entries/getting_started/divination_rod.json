@@ -1,0 +1,121 @@
+{
+  "category": "occultism:getting_started",
+  "name": "book.occultism.dictionary_of_spirits.getting_started.divination_rod.name",
+  "description": "book.occultism.dictionary_of_spirits.getting_started.divination_rod.description",
+  "icon": "occultism:divination_rod",
+  "x": 1,
+  "y": -1,
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "hide_while_locked": false,
+  "parents": [
+    {
+      "entry": "occultism:getting_started/spirit_fire",
+      "draw_arrow": true,
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "title": "book.occultism.dictionary_of_spirits.getting_started.divination_rod.intro.title",
+      "use_markdown_in_title": false,
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.getting_started.divination_rod.intro.text"
+    },
+    {
+      "type": "occultism:spirit_fire_recipe",
+      "anchor": "",
+      "title1": "",
+      "recipe_id_1": "occultism:spirit_fire/otherstone",
+      "title2": "",
+      "text": ""
+    },
+    {
+      "type": "occultism:spirit_fire_recipe",
+      "anchor": "",
+      "title1": "",
+      "recipe_id_1": "occultism:spirit_fire/otherworld_sapling_natural",
+      "title2": "",
+      "text": "book.occultism.dictionary_of_spirits.getting_started.divination_rod.otherworld_sapling_natural_recipe.text"
+    },
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "divination_instructions",
+      "title": "",
+      "item": {
+        "item": "occultism:divination_rod"
+      },
+      "text": "book.occultism.dictionary_of_spirits.getting_started.divination_rod.divination_rod.text"
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "title": "",
+      "use_markdown_in_title": false,
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.getting_started.divination_rod.about_divination_rod.text"
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "title": "book.occultism.dictionary_of_spirits.getting_started.divination_rod.how_to_use.title",
+      "use_markdown_in_title": false,
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.getting_started.divination_rod.how_to_use.text"
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "title": "",
+      "use_markdown_in_title": false,
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.getting_started.divination_rod.how_to_use2.text"
+    },
+    {
+      "type": "modonomicon:image",
+      "anchor": "",
+      "title": "",
+      "text": "book.occultism.dictionary_of_spirits.getting_started.divination_rod.divination_rod_screenshots.text",
+      "border": true,
+      "images": [
+        "occultism:textures/gui/book/rod_detected.png",
+        "occultism:textures/gui/book/rod_close.png"
+      ]
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "title": "book.occultism.dictionary_of_spirits.getting_started.divination_rod.otherworld_groves.title",
+      "use_markdown_in_title": false,
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.getting_started.divination_rod.otherworld_groves.text"
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "title": "",
+      "use_markdown_in_title": false,
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.getting_started.divination_rod.otherworld_groves_2.text"
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "title": "book.occultism.dictionary_of_spirits.getting_started.divination_rod.otherworld_trees.title",
+      "use_markdown_in_title": false,
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.getting_started.divination_rod.otherworld_trees.text"
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "title": "",
+      "use_markdown_in_title": false,
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.getting_started.divination_rod.otherworld_trees_2.text"
+    }
+  ]
+}
