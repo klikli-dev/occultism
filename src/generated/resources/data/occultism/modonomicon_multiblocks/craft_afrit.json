@@ -2,17 +2,17 @@
   "type": "modonomicon:dense",
   "pattern": [
     [
-      "     N     ",
-      "    GGG    ",
-      "   GCPCG   ",
-      "  G WCW G  ",
-      " GCWW WWCG ",
-      "ZGPC 0 CPGZ",
-      " GCWW WWCG ",
-      "  G WCW G  ",
-      "   GCPCG   ",
-      "    GGG    ",
-      "     Z     "
+      "_____N_____",
+      "____GGG____",
+      "___GCPCG___",
+      "__G_WCW_G__",
+      "_GCWW_WWCG_",
+      "ZGPC_0_CPGZ",
+      "_GCWW_WWCG_",
+      "__G_WCW_G__",
+      "___GCPCG___",
+      "____GGG____",
+      "_____Z_____"
     ],
     [
       "99999999999",

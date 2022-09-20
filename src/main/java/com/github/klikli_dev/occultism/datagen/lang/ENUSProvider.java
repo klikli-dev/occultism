@@ -1133,7 +1133,7 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.entryName(), "Aviar's Circle");
 
         helper.page("intro");
-        this.add(helper.pageTitle(), "Otherworld Goggles");
+        this.add(helper.pageTitle(), "Aviar's Circle");
         this.add(helper.pageText(),
                 """
                          **Purpose:** Summon a [#](%1$s)Foliot[#]()
@@ -1158,6 +1158,26 @@ public class ENUSProvider extends LanguageProvider {
                         """.formatted(COLOR_PURPLE));
         //TODO: add remaining backlinks for pentacle
 
+        helper.entry("possess_foliot");
+        this.add(helper.entryName(), "Heydrin's Lure");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Heydrin's Lure");
+        this.add(helper.pageText(),
+                """
+                         //TODO: Content
+                         """.formatted(COLOR_PURPLE));
+
+        helper.page("multiblock");
+        //no text
+
+        helper.page("uses");
+        this.add(helper.pageTitle(), "Uses");
+        this.add(helper.pageText(),
+                """
+                        - //TODO: Add remaining uses
+                        """.formatted(COLOR_PURPLE));
+        //TODO: add remaining backlinks for pentacle
     }
 
     private void addRitualsCategory(BookLangHelper helper) {
@@ -1505,8 +1525,8 @@ public class ENUSProvider extends LanguageProvider {
 
     private void addPatchouli() {
         this.add("book.occultism.name", "Dictionary of Spirits (Old Edition)");
-        this.add("pentacle.occultim.craft_djinni", "Strigeor's Higher Binding");
-        this.add("pentacle.occultim.craft_foliot", "Eziveus' Spectral Compulsion");
+        this.add("pentacle.occultism.craft_djinni", "Strigeor's Higher Binding");
+        this.add("pentacle.occultism.craft_foliot", "Eziveus' Spectral Compulsion");
     }
 
     private void addModonomiconIntegration() {

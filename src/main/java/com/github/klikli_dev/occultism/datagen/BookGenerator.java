@@ -775,18 +775,19 @@ public class BookGenerator implements DataProvider {
                 "__________a__________", //a=Aviar's Circle
                 "_____________________",
                 "_____________________",
-                "_____________________"
+                "__________h__________" //h=heydrins lure
         );
 
 
         var summonFoliot = this.makeSummonFoliotEntry(helper, entryHelper, 'a');
-
+        var possessFoliot = this.makePossessFoliotEntry(helper, entryHelper, 'h');
 
         return BookCategoryModel.builder()
                 .withId(this.modLoc("pentacles"))
                 .withName(helper.categoryName())
                 .withIcon(OccultismItems.PENTACLE.getId().toString())
                 .withEntry(summonFoliot.build())
+                .withEntry(possessFoliot.build())
                 .build();
     }
 
@@ -802,6 +803,38 @@ public class BookGenerator implements DataProvider {
         helper.page("multiblock");
         var multiblock = BookMultiblockPageModel.builder()
                 .withMultiblockId(this.modLoc("summon_foliot"))
+                .build();
+
+        helper.page("uses");
+        var uses = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withIcon(OccultismItems.PENTACLE.getId().toString())
+                .withLocation(entryHelper.get(icon))
+                .withPages(
+                        intro,
+                        multiblock,
+                        uses
+                );
+    }
+
+    private BookEntryModel.Builder makePossessFoliotEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("possess_foliot");
+
+        helper.page("intro");
+        var intro = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("multiblock");
+        var multiblock = BookMultiblockPageModel.builder()
+                .withMultiblockId(this.modLoc("possess_foliot"))
                 .build();
 
         helper.page("uses");

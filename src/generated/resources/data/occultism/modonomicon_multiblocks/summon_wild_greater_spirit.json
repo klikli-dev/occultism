@@ -2,17 +2,17 @@
   "type": "modonomicon:dense",
   "pattern": [
     [
-      "           ",
-      "    PPP    ",
-      "   W W W   ",
-      "  W WZW W  ",
-      " P WP PW P ",
-      " PWZ 0 ZWP ",
-      " P WP PW P ",
-      "  W WZW W  ",
-      "   W W W   ",
-      "    PPP    ",
-      "           "
+      "___________",
+      "____PPP____",
+      "___W_W_W___",
+      "__W_WZW_W__",
+      "_P_WP_PW_P_",
+      "_PWZ_0_ZWP_",
+      "_P_WP_PW_P_",
+      "__W_WZW_W__",
+      "___W_W_W___",
+      "____PPP____",
+      "___________"
     ],
     [
       "99999999999",

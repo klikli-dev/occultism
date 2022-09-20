@@ -2,15 +2,15 @@
   "type": "modonomicon:dense",
   "pattern": [
     [
-      "         ",
-      " C WGW C ",
-      "  P W P  ",
-      " W SWS W ",
-      " GWW0WWG ",
-      " W SWS W ",
-      "  P W P  ",
-      " C WGW C ",
-      "         "
+      "_________",
+      "_C_WGW_C_",
+      "__P_W_P__",
+      "_W_SWS_W_",
+      "_GWW0WWG_",
+      "_W_SWS_W_",
+      "__P_W_P__",
+      "_C_WGW_C_",
+      "_________"
     ],
     [
       "999999999",

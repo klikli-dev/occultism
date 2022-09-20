@@ -2,17 +2,17 @@
   "type": "modonomicon:dense",
   "pattern": [
     [
-      "           ",
-      "    PPP    ",
-      "   WCWCW   ",
-      "  W WNW W  ",
-      " PCWP PWCP ",
-      " PWZ 0 ZWP ",
-      " PCWP PWCP ",
-      "  W WNW W  ",
-      "   WCWCW   ",
-      "    PPP    ",
-      "           "
+      "___________",
+      "____PPP____",
+      "___WCWCW___",
+      "__W_WNW_W__",
+      "_PCWP_PWCP_",
+      "_PWZ_0_ZWP_",
+      "_PCWP_PWCP_",
+      "__W_WNW_W__",
+      "___WCWCW___",
+      "____PPP____",
+      "___________"
     ],
     [
       "99999999999",

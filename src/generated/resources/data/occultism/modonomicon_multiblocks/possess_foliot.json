@@ -2,15 +2,15 @@
   "type": "modonomicon:dense",
   "pattern": [
     [
-      "   GGG   ",
-      "  GC CG  ",
-      " GW   WG ",
-      "GC W W CG",
-      "G   0   G",
-      "GC W W CG",
-      " GW   WG ",
-      "  GC CG  ",
-      "   GGG   "
+      "___GGG___",
+      "__GC_CG__",
+      "_GW___WG_",
+      "GC_W_W_CG",
+      "G___0___G",
+      "GC_W_W_CG",
+      "_GW___WG_",
+      "__GC_CG__",
+      "___GGG___"
     ],
     [
       "999999999",

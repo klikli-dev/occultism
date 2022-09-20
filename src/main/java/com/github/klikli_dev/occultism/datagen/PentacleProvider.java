@@ -269,7 +269,7 @@ public class PentacleProvider implements DataProvider {
     private List<String> createPattern(String... rows) {
         List<String> pattern = new ArrayList<>();
         for (String row : rows) {
-            pattern.add(row);
+            pattern.add(row.replace(" ","_"));
         }
         return pattern;
     }

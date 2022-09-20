@@ -1,0 +1,37 @@
+{
+  "category": "occultism:pentacles",
+  "name": "book.occultism.dictionary_of_spirits.pentacles.possess_foliot.name",
+  "description": "",
+  "icon": "occultism:pentacle",
+  "x": 0,
+  "y": 3,
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "hide_while_locked": false,
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "title": "book.occultism.dictionary_of_spirits.pentacles.possess_foliot.intro.title",
+      "use_markdown_in_title": false,
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.pentacles.possess_foliot.intro.text"
+    },
+    {
+      "type": "modonomicon:multiblock",
+      "anchor": "",
+      "multiblock_name": "",
+      "multiblock_id": "occultism:possess_foliot",
+      "text": "",
+      "show_visualize_button": true
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "title": "book.occultism.dictionary_of_spirits.pentacles.possess_foliot.uses.title",
+      "use_markdown_in_title": false,
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.pentacles.possess_foliot.uses.text"
+    }
+  ]
+}

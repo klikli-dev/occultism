@@ -2,13 +2,13 @@
   "type": "modonomicon:dense",
   "pattern": [
     [
-      "  WSW  ",
-      " G   G ",
-      "W  W  W",
-      "C W0W C",
-      "W  W  W",
-      " G   G ",
-      "  WSW  "
+      "__WSW__",
+      "_G___G_",
+      "W__W__W",
+      "C_W0W_C",
+      "W__W__W",
+      "_G___G_",
+      "__WSW__"
     ],
     [
       "9999999",
