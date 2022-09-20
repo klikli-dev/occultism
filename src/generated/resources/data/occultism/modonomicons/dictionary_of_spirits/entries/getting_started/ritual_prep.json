@@ -57,40 +57,6 @@
       "title2": ""
     },
     {
-      "type": "modonomicon:crafting_recipe",
-      "anchor": "",
-      "recipe_id_1": "occultism:crafting/brush",
-      "text": "book.occultism.dictionary_of_spirits.getting_started.ritual_prep.brush_recipe.text",
-      "title1": "",
-      "title2": ""
-    },
-    {
-      "type": "modonomicon:spotlight",
-      "anchor": "",
-      "item": {
-        "item": "occultism:candle_white"
-      },
-      "text": "book.occultism.dictionary_of_spirits.getting_started.ritual_prep.white_candle.text",
-      "title": ""
-    },
-    {
-      "type": "modonomicon:spotlight",
-      "anchor": "",
-      "item": {
-        "item": "occultism:tallow"
-      },
-      "text": "book.occultism.dictionary_of_spirits.getting_started.ritual_prep.tallow.text",
-      "title": ""
-    },
-    {
-      "type": "modonomicon:crafting_recipe",
-      "anchor": "",
-      "recipe_id_1": "occultism:crafting/candle",
-      "text": "",
-      "title1": "",
-      "title2": ""
-    },
-    {
       "type": "modonomicon:spotlight",
       "anchor": "",
       "item": {
@@ -129,6 +95,12 @@
     {
       "draw_arrow": true,
       "entry": "occultism:getting_started/divination_rod",
+      "line_enabled": true,
+      "line_reversed": false
+    },
+    {
+      "draw_arrow": true,
+      "entry": "occultism:getting_started/candle",
       "line_enabled": true,
       "line_reversed": false
     }

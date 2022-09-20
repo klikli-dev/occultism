@@ -1,0 +1,37 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "occultism:getting_started",
+  "description": "book.occultism.dictionary_of_spirits.getting_started.brush.description",
+  "hide_while_locked": false,
+  "icon": "occultism:brush",
+  "name": "book.occultism.dictionary_of_spirits.getting_started.brush.name",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.getting_started.brush.intro.text",
+      "title": "book.occultism.dictionary_of_spirits.getting_started.brush.intro.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:crafting_recipe",
+      "anchor": "",
+      "recipe_id_1": "occultism:crafting/brush",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "occultism:getting_started/ritual_prep",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "x": 9,
+  "y": -8
+}

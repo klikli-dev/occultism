@@ -31,6 +31,8 @@ import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.modonomicon.api.ModonomiconAPI;
 import com.klikli_dev.modonomicon.api.datagen.BookLangHelper;
+import com.klikli_dev.modonomicon.datagen.book.page.BookCraftingRecipePageModel;
+import com.klikli_dev.modonomicon.datagen.book.page.BookTextPageModel;
 import net.minecraft.Util;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.network.chat.contents.TranslatableContents;
@@ -935,6 +937,31 @@ public class ENUSProvider extends LanguageProvider {
                         Trees grown from Stable Otherworld Saplings as obtained from spirit traders do not have that limitation.
                          """);
 
+        helper.entry("candle");
+        this.add(helper.entryName(), "Candles");
+        this.add(helper.entryDescription(), "Let there be light!");
+
+        helper.page("white_candle");
+        this.add(helper.pageText(),
+                """
+                        Candles provide stability to rituals and are an important part of almost all pentacles.
+                        **Candles also act like bookshelves for enchantment purposes.**
+                        \\
+                        \\
+                        Candles from Minecraft and other Mods may be used in place of Occultism candles.
+                            """);
+
+        helper.page("tallow");
+        this.add(helper.pageText(),
+                """
+                        Key ingredient for candles. Kill large animals like pigs, cows or sheep with a [#](item://occultism:butcher_knife)
+                        to harvest [#](item://occultism:tallow).
+                            """);
+
+
+        helper.page("white_candle_recipe");
+        //no text
+
 
         helper.entry("ritual_prep");
         this.add(helper.entryName(), "Ritual Preparations");
@@ -969,27 +996,6 @@ public class ENUSProvider extends LanguageProvider {
         //no text
 
         helper.page("white_chalk_recipe");
-        //no text
-
-        helper.page("brush_recipe");
-        this.add(helper.pageText(), "The brush can be used to easily remove chalk glyphs fom the ground.");
-
-        helper.page("white_candle");
-        this.add(helper.pageText(),
-                """
-                        Candles provide stability to rituals and are an important part of almost all pentacles.
-                        **Candles also act like bookshelves for enchantment purposes.**
-                            """);
-
-        helper.page("tallow");
-        this.add(helper.pageText(),
-                """
-                        Ingredient for candles. Kill large animals like pigs, cows or sheep with a [#](item://occultism:butcher_knife)
-                        to harvest [#](item://occultism:tallow).
-                            """);
-
-
-        helper.page("white_candle_recipe");
         //no text
 
         helper.page("sacrificial_bowl");
@@ -1111,6 +1117,20 @@ public class ENUSProvider extends LanguageProvider {
                        Now all that remains is to drop appropriate ores near the crusher and wait for it to turn it into dust.
                          """.formatted(COLOR_PURPLE));
 
+
+        helper.entry("brush");
+        this.add(helper.entryName(), "Brush");
+        this.add(helper.entryDescription(), "Cleaning up!");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Next Steps");
+        this.add(helper.pageText(),
+                """
+                       Chalk is a pain to clean up, by right-clicking with a brush you can remove it from the world much more easily. 
+                         """);
+
+        helper.page("brushRecipe");
+       //no text
 
         helper.entry("next_steps");
         this.add(helper.entryName(), "Next Steps");
@@ -1507,8 +1527,8 @@ public class ENUSProvider extends LanguageProvider {
 
     private void addPatchouli(){
         this.add("book.occultism.name", "Dictionary of Spirits (Old Edition)");
-        this.add("pentacle.occultim.craft_djinni", "Strigeor's Higher Binding");
-        this.add("pentacle.occultim.craft_foliot", "Eziveus' Spectral Compulsion");
+        this.add("pentacle.occultism.craft_djinni", "Strigeor's Higher Binding");
+        this.add("pentacle.occultism.craft_foliot", "Eziveus' Spectral Compulsion");
     }
 
     private void addModonomiconIntegration(){

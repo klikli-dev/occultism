@@ -99,10 +99,10 @@ public class BookGenerator implements DataProvider {
 
         var entryHelper = ModonomiconAPI.get().getEntryLocationHelper();
         entryHelper.setMap(
+                "______________________B____", // B=brush
                 "___________________________",
                 "___________________________",
-                "___________________________",
-                "______i___________p________", //p=pentaclePrep, C=Chalks
+                "______i_______t___p________", //C=candle, p=pentaclePrep,
                 "___________________________",
                 "___________________________",
                 "___________________________",
@@ -112,10 +112,20 @@ public class BookGenerator implements DataProvider {
                 "___________________________",
                 "________e_________b________", //e=thirdEye, b=ritualBook
                 "___________________________",
-                "______________________c____", //c=?
                 "___________________________",
-                "__________________s________"  //s=?
+                "___________________________",
+                "___________________________"
         );
+
+        //TODO: getting started
+        //  try one entry per step (or at least per group of similar steps), e.g. sacrificial bowls, chalk, ...
+
+        //TODO: post getting started:
+        //  spirit attuned gem / spirit attuend crystal
+        //  sapling trader
+        //  lumberjack
+        //  transporter
+
 
         var introEntry = this.makeIntroEntry(helper, entryHelper, 'i');
 
@@ -131,8 +141,12 @@ public class BookGenerator implements DataProvider {
         var divinationRodEntry = this.makeDivinationRodEntry(helper, entryHelper, 'r');
         divinationRodEntry.withParent(BookEntryParentModel.builder().withEntryId(spiritFireEntry.id).build());
 
+        var candleEntry = this.makeCandleEntry(helper, entryHelper, 't');
+        candleEntry.withParent(BookEntryParentModel.builder().withEntryId(divinationRodEntry.id).build());
+
         var pentaclePrepEntry = this.makeRitualPrepEntry(helper, entryHelper, 'p');
         pentaclePrepEntry.withParent(BookEntryParentModel.builder().withEntryId(divinationRodEntry.id).build());
+        pentaclePrepEntry.withParent(BookEntryParentModel.builder().withEntryId(candleEntry.id).build());
 
         var ritualBookEntry = this.makeRitualBookEntry(helper, entryHelper, 'b');
         ritualBookEntry.withParent(BookEntryParentModel.builder().withEntryId(divinationRodEntry.id).build());
@@ -141,6 +155,9 @@ public class BookGenerator implements DataProvider {
         ritualEntry
                 .withParent(BookEntryParentModel.builder().withEntryId(pentaclePrepEntry.id).build())
                 .withParent(BookEntryParentModel.builder().withEntryId(ritualBookEntry.id).build());
+
+        var brushEntry = this.makeBrushEntry(helper, entryHelper, 'B');
+        brushEntry.withParent(BookEntryParentModel.builder().withEntryId(pentaclePrepEntry.id).build());
 
         var nextStepsEntry = this.makeNextStepsEntry(helper, entryHelper, 'N');
         nextStepsEntry.withParent(BookEntryParentModel.builder().withEntryId(ritualEntry.id).build());
@@ -154,9 +171,11 @@ public class BookGenerator implements DataProvider {
                 .withEntry(spiritFireEntry.build())
                 .withEntries(thirdEyeEntry.build())
                 .withEntries(divinationRodEntry.build())
+                .withEntries(candleEntry.build())
                 .withEntries(pentaclePrepEntry.build())
                 .withEntries(ritualBookEntry.build())
                 .withEntries(ritualEntry.build())
+                .withEntries(brushEntry.build())
                 .withEntries(nextStepsEntry.build())
                 .build();
     }
@@ -396,6 +415,46 @@ public class BookGenerator implements DataProvider {
                         howToUse, howToUse2, divinationRodScreenshots, otherworldGroves, otherworldGroves2, otherworldTrees, otherworldTrees2);
     }
 
+    private BookEntryModel.Builder makeCandleEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("candle");
+
+        helper.page("intro");
+        var intro = BookSpotlightPageModel.builder()
+                .withItem(Ingredient.of(OccultismBlocks.CANDLE_WHITE.get()))
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("tallow");
+        var tallow = BookSpotlightPageModel.builder()
+                .withItem(Ingredient.of(OccultismItems.TALLOW.get()))
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("cleaver_recipe");
+        var cleaverRecipe = BookCraftingRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("crafting/butcher_knife"))
+                .build();
+
+        helper.page("candle_recipe");
+        var candleRecipe = BookCraftingRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("crafting/candle"))
+                .build();
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withDescription(helper.entryDescription())
+                .withIcon(OccultismBlocks.CANDLE_WHITE.getId().toString())
+                .withLocation(entryHelper.get(icon))
+                .withPages(
+                        intro,
+                        tallow,
+                        cleaverRecipe,
+                        candleRecipe
+                );
+    }
+
+
     private BookEntryModel.Builder makeRitualPrepEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
         helper.entry("ritual_prep");
 
@@ -430,29 +489,6 @@ public class BookGenerator implements DataProvider {
         helper.page("white_chalk_recipe");
         var whiteChalkRecipe = BookSpiritFireRecipePageModel.builder()
                 .withRecipeId1(this.modLoc("spirit_fire/chalk_white"))
-                .build();
-
-        helper.page("brush_recipe");
-        var brushRecipe = BookCraftingRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("crafting/brush"))
-                .withText(helper.pageText())
-                .build();
-
-        helper.page("white_candle");
-        var whiteCandleSpotlight = BookSpotlightPageModel.builder()
-                .withItem(Ingredient.of(OccultismBlocks.CANDLE_WHITE.get()))
-                .withText(helper.pageText())
-                .build();
-
-        helper.page("tallow");
-        var tallowSpotlight = BookSpotlightPageModel.builder()
-                .withItem(Ingredient.of(OccultismItems.TALLOW.get()))
-                .withText(helper.pageText())
-                .build();
-
-        helper.page("white_candle_recipe");
-        var whiteCandleRecipe = BookCraftingRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("crafting/candle"))
                 .build();
 
         helper.page("sacrificial_bowl");
@@ -490,10 +526,6 @@ public class BookGenerator implements DataProvider {
                         otherworldAshesRecipe,
                         impureWhiteChalkRecipe,
                         whiteChalkRecipe,
-                        brushRecipe,
-                        whiteCandleSpotlight,
-                        tallowSpotlight,
-                        whiteCandleRecipe,
                         sacrificialBowlSpotlight,
                         sacrificialBowlRecipe,
                         goldenSacrificialBowlSpotlight,
@@ -583,7 +615,6 @@ public class BookGenerator implements DataProvider {
                 .withText(helper.pageText())
                 .build();
 
-        //TODO: actual ritual recipe page
         helper.page("ritual_recipe");
         var ritualRecipe = BookRitualRecipePageModel.builder()
                 .withRecipeId1(this.modLoc("ritual/summon_foliot_crusher"))
@@ -609,6 +640,33 @@ public class BookGenerator implements DataProvider {
                         startRitualText
                 );
     }
+
+    private BookEntryModel.Builder makeBrushEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("brush");
+
+        helper.page("intro");
+        var intro = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("brushRecipe");
+        var brushRecipe = BookCraftingRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("crafting/brush"))
+                .build();
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withDescription(helper.entryDescription())
+                .withIcon(OccultismItems.BRUSH.getId().toString())
+                .withLocation(entryHelper.get(icon))
+                .withPages(
+                        intro,
+                        brushRecipe
+                );
+    }
+
 
     private BookEntryModel.Builder makeNextStepsEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
         helper.entry("next_steps");
