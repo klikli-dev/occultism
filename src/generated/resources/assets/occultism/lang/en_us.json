@@ -157,7 +157,7 @@
   "book.occultism.dictionary_of_spirits.getting_started.ritual_prep.intro.title": "Ritual Preparations",
   "book.occultism.dictionary_of_spirits.getting_started.ritual_prep.name": "Ritual Preparations",
   "book.occultism.dictionary_of_spirits.getting_started.ritual_prep.sacrificial_bowl.text": "These bowls are used to sacrifice items as part of a ritual and you will need a handful of them.\nNote: Their exact placement in the ritual does not matter - just keep them within 8 blocks of the pentacle center!\n",
-  "book.occultism.dictionary_of_spirits.getting_started.ritual_prep.tallow.text": "Ingredient for candles. Kill large animals like pigs, cows or sheep with a [#](item://occultism:butcher_knife)\nto harvest [#](item://occultism:tallow).\n",
+  "book.occultism.dictionary_of_spirits.getting_started.ritual_prep.tallow.text": "Ingredient for candles. Kill large animals like pigs, cows or sheep with a [](item://occultism:butcher_knife)\nto harvest [](item://occultism:tallow).\n",
   "book.occultism.dictionary_of_spirits.getting_started.ritual_prep.white_candle.text": "Candles provide stability to rituals and are an important part of almost all pentacles.\n**Candles also act like bookshelves for enchantment purposes.**\n",
   "book.occultism.dictionary_of_spirits.getting_started.ritual_prep.white_chalk.text": "For pentacles, only the color of chalk is relevant, not the glyph/sign.\nFor decorative purposes you can repeatedly click a block to cycle through glyphs.\nFor other chalks see [Chalks](entry://occultism:dictionary_of_spirits/advanced/chalks).\n",
   "book.occultism.dictionary_of_spirits.getting_started.spirit_fire.description": "Or does it?",

@@ -983,8 +983,8 @@ public class ENUSProvider extends LanguageProvider {
         helper.page("tallow");
         this.add(helper.pageText(),
                 """
-                        Ingredient for candles. Kill large animals like pigs, cows or sheep with a [#](item://occultism:butcher_knife)
-                        to harvest [#](item://occultism:tallow).
+                        Ingredient for candles. Kill large animals like pigs, cows or sheep with a [](item://occultism:butcher_knife)
+                        to harvest [](item://occultism:tallow).
                             """);
 
 
