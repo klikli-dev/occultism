@@ -93,6 +93,7 @@ public class BookGenerator implements DataProvider {
                 .withCategory(advancedCategory)
                 .withCraftingTexture(this.modLoc("textures/gui/book/crafting_textures.png"))
                 .withGenerateBookItem(false)
+                .withCustomBookItem(this.modLoc("dictionary_of_spirits"))
                 .withAutoAddReadConditions(true)
                 .build();
         return demoBook;

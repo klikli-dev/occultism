@@ -8,5 +8,6 @@
   "crafting_texture": "occultism:textures/gui/book/crafting_textures.png",
   "default_title_color": 0,
   "auto_add_read_conditions": true,
-  "generate_book_item": false
+  "generate_book_item": false,
+  "custom_book_item": "occultism:dictionary_of_spirits"
 }
