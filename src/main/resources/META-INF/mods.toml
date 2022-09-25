@@ -39,7 +39,7 @@ description='''A magic mod inspired by the world of Jonathan Stroud's Bartimaeus
 [[dependencies.occultism]]
     modId = "modonomicon"
     mandatory = true
-    versionRange = "[1.18-1.0.0,)"
+    versionRange = "[1.18-1.2.0,)"
     side = "BOTH"
 
 
