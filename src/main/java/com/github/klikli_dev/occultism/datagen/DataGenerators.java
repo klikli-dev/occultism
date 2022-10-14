@@ -90,10 +90,10 @@ public class DataGenerators {
 
         Holder<ConfiguredFeature<?, ?>> silverOreConfigured = Holder.direct(new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(
                 new TagMatchTest(BlockTags.STONE_ORE_REPLACEABLES),
-                OccultismBlocks.SILVER_ORE.get().defaultBlockState(), 7)));
+                OccultismBlocks.SILVER_ORE.get().defaultBlockState(), 5)));
         Holder<ConfiguredFeature<?, ?>> silverOreDeepslateConfigured = Holder.direct(new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(
                 new TagMatchTest(BlockTags.DEEPSLATE_ORE_REPLACEABLES),
-                OccultismBlocks.SILVER_ORE_DEEPSLATE.get().defaultBlockState(), 7)));
+                OccultismBlocks.SILVER_ORE_DEEPSLATE.get().defaultBlockState(), 10)));
         Holder<ConfiguredFeature<?, ?>> iesniumOreConfigured = Holder.direct(
                 new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(
                         new TagMatchTest(BlockTags.BASE_STONE_NETHER),
@@ -119,9 +119,9 @@ public class DataGenerators {
                                 new TwoLayersFeatureSize(1, 0, 1)).ignoreVines().build()));
 
         var silverOrePlaced = Holder.direct(new PlacedFeature(silverOreConfigured,
-                OccultismFeatures.commonOrePlacement(3, HeightRangePlacement.triangle(VerticalAnchor.absolute(50), VerticalAnchor.absolute(200)))));
+                OccultismFeatures.commonOrePlacement(7, HeightRangePlacement.triangle(VerticalAnchor.absolute(50), VerticalAnchor.absolute(200)))));
         var silverOreDeepslatePlaced = Holder.direct(new PlacedFeature(silverOreDeepslateConfigured,
-                OccultismFeatures.commonOrePlacement(3, HeightRangePlacement.triangle(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(50)))));
+                OccultismFeatures.commonOrePlacement(10, HeightRangePlacement.triangle(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(50)))));
         var iesniumOrePlaced = Holder.direct(
                 new PlacedFeature(iesniumOreConfigured,
                         OccultismFeatures.commonOrePlacement(3, HeightRangePlacement.triangle(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(50)))));
