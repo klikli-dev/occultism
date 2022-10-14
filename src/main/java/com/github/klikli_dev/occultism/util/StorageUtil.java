@@ -90,6 +90,9 @@ public class StorageUtil {
                 OccultismPackets.sendTo(player, storageController.getMessageUpdateStacks());
                 ((AbstractContainerMenu) container).broadcastChanges();
             }
+
+            //update (now empty) contents on the storage accessor
+            container.updateCraftingSlots(true);
         }
     }
 
