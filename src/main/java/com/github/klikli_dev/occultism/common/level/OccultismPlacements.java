@@ -66,7 +66,7 @@ public class OccultismPlacements {
 
         SILVER_ORE_DEEPSLATE = PlacementUtils.register("silver_ore_deepslate",  OccultismFeatures.SILVER_ORE_DEEPSLATE,
                 commonOrePlacement(oreGen.silverOreDeepslate.count.get(),
-                        HeightRangePlacement.triangle(VerticalAnchor.absolute(oreGen.silverOreDeepslate.minimum.get()), silverMaxAnchor)));
+                        HeightRangePlacement.triangle(VerticalAnchor.absolute(oreGen.silverOreDeepslate.minimum.get()), silverDeepslateMaxAnchor)));
 
 
         VerticalAnchor iesniumMaxAnchor = oreGen.iesniumOre.maximum.get() > 0 ?
