@@ -22,6 +22,7 @@
 package com.github.klikli_dev.occultism.client.model.entity;
 
 import com.github.klikli_dev.occultism.common.entity.BlacksmithFamiliarEntity;
+import com.github.klikli_dev.occultism.util.FamiliarUtil;
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -213,11 +214,14 @@ public class BlacksmithFamiliarModel extends EntityModel<BlacksmithFamiliarEntit
     private void showModels(BlacksmithFamiliarEntity entityIn) {
         boolean hasSquarehair = entityIn.hasSquareHair();
         boolean hasMarioMoustache = entityIn.hasMarioMoustache();
+        boolean isChristmas = FamiliarUtil.isChristmas();
 
         this.earring.visible = entityIn.hasEarring();
-        this.mouth1.visible = !hasMarioMoustache;
-        this.mouth2.visible = hasMarioMoustache;
+        this.mouth1.visible = !hasMarioMoustache && !isChristmas;
+        this.mouth2.visible = hasMarioMoustache && !isChristmas;
         this.hair1.visible = hasSquarehair;
         this.hair2.visible = !hasSquarehair;
+        
+        this.christmasBeard.visible = isChristmas;
     }
 }
