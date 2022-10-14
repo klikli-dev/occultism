@@ -5,7 +5,7 @@
         "uncovered": "false"
       },
       "apply": {
-        "model": "block/oak_sapling"
+        "model": "occultism:block/otherworld_sapling_natural"
       }
     },
     {
