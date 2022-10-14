@@ -22,6 +22,7 @@
 
 package com.github.klikli_dev.occultism.util;
 
+import com.github.klikli_dev.occultism.api.common.blockentity.IStorageAccessor;
 import com.github.klikli_dev.occultism.api.common.blockentity.IStorageController;
 import com.github.klikli_dev.occultism.api.common.container.IStorageControllerContainer;
 import com.github.klikli_dev.occultism.network.OccultismPackets;
@@ -67,6 +68,7 @@ public class StorageUtil {
             for (int i = 0; i < 9; i++) {
                 ItemStack stackInSlot = craftMatrix.getItem(i);
                 //ignore already cleared slots
+
                 if (stackInSlot.isEmpty()) {
                     continue;
                 }
@@ -89,6 +91,9 @@ public class StorageUtil {
                 OccultismPackets.sendTo(player, storageController.getMessageUpdateStacks());
                 ((AbstractContainerMenu) container).broadcastChanges();
             }
+
+            //update (now empty) contents on the storage accessor
+            container.updateCraftingSlots(true);
         }
     }
 
