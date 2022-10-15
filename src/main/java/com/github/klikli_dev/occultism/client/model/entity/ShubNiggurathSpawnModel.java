@@ -23,6 +23,7 @@
 package com.github.klikli_dev.occultism.client.model.entity;
 
 import com.github.klikli_dev.occultism.common.entity.ShubNiggurathSpawnEntity;
+import com.github.klikli_dev.occultism.util.FamiliarUtil;
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -135,6 +136,7 @@ public class ShubNiggurathSpawnModel extends EntityModel<ShubNiggurathSpawnEntit
     @Override
     public void setupAnim(ShubNiggurathSpawnEntity pEntity, float pLimbSwing, float pLimbSwingAmount, float pAgeInTicks,
                           float pNetHeadYaw, float pHeadPitch) {
+        this.showModels(pEntity);
 
         this.jaw.xRot = 0.35f + Mth.cos(pAgeInTicks * 0.3f) * this.toRads(15);
         this.head.y = 22.5f - Math.abs(Mth.cos(pAgeInTicks * 0.15f)) * 7;
@@ -150,6 +152,15 @@ public class ShubNiggurathSpawnModel extends EntityModel<ShubNiggurathSpawnEntit
         this.tentacleBottom1.zRot = 0;
         this.tentacleMiddle1.zRot = 0;
         this.tentacleTop1.zRot = 0;
+    }
+    
+    private void showModels(ShubNiggurathSpawnEntity entityIn) {
+        boolean isChristmas = FamiliarUtil.isChristmas();
+        this.tentacleBottom1.visible = !isChristmas;
+        this.tentacleMiddle1.visible = !isChristmas;
+        this.tentacleTop1.visible = !isChristmas;
+        this.mouth.visible = !isChristmas;
+        this.christmasPresent1.visible = isChristmas;
     }
 
     private float toRads(float deg) {
