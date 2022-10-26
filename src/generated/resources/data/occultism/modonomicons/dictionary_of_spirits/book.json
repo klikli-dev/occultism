@@ -3,7 +3,7 @@
   "book_content_texture": "modonomicon:textures/gui/book_content.png",
   "book_overview_texture": "modonomicon:textures/gui/book_overview.png",
   "crafting_texture": "occultism:textures/gui/book/crafting_textures.png",
-  "creative_tab": "misc",
+  "creative_tab": "modonomicon",
   "custom_book_item": "occultism:dictionary_of_spirits",
   "default_title_color": 0,
   "generate_book_item": false,

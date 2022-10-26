@@ -5,20 +5,20 @@
   "description": "",
   "hide_while_locked": false,
   "icon": "occultism:pentacle",
-  "name": "book.occultism.dictionary_of_spirits.pentacles.summon_foliot.name",
+  "name": "book.occultism.dictionary_of_spirits.pentacles.summon_marid.name",
   "pages": [
     {
       "type": "modonomicon:text",
       "anchor": "",
       "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.pentacles.summon_foliot.intro.text",
-      "title": "book.occultism.dictionary_of_spirits.pentacles.summon_foliot.intro.title",
+      "text": "book.occultism.dictionary_of_spirits.pentacles.summon_marid.intro.text",
+      "title": "book.occultism.dictionary_of_spirits.pentacles.summon_marid.intro.title",
       "use_markdown_in_title": false
     },
     {
       "type": "modonomicon:multiblock",
       "anchor": "",
-      "multiblock_id": "occultism:summon_foliot",
+      "multiblock_id": "occultism:summon_marid",
       "multiblock_name": "",
       "show_visualize_button": true,
       "text": ""
@@ -27,19 +27,19 @@
       "type": "modonomicon:text",
       "anchor": "",
       "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.pentacles.summon_foliot.uses.text",
-      "title": "book.occultism.dictionary_of_spirits.pentacles.summon_foliot.uses.title",
+      "text": "book.occultism.dictionary_of_spirits.pentacles.summon_marid.uses.text",
+      "title": "book.occultism.dictionary_of_spirits.pentacles.summon_marid.uses.title",
       "use_markdown_in_title": false
     }
   ],
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "occultism:pentacles/pentacles_overview",
+      "entry": "occultism:pentacles/summon_afrit",
       "line_enabled": true,
       "line_reversed": false
     }
   ],
-  "x": -7,
+  "x": 9,
   "y": -2
 }

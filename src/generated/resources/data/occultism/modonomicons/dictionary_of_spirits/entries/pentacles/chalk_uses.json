@@ -1,0 +1,113 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "occultism:pentacles",
+  "description": "",
+  "hide_while_locked": false,
+  "icon": "occultism:chalk_purple",
+  "name": "book.occultism.dictionary_of_spirits.pentacles.chalk_uses.name",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.pentacles.chalk_uses.intro.text",
+      "title": "book.occultism.dictionary_of_spirits.pentacles.chalk_uses.intro.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.pentacles.chalk_uses.intro2.text",
+      "title": "",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "item": {
+        "item": "occultism:chalk_white"
+      },
+      "text": "book.occultism.dictionary_of_spirits.pentacles.chalk_uses.white_chalk.text",
+      "title": ""
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.pentacles.chalk_uses.white_chalk_uses.text",
+      "title": "book.occultism.dictionary_of_spirits.pentacles.chalk_uses.white_chalk_uses.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.pentacles.chalk_uses.white_chalk_uses2.text",
+      "title": "book.occultism.dictionary_of_spirits.pentacles.chalk_uses.white_chalk_uses2.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "item": {
+        "item": "occultism:chalk_gold"
+      },
+      "text": "book.occultism.dictionary_of_spirits.pentacles.chalk_uses.golden_chalk.text",
+      "title": ""
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.pentacles.chalk_uses.golden_chalk_uses.text",
+      "title": "book.occultism.dictionary_of_spirits.pentacles.chalk_uses.golden_chalk_uses.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "item": {
+        "item": "occultism:chalk_purple"
+      },
+      "text": "book.occultism.dictionary_of_spirits.pentacles.chalk_uses.purple_chalk.text",
+      "title": ""
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.pentacles.chalk_uses.purple_chalk_uses.text",
+      "title": "book.occultism.dictionary_of_spirits.pentacles.chalk_uses.purple_chalk_uses.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "item": {
+        "item": "occultism:chalk_red"
+      },
+      "text": "book.occultism.dictionary_of_spirits.pentacles.chalk_uses.red_chalk.text",
+      "title": ""
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.pentacles.chalk_uses.red_chalk_uses.text",
+      "title": "book.occultism.dictionary_of_spirits.pentacles.chalk_uses.red_chalk_uses.title",
+      "use_markdown_in_title": false
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "occultism:pentacles/pentacles_overview",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "x": -11,
+  "y": 4
+}

@@ -24,15 +24,13 @@ package com.github.klikli_dev.occultism.datagen.lang;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.datagen.OccultismAdvancementProvider;
-import com.github.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants;
-import com.github.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants.I18n;
+import com.github.klikli_dev.occultism.util.modonomicon.OccultismModonomiconConstants;
+import com.github.klikli_dev.occultism.util.modonomicon.OccultismModonomiconConstants.I18n;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.modonomicon.api.ModonomiconAPI;
 import com.klikli_dev.modonomicon.api.datagen.BookLangHelper;
-import com.klikli_dev.modonomicon.api.datagen.book.page.BookCraftingRecipePageModel;
-import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import net.minecraft.Util;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.network.chat.contents.TranslatableContents;
@@ -701,7 +699,7 @@ public class ENUSProvider extends LanguageProvider {
                         Currently only the "getting started" section is available in Modonomicon, 
                         for all other content you need to refer back to the Patchouli book
                         titled "Dictionary of Spirits (Old Edition)". 
-                        
+                                                
                         """);
 
         helper.page("intro2");
@@ -1074,14 +1072,13 @@ public class ENUSProvider extends LanguageProvider {
         //TODO: link to aviars circle page
         this.add(helper.pageText(),
                 """
-                       These pages will walk the gentle reader through the process of the first ritual step by step.
-                       We start by placing the golden sacrificial bowl and drawing the appropriate pentacle, 
-                       [#](%1$s)Aviar's Circle[#](). 
-                       \\
-                       \\
-                       Next, place four sacrificial bowls close to the pentacle.
-                         """.formatted(COLOR_PURPLE));
-
+                        These pages will walk the gentle reader through the process of the first ritual step by step.
+                        We start by placing the golden sacrificial bowl and drawing the appropriate pentacle, 
+                        [#](%1$s)Aviar's Circle[#](). 
+                        \\
+                        \\
+                        Next, place four sacrificial bowls close to the pentacle.
+                          """.formatted(COLOR_PURPLE));
 
 
         helper.page("bowl_placement");
@@ -1090,32 +1087,32 @@ public class ENUSProvider extends LanguageProvider {
         helper.page("bowl_text");
         this.add(helper.pageText(),
                 """
-                       [Sacrificial Bowls](item://occultism:sacrificial_bowl) must be placed **anywhere** 
-                       within 8 blocks of the central [](item://occultism:golden_sacrificial_bowl).
-                       The exact location does not matter.
-                       \\
-                       \\
-                       Now it is time to place the ingredients you see on the next page in the (regular, not golden) sacrificial bowls.
-                         """.formatted(COLOR_PURPLE));
+                        [Sacrificial Bowls](item://occultism:sacrificial_bowl) must be placed **anywhere** 
+                        within 8 blocks of the central [](item://occultism:golden_sacrificial_bowl).
+                        The exact location does not matter.
+                        \\
+                        \\
+                        Now it is time to place the ingredients you see on the next page in the (regular, not golden) sacrificial bowls.
+                          """.formatted(COLOR_PURPLE));
 
         helper.page("ritual_recipe");
         this.add(helper.pageText(),
                 """
-                       This page will show the ritual recipe in the future. 
-                       For now refer to the Old Edition to look up the 
-                       \"Summon Foliot Crusher\" ritual recipe.
-                         """.formatted(COLOR_PURPLE));
+                        This page will show the ritual recipe in the future. 
+                        For now refer to the Old Edition to look up the 
+                        "Summon Foliot Crusher" ritual recipe.
+                          """.formatted(COLOR_PURPLE));
         //no text
 
         helper.page("start_ritual");
         this.add(helper.pageText(),
                 """
-                       Finally, right-click the golden sacrificial bowl with the **bound** book of binding 
-                       you created and wait until the crusher spawns. 
-                       \\
-                       \\
-                       Now all that remains is to drop appropriate ores near the crusher and wait for it to turn it into dust.
-                         """.formatted(COLOR_PURPLE));
+                        Finally, right-click the golden sacrificial bowl with the **bound** book of binding 
+                        you created and wait until the crusher spawns. 
+                        \\
+                        \\
+                        Now all that remains is to drop appropriate ores near the crusher and wait for it to turn it into dust.
+                          """.formatted(COLOR_PURPLE));
 
 
         helper.entry("brush");
@@ -1126,11 +1123,11 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Next Steps");
         this.add(helper.pageText(),
                 """
-                       Chalk is a pain to clean up, by right-clicking with a brush you can remove it from the world much more easily. 
-                         """);
+                        Chalk is a pain to clean up, by right-clicking with a brush you can remove it from the world much more easily. 
+                          """);
 
         helper.page("brushRecipe");
-       //no text
+        //no text
 
         helper.entry("next_steps");
         this.add(helper.entryName(), "Next Steps");
@@ -1140,33 +1137,253 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Next Steps");
         this.add(helper.pageText(),
                 """
-                       For Now, please refer to the Old Edition's Getting Started section to learn more about next steps.
-                       \\
-                       \\
-                       See also the [Disclaimer Entry](entry://occultism:dictionary_of_spirits/getting_started/intro).
-                         """);
+                        For Now, please refer to the Old Edition's Getting Started section to learn more about next steps.
+                        \\
+                        \\
+                        See also the [Disclaimer Entry](entry://occultism:dictionary_of_spirits/getting_started/intro).
+                          """);
     }
 
     private void addPentaclesCategory(BookLangHelper helper) {
         helper.category("pentacles");
         this.add(helper.categoryName(), "Pentacles");
 
+        helper.entry("pentacles_overview");
+        this.add(helper.entryName(), "On Pentacles");
+
+        helper.page("intro1");
+        this.add(helper.pageTitle(), "On Pentacles");
+        this.add(helper.pageText(),
+                """
+                        The name [#](%1$s)Pentacle[#]() in this context refers to ritual drawings of any shape, not just five-pointed stars. \\
+                        \\
+                        Pentacles are used to summon and bind spirits from [#](%1$s)The Other Place[#](). 
+                    
+                        """.formatted(COLOR_PURPLE));
+
+        helper.page("intro2");
+        this.add(helper.pageText(),
+                """
+                        They act both as a device to call on the entity, an amplifier for the summoner's commanding power
+                        and as a protecting circle preventing attacks from within against the summoner.
+                        """.formatted(COLOR_PURPLE));
+
+        helper.page("intro3");
+        this.add(helper.pageText(),
+                """
+                        Each pentacle consists of a central golden sacrificial bowl, surrounding runes of various colors 
+                        and occult paraphernalia that improve the intended effect in various ways. 
+                        
+                        """.formatted(COLOR_PURPLE));
+
+
+        helper.page("intro4");
+        this.add(helper.pageText(),
+                """
+                       The combination of chosen runes and supporting items as well as their exact spatial positioning determines 
+                       the use and effectiveness of the pentacle. \\
+                       \\
+                       Ingredients are placed in [#](%1$s)Sacrifical Bowls[#]() near the pentacle.
+                        """.formatted(COLOR_PURPLE));
+
+        //exact copy found in first ritual entry
+        helper.page("bowl_placement");
+        //no text
+
+        //exact copy found in first ritual entry
+        helper.page("bowl_text");
+        this.add(helper.pageText(),
+                """
+                        [Sacrificial Bowls](item://occultism:sacrificial_bowl) must be placed **anywhere** 
+                        within 8 blocks of the central [](item://occultism:golden_sacrificial_bowl).
+                        The exact location does not matter.
+                        \\
+                        \\
+                        Now it is time to place the ingredients you see on the next page in the (regular, not golden) sacrificial bowls.
+                          """);
+
+        helper.page("summoning_pentacles");
+        this.add(helper.pageTitle(), "Summoning Pentacles");
+        this.add(helper.pageText(),
+                """
+                        The purpose of this type of pentacle is to summon spirits in their chosen form into the world. 
+                        Spirits summoned thus suffer from strong essence decay, and only very powerful spirits can 
+                        remain for extended periods of time.
+                        """);
+
+        helper.page("infusion_pentacles");
+        this.add(helper.pageTitle(), "Infusion Pentacles");
+        this.add(helper.pageText(),
+                """
+                        Infusion pentacles allow the binding of spirits into objects. 
+                        While the spirits suffer from essence decay in some cases, 
+                        this can often be averted with the right pentacle setup, 
+                        and by embedding crystals and precious metals into the object to support the spirit.
+                        """);
+
+        helper.page("possession_pentacles");
+        this.add(helper.pageTitle(), "Possession Pentacles");
+        this.add(helper.pageText(),
+                """
+                        These pentacles force spirits to possess a living being, which, depending on the ritual context, 
+                        gives the summoner control over various aspects of that being, ranging from it's strength to it 
+                        what it drops when killed, and in some cases even allows total control.
+                        """);
+
+        helper.entry("paraphernalia");
+        this.add(helper.entryName(), "Occult Paraphernalia");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Occult Paraphernalia");
+        this.add(helper.pageText(),
+                """
+                        In addition to runes various occult paraphernalia are used to improve the intended effect of the pentacle.
+                        """);
+
+        helper.page("candle");
+        this.add(helper.pageText(),
+                """
+                        Candles increase the stability of the pentacle, thus allowing a slowed essence decay of the summoned spirit, 
+                        leading to a longer lifetime of the spirit, or possessed object or being.
+                        """);
+
+        helper.page("crystal");
+        this.add(helper.pageText(),
+                """
+                        Crystals increase the binding power of the pentacle, allowing a permanent binding of the spirit into an item or living being.
+                        """);
+
+        helper.page("skeleton_skull");
+        this.add(helper.pageText(),
+                """
+                        Skulls increase the calling power of the pentacle, allowing to summon more dangerous spirits.
+                        """);
+
+        helper.entry("chalk_uses");
+        this.add(helper.entryName(), "Chalk Types");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Chalk Types");
+        this.add(helper.pageText(),
+                """
+                        Chalk is used to draw pentacle runes and define the pentacle shape. 
+                        Different types of chalk are used for different purposes, as outlined on the next pages. \\
+                        \\
+                        The different runes are purely decorative. 
+                        """);
+
+        helper.page("intro2");
+        this.add(helper.pageText(),
+                """
+                        **Repeatedly** use chalk on a block to switch to a different rune. \\
+                        \\
+                        Using a [](item://occultism:brush) is the easiest way to **remove** chalk runes that have been incorrectly placed.
+                        """);
+
+        helper.page("white_chalk");
+        this.add(helper.pageText(),
+                """
+                        White chalk is the most basic type of ritual chalk and is found in most pentacles. 
+                        It has no special power beyond defining the shape of the pentacle.
+                           """);
+
+
+        helper.page("white_chalk_uses");
+        this.add(helper.pageTitle(), "White Chalk Uses");
+        this.add(helper.pageText(),
+                """
+                        - [Aviar's Circle](entry://occultism:dictionary_of_spirits/pentacles/summon_foliot)
+                        - [Eziveus' Spectral Compulsion](entry://occultism:dictionary_of_spirits/pentacles/craft_foliot)
+                        - [Hedyrin's Lure](entry://occultism:dictionary_of_spirits/pentacles/possess_foliot)
+                        - [Ophyx' Calling](entry://occultism:dictionary_of_spirits/pentacles/summon_djinni)
+                        - [Strigeor's Higher Binding](entry://occultism:dictionary_of_spirits/pentacles/craft_djinni)
+                        - [Ihagan's Enthrallment](entry://occultism:dictionary_of_spirits/pentacles/possess_djinni)
+                        - [Abras' Conjure](entry://occultism:dictionary_of_spirits/pentacles/summon_afrit)
+                        - [Sevira's Permanent Confinement](entry://occultism:dictionary_of_spirits/pentacles/craft_afrit)
+                        - [Abras' Open Conjure](entry://occultism:dictionary_of_spirits/pentacles/summon_wild_afrit)
+                         """);
+
+        helper.page("white_chalk_uses2");
+        this.add(helper.pageTitle(), "White Chalk Uses");
+        this.add(helper.pageText(),
+                """
+                        - [Uphyxes Inverted Tower](entry://occultism:dictionary_of_spirits/pentacles/craft_marid)
+                        - [Osorin' Unbound Calling](entry://occultism:dictionary_of_spirits/pentacles/summon_wild_greater_spirit)
+                         """);
+
+        helper.page("golden_chalk");
+        this.add(helper.pageText(),
+                """
+                        Golden chalk is used for binding runes, which allow to infuse a spirit into an item, or make it possess a living being.
+                               """);
+
+
+        helper.page("golden_chalk_uses");
+        this.add(helper.pageTitle(), "Golden Chalk Uses");
+        this.add(helper.pageText(),
+                """
+                        - [Eziveus' Spectral Compulsion](entry://occultism:dictionary_of_spirits/pentacles/craft_foliot)
+                        - [Hedyrin's Lure](entry://occultism:dictionary_of_spirits/pentacles/possess_foliot)
+                        - [Strigeor's Higher Binding](entry://occultism:dictionary_of_spirits/pentacles/craft_djinni)
+                        - [Ihagan's Enthrallment](entry://occultism:dictionary_of_spirits/pentacles/possess_djinni)
+                        - [Sevira's Permanent Confinement](entry://occultism:dictionary_of_spirits/pentacles/craft_afrit)
+                        - [Uphyxes Inverted Tower](entry://occultism:dictionary_of_spirits/pentacles/craft_marid)
+                           """);
+
+        helper.page("purple_chalk");
+        this.add(helper.pageText(),
+                """
+                        Purple chalk is generally used to call on higher beings such as [#](%1$s)Djinn[#]() or [#](%1$s)Afrit[#](), 
+                        but also slows essence decay of summoned spirits.
+                               """.formatted(COLOR_PURPLE));
+
+        helper.page("purple_chalk_uses");
+        this.add(helper.pageTitle(), "Purple Chalk Uses");
+        this.add(helper.pageText(),
+                """
+                        - [Ophyx' Calling](entry://occultism:dictionary_of_spirits/pentacles/summon_djinni)
+                        - [Strigeor's Higher Binding](entry://occultism:dictionary_of_spirits/pentacles/craft_djinni)
+                        - [Ihagan's Enthrallment](entry://occultism:dictionary_of_spirits/pentacles/possess_djinni)
+                        - [Abras' Conjure](entry://occultism:dictionary_of_spirits/pentacles/summon_afrit)
+                        - [Sevira's Permanent Confinement](entry://occultism:dictionary_of_spirits/pentacles/craft_afrit)
+                        - [Abras' Open Conjure](entry://occultism:dictionary_of_spirits/pentacles/summon_wild_afrit)
+                        - [Osorin' Unbound Calling](entry://occultism:dictionary_of_spirits/pentacles/summon_wild_greater_spirit)
+                           """);
+
+        helper.page("red_chalk");
+        this.add(helper.pageText(),
+                """
+                       Red chalk is used to call on the most powerful and dangerous beings, such as [#](%1$s)Marid[#](). \\
+                       \\
+                       [Afrit Essence]() is required to craft red chalk.
+                               """.formatted(COLOR_PURPLE));
+        //TODO: Link to Afrit Essence [Afrit Essence](entry://occultism:dictionary_of_spirits/rituals/summoning/afrit_essence)
+
+        helper.page("red_chalk_uses");
+        this.add(helper.pageTitle(), "Red Chalk Uses");
+        this.add(helper.pageText(),
+                """
+                        - [Abras' Conjure](entry://occultism:dictionary_of_spirits/pentacles/summon_afrit)
+                        - [Uphyxes Inverted Tower](entry://occultism:dictionary_of_spirits/pentacles/craft_marid)
+                           """);
+
+
         helper.entry("summon_foliot");
         this.add(helper.entryName(), "Aviar's Circle");
 
         helper.page("intro");
-        this.add(helper.pageTitle(), "Otherworld Goggles");
+        this.add(helper.pageTitle(), "Aviar's Circle");
         this.add(helper.pageText(),
                 """
-                    **Purpose:** Summon a [#](%1$s)Foliot[#]()
-                    \\ 
-                    \\
-                    Considered by most to be the simplest pentacle, [#](%1$s)Aviar's Circle[#]() is easy to set up, 
-                    but provides only a minimum of binding power and protection for the summoner.
-                    \\
-                    \\
-                   Only the weakest [#](%1$s)Foliot[#]() can be summoned in rituals using this pentacle.
-                    """.formatted(COLOR_PURPLE));
+                         **Purpose:** Summon a [#](%1$s)Foliot[#]()
+                         \\ 
+                         \\
+                         Considered by most to be the simplest pentacle, [#](%1$s)Aviar's Circle[#]() is easy to set up, 
+                         but provides only a minimum of binding power and protection for the summoner.
+                         \\
+                         \\
+                        Only the weakest [#](%1$s)Foliot[#]() can be summoned in rituals using this pentacle.
+                         """.formatted(COLOR_PURPLE));
 
         helper.page("multiblock");
         //no text
@@ -1175,11 +1392,300 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Uses");
         this.add(helper.pageText(),
                 """
-                    - [Foliot Crusher]()
-                    - //TODO: Add remaining uses
-                    """.formatted(COLOR_PURPLE));
+                        - //TODO: Add remaining uses
+                        """.formatted(COLOR_PURPLE));
+
         //TODO: add remaining backlinks for pentacle
 
+        helper.entry("summon_djinni");
+        this.add(helper.entryName(), "Ophyx' Calling");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Ophyx' Calling");
+        this.add(helper.pageText(),
+                """
+                        **Purpose:** Summon a [#](%1$s)Djinni[#]()
+                        \\
+                        \\
+                        Developed by [#](%1$s)Ophyx[#]() during the Third Era, the [#](%1$s)Calling[#]() is the go-to pentacle for [#](%1$s)Djinni[#]() summonings ever since.
+                        Skeleton skulls ([Obtain here]()) and [#](%1$s)Purple Chalk[#]() provide the calling power required to force Djinni into appearance and candles stabilize the ritual.
+                         """.formatted(COLOR_PURPLE));
+        //TODO: Add link rituals/possession/possess_skeleton
+
+        helper.page("multiblock");
+        //no text
+
+        helper.page("uses");
+        this.add(helper.pageTitle(), "Uses");
+        this.add(helper.pageText(),
+                """
+                        - //TODO: Add remaining uses
+                        """.formatted(COLOR_PURPLE));
+        //TODO: add remaining backlinks for pentacle
+
+        helper.entry("summon_afrit");
+        this.add(helper.entryName(), "Abras' Conjure");
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Abras' Conjure");
+        this.add(helper.pageText(),
+                """
+                        **Purpose:** Summon an [#](%1$s)Afrit[#]()
+                        \\
+                        \\
+                        **Abras' Conjure** is one of the few pentacles capable of (mostly) safely summoning an [#](%1$s)Afrit[#]().
+                        While the requirement of a wither skeleton skull makes it comparatively expensive, the additional calling potential is required to reach these high-power spirits.
+                         """.formatted(COLOR_PURPLE));
+
+        helper.page("multiblock");
+        //no text
+
+        helper.page("uses");
+        this.add(helper.pageTitle(), "Uses");
+        this.add(helper.pageText(),
+                """
+                        - //TODO: Add remaining uses
+                        """.formatted(COLOR_PURPLE));
+        //TODO: add remaining backlinks for pentacle
+
+        helper.entry("summon_marid");
+        this.add(helper.entryName(), "Fatma's Incentivized Attraction");
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Fatma's Incentivized Attraction");
+        //convert to our markdown format: $(bold)Purpose:$() Summon Marid $(br2)$(thing)Fatma's Incentivized Attraction$() is a powerful pentacle, allowing to summon Marid and bind them to the summoner's will.
+        this.add(helper.pageText(),
+                """
+                        **Purpose:** Summon a [#](%1$s)Marid[#]()
+                        \\
+                        \\
+                        **Fatma's Incentivized Attraction** is a powerful pentacle, allowing to summon [#](%1$s)Marid[#]() and bind them to the summoner's will.
+                         """.formatted(COLOR_PURPLE));
+
+        helper.page("multiblock");
+        //no text
+
+        helper.page("uses");
+        this.add(helper.pageTitle(), "Uses");
+        this.add(helper.pageText(),
+                """
+                        - //TODO: Add remaining uses
+                        """.formatted(COLOR_PURPLE));
+        //TODO: add remaining backlinks for pentacle
+
+        helper.entry("summon_wild_afrit");
+        this.add(helper.entryName(), "Abras' Open Conjure");
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Abras' Open Conjure");
+        this.add(helper.pageText(),
+                """
+                        **Purpose:** Summon an unbound [#](%1$s)Afrit[#]()
+                        \\
+                        \\
+                        **Abras' Open Conjure** is a simplified version of [#](%1$s)Abras' Conjure[#](), allowing to summon [#](%1$s)Afrit[#]() without red chalk.
+                        Due to the much reduced power of the pentacle, it cannot be used to control [#](%1$s)Afrit[#](), and it thus can only be used to fight and kill [#](%1$s)Afrit[#]().
+                         """.formatted(COLOR_PURPLE));
+
+        helper.page("multiblock");
+        //no text
+
+        helper.page("uses");
+        this.add(helper.pageTitle(), "Uses");
+        this.add(helper.pageText(),
+                """
+                        - //TODO: Add remaining uses
+                        """.formatted(COLOR_PURPLE));
+        //TODO: add remaining backlinks for pentacle
+
+        helper.entry("summon_wild_greater_spirit");
+        this.add(helper.entryName(), "Osorin's Unbound Calling");
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Osorin's Unbound Calling");
+        this.add(helper.pageText(),
+                """
+                        **Purpose:** Summon an unbound [#](%1$s)Greater Spirit[#]()
+                        \\
+                        \\
+                        **Osorin's Unbound Calling** is based on [#](%1$s)Abras' Open Conjure[#](), but features none of the stabilizing paraphernalia.
+                        The pentacle offers no protection whatsoever to the summoner, but acts as an irresistible call to [#](%1$s)Greater Spirits[#]().
+                        """.formatted(COLOR_PURPLE));
+
+        helper.page("multiblock");
+        //no text
+
+        helper.page("uses");
+        this.add(helper.pageTitle(), "Uses");
+        this.add(helper.pageText(),
+                """
+                        - //TODO: Add remaining uses
+                        """.formatted(COLOR_PURPLE));
+        //TODO: add remaining backlinks for pentacle
+
+        helper.entry("possess_foliot");
+        this.add(helper.entryName(), "Hedyrin's Lure");
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Hedyrin's Lure");
+        this.add(helper.pageText(),
+                """
+                        **Purpose:** Foliot Possession
+                        \\
+                        \\
+                        **Hedyrin's Lure** attracts [#](%1$s)Foliot[#]() and forces them to possess a nearby creature.
+                        This pentacle does not lead to permanent imprisonment, the spirit and possessed creature will perish within a short period of time.
+                         """.formatted(COLOR_PURPLE));
+
+        helper.page("multiblock");
+        //no text
+
+        helper.page("uses");
+        this.add(helper.pageTitle(), "Uses");
+        this.add(helper.pageText(),
+                """
+                        - //TODO: Add remaining uses
+                        """.formatted(COLOR_PURPLE));
+        //TODO: add remaining backlinks for pentacle
+
+        helper.entry("possess_djinni");
+        this.add(helper.entryName(), "Ihagan's Enthrallment");
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Ihagan's Enthrallment");
+        this.add(helper.pageText(),
+                """
+                        **Purpose:** Djinni Possession
+                        \\
+                        \\
+                        **Ihagan's Enthrallment** forces [#](%1$s)Djinn[#]() to possess a nearby creature.
+                        This pentacle does not lead to permanent imprisonment, the spirit and possessed creature will perish within a short period of time.
+                         """.formatted(COLOR_PURPLE));
+
+        helper.page("multiblock");
+        //no text
+
+        helper.page("uses");
+        this.add(helper.pageTitle(), "Uses");
+        this.add(helper.pageText(),
+                """
+                        - //TODO: Add remaining uses
+                        """.formatted(COLOR_PURPLE));
+        //TODO: add remaining backlinks for pentacle
+
+        helper.entry("possess_afrit");
+        this.add(helper.entryName(), "Abras' Commanding Conjure");
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Abras' Commanding Conjure");
+        this.add(helper.pageText(),
+                """
+                        **Purpose:** Afrit Possession
+                        \\
+                        \\
+                        **Abras' Commanding Conjure** is a modified version of [#](%1$s)Abras' Conjure[#]() that allows possessing entities, and thus summoning familiars.
+                         """.formatted(COLOR_PURPLE));
+
+        helper.page("multiblock");
+        //no text
+
+        helper.page("uses");
+        this.add(helper.pageTitle(), "Uses");
+        this.add(helper.pageText(),
+                """
+                        - //TODO: Add remaining uses
+                        """.formatted(COLOR_PURPLE));
+        //TODO: add remaining backlinks for pentacle
+
+        helper.entry("craft_foliot");
+        this.add(helper.entryName(), "Eziveus' Spectral Compulsion");
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Eziveus' Spectral Compulsion");
+        this.add(helper.pageText(),
+                """
+                        **Purpose:** Bind Foliot
+                        \\
+                        \\
+                        As a simple binding pentacle, **Eziveus' Spectral Compulsion** is a common starting point for object infusion with lower spirits.
+                        The enchantment is made permanent by stabilizing candles and spirit attuned crystals.
+                         """.formatted(COLOR_PURPLE));
+
+        helper.page("multiblock");
+        //no text
+
+        helper.page("uses");
+        this.add(helper.pageTitle(), "Uses");
+        this.add(helper.pageText(),
+                """
+                        - //TODO: Add remaining uses
+                        """.formatted(COLOR_PURPLE));
+        //TODO: add remaining backlinks for pentacle
+
+        helper.entry("craft_djinni");
+        this.add(helper.entryName(), "Strigeor's Higher Binding");
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Strigeor's Higher Binding");
+        this.add(helper.pageText(),
+                """
+                        **Purpose:** Bind Djinni
+                        \\
+                        \\
+                        **Strigeor's Higher Binding** is a pentacle for binding [#](%1$s)Djinn[#]() into objects, should not be attempted by the novice summoner.
+                        Supported by spirit attuned crystals and stabilized by candles it is highly suitable for permanent infusions of objects with spirits.
+                         """.formatted(COLOR_PURPLE));
+
+        helper.page("multiblock");
+        //no text
+
+        helper.page("uses");
+        this.add(helper.pageTitle(), "Uses");
+        this.add(helper.pageText(),
+                """
+                        - //TODO: Add remaining uses
+                        """.formatted(COLOR_PURPLE));
+        //TODO: add remaining backlinks for pentacle
+
+        helper.entry("craft_afrit");
+        this.add(helper.entryName(), "Sevira's Permanent Confinement");
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Sevira's Permanent Confinement");
+        this.add(helper.pageText(),
+                """
+                        **Purpose:** Bind Afrit
+                        \\
+                        \\
+                        First discovered by Grandmistress Sevira of Emberwoods, **Sevira's Permanent Confinement** is used for binding [#](%1$s)Afrit[#]() into objects.
+                        Due to the power of the spirits involved, this should be performed only by advanced summoners.
+                         """.formatted(COLOR_PURPLE));
+
+        helper.page("multiblock");
+        //no text
+
+        helper.page("uses");
+        this.add(helper.pageTitle(), "Uses");
+        this.add(helper.pageText(),
+                """
+                        - //TODO: Add remaining uses
+                        """.formatted(COLOR_PURPLE));
+        //TODO: add remaining backlinks for pentacle
+
+        helper.entry("craft_marid");
+        this.add(helper.entryName(), "Uphyxes Inverted Tower");
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Uphyxes Inverted Tower");
+        this.add(helper.pageText(),
+                """
+                        **Purpose:** Bind Marid
+                        \\
+                        \\
+                        **Uphyxes Inverted Tower** is one of the few pentacles capable of binding [#](%1$s)Marid[#]() into objects.
+                        Any rituals involving [#](%1$s)Marid[#]() should be performed only by the most experienced summoners.
+                         """.formatted(COLOR_PURPLE));
+
+        helper.page("multiblock");
+        //no text
+
+        helper.page("uses");
+        this.add(helper.pageTitle(), "Uses");
+        //convert to our md format:       "text": "$(li)$(l:rituals/crafting/craft_stabilizer_tier4)Storage Stabilizer Tier 4$(/l)$()"
+        this.add(helper.pageText(),
+                """
+                        - //TODO: Add remaining uses
+                        """.formatted(COLOR_PURPLE));
+        //TODO: add remaining backlinks for pentacle
     }
 
     private void addRitualsCategory(BookLangHelper helper) {
@@ -1193,8 +1699,8 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Otherworld Goggles");
         this.add(helper.pageText(),
                 """
-                    //TODO: Entry not yet implemented
-                    """);
+                        //TODO: Entry not yet implemented
+                        """);
     }
 
     private void addAdvancedCategory(BookLangHelper helper) {
@@ -1209,9 +1715,9 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "More Chalks");
         this.add(helper.pageText(),
                 """
-                    For more advanced rituals the basic [White Chalk](entry://occultism:dictionary_of_spirits/getting_started/ritual_prep@white_chalk) 
-                    is not sufficient. Instead chalks made from more arcane materials are required.
-                    """);
+                        For more advanced rituals the basic [White Chalk](entry://occultism:dictionary_of_spirits/getting_started/ritual_prep@white_chalk) 
+                        is not sufficient. Instead chalks made from more arcane materials are required.
+                        """);
 
         helper.page("gold_chalk_recipe");
         //no text
@@ -1226,8 +1732,8 @@ public class ENUSProvider extends LanguageProvider {
         //TODO: Modonomicon, add link to correct entry for unbound afrit
         this.add(helper.pageText(),
                 """
-                    //TODO: Entry not yet implemented
-                    """);
+                        //TODO: Entry not yet implemented
+                        """);
     }
 
 
@@ -1525,18 +2031,18 @@ public class ENUSProvider extends LanguageProvider {
         this.add("dialog.occultism.mummy.kapow", "KAPOW!");
     }
 
-    private void addPatchouli(){
+    private void addPatchouli() {
         this.add("book.occultism.name", "Dictionary of Spirits (Old Edition)");
         this.add("pentacle.occultism.craft_djinni", "Strigeor's Higher Binding");
         this.add("pentacle.occultism.craft_foliot", "Eziveus' Spectral Compulsion");
     }
 
-    private void addModonomiconIntegration(){
-        this.add(OccultismModonomiconConstants.I18n.RITUAL_RECIPE_ITEM_USE,"Item to use:");
-        this.add(OccultismModonomiconConstants.I18n.RITUAL_RECIPE_SUMMON,"Summon: %s");
-        this.add(OccultismModonomiconConstants.I18n.RITUAL_RECIPE_JOB,"Job: %s");
-        this.add(OccultismModonomiconConstants.I18n.RITUAL_RECIPE_SACRIFICE,"Sacrifice: %s");
-        this.add(I18n.RITUAL_RECIPE_GO_TO_PENTACLE,"Open Pentacle Page: %s");
+    private void addModonomiconIntegration() {
+        this.add(OccultismModonomiconConstants.I18n.RITUAL_RECIPE_ITEM_USE, "Item to use:");
+        this.add(OccultismModonomiconConstants.I18n.RITUAL_RECIPE_SUMMON, "Summon: %s");
+        this.add(OccultismModonomiconConstants.I18n.RITUAL_RECIPE_JOB, "Job: %s");
+        this.add(OccultismModonomiconConstants.I18n.RITUAL_RECIPE_SACRIFICE, "Sacrifice: %s");
+        this.add(I18n.RITUAL_RECIPE_GO_TO_PENTACLE, "Open Pentacle Page: %s");
     }
 
     private void advancementTitle(String name, String s) {
