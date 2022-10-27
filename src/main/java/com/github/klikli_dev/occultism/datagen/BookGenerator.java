@@ -1,8 +1,8 @@
 package com.github.klikli_dev.occultism.datagen;
 
 import com.github.klikli_dev.occultism.Occultism;
-import com.github.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePageModel;
-import com.github.klikli_dev.occultism.integration.modonomicon.pages.BookSpiritFireRecipePageModel;
+import com.github.klikli_dev.occultism.util.modonomicon.pages.BookRitualRecipePageModel;
+import com.github.klikli_dev.occultism.util.modonomicon.pages.BookSpiritFireRecipePageModel;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.google.gson.Gson;
@@ -20,6 +20,8 @@ import net.minecraft.data.DataProvider;
 import net.minecraft.data.HashCache;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -770,26 +772,279 @@ public class BookGenerator implements DataProvider {
 
         var entryHelper = ModonomiconAPI.get().getEntryLocationHelper();
         entryHelper.setMap(
-                "_____________________",
-                "_____________________",
-                "____________________",
-                "__________a__________", //a=Aviar's Circle
-                "_____________________",
-                "_____________________",
-                "__________h__________" //h=heydrins lure
+                "___________________________",
+                "___________________________",
+                "__p___a___b___c___d___e___f", //paraphernalia, summon foliot, summon djinni, summon wild afrit, summon afrit, summon marid, summon wild greater spirit
+                "___________________________",
+                "___________________________",
+                "__o_______g___h___i_________", //overview, possess foliot, possess djinni, possess afrit
+                "___________________________",
+                "___________________________",
+                "__u___j___k___l___m________" //uses of chalks, craft foliot, craft djinni, craft afrit, craft marid
         );
 
+        var overview = this.makePentaclesOverviewEntry(helper, entryHelper, 'o');
+        var paraphernalia = this.makeParaphernaliaEntry(helper, entryHelper, 'p');
+        paraphernalia.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
+        var chalkUses = this.makeChalkUsesEntry(helper, entryHelper, 'u');
+        chalkUses.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
 
         var summonFoliot = this.makeSummonFoliotEntry(helper, entryHelper, 'a');
-        var possessFoliot = this.makePossessFoliotEntry(helper, entryHelper, 'h');
+        summonFoliot.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
+        var summonDjinni = this.makeSummonDjinniEntry(helper, entryHelper, 'b');
+        summonDjinni.withParent(BookEntryParentModel.builder().withEntryId(summonFoliot.id).build());
+        var summonWildAfrit = this.makeSummonWildAfritEntry(helper, entryHelper, 'c');
+        summonWildAfrit.withParent(BookEntryParentModel.builder().withEntryId(summonDjinni.id).build());
+        var summonAfrit = this.makeSummonAfritEntry(helper, entryHelper, 'd');
+        summonAfrit.withParent(BookEntryParentModel.builder().withEntryId(summonWildAfrit.id).build());
+        var summonMarid = this.makeSummonMaridEntry(helper, entryHelper, 'e');
+        summonMarid.withParent(BookEntryParentModel.builder().withEntryId(summonAfrit.id).build());
+        var summonWildGreaterSpirit = this.makeSummonWildGreaterSpiritEntry(helper, entryHelper, 'f');
+        summonWildGreaterSpirit.withParent(BookEntryParentModel.builder().withEntryId(summonMarid.id).build());
+
+        var possessFoliot = this.makePossessFoliotEntry(helper, entryHelper, 'g');
+        possessFoliot.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
+        var possessDjinni = this.makePossessDjinniEntry(helper, entryHelper, 'h');
+        possessDjinni.withParent(BookEntryParentModel.builder().withEntryId(possessFoliot.id).build());
+        var possessAfrit = this.makePossessAfritEntry(helper, entryHelper, 'i');
+        possessAfrit.withParent(BookEntryParentModel.builder().withEntryId(possessDjinni.id).build());
+
+        var craftFoliot = this.makeCraftFoliotEntry(helper, entryHelper, 'j');
+        craftFoliot.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
+        var craftDjinni = this.makeCraftDjinniEntry(helper, entryHelper, 'k');
+        craftDjinni.withParent(BookEntryParentModel.builder().withEntryId(craftFoliot.id).build());
+        var craftAfrit = this.makeCraftAfritEntry(helper, entryHelper, 'l');
+        craftAfrit.withParent(BookEntryParentModel.builder().withEntryId(craftDjinni.id).build());
+        var craftMarid = this.makeCraftMaridEntry(helper, entryHelper, 'm');
+        craftMarid.withParent(BookEntryParentModel.builder().withEntryId(craftAfrit.id).build());
 
         return BookCategoryModel.builder()
                 .withId(this.modLoc("pentacles"))
                 .withName(helper.categoryName())
                 .withIcon(OccultismItems.PENTACLE.getId().toString())
-                .withEntry(summonFoliot.build())
-                .withEntry(possessFoliot.build())
+                .withEntries(
+                        overview.build(),
+                        paraphernalia.build(),
+                        chalkUses.build(),
+
+                        summonFoliot.build(),
+                        summonDjinni.build(),
+                        summonWildAfrit.build(),
+                        summonAfrit.build(),
+                        summonMarid.build(),
+                        summonWildGreaterSpirit.build(),
+
+                        possessFoliot.build(),
+                        possessDjinni.build(),
+                        possessAfrit.build(),
+
+                        craftFoliot.build(),
+                        craftDjinni.build(),
+                        craftAfrit.build(),
+                        craftMarid.build()
+                )
                 .build();
+    }
+
+    private BookEntryModel.Builder makePentaclesOverviewEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("pentacles_overview");
+
+        helper.page("intro1");
+        var intro1 = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("intro2");
+        var intro2 = BookTextPageModel.builder()
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("intro3");
+        var intro3 = BookTextPageModel.builder()
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("intro4");
+        var intro4 = BookTextPageModel.builder()
+                .withText(helper.pageText())
+                .build();
+
+        //exact copy found in first ritual entry
+        helper.page("bowl_placement");
+        var bowlPlacementImage = BookImagePageModel.builder()
+                .withImages(this.modLoc("textures/gui/book/bowl_placement.png"))
+                .withBorder(true)
+                .build();
+
+        //exact copy found in first ritual entry
+        helper.page("bowl_text");
+        var bowlText = BookTextPageModel.builder()
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("summoning_pentacles");
+        var summoningPentacles = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("infusion_pentacles");
+        var infusionPentacles = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("possession_pentacles");
+        var possessionPentacles = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withIcon(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL.getId().toString())
+                .withLocation(entryHelper.get(icon))
+                .withPages(
+                        intro1,
+                        intro2,
+                        intro3,
+                        intro4,
+                        bowlPlacementImage,
+                        bowlText,
+                        summoningPentacles,
+                        infusionPentacles,
+                        possessionPentacles
+                );
+    }
+
+    private BookEntryModel.Builder makeParaphernaliaEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("paraphernalia");
+
+        helper.page("intro");
+        var intro = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("candle");
+        var candle = BookSpotlightPageModel.builder()
+                .withText(helper.pageText())
+                .withItem(Ingredient.of(OccultismBlocks.CANDLE_WHITE.get()))
+                .build();
+
+        helper.page("crystal");
+        var crystal = BookSpotlightPageModel.builder()
+                .withText(helper.pageText())
+                .withItem(Ingredient.of(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL.get()))
+                .build();
+
+        helper.page("skeleton_skull");
+        var skeletonSkull = BookSpotlightPageModel.builder()
+                .withText(helper.pageText())
+                .withItem(Ingredient.of(Blocks.SKELETON_SKULL))
+                .build();
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withIcon(ForgeRegistries.BLOCKS.getKey(Blocks.SKELETON_SKULL).toString())
+                .withLocation(entryHelper.get(icon))
+                .withPages(
+                        intro,
+                        candle,
+                        crystal,
+                        skeletonSkull
+                );
+    }
+
+    private BookEntryModel.Builder makeChalkUsesEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("chalk_uses");
+
+        helper.page("intro");
+        var intro = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("intro2");
+        var intro2 = BookTextPageModel.builder()
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("white_chalk");
+        var whiteChalk = BookSpotlightPageModel.builder()
+                .withText(helper.pageText())
+                .withItem(Ingredient.of(OccultismItems.CHALK_WHITE.get()))
+                .build();
+
+        helper.page("white_chalk_uses");
+        var whiteChalkUses = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("white_chalk_uses2");
+        var whiteChalkUses2 = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("golden_chalk");
+        var goldChalk = BookSpotlightPageModel.builder()
+                .withText(helper.pageText())
+                .withItem(Ingredient.of(OccultismItems.CHALK_GOLD.get()))
+                .build();
+
+        helper.page("golden_chalk_uses");
+        var goldChalkUses = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("purple_chalk");
+        var purpleChalk = BookSpotlightPageModel.builder()
+                .withText(helper.pageText())
+                .withItem(Ingredient.of(OccultismItems.CHALK_PURPLE.get()))
+                .build();
+
+        helper.page("purple_chalk_uses");
+        var purpleChalkUses = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("red_chalk");
+        var redChalk = BookSpotlightPageModel.builder()
+                .withText(helper.pageText())
+                .withItem(Ingredient.of(OccultismItems.CHALK_RED.get()))
+                .build();
+
+        helper.page("red_chalk_uses");
+        var redChalkUses = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withIcon(OccultismItems.CHALK_PURPLE.getId().toString())
+                .withLocation(entryHelper.get(icon))
+                .withPages(
+                        intro,
+                        intro2,
+                        whiteChalk,
+                        whiteChalkUses,
+                        whiteChalkUses2,
+                        goldChalk,
+                        goldChalkUses,
+                        purpleChalk,
+                        purpleChalkUses,
+                        redChalk,
+                        redChalkUses
+                );
     }
 
     private BookEntryModel.Builder makeSummonFoliotEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
@@ -856,6 +1111,357 @@ public class BookGenerator implements DataProvider {
                 );
     }
 
+    private BookEntryModel.Builder makeCraftFoliotEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("craft_foliot");
+
+        helper.page("intro");
+        var intro = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("multiblock");
+        var multiblock = BookMultiblockPageModel.builder()
+                .withMultiblockId(this.modLoc("craft_foliot"))
+                .build();
+
+        helper.page("uses");
+        var uses = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withIcon(OccultismItems.PENTACLE.getId().toString())
+                .withLocation(entryHelper.get(icon))
+                .withPages(
+                        intro,
+                        multiblock,
+                        uses
+                );
+    }
+
+    private BookEntryModel.Builder makeSummonDjinniEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("summon_djinni");
+
+        helper.page("intro");
+        var intro = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("multiblock");
+        var multiblock = BookMultiblockPageModel.builder()
+                .withMultiblockId(this.modLoc("summon_djinni"))
+                .build();
+
+        helper.page("uses");
+        var uses = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withIcon(OccultismItems.PENTACLE.getId().toString())
+                .withLocation(entryHelper.get(icon))
+                .withPages(
+                        intro,
+                        multiblock,
+                        uses
+                );
+    }
+
+    private BookEntryModel.Builder makePossessDjinniEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("possess_djinni");
+
+        helper.page("intro");
+        var intro = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("multiblock");
+        var multiblock = BookMultiblockPageModel.builder()
+                .withMultiblockId(this.modLoc("possess_djinni"))
+                .build();
+
+        helper.page("uses");
+        var uses = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withIcon(OccultismItems.PENTACLE.getId().toString())
+                .withLocation(entryHelper.get(icon))
+                .withPages(
+                        intro,
+                        multiblock,
+                        uses
+                );
+    }
+
+    private BookEntryModel.Builder makeCraftDjinniEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("craft_djinni");
+
+        helper.page("intro");
+        var intro = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("multiblock");
+        var multiblock = BookMultiblockPageModel.builder()
+                .withMultiblockId(this.modLoc("craft_djinni"))
+                .build();
+
+        helper.page("uses");
+        var uses = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withIcon(OccultismItems.PENTACLE.getId().toString())
+                .withLocation(entryHelper.get(icon))
+                .withPages(
+                        intro,
+                        multiblock,
+                        uses
+                );
+    }
+
+    private BookEntryModel.Builder makeSummonAfritEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("summon_afrit");
+
+        helper.page("intro");
+        var intro = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("multiblock");
+        var multiblock = BookMultiblockPageModel.builder()
+                .withMultiblockId(this.modLoc("summon_afrit"))
+                .build();
+
+        helper.page("uses");
+        var uses = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withIcon(OccultismItems.PENTACLE.getId().toString())
+                .withLocation(entryHelper.get(icon))
+                .withPages(
+                        intro,
+                        multiblock,
+                        uses
+                );
+    }
+
+    private BookEntryModel.Builder makeSummonWildAfritEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("summon_wild_afrit");
+
+        helper.page("intro");
+        var intro = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("multiblock");
+        var multiblock = BookMultiblockPageModel.builder()
+                .withMultiblockId(this.modLoc("summon_wild_afrit"))
+                .build();
+
+        helper.page("uses");
+        var uses = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withIcon(OccultismItems.PENTACLE.getId().toString())
+                .withLocation(entryHelper.get(icon))
+                .withPages(
+                        intro,
+                        multiblock,
+                        uses
+                );
+    }
+
+    private BookEntryModel.Builder makePossessAfritEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("possess_afrit");
+
+        helper.page("intro");
+        var intro = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("multiblock");
+        var multiblock = BookMultiblockPageModel.builder()
+                .withMultiblockId(this.modLoc("possess_afrit"))
+                .build();
+
+        helper.page("uses");
+        var uses = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withIcon(OccultismItems.PENTACLE.getId().toString())
+                .withLocation(entryHelper.get(icon))
+                .withPages(
+                        intro,
+                        multiblock,
+                        uses
+                );
+    }
+
+    private BookEntryModel.Builder makeCraftAfritEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("craft_afrit");
+
+        helper.page("intro");
+        var intro = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("multiblock");
+        var multiblock = BookMultiblockPageModel.builder()
+                .withMultiblockId(this.modLoc("craft_djinni"))
+                .build();
+
+        helper.page("uses");
+        var uses = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withIcon(OccultismItems.PENTACLE.getId().toString())
+                .withLocation(entryHelper.get(icon))
+                .withPages(
+                        intro,
+                        multiblock,
+                        uses
+                );
+    }
+
+    private BookEntryModel.Builder makeSummonMaridEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("summon_marid");
+
+        helper.page("intro");
+        var intro = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("multiblock");
+        var multiblock = BookMultiblockPageModel.builder()
+                .withMultiblockId(this.modLoc("summon_marid"))
+                .build();
+
+        helper.page("uses");
+        var uses = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withIcon(OccultismItems.PENTACLE.getId().toString())
+                .withLocation(entryHelper.get(icon))
+                .withPages(
+                        intro,
+                        multiblock,
+                        uses
+                );
+    }
+
+    private BookEntryModel.Builder makeCraftMaridEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("craft_marid");
+
+        helper.page("intro");
+        var intro = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("multiblock");
+        var multiblock = BookMultiblockPageModel.builder()
+                .withMultiblockId(this.modLoc("craft_marid"))
+                .build();
+
+        helper.page("uses");
+        var uses = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withIcon(OccultismItems.PENTACLE.getId().toString())
+                .withLocation(entryHelper.get(icon))
+                .withPages(
+                        intro,
+                        multiblock,
+                        uses
+                );
+    }
+
+    private BookEntryModel.Builder makeSummonWildGreaterSpiritEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("summon_wild_greater_spirit");
+
+        helper.page("intro");
+        var intro = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("multiblock");
+        var multiblock = BookMultiblockPageModel.builder()
+                .withMultiblockId(this.modLoc("summon_wild_greater_spirit"))
+                .build();
+
+        helper.page("uses");
+        var uses = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withIcon(OccultismItems.PENTACLE.getId().toString())
+                .withLocation(entryHelper.get(icon))
+                .withPages(
+                        intro,
+                        multiblock,
+                        uses
+                );
+    }
 
     private BookModel add(BookModel bookModel) {
         if (this.bookModels.containsKey(bookModel.getId()))

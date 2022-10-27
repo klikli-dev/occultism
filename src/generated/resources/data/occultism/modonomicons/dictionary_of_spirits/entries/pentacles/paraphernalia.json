@@ -1,0 +1,56 @@
+{
+  "category": "occultism:pentacles",
+  "name": "book.occultism.dictionary_of_spirits.pentacles.paraphernalia.name",
+  "description": "",
+  "icon": "minecraft:skeleton_skull",
+  "x": -11,
+  "y": -2,
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "hide_while_locked": false,
+  "parents": [
+    {
+      "entry": "occultism:pentacles/pentacles_overview",
+      "draw_arrow": true,
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "title": "book.occultism.dictionary_of_spirits.pentacles.paraphernalia.intro.title",
+      "use_markdown_in_title": false,
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.pentacles.paraphernalia.intro.text"
+    },
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "title": "",
+      "item": {
+        "item": "occultism:candle_white"
+      },
+      "text": "book.occultism.dictionary_of_spirits.pentacles.paraphernalia.candle.text"
+    },
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "title": "",
+      "item": {
+        "item": "occultism:spirit_attuned_crystal"
+      },
+      "text": "book.occultism.dictionary_of_spirits.pentacles.paraphernalia.crystal.text"
+    },
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "title": "",
+      "item": {
+        "item": "minecraft:skeleton_skull"
+      },
+      "text": "book.occultism.dictionary_of_spirits.pentacles.paraphernalia.skeleton_skull.text"
+    }
+  ]
+}

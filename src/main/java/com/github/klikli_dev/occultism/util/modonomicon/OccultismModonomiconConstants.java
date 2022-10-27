@@ -1,4 +1,4 @@
-package com.github.klikli_dev.occultism.integration.modonomicon;
+package com.github.klikli_dev.occultism.util.modonomicon;
 
 import com.github.klikli_dev.occultism.Occultism;
 import net.minecraft.resources.ResourceLocation;

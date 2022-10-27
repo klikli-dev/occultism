@@ -1,16 +1,16 @@
 {
   "category": "occultism:pentacles",
-  "name": "book.occultism.dictionary_of_spirits.pentacles.possess_foliot.name",
+  "name": "book.occultism.dictionary_of_spirits.pentacles.craft_djinni.name",
   "description": "",
   "icon": "occultism:pentacle",
   "x": -3,
-  "y": 1,
+  "y": 4,
   "background_u_index": 0,
   "background_v_index": 0,
   "hide_while_locked": false,
   "parents": [
     {
-      "entry": "occultism:pentacles/pentacles_overview",
+      "entry": "occultism:pentacles/craft_foliot",
       "draw_arrow": true,
       "line_enabled": true,
       "line_reversed": false
@@ -20,26 +20,26 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
-      "title": "book.occultism.dictionary_of_spirits.pentacles.possess_foliot.intro.title",
+      "title": "book.occultism.dictionary_of_spirits.pentacles.craft_djinni.intro.title",
       "use_markdown_in_title": false,
       "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.pentacles.possess_foliot.intro.text"
+      "text": "book.occultism.dictionary_of_spirits.pentacles.craft_djinni.intro.text"
     },
     {
       "type": "modonomicon:multiblock",
       "anchor": "",
       "multiblock_name": "",
-      "multiblock_id": "occultism:possess_foliot",
+      "multiblock_id": "occultism:craft_djinni",
       "text": "",
       "show_visualize_button": true
     },
     {
       "type": "modonomicon:text",
       "anchor": "",
-      "title": "book.occultism.dictionary_of_spirits.pentacles.possess_foliot.uses.title",
+      "title": "book.occultism.dictionary_of_spirits.pentacles.craft_djinni.uses.title",
       "use_markdown_in_title": false,
       "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.pentacles.possess_foliot.uses.text"
+      "text": "book.occultism.dictionary_of_spirits.pentacles.craft_djinni.uses.text"
     }
   ]
 }

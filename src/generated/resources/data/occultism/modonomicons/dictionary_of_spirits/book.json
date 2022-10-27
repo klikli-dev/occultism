@@ -2,7 +2,7 @@
   "name": "book.occultism.dictionary_of_spirits.name",
   "tooltip": "book.occultism.dictionary_of_spirits.tooltip",
   "model": "occultism:dictionary_of_spirits_icon",
-  "creative_tab": "misc",
+  "creative_tab": "modonomicon",
   "book_overview_texture": "modonomicon:textures/gui/book_overview.png",
   "book_content_texture": "modonomicon:textures/gui/book_content.png",
   "crafting_texture": "occultism:textures/gui/book/crafting_textures.png",

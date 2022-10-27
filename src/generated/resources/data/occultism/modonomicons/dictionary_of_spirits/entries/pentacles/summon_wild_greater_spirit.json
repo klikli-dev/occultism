@@ -1,16 +1,16 @@
 {
   "category": "occultism:pentacles",
-  "name": "book.occultism.dictionary_of_spirits.pentacles.possess_foliot.name",
+  "name": "book.occultism.dictionary_of_spirits.pentacles.summon_wild_greater_spirit.name",
   "description": "",
   "icon": "occultism:pentacle",
-  "x": -3,
-  "y": 1,
+  "x": 13,
+  "y": -2,
   "background_u_index": 0,
   "background_v_index": 0,
   "hide_while_locked": false,
   "parents": [
     {
-      "entry": "occultism:pentacles/pentacles_overview",
+      "entry": "occultism:pentacles/summon_marid",
       "draw_arrow": true,
       "line_enabled": true,
       "line_reversed": false
@@ -20,26 +20,26 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
-      "title": "book.occultism.dictionary_of_spirits.pentacles.possess_foliot.intro.title",
+      "title": "book.occultism.dictionary_of_spirits.pentacles.summon_wild_greater_spirit.intro.title",
       "use_markdown_in_title": false,
       "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.pentacles.possess_foliot.intro.text"
+      "text": "book.occultism.dictionary_of_spirits.pentacles.summon_wild_greater_spirit.intro.text"
     },
     {
       "type": "modonomicon:multiblock",
       "anchor": "",
       "multiblock_name": "",
-      "multiblock_id": "occultism:possess_foliot",
+      "multiblock_id": "occultism:summon_wild_greater_spirit",
       "text": "",
       "show_visualize_button": true
     },
     {
       "type": "modonomicon:text",
       "anchor": "",
-      "title": "book.occultism.dictionary_of_spirits.pentacles.possess_foliot.uses.title",
+      "title": "book.occultism.dictionary_of_spirits.pentacles.summon_wild_greater_spirit.uses.title",
       "use_markdown_in_title": false,
       "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.pentacles.possess_foliot.uses.text"
+      "text": "book.occultism.dictionary_of_spirits.pentacles.summon_wild_greater_spirit.uses.text"
     }
   ]
 }
