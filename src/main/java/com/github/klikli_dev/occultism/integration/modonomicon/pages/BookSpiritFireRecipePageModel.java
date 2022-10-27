@@ -4,15 +4,15 @@
  * SPDX-License-Identifier: MIT
  */
 
-package com.github.klikli_dev.occultism.util.modonomicon.pages;
+package com.github.klikli_dev.occultism.integration.modonomicon.pages;
 
-import com.github.klikli_dev.occultism.util.modonomicon.OccultismModonomiconConstants.Page;
+import com.github.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookRecipePageModel;
 import org.jetbrains.annotations.NotNull;
 
 public class BookSpiritFireRecipePageModel extends BookRecipePageModel {
     protected BookSpiritFireRecipePageModel(@NotNull String anchor) {
-        super(Page.SPIRIT_FIRE_RECIPE, anchor);
+        super(OccultismModonomiconConstants.Page.SPIRIT_FIRE_RECIPE, anchor);
     }
 
     public static Builder builder() {

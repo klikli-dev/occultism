@@ -1,10 +1,10 @@
-package com.github.klikli_dev.occultism.util.modonomicon;
+package com.github.klikli_dev.occultism.integration.modonomicon;
 
-import com.github.klikli_dev.occultism.util.modonomicon.OccultismModonomiconConstants.Page;
-import com.github.klikli_dev.occultism.util.modonomicon.pages.BookRitualRecipePage;
-import com.github.klikli_dev.occultism.util.modonomicon.pages.BookRitualRecipePageRenderer;
-import com.github.klikli_dev.occultism.util.modonomicon.pages.BookSpiritFireRecipePage;
-import com.github.klikli_dev.occultism.util.modonomicon.pages.BookSpiritFireRecipePageRenderer;
+import com.github.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants.Page;
+import com.github.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePage;
+import com.github.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePageRenderer;
+import com.github.klikli_dev.occultism.integration.modonomicon.pages.BookSpiritFireRecipePage;
+import com.github.klikli_dev.occultism.integration.modonomicon.pages.BookSpiritFireRecipePageRenderer;
 import com.klikli_dev.modonomicon.client.render.page.PageRendererRegistry;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 

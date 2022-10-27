@@ -24,8 +24,8 @@ package com.github.klikli_dev.occultism.datagen.lang;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.datagen.OccultismAdvancementProvider;
-import com.github.klikli_dev.occultism.util.modonomicon.OccultismModonomiconConstants;
-import com.github.klikli_dev.occultism.util.modonomicon.OccultismModonomiconConstants.I18n;
+import com.github.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants;
+import com.github.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants.I18n;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.registry.OccultismItems;

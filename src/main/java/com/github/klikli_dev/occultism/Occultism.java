@@ -36,7 +36,7 @@ import com.github.klikli_dev.occultism.common.level.WorldGenHandler;
 import com.github.klikli_dev.occultism.config.OccultismClientConfig;
 import com.github.klikli_dev.occultism.config.OccultismCommonConfig;
 import com.github.klikli_dev.occultism.config.OccultismServerConfig;
-import com.github.klikli_dev.occultism.util.modonomicon.PageLoaders;
+import com.github.klikli_dev.occultism.integration.modonomicon.PageLoaders;
 import com.github.klikli_dev.occultism.network.OccultismPackets;
 import com.github.klikli_dev.occultism.registry.*;
 import com.mojang.logging.LogUtils;
