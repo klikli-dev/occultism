@@ -4,10 +4,10 @@
  * SPDX-License-Identifier: MIT
  */
 
-package com.github.klikli_dev.occultism.util.modonomicon.pages;
+package com.github.klikli_dev.occultism.integration.modonomicon.pages;
 
 import com.github.klikli_dev.occultism.crafting.recipe.RitualRecipe;
-import com.github.klikli_dev.occultism.util.modonomicon.OccultismModonomiconConstants.Page;
+import com.github.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants.Page;
 import com.github.klikli_dev.occultism.registry.OccultismRecipes;
 import com.google.gson.JsonObject;
 import com.klikli_dev.modonomicon.book.BookTextHolder;

@@ -1,8 +1,8 @@
 package com.github.klikli_dev.occultism.datagen;
 
 import com.github.klikli_dev.occultism.Occultism;
-import com.github.klikli_dev.occultism.util.modonomicon.pages.BookRitualRecipePageModel;
-import com.github.klikli_dev.occultism.util.modonomicon.pages.BookSpiritFireRecipePageModel;
+import com.github.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePageModel;
+import com.github.klikli_dev.occultism.integration.modonomicon.pages.BookSpiritFireRecipePageModel;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.modonomicon.api.ModonomiconAPI;
