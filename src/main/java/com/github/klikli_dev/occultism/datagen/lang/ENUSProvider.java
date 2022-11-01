@@ -678,6 +678,10 @@ public class ENUSProvider extends LanguageProvider {
         this.addGettingStartedCategory(helper);
         this.addPentaclesCategory(helper);
         this.addRitualsCategory(helper);
+        this.addSummoningRitualsCategory(helper);
+        this.addCraftingRitualsCategory(helper);
+        this.addPossessionRitualsCategory(helper);
+        this.addFamiliarRitualsCategory(helper);
         this.addAdvancedCategory(helper);
     }
 
@@ -822,7 +826,7 @@ public class ENUSProvider extends LanguageProvider {
         helper.page("otherworld_goggles");
         this.add(helper.pageText(),
                 """
-                        [These goggles](entry://occultism:dictionary_of_spirits/rituals/craft_otherworld_goggles) allow to see even more hidden Otherworld blocks,
+                        [These goggles](entry://occultism:dictionary_of_spirits/crafting_rituals/craft_otherworld_goggles) allow to see even more hidden Otherworld blocks,
                         however they do not allow harvesting those materials.
                         Low-tier materials can be harvested by consuming [%1$s](entry://occultism:dictionary_of_spirits/getting_started/demons_dream),
                         but more valuable materials require special tools.
@@ -1153,7 +1157,7 @@ public class ENUSProvider extends LanguageProvider {
                         The name [#](%1$s)Pentacle[#]() in this context refers to ritual drawings of any shape, not just five-pointed stars. \\
                         \\
                         Pentacles are used to summon and bind spirits from [#](%1$s)The Other Place[#](). 
-                    
+                                            
                         """.formatted(COLOR_PURPLE));
 
         helper.page("intro2");
@@ -1168,18 +1172,18 @@ public class ENUSProvider extends LanguageProvider {
                 """
                         Each pentacle consists of a central golden sacrificial bowl, surrounding runes of various colors 
                         and occult paraphernalia that improve the intended effect in various ways. 
-                        
+                                                
                         """.formatted(COLOR_PURPLE));
 
 
         helper.page("intro4");
         this.add(helper.pageText(),
                 """
-                       The combination of chosen runes and supporting items as well as their exact spatial positioning determines 
-                       the use and effectiveness of the pentacle. \\
-                       \\
-                       Ingredients are placed in [#](%1$s)Sacrifical Bowls[#]() near the pentacle.
-                        """.formatted(COLOR_PURPLE));
+                        The combination of chosen runes and supporting items as well as their exact spatial positioning determines 
+                        the use and effectiveness of the pentacle. \\
+                        \\
+                        Ingredients are placed in [#](%1$s)Sacrifical Bowls[#]() near the pentacle.
+                         """.formatted(COLOR_PURPLE));
 
         //exact copy found in first ritual entry
         helper.page("bowl_placement");
@@ -1348,10 +1352,10 @@ public class ENUSProvider extends LanguageProvider {
         helper.page("red_chalk");
         this.add(helper.pageText(),
                 """
-                       Red chalk is used to call on the most powerful and dangerous beings, such as [#](%1$s)Marid[#](). \\
-                       \\
-                       [Afrit Essence]() is required to craft red chalk.
-                               """.formatted(COLOR_PURPLE));
+                        Red chalk is used to call on the most powerful and dangerous beings, such as [#](%1$s)Marid[#](). \\
+                        \\
+                        [Afrit Essence]() is required to craft red chalk.
+                                """.formatted(COLOR_PURPLE));
         //TODO: Link to Afrit Essence [Afrit Essence](entry://occultism:dictionary_of_spirits/rituals/summoning/afrit_essence)
 
         helper.page("red_chalk_uses");
@@ -1683,21 +1687,6 @@ public class ENUSProvider extends LanguageProvider {
         //TODO: add remaining backlinks for pentacle
     }
 
-    private void addRitualsCategory(BookLangHelper helper) {
-        helper.category("rituals");
-        this.add(helper.categoryName(), "Rituals");
-
-        helper.entry("craft_otherworld_goggles");
-        this.add(helper.entryName(), "Craft Otherworld Goggles");
-
-        helper.page("intro");
-        this.add(helper.pageTitle(), "Otherworld Goggles");
-        this.add(helper.pageText(),
-                """
-                        //TODO: Entry not yet implemented
-                        """);
-    }
-
     private void addAdvancedCategory(BookLangHelper helper) {
         helper.category("advanced");
         this.add(helper.categoryName(), "Advanced");
@@ -1731,6 +1720,167 @@ public class ENUSProvider extends LanguageProvider {
                         """);
     }
 
+    private void addRitualsCategory(BookLangHelper helper) {
+        helper.category("rituals");
+        this.add(helper.categoryName(), "Rituals");
+
+        helper.entry("overview");
+        this.add(helper.entryName(), "Rituals");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Rituals");
+        this.add(helper.pageText(),
+                """
+                        Rituals allow to summon spirits into our plane of existence, or bind them into objects or living beings. 
+                        Every ritual consists of a [#](%1$s)Pentacle[#](), 
+                        [#](%1$s)Ritual Ingredients[#]() provided via sacrificial bowls, 
+                        a [#](%1$s)Starting Item[#]()
+                        and optionally the [#](%1$s)Sacrifice[#]() of living beings.
+                        A purple particle effect will show that the ritual is successful and in progress.
+                        """.formatted(COLOR_PURPLE));
+
+        helper.page("steps");
+        this.add(helper.pageTitle(), "Performing a Ritual");
+        this.add(helper.pageText(),
+                """
+                        Rituals always follow the same steps:
+                        - Draw the pentacle.
+                        - Place a golden bowl.
+                        - Place sacrificial bowls.
+                        - Put ingredients in bowls.
+                        - Right-click the golden bowl with the activation item.
+                        - *Optional: Perform a sacrifice close to the center of the pentacle.*
+                        """);
+
+        helper.page("additional_requirements");
+        this.add(helper.pageTitle(), "Additional Requirements");
+        this.add(helper.pageText(),
+                """
+                        If a ritual shows grey particles above the golden sacrificial bowl, 
+                        then additional requirements as described in the ritual's page need to be fulfilled. 
+                        Once all requirements are fulfilled, the ritual will show purple particles and start to consume the items in the sacrificial bowls.
+                        """);
+
+        //TODO: item use
+        //TODO: sacrifice
+
+        helper.entry("summoning_rituals");
+        this.add(helper.entryName(), "Summoning Rituals");
+
+        helper.entry("possession_rituals");
+        this.add(helper.entryName(), "Possession Rituals");
+
+        helper.entry("crafting_rituals");
+        this.add(helper.entryName(), "Binding Rituals");
+
+        helper.entry("familiar_rituals");
+        this.add(helper.entryName(), "Familiar Rituals");
+    }
+
+    private void addSummoningRitualsCategory(BookLangHelper helper) {
+        helper.category("summoning_rituals");
+        this.add(helper.categoryName(), "Summoning Rituals");
+
+        helper.entry("overview");
+        this.add(helper.entryName(), "Summoning Rituals");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Summoning Rituals");
+        this.add(helper.pageText(),
+                """
+                       Summon rituals force spirits to enter this world in their chosen shape, 
+                       leading to little restrictions on their power, but expose them to essence decay. 
+                       Summoned spirits range from trade spirits that trade and convert items, to slave-like helpers for manual labour.
+                        """);
+
+
+        helper.entry("return_to_rituals");
+        this.add(helper.entryName(), "Return to Rituals Category");
+    }
+
+    private void addPossessionRitualsCategory(BookLangHelper helper) {
+        helper.category("possessing_rituals");
+        this.add(helper.categoryName(), "Possession Rituals");
+
+        helper.entry("return_to_rituals");
+        this.add(helper.entryName(), "Return to Rituals Category");
+
+        helper.entry("overview");
+        this.add(helper.entryName(), "Possession Rituals");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Possession Rituals");
+        this.add(helper.pageText(),
+                """
+                     Possession rituals bind spirits into living beings, 
+                     giving the summoner a degree of control over the possessed being.
+                     This can range from controlling their item drops to forcing them to do the summoner's bidding.
+                        """);
+    }
+
+    private void addCraftingRitualsCategory(BookLangHelper helper) {
+        helper.category("crafting_rituals");
+        this.add(helper.categoryName(), "Binding Rituals");
+
+        helper.entry("return_to_rituals");
+        this.add(helper.entryName(), "Return to Rituals Category");
+
+        helper.entry("overview");
+        this.add(helper.entryName(), "Binding Rituals");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Binding Rituals");
+        this.add(helper.pageText(),
+                """
+                     Binding rituals infuse spirits into items, where their powers are used for one specific purpose. 
+                     The created items can act like simple empowering enchantments, or fulfill complex tasks to aid the summoner.
+                        """);
+
+        helper.entry("craft_otherworld_goggles");
+        this.add(helper.entryName(), "Craft Otherworld Goggles");
+
+        helper.page("goggles_spotlight");
+        this.add(helper.pageText(),
+                """
+                        The [](item://occultism:otherworld_goggles) give the wearer permanent [#](%1$s)Third Eye[#](),
+                        allowing to view even blocks hidden from those partaking of [](entry://occultism:dictionary_of_spirits/getting_started/demons_dream)
+                        They will, however, not give the ability to harvest otherworld materials,
+                        for this special tools or the use of Demon's Dream is required, depending on the type of material.
+                        """.formatted(COLOR_PURPLE));
+
+        helper.page("lenses_spotlight");
+        this.add(helper.pageText(),
+                """
+                        Otherworld Goggles make use of a [#](%1$s)Foliot[#]() bound into the lenses. 
+                        The Foliot shares it's ability to view higher planes with the wearer, thus allowing them to see otherworld materials. 
+                        The required summoning is relatively simple, making crafting these goggles a common apprentice summoner task.
+                        """.formatted(COLOR_PURPLE));
+
+
+        helper.page("ritual");
+        //no text
+    }
+
+    private void addFamiliarRitualsCategory(BookLangHelper helper) {
+        helper.category("familiar_rituals");
+        this.add(helper.categoryName(), "Familiar Rituals");
+
+        helper.entry("return_to_rituals");
+        this.add(helper.entryName(), "Return to Rituals Category");
+
+        helper.entry("overview");
+        this.add(helper.entryName(), "Familiar Rituals");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Familiar Rituals");
+        this.add(helper.pageText(),
+                """
+                     Familiar rituals summon spirits to aid the summoner directly. 
+                     The spirits usually inhabit an animal's body, allowing them to resist essence decay. 
+                     Familiars provide buffs, but may also actively protect the summoner.
+                             """);
+
+    }
 
     private void addAdvancements() {
         //"advancements\.occultism\.(.*?)\.title": "(.*)",

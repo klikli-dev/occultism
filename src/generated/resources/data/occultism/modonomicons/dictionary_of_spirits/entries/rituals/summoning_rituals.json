@@ -1,0 +1,12 @@
+{
+  "category": "occultism:rituals",
+  "name": "book.occultism.dictionary_of_spirits.rituals.summoning_rituals.name",
+  "description": "",
+  "icon": "occultism:textures/gui/book/summoning.png",
+  "x": 4,
+  "y": -4,
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "hide_while_locked": false,
+  "category_to_open": "occultism:summoning_rituals"
+}

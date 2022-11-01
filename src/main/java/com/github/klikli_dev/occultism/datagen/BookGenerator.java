@@ -14,6 +14,7 @@ import com.klikli_dev.modonomicon.api.datagen.book.BookCategoryModel;
 import com.klikli_dev.modonomicon.api.datagen.book.BookEntryModel;
 import com.klikli_dev.modonomicon.api.datagen.book.BookEntryParentModel;
 import com.klikli_dev.modonomicon.api.datagen.book.BookModel;
+import com.klikli_dev.modonomicon.api.datagen.book.condition.BookTrueConditionModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.*;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
@@ -80,6 +81,11 @@ public class BookGenerator implements DataProvider {
 
         var ritualsCategory = this.makeRitualsCategory(helper);
 
+        var summoningRitualsCategory = this.makeSummoningRitualsSubcategory(helper);
+        var possessionRitualsCategory = this.makePossessionRitualsSubcategory(helper);
+        var craftingRitualsCategory = this.makeCraftingRitualsSubcategory(helper);
+        var familiarRitualsCategory = this.makeFamiliarRitualsSubcategory(helper);
+
         var pentaclesCategory = this.makePentaclesCategory(helper);
 
         //https://viewer.diagrams.net/?highlight=0000ff&edit=_blank&layers=1&nav=1&title=Gameplay%20Path.drawio&%24web_only=true&_branch_match_id=1080882655718139071&utm_medium=marketing&_branch_referrer=H4sIAAAAAAAAA8soKSkottLXz87JBCK9xIICvZzMvGz9VP385OTSnJLM4lzdtNTEktKi1GIA%2B%2FLRTSwAAAA%3D#R7V1bc9pKEv41qd19IKU74hGb%2BJIrJySxc15SMoxBRtKQQfj261cSCIRmPBKW0PRgtk5tQEhm6Omv793zTj%2F1H8%2BJM5t8wSPkvdOU0eM7vfdOi%2F7X1qJ%2F4itPyyuqrZjLK2PijlbXNhcG7jNaXVRWVxfuCM23bgwx9kJ3tn1xiIMADcOtaw4h%2BGH7tlvsbX%2FrzBkj6sJg6Hj01St3FE6WV21T2Vy%2FQO54kn6zqqw%2B8Z305tWF%2BcQZ4YfMJf3DO%2F2UYBwuX%2FmPp8iLqZfSZfnc2QufrhdGUBCWeeDpV6fb%2Befk8gs%2Btztt%2F%2FPX4fSq1V6tLXxKfzAaRb9%2F9RaTcILHOHC8D5urJwQvghGK%2F6oSvdvc8xnjWXRRjS7eoTB8Wm2mswhxdGkS%2Bt7qU%2FTohteZ17%2FjP%2FXeXL3rPa7%2BcvLmKX0ThOTpOvsm81T8dvNY8i59jqbSinBzvCBDxCGNteI2h4xRyLmvs7wvplvmC1Z7cI6wj6L1RDcQ5Dmhe7%2FNV86KPcfr%2B9aP9rEbLVlTUiyliFghyeq8t822amir%2F9e3%2F%2BBy2au%2FseGK6EVmUZtLCa%2FswDdaRyTjbJjld5ZXJGMcza6bc7Z2edctXS373vEWq2%2FqIR8H%2F5lHF3sEOT6145v9jDfnYeKGaDBzEto8ROpge%2B9epOc9IiF65BJg9amxjYD07cNGLqupsJ1kZHJ6X%2B0UU1WKJEfpuS0VC0GQSjUgIOhQIBjMXOLGcvjMJUg4BDQFGgasIwaKeLsYBAYoEKTrZqGgG4aLINo6TTlH4jWCbhbDQW8UDiYcu0jlwqECW2tyyvZ03VkLx3UiE2fE4WOlmI9vXc87xR4mybP6yET2yIiuz0OCpyjzia3d6JZVF%2BebW5zfEq8JhLoEwDWBURYybVCQ0fVD39O7hT9Lf844QXYDu6wJ2%2BXw%2BXn0t%2Fet%2B%2FP32XyqB9N7r3%2FaMozKu0yTEfi%2B17vLbLLqoLCcrntL%2Fd27QfTVOIiuf8c8PdiMPWdqwNwbTTt0AVgBCO2y4k4FBQRNGpe1ib0xQe1Nuu6MkPoWThCZhzgQH32xbGjiqbrmPlzxZJeFADA9bbMh8ICJF8ddPuPxXDgS7FwsXrz7uf4NmaCVMyTurTt0nfjpE%2FzgwSOcZosmnF7db6%2FV%2Bt8liLWRKhtB8jv7We1SJRUWhVJFh%2BXJp%2Bt%2BSap05xMkHh2qokCTK7oNCx6wlW5qTkoHD5OCx8mCJPUXgOzPvPIQD47qrpQwcFRg8rLOlQqrwkN7wblKdcAPggDogLyTBUAFSOhl7WYP1RkF10r7XbBUgC5N6lbIbtWfmUoe7RLiPGVumMUVi%2FPMX86VQZo56ZAves3d3s67W0qOT5bfX29tJO3A%2F5i4JJawH57EGxH5GHtrLUyFCVijeppRQjNCL2tGGLDi50b1onEAAYOmPKLyu2yBELCqkpOwNl%2FCUvcbTchYnTZlL%2F3ZgkTiVbmKRWj07%2BnE8abCxS0V0hBuzprVpe0Q%2B%2B5QXsmbklY6ycspzKxenjxy5pP1vXVwvmptc36jhsYn7daada%2FC0cx%2BfHQ7IXnu9euoVpYumIeCUTduhIveDj1nPo%2BBG188c71CMVeMpLQnrwhJqZJoHklsRgBmw7wdRjBr75erxghvMLwPgxEsYBIBWBr0IBmBWScJq%2FwiXXbGxgLmUOjQiiSNg5Ch2xFztY6AwOPCNr5eXo7OP3763fuXfPuLW59bWlnfo%2FZ4QNlNZi77DVrOFWQfo0acxwxQZB9dIn6Ok9TgZTDGIUf0KcWiT0ibFB19EV5vZRyEobEHacmmVtmCEnHikrvuLJQ8%2FFBURwIWR%2FlYjinc6jCrayR5wphM5VE2s2AK87SYy5ZY%2FlWQY2WnwojbLO66WYmW2DZAAWTHqEEZxWR1CQfENKXYzbI5mI6wDiUV24ub3p%2Fzy%2BD638E39LvjX12mFjv8La2zSoi1WUzq1J4ve10Ou523%2BgvKhOgHrAaS2CadzoMmUg2q40202WdVL8YEYfY1H5RIMy%2FFkXlYEdl03dms98L3k6b1bHG%2B8oM4I0SqgSbnXSE18q%2FaLO%2BqY7V1py7vKg8z8TXP1lvyrrj5qWK4wGqhtmitsg2XtNx%2F4Mw8NxgfFnDEF7NadKfdYCWg3mmW48d0G4fJ798WX6c4iH75PJnGIVrvW%2BD6ey06oDYInRsP5dkaRhcLTUEAnEkXTf5yggi3TnTxMkQ%2Bj2xQI5N5MuuWcDLT9sp3N1zETejSCViKuqpo6rZp9fYlnlyknCEnXMalfgYeHop3nvK005rkTHaNS%2FUWJ4H%2B0rpWJYj1ZbZQpZqhl55RsO8J7qpOqQQ7t9N7ntqe%2FtJ9zsjYqiKO3%2FSdMEQkSK5oSl3qNT8IuaUJj0zYB1JX33wsuF02kyWuipi77gyeTvFsFrtSyjcivtWPyoiowo0j%2B%2BDCd42BpGynLjSQ0O2wA9e7hwsSTbiNa1fvTgAGkqZi3CnvF4MEVtDOrl5Ce9zxgh2HVU8reNqEJmbcROndMmo%2FEuN1mWQzd8JEUTd0%2Fn6tXdQ%2BnZ9Qsf3AfjLPNh1EWecITski8uBINb0MIxsgPGjd0Q5DrFcAfNn6XVtYXyB33dlZWTdzd%2BQ6MUZ6izmvGl5QikE8ux%2Ft1tfCpPRpk7BqM2y6PDTx6ZQeXtwss8vQUNJoHo7Z8Kgez9vYBRqMsiU2WYVBg7mclKVk3OUmdkvYbEymO6ZXL9Xe41ArpSQmm5qCzdpldn%2BjsDALe5elToBCkLzsXYYxukxTc0lBi%2B97U%2FfXXfXN5sGj9n8FDzYvQEh3MPl4Qf5OJ48fL%2F%2F0f%2BKT62Atz%2BC3f8AQF2wi7kdc0PhW9G18t82cSf9CvcXOUcKOsZPgoe5v2%2FUKnr%2FtP7b69dNTcGaqN8bPu0HrV6uGiPMbt3CYVAXS8WTn%2BrPXtUUvKj%2FFrPxEoYLVqSqdmjUsc0uAjSo5EEbX3jCjp5V75Rk998Se0jh0pXF%2FQWYeoGFVNrTpt53qjv7eYtR1SIr9FSB1yh59BSyV06GTnR%2FiM9%2BVgazDWPKgEl%2F72qGbnpZ55JjO5agtSCCJb8vpAC6JBC6RSs%2BQqD01UNI6WSMz%2FRvL30R5nMV%2FqeFWgc6B9P%2B%2BNgxSbhh6MYeWLX9IWRmKzmR0W6YFQn08n6Pov5VoR8RPxqNWEexiyoXymeFG1SgzKQbMcwUTb%2BTNDS7MNApLQfFWzQLWGfbceMqm8nnh3yBy51RtYoRRhddsaxaPBTJE70ZM7zthIsTijvHonwuH3KN5CLJoBQAN066Io3AqI5wYHW3M%2B4RVQfBWvXUKbjhMqoGVT4F7K95%2Fow6eF1%2FOlc4nOgKjDDAYXWxsqgo7HZS37OyZjo7n4QfhgKCPTBePiLd4us7uDiO3iLG4fk5YOxN33UUO42CKPBRWHXEkxrDtiDzPjE31o%2BrZBVuMInsZalM1YOJ0l6BwvbvVUI3pqzLTmkrNoqs5B0w6wfOw3xnfXbWe%2Fqq3H88eXT%2FS9pWZ4zAPpy%2FNVGyywuApLa9yigoR8g%2BYRbUO%2BaFEZhOlaNUn5TSe09pNSe2bZ5spRSurtZirqZ7VPO5xA1VYZff49Go6UIK%2B378cqRd3Ov46vV60qhsmDe3xvveKSR2odolRqBPyIQWjZqXAJJd6bMHaBxemcfsjG5b0qemW5k3QQhlMFx5vkCvUmrFNYAJM8EKr7rlIF7yoK0pYNoquCbMJuesuV1biyBgl3FRqgQEatN5m2FHC9Mbic6uFlWyxl%2FMGxWkDu6zBytDr1UMnx11m3CisZYG77u2WhaQMo48cIqUBaoCbw6NJ3IlfAROlM8ywJJ9GZ5j7Lq9UDywS8q6Y%2BNo%2B7SAKj%2FfQdsKmFqOoX4qJVHQZ7OnEHU4Rz8%2BCiiK6Cc4WjSJTYn0iwDYrXQkoLOfBXXf2ROzgdjFPph66PgriE9yS01S%2BOCFxHznYAhvDsEQ2SXINdBbV1%2BfAXWHiT7AnYzMSRfJGT9zjxjfYJMfEGcevviMfS9n%2BRVFcOMHNY5xuB%2F2RzlEr1h%2FA4nQGBautY0D7aITmYdXTAusASN5jF29h6RL7KRU4vay%2FkbIWFE5nzFDPcHoV9i6XR6uQtQHA63QzVv6gy%2B%2FoFkU%2FegiMmPB6Fw1NXrkhQLOW9cwMYJqV9sxOCHKm0aVz4sxlPN24lZdLwo1UQ2Ij9fWQSMlZOMcDVleWQbtwvchfC%2F4zj4MVETb82JdDcc2FYGOzlQ%2BKi2d0YF03r4yJtxuqRzTKTodTa2%2FsfVU9op3jt8KpkPkHNP7t7Tbv9v2ULhrVTxGsuYK2Xf6YOcg8q8FqRjfoVGjiWD1g4o0Sawffix%2FVYAGcA3OsntkBHibD6JEhQ2PSVg8jcN0dhgsnehe9PHHmBxHBbhRg7F5ciVOgFYCi0UBhkwdWOXa67qx7sJXBZKFFdFS6LXIKwyft1pp1r8LRzH58dDshee71wTUuNdGUXQEsZUdj7Wdm684D5%2FMN0q301KAXR7dSTxT5CqpZ8ERld4HNtwcRFRXJt%2BwQEIyGuzoYt2jcAM24dc%2B8YDPuQZjx4Bg3HWR3AIxbdAATxbc1n0vDZluJjWPAbGsfjLzd1Uyo2Uhgto9XtxEONz7C4FB2C%2F6hMGjLrFm9c%2BmarVN3gpGHeBnchqZtavCmbVoSq5XXgy%2B1smVr7bOAHcMIW8SW3mVgzdiWxIWKgHe5%2FmbsV2lSzdgtF0zdX6R411P4Xv9AzYqafZS1AovLtyc2lU43aw15NKXZHFjnbbruuu2x%2Bot4mywaYid4KEqd4yQl31vMQ%2FHWq5rLnRhNVjkzCUab%2BoOZS9xYtJ25BFhhs6rn5LglPuF6EDH8PRgaTGqpDAkMLFHLXTdrbtYXZzhxk86hbzNEVhUNvTs3CNxq6BFT09ARWAfKZgVgRg5whDF6lbgsDQVhjAMPBU99rN08yldONBu7YpMdWMUqcHCVPRIBGrjokaowHQgKIcK1z%2FGEl50AwsjISAEQ2g3qL8gsGWpxOnG8iueA7h0nwmHCGJgXn%2FA5JM4tiAM9dUXkVFjusTlZoewhJ%2FYerpATLg99%2FO%2FSkfhfNQIKGsRLpTst0TTXD6KnrClprpU1d3RhXZfss4OAJWRfFxYXuctssgqbpsddNysm8zO4ibczetW9TYKZ8klPajpSkzqeuf9CD5uBLSn1shiq%2FUiaauqQhtAKL8qH%2Bbz6YJO9mLrCcaBJHPLf%2FfwL3ul8hewuLozPWzZLY1y5SZrwYhFIqS3yY0oaTYwxaU23SH933OBp27tJpI2Mzg3lT%2BpN%2BjZMgtNj7X5MYjLG476If1jUbnQ6GJPa1ePmh2AM8WycQuUgbFgeczXV47xvfkOF%2BYe8VWcVUHK2VQ3x3Do0NpVnF27X1tBG3XwzlGFo2zBQtCIgJO%2F6iLgR2RCpjA5WTYsE8o5R0nI%2BceIiOeVHEoV%2BESB7SbbvA1KNpkW4IbPsRETPeU7GDOOH5EAh%2Bcic98jNJlMpbDIfw%2Fq7CKyy%2BhyY886oEHK9ey6GGtLl%2BdmJ4r3vY9HcTojoyImIDq3Ck2p3%2BXQKhSDhDr7Mk7Re7K1R9wah9Mbiyu7ac8WrR%2FMdWVaOpUw1xyrLpa4ey3HLbs1ZXIpk0HnlrgKf0p5inj%2BSolFNxxzqoVWG6SGoNfa8ExqSzP4yYd1uvFVvHzM5f6edxrEb%2FLB6NZggNFu%2BfP%2F%2BvYRQsoWe0sCkfHWNd7BQKjuouCMswU%2B6g8nHC%2FJ3Onn8ePmn%2FxOfXAd1pKqhT0ynjaxad5lNVlACk44xgSzuV418yrTRuBFrH6uPsTsEgcckDavCAxQUeKvOOsRecvCM8hkFcwjzi%2FIgsBuNUTNpVj1UdLAo0EqiAJjWp1CwHr9eBwyElIColgENODVEiA4WOKwUA5OG4moGOMt%2B8VwPPB6DmIKXP3tdPBhkLB5oCgys4nD4WoSuDY%2BVR3TljDi%2B%2BMJwSiF0hLsTNcxzP1gMMBqDJcAA3Rb8OS1eli7gSAFGVRpNU7PoK03R5esZn3GWK0%2Fc7jstplp6TmzmN7fGtBiHHhKcSU356gA0TPWxpuABU3%2Bb6QtIaL9kRDeEBEZxYFrQpFwGYwxgXmEeAe1Gu1yYRJNGZWQyGvXPN2XTpqyuARa0pVWCpGVMFF6aLWNibvXRL3%2BZNqzKfU5aAQhe0mWzZrZ2w3ARJG0u58gHZk7lh7eKD1pp0nTxVWDy0kltYWcsc9ed5XIUpzBwNiKLCYRwbMcCx9lCzaRXzoFvyExiDryRARF0RHZzrDKtAPrucOo8Snmucr4aXLzboR%2FNqEKYFOJJ3Bkx3HVn8PRlOch77jvJ444f7WB8EImCb2OnHM0Dd1HRrNoHPsTrG%2F2YCy9k%2B2J8wEqG67SfcRrP88wioR4tUwcm8hNwAGBCmmCtAEyU9Up0WAlBQ%2BieghkkWW1PDVh7qtOe5soOAKPw821X4oWbIY1BXIGhy1axGbAMW50uY1s7ij3XR8HcjakevYv5fD5JdLp8XmJ%2BQqp4UOhvIJ6ol%2Fb2gEl5zklngKPmlOhvNBby7DxfnOCuq3bRB%2F%2Fi6ta7%2BqUdO26LFUEWHEwawsooGbSnt60n%2Flk4hDxBOMiBGvIkXuob0pck1DMWgkkbQ04TyqCnqa5HBZ9hz42LcxLrichoOeUneIkvbDOkGS5fAQul3QlxkwJ56876x87YHUaXPjv%2BTLxKyDsCjbIzU71LEw0vxc08C6bQ0hEW0%2BatmiXW0yNblW8ESSzcqVnZjRpIPBbIhiP8GcH3iccF1dDU88dXNUrHv%2B0%2Ftvr101NwZqo3xs%2B7QetXi8G8PSde8Q837sc6rLPCGp3dyqS2RlH7a%2FKth0nvRodxnF5NB0rQ9%2FuXI%2FXiTsdfp9cLeXTma8MKu5%2B9wqQTQ%2FEy7xOmeHmrzk71iiR94kadOb7rudyR01BxRBV8t8wmw3NMSh%2BzzkWQKISOsMg1b9UM6LyIF7ANEvkeVAB4qR69AzDntSkEMUIYzPuEjZTkrTprOBN3%2BpC4GTKrH9qMEw8nupnrnWZ50beeRL61NY5fdD0fJwdNpJ9EX7T%2B8MwD4f5FBAJHWrX6vLo3JKpY57Kwb9RACSvGwSwDvIgfq5ycBiKkGj3qiLvlWzMzZ%2BFiGfnDN%2BJ7imj50yjVVGwvbnp%2Fzi%2BD638H39Dvjn91yfDhNv0nTjicIN5Ic6jsqTZ5wGz0luDIct98dh5RYfIFj1B8x%2F8B
@@ -89,6 +95,16 @@ public class BookGenerator implements DataProvider {
                 .withModel(this.modLoc("dictionary_of_spirits_icon"))
                 .withName(helper.bookName())
                 .withTooltip(helper.bookTooltip())
+                .withCategories(
+                        gettingStartedCategory,
+                        pentaclesCategory,
+                        ritualsCategory,
+                        summoningRitualsCategory,
+                        possessionRitualsCategory,
+                        craftingRitualsCategory,
+                        familiarRitualsCategory,
+                        advancedCategory
+                )
                 .withCategory(gettingStartedCategory)
                 .withCategory(pentaclesCategory)
                 .withCategory(ritualsCategory)
@@ -720,41 +736,24 @@ public class BookGenerator implements DataProvider {
                 );
     }
 
-
-    private BookCategoryModel makeRitualsCategory(BookLangHelper helper) {
-        helper.category("rituals");
-
-        var entryHelper = ModonomiconAPI.get().getEntryLocationHelper();
-        entryHelper.setMap(
-                "_____________________",
-                "_____________________",
-                "____________________",
-                "_______g_____________",
-                "_____________________",
-                "_____________________",
-                "_____________________"
-        );
-
-
-        var craftOtherworldGogglesEntry = this.makeCraftOtherworldGogglesEntry(helper, entryHelper, 'g');
-
-
-        return BookCategoryModel.builder()
-                .withId(this.modLoc("rituals"))
-                .withName(helper.categoryName())
-                .withIcon(OccultismBlocks.CANDLE_WHITE.getId().toString())
-                .withEntry(craftOtherworldGogglesEntry.build())
-                .build();
-    }
-
     private BookEntryModel.Builder makeCraftOtherworldGogglesEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
         helper.entry("craft_otherworld_goggles");
 
-        //TODO: add actual content
-        helper.page("intro");
-        var intro = BookTextPageModel.builder()
-                .withTitle(helper.pageTitle())
+        helper.page("goggles_spotlight");
+        var gogglesSpotlight = BookSpotlightPageModel.builder()
+                .withItem(Ingredient.of(OccultismItems.OTHERWORLD_GOGGLES.get()))
                 .withText(helper.pageText())
+                .build();
+
+        helper.page("lenses_spotlight");
+        var lensesSpotlight = BookSpotlightPageModel.builder()
+                .withItem(Ingredient.of(OccultismItems.LENSES.get()))
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("ritual");
+        var ritual = BookRitualRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("ritual/otherworld_goggles"))
                 .build();
 
         return BookEntryModel.builder()
@@ -763,7 +762,9 @@ public class BookGenerator implements DataProvider {
                 .withIcon(OccultismItems.OTHERWORLD_GOGGLES.getId().toString())
                 .withLocation(entryHelper.get(icon))
                 .withPages(
-                        intro
+                        gogglesSpotlight,
+                        lensesSpotlight,
+                        ritual
                 );
     }
 
@@ -1471,9 +1472,15 @@ public class BookGenerator implements DataProvider {
                 "___________________________",
                 "___________________________",
                 "___________________________",
+                "_____________i___s_________",
                 "___________________________",
                 "___________________________",
                 "___________________________",
+                "_____________o___p___f_____",
+                "___________________________",
+                "___________________________",
+                "___________________________",
+                "_____________k___c_________",
                 "___________________________",
                 "___________________________",
                 "___________________________"
@@ -1483,128 +1490,198 @@ public class BookGenerator implements DataProvider {
 
         //we have 51 ritual entries + 3 misc entries
 
-        var ritualOverview = this.makeRitualOverviewEntry(helper, entryHelper, '0');
-        var itemUse = this.makeItemUseEntry(helper, entryHelper, '1');
-        var sacrifice = this.makeSacrificeEntry(helper, entryHelper, '2');
+        var ritualOverview = this.makeRitualOverviewEntry(helper, entryHelper, 'o');
+//        var itemUse = this.makeItemUseEntry(helper, entryHelper, 'i');
+//        var sacrifice = this.makeSacrificeEntry(helper, entryHelper, 'k');
 
-
-        var afritEssence = this.makeAfritEssenceEntry(helper, new EntryLocationHelper(), 'a');
-        var summonCleaner = this.makeSummonCleanerEntry(helper, new EntryLocationHelper(), 'b');
-        var summonCrusher = this.makeSummonCrusherEntry(helper, new EntryLocationHelper(), 'c');
-        var summonLumberjack = this.makeSummonLumberjackEntry(helper, new EntryLocationHelper(), 'd');
-        var summonManageMachine = this.makeSummonManageMachineEntry(helper, new EntryLocationHelper(), 'e');
-        var summonOtherstoneTrader = this.makeSummonOtherstoneTraderEntry(helper, new EntryLocationHelper(), 'f');
-        var summonOtherworldSaplingTrader = this.makeSummonOtherworldSaplingTraderEntry(helper, new EntryLocationHelper(), 'g');
-        var summonTransportItems = this.makeSummonTransportItemsEntry(helper, new EntryLocationHelper(), 'h');
-        var summonWildOtherworldBird = this.makeSummonWildOtherworldBirdEntry(helper, new EntryLocationHelper(), 'i');
-        var summonWildParrot = this.makeSummonWildParrotEntry(helper, new EntryLocationHelper(), 'j');
-        var timeMagic = this.makeTimeMagicEntry(helper, new EntryLocationHelper(), 'k');
-        var tradeSpirits = this.makeTradeSpiritsEntry(helper, new EntryLocationHelper(), 'l');
-        var weatherMagic = this.makeWeatherMagicEntry(helper, new EntryLocationHelper(), 'm');
-        var witherSkull = this.makeWitherSkullEntry(helper, new EntryLocationHelper(), 'n');
-
-        var craftDimensionalMatrix = this.makeCraftDimensionalMatrixEntry(helper, new EntryLocationHelper(), 'o');
-        var craftDimensionalMineshaft = this.makeCraftDimensionalMineshaftEntry(helper, new EntryLocationHelper(), 'p');
-        var craftFamiliarRing = this.makeCraftFamiliarRingEntry(helper, new EntryLocationHelper(), 'q');
-        var craftInfusedPickaxe = this.makeCraftInfusedPickaxeEntry(helper, new EntryLocationHelper(), 'r');
-        var craftMinerSpirits = this.makeCraftMinerSpiritsEntry(helper, new EntryLocationHelper(), 's');
-        var craftOtherworldGoggles = this.makeCraftOtherworldGogglesEntry(helper, new EntryLocationHelper(), 't');
-        var craftSatchel = this.makeCraftSatchelEntry(helper, new EntryLocationHelper(), 'u');
-        var craftSoulGem = this.makeCraftSoulGemEntry(helper, new EntryLocationHelper(), 'v');
-        var craftStabilizerTier1 = this.makeCraftStabilizerTier1Entry(helper, new EntryLocationHelper(), 'w');
-        var craftStabilizerTier2 = this.makeCraftStabilizerTier2Entry(helper, new EntryLocationHelper(), 'x');
-        var craftStabilizerTier3 = this.makeCraftStabilizerTier3Entry(helper, new EntryLocationHelper(), 'y');
-        var craftStabilizerTier4 = this.makeCraftStabilizerTier4Entry(helper, new EntryLocationHelper(), 'z');
-        var craftStableWormhole = this.makeCraftStableWormholeEntry(helper, new EntryLocationHelper(), 'A');
-        var craftStorageControllerBase = this.makeCraftStorageControllerBaseEntry(helper, new EntryLocationHelper(), 'B');
-        var craftStorageRemote = this.makeCraftStorageRemoteEntry(helper, new EntryLocationHelper(), 'C');
-
-        var possessEnderman = this.makePossessEndermanEntry(helper, new EntryLocationHelper(), 'D');
-        var possessEndermite = this.makePossessEndermiteEntry(helper, new EntryLocationHelper(), 'E');
-        var possessGhast = this.makePossessGhastEntry(helper, new EntryLocationHelper(), 'F');
-        var possessSkeleton = this.makePossessSkeletonEntry(helper, new EntryLocationHelper(), 'G');
-
-        var familiarsOverview = this.makeFamiliarsOverviewEntry(helper, new EntryLocationHelper(), 'H');
-        var familiarBat = this.makeFamiliarBatEntry(helper, new EntryLocationHelper(), 'I');
-        var familiarBeaver = this.makeFamiliarBeaverEntry(helper, new EntryLocationHelper(), 'J');
-        var familiarBeholder = this.makeFamiliarBeholderEntry(helper, new EntryLocationHelper(), 'K');
-        var familiarBlacksmith = this.makeFamiliarBlacksmithEntry(helper, new EntryLocationHelper(), 'L');
-        var familiarChimera = this.makeFamiliarChimeraEntry(helper, new EntryLocationHelper(), 'M');
-        var familiarCthulhu = this.makeFamiliarCthulhuEntry(helper, new EntryLocationHelper(), 'N');
-        var familiarDeer = this.makeFamiliarDeerEntry(helper, new EntryLocationHelper(), 'O');
-        var familiarDevil = this.makeFamiliarDevilEntry(helper, new EntryLocationHelper(), 'P');
-        var familiarDragon = this.makeFamiliarDragonEntry(helper, new EntryLocationHelper(), 'Q');
-        var familiarFairy = this.makeFamiliarFairyEntry(helper, new EntryLocationHelper(), 'R');
-        var familiarGreedy = this.makeFamiliarGreedyEntry(helper, new EntryLocationHelper(), 'S');
-        var familiarGuardian = this.makeFamiliarGuardianEntry(helper, new EntryLocationHelper(), 'T');
-        var familiarHeadlessRatman = this.makeFamiliarHeadlessRatmanEntry(helper, new EntryLocationHelper(), 'U');
-        var familiarMummy = this.makeFamiliarMummyEntry(helper, new EntryLocationHelper(), 'V');
-        var familiarOtherworldBird = this.makeFamiliarOtherworldBirdEntry(helper, new EntryLocationHelper(), 'W');
-        var familiarParrot = this.makeFamiliarParrotEntry(helper, new EntryLocationHelper(), 'X');
-        var familiarShubNiggurath = this.makeFamiliarShubNiggurathEntry(helper, new EntryLocationHelper(), 'Y');
-
+        var summoning = this.makeSummoningRitualsSubcategoryEntry(helper, entryHelper, 's');
+        var possession = this.makePossessionRitualsSubcategoryEntry(helper, entryHelper, 'p');
+        var crafting = this.makeCraftingRitualsSubcategoryEntry(helper, entryHelper, 'c');
+        var familiars = this.makeFamiliarRitualsSubcategoryEntry(helper, entryHelper, 'f');
 
         return BookCategoryModel.builder()
                 .withId(this.modLoc(helper.category))
                 .withName(helper.categoryName())
-                .withIcon(OccultismItems.PENTACLE.getId().toString())
+                .withIcon("occultism:textures/gui/book/robe.png")
                 .withEntries(
-                        ritualOverview,
-                        itemUse,
-                        sacrifice,
-                        afritEssence,
-                        summonCleaner,
-                        summonCrusher,
-                        summonLumberjack,
-                        summonManageMachine,
-                        summonOtherstoneTrader,
-                        summonOtherworldSaplingTrader,
-                        summonTransportItems,
-                        summonWildOtherworldBird,
-                        summonWildParrot,
-                        timeMagic,
-                        tradeSpirits,
-                        weatherMagic,
-                        witherSkull,
-                        craftDimensionalMatrix,
-                        craftDimensionalMineshaft,
-                        craftFamiliarRing,
-                        craftInfusedPickaxe,
-                        craftMinerSpirits,
-                        craftOtherworldGoggles,
-                        craftSatchel,
-                        craftSoulGem,
-                        craftStabilizerTier1,
-                        craftStabilizerTier2,
-                        craftStabilizerTier3,
-                        craftStabilizerTier4,
-                        craftStableWormhole,
-                        craftStorageControllerBase,
-                        craftStorageRemote,
-                        possessEnderman,
-                        possessEndermite,
-                        possessGhast,
-                        possessSkeleton,
-                        familiarsOverview,
-                        familiarBat,
-                        familiarBeaver,
-                        familiarBeholder,
-                        familiarBlacksmith,
-                        familiarChimera,
-                        familiarCthulhu,
-                        familiarDeer,
-                        familiarDevil,
-                        familiarDragon,
-                        familiarFairy,
-                        familiarGreedy,
-                        familiarGuardian,
-                        familiarHeadlessRatman,
-                        familiarMummy,
-                        familiarOtherworldBird,
-                        familiarParrot,
-                        familiarShubNiggurath
+                        ritualOverview.build(),
+//                        itemUse.build(),
+//                        sacrifice.build(),
+                        summoning.build(),
+                        possession.build(),
+                        crafting.build(),
+                        familiars.build()
                 )
                 .build();
+    }
+
+    private BookEntryModel.Builder makeRitualOverviewEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("overview");
+
+        helper.page("intro");
+        var intro = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("steps");
+        var steps = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("additional_requirements");
+        var additional_requirements = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withIcon("occultism:textures/gui/book/robe.png")
+                .withLocation(entryHelper.get(icon))
+                .withPages(
+                        intro,
+                        steps,
+                        additional_requirements
+                );
+    }
+
+    private BookEntryModel.Builder makeSummoningRitualsSubcategoryEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("summoning_rituals");
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withIcon("occultism:textures/gui/book/summoning.png")
+                .withCategoryToOpen(this.modLoc("summoning_rituals"))
+                .withLocation(entryHelper.get(icon));
+    }
+
+    private BookEntryModel.Builder makePossessionRitualsSubcategoryEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("possession_rituals");
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withIcon("occultism:textures/gui/book/possession.png")
+                .withCategoryToOpen(this.modLoc("possession_rituals"))
+                .withLocation(entryHelper.get(icon));
+    }
+
+    private BookEntryModel.Builder makeCraftingRitualsSubcategoryEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("crafting_rituals");
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withIcon("occultism:textures/gui/book/infusion.png")
+                .withCategoryToOpen(this.modLoc("crafting_rituals"))
+                .withLocation(entryHelper.get(icon));
+    }
+
+    private BookEntryModel.Builder makeFamiliarRitualsSubcategoryEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("familiar_rituals");
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withIcon("occultism:textures/gui/book/parrot.png")
+                .withCategoryToOpen(this.modLoc("familiar_rituals"))
+                .withLocation(entryHelper.get(icon));
+    }
+
+    private BookEntryModel.Builder makeReturnToRitualsEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("return_to_rituals");
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withIcon("occultism:textures/gui/book/robe.png")
+                .withCategoryToOpen(this.modLoc("rituals"))
+                .withLocation(entryHelper.get(icon));
+    }
+
+    private BookCategoryModel makeSummoningRitualsSubcategory(BookLangHelper helper) {
+        helper.category("summoning_rituals");
+
+        var entryHelper = ModonomiconAPI.get().getEntryLocationHelper();
+        entryHelper.setMap(
+                "___________________________",
+                "___________________________",
+                "___________________________",
+                "___________________________",
+                "___r___o___________________",
+                "___________________________",
+                "___________________________",
+                "___________________________",
+                "___________________________"
+        );
+
+        var overview = this.makeSummoningRitualsOverviewEntry(helper, entryHelper, 'o');
+        var returnToRituals = this.makeReturnToRitualsEntry(helper, entryHelper, 'r');
+        returnToRituals.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
+        returnToRituals.withCondition(BookTrueConditionModel.builder().build());
+
+//        var afritEssence = this.makeAfritEssenceEntry(helper, entryHelper, 'a');
+//        var summonCleaner = this.makeSummonCleanerEntry(helper, entryHelper, 'b');
+//        var summonCrusher = this.makeSummonCrusherEntry(helper, entryHelper, 'c');
+//        var summonLumberjack = this.makeSummonLumberjackEntry(helper, entryHelper, 'd');
+//        var summonManageMachine = this.makeSummonManageMachineEntry(helper, entryHelper, 'e');
+//        var summonOtherstoneTrader = this.makeSummonOtherstoneTraderEntry(helper, entryHelper, 'f');
+//        var summonOtherworldSaplingTrader = this.makeSummonOtherworldSaplingTraderEntry(helper, entryHelper, 'g');
+//        var summonTransportItems = this.makeSummonTransportItemsEntry(helper, entryHelper, 'h');
+//        var summonWildOtherworldBird = this.makeSummonWildOtherworldBirdEntry(helper, entryHelper, 'i');
+//        var summonWildParrot = this.makeSummonWildParrotEntry(helper, entryHelper, 'j');
+//        var timeMagic = this.makeTimeMagicEntry(helper, entryHelper, 'k');
+//        var tradeSpirits = this.makeTradeSpiritsEntry(helper, entryHelper, 'l');
+//        var weatherMagic = this.makeWeatherMagicEntry(helper, entryHelper, 'm');
+//        var witherSkull = this.makeWitherSkullEntry(helper, entryHelper, 'n');
+
+        return BookCategoryModel.builder()
+                .withId(this.modLoc(helper.category))
+                .withName(helper.categoryName())
+                .withIcon("occultism:textures/gui/book/summoning.png")
+                .withShowCategoryButton(false)
+                .withEntries(
+                        overview.build(),
+                        returnToRituals.build()
+//                        afritEssence.build(),
+//                        summonCleaner.build(),
+//                        summonCrusher,
+//                        summonLumberjack,
+//                        summonManageMachine,
+//                        summonOtherstoneTrader,
+//                        summonOtherworldSaplingTrader,
+//                        summonTransportItems,
+//                        summonWildOtherworldBird,
+//                        summonWildParrot,
+//                        timeMagic,
+//                        tradeSpirits,
+//                        weatherMagic,
+//                        witherSkull
+                )
+                .build();
+    }
+
+    private BookEntryModel.Builder makeSummoningRitualsOverviewEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("overview");
+
+        helper.page("intro");
+        var intro = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withIcon("occultism:textures/gui/book/summoning.png")
+                .withLocation(entryHelper.get(icon))
+                .withPages(
+                        intro
+                );
     }
 
     private BookEntryModel.Builder makeAfritEssenceEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
@@ -1632,7 +1709,6 @@ public class BookGenerator implements DataProvider {
                 );
     }
 
-    //create method makeSummonCleanerEntry
     private BookEntryModel.Builder makeSummonCleanerEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
         helper.entry("summon_cleaner");
 
@@ -1655,6 +1731,221 @@ public class BookGenerator implements DataProvider {
                 .withPages(
                         intro,
                         ritual
+                );
+    }
+
+    private BookCategoryModel makeCraftingRitualsSubcategory(BookLangHelper helper) {
+        helper.category("crafting_rituals");
+
+        var entryHelper = ModonomiconAPI.get().getEntryLocationHelper();
+        entryHelper.setMap(
+                "___________________________",
+                "___________________________",
+                "___________________________",
+                "___________________________",
+                "___r___o___________________",
+                "___________________________",
+                "___________________________",
+                "___________________________",
+                "___________________________"
+        );
+
+        var overview = this.makeCraftingRitualsOverviewEntry(helper, entryHelper, 'o');
+        var returnToRituals = this.makeReturnToRitualsEntry(helper, entryHelper, 'r');
+        returnToRituals.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
+        returnToRituals.withCondition(BookTrueConditionModel.builder().build());
+
+//        var craftDimensionalMatrix = this.makeCraftDimensionalMatrixEntry(helper, entryHelper, 'o');
+//        var craftDimensionalMineshaft = this.makeCraftDimensionalMineshaftEntry(helper, entryHelper, 'p');
+//        var craftFamiliarRing = this.makeCraftFamiliarRingEntry(helper, entryHelper, 'q');
+//        var craftInfusedPickaxe = this.makeCraftInfusedPickaxeEntry(helper, entryHelper, 'r');
+//        var craftMinerSpirits = this.makeCraftMinerSpiritsEntry(helper, entryHelper, 's');
+        var craftOtherworldGoggles = this.makeCraftOtherworldGogglesEntry(helper, entryHelper, 't');
+//        var craftSatchel = this.makeCraftSatchelEntry(helper, entryHelper, 'u');
+//        var craftSoulGem = this.makeCraftSoulGemEntry(helper, entryHelper, 'v');
+//        var craftStabilizerTier1 = this.makeCraftStabilizerTier1Entry(helper, entryHelper, 'w');
+//        var craftStabilizerTier2 = this.makeCraftStabilizerTier2Entry(helper, entryHelper, 'x');
+//        var craftStabilizerTier3 = this.makeCraftStabilizerTier3Entry(helper, entryHelper, 'y');
+//        var craftStabilizerTier4 = this.makeCraftStabilizerTier4Entry(helper, entryHelper, 'z');
+//        var craftStableWormhole = this.makeCraftStableWormholeEntry(helper, entryHelper, 'A');
+//        var craftStorageControllerBase = this.makeCraftStorageControllerBaseEntry(helper, entryHelper, 'B');
+//        var craftStorageRemote = this.makeCraftStorageRemoteEntry(helper, entryHelper, 'C');
+
+        return BookCategoryModel.builder()
+                .withId(this.modLoc(helper.category))
+                .withName(helper.categoryName())
+                .withIcon("occultism:textures/gui/book/infusion.png")
+                .withShowCategoryButton(false)
+                .withEntries(
+                        overview.build(),
+                        returnToRituals.build(),
+//                        craftDimensionalMatrix,
+//                        craftDimensionalMineshaft,
+//                        craftFamiliarRing,
+//                        craftInfusedPickaxe,
+//                        craftMinerSpirits,
+                        craftOtherworldGoggles.build()
+//                        craftSatchel,
+//                        craftSoulGem,
+//                        craftStabilizerTier1,
+//                        craftStabilizerTier2,
+//                        craftStabilizerTier3,
+//                        craftStabilizerTier4,
+//                        craftStableWormhole,
+//                        craftStorageControllerBase,
+//                        craftStorageRemote
+                )
+                .build();
+    }
+
+    private BookEntryModel.Builder makeCraftingRitualsOverviewEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("overview");
+
+        helper.page("intro");
+        var intro = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withIcon("occultism:textures/gui/book/infusion.png")
+                .withLocation(entryHelper.get(icon))
+                .withPages(
+                        intro
+                );
+    }
+
+    private BookCategoryModel makePossessionRitualsSubcategory(BookLangHelper helper) {
+        helper.category("possession_rituals");
+
+        var entryHelper = ModonomiconAPI.get().getEntryLocationHelper();
+        entryHelper.setMap(
+                "___________________________",
+                "___________________________",
+                "___________________________",
+                "___________________________",
+                "___r___o___________________",
+                "___________________________",
+                "___________________________",
+                "___________________________",
+                "___________________________"
+        );
+
+        var overview = this.makePossessionRitualsOverviewEntry(helper, entryHelper, 'o');
+        var returnToRituals = this.makeReturnToRitualsEntry(helper, entryHelper, 'r');
+        returnToRituals.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
+        returnToRituals.withCondition(BookTrueConditionModel.builder().build());
+
+//        var possessEnderman = this.makePossessEndermanEntry(helper, entryHelper, 'D');
+//        var possessEndermite = this.makePossessEndermiteEntry(helper, entryHelper, 'E');
+//        var possessGhast = this.makePossessGhastEntry(helper, entryHelper, 'F');
+//        var possessSkeleton = this.makePossessSkeletonEntry(helper, entryHelper, 'G');
+
+        return BookCategoryModel.builder()
+                .withId(this.modLoc(helper.category))
+                .withName(helper.categoryName())
+                .withIcon("occultism:textures/gui/book/possession.png")
+                .withShowCategoryButton(false)
+                .withEntries(
+                        overview.build(),
+                        returnToRituals.build()
+//                        possessEnderman,
+//                        possessEndermite,
+//                        possessGhast,
+//                        possessSkeleton
+                )
+                .build();
+    }
+
+    private BookEntryModel.Builder makePossessionRitualsOverviewEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("overview");
+
+        helper.page("intro");
+        var intro = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withIcon("occultism:textures/gui/book/possession.png")
+                .withLocation(entryHelper.get(icon))
+                .withPages(
+                        intro
+                );
+    }
+
+    private BookCategoryModel makeFamiliarRitualsSubcategory(BookLangHelper helper) {
+        helper.category("familiar_rituals");
+
+        var entryHelper = ModonomiconAPI.get().getEntryLocationHelper();
+        entryHelper.setMap(
+                "___________________________",
+                "___________________________",
+                "___________________________",
+                "___________________________",
+                "___r___o___________________",
+                "___________________________",
+                "___________________________",
+                "___________________________",
+                "___________________________"
+        );
+
+        var overview = this.makeFamiliarsRitualsOverviewEntry(helper, entryHelper, 'o');
+        var returnToRituals = this.makeReturnToRitualsEntry(helper, entryHelper, 'r');
+        returnToRituals.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
+        returnToRituals.withCondition(BookTrueConditionModel.builder().build());
+//
+//        var familiarBat = this.makeFamiliarBatEntry(helper, entryHelper, 'I');
+//        var familiarBeaver = this.makeFamiliarBeaverEntry(helper, entryHelper, 'J');
+//        var familiarBeholder = this.makeFamiliarBeholderEntry(helper, entryHelper, 'K');
+//        var familiarBlacksmith = this.makeFamiliarBlacksmithEntry(helper, entryHelper, 'L');
+//        var familiarChimera = this.makeFamiliarChimeraEntry(helper, entryHelper, 'M');
+//        var familiarCthulhu = this.makeFamiliarCthulhuEntry(helper, entryHelper, 'N');
+//        var familiarDeer = this.makeFamiliarDeerEntry(helper, entryHelper, 'O');
+//        var familiarDevil = this.makeFamiliarDevilEntry(helper, entryHelper, 'P');
+//        var familiarDragon = this.makeFamiliarDragonEntry(helper, entryHelper, 'Q');
+//        var familiarFairy = this.makeFamiliarFairyEntry(helper, entryHelper, 'R');
+//        var familiarGreedy = this.makeFamiliarGreedyEntry(helper, entryHelper, 'S');
+//        var familiarGuardian = this.makeFamiliarGuardianEntry(helper, entryHelper, 'T');
+//        var familiarHeadlessRatman = this.makeFamiliarHeadlessRatmanEntry(helper, entryHelper, 'U');
+//        var familiarMummy = this.makeFamiliarMummyEntry(helper, entryHelper, 'V');
+//        var familiarOtherworldBird = this.makeFamiliarOtherworldBirdEntry(helper, entryHelper, 'W');
+//        var familiarParrot = this.makeFamiliarParrotEntry(helper, entryHelper, 'X');
+//        var familiarShubNiggurath = this.makeFamiliarShubNiggurathEntry(helper, entryHelper, 'Y');
+
+
+        return BookCategoryModel.builder()
+                .withId(this.modLoc(helper.category))
+                .withName(helper.categoryName())
+                .withIcon("occultism:textures/gui/book/parrot.png")
+                .withShowCategoryButton(false)
+                .withEntries(
+                        overview.build(),
+                        returnToRituals.build()
+                )
+                .build();
+    }
+
+    private BookEntryModel.Builder makeFamiliarsRitualsOverviewEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("overview");
+
+        helper.page("intro");
+        var intro = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withIcon("occultism:textures/gui/book/parrot.png")
+                .withLocation(entryHelper.get(icon))
+                .withPages(
+                        intro
                 );
     }
 
