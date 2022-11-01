@@ -3,5 +3,6 @@
   "entry_textures": "modonomicon:textures/gui/entry_textures.png",
   "icon": "occultism:candle_white",
   "name": "book.occultism.dictionary_of_spirits.rituals.name",
+  "show_category_button": true,
   "sort_number": -1
 }

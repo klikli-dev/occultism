@@ -26,6 +26,7 @@ import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.level.multichunk.MultiChunkFeatureConfig;
 import com.github.klikli_dev.occultism.datagen.lang.ENUSProvider;
 import com.github.klikli_dev.occultism.datagen.lang.FRFRProvider;
+import com.github.klikli_dev.occultism.datagen.lang.PTBRProvider;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.registry.OccultismFeatures;
 import com.mojang.serialization.JsonOps;
@@ -76,6 +77,7 @@ public class DataGenerators {
         generator.addProvider(event.includeClient(), new StandardBlockStateProvider(generator, event.getExistingFileHelper()));
         generator.addProvider(event.includeClient(), new ENUSProvider(generator));
         generator.addProvider(event.includeClient(), new FRFRProvider(generator));
+        generator.addProvider(event.includeClient(), new PTBRProvider(generator));
         generator.addProvider(event.includeServer(), new BookGenerator(generator, Occultism.MODID));
 
         registerFeatures(event);

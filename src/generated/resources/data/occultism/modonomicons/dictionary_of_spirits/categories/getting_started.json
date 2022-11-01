@@ -3,5 +3,6 @@
   "entry_textures": "modonomicon:textures/gui/entry_textures.png",
   "icon": "occultism:dictionary_of_spirits_icon",
   "name": "book.occultism.dictionary_of_spirits.getting_started.name",
+  "show_category_button": true,
   "sort_number": -1
 }
