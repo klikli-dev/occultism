@@ -1551,7 +1551,7 @@ public class BookGenerator implements DataProvider {
                 .withEntries(
                         ritualOverview,
                         itemUse,
-                        sacrifice
+                        sacrifice,
                         afritEssence,
                         summonCleaner,
                         summonCrusher,
