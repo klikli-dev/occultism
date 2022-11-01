@@ -3,5 +3,6 @@
   "icon": "occultism:dictionary_of_spirits_icon",
   "sort_number": -1,
   "background": "modonomicon:textures/gui/dark_slate_seamless.png",
-  "entry_textures": "modonomicon:textures/gui/entry_textures.png"
+  "entry_textures": "modonomicon:textures/gui/entry_textures.png",
+  "show_category_button": true
 }

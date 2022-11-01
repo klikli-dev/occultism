@@ -571,7 +571,7 @@ public class BookGenerator implements DataProvider {
 
         helper.page("bowl_placement");
         var bowlPlacementImage = BookImagePageModel.builder()
-                .withImages(this.modLoc("textures/gui/book/bowl_placement.png"))
+                .withImages(modLoc("textures/gui/book/bowl_placement.png"))
                 .withBorder(true)
                 .build();
 
@@ -819,7 +819,7 @@ public class BookGenerator implements DataProvider {
         craftMarid.withParent(BookEntryParentModel.builder().withEntryId(craftAfrit.id).build());
 
         return BookCategoryModel.builder()
-                .withId(this.modLoc(helper.category))
+                .withId(this.modLoc("pentacles"))
                 .withName(helper.categoryName())
                 .withIcon(OccultismItems.PENTACLE.getId().toString())
                 .withEntries(
