@@ -571,7 +571,7 @@ public class BookGenerator implements DataProvider {
 
         helper.page("bowl_placement");
         var bowlPlacementImage = BookImagePageModel.builder()
-                .withImages(this.modLoc("textures/gui/book/bowl_placement.png"))
+                .withImages(modLoc("textures/gui/book/bowl_placement.png"))
                 .withBorder(true)
                 .build();
 
@@ -819,7 +819,7 @@ public class BookGenerator implements DataProvider {
         craftMarid.withParent(BookEntryParentModel.builder().withEntryId(craftAfrit.id).build());
 
         return BookCategoryModel.builder()
-                .withId(this.modLoc(helper.category))
+                .withId(this.modLoc("pentacles"))
                 .withName(helper.categoryName())
                 .withIcon(OccultismItems.PENTACLE.getId().toString())
                 .withEntries(
@@ -1460,201 +1460,6 @@ public class BookGenerator implements DataProvider {
                         intro,
                         multiblock,
                         uses
-                );
-    }
-
-    private BookCategoryModel makeRitualsCategory(BookLangHelper helper) {
-        helper.category("rituals");
-
-        var entryHelper = ModonomiconAPI.get().getEntryLocationHelper();
-        entryHelper.setMap(
-                "___________________________",
-                "___________________________",
-                "___________________________",
-                "___________________________",
-                "___________________________",
-                "___________________________",
-                "___________________________",
-                "___________________________",
-                "___________________________"
-        );
-
-        //rituals category should have three "sub" categories that are linked via entry
-
-        //we have 51 ritual entries + 3 misc entries
-
-        var ritualOverview = this.makeRitualOverviewEntry(helper, entryHelper, '0');
-        var itemUse = this.makeItemUseEntry(helper, entryHelper, '1');
-        var sacrifice = this.makeSacrificeEntry(helper, entryHelper, '2');
-
-
-        var afritEssence = this.makeAfritEssenceEntry(helper, new EntryLocationHelper(), 'a');
-        var summonCleaner = this.makeSummonCleanerEntry(helper, new EntryLocationHelper(), 'b');
-        var summonCrusher = this.makeSummonCrusherEntry(helper, new EntryLocationHelper(), 'c');
-        var summonLumberjack = this.makeSummonLumberjackEntry(helper, new EntryLocationHelper(), 'd');
-        var summonManageMachine = this.makeSummonManageMachineEntry(helper, new EntryLocationHelper(), 'e');
-        var summonOtherstoneTrader = this.makeSummonOtherstoneTraderEntry(helper, new EntryLocationHelper(), 'f');
-        var summonOtherworldSaplingTrader = this.makeSummonOtherworldSaplingTraderEntry(helper, new EntryLocationHelper(), 'g');
-        var summonTransportItems = this.makeSummonTransportItemsEntry(helper, new EntryLocationHelper(), 'h');
-        var summonWildOtherworldBird = this.makeSummonWildOtherworldBirdEntry(helper, new EntryLocationHelper(), 'i');
-        var summonWildParrot = this.makeSummonWildParrotEntry(helper, new EntryLocationHelper(), 'j');
-        var timeMagic = this.makeTimeMagicEntry(helper, new EntryLocationHelper(), 'k');
-        var tradeSpirits = this.makeTradeSpiritsEntry(helper, new EntryLocationHelper(), 'l');
-        var weatherMagic = this.makeWeatherMagicEntry(helper, new EntryLocationHelper(), 'm');
-        var witherSkull = this.makeWitherSkullEntry(helper, new EntryLocationHelper(), 'n');
-
-        var craftDimensionalMatrix = this.makeCraftDimensionalMatrixEntry(helper, new EntryLocationHelper(), 'o');
-        var craftDimensionalMineshaft = this.makeCraftDimensionalMineshaftEntry(helper, new EntryLocationHelper(), 'p');
-        var craftFamiliarRing = this.makeCraftFamiliarRingEntry(helper, new EntryLocationHelper(), 'q');
-        var craftInfusedPickaxe = this.makeCraftInfusedPickaxeEntry(helper, new EntryLocationHelper(), 'r');
-        var craftMinerSpirits = this.makeCraftMinerSpiritsEntry(helper, new EntryLocationHelper(), 's');
-        var craftOtherworldGoggles = this.makeCraftOtherworldGogglesEntry(helper, new EntryLocationHelper(), 't');
-        var craftSatchel = this.makeCraftSatchelEntry(helper, new EntryLocationHelper(), 'u');
-        var craftSoulGem = this.makeCraftSoulGemEntry(helper, new EntryLocationHelper(), 'v');
-        var craftStabilizerTier1 = this.makeCraftStabilizerTier1Entry(helper, new EntryLocationHelper(), 'w');
-        var craftStabilizerTier2 = this.makeCraftStabilizerTier2Entry(helper, new EntryLocationHelper(), 'x');
-        var craftStabilizerTier3 = this.makeCraftStabilizerTier3Entry(helper, new EntryLocationHelper(), 'y');
-        var craftStabilizerTier4 = this.makeCraftStabilizerTier4Entry(helper, new EntryLocationHelper(), 'z');
-        var craftStableWormhole = this.makeCraftStableWormholeEntry(helper, new EntryLocationHelper(), 'A');
-        var craftStorageControllerBase = this.makeCraftStorageControllerBaseEntry(helper, new EntryLocationHelper(), 'B');
-        var craftStorageRemote = this.makeCraftStorageRemoteEntry(helper, new EntryLocationHelper(), 'C');
-
-        var possessEnderman = this.makePossessEndermanEntry(helper, new EntryLocationHelper(), 'D');
-        var possessEndermite = this.makePossessEndermiteEntry(helper, new EntryLocationHelper(), 'E');
-        var possessGhast = this.makePossessGhastEntry(helper, new EntryLocationHelper(), 'F');
-        var possessSkeleton = this.makePossessSkeletonEntry(helper, new EntryLocationHelper(), 'G');
-
-        var familiarsOverview = this.makeFamiliarsOverviewEntry(helper, new EntryLocationHelper(), 'H');
-        var familiarBat = this.makeFamiliarBatEntry(helper, new EntryLocationHelper(), 'I');
-        var familiarBeaver = this.makeFamiliarBeaverEntry(helper, new EntryLocationHelper(), 'J');
-        var familiarBeholder = this.makeFamiliarBeholderEntry(helper, new EntryLocationHelper(), 'K');
-        var familiarBlacksmith = this.makeFamiliarBlacksmithEntry(helper, new EntryLocationHelper(), 'L');
-        var familiarChimera = this.makeFamiliarChimeraEntry(helper, new EntryLocationHelper(), 'M');
-        var familiarCthulhu = this.makeFamiliarCthulhuEntry(helper, new EntryLocationHelper(), 'N');
-        var familiarDeer = this.makeFamiliarDeerEntry(helper, new EntryLocationHelper(), 'O');
-        var familiarDevil = this.makeFamiliarDevilEntry(helper, new EntryLocationHelper(), 'P');
-        var familiarDragon = this.makeFamiliarDragonEntry(helper, new EntryLocationHelper(), 'Q');
-        var familiarFairy = this.makeFamiliarFairyEntry(helper, new EntryLocationHelper(), 'R');
-        var familiarGreedy = this.makeFamiliarGreedyEntry(helper, new EntryLocationHelper(), 'S');
-        var familiarGuardian = this.makeFamiliarGuardianEntry(helper, new EntryLocationHelper(), 'T');
-        var familiarHeadlessRatman = this.makeFamiliarHeadlessRatmanEntry(helper, new EntryLocationHelper(), 'U');
-        var familiarMummy = this.makeFamiliarMummyEntry(helper, new EntryLocationHelper(), 'V');
-        var familiarOtherworldBird = this.makeFamiliarOtherworldBirdEntry(helper, new EntryLocationHelper(), 'W');
-        var familiarParrot = this.makeFamiliarParrotEntry(helper, new EntryLocationHelper(), 'X');
-        var familiarShubNiggurath = this.makeFamiliarShubNiggurathEntry(helper, new EntryLocationHelper(), 'Y');
-
-
-        return BookCategoryModel.builder()
-                .withId(this.modLoc(helper.category))
-                .withName(helper.categoryName())
-                .withIcon(OccultismItems.PENTACLE.getId().toString())
-                .withEntries(
-                        ritualOverview,
-                        itemUse,
-                        sacrifice
-                        afritEssence,
-                        summonCleaner,
-                        summonCrusher,
-                        summonLumberjack,
-                        summonManageMachine,
-                        summonOtherstoneTrader,
-                        summonOtherworldSaplingTrader,
-                        summonTransportItems,
-                        summonWildOtherworldBird,
-                        summonWildParrot,
-                        timeMagic,
-                        tradeSpirits,
-                        weatherMagic,
-                        witherSkull,
-                        craftDimensionalMatrix,
-                        craftDimensionalMineshaft,
-                        craftFamiliarRing,
-                        craftInfusedPickaxe,
-                        craftMinerSpirits,
-                        craftOtherworldGoggles,
-                        craftSatchel,
-                        craftSoulGem,
-                        craftStabilizerTier1,
-                        craftStabilizerTier2,
-                        craftStabilizerTier3,
-                        craftStabilizerTier4,
-                        craftStableWormhole,
-                        craftStorageControllerBase,
-                        craftStorageRemote,
-                        possessEnderman,
-                        possessEndermite,
-                        possessGhast,
-                        possessSkeleton,
-                        familiarsOverview,
-                        familiarBat,
-                        familiarBeaver,
-                        familiarBeholder,
-                        familiarBlacksmith,
-                        familiarChimera,
-                        familiarCthulhu,
-                        familiarDeer,
-                        familiarDevil,
-                        familiarDragon,
-                        familiarFairy,
-                        familiarGreedy,
-                        familiarGuardian,
-                        familiarHeadlessRatman,
-                        familiarMummy,
-                        familiarOtherworldBird,
-                        familiarParrot,
-                        familiarShubNiggurath
-                )
-                .build();
-    }
-
-    private BookEntryModel.Builder makeAfritEssenceEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
-        helper.entry("afrit_essence");
-
-        helper.page("intro");
-        var intro = BookTextPageModel.builder()
-                .withTitle(helper.pageTitle())
-                .withText(helper.pageText())
-                .build();
-
-        helper.page("ritual");
-        var ritual = BookRitualRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("ritual/summon_wild_afrit"))
-                .build();
-
-        return BookEntryModel.builder()
-                .withId(this.modLoc(helper.category + "/" + helper.entry))
-                .withName(helper.entryName())
-                .withIcon(OccultismItems.AFRIT_ESSENCE.getId().toString())
-                .withLocation(entryHelper.get(icon))
-                .withPages(
-                        intro,
-                        ritual
-                );
-    }
-
-    //create method makeSummonCleanerEntry
-    private BookEntryModel.Builder makeSummonCleanerEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
-        helper.entry("summon_cleaner");
-
-        helper.page("intro");
-        var intro = BookTextPageModel.builder()
-                .withTitle(helper.pageTitle())
-                .withText(helper.pageText())
-                .build();
-
-        helper.page("ritual");
-        var ritual = BookRitualRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("ritual/summon_foliot_cleaner"))
-                .build();
-
-        return BookEntryModel.builder()
-                .withId(this.modLoc(helper.category + "/" + helper.entry))
-                .withName(helper.entryName())
-                .withIcon(OccultismItems.BRUSH.getId().toString())
-                .withLocation(entryHelper.get(icon))
-                .withPages(
-                        intro,
-                        ritual
                 );
     }
 
