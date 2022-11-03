@@ -57,7 +57,7 @@ public class StorageControllerGeoRenderer extends GeoBlockRenderer<StorageContro
         //copied from super + modified
 
         GeoModel model = this.modelProvider.getModel(this.modelProvider.getModelResource(tile));
-        this.modelProvider.setLivingAnimations(tile, this.getUniqueID(tile));
+        this.modelProvider.setCustomAnimations(tile, this.getInstanceId(tile));
         stack.pushPose();
         //stack.translate(0, 0.01f, 0); //we don't need this
         //move above block
@@ -72,7 +72,7 @@ public class StorageControllerGeoRenderer extends GeoBlockRenderer<StorageContro
         float angle = (systemTime / 16) % 360;
         stack.mulPose(Vector3f.YP.rotationDegrees(angle));
 
-        RenderSystem.setShaderTexture(0, getTextureLocation(tile));
+        RenderSystem.setShaderTexture(0, this.getTextureLocation(tile));
         Color renderColor = this.getRenderColor(tile, partialTicks, stack, bufferIn, null, packedLightIn);
         RenderType renderType = this.getRenderType(tile, partialTicks, stack, bufferIn, null, packedLightIn,
                 this.getTextureLocation(tile));
