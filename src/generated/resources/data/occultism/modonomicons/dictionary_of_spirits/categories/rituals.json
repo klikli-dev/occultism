@@ -1,7 +1,7 @@
 {
   "name": "book.occultism.dictionary_of_spirits.rituals.name",
   "icon": "occultism:textures/gui/book/robe.png",
-  "sort_number": -1,
+  "sort_number": 3,
   "background": "modonomicon:textures/gui/dark_slate_seamless.png",
   "entry_textures": "modonomicon:textures/gui/entry_textures.png",
   "show_category_button": true

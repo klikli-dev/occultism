@@ -1761,8 +1761,34 @@ public class ENUSProvider extends LanguageProvider {
                         Once all requirements are fulfilled, the ritual will show purple particles and start to consume the items in the sacrificial bowls.
                         """);
 
-        //TODO: item use
-        //TODO: sacrifice
+        helper.entry("item_use");
+        this.add(helper.entryName(), "Item Use");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Item Use");
+        this.add(helper.pageText(),
+                """
+                        Some rituals require the use of certain items to be performed.
+                        Use the item described on the ritual's page within **16 blocks** of the 
+                        [](item://occultism:golden_sacrificial_bowl) to proceed with the ritual.
+                        \\
+                        \\
+                        **Important:** Before using the item, start the ritual. Grey particles indicate that the ritual is ready for the item use.
+                        """);
+
+        helper.entry("sacrifice");
+        this.add(helper.entryName(), "Sacrifices");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Sacrifices");
+        this.add(helper.pageText(),
+                """
+                        Some rituals require the sacrifice of a living being to provide the necessary energy to summon the spirit.
+                        Sacrifices are described on the ritual's page under the "Sacrifice" subheading.
+                        To perform a sacrifice, kill an animal within 8 blocks of the golden sacrificial bowl.
+                        Only kills by players count as sacrifice!
+                             
+                         """);
 
         helper.entry("summoning_rituals");
         this.add(helper.entryName(), "Summoning Rituals");
@@ -1788,10 +1814,10 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Summoning Rituals");
         this.add(helper.pageText(),
                 """
-                       Summon rituals force spirits to enter this world in their chosen shape, 
-                       leading to little restrictions on their power, but expose them to essence decay. 
-                       Summoned spirits range from trade spirits that trade and convert items, to slave-like helpers for manual labour.
-                        """);
+                        Summon rituals force spirits to enter this world in their chosen shape, 
+                        leading to little restrictions on their power, but expose them to essence decay. 
+                        Summoned spirits range from trade spirits that trade and convert items, to slave-like helpers for manual labour.
+                         """);
 
 
         helper.entry("return_to_rituals");
@@ -1799,7 +1825,7 @@ public class ENUSProvider extends LanguageProvider {
     }
 
     private void addPossessionRitualsCategory(BookLangHelper helper) {
-        helper.category("possessing_rituals");
+        helper.category("possession_rituals");
         this.add(helper.categoryName(), "Possession Rituals");
 
         helper.entry("return_to_rituals");
@@ -1812,10 +1838,10 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Possession Rituals");
         this.add(helper.pageText(),
                 """
-                     Possession rituals bind spirits into living beings, 
-                     giving the summoner a degree of control over the possessed being.
-                     This can range from controlling their item drops to forcing them to do the summoner's bidding.
-                        """);
+                        Possession rituals bind spirits into living beings, 
+                        giving the summoner a degree of control over the possessed being.
+                        This can range from controlling their item drops to forcing them to do the summoner's bidding.
+                           """);
     }
 
     private void addCraftingRitualsCategory(BookLangHelper helper) {
@@ -1832,9 +1858,9 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Binding Rituals");
         this.add(helper.pageText(),
                 """
-                     Binding rituals infuse spirits into items, where their powers are used for one specific purpose. 
-                     The created items can act like simple empowering enchantments, or fulfill complex tasks to aid the summoner.
-                        """);
+                        Binding rituals infuse spirits into items, where their powers are used for one specific purpose. 
+                        The created items can act like simple empowering enchantments, or fulfill complex tasks to aid the summoner.
+                           """);
 
         helper.entry("craft_otherworld_goggles");
         this.add(helper.entryName(), "Craft Otherworld Goggles");
@@ -1875,10 +1901,10 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Familiar Rituals");
         this.add(helper.pageText(),
                 """
-                     Familiar rituals summon spirits to aid the summoner directly. 
-                     The spirits usually inhabit an animal's body, allowing them to resist essence decay. 
-                     Familiars provide buffs, but may also actively protect the summoner.
-                             """);
+                        Familiar rituals summon spirits to aid the summoner directly. 
+                        The spirits usually inhabit an animal's body, allowing them to resist essence decay. 
+                        Familiars provide buffs, but may also actively protect the summoner.
+                                """);
 
     }
 
