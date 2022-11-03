@@ -1,0 +1,53 @@
+{
+  "category": "occultism:summoning_rituals",
+  "name": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_crusher_t1.name",
+  "description": "",
+  "icon": "occultism:copper_dust",
+  "x": -4,
+  "y": 0,
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "hide_while_locked": false,
+  "parents": [
+    {
+      "entry": "occultism:summoning_rituals/overview",
+      "draw_arrow": true,
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "title": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_crusher_t1.about_crushers.title",
+      "use_markdown_in_title": false,
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_crusher_t1.about_crushers.text"
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "title": "",
+      "use_markdown_in_title": false,
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_crusher_t1.automation.text"
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "title": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_crusher_t1.intro.title",
+      "use_markdown_in_title": false,
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_crusher_t1.intro.text"
+    },
+    {
+      "type": "occultism:ritual_recipe",
+      "anchor": "",
+      "title1": "",
+      "recipe_id_1": "occultism:ritual/summon_foliot_crusher",
+      "title2": "",
+      "text": ""
+    }
+  ]
+}

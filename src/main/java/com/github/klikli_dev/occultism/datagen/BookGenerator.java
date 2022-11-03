@@ -1641,15 +1641,31 @@ public class BookGenerator implements DataProvider {
 
         var entryHelper = ModonomiconAPI.get().getEntryLocationHelper();
         entryHelper.setMap(
-                "___________________________",
-                "___________________________",
-                "___________________________",
-                "___________________________",
-                "___r___o___________________",
-                "___________________________",
-                "___________________________",
-                "___________________________",
-                "___________________________"
+                "_______________b______________",
+                "_______________________k______",
+                "______________________________",
+                "______________________________",
+                "___________c___d___h___l______",
+                "______________________________",
+                "______________________________",
+                "______________________________",
+                "___r___o______________________",
+                "______________________________",
+                "______________________________",
+                "______________________________",
+                "___________1___e___i___a___m__",
+                "______________________________",
+                "______________________________",
+                "______________________________",
+                "___________2___f___j__________",
+                "______________________________",
+                "______________________________",
+                "______________________________",
+                "___________3___g______________",
+                "______________________________",
+                "______________________________",
+                "______________________________",
+                "___________4__________________"
         );
 
         var overview = this.makeSummoningRitualsOverviewEntry(helper, entryHelper, 'o');
@@ -1657,20 +1673,36 @@ public class BookGenerator implements DataProvider {
         returnToRituals.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
         returnToRituals.withCondition(BookTrueConditionModel.builder().build());
 
-//        var afritEssence = this.makeAfritEssenceEntry(helper, entryHelper, 'a');
-//        var summonCleaner = this.makeSummonCleanerEntry(helper, entryHelper, 'b');
-//        var summonCrusher = this.makeSummonCrusherEntry(helper, entryHelper, 'c');
-//        var summonLumberjack = this.makeSummonLumberjackEntry(helper, entryHelper, 'd');
-//        var summonManageMachine = this.makeSummonManageMachineEntry(helper, entryHelper, 'e');
+        var summonT1Crusher = this.makeSummonCrusherT1Entry(helper, entryHelper, '1');
+        summonT1Crusher.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
+        var summonT2Crusher = this.makeSummonCrusherT2Entry(helper, entryHelper, '2');
+        summonT2Crusher.withParent(BookEntryParentModel.builder().withEntryId(summonT1Crusher.id).build());
+        var summonT3Crusher = this.makeSummonCrusherT3Entry(helper, entryHelper, '3');
+        summonT3Crusher.withParent(BookEntryParentModel.builder().withEntryId(summonT2Crusher.id).build());
+        var summonT4Crusher = this.makeSummonCrusherT4Entry(helper, entryHelper, '4');
+        summonT4Crusher.withParent(BookEntryParentModel.builder().withEntryId(summonT3Crusher.id).build());
+
+        var summonLumberjack = this.makeSummonLumberjackEntry(helper, entryHelper, 'c');
+        summonLumberjack.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
+
+        var summonTransportItems = this.makeSummonTransportItemsEntry(helper, entryHelper, 'd');
+        summonTransportItems.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
+        var summonCleaner = this.makeSummonCleanerEntry(helper, entryHelper, 'b');
+        summonCleaner.withParent(BookEntryParentModel.builder().withEntryId(summonTransportItems.id).build());
+        var summonManageMachine = this.makeSummonManageMachineEntry(helper, entryHelper, 'h');
+        summonManageMachine.withParent(BookEntryParentModel.builder().withEntryId(summonTransportItems.id).build());
+
+//        var tradeSpirits = this.makeTradeSpiritsEntry(helper, entryHelper, 'e');
 //        var summonOtherstoneTrader = this.makeSummonOtherstoneTraderEntry(helper, entryHelper, 'f');
 //        var summonOtherworldSaplingTrader = this.makeSummonOtherworldSaplingTraderEntry(helper, entryHelper, 'g');
-//        var summonTransportItems = this.makeSummonTransportItemsEntry(helper, entryHelper, 'h');
-//        var summonWildOtherworldBird = this.makeSummonWildOtherworldBirdEntry(helper, entryHelper, 'i');
-//        var summonWildParrot = this.makeSummonWildParrotEntry(helper, entryHelper, 'j');
+//
+//        var summonWildParrot = this.makeSummonWildParrotEntry(helper, entryHelper, 'i');
+//        var summonWildOtherworldBird = this.makeSummonWildOtherworldBirdEntry(helper, entryHelper, 'j');
+//
 //        var timeMagic = this.makeTimeMagicEntry(helper, entryHelper, 'k');
-//        var tradeSpirits = this.makeTradeSpiritsEntry(helper, entryHelper, 'l');
-//        var weatherMagic = this.makeWeatherMagicEntry(helper, entryHelper, 'm');
-//        var witherSkull = this.makeWitherSkullEntry(helper, entryHelper, 'n');
+//        var weatherMagic = this.makeWeatherMagicEntry(helper, entryHelper, 'l');
+//        var witherSkull = this.makeWitherSkullEntry(helper, entryHelper, 'm');
+        var afritEssence = this.makeAfritEssenceEntry(helper, entryHelper, 'a');
 
         return BookCategoryModel.builder()
                 .withId(this.modLoc(helper.category))
@@ -1679,21 +1711,25 @@ public class BookGenerator implements DataProvider {
                 .withShowCategoryButton(false)
                 .withEntries(
                         overview.build(),
-                        returnToRituals.build()
-//                        afritEssence.build(),
-//                        summonCleaner.build(),
-//                        summonCrusher,
-//                        summonLumberjack,
-//                        summonManageMachine,
+                        returnToRituals.build(),
+                        afritEssence.build(),
+                        summonCleaner.build(),
+                        summonT1Crusher.build(),
+                        summonT2Crusher.build(),
+                        summonT3Crusher.build(),
+                        summonT4Crusher.build(),
+                        summonLumberjack.build(),
+                        summonManageMachine.build(),
+                        summonTransportItems.build(),
 //                        summonOtherstoneTrader,
 //                        summonOtherworldSaplingTrader,
-//                        summonTransportItems,
 //                        summonWildOtherworldBird,
 //                        summonWildParrot,
 //                        timeMagic,
 //                        tradeSpirits,
 //                        weatherMagic,
 //                        witherSkull
+                        afritEssence.build()
                 );
     }
 
@@ -1763,6 +1799,207 @@ public class BookGenerator implements DataProvider {
                 .withPages(
                         intro,
                         ritual
+                );
+    }
+
+    private BookEntryModel.Builder makeSummonCrusherT1Entry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("summon_crusher_t1");
+
+        helper.page("about_crushers");
+        var aboutCrushers = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("automation");
+        var automation = BookTextPageModel.builder()
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("intro");
+        var intro = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("ritual");
+        var ritual = BookRitualRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("ritual/summon_foliot_crusher"))
+                .build();
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withIcon(OccultismItems.COPPER_DUST.getId().toString())
+                .withLocation(entryHelper.get(icon))
+                .withPages(
+                        aboutCrushers,
+                        automation,
+                        intro,
+                        ritual
+                );
+    }
+
+    private BookEntryModel.Builder makeSummonCrusherT2Entry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("summon_crusher_t2");
+
+        helper.page("intro");
+        var intro = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("ritual");
+        var ritual = BookRitualRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("ritual/summon_djinni_crusher"))
+                .build();
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withIcon(OccultismItems.IRON_DUST.getId().toString())
+                .withLocation(entryHelper.get(icon))
+                .withPages(
+                        intro,
+                        ritual
+                );
+    }
+
+    private BookEntryModel.Builder makeSummonCrusherT3Entry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("summon_crusher_t3");
+
+        helper.page("intro");
+        var intro = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("ritual");
+        var ritual = BookRitualRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("ritual/summon_afrit_crusher"))
+                .build();
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withIcon(OccultismItems.SILVER_DUST.getId().toString())
+                .withLocation(entryHelper.get(icon))
+                .withPages(
+                        intro,
+                        ritual
+                );
+    }
+
+    private BookEntryModel.Builder makeSummonCrusherT4Entry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("summon_crusher_t4");
+
+        helper.page("intro");
+        var intro = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("ritual");
+        var ritual = BookRitualRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("ritual/summon_marid_crusher"))
+                .build();
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withIcon(OccultismItems.GOLD_DUST.getId().toString())
+                .withLocation(entryHelper.get(icon))
+                .withPages(
+                        intro,
+                        ritual
+                );
+    }
+
+    private BookEntryModel.Builder makeSummonLumberjackEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("summon_lumberjack");
+
+        helper.page("intro");
+        var intro = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("ritual");
+        var ritual = BookRitualRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("ritual/summon_foliot_lumberjack"))
+                .build();
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withIcon(OccultismItems.BRUSH.getId().toString())
+                .withIcon(ForgeRegistries.ITEMS.getKey(Items.IRON_AXE).toString())
+                .withLocation(entryHelper.get(icon))
+                .withPages(
+                        intro,
+                        ritual
+                );
+    }
+
+    private BookEntryModel.Builder makeSummonTransportItemsEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("summon_transport_items");
+
+        helper.page("intro");
+        var intro = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("ritual");
+        var ritual = BookRitualRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("ritual/summon_foliot_transport_items"))
+                .build();
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withIcon(ForgeRegistries.ITEMS.getKey(Items.MINECART).toString())
+                .withLocation(entryHelper.get(icon))
+                .withPages(
+                        intro,
+                        ritual
+                );
+    }
+
+    private BookEntryModel.Builder makeSummonManageMachineEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("summon_manage_machine");
+
+        helper.page("intro");
+        var intro = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("ritual");
+        var ritual = BookRitualRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("ritual/summon_djinni_manage_machine"))
+                .build();
+
+        helper.page("tutorial");
+        var tutorial = BookTextPageModel.builder()
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("tutorial2");
+        var tutorial2 = BookTextPageModel.builder()
+                .withText(helper.pageText())
+                .build();
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withIcon(ForgeRegistries.ITEMS.getKey(Items.LEVER).toString())
+                .withLocation(entryHelper.get(icon))
+                .withPages(
+                        intro,
+                        ritual,
+                        tutorial,
+                        tutorial2
                 );
     }
 

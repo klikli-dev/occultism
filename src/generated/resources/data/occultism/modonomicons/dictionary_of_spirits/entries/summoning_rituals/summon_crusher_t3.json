@@ -1,0 +1,37 @@
+{
+  "category": "occultism:summoning_rituals",
+  "name": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_crusher_t3.name",
+  "description": "",
+  "icon": "occultism:silver_dust",
+  "x": -4,
+  "y": 8,
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "hide_while_locked": false,
+  "parents": [
+    {
+      "entry": "occultism:summoning_rituals/summon_crusher_t2",
+      "draw_arrow": true,
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "title": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_crusher_t3.intro.title",
+      "use_markdown_in_title": false,
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_crusher_t3.intro.text"
+    },
+    {
+      "type": "occultism:ritual_recipe",
+      "anchor": "",
+      "title1": "",
+      "recipe_id_1": "occultism:ritual/summon_afrit_crusher",
+      "title2": "",
+      "text": ""
+    }
+  ]
+}

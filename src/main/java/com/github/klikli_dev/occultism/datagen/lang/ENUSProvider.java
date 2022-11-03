@@ -26,11 +26,13 @@ import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.datagen.OccultismAdvancementProvider;
 import com.github.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants;
 import com.github.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants.I18n;
+import com.github.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePageModel;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.modonomicon.api.ModonomiconAPI;
 import com.klikli_dev.modonomicon.api.datagen.BookLangHelper;
+import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import net.minecraft.Util;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
@@ -1819,9 +1821,164 @@ public class ENUSProvider extends LanguageProvider {
                         Summoned spirits range from trade spirits that trade and convert items, to slave-like helpers for manual labour.
                          """);
 
-
         helper.entry("return_to_rituals");
         this.add(helper.entryName(), "Return to Rituals Category");
+
+        helper.entry("summon_crusher_t1");
+        this.add(helper.entryName(), "Summon Foliot Crusher");
+
+        helper.page("about_crushers");
+        this.add(helper.pageTitle(), "Crusher Spirits");
+        this.add(helper.pageText(),
+                """
+                       Crusher spirits are summoned to crush ores into dusts, effectively multiplying the metal output. 
+                       They will pick up appropriate ores and drop the resulting dusts into the world. 
+                       A purple particle effect and a crushing sound indicate the crusher is at work. 
+                         """);
+
+        helper.page("automation");
+        this.add(helper.pageText(),
+                """
+                        To ease automation, try summoning a [Transporter Spirit](entry://occultism:dictionary_of_spirits/summoning_rituals/summon_transport_items)
+                        to place items from chests in the crusher's inventory, and a 
+                        [Janitor Spirit](entry://occultism:dictionary_of_spirits/summoning_rituals/summon_cleaner) to collect the processed items.
+                         """);
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Foliot Crusher");
+        this.add(helper.pageText(),
+                """
+                        The foliot crusher is the most basic crusher spirit.
+                        \\
+                        \\
+                        It will crush **one** ore into **two** corresponding dusts.
+                         """);
+
+        helper.page("ritual");
+        //no text
+
+        helper.entry("summon_crusher_t2");
+        this.add(helper.entryName(), "Summon Djinni Crusher");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Djinni Crusher");
+        this.add(helper.pageText(),
+                """
+                        The djinni crusher is resistant essence decay and faster and more efficient than the foliot crusher.
+                        \\
+                        \\
+                        It will crush **one** ore into **three** corresponding dusts.
+                         """);
+
+        helper.page("ritual");
+        //no text
+
+        helper.entry("summon_crusher_t3");
+        this.add(helper.entryName(), "Summon Afrit Crusher");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Afrit Crusher");
+        this.add(helper.pageText(),
+                """
+                        The afrit crusher is resistant to essence decay and faster and more efficient than the djinni crusher.
+                        \\
+                        \\
+                        It will crush **one** ore into **four** corresponding dusts.
+                          """);
+
+        helper.page("ritual");
+        //no text
+
+        helper.entry("summon_crusher_t4");
+        this.add(helper.entryName(), "Summon Marid Crusher");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Marid Crusher");
+        this.add(helper.pageText(),
+                """
+                       The afrit crusher is resistant to essence decay and faster and more efficient than the afrit crusher.
+                       \\
+                       \\
+                       It will crush **one** ore into **six** corresponding dusts.
+                         """);
+
+        helper.page("ritual");
+        //no text
+
+
+        helper.entry("summon_lumberjack");
+        this.add(helper.entryName(), "Summon Foliot Lumberjack");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Foliot Lumberjack");
+        this.add(helper.pageText(),
+                """
+                       The lumberjack will harvest trees in it's working area and deposit the dropped items into the specified chest.
+                       **Note**: The lumberjack is using the old vanilla AI, not villager AI. That means he is ... *wonky*, and wont to get stuck. 
+                       Consider him more of a semi-automatic helper, than a fully automated tree farm :)
+                         """);
+
+        helper.page("ritual");
+        //no text
+
+        helper.entry("summon_transport_items");
+        this.add(helper.entryName(), "Summon Foliot Transporter");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Foliot Transporter");
+        this.add(helper.pageText(),
+                """
+                      The transporter will move all items it can access from one inventory to another, including machines. 
+                      It can also deposit into the inventories of other spirits. 
+                      By setting the extract and insert side they can be used to automate various transport tasks.
+                         """);
+
+        helper.page("ritual");
+        //no text
+
+        helper.entry("summon_cleaner");
+        this.add(helper.entryName(), "Summon Foliot Janitor");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Foliot Janitor");
+        this.add(helper.pageText(),
+                """
+                       The janitor will pick up dropped items and deposit them into a target inventory.
+                       You can configure an allow/block list to specify which items to pick up or ignore.
+                       You can use tags to handle whole groups of items.
+                         """);
+
+        helper.page("ritual");
+        //no text
+
+        helper.entry("summon_manage_machine");
+        this.add(helper.entryName(), "Summon Djinni Machine Operator");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Djinni Machine Operator");
+        this.add(helper.pageText(),
+                """
+                       The machine operator transfers items specified in the dimensional storage actuator GUI, 
+                       to it's managed machine, and returns crafting results to the storage system. 
+                       It can also be used to automatically empty a chest into the storage actuator.
+                         """);
+
+        helper.page("ritual");
+        //no text
+
+        helper.page("tutorial");
+        this.add(helper.pageText(),
+                """
+                       To use the machine operator use the book of calling to link a Storage Actuator, 
+                       the machine and optionally a separate extract location (the face you click on will be extracted from!). 
+                       For the machine you can additionally set a custom name and the insert/extract facings. 
+                         """);
+
+        helper.page("tutorial2");
+        this.add(helper.pageText(),
+                """
+                       Please note that setting a new machine (or configuring it with the book of calling) will reset the extraction settings.
+                         """);
     }
 
     private void addPossessionRitualsCategory(BookLangHelper helper) {
