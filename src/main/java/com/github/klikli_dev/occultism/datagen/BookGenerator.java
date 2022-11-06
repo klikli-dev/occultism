@@ -1777,31 +1777,6 @@ public class BookGenerator implements DataProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeSummonCleanerEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
-        helper.entry("summon_cleaner");
-
-        helper.page("intro");
-        var intro = BookTextPageModel.builder()
-                .withTitle(helper.pageTitle())
-                .withText(helper.pageText())
-                .build();
-
-        helper.page("ritual");
-        var ritual = BookRitualRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("ritual/summon_foliot_cleaner"))
-                .build();
-
-        return BookEntryModel.builder()
-                .withId(this.modLoc(helper.category + "/" + helper.entry))
-                .withName(helper.entryName())
-                .withIcon(OccultismItems.BRUSH.getId().toString())
-                .withLocation(entryHelper.get(icon))
-                .withPages(
-                        intro,
-                        ritual
-                );
-    }
-
     private BookEntryModel.Builder makeSummonCrusherT1Entry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
         helper.entry("summon_crusher_t1");
 
@@ -1950,6 +1925,12 @@ public class BookGenerator implements DataProvider {
                 .withText(helper.pageText())
                 .build();
 
+        helper.page("intro2");
+        var intro2 = BookTextPageModel.builder()
+                .withText(helper.pageText())
+                .build();
+
+
         helper.page("ritual");
         var ritual = BookRitualRecipePageModel.builder()
                 .withRecipeId1(this.modLoc("ritual/summon_foliot_transport_items"))
@@ -1962,6 +1943,38 @@ public class BookGenerator implements DataProvider {
                 .withLocation(entryHelper.get(icon))
                 .withPages(
                         intro,
+                        intro2,
+                        ritual
+                );
+    }
+
+    private BookEntryModel.Builder makeSummonCleanerEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("summon_cleaner");
+
+        helper.page("intro");
+        var intro = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("intro2");
+        var intro2 = BookTextPageModel.builder()
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("ritual");
+        var ritual = BookRitualRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("ritual/summon_foliot_cleaner"))
+                .build();
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withIcon(OccultismItems.BRUSH.getId().toString())
+                .withLocation(entryHelper.get(icon))
+                .withPages(
+                        intro,
+                        intro2,
                         ritual
                 );
     }

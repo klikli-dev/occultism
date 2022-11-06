@@ -26,13 +26,11 @@ import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.datagen.OccultismAdvancementProvider;
 import com.github.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants;
 import com.github.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants.I18n;
-import com.github.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePageModel;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.modonomicon.api.ModonomiconAPI;
 import com.klikli_dev.modonomicon.api.datagen.BookLangHelper;
-import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import net.minecraft.Util;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
@@ -1831,10 +1829,10 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Crusher Spirits");
         this.add(helper.pageText(),
                 """
-                       Crusher spirits are summoned to crush ores into dusts, effectively multiplying the metal output. 
-                       They will pick up appropriate ores and drop the resulting dusts into the world. 
-                       A purple particle effect and a crushing sound indicate the crusher is at work. 
-                         """);
+                        Crusher spirits are summoned to crush ores into dusts, effectively multiplying the metal output. 
+                        They will pick up appropriate ores and drop the resulting dusts into the world. 
+                        A purple particle effect and a crushing sound indicate the crusher is at work. 
+                          """);
 
         helper.page("automation");
         this.add(helper.pageText(),
@@ -1896,11 +1894,11 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Marid Crusher");
         this.add(helper.pageText(),
                 """
-                       The afrit crusher is resistant to essence decay and faster and more efficient than the afrit crusher.
-                       \\
-                       \\
-                       It will crush **one** ore into **six** corresponding dusts.
-                         """);
+                        The afrit crusher is resistant to essence decay and faster and more efficient than the afrit crusher.
+                        \\
+                        \\
+                        It will crush **one** ore into **six** corresponding dusts.
+                          """);
 
         helper.page("ritual");
         //no text
@@ -1913,10 +1911,10 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Foliot Lumberjack");
         this.add(helper.pageText(),
                 """
-                       The lumberjack will harvest trees in it's working area and deposit the dropped items into the specified chest.
-                       **Note**: The lumberjack is using the old vanilla AI, not villager AI. That means he is ... *wonky*, and wont to get stuck. 
-                       Consider him more of a semi-automatic helper, than a fully automated tree farm :)
-                         """);
+                        The lumberjack will harvest trees in it's working area and deposit the dropped items into the specified chest.
+                        **Note**: The lumberjack is using the old vanilla AI, not villager AI. That means he is ... *wonky*, and wont to get stuck. 
+                        Consider him more of a semi-automatic helper, than a fully automated tree farm :)
+                          """);
 
         helper.page("ritual");
         //no text
@@ -1928,10 +1926,21 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Foliot Transporter");
         this.add(helper.pageText(),
                 """
-                      The transporter will move all items it can access from one inventory to another, including machines. 
-                      It can also deposit into the inventories of other spirits. 
-                      By setting the extract and insert side they can be used to automate various transport tasks.
-                         """);
+                        The transporter is useful in that you don't need a train of hoppers transporting stuff, and can use any inventory to take from and deposit.
+                        \\
+                        \\
+                        To make it take from an inventory simply sneak and interact with it's book of calling on the inventory you want. 
+                               """);
+
+        helper.page("intro2");
+        this.add(helper.pageText(),
+                """
+                        You can also dictate which inventory it deposits to in the same way.
+                        \\
+                        The transporter will move all items it can access from one inventory to another, including machines. 
+                        It can also deposit into the inventories of other spirits. 
+                        By setting the extract and insert side they can be used to automate various transport tasks.
+                           """);
 
         helper.page("ritual");
         //no text
@@ -1943,10 +1952,21 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Foliot Janitor");
         this.add(helper.pageText(),
                 """
-                       The janitor will pick up dropped items and deposit them into a target inventory.
-                       You can configure an allow/block list to specify which items to pick up or ignore.
-                       You can use tags to handle whole groups of items.
-                         """);
+                        The janitor will pick up dropped items and deposit them into a target inventory.
+                        You can configure an allow/block list to specify which items to pick up or ignore.
+                        **Warning**: By default it is set to "allow" mode, so it will only pick up items you specify in the allow list.
+                        You can use tags to handle whole groups of items.
+                          """);
+
+        helper.page("intro2");
+        this.add(helper.pageText(),
+                """
+                        To bind the janitor to an inventory simply sneak and interact with the janitor book of calling on that inventory.
+                        You can also interact with a block while holding the janitor book of calling to have it deposit items there.
+                        You can also have it wander around a select area by pulling up that interface. 
+                        To configure an allow/block list sneak and interact with the janitor.
+                          """);
+
 
         helper.page("ritual");
         //no text
@@ -1958,10 +1978,10 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Djinni Machine Operator");
         this.add(helper.pageText(),
                 """
-                       The machine operator transfers items specified in the dimensional storage actuator GUI, 
-                       to it's managed machine, and returns crafting results to the storage system. 
-                       It can also be used to automatically empty a chest into the storage actuator.
-                         """);
+                        The machine operator transfers items specified in the dimensional storage actuator GUI, 
+                        to it's managed machine, and returns crafting results to the storage system. 
+                        It can also be used to automatically empty a chest into the storage actuator.
+                          """);
 
         helper.page("ritual");
         //no text
@@ -1969,16 +1989,16 @@ public class ENUSProvider extends LanguageProvider {
         helper.page("tutorial");
         this.add(helper.pageText(),
                 """
-                       To use the machine operator use the book of calling to link a Storage Actuator, 
-                       the machine and optionally a separate extract location (the face you click on will be extracted from!). 
-                       For the machine you can additionally set a custom name and the insert/extract facings. 
-                         """);
+                        To use the machine operator use the book of calling to link a Storage Actuator, 
+                        the machine and optionally a separate extract location (the face you click on will be extracted from!). 
+                        For the machine you can additionally set a custom name and the insert/extract facings. 
+                          """);
 
         helper.page("tutorial2");
         this.add(helper.pageText(),
                 """
-                       Please note that setting a new machine (or configuring it with the book of calling) will reset the extraction settings.
-                         """);
+                        Please note that setting a new machine (or configuring it with the book of calling) will reset the extraction settings.
+                          """);
     }
 
     private void addPossessionRitualsCategory(BookLangHelper helper) {
