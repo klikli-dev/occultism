@@ -26,14 +26,6 @@
       "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_manage_machine.intro.text"
     },
     {
-      "type": "occultism:ritual_recipe",
-      "anchor": "",
-      "title1": "",
-      "recipe_id_1": "occultism:ritual/summon_djinni_manage_machine",
-      "title2": "",
-      "text": ""
-    },
-    {
       "type": "modonomicon:text",
       "anchor": "",
       "title": "",
@@ -48,6 +40,14 @@
       "use_markdown_in_title": false,
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_manage_machine.tutorial2.text"
+    },
+    {
+      "type": "occultism:ritual_recipe",
+      "anchor": "",
+      "title1": "",
+      "recipe_id_1": "occultism:ritual/summon_djinni_manage_machine",
+      "title2": "",
+      "text": ""
     }
   ]
 }

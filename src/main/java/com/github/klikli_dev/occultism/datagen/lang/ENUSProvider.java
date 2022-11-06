@@ -1980,7 +1980,8 @@ public class ENUSProvider extends LanguageProvider {
                 """
                         The machine operator transfers items specified in the dimensional storage actuator GUI, 
                         to it's managed machine, and returns crafting results to the storage system. 
-                        It can also be used to automatically empty a chest into the storage actuator.
+                        It can also be used to automatically empty a chest into the storage actuator. \\
+                        Basically, on-demand crafting!
                           """);
 
         helper.page("ritual");
@@ -1998,6 +1999,9 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageText(),
                 """
                         Please note that setting a new machine (or configuring it with the book of calling) will reset the extraction settings.
+                        \\
+                        \\
+                        For an easy start, make sure to view the short [Tutorial Video](https://gyazo.com/237227ba3775e143463b31bdb1b06f50)!
                           """);
     }
 

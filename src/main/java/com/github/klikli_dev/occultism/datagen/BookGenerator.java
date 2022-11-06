@@ -1988,11 +1988,6 @@ public class BookGenerator implements DataProvider {
                 .withText(helper.pageText())
                 .build();
 
-        helper.page("ritual");
-        var ritual = BookRitualRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("ritual/summon_djinni_manage_machine"))
-                .build();
-
         helper.page("tutorial");
         var tutorial = BookTextPageModel.builder()
                 .withText(helper.pageText())
@@ -2003,6 +1998,12 @@ public class BookGenerator implements DataProvider {
                 .withText(helper.pageText())
                 .build();
 
+        helper.page("ritual");
+        var ritual = BookRitualRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("ritual/summon_djinni_manage_machine"))
+                .build();
+
+
         return BookEntryModel.builder()
                 .withId(this.modLoc(helper.category + "/" + helper.entry))
                 .withName(helper.entryName())
@@ -2010,9 +2011,9 @@ public class BookGenerator implements DataProvider {
                 .withLocation(entryHelper.get(icon))
                 .withPages(
                         intro,
-                        ritual,
                         tutorial,
-                        tutorial2
+                        tutorial2,
+                        ritual
                 );
     }
 
