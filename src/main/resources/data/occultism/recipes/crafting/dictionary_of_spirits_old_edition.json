@@ -2,6 +2,9 @@
   "type": "patchouli:shapeless_book_recipe",
   "ingredients": [
     {
+      "item": "occultism:datura_seeds"
+    },
+    {
       "item": "occultism:dictionary_of_spirits"
     }
   ],
