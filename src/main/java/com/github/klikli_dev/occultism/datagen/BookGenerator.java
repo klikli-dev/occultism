@@ -3,6 +3,8 @@ package com.github.klikli_dev.occultism.datagen;
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePageModel;
 import com.github.klikli_dev.occultism.integration.modonomicon.pages.BookSpiritFireRecipePageModel;
+import com.github.klikli_dev.occultism.integration.modonomicon.pages.BookSpiritTradeRecipePage;
+import com.github.klikli_dev.occultism.integration.modonomicon.pages.BookSpiritTradeRecipePageModel;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.google.gson.Gson;
@@ -1692,16 +1694,19 @@ public class BookGenerator implements DataProvider {
         var summonManageMachine = this.makeSummonManageMachineEntry(helper, entryHelper, 'h');
         summonManageMachine.withParent(BookEntryParentModel.builder().withEntryId(summonTransportItems.id).build());
 
-//        var tradeSpirits = this.makeTradeSpiritsEntry(helper, entryHelper, 'e');
-//        var summonOtherstoneTrader = this.makeSummonOtherstoneTraderEntry(helper, entryHelper, 'f');
-//        var summonOtherworldSaplingTrader = this.makeSummonOtherworldSaplingTraderEntry(helper, entryHelper, 'g');
-//
+        var tradeSpirits = this.makeTradeSpiritsEntry(helper, entryHelper, 'e');
+        tradeSpirits.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
+        var summonOtherworldSaplingTrader = this.makeSummonOtherworldSaplingTraderEntry(helper, entryHelper, 'f');
+        summonOtherworldSaplingTrader.withParent(BookEntryParentModel.builder().withEntryId(tradeSpirits.id).build());
+        var summonOtherstoneTrader = this.makeSummonOtherstoneTraderEntry(helper, entryHelper, 'g');
+        summonOtherstoneTrader.withParent(BookEntryParentModel.builder().withEntryId(summonOtherworldSaplingTrader.id).build());
 //        var summonWildParrot = this.makeSummonWildParrotEntry(helper, entryHelper, 'i');
 //        var summonWildOtherworldBird = this.makeSummonWildOtherworldBirdEntry(helper, entryHelper, 'j');
 //
 //        var timeMagic = this.makeTimeMagicEntry(helper, entryHelper, 'k');
 //        var weatherMagic = this.makeWeatherMagicEntry(helper, entryHelper, 'l');
 //        var witherSkull = this.makeWitherSkullEntry(helper, entryHelper, 'm');
+
         var afritEssence = this.makeAfritEssenceEntry(helper, entryHelper, 'a');
 
         return BookCategoryModel.builder()
@@ -1721,14 +1726,14 @@ public class BookGenerator implements DataProvider {
                         summonLumberjack.build(),
                         summonManageMachine.build(),
                         summonTransportItems.build(),
-//                        summonOtherstoneTrader,
-//                        summonOtherworldSaplingTrader,
-//                        summonWildOtherworldBird,
-//                        summonWildParrot,
-//                        timeMagic,
-//                        tradeSpirits,
-//                        weatherMagic,
-//                        witherSkull
+                        tradeSpirits.build(),
+                        summonOtherstoneTrader.build(),
+                        summonOtherworldSaplingTrader.build(),
+//                        summonWildOtherworldBird.build(),
+//                        summonWildParrot.build(),
+//                        timeMagic.build(),
+//                        weatherMagic.build(),
+//                        witherSkull.build()
                         afritEssence.build()
                 );
     }
@@ -2013,6 +2018,93 @@ public class BookGenerator implements DataProvider {
                         intro,
                         tutorial,
                         tutorial2,
+                        ritual
+                );
+    }
+
+    private BookEntryModel.Builder makeTradeSpiritsEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("trade_spirits");
+
+        helper.page("intro");
+        var intro = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("intro2");
+        var intro2 = BookTextPageModel.builder()
+                .withText(helper.pageText())
+                .build();
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withIcon("occultism:textures/gui/book/cash.png")
+                .withLocation(entryHelper.get(icon))
+                .withPages(
+                        intro,
+                        intro2
+                );
+    }
+
+    private BookEntryModel.Builder makeSummonOtherstoneTraderEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("otherstone_trader");
+
+        helper.page("intro");
+        var intro = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("trade");
+        var trade = BookSpiritTradeRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("spirit_trade/stone_to_otherstone"))
+                .build();
+
+        helper.page("ritual");
+        var ritual = BookRitualRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("ritual/summon_foliot_otherstone_trader"))
+                .build();
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withIcon(OccultismBlocks.OTHERSTONE.getId().toString())
+                .withLocation(entryHelper.get(icon))
+                .withPages(
+                        intro,
+                        trade,
+                        ritual
+                );
+    }
+
+    private BookEntryModel.Builder makeSummonOtherworldSaplingTraderEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("otherworld_sapling_trader");
+
+        helper.page("intro");
+        var intro = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("trade");
+        var trade = BookSpiritTradeRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("spirit_trade/otherworld_sapling"))
+                .build();
+
+        helper.page("ritual");
+        var ritual = BookRitualRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("ritual/summon_foliot_sapling_trader"))
+                .build();
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withIcon(OccultismBlocks.OTHERWORLD_SAPLING.getId().toString())
+                .withLocation(entryHelper.get(icon))
+                .withPages(
+                        intro,
+                        trade,
                         ritual
                 );
     }

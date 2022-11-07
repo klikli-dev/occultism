@@ -26,11 +26,14 @@ import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.datagen.OccultismAdvancementProvider;
 import com.github.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants;
 import com.github.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants.I18n;
+import com.github.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePageModel;
+import com.github.klikli_dev.occultism.integration.modonomicon.pages.BookSpiritTradeRecipePageModel;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.modonomicon.api.ModonomiconAPI;
 import com.klikli_dev.modonomicon.api.datagen.BookLangHelper;
+import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import net.minecraft.Util;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
@@ -2003,6 +2006,60 @@ public class ENUSProvider extends LanguageProvider {
                         \\
                         For an easy start, make sure to view the short [Tutorial Video](https://gyazo.com/237227ba3775e143463b31bdb1b06f50)!
                           """);
+
+        helper.entry("trade_spirits");
+        this.add(helper.entryName(), "Trade Spirits");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Trade Spirits");
+        this.add(helper.pageText(),
+                """
+                       Trade spirits pick up appropriate items and throw trade results on the ground. 
+                       The spirit is only actively exchanging items if purple particles spawn around it. 
+                       \\
+                       \\
+                       **If you do not see any particles**, ensure that you gave the proper item and amount.
+                          """);
+
+        helper.page("intro2");
+        this.add(helper.pageText(),
+                """
+                       Most trade spirits experience extreme essence decay and will return to [#](%1$s)The Other Place[#]() quickly.
+                          """.formatted(COLOR_PURPLE));
+
+        helper.entry("otherworld_sapling_trader");
+        this.add(helper.entryName(), "Summon Otherworld Sapling Trader");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Otherworld Sapling Trader");
+        this.add(helper.pageText(),
+                """
+                       Otherworld Trees grown from natural Otherworld Saplings can only be harvested when under the effect of [#](%1$s)Third Eye[#]().
+                       To make life easier, the Otherworld Sapling Trader will exchange such natural saplings for a stable variant that can be harvested by anyone, and will drop the same stable saplings when harvested.
+                          """.formatted(COLOR_PURPLE));
+
+        helper.page("trade");
+        //no text
+
+        helper.page("ritual");
+        //no text
+
+        helper.entry("otherstone_trader");
+        this.add(helper.entryName(), "Summon Otherstone Trader");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Otherstone Trader");
+        this.add(helper.pageText(),
+                """
+                       The Otherstone Trader spirit allows to get more [](item://occultism:otherstone) than using [](item://occultism:spirit_fire).
+                       Thus it is especially efficient if you want to use Otherstone as a building material.
+                          """);
+
+        helper.page("trade");
+        //no text
+
+        helper.page("ritual");
+        //no text
     }
 
     private void addPossessionRitualsCategory(BookLangHelper helper) {
