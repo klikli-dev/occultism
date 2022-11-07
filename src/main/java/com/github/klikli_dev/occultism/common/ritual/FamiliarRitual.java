@@ -58,6 +58,9 @@ public class FamiliarRitual extends SummonRitual {
             if (entity instanceof FamiliarEntity familiar) {
                 familiar.finalizeSpawn((ServerLevel) level, level.getCurrentDifficultyAt(goldenBowlPosition), MobSpawnType.MOB_SUMMONED,
                         null, null);
+
+                this.applyRecipeNbtToEntity(familiar);
+
                 familiar.absMoveTo(goldenBowlPosition.getX(), goldenBowlPosition.getY(), goldenBowlPosition.getZ(),
                         level.random.nextInt(360), 0);
                 familiar.setCustomName(Component.literal(entityName));
