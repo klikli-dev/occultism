@@ -1643,31 +1643,19 @@ public class BookGenerator implements DataProvider {
 
         var entryHelper = ModonomiconAPI.get().getEntryLocationHelper();
         entryHelper.setMap(
-                "_______________b______________",
-                "_______________________k______",
-                "______________________________",
-                "______________________________",
-                "___________c___d___h___l______",
-                "______________________________",
-                "______________________________",
-                "______________________________",
-                "___r___o______________________",
-                "______________________________",
-                "______________________________",
-                "______________________________",
-                "___________1___e___i___a___m__",
-                "______________________________",
-                "______________________________",
-                "______________________________",
-                "___________2___f___j__________",
-                "______________________________",
-                "______________________________",
-                "______________________________",
-                "___________3___g______________",
-                "______________________________",
-                "______________________________",
-                "______________________________",
-                "___________4__________________"
+                "___________b___l______",
+                "______________________",
+                "_________c_d_h_k______",
+                "______________________",
+                "___r_o________________",
+                "______________________",
+                "_________1_e_i_a_m___",
+                "______________________",
+                "_________2_f_j________",
+                "______________________",
+                "_________3_g__________",
+                "______________________",
+                "_________4____________"
         );
 
         var overview = this.makeSummoningRitualsOverviewEntry(helper, entryHelper, 'o');
@@ -1700,16 +1688,22 @@ public class BookGenerator implements DataProvider {
         summonOtherworldSaplingTrader.withParent(BookEntryParentModel.builder().withEntryId(tradeSpirits.id).build());
         var summonOtherstoneTrader = this.makeSummonOtherstoneTraderEntry(helper, entryHelper, 'g');
         summonOtherstoneTrader.withParent(BookEntryParentModel.builder().withEntryId(summonOtherworldSaplingTrader.id).build());
+
         var summonWildParrot = this.makeSummonWildParrotEntry(helper, entryHelper, 'i');
         summonWildParrot.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
         var summonWildOtherworldBird = this.makeSummonWildOtherworldBirdEntry(helper, entryHelper, 'j');
         summonWildOtherworldBird.withParent(BookEntryParentModel.builder().withEntryId(summonWildParrot.id).build());
-//
-//        var timeMagic = this.makeTimeMagicEntry(helper, entryHelper, 'k');
-//        var weatherMagic = this.makeWeatherMagicEntry(helper, entryHelper, 'l');
-//        var witherSkull = this.makeWitherSkullEntry(helper, entryHelper, 'm');
+
+        var weatherMagic = this.makeWeatherMagicEntry(helper, entryHelper, 'k');
+        weatherMagic.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
+        var timeMagic = this.makeTimeMagicEntry(helper, entryHelper, 'l');
+        timeMagic.withParent(BookEntryParentModel.builder().withEntryId(weatherMagic.id).build());
 
         var afritEssence = this.makeAfritEssenceEntry(helper, entryHelper, 'a');
+        afritEssence.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
+
+        var witherSkull = this.makeWitherSkullEntry(helper, entryHelper, 'm');
+        witherSkull.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
 
         return BookCategoryModel.builder()
                 .withId(this.modLoc(helper.category))
@@ -1733,9 +1727,9 @@ public class BookGenerator implements DataProvider {
                         summonOtherworldSaplingTrader.build(),
                         summonWildOtherworldBird.build(),
                         summonWildParrot.build(),
-//                        timeMagic.build(),
-//                        weatherMagic.build(),
-//                        witherSkull.build()
+                        timeMagic.build(),
+                        weatherMagic.build(),
+                        witherSkull.build(),
                         afritEssence.build()
                 );
     }
@@ -2180,6 +2174,99 @@ public class BookGenerator implements DataProvider {
                 );
     }
 
+    private BookEntryModel.Builder makeWeatherMagicEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("weather_magic");
+
+        helper.page("intro");
+        var intro = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("ritual_clear");
+        var ritualClear = BookRitualRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("ritual/summon_djinni_clear_weather"))
+                .build();
+
+        helper.page("ritual_rain");
+        var ritualRain = BookRitualRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("ritual/summon_afrit_rain_weather"))
+                .build();
+
+        helper.page("ritual_thunder");
+        var ritualThunder = BookRitualRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("ritual/summon_afrit_thunder_weather"))
+                .build();
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withIcon(ForgeRegistries.ITEMS.getKey(Items.WHEAT).toString())
+                .withLocation(entryHelper.get(icon))
+                .withPages(
+                        intro,
+                        ritualClear,
+                        ritualRain,
+                        ritualThunder
+                );
+    }
+
+    private BookEntryModel.Builder makeTimeMagicEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("time_magic");
+
+        helper.page("intro");
+        var intro = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("ritual_day");
+        var ritualDay = BookRitualRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("ritual/summon_djinni_day_time"))
+                .build();
+
+        helper.page("ritual_night");
+        var ritualNight = BookRitualRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("ritual/summon_djinni_night_time"))
+                .build();
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withIcon(ForgeRegistries.ITEMS.getKey(Items.CLOCK).toString())
+                .withLocation(entryHelper.get(icon))
+                .withPages(
+                        intro,
+                        ritualDay,
+                        ritualNight
+                );
+    }
+
+    private BookEntryModel.Builder makeWitherSkullEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("wither_skull");
+
+        helper.page("intro");
+        var intro = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("ritual");
+        var ritual = BookRitualRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("ritual/summon_wild_hunt"))
+                .build();
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withIcon(ForgeRegistries.ITEMS.getKey(Items.WITHER_SKELETON_SKULL).toString())
+                .withLocation(entryHelper.get(icon))
+                .withPages(
+                        intro,
+                        ritual
+                );
+    }
+
     private BookCategoryModel.Builder makeCraftingRitualsSubcategory(BookLangHelper helper) {
         helper.category("crafting_rituals");
 
@@ -2189,7 +2276,7 @@ public class BookGenerator implements DataProvider {
                 "___________________________",
                 "___________________________",
                 "___________________________",
-                "___r___o___________________",
+                "___r_o_____________________",
                 "___________________________",
                 "___________________________",
                 "___________________________",
@@ -2271,7 +2358,7 @@ public class BookGenerator implements DataProvider {
                 "___________________________",
                 "___________________________",
                 "___________________________",
-                "___r___o___________________",
+                "___r_o_____________________",
                 "___________________________",
                 "___________________________",
                 "___________________________",
@@ -2331,7 +2418,7 @@ public class BookGenerator implements DataProvider {
                 "___________________________",
                 "___________________________",
                 "___________________________",
-                "___r___o___________________",
+                "___r_o_____________________",
                 "___________________________",
                 "___________________________",
                 "___________________________",

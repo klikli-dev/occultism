@@ -2108,6 +2108,81 @@ public class ENUSProvider extends LanguageProvider {
                         See [Drikwing Familiar]() for more information.
                           """);
         //TODO: add link to [](entry://familiar_rituals/familiar_otherworld_bird)
+
+        helper.entry("weather_magic");
+        this.add(helper.entryName(), "Weather Magic");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Weather Magic");
+        this.add(helper.pageText(),
+                """
+                       Weather magic is especially useful for farmers and others depending on specific weather.
+                       Summons spirits to modify the weather. 
+                       Different types of weather modification require different spirits.
+                       \\
+                       \\
+                       Weather spirits will only modify the weather once and then vanish.
+                          """);
+
+        helper.page("ritual_clear");
+        //no text
+
+        helper.page("ritual_rain");
+        //no text
+
+        helper.page("ritual_thunder");
+        //no text
+
+        helper.entry("time_magic");
+        this.add(helper.entryName(), "Time Magic");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Time Magic");
+        this.add(helper.pageText(),
+                """
+                       Time magic is limited in scope, it cannot send the magician back or forth in time, 
+                       but rather allows to change time time of day. 
+                       This is especially useful for rituals or other tasks requiring day- or nighttime specifically. 
+                       \\
+                       \\
+                       Time spirits will only modify the weather once and then vanish.
+                          """);
+
+        helper.page("ritual_day");
+        //no text
+
+        helper.page("ritual_night");
+        //no text
+
+        helper.entry("wither_skull");
+        this.add(helper.entryName(), "Wither Skeleton Skull");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Wither Skeleton Skull");
+        this.add(helper.pageText(),
+                """
+                       Besides venturing into nether dungeons, there is one more way to get these skulls. 
+                       The legendary [#](%1$s)Wild Hunt[#]() consists of [#](%1$s)Greater Spirits[#]() taking the form of wither skeletons. 
+                       While summoning the Wild Hunt is incredibly dangerous, it is the fastest way to get wither skeleton skulls.
+                          """.formatted(COLOR_PURPLE));
+
+        helper.page("ritual");
+        //no text
+
+        helper.entry("afrit_essence");
+        this.add(helper.entryName(), "Afrit Essence");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Afrit Essence");
+        this.add(helper.pageText(),
+                """
+                       [](item://occultism:afrit_essence) is required to safely call on the more powerful spirits, commonly used in the form of red chalk. 
+                       To obtain the essence, an [#](%1$s)Afrit[#]() needs to be summoned unbound into this plane, and killed. 
+                       Be warned that this is no simple endeavour, and unbound spirit presents great danger to all nearby.
+                          """.formatted(COLOR_PURPLE));
+
+        helper.page("ritual");
+        //no text
     }
 
     private void addPossessionRitualsCategory(BookLangHelper helper) {

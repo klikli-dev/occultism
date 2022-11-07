@@ -1,16 +1,16 @@
 {
   "category": "occultism:summoning_rituals",
-  "name": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_otherworld_sapling_trader.name",
+  "name": "book.occultism.dictionary_of_spirits.summoning_rituals.time_magic.name",
   "description": "",
-  "icon": "occultism:otherworld_sapling",
-  "x": 0,
-  "y": 2,
+  "icon": "minecraft:clock",
+  "x": 4,
+  "y": -6,
   "background_u_index": 0,
   "background_v_index": 0,
   "hide_while_locked": false,
   "parents": [
     {
-      "entry": "occultism:summoning_rituals/trade_spirits",
+      "entry": "occultism:summoning_rituals/weather_magic",
       "draw_arrow": true,
       "line_enabled": true,
       "line_reversed": false
@@ -20,16 +20,16 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
-      "title": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_otherworld_sapling_trader.intro.title",
+      "title": "book.occultism.dictionary_of_spirits.summoning_rituals.time_magic.intro.title",
       "use_markdown_in_title": false,
       "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_otherworld_sapling_trader.intro.text"
+      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.time_magic.intro.text"
     },
     {
-      "type": "occultism:spirit_trade_recipe",
+      "type": "occultism:ritual_recipe",
       "anchor": "",
       "title1": "",
-      "recipe_id_1": "occultism:spirit_trade/otherworld_sapling",
+      "recipe_id_1": "occultism:ritual/summon_djinni_day_time",
       "title2": "",
       "text": ""
     },
@@ -37,7 +37,7 @@
       "type": "occultism:ritual_recipe",
       "anchor": "",
       "title1": "",
-      "recipe_id_1": "occultism:ritual/summon_foliot_sapling_trader",
+      "recipe_id_1": "occultism:ritual/summon_djinni_night_time",
       "title2": "",
       "text": ""
     }
