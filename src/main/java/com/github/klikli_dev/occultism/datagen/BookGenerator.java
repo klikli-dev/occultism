@@ -2357,9 +2357,9 @@ public class BookGenerator implements DataProvider {
                 "___________________________",
                 "___________________________",
                 "___________________________",
-                "___________________________",
+                "_______D_E_A_______________",
                 "___r_o_____________________",
-                "___________________________",
+                "_______F_G_H_______________",
                 "___________________________",
                 "___________________________",
                 "___________________________"
@@ -2370,10 +2370,21 @@ public class BookGenerator implements DataProvider {
         returnToRituals.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
         returnToRituals.withCondition(BookTrueConditionModel.builder().build());
 
-//        var possessEnderman = this.makePossessEndermanEntry(helper, entryHelper, 'D');
-//        var possessEndermite = this.makePossessEndermiteEntry(helper, entryHelper, 'E');
-//        var possessGhast = this.makePossessGhastEntry(helper, entryHelper, 'F');
-//        var possessSkeleton = this.makePossessSkeletonEntry(helper, entryHelper, 'G');
+        var possessEnderman = this.makePossessEndermanEntry(helper, entryHelper, 'D');
+        possessEnderman.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
+        var possessEndermite = this.makePossessEndermiteEntry(helper, entryHelper, 'E');
+        possessEndermite.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
+        var possessGhast = this.makePossessGhastEntry(helper, entryHelper, 'F');
+        possessGhast.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
+        var possessSkeleton = this.makePossessSkeletonEntry(helper, entryHelper, 'G');
+        possessSkeleton.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
+
+        helper.category("summoning_rituals"); //re-use the entries from the summoning rituals category
+        var possessWitherSkeleton = this.makeWitherSkullEntry(helper, entryHelper, 'H');
+        possessWitherSkeleton.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
+        var afritEssence = this.makeAfritEssenceEntry(helper, entryHelper, 'A');
+        afritEssence.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
+        helper.category("possession_rituals");
 
         return BookCategoryModel.builder()
                 .withId(this.modLoc(helper.category))
@@ -2382,11 +2393,13 @@ public class BookGenerator implements DataProvider {
                 .withShowCategoryButton(false)
                 .withEntries(
                         overview.build(),
-                        returnToRituals.build()
-//                        possessEnderman,
-//                        possessEndermite,
-//                        possessGhast,
-//                        possessSkeleton
+                        returnToRituals.build(),
+                        possessEnderman.build(),
+                        possessEndermite.build(),
+                        possessGhast.build(),
+                        possessSkeleton.build(),
+                        possessWitherSkeleton.build(),
+                        afritEssence.build()
                 );
     }
 
@@ -2406,6 +2419,131 @@ public class BookGenerator implements DataProvider {
                 .withLocation(entryHelper.get(icon))
                 .withPages(
                         intro
+                );
+    }
+
+    private BookEntryModel.Builder makePossessEndermanEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("possess_enderman");
+
+        helper.page("entity");
+        var entity = BookEntityPageModel.builder()
+                .withEntityId(this.modLoc("possessed_enderman"))
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("ritual");
+        var ritual = BookRitualRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("ritual/possess_enderman"))
+                .build();
+
+        helper.page("description");
+        var description = BookTextPageModel.builder()
+                .withText(helper.pageText())
+                .build();
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withIcon(ForgeRegistries.ITEMS.getKey(Items.ENDER_PEARL).toString())
+                .withLocation(entryHelper.get(icon))
+                .withPages(
+                        entity,
+                        ritual,
+                        description
+                );
+    }
+
+    private BookEntryModel.Builder makePossessEndermiteEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("possess_endermite");
+
+        helper.page("entity");
+        var entity = BookEntityPageModel.builder()
+                .withEntityId(this.modLoc("possessed_endermite"))
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("ritual");
+        var ritual = BookRitualRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("ritual/possess_endermite"))
+                .build();
+
+        helper.page("description");
+        var description = BookTextPageModel.builder()
+                .withText(helper.pageText())
+                .build();
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withIcon(ForgeRegistries.BLOCKS.getKey(Blocks.END_STONE).toString())
+                .withLocation(entryHelper.get(icon))
+                .withPages(
+                        entity,
+                        ritual,
+                        description
+                );
+    }
+
+    private BookEntryModel.Builder makePossessGhastEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("possess_ghast");
+
+        helper.page("entity");
+        var entity = BookEntityPageModel.builder()
+                .withEntityId(this.modLoc("possessed_ghast"))
+                .withScale(0.5f)
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("ritual");
+        var ritual = BookRitualRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("ritual/possess_ghast"))
+                .build();
+
+        helper.page("description");
+        var description = BookTextPageModel.builder()
+                .withText(helper.pageText())
+                .build();
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withIcon(ForgeRegistries.ITEMS.getKey(Items.GHAST_TEAR).toString())
+                .withLocation(entryHelper.get(icon))
+                .withPages(
+                        entity,
+                        ritual,
+                        description
+                );
+    }
+
+    private BookEntryModel.Builder makePossessSkeletonEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("possess_skeleton");
+
+        helper.page("entity");
+        var entity = BookEntityPageModel.builder()
+                .withEntityId(this.modLoc("possessed_skeleton"))
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("ritual");
+        var ritual = BookRitualRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("ritual/possess_skeleton"))
+                .build();
+
+        helper.page("description");
+        var description = BookTextPageModel.builder()
+                .withText(helper.pageText())
+                .build();
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withIcon(ForgeRegistries.ITEMS.getKey(Items.SKELETON_SKULL).toString())
+                .withLocation(entryHelper.get(icon))
+                .withPages(
+                        entity,
+                        ritual,
+                        description
                 );
     }
 

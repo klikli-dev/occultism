@@ -1454,7 +1454,6 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.entryName(), "Fatma's Incentivized Attraction");
         helper.page("intro");
         this.add(helper.pageTitle(), "Fatma's Incentivized Attraction");
-        //convert to our markdown format: $(bold)Purpose:$() Summon Marid $(br2)$(thing)Fatma's Incentivized Attraction$() is a powerful pentacle, allowing to summon Marid and bind them to the summoner's will.
         this.add(helper.pageText(),
                 """
                         **Purpose:** Summon a [#](%1$s)Marid[#]()
@@ -1683,7 +1682,7 @@ public class ENUSProvider extends LanguageProvider {
 
         helper.page("uses");
         this.add(helper.pageTitle(), "Uses");
-        //convert to our md format:       "text": "$(li)$(l:rituals/crafting/craft_stabilizer_tier4)Storage Stabilizer Tier 4$(/l)$()"
+        //convert to our md format:       "text": "$(li)$(l:rituals/crafting/craft_stabilizer_tier4)Storage Stabilizer Tier 4$(/l)[#]()"
         this.add(helper.pageText(),
                 """
                         - //TODO: Add remaining uses
@@ -2199,10 +2198,91 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Possession Rituals");
         this.add(helper.pageText(),
                 """
-                        Possession rituals bind spirits into living beings, 
-                        giving the summoner a degree of control over the possessed being.
-                        This can range from controlling their item drops to forcing them to do the summoner's bidding.
+                        Possession rituals bind spirits into living beings, giving the summoner a degree of control over the possessed being.
+                        \\
+                        \\
+                        As such these rituals are used to obtain rare items without having to venture into dangerous places.
                            """);
+
+        helper.entry("possess_enderman");
+        this.add(helper.entryName(), "Possessed Enderman");
+
+        helper.page("entity");
+        this.add(helper.pageText(),
+                """
+                   **Drops**: 1-3x [](item://minecraft:ender_pearl)
+                           """);
+
+        helper.page("ritual");
+        //no text
+
+        helper.page("description");
+        this.add(helper.pageText(),
+                """
+                   In this ritual an [#](%1$s)Enderman[#]() is spawned using the life energy of a [#](%1$s)Pig[#]() and 
+                   immediately possessed by the summoned [#](%1$s)Djinni[#](). 
+                   The [#](%1$s)Possessed Enderman[#]() will always drop at least one [](item://minecraft:ender_pearl) when killed.
+                           """.formatted(COLOR_PURPLE));
+
+        helper.entry("possess_endermite");
+        this.add(helper.entryName(), "Possessed Endermite");
+
+        helper.page("entity");
+        this.add(helper.pageText(),
+                """
+                   **Drops**: 1-2x [](item://minecraft:end_stone)
+                           """);
+
+        helper.page("ritual");
+        //no text
+
+        helper.page("description");
+        this.add(helper.pageText(),
+                """
+                   In this ritual an [#](%1$s)Endermite[#]() is tricked into spawning. 
+                   The stone and dirt represent the surroundings, then an egg is thrown to simulate the use of an ender pearl. 
+                   When the mite spawns, the summoned [#](%1$s)Foliot[#]() immediately possesses it, visits [#](%1$s)The End[#](), and returns. 
+                   The [#](%1$s)Possessed Endermite[#]() will always drop at least one [](item://minecraft:end_stone) when killed.
+                           """.formatted(COLOR_PURPLE));
+
+        helper.entry("possess_ghast");
+        this.add(helper.entryName(), "Possessed Ghast");
+
+        helper.page("entity");
+        this.add(helper.pageText(),
+                """
+                   **Drops**: 1-3x [](item://minecraft:ghast_tear)
+                           """);
+
+        helper.page("ritual");
+        //no text
+
+        helper.page("description");
+        this.add(helper.pageText(),
+                """
+                   In this ritual a [#](%1$s)Ghast[#]() is spawned using the life energy of a [#](%1$s)Sheep[#]() 
+                   and immediately possessed by the summoned [#](%1$s)Djinni[#](). 
+                   The [#](%1$s)Possessed Ghast[#]() will always drop at least one [](item://minecraft:ghast_tear) when killed.
+                   """.formatted(COLOR_PURPLE));
+
+        helper.entry("possess_skeleton");
+        this.add(helper.entryName(), "Possessed Skeleton");
+
+        helper.page("entity");
+        this.add(helper.pageText(),
+                """
+                   **Drops**: 1x [](item://minecraft:skeleton_skull)
+                           """);
+
+        helper.page("ritual");
+        //no text
+
+        helper.page("description");
+        this.add(helper.pageText(),
+                """
+                   In this ritual an [#](%1$s)Skeleton[#]() is spawned using the life energy of a [#](%1$s)Chicken[#]() and possessed by a [#](%1$s)Foliot[#](). 
+                   The [#](%1$s)Possessed Skeleton[#]() will be immune to daylight and always drop at least one [](item://minecraft:skeleton_skull) when killed.
+                           """.formatted(COLOR_PURPLE));
     }
 
     private void addCraftingRitualsCategory(BookLangHelper helper) {
