@@ -92,6 +92,11 @@ public class SummonRitual extends Ritual {
         level.addFreshEntity(entity);
     }
 
+    public void applyRecipeNbtToEntity(Entity entity) {
+        if (this.recipe.getEntityPersitentData() != null)
+            entity.getPersistentData().merge(this.recipe.getEntityPersitentData());
+    }
+
     @Override
     public void finish(Level level, BlockPos goldenBowlPosition, GoldenSacrificialBowlBlockEntity blockEntity,
                        Player castingPlayer, ItemStack activationItem) {
@@ -111,6 +116,8 @@ public class SummonRitual extends Ritual {
             if (entity instanceof LivingEntity living) {
                 this.prepareLivingEntityForSpawn(living, level, goldenBowlPosition, blockEntity, castingPlayer,
                         ItemNBTUtil.getBoundSpiritName(copy), this.tame);
+
+                this.applyRecipeNbtToEntity(entity);
 
                 this.initSummoned(living, level, goldenBowlPosition, blockEntity, castingPlayer);
 

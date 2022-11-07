@@ -24,8 +24,7 @@ package com.github.klikli_dev.occultism.common.item.tool;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.klikli_dev.modonomicon.Modonomicon;
-import com.klikli_dev.modonomicon.api.ModonimiconConstants.I18n.Tooltips;
-import com.klikli_dev.modonomicon.api.ModonimiconConstants.Nbt;
+import com.klikli_dev.modonomicon.api.ModonomiconConstants;
 import com.klikli_dev.modonomicon.book.Book;
 import com.klikli_dev.modonomicon.client.gui.BookGuiManager;
 import com.klikli_dev.modonomicon.data.BookDataManager;
@@ -37,9 +36,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.CreativeModeTab;
@@ -124,7 +121,7 @@ public class GuideBookItem extends Item {
             }
         }
         else {
-            tooltip.add(new TranslatableComponent(Tooltips.ITEM_NO_BOOK_FOUND_FOR_STACK,
+            tooltip.add(new TranslatableComponent(ModonomiconConstants.I18n.Tooltips.ITEM_NO_BOOK_FOUND_FOR_STACK,
                             !stack.hasTag() ? new TextComponent("{}") : NbtUtils.toPrettyComponent(stack.getTag()))
                     .withStyle(ChatFormatting.DARK_GRAY));
         }
@@ -136,7 +133,7 @@ public class GuideBookItem extends Item {
             ItemStack stack = new ItemStack(this);
 
             CompoundTag cmp = new CompoundTag();
-            cmp.putString(Nbt.ITEM_BOOK_ID_TAG, DICTIONARY_OF_SPIRITS.toString());
+            cmp.putString(ModonomiconConstants.Nbt.ITEM_BOOK_ID_TAG, DICTIONARY_OF_SPIRITS.toString());
             stack.setTag(cmp);
 
             items.add(stack);
@@ -145,7 +142,7 @@ public class GuideBookItem extends Item {
 
     @Override
     public @Nullable ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag nbt) {
-        stack.getOrCreateTag().putString(Nbt.ITEM_BOOK_ID_TAG, DICTIONARY_OF_SPIRITS.toString());
+        stack.getOrCreateTag().putString(ModonomiconConstants.Nbt.ITEM_BOOK_ID_TAG, DICTIONARY_OF_SPIRITS.toString());
         return super.initCapabilities(stack, nbt);
     }
 }
