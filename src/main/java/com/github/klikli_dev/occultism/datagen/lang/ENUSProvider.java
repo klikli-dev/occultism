@@ -33,6 +33,7 @@ import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.modonomicon.api.ModonomiconAPI;
 import com.klikli_dev.modonomicon.api.datagen.BookLangHelper;
+import com.klikli_dev.modonomicon.api.datagen.book.page.BookEntityPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import net.minecraft.Util;
 import net.minecraft.data.DataGenerator;
@@ -2027,7 +2028,7 @@ public class ENUSProvider extends LanguageProvider {
                        Most trade spirits experience extreme essence decay and will return to [#](%1$s)The Other Place[#]() quickly.
                           """.formatted(COLOR_PURPLE));
 
-        helper.entry("otherworld_sapling_trader");
+        helper.entry("summon_otherworld_sapling_trader");
         this.add(helper.entryName(), "Summon Otherworld Sapling Trader");
 
         helper.page("intro");
@@ -2044,7 +2045,7 @@ public class ENUSProvider extends LanguageProvider {
         helper.page("ritual");
         //no text
 
-        helper.entry("otherstone_trader");
+        helper.entry("summon_otherstone_trader");
         this.add(helper.entryName(), "Summon Otherstone Trader");
 
         helper.page("intro");
@@ -2060,6 +2061,53 @@ public class ENUSProvider extends LanguageProvider {
 
         helper.page("ritual");
         //no text
+
+        helper.entry("summon_wild_parrot");
+        this.add(helper.entryName(), "Summon Wild Parrot");
+
+        helper.page("entity");
+        this.add(helper.pageText(),
+                """
+                        **Provides**: A tameable Parrot
+                          """);
+
+        helper.page("ritual");
+        //no text
+
+        helper.page("description");
+        this.add(helper.pageText(),
+                """
+                        In this ritual a [#](%1$s)Foliot[#]() is summoned **as an untamed spirit**.
+                        \\
+                        \\
+                        The slaughter of a [#](%1$s)chicken[#]() and the offering of dyes are intended to entice the Foliot to take the shape of a parrot. 
+                        As [#](%1$s)Foliot[#]() are not among the smartest spirits, they sometimes misunderstand the instructions ...
+                          """.formatted(COLOR_PURPLE));
+
+        helper.page("description2");
+        this.add(helper.pageText(),
+                """
+                       *This means, if a [#](%1$s)chicken[#]() is spawned, that's not a bug, just bad luck!*
+                          """.formatted(COLOR_PURPLE));
+
+        helper.entry("summon_wild_otherworld_bird");
+        this.add(helper.entryName(), "Summon Wild Drikwing");
+
+        helper.page("entity");
+        this.add(helper.pageText(),
+                """
+                        **Provides**: A tameable Drikwing
+                          """);
+
+        helper.page("ritual");
+        //no text
+
+        helper.page("description");
+        this.add(helper.pageText(),
+                """
+                        See [Drikwing Familiar]() for more information.
+                          """);
+        //TODO: add link to [](entry://familiar_rituals/familiar_otherworld_bird)
     }
 
     private void addPossessionRitualsCategory(BookLangHelper helper) {

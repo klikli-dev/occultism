@@ -1700,8 +1700,10 @@ public class BookGenerator implements DataProvider {
         summonOtherworldSaplingTrader.withParent(BookEntryParentModel.builder().withEntryId(tradeSpirits.id).build());
         var summonOtherstoneTrader = this.makeSummonOtherstoneTraderEntry(helper, entryHelper, 'g');
         summonOtherstoneTrader.withParent(BookEntryParentModel.builder().withEntryId(summonOtherworldSaplingTrader.id).build());
-//        var summonWildParrot = this.makeSummonWildParrotEntry(helper, entryHelper, 'i');
-//        var summonWildOtherworldBird = this.makeSummonWildOtherworldBirdEntry(helper, entryHelper, 'j');
+        var summonWildParrot = this.makeSummonWildParrotEntry(helper, entryHelper, 'i');
+        summonWildParrot.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
+        var summonWildOtherworldBird = this.makeSummonWildOtherworldBirdEntry(helper, entryHelper, 'j');
+        summonWildOtherworldBird.withParent(BookEntryParentModel.builder().withEntryId(summonWildParrot.id).build());
 //
 //        var timeMagic = this.makeTimeMagicEntry(helper, entryHelper, 'k');
 //        var weatherMagic = this.makeWeatherMagicEntry(helper, entryHelper, 'l');
@@ -1729,8 +1731,8 @@ public class BookGenerator implements DataProvider {
                         tradeSpirits.build(),
                         summonOtherstoneTrader.build(),
                         summonOtherworldSaplingTrader.build(),
-//                        summonWildOtherworldBird.build(),
-//                        summonWildParrot.build(),
+                        summonWildOtherworldBird.build(),
+                        summonWildParrot.build(),
 //                        timeMagic.build(),
 //                        weatherMagic.build(),
 //                        witherSkull.build()
@@ -2048,7 +2050,7 @@ public class BookGenerator implements DataProvider {
     }
 
     private BookEntryModel.Builder makeSummonOtherstoneTraderEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
-        helper.entry("otherstone_trader");
+        helper.entry("summon_otherstone_trader");
 
         helper.page("intro");
         var intro = BookTextPageModel.builder()
@@ -2079,7 +2081,7 @@ public class BookGenerator implements DataProvider {
     }
 
     private BookEntryModel.Builder makeSummonOtherworldSaplingTraderEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
-        helper.entry("otherworld_sapling_trader");
+        helper.entry("summon_otherworld_sapling_trader");
 
         helper.page("intro");
         var intro = BookTextPageModel.builder()
@@ -2106,6 +2108,75 @@ public class BookGenerator implements DataProvider {
                         intro,
                         trade,
                         ritual
+                );
+    }
+
+    private BookEntryModel.Builder makeSummonWildParrotEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("summon_wild_parrot");
+
+        helper.page("entity");
+        var entity = BookEntityPageModel.builder()
+                .withEntityId(new ResourceLocation("minecraft", "parrot"))
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("ritual");
+        var ritual = BookRitualRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("ritual/summon_wild_parrot"))
+                .build();
+
+        helper.page("description");
+        var description = BookTextPageModel.builder()
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("description2");
+        var description2 = BookTextPageModel.builder()
+                .withText(helper.pageText())
+                .build();
+
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withIcon("occultism:textures/gui/book/parrot.png")
+                .withLocation(entryHelper.get(icon))
+                .withPages(
+                        entity,
+                        ritual,
+                        description,
+                        description2
+                );
+    }
+
+    private BookEntryModel.Builder makeSummonWildOtherworldBirdEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("summon_wild_otherworld_bird");
+
+        helper.page("entity");
+        var entity = BookEntityPageModel.builder()
+                .withEntityId(this.modLoc("otherworld_bird"))
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("ritual");
+        var ritual = BookRitualRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("ritual/summon_wild_otherworld_bird"))
+                .build();
+
+        helper.page("description");
+        var description = BookTextPageModel.builder()
+                .withText(helper.pageText())
+                .build();
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withIcon("occultism:textures/gui/book/otherworld_bird.png")
+                .withLocation(entryHelper.get(icon))
+                .withPages(
+                        entity,
+                        ritual,
+                        description
                 );
     }
 
