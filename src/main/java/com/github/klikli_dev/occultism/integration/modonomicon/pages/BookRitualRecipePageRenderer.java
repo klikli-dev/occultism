@@ -157,8 +157,6 @@ public abstract class BookRitualRecipePageRenderer<T extends Recipe<?>> extends 
         this.parentScreen.renderItemStack(poseStack, recipeX - 10, recipeY - 5, mouseX, mouseY, recipe.getRitualDummy());
 
         if (recipe.getPentacle() != null) {
-
-
             poseStack.pushPose();
 
             String pentacleName = I18n.get(Util.makeDescriptionId("multiblock", recipe.getPentacleId()));
@@ -189,21 +187,66 @@ public abstract class BookRitualRecipePageRenderer<T extends Recipe<?>> extends 
         this.parentScreen.renderIngredient(poseStack, recipeX + 30, recipeY + 65, mouseX, mouseY, recipe.getActivationItem());
 
         if (recipe.getEntityToSummon() != null) {
-            this.font.draw(poseStack, I18n.get(OccultismModonomiconConstants.I18n.RITUAL_RECIPE_SUMMON,
-                    I18n.get(recipe.getEntityToSummon().getDescriptionId())),
-                    recipeX - 15, recipeY + 120, 0);
+            poseStack.pushPose();
+
+            var text = I18n.get(OccultismModonomiconConstants.I18n.RITUAL_RECIPE_SUMMON,
+                    I18n.get(recipe.getEntityToSummon().getDescriptionId()));
+
+            int y = recipeY + 120;
+            int x = recipeX - 15;
+            int maxWidth = BookContentScreen.MAX_TITLE_WIDTH - RITUAL_DUMMY_OFFSET - 10; //account for the ritual output, 10 is our magic constant
+            var scale =  Math.min(1.0f, (float) maxWidth / (float) this.font.width(text));
+            if (scale < 1)
+            {
+                poseStack.translate(x - x * scale, y - y * scale, 0);
+                poseStack.scale(scale, scale, scale);
+            }
+
+            this.drawScaledStringNoShadow(poseStack, text,  x, y, 0x000000 , scale);
+
+            poseStack.popPose();
         }
 
         if (recipe.getSpiritJobType() != null) {
-            this.font.draw(poseStack, I18n.get(OccultismModonomiconConstants.I18n.RITUAL_RECIPE_JOB,
-                    I18n.get("job." + recipe.getSpiritJobType().toString().replace(":", "."))),
-                    recipeX - 15, recipeY + 130, 0);
+            poseStack.pushPose();
+
+            var text = I18n.get(OccultismModonomiconConstants.I18n.RITUAL_RECIPE_JOB,
+                    I18n.get("job." + recipe.getSpiritJobType().toString().replace(":", ".")));
+
+            int y = recipeY - 1;
+            int x = recipeX;
+            int maxWidth = BookContentScreen.MAX_TITLE_WIDTH - 15; //account for the ritual dummy icon, 10 is a magic constant
+            var scale =  Math.min(1.0f, (float) maxWidth / (float) this.font.width(text));
+            if (scale < 1)
+            {
+                poseStack.translate(x - x * scale, y - y * scale, 0);
+                poseStack.scale(scale, scale, scale);
+            }
+
+            this.drawScaledStringNoShadow(poseStack, text,  x - 15, y + 130, 0x3366CC , scale);
+
+            poseStack.popPose();
         }
 
         if (recipe.requiresSacrifice()) {
-            this.font.draw(poseStack, I18n.get(OccultismModonomiconConstants.I18n.RITUAL_RECIPE_SACRIFICE,
-                    I18n.get(recipe.getEntityToSacrificeDisplayName())),
-                    recipeX - 15, recipeY + 15, 0);
+            poseStack.pushPose();
+
+            var text = I18n.get(OccultismModonomiconConstants.I18n.RITUAL_RECIPE_SACRIFICE,
+                    I18n.get(recipe.getEntityToSacrificeDisplayName()));
+
+            int y = recipeY + 15;
+            int x = recipeX - 15;
+            int maxWidth = BookContentScreen.MAX_TITLE_WIDTH;
+            var scale =  Math.min(1.0f, (float) maxWidth / (float) this.font.width(text));
+            if (scale < 1)
+            {
+                poseStack.translate(x - x * scale, y - y * scale, 0);
+                poseStack.scale(scale, scale, scale);
+            }
+
+            this.drawScaledStringNoShadow(poseStack, text,  x, y, 0x000000 , scale);
+
+            poseStack.popPose();
         }
     }
 
