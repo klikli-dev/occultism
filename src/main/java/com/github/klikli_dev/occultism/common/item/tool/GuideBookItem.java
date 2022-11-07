@@ -24,8 +24,7 @@ package com.github.klikli_dev.occultism.common.item.tool;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.klikli_dev.modonomicon.Modonomicon;
-import com.klikli_dev.modonomicon.api.ModonimiconConstants.I18n.Tooltips;
-import com.klikli_dev.modonomicon.api.ModonimiconConstants.Nbt;
+import com.klikli_dev.modonomicon.api.ModonomiconConstants;
 import com.klikli_dev.modonomicon.book.Book;
 import com.klikli_dev.modonomicon.client.gui.BookGuiManager;
 import com.klikli_dev.modonomicon.data.BookDataManager;
@@ -72,7 +71,7 @@ public class GuideBookItem extends ModonomiconItem {
 
         if (pLevel.isClientSide) {
 
-            if(itemInHand.hasTag()){
+            if (itemInHand.hasTag()) {
                 var book = BookDataManager.get().getBook(DICTIONARY_OF_SPIRITS);
                 BookGuiManager.get().openBook(book.getId());
             } else {
@@ -97,8 +96,8 @@ public class GuideBookItem extends ModonomiconItem {
     public void appendHoverText(ItemStack stack, Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
         //super.appendHoverText(stack, worldIn, tooltip, flagIn);
 
-        Book book =  BookDataManager.get().getBook(DICTIONARY_OF_SPIRITS);
-        if(book != null){
+        Book book = BookDataManager.get().getBook(DICTIONARY_OF_SPIRITS);
+        if (book != null) {
             if (flagIn.isAdvanced()) {
                 tooltip.add(Component.literal("Book ID: ").withStyle(ChatFormatting.DARK_GRAY)
                         .append(Component.literal(book.getId().toString()).withStyle(ChatFormatting.RED)));
@@ -107,9 +106,8 @@ public class GuideBookItem extends ModonomiconItem {
             if (!book.getTooltip().isBlank()) {
                 tooltip.add(Component.translatable(book.getTooltip()).withStyle(ChatFormatting.GRAY));
             }
-        }
-        else {
-            tooltip.add(Component.translatable(Tooltips.ITEM_NO_BOOK_FOUND_FOR_STACK,
+        } else {
+            tooltip.add(Component.translatable(ModonomiconConstants.I18n.Tooltips.ITEM_NO_BOOK_FOUND_FOR_STACK,
                             !stack.hasTag() ? Component.literal("{}") : NbtUtils.toPrettyComponent(stack.getTag()))
                     .withStyle(ChatFormatting.DARK_GRAY));
         }
@@ -127,7 +125,7 @@ public class GuideBookItem extends ModonomiconItem {
             ItemStack stack = new ItemStack(this);
 
             CompoundTag cmp = new CompoundTag();
-            cmp.putString(Nbt.ITEM_BOOK_ID_TAG, DICTIONARY_OF_SPIRITS.toString());
+            cmp.putString(ModonomiconConstants.Nbt.ITEM_BOOK_ID_TAG, DICTIONARY_OF_SPIRITS.toString());
             stack.setTag(cmp);
 
             items.add(stack);
@@ -136,7 +134,7 @@ public class GuideBookItem extends ModonomiconItem {
 
     @Override
     public @Nullable ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag nbt) {
-        stack.getOrCreateTag().putString(Nbt.ITEM_BOOK_ID_TAG, DICTIONARY_OF_SPIRITS.toString());
+        stack.getOrCreateTag().putString(ModonomiconConstants.Nbt.ITEM_BOOK_ID_TAG, DICTIONARY_OF_SPIRITS.toString());
         return super.initCapabilities(stack, nbt);
     }
 }
