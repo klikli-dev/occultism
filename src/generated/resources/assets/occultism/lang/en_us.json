@@ -154,7 +154,7 @@
   "book.occultism.dictionary_of_spirits.getting_started.intro.intro.title": "Important Information",
   "book.occultism.dictionary_of_spirits.getting_started.intro.intro2.text": "For now, to look up recipes, pentacle shapes, ritual information and basically everything after \"getting started\",\nplease open the Old Edition.\\\n\\\nOver time more and more content will be available directly here in the Modonomicon version.\n",
   "book.occultism.dictionary_of_spirits.getting_started.intro.name": "Disclaimer!",
-  "book.occultism.dictionary_of_spirits.getting_started.intro.recipe.text": "To obtain the old edition, simply craft this book alone in a crafting grid. (The book new edition will not be destroyed.)\n",
+  "book.occultism.dictionary_of_spirits.getting_started.intro.recipe.text": "To obtain the old edition, simply craft this book with [](item://occultism:datura_seeds) in a crafting grid. (The book new edition will not be destroyed.)\n",
   "book.occultism.dictionary_of_spirits.getting_started.name": "Getting Started",
   "book.occultism.dictionary_of_spirits.getting_started.next_steps.description": "To infinity, and beyond!",
   "book.occultism.dictionary_of_spirits.getting_started.next_steps.name": "Next Steps",

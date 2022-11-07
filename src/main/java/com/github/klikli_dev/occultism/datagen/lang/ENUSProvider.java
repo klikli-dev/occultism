@@ -717,7 +717,7 @@ public class ENUSProvider extends LanguageProvider {
         helper.page("recipe");
         this.add(helper.pageText(),
                 """
-                        To obtain the old edition, simply craft this book alone in a crafting grid. (The book new edition will not be destroyed.)
+                        To obtain the old edition, simply craft this book with [](item://occultism:datura_seeds) in a crafting grid. (The book new edition will not be destroyed.)
                         """);
 
         helper.entry("demons_dream");
