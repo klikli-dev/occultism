@@ -61,7 +61,7 @@ public class RitualRecipe extends ShapelessRecipe {
     private final TagKey<EntityType<?>> entityToSacrifice;
     private final EntityType<?> entityToSummon;
 
-    private final CompoundTag entityPersitentData;
+    private final CompoundTag entityNbt;
     private final Ingredient itemToUse;
     private final int duration;
     private final int spiritMaxAge;
@@ -70,11 +70,11 @@ public class RitualRecipe extends ShapelessRecipe {
 
 
     public RitualRecipe(ResourceLocation id, String group, ResourceLocation pentacleId, ResourceLocation ritualType, ItemStack ritualDummy,
-                        ItemStack result, EntityType<?> entityToSummon, CompoundTag entityPersitentData, Ingredient activationItem, NonNullList<Ingredient> input, int duration, int spiritMaxAge, ResourceLocation spiritJobType,
+                        ItemStack result, EntityType<?> entityToSummon, CompoundTag entityNbt, Ingredient activationItem, NonNullList<Ingredient> input, int duration, int spiritMaxAge, ResourceLocation spiritJobType,
                         TagKey<EntityType<?>> entityToSacrifice, String entityToSacrificeDisplayName, Ingredient itemToUse) {
         super(id, group, result, input);
         this.entityToSummon = entityToSummon;
-        this.entityPersitentData = entityPersitentData;
+        this.entityNbt = entityNbt;
         this.pentacleId = pentacleId;
         this.ritualType = ritualType;
         this.ritual = () -> OccultismRituals.REGISTRY.get().getValue(this.ritualType).create(this);
@@ -89,8 +89,8 @@ public class RitualRecipe extends ShapelessRecipe {
         this.itemToUse = itemToUse;
     }
 
-    public CompoundTag getEntityPersitentData() {
-        return this.entityPersitentData;
+    public CompoundTag getEntityNbt() {
+        return this.entityNbt;
     }
 
     public ResourceLocation getPentacleId() {
@@ -227,9 +227,9 @@ public class RitualRecipe extends ShapelessRecipe {
                 entityToSummon = ForgeRegistries.ENTITY_TYPES.getValue(new ResourceLocation(GsonHelper.getAsString(json, "entity_to_summon")));
             }
 
-            CompoundTag entityPersitentData = null;
-            if (json.has("entity_persistent_data")) {
-                entityPersitentData = CraftingHelper.getNBT(json.get("entity_persistent_data"));
+            CompoundTag entityNbt = null;
+            if (json.has("entity_nbt")) {
+                entityNbt = CraftingHelper.getNBT(json.get("entity_nbt"));
             }
 
             JsonElement activationItemElement =
@@ -268,7 +268,7 @@ public class RitualRecipe extends ShapelessRecipe {
             }
 
             return new RitualRecipe(recipeId, group, pentacleId, ritualType, ritualDummy,
-                    result, entityToSummon, entityPersitentData, activationItem, ingredients, duration,
+                    result, entityToSummon, entityNbt, activationItem, ingredients, duration,
                     spiritMaxAge, spiritJobType, entityToSacrifice, entityToSacrificeDisplayName, itemToUse);
         }
 
@@ -283,9 +283,9 @@ public class RitualRecipe extends ShapelessRecipe {
                 entityToSummon = buffer.readRegistryId();
             }
 
-            CompoundTag persistentData = null;
+            CompoundTag entityNbt = null;
             if (buffer.readBoolean()) {
-                persistentData = buffer.readNbt();
+                entityNbt = buffer.readNbt();
             }
 
             ResourceLocation pentacleId = buffer.readResourceLocation();
@@ -313,7 +313,7 @@ public class RitualRecipe extends ShapelessRecipe {
                 itemToUse = Ingredient.fromNetwork(buffer);
             }
 
-            return new RitualRecipe(recipe.getId(), recipe.getGroup(), pentacleId, ritualType, ritualDummy, recipe.getResultItem(), entityToSummon, persistentData,
+            return new RitualRecipe(recipe.getId(), recipe.getGroup(), pentacleId, ritualType, ritualDummy, recipe.getResultItem(), entityToSummon, entityNbt,
                     activationItem, recipe.getIngredients(), duration, spiritMaxAge, spiritJobType, entityToSacrifice, entityToSacrificeDisplayName, itemToUse);
         }
 
@@ -327,9 +327,9 @@ public class RitualRecipe extends ShapelessRecipe {
             if (recipe.entityToSummon != null)
                 buffer.writeRegistryId(ForgeRegistries.ENTITY_TYPES, recipe.entityToSummon);
 
-            buffer.writeBoolean(recipe.entityPersitentData != null);
-            if (recipe.entityPersitentData != null)
-                buffer.writeNbt(recipe.entityPersitentData);
+            buffer.writeBoolean(recipe.entityNbt != null);
+            if (recipe.entityNbt != null)
+                buffer.writeNbt(recipe.entityNbt);
 
             buffer.writeResourceLocation(recipe.pentacleId);
             buffer.writeVarInt(recipe.duration);

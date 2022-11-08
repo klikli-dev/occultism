@@ -30,6 +30,7 @@ import com.github.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.github.klikli_dev.occultism.registry.OccultismSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -459,47 +460,6 @@ public abstract class Ritual {
             }
         }
         return result;
-    }
-
-    /**
-     * Prepares the given living entity for spawning by - initializing it - setting the taming player - preparing
-     * position and rotation - setting the custom name.
-     *
-     * @param livingEntity       the living entity to prepare.
-     * @param level              the level to spawn in.
-     * @param goldenBowlPosition the golden bowl position.
-     * @param castingPlayer      the ritual casting player.
-     * @param spiritName         the spirit name.
-     */
-    public void prepareLivingEntityForSpawn(LivingEntity livingEntity, Level level, BlockPos goldenBowlPosition,
-                                            GoldenSacrificialBowlBlockEntity blockEntity, Player castingPlayer, String spiritName) {
-        this.prepareLivingEntityForSpawn(livingEntity, level, goldenBowlPosition, blockEntity, castingPlayer, spiritName, true);
-    }
-
-    /**
-     * Prepares the given living entity for spawning by - initializing it - optionally setting the taming player -
-     * preparing position and rotation - setting the custom name.
-     *
-     * @param livingEntity       the living entity to prepare.
-     * @param level              the level to spawn in.
-     * @param goldenBowlPosition the golden bowl position.
-     * @param castingPlayer      the ritual casting player.
-     * @param spiritName         the spirit name.
-     * @param setTamed           true to tame the spirit
-     */
-    public void prepareLivingEntityForSpawn(LivingEntity livingEntity, Level level, BlockPos goldenBowlPosition, GoldenSacrificialBowlBlockEntity blockEntity,
-                                            Player castingPlayer, String spiritName, boolean setTamed) {
-        if (setTamed && livingEntity instanceof TamableAnimal tamableAnimal) {
-            tamableAnimal.tame(castingPlayer);
-        }
-        livingEntity.absMoveTo(goldenBowlPosition.getX(), goldenBowlPosition.getY(), goldenBowlPosition.getZ(),
-                level.random.nextInt(360), 0);
-        if (spiritName.length() > 0)
-            livingEntity.setCustomName(Component.literal(spiritName));
-        if (livingEntity instanceof Mob mob)
-            mob.finalizeSpawn((ServerLevel) level, level.getCurrentDifficultyAt(goldenBowlPosition),
-                    MobSpawnType.MOB_SUMMONED, null,
-                    null);
     }
 
     /**

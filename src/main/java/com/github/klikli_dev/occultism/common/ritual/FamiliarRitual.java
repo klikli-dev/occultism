@@ -28,6 +28,7 @@ import com.github.klikli_dev.occultism.crafting.recipe.RitualRecipe;
 import com.github.klikli_dev.occultism.util.ItemNBTUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
@@ -54,12 +55,12 @@ public class FamiliarRitual extends SummonRitual {
 
         EntityType<?> entityType = this.recipe.getEntityToSummon();
         if (entityType != null) {
-            Entity entity = entityType.create(level);
+            Entity entity = this.createSummonedEntity(entityType, level, goldenBowlPosition, blockEntity, castingPlayer);
             if (entity instanceof FamiliarEntity familiar) {
                 familiar.finalizeSpawn((ServerLevel) level, level.getCurrentDifficultyAt(goldenBowlPosition), MobSpawnType.MOB_SUMMONED,
                         null, null);
 
-                this.applyRecipeNbtToEntity(familiar);
+                this.applyEntityNbt(familiar);
 
                 familiar.absMoveTo(goldenBowlPosition.getX(), goldenBowlPosition.getY(), goldenBowlPosition.getZ(),
                         level.random.nextInt(360), 0);

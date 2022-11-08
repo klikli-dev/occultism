@@ -70,7 +70,7 @@ public class SummonWildHuntRitual extends SummonRitual {
                         mob.finalizeSpawn((ServerLevel) level, level.getCurrentDifficultyAt(goldenBowlPosition), MobSpawnType.MOB_SUMMONED, null, null);
                     }
 
-                    this.applyRecipeNbtToEntity(living);
+                    this.applyEntityNbt(living);
 
                     this.spawnEntity(living, level);
                 }
