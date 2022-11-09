@@ -2292,22 +2292,37 @@ public class BookGenerator implements DataProvider {
         returnToRituals.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
         returnToRituals.withCondition(BookTrueConditionModel.builder().build());
 
+
+
+         var craftInfusedPickaxe = this.makeCraftInfusedPickaxeEntry(helper, entryHelper, 'd');
+        craftInfusedPickaxe.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
+        var craftDimensionalMineshaft = this.makeCraftDimensionalMineshaftEntry(helper, entryHelper, 'b');
+        craftDimensionalMineshaft.withParent(BookEntryParentModel.builder().withEntryId(craftInfusedPickaxe.id).build());
+
         var craftDimensionalMatrix = this.makeCraftDimensionalMatrixEntry(helper, entryHelper, 'a');
         craftDimensionalMatrix.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
-//        var craftDimensionalMineshaft = this.makeCraftDimensionalMineshaftEntry(helper, entryHelper, 'b');
+        var craftStorageControllerBase = this.makeCraftStorageControllerBaseEntry(helper, entryHelper, 'n');
+        craftStorageControllerBase.withParent(BookEntryParentModel.builder().withEntryId(craftDimensionalMatrix.id).build());
+        var craftStabilizerTier1 = this.makeCraftStabilizerTier1Entry(helper, entryHelper, 'i');
+        craftStabilizerTier1.withParent(BookEntryParentModel.builder().withEntryId(craftStorageControllerBase.id).build());
+        var craftStabilizerTier2 = this.makeCraftStabilizerTier2Entry(helper, entryHelper, 'j');
+        craftStabilizerTier2.withParent(BookEntryParentModel.builder().withEntryId(craftStabilizerTier1.id).build());
+        var craftStabilizerTier3 = this.makeCraftStabilizerTier3Entry(helper, entryHelper, 'k');
+        craftStabilizerTier3.withParent(BookEntryParentModel.builder().withEntryId(craftStabilizerTier2.id).build());
+        var craftStabilizerTier4 = this.makeCraftStabilizerTier4Entry(helper, entryHelper, 'l');
+        craftStabilizerTier4.withParent(BookEntryParentModel.builder().withEntryId(craftStabilizerTier3.id).build());
+
+        var craftStableWormhole = this.makeCraftStableWormholeEntry(helper, entryHelper, 'm');
+        craftStableWormhole.withParent(BookEntryParentModel.builder().withEntryId(craftStorageControllerBase.id).build());
+        var craftStorageRemote = this.makeCraftStorageRemoteEntry(helper, entryHelper, 'o');
+        craftStorageRemote.withParent(BookEntryParentModel.builder().withEntryId(craftStableWormhole.id).build());
+
 //        var craftFamiliarRing = this.makeCraftFamiliarRingEntry(helper, entryHelper, 'c');
-//        var craftInfusedPickaxe = this.makeCraftInfusedPickaxeEntry(helper, entryHelper, 'd');
 //        var craftMinerSpirits = this.makeCraftMinerSpiritsEntry(helper, entryHelper, 'e');
         var craftOtherworldGoggles = this.makeCraftOtherworldGogglesEntry(helper, entryHelper, 'f');
 //        var craftSatchel = this.makeCraftSatchelEntry(helper, entryHelper, 'g');
 //        var craftSoulGem = this.makeCraftSoulGemEntry(helper, entryHelper, 'h');
-//        var craftStabilizerTier1 = this.makeCraftStabilizerTier1Entry(helper, entryHelper, 'i');
-//        var craftStabilizerTier2 = this.makeCraftStabilizerTier2Entry(helper, entryHelper, 'j');
-//        var craftStabilizerTier3 = this.makeCraftStabilizerTier3Entry(helper, entryHelper, 'k');
-//        var craftStabilizerTier4 = this.makeCraftStabilizerTier4Entry(helper, entryHelper, 'l');
-//        var craftStableWormhole = this.makeCraftStableWormholeEntry(helper, entryHelper, 'm');
-//        var craftStorageControllerBase = this.makeCraftStorageControllerBaseEntry(helper, entryHelper, 'n');
-//        var craftStorageRemote = this.makeCraftStorageRemoteEntry(helper, entryHelper, 'o');
+
 
         return BookCategoryModel.builder()
                 .withId(this.modLoc(helper.category))
@@ -2318,20 +2333,20 @@ public class BookGenerator implements DataProvider {
                         overview.build(),
                         returnToRituals.build(),
                         craftDimensionalMatrix.build(),
-//                        craftDimensionalMineshaft.build(),
+                        craftDimensionalMineshaft.build(),
 //                        craftFamiliarRing.build(),
-//                        craftInfusedPickaxe.build(),
+                        craftInfusedPickaxe.build(),
 //                        craftMinerSpirits.build(),
-                        craftOtherworldGoggles.build()
+                        craftOtherworldGoggles.build(),
 //                        craftSatchel.build(),
 //                        craftSoulGem.build(),
-//                        craftStabilizerTier1.build(),
-//                        craftStabilizerTier2.build(),
-//                        craftStabilizerTier3.build(),
-//                        craftStabilizerTier4.build(),
-//                        craftStableWormhole.build(),
-//                        craftStorageControllerBase.build(),
-//                        craftStorageRemote.build()
+                        craftStabilizerTier1.build(),
+                        craftStabilizerTier2.build(),
+                        craftStabilizerTier3.build(),
+                        craftStabilizerTier4.build(),
+                        craftStableWormhole.build(),
+                        craftStorageControllerBase.build(),
+                        craftStorageRemote.build()
                 );
     }
 
@@ -2359,7 +2374,7 @@ public class BookGenerator implements DataProvider {
 
         helper.page("spotlight");
         var spotlight = BookSpotlightPageModel.builder()
-                .withItem(OccultismItems.DIMENSIONAL_MATRIX.get())
+                .withItem(Ingredient.of(OccultismItems.DIMENSIONAL_MATRIX.get()))
                 .withText(helper.pageText())
                 .build();
 
@@ -2384,7 +2399,7 @@ public class BookGenerator implements DataProvider {
 
         helper.page("spotlight");
         var spotlight = BookSpotlightPageModel.builder()
-                .withItem(OccultismItems.DIMENSIONAL_MINESHAFT.get())
+                .withItem(Ingredient.of(OccultismBlocks.DIMENSIONAL_MINESHAFT.get()))
                 .withText(helper.pageText())
                 .build();
 
@@ -2402,7 +2417,7 @@ public class BookGenerator implements DataProvider {
         return BookEntryModel.builder()
                 .withId(this.modLoc(helper.category + "/" + helper.entry))
                 .withName(helper.entryName())
-                .withIcon(OccultismItems.DIMENSIONAL_MINESHAFT.getId().toString())
+                .withIcon(OccultismBlocks.DIMENSIONAL_MINESHAFT.getId().toString())
                 .withLocation(entryHelper.get(icon))
                 .withPages(
                         spotlight,
@@ -2411,7 +2426,205 @@ public class BookGenerator implements DataProvider {
                 );
     }
 
+    private BookEntryModel.Builder makeCraftInfusedPickaxeEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("craft_infused_pickaxe");
 
+        helper.page("spotlight");
+        var spotlight = BookSpotlightPageModel.builder()
+                .withItem(Ingredient.of(OccultismItems.INFUSED_PICKAXE.get()))
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("ritual");
+        var ritual = BookRitualRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("ritual/craft_infused_pickaxe"))
+                .build();
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withIcon(OccultismItems.INFUSED_PICKAXE.getId().toString())
+                .withLocation(entryHelper.get(icon))
+                .withPages(
+                        spotlight,
+                        ritual
+                );
+    }
+
+    private BookEntryModel.Builder makeCraftStorageControllerBaseEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("craft_storage_controller_base");
+
+        helper.page("spotlight");
+        var spotlight = BookSpotlightPageModel.builder()
+                .withItem(Ingredient.of(OccultismBlocks.STORAGE_CONTROLLER_BASE.get()))
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("ritual");
+        var ritual = BookRitualRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("ritual/craft_storage_controller_base"))
+                .build();
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withIcon(OccultismBlocks.STORAGE_CONTROLLER_BASE.getId().toString())
+                .withLocation(entryHelper.get(icon))
+                .withPages(
+                        spotlight,
+                        ritual
+                );
+    }
+
+    private BookEntryModel.Builder makeCraftStabilizerTier1Entry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("craft_stabilizer_tier1");
+
+        helper.page("spotlight");
+        var spotlight = BookSpotlightPageModel.builder()
+                .withItem(Ingredient.of(OccultismBlocks.STORAGE_STABILIZER_TIER1.get()))
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("ritual");
+        var ritual = BookRitualRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("ritual/craft_stabilizer_tier1"))
+                .build();
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withIcon(OccultismBlocks.STORAGE_STABILIZER_TIER1.getId().toString())
+                .withLocation(entryHelper.get(icon))
+                .withPages(
+                        spotlight,
+                        ritual
+                );
+    }
+
+    private BookEntryModel.Builder makeCraftStabilizerTier2Entry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("craft_stabilizer_tier2");
+
+        helper.page("spotlight");
+        var spotlight = BookSpotlightPageModel.builder()
+                .withItem(Ingredient.of(OccultismBlocks.STORAGE_STABILIZER_TIER2.get()))
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("ritual");
+        var ritual = BookRitualRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("ritual/craft_stabilizer_tier2"))
+                .build();
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withIcon(OccultismBlocks.STORAGE_STABILIZER_TIER2.getId().toString())
+                .withLocation(entryHelper.get(icon))
+                .withPages(
+                        spotlight,
+                        ritual
+                );
+    }
+
+    private BookEntryModel.Builder makeCraftStabilizerTier3Entry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("craft_stabilizer_tier3");
+
+        helper.page("spotlight");
+        var spotlight = BookSpotlightPageModel.builder()
+                .withItem(Ingredient.of(OccultismBlocks.STORAGE_STABILIZER_TIER3.get()))
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("ritual");
+        var ritual = BookRitualRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("ritual/craft_stabilizer_tier3"))
+                .build();
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withIcon(OccultismBlocks.STORAGE_STABILIZER_TIER3.getId().toString())
+                .withLocation(entryHelper.get(icon))
+                .withPages(
+                        spotlight,
+                        ritual
+                );
+    }
+
+    private BookEntryModel.Builder makeCraftStabilizerTier4Entry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("craft_stabilizer_tier4");
+
+        helper.page("spotlight");
+        var spotlight = BookSpotlightPageModel.builder()
+                .withItem(Ingredient.of(OccultismBlocks.STORAGE_STABILIZER_TIER4.get()))
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("ritual");
+        var ritual = BookRitualRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("ritual/craft_stabilizer_tier4"))
+                .build();
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withIcon(OccultismBlocks.STORAGE_STABILIZER_TIER4.getId().toString())
+                .withLocation(entryHelper.get(icon))
+                .withPages(
+                        spotlight,
+                        ritual
+                );
+    }
+
+    private BookEntryModel.Builder makeCraftStableWormholeEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("craft_stable_wormhole");
+
+        helper.page("spotlight");
+        var spotlight = BookSpotlightPageModel.builder()
+                .withItem(Ingredient.of(OccultismBlocks.STABLE_WORMHOLE.get()))
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("ritual");
+        var ritual = BookRitualRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("ritual/craft_stable_wormhole"))
+                .build();
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withIcon(OccultismBlocks.STABLE_WORMHOLE.getId().toString())
+                .withLocation(entryHelper.get(icon))
+                .withPages(
+                        spotlight,
+                        ritual
+                );
+    }
+
+    private BookEntryModel.Builder makeCraftStorageRemoteEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("craft_storage_remote");
+
+        helper.page("spotlight");
+        var spotlight = BookSpotlightPageModel.builder()
+                .withItem(Ingredient.of(OccultismItems.STORAGE_REMOTE.get()))
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("ritual");
+        var ritual = BookRitualRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("ritual/craft_storage_remote"))
+                .build();
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withIcon(OccultismItems.STORAGE_REMOTE.getId().toString())
+                .withLocation(entryHelper.get(icon))
+                .withPages(
+                        spotlight,
+                        ritual
+                );
+    }
 
     private BookCategoryModel.Builder makePossessionRitualsSubcategory(BookLangHelper helper) {
         helper.category("possession_rituals");

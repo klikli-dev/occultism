@@ -34,10 +34,12 @@ import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.modonomicon.api.ModonomiconAPI;
 import com.klikli_dev.modonomicon.api.datagen.BookLangHelper;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookEntityPageModel;
+import com.klikli_dev.modonomicon.api.datagen.book.page.BookSpotlightPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import net.minecraft.Util;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.common.data.LanguageProvider;
 
 public class ENUSProvider extends LanguageProvider {
@@ -2343,6 +2345,22 @@ public class ENUSProvider extends LanguageProvider {
                    """.formatted(COLOR_PURPLE));
 
 
+        helper.entry("craft_infused_pickaxe");
+        this.add(helper.entryName(), "Infused Pickaxe");
+
+        helper.page("spotlight");
+        this.add(helper.pageText(),
+                """
+                        Otherworld ores usually can only be mined with Otherworld metal tools. 
+                        The [](item://occultism:infused_pickaxe) is a makeshift solution to this Chicken-and-Egg problem. 
+                        Brittle spirit attuned gems house a [#](%1$s)Djinni[#]() that allows harvesting the ores, but the durability is extremely low.
+                           """.formatted(COLOR_PURPLE));
+
+        //TODO: link to page about iesnium pick
+
+        helper.page("ritual");
+        //no text
+
         helper.entry("craft_otherworld_goggles");
         this.add(helper.entryName(), "Craft Otherworld Goggles");
 
@@ -2363,6 +2381,102 @@ public class ENUSProvider extends LanguageProvider {
                         The required summoning is relatively simple, making crafting these goggles a common apprentice summoner task.
                         """.formatted(COLOR_PURPLE));
 
+
+        helper.page("ritual");
+        //no text
+
+        helper.entry("craft_storage_controller_base");
+        this.add(helper.entryName(), "Storage Actuator Base");
+
+        helper.page("spotlight");
+        this.add(helper.pageText(),
+                """
+                        The storage actuator base imprisons a [#](%1$s)Foliot[#]() responsible for interacting with items in a dimensional storage matrix.
+                        """.formatted(COLOR_PURPLE));
+
+        helper.page("ritual");
+        //no text
+
+        helper.entry("craft_stabilizer_tier1");
+        this.add(helper.entryName(), "Storage Stabilizer Tier 1");
+
+        helper.page("spotlight");
+        this.add(helper.pageText(),
+                """
+                        This simple storage stabilizer is inhabited by a [#](%1$s)Foliot[#]() that supports the 
+                        dimensional matrix in keeping the storage dimension stable, thus allowing to store more items.
+                        
+                        By default each Tier 1 Stabilizer adds 256 slots.
+                        """.formatted(COLOR_PURPLE));
+
+        helper.page("ritual");
+        //no text
+
+         helper.entry("craft_stabilizer_tier2");
+        this.add(helper.entryName(), "Storage Stabilizer Tier 2");
+
+        helper.page("spotlight");
+        this.add(helper.pageText(),
+                """
+                        This improved stabilizer is inhabited by a [#](%1$s)Djinni[#]() that supports the 
+                        dimensional matrix in keeping the storage dimension stable, thus allowing to store even more items.
+                        
+                         By default each Tier 1 Stabilizer adds 512 slots.
+                        """.formatted(COLOR_PURPLE));
+
+        helper.page("ritual");
+        //no text
+
+        helper.entry("craft_stabilizer_tier3");
+        this.add(helper.entryName(), "Storage Stabilizer Tier 3");
+
+        helper.page("spotlight");
+        this.add(helper.pageText(),
+                """
+                        This advanced stabilizer is inhabited by an [#](%1$s)Afrit[#]() that supports the dimensional matrix in keeping the storage dimension stable, thus allowing to store even more items.
+                        
+                         By default each Tier 1 Stabilizer adds 1024 slots.
+                        """.formatted(COLOR_PURPLE));
+
+        helper.page("ritual");
+        //no text
+
+        helper.entry("craft_stabilizer_tier4");
+        this.add(helper.entryName(), "Storage Stabilizer Tier 4");
+
+        helper.page("spotlight");
+        this.add(helper.pageText(),
+                """
+                        This highly advanced stabilizer is inhabited by a [#](%1$s)Marid[#]() that supports the dimensional matrix in keeping the storage dimension stable, thus allowing to store even more items.
+                        
+                         By default each Tier 1 Stabilizer adds 2048 slots.
+                        """.formatted(COLOR_PURPLE));
+
+        helper.page("ritual");
+        //no text
+
+        helper.entry("craft_stable_wormhole");
+
+        helper.page("spotlight");
+        this.add(helper.pageText(),
+                """
+                       The stable wormhole allows access to a dimensional matrix from a remote destination.
+                       \\
+                       \\
+                       Shift-click a [](item://occultism:storage_controller) to link it, then place the wormhole in the world to use it as a remote access point.
+                        """.formatted(COLOR_PURPLE));
+
+        helper.page("ritual");
+        //no text
+
+        helper.entry("craft_storage_remote");
+
+        helper.page("spotlight");
+        this.add(helper.pageText(),
+                """
+                        The [](item://occultism:storage_remote) can be linked to a [](item://occultism:storage_controller) by shift-clicking. 
+                        The [#](%1$s)Djinni[#]() bound to the accessor will then be able to access items from the actuator even from across dimensions.
+                        """.formatted(COLOR_PURPLE));
 
         helper.page("ritual");
         //no text

@@ -4,7 +4,7 @@
   "description": "",
   "icon": "occultism:textures/gui/book/robe.png",
   "x": -10,
-  "y": 0,
+  "y": -1,
   "background_u_index": 0,
   "background_v_index": 0,
   "hide_while_locked": false,
