@@ -8,6 +8,14 @@
   "background_u_index": 0,
   "background_v_index": 0,
   "hide_while_locked": false,
+  "parents": [
+    {
+      "entry": "occultism:crafting_rituals/overview",
+      "draw_arrow": true,
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
   "pages": [
     {
       "type": "modonomicon:spotlight",

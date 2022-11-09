@@ -26,20 +26,14 @@ import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.datagen.OccultismAdvancementProvider;
 import com.github.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants;
 import com.github.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants.I18n;
-import com.github.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePageModel;
-import com.github.klikli_dev.occultism.integration.modonomicon.pages.BookSpiritTradeRecipePageModel;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.modonomicon.api.ModonomiconAPI;
 import com.klikli_dev.modonomicon.api.datagen.BookLangHelper;
-import com.klikli_dev.modonomicon.api.datagen.book.page.BookEntityPageModel;
-import com.klikli_dev.modonomicon.api.datagen.book.page.BookSpotlightPageModel;
-import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import net.minecraft.Util;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.common.data.LanguageProvider;
 
 public class ENUSProvider extends LanguageProvider {
@@ -2016,18 +2010,18 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Trade Spirits");
         this.add(helper.pageText(),
                 """
-                       Trade spirits pick up appropriate items and throw trade results on the ground. 
-                       The spirit is only actively exchanging items if purple particles spawn around it. 
-                       \\
-                       \\
-                       **If you do not see any particles**, ensure that you gave the proper item and amount.
-                          """);
+                        Trade spirits pick up appropriate items and throw trade results on the ground. 
+                        The spirit is only actively exchanging items if purple particles spawn around it. 
+                        \\
+                        \\
+                        **If you do not see any particles**, ensure that you gave the proper item and amount.
+                           """);
 
         helper.page("intro2");
         this.add(helper.pageText(),
                 """
-                       Most trade spirits experience extreme essence decay and will return to [#](%1$s)The Other Place[#]() quickly.
-                          """.formatted(COLOR_PURPLE));
+                        Most trade spirits experience extreme essence decay and will return to [#](%1$s)The Other Place[#]() quickly.
+                           """.formatted(COLOR_PURPLE));
 
         helper.entry("summon_otherworld_sapling_trader");
         this.add(helper.entryName(), "Summon Otherworld Sapling Trader");
@@ -2036,9 +2030,9 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Otherworld Sapling Trader");
         this.add(helper.pageText(),
                 """
-                       Otherworld Trees grown from natural Otherworld Saplings can only be harvested when under the effect of [#](%1$s)Third Eye[#]().
-                       To make life easier, the Otherworld Sapling Trader will exchange such natural saplings for a stable variant that can be harvested by anyone, and will drop the same stable saplings when harvested.
-                          """.formatted(COLOR_PURPLE));
+                        Otherworld Trees grown from natural Otherworld Saplings can only be harvested when under the effect of [#](%1$s)Third Eye[#]().
+                        To make life easier, the Otherworld Sapling Trader will exchange such natural saplings for a stable variant that can be harvested by anyone, and will drop the same stable saplings when harvested.
+                           """.formatted(COLOR_PURPLE));
 
         helper.page("trade");
         //no text
@@ -2053,9 +2047,9 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Otherstone Trader");
         this.add(helper.pageText(),
                 """
-                       The Otherstone Trader spirit allows to get more [](item://occultism:otherstone) than using [](item://occultism:spirit_fire).
-                       Thus it is especially efficient if you want to use Otherstone as a building material.
-                          """);
+                        The Otherstone Trader spirit allows to get more [](item://occultism:otherstone) than using [](item://occultism:spirit_fire).
+                        Thus it is especially efficient if you want to use Otherstone as a building material.
+                           """);
 
         helper.page("trade");
         //no text
@@ -2088,8 +2082,8 @@ public class ENUSProvider extends LanguageProvider {
         helper.page("description2");
         this.add(helper.pageText(),
                 """
-                       *This means, if a [#](%1$s)chicken[#]() is spawned, that's not a bug, just bad luck!*
-                          """.formatted(COLOR_PURPLE));
+                        *This means, if a [#](%1$s)chicken[#]() is spawned, that's not a bug, just bad luck!*
+                           """.formatted(COLOR_PURPLE));
 
         helper.entry("summon_wild_otherworld_bird");
         this.add(helper.entryName(), "Summon Wild Drikwing");
@@ -2117,13 +2111,13 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Weather Magic");
         this.add(helper.pageText(),
                 """
-                       Weather magic is especially useful for farmers and others depending on specific weather.
-                       Summons spirits to modify the weather. 
-                       Different types of weather modification require different spirits.
-                       \\
-                       \\
-                       Weather spirits will only modify the weather once and then vanish.
-                          """);
+                        Weather magic is especially useful for farmers and others depending on specific weather.
+                        Summons spirits to modify the weather. 
+                        Different types of weather modification require different spirits.
+                        \\
+                        \\
+                        Weather spirits will only modify the weather once and then vanish.
+                           """);
 
         helper.page("ritual_clear");
         //no text
@@ -2141,13 +2135,13 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Time Magic");
         this.add(helper.pageText(),
                 """
-                       Time magic is limited in scope, it cannot send the magician back or forth in time, 
-                       but rather allows to change time time of day. 
-                       This is especially useful for rituals or other tasks requiring day- or nighttime specifically. 
-                       \\
-                       \\
-                       Time spirits will only modify the weather once and then vanish.
-                          """);
+                        Time magic is limited in scope, it cannot send the magician back or forth in time, 
+                        but rather allows to change time time of day. 
+                        This is especially useful for rituals or other tasks requiring day- or nighttime specifically. 
+                        \\
+                        \\
+                        Time spirits will only modify the weather once and then vanish.
+                           """);
 
         helper.page("ritual_day");
         //no text
@@ -2162,10 +2156,10 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Wither Skeleton Skull");
         this.add(helper.pageText(),
                 """
-                       Besides venturing into nether dungeons, there is one more way to get these skulls. 
-                       The legendary [#](%1$s)Wild Hunt[#]() consists of [#](%1$s)Greater Spirits[#]() taking the form of wither skeletons. 
-                       While summoning the Wild Hunt is incredibly dangerous, it is the fastest way to get wither skeleton skulls.
-                          """.formatted(COLOR_PURPLE));
+                        Besides venturing into nether dungeons, there is one more way to get these skulls. 
+                        The legendary [#](%1$s)Wild Hunt[#]() consists of [#](%1$s)Greater Spirits[#]() taking the form of wither skeletons. 
+                        While summoning the Wild Hunt is incredibly dangerous, it is the fastest way to get wither skeleton skulls.
+                           """.formatted(COLOR_PURPLE));
 
         helper.page("ritual");
         //no text
@@ -2177,10 +2171,10 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Afrit Essence");
         this.add(helper.pageText(),
                 """
-                       [](item://occultism:afrit_essence) is required to safely call on the more powerful spirits, commonly used in the form of red chalk. 
-                       To obtain the essence, an [#](%1$s)Afrit[#]() needs to be summoned unbound into this plane, and killed. 
-                       Be warned that this is no simple endeavour, and unbound spirit presents great danger to all nearby.
-                          """.formatted(COLOR_PURPLE));
+                        [](item://occultism:afrit_essence) is required to safely call on the more powerful spirits, commonly used in the form of red chalk. 
+                        To obtain the essence, an [#](%1$s)Afrit[#]() needs to be summoned unbound into this plane, and killed. 
+                        Be warned that this is no simple endeavour, and unbound spirit presents great danger to all nearby.
+                           """.formatted(COLOR_PURPLE));
 
         helper.page("ritual");
         //no text
@@ -2212,8 +2206,8 @@ public class ENUSProvider extends LanguageProvider {
         helper.page("entity");
         this.add(helper.pageText(),
                 """
-                   **Drops**: 1-3x [](item://minecraft:ender_pearl)
-                           """);
+                        **Drops**: 1-3x [](item://minecraft:ender_pearl)
+                                """);
 
         helper.page("ritual");
         //no text
@@ -2221,10 +2215,10 @@ public class ENUSProvider extends LanguageProvider {
         helper.page("description");
         this.add(helper.pageText(),
                 """
-                   In this ritual an [#](%1$s)Enderman[#]() is spawned using the life energy of a [#](%1$s)Pig[#]() and 
-                   immediately possessed by the summoned [#](%1$s)Djinni[#](). 
-                   The [#](%1$s)Possessed Enderman[#]() will always drop at least one [](item://minecraft:ender_pearl) when killed.
-                           """.formatted(COLOR_PURPLE));
+                        In this ritual an [#](%1$s)Enderman[#]() is spawned using the life energy of a [#](%1$s)Pig[#]() and 
+                        immediately possessed by the summoned [#](%1$s)Djinni[#](). 
+                        The [#](%1$s)Possessed Enderman[#]() will always drop at least one [](item://minecraft:ender_pearl) when killed.
+                                """.formatted(COLOR_PURPLE));
 
         helper.entry("possess_endermite");
         this.add(helper.entryName(), "Possessed Endermite");
@@ -2232,8 +2226,8 @@ public class ENUSProvider extends LanguageProvider {
         helper.page("entity");
         this.add(helper.pageText(),
                 """
-                   **Drops**: 1-2x [](item://minecraft:end_stone)
-                           """);
+                        **Drops**: 1-2x [](item://minecraft:end_stone)
+                                """);
 
         helper.page("ritual");
         //no text
@@ -2241,11 +2235,11 @@ public class ENUSProvider extends LanguageProvider {
         helper.page("description");
         this.add(helper.pageText(),
                 """
-                   In this ritual an [#](%1$s)Endermite[#]() is tricked into spawning. 
-                   The stone and dirt represent the surroundings, then an egg is thrown to simulate the use of an ender pearl. 
-                   When the mite spawns, the summoned [#](%1$s)Foliot[#]() immediately possesses it, visits [#](%1$s)The End[#](), and returns. 
-                   The [#](%1$s)Possessed Endermite[#]() will always drop at least one [](item://minecraft:end_stone) when killed.
-                           """.formatted(COLOR_PURPLE));
+                        In this ritual an [#](%1$s)Endermite[#]() is tricked into spawning. 
+                        The stone and dirt represent the surroundings, then an egg is thrown to simulate the use of an ender pearl. 
+                        When the mite spawns, the summoned [#](%1$s)Foliot[#]() immediately possesses it, visits [#](%1$s)The End[#](), and returns. 
+                        The [#](%1$s)Possessed Endermite[#]() will always drop at least one [](item://minecraft:end_stone) when killed.
+                                """.formatted(COLOR_PURPLE));
 
         helper.entry("possess_ghast");
         this.add(helper.entryName(), "Possessed Ghast");
@@ -2253,8 +2247,8 @@ public class ENUSProvider extends LanguageProvider {
         helper.page("entity");
         this.add(helper.pageText(),
                 """
-                   **Drops**: 1-3x [](item://minecraft:ghast_tear)
-                           """);
+                        **Drops**: 1-3x [](item://minecraft:ghast_tear)
+                                """);
 
         helper.page("ritual");
         //no text
@@ -2262,10 +2256,10 @@ public class ENUSProvider extends LanguageProvider {
         helper.page("description");
         this.add(helper.pageText(),
                 """
-                   In this ritual a [#](%1$s)Ghast[#]() is spawned using the life energy of a [#](%1$s)Sheep[#]() 
-                   and immediately possessed by the summoned [#](%1$s)Djinni[#](). 
-                   The [#](%1$s)Possessed Ghast[#]() will always drop at least one [](item://minecraft:ghast_tear) when killed.
-                   """.formatted(COLOR_PURPLE));
+                        In this ritual a [#](%1$s)Ghast[#]() is spawned using the life energy of a [#](%1$s)Sheep[#]() 
+                        and immediately possessed by the summoned [#](%1$s)Djinni[#](). 
+                        The [#](%1$s)Possessed Ghast[#]() will always drop at least one [](item://minecraft:ghast_tear) when killed.
+                        """.formatted(COLOR_PURPLE));
 
         helper.entry("possess_skeleton");
         this.add(helper.entryName(), "Possessed Skeleton");
@@ -2273,8 +2267,8 @@ public class ENUSProvider extends LanguageProvider {
         helper.page("entity");
         this.add(helper.pageText(),
                 """
-                   **Drops**: 1x [](item://minecraft:skeleton_skull)
-                           """);
+                        **Drops**: 1x [](item://minecraft:skeleton_skull)
+                                """);
 
         helper.page("ritual");
         //no text
@@ -2282,9 +2276,9 @@ public class ENUSProvider extends LanguageProvider {
         helper.page("description");
         this.add(helper.pageText(),
                 """
-                   In this ritual an [#](%1$s)Skeleton[#]() is spawned using the life energy of a [#](%1$s)Chicken[#]() and possessed by a [#](%1$s)Foliot[#](). 
-                   The [#](%1$s)Possessed Skeleton[#]() will be immune to daylight and always drop at least one [](item://minecraft:skeleton_skull) when killed.
-                           """.formatted(COLOR_PURPLE));
+                        In this ritual an [#](%1$s)Skeleton[#]() is spawned using the life energy of a [#](%1$s)Chicken[#]() and possessed by a [#](%1$s)Foliot[#](). 
+                        The [#](%1$s)Possessed Skeleton[#]() will be immune to daylight and always drop at least one [](item://minecraft:skeleton_skull) when killed.
+                                """.formatted(COLOR_PURPLE));
     }
 
     private void addCraftingRitualsCategory(BookLangHelper helper) {
@@ -2310,25 +2304,25 @@ public class ENUSProvider extends LanguageProvider {
 
         helper.page("spotlight");
         this.add(helper.pageText(),
-        """
-                The dimensional matrix is the entry point to a small dimension used for storing items. 
-                A [#](%1$s)Djinni[#]() bound to the matrix keeps the dimension stable, often supported by additional spirits in storage stabilizers, to increase the dimension size.
-                   """.formatted(COLOR_PURPLE));
+                """
+                        The dimensional matrix is the entry point to a small dimension used for storing items. 
+                        A [#](%1$s)Djinni[#]() bound to the matrix keeps the dimension stable, often supported by additional spirits in storage stabilizers, to increase the dimension size.
+                           """.formatted(COLOR_PURPLE));
 
         helper.page("ritual");
         //no text
-                   
+
         helper.entry("craft_dimensional_mineshaft");
         this.add(helper.entryName(), "Dimensional Mineshaft");
 
         helper.page("spotlight");
         this.add(helper.pageText(),
-        """
-                The dimensional mineshaft houses a [#](%1$s)Djinni[#]() which opens up a 
-                stable connection into an uninhabited dimension, perfectly suited for mining. 
-                While the portal is too small to transfer humans, 
-                other spirits can use it to enter the mining dimension and bring back resources.
-                   """.formatted(COLOR_PURPLE));
+                """
+                        The dimensional mineshaft houses a [#](%1$s)Djinni[#]() which opens up a 
+                        stable connection into an uninhabited dimension, perfectly suited for mining. 
+                        While the portal is too small to transfer humans, 
+                        other spirits can use it to enter the mining dimension and bring back resources.
+                           """.formatted(COLOR_PURPLE));
 
         helper.page("ritual");
         //no text
@@ -2336,13 +2330,13 @@ public class ENUSProvider extends LanguageProvider {
         helper.page("description");
         this.add(helper.pageTitle(), "Operation");
         this.add(helper.pageText(),
-        """
-                The dimensional mineshaft will discard any items it cannot store, 
-                so it is important to regularly empty the mineshaft, either manually, 
-                with hoppers or using a transporter spirit. 
-                Spirits in lamps can be inserted from the top, 
-                all other sides can be used to extract items.
-                   """.formatted(COLOR_PURPLE));
+                """
+                        The dimensional mineshaft will discard any items it cannot store, 
+                        so it is important to regularly empty the mineshaft, either manually, 
+                        with hoppers or using a transporter spirit. 
+                        Spirits in lamps can be inserted from the top, 
+                        all other sides can be used to extract items.
+                           """.formatted(COLOR_PURPLE));
 
 
         helper.entry("craft_infused_pickaxe");
@@ -2405,14 +2399,15 @@ public class ENUSProvider extends LanguageProvider {
                 """
                         This simple storage stabilizer is inhabited by a [#](%1$s)Foliot[#]() that supports the 
                         dimensional matrix in keeping the storage dimension stable, thus allowing to store more items.
-                        
-                        By default each Tier 1 Stabilizer adds 256 slots.
+                        \\
+                        \\                       
+                        By default each Tier 1 Stabilizer adds **256** slots.
                         """.formatted(COLOR_PURPLE));
 
         helper.page("ritual");
         //no text
 
-         helper.entry("craft_stabilizer_tier2");
+        helper.entry("craft_stabilizer_tier2");
         this.add(helper.entryName(), "Storage Stabilizer Tier 2");
 
         helper.page("spotlight");
@@ -2420,8 +2415,9 @@ public class ENUSProvider extends LanguageProvider {
                 """
                         This improved stabilizer is inhabited by a [#](%1$s)Djinni[#]() that supports the 
                         dimensional matrix in keeping the storage dimension stable, thus allowing to store even more items.
-                        
-                         By default each Tier 1 Stabilizer adds 512 slots.
+                        \\
+                        \\                        
+                        By default each Tier 2 Stabilizer adds **512** slots.
                         """.formatted(COLOR_PURPLE));
 
         helper.page("ritual");
@@ -2434,8 +2430,9 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageText(),
                 """
                         This advanced stabilizer is inhabited by an [#](%1$s)Afrit[#]() that supports the dimensional matrix in keeping the storage dimension stable, thus allowing to store even more items.
-                        
-                         By default each Tier 1 Stabilizer adds 1024 slots.
+                        \\
+                        \\                        
+                        By default each Tier 3 Stabilizer adds **1024** slots.
                         """.formatted(COLOR_PURPLE));
 
         helper.page("ritual");
@@ -2448,34 +2445,135 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageText(),
                 """
                         This highly advanced stabilizer is inhabited by a [#](%1$s)Marid[#]() that supports the dimensional matrix in keeping the storage dimension stable, thus allowing to store even more items.
-                        
-                         By default each Tier 1 Stabilizer adds 2048 slots.
+                        \\
+                        \\                        
+                        By default each Tier 4 Stabilizer adds **2048** slots.
                         """.formatted(COLOR_PURPLE));
 
         helper.page("ritual");
         //no text
 
         helper.entry("craft_stable_wormhole");
+        this.add(helper.entryName(), "Stable Wormhole");
 
         helper.page("spotlight");
         this.add(helper.pageText(),
                 """
-                       The stable wormhole allows access to a dimensional matrix from a remote destination.
-                       \\
-                       \\
-                       Shift-click a [](item://occultism:storage_controller) to link it, then place the wormhole in the world to use it as a remote access point.
-                        """.formatted(COLOR_PURPLE));
+                        The stable wormhole allows access to a dimensional matrix from a remote destination.
+                        \\
+                        \\
+                        Shift-click a [](item://occultism:storage_controller) to link it, then place the wormhole in the world to use it as a remote access point.
+                         """.formatted(COLOR_PURPLE));
 
         helper.page("ritual");
         //no text
 
         helper.entry("craft_storage_remote");
+        this.add(helper.entryName(), "Remote Storage Accessor");
 
         helper.page("spotlight");
         this.add(helper.pageText(),
                 """
                         The [](item://occultism:storage_remote) can be linked to a [](item://occultism:storage_controller) by shift-clicking. 
                         The [#](%1$s)Djinni[#]() bound to the accessor will then be able to access items from the actuator even from across dimensions.
+                        """.formatted(COLOR_PURPLE));
+
+        helper.page("ritual");
+        //no text
+
+        helper.entry("craft_foliot_miner");
+        this.add(helper.entryName(), "Foliot Miner");
+
+        helper.page("intro");
+        this.add(helper.pageText(),
+                """
+                        Miner spirits use [](item://occultism:dimensional_mineshaft) to acquire resources from other dimensions. 
+                        They are summoned and bound into magic lamps, which they can leave only through the mineshaft. 
+                        The magic lamp degrades over time, once it breaks the spirit is released back to [#](%1$s)The Other Place[#]().
+                        """.formatted(COLOR_PURPLE));
+
+        helper.page("spotlight");
+        this.add(helper.pageText(),
+                """
+                        The [#](%1$s)Foliot[#]() miner harvests block without much aim and returns anything it finds. 
+                        The mining process is quite slow, due to this the Foliot expends only minor amounts of energy,
+                         damaging the lamp it is housed in slowly over time.
+                        """.formatted(COLOR_PURPLE));
+
+        helper.page("ritual");
+        //no text
+
+        helper.entry("craft_djinni_miner");
+        this.add(helper.entryName(), "Djinni Miner");
+
+        helper.page("spotlight");
+        this.add(helper.pageText(),
+                """
+                        The [#](%1$s)Djinni[#]() miner harvests ores specifically. 
+                        By discarding other blocks it is able to mine faster and more efficiently.
+                        The greater power of the djinni it damages the magic lamp relatively quickly.
+                        """.formatted(COLOR_PURPLE));
+
+        helper.page("ritual");
+        //no text
+
+        helper.entry("craft_satchel");
+        this.add(helper.entryName(), "Surprisingly Substantial Satchel");
+
+        helper.page("spotlight");
+        this.add(helper.pageText(),
+                """
+                        A [#](%1$s)Foliot[#]() is bound to the satchel, tasked with **slightly** warping reality. 
+                        This allows to store more items in the satchel than it's size would indicate, making it a practical traveller's companion.
+                        """.formatted(COLOR_PURPLE));
+
+        helper.page("ritual");
+        //no text
+
+        helper.entry("craft_soul_gem");
+        this.add(helper.entryName(), "Soul Gem");
+
+        helper.page("spotlight");
+        this.add(helper.pageText(),
+                """
+                        Soul gems are diamonds set in precious metals, which are then infused with a [#](%1$s)Djinni[#](). 
+                        The spirit creates a small dimension that allows the temporary entrapment of living beings. 
+                        Beings of great power or size cannot be stored, however.              
+                        """.formatted(COLOR_PURPLE));
+
+        helper.page("usage");
+        this.add(helper.pageTitle(), "Usage");
+        this.add(helper.pageText(),
+                """
+                        To capture an entity, right-click it with the soul gem. \\
+                        Right-click again to release the entity. 
+                        \\
+                        \\
+                        Bosses cannot be captured.
+                               """.formatted(COLOR_PURPLE));
+
+        helper.page("ritual");
+        //no text
+
+        helper.entry("craft_familiar_ring");
+        this.add(helper.entryName(), "Familiar Ring");
+
+        helper.page("spotlight");
+        this.add(helper.pageText(),
+                """
+                        Familiar Rings consist of a [](item://occultism:soul_gem), that contains a [#](%1$s)Djinni[#](), mounted on a ring. 
+                        The [#](%1$s)Djinni[#]() in the ring allows the familiar captured in the soul gem to apply effects to the wearer."
+                        """.formatted(COLOR_PURPLE));
+
+        helper.page("usage");
+        this.add(helper.pageTitle(), "Usage");
+        this.add(helper.pageText(),
+                """
+                        To use a [](item://occultism:familiar_ring), simply capture a summoned (and tamed) familiar by right-clicking it,
+                        and then wear the ring as [#](%1$s)Curio[#]() to make use of the effects the familiar provides.
+                        \\
+                        \\
+                        When released from a familiar ring, the spirit will recognize the person releasing them as their new master.
                         """.formatted(COLOR_PURPLE));
 
         helper.page("ritual");

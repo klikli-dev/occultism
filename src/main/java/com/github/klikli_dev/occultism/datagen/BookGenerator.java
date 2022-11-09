@@ -2273,9 +2273,9 @@ public class BookGenerator implements DataProvider {
         var entryHelper = ModonomiconAPI.get().getEntryLocationHelper();
         entryHelper.setMap(
                 "___________________________",
-                "_______b_e_c_______________",
+                "_______b_e_x_c_____________",
                 "___________________________",
-                "_______d___h_______________",
+                "_______d_____h_____________",
                 "___________________________",
                 "___9_0_____________________",
                 "___________________________",
@@ -2298,6 +2298,10 @@ public class BookGenerator implements DataProvider {
         craftInfusedPickaxe.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
         var craftDimensionalMineshaft = this.makeCraftDimensionalMineshaftEntry(helper, entryHelper, 'b');
         craftDimensionalMineshaft.withParent(BookEntryParentModel.builder().withEntryId(craftInfusedPickaxe.id).build());
+        var craftFoliotMiner = this.makeCraftFoliotMinerEntry(helper, entryHelper, 'e');
+        craftFoliotMiner.withParent(BookEntryParentModel.builder().withEntryId(craftDimensionalMineshaft.id).build());
+        var craftDjinniMiner = this.makeCraftDjinniMinerEntry(helper, entryHelper, 'x');
+        craftDjinniMiner.withParent(BookEntryParentModel.builder().withEntryId(craftFoliotMiner.id).build());
 
         var craftDimensionalMatrix = this.makeCraftDimensionalMatrixEntry(helper, entryHelper, 'a');
         craftDimensionalMatrix.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
@@ -2317,12 +2321,16 @@ public class BookGenerator implements DataProvider {
         var craftStorageRemote = this.makeCraftStorageRemoteEntry(helper, entryHelper, 'o');
         craftStorageRemote.withParent(BookEntryParentModel.builder().withEntryId(craftStableWormhole.id).build());
 
-//        var craftFamiliarRing = this.makeCraftFamiliarRingEntry(helper, entryHelper, 'c');
-//        var craftMinerSpirits = this.makeCraftMinerSpiritsEntry(helper, entryHelper, 'e');
         var craftOtherworldGoggles = this.makeCraftOtherworldGogglesEntry(helper, entryHelper, 'f');
-//        var craftSatchel = this.makeCraftSatchelEntry(helper, entryHelper, 'g');
-//        var craftSoulGem = this.makeCraftSoulGemEntry(helper, entryHelper, 'h');
+        craftOtherworldGoggles.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
 
+        var craftSatchel = this.makeCraftSatchelEntry(helper, entryHelper, 'g');
+        craftSatchel.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
+
+        var craftSoulGem = this.makeCraftSoulGemEntry(helper, entryHelper, 'h');
+        craftSoulGem.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
+        var craftFamiliarRing = this.makeCraftFamiliarRingEntry(helper, entryHelper, 'c');
+        craftFamiliarRing.withParent(BookEntryParentModel.builder().withEntryId(craftSoulGem.id).build());
 
         return BookCategoryModel.builder()
                 .withId(this.modLoc(helper.category))
@@ -2334,12 +2342,13 @@ public class BookGenerator implements DataProvider {
                         returnToRituals.build(),
                         craftDimensionalMatrix.build(),
                         craftDimensionalMineshaft.build(),
-//                        craftFamiliarRing.build(),
                         craftInfusedPickaxe.build(),
-//                        craftMinerSpirits.build(),
+                        craftFoliotMiner.build(),
+                        craftDjinniMiner.build(),
                         craftOtherworldGoggles.build(),
-//                        craftSatchel.build(),
-//                        craftSoulGem.build(),
+                        craftSatchel.build(),
+                        craftSoulGem.build(),
+                        craftFamiliarRing.build(),
                         craftStabilizerTier1.build(),
                         craftStabilizerTier2.build(),
                         craftStabilizerTier3.build(),
@@ -2622,6 +2631,151 @@ public class BookGenerator implements DataProvider {
                 .withLocation(entryHelper.get(icon))
                 .withPages(
                         spotlight,
+                        ritual
+                );
+    }
+
+    private BookEntryModel.Builder makeCraftFoliotMinerEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("craft_foliot_miner");
+
+        helper.page("intro");
+        var intro = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("spotlight");
+        var spotlight = BookSpotlightPageModel.builder()
+                .withItem(Ingredient.of(OccultismItems.MINER_FOLIOT_UNSPECIALIZED.get()))
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("ritual");
+        var ritual = BookRitualRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("ritual/craft_miner_foliot_unspecialized"))
+                .build();
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withIcon(OccultismItems.MINER_FOLIOT_UNSPECIALIZED.getId().toString())
+                .withLocation(entryHelper.get(icon))
+                .withPages(
+                        intro,
+                        spotlight,
+                        ritual
+                );
+    }
+
+    private BookEntryModel.Builder makeCraftDjinniMinerEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("craft_djinni_miner");
+
+        helper.page("spotlight");
+        var spotlight = BookSpotlightPageModel.builder()
+                .withItem(Ingredient.of(OccultismItems.MINER_DJINNI_ORES.get()))
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("ritual");
+        var ritual = BookRitualRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("ritual/craft_miner_djinni_ores"))
+                .build();
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withIcon(OccultismItems.MINER_DJINNI_ORES.getId().toString())
+                .withLocation(entryHelper.get(icon))
+                .withPages(
+                        spotlight,
+                        ritual
+                );
+    }
+
+    private BookEntryModel.Builder makeCraftSatchelEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("craft_satchel");
+
+        helper.page("spotlight");
+        var spotlight = BookSpotlightPageModel.builder()
+                .withItem(Ingredient.of(OccultismItems.SATCHEL.get()))
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("ritual");
+        var ritual = BookRitualRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("ritual/craft_satchel"))
+                .build();
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withIcon(OccultismItems.SATCHEL.getId().toString())
+                .withLocation(entryHelper.get(icon))
+                .withPages(
+                        spotlight,
+                        ritual
+                );
+    }
+
+    private BookEntryModel.Builder makeCraftSoulGemEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("craft_soul_gem");
+
+        helper.page("spotlight");
+        var spotlight = BookSpotlightPageModel.builder()
+                .withItem(Ingredient.of(OccultismItems.SOUL_GEM_ITEM.get()))
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("usage");
+        var usage = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("ritual");
+        var ritual = BookRitualRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("ritual/craft_soul_gem"))
+                .build();
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withIcon(OccultismItems.SOUL_GEM_ITEM.getId().toString())
+                .withLocation(entryHelper.get(icon))
+                .withPages(
+                        spotlight,
+                        ritual
+                );
+    }
+
+    private BookEntryModel.Builder makeCraftFamiliarRingEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("craft_familiar_ring");
+
+        helper.page("spotlight");
+        var spotlight = BookSpotlightPageModel.builder()
+                .withItem(Ingredient.of(OccultismItems.FAMILIAR_RING.get()))
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("usage");
+        var usage = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("ritual");
+        var ritual = BookRitualRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("ritual/craft_familiar_ring"))
+                .build();
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withIcon(OccultismItems.FAMILIAR_RING.getId().toString())
+                .withLocation(entryHelper.get(icon))
+                .withPages(
+                        spotlight,
+                        usage,
                         ritual
                 );
     }
