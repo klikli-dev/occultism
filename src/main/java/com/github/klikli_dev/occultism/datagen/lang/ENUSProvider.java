@@ -2303,6 +2303,46 @@ public class ENUSProvider extends LanguageProvider {
                         The created items can act like simple empowering enchantments, or fulfill complex tasks to aid the summoner.
                            """);
 
+        helper.entry("craft_dimensional_matrix");
+        this.add(helper.entryName(), "Dimensional Matrix");
+
+        helper.page("spotlight");
+        this.add(helper.pageText(),
+        """
+                The dimensional matrix is the entry point to a small dimension used for storing items. 
+                A [#](%1$s)Djinni[#]() bound to the matrix keeps the dimension stable, often supported by additional spirits in storage stabilizers, to increase the dimension size.
+                   """.formatted(COLOR_PURPLE));
+
+        helper.page("ritual");
+        //no text
+                   
+        helper.entry("craft_dimensional_mineshaft");
+        this.add(helper.entryName(), "Dimensional Mineshaft");
+
+        helper.page("spotlight");
+        this.add(helper.pageText(),
+        """
+                The dimensional mineshaft houses a [#](%1$s)Djinni[#]() which opens up a 
+                stable connection into an uninhabited dimension, perfectly suited for mining. 
+                While the portal is too small to transfer humans, 
+                other spirits can use it to enter the mining dimension and bring back resources.
+                   """.formatted(COLOR_PURPLE));
+
+        helper.page("ritual");
+        //no text
+
+        helper.page("description");
+        this.add(helper.pageTitle(), "Operation");
+        this.add(helper.pageText(),
+        """
+                The dimensional mineshaft will discard any items it cannot store, 
+                so it is important to regularly empty the mineshaft, either manually, 
+                with hoppers or using a transporter spirit. 
+                Spirits in lamps can be inserted from the top, 
+                all other sides can be used to extract items.
+                   """.formatted(COLOR_PURPLE));
+
+
         helper.entry("craft_otherworld_goggles");
         this.add(helper.entryName(), "Craft Otherworld Goggles");
 
