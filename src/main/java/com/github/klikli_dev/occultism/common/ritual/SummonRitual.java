@@ -30,11 +30,12 @@ import com.github.klikli_dev.occultism.util.ItemNBTUtil;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -92,9 +93,15 @@ public class SummonRitual extends Ritual {
         level.addFreshEntity(entity);
     }
 
-    public void applyRecipeNbtToEntity(Entity entity) {
-        if (this.recipe.getEntityPersitentData() != null)
-            entity.getPersistentData().merge(this.recipe.getEntityPersitentData());
+    /**
+     * Needs to be called after finalizeSpawn to avoid finalizeSpawn overwriting things like RabbitType with random init values.
+     */
+    public void applyEntityNbt(Entity entity){
+        if (this.recipe.getEntityNbt() != null){
+            var tag = entity.saveWithoutId(new CompoundTag());
+            tag.merge(this.recipe.getEntityNbt());
+            entity.load(tag);
+        }
     }
 
     @Override
@@ -117,7 +124,7 @@ public class SummonRitual extends Ritual {
                 this.prepareLivingEntityForSpawn(living, level, goldenBowlPosition, blockEntity, castingPlayer,
                         ItemNBTUtil.getBoundSpiritName(copy), this.tame);
 
-                this.applyRecipeNbtToEntity(entity);
+                this.applyEntityNbt(living);
 
                 this.initSummoned(living, level, goldenBowlPosition, blockEntity, castingPlayer);
 
@@ -141,6 +148,33 @@ public class SummonRitual extends Ritual {
         if (living instanceof SpiritEntity) {
             SpiritEntity spirit = (SpiritEntity) living;
             spirit.setSpiritMaxAge(this.recipe.getSpiritMaxAge());
+        }
+    }
+
+    /**
+     * Prepares the given living entity for spawning by - initializing it - optionally setting the taming player -
+     * preparing position and rotation - setting the custom name.
+     *
+     * @param livingEntity       the living entity to prepare.
+     * @param level              the level to spawn in.
+     * @param goldenBowlPosition the golden bowl position.
+     * @param castingPlayer      the ritual casting player.
+     * @param spiritName         the spirit name.
+     * @param setTamed           true to tame the spirit
+     */
+    public void prepareLivingEntityForSpawn(LivingEntity livingEntity, Level level, BlockPos goldenBowlPosition, GoldenSacrificialBowlBlockEntity blockEntity,
+                                            Player castingPlayer, String spiritName, boolean setTamed) {
+        if (setTamed && livingEntity instanceof TamableAnimal tamableAnimal) {
+            tamableAnimal.tame(castingPlayer);
+        }
+        livingEntity.absMoveTo(goldenBowlPosition.getX(), goldenBowlPosition.getY(), goldenBowlPosition.getZ(),
+                level.random.nextInt(360), 0);
+        if (spiritName.length() > 0)
+            livingEntity.setCustomName(new TextComponent(spiritName));
+        if (livingEntity instanceof Mob mob){
+            mob.finalizeSpawn((ServerLevel) level, level.getCurrentDifficultyAt(goldenBowlPosition),
+                    MobSpawnType.MOB_SUMMONED, null,
+                    null);
         }
     }
 }

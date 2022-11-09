@@ -17,7 +17,7 @@ and thus shelved until further notice.
       file.
 - `item_to_use`: If set, an item from the tag needs to be used (right click) for the ritual to commence.
 - `entity_to_summon`: the entity type of the entity to summon.
-- `entity_persistent_data`: An NBT Tag that will be merged into the entity's persistent data (meaning, any tags present in the entity's data, but not in the recipe will be untouched, but anything present in the recipe will overwrite existing tags). Uses the NBT formats also used in vanilla shapeless recipe's output: either a json object representing the tag, or a string containing the tag in NBT format.
+- `entity_nbt`: An NBT Tag that will be merged into the entity's nbt. E.g. could be used to set `RabbitType` for rabbits, or `ForgeData` for arbitrary nbt. Uses the NBT formats also used in vanilla shapeless recipe's output: either a json object representing the tag, or a string containing the tag in NBT format.
 - `duration`: The duration of the ritual in seconds.
 - `spirit_max_age`: The max age of the spirit in seconds.
 - ...
@@ -50,9 +50,9 @@ and thus shelved until further notice.
     "display_name": "ritual.occultism.sacrifice.cows"
   },
   "entity_to_summon": "minecraft:sheep",
-    "entity_persistent_data": {
-        "my_sample_tag": true
-    },
+  "entity_nbt": {
+    "RabbitType": 99
+  },
   "ritual_dummy": {
     "item": "occultism:ritual_dummy/custom_ritual"
   },
