@@ -2744,6 +2744,7 @@ public class BookGenerator implements DataProvider {
                 .withLocation(entryHelper.get(icon))
                 .withPages(
                         spotlight,
+                        usage,
                         ritual
                 );
     }

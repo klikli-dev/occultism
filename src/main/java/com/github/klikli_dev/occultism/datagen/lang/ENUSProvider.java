@@ -2485,6 +2485,7 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.entryName(), "Foliot Miner");
 
         helper.page("intro");
+        this.add(helper.pageTitle() , "Foliot Miner");
         this.add(helper.pageText(),
                 """
                         Miner spirits use [](item://occultism:dimensional_mineshaft) to acquire resources from other dimensions. 
