@@ -2485,7 +2485,7 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.entryName(), "Foliot Miner");
 
         helper.page("intro");
-        this.add(helper.pageTitle() , "Foliot Miner");
+        this.add(helper.pageTitle(), "Foliot Miner");
         this.add(helper.pageText(),
                 """
                         Miner spirits use [](item://occultism:dimensional_mineshaft) to acquire resources from other dimensions. 
@@ -2598,8 +2598,205 @@ public class ENUSProvider extends LanguageProvider {
                         Familiar rituals summon spirits to aid the summoner directly. 
                         The spirits usually inhabit an animal's body, allowing them to resist essence decay. 
                         Familiars provide buffs, but may also actively protect the summoner.
-                                """);
+                                """.formatted(COLOR_PURPLE));
 
+        helper.page("ring");
+        this.add(helper.pageTitle(), "Equipping Familiars");
+        this.add(helper.pageText(),
+                """
+                        Enterprising summoners have found a way to bind familiars into jewelry that passively applies their buff, 
+                        the [Familiar Ring](entry://crafting_rituals/craft_familiar_ring).
+                                """.formatted(COLOR_PURPLE));
+
+        helper.page("trading");
+        this.add(helper.pageTitle(), "Equipping Familiars");
+        this.add(helper.pageText(),
+                """
+                        "Familiars can be easily traded when in a [Familiar Ring](entry://crafting_rituals/craft_familiar_ring). 
+                        \\
+                        \\
+                        When released, the spirit will recognize the person releasing them as their new master.
+                                 """.formatted(COLOR_PURPLE));
+
+        helper.entry("familiar_bat");
+        this.add(helper.entryName(), "Bat Familiar");
+
+        helper.page("entity");
+        this.add(helper.pageText(),
+                """
+                        **Provides**: [#](%1$s)Night Vision[#]()
+                               """.formatted(COLOR_PURPLE));
+
+        helper.page("ritual");
+        //no text
+
+        helper.page("description");
+        this.add(helper.pageTitle(), "Description");
+        this.add(helper.pageText(),
+                """
+                        **Upgrade Behaviour**\\
+                        When upgraded by a blacksmith familiar, the bat familiar will give a life steal effect to it's master.
+                           """.formatted(COLOR_PURPLE));
+
+        helper.entry("familiar_beaver");
+        this.add(helper.entryName(), "Beaver Familiar");
+
+        helper.page("entity");
+        this.add(helper.pageText(),
+                """
+                        **Provides**: [#](%1$s)Increased wood break speed[#]()
+                               """.formatted(COLOR_PURPLE));
+
+        helper.page("ritual");
+        //no text
+
+        helper.page("description");
+        this.add(helper.pageTitle(), "Description");
+        this.add(helper.pageText(),
+                """
+                        The Beaver familiar will chop down nearby trees when they grow from a sapling into a tree. 
+                        It can only handle small trees.
+                        \\
+                        \\
+                        **Upgrade Behaviour**\\
+                        Cannot be upgraded by the blacksmith familiar.
+                           """.formatted(COLOR_PURPLE));
+
+        helper.entry("familiar_beholder");
+        this.add(helper.entryName(), "Beholder Familiar");
+
+        helper.page("entity");
+        this.add(helper.pageText(),
+                """
+                        **Provides**: [#](%1$s)Highlights enemies[#](), [#](%1$s)Shoots **FREAKING LAZORS**[#]()
+                               """.formatted(COLOR_PURPLE));
+
+        helper.page("ritual");
+        //no text
+
+        helper.page("description");
+        this.add(helper.pageTitle(), "Description");
+        this.add(helper.pageText(),
+                """
+                        The Beholder familiar highlights nearby entities with a glow effect, and shoots laser rays at enemies. 
+                        It **eats** (poor) **Shub Niggurath babies** to gain temporary damage and speed.
+                        \\
+                        \\
+                        **Upgrade Behaviour**\\
+                        When upgraded by a blacksmith familiar, it give it's master immunity to blindness.
+                           """.formatted(COLOR_PURPLE));
+
+        helper.entry("familiar_blacksmith");
+        this.add(helper.entryName(), "Blacksmith Familiar");
+
+        helper.page("entity");
+        this.add(helper.pageText(),
+                """
+                        **Provides**: [#](%1$s)Repairs Equipment while Mining[#](), [#](%1$s)Upgrades other familiars[#]()
+                               """.formatted(COLOR_PURPLE));
+
+        helper.page("ritual");
+        //no text
+
+        helper.page("description");
+        this.add(helper.pageTitle(), "Description");
+        this.add(helper.pageText(),
+                """
+                        Whenever the player picks up stone, there is a chance for the blacksmith familiar to repair their equipment a little bit. 
+                        \\
+                        \\
+                        **Upgrade Behaviour**: \\
+                        Cannot be upgraded, but upgrades other Familiars.
+                           """.formatted(COLOR_PURPLE));
+
+        helper.page("description2");
+        this.add(helper.pageTitle(), "Upgrading Familiars");
+        this.add(helper.pageText(),
+                """
+                        To upgrade other familiars the blacksmith needs to be given iron ingots or blocks by right-clicking it. 
+                        Upgraded familiars provide additional effects.
+                           """.formatted(COLOR_PURPLE));
+
+        helper.entry("familiar_chimera");
+        this.add(helper.entryName(), "Chimera Familiar");
+
+        helper.page("entity");
+        this.add(helper.pageText(),
+                """
+                        **Provides**: [#](%1$s)Rideable Mount[#]()
+                               """.formatted(COLOR_PURPLE));
+
+        helper.page("ritual");
+        //no text
+
+        helper.page("description");
+        this.add(helper.pageTitle(), "Description");
+        this.add(helper.pageText(),
+                """
+                        The chimera familiar can be fed (any) meat to grow, when growing it will gain damage and speed. 
+                        Once it has grown big enough, players can ride it. 
+                        When feeding it a [](item://minecraft:golden_apple) the [#](%1$s)Goat[#]() will detach and become a separate familiar.
+                        \\
+                        \\
+                        The detached goat familiar can be used to obtain the [Shub Niggurath](entry://familiar_rituals/familiar_shub_niggurath) familiar.
+                           """.formatted(COLOR_PURPLE));
+
+        helper.page("description2");
+        this.add(helper.pageText(),
+                """
+                        **Upgrade Behaviour**\\
+                        When upgraded by a blacksmith familiar, the goat familiar will get a warning bell. 
+                        When you hit the familiar it will ring the bell and attract enemies in a large radius.
+                           """.formatted(COLOR_PURPLE));
+
+        helper.entry("familiar_cthulhu");
+        this.add(helper.entryName(), "Cthulhu Familiar");
+
+        helper.page("entity");
+        this.add(helper.pageText(),
+                """
+                        **Provides**: [#](%1$s)Water Breathing[#](), [#](%1$s)General Coolness[#]()
+                               """.formatted(COLOR_PURPLE));
+
+        helper.page("ritual");
+        //no text
+
+        helper.page("description");
+        this.add(helper.pageTitle(), "Description");
+        this.add(helper.pageText(),
+                """
+                        **Upgrade Behaviour**\\
+                        When upgraded by a blacksmith familiar, it will act as a mobile light source.
+                           """.formatted(COLOR_PURPLE));
+
+        helper.entry("familiar_shub_niggurath");
+        this.add(helper.entryName(), "Cthulhu Familiar");
+
+        helper.page("entity");
+        this.add(helper.pageText(),
+                """
+                        **Provides**: [#](%1$s)Spawns small versions of itself to fight for you.[#]()
+                           
+                                   """.formatted(COLOR_PURPLE));
+
+        helper.page("ritual");
+        this.add(helper.pageTitle(), "Ritual");
+        this.add(helper.pageText(),
+                """
+                        The [#](%1$s)Shub Niggurath[#]() is not summoned directly. First, summon a [Chimera Familiar](entry://familiar_rituals/familiar_chimera) 
+                        and feed it a [](item://minecraft:golden_apple) to detach the [#](%1$s)Goat[#](). 
+                        Bring the goat to a [#](%1$s)Forest Biome[#](). 
+                        Then click the goat with [any Black Dye](item://minecraft:black_dye), [](item://minecraft:flint) and [](item://minecraft:ender_eye) to summon the [#](%1$s)Shub Niggurath[#]().
+                           """.formatted(COLOR_PURPLE));
+
+        helper.page("description");
+        this.add(helper.pageTitle(), "Description");
+        this.add(helper.pageText(),
+                """
+                        **Upgrade Behaviour**\\
+                        When upgraded by a blacksmith familiar, it will get a warning bell. 
+                        When you hit the familiar it will ring the bell and **attract enemies** in a large radius.
+                           """.formatted(COLOR_PURPLE));
     }
 
     private void addAdvancements() {
