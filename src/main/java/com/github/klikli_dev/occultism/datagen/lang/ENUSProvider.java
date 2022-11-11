@@ -2078,14 +2078,14 @@ public class ENUSProvider extends LanguageProvider {
                         In this ritual a [#](%1$s)Foliot[#]() is summoned **as an untamed spirit**.
                         \\
                         \\
-                        The slaughter of a [#](%1$s)chicken[#]() and the offering of dyes are intended to entice the Foliot to take the shape of a parrot. 
+                        The slaughter of a [#](%1$s)Chicken[#]() and the offering of dyes are intended to entice the Foliot to take the shape of a parrot. 
                         As [#](%1$s)Foliot[#]() are not among the smartest spirits, they sometimes misunderstand the instructions ...
                           """.formatted(COLOR_PURPLE));
 
         helper.page("description2");
         this.add(helper.pageText(),
                 """
-                        *This means, if a [#](%1$s)chicken[#]() is spawned, that's not a bug, just bad luck!*
+                        *This means, if a [#](%1$s)Chicken[#]() is spawned, that's not a bug, just bad luck!*
                            """.formatted(COLOR_PURPLE));
 
         helper.entry("summon_wild_otherworld_bird");
@@ -2940,6 +2940,121 @@ public class ENUSProvider extends LanguageProvider {
                 """
                         **Upgrade Behaviour**\\
                         When upgraded by a blacksmith familiar, it regains a limb (can only be done once).
+                           """.formatted(COLOR_PURPLE));
+
+        helper.entry("familiar_headless");
+        this.add(helper.entryName(), "Headless Ratman Familiar");
+
+        helper.page("entity");
+        this.add(helper.pageText(),
+                """
+                        **Provides**: [#](%1$s)Conditional Damage Buff[#]()
+                                   """.formatted(COLOR_PURPLE));
+
+        helper.page("ritual");
+        //no text
+
+        helper.page("description");
+        this.add(helper.pageTitle(), "Description");
+        this.add(helper.pageText(),
+                """
+                        The headless ratman familiar steals heads of mobs near the ratman when they are killed. 
+                        It then provides a damage buff against that type of mob to their master.
+                        If the ratman drops **below 50%% health** it dies, but can then be rebuilt by their master by giving them 
+                        [](item://minecraft:wheat), [](item://minecraft:stick), 
+                        [](item://minecraft:hay_block) and a [](item://minecraft:pumpkin)
+  
+                        **Upgrade Behaviour**\\
+                        When upgraded by a blacksmith familiar, it will give weakness to nearby mobs of the type it stole the head from.
+                           """.formatted(COLOR_PURPLE));
+
+        helper.entry("familiar_mummy");
+        this.add(helper.entryName(), "Mummy Familiar");
+
+        helper.page("entity");
+        this.add(helper.pageText(),
+                """
+                        **Provides**: [#](%1$s)Fights your enemies[#](), [#](%1$s)Dodge Effect[#]()
+                                   """.formatted(COLOR_PURPLE));
+
+        helper.page("ritual");
+        //no text
+
+        helper.page("description");
+        this.add(helper.pageTitle(), "Description");
+        this.add(helper.pageText(),
+                """
+                       The Mummy familiar is a martial arts expert and fights to protect their master.
+  
+                       **Upgrade Behaviour**\\
+                       When upgraded by a blacksmith familiar, it the familiar will deal even more damage.
+                           """.formatted(COLOR_PURPLE));
+
+        helper.entry("familiar_otherworld_bird");
+        this.add(helper.entryName(), "Drikwing Familiar");
+
+        helper.page("entity");
+        this.add(helper.pageText(),
+                """
+                        **Provides**: [#](%1$s)Multi-Jump[#](), [#](%1$s)Jump Boost[#](), [#](%1$s)Slow Falling[#]()
+                                   """.formatted(COLOR_PURPLE));
+
+        helper.page("ritual");
+        //no text
+
+        helper.page("description");
+        this.add(helper.pageTitle(), "Description");
+        this.add(helper.pageText(),
+                """
+                       [#](%1$s)Drikwings$[#]() are a subclass of [#](%1$s)Djinni[#]() that are known to be amicable towards humans. 
+                       They usually take the shape of a dark blue and purple parrot. 
+                       Drikwings will provide their owner with limited flight abilities when nearby.
+  
+                       **Upgrade Behaviour**\\
+                       Cannot be upgraded by the blacksmith familiar.
+                           """.formatted(COLOR_PURPLE));
+
+        helper.page("description2");
+        this.add(helper.pageText(),
+                """
+                       To obtain the parrot or parrot familiar for the sacrifice, consider summoning them using either the 
+                       
+                       [Wild Parrot Ritual](entry://summoning_rituals/summon_wild_parrot) or
+                       [Parrot Familiar Ritual](entry://familiar_rituals/familiar_parrot)
+                       
+                       **Hint:** If you use mods that protect pets from death, use the wild parrot ritual!
+                           """.formatted(COLOR_PURPLE));
+
+        helper.entry("familiar_parrot");
+        this.add(helper.entryName(), "Parrot Familiar");
+
+        helper.page("entity");
+        this.add(helper.pageText(),
+                """
+                        **Provides**: [#](%1$s)Company[#]()
+                                   """.formatted(COLOR_PURPLE));
+
+        helper.page("ritual");
+        //no text
+
+
+        //
+        helper.page("description");
+        this.add(helper.pageTitle(), "Description");
+        this.add(helper.pageText(),
+                """
+                       In this ritual a [#](%1$s)Foliot[#]() is summoned **as a familiar**, 
+                       the slaughter of a [#](%1$s)Chicken[#]() and the offering of dyes are intended to entice the [#](%1$s)Foliot[#]() to take the shape of a parrot. 
+                       As [#](%1$s)Foliot[#]() are not among the smartest spirits, they sometimes misunderstand the instructions ...
+  
+                       **Upgrade Behaviour**\\
+                       Cannot be upgraded by the blacksmith familiar.
+                           """.formatted(COLOR_PURPLE));
+
+        helper.page("description2");
+        this.add(helper.pageText(),
+                """
+                        *This means, if a [#](%1$s)Chicken[#]() is spawned, that's not a bug, just bad luck!*
                            """.formatted(COLOR_PURPLE));
 
     }

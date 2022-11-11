@@ -1,0 +1,48 @@
+{
+  "category": "occultism:familiar_rituals",
+  "name": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_fairy.name",
+  "description": "",
+  "icon": "occultism:textures/gui/book/familiar_fairy.png",
+  "x": -5,
+  "y": -4,
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "hide_while_locked": false,
+  "parents": [
+    {
+      "entry": "occultism:familiar_rituals/overview",
+      "draw_arrow": true,
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "pages": [
+    {
+      "type": "modonomicon:entity",
+      "anchor": "",
+      "name": "",
+      "text": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_fairy.entity.text",
+      "entity_id": "occultism:fairy_familiar",
+      "scale": 0.8,
+      "offset": 0.3,
+      "rotate": true,
+      "default_rotation": -45.0
+    },
+    {
+      "type": "occultism:ritual_recipe",
+      "anchor": "",
+      "title1": "",
+      "recipe_id_1": "occultism:ritual/familiar_fairy",
+      "title2": "",
+      "text": ""
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "title": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_fairy.description.title",
+      "use_markdown_in_title": false,
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_fairy.description.text"
+    }
+  ]
+}

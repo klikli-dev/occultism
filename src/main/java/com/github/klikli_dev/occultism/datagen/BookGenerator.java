@@ -3,7 +3,6 @@ package com.github.klikli_dev.occultism.datagen;
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePageModel;
 import com.github.klikli_dev.occultism.integration.modonomicon.pages.BookSpiritFireRecipePageModel;
-import com.github.klikli_dev.occultism.integration.modonomicon.pages.BookSpiritTradeRecipePage;
 import com.github.klikli_dev.occultism.integration.modonomicon.pages.BookSpiritTradeRecipePageModel;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
@@ -586,7 +585,7 @@ public class BookGenerator implements DataProvider {
 
         helper.page("bowl_placement");
         var bowlPlacementImage = BookImagePageModel.builder()
-                .withImages(modLoc("textures/gui/book/bowl_placement.png"))
+                .withImages(this.modLoc("textures/gui/book/bowl_placement.png"))
                 .withBorder(true)
                 .build();
 
@@ -2148,7 +2147,7 @@ public class BookGenerator implements DataProvider {
 
         helper.page("entity");
         var entity = BookEntityPageModel.builder()
-               .withEntityId("occultism:otherworld_bird")
+                .withEntityId("occultism:otherworld_bird")
                 .withText(helper.pageText())
                 .build();
 
@@ -2293,8 +2292,7 @@ public class BookGenerator implements DataProvider {
         returnToRituals.withCondition(BookTrueConditionModel.builder().build());
 
 
-
-         var craftInfusedPickaxe = this.makeCraftInfusedPickaxeEntry(helper, entryHelper, 'd');
+        var craftInfusedPickaxe = this.makeCraftInfusedPickaxeEntry(helper, entryHelper, 'd');
         craftInfusedPickaxe.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
         var craftDimensionalMineshaft = this.makeCraftDimensionalMineshaftEntry(helper, entryHelper, 'b');
         craftDimensionalMineshaft.withParent(BookEntryParentModel.builder().withEntryId(craftInfusedPickaxe.id).build());
@@ -2859,7 +2857,7 @@ public class BookGenerator implements DataProvider {
 
         helper.page("entity");
         var entity = BookEntityPageModel.builder()
-               .withEntityId("occultism:possessed_enderman")
+                .withEntityId("occultism:possessed_enderman")
                 .withText(helper.pageText())
                 .build();
 
@@ -2890,7 +2888,7 @@ public class BookGenerator implements DataProvider {
 
         helper.page("entity");
         var entity = BookEntityPageModel.builder()
-               .withEntityId("occultism:possessed_endermite")
+                .withEntityId("occultism:possessed_endermite")
                 .withText(helper.pageText())
                 .build();
 
@@ -2921,7 +2919,7 @@ public class BookGenerator implements DataProvider {
 
         helper.page("entity");
         var entity = BookEntityPageModel.builder()
-               .withEntityId("occultism:possessed_ghast")
+                .withEntityId("occultism:possessed_ghast")
                 .withScale(0.5f)
                 .withText(helper.pageText())
                 .build();
@@ -2953,7 +2951,7 @@ public class BookGenerator implements DataProvider {
 
         helper.page("entity");
         var entity = BookEntityPageModel.builder()
-               .withEntityId("occultism:possessed_skeleton")
+                .withEntityId("occultism:possessed_skeleton")
                 .withText(helper.pageText())
                 .build();
 
@@ -3013,18 +3011,27 @@ public class BookGenerator implements DataProvider {
         var familiarCthulhu = this.makeFamiliarCthulhuEntry(helper, entryHelper, 'N');
         familiarCthulhu.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
         var familiarDeer = this.makeFamiliarDeerEntry(helper, entryHelper, 'O');
+        familiarDeer.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
         var familiarDevil = this.makeFamiliarDevilEntry(helper, entryHelper, 'P');
+        familiarDevil.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
         var familiarDragon = this.makeFamiliarDragonEntry(helper, entryHelper, 'Q');
+        familiarDragon.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
         var familiarFairy = this.makeFamiliarFairyEntry(helper, entryHelper, 'R');
+        familiarFairy.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
         var familiarGreedy = this.makeFamiliarGreedyEntry(helper, entryHelper, 'S');
+        familiarGreedy.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
         var familiarGuardian = this.makeFamiliarGuardianEntry(helper, entryHelper, 'T');
-//        var familiarHeadlessRatman = this.makeFamiliarHeadlessRatmanEntry(helper, entryHelper, 'U');
-//        var familiarMummy = this.makeFamiliarMummyEntry(helper, entryHelper, 'V');
-//        var familiarOtherworldBird = this.makeFamiliarOtherworldBirdEntry(helper, entryHelper, 'W');
-//        var familiarParrot = this.makeFamiliarParrotEntry(helper, entryHelper, 'X');
+        familiarGuardian.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
+        var familiarHeadlessRatman = this.makeFamiliarHeadlessRatmanEntry(helper, entryHelper, 'U');
+        familiarHeadlessRatman.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
+        var familiarMummy = this.makeFamiliarMummyEntry(helper, entryHelper, 'V');
+        familiarMummy.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
+        var familiarOtherworldBird = this.makeFamiliarOtherworldBirdEntry(helper, entryHelper, 'W');
+        familiarOtherworldBird.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
+        var familiarParrot = this.makeFamiliarParrotEntry(helper, entryHelper, 'X');
+        familiarParrot.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
         var familiarShubNiggurath = this.makeFamiliarShubNiggurathEntry(helper, entryHelper, 'Y');
         familiarShubNiggurath.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
-
 
         return BookCategoryModel.builder()
                 .withId(this.modLoc(helper.category))
@@ -3043,6 +3050,13 @@ public class BookGenerator implements DataProvider {
                         familiarDeer.build(),
                         familiarDevil.build(),
                         familiarDragon.build(),
+                        familiarFairy.build(),
+                        familiarGreedy.build(),
+                        familiarGuardian.build(),
+                        familiarHeadlessRatman.build(),
+                        familiarMummy.build(),
+                        familiarOtherworldBird.build(),
+                        familiarParrot.build(),
                         familiarShubNiggurath.build()
                 );
     }
@@ -3085,7 +3099,7 @@ public class BookGenerator implements DataProvider {
 
         helper.page("entity");
         var entity = BookEntityPageModel.builder()
-               .withEntityId("occultism:bat_familiar")
+                .withEntityId("occultism:bat_familiar")
                 .withText(helper.pageText())
                 .withScale(0.7f)
                 .withOffset(0.3f)
@@ -3119,7 +3133,7 @@ public class BookGenerator implements DataProvider {
 
         helper.page("entity");
         var entity = BookEntityPageModel.builder()
-               .withEntityId("occultism:beaver_familiar")
+                .withEntityId("occultism:beaver_familiar")
                 .withText(helper.pageText())
                 .build();
 
@@ -3151,7 +3165,7 @@ public class BookGenerator implements DataProvider {
 
         helper.page("entity");
         var entity = BookEntityPageModel.builder()
-               .withEntityId("occultism:beholder_familiar")
+                .withEntityId("occultism:beholder_familiar")
                 .withText(helper.pageText())
                 .withScale(0.7f)
                 .withOffset(0.3f)
@@ -3185,7 +3199,7 @@ public class BookGenerator implements DataProvider {
 
         helper.page("entity");
         var entity = BookEntityPageModel.builder()
-               .withEntityId("occultism:blacksmith_familiar")
+                .withEntityId("occultism:blacksmith_familiar")
                 .withText(helper.pageText())
                 .build();
 
@@ -3224,7 +3238,7 @@ public class BookGenerator implements DataProvider {
 
         helper.page("entity");
         var entity = BookEntityPageModel.builder()
-               .withEntityId("occultism:chimera_familiar")
+                .withEntityId("occultism:chimera_familiar")
                 .withText(helper.pageText())
                 .withScale(0.7f)
                 .withOffset(0.3f)
@@ -3264,7 +3278,7 @@ public class BookGenerator implements DataProvider {
 
         helper.page("entity");
         var entity = BookEntityPageModel.builder()
-               .withEntityId("occultism:cthulhu_familiar")
+                .withEntityId("occultism:cthulhu_familiar")
                 .withText(helper.pageText())
                 .withScale(0.5f)
                 .withOffset(0.3f)
@@ -3298,7 +3312,7 @@ public class BookGenerator implements DataProvider {
 
         helper.page("entity");
         var entity = BookEntityPageModel.builder()
-               .withEntityId("occultism:deer_familiar")
+                .withEntityId("occultism:deer_familiar")
                 .withText(helper.pageText())
                 .withScale(0.7f)
                 .withOffset(0.3f)
@@ -3332,8 +3346,10 @@ public class BookGenerator implements DataProvider {
 
         helper.page("entity");
         var entity = BookEntityPageModel.builder()
-               .withEntityId("occultism:devil_familiar")
+                .withEntityId("occultism:devil_familiar")
                 .withText(helper.pageText())
+                .withScale(0.5f)
+                .withOffset(0.3f)
                 .build();
 
         helper.page("ritual");
@@ -3364,7 +3380,7 @@ public class BookGenerator implements DataProvider {
 
         helper.page("entity");
         var entity = BookEntityPageModel.builder()
-               .withEntityId("occultism:dragon_familiar")
+                .withEntityId("occultism:dragon_familiar")
                 .withText(helper.pageText())
                 .withScale(0.7f)
                 .withOffset(0.3f)
@@ -3398,8 +3414,10 @@ public class BookGenerator implements DataProvider {
 
         helper.page("entity");
         var entity = BookEntityPageModel.builder()
-               .withEntityId("occultism:fairy_familiar")
+                .withEntityId("occultism:fairy_familiar")
                 .withText(helper.pageText())
+                .withScale(0.8f)
+                .withOffset(0.3f)
                 .build();
 
         helper.page("ritual");
@@ -3430,7 +3448,7 @@ public class BookGenerator implements DataProvider {
 
         helper.page("entity");
         var entity = BookEntityPageModel.builder()
-               .withEntityId("occultism:greedy_familiar")
+                .withEntityId("occultism:greedy_familiar")
                 .withText(helper.pageText())
                 .build();
 
@@ -3462,7 +3480,7 @@ public class BookGenerator implements DataProvider {
 
         helper.page("entity");
         var entity = BookEntityPageModel.builder()
-               .withEntityId("occultism:guardian_familiar{for_book:true}")
+                .withEntityId("occultism:guardian_familiar{for_book:true}")
                 .withText(helper.pageText())
                 .build();
 
@@ -3495,17 +3513,158 @@ public class BookGenerator implements DataProvider {
                 );
     }
 
+    private BookEntryModel.Builder makeFamiliarHeadlessRatmanEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("familiar_headless");
+
+        helper.page("entity");
+        var entity = BookEntityPageModel.builder()
+                .withEntityId("occultism:headless_familiar")
+                .withScale(0.7f)
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("ritual");
+        var ritual = BookRitualRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("ritual/familiar_headless"))
+                .build();
+
+        helper.page("description");
+        var description = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withIcon("occultism:textures/gui/book/familiar_headless_ratman.png")
+                .withLocation(entryHelper.get(icon))
+                .withPages(
+                        entity,
+                        ritual,
+                        description
+                );
+    }
+
+    private BookEntryModel.Builder makeFamiliarMummyEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("familiar_mummy");
+
+        helper.page("entity");
+        var entity = BookEntityPageModel.builder()
+                .withEntityId("occultism:mummy_familiar")
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("ritual");
+        var ritual = BookRitualRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("ritual/familiar_mummy"))
+                .build();
+
+        helper.page("description");
+        var description = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withIcon("occultism:textures/gui/book/familiar_mummy.png")
+                .withLocation(entryHelper.get(icon))
+                .withPages(
+                        entity,
+                        ritual,
+                        description
+                );
+    }
+
+    private BookEntryModel.Builder makeFamiliarOtherworldBirdEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("familiar_otherworld_bird");
+
+        helper.page("entity");
+        var entity = BookEntityPageModel.builder()
+                .withEntityId("occultism:otherworld_bird_familiar")
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("ritual");
+        var ritual = BookRitualRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("ritual/familiar_otherworld_bird"))
+                .build();
+
+        helper.page("description");
+        var description = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("description2");
+        var description2 = BookTextPageModel.builder()
+                .withText(helper.pageText())
+                .build();
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withIcon("occultism:textures/gui/book/familiar_otherworld_bird.png")
+                .withLocation(entryHelper.get(icon))
+                .withPages(
+                        entity,
+                        ritual,
+                        description,
+                        description2
+                );
+    }
+
+    private BookEntryModel.Builder makeFamiliarParrotEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("familiar_parrot");
+
+        helper.page("entity");
+        var entity = BookEntityPageModel.builder()
+                .withEntityId("occultism:parrot_familiar")
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("ritual");
+        var ritual = BookRitualRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("ritual/familiar_parrot"))
+                .build();
+
+        helper.page("description");
+        var description = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("description2");
+        var description2 = BookTextPageModel.builder()
+                .withText(helper.pageText())
+                .build();
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withIcon("occultism:textures/gui/book/parrot.png")
+                .withLocation(entryHelper.get(icon))
+                .withPages(
+                        entity,
+                        ritual,
+                        description,
+                        description2
+                );
+    }
+
     private BookEntryModel.Builder makeFamiliarShubNiggurathEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
         helper.entry("familiar_shub_niggurath");
 
         helper.page("entity");
         var entity = BookEntityPageModel.builder()
-               .withEntityId("occultism:shub_niggurath_familiar")
+                .withEntityId("occultism:shub_niggurath_familiar")
                 .withText(helper.pageText())
                 .build();
 
         helper.page("ritual");
-        var ritual= BookTextPageModel.builder()
+        var ritual = BookTextPageModel.builder()
                 .withTitle(helper.pageTitle())
                 .withText(helper.pageText())
                 .build();
