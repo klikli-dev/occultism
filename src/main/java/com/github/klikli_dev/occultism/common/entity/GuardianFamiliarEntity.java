@@ -219,7 +219,7 @@ public class GuardianFamiliarEntity extends ColoredFamiliarEntity {
         }
         this.setLives(compound.getByte("lives"));
 
-        if (compound.getBoolean("for_patchouli")) {
+        if (compound.getBoolean("for_book")) {
             this.setLives(MAX_LIVES);
             this.setColor();
         }

@@ -26,11 +26,14 @@ import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.datagen.OccultismAdvancementProvider;
 import com.github.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants;
 import com.github.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants.I18n;
+import com.github.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePageModel;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.modonomicon.api.ModonomiconAPI;
 import com.klikli_dev.modonomicon.api.datagen.BookLangHelper;
+import com.klikli_dev.modonomicon.api.datagen.book.page.BookEntityPageModel;
+import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import net.minecraft.Util;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
@@ -2776,7 +2779,6 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageText(),
                 """
                         **Provides**: [#](%1$s)Spawns small versions of itself to fight for you.[#]()
-                           
                                    """.formatted(COLOR_PURPLE));
 
         helper.page("ritual");
@@ -2797,6 +2799,149 @@ public class ENUSProvider extends LanguageProvider {
                         When upgraded by a blacksmith familiar, it will get a warning bell. 
                         When you hit the familiar it will ring the bell and **attract enemies** in a large radius.
                            """.formatted(COLOR_PURPLE));
+
+        helper.entry("familiar_deer");
+        this.add(helper.entryName(), "Deer Familiar");
+
+        helper.page("entity");
+        this.add(helper.pageText(),
+                """
+                        **Provides**: [#](%1$s)Jump Boost[#]()
+                                   """.formatted(COLOR_PURPLE));
+
+        helper.page("ritual");
+        //no text
+
+        helper.page("description");
+        this.add(helper.pageTitle(), "Description");
+        this.add(helper.pageText(),
+                """
+                        **Upgrade Behaviour**\\
+                        When upgraded by a blacksmith familiar, it will attack nearby enemies with a hammer. Yep, a **hammer**.
+                           """.formatted(COLOR_PURPLE));
+
+        helper.entry("familiar_devil");
+        this.add(helper.entryName(), "Devil Familiar");
+
+        helper.page("entity");
+        this.add(helper.pageText(),
+                """
+                        **Provides**: [#](%1$s)Fire Resistance[#](), [#](%1$s)Attacks Enemies[#]()
+                                   """.formatted(COLOR_PURPLE));
+
+        helper.page("ritual");
+        //no text
+
+        helper.page("description");
+        this.add(helper.pageTitle(), "Description");
+        this.add(helper.pageText(),
+                """
+                        **Upgrade Behaviour**\\
+                        Cannot be upgraded by the blacksmith familiar.
+                           """.formatted(COLOR_PURPLE));
+
+        helper.entry("familiar_dragon");
+        this.add(helper.entryName(), "Dragon Familiar");
+
+        helper.page("entity");
+        this.add(helper.pageText(),
+                """
+                        **Provides**: [#](%1$s)Increased XP[#](), Loves Sticks
+                                   """.formatted(COLOR_PURPLE));
+
+        helper.page("ritual");
+        //no text
+
+        helper.page("description");
+        this.add(helper.pageTitle(), "Description");
+        this.add(helper.pageText(),
+                """
+                        Greedy familiars can ride on dragon familiars, giving the dragon the greedy effects additionally.
+                        \\
+                        \\
+                        **Upgrade Behaviour**\\
+                        When upgraded by a blacksmith familiar, it will throw swords at nearby enemies.
+                           """.formatted(COLOR_PURPLE));
+
+
+        helper.entry("familiar_fairy");
+        this.add(helper.entryName(), "Fairy Familiar");
+
+        helper.page("entity");
+        this.add(helper.pageText(),
+                """
+                        **Provides**: [#](%1$s)Assists Familiars[#](), [#](%1$s)Prevents Familiar Deaths[#](), [#](%1$s)Drains Enemy Life Force[#]()
+                                   """.formatted(COLOR_PURPLE));
+
+        helper.page("ritual");
+        //no text
+
+        helper.page("description");
+        this.add(helper.pageTitle(), "Description");
+        this.add(helper.pageText(),
+                """
+                        The Fairy familiar **keeps other familiars from dying** (with cooldown), 
+                        helps out other familiars with **beneficial effects**
+                        and **drains the life force of enemies** to assist their master.
+                        \\
+                        \\
+                        **Upgrade Behaviour**\\
+                        Cannot be upgraded by the blacksmith familiar.
+                           """.formatted(COLOR_PURPLE));
+
+        helper.entry("familiar_greedy");
+        this.add(helper.entryName(), "Greedy Familiar");
+
+        helper.page("entity");
+        this.add(helper.pageText(),
+                """
+                        **Provides**: [#](%1$s)Picks up Items[#](), [#](%1$s)Increased Pick-up Range[#]()
+                                   """.formatted(COLOR_PURPLE));
+        helper.page("ritual");
+        //no text
+
+        helper.page("description");
+        this.add(helper.pageTitle(), "Description");
+        this.add(helper.pageText(),
+                """
+                        The greedy familiar is a Foliot that will pick up nearby items for it's master. 
+                        When captured in a familiar ring it increased the pick-up range of the wearer.
+                        \\
+                        \\
+                        **Upgrade Behaviour**\\
+                        When upgraded by a blacksmith familiar, it can find blocks for its master. 
+                        Right-click it with a block to tell it what to look for.
+                           """.formatted(COLOR_PURPLE));
+
+
+        helper.entry("familiar_guardian");
+        this.add(helper.entryName(), "Guardian Familiar");
+
+        helper.page("entity");
+        this.add(helper.pageText(),
+                """
+                        **Provides**: [#](%1$s)Prevents player death while alive[#]()
+                                   """.formatted(COLOR_PURPLE));
+
+        helper.page("ritual");
+        //no text
+
+        helper.page("description");
+        this.add(helper.pageTitle(), "Description");
+        this.add(helper.pageText(),
+                """
+                        The guardian familiar sacrifices a limb everytime it's master is about to die and thus **prevents the death**. 
+                        Once the guardian dies, the player is no longer protected. 
+                        When summoned, the guardian spawns with a **random amount of limbs**, there is no guarantee that a complete guardian is summoned.
+                           """.formatted(COLOR_PURPLE));
+
+        helper.page("description2");
+        this.add(helper.pageText(),
+                """
+                        **Upgrade Behaviour**\\
+                        When upgraded by a blacksmith familiar, it regains a limb (can only be done once).
+                           """.formatted(COLOR_PURPLE));
+
     }
 
     private void addAdvancements() {
