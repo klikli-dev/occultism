@@ -1066,14 +1066,10 @@ public class ENUSProvider extends LanguageProvider {
 
         helper.page("intro");
         this.add(helper.pageTitle(), "The Ritual (tm)");
-        //TODO: link to ritual and pentacle page
-        //  " The ritual is described in $(l:rituals/summoning/summon_crusher)the section on rituals$(/l) "
-        //  maybe just general text linking to ritual section
-        //TODO: link to aviars circle page
         this.add(helper.pageText(),
                 """
-                        These pages will walk the gentle reader through the process of the first ritual step by step.
-                        We start by placing the golden sacrificial bowl and drawing the appropriate pentacle, [#](%1$s)Aviar's Circle[#]().
+                        These pages will walk the gentle reader through the process of the [first ritual](entry://summoning_rituals/summon_crusher_t1) step by step.
+                        We start by placing the golden sacrificial bowl and drawing the appropriate pentacle, [Aviar's Circle](entry://pentacles/summon_foliot).
                         \\
                         \\
                         Next, place four sacrificial bowls close to the pentacle.
@@ -1336,9 +1332,8 @@ public class ENUSProvider extends LanguageProvider {
                         Red chalk is used to call on the most powerful and dangerous beings, such as [#](%1$s)Marid[#]().
                         \\
                         \\
-                        [Afrit Essence]() is required to craft red chalk.
+                        [Afrit Essence](entry://occultism:dictionary_of_spirits/summoning_rituals/afrit_essence) is required to craft red chalk.
                                 """.formatted(COLOR_PURPLE));
-        //TODO: Link to Afrit Essence [Afrit Essence](entry://occultism:dictionary_of_spirits/rituals/summoning/afrit_essence)
 
         helper.page("red_chalk_uses");
         this.add(helper.pageTitle(), "Red Chalk Uses");
@@ -1372,25 +1367,27 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Uses");
         this.add(helper.pageText(),
                 """
-                        - //TODO: Add remaining uses
-                        """.formatted(COLOR_PURPLE));
-
-        //TODO: add remaining backlinks for pentacle
+                        - [Foliot Crusher](entry://summoning_rituals/summon_crusher_t1)
+                        - [Foliot Lumberjack](entry://summoning_rituals/summon_lumberjack)
+                        - [Foliot Transporter](entry://summoning_rituals/summon_transport_items)
+                        - [Foliot Janitor](entry://summoning_rituals/summon_cleaner)
+                        - [Otherstone Trader](entry://summoning_rituals/summon_otherstone_trader)
+                        - [Otherworld Sapling Trader](entry://summoning_rituals/summon_otherworld_sapling_trader)
+                        """);
 
         helper.entry("summon_djinni");
         this.add(helper.entryName(), "Ophyx' Calling");
 
         helper.page("intro");
         this.add(helper.pageTitle(), "Ophyx' Calling");
+        //Add link rituals/possession/possess_skeleton instead of [Obtain here]
         this.add(helper.pageText(),
                 """
                         **Purpose:** Summon a [#](%1$s)Djinni[#]()
                         \\
                         \\
-                        Developed by [#](%1$s)Ophyx[#]() during the Third Era, the [#](%1$s)Calling[#]() is the go-to pentacle for [#](%1$s)Djinni[#]() summonings ever since.
-                        Skeleton skulls ([Obtain here]()) and [#](%1$s)Purple Chalk[#]() provide the calling power required to force Djinni into appearance and candles stabilize the ritual.
+                        Developed by [#](%1$s)Ophyx[#]() during the Third Era, the [#](%1$s)Calling[#]() is the go-to pentacle for [#](%1$s)Djinni[#]() summonings ever since. Skeleton skulls ([Obtain here](entry://possession_rituals/possess_skeleton)) and [#](%1$s)Purple Chalk[#]() provide the calling power required to force Djinni into appearance and candles stabilize the ritual.
                          """.formatted(COLOR_PURPLE));
-        //TODO: Add link rituals/possession/possess_skeleton
 
         helper.page("multiblock");
         //no text
@@ -1399,9 +1396,11 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Uses");
         this.add(helper.pageText(),
                 """
-                        - //TODO: Add remaining uses
+                        - [Djinni Machine Operator](entry://summoning_rituals/summon_manage_machine)
+                        - [Djinni Crusher](entry://summoning_rituals/summon_crusher_t2)
+                        - [Clear Weather](entry://summoning_rituals/weather_magic@clear)
+                        - [Time Magic](entry://summoning_rituals/time_magic)
                         """.formatted(COLOR_PURPLE));
-        //TODO: add remaining backlinks for pentacle
 
         helper.entry("summon_afrit");
         this.add(helper.entryName(), "Abras' Conjure");
@@ -1422,9 +1421,10 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Uses");
         this.add(helper.pageText(),
                 """
-                        - //TODO: Add remaining uses
+                        - [Thunderstorm](entry://summoning_rituals/weather_magic@thunder)
+                        - [Rainy Weather](entry://summoning_rituals/weather_magic@rain)
+                        - [Afrit Crusher](entry://summoning_rituals/summon_crusher_t3)
                         """.formatted(COLOR_PURPLE));
-        //TODO: add remaining backlinks for pentacle
 
         helper.entry("summon_marid");
         this.add(helper.entryName(), "Fatma's Incentivized Attraction");
@@ -1445,9 +1445,8 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Uses");
         this.add(helper.pageText(),
                 """
-                        - //TODO: Add remaining uses
+                        - [Marid Crusher](entry://summoning_rituals/summon_crusher_t4)
                         """.formatted(COLOR_PURPLE));
-        //TODO: add remaining backlinks for pentacle
 
         helper.entry("summon_wild_afrit");
         this.add(helper.entryName(), "Abras' Open Conjure");
@@ -1468,9 +1467,8 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Uses");
         this.add(helper.pageText(),
                 """
-                        - //TODO: Add remaining uses
+                        - [Afrit Essence](entry://summoning_rituals/afrit_essence)
                         """.formatted(COLOR_PURPLE));
-        //TODO: add remaining backlinks for pentacle
 
         helper.entry("summon_wild_greater_spirit");
         this.add(helper.entryName(), "Osorin's Unbound Calling");
@@ -1491,9 +1489,8 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Uses");
         this.add(helper.pageText(),
                 """
-                        - //TODO: Add remaining uses
+                        - [Wither Skeleton Skull](entry://summoning_rituals/wither_skull)
                         """.formatted(COLOR_PURPLE));
-        //TODO: add remaining backlinks for pentacle
 
         helper.entry("possess_foliot");
         this.add(helper.entryName(), "Hedyrin's Lure");
@@ -1514,9 +1511,14 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Uses");
         this.add(helper.pageText(),
                 """
-                        - //TODO: Add remaining uses
+                        - [Possessed Endermite](entry://possession_rituals/possess_endermite)
+                        - [Possessed Skeleton](entry://possession_rituals/possess_skeleton)
+                        - [Parrot Familiar](entry://familiar_rituals/familiar_parrot)
+                        - [Greedy Familiar](entry://familiar_rituals/familiar_greedy)
+                        - [Deer Familiar](entry://familiar_rituals/familiar_deer)
+                        - [Blacksmith Familiar](entry://familiar_rituals/familiar_blacksmith)
+                        - [Beaver Familiar](entry://familiar_rituals/familiar_beaver)
                         """.formatted(COLOR_PURPLE));
-        //TODO: add remaining backlinks for pentacle
 
         helper.entry("possess_djinni");
         this.add(helper.entryName(), "Ihagan's Enthrallment");
@@ -1537,9 +1539,24 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Uses");
         this.add(helper.pageText(),
                 """
-                        - //TODO: Add remaining uses
+                        - [Possessed Enderman](entry://possession_rituals/possess_enderman)
+                        - [Possessed Ghast](entry://possession_rituals/possess_ghast)
+                        - [Drikwing Familiar](entry://familiar_rituals/familiar_otherworld_bird)
+                        - [Bat Familiar](entry://familiar_rituals/familiar_bat)
+                        - [Cthulhu Familiar](entry://familiar_rituals/familiar_cthulhu)
+                        - [Devil Familiar](entry://familiar_rituals/familiar_devil)
+                        - [Dragon Familiar](entry://familiar_rituals/familiar_dragon)
+                        - [Headless Ratman Familiar](entry://familiar_rituals/familiar_headless)
+                        - [Chimera Familiar](entry://familiar_rituals/familiar_chimera)
+                        - [Beholder Familiar](entry://familiar_rituals/familiar_beholder)
                         """.formatted(COLOR_PURPLE));
-        //TODO: add remaining backlinks for pentacle
+
+        helper.page("uses2");
+        this.add(helper.pageTitle(), "Uses");
+        this.add(helper.pageText(),
+                """
+                        - [Fairy Familiar](entry://familiar_rituals/familiar_fairy)
+                        """.formatted(COLOR_PURPLE));
 
         helper.entry("possess_afrit");
         this.add(helper.entryName(), "Abras' Commanding Conjure");
@@ -1560,9 +1577,8 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Uses");
         this.add(helper.pageText(),
                 """
-                        - //TODO: Add remaining uses
+                        - [Guardian Familiar](entry://familiar_rituals/familiar_guardian)
                         """.formatted(COLOR_PURPLE));
-        //TODO: add remaining backlinks for pentacle
 
         helper.entry("craft_foliot");
         this.add(helper.entryName(), "Eziveus' Spectral Compulsion");
@@ -1583,9 +1599,13 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Uses");
         this.add(helper.pageText(),
                 """
-                        - //TODO: Add remaining uses
+                        - [Infused Lenses](entry://crafting_rituals/craft_otherworld_goggles)
+                        - [Surprisingsly Substantial Satchel](entry://crafting_rituals/craft_satchel)
+                        - [Storage Actuator Base](entry://crafting_rituals/craft_storage_controller_base)
+                        - [Stable Wormhole](entry://crafting_rituals/craft_stable_wormhole)
+                        - [Storage Stabilizer Tier 1](entry://crafting_rituals/craft_stabilizer_tier1)
+                        - [Foliot Miner](entry://crafting_rituals/craft_foliot_miner)
                         """.formatted(COLOR_PURPLE));
-        //TODO: add remaining backlinks for pentacle
 
         helper.entry("craft_djinni");
         this.add(helper.entryName(), "Strigeor's Higher Binding");
@@ -1606,9 +1626,15 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Uses");
         this.add(helper.pageText(),
                 """
-                        - //TODO: Add remaining uses
+                        - [Infused Pickaxe](entry://crafting_rituals/craft_infused_pickaxe)
+                        - [Soul Gem](entry://crafting_rituals/craft_soul_gem)
+                        - [Familiar Ring](entry://crafting_rituals/craft_familiar_ring)
+                        - [Dimensional Matrix](entry://crafting_rituals/craft_dimensional_matrix)
+                        - [Storage Accessor](entry://crafting_rituals/craft_storage_remote)
+                        - [Storage Stabilizer Tier 2](entry://crafting_rituals/craft_stabilizer_tier2)
+                        - [Dimensional Mineshaft](entry://crafting_rituals/craft_dimensional_mineshaft)
+                        - [Djinni Ore Miner](entry://crafting_rituals/craft_djinni_miner)
                         """.formatted(COLOR_PURPLE));
-        //TODO: add remaining backlinks for pentacle
 
         helper.entry("craft_afrit");
         this.add(helper.entryName(), "Sevira's Permanent Confinement");
@@ -1629,9 +1655,8 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Uses");
         this.add(helper.pageText(),
                 """
-                        - //TODO: Add remaining uses
+                        - [Storage Stabilizer Tier 3](entry://crafting_rituals/craft_stabilizer_tier3)
                         """.formatted(COLOR_PURPLE));
-        //TODO: add remaining backlinks for pentacle
 
         helper.entry("craft_marid");
         this.add(helper.entryName(), "Uphyxes Inverted Tower");
@@ -1650,12 +1675,10 @@ public class ENUSProvider extends LanguageProvider {
 
         helper.page("uses");
         this.add(helper.pageTitle(), "Uses");
-        //convert to our md format:       "text": "$(li)$(l:rituals/crafting/craft_stabilizer_tier4)Storage Stabilizer Tier 4$(/l)[#]()"
         this.add(helper.pageText(),
                 """
-                        - //TODO: Add remaining uses
+                        - [Storage Stabilizer Tier 4](entry://crafting_rituals/craft_stabilizer_tier4)
                         """.formatted(COLOR_PURPLE));
-        //TODO: add remaining backlinks for pentacle
     }
 
     private void addAdvancedCategory(BookLangHelper helper) {
@@ -1683,11 +1706,10 @@ public class ENUSProvider extends LanguageProvider {
         //no text
 
         helper.page("afrit_essence");
-        //TODO: Modonomicon, add link to correct entry for unbound afrit
         this.add(helper.pageText(),
                 """
-                        //TODO: Entry not yet implemented
-                        """);
+                        To obtain the essence of an [#](%1$s)Afrit[#]() for [](item://occultism:chalk_red) you need to [summon and kill an Unbound Afrit](entry://summoning_rituals/afrit_essence).
+                        """.formatted(COLOR_PURPLE));
     }
 
     private void addRitualsCategory(BookLangHelper helper) {
@@ -2037,9 +2059,8 @@ public class ENUSProvider extends LanguageProvider {
         helper.page("description");
         this.add(helper.pageText(),
                 """
-                        See [Drikwing Familiar]() for more information.
+                        See [Drikwing Familiar](entry://familiar_rituals/familiar_otherworld_bird) for more information.
                           """);
-        //TODO: add link to [](entry://familiar_rituals/familiar_otherworld_bird)
 
         helper.entry("weather_magic");
         this.add(helper.entryName(), "Weather Magic");

@@ -596,7 +596,6 @@ public class BookGenerator implements DataProvider {
                 .withText(helper.pageText())
                 .build();
 
-        //TODO: actual ritual recipe page
         helper.page("ritual_recipe");
         var ritualRecipe = BookRitualRecipePageModel.builder()
                 .withRecipeId1(this.modLoc("ritual/summon_foliot_crusher"))
@@ -751,7 +750,12 @@ public class BookGenerator implements DataProvider {
 
         helper.page("ritual");
         var ritual = BookRitualRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("ritual/otherworld_goggles"))
+                .withRecipeId1(this.modLoc("ritual/craft_infused_lenses"))
+                .build();
+
+        helper.page("recipe");
+        var recipe = BookRitualRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("crafting/goggles"))
                 .build();
 
         return BookEntryModel.builder()
@@ -762,7 +766,8 @@ public class BookGenerator implements DataProvider {
                 .withPages(
                         gogglesSpotlight,
                         lensesSpotlight,
-                        ritual
+                        ritual,
+                        recipe
                 );
     }
 
@@ -1193,6 +1198,12 @@ public class BookGenerator implements DataProvider {
                 .withText(helper.pageText())
                 .build();
 
+        helper.page("uses2");
+        var uses2 = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
         return BookEntryModel.builder()
                 .withId(this.modLoc(helper.category + "/" + helper.entry))
                 .withName(helper.entryName())
@@ -1201,7 +1212,8 @@ public class BookGenerator implements DataProvider {
                 .withPages(
                         intro,
                         multiblock,
-                        uses
+                        uses,
+                        uses2
                 );
     }
 
@@ -2179,16 +2191,19 @@ public class BookGenerator implements DataProvider {
         helper.page("ritual_clear");
         var ritualClear = BookRitualRecipePageModel.builder()
                 .withRecipeId1(this.modLoc("ritual/summon_djinni_clear_weather"))
+                .withAnchor("clear")
                 .build();
 
         helper.page("ritual_rain");
         var ritualRain = BookRitualRecipePageModel.builder()
                 .withRecipeId1(this.modLoc("ritual/summon_afrit_rain_weather"))
+                .withAnchor("rain")
                 .build();
 
         helper.page("ritual_thunder");
         var ritualThunder = BookRitualRecipePageModel.builder()
                 .withRecipeId1(this.modLoc("ritual/summon_afrit_thunder_weather"))
+                .withAnchor("thunder")
                 .build();
 
         return BookEntryModel.builder()
@@ -2216,11 +2231,13 @@ public class BookGenerator implements DataProvider {
         helper.page("ritual_day");
         var ritualDay = BookRitualRecipePageModel.builder()
                 .withRecipeId1(this.modLoc("ritual/summon_djinni_day_time"))
+                .withAnchor("day")
                 .build();
 
         helper.page("ritual_night");
         var ritualNight = BookRitualRecipePageModel.builder()
                 .withRecipeId1(this.modLoc("ritual/summon_djinni_night_time"))
+                .withAnchor("night")
                 .build();
 
         return BookEntryModel.builder()

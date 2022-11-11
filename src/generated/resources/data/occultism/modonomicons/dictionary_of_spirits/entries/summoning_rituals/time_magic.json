@@ -27,7 +27,7 @@
     },
     {
       "type": "occultism:ritual_recipe",
-      "anchor": "",
+      "anchor": "day",
       "title1": "",
       "recipe_id_1": "occultism:ritual/summon_djinni_day_time",
       "title2": "",
@@ -35,7 +35,7 @@
     },
     {
       "type": "occultism:ritual_recipe",
-      "anchor": "",
+      "anchor": "night",
       "title1": "",
       "recipe_id_1": "occultism:ritual/summon_djinni_night_time",
       "title2": "",

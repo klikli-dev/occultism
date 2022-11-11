@@ -27,7 +27,7 @@
     },
     {
       "type": "occultism:ritual_recipe",
-      "anchor": "",
+      "anchor": "clear",
       "title1": "",
       "recipe_id_1": "occultism:ritual/summon_djinni_clear_weather",
       "title2": "",
@@ -35,7 +35,7 @@
     },
     {
       "type": "occultism:ritual_recipe",
-      "anchor": "",
+      "anchor": "rain",
       "title1": "",
       "recipe_id_1": "occultism:ritual/summon_afrit_rain_weather",
       "title2": "",
@@ -43,7 +43,7 @@
     },
     {
       "type": "occultism:ritual_recipe",
-      "anchor": "",
+      "anchor": "thunder",
       "title1": "",
       "recipe_id_1": "occultism:ritual/summon_afrit_thunder_weather",
       "title2": "",
