@@ -22,7 +22,7 @@
       "anchor": "",
       "name": "",
       "text": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_parrot.entity.text",
-      "entity_id": "occultism:parrot",
+      "entity_id": "minecraft:parrot",
       "scale": 1.0,
       "offset": 0.0,
       "rotate": true,

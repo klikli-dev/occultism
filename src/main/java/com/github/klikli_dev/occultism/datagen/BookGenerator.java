@@ -3615,7 +3615,7 @@ public class BookGenerator implements DataProvider {
 
         helper.page("entity");
         var entity = BookEntityPageModel.builder()
-                .withEntityId("occultism:parrot")
+                .withEntityId("minecraft:parrot")
                 .withText(helper.pageText())
                 .build();
 

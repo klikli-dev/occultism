@@ -2914,7 +2914,8 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Description");
         this.add(helper.pageText(),
                 """
-                        In this ritual a [#](%1$s)Foliot[#]() is summoned **as a familiar**, the slaughter of a [#](%1$s)Chicken[#]() and the offering of dyes are intended to entice the [#](%1$s)Foliot[#]() to take the shape of a parrot. As [#](%1$s)Foliot[#]() are not among the smartest spirits, they sometimes misunderstand the instructions ...
+                        In this ritual a [#](%1$s)Foliot[#]() is summoned **as a familiar**, the slaughter of a [#](%1$s)Chicken[#]() and the offering of dyes are intended to entice the [#](%1$s)Foliot[#]() to take the shape of a parrot.\\
+                        As [#](%1$s)Foliot[#]() are not among the smartest spirits, they sometimes misunderstand the instructions ...
                             """.formatted(COLOR_PURPLE));
 
         helper.page("description2");
@@ -2922,7 +2923,8 @@ public class ENUSProvider extends LanguageProvider {
                 """
                         *This means, if a [#](%1$s)Chicken[#]() is spawned, that's not a bug, just bad luck!*
                         \\
-                        \\ **Upgrade Behaviour**\\
+                        \\
+                        **Upgrade Behaviour**\\
                         Cannot be upgraded by the blacksmith familiar.
                            """.formatted(COLOR_PURPLE));
 
