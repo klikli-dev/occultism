@@ -121,22 +121,13 @@ public class BookGenerator implements DataProvider {
 
         var entryHelper = ModonomiconAPI.get().getEntryLocationHelper();
         entryHelper.setMap(
-                "___________________________",
-                "___________________________",
-                "___________________________",
-                "______i___________p________", //p=pentaclePrep, C=Chalks
-                "___________________________",
-                "___________________________",
-                "___________________________",
-                "______d___f___r_______R___N", //d=demonsDream, f=SpiritFire, r=divinationRod, R=ritualPrep, N=Next Steps
-                "___________________________",
-                "___________________________",
-                "___________________________",
-                "________e_________b________", //e=thirdEye, b=ritualBook
-                "___________________________",
-                "______________________c____", //c=?
-                "___________________________",
-                "__________________s________"  //s=?
+                "___________________",
+                "______i_____p______", //p=pentaclePrep, C=Chalks
+                "___________________",
+                "______d_f_r___R_N__", //d=demonsDream, f=SpiritFire, r=divinationRod, R=ritualPrep, N=Next Steps
+                "___________________",
+                "________e___b______", //e=thirdEye, b=ritualBook
+                "___________________"
         );
 
         var introEntry = this.makeIntroEntry(helper, entryHelper, 'i');
@@ -241,13 +232,24 @@ public class BookGenerator implements DataProvider {
                 .withImages(this.modLoc("textures/gui/book/datura_effect.png"))
                 .build();
 
+        helper.page("note_on_spirit_fire");
+        var spiritFire = BookTextPageModel.builder()
+                .withText(helper.pageText())
+                .build();
+
         return BookEntryModel.builder()
                 .withId(this.modLoc(helper.category + "/" + helper.entry))
                 .withName(helper.entryName())
                 .withDescription(helper.entryDescription())
                 .withIcon(OccultismItems.DATURA.getId().toString())
                 .withLocation(entryHelper.get(icon))
-                .withPages(intro, intro2, spotlight, harvestEffect, datureScreenshot);
+                .withPages(
+                        intro,
+                        intro2,
+                        spotlight,
+                        harvestEffect,
+                        datureScreenshot,
+                        spiritFire);
     }
 
     private BookEntryModel.Builder makeSpiritFireEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
@@ -1464,21 +1466,13 @@ public class BookGenerator implements DataProvider {
 
         var entryHelper = ModonomiconAPI.get().getEntryLocationHelper();
         entryHelper.setMap(
-                "___________________________",
-                "___________________________",
-                "___________________________",
-                "____________________p___s__",
-                "___________________________",
-                "___________________________",
-                "___________________________",
-                "________o___i___k__________",
-                "___________________________",
-                "___________________________",
-                "___________________________",
-                "____________________c___f__",
-                "___________________________",
-                "___________________________",
-                "___________________________"
+                "___________________",
+                "______________p_s__",
+                "___________________",
+                "________o_i_k______",
+                "___________________",
+                "______________c_f__",
+                "___________________"
         );
 
         var ritualOverview = this.makeRitualOverviewEntry(helper, entryHelper, 'o');
@@ -3583,7 +3577,7 @@ public class BookGenerator implements DataProvider {
 
         helper.page("entity");
         var entity = BookEntityPageModel.builder()
-                .withEntityId("occultism:otherworld_bird_familiar")
+                .withEntityId("occultism:otherworld_bird")
                 .withText(helper.pageText())
                 .build();
 
@@ -3606,7 +3600,7 @@ public class BookGenerator implements DataProvider {
         return BookEntryModel.builder()
                 .withId(this.modLoc(helper.category + "/" + helper.entry))
                 .withName(helper.entryName())
-                .withIcon("occultism:textures/gui/book/familiar_otherworld_bird.png")
+                .withIcon("occultism:textures/gui/book/otherworld_bird.png")
                 .withLocation(entryHelper.get(icon))
                 .withPages(
                         entity,
@@ -3621,7 +3615,7 @@ public class BookGenerator implements DataProvider {
 
         helper.page("entity");
         var entity = BookEntityPageModel.builder()
-                .withEntityId("occultism:parrot_familiar")
+                .withEntityId("occultism:parrot")
                 .withText(helper.pageText())
                 .build();
 
