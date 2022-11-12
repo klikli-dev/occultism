@@ -1,0 +1,48 @@
+{
+  "category": "occultism:familiar_rituals",
+  "name": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_deer.name",
+  "description": "",
+  "icon": "occultism:textures/gui/book/familiar_deer.png",
+  "x": 0,
+  "y": 2,
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "hide_while_locked": false,
+  "parents": [
+    {
+      "entry": "occultism:familiar_rituals/overview",
+      "draw_arrow": true,
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "pages": [
+    {
+      "type": "modonomicon:entity",
+      "anchor": "",
+      "name": "",
+      "text": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_deer.entity.text",
+      "entity_id": "occultism:deer_familiar",
+      "scale": 0.7,
+      "offset": 0.3,
+      "rotate": true,
+      "default_rotation": -45.0
+    },
+    {
+      "type": "occultism:ritual_recipe",
+      "anchor": "",
+      "title1": "",
+      "recipe_id_1": "occultism:ritual/familiar_deer",
+      "title2": "",
+      "text": ""
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "title": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_deer.description.title",
+      "use_markdown_in_title": false,
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_deer.description.text"
+    }
+  ]
+}

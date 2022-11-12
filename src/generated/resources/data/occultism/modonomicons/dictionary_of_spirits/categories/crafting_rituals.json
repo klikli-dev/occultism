@@ -1,0 +1,8 @@
+{
+  "name": "book.occultism.dictionary_of_spirits.crafting_rituals.name",
+  "icon": "occultism:textures/gui/book/infusion.png",
+  "sort_number": 6,
+  "background": "modonomicon:textures/gui/dark_slate_seamless.png",
+  "entry_textures": "modonomicon:textures/gui/entry_textures.png",
+  "show_category_button": false
+}

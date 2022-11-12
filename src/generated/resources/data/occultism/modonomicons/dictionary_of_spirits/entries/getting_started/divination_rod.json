@@ -4,7 +4,7 @@
   "description": "book.occultism.dictionary_of_spirits.getting_started.divination_rod.description",
   "icon": "occultism:divination_rod",
   "x": 1,
-  "y": -1,
+  "y": 0,
   "background_u_index": 0,
   "background_v_index": 0,
   "hide_while_locked": false,

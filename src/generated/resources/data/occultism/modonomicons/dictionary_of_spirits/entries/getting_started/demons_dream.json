@@ -3,8 +3,8 @@
   "name": "book.occultism.dictionary_of_spirits.getting_started.demons_dream.name",
   "description": "book.occultism.dictionary_of_spirits.getting_started.demons_dream.description",
   "icon": "occultism:datura",
-  "x": -7,
-  "y": -1,
+  "x": -3,
+  "y": 0,
   "background_u_index": 0,
   "background_v_index": 0,
   "hide_while_locked": false,
@@ -59,6 +59,14 @@
       "images": [
         "occultism:textures/gui/book/datura_effect.png"
       ]
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "title": "",
+      "use_markdown_in_title": false,
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.getting_started.demons_dream.note_on_spirit_fire.text"
     }
   ]
 }
