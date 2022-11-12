@@ -49,6 +49,14 @@
       ],
       "text": "",
       "title": ""
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.getting_started.demons_dream.note_on_spirit_fire.text",
+      "title": "",
+      "use_markdown_in_title": false
     }
   ],
   "parents": [
@@ -59,6 +67,6 @@
       "line_reversed": false
     }
   ],
-  "x": -7,
-  "y": -1
+  "x": -3,
+  "y": 0
 }

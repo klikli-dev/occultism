@@ -1,0 +1,48 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "occultism:familiar_rituals",
+  "description": "",
+  "hide_while_locked": false,
+  "icon": "occultism:textures/gui/book/familiar_beaver.png",
+  "name": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_beaver.name",
+  "pages": [
+    {
+      "type": "modonomicon:entity",
+      "anchor": "",
+      "default_rotation": -45.0,
+      "entity_id": "occultism:beaver_familiar",
+      "name": "",
+      "offset": 0.0,
+      "rotate": true,
+      "scale": 1.0,
+      "text": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_beaver.entity.text"
+    },
+    {
+      "type": "occultism:ritual_recipe",
+      "anchor": "",
+      "recipe_id_1": "occultism:ritual/familiar_beaver",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_beaver.description.text",
+      "title": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_beaver.description.title",
+      "use_markdown_in_title": false
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "occultism:familiar_rituals/overview",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "x": -5,
+  "y": 4
+}

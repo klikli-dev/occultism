@@ -1,0 +1,48 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "occultism:familiar_rituals",
+  "description": "",
+  "hide_while_locked": false,
+  "icon": "occultism:textures/gui/book/familiar_beholder.png",
+  "name": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_beholder.name",
+  "pages": [
+    {
+      "type": "modonomicon:entity",
+      "anchor": "",
+      "default_rotation": -45.0,
+      "entity_id": "occultism:beholder_familiar",
+      "name": "",
+      "offset": 0.3,
+      "rotate": true,
+      "scale": 0.7,
+      "text": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_beholder.entity.text"
+    },
+    {
+      "type": "occultism:ritual_recipe",
+      "anchor": "",
+      "recipe_id_1": "occultism:ritual/familiar_beholder",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_beholder.description.text",
+      "title": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_beholder.description.title",
+      "use_markdown_in_title": false
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "occultism:familiar_rituals/overview",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "x": -4,
+  "y": 2
+}

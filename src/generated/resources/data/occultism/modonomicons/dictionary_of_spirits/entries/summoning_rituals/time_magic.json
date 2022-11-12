@@ -1,0 +1,45 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "occultism:summoning_rituals",
+  "description": "",
+  "hide_while_locked": false,
+  "icon": "minecraft:clock",
+  "name": "book.occultism.dictionary_of_spirits.summoning_rituals.time_magic.name",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.time_magic.intro.text",
+      "title": "book.occultism.dictionary_of_spirits.summoning_rituals.time_magic.intro.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "occultism:ritual_recipe",
+      "anchor": "day",
+      "recipe_id_1": "occultism:ritual/summon_djinni_day_time",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    },
+    {
+      "type": "occultism:ritual_recipe",
+      "anchor": "night",
+      "recipe_id_1": "occultism:ritual/summon_djinni_night_time",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "occultism:summoning_rituals/weather_magic",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "x": 4,
+  "y": -6
+}

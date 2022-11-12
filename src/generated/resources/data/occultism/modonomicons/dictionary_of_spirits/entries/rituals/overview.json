@@ -1,0 +1,37 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "occultism:rituals",
+  "description": "",
+  "hide_while_locked": false,
+  "icon": "occultism:textures/gui/book/robe.png",
+  "name": "book.occultism.dictionary_of_spirits.rituals.overview.name",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.rituals.overview.intro.text",
+      "title": "book.occultism.dictionary_of_spirits.rituals.overview.intro.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.rituals.overview.steps.text",
+      "title": "book.occultism.dictionary_of_spirits.rituals.overview.steps.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.rituals.overview.additional_requirements.text",
+      "title": "book.occultism.dictionary_of_spirits.rituals.overview.additional_requirements.title",
+      "use_markdown_in_title": false
+    }
+  ],
+  "x": -1,
+  "y": 0
+}

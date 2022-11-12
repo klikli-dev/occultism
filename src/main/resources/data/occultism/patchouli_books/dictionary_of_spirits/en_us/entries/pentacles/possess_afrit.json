@@ -9,9 +9,8 @@
       "text": "$(bold)Purpose:$() Afrit Possession $(br2)$(thing)Abras' Commanding Conjure$() is a modified version of Abras' Conjure that allows possessing entities, and thus summoning familiars."
     },
     {
-      "type": "multiblock",
-      "name": "",
-      "multiblock_id": "occultism:pentacle.possess_afrit"
+      "type": "text",
+      "text": "See pentacles section in Dictionary of Spirits (not the old edition!)"
     },
     {
       "type": "text",

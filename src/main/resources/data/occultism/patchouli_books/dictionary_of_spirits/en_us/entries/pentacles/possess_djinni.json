@@ -9,9 +9,8 @@
       "text": "$(bold)Purpose:$() Djinni Possession $(br2)$(thing)Ihagan's Enthrallment$() forces $(thing)Djinn$() to possess a nearby creature. This pentacle does not lead to permanent imprisonment, the spirit and possessed creature will perish within a short period of time."
     },
     {
-      "type": "multiblock",
-      "name": "",
-      "multiblock_id": "occultism:pentacle.possess_djinni"
+      "type": "text",
+      "text": "See pentacles section in Dictionary of Spirits (not the old edition!)"
     },
     {
       "type": "text",

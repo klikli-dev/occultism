@@ -1,0 +1,45 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "occultism:summoning_rituals",
+  "description": "",
+  "hide_while_locked": false,
+  "icon": "occultism:otherstone",
+  "name": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_otherstone_trader.name",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_otherstone_trader.intro.text",
+      "title": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_otherstone_trader.intro.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "occultism:spirit_trade_recipe",
+      "anchor": "",
+      "recipe_id_1": "occultism:spirit_trade/stone_to_otherstone",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    },
+    {
+      "type": "occultism:ritual_recipe",
+      "anchor": "",
+      "recipe_id_1": "occultism:ritual/summon_foliot_otherstone_trader",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "occultism:summoning_rituals/summon_otherworld_sapling_trader",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "x": 0,
+  "y": 4
+}

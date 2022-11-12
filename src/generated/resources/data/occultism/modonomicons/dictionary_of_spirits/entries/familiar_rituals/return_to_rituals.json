@@ -1,0 +1,23 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "occultism:familiar_rituals",
+  "category_to_open": "occultism:rituals",
+  "condition": {
+    "type": "modonomicon:true"
+  },
+  "description": "",
+  "hide_while_locked": false,
+  "icon": "occultism:textures/gui/book/robe.png",
+  "name": "book.occultism.dictionary_of_spirits.familiar_rituals.return_to_rituals.name",
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "occultism:familiar_rituals/overview",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "x": -10,
+  "y": 0
+}

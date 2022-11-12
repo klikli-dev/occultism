@@ -1,0 +1,20 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "occultism:rituals",
+  "category_to_open": "occultism:summoning_rituals",
+  "description": "",
+  "hide_while_locked": false,
+  "icon": "occultism:textures/gui/book/summoning.png",
+  "name": "book.occultism.dictionary_of_spirits.rituals.summoning_rituals.name",
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "occultism:rituals/sacrifice",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "x": 7,
+  "y": -2
+}

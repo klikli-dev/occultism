@@ -76,6 +76,7 @@ import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -86,11 +87,11 @@ import java.util.stream.Stream;
 
 public class StorageControllerBlockEntity extends NetworkedBlockEntity implements MenuProvider, IStorageController, IStorageAccessor, IStorageControllerProxy, IAnimatable {
 
-    //region Fields
     public static final int MAX_STABILIZER_DISTANCE = 5;
 
     protected static final List<RegistryObject<? extends Block>> BLOCK_BLACKLIST = Stream.of(
             OccultismBlocks.STORAGE_CONTROLLER).collect(Collectors.toList());
+    private final AnimationFactory factory = GeckoLibUtil.createFactory(this);
     public Map<Integer, ItemStack> matrix = new HashMap<>();
     public ItemStack orderStack = ItemStack.EMPTY;
     public Map<GlobalBlockPos, MachineReference> linkedMachines = new HashMap<>();
@@ -107,17 +108,11 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
     protected int usedSlots = 0;
     protected boolean stabilizersInitialized = false;
     protected GlobalBlockPos globalPos;
-
     protected MessageUpdateStacks cachedMessageUpdateStacks;
 
-    private final AnimationFactory factory = new AnimationFactory(this);
-    //endregion Fields
-
-    //region Initialization
     public StorageControllerBlockEntity(BlockPos worldPos, BlockState state) {
         super(OccultismTiles.STORAGE_CONTROLLER.get(), worldPos, state);
     }
-    //endregion Initialization
 
     public void tick() {
         if (!this.level.isClientSide) {
@@ -128,7 +123,6 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
         }
     }
 
-    //region Methods
     public void updateStabilizers() {
         int additionalSlots = 0;
         List<BlockPos> stabilizerLocations = this.findValidStabilizers();
@@ -210,7 +204,6 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
         return PlayState.CONTINUE;
     }
 
-    //region Overrides
     @Override
     public Component getDisplayName() {
         return Component.literal(ForgeRegistries.BLOCK_ENTITY_TYPES.getKey(this.getType()).getPath());
@@ -366,8 +359,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
 
     @Override
     public boolean isBlacklisted(ItemStack stack) {
-        if (stack.getItem() instanceof BlockItem) {
-            BlockItem itemBlock = (BlockItem) stack.getItem();
+        if (stack.getItem() instanceof BlockItem itemBlock) {
             return BLOCK_BLACKLIST.stream().map(RegistryObject::get).anyMatch(block -> itemBlock.getBlock() == block);
         }
 
@@ -393,7 +385,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
             return ItemStack.EMPTY;
         }
 
-        var comparators = getComparatorsSortedByAmount(comparator);
+        var comparators = this.getComparatorsSortedByAmount(comparator);
 
         ItemStackHandler handler = this.itemStackHandlerInternal;
 
@@ -507,7 +499,6 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
         super.reviveCaps();
         this.itemStackHandler = LazyOptional.of(() -> this.itemStackHandlerInternal);
     }
-    //endregion Overrides
 
     @Nonnull
     @Override
@@ -618,6 +609,5 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
     public AnimationFactory getFactory() {
         return this.factory;
     }
-    //endregion Methods
 
 }

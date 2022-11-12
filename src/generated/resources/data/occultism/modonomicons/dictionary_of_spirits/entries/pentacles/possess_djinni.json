@@ -30,6 +30,14 @@
       "text": "book.occultism.dictionary_of_spirits.pentacles.possess_djinni.uses.text",
       "title": "book.occultism.dictionary_of_spirits.pentacles.possess_djinni.uses.title",
       "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.pentacles.possess_djinni.uses2.text",
+      "title": "book.occultism.dictionary_of_spirits.pentacles.possess_djinni.uses2.title",
+      "use_markdown_in_title": false
     }
   ],
   "parents": [

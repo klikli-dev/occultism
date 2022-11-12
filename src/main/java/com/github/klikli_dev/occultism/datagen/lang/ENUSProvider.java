@@ -679,6 +679,10 @@ public class ENUSProvider extends LanguageProvider {
         this.addGettingStartedCategory(helper);
         this.addPentaclesCategory(helper);
         this.addRitualsCategory(helper);
+        this.addSummoningRitualsCategory(helper);
+        this.addCraftingRitualsCategory(helper);
+        this.addPossessionRitualsCategory(helper);
+        this.addFamiliarRitualsCategory(helper);
         this.addAdvancedCategory(helper);
     }
 
@@ -694,19 +698,18 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Important Information");
         this.add(helper.pageText(),
                 """
-                        Occultism is transitioning from Patchouli to Modonomicon as in-game documentation.\\
+                        Occultism is transitioning from Patchouli to Modonomicon as in-game documentation.
                         \\
-                        Currently only the "getting started" section is available in Modonomicon, 
-                        for all other content you need to refer back to the Patchouli book
-                        titled "Dictionary of Spirits (Old Edition)". 
-                                                
+                        \\
+                        Currently only the "getting started" section is available in Modonomicon, for all other content you need to refer back to the Patchouli book
+                        titled "Dictionary of Spirits (Old Edition)".
                         """);
 
         helper.page("intro2");
         this.add(helper.pageText(),
                 """
-                        For now, to look up recipes, pentacle shapes, ritual information and basically everything after "getting started", 
-                        please open the Old Edition.\\
+                        For now, to look up recipes, pentacle shapes, ritual information and basically everything after "getting started", please open the Old Edition.
+                        \\
                         \\
                         Over time more and more content will be available directly here in the Modonomicon version.
                         """);
@@ -754,8 +757,12 @@ public class ENUSProvider extends LanguageProvider {
                          """.formatted(DEMONS_DREAM, COLOR_PURPLE));
 
 
-        helper.page("datura_screenshot"); //no text
-
+        helper.page("datura_screenshot"); //no tex
+        helper.page("note_on_spirit_fire");
+        this.add(helper.pageText(),
+                """
+                        **Hint**: The otherworld materials you obtain by harvesting under the effects of[#](%2$s)Third Eye[#]() **can be obtained more easily using [](item://occultism:spirit_fire)**. Proceed with the next entry in this book to learn more about spirit fire.
+                         """.formatted(DEMONS_DREAM, COLOR_PURPLE));
 
         helper.entry("spirit_fire");
         this.add(helper.entryName(), "It burns!");
@@ -823,7 +830,7 @@ public class ENUSProvider extends LanguageProvider {
         helper.page("otherworld_goggles");
         this.add(helper.pageText(),
                 """
-                        [These goggles](entry://occultism:dictionary_of_spirits/rituals/craft_otherworld_goggles) allow to see even more hidden Otherworld blocks,
+                        [These goggles](entry://occultism:dictionary_of_spirits/crafting_rituals/craft_otherworld_goggles) allow to see even more hidden Otherworld blocks,
                         however they do not allow harvesting those materials.
                         Low-tier materials can be harvested by consuming [%1$s](entry://occultism:dictionary_of_spirits/getting_started/demons_dream),
                         but more valuable materials require special tools.
@@ -1028,15 +1035,13 @@ public class ENUSProvider extends LanguageProvider {
                 """
                         To call forth a spirit, a [#](%1$s)Book of Binding[#]() must be used in the ritual.
                         There is a type of book corresponding to each type (or tier) of spirit.
-                        To identify a spirit to summon, it's name must be written in the [#](%1$s)Book of Binding[#](), 
-                        resulting in a [#](%1$s)Bound Book of Binding[#]() that can be used in the ritual. 
+                        To identify a spirit to summon, it's name must be written in the [#](%1$s)Book of Binding[#](), resulting in a [#](%1$s)Bound Book of Binding[#]() that can be used in the ritual.
                          """.formatted(COLOR_PURPLE));
 
         helper.page("purified_ink_recipe");
         this.add(helper.pageText(),
                 """
-                        In order to craft [#](%1$s)Books of Binding[#]() to summon spirits, you need purified ink. 
-                        Simply drop any black dye into [](item://occultism:spirit_fire) to purify it.
+                        In order to craft [#](%1$s)Books of Binding[#]() to summon spirits, you need purified ink. Simply drop any black dye into [](item://occultism:spirit_fire) to purify it.
                             """.formatted(COLOR_PURPLE));
 
         helper.page("book_of_binding_foliot_recipe");
@@ -1066,15 +1071,10 @@ public class ENUSProvider extends LanguageProvider {
 
         helper.page("intro");
         this.add(helper.pageTitle(), "The Ritual (tm)");
-        //TODO: link to ritual and pentacle page
-        //  " The ritual is described in $(l:rituals/summoning/summon_crusher)the section on rituals$(/l) "
-        //  maybe just general text linking to ritual section
-        //TODO: link to aviars circle page
         this.add(helper.pageText(),
                 """
-                        These pages will walk the gentle reader through the process of the first ritual step by step.
-                        We start by placing the golden sacrificial bowl and drawing the appropriate pentacle, 
-                        [#](%1$s)Aviar's Circle[#](). 
+                        These pages will walk the gentle reader through the process of the [first ritual](entry://summoning_rituals/summon_crusher_t1) step by step.
+                        We start by placing the golden sacrificial bowl and drawing the appropriate pentacle, [Aviar's Circle](entry://pentacles/summon_foliot).
                         \\
                         \\
                         Next, place four sacrificial bowls close to the pentacle.
@@ -1087,9 +1087,7 @@ public class ENUSProvider extends LanguageProvider {
         helper.page("bowl_text");
         this.add(helper.pageText(),
                 """
-                        [Sacrificial Bowls](item://occultism:sacrificial_bowl) must be placed **anywhere** 
-                        within 8 blocks of the central [](item://occultism:golden_sacrificial_bowl).
-                        The exact location does not matter.
+                        [Sacrificial Bowls](item://occultism:sacrificial_bowl) must be placed **anywhere** within 8 blocks of the central [](item://occultism:golden_sacrificial_bowl). **The exact location does not matter.**
                         \\
                         \\
                         Now it is time to place the ingredients you see on the next page in the (regular, not golden) sacrificial bowls.
@@ -1098,17 +1096,14 @@ public class ENUSProvider extends LanguageProvider {
         helper.page("ritual_recipe");
         this.add(helper.pageText(),
                 """
-                        This page will show the ritual recipe in the future. 
-                        For now refer to the Old Edition to look up the 
-                        "Summon Foliot Crusher" ritual recipe.
+                        This page will show the ritual recipe in the future. For now refer to the Old Edition to look up the "Summon Foliot Crusher" ritual recipe.
                           """.formatted(COLOR_PURPLE));
         //no text
 
         helper.page("start_ritual");
         this.add(helper.pageText(),
                 """
-                        Finally, right-click the golden sacrificial bowl with the **bound** book of binding 
-                        you created and wait until the crusher spawns. 
+                        Finally, right-click the golden sacrificial bowl with the **bound** book of binding you created and wait until the crusher spawns.
                         \\
                         \\
                         Now all that remains is to drop appropriate ores near the crusher and wait for it to turn it into dust.
@@ -1123,7 +1118,7 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Next Steps");
         this.add(helper.pageText(),
                 """
-                        Chalk is a pain to clean up, by right-clicking with a brush you can remove it from the world much more easily. 
+                        Chalk is a pain to clean up, by right-clicking with a brush you can remove it from the world much more easily.
                           """);
 
         helper.page("brushRecipe");
@@ -1157,8 +1152,7 @@ public class ENUSProvider extends LanguageProvider {
                 """
                         The name [#](%1$s)Pentacle[#]() in this context refers to ritual drawings of any shape, not just five-pointed stars. \\
                         \\
-                        Pentacles are used to summon and bind spirits from [#](%1$s)The Other Place[#](). 
-                    
+                        Pentacles are used to summon and bind spirits from [#](%1$s)The Other Place[#]().
                         """.formatted(COLOR_PURPLE));
 
         helper.page("intro2");
@@ -1171,20 +1165,18 @@ public class ENUSProvider extends LanguageProvider {
         helper.page("intro3");
         this.add(helper.pageText(),
                 """
-                        Each pentacle consists of a central golden sacrificial bowl, surrounding runes of various colors 
-                        and occult paraphernalia that improve the intended effect in various ways. 
-                        
+                        Each pentacle consists of a central golden sacrificial bowl, surrounding runes of various colors and occult paraphernalia that improve the intended effect in various ways.
                         """.formatted(COLOR_PURPLE));
 
 
         helper.page("intro4");
         this.add(helper.pageText(),
                 """
-                       The combination of chosen runes and supporting items as well as their exact spatial positioning determines 
-                       the use and effectiveness of the pentacle. \\
-                       \\
-                       Ingredients are placed in [#](%1$s)Sacrifical Bowls[#]() near the pentacle.
-                        """.formatted(COLOR_PURPLE));
+                        The combination of chosen runes and supporting items as well as their exact spatial positioning determines the use and effectiveness of the pentacle.
+                        \\
+                        \\
+                        Ingredients are placed in [#](%1$s)Sacrifical Bowls[#]() near the pentacle.
+                         """.formatted(COLOR_PURPLE));
 
         //exact copy found in first ritual entry
         helper.page("bowl_placement");
@@ -1194,9 +1186,7 @@ public class ENUSProvider extends LanguageProvider {
         helper.page("bowl_text");
         this.add(helper.pageText(),
                 """
-                        [Sacrificial Bowls](item://occultism:sacrificial_bowl) must be placed **anywhere** 
-                        within 8 blocks of the central [](item://occultism:golden_sacrificial_bowl).
-                        The exact location does not matter.
+                        [Sacrificial Bowls](item://occultism:sacrificial_bowl) must be placed **anywhere** within 8 blocks of the central [](item://occultism:golden_sacrificial_bowl). The exact location does not matter.
                         \\
                         \\
                         Now it is time to place the ingredients you see on the next page in the (regular, not golden) sacrificial bowls.
@@ -1206,28 +1196,21 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Summoning Pentacles");
         this.add(helper.pageText(),
                 """
-                        The purpose of this type of pentacle is to summon spirits in their chosen form into the world. 
-                        Spirits summoned thus suffer from strong essence decay, and only very powerful spirits can 
-                        remain for extended periods of time.
+                        The purpose of this type of pentacle is to summon spirits in their chosen form into the world. Spirits summoned thus suffer from strong essence decay, and only very powerful spirits can remain for extended periods of time.
                         """);
 
         helper.page("infusion_pentacles");
         this.add(helper.pageTitle(), "Infusion Pentacles");
         this.add(helper.pageText(),
                 """
-                        Infusion pentacles allow the binding of spirits into objects. 
-                        While the spirits suffer from essence decay in some cases, 
-                        this can often be averted with the right pentacle setup, 
-                        and by embedding crystals and precious metals into the object to support the spirit.
+                        Infusion pentacles allow the binding of spirits into objects. While the spirits suffer from essence decay in some cases, this can often be averted with the right pentacle setup, and by embedding crystals and precious metals into the object to support the spirit.
                         """);
 
         helper.page("possession_pentacles");
         this.add(helper.pageTitle(), "Possession Pentacles");
         this.add(helper.pageText(),
                 """
-                        These pentacles force spirits to possess a living being, which, depending on the ritual context, 
-                        gives the summoner control over various aspects of that being, ranging from it's strength to it 
-                        what it drops when killed, and in some cases even allows total control.
+                        These pentacles force spirits to possess a living being, which, depending on the ritual context, gives the summoner control over various aspects of that being, ranging from it's strength to it what it drops when killed, and in some cases even allows total control.
                         """);
 
         helper.entry("paraphernalia");
@@ -1243,8 +1226,7 @@ public class ENUSProvider extends LanguageProvider {
         helper.page("candle");
         this.add(helper.pageText(),
                 """
-                        Candles increase the stability of the pentacle, thus allowing a slowed essence decay of the summoned spirit, 
-                        leading to a longer lifetime of the spirit, or possessed object or being.
+                        Candles increase the stability of the pentacle, thus allowing a slowed essence decay of the summoned spirit, leading to a longer lifetime of the spirit, or possessed object or being.
                         """);
 
         helper.page("crystal");
@@ -1266,16 +1248,17 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Chalk Types");
         this.add(helper.pageText(),
                 """
-                        Chalk is used to draw pentacle runes and define the pentacle shape. 
-                        Different types of chalk are used for different purposes, as outlined on the next pages. \\
+                        Chalk is used to draw pentacle runes and define the pentacle shape. Different types of chalk are used for different purposes, as outlined on the next pages.
                         \\
-                        The different runes are purely decorative. 
+                        \\
+                        The different runes are purely decorative.
                         """);
 
         helper.page("intro2");
         this.add(helper.pageText(),
                 """
-                        **Repeatedly** use chalk on a block to switch to a different rune. \\
+                        **Repeatedly** use chalk on a block to switch to a different rune.
+                        \\
                         \\
                         Using a [](item://occultism:brush) is the easiest way to **remove** chalk runes that have been incorrectly placed.
                         """);
@@ -1283,8 +1266,7 @@ public class ENUSProvider extends LanguageProvider {
         helper.page("white_chalk");
         this.add(helper.pageText(),
                 """
-                        White chalk is the most basic type of ritual chalk and is found in most pentacles. 
-                        It has no special power beyond defining the shape of the pentacle.
+                        White chalk is the most basic type of ritual chalk and is found in most pentacles. It has no special power beyond defining the shape of the pentacle.
                            """);
 
 
@@ -1333,8 +1315,7 @@ public class ENUSProvider extends LanguageProvider {
         helper.page("purple_chalk");
         this.add(helper.pageText(),
                 """
-                        Purple chalk is generally used to call on higher beings such as [#](%1$s)Djinn[#]() or [#](%1$s)Afrit[#](), 
-                        but also slows essence decay of summoned spirits.
+                        Purple chalk is generally used to call on higher beings such as [#](%1$s)Djinn[#]() or [#](%1$s)Afrit[#](), but also slows essence decay of summoned spirits.
                                """.formatted(COLOR_PURPLE));
 
         helper.page("purple_chalk_uses");
@@ -1353,11 +1334,11 @@ public class ENUSProvider extends LanguageProvider {
         helper.page("red_chalk");
         this.add(helper.pageText(),
                 """
-                       Red chalk is used to call on the most powerful and dangerous beings, such as [#](%1$s)Marid[#](). \\
-                       \\
-                       [Afrit Essence]() is required to craft red chalk.
-                               """.formatted(COLOR_PURPLE));
-        //TODO: Link to Afrit Essence [Afrit Essence](entry://occultism:dictionary_of_spirits/rituals/summoning/afrit_essence)
+                        Red chalk is used to call on the most powerful and dangerous beings, such as [#](%1$s)Marid[#]().
+                        \\
+                        \\
+                        [Afrit Essence](entry://occultism:dictionary_of_spirits/summoning_rituals/afrit_essence) is required to craft red chalk.
+                                """.formatted(COLOR_PURPLE));
 
         helper.page("red_chalk_uses");
         this.add(helper.pageTitle(), "Red Chalk Uses");
@@ -1375,15 +1356,14 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Aviar's Circle");
         this.add(helper.pageText(),
                 """
-                         **Purpose:** Summon a [#](%1$s)Foliot[#]()
-                         \\ 
-                         \\
-                         Considered by most to be the simplest pentacle, [#](%1$s)Aviar's Circle[#]() is easy to set up, 
-                         but provides only a minimum of binding power and protection for the summoner.
-                         \\
-                         \\
+                        **Purpose:** Summon a [#](%1$s)Foliot[#]()
+                        \\
+                        \\
+                        Considered by most to be the simplest pentacle, [#](%1$s)Aviar's Circle[#]() is easy to set up, but provides only a minimum of binding power and protection for the summoner.
+                        \\
+                        \\
                         Only the weakest [#](%1$s)Foliot[#]() can be summoned in rituals using this pentacle.
-                         """.formatted(COLOR_PURPLE));
+                        """.formatted(COLOR_PURPLE));
 
         helper.page("multiblock");
         //no text
@@ -1392,25 +1372,27 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Uses");
         this.add(helper.pageText(),
                 """
-                        - //TODO: Add remaining uses
-                        """.formatted(COLOR_PURPLE));
-
-        //TODO: add remaining backlinks for pentacle
+                        - [Foliot Crusher](entry://summoning_rituals/summon_crusher_t1)
+                        - [Foliot Lumberjack](entry://summoning_rituals/summon_lumberjack)
+                        - [Foliot Transporter](entry://summoning_rituals/summon_transport_items)
+                        - [Foliot Janitor](entry://summoning_rituals/summon_cleaner)
+                        - [Otherstone Trader](entry://summoning_rituals/summon_otherstone_trader)
+                        - [Otherworld Sapling Trader](entry://summoning_rituals/summon_otherworld_sapling_trader)
+                        """);
 
         helper.entry("summon_djinni");
         this.add(helper.entryName(), "Ophyx' Calling");
 
         helper.page("intro");
         this.add(helper.pageTitle(), "Ophyx' Calling");
+        //Add link rituals/possession/possess_skeleton instead of [Obtain here]
         this.add(helper.pageText(),
                 """
                         **Purpose:** Summon a [#](%1$s)Djinni[#]()
                         \\
                         \\
-                        Developed by [#](%1$s)Ophyx[#]() during the Third Era, the [#](%1$s)Calling[#]() is the go-to pentacle for [#](%1$s)Djinni[#]() summonings ever since.
-                        Skeleton skulls ([Obtain here]()) and [#](%1$s)Purple Chalk[#]() provide the calling power required to force Djinni into appearance and candles stabilize the ritual.
+                        Developed by [#](%1$s)Ophyx[#]() during the Third Era, the [#](%1$s)Calling[#]() is the go-to pentacle for [#](%1$s)Djinni[#]() summonings ever since. Skeleton skulls ([Obtain here](entry://possession_rituals/possess_skeleton)) and [#](%1$s)Purple Chalk[#]() provide the calling power required to force Djinni into appearance and candles stabilize the ritual.
                          """.formatted(COLOR_PURPLE));
-        //TODO: Add link rituals/possession/possess_skeleton
 
         helper.page("multiblock");
         //no text
@@ -1419,9 +1401,11 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Uses");
         this.add(helper.pageText(),
                 """
-                        - //TODO: Add remaining uses
+                        - [Djinni Machine Operator](entry://summoning_rituals/summon_manage_machine)
+                        - [Djinni Crusher](entry://summoning_rituals/summon_crusher_t2)
+                        - [Clear Weather](entry://summoning_rituals/weather_magic@clear)
+                        - [Time Magic](entry://summoning_rituals/time_magic)
                         """.formatted(COLOR_PURPLE));
-        //TODO: add remaining backlinks for pentacle
 
         helper.entry("summon_afrit");
         this.add(helper.entryName(), "Abras' Conjure");
@@ -1432,8 +1416,7 @@ public class ENUSProvider extends LanguageProvider {
                         **Purpose:** Summon an [#](%1$s)Afrit[#]()
                         \\
                         \\
-                        **Abras' Conjure** is one of the few pentacles capable of (mostly) safely summoning an [#](%1$s)Afrit[#]().
-                        While the requirement of a wither skeleton skull makes it comparatively expensive, the additional calling potential is required to reach these high-power spirits.
+                        **Abras' Conjure** is one of the few pentacles capable of (mostly) safely summoning an [#](%1$s)Afrit[#](). While the requirement of a wither skeleton skull makes it comparatively expensive, the additional calling potential is required to reach these high-power spirits.
                          """.formatted(COLOR_PURPLE));
 
         helper.page("multiblock");
@@ -1443,15 +1426,15 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Uses");
         this.add(helper.pageText(),
                 """
-                        - //TODO: Add remaining uses
+                        - [Thunderstorm](entry://summoning_rituals/weather_magic@thunder)
+                        - [Rainy Weather](entry://summoning_rituals/weather_magic@rain)
+                        - [Afrit Crusher](entry://summoning_rituals/summon_crusher_t3)
                         """.formatted(COLOR_PURPLE));
-        //TODO: add remaining backlinks for pentacle
 
         helper.entry("summon_marid");
         this.add(helper.entryName(), "Fatma's Incentivized Attraction");
         helper.page("intro");
         this.add(helper.pageTitle(), "Fatma's Incentivized Attraction");
-        //convert to our markdown format: $(bold)Purpose:$() Summon Marid $(br2)$(thing)Fatma's Incentivized Attraction$() is a powerful pentacle, allowing to summon Marid and bind them to the summoner's will.
         this.add(helper.pageText(),
                 """
                         **Purpose:** Summon a [#](%1$s)Marid[#]()
@@ -1467,9 +1450,8 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Uses");
         this.add(helper.pageText(),
                 """
-                        - //TODO: Add remaining uses
+                        - [Marid Crusher](entry://summoning_rituals/summon_crusher_t4)
                         """.formatted(COLOR_PURPLE));
-        //TODO: add remaining backlinks for pentacle
 
         helper.entry("summon_wild_afrit");
         this.add(helper.entryName(), "Abras' Open Conjure");
@@ -1480,8 +1462,7 @@ public class ENUSProvider extends LanguageProvider {
                         **Purpose:** Summon an unbound [#](%1$s)Afrit[#]()
                         \\
                         \\
-                        **Abras' Open Conjure** is a simplified version of [#](%1$s)Abras' Conjure[#](), allowing to summon [#](%1$s)Afrit[#]() without red chalk.
-                        Due to the much reduced power of the pentacle, it cannot be used to control [#](%1$s)Afrit[#](), and it thus can only be used to fight and kill [#](%1$s)Afrit[#]().
+                        **Abras' Open Conjure** is a simplified version of [#](%1$s)Abras' Conjure[#](), allowing to summon [#](%1$s)Afrit[#]() without red chalk. Due to the much reduced power of the pentacle, it cannot be used to control [#](%1$s)Afrit[#](), and it thus can only be used to fight and kill [#](%1$s)Afrit[#]().
                          """.formatted(COLOR_PURPLE));
 
         helper.page("multiblock");
@@ -1491,9 +1472,8 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Uses");
         this.add(helper.pageText(),
                 """
-                        - //TODO: Add remaining uses
+                        - [Afrit Essence](entry://summoning_rituals/afrit_essence)
                         """.formatted(COLOR_PURPLE));
-        //TODO: add remaining backlinks for pentacle
 
         helper.entry("summon_wild_greater_spirit");
         this.add(helper.entryName(), "Osorin's Unbound Calling");
@@ -1504,8 +1484,7 @@ public class ENUSProvider extends LanguageProvider {
                         **Purpose:** Summon an unbound [#](%1$s)Greater Spirit[#]()
                         \\
                         \\
-                        **Osorin's Unbound Calling** is based on [#](%1$s)Abras' Open Conjure[#](), but features none of the stabilizing paraphernalia.
-                        The pentacle offers no protection whatsoever to the summoner, but acts as an irresistible call to [#](%1$s)Greater Spirits[#]().
+                        **Osorin's Unbound Calling** is based on [#](%1$s)Abras' Open Conjure[#](), but features none of the stabilizing paraphernalia. The pentacle offers no protection whatsoever to the summoner, but acts as an irresistible call to [#](%1$s)Greater Spirits[#]().
                         """.formatted(COLOR_PURPLE));
 
         helper.page("multiblock");
@@ -1515,9 +1494,8 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Uses");
         this.add(helper.pageText(),
                 """
-                        - //TODO: Add remaining uses
+                        - [Wither Skeleton Skull](entry://summoning_rituals/wither_skull)
                         """.formatted(COLOR_PURPLE));
-        //TODO: add remaining backlinks for pentacle
 
         helper.entry("possess_foliot");
         this.add(helper.entryName(), "Hedyrin's Lure");
@@ -1528,8 +1506,7 @@ public class ENUSProvider extends LanguageProvider {
                         **Purpose:** Foliot Possession
                         \\
                         \\
-                        **Hedyrin's Lure** attracts [#](%1$s)Foliot[#]() and forces them to possess a nearby creature.
-                        This pentacle does not lead to permanent imprisonment, the spirit and possessed creature will perish within a short period of time.
+                        **Hedyrin's Lure** attracts [#](%1$s)Foliot[#]() and forces them to possess a nearby creature. This pentacle does not lead to permanent imprisonment, the spirit and possessed creature will perish within a short period of time.
                          """.formatted(COLOR_PURPLE));
 
         helper.page("multiblock");
@@ -1539,9 +1516,14 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Uses");
         this.add(helper.pageText(),
                 """
-                        - //TODO: Add remaining uses
+                        - [Possessed Endermite](entry://possession_rituals/possess_endermite)
+                        - [Possessed Skeleton](entry://possession_rituals/possess_skeleton)
+                        - [Parrot Familiar](entry://familiar_rituals/familiar_parrot)
+                        - [Greedy Familiar](entry://familiar_rituals/familiar_greedy)
+                        - [Deer Familiar](entry://familiar_rituals/familiar_deer)
+                        - [Blacksmith Familiar](entry://familiar_rituals/familiar_blacksmith)
+                        - [Beaver Familiar](entry://familiar_rituals/familiar_beaver)
                         """.formatted(COLOR_PURPLE));
-        //TODO: add remaining backlinks for pentacle
 
         helper.entry("possess_djinni");
         this.add(helper.entryName(), "Ihagan's Enthrallment");
@@ -1552,8 +1534,7 @@ public class ENUSProvider extends LanguageProvider {
                         **Purpose:** Djinni Possession
                         \\
                         \\
-                        **Ihagan's Enthrallment** forces [#](%1$s)Djinn[#]() to possess a nearby creature.
-                        This pentacle does not lead to permanent imprisonment, the spirit and possessed creature will perish within a short period of time.
+                        **Ihagan's Enthrallment** forces [#](%1$s)Djinn[#]() to possess a nearby creature. This pentacle does not lead to permanent imprisonment, the spirit and possessed creature will perish within a short period of time.
                          """.formatted(COLOR_PURPLE));
 
         helper.page("multiblock");
@@ -1563,9 +1544,24 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Uses");
         this.add(helper.pageText(),
                 """
-                        - //TODO: Add remaining uses
+                        - [Possessed Enderman](entry://possession_rituals/possess_enderman)
+                        - [Possessed Ghast](entry://possession_rituals/possess_ghast)
+                        - [Drikwing Familiar](entry://familiar_rituals/familiar_otherworld_bird)
+                        - [Bat Familiar](entry://familiar_rituals/familiar_bat)
+                        - [Cthulhu Familiar](entry://familiar_rituals/familiar_cthulhu)
+                        - [Devil Familiar](entry://familiar_rituals/familiar_devil)
+                        - [Dragon Familiar](entry://familiar_rituals/familiar_dragon)
+                        - [Headless Ratman Familiar](entry://familiar_rituals/familiar_headless)
+                        - [Chimera Familiar](entry://familiar_rituals/familiar_chimera)
+                        - [Beholder Familiar](entry://familiar_rituals/familiar_beholder)
                         """.formatted(COLOR_PURPLE));
-        //TODO: add remaining backlinks for pentacle
+
+        helper.page("uses2");
+        this.add(helper.pageTitle(), "Uses");
+        this.add(helper.pageText(),
+                """
+                        - [Fairy Familiar](entry://familiar_rituals/familiar_fairy)
+                        """.formatted(COLOR_PURPLE));
 
         helper.entry("possess_afrit");
         this.add(helper.entryName(), "Abras' Commanding Conjure");
@@ -1586,9 +1582,8 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Uses");
         this.add(helper.pageText(),
                 """
-                        - //TODO: Add remaining uses
+                        - [Guardian Familiar](entry://familiar_rituals/familiar_guardian)
                         """.formatted(COLOR_PURPLE));
-        //TODO: add remaining backlinks for pentacle
 
         helper.entry("craft_foliot");
         this.add(helper.entryName(), "Eziveus' Spectral Compulsion");
@@ -1599,8 +1594,7 @@ public class ENUSProvider extends LanguageProvider {
                         **Purpose:** Bind Foliot
                         \\
                         \\
-                        As a simple binding pentacle, **Eziveus' Spectral Compulsion** is a common starting point for object infusion with lower spirits.
-                        The enchantment is made permanent by stabilizing candles and spirit attuned crystals.
+                        As a simple binding pentacle, **Eziveus' Spectral Compulsion** is a common starting point for object infusion with lower spirits. The enchantment is made permanent by stabilizing candles and spirit attuned crystals.
                          """.formatted(COLOR_PURPLE));
 
         helper.page("multiblock");
@@ -1610,9 +1604,13 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Uses");
         this.add(helper.pageText(),
                 """
-                        - //TODO: Add remaining uses
+                        - [Infused Lenses](entry://crafting_rituals/craft_otherworld_goggles)
+                        - [Surprisingsly Substantial Satchel](entry://crafting_rituals/craft_satchel)
+                        - [Storage Actuator Base](entry://crafting_rituals/craft_storage_controller_base)
+                        - [Stable Wormhole](entry://crafting_rituals/craft_stable_wormhole)
+                        - [Storage Stabilizer Tier 1](entry://crafting_rituals/craft_stabilizer_tier1)
+                        - [Foliot Miner](entry://crafting_rituals/craft_foliot_miner)
                         """.formatted(COLOR_PURPLE));
-        //TODO: add remaining backlinks for pentacle
 
         helper.entry("craft_djinni");
         this.add(helper.entryName(), "Strigeor's Higher Binding");
@@ -1623,8 +1621,7 @@ public class ENUSProvider extends LanguageProvider {
                         **Purpose:** Bind Djinni
                         \\
                         \\
-                        **Strigeor's Higher Binding** is a pentacle for binding [#](%1$s)Djinn[#]() into objects, should not be attempted by the novice summoner.
-                        Supported by spirit attuned crystals and stabilized by candles it is highly suitable for permanent infusions of objects with spirits.
+                        **Strigeor's Higher Binding** is a pentacle for binding [#](%1$s)Djinn[#]() into objects, should not be attempted by the novice summoner. Supported by spirit attuned crystals and stabilized by candles it is highly suitable for permanent infusions of objects with spirits.
                          """.formatted(COLOR_PURPLE));
 
         helper.page("multiblock");
@@ -1634,9 +1631,15 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Uses");
         this.add(helper.pageText(),
                 """
-                        - //TODO: Add remaining uses
+                        - [Infused Pickaxe](entry://crafting_rituals/craft_infused_pickaxe)
+                        - [Soul Gem](entry://crafting_rituals/craft_soul_gem)
+                        - [Familiar Ring](entry://crafting_rituals/craft_familiar_ring)
+                        - [Dimensional Matrix](entry://crafting_rituals/craft_dimensional_matrix)
+                        - [Storage Accessor](entry://crafting_rituals/craft_storage_remote)
+                        - [Storage Stabilizer Tier 2](entry://crafting_rituals/craft_stabilizer_tier2)
+                        - [Dimensional Mineshaft](entry://crafting_rituals/craft_dimensional_mineshaft)
+                        - [Djinni Ore Miner](entry://crafting_rituals/craft_djinni_miner)
                         """.formatted(COLOR_PURPLE));
-        //TODO: add remaining backlinks for pentacle
 
         helper.entry("craft_afrit");
         this.add(helper.entryName(), "Sevira's Permanent Confinement");
@@ -1647,8 +1650,7 @@ public class ENUSProvider extends LanguageProvider {
                         **Purpose:** Bind Afrit
                         \\
                         \\
-                        First discovered by Grandmistress Sevira of Emberwoods, **Sevira's Permanent Confinement** is used for binding [#](%1$s)Afrit[#]() into objects.
-                        Due to the power of the spirits involved, this should be performed only by advanced summoners.
+                        First discovered by Grandmistress Sevira of Emberwoods, **Sevira's Permanent Confinement** is used for binding [#](%1$s)Afrit[#]() into objects. Due to the power of the spirits involved, this should be performed only by advanced summoners.
                          """.formatted(COLOR_PURPLE));
 
         helper.page("multiblock");
@@ -1658,9 +1660,8 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Uses");
         this.add(helper.pageText(),
                 """
-                        - //TODO: Add remaining uses
+                        - [Storage Stabilizer Tier 3](entry://crafting_rituals/craft_stabilizer_tier3)
                         """.formatted(COLOR_PURPLE));
-        //TODO: add remaining backlinks for pentacle
 
         helper.entry("craft_marid");
         this.add(helper.entryName(), "Uphyxes Inverted Tower");
@@ -1671,8 +1672,7 @@ public class ENUSProvider extends LanguageProvider {
                         **Purpose:** Bind Marid
                         \\
                         \\
-                        **Uphyxes Inverted Tower** is one of the few pentacles capable of binding [#](%1$s)Marid[#]() into objects.
-                        Any rituals involving [#](%1$s)Marid[#]() should be performed only by the most experienced summoners.
+                        **Uphyxes Inverted Tower** is one of the few pentacles capable of binding [#](%1$s)Marid[#]() into objects. Any rituals involving [#](%1$s)Marid[#]() should be performed only by the most experienced summoners.
                          """.formatted(COLOR_PURPLE));
 
         helper.page("multiblock");
@@ -1680,27 +1680,10 @@ public class ENUSProvider extends LanguageProvider {
 
         helper.page("uses");
         this.add(helper.pageTitle(), "Uses");
-        //convert to our md format:       "text": "$(li)$(l:rituals/crafting/craft_stabilizer_tier4)Storage Stabilizer Tier 4$(/l)$()"
         this.add(helper.pageText(),
                 """
-                        - //TODO: Add remaining uses
+                        - [Storage Stabilizer Tier 4](entry://crafting_rituals/craft_stabilizer_tier4)
                         """.formatted(COLOR_PURPLE));
-        //TODO: add remaining backlinks for pentacle
-    }
-
-    private void addRitualsCategory(BookLangHelper helper) {
-        helper.category("rituals");
-        this.add(helper.categoryName(), "Rituals");
-
-        helper.entry("craft_otherworld_goggles");
-        this.add(helper.entryName(), "Craft Otherworld Goggles");
-
-        helper.page("intro");
-        this.add(helper.pageTitle(), "Otherworld Goggles");
-        this.add(helper.pageText(),
-                """
-                        //TODO: Entry not yet implemented
-                        """);
     }
 
     private void addAdvancedCategory(BookLangHelper helper) {
@@ -1715,8 +1698,7 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "More Chalks");
         this.add(helper.pageText(),
                 """
-                        For more advanced rituals the basic [White Chalk](entry://occultism:dictionary_of_spirits/getting_started/ritual_prep@white_chalk) 
-                        is not sufficient. Instead chalks made from more arcane materials are required.
+                        For more advanced rituals the basic [White Chalk](entry://occultism:dictionary_of_spirits/getting_started/ritual_prep@white_chalk) is not sufficient. Instead chalks made from more arcane materials are required.
                         """);
 
         helper.page("gold_chalk_recipe");
@@ -1729,13 +1711,1250 @@ public class ENUSProvider extends LanguageProvider {
         //no text
 
         helper.page("afrit_essence");
-        //TODO: Modonomicon, add link to correct entry for unbound afrit
         this.add(helper.pageText(),
                 """
-                        //TODO: Entry not yet implemented
-                        """);
+                        To obtain the essence of an [#](%1$s)Afrit[#]() for [](item://occultism:chalk_red) you need to [summon and kill an Unbound Afrit](entry://summoning_rituals/afrit_essence).
+                        """.formatted(COLOR_PURPLE));
     }
 
+    private void addRitualsCategory(BookLangHelper helper) {
+        helper.category("rituals");
+        this.add(helper.categoryName(), "Rituals");
+
+        helper.entry("overview");
+        this.add(helper.entryName(), "Rituals");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Rituals");
+        this.add(helper.pageText(),
+                """
+                        Rituals allow to summon spirits into our plane of existence, or bind them into objects or living beings. Every ritual consists of a [#](%1$s)Pentacle[#](), [#](%1$s)Ritual Ingredients[#]() provided via sacrificial bowls, a [#](%1$s)Starting Item[#]() and optionally the [#](%1$s)Sacrifice[#]() of living beings. A purple particle effect will show that the ritual is successful and in progress.
+                        """.formatted(COLOR_PURPLE));
+
+        helper.page("steps");
+        this.add(helper.pageTitle(), "Performing a Ritual");
+        this.add(helper.pageText(),
+                """
+                        Rituals always follow the same steps:
+                        - Draw the pentacle.
+                        - Place a golden bowl.
+                        - Place sacrificial bowls.
+                        - Put ingredients in bowls.
+                        - Right-click the golden bowl with the activation item.
+                        - *Optional: Perform a sacrifice close to the center of the pentacle.*
+                        """);
+
+        helper.page("additional_requirements");
+        this.add(helper.pageTitle(), "Additional Requirements");
+        this.add(helper.pageText(),
+                """
+                        If a ritual shows grey particles above the golden sacrificial bowl, then additional requirements as described in the ritual's page need to be fulfilled. Once all requirements are fulfilled, the ritual will show purple particles and start to consume the items in the sacrificial bowls.
+                        """);
+
+        helper.entry("item_use");
+        this.add(helper.entryName(), "Item Use");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Item Use");
+        this.add(helper.pageText(),
+                """
+                        Some rituals require the use of certain items to be performed. Use the item described on the ritual's page within **16 blocks** of the [](item://occultism:golden_sacrificial_bowl) to proceed with the ritual.
+                        \\
+                        \\
+                        **Important:** Before using the item, start the ritual. Grey particles indicate that the ritual is ready for the item use.
+                        """);
+
+        helper.entry("sacrifice");
+        this.add(helper.entryName(), "Sacrifices");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Sacrifices");
+        this.add(helper.pageText(),
+                """
+                        Some rituals require the sacrifice of a living being to provide the necessary energy to summon the spirit. Sacrifices are described on the ritual's page under the "Sacrifice" subheading. To perform a sacrifice, kill an animal within 8 blocks of the golden sacrificial bowl. Only kills by players count as sacrifice!
+                         """);
+
+        helper.entry("summoning_rituals");
+        this.add(helper.entryName(), "Summoning Rituals");
+
+        helper.entry("possession_rituals");
+        this.add(helper.entryName(), "Possession Rituals");
+
+        helper.entry("crafting_rituals");
+        this.add(helper.entryName(), "Binding Rituals");
+
+        helper.entry("familiar_rituals");
+        this.add(helper.entryName(), "Familiar Rituals");
+    }
+
+    private void addSummoningRitualsCategory(BookLangHelper helper) {
+        helper.category("summoning_rituals");
+        this.add(helper.categoryName(), "Summoning Rituals");
+
+        helper.entry("overview");
+        this.add(helper.entryName(), "Summoning Rituals");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Summoning Rituals");
+        this.add(helper.pageText(),
+                """
+                        Summon rituals force spirits to enter this world in their chosen shape, leading to little restrictions on their power, but expose them to essence decay. Summoned spirits range from trade spirits that trade and convert items, to slave-like helpers for manual labour.
+                         """);
+
+        helper.entry("return_to_rituals");
+        this.add(helper.entryName(), "Return to Rituals Category");
+
+        helper.entry("summon_crusher_t1");
+        this.add(helper.entryName(), "Summon Foliot Crusher");
+
+        helper.page("about_crushers");
+        this.add(helper.pageTitle(), "Crusher Spirits");
+        this.add(helper.pageText(),
+                """
+                        Crusher spirits are summoned to crush ores into dusts, effectively multiplying the metal output. They will pick up appropriate ores and drop the resulting dusts into the world. A purple particle effect and a crushing sound indicate the crusher is at work.
+                          """);
+
+        helper.page("automation");
+        this.add(helper.pageText(),
+                """
+                        To ease automation, try summoning a [Transporter Spirit](entry://occultism:dictionary_of_spirits/summoning_rituals/summon_transport_items)
+                        to place items from chests in the crusher's inventory, and a [Janitor Spirit](entry://occultism:dictionary_of_spirits/summoning_rituals/summon_cleaner) to collect the processed items.
+                         """);
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Foliot Crusher");
+        this.add(helper.pageText(),
+                """
+                        The foliot crusher is the most basic crusher spirit.
+                        \\
+                        \\
+                        It will crush **one** ore into **two** corresponding dusts.
+                         """);
+
+        helper.page("ritual");
+        //no text
+
+        helper.entry("summon_crusher_t2");
+        this.add(helper.entryName(), "Summon Djinni Crusher");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Djinni Crusher");
+        this.add(helper.pageText(),
+                """
+                        The djinni crusher is resistant essence decay and faster and more efficient than the foliot crusher.
+                        \\
+                        \\
+                        It will crush **one** ore into **three** corresponding dusts.
+                         """);
+
+        helper.page("ritual");
+        //no text
+
+        helper.entry("summon_crusher_t3");
+        this.add(helper.entryName(), "Summon Afrit Crusher");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Afrit Crusher");
+        this.add(helper.pageText(),
+                """
+                        The afrit crusher is resistant to essence decay and faster and more efficient than the djinni crusher.
+                        \\
+                        \\
+                        It will crush **one** ore into **four** corresponding dusts.
+                          """);
+
+        helper.page("ritual");
+        //no text
+
+        helper.entry("summon_crusher_t4");
+        this.add(helper.entryName(), "Summon Marid Crusher");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Marid Crusher");
+        this.add(helper.pageText(),
+                """
+                        The afrit crusher is resistant to essence decay and faster and more efficient than the afrit crusher.
+                        \\
+                        \\
+                        It will crush **one** ore into **six** corresponding dusts.
+                          """);
+
+        helper.page("ritual");
+        //no text
+
+
+        helper.entry("summon_lumberjack");
+        this.add(helper.entryName(), "Summon Foliot Lumberjack");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Foliot Lumberjack");
+        this.add(helper.pageText(),
+                """
+                        The lumberjack will harvest trees in it's working area and deposit the dropped items into the specified chest. **Note**: The lumberjack is using the old vanilla AI, not villager AI. That means he is ... *wonky*, and wont to get stuck. Consider him more of a semi-automatic helper, than a fully automated tree farm :)
+                          """);
+
+        helper.page("ritual");
+        //no text
+
+        helper.entry("summon_transport_items");
+        this.add(helper.entryName(), "Summon Foliot Transporter");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Foliot Transporter");
+        this.add(helper.pageText(),
+                """
+                        The transporter is useful in that you don't need a train of hoppers transporting stuff, and can use any inventory to take from and deposit.
+                        \\
+                        \\
+                        To make it take from an inventory simply sneak and interact with it's book of calling on the inventory you want.
+                               """);
+
+        helper.page("intro2");
+        this.add(helper.pageText(),
+                """
+                        You can also dictate which inventory it deposits to in the same way.
+                        \\
+                        The transporter will move all items it can access from one inventory to another, including machines. It can also deposit into the inventories of other spirits. By setting the extract and insert side they can be used to automate various transport tasks.
+                           """);
+
+        helper.page("ritual");
+        //no text
+
+        helper.entry("summon_cleaner");
+        this.add(helper.entryName(), "Summon Foliot Janitor");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Foliot Janitor");
+        this.add(helper.pageText(),
+                """
+                        The janitor will pick up dropped items and deposit them into a target inventory. You can configure an allow/block list to specify which items to pick up or ignore. **Warning**: By default it is set to "allow" mode, so it will only pick up items you specify in the allow list.
+                        You can use tags to handle whole groups of items.
+                          """);
+
+        helper.page("intro2");
+        this.add(helper.pageText(),
+                """
+                        To bind the janitor to an inventory simply sneak and interact with the janitor book of calling on that inventory. You can also interact with a block while holding the janitor book of calling to have it deposit items there. You can also have it wander around a select area by pulling up that interface. To configure an allow/block list sneak and interact with the janitor.
+                          """);
+
+
+        helper.page("ritual");
+        //no text
+
+        helper.entry("summon_manage_machine");
+        this.add(helper.entryName(), "Summon Djinni Machine Operator");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Djinni Machine Operator");
+        this.add(helper.pageText(),
+                """
+                        The machine operator transfers items specified in the dimensional storage actuator GUI, to it's managed machine, and returns crafting results to the storage system. It can also be used to automatically empty a chest into the storage actuator.
+                        \\
+                        Basically, on-demand crafting!
+                          """);
+
+        helper.page("ritual");
+        //no text
+
+        helper.page("tutorial");
+        this.add(helper.pageText(),
+                """
+                        To use the machine operator use the book of calling to link a Storage Actuator, the machine and optionally a separate extract location (the face you click on will be extracted from!). For the machine you can additionally set a custom name and the insert/extract facings.
+                          """);
+
+        helper.page("tutorial2");
+        this.add(helper.pageText(),
+                """
+                        Please note that setting a new machine (or configuring it with the book of calling) will reset the extraction settings.
+                        \\
+                        \\
+                        For an easy start, make sure to view the short [Tutorial Video](https://gyazo.com/237227ba3775e143463b31bdb1b06f50)!
+                          """);
+
+        helper.entry("trade_spirits");
+        this.add(helper.entryName(), "Trade Spirits");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Trade Spirits");
+        this.add(helper.pageText(),
+                """
+                        Trade spirits pick up appropriate items and throw trade results on the ground. The spirit is only actively exchanging items if purple particles spawn around it.
+                        \\
+                        \\
+                        **If you do not see any particles**, ensure that you gave the proper item and amount.
+                           """);
+
+        helper.page("intro2");
+        this.add(helper.pageText(),
+                """
+                        Most trade spirits experience extreme essence decay and will return to [#](%1$s)The Other Place[#]() quickly.
+                           """.formatted(COLOR_PURPLE));
+
+        helper.entry("summon_otherworld_sapling_trader");
+        this.add(helper.entryName(), "Summon Otherworld Sapling Trader");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Otherworld Sapling Trader");
+        this.add(helper.pageText(),
+                """
+                        Otherworld Trees grown from natural Otherworld Saplings can only be harvested when under the effect of [#](%1$s)Third Eye[#](). To make life easier, the Otherworld Sapling Trader will exchange such natural saplings for a stable variant that can be harvested by anyone, and will drop the same stable saplings when harvested.
+                           """.formatted(COLOR_PURPLE));
+
+        helper.page("trade");
+        //no text
+
+        helper.page("ritual");
+        //no text
+
+        helper.entry("summon_otherstone_trader");
+        this.add(helper.entryName(), "Summon Otherstone Trader");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Otherstone Trader");
+        this.add(helper.pageText(),
+                """
+                        The Otherstone Trader spirit allows to get more [](item://occultism:otherstone) than using [](item://occultism:spirit_fire). Thus it is especially efficient if you want to use Otherstone as a building material.
+                           """);
+
+        helper.page("trade");
+        //no text
+
+        helper.page("ritual");
+        //no text
+
+        helper.entry("summon_wild_parrot");
+        this.add(helper.entryName(), "Summon Wild Parrot");
+
+        helper.page("entity");
+        this.add(helper.pageText(),
+                """
+                        **Provides**: A tameable Parrot
+                          """);
+
+        helper.page("ritual");
+        //no text
+
+        helper.page("description");
+        this.add(helper.pageText(),
+                """
+                        In this ritual a [#](%1$s)Foliot[#]() is summoned **as an untamed spirit**.
+                        \\
+                        \\
+                        The slaughter of a [#](%1$s)Chicken[#]() and the offering of dyes are intended to entice the Foliot to take the shape of a parrot. As [#](%1$s)Foliot[#]() are not among the smartest spirits, they sometimes misunderstand the instructions ...
+                          """.formatted(COLOR_PURPLE));
+
+        helper.page("description2");
+        this.add(helper.pageText(),
+                """
+                        *This means, if a [#](%1$s)Chicken[#]() is spawned, that's not a bug, just bad luck!*
+                           """.formatted(COLOR_PURPLE));
+
+        helper.entry("summon_wild_otherworld_bird");
+        this.add(helper.entryName(), "Summon Wild Drikwing");
+
+        helper.page("entity");
+        this.add(helper.pageText(),
+                """
+                        **Provides**: A tameable Drikwing
+                          """);
+
+        helper.page("ritual");
+        //no text
+
+        helper.page("description");
+        this.add(helper.pageText(),
+                """
+                        See [Drikwing Familiar](entry://familiar_rituals/familiar_otherworld_bird) for more information.
+                          """);
+
+        helper.entry("weather_magic");
+        this.add(helper.entryName(), "Weather Magic");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Weather Magic");
+        this.add(helper.pageText(),
+                """
+                        Weather magic is especially useful for farmers and others depending on specific weather. Summons spirits to modify the weather. Different types of weather modification require different spirits.
+                        \\
+                        \\
+                        Weather spirits will only modify the weather once and then vanish.
+                           """);
+
+        helper.page("ritual_clear");
+        //no text
+
+        helper.page("ritual_rain");
+        //no text
+
+        helper.page("ritual_thunder");
+        //no text
+
+        helper.entry("time_magic");
+        this.add(helper.entryName(), "Time Magic");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Time Magic");
+        this.add(helper.pageText(),
+                """
+                        Time magic is limited in scope, it cannot send the magician back or forth in time, but rather allows to change time time of day. This is especially useful for rituals or other tasks requiring day- or nighttime specifically.
+                        \\
+                        \\
+                        Time spirits will only modify the weather once and then vanish.
+                           """);
+
+        helper.page("ritual_day");
+        //no text
+
+        helper.page("ritual_night");
+        //no text
+
+        helper.entry("wither_skull");
+        this.add(helper.entryName(), "Wither Skeleton Skull");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Wither Skeleton Skull");
+        this.add(helper.pageText(),
+                """
+                        Besides venturing into nether dungeons, there is one more way to get these skulls. The legendary [#](%1$s)Wild Hunt[#]() consists of [#](%1$s)Greater Spirits[#]() taking the form of wither skeletons. While summoning the Wild Hunt is incredibly dangerous, it is the fastest way to get wither skeleton skulls.
+                           """.formatted(COLOR_PURPLE));
+
+        helper.page("ritual");
+        //no text
+
+        helper.entry("afrit_essence");
+        this.add(helper.entryName(), "Afrit Essence");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Afrit Essence");
+        this.add(helper.pageText(),
+                """
+                        [](item://occultism:afrit_essence) is required to safely call on the more powerful spirits, commonly used in the form of red chalk. To obtain the essence, an [#](%1$s)Afrit[#]() needs to be summoned unbound into this plane, and killed. Be warned that this is no simple endeavour, and unbound spirit presents great danger to all nearby.
+                           """.formatted(COLOR_PURPLE));
+
+        helper.page("ritual");
+        //no text
+    }
+
+    private void addPossessionRitualsCategory(BookLangHelper helper) {
+        helper.category("possession_rituals");
+        this.add(helper.categoryName(), "Possession Rituals");
+
+        helper.entry("return_to_rituals");
+        this.add(helper.entryName(), "Return to Rituals Category");
+
+        helper.entry("overview");
+        this.add(helper.entryName(), "Possession Rituals");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Possession Rituals");
+        this.add(helper.pageText(),
+                """
+                        Possession rituals bind spirits into living beings, giving the summoner a degree of control over the possessed being.
+                        \\
+                        \\
+                        As such these rituals are used to obtain rare items without having to venture into dangerous places.
+                           """);
+
+        helper.entry("possess_enderman");
+        this.add(helper.entryName(), "Possessed Enderman");
+
+        helper.page("entity");
+        this.add(helper.pageText(),
+                """
+                        **Drops**: 1-3x [](item://minecraft:ender_pearl)
+                                """);
+
+        helper.page("ritual");
+        //no text
+
+        helper.page("description");
+        this.add(helper.pageText(),
+                """
+                        In this ritual an [#](%1$s)Enderman[#]() is spawned using the life energy of a [#](%1$s)Pig[#]() and immediately possessed by the summoned [#](%1$s)Djinni[#](). The [#](%1$s)Possessed Enderman[#]() will always drop at least one [](item://minecraft:ender_pearl) when killed.
+                                """.formatted(COLOR_PURPLE));
+
+        helper.entry("possess_endermite");
+        this.add(helper.entryName(), "Possessed Endermite");
+
+        helper.page("entity");
+        this.add(helper.pageText(),
+                """
+                        **Drops**: 1-2x [](item://minecraft:end_stone)
+                                """);
+
+        helper.page("ritual");
+        //no text
+
+        helper.page("description");
+        this.add(helper.pageText(),
+                """
+                        In this ritual an [#](%1$s)Endermite[#]() is tricked into spawning. The stone and dirt represent the surroundings, then an egg is thrown to simulate the use of an ender pearl. When the mite spawns, the summoned [#](%1$s)Foliot[#]() immediately possesses it, visits [#](%1$s)The End[#](), and returns. The [#](%1$s)Possessed Endermite[#]() will always drop at least one [](item://minecraft:end_stone) when killed.
+                                """.formatted(COLOR_PURPLE));
+
+        helper.entry("possess_ghast");
+        this.add(helper.entryName(), "Possessed Ghast");
+
+        helper.page("entity");
+        this.add(helper.pageText(),
+                """
+                        **Drops**: 1-3x [](item://minecraft:ghast_tear)
+                                """);
+
+        helper.page("ritual");
+        //no text
+
+        helper.page("description");
+        this.add(helper.pageText(),
+                """
+                        In this ritual a [#](%1$s)Ghast[#]() is spawned using the life energy of a [#](%1$s)Sheep[#]() and immediately possessed by the summoned [#](%1$s)Djinni[#](). The [#](%1$s)Possessed Ghast[#]() will always drop at least one [](item://minecraft:ghast_tear) when killed.
+                        """.formatted(COLOR_PURPLE));
+
+        helper.entry("possess_skeleton");
+        this.add(helper.entryName(), "Possessed Skeleton");
+
+        helper.page("entity");
+        this.add(helper.pageText(),
+                """
+                        **Drops**: 1x [](item://minecraft:skeleton_skull)
+                                """);
+
+        helper.page("ritual");
+        //no text
+
+        helper.page("description");
+        this.add(helper.pageText(),
+                """
+                        In this ritual an [#](%1$s)Skeleton[#]() is spawned using the life energy of a [#](%1$s)Chicken[#]() and possessed by a [#](%1$s)Foliot[#](). The [#](%1$s)Possessed Skeleton[#]() will be immune to daylight and always drop at least one [](item://minecraft:skeleton_skull) when killed.
+                                """.formatted(COLOR_PURPLE));
+    }
+
+    private void addCraftingRitualsCategory(BookLangHelper helper) {
+        helper.category("crafting_rituals");
+        this.add(helper.categoryName(), "Binding Rituals");
+
+        helper.entry("return_to_rituals");
+        this.add(helper.entryName(), "Return to Rituals Category");
+
+        helper.entry("overview");
+        this.add(helper.entryName(), "Binding Rituals");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Binding Rituals");
+        this.add(helper.pageText(),
+                """
+                        Binding rituals infuse spirits into items, where their powers are used for one specific purpose. The created items can act like simple empowering enchantments, or fulfill complex tasks to aid the summoner.
+                           """);
+
+        helper.entry("craft_dimensional_matrix");
+        this.add(helper.entryName(), "Dimensional Matrix");
+
+        helper.page("spotlight");
+        this.add(helper.pageText(),
+                """
+                        The dimensional matrix is the entry point to a small dimension used for storing items. A [#](%1$s)Djinni[#]() bound to the matrix keeps the dimension stable, often supported by additional spirits in storage stabilizers, to increase the dimension size.
+                           """.formatted(COLOR_PURPLE));
+
+        helper.page("ritual");
+        //no text
+
+        helper.entry("craft_dimensional_mineshaft");
+        this.add(helper.entryName(), "Dimensional Mineshaft");
+
+        helper.page("spotlight");
+        this.add(helper.pageText(),
+                """
+                        The dimensional mineshaft houses a [#](%1$s)Djinni[#]() which opens up a stable connection into an uninhabited dimension, perfectly suited for mining. While the portal is too small to transfer humans, other spirits can use it to enter the mining dimension and bring back resources.
+                           """.formatted(COLOR_PURPLE));
+
+        helper.page("ritual");
+        //no text
+
+        helper.page("description");
+        this.add(helper.pageTitle(), "Operation");
+        this.add(helper.pageText(),
+                """
+                        The dimensional mineshaft will discard any items it cannot store, so it is important to regularly empty the mineshaft, either manually, with hoppers or using a transporter spirit. Spirits in lamps can be inserted from the top, all other sides can be used to extract items.
+                           """.formatted(COLOR_PURPLE));
+
+
+        helper.entry("craft_infused_pickaxe");
+        this.add(helper.entryName(), "Infused Pickaxe");
+
+        helper.page("spotlight");
+        this.add(helper.pageText(),
+                """
+                        Otherworld ores usually can only be mined with Otherworld metal tools. The [](item://occultism:infused_pickaxe) is a makeshift solution to this Chicken-and-Egg problem. Brittle spirit attuned gems house a [#](%1$s)Djinni[#]() that allows harvesting the ores, but the durability is extremely low.
+                           """.formatted(COLOR_PURPLE));
+
+        //TODO: link to page about iesnium pick
+
+        helper.page("ritual");
+        //no text
+
+        helper.entry("craft_otherworld_goggles");
+        this.add(helper.entryName(), "Craft Otherworld Goggles");
+
+        helper.page("goggles_spotlight");
+        this.add(helper.pageText(),
+                """
+                        The [](item://occultism:otherworld_goggles) give the wearer permanent [#](%1$s)Third Eye[#](), allowing to view even blocks hidden from those partaking of [](entry://occultism:dictionary_of_spirits/getting_started/demons_dream) They will, however, not give the ability to harvest otherworld materials, for this special tools or the use of Demon's Dream is required, depending on the type of material.
+                        """.formatted(COLOR_PURPLE));
+
+        helper.page("lenses_spotlight");
+        this.add(helper.pageText(),
+                """
+                        Otherworld Goggles make use of a [#](%1$s)Foliot[#]() bound into the lenses. The Foliot shares it's ability to view higher planes with the wearer, thus allowing them to see otherworld materials. The required summoning is relatively simple, making crafting these goggles a common apprentice summoner task.
+                        """.formatted(COLOR_PURPLE));
+
+
+        helper.page("ritual");
+        //no text
+
+        helper.entry("craft_storage_controller_base");
+        this.add(helper.entryName(), "Storage Actuator Base");
+
+        helper.page("spotlight");
+        this.add(helper.pageText(),
+                """
+                        The storage actuator base imprisons a [#](%1$s)Foliot[#]() responsible for interacting with items in a dimensional storage matrix.
+                        """.formatted(COLOR_PURPLE));
+
+        helper.page("ritual");
+        //no text
+
+        helper.entry("craft_stabilizer_tier1");
+        this.add(helper.entryName(), "Storage Stabilizer Tier 1");
+
+        helper.page("spotlight");
+        this.add(helper.pageText(),
+                """
+                        This simple storage stabilizer is inhabited by a [#](%1$s)Foliot[#]() that supports the dimensional matrix in keeping the storage dimension stable, thus allowing to store more items.
+                        \\
+                        \\
+                        By default each Tier 1 Stabilizer adds **256** slots.
+                        """.formatted(COLOR_PURPLE));
+
+        helper.page("ritual");
+        //no text
+
+        helper.entry("craft_stabilizer_tier2");
+        this.add(helper.entryName(), "Storage Stabilizer Tier 2");
+
+        helper.page("spotlight");
+        this.add(helper.pageText(),
+                """
+                        This improved stabilizer is inhabited by a [#](%1$s)Djinni[#]() that supports the dimensional matrix in keeping the storage dimension stable, thus allowing to store even more items.
+                        \\
+                        \\
+                        By default each Tier 2 Stabilizer adds **512** slots.
+                        """.formatted(COLOR_PURPLE));
+
+        helper.page("ritual");
+        //no text
+
+        helper.entry("craft_stabilizer_tier3");
+        this.add(helper.entryName(), "Storage Stabilizer Tier 3");
+
+        helper.page("spotlight");
+        this.add(helper.pageText(),
+                """
+                        This advanced stabilizer is inhabited by an [#](%1$s)Afrit[#]() that supports the dimensional matrix in keeping the storage dimension stable, thus allowing to store even more items.
+                        \\
+                        \\
+                        By default each Tier 3 Stabilizer adds **1024** slots.
+                        """.formatted(COLOR_PURPLE));
+
+        helper.page("ritual");
+        //no text
+
+        helper.entry("craft_stabilizer_tier4");
+        this.add(helper.entryName(), "Storage Stabilizer Tier 4");
+
+        helper.page("spotlight");
+        this.add(helper.pageText(),
+                """
+                        This highly advanced stabilizer is inhabited by a [#](%1$s)Marid[#]() that supports the dimensional matrix in keeping the storage dimension stable, thus allowing to store even more items.
+                        \\
+                        \\
+                        By default each Tier 4 Stabilizer adds **2048** slots.
+                        """.formatted(COLOR_PURPLE));
+
+        helper.page("ritual");
+        //no text
+
+        helper.entry("craft_stable_wormhole");
+        this.add(helper.entryName(), "Stable Wormhole");
+
+        helper.page("spotlight");
+        this.add(helper.pageText(),
+                """
+                        The stable wormhole allows access to a dimensional matrix from a remote destination.
+                        \\
+                        \\
+                        Shift-click a [](item://occultism:storage_controller) to link it, then place the wormhole in the world to use it as a remote access point.
+                         """.formatted(COLOR_PURPLE));
+
+        helper.page("ritual");
+        //no text
+
+        helper.entry("craft_storage_remote");
+        this.add(helper.entryName(), "Remote Storage Accessor");
+
+        helper.page("spotlight");
+        this.add(helper.pageText(),
+                """
+                        The [](item://occultism:storage_remote) can be linked to a [](item://occultism:storage_controller) by shift-clicking. The [#](%1$s)Djinni[#]() bound to the accessor will then be able to access items from the actuator even from across dimensions.
+                        """.formatted(COLOR_PURPLE));
+
+        helper.page("ritual");
+        //no text
+
+        helper.entry("craft_foliot_miner");
+        this.add(helper.entryName(), "Foliot Miner");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Foliot Miner");
+        this.add(helper.pageText(),
+                """
+                        Miner spirits use [](item://occultism:dimensional_mineshaft) to acquire resources from other dimensions. They are summoned and bound into magic lamps, which they can leave only through the mineshaft. The magic lamp degrades over time, once it breaks the spirit is released back to [#](%1$s)The Other Place[#]().
+                        """.formatted(COLOR_PURPLE));
+
+        helper.page("spotlight");
+        this.add(helper.pageText(),
+                """
+                        The [#](%1$s)Foliot[#]() miner harvests block without much aim and returns anything it finds. The mining process is quite slow, due to this the Foliot expends only minor amounts of energy, damaging the lamp it is housed in slowly over time.
+                        """.formatted(COLOR_PURPLE));
+
+        helper.page("ritual");
+        //no text
+
+        helper.entry("craft_djinni_miner");
+        this.add(helper.entryName(), "Djinni Miner");
+
+        helper.page("spotlight");
+        this.add(helper.pageText(),
+                """
+                        The [#](%1$s)Djinni[#]() miner harvests ores specifically. By discarding other blocks it is able to mine faster and more efficiently. The greater power of the djinni it damages the magic lamp relatively quickly.
+                        """.formatted(COLOR_PURPLE));
+
+        helper.page("ritual");
+        //no text
+
+        helper.entry("craft_satchel");
+        this.add(helper.entryName(), "Surprisingly Substantial Satchel");
+
+        helper.page("spotlight");
+        this.add(helper.pageText(),
+                """
+                        A [#](%1$s)Foliot[#]() is bound to the satchel, tasked with **slightly** warping reality. This allows to store more items in the satchel than it's size would indicate, making it a practical traveller's companion.
+                        """.formatted(COLOR_PURPLE));
+
+        helper.page("ritual");
+        //no text
+
+        helper.entry("craft_soul_gem");
+        this.add(helper.entryName(), "Soul Gem");
+
+        helper.page("spotlight");
+        this.add(helper.pageText(),
+                """
+                        Soul gems are diamonds set in precious metals, which are then infused with a [#](%1$s)Djinni[#](). The spirit creates a small dimension that allows the temporary entrapment of living beings. Beings of great power or size cannot be stored, however.
+                        """.formatted(COLOR_PURPLE));
+
+        helper.page("usage");
+        this.add(helper.pageTitle(), "Usage");
+        this.add(helper.pageText(),
+                """
+                        To capture an entity, right-click it with the soul gem. \\
+                        Right-click again to release the entity.
+                        \\
+                        \\
+                        Bosses cannot be captured.
+                               """.formatted(COLOR_PURPLE));
+
+        helper.page("ritual");
+        //no text
+
+        helper.entry("craft_familiar_ring");
+        this.add(helper.entryName(), "Familiar Ring");
+
+        helper.page("spotlight");
+        this.add(helper.pageText(),
+                """
+                        Familiar Rings consist of a [](item://occultism:soul_gem), that contains a [#](%1$s)Djinni[#](), mounted on a ring. The [#](%1$s)Djinni[#]() in the ring allows the familiar captured in the soul gem to apply effects to the wearer."
+                        """.formatted(COLOR_PURPLE));
+
+        helper.page("usage");
+        this.add(helper.pageTitle(), "Usage");
+        this.add(helper.pageText(),
+                """
+                        To use a [](item://occultism:familiar_ring), simply capture a summoned (and tamed) familiar by right-clicking it, and then wear the ring as [#](%1$s)Curio[#]() to make use of the effects the familiar provides.
+                        \\
+                        \\
+                        When released from a familiar ring, the spirit will recognize the person releasing them as their new master.
+                        """.formatted(COLOR_PURPLE));
+
+        helper.page("ritual");
+        //no text
+    }
+
+    private void addFamiliarRitualsCategory(BookLangHelper helper) {
+        helper.category("familiar_rituals");
+        this.add(helper.categoryName(), "Familiar Rituals");
+
+        helper.entry("return_to_rituals");
+        this.add(helper.entryName(), "Return to Rituals Category");
+
+        helper.entry("overview");
+        this.add(helper.entryName(), "Familiar Rituals");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Familiar Rituals");
+        this.add(helper.pageText(),
+                """
+                        Familiar rituals summon spirits to aid the summoner directly. The spirits usually inhabit an animal's body, allowing them to resist essence decay. Familiars provide buffs, but may also actively protect the summoner.
+                                """.formatted(COLOR_PURPLE));
+
+        helper.page("ring");
+        this.add(helper.pageTitle(), "Equipping Familiars");
+        this.add(helper.pageText(),
+                """
+                        Enterprising summoners have found a way to bind familiars into jewelry that passively applies their buff, the [Familiar Ring](entry://crafting_rituals/craft_familiar_ring).
+                                """.formatted(COLOR_PURPLE));
+
+        helper.page("trading");
+        this.add(helper.pageTitle(), "Equipping Familiars");
+        this.add(helper.pageText(),
+                """
+                        "Familiars can be easily traded when in a [Familiar Ring](entry://crafting_rituals/craft_familiar_ring).
+                        \\
+                        \\
+                        When released, the spirit will recognize the person releasing them as their new master.
+                                 """.formatted(COLOR_PURPLE));
+
+        helper.entry("familiar_bat");
+        this.add(helper.entryName(), "Bat Familiar");
+
+        helper.page("entity");
+        this.add(helper.pageText(),
+                """
+                        **Provides**: [#](%1$s)Night Vision[#]()
+                               """.formatted(COLOR_PURPLE));
+
+        helper.page("ritual");
+        //no text
+
+        helper.page("description");
+        this.add(helper.pageTitle(), "Description");
+        this.add(helper.pageText(),
+                """
+                        **Upgrade Behaviour**\\
+                        When upgraded by a blacksmith familiar, the bat familiar will give a life steal effect to it's master.
+                           """.formatted(COLOR_PURPLE));
+
+        helper.entry("familiar_beaver");
+        this.add(helper.entryName(), "Beaver Familiar");
+
+        helper.page("entity");
+        this.add(helper.pageText(),
+                """
+                        **Provides**: [#](%1$s)Increased wood break speed[#]()
+                               """.formatted(COLOR_PURPLE));
+
+        helper.page("ritual");
+        //no text
+
+        helper.page("description");
+        this.add(helper.pageTitle(), "Description");
+        this.add(helper.pageText(),
+                """
+                        The Beaver familiar will chop down nearby trees when they grow from a sapling into a tree. It can only handle small trees.
+                        \\
+                        \\
+                        **Upgrade Behaviour**\\
+                        Cannot be upgraded by the blacksmith familiar.
+                           """.formatted(COLOR_PURPLE));
+
+        helper.entry("familiar_beholder");
+        this.add(helper.entryName(), "Beholder Familiar");
+
+        helper.page("entity");
+        this.add(helper.pageText(),
+                """
+                        **Provides**: [#](%1$s)Highlights enemies[#](), [#](%1$s)Shoots **FREAKING LAZORS**[#]()
+                               """.formatted(COLOR_PURPLE));
+
+        helper.page("ritual");
+        //no text
+
+        helper.page("description");
+        this.add(helper.pageTitle(), "Description");
+        this.add(helper.pageText(),
+                """
+                        The Beholder familiar highlights nearby entities with a glow effect, and shoots laser rays at enemies. It **eats** (poor) **Shub Niggurath babies** to gain temporary damage and speed.
+                        \\
+                        \\
+                        **Upgrade Behaviour**\\
+                        When upgraded by a blacksmith familiar, it give it's master immunity to blindness.
+                           """.formatted(COLOR_PURPLE));
+
+        helper.entry("familiar_blacksmith");
+        this.add(helper.entryName(), "Blacksmith Familiar");
+
+        helper.page("entity");
+        this.add(helper.pageText(),
+                """
+                        **Provides**: [#](%1$s)Repairs Equipment while Mining[#](), [#](%1$s)Upgrades other familiars[#]()
+                               """.formatted(COLOR_PURPLE));
+
+        helper.page("ritual");
+        //no text
+
+        helper.page("description");
+        this.add(helper.pageTitle(), "Description");
+        this.add(helper.pageText(),
+                """
+                        Whenever the player picks up stone, there is a chance for the blacksmith familiar to repair their equipment a little bit.
+                        \\
+                        \\
+                        **Upgrade Behaviour**: \\
+                        Cannot be upgraded, but upgrades other Familiars.
+                           """.formatted(COLOR_PURPLE));
+
+        helper.page("description2");
+        this.add(helper.pageTitle(), "Upgrading Familiars");
+        this.add(helper.pageText(),
+                """
+                        To upgrade other familiars the blacksmith needs to be given iron ingots or blocks by right-clicking it.
+                        \\
+                        \\
+                        Upgraded familiars provide additional effects.
+                           """.formatted(COLOR_PURPLE));
+
+        helper.entry("familiar_chimera");
+        this.add(helper.entryName(), "Chimera Familiar");
+
+        helper.page("entity");
+        this.add(helper.pageText(),
+                """
+                        **Provides**: [#](%1$s)Rideable Mount[#]()
+                               """.formatted(COLOR_PURPLE));
+
+        helper.page("ritual");
+        //no text
+
+        helper.page("description");
+        this.add(helper.pageTitle(), "Description");
+        this.add(helper.pageText(),
+                """
+                        The chimera familiar can be fed (any) meat to grow, when growing it will gain damage and speed. Once it has grown big enough, players can ride it. When feeding it a [](item://minecraft:golden_apple) the [#](%1$s)Goat[#]() will detach and become a separate familiar.
+                        \\
+                        \\
+                        The detached goat familiar can be used to obtain the [Shub Niggurath](entry://familiar_rituals/familiar_shub_niggurath) familiar.
+                           """.formatted(COLOR_PURPLE));
+
+        helper.page("description2");
+        this.add(helper.pageText(),
+                """
+                        **Upgrade Behaviour**\\
+                        When upgraded by a blacksmith familiar, the goat familiar will get a warning bell. When you hit the familiar it will ring the bell and attract enemies in a large radius.
+                           """.formatted(COLOR_PURPLE));
+
+        helper.entry("familiar_cthulhu");
+        this.add(helper.entryName(), "Cthulhu Familiar");
+
+        helper.page("entity");
+        this.add(helper.pageText(),
+                """
+                        **Provides**: [#](%1$s)Water Breathing[#](), [#](%1$s)General Coolness[#]()
+                               """.formatted(COLOR_PURPLE));
+
+        helper.page("ritual");
+        //no text
+
+        helper.page("description");
+        this.add(helper.pageTitle(), "Description");
+        this.add(helper.pageText(),
+                """
+                        **Upgrade Behaviour**\\
+                        When upgraded by a blacksmith familiar, it will act as a mobile light source.
+                           """.formatted(COLOR_PURPLE));
+
+        helper.entry("familiar_shub_niggurath");
+        this.add(helper.entryName(), "Cthulhu Familiar");
+
+        helper.page("entity");
+        this.add(helper.pageText(),
+                """
+                        **Provides**: [#](%1$s)Spawns small versions of itself to fight for you.[#]()
+                                   """.formatted(COLOR_PURPLE));
+
+        helper.page("ritual");
+        this.add(helper.pageTitle(), "Ritual");
+        this.add(helper.pageText(),
+                """
+                        The [#](%1$s)Shub Niggurath[#]() is not summoned directly. First, summon a [Chimera Familiar](entry://familiar_rituals/familiar_chimera) and feed it a [](item://minecraft:golden_apple) to detach the [#](%1$s)Goat[#](). Bring the goat to a [#](%1$s)Forest Biome[#](). Then click the goat with [any Black Dye](item://minecraft:black_dye), [](item://minecraft:flint) and [](item://minecraft:ender_eye) to summon the [#](%1$s)Shub Niggurath[#]().
+                           """.formatted(COLOR_PURPLE));
+
+        helper.page("description");
+        this.add(helper.pageTitle(), "Description");
+        this.add(helper.pageText(),
+                """
+                        **Upgrade Behaviour**\\
+                        When upgraded by a blacksmith familiar, it will get a warning bell. When you hit the familiar it will ring the bell and **attract enemies** in a large radius.
+                           """.formatted(COLOR_PURPLE));
+
+        helper.entry("familiar_deer");
+        this.add(helper.entryName(), "Deer Familiar");
+
+        helper.page("entity");
+        this.add(helper.pageText(),
+                """
+                        **Provides**: [#](%1$s)Jump Boost[#]()
+                                   """.formatted(COLOR_PURPLE));
+
+        helper.page("ritual");
+        //no text
+
+        helper.page("description");
+        this.add(helper.pageTitle(), "Description");
+        this.add(helper.pageText(),
+                """
+                        **Upgrade Behaviour**\\
+                        When upgraded by a blacksmith familiar, it will attack nearby enemies with a hammer. Yep, a **hammer**.
+                           """.formatted(COLOR_PURPLE));
+
+        helper.entry("familiar_devil");
+        this.add(helper.entryName(), "Devil Familiar");
+
+        helper.page("entity");
+        this.add(helper.pageText(),
+                """
+                        **Provides**: [#](%1$s)Fire Resistance[#](), [#](%1$s)Attacks Enemies[#]()
+                                   """.formatted(COLOR_PURPLE));
+
+        helper.page("ritual");
+        //no text
+
+        helper.page("description");
+        this.add(helper.pageTitle(), "Description");
+        this.add(helper.pageText(),
+                """
+                        **Upgrade Behaviour**\\
+                        Cannot be upgraded by the blacksmith familiar.
+                           """.formatted(COLOR_PURPLE));
+
+        helper.entry("familiar_dragon");
+        this.add(helper.entryName(), "Dragon Familiar");
+
+        helper.page("entity");
+        this.add(helper.pageText(),
+                """
+                        **Provides**: [#](%1$s)Increased XP[#](), Loves Sticks
+                                   """.formatted(COLOR_PURPLE));
+
+        helper.page("ritual");
+        //no text
+
+        helper.page("description");
+        this.add(helper.pageTitle(), "Description");
+        this.add(helper.pageText(),
+                """
+                        Greedy familiars can ride on dragon familiars, giving the dragon the greedy effects additionally.
+                        \\
+                        \\
+                        **Upgrade Behaviour**\\
+                        When upgraded by a blacksmith familiar, it will throw swords at nearby enemies.
+                           """.formatted(COLOR_PURPLE));
+
+
+        helper.entry("familiar_fairy");
+        this.add(helper.entryName(), "Fairy Familiar");
+
+        helper.page("entity");
+        this.add(helper.pageText(),
+                """
+                        **Provides**: [#](%1$s)Assists Familiars[#](), [#](%1$s)Prevents Familiar Deaths[#](), [#](%1$s)Drains Enemy Life Force[#]()
+                                   """.formatted(COLOR_PURPLE));
+
+        helper.page("ritual");
+        //no text
+
+        helper.page("description");
+        this.add(helper.pageTitle(), "Description");
+        this.add(helper.pageText(),
+                """
+                        The Fairy familiar **keeps other familiars from dying** (with cooldown), helps out other familiars with **beneficial effects** and **drains the life force of enemies** to assist their master.
+                        \\
+                        \\
+                        **Upgrade Behaviour**\\
+                        Cannot be upgraded by the blacksmith familiar.
+                           """.formatted(COLOR_PURPLE));
+
+        helper.entry("familiar_greedy");
+        this.add(helper.entryName(), "Greedy Familiar");
+
+        helper.page("entity");
+        this.add(helper.pageText(),
+                """
+                        **Provides**: [#](%1$s)Picks up Items[#](), [#](%1$s)Increased Pick-up Range[#]()
+                                   """.formatted(COLOR_PURPLE));
+        helper.page("ritual");
+        //no text
+
+        helper.page("description");
+        this.add(helper.pageTitle(), "Description");
+        this.add(helper.pageText(),
+                """
+                        The greedy familiar is a Foliot that will pick up nearby items for it's master. When captured in a familiar ring it increased the pick-up range of the wearer.
+                        \\
+                        \\
+                        **Upgrade Behaviour**\\
+                        When upgraded by a blacksmith familiar, it can find blocks for its master. Right-click it with a block to tell it what to look for.
+                           """.formatted(COLOR_PURPLE));
+
+
+        helper.entry("familiar_guardian");
+        this.add(helper.entryName(), "Guardian Familiar");
+
+        helper.page("entity");
+        this.add(helper.pageText(),
+                """
+                        **Provides**: [#](%1$s)Prevents player death while alive[#]()
+                                   """.formatted(COLOR_PURPLE));
+
+        helper.page("ritual");
+        //no text
+
+        helper.page("description");
+        this.add(helper.pageTitle(), "Description");
+        this.add(helper.pageText(),
+                """
+                        The guardian familiar sacrifices a limb everytime it's master is about to die and thus **prevents the death**. Once the guardian dies, the player is no longer protected. When summoned, the guardian spawns with a **random amount of limbs**, there is no guarantee that a complete guardian is summoned.
+                           """.formatted(COLOR_PURPLE));
+
+        helper.page("description2");
+        this.add(helper.pageText(),
+                """
+                        **Upgrade Behaviour**\\
+                        When upgraded by a blacksmith familiar, it regains a limb (can only be done once).
+                           """.formatted(COLOR_PURPLE));
+
+        helper.entry("familiar_headless");
+        this.add(helper.entryName(), "Headless Ratman Familiar");
+
+        helper.page("entity");
+        this.add(helper.pageText(),
+                """
+                        **Provides**: [#](%1$s)Conditional Damage Buff[#]()
+                                   """.formatted(COLOR_PURPLE));
+
+        helper.page("ritual");
+        //no text
+
+        helper.page("description");
+        this.add(helper.pageTitle(), "Description");
+        this.add(helper.pageText(),
+                """
+                        The headless ratman familiar steals heads of mobs near the ratman when they are killed. It then provides a damage buff against that type of mob to their master. If the ratman drops **below 50%% health** it dies, but can then be rebuilt by their master by giving them [](item://minecraft:wheat), [](item://minecraft:stick), [](item://minecraft:hay_block) and a [](item://minecraft:pumpkin).
+                           """.formatted(COLOR_PURPLE));
+
+        helper.page("description2");
+        this.add(helper.pageText(),
+                """
+                        **Upgrade Behaviour**\\
+                        When upgraded by a blacksmith familiar, it will give weakness to nearby mobs of the type it stole the head from.
+                           """.formatted(COLOR_PURPLE));
+
+
+        helper.entry("familiar_mummy");
+        this.add(helper.entryName(), "Mummy Familiar");
+
+        helper.page("entity");
+        this.add(helper.pageText(),
+                """
+                        **Provides**: [#](%1$s)Fights your enemies[#](), [#](%1$s)Dodge Effect[#]()
+                                   """.formatted(COLOR_PURPLE));
+
+        helper.page("ritual");
+        //no text
+
+        helper.page("description");
+        this.add(helper.pageTitle(), "Description");
+        this.add(helper.pageText(),
+                """
+                        The Mummy familiar is a martial arts expert and fights to protect their master.
+                        \\
+                        \\
+                        **Upgrade Behaviour**\\
+                        When upgraded by a blacksmith familiar, it the familiar will deal even more damage.
+                            """.formatted(COLOR_PURPLE));
+
+        helper.entry("familiar_otherworld_bird");
+        this.add(helper.entryName(), "Drikwing Familiar");
+
+        helper.page("entity");
+        this.add(helper.pageText(),
+                """
+                        **Provides**: [#](%1$s)Multi-Jump[#](), [#](%1$s)Jump Boost[#](), [#](%1$s)Slow Falling[#]()
+                                   """.formatted(COLOR_PURPLE));
+
+        helper.page("ritual");
+        //no text
+
+        helper.page("description");
+        this.add(helper.pageTitle(), "Description");
+        this.add(helper.pageText(),
+                """
+                        [#](%1$s)Drikwings$[#]() are a subclass of [#](%1$s)Djinni[#]() that are known to be amicable towards humans. They usually take the shape of a dark blue and purple parrot. Drikwings will provide their owner with limited flight abilities when nearby.
+                        \\
+                        \\
+                        **Upgrade Behaviour**\\
+                        Cannot be upgraded by the blacksmith familiar.
+                            """.formatted(COLOR_PURPLE));
+
+        helper.page("description2");
+        this.add(helper.pageText(),
+                """
+                        To obtain the parrot or parrot familiar for the sacrifice, consider summoning them using either the [Wild Parrot Ritual](entry://summoning_rituals/summon_wild_parrot) or [Parrot Familiar Ritual](entry://familiar_rituals/familiar_parrot)
+                        \\
+                        \\
+                        **Hint:** If you use mods that protect pets from death, use the wild parrot ritual!
+                            """.formatted(COLOR_PURPLE));
+
+        helper.entry("familiar_parrot");
+        this.add(helper.entryName(), "Parrot Familiar");
+
+        helper.page("entity");
+        this.add(helper.pageText(),
+                """
+                        **Provides**: [#](%1$s)Company[#]()
+                                   """.formatted(COLOR_PURPLE));
+
+        helper.page("ritual");
+        //no text
+
+
+        //
+        helper.page("description");
+        this.add(helper.pageTitle(), "Description");
+        this.add(helper.pageText(),
+                """
+                        In this ritual a [#](%1$s)Foliot[#]() is summoned **as a familiar**, the slaughter of a [#](%1$s)Chicken[#]() and the offering of dyes are intended to entice the [#](%1$s)Foliot[#]() to take the shape of a parrot.\\
+                        As [#](%1$s)Foliot[#]() are not among the smartest spirits, they sometimes misunderstand the instructions ...
+                            """.formatted(COLOR_PURPLE));
+
+        helper.page("description2");
+        this.add(helper.pageText(),
+                """
+                        *This means, if a [#](%1$s)Chicken[#]() is spawned, that's not a bug, just bad luck!*
+                        \\
+                        \\
+                        **Upgrade Behaviour**\\
+                        Cannot be upgraded by the blacksmith familiar.
+                           """.formatted(COLOR_PURPLE));
+
+    }
 
     private void addAdvancements() {
         //"advancements\.occultism\.(.*?)\.title": "(.*)",
