@@ -2681,7 +2681,7 @@ public class ENUSProvider extends LanguageProvider {
                            """.formatted(COLOR_PURPLE));
 
         helper.entry("familiar_shub_niggurath");
-        this.add(helper.entryName(), "Cthulhu Familiar");
+        this.add(helper.entryName(), "Shub Niggurath Familiar");
 
         helper.page("entity");
         this.add(helper.pageText(),
