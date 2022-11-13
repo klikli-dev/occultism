@@ -3885,12 +3885,12 @@ public class BookGenerator implements DataProvider {
 
         helper.page("matrix_ritual");
         var matrixRitual = BookRitualRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("rituals/craft_dimensional_matrix"))
+                .withRecipeId1(this.modLoc("ritual/craft_dimensional_matrix"))
                 .build();
 
         helper.page("base_ritual");
         var baseRitual = BookRitualRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("rituals/craft_storage_controller_base"))
+                .withRecipeId1(this.modLoc("ritual/craft_storage_controller_base"))
                 .build();
 
         helper.page("recipe");
@@ -3901,7 +3901,7 @@ public class BookGenerator implements DataProvider {
         return BookEntryModel.builder()
                 .withId(this.modLoc(helper.category + "/" + helper.entry))
                 .withName(helper.entryName())
-                .withIcon("minecraft:chest")
+                .withIcon(OccultismBlocks.STORAGE_CONTROLLER.getId().toString())
                 .withLocation(entryHelper.get(icon))
                 .withPages(
                         intro,

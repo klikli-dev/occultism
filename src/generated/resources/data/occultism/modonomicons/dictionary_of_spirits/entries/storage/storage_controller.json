@@ -4,7 +4,7 @@
   "category": "occultism:storage",
   "description": "",
   "hide_while_locked": false,
-  "icon": "minecraft:chest",
+  "icon": "occultism:storage_controller",
   "name": "book.occultism.dictionary_of_spirits.storage.storage_controller.name",
   "pages": [
     {
@@ -34,7 +34,7 @@
     {
       "type": "occultism:ritual_recipe",
       "anchor": "",
-      "recipe_id_1": "occultism:rituals/craft_dimensional_matrix",
+      "recipe_id_1": "occultism:ritual/craft_dimensional_matrix",
       "text": "",
       "title1": "",
       "title2": ""
@@ -42,7 +42,7 @@
     {
       "type": "occultism:ritual_recipe",
       "anchor": "",
-      "recipe_id_1": "occultism:rituals/craft_storage_controller_base",
+      "recipe_id_1": "occultism:ritual/craft_storage_controller_base",
       "text": "",
       "title1": "",
       "title2": ""

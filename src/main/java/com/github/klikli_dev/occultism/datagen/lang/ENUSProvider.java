@@ -2992,7 +2992,7 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageText(),
                 """
                         Follow the steps shown in this category to get your own storage system!
-                        The steps related to storage in [Summoning Rituals](category://summoning_rituals/) show only the rituals, while here **all required steps** including crafting are shown.
+                        The steps related to storage in [Binding Rituals](category://crafting_rituals/) show only the rituals, while here **all required steps** including crafting are shown.
                         """.formatted(COLOR_PURPLE));
 
         helper.entry("storage_controller");
@@ -3002,7 +3002,7 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Storage Actuator");
         this.add(helper.pageText(),
                 """
-                        The [](item://occultism:storage_controller) consists of a [Dimensional Matrix](entry://summoning_rituals/craft_dimensional_matrix) inhabited by a [#](%1$s)Djinni[#]() that creates and manages a storage dimension, and a [Base](entry://summoning_rituals/craft_storage_controller_base) infused with a [#](%1$s)Foliot[#]() that moves items in and out of the storage dimension.
+                        The [](item://occultism:storage_controller) consists of a [Dimensional Matrix](entry://crafting_rituals/craft_dimensional_matrix) inhabited by a [#](%1$s)Djinni[#]() that creates and manages a storage dimension, and a [Base](entry://crafting_rituals/craft_storage_controller_base) infused with a [#](%1$s)Foliot[#]() that moves items in and out of the storage dimension.
                         """.formatted(COLOR_PURPLE));
 
         helper.page("usage");
