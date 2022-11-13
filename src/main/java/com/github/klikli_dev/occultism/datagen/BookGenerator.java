@@ -1420,7 +1420,7 @@ public class BookGenerator implements DataProvider {
 
         helper.page("multiblock");
         var multiblock = BookMultiblockPageModel.builder()
-                .withMultiblockId(this.modLoc("craft_djinni"))
+                .withMultiblockId(this.modLoc("craft_afrit"))
                 .build();
 
         helper.page("uses");
