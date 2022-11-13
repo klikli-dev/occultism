@@ -67,11 +67,11 @@ public class RitualRecipe extends ShapelessRecipe {
     private final int spiritMaxAge;
     private final float durationPerIngredient;
     private final String entityToSacrificeDisplayName;
-
+    private final String command;
 
     public RitualRecipe(ResourceLocation id, String group, ResourceLocation pentacleId, ResourceLocation ritualType, ItemStack ritualDummy,
                         ItemStack result, EntityType<?> entityToSummon, CompoundTag entityNbt, Ingredient activationItem, NonNullList<Ingredient> input, int duration, int spiritMaxAge, ResourceLocation spiritJobType,
-                        TagKey<EntityType<?>> entityToSacrifice, String entityToSacrificeDisplayName, Ingredient itemToUse) {
+                        TagKey<EntityType<?>> entityToSacrifice, String entityToSacrificeDisplayName, Ingredient itemToUse, String command) {
         super(id, group, result, input);
         this.entityToSummon = entityToSummon;
         this.entityNbt = entityNbt;
@@ -87,6 +87,11 @@ public class RitualRecipe extends ShapelessRecipe {
         this.entityToSacrifice = entityToSacrifice;
         this.entityToSacrificeDisplayName = entityToSacrificeDisplayName;
         this.itemToUse = itemToUse;
+        this.command = command;
+    }
+
+    public String getCommand() {
+        return this.command;
     }
 
     public CompoundTag getEntityNbt() {
@@ -191,9 +196,7 @@ public class RitualRecipe extends ShapelessRecipe {
     }
 
     public static class Serializer implements RecipeSerializer<RitualRecipe> {
-        //region Fields
         private static final ShapelessRecipe.Serializer serializer = new ShapelessRecipe.Serializer();
-        //endregion Fields
 
         private static NonNullList<Ingredient> itemsFromJson(JsonArray pIngredientArray) {
             NonNullList<Ingredient> nonnulllist = NonNullList.create();
@@ -208,7 +211,6 @@ public class RitualRecipe extends ShapelessRecipe {
             return nonnulllist;
         }
 
-        //region Overrides
         @Override
         public RitualRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
 
@@ -267,9 +269,11 @@ public class RitualRecipe extends ShapelessRecipe {
 
             }
 
+            var command = GsonHelper.getAsString(json, "command", null);
+
             return new RitualRecipe(recipeId, group, pentacleId, ritualType, ritualDummy,
                     result, entityToSummon, entityNbt, activationItem, ingredients, duration,
-                    spiritMaxAge, spiritJobType, entityToSacrifice, entityToSacrificeDisplayName, itemToUse);
+                    spiritMaxAge, spiritJobType, entityToSacrifice, entityToSacrificeDisplayName, itemToUse, command);
         }
 
         @Override
@@ -313,8 +317,10 @@ public class RitualRecipe extends ShapelessRecipe {
                 itemToUse = Ingredient.fromNetwork(buffer);
             }
 
+            String command = buffer.readBoolean() ? buffer.readUtf() : null;
+
             return new RitualRecipe(recipe.getId(), recipe.getGroup(), pentacleId, ritualType, ritualDummy, recipe.getResultItem(), entityToSummon, entityNbt,
-                    activationItem, recipe.getIngredients(), duration, spiritMaxAge, spiritJobType, entityToSacrifice, entityToSacrificeDisplayName, itemToUse);
+                    activationItem, recipe.getIngredients(), duration, spiritMaxAge, spiritJobType, entityToSacrifice, entityToSacrificeDisplayName, itemToUse, command);
         }
 
         @Override
@@ -349,7 +355,10 @@ public class RitualRecipe extends ShapelessRecipe {
             buffer.writeBoolean(recipe.itemToUse != Ingredient.EMPTY);
             if (recipe.itemToUse != Ingredient.EMPTY)
                 recipe.itemToUse.toNetwork(buffer);
+
+            buffer.writeBoolean(recipe.command != null);
+            if (recipe.command != null)
+                buffer.writeUtf(recipe.command);
         }
-        //endregion Overrides
     }
 }

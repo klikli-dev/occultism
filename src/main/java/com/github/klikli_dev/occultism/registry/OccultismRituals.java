@@ -72,4 +72,9 @@ public class OccultismRituals {
     public static final RegistryObject<RitualFactory> CRAFT_MINER_SPIRIT_RITUAL =
             RITUAL_FACTORIES.register("craft_miner_spirit",
                     () -> new RitualFactory(CraftMinerSpiritRitual::new));
+
+    //Other
+    public static final RegistryObject<RitualFactory> COMMAND_RITUAL =
+            RITUAL_FACTORIES.register("execute_command",
+                    () -> new RitualFactory(CommandRitual::new));
 }
