@@ -28,7 +28,7 @@ minecraft {
     runs {
         client {
             workingDirectory project.file('run')
-            args += "--username=Occultism"
+            args '--username', 'Occultism'
             // Recommended logging data for a userdev environment
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
 
@@ -44,6 +44,12 @@ minecraft {
                     source sourceSets.main
                 }
             }
+        }
+
+        clientalt {
+            parent runs.client
+            //somehow doesnt replace the name but adds a new one, so we manually need remove
+            args '--username', 'Dev####' //#s get replaced with random numbers when starting
         }
 
         server {
