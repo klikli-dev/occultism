@@ -64,7 +64,7 @@ public abstract class BookRitualRecipePageRenderer<T extends Recipe<?>> extends 
     @Override
     public Style getClickedComponentStyleAt(double pMouseX, double pMouseY) {
         var textStyle = super.getClickedComponentStyleAt(pMouseX, pMouseY);
-        if (pMouseX > 0 && pMouseY > 0 && textStyle == null) {
+        if (pMouseX > 0 && pMouseY > 0 && textStyle == null && this.page.getRecipe1() != null) {
 
             int recipeX = X;
             int recipeY = Y;
