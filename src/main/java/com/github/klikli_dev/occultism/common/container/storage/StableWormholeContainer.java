@@ -121,14 +121,22 @@ public class StableWormholeContainer extends StorageControllerContainerBase {
     public boolean stillValid(Player player) {
         if (this.storageController == null || this.stableWormhole == null)
             return false;
+
         Level level = this.stableWormhole.getLevel();
+        BlockPos wormholePosition = this.stableWormhole.getBlockPos();
+
+        //close container if wormhole block is destroyed
+        if (level.getBlockEntity(wormholePosition) != this.stableWormhole)
+            return false;
+
         //send stack updates on a slow tick while interacting
         if (!level.isClientSide && level.getGameTime() % 40 == 0) {
             OccultismPackets.sendTo((ServerPlayer) player, this.storageController.getMessageUpdateStacks());
             OccultismPackets.sendTo((ServerPlayer) player,
                     new MessageUpdateLinkedMachines(this.storageController.getLinkedMachines()));
         }
-        BlockPos wormholePosition = this.stableWormhole.getBlockPos();
+
+        //prevent player from interacting with the container if the controller is not in range
         return player.distanceToSqr(wormholePosition.getX() + 0.5D, wormholePosition.getY() + 0.5D,
                 wormholePosition.getZ() + 0.5D) <= 64.0D;
     }
