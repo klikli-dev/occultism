@@ -396,8 +396,9 @@ public class BookGenerator implements DataProvider {
         helper.page("divination_rod_screenshots");
         var divinationRodScreenshots = BookImagePageModel.builder()
                 .withImages(
-                        this.modLoc("textures/gui/book/rod_detected.png"),
-                        this.modLoc("textures/gui/book/rod_close.png")
+                        this.modLoc("textures/gui/book/rod_far.png"),
+                        this.modLoc("textures/gui/book/rod_mid.png"),
+                        this.modLoc("textures/gui/book/rod_near.png")
                 )
                 .withText(helper.pageText())
                 .build();
